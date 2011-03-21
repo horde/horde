@@ -25,16 +25,9 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Data_Decorator_Cache
-implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
+class Horde_Kolab_Storage_Data_Cached
+extends Horde_Kolab_Storage_Data_Base
 {
-    /**
-     * Decorated data handler.
-     *
-     * @var Horde_Kolab_Storage_Data
-     */
-    private $_data;
-
     /**
      * The data cache.
      *
@@ -45,92 +38,82 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_Data       $data  The original data handler.
-     * @param Horde_Kolab_Storage_Cache_Data $cache The cache storing data for
+     * @param Horde_Kolab_Storage_Folder  $folder   The folder to retrieve the
+     *                                              data from.
+     * @param Horde_Kolab_Storage_Driver  $driver   The primary connection driver.
+     * @param Horde_Kolab_Storage_Factory $factory  The factory.
+     * @param Horde_Kolab_Storage_Cache   $cache    The cache storing data for
      *                                              this decorator.
+     * @param string                      $type     The type of data we want to
+     *                                              access in the folder.
+     * @param int                         $version  Format version of the object
+     *                                              data.
      */
     public function __construct(
-        Horde_Kolab_Storage_Data $data,
-        Horde_Kolab_Storage_Cache_Data $cache
+        Horde_Kolab_Storage_Folder $folder,
+        Horde_Kolab_Storage_Driver $driver,
+        Horde_Kolab_Storage_Factory $factory,
+        Horde_Kolab_Storage_Cache $cache,
+        $type = null,
+        $version = 1
     ) {
-        $this->_data = $data;
-        $this->_data_cache = $cache;
+        parent::__construct($folder, $driver, $factory, $type, $version);
+        $this->_data_cache = $cache->getDataCache($this->getIdParameters());
     }
 
     /**
-     * Return the ID of this data handler.
+     * Create a new object.
      *
-     * @return string The ID.
+     * @param array   $object The array that holds the object data.
+     * @param boolean $raw    True if the data to be stored has been provided in
+     *                        raw format.
+     *
+     * @return string The ID of the new object or true in case the backend does
+     *                not support this return value.
+     *
+     * @throws Horde_Kolab_Storage_Exception In case an error occured while
+     *                                       saving the data.
      */
-    public function getId()
+    public function create($object, $raw = false)
     {
-        return $this->_data->getId();
+        $result = parent::create($object, $raw);
+        if ($result === true) {
+            $this->synchronize();
+        } else {
+            $this->_data_cache->store(
+                array($result => $object),
+                $this->getStamp(),
+                $this->getVersion()
+            );
+        }
+        return $result;
     }
 
     /**
-     * Return the ID parameters for this data handler.
+     * Modify an existing object.
      *
-     * @return array The ID parameters.
+     * @param array   $object The array that holds the updated object data.
+     * @param boolean $raw    True if the data to be stored has been provided in
+     *                        raw format.
+     *
+     * @return string The new backend ID of the modified object or true in case
+     *                the backend does not support this return value.
+     *
+     * @throws Horde_Kolab_Storage_Exception In case an error occured while
+     *                                       saving the data.
      */
-    public function getIdParameters()
+    public function modify($object, $raw = false)
     {
-        return $this->_data->getIdParameters();
-    }
-
-    /**
-     * Return the data type represented by this object.
-     *
-     * @return string The type of data this instance handles.
-     */
-    public function getType()
-    {
-        return $this->_data->getType();
-    }
-
-    /**
-     * Return the data version.
-     *
-     * @return string The data version.
-     */
-    public function getVersion()
-    {
-        return $this->_data->getVersion();
-    }
-
-    /**
-     * Report the status of this folder.
-     *
-     * @return Horde_Kolab_Storage_Folder_Stamp The stamp that can be used for
-     *                                          detecting folder changes.
-     */
-    public function getStamp()
-    {
-        return $this->_data->getStamp();
-    }
-
-    /**
-     * Retrieves the body part for the given UID and mime part ID.
-     *
-     * @param string $uid The message UID.
-     * @param string $id  The mime part ID.
-     *
-     * @return @TODO
-     */
-    public function fetchPart($uid, $id)
-    {
-        return $this->_data->fetchPart($uid, $id);
-    }
-
-    /**
-     * Retrieves the objects for the given UIDs.
-     *
-     * @param array $uids The message UIDs.
-     *
-     * @return array An array of objects.
-     */
-    public function fetch($uids)
-    {
-        return $this->_data->fetch($uids);
+        $result = parent::modify($object, $raw);
+        if ($result === true) {
+            $this->synchronize();
+        } else {
+            $this->_data_cache->store(
+                array($result => $object),
+                $this->getStamp(),
+                $this->getVersion()
+            );
+        }
     }
 
     /**
@@ -150,16 +133,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
                 sprintf('Object ID %s does not exist!', $object_id)
             );
         }
-    }
-
-    /**
-     * Generate a unique object ID.
-     *
-     * @return string  The unique ID.
-     */
-    public function generateUid()
-    {
-        //@todo
     }
 
     /**
@@ -234,8 +207,8 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function synchronize()
     {
-        $this->_data->synchronize();
-        $current = $this->_data->getStamp();
+        parent::synchronize();
+        $current = $this->getStamp();
         if (!$this->_data_cache->isInitialized()) {
             $this->_completeSynchronization($current);
             return;
@@ -248,11 +221,11 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         $changes = $previous->getChanges($current);
         if ($changes) {
             $this->_data_cache->store(
-                $this->_data->fetch(
+                $this->fetch(
                     $changes[Horde_Kolab_Storage_Folder_Stamp::ADDED]
                 ),
                 $current,
-                $this->_data->getVersion(),
+                $this->getVersion(),
                 $changes[Horde_Kolab_Storage_Folder_Stamp::DELETED]
             );
             $this->_data_cache->save();
@@ -272,38 +245,10 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         $this->_data_cache->reset();
         $ids = $stamp->ids();
         $this->_data_cache->store(
-            empty($ids) ? array() : $this->_data->fetch($ids),
+            empty($ids) ? array() : $this->fetch($ids),
             $stamp,
-            $this->_data->getVersion()
+            $this->getVersion()
         );
         $this->_data_cache->save();
-    }
-
-    /**
-     * Register a query to be updated if the underlying data changes.
-     *
-     * @param string                    $name  The query name.
-     * @param Horde_Kolab_Storage_Query $query The query to register.
-     *
-     * @return NULL
-     */
-    public function registerQuery($name, Horde_Kolab_Storage_Query $query)
-    {
-        $this->_data->registerQuery($name, $query);
-    }
-
-    /**
-     * Return a registered query.
-     *
-     * @param string $name The query name.
-     *
-     * @return Horde_Kolab_Storage_Query The requested query.
-     *
-     * @throws Horde_Kolab_Storage_Exception In case the requested query does
-     *                                       not exist.
-     */
-    public function getQuery($name = null)
-    {
-        return $this->_data->getQuery($name);
     }
 }

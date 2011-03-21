@@ -65,7 +65,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testGetData()
     {
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_Data_Decorator_Cache',
+            'Horde_Kolab_Storage_Data_Cached',
             $this->createCachedStorage($this->getAnnotatedMock())->getData('INBOX')
         );
     }

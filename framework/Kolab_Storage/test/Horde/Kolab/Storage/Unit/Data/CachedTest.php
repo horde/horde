@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once dirname(__FILE__) . '/../../Autoload.php';
 
 /**
  * Test the cached data handler.
@@ -32,7 +32,7 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Unit_Data_Decorator_CacheTest
+class Horde_Kolab_Storage_Unit_Data_CachedTest
 extends Horde_Kolab_Storage_TestCase
 {
     public function testDefaultType()
@@ -73,17 +73,6 @@ extends Horde_Kolab_Storage_TestCase
     public function testSynchronize()
     {
         $this->_getDataCache()->synchronize();
-    }
-
-    public function testSaveAfterCompleteSync()
-    {
-        $mock = $this->getMock('Horde_Kolab_Storage_Cache_Data', array(), array(), '', false, false);
-        $mock->expects($this->once())
-            ->method('isInitialized')
-            ->will($this->returnValue(false));
-        $mock->expects($this->once())
-            ->method('save');
-        $this->_getCacheDecorator($mock);
     }
 
     public function testFetch()
@@ -196,11 +185,12 @@ extends Horde_Kolab_Storage_TestCase
 
     private function _getCacheDecorator(Horde_Kolab_Storage_Cache_Data $cache)
     {
-        $this->storage = $this->getMessageStorage();
-        $cache = new Horde_Kolab_Storage_Data_Decorator_Cache(
-            $this->storage->getData('INBOX/Calendar'),
-            $cache
+        $this->storage = $this->getMessageStorage(
+            array(
+                'cache' => new Horde_Cache(new Horde_Cache_Storage_Mock())
+            )
         );
+        $cache = $this->storage->getData('INBOX/Calendar');
         $cache->synchronize();
         return $cache;
     }

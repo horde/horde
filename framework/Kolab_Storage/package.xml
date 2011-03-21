@@ -23,8 +23,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-16</date>
- <time>18:14:24</time>
+ <date>2011-03-21</date>
+ <time>05:06:46</time>
  <version>
   <release>1.0.0RC1</release>
   <api>1.0.0</api>
@@ -67,9 +67,6 @@
         <file name="List.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/Cache -->
        <dir name="Data">
-        <dir name="Decorator">
-         <file name="Cache.php" role="php" />
-        </dir> <!-- /lib/Horde/Kolab/Storage/Data/Decorator -->
         <dir name="Format">
          <file name="Mime.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Storage/Data/Format -->
@@ -77,6 +74,7 @@
          <file name="Structure.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Storage/Data/Parser -->
         <file name="Base.php" role="php" />
+        <file name="Cached.php" role="php" />
         <file name="Format.php" role="php" />
         <file name="Modifiable.php" role="php" />
         <file name="Old.php" role="php" />
@@ -467,9 +465,6 @@
          <file name="ListTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Storage/Unit/Cache -->
         <dir name="Data">
-         <dir name="Decorator">
-          <file name="CacheTest.php" role="test" />
-         </dir> <!-- /test/Horde/Kolab/Storage/Unit/Data/Decorator -->
          <dir name="Format">
           <file name="MimeTest.php" role="test" />
          </dir> <!-- /test/Horde/Kolab/Storage/Unit/Data/Format -->
@@ -477,6 +472,7 @@
           <file name="StructureTest.php" role="test" />
          </dir> <!-- /test/Horde/Kolab/Storage/Unit/Data/Parser -->
          <file name="BaseTest.php" role="test" />
+         <file name="CachedTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Storage/Unit/Data -->
         <dir name="Decorator">
          <file name="LogTest.php" role="test" />
@@ -648,12 +644,12 @@
    <install as="Horde/Kolab/Storage/Cache/Data.php" name="lib/Horde/Kolab/Storage/Cache/Data.php" />
    <install as="Horde/Kolab/Storage/Cache/List.php" name="lib/Horde/Kolab/Storage/Cache/List.php" />
    <install as="Horde/Kolab/Storage/Data/Base.php" name="lib/Horde/Kolab/Storage/Data/Base.php" />
+   <install as="Horde/Kolab/Storage/Data/Cached.php" name="lib/Horde/Kolab/Storage/Data/Cached.php" />
    <install as="Horde/Kolab/Storage/Data/Format.php" name="lib/Horde/Kolab/Storage/Data/Format.php" />
    <install as="Horde/Kolab/Storage/Data/Modifiable.php" name="lib/Horde/Kolab/Storage/Data/Modifiable.php" />
    <install as="Horde/Kolab/Storage/Data/Old.php" name="lib/Horde/Kolab/Storage/Data/Old.php" />
    <install as="Horde/Kolab/Storage/Data/Parser.php" name="lib/Horde/Kolab/Storage/Data/Parser.php" />
    <install as="Horde/Kolab/Storage/Data/Query.php" name="lib/Horde/Kolab/Storage/Data/Query.php" />
-   <install as="Horde/Kolab/Storage/Data/Decorator/Cache.php" name="lib/Horde/Kolab/Storage/Data/Decorator/Cache.php" />
    <install as="Horde/Kolab/Storage/Data/Format/Mime.php" name="lib/Horde/Kolab/Storage/Data/Format/Mime.php" />
    <install as="Horde/Kolab/Storage/Data/Parser/Structure.php" name="lib/Horde/Kolab/Storage/Data/Parser/Structure.php" />
    <install as="Horde/Kolab/Storage/Decorator/Log.php" name="lib/Horde/Kolab/Storage/Decorator/Log.php" />
@@ -807,7 +803,7 @@
    <install as="Horde/Kolab/Storage/Unit/Cache/DataTest.php" name="test/Horde/Kolab/Storage/Unit/Cache/DataTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Cache/ListTest.php" name="test/Horde/Kolab/Storage/Unit/Cache/ListTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Data/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/Data/BaseTest.php" />
-   <install as="Horde/Kolab/Storage/Unit/Data/Decorator/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/Data/Decorator/CacheTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/Data/CachedTest.php" name="test/Horde/Kolab/Storage/Unit/Data/CachedTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Data/Format/MimeTest.php" name="test/Horde/Kolab/Storage/Unit/Data/Format/MimeTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Data/Parser/StructureTest.php" name="test/Horde/Kolab/Storage/Unit/Data/Parser/StructureTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Decorator/LogTest.php" name="test/Horde/Kolab/Storage/Unit/Decorator/LogTest.php" />
@@ -941,6 +937,21 @@
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First beta release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-21</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First release candidate for Horde 4.
    </notes>
   </release>
  </changelog>
