@@ -517,6 +517,7 @@ HermesCore = {
         this.updateView(this.view);
         this.buildTimeTable();
         $('hermesTimeForm').reset();
+        $('hermesTimeFormId').value = null;
         $('hermesTimeSaveAsNew').hide();
     },
 
