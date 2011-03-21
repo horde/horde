@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Service_Facebook</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Facebook client</summary>
@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-16</date>
- <time>18:17:36</time>
+ <date>2011-03-21</date>
+ <time>02:13:36</time>
  <version>
   <release>1.0.0RC1</release>
   <api>1.0.0</api>
@@ -39,7 +39,6 @@
        <file name="ErrorCodes.php" role="php" />
        <file name="Events.php" role="php" />
        <file name="Exception.php" role="php" />
-       <file name="Feeds.php" role="php" />
        <file name="Fql.php" role="php" />
        <file name="Friends.php" role="php" />
        <file name="Groups.php" role="php" />
@@ -370,7 +369,6 @@
    <install as="Horde/Service/Facebook/ErrorCodes.php" name="lib/Horde/Service/Facebook/ErrorCodes.php" />
    <install as="Horde/Service/Facebook/Events.php" name="lib/Horde/Service/Facebook/Events.php" />
    <install as="Horde/Service/Facebook/Exception.php" name="lib/Horde/Service/Facebook/Exception.php" />
-   <install as="Horde/Service/Facebook/Feeds.php" name="lib/Horde/Service/Facebook/Feeds.php" />
    <install as="Horde/Service/Facebook/Fql.php" name="lib/Horde/Service/Facebook/Fql.php" />
    <install as="Horde/Service/Facebook/Friends.php" name="lib/Horde/Service/Facebook/Friends.php" />
    <install as="Horde/Service/Facebook/Groups.php" name="lib/Horde/Service/Facebook/Groups.php" />
@@ -502,6 +500,21 @@
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * First beta release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-21</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* First release candidate for Horde 4.
    </notes>
   </release>
  </changelog>
