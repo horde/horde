@@ -88,7 +88,7 @@ class Horde_Block_FbStream extends Horde_Core_Block
     protected function _content()
     {
         $instance = hash('md5', mt_rand());
-        $endpoint = Horde::url('services/facebook.php', true);
+        $endpoint = Horde::url('services/facebook', true);
         $html = '';
 
         /* Init facebook driver, exit early if no prefs exist */

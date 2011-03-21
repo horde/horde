@@ -10,7 +10,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
 try {
@@ -26,7 +26,7 @@ $return_url = Horde::getServiceLink('prefs', 'horde')
  * application and we now need to obtain the auth_token.*/
 if ($code = Horde_Util::getFormData('code')) {
     try {
-        $sessionKey = $facebook->auth->getSessionKey($code, Horde::url('services/facebook.php', true));
+        $sessionKey = $facebook->auth->getSessionKey($code, Horde::url('services/facebook', true));
         if ($sessionKey) {
             // Remember in user prefs
             $sid =  $sessionKey;

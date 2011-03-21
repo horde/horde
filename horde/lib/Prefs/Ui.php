@@ -480,7 +480,7 @@ class Horde_Prefs_Ui
             }
 
             // FB Perms links
-            $cburl = Horde::url('services/facebook.php', true);
+            $cburl = Horde::url('services/facebook', true);
             $url = $facebook->auth->getOAuthUrl($cburl, array(Horde_Service_Facebook_Auth::EXTEND_PERMS_OFFLINE));
             $t->set('authUrl', Horde::signQueryString($url));
             $t->set('have_session', true);
@@ -515,7 +515,7 @@ class Horde_Prefs_Ui
 
         /* No existing session */
         $t->set('have_session', false);
-        $t->set('authUrl', $facebook->auth->getOAuthUrl(Horde::url('services/facebook.php', true)));
+        $t->set('authUrl', $facebook->auth->getOAuthUrl(Horde::url('services/facebook', true)));
 
         return $t->fetch(HORDE_TEMPLATES . '/prefs/facebook.html');
     }
