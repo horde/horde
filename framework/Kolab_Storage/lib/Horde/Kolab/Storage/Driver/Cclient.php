@@ -369,7 +369,7 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed setting ACL on folder %s for user %s to %acl. Error: %s"
+                        "Failed setting ACL on folder %s for user %s to %s. Error: %s"
                     ),
                     $folder,
                     $user,
