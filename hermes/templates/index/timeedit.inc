@@ -25,7 +25,7 @@
             </label><span class="hermesSeparator">|</span>
             <label for="hermesTimeFormBillable">
                 <?php echo _("Billable")?>
-                <input type="checkbox" name="billable" id="hermesTimeFormBillable" />
+                <input type="checkbox" name="billable" id="hermesTimeFormBillable" checked="checked" />
                  <span class="hermesSeparator">|</span>
             </label>
             <label for="hermesTimeFormType">
