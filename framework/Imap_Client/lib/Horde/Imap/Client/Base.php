@@ -1944,11 +1944,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $ret = array();
 
             $res_seq = $this->_getSeqUidLookup($options['ids']);
-            $uids = $options['ids']->sequence
+            $ids = $options['ids']->sequence
                 ? array_keys($res_seq['lookup'])
                 : $res_seq['uids'];
 
-            foreach ($uids as $val) {
+            foreach ($ids as $val) {
                 $ret[$val] = clone $fetch_ob;
             }
         } else {
@@ -1973,30 +1973,30 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $crit = clone $query;
 
             if ($options['ids']->sequence) {
-                $id = $res_seq['lookup'][$val];
-                $ret[$id]->setSequence($id);
+                $uid = $res_seq['lookup'][$val];
+                $ret[$val]->setSeq($val);
                 unset($crit[Horde_Imap_Client::FETCH_SEQ]);
             } else {
-                $id = $val;
+                $uid = $val;
             }
 
-            $ret[$id]->setUid($val);
+            $ret[$val]->setUid($uid);
             unset($crit[Horde_Imap_Client::FETCH_UID]);
 
             foreach ($cache_array as $key => $cid) {
                 switch ($key) {
                 case Horde_Imap_Client::FETCH_ENVELOPE:
-                    if (isset($data[$val][$cid]) &&
-                        ($data[$val][$cid] instanceof Horde_Imap_Client_Data_Envelope)) {
-                        $ret[$id]->setEnvelope($data[$val][$cid]);
+                    if (isset($data[$uid][$cid]) &&
+                        ($data[$uid][$cid] instanceof Horde_Imap_Client_Data_Envelope)) {
+                        $ret[$val]->setEnvelope($data[$uid][$cid]);
                         unset($crit[$key]);
                     }
                     break;
 
                 case Horde_Imap_Client::FETCH_FLAGS:
-                    if (isset($data[$val][$cid]) &&
-                        is_array($data[$val][$cid])) {
-                        $ret[$id]->setFlags($data[$val][$cid]);
+                    if (isset($data[$uid][$cid]) &&
+                        is_array($data[$uid][$cid])) {
+                        $ret[$val]->setFlags($data[$uid][$cid]);
                         unset($crit[$key]);
                     }
                     break;
@@ -2004,10 +2004,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 case Horde_Imap_Client::FETCH_HEADERS:
                     /* HEADERS caching. */
                     foreach ($header_cache as $hkey => $hval) {
-                        if (isset($data[$val][$cid][$hval])) {
+                        if (isset($data[$uid][$cid][$hval])) {
                             /* We have found a cached entry with the same MD5
                              * sum. */
-                            $ret[$id]->setHeaders($hkey, $data[$val][$cid][$hval]);
+                            $ret[$val]->setHeaders($hkey, $data[$uid][$cid][$hval]);
                             $crit->remove($key, $hkey);
                         } else {
                             $this->_temp['headers_caching'][$hkey] = $hval;
@@ -2016,24 +2016,24 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     break;
 
                 case Horde_Imap_Client::FETCH_IMAPDATE:
-                    if (isset($data[$val][$cid]) &&
-                        ($data[$val][$cid] instanceof Horde_Imap_Client_DateTime)) {
-                        $ret[$id]->setImapDate($data[$val][$cid]);
+                    if (isset($data[$uid][$cid]) &&
+                        ($data[$uid][$cid] instanceof Horde_Imap_Client_DateTime)) {
+                        $ret[$val]->setImapDate($data[$uid][$cid]);
                         unset($crit[$key]);
                     }
                     break;
 
                 case Horde_Imap_Client::FETCH_SIZE:
-                    if (isset($data[$val][$cid])) {
-                        $ret[$id]->setSize($data[$val][$cid]);
+                    if (isset($data[$uid][$cid])) {
+                        $ret[$val]->setSize($data[$uid][$cid]);
                         unset($crit[$key]);
                     }
                     break;
 
                 case Horde_Imap_Client::FETCH_STRUCTURE:
-                    if (isset($data[$val][$cid]) &&
-                        ($data[$val][$cid] instanceof Horde_Mime_Part)) {
-                        $ret[$id]->setStructure($data[$val][$cid]);
+                    if (isset($data[$uid][$cid]) &&
+                        ($data[$uid][$cid] instanceof Horde_Mime_Part)) {
+                        $ret[$val]->setStructure($data[$uid][$cid]);
                         unset($crit[$key]);
                     }
                     break;
@@ -2043,11 +2043,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
             if (count($crit)) {
                 $sig = $crit->hash();
                 if (isset($new_query[$sig])) {
-                    $new_query[$sig]['i']->add($id);
+                    $new_query[$sig]['i']->add($val);
                 } else {
                     $new_query[$sig] = array(
                         'c' => $crit,
-                        'i' => new Horde_Imap_Client_Ids($id, $options['ids']->sequence)
+                        'i' => new Horde_Imap_Client_Ids($val, $options['ids']->sequence)
                     );
                 }
             }
@@ -2879,7 +2879,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @return array  An array with 2 possible entries:
      * <pre>
-     * 'lookup' - (array) The mapping of UIDs [keys] to sequence numbers
+     * 'lookup' - (array) The mapping of sequence numbers [keys] to UIDs
      *            [values]. Only calculated if $ids contain sequence numbers.
      * 'uids' - (Horde_Imap_Client_Ids) The list of UIDs.
      * </pre>
@@ -2913,7 +2913,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 $seq = $ids->ids;
                 sort($seq, SORT_NUMERIC);
             }
-            $ret['lookup'] = array_combine($ret['uids']->ids, $seq);
+            $ret['lookup'] = array_combine($seq, $ret['uids']->ids);
         }
 
         return $ret;
