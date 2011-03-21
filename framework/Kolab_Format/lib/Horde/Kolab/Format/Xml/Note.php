@@ -16,6 +16,7 @@
  * Kolab XML handler for note groupware objects.
  *
  * Copyright 2007-2009 Klarälvdalens Datakonsult AB
+ * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
