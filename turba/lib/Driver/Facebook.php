@@ -136,10 +136,11 @@ class Turba_Driver_Facebook extends Turba_Driver
      */
     protected function _getEntry(array $keys, array $fields)
     {
-        $fields = implode(', ', $fields);
-        $fql = 'SELECT ' . $fields . ' FROM user WHERE uid IN (' . implode(', ', $keys) . ')';
+        $cleanfields = implode(', ', $this->_prepareFields($fields));
+        $fql = 'SELECT ' . $cleanfields . ' FROM user WHERE uid IN (' . implode(', ', $keys) . ')';
         try {
-            return $this->_facebook->fql->run($fql);
+            $results = array($this->_fqlToTurba($fields, current($this->_facebook->fql->run($fql))));
+            return $results;
         } catch (Horde_Service_Facebook_Exception $e) {
             Horde::logMessage($e, 'ERR');
             throw new Turba_Exception($e);
@@ -151,9 +152,9 @@ class Turba_Driver_Facebook extends Turba_Driver
      */
     protected function _getAddressBook(array $fields = array())
     {
-        $fields = implode(', ', $fields);
+        $cleanfields = implode(', ', $this->_prepareFields($fields));
         try {
-            $fql = 'SELECT ' . $fields . ' FROM user WHERE uid IN ('
+            $fql = 'SELECT ' . $cleanfields . ' FROM user WHERE uid IN ('
                 . 'SELECT uid2 FROM friend WHERE uid1=' . $this->_facebook->auth->getLoggedInUser() . ')';
             $results = $this->_facebook->fql->run($fql);
         } catch (Horde_Service_Facebook_Exception $e) {
@@ -162,18 +163,52 @@ class Turba_Driver_Facebook extends Turba_Driver
             throw new Turba_Exception($e);
         }
 
+        // Now pull out the results that are arrays
         $addressbook = array();
-        foreach ($results as $result) {
-            if (!empty($result['birthday'])) {
-                // Make sure the birthdate is in a standard format that
-                // listDateObjects will understand.
-                $bday = new Horde_Date($result['birthday']);
-                $result['birthday'] = $bday->format('Y-m-d');
-            }
-            $addressbook[$result['uid']] = $result;
+        foreach ($results as &$result) {
+            $addressbook[$result['uid']] = $this->_fqlToTurba($fields, $result);
         }
 
         return $addressbook;
     }
 
+    protected function _fqlToTurba($fields, $result)
+    {
+        //$remove = array();
+        foreach ($fields as $field) {
+            if (strpos($field, '.') !== false) {
+                $key = substr($field, 0, strpos($field, '.'));
+                $subfield = substr($field, strpos($field, '.') + 1);
+                $result[$field] = $result[$key][$subfield];
+            }
+        }
+        if (!empty($result['birthday_date'])) {
+            // Make sure the birthdate is in a standard format that
+            // listDateObjects will understand.
+            $bday = new Horde_Date($result['birthday_date']);
+            $result['birthday_date'] = $bday->format('Y-m-d');
+        }
+
+        return $result;
+    }
+
+    /**
+     * Parse out a fields array for use in a FB FQL query.
+     *
+     * @param array $fields  The fields, as configured in backends.php
+     *
+     *
+     */
+    protected function _prepareFields($fields)
+    {
+        return array_map(array(self, '_prepareCallback'), $fields);
+    }
+
+    static public function _prepareCallback($field)
+    {
+        if (strpos($field, '.') === false) {
+            return $field;
+        }
+        return substr($field, 0, strpos($field, '.'));
+    }
 }
