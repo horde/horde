@@ -17,11 +17,6 @@ class Horde_Block_FbStream extends Horde_Core_Block
     private $_facebook;
 
     /**
-     * @var array holding user's facebook settings
-     */
-    private $_fbp;
-
-    /**
      */
     public function __construct($app, $params = array())
     {
@@ -39,17 +34,18 @@ class Horde_Block_FbStream extends Horde_Core_Block
      */
     protected function _params()
     {
+        $fbp = unserialize($GLOBALS['prefs']->getValue('facebook'));
         $filters = array();
-
-        if (!empty($this->_fbp['sid'])) {
+        if (!empty($fbp['sid'])) {
             $fql = 'SELECT filter_key, name FROM stream_filter WHERE uid="'
-                . $this->_fbp['uid'] . '"';
+                . $fbp['uid'] . '"';
             try {
                 $stream_filters = $this->_facebook->fql->run($fql);
                 foreach ($stream_filters as $filter) {
                     $filters[$filter['filter_key']] = $filter['name'];
                 }
-            } catch (Horde_Service_Facebook_Exception $e) {}
+            } catch (Horde_Service_Facebook_Exception $e) {
+            }
         }
 
         return array(
