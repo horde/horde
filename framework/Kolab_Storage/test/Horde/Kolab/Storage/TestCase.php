@@ -463,12 +463,12 @@ extends PHPUnit_Framework_TestCase
                     'user/test/Calendar' => array(
                         't' => 'event.default',
                         'm' => array(
-                            1 => $this->getDefaultEventData(),
-                            2 => $this->getDefaultEventData(),
+                            1 => $this->getDefaultEventData('.1'),
+                            2 => $this->getDefaultEventData('.2'),
                             3 => array(
                                 'flags' => Horde_Kolab_Storage_Driver_Mock_Data::FLAG_DELETED
                             ),
-                            4 => $this->getDefaultEventData(),
+                            4 => $this->getDefaultEventData('.3'),
                         ),
                         's' => array(
                             'uidvalidity' => '12346789',
@@ -652,13 +652,13 @@ extends PHPUnit_Framework_TestCase
         return $result;
     }
 
-    protected function getDefaultEventData()
+    protected function getDefaultEventData($add = '')
     {
         return array(
             'structure' => dirname(__FILE__) . '/fixtures/event.struct',
             'parts' => array(
                 '2' => array(
-                    'file' => dirname(__FILE__) . '/fixtures/event.xml.qp',
+                    'file' => dirname(__FILE__) . '/fixtures/event' . $add . '.xml.qp',
                 )
             )
         );

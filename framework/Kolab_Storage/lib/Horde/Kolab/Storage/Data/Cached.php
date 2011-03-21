@@ -104,6 +104,25 @@ extends Horde_Kolab_Storage_Data_Base
      */
     public function modify($object, $raw = false)
     {
+        if (!isset($object['uid'])) {
+            throw new Horde_Kolab_Storage_Exception(
+                'The provided object data contains no ID value!'
+            );
+        }
+        try {
+            $old_obid = $this->getBackendId($object['uid']);
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    Horde_Kolab_Storage_Translation::t(
+                        'The message with ID %s does not exist. This probably means that the Kolab object has been modified by somebody else since you retrieved the object from the backend. Original error: %s'
+                    ),
+                    $object['uid'],
+                    0,
+                    $e
+                )
+            );
+        }
         $result = parent::modify($object, $raw);
         if ($result === true) {
             $this->synchronize();
@@ -111,7 +130,8 @@ extends Horde_Kolab_Storage_Data_Base
             $this->_data_cache->store(
                 array($result => $object),
                 $this->getStamp(),
-                $this->getVersion()
+                $this->getVersion(),
+                array($old_obid)
             );
         }
     }

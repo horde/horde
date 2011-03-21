@@ -79,7 +79,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $objects = $this->_getDataCache()
             ->fetch(array(1, 2, 4));
-        $this->assertEquals('libkcal-543769073.139', $objects[4]['uid']);
+        $this->assertEquals('libkcal-543769073.130', $objects[4]['uid']);
     }
 
     public function testDataQueriable()
@@ -102,8 +102,8 @@ extends Horde_Kolab_Storage_TestCase
         $objects = $this->_getDataCache()
             ->getObjects();
         $this->assertEquals(
-            'libkcal-543769073.139',
-            $objects['libkcal-543769073.139']['uid']
+            'libkcal-543769073.130',
+            $objects['libkcal-543769073.130']['uid']
         );
     }
 
@@ -118,7 +118,11 @@ extends Horde_Kolab_Storage_TestCase
     public function testObjectIds()
     {
         $this->assertEquals(
-            array('libkcal-543769073.139'),
+            array(
+                'libkcal-543769073.132',
+                'libkcal-543769073.131',
+                'libkcal-543769073.130'
+            ),
             $this->_getDataCache()->getObjectIds()
         );
     }
@@ -126,9 +130,9 @@ extends Horde_Kolab_Storage_TestCase
     public function testBackendId()
     {
         $this->assertEquals(
-            '4',
+            '1',
             $this->_getDataCache()
-            ->getBackendId('libkcal-543769073.139')
+            ->getBackendId('libkcal-543769073.132')
         );
     }
 
@@ -145,7 +149,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertTrue(
             $this->_getDataCache()
-            ->objectIdExists('libkcal-543769073.139')
+            ->objectIdExists('libkcal-543769073.132')
         );
     }
 
@@ -160,9 +164,9 @@ extends Horde_Kolab_Storage_TestCase
     public function testGetObject()
     {
         $object = $this->_getDataCache()
-            ->getObject('libkcal-543769073.139');
+            ->getObject('libkcal-543769073.130');
         $this->assertEquals(
-            'libkcal-543769073.139',
+            'libkcal-543769073.130',
             $object['uid']
         );
     }
@@ -176,14 +180,22 @@ extends Horde_Kolab_Storage_TestCase
             ->getObject('NOSUCHOBJECT');
     }
 
-    private function _getDataCache()
+    public function testModify()
     {
-        return $this->_getCacheDecorator(
-            $this->data_cache = $this->getMockDataCache()
+        $store = $this->getMessageStorage(
+            array(
+                'cache' => new Horde_Cache(new Horde_Cache_Storage_Mock())
+            )
         );
+        $data = $store->getData('INBOX/Notes');
+        $data->create(array('summary' => 'test', 'uid' => 'UID'));
+        $data->modify(array('summary' => 'modified', 'uid' => 'UID'));
+        $object = $data->getObject('UID');
+        $this->assertEquals('modified', $object['summary']);
     }
+     
 
-    private function _getCacheDecorator(Horde_Kolab_Storage_Cache_Data $cache)
+    private function _getDataCache()
     {
         $this->storage = $this->getMessageStorage(
             array(

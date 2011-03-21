@@ -108,7 +108,7 @@ extends Horde_Kolab_Storage_TestCase
         $objects = $this->getMessageStorage()
             ->getData('INBOX/Calendar')
             ->fetch(array(1, 2, 4));
-        $this->assertEquals('libkcal-543769073.139', $objects[4]['uid']);
+        $this->assertEquals('libkcal-543769073.130', $objects[4]['uid']);
     }
 
     public function testDataQueriable()
@@ -197,8 +197,8 @@ extends Horde_Kolab_Storage_TestCase
             ->getData('INBOX/Calendar')
             ->getObjects();
         $this->assertEquals(
-            'libkcal-543769073.139',
-            $objects['libkcal-543769073.139']['uid']
+            'libkcal-543769073.130',
+            $objects['libkcal-543769073.130']['uid']
         );
     }
 
@@ -213,7 +213,11 @@ extends Horde_Kolab_Storage_TestCase
     public function testObjectIds()
     {
         $this->assertEquals(
-            array('libkcal-543769073.139'),
+            array(
+                'libkcal-543769073.132',
+                'libkcal-543769073.131',
+                'libkcal-543769073.130'
+            ),
             $this->getMessageStorage()->getData('INBOX/Calendar')->getObjectIds()
         );
     }
@@ -224,7 +228,7 @@ extends Horde_Kolab_Storage_TestCase
             '1',
             $this->getMessageStorage()
             ->getData('INBOX/Calendar')
-            ->getBackendId('libkcal-543769073.139')
+            ->getBackendId('libkcal-543769073.132')
         );
     }
 
@@ -243,7 +247,7 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertTrue(
             $this->getMessageStorage()
             ->getData('INBOX/Calendar')
-            ->objectIdExists('libkcal-543769073.139')
+            ->objectIdExists('libkcal-543769073.130')
         );
     }
 
@@ -260,9 +264,9 @@ extends Horde_Kolab_Storage_TestCase
     {
         $object = $this->getMessageStorage()
             ->getData('INBOX/Calendar')
-            ->getObject('libkcal-543769073.139');
+            ->getObject('libkcal-543769073.132');
         $this->assertEquals(
-            'libkcal-543769073.139',
+            'libkcal-543769073.132',
             $object['uid']
         );
     }
@@ -294,7 +298,7 @@ extends Horde_Kolab_Storage_TestCase
             ->fetch(array(1, 2, 4), true);
         $part = $objects[4]['content'];
         rewind($part);
-        $this->assertContains('<uid>libkcal-543769073.139</uid>', stream_get_contents($part));
+        $this->assertContains('<uid>libkcal-543769073.130</uid>', stream_get_contents($part));
     }
 
     public function testCreateRaw()

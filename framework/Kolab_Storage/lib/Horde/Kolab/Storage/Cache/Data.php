@@ -367,6 +367,22 @@ class Horde_Kolab_Storage_Cache_Data
         array $delete = array()
     ) {
         $this->_load();
+        if (!empty($delete)) {
+            foreach ($delete as $item) {
+                $object_id = $this->_data[self::B2O][$item];
+                $object = $this->_data[self::OBJECTS][$object_id];
+                if (isset($object['_attachments'])) {
+                    foreach ($object['_attachments']['id'] as $id) {
+                        $this->_cache->deleteAttachment(
+                            $this->getDataId(), $item, $id
+                        );
+                    }
+                }
+                unset($this->_data[self::O2B][$object_id]);
+                unset($this->_data[self::OBJECTS][$object_id]);
+                unset($this->_data[self::B2O][$item]);
+            }
+        }
         foreach ($objects as $obid => $object) {
             if (!empty($object) && isset($object['uid'])) {
                 if (isset($this->_data[self::O2B][$object['uid']])) {
@@ -397,22 +413,6 @@ class Horde_Kolab_Storage_Cache_Data
                 $this->_data[self::OBJECTS][$object['uid']] = $object;
             } else {
                 $this->_data[self::B2O][$obid] = false;
-            }
-        }
-        if (!empty($delete)) {
-            foreach ($delete as $item) {
-                $object_id = $this->_data[self::B2O][$item];
-                $object = $this->_data[self::OBJECTS][$object_id];
-                if (isset($object['_attachments'])) {
-                    foreach ($object['_attachments']['id'] as $id) {
-                        $this->_cache->deleteAttachment(
-                            $this->getDataId(), $item, $id
-                        );
-                    }
-                }
-                unset($this->_data[self::O2B][$object_id]);
-                unset($this->_data[self::OBJECTS][$object_id]);
-                unset($this->_data[self::B2O][$item]);
             }
         }
         $this->_data[self::STAMP] = serialize($stamp);
