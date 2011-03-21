@@ -19,31 +19,38 @@ try {
     Horde::url('index.php', false, array('app' => 'horde'))->redirect();
 }
 
+$return_url = Horde::getServiceLink('prefs', 'horde')
+      ->add(array('group' => 'facebook'));
+
 /* See why we are here. A $code indicates the user has *just* authenticated the
  * application and we now need to obtain the auth_token.*/
 if ($code = Horde_Util::getFormData('code')) {
     try {
         $sessionKey = $facebook->auth->getSessionKey($code, Horde::url('services/facebook.php', true));
+        if ($sessionKey) {
+            // Remember in user prefs
+            $sid =  $sessionKey;
+            $uid = $facebook->auth->getLoggedInUser();
+            $prefs->setValue('facebook', serialize(array('uid' => $uid, 'sid' => $sid)));
+            $notification->push(_("Succesfully connected your Facebook account or updated permissions."), 'horde.success');
+            $return_url->redirect();
+        }
     } catch (Horde_Service_Facebook_Exception $e) {
         $notification->push(_("Temporarily unable to connect with Facebook, Please try again."), 'horde.error');
+        $return_url->redirect();
     }
-    if ($sessionKey) {
-        // Remember in user prefs
-        $sid =  $sessionKey;
-        $uid = $facebook->auth->getLoggedInUser();
-        $prefs->setValue('facebook', serialize(array('uid' => $uid, 'sid' => $sid)));
-        $notification->push(_("Succesfully connected your Facebook account or updated permissions."), 'horde.success');
-        Horde::url('services/prefs.php', true)->add(array('group' => 'facebook', 'app' => 'horde'))->redirect();
-    }
-} elseif ($error = Horde_Util::getFormData('error')) {
+}
+
+if ($error = Horde_Util::getFormData('error')) {
     if (Horde_Util::getFormData('error_reason') == 'user_denied') {
         $notification->push(_("You have denied the requested permissions."), 'horde.warning');
     } else {
         $notification->push(_("There was an error with the requested permissions"), 'horde.error');
     }
-    Horde::url('services/prefs.php')->add(array('group' => 'facebook', 'app' => 'horde'))->redirect();
-    exit;
-} elseif ($action = Horde_Util::getPost('actionID')) {
+    $return_url->redirect();
+}
+
+if ($action = Horde_Util::getPost('actionID')) {
     switch ($action) {
     case 'getStream':
         try {
@@ -52,7 +59,7 @@ if ($code = Horde_Util::getFormData('code')) {
             $stream = $facebook->streams->get('', array(), Horde_Util::getPost('oldest'), Horde_Util::getPost('newest'), $count, $filter);
         } catch (Horde_Service_Facebook_Exception $e) {
             $html = sprintf(_("There was an error making the request: %s"), $e->getMessage());
-            $html .= sprintf(_("You can also check your Facebook settings in your %s."), Horde::getServiceLink('prefs', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
+            $html .= sprintf(_("You can also check your Facebook settings in your %s."), $return_url->link() . _("preferences") . '</a>');
 
             return $html;
         }
@@ -69,7 +76,7 @@ if ($code = Horde_Util::getFormData('code')) {
                 . ' ' . _("Event Invites:") . ' ' . count($notifications['event_invites']);
             } catch (Horde_Service_Facebook_Exception $e) {
                 $html = sprintf(_("There was an error making the request: %s"), $e->getMessage());
-                $html .= sprintf(_("You can also check your Facebook settings in your %s."), Horde::getServiceLink('prefs', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
+                $html .= sprintf(_("You can also check your Facebook settings in your %s."), $return_url->link() . _("preferences") . '</a>');
 
                 return $html;
             }
@@ -129,6 +136,7 @@ if ($code = Horde_Util::getFormData('code')) {
         header('Content-Type: application/json');
         echo Horde_Serialize::serialize($result, Horde_Serialize::JSON);
         exit;
+
     case 'updateStatus':
         // This is an AJAX action, so just echo the result and return.
         $status = Horde_Util::getPost('statusText');
@@ -138,6 +146,7 @@ if ($code = Horde_Util::getFormData('code')) {
             echo _("Status unable to be set.");
         }
         exit;
+
     case 'addLike':
         $id = Horde_Util::getPost('post_id');
         if ($facebook->streams->addLike($id)) {
