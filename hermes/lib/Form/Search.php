@@ -181,9 +181,9 @@ class Hermes_Form_Search extends Horde_Form
         }
         if (!empty($info['end'])) {
             $dt = new Horde_Date($info['end']);
-            $dt->setHour(23);
-            $dt->setMinute(59);
-            $dt->setSecond(59);
+            $dt->hour(23);
+            $dt->minute(59);
+            $dt->second(59);
             $criteria['end'] = $dt->timestamp();
         }
         if (isset($info['submitted']) && $info['submitted'] != '') {
