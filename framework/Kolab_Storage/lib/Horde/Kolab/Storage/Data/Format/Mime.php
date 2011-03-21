@@ -260,7 +260,8 @@ implements Horde_Kolab_Storage_Data_Format
      * @param array                                 $object     The updated object.
      * @param array                                 $options    Additional options.
      *
-     * @return NULL
+     * @return string The ID of the modified object or true in case the backend
+     *                does not support this return value.
      */
     public function modify(
         Horde_Kolab_Storage_Data_Modifiable $modifiable,
@@ -273,6 +274,6 @@ implements Horde_Kolab_Storage_Data_Format
         $modifiable->setPart(
             $mime_id, $this->createKolabPart($object, $options)
         ); 
-        $modifiable->store();
+        return $modifiable->store();
     }
 }
