@@ -36,7 +36,8 @@ class Horde_Service_Facebook_BatchRequest extends Horde_Service_Facebook_Request
      */
     public function __construct(Horde_Service_Facebook $facebook)
     {
-        parent::__construct($facebook);
+        $this->_facebook = $facebook;
+        $this->_http = $facebook->http;
         if (!empty($params['batch_mode'])) {
             $this->_batchMode = $params['batch_mode'];
         } else {
