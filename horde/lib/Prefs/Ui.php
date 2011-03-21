@@ -456,17 +456,11 @@ class Horde_Prefs_Ui
         if (!empty($haveSession)) {
             try {
                 $facebook->batchBegin();
-                $offline = &$facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_OFFLINE, $uid);
-                $publish = &$facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM, $uid);
-                $read = &$facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_READSTREAM, $uid);
-                $friends = &$facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_FRIENDS_ABOUT, $uid);
+                $t->set('have_offline', $facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_OFFLINE, $uid));
+                $t->set('have_publish', $facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM, $uid));
+                $t->set('have_read', $facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_READSTREAM, $uid));
+                $t->set('have_friends', $facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_FRIENDS_ABOUT, $uid));
                 $facebook->batchEnd();
-
-                $t->set('have_offline', $offline);
-                $t->set('have_publish', $publish);
-                $t->set('have_read', $read);
-                $t->set('have_friends', $friends);
-
             } catch (Horde_Service_Facebook_Exception $e) {
                 $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
             }
@@ -480,7 +474,7 @@ class Horde_Prefs_Ui
             }
 
             // FB Perms links
-            $cburl = Horde::url('services/facebook.php', true);
+            $cburl = Horde::url('services/facebook.php/', true);
             $url = $facebook->auth->getOAuthUrl($cburl, array(Horde_Service_Facebook_Auth::EXTEND_PERMS_OFFLINE));
             $t->set('authUrl', Horde::signQueryString($url));
             $t->set('have_session', true);
