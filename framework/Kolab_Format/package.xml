@@ -25,6 +25,7 @@
  <notes>
 * First release candidate for Horde 4.
 * [gwr] Moved Horde specific functionality out of the note parser.
+* [gwr] Moved Horde specific functionality out of the tasks parser.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
