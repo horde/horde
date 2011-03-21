@@ -22,6 +22,13 @@ class Nag_Driver_Kolab extends Nag_Driver
     protected $_kolab = null;
 
     /**
+     * The current tasklist.
+     *
+     * @var Horde_Kolab_Storage_Data
+     */
+    private $_data;
+
+    /**
      * Constructs a new Kolab storage object.
      *
      * @param string $tasklist  The tasklist to load.
@@ -34,26 +41,92 @@ class Nag_Driver_Kolab extends Nag_Driver
     }
 
     /**
-     * Attempts to open a Kolab Groupware folder.
+     * Return the Kolab data handler for the current tasklist.
      *
-     * @return boolean  True on success, PEAR_Error on failure.
+     * @return Horde_Kolab_Storage_Date The data handler.
      */
-    public function initialize()
+    private function _getData()
     {
-        return $this->_wrapper->connect();
+        if (empty($this->_tasklist)) {
+            throw new Mnemo_Exception(
+                'The tasklist has been left undefined but is required!'
+            );
+        }
+        if ($this->_data === null) {
+            $this->_data = $this->_getDataForTasklist($this->_tasklist);
+        }
+        return $this->_data;
     }
 
     /**
-     * Retrieves one task from the store.
+     * Return the Kolab data handler for the specified tasklist.
+     *
+     * @param string $tasklist The tasklist name.
+     *
+     * @return Horde_Kolab_Storage_Date The data handler.
+     */
+    private function _getDataForTasklist($tasklist)
+    {
+        return $this->_kolab->getData(
+            $GLOBALS['nag_shares']->getShare($tasklist)->get('folder'),
+            'task'
+        );
+    }
+
+    /**
+     * Retrieves one task from the backend.
      *
      * @param string $taskId  The id of the task to retrieve.
      *
-     * @return array  The array of task attributes.
+     * @return Nag_Task  A Nag_Task object.
+     * @throws Horde_Exception_NotFound
+     * @throws Nag_Exception
      */
     public function get($taskId)
     {
-        return $this->_wrapper->get($taskId);
+        if ($this->_getData()->objectIdExists($taskId)) {
+            $task = $this->_getData()->getObject($taskId);
+            $nag_task = $this->_buildTask($task);
+            $nag_task['tasklist_id'] = $this->_tasklist;
+            return new Nag_Task($nag_task);
+        } else {
+            throw new Horde_Exception_NotFound(_("Not Found"));
+        }
     }
+
+    /**
+     * Build a task based a data array
+     *
+     * @param array  $task     The data for the task
+     *
+     * @return array  The converted data array representing the task
+     */
+    function _buildTask($task)
+    {
+        $task['task_id'] = $task['uid'];
+
+        $task['category'] = $task['categories'];
+        unset($task['categories']);
+
+        $task['name'] = $task['summary'];
+        unset($task['summary']);
+
+        $task['desc'] = $task['body'];
+        unset($task['body']);
+
+        if ($task['sensitivity'] == 'public') {
+            $task['private'] = false;
+        } else {
+            $task['private'] = true;
+        }
+        unset($task['sensitivity']);
+
+        $share = $GLOBALS['nag_shares']->getShare($this->_tasklist);
+        $task['owner'] = $share->get('owner');
+
+        return $task;
+    }
+
 
     /**
      * Retrieves one task from the database by UID.
@@ -87,16 +160,37 @@ class Nag_Driver_Kolab extends Nag_Driver
      * @param string $assignee    The assignee of the event.
      *
      * @return string  The Nag ID of the new task.
+     * @throws Nag_Exception
      */
-    protected function _add($name, $desc, $start = 0, $due = 0, $priority = 0,
-                            $completed = 0, $estimate = 0.0, $category = '',
-                            $alarm = 0, $methods = null, $uid = null,
-                            $parent = null, $private = false, $owner = null,
-                            $assignee = null)
-    {
-        return $this->_wrapper->add($name, $desc, $start, $due, $priority,
-                                    $completed, $estimate, $category, $alarm,
-                                    $uid, $parent, $private, $owner, $assignee);
+    protected function _add(
+        $name, $desc, $start = 0, $due = 0, $priority = 0,
+        $estimate = 0.0, $completed = 0, $category = '', $alarm = 0,
+        array $methods = null, $uid = null, $parent = '', $private = false,
+        $owner = null, $assignee = null
+    ) {
+        $object = $this->_getObject(
+            $name,
+            $desc,
+            $start,
+            $due,
+            $priority,
+            $estimate,
+            $completed,
+            $category,
+            $alarm,
+            $methods,
+            $parent,
+            $private,
+            $owner,
+            $assignee
+        );
+        if (is_null($uid)) {
+            $object['uid'] = $this->_getData()->generateUid();
+        } else {
+            $object['uid'] = $uid;
+        }
+        $this->_getData()->create($object);
+        return $object['uid'] = $uid;
     }
 
     /**
@@ -132,6 +226,88 @@ class Nag_Driver_Kolab extends Nag_Driver
                                        $priority, $estimate, $completed,
                                        $category, $alarm, $parent, $private,
                                        $owner, $assignee, $completed_date);
+    }
+
+    /**
+     * Retrieve the Kolab object representations for the task.
+     *
+     * @param string $name        The name (short) of the task.
+     * @param string $desc        The description (long) of the task.
+     * @param integer $start      The start date of the task.
+     * @param integer $due        The due date of the task.
+     * @param integer $priority   The priority of the task.
+     * @param float $estimate     The estimated time to complete the task.
+     * @param integer $completed  The completion state of the task.
+     * @param string $category    The category of the task.
+     * @param integer $alarm      The alarm associated with the task.
+     * @param array $methods      The overridden alarm notification methods.
+     * @param string $parent      The parent task id.
+     * @param boolean $private    Whether the task is private.
+     * @param string $owner       The owner of the event.
+     * @param string $assignee    The assignee of the event.
+     * @param integer $completed_date  The task's completion date.
+     *
+     * @return array The Kolab object.
+     *
+     * @throws Nag_Exception
+     */
+    private function _getObject(
+        $name, $desc, $start = 0, $due = 0, $priority = 0,
+        $estimate = 0.0, $completed = 0, $category = '', $alarm = 0,
+        array $methods = null, $parent = '', $private = false, $owner = null,
+        $assignee = null, $completed_date = null
+    ) {
+        $object = array(
+            'summary' => $name,
+            'body' => $desc,
+            //@todo: Match Horde/Kolab priority values
+            'priority' => $priority,
+            'percentage' => $completed,
+            //@todo: Extend to Kolab multiple categories (tagger)
+            'categories' => $category,
+            'parent' => $parent,
+        );
+        if ($start !== 0) {
+            $object['start-date'] = $start;
+        }
+        if ($due !== 0) {
+            $object['due-date'] = $due;
+        }
+        if ($completed == 100) {
+            $object['completed'] = 1;
+        } else {
+            $object['completed'] = 0;
+        }
+        if ($alarm !== 0) {
+            $object['alarm'] = $alarm;
+        }
+        if ($private) {
+            $object['sensitivity'] = 'private';
+        } else {
+            $object['sensitivity'] = 'public';
+        }
+        if ($completed_date !== null) {
+            $object['completed-date'] = $completed_date;
+        }
+        if ($estimate !== 0.0) {
+            $object['estimate'] = number_format($estimate, 2);
+        }
+        if ($methods !== null) {
+            $object['horde-alarm-methods'] = serialize($methods);
+        }
+        if ($owner !== null) {
+            //@todo: Display name
+            $object['creator'] = array(
+                'smtp-address' => $owner,
+            );
+        }
+        if ($assignee !== null) {
+            //@todo: Display name
+            $object['organizer'] = array(
+                'smtp-address' => $assignee,
+            );
+        }
+        return $object;
     }
 
     /**
@@ -276,362 +452,13 @@ class Nag_Driver_kolab_wrapper {
 }
 
 /**
- * Old Nag driver for the Kolab IMAP server.
- *
- * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @author  Stuart Binge <omicron@mighty.co.za>
- * @package Nag
- */
-class Nag_Driver_kolab_wrapper_old extends Nag_Driver_kolab_wrapper {
-
-    function _buildTask()
-    {
-        $private = Horde_String::lower($this->_kolab->getVal('sensitivity'));
-        $private = ($private == 'private' || $private == 'confidential');
-
-        return array(
-            'tasklist_id' => $this->_tasklist,
-            'task_id' => $this->_kolab->getUID(),
-            'uid' => $this->_kolab->getUID(),
-            'owner' => $GLOBALS['registry']->getAuth(),
-            'name' => $this->_kolab->getStr('summary'),
-            'desc' => $this->_kolab->getStr('body'),
-            'category' => $this->_kolab->getStr('categories'),
-            'due' => Kolab::decodeDateOrDateTime($this->_kolab->getVal('due-date')),
-            'priority' => $this->_kolab->getVal('priority'),
-            'parent' => $this->_kolab->getVal('parent'),
-            'estimate' => (float)$this->_kolab->getVal('priority'),
-            'completed' => Kolab::percentageToBoolean($this->_kolab->getVal('completed')),
-            'alarm' => $this->_kolab->getVal('alarm'),
-            'private' => $private,
-        );
-    }
-
-    /**
-     * Retrieves one task from the store.
-     *
-     * @param string $taskId  The id of the task to retrieve.
-     *
-     * @return array  The array of task attributes.
-     */
-    function get($taskId)
-    {
-        $result = $this->_kolab->loadObject($taskId);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        return new Nag_Task($this->_buildTask());
-    }
-
-    /**
-     * Retrieves one task from the database by UID.
-     *
-     * @param string $uid  The UID of the task to retrieve.
-     *
-     * @return array  The array of task attributes.
-     */
-    function getByUID($uid)
-    {
-        return PEAR::raiseError("Not supported");
-    }
-
-    /**
-     * @todo Utilize $owner, $assignee, and $completed_date
-     * parameters.
-     *
-     * @param string $name             The name (short) of the task.
-     * @param string $desc             The description (long) of the task.
-     * @param integer $start           The start date of the task.
-     * @param integer $due             The due date of the task.
-     * @param integer $priority        The priority of the task.
-     * @param float $estimate          The estimated time to complete the task.
-     * @param integer $completed       The completion state of the task.
-     * @param string $category         The category of the task.
-     * @param integer $alarm           The alarm associated with the task.
-     * @param string $parent           The parent task id.
-     * @param boolean $private         Whether the task is private.
-     * @param string $owner            The owner of the event.
-     * @param string $assignee         The assignee of the event.
-     * @param integer $completed_date  The task's completion date.
-     *
-     * @return string  The ID of the task.
-     */
-    function _setObject($name, $desc, $start = 0, $due = 0, $priority = 0,
-                        $estimate = 0.0, $completed = 0, $category = '',
-                        $alarm = 0, $parent = null, $private = false,
-                        $owner = null, $assignee = null, $completed_date = null)
-    {
-        if ($due == 0) {
-            $alarm = 0;
-        }
-
-        $this->_kolab->setStr('summary', $name);
-        $this->_kolab->setStr('body', $desc);
-        $this->_kolab->setStr('categories', $category);
-        $this->_kolab->setVal('priority', $priority);
-        $this->_kolab->setVal('estimate', number_format($priority, 2));
-        $this->_kolab->setVal('completed', Kolab::booleanToPercentage($completed));
-        $this->_kolab->setVal('start-date', Kolab::encodeDateTime($start));
-        $this->_kolab->setVal('due-date', Kolab::encodeDateTime($due));
-        $this->_kolab->setVal('alarm', $alarm);
-        if ($parent) {
-            $this->_kolab->setVal('parent', $parent);
-        }
-        if ($private) {
-            $this->_kolab->setVal('sensitivity', 'private');
-        }
-
-        $result = $this->_kolab->saveObject();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        return $this->_kolab->getUID();
-    }
-
-    /**
-     * Adds a task to the backend storage.
-     *
-     * @param string $name        The name (short) of the task.
-     * @param string $desc        The description (long) of the task.
-     * @param integer $start      The start date of the task.
-     * @param integer $due        The due date of the task.
-     * @param integer $priority   The priority of the task.
-     * @param float $estimate     The estimated time to complete the task.
-     * @param integer $completed  The completion state of the task.
-     * @param string $category    The category of the task.
-     * @param integer $alarm      The alarm associated with the task.
-     * @param string $uid         A Unique Identifier for the task.
-     * @param string $parent      The parent task id.
-     * @param boolean $private    Whether the task is private.
-     * @param string $owner       The owner of the event.
-     * @param string $assignee    The assignee of the event.
-     *
-     * @return string  The Nag ID of the new task.
-     */
-    function add($name, $desc, $start = 0, $due = 0, $priority = 0,
-                 $completed = 0, $estimate = 0.0, $category = '', $alarm = 0,
-                 $uid = null, $parent = null, $private = false, $owner = null,
-                 $assignee = null)
-    {
-        // Usually provided by the generic Driver class
-        if ($uid !== null) {
-            $uid = strval(new Horde_Support_Guid());
-        }
-
-        // Load the object into the kolab driver
-        $object = $this->_kolab->newObject($uid);
-        if (is_a($object, 'PEAR_Error')) {
-            return $object;
-        }
-
-        return $this->_setObject($name, $desc, $start, $due, $priority,
-                                 $completed, $estimate, $category, $alarm,
-                                 $parent, $private, $owner, $assignee);
-    }
-
-    /**
-     * Modifies an existing task.
-     *
-     * @param string $taskId           The task to modify.
-     * @param string $name             The name (short) of the task.
-     * @param string $desc             The description (long) of the task.
-     * @param integer $start           The start date of the task.
-     * @param integer $due             The due date of the task.
-     * @param integer $priority        The priority of the task.
-     * @param float $estimate          The estimated time to complete the task.
-     * @param integer $completed       The completion state of the task.
-     * @param string $category         The category of the task.
-     * @param integer $alarm           The alarm associated with the task.
-     * @param string $parent           The parent task id.
-     * @param boolean $private         Whether the task is private.
-     * @param string $owner            The owner of the event.
-     * @param string $assignee         The assignee of the event.
-     * @param integer $completed_date  The task's completion date.
-     *
-     * @return boolean  Indicates if the modification was successfull.
-     */
-    function modify($taskId, $name, $desc, $start = 0, $due = 0,
-                    $priority = 0, $estimate = 0.0, $completed = 0,
-                    $category = '', $alarm = 0, $parent = null,
-                    $private = false, $owner = null, $assignee = null,
-                    $completed_date = null)
-    {
-        // Load the object into the kolab driver
-        $result = $this->_kolab->loadObject($taskId);
-        if (is_a($object, 'PEAR_Error')) {
-            return $object;
-        }
-
-        $result = $this->_setObject($name, $desc, $start, $due, $priority,
-                                    $estimate, $completed, $category, $alarm,
-                                    $parent, $private, $owner, $assignee,
-                                    $completed_date);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        return $result == $taskId;
-    }
-
-    /**
-     * Moves a task to a different tasklist.
-     *
-     * @param string $taskId       The task to move.
-     * @param string $newTasklist  The new tasklist.
-     */
-    function move($taskId, $newTasklist)
-    {
-        return $this->_kolab->moveObject($taskId, $newTasklist);
-    }
-
-    /**
-     * Deletes a task from the backend.
-     *
-     * @param string $taskId  The task to delete.
-     */
-    function delete($taskId)
-    {
-        return $this->_kolab->removeObjects($taskId);
-    }
-
-    /**
-     * Deletes all tasks from the backend.
-     */
-    function deleteAll()
-    {
-        return $this->_kolab->removeAllObjects();
-    }
-
-    /**
-     * Retrieves tasks from the Kolab server.
-     *
-     * @param integer $completed  Which tasks to retrieve (1 = all tasks,
-     *                            0 = incomplete tasks, 2 = complete tasks,
-     *                            3 = future tasks, 4 = future and incomplete
-     *                            tasks).
-     *
-     * @return mixed  True on success, PEAR_Error on failure.
-     */
-    function retrieve($completed = Nag::VIEW_ALL)
-    {
-        $tasks = array();
-
-        $msg_list = $this->_kolab->listObjects();
-        if (is_a($msg_list, 'PEAR_Error')) {
-            return $msg_list;
-        }
-
-        if (empty($msg_list)) {
-            return true;
-        }
-
-        foreach ($msg_list as $msg) {
-            $result = $this->_kolab->loadObject($msg, true);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-            $complete = Kolab::percentageToBoolean($this->_kolab->getVal('completed'));
-            $start_date = Kolab::decodeDateOrDateTime($this->_kolab->getVal('start-date'));
-            if (($completed == Nag::VIEW_INCOMPLETE && ($complete || $start_date > time())) ||
-                ($completed == Nag::VIEW_COMPLETE && !$complete) ||
-                ($completed == Nag::VIEW_FUTURE &&
-                 ($complete || $start_date == 0 || $start_date < time())) ||
-                ($completed == Nag::VIEW_FUTURE_INCOMPLETE && $complete)) {
-                continue;
-            }
-            $tasks[$this->_kolab->getUID()] = new Nag_Task($this->_buildTask());
-        }
-
-        return $tasks;
-    }
-
-    /**
-     * Lists all alarms near $date.
-     *
-     * @param integer $date  The unix epoch time to check for alarms.
-     *
-     * @return array  An array of tasks that have alarms that match.
-     */
-    function listAlarms($date)
-    {
-        $tasks = array();
-
-        $msg_list = $this->_kolab->listObjects();
-        if (is_a($msg_list, 'PEAR_Error')) {
-            return $msg_list;
-        }
-
-        if (empty($msg_list)) {
-            return $tasks;
-        }
-
-        foreach ($msg_list as $msg) {
-            $result = $this->_kolab->loadObject($msg, true);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-
-            $task = new Nag_Task($this->_buildTask());
-
-            if ($task['alarm'] > 0 && $task['due'] >= time() && $task['due'] - ($task['alarm'] * 60) <= $date) {
-                $tasks[$this->_kolab->getUID()] = $task;
-            }
-        }
-
-        return $tasks;
-    }
-
-    /**
-     * Retrieves sub-tasks from the database.
-     *
-     * @param string $parentId  The parent id for the sub-tasks to retrieve.
-     *
-     * @return array  List of sub-tasks.
-     */
-    function getChildren($parentId)
-    {
-        $tasks = array();
-
-        $msg_list = $this->_kolab->listObjects();
-        if (is_a($msg_list, 'PEAR_Error')) {
-            return $msg_list;
-        }
-
-        if (empty($msg_list)) {
-            return $tasks;
-        }
-
-        foreach ($msg_list as $msg) {
-            $result = $this->_kolab->loadObject($msg, true);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-            if ($this->_kolab->getVal('parent') != $parentId) {
-                continue;
-            }
-            $task = new Nag_Task($this->_buildTask());
-            $children = $this->getChildren($task->id);
-            if (is_a($children, 'PEAR_Error')) {
-                return $children;
-            }
-            $task->mergeChildren($children);
-            $tasks[] = $task;
-        }
-
-        return $tasks;
-    }
-}
-
-
-/**
  * New Nag driver for the Kolab IMAP server.
  *
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Nag
  */
-class Nag_Driver_kolab_wrapper_new extends Nag_Driver_kolab_wrapper {
+class Nag_Driver_kolab_wrapper_new
+{
 
     /**
      * Shortcut to the imap connection
@@ -696,25 +523,6 @@ class Nag_Driver_kolab_wrapper_new extends Nag_Driver_kolab_wrapper {
             return $id;
         }
         return $id . '@' . $this->_tasklist;
-    }
-
-    /**
-     * Retrieves one task from the store.
-     *
-     * @param string $taskId  The id of the task to retrieve.
-     *
-     * @return Nag_Task  A Nag_Task object.
-     */
-    function get($taskId)
-    {
-        list($taskId, $tasklist) = $this->_splitId($taskId);
-
-        if ($this->_store->objectUidExists($taskId)) {
-            $task = $this->_store->getObject($taskId);
-            return new Nag_Task($this->_buildTask($task));
-        } else {
-            return PEAR::raiseError(sprintf(_('Nag/kolab: Did not find task %s'), $taskId));
-        }
     }
 
     /**
@@ -977,41 +785,6 @@ class Nag_Driver_kolab_wrapper_new extends Nag_Driver_kolab_wrapper {
         }
 
         return $tasks;
-    }
-
-    /**
-     * Build a task based a data array
-     *
-     * @param array  $task     The data for the task
-     *
-     * @return array  The converted data array representing the task
-     */
-    function _buildTask($task)
-    {
-        $task['tasklist_id'] = $this->_tasklist;
-        $task['task_id'] = $this->_uniqueId($task['uid']);
-
-        if (!empty($task['parent'])) {
-            $task['parent'] = $this->_uniqueId($task['parent']);
-        }
-
-        $task['category'] = $task['categories'];
-        unset($task['categories']);
-
-        $task['desc'] = $task['body'];
-        unset($task['body']);
-
-        if ($task['sensitivity'] == 'public') {
-            $task['private'] = false;
-        } else {
-            $task['private'] = true;
-        }
-        unset($task['sensitivity']);
-
-        $share = $GLOBALS['nag_shares']->getShare($this->_tasklist);
-        $task['owner'] = $share->get('owner');
-
-        return $task;
     }
 
     /**
