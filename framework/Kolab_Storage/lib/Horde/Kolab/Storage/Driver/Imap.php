@@ -320,18 +320,17 @@ extends Horde_Kolab_Storage_Driver_Base
     public function fetchComplete($folder, $uid)
     {
         $query = new Horde_Imap_Client_Fetch_Query();
-        $query->headerText();
-        $query->bodyText();
+        $query->fullText();
 
         $ret = $this->getBackend()->fetch(
             $folder,
             $query,
             array('ids' => new Horde_Imap_Client_Ids($uid))
         );
-
+        $msg = $ret[$uid]->getFullMsg();
         return array(
-            $ret[$uid]->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_PARSE),
-            Horde_Mime_Part::parseMessage($ret[$uid]->getBodyText())
+            Horde_Mime_Headers::parseHeaders($msg),
+            Horde_Mime_Part::parseMessage($msg)
         );
     }
 
@@ -401,7 +400,8 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function appendMessage($folder, $msg)
     {
-        return $this->getBackend()->append($folder, array(array('data' => $msg)));
+        $result = $this->getBackend()->append($folder, array(array('data' => $msg)));
+        return $result->ids[0];
     }
 
     /**
