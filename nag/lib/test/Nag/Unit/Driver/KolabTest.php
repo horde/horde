@@ -50,13 +50,13 @@ class Nag_Unit_Driver_KolabTest extends Nag_TestCase
     /*     $this->assertEquals('TEST', $note['desc']); */
     /* } */
 
-    /* public function testListMemos() */
-    /* { */
-    /*     $driver = $this->getKolabDriver(); */
-    /*     $id = $driver->add('TEST', 'Some test note.'); */
-    /*     $driver->retrieve(); */
-    /*     $this->assertEquals(1, count($driver->listMemos())); */
-    /* } */
+    public function testListTasks()
+    {
+        $driver = $this->getKolabDriver();
+        $id = $driver->add('TEST', 'Some test task.');
+        $driver->retrieve();
+        $this->assertEquals(1, $driver->tasks->count());
+    }
 
     /* public function testDelete() */
     /* { */
@@ -68,15 +68,17 @@ class Nag_Unit_Driver_KolabTest extends Nag_TestCase
     /*     $this->assertEquals(1, count($driver->listMemos())); */
     /* } */
 
-    /* public function testDeleteAll() */
-    /* { */
-    /*     $driver = $this->getKolabDriver(); */
-    /*     $driver->add('TEST', 'Some test note.'); */
-    /*     $driver->add('TEST', 'Some test note.'); */
-    /*     $driver->deleteAll(); */
-    /*     $driver->retrieve(); */
-    /*     $this->assertEquals(0, count($driver->listMemos())); */
-    /* } */
+    public function testDeleteAll()
+    {
+        $driver = $this->getKolabDriver();
+        $driver->add('TEST', 'Some test task.');
+        $driver->add('TEST', 'Some test task.');
+        $driver->retrieve();
+        $this->assertEquals(2, $driver->tasks->count());
+        $driver->deleteAll();
+        $driver->retrieve();
+        $this->assertEquals(0, $driver->tasks->count());
+    }
 
     /* public function testMove() */
     /* { */
