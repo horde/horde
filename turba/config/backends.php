@@ -824,8 +824,8 @@ if (!empty($GLOBALS['conf']['imsp']['enabled'])) {
                     $cfgSources[$result[$i]['params']['name']] = $result[$i];
                 }
             }
-        } else {
-            $GLOBALS['notification']->push($result);
+        } catch (Horde_Imsp_Exception $e) {
+            $GLOBALS['notification']->push($e->getMessage());
         }
      }
 }
