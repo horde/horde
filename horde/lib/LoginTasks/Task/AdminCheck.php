@@ -48,6 +48,7 @@ class Horde_LoginTasks_Task_AdminCheck extends Horde_LoginTasks_Task
             foreach ($migration->apps as $app) {
                 $migrator = $migration->getMigrator($app);
                 if ($migrator->getTargetVersion() > $migrator->getCurrentVersion()) {
+                    $GLOBALS['notification']->push(_("At least one database schema is outdated."), 'horde.warning');
                     Horde::url('admin/config', true, array('app' => 'horde'))
                         ->redirect();
                 }
