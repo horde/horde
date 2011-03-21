@@ -44,8 +44,37 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
         }
         $this->_notepad = $notepad;
         $this->_kolab = $params['storage'];
-        $this->_data = $this->_kolab->getData(
-            $GLOBALS['mnemo_shares']->getShare($this->_notepad)->get('folder'),
+    }
+
+    /**
+     * Return the Kolab data handler for the current notepad.
+     *
+     * @return Horde_Kolab_Storage_Date The data handler.
+     */
+    private function _getData()
+    {
+        if (empty($this->_notepad)) {
+            throw new Mnemo_Exception(
+                'The notepad has been left undefined but is required!'
+            );
+        }
+        if ($this->_data === null) {
+            $this->_data = $this->_getDataForNotepad($this->_notepad);
+        }
+        return $this->_data;
+    }
+
+    /**
+     * Return the Kolab data handler for the specified notepad.
+     *
+     * @param string $notepad The notepad name.
+     *
+     * @return Horde_Kolab_Storage_Date The data handler.
+     */
+    private function _getDataForNotepad($notepad)
+    {
+        return $this->_kolab->getData(
+            $GLOBALS['mnemo_shares']->getShare($notepad)->get('folder'),
             'note'
         );
     }
@@ -61,8 +90,8 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      */
     function get($noteId, $passphrase = null)
     {
-        if ($this->_data->objectIdExists($noteId)) {
-            $note = $this->_data->getObject($noteId);
+        if ($this->_getData()->objectIdExists($noteId)) {
+            $note = $this->_getData()->getObject($noteId);
             return $this->_buildNote($note, $passphrase);
         } else {
             throw new Horde_Exception_NotFound(_("Not Found"));
@@ -99,7 +128,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     public function add($desc, $body, $category = '', $uid = null, $passphrase = null)
     {
         if (is_null($uid)) {
-            $uid = $this->_data->generateUid();
+            $uid = $this->_getData()->generateUid();
         }
 
         if ($passphrase) {
@@ -107,7 +136,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
             Mnemo::storePassphrase($uid, $passphrase);
         }
 
-        $this->_data->create(
+        $this->_getData()->create(
             array(
                 'uid' => $uid,
                 'summary' => $desc,
@@ -142,7 +171,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
             Mnemo::storePassphrase($uid, $passphrase);
         }
 
-        $this->_data->modify(
+        $this->_getData()->modify(
             array(
                 'uid' => $noteId,
                 'summary' => $desc,
@@ -169,7 +198,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      */
     function move($noteId, $newNotepad)
     {
-        return $this->_data->move(
+        return $this->_getData()->move(
             $noteId,
             $GLOBALS['mnemo_shares']->getShare($newNotepad)->get('folder')
         );
@@ -185,7 +214,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     function delete($noteId)
     {
         $note = $this->get($noteId);
-        $this->_data->delete($noteId);
+        $this->_getData()->delete($noteId);
         $history = $GLOBALS['injector']->getInstance('Horde_History');
         $history->log('mnemo:' . $this->_notepad . ':' . $note['uid'], array('action' => 'delete'), true);
     }
@@ -197,7 +226,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      */
     function deleteAll()
     {
-        $this->_data->deleteAll();
+        $this->_getData()->deleteAll();
     }
 
     /**
@@ -211,7 +240,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     {
         $this->_memos = array();
 
-        $note_list = $this->_data->getObjects();
+        $note_list = $this->_getData()->getObjects();
         if (empty($note_list)) {
             return;
         }
