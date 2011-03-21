@@ -19,7 +19,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      *
      * @var Horde_Kolab_Storage
      */
-    protected $_kolab = null;
+    protected $_kolab;
 
     /**
      * The current tasklist.
