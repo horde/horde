@@ -1,22 +1,41 @@
 /**
  * Javascript code used to display a RedBox dialog.
  *
- * Parameters to display():
- * 'cancel_text' - [REQUIRED] Cancel text.
- * 'dialog_load' - TODO
- * 'form' - TODO
- * 'form_id' - The ID for the form (default: RB_confirm).
- * 'input_val' - TODO
- * 'noinput' - TODO
- * 'ok_text' - OK text.
- * 'password' - TODO
- * 'text' - [REQUIRED] The text to display at top of dialog box.
+ * Usage:
+ * ------
+ * IMPDialog.display({
+ *     // [REQUIRED] Cancel text
+ *     cancel_text: '',
+ *     dialog_load: '',
+ *     form: '',
+ *     // The ID for the form
+ *     form_id: 'RB_confirm',
+ *     input_val: '',
+ *     noinput: false,
+ *     // OK text.
+ *     ok_text: '',
+ *     password: '',
+ *     // [REQUIRED] The text to display at top of dialog box
+ *     text: '',
  *
- * If these are set, an AJAX action (to 'uri') will be initiated if the OK
- * button is pressed.
- * 'params' - TODO
- * 'type' - TODO
- * 'uri' - TODO
+ *     // If these are set, an AJAX action (to 'uri') will be initiated if the
+ *     // OK button is pressed:
+ *     params: {},
+ *     type: '',
+ *     uri: ''
+ * });
+ *
+ *
+ * Events triggered:
+ * -----------------
+ * IMPDialog:close
+ *   params: NONE
+ *
+ * IMPDialog:onClick
+ *   params: Event object
+ *
+ * IMPDialog:success
+ *   params: type parameter
  *
  * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
