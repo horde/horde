@@ -2,8 +2,8 @@
 v3.0-RC1
 --------
 
+[cjh] Fix storing of binary fields.
 [mjr] Fix/refactor IMSP driver.
-
 
 
 ----------

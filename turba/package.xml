@@ -28,8 +28,9 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [mjr] Fix/refactor IMSP driver.
-* First release candidate for Horde 4.
+First release candidate for Horde 4.
+[cjh] Fix storing of binary fields.
+[mjr] Fix/refactor IMSP driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
