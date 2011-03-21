@@ -118,7 +118,7 @@ EOT;
         Horde::addInlineScript($script, 'dom');
 
         /* Build the UI */
-        $html .= '<div style="padding-left: 8px;padding-right:8px;">';
+        $html .= '<div style="padding: 8px 8px 0 8px">';
 
         /* Build the Notification Section */
         if (!empty($this->_params['notifications'])) {
@@ -164,7 +164,7 @@ EOT;
 
 
        // Build the stream feed.
-        $html .= '<div id="' . $instance . '_fbcontent" style="height:' . (empty($this->_params['height']) ? 300 : $this->_params['height']) . 'px;overflow-y:auto;"></div>';
+        $html .= '<br /><div id="' . $instance . '_fbcontent" style="height:' . (empty($this->_params['height']) ? 300 : $this->_params['height']) . 'px;overflow-y:auto;overflow-x:hidden;"></div><br />';
         $html .= '<div class="hordeSmGetmore"><input type="button" id="' . $instance . '_getmore" class="button"  value="' . _("Get More") . '"></div>';
 
         $html .= '</div>'; // fbbody end

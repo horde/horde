@@ -20,7 +20,7 @@
            (!empty($this->attachment['description']) ||
             !empty($this->attachment['media']) ||
             !empty($this->attachment['caption']))):?>
-    <div class="fbattachment">
+    <div class="fbattachment solidbox">
       <?php if (!empty($this->attachment['media']) && count($this->attachment['media'])):?>
         <div class="fbmedia<?php echo count($this->attachment['media']) > 1 ? ' fbmediawide' : ''?>">
           <?php foreach($this->attachment['media'] as $item): ?>

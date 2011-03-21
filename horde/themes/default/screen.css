@@ -1377,13 +1377,13 @@ div.GrowlerNoticeExit:hover {
     position: relative;
 }
 .hordeSmStreambody {
-    padding: 0 0 0 70px;
     min-height: 70px;
 }
 .hordeSmStreaminfo {
     color: #777777;
     padding: 2px 0 0;
     font-style: italic;
+    font-size: 90%;
 }
 .hordeSmGetmore {
     text-align: center;
