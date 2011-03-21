@@ -22,8 +22,8 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* Refactored for OAuth2 Authentication
 * First release candidate for Horde 4.
+* [mjr] Refactored for OAuth2 Authentication
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

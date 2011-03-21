@@ -6,6 +6,12 @@
  <description>Horde_Share provides an interface to all shared resources a user
 owns or has access to.</description>
  <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
@@ -23,9 +29,9 @@ owns or has access to.</description>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* First release candidate for Horde 4.
 * [gwr] Fix checking creators permission for Kolab shares.
 * [gwr] URL encode share ids in the Kolab driver.
-* First release candidate for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

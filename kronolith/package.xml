@@ -5,15 +5,21 @@
  <summary>A web based calendar</summary>
  <description>Kronolith is the Horde calendar application. It provides web-based calendars backed by a SQL database or a Kolab server. Supported features include Ajax and mobile interfaces, shared calendars, remote calendars, invitation management (iCalendar/iTip), free/busy management, resource management, alarms, recurring events, and a sophisticated day/week view which handles arbitrary numbers of overlapping events.</description>
  <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
  <lead>
-  <name>Jan Schneider</name>
-  <user>jan</user>
-  <email>jan@horde.org</email>
+  <name>Michael Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
  <date>2011-03-16</date>
@@ -29,7 +35,7 @@
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
 * First release candidate for Horde 4.
-* Fix custom event alarm settings in traditional view (Bug #9154).
+* [jan] Fix custom event alarm settings in traditional view (Bug #9154).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

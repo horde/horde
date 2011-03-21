@@ -5,12 +5,6 @@
  <summary>Horde Release generation library</summary>
  <description>This package provides the tools necessary to create the Horde distribution packages.</description>
  <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>

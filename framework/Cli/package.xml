@@ -6,15 +6,15 @@
  <summary>Horde Command Line Interface API</summary>
  <description>Horde_Cli:: API for basic command-line functionality/checks</description>
  <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
  <date>2011-03-16</date>

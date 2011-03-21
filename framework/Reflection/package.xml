@@ -11,12 +11,6 @@ The package has a driver based output generation and currently generates HTML an
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <lead>
-  <name>Jan Schneider</name>
-  <user>jan</user>
-  <email>jan@horde.org</email>
-  <active>yes</active>
- </lead>
  <date>2011-03-07</date>
  <time>00:19:45</time>
  <version>

@@ -34,10 +34,10 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mjr] Fix IMSP Auth driver
 * First release candidate for Horde 4.
-* Don&apos;t show sub-permissions for adding that exist already.
-* Fix listing more than one sub-permission (Bug #9671).
+* [mjr] Fix IMSP Auth driver.
+* [jan] Don&apos;t show sub-permissions for adding that exist already.
+* [jan] Fix listing more than one sub-permission (Bug #9671).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

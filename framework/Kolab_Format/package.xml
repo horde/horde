@@ -11,18 +11,6 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
-  <name>Jan Schneider</name>
-  <user>jan</user>
-  <email>jan@horde.org</email>
-  <active>yes</active>
- </lead>
  <date>2011-03-16</date>
  <time>18:13:53</time>
  <version>
@@ -35,8 +23,8 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
  <notes>
-* [gwr] Moved Horde specific functionality out of the note parser.
 * First release candidate for Horde 4.
+* [gwr] Moved Horde specific functionality out of the note parser.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

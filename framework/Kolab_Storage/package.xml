@@ -11,18 +11,6 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
-  <name>Jan Schneider</name>
-  <user>jan</user>
-  <email>jan@horde.org</email>
-  <active>yes</active>
- </lead>
  <date>2011-03-21</date>
  <time>05:06:46</time>
  <version>
@@ -35,10 +23,10 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* First release candidate for Horde 4.
 * [gwr] Fix creating/modifying objects.
 * [gwr] Deal with Kolab_Format parsing exceptions.
 * [gwr] Throw an exception on a duplicate UID within one folder.
-* First release candidate for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

@@ -5,9 +5,9 @@
  <summary>A web based webmail system</summary>
  <description>IMP, the Internet Mail Program, is one of the most popular and widely deployed open source webmail applications in the world. It allows universal, web-based access to IMAP and POP3 mail servers and provides Ajax, mobile and traditional interfaces with a rich range of features normally found only in desktop email clients.</description>
  <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
  <lead>
@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <lead>
-  <name>Michael Slusarz</name>
-  <user>slusarz</user>
-  <email>slusarz@horde.org</email>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
  <date>2011-03-18</date>
@@ -34,10 +34,10 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* Remove application tabs from AJAX interface (Bug #9679).
-* Move all portal rendering code to Horde.
-* Fix flag display in message list in traditional view (Bug #9673).
 * First release candidate for Horde 4.
+* [jan] Remove application tabs from AJAX interface (Bug #9679).
+* [mms] Move all portal rendering code to Horde.
+* [mms] Fix flag display in message list in traditional view (Bug #9673).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

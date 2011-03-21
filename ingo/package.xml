@@ -5,12 +5,6 @@
  <summary>An email filter rules manager</summary>
  <description>Ingo is an email-filter management application. It is fully internationalized, integrated with Horde and the IMP Webmail client, and supports both server-side (Sieve, procmail) and client-side (IMAP) message filtering.</description>
  <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
@@ -20,6 +14,12 @@
   <name>Michael Slusarz</name>
   <user>slusarz</user>
   <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
  <date>2011-03-16</date>
@@ -35,8 +35,8 @@
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
 * First release candidate for Horde 4.
-* Fix instantiation of VFS transport driver (Bug #9605).
-* Fix moving rules with the SQL driver (Bug #9672).
+* [jan] Fix instantiation of VFS transport driver (Bug #9605).
+* [jan] Fix moving rules with the SQL driver (Bug #9672).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

@@ -16,6 +16,18 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
+ <lead>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Michael Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
+  <active>yes</active>
+ </lead>
  <date>2011-03-18</date>
  <time>11:31:21</time>
  <version>
@@ -28,8 +40,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [gwr] Allow disabling applications for administrators.
 * First release candidate for Horde 4.
+* [gwr] Allow disabling applications for administrators.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

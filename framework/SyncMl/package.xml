@@ -6,12 +6,6 @@
  <summary>Horde_SyncMl provides an API for processing SyncML requests.</summary>
  <description>This package provides classes for implementing a SyncML server.</description>
  <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
@@ -30,7 +24,7 @@
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
 * First release candidate for Horde 4.
-* Fix calendar synchronization with certain Nokia phones (Bug #9646).
+* [jan] Fix calendar synchronization with certain Nokia phones (Bug #9646).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

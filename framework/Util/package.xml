@@ -29,10 +29,10 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Tweak loading HTML documents (encodings) in Horde_Domhtml.
-* Added Horde_Domhtml#returnBody().
-* Added Domhtml unit tests.
 * First release candidate for Horde 4.
+* [mms] Tweak loading HTML documents (encodings) in Horde_Domhtml.
+* [mms] Added Horde_Domhtml#returnBody().
+* [mms] Added Domhtml unit tests.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

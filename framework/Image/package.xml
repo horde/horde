@@ -12,17 +12,17 @@
 * ImageMagick convert command line tool
 * Imagick Extension</description>
  <lead>
+  <name>Michael J. Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <developer>
-  <name>Michael J. Rubinsky</name>
-  <user>mrubinsk</user>
-  <email>mrubinsk@horde.org</email>
-  <active>yes</active>
- </developer>
  <date>2011-03-16</date>
  <time>18:13:13</time>
  <version>

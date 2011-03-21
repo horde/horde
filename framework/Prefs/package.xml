@@ -5,9 +5,21 @@
  <summary>Horde Preferences API</summary>
  <description>The Horde_Prefs package provides a common abstracted interface into the various preferences storage mediums. It also includes all of the functions for retrieving, storing, and checking preference values.</description>
  <lead>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
  <date>2011-03-16</date>
@@ -22,8 +34,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mjr] Fix IMSP driver
 * First release candidate for Horde 4.
+* [mjr] Fix IMSP driver
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

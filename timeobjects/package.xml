@@ -5,21 +5,15 @@
  <summary>Horde timeobjects application</summary>
  <description>The timeobjects application doesn&apos;t have an interface but provides streams of events to any applications that can consume them, notably the Horde calendar application. It contains drivers for facebook events and weather forecasts and can easily be extended by custom drivers.</description>
  <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
+  <name>Michael Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
  <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
-  <name>Michael Rubinsky</name>
-  <user>mrubinsk</user>
-  <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
  <date>2011-03-21</date>
