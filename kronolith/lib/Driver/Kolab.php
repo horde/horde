@@ -54,7 +54,10 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
      */
     public function initialize()
     {
-        $this->_kolab = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
+        if (empty($this->_params['storage'])) {
+            throw new InvalidArgumentException('Missing required Horde_Kolab_Storage instance');
+        }
+        $this->_kolab = $this->_params['storage'];
         $this->reset();
     }
 

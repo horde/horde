@@ -2774,7 +2774,7 @@ class Kronolith
                 break;
 
             case 'Kolab':
-                $params = Horde::getDriverConfig('calendar', 'kolab');
+                $params['storage'] = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
                 break;
 
             case 'Ical':
