@@ -60,6 +60,8 @@ var HordeLogin = {
             $('horde_user').focus();
         } else if ($('horde_pass') && !$F('horde_pass')) {
             $('horde_pass').focus();
+        } else {
+            $('login-button').focus();
         }
 
         /* Activate dynamic view. */
