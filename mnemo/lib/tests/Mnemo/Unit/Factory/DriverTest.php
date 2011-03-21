@@ -39,16 +39,16 @@ class Mnemo_Unit_Factory_DriverTest extends Mnemo_TestCase
         $injector = $this->getInjector();
         $injector->setInstance('Horde_Db_Adapter', 'DUMMY');
         $factory = $injector->getInstance('Mnemo_Factory_Driver');
+        $GLOBALS['conf']['umask'] = '';
         $GLOBALS['conf']['storage']['driver'] = 'sql';
+        $GLOBALS['conf']['storage']['params']['charset'] = 'utf-8';
         $this->assertInstanceOf('Mnemo_Driver_Sql', $factory->create('test'));
     }
 
     public function testCreateKolab()
     {
-        $injector = $this->getInjector();
-        $injector->setInstance('Horde_Kolab_Storage', 'DUMMY');
-        $factory = $injector->getInstance('Mnemo_Factory_Driver');
+        $factory = $this->getKolabFactory();
         $GLOBALS['conf']['storage']['driver'] = 'kolab';
-        $this->assertInstanceOf('Mnemo_Driver_Kolab', $factory->create('test'));
+        $this->assertInstanceOf('Mnemo_Driver_Kolab', $factory->create($this->share->getName()));
     }
 }
