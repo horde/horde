@@ -23,7 +23,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     private $_kolab;
 
     /**
-     * The specific notepad.
+     * The current notepad.
      *
      * @var Horde_Kolab_Storage_Data
      */
