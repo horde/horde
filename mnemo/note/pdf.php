@@ -15,8 +15,8 @@ $passphrase = Horde_Util::getFormData('memo_passphrase');
 
 /* We can either have a UID or a memo id and a notepad. Check for UID
  * first. */
-$storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
 if ($uid = Horde_Util::getFormData('uid')) {
+    $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
     try {
         $note = $storage->getByUID($uid, $passphrase);
     } catch (Mnemo_Exception $e) {
