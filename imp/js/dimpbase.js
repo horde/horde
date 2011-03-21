@@ -797,17 +797,29 @@ var DimpBase = {
 
         case 'ctx_folder_empty':
             tmp = e.findElement('LI');
-            if (window.confirm(DIMP.text.empty_folder.sub('%s', tmp.readAttribute('title')))) {
-                DimpCore.doAction('emptyMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this._emptyMailboxCallback.bind(this) });
-            }
+
+            this.cfolderaction = DimpCore.doAction.bind(DimpCore, 'emptyMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this._emptyMailboxCallback.bind(this) });
+
+            IMPDialog.display({
+                cancel_text: DIMP.text.cancel,
+                noinput: true,
+                ok_text: DIMP.text.ok,
+                text: DIMP.text.empty_folder.sub('%s', tmp.readAttribute('title'))
+            });
             break;
 
         case 'ctx_folder_delete':
         case 'ctx_vfolder_delete':
             tmp = e.findElement('LI');
-            if (window.confirm(DIMP.text.delete_folder.sub('%s', tmp.readAttribute('title')))) {
-                DimpCore.doAction('deleteMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this.mailboxCallback.bind(this) });
-            }
+
+            this.cfolderaction = DimpCore.doAction.bind(DimpCore, 'deleteMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this.mailboxCallback.bind(this) });
+
+            IMPDialog.display({
+                cancel_text: DIMP.text.cancel,
+                noinput: true,
+                ok_text: DIMP.text.ok,
+                text: DIMP.text.delete_folder.sub('%s', tmp.readAttribute('title'))
+            });
             break;
 
         case 'ctx_folder_seen':
@@ -2380,7 +2392,6 @@ var DimpBase = {
         this.cfolderaction = action;
         IMPDialog.display({
             cancel_text: DIMP.text.cancel,
-            form_id: 'RB_confirm',
             input_val: val,
             ok_text: DIMP.text.ok,
             text: text
@@ -3338,8 +3349,10 @@ document.observe('DragDrop2:mouseup', DimpBase.onDragMouseUp.bindAsEventListener
 
 /* IMPDialog listener. */
 document.observe('IMPDialog:onClick', function(e) {
-    if (e.element().identify() == 'RB_confirm') {
+    switch (e.element().identify()) {
+    case 'RB_confirm':
         this.cfolderaction(e.memo);
+        break;
     }
 }.bindAsEventListener(DimpBase));
 
