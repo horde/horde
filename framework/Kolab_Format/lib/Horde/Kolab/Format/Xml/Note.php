@@ -66,43 +66,4 @@ class Horde_Kolab_Format_Xml_Note extends Horde_Kolab_Format_Xml
 
         parent::__construct($parser, $params);
     }
-
-    /**
-     * Load the groupware object based on the specifc XML values.
-     *
-     * @param array &$children An array of XML nodes.
-     *
-     * @return array Array with the object data
-     *
-     * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
-     */
-    protected function _load(&$children)
-    {
-        $object = $this->_loadArray($children, $this->_fields_specific);
-
-        $object['desc'] = $object['summary'];
-        unset($object['summary']);
-
-        return $object;
-    }
-
-    /**
-     * Save the specific XML values.
-     *
-     * @param array $root   The XML document root.
-     * @param array $object The resulting data array.
-     *
-     * @return boolean True on success.
-     *
-     * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
-     */
-    protected function _save(&$root, $object)
-    {
-        if (isset($object['desc'])) {
-            $object['summary'] = $object['desc'];
-            unset($object['desc']);
-        }
-
-        return $this->_saveArray($root, $object, $this->_fields_specific);
-    }
 }
