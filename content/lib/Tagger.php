@@ -117,12 +117,14 @@ class Content_Tagger
         $userId = current($this->_userManager->ensureUsers($userId));
 
         foreach ($this->ensureTags($tags) as $tagId) {
-            try {
-                 $this->_db->insert('INSERT INTO ' . $this->_t('tagged') . ' (user_id, object_id, tag_id, created)
-                                      VALUES (' . (int)$userId . ',' . (int)$objectId . ',' . (int)$tagId . ',' . $this->_db->quote($created) . ')');
-            } catch (Horde_Db_Exception $e) {
-                // @TODO should make sure it's a duplicate and re-throw if not
-                continue;
+            if (!$this->_db->selectValue('SELECT 1 from ' . $this->_t('tagged') . ' WHERE user_id = ? AND object_id = ? AND tag_id = ?', array((int)$userId, (int)$objectId, (int)$tagId))) {
+                try {
+                    $this->_db->insert(
+                        'INSERT INTO ' . $this->_t('tagged') . ' (user_id, object_id, tag_id, created) VALUES (?, ?, ?, ?)',
+                        array((int)$userId, (int)$objectId, (int)$tagId, $created));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Content_Exception($e);
+                }
             }
 
             // increment tag stats
