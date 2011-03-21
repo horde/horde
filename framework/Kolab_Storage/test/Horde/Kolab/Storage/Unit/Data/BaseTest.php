@@ -371,6 +371,6 @@ extends Horde_Kolab_Storage_TestCase
         $data->create(array('desc' => 'test', 'uid' => 'UID'));
         $data->modify(array('desc' => 'modified', 'uid' => 'UID'));
         $object = $data->getObject('UID');
-        $this->assertEquals('modified', $object['desc']);
+        $this->assertEquals('modified', $object['summary']);
     }
 }
