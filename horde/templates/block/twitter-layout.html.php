@@ -21,8 +21,8 @@
  <br />
  <div class="tabset">
   <ul>
-   <li id="<?php echo $this->instance ?>_contenttab" class="activeTab"><a href="#" onclick="Horde['twitter<?php echo $this->instance ?>'].showStream();"><?php echo _("Stream")?></a></li>
-   <li id="<?php echo $this->instance ?>_mentiontab"><a href="#" onclick="Horde['twitter<?php echo $this->instance ?>'].showMentions();"><?php echo _("Mentions") ?></a></li>
+   <li id="<?php echo $this->instance ?>_contenttab" class="activeTab"><a href="#" onclick="Horde['twitter<?php echo $this->instance ?>'].showStream();return false;"><?php echo _("Stream")?></a></li>
+   <li id="<?php echo $this->instance ?>_mentiontab"><a href="#" onclick="Horde['twitter<?php echo $this->instance ?>'].showMentions();return false;"><?php echo _("Mentions") ?></a></li>
   </ul>
  </div>
  <div class="clear">&nbsp;</div>
