@@ -565,6 +565,10 @@ class Horde_Registry
             $app_fileroot = $this->applications['horde']['fileroot'];
         }
 
+        /* Make sure the fileroot of Horde has a trailing slash to not trigger
+         * open_basedir restrictions that have that trailing slash too. */
+        $app_fileroot = rtrim($app_fileroot, '/') . '/';
+
         if (!isset($this->applications['horde']['webroot'])) {
             $this->applications['horde']['webroot'] = isset($app_webroot)
                 ? $app_webroot
@@ -587,7 +591,7 @@ class Horde_Registry
 
             $app['fileroot'] = isset($app['fileroot'])
                 ? rtrim($app['fileroot'], ' /')
-                : $app_fileroot . '/' . $appName;
+                : $app_fileroot . $appName;
 
             if (!isset($app['name'])) {
                 $app['name'] = '';
