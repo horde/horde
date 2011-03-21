@@ -133,6 +133,7 @@ $code['text'] = array(
     'create_prompt' => _("Create folder:"),
     'createsub_prompt' => _("Create subfolder:"),
     'delete_folder' => _("Permanently delete %s?"),
+    'download_folder' => _("All messages in this mailbox will be downloaded into one MBOX file. This may take some time. Are you sure you want to continue?"),
     'empty_folder' => _("Permanently delete all messages in %s?"),
     'growlerinfo' => _("This is the notification log"),
     'hidealog' => Horde::highlightAccessKey(_("Hide Alerts _Log"), Horde::getAccessKey(_("Alerts _Log"), true)),

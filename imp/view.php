@@ -4,28 +4,27 @@
  *
  * URL parameters:
  * ---------------
- * <pre>
- * 'actionID' - (string) The action ID to perform
- *   'compose_attach_preview'
- *   'download_all'
- *   'download_attach'
- *   'download_render'
- *   'print_attach'
- *   'save_message'
- *   'view_attach'
- *   'view_face'
- *   'view_source'
- * 'composeCache' - (string) Cache ID for compose object.
- * 'ctype' - (string) The content-type to use instead of the content-type
+ * actionID - (string) The action ID to perform
+ *   compose_attach_preview
+ *   download_all
+ *   download_attach
+ *   download_mbox
+ *   download_render
+ *   print_attach
+ *   save_message
+ *   view_attach
+ *   view_face
+ *   view_source
+ * composeCache - (string) Cache ID for compose object.
+ * ctype - (string) The content-type to use instead of the content-type
  *           found in the original Horde_Mime_Part object.
- * 'id' - (string) The MIME part ID to display.
- * 'mailbox' - (string) The mailbox of the message.
- * 'mode' - (integer) The view mode to use.
+ * id - (string) The MIME part ID to display.
+ * mailbox - (string) The mailbox of the message.
+ * mode - (integer) The view mode to use.
  *          DEFAULT: IMP_Contents::RENDER_FULL
- * 'pmode' - (string) The print mode of this request ('content', 'headers').
- * 'uid - (string) The UID of the message.
- * 'zip' - (boolean) Download in .zip format?
- * </pre>
+ * pmode - (string) The print mode of this request ('content', 'headers').
+ * uid - (string) The UID of the message.
+ * zip - (boolean) Download in .zip format?
  *
  * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
  *
@@ -53,10 +52,11 @@ Horde_Registry::appInit('imp', array(
     'session_control' => 'readonly'
 ));
 
-/* 'compose_attach_preview' doesn't use IMP_Contents since there is no mail
- * message data. Rather, we must use the IMP_Compose object to get the
- * necessary data for Horde_Mime_Part. */
-if ($vars->actionID == 'compose_attach_preview') {
+switch ($vars->actionID) {
+case 'compose_attach_preview':
+    /* 'compose_attach_preview' doesn't use IMP_Contents since there is no
+     * mail message data. Rather, we must use the IMP_Compose object to get
+     * the necessary data for Horde_Mime_Part. */
     $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($vars->composeCache);
     $mime = $imp_compose->buildAttachment($vars->id);
     $mime->setMimeId($vars->id);
@@ -64,11 +64,24 @@ if ($vars->actionID == 'compose_attach_preview') {
     /* Create a dummy IMP_Contents() object so we can use the view code below.
      * Then use the 'view_attach' handler to output. */
     $contents = new IMP_Contents($mime);
-} else {
-    if (!$vars->uid || !$vars->mailbox) {
+    break;
+
+case 'download_mbox':
+    if (!isset($vars->mailbox)) {
         exit;
     }
+
+    // Exception will be displayed as fatal error.
+    $injector->getInstance('IMP_Ui_Folder')->downloadMbox(array($vars->mailbox), $vars->zip);
+    break;
+
+default:
+    if (!$vars->uid || !isset($vars->mailbox)) {
+        exit;
+    }
+
     $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($vars->mailbox, $vars->uid));
+    break;
 }
 
 /* Run through action handlers */

@@ -822,6 +822,24 @@ var DimpBase = {
             });
             break;
 
+        case 'ctx_folder_download':
+        case 'ctx_folder_downloadzip':
+            tmp = e.findElement('LI');
+
+            this.cfolderaction = DimpCore.redirect.bind(DimpCore, DimpCore.addURLParam(DIMP.conf.URI_VIEW, {
+                actionID: 'download_mbox',
+                mailbox: tmp.retrieve('mbox'),
+                zip: Number(id == 'ctx_folder_downloadzip')
+            }));
+
+            IMPDialog.display({
+                cancel_text: DIMP.text.cancel,
+                noinput: true,
+                ok_text: DIMP.text.ok,
+                text: DIMP.text.download_folder
+            });
+            break;
+
         case 'ctx_folder_seen':
         case 'ctx_folder_unseen':
             DimpCore.doAction('flagAll', {

@@ -106,27 +106,11 @@ case 'delete_folder':
 case 'download_folder':
 case 'download_folder_zip':
     if (!empty($folder_list)) {
-        $mbox = $imp_folder->generateMbox($folder_list);
-        if ($vars->actionID == 'download_folder') {
-            $data = $mbox;
-            fseek($data, 0, SEEK_END);
-            $browser->downloadHeaders($folder_list[0] . '.mbox', null, false, ftell($data));
-        } else {
-            $horde_compress = Horde_Compress::factory('zip');
-            try {
-                $data = $horde_compress->compress(array(array('data' => $mbox, 'name' => $folder_list[0] . '.mbox')), array('stream' => true));
-                fclose($mbox);
-            } catch (Horde_Exception $e) {
-                fclose($mbox);
-                $notification->push($e);
-                break;
-            }
-            fseek($data, 0, SEEK_END);
-            $browser->downloadHeaders($folder_list[0] . '.zip', 'application/zip', false, ftell($data));
+        try {
+            $injector->getInstance('IMP_Ui_Folder')->downloadMbox($folder_list, $vars->actionID == 'download_folder_zip');
+        } catch (Horde_Exception $e) {
+            $notification->push($e);
         }
-        rewind($data);
-        fpassthru($data);
-        exit;
     }
     break;
 

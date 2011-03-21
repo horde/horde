@@ -290,6 +290,9 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
   <a id="ctx_folder_expand"><span class="iconImg"></span><?php echo _("Expand All") ?></a>
   <a id="ctx_folder_collapse"><span class="iconImg"></span><?php echo _("Collapse All") ?></a>
  </div>
+ <div class="sep"></div>
+ <a id="ctx_folder_download"><span class="iconImg"></span><?php echo _("Download") ?></a>
+ <a id="ctx_folder_downloadzip"><span class="iconImg"></span><?php echo _("Download [.zip file]") ?></a>
 </div>
 
 <div class="context" id="ctx_folder_flag" style="display:none">
