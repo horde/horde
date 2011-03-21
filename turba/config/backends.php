@@ -802,10 +802,9 @@ if (!empty($GLOBALS['conf']['imsp']['enabled'])) {
      * book above. Any entries defined explicitly in cfgSources[]
      * will override any entries gathered dynamically below.
      */
-     if (empty($cfgSources['imsp']['use_shares'])) {
-        $result = Horde_Core_Imsp_Utils::getAllBooks($cfgSources['imsp']);
-
-        if (!$result instanceof PEAR_Error) {
+     if (empty($cfgSources['imsp']['use_shares']) && $cfgSources['imsp']['enabled']) {
+         try {
+            $result = Horde_Core_Imsp_Utils::getAllBooks($cfgSources['imsp']);
             $resultCount = count($result);
             for ($i = 0; $i < $resultCount; ++$i) {
                 // Make sure we didn't define this source explicitly,
