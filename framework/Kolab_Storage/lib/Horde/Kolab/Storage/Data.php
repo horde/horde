@@ -68,6 +68,34 @@ extends Horde_Kolab_Storage_Queriable
     public function getStamp();
 
     /**
+     * Create a new object.
+     *
+     * @param array   $object The array that holds the object data.
+     * @param boolean $raw    True if the data to be stored has been provided in
+     *                        raw format.
+     *
+     * @return NULL
+     *
+     * @throws Horde_Kolab_Storage_Exception In case an error occured while
+     *                                       saving the data.
+     */
+    public function create($object, $raw = false);
+
+    /**
+     * Modify an existing object.
+     *
+     * @param array   $object The array that holds the updated object data.
+     * @param boolean $raw    True if the data to be stored has been provided in
+     *                        raw format.
+     *
+     * @return NULL
+     *
+     * @throws Horde_Kolab_Storage_Exception In case an error occured while
+     *                                       saving the data.
+     */
+    public function modify($object, $raw = false);
+
+    /**
      * Retrieves the objects for the given UIDs.
      *
      * @param array $uids The message UIDs.
