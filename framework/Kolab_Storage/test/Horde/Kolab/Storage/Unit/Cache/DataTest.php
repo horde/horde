@@ -259,6 +259,18 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testExceptionOnDuplicate()
+    {
+        $this->_getSyncedCacheWithMoreData()
+            ->store(
+                array('3' => array('uid' => 'test')),
+                new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
+                '1'
+            );
+    }
 
     /**
      * @expectedException Horde_Kolab_Storage_Exception

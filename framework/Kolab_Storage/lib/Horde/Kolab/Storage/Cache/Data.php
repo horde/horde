@@ -369,7 +369,15 @@ class Horde_Kolab_Storage_Cache_Data
         $this->_load();
         foreach ($objects as $obid => $object) {
             if (!empty($object) && isset($object['uid'])) {
-                //@todo: exception on double object id?
+                if (isset($this->_data[self::O2B][$object['uid']])) {
+                    throw new Horde_Kolab_Storage_Exception(
+                        sprintf(
+                            'Duplicate object %s [data cache id: %s]!',
+                            $object['uid'],
+                            $this->getDataId()
+                        )
+                    );
+                }
                 $this->_data[self::B2O][$obid] = $object['uid'];
                 $this->_data[self::O2B][$object['uid']] = $obid;
                 if (isset($object['_attachments'])) {
