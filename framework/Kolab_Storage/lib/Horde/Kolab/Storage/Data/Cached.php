@@ -85,6 +85,7 @@ extends Horde_Kolab_Storage_Data_Base
                 $this->getStamp(),
                 $this->getVersion()
             );
+            $this->_data_cache->save();
         }
         return $result;
     }
@@ -133,6 +134,7 @@ extends Horde_Kolab_Storage_Data_Base
                 $this->getVersion(),
                 array($old_obid)
             );
+            $this->_data_cache->save();
         }
     }
 
