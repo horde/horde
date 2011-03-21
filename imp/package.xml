@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-18</date>
- <time>11:31:30</time>
+ <date>2011-03-21</date>
+ <time>17:34:26</time>
  <version>
   <release>5.0.0RC1</release>
   <api>5.0.0</api>
@@ -38,6 +38,7 @@
 * [jan] Remove application tabs from AJAX interface (Bug #9679).
 * [mms] Move all portal rendering code to Horde.
 * [mms] Fix flag display in message list in traditional view (Bug #9673).
+* [mms]Add ability to import/download mailboxes in dynamic view.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -293,6 +294,7 @@
     <dir name="Ui">
      <file name="Compose.php" role="horde" />
      <file name="Editor.php" role="horde" />
+     <file name="Folder.php" role="horde" />
      <file name="Headers.php" role="horde" />
      <file name="Imageview.php" role="horde" />
      <file name="Mailbox.php" role="horde" />
@@ -1333,6 +1335,7 @@
    <install as="imp/lib/Tree/Flist.php" name="lib/Tree/Flist.php" />
    <install as="imp/lib/Ui/Compose.php" name="lib/Ui/Compose.php" />
    <install as="imp/lib/Ui/Editor.php" name="lib/Ui/Editor.php" />
+   <install as="imp/lib/Ui/Folder.php" name="lib/Ui/Folder.php" />
    <install as="imp/lib/Ui/Headers.php" name="lib/Ui/Headers.php" />
    <install as="imp/lib/Ui/Imageview.php" name="lib/Ui/Imageview.php" />
    <install as="imp/lib/Ui/Mailbox.php" name="lib/Ui/Mailbox.php" />
@@ -1839,12 +1842,14 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-18</date>
+   <date>2011-03-21</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* Remove application tabs from DIMP and move quota bar to sidebar.
-* Fix flag display in message list in traditional view (Bug #9673).
 * First release candidate for Horde 4.
+* [jan] Remove application tabs from AJAX interface (Bug #9679).
+* [mms] Move all portal rendering code to Horde.
+* [mms] Fix flag display in message list in traditional view (Bug #9673).
+* [mms]Add ability to import/download mailboxes in dynamic view.
    </notes>
   </release>
  </changelog>

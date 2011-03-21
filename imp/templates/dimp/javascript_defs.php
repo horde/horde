@@ -137,6 +137,7 @@ $code['text'] = array(
     'empty_folder' => _("Permanently delete all messages in %s?"),
     'growlerinfo' => _("This is the notification log"),
     'hidealog' => Horde::highlightAccessKey(_("Hide Alerts _Log"), Horde::getAccessKey(_("Alerts _Log"), true)),
+    'import_mbox' => _("Mbox file:"),
     'listmsg_wait' => _("The server is still generating the message list."),
     'listmsg_timeout' => _("The server was unable to generate the message list."),
     'loading' => _("Loading..."),

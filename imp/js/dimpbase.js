@@ -9,7 +9,7 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   cfolderaction, expandfolder, folder, folderswitch, pollPE, pp,
+    //   expandfolder, folder, folderaction, folderswitch, pollPE, pp,
     //   preview_replace, qsearch_ghost, resize, rownum, search, splitbar,
     //   template, uid, viewport
     // msglist_template_horiz and msglist_template_vert set via
@@ -798,7 +798,7 @@ var DimpBase = {
         case 'ctx_folder_empty':
             tmp = e.findElement('LI');
 
-            this.cfolderaction = DimpCore.doAction.bind(DimpCore, 'emptyMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this._emptyMailboxCallback.bind(this) });
+            this.folderaction = DimpCore.doAction.bind(DimpCore, 'emptyMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this._emptyMailboxCallback.bind(this) });
 
             IMPDialog.display({
                 cancel_text: DIMP.text.cancel,
@@ -812,7 +812,7 @@ var DimpBase = {
         case 'ctx_vfolder_delete':
             tmp = e.findElement('LI');
 
-            this.cfolderaction = DimpCore.doAction.bind(DimpCore, 'deleteMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this.mailboxCallback.bind(this) });
+            this.folderaction = DimpCore.doAction.bind(DimpCore, 'deleteMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this.mailboxCallback.bind(this) });
 
             IMPDialog.display({
                 cancel_text: DIMP.text.cancel,
@@ -826,7 +826,7 @@ var DimpBase = {
         case 'ctx_folder_downloadzip':
             tmp = e.findElement('LI');
 
-            this.cfolderaction = DimpCore.redirect.bind(DimpCore, DimpCore.addURLParam(DIMP.conf.URI_VIEW, {
+            this.folderaction = DimpCore.redirect.bind(DimpCore, DimpCore.addURLParam(DIMP.conf.URI_VIEW, {
                 actionID: 'download_mbox',
                 mailbox: tmp.retrieve('mbox'),
                 zip: Number(id == 'ctx_folder_downloadzip')
@@ -837,6 +837,30 @@ var DimpBase = {
                 noinput: true,
                 ok_text: DIMP.text.ok,
                 text: DIMP.text.download_folder
+            });
+            break;
+
+        case 'ctx_folder_import':
+            tmp = e.findElement('LI').retrieve('mbox');
+
+            IMPDialog.display({
+                cancel_text: DIMP.text.cancel,
+                form: new Element('DIV').insert(
+                          new Element('INPUT', { name: 'import_file', type: 'file' })
+                      ).insert(
+                          new Element('INPUT', { name: 'import_mbox', value: tmp }).hide()
+                      ),
+                form_id: 'mbox_import',
+                form_opts: {
+                    action: DIMP.conf.URI_AJAX + 'importMailbox',
+                    className: 'RBForm',
+                    enctype: 'multipart/form-data',
+                    method: 'post',
+                    name: 'mbox_import',
+                    target: 'submit_frame'
+                },
+                ok_text: DIMP.text.ok,
+                text: DIMP.text.import_mbox
             });
             break;
 
@@ -2369,6 +2393,27 @@ var DimpBase = {
         }
     },
 
+    submitFrameHandler: function()
+    {
+        var sf = $('submit_frame'),
+            doc = sf.contentDocument || sf.contentWindow.document,
+            r = doc.body.innerHTML.evalJSON(true);
+
+        if (r) {
+            if (r.response.action) {
+                switch (r.response.action) {
+                case 'importMailbox':
+                    if (r.response.mbox = this.folder) {
+                        this.viewport.reload();
+                    }
+                    break;
+                }
+            }
+
+            DimpCore.doActionComplete({ responseJSON: r });
+        }
+    },
+
     toggleHelp: function()
     {
         Effect.toggle($('helptext').down('DIV'), 'blind', {
@@ -2407,7 +2452,7 @@ var DimpBase = {
 
     _createFolderForm: function(action, text, val)
     {
-        this.cfolderaction = action;
+        this.folderaction = action;
         IMPDialog.display({
             cancel_text: DIMP.text.cancel,
             input_val: val,
@@ -3152,6 +3197,10 @@ var DimpBase = {
         document.observe('dblclick', this.dblclickHandler.bindAsEventListener(this));
         Event.observe(window, 'resize', this.onResize.bind(this));
 
+        if (tmp = $('submit_frame')) {
+            tmp.observe('load', this.submitFrameHandler.bind(this));
+        }
+
         /* Limit to folders sidebar only. */
         $('foldersSidebar').observe('mouseover', this.mouseoverHandler.bindAsEventListener(this));
 
@@ -3369,7 +3418,11 @@ document.observe('DragDrop2:mouseup', DimpBase.onDragMouseUp.bindAsEventListener
 document.observe('IMPDialog:onClick', function(e) {
     switch (e.element().identify()) {
     case 'RB_confirm':
-        this.cfolderaction(e.memo);
+        this.folderaction(e.memo);
+        break;
+
+    case 'mbox_import':
+        e.element().submit();
         break;
     }
 }.bindAsEventListener(DimpBase));

@@ -2,7 +2,7 @@
 v5.0-RC1
 --------
 
-[mms] Add download mailbox ability to dynamic view.
+[mms] Add import/download mailbox ability to dynamic view.
 [jan] Remove application tabs from AJAX interface (Bug #9679).
 [mms] Move all portal rendering code to Horde.
 [mms] Fix flag display in message list in traditional view (Bug #9673).

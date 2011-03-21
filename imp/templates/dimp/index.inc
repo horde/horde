@@ -293,6 +293,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <div class="sep"></div>
  <a id="ctx_folder_download"><span class="iconImg"></span><?php echo _("Download") ?></a>
  <a id="ctx_folder_downloadzip"><span class="iconImg"></span><?php echo _("Download [.zip file]") ?></a>
+ <a id="ctx_folder_import"><span class="iconImg"></span><?php echo _("Import") ?></a>
 </div>
 
 <div class="context" id="ctx_folder_flag" style="display:none">
@@ -325,6 +326,8 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <div class="sep"></div>
  <a id="ctx_folderopts_reload"><span class="iconImg"></span><?php echo _("Rebuild Folder List") ?></a>
 </div>
+
+<iframe name="submit_frame" id="submit_frame" style="display:none" src="javascript:false;"></iframe>
 <?php endif; ?>
 
 <div class="context" id="ctx_noactions" style="display:none">

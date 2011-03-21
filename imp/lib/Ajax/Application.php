@@ -39,9 +39,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function responseType()
     {
-        return ($this->_action == 'addAttachment')
-            ? 'js-json'
-            : parent::responseType();
+        switch ($this->_action) {
+        case 'addAttachment':
+        case 'importMailbox':
+            return 'js-json';
+        }
+
+        return parent::responseType();
     }
 
     /**
@@ -535,6 +539,39 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         return $this->_vars->sub
             ? $imp_folder->subscribe(array($this->_vars->mbox))
             : $imp_folder->unsubscribe(array($this->_vars->mbox));
+    }
+
+    /**
+     * AJAX action: Import a mailbox.
+     *
+     * Variables used:
+     * <pre>
+     * 'import_mbox' - (string) The mailbox to import into.
+     * </pre>
+     *
+     * @return object  False on failure, or an object with the following
+     *                 properties:
+     * <pre>
+     * 'action' - (string) The action name (importMailbox).
+     * 'mbox' - (string) The mailbox the messages were imported to.
+     * </pre>
+     */
+    public function importMailbox()
+    {
+        global $injector, $notification;
+
+        try {
+            $notification->push($injector->getInstance('IMP_Ui_Folder')->importMbox($this->_vars->import_mbox, 'import_file'), 'horde.success');
+        } catch (Horde_Exception $e) {
+            $notification->push($e);
+            return false;
+        }
+
+        $result = new stdClass;
+        $result->action = 'importMailbox';
+        $result->mbox = $this->_vars->import_mbox;
+
+        return $result;
     }
 
     /**

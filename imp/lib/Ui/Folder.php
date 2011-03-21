@@ -58,4 +58,29 @@ class IMP_Ui_Folder
         exit;
     }
 
+    /**
+     * Import a MBOX file into a mailbox.
+     *
+     * @param string $mbox       The mailbox name to import into.
+     * @param string $form_name  The form field name that contains the MBOX
+     *                           data.
+     *
+     * @return string  Notification message.
+     * @throws Horde_Exception
+     */
+    public function importMbox($mbox, $form_name)
+    {
+        global $browser, $injector;
+
+        $browser->wasFileUploaded($form_name, _("mailbox file"));
+        $res = $injector->getInstance('IMP_Folder')->importMbox(Horde_String::convertCharset($mbox, 'UTF-8', 'UTF7-IMAP'), $_FILES[$form_name]['tmp_name']);
+        $mbox_name = basename(Horde_Util::dispelMagicQuotes($_FILES[$form_name]['name']));
+
+        if ($res === false) {
+            throw new IMP_Exception(sprintf(_("There was an error importing %s."), $mbox_name));
+        }
+
+        return sprintf(_("Imported %d messages from %s."), $res, $mbox_name);
+    }
+
 }

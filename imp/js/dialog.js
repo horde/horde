@@ -10,6 +10,7 @@
  *     form: '',
  *     // The ID for the form
  *     form_id: 'RB_confirm',
+ *     form_opts: {},
  *     input_val: '',
  *     noinput: false,
  *     // OK text.
@@ -73,7 +74,16 @@ var IMPDialog = {
             this.uri = data.uri;
         }
 
-        var n = new Element('FORM', { action: '#', id: data.form_id || 'RB_confirm' }).insert(
+        if (!data.form_opts) {
+            data.form_opts = {};
+        }
+
+        data.form_opts = Object.extend({
+            action: '#',
+            id: data.form_id || 'RB_confirm'
+        }, data.form_opts);
+
+        var n = new Element('FORM', data.form_opts).insert(
                     new Element('P').insert(data.text)
                 );
 

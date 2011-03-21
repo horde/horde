@@ -117,14 +117,7 @@ case 'download_folder_zip':
 case 'import_mbox':
     if ($vars->import_folder) {
         try {
-            $browser->wasFileUploaded('mbox_upload', _("mailbox file"));
-            $res = $imp_folder->importMbox(Horde_String::convertCharset($vars->import_folder, 'UTF-8', 'UTF7-IMAP'), $_FILES['mbox_upload']['tmp_name']);
-            $mbox_name = basename(Horde_Util::dispelMagicQuotes($_FILES['mbox_upload']['name']));
-            if ($res === false) {
-                $notification->push(sprintf(_("There was an error importing %s."), $mbox_name), 'horde.error');
-            } else {
-                $notification->push(sprintf(_("Imported %d messages from %s."), $res, $mbox_name), 'horde.success');
-            }
+            $notification->push($injector->getInstance('IMP_Ui_Folder')->importMbox($vars->import_folder, 'mbox_upload'), 'horde.success');
         } catch (Horde_Browser_Exception $e) {
             $notification->push($e);
         }
