@@ -378,7 +378,9 @@ class Nag_Driver_Kolab extends Nag_Driver
 
         foreach ($task_list as $task) {
             $tuid = $task['uid'];
-            $t = new Nag_Task($this->_buildTask($task));
+            $nag_task = $this->_buildTask($task);
+            $nag_task['tasklist_id'] = $this->_tasklist;
+            $t = new Nag_Task($nag_task);
             $complete = $t->completed;
             if (empty($t->start)) {
                 $start = null;
