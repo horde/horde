@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Horde 4.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-03-15 13:40+0100\n"
+"PO-Revision-Date: 2011-03-21 09:31+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -155,7 +155,7 @@ msgstr ""
 
 #: templates/prefs/twitter.html:9
 msgid "<tag:appname /> can interact with your Twitter account"
-msgstr "<tag:app_name /> kann mit Ihrem Twitter-Konto arbeiten."
+msgstr "<tag:appname /> kann mit Ihrem Twitter-Konto arbeiten"
 
 #: services/keyboard.php:46
 msgid "A characters"
@@ -2884,11 +2884,11 @@ msgstr ""
 
 #: config/prefs.php:622
 msgid "Set up integration with your Facebook account."
-msgstr "Integration mit Ihrem Facebook-Konto eingerichtet."
+msgstr "Integration mit Ihrem Facebook-Konto einrichten."
 
 #: config/prefs.php:642
 msgid "Set up integration with your Twitter account."
-msgstr "Integration mit Ihrem Twitter-Konto eingerichtet."
+msgstr "Integration mit Ihrem Twitter-Konto einrichten."
 
 #: config/prefs.php:601
 msgid "Set up remote servers that you want to access from your portal."
