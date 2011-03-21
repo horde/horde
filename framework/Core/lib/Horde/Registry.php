@@ -580,9 +580,7 @@ class Horde_Registry
 
         /* Scan for all APIs provided by each app, and set other common
          * defaults like templates and graphics. */
-        foreach (array_keys($this->applications) as $appName) {
-            $app = &$this->applications[$appName];
-
+        foreach ($this->applications as $appName => &$app) {
             if (!isset($app['status'])) {
                 $app['status'] = 'active';
             } elseif ($app['status'] == 'heading') {
