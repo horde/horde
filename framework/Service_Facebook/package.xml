@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* Refactored for OAuth2 Authentication
 * First release candidate for Horde 4.
  </notes>
  <contents>
@@ -514,6 +515,7 @@
    <date>2011-03-21</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
+* Refactored for OAuth2 Authentication
 * First release candidate for Horde 4.
    </notes>
   </release>
