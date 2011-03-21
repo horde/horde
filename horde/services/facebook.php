@@ -33,12 +33,13 @@ if ($code = Horde_Util::getFormData('code')) {
             $uid = $facebook->auth->getLoggedInUser();
             $prefs->setValue('facebook', serialize(array('uid' => $uid, 'sid' => $sid)));
             $notification->push(_("Succesfully connected your Facebook account or updated permissions."), 'horde.success');
-            $return_url->redirect();
+        } else {
+            $notification->push(_("There was an error obtaining your Facebook session. Please try again later."), 'horde.error');
         }
     } catch (Horde_Service_Facebook_Exception $e) {
         $notification->push(_("Temporarily unable to connect with Facebook, Please try again."), 'horde.error');
-        $return_url->redirect();
     }
+    $return_url->redirect();
 }
 
 if ($error = Horde_Util::getFormData('error')) {
