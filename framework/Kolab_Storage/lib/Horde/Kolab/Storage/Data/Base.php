@@ -168,7 +168,8 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      * @param boolean $raw    True if the data to be stored has been provided in
      *                        raw format.
      *
-     * @return NULL
+     * @return string The ID of the new object or true in case the backend does
+     *                not support this return value.
      *
      * @throws Horde_Kolab_Storage_Exception In case an error occured while
      *                                       saving the data.
@@ -178,7 +179,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         if (!isset($object['uid'])) {
             $object['uid'] = $this->generateUid();
         }
-        $this->_driver->getParser()
+        return $this->_driver->getParser()
             ->create(
                 $this->_folder->getPath(),
                 $object,
@@ -197,7 +198,8 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      * @param boolean $raw    True if the data to be stored has been provided in
      *                        raw format.
      *
-     * @return NULL
+     * @return string The new backend ID of the modified object or true in case
+     *                the backend does not support this return value.
      *
      * @throws Horde_Kolab_Storage_Exception In case an error occured while
      *                                       saving the data.
@@ -223,7 +225,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
                 )
             );
         }
-        $this->_driver->getParser()
+        return $this->_driver->getParser()
             ->modify(
                 $this->_folder->getPath(),
                 $object,
