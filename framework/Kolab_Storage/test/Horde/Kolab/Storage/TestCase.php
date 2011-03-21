@@ -30,7 +30,7 @@
 class Horde_Kolab_Storage_TestCase
 extends PHPUnit_Framework_TestCase
 {
-    protected function completeFactory($factory)
+    protected function completeFactory($factory = null)
     {
         if ($factory === null) {
             return new Horde_Kolab_Storage_Factory();
@@ -580,14 +580,16 @@ extends PHPUnit_Framework_TestCase
 
     protected function assertLogContains($message)
     {
+        $messages = array();
         $found = false;
         foreach ($this->logHandler->events as $event) {
             if (strstr($event['message'], $message) !== false) {
                 $found = true;
                 break;
             }
+            $messages[] = $event['message'];
         }
-        $this->assertTrue($found);
+        $this->assertTrue($found, sprintf("Did not find \"%s\" in [\n%s\n]", $message, join("\n", $messages)));
     }
 
     protected function assertLogRegExp($regular_expression)

@@ -80,7 +80,6 @@ implements Horde_Kolab_Storage_Data_Format
         }
         $mime_id = $this->matchMimeId($options['type'], $data->contentTypeMap());
         if (empty($mime_id)) {
-            //@todo: deal with exceptions
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     'Unable to identify Kolab mime part in message %s in folder %s!',
@@ -92,7 +91,6 @@ implements Horde_Kolab_Storage_Data_Format
 
         $mime_part = $data->getPart($mime_id);
         if (empty($mime_part)) {
-            //@todo: deal with exceptions
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     'Unable to identify Kolab mime part in message %s in folder %s!',
@@ -106,9 +104,20 @@ implements Horde_Kolab_Storage_Data_Format
         );
         $content = $mime_part->getContents(array('stream' => true));
         if (empty($options['raw'])) {
-            //@todo: deal with exceptions
-            return $this->_factory->createFormat('Xml', $options['type'], $options['version'])
-                ->load($content);
+            try {
+                return $this->_factory->createFormat('Xml', $options['type'], $options['version'])
+                    ->load($content);
+            } catch (Horde_Kolab_Format_Exception $e) {
+                throw new Horde_Kolab_Storage_Exception(
+                    sprintf(
+                        'Failed parsing Kolab object %s in folder %s!',
+                        $obid,
+                        $folder
+                    ),
+                    0,
+                    $e
+                );    
+            }
         } else {
             return array('content' => $content);
         }
@@ -219,12 +228,18 @@ implements Horde_Kolab_Storage_Data_Format
         $kolab = new Horde_Mime_Part();
         $kolab->setType($this->getMimeType($options['type']));
         if (empty($options['raw'])) {
-            $kolab->setContents(
-                $this->_factory
-                ->createFormat('Xml', $options['type'], $options['version'])
-                ->save($object),
-                array('encoding' => 'quoted-printable')
-            );
+            try {
+                $kolab->setContents(
+                    $this->_factory
+                    ->createFormat('Xml', $options['type'], $options['version'])
+                    ->save($object),
+                    array('encoding' => 'quoted-printable')
+                );
+            } catch (Horde_Kolab_Format_Exception $e) {
+                throw new Horde_Kolab_Storage_Exception(
+                    'Failed saving Kolab object!', 0, $e
+                );    
+            }
         } else {
             $kolab->setContents(
                 $object['content'],

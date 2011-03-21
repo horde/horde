@@ -44,6 +44,13 @@ implements  Horde_Kolab_Storage_Data_Parser
     private $_format;
 
     /**
+     * A log handler.
+     *
+     * @param mixed
+     */
+    private $_logger;
+
+    /**
      * Constructor
      *
      * @param Horde_Kolab_Storage_Driver $driver The backend driver.
@@ -52,6 +59,30 @@ implements  Horde_Kolab_Storage_Data_Parser
         Horde_Kolab_Storage_Driver $driver
     ) {
         $this->_driver = $driver;
+    }
+
+    /**
+     * Set the logger.
+     *
+     * @param mixed $logger The log handler (must provide the warn() method).
+     *
+     * @return NULL
+     */
+    public function setLogger($logger)
+    {
+        $this->_logger = $logger;
+    }
+
+    /**
+     * Indicate a problem in the log.
+     *
+     * @param string $message The warn message.
+     */
+    private function _warn($message)
+    {
+        if ($this->_logger !== null) {
+            $this->_logger->warn($message);
+        }
     }
 
     /**
@@ -109,8 +140,12 @@ implements  Horde_Kolab_Storage_Data_Parser
                     'Backend returned a structure without the expected "structure" element.'
                 );
             }
-            //@todo: deal with exceptions
-            $objects[$obid] = $this->getFormat()->parse($folder, $obid, $structure['structure'], $options);
+            try {
+                $objects[$obid] = $this->getFormat()->parse($folder, $obid, $structure['structure'], $options);
+            } catch (Horde_Kolab_Storage_Exception $e) {
+                $objects[$obid] = false;
+                $this->_warn($e->getMessage());
+            }
             if ($this->_driver->hasCatenateSupport()) {
                 $objects[$obid]['__structure'] = $structure['structure'];
             }
@@ -129,7 +164,7 @@ implements  Horde_Kolab_Storage_Data_Parser
      *
      * @return NULL
      */
-    private function _fetchAttachments(array &$object, $folder, $obid, $options = array())
+    private function _fetchAttachments(&$object, $folder, $obid, $options = array())
     {
         //@todo: implement
     }

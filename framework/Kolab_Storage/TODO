@@ -4,8 +4,6 @@
 
  - Handle TLS/SSL accross all drivers (see also the Storage factory in Core).
 
- - Handle Format parsing exceptions
-
  - Readd history updates
 
  - Use IMAP Condstore

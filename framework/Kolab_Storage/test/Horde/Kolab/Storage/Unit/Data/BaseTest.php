@@ -35,6 +35,22 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 class Horde_Kolab_Storage_Unit_Data_BaseTest
 extends Horde_Kolab_Storage_TestCase
 {
+
+    public function testBrokenObject()
+    {
+        $this->assertEquals(
+            array(1 => false),
+            $this->_getBrokenStore()->fetch(array('1'))
+        );
+    }
+
+    public function testBrokenObjectLog()
+    {
+        $this->_getBrokenStore(array('logger' => $this->getMockLogger()))
+            ->fetch(array('1'));
+        $this->assertLogContains('Unable to identify Kolab mime part in message 1 in folder INBOX/Notes!');
+    }
+
     public function testDefaultType()
     {
         $this->assertEquals(
@@ -374,5 +390,38 @@ extends Horde_Kolab_Storage_TestCase
         $data->modify(array('summary' => 'modified', 'uid' => 'UID'));
         $object = $data->getObject('UID');
         $this->assertEquals('modified', $object['summary']);
+    }
+     
+    private function _getBrokenStore($params = array())
+    {
+        $default_params = array(
+            'cache' => new Horde_Cache(new Horde_Cache_Storage_Mock()),
+            'driver' => 'mock',
+            'params' => array(
+                'username' => 'test',
+                'host' => 'localhost',
+                'port' => 143,
+                'data' => $this->getMockData(
+                    array(
+                        'user/test' => null,
+                        'user/test/Notes' => array(
+                            't' => 'note.default',
+                            'm' => array(
+                                1 => array(
+                                    'stream' => fopen(
+                                        dirname(__FILE__) . '/../../fixtures/broken_note.eml', 'r'
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        );
+        $params = array_merge($default_params, $params);
+        $factory = new Horde_Kolab_Storage_Factory($params);
+        $driver = $factory->createDriver();
+        $storage = $this->createStorage($driver, $factory);
+        return $storage->getData('INBOX/Notes');
     }
 }

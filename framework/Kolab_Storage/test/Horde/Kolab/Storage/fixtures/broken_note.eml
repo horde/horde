@@ -1,0 +1,43 @@
+From: a@example.com
+To: a@example.com
+Date: Mon, 07 Mar 2011 08:58:04 +0100
+X-Kolab-Type: application/x-vnd.kolab.note
+Subject: 57da39631fb128d4cb0141ff5dbdfbdf
+User-Agent: Horde::Kolab::Storage v0.2
+MIME-Version: 1.0
+Content-Type: text/plain
+Content-Disposition: attachment; size=1072
+
+--=_4m0ibqrletyc
+Content-Type: text/plain;
+	charset=UTF-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Die ist ein Kolab-Groupware-Objekt. Um dieses Objekt anzuzeigen, ben=C3=B6ti=
+gen
+Sie ein E-Mail-Programm, das das Kolab-Groupware-Format unterst=C3=BCtzt. Ei=
+ne
+Liste solcher Programme finden Sie unter
+http://www.kolab.org/kolab2-clients.html
+--=_4m0ibqrletyc
+Content-Type: application/x-vnd.kolab.note;
+	name="kolab.xml"
+Content-Disposition: attachment;
+	filename="kolab.xml"
+Content-Transfer-Encoding: quoted-printable
+
+<?xml version=3D"1.0"?>
+<note version=3D"1.0">
+  <uid>57da39631fb128d4cb0141ff5dbdfbdf</uid>
+  <body>a</body>
+  <categories></categories>
+  <creation-date>2011-03-07T07:58:04Z</creation-date>
+  <last-modification-date>2011-03-07T07:58:04Z</last-modification-date>
+  <sensitivity>public</sensitivity>
+  <product-id>Horde::Kolab</product-id>
+  <summary>a</summary>
+  <background-color>#000000</background-color>
+  <foreground-color>#ffff00</foreground-color>
+</note>
+--=_4m0ibqrletyc--
