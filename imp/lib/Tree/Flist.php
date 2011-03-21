@@ -101,7 +101,7 @@ class IMP_Tree_Flist extends Horde_Tree_Select
                 $vfolder_list[] = array(
                     'l' => $filter->filter($val->label, 'space2html', array('encode' => true)),
                     'sel' => (IMP::$mailbox == $val),
-                    'v' => $val->form_to
+                    'v' => IMP_Mailbox::formTo($val)
                 );
             }
 
