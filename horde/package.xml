@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-22</date>
- <time>21:50:38</time>
+ <date>2011-03-23</date>
+ <time>00:12:13</time>
  <version>
   <release>4.0.0RC1</release>
   <api>4.0.0</api>
@@ -3967,7 +3967,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-22</date>
+   <date>2011-03-23</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First release candidate for Horde 4.
