@@ -333,7 +333,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $reply_type = 'forward';
         }
 
-        if ($GLOBALS['session']->get('imp', 'view') == 'mimp') {
+        if (IMP::getViewMode() == 'mimp') {
             $compose_html = false;
         } elseif ($prefs->getValue('compose_html')) {
             $compose_html = true;
@@ -1578,7 +1578,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      */
     protected function _msgTextFormat($opts, $pref_name)
     {
-        if ($GLOBALS['session']->get('imp', 'view') == 'mimp') {
+        if (IMP::getViewMode() == 'mimp') {
             $compose_html = $force_html = false;
         } elseif (!empty($opts['format'])) {
             $compose_html = $force_html = ($opts['format'] == 'html');

@@ -19,7 +19,7 @@ Horde_Registry::appInit('imp', array(
 ));
 
 /* This is an IMP-only script. */
-if ($session->get('imp', 'view') != 'imp') {
+if (IMP::getViewMode() != 'imp') {
     exit;
 }
 

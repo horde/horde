@@ -15,7 +15,6 @@
 class IMP_Prefs_Ui
 {
     const PREF_DEFAULT = "default\0";
-    const PREF_FOLDER_PAGE = 'folders.php';
     const PREF_NO_FOLDER = "nofolder\0";
     const PREF_SPECIALUSE = "specialuse\0";
 
@@ -951,13 +950,15 @@ class IMP_Prefs_Ui
         if (!$injector->getInstance('IMP_Factory_Imap')->create()->allowFolders()) {
             $t->set('nofolder', true);
         } else {
-            $mailbox_selected = $prefs->getValue('initial_page');
-            $t->set('folder_page', IMP_Mailbox::formTo(self::PREF_FOLDER_PAGE));
-            $t->set('folder_sel', $mailbox_selected == self::PREF_FOLDER_PAGE);
+            if (!($initial_page = $prefs->getValue('initial_page'))) {
+                $initial_page = 'INBOX';
+            }
+            $t->set('folder_page', IMP_Mailbox::formTo(IMP::INITIAL_FOLDERS));
+            $t->set('folder_sel', $initial_page == IMP::INITIAL_FOLDERS);
             $t->set('flist', IMP::flistSelect(array(
                 'basename' => true,
                 'inc_vfolder' => true,
-                'selected' => $mailbox_selected
+                'selected' => $initial_page
             )));
         }
 

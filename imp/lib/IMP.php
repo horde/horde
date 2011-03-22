@@ -29,6 +29,9 @@ class IMP
     const NOTEPAD_EDIT = "notepad\0";
     const TASKLIST_EDIT = "tasklist\0";
 
+    /* Initial page constants. */
+    const INITIAL_FOLDERS = "initial\0folders";
+
     /* Sorting constants. */
     const IMAP_SORT_DATE = 100;
 
@@ -63,8 +66,7 @@ class IMP
     /**
      * Returns the current view mode for IMP.
      *
-     * @return string  Either 'traditional', 'dynamic', or 'mobile' or
-     *                 'smartmobile'.
+     * @return string  Either 'dimp', 'imp', 'mimp', or 'mobile'.
      */
     static public function getViewMode()
     {

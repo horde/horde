@@ -26,6 +26,7 @@
  * showunsub - (boolean) Show unsusubscribed mailboxes on the folders
  *             screen.
  * tasklistavail - (boolean) Is listing of tasklists available?
+ * view - (string) Either 'dimp', 'imp', 'mimp', or 'mobile'.
  * </pre>
  *
  * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
@@ -289,53 +290,77 @@ class IMP_Auth
     /**
      * Returns the initial page.
      *
-     * @param boolean $url  Return a URL instead of a file path.
-     *
-     * @return string  Either the file path or a URL to the initial page.
+     * @return object  Object with the following properties:
+     *   - fullpath (string)
+     *   - mbox (IMP_Mailbox)
+     *   - page (string)
+     *   - url (Horde_Url)
      */
-    static public function getInitialPage($url = false)
+    static public function getInitialPage()
     {
-        switch ($GLOBALS['session']->get('imp', 'view')) {
+        $init_url = $GLOBALS['prefs']->getValue('initial_page');
+        if (!$init_url ||
+            ($GLOBALS['session']->get('imp', 'protocol') == 'pop')) {
+            $init_url = 'INBOX';
+        }
+
+        if ($init_url == IMP::INITIAL_FOLDERS) {
+            $mbox = null;
+        } else {
+            $mbox = IMP_Mailbox::get($init_url);
+            if (!$mbox->exists) {
+                $mbox = IMP_Mailbox::get('INBOX');
+            }
+
+            IMP::setCurrentMailboxInfo($mbox);
+        }
+
+        $result = new stdClass;
+        $result->mbox = $mbox;
+
+        switch (IMP::getViewMode()) {
         case 'dimp':
+            if (is_null($mbox)) {
+                $result->mbox = IMP_Mailbox::get('INBOX');
+            }
             $page = 'index-dimp.php';
             break;
 
+        case 'imp':
+            if (is_null($mbox)) {
+                $page = 'folders.php';
+            } else {
+                $page = 'mailbox.php';
+                $result->url = IMP::generateIMPUrl($page, $mbox);
+            }
+            break;
+
         case 'mimp':
-            $page = 'mailbox-mimp.php';
+            if (is_null($mbox)) {
+                $page = 'folders-mimp.php';
+            } else {
+                $page ='mailbox-mimp.php';
+                $result->url = IMP::generateIMPUrl($page, $mbox);
+            }
             break;
 
         case 'mobile':
+            // TODO: Folders for mobile page?
+            if (is_null($mbox)) {
+                $result->mbox = IMP_Mailbox::get('INBOX');
+            }
             $page = 'mobile.php';
             break;
-
-        default:
-            $init_url = ($GLOBALS['session']->get('imp', 'protocol') == 'pop')
-                ? 'INBOX'
-                : $GLOBALS['prefs']->getValue('initial_page');
-
-            $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-            if ($imp_search->isSearchMbox($init_url) &&
-                (!$imp_search[$init_url]->enabled)) {
-                $init_url = 'INBOX';
-            }
-
-            switch ($init_url) {
-            case 'folders.php':
-                $page = $init_url;
-                break;
-
-            default:
-                $page = 'mailbox.php';
-                if ($url) {
-                    return Horde::url($page, true)->add('mailbox', $init_url);
-                }
-                IMP::setCurrentMailboxInfo($init_url);
-                break;
-            }
         }
-        return $url
-            ? Horde::url($page, true)
-            : IMP_BASE . '/' . $page;
+
+        $result->fullpath = IMP_BASE . '/' . $page;
+        $result->page = $page;
+
+        if (!isset($result->url)) {
+            $result->url = Horde::url($page, true);
+        }
+
+        return $result;
     }
 
     /**
@@ -442,12 +467,16 @@ class IMP_Auth
             case 'traditional':
                 $impview = IMP::showAjaxView() ? 'dimp' : 'imp';
                 break;
+
             case 'smartmobile':
                 $impview = Horde::ajaxAvailable() ? 'mobile' : 'mimp';
                 break;
+
             case 'mobile':
                 $impview = 'mimp';
+                break;
             }
+
             $session->set('imp', 'view', $impview);
         }
 
@@ -468,27 +497,6 @@ class IMP_Auth
         $session->set('imp', 'rteavail', $injector->getInstance('Horde_Editor')->supportedByBrowser());
 
         self::_logMessage(true, $imp_imap);
-    }
-
-    /**
-     * Sets the current view mode.
-     *
-     * @return string  Either 'dimp', 'imp', or 'mimp'.
-     */
-    static public function setViewMode($view)
-    {
-        /* Enforce minimum browser standards for DIMP. */
-        if (($view == 'dimp' || $view == 'mobile') && !Horde::ajaxAvailable()) {
-            if ($view == 'dimp') {
-                $view = 'imp';
-                $GLOBALS['notification']->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
-            } else {
-                $view = 'mimp';
-                $GLOBALS['notification']->push(_("Your browser is too old to display the smartphone mode. Using mobile mode instead."), 'horde.warning');
-            }
-        }
-
-        $GLOBALS['session']->set('imp', 'view', $view);
     }
 
 }

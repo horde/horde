@@ -192,7 +192,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
 
         if (!$prefs->isDefault('initial_page')) {
             if ($prefs->getValue('initial_page') == 'folders.php') {
-                $prefs->setValue('initial_page', IMP_Prefs_Ui::PREF_FOLDER_PAGE);
+                $prefs->setValue('initial_page', IMP::INITIAL_FOLDERS);
             } elseif (strpos($prefs->getValue('initial_page'), '**search_') === 0) {
                 /* No easy way to convert old virtual folder label to new
                  * label, so revert to default. */
@@ -352,7 +352,9 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
                 } elseif (!is_null($use_vtrash) &&
                           ($val instanceof IMP_Search_Vfolder_Vtrash)) {
                     $val->enabled = (bool)$use_vtrash;
-                    $prefs->setValue('trash_folder', strval($val));
+                    if ($use_vtrash) {
+                        $prefs->setValue('trash_folder', strval($val));
+                    }
                 }
             }
             $prefs->setValue('vfolder', serialize($vfolders));

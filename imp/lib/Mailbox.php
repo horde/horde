@@ -214,6 +214,10 @@ class IMP_Mailbox implements Serializable
             return $injector->getInstance('IMP_Search')->isVFolder($this->_mbox, true);
 
         case 'exists':
+            if ($ob = $this->getSearchOb()) {
+                return $ob->enabled;
+            }
+
             $imaptree = $injector->getInstance('IMP_Imap_Tree');
             if (isset($imaptree[$this->_mbox])) {
                 return !$imaptree[$this->_mbox]->container;

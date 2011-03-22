@@ -70,7 +70,7 @@ $code['conf'] = array_filter(array(
     'flags_o' => array_keys($flags),
     'fsearchid' => IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_FILTERSEARCH,
     'ham_spammbox' => intval(!empty($GLOBALS['conf']['notspam']['spamfolder'])),
-    'login_view' => $GLOBALS['prefs']->getValue('dimp_login_view'),
+    'initial_page' => strval(IMP_Auth::getInitialPage()->mbox),
     'mbox_expand' => intval($GLOBALS['prefs']->getValue('nav_expanded') == 2),
     'name' => $GLOBALS['registry']->get('name', 'imp'),
     'pop3' => intval($GLOBALS['session']->get('imp', 'protocol') == 'pop'),
