@@ -50,7 +50,7 @@ class IMP_Hooks
      *
      * See horde/config/hooks.php.dist for more information.
      */
-//    public function prefs_init($pref, $value, $username)
+//    public function prefs_init($pref, $value, $username, $scope_ob)
 //    {
 //        switch ($pref) {
 //        case 'add_source':
