@@ -24,7 +24,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-22</date>
- <time>21:55:55</time>
+ <time>23:19:16</time>
  <version>
   <release>1.0.0RC1</release>
   <api>1.0.0</api>
@@ -276,9 +276,9 @@
    <notes>
 * Imap driver now uses Horde_Imap_Client library.
 * Add signup drivers to package.xml (Bug #7345).
-* Fix the &quot;overwriting realm info from application auth drivers&quot; (Bug #6749)
+* Fix the "overwriting realm info from application auth drivers" (Bug #6749)
 * Switched Kolab auth handling from IMAP to LDAP by using Kolab_Server.
-* Added &quot;add user&quot; capability to the Kolab driver.
+* Added "add user" capability to the Kolab driver.
 * Adapted the Kolab auth driver to the changes in Kolab_Server.
    </notes>
   </release>
