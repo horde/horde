@@ -24,7 +24,7 @@
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
 * First release candidate for Horde 4.
-* [mjr] Refactor for Horde 4
+* [mjr] Refactor for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

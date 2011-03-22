@@ -23,8 +23,8 @@
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
 * First release candidate for Horde 4.
-* Fix fetching by sequence number when caching.
-* Use UIDPLUS results to copy cached data to new mailbox when copying messags.
+* [mms] Use UIDPLUS results to copy cached data to new mailbox when copying messags.
+* [mms] Fix fetching by sequence number when caching.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

@@ -35,7 +35,7 @@
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
 * First release candidate for Horde 4.
-* [mjr] Fix IMSP driver
+* [mjr] Fix IMSP driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

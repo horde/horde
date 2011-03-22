@@ -42,10 +42,9 @@
  <notes>
 * First release candidate for Horde 4.
 * [gwr] Adapted the Kolab driver to Horde 4.
+* [mjr] Fix issue that caused erroneous file listings for objects in sources without a __uid value.
 * [cjh] Fix storing of binary fields.
 * [mjr] Fix/refactor IMSP driver.
-* [mjr] Fix issue that caused erroneous file listings for objects in sources
-        without a __uid value.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

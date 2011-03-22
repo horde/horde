@@ -35,16 +35,16 @@
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
 * First release candidate for Horde 4.
+* [mms] Fix upgrading virtual folders from IMP 4 (Bug #9692).
+* [mms] Fix editing the size search criteria.
+* [mms] Optimize importing messages from mbox file.
+* [mms] Fix deletion from Virtual Inbox in standard view (Bug #9686).
+* [mms] Fix loading virtual folders from drop-down folder list (Bug #9687).
+* [mms] Fix thread sort by newest messages first (Bug #9685).
+* [mms] Add ability to import/download mailboxes in dynamic view.
 * [jan] Remove application tabs from AJAX interface (Bug #9679).
 * [mms] Move all portal rendering code to Horde.
 * [mms] Fix flag display in message list in traditional view (Bug #9673).
-* [mms] Add ability to import/download mailboxes in dynamic view.
-* [mms] Fix thread sort by newest messages first (Bug #9685).
-* [mms] Fix loading virtual folders from drop-down folder list (Bug #9687).
-* [mms] Fix deletion from Virtual Inbox in standard view (Bug #9686).
-* [mms] Optimize importing messages from mbox file.
-* [mms] Fix editing the size search criteria.
-* [mms] Fix upgrading virtual folders from IMP 4 (Bug #9692).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
