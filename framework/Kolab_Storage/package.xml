@@ -12,9 +12,9 @@
   <active>yes</active>
  </lead>
  <date>2011-03-22</date>
- <time>23:26:28</time>
+ <time>23:26:41</time>
  <version>
-  <release>1.0.0RC1</release>
+  <release>1.0.0RC2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -23,10 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* First release candidate for Horde 4.
-* [gwr] Fix creating/modifying objects.
-* [gwr] Deal with Kolab_Format parsing exceptions.
-* [gwr] Throw an exception on a duplicate UID within one folder.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -954,6 +951,19 @@
 * [gwr] Fix creating/modifying objects.
 * [gwr] Deal with Kolab_Format parsing exceptions.
 * [gwr] Throw an exception on a duplicate UID within one folder.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-03-22</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
