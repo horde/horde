@@ -18,6 +18,17 @@
 class IMP_Folder
 {
     /**
+     * Working array for importMbox().
+     *
+     * @var array
+     */
+    protected $_import = array(
+        'data' => array(),
+        'msgs' => 0,
+        'size' => 0
+    );
+
+    /**
      * Deletes one or more folders.
      *
      * @param array $folders  Folders to be deleted (UTF7-IMAP).
@@ -346,46 +357,79 @@ class IMP_Folder
     }
 
     /**
-     * Imports messages into a given folder from a mbox format mailbox file.
+     * Imports messages into a given mailbox from a mbox file.
      *
-     * @param string $folder  The folder to put the messages into (UTF7-IMAP).
-     * @param string $mbox    String containing the mbox filename.
+     * @param string $mailbox  The mailbox to put the messages into
+     *                         (UTF7-IMAP).
+     * @param string $fname    Filename containing the mbox data.
      *
      * @return mixed  False (boolean) on fail or the number of messages
      *                imported (integer) on success.
      */
-    public function importMbox($folder, $mbox)
+    public function importMbox($mailbox, $fname)
     {
-        $message = '';
-        $msgcount = 0;
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $msg = null;
 
-        $fd = fopen($mbox, 'r');
+        if (!file_exists($fname)) {
+            return false;
+        }
+
+        $fd = fopen($fname, 'r');
         while (!feof($fd)) {
             $line = fgets($fd);
 
             if (preg_match('/From (.+@.+|- )/A', $line)) {
-                if (!empty($message)) {
-                    try {
-                        $imp_imap->append($folder, array(array('data' => $message)));
-                        ++$msgcount;
-                    } catch (Horde_Imap_Client_Exception $e) {}
+                if ($msg) {
+                    /* Send in chunks to take advantage of MULTIAPPEND (if
+                     * available). */
+                    $this->_importMbox($msg, $mailbox, true);
                 }
-                $message = '';
-            } else {
-                $message .= $line;
+
+                $msg = fopen('php://temp', 'r+');
+            } elseif ($msg) {
+                fwrite($msg, $line);
             }
         }
         fclose($fd);
 
-        if (!empty($message)) {
-            try {
-                $imp_imap->append($folder, array(array('data' => $message)));
-                ++$msgcount;
-            } catch (Horde_Imap_Client_Exception $e) {}
+        if ($msg) {
+            $this->_importMbox($msg, $mailbox);
         }
 
-        return $msgcount ? $msgcount : false;
+        return $this->_import['msgs']
+            ? $this->_import['msgs']
+            : false;
+    }
+
+    /**
+     * Helper for importMbox().
+     *
+     * @param resource $msg    Stream containing message data.
+     * @param string $mailbox  The mailbox to put the messages into
+     *                         (UTF7-IMAP).
+     * @param integer $buffer  Buffer messages before sending?
+     */
+    protected function _importMbox($msg, $mailbox, $buffer = false)
+    {
+        $this->_import['data'][] = array('data' => $msg);
+        $this->_import['size'] += intval(ftell($msg));
+
+        /* Buffer 5 MB of messages before sending. */
+        if ($buffer && ($this->_import['size'] < 5242880)) {
+            return;
+        }
+
+        try {
+            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->append($mailbox, $this->_import['data']);
+            $this->_import['msgs'] += count($this->_import['data']);
+        } catch (Horde_Imap_Client_Exception $e) {}
+
+        foreach ($this->_import['data'] as $val) {
+            fclose($val['data']);
+        }
+
+        $this->_import['data'] = array();
+        $this->_import['size'] = 0;
     }
 
 }

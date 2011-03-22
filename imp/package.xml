@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-21</date>
- <time>22:25:30</time>
+ <date>2011-03-22</date>
+ <time>01:25:50</time>
  <version>
   <release>5.0.0RC1</release>
   <api>5.0.0</api>
@@ -42,6 +42,7 @@
 * [mms] Fix thread sort by newest messages first (Bug #9685).
 * [mms] Fix loading virtual folders from drop-down folder list (Bug #9687).
 * [mms] Fix deletion from Virtual Inbox in standard view (Bug #9686).
+* [mms] Optimize importing messages from mbox file.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1845,7 +1846,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-21</date>
+   <date>2011-03-22</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * First release candidate for Horde 4.
@@ -1856,6 +1857,7 @@
 * [mms] Fix thread sort by newest messages first (Bug #9685).
 * [mms] Fix loading virtual folders from drop-down folder list (Bug #9687).
 * [mms] Fix deletion from Virtual Inbox in standard view (Bug #9686).
+* [mms] Optimize importing messages from mbox file.
    </notes>
   </release>
  </changelog>
