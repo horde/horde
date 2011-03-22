@@ -318,7 +318,6 @@ class Accounts_Driver_localhost extends Accounts_Driver {
         // name from the login directory, and use that instead.
         if ($this->params['translateMountPoint'] &&
             file_exists($this->params['translationTable'])) {
-            require_once 'File/Fstab.php';
             $sysTab = File_Fstab::singleton($this->params['translationTable']);
             do {
                 $entry = $sysTab->getEntryForPath($homedir);
