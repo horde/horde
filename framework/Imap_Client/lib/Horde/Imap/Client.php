@@ -155,14 +155,14 @@ class Horde_Imap_Client
      *
      * Optional Parameters:
      * --------------------
-     * cache - (array) If set, caches data from fetch() calls. Requires the
-     *         horde/Cache package to be installed. The array can contain the
-     *         following keys (see Horde_Imap_Client_Cache:: for default
-     *         values):
+     * cache - (array) If set, caches data from fetch(), search(), and
+     *         thread() calls. Requires the horde/Cache package to be
+     *         installed. The array can contain the following keys (see
+     *         Horde_Imap_Client_Cache:: for default values):
      *   cacheob - [REQUIRED] (Horde_Cache) The cache object to use.
-     *   fields - [OPTIONAL] (array) The fetch criteria to cache. If not
-     *            defined, all cacheable data is cached. The following is a
-     *            list of criteria that can be cached:
+     *   fields - (array) The fetch criteria to cache. If not defined, all
+     *            cacheable data is cached. The following is a list of
+     *            criteria that can be cached:
      *              + Horde_Imap_Client::FETCH_ENVELOPE
      *              + Horde_Imap_Client::FETCH_FLAGS
      *                Only if server supports CONDSTORE extension
@@ -171,9 +171,8 @@ class Horde_Imap_Client
      *              + Horde_Imap_Client::FETCH_IMAPDATE
      *              + Horde_Imap_Client::FETCH_SIZE
      *              + Horde_Imap_Client::FETCH_STRUCTURE
-     *   lifetime - [OPTIONAL] (integer) The lifetime of the cache data (in
-     *              seconds).
-     *   slicesize - [OPTIONAL] (integer) The slicesize to use.
+     *   lifetime - (integer) The lifetime of the cache data (in seconds).
+     *   slicesize - (integer) The slicesize to use.
      * capability_ignore - (array) A list of IMAP capabilites to ignore, even
      *                     if they are supported on the server.
      *                     DEFAULT: No supported capabilities are ignored
