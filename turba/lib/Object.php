@@ -316,6 +316,9 @@ class Turba_Object
      */
     public function addFile(array $info)
     {
+        if (!$this->getValue('__uid')) {
+            throw new Turba_Exception('VFS not supported for this object.');
+        }
         $this->_vfsInit();
         $dir = Turba::VFS_PATH . '/' . $this->getValue('__uid');
         $file = $info['name'];
@@ -346,6 +349,9 @@ class Turba_Object
      */
     public function deleteFile($file)
     {
+        if (!$this->getValue('__uid')) {
+            throw new Turba_Exception('VFS not supported for this object.');
+        }
         $this->_vfsInit();
         try {
             $this->_vfs->deleteFile(Turba::VFS_PATH . '/' . $this->getValue('__uid'), $file);
@@ -361,6 +367,9 @@ class Turba_Object
      */
     public function deleteFiles()
     {
+        if (!$this->getValue('__uid')) {
+            throw new Turba_Exception('VFS not supported for this object.');
+        }
         $this->_vfsInit();
         if ($this->_vfs->exists(Turba::VFS_PATH, $this->getValue('__uid'))) {
             try {
