@@ -32,30 +32,29 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      *
      * URL parameters used by this function:
      * <pre>
-     * 'imp_img_view' - (string) One of the following:
-     *   'data' - Output the image directly.
-     *   'view_convert' - TODO
-     *   'view_thumbnail' - TODO
+     * imp_img_view - (string) One of the following:
+     *   data - Output the image directly.
+     *   view_convert - Convert the image to browser-viewable format and
+     *                  display.
+     *   view_thumbnail - Create thumbnail and display.
      * </pre>
      *
      * @return array  See parent::render().
      */
     protected function _render()
     {
-        $view = Horde_Util::getFormData('imp_img_view');
-
-        switch ($view) {
+        switch (Horde_Util::getFormData('imp_img_view')) {
         case 'data':
             /* If calling page is asking us to output data, do that without
              * any further delay and exit. */
             return parent::_render();
 
         case 'view_convert':
-            /* Convert the image to browser-viewable format and display. */
+            /* Convert image to browser-viewable format and display. */
             return $this->_viewConvert(false);
 
         case 'view_thumbnail':
-            /* Create the thumbnail and display. */
+            /* Create thumbnail and display. */
             return $this->_viewConvert(true);
 
         default:
