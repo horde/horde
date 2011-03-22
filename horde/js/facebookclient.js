@@ -24,13 +24,16 @@ var Horde_Facebook = Class.create({
      * opts.getmore
      * opts.button
      * opts.instance
-     *
+     * opts.filter
+     * opts.count
      *
      */
     initialize: function(opts)
     {
         this.opts = Object.extend({
-            refreshrate: 300
+            refreshrate: 300,
+            count: 10,
+            filter: 'nf'
         }, opts);
 
         this.getNewEntries();
@@ -91,7 +94,9 @@ var Horde_Facebook = Class.create({
         var params = {
             'actionID': 'getStream',
             'newest': this.oldest,
-            'instance': this.opts.instance
+            'instance': this.opts.instance,
+            'count': this.opts.count,
+            'filter': this.opts.filter
         };
         new Ajax.Request(this.opts.endpoint, {
             method: 'post',
@@ -119,7 +124,9 @@ var Horde_Facebook = Class.create({
             'notifications': this.opts.notifications,
             'oldest': this.oldest,
             'newest': this.newest,
-            'instance': this.opts.instance
+            'instance': this.opts.instance,
+            'count': this.opts.count,
+            'filter': this.opts.filter
          };
         new Ajax.Request(this.opts.endpoint, {
             method: 'post',

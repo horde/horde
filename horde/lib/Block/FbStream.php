@@ -58,7 +58,7 @@ class Horde_Block_FbStream extends Horde_Core_Block
             'count' => array(
                 'type' => 'int',
                 'name' => _("Maximum number of entries to display"),
-                'default' => ''
+                'default' => '20'
             ),
             'notifications' => array(
                 'type' => 'boolean',
@@ -112,7 +112,9 @@ class Horde_Block_FbStream extends Horde_Core_Block
                getmore: '{$instance}_getmore',
                'input': '{$instance}_newStatus',
                'button': '{$instance}_button',
-               instance: '{$instance}'
+               instance: '{$instance}',
+               'filter': '{$this->_params['filter']}',
+               'count': '{$this->_params['count']}'
             });
 EOT;
         Horde::addInlineScript($script, 'dom');
