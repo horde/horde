@@ -1721,7 +1721,6 @@
     <case name="false" desc="Disabled" />
     <case name="true" desc="Enabled">
      <configstring name="id" desc="Application API ID"></configstring>
-     <configstring name="key" desc="Application API Key"></configstring>
      <configstring name="secret" desc="Application Secret"></configstring>
     </case>
    </configswitch>
