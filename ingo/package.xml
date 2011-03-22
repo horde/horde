@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-03-23</date>
- <time>00:17:42</time>
+ <time>00:18:32</time>
  <version>
-  <release>2.0.0RC1</release>
+  <release>2.0.0RC2</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -34,9 +34,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* First release candidate for Horde 4.
-* [jan] Fix instantiation of VFS transport driver (Bug #9605).
-* [jan] Fix moving rules with the SQL driver (Bug #9672).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -863,6 +861,19 @@
 * First release candidate for Horde 4.
 * [jan] Fix instantiation of VFS transport driver (Bug #9605).
 * [jan] Fix moving rules with the SQL driver (Bug #9672).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-03-23</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
