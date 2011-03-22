@@ -476,7 +476,7 @@ class Turba
                 try {
                     $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
                 } catch (Turba_Exception $e) {
-                    $GLOBALS['notification']->push($driver, 'horde.error');
+                    $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
                     continue;
                 }
 
