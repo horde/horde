@@ -1755,8 +1755,12 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
                     $c['samelevel'] = $tmp->value;
 
                     /* Check to make sure current element is valid. */
-                    if (!$this->_activeElt($this->current())) {
-                        $this->next();
+                    if ($curr = $this->current()) {
+                        if (!$this->_activeElt($curr)) {
+                            $this->next();
+                        }
+                    } else {
+                        $this->_currkey = null;
                     }
                 } else {
                     $this->_currparent = $tmp->parent;
