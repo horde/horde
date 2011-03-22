@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>horde</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Application Framework</summary>
@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-18</date>
- <time>11:31:21</time>
+ <date>2011-03-22</date>
+ <time>11:37:43</time>
  <version>
   <release>4.0.0RC1</release>
   <api>4.0.0</api>
@@ -744,6 +744,9 @@
     <dir name="download">
      <file name="index.php" role="horde" />
     </dir> <!-- /services/download -->
+    <dir name="facebook">
+     <file name="index.php" role="horde" />
+    </dir> <!-- /services/facebook -->
     <dir name="help">
      <file name="index.php" role="horde" />
     </dir> <!-- /services/help -->
@@ -763,12 +766,14 @@
     <dir name="shares">
      <file name="edit.php" role="horde" />
     </dir> <!-- /services/shares -->
+    <dir name="twitter">
+     <file name="index.php" role="horde" />
+    </dir> <!-- /services/twitter -->
     <file name="ajax.php" role="horde" />
     <file name="cache.php" role="horde" />
     <file name="cacheview.php" role="horde" />
     <file name="changepassword.php" role="horde" />
     <file name="confirm.php" role="horde" />
-    <file name="facebook.php" role="horde" />
     <file name="go.php" role="horde" />
     <file name="imple.php" role="horde" />
     <file name="keyboard.php" role="horde" />
@@ -779,7 +784,6 @@
     <file name="resetpassword.php" role="horde" />
     <file name="sidebar.php" role="horde" />
     <file name="snooze.php" role="horde" />
-    <file name="twitter.php" role="horde" />
    </dir> <!-- /services -->
    <dir name="static">
     <file name="README" role="horde" />
@@ -2619,7 +2623,6 @@
    <install as="services/cacheview.php" name="services/cacheview.php" />
    <install as="services/changepassword.php" name="services/changepassword.php" />
    <install as="services/confirm.php" name="services/confirm.php" />
-   <install as="services/facebook.php" name="services/facebook.php" />
    <install as="services/go.php" name="services/go.php" />
    <install as="services/imple.php" name="services/imple.php" />
    <install as="services/keyboard.php" name="services/keyboard.php" />
@@ -2630,8 +2633,8 @@
    <install as="services/resetpassword.php" name="services/resetpassword.php" />
    <install as="services/sidebar.php" name="services/sidebar.php" />
    <install as="services/snooze.php" name="services/snooze.php" />
-   <install as="services/twitter.php" name="services/twitter.php" />
    <install as="services/download/index.php" name="services/download/index.php" />
+   <install as="services/facebook/index.php" name="services/facebook/index.php" />
    <install as="services/help/index.php" name="services/help/index.php" />
    <install as="services/images/pixel.php" name="services/images/pixel.php" />
    <install as="services/images/view.php" name="services/images/view.php" />
@@ -2641,6 +2644,7 @@
    <install as="services/portal/index.php" name="services/portal/index.php" />
    <install as="services/portal/mobile.php" name="services/portal/mobile.php" />
    <install as="services/shares/edit.php" name="services/shares/edit.php" />
+   <install as="services/twitter/index.php" name="services/twitter/index.php" />
    <install as="static/README" name="static/README" />
    <install as="templates/common-footer-mobile.inc" name="templates/common-footer-mobile.inc" />
    <install as="templates/common-footer.inc" name="templates/common-footer.inc" />
@@ -3773,11 +3777,11 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-18</date>
+   <date>2011-03-22</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* [gwr] Allow disabling applications for administrators.
 * First release candidate for Horde 4.
+* [gwr] Allow disabling applications for administrators.
    </notes>
   </release>
  </changelog>
