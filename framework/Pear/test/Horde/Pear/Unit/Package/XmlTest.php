@@ -61,9 +61,9 @@ extends Horde_Pear_TestCase
         $xml->addNote('TEST');
         $this->assertEquals(
             '
+* TEST
 * Fixed bug #1
 * Initial release
-* TEST
  ',
             $xml->findNode('/p:package/p:notes')->textContent
         );
@@ -75,9 +75,9 @@ extends Horde_Pear_TestCase
         $xml->addNote('TEST');
         $this->assertEquals(
             '
+* TEST
 * Fixed bug #1
 * Initial release
-* TEST
    ',
             $xml->findNode('/p:package/p:changelog/p:release/p:notes')->textContent
         );
