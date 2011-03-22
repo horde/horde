@@ -74,12 +74,11 @@ below at Prerequisites_.
    Go to Administration => Configuration => Horde
    (Or navigate to http://your-server/horde/admin/config)
 
-7. Create database tables::
+7. Create database tables
 
-     cd ..
-     ./bin/db_migrate
+   Go to Administration => Configuration. Click ``Update All DB Schemas``.
 
-8. Test Horde
+8. Test Horde (optional)
 
    Enable the test script in the Horde configuration at the ``General`` in the
    ``PHP Settings`` section, or edit ``horde/config/conf.php`` and set
@@ -109,8 +108,8 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
    PHP is the interpreted language in which Horde is written.
 
-   If possible, you should install PHP with your operating system's package
-   manager. Alternatively you build PHP yourself.
+   .. Note:: If possible, you should install PHP with your operating system's
+             package manager. Alternatively you build PHP yourself.
 
    To build PHP from sources, you can obtain it at
 
@@ -208,10 +207,10 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       will be configurable via Horde's web interface - the default values
       stored in each applications ``config/prefs.php`` file will be used.
 
-   c. UTF-8 support ``--enable-mbstring``
+   c. UTF-8 support (mbstring and iconv extensions) ``--enable-mbstring``
 
-      If these extensions are enabled, Horde can better support
-      multibyte character sets like UTF-8.
+      If these extensions are enabled, Horde can better support multibyte
+      character sets like UTF-8.
 
       For iconv support you should use the GNU libiconv library, which is more
       stable and supports more charsets, compared to other iconv
@@ -233,9 +232,10 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       ``--with-jpeg-dir`` option to make sure PHP can find the JPEG libraries
       it needs to compile.
 
-      You can also use the ImageMagick_ package to do these manipulations
-      instead.  See the ``Image Manipulation`` tab of the Horde configuration
-      for more details.
+      You can also use the imagick_ extension or the ImageMagick_ package to do
+      these manipulations instead. The Imagick_ extension is the recommended
+      method for image manipulation. See the ``Image Manipulation`` tab of the
+      Horde configuration for more details.
 
       .. _ImageMagick: http://www.imagemagick.org
 
@@ -277,10 +277,10 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
    the list.  If you had to change that value, restart the web server after
    saving ``php.ini``.
 
-   If you are going to install Horde the recommended way, i.e. using the PEAR
-   installer, you can skip the remainder of this section. Installing Horde
-   through PEAR will automatically download and install all required PEAR
-   modules.
+   .. Important:: If you are going to install Horde the recommended way,
+                  i.e. using the PEAR installer, you can skip the remainder of
+                  this section. Installing Horde through PEAR will
+                  automatically download and install all required PEAR modules.
 
    These PEAR modules are **REQUIRED** to be installed for complete Horde
    functionality:
@@ -374,15 +374,25 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
       .. As of PHP 5.3.0, this module is automatically enabled by default.
 
-   b. memcache
+   b. idn
 
-      If using memcache, the memcache PECL extension must be installed.
+      The idn module is required to handle display of Internationalized Domain
+      Names (see RFC 3490), e.g in e-mail addresses.
 
       To install, enter the following at the command prompt::
 
-        pecl install memcache
+        pecl install idn
 
-   c. lzf
+   c. imagick
+
+      The imagick module can be used by Horde's image library to provide all
+      kind of image manipulations.
+
+      To install, enter the following at the command prompt::
+
+        pecl install imagick
+
+   d. lzf
 
       If the lzf module is available, Horde can compress cached data within
       the current session, thus reducing the size of the current session.
@@ -391,14 +401,13 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
         pecl install lzf
 
-   d. idn
+   e. memcache
 
-      The idn module is required to handle display of Internationalized Domain
-      Names (see RFC 3490), e.g in e-mail addresses.
+      If using memcache, the memcache PECL extension must be installed.
 
       To install, enter the following at the command prompt::
 
-        pecl install idn
+        pecl install memcache
 
    For additional help on using the pear command-line program to install PECL
    extensions, see the PEAR installation section above.
@@ -488,6 +497,10 @@ root::
 
 Installing from Release Tarballs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. Important:: As of today, there are no tarballs released for Horde 4
+               yet. Please use the `Installing with PEAR`_ method to install
+               Horde 4.
 
 The Horde Framework can be obtained from the Horde website and FTP server, at
 
@@ -684,7 +697,7 @@ Configuring Horde
    Running the job every 5 minutes is recommended::
 
       # Horde Alarms
-      */5 * * * * /usr/bin/php /var/www/horde/bin/alarms.php
+      */5 * * * * /usr/bin/php /var/www/horde/bin/alarms
 
    (replace ``/usr/bin/php`` with the path to your PHP CLI and
    ``/var/www/horde/`` with the path to your Horde installation)
