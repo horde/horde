@@ -456,6 +456,7 @@ if (!$t->get('edit_query_filter')) {
     $tree = $imap_tree->createTree('imp_search', array(
         'render_params' => array(
             'abbrev' => 0,
+            'container_select' => true,
             'heading' => _("Add search folder:")
         ),
         'render_type' => 'IMP_Tree_Flist'

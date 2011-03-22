@@ -39,23 +39,25 @@ class IMP_Tree_Flist extends Horde_Tree_Select
      * @param string $name   The name of this tree instance.
      * @param array $params  Additional parameters.
      * <pre>
-     * 'abbrev' - (integer) Abbreviate long mailbox names by replacing the
-     *            middle of the name with '...'? Value is the total length
-     *            of the string.
-     *            DEFAULT: 30
-     * 'filter' - (array) An array of mailboxes to ignore.
-     *            DEFAULT: Display all
-     * 'heading' - (string) The label for an empty-value option at the top of
-     *             the list.
-     *             DEFAULT: ''
-     * 'inc_notepads' - (boolean) Include user's editable notepads in list?
-     *                   DEFAULT: No
-     * 'inc_tasklists' - (boolean) Include user's editable tasklists in list?
-     *                   DEFAULT: No
-     * 'inc_vfolder' - (boolean) Include user's virtual folders in list?
-     *                   DEFAULT: No
-     * 'new_folder' - (boolean) Display an option to create a new folder?
-     *                DEFAULT: No
+     * abbrev - (integer) Abbreviate long mailbox names by replacing the
+     *          middle of the name with '...'? Value is the total length
+     *          of the string.
+     *          DEFAULT: 30
+     * container_select - (boolean) Allow containers to be selected?
+     *                    DEFAULT: false
+     * filter - (array) An array of mailboxes to ignore.
+     *          DEFAULT: Display all
+     * heading - (string) The label for an empty-value option at the top of
+     *           the list.
+     *           DEFAULT: ''
+     * inc_notepads - (boolean) Include user's editable notepads in list?
+     *                 DEFAULT: No
+     * inc_tasklists - (boolean) Include user's editable tasklists in list?
+     *                 DEFAULT: No
+     * inc_vfolder - (boolean) Include user's virtual folders in list?
+     *               DEFAULT: No
+     * new_folder - (boolean) Display an option to create a new folder?
+     *              DEFAULT: No
      * </pre>
      */
     public function __construct($name, array $params = array())
@@ -182,7 +184,8 @@ class IMP_Tree_Flist extends Horde_Tree_Select
         }
 
         /* Ignore container elements. */
-        if (!empty($node['container'])) {
+        if (!$this->getOption('container_select') &&
+            !empty($node['container'])) {
             if (!empty($node['vfolder'])) {
                 return '';
             }
