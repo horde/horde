@@ -105,7 +105,7 @@ class IMP_Mailbox implements Serializable
     /**
      * Shortcut to obtaining mailbox object(s).
      *
-     * @var mixed $mbox  The full IMAP mailbox name(s).
+     * @param mixed $mbox  The full IMAP mailbox name(s).
      *
      * @return mixed  The IMP_Mailbox object(s).
      */
