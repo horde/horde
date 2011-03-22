@@ -533,7 +533,7 @@ class Turba_Driver_Kolab extends Turba_Driver
             unset($attributes['photo'], $attributes['phototype']);
         }
 
-        if ($object_id !== null) {
+        if ($object_id === null) {
             $result = $this->_getData()->create($attributes);
         } else {
             $result = $this->_getData()->modify($attributes);
