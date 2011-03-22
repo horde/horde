@@ -23,9 +23,9 @@
   <active>yes</active>
  </developer>
  <date>2011-03-22</date>
- <time>23:33:43</time>
+ <time>23:33:55</time>
  <version>
-  <release>1.0.0RC1</release>
+  <release>1.0.0RC2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* First release candidate for Horde 4.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -614,6 +614,19 @@ Initial release as a PEAR package
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-03-22</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
