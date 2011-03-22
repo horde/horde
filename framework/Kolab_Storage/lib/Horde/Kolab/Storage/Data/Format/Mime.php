@@ -126,6 +126,9 @@ implements Horde_Kolab_Storage_Data_Format
     public function matchMimeId($type, $types)
     {
         switch ($type) {
+        case 'contact':
+            return array_search('application/x-vnd.kolab.contact', $types);
+            break;
         case 'event':
             return array_search('application/x-vnd.kolab.event', $types);
             break;
@@ -148,6 +151,9 @@ implements Horde_Kolab_Storage_Data_Format
     public function getMimeType($type)
     {
         switch ($type) {
+        case 'contact':
+            return 'application/x-vnd.kolab.contact';
+            break;
         case 'event':
             return 'application/x-vnd.kolab.event';
             break;
