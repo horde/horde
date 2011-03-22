@@ -36,8 +36,7 @@ The following documentation is available in the Turba distribution:
 :`docs/CREDITS`_:    Project developers
 :`docs/INSTALL`_:    Installation instructions and notes
 :`docs/LDAP`_:       LDAP personal addressbook HOWTO
-:`docs/TODO`_:       Development TODO list
-:`docs/UPGRADING`_:  Pointers on upgrading from previous Skeleton versions
+:`docs/UPGRADING`_:  Pointers on upgrading from previous Turba versions
 
 
 Installation
@@ -85,5 +84,4 @@ The Turba team
 .. _INSTALL:
 .. _docs/INSTALL: ?f=INSTALL.html
 .. _docs/LDAP: ?f=LDAP.html
-.. _docs/TODO: ?f=TODO.html
 .. _docs/UPGRADING: ?f=UPGRADING.html

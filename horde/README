@@ -49,12 +49,10 @@ The following documentation is available in the Horde distribution:
 :`docs/CODING_STANDARDS`_:  Coding standards for Horde projects
 :`docs/CONTRIBUTING`_:      How to contribute to Horde
 :`docs/CREDITS`_:           Project developers
-:`docs/HACKING`_:           How to get Horde via CVS
 :`docs/INSTALL`_:           Installation instructions and notes
 :`docs/PERFORMANCE`_:       Performance guide
 :`docs/RELEASE`_:           Release process notes
 :`docs/SECURITY`_:          Security notes
-:`docs/TODO`_:              Development TODO list
 :`docs/UPGRADING`_:         Pointers on upgrading from previous Horde versions
 
 
@@ -102,11 +100,9 @@ The Horde team
 .. _docs/CODING_STANDARDS: ?f=CODING_STANDARDS.html
 .. _docs/CONTRIBUTING: ?f=CONTRIBUTING.html
 .. _docs/CREDITS: ?f=CREDITS.html
-.. _docs/HACKING: ?f=HACKING.html
 .. _INSTALL:
 .. _docs/INSTALL: ?f=INSTALL.html
 .. _docs/PERFORMANCE: ?f=PERFORMANCE.html
 .. _docs/RELEASE: ?f=RELEASE.html
 .. _docs/SECURITY: ?f=SECURITY.html
-.. _docs/TODO: ?f=TODO.html
 .. _docs/UPGRADING: ?f=UPGRADING.html

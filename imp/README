@@ -39,7 +39,6 @@ The following documentation is available in the IMP distribution:
 :`docs/CHANGES`_:    Changes by release
 :`docs/CREDITS`_:    Project developers
 :`docs/INSTALL`_:    Installation instructions and notes
-:`docs/TODO`_:       Development TODO list
 :`docs/UPGRADING`_:  Pointers on upgrading from previous IMP versions
 
 
@@ -87,5 +86,4 @@ The IMP team
 .. _docs/CREDITS: ?f=CREDITS.html
 .. _INSTALL:
 .. _docs/INSTALL: ?f=INSTALL.html
-.. _docs/TODO: ?f=TODO.html
 .. _docs/UPGRADING: ?f=UPGRADING.html
