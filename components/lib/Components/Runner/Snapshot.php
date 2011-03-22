@@ -87,9 +87,17 @@ class Components_Runner_Snapshot
         } else {
             $archivedir = getcwd();
         }
-        $package->generateSnapshot(
-            $package->getVersion() . 'dev' . strftime('%Y%m%d%H%M'),
-            $archivedir
-        );
+
+        if (empty($options['keep_version'])) {
+            $version = preg_replace(
+                '/([.0-9]+).*/',
+                '\1dev' . strftime('%Y%m%d%H%M'),
+                $package->getVersion()
+            );
+        } else {
+            $version = $package->getVersion();
+        }
+
+        $package->generateSnapshot($version, $archivedir);
     }
 }

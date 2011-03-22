@@ -8,8 +8,13 @@
    - Validate that the release does not exist before releasing.
    - Error handling.
 
- - Add a commit module that automatically adds a changelog entry in
-   the notes section of the package.xml
+ - Extract elements to Horde_Pear
+   - Extract content handling
+   - Extract filelist generation
+   - Extract package.xml update
+   - Extract package.xml generation
+
+ - Fix context-sensitive help generation (include options).
 
  - Bootstrapping script
    - must be able to update the bootstrapped environment (probably

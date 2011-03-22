@@ -51,6 +51,18 @@ extends PHPUnit_Framework_TestCase
         return Horde_Util::createTempDir();
     }
 
+    protected function getHelp()
+    {
+        $_SERVER['argv'] = array('horde-components', '--help');
+        return $this->_callStrictComponents();
+    }
+
+    protected function getActionHelp($action)
+    {
+        $_SERVER['argv'] = array('horde-components', 'help', $action);
+        return $this->_callStrictComponents();
+    }
+
     protected function _callStrictComponents(array $parameters = array())
     {
         return $this->_callComponents($parameters, array($this, '_callStrict'));
@@ -88,4 +100,30 @@ extends PHPUnit_Framework_TestCase
     {
         Components::main($parameters);
     }
+
+    protected function fileRegexpPresent($regex, $dir)
+    {
+        $files = array();
+        $found = false;
+        foreach (new DirectoryIterator($dir) as $file) {
+            if (preg_match($regex, $file->getBasename('.tgz'), $matches)) {
+                $found = true;
+            }
+            $files[] = $file->getPath();
+        }
+        $this->assertTrue(
+            $found,
+            sprintf("File \"%s\" not found in \n\n%s\n", $regex, join("\n", $files))
+        );
+    }
+
+    protected function setPearGlobals()
+    {
+        $GLOBALS['_PEAR_ERRORSTACK_DEFAULT_CALLBACK'] = array(
+            '*' => false,
+        );
+        $GLOBALS['_PEAR_ERRORSTACK_DEFAULT_LOGGER'] = false;
+        $GLOBALS['_PEAR_ERRORSTACK_OVERRIDE_CALLBACK'] = array();
+    }
+
 }

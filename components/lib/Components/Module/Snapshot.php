@@ -58,9 +58,53 @@ extends Components_Module_Base
                     'action' => 'store',
                     'help'   => 'the path to the directory where any resulting source archives will be placed.'
                 )
+            ),
+            new Horde_Argv_Option(
+                '--keep-version',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Keep the package version as it is. Usually it will get appended with "devYYYYMMDD".'
+                )
             )
         );
     }
+
+    /**
+     * Get the usage description for this module.
+     *
+     * @return string The description.
+     */
+    public function getUsage()
+    {
+        return '  snapshot - Generate a develpment snapshot.
+';
+    }
+
+    /**
+     * Return the action arguments supported by this module.
+     *
+     * @return array A list of supported action arguments.
+     */
+    public function getActions()
+    {
+        return array('snapshot');
+    }
+
+    /**
+     * Return the help text for the specified action.
+     *
+     * @param string $action The action.
+     *
+     * @return string The help text.
+     */
+    public function getHelp($action)
+    {
+        return 'Action "snapshot"
+
+This module generates a COMPONENT-1.0.0devYYYYMMDD.tgz snapshot of the selected component.
+';
+    }
+
 
     /**
      * Determine if this module should act. Run all required actions if it has
@@ -73,7 +117,9 @@ extends Components_Module_Base
     public function handle(Components_Config $config)
     {
         $options = $config->getOptions();
-        if (!empty($options['snapshot'])) {
+        $arguments = $config->getArguments();
+        if (!empty($options['snapshot'])
+            || (isset($arguments[0]) && $arguments[0] == 'snapshot')) {
             $this->requirePackageXml($config->getComponentDirectory());
             $this->_dependencies->getRunnerSnapshot()->run();
             return true;
