@@ -154,7 +154,7 @@ class Horde_Pear_Package_Xml
     public function addNote($note)
     {
         $notes = trim($this->getNodeText('/p:package/p:notes'));
-        $new_notes = "\n* " . $note . "\n" . $notes . "\n "; 
+        $new_notes = "\n" . $notes . "\n* " . $note . "\n "; 
         $this->replaceTextNode('/p:package/p:notes', $new_notes);
 
         $release = $this->_fetchCurrentRelease();

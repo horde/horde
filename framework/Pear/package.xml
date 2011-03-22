@@ -22,7 +22,7 @@
  </stability>
  <license uri="REPLACE">REPLACE</license>
  <notes>
-*
+* [gwr] Record package.xml change log top-to-bottom.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -121,7 +121,7 @@
    <date>2011-03-15</date>
    <license uri="REPLACE">REPLACE</license>
    <notes>
-*
+* [gwr] Record package.xml change log top-to-bottom.
    </notes>
   </release>
  </changelog>
