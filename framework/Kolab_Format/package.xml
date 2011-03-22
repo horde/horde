@@ -12,9 +12,9 @@
   <active>yes</active>
  </lead>
  <date>2011-03-22</date>
- <time>23:25:52</time>
+ <time>23:26:01</time>
  <version>
-  <release>1.0.0RC1</release>
+  <release>1.0.0RC2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -23,9 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
  <notes>
-* First release candidate for Horde 4.
-* [gwr] Moved Horde specific functionality out of the tasks parser.
-* [gwr] Moved Horde specific functionality out of the note parser.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -311,6 +309,19 @@
 * First release candidate for Horde 4.
 * [gwr] Moved Horde specific functionality out of the tasks parser.
 * [gwr] Moved Horde specific functionality out of the note parser.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-03-22</date>
+   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
