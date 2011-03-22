@@ -313,23 +313,22 @@ class IMP_Auth
                 ? 'INBOX'
                 : $GLOBALS['prefs']->getValue('initial_page');
 
-            $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-            if ($imp_search->isSearchMbox($init_url) &&
-                (!$imp_search[$init_url]->enabled)) {
-                $init_url = 'INBOX';
-            }
-
             switch ($init_url) {
             case 'folders.php':
                 $page = $init_url;
                 break;
 
             default:
+                $mbox = IMP_Mailbox::get($init_url);
+                if (!$mbox->exists) {
+                    $mbox = IMP_Mailbox::get('INBOX');
+                }
+
                 $page = 'mailbox.php';
                 if ($url) {
-                    return Horde::url($page, true)->add('mailbox', $init_url);
+                    return Horde::url($page, true)->add('mailbox', $mbox);
                 }
-                IMP::setCurrentMailboxInfo($init_url);
+                IMP::setCurrentMailboxInfo($mbox);
                 break;
             }
         }
