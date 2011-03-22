@@ -26,7 +26,7 @@ class Horde_Service_Twitter_Statuses
     private $_format = 'json';
 
     /**
-     * Const'r
+     * Constructor
      *
      * @param Horde_Service_Twiiter $twitter
      */
@@ -38,7 +38,7 @@ class Horde_Service_Twitter_Statuses
     /**
      * Obtain the requested status
      *
-     * @return mixed  The method call results.
+     * @return string  The method call results.
      */
     public function show($id)
     {
@@ -200,6 +200,8 @@ class Horde_Service_Twitter_Statuses
      * Returns the original tweet with retweet details embedded.
      *
      * @params string id  The id for the tweet that is being retweeted.
+     *
+     * @return string
      */
     public function retweet($id)
     {
@@ -241,7 +243,8 @@ class Horde_Service_Twitter_Statuses
      *     count      - Only return this many tweets (twitter limit = 200)
      *     page       - The page number to return (note there are pagination limits)
      *   </pre>
-     * @return unknown_type
+     *
+     * @return string
      */
     public function userTimeline($params = array())
     {
@@ -262,7 +265,8 @@ class Horde_Service_Twitter_Statuses
      *     count      - Only return this many tweets (twitter limit = 200)
      *     page       - The page number to return (note there are pagination limits)
      *   </pre>
-     * @return unknown_type
+     *
+     * @return string
      */
     public function mentions($params = array())
     {

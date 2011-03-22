@@ -37,6 +37,7 @@ abstract class Horde_Service_Twitter_Auth
      * @param string $value
      *
      * @return mixed  The value of the requested property.
+     * @throws Horde_Service_Twitter_Exception
      */
     public function __get($value)
     {

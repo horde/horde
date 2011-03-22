@@ -16,6 +16,7 @@ class Horde_Service_Twitter_Auth_Oauth extends Horde_Service_Twitter_Auth
 {
     /**
      *
+     * @var Horde_OAuth_Token
      */
     protected $_token;
 
@@ -39,12 +40,10 @@ class Horde_Service_Twitter_Auth_Oauth extends Horde_Service_Twitter_Auth
     /**
      * Set the access token
      *
-     * @param $token
-     * @return unknown_type
+     * @param Horde_OAuth_Token $token
      */
-    public function setToken($token)
+    public function setToken(Horde_OAuth_Token $token)
     {
-        // @TODO: sanity check this
         $this->_token = $token;
     }
 
@@ -53,18 +52,17 @@ class Horde_Service_Twitter_Auth_Oauth extends Horde_Service_Twitter_Auth
      * storage.
      *
      * @param Horde_Controller_Request_Http     Http request object
-     * @param Horde_Oauth_Token $requestSecret  The token secret returned by
+     * @param string $requestSecret             The token secret returned by
      *                                          Twitter after the user authorizes
      *                                          the application.
      * @return Horde_Oauth_Token
+     * @throws Horde_Service_Twitter_Exception
      */
     public function getAccessToken(Horde_Controller_Request_Http $request, $requestSecret = null)
     {
         if (!empty($this->_token)) {
             return $this->_token;
         }
-
-        //@TODO: Verify the existence of requestSecret...
 
         $params = $request->getGetVars();
         if (empty($params['oauth_token'])) {
@@ -78,6 +76,14 @@ class Horde_Service_Twitter_Auth_Oauth extends Horde_Service_Twitter_Auth
         }
     }
 
+    /**
+     * Obtain the OAuth request token
+     *
+     * @param array $params
+     *
+     * @return  Horde_OAuth_Token  The request token
+     * @throws Horde_Service_Twitter_Exception
+     */
     public function getRequestToken($params = array())
     {
         try {
