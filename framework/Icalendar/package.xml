@@ -18,8 +18,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-16</date>
- <time>18:13:04</time>
+ <date>2011-03-22</date>
+ <time>21:56:03</time>
  <version>
   <release>1.0.0RC1</release>
   <api>1.0.0</api>
@@ -627,38 +627,38 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Fix vFreebusy merging (Bug #4807).
-   * Implement handling of vTimezones in iCalendar data (lists-horde@carlthompson.net, Bug #4399).
-   * Correctly produce vcard parameters without value, like "ADR;WORK:...".
-   * Support departments in vCard&apos;s ORG properties (martin@matuska.org, Bug #4285).
-   * Fixed _parseDateTime() (wrobel@pardus.de, Bug #4808).
-   * Fix exporting of recurring exceptions (Bug #4627).
-   * Use lowercase mailto: for better Apple iCal compatibility.
-   * We must *not* escape colons per RFC in param values.
-   * Fix encoding issues with iCalendar 2.0 exports.
-   * Move version specific vCalendar/iCalendar export to Kronolith_Event.
-   * Use QUOTED-PRINTABLE when there&apos;s a newline in VNOTE data.
-   * Anniversary support (ntai@smartfruit.com, Request #5059).
-   * Support for all day events with VCALENDAR 1.0.
-   * Use ISO-8559-1 as default vCalendar 1.0 and vCard 2.1.
-   * Fix unreliably overwriting a variable with itself (rsalmon@mbpgroup.com, Bug #5652).
-   * Handle AALARM data with parameters (delimited by a ";").
-   * Fix GEO parsing and generation.
-   * Refactor line folding and quoted-printable encoding.
-   * Add missing softline break (Bug #6541).
-   * Don&apos;t require a newline after END (Bug #6641, #6706).
-   * Fix detecting of "old" formats when parsing vCalendar/vCard data.
-   * Request charset on the fly, because it depends on the VERSION property.
-   * Fix passing value arrays with only one element.
-   * Correctly parse quoted parameters (Bug #7031)
-   * Set the correct version if none provided through the vcard data.
-   * BODY is not required, but N is, and FN for vcard3.0.
-   * Return the passed address unmodified if Mail_RFC822::validateMailbox() fails.
-   * Fixed importing of several events at once.
-   * Removed required calendar component properties in vevent.php.
-   * Fix generation of UIDs with PHP 5.2+.
-   * Fix generation of free periods with overlapping events (cedric.parent@multitel.be).
-   * Add support for extended vfreebusy parameters (wrobel@gentoo.org, Request #4690).
-   * Ensure vnotes and vcards are created with a valid default version number.
+* Implement handling of vTimezones in iCalendar data (lists-horde@carlthompson.net, Bug #4399).
+* Correctly produce vcard parameters without value, like &quot;ADR;WORK:...&quot;.
+* Support departments in vCard&apos;s ORG properties (martin@matuska.org, Bug #4285).
+* Fixed _parseDateTime() (wrobel@pardus.de, Bug #4808).
+* Fix exporting of recurring exceptions (Bug #4627).
+* Use lowercase mailto: for better Apple iCal compatibility.
+* We must *not* escape colons per RFC in param values.
+* Fix encoding issues with iCalendar 2.0 exports.
+* Move version specific vCalendar/iCalendar export to Kronolith_Event.
+* Use QUOTED-PRINTABLE when there&apos;s a newline in VNOTE data.
+* Anniversary support (ntai@smartfruit.com, Request #5059).
+* Support for all day events with VCALENDAR 1.0.
+* Use ISO-8559-1 as default vCalendar 1.0 and vCard 2.1.
+* Fix unreliably overwriting a variable with itself (rsalmon@mbpgroup.com, Bug #5652).
+* Handle AALARM data with parameters (delimited by a &quot;;&quot;).
+* Fix GEO parsing and generation.
+* Refactor line folding and quoted-printable encoding.
+* Add missing softline break (Bug #6541).
+* Don&apos;t require a newline after END (Bug #6641, #6706).
+* Fix detecting of &quot;old&quot; formats when parsing vCalendar/vCard data.
+* Request charset on the fly, because it depends on the VERSION property.
+* Fix passing value arrays with only one element.
+* Correctly parse quoted parameters (Bug #7031)
+* Set the correct version if none provided through the vcard data.
+* BODY is not required, but N is, and FN for vcard3.0.
+* Return the passed address unmodified if Mail_RFC822::validateMailbox() fails.
+* Fixed importing of several events at once.
+* Removed required calendar component properties in vevent.php.
+* Fix generation of UIDs with PHP 5.2+.
+* Fix generation of free periods with overlapping events (cedric.parent@multitel.be).
+* Add support for extended vfreebusy parameters (wrobel@gentoo.org, Request #4690).
+* Ensure vnotes and vcards are created with a valid default version number.
    </notes>
   </release>
   <release>
@@ -689,6 +689,21 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First beta release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-22</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First release candidate for Horde 4.
    </notes>
   </release>
  </changelog>

@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-03-21</date>
- <time>05:06:46</time>
+ <date>2011-03-22</date>
+ <time>21:56:07</time>
  <version>
   <release>1.0.0RC1</release>
   <api>1.0.0</api>
@@ -440,6 +440,10 @@
      <dir name="Kolab">
       <dir name="Storage">
        <dir name="fixtures">
+        <file name="broken_note.eml" role="test" />
+        <file name="event.1.xml.qp" role="test" />
+        <file name="event.2.xml.qp" role="test" />
+        <file name="event.3.xml.qp" role="test" />
         <file name="event.struct" role="test" />
         <file name="event.xml.qp" role="test" />
        </dir> <!-- /test/Horde/Kolab/Storage/fixtures -->
@@ -781,6 +785,10 @@
    <install as="Horde/Kolab/Storage/phpunit.xml" name="test/Horde/Kolab/Storage/phpunit.xml" />
    <install as="Horde/Kolab/Storage/Scenario.php" name="test/Horde/Kolab/Storage/Scenario.php" />
    <install as="Horde/Kolab/Storage/TestCase.php" name="test/Horde/Kolab/Storage/TestCase.php" />
+   <install as="Horde/Kolab/Storage/fixtures/broken_note.eml" name="test/Horde/Kolab/Storage/fixtures/broken_note.eml" />
+   <install as="Horde/Kolab/Storage/fixtures/event.1.xml.qp" name="test/Horde/Kolab/Storage/fixtures/event.1.xml.qp" />
+   <install as="Horde/Kolab/Storage/fixtures/event.2.xml.qp" name="test/Horde/Kolab/Storage/fixtures/event.2.xml.qp" />
+   <install as="Horde/Kolab/Storage/fixtures/event.3.xml.qp" name="test/Horde/Kolab/Storage/fixtures/event.3.xml.qp" />
    <install as="Horde/Kolab/Storage/fixtures/event.struct" name="test/Horde/Kolab/Storage/fixtures/event.struct" />
    <install as="Horde/Kolab/Storage/fixtures/event.xml.qp" name="test/Horde/Kolab/Storage/fixtures/event.xml.qp" />
    <install as="Horde/Kolab/Storage/Server/DriverTest.php" name="test/Horde/Kolab/Storage/Server/DriverTest.php" />
@@ -939,13 +947,13 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-21</date>
+   <date>2011-03-22</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* First release candidate for Horde 4.
 * [gwr] Fix creating/modifying objects.
 * [gwr] Deal with Kolab_Format parsing exceptions.
 * [gwr] Throw an exception on a duplicate UID within one folder.
-* First release candidate for Horde 4.
    </notes>
   </release>
  </changelog>

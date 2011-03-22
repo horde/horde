@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-16</date>
- <time>19:31:29</time>
+ <date>2011-03-22</date>
+ <time>21:50:43</time>
  <version>
   <release>3.0.0RC1</release>
   <api>3.0.0</api>
@@ -79,6 +79,22 @@
      <file name="EditTaskList.php" role="horde" />
      <file name="Task.php" role="horde" />
     </dir> <!-- /lib/Form -->
+    <dir name="test">
+     <dir name="Nag">
+      <dir name="Stub">
+       <file name="Registry.php" role="horde" />
+      </dir> <!-- /lib/test/Nag/Stub -->
+      <dir name="Unit">
+       <dir name="Driver">
+        <file name="KolabTest.php" role="horde" />
+       </dir> <!-- /lib/test/Nag/Unit/Driver -->
+      </dir> <!-- /lib/test/Nag/Unit -->
+      <file name="AllTests.php" role="horde" />
+      <file name="Autoload.php" role="horde" />
+      <file name="phpunit.xml" role="data" />
+      <file name="TestCase.php" role="horde" />
+     </dir> <!-- /lib/test/Nag -->
+    </dir> <!-- /lib/test -->
     <dir name="Ui">
      <dir name="VarRenderer">
       <file name="Nag.php" role="horde" />
@@ -653,6 +669,12 @@
    <install as="nag/lib/Form/Type/NagDue.php" name="lib/Form/Type/NagDue.php" />
    <install as="nag/lib/Form/Type/NagMethod.php" name="lib/Form/Type/NagMethod.php" />
    <install as="nag/lib/Form/Type/NagStart.php" name="lib/Form/Type/NagStart.php" />
+   <install as="nag/lib/test/Nag/AllTests.php" name="lib/test/Nag/AllTests.php" />
+   <install as="nag/lib/test/Nag/Autoload.php" name="lib/test/Nag/Autoload.php" />
+   <install as="test/Nag/phpunit.xml" name="lib/test/Nag/phpunit.xml" />
+   <install as="nag/lib/test/Nag/TestCase.php" name="lib/test/Nag/TestCase.php" />
+   <install as="nag/lib/test/Nag/Stub/Registry.php" name="lib/test/Nag/Stub/Registry.php" />
+   <install as="nag/lib/test/Nag/Unit/Driver/KolabTest.php" name="lib/test/Nag/Unit/Driver/KolabTest.php" />
    <install as="nag/lib/Ui/VarRenderer/Nag.php" name="lib/Ui/VarRenderer/Nag.php" />
    <install as="nag/locale/nag.pot" name="locale/nag.pot" />
    <install as="nag/locale/ar/LC_MESSAGES/nag.mo" name="locale/ar/LC_MESSAGES/nag.mo" />
@@ -858,6 +880,22 @@
 * Fix saving tasks via PUT method.
 * Fix deleting task lists.
 * Fix hiding the External prefs group (Bug #9643).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0RC1</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-22</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* First release candidate for Horde 4.
+* [gwr] Adapted the Kolab driver to Horde 4.
    </notes>
   </release>
  </changelog>

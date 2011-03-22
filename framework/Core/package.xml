@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Core</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Core Framework libraries</summary>
@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-03-19</date>
- <time>14:23:26</time>
+ <date>2011-03-22</date>
+ <time>21:55:57</time>
  <version>
   <release>1.0.0RC1</release>
   <api>1.0.0</api>
@@ -1319,13 +1319,13 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-19</date>
+   <date>2011-03-22</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* [mjr] Fix IMSP Auth and Pref drivers
 * First release candidate for Horde 4.
-* Don&apos;t show sub-permissions for adding that exist already.
-* Fix listing more than one sub-permission (Bug #9671).
+* [mjr] Fix IMSP Auth driver.
+* [jan] Don&apos;t show sub-permissions for adding that exist already.
+* [jan] Fix listing more than one sub-permission (Bug #9671).
    </notes>
   </release>
  </changelog>

@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-16</date>
- <time>19:27:28</time>
+ <date>2011-03-22</date>
+ <time>21:50:40</time>
  <version>
   <release>2.0.0RC1</release>
   <api>2.0.0</api>
@@ -846,6 +846,23 @@
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * Fix creating new rules with PostgreSQL (Bug #9638).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC1</release>
+    <api>2.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-22</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* First release candidate for Horde 4.
+* [jan] Fix instantiation of VFS transport driver (Bug #9605).
+* [jan] Fix moving rules with the SQL driver (Bug #9672).
    </notes>
   </release>
  </changelog>
