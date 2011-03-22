@@ -218,9 +218,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
         if (empty($GLOBALS['conf']['image']['driver'])) {
             return false;
         }
-        $img = null;
-        //@TODO: Pass in a Horde_Logger in $context if desired.
-        $context = array('tmpdir' => Horde::getTempDir());
+
         try {
             $img = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Image')->create();
         } catch (Horde_Exception $e) {
