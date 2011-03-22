@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-03-23</date>
- <time>00:12:13</time>
+ <time>00:13:30</time>
  <version>
-  <release>4.0.0RC1</release>
+  <release>4.0.0RC2</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,8 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* First release candidate for Horde 4.
-* [gwr] Allow disabling applications for administrators.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3972,6 +3971,19 @@
    <notes>
 * First release candidate for Horde 4.
 * [gwr] Allow disabling applications for administrators.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0RC2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-03-23</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
