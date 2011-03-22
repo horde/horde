@@ -145,7 +145,7 @@ class Horde_Mail_Transport_Sendmail extends Horde_Mail_Transport
             throw new Horde_Mail_Exception('From address specified with dangerous characters.');
         }
 
-        $mail = @popen($this->_sendmailPath . (empty($this->_sendmailArgs) ? '' : ' ' . $this->_sendmailargs) . ' -f' . escapeshellarg($from) . ' -- ' . $recipients, 'w');
+        $mail = @popen($this->_sendmailPath . (empty($this->_sendmailArgs) ? '' : ' ' . $this->_sendmailArgs) . ' -f' . escapeshellarg($from) . ' -- ' . $recipients, 'w');
         if (!$mail) {
             throw new Horde_Mail_Exception('Failed to open sendmail [' . $this->_sendmailPath . '] for execution.');
         }
