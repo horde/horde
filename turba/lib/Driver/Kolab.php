@@ -39,6 +39,13 @@ class Turba_Driver_Kolab extends Turba_Driver
     private $_data;
 
     /**
+     * The current addressbook represented as share.
+     *
+     * @var Horde_Share_Object
+     */
+    private $_share;
+
+    /**
      * What can this backend do?
      *
      * @var array
@@ -59,6 +66,13 @@ class Turba_Driver_Kolab extends Turba_Driver
         $this->_kolab = $params['storage'];
         unset($params['storage']);
 
+        if (isset($params['share'])) {
+            $this->_share = $params['share'];
+        }
+        if (isset($params['name'])) {
+            $name = $params['name'];
+        }
+
         parent::__construct($name, $params);
     }
 
@@ -69,7 +83,12 @@ class Turba_Driver_Kolab extends Turba_Driver
      */
     private function _getData()
     {
-        if (empty($this->_name)) {
+        if (!empty($this->_share)) {
+            $this->_data = $this->_kolab->getData(
+                $this->_share->get('folder'),
+                'contact'
+            );
+        } else if (empty($this->_name)) {
             throw new Turba_Exception(
                 'The addressbook has been left undefined but is required!'
             );
