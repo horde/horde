@@ -190,9 +190,14 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
     {
         global $prefs;
 
-        if (!$prefs->isDefault('initial_page') &&
-            ($prefs->getValue('initial_page') == 'folders.php')) {
-            $prefs->setValue('initial_page', IMP_Prefs_Ui::PREF_FOLDER_PAGE);
+        if (!$prefs->isDefault('initial_page')) {
+            if ($prefs->getValue('initial_page') == 'folders.php') {
+                $prefs->setValue('initial_page', IMP_Prefs_Ui::PREF_FOLDER_PAGE);
+            } elseif (strpos($prefs->getValue('initial_page'), '**search_')) {
+                /* No easy way to convert old virtual folder label to new
+                 * label, so revert to default. */
+                $prefs->remove('initial_page');
+            }
         }
 
         if ($prefs->isDefault('send_mdn') &&
