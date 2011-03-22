@@ -34,9 +34,6 @@ Webserver/PHP tuning
   the need to recompile the code for every single page load. **This is
   probably the easiest way to improve the performance of Horde**.
 
-* Use of the mcrypt PHP extension may increase performance on heavily loaded
-  servers.
-
 * Enable PHP output compression in the Horde configuration. Do not enable
   compression in the PHP configuration (i.e. in ``php.ini``), because certain
   scripts don't work well with compression and Horde takes care of disabling

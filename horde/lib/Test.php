@@ -123,10 +123,6 @@ class Horde_Test
             'descrip' => 'Mbstring Support',
             'error' => 'If you want to take full advantage of Horde\'s localization features and character set support, you will need the mbstring extension.'
         ),
-        'mcrypt' => array(
-            'descrip' => 'Mcrypt Support',
-            'error' => 'Mcrypt is a general-purpose cryptography library which is broader and significantly more efficient (FASTER!) than PHP\'s own cryptographic code and will provider faster logins.'
-        ),
         'memcache' => array(
             'descrip' => 'memcached Support (memcache) (PECL extension)',
             'error' => 'The memcache PECL module is only needed if you are using a memcached server for caching or sessions. See horde/docs/INSTALL for information on how to install PECL/PHP extensions.'

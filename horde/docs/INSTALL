@@ -36,14 +36,14 @@ on a LAMP sytem.  They are addressed to experienced administrators who know
 exactly what they are doing.  For more detailed instructions, start reading
 below at Prerequisites_.
 
-1. Compiling PHP for Apache::
+1. Compiling PHP for Apache 2::
 
      cd php-x.x.x/
-     ./configure --with-apxs=/usr/sbin/apxs \
+     ./configure --with-apxs2=/usr/sbin/apxs2 \
                  --with-gettext --enable-mbstring --with-gd \
                  --with-png-dir=/usr --with-jpeg-dir=/usr \
-                 [--with-mysql|--with-pgsql|--with-oci8|--with-ldap]
-                 [--with-mcrypt] [--with-tidy]
+                 [--with-mysql|--with-pgsql|--with-ldap]
+                 [--with-tidy]
      make
      make install
 
@@ -190,10 +190,8 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       LDAP directory, an IMSP server, a Kolab server, or in PHP sessions.
 
       For SQL database preferences storage, Horde is thoroughly tested on
-      MySQL(i) (``--with-mysql(i)``) and PostgreSQL (``--with-pgsql``), and
-      has been reported to work with SQLite (enabled by default), Oracle
-      (``--with-oci8``) and SQL Server (``--with-mssql``).  It may also work
-      with any other database supported by PEAR, but they are untested.
+      MySQL(i) (``--with-mysql(i)``) and PostgreSQL (``--with-pgsql``), and has
+      been reported to work with SQLite (enabled by default).
 
       Preferences can also be stored via LDAP (``--with-ldap``), Kolab
       (``--with-ldap``), and IMSP.
@@ -244,18 +242,6 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
    e. tidy ``--with-tidy``
 
       The tidy PHP extension is required to sanitize HTML data.
-
-   The following PHP options are **OPTIONAL** to enable advanced features in
-   Horde:
-
-   a. Mcrypt support ``--with-mcrypt``
-
-      Mcrypt is a general-purpose cryptography library which is more efficient
-      than using native PHP-based encryption.  If available, mcrypt is used to
-      encrypt/decrypt the authentication credentials stored within the
-      session.  Mcrypt can be obtained from:
-
-         http://mcrypt.sourceforge.net/
 
    .. Important:: Additionally, individual Horde applications may **REQUIRE**
                   or **RECOMMEND** other options to be built into PHP
@@ -314,39 +300,16 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
         pear install Date
 
-   b. DB (>= 1.7.8)
-
-      **REQUIRED** as soon as you want or need to store anything in a database.
-      To install, enter the following at the command prompt::
-
-        pear install DB
-
-   c. File
-
-      **REQUIRED** only if you wish to import CSV files.
-      To install, enter the following at the command prompt::
-
-        pear install File
-
-   d. HTTP_WebDAV_Server
-
-      **REQUIRED** only if you want to use Horde's WebDAV interface, for
-      example to access calendars, tasklists or files with an external client.
-      To install, enter the following at the command prompt::
-
-        pear install HTTP_WebDAV_Server-beta
-
-   e. Net_DNS
+   b. Net_DNS2
 
       If installed, it will be used instead of the built-in PHP function
       gethostbyaddr() for host name lookups. This has the advantage that
-      Net_DNS has configurable timeouts and retries. Net_DNS requires the
-      ``mhash`` PHP extension.
+      Net_DNS2 has configurable timeouts and retries.
       To install, enter the following at the command prompt::
 
-        pear install Net_DNS
+        pear install Net_DNS2
 
-   f. Services_Weather (>= 1.3.1)
+   c. Services_Weather (>= 1.3.1)
 
       **REQUIRED** only if you wish to use the weather.com block on the portal
       page.
@@ -358,7 +321,7 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       the portal page. See the file ``data/Services_Weather/buildMetarDB.php``
       in your PEAR directory for details.
 
-   g. File_Fstab
+   d. File_Fstab
 
      Required only if you use the localhost driver for the Accounts block.
      To install, enter the following at the command prompt::
