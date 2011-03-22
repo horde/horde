@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-22</date>
- <time>01:25:50</time>
+ <time>11:45:35</time>
  <version>
   <release>5.0.0RC1</release>
   <api>5.0.0</api>
@@ -44,6 +44,7 @@
 * [mms] Fix deletion from Virtual Inbox in standard view (Bug #9686).
 * [mms] Optimize importing messages from mbox file.
 * [mms] Fix editing the size search criteria.
+* [mms] Fix upgrading virtual folders from IMP 4 (Bug #9692).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1859,6 +1860,8 @@
 * [mms] Fix loading virtual folders from drop-down folder list (Bug #9687).
 * [mms] Fix deletion from Virtual Inbox in standard view (Bug #9686).
 * [mms] Optimize importing messages from mbox file.
+* [mms] Fix editing the size search criteria.
+* [mms] Fix upgrading virtual folders from IMP 4 (Bug #9692).
    </notes>
   </release>
  </changelog>
