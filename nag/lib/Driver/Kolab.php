@@ -48,7 +48,7 @@ class Nag_Driver_Kolab extends Nag_Driver
     private function _getData()
     {
         if (empty($this->_tasklist)) {
-            throw new Mnemo_Exception(
+            throw new Nag_Exception(
                 'The tasklist has been left undefined but is required!'
             );
         }
