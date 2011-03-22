@@ -170,12 +170,22 @@ class IMP_Tree_Flist extends Horde_Tree_Select
             return '';
         }
 
+        $node = &$this->_nodes[$node_id];
+
         if ($abbrev = $this->getOption('abbrev')) {
-            $node = &$this->_nodes[$node_id];
             $orig_label = $node['label'];
             $node['label'] = Horde_String::abbreviate($node['orig_label'], $abbrev - ($node['indent'] * 2));
         } else {
             $orig_label = null;
+        }
+
+        /* Ignore container elements. */
+        if (!isset($node['url'])) {
+            if (!empty($node['vfolder'])) {
+                return '';
+            }
+            $node_id = '';
+            $this->_nodes[$node_id] = $node;
         }
 
         $out = parent::_buildTree($node_id);

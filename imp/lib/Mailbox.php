@@ -69,6 +69,7 @@
  * @property string $value  The value of this element (i.e. IMAP mailbox
  *                          name). In UTF7-IMAP.
  * @property boolean $vfolder  Is this a virtual folder?
+ * @property boolean $vfolder_container  Is this the virtual folder container?
  * @property boolean $vinbox  Is this the virtual inbox?
  * @property boolean $vtrash  Is this the virtual trash?
  */
@@ -377,6 +378,9 @@ class IMP_Mailbox implements Serializable
 
         case 'vfolder':
             return $injector->getInstance('IMP_Search')->isVFolder($this->_mbox);
+
+        case 'vfolder_container':
+            return ($this->_mbox == IMP_Imap_Tree::VFOLDER_KEY);
 
         case 'vinbox':
             return $injector->getInstance('IMP_Search')->isVinbox($this->_mbox);

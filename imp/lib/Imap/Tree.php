@@ -1510,6 +1510,10 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
 
             switch ($opts['render_type']) {
             case 'IMP_Tree_Flist':
+                if ($val->vfolder_container) {
+                    continue 2;
+                }
+
                 $is_open = true;
                 $params['orig_label'] = empty($opts['basename'])
                     ? $val->abbrev_label
