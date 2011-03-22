@@ -23,7 +23,7 @@
   <active>yes</active>
  </developer>
  <date>2011-03-22</date>
- <time>21:55:57</time>
+ <time>23:20:42</time>
  <version>
   <release>1.0.0RC1</release>
   <api>1.0.0</api>
@@ -1324,6 +1324,7 @@
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First release candidate for Horde 4.
+* [jan] Fix converting identities with non-ascii characters to new format.
 * [mjr] Fix IMSP Auth driver.
 * [jan] Don&apos;t show sub-permissions for adding that exist already.
 * [jan] Fix listing more than one sub-permission (Bug #9671).
