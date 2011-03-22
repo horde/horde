@@ -98,15 +98,15 @@ CONFIGURING Jonah
       horde/config/registry.php file.  Edit this file, and add the
       following stanza where appropriate (after the other entries like it
       or between existing stanzas to position it in the menu where you
-      like):
+      like)::
 
-$this->applications['jonah'] = array(
-    'fileroot' => dirname(__FILE__) . '/../jonah',
-    'webroot' => $this->applications['horde']['webroot'] . '/jonah',
-    'icon' => $this->applications['horde']['webroot'] . '/jonah/graphics/jonah.png',
-    'name' => _("Jonah"),
-    'status' => 'active'
-);
+         $this->applications['jonah'] = array(
+             'fileroot' => dirname(__FILE__) . '/../jonah',
+             'webroot' => $this->applications['horde']['webroot'] . '/jonah',
+             'icon' => $this->applications['horde']['webroot'] . '/jonah/graphics/jonah.png',
+             'name' => _("Jonah"),
+             'status' => 'active'
+         );
 
       If you have changed the location of Jonah relative to Horde,
       either in the URL or in the file system or both, you must

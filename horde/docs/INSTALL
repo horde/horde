@@ -233,10 +233,11 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       it needs to compile.
 
       You can also use the imagick_ extension or the ImageMagick_ package to do
-      these manipulations instead. The Imagick_ extension is the recommended
+      these manipulations instead. The imagick_ extension is the recommended
       method for image manipulation. See the ``Image Manipulation`` tab of the
       Horde configuration for more details.
 
+      .. _imagick: http://pecl.php.net/package/imagick
       .. _ImageMagick: http://www.imagemagick.org
 
    e. tidy ``--with-tidy``
@@ -596,7 +597,7 @@ Configuring Horde
    correct for most sites. If you wish to customize Horde's appearance and
    behavior, create "local" files for the configuration file you want to
    change. For example if you want to change the default value and lock a
-   preference, create a ``config/prefs.local.php` file with the following
+   preference, create a ``config/prefs.local.php`` file with the following
    content::
 
       <?php

@@ -372,7 +372,7 @@ Configuring IMP
 
    See `horde/docs/PERFORMANCE`_.
 
-   IMP Specific Performance Information::
+   IMP Specific Performance Information:
 
    IMP can use persistent caching on the server side to store information
    about user's messages.  This results in much reduced mail server traffic

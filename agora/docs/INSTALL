@@ -39,6 +39,7 @@ To function properly, Agora requires the following:
    least Horde Version 3.2.
 
    .. _`Horde Application Framework`: http://www.horde.org/horde/
+   .. _Text_Figlet: http://pear.php.net/package/Text_Figlet/
 
    The Horde Framework can be obtained from the Horde website and FTP server,
    at

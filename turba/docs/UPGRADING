@@ -198,9 +198,9 @@ Upgrading to Turba 2.1
 
 These are notes on upgrading from Turba 2.0.x to Turba 2.1.
 
-.. Important:: These upgrade instructions assume that you are upgrading from
-               at least Turba 2.0.  If you have an older version of Turba,
-               follow the upgrade steps described in `Upgrading to Turba 2.0`_
+.. Important:: These upgrade instructions assume that you are upgrading from at
+               least Turba 2.0.  If you have an older version of Turba, get a
+               copy of Turba 2.0 and follow the upgrade steps described there
                first.
 
 

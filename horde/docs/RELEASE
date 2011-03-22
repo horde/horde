@@ -44,7 +44,7 @@ The steps to use when cutting a new release
    (e.g. ``user@cvs.horde.org:/repository``) and change to an empty directory.
 
 6. Make a "dry run" of the ``horde-make-release.php`` script by adding
-  ``--dryrun`` to the command line parameters.
+   ``--dryrun`` to the command line parameters.
 
 7. Create the tarballs/patches using ``horde-make-release.php``::
 
@@ -97,18 +97,20 @@ Guidelines for release candidates (RCs)
 Example format for announcement messages
 ========================================
 
-The Horde Team is pleased to announce the (first release candidate|official
-release) of the [MODULE NAME] [MODULE DESCRIPTION] version [VERSION].
+::
 
-[MODULE DESCRIPTION]
+ The Horde Team is pleased to announce the (first release candidate|official
+ release) of the [MODULE NAME] [MODULE DESCRIPTION] version [VERSION].
 
-[Barring any problems, this code will be released as [MODULE] [VERSION].
-Testing is requested and comments are encouraged.
-Updated translations would also be great.]
+ [MODULE DESCRIPTION]
 
-[[MODULE] version H3 ([VERSION]) is a major upgrade in the a.x release series,
-including these enhancements:]
-[The major changes compared to the [MODULE] version H3 (a.b) are:]
-  * [CHANGE 1]
-  * [CHANGE 2]
-  * ...
+ [Barring any problems, this code will be released as [MODULE] [VERSION].
+ Testing is requested and comments are encouraged.
+ Updated translations would also be great.]
+
+ [[MODULE] version H3 ([VERSION]) is a major upgrade in the a.x release series,
+ including these enhancements:]
+ [The major changes compared to the [MODULE] version H3 (a.b) are:]
+   * [CHANGE 1]
+   * [CHANGE 2]
+   * ...

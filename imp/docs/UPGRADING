@@ -256,7 +256,7 @@ HTML messages.  If using pspell, you must upgrade to aspell version 0.60+.
 Javascript HTML Editor
 ----------------------
 
-Support has been added for FCKeditor_ as an option for the javascript HTML
+Support has been added for FCKeditor as an option for the javascript HTML
 editor available on the compose page.  You must have Horde 3.2 or later
 installed to use this editor.
 

@@ -595,7 +595,7 @@ Error checking
 Horde code should throw ``Horde_Exception`` objects (or equivalent Exception
 derivatives) to report errors.  The calling code should either explicitly
 catch the exception and handle it or else the Horde-wide exception handler
-will handle the exception, display an error message, and exit the script.
+will handle the exception, display an error message, and exit the script::
 
     try {
         $result = $something->call('may error');
@@ -650,22 +650,22 @@ c. If you want to know if a variable is a non-empty string, including 0, you
    have to use `strlen()`_. This only works with strings or scalars that
    automatically cast to strings without problems::
 
-   // Make sure that $str is a non-empty string. $str must exist, so add an
-   // additional check with isset() if necessary.
-   if (strlen($str)) {
-       // $str has a non-zero length.
-   } else {
-       // $str is an empty string '', or null.
-   }
+      // Make sure that $str is a non-empty string. $str must exist, so add an
+      // additional check with isset() if necessary.
+      if (strlen($str)) {
+          // $str has a non-zero length.
+      } else {
+          // $str is an empty string '', or null.
+      }
 
 d. If you know you are working with a mixed variable then using just
    `isset()`_ and `empty()`_ could cause unexpected results, for example if
    testing for a key and the variable is actually a string::
 
-    $foo = 'bar';
-    if (isset($foo['somekey'])) {
-        // This will evaluate to TRUE!
-    }
+      $foo = 'bar';
+      if (isset($foo['somekey'])) {
+          // This will evaluate to TRUE!
+      }
 
 If you know that there is a possibility of a mixed type variable the solution
 in this case would be to add an `is_array()`_ check in the ``if()`` statement.
