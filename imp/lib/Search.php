@@ -101,7 +101,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
         }
 
         /* How do we want to sort results? */
-        $sortpref = IMP::$mailbox->getSort(true);
+        $sortpref = IMP_Mailbox::get($this[$id])->getSort(true);
         if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
             $sortpref['by'] = $GLOBALS['prefs']->getValue('sortdate');
         }
@@ -110,7 +110,10 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
             if (!empty($ob)) {
                 $query->andSearch(array($ob));
             }
-            $results = $this->imapSearch($mbox, $query, array('reverse' => $sortpref['dir'], 'sort' => array($sortpref['by'])));
+            $results = $this->imapSearch($mbox, $query, array('sort' => array($sortpref['by'])));
+            if ($sortpref['dir']) {
+                $results['match']->reverse();
+            }
             $sorted->add($mbox, $results['match']);
         }
 
