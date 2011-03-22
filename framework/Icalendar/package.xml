@@ -19,7 +19,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-22</date>
- <time>21:56:03</time>
+ <time>23:24:11</time>
  <version>
   <release>1.0.0RC1</release>
   <api>1.0.0</api>
@@ -628,7 +628,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <notes>
 * Fix vFreebusy merging (Bug #4807).
 * Implement handling of vTimezones in iCalendar data (lists-horde@carlthompson.net, Bug #4399).
-* Correctly produce vcard parameters without value, like &quot;ADR;WORK:...&quot;.
+* Correctly produce vcard parameters without value, like "ADR;WORK:...".
 * Support departments in vCard&apos;s ORG properties (martin@matuska.org, Bug #4285).
 * Fixed _parseDateTime() (wrobel@pardus.de, Bug #4808).
 * Fix exporting of recurring exceptions (Bug #4627).
@@ -641,12 +641,12 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
 * Support for all day events with VCALENDAR 1.0.
 * Use ISO-8559-1 as default vCalendar 1.0 and vCard 2.1.
 * Fix unreliably overwriting a variable with itself (rsalmon@mbpgroup.com, Bug #5652).
-* Handle AALARM data with parameters (delimited by a &quot;;&quot;).
+* Handle AALARM data with parameters (delimited by a ";").
 * Fix GEO parsing and generation.
 * Refactor line folding and quoted-printable encoding.
 * Add missing softline break (Bug #6541).
 * Don&apos;t require a newline after END (Bug #6641, #6706).
-* Fix detecting of &quot;old&quot; formats when parsing vCalendar/vCard data.
+* Fix detecting of "old" formats when parsing vCalendar/vCard data.
 * Request charset on the fly, because it depends on the VERSION property.
 * Fix passing value arrays with only one element.
 * Correctly parse quoted parameters (Bug #7031)
