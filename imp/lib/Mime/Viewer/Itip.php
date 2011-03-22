@@ -370,7 +370,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
 
                     // Build the reply headers.
                     $msg_headers->addReceivedHeader(array(
-                        'dns' => $GLOBALS['injector']->getInstance('Net_DNS_Resolver'),
+                        'dns' => $GLOBALS['injector']->getInstance('Net_DNS2_Resolver'),
                         'server' => $GLOBALS['conf']['server']['name']
                     ));
                     $msg_headers->addMessageIdHeader();

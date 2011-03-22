@@ -5,7 +5,7 @@
  *
  * LICENSE:
  *
- * Copyright (c) 2010, gERD Schaufelberger
+ * Copyright (c) 2010, Gerd Schaufelberger
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,9 +57,9 @@ class Horde_Mail_Transport_Smtpmx extends Horde_Mail_Transport
     protected $_smtp = null;
 
     /**
-     * Net_DNS_Resolver object.
+     * Net_DNS2_Resolver object.
      *
-     * @var Net_DNS_Resolver
+     * @var Net_DNS2_Resolver
      */
     protected $_resolver;
 
@@ -104,7 +104,7 @@ class Horde_Mail_Transport_Smtpmx extends Horde_Mail_Transport
         ),
         'no_resolver' => array(
             'code' => 9,
-            'msg' => 'Could not start resolver! Install PEAR:Net_DNS or switch off "netdns"'
+            'msg' => 'Could not start resolver! Install PEAR:Net_DNS2 or switch off "netdns"'
         ),
         'failed_rset' => array(
             'code' => 10,
@@ -117,12 +117,12 @@ class Horde_Mail_Transport_Smtpmx extends Horde_Mail_Transport
      *
      * @param array $params  Additional options:
      * <pre>
-     * 'debug' - (boolean) Activate SMTP and Net_DNS debug mode?
+     * 'debug' - (boolean) Activate SMTP debug mode?
      *           DEFAULT: false
      * 'mailname' - (string) The name of the local mail system (a valid
      *              hostname which matches the reverse lookup)
      *              DEFAULT: Auto-determined
-     * 'netdns' - (boolean) Use PEAR:Net_DNS (true) or the PHP builtin
+     * 'netdns' - (boolean) Use PEAR:Net_DNS2 (true) or the PHP builtin
      *            getmxrr().
      *            DEFAULT: true
      * 'port' - (integer) Port.
@@ -315,9 +315,13 @@ class Horde_Mail_Transport_Smtpmx extends Horde_Mail_Transport
         if ($this->params['netdns']) {
             $this->_loadNetDns();
 
-            $response = $this->_resolver->query($host, 'MX');
-            if (!$response) {
-                return false;
+            try {
+                $response = $this->_resolver->query($host, 'MX');
+                if (!$response) {
+                    return false;
+                }
+            } catch (Exception $e) {
+                throw new Horde_Mail_Exception($e);
             }
 
             foreach ($response->answer as $rr) {
@@ -343,19 +347,15 @@ class Horde_Mail_Transport_Smtpmx extends Horde_Mail_Transport
     }
 
     /**
-     * Initialize Net_DNS_Resolver.
+     * Initialize Net_DNS2_Resolver.
      */
     protected function _loadNetDns()
     {
         if (!$this->_resolver) {
-            if (!class_exists('Net_DNS_Resolver')) {
+            if (!class_exists('Net_DNS2_Resolver')) {
                 $this->_error('no_resolver');
             }
-
-            $this->_resolver = new Net_DNS_Resolver();
-            if ($this->_params['debug']) {
-                $this->_resolver->test = 1;
-            }
+            $this->_resolver = new Net_DNS2_Resolver();
         }
     }
 

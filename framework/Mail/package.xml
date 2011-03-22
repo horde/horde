@@ -78,7 +78,7 @@
   </required>
   <optional>
    <package>
-    <name>Net_DNS</name>
+    <name>Net_DNS2</name>
     <channel>pear.php.net</channel>
    </package>
    <package>
