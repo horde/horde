@@ -92,7 +92,7 @@ var ImpSearch = {
                 break;
 
             case 'IMP_Search_Element_Size':
-                this.insertSize(crit.s ? 'size_larger' : 'size_smaller', crit.l);
+                this.insertSize(crit.l ? 'size_larger' : 'size_smaller', crit.s);
                 break;
 
             case 'IMP_Search_Element_Text':

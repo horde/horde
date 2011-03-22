@@ -2,6 +2,7 @@
 v5.0-RC1
 --------
 
+[mms] Fix editing the size search criteria.
 [mms] Optimize importing messages from mbox file.
 [mms] Fix deletion from Virtual Inbox in standard view (Bug #9686).
 [mms] Fix loading virtual folders from drop-down folder list (Bug #9687).
