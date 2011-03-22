@@ -2,6 +2,7 @@
 v4.0-RC1
 --------
 
+[jan] Fix passing arguments to sendmail binary (Gonçalo Queirós, Bug #9693).
 [mjr] Service_Facebook refactored for OAuth2 authentication (Bug #9122).
 [mjr] IMSP drivers refactored for Horde 4.
 [gwr] Allow disabling applications for administrators.

@@ -29,6 +29,7 @@
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
 * First release candidate for Horde 4.
+* [jan] Fix passing arguments to sendmail binary (Gonçalo Queirós, Bug #9693).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
