@@ -9,6 +9,11 @@ These are instructions to upgrade from earlier Whups versions. Please backup
 your existing data before running any of the steps described below. You can't
 use the updated data with your old Whups version anymore.
 
+After updating to a newer Whups version, you **always** need to update
+configurations and database schemes. Log in as an administrator, go to
+Administration => Configuration and update anything that's highlighted as
+outdated.
+
 
 Upgrading Whups from 1.0 to 1.0.1
 =================================

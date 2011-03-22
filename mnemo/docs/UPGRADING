@@ -2,13 +2,17 @@
  Upgrading Mnemo
 =================
 
-:Last update:   $Date: 2008/09/23 15:11:54 $
-:Revision:      $Revision: 1.15 $
 :Contact:       horde@lists.horde.org
 
 
-These are instructions to upgrade from earlier Mnemo versions. Please
-backup your existing data before running any of the steps described below.
+These are instructions to upgrade from earlier Mnemo versions. Please backup
+your existing data before running any of the steps described below. You can't
+use the updated data with your old Mnemo version anymore.
+
+After updating to a newer Mnemo version, you **always** need to update
+configurations and database schemes. Log in as an administrator, go to
+Administration => Configuration and update anything that's highlighted as
+outdated.
 
 
 Upgrading Mnemo from 2.2.1 to 2.2.2

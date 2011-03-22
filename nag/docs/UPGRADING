@@ -9,6 +9,11 @@ These are instructions to upgrade from earlier Nag versions. Please backup
 your existing data before running any of the steps described below. You can't
 use the updated data with your old Nag version anymore.
 
+After updating to a newer Nag version, you **always** need to update
+configurations and database schemes. Log in as an administrator, go to
+Administration => Configuration and update anything that's highlighted as
+outdated.
+
 
 Upgrading Nag from 2.2.x to 2.3.x
 =================================

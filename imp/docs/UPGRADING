@@ -5,7 +5,14 @@
 :Contact: imp@lists.horde.org
 
 
-These are instructions to upgrade from earlier IMP versions.
+These are instructions to upgrade from earlier IMP versions. Please backup your
+existing data before running any of the steps described below. You can't use
+the updated data with your old IMP version anymore.
+
+After updating to a newer IMP version, you **always** need to update
+configurations and database schemes. Log in as an administrator, go to
+Administration => Configuration and update anything that's highlighted as
+outdated.
 
 
 Upgrading IMP From 4.x To 5.x
@@ -35,7 +42,7 @@ instead by accomplished by using Horde's 'authusername' and/or IMP's
 Configuration Options
 ---------------------
 
-Configuration relating to displaying the terms of agreement, GnuPg, OpenSSL,
+Configuration relating to displaying the terms of agreement, GnuPG, OpenSSL,
 spellchecking, and login redirection have been moved to Horde.
 
 The 'show_preview' option has been removed; enabling previews is now handled
@@ -52,7 +59,7 @@ hook.
 The 'max_from_chars' and 'max_subj_chars' configuration options for the
 minimal (mimp) display have been removed.
 
-The following configuration options have been removed:
+The following configuration options have been removed::
 
    allow_receipts
    append_trailer
@@ -70,7 +77,7 @@ Preferences
 The 'sending_charset' and 'time_format' preferences have been moved to Horde.
 
 The following preferences are no longer used and may be safely removed from
-your ``config/prefs.php`` file::
+your preference backend::
 
    alternative_display
    attachment_display
@@ -107,9 +114,9 @@ The following hooks have been renamed:
 
 * imp_hook_vinfo has been removed - use preauth hook instead
 * msglist_format hook has been removed - instead:
-*  x-priority now handled in the core code
-*  old attachment icon handling see atc_flag pref
-*  msglist_flags hook now used to dynamically set flags on messages
+  * x-priority now handled in the core code
+  * old attachment icon handling see atc_flag pref
+  * msglist_flags hook now used to dynamically set flags on messages
 * The headers.php configuration file has been removed; setting custom headers
   is now done via the 'pre_sent' hook.
 * Setting message trailers is now done entirely within the 'trailer' hook.

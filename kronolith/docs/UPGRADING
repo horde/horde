@@ -9,23 +9,20 @@ These are instructions to upgrade from earlier Kronolith versions. Please
 backup your existing data before running any of the steps described below. You
 can't use the updated data with your old Kronolith version anymore.
 
+After updating to a newer Kronolith version, you **always** need to update
+configurations and database schemes. Log in as an administrator, go to
+Administration => Configuration and update anything that's highlighted as
+outdated.
+
 
 Upgrading Kronolith from 2.3.x to 3.x
 =====================================
 
-* Removed prefs: last_kronolith_maintenance
 
+Preferences
+-----------
 
-SQL Backends
-------------
-
-A field to store flags for all day events has been added to the default SQL
-table layout.
-
-Execute the provided SQL script to update your data to the new Kronolith
-version, e.g.::
-
-   mysql --user=root --password=<MySQL-root-password>  <db name> < scripts/upgrades/2.3_to_2.0.sql
+The last_kronolith_maintenance preference has been removed.
 
 
 UTC timestamps
@@ -49,8 +46,8 @@ Daily agendas
 
 There is a new script in ``scripts/agenda.php`` to send out daily agendas to
 all users. It should be run once a day. This replaces the
-``scripts/reminders.php`` script from older versions, but you have to take
-care yourself now that the script isn't run more than once per day.
+``scripts/reminders.php`` script from older versions, but you have to take care
+yourself now that the script isn't run more than once per day.
 
 
 Upgrading Kronolith from 2.3 to 2.3.x
