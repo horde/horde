@@ -31,16 +31,18 @@ longer supported.
 Button configuration is now stored in the prefs value 'ckeditor_buttons'.
 
 
-Server Options
---------------
+Server Options (backends.php; OLD servers.php)
+----------------------------------------------
+
+The format of servers.php has changed and has been renamed to backends.php.
 
 The 'realm' option has been removed.  Altering usernames at runtime should
 instead by accomplished by using Horde's 'authusername' and/or IMP's
 'preauthenticate' hooks.
 
 
-Configuration Options
----------------------
+Configuration Options (conf.php)
+--------------------------------
 
 Configuration relating to displaying the terms of agreement, GnuPG, OpenSSL,
 spellchecking, and login redirection have been moved to Horde.
@@ -49,8 +51,7 @@ The 'show_preview' option has been removed; enabling previews is now handled
 by the 'show_preview' preference.
 
 The 'allow_resume_all_in_drafts' option has been removed; all messages that
-appear in the configured Drafts mailbox always are now always allowed to be
-resumed.
+appear in the configured Drafts mailbox are now always allowed to be resumed.
 
 The 'css_files' configuration option for the dynamic (dimp) display has been
 removed.  Equivalent behavior can now be found in the Horde-wide 'cssfiles'
@@ -71,8 +72,8 @@ The following configuration options have been removed::
    sort_limit
 
 
-Preferences
------------
+Preferences (prefs.php)
+-----------------------
 
 The 'sending_charset' and 'time_format' preferences have been moved to Horde.
 
@@ -103,41 +104,39 @@ your preference backend::
    vtrash_id
 
 
-Hooks
------
+Hooks (hooks.php)
+-----------------
 
-* hooks.php has changed
+The format of hooks.php has changed.  See horde/docs/UPGRADING for more
+information.
 
-The following hooks have been renamed:
-  OLD: spam_bounce -> NEW: spam_email
-  OLD: postsent -> NEW: post_sent
+The 'vinfo' hook has been removed.  Use Horde's 'authusername' and/or IMP's
+'preauthenticate' hooks instead.
 
-* imp_hook_vinfo has been removed - use preauth hook instead
-* msglist_format hook has been removed - instead:
-  * x-priority now handled in the core code
-  * old attachment icon handling see atc_flag pref
-  * msglist_flags hook now used to dynamically set flags on messages
-* The headers.php configuration file has been removed; setting custom headers
-  is now done via the 'pre_sent' hook.
-* Setting message trailers is now done entirely within the 'trailer' hook.
+The 'msglist_format' hook has been removed.  X-Priority header handling is now
+handled in the core IMP code.  Attachment icon display is now handled by the
+'atc_flag' preference.  The 'msglist_flags' hook is now used to dynamically
+set flags on messages.
+
+
+Custom Message Headers (OLD header.php)
+---------------------------------------
+
+The header.php configuration file has been removed.  Setting custom headers
+is now done in the 'pre_sent' hook.
+
+
+Custom Message Trailers (OLD trailer.txt)
+-----------------------------------------
+
+The trailer.txt file has been removed.  Setting message trailers is now done
+in the 'trailer' hook.
 
 
 Fetchmail
 ---------
 
 All code relating to fetchmail has been removed.
-
-
-Server configuration
---------------------
-
-The format of servers.php has changed and has been renamed to backends.php.
-
-
-Maintenance Tasks
------------------
-
-TODO
 
 
 Flags
@@ -151,12 +150,6 @@ by default - these flags have special meanings and are automatically handled
 by the various message action functions instead.
 
 
-CSS
----
-
-TODO
-
-
 Menu
 ----
 
@@ -167,7 +160,7 @@ in config/menu.php.
 Portal
 ------
 
-Portal rendering has been moved to Horde - imp/config/portal.php is no longer
+Portal rendering has been moved to Horde - config/portal.php is no longer
 needed or used.
 
 
