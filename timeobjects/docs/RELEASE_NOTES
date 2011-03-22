@@ -10,6 +10,6 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MAJORBUG);
+$this->notes['fm']['focus'] = array();
 
 $this->notes['name'] = 'Timeobjects';

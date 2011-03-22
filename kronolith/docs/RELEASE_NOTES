@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MAJORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_DOCS);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first beta release of the Kronolith
-Calendar Application version H4 (3.0).
+The Horde Team is pleased to announce the first release candidate of the
+Kronolith Calendar Application version H4 (3.0).
 
 Kronolith is the Horde calendar application. It provides web-based calendars
 backed by a SQL database or a Kolab server. Supported features include Ajax and
@@ -24,15 +24,8 @@ mobile interfaces, shared calendars, remote calendars, invitation management
 events, and a sophisticated day/week view which handles arbitrary numbers of
 overlapping events.
 
-IMPORTANT! This is a preview version that should not be used on production
-systems. This version is considered feature complete but there are likely to be
-bugs. You should not use this preview version with existing production
-data. Migration of data from earlier versions has not been fully tested yet and
-is not supported.
-
 We encourage widespread testing and feedback via the mailing lists or our bug
-tracking system. Updated translations are very welcome, though some strings
-might still change before the release candidates are prepared.
+tracking system. Updated translations are very welcome.
 
 To install Kronolith, you need to install Horde first. See
 https://github.com/horde/horde/blob/master/horde/docs/INSTALL for details. Once
@@ -43,14 +36,14 @@ Horde is installed, you can install Kronolith with the following command:
 Then log in to Horde with your adminstrator account to configure the
 application and install the database schema from the configuration interface.
 
-The major changes compared to the Kronolith version H4 (3.0-ALPHA1) are:
+The major changes compared to the Kronolith version H4 (3.0-BETA1) are:
 
-    * Added converting of old event categories to tags
+    * Updated installation and upgrade instructions
     * Small bug fixes
 
-The full list of changes (from version H4 (3.0-ALPHA1)) can be viewed here:
+The full list of changes (from version H4 (3.0-BETA1)) can be viewed here:
 
-https://github.com/horde/horde/blob/81898e25d09e26d07e1f44cd0313d4faf2d43a3e/kronolith/docs/CHANGES
+https://github.com/horde/horde/blob/ed64195b712b362b3b69651cf392c08a5dd01064/kronolith/docs/CHANGES
 
 Have fun!
 
@@ -59,7 +52,7 @@ ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Added converting of old event categories to tags.
+Updated installation and upgrade instructions.
 Small bug fixes.
 FM;
 

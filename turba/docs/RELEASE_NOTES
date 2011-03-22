@@ -10,11 +10,11 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE, Horde_Release::FOCUS_MAJORBUG, Horde_Release::FOCUS_DOCS);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first beta release of the Turba
+The Horde Team is pleased to announce the first release candidate of the Turba
 Contact Manager version H4 (3.0).
 
 Turba is the Horde contact management application. Leveraging the Horde
@@ -22,15 +22,8 @@ framework to provide seamless integration with IMP and other Horde
 applications, it supports storing contacts in SQL, LDAP, Kolab, and IMSP
 address books.
 
-IMPORTANT! This is a preview version that should not be used on production
-systems. This version is considered feature complete but there are likely to be
-bugs. You should not use this preview version with existing production
-data. Migration of data from earlier versions has not been fully tested yet and
-is not supported.
-
 We encourage widespread testing and feedback via the mailing lists or our bug
-tracking system. Updated translations are very welcome, though some strings
-might still change before the release candidates are prepared.
+tracking system. Updated translations are very welcome.
 
 To install Turba, you need to install Horde first. See
 https://github.com/horde/horde/blob/master/horde/docs/INSTALL for details. Once
@@ -41,14 +34,15 @@ Horde is installed, you can install Turba with the following command:
 Then log in to Horde with your adminstrator account to configure the
 application and install the database schema from the configuration interface.
 
-The major changes compared to the Turba version H4 (3.0-ALPHA1) are:
+The major changes compared to the Turba version H4 (3.0-BETA1) are:
 
-    * Fixed exporting birthdays to calendars
-    * Fixed importing contacts through SyncML
+    * Finished Kolab and IMSP support
+    * Updated installation and upgrade instructions
+    * Small bug fixes.
 
-The full list of changes (from version H4 (3.0-ALPHA1)) can be viewed here:
+The full list of changes (from version H4 (3.0-BETA1)) can be viewed here:
 
-https://github.com/horde/horde/blob/a0179cc102151799ec5ba7ac0abb5cab5bda825f/turba/docs/CHANGES
+https://github.com/horde/horde/blob/ed64195b712b362b3b69651cf392c08a5dd01064/turba/docs/CHANGES
 
 Have fun!
 
@@ -57,8 +51,9 @@ ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Fixed exporting birthdays to calendars.
-Fixed importing contacts through SyncML.
+Finished Kolab and IMSP support.
+Updated installation and upgrade instructions.
+Small bug fixes.
 FM;
 
 $this->notes['name'] = 'Turba';

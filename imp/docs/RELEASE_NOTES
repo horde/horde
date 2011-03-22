@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MAJORBUG, Horde_Release::FOCUS_DOCS);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first beta release of the Internet
-Mail Program (IMP) version H4 (5.0).
+The Horde Team is pleased to announce the first release candidate of the
+Internet Mail Program (IMP) version H4 (5.0).
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
 open source webmail applications in the world. It allows universal, web-based
@@ -23,15 +23,8 @@ access to IMAP and POP3 mail servers and provides Ajax, mobile and traditional
 interfaces with a rich range of features normally found only in desktop email
 clients.
 
-IMPORTANT! This is a preview version that should not be used on production
-systems. This version is considered feature complete but there are likely to be
-bugs. You should not use this preview version with existing production
-data. Migration of data from earlier versions has not been fully tested yet and
-is not supported.
-
 We encourage widespread testing and feedback via the mailing lists or our bug
-tracking system. Updated translations are very welcome, though some strings
-might still change before the release candidates are prepared.
+tracking system. Updated translations are very welcome.
 
 To install IMP, you need to install Horde first. See
 https://github.com/horde/horde/blob/master/horde/docs/INSTALL for details. Once
@@ -42,13 +35,17 @@ Horde is installed, you can install IMP with the following command:
 Then log in to Horde with your adminstrator account to configure the
 application and install the database schema from the configuration interface.
 
-The major changes compared to the IMP version H4 (5.0-ALPHA1) are:
+The major changes compared to the IMP version H4 (5.0-BETA1) are:
 
-    * Small bugfixes.
+    * Added mailbox import and export to dynamic view
+    * Improved dynamic portal
+    * Remove application tabs from dynamic view
+    * Updated installation and upgrade instructions
+    * Many small bugfixes and improvements
 
-The full list of changes (from version H4 (5.0-ALPHA1)) can be viewed here:
+The full list of changes (from version H4 (5.0-BETA1)) can be viewed here:
 
-https://github.com/horde/horde/blob/e7dbf2817de9abd761ec23526592f670a640359e/imp/docs/CHANGES
+https://github.com/horde/horde/blob/ed64195b712b362b3b69651cf392c08a5dd01064/imp/docs/CHANGES
 
 Have fun!
 
@@ -57,7 +54,11 @@ ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Small bugfixes.
+Added mailbox import and export to dynamic view.
+Improved dynamic portal.
+Remove application tabs from dynamic view.
+Updated installation and upgrade instructions.
+Many small bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'IMP';
