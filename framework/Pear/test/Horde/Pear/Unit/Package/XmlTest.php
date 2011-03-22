@@ -69,6 +69,32 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testEmptyNote()
+    {
+        $xml = $this->_getFixture();
+        $xml->addNote('');
+        $this->assertEquals(
+            '
+* 
+* Fixed bug #1
+* Initial release
+ ',
+            $xml->findNode('/p:package/p:notes')->textContent
+        );
+    }
+
+    public function testAddNoteToEmpty()
+    {
+        $xml = $this->_getEmptyNotesFixture();
+        $xml->addNote('TEST');
+        $this->assertEquals(
+            '
+* TEST
+ ',
+            $xml->findNode('/p:package/p:notes')->textContent
+        );
+    }
+
     public function testAddNoteChangelog()
     {
         $xml = $this->_getFixture();
@@ -200,6 +226,13 @@ extends Horde_Pear_TestCase
     {
         return new Horde_Pear_Package_Xml(
             fopen(dirname(__FILE__) . '/../../fixture/simple/package.xml', 'r')
+        );
+    }
+
+    private function _getEmptyNotesFixture()
+    {
+        return new Horde_Pear_Package_Xml(
+            fopen(dirname(__FILE__) . '/../../fixture/notes/package.xml', 'r')
         );
     }
 }
