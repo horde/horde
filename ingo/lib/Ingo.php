@@ -454,7 +454,7 @@ class Ingo
     }
 
     /**
-     * Outputs IMP's status/notification bar.
+     * Outputs Ingo's status/notification bar.
      */
     static public function status()
     {
