@@ -410,8 +410,7 @@ class Turba
      *
      * This will only sync shares that are unique to Horde (such as a SQL
      * source).  Any backend that supports ACLs or similar mechanism should be
-     * configured from within backends.php or
-     * _horde_hook_share_* calls.
+     * configured from within backends.php or via Horde's share_* hooks.
      *
      * @param array $sources  The default $cfgSources array.
      *
