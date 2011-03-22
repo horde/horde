@@ -16,8 +16,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-22</date>
- <time>21:50:34</time>
+ <date>2011-03-23</date>
+ <time>00:29:21</time>
  <version>
   <release>1.0.0RC1</release>
   <api>1.0.0</api>
@@ -275,7 +275,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-22</date>
+   <date>2011-03-23</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * First release candidate for Horde 4.
