@@ -2074,7 +2074,35 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>Horde_Alarm</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Argv</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Auth</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Autoloader</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Browser</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0RC1</min>
     <max>2.0.0</max>
@@ -2088,6 +2116,20 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>Horde_Date</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0RC1</min>
@@ -2095,7 +2137,77 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>Horde_Group</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Http</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Image</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_LoginTasks</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mime</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Nls</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Perms</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Prefs</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Rpc</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Serialize</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0RC1</min>
     <max>2.0.0</max>
@@ -2123,7 +2235,28 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>Horde_Text_Filter</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Tree</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Url</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0RC1</min>
     <max>2.0.0</max>
@@ -2143,10 +2276,51 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>Net_DNS2</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <extension>
+    <name>filter</name>
+   </extension>
+   <extension>
+    <name>gettext</name>
+   </extension>
+   <extension>
+    <name>hash</name>
+   </extension>
   </required>
   <optional>
    <package>
+    <name>Horde_ActiveSync</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_DataTree</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Db</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Feed</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Oauth</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0RC1</min>
     <max>2.0.0</max>
@@ -2166,6 +2340,24 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>Horde_SyncMl</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Services_Weather</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>SOAP</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <extension>
+    <name>iconv</name>
+   </extension>
   </optional>
  </dependencies>
  <usesrole>
