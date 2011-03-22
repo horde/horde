@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-21</date>
- <time>18:08:17</time>
+ <time>22:25:30</time>
  <version>
   <release>5.0.0RC1</release>
   <api>5.0.0</api>
@@ -41,6 +41,7 @@
 * [mms] Add ability to import/download mailboxes in dynamic view.
 * [mms] Fix thread sort by newest messages first (Bug #9685).
 * [mms] Fix loading virtual folders from drop-down folder list (Bug #9687).
+* [mms] Fix deletion from Virtual Inbox in standard view (Bug #9686).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1854,6 +1855,7 @@
 * [mms] Add ability to import/download mailboxes in dynamic view.
 * [mms] Fix thread sort by newest messages first (Bug #9685).
 * [mms] Fix loading virtual folders from drop-down folder list (Bug #9687).
+* [mms] Fix deletion from Virtual Inbox in standard view (Bug #9686).
    </notes>
   </release>
  </changelog>

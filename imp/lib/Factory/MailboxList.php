@@ -87,8 +87,9 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
         switch ($mode) {
         case 'imp':
         case 'mimp':
-            $this->_instances[$mbox_key]->setIndex($indices);
+            /* 'checkcache' needs to be set before setIndex(). */
             $this->_instances[$mbox_key]->checkcache = is_null($indices);
+            $this->_instances[$mbox_key]->setIndex($indices);
             break;
         }
 

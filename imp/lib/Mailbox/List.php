@@ -701,7 +701,7 @@ class IMP_Mailbox_List implements Countable, Serializable
      */
     public function unserialize($data)
     {
-        $data = @unserialize($data, true);
+        $data = @unserialize($data);
         if (!is_array($data) ||
             !isset($data['v']) ||
             ($data['v'] != self::VERSION)) {
