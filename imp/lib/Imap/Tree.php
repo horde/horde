@@ -1568,7 +1568,9 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
                 }
             }
 
-            if (!$val->container) {
+            if ($val->container) {
+                $params['container'] = true;
+            } else {
                 if ($opts['render_type'] == 'Jquerymobile') {
                     $params['url'] = '#';
                 } else {

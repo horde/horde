@@ -20,8 +20,10 @@ class IMP_Tree_Flist extends Horde_Tree_Select
      * @var array
      */
     protected $_allowed = array(
+        'container',
         'orig_label',
-        'selected'
+        'selected',
+        'vfolder'
     );
 
     /**
@@ -180,7 +182,7 @@ class IMP_Tree_Flist extends Horde_Tree_Select
         }
 
         /* Ignore container elements. */
-        if (!isset($node['url'])) {
+        if (!empty($node['container'])) {
             if (!empty($node['vfolder'])) {
                 return '';
             }
