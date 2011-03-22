@@ -129,9 +129,9 @@ class Horde_Prefs implements ArrayAccess
     }
 
     /**
-     * Return the storage driver.
+     * Returns the storage drivers.
      *
-     * @return Horde_Prefs_Storage_Base  The storage driver.
+     * @return array  The storage drivers.
      */
     public function getStorage()
     {

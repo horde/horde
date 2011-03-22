@@ -51,6 +51,16 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
     }
 
     /**
+     * Returns the charset of the DB backend.
+     *
+     * @return string  The connection's charset.
+     */
+    public function getCharset()
+    {
+        return $this->_db->getOption('charset');
+    }
+
+    /**
      */
     public function get($scope_ob)
     {
