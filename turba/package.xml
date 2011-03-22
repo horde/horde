@@ -41,6 +41,7 @@
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
 * First release candidate for Horde 4.
+* [gwr] Adapted the Kolab driver to Horde 4.
 * [cjh] Fix storing of binary fields.
 * [mjr] Fix/refactor IMSP driver.
 * [mjr] Fix issue that caused erroneous file listings for objects in sources
@@ -925,6 +926,7 @@
    <date>2011-03-22</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [gwr] Adapted the Kolab driver to Horde 4.
 * First release candidate for Horde 4.
 * [cjh] Fix storing of binary fields.
 * [mjr] Fix/refactor IMSP driver.

@@ -29,6 +29,7 @@
  <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
  <notes>
 * First release candidate for Horde 4.
+* [gwr] Adapted the Kolab driver to Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

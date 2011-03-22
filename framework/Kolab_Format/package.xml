@@ -23,9 +23,9 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
  <notes>
-* First release candidate for Horde 4.
-* [gwr] Moved Horde specific functionality out of the note parser.
 * [gwr] Moved Horde specific functionality out of the tasks parser.
+* [gwr] Moved Horde specific functionality out of the note parser.
+* First release candidate for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
