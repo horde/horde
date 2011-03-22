@@ -2,6 +2,7 @@
 v3.0-RC1
 --------
 
+[jan] Update installation and upgrade instructions.
 [gwr] Adapted the Kolab driver to Horde 4.
 [mjr] Fix issue that caused erroneous file listings for objects in sources
       without a __uid value.

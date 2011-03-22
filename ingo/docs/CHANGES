@@ -2,6 +2,7 @@
 v2.0-RC1
 --------
 
+[jan] Update installation and upgrade instructions.
 [jan] Fix instantiation of VFS transport driver (Bug #9605).
 [jan] Fix moving rules with the SQL driver (Bug #9672).
 
