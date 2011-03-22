@@ -76,7 +76,9 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
     public function __toString()
     {
         $utils = new Horde_Imap_Client_Utils();
-        return strval($utils->toSequenceString($this->_ids));
+        return strval($utils->toSequenceString($this->_ids, array(
+            'nosort' => true
+        )));
     }
 
     /**
