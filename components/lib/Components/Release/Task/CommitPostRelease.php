@@ -41,7 +41,7 @@ extends Components_Release_Task_Base
     public function validate($options)
     {
         if (empty($options['next_version'])) {
-            return array('The "next" option has no value! What should the next version number be?');
+            return array('The "next_version" option has no value! What should the next version number be?');
         }
         return array();
     }
