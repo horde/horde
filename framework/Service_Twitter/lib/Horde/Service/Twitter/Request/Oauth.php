@@ -62,7 +62,7 @@ class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
      *
      * @see self::get
      */
-    public function post($url, $params = array())
+    public function post($url, array $params = array())
     {
         $request = new Horde_Oauth_Request($url, $params);
         $request->sign($this->_twitter->auth->oauth->signatureMethod,
