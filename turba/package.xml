@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-03-23</date>
- <time>00:19:38</time>
+ <time>00:20:38</time>
  <version>
-  <release>3.0.0RC1</release>
+  <release>3.0.0RC2</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -40,11 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* First release candidate for Horde 4.
-* [gwr] Adapted the Kolab driver to Horde 4.
-* [mjr] Fix issue that caused erroneous file listings for objects in sources without a __uid value.
-* [cjh] Fix storing of binary fields.
-* [mjr] Fix/refactor IMSP driver.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1100,6 +1096,19 @@
 * [mjr] Fix issue that caused erroneous file listings for objects in sources without a __uid value.
 * [cjh] Fix storing of binary fields.
 * [mjr] Fix/refactor IMSP driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0RC2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-03-23</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
