@@ -2470,29 +2470,16 @@ class Horde_Form_Type_date extends Horde_Form_Type {
     {
         if ($date === null) {
             return '';
-        } elseif (!is_array($date)) {
-            /* Date is not array, so assume timestamp. Work out the component
-             * parts using date(). */
-            $date = array('day'   => date('j', $date),
-                          'month' => date('n', $date),
-                          'year'  => date('Y', $date));
         }
 
-        $diffdays = Date_Calc::dateDiff((int)$date['day'],
-                                        (int)$date['month'],
-                                        (int)$date['year'],
-                                        date('j'), date('n'), date('Y'));
-
-        /* An error occured. */
-        if ($diffdays == -1) {
-            return;
+        try {
+            $today = new Horde_Date(time());
+            $date = new Horde_Date($date);
+            $diffdays = $date->toDays() - $today->toDays();
+        } catch (Horde_Date_Exception $e) {
+            return '';
         }
 
-        $ago = $diffdays * Date_Calc::compareDates((int)$date['day'],
-                                                   (int)$date['month'],
-                                                   (int)$date['year'],
-                                                   date('j'), date('n'),
-                                                   date('Y'));
         if ($ago < -1) {
             return sprintf(Horde_Form_Translation::t(" (%s days ago)"), $diffdays);
         } elseif ($ago == -1) {
@@ -2605,7 +2592,7 @@ class Horde_Form_Type_hourminutesecond extends Horde_Form_Type {
      *                         YYYY-MM-DD HH:MM:SS, timestamp YYYYMMDDHHMMSS and
      *                         UNIX epoch).
      *
-     * @return Date  The time object.
+     * @return Horde_Date  The time object.
      */
     function getTimeOb($time_in)
     {
@@ -2852,7 +2839,7 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type {
      *                         YYYY-MM-DD HH:MM:SS, timestamp YYYYMMDDHHMMSS
      *                         and UNIX epoch) plus the fourth YYYY-MM-DD.
      *
-     * @return Date  The date object.
+     * @return Horde_Date  The date object.
      */
     function getDateOb($date_in)
     {
@@ -2886,7 +2873,7 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type {
      */
     function formatDate($date)
     {
-        if (!is_a($date, 'Date')) {
+        if (!($date instanceof Horde_Date)) {
             $date = $this->getDateOb($date);
         }
 

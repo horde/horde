@@ -294,14 +294,7 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
    These PEAR modules are **RECOMMENDED** to be installed:
 
-   a. Date
-
-      **REQUIRED** only if you are dealing with calendar data.
-      To install, enter the following at the command prompt::
-
-        pear install Date
-
-   b. Net_DNS2
+   a. Net_DNS2
 
       If installed, it will be used instead of the built-in PHP function
       gethostbyaddr() for host name lookups. This has the advantage that
@@ -310,7 +303,7 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
         pear install Net_DNS2
 
-   c. Services_Weather (>= 1.3.1)
+   b. Services_Weather (>= 1.3.1)
 
       **REQUIRED** only if you wish to use the weather.com block on the portal
       page.
@@ -322,7 +315,7 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       the portal page. See the file ``data/Services_Weather/buildMetarDB.php``
       in your PEAR directory for details.
 
-   d. File_Fstab
+   c. File_Fstab
 
      Required only if you use the localhost driver for the Accounts block.
      To install, enter the following at the command prompt::
