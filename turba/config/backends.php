@@ -620,33 +620,35 @@ $cfgSources['favourites'] = array(
  * birthdays (which will show up via the listTimeObjects API) may still be
  * useful to some
  */
-$cfgSources['facebook'] = array(
-    // Disabled by default
-    'disabled' => true,
-    'title' => _("Facebook Friends"),
-    'type' => 'facebook',
-    'params' => array(
-        'limit' => 10
-    ),
-    'map' => array(
-        '__key' => 'uid',
-        'name' => 'name',
-        'lastname' => 'last_name',
-        'firstname' => 'first_name',
-        'email' => 'proxied_email',
-        'birthday' => 'birthday_date',
-        'homeCity' => 'current_location.city',
-        'homeProvince' => 'current_location.state',
-        'homePostalCode' => 'current_location.zip',
-        'homeCountry' => 'current_location.country',
-    ),
-    'search' => array(
-        'name',
-        'email',
-    ),
-    'export' => true,
-    'browse' => true,
-);
+if (!empty($GLOBALS['conf']['facebook']['id'])) {
+    $cfgSources['facebook'] = array(
+        // Disabled by default
+        'disabled' => !$GLOBALS['injector']->getInstance('Horde_Service_Facebook')->auth->getSessionKey(),
+        'title' => _("Facebook Friends"),
+        'type' => 'facebook',
+        'params' => array(
+            'limit' => 10
+        ),
+        'map' => array(
+            '__key' => 'uid',
+            'name' => 'name',
+            'lastname' => 'last_name',
+            'firstname' => 'first_name',
+            'email' => 'proxied_email',
+            'birthday' => 'birthday_date',
+            'homeCity' => 'current_location.city',
+            'homeProvince' => 'current_location.state',
+            'homePostalCode' => 'current_location.zip',
+            'homeCountry' => 'current_location.country',
+        ),
+        'search' => array(
+            'name',
+            'email',
+        ),
+        'export' => true,
+        'browse' => true,
+    );
+}
 
 /**
  * This source creates an address book for each group the current user is a
