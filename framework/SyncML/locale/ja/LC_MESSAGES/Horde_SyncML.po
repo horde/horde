@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Icalendar\n"
+"Project-Id-Version: Horde_SyncML\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2011-03-16 18:19+0900\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"PO-Revision-Date: 2011-03-19 17:09+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,6 @@ msgstr ""
 "Language: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: lib/Horde/Icalendar/Vevent.php:121
-msgid "An unknown person"
-msgstr "予期しない人物"
+#: lib/Horde/SyncMl/Device/Sync4j.php:607
+msgid "Error converting notes."
+msgstr "メモの変換中にエラーが発生しました。"
