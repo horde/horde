@@ -78,7 +78,7 @@ class Horde_Date_Utils
     public static function relativeDateTime($time, $date_format = '%x',
                                             $time_format = '%X')
     {
-        $date = new Horde_Date($timestamp);
+        $date = new Horde_Date($time);
 
         $delta = time() - $date->timestamp();
         if ($delta < 60) {
@@ -96,7 +96,7 @@ class Horde_Date_Utils
         }
 
         if ($delta > 24 && $delta < 48) {
-            $date = new Horde_Date($timestamp);
+            $date = new Horde_Date($time);
             return sprintf(Horde_Date_Translation::t("yesterday at %s"), $date->strftime($time_format));
         }
 
