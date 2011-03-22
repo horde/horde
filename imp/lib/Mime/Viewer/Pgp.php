@@ -396,7 +396,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
                 ? 'mimePartWrapValid'
                 : 'mimePartWrapInvalid';
         } else {
-            switch ($GLOBALS['session']->get('imp', 'view')) {
+            switch (IMP::getViewMode()) {
             case 'imp':
                 $status[] = Horde::link(IMP::selfUrl()->add(array('pgp_verify_msg' => 1))) . _("Click HERE to verify the message.") . '</a>';
                 break;

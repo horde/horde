@@ -152,7 +152,7 @@ $imp_flags = $injector->getInstance('IMP_Flags');
 $imp_search = $injector->getInstance('IMP_Search');
 $vars = Horde_Variables::getDefaultVariables();
 
-$dimp_view = ($session->get('imp', 'view') == 'dimp');
+$dimp_view = (IMP::getViewMode() == 'dimp');
 $js_vars = array();
 
 if (isset($vars->search_mailbox)) {

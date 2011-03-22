@@ -313,7 +313,7 @@ class IMP_Ui_Message
 
         $add_link = null;
         $addr_array = array();
-        $mimp_view = ($GLOBALS['session']->get('imp', 'view') == 'mimp');
+        $mimp_view = IMP::getViewMode() == 'mimp';
 
         /* Set up the add address icon link if contact manager is
          * available. */
@@ -382,7 +382,7 @@ class IMP_Ui_Message
             }
         }
 
-        if ($GLOBALS['session']->get('imp', 'view') == 'mimp') {
+        if (IMP::getViewMode() == 'mimp') {
             return implode(', ', $addr_array);
         }
 

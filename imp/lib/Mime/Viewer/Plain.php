@@ -101,7 +101,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         $text = IMP::filterText($text);
 
         /* Done processing if in mimp mode. */
-        if ($GLOBALS['session']->get('imp', 'view') == 'mimp') {
+        if (IMP::getViewMode() == 'mimp') {
             return array(
                 $mime_id => array(
                     'data' => $text,

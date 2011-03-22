@@ -63,8 +63,7 @@ class IMP
     /**
      * Returns the current view mode for IMP.
      *
-     * @return string  Either 'traditional', 'dynamic', or 'mobile' or
-     *                 'smartmobile'.
+     * @return string  Either 'dimp', 'imp', 'mimp', or 'mobile'.
      */
     static public function getViewMode()
     {

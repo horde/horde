@@ -26,6 +26,7 @@
  * showunsub - (boolean) Show unsusubscribed mailboxes on the folders
  *             screen.
  * tasklistavail - (boolean) Is listing of tasklists available?
+ * view - (string) Either 'dimp', 'imp', 'mimp', or 'mobile'.
  * </pre>
  *
  * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
@@ -441,12 +442,16 @@ class IMP_Auth
             case 'traditional':
                 $impview = IMP::showAjaxView() ? 'dimp' : 'imp';
                 break;
+
             case 'smartmobile':
                 $impview = Horde::ajaxAvailable() ? 'mobile' : 'mimp';
                 break;
+
             case 'mobile':
                 $impview = 'mimp';
+                break;
             }
+
             $session->set('imp', 'view', $impview);
         }
 
@@ -467,27 +472,6 @@ class IMP_Auth
         $session->set('imp', 'rteavail', $injector->getInstance('Horde_Editor')->supportedByBrowser());
 
         self::_logMessage(true, $imp_imap);
-    }
-
-    /**
-     * Sets the current view mode.
-     *
-     * @return string  Either 'dimp', 'imp', or 'mimp'.
-     */
-    static public function setViewMode($view)
-    {
-        /* Enforce minimum browser standards for DIMP. */
-        if (($view == 'dimp' || $view == 'mobile') && !Horde::ajaxAvailable()) {
-            if ($view == 'dimp') {
-                $view = 'imp';
-                $GLOBALS['notification']->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
-            } else {
-                $view = 'mimp';
-                $GLOBALS['notification']->push(_("Your browser is too old to display the smartphone mode. Using mobile mode instead."), 'horde.warning');
-            }
-        }
-
-        $GLOBALS['session']->set('imp', 'view', $view);
     }
 
 }
