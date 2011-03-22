@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-21</date>
- <time>14:46:02</time>
+ <date>2011-03-22</date>
+ <time>00:34:25</time>
  <version>
   <release>1.0.0RC1</release>
   <api>1.0.0</api>
@@ -22,8 +22,9 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Fix fetching by sequence number when caching.
 * First release candidate for Horde 4.
+* Fix fetching by sequence number when caching.
+* Use UIDPLUS results to copy cached data to new mailbox when copying messags.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -243,11 +244,12 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-21</date>
+   <date>2011-03-22</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Fix fetching by sequence number when caching.
 * First release candidate for Horde 4.
+* Fix fetching by sequence number when caching.
+* Use UIDPLUS results to copy cached data to new mailbox when copying messags.
    </notes>
   </release>
  </changelog>

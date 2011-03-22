@@ -2975,7 +2975,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _copy($dest, $options)
     {
-        $this->_temp['copyuid'] = $this->_temp['trycreate'] = null;
+        $this->_temp['copyuid'] = $this->_temp['copyuidvalid'] = $this->_temp['trycreate'] = null;
         $this->_temp['uidplusmbox'] = $dest;
 
         $seq = $options['ids']->all
@@ -2999,6 +2999,27 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             throw $e;
         }
 
+        /* UIDPLUS (RFC 4315) allows easy determination of the UID of the
+         * copied messages. If UID not returned, then destination mailbox
+         * does not support persistent UIDs.
+         * Use UIDPLUS information to move cached data to new mailbox (see
+         * RFC 4549 [4.2.2.1]). */
+        if ($this->_initCache() &&
+            !is_null($this->_temp['copyuid'])) {
+            $old_data = $this->cache->get($this->_selected, array_keys($this->_temp['copyuid']), null);
+            $new_data = array();
+
+            foreach ($this->_temp['copyuid'] as $key => $val) {
+                if (!empty($old_data[$key])) {
+                    $new_data[$val] = $old_data[$key];
+                }
+            }
+
+            if (!empty($new_data)) {
+                $this->cache->set($dest, $new_data, $this->_temp['copyuidvalid']);
+            }
+        }
+
         // If moving, delete the old messages now.
         if (!empty($options['move'])) {
             $opts = array('ids' => $options['ids']);
@@ -3008,11 +3029,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->expunge($this->_selected, $opts);
         }
 
-        /* UIDPLUS (RFC 4315) allows easy determination of the UID of the
-         * copied messages. If UID not returned, then destination mailbox
-         * does not support persistent UIDs.
-         * @todo Use UIDPLUS information to move cached data to new
-         * mailbox (see RFC 4549 [4.2.2.1]). */
         return is_null($this->_temp['copyuid'])
             ? true
             : $this->_temp['copyuid'];
@@ -4155,6 +4171,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $this->_temp['appenduid'] = array_merge($this->_temp['appenduid'], $this->utils->fromSequenceString($parts[1]));
             } else {
                 $this->_temp['copyuid'] = array_combine($this->utils->fromSequenceString($parts[1]), $this->utils->fromSequenceString($parts[2]));
+                $this->_temp['copyuidvalid'] = $parts[0];
             }
             break;
 
