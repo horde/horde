@@ -359,7 +359,7 @@ class IMP_Mailbox implements Serializable
         case 'subfolders':
             $imaptree = $injector->getInstance('IMP_Imap_Tree');
             $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER | IMP_Imap_Tree::FLIST_UNSUB | IMP_Imap_Tree::FLIST_NOBASE, $this->_mbox);
-            return array_merge($this, iterator_to_array($imaptree));
+            return array_merge(array($this), iterator_to_array($imaptree));
 
         case 'threadsort':
             /* Thread sort is always available for IMAP servers, since
