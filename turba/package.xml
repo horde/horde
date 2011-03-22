@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>turba</name>
  <channel>pear.horde.org</channel>
  <summary>A web based address book</summary>
@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-19</date>
- <time>14:24:12</time>
+ <date>2011-03-22</date>
+ <time>05:54:34</time>
  <version>
   <release>3.0.0RC1</release>
   <api>3.0.0</api>
@@ -95,13 +95,6 @@
      <file name="Ldif.php" role="horde" />
     </dir> <!-- /lib/Data -->
     <dir name="Driver">
-     <dir name="Kolab">
-      <dir name="Wrapper">
-       <file name="New.php" role="horde" />
-       <file name="Old.php" role="horde" />
-      </dir> <!-- /lib/Driver/Kolab/Wrapper -->
-      <file name="Wrapper.php" role="horde" />
-     </dir> <!-- /lib/Driver/Kolab -->
      <file name="Facebook.php" role="horde" />
      <file name="Favourites.php" role="horde" />
      <file name="Group.php" role="horde" />
@@ -664,9 +657,6 @@
    <install as="turba/lib/Driver/Share.php" name="lib/Driver/Share.php" />
    <install as="turba/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
    <install as="turba/lib/Driver/Vbook.php" name="lib/Driver/Vbook.php" />
-   <install as="turba/lib/Driver/Kolab/Wrapper.php" name="lib/Driver/Kolab/Wrapper.php" />
-   <install as="turba/lib/Driver/Kolab/Wrapper/New.php" name="lib/Driver/Kolab/Wrapper/New.php" />
-   <install as="turba/lib/Driver/Kolab/Wrapper/Old.php" name="lib/Driver/Kolab/Wrapper/Old.php" />
    <install as="turba/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="turba/lib/Form/AddContact.php" name="lib/Form/AddContact.php" />
    <install as="turba/lib/Form/Contact.php" name="lib/Form/Contact.php" />
@@ -930,11 +920,12 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-19</date>
+   <date>2011-03-22</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* [mjr] Fix/refactor IMSP driver.
 * First release candidate for Horde 4.
+* [cjh] Fix storing of binary fields.
+* [mjr] Fix/refactor IMSP driver.
    </notes>
   </release>
  </changelog>
