@@ -32,7 +32,9 @@ if ($argc != 2) {
 if (stripos($argv[1], 'file:') === 0) {
     $ob = new SM_Horde_Convert_File(substr($argv[1], 5));
 } elseif (stripos($argv[1], 'sql:') === 0) {
-    $ob = new SM_Horde_Convert_Sql(substr($argv[1], 4));
+    $params = json_decode(substr($argv[1], 4));
+    $db = $injector->getInstance('Horde_Db')->createDb($params);
+    $ob = new SM_Horde_Convert_Sql($db);
 } else {
     SM_Horde_Convert::usage();
 }
@@ -58,8 +60,8 @@ class SM_Horde_Convert
         $cli->writeln($cli->indent($cli->indent('filename can be either a file or a directory')));
         $cli->writeln();
         $cli->writeln($cli->indent('sql:[DSN]'));
-        $cli->writeln($cli->indent($cli->indent('DSN is to database containing the "userprefs" table. Example:')));
-        $cli->writeln($cli->indent($cli->indent('mysql://root:password@localhost/squirrelmail')));
+        $cli->writeln($cli->indent($cli->indent('DSN are json-encoded connection parameters to the database containing the "userprefs" table. Example:')));
+        $cli->writeln($cli->indent($cli->indent('{"adapter":"mysql","user":"root","password":"password","host":"localhost","database":"squirrelmail"}')));
         exit;
     }
 
@@ -361,13 +363,9 @@ class SM_Horde_Convert_Sql extends SM_Horde_Convert
 
     /**
      */
-    public function __construct($dsn)
+    public function __construct($db)
     {
-        // Connect to database.
-        $this->_db = DB::connect($dsn);
-        if ($this->_db instanceof PEAR_Error) {
-            $GLOBALS['cli']->fatal($this->_db->toString());
-        }
+        $this->_db = $db;
     }
 
     /**
@@ -375,15 +373,12 @@ class SM_Horde_Convert_Sql extends SM_Horde_Convert
     public function convert()
     {
         // Loop through SquirrelMail address books.
-        $handle = $this->_db->query('SELECT user, prefkey, prefval FROM userprefs ORDER BY user');
-        if ($handle instanceof PEAR_Error) {
-            $GLOBALS['cli']->fatal($handle->toString());
-        }
+        $users = $this->_db->select('SELECT user, prefkey, prefval FROM userprefs ORDER BY user');
 
         $user = null;
         $prefs_cache = array();
 
-        while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
+        foreach ($users as $row) {
             if (is_null($user)) {
                 $user = $row['user'];
             }

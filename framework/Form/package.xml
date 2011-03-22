@@ -379,12 +379,6 @@
     <exclude>2.0.0</exclude>
    </package>
   </required>
-  <optional>
-   <package>
-    <name>DB</name>
-    <channel>pear.php.net</channel>
-   </package>
-  </optional>
  </dependencies>
  <phprelease>
   <filelist>

@@ -22,26 +22,21 @@ Horde_Registry::appInit('turba', array('cli' => true, 'user_admin' => true));
 // Read command line parameters.
 if ($argc != 2) {
     $cli->message('Too many or too few parameters.', 'cli.error');
-    $cli->writeln('Usage: import_squirrelmail_file_abook.php DSN');
+    $cli->writeln('Usage: import_squirrelmail_sql_abook.php DSN');
+    $cli->writeln($cli->indent('DSN are json-encoded connection parameters to the database containing the "userprefs" table. Example:'));
+    $cli->writeln($cli->indent('{"adapter":"mysql","user":"root","password":"password","host":"localhost","database":"squirrelmail"}'));
     exit;
 }
-$dsn = $argv[1];
 
-// Connect to database.
-$db = DB::connect($dsn);
-if ($db instanceof PEAR_Error) {
-    $cli->fatal($db->toString());
-}
+$db = $injector->getInstance('Horde_Db')->createDb(json_decode($argv[1]));
+include TURBA_BASE . '/config/backends.php';
 
 // Loop through SquirrelMail address books.
-$handle = $db->query('SELECT owner, nickname, firstname, lastname, email, label FROM address ORDER BY owner');
-if ($handle instanceof PEAR_Error) {
-    $cli->fatal($handle->toString());
-}
+$handle = $db->select('SELECT owner, nickname, firstname, lastname, email, label FROM address ORDER BY owner');
 $turba_shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 $user = null;
 $count = 0;
-while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
+foreach ($handle as $row) {
     // Set current user
     if ($row['owner'] != $user) {
         if (!is_null($user)) {
@@ -61,7 +56,6 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
         // Reset $cfgSources for current user.
         unset($cfgSources);
         $hasShares = false;
-        include TURBA_BASE . '/config/backends.php';
         foreach ($cfgSources as $key => $cfg) {
             if (!empty($cfg['use_shares'])) {
                 $has_share = true;

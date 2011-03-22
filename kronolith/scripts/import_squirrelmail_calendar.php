@@ -21,26 +21,20 @@ Horde_Registry::appInit('kronolith', array('cli' => true, 'user_admin' => true))
 // Read command line parameters.
 if ($argc != 2) {
     $cli->message('Too many or too few parameters.', 'cli.error');
-    $cli->writeln('Usage: import_squirrelmail_file_abook.php DSN');
+    $cli->writeln('Usage: import_squirrelmail_calendar.php DSN');
+    $cli->writeln($cli->indent('DSN are json-encoded connection parameters to the database containing the "userprefs" table. Example:'));
+    $cli->writeln($cli->indent('{"adapter":"mysql","user":"root","password":"password","host":"localhost","database":"squirrelmail"}'));
     exit;
 }
-$dsn = $argv[1];
+
+$db = $injector->getInstance('Horde_Db')->createDb(json_decode($argv[1]));
 $default_tz = date_default_timezone_get();
 
-// Connect to database.
-$db = DB::connect($dsn);
-if ($db instanceof PEAR_Error) {
-    $cli->fatal($db->toString());
-}
-
 // Loop through SquirrelMail calendars.
-$read_stmt = $db->prepare('SELECT reader_name FROM calendar_readers WHERE calendar_id = ?');
-$write_stmt = $db->prepare('SELECT writer_name FROM calendar_writers WHERE calendar_id = ?');
-$handle = $db->query('SELECT id, name, owner_name FROM calendars, calendar_owners WHERE calendars.id = calendar_owners.calendar_id');
-if ($handle instanceof PEAR_Error) {
-    $cli->fatal($handle->toString());
-}
-while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
+$read_stmt = 'SELECT reader_name FROM calendar_readers WHERE calendar_id = ?';
+$write_stmt = 'SELECT writer_name FROM calendar_writers WHERE calendar_id = ?';
+$users = $db->select('SELECT id, name, owner_name FROM calendars, calendar_owners WHERE calendars.id = calendar_owners.calendar_id');
+foreach ($users as $row) {
     $user = $row['owner_name'];
     Horde_Auth::setAuth($user, array());
     $cli->message('Creating calendar ' . $row['name']);
@@ -49,18 +43,12 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
 
     // Add permissions.
     $permissions = array();
-    $result = $db->execute($read_stmt, array($row['id']));
-    if ($result instanceof PEAR_Error) {
-        $cli->fatal($result->toString());
-    }
-    while ($perm_row = $result->fetchRow()) {
+    $result = $db->select($read_stmt, array($row['id']));
+    foreach ($result as $perm_row) {
         $permissions[$perm_row[0]] = Horde_Perms::READ | Horde_Perms::SHOW;
     }
-    $result = $db->execute($write_stmt, array($row['id']));
-    if ($result instanceof PEAR_Error) {
-        $cli->fatal($result->toString());
-    }
-    while ($perm_row = $result->fetchRow()) {
+    $result = $db->select($write_stmt, array($row['id']));
+    foreach ($result as $perm_row) {
         if (isset($permissions[$perm_row[0]])) {
             $permissions[$perm_row[0]] |= Horde_Perms::EDIT;
         } else {
@@ -77,13 +65,10 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
     }
 }
 
-$handle = $db->query('SELECT event_id, calendar_id, ical_raw, owner_name, prefval FROM events, event_owners LEFT JOIN userprefs ON event_owners.owner_name = userprefs.user AND userprefs.prefkey = \'timezone\' WHERE events.id = event_owners.event_key ORDER BY calendar_id, userprefs.prefval, event_owners.owner_name');
-if ($handle instanceof PEAR_Error) {
-    $cli->fatal($handle->toString());
-}
+$handle = $db->select('SELECT event_id, calendar_id, ical_raw, owner_name, prefval FROM events, event_owners LEFT JOIN userprefs ON event_owners.owner_name = userprefs.user AND userprefs.prefkey = \'timezone\' WHERE events.id = event_owners.event_key ORDER BY calendar_id, userprefs.prefval, event_owners.owner_name');
 $ical = new Horde_Icalendar();
 $tz = $calendar = $user = $count = null;
-while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
+foreach ($handle as $row) {
     // Open calendar.
     if ($calendar != $row['calendar_id']) {
         if (!is_null($count)) {

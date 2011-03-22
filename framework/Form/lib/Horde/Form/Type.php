@@ -3569,25 +3569,13 @@ class Horde_Form_Type_obrowser extends Horde_Form_Type {
 
 class Horde_Form_Type_dblookup extends Horde_Form_Type_enum {
 
-    function init($dsn, $sql, $prompt = null)
+    function init($db, $sql, $prompt = null)
     {
         $values = array();
-        $db = DB::connect($dsn);
-        if (!($db instanceof PEAR_Error)) {
-            // Set DB portability options.
-            switch ($db->phptype) {
-            case 'mssql':
-                $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-
-            default:
-                $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-
-            $col = $db->getCol($sql);
-            if (!($col instanceof PEAR_Error)) {
-                $values = array_combine($col, $col);
-            }
+        try {
+            $col = $db->selectValues($sql);
+            $values = array_combine($col, $col);
+        } catch (Horde_Db_Exception $e) {
         }
         parent::init($values, $prompt);
     }
