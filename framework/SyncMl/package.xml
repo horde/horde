@@ -12,9 +12,9 @@
   <active>yes</active>
  </lead>
  <date>2011-03-22</date>
- <time>23:32:53</time>
+ <time>23:33:05</time>
  <version>
-  <release>1.0.0RC1</release>
+  <release>1.0.0RC2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -23,8 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* First release candidate for Horde 4.
-* [jan] Fix calendar synchronization with certain Nokia phones (Bug #9646).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1073,6 +1072,19 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <notes>
 * First release candidate for Horde 4.
 * [jan] Fix calendar synchronization with certain Nokia phones (Bug #9646).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-03-22</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
