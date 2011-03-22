@@ -922,7 +922,7 @@ class Nag
                             . sprintf(_("Changed parent task from \"%s\" to \"%s\""),
                                       $old_parent ? $old_parent->name : _("no parent"),
                                       $parent ? $parent->name : _("no parent"));
-                    } catch (Tag_Exception $e) {
+                    } catch (Nag_Exception $e) {
                     }
                 }
                 if ($old_task->category != $task->category) {
