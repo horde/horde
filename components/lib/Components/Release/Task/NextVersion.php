@@ -71,9 +71,9 @@ extends Components_Release_Task_Base
         } else {
             $info = sprintf(
                 'Would add next version "%s" with the initial note "%s" to %s.',
-                $this->getPackage()->getPackageXml(),
                 $options['next_version'],
-                $options['next_note']
+                $options['next_note'],
+                $this->getPackage()->getPackageXml()
             );
             if ($rel_state !== null) {
                 $info .= ' Release stability: "' . $rel_state . '".';
