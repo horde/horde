@@ -111,7 +111,7 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
 
         /* Build values to pass to the javascript twitter client */
         $defaultText = _("What are you working on now?");
-        $endpoint = Horde::url('services/twitter.php', true);
+        $endpoint = Horde::url('services/twitter/', true);
         $spinner = $instance . '_loading';
         $inputNode = $instance . '_newStatus';
         $inReplyToNode = $instance . '_inReplyTo';
