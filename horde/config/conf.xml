@@ -1714,7 +1714,9 @@
    <configheader>Facebook Integration Settings</configheader>
    <configdescription>If you want to allow your users to interact with their
    Facebook profiles, and you've set up the necessary settings on Facebook, you
-   can enter the key and secret here.</configdescription>
+   can enter the key and secret here. See
+   http://wiki.horde.org/Doc/Admin/Config/Horde/Facebook for
+   details.</configdescription>
    <configswitch name="enabled">false
     <case name="false" desc="Disabled" />
     <case name="true" desc="Enabled">
