@@ -1,6 +1,6 @@
-======================
- Installing Whups 1.0
-======================
+==================
+ Installing Whups
+==================
 
 :Contact: dev@lists.horde.org
 
@@ -14,25 +14,6 @@ For information on the capabilities and features of Whups, see the file
 README_ in the top-level directory of the Whups distribution.
 
 
-Obtaining Whups
-===============
-
-Whups can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/whups/
-
-   ftp://ftp.horde.org/pub/whups/
-
-Or use the mirror closest to you:
-
-   http://www.horde.org/mirrors.php
-
-Bleeding-edge development versions of Whups are available via CVS; see the
-file `horde/docs/HACKING`_ in the Horde distribution, or the website
-http://www.horde.org/source/, for information on accessing the Horde CVS
-repository.
-
-
 Prerequisites
 =============
 
@@ -40,27 +21,20 @@ To function properly, Whups **requires** the following:
 
 1. A working Horde installation.
 
-   Whups runs within the `Horde Application Framework`_, a set of common
-   tools for Web applications written in PHP.  You must install Horde before
+   Whups runs within the `Horde Application Framework`_, a set of common tools
+   for web applications written in PHP.  You must install Horde before
    installing Whups.
 
-   .. Important:: Whups 1.0 requires version 3.2+ of the Horde Framework -
+   .. Important:: Whups 2.0 requires version 4.0+ of the Horde Framework -
                   earlier versions of Horde will **not** work.
-
-   .. _`Horde Application Framework`: http://www.horde.org/horde/
-
-   The Horde Framework can be obtained from the Horde website and FTP server,
-   at
-
-      http://www.horde.org/horde/
-
-      ftp://ftp.horde.org/pub/horde/
-
-   Many of Whups's prerequisites are also Horde prerequisites.
 
    .. Important:: Be sure to have completed all of the steps in the
                   `horde/docs/INSTALL`_ file for the Horde Framework before
-                  installing Whups.
+                  installing Whups. Many of Whups's prerequisites are also
+                  Horde prerequisites. Additionally, many of Whups's optional
+                  features are configured via the Horde install.
+
+   .. _`Horde Application Framework`: http://www.horde.org/horde/
 
 2. The following PHP capabilities:
 
@@ -72,6 +46,55 @@ To function properly, Whups **requires** the following:
 
 Installing Whups
 ================
+
+There are several ways to install Whups. The recommended way to install Whups
+is using the PEAR installer. Alternatively it can be installed from
+tarballs. Finally, if you want to run the latest development code, or get the
+latest, not yet released, fixes, you can install Whups from Git.
+
+
+Installing with PEAR
+~~~~~~~~~~~~~~~~~~~~
+
+First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
+environment for Horde and install the Horde Framework.
+
+When installing Whups through PEAR now, the installer will automatically
+install any dependencies of Whups too. By default, only the required
+dependencies will be installed::
+
+   pear install horde/whups
+
+If you want to install Whups even with all optional dependencies, you need to
+specify the ``-a`` flag. Please note that this might also try to install PHP
+extensions through PECL that might need further configuration or activation in
+your PHP configuration::
+
+   pear install -a horde/whups
+
+If you want to install Whups with all optional dependencies, but without the
+binary PECL packages that need to be compiled, specify both the ``-a`` and the
+``-B`` flag::
+
+   pear install -a -B horde/whups
+
+
+Installing from Release Tarballs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. Important:: As of today, there are no tarballs released for Whups 2
+               yet. Please use the `Installing with PEAR`_ method to install
+               Whups 2.
+
+Whups can be obtained from the Horde website and FTP server, at
+
+   http://www.horde.org/whups/
+
+   ftp://ftp.horde.org/pub/whups/
+
+Or use the mirror closest to you:
+
+   http://www.horde.org/mirrors.php
 
 Whups is written in PHP, and must be installed in a web-accessible directory.
 The precise location of this directory will differ from system to system.
@@ -96,30 +119,9 @@ and would then find Whups at the URL::
 Configuring Whups
 =================
 
-1. Configuring Horde for Whups
+1. Configuring Whups
 
-   a. Register the application
-
-      In ``horde/config/registry.php``, find the ``applications['whups']``
-      stanza. The default settings here should be okay, but you can change
-      them if desired. If you have changed the location of Whups relative to
-      Horde, either in the URL, in the filesystem or both, you must update the
-      ``fileroot`` and ``webroot`` settings to their correct values.
-
-2. Creating the database table
-
-   The specific steps to create the Whups database table depend on which
-   database you've chosen to use.
-
-   First, look in ``scripts/drivers/`` to see if a script already exists for
-   your database type. If so, you should be able to simply execute that script
-   as superuser in your database.
-
-   If such a script does not exist, you'll need to build your own, using the
-   file ``whups.sql`` as a starting point. If you need assistance in creating
-   databases, you may wish to let us know on the Whups mailing list.
-
-3. Configuring Whups
+   TODO: clean up for 2.0 release!
 
    To configure Whups, change to the ``config/`` directory of the installed
    distribution, and make copies of all of the configuration ``dist`` files
@@ -185,14 +187,19 @@ Configuring Whups
    numbers are recognized in the subject line) it will be updated
    instead.
 
-   Note for international users: Whups uses GNU gettext to provide local
-   translations of text displayed by applications; the translations are found
-   in the ``po/`` directory. If a translation is not yet available for your
-   locale (and you wish to create one), see the ``horde/po/README`` file, or
-   if you're having trouble using a provided translation, please see the
-   `horde/docs/TRANSLATIONS`_ file for instructions.
+2. Creating the database table
 
-4. Testing Whups
+   Once you finished the configuration in the previous step, you can create all
+   database tables by clicking the ``DB schema is out of date.`` link in the
+   Whups row of the configuration screen.
+
+   Alternatively you creating the Whups database tables can be accomplished with
+   horde's ``db_migrate`` utility.  If your database is properly setup in the
+   Horde configuration, just run the following::
+
+      horde/bin/db_migrate whups
+
+3. Testing Whups
 
    Use Whups to create your base data, create tickets, and modify
    tickets. Test at least the following:
@@ -203,7 +210,7 @@ Configuring Whups
      - Assigning a ticket
      - Closing a ticket
 
-5. Creating tickets from email messages
+4. Creating tickets from email messages
 
    Whups provides functionality that can be used to create and update tickets
    from email messages. One part of this functionality is the

@@ -1,26 +1,12 @@
-======================
- Installing Mnemo 3.0
-======================
+==================
+ Installing Mnemo
+==================
 
 This document contains instructions for installing the Mnemo web-based notes
 application on your system.
 
 For information on the capabilities and features of Mnemo, see the file
 README_ in the top-level directory of the Mnemo distribution.
-
-
-Obtaining Mnemo
-===============
-
-Mnemo can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/mnemo/
-
-   ftp://ftp.horde.org/pub/mnemo/
-
-Bleeding-edge development versions of Mnemo are available via CVS; see the
-file `docs/HACKING`_ in the Horde distribution for information on accessing
-the Horde CVS repository.
 
 
 Prerequisites
@@ -31,30 +17,78 @@ To function properly, Mnemo requires the following:
 1. A working Horde installation.
 
    Mnemo runs within the `Horde Application Framework`_, a set of common tools
-   for Web applications written in PHP.  You must install Horde before
+   for web applications written in PHP.  You must install Horde before
    installing Mnemo.
+
+   .. Important:: Mnemo 3.0 requires version 4.0+ of the Horde Framework -
+                  earlier versions of Horde will **not** work.
+
+   .. Important:: Be sure to have completed all of the steps in the
+                  `horde/docs/INSTALL`_ file for the Horde Framework before
+                  installing Mnemo. Many of Mnemo's prerequisites are also
+                  Horde prerequisites. Additionally, many of Mnemo's optional
+                  features are configured via the Horde install.
 
    .. _`Horde Application Framework`: http://www.horde.org/horde/
 
-   The Horde Framework can be obtained from the Horde website and FTP server,
-   at
+2. SQL support in PHP *or* a configured Kolab Server.
 
-      http://www.horde.org/horde/
-
-      ftp://ftp.horde.org/pub/horde/
-
-   Many of Mnemo's prerequisites are also Horde prerequisites.  Be sure to
-   have completed all of the steps in the INSTALL_ file for the Horde
-   Framework before installing Mnemo.
-
-2. SQL support in PHP.
-
-   Mnemo stores its data in an SQL database.  Build PHP with whichever SQL
-   driver you require; see the Horde INSTALL_ file for details.
+   Mnemo will store its data in either an SQL database or on a Kolab Server.
+   If you use SQL, build PHP with whichever SQL driver you require; see the
+   Horde INSTALL_ file for details.
 
 
 Installing Mnemo
 ================
+
+There are several ways to install Mnemo. The recommended way to install Mnemo
+is using the PEAR installer. Alternatively it can be installed from
+tarballs. Finally, if you want to run the latest development code, or get the
+latest, not yet released, fixes, you can install Mnemo from Git.
+
+
+Installing with PEAR
+~~~~~~~~~~~~~~~~~~~~
+
+First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
+environment for Horde and install the Horde Framework.
+
+When installing Mnemo through PEAR now, the installer will automatically
+install any dependencies of Mnemo too. By default, only the required
+dependencies will be installed::
+
+   pear install horde/mnemo
+
+If you want to install Mnemo even with all optional dependencies, you need to
+specify the ``-a`` flag. Please note that this might also try to install PHP
+extensions through PECL that might need further configuration or activation in
+your PHP configuration::
+
+   pear install -a horde/mnemo
+
+If you want to install Mnemo with all optional dependencies, but without the
+binary PECL packages that need to be compiled, specify both the ``-a`` and the
+``-B`` flag::
+
+   pear install -a -B horde/mnemo
+
+
+Installing from Release Tarballs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. Important:: As of today, there are no tarballs released for Mnemo 3
+               yet. Please use the `Installing with PEAR`_ method to install
+               Mnemo 3.
+
+Mnemo can be obtained from the Horde website and FTP server, at
+
+   http://www.horde.org/mnemo/
+
+   ftp://ftp.horde.org/pub/mnemo/
+
+Or use the mirror closest to you:
+
+   http://www.horde.org/mirrors.php
 
 Mnemo is written in PHP, and must be installed in a web-accessible directory.
 The precise location of this directory will differ from system to system.
@@ -81,48 +115,13 @@ Configuring Mnemo
 
 1. Configuring Horde for Mnemo
 
-   a. Register the application
+   Mnemo requires a permanent ``Shares`` backend in Horde to manage notepads
+   and to add notes to notepads.  If you didn't setup a Share backend yet, go
+   to the configuration interface, select Horde from the list of applications
+   and select the ``Shares`` tab. Unless you are using Kolab, you should select
+   ``SQL``.
 
-      In ``horde/config/registry.php``, find the ``applications['mnemo']``
-      stanza.  The default settings here should be okay for most
-      installations, but you can change them if desired, or if you have a
-      non-standard install.  If you have changed the location of Mnemo
-      relative to Horde, either in the URL or in the filesystem or both, then
-      you must update the ``fileroot`` and ``webroot`` settings to their
-      correct values.
-
-   b. Configuring a DataTree backend
-
-      Mnemo requires a permanent ``DataTree`` backend in Horde to manage
-      notepads and to add notes to notepads.  If you didn't setup a DataTree
-      backend yet, go to the configuration interface, select Horde from the
-      list of applications and select a driver different than ``None`` on the
-      ``DataTree System`` tab.  Make sure that you ran the necessary scripts
-      to create a storage backend for the DataTree system, e.g. one of the
-      ``create.*.sql`` or ``horde_datatree.*.sql`` SQL scripts in
-      ``horde/scripts/sql/``.  You should have done this already during the
-      installation of Horde.
-
-2. Creating the database table
-
-   The specific steps to create the Mnemo database table depend on which
-   database you've chosen to use.
-
-   First, look in ``scripts/sql/`` to see if a script already exists for your
-   database type.  If so, you should be able to simply execute that script as
-   superuser in your database.  (Note that executing the script as the "horde"
-   user will probably fail when granting privileges.)
-
-   If such a script does not exist, you'll need to build your own, using the
-   file mnemo.sql as a starting point.  If you need assistance in creating
-   databases, you may wish to let us know on the Mnemo mailing list.
-
-3. Configuring Mnemo
-
-   Documentation on the format and purpose of the configuration files in the
-   ``config/`` directory can be found in each file.  You may edit these files
-   if you wish to customize Mnemo's appearance and behavior.  The defaults
-   will be correct for most sites.
+2. Configuring Mnemo
 
    You must login to Horde as a Horde Administrator to finish the
    configuration of Mnemo.  Use the Horde ``Administration`` menu item to get
@@ -135,20 +134,31 @@ Configuring Mnemo
    this case, go back to ``Configuration`` and choose one of the other methods
    to create the configuration file ``mnemo/config/conf.php``.
 
-   Note for international users: Nag uses GNU gettext to provide local
-   translations of text displayed by applications; the translations are found
-   in the po/ directory.  If a translation is not yet available for your
-   locale (and you wish to create one), see the ``horde/po/README`` file, or
-   if you're having trouble using a provided translation, please see the
-   `horde/docs/TRANSLATIONS`_ file for instructions.
+   Documentation on the format and purpose of the other configuration files in
+   the ``config/`` directory can be found in each file. You may create
+   ``*.local.php`` versions of these files if you wish to customize Mnemo's
+   appearance and behavior. See the header of the configuration files for
+   details and examples. The defaults will be correct for most sites.
+
+3. Creating the database table
+
+   Once you finished the configuration in the previous step, you can create all
+   database tables by clicking the ``DB schema is out of date.`` link in the
+   Mnemo row of the configuration screen.
+
+   Alternatively you creating the Mnemo database tables can be accomplished with
+   horde's ``db_migrate`` utility.  If your database is properly setup in the
+   Horde configuration, just run the following::
+
+      horde/bin/db_migrate mnemo
 
 4. Testing Mnemo
 
    Use Mnemo to create, modify, and delete notes. Test at least the following:
 
-   - Creating a new memo
-   - Modifying a memo
-   - Deleting a memo
+   - Creating a new note
+   - Modifying a note
+   - Deleting a note
 
 
 Obtaining Support

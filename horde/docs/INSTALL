@@ -1,6 +1,6 @@
-====================================
- Installing the Horde 4.0 Framework
-====================================
+================================
+ Installing the Horde Framework
+================================
 
 :Contact:       horde@lists.horde.org
 
@@ -467,6 +467,12 @@ your PHP configuration::
 
    pear install -a horde/horde
 
+If you want to install Horde with all optional dependencies, but without the
+binary PECL packages that have to be compiled, specify both the ``-a`` and the
+``-B`` flag::
+
+   pear install -a -B horde/horde
+
 If you want to create a separate PEAR installation for installing Horde,
 independent from the system-wide PEAR installation, this can be done with the
 following commands. The paths are only examples of course::
@@ -756,6 +762,34 @@ Configuring Horde
 
    For more information about securing your webserver, PHP and Horde, see the
    `docs/SECURITY`_ file.
+
+
+Dynamic View Troubleshooting
+============================
+
+Horde's dynamic, AJAX-based views differ from traditional Horde applications in
+that they require javascript support; in fact, javascript performs the bulk of
+the page display.  As such, debugging the dynamic views is more complex than
+with other Horde applications.
+
+If you run into problems with the dynamic view, first follow the
+troubleshooting steps for Horde - namely checking PHP error logs and Horde
+debug logs to determine if the problem is located there.  Server-based errors
+will be logged in the traditional manner.
+
+Only if traditional debugging is unsuccessful will you need to move to
+javascript debugging.  It is highly recommended to use Mozilla Firefox with
+the `Firebug`_ extension installed in order to better track javascript
+errors - it is what the developers use and makes deciphering error codes and
+error line numbers much easier.  You will also want to turn off javascript
+caching, if on, in ``horde/conf/conf.php``.
+
+If you do find a javascript error, it would be great if you could fix the
+issue and provide a patch :)  Absent that, before reporting to the mailing
+list, IRC room, or bug tracker make sure you have a valid javascript error,
+the file the error is being caused in, the line number of the error, and a
+reliable way to reproduce the error.  Developers/other interested folks will
+be much more likely to help you if all this information is provided.
 
 
 Configuring Applications

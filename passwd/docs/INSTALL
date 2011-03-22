@@ -1,6 +1,6 @@
-=======================
- Installing Passwd 3.0
-=======================
+===================
+ Installing Passwd
+===================
 
 :Last update:   $Date: 2009/06/10 08:20:39 $
 :Revision:      $Revision: 1.31.2.4 $
@@ -16,25 +16,6 @@ For information on the capabilities and features of Passwd, see the file
 README_ in the top-level directory of the Passwd distribution.
 
 
-Obtaining Passwd
-==================
-
-Passwd can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/passwd/
-
-   ftp://ftp.horde.org/pub/passwd/
-
-Or use the mirror closest to you:
-
-   http://www.horde.org/mirrors.php
-
-Bleeding-edge development versions of Passwd are available via CVS; see the
-file `horde/docs/HACKING`_ in the Horde distribution, or the website
-http://www.horde.org/source/, for information on accessing the Horde CVS
-repository.
-
-
 Prerequisites
 =============
 
@@ -42,27 +23,20 @@ To function properly, Passwd **requires** the following:
 
 1. A working Horde installation.
 
-   Passwd runs within the `Horde Application Framework`_, a set of common
-   tools for Web applications written in PHP.  You must install Horde before
+   Passwd runs within the `Horde Application Framework`_, a set of common tools
+   for web applications written in PHP.  You must install Horde before
    installing Passwd.
 
-   .. Important:: Passwd 3.0 requires version 3.0+ of the Horde Framework -
+   .. Important:: Passwd 4.0 requires version 4.0+ of the Horde Framework -
                   earlier versions of Horde will **not** work.
-
-   .. _`Horde Application Framework`: http://www.horde.org/horde/
-
-   The Horde Framework can be obtained from the Horde website and FTP server,
-   at
-
-      http://www.horde.org/horde/
-
-      ftp://ftp.horde.org/pub/horde/
-
-   Many of Passwd's prerequisites are also Horde prerequisites.
 
    .. Important:: Be sure to have completed all of the steps in the
                   `horde/docs/INSTALL`_ file for the Horde Framework before
-                  installing Passwd.
+                  installing Passwd. Many of Passwd's prerequisites are also
+                  Horde prerequisites. Additionally, many of Passwd's optional
+                  features are configured via the Horde install.
+
+   .. _`Horde Application Framework`: http://www.horde.org/horde/
 
 2. The following PHP capabilities, depending on the drivers you want use:
 
@@ -89,6 +63,11 @@ To function properly, Passwd **requires** the following:
 3. The following PEAR modules:
    (See `horde/docs/INSTALL`_ for instructions on installing PEAR modules)
 
+   .. Important:: If you are going to install Passwd the recommended way,
+                  i.e. using the PEAR installer, you can skip the remainder of
+                  this section. Installing Passwd through PEAR will
+                  automatically download and install all required PEAR modules.
+
    a. Crypt_CHAP [OPTIONAL]
   
       Passwd uses this package to encrypt passwords for the smbldap driver.
@@ -114,6 +93,55 @@ use:
 Installing Passwd
 ===================
 
+There are several ways to install Passwd. The recommended way to install Passwd
+is using the PEAR installer. Alternatively it can be installed from
+tarballs. Finally, if you want to run the latest development code, or get the
+latest, not yet released, fixes, you can install Passwd from Git.
+
+
+Installing with PEAR
+~~~~~~~~~~~~~~~~~~~~
+
+First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
+environment for Horde and install the Horde Framework.
+
+When installing Passwd through PEAR now, the installer will automatically
+install any dependencies of Passwd too. By default, only the required
+dependencies will be installed::
+
+   pear install horde/passwd
+
+If you want to install Passwd even with all optional dependencies, you need to
+specify the ``-a`` flag. Please note that this might also try to install PHP
+extensions through PECL that might need further configuration or activation in
+your PHP configuration::
+
+   pear install -a horde/passwd
+
+If you want to install Passwd with all optional dependencies, but without the
+binary PECL packages that need to be compiled, specify both the ``-a`` and the
+``-B`` flag::
+
+   pear install -a -B horde/passwd
+
+
+Installing from Release Tarballs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. Important:: As of today, there are no tarballs released for Passwd 4
+               yet. Please use the `Installing with PEAR`_ method to install
+               Passwd 4.
+
+Passwd can be obtained from the Horde website and FTP server, at
+
+   http://www.horde.org/passwd/
+
+   ftp://ftp.horde.org/pub/passwd/
+
+Or use the mirror closest to you:
+
+   http://www.horde.org/mirrors.php
+
 Passwd is written in PHP, and must be installed in a web-accessible directory.
 The precise location of this directory will differ from system to system.
 Conventionally, Passwd is installed directly underneath Horde in the web
@@ -137,26 +165,7 @@ and would then find Passwd at the URL::
 Configuring Passwd
 ====================
 
-1. Configuring Horde for Passwd
-
-   a. Register the application
-
-      In ``horde/config/registry.php``, find the ``applications['passwd']``
-      stanza.  The default settings here should be okay, but you can change
-      them if desired.  If you have changed the location of Passwd relative to
-      Horde, either in the URL, in the filesystem or both, you must update the
-      ``fileroot`` and ``webroot`` settings to their correct values.
-
-2. Configuring Passwd
-
-   To configure Passwd, change to the ``config/`` directory of the installed
-   distribution, and copy the ``backends.php.dist`` configuration file to
-   ``backends.php`` and edit it to your needs.
-
-   Documentation on the format and purpose of the configuration files in the
-   ``config/`` directory can be found in each file.  You may edit these files
-   if you wish to customize Passwd's appearance and behavior.  The defaults
-   will be correct for most sites.
+1. Configuring Passwd
 
    You must login to Horde as a Horde Administrator to finish the
    configuration of Passwd.  Use the Horde ``Administration`` menu item to get
@@ -169,14 +178,17 @@ Configuring Passwd
    the file.  In this case, go back to ``Configuration`` and choose one of the
    other methods to create the configuration file ``passwd/config/conf.php``.
 
-   Note for international users: Passwd uses GNU gettext to provide local
-   translations of text displayed by applications; the translations are found
-   in the ``po/`` directory.  If a translation is not yet available for your
-   locale (and you wish to create one), see the ``horde/po/README`` file, or
-   if you're having trouble using a provided translation, please see the
-   `horde/docs/TRANSLATIONS`_ file for instructions.
+   To configure Passwd, change to the ``config/`` directory of the installed
+   distribution, and copy the ``backends.php.dist`` configuration file to
+   ``backends.php`` and edit it to your needs.
 
-3. Testing Passwd
+   Documentation on the format and purpose of the other configuration files in
+   the ``config/`` directory can be found in each file. You may create
+   ``*.local.php`` versions of these files if you wish to customize Passwd's
+   appearance and behavior. See the header of the configuration files for
+   details and examples. The defaults will be correct for most sites.
+
+2. Testing Passwd
 
    Once you have configured Passwd, bring up the included test page in your
    Web browser to ensure that all necessary prerequisites have been met.  See

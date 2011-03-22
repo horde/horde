@@ -14,18 +14,6 @@ For information on the capabilities and features of Agora, see the file
 README_ in the top-level directory of the Agora distribution.
 
 
-Obtaining Agora
-===============
-
-Agora is currently only available via CVS, since it is still in early
-development.  A packaged release will be made once it is ready for wider
-testing.
-
-Bleeding-edge development versions of Agora are available via CVS; see the
-file `docs/HACKING`_ in the Horde distribution for information on accessing
-the Horde CVS repository.
-
-
 Prerequisites
 =============
 
@@ -34,23 +22,19 @@ To function properly, Agora requires the following:
 1. A working Horde installation.
 
    Agora runs within the `Horde Application Framework`_, a set of common tools
-   for Web applications written in PHP.  You must install Horde before
-   installing Agora.  If you want to use the Text_Figlet_ support, you need at
-   least Horde Version 3.2.
+   for web applications written in PHP.  You must install Horde before
+   installing Agora.
+
+   .. Important:: Agora 1.0 requires version 4.0+ of the Horde Framework -
+                  earlier versions of Horde will **not** work.
+
+   .. Important:: Be sure to have completed all of the steps in the
+                  `horde/docs/INSTALL`_ file for the Horde Framework before
+                  installing Agora. Many of Agora's prerequisites are also
+                  Horde prerequisites. Additionally, many of Agora's optional
+                  features are configured via the Horde install.
 
    .. _`Horde Application Framework`: http://www.horde.org/horde/
-   .. _Text_Figlet: http://pear.php.net/package/Text_Figlet/
-
-   The Horde Framework can be obtained from the Horde website and FTP server,
-   at
-
-      http://www.horde.org/horde/
-
-      ftp://ftp.horde.org/pub/horde/
-
-   Many of Agora's prerequisites are also Horde prerequisites.  Be sure to
-   have completed all of the steps in the INSTALL_ file for the Horde
-   Framework before installing Agora.
 
 2. A working Horde DataTree driver.
 
@@ -59,6 +43,11 @@ To function properly, Agora requires the following:
 
 3. The following PEAR modules:
    (See `horde/docs/INSTALL`_ for instructions on installing PEAR modules)
+
+   .. Important:: If you are going to install Agora the recommended way,
+                  i.e. using the PEAR installer, you can skip the remainder of
+                  this section. Installing Agora through PEAR will
+                  automatically download and install all required PEAR modules.
 
    a. Text_Figlet [OPTIONAL]
 
@@ -73,10 +62,54 @@ To function properly, Agora requires the following:
 Installing Agora
 ================
 
-To install the Agora application, checkout agora from the Horde CVS server
-into your Horde directory and would then find Agora at the URL::
+There are several ways to install Agora. The recommended way to install Agora
+is using the PEAR installer. Alternatively it can be installed from
+tarballs. Finally, if you want to run the latest development code, or get the
+latest, not yet released, fixes, you can install Agora from Git.
 
-   http://your-server/horde/agora/
+
+Installing with PEAR
+~~~~~~~~~~~~~~~~~~~~
+
+First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
+environment for Horde and install the Horde Framework.
+
+When installing Agora through PEAR now, the installer will automatically
+install any dependencies of Agora too. By default, only the required
+dependencies will be installed::
+
+   pear install horde/agora
+
+If you want to install Agora even with all optional dependencies, you need to
+specify the ``-a`` flag. Please note that this might also try to install PHP
+extensions through PECL that might need further configuration or activation in
+your PHP configuration::
+
+   pear install -a horde/agora
+
+If you want to install Agora with all optional dependencies, but without the
+binary PECL packages that need to be compiled, specify both the ``-a`` and the
+``-B`` flag::
+
+   pear install -a -B horde/agora
+
+
+Installing from Release Tarballs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. Important:: As of today, there are no tarballs released for Agora 1
+               yet. Please use the `Installing with PEAR`_ method to install
+               Agora 1.
+
+Agora can be obtained from the Horde website and FTP server, at
+
+   http://www.horde.org/agora/
+
+   ftp://ftp.horde.org/pub/agora/
+
+Or use the mirror closest to you:
+
+   http://www.horde.org/mirrors.php
 
 
 Configuring Agora
@@ -84,31 +117,16 @@ Configuring Agora
 
 1. Configuring Horde for Agora
 
-   a. Register the application
-
-      In ``horde/config/registry.php``, find the ``applications['agora']``
-      stanza.  The ``status`` parameter should be marked ``'=> active'``.  If
-      you have changed the location of Agora relative to Horde, either in the
-      URL or in the filesystem or both, you must update the ``fileroot`` and
-      ``webroot`` settings to their correct values.
-
-   b. Configuring a DataTree backend
-
-      Agora requires a permanent ``DataTree`` backend in Horde to manage
-      forums messages.  If you didn't setup a DataTree backend yet, go to the
-      configuration interface, select Horde from the list of applications and
-      select a driver different than ``None`` on the ``DataTree System`` tab.
-      Make sure that you ran the necessary scripts to create a storage backend
-      for the DataTree system, e.g. one of the ``create.*.sql`` or
-      ``horde_datatree.*.sql`` SQL scripts in ``horde/scripts/sql/``.  You
-      should have done this already during the installation of Horde.
+   Agora requires a permanent ``DataTree`` backend in Horde to manage forums
+   messages.  If you didn't setup a DataTree backend yet, go to the
+   configuration interface, select Horde from the list of applications and
+   select a driver different than ``None`` on the ``DataTree System`` tab.
+   Make sure that you ran the necessary scripts to create a storage backend for
+   the DataTree system, e.g. one of the ``create.*.sql`` or
+   ``horde_datatree.*.sql`` SQL scripts in ``horde/scripts/sql/``.  You should
+   have done this already during the installation of Horde.
 
 2. Configuring Agora
-
-   Documentation on the format and purpose of the configuration files in the
-   ``config/`` directory can be found in each file.  You may edit these files
-   if you wish to customize Agora's appearance and behavior.  The defaults will
-   be correct for most sites.
 
    You must login to Horde as a Horde Administrator to finish the
    configuration of Agora.  Use the Horde ``Administration`` menu item to get
@@ -121,12 +139,11 @@ Configuring Agora
    file.  In this case, go back to ``Configuration`` and choose one of the
    other methods to create the configuration file ``agora/config/conf.php``.
 
-   Note for international users: Agora uses GNU gettext to provide local
-   translations of text displayed by applications; the translations are found
-   in the po/ directory.  If a translation is not yet available for your
-   locale (and you wish to create one), see the ``horde/po/README`` file, or
-   if you're having trouble using a provided translation, please see the
-   `horde/docs/TRANSLATIONS`_ file for instructions.
+   Documentation on the format and purpose of the other configuration files in
+   the ``config/`` directory can be found in each file. You may create
+   ``*.local.php`` versions of these files if you wish to customize Agora's
+   appearance and behavior. See the header of the configuration files for
+   details and examples. The defaults will be correct for most sites.
 
 3. Testing Agora
 

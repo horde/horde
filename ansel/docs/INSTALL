@@ -1,6 +1,6 @@
-======================
- Installing Ansel 1.0
-======================
+==================
+ Installing Ansel
+==================
 
 .. contents:: Contents
 .. section-numbering::
@@ -11,25 +11,6 @@ For information on the capabilities and features of Ansel, see the file
 README_ in the top-level directory of the Ansel distribution.
 
 
-Obtaining Ansel
-===============
-
-Ansel can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/ansel/
-
-   ftp://ftp.horde.org/pub/ansel/
-
-Or use the mirror closest to you:
-
-   http://www.horde.org/mirrors.php
-
-Bleeding-edge development versions of Ansel are available via CVS; see the
-file `horde/docs/HACKING`_ in the Horde distribution, or the website
-http://www.horde.org/source/, for information on accessing the Horde CVS
-repository.
-
-
 Prerequisites
 =============
 
@@ -37,27 +18,20 @@ To function properly, Ansel **requires** the following:
 
 1. A working Horde installation.
 
-   Ansel runs within the `Horde Application Framework`_, a set of common
-   tools for Web applications written in PHP. You must install Horde before
+   Ansel runs within the `Horde Application Framework`_, a set of common tools
+   for web applications written in PHP.  You must install Horde before
    installing Ansel.
 
-   .. Important:: Ansel 1.0 requires version 3.2.2 or greater of the
-                  Horde Framework - earlier versions of Horde will **not** work.
-
-   .. _`Horde Application Framework`: http://www.horde.org/horde/
-
-   The Horde Framework can be obtained from the Horde website and FTP server,
-   at
-
-      http://www.horde.org/horde/
-
-      ftp://ftp.horde.org/pub/horde/
-
-   Many of Ansel's prerequisites are also Horde prerequisites.
+   .. Important:: Ansel 2.0 requires version 4.0+ of the Horde Framework -
+                  earlier versions of Horde will **not** work.
 
    .. Important:: Be sure to have completed all of the steps in the
                   `horde/docs/INSTALL`_ file for the Horde Framework before
-                  installing Ansel.
+                  installing Ansel. Many of Ansel's prerequisites are also
+                  Horde prerequisites. Additionally, many of Ansel's optional
+                  features are configured via the Horde install.
+
+   .. _`Horde Application Framework`: http://www.horde.org/horde/
 
 2. The following PHP capabilities:
 
@@ -75,6 +49,11 @@ To function properly, Ansel **requires** the following:
 
 4. The following PEAR packages:
    (See `horde/docs/INSTALL`_ for instructions on installing PEAR packages)
+
+   .. Important:: If you are going to install Ansel the recommended way,
+                  i.e. using the PEAR installer, you can skip the remainder of
+                  this section. Installing Ansel through PEAR will
+                  automatically download and install all required PEAR modules.
 
    a. MDB2
 
@@ -142,6 +121,55 @@ To function properly, Ansel **requires** the following:
 Installing Ansel
 ================
 
+There are several ways to install Ansel. The recommended way to install Ansel
+is using the PEAR installer. Alternatively it can be installed from
+tarballs. Finally, if you want to run the latest development code, or get the
+latest, not yet released, fixes, you can install Ansel from Git.
+
+
+Installing with PEAR
+~~~~~~~~~~~~~~~~~~~~
+
+First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
+environment for Horde and install the Horde Framework.
+
+When installing Ansel through PEAR now, the installer will automatically
+install any dependencies of Ansel too. By default, only the required
+dependencies will be installed::
+
+   pear install horde/ansel
+
+If you want to install Ansel even with all optional dependencies, you need to
+specify the ``-a`` flag. Please note that this might also try to install PHP
+extensions through PECL that might need further configuration or activation in
+your PHP configuration::
+
+   pear install -a horde/ansel
+
+If you want to install Ansel with all optional dependencies, but without the
+binary PECL packages that need to be compiled, specify both the ``-a`` and the
+``-B`` flag::
+
+   pear install -a -B horde/ansel
+
+
+Installing from Release Tarballs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. Important:: As of today, there are no tarballs released for Ansel 2
+               yet. Please use the `Installing with PEAR`_ method to install
+               Ansel 2.
+
+Ansel can be obtained from the Horde website and FTP server, at
+
+   http://www.horde.org/ansel/
+
+   ftp://ftp.horde.org/pub/ansel/
+
+Or use the mirror closest to you:
+
+   http://www.horde.org/mirrors.php
+
 Ansel is written in PHP, and must be installed in a web-accessible
 directory. The precise location of this directory will differ from system to
 system. Conventionally, Ansel is installed directly underneath Horde in the
@@ -165,42 +193,7 @@ and would then find Ansel at the URL::
 Configuring Ansel
 =================
 
-1. Configuring Horde for Ansel
-
-   a. Register the application
-
-      In ``horde/config/registry.php``, find the ``applications['ansel']``
-      stanza. The default settings here should be okay, but you can change
-      them if desired. If you have changed the location of Ansel relative
-      to Horde, either in the URL, in the filesystem or both, you must update
-      the ``fileroot`` and ``webroot`` settings to their correct values.
-
-2. Creating the database tables
-
-   The specific steps to create Ansel's database tables depend on which
-   database you've chosen to use.
-
-   First, look in ``scripts/sql/`` to see if a script already exists for your
-   database type. If so, you should be able to simply execute that script as
-   superuser in your database. (Note that executing the script as the "horde"
-   user will probably fail when granting privileges.)
-
-   If such a script does not exist, you'll need to build your own, using the
-   file ``ansel.sql`` as a starting point.  If you need assistance in creating
-   database tables, you may wish to let us know on the Ansel mailing list.
-
-   You will also need to make sure that the "horde" user in your database has
-   table-creation privileges, so that the tables that `PEAR MDB2`_ uses to
-   provide portable sequences can be created.
-
-   .. _`PEAR MDB2`: http://pear.php.net/MDB2
-
-3. Configuring Ansel
-
-   Documentation on the format and purpose of the configuration files in the
-   ``config/`` directory can be found in each file.  You may edit these files
-   if you wish to customize Ansel's appearance and behavior.  The defaults will
-   be correct for most sites.
+1. Configuring Ansel
 
    You must login to Horde as a Horde Administrator to finish the
    configuration of Ansel. Use the Horde ``Administration`` menu item to get
@@ -213,13 +206,6 @@ Configuring Ansel
    file. In this case, go back to ``Configuration`` and choose one of the
    other methods to create the configuration file ``ansel/config/conf.php``.
 
-   Note for international users: Ansel uses GNU gettext to provide local
-   translations of text displayed by applications; the translations are found
-   in the ``po/`` directory. If a translation is not yet available for your
-   locale (and you wish to create one), see the ``horde/po/README`` file, or
-   if you're having trouble using a provided translation, please see the
-   `horde/docs/TRANSLATIONS`_ file for instructions.
-
    Note for users of Lighttpd web server: The pretty url generation relies on
    rewrite rules being configured on your web server. Since lighttpd does not
    support htaccess files like Apache, there is also a configuration file for
@@ -229,8 +215,25 @@ Configuring Ansel
 
    Instructions for using it are included in the file.
 
+   Documentation on the format and purpose of the other configuration files in
+   the ``config/`` directory can be found in each file. You may create
+   ``*.local.php`` versions of these files if you wish to customize Ansel's
+   appearance and behavior. See the header of the configuration files for
+   details and examples. The defaults will be correct for most sites.
 
-4. Testing Ansel
+2. Creating the database tables
+
+   Once you finished the configuration in the previous step, you can create all
+   database tables by clicking the ``DB schema is out of date.`` link in the
+   Ansel row of the configuration screen.
+
+   Alternatively you creating the Ansel database tables can be accomplished with
+   horde's ``db_migrate`` utility.  If your database is properly setup in the
+   Horde configuration, just run the following::
+
+      horde/bin/db_migrate ansel
+
+3. Testing Ansel
 
    Once you have configured Ansel, bring up the included test page in your Web
    browser to ensure that all necessary prerequisites have been met. See the

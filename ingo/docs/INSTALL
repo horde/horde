@@ -1,6 +1,6 @@
-=====================
- Installing Ingo 2.0
-=====================
+=================
+ Installing Ingo
+=================
 
 :Contact: ingo@lists.horde.org
 
@@ -14,8 +14,84 @@ For information on the capabilities and features of Ingo, see the file README_
 in the top-level directory of the Ingo distribution.
 
 
-Obtaining Ingo
-==============
+Prerequisites
+=============
+
+To function properly, Ingo **requires** the following:
+
+1. A working Horde installation
+
+   Ingo runs within the `Horde Application Framework`_, a set of common tools
+   for web applications written in PHP.  You must install Horde before
+   installing Ingo.
+
+   .. Important:: Ingo 2.0 requires version 4.0+ of the Horde Framework -
+                  earlier versions of Horde will **not** work.
+
+   .. Important:: Be sure to have completed all of the steps in the
+                  `horde/docs/INSTALL`_ file for the Horde Framework before
+                  installing Ingo. Many of Ingo's prerequisites are also Horde
+                  prerequisites. Additionally, many of Ingo's optional features
+                  are configured via the Horde install.
+
+   .. _`Horde Application Framework`: http://www.horde.org/horde/
+
+2. The following PEAR modules:
+   (See `horde/docs/INSTALL`_ for instructions on installing PEAR modules)
+
+   .. Important:: If you are going to install Ingo the recommended way,
+                  i.e. using the PEAR installer, you can skip the remainder of
+                  this section. Installing Ingo through PEAR will
+                  automatically download and install all required PEAR modules.
+
+   a. Net_Sieve [OPTIONAL]
+
+      Ingo uses the Net_Sieve class for communicating with timsieved running
+      on Cyrus mail servers.  You will only need to install this class if you
+      are using Sieve for filtering.
+
+
+Installing Ingo
+===============
+
+There are several ways to install Ingo. The recommended way to install Ingo
+is using the PEAR installer. Alternatively it can be installed from
+tarballs. Finally, if you want to run the latest development code, or get the
+latest, not yet released, fixes, you can install Ingo from Git.
+
+
+Installing with PEAR
+~~~~~~~~~~~~~~~~~~~~
+
+First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
+environment for Horde and install the Horde Framework.
+
+When installing Ingo through PEAR now, the installer will automatically
+install any dependencies of Ingo too. By default, only the required
+dependencies will be installed::
+
+   pear install horde/ingo
+
+If you want to install Ingo even with all optional dependencies, you need to
+specify the ``-a`` flag. Please note that this might also try to install PHP
+extensions through PECL that might need further configuration or activation in
+your PHP configuration::
+
+   pear install -a horde/ingo
+
+If you want to install Ingo with all optional dependencies, but without the
+binary PECL packages that need to be compiled, specify both the ``-a`` and the
+``-B`` flag::
+
+   pear install -a -B horde/ingo
+
+
+Installing from Release Tarballs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. Important:: As of today, there are no tarballs released for Ingo 2
+               yet. Please use the `Installing with PEAR`_ method to install
+               Ingo 2.
 
 Ingo can be obtained from the Horde website and FTP server, at
 
@@ -26,59 +102,6 @@ Ingo can be obtained from the Horde website and FTP server, at
 Or use the mirror closest to you:
 
    http://www.horde.org/mirrors.php
-
-Bleeding-edge development versions of Ingo are available via Git; see the file
-`horde/docs/HACKING`_, or the website http://www.horde.org/source/, for
-information on accessing the Horde Git repository.
-
-
-Prerequisites
-=============
-
-To function properly, Ingo **requires** the following:
-
-1. A working Horde installation
-
-   Ingo runs within the `Horde Application Framework`_, a set of common tools
-   for Web applications written in PHP.  You must install Horde before
-   installing Ingo.
-
-   .. Important:: Ingo 2.0 requires version 4.0+ of the Horde Framework -
-                  earlier versions of Horde will **not** work.
-
-   .. _`Horde Application Framework`: http://www.horde.org/horde/
-
-   The Horde Framework can be obtained from the Horde website and FTP server,
-   at
-
-      http://www.horde.org/horde/
-
-      ftp://ftp.horde.org/pub/horde/
-
-   Many of Ingo's prerequisites are also Horde prerequisites.
-
-   .. Important:: Be sure to have completed all of the steps in the
-                  `horde/docs/INSTALL`_ file for the Horde Framework before
-                  installing Ingo.
-
-2. The following PEAR modules:
-   (See `horde/docs/INSTALL`_ for instructions on installing PEAR modules)
-
-   a. Net_Sieve [OPTIONAL]
-
-      Ingo uses the Net_Sieve class for communicating with timsieved running
-      on Cyrus mail servers.  You will only need to install this class if you
-      are using Sieve for filtering.
-
-   b. Net_Socket [OPTIONAL]
-
-      Net_Socket is used by Net_Sieve and, thus, is only requires if you will
-      be using Sieve filtering.  PEAR *should* install Net_Socket when it
-      installs Net_Sieve.
-
-
-Installing Ingo
-===============
 
 Ingo is written in PHP, and must be installed in a web-accessible directory.
 The precise location of this directory will differ from system to system.
@@ -103,36 +126,7 @@ and would then find Ingo at the URL::
 Configuring Ingo
 ================
 
-1. Configuring Horde for Ingo
-
-   a. Register the application
-
-      In ``horde/config/registry.php``, find the applications['ingo'] stanza.
-      The default settings here should be okay, but you can change them if
-      desired.  If you have changed the location of Ingo relative to Horde,
-      either in the URL, in the filesystem or both, you must update the
-      ``fileroot`` and ``webroot`` settings to their correct values.
-
-2. Creating the database table
-
-   The specific steps to create the Ingo database table depend on which
-   database you've chosen to use.
-
-   First, look in ``scripts/sql/`` to see if a script already exists
-   for your database type.  If so, you should be able to simply execute that
-   script as superuser in your database.  (Note that executing the script as
-   the "horde" user will probably fail when granting privileges.)
-
-   If such a script does not exist, you'll need to build your own, using the
-   file ingo.sql as a starting point.  If you need assistance in creating
-   databases, you may wish to let us know on the IMP mailing list.
-
-3. Configuring Ingo
-
-   Documentation on the format and purpose of the configuration files in the
-   ``config/`` directory can be found in each file.  You may edit these files
-   if you wish to customize Ingo's appearance and behavior.  The defaults will
-   be correct for most sites.
+1. Configuring Ingo
 
    You must login to Horde as a Horde Administrator to finish the
    configuration of Ingo.  Use the Horde ``Administration`` menu item to get
@@ -145,16 +139,27 @@ Configuring Ingo
    file.  In this case, go back to ``Configuration`` and choose one of the
    other methods to create the configuration file ``ingo/config/conf.php``.
 
+   Documentation on the format and purpose of the other configuration files in
+   the ``config/`` directory can be found in each file. You may create
+   ``*.local.php`` versions of these files if you wish to customize Ingo's
+   appearance and behavior. See the header of the configuration files for
+   details and examples. The defaults will be correct for most sites.
+
    If you want to disable any of the special rules like blacklist, vacation,
    or spam, you can lock the according preferences in
-   ``ingo/config/prefs.php``.
+   ``ingo/config/prefs.local.php``.
 
-   Note for international users: Ingo uses GNU gettext to provide local
-   translations of text displayed by applications; the translations are found
-   in the po/ directory.  If a translation is not yet available for your
-   locale (and you wish to create one), see the ``horde/po/README`` file, or
-   if you're having trouble using a provided translation, please see the
-   `horde/docs/TRANSLATIONS`_ file for instructions.
+2. Creating the database table
+
+   Once you finished the configuration in the previous step, you can create all
+   database tables by clicking the ``DB schema is out of date.`` link in the
+   Ingo row of the configuration screen.
+
+   Alternatively you creating the Ingo database tables can be accomplished with
+   horde's ``db_migrate`` utility.  If your database is properly setup in the
+   Horde configuration, just run the following::
+
+      horde/bin/db_migrate ingo
 
 
 Known Problems
