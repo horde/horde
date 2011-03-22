@@ -67,7 +67,7 @@ class Components_Helper_Version
     {
         preg_match('/([.\d]+)(.*)/', $version, $matches);
         if (!empty($matches[2]) && !preg_match('/^pl\d/', $matches[2])) {
-            if (preg_match('/^rc(\d+)/', $matches[2], $postmatch)) {
+            if (preg_match('/^RC(\d+)/', $matches[2], $postmatch)) {
                 $post = ' Release Candidate ' . $postmatch[1];
             } else if (preg_match('/^alpha(\d+)/', $matches[2], $postmatch)) {
                 $post = ' Alpha';
