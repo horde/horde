@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
  <notes>
-* --pretend
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
