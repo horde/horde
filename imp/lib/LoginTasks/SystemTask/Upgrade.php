@@ -352,7 +352,9 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
                 } elseif (!is_null($use_vtrash) &&
                           ($val instanceof IMP_Search_Vfolder_Vtrash)) {
                     $val->enabled = (bool)$use_vtrash;
-                    $prefs->setValue('trash_folder', strval($val));
+                    if ($use_vtrash) {
+                        $prefs->setValue('trash_folder', strval($val));
+                    }
                 }
             }
             $prefs->setValue('vfolder', serialize($vfolders));
