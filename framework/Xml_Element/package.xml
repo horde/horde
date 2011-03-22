@@ -3,7 +3,7 @@
  <name>Horde_Xml_Element</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Xml Element object</summary>
- <description>This package provides an element object that can be used to provide SimpleXML-like functionality over a DOM object. The main advantage over using SimpleXML is the ability to add multiple levels of new elements in a single call, without introducing &quot;ghost&quot; objects.</description>
+ <description>This package provides an element object that can be used to provide SimpleXML-like functionality over a DOM object. The main advantage over using SimpleXML is the ability to add multiple levels of new elements in a single call, without introducing "ghost" objects.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-22</date>
- <time>21:56:21</time>
+ <time>23:35:50</time>
  <version>
   <release>1.0.0RC1</release>
   <api>1.0.0</api>
