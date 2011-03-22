@@ -85,7 +85,7 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
 
         $e = null;
         try {
-            $this->_instances[$sig] = $this->_createDb($config);
+            $this->_instances[$sig] = $this->createDb($config);
         } catch (Horde_Exception $e) {}
 
         if ($pushed) {
@@ -108,14 +108,14 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
 
     /**
      */
-    protected function _createDb($config)
+    public function createDb($config)
     {
         // Split read?
         if (!empty($config['splitread'])) {
             unset($config['splitread']);
-            $write_db = $this->_createDb($config);
+            $write_db = $this->createDb($config);
             $config = array_merge($config, $config['read']);
-            $read_db = $this->_createDb($config);
+            $read_db = $this->createDb($config);
             return new Horde_Db_Adapter_SplitRead($read_db, $write_db);
         }
 
