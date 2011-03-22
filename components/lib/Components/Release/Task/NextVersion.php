@@ -44,7 +44,7 @@ extends Components_Release_Task_Base
         if (empty($options['next_version'])) {
             $errors[] = 'The "next_version" option has no value! What should the next version number be?';
         }
-        if (empty($options['next_note'])) {
+        if ($options['next_note'] === null) {
             $errors[] = 'The "next_note" option has no value! What should the initial change log note be?';
         }
         return $errors;

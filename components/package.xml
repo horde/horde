@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
  <notes>
+* [gwr] Accept an empty initial note.
 * First release candidate for Horde 4.
  </notes>
  <contents>
@@ -542,6 +543,7 @@
    <date>2011-03-17</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
+* [gwr] Accept an empty initial note.
 * First release candidate for Horde 4.
    </notes>
   </release>
