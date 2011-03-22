@@ -543,13 +543,16 @@ class IMP_Mailbox implements Serializable
     /**
      * Are deleted messages hidden in this mailbox?
      *
-     * @param boolean $force  Force a redetermination of the return value
-     *                        (return value is normally cached after the first
-     *                        call).
+     * @param boolean $force    Force a redetermination of the return value
+     *                          (return value is normally cached after the first
+     *                          call).
+     * @param boolean $deleted  Return value is what should be done with
+     *                          deleted messages as opposed to any deleted
+     *                          message in the mailbox.
      *
      * @return boolean  True if deleted messages should be hidden.
      */
-    public function hideDeletedMsgs($force = false)
+    public function hideDeletedMsgs($force = false, $deleted = false)
     {
         global $injector, $prefs;
 
@@ -562,20 +565,28 @@ class IMP_Mailbox implements Serializable
 
             if ($use_trash &&
                 $this->get($prefs->getValue('trash_folder'))->vtrash) {
-                $delhide = !$this->vtrash;
+                if ($this->vtrash) {
+                    $delhide = false;
+                }
             } elseif ($prefs->getValue('delhide') && !$use_trash) {
                 if ($this->search) {
                     $delhide = true;
-                } else {
-                    $sortpref = $this->getSort();
-                    $delhide = ($sortpref['by'] != Horde_Imap_Client::SORT_THREAD);
                 }
             } else {
-                $delhide = false;
+                $delhide = $deleted
+                    ? $use_trash
+                    : false;
+            }
+
+            if (is_null($delhide)) {
+                $sortpref = $this->getSort();
+                $delhide = ($sortpref['by'] != Horde_Imap_Client::SORT_THREAD);
             }
         }
 
-        $this->_cache['delhide'] = $delhide;
+        if (!$deleted) {
+            $this->_cache['delhide'] = $delhide;
+        }
 
         return $delhide;
     }

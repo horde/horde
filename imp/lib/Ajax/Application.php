@@ -808,7 +808,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $change = $this->_changed(true);
 
         if ($GLOBALS['injector']->getInstance('IMP_Message')->delete($indices)) {
-            return $this->_generateDeleteResult($indices, $change, !$GLOBALS['prefs']->getValue('hide_deleted') && !$GLOBALS['prefs']->getValue('use_trash'));
+            return $this->_generateDeleteResult($indices, $change, true);
         }
 
         return is_null($change)
@@ -2017,7 +2017,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @param IMP_Indices $indices  An indices object.
      * @param boolean $changed      If true, add ViewPort information.
-     * @param boolean $nothread     If true, don't do thread sort check.
+     * @param boolean $nothread     Skip thread sort check if not hiding
+     *                              messages.
      *
      * @return object  An object with the following entries:
      * <pre>
@@ -2035,21 +2036,21 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     protected function _generateDeleteResult($indices, $change,
                                              $nothread = false)
     {
-        global $injector, $prefs;
-
         $del = new stdClass;
         $del->mbox = $this->_vars->view;
         $del->uids = strval($indices);
-        $del->remove = intval($prefs->getValue('hide_deleted') ||
-                              $prefs->getValue('use_trash'));
+
+        $mbox = IMP_Mailbox::get($this->_vars->view);
+
+        if ($mbox->hideDeletedMsgs(false, true)) {
+            $del->remove = 1;
+        }
 
         $result = new stdClass;
         $result->deleted = $del;
 
-        $mbox = IMP_Mailbox::get($this->_vars->view);
-
         /* Check if we need to update thread information. */
-        if (!$change && !$nothread) {
+        if (!$change && (!$nothread || !empty($del->remove))) {
             $sort = $mbox->getSort();
             $change = ($sort['by'] == Horde_Imap_Client::SORT_THREAD);
         }

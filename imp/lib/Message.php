@@ -240,8 +240,8 @@ class IMP_Message
                     return false;
                 }
             } else {
-                /* Get the list of Message-IDs for the deleted messages if using
-                 * maillogging. */
+                /* Get the list of Message-IDs for the deleted messages if
+                 * using mail logging. */
                 $fetch = null;
                 if ($maillog_update) {
                     $query = new Horde_Imap_Client_Fetch_Query();
