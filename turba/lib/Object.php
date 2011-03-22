@@ -378,6 +378,9 @@ class Turba_Object
      */
     public function listFiles()
     {
+        if (!$this->getValue('__uid')) {
+            return array();
+        }
         try {
             $this->_vfsInit();
             if ($this->_vfs->exists(Turba::VFS_PATH, $this->getValue('__uid'))) {
