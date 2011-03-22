@@ -85,6 +85,7 @@ your preference backend::
    auto_delete_drafts
    delete_attachments_monthly
    delete_sentmail_monthly
+   dimp_login_view
    disposition_request_read
    disposition_send_mdn
    fckeditor_buttons

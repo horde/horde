@@ -31,7 +31,7 @@ class IMP_Block_Summary extends Horde_Core_Block
      */
     protected function _title()
     {
-        return Horde::link(Horde::url($GLOBALS['registry']->getInitialPage(), true)) . $GLOBALS['registry']->get('name') . '</a>';
+        return Horde::link(IMP_Auth::getInitialPage()->url) . $GLOBALS['registry']->get('name') . '</a>';
     }
 
     /**

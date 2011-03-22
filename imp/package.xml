@@ -35,6 +35,7 @@
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
 * First release candidate for Horde 4.
+* [mms] All views now honor 'initial_page' preference.
 * [mms] Fix loading virtual folder as initial page in standard view (Bug #9696).
 * [mms] Fix upgrading virtual folders from IMP 4 (Bug #9692).
 * [mms] Fix editing the size search criteria.

@@ -156,7 +156,7 @@ class IMP_Application extends Horde_Registry_Application
         }
 
         if ($redirect && ($GLOBALS['registry']->initialApp == 'imp')) {
-            IMP_Auth::getInitialPage(true)->redirect();
+            IMP_Auth::getInitialPage()->url->redirect();
         }
     }
 
@@ -547,8 +547,6 @@ class IMP_Application extends Horde_Registry_Application
             'poll_info' => true
         ));
 
-        /* We want to rewrite the parent node of the INBOX to include new mail
-         * notification. */
         if (!($url = $registry->get('url', $parent))) {
             $url = (($registry->get('status', $parent) == 'heading') || !$registry->get('webroot'))
                 ? null

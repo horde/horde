@@ -290,52 +290,77 @@ class IMP_Auth
     /**
      * Returns the initial page.
      *
-     * @param boolean $url  Return a URL instead of a file path.
-     *
-     * @return string  Either the file path or a URL to the initial page.
+     * @return object  Object with the following properties:
+     *   - fullpath (string)
+     *   - mbox (IMP_Mailbox)
+     *   - page (string)
+     *   - url (Horde_Url)
      */
-    static public function getInitialPage($url = false)
+    static public function getInitialPage()
     {
-        switch ($GLOBALS['session']->get('imp', 'view')) {
+        $init_url = $GLOBALS['prefs']->getValue('initial_page');
+        if (!$init_url ||
+            ($GLOBALS['session']->get('imp', 'protocol') == 'pop')) {
+            $init_url = 'INBOX';
+        }
+
+        if ($init_url == IMP::INITIAL_FOLDERS) {
+            $mbox = null;
+        } else {
+            $mbox = IMP_Mailbox::get($init_url);
+            if (!$mbox->exists) {
+                $mbox = IMP_Mailbox::get('INBOX');
+            }
+
+            IMP::setCurrentMailboxInfo($mbox);
+        }
+
+        $result = new stdClass;
+        $result->mbox = $mbox;
+
+        switch (IMP::getViewMode()) {
         case 'dimp':
+            if (is_null($mbox)) {
+                $result->mbox = IMP_Mailbox::get('INBOX');
+            }
             $page = 'index-dimp.php';
             break;
 
+        case 'imp':
+            if (is_null($mbox)) {
+                $page = 'folders.php';
+            } else {
+                $page = 'mailbox.php';
+                $result->url = IMP::generateIMPUrl($page, $mbox);
+            }
+            break;
+
         case 'mimp':
-            $page = 'mailbox-mimp.php';
+            if (is_null($mbox)) {
+                $page = 'folders-mimp.php';
+            } else {
+                $page ='mailbox-mimp.php';
+                $result->url = IMP::generateIMPUrl($page, $mbox);
+            }
             break;
 
         case 'mobile':
+            // TODO: Folders for mobile page?
+            if (is_null($mbox)) {
+                $result->mbox = IMP_Mailbox::get('INBOX');
+            }
             $page = 'mobile.php';
             break;
-
-        default:
-            $init_url = ($GLOBALS['session']->get('imp', 'protocol') == 'pop')
-                ? 'INBOX'
-                : $GLOBALS['prefs']->getValue('initial_page');
-
-            switch ($init_url) {
-            case 'folders.php':
-                $page = $init_url;
-                break;
-
-            default:
-                $mbox = IMP_Mailbox::get($init_url);
-                if (!$mbox->exists) {
-                    $mbox = IMP_Mailbox::get('INBOX');
-                }
-
-                $page = 'mailbox.php';
-                if ($url) {
-                    return Horde::url($page, true)->add('mailbox', $mbox);
-                }
-                IMP::setCurrentMailboxInfo($mbox);
-                break;
-            }
         }
-        return $url
-            ? Horde::url($page, true)
-            : IMP_BASE . '/' . $page;
+
+        $result->fullpath = IMP_BASE . '/' . $page;
+        $result->page = $page;
+
+        if (!isset($result->url)) {
+            $result->url = Horde::url($page, true);
+        }
+
+        return $result;
     }
 
     /**

@@ -2,6 +2,7 @@
 v5.0-RC1
 --------
 
+[mms] All views now honor 'initial_page' preference.
 [mms] Fix loading virtual folder as initial page in standard view (Bug #9696).
 [jan] Update installation and upgrade instructions.
 [mms] Fix upgrading virtual folders from IMP 4 (Bug #9692).

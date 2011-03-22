@@ -29,6 +29,9 @@ class IMP
     const NOTEPAD_EDIT = "notepad\0";
     const TASKLIST_EDIT = "tasklist\0";
 
+    /* Initial page constants. */
+    const INITIAL_FOLDERS = "initial\0folders";
+
     /* Sorting constants. */
     const IMAP_SORT_DATE = 100;
 

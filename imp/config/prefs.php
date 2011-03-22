@@ -940,10 +940,11 @@ $_prefs['initialpageselect'] = array(
     'type' => 'special'
 );
 
-// the initial page to display. Either a filename like 'folders.php'
-// or a mailbox name.
+// The initial page to display. Either:
+//   - IMP::INITIAL_FOLDERS (display folders page)
+//   - mailbox name (defaults to INBOX)
 $_prefs['initial_page'] = array(
-    'value' => 'INBOX'
+    'value' => ''
 );
 
 // Where to start when opening mailbox?
@@ -1501,7 +1502,7 @@ $prefGroups['dimp'] = array(
     'column' => _("Other"),
     'label' => _("Dynamic View"),
     'desc' => _("Configure preferences for the dynamic view."),
-    'members' => array('dynamic_view', 'dimp_login_view')
+    'members' => array('dynamic_view')
 );
 
 // Show dynamic view?
@@ -1509,17 +1510,6 @@ $_prefs['dynamic_view'] = array(
    'value' => 1,
    'type' => 'checkbox',
    'desc' => _("Show the dynamic view by default, if the browser supports it?")
-);
-
-// Login preferences (dimp)
-$_prefs['dimp_login_view'] = array(
-    'value' => 'inbox',
-    'type' => 'enum',
-    'enum' => array(
-        'portal' => _("Portal"),
-        'inbox' => _("Inbox")
-    ),
-    'desc' => _("The page to view immediately after login.")
 );
 
 // Other dynamic view preferences
