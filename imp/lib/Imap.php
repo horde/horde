@@ -106,6 +106,10 @@ class IMP_Imap implements Serializable
 
         $this->ob = $ob;
 
+        /* Now that the Imap Client object is loaded, it is possible to set
+         * the fetch ignore mailboxes. */
+        $this->updateFetchIgnore();
+
         if ($protocol == 'pop') {
             /* Turn some options off if we are working with POP3. */
             $prefs->setValue('save_sent_mail', false);
@@ -146,6 +150,22 @@ class IMP_Imap implements Serializable
             'lifetime' => empty($config['lifetime']) ? false : $config['lifetime'],
             'slicesize' => empty($config['slicesize']) ? false : $config['slicesize'],
         );
+    }
+
+    /**
+     * Update the list of mailboxes to ignore when caching FETCH data in the
+     * IMAP client object.
+     */
+    public function updateFetchIgnore()
+    {
+        if ($this->ob) {
+            $special = IMP_Mailbox::getSpecialMailboxes();
+
+            $this->ob->fetchCacheIgnore(array(
+                strval($special[IMP_Mailbox::SPECIAL_SPAM]),
+                strval($special[IMP_Mailbox::SPECIAL_TRASH])
+            ));
+        }
     }
 
     /**

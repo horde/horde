@@ -400,7 +400,7 @@ class IMP_Prefs_Ui
      */
     public function prefsSpecialUpdate($ui, $item)
     {
-        global $prefs;
+        global $injector, $prefs;
 
         switch ($item) {
         case 'aclmanagement':
@@ -443,7 +443,7 @@ class IMP_Prefs_Ui
             return false;
 
         case 'signature_html_select':
-            return $GLOBALS['injector']->getInstance('IMP_Identity')->setValue('signature_html', $ui->vars->signature_html);
+            return $injector->getInstance('IMP_Identity')->setValue('signature_html', $ui->vars->signature_html);
 
         case 'soundselect':
             return $prefs->setValue('nav_audio', $ui->vars->nav_audio);
@@ -452,7 +452,12 @@ class IMP_Prefs_Ui
             return $this->_updateSource($ui);
 
         case 'spamselect':
-            return $this->_updateSpecialFolders('spam_folder', IMP_Mailbox::formFrom($ui->vars->spam), $ui->vars->spam_new, Horde_Imap_Client::SPECIALUSE_JUNK, $ui);
+            if ($this->_updateSpecialFolders('spam_folder', IMP_Mailbox::formFrom($ui->vars->spam), $ui->vars->spam_new, Horde_Imap_Client::SPECIALUSE_JUNK, $ui)) {
+                $injector->getInstance('IMP_Factory_Imap')->create()->updateFetchIgnore();
+                return true;
+            }
+
+            return false;
 
         case 'stationerymanagement':
             return $this->_updateStationeryManagement($ui);
@@ -471,7 +476,7 @@ class IMP_Prefs_Ui
      */
     public function prefsCallback($ui)
     {
-        global $notification, $prefs, $registry, $session;
+        global $browser, $notification, $prefs, $registry, $session;
 
         /* Always check to make sure we have a valid trash folder if delete to
          * trash is active. */
@@ -499,7 +504,7 @@ class IMP_Prefs_Ui
                     'view',
                     ($prefs->getValue('dynamic_view') && $session->get('horde', 'mode') != 'traditional')
                         ? 'dimp'
-                        : ($GLOBALS['browser']->isMobile() ? 'mimp' : 'imp')
+                        : ($browser->isMobile() ? 'mimp' : 'imp')
                 );
             }
             break;
@@ -1840,7 +1845,12 @@ class IMP_Prefs_Ui
             $imp_search['vtrash'] = $vtrash;
         }
 
-        return $this->_updateSpecialFolders('trash_folder', $trash, $ui->vars->trash_new, Horde_Imap_Client::SPECIALUSE_TRASH, $ui);
+        if ($this->_updateSpecialFolders('trash_folder', $trash, $ui->vars->trash_new, Horde_Imap_Client::SPECIALUSE_TRASH, $ui)) {
+            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->updateFetchIgnore();
+            return true;
+        }
+
+        return false;
     }
 
     /* Utility functions. */
