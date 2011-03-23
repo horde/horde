@@ -2092,7 +2092,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     protected function _changed($rw = null)
     {
         /* Only update search mailboxes on forced refreshes. */
-        if ($GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($this->_vars->view)) {
+        if (IMP_Mailbox::get($this->_vars->view)->search) {
             return ($this->_action == 'viewPort') || $this->_vars->forceUpdate;
         }
 

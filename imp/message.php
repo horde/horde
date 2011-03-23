@@ -31,7 +31,7 @@ $registry->setTimeZone();
 /* We know we are going to be exclusively dealing with this mailbox, so
  * select it on the IMAP server (saves some STATUS calls). Open R/W to clear
  * the RECENT flag. */
-if (!($search_mbox = $injector->getInstance('IMP_Search')->isSearchMbox(IMP::$mailbox))) {
+if (!IMP::$mailbox->search) {
     $injector->getInstance('IMP_Factory_Imap')->create()->openMailbox(IMP::$mailbox, Horde_Imap_Client::OPEN_READWRITE);
 }
 
@@ -428,7 +428,7 @@ foreach ($flag_parse as $val) {
  * message in the header. */
 $h_page_label = htmlspecialchars($page_label);
 $header_label = $h_page_label;
-if ($search_mbox) {
+if (IMP::$mailbox->search) {
     $header_label .= ' [' . Horde::link(Horde::url('mailbox.php')->add('mailbox', $mailbox)) . $mailbox->display . '</a>]';
 }
 
