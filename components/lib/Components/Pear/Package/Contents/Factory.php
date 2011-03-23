@@ -45,7 +45,7 @@ class Components_Pear_Package_Contents_Factory
         $package->_options['dir_roles'] = $this->_getMapping($root->getBase());
         return new Components_Pear_Package_Contents_List(
             $package->_options['packagedirectory'],
-            new Horde_Pear_Package_Contents_Ignore(
+            new Horde_Pear_Package_Contents_Ignore_Git(
                 $root->getGitIgnore(),
                 $root->getRoot()
             )
