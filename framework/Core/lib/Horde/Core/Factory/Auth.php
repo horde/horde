@@ -58,10 +58,7 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
         );
 
         if ($app == 'horde') {
-            $base_params['base'] = $this->_create(
-                $GLOBALS['conf']['auth']['driver'],
-                Horde::getDriverConfig('auth', $driver)
-            );
+            $base_params['base'] = $this->_create($GLOBALS['conf']['auth']['driver']);
         }
 
         $this->_instances[$app] = Horde_Auth::factory(
@@ -80,7 +77,7 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
      *
      * @return Horde_Auth_Base  Authentication object.
      */
-    protected function _create($driver, array $params)
+    protected function _create($driver, $params = null)
     {
         /* Get proper driver name now that we have grabbed the
          * configuration. */
@@ -99,6 +96,10 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
             $driver = 'Horde_Core_Auth_Imsp';
         } else {
             $driver = Horde_String::ucfirst(Horde_String::lower(basename($driver)));
+        }
+
+        if (is_null($params)) {
+            $params = Horde::getDriverConfig('auth', $driver);
         }
 
         $lc_driver = Horde_String::lower($driver);
