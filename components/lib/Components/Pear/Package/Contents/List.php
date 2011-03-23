@@ -74,7 +74,7 @@ extends PEAR_PackageFileManager_File
         if ($result == $return) {
             return $result;
         } else {
-            return $this->_ignore->checkIgnore($file, $path, $return);
+            return $this->_ignore->isIgnored(new SplFileInfo($path));
         }
     }
 }
