@@ -37,7 +37,7 @@ class Components_Helper_Root
     private $_root_path;
 
     /**
-     * Relative position of the path that has been used to determine the root positionq.
+     * Relative position of the path that has been used to determine the root position.
      *
      * @var string
      */
