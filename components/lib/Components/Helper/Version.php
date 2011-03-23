@@ -73,6 +73,8 @@ class Components_Helper_Version
                 $post = ' Alpha';
             } else if (preg_match('/^beta(\d+)/', $matches[2], $postmatch)) {
                 $post = ' Beta';
+            } else {
+                $post = '';
             }
         } else {
             $post = ' Final';
