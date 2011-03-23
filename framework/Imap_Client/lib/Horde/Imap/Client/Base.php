@@ -155,6 +155,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $params['cache']['fields'] = array_flip($params['cache']['fields']);
         }
 
+        if (empty($params['cache']['fetch_ignore'])) {
+            $params['cache']['fetch_ignore'] = array();
+        }
+
         $this->_params = $params;
 
         // Encrypt password.
@@ -341,6 +345,17 @@ abstract class Horde_Imap_Client_Base implements Serializable
          * change on every access. */
         $status = $this->status($this->_selected, Horde_Imap_Client::STATUS_UIDNOTSTICKY);
         return !$status['uidnotsticky'];
+    }
+
+    /**
+     * Update the list of ignored mailboxes for caching FETCH data.
+     *
+     * @param array $mboxes  The list of mailboxes to ignore.
+     */
+    public function fetchCacheIgnore(array $mboxes)
+    {
+        $this->_params['cache']['fetch_ignore'] = $mboxes;
+        $this->changed = true;
     }
 
     /**
@@ -2947,6 +2962,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return;
         }
 
+        if (in_array($mailbox, $this->_params['cache']['fetch_ignore'])) {
+            if ($this->_debug) {
+                fwrite($this->_debug, sprintf(">>> IGNORING cached FETCH data (mailbox: %s)\n", $mailbox));
+            }
+            return;
+        }
+
         $seq_res = empty($options['seq'])
             ? null
             : $this->_getSeqUidLookup(new Horde_Imap_Client_Ids(array_keys($data), true));
@@ -3060,6 +3082,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
     protected function _moveCache($from, $to, $map, $uidvalid = null)
     {
         if (!$this->_initCache()) {
+            return;
+        }
+
+        if (in_array($to, $this->_params['cache']['fetch_ignore'])) {
+            if ($this->_debug) {
+                fwrite($this->_debug, sprintf(">>> IGNORING moving cached FETCH data (%s => %s)\n", $from, $to));
+            }
             return;
         }
 

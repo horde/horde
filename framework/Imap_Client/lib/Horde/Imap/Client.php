@@ -160,6 +160,8 @@ class Horde_Imap_Client
      *         installed. The array can contain the following keys (see
      *         Horde_Imap_Client_Cache:: for default values):
      *   cacheob - [REQUIRED] (Horde_Cache) The cache object to use.
+     *   fetch_ignore - (array) A list of mailboxes to ignore when storing
+     *                  fetch data.
      *   fields - (array) The fetch criteria to cache. If not defined, all
      *            cacheable data is cached. The following is a list of
      *            criteria that can be cached:
