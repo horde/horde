@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-03-15</date>
- <time>13:46:47</time>
+ <date>2011-03-23</date>
+ <time>15:22:33</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="REPLACE">REPLACE</license>
  <notes>
+* [gwr] Imported the .gitignore handling for content lists from the components tool.
 * [gwr] Consume empty notes.
  </notes>
  <contents>
@@ -30,6 +31,9 @@
     <dir name="Horde">
      <dir name="Pear">
       <dir name="Package">
+       <dir name="Contents">
+        <file name="Ignore.php" role="php" />
+       </dir> <!-- /lib/Horde/Pear/Package/Contents -->
        <file name="Xml.php" role="php" />
       </dir> <!-- /lib/Horde/Pear/Package -->
       <file name="Exception.php" role="php" />
@@ -57,7 +61,9 @@
       </dir> <!-- /test/Horde/Pear/Server -->
       <dir name="Unit">
        <dir name="Package">
-        <file name="ContentsTest.php" role="test" />
+        <dir name="Contents">
+         <file name="IgnoreTest.php" role="test" />
+        </dir> <!-- /test/Horde/Pear/Unit/Package/Contents -->
         <file name="XmlTest.php" role="test" />
        </dir> <!-- /test/Horde/Pear/Unit/Package -->
        <file name="RegistryTest.php" role="test" />
@@ -91,6 +97,7 @@
    <install as="Horde/Pear/Remote.php" name="lib/Horde/Pear/Remote.php" />
    <install as="Horde/Pear/Rest.php" name="lib/Horde/Pear/Rest.php" />
    <install as="Horde/Pear/Package/Xml.php" name="lib/Horde/Pear/Package/Xml.php" />
+   <install as="Horde/Pear/Package/Contents/Ignore.php" name="lib/Horde/Pear/Package/Contents/Ignore.php" />
    <install as="Horde/Pear/AllTests.php" name="test/Horde/Pear/AllTests.php" />
    <install as="Horde/Pear/Autoload.php" name="test/Horde/Pear/Autoload.php" />
    <install as="Horde/Pear/phpunit.xml" name="test/Horde/Pear/phpunit.xml" />
@@ -103,8 +110,8 @@
    <install as="Horde/Pear/Unit/RegistryTest.php" name="test/Horde/Pear/Unit/RegistryTest.php" />
    <install as="Horde/Pear/Unit/RemoteTest.php" name="test/Horde/Pear/Unit/RemoteTest.php" />
    <install as="Horde/Pear/Unit/RestTest.php" name="test/Horde/Pear/Unit/RestTest.php" />
-   <install as="Horde/Pear/Unit/Package/ContentsTest.php" name="test/Horde/Pear/Unit/Package/ContentsTest.php" />
    <install as="Horde/Pear/Unit/Package/XmlTest.php" name="test/Horde/Pear/Unit/Package/XmlTest.php" />
+   <install as="Horde/Pear/Unit/Package/Contents/IgnoreTest.php" name="test/Horde/Pear/Unit/Package/Contents/IgnoreTest.php" />
    <install as="COPYING" name="COPYING" />
   </filelist>
  </phprelease>
@@ -118,9 +125,10 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-15</date>
+   <date>2011-03-23</date>
    <license uri="REPLACE">REPLACE</license>
    <notes>
+* [gwr] Imported the .gitignore handling for content lists from the components tool.
 * [gwr] Consume empty notes.
    </notes>
   </release>

@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-03-22</date>
- <time>22:26:28</time>
+ <date>2011-03-23</date>
+ <time>15:24:26</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
  <notes>
+* [gwr] Extracted the .gitignore handling for content lists to the Horde_Pear packages.
 * [gwr] Fix appending the snapshot date for pre-releases.
 * [gwr] Allow to keep the version when generating snapshots.
 * [gwr] Accept an empty initial note.
@@ -93,7 +94,6 @@
       <dir name="Package">
        <dir name="Contents">
         <file name="Factory.php" role="php" />
-        <file name="Ignore.php" role="php" />
         <file name="List.php" role="php" />
        </dir> <!-- /lib/Components/Pear/Package/Contents -->
        <dir name="Filelist">
@@ -424,7 +424,6 @@
    <install as="Components/Pear/Package/Filelist.php" name="lib/Components/Pear/Package/Filelist.php" />
    <install as="Components/Pear/Package/Tasks.php" name="lib/Components/Pear/Package/Tasks.php" />
    <install as="Components/Pear/Package/Contents/Factory.php" name="lib/Components/Pear/Package/Contents/Factory.php" />
-   <install as="Components/Pear/Package/Contents/Ignore.php" name="lib/Components/Pear/Package/Contents/Ignore.php" />
    <install as="Components/Pear/Package/Contents/List.php" name="lib/Components/Pear/Package/Contents/List.php" />
    <install as="Components/Pear/Package/Filelist/Default.php" name="lib/Components/Pear/Package/Filelist/Default.php" />
    <install as="Components/Pear/Package/Filelist/Factory.php" name="lib/Components/Pear/Package/Filelist/Factory.php" />
@@ -543,15 +542,13 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-22</date>
+   <date>2011-03-23</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
-<<<<<<< HEAD
-* [gwr] Accept an empty initial note.
-=======
+* [gwr] Extracted the .gitignore handling for content lists to the Horde_Pear packages.
 * [gwr] Fix appending the snapshot date for pre-releases.
 * [gwr] Allow to keep the version when generating snapshots.
->>>>>>> Allow to keep the version when generating snapshots. Fix appending the snapshot date for pre-releases.
+* [gwr] Accept an empty initial note.
 * First release candidate for Horde 4.
    </notes>
   </release>

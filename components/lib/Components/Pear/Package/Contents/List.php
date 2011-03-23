@@ -41,10 +41,10 @@ extends PEAR_PackageFileManager_File
      * Constructor.
      *
      * @param string                                  $package_directory The directory of the package.
-     * @param Components_Pear_Package_Contents_Ignore $ignore            Ignores files.
+     * @param Horde_Pear_Package_Contents_Ignore $ignore            Ignores files.
      */
     public function __construct(
-        $package_directory, Components_Pear_Package_Contents_Ignore $ignore
+        $package_directory, Horde_Pear_Package_Contents_Ignore $ignore
     ) {
         $this->_ignore = $ignore;
         $this->_options['packagedirectory'] = $package_directory;
