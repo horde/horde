@@ -31,7 +31,7 @@ class Horde_Pear_Package_Contents_Ignore_Git
 implements Horde_Pear_Package_Contents_Ignore
 {
     /**
-     * The regular expressions for files to ignore.
+     * The regular expressions for ignored files.
      *
      * @var array
      */
