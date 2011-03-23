@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-23</date>
- <time>17:17:07</time>
+ <time>21:45:31</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -33,9 +33,18 @@
       <dir name="Package">
        <dir name="Contents">
         <dir name="Ignore">
+         <file name="Composite.php" role="php" />
+         <file name="Dot.php" role="php" />
          <file name="Git.php" role="php" />
+         <file name="Hidden.php" role="php" />
+         <file name="Nothing.php" role="php" />
+         <file name="Patterns.php" role="php" />
         </dir> <!-- /lib/Horde/Pear/Package/Contents/Ignore -->
+        <dir name="Include">
+         <file name="All.php" role="php" />
+        </dir> <!-- /lib/Horde/Pear/Package/Contents/Include -->
         <file name="Ignore.php" role="php" />
+        <file name="Include.php" role="php" />
         <file name="List.php" role="php" />
        </dir> <!-- /lib/Horde/Pear/Package/Contents -->
        <file name="Xml.php" role="php" />
@@ -66,7 +75,13 @@
       <dir name="Unit">
        <dir name="Package">
         <dir name="Contents">
-         <file name="IgnoreTest.php" role="test" />
+         <dir name="Ignore">
+          <file name="CompositeTest.php" role="test" />
+          <file name="DotTest.php" role="test" />
+          <file name="GitTest.php" role="test" />
+          <file name="HiddenTest.php" role="test" />
+          <file name="PatternsTest.php" role="test" />
+         </dir> <!-- /test/Horde/Pear/Unit/Package/Contents/Ignore -->
          <file name="ListTest.php" role="test" />
         </dir> <!-- /test/Horde/Pear/Unit/Package/Contents -->
         <file name="XmlTest.php" role="test" />
@@ -103,8 +118,15 @@
    <install as="Horde/Pear/Rest.php" name="lib/Horde/Pear/Rest.php" />
    <install as="Horde/Pear/Package/Xml.php" name="lib/Horde/Pear/Package/Xml.php" />
    <install as="Horde/Pear/Package/Contents/Ignore.php" name="lib/Horde/Pear/Package/Contents/Ignore.php" />
+   <install as="Horde/Pear/Package/Contents/Include.php" name="lib/Horde/Pear/Package/Contents/Include.php" />
    <install as="Horde/Pear/Package/Contents/List.php" name="lib/Horde/Pear/Package/Contents/List.php" />
+   <install as="Horde/Pear/Package/Contents/Ignore/Composite.php" name="lib/Horde/Pear/Package/Contents/Ignore/Composite.php" />
+   <install as="Horde/Pear/Package/Contents/Ignore/Dot.php" name="lib/Horde/Pear/Package/Contents/Ignore/Dot.php" />
    <install as="Horde/Pear/Package/Contents/Ignore/Git.php" name="lib/Horde/Pear/Package/Contents/Ignore/Git.php" />
+   <install as="Horde/Pear/Package/Contents/Ignore/Hidden.php" name="lib/Horde/Pear/Package/Contents/Ignore/Hidden.php" />
+   <install as="Horde/Pear/Package/Contents/Ignore/Nothing.php" name="lib/Horde/Pear/Package/Contents/Ignore/Nothing.php" />
+   <install as="Horde/Pear/Package/Contents/Ignore/Patterns.php" name="lib/Horde/Pear/Package/Contents/Ignore/Patterns.php" />
+   <install as="Horde/Pear/Package/Contents/Include/All.php" name="lib/Horde/Pear/Package/Contents/Include/All.php" />
    <install as="Horde/Pear/AllTests.php" name="test/Horde/Pear/AllTests.php" />
    <install as="Horde/Pear/Autoload.php" name="test/Horde/Pear/Autoload.php" />
    <install as="Horde/Pear/phpunit.xml" name="test/Horde/Pear/phpunit.xml" />
@@ -118,8 +140,12 @@
    <install as="Horde/Pear/Unit/RemoteTest.php" name="test/Horde/Pear/Unit/RemoteTest.php" />
    <install as="Horde/Pear/Unit/RestTest.php" name="test/Horde/Pear/Unit/RestTest.php" />
    <install as="Horde/Pear/Unit/Package/XmlTest.php" name="test/Horde/Pear/Unit/Package/XmlTest.php" />
-   <install as="Horde/Pear/Unit/Package/Contents/IgnoreTest.php" name="test/Horde/Pear/Unit/Package/Contents/IgnoreTest.php" />
    <install as="Horde/Pear/Unit/Package/Contents/ListTest.php" name="test/Horde/Pear/Unit/Package/Contents/ListTest.php" />
+   <install as="Horde/Pear/Unit/Package/Contents/Ignore/CompositeTest.php" name="test/Horde/Pear/Unit/Package/Contents/Ignore/CompositeTest.php" />
+   <install as="Horde/Pear/Unit/Package/Contents/Ignore/DotTest.php" name="test/Horde/Pear/Unit/Package/Contents/Ignore/DotTest.php" />
+   <install as="Horde/Pear/Unit/Package/Contents/Ignore/GitTest.php" name="test/Horde/Pear/Unit/Package/Contents/Ignore/GitTest.php" />
+   <install as="Horde/Pear/Unit/Package/Contents/Ignore/HiddenTest.php" name="test/Horde/Pear/Unit/Package/Contents/Ignore/HiddenTest.php" />
+   <install as="Horde/Pear/Unit/Package/Contents/Ignore/PatternsTest.php" name="test/Horde/Pear/Unit/Package/Contents/Ignore/PatternsTest.php" />
    <install as="COPYING" name="COPYING" />
   </filelist>
  </phprelease>
