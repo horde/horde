@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the ignore handler for package contents.
+ * Test the .gitignore handler for package contents.
  *
  * PHP version 5
  *
@@ -15,10 +15,10 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once dirname(__FILE__) . '/../../../../Autoload.php';
 
 /**
- * Test the ignore handler for package contents.
+ * Test the .gitignore handler for package contents.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -32,12 +32,12 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Pear
  */
-class Horde_Pear_Unit_Package_Contents_IgnoreTest
+class Horde_Pear_Unit_Package_Contents_Ignore_GitTest
 extends Horde_Pear_TestCase
 {
     public function testCreation()
     {
-        $a = new Horde_Pear_Package_Contents_Ignore('', '');
+        $a = new Horde_Pear_Package_Contents_Ignore_Git('', '');
     }
 
     public function testEmpty()
@@ -121,6 +121,6 @@ extends Horde_Pear_TestCase
 
     private function _getIgnore($gitignore)
     {
-        return new Horde_Pear_Package_Contents_Ignore($gitignore, '/TEST');
+        return new Horde_Pear_Package_Contents_Ignore_Git($gitignore, '/TEST');
     }
 }
