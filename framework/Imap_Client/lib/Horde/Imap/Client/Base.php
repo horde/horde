@@ -3047,6 +3047,42 @@ abstract class Horde_Imap_Client_Base implements Serializable
     }
 
     /**
+     * Moves cache entries from one mailbox to another.
+     *
+     * @param string $from      The source mailbox (UTF7-IMAP).
+     * @param string $to        The destination mailbox (UTF7-IMAP).
+     * @param array $map        Mapping of source UIDs (keys) to destination
+     *                          UIDs (values).
+     * @param string $uidvalid  UIDVALIDITY of destination mailbox.
+     *
+     * @throws Horde_Imap_Client_Exception
+     */
+    protected function _moveCache($from, $to, $map, $uidvalid = null)
+    {
+        if (!$this->_initCache()) {
+            return;
+        }
+
+        if (is_null($uidvalid)) {
+            $status_res = $this->status($to, Horde_Imap_Client::STATUS_UIDVALIDITY);
+            $uidvalid = $status_res['uidvalidity'];
+        }
+
+        $old_data = $this->cache->get($from, array_keys($map), null);
+        $new_data = array();
+
+        foreach ($map as $key => $val) {
+            if (!empty($old_data[$key])) {
+                $new_data[$val] = $old_data[$key];
+            }
+        }
+
+        if (!empty($new_data)) {
+            $this->cache->set($to, $new_data, $uidvalid);
+        }
+    }
+
+    /**
      * Delete messages in the cache.
      *
      * @param string $mailbox  An IMAP mailbox string.

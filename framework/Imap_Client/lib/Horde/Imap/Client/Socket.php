@@ -3004,20 +3004,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * does not support persistent UIDs.
          * Use UIDPLUS information to move cached data to new mailbox (see
          * RFC 4549 [4.2.2.1]). */
-        if ($this->_initCache() &&
-            !is_null($this->_temp['copyuid'])) {
-            $old_data = $this->cache->get($this->_selected, array_keys($this->_temp['copyuid']), null);
-            $new_data = array();
-
-            foreach ($this->_temp['copyuid'] as $key => $val) {
-                if (!empty($old_data[$key])) {
-                    $new_data[$val] = $old_data[$key];
-                }
-            }
-
-            if (!empty($new_data)) {
-                $this->cache->set($dest, $new_data, $this->_temp['copyuidvalid']);
-            }
+        if (!is_null($this->_temp['copyuid'])) {
+            $this->_moveCache($this->_selected, $dest, $this->_temp['copyuid'], $this->_temp['copyuidvalid']);
         }
 
         // If moving, delete the old messages now.
