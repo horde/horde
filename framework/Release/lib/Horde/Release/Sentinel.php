@@ -72,7 +72,7 @@ class Horde_Release_Sentinel
             fwrite(
                 $newfp,
                 str_repeat('-', strlen($version)) . "\n$version\n" .
-                str_repeat('-', strlen($version)) . "\n\n\n\n\n"
+                str_repeat('-', strlen($version)) . "\n\n\n\n"
             );
             while ($line = fgets($oldfp)) {
                 fwrite($newfp, $line);
