@@ -108,14 +108,14 @@ extends Horde_Pear_TestCase
     private function _checkIgnored($file, $gitignore)
     {
         $this->assertTrue(
-            (bool) $this->_getIgnore($gitignore)->checkIgnore('', $file)
+            $this->_getIgnore($gitignore)->isIgnored(new SplFileInfo($file))
         );
     }
 
     private function _checkNotIgnored($file, $gitignore)
     {
         $this->assertFalse(
-            (bool) $this->_getIgnore($gitignore)->checkIgnore('', $file)
+            $this->_getIgnore($gitignore)->isIgnored(new SplFileInfo($file))
         );
     }
 

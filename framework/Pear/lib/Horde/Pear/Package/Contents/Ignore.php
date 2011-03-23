@@ -22,7 +22,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Components
+ * @package  Pear
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Pear
@@ -109,31 +109,20 @@ class Horde_Pear_Package_Contents_Ignore
     }
 
     /**
-     * Tell whether to ignore a file or a directory
-     * allows * and ? wildcards
+     * Tell whether to ignore the element.
      *
-     * @param string $file   just the file name of the file or directory,
-     *                       in the case of directories this is the last dir
-     * @param string $path   the full path
-     * @param bool   $return value to return if regexp matches.  Set this to
-     *                       false to include only matches, true to exclude
-     *                       all matches
+     * @param SplFileInfo $element The element to check.
      *
-     * @return bool  true if $path should be ignored, false if it should not
+     * @return bool True if the element should be ignored, false otherwise.
      */
-    public function checkIgnore($file, $path, $return = 1)
+    public function isIgnored(SplFileInfo $element)
     {
-        if (!$return) {
-            // This class is not about identifying included files.
-            return true;
-        }
-
-        $rooted_path = substr($path, strlen($this->_root));
+        $rooted_path = substr($element->getPathname(), strlen($this->_root));
         if ($this->_matches($this->_ignore, $rooted_path)
             && !$this->_matches($this->_include, $rooted_path)) {
-            return $return;
+            return true;
         }
-        return !$return;
+        return false;
     }
 
     /**
