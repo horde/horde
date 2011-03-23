@@ -95,6 +95,36 @@ class Horde
     }
 
     /**
+     * Debug method.  Allows quick shortcut to produce debug output into a
+     * temporary file.
+     *
+     * @param mixed $event   Item to log.
+     * @param string $fname  Filename to log to. If empty, logs to
+     *                       'horde_debug.txt' in the temporary directory.
+     */
+    static public function debug($event, $fname = null)
+    {
+        if (is_null($fname)) {
+            $fname = self::getTempDir() . '/horde_debug.txt';
+        }
+
+        try {
+            $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream($fname));
+        } catch (Exception $e) {
+            return;
+        }
+
+        self::startBuffer();
+        if (is_resource($event)) {
+            rewind($event);
+            fpassthru($event);
+        } else {
+            var_dump($event);
+        }
+        $logger->log(self::endBuffer(), Horde_Log::DEBUG);
+    }
+
+    /**
      * Aborts with a fatal error, displaying debug information to the user.
      *
      * @param mixed $error   Either a string or an object with a getMessage()

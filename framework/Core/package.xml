@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-03-22</date>
- <time>23:21:01</time>
+ <date>2011-03-23</date>
+ <time>10:27:12</time>
  <version>
   <release>1.0.0RC2</release>
   <api>1.0.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* Added Horde::debug().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1329,14 +1329,16 @@
   <release>
    <version>
     <release>1.0.0RC2</release>
-    <api>1.0.0</api></version>
+    <api>1.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-22</date>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-23</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* Added Horde::debug().
    </notes>
   </release>
  </changelog>
