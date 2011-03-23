@@ -113,7 +113,7 @@ class Horde
         } catch (Exception $e) {
             return;
         }
-
+        $html_ini = ini_set('html_errors', 'Off');
         self::startBuffer();
         if (is_resource($event)) {
             rewind($event);
@@ -122,6 +122,7 @@ class Horde
             var_dump($event);
         }
         $logger->log(self::endBuffer(), Horde_Log::DEBUG);
+        ini_set('html_errors', $html_ini);
     }
 
     /**
