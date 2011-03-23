@@ -1083,9 +1083,7 @@
    <package>
     <name>Date_Holidays</name>
     <channel>pear.php.net</channel>
-    <min>1.0.0RC1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>0.21.0</min>
    </package>
    <extension>
     <name>xmlwriter</name>
