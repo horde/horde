@@ -40,8 +40,10 @@
        <file name="Parser.php" role="php" />
       </dir> <!-- //lib/Horde/Test/Stub -->
       <file name="AllTests.php" role="php" />
+      <file name="Application.php" role="php" />
       <file name="Autoload.php" role="php" />
       <file name="Case.php" role="php" />
+      <file name="Exception.php" role="php" />
       <file name="Functional.php" role="php" />
      </dir> <!-- //lib/Horde/Test -->
     </dir> <!-- //lib/Horde -->
@@ -95,8 +97,10 @@
  <phprelease>
   <filelist>
    <install as="Horde/Test/AllTests.php" name="lib/Horde/Test/AllTests.php" />
+   <install as="Horde/Test/Application.php" name="lib/Horde/Test/Application.php" />
    <install as="Horde/Test/Autoload.php" name="lib/Horde/Test/Autoload.php" />
    <install as="Horde/Test/Case.php" name="lib/Horde/Test/Case.php" />
+   <install as="Horde/Test/Exception.php" name="lib/Horde/Test/Exception.php" />
    <install as="Horde/Test/Functional.php" name="lib/Horde/Test/Functional.php" />
    <install as="Horde/Test/Stub/Cli.php" name="lib/Horde/Test/Stub/Cli.php" />
    <install as="Horde/Test/Stub/Parser.php" name="lib/Horde/Test/Stub/Parser.php" />
@@ -142,7 +146,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-22</date>
+   <date>2011-03-23</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First release candidate for Horde 4.
