@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* 
+* [jan] Fix updating forward rules in SQL driver (Bug #9699).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -873,7 +873,7 @@
    <date>2011-03-23</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-* 
+* [jan] Fix updating forward rules in SQL driver (Bug #9699).
    </notes>
   </release>
  </changelog>

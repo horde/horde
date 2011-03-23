@@ -2,7 +2,7 @@
 v2.0-RC2
 --------
 
-
+[jan] Fix updating forward rules in SQL driver (Bug #9699).
 
 
 --------

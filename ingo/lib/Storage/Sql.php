@@ -96,8 +96,8 @@ class Ingo_Storage_Sql extends Ingo_Storage
             } catch (Horde_Db_Exception $e) {
                 throw new Ingo_Exception($e);
             }
+            $ob = new Ingo_Storage_Forward();
             if (!empty($data)) {
-                $ob = new Ingo_Storage_Forward();
                 $ob->setForwardAddresses(explode("\n", $data['forward_addresses']), false);
                 $ob->setForwardKeep((bool)$data['forward_keep']);
                 $ob->setSaved(true);
