@@ -65,18 +65,10 @@ framework/Share/test/Horde/Share/conf.php
 /passwd/config/backends.php
 framework/bin/*.conf
 !/horde/admin/config/
-!/kolab/config/conf.d
-!/kolab/config/conf.d/10-kolab.php
-!/kolab/config/registry.d
-!/kolab/config/registry.d/10-kolab.php
-!/kolab/imp/config/backends.d/*
-!/kolab/imp/config/conf.d/*
-!/kolab/ingo/config/backends.d/*
-!/kolab/kronolith/config/conf.d/*
-!/kolab/mnemo/config/conf.d/*
-!/kolab/nag/config/conf.d/*
-!/kolab/turba/config/backends.d/*
-!/kolab/turba/config/conf.d/*
+!/kolab/*
+!/kolab/*/*
+!/kolab/*/*/*
+!/kolab/*/*/*/*
 
 # Application specific excludes
 ApertureToAnselExportPlugin/build/
