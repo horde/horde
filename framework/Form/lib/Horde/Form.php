@@ -38,7 +38,7 @@ class Horde_Form {
     protected $_enctype = null;
     public $_help = false;
 
-    function Horde_Form(&$vars, $title = '', $name = null, $params = array())
+    function Horde_Form(&$vars, $title = '', $name = null)
     {
         if (empty($name)) {
             $name = Horde_String::lower(get_class($this));
