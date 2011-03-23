@@ -220,7 +220,7 @@ div.flagLowpriority {
 div.flagUnseen {
     font-weight: bold;
 }
-div.flagDeleted {
+div.flagDeleted * {
     text-decoration: line-through;
 }
 
