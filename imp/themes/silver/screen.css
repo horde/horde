@@ -19,6 +19,10 @@ div.composebody {
     border-width: 1px;
 }
 
+.smallheader.searchfolder {
+    border-bottom-width: 0;
+}
+
 span.spellcheckPopdownImg {
     background-image: url("graphics/popdown.png");
 }
