@@ -246,7 +246,7 @@ $show_preview = $prefs->getValue('preview_enabled');
 
 $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array(
     'headers' => true,
-    'preview' => $show_preview,
+    'preview' => (int)$show_preview,
     'type' => $prefs->getValue('atc_flag')
 ));
 
@@ -847,7 +847,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     if ($preview_tooltip) {
         $msg['subject'] = substr(Horde::linkTooltip($target, $msg['preview'], '', '', '', $msg['preview']), 0, -1) . ' class="mboxSubject">' . $msg['subject'] . '</a>';
     } else {
-        $msg['subject'] = substr(Horde::link($target, $msg['preview']), 0, -1) . ' class="mboxSubject">' . $msg['subject'] . '</a>' . (!empty($msg['preview']) ? '<br /><small>' . $msg['preview'] . '</small>' : '');
+        $msg['subject'] = substr(Horde::link($target, $imp_ui->getSubject($ob['envelope']->subject)), 0, -1) . ' class="mboxSubject">' . $msg['subject'] . '</a>' . (!empty($msg['preview']) ? '<br /><small>' . $msg['preview'] . '</small>' : '');
     }
 
     /* Add subject flags. */

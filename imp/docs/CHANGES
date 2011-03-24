@@ -2,6 +2,7 @@
 v5.0-RC2
 --------
 
+[jan] Fix message previews in traditional view (Bug #9695).
 [jan] Support importing of compressed mailbox files.
 [jan] Fix upgrading of search_fields preference.
 [jan] Fix key navigation in traditional mailbox view.
