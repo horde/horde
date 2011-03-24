@@ -73,7 +73,11 @@ class IMP_Ui_Folder
         global $browser, $injector;
 
         $browser->wasFileUploaded($form_name, _("mailbox file"));
-        $res = $injector->getInstance('IMP_Folder')->importMbox(Horde_String::convertCharset($mbox, 'UTF-8', 'UTF7-IMAP'), $_FILES[$form_name]['tmp_name']);
+        $res = $injector
+            ->getInstance('IMP_Folder')
+            ->importMbox(Horde_String::convertCharset($mbox, 'UTF-8', 'UTF7-IMAP'),
+                         $_FILES[$form_name]['tmp_name'],
+                         $_FILES[$form_name]['type']);
         $mbox_name = basename(Horde_Util::dispelMagicQuotes($_FILES[$form_name]['name']));
 
         if ($res === false) {

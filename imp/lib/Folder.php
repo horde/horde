@@ -366,7 +366,7 @@ class IMP_Folder
      * @return mixed  False (boolean) on fail or the number of messages
      *                imported (integer) on success.
      */
-    public function importMbox($mailbox, $fname)
+    public function importMbox($mailbox, $fname, $type)
     {
         $msg = null;
 
@@ -374,7 +374,34 @@ class IMP_Folder
             return false;
         }
 
+        switch ($type) {
+        case 'application/gzip':
+        case 'application/x-gzip':
+        case 'application/x-gzip-compressed':
+            if (in_array('compress.zlib', stream_get_wrappers())) {
+                $fname = 'compress.zlib://' . $fname;
+            }
+            break;
+        case 'application/x-bzip2':
+        case 'application/x-bzip':
+            if (in_array('compress.bzip2', stream_get_wrappers())) {
+                $fname = 'compress.bzip2://' . $fname;
+            }
+            break;
+        case 'application/zip':
+        case 'application/x-compressed':
+        case 'application/x-zip-compressed':
+            if (in_array('zip', stream_get_wrappers())) {
+                $fname = 'zip://' . $fname;
+            }
+            break;
+        }
+
         $fd = fopen($fname, 'r');
+        if (!$fd) {
+            throw new IMP_Exception(_("The uploaded file cannot be opened"));
+        }
+
         while (!feof($fd)) {
             $line = fgets($fd);
 
