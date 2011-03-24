@@ -51,7 +51,10 @@ class Horde_Pear_Package_Contents_List
     /**
      * Constructor.
      *
-     * @param string $root The root path for the file listing.
+     * @param string                              $root    The root path for the
+     *                                                     file listing.
+     * @param Horde_Pear_Package_Contents_Include $include The include handler.
+     * @param Horde_Pear_Package_Contents_Ignore  $ignore  The ignore handler.
      *
      * @return NULL
      */
