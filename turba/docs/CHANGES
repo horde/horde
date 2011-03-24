@@ -2,7 +2,8 @@
 v3.0-RC2
 --------
 
-
+[mjr] Fix issue that caused the inability to preview contact images while
+      uploading (Bug #9702).
 
 
 --------
