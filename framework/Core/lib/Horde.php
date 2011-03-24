@@ -137,6 +137,7 @@ class Horde
     static public function fatal($error, $file = null, $line = null,
                                  $log = true)
     {
+        header('Content-type: text/html; charset=UTF-8');
         try {
             $admin = $GLOBALS['registry']->isAdmin();
             $cli = Horde_Cli::runningFromCLI();
