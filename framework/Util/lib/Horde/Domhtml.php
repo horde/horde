@@ -69,7 +69,7 @@ class Horde_Domhtml
                 : 'iso-8859-1';
         } else {
             $this->_origCharset = Horde_String::lower($charset);
-            if ($this->_origCharset != 'iso-8859-1') {
+            if (!in_array($this->_origCharset, array('iso-8859-1', 'windows-1252'))) {
                 $this->_xmlencoding = '<?xml encoding="' . $this->_origCharset . '">';
             }
             $doc->loadHTML($this->_xmlencoding . $text);
