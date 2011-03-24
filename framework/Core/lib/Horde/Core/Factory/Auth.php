@@ -86,6 +86,8 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
         } elseif (strcasecmp($driver, 'httpremote') === 0) {
             /* BC */
             $driver = 'Http_Remote';
+        } elseif (strcasecmp($driver, 'composite') === 0) {
+            $driver = 'Horde_Core_Auth_Composite';
         } elseif (strcasecmp($driver, 'ldap') === 0) {
             $driver = 'Horde_Core_Auth_Ldap';
         } elseif (strcasecmp($driver, 'msad') === 0) {
@@ -104,7 +106,7 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
 
         $lc_driver = Horde_String::lower($driver);
         switch ($lc_driver) {
-        case 'composite':
+        case 'horde_core_auth_composite':
             $params['admin_driver'] = $this->_create($params['admin_driver']['driver'], $params['admin_driver']['params']);
             $params['auth_driver'] = $this->_create($params['auth_driver']['driver'], $params['auth_driver']['params']);
             break;
@@ -140,6 +142,12 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
 
         case 'imap':
             $params['charset'] = 'UTF-8';
+            break;
+
+        case 'horde_core_auth_application':
+            if (isset($this->_instances[$params['app']])) {
+                return $this->_instances[$params['app']];
+            }
             break;
 
         case 'horde_core_auth_imsp':
