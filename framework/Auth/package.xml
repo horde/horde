@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
-* Remove support for pam_auth (Ticket #9706).
+* Remove support for pam_auth (Ticket #6860).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -341,7 +341,7 @@
    <date>2011-03-24</date>
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
-* Remove support for pam_auth (Ticket #9706).
+* Remove support for pam_auth (Ticket #6860).
    </notes>
   </release>
  </changelog>
