@@ -42,7 +42,7 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
             $exp = explode(',', substr($_COOKIE[$this->_instance . '_expanded'], 3));
 
             /* These are the expanded folders. */
-            foreach ($exp as $val) {
+            foreach (array_filter($exp) as $val) {
                 call_user_func($session['set'], $this->_instance, $val, true);
             }
 
