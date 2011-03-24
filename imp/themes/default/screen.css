@@ -333,6 +333,9 @@ span.trashImg {
     white-space: pre-line;
     word-wrap: break-word;
 }
+#compose td.light {
+    vertical-align: top;
+}
 
 .folders {
     font-size: 100%;
