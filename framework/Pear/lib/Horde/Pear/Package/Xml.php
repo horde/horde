@@ -84,6 +84,43 @@ class Horde_Pear_Package_Xml
     }
 
     /**
+     * Update the content listings in the package.xml.
+     *
+     * @param Horde_Pear_Package_Contents $contents The content handler.
+     *
+     * @return NULL
+     */
+    public function updateContents(Horde_Pear_Package_Contents $content_list)
+    {
+        if ($this->findNode('/p:package/p:contents') === false) {
+            $dependencies = $this->findNode('/p:package/p:dependencies');
+            $contents = $this->_xml->createElementNS(
+                self::XMLNAMESPACE, 'contents'
+            );
+            $dependencies->parentNode->insertBefore($contents, $dependencies);
+            $this->_insertWhiteSpaceBefore($dependencies, "\n ");
+
+            $this->_insertWhiteSpace($contents, "\n  ");
+            $dir = $this->_xml->createElementNS(
+                self::XMLNAMESPACE, 'dir'
+            );
+            $dir->setAttribute('name', '/');
+            $contents->appendChild($dir);
+            $this->_insertWhiteSpace($contents, "\n ");
+
+            foreach ($content_list->getContents() as $file) {
+                $this->_insertWhiteSpace($dir, "\n   ");
+                $file_node = $this->_xml->createElementNS(
+                    self::XMLNAMESPACE, 'file'
+                );
+                $file_node->setAttribute('name', $file->getFilename());
+                $dir->appendChild($file_node);
+            }
+            $this->_insertWhiteSpace($dir, "\n  ");
+        }
+    }
+
+    /**
      * Mark the package as being release and set the timestamps to now.
      *
      * @return NULL
@@ -335,7 +372,7 @@ class Horde_Pear_Package_Xml
      */
     public function findNode($query)
     {
-        return $this->_findSingleNode($this->_xpath->query($query));
+        return $this->_findSingleNode($this->findNodes($query));
     }
 
     /**
@@ -349,7 +386,9 @@ class Horde_Pear_Package_Xml
      */
     public function findNodeRelativeTo($query, DOMNode $context)
     {
-        return $this->_findSingleNode($this->_xpath->query($query, $context));
+        return $this->_findSingleNode(
+            $this->findNodesRelativeTo($query, $context)
+        );
     }
 
     /**
@@ -377,6 +416,18 @@ class Horde_Pear_Package_Xml
     public function findNodes($query)
     {
         return $this->_xpath->query($query);
+    }
+
+    /**
+     * Return all nodes matching the given XPath query.
+     *
+     * @param string $query The query.
+     *
+     * @return DOMNodeList The list of DOMNodes.
+     */
+    public function findNodesRelativeTo($query, $context)
+    {
+        return $this->_xpath->query($query, $context);
     }
 
     /**
@@ -510,5 +561,19 @@ class Horde_Pear_Package_Xml
     {
         $ws_node = $this->_xml->createTextNode($ws);
         $parent->appendChild($ws_node);
+    }
+
+    /**
+     * Insert some white space before the specified node.
+     *
+     * @param DOMNode $node The DOMNode.
+     * @param string  $ws   Additional white space that should be inserted.
+     *
+     * @return NULL
+     */
+    private function _insertWhiteSpaceBefore($node, $ws)
+    {
+        $ws_node = $this->_xml->createTextNode($ws);
+        $node->parentNode->insertBefore($ws_node, $node);
     }
 }

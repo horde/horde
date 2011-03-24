@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-24</date>
- <time>15:33:35</time>
+ <time>15:39:22</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -48,6 +48,7 @@
         <file name="Include.php" role="php" />
         <file name="List.php" role="php" />
        </dir> <!-- /lib/Horde/Pear/Package/Contents -->
+       <file name="Contents.php" role="php" />
        <file name="Xml.php" role="php" />
       </dir> <!-- /lib/Horde/Pear/Package -->
       <file name="Exception.php" role="php" />
@@ -126,6 +127,7 @@
    <install as="Horde/Pear/Registry.php" name="lib/Horde/Pear/Registry.php" />
    <install as="Horde/Pear/Remote.php" name="lib/Horde/Pear/Remote.php" />
    <install as="Horde/Pear/Rest.php" name="lib/Horde/Pear/Rest.php" />
+   <install as="Horde/Pear/Package/Contents.php" name="lib/Horde/Pear/Package/Contents.php" />
    <install as="Horde/Pear/Package/Xml.php" name="lib/Horde/Pear/Package/Xml.php" />
    <install as="Horde/Pear/Package/Contents/Base.php" name="lib/Horde/Pear/Package/Contents/Base.php" />
    <install as="Horde/Pear/Package/Contents/Ignore.php" name="lib/Horde/Pear/Package/Contents/Ignore.php" />

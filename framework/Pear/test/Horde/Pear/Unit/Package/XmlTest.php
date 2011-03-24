@@ -207,6 +207,61 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testCreateContents()
+    {
+        $this->_assertNodeExists(
+            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/empty'),
+            '/p:package/p:contents'
+        );
+    }
+
+    public function testCreateContentsDir()
+    {
+        $this->_assertNodeExists(
+            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/empty'),
+            '/p:package/p:contents/p:dir'
+        );
+    }
+
+    public function testUpdateContentLine()
+    {
+        $this->_assertContentsContain(
+            'File.php',
+            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/empty')
+        );
+    }
+
+    private function _assertNodeExists($xml, $xpath)
+    {
+        $this->assertInstanceOf(
+            'DOMNode', 
+            $xml->findNode($xpath)
+        );
+    }
+
+    private function _assertContentsContain($filename, $xml)
+    {
+        $this->_assertNodeExists($xml, '/p:package/p:contents');
+        $this->_assertNodeExists($xml, '/p:package/p:contents/p:dir');
+        $dir = $xml->findNode('/p:package/p:contents/p:dir');
+        $contents = array();
+        foreach ($xml->findNodesRelativeTo('./p:file', $dir) as $file) {
+            $name = $file->getAttribute('name');
+            if ($name == $filename) {
+                $this->assertEquals($name, $filename);
+                return;
+            }
+            $contents[] = $name;
+        }
+        $this->fail(
+            sprintf(
+                "File \"%s\" is not present among [\n%s\n]",
+                $filename,
+                join(",\n", $contents)
+            )
+        );
+    }
+
     private function _assertNodeContent($xml, $xpath, $content)
     {
         $this->assertEquals(
@@ -219,6 +274,17 @@ extends Horde_Pear_TestCase
     {
         $xml = $this->_getFixture();
         $xml->syncCurrentVersion();
+        return $xml;
+    }
+
+    private function _getUpdatedContents($package)
+    {
+        $xml = new Horde_Pear_Package_Xml(
+            fopen($package . '/package.xml', 'r')
+        );
+        $factory = new Horde_Pear_Factory();
+        $contents = $factory->createContents($package);
+        $xml->updateContents($contents);
         return $xml;
     }
 

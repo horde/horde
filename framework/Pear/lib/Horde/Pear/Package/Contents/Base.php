@@ -26,6 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Pear
  */
 class Horde_Pear_Package_Contents_Base
+implements Horde_Pear_Package_Contents
 {
     /**
      * The file list handler
@@ -44,5 +45,10 @@ class Horde_Pear_Package_Contents_Base
     public function __construct(Horde_Pear_Package_Contents_List $list)
     {
         $this->_list = $list;
+    }
+
+    public function getContents()
+    {
+        return $this->_list->getContents();
     }
 }
