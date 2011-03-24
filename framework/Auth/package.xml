@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-22</date>
- <time>23:19:25</time>
+ <date>2011-03-24</date>
+ <time>01:35:54</time>
  <version>
   <release>1.0.0RC2</release>
   <api>1.0.0</api>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
-* 
+* Remove support for pam_auth (Ticket #9706).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -179,9 +179,6 @@
    <extension>
     <name>ftp</name>
    </extension>
-   <extension>
-    <name>pam_auth</name>
-   </extension>
   </optional>
  </dependencies>
  <phprelease>
@@ -276,9 +273,9 @@
    <notes>
 * Imap driver now uses Horde_Imap_Client library.
 * Add signup drivers to package.xml (Bug #7345).
-* Fix the "overwriting realm info from application auth drivers" (Bug #6749)
+* Fix the &quot;overwriting realm info from application auth drivers&quot; (Bug #6749)
 * Switched Kolab auth handling from IMAP to LDAP by using Kolab_Server.
-* Added "add user" capability to the Kolab driver.
+* Added &quot;add user&quot; capability to the Kolab driver.
 * Adapted the Kolab auth driver to the changes in Kolab_Server.
    </notes>
   </release>
@@ -335,14 +332,16 @@
   <release>
    <version>
     <release>1.0.0RC2</release>
-    <api>1.0.0</api></version>
+    <api>1.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-22</date>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-24</date>
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
-* 
+* Remove support for pam_auth (Ticket #9706).
    </notes>
   </release>
  </changelog>
