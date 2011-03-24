@@ -118,7 +118,7 @@ case 'import_mbox':
     if ($vars->import_folder) {
         try {
             $notification->push($injector->getInstance('IMP_Ui_Folder')->importMbox($vars->import_folder, 'mbox_upload'), 'horde.success');
-        } catch (Horde_Browser_Exception $e) {
+        } catch (Horde_Exception $e) {
             $notification->push($e);
         }
         $vars->actionID = null;
