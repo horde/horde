@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* Add translations.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

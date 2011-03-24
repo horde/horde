@@ -1,0 +1,51 @@
+# Turkish translations for Horde_Browser package.
+# Copyright (C) 2011 Horde Project
+# This file is distributed under the same license as the Horde_Browser package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Browser \n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-03-24 16:00+0100\n"
+"PO-Revision-Date: 2011-03-24 16:00+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-9\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/Browser.php:1026
+msgid "File uploads not supported."
+msgstr "Dosya yükleme desteklenmiyor."
+
+#: lib/Horde/Browser.php:1043
+msgid "No file uploaded"
+msgstr "Hiçbir dosya yüklenemedi"
+
+#: lib/Horde/Browser.php:1053
+msgid ""
+"The uploaded file appears to be empty. It may not exist on your computer."
+msgstr ""
+
+#: lib/Horde/Browser.php:1050
+#, php-format
+msgid "There was a problem with the file upload: No %s was uploaded."
+msgstr "Dosya (karþýdan) yüklenmesinde sorun var: %s yüklenemedi."
+
+#: lib/Horde/Browser.php:1058
+#, php-format
+msgid ""
+"There was a problem with the file upload: The %s was larger than the maximum "
+"allowed size (%d bytes)."
+msgstr ""
+"Dosya yüklenirken bir sorun oluþtu: %s en büyük izin verilen boyuttan (%d "
+"byte) daha büyük."
+
+#: lib/Horde/Browser.php:1060
+#, php-format
+msgid ""
+"There was a problem with the file upload: The %s was only partially uploaded."
+msgstr "Dosya yüklenirken bir sorun oluþtu: %s sadece kýsmi olarak yüklendi."
