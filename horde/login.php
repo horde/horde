@@ -239,8 +239,6 @@ if (!empty($GLOBALS['conf']['user']['select_view'])) {
     );
 }
 
-
-
 try {
     $result = $auth->getLoginParams();
     $loginparams = array_filter(array_merge($loginparams, $result['params']));
