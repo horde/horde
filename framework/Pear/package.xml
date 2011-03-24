@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-03-23</date>
- <time>21:45:31</time>
+ <date>2011-03-24</date>
+ <time>15:33:35</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -43,6 +43,7 @@
         <dir name="Include">
          <file name="All.php" role="php" />
         </dir> <!-- /lib/Horde/Pear/Package/Contents/Include -->
+        <file name="Base.php" role="php" />
         <file name="Ignore.php" role="php" />
         <file name="Include.php" role="php" />
         <file name="List.php" role="php" />
@@ -50,6 +51,7 @@
        <file name="Xml.php" role="php" />
       </dir> <!-- /lib/Horde/Pear/Package -->
       <file name="Exception.php" role="php" />
+      <file name="Factory.php" role="php" />
       <file name="Registry.php" role="php" />
       <file name="Remote.php" role="php" />
       <file name="Rest.php" role="php" />
@@ -60,6 +62,12 @@
     <dir name="Horde">
      <dir name="Pear">
       <dir name="fixture">
+       <dir name="empty">
+        <file name="File.php" role="test" />
+       </dir> <!-- /test/Horde/Pear/fixture/empty -->
+       <dir name="one">
+        <file name="File.php" role="test" />
+       </dir> <!-- /test/Horde/Pear/fixture/one -->
        <dir name="simple">
         <dir name="lib">
          <file name="Old.php" role="test" />
@@ -86,6 +94,7 @@
         </dir> <!-- /test/Horde/Pear/Unit/Package/Contents -->
         <file name="XmlTest.php" role="test" />
        </dir> <!-- /test/Horde/Pear/Unit/Package -->
+       <file name="FactoryTest.php" role="test" />
        <file name="RegistryTest.php" role="test" />
        <file name="RemoteTest.php" role="test" />
        <file name="RestTest.php" role="test" />
@@ -113,10 +122,12 @@
  <phprelease>
   <filelist>
    <install as="Horde/Pear/Exception.php" name="lib/Horde/Pear/Exception.php" />
+   <install as="Horde/Pear/Factory.php" name="lib/Horde/Pear/Factory.php" />
    <install as="Horde/Pear/Registry.php" name="lib/Horde/Pear/Registry.php" />
    <install as="Horde/Pear/Remote.php" name="lib/Horde/Pear/Remote.php" />
    <install as="Horde/Pear/Rest.php" name="lib/Horde/Pear/Rest.php" />
    <install as="Horde/Pear/Package/Xml.php" name="lib/Horde/Pear/Package/Xml.php" />
+   <install as="Horde/Pear/Package/Contents/Base.php" name="lib/Horde/Pear/Package/Contents/Base.php" />
    <install as="Horde/Pear/Package/Contents/Ignore.php" name="lib/Horde/Pear/Package/Contents/Ignore.php" />
    <install as="Horde/Pear/Package/Contents/Include.php" name="lib/Horde/Pear/Package/Contents/Include.php" />
    <install as="Horde/Pear/Package/Contents/List.php" name="lib/Horde/Pear/Package/Contents/List.php" />
@@ -131,11 +142,14 @@
    <install as="Horde/Pear/Autoload.php" name="test/Horde/Pear/Autoload.php" />
    <install as="Horde/Pear/phpunit.xml" name="test/Horde/Pear/phpunit.xml" />
    <install as="Horde/Pear/TestCase.php" name="test/Horde/Pear/TestCase.php" />
+   <install as="Horde/Pear/fixture/empty/File.php" name="test/Horde/Pear/fixture/empty/File.php" />
+   <install as="Horde/Pear/fixture/one/File.php" name="test/Horde/Pear/fixture/one/File.php" />
    <install as="Horde/Pear/fixture/simple/lib/Old.php" name="test/Horde/Pear/fixture/simple/lib/Old.php" />
    <install as="Horde/Pear/fixture/simple/lib/Stays.php" name="test/Horde/Pear/fixture/simple/lib/Stays.php" />
    <install as="Horde/Pear/Server/conf.php.dist" name="test/Horde/Pear/Server/conf.php.dist" />
    <install as="Horde/Pear/Server/RegistryTest.php" name="test/Horde/Pear/Server/RegistryTest.php" />
    <install as="Horde/Pear/Server/RestTest.php" name="test/Horde/Pear/Server/RestTest.php" />
+   <install as="Horde/Pear/Unit/FactoryTest.php" name="test/Horde/Pear/Unit/FactoryTest.php" />
    <install as="Horde/Pear/Unit/RegistryTest.php" name="test/Horde/Pear/Unit/RegistryTest.php" />
    <install as="Horde/Pear/Unit/RemoteTest.php" name="test/Horde/Pear/Unit/RemoteTest.php" />
    <install as="Horde/Pear/Unit/RestTest.php" name="test/Horde/Pear/Unit/RestTest.php" />
@@ -159,7 +173,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-23</date>
+   <date>2011-03-24</date>
    <license uri="REPLACE">REPLACE</license>
    <notes>
 * [gwr] Imported the .gitignore handling for content lists from the components tool.
