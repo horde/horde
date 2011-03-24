@@ -194,7 +194,8 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
 
         if (!$img || !$data) {
             $type = 'image/png';
-            $data = file_get_contents(IMP_BASE . '/themes/graphics/mini-error.png');
+            $img_ob = Horde_Themes::img('mini-error.png', 'imp');
+            $data = file_get_contents($img_ob->fs);
         }
 
         return array(
