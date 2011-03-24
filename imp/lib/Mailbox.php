@@ -103,6 +103,20 @@ class IMP_Mailbox implements Serializable
     static protected $_specialCache;
 
     /**
+     * Does a mbox_label hook exist?
+     *
+     * @var boolean
+     */
+    static protected $_labelHook;
+
+    /**
+     * Does a mbox_icons hook exist?
+     *
+     * @var boolean
+     */
+    static protected $_iconHook;
+
+    /**
      * Shortcut to obtaining mailbox object(s).
      *
      * @param mixed $mbox  The full IMAP mailbox name(s).
@@ -150,6 +164,13 @@ class IMP_Mailbox implements Serializable
         }
 
         $this->_mbox = $mbox;
+
+        if (!isset(self::$_labelHook)) {
+            self::$_labelHook = Horde::hookExists('mbox_label', 'imp');
+        }
+        if (!isset(self::$_iconHook)) {
+            self::$_iconHook = Horde::hookExists('mbox_icons', 'imp');
+        }
     }
 
     /**
@@ -259,11 +280,9 @@ class IMP_Mailbox implements Serializable
                 ? $ob->label
                 : $this->_getDisplay();
 
-            try {
-                return Horde::callHook('mbox_label', array($this->_mbox, $label), 'imp');
-            } catch (Horde_Exception_HookNotSet $e) {
-                return $label;
-            }
+            return self::$_labelHook
+                ? Horde::callHook('mbox_label', array($this->_mbox, $label), 'imp')
+                : $label;
 
         case 'level':
             $elt = $injector->getInstance('IMP_Imap_Tree')->getElement($this->_mbox);
@@ -904,11 +923,9 @@ class IMP_Mailbox implements Serializable
 
         /* Overwrite the icon information now. */
         if (!isset($this->_cache['icons'])) {
-            try {
-                $this->_cache['icons'] = Horde::callHook('mbox_icons', array(), 'imp');
-            } catch (Horde_Exception_HookNotSet $e) {
-                $this->_cache['icons'] = array();
-            }
+            $this->_cache['icons'] = self::$_iconHook
+                ? Horde::callHook('mbox_icons', array(), 'imp')
+                : $this->_cache['icons'] = array();
         }
 
         if (isset($this->_cache['icons'][$this->_mbox])) {
