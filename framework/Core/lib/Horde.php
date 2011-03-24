@@ -115,12 +115,18 @@ class Horde
         }
         $html_ini = ini_set('html_errors', 'Off');
         self::startBuffer();
+        echo "Variable information:\n";
         var_dump($event);
+
         if (is_resource($event)) {
             echo "\nStream contents:\n";
             rewind($event);
             fpassthru($event);
         }
+
+        echo "\nBacktrace:\n";
+        echo strval(new Horde_Support_Backtrace());
+
         $logger->log(self::endBuffer(), Horde_Log::DEBUG);
         ini_set('html_errors', $html_ini);
     }
