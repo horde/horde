@@ -95,7 +95,7 @@ class Horde_Core_Sidebar
                 unset($prefs_apps['horde']);
             }
 
-            asort($prefs_apps);
+            uasort($prefs_apps, array($this, '_sortByName'));
             foreach ($prefs_apps as $app => $params) {
                 $menu['prefs_' . $app] = array(
                     'icon' => $registry->get('icon', $app),
@@ -175,4 +175,16 @@ class Horde_Core_Sidebar
         return $tree;
     }
 
+    /**
+     * Helper method for uasort to sort applications by name.
+     *
+     * @param string $a
+     * @param string $a
+     *
+     * @return integer
+     */
+    protected function _sortByName($a, $b)
+    {
+        return strcoll($a['name'], $b['name']);
+    }
 }
