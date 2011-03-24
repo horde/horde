@@ -912,7 +912,7 @@ if ($redirect) {
         $t->set('rtemode', $rtemode);
     }
 
-    $t->set('message_label', Horde::label('message', _("Te_xt")));
+    $t->set('message_label', Horde::label('composeMessage', _("Te_xt")));
     $t->set('message_tabindex', ++$tabindex);
     $t->set('message', htmlspecialchars($msg));
 
