@@ -246,14 +246,11 @@ class Horde_Mime
                                          $defserver = null)
     {
         if (!is_array($addresses)) {
-            /* parseAddressList() does not process the null entry
-             * 'undisclosed-recipients:;' correctly. */
             $addresses = trim($addresses);
-            if (preg_match('/undisclosed-recipients:\s*;/i', $addresses)) {
-                return $addresses;
-            }
-
-            $addresses = Horde_Mime_Address::parseAddressList($addresses, array('defserver' => $defserver, 'nestgroups' => true));
+            $addresses = Horde_Mime_Address::parseAddressList($addresses, array(
+                'defserver' => $defserver,
+                'nestgroups' => true
+            ));
         }
 
         $text = '';

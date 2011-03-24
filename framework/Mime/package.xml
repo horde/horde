@@ -17,8 +17,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-22</date>
- <time>23:28:04</time>
+ <date>2011-03-24</date>
+ <time>00:45:43</time>
  <version>
   <release>1.0.0RC2</release>
   <api>1.0.0</api>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* Improve handling of empty address groups.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -596,14 +596,16 @@
   <release>
    <version>
     <release>1.0.0RC2</release>
-    <api>1.0.0</api></version>
+    <api>1.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-22</date>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-24</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* Improve handling of empty address groups.
    </notes>
   </release>
  </changelog>

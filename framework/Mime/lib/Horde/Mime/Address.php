@@ -199,8 +199,6 @@ class Horde_Mime_Address
         /* Make sure these two variables have some sort of value. */
         if (!isset($ob['mailbox'])) {
             $ob['mailbox'] = '';
-        } elseif ($ob['mailbox'] == 'undisclosed-recipients') {
-            return '';
         }
         if (!isset($ob['host'])) {
             $ob['host'] = '';
@@ -392,10 +390,6 @@ class Horde_Mime_Address
      */
     static public function parseAddressList($address, $options = array())
     {
-        if (preg_match('/undisclosed-recipients:\s*;/i', trim($address))) {
-            return array();
-        }
-
         if (!self::$_rfc822) {
             self::$_rfc822 = new Horde_Mail_Rfc822();
         }
@@ -413,6 +407,12 @@ class Horde_Mime_Address
                 'validate' => $options['validate']
             ));
         } catch (Horde_Mail_Exception $e) {
+            /* Need to explicitly check for this error response - this
+             * is thrown by the validate method for perfectly valid empty
+             * groups pursuant to RFC 5322. */
+            if ($e->getMessage() == 'Empty group.') {
+                return array();
+            }
             throw new Horde_Mime_Exception($e);
         }
 
