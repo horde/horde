@@ -415,7 +415,7 @@ var DimpCore = {
                 a = new Element('A', { className: 'address' }).store({ personal: o.personal, email: o.inner, address: (o.personal ? (o.personal + ' <' + o.inner + '>') : o.inner) });
                 if (o.personal) {
                     a.writeAttribute({ title: o.inner }).insert(o.personal.escapeHTML());
-                } else {
+                } else if (o.inner) {
                     a.insert(o.inner.escapeHTML());
                 }
                 this.DMenu.addElement(a.identify(), 'ctx_contacts', { offset: a, left: true });
