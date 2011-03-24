@@ -2805,9 +2805,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (isset($data[$key])) {
                 if (is_resource($data[$key])) {
                     rewind($data[$key]);
-                    $ret->$val = stream_get_contents($data[$key]);
-                } elseif (strcasecmp($data[$key], 'NIL') !== 0) {
-                    $ret->$val = $data[$key];
+                    $entry = stream_get_contents($data[$key]);
+                } else {
+                    $entry = $data[$key];
+                }
+
+                if (strcasecmp($entry, 'NIL') !== 0) {
+                    $ret->$val = $entry;
                 }
             }
         }
@@ -2821,13 +2825,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 while (list(,$a_val) = each($data[$key])) {
                     $tmp_addr = array();
                     foreach ($addr_structure as $add_key => $add_val) {
-                        if (strcasecmp($a_val[$add_key], 'NIL') !== 0) {
-                            if (is_resource($a_val[$add_key])) {
-                                rewind($a_val[$add_key]);
-                                $tmp_addr[$add_val] = stream_get_contents($a_val[$add_key]);
-                            } else {
-                                $tmp_addr[$add_val] = $a_val[$add_key];
-                            }
+                        if (is_resource($a_val[$add_key])) {
+                            rewind($a_val[$add_key]);
+                            $entry = stream_get_contents($a_val[$add_key]);
+                        } else {
+                            $entry = $a_val[$add_key];
+                        }
+
+                        if (strcasecmp($entry, 'NIL') !== 0) {
+                            $tmp_addr[$add_val] = $entry;
                         }
                     }
                     $tmp[] = $tmp_addr;
