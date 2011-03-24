@@ -23,7 +23,7 @@
   <active>yes</active>
  </developer>
  <date>2011-03-24</date>
- <time>01:38:21</time>
+ <time>15:34:05</time>
  <version>
   <release>1.0.0RC2</release>
   <api>1.0.0</api>
@@ -85,6 +85,7 @@
         <file name="SqlObject.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Auth/Signup -->
        <file name="Application.php" role="php" />
+       <file name="Composite.php" role="php" />
        <file name="Imsp.php" role="php" />
        <file name="Ldap.php" role="php" />
        <file name="Msad.php" role="php" />
@@ -1043,6 +1044,7 @@
    <install as="Horde/Core/Ajax/Imple/SpellChecker.php" name="lib/Horde/Core/Ajax/Imple/SpellChecker.php" />
    <install as="Horde/Core/Ajax/Imple/Geocoder/Geonames.php" name="lib/Horde/Core/Ajax/Imple/Geocoder/Geonames.php" />
    <install as="Horde/Core/Auth/Application.php" name="lib/Horde/Core/Auth/Application.php" />
+   <install as="Horde/Core/Auth/Composite.php" name="lib/Horde/Core/Auth/Composite.php" />
    <install as="Horde/Core/Auth/Imsp.php" name="lib/Horde/Core/Auth/Imsp.php" />
    <install as="Horde/Core/Auth/Ldap.php" name="lib/Horde/Core/Auth/Ldap.php" />
    <install as="Horde/Core/Auth/Msad.php" name="lib/Horde/Core/Auth/Msad.php" />
@@ -1341,8 +1343,8 @@
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Sort applications in preference menu by name.
-* Fix identities pref UI when default_identity is locked (Bug #9701).
-* Added Horde::debug().
+* [mms] Fix identities pref UI when default_identity is locked (Bug #9701).
+* [mms] Added Horde::debug().
    </notes>
   </release>
  </changelog>
