@@ -611,8 +611,6 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         $default = isset($options['default']) ? $options['default'] : null;
 
         if ($autoincrement) {
-            $options['null'] = true;
-
             $seq_name = $this->defaultSequenceName($tableName, $columnName);
             try {
                 $this->execute('DROP SEQUENCE ' . $seq_name . ' CASCADE');
@@ -639,7 +637,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         }
 
         if ($primaryKey) {
-            $sql = sprintf('ALTER TABLE %s ADD UNIQUE (%s)',
+            $sql = sprintf('ALTER TABLE %s ADD PRIMARY KEY (%s)',
                            $this->quoteTableName($tableName),
                            $this->quoteColumnName($columnName));
             $this->execute($sql);

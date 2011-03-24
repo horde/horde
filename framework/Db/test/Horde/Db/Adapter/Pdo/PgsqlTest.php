@@ -445,11 +445,42 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
 
     public function testCreateTableWithSeparatePk()
     {
-        $table = $this->_conn->createTable('testings');
+        $table = $this->_conn->createTable('testings', array('primaryKey' => false));
           $table->column('foo', 'primaryKey');
+          $table->column('bar', 'integer');
+        $table->end();
 
         $pkColumn = $table['foo'];
         $this->assertEquals('"foo" serial primary key', $pkColumn->toSql());
+
+        $this->_conn->execute("INSERT INTO testings (bar) VALUES (1)");
+
+        $sql = "SELECT * FROM testings WHERE foo = 1";
+        $result = $this->_conn->select($sql);
+        $this->assertEquals(1, count($result));
+
+        // This should fail.
+        try {
+            $this->_conn->execute("INSERT INTO testings (foo) VALUES (NULL)");
+            $this->fail("Expected exception for inserting null value");
+        } catch (Exception $e) {}
+    }
+
+    public function testAlterTableWithSeparatePk()
+    {
+        $table = $this->_conn->createTable('testings', array('primaryKey' => false));
+          $table->column('foo', 'primaryKey');
+          $table->column('bar', 'integer');
+        $table->end();
+
+        // Convert 'foo' to auto-increment
+        $this->_conn->changeColumn('testings', 'foo', 'primaryKey');
+
+        $this->_conn->execute("INSERT INTO testings (bar) VALUES (1)");
+
+        $sql = "SELECT * FROM testings WHERE foo = 1";
+        $result = $this->_conn->select($sql);
+        $this->assertEquals(1, count($result));
     }
 
     public function testCreateTableCompositePk()
