@@ -28,6 +28,7 @@ var AccessKeys = {
                 }
 
                 e.stop();
+                elt.focus();
 
                 // Trigger a mouse event on the accesskey element.
                 if (elt.tagName == 'INPUT') {
