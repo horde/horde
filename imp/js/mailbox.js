@@ -91,6 +91,7 @@ var ImpMailbox = {
             }
         } else {
             this.selectRow(tr, checked);
+            this.cursor = tr;
         }
 
         this.startrange = tr;
@@ -335,10 +336,6 @@ var ImpMailbox = {
             }
 
             if (this.cursor) {
-                if (e.altKey) {
-                    this.selectRow(this.cursor, !$F(this.cursor.down('INPUT.checkbox')));
-                }
-
                 switch (key) {
                 case Event.KEY_UP:
                     this.cursor = this.cursor.previous();
@@ -364,6 +361,9 @@ var ImpMailbox = {
             }
 
             this.cursor.down('TD A.mboxSubject').focus();
+            if (e.altKey) {
+                this.selectRow(this.cursor, !$F(this.cursor.down('INPUT.checkbox')));
+            }
         } else if (key == 32 && this.cursor) {
             this.selectRow(this.cursor, !$F(this.cursor.down('INPUT.checkbox')));
         } else if (!e.shiftKey) {
