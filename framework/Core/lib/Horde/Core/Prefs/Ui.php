@@ -857,9 +857,6 @@ class Horde_Core_Prefs_Ui
         $t->set('entry', $entry);
 
         Horde::addInlineScript(array(
-            'HordeIdentitySelect.newChoice()'
-        ), 'dom');
-        Horde::addInlineScript(array(
             'HordeIdentitySelect.identities = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON)
         ));
 
@@ -888,7 +885,9 @@ class Horde_Core_Prefs_Ui
         $current_from = $identity->getValue('from_addr');
         $id = intval($this->vars->identity);
 
-        if (!$prefs->isLocked('default_identity')) {
+        if ($prefs->isLocked('default_identity')) {
+            $id = $old_default;
+        } else {
             $new_default = intval($this->vars->default_identity);
             if ($new_default != $old_default) {
                 $identity->setDefault($new_default);
