@@ -72,12 +72,12 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
     /**
      * Returns a Horde_Auth_Base driver for the given driver/configuration.
      *
-     * @param string $driver  Driver name.
-     * @param array $params   Driver parameters.
+     * @param string $driver      Driver name.
+     * @param array $orig_params  Driver parameters.
      *
      * @return Horde_Auth_Base  Authentication object.
      */
-    protected function _create($driver, $params = null)
+    protected function _create($driver, $orig_params = null)
     {
         /* Get proper driver name now that we have grabbed the
          * configuration. */
@@ -100,9 +100,9 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
             $driver = Horde_String::ucfirst(Horde_String::lower(basename($driver)));
         }
 
-        if (is_null($params)) {
-            $params = Horde::getDriverConfig('auth', $driver);
-        }
+        $params = is_null($orig_params)
+            ? Horde::getDriverConfig('auth', $driver)
+            : $orig_params;
 
         $lc_driver = Horde_String::lower($driver);
         switch ($lc_driver) {
@@ -163,7 +163,7 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
         case 'horde_core_auth_msad':
             $params['ldap'] = $this->_injector
                 ->getInstance('Horde_Core_Factory_Ldap')
-                ->create('horde', 'auth');
+                ->create('horde', is_null($orig_params) ? 'auth' : $orig_params);
             break;
 
         case 'customsql':
@@ -175,7 +175,7 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
             } else {
                 $params['db'] = $this->_injector
                     ->getInstance('Horde_Core_Factory_Db')
-                    ->create('horde', 'auth');
+                    ->create('horde', is_null($orig_params) ? 'auth' : $orig_params);
             }
             break;
         }
