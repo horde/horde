@@ -333,8 +333,8 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     public function createFolder($path, $name)
     {
         $sql = 'INSERT INTO ' . $this->_params['table']
-            . ' (vfs_id, vfs_type, vfs_path, vfs_name, vfs_modified, vfs_owner) VALUES (?, ?, ?, ?, ?, ?)';
-        $values = array($id, self::FOLDER, $this->_convertPath($path), $name, time(), $this->_params['user']);
+            . ' (vfs_type, vfs_path, vfs_name, vfs_modified, vfs_owner) VALUES (?, ?, ?, ?, ?, ?)';
+        $values = array(self::FOLDER, $this->_convertPath($path), $name, time(), $this->_params['user']);
 
         try {
             $this->_db->insert($sql, $values);
