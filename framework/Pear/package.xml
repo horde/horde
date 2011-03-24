@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-24</date>
- <time>15:39:22</time>
+ <time>23:13:37</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -48,6 +48,9 @@
         <file name="Include.php" role="php" />
         <file name="List.php" role="php" />
        </dir> <!-- /lib/Horde/Pear/Package/Contents -->
+       <dir name="Xml">
+        <file name="Contents.php" role="php" />
+       </dir> <!-- /lib/Horde/Pear/Package/Xml -->
        <file name="Contents.php" role="php" />
        <file name="Xml.php" role="php" />
       </dir> <!-- /lib/Horde/Pear/Package -->
@@ -75,6 +78,12 @@
          <file name="Stays.php" role="test" />
         </dir> <!-- /test/Horde/Pear/fixture/simple/lib -->
        </dir> <!-- /test/Horde/Pear/fixture/simple -->
+       <dir name="simple-empty">
+        <dir name="lib">
+         <file name="Old.php" role="test" />
+         <file name="Stays.php" role="test" />
+        </dir> <!-- /test/Horde/Pear/fixture/simple-empty/lib -->
+       </dir> <!-- /test/Horde/Pear/fixture/simple-empty -->
       </dir> <!-- /test/Horde/Pear/fixture -->
       <dir name="Server">
        <file name="conf.php.dist" role="test" />
@@ -140,12 +149,15 @@
    <install as="Horde/Pear/Package/Contents/Ignore/Nothing.php" name="lib/Horde/Pear/Package/Contents/Ignore/Nothing.php" />
    <install as="Horde/Pear/Package/Contents/Ignore/Patterns.php" name="lib/Horde/Pear/Package/Contents/Ignore/Patterns.php" />
    <install as="Horde/Pear/Package/Contents/Include/All.php" name="lib/Horde/Pear/Package/Contents/Include/All.php" />
+   <install as="Horde/Pear/Package/Xml/Contents.php" name="lib/Horde/Pear/Package/Xml/Contents.php" />
    <install as="Horde/Pear/AllTests.php" name="test/Horde/Pear/AllTests.php" />
    <install as="Horde/Pear/Autoload.php" name="test/Horde/Pear/Autoload.php" />
    <install as="Horde/Pear/phpunit.xml" name="test/Horde/Pear/phpunit.xml" />
    <install as="Horde/Pear/TestCase.php" name="test/Horde/Pear/TestCase.php" />
    <install as="Horde/Pear/fixture/empty/File.php" name="test/Horde/Pear/fixture/empty/File.php" />
    <install as="Horde/Pear/fixture/one/File.php" name="test/Horde/Pear/fixture/one/File.php" />
+   <install as="Horde/Pear/fixture/simple-empty/lib/Old.php" name="test/Horde/Pear/fixture/simple-empty/lib/Old.php" />
+   <install as="Horde/Pear/fixture/simple-empty/lib/Stays.php" name="test/Horde/Pear/fixture/simple-empty/lib/Stays.php" />
    <install as="Horde/Pear/fixture/simple/lib/Old.php" name="test/Horde/Pear/fixture/simple/lib/Old.php" />
    <install as="Horde/Pear/fixture/simple/lib/Stays.php" name="test/Horde/Pear/fixture/simple/lib/Stays.php" />
    <install as="Horde/Pear/Server/conf.php.dist" name="test/Horde/Pear/Server/conf.php.dist" />

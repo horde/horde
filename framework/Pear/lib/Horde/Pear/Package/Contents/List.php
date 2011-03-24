@@ -71,7 +71,7 @@ class Horde_Pear_Package_Contents_List
     /**
      * Return the content list.
      *
-     * @return array 
+     * @return array The file list.
      */
     public function getContents()
     {
@@ -82,7 +82,7 @@ class Horde_Pear_Package_Contents_List
         foreach ($list as $element) {
             if ($this->_include->isIncluded($element)
                 && !$this->_ignore->isIgnored($element)) {
-                $elements[] = $element;
+                $elements[] = substr($element->getPathname(), strlen($this->_root));
             }
         }
         return $elements;

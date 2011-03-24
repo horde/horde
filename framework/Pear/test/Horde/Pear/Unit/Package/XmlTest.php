@@ -231,6 +231,22 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testUpdateWithDepth()
+    {
+        $this->_assertContentsContain(
+            'lib/Stays.php',
+            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/simple-empty')
+        );
+    }
+
+    public function testUpdateTree()
+    {
+        $this->_assertContentsContain(
+            'test/Horde/a.php',
+            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/tree')
+        );
+    }
+
     private function _assertNodeExists($xml, $xpath)
     {
         $this->assertInstanceOf(
@@ -244,6 +260,37 @@ extends Horde_Pear_TestCase
         $this->_assertNodeExists($xml, '/p:package/p:contents');
         $this->_assertNodeExists($xml, '/p:package/p:contents/p:dir');
         $dir = $xml->findNode('/p:package/p:contents/p:dir');
+        $subdir = $this->_getSubDir($xml, $dir, $filename);
+        $this->_assertDirectoryContains($xml, $subdir, basename($filename));
+    }
+
+    private function _getSubDir($xml, $dir, $filename)
+    {
+        if (strpos($filename, DIRECTORY_SEPARATOR) === false) {
+            return $dir;
+        }
+        $parts = explode(DIRECTORY_SEPARATOR, $filename);
+        $start = array_shift($parts);
+        $rest = join(DIRECTORY_SEPARATOR, $parts);
+        $contents = array();
+        foreach ($xml->findNodesRelativeTo('./p:dir', $dir) as $subdir) {
+            $name = $subdir->getAttribute('name');
+            if ($name == $start) {
+                return $this->_getSubDir($xml, $subdir, $rest);
+            }
+            $contents[] = $name;
+        }
+        $this->fail(
+            sprintf(
+                "Directory \"%s\" is not present among [\n%s\n]",
+                $start,
+                join(",\n", $contents)
+            )
+        );
+    }
+
+    private function _assertDirectoryContains($xml, $dir, $filename)
+    {
         $contents = array();
         foreach ($xml->findNodesRelativeTo('./p:file', $dir) as $file) {
             $name = $file->getAttribute('name');

@@ -100,24 +100,80 @@ class Horde_Pear_Package_Xml
             $dependencies->parentNode->insertBefore($contents, $dependencies);
             $this->_insertWhiteSpaceBefore($dependencies, "\n ");
 
-            $this->_insertWhiteSpace($contents, "\n  ");
-            $dir = $this->_xml->createElementNS(
-                self::XMLNAMESPACE, 'dir'
-            );
-            $dir->setAttribute('name', '/');
-            $contents->appendChild($dir);
-            $this->_insertWhiteSpace($contents, "\n ");
+            list($dir, $bottom) = $this->appendInitialDirectory($contents, '/', '/', 1);
 
+            $current = new Horde_Pear_Package_Xml_Contents($dir, $bottom, $this);
             foreach ($content_list->getContents() as $file) {
-                $this->_insertWhiteSpace($dir, "\n   ");
-                $file_node = $this->_xml->createElementNS(
-                    self::XMLNAMESPACE, 'file'
-                );
-                $file_node->setAttribute('name', $file->getFilename());
-                $dir->appendChild($file_node);
+                $current->add($file);
             }
-            $this->_insertWhiteSpace($dir, "\n  ");
         }
+    }
+
+    /**
+     * Append the initial directory in the content listing.
+     *
+     * @param DOMNode $node   The node to append the directory to.
+     * @param string  $name   The name of the directory.
+     * @param string  $path   The directory path relative to the package root.
+     * @param int     $level  The depth of the tree.
+     *
+     * @return DOMNode The new directory node.
+     */
+    public function appendInitialDirectory(DOMNode $node, $name, $path, $level)
+    {
+        $this->_insertWhiteSpace($node, "\n " . str_repeat(' ', $level));
+        $dir = $this->_xml->createElementNS(self::XMLNAMESPACE, 'dir');
+        $dir->setAttribute('name', $name);
+        $node->appendChild($dir);
+        $this->_insertWhiteSpace($node, " ");
+        $this->_insertComment($node, ' ' . $path . ' ');
+        $this->_insertWhiteSpace($node, "\n" . str_repeat(' ', $level));
+        $bottom = $this->_insertWhiteSpace($dir, "\n" . str_repeat(' ', $level + 1));
+        return array($dir, $bottom);
+    }
+
+    /**
+     * Append a directory in the content listing.
+     *
+     * @param DOMNode $node   The node to append the directory to.
+     * @param DOMNode $bottom Insert the directory before this white space element.
+     * @param string  $name   The name of the directory.
+     * @param string  $path   The directory path relative to the package root.
+     * @param int     $level  The depth of the tree.
+     *
+     * @return DOMNode The new directory node.
+     */
+    public function appendDirectory(DOMNode $node, DOMNode $bottom, $name, $path, $level)
+    {
+        $this->_insertWhiteSpaceBefore($bottom, "\n " . str_repeat(' ', $level));
+        $dir = $this->_xml->createElementNS(self::XMLNAMESPACE, 'dir');
+        $dir->setAttribute('name', $name);
+        $node->insertBefore($dir, $bottom);
+        $this->_insertWhiteSpaceBefore($bottom, " ");
+        $this->_insertCommentBefore($bottom, ' ' . $path . ' ');
+        $bottom = $this->_insertWhiteSpace($dir, "\n" . str_repeat(' ', $level + 1));
+        return array($dir, $bottom);
+    }
+
+    /**
+     * Append a file in the content listing.
+     *
+     * @param DOMNode $node   The node to append the file to.
+     * @param DOMNode $bottom Insert the file before this white space element.
+     * @param string  $name   The name of the file.
+     * @param int     $level  The depth of the tree.
+     *
+     * @return DOMNode The new file node.
+     */
+    public function appendFile(DOMNode $node, DOMNode $bottom, $name, $level)
+    {
+        $this->_insertWhiteSpaceBefore($bottom, "\n " . str_repeat(" ", $level));
+        $file = $this->_xml->createElementNS(
+            self::XMLNAMESPACE, 'file'
+        );
+        $file->setAttribute('name', $name);
+        $node->insertBefore($file, $bottom);
+        return $file;
     }
 
     /**
@@ -555,12 +611,41 @@ class Horde_Pear_Package_Xml
      * @param DOMNode $parent The parent DOMNode.
      * @param string  $ws     Additional white space that should be inserted.
      *
-     * @return NULL
+     * @return DOMNode The inserted white space node.
      */
     private function _insertWhiteSpace($parent, $ws)
     {
         $ws_node = $this->_xml->createTextNode($ws);
         $parent->appendChild($ws_node);
+        return $ws_node;
+    }
+
+    /**
+     * Insert a comment.
+     *
+     * @param DOMNode $parent  The parent DOMNode.
+     * @param string  $comment The comment text.
+     *
+     * @return NULL
+     */
+    private function _insertComment($parent, $comment)
+    {
+        $comment_node = $this->_xml->createComment($comment);
+        $parent->appendChild($comment_node);
+    }
+
+    /**
+     * Insert a comment before the specified node.
+     *
+     * @param DOMNode $node    The following node.
+     * @param string  $comment The comment text.
+     *
+     * @return NULL
+     */
+    private function _insertCommentBefore($node, $comment)
+    {
+        $comment_node = $this->_xml->createComment($comment);
+        $node->parentNode->insertBefore($comment_node, $node);
     }
 
     /**
