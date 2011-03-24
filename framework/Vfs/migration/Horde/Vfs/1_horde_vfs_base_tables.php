@@ -34,7 +34,12 @@ class HordeVfsBaseTables extends Horde_Db_Migration_Base
 
     public function down()
     {
-        $this->dropTable('horde_muvfs');
-        $this->dropTable('horde_vfs');
+        try {
+            $this->dropTable('horde_muvfs');
+        } catch (Horde_Exception $e) {}
+
+        try {
+            $this->dropTable('horde_vfs');
+        } catch (Horde_Exception $e) {}
     }
 }
