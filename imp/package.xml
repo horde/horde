@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [jan] Fix upgrading of search_fields preference.
 * [jan] Fix key navigation in traditional mailbox view.
 * [mms] Don&apos;t cache FETCH data for the Spam and Trash mailboxes.
 * [mms] All views now honor &apos;initial_page&apos; preference.
@@ -2069,6 +2070,7 @@
    <date>2011-03-23</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [jan] Fix upgrading of search_fields preference.
 * [jan] Fix key navigation in traditional mailbox view.
 * [mms] Don&apos;t cache FETCH data for the Spam and Trash mailboxes.
 * [mms] All views now honor &apos;initial_page&apos; preference.

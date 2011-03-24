@@ -2,6 +2,7 @@
 v5.0-RC2
 --------
 
+[jan] Fix upgrading of search_fields preference.
 [jan] Fix key navigation in traditional mailbox view.
 [mms] Don't cache FETCH data for the Spam and Trash mailboxes.
 [mms] All views now honor 'initial_page' preference.

@@ -75,7 +75,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
                         }
                     }
                 }
-                $prefs->setValue('search_fields', $fields);
+                $prefs->setValue('search_fields', json_encode($fields));
             }
         }
     }
