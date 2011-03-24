@@ -1021,18 +1021,34 @@ class Horde_Registry
      * @param string $call    The method to call.
      * @param array $options  Additional options:
      * <pre>
-     * 'args' - (array) Additional parameters to pass to the method.
-     * 'noperms' - (boolean) If true, don't check the perms.
+     * args - (array) Additional parameters to pass to the method.
+     * check_missing - (boolean) If true, throws an Exception if method does
+     *                 not exist. Otherwise, will return null.
+     * noperms - (boolean) If true, don't check the perms.
      * </pre>
      *
      * @return mixed  Various.
      * @throws Horde_Exception  Application methods should throw this if there
      *                          is a fatal error.
      */
-    public function callAppMethod($app, $call, $options = array())
+    public function callAppMethod($app, $call, array $options = array())
     {
         /* Load the API now. */
-        $api = $this->getApiInstance($app, 'application');
+        try {
+            $api = $this->getApiInstance($app, 'application');
+        } catch (Horde_Exception $e) {
+            if (empty($options['check_missing'])) {
+                return null;
+            }
+            throw $e;
+        }
+
+        if (!method_exists($api, $call)) {
+            if (empty($options['check_missing'])) {
+                return null;
+            }
+            throw new Horde_Exception('Method does not exist.');
+        }
 
         /* Switch application contexts now, if necessary, before
          * including any files which might do it for us. Return an
