@@ -492,11 +492,13 @@ var DimpBase = {
 
                 switch (mode) {
                 case 'vert':
+                    $('button_sort').up().show();
                     r.VP_bg.unshift('vpRowVert');
                     r.className = r.VP_bg.join(' ');
                     return this.template.vert.evaluate(r);
 
                 default:
+                    $('button_sort').up().hide();
                     r.VP_bg.unshift('vpRowHoriz');
                     r.className = r.VP_bg.join(' ');
                     return this.template.horiz.evaluate(r);
@@ -996,6 +998,14 @@ var DimpBase = {
             this.toggleHelp();
             break;
 
+        case 'oa_sort_from':
+        case 'oa_sort_date':
+        case 'oa_sort_size':
+        case 'oa_sort_subject':
+        case 'oa_sort_thread':
+            this.sort(DIMP.conf.sort.get(id.substring(8)).v);
+            break;
+
         case 'ctx_vfolder_edit':
             tmp = { edit_query: e.findElement('LI').retrieve('mbox') };
             // Fall through
@@ -1141,6 +1151,22 @@ var DimpBase = {
             }
 
             tmp.compact().invoke(sel.size() ? 'show' : 'hide');
+            break;
+
+        case 'ctx_sortopts':
+            elts = $(ctx_id).select('a span.iconImg');
+            tmp = this.viewport.getMetaData('sortby');
+
+            elts.each(function(e) {
+                e.removeClassName('sortdown').removeClassName('sortup');
+            });
+
+            $H(DIMP.conf.sort).detect(function(s) {
+                if (s.value.v == tmp) {
+                    $('oa_sort_' + s.key).down('.iconImg').addClassName(this.viewport.getMetaData('sortdir') ? 'sortup' : 'sortdown');
+                    return true;
+                }
+            }, this);
             break;
 
         case 'ctx_qsearchby':
@@ -3275,6 +3301,7 @@ var DimpBase = {
         /* Add popdown menus. Check for disabled compose at the same time. */
         DimpCore.addPopdown('button_other', 'otheractions', true);
         DimpCore.addPopdown('folderopts_link', 'folderopts', true);
+        DimpCore.addPopdown('button_sort', 'sortopts', true);
 
         DM.addSubMenu('ctx_message_reply', 'ctx_reply');
         DM.addSubMenu('ctx_message_forward', 'ctx_forward');

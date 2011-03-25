@@ -140,6 +140,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
       <div id="button_compose"><?php echo IMP_Dimp::actionButton(array('icon' => 'Compose', 'title' => _("Compose"))) ?></div>
       <div id="button_checkmail"><?php echo IMP_Dimp::actionButton(array('icon' => 'Checkmail', 'title' => _("Get Mail"))) ?></div>
       <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Other', 'id' => 'button_other', 'title' => _("Other Actions"))) ?></div>
+      <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Sort', 'id' => 'button_sort', 'title' => _("Sort"))) ?></div>
      </div>
 
     <div id="searchbar" style="display:none">
@@ -428,6 +429,14 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <?php endif; ?>
  <div class="sep"></div>
  <a id="oa_help"><span class="iconImg"></span><?php echo _("Help") ?></a>
+</div>
+
+<div class="context" id="ctx_sortopts" style="display:none;">
+ <a id="oa_sort_from"><span class="iconImg"></span><?php echo _("From") ?></a>
+ <a id="oa_sort_subject"><span class="iconImg"></span><?php echo _("Subject") ?></a>
+ <a id="oa_sort_thread"><span class="iconImg"></span><?php echo _("Thread") ?></a>
+ <a id="oa_sort_date"><span class="iconImg"></span><?php echo _("Date") ?></a>
+ <a id="oa_date_size"><span class="iconImg"></span><?php echo _("Size") ?></a>
 </div>
 
 <div class="context" id="ctx_filter" style="display:none">

@@ -923,6 +923,9 @@ span.dimpactionDelete {
 span.dimpactionOther {
     background-image: url("../graphics/plus.png");
 }
+span.dimpactionSort {
+    background-image: url("../graphics/plus.png");
+}
 span.dimpactionSpellcheck {
     background-image: url("../graphics/spellcheck.png");
 }
@@ -1026,6 +1029,12 @@ span.dimpactionResume {
     height: 15px;
     width: 15px;
 }
+#ctx_sortopts span.iconImg.sortup, #ctx_sortopts span.iconImg.sortdown {
+    background-color: inherit;
+    background-position: center;
+    padding: 0;
+}
+
 div.vpRow div.msgSubject span.flagUser {
     font-size: 90%;
     font-weight: normal;
