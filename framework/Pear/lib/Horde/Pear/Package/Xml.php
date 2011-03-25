@@ -106,7 +106,7 @@ class Horde_Pear_Package_Xml
 
             $current = new Horde_Pear_Package_Xml_Contents($dir, $bottom, $this);
         }
-        $current->update($content_list->getContents());
+        $current->update($content_list);
     }
 
     /**

@@ -70,6 +70,17 @@ class Horde_Pear_Package_Xml_Contents
         $this->_populate('', $root, 1, $bottom);
     }
 
+    /**
+     * Populate the existing file list from the XML.
+     *
+     * @param string  $path   The path of the current directory.
+     * @param DOMNode $dir    The node of the current directory.
+     * @param int     $level  Current depth of the tree.
+     * @param DOMNode $bottom The last child in the node list of the current
+     *                        directory.
+     *
+     * @return NULL
+     */
     private function _populate($path, $dir, $level, $bottom)
     {
         if (empty($path)) {
@@ -98,8 +109,9 @@ class Horde_Pear_Package_Xml_Contents
      *
      * @return NULL
      */
-    public function update($files)
+    public function update(Horde_Pear_Package_Contents $contents)
     {
+        $files = $contents->getContents();
         $removed = array_diff(array_keys($this->_file_list), $files);
         foreach ($files as $file) {
             $this->add($file);
