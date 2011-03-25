@@ -470,6 +470,11 @@ table.searchesmanagement .vfolderenabled {
     color: red;
     padding: 1px;
 }
+.prefsTraditional {
+    font-weight: bold;
+    font-size: 110%;
+    padding: 10px 0;
+}
 
 /* Quota styles. */
 .quotawarn {

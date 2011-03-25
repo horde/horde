@@ -167,8 +167,8 @@ $prefGroups['compose'] = array(
     'desc' => _("Configure how you send mail."),
     'members' => array(
         'mailto_handler', 'compose_cc', 'compose_bcc', 'compose_spellcheck',
-        'compose_confirm', 'set_priority', 'compose_popup', 'compose_html',
-        'compose_html_font_family', 'compose_html_font_size', 'mail_domain',
+        'set_priority', 'compose_html', 'compose_html_font_family',
+        'compose_html_font_size', 'mail_domain',
         'compose_cursor', 'encryptselect', 'save_attachments',
         'delete_attachments_monthly_keep', 'request_mdn'
     )
@@ -200,26 +200,12 @@ $_prefs['compose_spellcheck'] = array(
     'desc' => _("Check spelling before sending a message?")
 );
 
-// confirm successful sending of messages?
-$_prefs['compose_confirm'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Display confirmation after sending a message?")
-);
-
 // allow the user to add a priority header when composing messages?
 $_prefs['set_priority'] = array(
     'value' => 1,
     'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Set a priority header when composing messages?")
-);
-
-// compose in a separate window?
-$_prefs['compose_popup'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Compose messages in a separate window?")
 );
 
 // If browser supports the HTML editor, should we compose in HTML mode by
@@ -1448,9 +1434,15 @@ $prefGroups['traditional'] = array(
     'label' => _("Traditional View"),
     'desc' => _("Configure preferences for the traditional view."),
     'members' => array(
-        'preview_enabled', 'preview_maxlen', 'preview_strip_nl',
-        'preview_show_unread', 'preview_show_tooltip'
+        'traditional_mailbox', 'preview_enabled', 'preview_maxlen',
+        'preview_strip_nl', 'preview_show_unread', 'preview_show_tooltip',
+        'traditional_compose', 'compose_popup', 'compose_confirm'
     )
+);
+
+$_prefs['traditional_mailbox'] = array(
+    'value' => '<div class="prefsTraditional">' . _("Mailbox") . '</div>',
+    'type' => 'rawhtml'
 );
 
 // Previews are disabled by default as it can be performance intensive,
@@ -1496,6 +1488,27 @@ $_prefs['preview_show_tooltip'] = array(
     'type' => 'checkbox',
     'desc' => _("Show previews in tooltips?")
 );
+
+$_prefs['traditional_compose'] = array(
+    'value' => '<div class="prefsTraditional">' . _("Compose") . '</div>',
+    'type' => 'rawhtml'
+);
+
+// compose in a separate window?
+$_prefs['compose_popup'] = array(
+    'value' => 1,
+    'type' => 'checkbox',
+    'desc' => _("Compose messages in a separate window?")
+);
+
+// confirm successful sending of messages in popup window?
+$_prefs['compose_confirm'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Display confirmation in popup window after sending a message?")
+);
+
+
 
 // *** Dynamic View (DIMP) Preferences ***
 $prefGroups['dimp'] = array(

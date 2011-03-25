@@ -313,9 +313,7 @@ case 'redirect_send':
                 echo Horde::wrapInlineScript(array('window.close();'));
             }
         } else {
-            if ($prefs->getValue('compose_confirm')) {
-                $notification->push(_("Message redirected successfully."), 'horde.success');
-            }
+            $notification->push(_("Message redirected successfully."), 'horde.success');
             $imp_ui->mailboxReturnUrl()->redirect();
         }
         exit;
@@ -459,9 +457,7 @@ case 'send_message':
             echo Horde::wrapInlineScript(array('window.close();'));
         }
     } else {
-        if ($prefs->getValue('compose_confirm') && $sent) {
-            $notification->push(_("Message sent successfully."), 'horde.success');
-        }
+        $notification->push(_("Message sent successfully."), 'horde.success');
         $imp_ui->mailboxReturnUrl()->redirect();
     }
     exit;

@@ -182,9 +182,7 @@ case _("Redirect"):
         $imp_compose->sendRedirectMessage($imp_ui->getAddressList($header['to']));
         $imp_compose->destroy('send');
 
-        if ($prefs->getValue('compose_confirm')) {
-            $notification->push(_("Message redirected successfully."), 'horde.success');
-        }
+        $notification->push(_("Message redirected successfully."), 'horde.success');
         require IMP_BASE . '/mailbox-mimp.php';
         exit;
     } catch (Horde_Exception $e) {

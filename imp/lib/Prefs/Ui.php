@@ -75,6 +75,8 @@ class IMP_Prefs_Ui
     {
         global $conf, $injector, $prefs, $registry, $session;
 
+        $cprefs = $ui->getChangeablePrefs();
+
         switch ($ui->group) {
         case 'identities':
             if ($prefs->isLocked('sent_mail_folder')) {
@@ -86,9 +88,18 @@ class IMP_Prefs_Ui
                 $ui->suppress[] = 'signature_html_select';
             }
             break;
+
+        case 'traditional':
+            if (!isset($cprefs['preview_enabled'])) {
+                $ui->suppress[] = 'traditional_mailbox';
+            }
+            if (!isset($cprefs['compose_popup'])) {
+                $ui->suppress[] = 'traditional_compose';
+            }
+            break;
         }
 
-        foreach ($ui->getChangeablePrefs() as $val) {
+        foreach ($cprefs as $val) {
             switch ($val) {
             case 'add_source':
                 try {
@@ -111,6 +122,12 @@ class IMP_Prefs_Ui
             case 'compose_html_font_family':
             case 'compose_html_font_size':
                 if (!$prefs->getValue('compose_html')) {
+                    $ui->suppress[] = $val;
+                }
+                break;
+
+            case 'compose_confirm':
+                if (!$prefs->getValue('compose_popup')) {
                     $ui->suppress[] = $val;
                 }
                 break;

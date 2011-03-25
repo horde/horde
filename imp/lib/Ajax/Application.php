@@ -1713,7 +1713,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->draft_delete = 1;
         }
 
-        if ($sent && $GLOBALS['prefs']->getValue('compose_confirm')) {
+        if ($sent) {
             $GLOBALS['notification']->push(empty($headers['subject']) ? _("Message sent successfully.") : sprintf(_("Message \"%s\" sent successfully."), Horde_String::truncate($headers['subject'])), 'horde.success');
         }
 
@@ -1781,10 +1781,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $contents = $imp_compose->getContentsOb();
             $headers = $contents->getHeaderOb();
 
-            if ($GLOBALS['prefs']->getValue('compose_confirm')) {
-                $subject = $headers->getValue('subject');
-                $GLOBALS['notification']->push(empty($subject) ? _("Message redirected successfully.") : sprintf(_("Message \"%s\" redirected successfully."), Horde_String::truncate($subject)), 'horde.success');
-            }
+            $subject = $headers->getValue('subject');
+            $GLOBALS['notification']->push(empty($subject) ? _("Message redirected successfully.") : sprintf(_("Message \"%s\" redirected successfully."), Horde_String::truncate($subject)), 'horde.success');
 
             if (!empty($GLOBALS['conf']['maillog']['use_maillog']) &&
                 ($tmp = IMP_Dimp::getMsgLogInfo($headers->getValue('message-id')))) {
