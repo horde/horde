@@ -92,13 +92,6 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     protected $_tree;
 
     /**
-     * Cache for generated trees.
-     *
-     * @var array
-     */
-    protected $_treeCache = array();
-
-    /**
      * Location of current element in the tree.
      *
      * @var string
@@ -1492,11 +1485,6 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
             'render_type' => 'Javascript'
         ), $opts);
 
-        $signature = md5(serialize($opts));
-        if (isset($this->_treeCache[$signature])) {
-            return clone $this->_treeCache[$signature];
-        }
-
         $this->recent = array();
         $this->unseen = 0;
 
@@ -1616,8 +1604,6 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
                 empty($opts['checkbox']) ? null : $checkbox . ' />'
             );
         }
-
-        $this->_treeCache[$signature] = $tree;
 
         return $tree;
     }
