@@ -38,7 +38,9 @@
  *               within this percentage of the end of the current cached
  *               viewport, send a background request to the server to retrieve
  *               the next slice.
- * list_class: (string) The CSS class to use for the list container.
+ * list_class: (string) The CSS class to use for the results list.
+ * list_container: (Element/string) A DOM element to insert the results list
+ *                 into. Defaults to the base results list element.
  * lookbehind: (integer) What percentage of the received buffer should be
  *             used to download rows before the given row number?
  * onAjaxFailure: (function) Callback function that handles a failure response
@@ -240,8 +242,13 @@ var ViewPort = Class.create({
         this.opts.container = $(opts.container);
         this.opts.pane_data = $(opts.pane_data);
 
-        this.opts.content = new Element('DIV', { className: opts.list_class }).setStyle({ float: 'left', overflow: 'hidden' });
-        this.opts.container.insert(this.opts.content);
+        this.opts.content = new Element('DIV', { className: opts.list_class });
+        if (this.opts.list_container) {
+            this.opts.list_container.insert(this.opts.content);
+        } else {
+            this.opts.list_container = this.opts.content;
+        }
+        this.opts.container.insert(this.opts.list_container.setStyle({ float: 'left', overflow: 'hidden' }));
 
         this.scroller = new ViewPort_Scroller(this);
 
@@ -477,7 +484,7 @@ var ViewPort = Class.create({
     _onResize: function(size)
     {
         var h,
-            c = this.opts.content,
+            c = this.opts.list_container,
             c_opts = {},
             lh = this._getLineHeight(),
             sp = this.split_pane;
@@ -1096,7 +1103,7 @@ var ViewPort = Class.create({
 
     _getMaxHeight: function()
     {
-        return document.viewport.getHeight() - this.opts.content.viewportOffset()[1];
+        return document.viewport.getHeight() - this.opts.list_container.viewportOffset()[1];
     },
 
     bufferSize: function()
@@ -1193,7 +1200,7 @@ var ViewPort = Class.create({
             sp.lines = this.page_size;
             sp.max = this.getPageSize('splitmax');
             sp.orig = this.page_size;
-            sp.pos = this.opts.content.viewportOffset()[1];
+            sp.pos = this.opts.list_container.viewportOffset()[1];
         }
 
         this.opts.container.fire('ViewPort:splitBarStart', this.pane_mode);
@@ -1216,8 +1223,8 @@ var ViewPort = Class.create({
 
         case 'vert':
             drag = DragDrop.Drags.getDrag(e.element());
-            sp.vert.width = drag.lastCoord[0] - this.opts.content.viewportOffset()[0];
-            this.opts.content.setStyle({ width: sp.vert.width + 'px' });
+            sp.vert.width = drag.lastCoord[0] - this.opts.list_container.viewportOffset()[0];
+            this.opts.list_container.setStyle({ width: sp.vert.width + 'px' });
             change = drag.wasDragged;
             break;
         }
@@ -1243,7 +1250,7 @@ var ViewPort = Class.create({
             break;
 
         case 'vert':
-            this.opts.content.setStyle({ width: parseInt(this.opts.container.clientWidth * 0.45, 10) + 'px' });
+            this.opts.list_container.setStyle({ width: parseInt(this.opts.container.clientWidth * 0.45, 10) + 'px' });
             change = true;
         }
 
