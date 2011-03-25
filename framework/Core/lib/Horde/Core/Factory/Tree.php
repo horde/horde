@@ -71,8 +71,8 @@ class Horde_Core_Factory_Tree extends Horde_Core_Factory_Base
 
             if (empty($params['nosession'])) {
                 $params['session'] = array(
-                    'get' => array($this, 'getSession'),
-                    'set' => array($this, 'setSession')
+                    'get' => array(__CLASS__, 'getSession'),
+                    'set' => array(__CLASS__, 'setSession')
                 );
             }
 
@@ -84,14 +84,14 @@ class Horde_Core_Factory_Tree extends Horde_Core_Factory_Base
 
     /**
      */
-    public function getSession($instance, $id, $mask = 0)
+    static public function getSession($instance, $id, $mask = 0)
     {
         return $GLOBALS['session']->get('horde', 'tree-' . $instance . '/' . $id, $mask);
     }
 
     /**
      */
-    public function setSession($instance, $id, $val)
+    static public function setSession($instance, $id, $val)
     {
         if ($val) {
             $GLOBALS['session']->set('horde', 'tree-' . $instance . '/' . $id, $val);
