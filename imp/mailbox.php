@@ -1,6 +1,6 @@
 <?php
 /**
- * Standard (imp) mailbox display page.
+ * Traditional (imp) mailbox display page.
  *
  * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
  *

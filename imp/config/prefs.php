@@ -1441,12 +1441,12 @@ $_prefs['mimp_inline_all'] = array(
 
 
 
-// *** Standard View (IMP) Preferences ***
+// *** Traditional View (IMP) Preferences ***
 
-$prefGroups['standard'] = array(
+$prefGroups['traditional'] = array(
     'column' => _("Other"),
-    'label' => _("Standard View"),
-    'desc' => _("Configure preferences for the standard view."),
+    'label' => _("Traditional View"),
+    'desc' => _("Configure preferences for the traditional view."),
     'members' => array(
         'preview_enabled', 'preview_maxlen', 'preview_strip_nl',
         'preview_show_unread', 'preview_show_tooltip'
