@@ -402,8 +402,6 @@ var DimpBase = {
     {
         var container = $('msgSplitPane');
 
-        [ $('msglistHeader') ].invoke(DIMP.conf.preview_pref == 'vert' ? 'hide' : 'show');
-
         this.template = {
             horiz: new Template(this.msglist_template_horiz),
             vert: new Template(this.msglist_template_vert)
@@ -492,13 +490,15 @@ var DimpBase = {
 
                 switch (mode) {
                 case 'vert':
-                    $('button_sort').up().show();
+                    $('msglistHeader').hide();
+                    $('msglistHeaderVert').show();
                     r.VP_bg.unshift('vpRowVert');
                     r.className = r.VP_bg.join(' ');
                     return this.template.vert.evaluate(r);
 
                 default:
-                    $('button_sort').up().hide();
+                    $('msglistHeaderVert').hide();
+                    $('msglistHeader').show();
                     r.VP_bg.unshift('vpRowHoriz');
                     r.className = r.VP_bg.join(' ');
                     return this.template.horiz.evaluate(r);
@@ -510,6 +510,7 @@ var DimpBase = {
             buffer_pages: DIMP.conf.buffer_pages,
             empty_msg: DIMP.text.vp_empty,
             list_class: 'msglist',
+            list_container: $('msglistContainer'),
             page_size: DIMP.conf.splitbar_pos,
             pane_data: 'previewPane',
             pane_mode: DIMP.conf.preview_pref,
@@ -2301,6 +2302,14 @@ var DimpBase = {
                 e.stop();
                 return;
 
+            case 'msglistHeaderVert':
+                tmp = e.element();
+                if (tmp.hasClassName('msCheck')) {
+                    this.selectAll();
+                }
+                e.stop();
+                return;
+
             case 'th_expand':
             case 'th_collapse':
                 this._toggleHeaders(elt, true);
@@ -3301,7 +3310,7 @@ var DimpBase = {
         /* Add popdown menus. Check for disabled compose at the same time. */
         DimpCore.addPopdown('button_other', 'otheractions', true);
         DimpCore.addPopdown('folderopts_link', 'folderopts', true);
-        DimpCore.addPopdown('button_sort', 'sortopts', true);
+        DimpCore.addPopdown('vertical_sort', 'sortopts', true);
 
         DM.addSubMenu('ctx_message_reply', 'ctx_reply');
         DM.addSubMenu('ctx_message_forward', 'ctx_forward');

@@ -140,28 +140,37 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
       <div id="button_compose"><?php echo IMP_Dimp::actionButton(array('icon' => 'Compose', 'title' => _("Compose"))) ?></div>
       <div id="button_checkmail"><?php echo IMP_Dimp::actionButton(array('icon' => 'Checkmail', 'title' => _("Get Mail"))) ?></div>
       <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Other', 'id' => 'button_other', 'title' => _("Other Actions"))) ?></div>
-      <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Sort', 'id' => 'button_sort', 'title' => _("Sort"))) ?></div>
      </div>
 
-    <div id="searchbar" style="display:none">
-     <span id="search_label"></span>
-     <span class="iconImg closeImg" id="search_close" title="<?php echo _("Clear Search") ?>"></span>
-     <span class="iconImg dimpactionRefresh" id="search_refresh" title="<?php echo _("Refresh Search Results") ?>"></span>
-     <span class="iconImg dimpactionEditsearch" id="search_edit" style="display:none" title="<?php echo _("Edit Search Query") ?>"></span>
+     <div id="searchbar" style="display:none">
+      <span id="search_label"></span>
+      <span class="iconImg closeImg" id="search_close" title="<?php echo _("Clear Search") ?>"></span>
+      <span class="iconImg dimpactionRefresh" id="search_refresh" title="<?php echo _("Refresh Search Results") ?>"></span>
+      <span class="iconImg dimpactionEditsearch" id="search_edit" style="display:none" title="<?php echo _("Edit Search Query") ?>"></span>
+     </div>
     </div>
 
-     <div id="msglistHeader" class="item">
-      <div class="iconImg msgStatus">
-       <div class="iconImg msCheck" title="<?php echo _("Select All") ?>"></div>
+    <div id="msgSplitPane">
+     <div id="msglistContainer">
+      <div class="item msglistHeader" id="msglistHeader" style="display:none">
+       <div class="iconImg msgStatus">
+        <div class="iconImg msCheck" title="<?php echo _("Select All") ?>"></div>
+       </div>
+       <div class="msgFrom sep"></div>
+       <div class="msgSubject sep"></div>
+       <div class="msgDate sep"></div>
+       <div class="msgSize sep"></div>
       </div>
-      <div class="msgFrom sep"></div>
-      <div class="msgSubject sep"></div>
-      <div class="msgDate sep"></div>
-      <div class="msgSize sep"></div>
+      <div class="item msglistHeader" id="msglistHeaderVert" style="display:none">
+       <div class="iconImg msgStatus">
+        <div class="iconImg msCheck" title="<?php echo _("Select All") ?>"></div>
+       </div>
+       <div class="msgSort">
+        <a class="widget" id="vertical_sort">Sort</a>
+       </div>
+      </div>
      </div>
     </div>
-
-    <div id="msgSplitPane"></div>
     <span id="viewportLoading" class="loadingImg" style="display:none"></span>
 
     <div id="previewPane" style="display:none">

@@ -152,35 +152,41 @@ div.msgSize {
 }
 
 /* Message List Header and Column Header */
-#msglistHeader {
+.msglistHeader {
     font-weight: bold;
     overflow: hidden;
-    border: 1px solid silver;
-    border-top: 0;
+    border-bottom: 1px solid silver;
     background: transparent url("../graphics/backhead_orderby.png") repeat-x;
 }
-#msglistHeader a {
+.msglistHeader a {
     cursor: pointer;
 }
-#msglistHeader a.smallSort {
+.msglistHeader a.smallSort {
     font-size: 75%;
     font-weight: normal;
     padding-left: 4px !important;
 }
-#msglistHeader div {
+.msglistHeader div {
     padding-top: 1px;
     height: 15px;
     text-indent: 2px;
 }
-#msglistHeader div.sortup, #msglistHeader div.sortdown {
+.msglistHeader div.sortup, .msglistHeader div.sortdown {
     padding-left: 0;
     background-position: 2px;
 }
-#msglistHeader div.sortup a, #msglistHeader div.sortdown a {
+.msglistHeader div.sortup a, .msglistHeader div.sortdown a {
     padding-left: 14px;
 }
-#msglistHeader div.sep {
+.msglistHeader div.sep {
     border-left: 1px solid #ddd;
+}
+
+#msglistHeaderVert div.msgSort {
+    float: right;
+}
+#msglistHeaderVert div.msgSort span.iconImg {
+    margin-bottom: -2px;
 }
 
 /* Message ViewPort */

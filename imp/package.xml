@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-25</date>
- <time>11:21:07</time>
+ <time>15:23:06</time>
  <version>
   <release>5.0.0RC2</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Add mailbox sorting and select all messages to horizontal layout in the dynamic view (Request #9708).
 * [jan] Fix expansion of quoted sections in thread view.
 * [jan] Fix message previews in traditional view (Bug #9695).
 * [jan] Support importing of compressed mailbox files.
@@ -2073,6 +2074,7 @@
    <date>2011-03-25</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Add mailbox sorting and select all messages to horizontal layout in the dynamic view (Request #9708).
 * [jan] Fix expansion of quoted sections in thread view.
 * [jan] Fix message previews in traditional view (Bug #9695).
 * [jan] Support importing of compressed mailbox files.
