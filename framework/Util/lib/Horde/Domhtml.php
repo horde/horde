@@ -68,14 +68,13 @@ class Horde_Domhtml
                 ? $doc->encoding
                 : 'iso-8859-1';
         } else {
+            /* Convert/try with UTF-8 first. */
             $this->_origCharset = Horde_String::lower($charset);
-            if (!in_array($this->_origCharset, array('iso-8859-1', 'windows-1252'))) {
-                $this->_xmlencoding = '<?xml encoding="' . $this->_origCharset . '">';
-            }
-            $doc->loadHTML($this->_xmlencoding . $text);
+            $this->_xmlencoding = '<?xml encoding="UTF-8"?>';
+            $doc->loadHTML($this->_xmlencoding . Horde_String::convertCharset($text, $charset, 'UTF-8'));
 
             if ($doc->encoding &&
-                (Horde_String::lower($doc->encoding) != $this->_origCharset)) {
+                (Horde_String::lower($doc->encoding) != 'utf-8')) {
                 /* Convert charset to what the HTML document says it SHOULD
                  * be. */
                 $doc->loadHTML(Horde_String::convertCharset($text, $charset, $doc->encoding));

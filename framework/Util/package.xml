@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* Fix parsing ISO-8859-15 data with Horde_Domhtml (Bug #9714).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
