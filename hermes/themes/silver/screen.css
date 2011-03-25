@@ -1,0 +1,82 @@
+/*****************
+ * AJAX INTERFACE
+ *****************/
+
+/* Themed images. */
+#hermesNotifications {
+    background-image: url("graphics/alerts/message.png");
+}
+#hermesNotifications.horde-error {
+    background-image: url("graphics/alerts/error.png")
+}
+#hermesNotifications.horde-success {
+    background-image: url("graphics/alerts/success.png")
+}
+#hermesNotifications.horde-warning {
+    background-image: url("graphics/alerts/warning.png")
+}
+#hermesNotifications.hermesClose {
+    background-image: url("graphics/close.png")
+}
+#hermesMinicalNext, .hermesNext {
+    background-image: url("graphics/right.png");
+}
+#hermesMinicalPrev, .hermesPrev {
+    background-image: url("graphics/left.png");
+}
+#hermesApplications a {
+    background-image: url("graphics/menu.png");
+    background-repeat: repeat-x;
+}
+#hermesApplications a:hover {
+    background: url("graphics/menu-active.png") repeat-x;
+}
+
+#hermesNav a {
+    background-position: 5px center, left top;
+    background-repeat: no-repeat, repeat-x;
+}
+#hermesNavTime {
+    background-image: url("graphics/hermes.png"), url("graphics/menu.png");
+}
+#hermesNavTime:hover, #hermesNavTime.on {
+    background-image: url("graphics/hermes.png"), url("graphics/menu-active.png");
+}
+#hermesNavCostObjects {
+    background-image: url("graphics/hermes.png"), url("graphics/menu.png");
+}
+#hermesNavCostObjects:hover, #hermesNavCostObjects.on {
+    background-image: url("graphics/hermes.png"), url("graphics/menu-active.png");
+}
+#hermesNavClients {
+    background-image: url("graphics/clients.png"), url("graphics/menu.png");
+}
+#hermesNavClients:hover, #hermesNavClients.on  {
+    background-image: url("graphics/clients.png"), url("graphics/menu-active.png");
+}
+#hermesNavTypes {
+    background-image: url("graphics/hermes.png"), url("graphics/menu.png");
+}
+#hermesNavTypes:hover, #hermesNavTypes.on {
+    background-image: url("graphics/hermes.png"), url("graphics/menu-active.png");
+}
+#hermesNavSearch {
+    background-image: url("graphics/search.png"), url("graphics/menu.png");
+}
+#hermesNavSearch:hover, #hermesNavSearch.on {
+    background-image: url("graphics/search.png"), url("graphics/menu-active.png");
+}
+#hermesMenu a.hermesAdd {
+  background: url("graphics/plus.png") no-repeat scroll right center transparent;
+  /*cursor: pointer;
+  padding-right: 8px;
+  position: absolute;
+  right: 0;
+  text-indent: -10000px;
+  width: 16px;*/
+}
+/* Misc */
+.hermesMinical td, .hermesMinical .hermesMinicalEmpty,
+.hermesFirstCol {
+    background-color: #efefef;
+}
