@@ -105,7 +105,6 @@ var IMPDialog = {
         ).observe('keydown', function(e) { if ((e.keyCode || e.charCode) == Event.KEY_RETURN) { e.stop(); this._onClick(e); } }.bind(this));
 
         RedBox.overlay = true;
-        RedBox.onDisplay = Form.focusFirstElement.curry(n);
         RedBox.showHtml(n);
     },
 
