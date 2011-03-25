@@ -87,6 +87,7 @@ var IMPDialog = {
                     new Element('P').insert(data.text)
                 );
 
+        n.addClassName('RB_confirm');
         if (data.form) {
             n.insert(data.form);
         } else if (!data.noinput) {

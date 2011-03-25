@@ -943,16 +943,16 @@ ul.sound-list {
 #RB_window p, #RB_window ul {
     margin-bottom: 3px;
 }
-#RB_confirm {
+.RB_confirm {
     width: 20em;
     padding: 1em;
     border: 1px solid #ccc;
     background: #ffc;
 }
-#RB_confirm input {
+.RB_confirm input {
     margin: .2em;
 }
-#RB_confirm ul {
+.RB_confirm ul {
     margin-left: .5em;
 }
 #RB_info {
