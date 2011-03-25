@@ -552,7 +552,9 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
             $sql = sprintf('ALTER TABLE %s DROP CONSTRAINT %s CASCADE',
                            $quotedTableName,
                            $this->quoteColumnName($tableName . '_pkey'));
-            $this->execute($sql);
+            try {
+                $this->execute($sql);
+            } catch (Horde_Db_Exception $e) {}
         }
 
         $sql = sprintf('ALTER TABLE %s ALTER COLUMN %s TYPE %s',

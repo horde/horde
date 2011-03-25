@@ -469,7 +469,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
     public function testAlterTableWithSeparatePk()
     {
         $table = $this->_conn->createTable('testings', array('primaryKey' => false));
-          $table->column('foo', 'primaryKey');
+          $table->column('foo', 'integer');
           $table->column('bar', 'integer');
         $table->end();
 
