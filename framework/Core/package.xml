@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-03-24</date>
- <time>15:34:05</time>
+ <date>2011-03-25</date>
+ <time>02:00:01</time>
  <version>
   <release>1.0.0RC2</release>
   <api>1.0.0</api>
@@ -53,6 +53,7 @@
     <file name="prettyautocomplete.js" role="horde" />
     <file name="sourceselect.js" role="horde" />
     <file name="spellchecker.js" role="horde" />
+    <file name="toggle_quotes.js" role="horde" />
     <file name="tooltips.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
@@ -1021,6 +1022,7 @@
    <install as="js/prettyautocomplete.js" name="js/prettyautocomplete.js" />
    <install as="js/sourceselect.js" name="js/sourceselect.js" />
    <install as="js/spellchecker.js" name="js/spellchecker.js" />
+   <install as="js/toggle_quotes.js" name="js/toggle_quotes.js" />
    <install as="js/tooltips.js" name="js/tooltips.js" />
    <install as="Horde.php" name="lib/Horde.php" />
    <install as="Horde/Config.php" name="lib/Horde/Config.php" />
@@ -1339,7 +1341,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-24</date>
+   <date>2011-03-25</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Sort applications in preference menu by name.

@@ -1,17 +1,18 @@
 /**
- * Provides the javascript for the thread.php script (standard view).
+ * Provides the javascript for toggle quotes (Highlightquotes text filter).
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author   Michael Slusarz <slusarz@curecanti.org>
  * @category Horde
- * @package  IMP
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Core
  */
 
-var ImpThread = {
+var Horde_ToggleQuotes = {
 
     onDomLoad: function()
     {
@@ -41,4 +42,4 @@ var ImpThread = {
 
 };
 
-document.observe('dom:loaded', ImpThread.onDomLoad.bind(ImpThread));
+document.observe('dom:loaded', Horde_ToggleQuotes.onDomLoad.bind(Horde_ToggleQuotes));

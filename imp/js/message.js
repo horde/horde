@@ -202,12 +202,6 @@ var ImpMessage = {
                 }
             } else if (elt.hasClassName('unblockImageLink')) {
                 IMP.unblockImages(e);
-            } else if (elt.match('SPAN.toggleQuoteShow')) {
-                [ elt, elt.next() ].invoke('toggle');
-                elt.next(1).blindDown({ duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
-            } else if (elt.match('SPAN.toggleQuoteHide')) {
-                [ elt, elt.previous() ].invoke('toggle');
-                elt.next().blindUp({ duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
             }
 
             elt = elt.up();

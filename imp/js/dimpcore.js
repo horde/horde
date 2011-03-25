@@ -498,12 +498,6 @@ var DimpCore = {
                 // CSS class based matching
                 if (elt.hasClassName('unblockImageLink')) {
                     IMP.unblockImages(e);
-                } else if (elt.hasClassName('toggleQuoteShow')) {
-                    [ elt, elt.next() ].invoke('toggle');
-                    elt.next(1).blindDown({ duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
-                } else if (elt.hasClassName('toggleQuoteHide')) {
-                    [ elt, elt.previous() ].invoke('toggle');
-                    elt.next().blindUp({ duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
                 } else if (elt.hasClassName('pgpVerifyMsg')) {
                     elt.replace(DIMP.text.verify);
                     DimpCore.reloadMessage({ pgp_verify_msg: 1 });

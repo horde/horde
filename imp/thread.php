@@ -171,8 +171,6 @@ $template->set('tree', $tree);
 
 /* Output page. */
 $title = ($mode == 'thread') ? _("Thread View") : _("Multiple Message View");
-Horde::addScriptFile('effects.js', 'horde');
-Horde::addScriptFile('thread.js', 'imp');
 Horde::addScriptFile('stripe.js', 'horde');
 Horde::noDnsPrefetch();
 $menu = IMP::menu();

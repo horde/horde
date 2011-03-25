@@ -35,7 +35,8 @@ IMP_Dimp::header('', array(
     array('popup.js', 'horde'),
     array('redbox.js', 'horde'),
     array('slider2.js', 'horde'),
-    array('form_ghost.js', 'horde')
+    array('form_ghost.js', 'horde'),
+    array('toggle_quotes.js', 'horde')
 ));
 
 echo "<body>\n";
