@@ -1368,7 +1368,6 @@ var DimpBase = {
         if (mode != DIMP.conf.preview_pref) {
             DIMP.conf.preview_pref = mode;
             this._updatePrefs('dimp_show_preview', mode);
-            [ $('msglistHeader') ].invoke(mode == 'vert' ? 'hide' : 'show');
             this.viewport.showSplitPane(mode);
             if (!old) {
                 this.initPreviewPane();
