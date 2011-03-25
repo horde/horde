@@ -247,6 +247,14 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testUpdateRemoval()
+    {
+        $this->_assertContentsNotContain(
+            'lib/Old.php',
+            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/remove')
+        );
+    }
+
     private function _assertNodeExists($xml, $xpath)
     {
         $this->assertInstanceOf(
@@ -257,11 +265,28 @@ extends Horde_Pear_TestCase
 
     private function _assertContentsContain($filename, $xml)
     {
+        $this->_assertDirectoryContains(
+            $xml,
+            $this->_getSubDirFromRoot($filename, $xml),
+            basename($filename)
+        );
+    }
+
+    private function _assertContentsNotContain($filename, $xml)
+    {
+        $this->_assertDirectoryNotContains(
+            $xml, 
+            $this->_getSubDirFromRoot($filename, $xml),
+            basename($filename)
+        );
+    }
+
+    private function _getSubDirFromRoot($filename, $xml)
+    {
         $this->_assertNodeExists($xml, '/p:package/p:contents');
         $this->_assertNodeExists($xml, '/p:package/p:contents/p:dir');
         $dir = $xml->findNode('/p:package/p:contents/p:dir');
-        $subdir = $this->_getSubDir($xml, $dir, $filename);
-        $this->_assertDirectoryContains($xml, $subdir, basename($filename));
+        return $this->_getSubDir($xml, $dir, $filename);
     }
 
     private function _getSubDir($xml, $dir, $filename)
@@ -306,6 +331,18 @@ extends Horde_Pear_TestCase
                 $filename,
                 join(",\n", $contents)
             )
+        );
+    }
+
+    private function _assertDirectoryNotContains($xml, $dir, $filename)
+    {
+        $contents = array();
+        foreach ($xml->findNodesRelativeTo('./p:file', $dir) as $file) {
+            $contents[] = $file->getAttribute('name');
+        }
+        $this->assertNotContains(
+            $filename,
+            $contents
         );
     }
 

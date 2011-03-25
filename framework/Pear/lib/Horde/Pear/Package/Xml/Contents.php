@@ -66,8 +66,47 @@ class Horde_Pear_Package_Xml_Contents
     public function __construct(DOMNode $root, DOMNode $bottom, Horde_Pear_Package_Xml $xml)
     {
         $this->_root = $root;
-        $this->_dir_list['/'] = array($root, 1, $bottom);
         $this->_xml = $xml;
+        $this->_populate('', $root, 1, $bottom);
+    }
+
+    private function _populate($path, $dir, $level, $bottom)
+    {
+        if (empty($path)) {
+            $key = '/';
+        } else {
+            $key = $path;
+        }
+        $this->_dir_list[$key] = array($dir, $level, $bottom);
+        foreach ($this->_xml->findNodesRelativeTo('./p:file', $dir) as $file) {
+            $this->_file_list[$path . '/' . $file->getAttribute('name')] = array($dir, $file);
+        }
+        foreach ($this->_xml->findNodesRelativeTo('./p:dir', $dir) as $directory) {
+            $this->_populate(
+                $path . '/' . $directory->getAttribute('name'),
+                $directory,
+                $level + 1,
+                $directory->lastChild
+            );
+        }
+    }
+
+    /**
+     * Update the file list.
+     *
+     * @param array $files The new file list.
+     *
+     * @return NULL
+     */
+    public function update($files)
+    {
+        $removed = array_diff(array_keys($this->_file_list), $files);
+        foreach ($files as $file) {
+            $this->add($file);
+        }
+        foreach ($removed as $file) {
+            $this->delete($file);
+        }
     }
 
     /**
@@ -79,8 +118,31 @@ class Horde_Pear_Package_Xml_Contents
      */
     public function add($file)
     {
-        list($parent, $level, $bottom) = $this->ensureParent($file);
-        $this->_xml->appendFile($parent, $bottom, basename($file), $level + 1);
+        if (!in_array($file, array_keys($this->_file_list))) {
+            list($parent, $level, $bottom) = $this->ensureParent($file);
+            $this->_file_list[$file] = array(
+                $parent,
+                $this->_xml->appendFile($parent, $bottom, basename($file), $level + 1)
+            );
+        }
+    }
+
+    /**
+     * Deöete a file frp, the list.
+     *
+     * @param string $file The file name.
+     *
+     * @return NULL
+     */
+    public function delete($file)
+    {
+        $ws = trim($this->_file_list[$file][1]->nextSibling->textContent);
+        if (empty($ws)) {
+            $this->_file_list[$file][0]->removeChild(
+                $this->_file_list[$file][1]->nextSibling
+            );
+        }
+        $this->_file_list[$file][0]->removeChild($this->_file_list[$file][1]);
     }
 
     /**

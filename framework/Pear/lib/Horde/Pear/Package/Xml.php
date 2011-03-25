@@ -92,7 +92,9 @@ class Horde_Pear_Package_Xml
      */
     public function updateContents(Horde_Pear_Package_Contents $content_list)
     {
-        if ($this->findNode('/p:package/p:contents') === false) {
+        if ($dir = $this->findNode('/p:package/p:contents/p:dir')) {
+            $current = new Horde_Pear_Package_Xml_Contents($dir, $dir->lastChild, $this);
+        } else {
             $dependencies = $this->findNode('/p:package/p:dependencies');
             $contents = $this->_xml->createElementNS(
                 self::XMLNAMESPACE, 'contents'
@@ -103,10 +105,8 @@ class Horde_Pear_Package_Xml
             list($dir, $bottom) = $this->appendInitialDirectory($contents, '/', '/', 1);
 
             $current = new Horde_Pear_Package_Xml_Contents($dir, $bottom, $this);
-            foreach ($content_list->getContents() as $file) {
-                $current->add($file);
-            }
         }
+        $current->update($content_list->getContents());
     }
 
     /**
