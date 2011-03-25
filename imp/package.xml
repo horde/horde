@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-24</date>
- <time>21:32:34</time>
+ <date>2011-03-25</date>
+ <time>11:21:07</time>
  <version>
   <release>5.0.0RC2</release>
   <api>5.0.0</api>
@@ -88,7 +88,6 @@
     <file name="search.js" role="horde" />
     <file name="searchesprefs.js" role="horde" />
     <file name="signaturehtml.js" role="horde" />
-    <file name="thread.js" role="horde" />
     <file name="viewport.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
@@ -1387,7 +1386,6 @@
    <install as="imp/js/search.js" name="js/search.js" />
    <install as="imp/js/searchesprefs.js" name="js/searchesprefs.js" />
    <install as="imp/js/signaturehtml.js" name="js/signaturehtml.js" />
-   <install as="imp/js/thread.js" name="js/thread.js" />
    <install as="imp/js/viewport.js" name="js/viewport.js" />
    <install as="imp/lib/Api.php" name="lib/Api.php" />
    <install as="imp/lib/Application.php" name="lib/Application.php" />
@@ -2072,7 +2070,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-24</date>
+   <date>2011-03-25</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [jan] Fix expansion of quoted sections in thread view.
