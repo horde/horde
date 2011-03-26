@@ -24,7 +24,7 @@ if (!$criteria) {
         'limit' => 10,
     );
     if ($tag_id = Horde_Util::getFormData('tag_id')) {
-        $criteria['tags'] = array($tag_id);
+        $criteria['tags'] = explode(':', $tag_id);
     }
 }
 
@@ -52,11 +52,6 @@ try {
     exit;
 }
 
-// Used in template for channel name
-if (!empty($criteria['tag_id'])) {
-    $tag_name = array_shift($driver->getTagNames(array($criteria['tag_id'])));
-}
-
 // Fetch stories
 try {
     $stories = $driver->getStories($criteria);
@@ -70,7 +65,7 @@ $template = new Horde_Template();
 $template->set('jonah', 'Jonah ' . $registry->getVersion() . ' (http://www.horde.org/jonah/)');
 $template->set('xsl', Horde_Themes::getFeedXsl());
 if (!empty($criteria['tag_id'])) {
-    $template->set('channel_name', sprintf(_("Stories tagged with %s in %s"), $tag_name, htmlspecialchars($channel['channel_name'])));
+    $template->set('channel_name', sprintf(_("Stories tagged with %s in %s"), implode(',', $criteria['tags']), htmlspecialchars($channel['channel_name'])));
 } else {
     $template->set('channel_name', htmlspecialchars($channel['channel_name']));
 }
