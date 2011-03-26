@@ -36,16 +36,9 @@ class Horde_Pear_Factory
      */
     public function createContents($root)
     {
+        $type = new Horde_Pear_Package_Type_Horde($root);
         return new Horde_Pear_Package_Contents_Base(
-            new Horde_Pear_Package_Contents_List(
-                $root,
-                new Horde_Pear_Package_Contents_Include_All(),
-                new Horde_Pear_Package_Contents_Ignore_Composite(
-                    array(
-                        new Horde_Pear_Package_Contents_Ignore_Dot(),
-                    )
-                )
-            )
+            new Horde_Pear_Package_Contents_List($type)
         );
     }
 }

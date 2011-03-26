@@ -51,21 +51,15 @@ class Horde_Pear_Package_Contents_List
     /**
      * Constructor.
      *
-     * @param string                              $root    The root path for the
-     *                                                     file listing.
-     * @param Horde_Pear_Package_Contents_Include $include The include handler.
-     * @param Horde_Pear_Package_Contents_Ignore  $ignore  The ignore handler.
+     * @param Horde_Pear_Package_Type $type The package type.
      *
      * @return NULL
      */
-    public function __construct(
-        $root,
-        Horde_Pear_Package_Contents_Include $include,
-        Horde_Pear_Package_Contents_Ignore $ignore
-    ) {
-        $this->_root = $root;
-        $this->_include = $include;
-        $this->_ignore = $ignore;
+    public function __construct(Horde_Pear_Package_Type $type)
+    {
+        $this->_root = $type->getRootPath();
+        $this->_include = $type->getInclude();
+        $this->_ignore = $type->getIgnore();
     }
 
     /**
