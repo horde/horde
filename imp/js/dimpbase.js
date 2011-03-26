@@ -1971,7 +1971,7 @@ var DimpBase = {
     keydownHandler: function(e)
     {
         var all, cnt, co, form, h, need, pp, ps, r, row, rownum, rowoff, sel,
-            tmp, vsel,
+            tmp, vsel, prev,
             elt = e.element(),
             kc = e.keyCode || e.charCode;
 
@@ -2027,15 +2027,18 @@ var DimpBase = {
 
         case Event.KEY_UP:
         case Event.KEY_DOWN:
+        case Event.KEY_LEFT:
+        case Event.KEY_RIGHT:
+            prev = kc == Event.KEY_UP || kc == Event.KEY_LEFT;
             if (e.shiftKey && this.lastrow != -1) {
-                row = this.viewport.createSelection('rownum', this.lastrow + ((kc == Event.KEY_UP) ? -1 : 1));
+                row = this.viewport.createSelection('rownum', this.lastrow + ((prev) ? -1 : 1));
                 if (row.size()) {
                     row = row.get('dataob').first();
                     this.viewport.scrollTo(row.VP_rownum);
                     this.msgSelect(row.VP_domid, { shift: true });
                 }
             } else {
-                this.moveSelected(kc == Event.KEY_UP ? -1 : 1, false, kc == Event.KEY_DOWN);
+                this.moveSelected(prev ? -1 : 1, false, !prev);
             }
             e.stop();
             break;

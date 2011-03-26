@@ -2,6 +2,7 @@
 v5.0-RC2
 --------
 
+[jan] Add left and right keys as aliases for up and down keys in dynamic view.
 [mms] Add mailbox sorting and select all messages to vertical layout in the
       dynamic view (Request #9708).
 [jan] Fix expansion of quoted sections in thread view.
