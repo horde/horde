@@ -86,7 +86,11 @@ extends Components_Module_Base
     {
         $arguments = $config->getArguments();
         if (isset($arguments[0]) && $arguments[0] == 'help') {
-            $action = $arguments[1];
+            if (isset($arguments[1])) {
+                $action = $arguments[1];
+            } else {
+                $action = '';
+            }
             $modules = $this->_dependencies->getModules();
             foreach ($modules->getModules() as $module) {
                 $element = $modules->getProvider()->getModule($module);
@@ -94,9 +98,10 @@ extends Components_Module_Base
                     $this->_dependencies->getOutput()->help(
                         $element->getHelp($action)
                     );
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
     }
 }
