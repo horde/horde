@@ -31,6 +31,7 @@ class Horde_View_Helper_NumberTest extends Horde_Test_Case
 
     public function testNumberToHumanSize()
     {
+        setlocale(LC_NUMERIC, 'C');
         $this->assertEquals('0 Bytes',   $this->helper->numberToHumanSize(0));
         $this->assertEquals('0 Bytes',   $this->helper->numberToHumanSize(0));
         $this->assertEquals('1 Byte',    $this->helper->numberToHumanSize(1));
