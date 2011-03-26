@@ -37,26 +37,22 @@ extends Horde_Pear_TestCase
 {
     public function testCount()
     {
-        $this->assertEquals(5, count($this->_getList()->getContents()));
+        $this->assertEquals(2, count($this->_getList()->getContents()));
     }
 
     public function testList()
     {
         $this->_assertListContent(
-            array('.', '..', 'Old.php', 'Stays.php', 'package.xml'),
+            array('/lib/Old.php', '/lib/Stays.php'),
             $this->_getList()->getContents()
         );
     }
 
     private function _assertListContent($content, $list)
     {
-        $elements = array();
-        foreach ($list as $element) {
-            $elements[] = $element->getFilename();
-        }
         sort($content);
-        sort($elements);
-        $this->assertEquals($content, $elements);
+        sort($list);
+        $this->assertEquals($content, $list);
     }
 
     private function _getList($root = null)
@@ -65,9 +61,7 @@ extends Horde_Pear_TestCase
             $root = dirname(__FILE__) . '/../../../fixture/simple';
         }
         return new Horde_Pear_Package_Contents_List(
-            $root,
-            new Horde_Pear_Package_Contents_Include_All(),
-            new Horde_Pear_Package_Contents_Ignore_Nothing()
+            new Horde_Pear_Package_Type_Horde($root)
         );
     }
 }
