@@ -81,7 +81,7 @@ class Horde_Feed
         if (!$loaded) {
             $loaded = $doc->loadHTML($string);
             if (!$loaded) {
-                throw new Horde_Feed_Exception('DOMDocument cannot parse XML: ', libxml_get_last_error());
+                self::_exception('DOMDocument cannot parse XML', libxml_get_last_error());
             }
         }
 
@@ -135,10 +135,30 @@ class Horde_Feed
         if (!$loaded) {
             $loaded = $doc->loadHTMLFile($filename);
             if (!$loaded) {
-                throw new Horde_Feed_Exception('File could not be read or parsed: ' . libxml_get_last_error());
+                self::_exception('File could not be read or parsed', libxml_get_last_error());
             }
         }
 
         return self::create($doc);
+    }
+
+    /**
+     * Builds an exception message from a libXMLError object.
+     *
+     * @param string $msg         An error message.
+     * @param libXMLError $error  An error object.
+     *
+     * @throws Horde_Feed_Exception
+     */
+    protected static function _exception($msg, $error)
+    {
+        if ($error) {
+            $msg .= ': ' . $error->message;
+            if ($error->file) {
+                $msg .= sprintf(' in file %s, line %d, column %d',
+                                $error->file, $error->line, $error->column);
+            }
+        }
+        throw new Horde_Feed_Exception($msg);
     }
 }
