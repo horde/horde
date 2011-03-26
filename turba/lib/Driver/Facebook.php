@@ -159,7 +159,9 @@ class Turba_Driver_Facebook extends Turba_Driver
             $results = $this->_facebook->fql->run($fql);
         } catch (Horde_Service_Facebook_Exception $e) {
             Horde::logMessage($e, 'ERR');
-            $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+            if ($e->getCode() == Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY) {
+                throw new Turba_Exception(_("You are not connected to Facebook. Create a Facebook connection in the Global Preferences."));
+            }
             throw new Turba_Exception($e);
         }
 
