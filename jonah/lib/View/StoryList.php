@@ -75,7 +75,7 @@ class Jonah_View_StoryList extends Jonah_View_Base
             $stories[$key]['pdf_link'] = '';
             $stories[$key]['edit_link'] = '';
             $stories[$key]['delete_link'] = '';
-            $stories[$key]['view_link'] = Horde::link(Horde::url($story['permalink']), $story['description']) . htmlspecialchars($story['title']) . '</a>';
+            $stories[$key]['view_link'] = Horde::link($GLOBALS['injector']->getInstance('Jonah_Driver')->getStoryLink($channel, $story), $story['description']) . htmlspecialchars($story['title']) . '</a>';
 
             /* PDF link. */
             $url = Horde::url('stories/pdf.php')->add(array('id' => $story['id'], 'channel_id' => $channel_id));

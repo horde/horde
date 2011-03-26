@@ -12,7 +12,7 @@
   <item>
    <title><tag:stories.title /></title>
    <description><tag:stories.description /></description>
-   <link><tag:stories.permalink /></link>
+   <link><tag:stories.storylink /></link>
   </item>
   </loop:stories>
  </channel>

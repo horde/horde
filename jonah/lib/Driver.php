@@ -219,7 +219,9 @@ class Jonah_Driver
      */
     public function getStoryLink($channel, $story)
     {
-        if ((empty($story['url']) || !empty($story['body'])) &&
+        if (!empty($story['url']) && empty($story['body'])) {
+            $url = $story['url'];
+        } elseif ((empty($story['url']) || !empty($story['body'])) &&
             !empty($channel['channel_story_url'])) {
             $url = $channel['channel_story_url'];
         } else {

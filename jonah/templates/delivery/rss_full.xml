@@ -14,7 +14,7 @@
    <description><tag:stories.description /></description>
    <content:encoded><![CDATA[<tag:stories.body />
 ]]></content:encoded>
-   <link><tag:stories.permalink /></link>
+   <link><tag:stories.storylink /></link>
   </item>
   </loop:stories>
  </channel>
