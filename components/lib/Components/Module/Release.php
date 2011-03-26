@@ -131,7 +131,7 @@ extends Components_Module_Base
      */
     public function getUsage()
     {
-        return '  release - Releases a component via pear.horde.org.
+        return '  release     - Releases a component via pear.horde.org.
 ';
     }
 

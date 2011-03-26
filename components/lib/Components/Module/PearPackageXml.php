@@ -73,7 +73,7 @@ extends Components_Module_Base
      */
     public function getUsage()
     {
-        return '  update - Update the package.xml manifest.
+        return '  update      - Update the package.xml manifest.
 ';
     }
 

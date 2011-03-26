@@ -67,7 +67,7 @@ extends Components_Module_Base
      */
     public function getUsage()
     {
-        return '  changed - Add a change log entry.
+        return '  changed     - Add a change log entry.
 ';
     }
 
