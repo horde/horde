@@ -2475,13 +2475,13 @@ class Horde_Form_Type_date extends Horde_Form_Type {
         try {
             $today = new Horde_Date(time());
             $date = new Horde_Date($date);
-            $diffdays = $date->toDays() - $today->toDays();
+            $ago = $date->toDays() - $today->toDays();
         } catch (Horde_Date_Exception $e) {
             return '';
         }
 
         if ($ago < -1) {
-            return sprintf(Horde_Form_Translation::t(" (%s days ago)"), $diffdays);
+            return sprintf(Horde_Form_Translation::t(" (%s days ago)"), abs($ago));
         } elseif ($ago == -1) {
             return Horde_Form_Translation::t(" (yesterday)");
         } elseif ($ago == 0) {
@@ -2489,7 +2489,7 @@ class Horde_Form_Type_date extends Horde_Form_Type {
         } elseif ($ago == 1) {
             return Horde_Form_Translation::t(" (tomorrow)");
         } else {
-            return sprintf(Horde_Form_Translation::t(" (in %s days)"), $diffdays);
+            return sprintf(Horde_Form_Translation::t(" (in %s days)"), $ago);
         }
     }
 
