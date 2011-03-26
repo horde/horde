@@ -28,13 +28,6 @@
 class Horde_Pear_Package_Xml_Contents
 {
     /**
-     * The root node for the content listing.
-     *
-     * @var DOMNode
-     */
-    private $_root;
-
-    /**
      * The package.xml handler to operate on.
      *
      * @var Horde_Pear_Package_Xml
@@ -49,7 +42,7 @@ class Horde_Pear_Package_Xml_Contents
     private $_dir_list = array();
 
     /**
-     * The list of files in the contents section.
+     * The list of files in the "contents" section.
      *
      * @var array
      */
@@ -58,16 +51,20 @@ class Horde_Pear_Package_Xml_Contents
     /**
      * Constructor.
      *
-     * @param DOMNode                $root   The root node for the content listing.
-     * @param DOMNode                $bottom The bottom white space node for the
-     *                                       content listing.
-     * @param Horde_Pear_Package_Xml $xml    The package.xml handler to operate on.
+     * @param Horde_Pear_Package_Xml $xml             The package.xml handler
+     *                                                to operate on.
+     * @param DOMNode                $contents_root   The root node for the
+     *                                                content listing.
+     * @param DOMNode                $contents_bottom The bottom white space
+     *                                                node for the content
+     *                                                listing.
      */
-    public function __construct(DOMNode $root, DOMNode $bottom, Horde_Pear_Package_Xml $xml)
-    {
-        $this->_root = $root;
+    public function __construct(
+        Horde_Pear_Package_Xml $xml,
+        DOMNode $contents_root
+    ) {
         $this->_xml = $xml;
-        $this->_populate('', $root, 1, $bottom);
+        $this->_populate('', $contents_root, 1, $contents_root->lastChild);
     }
 
     /**

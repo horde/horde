@@ -93,7 +93,7 @@ class Horde_Pear_Package_Xml
     public function updateContents(Horde_Pear_Package_Contents $content_list)
     {
         if ($dir = $this->findNode('/p:package/p:contents/p:dir')) {
-            $current = new Horde_Pear_Package_Xml_Contents($dir, $dir->lastChild, $this);
+            $current = new Horde_Pear_Package_Xml_Contents($this, $dir);
         } else {
             $dependencies = $this->findNode('/p:package/p:dependencies');
             $contents = $this->_xml->createElementNS(
@@ -102,9 +102,9 @@ class Horde_Pear_Package_Xml
             $dependencies->parentNode->insertBefore($contents, $dependencies);
             $this->_insertWhiteSpaceBefore($dependencies, "\n ");
 
-            list($dir, $bottom) = $this->appendInitialDirectory($contents, '/', '/', 1);
-
-            $current = new Horde_Pear_Package_Xml_Contents($dir, $bottom, $this);
+            $current = new Horde_Pear_Package_Xml_Contents(
+                $this, $this->appendInitialDirectory($contents, '/', '/', 1)
+            );
         }
         $current->update($content_list);
     }
@@ -128,8 +128,8 @@ class Horde_Pear_Package_Xml
         $this->_insertWhiteSpace($node, " ");
         $this->_insertComment($node, ' ' . $path . ' ');
         $this->_insertWhiteSpace($node, "\n" . str_repeat(' ', $level));
-        $bottom = $this->_insertWhiteSpace($dir, "\n" . str_repeat(' ', $level + 1));
-        return array($dir, $bottom);
+        $this->_insertWhiteSpace($dir, "\n" . str_repeat(' ', $level + 1));
+        return $dir;
     }
 
     /**
