@@ -43,15 +43,24 @@ extends Horde_Pear_TestCase
     public function testList()
     {
         $this->_assertListContent(
-            array('/lib/Old.php', '/lib/Stays.php'),
+            array(
+                '/lib/Old.php' => array(
+                    'role' => 'php',
+                    'as' => 'lib/Old.php'
+                ),
+                '/lib/Stays.php' => array(
+                    'role' => 'php',
+                    'as' => 'lib/Stays.php'
+                ),
+            ),
             $this->_getList()->getContents()
         );
     }
 
     private function _assertListContent($content, $list)
     {
-        sort($content);
-        sort($list);
+        ksort($content);
+        ksort($list);
         $this->assertEquals($content, $list);
     }
 

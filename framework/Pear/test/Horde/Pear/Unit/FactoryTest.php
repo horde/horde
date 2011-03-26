@@ -39,7 +39,7 @@ extends Horde_Pear_TestCase
     {
         $factory = new Horde_Pear_Factory();
         $this->assertInstanceOf(
-            'Horde_Pear_Package_Contents_Base',
+            'Horde_Pear_Package_Contents_List',
             $factory->createContents(dirname(__FILE__) . '/../fixture/one')
         );
     }
