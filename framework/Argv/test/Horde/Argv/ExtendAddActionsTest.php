@@ -15,6 +15,7 @@ class Horde_Argv_ExtendAddActionsTest extends Horde_Argv_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $options = array(new Horde_Argv_ExtendAddActionsTest_MyOption("-a", "--apple", array(
             'action' => "extend", 'type' => "string", 'dest' => "apple")));
         $this->parser = new Horde_Argv_Parser(array('optionList' => $options));

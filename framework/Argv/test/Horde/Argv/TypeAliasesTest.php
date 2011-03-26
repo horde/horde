@@ -15,6 +15,7 @@ class Horde_Argv_TypeAliasesTest extends Horde_Argv_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $this->parser = new Horde_Argv_Parser();
     }
 

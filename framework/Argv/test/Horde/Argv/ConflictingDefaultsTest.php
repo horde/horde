@@ -18,6 +18,7 @@ class Horde_Argv_ConflictingDefaultsTest extends Horde_Argv_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $options = array(
             $this->makeOption('-v', array('action' => 'store_true', 'dest' => 'verbose', 'default' => 1))
         );

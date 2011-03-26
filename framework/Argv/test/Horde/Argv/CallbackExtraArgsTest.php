@@ -15,6 +15,7 @@ class Horde_Argv_CallbackExtraArgsTest extends Horde_Argv_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $options = array(
             $this->makeOption('-p', '--point', array('action' => 'callback',
                 'callback' => array($this, 'processTuple'),

@@ -15,6 +15,7 @@ class Horde_Argv_ParserTest extends Horde_Argv_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $this->parser = new Horde_Argv_Parser();
         $this->parser->addOption('-v', '--verbose', '-n', '--noisy',
                                   array('action' => 'store_true', 'dest' => 'verbose'));
