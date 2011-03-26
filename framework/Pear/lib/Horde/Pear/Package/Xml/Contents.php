@@ -49,22 +49,28 @@ class Horde_Pear_Package_Xml_Contents
     private $_file_list = array();
 
     /**
+     * The list of files in the "filelist" section.
+     *
+     * @var array
+     */
+    private $_install_list = array();
+
+    /**
      * Constructor.
      *
-     * @param Horde_Pear_Package_Xml $xml             The package.xml handler
-     *                                                to operate on.
-     * @param DOMNode                $contents_root   The root node for the
-     *                                                content listing.
-     * @param DOMNode                $contents_bottom The bottom white space
-     *                                                node for the content
-     *                                                listing.
+     * @param Horde_Pear_Package_Xml $xml      The package.xml handler
+     *                                         to operate on.
+     * @param DOMNode                $contents The root node for the
+     *                                         "contents" listing.
+     * @param DOMNode                $filelist The root node for the
+     *                                         "filelist" listing.
      */
     public function __construct(
         Horde_Pear_Package_Xml $xml,
-        DOMNode $contents_root
+        DOMNode $contents
     ) {
         $this->_xml = $xml;
-        $this->_populate('', $contents_root, 1, $contents_root->lastChild);
+        $this->_populate('', $contents, 1);
     }
 
     /**
@@ -78,14 +84,14 @@ class Horde_Pear_Package_Xml_Contents
      *
      * @return NULL
      */
-    private function _populate($path, $dir, $level, $bottom)
+    private function _populate($path, $dir, $level)
     {
         if (empty($path)) {
             $key = '/';
         } else {
             $key = $path;
         }
-        $this->_dir_list[$key] = array($dir, $level, $bottom);
+        $this->_dir_list[$key] = array($dir, $level, $dir->lastChild);
         foreach ($this->_xml->findNodesRelativeTo('./p:file', $dir) as $file) {
             $this->_file_list[$path . '/' . $file->getAttribute('name')] = array($dir, $file);
         }
@@ -93,8 +99,7 @@ class Horde_Pear_Package_Xml_Contents
             $this->_populate(
                 $path . '/' . $directory->getAttribute('name'),
                 $directory,
-                $level + 1,
-                $directory->lastChild
+                $level + 1
             );
         }
     }
