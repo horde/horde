@@ -385,9 +385,11 @@ extends Horde_Pear_TestCase
         $xml = new Horde_Pear_Package_Xml(
             fopen($package . '/package.xml', 'r')
         );
-        $factory = new Horde_Pear_Factory();
-        $contents = $factory->createContents($package);
-        $xml->updateContents($contents);
+        $xml->updateContents(
+            new Horde_Pear_Package_Contents_List(
+                new Horde_Pear_Package_Type_Horde($package)
+            )
+        );
         return $xml;
     }
 
