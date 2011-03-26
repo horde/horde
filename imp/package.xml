@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [mms] Add mailbox sorting and select all messages to horizontal layout in the dynamic view (Request #9708).
+* [mms] Add mailbox sorting and select all messages to vertical layout in the dynamic view (Request #9708).
 * [jan] Fix expansion of quoted sections in thread view.
 * [jan] Fix message previews in traditional view (Bug #9695).
 * [jan] Support importing of compressed mailbox files.
