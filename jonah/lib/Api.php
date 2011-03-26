@@ -89,15 +89,15 @@ class Jonah_Api extends Horde_Registry_Api
      * Publish a new story
      *
      * @param integer $channel_id  The channel id
-     * @param array $story         The story array. See @Jonah_Driver::saveStory
+     * @param array $story         The story array. Can contain:
      * <pre>
-     *  author
-     *  title
-     *  description
-     *  body_type (optional)
-     *  body (optional)
-     *  url (optional)
-     *
+     *  (string)title       [REQUIRED]    The story title.
+     *  (string)description [REQUIRED]    The short description.
+     *  (string)body_type   [OPTIONAL]    The body type (text/html).
+     *  (string)body        [OPTIONAL]    The story body.
+     *  (string)url         [OPTIONAL]    The url for the story link.
+     *  (array)tags         [OPTIONAL]    Tags
+     *</pre>
      *
      *
      * @throws Horde_Exception_PermissionDenied
@@ -110,6 +110,7 @@ class Jonah_Api extends Horde_Registry_Api
         if (!Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::EDIT, $channel_id)) {
             throw new Horde_Exception_PermissionDenied(_("You are not authorised for this action."));
         }
+        $story['author'] = $GLOBALS['registry']->getAuth();
         $story['channel_id'] = $channel_id;
         $story['published'] = time();
         if (empty($body) || empty($body_type)) {
