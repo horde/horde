@@ -35,6 +35,13 @@ class Horde_Pear_Package_Xml_Contents
     private $_xml;
 
     /**
+     * The root of the file list section.
+     *
+     * @var DOMNode
+     */
+    private $_filelist;
+
+    /**
      * The list of directories in the contents section.
      *
      * @var array
@@ -67,24 +74,25 @@ class Horde_Pear_Package_Xml_Contents
      */
     public function __construct(
         Horde_Pear_Package_Xml $xml,
-        DOMNode $contents
+        DOMNode $contents,
+        DOMNode $filelist
     ) {
         $this->_xml = $xml;
-        $this->_populate('', $contents, 1);
+        $this->_filelist = $filelist;
+        $this->_populateContents('', $contents, 1);
+        $this->_populateFileList();
     }
 
     /**
-     * Populate the existing file list from the XML.
+     * Populate the existing content list from the XML.
      *
      * @param string  $path   The path of the current directory.
      * @param DOMNode $dir    The node of the current directory.
      * @param int     $level  Current depth of the tree.
-     * @param DOMNode $bottom The last child in the node list of the current
-     *                        directory.
      *
      * @return NULL
      */
-    private function _populate($path, $dir, $level)
+    private function _populateContents($path, $dir, $level)
     {
         if (empty($path)) {
             $key = '/';
@@ -96,11 +104,25 @@ class Horde_Pear_Package_Xml_Contents
             $this->_file_list[$path . '/' . $file->getAttribute('name')] = array($dir, $file);
         }
         foreach ($this->_xml->findNodesRelativeTo('./p:dir', $dir) as $directory) {
-            $this->_populate(
+            $this->_populateContents(
                 $path . '/' . $directory->getAttribute('name'),
                 $directory,
                 $level + 1
             );
+        }
+    }
+
+    /**
+     * Populate the existing file list from the XML.
+     *
+     * @param DOMNode $filelist The root node of the file list.
+     *
+     * @return NULL
+     */
+    private function _populateFileList()
+    {
+        foreach ($this->_xml->findNodesRelativeTo('./p:install', $this->_filelist) as $file) {
+            $this->_install_list['/' . $file->getAttribute('name')] = $file;
         }
     }
 
@@ -139,6 +161,11 @@ class Horde_Pear_Package_Xml_Contents
                 $this->_xml->appendFile($parent, $bottom, basename($file), $level + 1)
             );
         }
+        if (!in_array($file, array_keys($this->_install_list))) {
+            $this->_install_list[$file] = $this->_xml->appendInstall(
+                $this->_filelist, substr($file, 1)
+            );
+        }
     }
 
     /**
@@ -157,6 +184,14 @@ class Horde_Pear_Package_Xml_Contents
             );
         }
         $this->_file_list[$file][0]->removeChild($this->_file_list[$file][1]);
+
+        $ws = trim($this->_install_list[$file]->nextSibling->textContent);
+        if (empty($ws)) {
+            $this->_filelist->removeChild(
+                $this->_install_list[$file]->nextSibling
+            );
+        }
+        $this->_filelist->removeChild($this->_install_list[$file]);
     }
 
     /**

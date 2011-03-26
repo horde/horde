@@ -233,6 +233,7 @@ extends Horde_Pear_TestCase
 
     public function testUpdateWithDepth()
     {
+        print (string) $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/simple-empty');
         $this->_assertContentsContain(
             'lib/Stays.php',
             $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/simple-empty')

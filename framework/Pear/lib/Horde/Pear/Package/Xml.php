@@ -92,20 +92,35 @@ class Horde_Pear_Package_Xml
      */
     public function updateContents(Horde_Pear_Package_Contents $content_list)
     {
-        if ($dir = $this->findNode('/p:package/p:contents/p:dir')) {
-            $current = new Horde_Pear_Package_Xml_Contents($this, $dir);
-        } else {
+        $contents = $this->findNode('/p:package/p:contents/p:dir');
+        $filelist = $this->findNode('/p:package/p:phprelease/p:filelist');
+        if (!$contents) {
             $dependencies = $this->findNode('/p:package/p:dependencies');
-            $contents = $this->_xml->createElementNS(
+            $contents_root = $this->_xml->createElementNS(
                 self::XMLNAMESPACE, 'contents'
             );
-            $dependencies->parentNode->insertBefore($contents, $dependencies);
+            $dependencies->parentNode->insertBefore($contents_root, $dependencies);
             $this->_insertWhiteSpaceBefore($dependencies, "\n ");
 
-            $current = new Horde_Pear_Package_Xml_Contents(
-                $this, $this->appendInitialDirectory($contents, '/', '/', 1)
-            );
+            $contents = $this->appendInitialDirectory($contents_root, '/', '/', 1);
         }
+        if (!$filelist) {
+            $changelog = $this->findNode('/p:package/p:changelog');
+            $phprelease = $this->_xml->createElementNS(
+                self::XMLNAMESPACE, 'phprelease'
+            );
+            $changelog->parentNode->insertBefore($phprelease, $changelog);
+            $this->_insertWhiteSpaceBefore($changelog, "\n ");
+
+            $filelist = $this->_xml->createElementNS(
+                self::XMLNAMESPACE, 'filelist'
+            );
+            $this->_insertWhiteSpace($phprelease, "\n  ");
+            $phprelease->appendChild($filelist);
+            $this->_insertWhiteSpace($phprelease, "\n ");
+            $this->_insertWhiteSpace($filelist, "\n  ");
+        }
+        $current = new Horde_Pear_Package_Xml_Contents($this, $contents, $filelist);
         $current->update($content_list);
     }
 
@@ -173,6 +188,25 @@ class Horde_Pear_Package_Xml
         );
         $file->setAttribute('name', $name);
         $node->insertBefore($file, $bottom);
+        return $file;
+    }
+
+    /**
+     * Append a file in the file listing.
+     *
+     * @param DOMNode $node   The node to append the file to.
+     * @param string  $name   The name of the file.
+     *
+     * @return DOMNode The new file node.
+     */
+    public function appendInstall(DOMNode $node, $name)
+    {
+        $this->_insertWhiteSpaceBefore($node->lastChild, "\n   ");
+        $file = $this->_xml->createElementNS(
+            self::XMLNAMESPACE, 'install'
+        );
+        $file->setAttribute('name', $name);
+        $node->insertBefore($file, $node->lastChild);
         return $file;
     }
 

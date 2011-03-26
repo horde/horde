@@ -35,12 +35,6 @@
    </pearinstaller>
   </required>
  </dependencies>
- <phprelease>
-  <filelist>
-   <install as="Old.php" name="lib/Old.php" />
-   <install as="Stays.php" name="lib/Stays.php" />
-  </filelist>
- </phprelease>
  <changelog>
   <release>
    <version>
