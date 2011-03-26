@@ -40,10 +40,21 @@ extends Components_TestCase
         $_SERVER['argv'] = array(
             'horde-components'
         );
-        $output = $this->_callStrictComponents();
         $this->assertContains(
             Components::ERROR_NO_COMPONENT,
-            $output
+            $this->_callStrictComponents()
+        );
+    }
+
+    public function testHelp()
+    {
+        $_SERVER['argv'] = array(
+            'horde-components',
+            '--help'
+        );
+        $this->assertRegExp(
+            '/-h,[ ]*--help[ ]*show this help message and exit/',
+            $this->_callStrictComponents()
         );
     }
 
