@@ -88,7 +88,10 @@ class IMP_Views_Compose
                 /* Check to make sure the sent-mail folders are created - they
                  * need to exist to show up in drop-down list. */
                 foreach (array_keys($identity->getAll('id')) as $ident) {
-                    $identity->getValue('sent_mail_folder', $ident)->create();
+                    $folder = $identity->getValue('sent_mail_folder', $ident);
+                    if ($folder instanceof IMP_Mailbox) {
+                        $folder->create();
+                    }
                 }
 
                 $flist = array();
