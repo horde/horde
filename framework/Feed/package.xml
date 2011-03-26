@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* [jan] Fix loading of local files with non-URI characters in the file name.
 * [jan] Fix converting of libxml errors to exceptions.
  </notes>
  <contents>

@@ -131,6 +131,7 @@ class Horde_Feed
         libxml_use_internal_errors(true);
         $doc = new DOMDocument;
         $doc->recover = true;
+        $filename = urlencode($filename);
         $loaded = $doc->load($filename);
         if (!$loaded) {
             $loaded = $doc->loadHTMLFile($filename);
