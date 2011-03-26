@@ -50,7 +50,6 @@ v1.0.0
 
 
 
-
 =OLD=
 ',
             file_get_contents($tmp_dir . '/docs/CHANGES')

@@ -60,7 +60,6 @@ v1.0.1-cvs
 
 
 
-
 =OLD=
 ',
             file_get_contents($tmp_dir . '/docs/CHANGES')
