@@ -255,6 +255,14 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testRole()
+    {
+        $xml = $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/simple-empty');
+        $file = $this->_getContentsFile('lib/Stays.php', $xml);
+        $this->assertEquals('php', $file->getAttribute('role'));
+    }
+
+
     private function _assertNodeExists($xml, $xpath)
     {
         $this->assertInstanceOf(
@@ -279,6 +287,17 @@ extends Horde_Pear_TestCase
             $this->_getSubDirFromRoot($filename, $xml),
             basename($filename)
         );
+    }
+
+    private function _getContentsFile($filename, $xml)
+    {
+        $subdir = $this->_getSubDirFromRoot($filename, $xml);
+        foreach ($xml->findNodesRelativeTo('./p:file', $subdir) as $file) {
+            $name = $file->getAttribute('name');
+            if ($name == basename($filename)) {
+                return $file;
+            }
+        }
     }
 
     private function _getSubDirFromRoot($filename, $xml)

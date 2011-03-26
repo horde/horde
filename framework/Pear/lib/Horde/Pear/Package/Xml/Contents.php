@@ -136,9 +136,9 @@ class Horde_Pear_Package_Xml_Contents
     public function update(Horde_Pear_Package_Contents $contents)
     {
         $files = $contents->getContents();
-        $removed = array_diff(array_keys($this->_file_list), $files);
-        foreach ($files as $file) {
-            $this->add($file);
+        $removed = array_diff(array_keys($this->_file_list), array_keys($files));
+        foreach (array_keys($files) as $file) {
+            $this->add($file, $files[$file]);
         }
         foreach ($removed as $file) {
             $this->delete($file);
@@ -148,22 +148,25 @@ class Horde_Pear_Package_Xml_Contents
     /**
      * Add a file to the list.
      *
-     * @param string $file The file name.
+     * @param string $file   The file name.
+     * @param array  $params Additional file parameters.
      *
      * @return NULL
      */
-    public function add($file)
+    public function add($file, $params)
     {
         if (!in_array($file, array_keys($this->_file_list))) {
             list($parent, $level, $bottom) = $this->ensureParent($file);
             $this->_file_list[$file] = array(
                 $parent,
-                $this->_xml->appendFile($parent, $bottom, basename($file), $level + 1)
+                $this->_xml->appendFile(
+                    $parent, $bottom, basename($file), $level + 1, $params['role']
+                )
             );
         }
         if (!in_array($file, array_keys($this->_install_list))) {
             $this->_install_list[$file] = $this->_xml->appendInstall(
-                $this->_filelist, substr($file, 1)
+                $this->_filelist, substr($file, 1), $params['as']
             );
         }
     }

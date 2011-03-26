@@ -39,6 +39,6 @@ implements Horde_Pear_Package_Contents_InstallAs
      */
     public function getInstallAs($file)
     {
-        return $file;
+        return substr($file, 1);
     }
 }

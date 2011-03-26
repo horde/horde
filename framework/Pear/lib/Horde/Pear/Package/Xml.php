@@ -177,16 +177,18 @@ class Horde_Pear_Package_Xml
      * @param DOMNode $bottom Insert the file before this white space element.
      * @param string  $name   The name of the file.
      * @param int     $level  The depth of the tree.
+     * @param string  $role   The file role.
      *
      * @return DOMNode The new file node.
      */
-    public function appendFile(DOMNode $node, DOMNode $bottom, $name, $level)
+    public function appendFile(DOMNode $node, DOMNode $bottom, $name, $level, $role)
     {
         $this->_insertWhiteSpaceBefore($bottom, "\n " . str_repeat(" ", $level));
         $file = $this->_xml->createElementNS(
             self::XMLNAMESPACE, 'file'
         );
         $file->setAttribute('name', $name);
+        $file->setAttribute('role', $role);
         $node->insertBefore($file, $bottom);
         return $file;
     }
@@ -194,17 +196,19 @@ class Horde_Pear_Package_Xml
     /**
      * Append a file in the file listing.
      *
-     * @param DOMNode $node   The node to append the file to.
-     * @param string  $name   The name of the file.
+     * @param DOMNode $node       The node to append the file to.
+     * @param string  $name       The name of the file.
+     * @param string  $install_as The install location for the file..
      *
      * @return DOMNode The new file node.
      */
-    public function appendInstall(DOMNode $node, $name)
+    public function appendInstall(DOMNode $node, $name, $install_as)
     {
         $this->_insertWhiteSpaceBefore($node->lastChild, "\n   ");
         $file = $this->_xml->createElementNS(
             self::XMLNAMESPACE, 'install'
         );
+        $file->setAttribute('as', $install_as);
         $file->setAttribute('name', $name);
         $node->insertBefore($file, $node->lastChild);
         return $file;

@@ -26,6 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Pear
  */
 class Horde_Pear_Package_Contents_List
+implements Horde_Pear_Package_Contents
 {
     /**
      * The root path for the file listing.
@@ -49,6 +50,20 @@ class Horde_Pear_Package_Contents_List
     private $_include;
 
     /**
+     * Handles file roles.
+     *
+     * @var Horde_Pear_Package_Contents_Role.
+     */
+    private $_role;
+
+    /**
+     * Handles install locations.
+     *
+     * @var Horde_Pear_Package_Contents_InstallAs.
+     */
+    private $_install_as;
+
+    /**
      * Constructor.
      *
      * @param Horde_Pear_Package_Type $type The package type.
@@ -60,6 +75,8 @@ class Horde_Pear_Package_Contents_List
         $this->_root = $type->getRootPath();
         $this->_include = $type->getInclude();
         $this->_ignore = $type->getIgnore();
+        $this->_role = $type->getRole();
+        $this->_install_as = $type->getInstallAs();
     }
 
     /**
@@ -76,7 +93,11 @@ class Horde_Pear_Package_Contents_List
         foreach ($list as $element) {
             if ($this->_include->isIncluded($element)
                 && !$this->_ignore->isIgnored($element)) {
-                $elements[] = substr($element->getPathname(), strlen($this->_root));
+                $file = substr($element->getPathname(), strlen($this->_root));
+                $elements[$file] = array(
+                    'role' => $this->_role->getRole($file),
+                    'as' => $this->_install_as->getInstallAs($file)
+                );
             }
         }
         return $elements;

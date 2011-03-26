@@ -27,4 +27,10 @@
  */
 interface Horde_Pear_Package_Contents
 {
+    /**
+     * Return the content list.
+     *
+     * @return array The file list.
+     */
+    public function getContents();
 }
