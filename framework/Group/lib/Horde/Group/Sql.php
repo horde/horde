@@ -150,6 +150,7 @@ class Horde_Group_Sql extends Horde_Group_Base
      *
      * @return array  The group's date.
      * @throws Horde_Group_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function getData($gid)
     {
@@ -157,6 +158,9 @@ class Horde_Group_Sql extends Horde_Group_Base
             $result = $this->_db->selectOne(
                 'SELECT * FROM horde_groups WHERE group_uid = ?',
                 array($gid));
+            if (!$result) {
+                throw new Horde_Exception_NotFound('Group with the ID ' . $gid . ' not found');
+            }
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Group_Exception($e);
         }
