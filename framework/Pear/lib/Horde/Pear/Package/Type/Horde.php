@@ -94,7 +94,7 @@ implements Horde_Pear_Package_Type
                 new Horde_Pear_Package_Contents_Ignore_Dot(),
                 new Horde_Pear_Package_Contents_Ignore_Hidden(),
                 new Horde_Pear_Package_Contents_Ignore_Patterns(
-                    array('*~', 'conf.php', 'CVS/*')
+                    array('package.xml', '*~', 'conf.php', 'CVS/*')
                 ),
                 new Horde_Pear_Package_Contents_Ignore_Git(
                     $this->getGitIgnore(),
