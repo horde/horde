@@ -85,7 +85,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
     public function nativeDatabaseTypes()
     {
         return array(
-            'primaryKey' => 'int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
+            'autoincrementKey' => 'int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
             'string'     => array('name' => 'varchar',  'limit' => 255),
             'text'       => array('name' => 'text',     'limit' => null),
             'integer'    => array('name' => 'int',      'limit' => 11),
@@ -349,7 +349,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
         $unsigned  = !empty($options['unsigned'])  ? $options['unsigned']  : null;
 
         $typeSql = $this->typeToSql($type, $limit, $precision, $scale, $unsigned);
-        $dropPk = $type == 'primaryKey' ? 'DROP PRIMARY KEY,' : '';
+        $dropPk = $type == 'autoincrementKey' ? 'DROP PRIMARY KEY,' : '';
 
         $sql = sprintf('ALTER TABLE %s %s CHANGE %s %s %s',
                        $quotedTableName,
@@ -357,7 +357,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
                        $quotedColumnName,
                        $quotedColumnName,
                        $typeSql);
-        if ($type != 'primaryKey') {
+        if ($type != 'autoincrementKey') {
             $sql = $this->addColumnOptions($sql, $options);
         }
 

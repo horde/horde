@@ -126,7 +126,7 @@ abstract class Horde_Rdo_Mapper implements Countable
             $this->inflector = new Horde_Support_Inflector();
             return $this->inflector;
 
-        case 'primaryKey':
+        case 'autoincrementKey':
             $this->primaryKey = (string)$this->tableDefinition->getPrimaryKey();
             return $this->primaryKey;
 

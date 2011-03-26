@@ -23,7 +23,7 @@ class AnselBaseTables extends Horde_Db_Migration_Base
 
         if (!in_array('ansel_images', $tableList)) {
             // Create: ansel_images
-            $t = $this->createTable('ansel_images', array('primaryKey' => false));
+            $t = $this->createTable('ansel_images', array('autoincrementKey' => false));
             $t->column('image_id', 'integer', array('null' => false));
             $t->column('gallery_id', 'integer', array('null' => false));
             $t->column('image_filename', 'string', array('limit' => 255, 'null' => false));
@@ -48,8 +48,8 @@ class AnselBaseTables extends Horde_Db_Migration_Base
 
         if (!in_array('ansel_image_attributes', $tableList)) {
             // Create: ansel_image_attributes
-            //$t = $this->createTable('ansel_image_attributes', array('primaryKey' => 'image_id, attr_name'));
-            $t = $this->createTable('ansel_image_attributes', array('primaryKey' => false));
+            //$t = $this->createTable('ansel_image_attributes', array('autoincrementKey' => 'image_id, attr_name'));
+            $t = $this->createTable('ansel_image_attributes', array('autoincrementKey' => false));
             $t->column('image_id', 'integer', array('null' => false));
             $t->column('attr_name', 'string', array('null' => false, 'limit' => 50));
             $t->column('attr_value', 'string', array('limit' => 255));
@@ -60,7 +60,7 @@ class AnselBaseTables extends Horde_Db_Migration_Base
 
         if (!in_array('ansel_faces', $tableList)) {
             // Create: ansel_faces
-            $t = $this->createTable('ansel_faces', array('primaryKey' => false));
+            $t = $this->createTable('ansel_faces', array('autoincrementKey' => false));
             $t->column('face_id', 'integer', array('null' => false));
             $t->column('image_id', 'integer', array('null' => false));
             $t->column('gallery_id', 'integer', array('null' => false));
@@ -93,7 +93,7 @@ class AnselBaseTables extends Horde_Db_Migration_Base
 
         if (!in_array('ansel_shares', $tableList)) {
             // Create: ansel_shares
-            $t = $this->createTable('ansel_shares', array('primaryKey' => false));
+            $t = $this->createTable('ansel_shares', array('autoincrementKey' => false));
             $t->column('share_id', 'integer', array('null' => false));
             $t->column('share_owner', 'string', array('limit' => 255, 'null' => false));
             $t->column('share_parents', 'string', array('limit' => 255));
@@ -157,7 +157,7 @@ class AnselBaseTables extends Horde_Db_Migration_Base
 
         if (!in_array('ansel_images_geolocation', $tableList)) {
             // Create: ansel_images_geolocation
-            $t = $this->createTable('ansel_images_geolocation', array('primaryKey' => false));
+            $t = $this->createTable('ansel_images_geolocation', array('autoincrementKey' => false));
             $t->column('image_id', 'integer', array('null' => false));
             $t->column('image_latitude', 'string', array('limit' => 32));
             $t->column('image_longitude', 'string', array('limit' => 32));
@@ -168,7 +168,7 @@ class AnselBaseTables extends Horde_Db_Migration_Base
 
         if (!in_array('ansel_tags', $tableList)) {
             // Create: ansel_tags (Deprecated in 2.0)
-            $t = $this->createTable('ansel_tags', array('primaryKey' => false));
+            $t = $this->createTable('ansel_tags', array('autoincrementKey' => false));
             $t->column('tag_id', 'integer', array('null' => false));
             $t->column('tag_name', 'string', array('limit' => 255, 'null' => false));
             $t->primaryKey(array('tag_id'));

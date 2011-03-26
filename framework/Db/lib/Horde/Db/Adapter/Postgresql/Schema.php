@@ -135,7 +135,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     public function nativeDatabaseTypes()
     {
         return array(
-            'primaryKey' => 'serial primary key',
+            'autoincrementKey' => 'serial primary key',
             'string'     => array('name' => 'character varying', 'limit' => 255),
             'text'       => array('name' => 'text',              'limit' => null),
             'integer'    => array('name' => 'integer',           'limit' => null),
@@ -544,7 +544,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
 
         $quotedTableName = $this->quoteTableName($tableName);
 
-        $primaryKey = $type == 'primaryKey';
+        $primaryKey = $type == 'autoincrementKey';
         if ($primaryKey) {
             $type = 'integer';
             $autoincrement = true;

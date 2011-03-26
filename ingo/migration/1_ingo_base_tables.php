@@ -22,7 +22,7 @@ class IngoBaseTables extends Horde_Db_Migration_Base
         $tableList = $this->tables();
 
         if (!in_array('ingo_rules', $tableList)) {
-            $t = $this->createTable('ingo_rules', array('primaryKey' => false));
+            $t = $this->createTable('ingo_rules', array('autoincrementKey' => false));
             $t->column('rule_id', 'integer', array('null' => false));
             $t->column('rule_owner', 'string', array('limit' => 255, 'null' => false));
             $t->column('rule_name', 'string', array('limit' => 255, 'null' => false));
@@ -40,7 +40,7 @@ class IngoBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('ingo_lists', $tableList)) {
-            $t = $this->createTable('ingo_lists', array('primaryKey' => false));
+            $t = $this->createTable('ingo_lists', array('autoincrementKey' => false));
             $t->column('list_owner', 'string', array('limit' => 255, 'null' => false));
             $t->column('list_blacklist', 'integer', array('default' => 0));
             $t->column('list_address', 'string', array('limit' => 255, 'null' => false));
@@ -49,7 +49,7 @@ class IngoBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('ingo_forwards', $tableList)) {
-            $t = $this->createTable('ingo_forwards', array('primaryKey' => false));
+            $t = $this->createTable('ingo_forwards', array('autoincrementKey' => false));
             $t->column('forward_owner', 'string', array('limit' => 255, 'null' => false));
             $t->column('forward_addresses', 'text');
             $t->column('forward_keep', 'integer', array('default' => 0, 'null' => false));
@@ -57,7 +57,7 @@ class IngoBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('ingo_vacations', $tableList)) {
-            $t = $this->createTable('ingo_vacations', array('primaryKey' => false));
+            $t = $this->createTable('ingo_vacations', array('autoincrementKey' => false));
             $t->column('vacation_owner', 'string', array('limit' => 255, 'null' => false));
             $t->column('vacation_addresses', 'text');
             $t->column('vacation_subject', 'string', array('limit' => 255));
@@ -72,7 +72,7 @@ class IngoBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('ingo_spam', $tableList)) {
-            $t = $this->createTable('ingo_spam', array('primaryKey' => false));
+            $t = $this->createTable('ingo_spam', array('autoincrementKey' => false));
             $t->column('spam_owner', 'string', array('limit' => 255, 'null' => false));
             $t->column('spam_level', 'integer', array('default' => 5));
             $t->column('spam_folder', 'string', array('limit' => 255));
@@ -80,7 +80,7 @@ class IngoBaseTables extends Horde_Db_Migration_Base
             $t->end();
         }
         if (!in_array('ingo_shares', $tableList)) {
-            $t = $this->createTable('ingo_shares', array('primaryKey' => false));
+            $t = $this->createTable('ingo_shares', array('autoincrementKey' => false));
             $t->column('share_id', 'integer', array('null' => false));
             $t->column('share_name', 'string', array('limit' => 255, 'null' => false));
             $t->column('share_owner', 'string', array('limit' => 255, 'null' => false));

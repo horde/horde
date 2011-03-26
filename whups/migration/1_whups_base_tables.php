@@ -22,7 +22,7 @@ class WhupsBaseTables extends Horde_Db_Migration_Base
         $tableList = $this->tables();
 
         if (!in_array('whups_tickets', $tableList)) {
-            $t = $this->createTable('whups_tickets', array('primaryKey' => false));
+            $t = $this->createTable('whups_tickets', array('autoincrementKey' => false));
             $t->column('ticket_id', 'integer', array('null' => false));
             $t->column('ticket_summary', 'string', array('limit' => 255));
             $t->column('user_id_requester', 'string', array('limit' => 255, 'null' => false));
@@ -47,7 +47,7 @@ class WhupsBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('whups_ticket_owners', $tableList)) {
-            $t = $this->createTable('whups_ticket_owners', array('primaryKey' => false));
+            $t = $this->createTable('whups_ticket_owners', array('autoincrementKey' => false));
             $t->column('ticket_id', 'integer', array('null' => false));
             $t->column('ticket_owner', 'string', array('null' => false, 'limit' => 255));
             $t->primaryKey(array('ticket_id', 'ticket_owner'));
@@ -58,7 +58,7 @@ class WhupsBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('whups_guests', $tableList)) {
-            $t = $this->createTable('whups_guests', array('primaryKey' => false));
+            $t = $this->createTable('whups_guests', array('autoincrementKey' => false));
             $t->column('guest_id', 'string', array('limit' => 255, 'null' => false));
             $t->column('guest_email', 'string', array('limit' => 255, 'null' => false));
             $t->primaryKey(array('guest_id'));
@@ -66,7 +66,7 @@ class WhupsBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('whups_queues', $tableList)) {
-            $t = $this->createTable('whups_queues', array('primaryKey' => false));
+            $t = $this->createTable('whups_queues', array('autoincrementKey' => false));
             $t->column('queue_id', 'integer', array('null' => false));
             $t->column('queue_name', 'string', array('limit' => 64, 'null' => false));
             $t->column('queue_description', 'string', array('limit' => 255));
@@ -78,7 +78,7 @@ class WhupsBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('whups_queues_users', $tableList)) {
-            $t = $this->createTable('whups_queues_users', array('primaryKey' => false));
+            $t = $this->createTable('whups_queues_users', array('autoincrementKey' => false));
             $t->column('queue_id', 'integer', array('null' => false));
             $t->column('user_uid', 'string', array('limit' => 250, 'null' => false));
             $t->primaryKey(array('queue_id', 'user_uid'));
@@ -86,7 +86,7 @@ class WhupsBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('whups_types', $tableList)) {
-            $t = $this->createTable('whups_types', array('primaryKey' => false));
+            $t = $this->createTable('whups_types', array('autoincrementKey' => false));
             $t->column('type_id', 'integer', array('null' => false));
             $t->column('type_name', 'string', array('limit' => 64, 'null' => false));
             $t->column('type_description', 'string', array('limit' => 255));
@@ -95,7 +95,7 @@ class WhupsBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('whups_types_queues', $tableList)) {
-            $t = $this->createTable('whups_types_queues', array('primaryKey' => false));
+            $t = $this->createTable('whups_types_queues', array('autoincrementKey' => false));
             $t->column('type_id', 'integer', array('null' => false));
             $t->column('queue_id', 'integer', array('null' => false));
             $t->column('type_default', 'smallint', array('null' => false, 'default' => 0));
@@ -105,7 +105,7 @@ class WhupsBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('whups_states', $tableList)) {
-            $t = $this->createTable('whups_states', array('primaryKey' => false));
+            $t = $this->createTable('whups_states', array('autoincrementKey' => false));
             $t->column('state_id', 'integer', array('null' => false));
             $t->column('type_id', 'integer', array('null' => false));
             $t->column('state_name', 'string', array('limit' => 64, 'null' => false));
@@ -120,7 +120,7 @@ class WhupsBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('whups_replies', $tableList)) {
-            $t = $this->createTable('whups_replies', array('primaryKey' => false));
+            $t = $this->createTable('whups_replies', array('autoincrementKey' => false));
             $t->column('type_id', 'integer', array('null' => false));
             $t->column('reply_id', 'integer', array('null' => false));
             $t->column('reply_name', 'string', array('limit' => 255, 'null' => false));
@@ -133,7 +133,7 @@ class WhupsBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('whups_attributes_desc', $tableList)) {
-            $t = $this->createTable('whups_attributes_desc', array('primaryKey' => false));
+            $t = $this->createTable('whups_attributes_desc', array('autoincrementKey' => false));
             $t->column('attribute_id', 'integer', array('null' => false));
             $t->column('type_id', 'integer', array('null' => false));
             $t->column('attribute_name', 'string', array('null' => false, 'limit' => 64));
@@ -146,7 +146,7 @@ class WhupsBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('whups_attributes', $tableList)) {
-            $t = $this->createTable('whups_attributes', array('primaryKey' => false));
+            $t = $this->createTable('whups_attributes', array('autoincrementKey' => false));
             $t->column('ticket_id', 'integer', array('null' => false));
             $t->column('attribute_id', 'integer', array('null' => false));
             $t->column('attribute_value', 'string', array('limit' => 255));
@@ -154,7 +154,7 @@ class WhupsBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('whups_comments', $tableList)) {
-            $t = $this->createTable('whups_comments', array('primaryKey' => false));
+            $t = $this->createTable('whups_comments', array('autoincrementKey' => false));
             $t->column('comment_id', 'integer', array('null' => false));
             $t->column('ticket_id', 'integer', array('null' => false));
             $t->column('user_id_creator', 'string', array('limit' => 255, 'null' => false));
@@ -167,7 +167,7 @@ class WhupsBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('whups_logs', $tableList)) {
-            $t = $this->createTable('whups_logs', array('primaryKey' => false));
+            $t = $this->createTable('whups_logs', array('autoincrementKey' => false));
             $t->column('log_id', 'integer', array('null' => false));
             $t->column('transaction_id', 'integer', array('null' => false));
             $t->column('ticket_id', 'integer', array('null' => false));
@@ -185,7 +185,7 @@ class WhupsBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('whups_priorities', $tableList)) {
-            $t = $this->createTable('whups_priorities', array('primaryKey' => false));
+            $t = $this->createTable('whups_priorities', array('autoincrementKey' => false));
             $t->column('priority_id', 'integer', array('null' => false));
             $t->column('type_id', 'integer', array('null' => false));
             $t->column('priority_name', 'string', array('limit' => 64));
@@ -198,7 +198,7 @@ class WhupsBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('whups_versions', $tableList)) {
-            $t = $this->createTable('whups_versions', array('primaryKey' => false));
+            $t = $this->createTable('whups_versions', array('autoincrementKey' => false));
             $t->column('version_id', 'integer', array('null' => false));
             $t->column('queue_id', 'integer', array('null' => false));
             $t->column('version_name', 'string', array('limit' => 64));
@@ -211,7 +211,7 @@ class WhupsBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('whups_ticket_listeners', $tableList)) {
-            $t = $this->createTable('whups_ticket_listeners', array('primaryKey' => false));
+            $t = $this->createTable('whups_ticket_listeners', array('autoincrementKey' => false));
             $t->column('ticket_id', 'integer', array('null' => false));
             $t->column('user_uid', 'string', array('limit' => 255, 'null' => false));
             $t->end();
@@ -220,7 +220,7 @@ class WhupsBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('whups_queries', $tableList)) {
-            $t = $this->createTable('whups_queries', array('primaryKey' => false));
+            $t = $this->createTable('whups_queries', array('autoincrementKey' => false));
             $t->column('query_id', 'integer', array('null' => false));
             $t->column('query_parameters', 'text');
             $t->column('query_object', 'text');
@@ -229,7 +229,7 @@ class WhupsBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('whups_shares', $tableList)) {
-            $t = $this->createTable('whups_shares', array('primaryKey' => false));
+            $t = $this->createTable('whups_shares', array('autoincrementKey' => false));
             $t->column('share_id', 'integer', array('null' => false));
             $t->column('share_name', 'string', array('limit' => 255, 'null' => false));
             $t->column('share_owner', 'string', array('limit' => 255, 'null' => false));

@@ -21,7 +21,7 @@ class KronolithUpgradeAddResources extends Horde_Db_Migration_Base
     {
         $tableList = $this->tables();
         if (!in_array('kronolith_resources', $tableList)) {
-            $t = $this->createTable('kronolith_resources', array('primaryKey' => false));
+            $t = $this->createTable('kronolith_resources', array('autoincrementKey' => false));
             $t->column('resource_id', 'integer', array('null' => false));
             $t->column('resource_name', 'string', array('limit' => 255));
             $t->column('resource_calendar', 'string', array('limit' => 255));

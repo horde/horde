@@ -385,7 +385,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      *
      * <code>
      * // Rename the primary key column
-     * $table = $schema->createTable('objects', array('primaryKey' => 'guid'));
+     * $table = $schema->createTable('objects', array('autoincrementKey' => 'guid'));
      * $table->column('name', 'string', array('limit' => 80));
      * $table->end();
      * </code>
@@ -399,7 +399,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      *
      * <code>
      * // Do not add a primary key column
-     * $table = $schema->createTable('categories_suppliers', array('primaryKey' => false));
+     * $table = $schema->createTable('categories_suppliers', array('autoincrementKey' => false));
      * $table->column('category_id', 'integer');
      * $table->column('supplier_id', 'integer');
      * $table->end();
@@ -422,11 +422,11 @@ abstract class Horde_Db_Adapter_Base_Schema
     {
         $tableDefinition = $this->makeTableDefinition($name, $this, $options);
 
-        if (isset($options['primaryKey'])) {
-            if ($options['primaryKey'] === false) {
+        if (isset($options['autoincrementKey'])) {
+            if ($options['autoincrementKey'] === false) {
                 $pk = false;
             } else {
-                switch ($options['primaryKey']) {
+                switch ($options['autoincrementKey']) {
                 case 'true':
                 case 't':
                 case 1:
@@ -441,7 +441,7 @@ abstract class Horde_Db_Adapter_Base_Schema
                     $pk = false;
 
                 default:
-                    $pk = $options['primaryKey'];
+                    $pk = $options['autoincrementKey'];
                 }
             }
         } else {

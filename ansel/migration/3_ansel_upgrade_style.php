@@ -22,7 +22,7 @@ class AnselUpgradeStyle extends Horde_Db_Migration_Base
         // Create: ansel_hashes
         $tableList = $this->tables();
         if (!in_array('ansel_hashes', $tableList)) {
-            $t = $this->createTable('ansel_hashes', array('primaryKey' => 'style_hash'));
+            $t = $this->createTable('ansel_hashes', array('autoincrementKey' => 'style_hash'));
             $t->column('style_hash', 'string', array('limit' => 255));
             $t->end();
         }
