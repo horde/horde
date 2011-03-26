@@ -102,7 +102,7 @@ class Horde
      * @param string $fname  Filename to log to. If empty, logs to
      *                       'horde_debug.txt' in the temporary directory.
      */
-    static public function debug($event, $fname = null)
+    static public function debug($event = null, $fname = null)
     {
         if (is_null($fname)) {
             $fname = self::getTempDir() . '/horde_debug.txt';
