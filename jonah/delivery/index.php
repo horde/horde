@@ -8,6 +8,11 @@
  *
  * @author Ben Klang <ben@alkaloid.net>
  */
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$jonah = Horde_Registry::appInit('jonah', array(
+    'authentication' => 'none',
+    'session_control' => 'readonly'
+));
 $parts = explode('/', Horde_Util::getPathInfo());
 $lastpart = null;
 $deliveryType = null;
