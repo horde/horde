@@ -1355,7 +1355,12 @@ EOT;
 
     protected function _renderVarDisplay_datetime($form, &$var, &$vars)
     {
-        return htmlspecialchars($var->type->formatDate($var->getValue($vars))) . Horde_Form_Type_date::getAgo($var->getValue($vars));
+        $value = $var->getValue($vars);
+        $html = htmlspecialchars($var->type->formatDate($value));
+        if (!$var->type->emptyDateArray($value)) {
+            $html .= Horde_Form_Type_date::getAgo($value);
+        }
+        return $html;
     }
 
     protected function _renderVarDisplay_invalid($form, &$var, &$vars)
