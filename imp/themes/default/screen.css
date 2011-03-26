@@ -427,9 +427,22 @@ table.flagmanagement tbody td.flagicon {
     text-align: center;
 }
 
+table.searchesmanagement {
+    border-bottom: 1px solid gray;
+    border-collapse: collapse;
+    margin-bottom: 1em;
+}
+table.searchesmanagement td, table.searchesmanagement th {
+    border: 1px solid gray;
+    border-bottom-width: 0;
+}
+table.searchesmanagement th {
+    text-align: left;
+}
 table.searchesmanagement td.searchdescription {
     background-color: #ffa;
     width: 500px;
+    border-top-width: 0;
 }
 table.searchesmanagement .vfolderenabled {
     color: blue;
