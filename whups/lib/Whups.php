@@ -587,7 +587,7 @@ class Whups {
                     $results[$user]['user'] = $group['name'];
                     $results[$user]['name'] = $group['name'];
                     $results[$user]['email'] = $group['email'];
-                } catch (Horde_Group_Exception $e) {
+                } catch (Horde_Exception $e) {
                     $results['user']['name'] = '';
                     $results['user']['email'] = '';
                 }
