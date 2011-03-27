@@ -16,10 +16,12 @@
         <?php endif; ?>
         <?php endforeach; ?>
         <?php foreach ($GLOBALS['conf']['menu']['apps'] as $app): ?>
-        <?php if (empty($GLOBALS['conf']['menu']['apps_iframe']) || $GLOBALS['registry']->hasAjaxView($app)): ?>
-        <li><a href="<?php echo $GLOBALS['registry']->get('webroot', $app) ?>" id="hermesApplication-<?php echo $app ?>" title="<?php echo $GLOBALS['registry']->get('name', $app) ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
+        <?php if ($app == 'horde'): ?>
+          <li><a href="<?php echo Horde::getServiceLink('portal');?>" id="hermesApplication-<?php echo $app ?>" title="<?php echo $GLOBALS['registry']->get('name', $app) ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
+        <?php elseif (empty($GLOBALS['conf']['menu']['apps_iframe']) || $GLOBALS['registry']->hasAjaxView($app)): ?>
+          <li><a href="<?php echo $GLOBALS['registry']->get('webroot', $app) ?>" id="hermesApplication-<?php echo $app ?>" title="<?php echo $GLOBALS['registry']->get('name', $app) ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
         <?php else: ?>
-        <li><a href="#" onclick="HermesCore.go('app:<?php echo $app ?>')" id="hermesApplication-<?php echo $app ?>" title="<?php echo $GLOBALS['registry']->get('name', $app) ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
+          <li><a href="#" onclick="HermesCore.go('app:<?php echo $app ?>')" id="hermesApplication-<?php echo $app ?>" title="<?php echo $GLOBALS['registry']->get('name', $app) ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
         <?php endif; ?>
         <?php endforeach; ?>
       </ul>
