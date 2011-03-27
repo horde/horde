@@ -336,9 +336,6 @@ class Components_Pear_Package
             print (string) $package_xml;
             break;
         case 'diff':
-            if (!class_exists('Horde_Text_Diff')) {
-                throw new Components_Exception('The "Horde_Text_Diff" package is missing!');
-            }
             $new = (string) $package_xml;
             $old = file_get_contents($this->_package_xml_path);
             $renderer = new Horde_Text_Diff_Renderer_Unified();

@@ -345,6 +345,10 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Horde_Text_Diff</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -360,10 +364,6 @@
    </package>
    <package>
     <name>Horde_Release</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Horde_Text_Diff</name>
     <channel>pear.horde.org</channel>
    </package>
   </optional>
