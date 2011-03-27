@@ -70,13 +70,6 @@ class Components_Pear_Package
     private $_package_file;
 
     /**
-     * The writeable package representation.
-     *
-     * @param PEAR_PackageFileManager2
-     */
-    private $_package_rw_file;
-
-    /**
      * Constructor.
      *
      * @param Component_Output $output The output handler.
@@ -207,23 +200,6 @@ class Components_Pear_Package
     }
 
     /**
-     * Return a writeable PEAR Package representation.
-     *
-     * @return PEAR_PackageFileManager2
-     */
-    private function _getPackageRwFile()
-    {
-        $this->_checkSetup();
-        if ($this->_package_rw_file === null) {
-            $this->_package_rw_file = $this->_factory->getPackageRwFile(
-                $this->_package_xml_path,
-                $this->getEnvironment()
-            );
-        }
-        return $this->_package_rw_file;
-    }
-
-    /**
      * Validate that the required parameters for providing the package definition are set.
      *
      * @return NULL
@@ -341,33 +317,6 @@ class Components_Pear_Package
     }
 
     /**
-     * Return an updated package description.
-     *
-     * @return PEAR_PackageFileManager2 The updated package.
-     */
-    private function _getUpdatedPackageFile()
-    {
-        $package = $this->_getPackageRwFile();
-        $contents = $this->_factory->createContents($package);
-        $contents->update();
-        return $package;
-    }
-
-    /**
-     * Return the updated package.xml file.
-     *
-     * @return NULL
-     */
-    public function _printUpdatedPackageFile()
-    {
-        ob_start();
-        $this->_getUpdatedPackageFile()->debugPackageFile();
-        $new = ob_get_contents();
-        ob_end_clean();
-        return $new;
-    }    
-
-    /**
      * Update the package.xml file.
      *
      * @param string $action The action to perform. Either "update", "diff", or "print".
@@ -376,15 +325,21 @@ class Components_Pear_Package
      */
     public function updatePackageFile($action = 'update')
     {
+        $package_xml = $this->_getPackageXml();
+        $package_xml->updateContents(
+            new Horde_Pear_Package_Contents_List(
+                new Horde_Pear_Package_Type_Horde(dirname($this->_package_xml_path))
+            )
+        );
         switch($action) {
         case 'print':
-            print $this->_printUpdatedPackageFile();
+            print (string) $package_xml;
             break;
         case 'diff':
             if (!class_exists('Horde_Text_Diff')) {
                 throw new Components_Exception('The "Horde_Text_Diff" package is missing!');
             }
-            $new = $this->_printUpdatedPackageFile();
+            $new = (string) $package_xml;
             $old = file_get_contents($this->_package_xml_path);
             $renderer = new Horde_Text_Diff_Renderer_Unified();
             print $renderer->render(
@@ -394,7 +349,7 @@ class Components_Pear_Package
             );
             break;
         default:
-            $this->_getUpdatedPackageFile()->writePackageFile();
+            file_put_contents($this->_package_xml_path, (string) $package_xml);
             $this->_output->ok('Successfully updated ' . $this->_package_xml_path);
             break;
         }

@@ -277,47 +277,6 @@ class Components_Pear_Factory
     }
 
     /**
-     * Return a writeable PEAR Package representation.
-     *
-     * @param string                          $package_xml_path Path to the package.xml file.
-     * @param Components_Pear_InstallLocation $environment      The PEAR environment.
-     *
-     * @return PEAR_PackageFileManager2
-     */
-    public function getPackageRwFile(
-        $package_xml_path,
-        Components_Pear_InstallLocation $environment
-    ) {
-        /**
-         * Ensure we setup the PEAR_Config according to the PEAR environment
-         * the user set.
-         */
-        $environment->getPearConfig();
-
-        if (!class_exists('PEAR_PackageFileManager2')) {
-            throw new Components_Exception(
-                'The Package "PEAR_PackageFileManager2" is missing in the PEAR environment. Please install it so that you can run this action.'
-            );
-        }
-
-        $old_dir = getcwd();
-        chdir(dirname($package_xml_path));
-        $result = Components_Exception_Pear::catchError(
-            PEAR_PackageFileManager2::importOptions(
-                basename($package_xml_path),
-                array(
-                    'packagedirectory' => '.',
-                    'clearcontents' => false,
-                    'clearchangelog' => false,
-                    'simpleoutput' => true,
-                )
-            )
-        );
-        chdir($old_dir);
-        return $result;
-    }
-
-    /**
      * Create a package dependency helper.
      *
      * @param Components_Pear_Package $package The package.
@@ -329,19 +288,5 @@ class Components_Pear_Factory
         $dependencies = $this->_dependencies->createInstance('Components_Pear_Dependencies');
         $dependencies->setPackage($package);
         return $dependencies;
-    }
-
-    /**
-     * Create a package content helper.
-     *
-     * @param PEAR_PackageFileManager2 $package The package.
-     *
-     * @return Components_Pear_Package_Contents The contents helper.
-     */
-    public function createContents(PEAR_PackageFileManager2 $package)
-    {
-        $contents = $this->_dependencies->createInstance('Components_Pear_Package_Contents');
-        $contents->setPackage($package);
-        return $contents;
     }
 }
