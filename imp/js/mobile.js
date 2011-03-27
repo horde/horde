@@ -102,7 +102,7 @@ var ImpMobile = {
                         c += ' imp-message-' + flag.substr(1);
                     });
                 }
-                list.append(
+                list.prepend(
                     $('<li class="' + c + '" data-imp-mailbox="' + data.view + '" data-imp-uid="' + data.imapuid + '">').append(
                         $('<h3>').append(
                             $('<a href="#">').html(data.subject))).append(
