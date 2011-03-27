@@ -48,7 +48,7 @@ extends Components_Module_Base
                 '--snapshot',
                 array(
                     'action' => 'store_true',
-                    'help'   => 'generate a development snapshot'
+                    'help'   => 'Generate a development snapshot'
                 )
             ),
             new Horde_Argv_Option(
@@ -56,7 +56,7 @@ extends Components_Module_Base
                 '--archivedir',
                 array(
                     'action' => 'store',
-                    'help'   => 'the path to the directory where any resulting source archives will be placed.'
+                    'help'   => 'The path to the directory where any resulting source archives will be placed.'
                 )
             ),
             new Horde_Argv_Option(
@@ -99,12 +99,22 @@ extends Components_Module_Base
      */
     public function getHelp($action)
     {
-        return 'Action "snapshot"
-
-This module generates a COMPONENT-1.0.0devYYYYMMDD.tgz snapshot of the selected component.
+        return 'This module generates a COMPONENT-1.0.0devYYYYMMDD.tgz snapshot of the selected component.
 ';
     }
 
+    /**
+     * Return the options that should be explained in the context help.
+     *
+     * @return array A list of option help texts.
+     */
+    public function getContextOptionHelp()
+    {
+        return array(
+            '--archivedir' => '',
+            '--keep-version' => ''
+        );
+    }
 
     /**
      * Determine if this module should act. Run all required actions if it has
