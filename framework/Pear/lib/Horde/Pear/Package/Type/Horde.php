@@ -142,6 +142,20 @@ implements Horde_Pear_Package_Type
     }
 
     /**
+     * Get the package name.
+     *
+     * @return string The package name.
+     */
+    public function getName()
+    {
+        if ($this->getType() == 'Application') {
+            return basename($this->getRootPath());
+        } else {
+            return 'Horde_' . basename($this->getRootPath());
+        }
+    }
+
+    /**
      * Return the contents of the Horde .gitignore file.
      *
      * @return string The .gitignore patterns.
@@ -184,5 +198,85 @@ implements Horde_Pear_Package_Type
             }
         }
         return $this->_repository_root;
+    }
+
+    /**
+     * Return the path to the root of the Horde repository..
+     *
+     * @return string The repository path.
+     */
+    public function writePackageXmlDraft()
+    {
+        if (file_exists($this->getPackageXmlPath())) {
+            throw new Horde_Pear_Exception(
+                sprintf(
+                    'File %s already exists and will not be overwritten!',
+                    $this->getPackageXmlPath()
+                )
+            );
+        }
+        file_put_contents(
+            $this->getPackageXmlPath(),
+            '<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>' . $this->getName() . '</name>
+ <channel>pear.horde.org</channel>
+ <summary>TODO</summary>
+ <description>TODO</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>' . date('Y-m-d') . '</date>
+ <time>' . date('H:i:s') . '</time>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="TODO">TODO</license>
+ <notes>
+* Initial release.
+ </notes>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>' . date('Y-m-d') . '</date>
+   <license uri="TODO">TODO</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>'
+        );
     }
 }
