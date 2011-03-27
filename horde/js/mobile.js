@@ -99,7 +99,7 @@
             }
         });
         if (list.html()) {
-            $.mobile.changePage('notification');
+            $.mobile.changePage('notification', 'pop');
             list.listview('refresh');
         }
     },
