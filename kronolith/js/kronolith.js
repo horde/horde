@@ -5651,42 +5651,32 @@ KronolithCore = {
      */
     scrollTimeField: function(e, field) {
         var time = Date.parseExact($F(field), Kronolith.conf.time_format) || Date.parse($F(field)),
-            hour, minute;
+            newTime, minute;
         if (!time || (!e.wheelData && !e.detail)) {
             return;
         }
 
-        minute = time.getMinutes();
+        newTime = time.clone();
+        newTime.add(e.wheelData > 0 || e.detail < 0 ? 10 : -10).minutes();
+        minute = newTime.getMinutes();
         if (minute % 10) {
             if (e.wheelData > 0 || e.detail < 0) {
-                minute = (minute + 10) / 10 | 0;
-            } else {
                 minute = minute / 10 | 0;
+            } else {
+                minute = (minute - 10) / 10 | 0;
             }
             minute *= 10;
-        } else {
-            minute += (e.wheelData > 0 || e.detail < 0 ? 10 : -10);
+            newTime.setMinutes(minute);
         }
-        hour = time.getHours();
-        if (minute < 0) {
-            if (hour > 0) {
-                hour--;
-                minute = 50;
+        if (newTime.getDate() != time.getDate()) {
+            if (newTime.isAfter(time)) {
+                newTime = time.clone().set({ hour: 23, minute: 59 });
             } else {
-                minute = 0;
-            }
-        } else if (minute >= 60) {
-            if (hour < 23) {
-                hour++;
-                minute = 0;
-            } else {
-                minute = 59;
+                newTime = time.clone().set({ hour: 0, minute: 0 });
             }
         }
-        time.setHours(hour);
-        time.setMinutes(minute);
 
-        $(field).setValue(time.toString(Kronolith.conf.time_format));
+        $(field).setValue(newTime.toString(Kronolith.conf.time_format));
         this.updateTimeFields(field);
 
         /* Mozilla bug https://bugzilla.mozilla.org/show_bug.cgi?id=502818
