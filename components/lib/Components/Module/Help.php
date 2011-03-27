@@ -95,8 +95,28 @@ extends Components_Module_Base
             foreach ($modules->getModules() as $module) {
                 $element = $modules->getProvider()->getModule($module);
                 if (in_array($action, $element->getActions())) {
+                    $help = "\nACTION \"" . $action . "\"\n\n  ";
+                    $help .= Horde_String::wordwrap(
+                        $element->getHelp($action), 75, "\n  ", true
+                    );
+                    $formatter = new Horde_Argv_IndentedHelpFormatter();
+                    $parser = $this->_dependencies->getParser();
+                    foreach ($element->getContextOptionHelp() as $option => $help_text) {
+                        $argv_option = $parser->getOption($option);
+                        $help .= "\n\n    " . $formatter->formatOptionStrings($argv_option) . "\n\n      ";
+                        if (empty($help_text)) {
+                            $help .= Horde_String::wordwrap(
+                                $argv_option->help, 75, "\n      ", true
+                            );
+                        } else {
+                            $help .= Horde_String::wordwrap(
+                                $help_text, 75, "\n      ", true
+                            );
+                        }
+                    }
+                    $help .= "\n";
                     $this->_dependencies->getOutput()->help(
-                        $element->getHelp($action)
+                        $help
                     );
                     return true;
                 }

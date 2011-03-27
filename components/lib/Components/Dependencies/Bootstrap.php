@@ -132,6 +132,26 @@ implements Components_Dependencies
     }
 
     /**
+     * Set the CLI parser.
+     *
+     * @param Horde_Argv_Parser $parser The parser.
+     *
+     * @return NULL
+     */
+    public function setParser($parser)
+    {
+    }
+
+    /**
+     * Return the CLI parser.
+     *
+     * @retunr Horde_Argv_Parser The parser.
+     */
+    public function getParser()
+    {
+    }
+
+    /**
      * Returns the continuous integration setup handler.
      *
      * @return Components_Runner_CiSetup The CI setup handler.

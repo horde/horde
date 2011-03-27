@@ -51,6 +51,7 @@ class Components
         $dependencies = self::_prepareDependencies($parameters);
         $modular = self::_prepareModular($dependencies, $parameters);
         $parser = $modular->createParser();
+        $dependencies->setParser($parser);
         $config = self::_prepareConfig($parser);
         $dependencies->initConfig($config);
 
