@@ -2,6 +2,7 @@
 v4.0-RC2
 --------
 
+[jan] Fix JavaScript date calculations across DST boundaries.
 [jan] Sort applications in preference menu by name.
 [jan] Add translations for file upload error messages.
 [mms] Fix identities pref UI when default_identity is locked (Bug #9701).
