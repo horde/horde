@@ -319,10 +319,6 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
-    <name>PEAR_PackageFileManager2</name>
-    <channel>pear.php.net</channel>
-   </package>
-   <package>
     <name>Horde_Autoloader</name>
     <channel>pear.horde.org</channel>
    </package>
