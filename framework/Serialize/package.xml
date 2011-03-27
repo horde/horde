@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Drop SQLXML serialization method (Request #9705).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -87,10 +87,6 @@
    </package>
   </required>
   <optional>
-   <package>
-    <name>DB</name>
-    <channel>pear.php.net</channel>
-   </package>
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
@@ -222,7 +218,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2011-03-22</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Drop SQLXML serialization method (Request #9705).
    </notes>
   </release>
  </changelog>

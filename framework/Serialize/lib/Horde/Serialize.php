@@ -27,7 +27,6 @@ class Horde_Serialize
     const GZ_COMPRESS = 8;
     const GZ_ENCODE = 9;
     const BASE64 = 10;
-    const SQLXML = 11;
     const RAW = 12;
     const URL = 13;
     const UTF7 = 14;
@@ -133,9 +132,6 @@ class Horde_Serialize
         case self::GZ_ENCODE:
             return Horde_Util::extensionExists('zlib');
 
-        case self::SQLXML:
-            return @include_once 'XML/sql2xml.php';
-
         case self::LZF:
             return Horde_Util::extensionExists('lzf');
 
@@ -232,12 +228,6 @@ class Horde_Serialize
             $data = urlencode($data);
             break;
 
-        case self::SQLXML:
-            require_once 'DB.php';
-            $sql2xml = new xml_sql2xml();
-            $data = $sql2xml->getXML($data);
-            break;
-
         // $params = Source character set
         case self::UTF7:
             $data = Horde_String::convertCharset($data, $params, 'UTF-7');
@@ -290,7 +280,6 @@ class Horde_Serialize
     {
         switch ($mode) {
         case self::NONE:
-        case self::SQLXML:
             break;
 
         case self::RAW:
