@@ -60,7 +60,7 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
         if (is_array($data)) {
             $httpRequest->setPostFields($data);
         } else {
-            $httpRequest->setRawPostData($data);
+            $httpRequest->setBody($data);
         }
 
         $httpOptions = array('timeout' => $this->timeout);
