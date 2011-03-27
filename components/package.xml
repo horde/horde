@@ -22,6 +22,8 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
  <notes>
+* [gwr] Replaced use of PEAR_PackageFileManager for updating package.xml with Horde_Pear.
+* [gwr] Better help display for context modules.
 * [gwr] Extracted the .gitignore handling for content lists to the Horde_Pear packages.
 * [gwr] Fix appending the snapshot date for pre-releases.
 * [gwr] Allow to keep the version when generating snapshots.
@@ -541,6 +543,8 @@
    <date>2011-03-23</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
+* [gwr] Replaced use of PEAR_PackageFileManager for updating package.xml with Horde_Pear.
+* [gwr] Better help display for context modules.
 * [gwr] Extracted the .gitignore handling for content lists to the Horde_Pear packages.
 * [gwr] Fix appending the snapshot date for pre-releases.
 * [gwr] Allow to keep the version when generating snapshots.
