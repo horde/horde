@@ -129,9 +129,9 @@ interface Components_Dependencies
     /**
      * Returns the package XML handler for a package.
      *
-     * @return Components_Runner_PearPackageXml The package XML handler.
+     * @return Components_Runner_Update The package XML handler.
      */
-    public function getRunnerPearPackageXml();
+    public function getRunnerUpdate();
 
     /**
      * Returns the release tasks handler.

@@ -1,6 +1,6 @@
 <?php
 /**
- * Components_Runner_PearPackageXml:: updates the package.xml of a Horde
+ * Components_Runner_Update:: updates the package.xml of a Horde
  * component.
  *
  * PHP version 5
@@ -13,7 +13,7 @@
  */
 
 /**
- * Components_Runner_PearPackageXml:: updates the package.xml of a Horde
+ * Components_Runner_Update:: updates the package.xml of a Horde
  * component.
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
@@ -27,7 +27,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Components
  */
-class Components_Runner_PearPackageXml
+class Components_Runner_Update
 {
     /**
      * The configuration for the current job.
@@ -81,7 +81,11 @@ class Components_Runner_PearPackageXml
 
         if (!empty($options['updatexml'])
             || (isset($arguments[0]) && $arguments[0] == 'update')) {
-            $package->updatePackageFile(!empty($options['action']) ? $options['action'] : null);
+            $action = !empty($options['action']) ? $options['action'] : 'update';
+            if ($options['pretend'] && $action == 'update') {
+                $action = 'diff';
+            }
+            $package->updatePackageFile($action);
         }
 
     }

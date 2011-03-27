@@ -1,6 +1,6 @@
 <?php
 /**
- * Components_Module_PearPackageXml:: can update the package.xml of
+ * Components_Module_Update:: can update the package.xml of
  * a Horde element.
  *
  * PHP version 5
@@ -13,7 +13,7 @@
  */
 
 /**
- * Components_Module_PearPackageXml:: can update the package.xml of
+ * Components_Module_Update:: can update the package.xml of
  * a Horde element.
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
@@ -27,17 +27,17 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Components
  */
-class Components_Module_PearPackageXml
+class Components_Module_Update
 extends Components_Module_Base
 {
     public function getOptionGroupTitle()
     {
-        return 'Pear Package Xml';
+        return 'Update ppackage.xml';
     }
 
     public function getOptionGroupDescription()
     {
-        return 'This module allows manipulation of the package.xml.';
+        return 'This module allows updating of the package.xml.';
     }
 
     public function getOptionGroupOptions()
@@ -88,6 +88,18 @@ extends Components_Module_Base
     }
 
     /**
+     * Return the options that should be explained in the context help.
+     *
+     * @return array A list of option help texts.
+     */
+    public function getContextOptionHelp()
+    {
+        return array(
+            '--pretend' => 'Display a textual diff of the current package.xml and the updated package.xml. The package.xml file does not get modified.'
+        );
+    }
+
+    /**
      * Return the help text for the specified action.
      *
      * @param string $action The action.
@@ -96,10 +108,7 @@ extends Components_Module_Base
      */
     public function getHelp($action)
     {
-        return 'Action "update"
-
-This will automatically update the package.xml of the specified component to include any new files that were added/removed since the package.xml was modified last time.
-';
+        return 'This will automatically update the package.xml of the specified component to include any new files that were added/removed since the package.xml was modified last time.';
     }
 
     /**
@@ -116,7 +125,7 @@ This will automatically update the package.xml of the specified component to inc
         $arguments = $config->getArguments();
         if (!empty($options['updatexml'])
             || (isset($arguments[0]) && $arguments[0] == 'update')) {
-            $this->_dependencies->getRunnerPearPackageXml()->run();
+            $this->_dependencies->getRunnerUpdate()->run();
             return true;
         }
     }
