@@ -240,40 +240,8 @@ class Components_Pear_Factory
     public function createPackageFile(
         $package_xml_dir
     ) {
-        $environment = $this->_dependencies->getInstance('Components_Pear_InstallLocation');
-        $pkg = new PEAR_PackageFile_v2_rw();
-        $pkg->setPackage(basename($package_xml_dir));
-        $pkg->setDescription('TODO');
-        $pkg->setSummary('TODO');
-        $pkg->setReleaseVersion('1.0.0alpha1');
-        $pkg->setApiVersion('1.0.0alpha1');
-        $pkg->setReleaseStability('alpha');
-        $pkg->setApiStability('alpha');
-        $pkg->setChannel('pear.horde.org');
-        $pkg->addMaintainer(
-            'lead',
-            'chuck',
-            'Chuck Hagenbuch',
-            'chuck@horde.org'
-        );
-        $pkg->addMaintainer(
-            'lead',
-            'jan',
-            'Jan Schneider',
-            'jan@horde.org'
-        );
-        $pkg->setLicense('TODO', 'TODO');
-        $pkg->setNotes('* Initial release.');
-        $pkg->clearContents(true);
-        $pkg->clearDeps();
-        $pkg->setPhpDep('5.2.0');
-        $pkg->setPearinstallerDep('1.7.0');
-        $pkg->setPackageType('php');
-        $pkg->addFile('', 'something', array('role' => 'php'));
-        new PEAR_Validate();
-        return Components_Exception_Pear::catchError(
-            $pkg->getDefaultGenerator()->toPackageFile($package_xml_dir, 0)
-        );
+        $type = new Horde_Pear_Package_Type_Horde($package_xml_dir);
+        $type->writePackageXmlDraft();
     }
 
     /**
