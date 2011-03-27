@@ -122,6 +122,7 @@ class Horde_Pear_Package_Xml
         }
         $current = new Horde_Pear_Package_Xml_Contents($this, $contents, $filelist);
         $current->update($content_list);
+        $this->timestamp();
     }
 
     /**
