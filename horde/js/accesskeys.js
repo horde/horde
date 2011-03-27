@@ -6,27 +6,27 @@
  */
 var AccessKeys = {
 
-    macos: navigator.appVersion.indexOf('Mac') !=- 1,
-
-    elements: [],
-
-    replace: function()
-    {
-        $$('*[accesskey]').each(function(elm) {
-            this.elements[elm.readAttribute('accesskey').toUpperCase()] = elm;
-            elm.writeAttribute('accesskey', null);
-        }, this);
-        document.observe('keydown', this.keydownHandler.bindAsEventListener(this));
-    },
+    macos: navigator.appVersion.indexOf("Mac") !=- 1,
 
     keydownHandler: function(e)
     {
-        var elt, evt, key;
+        var elt, elts, evt, key;
 
         if ((this.macos && e.ctrlKey) ||
             (!this.macos && e.altKey && !e.ctrlKey)) {
-            key = String.fromCharCode(e.keyCode || e.charCode).sub('"', '\\"');
-            if (elt = this.elements[key.toUpperCase()]) {
+            // Need to search for both upper and lowercase value
+            key = String.fromCharCode(e.keyCode || e.charCode).sub('"', '\\"');;
+            elts = $$('[accesskey="' + key.toUpperCase() + '"]');
+            if (key.toUpperCase() != key.toLowerCase()) {
+                elts = elts.concat($$('[accesskey="' + key.toLowerCase() + '"]'));
+            }
+
+            if (elt = elts.first()) {
+                // Remove duplicate accesskeys
+                if (elts.size() > 1) {
+                    elts.slice(1).invoke('writeAttribute', 'accesskey', null);
+                }
+
                 e.stop();
                 elt.focus();
 
@@ -48,4 +48,4 @@ var AccessKeys = {
     }
 };
 
-document.observe('dom:loaded', AccessKeys.replace.bind(AccessKeys));
+document.observe('keydown', AccessKeys.keydownHandler.bindAsEventListener(AccessKeys));

@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Don&apos;t fire access keys twice in certain browsers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3983,7 +3983,7 @@
    <date>2011-03-23</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* [jan] Don&apos;t fire access keys twice in certain browsers.
+* 
    </notes>
   </release>
  </changelog>
