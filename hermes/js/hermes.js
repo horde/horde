@@ -920,7 +920,7 @@ HermesCore = {
 
     onResize: function(event)
     {
-        $('hermesTimeListBody').setStyle({height: document.height - 440 + 'px'});
+        //$('hermesTimeListBody').setStyle({height: document.height - 440 + 'px'});
     },
 
     sortDate: function(a, b)
