@@ -47,13 +47,13 @@ class Hermes
         return $clients[$name];
     }
 
-    public static function getClientSelect()
+    public static function getClientSelect($id)
     {
         $clients = self::listClients();
-        $select = '<select name="client" id="hermesTimeFormClient">';
+        $select = '<select name="client" id="' . $id . '">';
         $select .= '<option value="">' . _("--- Select A Client ---") . '</option>';
-        foreach ($clients as $id => $client) {
-            $select .= '<option value="' . $id . '">' . $client . '</option>';
+        foreach ($clients as $cid => $client) {
+            $select .= '<option value="' . $cid . '">' . $client . '</option>';
         }
 
         return $select . '</select>';
@@ -63,12 +63,12 @@ class Hermes
      * @TODO: Build these via ajax once we have UI support for editing jobtypes
      * @return <type>
      */
-    public static function getJobTypeSelect()
+    public static function getJobTypeSelect($id)
     {
         $types = $GLOBALS['injector']->getInstance('Hermes_Driver')->listJobTypes(array('enabled' => true));
-        $select = '<select name="type" id="hermesTimeFormJobtype">';
-        foreach ($types as $id => $type) {
-            $select .= '<option value="' . $id . '">' . $type['name'] . '</option>';
+        $select = '<select name="type" id="' . $id . '">';
+        foreach ($types as $tid => $type) {
+            $select .= '<option value="' . $tid . '">' . $type['name'] . '</option>';
         }
 
         return $select . '</select>';

@@ -119,6 +119,7 @@
 <div id="hermesBody">
 <?php
 require dirname(__FILE__) . '/timeedit.inc';
+require dirname(__FILE__) . '/search.inc';
 ?>
 <div id="hermesViewIframe" style="display:none"></div>
 </div>

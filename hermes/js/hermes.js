@@ -105,25 +105,15 @@ HermesCore = {
         this.viewLoading.push([ fullloc, data ]);
         switch (loc) {
         case 'time':
+        case 'search':
             this.closeView(loc);
             var locCap = loc.capitalize();
             $('hermesNav' + locCap).addClassName('on');
             switch (loc) {
             case 'time':
-                this.addHistory(fullloc);
-                this.view = loc;
                 this.updateView(loc);
                 this.loadSlices();
-                $('hermesView' + locCap).appear({
-                        duration: this.effectDur,
-                        queue: 'end',
-                        afterFinish: function() {
-                            this.loadNextView();
-                        }.bind(this)
-                });
-                //$('hermesLoading' + loc).insert($('hermesLoading').remove());
-                break;
-
+                // Fall through
             default:
                 if (!$('hermesView' + locCap)) {
                     break;
@@ -256,6 +246,10 @@ HermesCore = {
                 return;
             case 'hermesNavTime':
                 this.go('time');
+                e.stop();
+                return;
+            case 'hermesNavSearch':
+                this.go('search');
                 e.stop();
                 return;
             case 'hermesTimeSaveAsNew':
@@ -546,17 +540,20 @@ HermesCore = {
      */
     updateView: function(view)
     {
-        var tbody = $('hermesTimeListInternal');
-        // TODO: Probably more effecient way
-        tbody.childElements().each(function(row) {
-            row.purge();
-            row.remove();
-        });
-        if ($('hermesTimeListHeader')) {
-            $('hermesTimeListHeader').select('div').each(function(d) {
-               d.removeClassName('sortup');
-               d.removeClassName('sortdown');
+        switch (view) {
+        case 'time':
+            var tbody = $('hermesTimeListInternal');
+            // TODO: Probably more effecient way
+            tbody.childElements().each(function(row) {
+                row.purge();
+                row.remove();
             });
+            if ($('hermesTimeListHeader')) {
+                $('hermesTimeListHeader').select('div').each(function(d) {
+                   d.removeClassName('sortup');
+                   d.removeClassName('sortdown');
+                });
+            }
         }
     },
 
