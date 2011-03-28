@@ -2,6 +2,7 @@
 v4.0-RC2
 --------
 
+[jan] Fire access keys on hidden elements in Internet Explorer (Bug #8057).
 [jan] Don't fire access keys twice in Chrome browsers.
 [jan] Fix JavaScript date calculations across DST boundaries.
 [jan] Sort applications in preference menu by name.
