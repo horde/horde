@@ -30,6 +30,13 @@ class IMP_Imap implements Serializable
     static protected $_config;
 
     /**
+     * Have we logged into server yet?
+     *
+     * @var boolean
+     */
+    protected $_login = false;
+
+    /**
      * Is connection read-only?
      *
      * @var array
@@ -41,7 +48,7 @@ class IMP_Imap implements Serializable
      *
      * @var array
      */
-    protected $_nsdefault;
+    protected $_nsdefault = null;
 
     /**
      * UIDVALIDITY check cache.
@@ -105,10 +112,6 @@ class IMP_Imap implements Serializable
         }
 
         $this->ob = $ob;
-
-        /* Now that the Imap Client object is loaded, it is possible to set
-         * the fetch ignore mailboxes. */
-        $this->updateFetchIgnore();
 
         if ($protocol == 'pop') {
             /* Turn some options off if we are working with POP3. */
@@ -310,8 +313,7 @@ class IMP_Imap implements Serializable
             return null;
         }
 
-        if (!isset($this->_nsdefault)) {
-            $this->_nsdefault = null;
+        if ($this->_login && !isset($this->_nsdefault)) {
             foreach ($this->getNamespaceList() as $val) {
                 if ($val['type'] == Horde_Imap_Client::NS_PERSONAL) {
                     $this->_nsdefault = $val;
@@ -369,6 +371,21 @@ class IMP_Imap implements Serializable
         }
 
         return call_user_func_array(array($this->ob, $method), $params);
+    }
+
+    /**
+     * Wrapper around base Imap_Client login() method.
+     *
+     * @see Horde_Imap_Client_Base::login()
+     */
+    public function login()
+    {
+        call_user_func(array($this->ob, 'login'));
+
+        if (!$this->_login) {
+            $this->_login = true;
+            $this->updateFetchIgnore();
+        }
     }
 
     /* Static methods. */
@@ -438,7 +455,8 @@ class IMP_Imap implements Serializable
     {
         return serialize(array(
             $this->ob,
-            $this->_nsdefault
+            $this->_nsdefault,
+            $this->_login
         ));
     }
 
@@ -448,7 +466,8 @@ class IMP_Imap implements Serializable
     {
         list(
             $this->ob,
-            $this->_nsdefault
+            $this->_nsdefault,
+            $this->_login
         ) = unserialize($data);
     }
 
