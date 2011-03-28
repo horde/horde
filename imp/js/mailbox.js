@@ -338,17 +338,29 @@ var ImpMailbox = {
             if (this.cursor) {
                 switch (key) {
                 case Event.KEY_UP:
-                    this.cursor = this.cursor.previous();
-                    if (!this.cursor.readAttribute('id')) {
-                        search = 'last';
+                    tmp = this.cursor.previous();
+                    if (!tmp.readAttribute('id')) {
+                        tmp = this.cursor.up('TABLE.messageList').previous('TABLE.messageList');
+                        if (tmp) {
+                            tmp = tmp.select('TR[id]').last();
+                        } else {
+                            search = 'last';
+                        }
                     }
+                    this.cursor = tmp;
                     break;
 
                 case Event.KEY_DOWN:
-                    this.cursor = this.cursor.next();
-                    if (!this.cursor) {
-                        search = 'first';
+                    tmp = this.cursor.next();
+                    if (!tmp) {
+                        tmp = this.cursor.up('TABLE.messageList').next('TABLE.messageList');
+                        if (tmp) {
+                            tmp = tmp.select('TR[id]').first();
+                        } else {
+                            search = 'first';
+                        }
                     }
+                    this.cursor = tmp;
                     break;
                 }
             } else {
