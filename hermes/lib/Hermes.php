@@ -419,6 +419,7 @@ class Hermes
             'date_format' => str_replace(array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
                              array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
                              Horde_Nls::getLangInfo(D_FMT)),
+            'client_name_field' => $GLOBALS['conf']['client']['field']
         );
         if (!empty($GLOBALS['conf']['logo']['link'])) {
             $code['conf']['URI_HOME'] = $GLOBALS['conf']['logo']['link'];
