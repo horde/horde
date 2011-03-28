@@ -44,9 +44,9 @@ class Horde_Pear_Package_Xml_Contents
     /**
      * The list of directories in the contents section.
      *
-     * @var array
+     * @var Horde_Pear_Package_Xml_Directory
      */
-    private $_dir_list = array();
+    private $_dir_list;
 
     /**
      * The list of files in the "contents" section.
@@ -79,6 +79,12 @@ class Horde_Pear_Package_Xml_Contents
     ) {
         $this->_xml = $xml;
         $this->_filelist = $filelist;
+        $this->_dir_list = new Horde_Pear_Package_Xml_Directory(
+            $xml,
+            $contents,
+            '',
+            1
+        );
         $this->_populateContents('', $contents, 1);
         $this->_populateFileList();
     }
@@ -99,7 +105,6 @@ class Horde_Pear_Package_Xml_Contents
         } else {
             $key = $path;
         }
-        $this->_dir_list[$key] = array($dir, $level, $dir->lastChild);
         foreach ($this->_xml->findNodesRelativeTo('./p:file', $dir) as $file) {
             $this->_file_list[$path . '/' . $file->getAttribute('name')] = array($dir, $file);
         }
@@ -156,7 +161,7 @@ class Horde_Pear_Package_Xml_Contents
     public function add($file, $params)
     {
         if (!in_array($file, array_keys($this->_file_list))) {
-            list($parent, $level, $bottom) = $this->ensureParent($file);
+            list($parent, $level, $bottom) = $this->_dir_list->ensureParent($file);
             $this->_file_list[$file] = array(
                 $parent,
                 $this->_xml->appendFile(
@@ -172,7 +177,7 @@ class Horde_Pear_Package_Xml_Contents
     }
 
     /**
-     * Deöete a file frp, the list.
+     * Delete a file from the list.
      *
      * @param string $file The file name.
      *
@@ -197,25 +202,5 @@ class Horde_Pear_Package_Xml_Contents
             }
             $this->_filelist->removeChild($this->_install_list[$file]);
         }
-    }
-
-    /**
-     * Ensure the parent directory to the provided element exists.
-     *
-     * @param string $current The name of the item that needs a parent.
-     *
-     * @return NULL
-     */
-    public function ensureParent($current)
-    {
-        $parent = dirname($current);
-        if (!isset($this->_dir_list[$parent])) {
-            list($node, $level, $bottom) = $this->ensureParent($parent);
-            list($dir, $bottom) = $this->_xml->appendDirectory(
-                $node, $bottom, basename($parent), $parent, $level + 1
-            );
-            $this->_dir_list[$parent] = array($dir, $level + 1, $bottom);
-        }
-        return $this->_dir_list[$parent];
     }
 }

@@ -167,8 +167,8 @@ class Horde_Pear_Package_Xml
         $node->insertBefore($dir, $bottom);
         $this->_insertWhiteSpaceBefore($bottom, " ");
         $this->_insertCommentBefore($bottom, ' ' . $path . ' ');
-        $bottom = $this->_insertWhiteSpace($dir, "\n" . str_repeat(' ', $level + 1));
-        return array($dir, $bottom);
+        $this->_insertWhiteSpace($dir, "\n" . str_repeat(' ', $level + 1));
+        return $dir;
     }
 
     /**
