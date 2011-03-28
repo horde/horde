@@ -42,7 +42,7 @@ extends Components_TestCase
 
     public function testSnapshotAction()
     {
-        $this->assertRegExp('/Action "snapshot"/', $this->getActionHelp('snapshot'));
+        $this->assertRegExp('/ACTION "snapshot"/', $this->getActionHelp('snapshot'));
     }
 
     public function testSnapshot()
