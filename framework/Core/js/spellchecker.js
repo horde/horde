@@ -17,6 +17,9 @@
  * 'SpellChecker:before'
  *    Fired before the spellcheck is performed.
  *
+ * 'SpellChecker:error'
+ *    Fired when at least 1 spellcheck error was found.
+ *
  * 'SpellChecker:noerror'
  *    Fired when no spellcheck errors are found.
  *
@@ -170,6 +173,8 @@ var SpellChecker = Class.create({
         }
 
         this.setStatus('ResumeEdit');
+
+        this.target.fire('SpellChecker:error');
     },
 
     onClick: function(e)

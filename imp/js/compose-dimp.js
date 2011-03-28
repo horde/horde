@@ -480,6 +480,7 @@ var DimpCompose = {
             this.editor_wait = true;
             this.rte.setData($F('composeMessage'), function() { this.editor_wait = false; }.bind(this));
             $('composeMessage').next().show();
+            this.RTELoading('hide');
         }
         this.sc_submit = false;
     },
@@ -492,7 +493,15 @@ var DimpCompose = {
 
         if (IMP_Compose_Base.editor_on) {
             this.rte.updateElement();
+            this.RTELoading('show', true);
             $('composeMessage').next().hide();
+        }
+    },
+
+    _onSpellCheckError: function()
+    {
+        if (IMP_Compose_Base.editor_on) {
+            this.RTELoading('hide');
         }
     },
 
@@ -1054,6 +1063,7 @@ var DimpCompose = {
         if (DIMP.conf_compose.rte_avail) {
             document.observe('SpellChecker:after', this._onSpellCheckAfter.bind(this));
             document.observe('SpellChecker:before', this._onSpellCheckBefore.bind(this));
+            document.observe('SpellChecker:error', this._onSpellCheckError.bind(this));
         }
 
         /* Create sent-mail list. */
