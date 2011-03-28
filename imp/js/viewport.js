@@ -39,8 +39,8 @@
  *               viewport, send a background request to the server to retrieve
  *               the next slice.
  * list_class: (string) The CSS class to use for the results list.
- * list_container: (Element/string) A DOM element to insert the results list
- *                 into. Defaults to the base results list element.
+ * list_header: (Element/string) A DOM element to insert above the results list
+ *              as a header.
  * lookbehind: (integer) What percentage of the received buffer should be
  *             used to download rows before the given row number?
  * onAjaxFailure: (function) Callback function that handles a failure response
@@ -242,13 +242,14 @@ var ViewPort = Class.create({
         this.opts.container = $(opts.container);
         this.opts.pane_data = $(opts.pane_data);
 
-        this.opts.content = new Element('DIV', { className: opts.list_class });
-        if (this.opts.list_container) {
-            this.opts.list_container.insert(this.opts.content);
-        } else {
-            this.opts.list_container = this.opts.content;
+        this.opts.content = new Element('DIV', { className: opts.list_class }).setStyle({ float: 'left' });
+        this.opts.list_container = new Element('DIV');
+        if (this.opts.list_header) {
+            this.opts.list_container.insert(this.opts.list_header);
         }
-        this.opts.container.insert(this.opts.list_container.setStyle({ float: 'left', overflow: 'hidden' }));
+        this.opts.list_container.insert(this.opts.content);
+
+        this.opts.container.insert(this.opts.list_container);
 
         this.scroller = new ViewPort_Scroller(this);
 
@@ -483,9 +484,8 @@ var ViewPort = Class.create({
     // size = (integer) The page size to use instead of auto-determining.
     _onResize: function(size)
     {
-        var h,
-            c = this.opts.list_container,
-            c_opts = {},
+        var c_opts = {},
+            h = this.opts.list_header ?  this.opts.list_header.getHeight() : 0,
             lh = this._getLineHeight(),
             sp = this.split_pane;
 
@@ -504,19 +504,21 @@ var ViewPort = Class.create({
 
             if (!size) {
                 this.page_size = (sp.horiz.loc && sp.horiz.loc > 0)
-                    ? Math.min(sp.horiz.loc, this.getPageSize('splitmax'))
+                    ? Math.min(sp.horiz.loc, this.getPageSize('max'))
                     : this.getPageSize('default');
             }
             sp.horiz.loc = this.page_size;
 
-            if (sp.spacer) {
-                sp.spacer.hide();
-            }
-
-            h = lh * this.page_size;
-            c.setStyle({ height: h + 'px', width: '100%' });
+            h += lh * this.page_size;
+            this.opts.list_container.setStyle({
+                height: h + 'px',
+                float: 'none',
+                overflow: 'hidden',
+                width: 'auto'
+            });
+            this.opts.content.setStyle({ width: '100%' });
             sp.currbar.show();
-            this.opts.pane_data.setStyle({ height: (this._getMaxHeight() - h - lh) + 'px' }).show();
+            this.opts.pane_data.setStyle({ height: (this._getMaxHeight() - h) + 'px' }).show();
             break;
 
         case 'vert':
@@ -530,12 +532,12 @@ var ViewPort = Class.create({
                 sp.vert.width = parseInt(this.opts.container.clientWidth * 0.35, 10);
             }
 
-            if (sp.spacer) {
-                sp.spacer.hide();
-            }
-
-            h = lh * this.page_size;
-            c.setStyle({ height: h + 'px', width: sp.vert.width + 'px' });
+            h += lh * this.page_size;
+            this.opts.list_container.setStyle({
+                float: 'left',
+                height: h + 'px'
+            });
+            this.opts.content.setStyle({ width: sp.vert.width + 'px' });
             sp.currbar.setStyle({ height: h + 'px' }).show();
             this.opts.pane_data.setStyle({ height: h + 'px' }).show();
             break;
@@ -553,14 +555,13 @@ var ViewPort = Class.create({
                 this.page_size = this.getPageSize('max');
             }
 
-            if (sp.spacer) {
-                sp.spacer.show();
-            } else {
-                sp.spacer = new Element('DIV').setStyle({ clear: 'left' });
-                this.opts.content.up().insert(sp.spacer);
-            }
-
-            c.setStyle({ height: (lh * this.page_size) + 'px', width: '100%' });
+            this.opts.list_container.setStyle({
+                float: 'none',
+                height: (h + (lh * this.page_size)) + 'px',
+                overflow: 'hidden',
+                width: 'auto'
+            });
+            this.opts.content.setStyle({ width: '100%' });
             break;
         }
 
@@ -1093,8 +1094,7 @@ var ViewPort = Class.create({
                 : Math.max(parseInt(this.getPageSize('max') * 0.45, 10), 5);
 
         case 'max':
-        case 'splitmax':
-            return parseInt(this._getMaxHeight() / this._getLineHeight()) - (type == 'max' ? 0 : 1);
+            return parseInt(this._getMaxHeight() / this._getLineHeight());
 
         default:
             return this.page_size;
@@ -1103,7 +1103,7 @@ var ViewPort = Class.create({
 
     _getMaxHeight: function()
     {
-        return document.viewport.getHeight() - this.opts.list_container.viewportOffset()[1];
+        return document.viewport.getHeight() - this.opts.content.viewportOffset()[1];
     },
 
     bufferSize: function()
@@ -1149,7 +1149,7 @@ var ViewPort = Class.create({
 
         switch (this.pane_mode) {
         case 'horiz':
-            new Drag(sp.currbar.setStyle({ clear: 'left' }), {
+            new Drag(sp.currbar, {
                 constraint: 'vertical',
                 ghosting: true,
                 nodrop: true,
@@ -1198,9 +1198,9 @@ var ViewPort = Class.create({
             // times in snap().
             sp.lh = this._getLineHeight();
             sp.lines = this.page_size;
-            sp.max = this.getPageSize('splitmax');
+            sp.max = this.getPageSize('max');
             sp.orig = this.page_size;
-            sp.pos = this.opts.list_container.viewportOffset()[1];
+            sp.pos = this.opts.content.viewportOffset()[1];
         }
 
         this.opts.container.fire('ViewPort:splitBarStart', this.pane_mode);

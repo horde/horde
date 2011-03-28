@@ -490,7 +490,7 @@ var DimpBase = {
 
                 switch (mode) {
                 case 'vert':
-                    $('msglistHeader').hide();
+                    $('msglistHeaderHoriz').hide();
                     $('msglistHeaderVert').show();
                     r.VP_bg.unshift('vpRowVert');
                     r.className = r.VP_bg.join(' ');
@@ -498,7 +498,7 @@ var DimpBase = {
 
                 default:
                     $('msglistHeaderVert').hide();
-                    $('msglistHeader').show();
+                    $('msglistHeaderHoriz').show();
                     r.VP_bg.unshift('vpRowHoriz');
                     r.className = r.VP_bg.join(' ');
                     return this.template.horiz.evaluate(r);
@@ -510,7 +510,7 @@ var DimpBase = {
             buffer_pages: DIMP.conf.buffer_pages,
             empty_msg: DIMP.text.vp_empty,
             list_class: 'msglist',
-            list_container: $('msglistContainer'),
+            list_header: $('msglistHeaderContainer').remove(),
             page_size: DIMP.conf.splitbar_pos,
             pane_data: 'previewPane',
             pane_mode: DIMP.conf.preview_pref,
@@ -1303,7 +1303,7 @@ var DimpBase = {
     {
         var hdr, tmp,
             ptr = DIMP.conf.sort,
-            m = $('msglistHeader');
+            m = $('msglistHeaderHoriz');
 
         if (Object.isUndefined(sortby)) {
             sortby = this.viewport.getMetaData('sortby');
@@ -2294,7 +2294,7 @@ var DimpBase = {
                 e.stop();
                 return;
 
-            case 'msglistHeader':
+            case 'msglistHeaderHoriz':
                 tmp = e.element();
                 if (tmp.hasClassName('msCheck')) {
                     this.selectAll();
@@ -3204,7 +3204,7 @@ var DimpBase = {
 
     loadingImg: function(id, show)
     {
-        DimpCore.loadingImg(id + 'Loading', id == 'viewport' ? $('msglistContainer').down('.msglist') : 'previewPane', show);
+        DimpCore.loadingImg(id + 'Loading', id == 'viewport' ? $('msgSplitPane').down('DIV.msglist') : 'previewPane', show);
     },
 
     // p = (element) Parent element
@@ -3342,7 +3342,7 @@ var DimpBase = {
         }
 
         DimpCore.addContextMenu({
-            id: 'msglistHeader',
+            id: 'msglistHeaderHoriz',
             type: 'mboxsort'
         });
 

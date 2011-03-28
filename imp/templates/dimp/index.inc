@@ -150,27 +150,8 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
      </div>
     </div>
 
-    <div id="msgSplitPane">
-     <div id="msglistContainer">
-      <div class="item msglistHeader" id="msglistHeader" style="display:none">
-       <div class="iconImg msgStatus">
-        <div class="iconImg msCheck" title="<?php echo _("Select All") ?>"></div>
-       </div>
-       <div class="msgFrom sep"></div>
-       <div class="msgSubject sep"></div>
-       <div class="msgDate sep"></div>
-       <div class="msgSize sep"></div>
-      </div>
-      <div class="item msglistHeader" id="msglistHeaderVert" style="display:none">
-       <div class="iconImg msgStatus">
-        <div class="iconImg msCheck" title="<?php echo _("Select All") ?>"></div>
-       </div>
-       <div class="msgSort">
-        <a class="widget" id="vertical_sort">Sort</a>
-       </div>
-      </div>
-     </div>
-    </div>
+    <div id="msgSplitPane"></div>
+
     <span id="viewportLoading" class="loadingImg" style="display:none"></span>
 
     <div id="previewPane" style="display:none">
@@ -529,4 +510,24 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
    <td><a href="#" class="messageBodyErrorLink"><?php echo _("Click HERE to view the message in a new window.") ?></a></td>
   </tr>
  </table>
+</div>
+
+<div id="msglistHeaderContainer">
+ <div class="item msglistHeader" id="msglistHeaderHoriz" style="display:none">
+  <div class="iconImg msgStatus">
+   <div class="iconImg msCheck" title="<?php echo _("Select All") ?>"></div>
+  </div>
+  <div class="msgFrom sep"></div>
+  <div class="msgSubject sep"></div>
+  <div class="msgDate sep"></div>
+  <div class="msgSize sep"></div>
+ </div>
+ <div class="item msglistHeader" id="msglistHeaderVert" style="display:none">
+  <div class="iconImg msgStatus">
+   <div class="iconImg msCheck" title="<?php echo _("Select All") ?>"></div>
+  </div>
+  <div class="msgSort">
+   <a class="widget" id="vertical_sort">Sort</a>
+  </div>
+ </div>
 </div>
