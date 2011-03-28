@@ -188,13 +188,15 @@ class Horde_Pear_Package_Xml_Contents
         }
         $this->_file_list[$file][0]->removeChild($this->_file_list[$file][1]);
 
-        $ws = trim($this->_install_list[$file]->nextSibling->textContent);
-        if (empty($ws)) {
-            $this->_filelist->removeChild(
-                $this->_install_list[$file]->nextSibling
-            );
+        if (isset($this->_install_list[$file])) {
+            $ws = trim($this->_install_list[$file]->nextSibling->textContent);
+            if (empty($ws)) {
+                $this->_filelist->removeChild(
+                    $this->_install_list[$file]->nextSibling
+                );
+            }
+            $this->_filelist->removeChild($this->_install_list[$file]);
         }
-        $this->_filelist->removeChild($this->_install_list[$file]);
     }
 
     /**
