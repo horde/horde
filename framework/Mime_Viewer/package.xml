@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Fix OpenOffice MIME viewer.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -699,7 +699,7 @@
    <date>2011-03-22</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Fix OpenOffice MIME viewer.
    </notes>
   </release>
  </changelog>

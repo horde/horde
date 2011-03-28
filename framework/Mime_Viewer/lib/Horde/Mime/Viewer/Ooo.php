@@ -82,15 +82,18 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Base
         if (!$this->getConfigParam('zip')) {
             $this->setConfigParam('zip', Horde_Compress::factory('Zip'));
         }
-        $list = $this->getConfigParam('zip')->decompress($this->_mimepart->getContents(), array('action' => Horde_Compress_Zip::ZIP_LIST));
+        $list = $this->getConfigParam('zip')
+            ->decompress($this->_mimepart->getContents(),
+                         array('action' => Horde_Compress_Zip::ZIP_LIST));
 
         foreach ($list as $key => $file) {
             if (in_array($file['name'], $fnames)) {
-                $content = $zip->decompress($this->_mimepart->getContents(), array(
-                    'action' => Horde_Compress_Zip::ZIP_DATA,
-                    'info' => $list,
-                    'key' => $key
-                ));
+                $content = $this->getConfigParam('zip')
+                    ->decompress($this->_mimepart->getContents(), array(
+                        'action' => Horde_Compress_Zip::ZIP_DATA,
+                        'info' => $list,
+                        'key' => $key
+                    ));
 
                 if ($use_xslt) {
                     file_put_contents($tmpdir . $file['name'], $content);
