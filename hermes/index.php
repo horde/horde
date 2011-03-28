@@ -24,7 +24,6 @@ if ($help_link) {
     $help_link = Horde::widget($help_link, _("Help"), 'helplink', 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;');
 }
 
-$clients = Hermes::listClients();
 $today = new Horde_Date();
 Hermes::header();
 echo "<body class=\"hermesAjax\">\n";
