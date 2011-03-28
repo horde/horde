@@ -33,6 +33,10 @@ var AccessKeys = {
                 } catch (e) {
                 }
 
+                if (navigator.userAgent.indexOf('Chrome/') > -1) {
+                    return;
+                }
+
                 // Trigger a mouse event on the accesskey element.
                 if (elt.tagName == 'INPUT') {
                     // NOOP

@@ -2,6 +2,7 @@
 v4.0-RC2
 --------
 
+[jan] Don't fire access keys twice in Chrome browsers.
 [jan] Fix JavaScript date calculations across DST boundaries.
 [jan] Sort applications in preference menu by name.
 [jan] Add translations for file upload error messages.
