@@ -28,6 +28,14 @@ var AccessKeys = {
                 }
 
                 e.stop();
+
+                if (Prototype.Browser.Opera && elt.tagName == 'LABEL') {
+                    elt = $(elt.readAttribute('for'));
+                    if (!elt) {
+                        return;
+                    }
+                }
+
                 try {
                     elt.focus();
                 } catch (e) {
