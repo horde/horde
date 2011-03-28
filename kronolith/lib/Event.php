@@ -1280,7 +1280,7 @@ abstract class Kronolith_Event
         if ($this->recurs()) {
             $message->setRecurrence($this->recurrence);
 
-            /* Exceptions are tricky. Exceptions, even those are that represent
+            /* Exceptions are tricky. Exceptions, even those that represent
              * deleted instances of a recurring event, must be added. To do this
              * we query the storage for all the events that represent exceptions
              * (those with the baseid == $this->uid) and then remove the
