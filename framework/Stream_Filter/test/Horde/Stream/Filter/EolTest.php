@@ -12,6 +12,8 @@
  */
 class Horde_Stream_Filter_EolTest extends Horde_Test_Case
 {
+    public $fp;
+
     public function setup()
     {
         stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
