@@ -2,6 +2,8 @@
 v5.0-RC2
 --------
 
+[mms] Fix moving to new mailbox, tasklist, and notepad in traditional view
+      (Bug #9732).
 [jan] Add left and right keys as aliases for up and down keys in dynamic view.
 [mms] Add mailbox sorting and select all messages to vertical layout in the
       dynamic view (Request #9708).

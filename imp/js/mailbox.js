@@ -103,26 +103,24 @@ var ImpMailbox = {
             tm2 = $('targetMailbox2');
 
         if (tm2) {
-            if ((form == 1 && $F(tm1) != "") ||
-                (form == 2 && $F(tm2) != "")) {
-                tm1.selectedIndex = tm2.selectedIndex = (form == 1)
-                    ? tm1.selectedIndex
-                    : tm2.selectedIndex;
-            }
+            tm1.selectedIndex = tm2.selectedIndex = (form == 1)
+                ? tm1.selectedIndex
+                : tm2.selectedIndex;
         }
     },
 
     _transfer: function(actID)
     {
-        var newFolder, target, tmbox;
+        var elt, newFolder, target, tmbox;
 
         if (this.anySelected()) {
-            target = $F('targetMailbox1');
+            elt = $('targetMailbox1');
+            target = $F(elt);
             tmbox = $('targetMbox');
             tmbox.setValue(target);
 
             // Check for a mailbox actually being selected.
-            if (target == "\0create") {
+            if ($(elt[elt.selectedIndex]).hasClassName('flistCreate')) {
                 newFolder = prompt(IMP.text.newfolder, '');
                 if (newFolder != null && newFolder != '') {
                     $('newMbox').setValue(1);
@@ -131,8 +129,8 @@ var ImpMailbox = {
                 }
             } else if (target.empty()) {
                 alert(IMP.text.target_mbox);
-            } else if (target.startsWith("\0notepad_") ||
-                       target.startsWith("\0tasklist_")) {
+            } else if (target.startsWith("notepad\0") ||
+                       target.startsWith("tasklist\0")) {
                 this.actIDconfirm = actID;
                 IMPDialog.display({
                     cancel_text: IMP.text.no,

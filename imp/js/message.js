@@ -70,13 +70,14 @@ var ImpMessage = {
     _transfer: function(actID)
     {
         var newFolder,
-            target = $F('target1'),
+            elt = $('target1'),
+            target = $F(elt),
             tmbox = $('targetMbox');
 
         tmbox.setValue(target);
 
         // Check for a mailbox actually being selected.
-        if (target == "\0create") {
+        if ($(elt[elt.selectedIndex]).hasClassName('flistCreate')) {
             newFolder = window.prompt(IMP.text.newfolder, '');
             if (newFolder != null && newFolder != '') {
                 $('newMbox').setValue(1);
@@ -85,8 +86,8 @@ var ImpMessage = {
             }
         } else if (target.empty()) {
             window.alert(IMP.text.target_mbox);
-        } else if (target.startsWith("\0notepad_") ||
-                   target.startsWith("\0tasklist_")) {
+        } else if (target.startsWith("notepad\0") ||
+                   target.startsWith("tasklist\0")) {
             this.actIDconfirm = actID;
             IMPDialog.display({
                 cancel_text: IMP.text.no,

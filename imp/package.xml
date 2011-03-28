@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-25</date>
- <time>15:23:06</time>
+ <date>2011-03-28</date>
+ <time>16:44:01</time>
  <version>
   <release>5.0.0RC2</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix moving to new mailbox, tasklist, and notepad in traditional view (Bug #9732).
 * [jan] Add left and right keys as aliases for up and down keys in dynamic view.
 * [mms] Add mailbox sorting and select all messages to vertical layout in the dynamic view (Request #9708).
 * [jan] Fix expansion of quoted sections in thread view.
@@ -2072,9 +2073,10 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-25</date>
+   <date>2011-03-28</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Fix moving to new mailbox, tasklist, and notepad in traditional view (Bug #9732).
 * [jan] Add left and right keys as aliases for up and down keys in dynamic view.
 * [mms] Add mailbox sorting and select all messages to vertical layout in the dynamic view (Request #9708).
 * [jan] Fix expansion of quoted sections in thread view.
