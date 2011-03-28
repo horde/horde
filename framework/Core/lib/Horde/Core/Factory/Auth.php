@@ -112,7 +112,6 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
             break;
 
         case 'cyrsql':
-        case 'cyrus':
             $imap_config = array(
                 'hostspec' => empty($params['hostspec']) ? null : $params['hostspec'],
                 'password' => $params['cyrpass'],
@@ -127,10 +126,6 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
                 $params['imap'] = $ob;
             } catch (Horde_Imap_Client_Exception $e) {
                 throw new Horde_Auth_Exception($e);
-            }
-
-            if ($lc_driver == 'cyrus') {
-                $params['backend'] = $this->getOb($params['backend']['driver'], $params['backend']['params']);
             }
 
             $params['charset'] = 'UTF-8';

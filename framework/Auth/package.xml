@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-24</date>
- <time>01:35:54</time>
+ <date>2011-03-28</date>
+ <time>16:13:36</time>
  <version>
   <release>1.0.0RC2</release>
   <api>1.0.0</api>
@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
+* Remove Cyrus driver.
 * Remove support for pam_auth (Ticket #6860).
  </notes>
  <contents>
@@ -50,7 +51,6 @@
       <file name="Composite.php" role="php" />
       <file name="Customsql.php" role="php" />
       <file name="Cyrsql.php" role="php" />
-      <file name="Cyrus.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Ftp.php" role="php" />
       <file name="Http.php" role="php" />
@@ -189,7 +189,6 @@
    <install as="Horde/Auth/Composite.php" name="lib/Horde/Auth/Composite.php" />
    <install as="Horde/Auth/Customsql.php" name="lib/Horde/Auth/Customsql.php" />
    <install as="Horde/Auth/Cyrsql.php" name="lib/Horde/Auth/Cyrsql.php" />
-   <install as="Horde/Auth/Cyrus.php" name="lib/Horde/Auth/Cyrus.php" />
    <install as="Horde/Auth/Exception.php" name="lib/Horde/Auth/Exception.php" />
    <install as="Horde/Auth/Ftp.php" name="lib/Horde/Auth/Ftp.php" />
    <install as="Horde/Auth/Http.php" name="lib/Horde/Auth/Http.php" />
@@ -338,9 +337,10 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-24</date>
+   <date>2011-03-28</date>
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
+* Remove Cyrus driver.
 * Remove support for pam_auth (Ticket #6860).
    </notes>
   </release>
