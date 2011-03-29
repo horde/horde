@@ -29,7 +29,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-29</date>
- <time>17:48:32</time>
+ <time>23:58:04</time>
  <version>
   <release>3.0.0RC2</release>
   <api>3.0.0</api>
@@ -1112,7 +1112,7 @@
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * Second release candidate for Horde 4.
-* Fix issue that caused the inability to preview contact images while uploading (Bug #9702).
+* [mjr] Fix issue that caused the inability to preview contact images while uploading (Bug #9702).
    </notes>
   </release>
  </changelog>
