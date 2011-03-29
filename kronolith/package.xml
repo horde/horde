@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-23</date>
- <time>00:23:52</time>
+ <date>2011-03-29</date>
+ <time>17:48:34</time>
  <version>
   <release>3.0.0RC2</release>
   <api>3.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* Second release candidate for Horde 4.
 * [jan] Fix javascript error when viewing events with desktop notifications (Bug #9727).
  </notes>
  <contents>
@@ -1652,14 +1653,17 @@
   <release>
    <version>
     <release>3.0.0RC2</release>
-    <api>3.0.0</api></version>
+    <api>3.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-23</date>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* Second release candidate for Horde 4.
+* [jan] Fix javascript error when viewing events with desktop notifications (Bug #9727).
    </notes>
   </release>
  </changelog>

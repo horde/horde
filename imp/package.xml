@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-29</date>
- <time>16:04:07</time>
+ <time>17:48:31</time>
  <version>
   <release>5.0.0RC2</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* Second release candidate for Horde 4.
 * [jan] Rename all scripts in bin/ to be prefixed with imp- (Request #9647).
 * [jan] Correctly render notifications with embedded HTML in dynamic view (Bug #9729).
 * [mms] Fix moving to new mailbox, tasklist, and notepad in traditional view (Bug #9732).
@@ -2078,6 +2079,8 @@
    <date>2011-03-29</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* Second release candidate for Horde 4.
+* [jan] Rename all scripts in bin/ to be prefixed with imp- (Request #9647).
 * [jan] Correctly render notifications with embedded HTML in dynamic view (Bug #9729).
 * [mms] Fix moving to new mailbox, tasklist, and notepad in traditional view (Bug #9732).
 * [jan] Add left and right keys as aliases for up and down keys in dynamic view.

@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-22</date>
- <time>23:30:35</time>
+ <date>2011-03-29</date>
+ <time>17:41:56</time>
  <version>
   <release>1.0.0RC2</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</license>
  <notes>
-* 
+* Second release candidate for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -122,14 +122,16 @@
   <release>
    <version>
     <release>1.0.0RC2</release>
-    <api>1.0.0</api></version>
+    <api>1.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-22</date>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
    <license uri="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</license>
    <notes>
-* 
+* Second release candidate for Horde 4.
    </notes>
   </release>
  </changelog>

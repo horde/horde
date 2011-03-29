@@ -27,8 +27,8 @@ Reading, writing and listing of files are all supported, and there are both obje
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-24</date>
- <time>17:32:28</time>
+ <date>2011-03-29</date>
+ <time>17:42:03</time>
  <version>
   <release>1.0.0RC2</release>
   <api>1.0.0</api>
@@ -39,6 +39,7 @@ Reading, writing and listing of files are all supported, and there are both obje
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Second release candidate for Horde 4.
 * Fixed VFS folder creation (Bug #9711).
  </notes>
  <contents>
@@ -785,9 +786,10 @@ Added a class for providing garbage collection; removed all Horde dependancies.
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-24</date>
+   <date>2011-03-29</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* Second release candidate for Horde 4.
 * Fixed VFS folder creation (Bug #9711).
    </notes>
   </release>

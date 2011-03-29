@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-25</date>
- <time>18:40:11</time>
+ <date>2011-03-29</date>
+ <time>17:41:38</time>
  <version>
   <release>1.0.0RC2</release>
   <api>1.0.0</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Second release candidate for Horde 4.
 * Add translations.
  </notes>
  <contents>
@@ -508,9 +509,10 @@ Initial packaging
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-25</date>
+   <date>2011-03-29</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* Second release candidate for Horde 4.
 * Add translations.
    </notes>
   </release>

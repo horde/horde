@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-23</date>
- <time>00:27:31</time>
+ <date>2011-03-29</date>
+ <time>17:48:35</time>
  <version>
   <release>3.0.0RC2</release>
   <api>3.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
  <notes>
-* 
+* Second release candidate for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -777,14 +777,16 @@
   <release>
    <version>
     <release>3.0.0RC2</release>
-    <api>3.0.0</api></version>
+    <api>3.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-23</date>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
-* 
+* Second release candidate for Horde 4.
    </notes>
   </release>
  </changelog>

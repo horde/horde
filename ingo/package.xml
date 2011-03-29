@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-23</date>
- <time>00:18:32</time>
+ <date>2011-03-29</date>
+ <time>17:48:33</time>
  <version>
   <release>2.0.0RC2</release>
   <api>2.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* Second release candidate for Horde 4.
 * [jan] Fix updating forward rules in SQL driver (Bug #9699).
  </notes>
  <contents>
@@ -866,13 +867,16 @@
   <release>
    <version>
     <release>2.0.0RC2</release>
-    <api>2.0.0</api></version>
+    <api>2.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-23</date>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
+* Second release candidate for Horde 4.
 * [jan] Fix updating forward rules in SQL driver (Bug #9699).
    </notes>
   </release>

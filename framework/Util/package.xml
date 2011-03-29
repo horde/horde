@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-22</date>
- <time>23:35:19</time>
+ <date>2011-03-29</date>
+ <time>17:42:02</time>
  <version>
   <release>1.0.0RC2</release>
   <api>1.0.0</api>
@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Second release candidate for Horde 4.
 * Fix parsing ISO-8859-15 data with Horde_Domhtml (Bug #9714).
  </notes>
  <contents>
@@ -303,14 +304,17 @@ Converted to package.xml 2.0 for pear.horde.org
   <release>
    <version>
     <release>1.0.0RC2</release>
-    <api>1.0.0</api></version>
+    <api>1.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-22</date>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* Second release candidate for Horde 4.
+* Fix parsing ISO-8859-15 data with Horde_Domhtml (Bug #9714).
    </notes>
   </release>
  </changelog>

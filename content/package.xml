@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-29</date>
- <time>16:04:03</time>
+ <time>17:48:35</time>
  <version>
   <release>1.0.0RC2</release>
   <api>1.0.0</api>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* Second release candidate for Horde 4.
 * [jan] Rename all scripts to be prefixed with content- (Request #9647).
  </notes>
  <contents>
@@ -295,7 +296,8 @@
    <date>2011-03-29</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-*
+* Second release candidate for Horde 4.
+* [jan] Rename all scripts to be prefixed with content- (Request #9647).
    </notes>
   </release>
  </changelog>

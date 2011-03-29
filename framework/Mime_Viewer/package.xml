@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-22</date>
- <time>23:28:18</time>
+ <date>2011-03-29</date>
+ <time>17:41:52</time>
  <version>
   <release>1.0.0RC2</release>
   <api>1.0.0</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Second release candidate for Horde 4.
 * [jan] Fix OpenOffice MIME viewer.
  </notes>
  <contents>
@@ -692,13 +693,16 @@
   <release>
    <version>
     <release>1.0.0RC2</release>
-    <api>1.0.0</api></version>
+    <api>1.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-22</date>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* Second release candidate for Horde 4.
 * [jan] Fix OpenOffice MIME viewer.
    </notes>
   </release>
