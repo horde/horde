@@ -94,14 +94,22 @@ case 'reply_list':
     if ($vars->type == 'reply_auto') {
         $fillform_opts['auto'] = $reply_msg['type'];
     }
-    $vars->type = $reply_msg['type'];
 
-    if ($vars->type == 'reply') {
+    switch ($reply_msg['type']) {
+    case IMP_Compose::REPLY_SENDER:
         $title = _("Reply:");
-    } elseif ($vars->type == 'reply_all') {
+        $vars->type = 'reply';
+        break;
+
+    case IMP_Compose::REPLY_ALL:
         $title = _("Reply to All:");
-    } elseif ($vars->type == 'reply_list') {
+        $vars->type = 'reply_all';
+        break;
+
+    case IMP_Compose::REPLY_LIST:
         $title = _("Reply to List:");
+        $vars->type = 'reply_list';
+        break;
     }
     $title .= ' ' . $header['subject'];
 
@@ -160,7 +168,7 @@ case 'forward_both':
             $show_editor = true;
         }
         if ($vars->type == 'forward_auto') {
-            $fillform_opts['auto'] = $fwd_msg['type'];
+            $fillform_opts['auto'] = array_search($fwd_msg['type'], $fwd_map);
         }
 
         if (!$prefs->isLocked('default_identity') &&

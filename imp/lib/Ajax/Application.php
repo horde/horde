@@ -1203,7 +1203,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 $result->identity = $fwd_msg['identity'];
                 $result->imp_compose = $imp_compose->getCacheId();
                 if ($this->_vars->type == 'forward_auto') {
-                    $result->opts->auto = $fwd_msg['type'];
+                    $result->opts->auto = array_search($fwd_msg['type'], $fwd_map);
                 }
             }
         } catch (Horde_Exception $e) {
@@ -1266,7 +1266,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 $result->identity = $reply_msg['identity'];
                 $result->imp_compose = $imp_compose->getCacheId();
                 if ($this->_vars->type == 'reply_auto') {
-                    $result->opts = array('auto' => $reply_msg['type']);
+                    $result->opts = array('auto' => array_search($reply_msg['type'], $reply_map));
                 }
             }
         } catch (Horde_Exception $e) {
