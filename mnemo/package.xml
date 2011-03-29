@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-29</date>
- <time>17:48:35</time>
+ <date>2011-03-30</date>
+ <time>00:01:45</time>
  <version>
   <release>3.0.0RC2</release>
   <api>3.0.0</api>
@@ -783,7 +783,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-29</date>
+   <date>2011-03-30</date>
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
 * Second release candidate for Horde 4.
