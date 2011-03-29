@@ -245,7 +245,14 @@ case 'reply_list':
         break;
     }
 
-    $reply_msg = $imp_compose->replyMessage($vars->actionID, $contents, $vars->to);
+    $reply_map = array(
+        'reply' => IMP_Compose::REPLY_SENDER,
+        'reply_all' => IMP_Compose::REPLY_ALL,
+        'reply_auto' => IMP_Compose::REPLY_AUTO,
+        'reply_list' => IMP_Compose::REPLY_LIST
+    );
+
+    $reply_msg = $imp_compose->replyMessage($reply_map[$vars->actionID], $contents, $vars->to);
     $msg = $reply_msg['body'];
     $header = $reply_msg['headers'];
     $format = $reply_msg['format'];
@@ -282,7 +289,14 @@ case 'forward_both':
         break;
     }
 
-    $fwd_msg = $imp_compose->forwardMessage($vars->actionID, $contents);
+    $fwd_map = array(
+        'forward_attach' => IMP_Compose::FORWARD_ATTACH,
+        'forward_auto' => IMP_Compose::FORWARD_AUTO,
+        'forward_body' => IMP_Compose::FORWARD_BODY,
+        'forward_both' => IMP_Compose::FORWARD_BOTH
+    );
+
+    $fwd_msg = $imp_compose->forwardMessage($fwd_map[$vars->actionID], $contents);
     $msg = $fwd_msg['body'];
     $header = $fwd_msg['headers'];
     $format = $fwd_msg['format'];

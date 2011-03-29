@@ -1155,26 +1155,25 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * See the list of variables needed for _checkUidvalidity(). Additional
      * variables used:
      * <pre>
-     * 'dataonly' - (boolean) Only return data information (DEFAULT:
-     *              false).
-     * 'imp_compose' - (string) The IMP_Compose cache identifier.
-     * 'type' - (string) See IMP_Compose::forwardMessage().
-     * 'uid' - (string) Indices of the messages to forward (IMAP sequence
-     *         string).
+     * dataonly - (boolean) Only return data information (DEFAULT: false).
+     * imp_compose - (string) The IMP_Compose cache identifier.
+     * type - (string) Forward type.
+     * uid - (string) Indices of the messages to forward (IMAP sequence
+     *       string).
      * </pre>
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
      * <pre>
-     * 'body' - (string) The body text of the message.
-     * 'format' - (string) Either 'text' or 'html'.
-     * 'fwd_list' - (array) See IMP_Dimp::getAttachmentInfo().
-     * 'header' - (array) The headers of the message.
-     * 'identity' - (integer) The identity ID to use for this message.
-     * 'imp_compose' - (string) The IMP_Compose cache identifier.
-     * 'opts' - (array) Additional options needed for DimpCompose.fillForm().
-     * 'type' - (string) The input 'type' value.
-     * 'ViewPort' - (object) See _viewPortData().
+     * body - (string) The body text of the message.
+     * format - (string) Either 'text' or 'html'.
+     * fwd_list - (array) See IMP_Dimp::getAttachmentInfo().
+     * header - (array) The headers of the message.
+     * identity - (integer) The identity ID to use for this message.
+     * imp_compose - (string) The IMP_Compose cache identifier.
+     * opts - (array) Additional options needed for DimpCompose.fillForm().
+     * type - (string) The input 'type' value.
+     * ViewPort - (object) See _viewPortData().
      * </pre>
      */
     public function getForwardData()
@@ -1182,7 +1181,14 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         try {
             list($imp_compose, $imp_contents) = $this->_initCompose();
 
-            $fwd_msg = $imp_compose->forwardMessage($this->_vars->type, $imp_contents);
+            $fwd_map = array(
+                'forward_attach' => IMP_Compose::FORWARD_ATTACH,
+                'forward_auto' => IMP_Compose::FORWARD_AUTO,
+                'forward_body' => IMP_Compose::FORWARD_BODY,
+                'forward_both' => IMP_Compose::FORWARD_BOTH
+            );
+
+            $fwd_msg = $imp_compose->forwardMessage($fwd_map[$this->_vars->type], $imp_contents);
 
             /* Can't open session read-only since we need to store the message
              * cache id. */
@@ -1241,7 +1247,14 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         try {
             list($imp_compose, $imp_contents) = $this->_initCompose();
 
-            $reply_msg = $imp_compose->replyMessage($this->_vars->type, $imp_contents);
+            $reply_map = array(
+                'reply' => IMP_Compose::REPLY_SENDER,
+                'reply_all' => IMP_Compose::REPLY_ALL,
+                'reply_auto' => IMP_Compose::REPLY_AUTO,
+                'reply_list' => IMP_Compose::REPLY_LIST
+            );
+
+            $reply_msg = $imp_compose->replyMessage($reply_map[$this->_vars->type], $imp_contents);
             $reply_msg['headers']['replytype'] = 'reply';
 
             /* Can't open session read-only since we need to store the message

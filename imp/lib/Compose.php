@@ -24,18 +24,17 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     const VFS_DRAFTS_PATH = '.horde/imp/drafts';
 
     /* Compose types. */
-    const COMPOSE = 'new';
-    const REPLY = 'reply';
-    const REPLY_ALL = 'reply_all';
-    const REPLY_AUTO = 'reply_auto';
-    const REPLY_LIST = 'reply_list';
-    const REPLY_SENDER = 'reply';
-    const FORWARD = 'forward';
-    const FORWARD_ATTACH = 'forward_attach';
-    const FORWARD_AUTO = 'forward_auto';
-    const FORWARD_BODY = 'forward_body';
-    const FORWARD_BOTH = 'forward_both';
-    const REDIRECT = 'redirect';
+    const REPLY = 1;
+    const REPLY_ALL = 2;
+    const REPLY_AUTO = 3;
+    const REPLY_LIST = 4;
+    const REPLY_SENDER = 5;
+    const FORWARD = 6;
+    const FORWARD_ATTACH = 7;
+    const FORWARD_AUTO = 8;
+    const FORWARD_BODY = 9;
+    const FORWARD_BOTH = 10;
+    const REDIRECT = 11;
 
     /**
      * Mark as changed for purposes of storing in the session.
@@ -1324,21 +1323,20 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     /**
      * Determines the reply text and headers for a message.
      *
-     * @param string $type            The reply type (reply, reply_all,
-     *                                reply_auto, or reply_list).
+     * @param integer $type           The reply type (self::REPLY* constant).
      * @param IMP_Contents $contents  An IMP_Contents object.
      * @param string $to              The recipient of the reply. Overrides
      *                                the automatically determined value.
      *
      * @return array  An array with the following keys:
      * <pre>
-     * 'body'     - The text of the body part
-     * 'format'   - The format of the body message
-     * 'headers'  - The headers of the message to use for the reply
-     * 'identity' - The identity to use for the reply based on the original
-     *              message's addresses.
-     * 'type'     - The reply type used (either 'reply', 'reply_all', or
-     *              'reply_list').
+     * body - The text of the body part
+     * format - The format of the body message
+     * headers - The headers of the message to use for the reply
+     * identity - The identity to use for the reply based on the original
+     *            message's addresses.
+     * type - The reply type used (either self::REPLY_ALL, self::REPLY_LIST,
+     *        or self::REPLY_SENDER).
      * </pre>
      */
     public function replyMessage($type, $contents, $to = null)
@@ -1613,21 +1611,20 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     /**
      * Determine the text and headers for a forwarded message.
      *
-     * @param string $type            The forward type (forward_attach,
-     *                                forward_body, forward_both,
-     *                                forward_auto).
+     * @param integer $type           The forward type (self::FORWARD*
+     *                                constant).
      * @param IMP_Contents $contents  An IMP_Contents object.
      * @param boolean $attach         Attach the forwarded message?
      *
      * @return array  An array with the following keys:
      * <pre>
-     * 'body'     - The text of the body part
-     * 'format'   - The format of the body message
-     * 'headers'  - The headers of the message to use for the reply
-     * 'identity' - The identity to use for the reply based on the original
+     * body - The text of the body part
+     * format - The format of the body message
+     * headers - The headers of the message to use for the reply
+     * identity - The identity to use for the reply based on the original
      *              message's addresses.
-     * 'type'     - The forward type used (either 'forward_attach',
-     *              'forward_body', or 'forward_both').
+     * type - The forward type used (either self::FORWARD_ATTACH,
+     *        self::FORWARD_BODY, or self::FORWARD_BOTH).
      * </pre>
      */
     public function forwardMessage($type, $contents, $attach = true)
@@ -1641,10 +1638,19 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         );
 
         if ($type == self::FORWARD_AUTO) {
-            if ($type = $GLOBALS['prefs']->getValue('forward_default')) {
-                $type = 'forward_' . $type;
-            } else {
+            switch ($GLOBALS['prefs']->getValue('forward_default')) {
+            case 'body':
+                $type = self::FORWARD_BODY;
+                break;
+
+            case 'both':
+                $type = self::FORWARD_BOTH;
+                break;
+
+            case 'attach':
+            default:
                 $type = self::FORWARD_ATTACH;
+                break;
             }
         }
 

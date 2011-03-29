@@ -147,7 +147,13 @@ case 'rl':
     if (!($imp_contents = $imp_ui->getIMPContents(new IMP_Indices(IMP::$thismailbox, IMP::$uid)))) {
         break;
     }
-    $actions = array('r' => 'reply', 'ra' => 'reply_all', 'rl' => 'reply_list');
+
+    $actions = array(
+        'r' => IMP_Compose::REPLY_SENDER,
+        'ra' => IMP_Compose::REPLY_ALL,
+        'rl' => IMP_Compose::REPLY_LIST
+    );
+
     $reply_msg = $imp_compose->replyMessage($actions[$vars->a], $imp_contents, $header['to']);
     $header = $reply_msg['headers'];
 
@@ -160,7 +166,7 @@ case 'f':
     if (!($imp_contents = $imp_ui->getIMPContents(new IMP_Indices(IMP::$thismailbox, IMP::$uid)))) {
         break;
     }
-    $fwd_msg = $imp_compose->forwardMessage('forward_attach', $imp_contents, false);
+    $fwd_msg = $imp_compose->forwardMessage(IMP_Compose::FORWARD_ATTACH, $imp_contents, false);
     $header = $fwd_msg['headers'];
 
     $notification->push(_("Forwarded message will be automatically added to your outgoing message."), 'horde.message');
@@ -220,13 +226,13 @@ case _("Send"):
 
         switch ($imp_compose->replyType(true)) {
         case IMP_Compose::REPLY:
-            $reply_msg = $imp_compose->replyMessage('reply', $imp_contents, $f_to);
+            $reply_msg = $imp_compose->replyMessage(IMP_Compose::REPLY_SENDER, $imp_contents, $f_to);
             $msg = $reply_msg['body'];
             $message .= "\n" . $msg;
             break;
 
         case IMP_Compose::FORWARD:
-            $fwd_msg = $imp_compose->forwardMessage('forward_attach', $imp_contents);
+            $fwd_msg = $imp_compose->forwardMessage(IMP_Compose::FORWARD_ATTACH, $imp_contents);
             $msg = $fwd_msg['body'];
             $message .= "\n" . $msg;
             break;
