@@ -1,6 +1,6 @@
 <div id="hermesViewTime" style="display:none">
   <div id="hermesLoadingTime" class="hermesLoading"></div>
-  <div id="hermesViewTimeContainer">
+  <div class="hermesViewTimeContainer">
    <div id="hermesTimeEntry">
     <div id="hermesTimeFormCollapse" class="hermesTimeFormShown">&nbsp;</div>
     <h1><?php echo _("Time Entry")?></h1>

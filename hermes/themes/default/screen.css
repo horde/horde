@@ -266,7 +266,7 @@ body.hermesAjax {
 }
 
 /* Main view time */
-#hermesViewTimeContainer {
+.hermesViewTimeContainer {
     position: relative;
     top: 1px;
     right: 0;
@@ -329,7 +329,8 @@ font-family: "American Typewriter","Constantia","Verdana",monospace;
 }
 div.hermesTimeListDate, div.hermesTimeListHours, div.hermesTimeListDesc,
 div.hermesTimeListClient, div.hermesTimeListCostObject, div.hermesTimeListType,
-div.hermesTimeSliceOptions, div.hermesTimeListSelect, div.hermesTimeListBill {
+div.hermesTimeSliceOptions, div.hermesTimeListSelect, div.hermesTimeListBill,
+div.hermesTimeListEmployee {
     float: left;
     white-space: pre-wrap;
     overflow: hidden;
@@ -473,6 +474,78 @@ a.rounded {
     padding-top: 6px;
 }
 
+/* Search Form */
+#hermesSearchFormInputs {
+    margin-left: 7px;
+    margin-right: 7px;
+}
+#hermesSearchFormInputs label {
+    font-weight: bold;
+    white-space: nowrap;
+}
+#hermesSearchFormInputs .input {
+  border: medium none;
+  margin: 7px 7px 0 0;
+  padding: 6px 5px 4px;
+}
+#hermesSearchFormInputs .hermesLongField {
+  border: medium none;
+  margin: 0  7px 0;
+  padding: 6px 5px 4px;
+  width: 98%;
+
+}
+#hermesSearchFormClient {
+    width: 180px;
+}
+#hermesSearchFormCostobject {
+    width: 180px;
+}
+#hermesSearchEntry {
+  background: none repeat scroll 0 0 #dbdbdb;
+  padding: 10px;
+}
+#hermesSearchListBody {
+/*  overflow-x: hidden;
+  overflow-y: auto;*/
+  width: 100%;
+}
+#hermesSearchList {
+    margin: 0 25px 0 25px;
+}
+/* Header */
+#hermesSearchListHeader {
+    width: 100%;
+    display: inline-block;
+    background-color: #ddd;
+    border-color: -moz-use-text-color silver silver;
+    border-right: 1px solid silver;
+    border-style: none solid solid;
+    border-width: 0 1px 1px;
+}
+#hermesSerachListHeader div {
+    height: 14px;
+    text-indent: 2px;
+    font-weight: bold;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+#hermesSearchListBody div {
+    text-indent: 2px;
+}
+#hermesSearchListHeader div.sortup, #hermesSearchListHeader div.sortdown {
+  background-position: 2px 50%;
+  padding-left: 0;
+}
+#hermesSearchListHeader div.sortup a, #hermesSearchListHeader div.sortdown a {
+    padding-left: 14px;
+}
+#hermesSearchListEmpty {
+    text-align: center;
+    font-style: italic;
+    font-size: 125%;
+}
+
 /* Left menu column */
 #hermesMenu {
     position: absolute;
@@ -489,7 +562,7 @@ a.rounded {
     color: #202020;
 }
 /* Time summary */
-#hermesViewTimeContainer h2 {
+.hermesViewTimeContainer h2 {
     float: left;
 }
 .hermesMenuItem .rounded {
