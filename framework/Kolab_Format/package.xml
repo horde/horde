@@ -12,9 +12,9 @@
   <active>yes</active>
  </lead>
  <date>2011-03-29</date>
- <time>17:41:48</time>
+ <time>18:19:55</time>
  <version>
-  <release>1.0.0RC2</release>
+  <release>1.0.0</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
  <notes>
-* Second release candidate for Horde 4.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -324,6 +324,19 @@
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * Second release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-03-29</date>
+   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
