@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-03-29</date>
- <time>23:58:04</time>
+ <time>23:59:04</time>
  <version>
-  <release>3.0.0RC2</release>
+  <release>3.0.0</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -40,8 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* Second release candidate for Horde 4.
-* [mjr] Fix issue that caused the inability to preview contact images while uploading (Bug #9702).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1113,6 +1112,19 @@
    <notes>
 * Second release candidate for Horde 4.
 * [mjr] Fix issue that caused the inability to preview contact images while uploading (Bug #9702).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-03-29</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
