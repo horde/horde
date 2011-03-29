@@ -91,32 +91,29 @@ class Horde_Core_Notification_Status extends Horde_Notification_Event_Status
         case 'horde.error':
             $img = 'alerts/error.png';
             $label = Horde_Core_Translation::t("Error");
-            $text = parent::__toString();
             break;
 
         case 'horde.message':
             $img = 'alerts/message.png';
             $label = Horde_Core_Translation::t("Message");
-            $text = parent::__toString();
             break;
 
         case 'horde.success':
             $img = 'alerts/success.png';
             $label = Horde_Core_Translation::t("Success");
-            $text = parent::__toString();
             break;
 
         case 'horde.warning':
             $img = 'alerts/warning.png';
             $label = Horde_Core_Translation::t("Warning");
-            $text = parent::__toString();
             break;
 
         default:
             return parent::__toString();
         }
 
-        return Horde::img($img, $label) . $text;
+        return Horde::img($img, $label) .
+            (is_null($text) ? parent::__toString() : $text);
     }
 
 }
