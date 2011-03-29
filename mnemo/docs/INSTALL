@@ -147,10 +147,10 @@ Configuring Mnemo
    Mnemo row of the configuration screen.
 
    Alternatively you creating the Mnemo database tables can be accomplished with
-   horde's ``db_migrate`` utility.  If your database is properly setup in the
+   horde's ``horde-db-migrate`` utility.  If your database is properly setup in the
    Horde configuration, just run the following::
 
-      horde/bin/db_migrate mnemo
+      horde/bin/horde-db-migrate mnemo
 
 4. Testing Mnemo
 

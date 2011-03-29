@@ -3,8 +3,8 @@
 /**
  * This script outputs statistics on the current memcache pool.
  *
- * Usage: memcache_stats.php [--all] [--flush] [--lookup=key] [--raw]
- *                           [--summary]
+ * Usage: horde-memcache-stats [--all] [--flush] [--lookup=key] [--raw]
+ *                             [--summary]
  *
  * By default, shows statistics for all servers.
  *
@@ -18,7 +18,14 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+$baseFile = dirname(__FILE__) . '/../lib/Application.php';
+if (file_exists($baseFile)) {
+    require_once $baseFile;
+} else {
+    require_once 'PEAR/Config.php';
+    require_once PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/lib/Application.php';
+}
 Horde_Registry::appInit('horde', array(
     'authentication' => 'none',
     'cli' => true

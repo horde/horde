@@ -2,6 +2,8 @@
 v4.0-RC2
 --------
 
+[jan] Rename all scripts in bin/ to be prefixed with horde- and installed in
+      PEAR's bin_dir (Request #9674).
 [jan] Don't throw exception when setting port number while using localhost in
       MySQL configuration (Bug #9738).
 [jan] Fix building LDAP filter for groups from configuration (Bug #9739).

@@ -164,10 +164,10 @@ Configuring Turba
    Turba row of the configuration screen.
 
    Alternatively you creating the Turba database tables can be accomplished
-   with horde's ``db_migrate`` utility.  If your database is properly setup in
+   with horde's ``horde-db-migrate`` utility.  If your database is properly setup in
    the Horde configuration, just run the following::
 
-      horde/bin/db_migrate turba
+      horde/bin/horde-db-migrate turba
 
 3. Securing Turba
 

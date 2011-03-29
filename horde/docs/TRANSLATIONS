@@ -33,9 +33,9 @@ People seem to like learning from examples better, so I have used dutch
 (nl_NL) as an example everywhere.
 
 There is a command line tool written in PHP for creating and managing
-translations in the ``horde/bin/`` directory.  Usage instructions can be found
-in the `Translator Guide`_ below as well as instructions on how to start and
-maintain translations.
+translations in the ``/usr/bin/`` or ``horde/bin/`` directory.  Usage
+instructions can be found in the `Translator Guide`_ below as well as
+instructions on how to start and maintain translations.
 
 
 Translations don't work
@@ -193,26 +193,23 @@ need to install the ``utf8locale-without-swidth-040319`` package or port.
 Translation Tool
 ================
 
-``translation`` is a small PHP script that should help translators doing
+``horde-translation`` is a small PHP script that should help translators doing
 their work.
 
 Any feedback, bug reports and feature requests should be send to the `i18n
 mailing list`_. This is also the right place for new translations and general
 discussions of i18n and l10n questions and problems.
 
-``translation`` is located in ``horde/bin``, so you will have to make
-``horde/bin`` your working directory in order to run the commands quoted
-below. But you can run the script from any directory, just adapt the directory
-to the script. See _Prerequisites if your PHP binary is not your binary search
-path.
+``horde-translation`` is installed to your ``/usr/bin/`` directory by default,
+if using PEAR to install Horde. Otherwise it's located in ``horde/bin/``
 
 For a list of available commands run::
 
-  ./translation help
+  horde-translation help
 
 For detailed help on a certain command run::
 
-  ./translation help command
+  horde-translation help command
 
 Additional information about creating translations and fixing problems can be
 found in the `Administrator Guide`_.
@@ -257,7 +254,7 @@ suffix in the ``locale`` directories that you can use if you have troubles
 extracting the messages, though these templates might be slightly
 outdated. Run::
 
-  ./translation extract
+  horde-translation extract
 
 You now have to create a new PO file for your language. A locale has the form
 ``ll_CC`` where ``ll`` is the two letter `ISO 639`_ code of the language and
@@ -269,7 +266,7 @@ Canadian French (``fr_CA``) you need to use the full locale too. All other
 languages should only use the ``ll`` part of the locale as a parameter for the
 ``translation`` script.
 
-  ./translation init -l ll
+  horde-translation init -l ll
 
 Now you can start the translation by editing the created
 ``locale/ll/LC_MESSAGES/[modulename].po`` files. You should fill out the the
@@ -294,7 +291,7 @@ complete header of the created PO file, e.g.::
 
 To compile the translations to a binary format run::
 
-  ./translation make -l ll
+  horde-translation make -l ll
 
 After you created the new translation you have to add entries for this locale
 in the configuration file horde/config/nls.php.
@@ -318,7 +315,7 @@ before you can use it.
 
 To create a compendium of all existing translations for a certain locale run::
 
-  ./translation compendium -l ll
+  horde-translation compendium -l ll
 
 The ``compendium.po`` being created will contain all modules' translations of
 this locale merged into a single file. You should take a closer look at this
@@ -356,7 +353,7 @@ translated strings and compile them after.
 
 To update the translation for a module, run::
 
-  ./translation update -m modulename -l ll
+  horde-translation update -m modulename -l ll
 
 This extracts the new strings from the sources and tries to update them from
 already existing translations in the compendium. You just have to translate
@@ -366,16 +363,16 @@ all untranslated strings in the ``modulename.po`` file in the
 If extracting new strings fails for some reason, you can use the provided
 ``.pot`` file instead to update your translation::
 
-  ./translation merge -m modulename -l ll
+  horde-translation merge -m modulename -l ll
 
 If your compendium is in a different directory than the ``translation``
 script, you can specify the path to the compendium::
 
-  ./translation update -m modulename -l ll -c /path/to/compendium
+  horde-translation update -m modulename -l ll -c /path/to/compendium
 
 Once this is done, you can compile the translation by calling::
 
-  ./translation make -m modulename -l ll
+  horde-translation make -m modulename -l ll
 
 Extending existent translations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -415,7 +412,7 @@ screen:
 
   3. You compile the translations using the commands::
 
-       ./translation make --module imp --no-compendium
+       horde-translation make --module imp --no-compendium
 
 Access Keys
 ===========
@@ -630,7 +627,7 @@ Finishing a translation
 If you want to submit a translation to be included in the Horde code base,
 make sure that you have completed all translations. Then run::
 
-  ./translation make-help -l ll
+  horde-translation make-help -l ll
 
 This will mark all entries as being up-to-date so that you or other
 translators can later see which entries have been changed since then.
@@ -640,7 +637,7 @@ Updating an existing translation
 
 Run::
 
-  ./translation update-help -l ll
+  horde-translation update-help -l ll
 
 This will merge your existing help file with all changes from the original,
 English help file since your last translation. Changed entries are marked with

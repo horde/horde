@@ -1539,7 +1539,14 @@ class Horde_Translation_Script
 define('DS', DIRECTORY_SEPARATOR);
 putenv('LANG=en');
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+$baseFile = dirname(__FILE__) . '/../lib/Application.php';
+if (file_exists($baseFile)) {
+    require_once $baseFile;
+} else {
+    require_once 'PEAR/Config.php';
+    require_once PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/lib/Application.php';
+}
 
 $c = new Horde_Cli();
 if (!$c->runningFromCLI()) {

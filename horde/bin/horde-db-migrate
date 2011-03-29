@@ -3,7 +3,7 @@
 /**
  * Database migration script.
  *
- * Usage: db_migrate [(application|directory) [(up|down|version) [debug]]]
+ * Usage: horde-db-migrate [(application|directory) [(up|down|version) [debug]]]
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
@@ -14,7 +14,14 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+$baseFile = dirname(__FILE__) . '/../lib/Application.php';
+if (file_exists($baseFile)) {
+    require_once $baseFile;
+} else {
+    require_once 'PEAR/Config.php';
+    require_once PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/lib/Application.php';
+}
 Horde_Registry::appInit('horde', array(
     'authentication' => 'none',
     'cli' => true

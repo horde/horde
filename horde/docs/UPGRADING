@@ -46,7 +46,7 @@ After updating, log in to Horde as an adminstrator, make sure that all
 configurations are up-to-date, then click on the ``Update all DB schemas``
 button. You can also update the database schemas individually if necessary.
 
-Alternatively there is a command line script ``bin/db_migrate`` that can be
+Alternatively there is a command line script ``horde-db-migrate`` that can be
 used for upgrading the database schemas. Call it without any parameters to
 upgrade schemas for all installed applications and components, or specify the
 application, component, or ``migration/`` directory that you want to upgrade
@@ -110,6 +110,12 @@ avoid any problems you should empty the horde_alarms table after upgrading
 manually. This SQL query should work::
 
     DELETE FROM horde_alarms
+
+The script to generate alarm notifications through a cron job
+(``scripts/alarms.php``) has been renamed and is installed to a different
+location when using the PEAR installation method. The new name is
+``bin/horde-alarms`` and it will be installed to ``/usr/bin/horde-alarms`` by
+default. Update your cron jobs accordingly.
 
 
 PEAR packages

@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-28</date>
- <time>16:44:01</time>
+ <date>2011-03-29</date>
+ <time>16:04:07</time>
  <version>
   <release>5.0.0RC2</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [jan] Rename all scripts in bin/ to be prefixed with imp- (Request #9674).
 * [jan] Correctly render notifications with embedded HTML in dynamic view (Bug #9729).
 * [mms] Fix moving to new mailbox, tasklist, and notepad in traditional view (Bug #9732).
 * [jan] Add left and right keys as aliases for up and down keys in dynamic view.
@@ -50,8 +51,8 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="bounce_spam" role="script" />
-    <file name="query_imap_cache" role="script" />
+    <file name="imp-bounce-spam" role="script" />
+    <file name="imp-query-imap-cache" role="script" />
    </dir> <!-- /bin -->
    <dir name="config">
     <file name="backends.php" role="horde" />
@@ -1354,8 +1355,8 @@
  </usesrole>
  <phprelease>
   <filelist>
-   <install as="bounce_spam" name="bin/bounce_spam" />
-   <install as="query_imap_cache" name="bin/query_imap_cache" />
+   <install as="imp-bounce-spam" name="bin/imp-bounce-spam" />
+   <install as="imp-query-imap-cache" name="bin/imp-query-imap-cache" />
    <install as="imp/config/backends.php" name="config/backends.php" />
    <install as="imp/config/conf.xml" name="config/conf.xml" />
    <install as="imp/config/filter.txt.dist" name="config/filter.txt.dist" />
@@ -2074,7 +2075,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-28</date>
+   <date>2011-03-29</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [jan] Correctly render notifications with embedded HTML in dynamic view (Bug #9729).

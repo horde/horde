@@ -14,7 +14,14 @@
  * @package  IMP
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+$baseFile = dirname(__FILE__) . '/../lib/Application.php';
+if (file_exists($baseFile)) {
+    require_once $baseFile;
+} else {
+    require_once 'PEAR/Config.php';
+    require_once PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/imp/lib/Application.php';
+}
 Horde_Registry::appInit('imp', array('cli' => true));
 
 $c = new Console_Getopt();
@@ -302,9 +309,9 @@ function _usage()
 {
     global $cli;
 
-    $cli->writeln($cli->bold('Usage: query_imap_cache [--user=username]'));
-    $cli->writeln($cli->bold('                        [--pass=password]'));
-    $cli->writeln($cli->bold('                        [--server=serverkey]'));
+    $cli->writeln($cli->bold('Usage: imp-query-imap-cache [--user=username]'));
+    $cli->writeln($cli->bold('                            [--pass=password]'));
+    $cli->writeln($cli->bold('                            [--server=serverkey]'));
     $cli->writeln();
     $cli->writeln($cli->indent('--pass    Use this password (otherwise, is prompted)'));
     $cli->writeln($cli->indent('--server  Use this server key (otherwise, is prompted)'));

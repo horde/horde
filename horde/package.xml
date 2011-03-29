@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-23</date>
- <time>00:13:30</time>
+ <date>2011-03-29</date>
+ <time>15:54:47</time>
  <version>
   <release>4.0.0RC2</release>
   <api>4.0.0</api>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Rename all scripts in bin/ to be prefixed with horde- and installed in bin_dir (Request #9674).
 * [jan] Fire access keys on hidden elements in Internet Explorer (Bug #8057).
 * [jan] Don&apos;t fire access keys twice in Chrome browsers.
 * [jan] Fix JavaScript date calculations across DST boundaries.
@@ -93,19 +94,19 @@
    </dir> <!-- /admin -->
    <dir name="bin">
     <dir name="import">
-     <file name="import_squirrelmail_prefs" role="script" />
+     <file name="horde-import-squirrelmail-prefs" role="script" />
     </dir> <!-- /bin/import -->
-    <file name="active_sessions" role="horde" />
-    <file name="alarms" role="horde" />
-    <file name="check_logger" role="horde" />
-    <file name="clear_cache" role="script" />
-    <file name="crond" role="script" />
-    <file name="db_migrate" role="horde" />
-    <file name="memcache_stats" role="horde" />
-    <file name="run_task" role="horde" />
-    <file name="set_perms" role="script" />
-    <file name="themes" role="script" />
-    <file name="translation" role="horde" />
+    <file name="horde-active-sessions" role="script" />
+    <file name="horde-alarms" role="script" />
+    <file name="horde-check-logger" role="script" />
+    <file name="horde-clear-cache" role="script" />
+    <file name="horde-crond" role="script" />
+    <file name="horde-db-migrate" role="script" />
+    <file name="horde-memcache-stats" role="script" />
+    <file name="horde-run-task" role="script" />
+    <file name="horde-set-perms" role="script" />
+    <file name="horde-themes" role="script" />
+    <file name="horde-translation" role="script" />
    </dir> <!-- /bin -->
    <dir name="config">
     <dir name="registry.d">
@@ -322,6 +323,7 @@
      <file name="plupload.silverlight.xap" role="horde" />
      <file name="uploader.js" role="horde" />
     </dir> <!-- /js/plupload -->
+    <file name="accesskeys.html" role="horde" />
     <file name="accesskeys.js" role="horde" />
     <file name="activesyncadmin.js" role="horde" />
     <file name="activesyncprefs.js" role="horde" />
@@ -2392,18 +2394,18 @@
    <install as="admin/perms/delete.php" name="admin/perms/delete.php" />
    <install as="admin/perms/edit.php" name="admin/perms/edit.php" />
    <install as="admin/perms/index.php" name="admin/perms/index.php" />
-   <install as="bin/active_sessions" name="bin/active_sessions" />
-   <install as="bin/alarms" name="bin/alarms" />
-   <install as="bin/check_logger" name="bin/check_logger" />
-   <install as="clear_cache" name="bin/clear_cache" />
-   <install as="crond" name="bin/crond" />
-   <install as="bin/db_migrate" name="bin/db_migrate" />
-   <install as="bin/memcache_stats" name="bin/memcache_stats" />
-   <install as="bin/run_task" name="bin/run_task" />
-   <install as="set_perms" name="bin/set_perms" />
-   <install as="themes" name="bin/themes" />
-   <install as="bin/translation" name="bin/translation" />
-   <install as="import_squirrelmail_prefs" name="bin/import/import_squirrelmail_prefs" />
+   <install as="horde-active-sessions" name="bin/horde-active-sessions" />
+   <install as="horde-alarms" name="bin/horde-alarms" />
+   <install as="horde-check-logger" name="bin/horde-check-logger" />
+   <install as="horde-clear-cache" name="bin/horde-clear-cache" />
+   <install as="horde-crond" name="bin/horde-crond" />
+   <install as="horde-db-migrate" name="bin/horde-db-migrate" />
+   <install as="horde-memcache-stats" name="bin/horde-memcache-stats" />
+   <install as="horde-run-task" name="bin/horde-run-task" />
+   <install as="horde-set-perms" name="bin/horde-set-perms" />
+   <install as="horde-themes" name="bin/horde-themes" />
+   <install as="horde-translation" name="bin/horde-translation" />
+   <install as="horde-import-squirrelmail-prefs" name="bin/import/horde-import-squirrelmail-prefs" />
    <install as="config/conf.php.dist" name="config/conf.php.dist" />
    <install as="config/conf.xml" name="config/conf.xml" />
    <install as="config/hooks.php.dist" name="config/hooks.php.dist" />
@@ -2426,6 +2428,7 @@
    <install as="SECURITY" name="docs/SECURITY" />
    <install as="TRANSLATIONS" name="docs/TRANSLATIONS" />
    <install as="UPGRADING" name="docs/UPGRADING" />
+   <install as="js/accesskeys.html" name="js/accesskeys.html" />
    <install as="js/accesskeys.js" name="js/accesskeys.js" />
    <install as="js/activesyncadmin.js" name="js/activesyncadmin.js" />
    <install as="js/activesyncprefs.js" name="js/activesyncprefs.js" />
@@ -3978,11 +3981,13 @@
   <release>
    <version>
     <release>4.0.0RC2</release>
-    <api>4.0.0</api></version>
+    <api>4.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-23</date>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Fire access keys on hidden elements in Internet Explorer (Bug #8057).

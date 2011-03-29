@@ -16,8 +16,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-23</date>
- <time>10:18:46</time>
+ <date>2011-03-29</date>
+ <time>16:04:03</time>
  <version>
   <release>1.0.0RC2</release>
   <api>1.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-*
+* [jan] Rename all scripts to be prefixed with content- (Request #9674).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -45,12 +45,12 @@
     </dir> <!-- /app/views -->
    </dir> <!-- /app -->
    <dir name="bin">
-    <file name="object_add.php" role="script" />
-    <file name="object_delete.php" role="script" />
-    <file name="tag.php" role="script" />
-    <file name="tag_add.php" role="script" />
-    <file name="tag_delete.php" role="script" />
-    <file name="untag.php" role="script" />
+    <file name="content-object-add" role="script" />
+    <file name="content-object-delete" role="script" />
+    <file name="content-tag" role="script" />
+    <file name="content-tag-add" role="script" />
+    <file name="content-tag-delete" role="script" />
+    <file name="content-untag" role="script" />
    </dir> <!-- /bin -->
    <dir name="config">
     <file name="routes.php" role="horde" />
@@ -205,12 +205,12 @@
    <install as="content/app/controllers/TagController.php" name="app/controllers/TagController.php" />
    <install as="content/app/views/Tag/recentTags.html.php" name="app/views/Tag/recentTags.html.php" />
    <install as="content/app/views/Tag/searchTags.html.php" name="app/views/Tag/searchTags.html.php" />
-   <install as="object_add" name="bin/object_add.php" />
-   <install as="object_delete" name="bin/object_delete.php" />
-   <install as="tag" name="bin/tag.php" />
-   <install as="tag_add" name="bin/tag_add.php" />
-   <install as="tag_delete" name="bin/tag_delete.php" />
-   <install as="untag" name="bin/untag.php" />
+   <install as="content-object-add" name="bin/content-object-add" />
+   <install as="content-object-delete" name="bin/content-object-delete" />
+   <install as="content-tag" name="bin/content-tag" />
+   <install as="content-tag-add" name="bin/content-tag-add" />
+   <install as="content-tag-delete" name="bin/content-tag-delete" />
+   <install as="content-untag" name="bin/content-untag" />
    <install as="content/config/routes.php" name="config/routes.php" />
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO.txt" name="docs/TODO.txt" />
@@ -292,7 +292,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-23</date>
+   <date>2011-03-29</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 *

@@ -3,7 +3,7 @@
 /**
  * Script to run a Horde_LoginTasks task and/or system task.
  *
- * Usage: run_task -a [app] -t [taskname] -u [username]
+ * Usage: horde-run-task -a [app] -t [taskname] -u [username]
  *   Taskname is the name of the file in the application's SystemTask/Task
  *   directory without the .php extension - this script will automatically
  *   build the full class name.
@@ -17,7 +17,14 @@
  * @category Horde
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+$baseFile = dirname(__FILE__) . '/../lib/Application.php';
+if (file_exists($baseFile)) {
+    require_once $baseFile;
+} else {
+    require_once 'PEAR/Config.php';
+    require_once PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/lib/Application.php';
+}
 Horde_Registry::appInit('horde', array('cli' => true));
 
 $c = new Console_Getopt();

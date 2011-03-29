@@ -168,10 +168,10 @@ Configuring Skeleton
    Skeleton row of the configuration screen.
 
    Alternatively you creating the Skeleton database tables can be accomplished
-   with horde's ``db_migrate`` utility.  If your database is properly setup in
+   with horde's ``horde-db-migrate`` utility.  If your database is properly setup in
    the Horde configuration, just run the following::
 
-      horde/bin/db_migrate skeleton
+      horde/bin/horde-db-migrate skeleton
 
 3. More instructions, upgrading, securing, etc.
 

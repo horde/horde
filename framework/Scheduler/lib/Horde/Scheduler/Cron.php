@@ -95,7 +95,7 @@ class Horde_Scheduler_Cron extends Horde_Scheduler
     public function run()
     {
         if (!count($this->_tasks)) {
-            exit("crond: Nothing to schedule; exiting.\n");
+            exit("horde-crond: Nothing to schedule; exiting.\n");
         }
 
         while (true) {

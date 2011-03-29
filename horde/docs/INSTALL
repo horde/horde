@@ -680,16 +680,16 @@ Configuring Horde
    configuration to already exist, and the configured database user to have
    sufficient permissions to create new tables in this database.
 
-   Alternatively you can run the ``bin/db_migrate`` script in the Horde
+   Alternatively you can run the ``bin/horde-db-migrate`` script in the Horde
    directory from the command line.
 
-   TODO: Update documentation once db_migrate takes (super-) user credentials
+   TODO: Update documentation once horde-db-migrate takes (super-) user credentials
    as command line flags.
 
 5. Setting up alarm emails
 
    If you want your users to be able to receive emails from the Horde_Alarm
-   system, you must set up a cron entry for ``horde/bin/alarms.php``, you
+   system, you must set up a cron entry for ``horde-alarms``, you
    must have at least one administrator specified in the Horde configuration,
    and you must have the PHP CLI installed (a CGI binary is not supported -
    ``php -v`` will report what kind of PHP binary you have).
@@ -697,10 +697,11 @@ Configuring Horde
    Running the job every 5 minutes is recommended::
 
       # Horde Alarms
-      */5 * * * * /usr/bin/php /var/www/horde/bin/alarms
+      */5 * * * * /usr/bin/horde-alarms
 
-   (replace ``/usr/bin/php`` with the path to your PHP CLI and
-   ``/var/www/horde/`` with the path to your Horde installation)
+   If not installing Horde through PEAR of if PEAR's ``bin_dir`` configuration
+   doesn't point to ``/usr/bin/``, replace ``/usr/bin/horde-alarms`` with the
+   path to the ``horde-alarms`` script in your Horde installation.
 
 6. Testing Horde
 

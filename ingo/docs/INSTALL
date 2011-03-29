@@ -156,10 +156,10 @@ Configuring Ingo
    Ingo row of the configuration screen.
 
    Alternatively you creating the Ingo database tables can be accomplished with
-   horde's ``db_migrate`` utility.  If your database is properly setup in the
+   horde's ``horde-db-migrate`` utility.  If your database is properly setup in the
    Horde configuration, just run the following::
 
-      horde/bin/db_migrate ingo
+      horde/bin/horde-db-migrate ingo
 
 
 Known Problems
