@@ -375,63 +375,63 @@ owns or has access to.</description>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC1</min>
+    <min>1.0.0RC2</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC1</min>
+    <min>1.0.0RC2</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Group</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC1</min>
+    <min>1.0.0RC2</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC1</min>
+    <min>1.0.0RC2</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC1</min>
+    <min>1.0.0RC2</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Sql</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC1</min>
+    <min>1.0.0RC2</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC1</min>
+    <min>1.0.0RC2</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC1</min>
+    <min>1.0.0RC2</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC1</min>
+    <min>1.0.0RC2</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -440,14 +440,14 @@ owns or has access to.</description>
    <package>
     <name>Horde_DataTree</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC1</min>
+    <min>1.0.0RC2</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Kolab_Storage</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC1</min>
+    <min>1.0.0RC2</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>

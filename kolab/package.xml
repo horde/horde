@@ -96,63 +96,63 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0RC1</min>
+    <min>4.0.0RC2</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
    </package>
    <package>
     <name>content</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC1</min>
+    <min>1.0.0RC2</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>imp</name>
     <channel>pear.horde.org</channel>
-    <min>5.0.0RC1</min>
+    <min>5.0.0RC2</min>
     <max>6.0.0</max>
     <exclude>6.0.0</exclude>
    </package>
    <package>
     <name>ingo</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0RC1</min>
+    <min>2.0.0RC2</min>
     <max>3.0.0</max>
     <exclude>3.0.0</exclude>
    </package>
    <package>
     <name>kronolith</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.0RC1</min>
+    <min>3.0.0RC2</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
    <package>
     <name>mnemo</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.0RC1</min>
+    <min>3.0.0RC2</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
    <package>
     <name>nag</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.0RC1</min>
+    <min>3.0.0RC2</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
    <package>
     <name>timeobjects</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC1</min>
+    <min>1.0.0RC2</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>turba</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.0RC1</min>
+    <min>3.0.0RC2</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>

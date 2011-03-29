@@ -163,7 +163,7 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC1</min>
+    <min>1.0.0RC2</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -175,21 +175,21 @@
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC1</min>
+    <min>1.0.0RC2</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC1</min>
+    <min>1.0.0RC2</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC1</min>
+    <min>1.0.0RC2</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
