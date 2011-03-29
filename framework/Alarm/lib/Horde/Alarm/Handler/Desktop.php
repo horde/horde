@@ -74,7 +74,7 @@ class Horde_Alarm_Handler_Desktop extends Horde_Alarm_Handler
                       $this->_icon,
                       addslashes($alarm['title']),
                       isset($alarm['text']) ? addslashes($alarm['text']) : '');
-        call_user_func($this->_jsNotify($js));
+        call_user_func($this->_jsNotify, $js);
     }
 
     /**
