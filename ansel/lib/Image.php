@@ -377,11 +377,6 @@ class Ansel_Image Implements Iterator
      */
     public function createView($view, Ansel_Style $style = null)
     {
-        /* Force screen images to ALWAYS be jpegs for performance/size */
-        if ($view == 'screen' && $GLOBALS['conf']['image']['type'] != 'jpeg') {
-            $this->_image->setType('jpeg');
-        }
-
         /* Default to the gallery's style */
         if (empty($style)) {
             $style = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($this->gallery)->getStyle();
@@ -397,6 +392,13 @@ class Ansel_Image Implements Iterator
         } catch (Horde_Vfs_Exception $e) {
             Horde::logMessage($e, 'ERR');
             throw new Ansel_Exception($e);
+        }
+
+        /* Force screen images to ALWAYS be jpegs for performance/size */
+        if ($view == 'screen' && $GLOBALS['conf']['image']['type'] != 'jpeg') {
+            $originalType = $this->_image->setType('jpeg');
+        } else {
+            $originalType = false;
         }
 
         $vHash = $this->getViewHash($view, $style);
@@ -444,6 +446,11 @@ class Ansel_Image Implements Iterator
 
             $this->watermark('screen');
             $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->writeData($vfspath, $this->getVFSName($view), $this->_image->_data);
+        }
+
+        /* Revert any type change */
+        if ($originalType) {
+            $this->_image->setType($originalType);
         }
 
         return true;
