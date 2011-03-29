@@ -5164,21 +5164,23 @@ KronolithCore = {
                 $('kronolithEventAlarmDefaultOff').checked = true;
                 $H(ev.m).each(function(method) {
                     $('kronolithEventAlarm' + method.key).setValue(1);
-                    $('kronolithEventAlarm' + method.key + 'Params').show();
-                    $H(method.value).each(function(param) {
-                        var input = $('kronolithEventAlarmParam' + param.key);
-                        if (input.type == 'radio') {
-                            input.up('form').select('input[type=radio]').each(function(radio) {
-                                if (radio.name == input.name &&
-                                    radio.value == param.value) {
-                                    radio.setValue(1);
-                                    throw $break;
-                                }
-                            });
-                        } else {
-                            input.setValue(param.value);
-                        }
-                    });
+                    if ($('kronolithEventAlarm' + method.key + 'Params')) {
+                        $('kronolithEventAlarm' + method.key + 'Params').show();
+                        $H(method.value).each(function(param) {
+                            var input = $('kronolithEventAlarmParam' + param.key);
+                            if (input.type == 'radio') {
+                                input.up('form').select('input[type=radio]').each(function(radio) {
+                                    if (radio.name == input.name &&
+                                        radio.value == param.value) {
+                                        radio.setValue(1);
+                                        throw $break;
+                                    }
+                                });
+                            } else {
+                                input.setValue(param.value);
+                            }
+                        });
+                    }
                 });
             }
         } else {
