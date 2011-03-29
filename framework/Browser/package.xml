@@ -30,7 +30,9 @@
     <dir name="Horde">
      <dir name="Browser">
       <file name="Exception.php" role="php" />
-      <file name="Translation.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
      </dir> <!-- /lib/Horde/Browser -->
      <file name="Browser.php" role="php" />
     </dir> <!-- /lib/Horde -->
