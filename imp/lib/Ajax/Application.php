@@ -1199,12 +1199,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->type = $this->_vars->type;
             if (!$this->_vars->dataonly) {
                 $result->format = $fwd_msg['format'];
-                $fwd_msg['headers']['replytype'] = 'forward';
                 $result->header = $fwd_msg['headers'];
                 $result->identity = $fwd_msg['identity'];
                 $result->imp_compose = $imp_compose->getCacheId();
                 if ($this->_vars->type == 'forward_auto') {
-                    $result->opts->auto = $fwd_msg['type'];
+                    $result->opts->auto = array_search($fwd_msg['type'], $fwd_map);
                 }
             }
         } catch (Horde_Exception $e) {
@@ -1255,7 +1254,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             );
 
             $reply_msg = $imp_compose->replyMessage($reply_map[$this->_vars->type], $imp_contents);
-            $reply_msg['headers']['replytype'] = 'reply';
 
             /* Can't open session read-only since we need to store the message
              * cache id. */
@@ -1268,7 +1266,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 $result->identity = $reply_msg['identity'];
                 $result->imp_compose = $imp_compose->getCacheId();
                 if ($this->_vars->type == 'reply_auto') {
-                    $result->opts = array('auto' => $reply_msg['type']);
+                    $result->opts = array('auto' => array_search($reply_msg['type'], $reply_map));
                 }
             }
         } catch (Horde_Exception $e) {

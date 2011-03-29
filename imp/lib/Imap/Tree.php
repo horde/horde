@@ -18,7 +18,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
+class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 {
     /* Serialized version. */
     const VERSION = 1;
@@ -1650,6 +1650,17 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     public function offsetUnset($offset)
     {
         $this->delete($offset);
+    }
+
+    /* Countable methods. */
+
+    /**
+     * Return the number of mailboxes on the server.
+     */
+    public function count()
+    {
+        $this->setIteratorFilter(self::FLIST_NOCONTAINER | self::FLIST_UNSUB);
+        return count(iterator_to_array($this));
     }
 
     /* Iterator methods. */

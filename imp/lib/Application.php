@@ -124,6 +124,9 @@ class IMP_Application extends Horde_Registry_Application
             Horde_Mime_Headers::$defaultCharset = $def_charset;
         }
 
+        // Always use Windows-1252 in place of ISO-8859-1 for MIME decoding.
+        Horde_Mime::$decodeWindows1252 = true;
+
         IMP::setCurrentMailboxInfo();
 
         $GLOBALS['notification']->addDecorator(new IMP_Notification_Handler_Decorator_Imap());
@@ -220,7 +223,7 @@ class IMP_Application extends Horde_Registry_Application
 
         case 'max_folders':
             if (empty($opts['value'])) {
-                return ($allowed >= count($GLOBALS['injector']->getInstance('IMP_Folder')->flist_IMP(array(), false)));
+                return ($allowed >= count($GLOBALS['injector']->getInstance('IMP_Imap_Tree')));
             }
             break;
 

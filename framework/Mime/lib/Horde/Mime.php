@@ -76,6 +76,13 @@ class Horde_Mime
     static public $brokenRFC2231 = false;
 
     /**
+     * Use windows-1252 charset when decoding ISO-8859-1 data?
+     *
+     * @var boolean
+     */
+    static public $decodeWindows1252 = false;
+
+    /**
      * Determines if a string contains 8-bit (non US-ASCII) characters.
      *
      * @param string $string   The string to check.
@@ -310,7 +317,11 @@ class Horde_Mime
             return $string;
         }
 
-        $charset = substr($string, $pos + 2, $d1);
+        $charset = $orig_charset = substr($string, $pos + 2, $d1);
+        if (self::$decodeWindows1252 &&
+            (Horde_String::lower($orig_charset) == 'iso-8859-1')) {
+            $orig_charset = 'windows-1252';
+        }
         $search = substr($search, $d1 + 1);
 
         $d2 = strpos($search, '?');
@@ -333,12 +344,12 @@ class Horde_Mime
         case 'Q':
         case 'q':
             $decoded = preg_replace('/=([0-9a-f]{2})/ie', 'chr(0x\1)', str_replace('_', ' ', $encoded_text));
-            $decoded = Horde_String::convertCharset($decoded, $charset, $to_charset);
+            $decoded = Horde_String::convertCharset($decoded, $orig_charset, $to_charset);
             break;
 
         case 'B':
         case 'b':
-            $decoded = Horde_String::convertCharset(base64_decode($encoded_text), $charset, $to_charset);
+            $decoded = Horde_String::convertCharset(base64_decode($encoded_text), $orig_charset, $to_charset);
             break;
 
         default:
@@ -557,6 +568,10 @@ class Horde_Mime
             $val = $ret['params'][$name];
             $quote = strpos($val, "'");
             $orig_charset = substr($val, 0, $quote);
+            if (self::$decodeWindows1252 &&
+                (Horde_String::lower($orig_charset) == 'iso-8859-1')) {
+                $orig_charset = 'windows-1252';
+            }
             /* Ignore language. */
             $quote = strpos($val, "'", $quote + 1);
             substr($val, $quote + 1);

@@ -256,26 +256,28 @@ case 'reply_list':
     $msg = $reply_msg['body'];
     $header = $reply_msg['headers'];
     $format = $reply_msg['format'];
-    $vars->actionID = $reply_msg['type'];
 
-    if (!is_null($rtemode)) {
-        $rtemode = $rtemode || $format == 'html';
-    }
-
-    switch ($vars->actionID) {
-    case 'reply':
+    switch ($reply_msg['type']) {
+    case IMP_Compose::REPLY_SENDER:
+        $vars->actionID = 'reply';
         $title = _("Reply:");
         break;
 
-    case 'reply_all':
+    case IMP_Compose::REPLY_ALL:
+        $vars->actionID = 'reply_all';
         $title = _("Reply to All:");
         break;
 
-    case 'reply_list':
+    case IMP_Compose::REPLY_LIST:
+        $vars->actionID = 'reply_list';
         $title = _("Reply to List:");
         break;
     }
     $title .= ' ' . $header['subject'];
+
+    if (!is_null($rtemode)) {
+        $rtemode = $rtemode || $format == 'html';
+    }
     break;
 
 case 'forward_attach':
