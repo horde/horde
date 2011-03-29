@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Fix building LDAP filter from configuration (Bug #9739).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

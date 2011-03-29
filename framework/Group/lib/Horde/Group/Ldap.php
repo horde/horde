@@ -71,8 +71,7 @@ class Horde_Group_Ldap extends Horde_Group_Base
 
         /* Generate LDAP search filter. */
         try {
-            $this->_filter = Horde_Ldap_Filter::build(
-                isset($params['filter']) ? $params['filter'] : $params);
+            $this->_filter = Horde_Ldap_Filter::build($params['search']);
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Group_Exception($e);
         }

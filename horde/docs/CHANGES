@@ -2,6 +2,7 @@
 v4.0-RC2
 --------
 
+[jan] Fix building LDAP filter for groups from configuration (Bug #9739).
 [jan] Fix loading of Horde's vhost conf.php file (Bug #9704).
 [jan] Fix OpenOffice MIME viewer.
 [jan] Fire access keys on hidden elements in Internet Explorer (Bug #8057).
