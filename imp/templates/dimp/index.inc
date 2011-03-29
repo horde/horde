@@ -426,7 +426,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="oa_sort_subject"><span class="iconImg"></span><?php echo _("Subject") ?></a>
  <a id="oa_sort_thread"><span class="iconImg"></span><?php echo _("Thread") ?></a>
  <a id="oa_sort_date"><span class="iconImg"></span><?php echo _("Date") ?></a>
- <a id="oa_date_size"><span class="iconImg"></span><?php echo _("Size") ?></a>
+ <a id="oa_sort_size"><span class="iconImg"></span><?php echo _("Size") ?></a>
 </div>
 
 <div class="context" id="ctx_filter" style="display:none">
