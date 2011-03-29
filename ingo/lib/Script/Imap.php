@@ -353,8 +353,12 @@ class Ingo_Script_Imap extends Ingo_Script
     {
         if ($this->performAvailable() &&
             $GLOBALS['registry']->hasMethod('mail/server')) {
-            $server = $GLOBALS['registry']->call('mail/server');
-            return ($server['protocol'] == 'imap');
+            try {
+                $server = $GLOBALS['registry']->call('mail/server');
+                return ($server['protocol'] == 'imap');
+            } catch (Horde_Exception $e) {
+                return false;
+            }
         }
 
         return false;
