@@ -2,6 +2,7 @@
 v5.0-RC2
 --------
 
+[mms] Fix max_folders permission (Bug #9741).
 [jan] Rename all scripts in bin/ to be prefixed with imp- (Request #9647).
 [jan] Correctly render notifications with embedded HTML in dynamic view
       (Bug #9729).

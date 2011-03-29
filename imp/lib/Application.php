@@ -223,7 +223,7 @@ class IMP_Application extends Horde_Registry_Application
 
         case 'max_folders':
             if (empty($opts['value'])) {
-                return ($allowed >= count($GLOBALS['injector']->getInstance('IMP_Folder')->flist_IMP(array(), false)));
+                return ($allowed >= count($GLOBALS['injector']->getInstance('IMP_Imap_Tree')));
             }
             break;
 

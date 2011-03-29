@@ -35,6 +35,7 @@
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
 * Second release candidate for Horde 4.
+* Fix max_folders permission (Bug #9741).
 * [jan] Rename all scripts in bin/ to be prefixed with imp- (Request #9647).
 * [jan] Correctly render notifications with embedded HTML in dynamic view (Bug #9729).
 * [mms] Fix moving to new mailbox, tasklist, and notepad in traditional view (Bug #9732).
