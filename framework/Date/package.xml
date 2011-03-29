@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Fix correcting dates when substracting a day.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

@@ -68,6 +68,26 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $d->sec);
         $this->assertEquals(0, $d->min);
         $this->assertEquals(4, $d->hour);
+
+        $d = new Horde_Date('2011-03-31 00:00:00');
+        $d->month += 1;
+        $this->assertEquals(5, $d->month);
+        $this->assertEquals(1, $d->day);
+
+        $d = new Horde_Date('2011-03-31 00:00:00');
+        $d->month -= 1;
+        $this->assertEquals(2, $d->month);
+        $this->assertEquals(28, $d->day);
+
+        $d = new Horde_Date('2011-02-28 00:00:00');
+        $d->day += 1;
+        $this->assertEquals(3, $d->month);
+        $this->assertEquals(1, $d->day);
+
+        $d = new Horde_Date('2011-03-01 00:00:00');
+        $d->day -= 1;
+        $this->assertEquals(2, $d->month);
+        $this->assertEquals(28, $d->day);
     }
 
     public function testTimestamp()
