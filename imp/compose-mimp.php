@@ -213,19 +213,19 @@ case _("Send"):
     $old_header = $header;
     $header = array();
 
-    if ($ctype = $imp_compose->getMetadata('reply_type')) {
+    if ($imp_compose->replyType()) {
         if (!($imp_contents = $imp_ui->getIMPContents(new IMP_Indices($imp_compose->getMetadata('mailbox'), $imp_compose->getMetadata('uid'))))) {
             break;
         }
 
-        switch ($ctype) {
-        case 'reply':
+        switch ($imp_compose->replyType(true)) {
+        case IMP_Compose::REPLY:
             $reply_msg = $imp_compose->replyMessage('reply', $imp_contents, $f_to);
             $msg = $reply_msg['body'];
             $message .= "\n" . $msg;
             break;
 
-        case 'forward':
+        case IMP_Compose::FORWARD:
             $fwd_msg = $imp_compose->forwardMessage('forward_attach', $imp_contents);
             $msg = $fwd_msg['body'];
             $message .= "\n" . $msg;

@@ -1076,22 +1076,18 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         if (!$this->_vars->changed) {
             list($imp_compose, $imp_contents) = $this->_initCompose();
 
-            switch ($imp_compose->getMetadata('reply_type')) {
-            case 'forward':
-                switch ($imp_compose->getMetadata('forward_type')) {
-                case 'forward_body':
-                case 'forward_both':
-                    $data = $imp_compose->forwardMessageText($imp_contents, array(
-                        'format' => 'text'
-                    ));
-                    $result->text = $data['body'];
-                    return $result;
-                }
-                break;
+            switch ($imp_compose->replyType()) {
+            case IMP_Compose::FORWARD_BODY:
+            case IMP_Compose::FORWARD_BOTH:
+                $data = $imp_compose->forwardMessageText($imp_contents, array(
+                    'format' => 'text'
+                ));
+                $result->text = $data['body'];
+                return $result;
 
-            case 'reply':
-            case 'reply_all':
-            case 'reply_list':
+            case IMP_Compose::REPLY_ALL:
+            case IMP_Compose::REPLY_LIST:
+            case IMP_Compose::REPLY_SENDER:
                 $data = $imp_compose->replyMessageText($imp_contents, array(
                     'format' => 'text'
                 ));
@@ -1128,22 +1124,18 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         if (!$this->_vars->changed) {
             list($imp_compose, $imp_contents) = $this->_initCompose();
 
-            switch ($imp_compose->getMetadata('reply_type')) {
-            case 'forward':
-                switch ($imp_compose->getMetadata('forward_type')) {
-                case 'forward_body':
-                case 'forward_both':
-                    $data = $imp_compose->forwardMessageText($imp_contents, array(
-                        'format' => 'html'
-                    ));
-                    $result->text = $data['body'];
-                    return $result;
-                }
-                break;
+            switch ($imp_compose->replyType()) {
+            case IMP_Compose::FORWARD_BODY:
+            case IMP_Compose::FORWARD_BOTH:
+                $data = $imp_compose->forwardMessageText($imp_contents, array(
+                    'format' => 'html'
+                ));
+                $result->text = $data['body'];
+                return $result;
 
-            case 'reply':
-            case 'reply_all':
-            case 'reply_list':
+            case IMP_Compose::REPLY_ALL:
+            case IMP_Compose::REPLY_LIST:
+            case IMP_Compose::REPLY_SENDER:
                 $data = $imp_compose->replyMessageText($imp_contents, array(
                     'format' => 'html'
                 ));
@@ -1729,14 +1721,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result->mbox = strval($imp_compose->getMetadata('mailbox'));
         $result->uid = $imp_compose->getMetadata('uid');
 
-        switch ($imp_compose->getMetadata('reply_type')) {
-        case 'forward':
+        switch ($imp_compose->replyType(true)) {
+        case IMP_Compose::FORWARD:
             $result->flag = $this->flagEntry(array(Horde_Imap_Client::FLAG_FORWARDED), true, new IMP_Indices($result->mbox, $result->uid));
             break;
 
-        case 'reply':
-        case 'reply_all':
-        case 'reply_list':
+        case IMP_Compose::REPLY:
             $result->flag = $this->flagEntry(array(Horde_Imap_Client::FLAG_ANSWERED), true, new IMP_Indices($result->mbox, $result->uid));
             break;
         }

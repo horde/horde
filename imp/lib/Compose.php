@@ -1,7 +1,6 @@
 <?php
 /**
- * The IMP_Compose:: class contains functions related to generating
- * outgoing mail messages.
+ * The IMP_Compose:: class represents an outgoing mail message.
  *
  * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
  *
@@ -23,6 +22,20 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
     /* The virtual path to save drafts. */
     const VFS_DRAFTS_PATH = '.horde/imp/drafts';
+
+    /* Compose types. */
+    const COMPOSE = 'new';
+    const REPLY = 'reply';
+    const REPLY_ALL = 'reply_all';
+    const REPLY_AUTO = 'reply_auto';
+    const REPLY_LIST = 'reply_list';
+    const REPLY_SENDER = 'reply';
+    const FORWARD = 'forward';
+    const FORWARD_ATTACH = 'forward_attach';
+    const FORWARD_AUTO = 'forward_auto';
+    const FORWARD_BODY = 'forward_body';
+    const FORWARD_BOTH = 'forward_both';
+    const REDIRECT = 'redirect';
 
     /**
      * Mark as changed for purposes of storing in the session.
@@ -67,6 +80,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @var boolean
      */
     protected $_pgpAttachPubkey = false;
+
+    /**
+     * The reply type.
+     *
+     * @var integer
+     */
+    protected $_replytype;
 
     /**
      * Whether the user's vCard should be attached to outgoing messages.
@@ -218,7 +238,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         /* Add information necessary to log replies/forwards when finally
          * sent. */
-        if ($this->getMetadata('reply_type')) {
+        if ($this->_replytype) {
             $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
             try {
                 $imap_url = $imp_imap->getUtils()->createUrl(array(
@@ -230,15 +250,14 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                     'uidvalidity' => $this->getMetadata('mailbox')->uidvalid
                 ));
 
-                switch ($this->getMetadata('reply_type')) {
-                case 'forward':
+                switch ($this->replyType(true)) {
+                case self::FORWARD:
                     $draft_headers->addHeader('X-IMP-Draft-Forward', '<' . $imap_url . '>');
                     break;
 
-                // 'reply', 'reply_all', 'reply_list'
-                default:
+                case self::REPLY:
                     $draft_headers->addHeader('X-IMP-Draft-Reply', '<' . $imap_url . '>');
-                    $draft_headers->addHeader('X-IMP-Draft-Reply-Type', $this->getMetadata('reply_type'));
+                    $draft_headers->addHeader('X-IMP-Draft-Reply-Type', $this->_replytype);
                     break;
                 }
             } catch (Horde_Exception $e) {}
@@ -327,10 +346,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         if ($val = $headers->getValue('x-imp-draft-reply')) {
             if (!($reply_type = $headers->getValue('x-imp-draft-reply-type'))) {
-                $reply_type = 'reply';
+                $reply_type = self::REPLY;
             }
         } elseif ($val = $headers->getValue('x-imp-draft-forward')) {
-            $reply_type = 'forward';
+            $reply_type = self::FORWARD;
         }
 
         if (IMP::getViewMode() == 'mimp') {
@@ -339,11 +358,16 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $compose_html = true;
         } else {
             switch ($reply_type) {
-            case 'forward':
+            case self::FORWARD:
+            case self::FORWARD_BODY:
+            case self::FORWARD_BOTH:
                 $compose_html = $prefs->getValue('forward_format');
                 break;
 
-            case 'reply':
+            case self::REPLY:
+            case self::REPLY_ALL:
+            case self::REPLY_LIST:
+            case self::REPLY_SENDER:
                 $compose_html = $prefs->getValue('reply_format');
                 break;
 
@@ -426,8 +450,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                     ($imp_imap->checkUidvalidity($imap_url['mailbox']) == $imap_url['uidvalidity']) &&
                     $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imap_url['mailbox'], $imap_url['uid']))) {
                     $this->_metadata['mailbox'] = IMP_Mailbox::get($imap_url['mailbox']);
-                    $this->_metadata['reply_type'] = $reply_type;
                     $this->_metadata['uid'] = $imap_url['uid'];
+                    $this->_replytype = $reply_type;
                 }
             } catch (Exception $e) {}
         }
@@ -569,10 +593,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $headers->addUserAgentHeader();
 
         /* Send the messages out now. */
-        if (!($reply_type = $this->getMetadata('reply_type'))) {
-            $reply_type = 'new';
-        }
-
         $sentmail = $injector->getInstance('IMP_Sentmail');
 
         foreach ($send_msgs as $val) {
@@ -581,35 +601,34 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             } catch (IMP_Compose_Exception $e) {
                 /* Unsuccessful send. */
                 Horde::logMessage($e, 'ERR');
-                $sentmail->log($reply_type, $headers->getValue('message-id'), $val['recipients'], false);
+                $sentmail->log($this->_replytype, $headers->getValue('message-id'), $val['recipients'], false);
                 throw new IMP_Compose_Exception(sprintf(_("There was an error sending your message: %s"), $e->getMessage()));
             }
 
             /* Store history information. */
-            $sentmail->log($reply_type, $headers->getValue('message-id'), $val['recipients'], true);
+            $sentmail->log($this->_replytype, $headers->getValue('message-id'), $val['recipients'], true);
         }
 
         $sent_saved = true;
 
-        if ($reply_type != 'new') {
+        if ($this->_replytype) {
             /* Log the reply. */
             if ($this->getMetadata('in_reply_to') &&
                 !empty($conf['maillog']['use_maillog'])) {
-                IMP_Maillog::log($reply_type, $this->getMetadata('in_reply_to'), $recipients);
+                IMP_Maillog::log($this->_replytype, $this->getMetadata('in_reply_to'), $recipients);
             }
 
             $imp_message = $injector->getInstance('IMP_Message');
             $reply_uid = new IMP_Indices($this);
 
-            switch ($reply_type) {
-            case 'forward':
+            switch ($this->replyType(true)) {
+            case self::FORWARD:
                 /* Set the Forwarded flag, if possible, in the mailbox.
                  * See RFC 5550 [5.9] */
                 $imp_message->flag(array(Horde_Imap_Client::FLAG_FORWARDED), $reply_uid);
                 break;
 
-            // 'reply', 'reply_all', 'reply_list'
-            default:
+            case self::REPLY:
                 /* Make sure to set the IMAP reply flag and unset any
                  * 'flagged' flag. */
                 $imp_message->flag(array(Horde_Imap_Client::FLAG_ANSWERED), $reply_uid);
@@ -731,7 +750,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $ob->addHeader('Subject', $headers['subject']);
         }
 
-        if (strpos($this->getMetadata('reply_type'), 'reply') === 0) {
+        if ($this->replyType(true) == self::REPLY) {
             if ($this->getMetadata('references')) {
                 $ob->addHeader('References', implode(' ', preg_split('|\s+|', trim($this->getMetadata('references')))));
             }
@@ -1336,9 +1355,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         $h = $contents->getHeaderOb();
         $match_identity = $this->_getMatchingIdentity($h);
-        $reply_type = 'reply';
+        $reply_type = self::REPLY_SENDER;
 
-        if (!$this->getMetadata('reply_type')) {
+        if (!$this->_replytype) {
             $this->_metadata['mailbox'] = $contents->getMailbox();
             $this->_metadata['uid'] = $contents->getUid();
             $this->changed = 'changed';
@@ -1362,7 +1381,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             : 'Re: ' . $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->getBaseSubject($subject, array('keepblob' => true));
 
         $force = false;
-        if (in_array($type, array('reply', 'reply_auto'))) {
+        if (in_array($type, array(self::REPLY_AUTO, self::REPLY_SENDER))) {
             if (($header['to'] = $to) ||
                 ($header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('reply-to')))) {
                 $force = true;
@@ -1372,7 +1391,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         /* We might need $list_info in the reply_all section. */
-        if (in_array($type, array('reply_auto', 'reply_list'))) {
+        if (in_array($type, array(self::REPLY_AUTO, self::REPLY_LIST))) {
             $imp_ui = new IMP_Ui_Message();
             $list_info = $imp_ui->getListInformation($h);
         } else {
@@ -1384,11 +1403,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
              * to handle these address separately. */
             if (Horde_Mime_Address::bareAddress($list_info['reply_list']) != Horde_Mime_Address::bareAddress($header['to'])) {
                 $header['to'] = $list_info['reply_list'];
-                $reply_type = 'reply_list';
+                $reply_type = self::REPLY_LIST;
             }
-        } elseif (in_array($type, array('reply_all', 'reply_auto'))) {
+        } elseif (in_array($type, array(self::REPLY_ALL, self::REPLY_AUTO))) {
             /* Clear the To field if we are auto-determining addresses. */
-            if ($type == 'reply_auto') {
+            if ($type == self::REPLY_AUTO) {
                 $header['to'] = '';
             }
 
@@ -1462,7 +1481,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
 
             if (empty($header['to']) && (count($hdr_cc) > 1)) {
-                $reply_type = 'reply_all';
+                $reply_type = self::REPLY_ALL;
             }
             $header[empty($header['to']) ? 'to' : 'cc'] = rtrim(implode('', $hdr_cc), ' ,');
 
@@ -1470,9 +1489,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $header['bcc'] = Horde_Mime_Address::addrArray2String($h->getOb('bcc') + $identity->getBccAddresses(), array('filter' => $all_addrs));
         }
 
-        if (!isset($this->_metadata['reply_type']) ||
-            ($reply_type != $this->_metadata['reply_type'])) {
-            $this->_metadata['reply_type'] = $reply_type;
+        if (!$this->_replytype || ($reply_type != $this->_replytype)) {
+            $this->_replytype = $reply_type;
             $this->changed = 'changed';
         }
 
@@ -1622,11 +1640,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             'subject' => ''
         );
 
-        if ($type == 'forward_auto') {
-            if (!($type = $GLOBALS['prefs']->getValue('forward_default'))) {
-                $type = 'attach';
+        if ($type == self::FORWARD_AUTO) {
+            if ($type = $GLOBALS['prefs']->getValue('forward_default')) {
+                $type = 'forward_' . $type;
+            } else {
+                $type = self::FORWARD_ATTACH;
             }
-            $type = 'forward_' . $type;
         }
 
         $h = $contents->getHeaderOb();
@@ -1639,8 +1658,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         /* We need the Message-Id so we can log this event. This header is not
          * added to the outgoing messages. */
         $this->_metadata['in_reply_to'] = trim($h->getValue('message-id'));
-        $this->_metadata['reply_type'] = 'forward';
-        $this->_metadata['forward_type'] = $type;
+        $this->_replytype = $type;
         $this->changed = 'changed';
 
         $header['subject'] = $h->getValue('subject');
@@ -1654,13 +1672,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         if ($attach &&
-            in_array($type, array('forward_attach', 'forward_both'))) {
+            in_array($type, array(self::FORWARD_ATTACH, self::FORWARD_BOTH))) {
             try {
                 $this->attachImapMessage(new IMP_Indices($contents));
             } catch (IMP_Exception $e) {}
         }
 
-        if (in_array($type, array('forward_body', 'forward_both'))) {
+        if (in_array($type, array(self::FORWARD_BODY, self::FORWARD_BOTH))) {
             $ret = $this->forwardMessageText($contents);
             $this->charset = $ret['charset'];
             unset($ret['charset']);
@@ -1740,8 +1758,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     public function redirectMessage($contents)
     {
         $this->_metadata['mailbox'] = $contents->getMailbox();
-        $this->_metadata['reply_type'] = 'redirect';
         $this->_metadata['uid'] = $contents->getUid();
+        $this->_replytype = self::REDIRECT;
         $this->changed = 'changed';
     }
 
@@ -2728,9 +2746,43 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      */
     public function getContentsOb()
     {
-        return $this->getMetadata('reply_type')
+        return $this->_replytype
             ? $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($this->getMetadata('mailbox'), $this->getMetadata('uid')))
             : null;
+    }
+
+    /**
+     * Return the reply type.
+     *
+     * @param boolean $base  Return the base reply type?
+     *
+     * @return string  The reply type, or null if not a reply.
+     */
+    public function replyType($base = false)
+    {
+        switch ($this->_replytype) {
+        case self::FORWARD:
+        case self::FORWARD_ATTACH:
+        case self::FORWARD_BODY:
+        case self::FORWARD_BOTH:
+            return $base
+                ? self::FORWARD
+                : $this->_replytype;
+
+        case self::REPLY:
+        case self::REPLY_ALL:
+        case self::REPLY_LIST:
+        case self::REPLY_SENDER:
+            return $base
+                ? self::REPLY
+                : $this->_replytype;
+
+        case self::REDIRECT:
+            return $this->_replytype;
+
+        default:
+            return null;
+        }
     }
 
     /* Static utility functions. */
