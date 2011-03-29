@@ -196,7 +196,10 @@ abstract class Horde_Image_Base extends EmptyIterator
         if (strpos($type, 'image/') !== false) {
             $type = substr($type, 6);
         }
+        $old = $this->_type;
         $this->_type = $type;
+
+        return $old;
     }
 
     /**

@@ -129,12 +129,14 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function setType($type)
     {
-        parent::setType($type);
+        $old = parent::setType($type);
         try {
             $this->_imagick->setImageFormat($this->_type);
         } catch (ImagickException $e) {
             // Don't care about an empty wand here.
         }
+
+        return $old;
     }
 
     /*
