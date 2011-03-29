@@ -10,11 +10,11 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MAJORBUG, Horde_Release::FOCUS_DOCS);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MAJORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first release candiate of the Horde
+The Horde Team is pleased to announce the final release candidate of the Horde
 Application Framework version 4.0.
 
 The Horde Application Framework is a flexible, modular, general-purpose web
@@ -38,8 +38,8 @@ Horde's PEAR server, run the following commands from the command line:
 The last command will ask you for the filessystem location for your Horde
 installation. This should be some path in your web server's document root,
 e.g. /var/www/horde. These commands only need to be run once. You are now
-prepared to install, upgrade and uninstall Horde packages. To install the beta
-release of Horde, run the following commands:
+prepared to install, upgrade and uninstall Horde packages. To install the
+release candidate of Horde, run the following commands:
 
   pear install horde/horde-beta
 
@@ -58,7 +58,7 @@ to:
 3. Install the database tables ("Update all DB schemas" button)
 4. Configure any other applications you installed
 
-To upgrade from the earlier alpha release, you only have to run:
+To upgrade from the earlier releases, you only have to run:
 
   pear upgrade -c horde
 
@@ -69,18 +69,17 @@ For more detailed installation and configuration instructions, e.g. how to
 install Horde from PEAR into a location other than the system default, please
 see https://github.com/horde/horde/blob/master/horde/docs/INSTALL.
 
-The major changes compared to the Horde version 4.0-BETA1 are:
+The major changes compared to the Horde version 4.0-RC1 are:
 
-    * More refactored library components
-    * Updated installation and upgrade instructions
-    * Many small bugfixes and improvements
+    * Improved access key handling.
+    * Many small bugfixes and improvements.
 
 Please see our issue tracker for a list of open bugs on this release:
 http://bugs.horde.org/query/showstoppers4
 
-The full list of changes (from version 4.0-BETA1) can be viewed here:
+The full list of changes (from version 4.0-RC1) can be viewed here:
 
-https://github.com/horde/horde/blob/ed64195b712b362b3b69651cf392c08a5dd01064/horde/docs/CHANGES
+https://github.com/horde/horde/blob/91827f1e758203df40489ad87a95518105d660bf/horde/docs/CHANGES
 
 Have fun!
 
@@ -89,8 +88,7 @@ ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-More refactored library components.
-Updated installation and upgrade instructions.
+Improved access key handling.
 Many small bugfixes and improvements.
 FM;
 

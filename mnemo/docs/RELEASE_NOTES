@@ -10,11 +10,11 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORBUG);
+$this->notes['fm']['focus'] = array();
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first release candidate of the Mnemo
+The Horde Team is pleased to announce the final release candidate of the Mnemo
 Note Manager version H4 (3.0).
 
 The Mnemo Note Manager is the Horde notes/memos application. It allows users to
@@ -34,14 +34,13 @@ Horde is installed, you can install Mnemo with the following command:
 Then log in to Horde with your adminstrator account to configure the
 application and install the database schema from the configuration interface.
 
-The major changes compared to the Mnemo version H4 (3.0-BETA1) are:
+The major changes compared to the Mnemo version H4 (3.0-RC1) are:
 
-    * Finished Kolab support
-    * Updated installation and upgrade instructions
+    * Re-released RC1.
 
-The full list of changes (from version H4 (3.0-BETA1)) can be viewed here:
+The full list of changes (from version H4 (3.0-RC1)) can be viewed here:
 
-https://github.com/horde/horde/blob/ed64195b712b362b3b69651cf392c08a5dd01064/mnemo/docs/CHANGES
+https://github.com/horde/horde/blob/8c1be878c6a9590c9260252d05ac9f62808de96a/mnemo/docs/CHANGES
 
 Have fun!
 
@@ -50,8 +49,7 @@ ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Finished Kolab support.
-Updated installation and upgrade instructions.
+Re-released RC1.
 FM;
 
 $this->notes['name'] = 'Mnemo';

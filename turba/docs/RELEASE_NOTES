@@ -10,11 +10,11 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE, Horde_Release::FOCUS_MAJORBUG, Horde_Release::FOCUS_DOCS);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first release candidate of the Turba
+The Horde Team is pleased to announce the final release candidate of the Turba
 Contact Manager version H4 (3.0).
 
 Turba is the Horde contact management application. Leveraging the Horde
@@ -34,15 +34,13 @@ Horde is installed, you can install Turba with the following command:
 Then log in to Horde with your adminstrator account to configure the
 application and install the database schema from the configuration interface.
 
-The major changes compared to the Turba version H4 (3.0-BETA1) are:
+The major changes compared to the Turba version H4 (3.0-RC1) are:
 
-    * Finished Kolab and IMSP support
-    * Updated installation and upgrade instructions
     * Small bug fixes.
 
-The full list of changes (from version H4 (3.0-BETA1)) can be viewed here:
+The full list of changes (from version H4 (3.0-RC1)) can be viewed here:
 
-https://github.com/horde/horde/blob/ed64195b712b362b3b69651cf392c08a5dd01064/turba/docs/CHANGES
+https://github.com/horde/horde/blob/0fdaca74c9ddcde7e63b7237a8ad1cbed6ae5b56/turba/docs/CHANGES
 
 Have fun!
 
@@ -51,8 +49,6 @@ ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Finished Kolab and IMSP support.
-Updated installation and upgrade instructions.
 Small bug fixes.
 FM;
 

@@ -10,11 +10,11 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MAJORBUG, Horde_Release::FOCUS_DOCS);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MAJORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first release candidate of the
+The Horde Team is pleased to announce the final release candidate of the
 Internet Mail Program (IMP) version H4 (5.0).
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
@@ -35,17 +35,16 @@ Horde is installed, you can install IMP with the following command:
 Then log in to Horde with your adminstrator account to configure the
 application and install the database schema from the configuration interface.
 
-The major changes compared to the IMP version H4 (5.0-BETA1) are:
+The major changes compared to the IMP version H4 (5.0-RC1) are:
 
-    * Added mailbox import and export to dynamic view
-    * Improved dynamic portal
-    * Remove application tabs from dynamic view
-    * Updated installation and upgrade instructions
-    * Many small bugfixes and improvements
+    * Improved vertical layout.
+    * Improved key navigation.
+    * Support importing of compressed mailbox files.
+    * Many small bugfixes and improvements.
 
-The full list of changes (from version H4 (5.0-BETA1)) can be viewed here:
+The full list of changes (from version H4 (5.0-RC1)) can be viewed here:
 
-https://github.com/horde/horde/blob/ed64195b712b362b3b69651cf392c08a5dd01064/imp/docs/CHANGES
+https://github.com/horde/horde/blob/beed8107ca1a20aae880c39595a749261c40deba/imp/docs/CHANGES
 
 Have fun!
 
@@ -54,10 +53,9 @@ ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Added mailbox import and export to dynamic view.
-Improved dynamic portal.
-Remove application tabs from dynamic view.
-Updated installation and upgrade instructions.
+Improved vertical layout.
+Improved key navigation.
+Support importing of compressed mailbox files.
 Many small bugfixes and improvements.
 FM;
 
