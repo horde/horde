@@ -67,7 +67,12 @@ class Horde_Group_Ldap extends Horde_Group_Base
         /* Lowercase attribute names. */
         $params['gid']                  = Horde_String::lower($params['gid']);
         $params['memberuid']            = Horde_String::lower($params['memberuid']);
-        $params['newgroup_objectclass'] = Horde_String::lower($params['newgroup_objectclass']);
+        if (!is_array($params['newgroup_objectclass'])) {
+            $params['newgroup_objectclass'] = array($params['newgroup_objectclass']);
+        }
+        foreach ($params['newgroup_objectclass'] as &$objectClass) {
+            $objectClass = Horde_String::lower($objectClass);
+        }
 
         /* Generate LDAP search filter. */
         try {
