@@ -244,11 +244,15 @@ var DimpCore = {
             case 'horde.message':
             case 'horde.success':
             case 'horde.warning':
-                this.Growler.growl(m.message.escapeHTML(), {
-                    className: m.type.replace('.', '-'),
-                    life: (m.type == 'horde.error' ? 12 : 8),
-                    log: 1
-                });
+                this.Growler.growl(
+                    m.flags && m.flags.include('content.raw')
+                        ? m.message.replace(new RegExp('<a href="([^"]+)"'), '<a href="#" onclick="(function(){var base=DimpCore.base?DimpCore.base.DimpBase:DimpBase;base.go(\'app\',{app:null,data:\'$1\'});})();return false;"')
+                        : m.message.escapeHTML(),
+                    {
+                        className: m.type.replace('.', '-'),
+                        life: (m.type == 'horde.error' ? 12 : 8),
+                        log: 1
+                    });
                 break;
 
             case 'imp.reply':

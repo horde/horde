@@ -2,6 +2,7 @@
 v5.0-RC2
 --------
 
+[jan] Correctly render notifications with embedded HTML in dynamic view (Bug #9729).
 [mms] Fix moving to new mailbox, tasklist, and notepad in traditional view
       (Bug #9732).
 [jan] Add left and right keys as aliases for up and down keys in dynamic view.

@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [jan] Correctly render notifications with embedded HTML in dynamic view (Bug #9729).
 * [mms] Fix moving to new mailbox, tasklist, and notepad in traditional view (Bug #9732).
 * [jan] Add left and right keys as aliases for up and down keys in dynamic view.
 * [mms] Add mailbox sorting and select all messages to vertical layout in the dynamic view (Request #9708).
@@ -2076,6 +2077,7 @@
    <date>2011-03-28</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [jan] Correctly render notifications with embedded HTML in dynamic view (Bug #9729).
 * [mms] Fix moving to new mailbox, tasklist, and notepad in traditional view (Bug #9732).
 * [jan] Add left and right keys as aliases for up and down keys in dynamic view.
 * [mms] Add mailbox sorting and select all messages to vertical layout in the dynamic view (Request #9708).

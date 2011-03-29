@@ -174,8 +174,13 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                                 $registry->call('calendar/replace', array('uid' => $guid, 'content' => $components[$key], 'contentType' => $this->_mimepart->getType()));
                                 $handled = true;
                                 $url = Horde::url($registry->link('calendar/show', array('uid' => $guid)));
-                                $msgs[] = array('success', _("The event was updated in your calendar.") .
-                                                '&nbsp;' . Horde::link($url, _("View event"), null, '_blank') . Horde::img('mime/icalendar.png', _("View event")) . '</a>');
+                                $msgs[] = array('success',
+                                                _("The event was updated in your calendar.")
+                                                . '&nbsp;'
+                                                . Horde::link($url, _("View event"), null, '_blank')
+                                                . Horde::img('mime/icalendar.png', _("View event"))
+                                                . '</a>',
+                                                array('content.raw'));
                             } catch (Horde_Exception $e) {
                                 // Could be a missing permission.
                                 $msgs[] = array('warning', _("There was an error updating the event:") . ' ' . $e->getMessage() . '. ' . _("Trying to import the event instead."));
@@ -189,8 +194,13 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                         try {
                             $guid = $registry->call('calendar/import', array('content' => $components[$key], 'contentType' => $this->_mimepart->getType()));
                             $url = Horde::url($registry->link('calendar/show', array('uid' => $guid)));
-                            $msgs[] = array('success', _("The event was added to your calendar.") .
-                                            '&nbsp;' . Horde::link($url, _("View event"), null, '_blank') . Horde::img('mime/icalendar.png', _("View event")) . '</a>');
+                            $msgs[] = array('success',
+                                            _("The event was added to your calendar.")
+                                            . '&nbsp;'
+                                            . Horde::link($url, _("View event"), null, '_blank')
+                                            . Horde::img('mime/icalendar.png', _("View event"))
+                                            . '</a>',
+                                            array('content.raw'));
                         } catch (Horde_Exception $e) {
                             $msgs[] = array('error', _("There was an error importing the event:") . ' ' . $e->getMessage());
                         }
@@ -220,8 +230,13 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                         try {
                             $guid = $registry->call('tasks/import', array($components[$key], $this->_mimepart->getType()));
                             $url = Horde::url($registry->link('tasks/show', array('uid' => $guid)));
-                            $msgs[] = array('success', _("The task has been added to your tasklist.") .
-                                                         '&nbsp;' . Horde::link($url, _("View task"), null, '_blank') . Horde::img('mime/icalendar.png', _("View task")) . '</a>');
+                            $msgs[] = array('success',
+                                            _("The task has been added to your tasklist.")
+                                            . '&nbsp;'
+                                            . Horde::link($url, _("View task"), null, '_blank')
+                                            . Horde::img('mime/icalendar.png', _("View task"))
+                                            . '</a>',
+                                            array('content.raw'));
                         } catch (Horde_Exception $e) {
                             $msgs[] = array('error', _("There was an error importing the task:") . ' ' . $e->getMessage());
                         }
@@ -406,7 +421,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         }
         if (Horde_Util::getFormData('ajax')) {
             foreach ($msgs as $msg) {
-                $GLOBALS['notification']->push($msg[1], 'horde.' . $msg[0]);
+                $GLOBALS['notification']->push($msg[1], 'horde.' . $msg[0], isset($msg[2]) ? $msg[2] : null);
             }
             return array(
                 $mime_id => array(
