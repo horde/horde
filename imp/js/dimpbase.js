@@ -3284,6 +3284,10 @@ var DimpBase = {
             DIMP.conf.filters_o.each(function(f) {
                 this.contextAddFilter(f, DIMP.conf.filters[f]);
             }, this);
+
+            /* Don't submit FORM. Really only needed for Opera (Bug #9730)
+             * but shouldn't hurt otherwise. */
+            $('qsearch_input').up('FORM').observe('submit', Event.stop);
         }
 
         /* Store these text strings for updating purposes. */
