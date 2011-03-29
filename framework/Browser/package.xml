@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-29</date>
- <time>18:14:21</time>
+ <time>23:47:09</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -515,6 +515,19 @@ Initial packaging
    <notes>
 * Second release candidate for Horde 4.
 * Add translations.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-03-29</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
   <release>
