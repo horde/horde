@@ -656,6 +656,8 @@ var DimpBase = {
                     } else {
                         tmp.show();
                     }
+
+                    this._sizeFolderlist();
                 }
 
                 if (this.viewport.getMetaData('drafts')) {
