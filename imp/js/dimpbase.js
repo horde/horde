@@ -1344,8 +1344,11 @@ var DimpBase = {
             hdr = { l: ptr.get('subject'), s: ptr.get('thread') };
         }
 
-        // First update() needed due to IE 7 buggy behavior (Bug #9734).
-        tmp.update('').update(hdr.l.e.removeClassName('smallSort').update(hdr.l.t));
+        // Needed due to IE 7 buggy behavior (Bug #9734).
+        if (Prototype.Browser.IE) {
+            tmp.update('');
+        }
+        tmp.update(hdr.l.e.removeClassName('smallSort').update(hdr.l.t));
         hdr.l.e.store('sortby', hdr.l.v);
         if (hdr.s) {
             tmp.insert(hdr.s.e.store('sortby', hdr.s.v).addClassName('smallSort').update('[' + hdr.s.t + ']'));
