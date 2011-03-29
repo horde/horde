@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [jan] Rename all scripts in bin/ to be prefixed with imp- (Request #9674).
+* [jan] Rename all scripts in bin/ to be prefixed with imp- (Request #9647).
 * [jan] Correctly render notifications with embedded HTML in dynamic view (Bug #9729).
 * [mms] Fix moving to new mailbox, tasklist, and notepad in traditional view (Bug #9732).
 * [jan] Add left and right keys as aliases for up and down keys in dynamic view.

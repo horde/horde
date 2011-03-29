@@ -2,7 +2,7 @@
 v5.0-RC2
 --------
 
-[jan] Rename all scripts in bin/ to be prefixed with imp- (Request #9674).
+[jan] Rename all scripts in bin/ to be prefixed with imp- (Request #9647).
 [jan] Correctly render notifications with embedded HTML in dynamic view
       (Bug #9729).
 [mms] Fix moving to new mailbox, tasklist, and notepad in traditional view

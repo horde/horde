@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Rename all scripts in bin/ to be prefixed with horde- and installed in bin_dir (Request #9674).
+* [jan] Rename all scripts in bin/ to be prefixed with horde- and installed in bin_dir (Request #9647).
 * [jan] Fire access keys on hidden elements in Internet Explorer (Bug #8057).
 * [jan] Don&apos;t fire access keys twice in Chrome browsers.
 * [jan] Fix JavaScript date calculations across DST boundaries.

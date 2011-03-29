@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [jan] Rename all scripts to be prefixed with content- (Request #9674).
+* [jan] Rename all scripts to be prefixed with content- (Request #9647).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
