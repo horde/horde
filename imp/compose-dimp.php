@@ -91,7 +91,6 @@ case 'reply_list':
 
     $msg = $reply_msg['body'];
     $header = $reply_msg['headers'];
-    $header['replytype'] = 'reply';
     if ($vars->type == 'reply_auto') {
         $fillform_opts['auto'] = $reply_msg['type'];
     }
@@ -130,7 +129,6 @@ case 'forward_both':
 
         try {
             $header = array(
-                'replytype' => 'forward',
                 'subject' => $imp_compose->attachImapMessage(new IMP_Indices($vars->uids))
             );
         } catch (IMP_Compose_Exception $e) {
@@ -157,7 +155,6 @@ case 'forward_both':
         $fwd_msg = $imp_compose->forwardMessage($fwd_map[$vars->type], $contents);
         $msg = $fwd_msg['body'];
         $header = $fwd_msg['headers'];
-        $header['replytype'] = 'forward';
         $title = $header['title'];
         if ($fwd_msg['format'] == 'html') {
             $show_editor = true;

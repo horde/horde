@@ -1199,7 +1199,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->type = $this->_vars->type;
             if (!$this->_vars->dataonly) {
                 $result->format = $fwd_msg['format'];
-                $fwd_msg['headers']['replytype'] = 'forward';
                 $result->header = $fwd_msg['headers'];
                 $result->identity = $fwd_msg['identity'];
                 $result->imp_compose = $imp_compose->getCacheId();
@@ -1255,7 +1254,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             );
 
             $reply_msg = $imp_compose->replyMessage($reply_map[$this->_vars->type], $imp_contents);
-            $reply_msg['headers']['replytype'] = 'reply';
 
             /* Can't open session read-only since we need to store the message
              * cache id. */
