@@ -103,11 +103,6 @@ class Horde_Db_Adapter_Pdo_Mysql extends Horde_Db_Adapter_Pdo_Base
                 $msg = 'host is required if port is specified';
                 throw new Horde_Db_Exception($msg);
             }
-
-            if ($dsnOpts['host'] == 'localhost') {
-                $msg = 'pdo_mysql ignores port if using "localhost" for host';
-                throw new Horde_Db_Exception($msg);
-            }
         }
 
         // return DSN and user/pass for connection

@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* [jan] Don't throw exception when setting port number while using localhost in PDO MySQL driver (Bug #9738).
 * [jan] Rename pseudo-type primaryKey to autoincrementKey.
  </notes>
  <contents>

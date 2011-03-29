@@ -2,6 +2,8 @@
 v4.0-RC2
 --------
 
+[jan] Don't throw exception when setting port number while using localhost in
+      MySQL configuration (Bug #9738).
 [jan] Fix building LDAP filter for groups from configuration (Bug #9739).
 [jan] Fix loading of Horde's vhost conf.php file (Bug #9704).
 [jan] Fix OpenOffice MIME viewer.
