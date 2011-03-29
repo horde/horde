@@ -80,3 +80,12 @@
 .hermesFirstCol {
     background-color: #efefef;
 }
+#hermesTimeFormCollapse {
+    padding-right: 15px;
+}
+.hermesTimeFormShown {
+   background: url("graphics/minus.png") no-repeat scroll left  transparent;
+}
+.hermesTimeFormHidden {
+    background: url("graphics/plus.png") no-repeat scroll left transparent;
+}

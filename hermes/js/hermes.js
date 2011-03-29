@@ -276,15 +276,27 @@ HermesCore = {
                     e.stop();
                 }
                 return;
-             case 'hermesOptions':
+            case 'hermesOptions':
                 this.go('prefs');
                 e.stop();
                 return;
-             case 'hermesLogout':
+            case 'hermesLogout':
                 this.logout();
                 e.stop();
                 return;
-
+            case 'hermesTimeFormCollapse':
+                if ($('hermesTimeForm').visible()) {
+                    $('hermesTimeForm').slideUp({ duration: this.effectDur });
+                    $('hermesTimeFormCollapse').removeClassName('hermesTimeFormShown');
+                    $('hermesTimeFormCollapse').addClassName('hermesTimeFormHidden');
+                    $()
+                } else {
+                    $('hermesTimeForm').slideDown({ duration: this.effectDur });
+                    $('hermesTimeFormCollapse').addClassName('hermesTimeFormShown');
+                    $('hermesTimeFormCollapse').removeClassName('hermesTimeFormHidden');
+                }
+                e.stop();
+                return;
             }
 
             switch (elt.className) {
