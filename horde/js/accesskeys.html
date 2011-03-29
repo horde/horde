@@ -14,14 +14,17 @@
 <p>G should open window: <a href="javascript:void(window.open())" accesskey="g">Foo</a></p>
 <p>H should open window: <a id="link1" href="#" accesskey="h">Foo</a></p>
 <p>I should open window: <a onclick="window.open();return false;" href="#" accesskey="i">Foo</a></p>
-<p>J should open window: <span style="display:none"><a href="about:blank" target="_blank" accesskey="j">Foo</a></span></p>
-<p>K should open window: <span style="display:none"><a href="javascript:void(window.open())" accesskey="k">Foo</a></span></p>
-<p>L should open window: <span style="display:none"><a id="link2" href="#" accesskey="l">Foo</a></span></p>
-<p>M should open window: <span style="display:none"><a onclick="window.open();return false;" href="#" accesskey="m">Foo</a></span></p>
+<p>J should open window. <span style="display:none"><a href="about:blank" target="_blank" accesskey="j">Foo</a></span></p>
+<p>K should open window. <span style="display:none"><a href="javascript:void(window.open())" accesskey="k">Foo</a></span></p>
+<p>L should open window. <span style="display:none"><a id="link2" href="#" accesskey="l">Foo</a></span></p>
+<p>M should open window. <span style="display:none"><a onclick="window.open();return false;" href="#" accesskey="m">Foo</a></span></p>
+<p id="link3" accesskey="n">N should open window.</p>
+<p onclick="window.open();return false;" accesskey="o">O should open window.</p>
 <script type="text/javascript">
 document.observe('dom:loaded', function() {
     $('link1').observe('click', function() { window.open(); return false; });
     $('link2').observe('click', function() { window.open(); return false; });
+    $('link3').observe('click', function() { window.open(); return false; });
 });
 </script>
 </body>
