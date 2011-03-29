@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [jan] Fix javascript error when viewing events with desktop notifications (Bug #9727).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

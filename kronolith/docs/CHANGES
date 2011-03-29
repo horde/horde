@@ -2,7 +2,8 @@
 v3.0-RC2
 --------
 
-
+[jan] Fix javascript error when viewing events with desktop notifications
+      (Bug #9727).
 
 
 --------

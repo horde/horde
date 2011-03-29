@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Fix fatal error in desktop notifications (Bug #9727).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

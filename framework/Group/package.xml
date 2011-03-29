@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Fix incorrect lowercasing of objectClasses in LDAP driver.
 * [jan] Fix building LDAP filter from configuration (Bug #9739).
  </notes>
  <contents>
