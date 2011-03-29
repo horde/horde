@@ -779,22 +779,22 @@ HTML;
             $filelist[$file] = 0;
         }
 
-        // Load vhost configuration file.
-        if (!empty($GLOBALS['conf']['vhosts']) ||
-            (($app == 'horde') &&
-             ($config_file == 'conf.php') &&
-             !empty($conf['vhosts']))) {
-            $server_name = isset($GLOBALS['conf'])
-                ? $GLOBALS['conf']['server']['name']
-                : $conf['server']['name'];
-            $file = $config_dir . substr($config_file, 0, -4) . '-' . $server_name . '.php';
+        // Load vhost configuration file. The vhost conf.php for Horde is added
+        // later though, because the vhost configuration variable is not
+        // available at this point.
+        $vhost_added = false;
+        if (!empty($GLOBALS['conf']['vhosts'])) {
+            $file = $config_dir . substr($config_file, 0, -4) . '-' . $GLOBALS['conf']['server']['name'] . '.php';
 
             if (file_exists($file)) {
                 $filelist[$file] = 0;
             }
+            $vhost_added = true;
         }
 
-        foreach ($filelist as $file => $log_check) {
+        /* We need to use a while-loop here because we modify $filelist inside
+         * the loop. */
+        while (list($file, $log_check) = each($filelist)) {
             /* If we are not exporting variables located in the configuration
              * file, or we are not capturing the output, then there is no
              * need to load the configuration file more than once. */
@@ -819,6 +819,19 @@ HTML;
                 } else {
                     throw new Horde_Exception(sprintf('Failed to import configuration file "%s": ', $file) . strip_tags($output));
                 }
+            }
+
+            // Load vhost conf.php for Horde now if necessary.
+            if (!$vhost_added &&
+                $app == 'horde' &&
+                $config_file == 'conf.php') {
+                if (!empty($conf['vhosts'])) {
+                    $file = $config_dir . 'conf-' . $conf['server']['name'] . '.php';
+                    if (file_exists($file)) {
+                        $filelist[$file] = 0;
+                    }
+                }
+                $vhost_added = true;
             }
 
             $was_included = true;

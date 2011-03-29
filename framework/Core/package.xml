@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Fix loading of Horde's vhost conf.php file (Bug #9704).
 * [jan] Sort applications in preference menu by name.
 * [mms] Fix identities pref UI when default_identity is locked (Bug #9701).
 * [mms] Added Horde::debug().
