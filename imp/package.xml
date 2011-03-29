@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-03-29</date>
- <time>23:54:28</time>
+ <time>23:56:09</time>
  <version>
-  <release>5.0.0RC2</release>
+  <release>5.0.0</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,21 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* Second release candidate for Horde 4.
-* Fix max_folders permission (Bug #9741).
-* [jan] Rename all scripts in bin/ to be prefixed with imp- (Request #9647).
-* [jan] Correctly render notifications with embedded HTML in dynamic view (Bug #9729).
-* [mms] Fix moving to new mailbox, tasklist, and notepad in traditional view (Bug #9732).
-* [jan] Add left and right keys as aliases for up and down keys in dynamic view.
-* [mms] Add mailbox sorting and select all messages to vertical layout in the dynamic view (Request #9708).
-* [jan] Fix expansion of quoted sections in thread view.
-* [jan] Fix message previews in traditional view (Bug #9695).
-* [jan] Support importing of compressed mailbox files.
-* [jan] Fix upgrading of search_fields preference.
-* [jan] Fix key navigation in traditional mailbox view.
-* [mms] Don&apos;t cache FETCH data for the Spam and Trash mailboxes.
-* [mms] All views now honor &apos;initial_page&apos; preference.
-* [mms] Fix loading virtual folder as initial page in standard view (Bug #9696).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2095,6 +2081,19 @@
 * [mms] Don&apos;t cache FETCH data for the Spam and Trash mailboxes.
 * [mms] All views now honor &apos;initial_page&apos; preference.
 * [mms] Fix loading virtual folder as initial page in standard view (Bug #9696).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-03-29</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
