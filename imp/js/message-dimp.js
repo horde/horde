@@ -234,7 +234,8 @@ var DimpMessage = {
         /* Set up address linking. */
         [ 'from', 'to', 'cc', 'bcc', 'replyTo' ].each(function(a) {
             if (this[a]) {
-                var elt = $('msgHeader' + a.capitalize());
+                // Can't use capitalize() here.
+                var elt = $('msgHeader' + a.charAt(0).toUpperCase() + a.substring(1));
                 if (elt) {
                     elt.down('TD', 1).replace(DimpCore.buildAddressLinks(this[a], elt.clone(false)));
                 }
