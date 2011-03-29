@@ -74,13 +74,13 @@ class Horde_Compress_Zip extends Horde_Compress
      * <pre>
      * Requires an array of arrays - each subarray should contain the
      * following fields:
-     * 'data' - (string) The data to compress.
-     * 'name' - (string) The pathname to the file.
-     * 'time' - (integer) [optional] The timestamp to use for the file.
+     * data - (string/resource) The data to compress.
+     * name - (string) The pathname to the file.
+     * time - (integer) [optional] The timestamp to use for the file.
      * </pre>
      * @param array $params  The parameter array.
      * <pre>
-     * 'stream' - (boolean) If set, return a stream instead of a string.
+     * stream - (boolean) If set, return a stream instead of a string.
      *            DEFAULT: Return string
      * </pre>
      *
@@ -127,11 +127,10 @@ class Horde_Compress_Zip extends Horde_Compress
         if (empty($params['stream'])) {
             $out = stream_get_contents($this->_tmp);
             fclose($this->_tmp);
-        } else {
-            $out = $this->_tmp;
+            return $out;
         }
 
-        return $out;
+        return $this->_tmp;
     }
 
     /**
@@ -152,7 +151,7 @@ class Horde_Compress_Zip extends Horde_Compress
      * @return mixed  The requested data.
      * @throws Horde_Exception
      */
-    public function decompress($data, $params)
+    public function decompress($data, $params = array())
     {
         if (isset($params['action'])) {
             switch ($params['action']) {
@@ -325,13 +324,6 @@ class Horde_Compress_Zip extends Horde_Compress
      */
     protected function _addToZipFile($file)
     {
-        if (is_resource($file['data'])) {
-            rewind($file['data']);
-            $data = stream_get_contents($file['data']);
-        } else {
-            $data = $file['data'];
-        }
-
         $name = str_replace('\\', '/', $file['name']);
 
         /* See if time/date information has been provided. */
@@ -345,10 +337,31 @@ class Horde_Compress_Zip extends Horde_Compress
                     chr(hexdec($dtime[0] . $dtime[1]));
 
         /* "Local file header" segment. */
-        $unc_len = strlen($data);
-        $crc     = crc32($data);
-        $zdata   = gzdeflate($data);
-        $c_len   = strlen($zdata);
+        if (is_resource($file['data'])) {
+            $zdata = fopen('php://temp', 'r+');
+
+            $params = new stdClass;
+            stream_filter_register('horde_compress_filter_crc32', 'Horde_Stream_Filter_Crc32');
+            $filter = stream_filter_prepend($file['data'], 'horde_compress_filter_crc32', STREAM_FILTER_READ, $params);
+            $filter2 = stream_filter_append($zdata, 'zlib.deflate', STREAM_FILTER_WRITE);
+
+            rewind($file['data']);
+            stream_copy_to_stream($file['data'], $zdata);
+
+            $crc = $params->crc32;
+            $unc_len = ftell($file['data']);
+
+            stream_filter_remove($filter2);
+            stream_filter_remove($filter);
+
+            fseek($zdata, 0, SEEK_END);
+            $c_len = ftell($zdata);
+        } else {
+            $unc_len = strlen($file['data']);
+            $crc = crc32($file['data']);
+            $zdata = gzdeflate($file['data']);
+            $c_len = strlen($zdata);
+        }
 
         /* Common data for the two entries. */
         $common =
@@ -369,9 +382,16 @@ class Horde_Compress_Zip extends Horde_Compress
         fwrite($this->_tmp,
             self::FILE_HEADER .  /* Begin creating the ZIP data. */
             $common .            /* Common data. */
-            $name .              /* File name. */
-            $zdata               /* "File data" segment. */
+            $name
         );
+
+        /* "File data" segment. */
+        if (is_resource($zdata)) {
+            rewind($zdata);
+            stream_copy_to_stream($zdata, $this->_tmp);
+        } else {
+            fwrite($this->_tmp, $zdata);
+        }
 
         /* Add to central directory record. */
         $this->_ctrldir[] =

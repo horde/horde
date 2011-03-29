@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-29</date>
- <time>18:14:50</time>
+ <time>17:34:26</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* Do all zip compression on stream data in streams.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -315,6 +315,14 @@
     </dir> <!-- /locale/zh_TW -->
     <file name="Horde_Compress.pot" role="data" />
    </dir> <!-- /locale -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Compress">
+      <file name="AllTests.php" role="test" />
+      <file name="ZipTest.php" role="test" />
+     </dir> <!-- /test/Horde/Compress -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -348,6 +356,13 @@
    </package>
   </required>
   <optional>
+   <package>
+    <name>Horde_Stream_Filter</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
    <extension>
     <name>zlib</name>
    </extension>
@@ -450,6 +465,8 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Compress.po" name="locale/zh_CN/LC_MESSAGES/Horde_Compress.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Compress.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Compress.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Compress.po" name="locale/zh_TW/LC_MESSAGES/Horde_Compress.po" />
+   <install as="Horde/Compress/AllTests.php" name="test/Horde/Compress/AllTests.php" />
+   <install as="Horde/Compress/ZipTest.php" name="test/Horde/Compress/ZipTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -548,14 +565,16 @@ Initial release as a PEAR package
   <release>
    <version>
     <release>1.0.0</release>
-    <api>1.0.0</api></version>
+    <api>1.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
-    <api>beta</api></stability>
+    <api>beta</api>
+   </stability>
    <date>2011-03-29</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* Do all zip compression on stream data in streams.
    </notes>
   </release>
  </changelog>
