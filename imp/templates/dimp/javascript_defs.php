@@ -42,6 +42,7 @@ foreach ($GLOBALS['injector']->getInstance('IMP_Flags')->getList() as $val) {
 $code['conf'] = array_filter(array(
     // URL variables
     'URI_AJAX' => Horde::getServiceLink('ajax', 'imp')->url,
+    'URI_SNOOZE' => (string)Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/snooze.php', true, -1),
     'URI_COMPOSE' => strval(Horde::url('compose-dimp.php')->setRaw(true)->add('ajaxui', 1)),
     'URI_DIMP' => strval(Horde::url('index-dimp.php')),
     'URI_MESSAGE' => strval(Horde::url('message-dimp.php')->setRaw(true)->add('ajaxui', 1)),
@@ -82,6 +83,12 @@ $code['conf'] = array_filter(array(
     'refresh_time' => intval($GLOBALS['prefs']->getValue('refresh_time')),
     'searchprefix' => IMP_Search::MBOX_PREFIX,
     'sidebar_width' => max(intval($GLOBALS['prefs']->getValue('sidebar_width')), 150) . 'px',
+    'snooze' => array('0' => _("select..."),
+                      '5' => _("5 minutes"),
+                      '15' => _("15 minutes"),
+                      '60' => _("1 hour"),
+                      '360' => _("6 hours"),
+                      '1440' => _("1 day")),
     'sort' => array(
         'sequence' => array(
             't' => '',
@@ -154,6 +161,7 @@ $code['text'] = array(
     'rename_prompt' => _("Rename folder to:"),
     'search' => _("Search"),
     'selected' => _("selected"),
+    'snooze' => sprintf(_("You can snooze it for %s or %s dismiss %s it entirely"), '#{time}', '#{dismiss_start}', '#{dismiss_end}'),
     'verify' => _("Verifying..."),
     'vfolder' => _("Virtual Folder: %s"),
     'vp_empty' => _("There are no messages in this mailbox."),
