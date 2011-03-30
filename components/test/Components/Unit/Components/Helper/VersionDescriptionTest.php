@@ -55,7 +55,7 @@ extends Components_TestCase
     {
         $this->assertEquals(
             '4.0 Release Candidate 1',
-            Components_Helper_Version::pearToTicketDescription('4.0.0rc1')
+            Components_Helper_Version::pearToTicketDescription('4.0.0RC1')
         );
     }
 
@@ -63,7 +63,7 @@ extends Components_TestCase
     {
         $this->assertEquals(
             '4.0 Release Candidate 2',
-            Components_Helper_Version::pearToTicketDescription('4.0.0rc2')
+            Components_Helper_Version::pearToTicketDescription('4.0.0RC2')
         );
     }
 
@@ -103,7 +103,7 @@ extends Components_TestCase
     {
         $this->assertEquals(
             '5.2 Release Candidate 2',
-            Components_Helper_Version::pearToTicketDescription('5.2.0rc2')
+            Components_Helper_Version::pearToTicketDescription('5.2.0RC2')
         );
     }
 
