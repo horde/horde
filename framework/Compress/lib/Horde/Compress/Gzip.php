@@ -7,11 +7,13 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Cochrane <mike@graftonhall.co.nz>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Compress
+ * @author   Michael Cochrane <mike@graftonhall.co.nz>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Compress
  */
-class Horde_Compress_Gzip extends Horde_Compress
+class Horde_Compress_Gzip extends Horde_Compress_Base
 {
     /**
      * Gzip file flags.
@@ -27,15 +29,9 @@ class Horde_Compress_Gzip extends Horde_Compress
     );
 
     /**
-     * Decompress a gzip file and get information from it.
-     *
-     * @param string $data   The tar file data.
-     * @param array $params  The parameter array (Unused).
-     *
      * @return string  The uncompressed data.
-     * @throws Horde_Compress_Exception
      */
-    public function decompress($data, $params = array())
+    public function decompress($data, array $params = array())
     {
         /* If gzip is not compiled into PHP, return now. */
         if (!Horde_Util::extensionExists('zlib')) {

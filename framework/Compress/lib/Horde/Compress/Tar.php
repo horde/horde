@@ -1,17 +1,19 @@
 <?php
 /**
- * The Horde_Compress_Tar class allows tar files to be read.
+ * This class allows tar files to be read.
  *
  * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Cochrane <mike@graftonhall.co.nz>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Compress
+ * @author   Michael Cochrane <mike@graftonhall.co.nz>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Compress
  */
-class Horde_Compress_Tar extends Horde_Compress
+class Horde_Compress_Tar extends Horde_Compress_Base
 {
     /**
      * Tar file types.
@@ -44,25 +46,21 @@ class Horde_Compress_Tar extends Horde_Compress
     );
 
     /**
-     * Decompress a tar file and get information from it.
-     *
-     * @param string $data   The tar file data.
-     * @param array $params  The parameter array (Unused).
-     *
-     * @return array  The requested data.
+     * @return array  Tar file data:
      * <pre>
      * KEY: Position in the array
-     * VALUES: 'attr'  --  File attributes
-     *         'data'  --  Raw file contents
-     *         'date'  --  File modification time
-     *         'name'  --  Filename
-     *         'size'  --  Original file size
-     *         'type'  --  File type
+     * VALUES:
+     *   attr - File attributes
+     *   data - Raw file contents
+     *   date - File modification time
+     *   name - Filename
+     *   size - Original file size
+     *   type - File type
      * </pre>
      *
      * @throws Horde_Compress_Exception
      */
-    public function decompress($data, $params = array())
+    public function decompress($data, array $params = array())
     {
         $data_len = strlen($data);
         $position = 0;

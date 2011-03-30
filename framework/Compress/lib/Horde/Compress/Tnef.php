@@ -12,11 +12,13 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Compress
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Compress
  */
-class Horde_Compress_Tnef extends Horde_Compress
+class Horde_Compress_Tnef extends Horde_Compress_Base
 {
     const SIGNATURE = 0x223e9f78;
     const LVL_MESSAGE = 0x01;
@@ -55,16 +57,10 @@ class Horde_Compress_Tnef extends Horde_Compress
     const MAPI_MV_FLAG = 0x1000;
 
     /**
-     * Decompress the data.
-     *
-     * @param string $data   The data to decompress.
-     * @param array $params  An array of arguments needed to decompress the
-     *                       data.
-     *
-     * @return mixed  The decompressed data.
+     * @return array  The decompressed data.
      * @throws Horde_Compress_Exception
      */
-    public function decompress($data, $params = array())
+    public function decompress($data, array $params = array())
     {
         $out = array();
 

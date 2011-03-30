@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde_Compress_Dbx class allows dbx files (e.g. from Outlook Express)
- * to be read.
+ * This class allows dbx files (e.g. from Outlook Express) to be read.
  *
  * This class is based on code by:
  * Antony Raijekov <dev@strategma.bg>
@@ -12,10 +11,12 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Compress
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Compress
  */
-class Horde_Compress_Dbx extends Horde_Compress
+class Horde_Compress_Dbx extends Horde_Compress_Base
 {
     /**
      * TODO
@@ -58,15 +59,9 @@ class Horde_Compress_Dbx extends Horde_Compress
     protected $_tmp = array();
 
     /**
-     * Decompresses a DBX file and gets information from it.
-     *
-     * @param string $data   The dbx file data.
-     * @param array $params  Not used.
-     *
-     * @return mixed  The requested data.
-     * @throws Horde_Compress_Exception
+     * @return array  List of messages.
      */
-    public function decompress($data, $params = null)
+    public function decompress($data, array $params = array())
     {
         $this->_mails = $this->_tmp = array();
 

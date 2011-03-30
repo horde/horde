@@ -1,76 +1,46 @@
 <?php
 /**
- * The Horde_Compress:: class provides an API for various compression
- * techniques that can be used by Horde applications.
+ * This class provides an API for various compression techniques that can be
+ * used by Horde applications.
  *
  * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Compress
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Compress
  */
 class Horde_Compress
 {
     /**
-     * Attempts to return a concrete instance based on $driver.
+     * Attempts to return a concrete Horde_Compress_Base instance based on
+     * $driver.
      *
-     * @param mixed $driver  The type of concrete subclass to
-     *                       return. If $driver is an array, then we will look
-     *                       in $driver[0]/lib/Compress/ for the subclass
-     *                       implementation named $driver[1].php.
-     * @param array $params  A hash containing any additional configuration or
-     *                       parameters a subclass might need.
+     * @param string $driver  Either a driver name, or the full class name to
+     *                        use (class must extend Horde_Compress_Base).
+     * @param array $params   Hash containing any additional configuration
+     *                        or parameters a subclass needs.
      *
-     * @return Horde_Compress  The newly created concrete instance.
+     * @return Horde_Compress_Base  The newly created concrete instance.
      * @throws Horde_Compress_Exception
      */
     static public function factory($driver, $params = null)
     {
-        if (is_array($driver)) {
-            list($app, $driv_name) = $driver;
-            $driver = basename($driv_name);
-        } else {
-            $driver = basename($driver);
-        }
-
-        $class = (empty($app) ? 'Horde' : $app) . '_Compress_' . ucfirst($driver);
-
-        if (class_exists($class)) {
+        /* Base drivers (in Compress/ directory). */
+        $class = __CLASS__ . '_' . $driver;
+        if (@class_exists($class)) {
             return new $class($params);
         }
 
-        throw new Horde_Compress_Exception('Class definition of ' . $class . ' not found.');
-    }
+        /* Explicit class name. */
+        if (@class_exists($driver)) {
+            return new $driver($params);
+        }
 
-    /**
-     * Compress the data.
-     *
-     * @param string $data   The data to compress.
-     * @param array $params  An array of arguments needed to compress the data.
-     *
-     * @return mixed  The compressed data.
-     * @throws Horde_Compress_Exception
-     */
-    public function compress($data, $params = array())
-    {
-        return $data;
-    }
-
-    /**
-     * Decompress the data.
-     *
-     * @param string $data   The data to decompress.
-     * @param array $params  An array of arguments needed to decompress the
-     *                       data.
-     *
-     * @return array  The decompressed data.
-     * @throws Horde_Compress_Exception
-     */
-    public function decompress($data, $params = array())
-    {
-        return $data;
+        throw new Horde_Compress_Exception(__CLASS__ . ': Class definition of ' . $driver . ' not found.');
     }
 
 }

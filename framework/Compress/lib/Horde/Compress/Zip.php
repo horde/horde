@@ -17,12 +17,14 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Michael Cochrane <mike@graftonhall.co.nz>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Compress
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Cochrane <mike@graftonhall.co.nz>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Compress
  */
-class Horde_Compress_Zip extends Horde_Compress
+class Horde_Compress_Zip extends Horde_Compress_Base
 {
     /* Constants used with decompress(). */
     const ZIP_LIST = 1;
@@ -68,8 +70,6 @@ class Horde_Compress_Zip extends Horde_Compress
     protected $_tmp;
 
     /**
-     * Create a ZIP compressed file from an array of file data.
-     *
      * @param array $data    The data to compress.
      * <pre>
      * Requires an array of arrays - each subarray should contain the
@@ -85,7 +85,6 @@ class Horde_Compress_Zip extends Horde_Compress
      * </pre>
      *
      * @return mixed  The ZIP file as either a string or a stream resource.
-     * @throws Horde_Compress_Exception
      */
     public function compress($data, $params = array())
     {
@@ -134,9 +133,6 @@ class Horde_Compress_Zip extends Horde_Compress
     }
 
     /**
-     * Decompress a ZIP file and get information from it.
-     *
-     * @param string $data   The zipfile data.
      * @param array $params  The parameter array.
      * <pre>
      * The following parameters are REQUIRED:
@@ -148,10 +144,23 @@ class Horde_Compress_Zip extends Horde_Compress
      * 'key' - (integer) The position of the file in the archive list.
      * </pre>
      *
-     * @return mixed  The requested data.
+     * @return mixed  If action is self::ZIP_DATA, the uncompressed data. If
+     *                action is self::ZIP_LIST, the following data:
+     * <pre>
+     * KEY: Position in zipfile
+     * VALUES:
+     *   attr - File attributes
+     *   crc - CRC checksum
+     *   csize - Compressed file size
+     *   date - File modification time
+     *   name - Filename
+     *   method - Compression method
+     *   size - Original file size
+     *   type - File type
+     * </pre>
      * @throws Horde_Compress_Exception
      */
-    public function decompress($data, $params = array())
+    public function decompress($data, array $params = array())
     {
         if (isset($params['action'])) {
             switch ($params['action']) {
@@ -169,18 +178,7 @@ class Horde_Compress_Zip extends Horde_Compress
      *
      * @param string $data  The zipfile data.
      *
-     * @return array  KEY: Position in zipfile
-     *                VALUES:
-     * <pre>
-     * 'attr'    --  File attributes
-     * 'crc'     --  CRC checksum
-     * 'csize'   --  Compressed file size
-     * 'date'    --  File modification time
-     * 'name'    --  Filename
-     * 'method'  --  Compression method
-     * 'size'    --  Original file size
-     * 'type'    --  File type
-     * </pre>
+     * @return array  See decompress() for the format.
      *
      * @throws Horde_Compress_Exception
      */
