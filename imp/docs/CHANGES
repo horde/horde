@@ -2,6 +2,8 @@
 v5.0
 ----
 
+[mms] Support importing of compressed mailbox files if the zip extension is
+      not available.
 
 
 --------
