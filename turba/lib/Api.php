@@ -1534,19 +1534,33 @@ class Turba_Api extends Horde_Registry_Api
     /**
      * Sets the value of the specified attribute of a contact
      *
-     * @param string $address  Contact email address
-     * @param string $name     Contact name
-     * @param string $field    Field to update
-     * @param string $value    Field value to set
-     * @param string $source   Contact source
+     * @param string|array $address  Contact email address(es).
+     * @param string $name           Contact name.
+     * @param string $field          Field to update.
+     * @param string $value          Field value to set.
+     * @param string $source         Contact source.
      *
      * @return string  The new __key value on success.
      * @throws Turba_Exception
      */
     public function addField($address = '', $name = '', $field = '',
-                             $value = '',
-        $source = '')
+                             $value = '', $source = '')
     {
+        if (is_array($address)) {
+            $exception = null;
+            foreach ($address as $tmp) {
+                try {
+                    if ($key = $this->addField($tmp, $name, $field, $value, $source)) {
+                        return $key;
+                    }
+                } catch (Exception $exception) {
+                }
+            }
+            if ($exception) {
+                throw $exception;
+            }
+        }
+
         global $cfgSources;
 
         if (empty($source) || !isset($cfgSources[$source])) {

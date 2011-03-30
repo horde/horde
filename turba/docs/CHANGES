@@ -2,6 +2,8 @@
 v3.0
 ----
 
+[jan] Add fields to the first address if multiple passed to addField() API
+      method (Request #3482).
 
 
 --------

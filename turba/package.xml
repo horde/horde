@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [jan] Add fields to the first address if multiple passed to addField() API method (Request #3482).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1124,7 +1124,7 @@
    <date>2011-03-29</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* [jan] Add fields to the first address if multiple passed to addField() API method (Request #3482).
    </notes>
   </release>
  </changelog>
