@@ -207,6 +207,7 @@ class Components_Runner_Change
     public function addChange($entry, $changes)
     {
         $tmp = Horde_Util::getTempFile();
+        $entry = Horde_String::wrap($entry, 79, "\n      ");
 
         $oldfp = fopen($changes, 'r');
         $newfp = fopen($tmp, 'w');
