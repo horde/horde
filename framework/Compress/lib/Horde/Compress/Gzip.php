@@ -16,6 +16,10 @@
 class Horde_Compress_Gzip extends Horde_Compress_Base
 {
     /**
+     */
+    public $canDecompress = true;
+
+    /**
      * Gzip file flags.
      *
      * @var array

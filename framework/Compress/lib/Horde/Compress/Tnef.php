@@ -57,6 +57,10 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MAPI_MV_FLAG = 0x1000;
 
     /**
+     */
+    public $canDecompress = true;
+
+    /**
      * @return array  The decompressed data.
      * @throws Horde_Compress_Exception
      */

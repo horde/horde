@@ -16,6 +16,10 @@
 class Horde_Compress_Rar extends Horde_Compress_Base
 {
     /**
+     */
+    public $canDecompress = true;
+
+    /**
      * Rar compression methods
      *
      * @var array

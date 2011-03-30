@@ -40,6 +40,14 @@ class Horde_Compress_Zip extends Horde_Compress_Base
     const FILE_HEADER = "\x50\x4b\x03\x04";
 
     /**
+     */
+    public $canCompress = true;
+
+    /**
+     */
+    public $canDecompress = true;
+
+    /**
      * ZIP compression methods.
      *
      * @var array

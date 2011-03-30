@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-29</date>
- <time>23:47:30</time>
+ <time>23:52:34</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Add $canCompress and $canDecompress properties to Horde_Compress_Base.
 * Drivers now extend Horde_Compress_Base.
 * Add Horde_Compress_Exception.
 * Do all zip compression on stream data in streams.
@@ -580,6 +581,7 @@ Initial release as a PEAR package
    <date>2011-03-29</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* Add $canCompress and $canDecompress properties to Horde_Compress_Base.
 * Drivers now extend Horde_Compress_Base.
 * Add Horde_Compress_Exception.
 * Do all zip compression on stream data in streams.

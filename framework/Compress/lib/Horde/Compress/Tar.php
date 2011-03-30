@@ -16,6 +16,10 @@
 class Horde_Compress_Tar extends Horde_Compress_Base
 {
     /**
+     */
+    public $canDecompress = true;
+
+    /**
      * Tar file types.
      *
      * @var array

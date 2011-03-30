@@ -1,6 +1,6 @@
 <?php
 /**
- * The base interface that all compress drivers should extend.
+ * The base class that all compress drivers should extend.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -14,6 +14,20 @@
  */
 class Horde_Compress_Base
 {
+    /**
+     * Does this driver support compressing data?
+     *
+     * @var boolean
+     */
+    public $canCompress = false;
+
+    /**
+     * Does this driver support decompressing data?
+     *
+     * @var boolean
+     */
+    public $canDecompress = false;
+
     /**
      * Compress the data.
      *

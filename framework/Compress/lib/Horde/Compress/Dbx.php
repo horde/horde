@@ -19,6 +19,10 @@
 class Horde_Compress_Dbx extends Horde_Compress_Base
 {
     /**
+     */
+    public $canDecompress = true;
+
+    /**
      * TODO
      *
      * @var array
