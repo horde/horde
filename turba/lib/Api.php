@@ -1540,7 +1540,6 @@ class Turba_Api extends Horde_Registry_Api
      * @param string $value          Field value to set.
      * @param string $source         Contact source.
      *
-     * @return string  The new __key value on success.
      * @throws Turba_Exception
      */
     public function addField($address = '', $name = '', $field = '',
@@ -1630,7 +1629,7 @@ class Turba_Api extends Horde_Registry_Api
             $ob->setValue($field, $value);
             $ob->store();
         } else {
-            return $driver->add(array('email' => $address, 'name' => $name, $field => $value, '__owner' => $GLOBALS['registry']->getAuth()));
+            $driver->add(array('email' => $address, 'name' => $name, $field => $value, '__owner' => $GLOBALS['registry']->getAuth()));
         }
     }
 
