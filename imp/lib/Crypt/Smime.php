@@ -121,7 +121,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      *
      * @param string $cert  A public certificate to add.
      *
-     * @throws Horde_Crypt_Exception
+     * @throws Horde_Exception
      */
     public function addPublicKey($cert)
     {
