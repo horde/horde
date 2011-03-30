@@ -24,7 +24,7 @@ class Horde_Compress
      *                       parameters a subclass might need.
      *
      * @return Horde_Compress  The newly created concrete instance.
-     * @throws Horde_Exception
+     * @throws Horde_Compress_Exception
      */
     static public function factory($driver, $params = null)
     {
@@ -41,7 +41,7 @@ class Horde_Compress
             return new $class($params);
         }
 
-        throw new Horde_Exception('Class definition of ' . $class . ' not found.');
+        throw new Horde_Compress_Exception('Class definition of ' . $class . ' not found.');
     }
 
     /**
@@ -51,7 +51,7 @@ class Horde_Compress
      * @param array $params  An array of arguments needed to compress the data.
      *
      * @return mixed  The compressed data.
-     * @throws Horde_Exception
+     * @throws Horde_Compress_Exception
      */
     public function compress($data, $params = array())
     {
@@ -66,7 +66,7 @@ class Horde_Compress
      *                       data.
      *
      * @return array  The decompressed data.
-     * @throws Horde_Exception
+     * @throws Horde_Compress_Exception
      */
     public function decompress($data, $params = array())
     {

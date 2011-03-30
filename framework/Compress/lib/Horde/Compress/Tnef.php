@@ -62,7 +62,7 @@ class Horde_Compress_Tnef extends Horde_Compress
      *                       data.
      *
      * @return mixed  The decompressed data.
-     * @throws Horde_Exception
+     * @throws Horde_Compress_Exception
      */
     public function decompress($data, $params = array())
     {

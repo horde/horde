@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-29</date>
- <time>17:34:26</time>
+ <time>23:25:57</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Add Horde_Compress_Exception.
 * Do all zip compression on stream data in streams.
  </notes>
  <contents>
@@ -42,6 +43,7 @@
     <dir name="Horde">
      <dir name="Compress">
       <file name="Dbx.php" role="php" />
+      <file name="Exception.php" role="php" />
       <file name="Gzip.php" role="php" />
       <file name="Rar.php" role="php" />
       <file name="Tar.php" role="php" />
@@ -372,6 +374,7 @@
   <filelist>
    <install as="Horde/Compress.php" name="lib/Horde/Compress.php" />
    <install as="Horde/Compress/Dbx.php" name="lib/Horde/Compress/Dbx.php" />
+   <install as="Horde/Compress/Exception.php" name="lib/Horde/Compress/Exception.php" />
    <install as="Horde/Compress/Gzip.php" name="lib/Horde/Compress/Gzip.php" />
    <install as="Horde/Compress/Rar.php" name="lib/Horde/Compress/Rar.php" />
    <install as="Horde/Compress/Tar.php" name="lib/Horde/Compress/Tar.php" />
@@ -574,6 +577,7 @@ Initial release as a PEAR package
    <date>2011-03-29</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* Add Horde_Compress_Exception.
 * Do all zip compression on stream data in streams.
    </notes>
   </release>

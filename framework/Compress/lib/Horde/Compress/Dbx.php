@@ -64,7 +64,7 @@ class Horde_Compress_Dbx extends Horde_Compress
      * @param array $params  Not used.
      *
      * @return mixed  The requested data.
-     * @throws Horde_Exception
+     * @throws Horde_Compress_Exception
      */
     public function decompress($data, $params = null)
     {
@@ -107,7 +107,7 @@ class Horde_Compress_Dbx extends Horde_Compress
      * @param integer $position  TODO
      *
      * @return string  TODO
-     * @throws Horde_Exception
+     * @throws Horde_Compress_Exception
      */
     protected function _readMessage($data, $position)
     {
@@ -125,7 +125,7 @@ class Horde_Compress_Dbx extends Horde_Compress
                     }
                     $msg_item = unpack('LFilePos/LUnknown/LItemSize/LNextItem/a512Content', $s);
                     if ($msg_item['FilePos'] != $position) {
-                        throw new Horde_Exception(Horde_Compress_Translation::t("Invalid file format"));
+                        throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid file format"));
                     }
                     $position += 528;
                     $msg .= substr($msg_item['Content'], 0, $msg_item['ItemSize']);
@@ -147,14 +147,14 @@ class Horde_Compress_Dbx extends Horde_Compress
      * @param integer $position  TODO
      *
      * @return array  TODO
-     * @throws Horde_Exception
+     * @throws Horde_Compress_Exception
      */
     protected function _readMessageInfo($data, $position)
     {
         $message_info = array();
         $msg_header = unpack('Lposition/LDataLength/SHeaderLength/SFlagCount', substr($data, $position, 12));
         if ($msg_header['position'] != $position) {
-            throw new Horde_Exception(Horde_Compress_Translation::t("Invalid file format"));
+            throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid file format"));
         }
         $position += 12;
         $message_info['HeaderPosition'] = $msg_header['position'];
@@ -229,13 +229,13 @@ class Horde_Compress_Dbx extends Horde_Compress
      * @param string $data       TODO
      * @param integer $position  TODO
      *
-     * @throws Horde_Exception
+     * @throws Horde_Compress_Exception
      */
     protected function _readIndex($data, $position)
     {
         $index_header = unpack('LFilePos/LUnknown1/LPrevIndex/LNextIndex/LCount/LUnknown', substr($data, $position, 24));
         if ($index_header['FilePos'] != $position) {
-            throw new Horde_Exception(Horde_Compress_Translation::t("Invalid file format"));
+            throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid file format"));
         }
 
         // Push it into list of processed items.

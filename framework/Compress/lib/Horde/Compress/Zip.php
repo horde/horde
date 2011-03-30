@@ -85,12 +85,12 @@ class Horde_Compress_Zip extends Horde_Compress
      * </pre>
      *
      * @return mixed  The ZIP file as either a string or a stream resource.
-     * @throws Horde_Exception
+     * @throws Horde_Compress_Exception
      */
     public function compress($data, $params = array())
     {
         if (!Horde_Util::extensionExists('zlib')) {
-            throw new Horde_Exception(Horde_Compress_Translation::t("This server can't compress zip files."));
+            throw new Horde_Compress_Exception(Horde_Compress_Translation::t("This server can't compress zip files."));
         }
 
         $this->_ctrldir = array();
@@ -149,7 +149,7 @@ class Horde_Compress_Zip extends Horde_Compress
      * </pre>
      *
      * @return mixed  The requested data.
-     * @throws Horde_Exception
+     * @throws Horde_Compress_Exception
      */
     public function decompress($data, $params = array())
     {
@@ -182,7 +182,7 @@ class Horde_Compress_Zip extends Horde_Compress
      * 'type'    --  File type
      * </pre>
      *
-     * @throws Horde_Exception
+     * @throws Horde_Compress_Exception
      */
     protected function _getZipInfo($data)
     {
@@ -193,7 +193,7 @@ class Horde_Compress_Zip extends Horde_Compress
 
         do {
             if (strlen($data) < $fhStart + 31) {
-                throw new Horde_Exception(Horde_Compress_Translation::t("Invalid ZIP data"));
+                throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid ZIP data"));
             }
             $info = unpack('vMethod/VTime/VCRC32/VCompressed/VUncompressed/vLength', substr($data, $fhStart + 10, 20));
             $name = substr($data, $fhStart + 46, $info['Length']);
@@ -220,7 +220,7 @@ class Horde_Compress_Zip extends Horde_Compress
                        ((($info['Time'] >> 25) & 0x7f) + 1980));
 
             if (strlen($data) < $fhStart + 43) {
-                throw new Horde_Exception(Horde_Compress_Translation::t("Invalid ZIP data"));
+                throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid ZIP data"));
             }
             $info = unpack('vInternal/VExternal', substr($data, $fhStart + 36, 6));
 
@@ -240,7 +240,7 @@ class Horde_Compress_Zip extends Horde_Compress
 
         do {
             if ($data_len < $fhStart + 34) {
-                throw new Horde_Exception(Horde_Compress_Translation::t("Invalid ZIP data"));
+                throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid ZIP data"));
             }
             $info = unpack('vMethod/VTime/VCRC32/VCompressed/VUncompressed/vLength/vExtraLength', substr($data, $fhStart + 8, 25));
             $name = substr($data, $fhStart + 30, $info['Length']);
