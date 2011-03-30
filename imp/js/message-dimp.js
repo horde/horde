@@ -237,7 +237,7 @@ var DimpMessage = {
                 // Can't use capitalize() here.
                 var elt = $('msgHeader' + a.charAt(0).toUpperCase() + a.substring(1));
                 if (elt) {
-                    elt.down('TD', 1).replace(DimpCore.buildAddressLinks(this[a], elt.clone(false)));
+                    elt.down('TD', 1).replace(DimpCore.buildAddressLinks(this[a], elt.down('TD', 1).clone(false)));
                 }
             }
         }, this);
