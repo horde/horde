@@ -7,7 +7,7 @@
 
 var HordeSidebar = {
     // Variables set in services/sidebar.php:
-    // domain, path, refresh, tree, url, width
+    // domain, path, load, refresh, tree, url, width
 
     toggleSidebar: function()
     {
@@ -28,11 +28,14 @@ var HordeSidebar = {
 
     updateSidebar: function()
     {
-        new PeriodicalExecuter(function() {
-            new Ajax.Request(this.url, {
-                onComplete: this.onUpdateSidebar.bind(this)
-            });
-        }.bind(this), this.refresh);
+        new PeriodicalExecuter(this.loadSidebar.bind(this), this.refresh);
+    },
+
+    loadSidebar: function()
+    {
+        new Ajax.Request(this.url, {
+            onComplete: this.onUpdateSidebar.bind(this)
+        });
     },
 
     onUpdateSidebar: function(response)
@@ -73,6 +76,9 @@ var HordeSidebar = {
 
         if (this.refresh) {
             this.updateSidebar.bind(this).delay(this.refresh);
+        }
+        if (this.load) {
+            this.loadSidebar();
         }
 
         $('expandButton', 'hiddenSidebar').invoke('observe', 'click', this.toggleSidebar.bind(this));

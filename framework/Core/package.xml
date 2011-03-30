@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Delay sidebar creation if the sidebar is generated through JavaScript.
 * [jan] Use localized application names when sorting the preference menu tree.
 * [mms] Fix adding port to certain urls passed to Horde::url() (Bug #9712).
  </notes>

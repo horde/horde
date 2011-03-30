@@ -24,7 +24,8 @@ global $conf, $injector, $language, $prefs, $registry;
 if (!Horde_Util::getFormData('ajaxui') &&
     ($conf['menu']['always'] ||
      ($registry->getAuth() && $prefs->getValue('show_sidebar')))) {
-    $tree = $injector->getInstance('Horde_Core_Sidebar')->getTree();
+    $sidebar = $injector->getInstance('Horde_Core_Sidebar');
+    $tree = $sidebar->isJavascript() ? $sidebar->getBaseTree() : $sidebar->getTree();
 
     Horde::addScriptFile('sidebar.js', 'horde');
 
@@ -38,6 +39,7 @@ if (!Horde_Util::getFormData('ajaxui') &&
     Horde::addInlineJsVars(array(
         'HordeSidebar.domain' => $conf['cookie']['domain'],
         'HordeSidebar.path' => $conf['cookie']['path'],
+        'HordeSidebar.load' => $sidebar->isJavascript(),
         '-HordeSidebar.refresh' => intval($prefs->getValue('menu_refresh_time')),
         'HordeSidebar.url' => strval($ajax_url),
         '-HordeSidebar.width' => $width

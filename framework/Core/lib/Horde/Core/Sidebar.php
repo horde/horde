@@ -15,13 +15,53 @@
 class Horde_Core_Sidebar
 {
     /**
+     * A tree object.
+     *
+     * @var Horde_Tree_Base
+     */
+    protected $_tree;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        // Set up the tree.
+        $this->_tree = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Tree')
+            ->create('horde_menu', 'Javascript',
+                     array('jsvar' => 'HordeSidebar.tree'));
+    }
+
+    /**
+     * Returns whether the sidebar tree is rendered through JavaScript.
+     *
+     * @return boolean  True if the sidebar is a JavaScript tree.
+     */
+    public function isJavascript()
+    {
+        return $this->_tree instanceof Horde_Core_Tree_Javascript;
+    }
+
+    /**
+     * Returns the current tree object, without adding any nodes or further
+     * processing.
+     *
+     * @return Horde_Tree_Base  The current tree object.
+     */
+    public function getBaseTree()
+    {
+        return $this->_tree;
+    }
+
+    /**
      * Generate the sidebar tree object.
      *
      * @return Horde_Tree_Base  The sidebar tree object.
      */
     public function getTree()
     {
-        global $injector, $registry;
+        global $registry;
 
         $isAdmin = $registry->isAdmin();
         $menu = $parents = array();
@@ -74,7 +114,7 @@ class Horde_Core_Sidebar
         }
 
         if (Horde_Menu::showService('prefs') &&
-            !($injector->getInstance('Horde_Core_Factory_Prefs')->create() instanceof Horde_Prefs_Session)) {
+            !($GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create() instanceof Horde_Prefs_Session)) {
             $menu['prefs'] = array(
                 'icon' => Horde_Themes::img('prefs.png'),
                 'name' => Horde_Core_Translation::t("Preferences"),
@@ -123,14 +163,11 @@ class Horde_Core_Sidebar
             );
         }
 
-        // Set up the tree.
-        $tree = $injector->getInstance('Horde_Core_Factory_Tree')->create('horde_menu', 'Javascript', array('jsvar' => 'HordeSidebar.tree'));
-
         foreach ($menu as $app => $params) {
             switch ($params['status']) {
             case 'sidebar':
                 try {
-                    $registry->callAppMethod($params['app'], 'sidebarCreate', array('args' => array($tree, empty($params['menu_parent']) ? null : $params['menu_parent'], isset($params['sidebar_params']) ? $params['sidebar_params'] : array())));
+                    $registry->callAppMethod($params['app'], 'sidebarCreate', array('args' => array($this->_tree, empty($params['menu_parent']) ? null : $params['menu_parent'], isset($params['sidebar_params']) ? $params['sidebar_params'] : array())));
                 } catch (Horde_Exception $e) {
                     if ($e->getCode() != Horde_Registry::NOT_ACTIVE) {
                         Horde::logMessage($e, 'ERR');
@@ -156,7 +193,7 @@ class Horde_Core_Sidebar
                     $url = Horde::url($registry->getInitialPage($app), false, array('app' => $app));
                 }
 
-                $tree->addNode(
+                $this->_tree->addNode(
                     $app,
                     empty($params['menu_parent']) ? null : $params['menu_parent'],
                     $name,
@@ -172,7 +209,7 @@ class Horde_Core_Sidebar
             }
         }
 
-        return $tree;
+        return $this->_tree;
     }
 
     /**
