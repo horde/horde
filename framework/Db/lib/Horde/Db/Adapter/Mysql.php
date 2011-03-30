@@ -250,7 +250,7 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
         $t = new Horde_Support_Timer();
         $t->push();
 
-        $this->last_query = $sql;
+        $this->_lastQuery = $sql;
         $stmt = mysql_query($sql, $this->_connection);
         if (!$stmt) {
             $this->_logInfo($sql, 'QUERY FAILED: ' . mysql_error($this->_connection));
@@ -288,7 +288,7 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
     public function beginDbTransaction()
     {
         $this->_transactionStarted = true;
-        $this->last_query = 'SET AUTOCOMMIT=0; BEGIN';
+        $this->_lastQuery = 'SET AUTOCOMMIT=0; BEGIN';
         @mysql_query('SET AUTOCOMMIT=0', $this->_connection) && @mysql_query('BEGIN', $this->_connection);
     }
 
@@ -297,7 +297,7 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
      */
     public function commitDbTransaction()
     {
-        $this->last_query = 'COMMIT; SET AUTOCOMMIT=1';
+        $this->_lastQuery = 'COMMIT; SET AUTOCOMMIT=1';
         @mysql_query('COMMIT', $this->_connection) && @mysql_query('SET AUTOCOMMIT=1', $this->_connection);
         $this->_transactionStarted = false;
     }
@@ -312,7 +312,7 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
             return;
         }
 
-        $this->last_query = 'ROLLBACK; SET AUTOCOMMIT=1';
+        $this->_lastQuery = 'ROLLBACK; SET AUTOCOMMIT=1';
         @mysql_query('ROLLBACK', $this->_connection) && @mysql_query('SET AUTOCOMMIT=1', $this->_connection);
         $this->_transactionStarted = false;
     }

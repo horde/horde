@@ -34,10 +34,10 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
      * @var Horde_Db_Adapter
      */
     private $_read;
-    
+
     /**
      * The write adapter
-     * 
+     *
      * @var Horde_Db_Adapter
      */
     private $_write;
@@ -63,7 +63,7 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     public function __call($method, $args)
     {
         $result = call_user_func_array(array($this->_write, $method), $args);
-        $this->last_query = $this->_write->last_query;
+        $this->_lastQuery = $this->_write->getLastQuery();
         return $result;
     }
 
@@ -79,7 +79,7 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     }
 
     /**
-     * Does this adapter support migrations? 
+     * Does this adapter support migrations?
      *
      * @return boolean
      */
@@ -204,7 +204,7 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     public function select($sql, $arg1 = null, $arg2 = null)
     {
         $result = $this->_read->select($sql, $arg1, $arg2);
-        $this->last_query = $this->_read->last_query;
+        $this->_lastQuery = $this->_read->getLastQuery();
         return $result;
     }
 
@@ -224,7 +224,7 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     public function selectAll($sql, $arg1 = null, $arg2 = null)
     {
         $result = $this->_read->selectAll($sql, $arg1, $arg2);
-        $this->last_query = $this->_read->last_query;
+        $this->_lastQuery = $this->_read->getLastQuery();
         return $result;
     }
 
@@ -244,7 +244,7 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     public function selectOne($sql, $arg1 = null, $arg2 = null)
     {
         $result = $this->_read->selectOne($sql, $arg1, $arg2);
-        $this->last_query = $this->_read->last_query;
+        $this->_lastQuery = $this->_read->getLastQuery();
         return $result;
     }
 
@@ -263,7 +263,7 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     public function selectValue($sql, $arg1 = null, $arg2 = null)
     {
         $result = $this->_read->selectValue($sql, $arg1, $arg2);
-        $this->last_query = $this->_read->last_query;
+        $this->_lastQuery = $this->_read->getLastQuery();
         return $result;
     }
 
@@ -283,7 +283,7 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     public function selectValues($sql, $arg1 = null, $arg2 = null)
     {
         $result = $this->_read->selectValues($sql, $arg1, $arg2);
-        $this->last_query = $this->_read->last_query;
+        $this->_lastQuery = $this->_read->getLastQuery();
         return $result;
     }
 
@@ -305,7 +305,7 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     public function selectAssoc($sql, $arg1 = null, $arg2 = null)
     {
         $result = $this->_read->selectAssoc($sql, $arg1, $arg2);
-        $this->last_query = $this->_read->last_query;
+        $this->_lastQuery = $this->_read->getLastQuery();
         return $result;
     }
 
@@ -325,7 +325,7 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     {
         // Can't assume this will always be a read action, use _write.
         $result = $this->_write->execute($sql, $arg1, $arg2);
-        $this->last_query = $this->_write->last_query;
+        $this->_lastQuery = $this->_write->getLastQuery();
         return $result;
     }
 
@@ -348,7 +348,7 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
                            $idValue = null, $sequenceName = null)
     {
         $result = $this->_write->insert($sql, $arg1, $arg2, $pk, $idValue, $sequenceName);
-        $this->last_query = $this->_write->last_query;
+        $this->_lastQuery = $this->_write->getLastQuery();
         return $result;
     }
 
@@ -367,7 +367,7 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     public function update($sql, $arg1 = null, $arg2 = null)
     {
         $result = $this->_write->update($sql, $arg1, $arg2);
-        $this->last_query = $this->_write->last_query;
+        $this->_lastQuery = $this->_write->getLastQuery();
         return $result;
     }
 
@@ -386,7 +386,7 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     public function delete($sql, $arg1 = null, $arg2 = null)
     {
         $result = $this->_write->delete($sql, $arg1, $arg2);
-        $this->last_query = $this->_write->last_query;
+        $this->_lastQuery = $this->_write->getLastQuery();
         return $result;
     }
 
@@ -398,7 +398,7 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     public function transactionStarted()
     {
         $result = $this->_write->transactionStarted();
-        $this->last_query = $this->_write->last_query;
+        $this->_lastQuery = $this->_write->getLastQuery();
         return $result;
     }
     /**
@@ -407,7 +407,7 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     public function beginDbTransaction()
     {
         $result = $this->_write->beginDbTransaction();
-        $this->last_query = $this->_write->last_query;
+        $this->_lastQuery = $this->_write->getLastQuery();
         return $result;
     }
 
@@ -417,7 +417,7 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     public function commitDbTransaction()
     {
         $result = $this->_write->commitDbTransaction();
-        $this->last_query = $this->_write->last_query;
+        $this->_lastQuery = $this->_write->getLastQuery();
         return $result;
     }
 
@@ -428,7 +428,7 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     public function rollbackDbTransaction()
     {
         $result = $this->_write->rollbackDbTransaction();
-        $this->last_query = $this->_write->last_query;
+        $this->_lastQuery = $this->_write->getLastQuery();
         return $result;
     }
 
@@ -443,7 +443,7 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     public function addLimitOffset($sql, $options)
     {
         $result = $this->_read->addLimitOffset($sql, $options);
-        $this->last_query = $this->_write->last_query;
+        $this->_lastQuery = $this->_write->getLastQuery();
         return $result;
     }
 
@@ -461,6 +461,6 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     public function addLock(&$sql, array $options = array())
     {
         $this->_write->addLock($sql, $options);
-        $this->last_query = $this->_write->last_query;
+        $this->_lastQuery = $this->_write->getLastQuery();
     }
 }
