@@ -185,6 +185,6 @@ class Horde_Core_Sidebar
      */
     protected function _sortByName($a, $b)
     {
-        return strcoll($a['name'], $b['name']);
+        return strcoll(_($a['name']), _($b['name']));
     }
 }

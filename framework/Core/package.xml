@@ -34,7 +34,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Fix adding port to certain urls passed to Horde::url() (Bug #9712).
+* [jan] Use localized application names when sorting the preference menu tree.
+* [mms] Fix adding port to certain urls passed to Horde::url() (Bug #9712).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
