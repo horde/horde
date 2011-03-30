@@ -20,7 +20,7 @@
  <date>2011-03-29</date>
  <time>12:07:48</time>
  <version>
-  <release>1.0.0</release>
+  <release>1.0.0RC3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Provide option to always use Windows-1252 when decoding ISO-8859-1 data.
+* [mms] Provide option to always use Windows-1252 when decoding ISO-8859-1 data.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -606,12 +606,12 @@
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Second release candidate for Horde 4.
-* Improve handling of empty address groups.
+* [mms] Improve handling of empty address groups.
    </notes>
   </release>
   <release>
    <version>
-    <release>1.0.0</release>
+    <release>1.0.0RC3</release>
     <api>1.0.0</api>
    </version>
    <stability>
@@ -621,7 +621,7 @@
    <date>2011-03-29</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Provide option to always use Windows-1252 when decoding ISO-8859-1 data.
+* [mms] Provide option to always use Windows-1252 when decoding ISO-8859-1 data.
    </notes>
   </release>
  </changelog>
