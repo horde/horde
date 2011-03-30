@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-29</date>
- <time>18:14:50</time>
+ <time>23:52:34</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -34,14 +34,19 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* Add $canCompress and $canDecompress properties to Horde_Compress_Base.
+* Drivers now extend Horde_Compress_Base.
+* Add Horde_Compress_Exception.
+* Do all zip compression on stream data in streams.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Compress">
+      <file name="Base.php" role="php" />
       <file name="Dbx.php" role="php" />
+      <file name="Exception.php" role="php" />
       <file name="Gzip.php" role="php" />
       <file name="Rar.php" role="php" />
       <file name="Tar.php" role="php" />
@@ -315,6 +320,14 @@
     </dir> <!-- /locale/zh_TW -->
     <file name="Horde_Compress.pot" role="data" />
    </dir> <!-- /locale -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Compress">
+      <file name="AllTests.php" role="test" />
+      <file name="ZipTest.php" role="test" />
+     </dir> <!-- /test/Horde/Compress -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -348,6 +361,13 @@
    </package>
   </required>
   <optional>
+   <package>
+    <name>Horde_Stream_Filter</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
    <extension>
     <name>zlib</name>
    </extension>
@@ -356,7 +376,9 @@
  <phprelease>
   <filelist>
    <install as="Horde/Compress.php" name="lib/Horde/Compress.php" />
+   <install as="Horde/Compress/Base.php" name="lib/Horde/Compress/Base.php" />
    <install as="Horde/Compress/Dbx.php" name="lib/Horde/Compress/Dbx.php" />
+   <install as="Horde/Compress/Exception.php" name="lib/Horde/Compress/Exception.php" />
    <install as="Horde/Compress/Gzip.php" name="lib/Horde/Compress/Gzip.php" />
    <install as="Horde/Compress/Rar.php" name="lib/Horde/Compress/Rar.php" />
    <install as="Horde/Compress/Tar.php" name="lib/Horde/Compress/Tar.php" />
@@ -450,6 +472,8 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Compress.po" name="locale/zh_CN/LC_MESSAGES/Horde_Compress.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Compress.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Compress.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Compress.po" name="locale/zh_TW/LC_MESSAGES/Horde_Compress.po" />
+   <install as="Horde/Compress/AllTests.php" name="test/Horde/Compress/AllTests.php" />
+   <install as="Horde/Compress/ZipTest.php" name="test/Horde/Compress/ZipTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -548,14 +572,19 @@ Initial release as a PEAR package
   <release>
    <version>
     <release>1.0.0</release>
-    <api>1.0.0</api></version>
+    <api>1.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
-    <api>beta</api></stability>
+    <api>beta</api>
+   </stability>
    <date>2011-03-29</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* Add $canCompress and $canDecompress properties to Horde_Compress_Base.
+* Drivers now extend Horde_Compress_Base.
+* Add Horde_Compress_Exception.
+* Do all zip compression on stream data in streams.
    </notes>
   </release>
  </changelog>

@@ -996,7 +996,9 @@ HTML;
         $schemeRegexp = '|^([a-zA-Z][a-zA-Z0-9+.-]{0,19})://|';
         $webroot = ltrim($GLOBALS['registry']->get('webroot', empty($opts['app']) ? null : $opts['app']), '/');
 
-        if ($full && !isset($puri['scheme']) && !preg_match($schemeRegexp, $webroot) ) {
+        if ($full &&
+            !isset($puri['scheme']) &&
+            !preg_match($schemeRegexp, $webroot) ) {
             /* Store connection parameters in local variables. */
             $server_name = $GLOBALS['conf']['server']['name'];
             $server_port = $GLOBALS['conf']['server']['port'];
@@ -1021,7 +1023,7 @@ HTML;
                 break;
             }
 
-            /* If using non-standard ports, add the port to the URL. */
+            /* If using a non-standard port, add to the URL. */
             if (!empty($server_port) &&
                 ((($protocol == 'http') && ($server_port != 80)) ||
                  (($protocol == 'https') && ($server_port != 443)))) {
@@ -1031,9 +1033,18 @@ HTML;
             $url = $protocol . '://' . $server_name;
         } elseif (isset($puri['scheme'])) {
             $url = $puri['scheme'] . '://' . $puri['host'];
+
+            /* If using a non-standard port, add to the URL. */
+            if (isset($puri['port']) &&
+                ((($puri['scheme'] == 'http') && ($puri['port'] != 80)) ||
+                 (($puri['scheme'] == 'https') && ($puri['port'] != 443)))) {
+                $url .= ':' . $puri['port'];
+            }
         }
 
-        if (isset($puri['path']) && substr($puri['path'], 0, 1) == '/' && !preg_match($schemeRegexp, $webroot)) {
+        if (isset($puri['path']) &&
+            (substr($puri['path'], 0, 1) == '/') &&
+            !preg_match($schemeRegexp, $webroot)) {
             $url .= $puri['path'];
         } elseif (isset($puri['path']) && preg_match($schemeRegexp, $webroot)) {
             $url = $webroot . (substr($puri['path'], 0, 1) != '/' ? '/' : '') . $puri['path'];

@@ -1,18 +1,22 @@
 <?php
 /**
- * @package Compress
- *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Compress
  */
 
 /**
- * Horde_Compress_Translation is the translation wrapper class for Horde_Compress.
+ * Horde_Compress_Translation is the translation wrapper class for
+ * horde/Compress.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Compress
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @package  Compress
  */
 class Horde_Compress_Translation extends Horde_Translation
 {

@@ -290,6 +290,20 @@ class Horde_Core_UrlTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    public function testBug9712()
+    {
+        $GLOBALS['registry'] = new Registry();
+
+        $GLOBALS['conf']['server']['name'] = 'example.com';
+        $GLOBALS['conf']['server']['port'] = 1443;
+        $GLOBALS['conf']['use_ssl'] = 2;
+
+        $this->assertEquals(
+            'https://example.com:1443/foo',
+            strval(Horde::url('https://example.com:1443/foo', true, array('append_session' => -1)))
+        );
+    }
+
     public function testSelfUrl()
     {
         $GLOBALS['registry'] = new Registry();

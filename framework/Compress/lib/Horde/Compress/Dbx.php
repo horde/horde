@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde_Compress_Dbx class allows dbx files (e.g. from Outlook Express)
- * to be read.
+ * This class allows dbx files (e.g. from Outlook Express) to be read.
  *
  * This class is based on code by:
  * Antony Raijekov <dev@strategma.bg>
@@ -12,11 +11,17 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Compress
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Compress
  */
-class Horde_Compress_Dbx extends Horde_Compress
+class Horde_Compress_Dbx extends Horde_Compress_Base
 {
+    /**
+     */
+    public $canDecompress = true;
+
     /**
      * TODO
      *
@@ -58,15 +63,9 @@ class Horde_Compress_Dbx extends Horde_Compress
     protected $_tmp = array();
 
     /**
-     * Decompresses a DBX file and gets information from it.
-     *
-     * @param string $data   The dbx file data.
-     * @param array $params  Not used.
-     *
-     * @return mixed  The requested data.
-     * @throws Horde_Exception
+     * @return array  List of messages.
      */
-    public function decompress($data, $params = null)
+    public function decompress($data, array $params = array())
     {
         $this->_mails = $this->_tmp = array();
 
@@ -107,7 +106,7 @@ class Horde_Compress_Dbx extends Horde_Compress
      * @param integer $position  TODO
      *
      * @return string  TODO
-     * @throws Horde_Exception
+     * @throws Horde_Compress_Exception
      */
     protected function _readMessage($data, $position)
     {
@@ -125,7 +124,7 @@ class Horde_Compress_Dbx extends Horde_Compress
                     }
                     $msg_item = unpack('LFilePos/LUnknown/LItemSize/LNextItem/a512Content', $s);
                     if ($msg_item['FilePos'] != $position) {
-                        throw new Horde_Exception(Horde_Compress_Translation::t("Invalid file format"));
+                        throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid file format"));
                     }
                     $position += 528;
                     $msg .= substr($msg_item['Content'], 0, $msg_item['ItemSize']);
@@ -147,14 +146,14 @@ class Horde_Compress_Dbx extends Horde_Compress
      * @param integer $position  TODO
      *
      * @return array  TODO
-     * @throws Horde_Exception
+     * @throws Horde_Compress_Exception
      */
     protected function _readMessageInfo($data, $position)
     {
         $message_info = array();
         $msg_header = unpack('Lposition/LDataLength/SHeaderLength/SFlagCount', substr($data, $position, 12));
         if ($msg_header['position'] != $position) {
-            throw new Horde_Exception(Horde_Compress_Translation::t("Invalid file format"));
+            throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid file format"));
         }
         $position += 12;
         $message_info['HeaderPosition'] = $msg_header['position'];
@@ -229,13 +228,13 @@ class Horde_Compress_Dbx extends Horde_Compress
      * @param string $data       TODO
      * @param integer $position  TODO
      *
-     * @throws Horde_Exception
+     * @throws Horde_Compress_Exception
      */
     protected function _readIndex($data, $position)
     {
         $index_header = unpack('LFilePos/LUnknown1/LPrevIndex/LNextIndex/LCount/LUnknown', substr($data, $position, 24));
         if ($index_header['FilePos'] != $position) {
-            throw new Horde_Exception(Horde_Compress_Translation::t("Invalid file format"));
+            throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid file format"));
         }
 
         // Push it into list of processed items.

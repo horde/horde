@@ -365,10 +365,11 @@ class IMP_Folder
      *
      * @return mixed  False (boolean) on fail or the number of messages
      *                imported (integer) on success.
+     * @throws IMP_Exception
      */
     public function importMbox($mailbox, $fname, $type)
     {
-        $msg = null;
+        $fd = $msg = null;
 
         if (!file_exists($fname)) {
             return false;
@@ -378,26 +379,65 @@ class IMP_Folder
         case 'application/gzip':
         case 'application/x-gzip':
         case 'application/x-gzip-compressed':
+            // No need to default to Horde_Compress because it uses zlib
+            // also.
             if (in_array('compress.zlib', stream_get_wrappers())) {
                 $fname = 'compress.zlib://' . $fname;
             }
             break;
+
         case 'application/x-bzip2':
         case 'application/x-bzip':
             if (in_array('compress.bzip2', stream_get_wrappers())) {
                 $fname = 'compress.bzip2://' . $fname;
             }
             break;
+
         case 'application/zip':
         case 'application/x-compressed':
         case 'application/x-zip-compressed':
             if (in_array('zip', stream_get_wrappers())) {
                 $fname = 'zip://' . $fname;
+            } else {
+                try {
+                    $zip = Horde_Compress::factory('Zip');
+                    if ($zip->canDecompress) {
+                        $file_data = file_get_contents($fname);
+
+                        $zip_info = $zip->decompress($file_data, array(
+                            'action' => Horde_Compress_Zip::ZIP_LIST
+                        ));
+
+                        if (!empty($zip_info)) {
+                            $fd = fopen('php://temp', 'r+');
+
+                            foreach (array_keys($zip_info) as $key) {
+                                fwrite($fd, $zip->decompress($file_data, array(
+                                    'action' => Horde_Compress_Zip::ZIP_DATA,
+                                    'info' => $zip_info,
+                                    'key' => $key
+                                )));
+                            }
+
+                            rewind($fd);
+                        }
+                    }
+                } catch (Horde_Compress_Exception $e) {
+                    if ($fd) {
+                        fclose($fd);
+                        $fd = null;
+                    }
+                }
+
+                $fname = null;
             }
             break;
         }
 
-        $fd = fopen($fname, 'r');
+        if (!is_null($fname)) {
+            $fd = fopen($fname, 'r');
+        }
+
         if (!$fd) {
             throw new IMP_Exception(_("The uploaded file cannot be opened"));
         }

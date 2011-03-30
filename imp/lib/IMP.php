@@ -430,11 +430,6 @@ class IMP
                 : sprintf($strings['short'], $ret['percent'], $quota['limit'], $unit);
             $ret['percent'] = sprintf("%.2f", $ret['percent']);
         } else {
-            // Hide unlimited quota message?
-            if ($GLOBALS['session']->get('imp', 'quota_hide_when_unlimited')) {
-                return false;
-            }
-
             $ret['class'] = 'control';
             if ($quota['usage'] != 0) {
                 $quota['usage'] = $quota['usage'] / $calc;

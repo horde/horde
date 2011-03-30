@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-29</date>
- <time>23:56:09</time>
+ <date>2011-03-30</date>
+ <time>00:17:24</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -34,7 +34,8 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [mms] Support importing of compressed mailbox files if the zip extension is
+  not available.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2086,14 +2087,17 @@
   <release>
    <version>
     <release>5.0.0</release>
-    <api>5.0.0</api></version>
+    <api>5.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-29</date>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-30</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [mms] Support importing of compressed mailbox files if the zip extension is
+  not available.
    </notes>
   </release>
  </changelog>
