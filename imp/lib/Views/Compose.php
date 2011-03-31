@@ -143,7 +143,7 @@ class IMP_Views_Compose
             $t->set('priority', $prefs->getValue('set_priority'));
             if (!$prefs->isLocked('default_encrypt') &&
                 ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {
-                $t->set('encrypt', IMP::ENCRYPT_NONE);
+                $t->set('encrypt', $prefs->getValue('default_encrypt'));
             }
 
             $stationery = $injector->getInstance('IMP_Compose_Stationery');

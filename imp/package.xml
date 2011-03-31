@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-30</date>
- <time>00:17:24</time>
+ <date>2011-03-31</date>
+ <time>01:30:36</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix honoring default encryption option in dynamic view.
 * [jan] Show full alarm notifications in dynamic view (Request #9748).
 * [jan] Fix saving S/MIME certs to address book.
 * [mms] Support importing of compressed mailbox files if the zip extension is
@@ -2095,9 +2096,10 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-30</date>
+   <date>2011-03-31</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Fix honoring default encryption option in dynamic view.
 * [jan] Show full alarm notifications in dynamic view (Request #9748).
 * [jan] Fix saving S/MIME certs to address book.
 * [mms] Support importing of compressed mailbox files if the zip extension is

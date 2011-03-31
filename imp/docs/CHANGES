@@ -2,6 +2,7 @@
 v5.0
 ----
 
+[mms] Fix honoring default encryption option in dynamic view.
 [jan] Show full alarm notifications in dynamic view (Request #9748).
 [jan] Fix saving S/MIME certs to address book.
 [mms] Support importing of compressed mailbox files if the zip extension is
