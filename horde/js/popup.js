@@ -62,7 +62,12 @@ Horde.popup = function(opts)
 
     if (opts.onload) {
         opts.onload = eval(opts.onload);
-        win.onload = opts.onload.curry(win);
+        if (Prototype.Browser.IE) {
+            // See Bug #9756
+            Horde.iePopupOnload(win, opts.onload);
+        } else {
+            win.onload = opts.onload.curry(win);
+        }
     }
 
     if (Object.isUndefined(win.name)) {
@@ -76,4 +81,13 @@ Horde.popup = function(opts)
     win.focus();
 
     return true;
-}
+};
+
+Horde.iePopupOnload = function(win, func)
+{
+    if (win.document.documentElement) {
+        func(win);
+    } else {
+        Horde.iePopupOnload.curry(win, func).defer();
+    }
+};
