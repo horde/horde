@@ -25,10 +25,10 @@ New configuration scheme
 With Horde 4 it is no longer necessary to create any configuration files
 besides ``conf.php`` files. The default configuration files in the ``config/``
 directory should work for most systems. If some changes in those files are
-necessary, don't edit the files directly or your changes will be lost with the
-next upgrade. Create ``*.local.php`` files instead and only add configuration
-settings that you want to change from the default values there. See the header
-of the configuration files for details and examples.
+necessary, **DON'T EDIT THE FILES DIRECTLY or your CHANGES WILL BE LOST with
+the next upgrade**. Create ``*.local.php`` files instead and only add
+configuration settings that you want to change from the default values
+there. See the header of the configuration files for details and examples.
 
 ``conf.php`` files are still created and updated as usual through the
 configuration interface.
@@ -116,6 +116,14 @@ The script to generate alarm notifications through a cron job
 location when using the PEAR installation method. The new name is
 ``bin/horde-alarms`` and it will be installed to ``/usr/bin/horde-alarms`` by
 default. Update your cron jobs accordingly.
+
+
+Groups
+------
+
+The groups system has been rewritten. Group hierarchies, i.e. parent and child
+groups are no longer supported. Support for nested groups will be added at a
+later point.
 
 
 PEAR packages
