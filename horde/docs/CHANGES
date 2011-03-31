@@ -2,6 +2,7 @@
 v4.0
 ----
 
+[jan] Delete object mappings too when deleting SyncML anchors (Request #9377).
 [jan] Delay sidebar creation if the sidebar is generated through JavaScript.
 
 

@@ -617,6 +617,35 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
     }
 
     /**
+     * Deletes previously written sync maps for a user.
+     *
+     * If no device or database are specified, maps for all devices and/or
+     * databases will be deleted.
+     *
+     * @param string $user      A user name.
+     * @param string $device    The ID of the client device.
+     * @param string $database  Normalized URI of database to delete. Like
+     *                          calendar, tasks, contacts or notes.
+     *
+     * @return array
+     */
+    public function removeMaps($user, $device = null, $database = null)
+    {
+        $query = 'DELETE FROM horde_syncml_map WHERE syncml_uid = ?';
+        $values = array($user);
+        if (strlen($device)) {
+            $query .= ' AND syncml_syncpartner = ?';
+            $values[] = $device;
+        }
+        if (strlen($database)) {
+            $query .= ' AND syncml_db = ?';
+            $values[] = $database;
+        }
+
+        $this->_db->delete($query, $values);
+    }
+
+    /**
      * Creates a map entry to map between server and client IDs.
      *
      * If an entry already exists, it is overwritten.

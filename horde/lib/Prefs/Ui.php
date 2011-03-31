@@ -679,18 +679,20 @@ class Horde_Prefs_Ui
         $backend = Horde_SyncMl_Backend::factory('Horde');
 
         if ($ui->vars->removedb && $ui->vars->removedevice) {
-            $res = $backend->removeAnchor($GLOBALS['registry']->getAuth(), $ui->vars->removedevice, $ui->vars->removedb);
-            if ($res instanceof PEAR_Error) {
-                $GLOBALS['notification']->push(_("Error deleting synchronization session:") . ' ' . $res->getMessage(), 'horde.error');
-            } else {
+            try {
+                $backend->removeAnchor($GLOBALS['registry']->getAuth(), $ui->vars->removedevice, $ui->vars->removedb);
+                $backend->removeMaps($GLOBALS['registry']->getAuth(), $ui->vars->removedevice, $ui->vars->removedb);
                 $GLOBALS['notification']->push(sprintf(_("Deleted synchronization session for device \"%s\" and database \"%s\"."), $ui->vars->deviceid, $ui->vars->db), 'horde.success');
+            } catch (Horde_Exception $e) {
+                $GLOBALS['notification']->push(_("Error deleting synchronization session:") . ' ' . $e->getMessage(), 'horde.error');
             }
         } elseif ($ui->vars->deleteall) {
-            $res = $backend->removeAnchor($GLOBALS['registry']->getAuth());
-            if ($res instanceof PEAR_Error) {
-                $GLOBALS['notification']->push(_("Error deleting synchronization sessions:") . ' ' . $res->getMessage(), 'horde.error');
-            } else {
+            try {
+                $backend->removeAnchor($GLOBALS['registry']->getAuth());
+                $backend->removeMaps($GLOBALS['registry']->getAuth());
                 $GLOBALS['notification']->push(_("All synchronization sessions deleted."), 'horde.success');
+            } catch (Horde_Exception $e) {
+                $GLOBALS['notification']->push(_("Error deleting synchronization sessions:") . ' ' . $e->getMessage(), 'horde.error');
             }
         }
     }
