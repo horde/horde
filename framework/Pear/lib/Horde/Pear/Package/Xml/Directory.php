@@ -209,8 +209,8 @@ class Horde_Pear_Package_Xml_Directory
      */
     public function addFile($file, $params)
     {
-        $dir = $this->getParent(explode('/', dirname($file)));
-        $dir->_addFile($file, $params);
+        $this->getParent(explode('/', dirname($file)))
+            ->_addFile($file, $params);
     }
 
     /**
@@ -223,7 +223,7 @@ class Horde_Pear_Package_Xml_Directory
      */
     private function _addFile($file, $params)
     {
-        $this->_files[basename($file)] = $this->_xml->appendFile(
+        $this->_files[basename($file)] = $this->_xml->insertFile(
             $this->_dir,
             $this->_dir->lastChild,
             basename($file),
@@ -241,8 +241,7 @@ class Horde_Pear_Package_Xml_Directory
      */
     public function deleteFile($file)
     {
-        $dir = $this->getParent(explode('/', dirname($file)));
-        $dir->_deleteFile($file);
+        $this->getParent(explode('/', dirname($file)))->_deleteFile($file);
     }
 
     /**
@@ -254,12 +253,7 @@ class Horde_Pear_Package_Xml_Directory
      */
     private function _deleteFile($file)
     {
-        $file = $this->_files[basename($file)];
-        $ws = trim($file->nextSibling->textContent);
-        if (empty($ws)) {
-            $this->_dir->removeChild($file->nextSibling);
-        }
-        $this->_dir->removeChild($file);
+        $this->_xml->removeFile($this->_files[basename($file)], $this->_dir);
     }
 
     /**
