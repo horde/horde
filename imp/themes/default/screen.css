@@ -321,7 +321,7 @@ span.trashImg {
     padding: 2px;
 }
 #text_identity, #to, #cc, #bcc, #subject {
-    width: 550px;
+    width: 500px;
 }
 .spellcheck {
     white-space: pre;
