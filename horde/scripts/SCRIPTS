@@ -30,7 +30,7 @@ get_login.php
 
 http_login_refer.php
 
-    TODO
+    Allows to login with user credentials provided by HTTP basic authentication.
 
 temp-cleanup.cron
 
