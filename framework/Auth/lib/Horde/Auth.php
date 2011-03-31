@@ -63,7 +63,7 @@ class Horde_Auth
     static public function factory($driver, $params = null)
     {
         /* Base drivers (in Auth/ directory). */
-        $class = __CLASS__ . '_' . $driver;
+        $class = __CLASS__ . '_' . ucfirst($driver);
         if (@class_exists($class)) {
             return new $class($params);
         }
