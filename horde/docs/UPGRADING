@@ -57,7 +57,8 @@ PostgreSQL
 ----------
 
 If using PostgreSQL, you must upgrade the value column of the preference table
-from TEXT to BYTEA. The necessary SQL statement is found at::
+from TEXT to BYTEA **before** running any other upgrade tasks. The necessary
+SQL statement is found at::
 
     scripts/upgrades/2009-04-13_horde_pgsql_upgrade.sql
 
