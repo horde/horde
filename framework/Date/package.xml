@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-29</date>
- <time>18:16:13</time>
+ <date>2011-03-31</date>
+ <time>22:16:39</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -331,6 +331,7 @@
        <file name="YearTest.php" role="test" />
       </dir> <!-- /test/Horde/Date/Repeater -->
       <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
       <file name="DateTest.php" role="test" />
       <file name="RecurrenceTest.php" role="test" />
       <file name="SpanTest.php" role="test" />
@@ -483,6 +484,7 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Date.po" name="locale/zh_CN/LC_MESSAGES/Horde_Date.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Date.po" name="locale/zh_TW/LC_MESSAGES/Horde_Date.po" />
    <install as="Horde/Date/AllTests.php" name="test/Horde/Date/AllTests.php" />
+   <install as="Horde/Date/Autoload.php" name="test/Horde/Date/Autoload.php" />
    <install as="Horde/Date/DateTest.php" name="test/Horde/Date/DateTest.php" />
    <install as="Horde/Date/RecurrenceTest.php" name="test/Horde/Date/RecurrenceTest.php" />
    <install as="Horde/Date/SpanTest.php" name="test/Horde/Date/SpanTest.php" />
@@ -566,14 +568,16 @@
   <release>
    <version>
     <release>1.0.0</release>
-    <api>1.0.0</api></version>
+    <api>1.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-29</date>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-31</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+*
    </notes>
   </release>
  </changelog>
