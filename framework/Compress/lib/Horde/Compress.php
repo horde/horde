@@ -30,7 +30,7 @@ class Horde_Compress
     static public function factory($driver, $params = null)
     {
         /* Base drivers (in Compress/ directory). */
-        $class = __CLASS__ . '_' . $driver;
+        $class = __CLASS__ . '_' . ucfirst($driver);
         if (@class_exists($class)) {
             return new $class($params);
         }
