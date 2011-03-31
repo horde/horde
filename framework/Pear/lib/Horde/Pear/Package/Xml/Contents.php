@@ -85,36 +85,7 @@ class Horde_Pear_Package_Xml_Contents
             '',
             1
         );
-        $this->_populateContents('', $contents, 1);
         $this->_populateFileList();
-    }
-
-    /**
-     * Populate the existing content list from the XML.
-     *
-     * @param string  $path   The path of the current directory.
-     * @param DOMNode $dir    The node of the current directory.
-     * @param int     $level  Current depth of the tree.
-     *
-     * @return NULL
-     */
-    private function _populateContents($path, $dir, $level)
-    {
-        if (empty($path)) {
-            $key = '/';
-        } else {
-            $key = $path;
-        }
-        foreach ($this->_xml->findNodesRelativeTo('./p:file', $dir) as $file) {
-            $this->_file_list[$path . '/' . $file->getAttribute('name')] = array($dir, $file);
-        }
-        foreach ($this->_xml->findNodesRelativeTo('./p:dir', $dir) as $directory) {
-            $this->_populateContents(
-                $path . '/' . $directory->getAttribute('name'),
-                $directory,
-                $level + 1
-            );
-        }
     }
 
     /**
@@ -141,8 +112,9 @@ class Horde_Pear_Package_Xml_Contents
     public function update(Horde_Pear_Package_Contents $contents)
     {
         $files = $contents->getContents();
-        $removed = array_diff(array_keys($this->_file_list), array_keys($files));
-        foreach (array_keys($files) as $file) {
+        $added = array_diff(array_keys($files), $this->_dir_list->getFiles());
+        $removed = array_diff($this->_dir_list->getFiles(), array_keys($files));
+        foreach ($added as $file) {
             $this->add($file, $files[$file]);
         }
         foreach ($removed as $file) {
@@ -160,15 +132,7 @@ class Horde_Pear_Package_Xml_Contents
      */
     public function add($file, $params)
     {
-        if (!in_array($file, array_keys($this->_file_list))) {
-            list($parent, $level, $bottom) = $this->_dir_list->ensureParent($file);
-            $this->_file_list[$file] = array(
-                $parent,
-                $this->_xml->appendFile(
-                    $parent, $bottom, basename($file), $level + 1, $params['role']
-                )
-            );
-        }
+        $this->_dir_list->addFile($file, $params);
         if (!in_array($file, array_keys($this->_install_list))) {
             $this->_install_list[$file] = $this->_xml->appendInstall(
                 $this->_filelist, substr($file, 1), $params['as']
@@ -185,14 +149,7 @@ class Horde_Pear_Package_Xml_Contents
      */
     public function delete($file)
     {
-        $ws = trim($this->_file_list[$file][1]->nextSibling->textContent);
-        if (empty($ws)) {
-            $this->_file_list[$file][0]->removeChild(
-                $this->_file_list[$file][1]->nextSibling
-            );
-        }
-        $this->_file_list[$file][0]->removeChild($this->_file_list[$file][1]);
-
+        $this->_dir_list->deleteFile($file);
         if (isset($this->_install_list[$file])) {
             $ws = trim($this->_install_list[$file]->nextSibling->textContent);
             if (empty($ws)) {
