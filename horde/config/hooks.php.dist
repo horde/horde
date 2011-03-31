@@ -304,36 +304,43 @@ class Horde_Hooks
 //
 //        // Example #4: Create credentials needed by the LDAP Horde_Auth
 //        // driver for adding/deleting/updating users.
-//        $entry['dn'] = 'uid=' . $userId . ',ou=People,dc=example.com';
-//        $entry['cn'] = isset($credentials['user_fullname'])
-//             ? $credentials['user_fullname']
-//             : $userId;
-//        $entry['sn'] = $userId;
-//        $entry['objectclass'][0] = 'top';
-//        $   $y['objectclass'][1] = 'person';
-//        $entry['objectclass'][2] = 'qmailuser';
-//        $entry['objectclass'][3] = 'CourierMailACcount';
-//        $entry['mailhost'] = 'mail.example.com';
-//        $entry['mailMessageStore'] = '/home/mail/' . $userId;
-//        $entry['homeDirectory'] = '/home/mail/' . $userId;
-//        $entry['mailbox'] = $entry['homeDirectory'] . '/Maildir';
-//        $entry['uid'] = $userId;
-//        $entry['accountStatus'] = 'active';
-//        $entry['mailQuota'] = '104857600S';
-//        $entry['mail'] = $userId;
-//        $entry['uidNumber'] = 501;
-//        $entry['gidNumber'] = 501;
+//        $entry = array(
+//            'dn' => 'uid=' . $userId . ',ou=People,dc=example.com',
+//            'cn' => isset($credentials['user_fullname']) ? $credentials['user_fullname'] : $userId,
+//            'sn' => $userId,
+//            'objectclass' => array(
+//                'top',
+//                'person',
+//                'qmailuser',
+//                'CourierMailAccount',
+//            ),
+//            'mailhost' => 'mail.example.com',
+//            'mailMessageStore' => '/home/mail/' . $userId,
+//            'homeDirectory' => '/home/mail/' . $userId,
+//            'mailbox' => '/Maildir',
+//            'homeDirectory' => '/Maildir',
+//            'uid' => $userId,
+//            'accountStatus' => 'active',
+//            'mailQuota' => '104857600S',
+//            'mail' => $userId,
+//            'uidNumber' => 501,
+//            'gidNumber' => 501,
+//            'deliveryMode' => 'nolocal'
+//        );
 //
 //        // Need to check for new users (password) and edited users
 //        // (user_pass_2)
 //        if (isset($credentials['password'])) {
-//            $entry['userPassword'] =  '{MD5}' . base64_encode(pack('H*', md5($credentials['password'])));
+//            $entry['userPassword'] = '{MD5}' . base64_encode(pack('H*', md5($credentials['password'])));
 //        } elseif (isset($credentials['user_pass_2'])) {
-//            $entry['userPassword'] =  '{MD5}' . base64_encode(pack('H*', md5($credentials['user_pass_2'])));
+//            $entry['userPassword'] = '{MD5}' . base64_encode(pack('H*', md5($credentials['user_pass_2'])));
 //        }
 //        $entry['deliveryMode'] = 'nolocal';
 //
-//        return array($userId, $entry);
+//        return array(
+//            'userId' => $userId,
+//            'credentials' => $entry
+//        );
 //     }
 
 
