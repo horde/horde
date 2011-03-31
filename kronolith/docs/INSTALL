@@ -191,8 +191,8 @@ Configuring Kronolith
    Kronolith row of the configuration screen.
 
    Alternatively you creating the Kronolith database tables can be accomplished
-   with horde's ``horde-db-migrate`` utility.  If your database is properly setup in
-   the Horde configuration, just run the following::
+   with horde's ``horde-db-migrate`` utility.  If your database is properly
+   setup in the Horde configuration, just run the following::
 
       horde/bin/horde-db-migrate kronolith
 
@@ -208,14 +208,16 @@ Configuring Kronolith
       `horde/docs/INSTALL`_. This will send reminders for individual events.
 
    b. To send daily agendas, you must create a cron entry for
-      ``kronolith/scripts/agenda.php``, and running the job once a day is
-      recommended, e.g. at 2 a.m.::
+      ``kronolith-agenda``, and running the job once a day is recommended,
+      e.g. at 2 a.m.::
 
          # Kronolith agenda
-         0 2 * * * /usr/bin/php /var/www/horde/kronolith/scripts/agenda.php
+         0 2 * * * /usr/bin/kronolith-agenda
 
-   Replace ``/usr/bin/php`` with the path to your PHP CLI and
-   ``/var/www/horde/kronolith`` with the path to your Kronolith installation.
+   If not installing Kronolith through PEAR of if PEAR's ``bin_dir``
+   configuration doesn't point to ``/usr/bin/``, replace
+   ``/usr/bin/kronolith-agenda`` with the path to the ``kronolith-agenda``
+   script in your Kronolith installation.
 
 5. Testing Kronolith
 

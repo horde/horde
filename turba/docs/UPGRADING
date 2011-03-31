@@ -144,9 +144,8 @@ driver but it has not received the same level of testing, thus the beta
 designation.  In order to make use of this driver, you must be running Horde
 3.2-RC3 or later. To add the new SQL tables for this driver, execute the sql
 script ``2.1_to_2.2_add_sql_share_tables`` that is appropriate for your
-RDBMS. You then must execute the ``convert_datatree_shares_to_sql.php``
-upgrade script to migrate your existing share data.  Both of these scripts can
-be found in the ``scripts/upgrades`` folder.
+RDBMS. You then must execute the ``turba-convert-datatree-shares-to-sql``
+upgrade script to migrate your existing share data.
 
 
 Flattened Horde Shares
@@ -240,16 +239,15 @@ Share Support
 -------------
 
 Share support has been added to Turba.  This allows the sharing, adding, and
-deleting of addressbooks for those sources that support it.  Currently, this
-is supported by the SQL driver.  With this change, the ``public`` attribute of
-the params array has been removed in favor of the ``use_share`` attribute.  If
-you are currently using a SQL source as a public source, you must run the
-upgrade script ``scripts/upgrades/public_to_horde_share.php``.  Be sure to
-read the script comments and backup all data before conversion.  This script
-will create a new share that is viewable by all users.  If you choose not to
-use shares, set the ``use_shares`` attribute to ``false`` and the SQL driver
-will behave as in previous versions, that is, a seperate, private addressbook
-for each user.
+deleting of addressbooks for those sources that support it.  Currently, this is
+supported by the SQL driver.  With this change, the ``public`` attribute of the
+params array has been removed in favor of the ``use_share`` attribute.  If you
+are currently using a SQL source as a public source, you must run the upgrade
+script ``turba-public-to-horde-share``.  Be sure to read the script comments
+and backup all data before conversion.  This script will create a new share
+that is viewable by all users.  If you choose not to use shares, set the
+``use_shares`` attribute to ``false`` and the SQL driver will behave as in
+previous versions, that is, a seperate, private addressbook for each user.
 
 .. Important:: If you are currently using two seperate ``turba_objects`` tables
                - one for personal address books and one for a public address

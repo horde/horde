@@ -1,0 +1,65 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This script imports plain text data into Mnemo notepads.
+ *
+ * The data is read from standard input, the notepad and user name passed as
+ * parameters.
+ *
+ * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL). If you
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ *
+ * @author Jan Schneider <jan@horde.org>
+ */
+
+if (file_exists(dirname(__FILE__) . '/../../mnemo/lib/Application.php')) {
+    $baseDir = dirname(__FILE__) . '/../';
+} else {
+    require_once 'PEAR/Config.php';
+    $baseDir = PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/mnemo/';
+}
+require_once $baseDir . 'lib/Application.php';
+Horde_Registry::appInit('mnemo', array('cli' => true));
+
+die('This script needs to be updated);
+
+// Read command line parameters.
+if (count($argv) != 4) {
+    $cli->message('Too many or too few parameters.', 'cli.error');
+    usage();
+}
+$notepad = $argv[1];
+$user = $argv[2];
+$file = $argv[3];
+
+// Read standard input.
+if (!file_exists($file)) {
+    $cli>message("$file does not exist", 'cli.error');
+    usage();
+}
+$data = file_get_contents($file);
+if (empty($data)) {
+    $cli->message('No import data provided.', 'cli.error');
+    usage();
+}
+$data = pathinfo($file, PATHINFO_FILENAME) . "\n\n" . $data;
+
+// Registry.
+$registry = Horde_Registry::singleton();
+
+// Set user.
+Horde_Auth::setAuth($user, array());
+
+// Import data.
+$result = $registry->call('notes/import', array($data, 'text/plain', $notepad));
+$cli->message('Imported successfully ' . count($result) . ' notes', 'cli.success');
+
+function usage()
+{
+    $GLOBALS['cli']->writeln('Usage: mnemo-import-text-note notepad user file');
+    exit;
+}
+

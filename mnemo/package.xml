@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-30</date>
- <time>00:02:30</time>
+ <date>2011-03-31</date>
+ <time>15:16:44</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -28,11 +28,18 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
  <notes>
-* 
+* [jan] Move all executable scripts to bin/ and prefix with mnemo-.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="mnemo-convert-datatree-shares-to-sql" role="script" />
+    <file name="mnemo-convert-sql-shares-to-sqlng" role="script" />
+    <file name="mnemo-convert-to-utf8" role="script" />
+    <file name="mnemo-import-text-note" role="script" />
+   </dir> <!-- /bin -->
    <dir name="config">
+    <file name=".htaccess" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="hooks.php.dist" role="horde" />
     <file name="prefs.php" role="horde" />
@@ -278,6 +285,7 @@
       <file name="mnemo.po" role="horde" />
      </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
     </dir> <!-- /locale/zh_TW -->
+    <file name=".htaccess" role="horde" />
     <file name="mnemo.pot" role="horde" />
    </dir> <!-- /locale -->
    <dir name="migration">
@@ -300,15 +308,6 @@
    <dir name="notes">
     <file name="index.php" role="horde" />
    </dir> <!-- /notes -->
-   <dir name="scripts">
-    <dir name="upgrades">
-     <file name="convert_datatree_shares_to_sql.php" role="data" />
-     <file name="convert_sql_shares_to_sqlng.php" role="data" />
-     <file name="convert_to_utf8.php" role="data" />
-    </dir> <!-- /scripts/upgrades -->
-    <file name="import_text_note.php" role="data" />
-    <file name="import_vnotes.php" role="data" />
-   </dir> <!-- /scripts -->
    <dir name="templates">
     <dir name="data">
      <file name="export.inc" role="horde" />
@@ -555,6 +554,11 @@
  </usesrole>
  <phprelease>
   <filelist>
+   <install as="mnemo-convert-datatree-shares-to-sql" name="bin/mnemo-convert-datatree-shares-to-sql" />
+   <install as="mnemo-convert-sql-shares-to-sqlng" name="bin/mnemo-convert-sql-shares-to-sqlng" />
+   <install as="mnemo-convert-to-utf8" name="bin/mnemo-convert-to-utf8" />
+   <install as="mnemo-import-text-note" name="bin/mnemo-import-text-note" />
+   <install as="mnemo/config/.htaccess" name="config/.htaccess" />
    <install as="mnemo/config/conf.xml" name="config/conf.xml" />
    <install as="mnemo/config/hooks.php.dist" name="config/hooks.php.dist" />
    <install as="mnemo/config/prefs.php" name="config/prefs.php" />
@@ -584,6 +588,7 @@
    <install as="mnemo/lib/tests/Mnemo/TestCase.php" name="lib/tests/Mnemo/TestCase.php" />
    <install as="mnemo/lib/tests/Mnemo/Unit/Driver/KolabTest.php" name="lib/tests/Mnemo/Unit/Driver/KolabTest.php" />
    <install as="mnemo/lib/tests/Mnemo/Unit/Factory/DriverTest.php" name="lib/tests/Mnemo/Unit/Factory/DriverTest.php" />
+   <install as="mnemo/locale/.htaccess" name="locale/.htaccess" />
    <install as="mnemo/locale/mnemo.pot" name="locale/mnemo.pot" />
    <install as="mnemo/locale/bg/LC_MESSAGES/mnemo.mo" name="locale/bg/LC_MESSAGES/mnemo.mo" />
    <install as="mnemo/locale/bg/LC_MESSAGES/mnemo.po" name="locale/bg/LC_MESSAGES/mnemo.po" />
@@ -667,11 +672,6 @@
    <install as="mnemo/notepads/edit.php" name="notepads/edit.php" />
    <install as="mnemo/notepads/index.php" name="notepads/index.php" />
    <install as="mnemo/notes/index.php" name="notes/index.php" />
-   <install as="scripts/import_text_note.php" name="scripts/import_text_note.php" />
-   <install as="scripts/import_vnotes.php" name="scripts/import_vnotes.php" />
-   <install as="scripts/upgrades/convert_datatree_shares_to_sql.php" name="scripts/upgrades/convert_datatree_shares_to_sql.php" />
-   <install as="scripts/upgrades/convert_sql_shares_to_sqlng.php" name="scripts/upgrades/convert_sql_shares_to_sqlng.php" />
-   <install as="scripts/upgrades/convert_to_utf8.php" name="scripts/upgrades/convert_to_utf8.php" />
    <install as="mnemo/templates/notepad_list.php" name="templates/notepad_list.php" />
    <install as="mnemo/templates/panel.inc" name="templates/panel.inc" />
    <install as="mnemo/templates/stickies.html.php" name="templates/stickies.html.php" />
@@ -792,14 +792,16 @@
   <release>
    <version>
     <release>3.0.0</release>
-    <api>3.0.0</api></version>
+    <api>3.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-30</date>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-31</date>
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
-* 
+*
    </notes>
   </release>
  </changelog>

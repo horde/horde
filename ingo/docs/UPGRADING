@@ -69,7 +69,7 @@ Execute the provided SQL script to add the table to your database, e.g.::
 You also have to execute the provided PHP script to migrate the existing rules
 from the preferences backend to the new database table::
 
-   php scripts/upgrades/convert_prefs_to_sql.php < filename
+   ingo-convert-prefs-to-sql < filename
 
 ``filename`` is a file that contains a list of users, one username per line.
 The username should be the same as how the preferences are stored in the
@@ -83,13 +83,13 @@ command::
 New Beta SQL Share Driver Support
 ---------------------------------
 
-A new beta-level SQL Horde_Share driver has been added in Horde 3.2. This driver
-offers significant performance improvements over the existing Datatree driver,
-but it has not received the same level of testing, thus the beta designation.
-In order to make use of this driver, you must be using Horde 3.2-RC3 or
-later. To migrate your existing share data, run
-``convert_datatree_shares_to_sql.php``.  Be sure to read the entry above and create
-the new SQL tables before running the migration script.
+A new beta-level SQL Horde_Share driver has been added in Horde 3.2. This
+driver offers significant performance improvements over the existing Datatree
+driver, but it has not received the same level of testing, thus the beta
+designation.  In order to make use of this driver, you must be using Horde
+3.2-RC3 or later. To migrate your existing share data, run
+``ingo-convert-datatree-shares-to-sql``.  Be sure to read the entry above and
+create the new SQL tables before running the migration script.
 
 
 Upgrading Ingo From 1.0.x To 1.1.x

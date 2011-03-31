@@ -188,15 +188,14 @@ version, e.g.::
 Beta SQL Drivers
 ----------------
 
-There are now beta-level SQL drivers for Groups, Shares, and
-Permissions. There is a script
-``horde/scripts/upgrades/convert_datatree_perms_to_sql.php`` that will migrate
-all of your DataTree-based permissions to the SQL backend, and
-``horde/scripts/upgrades/convert_datatree_groups_to_sql.php`` that will
-migrate groups. For shares, you will need to upgrade each application
-individually. Applications that use shares have entries in ``docs/UPGRADING``
-and upgrade scripts ``scripts/upgrades/convert_datatree_shares_to_sql.php``
-for creating the SQL share tables and migrating data.
+There are now beta-level SQL drivers for Groups, Shares, and Permissions. There
+is a script ``horde-convert-datatree-perms-to-sql`` that will migrate all of
+your DataTree-based permissions to the SQL backend, and
+``horde-convert-datatree-groups-to-sql`` that will migrate groups. For shares,
+you will need to upgrade each application individually. Applications that use
+shares have entries in ``docs/UPGRADING`` and upgrade scripts
+``app-convert-datatree-shares-to-sql`` for creating the SQL share tables and
+migrating data.
 
 The SQL drivers should perform much better than the DataTree versions,
 but they have not received the same level of testing, thus the beta
@@ -335,4 +334,4 @@ drastically improve performance.
 
 Execute the provided PHP script to migrate your histories to the new table::
 
-   php scripts/upgrades/move_history_out_of_datatree.php
+   horde-move-history-out-of-datatree

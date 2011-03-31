@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-29</date>
- <time>23:52:43</time>
+ <date>2011-03-31</date>
+ <time>12:49:16</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Move all executable upgrade scripts to bin/ and prefix with horde-.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -97,9 +97,13 @@
     <file name="horde-alarms" role="script" />
     <file name="horde-check-logger" role="script" />
     <file name="horde-clear-cache" role="script" />
+    <file name="horde-convert-datatree-groups-to-sql" role="script" />
+    <file name="horde-convert-datatree-perms-to-sql" role="script" />
     <file name="horde-crond" role="script" />
     <file name="horde-db-migrate" role="script" />
     <file name="horde-memcache-stats" role="script" />
+    <file name="horde-migrate-user-categories" role="script" />
+    <file name="horde-move-history-out-of-datatree" role="script" />
     <file name="horde-run-task" role="script" />
     <file name="horde-set-perms" role="script" />
     <file name="horde-themes" role="script" />
@@ -725,17 +729,13 @@
      <file name="3.1_to_3.2.sql" role="data" />
      <file name="3.1_to_3.2.sybase.sql" role="data" />
      <file name="3.3_to_3.3.5.sql" role="data" />
-     <file name="2008-08-29_fix_mdb2_sequences.php" role="data" />
+     <file name="2008-08-29_fix_mdb2_sequences.php" role="horde" />
      <file name="2009-04-13_horde_pgsql_upgrade.sql" role="data" />
-     <file name="convert_datatree_groups_to_sql.php" role="data" />
-     <file name="convert_datatree_perms_to_sql.php" role="data" />
-     <file name="migrate_user_categories.php" role="data" />
-     <file name="move_history_out_of_datatree.php" role="data" />
     </dir> <!-- /scripts/upgrades -->
     <file name="cookie_login.php" role="data" />
     <file name="get_login.php" role="data" />
     <file name="horde.logrotate" role="data" />
-    <file name="http_login_refer.php" role="data" />
+    <file name="http_login.php" role="data" />
     <file name="SCRIPTS" role="data" />
     <file name="temp-cleanup.cron" role="data" />
    </dir> <!-- /scripts -->
@@ -2395,9 +2395,13 @@
    <install as="horde-alarms" name="bin/horde-alarms" />
    <install as="horde-check-logger" name="bin/horde-check-logger" />
    <install as="horde-clear-cache" name="bin/horde-clear-cache" />
+   <install as="horde-convert-datatree-groups-to-sql" name="bin/horde-convert-datatree-groups-to-sql" />
+   <install as="horde-convert-datatree-perms-to-sql" name="bin/horde-convert-datatree-perms-to-sql" />
    <install as="horde-crond" name="bin/horde-crond" />
    <install as="horde-db-migrate" name="bin/horde-db-migrate" />
    <install as="horde-memcache-stats" name="bin/horde-memcache-stats" />
+   <install as="horde-migrate-user-categories" name="bin/horde-migrate-user-categories" />
+   <install as="horde-move-history-out-of-datatree" name="bin/horde-move-history-out-of-datatree" />
    <install as="horde-run-task" name="bin/horde-run-task" />
    <install as="horde-set-perms" name="bin/horde-set-perms" />
    <install as="horde-themes" name="bin/horde-themes" />
@@ -2784,7 +2788,7 @@
    <install as="scripts/cookie_login.php" name="scripts/cookie_login.php" />
    <install as="scripts/get_login.php" name="scripts/get_login.php" />
    <install as="scripts/horde.logrotate" name="scripts/horde.logrotate" />
-   <install as="scripts/http_login_refer.php" name="scripts/http_login_refer.php" />
+   <install as="scripts/http_login.php" name="scripts/http_login.php" />
    <install as="scripts/SCRIPTS" name="scripts/SCRIPTS" />
    <install as="scripts/temp-cleanup.cron" name="scripts/temp-cleanup.cron" />
    <install as="scripts/ldap/horde.ldif" name="scripts/ldap/horde.ldif" />
@@ -2805,10 +2809,6 @@
    <install as="scripts/upgrades/3.3_to_3.3.5.sql" name="scripts/upgrades/3.3_to_3.3.5.sql" />
    <install as="scripts/upgrades/2008-08-29_fix_mdb2_sequences.php" name="scripts/upgrades/2008-08-29_fix_mdb2_sequences.php" />
    <install as="scripts/upgrades/2009-04-13_horde_pgsql_upgrade.sql" name="scripts/upgrades/2009-04-13_horde_pgsql_upgrade.sql" />
-   <install as="scripts/upgrades/convert_datatree_groups_to_sql.php" name="scripts/upgrades/convert_datatree_groups_to_sql.php" />
-   <install as="scripts/upgrades/convert_datatree_perms_to_sql.php" name="scripts/upgrades/convert_datatree_perms_to_sql.php" />
-   <install as="scripts/upgrades/migrate_user_categories.php" name="scripts/upgrades/migrate_user_categories.php" />
-   <install as="scripts/upgrades/move_history_out_of_datatree.php" name="scripts/upgrades/move_history_out_of_datatree.php" />
    <install as="services/ajax.php" name="services/ajax.php" />
    <install as="services/cache.php" name="services/cache.php" />
    <install as="services/cacheview.php" name="services/cacheview.php" />
@@ -3996,14 +3996,16 @@
   <release>
    <version>
     <release>4.0.0</release>
-    <api>4.0.0</api></version>
+    <api>4.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-29</date>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-31</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Move all executable upgrade scripts to bin/ and prefix with horde-.
    </notes>
   </release>
  </changelog>
