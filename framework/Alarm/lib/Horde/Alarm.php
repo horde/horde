@@ -118,14 +118,10 @@ abstract class Horde_Alarm
         }
 
         foreach ($GLOBALS['registry']->listApps(null, false, Horde_Perms::READ) as $app) {
-            if (!$GLOBALS['registry']->hasMethod('listAlarms', $app)) {
-                continue;
-            }
-
             /* Preload alarms that happen in the next ttl seconds. */
             if ($preload) {
                 try {
-                    $alarms = $GLOBALS['registry']->callByPackage($app, 'listAlarms', array(time() + $this->_params['ttl'], $user), array('noperms' => true));
+                    $alarms = $GLOBALS['registry']->callAppMethod($app, 'listAlarms', array('args' => array(time() + $this->_params['ttl'], $user), 'noperms' => true));
                 } catch (Horde_Exception $e) {
                     continue;
                 }
@@ -137,7 +133,7 @@ abstract class Horde_Alarm
              * is the first call in this session. */
             if (!$preload || !$session->get('horde', 'alarm_loaded')) {
                 try {
-                    $app_alarms = $GLOBALS['registry']->callByPackage($app, 'listAlarms', array(time(), $user), array('noperms' => true));
+                    $app_alarms = $GLOBALS['registry']->callAppMethod($app, 'listAlarms', array('args' => array(time(), $user), 'noperms' => true));
                 } catch (Horde_Exception $e) {
                     if ($this->_logger) {
                         $this->_logger->log($e, 'ERR');

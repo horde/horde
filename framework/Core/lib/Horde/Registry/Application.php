@@ -154,6 +154,23 @@ class Horde_Registry_Application
     }
 
 
+    // Horde_Alarm methods.
+
+    /**
+     * Lists alarms for a given moment.
+     *
+     * @param integer $time  The time to retrieve alarms for.
+     * @param string $user   The user to retreive alarms for. All users if
+     *                       null.
+     *
+     * @return array  An array of UIDs
+     */
+    public function listAlarms($time, $user = null)
+    {
+        return array();
+    }
+
+
     // Horde_Core_Auth_Application methods.
 
     /**

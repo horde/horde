@@ -263,6 +263,56 @@ class Nag_Application extends Horde_Registry_Application
         }
     }
 
+    /* Alarm method. */
+
+    /**
+     */
+    public function listAlarms($time, $user = null)
+    {
+        if ((empty($user) || $user != $GLOBALS['registry']->getAuth()) &&
+            !$GLOBALS['registry']->isAdmin()) {
+
+            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+        }
+
+        $storage = Nag_Driver::singleton();
+        $group = $GLOBALS['injector']->getInstance('Horde_Group');
+        $alarm_list = array();
+        $tasklists = is_null($user) ?
+            array_keys($GLOBALS['nag_shares']->listAllShares()) :
+            $GLOBALS['display_tasklists'];
+
+        $alarms = Nag::listAlarms($time, $tasklists);
+        foreach ($alarms as $alarm) {
+            try {
+                $share = $GLOBALS['nag_shares']->getShare($alarm->tasklist);
+            } catch (Horde_Share_Exception $e) {
+                continue;
+            }
+            if (empty($user)) {
+                $users = $share->listUsers(Horde_Perms::READ);
+                $groups = $share->listGroups(Horde_Perms::READ);
+                foreach ($groups as $gid) {
+                    $users = array_merge($users, $group->listUsers($gid));
+                }
+                $users = array_unique($users);
+            } else {
+                $users = array($user);
+            }
+            foreach ($users as $alarm_user) {
+                $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('nag', array(
+                    'cache' => false,
+                    'user' => $alarm_user
+                ));
+                $GLOBALS['registry']->setLanguageEnvironment($prefs->getValue('language'));
+                $alarm_list[] = $alarm->toAlarm($alarm_user, $prefs);
+            }
+        }
+
+        return $alarm_list;
+    }
+
+
     /* Sidebar method. */
 
     /**
