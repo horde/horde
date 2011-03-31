@@ -585,6 +585,10 @@ Configuring Horde
 
          DirectoryIndex index.php
 
+   c. If you plan to provide ActiveSync support to your users, you have to
+      create an alias of the ``/Microsoft-Servers-ActiveSync`` URL to
+      ``/horde/rpc.php``. See http://wiki.horde.org/ActiveSync for details.
+
 2. Configuring Horde
 
    To configure Horde, change to the ``config/`` directory of the installed
