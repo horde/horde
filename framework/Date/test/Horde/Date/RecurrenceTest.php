@@ -5,6 +5,8 @@
  * @subpackage UnitTests
  */
 
+require_once dirname(__FILE__) . '/Autoload.php';
+
 /**
  * @category   Horde
  * @package    Date
@@ -389,6 +391,14 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $r->setRecurCount(2);
         $this->assertEquals('MP1 2+ FR #2', $r->toRRule10($this->ical));
         $this->assertEquals('FREQ=MONTHLY;INTERVAL=1;BYDAY=2FR;COUNT=2', $r->toRRule20($this->ical));
+    }
+
+    public function testYearlyDateNoEnd()
+    {
+        $r = new Horde_Date_Recurrence('2007-03-01 10:00:00');
+        $r->setRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DATE);
+        $this->assertEquals('YM1 3 #0', $r->toRRule10($this->ical));
+        $this->assertEquals('FREQ=YEARLY;INTERVAL=1', $r->toRRule20($this->ical));
     }
 
     public function testYearlyDateEnd()
