@@ -253,7 +253,7 @@ class Horde_Pear_Package_Xml_Element_Directory
     ) {
         $point = $parent->getDirectoryNode()->lastChild;
         $this->_xml->_insertWhiteSpaceBefore($point, "\n " . str_repeat(' ', $this->_level));
-        $dir = $this->_xml->create('dir', array('name' => $this->_name));
+        $dir = $this->_xml->createNode('dir', array('name' => $this->_name));
         $parent->getDirectoryNode()->insertBefore($dir, $point);
         $this->_xml->_insertWhiteSpaceBefore($point, " ");
         $this->_xml->_insertCommentBefore($point, ' ' . $this->_path . ' ');

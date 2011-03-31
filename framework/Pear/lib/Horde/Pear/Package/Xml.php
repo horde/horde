@@ -655,7 +655,20 @@ class Horde_Pear_Package_Xml
         $node->parentNode->insertBefore($ws_node, $node);
     }
 
-    public function create($name, $attributes = array())
+    //@todo: single element
+    public function insert($elements, $point)
+    {
+        foreach ($elements as $element) {
+            $point->parentNode->insertBefore($element, $point);
+        }
+    }
+
+    public function createText($text)
+    {
+        return $this->_xml->createTextNode($text);
+    }
+
+    public function createNode($name, $attributes = array())
     {
         $node = $this->_xml->createElementNS(self::XMLNAMESPACE, $name);
         foreach ($attributes as $key => $value) {
