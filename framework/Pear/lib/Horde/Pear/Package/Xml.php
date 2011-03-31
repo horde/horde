@@ -149,46 +149,6 @@ class Horde_Pear_Package_Xml
     }
 
     /**
-     * Append a file in the content listing.
-     *
-     * @param DOMNode $parent The directory parent node.
-     * @param DOMNode $point  Insert the file before this element.
-     * @param string  $name   The name of the file.
-     * @param int     $level  The depth of the tree.
-     * @param string  $role   The file role.
-     *
-     * @return DOMNode The new file node.
-     */
-    public function insertFile(DOMNode $parent, DOMNode $point, $name, $level, $role)
-    {
-        $this->_insertWhiteSpaceBefore($point, "\n " . str_repeat(" ", $level));
-        $file = $this->_xml->createElementNS(
-            self::XMLNAMESPACE, 'file'
-        );
-        $file->setAttribute('name', $name);
-        $file->setAttribute('role', $role);
-        $parent->insertBefore($file, $point);
-        return $file;
-    }
-
-    /**
-     * Remove a file from the content listing.
-     *
-     * @param DOMNode $file The file node to be removed.
-     * @param DOMNode $dir  The parent directory node.
-     *
-     * @return DOMNode The new file node.
-     */
-    public function removeFile(DOMNode $file, DOMNode $dir)
-    {
-        $ws = trim($file->nextSibling->textContent);
-        if (empty($ws)) {
-            $dir->removeChild($file->nextSibling);
-        }
-        $dir->removeChild($file);
-    }
-
-    /**
      * Append a file in the file listing.
      *
      * @param DOMNode $node       The node to append the file to.

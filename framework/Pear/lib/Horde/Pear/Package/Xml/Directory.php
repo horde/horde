@@ -189,11 +189,8 @@ class Horde_Pear_Package_Xml_Directory
      */
     private function _addFile($file, $params)
     {
-        $this->_files[basename($file)] = $this->_xml->insertFile(
-            $this->_element->getDirectoryNode(),
-            $this->_element->getDirectoryNode()->lastChild,
+        $this->_files[basename($file)] = $this->_element->insertFile(
             basename($file),
-            $this->_level + 1,
             $params['role']
         );
     }
@@ -219,7 +216,7 @@ class Horde_Pear_Package_Xml_Directory
      */
     private function _deleteFile($file)
     {
-        $this->_xml->removeFile($this->_files[basename($file)], $this->_element->getDirectoryNode());
+        $this->_files[basename($file)]->remove($this->_element);
     }
 
     /**
@@ -241,7 +238,7 @@ class Horde_Pear_Package_Xml_Directory
         if (!isset($this->_subdirectories[$next])) {
             $this->_subdirectories[$next] = new Horde_Pear_Package_Xml_Directory(
                 $this->_xml,
-                $this->_element->insert($next),
+                $this->_element->insertSubDirectory($next),
                 $this->_element->getLevel() + 1
             );
         }

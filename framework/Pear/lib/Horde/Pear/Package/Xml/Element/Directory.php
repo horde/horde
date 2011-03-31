@@ -191,21 +191,46 @@ class Horde_Pear_Package_Xml_Element_Directory
     {
         $result = array();
         foreach ($this->_xml->findNodesRelativeTo('./p:file', $this->getDirectoryNode()) as $file) {
-            $result[$file->getAttribute('name')] = $file;
+            $name = $file->getAttribute('name');
+            $result[$name] = new Horde_Pear_Package_Xml_Element_File(
+                $name,
+                $this
+            );
+            $result[$name]->setFileNode($file);
         }
         return $result;
     }
 
     /**
+     * Insert a new file entry into the XML at the given point with the
+     * specified name and file role.
+     *
+     * @params string                              $name   The name.
+     * @params string                              $role   The role.
+     * @params Horde_Pear_Package_Xml_Element_File $point  Insertion point.
+     *
+     * @return Horde_Pear_Package_Xml_Element_File The inserted element.
+     */
+    public function insertFile(
+        $name,
+        $role,
+        Horde_Pear_Package_Xml_Element_File $point = null
+    ) {
+        $element = new Horde_Pear_Package_Xml_Element_File($name, $this, $role);
+        $element->insert($point);
+        return $element;
+    }
+
+    /**
      * Insert a new directory entry into the XML at the given point with the
-     * specified name.
+     * specified name
      *
      * @params string                                   $name   The name.
      * @params Horde_Pear_Package_Xml_Element_Directory $point  Insertion point.
      *
-     * @return array The list of files.
+     * @return Horde_Pear_Package_Xml_Element_Directory The inserted element.
      */
-    public function insert(
+    public function insertSubDirectory(
         $name,
         Horde_Pear_Package_Xml_Element_Directory $point = null
     ) {
@@ -220,7 +245,7 @@ class Horde_Pear_Package_Xml_Element_Directory
      * @params Horde_Pear_Package_Xml_Element_Directory $parent The parent.
      * @params Horde_Pear_Package_Xml_Element_Directory $point  Insertion point.
      *
-     * @return array The list of files.
+     * @return NULL
      */
     private function _insert(
         Horde_Pear_Package_Xml_Element_Directory $parent,
