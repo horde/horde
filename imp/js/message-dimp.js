@@ -106,7 +106,7 @@ var DimpMessage = {
             case 'button_deleted':
             case 'button_ham':
             case 'button_spam':
-                if (DimpCore.base) {
+                if (DimpCore.base.DimpBase) {
                     DimpCore.base.focus();
                     if (id == 'button_deleted') {
                         DimpCore.base.DimpBase.deleteMsg({ uid: this.uid, mailbox: this.mailbox });
@@ -248,7 +248,7 @@ var DimpMessage = {
             DimpCore.updateMsgLog(this.log);
         }
 
-        if (DimpCore.base) {
+        if (DimpCore.base.DimpBase) {
             if (this.strip) {
                 DimpCore.base.DimpBase.poll();
             } else if (this.poll) {
