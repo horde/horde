@@ -102,16 +102,6 @@ class Horde_Pear_Package_Xml_Directory
     }
 
     /**
-     * Return the name of this directory.
-     *
-     * @return string The directory name.
-     */
-    public function getName()
-    {
-        return $this->_element->getDirectoryNode()->getAttribute('name');
-    }
-
-    /**
      * Return the list of files in this hierarchy.
      *
      * @return array The file list.
@@ -172,7 +162,7 @@ class Horde_Pear_Package_Xml_Directory
      */
     private function _prependDirectory($path)
     {
-        return $this->getName() . '/' . $path;
+        return $this->_element->getName() . '/' . $path;
     }
 
     /**
@@ -253,7 +243,7 @@ class Horde_Pear_Package_Xml_Directory
                 $next,
                 $this->_element
             );
-            $element->insert($this->_element->getDirectoryNode()->lastChild, $this->_element->getDirectoryNode());
+            $element->insert($this->_element);
             $this->_subdirectories[$next] = new Horde_Pear_Package_Xml_Directory(
                 $this->_xml,
                 $element,

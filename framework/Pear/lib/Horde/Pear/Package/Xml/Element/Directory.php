@@ -83,11 +83,23 @@ class Horde_Pear_Package_Xml_Element_Directory
         }
     }
 
+    /**
+     * Set the package.xml handler to operate on.
+     *
+     * @param Horde_Pear_Package_Xml $xml The XML handler.
+     *
+     * @return NULL
+     */
     public function setDocument(Horde_Pear_Package_Xml $xml)
     {
         $this->_xml = $xml;
     }
 
+    /**
+     * Return the package.xml handler this element belongs to.
+     *
+     * @return Horde_Pear_Package_Xml The XML handler.
+     */
     public function getDocument()
     {
         if ($this->_xml === null) {
@@ -96,17 +108,39 @@ class Horde_Pear_Package_Xml_Element_Directory
         return $this->_xml;
     }
 
+    /**
+     * Set the DOM node of the directory entry.
+     *
+     * @param DOMNode $directory The directory node.
+     *
+     * @return NULL
+     */
     public function setDirectoryNode(DOMNode $directory)
     {
         $this->_dir = $directory;
     }
 
+    /**
+     * Get the DOM node of the directory entry.
+     *
+     * @return DOMNode The directory node.
+     */
     public function getDirectoryNode()
     {
         if ($this->_dir === null) {
             throw new Horde_Pear_Exception('The directory node has been left undefined!');
         }
         return $this->_dir;
+    }
+
+    /**
+     * Return the name of this directory.
+     *
+     * @return string The directory name.
+     */
+    public function getName()
+    {
+        return $this->getDirectoryNode()->getAttribute('name');
     }
 
     /**
@@ -129,17 +163,11 @@ class Horde_Pear_Package_Xml_Element_Directory
         return $this->_path;
     }
 
-    public function insert($point, $parent)
-    {
-        $this->_xml->_insertWhiteSpaceBefore($point, "\n " . str_repeat(' ', $this->_level));
-        $dir = $this->_xml->create('dir', array('name' => $this->_name));
-        $parent->insertBefore($dir, $point);
-        $this->_xml->_insertWhiteSpaceBefore($point, " ");
-        $this->_xml->_insertCommentBefore($point, ' ' . $this->_path . ' ');
-        $this->_xml->_insertWhiteSpace($dir, "\n" . str_repeat(' ', $this->_level + 1));
-        $this->setDirectoryNode($dir);
-    }
-
+    /**
+     * Return the subdirectories for this directory.
+     *
+     * @return array The list of subdirectories.
+     */
     public function getSubdirectories()
     {
         $result = array();
@@ -154,6 +182,11 @@ class Horde_Pear_Package_Xml_Element_Directory
         return $result;
     }
 
+    /**
+     * Return the list of files in this directory.
+     *
+     * @return array The list of files.
+     */
     public function getFiles()
     {
         $result = array();
@@ -162,4 +195,27 @@ class Horde_Pear_Package_Xml_Element_Directory
         }
         return $result;
     }
+
+    /**
+     * Insert the directory entry into the XML at the given point.
+     *
+     * @params Horde_Pear_Package_Xml_Element_Directory $parent The parent.
+     * @params Horde_Pear_Package_Xml_Element_Directory $point  Insertion point.
+     *
+     * @return array The list of files.
+     */
+    public function insert(
+        Horde_Pear_Package_Xml_Element_Directory $parent,
+        Horde_Pear_Package_Xml_Element_Directory $point = null
+    ) {
+        $point = $parent->getDirectoryNode()->lastChild;
+        $this->_xml->_insertWhiteSpaceBefore($point, "\n " . str_repeat(' ', $this->_level));
+        $dir = $this->_xml->create('dir', array('name' => $this->_name));
+        $parent->getDirectoryNode()->insertBefore($dir, $point);
+        $this->_xml->_insertWhiteSpaceBefore($point, " ");
+        $this->_xml->_insertCommentBefore($point, ' ' . $this->_path . ' ');
+        $this->_xml->_insertWhiteSpace($dir, "\n" . str_repeat(' ', $this->_level + 1));
+        $this->setDirectoryNode($dir);
+    }
+
 }
