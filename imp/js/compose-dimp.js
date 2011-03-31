@@ -738,7 +738,7 @@ var DimpCompose = {
     {
         var span = new Element('SPAN').insert(opts.name),
             li = new Element('LI').insert(span).insert(' [' + opts.type + '] (' + opts.size + ' KB) '),
-            input = new Element('SPAN', { atc_id: opts.num, className: 'remove' }).insert(DIMP.text_compose.remove);
+            input = new Element('SPAN', { atc_id: opts.num, className: 'button' }).insert(DIMP.text_compose.remove);
         li.insert(input);
         $('attach_list').insert(li).show();
 
