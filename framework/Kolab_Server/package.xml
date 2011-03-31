@@ -24,7 +24,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Use Horde_Auth for generating password hashes.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -326,6 +326,13 @@
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>Horde_Auth</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC2</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
@@ -740,7 +747,7 @@
    <date>2011-03-29</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Use Horde_Auth for generating password hashes.
    </notes>
   </release>
  </changelog>
