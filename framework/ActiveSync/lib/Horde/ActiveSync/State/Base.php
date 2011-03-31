@@ -272,7 +272,7 @@ abstract class Horde_ActiveSync_State_Base
     static public function getNewSyncKey($syncKey)
     {
         if (empty($syncKey)) {
-            return '{' . self::uuid() . '}' . '1';
+            return '{' . new Horde_Support_Uuid() . '}' . '1';
         } else {
             if (preg_match('/^s{0,1}\{([a-fA-F0-9-]+)\}([0-9]+)$/', $syncKey, $matches)) {
                 $n = $matches[2];
@@ -282,20 +282,6 @@ abstract class Horde_ActiveSync_State_Base
             }
             throw new Horde_ActiveSync_Exception('Invalid SyncKey format passed to getNewSyncKey()');
         }
-    }
-
-    /**
-     * Generate a uid for the sync key
-     *
-     * @return unknown_type
-     */
-    static public function uuid()
-    {
-        return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-                    mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
-                    mt_rand( 0, 0x0fff ) | 0x4000,
-                    mt_rand( 0, 0x3fff ) | 0x8000,
-                    mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ));
     }
 
    /**
