@@ -322,18 +322,17 @@ class Horde_Prefs_Ui
 
         $partners = array();
         $selfurl = $ui->selfUrl()->add('deleteanchor', 1);
+        $format = $GLOBALS['prefs']->getValue('date_format') . ' %H:%M';
 
-        foreach ($devices as $device => $anchors) {
-            foreach ($anchors as $anchor) {
-                $partners[] = array(
-                    'anchor' => htmlspecialchars($anchor['syncml_clientanchor']),
-                    'db' => htmlspecialchars($anchor['syncml_db']),
-                    'deviceid' => $device,
-                    'rawdb' => $anchor ['syncml_db'],
-                    'device' => htmlspecialchars($device),
-                    'time' => strftime($GLOBALS['prefs']->getValue('date_format') . ' %H:%M', $anchor['syncml_serveranchor'])
-                );
-            }
+        foreach ($devices as $device) {
+            $partners[] = array(
+                'anchor'   => htmlspecialchars($device['syncml_clientanchor']),
+                'db'       => htmlspecialchars($device['syncml_db']),
+                'deviceid' => $device['syncml_syncpartner'],
+                'rawdb'    => $device['syncml_db'],
+                'device'   => htmlspecialchars($device['syncml_syncpartner']),
+                'time'     => strftime($format, $device['syncml_serveranchor'])
+            );
         }
         $t->set('devices', $partners);
 

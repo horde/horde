@@ -584,7 +584,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
             . 'syncml_serveranchor FROM horde_syncml_anchors '
             . 'WHERE syncml_uid = ?';
         $values = array($user);
-        return $this->_db->selectAssoc($query, $values);
+        return $this->_db->selectAll($query, $values);
     }
 
     /**
