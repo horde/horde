@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Convert database access to use Horde_Db.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
