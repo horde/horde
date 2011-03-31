@@ -48,6 +48,8 @@ class Horde_Service_Facebook_UploadRequest extends Horde_Service_Facebook_Reques
     /**
      * Execute a RFC1867/RFC1341 Multipart Http Transaction.
      *
+     * @todo Use Horde_Mime
+     *
      * @throws Horde_Service_Facebook_Exception
      *
      * @return string
