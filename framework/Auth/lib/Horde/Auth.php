@@ -108,6 +108,7 @@ class Horde_Auth
             return Horde_String::convertCharset('"' . $plaintext . '"', 'ISO-8859-1', 'UTF-16LE');
 
         case 'sha':
+        case 'sha1':
             $encrypted = base64_encode(pack('H*', hash('sha1', $plaintext)));
             return $show_encrypt ? '{SHA}' . $encrypted : $encrypted;
 
@@ -124,6 +125,11 @@ class Horde_Auth
         case 'ssha':
             $encrypted = base64_encode(pack('H*', hash('sha1', $plaintext . $salt)) . $salt);
             return $show_encrypt ? '{SSHA}' . $encrypted : $encrypted;
+
+        case 'sha256':
+        case 'ssha256':
+            $encrypted = base64_encode(pack('H*', hash('sha256', $plaintext . $salt)) . $salt);
+            return $show_encrypt ? '{SSHA256}' . $encrypted : $encrypted;
 
         case 'smd5':
             $encrypted = base64_encode(pack('H*', hash('md5', $plaintext . $salt)) . $salt);
@@ -215,7 +221,13 @@ class Horde_Auth
         case 'ssha':
             return $seed
                 ? substr(base64_decode(preg_replace('|^{SSHA}|i', '', $seed)), 20)
-                : substr(pack('H*', sha1(substr(pack('h*', hash('md5', mt_rand())), 0, 8) . $plaintext)), 0, 4);
+                : substr(pack('H*', hash('sha1', substr(pack('h*', hash('md5', mt_rand())), 0, 8) . $plaintext)), 0, 4);
+
+        case 'sha256':
+        case 'ssha256':
+            return $seed
+                ? substr(base64_decode(preg_replace('|^{SSHA256}|i', '', $seed)), 20)
+                : substr(pack('H*', hash('sha256', substr(pack('h*', hash('md5', mt_rand())), 0, 8) . $plaintext)), 0, 4);
 
         case 'smd5':
             return $seed
