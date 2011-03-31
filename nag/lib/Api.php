@@ -454,96 +454,97 @@ class Nag_Api extends Horde_Registry_Api
             }
 
             foreach ($iCal->getComponents() as $content) {
-                if ($content instanceof Horde_Icalendar_Vtodo) {
-                    $task = new Nag_Task();
-                    $task->fromiCalendar($content);
-                    $task->tasklist = $tasklist;
-                    if (isset($task->uid)) {
-                        $existing = $storage->getByUID($task->uid);
-                        // Entry exists, remove from uids_remove list so we
-                        // won't delete in the end.
-                        if (isset($uids_remove[$task->uid])) {
-                            unset($uids_remove[$task->uid]);
+                if (!($content instanceof Horde_Icalendar_Vtodo)) {
+                    continue;
+                }
+                $task = new Nag_Task();
+                $task->fromiCalendar($content);
+                $task->tasklist = $tasklist;
+                if (isset($task->uid)) {
+                    $existing = $storage->getByUID($task->uid);
+                    // Entry exists, remove from uids_remove list so we
+                    // won't delete in the end.
+                    if (isset($uids_remove[$task->uid])) {
+                        unset($uids_remove[$task->uid]);
+                    }
+                    if ($existing->private &&
+                        $existing->owner != $GLOBALS['registry']->getAuth()) {
+                        continue;
+                    }
+                    // Check if our task is newer then the existing - get
+                    // the task's history.
+                    $history = $GLOBALS['injector']->getInstance('Horde_History');
+                    $created = $modified = null;
+                    try {
+                        $log = $history->getHistory('nag:' . $tasklist . ':' . $task->uid);
+                        foreach ($log as $entry) {
+                            switch ($entry['action']) {
+                            case 'add':
+                                $created = $entry['ts'];
+                                break;
+
+                            case 'modify':
+                                $modified = $entry['ts'];
+                                break;
+                            }
                         }
-                        if ($existing->private &&
-                            $existing->owner != $GLOBALS['registry']->getAuth()) {
+                    } catch (Exception $e) {}
+                    if (empty($modified) && !empty($add)) {
+                        $modified = $add;
+                    }
+                    if (!empty($modified) &&
+                        $modified >= $content->getAttribute('LAST-MODIFIED')) {
+                            // LAST-MODIFIED timestamp of existing entry
+                            // is newer: don't replace it.
                             continue;
                         }
-                        // Check if our task is newer then the existing - get
-                        // the task's history.
-                        $history = $GLOBALS['injector']->getInstance('Horde_History');
-                        $created = $modified = null;
-                        try {
-                            $log = $history->getHistory('nag:' . $tasklist . ':' . $task->uid);
-                            foreach ($log as $entry) {
-                                switch ($entry['action']) {
-                                case 'add':
-                                    $created = $entry['ts'];
-                                    break;
 
-                                case 'modify':
-                                    $modified = $entry['ts'];
-                                    break;
-                                }
-                            }
-                        } catch (Exception $e) {}
-                        if (empty($modified) && !empty($add)) {
-                            $modified = $add;
-                        }
-                        if (!empty($modified) &&
-                            $modified >= $content->getAttribute('LAST-MODIFIED')) {
-                                // LAST-MODIFIED timestamp of existing entry
-                                // is newer: don't replace it.
-                                continue;
-                            }
-
-                        // Don't change creator/owner.
-                        $owner = $existing->owner;
-                        $taskId = $existing->id;
-                        try {
-                            $storage->modify(
-                                $taskId,
-                                isset($task->name) ? $task->name : $existing->name,
-                                isset($task->desc) ? $task->desc : $existing->desc,
-                                isset($task->start) ? $task->start : $existing->start,
-                                isset($task->due) ? $task->due : $existing->due,
-                                isset($task->priority) ? $task->priority : $existing->priority,
-                                isset($task->estimate) ? $task->estimate : 0,
-                                isset($task->completed) ? (int)$task->completed : $existing->completed,
-                                isset($task->category) ? $task->category : $existing->category,
-                                isset($task->alarm) ? $task->alarm : $existing->alarm,
-                                isset($task->parent_id) ? $task->parent_id : $existing->parent_id,
-                                isset($task->private) ? $task->private : $existing->private,
-                                $owner,
-                                isset($task->assignee) ? $task->assignee : $existing->assignee
-                            );
-                        } catch (Nag_Exception $e) {
-                            throw new Nag_Exception($e->getMessage(), 500);
-                        }
-                        $ids[] = $task->uid;
-                    } else {
-                        try {
-                            $newTask = $storage->add(
-                                isset($task->name) ? $task->name : '',
-                                isset($task->desc) ? $task->desc : '',
-                                isset($task->start) ? $task->start : 0,
-                                isset($task->due) ? $task->due : 0,
-                                isset($task->priority) ? $task->priority : 3,
-                                isset($task->estimate) ? $task->estimate : 0,
-                                !empty($task->completed),
-                                isset($task->category) ? $task->category : '',
-                                isset($task->alarm) ? $task->alarm : 0,
-                                isset($task->uid) ? $task->uid : null,
-                                isset($task->parent_id) ? $task->parent_id : '',
-                                !empty($task->private),
-                                $GLOBALS['registry']->getAuth(),
-                                isset($task->assignee) ? $task->assignee : null);
-                        } catch (Nag_Exception $e) {
-                            throw new Nag_Exception($e->getMessage(), 500);
-                        }
-                        // use UID rather than ID
-                        $ids[] = $newTask[1];
+                    // Don't change creator/owner.
+                    $owner = $existing->owner;
+                    $taskId = $existing->id;
+                    try {
+                        $storage->modify(
+                            $taskId,
+                            isset($task->name) ? $task->name : $existing->name,
+                            isset($task->desc) ? $task->desc : $existing->desc,
+                            isset($task->start) ? $task->start : $existing->start,
+                            isset($task->due) ? $task->due : $existing->due,
+                            isset($task->priority) ? $task->priority : $existing->priority,
+                            isset($task->estimate) ? $task->estimate : 0,
+                            isset($task->completed) ? (int)$task->completed : $existing->completed,
+                            isset($task->category) ? $task->category : $existing->category,
+                            isset($task->alarm) ? $task->alarm : $existing->alarm,
+                            isset($task->parent_id) ? $task->parent_id : $existing->parent_id,
+                            isset($task->private) ? $task->private : $existing->private,
+                            $owner,
+                            isset($task->assignee) ? $task->assignee : $existing->assignee
+                        );
+                    } catch (Nag_Exception $e) {
+                        throw new Nag_Exception($e->getMessage(), 500);
                     }
+                    $ids[] = $task->uid;
+                } else {
+                    try {
+                        $newTask = $storage->add(
+                            isset($task->name) ? $task->name : '',
+                            isset($task->desc) ? $task->desc : '',
+                            isset($task->start) ? $task->start : 0,
+                            isset($task->due) ? $task->due : 0,
+                            isset($task->priority) ? $task->priority : 3,
+                            isset($task->estimate) ? $task->estimate : 0,
+                            !empty($task->completed),
+                            isset($task->category) ? $task->category : '',
+                            isset($task->alarm) ? $task->alarm : 0,
+                            isset($task->uid) ? $task->uid : null,
+                            isset($task->parent_id) ? $task->parent_id : '',
+                            !empty($task->private),
+                            $GLOBALS['registry']->getAuth(),
+                            isset($task->assignee) ? $task->assignee : null);
+                    } catch (Nag_Exception $e) {
+                        throw new Nag_Exception($e->getMessage(), 500);
+                    }
+                    // use UID rather than ID
+                    $ids[] = $newTask[1];
                 }
             }
             break;
