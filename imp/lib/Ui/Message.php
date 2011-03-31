@@ -140,7 +140,7 @@ class IMP_Ui_Message
                     'from_addr' => $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create()->getDefaultFromAddress()
                 )
             );
-            IMP_Maillog::log('mdn', $msg_id, 'displayed');
+            IMP_Maillog::log(IMP_Maillog::MDN, $msg_id, 'displayed');
             $success = true;
 
             if ($mdn_flag) {

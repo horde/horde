@@ -1811,7 +1811,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         /* Store history information. */
         if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
-            IMP_Maillog::log('redirect', $headers->getValue('message-id'), $recipients);
+            IMP_Maillog::log(self::REDIRECT, $headers->getValue('message-id'), $recipients);
         }
 
         if ($GLOBALS['conf']['sentmail']['driver'] != 'none') {

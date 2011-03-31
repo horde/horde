@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-31</date>
- <time>01:30:36</time>
+ <time>12:58:59</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix IMP_Maillog regression from RC2 (Bug #9763).
 * [mms] Fix honoring default encryption option in dynamic view.
 * [jan] Show full alarm notifications in dynamic view (Request #9748).
 * [jan] Fix saving S/MIME certs to address book.
@@ -47,6 +48,7 @@
     <file name="imp-query-imap-cache" role="script" />
    </dir> <!-- /bin -->
    <dir name="config">
+    <file name=".htaccess" role="horde" />
     <file name="backends.php" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="filter.txt.dist" role="horde" />
@@ -306,6 +308,7 @@
      <file name="ListMessages.php" role="horde" />
      <file name="ShowMessage.php" role="horde" />
     </dir> <!-- /lib/Views -->
+    <file name=".htaccess" role="data" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Auth.php" role="horde" />
@@ -623,6 +626,7 @@
      </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/zh_TW -->
+    <file name=".htaccess" role="horde" />
     <file name="imp.pot" role="horde" />
    </dir> <!-- /locale -->
    <dir name="migration">
@@ -758,6 +762,7 @@
     <dir name="test">
      <file name="mailserver.inc" role="horde" />
     </dir> <!-- /templates/test -->
+    <file name=".htaccess" role="horde" />
     <file name="common-header.inc" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
@@ -1349,6 +1354,7 @@
   <filelist>
    <install as="imp-bounce-spam" name="bin/imp-bounce-spam" />
    <install as="imp-query-imap-cache" name="bin/imp-query-imap-cache" />
+   <install as="imp/config/.htaccess" name="config/.htaccess" />
    <install as="imp/config/backends.php" name="config/backends.php" />
    <install as="imp/config/conf.xml" name="config/conf.xml" />
    <install as="imp/config/filter.txt.dist" name="config/filter.txt.dist" />
@@ -1384,6 +1390,7 @@
    <install as="imp/js/searchesprefs.js" name="js/searchesprefs.js" />
    <install as="imp/js/signaturehtml.js" name="js/signaturehtml.js" />
    <install as="imp/js/viewport.js" name="js/viewport.js" />
+   <install as=".htaccess" name="lib/.htaccess" />
    <install as="imp/lib/Api.php" name="lib/Api.php" />
    <install as="imp/lib/Application.php" name="lib/Application.php" />
    <install as="imp/lib/Auth.php" name="lib/Auth.php" />
@@ -1543,6 +1550,7 @@
    <install as="imp/lib/Views/Compose.php" name="lib/Views/Compose.php" />
    <install as="imp/lib/Views/ListMessages.php" name="lib/Views/ListMessages.php" />
    <install as="imp/lib/Views/ShowMessage.php" name="lib/Views/ShowMessage.php" />
+   <install as="imp/locale/.htaccess" name="locale/.htaccess" />
    <install as="imp/locale/imp.pot" name="locale/imp.pot" />
    <install as="imp/locale/ar/LC_MESSAGES/imp.mo" name="locale/ar/LC_MESSAGES/imp.mo" />
    <install as="imp/locale/ar/LC_MESSAGES/imp.po" name="locale/ar/LC_MESSAGES/imp.po" />
@@ -1662,6 +1670,7 @@
    <install as="imp/locale/zh_TW/LC_MESSAGES/imp.po" name="locale/zh_TW/LC_MESSAGES/imp.po" />
    <install as="imp/migration/1_imp_base_tables.php" name="migration/1_imp_base_tables.php" />
    <install as="imp/migration/2_imp_autoincrement_sentmail.php" name="migration/2_imp_autoincrement_sentmail.php" />
+   <install as="imp/templates/.htaccess" name="templates/.htaccess" />
    <install as="imp/templates/common-header.inc" name="templates/common-header.inc" />
    <install as="imp/templates/dimp/index.inc" name="templates/dimp/index.inc" />
    <install as="imp/templates/dimp/javascript_defs.php" name="templates/dimp/javascript_defs.php" />
@@ -2099,6 +2108,7 @@
    <date>2011-03-31</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Fix IMP_Maillog regression from RC2 (Bug #9763).
 * [mms] Fix honoring default encryption option in dynamic view.
 * [jan] Show full alarm notifications in dynamic view (Request #9748).
 * [jan] Fix saving S/MIME certs to address book.
