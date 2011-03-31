@@ -50,10 +50,10 @@ class SetTypeStep2Form extends Horde_Form {
 
         parent::Horde_Form($vars, $title);
 
-        $this->addHidden('', 'id', 'int', true, true);
+        $this->addHidden('', 'id', 'int', true, false);
         $this->addHidden('', 'group', 'int', false, false);
-        $this->addHidden('', 'type', 'int', true, true);
-        $this->addHidden('', 'newcomment', 'longtext', false, true);
+        $this->addHidden('', 'type', 'int', true, false);
+        $this->addHidden('', 'newcomment', 'longtext', false, false);
 
         /* Give user an opportunity to check that state and priority
          * are still valid. */
