@@ -304,7 +304,7 @@ class IMP_Views_ListMessages
             $msglist[$seq] = $sorted_list['s'][$seq];
             $rowlist[$uid] = $seq;
             /* Send browser message data if not already cached or if CONDSTORE
-             * has indiciated that data has changed. */
+             * has indicated that data has changed. */
             if (!isset($cached[$uid]) || isset($changed[$uid])) {
                 $data[$seq] = 1;
             }
