@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [jan] Fix creating new tasks through WebDAV (Bug #9675).
 * [jan] Move all executable scripts to bin/ and prefix with nag-.
  </notes>
  <contents>
@@ -928,6 +929,7 @@
    <date>2011-03-31</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [jan] Fix creating new tasks through WebDAV (Bug #9675).
 * [jan] Move all executable scripts to bin/ and prefix with nag-.
    </notes>
   </release>
