@@ -37,16 +37,9 @@ class Horde_Pear_Package_Xml_Directory
     /**
      * The directory node.
      *
-     * @var DOMNode
+     * @var Horde_Pear_Package_Xml_Element_Directory
      */
-    private $_dir;
-
-    /**
-     * The path to this directory.
-     *
-     * @var string
-     */
-    private $_path;
+    private $_element;
 
     /**
      * The level in the tree.
@@ -60,7 +53,7 @@ class Horde_Pear_Package_Xml_Directory
      *
      * @var array
      */
-    private $_subdirectories;
+    private $_subdirectories = array();
 
     /**
      * The list of files in this directory.
@@ -72,47 +65,30 @@ class Horde_Pear_Package_Xml_Directory
     /**
      * Constructor.
      *
-     * @param Horde_Pear_Package_Xml $xml   The package.xml handler to
-     *                                      operate on.
-     * @param DOMNode                $dir   The directory node.
-     * @param string                 $path  The path to the current directory.
-     * @param int                    $level The level in the tree.
+     * @param Horde_Pear_Package_Xml                    $xml   The package.xml
+     *                                                         handler to operate
+     *                                                         on.
+     * @param Horde_Pear_Package_Xml_Element_Directory  $dir   The directory element.
+     * @param int                                       $level The level in the
+     *                                                         tree.
      */
     public function __construct(
         Horde_Pear_Package_Xml $xml,
-        DOMNode $dir,
-        $path,
+        Horde_Pear_Package_Xml_Element_Directory $dir,
         $level
     ) {
         $this->_xml = $xml;
-        $this->_dir = $dir;
-        $this->_path = $path;
+        $this->_element = $dir;
         $this->_level = $level;
-
-        $this->_subdirectories = array();
-        foreach ($this->_xml->findNodesRelativeTo('./p:dir', $dir) as $directory) {
-            $this->_subdirectories[$directory->getAttribute('name')] = new Horde_Pear_Package_Xml_Directory(
-                $xml,
-                $directory,
-                $path . '/' . $directory->getAttribute('name'),
-                $level + 1
+        $subdirectories = $this->_element->getSubdirectories();
+        foreach ($subdirectories as $name => $element) {
+            $this->_subdirectories[$name] = new Horde_Pear_Package_Xml_Directory(
+                $this->_xml,
+                $element,
+                $this->_level + 1
             );
         }
-
-        $this->_files = array();
-        foreach ($this->_xml->findNodesRelativeTo('./p:file', $dir) as $file) {
-            $this->_files[$file->getAttribute('name')] = $file;
-        }
-    }
-
-    /**
-     * Return the level of depth in the tree for this directory.
-     *
-     * @return int The level.
-     */
-    public function getLevel()
-    {
-        return $this->_level;
+        $this->_files = $this->_element->getFiles();
     }
 
     /**
@@ -122,7 +98,7 @@ class Horde_Pear_Package_Xml_Directory
      */
     public function getDirectory()
     {
-        return $this->_dir;
+        return $this->_element;
     }
 
     /**
@@ -132,7 +108,7 @@ class Horde_Pear_Package_Xml_Directory
      */
     public function getName()
     {
-        return $this->_dir->getAttribute('name');
+        return $this->_element->getDirectoryNode()->getAttribute('name');
     }
 
     /**
@@ -224,8 +200,8 @@ class Horde_Pear_Package_Xml_Directory
     private function _addFile($file, $params)
     {
         $this->_files[basename($file)] = $this->_xml->insertFile(
-            $this->_dir,
-            $this->_dir->lastChild,
+            $this->_element->getDirectoryNode(),
+            $this->_element->getDirectoryNode()->lastChild,
             basename($file),
             $this->_level + 1,
             $params['role']
@@ -253,7 +229,7 @@ class Horde_Pear_Package_Xml_Directory
      */
     private function _deleteFile($file)
     {
-        $this->_xml->removeFile($this->_files[basename($file)], $this->_dir);
+        $this->_xml->removeFile($this->_files[basename($file)], $this->_element->getDirectoryNode());
     }
 
     /**
@@ -274,18 +250,14 @@ class Horde_Pear_Package_Xml_Directory
         }
         if (!isset($this->_subdirectories[$next])) {
             $element = new Horde_Pear_Package_Xml_Element_Directory(
-                $this->_xml,
                 $next,
-                $this->_path . '/' . $next,
-                $this->_level + 1
+                $this->_element
             );
-            $directory = $element->insert($this->_dir->lastChild, $this->_dir);
-                
+            $element->insert($this->_element->getDirectoryNode()->lastChild, $this->_element->getDirectoryNode());
             $this->_subdirectories[$next] = new Horde_Pear_Package_Xml_Directory(
                 $this->_xml,
-                $directory,
-                $this->_path . '/' . $next,
-                $this->_level + 1
+                $element,
+                $this->_element->getLevel() + 1
             );
         }
         return $this->_subdirectories[$next]->getParent($tree);
