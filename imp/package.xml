@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-03-31</date>
- <time>12:58:59</time>
+ <time>15:39:56</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix printing of message parts in IE, regardless of local user settings (Bug #9756).
 * [mms] Fix IMP_Maillog regression from RC2 (Bug #9763).
 * [mms] Fix honoring default encryption option in dynamic view.
 * [jan] Show full alarm notifications in dynamic view (Request #9748).
@@ -745,7 +746,6 @@
     </dir> <!-- /templates/prefs -->
     <dir name="print">
      <file name="headers.html" role="horde" />
-     <file name="print.html" role="horde" />
     </dir> <!-- /templates/print -->
     <dir name="quota">
      <file name="quota.html" role="horde" />
@@ -1738,7 +1738,6 @@
    <install as="imp/templates/prefs/stationery.html" name="templates/prefs/stationery.html" />
    <install as="imp/templates/prefs/trash.html" name="templates/prefs/trash.html" />
    <install as="imp/templates/print/headers.html" name="templates/print/headers.html" />
-   <install as="imp/templates/print/print.html" name="templates/print/print.html" />
    <install as="imp/templates/quota/quota.html" name="templates/quota/quota.html" />
    <install as="imp/templates/rss/mailbox.rss" name="templates/rss/mailbox.rss" />
    <install as="imp/templates/saveimage/saveimage.html" name="templates/saveimage/saveimage.html" />
@@ -2108,6 +2107,7 @@
    <date>2011-03-31</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Fix printing of message parts in IE, regardless of local user settings (Bug #9756).
 * [mms] Fix IMP_Maillog regression from RC2 (Bug #9763).
 * [mms] Fix honoring default encryption option in dynamic view.
 * [jan] Show full alarm notifications in dynamic view (Request #9748).
