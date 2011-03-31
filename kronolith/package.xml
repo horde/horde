@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [jan] Set default alarm in dynamic view (Bug #9752).
+* [jan] Set default alarm in dynamic view (Bug #9752).
 * [jan] Move all executable scripts to bin/ and prefix with kronolith-.
  </notes>
  <contents>
@@ -1683,7 +1685,9 @@
    <date>2011-03-31</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-*
+* [jan] Set default alarm in dynamic view (Bug #9752).
+* [jan] Set default alarm in dynamic view (Bug #9752).
+* [jan] Move all executable scripts to bin/ and prefix with kronolith-.
    </notes>
   </release>
  </changelog>

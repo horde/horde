@@ -2634,14 +2634,7 @@ KronolithCore = {
 
         /* Alarm */
         if (task.a) {
-            $('kronolithTaskAlarmOn').setValue(true);
-            [10080, 1440, 60, 1].each(function(unit) {
-                if (task.a % unit === 0) {
-                    $('kronolithTaskAlarmValue').setValue(task.a / unit);
-                    $('kronolithTaskAlarmUnit').setValue(unit);
-                    throw $break;
-                }
-            });
+            this.enableAlarm('Task', task.a);
             if (task.m) {
                 $('kronolithTaskAlarmDefaultOff').checked = true;
                 $H(task.m).each(function(method) {
@@ -4985,6 +4978,7 @@ KronolithCore = {
             $('kronolithEventLinkExport').up('span').hide();
             $('kronolithEventSaveAsNew').hide();
             this.toggleRecurrence('None');
+            this.enableAlarm('Event', Kronolith.conf.default_alarm);
             this.redBoxLoading = true;
             RedBox.showHtml($('kronolithEventDialog').show());
         }
@@ -5152,14 +5146,7 @@ KronolithCore = {
 
         /* Alarm */
         if (ev.a) {
-            $('kronolithEventAlarmOn').setValue(true);
-            [10080, 1440, 60, 1].each(function(unit) {
-                if (ev.a % unit === 0) {
-                    $('kronolithEventAlarmValue').setValue(ev.a / unit);
-                    $('kronolithEventAlarmUnit').setValue(unit);
-                    throw $break;
-                }
-            });
+            this.enableAlarm('Event', ev.a);
             if (ev.m) {
                 $('kronolithEventAlarmDefaultOff').checked = true;
                 $H(ev.m).each(function(method) {
@@ -5436,6 +5423,28 @@ KronolithCore = {
         }
         $('kronolithEventStartTimeLabel').setStyle({ visibility: on ? 'hidden' : 'visible' });
         $('kronolithEventEndTimeLabel').setStyle({ visibility: on ? 'hidden' : 'visible' });
+    },
+
+    /**
+     * Enables the alarm in the event or task form and sets the correct value
+     * and unit.
+     *
+     * @param string type    The object type, either 'Event' or 'Task'.
+     * @param integer alarm  The alarm time in seconds.
+     */
+    enableAlarm: function(type, alarm) {
+        if (!alarm) {
+            return;
+        }
+        type = 'kronolith' + type + 'Alarm';
+        $(type + 'On').setValue(true);
+        [10080, 1440, 60, 1].each(function(unit) {
+            if (alarm % unit === 0) {
+                $(type + 'Value').setValue(alarm / unit);
+                $(type + 'Unit').setValue(unit);
+                throw $break;
+            }
+        });
     },
 
     /**

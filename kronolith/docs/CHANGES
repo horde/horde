@@ -2,6 +2,8 @@
 v3.0
 ----
 
+[jan] Set default alarm in dynamic view (Bug #9752).
+[jan] Set default alarm in dynamic view (Bug #9752).
 [jan] Move all executable scripts to bin/ and prefix with kronolith-.
 
 
