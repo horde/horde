@@ -239,14 +239,9 @@ class Horde_Pear_Package_Xml_Directory
             return $this;
         }
         if (!isset($this->_subdirectories[$next])) {
-            $element = new Horde_Pear_Package_Xml_Element_Directory(
-                $next,
-                $this->_element
-            );
-            $element->insert($this->_element);
             $this->_subdirectories[$next] = new Horde_Pear_Package_Xml_Directory(
                 $this->_xml,
-                $element,
+                $this->_element->insert($next),
                 $this->_element->getLevel() + 1
             );
         }

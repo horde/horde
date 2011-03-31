@@ -197,6 +197,24 @@ class Horde_Pear_Package_Xml_Element_Directory
     }
 
     /**
+     * Insert a new directory entry into the XML at the given point with the
+     * specified name.
+     *
+     * @params string                                   $name   The name.
+     * @params Horde_Pear_Package_Xml_Element_Directory $point  Insertion point.
+     *
+     * @return array The list of files.
+     */
+    public function insert(
+        $name,
+        Horde_Pear_Package_Xml_Element_Directory $point = null
+    ) {
+        $element = new Horde_Pear_Package_Xml_Element_Directory($name, $this);
+        $element->_insert($this, $point);
+        return $element;
+    }
+
+    /**
      * Insert the directory entry into the XML at the given point.
      *
      * @params Horde_Pear_Package_Xml_Element_Directory $parent The parent.
@@ -204,7 +222,7 @@ class Horde_Pear_Package_Xml_Element_Directory
      *
      * @return array The list of files.
      */
-    public function insert(
+    private function _insert(
         Horde_Pear_Package_Xml_Element_Directory $parent,
         Horde_Pear_Package_Xml_Element_Directory $point = null
     ) {
