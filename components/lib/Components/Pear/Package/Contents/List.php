@@ -49,9 +49,9 @@ extends PEAR_PackageFileManager_File
         $this->_ignore = $ignore;
         $this->_options['packagedirectory'] = $package_directory;
         $this->_options['include'] = '*';
-        $this->_options['ignore'] = array('*~', 'conf.php', 'CVS/*');
+        $this->_options['ignore'] = array('*~', 'conf.php', 'CVS/*', 'bin/.htaccess');
         $this->_options['packagefile'] = 'package.xml';
-        $this->_options['addhiddenfiles'] = false;
+        $this->_options['addhiddenfiles'] = true;
     }
 
     /**

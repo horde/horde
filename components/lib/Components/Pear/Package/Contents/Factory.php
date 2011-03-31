@@ -119,16 +119,17 @@ class Components_Pear_Package_Contents_Factory
         case 'nag/':
         case 'turba/':
             return array(
-                'h'    => 'src',
-                'c'    => 'src',
-                'cpp'  => 'src',
-                'in'   => 'src',
-                'm4'   => 'src',
-                'w32'  => 'src',
-                'dll'  => 'ext',
-                'php'  => 'horde',
-                'html' => 'doc',
-                '*'    => 'data',
+                'h'         => 'src',
+                'c'         => 'src',
+                'cpp'       => 'src',
+                'in'        => 'src',
+                'm4'        => 'src',
+                'w32'       => 'src',
+                'dll'       => 'ext',
+                '.htaccess' => 'horde',
+                'php'       => 'horde',
+                'html'      => 'doc',
+                '*'         => 'data',
             );
         default:
             return array(
