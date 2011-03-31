@@ -273,13 +273,14 @@ class Horde_Pear_Package_Xml_Directory
             return $this;
         }
         if (!isset($this->_subdirectories[$next])) {
-            $directory = $this->_xml->appendDirectory(
-                $this->_dir,
-                $this->_dir->lastChild,
+            $element = new Horde_Pear_Package_Xml_Element_Directory(
+                $this->_xml,
                 $next,
                 $this->_path . '/' . $next,
                 $this->_level + 1
             );
+            $directory = $element->insert($this->_dir->lastChild, $this->_dir);
+                
             $this->_subdirectories[$next] = new Horde_Pear_Package_Xml_Directory(
                 $this->_xml,
                 $directory,

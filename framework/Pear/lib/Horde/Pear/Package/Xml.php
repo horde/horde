@@ -149,29 +149,6 @@ class Horde_Pear_Package_Xml
     }
 
     /**
-     * Append a directory in the content listing.
-     *
-     * @param DOMNode $node   The node to append the directory to.
-     * @param DOMNode $bottom Insert the directory before this white space element.
-     * @param string  $name   The name of the directory.
-     * @param string  $path   The directory path relative to the package root.
-     * @param int     $level  The depth of the tree.
-     *
-     * @return DOMNode The new directory node.
-     */
-    public function appendDirectory(DOMNode $node, DOMNode $bottom, $name, $path, $level)
-    {
-        $this->_insertWhiteSpaceBefore($bottom, "\n " . str_repeat(' ', $level));
-        $dir = $this->_xml->createElementNS(self::XMLNAMESPACE, 'dir');
-        $dir->setAttribute('name', $name);
-        $node->insertBefore($dir, $bottom);
-        $this->_insertWhiteSpaceBefore($bottom, " ");
-        $this->_insertCommentBefore($bottom, ' ' . $path . ' ');
-        $this->_insertWhiteSpace($dir, "\n" . str_repeat(' ', $level + 1));
-        return $dir;
-    }
-
-    /**
      * Append a file in the content listing.
      *
      * @param DOMNode $parent The directory parent node.
@@ -669,7 +646,7 @@ class Horde_Pear_Package_Xml
      *
      * @return DOMNode The inserted white space node.
      */
-    private function _insertWhiteSpace($parent, $ws)
+    public function _insertWhiteSpace($parent, $ws)
     {
         $ws_node = $this->_xml->createTextNode($ws);
         $parent->appendChild($ws_node);
@@ -698,7 +675,7 @@ class Horde_Pear_Package_Xml
      *
      * @return NULL
      */
-    private function _insertCommentBefore($node, $comment)
+    public function _insertCommentBefore($node, $comment)
     {
         $comment_node = $this->_xml->createComment($comment);
         $node->parentNode->insertBefore($comment_node, $node);
@@ -712,9 +689,18 @@ class Horde_Pear_Package_Xml
      *
      * @return NULL
      */
-    private function _insertWhiteSpaceBefore($node, $ws)
+    public function _insertWhiteSpaceBefore($node, $ws)
     {
         $ws_node = $this->_xml->createTextNode($ws);
         $node->parentNode->insertBefore($ws_node, $node);
+    }
+
+    public function create($name, $attributes = array())
+    {
+        $node = $this->_xml->createElementNS(self::XMLNAMESPACE, $name);
+        foreach ($attributes as $key => $value) {
+            $node->setAttribute($key, $value);
+        }
+        return $node;
     }
 }
