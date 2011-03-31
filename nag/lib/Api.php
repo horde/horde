@@ -460,8 +460,15 @@ class Nag_Api extends Horde_Registry_Api
                 $task = new Nag_Task();
                 $task->fromiCalendar($content);
                 $task->tasklist = $tasklist;
+                $create = true;
                 if (isset($task->uid)) {
-                    $existing = $storage->getByUID($task->uid);
+                    try {
+                        $existing = $storage->getByUID($task->uid);
+                        $create = false;
+                    } catch (Horde_Exception_NotFound $e) {
+                    }
+                }
+                if (!$create) {
                     // Entry exists, remove from uids_remove list so we
                     // won't delete in the end.
                     if (isset($uids_remove[$task->uid])) {
