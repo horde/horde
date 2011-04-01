@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_ActiveSync</name>
  <channel>pear.horde.org</channel>
  <summary>Horde ActiveSync Server Library</summary>
@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-29</date>
- <time>18:12:23</time>
+ <date>2011-04-01</date>
+ <time>12:10:43</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -29,9 +29,6 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="ActiveSync">
-      <dir name="ActiveSync">
-       <file name="Factory.php" role="php" />
-      </dir> <!-- /lib/Horde/ActiveSync/ActiveSync -->
       <dir name="Connector">
        <file name="Exporter.php" role="php" />
        <file name="Importer.php" role="php" />
@@ -170,7 +167,6 @@
    <install as="Horde/ActiveSync/Sync.php" name="lib/Horde/ActiveSync/Sync.php" />
    <install as="Horde/ActiveSync/Timezone.php" name="lib/Horde/ActiveSync/Timezone.php" />
    <install as="Horde/ActiveSync/Wbxml.php" name="lib/Horde/ActiveSync/Wbxml.php" />
-   <install as="Horde/ActiveSync/ActiveSync/Factory.php" name="lib/Horde/ActiveSync/ActiveSync/Factory.php" />
    <install as="Horde/ActiveSync/Connector/Exporter.php" name="lib/Horde/ActiveSync/Connector/Exporter.php" />
    <install as="Horde/ActiveSync/Connector/Importer.php" name="lib/Horde/ActiveSync/Connector/Importer.php" />
    <install as="Horde/ActiveSync/Driver/Base.php" name="lib/Horde/ActiveSync/Driver/Base.php" />
@@ -278,14 +274,16 @@
   <release>
    <version>
     <release>1.0.0</release>
-    <api>1.0.0</api></version>
+    <api>1.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-29</date>
+    <api>beta</api>
+   </stability>
+   <date>2011-04-01</date>
    <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
    <notes>
-* 
+* [jan] Use Horde_Support_Uuid to generate UUIDs.
    </notes>
   </release>
  </changelog>
