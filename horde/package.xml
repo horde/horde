@@ -42,6 +42,7 @@
  <notes>
 * [jan] Delete object mappings too when deleting SyncML anchors (Request #9377).
 * [jan] Move all executable upgrade scripts to bin/ and prefix with horde-.
+* [mjr] Fix ActiveSync provisioning.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
