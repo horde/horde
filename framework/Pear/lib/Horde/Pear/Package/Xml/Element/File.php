@@ -128,7 +128,7 @@ class Horde_Pear_Package_Xml_Element_File
         );
         $this->_xml->insert(
             array(
-                $this->_xml->createText("\n " . str_repeat(" ", $this->_level)),
+                "\n " . str_repeat(" ", $this->_level),
                 $file,
             ),
             $point

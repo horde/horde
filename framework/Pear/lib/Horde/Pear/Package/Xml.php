@@ -655,17 +655,40 @@ class Horde_Pear_Package_Xml
         $node->parentNode->insertBefore($ws_node, $node);
     }
 
-    //@todo: single element
     public function insert($elements, $point)
     {
+        if (!is_array($elements)) {
+            $elements = array($elements);
+        }
         foreach ($elements as $element) {
+            if (is_string($element)) {
+                $element = $this->createText($element);
+            }
             $point->parentNode->insertBefore($element, $point);
+        }
+    }
+
+    public function append($elements, $parent)
+    {
+        if (!is_array($elements)) {
+            $elements = array($elements);
+        }
+        foreach ($elements as $element) {
+            if (is_string($element)) {
+                $element = $this->createText($element);
+            }
+            $parent->appendChild($element);
         }
     }
 
     public function createText($text)
     {
         return $this->_xml->createTextNode($text);
+    }
+
+    public function createComment($comment)
+    {
+        return $this->_xml->createComment($comment);
     }
 
     public function createNode($name, $attributes = array())
