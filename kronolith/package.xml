@@ -208,7 +208,7 @@
      <file name="WorkWeek.php" role="horde" />
      <file name="Year.php" role="horde" />
     </dir> <!-- /lib/View -->
-    <file name=".htaccess" role="data" />
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Calendar.php" role="horde" />
