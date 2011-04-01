@@ -96,6 +96,7 @@ case 'ActiveSync':
     }
     $params['backend'] = $injector->getInstance('Horde_ActiveSyncBackend');
     $params['server'] = $injector->getInstance('Horde_ActiveSyncServer');
+    $params['provisioning'] = $conf['activesync']['securitypolicies']['provisioning'];
     break;
 
 case 'Soap':
