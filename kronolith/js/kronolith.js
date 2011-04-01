@@ -6027,7 +6027,7 @@ KronolithCore = {
         }.bindAsEventListener(this));
 
         /* Start polling. */
-        new PeriodicalExecuter(this.doAction.bind(this, 'poll'), 60);
+        new PeriodicalExecuter(this.doAction.bind(this, 'poll', {}, null, {}), 60);
     }
 
 };
