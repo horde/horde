@@ -30,7 +30,7 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
     public function setLocation($event_id, $point)
     {
         /* First make sure it doesn't already exist */
-        $sql = 'SELECT COUNT(*) FROM kronolith_events_geo WHERE event_id = ?';
+        $sql = 'SELECT COUNT(*) FROM kronolith_events_mysqlgeo WHERE event_id = ?';
 
         try {
             $count = $this->_db->selectValue($sql, array($event_id));
@@ -53,9 +53,9 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
 
         /* INSERT or UPDATE */
         if ($count) {
-            $sql = 'UPDATE kronolith_events_geo SET event_coordinates = GeomFromText(\'POINT(%F %F)\'), event_zoom = ? WHERE event_id = ?';
+            $sql = 'UPDATE kronolith_events_mysqlgeo SET event_coordinates = GeomFromText(\'POINT(%F %F)\'), event_zoom = ? WHERE event_id = ?';
         } else {
-            $sql = 'INSERT into kronolith_events_geo (event_coordinates, event_zoom, event_id) VALUES(GeomFromText(\'POINT(%F %F)\'), ?, ?)';
+            $sql = 'INSERT into kronolith_events_mysqlgeo (event_coordinates, event_zoom, event_id) VALUES(GeomFromText(\'POINT(%F %F)\'), ?, ?)';
         }
         $sql = sprintf($sql, $point['lat'], $point['lon']);
         $values = array($point['zoom'], $event_id);
@@ -75,7 +75,7 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
      */
     public function getLocation($event_id)
     {
-        $sql = 'SELECT x(event_coordinates) as lat, y(event_coordinates) as lon, event_zoom as zoom FROM kronolith_events_geo WHERE event_id = ?';
+        $sql = 'SELECT x(event_coordinates) as lat, y(event_coordinates) as lon, event_zoom as zoom FROM kronolith_events_mysqlgeo WHERE event_id = ?';
         try {
             return $this->_db->selectOne($sql, array($event_id));
         } catch (Horde_Db_Exception $e) {
@@ -108,7 +108,7 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
         $params = array($factor, $radius, $limit);
         $sql = "SELECT event_id, "
                . "GLength(LINESTRINGFromWKB(LineString(event_coordinates, GeomFromText('POINT(" . (float)$point['lat'] . " " . (float)$point['lon'] . ")')))) * ? as distance, "
-               . "x(event_coordinates) as lat, y(event_coordinates) as lon FROM kronolith_events_geo HAVING distance < ?  ORDER BY distance ASC LIMIT ?";
+               . "x(event_coordinates) as lat, y(event_coordinates) as lon FROM kronolith_events_mysqlgeo HAVING distance < ?  ORDER BY distance ASC LIMIT ?";
 
         try {
             $results = $this->_db->selectAll($sql, $params);

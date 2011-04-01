@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>kronolith</name>
  <channel>pear.horde.org</channel>
  <summary>A web based calendar</summary>
@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-31</date>
- <time>15:03:51</time>
+ <date>2011-04-01</date>
+ <time>10:29:53</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -37,6 +37,7 @@
 * [jan] Set default alarm in dynamic view (Bug #9752).
 * [jan] Set default alarm in dynamic view (Bug #9752).
 * [jan] Move all executable scripts to bin/ and prefix with kronolith-.
+* [mjr] Add migration for mysql specific geospatial fields (Bug #9758).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -207,6 +208,7 @@
      <file name="WorkWeek.php" role="horde" />
      <file name="Year.php" role="horde" />
     </dir> <!-- /lib/View -->
+    <file name=".htaccess" role="data" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Calendar.php" role="horde" />
@@ -461,6 +463,7 @@
     <file name="16_kronolith_upgrade_sqlhierarchical.php" role="horde" />
     <file name="17_kronolith_upgrade_sqlnghierarchical.php" role="horde" />
     <file name="18_kronolith_upgrade_categoriestotags.php" role="horde" />
+    <file name="19_kronolith_upgrade_addmysqlgeo.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="resources">
     <dir name="groups">
@@ -474,11 +477,6 @@
     <file name="edit.php" role="horde" />
     <file name="index.php" role="horde" />
    </dir> <!-- /resources -->
-   <dir name="scripts">
-    <dir name="sql">
-     <file name="add_geo.mysql.sql" role="data" />
-    </dir> <!-- /scripts/sql -->
-   </dir> <!-- /scripts -->
    <dir name="templates">
     <dir name="agenda">
      <file name="notification.html.php" role="horde" />
@@ -1140,6 +1138,7 @@
    <install as="kronolith/js/mobile.js" name="js/mobile.js" />
    <install as="kronolith/js/tagactions.js" name="js/tagactions.js" />
    <install as="kronolith/js/views.js" name="js/views.js" />
+   <install as=".htaccess" name="lib/.htaccess" />
    <install as="kronolith/lib/Api.php" name="lib/Api.php" />
    <install as="kronolith/lib/Application.php" name="lib/Application.php" />
    <install as="kronolith/lib/Calendar.php" name="lib/Calendar.php" />
@@ -1326,6 +1325,7 @@
    <install as="kronolith/migration/16_kronolith_upgrade_sqlhierarchical.php" name="migration/16_kronolith_upgrade_sqlhierarchical.php" />
    <install as="kronolith/migration/17_kronolith_upgrade_sqlnghierarchical.php" name="migration/17_kronolith_upgrade_sqlnghierarchical.php" />
    <install as="kronolith/migration/18_kronolith_upgrade_categoriestotags.php" name="migration/18_kronolith_upgrade_categoriestotags.php" />
+   <install as="kronolith/migration/19_kronolith_upgrade_addmysqlgeo.php" name="migration/19_kronolith_upgrade_addmysqlgeo.php" />
    <install as="kronolith/resources/create.php" name="resources/create.php" />
    <install as="kronolith/resources/delete.php" name="resources/delete.php" />
    <install as="kronolith/resources/edit.php" name="resources/edit.php" />
@@ -1334,7 +1334,6 @@
    <install as="kronolith/resources/groups/delete.php" name="resources/groups/delete.php" />
    <install as="kronolith/resources/groups/edit.php" name="resources/groups/edit.php" />
    <install as="kronolith/resources/groups/index.php" name="resources/groups/index.php" />
-   <install as="scripts/sql/add_geo.mysql.sql" name="scripts/sql/add_geo.mysql.sql" />
    <install as="kronolith/templates/calendar_info.php" name="templates/calendar_info.php" />
    <install as="kronolith/templates/calendar_list.php" name="templates/calendar_list.php" />
    <install as="kronolith/templates/calendar_titles.inc" name="templates/calendar_titles.inc" />
@@ -1682,12 +1681,13 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-31</date>
+   <date>2011-04-01</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [jan] Set default alarm in dynamic view (Bug #9752).
 * [jan] Set default alarm in dynamic view (Bug #9752).
 * [jan] Move all executable scripts to bin/ and prefix with kronolith-.
+* [mjr] Add migration for mysql specific geospatial fields (Bug #9758).
    </notes>
   </release>
  </changelog>
