@@ -35,7 +35,7 @@ class IMP_Sentmail
             return new $class($params);
         }
 
-        throw new IMP_Exception('Driver not found: ' . $driver);
+        throw new IMP_Exception(__CLASS__ . ': Driver not found: ' . $driver);
     }
 
 }
