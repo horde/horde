@@ -66,17 +66,23 @@ class IMP_Maillog
             case IMP_Compose::REPLY_LIST:
                 $params = array('action' => 'reply_list');
                 break;
+
+            default:
+                $params = null;
+                break;
             }
 
-            try {
-                $history->log(self::_getUniqueHistoryId($val), $params);
-            } catch (Exception $e) {
-                /* On error, log the error message only since informing the
-                 * user is just a waste of time and a potential point of
-                 * confusion, especially since they most likely don't even
-                 * know the message is being logged. */
-                $entry = sprintf('Could not log message details to Horde_History. Error returned: %s', $e->getMessage());
-                Horde::logMessage($entry, 'ERR');
+            if ($params) {
+                try {
+                    $history->log(self::_getUniqueHistoryId($val), $params);
+                } catch (Exception $e) {
+                    /* On error, log the error message only since informing the
+                     * user is just a waste of time and a potential point of
+                     * confusion, especially since they most likely don't even
+                     * know the message is being logged. */
+                    $entry = sprintf('Could not log message details to Horde_History. Error returned: %s', $e->getMessage());
+                    Horde::logMessage($entry, 'ERR');
+                }
             }
         }
     }
