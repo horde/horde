@@ -14,14 +14,14 @@
  */
 class KronolithUpgradeAddMysqlGeo extends Horde_Db_Migration_Base
 {
+    protected $_allowed = array('MySQL', 'MySQLi', 'PDO_MySQL');
     /**
      * Upgrade.
      */
     public function up()
     {
         /* Only run this migration if we are using a Mysql adapter */
-        if (get_class($this->_connection) == 'Horde_Db_Adapter_Mysql' ||
-            get_class($this->_connection) == 'Horde_Db_Adapter_Pdo_Mysql') {
+        if (in_array($this->adapterName(), $this->_allowed)) {
             $t = $this->createTable('kronolith_events_mysqlgeo', array('autoincrementKey' => false));
             $t->column('event_id', 'string', array('limit' => 32, 'null' => false));
             $t->column('event_coordinates', 'point', array('null' => false));
@@ -36,9 +36,7 @@ class KronolithUpgradeAddMysqlGeo extends Horde_Db_Migration_Base
      */
     public function down()
     {
-        if (get_class($this->_connection) == 'Horde_Db_Adapter_Mysql' ||
-            get_class($this->_connection) == 'Horde_Db_Adapter_Pdo_Mysql') {
-
+        if (in_array($this->adapterName(), $this->_allowed)) {
             $this->dropTable('kronolith_events_mysqlgeo');
         }
     }
