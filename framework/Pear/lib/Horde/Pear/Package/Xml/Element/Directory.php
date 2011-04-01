@@ -253,20 +253,18 @@ class Horde_Pear_Package_Xml_Element_Directory
     ) {
         $point = $parent->getDirectoryNode()->lastChild;
 
-        $dir = $this->_xml->createNode('dir', array('name' => $this->_name));
-        $this->_xml->append(
-            "\n" . str_repeat(' ', $this->_level + 1),
-            $dir
-        );
-
-        $this->_xml->insert(
+        $dir = $this->_xml->insert(
             array(
                 "\n " . str_repeat(" ", $this->_level),
-                $dir,
+                'dir' => array('name' => $this->_name),
                 ' ',
                 $this->_xml->createComment(' ' . $this->_path . ' ')
             ),
             $point
+        );
+        $this->_xml->append(
+            "\n" . str_repeat(' ', $this->_level + 1),
+            $dir
         );
         $this->setDirectoryNode($dir);
     }

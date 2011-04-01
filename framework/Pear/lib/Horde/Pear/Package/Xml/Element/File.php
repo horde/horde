@@ -123,17 +123,17 @@ class Horde_Pear_Package_Xml_Element_File
     {
         $point = $this->_parent->getDirectoryNode()->lastChild;
 
-        $file = $this->_xml->createNode(
-            'file', array('name' => $this->_name, 'role' => $this->_role)
+        $this->setFileNode(
+            $this->_xml->insert(
+                array(
+                    "\n " . str_repeat(" ", $this->_level),
+                    'file' => array(
+                        'name' => $this->_name, 'role' => $this->_role
+                    ),
+                ),
+                $point
+            )
         );
-        $this->_xml->insert(
-            array(
-                "\n " . str_repeat(" ", $this->_level),
-                $file,
-            ),
-            $point
-        );
-        $this->setFileNode($file);
     }
 
     /**

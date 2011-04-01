@@ -628,20 +628,6 @@ class Horde_Pear_Package_Xml
     }
 
     /**
-     * Insert a comment before the specified node.
-     *
-     * @param DOMNode $node    The following node.
-     * @param string  $comment The comment text.
-     *
-     * @return NULL
-     */
-    public function _insertCommentBefore($node, $comment)
-    {
-        $comment_node = $this->_xml->createComment($comment);
-        $node->parentNode->insertBefore($comment_node, $node);
-    }
-
-    /**
      * Insert some white space before the specified node.
      *
      * @param DOMNode $node The DOMNode.
@@ -655,17 +641,23 @@ class Horde_Pear_Package_Xml
         $node->parentNode->insertBefore($ws_node, $node);
     }
 
+
+
     public function insert($elements, $point)
     {
         if (!is_array($elements)) {
             $elements = array($elements);
         }
-        foreach ($elements as $element) {
+        $node = null;
+        foreach ($elements as $key => $element) {
             if (is_string($element)) {
                 $element = $this->createText($element);
+            } else if (is_array($element)) {
+                $node = $element = $this->createNode($key, $element);
             }
             $point->parentNode->insertBefore($element, $point);
         }
+        return $node;
     }
 
     public function append($elements, $parent)
