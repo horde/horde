@@ -150,7 +150,7 @@ class IMP_Ui_Message
             $success = false;
         }
 
-        $GLOBALS['injector']->getInstance('IMP_Sentmail')->log('mdn', '', $return_addr, $success);
+        $GLOBALS['injector']->getInstance('IMP_Sentmail')->log(IMP_Sentmail::MDN, '', $return_addr, $success);
 
         return false;
     }

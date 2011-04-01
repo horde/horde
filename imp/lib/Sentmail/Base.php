@@ -25,9 +25,11 @@ abstract class IMP_Sentmail_Base
     /**
      * Constructor.
      *
+     * @param array $params  Configuration parameters the driver needs.
+     *
      * @throws IMP_Exception
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         $this->_params = array_merge($this->_params, $params);
     }
@@ -35,8 +37,8 @@ abstract class IMP_Sentmail_Base
     /**
      * Logs an attempt to send a message.
      *
-     * @param string $action            Why the message was sent, i.e. "new",
-     *                                  "reply", "forward", etc.
+     * @param integer $action           Why the message was sent (IMP_Sentmail
+     *                                  constant).
      * @param string $message_id        The Message-ID.
      * @param string|array $recipients  The list of message recipients.
      * @param boolean $success          Whether the attempt was successful.
@@ -66,8 +68,8 @@ abstract class IMP_Sentmail_Base
     /**
      * Logs an attempt to send a message per recipient.
      *
-     * @param string $action      Why the message was sent, i.e. "new",
-     *                            "reply", "forward", etc.
+     * @param integer $action     Why the message was sent (IMP_Sentmail
+     *                            constant).
      * @param string $message_id  The Message-ID.
      * @param string $recipients  A message recipient.
      * @param boolean $success    Whether the attempt was successful.
@@ -79,14 +81,13 @@ abstract class IMP_Sentmail_Base
      * Returns the favourite recipients.
      *
      * @param integer $limit  Return this number of recipients.
-     * @param array $filter   A list of messages types that should be returned.
-     *                        A value of null returns all message types.
+     * @param mixed $filter   A list of messages types that should be
+     *                        returned. Null returns all message types.
      *
      * @return array  A list with the $limit most favourite recipients.
      * @throws IMP_Exception
      */
-    abstract public function favouriteRecipients($limit,
-                                                 $filter = array('new', 'forward', 'reply', 'redirect'));
+    abstract public function favouriteRecipients($limit, $filter = null);
 
     /**
      * Returns the number of recipients within a certain time period.

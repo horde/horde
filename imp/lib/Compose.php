@@ -596,17 +596,41 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $sentmail = $injector->getInstance('IMP_Sentmail');
 
         foreach ($send_msgs as $val) {
+            switch ($this->_replytype) {
+            case self::COMPOSE:
+                $senttype = IMP_Sentmail::NEWMSG;
+                break;
+
+            case self::REPLY:
+            case self::REPLY_ALL:
+            case self::REPLY_LIST:
+            case self::REPLY_SENDER:
+                $senttype = IMP_Sentmail::REPLY;
+                break;
+
+            case self::FORWARD:
+            case self::FORWARD_ATTACH:
+            case self::FORWARD_BODY:
+            case self::FORWARD_BOTH:
+                $senttype = IMP_Sentmail::FORWARD;
+                break;
+
+            case self::REDIRECT:
+                $senttype = IMP_Sentmail::REDIRECT;
+                break;
+            }
+
             try {
                 $this->sendMessage($val['to'], $headers, $val['msg']);
             } catch (IMP_Compose_Exception $e) {
                 /* Unsuccessful send. */
                 Horde::logMessage($e, 'ERR');
-                $sentmail->log($this->_replytype, $headers->getValue('message-id'), $val['recipients'], false);
+                $sentmail->log($senttype, $headers->getValue('message-id'), $val['recipients'], false);
                 throw new IMP_Compose_Exception(sprintf(_("There was an error sending your message: %s"), $e->getMessage()));
             }
 
             /* Store history information. */
-            $sentmail->log($this->_replytype, $headers->getValue('message-id'), $val['recipients'], true);
+            $sentmail->log($senttype, $headers->getValue('message-id'), $val['recipients'], true);
         }
 
         $sent_saved = true;
@@ -1815,9 +1839,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             IMP_Maillog::log(self::REDIRECT, $headers->getValue('message-id'), $recipients);
         }
 
-        if ($GLOBALS['conf']['sentmail']['driver'] != 'none') {
-            $GLOBALS['injector']->getInstance('IMP_Sentmail')>log('redirect', $headers->getValue('message-id'), $recipients);
-        }
+        $GLOBALS['injector']->getInstance('IMP_Sentmail')->log(IMP_Sentmail::REDIRECT, $headers->getValue('message-id'), $recipients);
     }
 
     /**

@@ -210,8 +210,10 @@ class IMP_Api extends Horde_Registry_Api
      * Returns the list of favorite recipients.
      *
      * @param integer $limit  Return this number of recipients.
-     * @param array $filter   A list of messages types that should be returned.
-     *                        A value of null returns all message types.
+     * @param array $filter   A list of messages types that should be
+     *                        returned.  Valid types: 'forward', 'mdn', 'new',
+     *                        'reply', and 'redirect'. A value of null returns
+     *                        all message types.
      *
      * @return array  A list with the $limit most favourite recipients.
      * @throws IMP_Exception
@@ -219,6 +221,35 @@ class IMP_Api extends Horde_Registry_Api
     public function favouriteRecipients($limit,
                                         $filter = array('new', 'forward', 'reply', 'redirect'))
     {
+        if (!empty($filter)) {
+            $new_filter = array();
+            foreach ($filter as $val) {
+                switch ($val) {
+                case 'forward':
+                    $new_filter[] = IMP_Sentmail::FORWARD;
+                    break;
+
+                case 'mdn':
+                    $new_filter[] = IMP_Sentmail::MDN;
+                    break;
+
+                case 'new':
+                    $new_filter[] = IMP_Sentmail::NEWMSG;
+                    break;
+
+                case 'redirect':
+                    $new_filter[] = IMP_Sentmail::REDIRECT;
+                    break;
+
+                case 'reply':
+                    $new_filter[] = IMP_Sentmail::REPLY;
+                    break;
+                }
+            }
+
+            $filter = $new_filter;
+        }
+
         return $GLOBALS['injector']->getInstance('IMP_Sentmail')->favouriteRecipients($limit, $filter);
     }
 
