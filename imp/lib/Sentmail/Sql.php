@@ -87,7 +87,7 @@ class IMP_Sentmail_Sql extends IMP_Sentmail_Base
 
     /**
      */
-    public function favouriteRecipients($limit, array $filter = array())
+    public function favouriteRecipients($limit, $filter = null)
     {
         /* Build the SQL query. */
         $where = '';
