@@ -31,6 +31,11 @@ class Mnemo
     const SORT_NOTEPAD = 2;
 
     /**
+     * Sort by moddate
+     */
+    const SORT_MOD_DATE = 3;
+
+    /**
      * Sort in ascending order.
      */
     const SORT_ASCEND = 0;
@@ -55,7 +60,8 @@ class Mnemo
      * also sort the resulting list, if requested.
      *
      * @param constant $sortby   The field by which to sort. (self::SORT_DESC,
-     *                           self::SORT_CATEGORY, self::SORT_NOTEPAD)
+     *                           self::SORT_CATEGORY, self::SORT_NOTEPAD,
+     *                           self::SORT_MOD_DATE)
      * @param constant $sortdir  The direction by which to sort.
      *                           (self::SORT_ASC, self::SORT_DESC)
      *
@@ -74,6 +80,7 @@ class Mnemo
             self::SORT_DESC => 'ByDesc',
             self::SORT_CATEGORY => 'ByCategory',
             self::SORT_NOTEPAD => 'ByNotepad',
+            self::SORT_MOD_DATE => 'ByModDate'
         );
 
         foreach ($display_notepads as $notepad) {
@@ -328,6 +335,77 @@ class Mnemo
         }
 
         return strcasecmp($bowner, $aowner);
+    }
+
+    /**
+     * Comparison function for sorting notes by modification date.
+     *
+     * @param array $a  Note one.
+     * @param array $b  Note two.
+     *
+     * @return integer  1 if note one is greater, -1 if note two is greater;
+     *                  0 if they are equal.
+     */
+    protected static function _sortByModDate($a, $b)
+    {
+        // Get notes` history
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
+
+        $guidA = 'mnemo:' . $a['memolist_id'] . ':' . $a['uid'];
+        $guidB = 'mnemo:' . $b['memolist_id'] . ':' . $b['uid'];
+
+        // Gets the timestamp of the most recent modification to the note
+        $modDateA = $history->getActionTimestamp($guidA, 'modify');
+        $modDateB = $history->getActionTimestamp($guidB, 'modify');
+
+        // If the note hasn't been modified, get the creation timestamp
+        if ($modDateA == 0) {
+            $modDateA = $history->getActionTimestamp($guidA, 'add');
+        }
+        if ($modDateB == 0) {
+            $modDateB = $history->getActionTimestamp($guidB, 'add');
+        }
+        if ($modDateA == $modDateB) {
+            return 0;
+        }
+
+        return ($modDateA > $modDateB) ? 1 : -1;
+    }
+
+     /**
+     * Comparison function for reverse sorting notes by modification date.
+     *
+     * @param array $a  Note one.
+     * @param array $b  Note two.
+     *
+     * @return integer  -1 if note one is greater, 1 if note two is greater,
+     *                  0 if they are equal.
+     */
+    protected static function _rsortByModDate($a, $b)
+    {
+        // Get note's history
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
+
+        $guidA = 'mnemo:' . $a['memolist_id'] . ':' . $a['uid'];
+        $guidB = 'mnemo:' . $b['memolist_id'] . ':' . $b['uid'];
+
+        // Gets the timestamp of the most recent modification to the note
+        $modDateA = $history->getActionTimestamp($guidA, 'modify');
+        $modDateB = $history->getActionTimestamp($guidB, 'modify');
+
+        // If the note hasn't been modified, get the creation timestamp
+        if ($modDateA == 0) {
+            $modDateA = $history->getActionTimestamp($guidA, 'add');
+        }
+        if ($modDateB == 0) {
+            $modDateB = $history->getActionTimestamp($guidB, 'add');
+        }
+
+        if ($modDateA == $modDateB) {
+            return 0;
+        }
+
+        return ($modDateA < $modDateB) ? 1 : -1;
     }
 
     /**

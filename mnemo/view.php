@@ -60,7 +60,7 @@ $modifiedby = '';
 if (!empty($memo['uid'])) {
     $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('mnemo:' . $memolist_id . ':' . $memo['uid']);
     if ($log) {
-	foreach ($log as $entry) {
+    foreach ($log as $entry) {
             switch ($entry['action']) {
             case 'add':
                 $created = $entry['ts'];

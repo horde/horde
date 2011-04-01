@@ -49,7 +49,8 @@ $_prefs['sortby'] = array(
     'enum' => array(
         Mnemo::SORT_DESC => _("Note Text"),
         Mnemo::SORT_CATEGORY => _("Note Category"),
-        Mnemo::SORT_NOTEPAD => _("Notepad")
+        Mnemo::SORT_NOTEPAD => _("Notepad"),
+        Mnemo::SORT_MOD_DATE => _("Modification Date"),
     ),
     'desc' => _("Default sorting criteria:")
 );

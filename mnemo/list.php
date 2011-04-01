@@ -84,6 +84,7 @@ if (count($memos)) {
 
     require MNEMO_TEMPLATES . '/list/memo_headers.inc';
 
+    $history = $GLOBALS['injector']->getInstance('Horde_History');
     foreach ($memos as $memo_id => $memo) {
         $viewurl = Horde_Util::addParameter(
             'view.php',
@@ -98,6 +99,14 @@ if (count($memos)) {
             $notepad = $share->get('name');
         } catch (Horde_Share_Exception $e) {
             $notepad = $memo['memolist_id'];
+        }
+
+        // Get memo`s most recent modification date or, if nonexistent,
+        // the creation (add) date
+        $guid = 'mnemo:' . $memo['memolist_id'] . ':' . $memo['uid'];
+        $modDate = $history->getActionTimestamp($guid, 'modify');
+        if ($modDate == 0) {
+            $modDate = $history->getActionTimestamp($guid, 'add');
         }
 
         require MNEMO_TEMPLATES . '/list/memo_summaries.inc';

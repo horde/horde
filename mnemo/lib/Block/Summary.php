@@ -18,7 +18,7 @@ class Mnemo_Block_Summary extends Horde_Core_Block
     {
         global $registry;
 
-	    $label = !empty($this->_params['block_title'])
+        $label = !empty($this->_params['block_title'])
             ? $this->_params['block_title']
             : $registry->get('name');
 
