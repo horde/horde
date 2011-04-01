@@ -48,6 +48,7 @@
        <div id="hermesSearchListHeader">
         <div class="hermesUnselectedSlice hermesTimeListSelect">&nbsp;</div>
         <div class="hermesTimeListDate hermesBorderLeft"><a class="widget" id="sortDate"><?php echo _("Date")?></a></div>
+        <div class="hermesTimeListEmployee hermesBorderLeft"><a class="widget" id="sortDate"><?php echo _("Employee")?></a></div>
         <div class="hermesTimeListClient hermesBorderLeft"><a class="widget" id="sortClient"><?php echo _("Client")?></a></div>
         <div class="hermesTimeListCostObject hermesBorderLeft"><a class="widget" id="sortCostObject"><?php echo _("Cost Object")?></a></div>
         <div class="hermesTimeListType hermesBorderLeft"><a class="widget" id="sortType"><?php echo _("Job Type")?></a></div>
@@ -60,6 +61,7 @@
          <div id="hermesSearchListTemplate" style="display:none;">
            <div class="hermesUnselectedSlice hermesTimeListSelect">&nbsp;</div>
            <div class="hermesTimeListDate hermesBorderLeft"></div>
+           <div class="hermesTimeListEmployee hermesBorderLeft"></div>
            <div class="hermesTimeListClient hermesBorderLeft"></div>
            <div class="hermesTimeListCostObject hermesBorderLeft"></div>
            <div class="hermesTimeListType hermesBorderLeft"></div>
@@ -72,7 +74,7 @@
          <div id="hermesSearchListEmpty" style="display:none;"><?php echo _("No Time Slices")?></div>
         </div>
         <div class="hermesTimeListControls">
-            <a id="hermesSearchListSubmit" class="button"><?php echo _("Submit Time") ?></a>
+            <a id="hermesSearchListSubmit" class="button"><?php echo _("Export Time") ?></a>
         </div>
      </div>
    </div>
