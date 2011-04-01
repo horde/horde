@@ -15,14 +15,6 @@
 class IMP_Sentmail_Null extends IMP_Sentmail_Base
 {
     /**
-     * Garbage collect log entries.
-     */
-    public function gc()
-    {
-        $this->_deleteOldEntries(time() - ((isset($this->_params['threshold']) ? $this->_params['threshold'] : 0) * 86400));
-    }
-
-    /**
      * Logs an attempt to send a message per recipient.
      *
      * @param string $action      Why the message was sent, i.e. "new",
