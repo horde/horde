@@ -141,6 +141,10 @@ Removed features
   support beside MySQL (native and PDO), PostgreSQL, and SQLite have been
   removed. If you need support for any other RDBMS, consider sponsoring the
   development of new drivers for that system.
+* DataTree support has been removed. Several systems used DataTree as a
+  possible backend for historical reasons. If you still used DataTree backends
+  in Horde 3 and didn't migrate to SQL drivers yet, now you have to. See
+  further below for instructions how to migrate away from DataTree backends.
 * The krb5 authentication driver has been removed.
 * The LDAP session handler has been removed.
 * The enscript and webcpp MIME Viewers have been replaced by the
