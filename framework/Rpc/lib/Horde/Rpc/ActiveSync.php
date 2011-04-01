@@ -51,11 +51,28 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         /* Check for requirements */
         $this->_get = $request->getGetVars();
         if ($request->getMethod() == 'POST' &&
-            (empty($this->_get['Cmd']) ||  empty($this->_get['User']) || empty($this->_get['DeviceId']) || empty($this->_get['DeviceType']))) {
+            (empty($this->_get['Cmd']) || empty($this->_get['DeviceId']) || empty($this->_get['DeviceType']))) {
 
             $this->_logger->err('Missing required parameters.');
-
             throw new Horde_Rpc_Exception('Your device requested the ActiveSync URL wihtout required parameters.');
+        }
+
+        // Some devices (incorrectly) only send the username in the httpauth
+        if ($request->getMethod() == 'POST' &&  empty($this->_get['User'])) {
+            $serverVars = $this->_request->getServerVars();
+            if ($serverVars['PHP_AUTH_USER']) {
+                $this->_get['User'] = $serverVars['PHP_AUTH_USER'];
+            } elseif ($serverVars['Authorization']) {
+                $hash = str_replace('Basic ', '', $serverVars['Authorization']);
+                $hash = base64_decode($hash);
+                if (strpos($hash, ':') !== false) {
+                    list($this->_get['User'], $pass) = explode(':', $hash, 2);
+                }
+            }
+            if (empty($this->_get['User'])) {
+                $this->_logger->err('Missing required parameters.');
+                throw new Horde_Rpc_Exception('Your device requested the ActiveSync URL wihtout required parameters.');
+            }
         }
 
         /* Set our server and backend objects */
