@@ -1316,6 +1316,7 @@ class Horde_Registry
                 $this->callAppMethod($app, 'init');
             } catch (Horde_Exception $e) {
                 $this->popApp();
+                $this->applications[$app]['status'] = 'inactive';
                 throw $e;
             }
         }
