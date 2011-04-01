@@ -355,7 +355,10 @@ class Horde_ActiveSync
             $device->rwstatus = self::RWSTATUS_NA;
             $device->user = $this->_driver->getUser();
             $device->id = $devId;
-            $state->setDeviceInfo($device);
+            // Work around buggy android clients and avoid erroneous device entries
+            if ($device->id !== 'validate') {
+                $state->setDeviceInfo($device);
+            }
         } elseif (!empty($devId)) {
             $device = $state->loadDeviceInfo($devId, $this->_driver->getUser());
         }
