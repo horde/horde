@@ -27,6 +27,9 @@ class Horde_Core_Factory_Group extends Horde_Core_Factory_Injector
             $class = 'Horde_Group_' . $driver;
             break;
         }
+        if (!class_exists($class)) {
+            throw new Horde_Exception(sprintf(Horde_Core_Translation::t("\"%s\" group driver not found."), $driver));
+        }
         return new $class($params);
     }
 
