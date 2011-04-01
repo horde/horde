@@ -2,6 +2,7 @@
 v3.0
 ----
 
+[mjr] Default sorting criteria by creation date (Bug #7332).
 [jan] Move all executable scripts to bin/ and prefix with mnemo-.
 
 

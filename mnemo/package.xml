@@ -29,6 +29,7 @@
  <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
  <notes>
 * [jan] Move all executable scripts to bin/ and prefix with mnemo-.
+* [mjr] Default sorting criteria by creation date (Bug #7332).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
