@@ -24,6 +24,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     const VFS_DRAFTS_PATH = '.horde/imp/drafts';
 
     /* Compose types. */
+    const COMPOSE = 0;
     const REPLY = 1;
     const REPLY_ALL = 2;
     const REPLY_AUTO = 3;
@@ -85,7 +86,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *
      * @var integer
      */
-    protected $_replytype;
+    protected $_replytype = self::COMPOSE;
 
     /**
      * Whether the user's vCard should be attached to outgoing messages.
