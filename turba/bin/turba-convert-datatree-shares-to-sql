@@ -2,9 +2,7 @@
 <?php
 /**
  * This script migrates Turba's share data from the datatree Horde_Share
- * driver to the new SQL Horde_Share driver. You should run the appropriate
- * 2.1_to_2.2_add_sql_share_tables SQL creation script for your RDBMS before
- * executing this script.
+ * driver to the SQL Horde_Share driver.
  */
 
 if (file_exists(dirname(__FILE__) . '/../../turba/lib/Application.php')) {
@@ -17,13 +15,7 @@ if (file_exists(dirname(__FILE__) . '/../../turba/lib/Application.php')) {
 require_once $baseDir . 'lib/Application.php';
 Horde_Registry::appInit('turba', array('cli' => true));
 
-/* Grab what we need to steal the DB config */
-require_once HORDE_BASE . '/config/conf.php';
-
-$config = $GLOBALS['conf']['sql'];
-unset($config['charset']);
-$db = MDB2::factory($config);
-$db->setOption('seqcol_name', 'id');
+$db = $injector->getInstance('Horde_Db_Adapter');
 
 $error_cnt = 0;
 $delete_dt_data = false;
@@ -37,41 +29,26 @@ if ($answer != 'y') {
 }
 
 /* Get the share entries */
-$shares_result = $db->query('SELECT datatree_id, datatree_name FROM horde_datatree WHERE group_uid = \'horde.shares.turba\'');
-if ($shares_result instanceof PEAR_Error) {
-    die($shares_result->toString());
+try {
+    $shares_result = $db->selectAssoc('SELECT datatree_id, datatree_name FROM horde_datatree WHERE group_uid = ' . $db->quoteString('horde.shares.turba'));
+} catch (Horde_Db_Exception $e) {
+    die($e->getMessage());
 }
 
-$query = $db->prepare('SELECT attribute_name, attribute_key, attribute_value FROM horde_datatree_attributes WHERE datatree_id = ?');
-while ($row = $shares_result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
-    $share_id = $row['datatree_id'];
-    $share_name = $row['datatree_name'];
-
-    /* Build an array to hold the new row data */
-    $nextId = $db->nextId('turba_shares');
-    if ($nextId instanceof PEAR_Error) {
-        $cli->message($nextId->toString(), 'cli.error');
-        $error_cnt++;
-        continue;
-    }
-    $data = array('share_id' => $nextId,
-                  'share_name' => $share_name);
-
-    $query_result = $query->execute($share_id);
-    $rows = $query_result->fetchAll(MDB2_FETCHMODE_ASSOC);
+$query = 'SELECT attribute_name, attribute_key, attribute_value FROM horde_datatree_attributes WHERE datatree_id = ?';
+foreach ($shares_result as $share_id => $share_name) {
+    $data = array('share_name' => $share_name);
+    $rows = $db->selectAll($query, array($share_id));
     $users = array();
     $groups = array();
-
     foreach ($rows as $row) {
         if ($row['attribute_name'] == 'perm_groups') {
             /* Group table entry */
-            $groups[] = array('share_id' => $data['share_id'],
-                              'group_uid' => $row['attribute_key'],
+            $groups[] = array('group_uid' => $row['attribute_key'],
                               'perm' => $row['attribute_value']);
         } elseif ($row['attribute_name'] == 'perm_users') {
             /* User table entry */
-            $users[] = array('share_id' => $data['share_id'],
-                             'user_uid' => $row['attribute_key'],
+            $users[] = array('user_uid' => $row['attribute_key'],
                              'perm' => $row['attribute_value']);
         } else {
             /* Everything else goes in the main share table */
@@ -115,26 +92,31 @@ while ($row = $shares_result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
     /* Insert the new data */
     $cli->message('Migrating share data for share_id: ' . $share_id, 'cli.message');
     $error = false;
-    $db->beginTransaction();
-    $result = insertData('turba_shares', $data);
-    if ($result instanceof PEAR_Error) {
-        $cli->message($result->toString(), 'cli.error');
+    $db->beginDbTransaction();
+    try {
+        $nextId = insertData('turba_shares', $data, $db);
+    } catch (Horde_Db_Exception $e) {
+        $cli->message($e->getMessage(), 'cli.error');
         $error = true;
     }
     if (count($groups)) {
         foreach ($groups as $group) {
-            $result = insertData('turba_shares_groups', $group);
-            if ($result instanceof PEAR_Error) {
-                $cli->message($result->toString(), 'cli.error');
+            $group['share_id'] = $nextId;
+            try {
+                insertData('turba_shares_groups', $group, $db);
+            } catch (Horde_Db_Exception $e) {
+                $cli->message($e->getMessage(), 'cli.error');
                 $error = true;
             }
         }
     }
     if (count($users)) {
         foreach ($users as $user) {
-            $result = insertData('turba_shares_users', $user);
-            if ($result instanceof PEAR_Error) {
-                $cli->message($result->toString(), 'cli.error');
+            $user['share_id'] = $nextId;
+            try {
+                insertData('turba_shares_users', $user, $db);
+            } catch (Horde_Db_Exception $e) {
+                $cli->message($e->getMessage(), 'cli.error');
                 $error = true;
             }
         }
@@ -143,42 +125,23 @@ while ($row = $shares_result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
     /* Delete the datatree data, but ONLY if it was requested */
     if ($delete_dt_data && !$error) {
         $cli->message('DELETING datatree data for share_id: ' . $share_id, 'cli.message');
-        $delete = $db->prepare('DELETE FROM horde_datatree_attributes WHERE datatree_id = ?', null, MDB2_PREPARE_MANIP);
-        if ($delete instanceof PEAR_Error) {
-            $cli->message($delete->toString(), 'cli.error');
+        try {
+            $db->delete('DELETE FROM horde_datatree_attributes WHERE datatree_id = ?', array($share_id));
+            $db->delete('DELETE FROM horde_datatree WHERE datatree_id = ?', array($share_id));
+        } catch (Horde_Db_Exception $e) {
+            $cli->message($e->getMessage(), 'cli.error');
             $error = true;
-        } else {
-            $delete_result = $delete->execute(array($share_id));
-            if ($delete_result instanceof PEAR_Error) {
-                $cli->message($delete_result->toString(), 'cli.error');
-                $error = true;
-            }
         }
-        $delete->free();
-
-        $delete = $db->prepare('DELETE FROM horde_datatree WHERE datatree_id = ?', null, MDB2_PREPARE_MANIP);
-        if ($delete instanceof PEAR_Error) {
-            $cli->message($delete->toString(), 'cli.error');
-            $error = true;
-        } else {
-            $delete_result = $delete->execute(array($share_id));
-            if ($delete_result instanceof PEAR_Error) {
-                $cli->message($delete_result->toString(), 'cli.error');
-                $error = true;
-            }
-        }
-        $delete->free();
     }
 
     /* Cleanup */
-    $query_result->free();
     unset($row, $rows, $data, $groups, $users);
     if ($error) {
-        $db->rollback();
+        $db->rollbackDbTransaction();
         $cli->message('Rollback for share data for share_id: ' . $share_id, 'cli.message');
         ++$error_cnt;
     } else {
-        $db->commit();
+        $db->commitDbTransaction();
         $cli->message('Commit for share data for share_id: ' . $share_id, 'cli.message');
     }
 }
@@ -190,17 +153,10 @@ echo "\nDone.\n";
 /**
  * Helper function
  */
-function insertData($table, $data)
+function insertData($table, $data, $db)
 {
     $fields = array_keys($data);
     $values = array_values($data);
-
-    $insert = $GLOBALS['db']->prepare('INSERT INTO ' . $table . ' (' . implode(', ', $fields) . ') VALUES (' . str_repeat('?, ', count($values) - 1) . '?)',
-                                      null, MDB2_PREPARE_MANIP);
-    if ($insert instanceof PEAR_Error) {
-        return $insert;
-    }
-    $insert_result = $insert->execute($values);
-    $insert->free();
-    return $insert_result;
+    $sql = 'INSERT INTO ' . $table . ' (' . implode(', ', $fields) . ') VALUES (' . str_repeat('?, ', count($values) - 1) . '?)';
+    return $db->insert($sql, $values);
 }

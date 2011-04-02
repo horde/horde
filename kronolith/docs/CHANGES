@@ -2,6 +2,7 @@
 v3.0
 ----
 
+[mjr] Datatree share to SQL upgrade script refactored for Horde 4.
 [mjr] Add migration for mysql specific geospatial fields (Bug #9758).
 [jan] Set default alarm in dynamic view (Bug #9752).
 [jan] Set default alarm in dynamic view (Bug #9752).

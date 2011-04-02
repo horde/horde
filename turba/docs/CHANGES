@@ -2,6 +2,7 @@
 v3.0
 ----
 
+[mjr] Datatree share to SQL upgrade script refactored for Horde 4.
 [jan] Move all executable scripts to bin/ and prefix with turba-.
 [jan] Add fields to the first address if multiple passed to addField() API
       method (Request #3482).

@@ -34,10 +34,11 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mjr] Datatree share to SQL upgrade script refactored for Horde 4.
+* [mjr] Add migration for mysql specific geospatial fields (Bug #9758).
 * [jan] Set default alarm in dynamic view (Bug #9752).
 * [jan] Set default alarm in dynamic view (Bug #9752).
 * [jan] Move all executable scripts to bin/ and prefix with kronolith-.
-* [mjr] Add migration for mysql specific geospatial fields (Bug #9758).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
