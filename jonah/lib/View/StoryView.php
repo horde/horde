@@ -26,8 +26,8 @@ class Jonah_View_StoryView extends Jonah_View_Base
     {
         extract($this->_params, EXTR_REFS);
 
-        Horde::addScriptFile('syntaxhighlighter/scripts/shCore.js', 'horde', true);
-        Horde::addScriptFile('syntaxhighlighter/scripts/shAutoloader.js', 'horde', true);
+        Horde::addScriptFile('syntaxhighlighter/scripts/shCore.js', 'horde');
+        Horde::addScriptFile('syntaxhighlighter/scripts/shAutoloader.js', 'horde');
         $path = $GLOBALS['registry']->get('jsuri', 'horde') . '/syntaxhighlighter/scripts/';
         $brushes = <<<EOT
           SyntaxHighlighter.autoloader(
