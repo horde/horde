@@ -24,8 +24,6 @@ if (file_exists(dirname(__FILE__) . '/../../mnemo/lib/Application.php')) {
 require_once $baseDir . 'lib/Application.php';
 Horde_Registry::appInit('mnemo', array('cli' => true));
 
-die('This script needs to be updated);
-
 // Read command line parameters.
 if (count($argv) != 4) {
     $cli->message('Too many or too few parameters.', 'cli.error');
@@ -47,15 +45,16 @@ if (empty($data)) {
 }
 $data = pathinfo($file, PATHINFO_FILENAME) . "\n\n" . $data;
 
-// Registry.
-$registry = Horde_Registry::singleton();
-
 // Set user.
-Horde_Auth::setAuth($user, array());
+$registry->setAuth($user, array());
 
 // Import data.
-$result = $registry->call('notes/import', array($data, 'text/plain', $notepad));
-$cli->message('Imported successfully ' . count($result) . ' notes', 'cli.success');
+try {
+    $result = $registry->notes->import($data, 'text/plain', $notepad);
+    $cli->message('Imported successfully ' . count($result) . ' notes', 'cli.success');
+} catch (Mnemo_Exception $e) {
+    $cli->fatal($e->getMessage());
+}
 
 function usage()
 {
