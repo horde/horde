@@ -51,9 +51,14 @@ class Turba_Form_DeleteAddressBook extends Horde_Form
         }
 
         $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($this->_addressbook->getName());
-
-        // We have a Turba_Driver, try to delete the address book.
-        $driver->deleteAll();
+        if ($driver->hasCapability('delete_all')) {
+            try {
+                $driver->deleteAll();
+            } catch (Turba_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
+                throw $e;
+            }
+        }
 
         // Address book successfully deleted from backend, remove the share.
         try {
