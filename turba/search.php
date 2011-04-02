@@ -137,7 +137,7 @@ if ($driver) {
             );
 
             try {
-                $share = Turba::createShare(strval(new Horde_Support_RandomId()), $params);
+                $share = Turba::createShare(strval(new Horde_Support_Randomid()), $params);
                 $vid = $share->getName();
             } catch (Horde_Share_Exception $e) {
                 $notification->push(sprintf(_("There was a problem creating the virtual address book: %s"), $e->getMessage()), 'horde.error');
