@@ -2,6 +2,8 @@
 v4.0
 ----
 
+[jan] Fix Cyrsql authentication driver (Vilius Sumskas <vilius@lnk.lt>, Bug
+      #9781).
 [mjr] Fix ActiveSync provisioning.
 [mjr] Fix for broken Nokia MfE clients (Bug #9757).
 [jan] Delete object mappings too when deleting SyncML anchors (Request #9377).

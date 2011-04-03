@@ -346,14 +346,14 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
         if (!empty($this->_params['domain_field']) &&
             ($this->_params['domain_field'] != 'none')) {
             foreach ($result as $ar) {
-                if (!in_array($ar[0], $this->_params['hidden_accounts'])) {
-                    $users[] = $ar[0] . '@' . $ar[1];
+                if (!in_array($ar[$this->_params['username_field']], $this->_params['hidden_accounts'])) {
+                    $users[] = $ar[$this->_params['username_field']] . '@' . $ar[$this->_params['domain_field']];
                 }
             }
         } else {
             foreach ($result as $ar) {
-                if (!in_array($ar[0], $this->_params['hidden_accounts'])) {
-                    $users[] = $ar[0];
+                if (!in_array($ar[$this->_params['username_field']], $this->_params['hidden_accounts'])) {
+                    $users[] = $ar[$this->_params['username_field']];
                 }
             }
         }
