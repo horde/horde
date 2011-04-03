@@ -231,7 +231,6 @@ class Ingo_Storage_Sql extends Ingo_Storage
             break;
 
         case self::ACTION_FORWARD:
-            $query = sprintf($query, $this->_params['table_forwards']);
             $values = array(
                 implode("\n", $ob->getForwardAddresses()),
                 (int)(bool)$ob->getForwardKeep(),
@@ -281,7 +280,6 @@ class Ingo_Storage_Sql extends Ingo_Storage
             break;
 
         case self::ACTION_SPAM:
-            $query = sprintf($query, $this->_params['table_spam']);
             $values = array(
                 (int)$ob->getSpamLevel(),
                 $ob->getSpamFolder(),
