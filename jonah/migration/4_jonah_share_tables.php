@@ -74,7 +74,7 @@ class JonahShareTables extends Horde_Db_Migration_Base
         //convert from channel table
         if (in_array('jonah_channels', $tableList)) {
             /* Feeds */
-            $sql = 'SELECT jonah_channels.channel_id, jonah_channels.channel_slug, jonah_channels.channels_name,' .
+            $sql = 'SELECT jonah_channels.channel_id, jonah_channels.channel_slug, jonah_channels.channel_name,' .
                 ' jonah_channels.channel_full_feed, jonah_channels.channel_desc, jonah_channels.channel_interval,' .
                 ' jonah_channels.channel_url, jonah_channels.channel_link, jonah_channels.channel_page_link,' .
                 ' jonah_channels.channel_story_url, jonah_channels.channel_img, jonah_channels.channel_updated' .

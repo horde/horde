@@ -19,7 +19,7 @@ class JonahBaseTables extends Horde_Db_Migration_Base
         $tableList = $this->tables();
 
         if (!in_array('jonah_channels', $tableList)) {
-            $t = $this->createTable('jonah_channels', array('primaryKey' => false));
+            $t = $this->createTable('jonah_channels', array('autoincrementKey' => false));
             $t->column('channel_id', 'integer', array('null' => false));
             $t->column('channel_slug', 'string', array('limit' => 64, 'null' => false));
             $t->column('channel_name', 'string', array('limit' => 255, 'null' => false));
@@ -40,7 +40,7 @@ class JonahBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('jonah_stories', $tableList)) {
-            $t = $this->createTable('jonah_stories', array('primaryKey' => false));
+            $t = $this->createTable('jonah_stories', array('autoincrementKey' => false));
             $t->column('story_id', 'integer', array('null' => false));
             $t->column('channel_id', 'integer', array('null' => false));
             $t->column('story_author', 'string', array('limit' => 255, 'null' => false));
@@ -62,7 +62,7 @@ class JonahBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('jonah_stories_tags', $tableList)) {
-            $t = $this->createTable('jonah_stories_tags', array('primaryKey' => false));
+            $t = $this->createTable('jonah_stories_tags', array('autoincrementKey' => false));
             $t->column('story_id', 'integer', array('null' => false));
             $t->column('channel_id', 'integer', array('null' => false));
             $t->column('tag_id', 'integer', array('null' => false));
@@ -71,7 +71,7 @@ class JonahBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('jonah_tags', $tableList)) {
-            $t = $this->createTable('jonah_tags', array('primaryKey' => false));
+            $t = $this->createTable('jonah_tags', array('autoincrementKey' => false));
             $t->column('tag_id', 'integer', array('null' => false));
             $t->column('tag_name', 'string', array('limit' => 255, 'null' => false));
             $t->primaryKey(array('tag_id'));
