@@ -120,7 +120,7 @@ class Horde_Imap_Client_DateTime implements Serializable
 
             if (!$this->_datetime) {
                 /* Bug #5717 - Check for UT vs. UTC. */
-                if (substr(rtrim($date), -3) == ' UT') {
+                if (substr(rtrim($this->_string), -3) == ' UT') {
                     try {
                         $this->_datetime = date_create($this->_string . 'C', $tz);
                     } catch (Exception $e) {}
