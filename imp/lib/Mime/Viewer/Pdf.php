@@ -145,7 +145,7 @@ class IMP_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
      */
     protected function _outputImgTag()
     {
-        return '<img src="' . $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach', array('params' => array('pdf_view_thumbnail' => 1))) . '" alt="' . htmlspecialchars(_("View PDF File"), ENT_COMPAT, $this->getConfigParam('charset')) . '" />';
+        return '<img src="' . $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach', array('params' => array('pdf_view_thumbnail' => 1)))->setRaw(false) . '" alt="' . htmlspecialchars(_("View PDF File"), ENT_COMPAT, $this->getConfigParam('charset')) . '" />';
     }
 
 }
