@@ -16,7 +16,7 @@ class Ingo_MaildropTest extends Ingo_TestBase {
 
     function store($ob)
     {
-        return $GLOBALS['ingo_storage']->store($ob);
+        $GLOBALS['ingo_storage']->store($ob);
     }
 
     function setUp()

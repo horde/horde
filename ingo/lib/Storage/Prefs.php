@@ -108,8 +108,6 @@ class Ingo_Storage_Prefs extends Ingo_Storage
      * Stores the specified data in the storage backend.
      *
      * @param Ingo_Storage_Rule|Ingo_Storage_Filters $ob  The object to store.
-     *
-     * @return boolean  True on success.
      */
     protected function _store($ob)
     {
@@ -124,17 +122,20 @@ class Ingo_Storage_Prefs extends Ingo_Storage
                 'a' => $ob->getBlacklist(),
                 'f' => $ob->getBlacklistFolder(),
             );
-            return $prefs->setValue('blacklist', serialize($data));
+            $prefs->setValue('blacklist', serialize($data));
+            break;
 
         case self::ACTION_FILTERS:
-            return $prefs->setValue('rules', serialize($ob->getFilterList()));
+            $prefs->setValue('rules', serialize($ob->getFilterList()));
+            break;
 
         case self::ACTION_FORWARD:
             $data = array(
                 'a' => $ob->getForwardAddresses(),
                 'k' => $ob->getForwardKeep(),
             );
-            return $prefs->setValue('forward', serialize($data));
+            $prefs->setValue('forward', serialize($data));
+            break;
 
         case self::ACTION_VACATION:
             $data = array(
@@ -147,20 +148,20 @@ class Ingo_Storage_Prefs extends Ingo_Storage
                 'start' => $ob->getVacationStart(),
                 'end' => $ob->getVacationEnd(),
             );
-            return $prefs->setValue('vacation', serialize($data));
+            $prefs->setValue('vacation', serialize($data));
+            break;
 
         case self::ACTION_WHITELIST:
-            return $prefs->setValue('whitelist', serialize($ob->getWhitelist()));
+            $prefs->setValue('whitelist', serialize($ob->getWhitelist()));
+            break;
 
         case self::ACTION_SPAM:
             $data = array(
                 'folder' => $ob->getSpamFolder(),
                 'level' => $ob->getSpamLevel(),
             );
-            return $prefs->setValue('spam', serialize($data));
+            $prefs->setValue('spam', serialize($data));
+            break;
         }
-
-        return false;
     }
-
 }

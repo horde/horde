@@ -69,10 +69,11 @@ while (!feof(STDIN)) {
                 echo '.';
             }
         }
-        $result = $sql_storage->store($filter, false);
-        if (is_a($result, 'PEAR_Error')) {
+        try {
+            $sql_storage->store($filter, false);
+        } catch (Horde_Exception $e) {
             $cli->writeln();
-            $cli->message($result->getMessage(), 'cli.error');
+            $cli->message($e->getMessage(), 'cli.error');
         }
     }
     $cli->writeln($cli->green('done'));

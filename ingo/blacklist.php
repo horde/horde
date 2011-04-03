@@ -63,11 +63,8 @@ case 'rule_update':
         try {
             $blacklist->setBlacklist($vars->blacklist);
             $blacklist->setBlacklistFolder($folder);
-            if (!$ingo_storage->store($blacklist)) {
-                $notification->push(_("Error saving changes."), 'horde.error');
-            } else {
-                $notification->push(_("Changes saved."), 'horde.success');
-            }
+            $ingo_storage->store($blacklist);
+            $notification->push(_("Changes saved."), 'horde.success');
             if ($prefs->getValue('auto_update')) {
                 /* This does its own $notification->push() on error: */
                 Ingo::updateScript();

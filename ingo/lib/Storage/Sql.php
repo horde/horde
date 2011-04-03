@@ -176,8 +176,6 @@ class Ingo_Storage_Sql extends Ingo_Storage
      * @access private
      *
      * @param Ingo_Storage_Rule|Ingo_Storage_Filters $ob  The object to store.
-     *
-     * @return boolean  True on success.
      */
     protected function _store($ob)
     {
@@ -223,11 +221,6 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 }
             }
             $ob->setSaved(true);
-            $ret = true;
-            break;
-
-        case self::ACTION_FILTERS:
-            $ret = true;
             break;
 
         case self::ACTION_FORWARD:
@@ -297,13 +290,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
             }
             $ob->setSaved(true);
             break;
-
-        default:
-            $ret = false;
-            break;
         }
-
-        return $ret;
     }
 
     /**
