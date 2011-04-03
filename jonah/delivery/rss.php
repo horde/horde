@@ -89,7 +89,6 @@ foreach ($stories as &$story) {
     if (!empty($story['body_type']) && $story['body_type'] == 'text') {
         $story['body'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($story['body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
     }
-    var_dump($story);
 }
 $template->set('stories', $stories);
 
