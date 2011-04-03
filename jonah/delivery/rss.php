@@ -80,10 +80,16 @@ foreach ($stories as &$story) {
     $story['permalink'] = htmlspecialchars($story['permalink']);
     $story['storylink'] = htmlspecialchars($driver->getStoryLink($channel, $story));
     $story['published'] = htmlspecialchars(date('r', $story['published']));
-    $story['author'] = htmlspecialchars($story['author']);
+    $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($story['owner']);
+    if ($name = $identity->getValue('fullname')) {
+        $story['author'] = htmlspecialchars($name);
+    } else {
+        $story['author'] = htmlspecialchars($story['author']);
+    }
     if (!empty($story['body_type']) && $story['body_type'] == 'text') {
         $story['body'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($story['body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
     }
+    var_dump($story);
 }
 $template->set('stories', $stories);
 
