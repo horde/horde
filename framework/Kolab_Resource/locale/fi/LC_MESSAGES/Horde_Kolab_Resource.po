@@ -1,41 +1,41 @@
 # Finnish translations for Horde_Kolab_Resource module.
 # Copyright (C) 2010 Horde Project
 # This file is distributed under the same license as the Horde_Kolab_Resource module.
-# Automatically generated, 2010.
+# Leena Heino <liinu@uta.fi>, 2010-2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Resource\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: i18n@lists.horde.org\n"
+"POT-Creation-Date: 2011-03-17 10:58+0200\n"
+"PO-Revision-Date: 2011-04-03 11:11:23+0300\n"
+"Last-Translator: Leena Heino <liinu@uta.fi>\n"
+"Language-Team: Finnish <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Kolab/Resource.php:576
+#: lib/Horde/Kolab/Resource.php:557
 #, php-format
 msgid "%s has been cancelled"
-msgstr ""
+msgstr "%s on peruutettu"
 
-#: lib/Horde/Kolab/Resource.php:555 lib/Horde/Kolab/Resource.php:560
-#, fuzzy, php-format
+#: lib/Horde/Kolab/Resource.php:536 lib/Horde/Kolab/Resource.php:541
+#, php-format
 msgid "Error processing \"%s\""
-msgstr "Virhe kirjoitettaessa \"%s\"."
+msgstr "Virhe prosessoitaessa \"%s\"."
 
-#: lib/Horde/Kolab/Resource.php:575
+#: lib/Horde/Kolab/Resource.php:556
 msgid "The following event has been successfully removed:"
-msgstr ""
+msgstr "Seuraavat tapahtumat poistettiin onnistuneesti:"
 
-#: lib/Horde/Kolab/Resource.php:559
+#: lib/Horde/Kolab/Resource.php:540
 #, php-format
 msgid "The following event that was canceled is not present in %s's calendar:"
-msgstr ""
+msgstr "Seuraavat tapahtumat peruutettiin ja ei ole enää %s:n kalenterissa:"
 
-#: lib/Horde/Kolab/Resource.php:554
-#, fuzzy, php-format
+#: lib/Horde/Kolab/Resource.php:535
+#, php-format
 msgid "Unable to access %s's calendar:"
-msgstr "VFS-hakemistoa ei voitu lukea."
+msgstr "%s:n kalenteria ei voitu lukea:"
