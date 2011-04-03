@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Turba 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-03-16 20:29+0900\n"
+"PO-Revision-Date: 2011-04-03 10:06+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
@@ -67,7 +67,7 @@ msgstr "%s ファイルがインポートされました。"
 #: lib/Api.php:1390
 #, php-format
 msgid "%s in %s"
-msgstr "%s in %s"
+msgstr "%2$s 中の %1$s"
 
 #: templates/list/numPager.inc:6
 #, php-format
@@ -76,7 +76,7 @@ msgstr "%s から %s（%s 件中）"
 
 #: templates/search/duplicate/contact_header.html.php:14
 msgid "<< Merge this into the first contact"
-msgstr ""
+msgstr "<< これを最初の連絡先に結合する"
 
 #: lib/Block/Minisearch.php:35
 msgid "A browser that supports iframes is required"
@@ -366,7 +366,7 @@ msgstr "コピー"
 
 #: templates/search/duplicate/list.html.php:11
 msgid "Count"
-msgstr ""
+msgstr "数"
 
 #: lib/Form/CreateAddressBook.php:27
 msgid "Create"
@@ -453,12 +453,12 @@ msgstr "重複検索"
 #: templates/search/duplicate/list.html.php:6
 #, php-format
 msgid "Duplicates of %s"
-msgstr ""
+msgstr "%s と重複"
 
 #: templates/search/duplicate/header.html.php:2
 #, php-format
 msgid "Duplicates of %s \"%s\""
-msgstr ""
+msgstr "%s \"%s\" と重複"
 
 #: addressbooks/index.php:40 templates/addressbook_list.php:31
 #: templates/browse/actions.inc:6 templates/browse/column_headers.inc:11
@@ -538,7 +538,7 @@ msgstr "以下のアドレス帳の全ての内容をエクスポートする。
 
 #: config/backends.php:626
 msgid "Facebook Friends"
-msgstr ""
+msgstr "Facebook の友達"
 
 #: lib/View/Browse.php:249
 #, php-format
@@ -1281,7 +1281,7 @@ msgstr "%d つに連絡先が削除されました。"
 
 #: merge.php:33
 msgid "Successfully merged two contacts."
-msgstr ""
+msgstr "２つの連絡先は正常に統合されました。"
 
 #: lib/View/Browse.php:104
 #, php-format

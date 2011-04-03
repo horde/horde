@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Nag 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-03-19 22:18+0900\n"
+"PO-Revision-Date: 2011-04-03 10:05+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
@@ -160,7 +160,7 @@ msgstr "期限の過ぎたタスクを常に表示しますか？"
 
 #: lib/Form/Type/NagMethod.php:45
 msgid "An alarm must be set to specify a notification method"
-msgstr ""
+msgstr "アラームは指定された通知方法でセットしなければなりません"
 
 #: config/prefs.php:115
 msgid "Ascending"
@@ -1001,7 +1001,7 @@ msgstr "タスクアラーム？"
 
 #: config/prefs.php:26
 msgid "Task Defaults"
-msgstr "タスクデフォルト"
+msgstr "タスクのデフォルト"
 
 #: config/prefs.php:57 config/prefs.php:87 config/prefs.php:105
 #: lib/Form/Task.php:84 templates/tasklist_list.php:17
