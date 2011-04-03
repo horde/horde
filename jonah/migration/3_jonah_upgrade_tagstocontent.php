@@ -2,15 +2,12 @@
 /**
  * Move tags from jonah to content storage.
  *
- * Copyright 2010 The Horde Project (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @author   Ian Roth <iron_hat@hotmail.com>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license
  * @package  Jonah
  */
 class JonahUpgradeTagsToContent extends Horde_Db_Migration_Base
