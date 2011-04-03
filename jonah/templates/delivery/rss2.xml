@@ -13,6 +13,7 @@
      <title><tag:stories.title /></title>
      <link><tag:stories.storylink /></link>
      <description><tag:stories.description /></description>
+     <author><tag:stories.author /></author>
      <pubDate><tag:stories.published /></pubDate>
      <guid isPermaLink="true"><tag:stories.permalink /></guid>
   </item>
