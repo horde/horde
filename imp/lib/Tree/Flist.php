@@ -141,7 +141,6 @@ class IMP_Tree_Flist extends Horde_Tree_Select
                 $notepads = $registry->call('notes/listNotepads', array(false, Horde_Perms::EDIT));
 
                 if (count($notepads)) {
-                    $notepad_list[] = array();
                     foreach ($notepads as $id => $notepad) {
                         $notepad_list[] = array(
                             'l' => $filter->filter($notepad->get('name'), 'space2html', array('encode' => true)),
