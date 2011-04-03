@@ -2,7 +2,10 @@
  Upgrading Passwd
 ==================
 
-:Contact:       sork@lists.horde.org
+:Contact: sork@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
 
 
 These are instructions to upgrade from earlier Passwd versions.

@@ -2,7 +2,10 @@
  Upgrading Mnemo
 =================
 
-:Contact:       horde@lists.horde.org
+:Contact: horde@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
 
 
 These are instructions to upgrade from earlier Mnemo versions. Please backup

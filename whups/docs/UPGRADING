@@ -4,6 +4,9 @@
 
 :Contact: horde@lists.horde.org
 
+.. contents:: Contents
+.. section-numbering::
+
 
 These are instructions to upgrade from earlier Whups versions. Please backup
 your existing data before running any of the steps described below. You can't

@@ -2,7 +2,10 @@
  Upgrading Kronolith
 =====================
 
-:Contact:       kronolith@lists.horde.org
+:Contact: kronolith@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
 
 
 These are instructions to upgrade from earlier Kronolith versions. Please
