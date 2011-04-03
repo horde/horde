@@ -130,12 +130,12 @@ class Horde_Translation_Script
             }
             switch ($cmd) {
             case 'cleanup':
-                $this->writeln('  -l, --locale=ll_CC     Use only this locale.');
+                $this->writeln('  -l, --locale=ll        Use only this locale.');
                 $this->writeln('  -m, --module=MODULE    Cleanup PO files only for this (Horde) module.');
                 break;
             case 'commit':
             case 'commit-help':
-                $this->writeln('  -l, --locale=ll_CC     Use this locale.');
+                $this->writeln('  -l, --locale=ll        Use this locale.');
                 $this->writeln('  -m, --module=MODULE    Commit translations only for this (Horde) module.');
                 $this->writeln('  -M, --message=MESSAGE  Use this commit message instead of the default ones.');
                 $this->writeln('  -n, --new              This is a new translation, commit also CREDITS,');
@@ -147,20 +147,20 @@ class Horde_Translation_Script
                 $this->writeln('                        include a compendium from a different branch to');
                 $this->writeln('                        the generated compendium.');
                 $this->writeln('  -d, --directory=DIR   Create compendium in this directory.');
-                $this->writeln('  -l, --locale=ll_CC    Use this locale.');
+                $this->writeln('  -l, --locale=ll       Use this locale.');
                 break;
             case 'extract':
                 $this->writeln('  -m, --module=MODULE  Generate POT file only for this (Horde) module.');
                 break;
             case 'init':
-                $this->writeln('  -l, --locale=ll_CC     Use this locale.');
+                $this->writeln('  -l, --locale=ll        Use this locale.');
                 $this->writeln('  -m, --module=MODULE    Create a PO file only for this (Horde) module.');
                 $this->writeln('  -c, --compendium=FILE  Use this compendium file instead of the default');
                 $this->writeln('                         one (compendium.po in the horde/locale directory).');
                 $this->writeln('  -n, --no-compendium    Don\'t use a compendium.');
                 break;
             case 'make':
-                $this->writeln('  -l, --locale=ll_CC     Use only this locale.');
+                $this->writeln('  -l, --locale=ll        Use only this locale.');
                 $this->writeln('  -m, --module=MODULE    Build MO files only for this (Horde) module.');
                 $this->writeln('  -c, --compendium=FILE  Merge new translations to this compendium file');
                 $this->writeln('                         instead of the default one (compendium.po in the');
@@ -170,18 +170,18 @@ class Horde_Translation_Script
                 break;
             case 'make-help':
             case 'update-help':
-                $this->writeln('  -l, --locale=ll_CC     Use only this locale.');
+                $this->writeln('  -l, --locale=ll        Use only this locale.');
                 $this->writeln('  -m, --module=MODULE    Update help files only for this (Horde) module.');
                 break;
             case 'merge':
-                $this->writeln('  -l, --locale=ll_CC     Use this locale.');
+                $this->writeln('  -l, --locale=ll        Use this locale.');
                 $this->writeln('  -m, --module=MODULE    Merge PO files only for this (Horde) module.');
                 $this->writeln('  -c, --compendium=FILE  Use this compendium file instead of the default');
                 $this->writeln('                         one (compendium.po in the horde/locale directory).');
                 $this->writeln('  -n, --no-compendium    Don\'t use a compendium.');
                 break;
             case 'update':
-                $this->writeln('  -l, --locale=ll_CC     Use this locale.');
+                $this->writeln('  -l, --locale=ll        Use this locale.');
                 $this->writeln('  -m, --module=MODULE    Update only this (Horde) module.');
                 $this->writeln('  -c, --compendium=FILE  Use this compendium file instead of the default');
                 $this->writeln('                         one (compendium.po in the horde/locale directory).');
