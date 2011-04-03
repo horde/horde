@@ -101,7 +101,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 $ob->setForwardAddresses(explode("\n", $data['forward_addresses']), false);
                 $ob->setForwardKeep((bool)$data['forward_keep']);
                 $ob->setSaved(true);
-            } elseif ($data = @unserialize($GLOBALS['prefs']->getDefault('vacation'))) {
+            } elseif ($data = @unserialize($GLOBALS['prefs']->getDefault('forward'))) {
                 $ob->setForwardAddresses($data['a'], false);
                 $ob->setForwardKeep($data['k']);
             }
