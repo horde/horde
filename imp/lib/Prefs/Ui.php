@@ -885,7 +885,7 @@ class IMP_Prefs_Ui
                 $tmp['label_name'] = 'label_' . $hash;
             } else {
                 $tmp['label'] = Horde::label($bgid, $label);
-                $tmp['icon'] = $val->div;
+                $tmp['icon'] = $val->span;
             }
 
             $tmp['colorstyle'] = $bgstyle . ';color:' . htmlspecialchars($val->fgcolor);

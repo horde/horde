@@ -420,7 +420,7 @@ foreach ($flag_parse as $val) {
     if ($val instanceof IMP_Flag_User) {
         $status .= '<span class="' . $val->css . '" style="' . ($val->bgdefault ? '' : 'background:' . htmlspecialchars($val->bgcolor) . ';') . 'color:' . htmlspecialchars($val->fgcolor) . '">' . htmlspecialchars($val->label) . '</span>';
     } else {
-        $status .= $val->div;
+        $status .= $val->span;
     }
 }
 

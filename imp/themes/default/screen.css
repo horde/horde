@@ -361,33 +361,33 @@ span.trashImg {
 
 /* Message flags definitions.
  * For background color, see config/prefs.php [msgflags preference]. */
-div.msgflags {
+.msgflags {
     padding-right: 1px;
     vertical-align: middle;
 }
-.mboxheader div.msgflags {
+.mboxheader .msgflags {
     vertical-align: sub;
 }
 
-div.msgflags.flagPersonal {
+.msgflags.flagPersonal {
     background-image: url("graphics/mail_personal.png");
 }
-div.msgflags.flagHighpriority {
+.msgflags.flagHighpriority {
     background-image: url("graphics/mail_priority_high.png");
 }
 tr.flagLowpriority {
     font-weight: normal !important;
 }
-div.msgflags.flagLowpriority {
+.msgflags.flagLowpriority {
     background-image: url("graphics/mail_priority_low.png");
 }
-div.msgflags.flagSignedmsg {
+.msgflags.flagSignedmsg {
     background-image: url("graphics/signed.png");
 }
-div.msgflags.flagEncryptmsg {
+.msgflags.flagEncryptmsg {
     background-image: url("graphics/encrypted.png");
 }
-div.msgflags.flagAttachmsg {
+.msgflags.flagAttachmsg {
     background-image: url("graphics/attachment.png");
 }
 tr.flagUnseen {
@@ -396,25 +396,25 @@ tr.flagUnseen {
 span.iconImg.flagSeen {
     background-image: url("graphics/mail_seen.png");
 }
-div.msgflags.flagUnseen, span.iconImg.flagUnseen {
+.msgflags.flagUnseen, span.iconImg.flagUnseen {
     background-image: url("graphics/mail_unseen.png");
 }
-div.msgflags.flagAnswered, span.iconImg.flagAnswered {
+.msgflags.flagAnswered, span.iconImg.flagAnswered {
     background-image: url("graphics/mail_answered.png");
 }
-div.msgflags.flagDraft, span.iconImg.flagDraft {
+.msgflags.flagDraft, span.iconImg.flagDraft {
     background-image: url("graphics/mail_draft.png");
 }
-div.msgflags.flagForwarded, span.iconImg.flagForwarded {
+.msgflags.flagForwarded, span.iconImg.flagForwarded {
     background-image: url("graphics/mail_forwarded.png");
 }
-div.msgflags.flagFlagged, span.iconImg.flagFlagged {
+.msgflags.flagFlagged, span.iconImg.flagFlagged {
     background-image: url("graphics/mail_flagged.png");
 }
 tr.flagDeleted * {
     text-decoration: line-through;
 }
-div.msgflags.flagDeleted, span.iconImg.flagDeleted {
+.msgflags.flagDeleted, span.iconImg.flagDeleted {
     background-image: url("graphics/mail_deleted.png");
 }
 
