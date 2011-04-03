@@ -85,7 +85,6 @@ class Horde_Translation_Script
     {
         $this->_redirErr = substr(PHP_OS, 0, 3) == 'WIN' ? '' : ' 2>&1';
         $this->currentDir = getcwd();
-        $this->ff = new File_Find();
     }
 
     /**
@@ -1669,6 +1668,7 @@ if (array_key_exists($cmd, $options_list)) {
 }
 
 /* Searching modules */
+$script->ff = new File_Find();
 $script->check_binaries();
 
 $c->writeln(sprintf('Searching Horde modules in %s', BASE));
