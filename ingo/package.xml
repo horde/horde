@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* [jan] Fix removing flags with Sieve driver (Vilius Sumskas &lt;vilius@lnk.lt&gt;, Bug #9785).
 * [mjr] Datatree share to SQL upgrade script refactored for Horde 4.
 * [jan] Move all executable scripts to bin/ and prefix with ingo-.
  </notes>
@@ -894,7 +895,9 @@
    <date>2011-03-31</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-*
+* [jan] Fix removing flags with Sieve driver (Vilius Sumskas &lt;vilius@lnk.lt&gt;, Bug #9785).
+* [mjr] Datatree share to SQL upgrade script refactored for Horde 4.
+* [jan] Move all executable scripts to bin/ and prefix with ingo-.
    </notes>
   </release>
  </changelog>

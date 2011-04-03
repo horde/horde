@@ -498,7 +498,7 @@ class Ingo_Script_Sieve extends Ingo_Script
                 $action[] = new Ingo_Script_Sieve_Action_Keep();
 
                 if (!empty($filter['flags'])) {
-                    $action[] = new Ingo_Script_Sieve_Action_RemoveFlag(array('flags' => $filter['flags']));
+                    $action[] = new Ingo_Script_Sieve_Action_Removeflag(array('flags' => $filter['flags']));
                 }
                 break;
 
@@ -514,7 +514,7 @@ class Ingo_Script_Sieve extends Ingo_Script
                 $action[] = new Ingo_Script_Sieve_Action_Fileinto(array_merge($this->_params, array('folder' => $filter['action-value'])));
 
                 if (!empty($filter['flags'])) {
-                    $action[] = new Ingo_Script_Sieve_Action_RemoveFlag(array('flags' => $filter['flags']));
+                    $action[] = new Ingo_Script_Sieve_Action_Removeflag(array('flags' => $filter['flags']));
                     }
                 break;
 
@@ -535,7 +535,7 @@ class Ingo_Script_Sieve extends Ingo_Script
                 $action[] = new Ingo_Script_Sieve_Action_Keep();
 
                 if (!empty($filter['flags'])) {
-                    $action[] = new Ingo_Script_Sieve_Action_RemoveFlag(array('flags' => $filter['flags']));
+                    $action[] = new Ingo_Script_Sieve_Action_Removeflag(array('flags' => $filter['flags']));
                 }
                 break;
 
@@ -548,7 +548,7 @@ class Ingo_Script_Sieve extends Ingo_Script
                 $action[] = new Ingo_Script_Sieve_Action_Fileinto(array_merge($this->_params, array('folder' => $filter['action-value'])));
 
                 if (!empty($filter['flags'])) {
-                    $action[] = new Ingo_Script_Sieve_Action_RemoveFlag(array('flags' => $filter['flags']));
+                    $action[] = new Ingo_Script_Sieve_Action_Removeflag(array('flags' => $filter['flags']));
                 }
                 break;
 
