@@ -738,7 +738,7 @@ var DimpCompose = {
     {
         var span = new Element('SPAN').insert(opts.name),
             li = new Element('LI').insert(span).insert(' [' + opts.type + '] (' + opts.size + ' KB) '),
-            input = new Element('SPAN', { atc_id: opts.num, className: 'button' }).insert(DIMP.text_compose.remove);
+            input = new Element('SPAN', { className: 'button' }).insert(DIMP.text_compose.remove).store('atc_id', opts.num);
         li.insert(input);
         $('attach_list').insert(li).show();
 
@@ -754,7 +754,7 @@ var DimpCompose = {
         var ids = [];
         e.each(function(n) {
             n = $(n);
-            ids.push(n.down('SPAN.remove').readAttribute('atc_id'));
+            ids.push(n.down('SPAN.remove').retrieve('atc_id'));
             n.fade({
                 afterFinish: function() {
                     n.remove();
@@ -973,7 +973,7 @@ var DimpCompose = {
                 if (orig.match('SPAN.remove')) {
                     this.removeAttach([ orig.up() ]);
                 } else if (orig.match('SPAN.attachName')) {
-                    atc_num = orig.next().readAttribute('atc_id');
+                    atc_num = orig.next().retrieve('atc_id');
                     DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { composeCache: $F('composeCache'), actionID: 'compose_attach_preview', id: atc_num }), $F('composeCache') + '|' + atc_num);
                 }
                 break;
