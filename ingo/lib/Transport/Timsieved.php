@@ -31,7 +31,7 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
         $default_params = array(
             'hostspec'   => 'localhost',
             'logintype'  => 'PLAIN',
-            'port'       => 2000,
+            'port'       => 4190,
             'scriptname' => 'ingo',
             'admin'      => '',
             'usetls'     => true
@@ -76,7 +76,7 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
         /* BC for older Net_Sieve versions that don't allow specify the debug
          * handler in the constructor. */
         if (!empty($this->_params['debug'])) {
-            $this->_sieve->setDebug(true, array($this, '_debug'));
+            Ingo_Exception_Pear::catchError($this->_sieve->setDebug(true, array($this, '_debug')));
         }
     }
 
@@ -94,26 +94,52 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
     /**
      * Sets a script running on the backend.
      *
-     * @param string $script  The sieve script.
+     * @param string $script     The filter script.
+     * @param array $additional  Any additional scripts that need to uploaded.
      *
-     * @return mixed  True on success.
      * @throws Ingo_Exception
      */
-    public function setScriptActive($script)
+    public function setScriptActive($script, $additional = array())
     {
-        $res = $this->_connect();
+        $this->_connect();
 
         if (!strlen($script)) {
-            return $this->_sieve->setActive('');
+            Ingo_Exception_Pear::catchError($this->_sieve->setActive(''));
+            $this->_uploadAdditional($addtional);
+            return;
         }
 
-        $res = $this->_sieve->haveSpace($this->_params['scriptname'], strlen($script));
-        if ($res instanceof PEAR_Error) {
-            throw new Ingo_Exception($res);
+        Ingo_Exception_Pear::catchError($this->_sieve->haveSpace($this->_params['scriptname'], strlen($script)));
+        Ingo_Exception_Pear::catchError($this->_sieve->installScript($this->_params['scriptname'], $script, true));
+        $this->_uploadAdditional($addtional);
+    }
+
+    /**
+     * Uploads additional scripts.
+     *
+     * This doesn't make much sense in Sieve though, because only one script
+     * can be active at any time.
+     *
+     * @param array $additional  Any additional scripts that need to uploaded.
+     *
+     * @throws Ingo_Exception
+     */
+    protected function _uploadAdditional($additional = array())
+    {
+        /* Delete first. */
+        foreach ($additional as $scriptname => $script) {
+            if (!strlen($script)) {
+                Ingo_Exception_Pear::catchError($this->_sieve->removeScript($scriptname));
+            }
         }
 
-        return $this->_sieve->installScript($this->_params['scriptname'],
-                                            $script, true);
+        /* Now upload. */
+        foreach ($additional as $scriptname => $script) {
+            if (strlen($script)) {
+                Ingo_Exception_Pear::catchError($this->_sieve->haveSpace($scriptname, strlen($script)));
+                Ingo_Exception_Pear::catchError($this->_sieve->installScript($scriptname, $script));
+            }
+        }
     }
 
     /**
@@ -124,12 +150,11 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
      */
     public function getScript()
     {
-        $res = $this->_connect();
-        $active = $this->_sieve->getActive();
+        $this->_connect();
+        $active = Ingo_Exception_Pear::catchError($this->_sieve->getActive());
 
         return empty($active)
             ? ''
-            : $this->_sieve->getScript($active);
+            : Ingo_Exception_Pear::catchError($this->_sieve->getScript($active));
     }
-
 }

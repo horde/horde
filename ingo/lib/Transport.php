@@ -59,12 +59,13 @@ class Ingo_Transport
     /**
      * Sets a script running on the backend.
      *
-     * @param string $script  The filter script.
+     * @param string $script     The filter script.
+     * @param array $additional  Any additional scripts that need to uploaded.
      *
      * @return boolean  True on success, false if script can't be activated.
      * @throws Ingo_Exception
      */
-    public function setScriptActive($script)
+    public function setScriptActive($script, $additional = array())
     {
         return false;
     }

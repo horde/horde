@@ -37,12 +37,12 @@ class Ingo_Transport_Vfs extends Ingo_Transport
     /**
      * Sets a script running on the backend.
      *
-     * @param string $script  The filter script.
+     * @param string $script     The filter script.
+     * @param array $additional  Any additional scripts that need to uploaded.
      *
-     * @return mixed  True on success.
      * @throws Ingo_Exception
      */
-    public function setScriptActive($script)
+    public function setScriptActive($script, $additional = array())
     {
         $this->_connect();
 
@@ -52,44 +52,31 @@ class Ingo_Transport_Vfs extends Ingo_Transport
             } else {
                 $this->_vfs->writeData($this->_params['vfs_path'], $this->_params['filename'], $script, true);
             }
+            foreach ($additional as $filename => $content) {
+                if (strlen($content)) {
+                    $this->_vfs->writeData($this->_params['vfs_path'], $filename, $content, true);
+                } else {
+                    $this->_vfs->deleteFile($this->_params['vfs_path'], $filename);
+                }
+            }
         } catch (Horde_Vfs_Exception $e) {
             throw new Ingo_Exception($e);
         }
 
-        if (isset($this->_params['file_perms']) && !empty($script)) {
+        if (isset($this->_params['file_perms'])) {
             try {
-                $this->_vfs->changePermissions($this->_params['vfs_path'], $this->_params['filename'], $this->_params['file_perms']);
-            } catch (Horde_Vfs_Exception $e) {
-                throw new Ingo_Exception($e);
-            }
-        }
-
-        // Get the backend; necessary if a .forward is needed for
-        // procmail.
-        $backend = Ingo::getBackend();
-        if (($backend['script'] == 'procmail') &&
-            isset($backend['params']['forward_file']) &&
-            isset($backend['params']['forward_string'])) {
-            try {
-                if (empty($script)) {
-                    $this->_vfs->deleteFile($this->_params['vfs_forward_path'], $backend['params']['forward_file']);
-                } else {
-                    $this->_vfs->writeData($this->_params['vfs_forward_path'], $backend['params']['forward_file'], $backend['params']['forward_string'], true);
+                if (!empty($script)) {
+                    $this->_vfs->changePermissions($this->_params['vfs_path'], $this->_params['filename'], $this->_params['file_perms']);
+                }
+                foreach ($additional as $filename => $content) {
+                    if (strlen($content)) {
+                        $this->_vfs->changePermissions($this->_params['vfs_path'], $filename, $this->_params['file_perms']);
+                    }
                 }
             } catch (Horde_Vfs_Exception $e) {
                 throw new Ingo_Exception($e);
             }
-
-            if (isset($this->_params['file_perms']) && !empty($script)) {
-                try {
-                    $this->_vfs->changePermissions($this->_params['vfs_forward_path'], $backend['params']['forward_file'], $this->_params['file_perms']);
-                } catch (Horde_Vfs_Exception $e) {
-                    throw new Ingo_Exception($e);
-                }
-            }
         }
-
-        return true;
     }
 
     /**
@@ -101,7 +88,11 @@ class Ingo_Transport_Vfs extends Ingo_Transport
     public function getScript()
     {
         $this->_connect();
-        return $this->_vfs->read($this->_params['vfs_path'], $this->_params['filename']);
+        try {
+            return $this->_vfs->read($this->_params['vfs_path'], $this->_params['filename']);
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Ingo_Exception($e);
+        }
     }
 
     /**

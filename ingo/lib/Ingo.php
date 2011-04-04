@@ -207,24 +207,22 @@ class Ingo
      * @param string $script       The script to set active.
      * @param boolean $deactivate  If true, notification will identify the
      *                             script as deactivated instead of activated.
+     * @param array $additional    Any additional scripts that need to uploaded.
      *
      * @return boolean  True on success, false on failure.
      */
-    static public function activateScript($script, $deactivate = false)
+    static public function activateScript($script, $deactivate = false,
+                                          $additional = array())
     {
         $transport = self::getTransport();
 
         try {
-            $res = $transport->setScriptActive($script);
+            $transport->setScriptActive($script, $additional);
         } catch (Ingo_Exception $e) {
             $msg = ($deactivate)
               ? _("There was an error deactivating the script.")
               : _("There was an error activating the script.");
             $GLOBALS['notification']->push($msg . ' ' . _("The driver said: ") . $e->getMessage(), 'horde.error');
-            return false;
-        }
-
-        if ($res === false) {
             return false;
         }
 
@@ -256,8 +254,9 @@ class Ingo
                 $ingo_script = self::loadIngoScript();
 
                 /* Generate and activate the script. */
-                $script = $ingo_script->generate();
-                self::activateScript($script);
+                self::activateScript($ingo_script->generate(),
+                                     false,
+                                     $ingo_script->additionalScripts());
             } catch (Ingo_Exception $e) {
                 $GLOBALS['notification']->push(_("Script not updated."), 'horde.error');
             }

@@ -103,11 +103,7 @@ class Ingo_Script_Maildrop_Recipe
                 $from = $address;
             }
 
-            /**
-             * @TODO
-             *
-             * Exclusion and listfilter
-             */
+            /* @TODO Exclusion and listfilter */
             $exclude = '';
             foreach ($params['action-value']['excludes'] as $address) {
                 $exclude .= $address . ' ';
@@ -126,11 +122,6 @@ class Ingo_Script_Maildrop_Recipe
                 // Set to same value as $_days in ingo/lib/Storage.php
                 $days = 7;
             }
-
-            // Writing vacation.msg file
-            $transport = Ingo::getTransport();
-            $transport->_connect();
-            $result = $transport->_vfs->writeData($transport->_params['vfs_path'], 'vacation.msg', $params['action-value']['reason'], true);
 
             // Rule : Do not send responses to bulk or list messages
             if ($params['action-value']['ignorelist'] == 1) {

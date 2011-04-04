@@ -292,6 +292,18 @@ class Ingo_Script
     }
 
     /**
+     * Returns any additional scripts that need to be sent to the transport
+     * layer.
+     *
+     * @return array  A list of scripts with script names as keys and script
+     *                code as values.
+     */
+    public function additionalScripts()
+    {
+        return array();
+    }
+
+    /**
      * Can this driver perform on demand filtering?
      *
      * @return boolean  True if perform() is available, false if not.

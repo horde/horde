@@ -2,6 +2,8 @@
 v2.0
 ----
 
+[jan] Catch all PEAR errors in Sieve driver.
+[jan] Allow script drivers to provide additional scripts to upload (Bug #8110).
 [jan] Change default Sieve port to 4190 (Request #9791).
 [jan] Fix reading default forward rule from preferences.
 [jan] Fix removing flags with Sieve driver (Vilius Sumskas <vilius@lnk.lt>,
