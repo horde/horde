@@ -799,6 +799,70 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
+     * Returns an expression using the specified operator.
+     *
+     * @param string $lhs    The column or expression to test.
+     * @param string $op     The operator.
+     * @param string $rhs    The comparison value.
+     * @param boolean $bind  If true, the method returns the query and a list
+     *                       of values suitable for binding as an array.
+     * @param array $params  Any additional parameters for the operator.
+     *
+     * @return string|array  The SQL test fragment, or an array containing the
+     *                       query and a list of values if $bind is true.
+     */
+    public function buildClause($lhs, $op, $rhs, $bind = false,
+                                $params = array())
+    {
+        switch ($op) {
+        case '|':
+        case '&':
+            /* Only PgSQL 7.3+ understands SQL99 'SIMILAR TO'; use ~ for
+             * greater backwards compatibility. */
+            $query = 'CASE WHEN CAST(%s AS VARCHAR) ~ \'^-?[0-9]+$\' THEN (CAST(%s AS INTEGER) %s %s) <> 0 ELSE FALSE END';
+            if ($bind) {
+                return array(sprintf($this->_escapePrepare($query),
+                                     $this->_escapePrepare($lhs),
+                                     $this->_escapePrepare($lhs),
+                                     $this->_escapePrepare($op),
+                                     '?'),
+                             array((int)$rhs));
+            } else {
+                return sprintf($query, $lhs, $lhs, $op, (int)$rhs);
+            }
+
+        case 'LIKE':
+            $query = '%s ILIKE %s';
+            if ($bind) {
+                if (empty($params['begin'])) {
+                    return array(sprintf($query,
+                                         $this->_escapePrepare($lhs),
+                                         '?'),
+                                 array('%' . $rhs . '%'));
+                }
+                return array(sprintf('(' . $query . ' OR ' . $query . ')',
+                                     $this->_escapePrepare($lhs),
+                                     '?',
+                                     $this->_escapePrepare($lhs),
+                                     '?'),
+                             array($rhs . '%', '% ' . $rhs . '%'));
+            }
+            if (empty($params['begin'])) {
+                return sprintf($query,
+                               $lhs,
+                               $this->quote('%' . $rhs . '%'));
+            }
+            return sprintf('(' . $query . ' OR ' . $query . ')',
+                           $lhs,
+                           $this->quote($rhs . '%'),
+                           $lhs,
+                           $this->quote('% ' . $rhs . '%'));
+        }
+
+        return parent::buildClause($lhs, $op, $rhs, $bind, $params);
+    }
+
+    /**
      * Returns the list of a table's column names, data types, and default values.
      *
      * The underlying query is roughly:

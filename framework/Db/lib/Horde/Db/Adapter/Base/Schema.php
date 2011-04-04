@@ -836,6 +836,108 @@ abstract class Horde_Db_Adapter_Base_Schema
         return 'INTERVAL ' . $precision . ' ' . $interval;
     }
 
+    /**
+     * Returns an expression using the specified operator.
+     *
+     * @param string $lhs    The column or expression to test.
+     * @param string $op     The operator.
+     * @param string $rhs    The comparison value.
+     * @param boolean $bind  If true, the method returns the query and a list
+     *                       of values suitable for binding as an array.
+     * @param array $params  Any additional parameters for the operator.
+     *
+     * @return string|array  The SQL test fragment, or an array containing the
+     *                       query and a list of values if $bind is true.
+     */
+    public function buildClause($lhs, $op, $rhs, $bind = false,
+                                $params = array())
+    {
+        switch ($op) {
+        case '|':
+        case '&':
+            if ($bind) {
+                return array($lhs . ' ' . $this->_escapePrepare($op) . ' ?',
+                             array((int)$rhs));
+            }
+            return $lhs . ' ' . $op . ' ' . (int)$rhs;
+
+        case '~':
+            if ($bind) {
+                return array($lhs . ' ' . $op . ' ?', array($rhs));
+            }
+            return $lhs . ' ' . $op . ' ' . $rhs;
+
+        case 'IN':
+            if ($bind) {
+                if (is_array($rhs)) {
+                    return array($lhs . ' IN (?' . str_repeat(', ?', count($rhs) - 1) . ')', $rhs);
+                }
+                /* We need to bind each member of the IN clause separately to
+                 * ensure proper quoting. */
+                if (substr($rhs, 0, 1) == '(') {
+                    $rhs = substr($rhs, 1);
+                }
+                if (substr($rhs, -1) == ')') {
+                    $rhs = substr($rhs, 0, -1);
+                }
+
+                $ids = preg_split('/\s*,\s*/', $rhs);
+
+                return array($lhs . ' IN (?' . str_repeat(', ?', count($ids) - 1) . ')', $ids);
+            }
+            if (is_array($rhs)) {
+                return $lhs . ' IN ' . implode(', ', $rhs);
+            }
+            return $lhs . ' IN ' . $rhs;
+
+        case 'LIKE':
+            $query = 'LOWER(%s) LIKE LOWER(%s)';
+            if ($bind) {
+                if (empty($params['begin'])) {
+                    return array(sprintf($query,
+                                         $this->_escapePrepare($lhs),
+                                         '?'),
+                                 array('%' . $rhs . '%'));
+                }
+                return array(sprintf('(' . $query . ' OR ' . $query . ')',
+                                     $this->_escapePrepare($lhs),
+                                     '?',
+                                     $this->_escapePrepare($lhs),
+                                     '?'),
+                             array($rhs . '%', '% ' . $rhs . '%'));
+            }
+            if (empty($params['begin'])) {
+                return sprintf($query,
+                               $lhs,
+                               $this->quote('%' . $rhs . '%'));
+            }
+            return sprintf('(' . $query . ' OR ' . $query . ')',
+                           $lhs,
+                           $this->quote($rhs . '%'),
+                           $lhs,
+                           $this->quote('% ' . $rhs . '%'));
+
+        default:
+            if ($bind) {
+                return array($lhs . ' ' . $this->_escapePrepare($op) . ' ?', array($rhs));
+            }
+            return $lhs . ' ' . $op . ' ' . $this->quote($rhs);
+        }
+    }
+
+    /**
+     * Escapes all characters in a string that are placeholders for
+     * prepare/execute methods.
+     *
+     * @param string $query  A string to escape.
+     *
+     * @return string  The correctly escaped string.
+     */
+    protected function _escapePrepare($query)
+    {
+        return preg_replace('/[?!&]/', '\\\\$0', $query);
+    }
+
 
     /*##########################################################################
     # Protected

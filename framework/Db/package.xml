@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* 
+* [jan] Add buildClause() from obsolete Horde_Sql.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -408,7 +408,7 @@
    <date>2011-03-29</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-* 
+* [jan] Add buildClause() from obsolete Horde_Sql.
    </notes>
   </release>
  </changelog>

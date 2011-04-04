@@ -485,4 +485,31 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
         }
         return $sql;
     }
+
+    /**
+     * Returns an expression using the specified operator.
+     *
+     * @param string $lhs    The column or expression to test.
+     * @param string $op     The operator.
+     * @param string $rhs    The comparison value.
+     * @param boolean $bind  If true, the method returns the query and a list
+     *                       of values suitable for binding as an array.
+     * @param array $params  Any additional parameters for the operator.
+     *
+     * @return string|array  The SQL test fragment, or an array containing the
+     *                       query and a list of values if $bind is true.
+     */
+    public function buildClause($lhs, $op, $rhs, $bind = false,
+                                $params = array())
+    {
+        switch ($op) {
+        case '~':
+            if ($bind) {
+                return array($lhs . ' REGEXP ?', array($rhs));
+            } else {
+                return $lhs . ' REGEXP ' . $rhs;
+            }
+        }
+        return parent::buildClause($lhs, $op, $rhs, $bind, $params);
+    }
 }

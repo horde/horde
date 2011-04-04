@@ -549,7 +549,7 @@ class Turba_Driver_Sql extends Turba_Driver
                         $clause .= ' ' . $glue . ' ';
                     }
                     $rhs = $this->_convertToDriver($vals['test']);
-                    $binds = Horde_Sql::buildClause($this->_db, $vals['field'], $vals['op'], $rhs, true, array('begin' => !empty($vals['begin'])));
+                    $binds = $this->_db->buildClause($vals['field'], $vals['op'], $rhs, true, array('begin' => !empty($vals['begin'])));
                     if (is_array($binds)) {
                         $clause .= $binds[0];
                         $values = array_merge($values, $binds[1]);
@@ -571,9 +571,9 @@ class Turba_Driver_Sql extends Turba_Driver
                             }
                             $rhs = $this->_convertToDriver($test['test']);
                             if ($rhs == '' && $test['op'] == '=') {
-                                $clause .= '(' . Horde_Sql::buildClause($this->_db, $test['field'], '=', $rhs) . ' OR ' . $test['field'] . ' IS NULL)';
+                                $clause .= '(' . $this->_db->buildClause($test['field'], '=', $rhs) . ' OR ' . $test['field'] . ' IS NULL)';
                             } else {
-                                $binds = Horde_Sql::buildClause($this->_db, $test['field'], $test['op'], $rhs, true, array('begin' => !empty($test['begin'])));
+                                $binds = $this->_db->buildClause($test['field'], $test['op'], $rhs, true, array('begin' => !empty($test['begin'])));
                                 if (is_array($binds)) {
                                     $clause .= $binds[0];
                                     $values = array_merge($values, $binds[1]);
