@@ -152,7 +152,7 @@ class Kronolith
                                          array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
                                          Horde_Nls::getLangInfo(D_FMT)),
             'time_format' => $prefs->getValue('twentyFour') ? 'HH:mm' : 'hh:mm tt',
-            'default_alarm' => $prefs->getValue('default_alarm'),
+            'default_alarm' => (int)$prefs->getValue('default_alarm'),
             'status' => array('tentative' => self::STATUS_TENTATIVE,
                               'confirmed' => self::STATUS_CONFIRMED,
                               'cancelled' => self::STATUS_CANCELLED,
