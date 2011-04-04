@@ -748,6 +748,7 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     overflow: hidden;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
+    width: 500px;
 }
 #attach_list span.attachName:hover, #attach_list span.remove:hover {
     color: red;
@@ -757,7 +758,11 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     display: -moz-inline-stack;
     display: inline-block;
     font-weight: bold;
+    overflow: hidden;
     padding-top: 2px;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    width: 500px;
 }
 
 span.attachmentImg {

@@ -42,7 +42,10 @@ div.msgSubject span.treeImg {
 .msgwrite span.loadingImg,
 #noticerow .notices li,
 #upload_wait,
-a.address:hover {
+a.address:hover,
+#attach_list span.attachName,
+#upload_wait
+{
     zoom: 1;
     *display: inline;
 }
