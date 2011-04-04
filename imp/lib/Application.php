@@ -129,7 +129,7 @@ class IMP_Application extends Horde_Registry_Application
 
         IMP::setCurrentMailboxInfo();
 
-        $GLOBALS['notification']->addDecorator(new IMP_Notification_Handler_Decorator_Imap());
+        $GLOBALS['notification']->addDecorator(new IMP_Notification_Handler_Decorator_ImapAlerts());
         $GLOBALS['notification']->addType('status', 'imp.*', 'IMP_Notification_Event_Status');
 
         $redirect = false;

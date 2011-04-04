@@ -1,6 +1,6 @@
 <?php
 /**
- * The Imap Decorator adds IMAP alert notifications to the stack.
+ * Add IMAP alert notifications to the stack.
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Notification_Handler_Decorator_Imap
+class IMP_Notification_Handler_Decorator_ImapAlerts
 extends Horde_Notification_Handler_Decorator_Base
 {
     /**
