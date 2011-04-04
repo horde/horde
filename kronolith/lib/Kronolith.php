@@ -831,6 +831,7 @@ class Kronolith
         foreach (array_keys($calendars) as $calendar) {
             $kronolith_driver->open($calendar);
             try {
+                Horde::debug($kronolith_driver->countEvents());
                 $count += $kronolith_driver->countEvents();
             } catch (Exception $e) {
             }

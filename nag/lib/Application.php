@@ -100,12 +100,13 @@ class Nag_Application extends Horde_Registry_Application
      */
     public function hasPermission($permission, $allowed, $opts = array())
     {
-        switch ($permission) {
-        case 'max_tasks':
-            $allowed = max($allowed);
-            break;
+        if (is_array($allowed)) {
+            switch ($permission) {
+            case 'max_tasks':
+                $allowed = max($allowed);
+                break;
+            }
         }
-
         return $allowed;
     }
 

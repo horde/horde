@@ -144,16 +144,17 @@ class Ingo_Application extends Horde_Registry_Application
      */
     public function hasPermission($permission, $allowed, $opts = array())
     {
-        switch ($permission) {
-        case 'allow_rules':
-            $allowed = (bool)count(array_filter($allowed));
-            break;
+        if (is_array($allowed)) {
+            switch ($permission) {
+            case 'allow_rules':
+                $allowed = (bool)count(array_filter($allowed));
+                break;
 
-        case 'max_rules':
-            $allowed = max($allowed);
-            break;
+            case 'max_rules':
+                $allowed = max($allowed);
+                break;
+            }
         }
-
         return $allowed;
     }
 

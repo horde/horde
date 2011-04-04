@@ -216,6 +216,10 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function hasPermission($permission, $allowed, $opts = array())
     {
+        if (is_array($allowed)) {
+            $allowed = max($allowed);
+        }
+
         switch ($permission) {
         case 'create_folders':
             // No-op

@@ -2,6 +2,7 @@
 v4.0
 ----
 
+[jan] Fix application-specific permission checks (Bug #9786).
 [jan] Fix resetting passwords (Vilius Sumskas <vilius@lnk.lt>, Bug #9800).
 [jan] Fix Cyrsql authentication driver (Vilius Sumskas <vilius@lnk.lt>, Bug
       #9781).

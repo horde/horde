@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [jan] Fix application-specific permission checks (Bug #9786).
 * [mjr] Datatree share to SQL upgrade script refactored for Horde 4.
 * [jan] Fix creating new tasks through WebDAV (Bug #9675).
 * [jan] Move all executable scripts to bin/ and prefix with nag-.
@@ -930,6 +931,8 @@
    <date>2011-03-31</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [jan] Fix application-specific permission checks (Bug #9786).
+* [mjr] Datatree share to SQL upgrade script refactored for Horde 4.
 * [jan] Fix creating new tasks through WebDAV (Bug #9675).
 * [jan] Move all executable scripts to bin/ and prefix with nag-.
    </notes>
