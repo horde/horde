@@ -85,7 +85,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
                 $indices = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->fromSequenceString($data);
             } elseif ($data instanceof IMP_Compose) {
                 $indices = array(
-                    $data->getMetadata('mailbox') => array($data->getMetadata('uid'))
+                    strval($data->getMetadata('mailbox')) => array($data->getMetadata('uid'))
                 );
             } elseif ($data instanceof IMP_Contents) {
                 $indices = array(
