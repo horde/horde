@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-31</date>
- <time>15:39:56</time>
+ <date>2011-04-04</date>
+ <time>14:32:33</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix resuming messages with attachments (Bug #9780).
 * [mms] Fix folder actions in standard view in IE 7/8 (Bug #9801).
 * [jan] Fix application-specific permission checks (Bug #9786).
 * [mms] Fix printing of message parts in IE, regardless of local user settings (Bug #9756).
@@ -2106,9 +2107,11 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-31</date>
+   <date>2011-04-04</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Fix resuming messages with attachments (Bug #9780).
+* [mms] Fix folder actions in standard view in IE 7/8 (Bug #9801).
 * [jan] Fix application-specific permission checks (Bug #9786).
 * [mms] Fix printing of message parts in IE, regardless of local user settings (Bug #9756).
 * [mms] Fix IMP_Maillog regression from RC2 (Bug #9763).

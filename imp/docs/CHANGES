@@ -2,6 +2,7 @@
 v5.0
 ----
 
+[mms] Fix resuming messages with attachments (Bug #9780).
 [mms] Fix folder actions in standard view in IE 7/8 (Bug #9801).
 [jan] Fix application-specific permission checks (Bug #9786).
 [mms] Fix printing of message parts in IE, regardless of local user settings
