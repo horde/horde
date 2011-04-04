@@ -43,24 +43,16 @@ class Horde_Alarm_Handler_Desktop extends Horde_Alarm_Handler
      */
     public function __construct(array $params = null)
     {
-        /*
         if (!isset($params['js_notify'])) {
             throw new InvalidArgumentException('Parameter \'js_notify\' missing.');
         }
         if (!is_callable($params['js_notify'])) {
-            throw new Horde_Alarm_Exception('Parameter \'js_notify\' is not a Horde_Notification_Handler object.');
+            throw new Horde_Alarm_Exception('Parameter \'js_notify\' is not a valid callback.');
         }
         $this->_jsNotify = $params['jsNotify'];
         if (isset($params['icon'])) {
             $this->_icon = $params['icon'];
         }
-        */
-        $this->_jsNotify = isset($params['js_notify'])
-            ? $params['js_notify']
-            : array('Horde', 'addInlineScript');
-        $this->_icon = isset($params['icon'])
-            ? $params['icon']
-            : (string)Horde_Themes::img('alerts/alarm.png');
     }
 
     /**

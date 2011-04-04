@@ -25,13 +25,13 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Core
  */
-class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Injector
+class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
 {
     /**
      * Return a Horde_Alarm instance
      *
      */
-    public function create(Horde_Injector $injector)
+    public function create()
     {
         $driver = empty($GLOBALS['conf']['alarms']['driver'])
             ? 'Null'
@@ -40,10 +40,10 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Injector
         $params = Horde::getDriverConfig('alarms', $driver);
 
         if (strcasecmp($driver, 'Sql') === 0) {
-            $params['db'] = $injector->getInstance('Horde_Db_Adapter');
+            $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
         }
 
-        $params['logger'] = $injector->getInstance('Horde_Log_Logger');
+        $params['logger'] = $this->_injector->getInstance('Horde_Log_Logger');
 
         $class = 'Horde_Alarm_' . $driver;
         $alarm = new $class($params);
@@ -52,23 +52,20 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Injector
 
         /* Add those handlers that need configuration and can't be auto-loaded
          * through Horde_Alarms::handlers(). */
-        /*
         $handler_params = array(
-            'notification' => $injector->getInstance('Horde_Notification')
+            'notification' => $this->_injector->getInstance('Horde_Core_Factory_Notification')
         );
-        $alarm->addHandler('notify', new Horde_Alarm_Handler_Notification($handler_params)
-        );
+        $alarm->addHandler('notify', new Horde_Alarm_Handler_Notify($handler_params));
 
         $handler_params = array(
             'js_notify' => array('Horde', 'addInlineScript'),
             'icon' => (string)Horde_Themes::img('alerts/alarm.png')
         );
         $alarm->addHandler('desktop', new Horde_Alarm_Handler_Desktop($handler_params));
-        */
 
         $handler_params = array(
-            'identity' => $injector->getInstance('Horde_Core_Factory_Identity'),
-            'mail' => $injector->getInstance('Horde_Mail'),
+            'identity' => $this->_injector->getInstance('Horde_Core_Factory_Identity'),
+            'mail' => $this->_injector->getInstance('Horde_Mail'),
         );
         $alarm->addHandler('mail', new Horde_Alarm_Handler_Mail($handler_params));
 
