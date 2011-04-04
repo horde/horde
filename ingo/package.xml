@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-31</date>
- <time>14:41:02</time>
+ <date>2011-04-04</date>
+ <time>15:22:41</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -76,6 +76,9 @@
     <dir name="Block">
      <file name="Overview.php" role="horde" />
     </dir> <!-- /lib/Block -->
+    <dir name="Exception">
+     <file name="Pear.php" role="horde" />
+    </dir> <!-- /lib/Exception -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
       <file name="Upgrade.php" role="horde" />
@@ -624,6 +627,7 @@
    <install as="ingo/lib/Test.php" name="lib/Test.php" />
    <install as="ingo/lib/Transport.php" name="lib/Transport.php" />
    <install as="ingo/lib/Block/Overview.php" name="lib/Block/Overview.php" />
+   <install as="ingo/lib/Exception/Pear.php" name="lib/Exception/Pear.php" />
    <install as="ingo/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="ingo/lib/Script/Imap.php" name="lib/Script/Imap.php" />
    <install as="ingo/lib/Script/Maildrop.php" name="lib/Script/Maildrop.php" />
@@ -897,7 +901,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-31</date>
+   <date>2011-04-04</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * [jan] Correctly escape vacation subjects with quote characters in Maildrop driver (Bug #9156).
