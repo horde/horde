@@ -1278,20 +1278,34 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                          or UTF-8 (can be objects with __toString()
      *                          method).
      * @param integer $flags    See self::status().
+     * @param array $opts       Additional options:
+     * <pre>
+     * sort - (boolean) If true, sort the list of mailboxes?
+     *        DEFAULT: Do not sort the list.
+     * sort_delimiter - (string) If 'sort' is true, this is the delimiter
+     *                  used to sort the mailboxes.
+     *                  DEFAULT: '.'
+     * </pre>
      *
      * @return array  An array with the keys as the mailbox names and the
      *                values as arrays with the requested keys (from the
      *                mask given in $flags).
      */
     public function statusMultiple($mailboxes,
-                                   $flags = Horde_Imap_Client::STATUS_ALL)
+                                   $flags = Horde_Imap_Client::STATUS_ALL,
+                                   array $opts = array())
     {
         $ret = null;
+
+        $opts = array_merge(array(
+            'sort' => false,
+            'sort_delimiter' => '.'
+        ), $opts);
 
         if ($this->queryCapability('LIST-STATUS')) {
             try {
                 $ret = array();
-                foreach ($this->listMailboxes($mailboxes, Horde_Imap_Client::MBOX_ALL, array('status' => $flags)) as $val) {
+                foreach ($this->listMailboxes($mailboxes, Horde_Imap_Client::MBOX_ALL, array_merge($opts, array('status' => $flags))) as $val) {
                     if (isset($val['status'])) {
                         $ret[$val['mailbox']] = $val['status'];
                     }
@@ -1307,6 +1321,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 try {
                     $ret[(string)$val] = $this->status($val, $flags);
                 } catch (Horde_Imap_Client_Exception $e) {}
+            }
+
+            if ($opts['sort']) {
+                Horde_Imap_Client_Sort::sortMailboxes($ret, array(
+                    'delimiter' => $opts['sort_delimiter'],
+                    'keysort' => true
+                ));
             }
         }
 

@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-29</date>
- <time>18:19:13</time>
+ <date>2011-04-04</date>
+ <time>16:59:04</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* Add ability to sort mailboxes return from Horde_Imap_Client_Base#statusMultiple().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -269,14 +269,16 @@
   <release>
    <version>
     <release>1.0.0</release>
-    <api>1.0.0</api></version>
+    <api>1.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-29</date>
+    <api>beta</api>
+   </stability>
+   <date>2011-04-04</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* Add ability to sort mailboxes return from Horde_Imap_Client_Base#statusMultiple().
    </notes>
   </release>
  </changelog>
