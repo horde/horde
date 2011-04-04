@@ -686,36 +686,23 @@ class Content_Tagger
         }
 
         $tagIds = array();
-        $tagText = array();
 
         // Anything already typed as an integer is assumed to be a tag id.
         foreach ($tags as $tagIndex => $tag) {
             if (is_int($tag)) {
-                $tagIds[$tagIndex] = $tag;
-            } elseif (!empty($tag)) {
-                $tagText[$tag] = $tagIndex;
+                $tagIds[] = $tag;
+                continue;
             }
-        }
 
-        // Get the ids for any tags that already exist.
-        if (count($tagText)) {
-            $sql = 'SELECT tag_id, tag_name FROM ' . $this->_t('tags')
-                . ' WHERE tag_name IN (' . implode(',', array_map(array($this, 'toDriver'), array_keys($tagText))) . ')';
-            foreach ($this->_db->selectAll($sql) as $row) {
-                $tagTextCopy = $tagText;
-                foreach ($tagTextCopy as $tag => $tagIndex) {
-                    if (strtolower(Horde_String::convertCharset($row['tag_name'], $this->_db->getOption('charset'), 'UTF-8')) == strtolower($tag)) {
-                        unset($tagText[$tag]);
-                    }
-                }
-                $tagIds[$tagIndex] = $row['tag_id'];
-            }
-        }
-
-        if ($create) {
-            // Create any tags that didn't already exist
-            foreach ($tagText as $tag => $tagIndex) {
-                $tagIds[$tagIndex] = $this->_db->insert('INSERT INTO ' . $this->_t('tags') . ' (tag_name) VALUES (' . $this->toDriver($tag) . ')');
+            // Get the ids for any tags that already exist.
+            $sql = 'SELECT tag_id FROM ' . $this->_t('tags')
+                . ' WHERE LOWER(tag_name) = LOWER('
+                . $this->toDriver($tag) . ')';
+            if ($id = $this->_db->selectValue($sql)) {
+                $tagIds[] = $id;
+            } elseif ($create) {
+                // Create any tags that didn't already exist
+                $tagIds[] = $this->_db->insert('INSERT INTO ' . $this->_t('tags') . ' (tag_name) VALUES (' . $this->toDriver($tag) . ')');
             }
         }
 
