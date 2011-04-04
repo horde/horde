@@ -17,15 +17,7 @@
    <case name="kolab" desc="Kolab" />
   </configswitch>
  </configsection>
-
- <configsection name="utils">
-  <configheader>External Utilities</configheader>
-  <configstring name="gnupg" required="false" desc="If you want users to have
-  the option of using the GNU Privacy Guard program to decrypt/encrypt notes,
-  enter the location of the 'gpg' binary here.  If this is empty this
-  feature will be disabled."/>
- </configsection>
-
+ 
  <configsection name="menu">
   <configheader>Menu settings</configheader>
   <configboolean name="print" desc="Should we display a Print link in the
