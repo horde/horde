@@ -974,7 +974,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             if (empty($name)) {
                 $name = $recipient['mailbox'];
             }
-            $name = Horde_Mime::decode($name);
+            $name = Horde_Mime::decode($name, 'UTF-8');
 
             try {
                 $registry->call('contacts/import', array(array('name' => $name, 'email' => $recipient['mailbox'] . '@' . $recipient['host']), 'array', $abook));

@@ -158,7 +158,7 @@ if ($session->get('imp', 'file_upload')) {
     /* Delete attachments. */
     foreach ($deleteList as $val) {
         if ($notify) {
-            $notification->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($imp_compose[$val]['part']->getName(true))), 'horde.success');
+            $notification->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($imp_compose[$val]['part']->getName(true), 'UTF-8')), 'horde.success');
         }
         unset($imp_compose[$val]);
     }
