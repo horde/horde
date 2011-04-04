@@ -324,7 +324,7 @@ class Horde_Mime_Headers implements Serializable
                     $value = '';
                 }
             } else {
-                $value = Horde_Mime::decode($value, null);
+                $value = Horde_Mime::decode($value, empty($options['charset']) ? 'UTF-8' : $options['charset']);
             }
         }
 
