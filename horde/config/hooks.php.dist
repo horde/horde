@@ -16,6 +16,7 @@
  * All critical/fatal errors should be reported by throwing a Horde_Exception
  * object.
  *
+ *
  * Preferences Hooks
  * =================
  * Two types of preferences hooks are available.
@@ -33,16 +34,23 @@
  * This hook is ONLY executed on login and preferences are cached during a
  * users' session.
  *
+ * NOTE: Because the prefs_init hook is called BEFORE the application is
+ *       initialized, application data will not be available in this hook.
+ *       If you want to alter preferences values based on application data,
+ *       you should use the postauthenticate hook instead.
+ *
  * On change
  * ---------
  * A hook named prefs_change will be called after a preference is altered.
  * It is passed the preference name that has changed and does not expect a
  * return value.
  *
+ *
  * Authentication/Login Hooks
  * ==========================
  * There are three special hooks called during the initial authentication
  * of every Horde application. These hooks are avilable in ALL applications.
+ * These hooks are only called ONCE per session.
  *
  * preauthenticate
  * ---------------
@@ -74,7 +82,8 @@
  * postauthenticate
  * ----------------
  * This hook is used to dynamically alter the login credentials after
- * authentication occurs.
+ * authentication occurs. You can also use this hook to perform tasks that
+ * depend on the application to be fully initialized.
  *
  * Parameters in:
  *   $userId (string): The Horde ID.
@@ -105,6 +114,7 @@
  * -------
  * This hook is used to do any local processing necessary to initialize an
  * application. It is passed no parameters and expects no return value.
+ * Any Exception thrown in this method will cause a fatal error.
  *
  *
  * AJAX Hooks

@@ -1301,7 +1301,7 @@ class Horde_Registry
         $this->importConfig($app);
         $this->loadPrefs($app);
 
-        /* Call post-push hook. */
+        /* Call pre-push hook. */
         try {
             Horde::callHook('pushapp', array(), $app);
         } catch (Horde_Exception $e) {
