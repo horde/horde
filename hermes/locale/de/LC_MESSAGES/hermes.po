@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 14:05+0100\n"
-"PO-Revision-Date: 2011-03-15 14:06+0100\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"PO-Revision-Date: 2011-04-04 10:40+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
 "Language: de\n"
@@ -44,7 +44,7 @@ msgstr "\"%s\" ist nicht als Tabelle definiert."
 msgid "%s Deliverables"
 msgstr "Ergebnisse für %s"
 
-#: lib/Hermes.php:433
+#: lib/Hermes.php:434
 #, php-format
 msgid "%s notifications"
 msgstr "%s Benachrichtigungen"
@@ -86,7 +86,7 @@ msgstr ""
 "Stoppuhr-Bezeichnung und Start- und Endezeit in die Beschreibung des "
 "Zeiteintrags übernehmen?"
 
-#: lib/Form/Time/Entry.php:82 templates/index/timeedit.inc:40
+#: lib/Form/Time/Entry.php:82 templates/index/timeedit.inc:41
 msgid "Additional Notes"
 msgstr "Zusätzliche Bemerkungen"
 
@@ -114,7 +114,7 @@ msgstr "Beim Anzeigen der Benutzer ist ein Fehler aufgetreten: %s"
 msgid "Approved By:"
 msgstr "Bestätigt durch:"
 
-#: templates/index/timeedit.inc:61
+#: templates/index/search.inc:56 templates/index/timeedit.inc:62
 msgid "Bill"
 msgstr "Rechnung"
 
@@ -122,8 +122,8 @@ msgstr "Rechnung"
 msgid "Bill?"
 msgstr "Rechnung?"
 
-#: templates/index/index.inc:80 templates/index/index.inc:85
-#: templates/index/timeedit.inc:27
+#: templates/index/index.inc:82 templates/index/index.inc:87
+#: templates/index/timeedit.inc:28
 msgid "Billable"
 msgstr "Rechnung"
 
@@ -156,7 +156,7 @@ msgstr "Nach Mitarbeiter"
 msgid "By Job Type"
 msgstr "Nach Arbeitsart"
 
-#: templates/index/timeedit.inc:48
+#: templates/index/timeedit.inc:49
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -170,7 +170,8 @@ msgstr "Ergebnis kann nicht gelöscht werden; es existieren Zeiteinträge dafür
 
 #: invoicing.php:34 lib/Admin.php:179 lib/Api.php:52
 #: lib/Form/Deliverable/ClientSelector.php:21 lib/Form/Time/Entry.php:54
-#: templates/index/timeedit.inc:11 templates/index/timeedit.inc:57
+#: templates/index/search.inc:21 templates/index/search.inc:52
+#: templates/index/timeedit.inc:12 templates/index/timeedit.inc:58
 msgid "Client"
 msgstr "Kunde"
 
@@ -178,7 +179,7 @@ msgstr "Kunde"
 msgid "Client Name"
 msgstr "Kundenname"
 
-#: lib/Form/Search.php:33 templates/index/index.inc:40
+#: lib/Form/Search.php:33 templates/index/index.inc:42
 msgid "Clients"
 msgstr "Kunden"
 
@@ -191,11 +192,12 @@ msgid "Comma-Separated Variable (.csv)"
 msgstr "Kommagetrennte Werte (.csv)"
 
 #: invoicing.php:42 lib/Api.php:58 lib/Form/Time/Entry.php:63
-#: templates/index/timeedit.inc:15 templates/index/timeedit.inc:58
+#: templates/index/search.inc:29 templates/index/search.inc:53
+#: templates/index/timeedit.inc:16 templates/index/timeedit.inc:59
 msgid "Cost Object"
 msgstr "Kostenstelle"
 
-#: lib/Form/Search.php:41 templates/index/index.inc:39
+#: lib/Form/Search.php:41 templates/index/index.inc:41
 msgid "Cost Objects"
 msgstr "Kostenstellen"
 
@@ -204,7 +206,8 @@ msgid "Create invoice"
 msgstr "Rechnung erstellen"
 
 #: invoicing.php:40 lib/Api.php:43 lib/Form/Time/Entry.php:50
-#: templates/index/timeedit.inc:18 templates/index/timeedit.inc:56
+#: templates/index/search.inc:50 templates/index/timeedit.inc:19
+#: templates/index/timeedit.inc:57
 msgid "Date"
 msgstr "Datum"
 
@@ -257,8 +260,8 @@ msgid "Deliverables"
 msgstr "Ergebnisse"
 
 #: invoicing.php:41 lib/Api.php:72 lib/Form/Deliverable.php:27
-#: lib/Form/Time/Entry.php:81 templates/index/timeedit.inc:37
-#: templates/index/timeedit.inc:60
+#: lib/Form/Time/Entry.php:81 templates/index/search.inc:55
+#: templates/index/timeedit.inc:38 templates/index/timeedit.inc:61
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -270,15 +273,15 @@ msgstr "Anzeigename"
 msgid "Display Preferences"
 msgstr "Anzeige-Einstellungen"
 
-#: lib/Form/Search.php:48
+#: lib/Form/Search.php:48 templates/index/search.inc:38
 msgid "Do not include entries after"
 msgstr "Keine Einträge einbeziehen nach"
 
-#: lib/Form/Search.php:45
+#: lib/Form/Search.php:45 templates/index/search.inc:33
 msgid "Do not include entries before"
 msgstr "Keine Einträge einbeziehen vor"
 
-#: templates/index/timeedit.inc:75
+#: templates/index/search.inc:71 templates/index/timeedit.inc:76
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -323,7 +326,8 @@ msgstr "Arbeitsart bearbeiten"
 msgid "Edit job type, Step 2"
 msgstr "Arbeitsart bearbeiten, Schritt 2"
 
-#: invoicing.php:35 lib/Api.php:48
+#: invoicing.php:35 lib/Api.php:48 templates/index/search.inc:9
+#: templates/index/search.inc:51
 msgid "Employee"
 msgstr "Mitarbeiter"
 
@@ -354,7 +358,7 @@ msgstr "Fehler beim Lesen der Kostenstellen aus \"%s\": %s"
 msgid "Error saving deliverable: %s"
 msgstr "Fehler beim Speichern des Ergebnisses: %s"
 
-#: lib/Hermes.php:429
+#: lib/Hermes.php:430
 msgid "Error when communicating with the server."
 msgstr "Fehler während der Kommunikation mit dem Server."
 
@@ -375,6 +379,10 @@ msgstr "Exportieren"
 msgid "Export Search Results"
 msgstr "Suchergebnisse exportieren"
 
+#: templates/index/search.inc:77
+msgid "Export Time"
+msgstr "Exportzeit"
+
 #: lib/Form/Search.php:58
 msgid "Exported?"
 msgstr "Exportiert?"
@@ -387,7 +395,7 @@ msgstr "Allgemeine Einstellungen"
 msgid "Help"
 msgstr "Hilfe"
 
-#: lib/Hermes.php:434
+#: lib/Hermes.php:435
 msgid "Hide Notifications"
 msgstr "Benachrichtigungen verstecken"
 
@@ -396,7 +404,8 @@ msgid "Hourly Rate"
 msgstr "Stundensatz"
 
 #: invoicing.php:38 lib/Api.php:60 lib/Form/Time/Entry.php:66
-#: templates/index/timeedit.inc:23 templates/index/timeedit.inc:62
+#: templates/index/search.inc:57 templates/index/timeedit.inc:24
+#: templates/index/timeedit.inc:63
 msgid "Hours"
 msgstr "Stunden"
 
@@ -429,11 +438,12 @@ msgstr "Rechnungssystem ist nicht installiert."
 
 #: invoicing.php:36 lib/Admin.php:20 lib/Admin.php:87 lib/Admin.php:121
 #: lib/Api.php:56 lib/Form/JobType/Add.php:15 lib/Form/Time/Entry.php:60
-#: templates/index/timeedit.inc:32 templates/index/timeedit.inc:59
+#: templates/index/search.inc:25 templates/index/search.inc:54
+#: templates/index/timeedit.inc:33 templates/index/timeedit.inc:60
 msgid "Job Type"
 msgstr "Arbeitsart"
 
-#: lib/Form/Search.php:38 templates/index/index.inc:41
+#: lib/Form/Search.php:38 templates/index/index.inc:43
 msgid "Job Types"
 msgstr "Arbeitsarten"
 
@@ -441,7 +451,7 @@ msgstr "Arbeitsarten"
 msgid "JobType Name"
 msgstr "Arbeitsart-Bezeichnung"
 
-#: templates/index/index.inc:38
+#: templates/index/index.inc:40
 msgid "Log"
 msgstr "Änderung"
 
@@ -477,7 +487,7 @@ msgstr "Neuer Zeiteintrag"
 msgid "New Top-level Deliverable"
 msgstr "Neues Hauptergebnis"
 
-#: templates/index/index.inc:60
+#: templates/index/index.inc:62
 msgid "Next month"
 msgstr "Nächster Monat"
 
@@ -486,11 +496,11 @@ msgstr "Nächster Monat"
 msgid "No"
 msgstr "Nein"
 
-#: lib/Hermes.php:432
+#: lib/Hermes.php:433
 msgid "No Notifications"
 msgstr "Keine Benachrichtigungen"
 
-#: templates/index/timeedit.inc:78
+#: templates/index/search.inc:74 templates/index/timeedit.inc:79
 msgid "No Time Slices"
 msgstr "Keine Zeitabschnitte"
 
@@ -511,7 +521,7 @@ msgstr "Keine Zeiteinträge zu exportieren!"
 msgid "No timeslices were selected to submit."
 msgstr "Es wurden keine Zeitabschnitte ausgewählt."
 
-#: templates/index/index.inc:81 templates/index/index.inc:86
+#: templates/index/index.inc:83 templates/index/index.inc:88
 msgid "Non-Billable"
 msgstr "Keine Rechnung"
 
@@ -523,19 +533,19 @@ msgstr "Nicht in Rechnung zu stellende Stunden"
 msgid "Notes"
 msgstr "Bemerkungen"
 
-#: templates/index/index.inc:30
+#: templates/index/index.inc:32
 msgid "Options"
 msgstr "Einstellungen"
 
-#: lib/Hermes.php:439
+#: lib/Hermes.php:440
 msgid "Please enter correct values in the form first."
 msgstr "Bitte geben Sie erst gültige Werte in das Formular ein."
 
-#: lib/Hermes.php:437
+#: lib/Hermes.php:438
 msgid "Preferences"
 msgstr "Benutzereinstellungen"
 
-#: templates/index/index.inc:59
+#: templates/index/index.inc:61
 msgid "Previous month"
 msgstr "Vorheriger Monat"
 
@@ -553,16 +563,17 @@ msgstr ""
 "Diese Arbeitsart wirklich löschen? Das kann zu Problemen mit den Daten "
 "führen!"
 
-#: lib/Form/Time/Entry.php:33 templates/index/timeedit.inc:46
+#: lib/Form/Time/Entry.php:33 templates/index/timeedit.inc:47
 msgid "Save"
 msgstr "Speichern"
 
-#: templates/index/timeedit.inc:47
+#: templates/index/timeedit.inc:48
 msgid "Save As New"
 msgstr "Als Kopie speichern"
 
-#: lib/Form/Search.php:64 templates/index/index.inc:42
-#: templates/index/timeedit.inc:52
+#: lib/Form/Search.php:64 templates/index/index.inc:44
+#: templates/index/search.inc:5 templates/index/search.inc:46
+#: templates/index/timeedit.inc:53
 msgid "Search"
 msgstr "Suche"
 
@@ -570,7 +581,7 @@ msgstr "Suche"
 msgid "Search For Time"
 msgstr "Nach Zeit suchen"
 
-#: lib/Api.php:98 search.php:105
+#: lib/Api.php:98 search.php:105 templates/index/search.inc:46
 msgid "Search Results"
 msgstr "Suchergebnisse"
 
@@ -607,11 +618,15 @@ msgstr ""
 msgid "Select the export format"
 msgstr "Wählen Sie das Exportformat"
 
+#: templates/index/search.inc:35 templates/index/search.inc:40
+msgid "Set date"
+msgstr "Datum festlegen"
+
 #: config/prefs.php:13
 msgid "Set preferences on the stop watch timer."
 msgstr "Legen Sie Ihre Einstellungen für die Stoppuhr fest."
 
-#: templates/index/timeedit.inc:20
+#: templates/index/timeedit.inc:21
 msgid "Set start date"
 msgstr "Startdatum festlegen"
 
@@ -650,7 +665,7 @@ msgstr "Bezeichnung für Stoppuhr"
 msgid "Submit Selected Time"
 msgstr "Ausgewählte Zeiteinträge abschicken"
 
-#: templates/index/timeedit.inc:81
+#: templates/index/timeedit.inc:82
 msgid "Submit Time"
 msgstr "Zeiteinträge abschicken"
 
@@ -670,7 +685,7 @@ msgstr "Tabgetrennte Werte (.tsv, .txt)"
 msgid "Table"
 msgstr "Tabelle"
 
-#: lib/Hermes.php:438
+#: lib/Hermes.php:439
 msgid "The authentication information you specified wasn't accepted."
 msgstr "Die Anmeldedaten, die Sie angegeben haben, wurden nicht akzeptiert."
 
@@ -678,7 +693,7 @@ msgstr "Die Anmeldedaten, die Sie angegeben haben, wurden nicht akzeptiert."
 msgid "The client settings have been modified."
 msgstr "Die Kundeneinstellungen wurde geändert."
 
-#: lib/Hermes.php:431
+#: lib/Hermes.php:432
 msgid "The connection to the server has been restored."
 msgstr "Die Verbindung zum Server wurde wiederhergestellt."
 
@@ -733,7 +748,7 @@ msgstr "Es wurden keine Arbeitsarten konfiguriert."
 msgid "There are no job types to edit"
 msgstr "Es gibt keine Arbeitsarten, die bearbeitet werden können"
 
-#: lib/Hermes.php:430
+#: lib/Hermes.php:431
 msgid ""
 "There has been no contact with the server for several minutes. The server "
 "may be temporarily unavailable or network problems may be interrupting your "
@@ -792,11 +807,11 @@ msgstr "Dies ist kein gültiger Kunde."
 msgid "This is not a valid job type."
 msgstr "Dies ist keine gültige Arbeitsart."
 
-#: lib/Hermes.php:435
+#: lib/Hermes.php:436
 msgid "This is the notification backlog"
 msgstr "Hier werden alte Benachrichtigungen angezeigt"
 
-#: templates/index/timeedit.inc:5
+#: templates/index/timeedit.inc:6
 msgid "Time Entry"
 msgstr "Zeiteintrag"
 
@@ -804,15 +819,15 @@ msgstr "Zeiteintrag"
 msgid "Time Review Screen"
 msgstr "Überprüfung der Zeiteinträge"
 
-#: templates/index/index.inc:77
+#: templates/index/index.inc:79
 msgid "Time Summary"
 msgstr "Zeit-Übersicht"
 
-#: templates/index/index.inc:79
+#: templates/index/index.inc:81
 msgid "Today"
 msgstr "Heute"
 
-#: invoicing.php:39 templates/index/index.inc:84
+#: invoicing.php:39 templates/index/index.inc:86
 msgid "Total"
 msgstr "Insgesamt"
 
@@ -825,7 +840,7 @@ msgstr "Stunden gesamt"
 msgid "Total Hours for %s"
 msgstr "Stunden gesamt für %s"
 
-#: templates/index/timeedit.inc:52
+#: templates/index/timeedit.inc:53
 msgid "Unsubmitted Time"
 msgstr "Nicht abgeschickte Zeiteinträge"
 
@@ -879,7 +894,7 @@ msgstr "E_rgebnisse"
 msgid "_Invoicing"
 msgstr "_Rechnungswesen"
 
-#: templates/index/index.inc:30
+#: templates/index/index.inc:32
 msgid "_Logout"
 msgstr "Ab_melden"
 
@@ -895,7 +910,7 @@ msgstr "_Drucken"
 msgid "_Search"
 msgstr "_Suche"
 
-#: lib/Hermes.php:436
+#: lib/Hermes.php:437
 msgid "more..."
 msgstr "mehr..."
 
@@ -903,6 +918,6 @@ msgstr "mehr..."
 msgid "no client"
 msgstr "Kein Kunde"
 
-#: templates/index/timeedit.inc:48
+#: templates/index/timeedit.inc:49
 msgid "or"
 msgstr "oder"

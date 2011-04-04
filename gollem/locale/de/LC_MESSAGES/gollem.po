@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gollem 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
 "PO-Revision-Date: 2011-02-02 18:15+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -92,11 +92,11 @@ msgstr "Nachfragen"
 msgid "Attributes"
 msgstr "Attribute"
 
-#: lib/Application.php:71
+#: lib/Application.php:225
 msgid "Backends"
 msgstr "Backends"
 
-#: lib/Application.php:132
+#: lib/Application.php:286
 msgid "Backends that will not be displayed:"
 msgstr "Backends die nicht angezeigt werden:"
 
@@ -145,7 +145,7 @@ msgstr "Rechte Ändern"
 msgid "Change Server"
 msgstr "Server wechseln"
 
-#: lib/Application.php:155
+#: lib/Application.php:309
 msgid "Check Quota"
 msgstr "Speicherplatzkontingent überprüfen"
 
@@ -157,7 +157,7 @@ msgstr "_Alle/Keine auswählen"
 msgid "Chmod done: "
 msgstr "Zugriffsrechte geändert:"
 
-#: lib/Application.php:128
+#: lib/Application.php:282
 msgid "Choose which backends to display, and in what order:"
 msgstr ""
 "Wählen Sie aus, welche Backends in welcher Reihenfolge angezeigt werden "
@@ -464,7 +464,7 @@ msgstr "Speichern"
 msgid "Select All/None"
 msgstr "Alle/Keine auswählen"
 
-#: lib/Application.php:130
+#: lib/Application.php:284
 msgid "Select a backend:"
 msgstr "Backend auswählen:"
 
@@ -500,7 +500,7 @@ msgstr "Das Ursprungs-Fenster ist geschlossen worden. Abbruch."
 msgid "There are no files in this folder."
 msgstr "Dieses Verzeichnis ist leer."
 
-#: lib/Application.php:129
+#: lib/Application.php:283
 msgid "These backends will display in this order:"
 msgstr "Diese Backends werden in der folgenden Reihenfolge angezeigt:"
 
@@ -579,11 +579,11 @@ msgstr ""
 msgid "_Change Server"
 msgstr "Server _wechseln"
 
-#: lib/Application.php:143
+#: lib/Application.php:297
 msgid "_My Home"
 msgstr "_Meine Startseite"
 
-#: lib/Application.php:146
+#: lib/Application.php:300
 msgid "_Permissions"
 msgstr "_Rechte"
 

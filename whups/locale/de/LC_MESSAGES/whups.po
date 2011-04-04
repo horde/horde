@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
 "PO-Revision-Date: 2011-02-02 18:12+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
@@ -123,7 +123,7 @@ msgstr "Attribut hinzufügen"
 msgid "Add Attribute Criterion"
 msgstr "Attributkriterium hinzufügen"
 
-#: mybugs.php:53
+#: mybugs.php:51
 msgid "Add Content"
 msgstr "Inhalt hinzufügen"
 
@@ -210,7 +210,7 @@ msgstr "Und"
 msgid "Any"
 msgstr "Alle"
 
-#: ticket/queue.php:44 ticket/type.php:39
+#: ticket/queue.php:43 ticket/type.php:38
 msgid "Any Group"
 msgstr "Beliebige Gruppe"
 
@@ -610,7 +610,7 @@ msgstr "Anzeige-Einstellungen"
 msgid "Download"
 msgstr "Herunterladen"
 
-#: templates/view/results.inc:90
+#: templates/view/results.inc:91
 msgid "Download these results as: "
 msgstr "Diese Ergebnisse herunterladen als: "
 
@@ -960,7 +960,7 @@ msgstr "MM/TT/JJ HH:MM"
 msgid "Make a clone of %s"
 msgstr "Kopie von %s erstellen"
 
-#: lib/Forms/AddComment.php:37 lib/Forms/EditTicket.php:183
+#: lib/Forms/AddComment.php:36 lib/Forms/EditTicket.php:182
 msgid "Make this comment visible only to members of a group?"
 msgstr ""
 "Diesen Kommentar nur für Mitglieder einer bestimmten Gruppe sichtbar machen?"
@@ -993,12 +993,12 @@ msgstr "Kürzeste Zeit bis ein Ticket erledigt wurde"
 msgid "Most recent first"
 msgstr "Neueste zuerst"
 
-#: ticket/queue.php:185
+#: ticket/queue.php:184
 #, php-format
 msgid "Moved ticket %d to \"%s\""
 msgstr "Ticket %d nach \"%s\" verschoben"
 
-#: mybugs.php:52
+#: mybugs.php:50
 #, php-format
 msgid "My %s"
 msgstr "Meine %s"
@@ -1237,12 +1237,12 @@ msgid "Permanently delete entry?"
 msgstr "Kommentar endgültig löschen?"
 
 #: ticket/delete.php:48 ticket/delete_attachment.php:17
-#: ticket/delete_history.php:16 ticket/queue.php:136 ticket/type.php:72
+#: ticket/delete_history.php:16 ticket/queue.php:135 ticket/type.php:71
 #: ticket/update.php:19
 msgid "Permission Denied"
 msgstr "Zugriff verweigert"
 
-#: lib/Forms/EditTicket.php:213 ticket/delete.php:36
+#: lib/Forms/EditTicket.php:212 ticket/delete.php:36
 msgid "Permission Denied."
 msgstr "Zugriff verweigert."
 
@@ -1258,8 +1258,8 @@ msgstr "Prioritäten für diesen Typ"
 #: config/prefs.php:49 lib/Forms/CreateTicket.php:158
 #: lib/Forms/EditTicket.php:84 lib/Forms/Query.php:202
 #: lib/Renderer/Query.php:123 lib/Ticket.php:620 lib/Ticket.php:814
-#: lib/Ticket.php:956 lib/Whups.php:673 lib/Whups.php:682 ticket/queue.php:114
-#: ticket/type.php:63
+#: lib/Ticket.php:956 lib/Whups.php:673 lib/Whups.php:682 ticket/queue.php:113
+#: ticket/type.php:62
 msgid "Priority"
 msgstr "Priorität"
 
@@ -1347,7 +1347,7 @@ msgid "Queue Summary"
 msgstr "Warteschlangenbeschreibung"
 
 #: lib/Forms/CreateTicket.php:96 lib/Forms/EditTicket.php:74
-#: lib/Ticket.php:935 lib/Ticket.php:941 ticket/queue.php:83
+#: lib/Ticket.php:935 lib/Ticket.php:941 ticket/queue.php:82
 msgid "Queue Version"
 msgstr "Version"
 
@@ -1483,7 +1483,7 @@ msgstr "_Warteschlange festlegen"
 msgid "Sa_ve Query"
 msgstr "Abfrage s_peichern"
 
-#: lib/Forms/Query.php:389 templates/view/results.inc:96
+#: lib/Forms/Query.php:389 templates/view/results.inc:97
 msgid "Save"
 msgstr "Speichern"
 
@@ -1573,19 +1573,19 @@ msgstr "Standardpriorität festlegen"
 msgid "Set Default State"
 msgstr "Standardstatus festlegen"
 
-#: ticket/queue.php:205 ticket/queue.php:214 ticket/queue.php:226
+#: ticket/queue.php:204 ticket/queue.php:213 ticket/queue.php:225
 msgid "Set Queue - Step 1"
 msgstr "Warteschlange festlegen - Schritt 1"
 
-#: ticket/queue.php:206 ticket/queue.php:215
+#: ticket/queue.php:205 ticket/queue.php:214
 msgid "Set Queue - Step 2"
 msgstr "Warteschlange festlegen - Schritt 2"
 
-#: ticket/queue.php:216
+#: ticket/queue.php:215
 msgid "Set Queue - Step 3"
 msgstr "Warteschlange festlegen - Schritt 3"
 
-#: ticket/queue.php:193
+#: ticket/queue.php:192
 #, php-format
 msgid "Set Queue for %s"
 msgstr "Warteschlange für %s festlegen"
@@ -1594,15 +1594,15 @@ msgstr "Warteschlange für %s festlegen"
 msgid "Set Requester"
 msgstr "Anfrager festlegen"
 
-#: ticket/type.php:137 ticket/type.php:146
+#: ticket/type.php:136 ticket/type.php:145
 msgid "Set Type - Step 1"
 msgstr "Typ festlegen - Schritt 1"
 
-#: ticket/type.php:138
+#: ticket/type.php:137
 msgid "Set Type - Step 2"
 msgstr "Typ festlegen - Schritt 2"
 
-#: ticket/type.php:125
+#: ticket/type.php:124
 #, php-format
 msgid "Set Type for %s"
 msgstr "Typ für %s festlegen"
@@ -1644,15 +1644,15 @@ msgstr ""
 msgid "Sort by %s"
 msgstr "Sortieren nach %s"
 
-#: lib/Forms/AddComment.php:18 lib/Forms/AddComment.php:50
+#: lib/Forms/AddComment.php:18 lib/Forms/AddComment.php:49
 #: lib/Forms/CreateTicket.php:139 lib/Forms/CreateTicket.php:186
 msgid "Spam protection"
 msgstr "Spamschutz"
 
 #: config/prefs.php:47 lib/Forms/EditTicket.php:78 lib/Forms/Query.php:197
 #: lib/Renderer/Query.php:115 lib/Ticket.php:619 lib/Ticket.php:813
-#: lib/Ticket.php:952 lib/Whups.php:674 lib/Whups.php:680 ticket/queue.php:113
-#: ticket/type.php:62
+#: lib/Ticket.php:952 lib/Whups.php:674 lib/Whups.php:680 ticket/queue.php:112
+#: ticket/type.php:61
 msgid "State"
 msgstr "Status"
 
@@ -1697,7 +1697,7 @@ msgstr "Diese Abfrage abonnieren"
 msgid "Successfully Cloned %s to %s."
 msgstr "%s wurde erfolgreich nach %s kopiert."
 
-#: ticket/type.php:116
+#: ticket/type.php:115
 msgid "Successfully changed ticket type."
 msgstr "Tickettyp erfolgreich geändert."
 
@@ -2078,7 +2078,7 @@ msgstr "Beim Festlegen der Standard-Priorität ist ein Fehler aufgetreten:"
 msgid "There was an error setting the default state:"
 msgstr "Beim Festlegen des Standard-Status ist ein Fehler aufgetreten:"
 
-#: lib/Forms/AddComment.php:36 lib/Forms/EditTicket.php:182
+#: lib/Forms/AddComment.php:35 lib/Forms/EditTicket.php:181
 msgid "This comment is visible to everyone"
 msgstr "Dieser Kommentar ist für jedermann sichtbar"
 
@@ -2099,7 +2099,7 @@ msgid "This query element cannot be edited."
 msgstr "Diese Abfragekriterium kann nicht bearbeitet werden."
 
 #: lib/Forms/CreateTicket.php:91 lib/Forms/EditTicket.php:69
-#: ticket/queue.php:78
+#: ticket/queue.php:77
 msgid ""
 "This queue requires that you specify a version, but there are no versions "
 "associated with it. Until versions are created for this queue, you will not "
@@ -2153,7 +2153,7 @@ msgstr "Dieser Warteschlange zugehörige Tickettypen"
 msgid "Ticket URL: %s"
 msgstr "Ticket-URL: %s"
 
-#: ticket/update.php:94
+#: ticket/update.php:105
 msgid "Ticket Updated"
 msgstr "Ticket aktualisiert"
 
@@ -2168,7 +2168,7 @@ msgstr "Zur Abfrage \"%s\" passende Tickets."
 
 #: config/prefs.php:48 lib/Forms/Query.php:178 lib/Renderer/Query.php:106
 #: lib/Ticket.php:618 lib/Ticket.php:812 lib/Ticket.php:948 lib/Whups.php:681
-#: ticket/queue.php:86
+#: ticket/queue.php:85
 msgid "Type"
 msgstr "Typ"
 
@@ -2217,7 +2217,7 @@ msgstr "Unbekannter Knotentyp %s"
 msgid "Update"
 msgstr "Aktualisierung"
 
-#: ticket/update.php:108
+#: ticket/update.php:119
 #, php-format
 msgid "Update %s"
 msgstr "%s aktualisieren"
@@ -2283,7 +2283,7 @@ msgstr "Versionsbeschreibung"
 msgid "Version Name"
 msgstr "Versionsbezeichnung"
 
-#: ticket/queue.php:46 ticket/type.php:40
+#: ticket/queue.php:45 ticket/type.php:39
 msgid "Viewable only by members of"
 msgstr "Nur einsehbar für Mitglieder von"
 

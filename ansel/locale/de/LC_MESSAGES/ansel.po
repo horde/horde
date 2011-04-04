@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-03-15 13:44+0100\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"PO-Revision-Date: 2011-04-04 10:14+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -128,49 +128,46 @@ msgstr "Galerien von %s"
 msgid "%s: faces %s"
 msgstr "%s: %s Gesichter"
 
-#: lib/Image.php:1007
+#: lib/Image.php:1014
 #, php-format
 msgid "(c) %s %s"
 msgstr "(c) %s %s"
 
 #: scripts/ansel.php:310
-#, fuzzy
 msgid "-a, --add[=filename]          Add local file to selected gallery"
 msgstr ""
-"-a, --add[=dateiname]          Lokale Datei zur ausgewählten Galerie\n"
-"                               hinzufügen"
+"-a, --add[=dateiname]                      Lokale Datei zur ausgewählten "
+"Galerie\n"
+"                                           hinzufügen"
 
 #: scripts/ansel.php:308
-#, fuzzy
 msgid ""
 "-c, --create[=name/description/owner]\n"
 "      Create gallery (and use it)  Combined with -g to create a subgallery."
 msgstr ""
 "-c, --create[=name/beschreibung/besitzer]  Galerie erstellen (und "
 "benutzen).\n"
-"                                           Mit -g um Unter-Galerien zu\n"
-"                                           erstellen"
+"                                           Mit -g um Untergalerien zu "
+"erstellen."
 
 #: scripts/recursive_import.php:244
-#, fuzzy
 msgid ""
 "-d, --dir[=directory]           Recursively add all files from the "
 "directory, \n"
 "                                creating a gallery for each directory"
 msgstr ""
-"-d, --dir[=verzeichnis]        Rekursiv alle Dateien des Verzeichnisses\n"
-"                               hinzufügen und dabei Galerien für jedes\n"
-"                               Verzeichnis anlegen"
+"-d, --dir[=verzeichnis]         Rekursiv alle Dateien des Verzeichnisses\n"
+"                                hinzufügen und dabei Galerien für jedes\n"
+"                                Verzeichnis anlegen"
 
 #: scripts/ansel.php:311
-#, fuzzy
 msgid ""
 "-d, --dir[=directory]         Add all files from the directory to the "
 "selected gallery"
 msgstr ""
-"-d, --dir[=verzeichnis]        Alle Dateien des Verzeichnisses zur "
-"ausgewählten\n"
-"                               Galerie hinzufügen"
+"-d, --dir[=verzeichnis]                    Alle Dateien des Verzeichnisses "
+"zur\n"
+"                                           ausgewählten Galerie hinzufügen"
 
 #: scripts/remote_import.php:310
 msgid ""
@@ -178,9 +175,9 @@ msgid ""
 "creating\n"
 "                             a gallery for each directory"
 msgstr ""
-"-d, --dir[=verzeichnis]        Rekursiv alle Dateien des Verzeichnisses\n"
-"                               hinzufügen und dabei Galerien für jedes\n"
-"                               Verzeichnis anlegen"
+"-d, --dir[=verzeichnis]         Rekursiv alle Dateien des Verzeichnisses\n"
+"                                hinzufügen und dabei Galerien für jedes\n"
+"                                Verzeichnis anlegen"
 
 #: scripts/all_images_exif_to_tags.php:100
 msgid ""
@@ -200,53 +197,47 @@ msgstr ""
 "                             hinzugefügt werden soll"
 
 #: scripts/ansel.php:309
-#, fuzzy
 msgid "-g, --gallery[=shortname]     Select gallery to use"
-msgstr "-g, --gallery[=kurzname]       Zu benutzende Galerie auswählen"
+msgstr ""
+"-g, --gallery[=kurzname]                   Zu benutzende Galerie auswählen"
 
 #: scripts/recursive_import.php:243
-#, fuzzy
 msgid "-h, --help                      Show this help"
-msgstr "-h, --help                     Diese Hilfe anzeigen"
+msgstr "-h, --help                      Diese Hilfe anzeigen"
 
 #: scripts/ansel.php:306
-#, fuzzy
 msgid "-h, --help                    Show this help"
-msgstr "-h, --help                     Diese Hilfe anzeigen"
+msgstr "-h, --help                                 Diese Hilfe anzeigen"
 
 #: scripts/all_images_exif_to_tags.php:97 scripts/remote_import.php:309
 msgid "-h, --help                   Show this help"
 msgstr "-h, --help                     Diese Hilfe anzeigen"
 
 #: scripts/recursive_import.php:248
-#, fuzzy
 msgid ""
 "-k, --keep                      Do not delete empty galleries after import "
 "is complete."
 msgstr ""
-"-k, --keep                   Leere Galerien nach dem Import nicht löschen."
+"-k, --keep                      Leere Galerien nach dem Import nicht löschen."
 
 #: scripts/ansel.php:307
-#, fuzzy
 msgid ""
 "-l, --list                    List galleries or photos (if combined with -g)"
 msgstr ""
-"-l, --list                     Galerien oder Fotos (wenn mit -g kombiniert)\n"
-"                               anzeigen"
+"-l, --list                                 Galerien oder Fotos (wenn mit -g\n"
+"                                           kombiniert) anzeigen"
 
 #: scripts/recursive_import.php:247
 msgid "-o, --order=<name|date|random>  Sorting order criteria"
-msgstr ""
+msgstr "-o, --order=<name|date|random>  Sortierkriterium"
 
 #: scripts/recursive_import.php:246
-#, fuzzy
 msgid "-p, --password[=password]       Horde login password"
-msgstr "-p, --password[=passwort]      Horde-Passwort"
+msgstr "-p, --password[=passwort]       Horde-Passwort"
 
 #: scripts/ansel.php:313
-#, fuzzy
 msgid "-p, --password[=password]     Horde login password"
-msgstr "-p, --password[=passwort]      Horde-Passwort"
+msgstr "-p, --password[=passwort]                  Horde-Passwort"
 
 #: scripts/all_images_exif_to_tags.php:99 scripts/remote_import.php:312
 msgid "-p, --password[=password]    Horde login password"
@@ -263,6 +254,15 @@ msgid ""
 "run as root or another system user with enough permissions to the VFS to "
 "delete."
 msgstr ""
+"-r, --reset[=[thumbs|stacks]]              Automatisch erzeugte Bilder\n"
+"                                           zurücksetzen, optional "
+"beschränkt\n"
+"                                           auf einen bestimmten Typ. Das "
+"Skript\n"
+"                                           muss als root oder ein anderer\n"
+"                                           Benutzer ausgeführt werden, der\n"
+"                                           genügend Rechte hat, um im VFS\n"
+"                                           Dateien zu löschen.\n"
 
 #: scripts/remote_import.php:314
 msgid ""
@@ -272,20 +272,19 @@ msgstr ""
 "                             Verzeichnisinhalt hinzugefügt werden soll."
 
 #: scripts/ansel.php:314
-#, fuzzy
 msgid "-t, --caption[=caption]       Caption for photo (if combined with -a)"
 msgstr ""
-"-t, --caption[=unterschrift]   Fotounterschrift (in Kombination mit -a)"
+"-t, --caption[=unterschrift]               Fotounterschrift (in Kombination "
+"mit\n"
+"                                           -a)"
 
 #: scripts/recursive_import.php:245
-#, fuzzy
 msgid "-u, --username[=username]       Horde login username"
-msgstr "-u, --username[=benutzername]  Horde-Benutzername"
+msgstr "-u, --username[=benutzername]   Horde-Benutzername"
 
 #: scripts/ansel.php:312
-#, fuzzy
 msgid "-u, --username[=username]     Horde login username"
-msgstr "-u, --username[=benutzername]  Horde-Benutzername"
+msgstr "-u, --username[=benutzername]              Horde-Benutzername"
 
 #: scripts/all_images_exif_to_tags.php:98 scripts/remote_import.php:311
 msgid "-u, --username[=username]    Horde login username"
@@ -323,7 +322,7 @@ msgstr "Zugriff verweigert beim Hinzufügen der Fotos zu \"%s\"."
 msgid "Access denied adding tags to this gallery."
 msgstr "Zugriff verweigert beim Hinzufügen von Tags zu dieser Galerie."
 
-#: lib/Image.php:1137
+#: lib/Image.php:1144
 msgid "Access denied adding tags to this photo."
 msgstr "Zugriff verweigert beim Hinzufügen von Tags zu diesem Foto."
 
@@ -355,7 +354,7 @@ msgstr "Zugriff verweigert beim Löschen der Fotos aus \"%s\"."
 msgid "Access denied downloading full sized photos from \"%s\"."
 msgstr "Zugriff verweigert beim Herunterladen der Originalfotos von \"%s\"."
 
-#: gallery.php:40 image.php:691 lib/Image.php:841
+#: gallery.php:40 image.php:691 lib/Image.php:848
 #, php-format
 msgid "Access denied downloading photos from \"%s\"."
 msgstr "Zugriff verweigert beim Herunterladen der Fotos von \"%s\"."
@@ -409,7 +408,7 @@ msgid "Access denied viewing this gallery."
 msgstr "Zugriff auf diese Galerie verweigert."
 
 #: img/download.php:17 img/full.php:17 img/index.php:17 img/mini.php:17
-#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1117
+#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1124
 msgid "Access denied viewing this photo."
 msgstr "Zugriff auf dieses Foto verweigert."
 
@@ -430,9 +429,8 @@ msgid "Add Content"
 msgstr "Inhalt hinzufügen"
 
 #: lib/View/Upload.php:61
-#, fuzzy
 msgid "Add Images"
-msgstr "Bild hinzufügen"
+msgstr "Bilder hinzufügen"
 
 #: img/upload.php:43
 msgid "Add Photo"
@@ -445,6 +443,7 @@ msgstr "Ein Gesicht manuell hinzufügen"
 #: lib/View/Upload.php:64
 msgid "Add files to the upload queue and click the start button."
 msgstr ""
+"Fügen Sie Dateien zur Uploadliste hinzu und klicken Sie auf den Start-Knopf."
 
 #: lib/Widget/Actions.php:134
 msgid "Add to bookmarks"
@@ -2234,12 +2233,12 @@ msgstr "Das Datum von %d Fotos wurde erfolgreich aktualisiert."
 #: scripts/ansel.php:131
 #, php-format
 msgid "Successfully reset image cache for gallery: %d"
-msgstr "Bildercache für die Galerie zurückgesetzt: %s"
+msgstr "Bildercache für die Galerie zurückgesetzt: %d"
 
 #: scripts/ansel.php:126
 #, php-format
 msgid "Successfully reset stack cache for gallery: %d"
-msgstr "Stapelcache für die Galerie zurückgesetzt: %s"
+msgstr "Stapelcache für die Galerie zurückgesetzt: %d"
 
 #: lib/Ansel.php:542
 msgid "System Galleries"

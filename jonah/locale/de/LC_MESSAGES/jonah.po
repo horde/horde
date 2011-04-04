@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jonah 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
 "PO-Revision-Date: 2011-02-02 17:34+0100\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -27,31 +27,31 @@ msgstr " - Am häufigsten gelesene Beiträge"
 msgid "\"%s\" stories in HTML"
 msgstr "\"%s\"-Beiträge als HTML"
 
-#: lib/Driver.php:246
+#: lib/Driver.php:248
 msgid "1 hour"
 msgstr "1 Stunde"
 
-#: lib/Driver.php:250
+#: lib/Driver.php:252
 msgid "12 hours"
 msgstr "12 Stunden"
 
-#: lib/Driver.php:247
+#: lib/Driver.php:249
 msgid "2 hours"
 msgstr "2 Stunden"
 
-#: lib/Driver.php:251
+#: lib/Driver.php:253
 msgid "24 hours"
 msgstr "24 Stunden"
 
-#: lib/Driver.php:245
+#: lib/Driver.php:247
 msgid "30 mins"
 msgstr "30 Minuten"
 
-#: lib/Driver.php:248
+#: lib/Driver.php:250
 msgid "4 hours"
 msgstr "4 Stunden"
 
-#: lib/Driver.php:249
+#: lib/Driver.php:251
 msgid "8 hours"
 msgstr "8 Stunden"
 
@@ -237,7 +237,7 @@ msgstr "Vollständiger Beitragstext"
 msgid "HTML Delivery for \"%s\""
 msgstr "HTML-Auslieferung für \"%s\""
 
-#: lib/Driver.php:418
+#: lib/Driver.php:420
 msgid "HTML Version of Story"
 msgstr "HTML-Version des Beitrags"
 
@@ -360,7 +360,7 @@ msgstr "Keine Feeds verfügbar."
 msgid "No feeds match"
 msgstr "Keine Treffer"
 
-#: lib/Driver.php:307
+#: lib/Driver.php:309
 msgid "No stories are currently available."
 msgstr "Zur Zeit sind keine Beiträge verfügbar."
 
@@ -405,7 +405,7 @@ msgstr "Parsen fehlgeschlagen:"
 msgid "Parse succeeded, structure is:"
 msgstr "Parsen erfolgreich, Struktur ist:"
 
-#: lib/Driver.php:413
+#: lib/Driver.php:415
 msgid "Plaintext Version of Story"
 msgstr "Textversion des Beitrags"
 
@@ -487,7 +487,7 @@ msgstr ""
 msgid "Standard"
 msgstr "Standard"
 
-#: delivery/rss.php:73
+#: delivery/rss.php:68
 #, php-format
 msgid "Stories tagged with %s in %s"
 msgstr "Mit %s getaggte Beiträge in %s"
@@ -544,8 +544,8 @@ msgstr "Betreff"
 msgid "Tag Cloud"
 msgstr "Tagwolke"
 
-#: lib/Driver.php:446 lib/Driver.php:451 lib/Driver.php:456 lib/Driver.php:462
-#: lib/Driver.php:467
+#: lib/Driver.php:448 lib/Driver.php:453 lib/Driver.php:458 lib/Driver.php:464
+#: lib/Driver.php:469
 msgid "Tag support not enabled in backend."
 msgstr "Tags sind für dieses Backend nicht aktiviert."
 
@@ -632,7 +632,7 @@ msgstr "Der Beitrag konnte nicht versendet werden: %s"
 msgid "View"
 msgstr "Anzeigen"
 
-#: channels/index.php:18 lib/View/ChannelDelete.php:47
+#: channels/index.php:18 lib/Api.php:111 lib/View/ChannelDelete.php:47
 #: lib/View/ChannelEdit.php:41 lib/View/StoryDelete.php:39
 #: lib/View/StoryEdit.php:46 lib/View/StoryList.php:32
 #: lib/View/TagSearchList.php:34
@@ -647,6 +647,6 @@ msgstr "_Feeds"
 msgid "_New Story"
 msgstr "_Neuer Beitrag"
 
-#: lib/Driver.php:244
+#: lib/Driver.php:246
 msgid "none"
 msgstr "keines"

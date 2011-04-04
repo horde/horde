@@ -1,14 +1,14 @@
 # German translations for Horde_Net_IMSP module.
-# Copyright (C) 2010 Horde Project
+# Copyright (C) 2010-2011 Horde Project
 # This file is distributed under the same license as the Horde_Net_IMSP module.
-# Automatically generated, 2010.
+# Jan Schneider <jan@horde.org>, 2010-2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Net_IMSP\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"PO-Revision-Date: 2011-04-04 10:35+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -17,11 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: IMSP/Book.php:1296
-msgid "The IMSP log could not be initialized."
-msgstr "Die IMSP-Logdatei konnte nicht erstellt werden."
-
-#: IMSP.php:446 IMSP/Auth.php:121
-#, php-format
-msgid "Unable to load the definition of %s."
-msgstr "Der %s-Treiber konnte nicht geladen werden."
+#: lib/Horde/Imsp/Client/Socket.php:161
+msgid "Connection timed out!"
+msgstr "Zeitüberschreitung der Verbindung!"

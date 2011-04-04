@@ -1,14 +1,14 @@
 # German translation for Mnemo.
 # Copyright 2002-2011 The Horde Project
 # This file is distributed under the same license as the Mnemo package.
-# Jan Schneider <jan@horde.org>, 2001-2010.
+# Jan Schneider <jan@horde.org>, 2001-2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-02-02 18:28+0100\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"PO-Revision-Date: 2011-04-04 10:33+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
 "Language: de\n"
@@ -48,7 +48,7 @@ msgstr "Beim Anzeigen von %s ein Fehler aufgetreten"
 msgid "An error occurred displaying the note"
 msgstr "Beim Anzeigen der Notiz ist ein Fehler aufgetreten"
 
-#: config/prefs.php:62
+#: config/prefs.php:63
 msgid "Ascending"
 msgstr "Aufsteigend"
 
@@ -101,6 +101,10 @@ msgstr "Neuen Notizblock erstellen"
 msgid "Created"
 msgstr "Erstellt"
 
+#: templates/list/memo_headers.inc:40
+msgid "Date"
+msgstr "Datum"
+
 #: templates/memo/memo.inc:23 templates/view/memo.inc:54
 msgid "Decrypt"
 msgstr "Entschlüsseln"
@@ -109,11 +113,11 @@ msgstr "Entschlüsseln"
 msgid "Default Notepad"
 msgstr "Standard-Notizblock"
 
-#: config/prefs.php:54
+#: config/prefs.php:55
 msgid "Default sorting criteria:"
 msgstr "Sortierreihenfolge:"
 
-#: config/prefs.php:65
+#: config/prefs.php:66
 msgid "Default sorting direction:"
 msgstr "Sortierrichtung:"
 
@@ -139,7 +143,7 @@ msgstr "Verhalten beim Löschen."
 msgid "Delete this note"
 msgstr "Diese Notiz löschen"
 
-#: config/prefs.php:63
+#: config/prefs.php:64
 msgid "Descending"
 msgstr "Absteigend"
 
@@ -151,7 +155,7 @@ msgstr "Beschreibung"
 msgid "Display Preferences"
 msgstr "Anzeige-Einstellungen"
 
-#: config/prefs.php:95
+#: config/prefs.php:96
 msgid "Do you want to confirm deleting entries?"
 msgstr "Möchten Sie das Löschen von Einträgen bestätigen?"
 
@@ -175,7 +179,7 @@ msgstr "%s bearbeiten"
 msgid "Edit Note"
 msgstr "Notiz bearbeiten"
 
-#: templates/list/memo_headers.inc:45
+#: templates/list/memo_headers.inc:48
 msgid "Edit categories and colors"
 msgstr "Kategorien und Farben bearbeiten"
 
@@ -188,7 +192,7 @@ msgstr "Bearbeiten: %s"
 msgid "Empty Note"
 msgstr "Leere Notiz"
 
-#: lib/Driver.php:86
+#: lib/Driver.php:85
 msgid ""
 "Encryption support has not been configured, please contact your "
 "administrator."
@@ -236,6 +240,10 @@ msgstr "Maximale Anzahl an Notizen"
 #: data.php:48
 msgid "Memo Text"
 msgstr "Notizentext"
+
+#: config/prefs.php:53
+msgid "Modification Date"
+msgstr "Änderungsdatum"
 
 #: templates/list/header.inc:9
 msgid "More Options..."
@@ -290,7 +298,7 @@ msgstr "Keine Notizen"
 msgid "No_te"
 msgstr "No_tiz"
 
-#: lib/Driver/Kolab.php:68 lib/Driver/Sql.php:72
+#: lib/Driver/Kolab.php:97 lib/Driver/Sql.php:80
 msgid "Not Found"
 msgstr "Nicht gefunden"
 
@@ -327,7 +335,7 @@ msgstr "Notizblock"
 msgid "Notepad List"
 msgstr "Notizblockübersicht"
 
-#: lib/Mnemo.php:444
+#: lib/Mnemo.php:522
 #, php-format
 msgid "Notepad of %s"
 msgstr "Notizblock von %s"
@@ -427,9 +435,13 @@ msgstr "Notizen dieser Kategorien anzeigen"
 msgid "Show this note"
 msgstr "Diese Notiz anzeigen"
 
-#: templates/list/memo_headers.inc:41
+#: templates/list/memo_headers.inc:44
 msgid "Sort by Category"
 msgstr "Sortieren nach Kategorie"
+
+#: templates/list/memo_headers.inc:40
+msgid "Sort by Modification Date"
+msgstr "Sortieren nach Änderungsdatum"
 
 #: templates/list/memo_headers.inc:37
 msgid "Sort by Note Text"
@@ -533,12 +545,12 @@ msgid "This note has been encrypted, please provide the password below"
 msgstr ""
 "Diese Notiz wurde verschlüsselt, bitte geben Sie unten das Passwort ein"
 
-#: lib/Api.php:280 lib/Driver/Kolab.php:281 lib/Driver/Sql.php:336
+#: lib/Api.php:280 lib/Driver/Kolab.php:281 lib/Driver/Sql.php:344
 msgid "This note has been encrypted."
 msgstr "Diese Notiz wurde verschlüsselt."
 
-#: lib/Block/Summary.php:116 lib/Mnemo.php:260 lib/Mnemo.php:261
-#: lib/Mnemo.php:275 lib/Mnemo.php:276 templates/list/memo_summaries.inc:17
+#: lib/Block/Summary.php:116 lib/Mnemo.php:267 lib/Mnemo.php:268
+#: lib/Mnemo.php:282 lib/Mnemo.php:283 templates/list/memo_summaries.inc:20
 #: templates/view/memo.inc:27
 msgid "Unfiled"
 msgstr "Nicht zugeordnet"
@@ -578,7 +590,7 @@ msgstr "Sie haben nicht genügend Rechte, um diese Notiz zu bearbeiten."
 msgid "You do not have permission to view the notepad %s."
 msgstr "Sie haben nicht genügend Rechte, um den Notizblock %s anzuzeigen."
 
-#: config/prefs.php:83
+#: config/prefs.php:84
 msgid "Your default notepad:"
 msgstr "Ihr Standard-Notizblock:"
 
@@ -590,7 +602,7 @@ msgstr "[Notizblöcke verwalten]"
 msgid "_Body"
 msgstr "_Text"
 
-#: templates/list/memo_headers.inc:41
+#: templates/list/memo_headers.inc:44
 msgid "_Category"
 msgstr "_Kategorie"
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Chora 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
 "PO-Revision-Date: 2011-02-02 18:08+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -34,7 +34,7 @@ msgstr ""
 msgid "%s Revision %s (%s ago)"
 msgstr "%s Version %s (vor %s)"
 
-#: lib/Application.php:171
+#: lib/Application.php:169
 #, php-format
 msgid "%s: Forbidden by server configuration"
 msgstr "%s: Zugriff per Serverkonfiguration verweigert"
@@ -228,7 +228,7 @@ msgstr "Geändert"
 msgid "No commit ID given"
 msgstr "Keine Commit-ID angegeben"
 
-#: lib/Application.php:114
+#: lib/Application.php:112
 msgid "No repositories found."
 msgstr "Keine Repositories gefunden."
 
@@ -252,7 +252,7 @@ msgstr "Vorige"
 msgid "Removed"
 msgstr "Entfernt"
 
-#: lib/Application.php:181
+#: lib/Application.php:179
 msgid "Repositories"
 msgstr "Repositories"
 
@@ -313,7 +313,7 @@ msgstr "Quell-Kommentar von %s (Version %s)"
 msgid "Source Branching View for %s"
 msgstr "Branch Ansicht für %s"
 
-#: lib/Application.php:167
+#: lib/Application.php:165
 msgid ""
 "Sourceroot not found. This could be a misconfiguration by the server "
 "administrator, or the server could be having temporary problems. Please try "
@@ -336,7 +336,7 @@ msgstr "Statistik für %s"
 msgid "Tags"
 msgstr "Tags"
 
-#: lib/Application.php:120
+#: lib/Application.php:118
 #, php-format
 msgid "The repository with the slug '%s' was not found"
 msgstr "Repository mit dem Kurznamen '%s' nicht gefunden"
@@ -387,7 +387,7 @@ msgstr "_Autor"
 msgid "_Branches"
 msgstr "_Branches"
 
-#: lib/Application.php:200
+#: lib/Application.php:198
 msgid "_Browse"
 msgstr "_Liste"
 
