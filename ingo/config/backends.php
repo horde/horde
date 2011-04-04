@@ -215,7 +215,7 @@ $backends['sieve'] = array(
         // Enable/disable TLS encryption
         'usetls' => true,
         // Port number of the timsieved server
-        'port' => 2000,
+        'port' => 4190,
         // Name of the sieve script
         'scriptname' => 'ingo',
         // The following settings can be used to specify an administration
@@ -252,7 +252,7 @@ $backends['sivtest'] = array(
         // Enable/disable TLS encryption
         'usetls' => true,
         // Port number of the timsieved server
-        'port' => 2000,
+        'port' => 4190,
         // Name of the sieve script
         'scriptname' => 'ingo',
         // Location of sivtest

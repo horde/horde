@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* [jan] Change default Sieve port to 4190 (Request #9791).
 * [jan] Fix reading default forward rule from preferences.
 * [jan] Fix removing flags with Sieve driver (Vilius Sumskas &lt;vilius@lnk.lt&gt;, Bug #9785).
 * [mjr] Datatree share to SQL upgrade script refactored for Horde 4.
@@ -896,6 +897,7 @@
    <date>2011-03-31</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
+* [jan] Change default Sieve port to 4190 (Request #9791).
 * [jan] Fix reading default forward rule from preferences.
 * [jan] Fix removing flags with Sieve driver (Vilius Sumskas &lt;vilius@lnk.lt&gt;, Bug #9785).
 * [mjr] Datatree share to SQL upgrade script refactored for Horde 4.

@@ -22,12 +22,26 @@ Upgrading Ingo From 1.x To 2.x
 ==============================
 
 
+Sieve Backend
+-------------
+
+The port number for the timesieved daemon has been changed to the official
+Sieve port 4190 in the default configuration. If your timesieved daemon is
+still running on the former default port 2000, or any other port than 4190, you
+need to create a ``config/backends.local.php`` file with the following
+content::
+
+   <?php
+   $backends['sieve']['params']['port'] = 2000;
+   $backends['sivtest']['params']['port'] = 2000;
+
+
 Configuration Options
 ---------------------
 
 The following configuration options have been removed:
 
-    usefolderapi
+   usefolderapi
 
 
 Upgrading Ingo From 1.2.1 To 1.2.2
