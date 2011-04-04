@@ -40,6 +40,9 @@ class Jonah
     const ORDER_READ = 1;
     const ORDER_COMMENTS = 2;
 
+    /** The event can be delegated. */
+    const PERMS_DELEGATE = 1024;
+
     /**
      * Obtain the list of stories from the passed in URI.
      *
