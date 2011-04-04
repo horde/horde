@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix folder actions in standard view in IE 7/8 (Bug #9801).
 * [jan] Fix application-specific permission checks (Bug #9786).
 * [mms] Fix printing of message parts in IE, regardless of local user settings (Bug #9756).
 * [mms] Fix IMP_Maillog regression from RC2 (Bug #9763).

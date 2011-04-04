@@ -197,6 +197,9 @@ var ImpFolders = {
 
     onDomLoad: function()
     {
+        // Observe actual form element since IE does not bubble change events.
+        $('action_choose0', 'action_choose1').invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
+
         if (this.mbox_expand) {
             $('fmanager').observe('Horde_Tree:collapse', this.toggleSubfolder.bindAsEventListener(this, 'collapse'));
             $('fmanager').observe('Horde_Tree:expand', this.toggleSubfolder.bindAsEventListener(this, 'expand'));
@@ -205,6 +208,5 @@ var ImpFolders = {
 
 };
 
-document.observe('change', ImpFolders.changeHandler.bind(ImpFolders));
 document.observe('click', ImpFolders.clickHandler.bind(ImpFolders));
 document.observe('dom:loaded', ImpFolders.onDomLoad.bind(ImpFolders));
