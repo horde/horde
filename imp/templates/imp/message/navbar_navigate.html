@@ -4,7 +4,6 @@
 <if:readonly><else:readonly>
 <if:usepop><else:usepop>
    <div class="leftFloat">
-    <form id="select<tag:id />">
     <input type="hidden" name="mailbox" value="<tag:mailbox />" />
     <label for="flag<tag:id />" class="hidden"><gettext>Mark Message</gettext></label>
     <select id="flag<tag:id />" name="flag">
@@ -20,7 +19,6 @@
      <option value="<tag:flaglist_unset.f />">&nbsp;&nbsp;<tag:flaglist_unset.l /></option>
 </loop:flaglist_unset>
     </select>
-    </form>
    </div>
 <if:move>
    <div class="leftFloat msgActions">
