@@ -2057,11 +2057,11 @@ var DimpBase = {
                 if (h != pp.scrollHeight) {
                     switch (kc) {
                     case Event.KEY_PAGEUP:
-                        pp.scrollTop = Math.max(pp.scrollTop - h, 0);
+                        pp.scrollTop = Math.max(pp.scrollTop - h + 20, 0);
                         break;
 
                     case Event.KEY_PAGEDOWN:
-                        pp.scrollTop = Math.min(pp.scrollTop + h, pp.scrollHeight - h + 1);
+                        pp.scrollTop = Math.min(pp.scrollTop + h - 20, pp.scrollHeight - h + 1);
                         break;
                     }
                 }
