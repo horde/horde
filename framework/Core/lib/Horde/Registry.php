@@ -1321,6 +1321,11 @@ class Horde_Registry
             }
         }
 
+        /* Call post-push hook. */
+        try {
+            Horde::callHook('pushapp_post', array(), $app);
+        } catch (Exception $e) {}
+
         /* Do login tasks. */
         if ($checkPerms &&
             ($tasks = $GLOBALS['injector']->getInstance('Horde_Core_Factory_LoginTasks')->create($app)) &&

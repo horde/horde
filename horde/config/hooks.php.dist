@@ -110,11 +110,25 @@
  *   [throw Horde_Auth_Exception] - Fatal error.
  *   (string) - The converted username.
  *
+ *
+ * Application Switching Hooks
+ * ===========================
+ * These hooks are called every time an application is switched to.
+ * They may be called MULTIPLE times per page access.
+ * Actions that only need to be done once per login should use the
+ * postauthenticate hook instead.
+ *
  * pushapp
  * -------
- * This hook is used to do any local processing necessary to initialize an
- * application. It is passed no parameters and expects no return value.
- * Any Exception thrown in this method will cause a fatal error.
+ * This hook is called before an application is switched to.
+ * It is passed no parameters and expects no return value.
+ * Any Exception thrown in this hook will cause a fatal error.
+
+ * pushapp_post
+ * ------------
+ * This hook is called before an application is successfully switched to.
+ * It is passed no parameters and expects no return value.
+ * Any Exception thrown in this hook is ignored.
  *
  *
  * AJAX Hooks
@@ -436,10 +450,18 @@ class Horde_Hooks
 //    }
 
 
-//    // POST-PUSH HOOK: See above for format.
+//    // PRE-PUSH HOOK: See above for format.
 //    public function pushapp()
 //    {
-//        // Code to run when the app is switched to horde
+//        // Code to run immediately before the app is switched to horde
+//    }
+
+
+//    // POST-PUSH HOOK: See above for format.
+//    public function pushapp_post()
+//    {
+//        // Code to run immediately after the app is successfully switched to
+//        // horde
 //    }
 
 

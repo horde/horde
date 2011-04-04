@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mms] Add pushapp_post hook.
 * [jan] Fix application-specific permission checks (Bug #9786).
 * [jan] Fix resetting passwords (Vilius Sumskas &lt;vilius@lnk.lt&gt;, Bug #9800).
 * [jan] Delete object mappings too when deleting SyncML anchors (Request #9377).
