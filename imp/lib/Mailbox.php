@@ -336,7 +336,8 @@ class IMP_Mailbox implements Serializable
             return $info;
 
         case 'polled':
-            return $injector->getInstance('IMP_Imap_Tree')->isPolled($this->_mbox);
+            return !$this->search &&
+                   $injector->getInstance('IMP_Imap_Tree')->isPolled($this->_mbox);
 
         case 'pref_from':
             return $this->prefFrom($this->_mbox);

@@ -1849,20 +1849,18 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     static public function pollEntry($mbox = null)
     {
-        $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-
         if (is_null($mbox)) {
             $result = array();
-            foreach ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->statusMultiple($imaptree->getPollList(), Horde_Imap_Client::STATUS_UNSEEN) as $key => $val) {
+            foreach ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->statusMultiple($GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getPollList(), Horde_Imap_Client::STATUS_UNSEEN) as $key => $val) {
                 $result[$key] = intval($val['unseen']);
             }
             return $result;
         }
 
-        $mbox = strval($mbox);
+        $mbox = IMP_Mailbox::get($mbox);
 
-        return $imaptree[$mbox]->polled
-            ? array($mbox => $imaptree[$mbox]->poll_info->unseen)
+        return $mbox->polled
+            ? array(strval($mbox) => $mbox->poll_info->unseen)
             : array();
     }
 
