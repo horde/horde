@@ -4396,7 +4396,11 @@ KronolithCore = {
             switch (elt.className) {
             case 'kronolithDateChoice':
             case 'kronolithGotoToday':
-                this.go(this.view + ':' + new Date().dateString());
+                var view = this.view;
+                if (!$w('day week month year agenda').include(view)) {
+                    view = Kronolith.conf.login_view;
+                }
+                this.go(view + ':' + new Date().dateString());
                 e.stop();
                 return;
 
