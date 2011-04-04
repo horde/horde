@@ -98,10 +98,7 @@ class Ingo_Script_Maildrop_Recipe
             break;
 
         case Ingo_Storage::ACTION_VACATION:
-            $from = '';
-            foreach ($params['action-value']['addresses'] as $address) {
-                $from = $address;
-            }
+            $from = reset($params['action-value']['addresses']);
 
             /* @TODO Exclusion and listfilter */
             $exclude = '';
@@ -152,7 +149,13 @@ class Ingo_Script_Maildrop_Recipe
                 $this->_action[] = '        ($current_time <= ' . $end . ')) ';
                 $this->_action[] = '      {';
             }
-            $this->_action[] = "  cc \"| mailbot -D " . $params['action-value']['days'] . " -c '" . $scriptparams['charset'] . "' -t \$HOME/vacation.msg -d \$HOME/vacation -A 'From: $from' -s '" . Horde_Mime::encode($params['action-value']['subject'], $scriptparams['charset'])  . "' /usr/sbin/sendmail -t \"";
+            $this->_action[] = '  cc "' . str_replace('"', '\\"', sprintf(
+                '| mailbot -D %d -c \'%s\' -t $HOME/vacation.msg -d $HOME/vacation -A %s -s %s /usr/sbin/sendmail -t',
+                $params['action-value']['days'],
+                $scriptparams['charset'],
+                escapeshellarg('From: ' . $from),
+                escapeshellarg(Horde_Mime::encode($params['action-value']['subject'], $scriptparams['charset']))))
+                . '"';
             if (($start != 0) && ($end !== 0)) {
                 $this->_action[] = '      }';
                 $this->_action[] = '  }';

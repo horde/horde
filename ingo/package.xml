@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* [jan] Correctly escape vacation subjects with quote characters in Maildrop driver (Bug #9156).
 * [jan] Catch all PEAR errors in Sieve driver.
 * [jan] Allow script drivers to provide additional scripts to upload (Bug #8110).
 * [jan] Change default Sieve port to 4190 (Request #9791).
@@ -899,6 +900,7 @@
    <date>2011-03-31</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
+* [jan] Correctly escape vacation subjects with quote characters in Maildrop driver (Bug #9156).
 * [jan] Catch all PEAR errors in Sieve driver.
 * [jan] Allow script drivers to provide additional scripts to upload (Bug #8110).
 * [jan] Change default Sieve port to 4190 (Request #9791).
