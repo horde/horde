@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Mnemo H4 (3.0-git)\n"
+"Project-Id-Version: Mnemo H4 (3.0)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,7 +49,7 @@ msgstr ""
 msgid "An error occurred displaying the note"
 msgstr ""
 
-#: config/prefs.php:62
+#: config/prefs.php:63
 msgid "Ascending"
 msgstr ""
 
@@ -102,6 +102,10 @@ msgstr ""
 msgid "Created"
 msgstr ""
 
+#: templates/list/memo_headers.inc:40
+msgid "Date"
+msgstr ""
+
 #: templates/memo/memo.inc:23 templates/view/memo.inc:54
 msgid "Decrypt"
 msgstr ""
@@ -110,11 +114,11 @@ msgstr ""
 msgid "Default Notepad"
 msgstr ""
 
-#: config/prefs.php:54
+#: config/prefs.php:55
 msgid "Default sorting criteria:"
 msgstr ""
 
-#: config/prefs.php:65
+#: config/prefs.php:66
 msgid "Default sorting direction:"
 msgstr ""
 
@@ -140,7 +144,7 @@ msgstr ""
 msgid "Delete this note"
 msgstr ""
 
-#: config/prefs.php:63
+#: config/prefs.php:64
 msgid "Descending"
 msgstr ""
 
@@ -152,7 +156,7 @@ msgstr ""
 msgid "Display Preferences"
 msgstr ""
 
-#: config/prefs.php:95
+#: config/prefs.php:96
 msgid "Do you want to confirm deleting entries?"
 msgstr ""
 
@@ -176,7 +180,7 @@ msgstr ""
 msgid "Edit Note"
 msgstr ""
 
-#: templates/list/memo_headers.inc:45
+#: templates/list/memo_headers.inc:48
 msgid "Edit categories and colors"
 msgstr ""
 
@@ -189,7 +193,7 @@ msgstr ""
 msgid "Empty Note"
 msgstr ""
 
-#: lib/Driver.php:86
+#: lib/Driver.php:85
 msgid ""
 "Encryption support has not been configured, please contact your "
 "administrator."
@@ -234,6 +238,10 @@ msgstr ""
 
 #: data.php:48
 msgid "Memo Text"
+msgstr ""
+
+#: config/prefs.php:53
+msgid "Modification Date"
 msgstr ""
 
 #: templates/list/header.inc:9
@@ -288,7 +296,7 @@ msgstr ""
 msgid "No_te"
 msgstr ""
 
-#: lib/Driver/Kolab.php:68 lib/Driver/Sql.php:72
+#: lib/Driver/Kolab.php:97 lib/Driver/Sql.php:80
 msgid "Not Found"
 msgstr ""
 
@@ -325,7 +333,7 @@ msgstr ""
 msgid "Notepad List"
 msgstr ""
 
-#: lib/Mnemo.php:444
+#: lib/Mnemo.php:522
 #, php-format
 msgid "Notepad of %s"
 msgstr ""
@@ -420,8 +428,12 @@ msgstr ""
 msgid "Show this note"
 msgstr ""
 
-#: templates/list/memo_headers.inc:41
+#: templates/list/memo_headers.inc:44
 msgid "Sort by Category"
+msgstr ""
+
+#: templates/list/memo_headers.inc:40
+msgid "Sort by Modification Date"
 msgstr ""
 
 #: templates/list/memo_headers.inc:37
@@ -521,12 +533,12 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password below"
 msgstr ""
 
-#: lib/Api.php:280 lib/Driver/Kolab.php:281 lib/Driver/Sql.php:336
+#: lib/Api.php:280 lib/Driver/Kolab.php:281 lib/Driver/Sql.php:344
 msgid "This note has been encrypted."
 msgstr ""
 
-#: lib/Block/Summary.php:116 lib/Mnemo.php:260 lib/Mnemo.php:261
-#: lib/Mnemo.php:275 lib/Mnemo.php:276 templates/list/memo_summaries.inc:17
+#: lib/Block/Summary.php:116 lib/Mnemo.php:267 lib/Mnemo.php:268
+#: lib/Mnemo.php:282 lib/Mnemo.php:283 templates/list/memo_summaries.inc:20
 #: templates/view/memo.inc:27
 msgid "Unfiled"
 msgstr ""
@@ -566,7 +578,7 @@ msgstr ""
 msgid "You do not have permission to view the notepad %s."
 msgstr ""
 
-#: config/prefs.php:83
+#: config/prefs.php:84
 msgid "Your default notepad:"
 msgstr ""
 
@@ -578,7 +590,7 @@ msgstr ""
 msgid "_Body"
 msgstr ""
 
-#: templates/list/memo_headers.inc:41
+#: templates/list/memo_headers.inc:44
 msgid "_Category"
 msgstr ""
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -128,7 +128,7 @@ msgstr ""
 msgid "%s: faces %s"
 msgstr ""
 
-#: lib/Image.php:1007
+#: lib/Image.php:1014
 #, php-format
 msgid "(c) %s %s"
 msgstr ""
@@ -280,7 +280,7 @@ msgstr ""
 msgid "Access denied adding tags to this gallery."
 msgstr ""
 
-#: lib/Image.php:1137
+#: lib/Image.php:1144
 msgid "Access denied adding tags to this photo."
 msgstr ""
 
@@ -312,7 +312,7 @@ msgstr ""
 msgid "Access denied downloading full sized photos from \"%s\"."
 msgstr ""
 
-#: gallery.php:40 image.php:691 lib/Image.php:841
+#: gallery.php:40 image.php:691 lib/Image.php:848
 #, php-format
 msgid "Access denied downloading photos from \"%s\"."
 msgstr ""
@@ -366,7 +366,7 @@ msgid "Access denied viewing this gallery."
 msgstr ""
 
 #: img/download.php:17 img/full.php:17 img/index.php:17 img/mini.php:17
-#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1117
+#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1124
 msgid "Access denied viewing this photo."
 msgstr ""
 

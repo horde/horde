@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gollem H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -90,11 +90,11 @@ msgstr ""
 msgid "Attributes"
 msgstr ""
 
-#: lib/Application.php:71
+#: lib/Application.php:225
 msgid "Backends"
 msgstr ""
 
-#: lib/Application.php:132
+#: lib/Application.php:286
 msgid "Backends that will not be displayed:"
 msgstr ""
 
@@ -142,7 +142,7 @@ msgstr ""
 msgid "Change Server"
 msgstr ""
 
-#: lib/Application.php:155
+#: lib/Application.php:309
 msgid "Check Quota"
 msgstr ""
 
@@ -154,7 +154,7 @@ msgstr ""
 msgid "Chmod done: "
 msgstr ""
 
-#: lib/Application.php:128
+#: lib/Application.php:282
 msgid "Choose which backends to display, and in what order:"
 msgstr ""
 
@@ -457,7 +457,7 @@ msgstr ""
 msgid "Select All/None"
 msgstr ""
 
-#: lib/Application.php:130
+#: lib/Application.php:284
 msgid "Select a backend:"
 msgstr ""
 
@@ -493,7 +493,7 @@ msgstr ""
 msgid "There are no files in this folder."
 msgstr ""
 
-#: lib/Application.php:129
+#: lib/Application.php:283
 msgid "These backends will display in this order:"
 msgstr ""
 
@@ -565,11 +565,11 @@ msgstr ""
 msgid "_Change Server"
 msgstr ""
 
-#: lib/Application.php:143
+#: lib/Application.php:297
 msgid "_My Home"
 msgstr ""
 
-#: lib/Application.php:146
+#: lib/Application.php:300
 msgid "_Permissions"
 msgstr ""
 

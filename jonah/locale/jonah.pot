@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jonah H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,31 +26,31 @@ msgstr ""
 msgid "\"%s\" stories in HTML"
 msgstr ""
 
-#: lib/Driver.php:246
+#: lib/Driver.php:248
 msgid "1 hour"
 msgstr ""
 
-#: lib/Driver.php:250
+#: lib/Driver.php:252
 msgid "12 hours"
 msgstr ""
 
-#: lib/Driver.php:247
+#: lib/Driver.php:249
 msgid "2 hours"
 msgstr ""
 
-#: lib/Driver.php:251
+#: lib/Driver.php:253
 msgid "24 hours"
 msgstr ""
 
-#: lib/Driver.php:245
+#: lib/Driver.php:247
 msgid "30 mins"
 msgstr ""
 
-#: lib/Driver.php:248
+#: lib/Driver.php:250
 msgid "4 hours"
 msgstr ""
 
-#: lib/Driver.php:249
+#: lib/Driver.php:251
 msgid "8 hours"
 msgstr ""
 
@@ -232,7 +232,7 @@ msgstr ""
 msgid "HTML Delivery for \"%s\""
 msgstr ""
 
-#: lib/Driver.php:418
+#: lib/Driver.php:420
 msgid "HTML Version of Story"
 msgstr ""
 
@@ -352,7 +352,7 @@ msgstr ""
 msgid "No feeds match"
 msgstr ""
 
-#: lib/Driver.php:307
+#: lib/Driver.php:309
 msgid "No stories are currently available."
 msgstr ""
 
@@ -397,7 +397,7 @@ msgstr ""
 msgid "Parse succeeded, structure is:"
 msgstr ""
 
-#: lib/Driver.php:413
+#: lib/Driver.php:415
 msgid "Plaintext Version of Story"
 msgstr ""
 
@@ -475,7 +475,7 @@ msgstr ""
 msgid "Standard"
 msgstr ""
 
-#: delivery/rss.php:73
+#: delivery/rss.php:68
 #, php-format
 msgid "Stories tagged with %s in %s"
 msgstr ""
@@ -530,8 +530,8 @@ msgstr ""
 msgid "Tag Cloud"
 msgstr ""
 
-#: lib/Driver.php:446 lib/Driver.php:451 lib/Driver.php:456 lib/Driver.php:462
-#: lib/Driver.php:467
+#: lib/Driver.php:448 lib/Driver.php:453 lib/Driver.php:458 lib/Driver.php:464
+#: lib/Driver.php:469
 msgid "Tag support not enabled in backend."
 msgstr ""
 
@@ -618,7 +618,7 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-#: channels/index.php:18 lib/View/ChannelDelete.php:47
+#: channels/index.php:18 lib/Api.php:111 lib/View/ChannelDelete.php:47
 #: lib/View/ChannelEdit.php:41 lib/View/StoryDelete.php:39
 #: lib/View/StoryEdit.php:46 lib/View/StoryList.php:32
 #: lib/View/TagSearchList.php:34
@@ -633,6 +633,6 @@ msgstr ""
 msgid "_New Story"
 msgstr ""
 
-#: lib/Driver.php:244
+#: lib/Driver.php:246
 msgid "none"
 msgstr ""

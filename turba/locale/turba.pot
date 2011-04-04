@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Turba H4 (3.0-git)\n"
+"Project-Id-Version: Turba H4 (3.0)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,7 +80,7 @@ msgstr ""
 msgid "<< Merge this into the first contact"
 msgstr ""
 
-#: lib/Block/Minisearch.php:35
+#: lib/Block/Minisearch.php:34
 msgid "A browser that supports iframes is required"
 msgstr ""
 
@@ -121,7 +121,7 @@ msgstr ""
 msgid "Address Books"
 msgstr ""
 
-#: lib/Turba.php:598
+#: lib/Turba.php:597
 #, php-format
 msgid "Address book of %s"
 msgstr ""
@@ -158,12 +158,12 @@ msgstr ""
 msgid "Anniversary"
 msgstr ""
 
-#: lib/Turba.php:644
+#: lib/Turba.php:643
 #, php-format
 msgid "Are you sure that you want to delete %s?"
 msgstr ""
 
-#: lib/Turba.php:649
+#: lib/Turba.php:648
 msgid "Are you sure that you want to delete the selected contacts?"
 msgstr ""
 
@@ -215,11 +215,6 @@ msgstr ""
 
 #: lib/Form/DeleteAddressBook.php:33 lib/Form/DeleteAddressBook.php:44
 msgid "Cancel"
-msgstr ""
-
-#: lib/Driver/Kolab/Wrapper/Old.php:366
-#, php-format
-msgid "Cannot delete all address book entries for %s"
 msgstr ""
 
 #: config/attributes.php:361
@@ -321,7 +316,7 @@ msgstr ""
 msgid "Common Video Call"
 msgstr ""
 
-#: config/backends.php:316 config/backends.php:1018
+#: config/backends.php:316
 msgid "Communications"
 msgstr ""
 
@@ -333,22 +328,12 @@ msgstr ""
 msgid "Company Address"
 msgstr ""
 
-#: scripts/import_squirrelmail_file_abook.php:88
-#: scripts/import_squirrelmail_sql_abook.php:97
-#, php-format
-msgid "Connection failed: %s"
-msgstr ""
-
 #: lib/Driver/Ldap.php:66
 msgid "Connection failure"
 msgstr ""
 
 #: lib/Block/Minisearch.php:13
 msgid "Contact Search"
-msgstr ""
-
-#: config/backends.php:934
-msgid "Contacts"
 msgstr ""
 
 #: templates/list/numPager.inc:3
@@ -438,7 +423,7 @@ msgstr ""
 msgid "Display Preferences"
 msgstr ""
 
-#: lib/Object.php:413
+#: lib/Object.php:425
 msgid "Download"
 msgstr ""
 
@@ -536,7 +521,7 @@ msgstr ""
 msgid "Export the following address book completely."
 msgstr ""
 
-#: config/backends.php:626
+#: config/backends.php:627
 msgid "Facebook Friends"
 msgstr ""
 
@@ -602,10 +587,6 @@ msgstr ""
 
 #: config/attributes.php:399
 msgid "Gender"
-msgstr ""
-
-#: config/backends.php:855
-msgid "Global Address Book"
 msgstr ""
 
 #: templates/browse/row.inc:59
@@ -676,7 +657,7 @@ msgstr ""
 msgid "Home Website URL"
 msgstr ""
 
-#: config/backends.php:745
+#: config/backends.php:747
 msgid "IMSP"
 msgstr ""
 
@@ -703,8 +684,7 @@ msgstr ""
 
 #: lib/Api.php:102 lib/Api.php:458 lib/Api.php:518 lib/Api.php:589
 #: lib/Api.php:635 lib/Api.php:761 lib/Api.php:931 lib/Api.php:993
-#: lib/Api.php:1553 scripts/import_squirrelmail_file_abook.php:80
-#: scripts/import_squirrelmail_sql_abook.php:89
+#: lib/Api.php:1566
 #, php-format
 msgid "Invalid address book: %s"
 msgstr ""
@@ -713,11 +693,11 @@ msgstr ""
 msgid "Invalid contact unique ID"
 msgstr ""
 
-#: lib/Api.php:1557 lib/Api.php:1642 lib/Api.php:1709
+#: lib/Api.php:1570 lib/Api.php:1655 lib/Api.php:1722
 msgid "Invalid email"
 msgstr ""
 
-#: lib/Api.php:1565
+#: lib/Api.php:1578
 msgid "Invalid entry"
 msgstr ""
 
@@ -725,7 +705,7 @@ msgstr ""
 msgid "Invalid key specified."
 msgstr ""
 
-#: lib/Api.php:1561
+#: lib/Api.php:1574
 msgid "Invalid name"
 msgstr ""
 
@@ -770,7 +750,7 @@ msgstr ""
 msgid "List"
 msgstr ""
 
-#: config/backends.php:311 config/backends.php:1014
+#: config/backends.php:311
 msgid "Location"
 msgstr ""
 
@@ -835,7 +815,7 @@ msgstr ""
 msgid "More Options..."
 msgstr ""
 
-#: lib/Api.php:1685
+#: lib/Api.php:1698
 msgid "More than 1 entry found"
 msgstr ""
 
@@ -851,7 +831,7 @@ msgstr ""
 msgid "Multiple contacts found with same unique ID."
 msgstr ""
 
-#: lib/Api.php:1588
+#: lib/Api.php:1601
 #, php-format
 msgid ""
 "Multiple persons with address [%s], but none with name [%s] already exist"
@@ -895,7 +875,7 @@ msgstr ""
 msgid "Nickname"
 msgstr ""
 
-#: lib/Api.php:1688 lib/Api.php:1746
+#: lib/Api.php:1701 lib/Api.php:1759
 #, php-format
 msgid "No %s entry found for %s"
 msgstr ""
@@ -914,7 +894,7 @@ msgstr ""
 msgid "No address book specified"
 msgstr ""
 
-#: minisearch.php:78
+#: minisearch.php:77
 msgid "No contacts found"
 msgstr ""
 
@@ -959,7 +939,7 @@ msgstr ""
 msgid "Object not found"
 msgstr ""
 
-#: lib/Driver/Kolab/Wrapper/New.php:480
+#: lib/Driver/Kolab.php:458
 #, php-format
 msgid "Object with UID %s does not exist!"
 msgstr ""
@@ -976,11 +956,11 @@ msgstr ""
 msgid "Only one vcard supported."
 msgstr ""
 
-#: config/backends.php:318 config/backends.php:1020
+#: config/backends.php:318
 msgid "Organization"
 msgstr ""
 
-#: config/backends.php:319 config/backends.php:1022
+#: config/backends.php:319
 msgid "Other"
 msgstr ""
 
@@ -1000,12 +980,12 @@ msgstr ""
 msgid "Permanently delete this contact?"
 msgstr ""
 
-#: deletefile.php:36 lib/Api.php:641 lib/Api.php:1571 lib/Driver.php:848
-#: lib/Driver/Sql.php:647
+#: deletefile.php:36 lib/Api.php:641 lib/Api.php:1584 lib/Driver.php:848
+#: lib/Driver/Sql.php:628
 msgid "Permission denied"
 msgstr ""
 
-#: config/backends.php:308 config/backends.php:1010
+#: config/backends.php:308
 msgid "Personal"
 msgstr ""
 
@@ -1021,7 +1001,7 @@ msgstr ""
 msgid "Pine Address Book"
 msgstr ""
 
-#: lib/Turba.php:647
+#: lib/Turba.php:646
 msgid "Please name the new contact list:"
 msgstr ""
 
@@ -1119,7 +1099,7 @@ msgstr ""
 msgid "Search failed"
 msgstr ""
 
-#: lib/Api.php:1577 lib/Api.php:1584 lib/Api.php:1594 lib/Api.php:1608
+#: lib/Api.php:1590 lib/Api.php:1597 lib/Api.php:1607 lib/Api.php:1621
 #, php-format
 msgid "Search failed: %s"
 msgstr ""
@@ -1446,7 +1426,7 @@ msgstr ""
 msgid "This file format is not supported."
 msgstr ""
 
-#: lib/Api.php:1598 lib/Api.php:1612
+#: lib/Api.php:1611 lib/Api.php:1625
 #, php-format
 msgid "This person already has a %s entry in the address book"
 msgstr ""
@@ -1479,7 +1459,7 @@ msgstr ""
 msgid "Unsupported Content-Type: %s"
 msgstr ""
 
-#: minisearch.php:70 minisearch.php:71
+#: minisearch.php:69 minisearch.php:70
 msgid "View Contact"
 msgstr ""
 
@@ -1572,6 +1552,12 @@ msgstr ""
 msgid "You are not allowed to delete this addressbook."
 msgstr ""
 
+#: lib/Driver/Facebook.php:163
+msgid ""
+"You are not connected to Facebook. Create a Facebook connection in the "
+"Global Preferences."
+msgstr ""
+
 #: lib/Driver/Vbook.php:109
 msgid "You cannot add new contacts to a virtual address book"
 msgstr ""
@@ -1607,11 +1593,11 @@ msgstr ""
 msgid "You must provide a name for virtual address books."
 msgstr ""
 
-#: lib/Turba.php:648
+#: lib/Turba.php:647
 msgid "You must select a target address book."
 msgstr ""
 
-#: edit.php:28 lib/Turba.php:645
+#: edit.php:28 lib/Turba.php:644
 msgid "You must select at least one contact first."
 msgstr ""
 

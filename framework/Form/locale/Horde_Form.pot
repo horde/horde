@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Form \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,25 +18,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: lib/Horde/Form/Type.php:2497
+#: lib/Horde/Form/Type.php:2484
 #, php-format
 msgid " (%s days ago)"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2505
+#: lib/Horde/Form/Type.php:2492
 #, php-format
 msgid " (in %s days)"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2501
+#: lib/Horde/Form/Type.php:2488
 msgid " (today)"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2503
+#: lib/Horde/Form/Type.php:2490
 msgid " (tomorrow)"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2499
+#: lib/Horde/Form/Type.php:2486
 msgid " (yesterday)"
 msgstr ""
 
@@ -70,11 +70,11 @@ msgstr ""
 msgid "Allow multiple addresses?"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3446
+#: lib/Horde/Form/Type.php:3433
 msgid "Assignment columns"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3718
+#: lib/Horde/Form/Type.php:3693
 msgid "Category"
 msgstr ""
 
@@ -82,7 +82,7 @@ msgstr ""
 msgid "Character to split multiple addresses with"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3134
+#: lib/Horde/Form/Type.php:3121
 msgid "Colour selection"
 msgstr ""
 
@@ -98,28 +98,28 @@ msgstr ""
 msgid "Country drop down list"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3561
+#: lib/Horde/Form/Type.php:3548
 msgid "Credit card number"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3616
+#: lib/Horde/Form/Type.php:3591
 msgid ""
 "DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3614
+#: lib/Horde/Form/Type.php:3589
 msgid "Database lookup"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2526
+#: lib/Horde/Form/Type.php:2513
 msgid "Date"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3094
+#: lib/Horde/Form/Type.php:3081
 msgid "Date and time selection"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2931
+#: lib/Horde/Form/Type.php:2918
 msgid "Date selection"
 msgstr ""
 
@@ -127,7 +127,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2941 lib/Horde/Form/Type.php:3104
+#: lib/Horde/Form/Type.php:2928 lib/Horde/Form/Type.php:3091
 msgid "Display format"
 msgstr ""
 
@@ -147,8 +147,8 @@ msgstr ""
 msgid "Email with confirmation"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2721 lib/Horde/Form/Type.php:2935
-#: lib/Horde/Form/Type.php:3098
+#: lib/Horde/Form/Type.php:2708 lib/Horde/Form/Type.php:2922
+#: lib/Horde/Form/Type.php:3085
 msgid "End year"
 msgstr ""
 
@@ -156,15 +156,15 @@ msgstr ""
 msgid "Field matrix"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3669
+#: lib/Horde/Form/Type.php:3644
 msgid "Figlet CAPTCHA"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3673
+#: lib/Horde/Form/Type.php:3648
 msgid "Figlet font"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3320
+#: lib/Horde/Form/Type.php:3307
 msgid "File selection"
 msgstr ""
 
@@ -172,7 +172,7 @@ msgstr ""
 msgid "File upload"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3692
+#: lib/Horde/Form/Type.php:3667
 msgid "Font"
 msgstr ""
 
@@ -180,7 +180,7 @@ msgstr ""
 msgid "HTML"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:92 lib/Horde/Form/Type.php:3258
+#: lib/Horde/Form/Type.php:92 lib/Horde/Form/Type.php:3245
 msgid "Header"
 msgstr ""
 
@@ -200,11 +200,11 @@ msgstr ""
 msgid "IPv6 address"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3322
+#: lib/Horde/Form/Type.php:3309
 msgid "Id"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3688
+#: lib/Horde/Form/Type.php:3663
 msgid "Image CAPTCHA"
 msgstr ""
 
@@ -226,11 +226,11 @@ msgstr ""
 msgid "Invalid data submitted."
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3452
+#: lib/Horde/Form/Type.php:3439
 msgid "Left header"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3448
+#: lib/Horde/Form/Type.php:3435
 msgid "Left values"
 msgstr ""
 
@@ -246,7 +246,7 @@ msgstr ""
 msgid "Link access key"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3326
+#: lib/Horde/Form/Type.php:3313
 msgid "Link style"
 msgstr ""
 
@@ -254,7 +254,7 @@ msgstr ""
 msgid "Link target"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:1336 lib/Horde/Form/Type.php:3324
+#: lib/Horde/Form/Type.php:1336 lib/Horde/Form/Type.php:3311
 msgid "Link text"
 msgstr ""
 
@@ -283,7 +283,7 @@ msgstr ""
 msgid "Mobile phone number"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2717
+#: lib/Horde/Form/Type.php:2704
 msgid "Month and year"
 msgstr ""
 
@@ -355,11 +355,11 @@ msgstr ""
 msgid "Phone number"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3164
+#: lib/Horde/Form/Type.php:3151
 msgid "Please choose a sound."
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2695
+#: lib/Horde/Form/Type.php:2682
 msgid "Please enter a month and a year."
 msgstr ""
 
@@ -367,16 +367,16 @@ msgstr ""
 msgid "Please enter a valid IP address."
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2775
+#: lib/Horde/Form/Type.php:2762
 msgid "Please enter a valid date, check the number of days in the month."
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2575
+#: lib/Horde/Form/Type.php:2562
 msgid "Please enter a valid time."
 msgstr ""
 
 #: lib/Horde/Form/Type.php:888 lib/Horde/Form/Type.php:2215
-#: lib/Horde/Form/Type.php:2291 lib/Horde/Form/Type.php:3620
+#: lib/Horde/Form/Type.php:2291 lib/Horde/Form/Type.php:3595
 msgid "Prompt text"
 msgstr ""
 
@@ -393,7 +393,7 @@ msgstr ""
 msgid "Regex"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3578
+#: lib/Horde/Form/Type.php:3565
 msgid "Relationship browser"
 msgstr ""
 
@@ -409,11 +409,11 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3454
+#: lib/Horde/Form/Type.php:3441
 msgid "Right header"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3450
+#: lib/Horde/Form/Type.php:3437
 msgid "Right values"
 msgstr ""
 
@@ -421,15 +421,15 @@ msgstr ""
 msgid "S/MIME Key"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3618
+#: lib/Horde/Form/Type.php:3593
 msgid "SQL statement for value lookups"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3299
+#: lib/Horde/Form/Type.php:3286
 msgid "Select Files"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2778
+#: lib/Horde/Form/Type.php:2765
 msgid "Select all date components."
 msgstr ""
 
@@ -437,7 +437,7 @@ msgstr ""
 msgid "Set"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3328
+#: lib/Horde/Form/Type.php:3315
 msgid "Show icon?"
 msgstr ""
 
@@ -445,11 +445,11 @@ msgstr ""
 msgid "Show option to keep original?"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2937 lib/Horde/Form/Type.php:3100
+#: lib/Horde/Form/Type.php:2924 lib/Horde/Form/Type.php:3087
 msgid "Show picker?"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2663 lib/Horde/Form/Type.php:3106
+#: lib/Horde/Form/Type.php:2650 lib/Horde/Form/Type.php:3093
 msgid "Show seconds?"
 msgstr ""
 
@@ -459,15 +459,15 @@ msgstr ""
 
 #: lib/Horde/Form/Type.php:375 lib/Horde/Form/Type.php:395
 #: lib/Horde/Form/Type.php:421 lib/Horde/Form/Type.php:2348
-#: lib/Horde/Form/Type.php:3256 lib/Horde/Form/Type.php:3456
+#: lib/Horde/Form/Type.php:3243 lib/Horde/Form/Type.php:3443
 msgid "Size"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3252
+#: lib/Horde/Form/Type.php:3239
 msgid "Sort order selection"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3173
+#: lib/Horde/Form/Type.php:3160
 msgid "Sound selection"
 msgstr ""
 
@@ -475,12 +475,12 @@ msgstr ""
 msgid "Spacer"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2719 lib/Horde/Form/Type.php:2933
-#: lib/Horde/Form/Type.php:3096
+#: lib/Horde/Form/Type.php:2706 lib/Horde/Form/Type.php:2920
+#: lib/Horde/Form/Type.php:3083
 msgid "Start year"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2939 lib/Horde/Form/Type.php:3102
+#: lib/Horde/Form/Type.php:2926 lib/Horde/Form/Type.php:3089
 msgid "Storage format"
 msgstr ""
 
@@ -500,8 +500,8 @@ msgstr ""
 msgid "Table Set"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:371 lib/Horde/Form/Type.php:3671
-#: lib/Horde/Form/Type.php:3690
+#: lib/Horde/Form/Type.php:371 lib/Horde/Form/Type.php:3646
+#: lib/Horde/Form/Type.php:3665
 msgid "Text"
 msgstr ""
 
@@ -520,7 +520,7 @@ msgstr ""
 msgid "The name to use when linking to the compose page"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3646
+#: lib/Horde/Form/Type.php:3621
 msgid "The text you entered did not match the text on the screen."
 msgstr ""
 
@@ -533,7 +533,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Horde/Form/Type.php:3477
+#: lib/Horde/Form/Type.php:3464
 msgid "This does not seem to be a valid card number."
 msgstr ""
 
@@ -545,10 +545,10 @@ msgstr ""
 #: lib/Horde/Form/Type.php:2061 lib/Horde/Form/Type.php:2108
 #: lib/Horde/Form/Type.php:2130 lib/Horde/Form/Type.php:2177
 #: lib/Horde/Form/Type.php:2252 lib/Horde/Form/Type.php:2323
-#: lib/Horde/Form/Type.php:2536 lib/Horde/Form/Type.php:2578
-#: lib/Horde/Form/Type.php:2770 lib/Horde/Form/Type.php:3117
-#: lib/Horde/Form/Type.php:3156 lib/Horde/Form/Type.php:3469
-#: lib/Horde/Form/Type.php:3641 lib/Horde/Form/Type.php:3724
+#: lib/Horde/Form/Type.php:2523 lib/Horde/Form/Type.php:2565
+#: lib/Horde/Form/Type.php:2757 lib/Horde/Form/Type.php:3104
+#: lib/Horde/Form/Type.php:3143 lib/Horde/Form/Type.php:3456
+#: lib/Horde/Form/Type.php:3616 lib/Horde/Form/Type.php:3699
 #: lib/Horde/Form/Variable.php:454 lib/Horde/Form/Variable.php:462
 msgid "This field is required."
 msgstr ""
@@ -557,7 +557,7 @@ msgstr ""
 msgid "This field may only contain integers."
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2544
+#: lib/Horde/Form/Type.php:2531
 msgid "This field may only contain numbers and the colon."
 msgstr ""
 
@@ -573,7 +573,7 @@ msgstr ""
 msgid "This field must be a valid number."
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3125
+#: lib/Horde/Form/Type.php:3112
 msgid ""
 "This field must contain a color code in the RGB Hex format, for example "
 "'#1234af'."
@@ -583,11 +583,11 @@ msgstr ""
 msgid "This form has already been processed."
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2553
+#: lib/Horde/Form/Type.php:2540
 msgid "Time"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2661
+#: lib/Horde/Form/Type.php:2648
 msgid "Time selection"
 msgstr ""
 
@@ -601,7 +601,7 @@ msgid "Value is over the maximum length of %d."
 msgstr ""
 
 #: lib/Horde/Form/Type.php:2346 lib/Horde/Form/Type.php:2381
-#: lib/Horde/Form/Type.php:2430 lib/Horde/Form/Type.php:3254
+#: lib/Horde/Form/Type.php:2430 lib/Horde/Form/Type.php:3241
 #: lib/Horde/Form/Type/tableset.php:53
 msgid "Values"
 msgstr ""
@@ -610,7 +610,7 @@ msgstr ""
 msgid "Values to select from"
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3458
+#: lib/Horde/Form/Type.php:3445
 msgid "Width in CSS units"
 msgstr ""
 
@@ -618,11 +618,11 @@ msgstr ""
 msgid "You did not enter a valid email address."
 msgstr ""
 
-#: lib/Horde/Form/Type.php:3001
+#: lib/Horde/Form/Type.php:2988
 msgid "You must choose a date."
 msgstr ""
 
-#: lib/Horde/Form/Type.php:2999
+#: lib/Horde/Form/Type.php:2986
 msgid "You must choose a time."
 msgstr ""
 

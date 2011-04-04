@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Nag H4 (3.0-git)\n"
+"Project-Id-Version: Nag H4 (3.0)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,12 +68,12 @@ msgstr ""
 msgid "%s at %s"
 msgstr ""
 
-#: lib/Application.php:290 lib/Block/Summary.php:147 lib/Nag.php:771
+#: lib/Application.php:340 lib/Block/Summary.php:147 lib/Nag.php:771
 #, php-format
 msgid "%s is due in %s"
 msgstr ""
 
-#: lib/Application.php:291 lib/Block/Summary.php:144 lib/Nag.php:769
+#: lib/Application.php:341 lib/Block/Summary.php:144 lib/Nag.php:769
 #, php-format
 msgid "%s is due now."
 msgstr ""
@@ -357,7 +357,7 @@ msgstr ""
 msgid "Completion Status"
 msgstr ""
 
-#: lib/Api.php:606
+#: lib/Api.php:614
 #, php-format
 msgid "Connection failed: %s"
 msgstr ""
@@ -433,7 +433,7 @@ msgstr ""
 msgid "Deleted %s."
 msgstr ""
 
-#: lib/Api.php:585
+#: lib/Api.php:593
 msgid "Deleting entire tasklists is not supported."
 msgstr ""
 
@@ -637,7 +637,7 @@ msgstr ""
 msgid "More Options..."
 msgstr ""
 
-#: lib/Api.php:1160
+#: lib/Api.php:1168
 msgid "Multiple iCalendar components found; only one vTodo is supported."
 msgstr ""
 
@@ -657,16 +657,11 @@ msgstr ""
 msgid "Na_me"
 msgstr ""
 
-#: lib/Driver/Kolab.php:735
-#, php-format
-msgid "Nag/kolab: Did not find task %s"
-msgstr ""
-
 #: data.php:53 lib/Form/CreateTaskList.php:23 lib/Form/Task.php:80
 msgid "Name"
 msgstr ""
 
-#: lib/Application.php:344 task.php:82 task.php:119
+#: lib/Application.php:394 task.php:82 task.php:119
 msgid "New Task"
 msgstr ""
 
@@ -686,7 +681,7 @@ msgstr ""
 msgid "No due date."
 msgstr ""
 
-#: lib/Api.php:789 lib/Api.php:841 lib/Api.php:1167
+#: lib/Api.php:797 lib/Api.php:849 lib/Api.php:1175
 msgid "No iCalendar data was found."
 msgstr ""
 
@@ -718,6 +713,10 @@ msgstr ""
 msgid "Not Completed"
 msgstr ""
 
+#: lib/Driver/Kolab.php:93
+msgid "Not Found"
+msgstr ""
+
 #: templates/view/task.inc:18
 msgid "Not Private"
 msgstr ""
@@ -726,7 +725,7 @@ msgstr ""
 msgid "Not completed"
 msgstr ""
 
-#: lib/Api.php:644
+#: lib/Api.php:652
 msgid "Not configured"
 msgstr ""
 
@@ -758,11 +757,11 @@ msgstr ""
 msgid "Parent task"
 msgstr ""
 
-#: lib/Api.php:650 lib/Api.php:684 lib/Api.php:737 lib/Api.php:768
-#: lib/Api.php:887 lib/Api.php:927 lib/Api.php:942 lib/Api.php:981
-#: lib/Api.php:1019 lib/Api.php:1044 lib/Api.php:1096 lib/Api.php:1113
-#: lib/Api.php:1143 lib/Api.php:1230 lib/Api.php:1309 lib/Api.php:1363
-#: lib/Api.php:1407 lib/Nag.php:285
+#: lib/Api.php:658 lib/Api.php:692 lib/Api.php:745 lib/Api.php:776
+#: lib/Api.php:895 lib/Api.php:935 lib/Api.php:950 lib/Api.php:989
+#: lib/Api.php:1027 lib/Api.php:1052 lib/Api.php:1104 lib/Api.php:1121
+#: lib/Api.php:1151 lib/Api.php:1238 lib/Api.php:1317 lib/Api.php:1371
+#: lib/Application.php:275 lib/Nag.php:285
 msgid "Permission Denied"
 msgstr ""
 
@@ -812,7 +811,7 @@ msgstr ""
 msgid "Saved %s."
 msgstr ""
 
-#: lib/Application.php:376 search.php:19 templates/list/header.inc:3
+#: lib/Application.php:426 search.php:19 templates/list/header.inc:3
 #: templates/search/search.inc:31
 msgid "Search"
 msgstr ""
@@ -1080,7 +1079,7 @@ msgstr ""
 msgid "Task not found."
 msgstr ""
 
-#: lib/Api.php:598
+#: lib/Api.php:606
 msgid "Tasklist does not exist or no permission to delete"
 msgstr ""
 
@@ -1088,7 +1087,7 @@ msgstr ""
 msgid "Tasklist does not exist or no permission to edit"
 msgstr ""
 
-#: lib/Api.php:1281
+#: lib/Api.php:1289
 msgid "Tasks"
 msgstr ""
 
@@ -1188,7 +1187,7 @@ msgstr ""
 msgid "There was an error importing the data: %s"
 msgstr ""
 
-#: lib/Api.php:450 lib/Api.php:781 lib/Api.php:1152
+#: lib/Api.php:450 lib/Api.php:789 lib/Api.php:1160
 msgid "There was an error importing the iCalendar data."
 msgstr ""
 
@@ -1221,7 +1220,7 @@ msgstr ""
 msgid "Turned privacy on"
 msgstr ""
 
-#: lib/Api.php:616
+#: lib/Api.php:624
 #, php-format
 msgid "Unable to delete tasklist \"%s\": %s"
 msgstr ""
@@ -1246,8 +1245,8 @@ msgstr ""
 msgid "Unique ID"
 msgstr ""
 
-#: lib/Api.php:552 lib/Api.php:872 lib/Api.php:1004 lib/Api.php:1067
-#: lib/Api.php:1212
+#: lib/Api.php:560 lib/Api.php:880 lib/Api.php:1012 lib/Api.php:1075
+#: lib/Api.php:1220
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr ""
@@ -1430,7 +1429,7 @@ msgstr ""
 msgid "iCalendar (vTodo)"
 msgstr ""
 
-#: lib/Application.php:363
+#: lib/Application.php:413
 #, php-format
 msgid "in %s"
 msgstr ""
