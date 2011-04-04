@@ -342,14 +342,17 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         $headers = $contents->getHeaderOb();
+        $imp_draft = false;
         $reply_type = null;
 
         if ($val = $headers->getValue('x-imp-draft-reply')) {
             if (!($reply_type = $headers->getValue('x-imp-draft-reply-type'))) {
                 $reply_type = self::REPLY;
             }
+            $imp_draft = true;
         } elseif ($val = $headers->getValue('x-imp-draft-forward')) {
             $reply_type = self::FORWARD;
+            $imp_draft = true;
         }
 
         if (IMP::getViewMode() == 'mimp') {
@@ -379,6 +382,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         $msg_text = $this->_getMessageText($contents, array(
             'html' => $compose_html,
+            'imp_msg' => $imp_draft,
             'toflowed' => false
         ));
 
@@ -2481,9 +2485,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @param IMP_Contents $contents  An IMP_Contents object.
      * @param array $options          Additional options:
      * <pre>
-     * 'html' - (boolean) Return text/html part, if available.
-     * 'replylimit' - (boolean) Enforce length limits?
-     * 'toflowed' - (boolean) Do flowed conversion?
+     * html - (boolean) Return text/html part, if available.
+     * imp_msg - (boolean) If true, the message data was created by IMP.
+     * replylimit - (boolean) Enforce length limits?
+     * toflowed - (boolean) Do flowed conversion?
      * </pre>
      *
      * @return mixed  Null if bodypart not found, or array with the following
@@ -2503,8 +2508,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         if (!empty($options['html']) &&
             $GLOBALS['session']->get('imp', 'rteavail')) {
             $body_id = $contents->findBody('html');
-            if (!is_null($body_id)) {
+            if (!is_null($body_id) &&
+                (empty($options['imp_msg']) ||
+                 (strval($body_id) == '1') ||
+                 Horde_Mime::isChild('1', $body_id))) {
                 $mode = 'html';
+            } else {
+                $body_id = null;
             }
         }
 
