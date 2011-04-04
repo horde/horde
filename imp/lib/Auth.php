@@ -384,7 +384,7 @@ class IMP_Auth
 
         /* Set the maildomain. */
         $maildomain = $prefs->getValue('mail_domain');
-        $session->set('imp', 'maildomain', $maildomain ? $maildomain : $ptr['maildomain']);
+        $session->set('imp', 'maildomain', $maildomain ? $maildomain : (isset($ptr['maildomain']) ? $ptr['maildomain'] : ''));
 
         /* Store some basic IMAP server information. */
         if ($session->get('imp', 'protocol') == 'imap') {
