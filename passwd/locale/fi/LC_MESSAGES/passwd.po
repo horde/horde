@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Passwd 3.1-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-17 10:59+0200\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: 2011-04-03 12:52:56+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
@@ -115,7 +116,7 @@ msgstr "Tapahtui virhe lähetettäessä tietoa smbpasswd-ohjelmalle."
 msgid "Failed to verify old password."
 msgstr "Vanha salasana on väärä."
 
-#: main.php:224 lib/Driver/composite.php:102
+#: lib/Driver/composite.php:102 main.php:224
 #, php-format
 msgid "Failure in changing password for %s: %s"
 msgstr "Salasanan vaihto epäonnistui %s:lle: %s"
@@ -183,7 +184,7 @@ msgstr "Password-moduulilta puuttuu tarvittavia parametrejä."
 msgid "Password module is missing target parameter."
 msgstr "Password-moduulille ei ole määritelty target parametria."
 
-#: main.php:191 lib/Driver/servuftp.php:71
+#: lib/Driver/servuftp.php:71 main.php:191
 msgid "Password module is not properly configured"
 msgstr "Password-moduuli ei ole asennettu oikein"
 

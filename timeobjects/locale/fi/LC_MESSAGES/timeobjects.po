@@ -7,29 +7,30 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Timeobjects 1.0\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-03 07:22+0300\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: 2011-04-03 13:12:05+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Driver/Weatherdotcom.php:222 lib/Driver/Weatherdotcom.php:237
+#: lib/Driver/Weatherdotcom.php:221 lib/Driver/Weatherdotcom.php:236
 #, php-format
 msgid " gusting %d%s"
 msgstr " puuskittain %d%s"
 
-#: lib/Driver/Weatherdotcom.php:155
+#: lib/Driver/Weatherdotcom.php:154
 msgid "An unknown error has occured."
 msgstr "Tapahtui tuntematon virhe"
 
-#: lib/Driver/Weatherdotcom.php:151
+#: lib/Driver/Weatherdotcom.php:150
 msgid "Cache init was not completed."
 msgstr "Välimuistin alustusta ei saatu valmiiksi."
 
-#: lib/Driver/Weatherdotcom.php:211
+#: lib/Driver/Weatherdotcom.php:210
 #, php-format
 msgid ""
 "Conditions: %s\n"
@@ -44,7 +45,7 @@ msgstr ""
 "Kosteus: %d%%\n"
 "Tuules: Suunnasta %s nopeudella %d%s"
 
-#: lib/Driver/Weatherdotcom.php:226
+#: lib/Driver/Weatherdotcom.php:225
 #, php-format
 msgid ""
 "Conditions: %s\n"
@@ -59,27 +60,27 @@ msgstr ""
 "Kosteus: %d%%\n"
 "Tuules: Suunnasta %s nopeudella %d%s"
 
-#: lib/Api.php:43
+#: lib/Api.php:40
 msgid "Facebook Events"
 msgstr "Facebook tapahtumat"
 
-#: lib/Driver/Weatherdotcom.php:165
+#: lib/Driver/Weatherdotcom.php:164
 msgid "Invalid license key."
 msgstr "Kelvoton lisenssiavain."
 
-#: lib/Driver/Weatherdotcom.php:159
+#: lib/Driver/Weatherdotcom.php:158
 msgid "Invalid location provided."
 msgstr "Annettu paikkatieto on kelvoton."
 
-#: lib/Driver/Weatherdotcom.php:161
+#: lib/Driver/Weatherdotcom.php:160
 msgid "Invalid partner id."
 msgstr "Kelvoton partner id."
 
-#: lib/Driver/Weatherdotcom.php:163
+#: lib/Driver/Weatherdotcom.php:162
 msgid "Invalid product code."
 msgstr "Kelvoton tuotekoodi"
 
-#: lib/Driver/Weatherdotcom.php:241
+#: lib/Driver/Weatherdotcom.php:240
 #, php-format
 msgid ""
 "Location: %s\n"
@@ -102,34 +103,34 @@ msgstr ""
 "Ilta\n"
 "%s"
 
-#: lib/Driver/Weatherdotcom.php:153
+#: lib/Driver/Weatherdotcom.php:152
 msgid "MetarDB is not connected."
 msgstr "MetarDB ei ole yhdistetty"
 
-#: lib/Driver/Weatherdotcom.php:121
+#: lib/Driver/Weatherdotcom.php:120
 msgid "No location is set."
 msgstr "Paikkatieto ei ole asetettu."
 
-#: lib/Driver/Weatherdotcom.php:157
+#: lib/Driver/Weatherdotcom.php:156
 msgid "No location provided."
 msgstr "Paikkatietoa ei ole annettu."
 
-#: lib/Driver/Weatherdotcom.php:130
+#: lib/Driver/Weatherdotcom.php:129
 msgid "No temporary directory available for cache."
 msgstr "Väliaikaistiedostoa ei ole käytettävissä välimuistille."
 
-#: lib/Driver/Weatherdotcom.php:145
+#: lib/Driver/Weatherdotcom.php:144
 msgid "Requested service could not be found."
 msgstr "Pyydettyä palvelua ei löytynyt."
 
-#: lib/Driver/Weatherdotcom.php:149
+#: lib/Driver/Weatherdotcom.php:148
 msgid "Server data wrong or not available."
 msgstr "Palvelin palautti väärää tietoa tai ei ole käytettävissä."
 
-#: lib/Driver/Weatherdotcom.php:147
+#: lib/Driver/Weatherdotcom.php:146
 msgid "Unknown location provided."
 msgstr "Annettu paikkatieto on tuntematon."
 
-#: lib/Api.php:38
+#: lib/Api.php:35
 msgid "Weather"
 msgstr "Sää"

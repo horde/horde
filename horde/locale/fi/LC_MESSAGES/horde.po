@@ -7,17 +7,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 4.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-03 13:02+0300\n"
-"PO-Revision-Date: 2011-04-03 10:22:04+0300\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"PO-Revision-Date: 2011-04-03 20:22:30+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Block/Weatherdotcom.php:240 lib/Block/Weatherdotcom.php:343
-#: lib/Block/Weatherdotcom.php:389
+#: lib/Block/Weatherdotcom.php:238 lib/Block/Weatherdotcom.php:341
+#: lib/Block/Weatherdotcom.php:387
 msgid " at "
 msgstr " "
 
@@ -31,27 +32,27 @@ msgstr "\"%s\" lisättiin oikeuksiin."
 msgid "\"%s\" was not created: %s."
 msgstr "\"%s\" ei luotu: %s."
 
-#: lib/Block/Account.php:80
+#: lib/Block/Account.php:79
 #, php-format
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "%.2fMB käytetty %.2fMB sallitusta (%.2f%%)"
 
-#: lib/Block/Weatherdotcom.php:221
+#: lib/Block/Weatherdotcom.php:219
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s ja %s"
 
-#: lib/Block/Account.php:703 lib/Block/Account.php:715
+#: lib/Block/Account.php:700 lib/Block/Account.php:712
 #, php-format
 msgid "%d days until your password expires."
 msgstr "Salasanasi vanhentuu %d päivän päästä."
 
-#: lib/Block/Metar.php:259
+#: lib/Block/Metar.php:257
 #, php-format
 msgid "%d minutes"
 msgstr "%d minuuttia"
 
-#: services/facebook/index.php:122
+#: services/facebook.php:114
 #, php-format
 msgid "%d person likes this"
 msgid_plural "%d persons like this"
@@ -63,7 +64,7 @@ msgstr[1] "%d henkilöä pitää tästä"
 msgid "%d to %d of %d"
 msgstr "%d - %d / %d"
 
-#: lib/Block/Weatherdotcom.php:268
+#: lib/Block/Weatherdotcom.php:266
 #, php-format
 msgid "%d-day forecast"
 msgstr "%d päivän ennustus"
@@ -88,8 +89,8 @@ msgstr "%s Tehtävät - Varmistus"
 msgid "%s Terms of Agreement"
 msgstr "%s Käyttöehdot"
 
-#: lib/Block/Metar.php:132 lib/Block/Metar.php:138 lib/Block/Metar.php:212
-#: lib/Block/Metar.php:318 lib/Block/Metar.php:324
+#: lib/Block/Metar.php:130 lib/Block/Metar.php:136 lib/Block/Metar.php:210
+#: lib/Block/Metar.php:316 lib/Block/Metar.php:322
 #, php-format
 msgid "%s at %s %s"
 msgstr "%s suunta %s %s"
@@ -103,25 +104,25 @@ msgstr ""
 "%s on valmis suorittamaan alla olevat tehtävät. Valitse valintaruuduista "
 "suoritettavat toimenpiteet."
 
-#: lib/Block/Weatherdotcom.php:347 lib/Block/Weatherdotcom.php:392
+#: lib/Block/Weatherdotcom.php:345 lib/Block/Weatherdotcom.php:390
 msgid ", gusting "
 msgstr ", puuskittaista"
 
-#: lib/Block/Metar.php:161 lib/Block/Metar.php:166
+#: lib/Block/Metar.php:159 lib/Block/Metar.php:164
 #, php-format
 msgid ", gusting %s %s"
 msgstr ", puuskittaista %s %s"
 
-#: lib/Block/Metar.php:174
+#: lib/Block/Metar.php:172
 #, php-format
 msgid ", variable from %s to %s"
 msgstr ", vaihtelevaa %s - %s"
 
-#: lib/Block/Time.php:31
+#: lib/Block/Time.php:30
 msgid "12 Hour Format"
 msgstr "12-tunnin järjestelmä"
 
-#: lib/Block/Time.php:30
+#: lib/Block/Time.php:29
 msgid "24 Hour Format"
 msgstr "24-tunnin järjestelmä"
 
@@ -137,16 +138,9 @@ msgstr ""
 "<tag:app_name /> voi olla yhteydessä sinun Facebook tilisi kanssa. Sinun "
 "pitää muistaa joka kerta kirjautua Facebookiin."
 
-#: templates/prefs/facebook.html:49
-msgid "<tag:app_name /> cannot read information about your Facebook friends."
-msgstr "<tag:app_name /> ei voi lukea tietoja Facebook ystävistäsi."
-
 #: templates/prefs/facebook.html:37
-msgid ""
-"<tag:app_name /> cannot read your stream messages and various other Facebook "
-"data items."
-msgstr ""
-"<tag:app_name /> ei voi lukea viestivirtaasi tai muita Facebook tietoja."
+msgid "<tag:app_name /> cannot read your stream messages."
+msgstr "<tag:app_name /> ei voi lukea viestivirtaasi."
 
 #: templates/prefs/facebook.html:25
 msgid ""
@@ -177,7 +171,7 @@ msgstr ""
 msgid "A newer version (%s) exists."
 msgstr "Uudempi versio (%s) on olemassa."
 
-#: lib/Prefs/Ui.php:712
+#: lib/Prefs/Ui.php:714
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
@@ -238,7 +232,7 @@ msgstr "AP Ukkosmyrskyä"
 msgid "AM/PM"
 msgstr "AP/IP"
 
-#: lib/Block/Account.php:20
+#: lib/Block/Account.php:19
 msgid "Account Information"
 msgstr "Käyttäjätunnuksen tiedot"
 
@@ -258,15 +252,15 @@ msgstr "ActiveSync"
 msgid "ActiveSync Device Administration"
 msgstr "ActiveSync Laitehallinta"
 
-#: lib/Api.php:80 admin/activesync.php:195
+#: admin/activesync.php:195 lib/Api.php:80
 msgid "ActiveSync Devices"
 msgstr "ActiveSync Laitteet"
 
-#: lib/Prefs/Ui.php:352 admin/activesync.php:20
+#: admin/activesync.php:20 lib/Prefs/Ui.php:352
 msgid "ActiveSync not activated."
 msgstr "ActiveSync ei ole käytössä."
 
-#: templates/portal/add.inc:14 templates/admin/groups/addchild.inc:12
+#: templates/admin/groups/addchild.inc:12 templates/portal/add.inc:14
 msgid "Add"
 msgstr "Lisää"
 
@@ -321,11 +315,11 @@ msgstr "Lisättiin \"%s\" järjestelmään. Voit nyt kirjautua sisään."
 msgid "Adding users is disabled."
 msgstr "Käyttäjien lisääminen ei ole käytössä."
 
-#: lib/Block/Vatid.php:117
+#: lib/Block/Vatid.php:116
 msgid "Address"
 msgstr "Osoite"
 
-#: config/registry.php:113
+#: config/registry.php:112
 msgid "Address Book"
 msgstr "Osoitekirja"
 
@@ -353,7 +347,7 @@ msgstr "Hälytyksen otsikko"
 msgid "Alarms"
 msgstr "Hälytykset"
 
-#: lib/Block/Fortune.php:93
+#: lib/Block/Fortune.php:92
 msgid "All"
 msgstr "Kaikki"
 
@@ -365,7 +359,7 @@ msgstr "Kaikki autentikoituneet käyttäjät"
 msgid "All policy keys successfully reset."
 msgstr "Kaikki politiikka-avaimet tyhjennettiin."
 
-#: lib/Prefs/Ui.php:722
+#: lib/Prefs/Ui.php:724
 msgid ""
 "All state removed for your devices. They will resynchronize next time they "
 "connect to the server."
@@ -373,7 +367,7 @@ msgstr ""
 "Kaikki laitteidesi tilatiedot on nyt poistettu. Laitteet yrittävät "
 "synkronoida uudelleen kun ne ottavat yhteyttä palvelimeen."
 
-#: lib/Prefs/Ui.php:693
+#: lib/Prefs/Ui.php:697
 msgid "All synchronization sessions deleted."
 msgstr "Kaikki synkronointi-istunnot on nyt poistettu."
 
@@ -393,7 +387,7 @@ msgstr "Vaihtoehtoinen IMSP käyttäjätunnus"
 msgid "Alternate email address"
 msgstr "Vaihtoehtoinen sähköpostiosoite"
 
-#: lib/Block/Weatherdotcom.php:150
+#: lib/Block/Weatherdotcom.php:148
 msgid "An unknown error has occured."
 msgstr "Tapahtui tuntematon virhe."
 
@@ -448,17 +442,13 @@ msgstr "Oletko varma, että haluat poistaa \"%s\" ja kaikki sen aliryhmät?"
 msgid "Armenian (ARMSCII-8)"
 msgstr "Armenia (ARMSCII-8)"
 
-#: lib/Block/Fortune.php:35
+#: lib/Block/Fortune.php:34
 msgid "Art"
 msgstr "Taide"
 
-#: lib/Block/Fortune.php:36
+#: lib/Block/Fortune.php:35
 msgid "Ascii Art"
 msgstr "Ascii-taide"
-
-#: lib/LoginTasks/Task/AdminCheck.php:51
-msgid "At least one database schema is outdated."
-msgstr "Ainakin yksi tietokantaskeema on vanhentunut."
 
 #: templates/problem/problem.inc:43
 msgid "Attachment"
@@ -480,13 +470,9 @@ msgstr "Yritettiin muokata olematonta oikeutta."
 msgid "Attempt to edit a non-existent share."
 msgstr "Yritettiin muokata olematonta jakoa."
 
-#: admin/sessions.php:39
+#: admin/sessions.php:40
 msgid "Authenticated to:"
 msgstr "Autentikoitunut käyttäen:"
-
-#: templates/prefs/facebook.html:50
-msgid "Authorize Access to Friends Data:"
-msgstr "Anna lupa käyttää ystävätietoja:"
 
 #: templates/prefs/facebook.html:26
 msgid "Authorize Publish"
@@ -500,7 +486,7 @@ msgstr "Anna lupa lukea:"
 msgid "Authorize an infinite session:"
 msgstr "Anna lupa päättymättömään istuntoon:"
 
-#: login.php:219
+#: login.php:223
 msgid "Automatic"
 msgstr "Automaattinen"
 
@@ -512,7 +498,7 @@ msgstr "Käytettävissäolevat kentät:"
 msgid "Azur"
 msgstr "Asuuri"
 
-#: lib/Block/Fortune.php:37
+#: lib/Block/Fortune.php:36
 msgid "BOFH Excuses"
 msgstr "BOFH selitykset"
 
@@ -545,11 +531,11 @@ msgstr "Sininen kuu"
 msgid "Blue and White"
 msgstr "Sininen ja valkoinen"
 
-#: config/registry.php:195
+#: config/registry.php:194
 msgid "Bookmarks"
 msgstr "Kirjanmerkit"
 
-#: lib/Block/Fortune.php:103
+#: lib/Block/Fortune.php:102
 msgid "Both"
 msgstr "Molemmat"
 
@@ -557,7 +543,7 @@ msgstr "Molemmat"
 msgid "Brown"
 msgstr "Ruskea"
 
-#: admin/sessions.php:37
+#: admin/sessions.php:38
 msgid "Browser:"
 msgstr "Selain:"
 
@@ -565,15 +551,15 @@ msgstr "Selain:"
 msgid "Burnt Orange"
 msgstr "Poltettu orassi"
 
-#: lib/Block/Weatherdotcom.php:146
+#: lib/Block/Weatherdotcom.php:144
 msgid "Cache init was not completed."
 msgstr "Välimuistin alustusta ei saatu valmiiksi."
 
-#: config/registry.php:135
+#: config/registry.php:134
 msgid "Calendar"
 msgstr "Kalenteri"
 
-#: lib/Block/Weatherdotcom.php:230
+#: lib/Block/Weatherdotcom.php:228
 msgid "Calm"
 msgstr "Tyyni"
 
@@ -581,8 +567,8 @@ msgstr "Tyyni"
 msgid "Camouflage"
 msgstr "Maastokuviointi"
 
+#: admin/user.php:115 admin/user.php:135 templates/admin/groups/delete.inc:11
 #: templates/admin/user/clear.inc:12 templates/admin/user/remove.inc:12
-#: templates/admin/groups/delete.inc:11 admin/user.php:115 admin/user.php:135
 msgid "Cancel"
 msgstr "Peru"
 
@@ -631,7 +617,7 @@ msgstr ""
 "Salasanan vaihto ei ole käytössä nykyisillä asetuksilla. Ota yhteyttä "
 "ylläpitäjiin."
 
-#: lib/Block/Vatid.php:41
+#: lib/Block/Vatid.php:40
 msgid "Check"
 msgstr "Tarkista"
 
@@ -639,7 +625,7 @@ msgstr "Tarkista"
 msgid "Check for newer versions"
 msgstr "Tarkista onko uudempia versioita"
 
-#: lib/Block/Vatid.php:43
+#: lib/Block/Vatid.php:42
 msgid "Checking"
 msgstr "Tarkistetaan"
 
@@ -717,11 +703,11 @@ msgstr "Napsauta jatkaaksesi"
 msgid "Client Anchor"
 msgstr "Asiakasankkuri"
 
-#: templates/shares/edit.inc:12 services/keyboard.php:154
+#: services/keyboard.php:154 templates/shares/edit.inc:12
 msgid "Close Window"
 msgstr "Sulje ikkuna"
 
-#: lib/Block/Metar.php:217
+#: lib/Block/Metar.php:215
 msgid "Clouds"
 msgstr "Pilviä"
 
@@ -737,7 +723,7 @@ msgstr "Pilviä myöhemmin"
 msgid "Cloudy"
 msgstr "Pilvinen"
 
-#: admin/sessions.php:30
+#: admin/sessions.php:31
 msgid "Collapse"
 msgstr "Pienennä"
 
@@ -745,7 +731,7 @@ msgstr "Pienennä"
 msgid "Collapse Sidebar"
 msgstr "Pienennä sivuvalikko"
 
-#: lib/Prefs/Ui.php:214
+#: lib/Prefs/Ui.php:213
 msgid "Color Picker"
 msgstr "Värivalitsin"
 
@@ -757,20 +743,20 @@ msgstr "Komento"
 msgid "Command Shell"
 msgstr "Komentotulkki"
 
-#: services/facebook/index.php:109
+#: services/facebook.php:101
 #, php-format
 msgid "Comments: %d"
 msgstr "Kommentit: %d"
 
-#: lib/Block/Fortune.php:38
+#: lib/Block/Fortune.php:37
 msgid "Computers"
 msgstr "Tietokoneet"
 
-#: lib/Block/Weatherdotcom.php:280
+#: lib/Block/Weatherdotcom.php:278
 msgid "Condition"
 msgstr "Tila"
 
-#: lib/Block/Metar.php:222
+#: lib/Block/Metar.php:220
 msgid "Conditions"
 msgstr "Tilat"
 
@@ -807,7 +793,7 @@ msgstr "Varmista salasana"
 msgid "Continue"
 msgstr "Jatka"
 
-#: lib/Block/Fortune.php:39
+#: lib/Block/Fortune.php:38
 msgid "Cookie"
 msgstr "Pipari"
 
@@ -815,11 +801,11 @@ msgstr "Pipari"
 msgid "Cornflower"
 msgstr "Ruiskukka"
 
-#: lib/Block/Account.php:479
+#: lib/Block/Account.php:476
 msgid "Could not bind to LDAP server."
 msgstr "LDAP-palvelimeen ei voitu autentikoitua."
 
-#: lib/Block/Account.php:458
+#: lib/Block/Account.php:455
 msgid "Could not connect to LDAP server."
 msgstr "Yhteys LDAP-palvelimeen epäonnistui."
 
@@ -888,7 +874,7 @@ msgstr ""
 msgid "Could not write configuration for \"%s\": %s"
 msgstr "Ei kirjoittaa asennusasetuksia ohjelmalle \"%s\": %s"
 
-#: lib/Block/Vatid.php:105
+#: lib/Block/Vatid.php:104
 msgid "Country"
 msgstr "Maa"
 
@@ -900,7 +886,7 @@ msgstr "Luo"
 msgid "Create New Identity"
 msgstr "Luo uusi profiili"
 
-#: lib/Block/Moon.php:25
+#: lib/Block/Moon.php:24
 msgid "Current 4 Phases"
 msgstr "Tämänhetkiset 4 vaihetta"
 
@@ -908,19 +894,19 @@ msgstr "Tämänhetkiset 4 vaihetta"
 msgid "Current Alarms"
 msgstr "Tämänhetkiset hälytykset"
 
-#: admin/sessions.php:22
+#: admin/sessions.php:23
 msgid "Current Sessions"
 msgstr "Tämänhetkiset istunnot"
 
-#: lib/Block/Time.php:17
+#: lib/Block/Time.php:16
 msgid "Current Time"
 msgstr "Tämänhetkinen kellonaika"
 
-#: lib/Block/Metar.php:29
+#: lib/Block/Metar.php:27
 msgid "Current Weather"
 msgstr "Tämänhetkinen sää"
 
-#: lib/Block/Weatherdotcom.php:259
+#: lib/Block/Weatherdotcom.php:257
 msgid "Current condition: "
 msgstr "Tämänhetkinen tila: "
 
@@ -967,11 +953,11 @@ msgstr "DataTree"
 msgid "DataTree Browser"
 msgstr "DataTree Selain"
 
-#: templates/prefs/syncml.html:11 templates/admin/config/index.html:25
+#: templates/admin/config/index.html:25 templates/prefs/syncml.html:11
 msgid "Database"
 msgstr "Tietokanta"
 
-#: lib/Block/Vatid.php:108
+#: lib/Block/Vatid.php:107
 msgid "Date"
 msgstr "Päiväys"
 
@@ -984,19 +970,19 @@ msgstr "Vastaanoton päiväys"
 msgid "Date: %s; time: %s"
 msgstr "Päiväys: %s; aika: %s"
 
-#: lib/Block/Weatherdotcom.php:275 lib/Block/Weatherdotcom.php:304
+#: lib/Block/Weatherdotcom.php:273 lib/Block/Weatherdotcom.php:302
 msgid "Day"
 msgstr "Päivä"
 
-#: lib/Prefs/Ui.php:81 lib/Prefs/Ui.php:95 config/prefs.php:352
+#: config/prefs.php:352 lib/Prefs/Ui.php:80 lib/Prefs/Ui.php:94
 msgid "Default"
 msgstr "Oletus"
 
-#: lib/Prefs/Ui.php:229 lib/Prefs/Ui.php:259
+#: lib/Prefs/Ui.php:228 lib/Prefs/Ui.php:258
 msgid "Default Color"
 msgstr "Oletusväri"
 
-#: lib/Block/Account.php:75
+#: lib/Block/Account.php:74
 msgid "Default Shell"
 msgstr "Oletuskomentotulkki"
 
@@ -1008,18 +994,18 @@ msgstr "Oletusmerkistö lähetettäessä sähköpostiviestejä:"
 msgid "Default location to use for location-aware features."
 msgstr "Oletuspaikkatieto kun käytetään paikkatietoisia toimintoja."
 
-#: lib/Block/Fortune.php:40
+#: lib/Block/Fortune.php:39
 msgid "Definitions"
 msgstr "Määritelmät"
 
-#: templates/shares/edit.inc:63 templates/shares/edit.inc:83
-#: templates/shares/edit.inc:98 templates/shares/edit.inc:118
-#: templates/shares/edit.inc:134 templates/shares/edit.inc:154
-#: templates/shares/edit.inc:169 templates/shares/edit.inc:193
-#: templates/shares/edit.inc:228 templates/shares/edit.inc:255
-#: templates/shares/edit.inc:271 templates/shares/edit.inc:291
-#: templates/shares/edit.inc:320 templates/admin/user/list.inc:34
-#: templates/admin/groups/delete.inc:10 admin/groups.php:69
+#: admin/groups.php:69 templates/admin/groups/delete.inc:10
+#: templates/admin/user/list.inc:34 templates/shares/edit.inc:63
+#: templates/shares/edit.inc:83 templates/shares/edit.inc:98
+#: templates/shares/edit.inc:118 templates/shares/edit.inc:134
+#: templates/shares/edit.inc:154 templates/shares/edit.inc:169
+#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
+#: templates/shares/edit.inc:255 templates/shares/edit.inc:271
+#: templates/shares/edit.inc:291 templates/shares/edit.inc:320
 #: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
 #: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
 msgid "Delete"
@@ -1043,7 +1029,7 @@ msgstr "Poista Ryhmä"
 msgid "Deleted configuration upgrade script \"%s\"."
 msgstr "Poistettiin asennusasetusten päivitysskripti \"%s\"."
 
-#: lib/Prefs/Ui.php:685
+#: lib/Prefs/Ui.php:690
 #, php-format
 msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
 msgstr ""
@@ -1053,11 +1039,11 @@ msgstr ""
 msgid "Describe the Problem"
 msgstr "Ongelman kuvaus"
 
-#: config/registry.php:207
+#: config/registry.php:206
 msgid "Development"
 msgstr "Kehitys"
 
-#: templates/prefs/syncml.html:10 templates/prefs/activesync.html:20
+#: templates/prefs/activesync.html:20 templates/prefs/syncml.html:10
 msgid "Device"
 msgstr "Laite"
 
@@ -1073,7 +1059,7 @@ msgstr "Laitehallinta"
 msgid "Device id:"
 msgstr "Laite id:"
 
-#: lib/Prefs/Ui.php:393 admin/activesync.php:163
+#: admin/activesync.php:163 lib/Prefs/Ui.php:393
 msgid "Device is wiped"
 msgstr "Laite on tyhjennetty"
 
@@ -1085,21 +1071,20 @@ msgstr "Laitteen poisto onnistui."
 msgid "Device wipe successfully canceled."
 msgstr "Laitteen tyhjennys peruutettiin."
 
-#: lib/Block/Metar.php:190
+#: lib/Block/Metar.php:188
 msgid "Dew Point"
 msgstr "Kosteuspiste"
 
-#: lib/Block/Metar.php:267
+#: lib/Block/Metar.php:265
 msgid "Dew Point for last hour: "
 msgstr "Edellisen tunnin kosteuspiste: "
 
-#: lib/Block/Weatherdotcom.php:211
+#: lib/Block/Weatherdotcom.php:209
 msgid "Dew point: "
 msgstr "Kosteuspiste: "
 
-#: templates/prefs/twitter.html:10 templates/prefs/facebook.html:10
-#: templates/prefs/facebook.html:21 templates/prefs/facebook.html:33
-#: templates/prefs/facebook.html:45
+#: templates/prefs/facebook.html:10 templates/prefs/facebook.html:21
+#: templates/prefs/facebook.html:33 templates/prefs/twitter.html:10
 msgid "Disable"
 msgstr "Pois käytöstä"
 
@@ -1111,11 +1096,11 @@ msgstr "Käytetäänkö 24-tunnin aikaesitystä?"
 msgid "Display Preferences"
 msgstr "Näkymän asetukset"
 
-#: lib/Block/Weatherdotcom.php:79
+#: lib/Block/Weatherdotcom.php:77
 msgid "Display detailed forecast"
 msgstr "Näytä yksityiskohtainen ennuste"
 
-#: lib/Block/Metar.php:71
+#: lib/Block/Metar.php:69
 msgid "Display forecast (TAF)"
 msgstr "Näytä ennuste (TAF)"
 
@@ -1140,11 +1125,11 @@ msgstr "Tallenna luotu asetustiedosto PHP-skriptinä."
 msgid "Drizzle"
 msgstr "AP Tihkua"
 
-#: lib/Block/Fortune.php:41
+#: lib/Block/Fortune.php:40
 msgid "Drugs"
 msgstr "Huumeet"
 
-#: login.php:227
+#: login.php:231
 msgid "Dynamic"
 msgstr "Dynaaminen"
 
@@ -1152,7 +1137,7 @@ msgstr "Dynaaminen"
 msgid "E characters"
 msgstr "E merkkimuunnelmat"
 
-#: lib/Block/Vatid.php:14
+#: lib/Block/Vatid.php:13
 msgid "EU VAT identification"
 msgstr "EU ALV-tunnusnumero"
 
@@ -1183,20 +1168,20 @@ msgstr "Muokkaa asetuksia ohjelmalle"
 msgid "Edit permissions"
 msgstr "Muokkaa oikeuksia"
 
-#: templates/shares/edit.inc:14 services/shares/edit.php:260
+#: services/shares/edit.php:260 templates/shares/edit.inc:14
 #, php-format
 msgid "Edit permissions for \"%s\""
 msgstr "Muokkaa oikeuksia \"%s\":lle"
 
-#: lib/Block/Fortune.php:42
+#: lib/Block/Fortune.php:41
 msgid "Education"
 msgstr "Koulutus"
 
-#: templates/admin/user/update.inc:45 templates/admin/groups/edit.inc:11
+#: templates/admin/groups/edit.inc:11 templates/admin/user/update.inc:45
 msgid "Email Address"
 msgstr "Sähköpostiosoite"
 
-#: lib/Prefs/Ui.php:202
+#: lib/Prefs/Ui.php:201
 msgid "Enter a name for the new category:"
 msgstr "Anna nimi uudelle kategorialle:"
 
@@ -1208,8 +1193,7 @@ msgstr ""
 "Anna kysymys joka kysytään, jos salasanasi joudutaan nollaamaan esimerkiksi "
 "'mikä on lemmikkisi nimi?':"
 
-#: services/twitter/index.php:132 services/twitter/index.php:155
-#: lib/Prefs/Ui.php:546
+#: lib/Prefs/Ui.php:550 services/twitter.php:132 services/twitter.php:155
 #, php-format
 msgid ""
 "Error connecting to Twitter: %s Details have been logged for the "
@@ -1218,7 +1202,7 @@ msgstr ""
 "Tapahtui virhe otettaessa yhteyttä Twitteriin: %s Tarkemmat tiedot on "
 "talletettu ylläpidon käsiteltäväksi."
 
-#: lib/Prefs/Ui.php:687
+#: lib/Prefs/Ui.php:688
 msgid "Error deleting synchronization session:"
 msgstr "Virhe poistettaessa synkronointi-istuntoja:"
 
@@ -1231,15 +1215,15 @@ msgstr "Virhe poistettaessa synkronointi-istuntoja:"
 msgid "Error updating password: %s"
 msgstr "Virhe päivitettäessä salasanaa: %s"
 
-#: lib/Block/Fortune.php:43
+#: lib/Block/Fortune.php:42
 msgid "Ethnic"
 msgstr "Etninen"
 
-#: services/facebook/index.php:77
+#: services/facebook.php:69
 msgid "Event Invites:"
 msgstr "Tapahtumakutsut:"
 
-#: templates/portal/layout.inc:101 config/prefs.php:539
+#: config/prefs.php:539 templates/portal/layout.inc:101
 msgid "Every 15 minutes"
 msgstr "15 minuutin välein"
 
@@ -1247,15 +1231,15 @@ msgstr "15 minuutin välein"
 msgid "Every 2 minutes"
 msgstr "2 minuutin välein"
 
-#: templates/portal/layout.inc:98 config/prefs.php:536 config/prefs.php:573
+#: config/prefs.php:536 config/prefs.php:573 templates/portal/layout.inc:98
 msgid "Every 30 seconds"
 msgstr "30 sekunnin välein"
 
-#: templates/portal/layout.inc:100 config/prefs.php:538 config/prefs.php:576
+#: config/prefs.php:538 config/prefs.php:576 templates/portal/layout.inc:100
 msgid "Every 5 minutes"
 msgstr "5 minuutin välein"
 
-#: templates/portal/layout.inc:102 config/prefs.php:540
+#: config/prefs.php:540 templates/portal/layout.inc:102
 msgid "Every half hour"
 msgstr "Puolen tunnin välein"
 
@@ -1263,7 +1247,7 @@ msgstr "Puolen tunnin välein"
 msgid "Every hour"
 msgstr "Tunnin välein"
 
-#: templates/portal/layout.inc:99 config/prefs.php:537 config/prefs.php:574
+#: config/prefs.php:537 config/prefs.php:574 templates/portal/layout.inc:99
 msgid "Every minute"
 msgstr "Minuutin välein"
 
@@ -1275,11 +1259,11 @@ msgstr "Esimerkkiarvot:"
 msgid "Execute"
 msgstr "Suorita"
 
-#: admin/sessions.php:29
+#: admin/sessions.php:30
 msgid "Expand"
 msgstr "Laajenna"
 
-#: lib/Block/Iframe.php:38
+#: lib/Block/Iframe.php:37
 msgid "Extra Large"
 msgstr "Ekstrasuuri"
 
@@ -1299,19 +1283,19 @@ msgstr "Sulautuu virheään"
 msgid "Fair"
 msgstr "Kaunis"
 
-#: lib/Block/Feed.php:56
+#: lib/Block/Feed.php:55
 msgid "Feed"
 msgstr "Syöte"
 
-#: lib/Block/Feed.php:28
+#: lib/Block/Feed.php:27
 msgid "Feed Address"
 msgstr "Syötteen osoite"
 
-#: lib/Block/Metar.php:193
+#: lib/Block/Metar.php:191
 msgid "Feels Like"
 msgstr "Tuntuu kuin"
 
-#: lib/Block/Weatherdotcom.php:215
+#: lib/Block/Weatherdotcom.php:213
 msgid "Feels like: "
 msgstr "Tuntuu kuin: "
 
@@ -1327,23 +1311,23 @@ msgstr "Muutamia lumisateita"
 msgid "Fields to search"
 msgstr "Etsittävät kentät"
 
-#: config/registry.php:291
+#: config/registry.php:290
 msgid "File Manager"
 msgstr "Tiedostohallinta"
 
-#: lib/Block/FbStream.php:54
+#: lib/Block/FbStream.php:65
 msgid "Filter"
 msgstr "Suodatin"
 
-#: config/registry.php:87
+#: config/registry.php:86
 msgid "Filters"
 msgstr "Suodattimet"
 
-#: lib/Block/Moon.php:167
+#: lib/Block/Moon.php:166
 msgid "First Half"
 msgstr "Ensimmäinen puolisko"
 
-#: lib/Block/Moon.php:75 lib/Block/Moon.php:77
+#: lib/Block/Moon.php:74 lib/Block/Moon.php:76
 msgid "First Quarter"
 msgstr "Ensimmäinen neljännes"
 
@@ -1363,15 +1347,15 @@ msgstr "Sumua myöhemmin"
 msgid "Foggy"
 msgstr "Sumuinen"
 
-#: lib/Block/Fortune.php:44
+#: lib/Block/Fortune.php:43
 msgid "Food"
 msgstr "Ruoka"
 
-#: lib/Block/Metar.php:307
+#: lib/Block/Metar.php:305
 msgid "Forecast (TAF)"
 msgstr "Ennuste (TAF)"
 
-#: lib/Block/Weatherdotcom.php:67
+#: lib/Block/Weatherdotcom.php:65
 msgid ""
 "Forecast Days (note that the returned forecast returns both day and night; a "
 "large number here could result in a wide block)"
@@ -1383,23 +1367,23 @@ msgstr ""
 msgid "Forgot your password?"
 msgstr "Unohditko salasanasi?"
 
-#: lib/Block/Fortune.php:25
+#: lib/Block/Fortune.php:24
 msgid "Fortune"
 msgstr "Mietelause"
 
-#: lib/Block/Fortune.php:108
+#: lib/Block/Fortune.php:107
 msgid "Fortune type"
 msgstr "Mietelauseen tyyppi"
 
-#: lib/Block/Fortune.php:45
+#: lib/Block/Fortune.php:44
 msgid "Fortunes"
 msgstr "Mietelauseet"
 
-#: lib/Block/Fortune.php:46
+#: lib/Block/Fortune.php:45
 msgid "Fortunes 2"
 msgstr "Mietelauseet 2"
 
-#: config/registry.php:313
+#: config/registry.php:312
 msgid "Forums"
 msgstr "Foorumit"
 
@@ -1407,16 +1391,12 @@ msgstr "Foorumit"
 msgid "Freezing Drizzle"
 msgstr "Jäätävää tihkua"
 
-#: services/facebook/index.php:76
+#: services/facebook.php:68
 msgid "Friend Requests:"
 msgstr "Ystäväpyynnöt:"
 
-#: templates/prefs/facebook.html:44
-msgid "Friends enabled"
-msgstr "Ystävät sallittu"
-
-#: lib/Block/Weatherdotcom.php:232 lib/Block/Weatherdotcom.php:342
-#: lib/Block/Weatherdotcom.php:388
+#: lib/Block/Weatherdotcom.php:230 lib/Block/Weatherdotcom.php:340
+#: lib/Block/Weatherdotcom.php:386
 msgid "From the "
 msgstr "Suunnasta "
 
@@ -1424,11 +1404,11 @@ msgstr "Suunnasta "
 msgid "Full Description"
 msgstr "Pidempi kuvaus"
 
-#: lib/Block/Moon.php:82 lib/Block/Moon.php:177
+#: lib/Block/Moon.php:81 lib/Block/Moon.php:176
 msgid "Full Moon"
 msgstr "Täysikuu"
 
-#: templates/admin/user/update.inc:37 lib/Block/Account.php:65
+#: lib/Block/Account.php:64 templates/admin/user/update.inc:37
 msgid "Full Name"
 msgstr "Koko nimi"
 
@@ -1441,7 +1421,7 @@ msgstr "Muodosta %s asetukset"
 msgid "Generated Code"
 msgstr "Muodostettu koodi"
 
-#: templates/block/twitter-layout.html.php:34 lib/Block/FbStream.php:170
+#: lib/Block/FbStream.php:179 templates/block/twitter-layout.html.php:33
 msgid "Get More"
 msgstr "Hae lisää"
 
@@ -1453,11 +1433,11 @@ msgstr "Yleiset asetukset"
 msgid "Go"
 msgstr "Mene"
 
-#: lib/Block/Fortune.php:47
+#: lib/Block/Fortune.php:46
 msgid "Goedel"
 msgstr "Gödel"
 
-#: lib/Block/Google.php:14
+#: lib/Block/Google.php:13
 msgid "Google Search"
 msgstr "Google haku"
 
@@ -1477,7 +1457,7 @@ msgstr "Harmaa"
 msgid "Group Administration"
 msgstr "Ryhmien hallinta"
 
-#: templates/shares/edit.inc:266 admin/groups.php:230
+#: admin/groups.php:230 templates/shares/edit.inc:266
 msgid "Groups"
 msgstr "Ryhmät"
 
@@ -1501,15 +1481,15 @@ msgstr "Voimakas ukkosmyrsky"
 msgid "Hebrew (ISO-8859-8-I)"
 msgstr "Hebrea (ISO-8859-8-I)"
 
-#: lib/Block/Iframe.php:32
+#: lib/Block/Iframe.php:31
 msgid "Height"
 msgstr "Korkeus"
 
-#: lib/Block/TwitterTimeline.php:70 lib/Block/FbStream.php:69
-msgid "Height of stream content (width automatically adjusts to block)"
-msgstr "Viestivirran korkeus (leveys mukautuu automaattisesti osion mukaan)"
+#: lib/Block/FbStream.php:80 lib/Block/TwitterTimeline.php:69
+msgid "Height of map (width automatically adjusts to block)"
+msgstr "Kartan korkeus (leveys mukautuu automaattisesti osion mukaan)"
 
-#: templates/help/index.inc:4 services/help/index.php:17
+#: services/help/index.php:17 templates/help/index.inc:4
 msgid "Help"
 msgstr "Ohje"
 
@@ -1517,7 +1497,7 @@ msgstr "Ohje"
 msgid "Help _Topics"
 msgstr "Ohjeiden _aiheet"
 
-#: lib/Block/Moon.php:28
+#: lib/Block/Moon.php:27
 msgid "Hemisphere"
 msgstr "Pallonpuolisko:"
 
@@ -1541,11 +1521,11 @@ msgstr "Piilota tulokset"
 msgid "High"
 msgstr "Korkea"
 
-#: lib/Block/Account.php:70
+#: lib/Block/Account.php:69
 msgid "Home Directory"
 msgstr "Kotihakemisto"
 
-#: config/registry.php:74
+#: config/registry.php:73
 msgid "Horde"
 msgstr "Horde"
 
@@ -1557,19 +1537,19 @@ msgstr "Horde Web-sivusto"
 msgid "How many fields (columns) are there?"
 msgstr "Kenttien (sarakkeiden) lukumäärä?"
 
-#: lib/Block/Feed.php:36
+#: lib/Block/Feed.php:35
 msgid "How many seconds before we check for new articles?"
 msgstr "Kuinka monen sekunnin välein tarkistetaan uudet viestit?"
 
-#: lib/Block/Metar.php:203 lib/Block/Weatherdotcom.php:283
+#: lib/Block/Metar.php:201 lib/Block/Weatherdotcom.php:281
 msgid "Humidity"
 msgstr "Kosteus"
 
-#: lib/Block/Weatherdotcom.php:243
+#: lib/Block/Weatherdotcom.php:241
 msgid "Humidity: "
 msgstr "Kosteus: "
 
-#: lib/Block/Fortune.php:48
+#: lib/Block/Fortune.php:47
 msgid "Humorists"
 msgstr "Humoristit"
 
@@ -1613,7 +1593,7 @@ msgstr "Tuodut kentät: %s"
 msgid "Imported fields:"
 msgstr "Tuodut kentät:"
 
-#: lib/Block/TwitterTimeline.php:118
+#: lib/Block/TwitterTimeline.php:117
 msgid "In reply to:"
 msgstr "Vastauksena:"
 
@@ -1645,11 +1625,11 @@ msgstr "Yksittäiset käyttäjät"
 msgid "Infinite sessions enabled."
 msgstr "Istuntojen"
 
-#: config/registry.php:240
+#: config/registry.php:239
 msgid "Information"
 msgstr "Informaatio"
 
-#: lib/Block/Weatherdotcom.php:312
+#: lib/Block/Weatherdotcom.php:310
 msgid "Information no longer available."
 msgstr "Tietoa ei ole enää saatavilla."
 
@@ -1665,7 +1645,7 @@ msgstr "Anna sähköpostiosoite johon uusi salasana lähetetään:"
 msgid "Insert the required answer to the security question:"
 msgstr "Anna vaadittava vastaus turvakysymykseen:"
 
-#: lib/Block/Vatid.php:57
+#: lib/Block/Vatid.php:56
 msgid "Invalid VAT identification number format."
 msgstr "Epäkelpo ALV-tunnuksen numeromuoto."
 
@@ -1682,11 +1662,11 @@ msgstr "Epäkelpo ohjelma."
 msgid "Invalid hash."
 msgstr "Epäkelpo tiivistetunniste"
 
-#: lib/Block/Weatherdotcom.php:160
+#: lib/Block/Weatherdotcom.php:158
 msgid "Invalid license key."
 msgstr "Epäkelpo lisenssiavain."
 
-#: lib/Block/Weatherdotcom.php:154
+#: lib/Block/Weatherdotcom.php:152
 msgid "Invalid location provided."
 msgstr "Epäkelpo paikkatieto."
 
@@ -1694,11 +1674,11 @@ msgstr "Epäkelpo paikkatieto."
 msgid "Invalid parent permission."
 msgstr "Epäkelvot oikeudet ylemmällä tasolla."
 
-#: lib/Block/Weatherdotcom.php:156
+#: lib/Block/Weatherdotcom.php:154
 msgid "Invalid partner id."
 msgstr "Epäkelpo parner id."
 
-#: lib/Block/Weatherdotcom.php:158
+#: lib/Block/Weatherdotcom.php:156
 msgid "Invalid product code."
 msgstr "Epäkelpo tuotekoodi."
 
@@ -1711,11 +1691,11 @@ msgstr "Hajanaisia ukkosmyrskyjä"
 msgid "Japanese (ISO-2022-JP)"
 msgstr "Japani (ISO-2022-JP)"
 
-#: lib/Block/TwitterTimeline.php:120
+#: lib/Block/TwitterTimeline.php:119
 msgid "Just now..."
 msgstr "Juuri nyt..."
 
-#: lib/Block/Fortune.php:49
+#: lib/Block/Fortune.php:48
 msgid "Kernel Newbies"
 msgstr "Kernel aloittelijat"
 
@@ -1723,7 +1703,7 @@ msgstr "Kernel aloittelijat"
 msgid "Keyword"
 msgstr "Avainsana"
 
-#: lib/Block/Fortune.php:50
+#: lib/Block/Fortune.php:49
 msgid "Kids"
 msgstr "Lapset"
 
@@ -1735,23 +1715,23 @@ msgstr "Kolab"
 msgid "Korean (EUC-KR)"
 msgstr "Korea (EUC-KR)"
 
-#: login.php:356 templates/login/login.inc:34
+#: login.php:362 templates/login/login.inc:34
 msgid "Language"
 msgstr "Kieli"
 
-#: lib/Block/Iframe.php:37
+#: lib/Block/Iframe.php:36
 msgid "Large"
 msgstr "Suuri"
 
-#: lib/Block/Moon.php:170
+#: lib/Block/Moon.php:169
 msgid "Last Half"
 msgstr "Jälkimmäinen puolisko"
 
-#: lib/Block/Account.php:88
+#: lib/Block/Account.php:87
 msgid "Last Password Change"
 msgstr "Edellinen salasananvaihto"
 
-#: lib/Block/Moon.php:87 lib/Block/Moon.php:89
+#: lib/Block/Moon.php:86 lib/Block/Moon.php:88
 msgid "Last Quarter"
 msgstr "Jälkimmäinen neljännes"
 
@@ -1759,14 +1739,14 @@ msgstr "Jälkimmäinen neljännes"
 msgid "Last Sync Time"
 msgstr "Edellinen synkronointiaika"
 
-#: lib/Block/Metar.php:124
+#: lib/Block/Metar.php:122
 msgid "Last Updated:"
 msgstr "Viimeksi päivitetty:"
 
 #: lib/LoginTasks/Task/LastLogin.php:46
 #, php-format
 msgid "Last login: %s"
-msgstr "Edellinen sisäänkirjautuminen: %s, %s"
+msgstr "Edellinen sisäänkirjautuminen: %s"
 
 #: lib/LoginTasks/Task/LastLogin.php:48
 #, php-format
@@ -1785,7 +1765,7 @@ msgstr "Viimeisimmät"
 msgid "Lavender"
 msgstr "Laventeli"
 
-#: lib/Block/Fortune.php:51
+#: lib/Block/Fortune.php:50
 msgid "Law"
 msgstr "Laki"
 
@@ -1833,15 +1813,15 @@ msgstr "Kevyen lumista myöhemmin"
 msgid "Light Snow Shower"
 msgstr "Kevyttä lumisade"
 
-#: services/facebook/index.php:113
+#: services/facebook.php:105
 msgid "Like"
 msgstr "Pitää"
 
-#: lib/Block/Fortune.php:52
+#: lib/Block/Fortune.php:51
 msgid "Limerick"
 msgstr "Limerikit"
 
-#: lib/Block/Fortune.php:53
+#: lib/Block/Fortune.php:52
 msgid "Linux Cookie"
 msgstr "Linux pipareita"
 
@@ -1852,9 +1832,9 @@ msgstr "Listaa taulut"
 #: admin/alarms.php:130
 #, php-format
 msgid "Listing alarms failed: %s"
-msgstr "Hälytysten listaus epäonnistui"
+msgstr "Hälytysten listaus epäonnistui: %s"
 
-#: admin/sessions.php:66
+#: admin/sessions.php:67
 #, php-format
 msgid "Listing sessions failed: %s"
 msgstr "Istuntojen listaus epäonnistui: %s"
@@ -1863,11 +1843,11 @@ msgstr "Istuntojen listaus epäonnistui: %s"
 msgid "Listing users is disabled."
 msgstr "Käyttäjätietojen näyttäminen on estetty."
 
-#: lib/Block/Fortune.php:54
+#: lib/Block/Fortune.php:53
 msgid "Literature"
 msgstr "Kirjallisuus"
 
-#: lib/Block/Weatherdotcom.php:195
+#: lib/Block/Weatherdotcom.php:193
 msgid "Local time: "
 msgstr "Paikallinen aika: "
 
@@ -1875,12 +1855,12 @@ msgstr "Paikallinen aika: "
 msgid "Locale and Time"
 msgstr "Lokalisaatio ja aika"
 
-#: lib/Block/Metar.php:51 lib/Block/Sunrise.php:23
-#: lib/Block/Weatherdotcom.php:52
+#: lib/Block/Metar.php:49 lib/Block/Sunrise.php:22
+#: lib/Block/Weatherdotcom.php:50
 msgid "Location"
 msgstr "Paikka"
 
-#: login.php:303 templates/login/login.inc:43
+#: login.php:309 templates/login/login.inc:43
 msgid "Log in"
 msgstr "Kirjaudu sisaan"
 
@@ -1888,21 +1868,21 @@ msgstr "Kirjaudu sisaan"
 msgid "Log out"
 msgstr "Kirjaudu ulos"
 
-#: lib/Block/Account.php:61
+#: lib/Block/Account.php:60
 msgid "Login"
 msgstr "Kirjaudu"
 
-#: login.php:328
+#: login.php:334
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
 "Sisäänkirjautumisesi epäonnistui. Todennäköisesti kirjoitit väärin "
 "käyttäjätunnuksesi tai salasanasi."
 
-#: login.php:324
+#: login.php:330
 msgid "Login failed."
 msgstr "Sisäänkirjautuminen epäonnistui."
 
-#: templates/prefs/facebook.html:57
+#: templates/prefs/facebook.html:45
 msgid "Login to Facebook and authorize <tag:app_name />"
 msgstr "Kirjaudu Facebookiin ja anna lupa <tag:app_name />"
 
@@ -1910,7 +1890,7 @@ msgstr "Kirjaudu Facebookiin ja anna lupa <tag:app_name />"
 msgid "Login to Twitter and authorize the <tag:appname /> application"
 msgstr "Kirjaudu sisään Twitteriin ja anna lupa <tag:app_name />"
 
-#: lib/Block/Fortune.php:55
+#: lib/Block/Fortune.php:54
 msgid "Love"
 msgstr "Rakkaus"
 
@@ -1933,15 +1913,15 @@ msgstr "Loyolan sininen"
 msgid "MM"
 msgstr "KK"
 
-#: lib/Block/Fortune.php:56
+#: lib/Block/Fortune.php:55
 msgid "Magic"
 msgstr "Taikuus"
 
-#: config/registry.php:79
+#: config/registry.php:78
 msgid "Mail"
 msgstr "Sähköposti"
 
-#: config/registry.php:331
+#: config/registry.php:330
 msgid "Mail Admin"
 msgstr "Sähköpostin hallinta"
 
@@ -1961,11 +1941,11 @@ msgstr "Hallinnoi ActiveSync laitteita."
 msgid "Matching fields:"
 msgstr "Täsmäävät kentät:"
 
-#: lib/Block/Metar.php:279
+#: lib/Block/Metar.php:277
 msgid "Max temp last 24 hours: "
 msgstr "Edellisen 24 tunnin korkein lämpötila: "
 
-#: lib/Block/Metar.php:271
+#: lib/Block/Metar.php:269
 msgid "Max temp last 6 hours: "
 msgstr "Edellisen 6 tunnin korkein lämpötila: "
 
@@ -1973,15 +1953,15 @@ msgstr "Edellisen 6 tunnin korkein lämpötila: "
 msgid "Maximum Number of Portal Blocks"
 msgstr "Portaaliosioiden maksimimäärä"
 
-#: lib/Block/FbStream.php:60
+#: lib/Block/FbStream.php:71
 msgid "Maximum number of entries to display"
 msgstr "Näytettävien artikkelien maksimimäärä"
 
-#: lib/Block/Fortune.php:57
+#: lib/Block/Fortune.php:56
 msgid "Medicine"
 msgstr "Lääketiede"
 
-#: lib/Block/Iframe.php:36
+#: lib/Block/Iframe.php:35
 msgid "Medium"
 msgstr "Keskikoinen"
 
@@ -1989,7 +1969,7 @@ msgstr "Keskikoinen"
 msgid "Members"
 msgstr "Jäsenet"
 
-#: templates/block/twitter-layout.html.php:25
+#: templates/block/twitter-layout.html.php:24
 msgid "Mentions"
 msgstr "Mainitsee"
 
@@ -1997,27 +1977,27 @@ msgstr "Mainitsee"
 msgid "Menu mode:"
 msgstr "Menun moodi:"
 
-#: lib/Block/Metar.php:22
+#: lib/Block/Metar.php:20
 msgid "Metar Weather"
 msgstr "Metar sää"
 
-#: lib/Block/Weatherdotcom.php:148
+#: lib/Block/Weatherdotcom.php:146
 msgid "MetarDB is not connected."
 msgstr "MetarDB ei saada yhteyttä."
 
-#: lib/Block/Metar.php:61 lib/Block/Weatherdotcom.php:62
+#: lib/Block/Metar.php:59 lib/Block/Weatherdotcom.php:60
 msgid "Metric"
 msgstr "Metrinen"
 
-#: lib/Block/Metar.php:283
+#: lib/Block/Metar.php:281
 msgid "Min temp last 24 hours: "
 msgstr "Edellisen 24 tunnin matalin lämpötila: "
 
-#: lib/Block/Metar.php:275
+#: lib/Block/Metar.php:273
 msgid "Min temp last 6 hours: "
 msgstr "Edellisen 6 tunnin matalin lämpötila: "
 
-#: lib/Block/Fortune.php:58
+#: lib/Block/Fortune.php:57
 msgid "Miscellaneous"
 msgstr "Sekalaiset"
 
@@ -2029,15 +2009,15 @@ msgstr "Asetusasennustiedot puuttuvat"
 msgid "Mist"
 msgstr "Sumu"
 
-#: login.php:235
+#: login.php:239
 msgid "Mobile"
 msgstr "Mobiili"
 
-#: login.php:231
+#: login.php:235
 msgid "Mobile (Smartphone)"
 msgstr "Mobiili (älypuhelin)"
 
-#: login.php:215
+#: login.php:219
 msgid "Mode"
 msgstr "Moodi"
 
@@ -2049,7 +2029,7 @@ msgstr "Kohtalainen"
 msgid "Monday"
 msgstr "Maanantai"
 
-#: lib/Block/Moon.php:13
+#: lib/Block/Moon.php:12
 msgid "Moon Phases"
 msgstr "Kuun vaiheet"
 
@@ -2073,15 +2053,15 @@ msgstr "Suurimmaksi osaksi aurinkoista"
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: config/registry.php:286
+#: config/registry.php:285
 msgid "My Account"
 msgstr "Omat tietoni"
 
-#: lib/Block/Account.php:27
+#: lib/Block/Account.php:26
 msgid "My Account Information"
 msgstr "Oman käyttäjätunnukseni tiedot"
 
-#: lib/Block/FbStream.php:30
+#: lib/Block/FbStream.php:42
 msgid "My Facebook Stream"
 msgstr "Facebook virta"
 
@@ -2097,16 +2077,7 @@ msgstr "Portaalini asettelu"
 msgid "NO, I Do NOT Agree"
 msgstr "EI, en hyväksy"
 
-#: templates/prefs/activesync.html:48
-msgid ""
-"NOTE: WIPING A DEVICE MAY RESET IT TO FACTORY DEFAULTS. PLEASE MAKE SURE YOU "
-"REALLY WANT TO DO THIS BEFORE REQUESTING A WIPE"
-msgstr ""
-"HUOMIO: LAITTEEN TYHJENNYS SAATTAA PALAUTTAA LAITTEEN TEHDASASETUKSILLE. "
-"vARMISTA, ETTÄ TODELLA HALUAT TEHDÄ TÄMÄN ENNENKUIN PYYDÄT LAITTEEN "
-"TYHJENNYSTÄ."
-
-#: lib/Block/Vatid.php:113
+#: lib/Block/Vatid.php:112
 msgid "Name"
 msgstr "Nimi"
 
@@ -2114,7 +2085,7 @@ msgstr "Nimi"
 msgid "NeXT"
 msgstr "NeXT"
 
-#: templates/portal/layout.inc:97 config/prefs.php:535 config/prefs.php:572
+#: config/prefs.php:535 config/prefs.php:572 templates/portal/layout.inc:97
 msgid "Never"
 msgstr "Ei koskaan"
 
@@ -2122,11 +2093,11 @@ msgstr "Ei koskaan"
 msgid "New Category"
 msgstr "Uusi kategoria"
 
-#: services/facebook/index.php:73
+#: services/facebook.php:65
 msgid "New Messages:"
 msgstr "Uudet viestit:"
 
-#: lib/Block/Moon.php:47 lib/Block/Moon.php:69 lib/Block/Moon.php:175
+#: lib/Block/Moon.php:46 lib/Block/Moon.php:68 lib/Block/Moon.php:174
 msgid "New Moon"
 msgstr "Uusikuu"
 
@@ -2142,7 +2113,7 @@ msgstr "Uusi salasana"
 msgid "New passwords don't match."
 msgstr "Antamasi uudet salasanat eivät täsmää."
 
-#: lib/Block/Fortune.php:59 config/registry.php:245
+#: config/registry.php:244 lib/Block/Fortune.php:58
 msgid "News"
 msgstr "Uutiset"
 
@@ -2151,11 +2122,11 @@ msgstr "Uutiset"
 msgid "Next"
 msgstr "Seuraava"
 
-#: lib/Block/Moon.php:26
+#: lib/Block/Moon.php:25
 msgid "Next 4 Phases"
 msgstr "Seuraavat 4 vaihetta"
 
-#: lib/Block/Weatherdotcom.php:362
+#: lib/Block/Weatherdotcom.php:360
 msgid "Night"
 msgstr "Yö"
 
@@ -2176,16 +2147,16 @@ msgstr "Ei muutosta."
 msgid "No icons found."
 msgstr "Ikoneita ei löytynyt."
 
-#: lib/Block/Metar.php:99 lib/Block/Sunrise.php:45
-#: lib/Block/Weatherdotcom.php:113
+#: lib/Block/Metar.php:97 lib/Block/Sunrise.php:44
+#: lib/Block/Weatherdotcom.php:111
 msgid "No location is set."
 msgstr "Paikkatietoa ei ole asetettu."
 
-#: lib/Block/Weatherdotcom.php:152
+#: lib/Block/Weatherdotcom.php:150
 msgid "No location provided."
 msgstr "Annettu paikkatieto on tuntematon."
 
-#: lib/Block/Fortune.php:101
+#: lib/Block/Fortune.php:100
 msgid "No offensive fortunes"
 msgstr "Ei loukkaavat mietelauseet"
 
@@ -2197,7 +2168,7 @@ msgstr "Ei sisäänkirjautumispyyntöjä jonossa."
 msgid "No stable version exists yet."
 msgstr "Tuotantoversiota ei ole vielä olemassa."
 
-#: lib/Block/Weatherdotcom.php:123
+#: lib/Block/Weatherdotcom.php:121
 msgid "No temporary directory available for cache."
 msgstr "Välimuistille ei ole käytettävissä väliaikaishakemistoa."
 
@@ -2216,8 +2187,8 @@ msgstr ""
 "Versiotietoja ei löytynyt asennusasetuksistasi. Luo asennusasetukset "
 "uudelleen."
 
-#: lib/Prefs/Ui.php:384 templates/prefs/identityselect.html:20
-#: templates/prefs/syncml.html:34 templates/prefs/activesync.html:43
+#: lib/Prefs/Ui.php:384 templates/prefs/activesync.html:43
+#: templates/prefs/identityselect.html:20 templates/prefs/syncml.html:34
 msgid "None"
 msgstr "Ei mitään"
 
@@ -2225,15 +2196,15 @@ msgstr "Ei mitään"
 msgid "Nordic (ISO-8859-10)"
 msgstr "Lappi/Pohjoismaat/Eskimo (ISO-8859-10)"
 
-#: lib/Block/Moon.php:31 lib/Block/Moon.php:61
+#: lib/Block/Moon.php:30 lib/Block/Moon.php:60
 msgid "Northern Hemisphere"
 msgstr "Pohjoinen pallonpuolisko:"
 
-#: lib/Prefs/Ui.php:399 admin/activesync.php:167
+#: admin/activesync.php:167 lib/Prefs/Ui.php:399
 msgid "Not Provisioned"
 msgstr "Ei jaettu"
 
-#: config/registry.php:183
+#: config/registry.php:182
 msgid "Notes"
 msgstr "Muistiinpanot"
 
@@ -2241,11 +2212,11 @@ msgstr "Muistiinpanot"
 msgid "Nothing to browse, go back."
 msgstr "Ei mitään selattavaa, palaa takaisin."
 
-#: lib/Block/Feed.php:31
+#: lib/Block/Feed.php:30
 msgid "Number of articles to display"
 msgstr "Näytettävien artikkelien lukumäärä"
 
-#: lib/Block/TwitterTimeline.php:75
+#: lib/Block/TwitterTimeline.php:74
 msgid "Number of seconds to wait to refresh"
 msgstr "Päivitysten aikaväli"
 
@@ -2257,11 +2228,11 @@ msgstr "O merkkimuunnelmat"
 msgid "Object Creator"
 msgstr "Objektin luoja"
 
-#: lib/Block/Fortune.php:98
+#: lib/Block/Fortune.php:97
 msgid "Offense filter"
 msgstr "Loukkaavuussuodatin"
 
-#: config/registry.php:257
+#: config/registry.php:256
 msgid "Office"
 msgstr "Toimisto"
 
@@ -2277,7 +2248,7 @@ msgstr "Nykyinen salasana"
 msgid "Old password is not correct."
 msgstr "Nykyinen salasana on väärin."
 
-#: lib/Block/Fortune.php:102
+#: lib/Block/Fortune.php:101
 msgid "Only offensive fortunes"
 msgstr "Vain loukkaavat mietelauseet"
 
@@ -2289,7 +2260,7 @@ msgstr ""
 "Vain omistaja tai järjestelmän ylläpitäjä voi muuttaa jakojen omistajia tai "
 "oikeuksia"
 
-#: lib/Block/Fortune.php:60
+#: lib/Block/Fortune.php:59
 msgid "Operating System"
 msgstr "Käyttöjärjestelmä"
 
@@ -2297,7 +2268,7 @@ msgstr "Käyttöjärjestelmä"
 msgid "Or enter a user name:"
 msgstr "Tai anna käyttäjätunnus:"
 
-#: config/registry.php:108
+#: config/registry.php:107
 msgid "Organizing"
 msgstr "Organisointi"
 
@@ -2383,7 +2354,7 @@ msgstr "IP ukkossateita"
 msgid "PM T-Storms"
 msgstr "IP ukkosmyrskyjä"
 
-#: lib/Block/Account.php:283
+#: lib/Block/Account.php:280
 msgid "POSIX extension is missing"
 msgstr "POSIX-laajennukset puuttuvat"
 
@@ -2395,8 +2366,8 @@ msgstr "PH_P-komentotulkki"
 msgid "Partly Cloudy"
 msgstr "Osittain pilvistä"
 
-#: login.php:194 templates/admin/user/update.inc:20 config/registry.php:303
-#: admin/user.php:35 admin/user.php:49 admin/config/index.php:283
+#: admin/config/index.php:283 admin/user.php:35 admin/user.php:49
+#: config/registry.php:302 login.php:194 templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Salasana"
 
@@ -2404,7 +2375,7 @@ msgstr "Salasana"
 msgid "Password changed successfully."
 msgstr "Salasanan vaihto onnistui."
 
-#: lib/Prefs/Ui.php:303
+#: lib/Prefs/Ui.php:302
 msgid "Password:"
 msgstr "Salasana:"
 
@@ -2420,7 +2391,7 @@ msgstr "Liitä"
 msgid "Pending Signups:"
 msgstr "Jonossa olevat sisäänkirjautumispyynnöt:"
 
-#: lib/Block/Fortune.php:61
+#: lib/Block/Fortune.php:60
 msgid "People"
 msgstr "Ihmiset"
 
@@ -2437,8 +2408,8 @@ msgstr "Oikeutta \"%s\" ei poistettu."
 msgid "Permissions"
 msgstr "Oikeudet"
 
-#: admin/perms/delete.php:47 admin/perms/edit.php:111 admin/perms/index.php:17
-#: admin/perms/addchild.php:52
+#: admin/perms/addchild.php:52 admin/perms/delete.php:47
+#: admin/perms/edit.php:111 admin/perms/index.php:17
 msgid "Permissions Administration"
 msgstr "Oikeuksien hallinta"
 
@@ -2446,15 +2417,15 @@ msgstr "Oikeuksien hallinta"
 msgid "Personal Information"
 msgstr "Omat tiedot"
 
-#: lib/Block/Fortune.php:62
+#: lib/Block/Fortune.php:61
 msgid "Pets"
 msgstr "Lemmikit"
 
-#: config/registry.php:319
+#: config/registry.php:318
 msgid "Photos"
 msgstr "Valokuvat"
 
-#: lib/Block/Fortune.php:63
+#: lib/Block/Fortune.php:62
 msgid "Platitudes"
 msgstr "Latteudet"
 
@@ -2478,7 +2449,7 @@ msgstr ""
 "Lue seuraava teksti. Sinun PITÄÄ suostua käyttöehtoihin voidaksesi käyttää "
 "järjestelmää."
 
-#: services/facebook/index.php:75
+#: services/facebook.php:67
 msgid "Pokes:"
 msgstr "Tökkää:"
 
@@ -2490,11 +2461,11 @@ msgstr "Politiikan avain"
 msgid "Policy Key:"
 msgstr "Politiikan avain:"
 
-#: lib/Block/Fortune.php:64
+#: lib/Block/Fortune.php:63
 msgid "Politics"
 msgstr "Politiikka"
 
-#: services/facebook/index.php:109
+#: services/facebook.php:101
 #, php-format
 msgid "Posted %s"
 msgstr "Postattu %s"
@@ -2508,26 +2479,26 @@ msgstr "Postattu %s kautta %s"
 msgid "Postnuke"
 msgstr "Postnuke"
 
-#: lib/Block/Metar.php:239 lib/Block/Metar.php:244
+#: lib/Block/Metar.php:237 lib/Block/Metar.php:242
 #, php-format
 msgid "Precipitation for last %d hour: "
 msgid_plural "Precipitation for last %d hours: "
 msgstr[0] "Sademäärä edelliselle %d tunnille: "
 msgstr[1] "Sademäärä edellisille %d tunneille: "
 
-#: lib/Block/Weatherdotcom.php:281
+#: lib/Block/Weatherdotcom.php:279
 msgid "Precipitation<br />chance"
 msgstr "Sateen<br />todennäköisyys"
 
-#: lib/Block/Metar.php:198
+#: lib/Block/Metar.php:196
 msgid "Pressure"
 msgstr "Ilmanpaine"
 
-#: lib/Block/Metar.php:232
+#: lib/Block/Metar.php:230
 msgid "Pressure at sea level: "
 msgstr "Ilmanpaine merenpinnassa: "
 
-#: lib/Block/Weatherdotcom.php:219
+#: lib/Block/Weatherdotcom.php:217
 msgid "Pressure: "
 msgstr "Ilmanpaine: "
 
@@ -2535,7 +2506,7 @@ msgstr "Ilmanpaine: "
 msgid "Problem Description"
 msgstr "Ongelman kuvaus"
 
-#: lib/Prefs/Ui.php:398 admin/activesync.php:167
+#: admin/activesync.php:167 lib/Prefs/Ui.php:398
 msgid "Provisioned"
 msgstr "Jaeltu"
 
@@ -2551,7 +2522,7 @@ msgstr "Purpurainen Horde"
 msgid "Query"
 msgstr "Kysely"
 
-#: lib/Block/Account.php:80
+#: lib/Block/Account.php:79
 msgid "Quota"
 msgstr "Kiintiö"
 
@@ -2579,7 +2550,7 @@ msgstr "Sadetta ja lunta"
 msgid "Rain to Snow"
 msgstr "Vesisateesta lumeen"
 
-#: lib/Block/Fortune.php:18
+#: lib/Block/Fortune.php:17
 msgid "Random Fortune"
 msgstr "Satunnainen mietelause"
 
@@ -2626,11 +2597,11 @@ msgstr "Päivitysnopeus:"
 msgid "Registered User Devices"
 msgstr "Rekisteröidyt käyttäjälaitteet"
 
-#: lib/Block/Metar.php:299
+#: lib/Block/Metar.php:297
 msgid "Remarks"
 msgstr "Huomiot"
 
-#: admin/sessions.php:38 admin/sessions.php:54
+#: admin/sessions.php:39 admin/sessions.php:55
 msgid "Remote Host:"
 msgstr "Etäpalvelin:"
 
@@ -2638,13 +2609,13 @@ msgstr "Etäpalvelin:"
 msgid "Remote Servers"
 msgstr "Etäpalvelimet"
 
-#: lib/Prefs/Ui.php:301
+#: lib/Prefs/Ui.php:300
 msgid "Remote URL (http://www.example.com/horde):"
 msgstr "Etäpalvelun URL (http://www.example.com/horde):"
 
+#: admin/activesync.php:181 templates/admin/groups/edit.inc:23
 #: templates/admin/user/approve.inc:40
-#: templates/admin/user/removequeued.inc:13 templates/admin/groups/edit.inc:23
-#: admin/activesync.php:181 templates/prefs/activesync.html:33
+#: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
 msgid "Remove"
 msgstr "Poista"
 
@@ -2673,11 +2644,11 @@ msgstr "Vastaa"
 msgid "Reprovision All Devices"
 msgstr "Uudelleenjakele kaikki laitteet"
 
-#: lib/Block/Weatherdotcom.php:140
+#: lib/Block/Weatherdotcom.php:138
 msgid "Requested service could not be found."
 msgstr "Pyydettyä palvelua ei löytynyt."
 
-#: templates/admin/user/update.inc:54 admin/user.php:22
+#: admin/user.php:22 templates/admin/user/update.inc:54
 #: templates/prefs/rpc.html:36
 msgid "Reset"
 msgstr "Tyhjennä"
@@ -2732,7 +2703,7 @@ msgstr "Vahvista uusi salasana"
 msgid "Revert Configuration"
 msgstr "Palauta asennusasetukset"
 
-#: lib/Block/Fortune.php:65
+#: lib/Block/Fortune.php:64
 msgid "Riddles"
 msgstr "Arvoitukset"
 
@@ -2752,7 +2723,7 @@ msgstr "S_QL-komentotulkki"
 msgid "Save"
 msgstr "Tallenna"
 
-#: templates/shares/edit.inc:330 templates/admin/groups/edit.inc:63
+#: templates/admin/groups/edit.inc:63 templates/shares/edit.inc:330
 #, php-format
 msgid "Save \"%s\""
 msgstr "Tallenna \"%s\""
@@ -2783,7 +2754,7 @@ msgstr "Hajanaisia sateita"
 msgid "Scattered T-Storms"
 msgstr "Hajanaisia ukkosmyrskyjä"
 
-#: lib/Block/Fortune.php:66
+#: lib/Block/Fortune.php:65
 msgid "Science"
 msgstr "Tiede"
 
@@ -2791,7 +2762,7 @@ msgstr "Tiede"
 msgid "Sea_rch"
 msgstr "Ha_ku"
 
-#: templates/admin/user/list.inc:16 services/help/index.php:130
+#: services/help/index.php:130 templates/admin/user/list.inc:16
 msgid "Search"
 msgstr "Haku"
 
@@ -2863,7 +2834,7 @@ msgstr "Valitse käytettävä kieli:"
 msgid "Send Problem Report"
 msgstr "Lähetä ongelmaviesti"
 
-#: lib/Block/Metar.php:289
+#: lib/Block/Metar.php:287
 msgid "Sensor: "
 msgstr "Tunnistin: "
 
@@ -2871,7 +2842,7 @@ msgstr "Tunnistin: "
 msgid "Server Time"
 msgstr "Palvelimen aika"
 
-#: lib/Block/Weatherdotcom.php:144
+#: lib/Block/Weatherdotcom.php:142
 msgid "Server data wrong or not available."
 msgstr "Palvelimen tiedot ovat vääriä tai niitä ei ole saatavilla."
 
@@ -2879,7 +2850,7 @@ msgstr "Palvelimen tiedot ovat vääriä tai niitä ei ole saatavilla."
 msgid "Session Admin"
 msgstr "Istuntojen hallinta"
 
-#: admin/sessions.php:36
+#: admin/sessions.php:37
 msgid "Session Timestamp:"
 msgstr "Istunnon aikaleima:"
 
@@ -2922,7 +2893,7 @@ msgstr ""
 "Voit asettaa aloitusohjelman, väriteeman, näkymän päivityksen ja muita "
 "näkymään liityviä asetuksia."
 
-#: lib/Block/Weatherdotcom.php:170
+#: lib/Block/Weatherdotcom.php:168
 msgid "Several locations possible with the parameter: "
 msgstr "Useat paikat sopivat annettuun parametriin: "
 
@@ -2956,7 +2927,7 @@ msgstr ""
 "Näytä erot tämänhetkisen asennusasetustiedoston juuri luodun uudemman "
 "version välillä."
 
-#: lib/Block/Feed.php:41
+#: lib/Block/Feed.php:40
 msgid "Show extra detail?"
 msgstr "Näytetäänkö lisätiedot?"
 
@@ -2964,7 +2935,7 @@ msgstr "Näytetäänkö lisätiedot?"
 msgid "Show last login time when logging in?"
 msgstr "Näytetäänkö edellisen sisäänkirjautumisen päiväys?"
 
-#: lib/Block/FbStream.php:65
+#: lib/Block/FbStream.php:76
 msgid "Show notifications"
 msgstr "Näytä ilmoitukset"
 
@@ -2997,7 +2968,7 @@ msgstr "Simpleksi"
 msgid "Skip Login Tasks"
 msgstr "Ohita sisäänkirjautumistoiminnot"
 
-#: lib/Block/Iframe.php:35
+#: lib/Block/Iframe.php:34
 msgid "Small"
 msgstr "Pieni"
 
@@ -3029,15 +3000,15 @@ msgstr "Lumisateita aikaisin"
 msgid "Snow Showers Late"
 msgstr "Lumisateita myöhemmin"
 
-#: lib/Block/Metar.php:251
+#: lib/Block/Metar.php:249
 msgid "Snow depth: "
 msgstr "Lumen syvyys: "
 
-#: lib/Block/Metar.php:255
+#: lib/Block/Metar.php:253
 msgid "Snow equivalent in water: "
 msgstr "Lumen määrä vetenä: "
 
-#: lib/Block/Fortune.php:67
+#: lib/Block/Fortune.php:66
 msgid "Songs & Poems"
 msgstr "Laulut ja Runous"
 
@@ -3045,7 +3016,7 @@ msgstr "Laulut ja Runous"
 msgid "South European (ISO-8859-3)"
 msgstr "Etelä-Eurooppa (ISO-8859-3)"
 
-#: lib/Block/Moon.php:32 lib/Block/Moon.php:63
+#: lib/Block/Moon.php:31 lib/Block/Moon.php:62
 msgid "Southern Hemisphere"
 msgstr "Eteläinen pallonpuolisko:"
 
@@ -3053,15 +3024,15 @@ msgstr "Eteläinen pallonpuolisko:"
 msgid "Special Character Input"
 msgstr "Erikoismerkkien syöttö"
 
-#: lib/Block/Fortune.php:68
+#: lib/Block/Fortune.php:67
 msgid "Sports"
 msgstr "Urheilu"
 
-#: lib/Block/Metar.php:60 lib/Block/Weatherdotcom.php:61
+#: lib/Block/Metar.php:58 lib/Block/Weatherdotcom.php:59
 msgid "Standard"
 msgstr "Standardi"
 
-#: lib/Block/Fortune.php:69
+#: lib/Block/Fortune.php:68
 msgid "Star Trek"
 msgstr "Star Trek"
 
@@ -3069,16 +3040,16 @@ msgstr "Star Trek"
 msgid "State Management"
 msgstr "Tilatiedon hallinta"
 
-#: admin/activesync.php:108 templates/prefs/activesync.html:22
-#: templates/admin/config/index.html:31
+#: admin/activesync.php:108 templates/admin/config/index.html:31
+#: templates/prefs/activesync.html:22
 msgid "Status"
 msgstr "Tila"
 
-#: services/facebook/index.php:147
+#: services/facebook.php:144
 msgid "Status unable to be set."
 msgstr "Ei voi asettaa tilatietoja."
 
-#: templates/block/twitter-layout.html.php:24
+#: templates/block/twitter-layout.html.php:23
 msgid "Stream"
 msgstr "Virta"
 
@@ -3096,9 +3067,9 @@ msgstr ""
 "Lähtettiin pyyntö lisätä \"%s\" järjestelmään. Et voi kirjautua sisään "
 "ennenkuin pyyntö on käsitelty ja hyväksytty."
 
-#: services/facebook/index.php:35
-msgid "Succesfully connected your Facebook account or updated permissions."
-msgstr "Facebook tiliin muodostettiin yhteys tai oikeuksien päivitys onnistui."
+#: services/facebook.php:38
+msgid "Succesfully connected your Facebook account."
+msgstr "Facebook tiliin onnistuttiin muodostamaan yhteys."
 
 #: admin/sqlshell.php:92
 msgid "Success"
@@ -3150,11 +3121,11 @@ msgstr "Onnistuttiin päivittämään \"%s\""
 msgid "Successfully wrote %s"
 msgstr "Onnistuttiin kirjoittamaan %s"
 
-#: lib/Block/Sunrise.php:70
+#: lib/Block/Sunrise.php:69
 msgid "Sun Rise"
 msgstr "Aurinnnousu"
 
-#: lib/Block/Sunrise.php:73
+#: lib/Block/Sunrise.php:72
 msgid "Sun Set"
 msgstr "Auringonlasku"
 
@@ -3166,23 +3137,23 @@ msgstr "Sunnuntai"
 msgid "Sunny"
 msgstr "Aurinkoinen"
 
-#: lib/Block/Weatherdotcom.php:200
+#: lib/Block/Weatherdotcom.php:198
 msgid "Sunrise"
 msgstr "Aurinnnousu"
 
-#: lib/Block/Sunrise.php:13
+#: lib/Block/Sunrise.php:12
 msgid "Sunrise/Sunset"
 msgstr "Aurinko nousee/Aurinko laskee"
 
-#: lib/Block/Weatherdotcom.php:199
+#: lib/Block/Weatherdotcom.php:197
 msgid "Sunrise: "
 msgstr "Aurinnnousu: "
 
-#: lib/Block/Weatherdotcom.php:203
+#: lib/Block/Weatherdotcom.php:201
 msgid "Sunset"
 msgstr "Auringonlasku"
 
-#: lib/Block/Weatherdotcom.php:202
+#: lib/Block/Weatherdotcom.php:200
 msgid "Sunset: "
 msgstr "Auringonlasku: "
 
@@ -3190,7 +3161,7 @@ msgstr "Auringonlasku: "
 msgid "SyncML"
 msgstr "SyncML"
 
-#: lib/Block/Feed.php:18
+#: lib/Block/Feed.php:17
 msgid "Syndicated Feed"
 msgstr "Levitetty syöte"
 
@@ -3226,7 +3197,7 @@ msgstr "Ukkosmyrskyjä aikaisin"
 msgid "T-Storms Late"
 msgstr "Ukkosmyrskyjä myöhemmin"
 
-#: lib/Block/Cloud.php:14
+#: lib/Block/Cloud.php:13
 msgid "Tag Cloud"
 msgstr "Avainsanapilvi"
 
@@ -3234,7 +3205,7 @@ msgstr "Avainsanapilvi"
 msgid "Tango Blue"
 msgstr "Tango sininen"
 
-#: config/registry.php:159
+#: config/registry.php:158
 msgid "Tasks"
 msgstr "Tehtävät"
 
@@ -3242,28 +3213,28 @@ msgstr "Tehtävät"
 msgid "Teal"
 msgstr "Merensininen"
 
-#: lib/Block/Metar.php:263
+#: lib/Block/Metar.php:261
 msgid "Temp for last hour: "
 msgstr "Lämpötila edelliselle tunnille: "
 
-#: lib/Block/Metar.php:187
+#: lib/Block/Metar.php:185
 msgid "Temperature"
 msgstr "Lämpötila"
 
-#: lib/Block/Weatherdotcom.php:207
+#: lib/Block/Weatherdotcom.php:205
 msgid "Temperature: "
 msgstr "Lämpötila: "
 
-#: lib/Block/Weatherdotcom.php:276
+#: lib/Block/Weatherdotcom.php:274
 #, php-format
 msgid "Temperature<br />(%sHi%s/%sLo%s) &deg;%s"
 msgstr "Lämpötila<br />(%sHi%s/%sLo%s) &deg;%s"
 
-#: services/facebook/index.php:40 lib/Prefs/Ui.php:478
+#: lib/Prefs/Ui.php:492 services/facebook.php:31
 msgid "Temporarily unable to connect with Facebook, Please try again."
 msgstr "Facebookiin ei juuri nyt saada yhteyttä, yritä myöhemmin uudestaan."
 
-#: lib/Block/TwitterTimeline.php:104
+#: lib/Block/TwitterTimeline.php:103
 msgid "Temporarily unable to contact Twitter. Please try again later."
 msgstr "Twitteriin ei juuri nyt saada yhteyttä, yritä myöhemmin uudestaan."
 
@@ -3279,7 +3250,7 @@ msgstr "Vain teksti"
 msgid "Thai (TIS-620)"
 msgstr "Thai (TIS-620)"
 
-#: lib/Prefs/Ui.php:716
+#: lib/Prefs/Ui.php:718
 #, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
 msgstr "Etätyhjennys laitteelle id %s on peruutettu."
@@ -3296,7 +3267,7 @@ msgstr "Hälytys on tallennettu."
 msgid "The default e-mail address to use with this identity:"
 msgstr "Oletussähköpostiosoite, jota käytetään tämän profiilin kanssa:"
 
-#: lib/Block/Vatid.php:87
+#: lib/Block/Vatid.php:86
 msgid ""
 "The member state service could not be reached in time. Try again later or "
 "with a different member state."
@@ -3304,7 +3275,7 @@ msgstr ""
 "Jäsenvaltion tilapalveluun ei juuri nyt saada yhteyttä. Yritä myöhemmin "
 "uudestaan tai kokeile jotain muuta jäsenvaltiota."
 
-#: lib/Block/Vatid.php:83
+#: lib/Block/Vatid.php:82
 msgid ""
 "The member state service is currently not available. Try again later or with "
 "a different member state."
@@ -3312,25 +3283,25 @@ msgstr ""
 "Jäsenvaltion tilapalveluun ei saada yhteyttä. Yritä myöhemmin uudestaan tai "
 "kokeile jotain muuta jäsenvaltiota."
 
-#: lib/Block/Vatid.php:75
+#: lib/Block/Vatid.php:74
 msgid "The provided country code is invalid."
 msgstr "Annettu maakoodi ei kelpaa."
 
-#: lib/Prefs/Ui.php:650
+#: lib/Prefs/Ui.php:654
 #, php-format
 msgid "The server \"%s\" has been deleted."
 msgstr "Palvelin \"%s\" on poistettu."
 
-#: lib/Prefs/Ui.php:645
+#: lib/Prefs/Ui.php:649
 #, php-format
 msgid "The server \"%s\" has been saved."
 msgstr "Palvelin \"%s\" on tallennettu."
 
-#: lib/Block/Vatid.php:79
+#: lib/Block/Vatid.php:78
 msgid "The service is currently not available. Try again later."
 msgstr "Palveluun ei juuri nyt saada yhteyttä. Yritä myöhemmin uudestaan."
 
-#: lib/Block/Vatid.php:91
+#: lib/Block/Vatid.php:90
 msgid "The service is currently too busy. Try again later."
 msgstr "Palvelun on juuri nyt liian kuormitettu. Yritä myöhemmin uudestaan."
 
@@ -3344,7 +3315,7 @@ msgstr "Sisäänkirjautumispyyntö \"%s\" on poistettu."
 msgid "The signup request for user \"%s\" has been removed."
 msgstr "Sisäänkirjautumispyyntö käyttäjälle \"%s\" on poistettu."
 
-#: lib/LoginTasks/Task/AdminCheck.php:60
+#: lib/LoginTasks/Task/AdminCheck.php:59
 msgid ""
 "The test script is currently enabled. For security reasons, disable test "
 "scripts when you are done testing (see horde/docs/INSTALL)."
@@ -3367,7 +3338,7 @@ msgstr "Käyttäjää \"%s\" ei ole olemassa."
 msgid "Themes directory \"%s\" not found."
 msgstr "Teemahakemistoa \"%s\" ei löytynyt."
 
-#: signup.php:38 signup.php:59 admin/signup_confirm.php:74 admin/user.php:84
+#: admin/signup_confirm.php:74 admin/user.php:84 signup.php:38 signup.php:59
 #, php-format
 msgid "There was a problem adding \"%s\" to the system: %s"
 msgstr "Joitakin ongelmia \"%s\" lisäämisessä järjestelmään: %s"
@@ -3388,7 +3359,7 @@ msgstr "Joitakin ongelmia \"%s\" poistamisessa järjestelmästä: "
 msgid "There was a problem updating \"%s\": %s"
 msgstr "Joitakin ongelmia \"%s\" päivityksessä: %s"
 
-#: lib/Block/TwitterTimeline.php:92 lib/Block/TwitterTimeline.php:108
+#: lib/Block/TwitterTimeline.php:91 lib/Block/TwitterTimeline.php:107
 #, php-format
 msgid "There was an error contacting Twitter: %s"
 msgstr "Joitakin ongelmia yhteydessä Twitteriin: %s"
@@ -3401,35 +3372,25 @@ msgstr ""
 "Joitakin ongelmia asennusasetuslomakkeessa. Ehkäpä jätit määrittelemättä "
 "joitakin pakollisia tietoja."
 
-#: services/facebook/index.php:62 services/facebook/index.php:79
-#: lib/Block/FbStream.php:135 lib/Block/FbStream.php:161
+#: lib/Block/FbStream.php:145 lib/Block/FbStream.php:170
+#: services/facebook.php:54 services/facebook.php:71
 #, php-format
 msgid "There was an error making the request: %s"
 msgstr "Joitakin ongelmia muodostettaessa pyyntöä: %s"
-
-#: services/facebook/index.php:37
-msgid ""
-"There was an error obtaining your Facebook session. Please try again later."
-msgstr ""
-"Joitakin ongelmia Facebook istunnon käsittelyssä. Yritä myöhemmin uudestaan."
 
 #: lib/Api.php:276
 #, php-format
 msgid ""
 "There was an error removing global data for %s. Details have been logged."
 msgstr ""
-"Joitakin ongelmia poistettaessa kaikkia tietoja %:stä. Tarkemmat tiedot on "
+"Joitakin ongelmia poistettaessa kaikkia tietoja %s:stä. Tarkemmat tiedot on "
 "tallennettu."
 
-#: services/facebook/index.php:49
-msgid "There was an error with the requested permissions"
-msgstr "Joitakin ongelmia pyydetyissä oikeuksissa"
-
-#: lib/Block/Vatid.php:102
+#: lib/Block/Vatid.php:101
 msgid "This VAT identification number is invalid."
 msgstr "Tämä ALV-tunnusnumero on epäkelpo"
 
-#: lib/Block/Vatid.php:99
+#: lib/Block/Vatid.php:98
 msgid "This VAT identification number is valid."
 msgstr "Tämä ALV-tunnusnumero on kelvollinen"
 
@@ -3437,15 +3398,15 @@ msgstr "Tämä ALV-tunnusnumero on kelvollinen"
 msgid "Thunder"
 msgstr "Ukkonen"
 
-#: config/registry.php:223
+#: config/registry.php:222
 msgid "Tickets"
 msgstr "Tiketit"
 
-#: config/registry.php:262
+#: config/registry.php:261
 msgid "Time Tracking"
 msgstr "Ajanseuranta"
 
-#: lib/Block/Time.php:27
+#: lib/Block/Time.php:26
 msgid "Time format"
 msgstr "Ajanmuoto"
 
@@ -3457,7 +3418,7 @@ msgstr "Aikaleima tai tuntematon"
 msgid "Timestamps of successful synchronization sessions"
 msgstr "Onnistuneiden synkronointi-istuntojen aikaleimat"
 
-#: lib/Block/Iframe.php:28
+#: lib/Block/Iframe.php:27
 msgid "Title"
 msgstr "Otsikko"
 
@@ -3478,19 +3439,19 @@ msgstr ""
 "Voidaksesi valita useampia vaihtoehtoja, pidä Control- (PC) tai Command- "
 "(Mac) näppäintä pohjassa kun napsautat hiiren painiketta."
 
-#: lib/Block/Weatherdotcom.php:293
+#: lib/Block/Weatherdotcom.php:291
 msgid "Today"
 msgstr "Tänään"
 
-#: lib/Block/Weatherdotcom.php:295
+#: lib/Block/Weatherdotcom.php:293
 msgid "Tomorrow"
 msgstr "Huomenna"
 
-#: login.php:223
+#: login.php:227
 msgid "Traditional"
 msgstr "Perinteinen"
 
-#: lib/Block/Fortune.php:70
+#: lib/Block/Fortune.php:69
 msgid "Translations"
 msgstr "Käännökset"
 
@@ -3506,11 +3467,11 @@ msgstr "Viserrys"
 msgid "Twitter Integration"
 msgstr "Twitterin käyttö"
 
-#: lib/Block/TwitterTimeline.php:41
+#: lib/Block/TwitterTimeline.php:40
 msgid "Twitter Timeline"
 msgstr "Twitter aikajana"
 
-#: lib/Block/TwitterTimeline.php:57
+#: lib/Block/TwitterTimeline.php:56
 #, php-format
 msgid "Twitter Timeline for %s"
 msgstr "Twitter %s aikajana"
@@ -3519,15 +3480,15 @@ msgstr "Twitter %s aikajana"
 msgid "U characters"
 msgstr "U merkkimuunnelmat"
 
-#: lib/Block/Weatherdotcom.php:253
+#: lib/Block/Weatherdotcom.php:251
 msgid "U.V. index: "
 msgstr "U.V. indeksi: "
 
-#: lib/Block/Iframe.php:23
+#: lib/Block/Iframe.php:22
 msgid "URL"
 msgstr "URL"
 
-#: services/twitter/index.php:68
+#: services/twitter.php:68
 #, php-format
 msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
 msgstr ""
@@ -3539,7 +3500,7 @@ msgstr ""
 msgid "Unable to delete \"%s\": %s."
 msgstr "Ei voida poistaa \"%s\": %s."
 
-#: services/facebook/index.php:172
+#: services/facebook.php:175
 msgid "Unable to set like."
 msgstr "Ei voida asettaa pitää tietoja."
 
@@ -3547,7 +3508,7 @@ msgstr "Ei voida asettaa pitää tietoja."
 msgid "Undo Changes"
 msgstr "Peru muutokset"
 
-#: lib/Prefs/Ui.php:243
+#: lib/Prefs/Ui.php:242
 msgid "Unfiled"
 msgstr "Luokittelematon"
 
@@ -3555,15 +3516,15 @@ msgstr "Luokittelematon"
 msgid "Unicode (UTF-8)"
 msgstr "Unicode (UTF-8)"
 
-#: lib/Block/Metar.php:57 lib/Block/Weatherdotcom.php:57
+#: lib/Block/Metar.php:55 lib/Block/Weatherdotcom.php:55
 msgid "Units"
 msgstr "Mittayksiköt"
 
-#: lib/Block/Weatherdotcom.php:142
+#: lib/Block/Weatherdotcom.php:140
 msgid "Unknown location provided."
 msgstr "Annettu paikkatieto on tuntematon."
 
-#: templates/admin/user/list.inc:36 lib/Block/FbStream.php:157
+#: lib/Block/FbStream.php:166 templates/admin/user/list.inc:36
 msgid "Update"
 msgstr "Päivitä"
 
@@ -3585,7 +3546,7 @@ msgstr "Päivitä kaikki tietokantaskeemat"
 msgid "Update user"
 msgstr "Päivitä käyttäjä"
 
-#: services/shares/edit.php:249 admin/groups.php:119 admin/perms/edit.php:105
+#: admin/groups.php:119 admin/perms/edit.php:105 services/shares/edit.php:249
 #, php-format
 msgid "Updated \"%s\"."
 msgstr "Päivitettiin \"%s\"."
@@ -3623,16 +3584,16 @@ msgstr "Käyttäjäagentti: %s"
 msgid "User Registration"
 msgstr "Käyttäjän rekisteröiminen"
 
-#: signup.php:19 admin/signup_confirm.php:18
+#: admin/signup_confirm.php:18 signup.php:19
 msgid "User Registration has been disabled for this site."
 msgstr "Tässä järjestelmässä ei voi rekisteröidä käyttäjiä."
 
-#: signup.php:27 admin/signup_confirm.php:25
+#: admin/signup_confirm.php:25 signup.php:27
 msgid "User Registration is not properly configured for this site."
 msgstr ""
 "Käyttäjien rekisteröinti ei ole otettu oikein käyttöön tässä järjestelmässä."
 
-#: lib/Block/Account.php:556
+#: lib/Block/Account.php:553
 msgid "User account not found"
 msgstr "Käyttäjätunnusta ei löytynyt"
 
@@ -3640,13 +3601,13 @@ msgstr "Käyttäjätunnusta ei löytynyt"
 msgid "User to add:"
 msgstr "Lisättävä käyttäjä:"
 
-#: login.php:189 templates/admin/user/approve.inc:22
-#: services/resetpassword.php:29 admin/user.php:32 admin/user.php:48
-#: admin/config/index.php:282
+#: admin/config/index.php:282 admin/user.php:32 admin/user.php:48
+#: login.php:189 services/resetpassword.php:29
+#: templates/admin/user/approve.inc:22
 msgid "Username"
 msgstr "Käyttäjätunnus"
 
-#: lib/Prefs/Ui.php:302
+#: lib/Prefs/Ui.php:301
 msgid "Username:"
 msgstr "Käyttäjätunnus:"
 
@@ -3658,19 +3619,19 @@ msgstr "Käyttäjät"
 msgid "Users in the system:"
 msgstr "Järjestelmän käyttäjät:"
 
-#: lib/Block/Vatid.php:21
+#: lib/Block/Vatid.php:20
 msgid "VAT id number verification"
 msgstr "ALV id-numeron varmistus"
 
-#: lib/Block/Vatid.php:39
+#: lib/Block/Vatid.php:38
 msgid "VAT identification number:"
 msgstr "ALV-tunnusnumero:"
 
-#: lib/Block/Vatid.php:107
+#: lib/Block/Vatid.php:106
 msgid "VAT number"
 msgstr "ALV-numero"
 
-#: lib/Block/Weatherdotcom.php:228
+#: lib/Block/Weatherdotcom.php:226
 msgid "Variable"
 msgstr "Vaihtelevaa"
 
@@ -3678,7 +3639,7 @@ msgstr "Vaihtelevaa"
 msgid "Version Check"
 msgstr "Tarkista versiot"
 
-#: config/registry.php:212
+#: config/registry.php:211
 msgid "Version Control"
 msgstr "Versionhallinta"
 
@@ -3690,31 +3651,31 @@ msgstr "Erittäin korkea"
 msgid "Vietnamese (VISCII)"
 msgstr "Vietnam (VISCII)"
 
-#: lib/Block/Iframe.php:13
+#: lib/Block/Iframe.php:12
 msgid "View an external web page"
 msgstr "Näytä ulkoinen web-sivu"
 
-#: lib/Block/Metar.php:182
+#: lib/Block/Metar.php:180
 msgid "Visibility"
 msgstr "Näkyväisyys"
 
-#: lib/Block/Weatherdotcom.php:247
+#: lib/Block/Weatherdotcom.php:245
 msgid "Visibility: "
 msgstr "Näkyväisyys: "
 
-#: lib/Block/Account.php:95
+#: lib/Block/Account.php:94
 msgid "Warning"
 msgstr "Varoitus"
 
-#: lib/Block/Weatherdotcom.php:41
+#: lib/Block/Weatherdotcom.php:39
 msgid "Weather Forecast"
 msgstr "Sääennuste"
 
-#: lib/Block/Weatherdotcom.php:409
+#: lib/Block/Weatherdotcom.php:407
 msgid "Weather data provided by"
 msgstr "Säätiedot toimittaa"
 
-#: config/registry.php:308
+#: config/registry.php:307
 msgid "Web Site"
 msgstr "Websivusto"
 
@@ -3740,7 +3701,7 @@ msgstr "Länsimainen (ISO-8859-15)"
 msgid "What application should %s display after login?"
 msgstr "Minkä ohjelma %s käynnistetään sisäänkirjautumisen jälkeen."
 
-#: lib/Block/TwitterTimeline.php:113
+#: lib/Block/TwitterTimeline.php:112
 msgid "What are you working on now?"
 msgstr "Minkä parissa työskentelet juuri nyt?"
 
@@ -3752,7 +3713,7 @@ msgstr "Mitä merkkiä käytetään erottimena?"
 msgid "What is the quote character?"
 msgstr "Mitä merkkiä käytetään lainaukseen?"
 
-#: lib/Block/FbStream.php:143
+#: lib/Block/FbStream.php:152
 msgid "What's on your mind?"
 msgstr "Mitä ajattelet?"
 
@@ -3760,7 +3721,7 @@ msgstr "Mitä ajattelet?"
 msgid "Which day would you like to be displayed as the first day of the week?"
 msgstr "Mikä päivä näytetään viikon ensimmäisenä päivänä?"
 
-#: lib/Block/Moon.php:22
+#: lib/Block/Moon.php:21
 msgid "Which phases"
 msgstr "Mitkä vaiheet"
 
@@ -3769,11 +3730,11 @@ msgstr "Mitkä vaiheet"
 msgid "Width of the %s menu on the left:"
 msgstr "Vasemman %s valikon leveys:"
 
-#: config/registry.php:325
+#: config/registry.php:324
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/Weatherdotcom.php:283 lib/Block/WeatherdotcomStrings.php:95
+#: lib/Block/Weatherdotcom.php:281 lib/Block/WeatherdotcomStrings.php:95
 msgid "Wind"
 msgstr "Tuuli"
 
@@ -3785,19 +3746,19 @@ msgstr "Tuulista aikaisin"
 msgid "Wind Late"
 msgstr "Tuulista myöhemmin"
 
-#: lib/Block/Metar.php:66
+#: lib/Block/Metar.php:64
 msgid "Wind speed in knots"
 msgstr "Tuulennopeus solmuissa"
 
-#: lib/Block/Metar.php:129
+#: lib/Block/Metar.php:127
 msgid "Wind:"
 msgstr "Tuuli:"
 
-#: lib/Block/Weatherdotcom.php:226
+#: lib/Block/Weatherdotcom.php:224
 msgid "Wind: "
 msgstr "Tuuli: "
 
-#: lib/Block/Account.php:629
+#: lib/Block/Account.php:626
 msgid "Windows"
 msgstr "Windows"
 
@@ -3805,19 +3766,19 @@ msgstr "Windows"
 msgid "Wipe"
 msgstr "Tyhjennä"
 
-#: lib/Prefs/Ui.php:388 admin/activesync.php:158
+#: admin/activesync.php:158 lib/Prefs/Ui.php:388
 msgid "Wipe is pending"
 msgstr "Tyhjennys on käynnissä"
 
-#: lib/Block/Fortune.php:71
+#: lib/Block/Fortune.php:70
 msgid "Wisdom"
 msgstr "Viisaus"
 
-#: lib/Block/Fortune.php:72
+#: lib/Block/Fortune.php:71
 msgid "Work"
 msgstr "Työ"
 
-#: config/registry.php:235
+#: config/registry.php:234
 msgid "X-Ref"
 msgstr "X-Ref"
 
@@ -3832,7 +3793,7 @@ msgstr "VV"
 msgid "Yes, I Agree"
 msgstr "Kyllä, hyväksyn"
 
-#: services/facebook/index.php:118 services/facebook/index.php:166
+#: services/facebook.php:110 services/facebook.php:169
 #, php-format
 msgid "You and %d other person likes this"
 msgid_plural "You and %d other people like this"
@@ -3887,8 +3848,8 @@ msgstr "Sinulla ei ole oikeuksia listata jakojen jäseniä."
 msgid "You are not allowed to remove user data."
 msgstr "Sinulla ei ole oikeuksia poistaa käyttäjätietoja."
 
-#: services/facebook/index.php:63 services/facebook/index.php:80
-#: lib/Block/FbStream.php:136 lib/Block/FbStream.php:162
+#: lib/Block/FbStream.php:146 lib/Block/FbStream.php:171
+#: services/facebook.php:55 services/facebook.php:72
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
 msgstr "Voit myös tarkistaa Facebook asetuksesi %s:ssä."
@@ -3899,15 +3860,11 @@ msgid ""
 "to login."
 msgstr "Et suostunut käyttöehtoihin, joten et voi kirjautua sisään."
 
-#: login.php:320
+#: login.php:326
 msgid "You have been logged out."
 msgstr "Olet kirjautunut ulos."
 
-#: services/facebook/index.php:47
-msgid "You have denied the requested permissions."
-msgstr "Olet kieltänyt pyydetyt oikeudet."
-
-#: lib/Block/FbStream.php:97
+#: lib/Block/FbStream.php:111
 #, php-format
 msgid ""
 "You have not properly connected your Facebook account with Horde. You should "
@@ -3916,7 +3873,7 @@ msgstr ""
 "Et ole kunnolla liittänyt Facebook tiliäsi Horden kanssa. Sinun tulisi "
 "tarkistaa Facebook asetukset %s:ssä."
 
-#: lib/Block/TwitterTimeline.php:168
+#: lib/Block/TwitterTimeline.php:167
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
@@ -3925,8 +3882,8 @@ msgstr ""
 "Et ole kunnolla liittänyt Twitter tiliäsi Horden kanssa. Sinun tulisi "
 "tarkistaa Facebook asetukset %s:ssä."
 
-#: services/facebook/index.php:120 services/facebook/index.php:160
-#: services/facebook/index.php:168
+#: services/facebook.php:112 services/facebook.php:163
+#: services/facebook.php:171
 msgid "You like this"
 msgstr "Pidätkö tästä"
 
@@ -3936,7 +3893,7 @@ msgstr ""
 "Sinun tulee kuvailla ongelmatilannetta ennenkuin voit lähettää "
 "ongelmaviestin."
 
-#: lib/Prefs/Ui.php:648
+#: lib/Prefs/Ui.php:652
 msgid "You must select an server to be deleted."
 msgstr "Sinun pitää valita poistettava palvelin."
 
@@ -3965,7 +3922,7 @@ msgstr "Sähköpostiosoitteesi"
 msgid "Your Information"
 msgstr "Omat tietosi"
 
-#: login.php:312
+#: login.php:318
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3995,7 +3952,7 @@ msgstr ""
 "Käyttämäsi autentikaatiotaustajärjestelmä ei tue käyttäjätietojen "
 "näyttämistä tai tämä piirre ei ole jostakin syystä käytettävissä."
 
-#: login.php:316
+#: login.php:322
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -4004,7 +3961,7 @@ msgstr ""
 "aloittanut %s istunnon. Tietoturvasyistä sinun pitää kirjautua uudestaan "
 "järjestelmään."
 
-#: lib/Block/Iframe.php:67
+#: lib/Block/Iframe.php:66
 msgid "Your browser does not support this feature."
 msgstr "Selaimesi ei tue tätä piirrettä."
 
@@ -4016,7 +3973,7 @@ msgstr "Aikavyöhykkeesi:"
 msgid "Your full name:"
 msgstr "Koko nimesi:"
 
-#: login.php:332
+#: login.php:338
 msgid "Your login has expired."
 msgstr "Istuntosi on vanhentunut."
 
@@ -4045,7 +4002,7 @@ msgstr ""
 "Salasanasi on nollattu, tarkista sähköpostisi ja kirjaudu sisään uudella "
 "salasanallasi."
 
-#: lib/Block/Account.php:684 lib/Block/Account.php:699
+#: lib/Block/Account.php:681 lib/Block/Account.php:696
 msgid "Your password has expired"
 msgstr "Salasanasi on vanhentunut"
 
@@ -4053,15 +4010,15 @@ msgstr "Salasanasi on vanhentunut"
 msgid "Your password has expired."
 msgstr "Salasanasi on vanhentunut."
 
-#: lib/Prefs/Ui.php:299
+#: lib/Prefs/Ui.php:298
 msgid "Your remote servers:"
 msgstr "Etäpalvelimesi:"
 
-#: login.php:308
+#: login.php:314
 msgid "Your session has expired. Please login again."
 msgstr "Istuntosi on vanhentunut. Kirjaudu sisään uudestaan."
 
-#: lib/Block/Fortune.php:73
+#: lib/Block/Fortune.php:72
 msgid "Zippy"
 msgstr "Zippy"
 
@@ -4069,7 +4026,7 @@ msgstr "Zippy"
 msgid "[Problem Report]"
 msgstr "[Ongelma]"
 
-#: admin/sessions.php:38
+#: admin/sessions.php:39
 msgid "[Unknown]"
 msgstr "[Tuntematon]"
 
@@ -4109,7 +4066,7 @@ msgstr "_Käyttäjät"
 msgid "attachment"
 msgstr "liite"
 
-#: lib/Block/Metar.php:145 lib/Block/Metar.php:331
+#: lib/Block/Metar.php:143 lib/Block/Metar.php:329
 #, php-format
 msgid "calm"
 msgstr "tyyntä"
@@ -4118,12 +4075,12 @@ msgstr "tyyntä"
 msgid "falling"
 msgstr "putoaa"
 
-#: lib/Block/Metar.php:147 lib/Block/Metar.php:333 lib/Block/Metar.php:359
+#: lib/Block/Metar.php:145 lib/Block/Metar.php:331 lib/Block/Metar.php:357
 #, php-format
 msgid "from the %s (%s) at %s %s"
 msgstr "suunnasta %s (%s) nopeudella %s %s"
 
-#: lib/Block/Weatherdotcom.php:234
+#: lib/Block/Weatherdotcom.php:232
 msgid "gusting"
 msgstr "puuskittain"
 
@@ -4131,9 +4088,9 @@ msgstr "puuskittain"
 msgid "inline"
 msgstr "sisällytettynä"
 
-#: services/facebook/index.php:63 services/facebook/index.php:80
-#: lib/Block/TwitterTimeline.php:168 lib/Block/FbStream.php:97
-#: lib/Block/FbStream.php:136 lib/Block/FbStream.php:162
+#: lib/Block/FbStream.php:111 lib/Block/FbStream.php:146
+#: lib/Block/FbStream.php:171 lib/Block/TwitterTimeline.php:167
+#: services/facebook.php:55 services/facebook.php:72
 msgid "preferences"
 msgstr "asetukset"
 
@@ -4157,6 +4114,6 @@ msgstr "varmistaaksesi kirjoita salasana kahdesti"
 msgid "unified"
 msgstr "unified"
 
-#: lib/Block/Weatherdotcom.php:34
+#: lib/Block/Weatherdotcom.php:32
 msgid "weather.com"
 msgstr "weather.com"

@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Storage\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-03 07:21+0300\n"
-"PO-Revision-Date: 2011-04-03 11:11:35+0300\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"PO-Revision-Date: 2011-04-03 21:07:35+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -74,15 +75,13 @@ msgstr "Viestien poisto kansiosta %s epäonnistui. Virheilmoitus oli: %s"
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:682
 #, php-format
 msgid "Failed expunging folder %s. Error: %s"
-msgstr ""
-"Poistettujen viestien tyhjennysä kansiosta %s epäonnistui. Virheilmoitus "
-"oli: %s"
+msgstr "Kansion %s poistettujen tuhoaminen epäonnistui. Virheilmoitus oli: %s"
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:657
 #, php-format
 msgid "Failed fetching body part %s for message %s in folder %s%s. Error: %s"
 msgstr ""
-"Viestin osion %s haku viestistä %s kansiossa %s epäonnistui. Virheilmoitus "
+"Viestin osion %s haku viestistä %s kansiossa %s%s epäonnistui. Virheilmoitus "
 "oli: %s"
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:590
@@ -165,6 +164,12 @@ msgid "Failed retrieving the message with ID %s. Original error: %s."
 msgstr "Viestin haku epäonnistui ID tunnisteella %s. Virheilmoitus oli: %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:372
+#, fuzzy
+msgid "Failed setting ACL on folder %s for user %s to %acl. Error: %s"
+msgstr ""
+"Oikeuksien asetus kansioon %s käyttäjälle %s muotoon %s epäonnistui. "
+"Virhheilmoitus oli: %s"
+
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:251
 #, php-format
 msgid "Failed setting ACL on folder %s for user %s to %s. Error: %s"
@@ -186,7 +191,7 @@ msgstr ""
 "Epäkelpo \"ajuri\" parametri \"%s\". Käytä jotakin näistä \"mock\", \"php\", "
 "\"pear\", \"horde\", \"horde-php\", and \"roundcube\"!"
 
-#: lib/Horde/Kolab/Storage/Factory.php:243
+#: lib/Horde/Kolab/Storage/Factory.php:242
 #, php-format
 msgid "Invalid \"namespace\" type \"%s\"!"
 msgstr "Epäkelpo  \"nimiavaruus\" tyyppi \"%s\"!"
@@ -260,8 +265,7 @@ msgstr ""
 "Lisätiedon %s[%s] asetus kansioon %s%s muotoon %s epäonnistui. Virheilmoitus "
 "oli: %s"
 
-#: lib/Horde/Kolab/Storage/Data/Cached.php:119
-#: lib/Horde/Kolab/Storage/Data/Base.php:220
+#: lib/Horde/Kolab/Storage/Data/Base.php:218
 #, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
@@ -283,7 +287,7 @@ msgstr ""
 "Kolab-objekia on muokannut joku muu taho samaan aikaan oli editoimassa sitä. "
 "Tämän takia tekemäsi muutokset ovat kadonneet."
 
-#: lib/Horde/Kolab/Storage/Data/Format/Mime.php:216
+#: lib/Horde/Kolab/Storage/Data/Format/Mime.php:195
 #, php-format
 msgid ""
 "This is a Kolab Groupware object. To view this object you will need an email "

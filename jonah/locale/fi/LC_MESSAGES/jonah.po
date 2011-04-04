@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jonah 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-03 07:22+0300\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: 2011-04-03 12:13:57+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
@@ -25,31 +26,31 @@ msgstr "- Luotuimmat artikkelit"
 msgid "\"%s\" stories in HTML"
 msgstr "\"%s\" artikkelia HTML-muodossa"
 
-#: lib/Driver.php:248
+#: lib/Driver.php:246
 msgid "1 hour"
 msgstr "1 tunti"
 
-#: lib/Driver.php:252
+#: lib/Driver.php:250
 msgid "12 hours"
 msgstr "12 tuntia"
 
-#: lib/Driver.php:249
+#: lib/Driver.php:247
 msgid "2 hours"
 msgstr "2 tuntia"
 
-#: lib/Driver.php:253
+#: lib/Driver.php:251
 msgid "24 hours"
 msgstr "24 tuntia"
 
-#: lib/Driver.php:247
+#: lib/Driver.php:245
 msgid "30 mins"
 msgstr "30 minuuttia"
 
-#: lib/Driver.php:250
+#: lib/Driver.php:248
 msgid "4 hours"
 msgstr "4 tuntia"
 
-#: lib/Driver.php:251
+#: lib/Driver.php:249
 msgid "8 hours"
 msgstr "8 tuntia"
 
@@ -199,8 +200,8 @@ msgstr ""
 "Anna avainsanat, jotka liitetään tämän artikkelin tageiksi. Erota sanat "
 "pilkuilla."
 
-#: stories/view.php:21 stories/share.php:72 lib/View/Base.php:35
-#: lib/View/StoryView.php:77 lib/Block/Latest.php:85 lib/Block/Story.php:87
+#: lib/Block/Latest.php:85 lib/Block/Story.php:87 lib/View/Base.php:35
+#: lib/View/StoryView.php:77 stories/share.php:72 stories/view.php:21
 #, php-format
 msgid "Error fetching story: %s"
 msgstr "Tapahtui virhe haettaessa artikkelia: %s"
@@ -214,7 +215,7 @@ msgstr "Tämän kanavatyypin lisätietoja"
 msgid "Feed"
 msgstr "Syöte"
 
-#: lib/View/ChannelList.php:64 lib/Block/Delivery.php:20
+#: lib/Block/Delivery.php:20 lib/View/ChannelList.php:64
 msgid "Feeds"
 msgstr "Syötteet"
 
@@ -235,7 +236,7 @@ msgstr "Artikkeli kokonaisuudessaan"
 msgid "HTML Delivery for \"%s\""
 msgstr "HTML jakelu - \"%s\""
 
-#: lib/Driver.php:420
+#: lib/Driver.php:418
 msgid "HTML Version of Story"
 msgstr "Artikkelin HTML-versio"
 
@@ -310,7 +311,7 @@ msgstr "Kanava id puuttuu."
 msgid "Most Popular Stories"
 msgstr "Suosituimmat artikkelit"
 
-#: templates/view/channellist.html.php:26 lib/Form/Feed.php:34
+#: lib/Form/Feed.php:34 templates/view/channellist.html.php:26
 msgid "Name"
 msgstr "Nimi"
 
@@ -358,7 +359,7 @@ msgstr "Ainuttakaan syötettä ei ole saatavilla."
 msgid "No feeds match"
 msgstr "Ei täsmääviä syötteitä"
 
-#: lib/Driver.php:309
+#: lib/Driver.php:307
 msgid "No stories are currently available."
 msgstr "Artikkeleita ei ole saatavilla."
 
@@ -403,7 +404,7 @@ msgstr "Tulkinta epäonnistui:"
 msgid "Parse succeeded, structure is:"
 msgstr "Tulkinta onnistui, rakenne on:"
 
-#: lib/Driver.php:415
+#: lib/Driver.php:413
 msgid "Plaintext Version of Story"
 msgstr "Artikkeli tekstimuodossa."
 
@@ -486,13 +487,13 @@ msgstr ""
 msgid "Standard"
 msgstr "Standardi"
 
-#: delivery/rss.php:68
+#: delivery/rss.php:73
 #, php-format
 msgid "Stories tagged with %s in %s"
 msgstr "Artikkelit tagatty %s - %s"
 
-#: templates/stories/index.html.php:15 lib/Block/Story.php:24
-#: lib/Block/Story.php:45
+#: lib/Block/Story.php:24 lib/Block/Story.php:45
+#: templates/stories/index.html.php:15
 msgid "Story"
 msgstr "Artikkeli"
 
@@ -543,8 +544,8 @@ msgstr "Otsikko"
 msgid "Tag Cloud"
 msgstr "Tagipilvi"
 
-#: lib/Driver.php:448 lib/Driver.php:453 lib/Driver.php:458 lib/Driver.php:464
-#: lib/Driver.php:469
+#: lib/Driver.php:446 lib/Driver.php:451 lib/Driver.php:456 lib/Driver.php:462
+#: lib/Driver.php:467
 msgid "Tag support not enabled in backend."
 msgstr "Taustajärjestelmän tag tuki ei ole käytössä."
 
@@ -614,7 +615,7 @@ msgstr "Tapahtui virhe talletettaessa artikkelia: %s"
 msgid "To"
 msgstr "Vastaanottaja"
 
-#: templates/view/channellist.html.php:27 lib/Form/Feed.php:29
+#: lib/Form/Feed.php:29 templates/view/channellist.html.php:27
 msgid "Type"
 msgstr "Tyyppi"
 
@@ -631,10 +632,10 @@ msgstr "Artikkelia ei voitu lähettää: %s"
 msgid "View"
 msgstr "Näytä"
 
-#: lib/Api.php:111 lib/View/ChannelDelete.php:47 lib/View/ChannelEdit.php:41
-#: lib/View/StoryDelete.php:39 lib/View/StoryEdit.php:46
-#: lib/View/StoryList.php:32 lib/View/TagSearchList.php:34
-#: channels/index.php:18
+#: channels/index.php:18 lib/View/ChannelDelete.php:47
+#: lib/View/ChannelEdit.php:41 lib/View/StoryDelete.php:39
+#: lib/View/StoryEdit.php:46 lib/View/StoryList.php:32
+#: lib/View/TagSearchList.php:34
 msgid "You are not authorised for this action."
 msgstr "Sinulla ei ole oikeuksia suorittaa tätä toimenpidettä."
 
@@ -646,6 +647,6 @@ msgstr "_Syötteet"
 msgid "_New Story"
 msgstr "_Uusi artikkeli"
 
-#: lib/Driver.php:246
+#: lib/Driver.php:244
 msgid "none"
 msgstr "ei mitään"

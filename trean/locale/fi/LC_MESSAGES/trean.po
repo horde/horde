@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trean 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-17 10:59+0200\n"
-"PO-Revision-Date: 2011-04-03 13:14:08+0300\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"PO-Revision-Date: 2011-04-03 20:53:12+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
@@ -114,7 +115,7 @@ msgstr "JA"
 msgid "Accepted"
 msgstr "Hyväksytty"
 
-#: templates/add.html.php:59 lib/Application.php:110
+#: lib/Application.php:110 templates/add.html.php:59
 msgid "Add"
 msgstr "Lisää"
 
@@ -126,7 +127,7 @@ msgstr "Lisää kirjanmerkkeihin"
 msgid "All"
 msgstr "Kaikki"
 
-#: data.php:39 perms.php:240 lib/Block/Bookmarks.php:37
+#: data.php:39 lib/Block/Bookmarks.php:37 perms.php:240
 #, php-format
 msgid "An error occured listing folders: %s"
 msgstr "Tapahtui virhe listattaessa kansioita: %s"
@@ -267,8 +268,8 @@ msgstr "Poistettiin kansio \"%s\""
 msgid "Descending (9 to 1)"
 msgstr "Laskeva (Z - A)"
 
-#: templates/add.html.php:42 templates/edit/bookmark.inc:15
-#: lib/Forms/Search.php:22
+#: lib/Forms/Search.php:22 templates/add.html.php:42
+#: templates/edit/bookmark.inc:15
 msgid "Description"
 msgstr "Kuvaus"
 
@@ -336,8 +337,8 @@ msgstr "Firefox/Mozilla"
 msgid "First level shown"
 msgstr "Ensimmäinen taso näkyvissä"
 
-#: templates/add.html.php:47 templates/views/BookmarkList.php:27
-#: templates/edit/bookmark.inc:25 lib/Block/Bookmarks.php:49
+#: lib/Block/Bookmarks.php:49 templates/add.html.php:47
+#: templates/edit/bookmark.inc:25 templates/views/BookmarkList.php:27
 msgid "Folder"
 msgstr "Kansio"
 
@@ -377,7 +378,7 @@ msgstr "HTTP tila"
 msgid "HTTP Version not supported"
 msgstr "HTTP versio ei tuettu"
 
-#: lib/Block/Bookmarks.php:60 config/prefs.php:23
+#: config/prefs.php:23 lib/Block/Bookmarks.php:60
 msgid "Highest Rated"
 msgstr "Korkeimmalle arvostetut"
 
@@ -434,7 +435,7 @@ msgstr "Suurin sallittu määrä kansioita"
 msgid "Method Not Allowed"
 msgstr "Metodi ei ole sallittu"
 
-#: lib/Block/Bookmarks.php:61 config/prefs.php:24
+#: config/prefs.php:24 lib/Block/Bookmarks.php:61
 msgid "Most Clicked"
 msgstr "Eniten napsautuksia"
 
@@ -480,9 +481,8 @@ msgid "New Bookmark"
 msgstr "Uusi kirjanmerkki"
 
 #: lib/Trean.php:105
-#, fuzzy
 msgid "New Folder"
-msgstr "Lataa kirjanmerkkini"
+msgstr "Uusi kansio"
 
 #: templates/browse.php:81
 msgid "New folder"
@@ -635,7 +635,7 @@ msgstr "Tyhjennä sisältö"
 msgid "Save"
 msgstr "Tallenna"
 
-#: search.php:19 lib/Application.php:122 lib/Forms/Search.php:20
+#: lib/Application.php:122 lib/Forms/Search.php:20 search.php:19
 msgid "Search"
 msgstr "Haku"
 
@@ -665,9 +665,9 @@ msgid "Select None"
 msgstr "Tyhjennä valinnat"
 
 #: templates/search.php:64
-#, fuzzy, php-format
+#, php-format
 msgid "Select: %s, %s"
-msgstr "Valitse %s | %s"
+msgstr "Valitse: %s, %s"
 
 #: lib/Trean.php:197
 msgid "Service Unavailable"
@@ -759,9 +759,9 @@ msgstr "Kirjanmerkkiä talletennettaessa tapahtui virhe: %s"
 msgid "There was an error saving the folder: %s"
 msgstr "Kansioon talletennettaessa tapahtui virhe: %s"
 
-#: templates/add.html.php:37 templates/views/BookmarkList.php:26
-#: templates/edit/bookmark.inc:10 lib/Forms/Search.php:21
-#: lib/Block/Bookmarks.php:59 config/prefs.php:22
+#: config/prefs.php:22 lib/Block/Bookmarks.php:59 lib/Forms/Search.php:21
+#: templates/add.html.php:37 templates/edit/bookmark.inc:10
+#: templates/views/BookmarkList.php:26
 msgid "Title"
 msgstr "Otsikko"
 
@@ -773,8 +773,8 @@ msgstr "Jotta voisit nopeasti lisätä kirjanmerkkejä www-selaimeesi:"
 msgid "Total"
 msgstr "Yhteensä"
 
-#: templates/add.html.php:32 templates/edit/bookmark.inc:20
-#: lib/Forms/Search.php:23
+#: lib/Forms/Search.php:23 templates/add.html.php:32
+#: templates/edit/bookmark.inc:20
 msgid "URL"
 msgstr "URL"
 

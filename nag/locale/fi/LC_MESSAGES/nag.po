@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nag 3.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-03 13:02+0300\n"
-"PO-Revision-Date: 2011-04-03 12:51:31+0300\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"PO-Revision-Date: 2011-04-03 21:02:59+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
@@ -67,12 +68,12 @@ msgstr "%d minuuttia"
 msgid "%s at %s"
 msgstr "%s %s"
 
-#: lib/Nag.php:771 lib/Application.php:340 lib/Block/Summary.php:147
+#: lib/Application.php:290 lib/Block/Summary.php:147 lib/Nag.php:771
 #, php-format
 msgid "%s is due in %s"
 msgstr "%s pitäisi valmistua %s"
 
-#: lib/Nag.php:769 lib/Application.php:341 lib/Block/Summary.php:144
+#: lib/Application.php:291 lib/Block/Summary.php:144 lib/Nag.php:769
 #, php-format
 msgid "%s is due now."
 msgstr "%s pitäisi olla valmis nyt."
@@ -87,11 +88,11 @@ msgstr "%s on nyt kesken."
 msgid "%s successfully imported"
 msgstr "%s tuonti onnistui."
 
-#: lib/Nag.php:536 lib/Form/Task.php:70
+#: lib/Form/Task.php:70 lib/Nag.php:536
 msgid "(highest)"
 msgstr "(korkein)"
 
-#: lib/Nag.php:536 lib/Form/Task.php:74
+#: lib/Form/Task.php:74 lib/Nag.php:536
 msgid "(lowest)"
 msgstr "(matalin)"
 
@@ -145,11 +146,11 @@ msgid_plural "Added %d tasks"
 msgstr[0] "Lisättiin %d tehtävä"
 msgstr[1] "Lisättiin %d tehtävää"
 
-#: data.php:58 templates/view/task.inc:30 lib/Form/Task.php:106
+#: data.php:58 lib/Form/Task.php:106 templates/view/task.inc:30
 msgid "Alarm"
 msgstr "Hälytys"
 
-#: templates/data/export.inc:34 config/prefs.php:190
+#: config/prefs.php:190 templates/data/export.inc:34
 msgid "All tasks"
 msgstr "Kaikki tehtävät"
 
@@ -169,9 +170,9 @@ msgstr "Hälytys pitää asettaa määriteltyyn ilmoitustapaan"
 msgid "Ascending"
 msgstr "Nouseva"
 
-#: data.php:56 templates/view/task.inc:12 templates/list/task_headers.inc:64
-#: lib/Form/Task.php:101 config/prefs.php:59 config/prefs.php:86
-#: config/prefs.php:104
+#: config/prefs.php:59 config/prefs.php:86 config/prefs.php:104 data.php:56
+#: lib/Form/Task.php:101 templates/list/task_headers.inc:64
+#: templates/view/task.inc:12
 msgid "Assignee"
 msgstr "Määrätty"
 
@@ -187,8 +188,8 @@ msgstr "CSV"
 msgid "Calendar"
 msgstr "Kalenteri"
 
-#: templates/quick.inc:8 lib/Form/DeleteTaskList.php:40
-#: lib/Form/DeleteTaskList.php:46
+#: lib/Form/DeleteTaskList.php:40 lib/Form/DeleteTaskList.php:46
+#: templates/quick.inc:8
 msgid "Cancel"
 msgstr "Peruuta"
 
@@ -196,13 +197,12 @@ msgstr "Peruuta"
 msgid "Cat_egory"
 msgstr "Kat_egoria"
 
-#: data.php:55 templates/view/task.inc:8 lib/Form/Task.php:93
-#: lib/Form/Task.php:97 config/prefs.php:63 config/prefs.php:81
-#: config/prefs.php:99
+#: config/prefs.php:63 config/prefs.php:81 config/prefs.php:99 data.php:55
+#: lib/Form/Task.php:93 lib/Form/Task.php:97 templates/view/task.inc:8
 msgid "Category"
 msgstr "Kategoria"
 
-#: templates/tasklist_list.php:35 tasklists/index.php:60
+#: tasklists/index.php:60 templates/tasklist_list.php:35
 msgid "Change Permissions"
 msgstr "Muuta oikeuksia"
 
@@ -315,8 +315,8 @@ msgstr "Väri"
 msgid "Complete"
 msgstr "Suoritettu"
 
-#: mobile.php:114 templates/list/task_summaries.inc:10
-#: lib/Block/Summary.php:218
+#: lib/Block/Summary.php:218 mobile.php:114
+#: templates/list/task_summaries.inc:10
 #, php-format
 msgid "Complete \"%s\""
 msgstr "Valmistunut \"%s\""
@@ -329,7 +329,7 @@ msgstr "Suorita tehtävä"
 msgid "Complete tasks"
 msgstr "Suorita tehtävät"
 
-#: mobile.php:129 lib/Nag.php:600 lib/Block/Summary.php:216
+#: lib/Block/Summary.php:216 lib/Nag.php:600 mobile.php:129
 msgid "Completed"
 msgstr "Suoritettu"
 
@@ -350,8 +350,8 @@ msgstr "Valmistunut ylätehtävä, merkitse sen tila ensin keskeneräiseksi"
 msgid "Completed tasks"
 msgstr "Suoritetut tehtävät"
 
-#: templates/view/task.inc:42 templates/list/task_headers.inc:31
-#: lib/Form/Task.php:115 config/prefs.php:84 config/prefs.php:102
+#: config/prefs.php:84 config/prefs.php:102 lib/Form/Task.php:115
+#: templates/list/task_headers.inc:31 templates/view/task.inc:42
 msgid "Completed?"
 msgstr "Suoritettu?"
 
@@ -363,12 +363,12 @@ msgstr "Valmistumispäivämäärä"
 msgid "Completion Status"
 msgstr "Valmistumisen tila"
 
-#: lib/Api.php:614
+#: lib/Api.php:606
 #, php-format
 msgid "Connection failed: %s"
 msgstr "Yhteys epäonnistui: %s"
 
-#: templates/quick.inc:7 lib/Form/CreateTaskList.php:32
+#: lib/Form/CreateTaskList.php:32 templates/quick.inc:7
 msgid "Create"
 msgstr "Luo"
 
@@ -412,8 +412,8 @@ msgstr "Oletukset uudelle tehtävälistalle"
 msgid "Delay Start Until"
 msgstr "Viivästä aloitusta kunnes"
 
-#: view.php:113 templates/tasklist_list.php:37 tasklists/index.php:61
-#: lib/Form/DeleteTaskList.php:40
+#: lib/Form/DeleteTaskList.php:40 tasklists/index.php:61
+#: templates/tasklist_list.php:37 view.php:113
 msgid "Delete"
 msgstr "Poista"
 
@@ -430,7 +430,7 @@ msgstr "Poiston varmistus"
 msgid "Delete button behaviour"
 msgstr "Voit muuttaa Poista painikkeen toimintaa"
 
-#: task.php:115 lib/Form/Task.php:126 lib/Form/Renderer/Task.php:39
+#: lib/Form/Renderer/Task.php:39 lib/Form/Task.php:126 task.php:115
 msgid "Delete this task"
 msgstr "Poista tämä tehtävä"
 
@@ -439,7 +439,7 @@ msgstr "Poista tämä tehtävä"
 msgid "Deleted %s."
 msgstr "Poistettiin %s."
 
-#: lib/Api.php:593
+#: lib/Api.php:585
 msgid "Deleting entire tasklists is not supported."
 msgstr "Koko tehtävälistan poistaminen ei ole tuettu."
 
@@ -474,7 +474,7 @@ msgstr ""
 "Älä lähetä minulle ilmoituksia, jos olen lisännyt, muuttanut tai poistanut "
 "tehtäviä?"
 
-#: data.php:57 templates/view/task.inc:26 lib/Form/Task.php:104
+#: data.php:57 lib/Form/Task.php:104 templates/view/task.inc:26
 msgid "Due By"
 msgstr "Valmiina viimeistään"
 
@@ -486,11 +486,11 @@ msgstr "Valmistumispäivämäärä"
 msgid "Due date specified."
 msgstr "Valmistumispäivämäärää ei ole määritelty"
 
-#: view.php:109 templates/tasklist_list.php:33 tasklists/index.php:59
+#: tasklists/index.php:59 templates/tasklist_list.php:33 view.php:109
 msgid "Edit"
 msgstr "Muokkaa"
 
-#: templates/list/task_summaries.inc:37 lib/Block/Summary.php:209
+#: lib/Block/Summary.php:209 templates/list/task_summaries.inc:37
 #, php-format
 msgid "Edit \"%s\""
 msgstr "Muokkaa \"%s\""
@@ -528,9 +528,9 @@ msgstr ""
 msgid "Error deleting task: %s"
 msgstr "Tapahtui virhe poistettaessa tehtävää: %s"
 
-#: data.php:62 templates/view/task.inc:38 templates/list/task_headers.inc:60
-#: lib/Form/Task.php:114 config/prefs.php:62 config/prefs.php:85
-#: config/prefs.php:103
+#: config/prefs.php:62 config/prefs.php:85 config/prefs.php:103 data.php:62
+#: lib/Form/Task.php:114 templates/list/task_headers.inc:60
+#: templates/view/task.inc:38
 msgid "Estimated Time"
 msgstr "Arvioitu aika"
 
@@ -546,7 +546,7 @@ msgstr "Vie tehtävät"
 msgid "External Data"
 msgstr "Ulkopuolista tietoa"
 
-#: templates/data/export.inc:36 config/prefs.php:193
+#: config/prefs.php:193 templates/data/export.inc:36
 msgid "Future tasks"
 msgstr "Tulevat tehtävät"
 
@@ -583,7 +583,7 @@ msgstr "Keskeneräiset tehtävät"
 msgid "Incomplete sub tasks, complete them first"
 msgstr "Keskeneräisiä alitehtäviä, suorita ne ensin valmiiksi"
 
-#: templates/data/export.inc:35 config/prefs.php:191
+#: config/prefs.php:191 templates/data/export.inc:35
 msgid "Incomplete tasks"
 msgstr "Keskeneräiset tehtävät"
 
@@ -615,7 +615,7 @@ msgstr "Paikallinen"
 msgid "Log out"
 msgstr "Kirjaudu ulos"
 
-#: templates/tasklist_list.php:2 tasklists/index.php:64
+#: tasklists/index.php:64 templates/tasklist_list.php:2
 msgid "Manage Task Lists"
 msgstr "Hallinnoi tehtävälistoja"
 
@@ -648,7 +648,7 @@ msgstr "Kuukausi"
 msgid "More Options..."
 msgstr "Lisää asetukset..."
 
-#: lib/Api.php:1168
+#: lib/Api.php:1160
 msgid "Multiple iCalendar components found; only one vTodo is supported."
 msgstr "Löytyi useita iCalendar komponentteja. vai yksi vTodo on tuettu."
 
@@ -668,11 +668,16 @@ msgstr "N_imi"
 msgid "Na_me"
 msgstr "Ni_mi"
 
+#: lib/Driver/Kolab.php:735
+#, php-format
+msgid "Nag/kolab: Did not find task %s"
+msgstr "Nag/kolab: Ei löytynyt tehtävää %s"
+
 #: data.php:53 lib/Form/CreateTaskList.php:23 lib/Form/Task.php:80
 msgid "Name"
 msgstr "Nimi"
 
-#: task.php:82 task.php:119 lib/Application.php:394
+#: lib/Application.php:344 task.php:82 task.php:119
 msgid "New Task"
 msgstr "Uusi tehtävä"
 
@@ -692,7 +697,7 @@ msgstr "Ei viivettä"
 msgid "No due date."
 msgstr "Ei valmistumispäivämäärää."
 
-#: lib/Api.php:797 lib/Api.php:849 lib/Api.php:1175
+#: lib/Api.php:789 lib/Api.php:841 lib/Api.php:1167
 msgid "No iCalendar data was found."
 msgstr "Ei löytynyt iCalendar tietoja."
 
@@ -716,17 +721,13 @@ msgstr "Ei täsmääviä tehtäviä"
 msgid "No tasks to display"
 msgstr "Ei tehtäviä näytettäväksi"
 
-#: lib/Nag.php:642 lib/Ui/VarRenderer/Nag.php:208 lib/Form/Task.php:102
+#: lib/Form/Task.php:102 lib/Nag.php:642 lib/Ui/VarRenderer/Nag.php:208
 msgid "None"
 msgstr "Ei mitään"
 
 #: lib/Nag.php:601
 msgid "Not Completed"
 msgstr "Ei suoritettu"
-
-#: lib/Driver/Kolab.php:93
-msgid "Not Found"
-msgstr "Ei löytynyt"
 
 #: templates/view/task.inc:18
 msgid "Not Private"
@@ -736,7 +737,7 @@ msgstr "Ei yksityinen"
 msgid "Not completed"
 msgstr "Ei suoritettu"
 
-#: lib/Api.php:652
+#: lib/Api.php:644
 msgid "Not configured"
 msgstr "Ei asennettu."
 
@@ -768,11 +769,11 @@ msgstr "P_ri"
 msgid "Parent task"
 msgstr "Ylätehtävä"
 
-#: lib/Api.php:658 lib/Api.php:692 lib/Api.php:745 lib/Api.php:776
-#: lib/Api.php:895 lib/Api.php:935 lib/Api.php:950 lib/Api.php:989
-#: lib/Api.php:1027 lib/Api.php:1052 lib/Api.php:1104 lib/Api.php:1121
-#: lib/Api.php:1151 lib/Api.php:1238 lib/Api.php:1317 lib/Api.php:1371
-#: lib/Nag.php:285 lib/Application.php:275
+#: lib/Api.php:650 lib/Api.php:684 lib/Api.php:737 lib/Api.php:768
+#: lib/Api.php:887 lib/Api.php:927 lib/Api.php:942 lib/Api.php:981
+#: lib/Api.php:1019 lib/Api.php:1044 lib/Api.php:1096 lib/Api.php:1113
+#: lib/Api.php:1143 lib/Api.php:1230 lib/Api.php:1309 lib/Api.php:1363
+#: lib/Api.php:1407 lib/Nag.php:285
 msgid "Permission Denied"
 msgstr "Käyttö kielletty"
 
@@ -780,12 +781,12 @@ msgstr "Käyttö kielletty"
 msgid "Portal"
 msgstr "Portaali"
 
-#: data.php:60 templates/view/task.inc:34 lib/Form/Task.php:111
-#: config/prefs.php:58 config/prefs.php:79 config/prefs.php:97
+#: config/prefs.php:58 config/prefs.php:79 config/prefs.php:97 data.php:60
+#: lib/Form/Task.php:111 templates/view/task.inc:34
 msgid "Priority"
 msgstr "Prioriteetti"
 
-#: templates/view/task.inc:18 lib/Task.php:518
+#: lib/Task.php:518 templates/view/task.inc:18
 msgid "Private"
 msgstr "Yksityinen"
 
@@ -793,7 +794,7 @@ msgstr "Yksityinen"
 msgid "Private Task"
 msgstr "Yksityinen tehtävä"
 
-#: templates/view/task.inc:16 lib/Form/Task.php:103
+#: lib/Form/Task.php:103 templates/view/task.inc:16
 msgid "Private?"
 msgstr "Yksityinen?"
 
@@ -814,8 +815,8 @@ msgstr ""
 msgid "Really delete this task?"
 msgstr "Poistetaanko tämä tehtävä?"
 
-#: templates/panel.inc:94 lib/Form/EditTaskList.php:45 lib/Form/Task.php:124
-#: lib/Form/Renderer/Task.php:37
+#: lib/Form/EditTaskList.php:45 lib/Form/Renderer/Task.php:37
+#: lib/Form/Task.php:124 templates/panel.inc:94
 msgid "Save"
 msgstr "Talleta"
 
@@ -824,8 +825,8 @@ msgstr "Talleta"
 msgid "Saved %s."
 msgstr "Talletettiin %s."
 
-#: search.php:19 templates/search/search.inc:31 templates/list/header.inc:3
-#: lib/Application.php:426
+#: lib/Application.php:376 search.php:19 templates/list/header.inc:3
+#: templates/search/search.inc:31
 msgid "Search"
 msgstr "Haku"
 
@@ -970,8 +971,8 @@ msgstr "Järjestä tehtävät:"
 msgid "Start"
 msgstr "Alkaa"
 
-#: templates/view/task.inc:22 config/prefs.php:61 config/prefs.php:83
-#: config/prefs.php:101
+#: config/prefs.php:61 config/prefs.php:83 config/prefs.php:101
+#: templates/view/task.inc:22
 msgid "Start Date"
 msgstr "Aloituspäivämäärä"
 
@@ -1011,8 +1012,8 @@ msgstr "Tehtävän hälytys?"
 msgid "Task Defaults"
 msgstr "Tehtävän oletukset"
 
-#: templates/tasklist_list.php:17 lib/Form/Task.php:84 config/prefs.php:57
-#: config/prefs.php:87 config/prefs.php:105
+#: config/prefs.php:57 config/prefs.php:87 config/prefs.php:105
+#: lib/Form/Task.php:84 templates/tasklist_list.php:17
 msgid "Task List"
 msgstr "Tehtävälista"
 
@@ -1094,7 +1095,7 @@ msgstr "Tehtävää muokattu:"
 msgid "Task not found."
 msgstr "Tehtävää ei löytynyt."
 
-#: lib/Api.php:606
+#: lib/Api.php:598
 msgid "Tasklist does not exist or no permission to delete"
 msgstr ""
 "Tehtävälistaa ei ole olemassa tai sinulla ei ole oikeuksia poistaa sitä"
@@ -1104,7 +1105,7 @@ msgid "Tasklist does not exist or no permission to edit"
 msgstr ""
 "Tehtävälistaa ei ole olemassa tai sinulla ei ole oikeusia muokata sitä."
 
-#: lib/Api.php:1289
+#: lib/Api.php:1281
 msgid "Tasks"
 msgstr "Tehtävät"
 
@@ -1206,7 +1207,7 @@ msgstr "Tapahtui virhe talletettaessa tehtävää: %s."
 msgid "There was an error importing the data: %s"
 msgstr "Tapahtui virhe tuotaessa tietoa: %s"
 
-#: lib/Api.php:450 lib/Api.php:789 lib/Api.php:1160
+#: lib/Api.php:450 lib/Api.php:781 lib/Api.php:1152
 msgid "There was an error importing the iCalendar data."
 msgstr "iCalendar-tietojen tuonnissa tapahtui virhe."
 
@@ -1240,7 +1241,7 @@ msgstr "Yksityisyys pois päältä"
 msgid "Turned privacy on"
 msgstr "Yksityisyys päällä"
 
-#: lib/Api.php:624
+#: lib/Api.php:616
 #, php-format
 msgid "Unable to delete tasklist \"%s\": %s"
 msgstr "Ei voida poistaa tehtävälistaa \"%s\": %s"
@@ -1255,9 +1256,9 @@ msgstr "Ei voi ladata määritystä %s:lle."
 msgid "Unable to save task list \"%s\": %s"
 msgstr "Ei voida poistaa tehtävälistaa \"%s\": %s"
 
-#: templates/view/task.inc:9 templates/list/task_summaries.inc:77
+#: lib/Block/Summary.php:38 lib/Block/Summary.php:267 lib/Form/Task.php:98
 #: lib/Nag.php:1305 lib/Nag.php:1306 lib/Nag.php:1320 lib/Nag.php:1321
-#: lib/Form/Task.php:98 lib/Block/Summary.php:38 lib/Block/Summary.php:267
+#: templates/list/task_summaries.inc:77 templates/view/task.inc:9
 msgid "Unfiled"
 msgstr "Luokittelematon"
 
@@ -1265,8 +1266,8 @@ msgstr "Luokittelematon"
 msgid "Unique ID"
 msgstr "Yksikäsitteinen ID"
 
-#: lib/Api.php:560 lib/Api.php:880 lib/Api.php:1012 lib/Api.php:1075
-#: lib/Api.php:1220
+#: lib/Api.php:552 lib/Api.php:872 lib/Api.php:1004 lib/Api.php:1067
+#: lib/Api.php:1212
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Ei tuettu Content-Type: %s"
@@ -1312,7 +1313,7 @@ msgstr "Mihin tehtävälistaan tehtävät lisätään?"
 msgid "Year"
 msgstr "Vuosi"
 
-#: tasklists/edit.php:26 lib/Nag.php:484
+#: lib/Nag.php:484 tasklists/edit.php:26
 msgid "You are not allowed to change this task list."
 msgstr "Et voi muuttaa tätä tehtävälistaa."
 
@@ -1321,7 +1322,7 @@ msgstr "Et voi muuttaa tätä tehtävälistaa."
 msgid "You are not allowed to create more than %d tasks."
 msgstr "Et voi luoda kuin enintään %d tehtävää."
 
-#: tasklists/delete.php:27 lib/Nag.php:511
+#: lib/Nag.php:511 tasklists/delete.php:27
 msgid "You are not allowed to delete this task list."
 msgstr "Et voi poistaa tätä tehtävälistaa."
 
@@ -1365,8 +1366,8 @@ msgstr "Oletustehtävälista:"
 msgid "[Manage Task Lists]"
 msgstr "[Hallinnoi tehtävälistoja]"
 
-#: templates/list/task_summaries.inc:47 lib/Block/Summary.php:141
-#: lib/Block/Summary.php:250
+#: lib/Block/Summary.php:141 lib/Block/Summary.php:250
+#: templates/list/task_summaries.inc:47
 msgid "[none]"
 msgstr "[tyhjä]"
 
@@ -1459,7 +1460,7 @@ msgstr "valmistunut"
 msgid "iCalendar (vTodo)"
 msgstr "iCalendar (vTodo)"
 
-#: lib/Application.php:413
+#: lib/Application.php:363
 #, php-format
 msgid "in %s"
 msgstr " %s"

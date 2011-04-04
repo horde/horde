@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Agora 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-17 10:58+0200\n"
-"PO-Revision-Date: 2011-04-03 10:23:02+0300\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"PO-Revision-Date: 2011-04-03 20:41:16+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
@@ -81,8 +82,8 @@ msgstr "Salli vastaukset tähän ketjuun"
 msgid "Approve"
 msgstr "Hyväksy"
 
-#: lib/Comments.php:71 config/prefs.php:102 config/prefs.php:141
-#: config/prefs.php:184 config/prefs.php:268
+#: config/prefs.php:102 config/prefs.php:141 config/prefs.php:184
+#: config/prefs.php:268 lib/Comments.php:71
 msgid "Ascending"
 msgstr "Nouseva"
 
@@ -118,9 +119,9 @@ msgstr "Kielletty"
 msgid "Body"
 msgstr "Sisältö"
 
-#: deleteforum.php:39 messages/delete.php:42 messages/merge.php:40
-#: messages/move.php:40 messages/split.php:40 messages/abuse.php:41
-#: messages/abuse.php:49 lib/Api.php:601
+#: deleteforum.php:39 lib/Api.php:601 messages/abuse.php:41
+#: messages/abuse.php:49 messages/delete.php:42 messages/merge.php:40
+#: messages/move.php:40 messages/split.php:40
 msgid "Cancel"
 msgstr "Peru"
 
@@ -159,7 +160,7 @@ msgstr "Ei voi luoda foorumia. %s"
 msgid "Could not delete the forum. %s"
 msgstr "Ei voi poistaa foorumia. %s"
 
-#: messages/delete.php:56 lib/Api.php:584 lib/Api.php:595 lib/Api.php:609
+#: lib/Api.php:584 lib/Api.php:595 lib/Api.php:609 messages/delete.php:56
 #, php-format
 msgid "Could not delete the message. %s"
 msgstr "Ei voi poistaa viestiä. %s"
@@ -174,14 +175,14 @@ msgstr "Ei voi listata säikeitä. %s"
 msgid "Could not lock the thread. %s"
 msgstr "Ei voi lukita säiettä. %s"
 
-#: messages/delete.php:27 messages/index.php:27 messages/index.php:48
-#: messages/lock.php:27 messages/merge.php:25 messages/move.php:25
-#: messages/split.php:25 messages/abuse.php:25
+#: messages/abuse.php:25 messages/delete.php:27 messages/index.php:27
+#: messages/index.php:48 messages/lock.php:27 messages/merge.php:25
+#: messages/move.php:25 messages/split.php:25
 #, php-format
 msgid "Could not open the message. %s"
 msgstr "Ei voi avata viestiä. %s"
 
-#: messages/edit.php:27 messages/edit.php:77 lib/Api.php:447 lib/Api.php:500
+#: lib/Api.php:447 lib/Api.php:500 messages/edit.php:27 messages/edit.php:77
 msgid "Could not post the message: "
 msgstr "Ei voi lähettää viestiä: "
 
@@ -197,11 +198,10 @@ msgstr "Luo"
 msgid "Current attachment"
 msgstr "Nykyinen liite"
 
-#: forums.php:53 moderate.php:57 owner.php:56 messages/index.php:139
-#: lib/Api.php:301 lib/Comments.php:65 lib/Comments.php:86
-#: lib/Block/Forums.php:89 lib/Block/Thread.php:78 lib/Block/Threads.php:113
 #: config/prefs.php:93 config/prefs.php:131 config/prefs.php:175
-#: config/prefs.php:259
+#: config/prefs.php:259 forums.php:53 lib/Api.php:301 lib/Block/Forums.php:89
+#: lib/Block/Thread.php:78 lib/Block/Threads.php:113 lib/Comments.php:65
+#: lib/Comments.php:86 messages/index.php:139 moderate.php:57 owner.php:56
 msgid "Date"
 msgstr "Päiväys"
 
@@ -226,14 +226,14 @@ msgstr "Ketjun oletusjärjestys:"
 msgid "Default threads view sort:"
 msgstr "Ketjujen oletusjärjestys:"
 
-#: ban.php:48 deleteforum.php:39 deleteforum.php:57 moderate.php:35
-#: moderate.php:64 moderators.php:58 messages/delete.php:42
-#: messages/delete.php:47 messages/index.php:116 lib/Api.php:601
+#: ban.php:48 deleteforum.php:39 deleteforum.php:57 lib/Api.php:601
 #: lib/Api.php:606 lib/Messages.php:952 lib/Messages.php:1838
+#: messages/delete.php:42 messages/delete.php:47 messages/index.php:116
+#: moderate.php:35 moderate.php:64 moderators.php:58
 msgid "Delete"
 msgstr "Poista"
 
-#: messages/delete.php:41 lib/Api.php:600
+#: lib/Api.php:600 messages/delete.php:41
 #, php-format
 msgid "Delete \"%s\" and all replies?"
 msgstr "Poista '%s' ja kaikki vastaukset?"
@@ -254,8 +254,8 @@ msgstr "Poista viesti"
 msgid "Delete the existing attachment?"
 msgstr "Poista nykyinen liite?"
 
-#: lib/Comments.php:72 config/prefs.php:103 config/prefs.php:142
-#: config/prefs.php:185 config/prefs.php:269
+#: config/prefs.php:103 config/prefs.php:142 config/prefs.php:185
+#: config/prefs.php:269 lib/Comments.php:72
 msgid "Descending"
 msgstr "Laskeva"
 
@@ -280,7 +280,7 @@ msgstr "Näytetäänkö koko viesti ketjunäkymässä?"
 msgid "Display graphical emoticons?"
 msgstr "Näytetäänkö graafiset hymiöt?"
 
-#: messages/index.php:113 lib/Messages.php:948 lib/Messages.php:1831
+#: lib/Messages.php:948 lib/Messages.php:1831 messages/index.php:113
 msgid "Edit"
 msgstr "Muokkaa"
 
@@ -313,13 +313,13 @@ msgstr "Muokkaa viestiä"
 msgid "Enter a brief description of this forum"
 msgstr "Anna lyhyt kuvaus tästä foorumista"
 
-#: messages/index.php:160 lib/Comments.php:58 config/prefs.php:247
+#: config/prefs.php:247 lib/Comments.php:58 messages/index.php:160
 msgid "Flat"
 msgstr "Tasainen"
 
-#: forums.php:53 moderate.php:57 moderators.php:70 moderators.php:73
-#: templates/moderators.html.php:8 messages/move.php:45
-#: lib/Block/Forums.php:89 lib/Block/Threads.php:42 config/prefs.php:89
+#: config/prefs.php:89 forums.php:53 lib/Block/Forums.php:89
+#: lib/Block/Threads.php:42 messages/move.php:45 moderate.php:57
+#: moderators.php:70 moderators.php:73 templates/moderators.html.php:8
 msgid "Forum"
 msgstr "Foorumi"
 
@@ -340,7 +340,7 @@ msgstr "Foorumi luotu"
 msgid "Forum deleted."
 msgstr "Foorumi poistettu."
 
-#: deleteforum.php:43 templates/moderators.html.php:9 lib/Forms/Forum.php:27
+#: deleteforum.php:43 lib/Forms/Forum.php:27 templates/moderators.html.php:9
 msgid "Forum name"
 msgstr "Foorumin nimi"
 
@@ -348,8 +348,8 @@ msgstr "Foorumin nimi"
 msgid "Forum not deleted."
 msgstr "Foorumia ei poistettu."
 
-#: forums.php:75 templates/forums.html.php:9 lib/Application.php:52
-#: lib/Block/Forums.php:21
+#: forums.php:75 lib/Application.php:52 lib/Block/Forums.php:21
+#: templates/forums.html.php:9
 msgid "Forums"
 msgstr "Foorumit"
 
@@ -358,9 +358,9 @@ msgid "Forums View"
 msgstr "Fooruminäkymä"
 
 #: rss/index.php:23
-#, fuzzy, php-format
+#, php-format
 msgid "Forums in %s"
-msgstr "Fooruminäkymä"
+msgstr "Foorumia - %s"
 
 #: lib/Messages.php:1557
 msgid "From"
@@ -403,7 +403,7 @@ msgstr "Viimeinen viesti"
 msgid "Last Post"
 msgstr "Viimeksi lähetetty"
 
-#: threads.php:54 config/prefs.php:132
+#: config/prefs.php:132 threads.php:54
 msgid "Last post"
 msgstr "Viimeksi lähetetty"
 
@@ -438,7 +438,7 @@ msgid ""
 "Mandatory arguments to long options are mandatory for short options too."
 msgstr "Pakolliset argumentit pitkille optioille on pakollisia myös lyhille."
 
-#: messages/merge.php:40 messages/merge.php:66 lib/Messages.php:967
+#: lib/Messages.php:967 messages/merge.php:40 messages/merge.php:66
 msgid "Merge"
 msgstr "Yhdistä"
 
@@ -452,32 +452,32 @@ msgid "Message"
 msgstr "Viesti"
 
 #: messages/abuse.php:71
-#, fuzzy, php-format
+#, php-format
 msgid "Message %s reported as abuse"
-msgstr "Viesti lähetetty."
+msgstr "Viesti %s raportoitu väärinkäytöksenä"
 
 #: lib/Messages.php:519
 #, php-format
 msgid "Message ID \"%d\" not found"
-msgstr "Viesti ID \"%s\" ei löytynyt"
+msgstr "Viesti ID \"%d\" ei löytynyt"
 
 #: config/prefs.php:48
 msgid "Message View"
 msgstr "Viestinäkymä"
 
-#: messages/delete.php:58 lib/Api.php:611
+#: lib/Api.php:611 messages/delete.php:58
 msgid "Message deleted."
 msgstr "Viesti poistettu."
 
-#: messages/delete.php:48 lib/Api.php:616
+#: lib/Api.php:616 messages/delete.php:48
 msgid "Message not deleted."
 msgstr "Viestiä ei poistettu."
 
-#: messages/edit.php:82 lib/Api.php:502
+#: lib/Api.php:502 messages/edit.php:82
 msgid "Message posted."
 msgstr "Viesti lähetetty."
 
-#: templates/messages/index.html.php:1 config/prefs.php:90
+#: config/prefs.php:90 templates/messages/index.html.php:1
 msgid "Messages"
 msgstr "Viestit"
 
@@ -489,9 +489,9 @@ msgstr "Viestejä odottamassa moderointia"
 msgid "Moderate"
 msgstr "Moderoi"
 
-#: moderators.php:68 templates/messages/flat.html.php:11
+#: lib/Tree/flat.php:115 moderators.php:68 templates/messages/flat.html.php:11
 #: templates/messages/flat_thread.html.php:10
-#: templates/messages/message.html.php:21 lib/Tree/flat.php:115
+#: templates/messages/message.html.php:21
 msgid "Moderator"
 msgstr "Moderoija"
 
@@ -500,7 +500,7 @@ msgstr "Moderoija"
 msgid "Moderators"
 msgstr "Moderoijat"
 
-#: messages/move.php:40 messages/move.php:52 lib/Messages.php:963
+#: lib/Messages.php:963 messages/move.php:40 messages/move.php:52
 msgid "Move"
 msgstr "Siirrä"
 
@@ -606,7 +606,7 @@ msgstr "Asetukset"
 #: lib/Messages.php:914
 #, php-format
 msgid "Page %d"
-msgstr "Sivu %s"
+msgstr "Sivu %d"
 
 #: lib/Forms/Forum.php:30
 msgid "Parent forum"
@@ -634,23 +634,21 @@ msgstr "Lähetä vastaus \"%s\""
 msgid "Post message"
 msgstr "Lähetä viesti"
 
-#: forums.php:53 moderate.php:57 owner.php:56
-#: templates/messages/flat_thread.html.php:7 messages/index.php:139
-#: lib/Api.php:299 lib/Comments.php:84 lib/Tree/flat.php:110
-#: lib/Block/Forums.php:89 lib/Block/Thread.php:78 lib/Block/Threads.php:113
 #: config/prefs.php:92 config/prefs.php:129 config/prefs.php:174
-#: config/prefs.php:258
-#, fuzzy
+#: config/prefs.php:258 forums.php:53 lib/Api.php:299 lib/Block/Forums.php:89
+#: lib/Block/Thread.php:78 lib/Block/Threads.php:113 lib/Comments.php:84
+#: lib/Tree/flat.php:110 messages/index.php:139 moderate.php:57 owner.php:56
+#: templates/messages/flat_thread.html.php:7
 msgid "Posted by"
-msgstr "Lähettäjä"
+msgstr "Lähettäjänä"
 
-#: templates/messages/flat.html.php:9 messages/index.php:84
-#: lib/Messages.php:564
+#: lib/Messages.php:564 messages/index.php:84
+#: templates/messages/flat.html.php:9
 #, php-format
 msgid "Posted by %s on %s"
-msgstr "Lähettäjä %s, %s"
+msgstr "Lähettäjänä %s, %s"
 
-#: forums.php:53 threads.php:54 lib/Block/Forums.php:89 config/prefs.php:130
+#: config/prefs.php:130 forums.php:53 lib/Block/Forums.php:89 threads.php:54
 msgid "Posts"
 msgstr "Lähettäjät"
 
@@ -658,7 +656,7 @@ msgstr "Lähettäjät"
 msgid "Quote"
 msgstr "Lainaus"
 
-#: messages/index.php:107 lib/Messages.php:936
+#: lib/Messages.php:936 messages/index.php:107
 msgid "Reply"
 msgstr "Vastaa"
 
@@ -666,7 +664,7 @@ msgstr "Vastaa"
 msgid "Reply to message"
 msgstr "Vastaa viestiin"
 
-#: messages/abuse.php:40 messages/abuse.php:41 lib/Messages.php:942
+#: lib/Messages.php:942 messages/abuse.php:40 messages/abuse.php:41
 msgid "Report as abuse"
 msgstr "Raportoi väärinkäyttö"
 
@@ -682,7 +680,7 @@ msgstr "Tallenna"
 msgid "Search"
 msgstr "Haku"
 
-#: search.php:73 lib/Forms/Search.php:31
+#: lib/Forms/Search.php:31 search.php:73
 msgid "Search Forums"
 msgstr "Hae foorumeista"
 
@@ -763,12 +761,11 @@ msgstr "Järjestä %s mukaan"
 msgid "Sort direction"
 msgstr "Järjestyksen suunta:"
 
-#: lib/Messages.php:1584 lib/Forms/Message.php:22
+#: lib/Forms/Message.php:22 lib/Messages.php:1584
 msgid "Spam protection"
 msgstr "Roskapostiesto"
 
-#: messages/split.php:40 messages/split.php:48 lib/Messages.php:972
-#, fuzzy
+#: lib/Messages.php:972 messages/split.php:40 messages/split.php:48
 msgid "Split"
 msgstr "Halkaise"
 
@@ -785,11 +782,11 @@ msgstr "Aloitettu"
 msgid "Subforums"
 msgstr "Alifoorumit"
 
-#: moderate.php:57 owner.php:56 threads.php:54 messages/index.php:139
-#: lib/Api.php:297 lib/Comments.php:67 lib/Comments.php:82
-#: lib/Messages.php:1564 lib/Messages.php:1567 lib/Block/Thread.php:78
-#: lib/Block/Threads.php:113 config/prefs.php:128 config/prefs.php:173
-#: config/prefs.php:257
+#: config/prefs.php:128 config/prefs.php:173 config/prefs.php:257
+#: lib/Api.php:297 lib/Block/Thread.php:78 lib/Block/Threads.php:113
+#: lib/Comments.php:67 lib/Comments.php:82 lib/Messages.php:1564
+#: lib/Messages.php:1567 messages/index.php:139 moderate.php:57 owner.php:56
+#: threads.php:54
 msgid "Subject"
 msgstr "Otsikko"
 
@@ -818,9 +815,9 @@ msgstr "Tämä ketju on lukittu."
 msgid "This will delete the forum, any subforums and all relative messages."
 msgstr "Tämä poistaa foorumin, kaikki alifoorumit ja niihin liittyvät viestit"
 
-#: messages/index.php:139 messages/index.php:151 lib/Comments.php:59
-#: lib/Block/Thread.php:32 lib/Block/Thread.php:78 config/prefs.php:127
-#: config/prefs.php:172 config/prefs.php:248
+#: config/prefs.php:127 config/prefs.php:172 config/prefs.php:248
+#: lib/Block/Thread.php:32 lib/Block/Thread.php:78 lib/Comments.php:59
+#: messages/index.php:139 messages/index.php:151
 msgid "Thread"
 msgstr "Ketju"
 
@@ -834,7 +831,7 @@ msgstr "Ketju %s yhdistettiin ketjun %s kanssa viestin %s jälkeen."
 msgid "Thread %s moved to from forum %s to %s."
 msgstr "Ketju %s siirrettiin foorumilta %s foorumille %s."
 
-#: templates/messages/index.html.php:10 lib/Block/Thread.php:85
+#: lib/Block/Thread.php:85 templates/messages/index.html.php:10
 msgid "Thread List"
 msgstr "Lista ketjuista"
 
@@ -859,8 +856,8 @@ msgstr "Ketju halkaistu viestistä %s."
 msgid "Thread unlocked."
 msgstr "Ketju avattu."
 
-#: forums.php:53 templates/threads.html.php:1 lib/Comments.php:75
-#: lib/Block/Threads.php:29
+#: forums.php:53 lib/Block/Threads.php:29 lib/Comments.php:75
+#: templates/threads.html.php:1
 msgid "Threads"
 msgstr "Ketjut"
 
@@ -873,7 +870,7 @@ msgstr "Ketjunäkymä"
 msgid "Threads in \"%s\""
 msgstr "Ketjut - \"%s\""
 
-#: threads.php:61 threads.php:78 rss/threads.php:51
+#: rss/threads.php:51 threads.php:61 threads.php:78
 #, php-format
 msgid "Threads in %s"
 msgstr "Ketjut - %s"
@@ -894,7 +891,7 @@ msgstr "Avaa"
 msgid "Unlock thread"
 msgstr "Avaa ketju"
 
-#: messages/lock.php:42 lib/Forms/Forum.php:24
+#: lib/Forms/Forum.php:24 messages/lock.php:42
 msgid "Update"
 msgstr "Päivitä"
 
@@ -940,15 +937,15 @@ msgstr "Kyllä, ja älä ketjuja niitä"
 msgid "You don't have permission to access messages in forum %s."
 msgstr "Sinulla ei ole oikeuksia nähdä viestejä foorumissa %s."
 
+#: lib/Api.php:589 lib/Messages.php:585 lib/Messages.php:763
 #: messages/delete.php:33 messages/lock.php:33 messages/merge.php:31
-#: messages/move.php:31 messages/split.php:31 lib/Api.php:589
-#: lib/Messages.php:585 lib/Messages.php:763
+#: messages/move.php:31 messages/split.php:31
 #, php-format
 msgid "You don't have permission to delete messages in forum %s."
 msgstr "Sinulla ei ole oikeuksia poistaa viestejä foorumista %s."
 
-#: messages/edit.php:33 messages/index.php:196 lib/Api.php:457
-#: lib/Messages.php:161
+#: lib/Api.php:457 lib/Messages.php:161 messages/edit.php:33
+#: messages/index.php:196
 #, php-format
 msgid "You don't have permission to post messages in forum %s."
 msgstr "Sinulla ei ole oikeuksia lähettää viestejä foorumille %s."
@@ -1018,7 +1015,7 @@ msgstr "/"
 msgid "download"
 msgstr "tallenna"
 
-#: templates/messages/flat_thread.html.php:8 lib/Tree/flat.php:111
+#: lib/Tree/flat.php:111 templates/messages/flat_thread.html.php:8
 msgid "on: "
 msgstr ": "
 

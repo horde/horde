@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo 2.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-03 07:22+0300\n"
-"PO-Revision-Date: 2011-04-03 12:50:44+0300\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"PO-Revision-Date: 2011-04-03 20:52:32+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
@@ -78,9 +79,8 @@ msgid "Are you sure you want to delete this rule?"
 msgstr "Oletko varma, että haluat poistaa tämän säännön?"
 
 #: config/prefs.php:26
-#, fuzzy
 msgid "Automatically activate the script after each change?"
-msgstr "Päivitä skripti jokaisen muutoksen jälkeen."
+msgstr "Päivitetäänkö skripti automaattisesti jokaisen muutoksen jälkeen?"
 
 #: vacation.php:36
 msgid "Basic Settings"
@@ -99,8 +99,8 @@ msgstr "Alkaa"
 msgid "Bind failed: (%s) %s"
 msgstr "Yhdistäminen epäonnistui: (%s) %s"
 
-#: filters.php:179 templates/blacklist/blacklist.inc:7
-#: lib/Block/Overview.php:84 lib/Block/Overview.php:87
+#: filters.php:179 lib/Block/Overview.php:84 lib/Block/Overview.php:87
+#: templates/blacklist/blacklist.inc:7
 msgid "Blacklist"
 msgstr "Musta lista"
 
@@ -121,7 +121,7 @@ msgstr "Mustalle listalle lisätyt osoitteet"
 msgid "Body"
 msgstr "Sisältö"
 
-#: rule.php:317 filters.php:225
+#: filters.php:225 rule.php:317
 msgid "Case Sensitive"
 msgstr "Kirjainkokoriippuvainen"
 
@@ -129,7 +129,7 @@ msgstr "Kirjainkokoriippuvainen"
 msgid "Cc"
 msgstr "Kopio"
 
-#: blacklist.php:69 rule.php:136 forward.php:49 spam.php:99 vacation.php:71
+#: blacklist.php:69 forward.php:49 rule.php:136 spam.php:99 vacation.php:71
 #: whitelist.php:34
 msgid "Changes saved."
 msgstr "Muutokset talletettiin."
@@ -156,7 +156,7 @@ msgstr "%s:n kopio"
 msgid "Create new folder"
 msgstr "Luo uusi kansio"
 
-#: lib/Script/Procmail/Comment.php:35 lib/Script/Maildrop/Comment.php:35
+#: lib/Script/Maildrop/Comment.php:35 lib/Script/Procmail/Comment.php:35
 msgid "DISABLED: "
 msgstr "POIS PÄÄLTÄ:"
 
@@ -186,33 +186,29 @@ msgid "Deliver into my Inbox"
 msgstr "Laita viesti INBOXiini"
 
 #: lib/Storage.php:274
-#, fuzzy
 msgid "Deliver into my Inbox and copy to..."
-msgstr "Laita viesti INBOXiini ja kopioi kohteeseen"
+msgstr "Laita viesti INBOXiini ja kopioi kohteeseen..."
 
 #: lib/Storage.php:269
-#, fuzzy
 msgid "Deliver into my Inbox and redirect to..."
-msgstr "Laita viesti INBOXiini ja uudelleenohjaa kohteeseen"
+msgstr "Laita viesti INBOXiini ja uudelleenohjaa kohteeseen..."
 
 #: lib/Storage.php:254
-#, fuzzy
 msgid "Deliver to folder..."
-msgstr "Laita viesti tähän kansioon"
+msgstr "Laita viesti tähän kansioon..."
 
 #: config/fields.php:87
-#, fuzzy
 msgid "Destination (To, Cc, Bcc, etc.)"
-msgstr "Kohde (To,CC,Bcc,etc)"
+msgstr "Kohde (To, CC, Bcc, etc.)"
 
 #: filters.php:284 filters.php:285
 #, php-format
 msgid "Disable %s"
 msgstr "Poista käytöstä %s"
 
-#: forward.php:88 spam.php:144 vacation.php:137
-#: templates/whitelist/whitelist.inc:8 templates/rule/header.inc:14
-#: templates/blacklist/blacklist.inc:10
+#: forward.php:88 spam.php:144 templates/blacklist/blacklist.inc:10
+#: templates/rule/header.inc:14 templates/whitelist/whitelist.inc:8
+#: vacation.php:137
 msgid "Disabled"
 msgstr "Poistettu käytöstä"
 
@@ -248,9 +244,9 @@ msgstr "Ei ole olemassa"
 msgid "Doesn't match (with placeholders)"
 msgstr "Ei täsmää (placeholderien kanssa)"
 
-#: templates/filters/header.inc:11 lib/Block/Overview.php:52
-#: lib/Block/Overview.php:61 lib/Block/Overview.php:76
-#: lib/Block/Overview.php:86 lib/Block/Overview.php:96
+#: lib/Block/Overview.php:52 lib/Block/Overview.php:61
+#: lib/Block/Overview.php:76 lib/Block/Overview.php:86
+#: lib/Block/Overview.php:96 templates/filters/header.inc:11
 msgid "Edit"
 msgstr "Muokkaa"
 
@@ -410,7 +406,7 @@ msgstr "Roskapostikansio:"
 msgid "For an incoming message that matches:"
 msgstr "Kaikille tuleville viesteille, jotka sopivat:"
 
-#: forward.php:86 filters.php:197 lib/Block/Overview.php:60
+#: filters.php:197 forward.php:86 lib/Block/Overview.php:60
 #: lib/Block/Overview.php:62
 msgid "Forward"
 msgstr "Uudelleenohjaa"
@@ -571,8 +567,8 @@ msgstr "Siirrä sääntöä ylöspäin"
 msgid "My email addresses:"
 msgstr "Omat sähköpostiosoiteeni:"
 
-#: templates/filters/filter-none.inc:3 templates/filters/footer.inc:6
-#: lib/Storage/Filters.php:90
+#: lib/Storage/Filters.php:90 templates/filters/filter-none.inc:3
+#: templates/filters/footer.inc:6
 msgid "New Rule"
 msgstr "Uusi sääntö"
 
@@ -612,9 +608,8 @@ msgid "Not equal to"
 msgstr "erisuuri kuin"
 
 #: lib/Storage.php:290
-#, fuzzy
 msgid "Notify email address..."
-msgstr "Ilmoitussähköpostiosoiteet:"
+msgstr "Ilmoita sähköpostiosoitteisiin..."
 
 #: vacation.php:52
 msgid "Number of days between vacation replies:"
@@ -633,23 +628,20 @@ msgid "Overview"
 msgstr "Yleiskuva"
 
 #: config/fields.php:95
-#, fuzzy
 msgid "Participant (From, To, etc.)"
-msgstr "Osallistujat (From,To,etc)"
+msgstr "Osallistuja (From, To, etc.)"
 
 #: lib/Storage/Sql.php:322
-#, fuzzy
 msgid "Permission Denied"
-msgstr "_Oikeudet"
+msgstr "Käyttö kielletty"
 
 #: lib/Ingo.php:472
 msgid "Please enter the name of the new folder:"
 msgstr "Anna uuden kansion nimi:"
 
 #: config/prefs.php:15
-#, fuzzy
 msgid "Preferences about script updating."
-msgstr "Voit muuttaa skriptin päivitykseen liittyviä asetuksia."
+msgstr "Skriptin päivitykseen liittyviä asetuksia."
 
 #: vacation.php:43
 msgid "Reason:"
@@ -660,24 +652,23 @@ msgid "Received"
 msgstr "Vastaanotettu"
 
 #: lib/Storage.php:265
-#, fuzzy
 msgid "Redirect to..."
-msgstr "Uudelleenohjaa osoitteeseen"
+msgstr "Ohjaa osoitteeseen..."
 
 #: lib/Storage.php:322
 msgid "Regular expression"
 msgstr "Säännöllinen lauseke"
 
 #: lib/Storage.php:280
-#, fuzzy
 msgid "Reject with reason..."
-msgstr "Hylkää viesti vastauksella"
+msgstr "Hylkää viesti vastauksella..."
 
 #: lib/Storage.php:372
-#, fuzzy
 msgid ""
 "Removing user data is not supported with the current filter storage backend."
-msgstr "Käytössä oleva ajuri ei tue valkoista listaa."
+msgstr ""
+"Käytössä oleva ajuri nykyisellä taustajärjestelmällä ei tue käyttäjien "
+"tietojen poistamisesta."
 
 #: config/fields.php:55
 msgid "Resent-From"
@@ -691,9 +682,9 @@ msgstr "Lähetä uudelleen osoitteeseen"
 msgid "Return to Filters List"
 msgstr "Palaa suodatinlistaan"
 
-#: forward.php:30 forward.php:77 spam.php:56 spam.php:130 vacation.php:30
-#: vacation.php:102 templates/whitelist/whitelist.inc:24
-#: templates/blacklist/blacklist.inc:42
+#: forward.php:30 forward.php:77 spam.php:56 spam.php:130
+#: templates/blacklist/blacklist.inc:42 templates/whitelist/whitelist.inc:24
+#: vacation.php:30 vacation.php:102
 msgid "Return to Rules List"
 msgstr "Palaa säännöstölistaan"
 
@@ -702,24 +693,24 @@ msgid "Rule"
 msgstr "Sääntö"
 
 #: filters.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "Rule \"%s\" copied."
-msgstr "Sääntö kopioitiin"
+msgstr "Sääntö \"%s\" kopioitiin"
 
 #: filters.php:56
-#, fuzzy, php-format
+#, php-format
 msgid "Rule \"%s\" deleted."
-msgstr "Sääntö poistettiin"
+msgstr "Sääntö \"%s\" poistettiin"
 
 #: filters.php:95
-#, fuzzy, php-format
+#, php-format
 msgid "Rule \"%s\" disabled."
-msgstr "Sääntö pois käytöstä"
+msgstr "Sääntö \"%s\" pois käytöstä"
 
 #: filters.php:101
-#, fuzzy, php-format
+#, php-format
 msgid "Rule \"%s\" enabled."
-msgstr "Sääntö käytössä"
+msgstr "Sääntö \"%s\" käytössä"
 
 #: forward.php:58 spam.php:108 vacation.php:80
 msgid "Rule Disabled"
@@ -746,9 +737,9 @@ msgstr "STARTTLS epäonnistui: (%s) %s"
 msgid "S_pam"
 msgstr "Roska_posti"
 
-#: forward.php:40 spam.php:72 vacation.php:54
-#: templates/whitelist/whitelist.inc:23 templates/rule/footer.inc:60
-#: templates/blacklist/blacklist.inc:41
+#: forward.php:40 spam.php:72 templates/blacklist/blacklist.inc:41
+#: templates/rule/footer.inc:60 templates/whitelist/whitelist.inc:23
+#: vacation.php:54
 msgid "Save"
 msgstr "Talleta"
 
@@ -803,9 +794,8 @@ msgid "Select target folder"
 msgstr "Valitse kohdekansio"
 
 #: lib/Ingo.php:129
-#, fuzzy
 msgid "Select target folder:"
-msgstr "Valitse kohdekansio"
+msgstr "Valitse kohdekansio:"
 
 #: rule.php:251
 msgid "Self-Defined Header"
@@ -837,12 +827,11 @@ msgid "Size"
 msgstr "Koko"
 
 #: config/fields.php:91
-#, fuzzy
 msgid "Source (From, Reply-to, etc.)"
-msgstr "Lähde (From,Reply-to,etc)"
+msgstr "Lähde (From, Reply-to, etc.)"
 
-#: filters.php:203 lib/Script/Maildrop.php:297 lib/Script/Sieve.php:442
-#: lib/Block/Overview.php:94 lib/Block/Overview.php:97
+#: filters.php:203 lib/Block/Overview.php:94 lib/Block/Overview.php:97
+#: lib/Script/Maildrop.php:297 lib/Script/Sieve.php:442
 msgid "Spam Filter"
 msgstr "Roskapostisuodatin"
 
@@ -913,9 +902,9 @@ msgstr "Määrityksen %s lukeminen epäonnistui."
 msgid "User header"
 msgstr "Käytäjän määrittelemä otsake"
 
-#: vacation.php:135 filters.php:191 lib/Script/Maildrop.php:272
-#: lib/Script/Procmail.php:278 lib/Script/Sieve.php:416
-#: lib/Block/Overview.php:50 lib/Block/Overview.php:53
+#: filters.php:191 lib/Block/Overview.php:50 lib/Block/Overview.php:53
+#: lib/Script/Maildrop.php:272 lib/Script/Procmail.php:278
+#: lib/Script/Sieve.php:416 vacation.php:135
 msgid "Vacation"
 msgstr "Poissaoloviesti"
 
@@ -935,8 +924,8 @@ msgstr "Arvo"
 msgid "Wh_itelist addresses:"
 msgstr "Sa_llittujen listan osoitteet:"
 
-#: filters.php:185 templates/whitelist/whitelist.inc:5
-#: lib/Block/Overview.php:74 lib/Block/Overview.php:77
+#: filters.php:185 lib/Block/Overview.php:74 lib/Block/Overview.php:77
+#: templates/whitelist/whitelist.inc:5
 msgid "Whitelist"
 msgstr "Valkoinen lista"
 
@@ -969,12 +958,12 @@ msgstr "X-Spam-Score"
 msgid "X-Spam-Status"
 msgstr "X-Spam-Status"
 
-#: rule.php:171 filters.php:73
+#: filters.php:73 rule.php:171
 #, php-format
 msgid "You are not allowed to create more than %d rules."
 msgstr "Et voi luoda enempää kuin %d sääntöä."
 
-#: rule.php:23 filters.php:65
+#: filters.php:65 rule.php:23
 msgid "You are not allowed to create or edit custom rules."
 msgstr "Et voi luoda tai muokata erityisiä sääntöjä."
 
@@ -983,11 +972,11 @@ msgstr "Et voi luoda tai muokata erityisiä sääntöjä."
 msgid "You cannot create empty conditions. Please fill in a value for \"%s\"."
 msgstr "Et voi luoda tyhjiä ehtoja. Täytä arvo kohtaan  \"%s\"."
 
-#: rule.php:148 filters.php:50
+#: filters.php:50 rule.php:148
 msgid "You do not have permission to delete filter rules."
 msgstr "Sinulla ei ole oikeuksia poistaa suodatinsääntöjä."
 
-#: rule.php:52 rule.php:161 filters.php:44 filters.php:114 filters.php:124
+#: filters.php:44 filters.php:114 filters.php:124 rule.php:52 rule.php:161
 msgid "You do not have permission to edit filter rules."
 msgstr "Sinulla ei ole oikeuksia muokata suodatinsääntöjä."
 
@@ -996,9 +985,8 @@ msgid "You have received a new message"
 msgstr "Sinulle on tullut uusi viesti"
 
 #: lib/Script/Imap.php:283 lib/Script/Imap.php:308 lib/Script/Imap.php:328
-#, fuzzy
 msgid "[No Sender]"
-msgstr "Lähettäjä"
+msgstr "[Ei lähettäjää]"
 
 #: lib/Script/Imap.php:282 lib/Script/Imap.php:307 lib/Script/Imap.php:327
 msgid "[No Subject]"

@@ -7,30 +7,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Compress\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-03 07:21+0300\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
 "PO-Revision-Date: 2011-04-03 10:10:16+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Compress/Rar.php:55
+#: lib/Horde/Compress/Rar.php:54
 msgid "Invalid RAR data."
 msgstr "Kelvotonta RAR-tietoa."
 
-#: lib/Horde/Compress/Zip.php:202 lib/Horde/Compress/Zip.php:229
-#: lib/Horde/Compress/Zip.php:249
+#: lib/Horde/Compress/Zip.php:197 lib/Horde/Compress/Zip.php:224
+#: lib/Horde/Compress/Zip.php:244
 msgid "Invalid ZIP data"
 msgstr "Kelvotonta ZIP-tietoa."
 
-#: lib/Horde/Compress/Dbx.php:127 lib/Horde/Compress/Dbx.php:156
-#: lib/Horde/Compress/Dbx.php:237
+#: lib/Horde/Compress/Dbx.php:128 lib/Horde/Compress/Dbx.php:157
+#: lib/Horde/Compress/Dbx.php:238
 msgid "Invalid file format"
 msgstr "Kelvoton tiedostomuoto"
 
-#: lib/Horde/Compress/Zip.php:100
+#: lib/Horde/Compress/Zip.php:93
 msgid "This server can't compress zip files."
 msgstr "Tämä palvelin ei pysty pakkaamaan zip-tiedostoksi."
 
@@ -39,6 +40,6 @@ msgid "This server can't uncompress gzip files."
 msgstr "Tämä palvelimella ei pysty purkamaan gzip-tiedostoja."
 
 #: lib/Horde/Compress/Gzip.php:49 lib/Horde/Compress/Gzip.php:79
-#: lib/Horde/Compress/Tar.php:76
+#: lib/Horde/Compress/Tar.php:74
 msgid "Unable to decompress data."
 msgstr "Tietoja ei voitu laajentaa."

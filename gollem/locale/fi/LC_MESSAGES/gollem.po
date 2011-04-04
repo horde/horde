@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gollem 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-03 07:22+0300\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: 2011-04-03 12:49:49+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
@@ -89,11 +90,11 @@ msgstr "Kysy"
 msgid "Attributes"
 msgstr "Lisämääreet"
 
-#: lib/Application.php:225
+#: lib/Application.php:71
 msgid "Backends"
 msgstr "Taustajärjestelmät"
 
-#: lib/Application.php:286
+#: lib/Application.php:132
 msgid "Backends that will not be displayed:"
 msgstr "Taustajärjestelmät, joita ei näytetä:"
 
@@ -101,7 +102,7 @@ msgstr "Taustajärjestelmät, joita ei näytetä:"
 msgid "Below is the current contents of your clipboard."
 msgstr "Alla on leikepöydän nykyinen sisältö."
 
-#: clipboard.php:24 selectlist.php:95 manager.php:304
+#: clipboard.php:24 manager.php:304 selectlist.php:95
 #: templates/edit/edit.inc:13
 msgid "Cancel"
 msgstr "Peru"
@@ -141,7 +142,7 @@ msgstr "Muuta oikeuksia"
 msgid "Change Server"
 msgstr "Vaihda palvelinta"
 
-#: lib/Application.php:309
+#: lib/Application.php:155
 msgid "Check Quota"
 msgstr "Tarkista kiintiö"
 
@@ -153,7 +154,7 @@ msgstr "Valitse _kaikki/ei mitään"
 msgid "Chmod done: "
 msgstr "Chmod suoritettu: "
 
-#: lib/Application.php:282
+#: lib/Application.php:128
 msgid "Choose which backends to display, and in what order:"
 msgstr "Valitse mitkä taustajärjestelmät näytetään ja missä järjestyksessä:"
 
@@ -459,7 +460,7 @@ msgstr "Talleta"
 msgid "Select All/None"
 msgstr "Valitse _kaikki/Ei mitään"
 
-#: lib/Application.php:284
+#: lib/Application.php:130
 msgid "Select a backend:"
 msgstr "Valitse taustajärjestelmä:"
 
@@ -495,7 +496,7 @@ msgstr "Alkuperäinen aukaisuikkuna on suljettu. Poistutaan."
 msgid "There are no files in this folder."
 msgstr "Tässä hakemistossa ei ole tiedostoja."
 
-#: lib/Application.php:283
+#: lib/Application.php:129
 msgid "These backends will display in this order:"
 msgstr "Nämä taustajärjestelmät näytetään tässä järjestyksessä:"
 
@@ -574,18 +575,18 @@ msgstr ""
 msgid "_Change Server"
 msgstr "_Vaihda palvelinta"
 
-#: lib/Application.php:297
+#: lib/Application.php:143
 msgid "_My Home"
 msgstr "_Oma koti"
 
-#: lib/Application.php:300
+#: lib/Application.php:146
 msgid "_Permissions"
 msgstr "_Oikeudet"
 
-#: selectlist.php:85 manager.php:249
+#: manager.php:249 selectlist.php:85
 msgid "folder"
 msgstr "kansio"
 
-#: selectlist.php:86 manager.php:250
+#: manager.php:250 selectlist.php:86
 msgid "symlink"
 msgstr "symbolinen linkki"

@@ -7,26 +7,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-03 13:02+0300\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: 2011-04-03 13:05:34+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde.php:1735
+#: lib/Horde.php:1656
 #, php-format
 msgid " (Accesskey %s)"
 msgstr " (Pikanäppäin %s)"
 
-#: lib/Horde/Core/Factory/Group.php:31
-#, php-format
-msgid "\"%s\" group driver not found."
-msgstr "\"%s\" group-ajuria ei löytynyt."
-
-#: lib/Horde/Registry.php:1180 lib/Horde/Registry.php:1639
+#: lib/Horde/Registry.php:1151 lib/Horde/Registry.php:1607
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr "\"%s\" asennustietoja ei löydy Horden rekisteristä."
@@ -55,33 +51,33 @@ msgstr[1] "Salasanasi vanhentuu %d päivän päästä."
 msgid "%s Sign Up"
 msgstr "%s kirjautuminen"
 
-#: lib/Horde/Registry.php:1285
+#: lib/Horde/Registry.php:1256
 #, php-format
 msgid "%s is not authorized for %s."
 msgstr "%s:lla ei ole oikeuksia toimintoon %s."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:810 lib/Horde/Core/Perms/Ui.php:347
-#: lib/Horde/Core/Perms/Ui.php:407
+#: lib/Horde/Core/Perms/Ui.php:340 lib/Horde/Core/Perms/Ui.php:400
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:810
 msgid "-- select --"
 msgstr "-- valitse --"
 
-#: lib/Horde/Core/Notification/Status.php:72
+#: lib/Horde/Core/Notification/Status.php:73
 msgid "1 day"
 msgstr "1 päivä"
 
-#: lib/Horde/Core/Notification/Status.php:70
+#: lib/Horde/Core/Notification/Status.php:71
 msgid "1 hour"
 msgstr "1 tunti"
 
-#: lib/Horde/Core/Notification/Status.php:69
+#: lib/Horde/Core/Notification/Status.php:70
 msgid "15 minutes"
 msgstr "15 minuuttia"
 
-#: lib/Horde/Core/Notification/Status.php:68
+#: lib/Horde/Core/Notification/Status.php:69
 msgid "5 minutes"
 msgstr "5 minuuttia"
 
-#: lib/Horde/Core/Notification/Status.php:71
+#: lib/Horde/Core/Notification/Status.php:72
 msgid "6 hours"
 msgstr "6 tuntia"
 
@@ -89,7 +85,7 @@ msgstr "6 tuntia"
 msgid "<Previous"
 msgstr "<Edellinen"
 
-#: lib/Horde.php:151
+#: lib/Horde.php:113
 msgid "A fatal error has occurred"
 msgstr "Tapahtui vakava virhe"
 
@@ -112,7 +108,7 @@ msgstr ""
 "Käyttäjä \"%s\" on pyytänyt käyttäjätunnustietoja kirjautumislomakkeen "
 "kautta."
 
-#: lib/Horde/Script/Files.php:126
+#: lib/Horde/Script/Files.php:122
 msgid ""
 "A popup window could not be opened. Your browser may be blocking popups."
 msgstr ""
@@ -124,7 +120,7 @@ msgstr ""
 msgid "Account signup request for \"%s\""
 msgstr "Käyttäjätunnupyyntö käyttäjältä \"%s\""
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:615 lib/Horde/Core/Perms/Ui.php:194
+#: lib/Horde/Core/Perms/Ui.php:194 lib/Horde/Core/Ui/VarRenderer/Html.php:615
 msgid "Add"
 msgstr "Lisää"
 
@@ -166,11 +162,11 @@ msgstr "Osoite"
 msgid "Address Book"
 msgstr "Osoitekirja"
 
-#: lib/Horde/Core/Sidebar.php:98
+#: lib/Horde/Core/Sidebar.php:57
 msgid "Administration"
 msgstr "Ylläpito"
 
-#: lib/Horde/Core/Notification/Status.php:88
+#: lib/Horde/Core/Notification/Status.php:89
 msgid "Alarm"
 msgstr "Hälytys"
 
@@ -178,11 +174,11 @@ msgstr "Hälytys"
 msgid "Alias"
 msgstr "Alias"
 
-#: lib/Horde/Core/Perms/Ui.php:262
+#: lib/Horde/Core/Perms/Ui.php:255
 msgid "All Authenticated Users"
 msgstr "Kaikki autentikoidut käyttäjät"
 
-#: lib/Horde/Core/Perms.php:121 lib/Horde/Core/Perms/Ui.php:106
+#: lib/Horde/Core/Perms.php:122 lib/Horde/Core/Perms/Ui.php:106
 msgid "All Permissions"
 msgstr "Kaikki oikeudet"
 
@@ -256,7 +252,7 @@ msgstr "Yritys"
 msgid "Confirm new email address"
 msgstr "Varmista uusi sähköpöstiosoite"
 
-#: lib/Horde/Core/Perms/Ui.php:293
+#: lib/Horde/Core/Perms/Ui.php:286
 msgid "Creator Permissions"
 msgstr "Oikeudet tekijällä"
 
@@ -270,7 +266,7 @@ msgstr "PP"
 msgid "December"
 msgstr "joulukuu"
 
-#: lib/Horde/Core/Perms/Ui.php:493 lib/Horde/Core/Perms/Ui.php:511
+#: lib/Horde/Core/Perms/Ui.php:486 lib/Horde/Core/Perms/Ui.php:504
 msgid "Delete"
 msgstr "Poista"
 
@@ -278,12 +274,12 @@ msgstr "Poista"
 msgid "Delete Permission"
 msgstr "Poista oikeus"
 
-#: lib/Horde/Core/Perms/Ui.php:492
+#: lib/Horde/Core/Perms/Ui.php:485
 #, php-format
 msgid "Delete permissions for \"%s\""
 msgstr "Poista oikeudet \"%s\":lta"
 
-#: lib/Horde/Core/Perms/Ui.php:495
+#: lib/Horde/Core/Perms/Ui.php:488
 #, php-format
 msgid "Delete permissions for \"%s\" and any sub-permissions?"
 msgstr "Oletko varma, että haluat poistaa \"%s\" ja kaikki sen alioikeudet?"
@@ -296,11 +292,11 @@ msgstr "Kiellä käyttäjätunnus:"
 msgid "Department"
 msgstr "Osasto"
 
-#: lib/Horde.php:169
+#: lib/Horde.php:131
 msgid "Details"
 msgstr "Yksityiskohdat"
 
-#: lib/Horde.php:174
+#: lib/Horde.php:136
 msgid "Details have been logged for the administrator."
 msgstr "Tarkemmat tiedot on talletettu ylläpidon käsiteltäväksi."
 
@@ -309,11 +305,11 @@ msgstr "Tarkemmat tiedot on talletettu ylläpidon käsiteltäväksi."
 msgid "Dial %s"
 msgstr "Valitsin %s"
 
-#: lib/Horde/Core/Notification/Status.php:67
+#: lib/Horde/Core/Notification/Status.php:68
 msgid "Dismiss"
 msgstr "Ohita"
 
-#: lib/Horde/Core/Perms/Ui.php:493
+#: lib/Horde/Core/Perms/Ui.php:486
 msgid "Do not delete"
 msgstr "Älä Poista"
 
@@ -331,7 +327,7 @@ msgstr "Muokkaa"
 msgid "Edit Permission"
 msgstr "Muokkaa oikeutta"
 
-#: lib/Horde/Core/Perms/Ui.php:426
+#: lib/Horde/Core/Perms/Ui.php:419
 #, php-format
 msgid "Edit permissions for \"%s\""
 msgstr "Muokkaa \"%s\" oikeuksia"
@@ -353,12 +349,12 @@ msgstr "Hymiöt"
 msgid "Enter the letters below:"
 msgstr "Anna kirjaimet alle:"
 
-#: lib/Horde/Core/Notification/Status.php:93
 #: lib/Horde/Core/Block/Layout/View.php:131
+#: lib/Horde/Core/Notification/Status.php:94
 msgid "Error"
 msgstr "Virhe"
 
-#: lib/Horde/Core/Block/Layout/Manager.php:532
+#: lib/Horde/Core/Block/Layout/Manager.php:528
 msgid "Expand"
 msgstr "Laajenna"
 
@@ -388,7 +384,7 @@ msgstr "pe"
 msgid "Friday"
 msgstr "perjantai"
 
-#: lib/Horde/Core/Sidebar.php:131 lib/Horde/Core/Prefs/Ui.php:651
+#: lib/Horde/Core/Prefs/Ui.php:651 lib/Horde/Core/Sidebar.php:90
 msgid "Global Preferences"
 msgstr "Yleiset asetukset"
 
@@ -400,11 +396,11 @@ msgstr "Google Kartat"
 msgid "Grayscale"
 msgstr "Harmaasävy"
 
-#: lib/Horde/Core/Perms/Ui.php:367
+#: lib/Horde/Core/Perms/Ui.php:360
 msgid "Groups"
 msgstr "Ryhmät"
 
-#: lib/Horde/Core/Perms/Ui.php:280
+#: lib/Horde/Core/Perms/Ui.php:273
 msgid "Guest Permissions"
 msgstr "Vierailijan oikeudet"
 
@@ -421,7 +417,7 @@ msgstr "Osoite (Koti)"
 msgid "Home Phone"
 msgstr "Puhelin (Koti)"
 
-#: lib/Horde/Core/Perms/Ui.php:306
+#: lib/Horde/Core/Perms/Ui.php:299
 msgid "Individual Users"
 msgstr "Yksittäiset käyttäjät"
 
@@ -457,11 +453,11 @@ msgstr "kesäkuu"
 msgid "Keep original?"
 msgstr "Säilytä alkuperäinen?"
 
-#: lib/Horde/Core/Sidebar.php:160
+#: lib/Horde/Core/Sidebar.php:119
 msgid "Log in"
 msgstr "Kirjaudu sisään"
 
-#: lib/Horde/Core/Sidebar.php:153
+#: lib/Horde/Core/Sidebar.php:112
 msgid "Log out"
 msgstr "Kirjaudu ulos"
 
@@ -487,7 +483,7 @@ msgstr "maaliskuu"
 msgid "May"
 msgstr "toukokuu"
 
-#: lib/Horde/Core/Notification/Status.php:98
+#: lib/Horde/Core/Notification/Status.php:100
 msgid "Message"
 msgstr "Viesti"
 
@@ -503,30 +499,30 @@ msgstr "ma"
 msgid "Monday"
 msgstr "maanantai"
 
-#: lib/Horde/Core/Block/Layout/Manager.php:566
+#: lib/Horde/Core/Block/Layout/Manager.php:562
 msgid "Move Down"
 msgstr "Siirrä alaspäin"
 
-#: lib/Horde/Core/Block/Layout/Manager.php:570
+#: lib/Horde/Core/Block/Layout/Manager.php:566
 msgid "Move Left"
 msgstr "Siirrä vasemmalle"
 
-#: lib/Horde/Core/Block/Layout/Manager.php:574
+#: lib/Horde/Core/Block/Layout/Manager.php:570
 msgid "Move Right"
 msgstr "Siirrä oikealle"
 
-#: lib/Horde/Core/Block/Layout/Manager.php:562
+#: lib/Horde/Core/Block/Layout/Manager.php:558
 msgid "Move Up"
 msgstr "Siirrä ylöspäin"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:587
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:97
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:587
 msgid "Move down"
 msgstr "Siirrä alaspäin"
 
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:96
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:586
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:587
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:96
 msgid "Move up"
 msgstr "Siirrä ylöspäin"
 
@@ -562,7 +558,7 @@ msgstr "Osoitekirjaa ei ole valittu."
 msgid "No children can be added to this permission."
 msgstr "Tälle oikeudelle ei voi lisätä alitasoja."
 
-#: lib/Horde.php:938
+#: lib/Horde.php:873
 #, php-format
 msgid "No configuration information specified for %s."
 msgstr "Asetuksia ei löytynyt %s."
@@ -607,7 +603,7 @@ msgstr "Toimitusosoite"
 msgid "Permission"
 msgstr "Oikeus"
 
-#: lib/Horde/Core/Perms/Ui.php:207 lib/Horde/Core/Perms/Ui.php:217
+#: lib/Horde/Core/Perms/Ui.php:207 lib/Horde/Core/Perms/Ui.php:210
 msgid "Permissions"
 msgstr "Oikeudet"
 
@@ -626,7 +622,7 @@ msgstr "Valokuvat"
 msgid "Postal Address"
 msgstr "Postiosoite"
 
-#: lib/Horde/Core/Sidebar.php:120
+#: lib/Horde/Core/Sidebar.php:79
 msgid "Preferences"
 msgstr "Asetukset"
 
@@ -640,7 +636,7 @@ msgstr "%s asetukset"
 msgid "Preferred Address"
 msgstr "Oletusosoite"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1487
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1482
 msgid "Preview"
 msgstr "Esikatselu"
 
@@ -652,8 +648,8 @@ msgstr "Ongelma"
 msgid "Really delete this block?"
 msgstr "Poistetaan tämä osio?"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:618
 #: lib/Horde/Core/Block/Layout.php:114 lib/Horde/Core/Block/Layout.php:118
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:618
 msgid "Remove"
 msgstr "Poista"
 
@@ -661,7 +657,7 @@ msgstr "Poista"
 msgid "Remove source"
 msgstr "Poista lähde"
 
-#: lib/Horde.php:947
+#: lib/Horde.php:882
 #, php-format
 msgid "Required \"%s\" not specified in %s configuration."
 msgstr "Tarvittavaa tietoa \"%s\" ei ollut määritelty %s asetuksissa."
@@ -730,7 +726,7 @@ msgstr "Lähetä SMS"
 msgid "September"
 msgstr "syyskuu"
 
-#: lib/Horde/Core/Block/Layout/Manager.php:537
+#: lib/Horde/Core/Block/Layout/Manager.php:533
 msgid "Shrink"
 msgstr "Pienennä"
 
@@ -738,7 +734,7 @@ msgstr "Pienennä"
 msgid "Sign up"
 msgstr "Kirjaudu"
 
-#: lib/Horde/Core/Notification/Status.php:75
+#: lib/Horde/Core/Notification/Status.php:76
 msgid "Snooze..."
 msgstr "Torkku..."
 
@@ -746,7 +742,7 @@ msgstr "Torkku..."
 msgid "Su"
 msgstr "su"
 
-#: lib/Horde/Core/Notification/Status.php:103
+#: lib/Horde/Core/Notification/Status.php:106
 msgid "Success"
 msgstr "Onnistui"
 
@@ -770,27 +766,27 @@ msgid ""
 msgstr ""
 "Sähköpostiosoite %s on lisätty profiileihisi. Voit sulkea tämän ikkunan."
 
-#: lib/Horde.php:721
+#: lib/Horde.php:669
 msgid "The encryption features require a secure web connection."
 msgstr "Salaustoiminto vaati salatun yhteyden käyttämistä."
 
-#: lib/Horde.php:948
+#: lib/Horde.php:883
 #, php-format
 msgid "The file %s should contain a %s setting."
 msgstr "Tiedostossa %s pitäisi olla %s asetus."
 
-#: lib/Horde.php:939
+#: lib/Horde.php:874
 #, php-format
 msgid "The file %s should contain some %s settings."
 msgstr "Tiedostossa %s pitäisi olla joitakin %s asetuksia."
 
-#: lib/Horde/Registry.php:2251
+#: lib/Horde/Registry.php:2214
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr ""
 "Seuraavissa ohjelmissa tapahtui virheitä kun poistettiin käyttäjätietoja: %s"
 
-#: lib/Horde.php:170
+#: lib/Horde.php:132
 msgid ""
 "The full error message is logged in Horde's log file, and is shown below "
 "only to administrators. Non-administrative users will not see error details."
@@ -799,16 +795,16 @@ msgstr ""
 "alla vain ylläpitäjille. Tavalliset käyttäjät eivät näe virhetilanteen "
 "yksityiskohtia."
 
-#: lib/Horde/Core/Prefs/Ui.php:879
+#: lib/Horde/Core/Prefs/Ui.php:882
 #, php-format
 msgid "The identity \"%s\" has been deleted."
 msgstr "Poistettiin profiili \"%s\"."
 
-#: lib/Horde/Core/Prefs/Ui.php:927
+#: lib/Horde/Core/Prefs/Ui.php:928
 msgid "The new from address can't be verified, try again later: "
 msgstr "Uutta osoitetta ei pystytty varmentamaan, yritä myöhemmin uudestaan: "
 
-#: lib/Horde/Core/Factory/Prefs.php:193
+#: lib/Horde/Core/Factory/Prefs.php:187
 #, php-format
 msgid ""
 "The preference \"%s\" could not be saved because its data exceeds the "
@@ -817,7 +813,7 @@ msgstr ""
 "Asetusta \"%s\" ei voitu tallentaa, koska se vie enemmän tilaa kuin mitä on "
 "sallittu"
 
-#: lib/Horde/Core/Factory/Prefs.php:165
+#: lib/Horde/Core/Factory/Prefs.php:159
 msgid ""
 "The preferences backend is currently unavailable and your preferences have "
 "not been loaded. You may continue to use the system with default preferences."
@@ -845,7 +841,7 @@ msgstr "Yhteystietoja luettaessa tapahtui virhe."
 msgid "There were errors encountered while updating your preferences."
 msgstr "Päivitettäessä asetuksiasi tapahtui virhe."
 
-#: lib/Horde/Registry.php:434
+#: lib/Horde/Registry.php:433
 msgid "This system is currently deactivated."
 msgstr "Tämä järjestelmä on pois käytöstä."
 
@@ -886,7 +882,7 @@ msgstr "tiistai"
 msgid "URL"
 msgstr "URL"
 
-#: lib/Horde/Core/Perms/Ui.php:252
+#: lib/Horde/Core/Perms/Ui.php:245
 msgid "Update"
 msgstr "Päivitä"
 
@@ -908,7 +904,7 @@ msgstr "Käyttäjäasetukset"
 msgid "Username \"%s\" already exists."
 msgstr "Käyttäjätunnus \"%s\" on jo olemassa."
 
-#: lib/Horde/Core/Notification/Status.php:108
+#: lib/Horde/Core/Notification/Status.php:112
 msgid "Warning"
 msgstr "Varoitus"
 
@@ -953,7 +949,7 @@ msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] "Et voi tehdä kuin %d osion."
 msgstr[1] "Et voi tehdä kuin %d osiota."
 
-#: lib/Horde/Registry.php:1845
+#: lib/Horde/Registry.php:1808
 msgid "You are not authenticated."
 msgstr "Et ole autentikoitunut."
 
@@ -976,16 +972,16 @@ msgstr ""
 "\n"
 "Jos et tiedä mitä tämä viesti tarkoittaa, niin voit poistaa sen."
 
-#: lib/Horde/Core/Factory/Vfs.php:69
+#: lib/Horde/Core/Factory/Vfs.php:64
 msgid "You must configure a VFS backend."
 msgstr "Sinun pitää asentaa VFS-taustajärjestelmä."
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:397
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:396
 #, php-format
 msgid "You must provide a setting for \"%s\"."
 msgstr "Sinun pitää antaa asetus \"%s\":lle."
 
-#: lib/Horde/Core/Prefs/Ui.php:895
+#: lib/Horde/Core/Prefs/Ui.php:896
 msgid "Your default identity has been changed."
 msgstr "Oletusprofiilisi on muutettu."
 
@@ -1001,7 +997,7 @@ msgstr "Asetuksesi on päivitetty ja ne ovat voimassa tämän istunnon ajan."
 msgid "Your preferences have been updated."
 msgstr "Asetuksesi on päivitetty."
 
-#: lib/Horde/Core/Text/Filter/Highlightquotes.php:51
+#: lib/Horde/Core/Text/Filter/Highlightquotes.php:66
 msgid "[Hide Quoted Text]"
 msgstr "[Piilota lainattu teksti]"
 
@@ -1009,7 +1005,7 @@ msgstr "[Piilota lainattu teksti]"
 msgid "[No Label]"
 msgstr "[Ei otsaketta]"
 
-#: lib/Horde/Core/Text/Filter/Highlightquotes.php:50
+#: lib/Horde/Core/Text/Filter/Highlightquotes.php:64
 #, php-format
 msgid "[Show Quoted Text - %d lines]"
 msgstr "[Näytä lainattu teksti - %d riviä]"
