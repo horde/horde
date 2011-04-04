@@ -260,7 +260,7 @@ class Horde_Core_Perms
      *          DEFAULT: None
      * </pre>
      *
-     * @return boolean  Whether the user has the specified permissions.
+     * @return mixed  The specified permissions.
      */
     public function hasAppPermission($permission, $opts = array())
     {
@@ -281,7 +281,7 @@ class Horde_Core_Perms
             );
 
             try {
-                return (bool)$this->_registry->callAppMethod($app, 'hasPermission', array('args' => $args));
+                return $this->_registry->callAppMethod($app, 'hasPermission', array('args' => $args));
             } catch (Horde_Exception $e) {}
         }
 
