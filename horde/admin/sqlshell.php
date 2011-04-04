@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('admin' => true));
 
 $db = $injector->getInstance('Horde_Db_Adapter');
-$q_cache = $session->retrieve('horde', 'sql_query_cache', Horde_Session::TYPE_ARRAY);
+$q_cache = $session->get('horde', 'sql_query_cache', Horde_Session::TYPE_ARRAY);
 
 if (Horde_Util::getFormData('list-tables')) {
     $description = 'LIST TABLES';
