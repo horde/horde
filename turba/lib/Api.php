@@ -1547,16 +1547,20 @@ class Turba_Api extends Horde_Registry_Api
     {
         if (is_array($address)) {
             $exception = null;
+            $success = 0;
             foreach ($address as $tmp) {
                 try {
-                    if ($key = $this->addField($tmp, $name, $field, $value, $source)) {
-                        return $key;
-                    }
+                    $this->addField($tmp, $name, $field, $value, $source);
+                    $success++;
                 } catch (Exception $exception) {
                 }
             }
             if ($exception) {
-                throw $exception;
+                if ($success) {
+                    throw new Turba_Exception(sprintf(ngettext("Added or updated %d contact, but at least one contact failed:", "Added or updated %d contacts, but at least one contact failed:", $success), $success) . ' ' . $exception->getMessage());
+                } else {
+                    throw $exception;
+                }
             }
         }
 
