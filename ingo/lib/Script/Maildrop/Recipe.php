@@ -150,11 +150,10 @@ class Ingo_Script_Maildrop_Recipe
                 $this->_action[] = '      {';
             }
             $this->_action[] = '  cc "' . str_replace('"', '\\"', sprintf(
-                '| mailbot -D %d -c \'%s\' -t $HOME/vacation.msg -d $HOME/vacation -A %s -s %s /usr/sbin/sendmail -t',
+                '| mailbot -D %d -c \'UTF-8\' -t $HOME/vacation.msg -d $HOME/vacation -A %s -s %s /usr/sbin/sendmail -t',
                 $params['action-value']['days'],
-                $scriptparams['charset'],
                 escapeshellarg('From: ' . $from),
-                escapeshellarg(Horde_Mime::encode($params['action-value']['subject'], $scriptparams['charset']))))
+                escapeshellarg(Horde_Mime::encode($params['action-value']['subject'], 'UTF-8'))))
                 . '"';
             if (($start != 0) && ($end !== 0)) {
                 $this->_action[] = '      }';
