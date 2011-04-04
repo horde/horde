@@ -25,6 +25,13 @@ abstract class Horde_Alarm
     protected $_logger;
 
     /**
+     * Alarm loader callback.
+     *
+     * @var mixed
+     */
+    protected $_loader;
+
+    /**
      * Hash containing connection parameters.
      *
      * @var array
@@ -91,64 +98,11 @@ abstract class Horde_Alarm
             $this->_logger = $params['logger'];
             unset($params['logger']);
         }
-
+        if (isset($params['loader'])) {
+            $this->_loader = $params['loader'];
+            unset($params['loader']);
+        }
         $this->_params = array_merge($this->_params, $params);
-    }
-
-    /**
-     * Retrieves active alarms from all applications and stores them in the
-     * backend.
-     *
-     * The applications will only be called once in the configured time span,
-     * by default 5 minutes.
-     *
-     * @param string $user      Retrieve alarms for this user, or for all users
-     *                          if null.
-     * @param boolean $preload  Preload alarms that go off within the next
-     *                          ttl time span?
-     */
-    public function load($user = null, $preload = true)
-    {
-        // TODO: This must be moved to horde/Core.
-        global $session;
-
-        if ($session->exists('horde', 'alarm_loaded') &&
-            (time() - $session->get('horde', 'alarm_loaded')) < $this->_params['ttl']) {
-            return;
-        }
-
-        foreach ($GLOBALS['registry']->listApps(null, false, Horde_Perms::READ) as $app) {
-            /* Preload alarms that happen in the next ttl seconds. */
-            if ($preload) {
-                try {
-                    $alarms = $GLOBALS['registry']->callAppMethod($app, 'listAlarms', array('args' => array(time() + $this->_params['ttl'], $user), 'noperms' => true));
-                } catch (Horde_Exception $e) {
-                    continue;
-                }
-            } else {
-                $alarms = array();
-            }
-
-            /* Load current alarms if no preloading requested or if this
-             * is the first call in this session. */
-            if (!$preload || !$session->get('horde', 'alarm_loaded')) {
-                try {
-                    $app_alarms = $GLOBALS['registry']->callAppMethod($app, 'listAlarms', array('args' => array(time(), $user), 'noperms' => true));
-                } catch (Horde_Exception $e) {
-                    if ($this->_logger) {
-                        $this->_logger->log($e, 'ERR');
-                    }
-                    $app_alarms = array();
-                }
-                $alarms = array_merge($alarms, $app_alarms);
-            }
-
-            foreach ($alarms as $alarm) {
-                $this->set($alarm, true);
-            }
-        }
-
-        $session->set('horde', 'alarm_loaded', time());
     }
 
     /**
@@ -171,8 +125,8 @@ abstract class Horde_Alarm
         if (empty($time)) {
             $time = new Horde_Date(time());
         }
-        if ($load) {
-            $this->load($user, $preload);
+        if ($load && is_callable($this->_loader)) {
+            call_user_func($this->_loader, $user, $preload);
         }
 
         $alarms = $this->_list($user, $time);

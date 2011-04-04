@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Remove last bits of Core dependency.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -590,7 +590,7 @@
    <date>2011-03-29</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Remove last bits of Core dependency.
    </notes>
   </release>
  </changelog>
