@@ -976,7 +976,7 @@ class Horde_Translation_Script
                     $messages = array(0, 0, 0, $last_update);
                     if (preg_match('/(\d+) translated/', $out[0], $match)) {
                         $messages[0] = $match[1];
-                        if (substr($apps[$i], 0, 6) != 'Horde_' &&
+                        if (substr($this->apps[$i], 0, 6) != 'Horde_' &&
                             isset($horde_msg[$locale])) {
                             $messages[0] -= $horde_msg[$locale][0];
                             if ($messages[0] < 0) $messages[0] = 0;
@@ -984,7 +984,7 @@ class Horde_Translation_Script
                     }
                     if (preg_match('/(\d+) fuzzy/', $out[0], $match)) {
                         $messages[1] = $match[1];
-                        if (substr($apps[$i], 0, 6) != 'Horde_' &&
+                        if (substr($this->apps[$i], 0, 6) != 'Horde_' &&
                             isset($horde_msg[$locale])) {
                             $messages[1] -= $horde_msg[$locale][1];
                             if ($messages[1] < 0) $messages[1] = 0;
@@ -992,7 +992,7 @@ class Horde_Translation_Script
                     }
                     if (preg_match('/(\d+) untranslated/', $out[0], $match)) {
                         $messages[2] = $match[1];
-                        if (substr($apps[$i], 0, 6) != 'Horde_' &&
+                        if (substr($this->apps[$i], 0, 6) != 'Horde_' &&
                             isset($horde_msg[$locale])) {
                             $messages[2] -= $horde_msg[$locale][2];
                             if ($messages[2] < 0) $messages[2] = 0;
