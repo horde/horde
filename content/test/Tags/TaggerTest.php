@@ -64,11 +64,12 @@ class Content_Tags_TaggerTest extends PHPUnit_Framework_TestCase
 
     public function testDuplicateTags()
     {
-        $this->tagger->tag('mike', 1, 'TYÖ');
-        $this->tagger->tag('mike', 1, 'työ');
-        $this->tagger->tag('mike', 1, 'työ');
-
+        $this->tagger->tag('mike', 1, 'TYÃ–');
+        $this->tagger->tag('mike', 1, 'TYÃ–');
+        $this->tagger->tag('mike', 1, 'tyÃ¶');
+        $this->tagger->tag('mike', 1, 'tyÃ¶');
         $this->tagger->tag('mike', 1, array('test', 'TEST'));
+        $this->assertEquals(2, count($this->tagger->getTags(array('objectId' => 1))));
     }
 
     public function testFullTagCloudSimple()
