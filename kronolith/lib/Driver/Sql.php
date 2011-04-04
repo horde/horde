@@ -393,7 +393,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Run the query. */
         try {
-            $result = $this->_db->selectOne($query, array($this->calendar));
+            $result = $this->_db->selectValue($query, array($this->calendar));
         } catch (Horde_Db_Exception $e) {
             throw new Kronolith_Exception($e);
         }
