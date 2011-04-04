@@ -98,7 +98,9 @@ your preference backend::
    forward_bodytext
    image_addrbook
    image_replacement
+   nav_audio
    nav_expanded_sidebar
+   nav_popup
    purge_sentmail
    purge_spam
    purge_trash

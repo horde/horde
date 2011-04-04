@@ -67,11 +67,10 @@ class IMP_Block_Summary extends Horde_Core_Block
 
         /* Get list of mailboxes to poll. */
         $poll = $injector->getInstance('IMP_Imap_Tree')->getPollList(true);
-        $status = $imp_imap->statusMultiple($poll, Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT);
+        $status = $imp_imap->statusMultiple($poll, Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES);
 
         $anyUnseen = false;
         $html_out = $onclick = '';
-        $newmsgs = array();
 
         foreach ($poll as $mbox) {
             $mbox_str = strval($mbox);
@@ -82,10 +81,6 @@ class IMP_Block_Summary extends Horde_Core_Block
                 (empty($this->_params['show_unread']) ||
                  !empty($status[$mbox_str]['unseen']))) {
                  $mbox_status = $status[$mbox_str];
-
-                if (!empty($mbox_status['recent'])) {
-                    $newmsgs[$mbox_str] = $mbox_status['recent'];
-                }
 
                 $html_out .= '<tr style="cursor:pointer" class="text"' . $onclick . '><td>';
 
@@ -106,19 +101,11 @@ class IMP_Block_Summary extends Horde_Core_Block
             }
         }
 
-        if (!empty($newmsgs)) {
-            /* Open the mailbox R/W to ensure the 'recent' flags are cleared
-             * from the current mailbox. */
-            foreach ($newmsgs as $mbox => $nm) {
-                $imp_imap->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
-            }
-        } elseif (!empty($this->_params['show_unread'])) {
+        if (!empty($this->_params['show_unread'])) {
             if (count($folders) == 0) {
                 $html_out = _("No folders are being checked for new mail.");
             } elseif (!$anyUnseen) {
                 $html_out = '<em>' . _("No folders with unseen messages") . '</em>';
-            } elseif ($prefs->getValue('nav_popup')) {
-                $html_out = '<em>' . _("No folders with new messages") . '</em>';
             }
         }
 
@@ -130,24 +117,6 @@ class IMP_Block_Summary extends Horde_Core_Block
         $quota_msg = Horde::endBuffer();
         if (!empty($quota_msg)) {
             $html .= '<tr><td colspan="3">' . $quota_msg . '</td></tr>';
-        }
-
-        /* Check to see if user wants new mail notification, but only
-         * if the user is logged into IMP. */
-        if ($prefs->getValue('nav_popup')) {
-            /* Always include these scripts so they'll be there if there's
-             * new mail in later dynamic updates. */
-            Horde::addScriptFile('effects.js', 'horde');
-            Horde::addScriptFile('redbox.js', 'horde');
-        }
-
-        if (!empty($newmsgs) &&
-            ($prefs->getValue('nav_audio') ||
-             $prefs->getValue('nav_popup'))) {
-            Horde::startBuffer();
-            IMP::newmailAlerts($newmsgs);
-            $notification->notify(array('listeners' => 'audio'));
-            $html .= Horde::endBuffer();
         }
 
         return $html . $html_out . '</table>';

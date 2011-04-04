@@ -232,6 +232,13 @@ class IMP_Prefs_Ui
                 }
                 break;
 
+            case 'newmail_soundselect':
+                if (!$prefs->getValue('newmail_notify') ||
+                    $prefs->isLocked('newmail_audio')) {
+                    $ui->suppress[] = $val;
+                }
+                break;
+
             case 'pgp_attach_pubkey':
             case 'use_pgp_text':
             case 'pgp_reply_pubkey':
@@ -264,12 +271,6 @@ class IMP_Prefs_Ui
             case 'smimepublickey':
             case 'use_smime_text':
                 if (!$prefs->getValue('use_smime')) {
-                    $ui->suppress[] = $val;
-                }
-                break;
-
-            case 'soundselect':
-                if ($prefs->isLocked('nav_audio')) {
                     $ui->suppress[] = $val;
                 }
                 break;
@@ -347,6 +348,9 @@ class IMP_Prefs_Ui
         case 'mailto_handler':
             return $this->_mailtoHandler();
 
+        case 'newmail_soundselect':
+            return $this->_newmailAudio();
+
         case 'pgpprivatekey':
             Horde::addScriptFile('imp.js', 'imp');
             return $this->_pgpPrivateKey($ui);
@@ -375,9 +379,6 @@ class IMP_Prefs_Ui
             Horde::addScriptFile('signaturehtml.js', 'imp');
             IMP_Ui_Editor::init(false, 'signature_html');
             return $this->_signatureHtml();
-
-        case 'soundselect':
-            return $this->_sound();
 
         case 'sourceselect':
             $search = IMP::getAddressbookSearchParams();
@@ -436,6 +437,9 @@ class IMP_Prefs_Ui
         case 'initialpageselect':
             return $prefs->setValue('initial_page', IMP_Mailbox::formFrom($ui->vars->initial_page));
 
+        case 'newmail_soundselect':
+            return $prefs->setValue('newmail_audio', $ui->vars->newmail_audio);
+
         case 'pgpprivatekey':
             $this->_updatePgpPrivateKey($ui);
             return false;
@@ -461,9 +465,6 @@ class IMP_Prefs_Ui
 
         case 'signature_html_select':
             return $injector->getInstance('IMP_Identity')->setValue('signature_html', $ui->vars->signature_html);
-
-        case 'soundselect':
-            return $prefs->setValue('nav_audio', $ui->vars->nav_audio);
 
         case 'sourceselect':
             return $this->_updateSource($ui);
@@ -1017,6 +1018,36 @@ class IMP_Prefs_Ui
         $t->set('img', Horde::img('compose.png'));
 
         return $t->fetch(IMP_TEMPLATES . '/prefs/mailto.html');
+    }
+
+    /* Newmail audio selection. */
+
+    /**
+     * Create code for newmail audio selection.
+     *
+     * @return string  HTML UI code.
+     */
+    protected function _newmailAudio()
+    {
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t->setOption('gettext', true);
+
+        $newmail_audio = $GLOBALS['prefs']->getValue('newmail_audio');
+
+        $t->set('newmail_audio', $newmail_audio);
+
+        $sounds = array();
+        foreach (Horde_Themes::soundList() as $key => $val) {
+            $sounds[] = array(
+                'c' => ($newmail_audio == $key),
+                'l' => htmlspecialchars($key),
+                's' => htmlspecialchars($val->uri),
+                'v' => htmlspecialchars($key)
+            );
+        }
+        $t->set('sounds', $sounds);
+
+        return $t->fetch(IMP_TEMPLATES . '/prefs/newmailaudio.html');
     }
 
     /* PGP Private Key management. */
@@ -1588,35 +1619,6 @@ class IMP_Prefs_Ui
         return $t->fetch(IMP_TEMPLATES . '/prefs/signaturehtml.html');
     }
 
-    /* Sound selection. */
-
-    /**
-     * Create code for sound selection.
-     *
-     * @return string  HTML UI code.
-     */
-    protected function _sound()
-    {
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
-
-        $nav_audio = $GLOBALS['prefs']->getValue('nav_audio');
-
-        $t->set('nav_audio', $nav_audio);
-
-        $sounds = array();
-        foreach (Horde_Themes::soundList() as $key => $val) {
-            $sounds[] = array(
-                'c' => ($nav_audio == $key),
-                'l' => htmlspecialchars($key),
-                's' => htmlspecialchars($val->uri),
-                'v' => htmlspecialchars($key)
-            );
-        }
-        $t->set('sounds', $sounds);
-
-        return $t->fetch(IMP_TEMPLATES . '/prefs/sound.html');
-    }
 
     /* Addressbook selection. */
 

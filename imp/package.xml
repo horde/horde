@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-04-04</date>
- <time>14:32:33</time>
+ <time>17:31:11</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] New mail notifications now handled by the Horde Notification system (Request #9751).
 * [mms] Fix resuming messages with attachments (Bug #9780).
 * [mms] Fix folder actions in standard view in IE 7/8 (Bug #9801).
 * [jan] Fix application-specific permission checks (Bug #9786).
@@ -213,7 +214,8 @@
      </dir> <!-- /lib/Notification/Event -->
      <dir name="Handler">
       <dir name="Decorator">
-       <file name="Imap.php" role="horde" />
+       <file name="ImapAlerts.php" role="horde" />
+       <file name="NewmailNotify.php" role="horde" />
       </dir> <!-- /lib/Notification/Handler/Decorator -->
      </dir> <!-- /lib/Notification/Handler -->
      <dir name="Listener">
@@ -721,9 +723,6 @@
      <file name="message.html.php" role="horde" />
      <file name="notice.html.php" role="horde" />
     </dir> <!-- /templates/mobile -->
-    <dir name="newmsg">
-     <file name="alert.html" role="horde" />
-    </dir> <!-- /templates/newmsg -->
     <dir name="pgp">
      <file name="import_key.html" role="horde" />
     </dir> <!-- /templates/pgp -->
@@ -734,6 +733,7 @@
      <file name="flags.html" role="horde" />
      <file name="initialpage.html" role="horde" />
      <file name="mailto.html" role="horde" />
+     <file name="newmailaudio.html" role="horde" />
      <file name="pgpprivatekey.html" role="horde" />
      <file name="pgppublickey.html" role="horde" />
      <file name="searches.html" role="horde" />
@@ -741,7 +741,6 @@
      <file name="signaturehtml.html" role="horde" />
      <file name="smimeprivatekey.html" role="horde" />
      <file name="smimepublickey.html" role="horde" />
-     <file name="sound.html" role="horde" />
      <file name="spam.html" role="horde" />
      <file name="specialuse.html" role="horde" />
      <file name="stationery.html" role="horde" />
@@ -1493,7 +1492,8 @@
    <install as="imp/lib/Mime/Viewer/Vcard.php" name="lib/Mime/Viewer/Vcard.php" />
    <install as="imp/lib/Mime/Viewer/Zip.php" name="lib/Mime/Viewer/Zip.php" />
    <install as="imp/lib/Notification/Event/Status.php" name="lib/Notification/Event/Status.php" />
-   <install as="imp/lib/Notification/Handler/Decorator/Imap.php" name="lib/Notification/Handler/Decorator/Imap.php" />
+   <install as="imp/lib/Notification/Handler/Decorator/ImapAlerts.php" name="lib/Notification/Handler/Decorator/ImapAlerts.php" />
+   <install as="imp/lib/Notification/Handler/Decorator/NewmailNotify.php" name="lib/Notification/Handler/Decorator/NewmailNotify.php" />
    <install as="imp/lib/Notification/Listener/AjaxStatus.php" name="lib/Notification/Listener/AjaxStatus.php" />
    <install as="imp/lib/Prefs/Identity.php" name="lib/Prefs/Identity.php" />
    <install as="imp/lib/Prefs/Ui.php" name="lib/Prefs/Ui.php" />
@@ -1720,7 +1720,6 @@
    <install as="imp/templates/mobile/mailbox.html.php" name="templates/mobile/mailbox.html.php" />
    <install as="imp/templates/mobile/message.html.php" name="templates/mobile/message.html.php" />
    <install as="imp/templates/mobile/notice.html.php" name="templates/mobile/notice.html.php" />
-   <install as="imp/templates/newmsg/alert.html" name="templates/newmsg/alert.html" />
    <install as="imp/templates/pgp/import_key.html" name="templates/pgp/import_key.html" />
    <install as="imp/templates/prefs/acl.html" name="templates/prefs/acl.html" />
    <install as="imp/templates/prefs/drafts.html" name="templates/prefs/drafts.html" />
@@ -1728,6 +1727,7 @@
    <install as="imp/templates/prefs/flags.html" name="templates/prefs/flags.html" />
    <install as="imp/templates/prefs/initialpage.html" name="templates/prefs/initialpage.html" />
    <install as="imp/templates/prefs/mailto.html" name="templates/prefs/mailto.html" />
+   <install as="imp/templates/prefs/newmailaudio.html" name="templates/prefs/newmailaudio.html" />
    <install as="imp/templates/prefs/pgpprivatekey.html" name="templates/prefs/pgpprivatekey.html" />
    <install as="imp/templates/prefs/pgppublickey.html" name="templates/prefs/pgppublickey.html" />
    <install as="imp/templates/prefs/searches.html" name="templates/prefs/searches.html" />
@@ -1735,7 +1735,6 @@
    <install as="imp/templates/prefs/signaturehtml.html" name="templates/prefs/signaturehtml.html" />
    <install as="imp/templates/prefs/smimeprivatekey.html" name="templates/prefs/smimeprivatekey.html" />
    <install as="imp/templates/prefs/smimepublickey.html" name="templates/prefs/smimepublickey.html" />
-   <install as="imp/templates/prefs/sound.html" name="templates/prefs/sound.html" />
    <install as="imp/templates/prefs/spam.html" name="templates/prefs/spam.html" />
    <install as="imp/templates/prefs/specialuse.html" name="templates/prefs/specialuse.html" />
    <install as="imp/templates/prefs/stationery.html" name="templates/prefs/stationery.html" />
@@ -2110,6 +2109,7 @@
    <date>2011-04-04</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] New mail notifications now handled by the Horde Notification system (Request #9751).
 * [mms] Fix resuming messages with attachments (Bug #9780).
 * [mms] Fix folder actions in standard view in IE 7/8 (Bug #9801).
 * [jan] Fix application-specific permission checks (Bug #9786).

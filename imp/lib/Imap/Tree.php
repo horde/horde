@@ -71,13 +71,6 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     public $changed = false;
 
     /**
-     * Recent messages.
-     *
-     * @var array
-     */
-    public $recent = array();
-
-    /**
      * Unseen count.
      *
      * @var array
@@ -182,7 +175,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $this->changed = true;
         $this->_currkey = $this->_currparent = null;
         $this->_delimiter = '/';
-        $this->recent = $this->_namespaces = $this->_parent = $this->_tree = array();
+        $this->_namespaces = $this->_parent = $this->_tree = array();
         $this->_showunsub = $unsubmode;
         unset($this->_cache['fulllist'], $this->_cache['subscribed']);
 
@@ -1485,7 +1478,6 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             'render_type' => 'Javascript'
         ), $opts);
 
-        $this->recent = array();
         $this->unseen = 0;
 
         if ($name instanceof Horde_Tree_Base) {
@@ -1557,10 +1549,6 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 } else {
                     if ($poll_info->unseen) {
                         $this->unseen += $poll_info->unseen;
-                        if ($poll_info->recent) {
-                            $recent[$val->value] = $poll_info->recent;
-                        }
-
                         $label = '<strong>' . $label . '</strong>';
                     }
 

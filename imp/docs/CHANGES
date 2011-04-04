@@ -2,6 +2,8 @@
 v5.0
 ----
 
+[mms] New mail notifications now handled by the Horde Notification system
+      (Request #9751).
 [mms] Fix resuming messages with attachments (Bug #9780).
 [mms] Fix folder actions in standard view in IE 7/8 (Bug #9801).
 [jan] Fix application-specific permission checks (Bug #9786).

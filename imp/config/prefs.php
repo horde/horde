@@ -840,7 +840,7 @@ $prefGroups['newmail'] = array(
     'label' => _("New Mail"),
     'desc' => _("Control when new mail will be checked for, and whether or not to notify you when it arrives."),
     'members' => array(
-        'refresh_time', 'nav_poll_all', 'nav_popup', 'soundselect'
+        'refresh_time', 'nav_poll_all', 'newmail_notify', 'newmail_soundselect'
     )
 );
 
@@ -859,20 +859,20 @@ $_prefs['refresh_time'] = array(
     'desc' => _("Refresh Folder Views:"),
 );
 
-// javascript popup if there's new mail?
-$_prefs['nav_popup'] = array(
+// Display notification if there is new mail?
+$_prefs['newmail_notify'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Display pop-up notification of new mail?"),
+    'desc' => _("Display notification when new mail arrives?"),
 );
 
 // play a sound on new mail? if so, which one?
-$_prefs['nav_audio'] = array(
+$_prefs['newmail_audio'] = array(
     'value' => ''
 );
 
 // sound selection widget
-$_prefs['soundselect'] = array(
+$_prefs['newmail_soundselect'] = array(
     'type' => 'special'
 );
 

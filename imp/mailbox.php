@@ -341,12 +341,6 @@ Horde::addInlineScript(array(
     'ImpMailbox.unread = ' . intval($unread)
 ));
 
-/* Get the recent message count. */
-$newmsgs = 0;
-if ($prefs->getValue('nav_popup') || $prefs->getValue('nav_audio')) {
-    $newmsgs = $imp_mailbox->newMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
-}
-
 $pagetitle = $title = IMP::$mailbox->label;
 $refresh_title = sprintf(_("_Refresh %s"), $title);
 $refresh_ak = Horde::getAccessKey($refresh_title);
@@ -374,17 +368,6 @@ Horde::addScriptFile('dialog.js', 'imp');
 Horde::addScriptFile('effects.js', 'horde');
 Horde::addScriptFile('redbox.js', 'horde');
 Horde::addScriptFile('mailbox.js', 'imp');
-
-if (!empty($newmsgs)) {
-    /* Open the mailbox R/W so we ensure the 'recent' flags are cleared from
-     * the current mailbox. */
-    $imp_imap->ob->openMailbox(IMP::$mailbox, Horde_Imap_Client::OPEN_READWRITE);
-
-    if ($vars->newmail) {
-        /* Newmail alerts. */
-        IMP::newmailAlerts($newmsgs);
-    }
-}
 
 $menu = IMP::menu();
 Horde::metaRefresh($prefs->getValue('refresh_time'), $refresh_url);

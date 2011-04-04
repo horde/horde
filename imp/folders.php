@@ -395,17 +395,6 @@ foreach ($imaptree as $key => $val) {
     }
 }
 
-/* Check to see if user wants new mail notification */
-if (!empty($imaptree->recent)) {
-    /* Open the mailbox R/W so we ensure the 'recent' flags are cleared from
-     * the current mailbox. */
-    foreach ($imaptree->recent as $mbox => $nm) {
-        $imp_imap->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
-    }
-
-    IMP::newmailAlerts($imaptree->recent);
-}
-
 Horde::addInlineJsVars(array(
     'ImpFolders.ajax' => Horde::getServiceLink('ajax', 'imp')->url,
     'ImpFolders.displayNames' => $displayNames,

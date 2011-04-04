@@ -37,6 +37,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
             $this->_upgradeForwardPrefs();
             $this->_upgradeLoginTasksPrefs();
             $this->_upgradeMsgDisplayPrefs();
+            $this->_upgradeNewmailPrefs();
             $this->_upgradePurgeSentmailPrefs();
             $this->_upgradePurgeSpamPrefs();
             $this->_upgradePurgeTrashPrefs();
@@ -203,6 +204,25 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
         if ($prefs->isDefault('send_mdn') &&
             $prefs->getValue('disposition_send_mdn')) {
             $prefs->setValue('send_mdn', 1);
+        }
+    }
+
+    /**
+     * Upgrade to the new newmail preferences.
+     */
+    protected function _upgradeNewmailPrefs()
+    {
+        global $prefs;
+
+        if ($prefs->isDefault('newmail_notify') &&
+            $prefs->getValue('nav_popup')) {
+            $prefs->setValue('newmail_notify', 1);
+        }
+
+        if ($prefs->getValue('newmail_notify') &&
+            $prefs->isDefault('newmail_audio') &&
+            ($nav_audio = $prefs->getValue('nav_audio'))) {
+            $prefs->setValue('newmail_audio', $nav_audio);
         }
     }
 
