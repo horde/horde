@@ -370,7 +370,7 @@ class Horde_Mime
      * @return string  The decoded text.
      * @throws Horde_Mime_Exception
      */
-    static public function decodeAddrString($string, $to_charset = null)
+    static public function decodeAddrString($string, $to_charset)
     {
         $addr_list = array();
         foreach (Horde_Mime_Address::parseAddressList($string) as $ob) {

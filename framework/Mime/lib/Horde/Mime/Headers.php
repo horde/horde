@@ -319,7 +319,7 @@ class Horde_Mime_Headers implements Serializable
             // Fields defined in RFC 2822 that contain address information
             if (in_array($lcHeader, $this->addressFields())) {
                 try {
-                    $value = Horde_Mime::decodeAddrString($value);
+                    $value = Horde_Mime::decodeAddrString($value, empty($options['charset']) ? 'UTF-8' : $options['charset']);
                 } catch (Horde_Mime_Exception $e) {
                     $value = '';
                 }
