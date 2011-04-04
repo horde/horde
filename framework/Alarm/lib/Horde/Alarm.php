@@ -55,35 +55,6 @@ abstract class Horde_Alarm
     protected $_handlersLoaded = false;
 
     /**
-     * Attempts to return a concrete instance based on $driver.
-     *
-     * @param string $driver  The type of concrete subclass to
-     *                        return. The class name is based on the storage
-     *                        driver ($driver). The code is dynamically
-     *                        included.
-     * @param array $params   A hash containing any additional configuration
-     *                        or connection parameters a subclass might need.
-     *
-     * @return Horde_Alarm  The newly created concrete instance.
-     * @throws Horde_Alarm_Exception
-     */
-    static public function factory($driver, array $params = array())
-    {
-        $driver = ucfirst(basename($driver));
-        $class = __CLASS__ . '_' . $driver;
-
-        if (!class_exists($class)) {
-            $class = __CLASS__ . '_Null';
-        }
-
-        $alarm = new $class($params);
-        $alarm->initialize();
-        $alarm->gc();
-
-        return $alarm;
-    }
-
-    /**
      * Constructor.
      *
      * @param array $params  Configuration parameters:
