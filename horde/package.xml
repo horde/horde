@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Fix resetting passwords (Vilius Sumskas &lt;vilius@lnk.lt&gt;, Bug #9800).
 * [jan] Delete object mappings too when deleting SyncML anchors (Request #9377).
 * [jan] Move all executable upgrade scripts to bin/ and prefix with horde-.
 * [mjr] Fix ActiveSync provisioning.
@@ -4019,8 +4020,10 @@
    <date>2011-03-31</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Fix resetting passwords (Vilius Sumskas &lt;vilius@lnk.lt&gt;, Bug #9800).
 * [jan] Delete object mappings too when deleting SyncML anchors (Request #9377).
 * [jan] Move all executable upgrade scripts to bin/ and prefix with horde-.
+* [mjr] Fix ActiveSync provisioning.
    </notes>
   </release>
  </changelog>
