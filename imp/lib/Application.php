@@ -139,7 +139,6 @@ class IMP_Application extends Horde_Registry_Application
         case 'dimp':
             $redirect = (!empty($this->initParams['impmode']) &&
                          ($this->initParams['impmode'] != 'dimp'));
-            $GLOBALS['notification']->addType('status', 'dimp.*', 'IMP_Notification_Event_Status');
             break;
 
         case 'mimp':
