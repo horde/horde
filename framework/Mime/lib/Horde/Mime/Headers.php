@@ -637,7 +637,7 @@ class Horde_Mime_Headers implements Serializable
             }
 
             if (in_array(Horde_String::lower($val[0]), $mime)) {
-                $res = Horde_Mime::decodeParam($val[0], $val[1]);
+                $res = Horde_Mime::decodeParam($val[0], $val[1], 'UTF-8');
                 $headers->addHeader($val[0], $res['val'], array('decode' => true, 'params' => $res['params']));
             } else {
                 $headers->addHeader($val[0], $val[1], array('decode' => true));

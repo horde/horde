@@ -475,7 +475,6 @@ class Horde_Mime
      * @param mixed $data      The text of the header or an array of
      *                         param name => param values.
      * @param string $charset  The charset the text should be decoded to.
-     *                         Defaults to system charset.
      *
      * @return array  An array with the following entries:
      * <pre>
@@ -483,7 +482,7 @@ class Horde_Mime
      * 'val' - (string) The header's "base" value.
      * </pre>
      */
-    static public function decodeParam($type, $data, $charset = null)
+    static public function decodeParam($type, $data, $charset)
     {
         $convert = array();
         $ret = array('params' => array(), 'val' => '');
