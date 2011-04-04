@@ -3,7 +3,7 @@
  * This file contains any "Message Of The Day" Type information It will be
  * included below the log-in form on the login page.
  *
- * IMPORTANT: Local overrides should be placed in motd.local.php, or
+ * IMPORTANT: Local overrides MUST be placed in motd.local.php, or
  * motd-servername.php if the 'vhosts' setting has been enabled in Horde's
  * configuration.
  */

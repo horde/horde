@@ -6,7 +6,7 @@
  * viewing. Individual Horde applications can override these settings
  * in their config/mime_drivers.php files.
  *
- * IMPORTANT: Local overrides should be placed in mime_drivers.local.php, or
+ * IMPORTANT: Local overrides MUST be placed in mime_drivers.local.php, or
  * mime_drivers-servername.php if the 'vhosts' setting has been enabled in
  * Horde's configuration.
  *

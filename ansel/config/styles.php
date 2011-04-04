@@ -6,7 +6,7 @@
  * used if requesting an explicit style to overide the gallery's existing style
  * when rendering via the API.
  *
- * IMPORTANT: Local overrides should be placed in styles.local.php, or
+ * IMPORTANT: Local overrides MUST be placed in styles.local.php, or
  * styles-servername.php if the 'vhosts' setting has been enabled in Horde's
  * configuration.
  *

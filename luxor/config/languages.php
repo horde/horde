@@ -3,7 +3,7 @@
  * This file contains all the configuration information for the various
  * languages that are supported. Documentation is inline.
  *
- * IMPORTANT: Local overrides should be placed in languages.local.php, or
+ * IMPORTANT: Local overrides MUST be placed in languages.local.php, or
  * languages-servername.php if the 'vhosts' setting has been enabled in Horde's
  * configuration.
  */

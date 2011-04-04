@@ -3,7 +3,7 @@
  * This file defines a custom list of words that will be added to the spell
  * checker dictionary.
  *
- * IMPORTANT: Local overrides should be placed in spelling.local.php, or
+ * IMPORTANT: Local overrides MUST be placed in spelling.local.php, or
  * spelling-servername.php if the 'vhosts' setting has been enabled in
  * Horde's configuration.
  */

@@ -5,7 +5,7 @@
  * This configuration file is used by Horde to determine which Horde
  * applications are installed and where, as well as how they interact.
  *
- * IMPORTANT: Local overrides should be placed in registry.local.php,
+ * IMPORTANT: Local overrides MUST be placed in registry.local.php,
  * registry.d/, or registry-servername.php if the 'vhosts' setting has been
  * enabled in Horde's configuration.
  *

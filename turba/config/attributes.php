@@ -5,7 +5,7 @@
  * This file contains examples of attributes that Turba understands, and their
  * types.
  *
- * IMPORTANT: Local overrides should be placed in attributes.local.php, or
+ * IMPORTANT: Local overrides MUST be placed in attributes.local.php, or
  * attributes-servername.php if the 'vhosts' setting has been enabled in
  * Horde's configuration.
  *

@@ -3,7 +3,7 @@
  * This file stores the templates used to generate different views of
  * news channels.
  *
- * IMPORTANT: Local overrides should be placed in templates.local.php, or
+ * IMPORTANT: Local overrides MUST be placed in templates.local.php, or
  * templates-servername.php if the 'vhosts' setting has been enabled in Horde's
  * configuration.
  */

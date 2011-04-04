@@ -5,7 +5,7 @@
  * remove or comment out those examples that YOU DON'T NEED. There are a
  * number of properties that you can set for each server, including:
  *
- * IMPORTANT: Local overrides should be placed in backends.local.php, or
+ * IMPORTANT: Local overrides MUST be placed in backends.local.php, or
  * backends-servername.php if the 'vhosts' setting has been enabled in Horde's
  * configuration.
  *

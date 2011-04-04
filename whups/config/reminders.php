@@ -3,7 +3,7 @@
  * This file defines reminders sent automatically by Whups (if you
  * schedule scripts/reminders.php in your crontab).
  *
- * IMPORTANT: Local overrides should be placed in reminders.local.php, or
+ * IMPORTANT: Local overrides MUST be placed in reminders.local.php, or
  * reminders-servername.php if the 'vhosts' setting has been enabled in Horde's
  * configuration.
  *

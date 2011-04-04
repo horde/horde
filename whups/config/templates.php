@@ -2,7 +2,7 @@
 /**
  * This file defines the templates used in various parts of Whups.
  *
- * IMPORTANT: Local overrides should be placed in templates.local.php, or
+ * IMPORTANT: Local overrides MUST be placed in templates.local.php, or
  * templates-servername.php if the 'vhosts' setting has been enabled in Horde's
  * configuration.
  *

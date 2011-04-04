@@ -3,7 +3,7 @@
  * This file defines the set of default match items to display when creating
  * a new filter rule.
  *
- * IMPORTANT: Local overrides should be placed in fields.local.php, or
+ * IMPORTANT: Local overrides MUST be placed in fields.local.php, or
  * fields-servername.php if the 'vhosts' setting has been enabled in Horde's
  * configuration.
  *

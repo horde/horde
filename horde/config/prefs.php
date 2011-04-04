@@ -9,7 +9,7 @@
  * need to delete these preference entries in your backend; entries in the
  * backend have priority over the default entry.
  *
- * IMPORTANT: Local overrides should be placed in prefs.local.php, or
+ * IMPORTANT: Local overrides MUST be placed in prefs.local.php, or
  * prefs-servername.php if the 'vhosts' setting has been enabled in Horde's
  * configuration.
  *

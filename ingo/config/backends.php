@@ -3,7 +3,7 @@
  * Ingo works purely on a preferred mechanism for server selection. There are
  * a number of properties that you can set for each backend:
  *
- * IMPORTANT: Local overrides should be placed in backends.local.php, or
+ * IMPORTANT: Local overrides MUST be placed in backends.local.php, or
  * backends-servername.php if the 'vhosts' setting has been enabled in Horde's
  * configuration.
  *
