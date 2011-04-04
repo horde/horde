@@ -264,7 +264,7 @@ class IMP_Mailbox implements Serializable
             return $this->_getIcon();
 
         case 'inbox':
-            return (strcasecmp($folder, 'INBOX') === 0);
+            return (strcasecmp($this->_mbox, 'INBOX') === 0);
 
         case 'invisible':
             return $injector->getInstance('IMP_Imap_Tree')->isInvisible($this->_mbox);

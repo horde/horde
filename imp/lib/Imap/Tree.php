@@ -1390,8 +1390,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     public function rename($old, $new)
     {
         foreach ($old as $key => $val) {
-            $polled = isset($this->_tree[$val])
-                ? $this->isPolled($this->_tree[$val])
+            $polled = isset($this->_tree[strval($val)])
+                ? $this->isPolled($this->_tree[strval($val)])
                 : false;
             if ($this->delete($val)) {
                 $this->insert($new[$key]);
