@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-04-06</date>
- <time>01:41:14</time>
+ <time>01:42:00</time>
  <version>
-  <release>2.0.0</release>
+  <release>2.0.1</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -34,16 +34,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* First stable release for Horde 4.
-* [jan] Fix application-specific permission checks (Bug #9786).
-* [jan] Correctly escape vacation subjects with quote characters in Maildrop driver (Bug #9156).
-* [jan] Catch all PEAR errors in Sieve driver.
-* [jan] Allow script drivers to provide additional scripts to upload (Bug #8110).
-* [jan] Change default Sieve port to 4190 (Request #9791).
-* [jan] Fix reading default forward rule from preferences.
-* [jan] Fix removing flags with Sieve driver (Vilius Sumskas &lt;vilius@lnk.lt&gt;, Bug #9785).
-* [mjr] Datatree share to SQL upgrade script refactored for Horde 4.
-* [jan] Move all executable scripts to bin/ and prefix with ingo-.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -916,6 +907,19 @@
 * [jan] Fix removing flags with Sieve driver (Vilius Sumskas &lt;vilius@lnk.lt&gt;, Bug #9785).
 * [mjr] Datatree share to SQL upgrade script refactored for Horde 4.
 * [jan] Move all executable scripts to bin/ and prefix with ingo-.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-06</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
