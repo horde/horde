@@ -2434,16 +2434,16 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             );
         }
 
-        $fetchresp = $options['ids']->sequence
+        $t['fetchresults'] = $options['ids']->sequence
             ? array('seq' => $results, 'uid' => array())
             : array('seq' => array(), 'uid' => $results);
 
         $this->_sendLine($cmd, array(
-            'fetch' => $fetchresp
+            'fetch' => &$t['fetchresults']
         ));
 
-        $ret = $t['fetchresp'][$options['ids']->sequence ? 'seq' : 'uid'];
-        unset($t['fetchcmd'], $t['fetchresp']);
+        $ret = $t['fetchresults'][$options['ids']->sequence ? 'seq' : 'uid'];
+        unset($t['fetchcmd'], $t['fetchresp'], $t['fetchresults']);
 
         return $ret;
     }
