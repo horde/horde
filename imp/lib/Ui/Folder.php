@@ -44,14 +44,16 @@ class IMP_Ui_Folder
                 throw $e;
             }
 
-            fseek($data, 0, SEEK_END);
-
-            $browser->downloadHeaders(reset($flist) . '.zip', 'application/zip', false, ftell($data));
+            $suffix = '.zip';
+            $type = 'application/zip';
         } else {
             $data = $mbox;
-            fseek($data, 0, SEEK_END);
-            $browser->downloadHeaders(reset($flist) . '.mbox', null, false, ftell($data));
+            $suffix = '.mbox';
+            $type = null;
         }
+
+        fseek($data, 0, SEEK_END);
+        $browser->downloadHeaders(reset($flist) . $suffix, $type, false, ftell($data));
 
         rewind($data);
         fpassthru($data);
