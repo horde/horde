@@ -78,12 +78,12 @@ extends Horde_Notification_Handler_Decorator_Base
             $akeys = array_keys($recent);
             $mbox_list = $akeys[0] . ', ' . $akeys[1] . ', ' . _("and") . ' ' . $akeys[2];
             if ($addl_mbox = count($recent) - 3) {
-                $mbox_list .= ' (' . sprintf(ngettext(_("and %d more mailbox"), _("and %d more mailboxes"), $addl_mbox), $addl_mbox) . ')';
+                $mbox_list .= ' (' . sprintf(ngettext("and %d more mailbox", "and %d more mailboxes", $addl_mbox), $addl_mbox) . ')';
             }
             break;
         }
 
-        $handler->push(sprintf(ngettext(_("You have %d new mail message in %s."), _("You have %d new mail messages in %s."), $recent_sum), $recent_sum, $mbox_list), 'horde.message');
+        $handler->push(sprintf(ngettext("You have %d new mail message in %s.", "You have %d new mail messages in %s.", $recent_sum), $recent_sum, $mbox_list), 'horde.message');
 
         if ($audio = $prefs->getValue('newmail_audio')) {
             $handler->attach('audio');
