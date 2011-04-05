@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Alarm\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"POT-Creation-Date: 2011-04-05 13:52+0200\n"
 "PO-Revision-Date: 2011-01-27 14:51+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Alarm/Handler/Desktop.php:87
+#: lib/Horde/Alarm/Handler/Desktop.php:79
 msgid "Desktop notification (with certain browsers)"
 msgstr "Desktop-Benachrichtigung (mit bestimmten Browsern)"
 
@@ -29,10 +29,10 @@ msgstr "E-Mail"
 msgid "Email address (optional)"
 msgstr "E-Mail-Adresse (optional)"
 
-#: lib/Horde/Alarm/Handler/Notify.php:79
+#: lib/Horde/Alarm/Handler/Notify.php:77
 msgid "Inline"
 msgstr "Im Text"
 
-#: lib/Horde/Alarm/Handler/Notify.php:99
+#: lib/Horde/Alarm/Handler/Notify.php:97
 msgid "Play a sound?"
 msgstr "Einen Klang abspielen?"

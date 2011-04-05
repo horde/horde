@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Turba 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
-"PO-Revision-Date: 2011-04-04 10:33+0200\n"
+"POT-Creation-Date: 2011-04-05 13:52+0200\n"
+"PO-Revision-Date: 2011-04-05 13:55+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
 "Language: de\n"
@@ -101,6 +101,17 @@ msgstr "Datei hinzufügen"
 #: templates/browse/actions.inc:30
 msgid "Add to"
 msgstr "Hinzufügen zu"
+
+#: lib/Api.php:1560
+#, php-format
+msgid "Added or updated %d contact, but at least one contact failed:"
+msgid_plural "Added or updated %d contacts, but at least one contact failed:"
+msgstr[0] ""
+"%d Kontakt hinzugefügt oder aktualisiert, aber mindestens ein Kontakt ist "
+"fehlgeschlagen:"
+msgstr[1] ""
+"%d Kontakte hinzugefügt oder aktualisiert, aber mindestens ein Kontakt ist "
+"fehlgeschlagen:"
 
 #: lib/Driver.php:2739
 msgid "Adding contacts is not available."
@@ -693,7 +704,7 @@ msgstr "Ungültige ID"
 
 #: lib/Api.php:102 lib/Api.php:458 lib/Api.php:518 lib/Api.php:589
 #: lib/Api.php:635 lib/Api.php:761 lib/Api.php:931 lib/Api.php:993
-#: lib/Api.php:1566
+#: lib/Api.php:1570
 #, php-format
 msgid "Invalid address book: %s"
 msgstr "Ungültiges Adressbuch: %s"
@@ -702,11 +713,11 @@ msgstr "Ungültiges Adressbuch: %s"
 msgid "Invalid contact unique ID"
 msgstr "Ungültige eindeutige Kontakt-ID"
 
-#: lib/Api.php:1570 lib/Api.php:1655 lib/Api.php:1722
+#: lib/Api.php:1574 lib/Api.php:1659 lib/Api.php:1726
 msgid "Invalid email"
 msgstr "Ungültige E-Mail-Adresse"
 
-#: lib/Api.php:1578
+#: lib/Api.php:1582
 msgid "Invalid entry"
 msgstr "Ungültiger Eintrag"
 
@@ -714,7 +725,7 @@ msgstr "Ungültiger Eintrag"
 msgid "Invalid key specified."
 msgstr "Ungültiger Schlüssel angegeben."
 
-#: lib/Api.php:1574
+#: lib/Api.php:1578
 msgid "Invalid name"
 msgstr "Ungültiger Name"
 
@@ -826,7 +837,7 @@ msgstr "Änderung fehlgeschlagen: (%s) %s"
 msgid "More Options..."
 msgstr "Weitere Optionen..."
 
-#: lib/Api.php:1698
+#: lib/Api.php:1702
 msgid "More than 1 entry found"
 msgstr "Mehr als 1 Eintrag zurückgeliefert"
 
@@ -842,7 +853,7 @@ msgstr "Mulberry-Adressbuch"
 msgid "Multiple contacts found with same unique ID."
 msgstr "Mehrere Kontakte mit der gleichen eindeutigen ID gefunden."
 
-#: lib/Api.php:1601
+#: lib/Api.php:1605
 #, php-format
 msgid ""
 "Multiple persons with address [%s], but none with name [%s] already exist"
@@ -888,7 +899,7 @@ msgstr "Weiter"
 msgid "Nickname"
 msgstr "Spitzname"
 
-#: lib/Api.php:1701 lib/Api.php:1759
+#: lib/Api.php:1705 lib/Api.php:1763
 #, php-format
 msgid "No %s entry found for %s"
 msgstr "Es wurde kein %s Eintrag für %s gefunden"
@@ -997,7 +1008,7 @@ msgstr "Pager"
 msgid "Permanently delete this contact?"
 msgstr "Diesen Kontakt unwiederbringlich löschen?"
 
-#: deletefile.php:36 lib/Api.php:641 lib/Api.php:1584 lib/Driver.php:848
+#: deletefile.php:36 lib/Api.php:641 lib/Api.php:1588 lib/Driver.php:848
 #: lib/Driver/Sql.php:628
 msgid "Permission denied"
 msgstr "Zugriff verweigert"
@@ -1123,7 +1134,7 @@ msgstr "Duplikate suchen in:"
 msgid "Search failed"
 msgstr "Suche fehlgeschlagen"
 
-#: lib/Api.php:1590 lib/Api.php:1597 lib/Api.php:1607 lib/Api.php:1621
+#: lib/Api.php:1594 lib/Api.php:1601 lib/Api.php:1611 lib/Api.php:1625
 #, php-format
 msgid "Search failed: %s"
 msgstr "Suche fehlgeschlagen: %s"
@@ -1466,7 +1477,7 @@ msgstr "Der Kontakt wurde als Ihre Visitenkarte markiert."
 msgid "This file format is not supported."
 msgstr "Dieses Dateiformat wird nicht unterstützt."
 
-#: lib/Api.php:1611 lib/Api.php:1625
+#: lib/Api.php:1615 lib/Api.php:1629
 #, php-format
 msgid "This person already has a %s entry in the address book"
 msgstr "Diese Person hat bereits einen %s-Eintrag in Ihrem Adressbuch"

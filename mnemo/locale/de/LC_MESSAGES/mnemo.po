@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"POT-Creation-Date: 2011-04-05 13:52+0200\n"
 "PO-Revision-Date: 2011-04-04 10:33+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
@@ -266,7 +266,7 @@ msgstr "Meine Notizen"
 msgid "Name"
 msgstr "Name"
 
-#: lib/Application.php:133 memo.php:92 memo.php:138
+#: lib/Application.php:134 memo.php:92 memo.php:138
 msgid "New Note"
 msgstr "Neue Notiz"
 
@@ -335,7 +335,7 @@ msgstr "Notizblock"
 msgid "Notepad List"
 msgstr "Notizblockübersicht"
 
-#: lib/Mnemo.php:522
+#: lib/Mnemo.php:526
 #, php-format
 msgid "Notepad of %s"
 msgstr "Notizblock von %s"
@@ -384,7 +384,7 @@ msgstr "Speichern"
 msgid "Save as PDF"
 msgstr "Als PDF speichern"
 
-#: lib/Application.php:166 search.php:22 templates/list/header.inc:4
+#: lib/Application.php:167 search.php:22 templates/list/header.inc:4
 #: templates/search/search.inc:4 templates/search/search.inc:27
 msgid "Search"
 msgstr "Suche"
@@ -549,8 +549,8 @@ msgstr ""
 msgid "This note has been encrypted."
 msgstr "Diese Notiz wurde verschlüsselt."
 
-#: lib/Block/Summary.php:116 lib/Mnemo.php:267 lib/Mnemo.php:268
-#: lib/Mnemo.php:282 lib/Mnemo.php:283 templates/list/memo_summaries.inc:20
+#: lib/Block/Summary.php:116 lib/Mnemo.php:271 lib/Mnemo.php:272
+#: lib/Mnemo.php:286 lib/Mnemo.php:287 templates/list/memo_summaries.inc:20
 #: templates/view/memo.inc:27
 msgid "Unfiled"
 msgstr "Nicht zugeordnet"
@@ -671,7 +671,7 @@ msgstr "durch %s"
 msgid "by me"
 msgstr "durch mich"
 
-#: lib/Application.php:153
+#: lib/Application.php:154
 #, php-format
 msgid "in %s"
 msgstr "in %s"

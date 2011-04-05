@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"POT-Creation-Date: 2011-04-05 13:52+0200\n"
 "PO-Revision-Date: 2011-04-04 10:36+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -27,7 +27,7 @@ msgstr " (Zugriffstaste %s)"
 msgid "\"%s\" group driver not found."
 msgstr "\"%s\"-Gruppen-Treiber nicht gefunden."
 
-#: lib/Horde/Registry.php:1180 lib/Horde/Registry.php:1639
+#: lib/Horde/Registry.php:1180 lib/Horde/Registry.php:1644
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr "\"%s\" ist in der Horde Registry nicht konfiguriert."
@@ -215,7 +215,7 @@ msgstr "Verfügbare Adressbücher:"
 msgid "Birthday"
 msgstr "Geburtstag"
 
-#: lib/Horde/Core/Block/Collection.php:347
+#: lib/Horde/Core/Block/Collection.php:388
 #, php-format
 msgid "Block \"%s\" of application \"%s\" not found."
 msgstr "Block \"%s\" der Anwendung \"%s\" nicht gefunden."
@@ -787,7 +787,7 @@ msgstr "Die Datei %s sollte einen %s Eintrag enthalten."
 msgid "The file %s should contain some %s settings."
 msgstr "Die Datei %s sollte einige %s Einträge enthalten."
 
-#: lib/Horde/Registry.php:2251
+#: lib/Horde/Registry.php:2256
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr ""
@@ -959,7 +959,7 @@ msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] "Sie dürfen nicht mehr als %d Block erstellen."
 msgstr[1] "Sie dürfen nicht mehr als %d Blöcke erstellen."
 
-#: lib/Horde/Registry.php:1845
+#: lib/Horde/Registry.php:1850
 msgid "You are not authenticated."
 msgstr "Sie sind nicht angemeldet."
 

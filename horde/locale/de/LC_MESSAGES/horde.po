@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 4.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
-"PO-Revision-Date: 2011-04-04 10:25+0200\n"
+"POT-Creation-Date: 2011-04-05 13:52+0200\n"
+"PO-Revision-Date: 2011-04-05 13:53+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -288,7 +288,7 @@ msgstr "ActiveSync ist nicht aktiviert."
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: services/portal/index.php:60
+#: services/portal/index.php:48
 msgid "Add Content"
 msgstr "Inhalt hinzufügen"
 
@@ -2125,11 +2125,11 @@ msgstr "Mein Konto"
 msgid "My Facebook Stream"
 msgstr "Mein Facebook-Stream"
 
-#: services/portal/index.php:54
+#: services/portal/index.php:42
 msgid "My Portal"
 msgstr "Mein Portal"
 
-#: services/portal/edit.php:41
+#: services/portal/edit.php:32
 msgid "My Portal Layout"
 msgstr "Mein Portallayout"
 
@@ -4166,7 +4166,7 @@ msgstr "_DataTree"
 msgid "_Groups"
 msgstr "_Gruppen"
 
-#: lib/Application.php:55
+#: lib/Application.php:56
 msgid "_Home"
 msgstr "_Startseite"
 

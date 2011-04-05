@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"POT-Creation-Date: 2011-04-05 13:52+0200\n"
 "PO-Revision-Date: 2011-02-02 18:12+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
@@ -123,7 +123,7 @@ msgstr "Attribut hinzufügen"
 msgid "Add Attribute Criterion"
 msgstr "Attributkriterium hinzufügen"
 
-#: mybugs.php:51
+#: mybugs.php:47
 msgid "Add Content"
 msgstr "Inhalt hinzufügen"
 
@@ -998,7 +998,7 @@ msgstr "Neueste zuerst"
 msgid "Moved ticket %d to \"%s\""
 msgstr "Ticket %d nach \"%s\" verschoben"
 
-#: mybugs.php:50
+#: mybugs.php:46
 #, php-format
 msgid "My %s"
 msgstr "Meine %s"

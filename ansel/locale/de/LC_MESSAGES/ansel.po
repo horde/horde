@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"POT-Creation-Date: 2011-04-05 13:52+0200\n"
 "PO-Revision-Date: 2011-04-04 10:14+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -1440,7 +1440,7 @@ msgstr "Mehrere Fotos"
 msgid "My Galleries"
 msgstr "Meine Galerien"
 
-#: browse_edit.php:25
+#: browse_edit.php:24
 msgid "My Photos :: Add Content"
 msgstr "Meine Fotos :: Inhalt hinzufügen"
 
