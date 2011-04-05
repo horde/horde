@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-05</date>
- <time>23:45:42</time>
+ <date>2011-04-06</date>
+ <time>01:28:23</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -4019,7 +4019,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-04-05</date>
+   <date>2011-04-06</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [mms] Add pushapp_post hook.
