@@ -211,10 +211,11 @@ class CreateStep4Form extends Horde_Form {
         $this->addHidden('', 'deferred_attachment', 'text', false);
 
         /* Groups. */
-        $groups = $GLOBALS['injector']->getInstance('Horde_Group');
-        $mygroups = $conf['prefs']['assign_all_groups']
-            ? $groups->listAll()
-            : $groups->listGroups($GLOBALS['registry']->getAuth());
+        $mygroups = $GLOBALS['injector']
+            ->getInstance('Horde_Group')
+            ->listAll($conf['prefs']['assign_all_groups']
+                      ? null
+                      : $GLOBALS['registry']->getAuth());
         asort($mygroups);
 
         $users = $whups_driver->getQueueUsers($vars->get('queue'));

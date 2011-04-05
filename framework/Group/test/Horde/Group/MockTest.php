@@ -89,6 +89,14 @@ class Horde_Group_MockTest extends Horde_Group_Test_Base
     }
 
     /**
+     * @depends testAddUser
+     */
+    public function testListAllWithMember()
+    {
+        $this->_listAllWithMember();
+    }
+
+    /**
      * @depends testListGroups
      */
     public function testRemoveUser()

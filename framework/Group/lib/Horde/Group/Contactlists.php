@@ -24,6 +24,26 @@ class Horde_Group_Contactlists extends Horde_Group_Base
     protected $_api;
 
     /**
+     * True if we are inside a listAll() call.
+     *
+     * This is used to protect against infinite recursion when the contacts API
+     * is using groups to determine the available contact lists.
+     *
+     * @var boolean
+     */
+    protected $_inListAll = false;
+
+    /**
+     * True if we are inside a listGroups() call.
+     *
+     * This is used to protect against infinite recursion when the contacts API
+     * is using groups to determine the available contact lists.
+     *
+     * @var boolean
+     */
+    protected $_inListGroups = false;
+
+    /**
      * Constructor.
      */
     public function __construct($params)
@@ -89,22 +109,37 @@ class Horde_Group_Contactlists extends Horde_Group_Base
     }
 
     /**
-     * Returns a list of all groups, with IDs as keys and names as values.
+     * Returns a list of all groups a user may see, with IDs as keys and names
+     * as values.
+     *
+     * @param string $member  Only return groups that this user is a member of.
      *
      * @return array  All existing groups.
      * @throws Horde_Group_Exception
      */
-    public function listAll()
+    public function listAll($member = null)
     {
+        if ($this->_inListAll) {
+            return array();
+        }
+        $this->_inListAll = true;
+
+        $list = array();
         try {
-            $list = array();
             foreach ($this->_api->getGroupObjects() as $id => $group) {
                 $list[$id] = $group['name'];
             }
-            return $list;
         } catch (Horde_Exception $e) {
+            $this->_inListAll = false;
             throw new Horde_Group_Exception($e);
         }
+
+        if (!is_null($member)) {
+            $list = array_intersect_assoc($list, $this->listGroups($member));
+        }
+
+        $this->_inListAll = false;
+        return $list;
     }
 
     /**
@@ -135,11 +170,18 @@ class Horde_Group_Contactlists extends Horde_Group_Base
      */
     public function listGroups($user)
     {
+        if ($this->_inListGroups) {
+            return array();
+        }
+        $this->_inListGroups = true;
         try {
-            return $this->_api->getGroupMemberships($user);
+            $groups = $this->_api->getGroupMemberships($user);
         } catch (Horde_Exception $e) {
+            $this->_inListGroups = false;
             throw new Horde_Group_Exception($e);
         }
+        $this->_inListGroups = false;
+        return $groups;
     }
 
     /**

@@ -23,6 +23,10 @@ class Horde_Core_Factory_Group extends Horde_Core_Factory_Injector
                 ->getInstance('Horde_Core_Factory_Db')
                 ->create('horde', 'group');
             break;
+        case 'Contactlists':
+            $class = 'Horde_Group_Contactlists';
+            $params['api'] = $GLOBALS['registry']->contacts;
+            break;
         default:
             $class = 'Horde_Group_' . $driver;
             break;

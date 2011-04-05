@@ -158,10 +158,11 @@ abstract class Horde_Core_Ajax_Application
     {
         $result = new stdClass;
         try {
-            $horde_groups = $GLOBALS['injector']->getInstance('Horde_Group');
-            $groups = empty($GLOBALS['conf']['share']['any_group'])
-                ? $horde_groups->listGroups($GLOBALS['registry']->getAuth())
-                : $horde_groups->listAll();
+            $groups = $GLOBALS['injector']
+                ->getInstance('Horde_Group')
+                ->listAll(empty($GLOBALS['conf']['share']['any_group'])
+                          ? $GLOBALS['registry']->getAuth()
+                          : null);
             if ($groups) {
                 asort($groups);
                 $result->groups = $groups;

@@ -90,6 +90,14 @@ class Horde_Group_Test_Sql_Base extends Horde_Group_Test_Base
     }
 
     /**
+     * @depends testAddUser
+     */
+    public function testListAllWithMember()
+    {
+        $this->_listAllWithMember();
+    }
+
+    /**
      * @depends testListGroups
      */
     public function testRemoveUser()

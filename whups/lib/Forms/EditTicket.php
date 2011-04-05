@@ -96,9 +96,7 @@ class EditTicketForm extends Horde_Form {
                     if (Whups::hasPermission($vars->get('queue'), 'queue',
                                              'assign')) {
                         $groups = $GLOBALS['injector']->getInstance('Horde_Group');
-                        $mygroups = $GLOBALS['conf']['prefs']['assign_all_groups']
-                            ? $groups->listAll()
-                            : $groups->listGroups($GLOBALS['registry']->getAuth());
+                        $mygroups = $groups->listAll($GLOBALS['conf']['prefs']['assign_all_groups'] ? null : $GLOBALS['registry']->getAuth());
                         asort($mygroups);
 
                         $f_users = array();

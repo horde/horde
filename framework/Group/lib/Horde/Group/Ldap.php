@@ -294,13 +294,20 @@ class Horde_Group_Ldap extends Horde_Group_Base
     }
 
     /**
-     * Returns a list of all groups, with IDs as keys and names as values.
+     * Returns a list of all groups a user may see, with IDs as keys and names
+     * as values.
+     *
+     * @param string $member  Only return groups that this user is a member of.
      *
      * @return array  All existing groups.
      * @throws Horde_Group_Exception
      */
-    public function listAll()
+    public function listAll($member = null)
     {
+        if (!is_null($member)) {
+            return $this->listGroups($member);
+        }
+
         $attr = $this->_params['gid'];
         try {
             $search = $this->_ldap->search($this->_params['basedn'],
