@@ -158,6 +158,15 @@ var ImpMessage = {
         }
     },
 
+    onDialogClick: function(e)
+    {
+        switch (e.element().identify()) {
+        case 'RB_ImpMessageConfirm':
+            this.submit(this.actIDconfirm);
+            break;
+        }
+    },
+
     _changeHandler: function(e)
     {
         var id = e.element().readAttribute('id');
@@ -214,11 +223,4 @@ var ImpMessage = {
 };
 
 document.observe('dom:loaded', ImpMessage.onDomLoad.bind(ImpMessage));
-
-document.observe('IMPDialog:onClick', function(e) {
-    switch (e.element().identify()) {
-    case 'RB_ImpMessageConfirm':
-        this.submit(this.actIDconfirm);
-        break;
-    }
-}.bindAsEventListener(ImpMessage));
+document.observe('IMPDialog:onClick', IMPMessage.onDialogClick.bind(ImpMessage));
