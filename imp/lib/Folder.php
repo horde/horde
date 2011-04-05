@@ -309,12 +309,45 @@ class IMP_Folder
             return $body;
         }
 
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+
         foreach ($folder_list as $folder) {
             try {
-                $status = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->status($folder, Horde_Imap_Client::STATUS_MESSAGES);
+                $status = $imp_imap->status($folder, Horde_Imap_Client::STATUS_MESSAGES);
             } catch (Horde_Imap_Client_Exception $e) {
                 continue;
             }
+
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->size();
+
+            try {
+                $size = $imp_imap->fetch($folder, $query, array(
+                    'ids' => new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL, true)
+                ));
+            } catch (Horde_Imap_Client_Exception $e) {
+                continue;
+            }
+
+            $curr_size = 0;
+            $start = 1;
+            $slices = array();
+
+            /* Handle 5 MB chunks of data at a time. */
+            for ($i = 1; $i <= $status['messages']; ++$i) {
+                $curr_size += $size[$i]->getSize();
+                if ($curr_size > 5242880) {
+                    $slices[] = new Horde_Imap_Client_Ids(range($start, $i), true);
+                    $curr_size = 0;
+                    $start = $i + 1;
+                }
+            }
+
+            if ($start <= $status['messages']) {
+                $slices[] = new Horde_Imap_Client_Ids(range($start, $status['messages']), true);
+            }
+
+            unset($size);
 
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->envelope();
@@ -323,11 +356,10 @@ class IMP_Folder
                 'peek' => true
             ));
 
-            for ($i = 1; $i <= $status['messages']; $i += 20) {
-                /* Download 20 messages at a time. */
+            foreach ($slices as $slice) {
                 try {
-                    $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($folder, $query, array(
-                        'ids' => new Horde_Imap_Client_Ids(range($i, min($i + 19, $status['messages'])), true)
+                    $res = $imp_imap->fetch($folder, $query, array(
+                        'ids' => $slice
                     ));
                 } catch (Horde_Imap_Client_Exception $e) {
                     continue;
