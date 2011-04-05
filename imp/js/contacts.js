@@ -125,20 +125,8 @@ var ImpContacts = {
             $('btn_clear').show();
         }
         $('contacts').observe('submit', this._passAddresses.bind(this));
-        document.observe('change', this._changeHandler.bindAsEventListener(this));
         document.observe('click', this._clickHandler.bindAsEventListener(this));
         document.observe('dblclick', this._dblclickHandler.bindAsEventListener(this));
-    },
-
-    _changeHandler: function(e)
-    {
-        var id = e.element().readAttribute('id');
-
-        switch (id) {
-        case 'search_results':
-            $(id)[0].selected = false;
-            break;
-        }
     },
 
     _clickHandler: function(e)
