@@ -1945,7 +1945,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                                 $flag_query->flags();
 
                                 /* Update flags in cache. */
-                                $this->_fetch($flag_query, array(
+                                $this->_fetch($flag_query, array(), array(
                                     'changedsince' => $metadata[self::CACHE_MODSEQ],
                                     'ids' => new Horde_Imap_Client_Ids($uids)
                                 ));
