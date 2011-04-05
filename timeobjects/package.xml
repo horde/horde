@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-30</date>
- <time>00:03:27</time>
+ <date>2011-04-05</date>
+ <time>23:45:49</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -56,12 +56,19 @@
       <file name="timeobjects.po" role="data" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
     </dir> <!-- /locale/de -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="timeobjects.mo" role="data" />
+      <file name="timeobjects.po" role="data" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
       <file name="timeobjects.mo" role="data" />
       <file name="timeobjects.po" role="data" />
      </dir> <!-- /locale/ja/LC_MESSAGES -->
     </dir> <!-- /locale/ja -->
+    <file name=".htaccess" role="data" />
     <file name="timeobjects.pot" role="data" />
    </dir> <!-- /locale -->
   </dir> <!-- / -->
@@ -138,9 +145,12 @@
    <install as="Driver/FacebookEvents.php" name="lib/Driver/FacebookEvents.php" />
    <install as="Driver/Weatherdotcom.php" name="lib/Driver/Weatherdotcom.php" />
    <install as="Factory/Driver.php" name="lib/Factory/Driver.php" />
+   <install as="locale/.htaccess" name="locale/.htaccess" />
    <install as="locale/timeobjects.pot" name="locale/timeobjects.pot" />
    <install as="locale/de/LC_MESSAGES/timeobjects.mo" name="locale/de/LC_MESSAGES/timeobjects.mo" />
    <install as="locale/de/LC_MESSAGES/timeobjects.po" name="locale/de/LC_MESSAGES/timeobjects.po" />
+   <install as="locale/fi/LC_MESSAGES/timeobjects.mo" name="locale/fi/LC_MESSAGES/timeobjects.mo" />
+   <install as="locale/fi/LC_MESSAGES/timeobjects.po" name="locale/fi/LC_MESSAGES/timeobjects.po" />
    <install as="locale/ja/LC_MESSAGES/timeobjects.mo" name="locale/ja/LC_MESSAGES/timeobjects.mo" />
    <install as="locale/ja/LC_MESSAGES/timeobjects.po" name="locale/ja/LC_MESSAGES/timeobjects.po" />
   </filelist>
@@ -194,14 +204,16 @@
   <release>
    <version>
     <release>1.0.0</release>
-    <api>1.0.0</api></version>
+    <api>1.0.0</api>
+   </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-30</date>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-05</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-* 
+* First stable release for Horde 4.
    </notes>
   </release>
  </changelog>

@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-31</date>
- <time>15:16:44</time>
+ <date>2011-04-05</date>
+ <time>23:45:48</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -800,12 +800,13 @@
     <api>3.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>stable</release>
+    <api>stable</api>
    </stability>
-   <date>2011-03-31</date>
+   <date>2011-04-05</date>
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
+* First stable release for Horde 4.
 * [jan] Fix generating tooltip previews of encrypted notes.
 * [jan] Fix application-specific permission checks (Bug #9786).
 * [mjr] Datatree share to SQL upgrade script refactored for Horde 4.

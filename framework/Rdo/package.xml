@@ -11,8 +11,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-29</date>
- <time>18:23:31</time>
+ <date>2011-04-05</date>
+ <time>23:37:23</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -158,14 +158,16 @@ Major improvements including inflection, eager or lazy loading of relationships 
   <release>
    <version>
     <release>1.0.0</release>
-    <api>1.0.0</api></version>
+    <api>1.0.0</api>
+   </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-29</date>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* First stable release for Horde 4.
    </notes>
   </release>
  </changelog>

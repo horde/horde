@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-29</date>
- <time>17:11:20</time>
+ <date>2011-04-05</date>
+ <time>23:37:26</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -142,13 +142,14 @@
     <api>1.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>stable</release>
+    <api>stable</api>
    </stability>
-   <date>2011-03-29</date>
+   <date>2011-04-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Add CRC32 filter.
+* First stable release for Horde 4.
+* [mms] Add CRC32 filter.
    </notes>
   </release>
  </changelog>

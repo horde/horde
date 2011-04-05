@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>kronolith</name>
  <channel>pear.horde.org</channel>
  <summary>A web based calendar</summary>
@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-01</date>
- <time>10:29:53</time>
+ <date>2011-04-05</date>
+ <time>23:45:47</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -1135,7 +1135,7 @@
    <install as="kronolith/js/mobile.js" name="js/mobile.js" />
    <install as="kronolith/js/tagactions.js" name="js/tagactions.js" />
    <install as="kronolith/js/views.js" name="js/views.js" />
-   <install as=".htaccess" name="lib/.htaccess" />
+   <install as="kronolith/lib/.htaccess" name="lib/.htaccess" />
    <install as="kronolith/lib/Api.php" name="lib/Api.php" />
    <install as="kronolith/lib/Application.php" name="lib/Application.php" />
    <install as="kronolith/lib/Calendar.php" name="lib/Calendar.php" />
@@ -1675,12 +1675,13 @@
     <api>3.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>stable</release>
+    <api>stable</api>
    </stability>
-   <date>2011-04-01</date>
+   <date>2011-04-05</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* First stable release for Horde 4.
 * [jan] Fix application-specific permission checks (Bug #9786).
 * [jan] Fix fatal error when using the max_events permission (Bug #9784).
 * [mjr] Datatree share to SQL upgrade script refactored for Horde 4.

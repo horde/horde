@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-31</date>
- <time>15:30:27</time>
+ <date>2011-04-05</date>
+ <time>23:45:46</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -815,7 +815,7 @@
    <install as="turba/js/columnprefs.js" name="js/columnprefs.js" />
    <install as="turba/js/contact_tabs.js" name="js/contact_tabs.js" />
    <install as="turba/js/search.js" name="js/search.js" />
-   <install as=".htaccess" name="lib/.htaccess" />
+   <install as="turba/lib/.htaccess" name="lib/.htaccess" />
    <install as="turba/lib/Api.php" name="lib/Api.php" />
    <install as="turba/lib/Application.php" name="lib/Application.php" />
    <install as="turba/lib/Driver.php" name="lib/Driver.php" />
@@ -1128,16 +1128,18 @@
     <api>3.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>stable</release>
+    <api>stable</api>
    </stability>
-   <date>2011-03-31</date>
+   <date>2011-04-05</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* First stable release for Horde 4.
+* [mjr] Fix deletion of virtual address books (Bug # 9779).
 * [jan] Fix saving searches to virtual address books (Bug #9776).
 * [mjr] Datatree share to SQL upgrade script refactored for Horde 4.
 * [jan] Move all executable scripts to bin/ and prefix with turba-.
-* [jan] Add fields to the first address if multiple passed to addField() API method (Request #3482).
+* [jan] Add fields to all addresses if multiple passed to addField() API method (Request #3482).
    </notes>
   </release>
  </changelog>

@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-04-05</date>
- <time>12:44:57</time>
+ <time>23:37:15</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -275,13 +275,16 @@
     <api>1.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>stable</release>
+    <api>stable</api>
    </stability>
-   <date>2011-04-04</date>
+   <date>2011-04-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Add ability to sort mailboxes return from Horde_Imap_Client_Base#statusMultiple().
+* First stable release for Horde 4.
+* [mms] Fixes for IMAP servers that support CONDSTORE but disable MODSEQs in mialboxes (Bug #9796).
+* [mms] Fix obtaining fetch results when searching by sequence number and using caching.
+* [mms] Add ability to sort mailboxes return from Horde_Imap_Client_Base#statusMultiple().
    </notes>
   </release>
  </changelog>

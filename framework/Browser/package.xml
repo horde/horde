@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-29</date>
- <time>23:47:09</time>
+ <date>2011-04-05</date>
+ <time>23:37:06</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -520,27 +520,31 @@ Initial packaging
   <release>
    <version>
     <release>1.0.0RC3</release>
-    <api>1.0.0</api></version>
+    <api>1.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
-    <api>beta</api></stability>
+    <api>beta</api>
+   </stability>
    <date>2011-03-29</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* Add missing replace task.
    </notes>
   </release>
   <release>
    <version>
     <release>1.0.0</release>
-    <api>1.0.0</api></version>
+    <api>1.0.0</api>
+   </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-29</date>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* First stable release for Horde 4.
    </notes>
   </release>
  </changelog>

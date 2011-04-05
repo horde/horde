@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-29</date>
- <time>18:14:03</time>
+ <date>2011-04-05</date>
+ <time>23:37:05</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -273,9 +273,9 @@
    <notes>
 * Imap driver now uses Horde_Imap_Client library.
 * Add signup drivers to package.xml (Bug #7345).
-* Fix the "overwriting realm info from application auth drivers" (Bug #6749)
+* Fix the &quot;overwriting realm info from application auth drivers&quot; (Bug #6749)
 * Switched Kolab auth handling from IMAP to LDAP by using Kolab_Server.
-* Added "add user" capability to the Kolab driver.
+* Added &quot;add user&quot; capability to the Kolab driver.
 * Adapted the Kolab auth driver to the changes in Kolab_Server.
    </notes>
   </release>
@@ -349,13 +349,16 @@
   <release>
    <version>
     <release>1.0.0</release>
-    <api>1.0.0</api></version>
+    <api>1.0.0</api>
+   </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-29</date>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-05</date>
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
+* First stable release for Horde 4.
 * [jan] Fix Cyrsql driver (Vilius Sumskas &lt;vilius@lnk.lt&gt;, Bug #9781).
 * [jan] Add SHA-256 hashing and add SHA as alias for SHA1.
    </notes>

@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-31</date>
- <time>16:13:27</time>
+ <date>2011-04-05</date>
+ <time>23:45:42</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -2650,7 +2650,7 @@
    <install as="js/plupload/uploader.js" name="js/plupload/uploader.js" />
    <install as="js/plupload/i18n/da.js" name="js/plupload/i18n/da.js" />
    <install as="js/plupload/i18n/sv.js" name="js/plupload/i18n/sv.js" />
-   <install as=".htaccess" name="lib/.htaccess" />
+   <install as="lib/.htaccess" name="lib/.htaccess" />
    <install as="lib/Api.php" name="lib/Api.php" />
    <install as="lib/Application.php" name="lib/Application.php" />
    <install as="lib/core.php" name="lib/core.php" />
@@ -4016,12 +4016,13 @@
     <api>4.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>stable</release>
+    <api>stable</api>
    </stability>
-   <date>2011-03-31</date>
+   <date>2011-04-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [mms] Add pushapp_post hook.
 * [jan] Fix application-specific permission checks (Bug #9786).
 * [jan] Fix resetting passwords (Vilius Sumskas &lt;vilius@lnk.lt&gt;, Bug #9800).
 * [jan] Delete object mappings too when deleting SyncML anchors (Request #9377).

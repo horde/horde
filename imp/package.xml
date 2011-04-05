@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-04</date>
- <time>17:31:11</time>
+ <date>2011-04-05</date>
+ <time>23:45:44</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -2104,24 +2104,24 @@
     <api>5.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>stable</release>
+    <api>stable</api>
    </stability>
-   <date>2011-04-04</date>
+   <date>2011-04-05</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* First stable release for Horde 4.
 * [jan] Notify about new mails in any Horde application.
 * [mms] New mail notifications now handled by the Horde Notification system (Request #9751).
 * [mms] Fix resuming messages with attachments (Bug #9780).
-* [mms] Fix folder actions in standard view in IE 7/8 (Bug #9801).
+* [mms] Fix javascript actions in standard view in IE 7/8 (Bugs #9801, 9809).
 * [jan] Fix application-specific permission checks (Bug #9786).
 * [mms] Fix printing of message parts in IE, regardless of local user settings (Bug #9756).
 * [mms] Fix IMP_Maillog regression from RC2 (Bug #9763).
 * [mms] Fix honoring default encryption option in dynamic view.
 * [jan] Show full alarm notifications in dynamic view (Request #9748).
 * [jan] Fix saving S/MIME certs to address book.
-* [mms] Support importing of compressed mailbox files if the zip extension is
-  not available.
+* [mms] Support importing of compressed mailbox files if the zip extension is not available.
    </notes>
   </release>
  </changelog>

@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-29</date>
- <time>23:52:34</time>
+ <date>2011-04-05</date>
+ <time>23:37:07</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -576,16 +576,17 @@ Initial release as a PEAR package
     <api>1.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>stable</release>
+    <api>stable</api>
    </stability>
-   <date>2011-03-29</date>
+   <date>2011-04-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Add $canCompress and $canDecompress properties to Horde_Compress_Base.
-* Drivers now extend Horde_Compress_Base.
-* Add Horde_Compress_Exception.
-* Do all zip compression on stream data in streams.
+* First stable release for Horde 4.
+* [mms] Add $canCompress and $canDecompress properties to Horde_Compress_Base.
+* [mms] Drivers now extend Horde_Compress_Base.
+* [mms] Add Horde_Compress_Exception.
+* [mms] Do all zip compression on stream data in streams.
    </notes>
   </release>
  </changelog>

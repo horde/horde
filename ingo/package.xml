@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-04</date>
- <time>15:22:41</time>
+ <date>2011-04-05</date>
+ <time>23:45:45</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -900,12 +900,13 @@
     <api>2.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>stable</release>
+    <api>stable</api>
    </stability>
-   <date>2011-04-04</date>
+   <date>2011-04-05</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
+* First stable release for Horde 4.
 * [jan] Fix application-specific permission checks (Bug #9786).
 * [jan] Correctly escape vacation subjects with quote characters in Maildrop driver (Bug #9156).
 * [jan] Catch all PEAR errors in Sieve driver.

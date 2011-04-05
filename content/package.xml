@@ -16,8 +16,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-30</date>
- <time>00:03:03</time>
+ <date>2011-04-05</date>
+ <time>23:48:21</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -105,6 +105,7 @@
     </dir> <!-- /test/Tags -->
     <file name="AllTests.php" role="test" />
    </dir> <!-- /test -->
+   <file name=".htaccess" role="horde" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -236,6 +237,7 @@
    <install as="AllTests.php" name="test/AllTests.php" />
    <install as="fixtures/schema.sql" name="test/fixtures/schema.sql" />
    <install as="Tags/TaggerTest.php" name="test/Tags/TaggerTest.php" />
+   <install as="content/.htaccess" name=".htaccess" />
   </filelist>
  </phprelease>
  <changelog>
@@ -303,13 +305,16 @@
   <release>
    <version>
     <release>1.0.0</release>
-    <api>1.0.0</api></version>
+    <api>1.0.0</api>
+   </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-30</date>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-05</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
+* First stable release for Horde 4.
 * [jan] Fix case-insensitive filtering of duplicate tags (Bug #9617).
    </notes>
   </release>

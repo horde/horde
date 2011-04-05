@@ -23,8 +23,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-29</date>
- <time>18:18:58</time>
+ <date>2011-04-05</date>
+ <time>23:37:14</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -372,6 +372,7 @@
     <file name="Horde_Image.pot" role="data" />
    </dir> <!-- /locale -->
    <dir name="test">
+    <file name=".htaccess" role="test" />
     <file name="gd.php" role="test" />
     <file name="im.php" role="test" />
     <file name="img1.jpg" role="test" />
@@ -578,6 +579,7 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Image.po" name="locale/zh_CN/LC_MESSAGES/Horde_Image.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Image.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Image.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Image.po" name="locale/zh_TW/LC_MESSAGES/Horde_Image.po" />
+   <install as=".htaccess" name="test/.htaccess" />
    <install as="gd.php" name="test/gd.php" />
    <install as="im.php" name="test/im.php" />
    <install as="img1.jpg" name="test/img1.jpg" />
@@ -669,14 +671,16 @@ Initial release as a PEAR package
   <release>
    <version>
     <release>1.0.0</release>
-    <api>1.0.0</api></version>
+    <api>1.0.0</api>
+   </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-29</date>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* First stable release for Horde 4.
    </notes>
   </release>
  </changelog>
