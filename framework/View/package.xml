@@ -17,8 +17,8 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2011-04-05</date>
- <time>23:37:31</time>
+ <date>2011-04-06</date>
+ <time>01:23:46</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -322,7 +322,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-04-05</date>
+   <date>2011-04-06</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First stable release for Horde 4.
