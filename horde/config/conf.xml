@@ -368,7 +368,7 @@
      </configsection>
     </case>
 
-    <case name="pam" desc="PAM (Pluggable Authentication Modules, DEPRECATED)
+    <case name="pam" desc="PAM (Pluggable Authentication Modules)
     authentication">
      <configsection name="params">
       <configstring name="service" desc="The name of the PAM service to use
