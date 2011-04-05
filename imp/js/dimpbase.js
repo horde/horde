@@ -2425,17 +2425,6 @@ var DimpBase = {
         }
     },
 
-    changeHandler: function(e)
-    {
-        var elt = e.element();
-
-        if (elt.readAttribute('name') == 'search_criteria' &&
-            elt.descendantOf('RB_window')) {
-            [ elt.next() ].invoke($F(elt) ? 'show' : 'hide');
-            RedBox.setWindowPosition();
-        }
-    },
-
     submitFrameHandler: function()
     {
         var sf = $('submit_frame'),
@@ -3236,7 +3225,6 @@ var DimpBase = {
 
         /* Register global handlers now. */
         document.observe('keydown', this.keydownHandler.bindAsEventListener(this));
-        document.observe('change', this.changeHandler.bindAsEventListener(this));
         document.observe('dblclick', this.dblclickHandler.bindAsEventListener(this));
         Event.observe(window, 'resize', this.onResize.bind(this));
 
