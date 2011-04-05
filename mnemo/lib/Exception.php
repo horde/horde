@@ -10,6 +10,6 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Mnemo
  */
-class Mnemo_Exception extends Horde_Exception_Prior
+class Mnemo_Exception extends Horde_Exception_Wrapped
 {
 }

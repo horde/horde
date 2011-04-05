@@ -11,6 +11,6 @@
  * @category Horde
  * @package  Date
  */
-class Horde_Date_Exception extends Horde_Exception_Prior
+class Horde_Date_Exception extends Horde_Exception_Wrapped
 {
 }

@@ -1,4 +1,4 @@
 <?php
-class Whups_Exception extends Horde_Exception_Prior
+class Whups_Exception extends Horde_Exception_Wrapped
 {
 }

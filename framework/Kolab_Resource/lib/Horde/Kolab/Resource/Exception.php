@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Resource
  */
-class Horde_Kolab_Resource_Exception extends Horde_Exception_Prior
+class Horde_Kolab_Resource_Exception extends Horde_Exception_Wrapped
 {
     /**
      * Constants to define the error type.

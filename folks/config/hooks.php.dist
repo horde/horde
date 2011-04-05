@@ -277,7 +277,7 @@ class Folks_Hooks
         $result = $db->selectOne($query, array($username, $info['extra']['email']), DB_FETCHMODE_ASSOC);
 
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception_Prior($result);
+            throw new Horde_Exception_Wrapped($result);
         } elseif (empty($result)) {
             return $info;
         } elseif ($result['user_uid'] == $username) {

@@ -1,4 +1,4 @@
 <?php
-class Passwd_Exception extends Horde_Exception_Prior
+class Passwd_Exception extends Horde_Exception_Wrapped
 {
 }

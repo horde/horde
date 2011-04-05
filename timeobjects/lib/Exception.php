@@ -7,6 +7,6 @@
  * @category Horde
  * @package TimeObjects
  */
-class TimeObjects_Exception extends Horde_Exception_Prior
+class TimeObjects_Exception extends Horde_Exception_Wrapped
 {
 }

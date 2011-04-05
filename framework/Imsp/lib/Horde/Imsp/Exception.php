@@ -10,6 +10,6 @@
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  * @package Horde_Imsp
  */
-class Horde_Imsp_Exception extends Horde_Exception_Prior
+class Horde_Imsp_Exception extends Horde_Exception_Wrapped
 {
 }

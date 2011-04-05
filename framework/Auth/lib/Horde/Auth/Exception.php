@@ -13,6 +13,6 @@
  * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
  * @package  Auth
  */
-class Horde_Auth_Exception extends Horde_Exception_Prior
+class Horde_Auth_Exception extends Horde_Exception_Wrapped
 {
 }

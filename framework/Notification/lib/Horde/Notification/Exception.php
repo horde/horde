@@ -11,6 +11,6 @@
  * @category Horde
  * @package  Notification
  */
-class Horde_Notification_Exception extends Horde_Exception_Prior
+class Horde_Notification_Exception extends Horde_Exception_Wrapped
 {
 }

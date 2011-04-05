@@ -10,6 +10,6 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Wicked
  */
-class Wicked_Exception extends Horde_Exception_Prior
+class Wicked_Exception extends Horde_Exception_Wrapped
 {
 }

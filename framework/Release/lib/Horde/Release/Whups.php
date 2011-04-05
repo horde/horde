@@ -68,7 +68,7 @@ class Horde_Release_Whups
         try {
             $res = Horde_Rpc::request('jsonrpc', $this->_params['url'], $method, $this->_http, $params);
         } catch (Horde_Http_Client_Exception $e) {
-            throw new Horde_Exception_Prior($e);
+            throw new Horde_Exception_Wrapped($e);
         }
     }
 

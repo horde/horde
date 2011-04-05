@@ -12,6 +12,6 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  Xml_Wbxml
  */
-class Horde_Xml_Wbxml_Exception extends Horde_Exception_Prior
+class Horde_Xml_Wbxml_Exception extends Horde_Exception_Wrapped
 {
 }

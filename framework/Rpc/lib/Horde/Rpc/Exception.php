@@ -11,6 +11,6 @@
  * @category Horde
  * @package  Rpc
  */
-class Horde_Rpc_Exception extends Horde_Exception_Prior
+class Horde_Rpc_Exception extends Horde_Exception_Wrapped
 {
 }

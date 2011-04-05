@@ -11,6 +11,6 @@
  * @category Horde
  * @package  History
  */
-class Horde_History_Exception extends Horde_Exception_Prior
+class Horde_History_Exception extends Horde_Exception_Wrapped
 {
 }

@@ -15,6 +15,6 @@
  * @category Horde
  * @package  Argv
  */
-class Horde_Argv_Exception extends Horde_Exception_Prior
+class Horde_Argv_Exception extends Horde_Exception_Wrapped
 {
 }

@@ -1,3 +1,3 @@
 <?php
-class Content_Exception extends Horde_Exception_Prior {
+class Content_Exception extends Horde_Exception_Wrapped {
 }

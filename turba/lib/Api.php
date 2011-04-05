@@ -1855,7 +1855,7 @@ class Turba_Api extends Horde_Registry_Api
                 $results = $db[$key]->selectAssoc($sql);
             } catch (Horde_Db_Exception $e) {
                 Horde::logMessage($e);
-                throw new Horde_Exception_Prior($e);
+                throw new Horde_Exception_Wrapped($e);
             }
             foreach ($results as $id => $name) {
                 $groups[$key . ':' . $id] = $name;
@@ -1895,7 +1895,7 @@ class Turba_Api extends Horde_Registry_Api
                 $results = $db[$key]->selectAll($sql);
             } catch (Horde_Db_Exception $e) {
                 Horde::logMessage($e);
-                throw new Horde_Exception_Prior($e);
+                throw new Horde_Exception_Wrapped($e);
             }
 
             foreach ($results as $row) {
@@ -1962,7 +1962,7 @@ class Turba_Api extends Horde_Registry_Api
             return $db->selectOne($sql);
         } catch (Horde_Db_Exception $e) {
             Horde::logMessage($e);
-            throw new Horde_Exception_Prior($e);
+            throw new Horde_Exception_Wrapped($e);
         }
     }
 
@@ -2027,7 +2027,7 @@ class Turba_Api extends Horde_Registry_Api
                 $results = $db[$newSource]->selectOne($sql);
             } catch (Horde_Db_Exception $e) {
                 Horde::logMessage($e);
-                throw new Horde_Exception_Prior($e);
+                throw new Horde_Exception_Wrapped($e);
             }
 
             // Sub-Lists are treated as sub groups the best that we can...

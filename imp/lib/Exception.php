@@ -12,6 +12,6 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Exception extends Horde_Exception_Prior
+class IMP_Exception extends Horde_Exception_Wrapped
 {
 }

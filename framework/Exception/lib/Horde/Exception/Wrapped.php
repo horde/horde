@@ -1,7 +1,7 @@
 <?php
 /**
- * Horde exception class that also accepts PEAR errors and exceptions as message
- * input.
+ * Horde exception class that can wrap and set its details from PEAR_Error,
+ * Exception, and other objects with similar interfaces.
  *
  * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
@@ -11,7 +11,7 @@
  * @category Horde
  * @package  Exception
  */
-class Horde_Exception_Prior extends Horde_Exception
+class Horde_Exception_Wrapped extends Horde_Exception
 {
     /**
      * Exception constructor.
@@ -41,5 +41,4 @@ class Horde_Exception_Prior extends Horde_Exception
 
         parent::__construct($message, $code, $previous);
     }
-
 }

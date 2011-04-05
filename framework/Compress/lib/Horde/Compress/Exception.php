@@ -12,6 +12,6 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime
  */
-class Horde_Compress_Exception extends Horde_Exception_Prior
+class Horde_Compress_Exception extends Horde_Exception_Wrapped
 {
 }

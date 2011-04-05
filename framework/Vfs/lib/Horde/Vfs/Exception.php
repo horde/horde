@@ -10,6 +10,6 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Vfs
  */
-class Horde_Vfs_Exception extends Horde_Exception_Prior
+class Horde_Vfs_Exception extends Horde_Exception_Wrapped
 {
 }

@@ -12,6 +12,6 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  Skeleton
  */
-class Skeleton_Exception extends Horde_Exception_Prior
+class Skeleton_Exception extends Horde_Exception_Wrapped
 {
 }

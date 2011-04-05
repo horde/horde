@@ -441,7 +441,7 @@ class Horde_Api extends Horde_Registry_Api
         try {
             $shares->removeShare($share);
         } catch (Horde_Share_Exception $e) {
-            throw new Horde_Exception_Prior($e);
+            throw new Horde_Exception_Wrapped($e);
         }
     }
 

@@ -12,6 +12,6 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime_Viewer
  */
-class Horde_Mime_Viewer_Exception extends Horde_Exception_Prior
+class Horde_Mime_Viewer_Exception extends Horde_Exception_Wrapped
 {
 }

@@ -14,6 +14,6 @@
  * @category Horde
  * @package  Pdf
  */
-class Horde_Pdf_Exception extends Horde_Exception_Prior
+class Horde_Pdf_Exception extends Horde_Exception_Wrapped
 {
 }

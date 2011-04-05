@@ -11,6 +11,6 @@
  * @category Horde
  * @package  Serialize
  */
-class Horde_Serialize_Exception extends Horde_Exception_Prior
+class Horde_Serialize_Exception extends Horde_Exception_Wrapped
 {
 }

@@ -76,7 +76,7 @@ class Folks_Driver {
             $img = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Image')->create(array('type' => $conf['images']['image_type']));
             $result = $img->loadFile($file);
         } catch (Horde_Exception $e) {
-            throw new Horde_Exception_Prior($e);
+            throw new Horde_Exception_Wrapped($e);
         }
         $dimensions = $img->getDimensions();
         if ($dimensions instanceof PEAR_Error) {

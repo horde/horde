@@ -25,6 +25,6 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Pear
  */
-class Horde_Pear_Exception extends Horde_Exception_Prior
+class Horde_Pear_Exception extends Horde_Exception_Wrapped
 {
 }

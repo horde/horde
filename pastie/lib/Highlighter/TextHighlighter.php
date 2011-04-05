@@ -15,13 +15,13 @@ class Pastie_Highlighter_TextHighlighter extends Pastie_Highlighter {
             $syntax = strtoupper($syntax);
             $highlighter = Text_Highlighter::factory($syntax);
             if ($highlighter instanceof PEAR_Error) {
-                throw new Horde_Exception_Prior($highlighter);
+                throw new Horde_Exception_Wrapped($highlighter);
             }
             $renderer = new Text_Highlighter_Renderer_Html(array(
                 "numbers" => HL_NUMBERS_LI
             ));
             if ($renderer instanceof PEAR_Error) {
-                throw new Horde_Exception_Prior($renderer);
+                throw new Horde_Exception_Wrapped($renderer);
             }
             $highlighter->setRenderer($renderer);
             return $highlighter->highlight($text);

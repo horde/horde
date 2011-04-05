@@ -6,6 +6,6 @@
  * @category Horde
  * @package Service_Facebook
  */
-class Horde_Service_Facebook_Exception extends Horde_Exception_Prior
+class Horde_Service_Facebook_Exception extends Horde_Exception_Wrapped
 {
 }
