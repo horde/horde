@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-04-06</date>
- <time>01:28:23</time>
+ <time>01:31:40</time>
  <version>
-  <release>4.0.0</release>
+  <release>4.0.1</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,12 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Add pushapp_post hook.
-* [jan] Fix application-specific permission checks (Bug #9786).
-* [jan] Fix resetting passwords (Vilius Sumskas &lt;vilius@lnk.lt&gt;, Bug #9800).
-* [jan] Delete object mappings too when deleting SyncML anchors (Request #9377).
-* [jan] Move all executable upgrade scripts to bin/ and prefix with horde-.
-* [mjr] Fix ActiveSync provisioning.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4028,6 +4023,19 @@
 * [jan] Delete object mappings too when deleting SyncML anchors (Request #9377).
 * [jan] Move all executable upgrade scripts to bin/ and prefix with horde-.
 * [mjr] Fix ActiveSync provisioning.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.1</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
