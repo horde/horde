@@ -56,7 +56,10 @@ class IMP_Ui_Folder
         $browser->downloadHeaders(reset($flist) . $suffix, $type, false, ftell($data));
 
         rewind($data);
-        fpassthru($data);
+        while (!feof($data)) {
+            echo fread($data, 8192);
+        }
+        fclose($data);
         exit;
     }
 

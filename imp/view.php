@@ -111,7 +111,10 @@ case 'download_all':
         fseek($body, 0, SEEK_END);
         $browser->downloadHeaders($zipfile, 'application/zip', false, ftell($body));
         rewind($body);
-        fpassthru($body);
+        while (!feof($body)) {
+            echo fread($body, 8192);
+        }
+        fclose($body);
     }
     break;
 
@@ -156,7 +159,10 @@ case 'download_render':
         fseek($body, 0, SEEK_END);
         $browser->downloadHeaders($name, $type, false, ftell($body));
         rewind($body);
-        fpassthru($body);
+        while (!feof($body)) {
+            echo fread($body, 8192);
+        }
+        fclose($body);
     } else {
         $browser->downloadHeaders($name, $type, false, strlen($body));
         echo $body;
@@ -182,7 +188,10 @@ case 'view_source':
     fseek($msg, 0, SEEK_END);
     $browser->downloadHeaders('Message Source', 'text/plain', true, ftell($msg));
     rewind($msg);
-    fpassthru($msg);
+    while (!feof($msg)) {
+        echo fread($msg, 8192);
+    }
+    fclose($msg);
     break;
 
 case 'save_message':
@@ -206,7 +215,10 @@ case 'save_message':
     $browser->downloadHeaders($name . '.eml', 'message/rfc822', false, strlen($hdr) + ftell($msg));
     echo $hdr;
     rewind($msg);
-    fpassthru($msg);
+    while (!feof($msg)) {
+        echo fread($msg, 8192);
+    }
+    fclose($msg);
     break;
 
 case 'view_face':
