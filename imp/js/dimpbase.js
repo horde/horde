@@ -827,14 +827,14 @@ var DimpBase = {
             });
             break;
 
-        case 'ctx_folder_download':
-        case 'ctx_folder_downloadzip':
+        case 'ctx_folder_export_mbox':
+        case 'ctx_folder_export_zip':
             tmp = e.findElement('LI');
 
             this.folderaction = DimpCore.redirect.bind(DimpCore, DimpCore.addURLParam(DIMP.conf.URI_VIEW, {
                 actionID: 'download_mbox',
                 mailbox: tmp.retrieve('mbox'),
-                zip: Number(id == 'ctx_folder_downloadzip')
+                zip: Number(id == 'ctx_folder_export_zip')
             }));
 
             IMPDialog.display({
@@ -3321,6 +3321,7 @@ var DimpBase = {
             }
         });
         DM.addSubMenu('ctx_folder_setflag', 'ctx_folder_flag');
+        DM.addSubMenu('ctx_folder_export', 'ctx_folder_export_opts');
 
         /* Create flag entries. */
         DIMP.conf.flags_o.each(function(f) {

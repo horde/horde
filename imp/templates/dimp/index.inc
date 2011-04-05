@@ -282,14 +282,18 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
   <a id="ctx_folder_collapse"><span class="iconImg"></span><?php echo _("Collapse All") ?></a>
  </div>
  <div class="sep"></div>
- <a id="ctx_folder_download"><span class="iconImg"></span><?php echo _("Download") ?></a>
- <a id="ctx_folder_downloadzip"><span class="iconImg"></span><?php echo _("Download [.zip file]") ?></a>
+ <a id="ctx_folder_export"><span class="iconImg"></span><?php echo _("Export") ?></a>
  <a id="ctx_folder_import"><span class="iconImg"></span><?php echo _("Import") ?></a>
 </div>
 
 <div class="context" id="ctx_folder_flag" style="display:none">
  <a id="ctx_folder_seen"><span class="iconImg"></span><?php echo _("Read") ?></a>
  <a id="ctx_folder_unseen"><span class="iconImg"></span><?php echo _("Unseen") ?></a>
+</div>
+
+<div class="context" id="ctx_folder_export_opts" style="display:none">
+ <a id="ctx_folder_export_mbox"><?php echo _("Uncompressed") ?></a>
+ <a id="ctx_folder_export_zip"><?php echo _("Compressed [.zip file]") ?></a>
 </div>
 
 <div class="context" id="ctx_container" style="display:none">
