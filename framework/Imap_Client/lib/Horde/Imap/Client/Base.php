@@ -2589,13 +2589,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     public function getCacheId($mailbox, $addl = array())
     {
-        $query = Horde_Imap_Client::STATUS_UIDVALIDITY;
+        $query = Horde_Imap_Client::STATUS_UIDVALIDITY | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_UIDNEXT;
 
         /* Use MODSEQ as cache ID if CONDSTORE extension is available. */
         if (isset($this->_init['enabled']['CONDSTORE'])) {
             $query |= Horde_Imap_Client::STATUS_HIGHESTMODSEQ;
-        } else {
-            $query |= Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_UIDNEXT;
         }
 
         $status = $this->status($mailbox, $query);
