@@ -96,8 +96,14 @@ class Horde_Core_Block_Collection implements Serializable
     }
 
     /**
-     * TODO
+     * Gets a block object.
      *
+     * @param string $app    Application name.
+     * @param string $name   Block name.
+     * @param array $params  Parameters.  If null, the stored parameters will
+     *                       be used.
+     *
+     * @return Horde_Core_Block  Block object.
      * @throws Horde_Exception
      */
     public function getBlock($app, $name, $params = null)
@@ -115,6 +121,18 @@ class Horde_Core_Block_Collection implements Serializable
                 $registry->popApp($app);
             }
             throw new Horde_Exception(sprintf('%s not found.', $name));
+        }
+
+        if (is_null($params)) {
+            foreach ($this->getLayout() as $row) {
+                foreach ($row as $col) {
+                    if (is_array($col) &&
+                        (strcasecmp($col['params']['type2'], $name) === 0)) {
+                        $params = $col['params']['params'];
+                        break 2;
+                    }
+                }
+            }
         }
 
         $ob = new $name($app, $params);
