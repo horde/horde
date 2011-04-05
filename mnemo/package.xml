@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-04-06</date>
- <time>01:56:16</time>
+ <time>01:57:00</time>
  <version>
-  <release>3.0.0</release>
+  <release>3.0.1</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -28,12 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
  <notes>
-* First stable release for Horde 4.
-* [jan] Fix generating tooltip previews of encrypted notes.
-* [jan] Fix application-specific permission checks (Bug #9786).
-* [mjr] Datatree share to SQL upgrade script refactored for Horde 4.
-* [mjr] Default sorting criteria by creation date (Bug #7332).
-* [jan] Move all executable scripts to bin/ and prefix with mnemo-.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -812,6 +807,19 @@
 * [mjr] Datatree share to SQL upgrade script refactored for Horde 4.
 * [mjr] Default sorting criteria by creation date (Bug #7332).
 * [jan] Move all executable scripts to bin/ and prefix with mnemo-.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.1</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
