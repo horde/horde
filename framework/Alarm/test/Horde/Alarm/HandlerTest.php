@@ -37,11 +37,11 @@ class Horde_Alarm_HandlerTest extends PHPUnit_Framework_TestCase
         self::$alarm->set($hash);
 
         self::$storage = new Horde_Notification_Storage_Object();
-        $notification = new Horde_Notification_Handler(self::$storage);
+        $notification = new Horde_Alarm_HandlerTest_NotificationFactory(self::$storage);
         $handler = new Horde_Alarm_Handler_Notify(array('notification' => $notification));
         self::$alarm->addHandler('notify', $handler);
 
-        $handler = new Horde_Alarm_Handler_Desktop(array('notification' => $notification, 'icon' => 'test.png'));
+        $handler = new Horde_Alarm_Handler_Desktop(array('js_notify' => array($this, 'desktopCallback'), 'icon' => 'test.png'));
         self::$alarm->addHandler('desktop', $handler);
 
         self::$mail = Horde_Mail::factory('Mock');
@@ -104,6 +104,21 @@ MIME-Version: 1.0';
         );
         $this->assertEquals($body, $last_sent['body']);
     }
+
+    public function testDesktop()
+    {
+        $alarm = self::$alarm->get('personalalarm', 'john');
+        $alarm['methods'] = array('desktop');
+        self::$alarm->set($alarm);
+        self::$alarm->notify('john', false);
+    }
+
+    public function desktopCallback($js)
+    {
+        $this->assertEquals(
+            "if(window.webkitNotifications&&!window.webkitNotifications.checkPermission())(function(){var notify=window.webkitNotifications.createNotification('test.png','This is a personal alarm.','Action is required.');notify.show();(function(){notify.cancel()}).delay(5)})()",
+            $js);
+    }
 }
 
 class Horde_Alarm_HandlerTest_IdentityFactory
@@ -119,5 +134,20 @@ class Horde_Alarm_HandlerTest_Identity
     public function getDefaultFromAddress()
     {
         return 'john@example.com';
+    }
+}
+
+class Horde_Alarm_HandlerTest_NotificationFactory
+{
+    private $storage;
+
+    public function __construct($storage)
+    {
+        $this->storage = $storage;
+    }
+
+    public function create()
+    {
+        return new Horde_Notification_Handler($this->storage);
     }
 }
