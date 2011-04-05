@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-04-05</date>
- <time>23:37:16</time>
+ <date>2011-04-06</date>
+ <time>01:12:57</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -335,7 +335,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-04-05</date>
+   <date>2011-04-06</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * First stable release for Horde 4.
