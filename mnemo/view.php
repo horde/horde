@@ -128,6 +128,7 @@ if ($print_view) {
     $print_link = Horde::url($print_link);
     Horde::addScriptFile('stripe.js', 'horde', true);
     echo Horde::menu();
+    $notification->notify();
 }
 
 require MNEMO_TEMPLATES . '/view/memo.inc';
