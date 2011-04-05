@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-05</date>
- <time>23:45:44</time>
+ <date>2011-04-06</date>
+ <time>01:34:46</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -2107,7 +2107,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-04-05</date>
+   <date>2011-04-06</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * First stable release for Horde 4.
