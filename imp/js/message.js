@@ -148,11 +148,13 @@ var ImpMessage = {
     {
         // Set up left and right arrows to go to the previous/next page.
         document.observe('keydown', this._arrowHandler.bindAsEventListener(this));
-        document.observe('change', this._changeHandler.bindAsEventListener(this));
         document.observe('click', this._clickHandler.bindAsEventListener(this));
 
         if (Prototype.Browser.IE) {
+            $('flag1', 'target1', 'flag2', 'target2').compact().invoke('observe', 'change', this._changeHandler.bindAsEventListener(this));
             this._messageActionsHover();
+        } else {
+            document.observe('change', this._changeHandler.bindAsEventListener(this));
         }
     },
 

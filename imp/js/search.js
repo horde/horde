@@ -595,6 +595,12 @@ var ImpSearch = {
             return;
         }
 
+        if (Prototype.Browser.IE) {
+            $('recent_searches', 'search_criteria_add', 'search_folders_add').compact().invoke('observe', 'change', ImpSearch.changeHandler.bindAsEventListener(ImpSearch));
+        } else {
+            document.observe('change', ImpSearch.changeHandler.bindAsEventListener(ImpSearch));
+        }
+
         this.data.constants.date = $H(this.data.constants.date);
         this.data.constants.within = $H(this.data.constants.within);
 
@@ -616,7 +622,6 @@ var ImpSearch = {
 
 };
 
-document.observe('change', ImpSearch.changeHandler.bindAsEventListener(ImpSearch));
 document.observe('click', ImpSearch.clickHandler.bindAsEventListener(ImpSearch));
 document.observe('dom:loaded', ImpSearch.onDomLoad.bindAsEventListener(ImpSearch));
 document.observe('Horde_Calendar:select', ImpSearch.calendarSelectHandler.bindAsEventListener(ImpSearch));

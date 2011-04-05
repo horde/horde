@@ -406,10 +406,15 @@ var ImpMailbox = {
 document.observe('dom:loaded', function() {
     var im = ImpMailbox;
 
-    document.observe('change', im.changeHandler.bindAsEventListener(im));
     document.observe('click', im.clickHandler.bindAsEventListener(im));
     document.observe('keydown', im.keyDownHandler.bindAsEventListener(im));
     document.observe('submit', im.submitHandler.bindAsEventListener(im));
+
+    if (Prototype.Browser.IE) {
+        $('flag1', 'filter1', 'targetMailbox1', 'flag2', 'filter2', 'targetMailbox2').compact().invoke('observe', 'change', im.changeHandler.bindAsEventListener(im));
+    } else {
+        document.observe('change', im.changeHandler.bindAsEventListener(im));
+    }
 
     if (window.fluid) {
         try {
