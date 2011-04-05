@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-04-06</date>
- <time>01:12:04</time>
+ <time>01:12:18</time>
  <version>
-  <release>1.0.0</release>
+  <release>1.0.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,10 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* First stable release for Horde 4.
-* [mms] Fixes for IMAP servers that support CONDSTORE but disable MODSEQs in mialboxes (Bug #9796).
-* [mms] Fix obtaining fetch results when searching by sequence number and using caching.
-* [mms] Add ability to sort mailboxes return from Horde_Imap_Client_Base#statusMultiple().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -285,6 +282,19 @@
 * [mms] Fixes for IMAP servers that support CONDSTORE but disable MODSEQs in mialboxes (Bug #9796).
 * [mms] Fix obtaining fetch results when searching by sequence number and using caching.
 * [mms] Add ability to sort mailboxes return from Horde_Imap_Client_Base#statusMultiple().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
