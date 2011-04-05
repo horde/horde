@@ -370,22 +370,26 @@ class IMP_Imap implements Serializable
             throw new BadMethodCallException(sprintf('%s: Invalid method call "%s".', __CLASS__, $method));
         }
 
-        return call_user_func_array(array($this->ob, $method), $params);
-    }
+        $result = call_user_func_array(array($this->ob, $method), $params);
 
-    /**
-     * Wrapper around base Imap_Client login() method.
-     *
-     * @see Horde_Imap_Client_Base::login()
-     */
-    public function login()
-    {
-        call_user_func(array($this->ob, 'login'));
+        /* Special handling for various methods. */
+        switch ($method) {
+        case 'createMailbox':
+        case 'renameMailbox':
+            // Mailbox is first parameter.
+            unset($this->_uidvalid[$params[0]]);
+            $GLOBALS['session']->remove('imp', 'uidvalid/' . $params[0]);
+            break;
 
-        if (!$this->_login) {
-            $this->_login = true;
-            $this->updateFetchIgnore();
+        case 'login':
+            if (!$this->_login) {
+                $this->_login = true;
+                $this->updateFetchIgnore();
+            }
+            break;
         }
+
+        return $result;
     }
 
     /* Static methods. */
