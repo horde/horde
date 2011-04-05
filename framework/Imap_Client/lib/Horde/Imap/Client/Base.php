@@ -53,12 +53,22 @@ abstract class Horde_Imap_Client_Base implements Serializable
     public $changed = false;
 
     /**
-     * Hash containing connection parameters.
-     * This hash never changes.
+     * The debug stream.
+     *
+     * @var resource
+     */
+    protected $_debug = null;
+
+    /**
+     * Cached server data.
      *
      * @var array
      */
-    protected $_params = array();
+    protected $_init = array(
+        'enabled' => array(),
+        'namespace' => array(),
+        's_charset' => array()
+    );
 
     /**
      * Is there an active authenticated connection to the IMAP Server?
@@ -75,13 +85,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
     protected $_isSecure = false;
 
     /**
-     * The currently selected mailbox.
-     *
-     * @var string
-     */
-    protected $_selected = null;
-
-    /**
      * The current mailbox selection mode.
      *
      * @var integer
@@ -89,22 +92,19 @@ abstract class Horde_Imap_Client_Base implements Serializable
     protected $_mode = 0;
 
     /**
-     * Cached server data.
+     * Hash containing connection parameters.
+     * This hash never changes.
      *
      * @var array
      */
-    protected $_init = array(
-        'enabled' => array(),
-        'namespace' => array(),
-        's_charset' => array()
-    );
+    protected $_params = array();
 
     /**
-     * The debug stream.
+     * The currently selected mailbox.
      *
-     * @var resource
+     * @var string
      */
-    protected $_debug = null;
+    protected $_selected = null;
 
     /**
      * Temp array (destroyed at end of process).
