@@ -425,8 +425,10 @@ class Horde_Translation_Script
             }
             printf('Extracting from %s... ', $this->apps[$i]);
             chdir($this->dirs[$i]);
-            $files = array();
-            $files = array_merge($files, $this->search_ext('((?<!\.local\.)php|inc)'));
+            /* Match all *.php and *.inc files in the current directory and
+             * sub-directories, unless they match *.local.php or have a
+             * directory name *.d/ in the path. */
+            $files = $this->ff->search(';(?<!\.d)/[^.][^/]*?\.((?<!\.local\.)php|inc)$;', '.', 'perl', true);
             $file = 'locale' . DS . $this->apps[$i] . '.pot';
             /* Store the file list because it gets too long to be passed on the
              * command line. */
