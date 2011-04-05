@@ -273,7 +273,7 @@ class Horde_Translation_Script
      */
     public function search_file($file, $dir = '.', $local = false)
     {
-        if (substr($file, 0, 1) != DS) {
+        if (substr($file, 0, 1) != '/') {
             $file = "/$file/";
         }
 
