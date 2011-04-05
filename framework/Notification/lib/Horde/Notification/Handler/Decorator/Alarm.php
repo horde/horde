@@ -46,16 +46,18 @@ extends Horde_Notification_Handler_Decorator_Base
     /**
      * Listeners are handling their messages.
      *
-     * @param array $options  An array containing display options for the
-     *                        listeners (see Horde_Notification_Handler for
-     *                        details).
+     * @param Horde_Notification_Handler $handler    The base handler object.
+     * @param Horde_Notification_Listener $listener  The Listener object that
+     *                                               is handling its messages.
      *
      * @throws Horde_Notification_Exception
      */
-    public function notify($options)
+    public function notify(Horde_Notification_Handler $handler,
+                           Horde_Notification_Listener $listener)
     {
-        if (in_array('status', $options['listeners'])) {
+        if ($listener instanceof Horde_Notification_Listener_Status) {
             try {
+                // TODO: Use $handler
                 $this->_alarm->create()->notify($this->_user);
             } catch (Horde_Alarm_Exception $e) {
                 throw new Horde_Notification_Exception($e);

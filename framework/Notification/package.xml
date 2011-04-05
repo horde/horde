@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-29</date>
- <time>18:22:36</time>
+ <date>2011-04-04</date>
+ <time>22:00:41</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* Fixed Decorator notify() behavior.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -261,14 +261,16 @@ Converted to package.xml 2.0 for pear.horde.org
   <release>
    <version>
     <release>1.0.0</release>
-    <api>1.0.0</api></version>
+    <api>1.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-03-29</date>
+    <api>beta</api>
+   </stability>
+   <date>2011-04-04</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* Fixed Decorator notify() behavior.
    </notes>
   </release>
  </changelog>

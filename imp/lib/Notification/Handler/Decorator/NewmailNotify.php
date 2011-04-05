@@ -18,16 +18,17 @@ extends Horde_Notification_Handler_Decorator_Base
     /**
      * Listeners are handling their messages.
      *
-     * @param array $options  An array containing display options for the
-     *                        listeners (see Horde_Notification_Handler for
-     *                        details).
+     * @param Horde_Notification_Handler  $handler   The base handler object.
+     * @param Horde_Notification_Listener $listener  The Listener object that
+     *                                               is handling its messages.
      */
-    public function notify($options)
+    public function notify(Horde_Notification_Handler $handler,
+                           Horde_Notification_Listener $listener)
     {
-        global $injector, $notification, $prefs, $session;
+        global $injector, $prefs, $session;
 
         if (!$prefs->getValue('newmail_notify') ||
-            !in_array('status', $options['listeners']) ||
+            !($listener instanceof Horde_Notification_Listener_Status) ||
             !($ob = $injector->getInstance('IMP_Factory_Imap')->create()) ||
             !$ob->ob) {
             return;
@@ -74,10 +75,10 @@ extends Horde_Notification_Handler_Decorator_Base
             break;
         }
 
-        $notification->push(sprintf(ngettext(_("You have %d new mail message in %s."), _("You have %d new mail messages in %s."), $recent_sum), $recent_sum, $mbox_list), 'horde.message');
+        $handler->push(sprintf(ngettext(_("You have %d new mail message in %s."), _("You have %d new mail messages in %s."), $recent_sum), $recent_sum, $mbox_list), 'horde.message');
 
         if ($audio = $prefs->getValue('newmail_audio')) {
-            $notification->push(Horde_Themes::sound($audio), 'audio');
+            $handler->push(Horde_Themes::sound($audio), 'audio');
         }
     }
 

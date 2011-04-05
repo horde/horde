@@ -17,18 +17,18 @@
 class Horde_Notification_Handler
 {
     /**
-     * Hash containing all attached listener objects.
-     *
-     * @var array
-     */
-    protected $_listeners = array();
-
-    /**
      * Decorators.
      *
      * @var array
      */
     protected $_decorators = array();
+
+    /**
+     * Forces immediate attachment of a notification to a listener.
+     *
+     * @var boolean
+     */
+    protected $_forceAttach = false;
 
     /**
      * Additional handle definitions.
@@ -40,6 +40,13 @@ class Horde_Notification_Handler
             '*' => 'Horde_Notification_Event'
         )
     );
+
+    /**
+     * Hash containing all attached listener objects.
+     *
+     * @var array
+     */
+    protected $_listeners = array();
 
     /**
      * The storage location where we store the messages.
@@ -248,7 +255,7 @@ class Horde_Notification_Handler
             $decorator->push($event, $options);
         }
 
-        if (empty($options['immediate'])) {
+        if (!$this->_forceAttach && empty($options['immediate'])) {
             $this->_storage->push('_unattached', $event);
         } else {
             if ($listener = $this->get($event->type)) {
@@ -265,9 +272,9 @@ class Horde_Notification_Handler
      *                        listeners. Any options not contained in this
      *                        list will be passed to the listeners.
      * <pre>
-     * 'listeners' - (array) The list of listeners to notify.
-     * 'raw' - (boolean) If true, does not call the listener's notify()
-     *         function.
+     * listeners - (array) The list of listeners to notify.
+     * raw - (boolean) If true, does not call the listener's notify()
+     *       function.
      * </pre>
      */
     public function notify(array $options = array())
@@ -275,30 +282,23 @@ class Horde_Notification_Handler
         /* Convert the 'listeners' option into the format expected by the
          * notification handler. */
         if (!isset($options['listeners'])) {
-            $options['listeners'] = array_keys($this->_listeners);
+            $listeners = array_keys($this->_listeners);
         } elseif (!is_array($options['listeners'])) {
-            $options['listeners'] = array($options['listeners']);
+            $listeners = array($options['listeners']);
+        } else {
+            $listeners = $options['listeners'];
         }
 
-        $options['listeners'] = array_map(array('Horde_String', 'lower'), $options['listeners']);
-
-        foreach ($this->_decorators as $decorator) {
-            try {
-                $decorator->notify($options);
-            } catch (Horde_Notification_Exception $e) {
-                $this->push($e);
-            }
-        }
-
-        /* Pass the message stack to all listeners and asks them to handle
-         * their messages. */
+        $events = array();
         $unattached = $this->_storage->exists('_unattached')
             ? $this->_storage->get('_unattached')
             : array();
 
-        $events = array();
+        /* Pass the message stack to all listeners and asks them to handle
+         * their messages. */
+        foreach ($listeners as $listener) {
+            $listener = Horde_String::lower($listener);
 
-        foreach ($options['listeners'] as $listener) {
             if (isset($this->_listeners[$listener])) {
                 $instance = $this->_listeners[$listener];
                 $name = $instance->getName();
@@ -309,6 +309,16 @@ class Horde_Notification_Handler
                         $this->_storage->push($name, $unattached[$val]);
                         unset($unattached[$val]);
                     }
+                }
+
+                foreach ($this->_decorators as $decorator) {
+                    $this->_forceAttach = true;
+                    try {
+                        $decorator->notify($this, $instance);
+                    } catch (Horde_Notification_Exception $e) {
+                        $this->push($e);
+                    }
+                    $this->_forceAttach = false;
                 }
 
                 if (!$this->_storage->exists($name)) {
