@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-04-03 20:20:04+0300\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"PO-Revision-Date: 2011-04-05 13:45:08+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -127,7 +127,7 @@ msgstr "%s:n Galleriat"
 msgid "%s: faces %s"
 msgstr "%s: kasvot %s"
 
-#: lib/Image.php:1007
+#: lib/Image.php:1014
 #, php-format
 msgid "(c) %s %s"
 msgstr "(c) %s %s"
@@ -300,7 +300,7 @@ msgstr "Kuvatekstin laittaminen %s on kielletty."
 msgid "Access denied adding tags to this gallery."
 msgstr "Tagien lisääminen tähän galleriaan on kielletty."
 
-#: lib/Image.php:1137
+#: lib/Image.php:1144
 msgid "Access denied adding tags to this photo."
 msgstr "Tagien lisääminen tähän valokuvaan on kielletty."
 
@@ -332,7 +332,7 @@ msgstr "Kuvien poisto \"%s\":stä on kielletty."
 msgid "Access denied downloading full sized photos from \"%s\"."
 msgstr "Täysikokoisten kuvien tallentaminen \"%s\":stä on kielletty."
 
-#: gallery.php:40 image.php:691 lib/Image.php:841
+#: gallery.php:40 image.php:691 lib/Image.php:848
 #, php-format
 msgid "Access denied downloading photos from \"%s\"."
 msgstr "Kuvien tallentaminen \"%s\":stä on kielletty."
@@ -363,7 +363,7 @@ msgstr "Valokuvia poista \"%s\":stä on kielletty."
 #: lib/View/GalleryProperties.php:264
 #, php-format
 msgid "Access denied saving gallery \"%s\"."
-msgstr "Talletus gallerigaan \"%s\" on kielletty."
+msgstr "Tallennus gallerigaan \"%s\" on kielletty."
 
 #: image.php:166 image.php:355 image.php:392
 #, php-format
@@ -386,7 +386,7 @@ msgid "Access denied viewing this gallery."
 msgstr "Tämän gallerian katselu on kielletty."
 
 #: img/download.php:17 img/full.php:17 img/index.php:17 img/mini.php:17
-#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1117
+#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1124
 msgid "Access denied viewing this photo."
 msgstr "Tämän valokuvan katselu on kielletty."
 
@@ -475,7 +475,7 @@ msgstr "Salli kaiken ikäisille"
 #: lib/View/Results.php:237 map_edit.php:23
 msgid "An error has occured retrieving the image. Details have been logged."
 msgstr ""
-"Tapahtui virhe haettaessa kuvaa. Tarkemmat tiedot on talletettu ylläpidon "
+"Tapahtui virhe haettaessa kuvaa. Tarkemmat tiedot on tallennettu ylläpidon "
 "käsiteltäväksi."
 
 #: config/prefs.php:195 templates/gallery/properties.html.php:108
@@ -570,11 +570,11 @@ msgstr "Ei voida lukea valokuvan allekirjoitusta"
 
 #: faces/search/image_save.php:87
 msgid "Cannot save photo signature"
-msgstr "Ei voida tallettaa valokuvan allekirjoitusta"
+msgstr "Ei voida tallentaa valokuvan allekirjoitusta"
 
 #: faces/search/image.php:54 faces/search/image_save.php:67
 msgid "Cannot store search photo"
-msgstr "Ei voida tallettaa etsittävää valokuvaa"
+msgstr "Ei voida tallentaa etsittävää valokuvaa"
 
 #: lib/Form/Image.php:34 lib/Form/Upload.php:43
 msgid "Caption"
@@ -586,7 +586,7 @@ msgstr "Kuvatekstieditori"
 
 #: gallery/captions.php:50
 msgid "Captions Saved."
-msgstr "Kuvatekstiä talletettu."
+msgstr "Kuvatekstit tallennettu."
 
 #: config/prefs.php:71
 msgid "Category"
@@ -701,13 +701,13 @@ msgstr "Ei voitu avata zip-tiedostoa"
 #: lib/Gallery.php:146
 #, php-format
 msgid "Could not save gallery, the slug, \"%s\", already exists."
-msgstr "Ei voitu tallettaa galleriaan, luoti, \"%s\" on jo olemassa."
+msgstr "Ei voitu tallentaa galleriaan, luoti, \"%s\" on jo olemassa."
 
 #: lib/Gallery.php:138
 #, php-format
 msgid "Could not save gallery, the slug, \"%s\", contains invalid characters."
 msgstr ""
-"Ei voitu tallettaa galleriaa, luoti, \"%s\", sisältää epäkelpoja merkkejä."
+"Ei voitu tallentaa galleriaa, luoti, \"%s\", sisältää epäkelpoja merkkejä."
 
 #: scripts/ansel.php:23
 msgid "Couldn't read command-line options."
@@ -1503,7 +1503,7 @@ msgstr "Normaali"
 #: map_edit.php:28
 msgid "Not Authorized. Details have been logged for the server administrator."
 msgstr ""
-"Käyttö estetty. Tarkemmat tiedot on talletettu ylläpidon käsiteltäväksi."
+"Käyttö estetty. Tarkemmat tiedot on tallennettu ylläpidon käsiteltäväksi."
 
 #: templates/mobile/notice.html.php:3
 msgid "Notice"
@@ -1981,29 +1981,29 @@ msgstr "Varjostetut pienoiskuvat (valkoinen tausta)"
 #: map_edit.php:56 templates/faces/custom.inc:51
 #: templates/image/resize_image.inc:74
 msgid "Save"
-msgstr "Talleta"
+msgstr "Tallenna"
 
 #: templates/captions/captions.inc:50
 msgid "Save Captions"
-msgstr "Talleta kuvateksti"
+msgstr "Tallenna kuvateksti"
 
 #: templates/image/preview_cropimage.inc:20
 #: templates/image/preview_cropimage.inc:21
 #: templates/image/preview_image.inc:22 templates/image/preview_image.inc:23
 msgid "Save Change"
-msgstr "Talleta muutokset"
+msgstr "Tallenna muutokset"
 
 #: templates/gallery/properties.html.php:131
 msgid "Save Gallery"
-msgstr "Talleta galleria"
+msgstr "Tallenna galleria"
 
 #: image.php:164
 msgid "Save Photo"
-msgstr "Talleta valokuva"
+msgstr "Tallenna valokuva"
 
 #: templates/faces/image.inc:5
 msgid "Save face name"
-msgstr "Talleta kasvojen nimi"
+msgstr "Tallenna kasvojen nimi"
 
 #: faces/search/name.php:17 templates/faces/define.inc:37
 msgid "Search"
@@ -2080,7 +2080,7 @@ msgstr "Erota tagit pilkuilla."
 
 #: lib/Widget/Actions.php:156
 msgid "Set captions"
-msgstr "Talleta kuvateksti"
+msgstr "Tallenna kuvateksti"
 
 #: lib/Widget/Actions.php:189
 msgid "Set permissions"
@@ -2165,7 +2165,7 @@ msgstr "Aloita kuvaesitys"
 #: scripts/recursive_import.php:213 scripts/remote_import.php:228
 #, php-format
 msgid "Storing photo \"%s\"..."
-msgstr "Talletetaan kuva \"%s\"..."
+msgstr "Tallennetaan kuva \"%s\"..."
 
 #: lib/Block/RecentComments.php:120
 msgid "Subject"
@@ -2277,7 +2277,7 @@ msgstr "Gallerian \"%s\" luonti onnistui."
 
 #: lib/View/GalleryProperties.php:305
 msgid "The gallery was saved."
-msgstr "Galleria talletettiin"
+msgstr "Galleria tallennettiin"
 
 #: gallery.php:76
 msgid "The gallery's default photo has successfully been reset."
@@ -2344,7 +2344,7 @@ msgstr "Tapahtui virhe poistettaessa valokuvia: %s"
 #: lib/View/Upload.php:192
 #, php-format
 msgid "There was a problem saving the photo: %s"
-msgstr "Tapahtui virhe talletettaessa valokuvaa: %s"
+msgstr "Tapahtui virhe tallennettaessa valokuvaa: %s"
 
 #: xppublish.php:199
 msgid "There was a problem uploading the photo."

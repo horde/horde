@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-03-20 17:51:11+0200\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"PO-Revision-Date: 2011-04-05 12:57:52+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -118,7 +118,7 @@ msgstr "Lisää atribuutti"
 msgid "Add Attribute Criterion"
 msgstr "Lisää atribuutin kriteeri"
 
-#: mybugs.php:53
+#: mybugs.php:51
 msgid "Add Content"
 msgstr "Lisää sisältö"
 
@@ -205,7 +205,7 @@ msgstr "Ja"
 msgid "Any"
 msgstr "Mikä tahansa"
 
-#: ticket/queue.php:44 ticket/type.php:39
+#: ticket/queue.php:43 ticket/type.php:38
 msgid "Any Group"
 msgstr "Mikä tahansa ryhmä"
 
@@ -605,7 +605,7 @@ msgstr "Näkymän asetukset"
 msgid "Download"
 msgstr "Tallenna"
 
-#: templates/view/results.inc:90
+#: templates/view/results.inc:91
 msgid "Download these results as: "
 msgstr "Lataa nämä tulokset nimellä: "
 
@@ -952,7 +952,7 @@ msgstr "KK/PP/VV TT:MM:SS"
 msgid "Make a clone of %s"
 msgstr "Tee klooni %s:stä"
 
-#: lib/Forms/AddComment.php:37 lib/Forms/EditTicket.php:183
+#: lib/Forms/AddComment.php:36 lib/Forms/EditTicket.php:182
 msgid "Make this comment visible only to members of a group?"
 msgstr "Laita tämä kommentti näkymään vain ryhmän jäsenille?"
 
@@ -984,12 +984,12 @@ msgstr "Lyhin aika, jonka tiketti on ollut selvittämättä"
 msgid "Most recent first"
 msgstr "Tuorein ensin"
 
-#: ticket/queue.php:185
+#: ticket/queue.php:184
 #, php-format
 msgid "Moved ticket %d to \"%s\""
 msgstr "Siirrettiin tiketti %d \"%s\":lle"
 
-#: mybugs.php:52
+#: mybugs.php:50
 #, php-format
 msgid "My %s"
 msgstr "Minun %s"
@@ -1086,7 +1086,7 @@ msgstr ""
 
 #: lib/Block/Myqueries.php:36
 msgid "No queries have been saved."
-msgstr "Ei kyselyitä talletettuna."
+msgstr "Ei kyselyitä tallennettuna."
 
 #: lib/Block/Query.php:61 lib/Driver/sql.php:541
 msgid "No query to run"
@@ -1227,12 +1227,12 @@ msgid "Permanently delete entry?"
 msgstr "Poistetaanko tieto pysyvästi?"
 
 #: ticket/delete.php:48 ticket/delete_attachment.php:17
-#: ticket/delete_history.php:16 ticket/queue.php:136 ticket/type.php:72
+#: ticket/delete_history.php:16 ticket/queue.php:135 ticket/type.php:71
 #: ticket/update.php:19
 msgid "Permission Denied"
 msgstr "Käyttö kielletty"
 
-#: lib/Forms/EditTicket.php:213 ticket/delete.php:36
+#: lib/Forms/EditTicket.php:212 ticket/delete.php:36
 msgid "Permission Denied."
 msgstr "Käyttö kielletty."
 
@@ -1248,8 +1248,8 @@ msgstr "Prioriteetit tälle tyypille"
 #: config/prefs.php:49 lib/Forms/CreateTicket.php:158
 #: lib/Forms/EditTicket.php:84 lib/Forms/Query.php:202
 #: lib/Renderer/Query.php:123 lib/Ticket.php:620 lib/Ticket.php:814
-#: lib/Ticket.php:956 lib/Whups.php:673 lib/Whups.php:682 ticket/queue.php:114
-#: ticket/type.php:63
+#: lib/Ticket.php:956 lib/Whups.php:673 lib/Whups.php:682 ticket/queue.php:113
+#: ticket/type.php:62
 msgid "Priority"
 msgstr "Prioriteetti"
 
@@ -1337,7 +1337,7 @@ msgid "Queue Summary"
 msgstr "Jonon yhteenveto"
 
 #: lib/Forms/CreateTicket.php:96 lib/Forms/EditTicket.php:74
-#: lib/Ticket.php:935 lib/Ticket.php:941 ticket/queue.php:83
+#: lib/Ticket.php:935 lib/Ticket.php:941 ticket/queue.php:82
 msgid "Queue Version"
 msgstr "Jonon versio"
 
@@ -1464,23 +1464,23 @@ msgstr "As_eta jono"
 
 #: lib/Query.php:239
 msgid "Sa_ve Query"
-msgstr "Talleta k_ysely"
+msgstr "Tallenna k_ysely"
 
-#: lib/Forms/Query.php:389 templates/view/results.inc:96
+#: lib/Forms/Query.php:389 templates/view/results.inc:97
 msgid "Save"
-msgstr "Talleta"
+msgstr "Tallenna"
 
 #: query/index.php:235
 msgid "Save Criterion"
-msgstr "Talleta kriteeri"
+msgstr "Tallenna kriteeri"
 
 #: lib/Forms/Query.php:388
 msgid "Save Query"
-msgstr "Talleta kysely"
+msgstr "Tallenna kysely"
 
 #: lib/Forms/Search.php:17 search.php:67
 msgid "Save as Query"
-msgstr "Talleta kyselynä"
+msgstr "Tallenna kyselynä"
 
 #: lib/Application.php:192 search.php:154
 msgid "Search"
@@ -1552,19 +1552,19 @@ msgstr "Aseta oletusprioriteetti"
 msgid "Set Default State"
 msgstr "Aseta oletustila"
 
-#: ticket/queue.php:205 ticket/queue.php:214 ticket/queue.php:226
+#: ticket/queue.php:204 ticket/queue.php:213 ticket/queue.php:225
 msgid "Set Queue - Step 1"
 msgstr "Aseta jono - Askel 1"
 
-#: ticket/queue.php:206 ticket/queue.php:215
+#: ticket/queue.php:205 ticket/queue.php:214
 msgid "Set Queue - Step 2"
 msgstr "Aseta jono - Askel 2"
 
-#: ticket/queue.php:216
+#: ticket/queue.php:215
 msgid "Set Queue - Step 3"
 msgstr "Aseta jono - Askel 3"
 
-#: ticket/queue.php:193
+#: ticket/queue.php:192
 #, php-format
 msgid "Set Queue for %s"
 msgstr "Aseta jono %s:lle"
@@ -1573,15 +1573,15 @@ msgstr "Aseta jono %s:lle"
 msgid "Set Requester"
 msgstr "Aseta asiakas"
 
-#: ticket/type.php:137 ticket/type.php:146
+#: ticket/type.php:136 ticket/type.php:145
 msgid "Set Type - Step 1"
 msgstr "Aseta tyyppi - Askel 1"
 
-#: ticket/type.php:138
+#: ticket/type.php:137
 msgid "Set Type - Step 2"
 msgstr "Aseta tyyppi - Askel 2"
 
-#: ticket/type.php:125
+#: ticket/type.php:124
 #, php-format
 msgid "Set Type for %s"
 msgstr "Aseta tyyppi %s:lle"
@@ -1622,15 +1622,15 @@ msgstr ""
 msgid "Sort by %s"
 msgstr "Järjestä %s mukaan"
 
-#: lib/Forms/AddComment.php:18 lib/Forms/AddComment.php:50
+#: lib/Forms/AddComment.php:18 lib/Forms/AddComment.php:49
 #: lib/Forms/CreateTicket.php:139 lib/Forms/CreateTicket.php:186
 msgid "Spam protection"
 msgstr "Roskapostisuojaus"
 
 #: config/prefs.php:47 lib/Forms/EditTicket.php:78 lib/Forms/Query.php:197
 #: lib/Renderer/Query.php:115 lib/Ticket.php:619 lib/Ticket.php:813
-#: lib/Ticket.php:952 lib/Whups.php:674 lib/Whups.php:680 ticket/queue.php:113
-#: ticket/type.php:62
+#: lib/Ticket.php:952 lib/Whups.php:674 lib/Whups.php:680 ticket/queue.php:112
+#: ticket/type.php:61
 msgid "State"
 msgstr "Tila"
 
@@ -1675,7 +1675,7 @@ msgstr "Tilaa tämä kysely"
 msgid "Successfully Cloned %s to %s."
 msgstr "Onnistuttiin kloonaamaan %s %s:ksi."
 
-#: ticket/type.php:116
+#: ticket/type.php:115
 msgid "Successfully changed ticket type."
 msgstr "Tiketin tyypin muutos onnistui."
 
@@ -2052,7 +2052,7 @@ msgstr "Tapahtui virhe muokattaessa oletusprioriteettiä:"
 msgid "There was an error setting the default state:"
 msgstr "Tapahtui virhe muokattaessa oletustilaa:"
 
-#: lib/Forms/AddComment.php:36 lib/Forms/EditTicket.php:182
+#: lib/Forms/AddComment.php:35 lib/Forms/EditTicket.php:181
 msgid "This comment is visible to everyone"
 msgstr "Tämä komentti näkyy kaikille"
 
@@ -2073,7 +2073,7 @@ msgid "This query element cannot be edited."
 msgstr "Tämän kyselyelementtiä ei voi muokata."
 
 #: lib/Forms/CreateTicket.php:91 lib/Forms/EditTicket.php:69
-#: ticket/queue.php:78
+#: ticket/queue.php:77
 msgid ""
 "This queue requires that you specify a version, but there are no versions "
 "associated with it. Until versions are created for this queue, you will not "
@@ -2127,7 +2127,7 @@ msgstr "Tähän jonoon assosioidut tikettityypit"
 msgid "Ticket URL: %s"
 msgstr "Tiketti URL: %s"
 
-#: ticket/update.php:94
+#: ticket/update.php:105
 msgid "Ticket Updated"
 msgstr "Tiketti päivitetty"
 
@@ -2142,7 +2142,7 @@ msgstr "Kyselyä \"%s\" vastaavat tiketit."
 
 #: config/prefs.php:48 lib/Forms/Query.php:178 lib/Renderer/Query.php:106
 #: lib/Ticket.php:618 lib/Ticket.php:812 lib/Ticket.php:948 lib/Whups.php:681
-#: ticket/queue.php:86
+#: ticket/queue.php:85
 msgid "Type"
 msgstr "Tyyppi"
 
@@ -2191,7 +2191,7 @@ msgstr "Tuntematon node tyyppi %s"
 msgid "Update"
 msgstr "Päivitä"
 
-#: ticket/update.php:108
+#: ticket/update.php:119
 #, php-format
 msgid "Update %s"
 msgstr "Päivitä %s"
@@ -2257,7 +2257,7 @@ msgstr "Version kuvaus"
 msgid "Version Name"
 msgstr "Version nimi"
 
-#: ticket/queue.php:46 ticket/type.php:40
+#: ticket/queue.php:45 ticket/type.php:39
 msgid "Viewable only by members of"
 msgstr "Näytetään vain jäsenille"
 
@@ -2313,7 +2313,7 @@ msgstr "Sinulla ei ole avoimia pyyntöjä."
 
 #: lib/Block/Query.php:28 lib/Forms/Query.php:423
 msgid "You have no saved queries."
-msgstr "Sinulla ei ole talletettuja kyselyitä."
+msgstr "Sinulla ei ole tallennettuja kyselyitä."
 
 #: lib/Whups.php:714
 msgid "You must select at least one queue to send reminders for."

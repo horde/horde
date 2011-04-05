@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Trean 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-04-03 20:53:12+0300\n"
+"PO-Revision-Date: 2011-04-05 12:57:25+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -752,12 +752,12 @@ msgstr "Kansioon lisättäessä tapahtui virhe: %s"
 #: edit.php:74
 #, php-format
 msgid "There was an error saving the bookmark: %s"
-msgstr "Kirjanmerkkiä talletennettaessa tapahtui virhe: %s"
+msgstr "Kirjanmerkkiä tallennettaessa tapahtui virhe: %s"
 
 #: edit.php:87
 #, php-format
 msgid "There was an error saving the folder: %s"
-msgstr "Kansioon talletennettaessa tapahtui virhe: %s"
+msgstr "Kansioon tallennettaessa tapahtui virhe: %s"
 
 #: config/prefs.php:22 lib/Block/Bookmarks.php:59 lib/Forms/Search.php:21
 #: templates/add.html.php:37 templates/edit/bookmark.inc:10

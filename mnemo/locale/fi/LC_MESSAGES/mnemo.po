@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo 3.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-04-03 13:10:01+0300\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"PO-Revision-Date: 2011-04-05 13:46:18+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -38,7 +38,7 @@ msgstr "Sinulla ei ole oikeuksia poistaa muistiinpanoa."
 #: memo.php:134
 #, php-format
 msgid "Access denied saving note to %s."
-msgstr "Sinulla ei ole oikeuksia tallettaa muistilistaan %s."
+msgstr "Sinulla ei ole oikeuksia tallentaa muistilistaan %s."
 
 #: lib/Block/Note.php:80
 #, php-format
@@ -49,7 +49,7 @@ msgstr "Tapahtui virhe näytettäessä: %s"
 msgid "An error occurred displaying the note"
 msgstr "Tapahtui virhe näytettäessä muistiinpanoa"
 
-#: config/prefs.php:62
+#: config/prefs.php:63
 msgid "Ascending"
 msgstr "Nouseva"
 
@@ -102,6 +102,10 @@ msgstr "Luo uusi muistilista"
 msgid "Created"
 msgstr "Luotu"
 
+#: templates/list/memo_headers.inc:40
+msgid "Date"
+msgstr "Päiväys"
+
 #: templates/memo/memo.inc:23 templates/view/memo.inc:54
 msgid "Decrypt"
 msgstr "Pura salaus"
@@ -110,11 +114,11 @@ msgstr "Pura salaus"
 msgid "Default Notepad"
 msgstr "Oletusmuistilista"
 
-#: config/prefs.php:54
+#: config/prefs.php:55
 msgid "Default sorting criteria:"
 msgstr "Oletusjärjestys:"
 
-#: config/prefs.php:65
+#: config/prefs.php:66
 msgid "Default sorting direction:"
 msgstr "Oletusjärjestyksen suunta:"
 
@@ -140,7 +144,7 @@ msgstr "Voit muuttaa Poista painikkeen toimintaa"
 msgid "Delete this note"
 msgstr "Poista tämä muistiinpano"
 
-#: config/prefs.php:63
+#: config/prefs.php:64
 msgid "Descending"
 msgstr "Laskeva"
 
@@ -152,7 +156,7 @@ msgstr "Kuvaus"
 msgid "Display Preferences"
 msgstr "Näkymän asetukset"
 
-#: config/prefs.php:95
+#: config/prefs.php:96
 msgid "Do you want to confirm deleting entries?"
 msgstr "Haluatko varmistuksen poistettavista merkinnöistä?"
 
@@ -176,7 +180,7 @@ msgstr "Muokkaa %s"
 msgid "Edit Note"
 msgstr "Muokkaa muistiinpanoa"
 
-#: templates/list/memo_headers.inc:45
+#: templates/list/memo_headers.inc:48
 msgid "Edit categories and colors"
 msgstr "Muokkaa kategorioita ja värejä"
 
@@ -189,7 +193,7 @@ msgstr "Muokkaa %s"
 msgid "Empty Note"
 msgstr "Tyhjä muistiinpano"
 
-#: lib/Driver.php:86
+#: lib/Driver.php:85
 msgid ""
 "Encryption support has not been configured, please contact your "
 "administrator."
@@ -235,6 +239,10 @@ msgstr "Muistiinpanojen enimmäismäärä"
 #: data.php:48
 msgid "Memo Text"
 msgstr "Muistiinpanon teksti"
+
+#: config/prefs.php:53
+msgid "Modification Date"
+msgstr "Muokkauspäiväys"
 
 #: templates/list/header.inc:9
 msgid "More Options..."
@@ -288,7 +296,7 @@ msgstr "Ei muistiinpanoja näytettäväksi"
 msgid "No_te"
 msgstr "Mu_istiinpano"
 
-#: lib/Driver/Kolab.php:68 lib/Driver/Sql.php:72
+#: lib/Driver/Kolab.php:97 lib/Driver/Sql.php:80
 msgid "Not Found"
 msgstr "Ei löytynyt"
 
@@ -325,7 +333,7 @@ msgstr "Muistilista"
 msgid "Notepad List"
 msgstr "Muistilistalistaus"
 
-#: lib/Mnemo.php:444
+#: lib/Mnemo.php:522
 #, php-format
 msgid "Notepad of %s"
 msgstr "%s:n muistilistat"
@@ -367,11 +375,11 @@ msgstr "Poistetaanko tämä muistiinpano?"
 #: lib/Form/EditNotepad.php:32 templates/memo/memo.inc:58
 #: templates/panel.inc:69
 msgid "Save"
-msgstr "Talleta"
+msgstr "Tallenna"
 
 #: templates/view/memo.inc:11
 msgid "Save as PDF"
-msgstr "Talleta PDF-muodossa"
+msgstr "Tallenna PDF-muodossa"
 
 #: lib/Application.php:166 search.php:22 templates/list/header.inc:4
 #: templates/search/search.inc:4 templates/search/search.inc:27
@@ -422,9 +430,13 @@ msgstr "Näytä muistiinpanot näistä kategorioista"
 msgid "Show this note"
 msgstr "Näytä tämä muistiinpano"
 
-#: templates/list/memo_headers.inc:41
+#: templates/list/memo_headers.inc:44
 msgid "Sort by Category"
 msgstr "Järjestä luokituksen mukaan"
+
+#: templates/list/memo_headers.inc:40
+msgid "Sort by Modification Date"
+msgstr "Järjestä muokkauspäiväyksen mukaan"
 
 #: templates/list/memo_headers.inc:37
 msgid "Sort by Note Text"
@@ -437,7 +449,7 @@ msgstr "Järjestä muistlistan mukaan"
 #: memo.php:221
 #, php-format
 msgid "Successfully saved \"%s\"."
-msgstr "'%s':n talletus onnistui."
+msgstr "'%s':n tallennus onnistui."
 
 #: data.php:190
 #, php-format
@@ -466,7 +478,7 @@ msgstr "Muistilista \"%s\" uusi nimi on \"%s\"."
 #: notepads/edit.php:44
 #, php-format
 msgid "The notepad \"%s\" has been saved."
-msgstr "Muistilista \"%s\" on talletettu."
+msgstr "Muistilista \"%s\" on tallennettu."
 
 #: memo.php:136
 msgid "The passwords don't match."
@@ -496,7 +508,7 @@ msgstr "Muistiinpanon poistamisessa tapahtui virhe: %s"
 #: memo.php:219
 #, php-format
 msgid "There was an error saving the note: %s"
-msgstr "Muistiinpanon talletetuksessa tapahtui virhe: %s"
+msgstr "Muistiinpanon tallennuksessa tapahtui virhe: %s"
 
 #: note/pdf.php:42 view.php:42
 #, php-format
@@ -527,12 +539,12 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password below"
 msgstr "Tämä muistiinpano on salattu, anna salasana alla olevaan tilaan."
 
-#: lib/Api.php:280 lib/Driver/Kolab.php:281 lib/Driver/Sql.php:336
+#: lib/Api.php:280 lib/Driver/Kolab.php:281 lib/Driver/Sql.php:344
 msgid "This note has been encrypted."
 msgstr "Tämä muistiinpano on salattu."
 
-#: lib/Block/Summary.php:116 lib/Mnemo.php:260 lib/Mnemo.php:261
-#: lib/Mnemo.php:275 lib/Mnemo.php:276 templates/list/memo_summaries.inc:17
+#: lib/Block/Summary.php:116 lib/Mnemo.php:267 lib/Mnemo.php:268
+#: lib/Mnemo.php:282 lib/Mnemo.php:283 templates/list/memo_summaries.inc:20
 #: templates/view/memo.inc:27
 msgid "Unfiled"
 msgstr "Luokittelematon"
@@ -572,7 +584,7 @@ msgstr "Sinulla ei ole oikeuksia muokata tätä muistiinpanoa."
 msgid "You do not have permission to view the notepad %s."
 msgstr "Sinulla ei ole oikeuksia selata muistilistaa %s."
 
-#: config/prefs.php:83
+#: config/prefs.php:84
 msgid "Your default notepad:"
 msgstr "Oletusmuistilistasi:"
 
@@ -584,7 +596,7 @@ msgstr "[Hallinnoi muistilistoja]"
 msgid "_Body"
 msgstr "_Leipäteksti"
 
-#: templates/list/memo_headers.inc:41
+#: templates/list/memo_headers.inc:44
 msgid "_Category"
 msgstr "_Kategoria"
 

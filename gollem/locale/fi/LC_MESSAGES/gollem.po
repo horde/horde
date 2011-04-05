@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gollem 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-04-03 12:49:49+0300\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"PO-Revision-Date: 2011-04-05 12:55:53+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -90,11 +90,11 @@ msgstr "Kysy"
 msgid "Attributes"
 msgstr "Lisämääreet"
 
-#: lib/Application.php:71
+#: lib/Application.php:225
 msgid "Backends"
 msgstr "Taustajärjestelmät"
 
-#: lib/Application.php:132
+#: lib/Application.php:286
 msgid "Backends that will not be displayed:"
 msgstr "Taustajärjestelmät, joita ei näytetä:"
 
@@ -142,7 +142,7 @@ msgstr "Muuta oikeuksia"
 msgid "Change Server"
 msgstr "Vaihda palvelinta"
 
-#: lib/Application.php:155
+#: lib/Application.php:309
 msgid "Check Quota"
 msgstr "Tarkista kiintiö"
 
@@ -154,7 +154,7 @@ msgstr "Valitse _kaikki/ei mitään"
 msgid "Chmod done: "
 msgstr "Chmod suoritettu: "
 
-#: lib/Application.php:128
+#: lib/Application.php:282
 msgid "Choose which backends to display, and in what order:"
 msgstr "Valitse mitkä taustajärjestelmät näytetään ja missä järjestyksessä:"
 
@@ -454,13 +454,13 @@ msgstr "Palauta"
 
 #: manager.php:303 templates/edit/edit.inc:11
 msgid "Save"
-msgstr "Talleta"
+msgstr "Tallenna"
 
 #: templates/clipboard/clipboard.html:24
 msgid "Select All/None"
 msgstr "Valitse _kaikki/Ei mitään"
 
-#: lib/Application.php:130
+#: lib/Application.php:284
 msgid "Select a backend:"
 msgstr "Valitse taustajärjestelmä:"
 
@@ -496,7 +496,7 @@ msgstr "Alkuperäinen aukaisuikkuna on suljettu. Poistutaan."
 msgid "There are no files in this folder."
 msgstr "Tässä hakemistossa ei ole tiedostoja."
 
-#: lib/Application.php:129
+#: lib/Application.php:283
 msgid "These backends will display in this order:"
 msgstr "Nämä taustajärjestelmät näytetään tässä järjestyksessä:"
 
@@ -575,11 +575,11 @@ msgstr ""
 msgid "_Change Server"
 msgstr "_Vaihda palvelinta"
 
-#: lib/Application.php:143
+#: lib/Application.php:297
 msgid "_My Home"
 msgstr "_Oma koti"
 
-#: lib/Application.php:146
+#: lib/Application.php:300
 msgid "_Permissions"
 msgstr "_Oikeudet"
 
