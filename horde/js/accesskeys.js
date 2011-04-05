@@ -41,7 +41,7 @@ var AccessKeys = {
                 } catch (e) {
                 }
 
-                if (navigator.userAgent.indexOf('Chrome/') > -1 &&
+                if (navigator.userAgent.indexOf('Chrome/') > -1 && !this.macos &&
                     elt.tagName == 'A') {
                     return;
                 }
