@@ -323,33 +323,34 @@ class IMP_Folder
                 'peek' => true
             ));
 
-            for ($i = 1; $i <= $status['messages']; ++$i) {
-                /* Download one message at a time to save on memory
-                 * overhead. */
+            for ($i = 1; $i <= $status['messages']; $i += 20) {
+                /* Download 20 messages at a time. */
                 try {
                     $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($folder, $query, array(
-                        'ids' => new Horde_Imap_Client_Ids($i, true)
+                        'ids' => new Horde_Imap_Client_Ids(range($i, min($i + 19, $status['messages'])), true)
                     ));
-                    $ptr = reset($res);
                 } catch (Horde_Imap_Client_Exception $e) {
                     continue;
                 }
 
-                $from = '<>';
-                if ($from_env = $ptr->getEnvelope()->from) {
-                    $ptr2 = reset($from_env);
-                    if (!empty($ptr2['mailbox']) && !empty($ptr2['host'])) {
-                        $from = $ptr2['mailbox']. '@' . $ptr2['host'];
+                reset($res);
+                while (list(,$ptr) = each($res)) {
+                    $from = '<>';
+                    if ($from_env = $ptr->getEnvelope()->from) {
+                        $ptr2 = reset($from_env);
+                        if (!empty($ptr2['mailbox']) && !empty($ptr2['host'])) {
+                            $from = $ptr2['mailbox']. '@' . $ptr2['host'];
+                        }
                     }
-                }
 
-                /* We need this long command since some MUAs (e.g. pine)
-                 * require a space in front of single digit days. */
-                $imap_date = $ptr->getImapDate();
-                $date = sprintf('%s %2s %s', $imap_date->format('D M'), $imap_date->format('j'), $imap_date->format('H:i:s Y'));
-                fwrite($body, 'From ' . $from . ' ' . $date . "\r\n");
-                stream_copy_to_stream($ptr->getFullMsg(true), $body);
-                fwrite($body, "\r\n");
+                    /* We need this long command since some MUAs (e.g. pine)
+                     * require a space in front of single digit days. */
+                    $imap_date = $ptr->getImapDate();
+                    $date = sprintf('%s %2s %s', $imap_date->format('D M'), $imap_date->format('j'), $imap_date->format('H:i:s Y'));
+                    fwrite($body, 'From ' . $from . ' ' . $date . "\r\n");
+                    stream_copy_to_stream($ptr->getFullMsg(true), $body);
+                    fwrite($body, "\r\n");
+                }
             }
         }
 
