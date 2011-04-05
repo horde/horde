@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2011-04-06</date>
- <time>01:09:00</time>
+ <time>01:09:14</time>
  <version>
-  <release>1.0.0</release>
+  <release>1.0.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -35,8 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* First stable release for Horde 4.
-* [jan] Add buildClause() from obsolete Horde_Sql.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -413,6 +412,19 @@
    <notes>
 * First stable release for Horde 4.
 * [jan] Add buildClause() from obsolete Horde_Sql.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-06</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
