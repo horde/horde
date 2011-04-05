@@ -11,11 +11,11 @@ class Horde_Core_Factory_Notification extends Horde_Core_Factory_Base
             new Horde_Core_Notification_Storage_Session()
         );
 
-        $notify->addType('default', '*', 'Horde_Core_Notification_Status');
-        $notify->addType('status', 'horde.*', 'Horde_Core_Notification_Status');
+        $notify->addType('default', '*', 'Horde_Core_Notification_Event_Status');
+        $notify->addType('status', 'horde.*', 'Horde_Core_Notification_Event_Status');
 
         $notify->addDecorator(new Horde_Notification_Handler_Decorator_Alarm($this->_injector->getInstance('Horde_Core_Factory_Alarm'), $GLOBALS['registry']->getAuth()));
-        $notify->addDecorator(new Horde_Core_Notification_Hordelog());
+        $notify->addDecorator(new Horde_Core_Notification_Handler_Decorator_Hordelog());
 
         foreach ($GLOBALS['registry']->listApps(null, false, Horde_Perms::READ) as $app) {
             try {

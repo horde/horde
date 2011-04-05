@@ -11,7 +11,7 @@
  * @category Horde
  * @package  Core
  */
-class Horde_Core_Notification_Hordelog
+class Horde_Core_Notification_Handler_Decorator_Hordelog
 extends Horde_Notification_Handler_Decorator_Base
 {
     /**

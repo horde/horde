@@ -11,7 +11,7 @@
  * @category Horde
  * @package  Core
  */
-class Horde_Core_Notification_Status extends Horde_Notification_Event_Status
+class Horde_Core_Notification_Event_Status extends Horde_Notification_Event_Status
 {
     /**
      * Constructor.
