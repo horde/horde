@@ -13,8 +13,12 @@
  * @package  IMP
  */
 class IMP_Notification_Handler_Decorator_ImapAlerts
-extends Horde_Notification_Handler_Decorator_Base
+extends Horde_Core_Notification_Handler_Decorator_Base
 {
+    /**
+     */
+    protected $_app = 'imp';
+
     /**
      * Listeners are handling their messages.
      *
@@ -25,8 +29,6 @@ extends Horde_Notification_Handler_Decorator_Base
     public function notify(Horde_Notification_Handler $handler,
                            Horde_Notification_Listener $listener)
     {
-        $pushed = $GLOBALS['registry']->pushApp('imp', array('check_perms' => true, 'logintasks' => false));
-
         if (($listener instanceof Horde_Notification_Listener_Status) &&
             ($ob = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()) &&
             $ob->ob) {
@@ -34,10 +36,6 @@ extends Horde_Notification_Handler_Decorator_Base
             foreach ($ob->alerts() as $alert) {
                 $handler->push($alert, 'horde.warning');
             }
-        }
-
-        if ($pushed) {
-            $GLOBALS['registry']->popApp();
         }
     }
 
