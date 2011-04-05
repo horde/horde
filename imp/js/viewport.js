@@ -1513,7 +1513,7 @@ ViewPort_Buffer = Class.create({
                 } else {
                     var val = this.usermdata.get(pair.key);
                     if (val) {
-                        this.usermdata.get(pair.key).update($H(pair.value));
+                        val.update($H(pair.value));
                     } else {
                         this.usermdata.set(pair.key, $H(pair.value));
                     }
