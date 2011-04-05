@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-04-06</date>
- <time>01:16:05</time>
+ <time>01:16:18</time>
  <version>
-  <release>1.0.0</release>
+  <release>1.0.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* First stable release for Horde 4.
-* [mms] Fixed decorator notify() behavior.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -273,6 +272,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <notes>
 * First stable release for Horde 4.
 * [mms] Fixed decorator notify() behavior.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
