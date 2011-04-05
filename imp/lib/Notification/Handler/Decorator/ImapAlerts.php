@@ -25,6 +25,8 @@ extends Horde_Notification_Handler_Decorator_Base
     public function notify(Horde_Notification_Handler $handler,
                            Horde_Notification_Listener $listener)
     {
+        $pushed = $GLOBALS['registry']->pushApp('imp');
+
         if (($listener instanceof Horde_Notification_Listener_Status) &&
             ($ob = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()) &&
             $ob->ob) {
@@ -32,6 +34,10 @@ extends Horde_Notification_Handler_Decorator_Base
             foreach ($ob->alerts() as $alert) {
                 $handler->push($alert, 'horde.warning');
             }
+        }
+
+        if ($pushed) {
+            $GLOBALS['registry']->popApp();
         }
     }
 

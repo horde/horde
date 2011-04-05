@@ -129,10 +129,6 @@ class IMP_Application extends Horde_Registry_Application
 
         IMP::setCurrentMailboxInfo();
 
-        $GLOBALS['notification']->addDecorator(new IMP_Notification_Handler_Decorator_ImapAlerts());
-        $GLOBALS['notification']->addDecorator(new IMP_Notification_Handler_Decorator_NewmailNotify());
-        $GLOBALS['notification']->addType('status', 'imp.*', 'IMP_Notification_Event_Status');
-
         $redirect = false;
 
         switch (IMP::getViewMode()) {
@@ -154,7 +150,6 @@ class IMP_Application extends Horde_Registry_Application
         case 'imp':
             $redirect = (!empty($this->initParams['impmode']) &&
                          ($this->initParams['impmode'] != 'imp'));
-            $GLOBALS['notification']->attach('audio');
             break;
         }
 
@@ -332,6 +327,21 @@ class IMP_Application extends Horde_Registry_Application
                 'url' => Horde::url('filterprefs.php')
             ));
         }
+    }
+
+
+    // Horde_Notification methods.
+
+    /**
+     * Modifies the global notification handler.
+     *
+     * @param Horde_Notification_Handler $handler  A notification handler.
+     */
+    public function setupNotification(Horde_Notification_Handler $handler)
+    {
+        $handler->addDecorator(new IMP_Notification_Handler_Decorator_ImapAlerts());
+        $handler->addDecorator(new IMP_Notification_Handler_Decorator_NewmailNotify());
+        $handler->addType('status', 'imp.*', 'IMP_Notification_Event_Status');
     }
 
     /* Horde_Core_Auth_Application methods. */

@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [jan] Notify about new mails in any Horde application.
 * [mms] New mail notifications now handled by the Horde Notification system (Request #9751).
 * [mms] Fix resuming messages with attachments (Bug #9780).
 * [mms] Fix folder actions in standard view in IE 7/8 (Bug #9801).
@@ -2109,6 +2110,7 @@
    <date>2011-04-04</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [jan] Notify about new mails in any Horde application.
 * [mms] New mail notifications now handled by the Horde Notification system (Request #9751).
 * [mms] Fix resuming messages with attachments (Bug #9780).
 * [mms] Fix folder actions in standard view in IE 7/8 (Bug #9801).

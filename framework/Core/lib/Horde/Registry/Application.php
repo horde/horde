@@ -154,6 +154,18 @@ class Horde_Registry_Application
     }
 
 
+    // Horde_Notification methods.
+
+    /**
+     * Modifies the global notification handler.
+     *
+     * @param Horde_Notification_Handler $handler  A notification handler.
+     */
+    public function setupNotification(Horde_Notification_Handler $handler)
+    {
+    }
+
+
     // Horde_Alarm methods.
 
     /**

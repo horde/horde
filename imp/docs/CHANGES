@@ -2,6 +2,7 @@
 v5.0
 ----
 
+[jan] Notify about new mails in any Horde application.
 [mms] New mail notifications now handled by the Horde Notification system
       (Request #9751).
 [mms] Fix resuming messages with attachments (Bug #9780).
