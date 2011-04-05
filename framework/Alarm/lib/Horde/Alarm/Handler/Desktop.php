@@ -49,7 +49,7 @@ class Horde_Alarm_Handler_Desktop extends Horde_Alarm_Handler
         if (!is_callable($params['js_notify'])) {
             throw new Horde_Alarm_Exception('Parameter \'js_notify\' is not a valid callback.');
         }
-        $this->_jsNotify = $params['jsNotify'];
+        $this->_jsNotify = $params['js_notify'];
         if (isset($params['icon'])) {
             $this->_icon = $params['icon'];
         }
