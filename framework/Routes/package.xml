@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-04-06</date>
- <time>01:17:41</time>
+ <time>01:17:55</time>
  <version>
-  <release>1.0.0</release>
+  <release>1.0.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* First stable release for Horde 4.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -186,6 +186,19 @@
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * First stable release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-06</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
