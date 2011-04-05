@@ -1932,8 +1932,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
                 case Horde_Imap_Client::FETCH_FLAGS:
                     /* QRESYNC would have already done syncing on mailbox
-                     * open, so no need to do again. */
-                    if (!$qresync) {
+                     * open, so no need to do again. Only can cache if MODSEQ
+                     * is available in the mailbox. */
+                    if (!$qresync && !empty($status_res['highestmodseq'])) {
                         /* Grab all flags updated since the cached modseq
                          * val. */
                         $metadata = $this->cache->getMetaData($this->_selected, $status_res['uidvalidity'], array(self::CACHE_MODSEQ));
@@ -2599,7 +2600,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $status = $this->status($mailbox, $query);
 
-        if ($query & Horde_Imap_Client::STATUS_HIGHESTMODSEQ) {
+        if (!empty($status['highestmodseq'])) {
             $parts = array(
                 'V' . $status['uidvalidity'],
                 'H' . $status['highestmodseq']
@@ -3009,9 +3010,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $status_res = $this->status($mailbox, $status_flags);
 
-        $highestmodseq = isset($status_res['highestmodseq'])
-            ? array($status_res['highestmodseq'])
-            : array();
+        $highestmodseq = empty($status_res['highestmodseq'])
+            ? null
+            : array($status_res['highestmodseq']);
         $uidvalid = isset($status_res['uidvalidity'])
             ? $status_res['uidvalidity']
             : $options['uidvalid'];
@@ -3036,11 +3037,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
                          * updated (in the former case, we reached here via
                          * a 'changedsince' FETCH and in the latter case, we
                          * are in EXAMINE/SELECT mode and will catch all flag
-                         * changes). */
-                        if ($modseq = $v->getModSeq()) {
-                            $highestmodseq[] = $modseq;
+                         * changes).
+                         * Ignore flag caching if MODSEQs not available. */
+                        if ($highestmodseq) {
+                            if ($modseq = $v->getModSeq()) {
+                                $highestmodseq[] = $modseq;
+                            }
+                            $tmp[$val] = $v->getFlags();
                         }
-                        $tmp[$val] = $v->getFlags();
                         break;
 
                     case Horde_Imap_Client::FETCH_HEADERS:

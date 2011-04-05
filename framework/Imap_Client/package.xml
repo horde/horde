@@ -23,6 +23,7 @@
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
 * First stable release for Horde 4.
+* [mms] Fixes for IMAP servers that support CONDSTORE but disable MODSEQs in mialboxes (Bug #9796).
 * [mms] Fix obtaining fetch results when searching by sequence number and using caching.
 * [mms] Add ability to sort mailboxes return from Horde_Imap_Client_Base#statusMultiple().
  </notes>

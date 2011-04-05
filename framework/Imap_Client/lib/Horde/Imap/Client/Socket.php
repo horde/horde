@@ -801,8 +801,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     /* This command may cause several things to happen.
                      * 1. UIDVALIDITY may have changed.  If so, we need
                      * to expire the cache immediately (done below).
-                     * 2. NOMODSEQ may have been returned.  If so, we also
-                     * need to expire the cache immediately (done below).
+                     * 2. NOMODSEQ may have been returned. We can keep current
+                     * message cache data but won't be able to do flag
+                     * caching.
                      * 3. VANISHED/FETCH information was returned. These
                      * responses will have already been handled by those
                      * response handlers.
@@ -842,13 +843,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if ($condstore) {
             $this->_setInit('enabled', array_merge($this->_init['enabled'], array('CONDSTORE' => true)));
-        }
-
-        /* MODSEQ should be set if CONDSTORE is active. Some servers won't
-         * advertise in SELECT/EXAMINE info though. */
-        if (isset($this->_init['enabled']['CONDSTORE']) &&
-            !isset($this->_temp['mailbox']['highestmodseq'])) {
-            $this->_temp['mailbox']['highestmodseq'] = 1;
         }
     }
 
@@ -2860,29 +2854,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $seq
         );
 
-        $condstore = $ucsince = null;
+        if (!empty($this->_temp['mailbox']['highestmodseq'])) {
+            $ucsince = empty($options['unchangedsince'])
+                ? null
+                : intval($options['unchangedsince']);
 
-        if (empty($this->_temp['mailbox']['highestmodseq'])) {
-            if (!empty($options['unchangedsince'])) {
-                /* RFC 4551 [3.1] - trying to do a UNCHANGEDSINCE STORE on a
-                 * mailbox that doesn't support it will return BAD. Catch that
-                 * here and throw an exception. */
-                $this->_exception('Mailbox does not support mod-sequences.', 'MBOXNOMODSEQ');
-            }
-        } else {
-            if (!empty($options['unchangedsince'])) {
-                $ucsince = intval($options['unchangedsince']);
-            }
-
-            if (isset($this->_init['enabled']['CONDSTORE'])) {
-                /* If we reach here, MODSEQ is active for mailbox. */
-                $condstore = true;
-
-                /* If CONDSTORE is enabled, we need to verify UNCHANGEDSINCE
-                 * added to ensure we get MODSEQ updated information. */
-                if (is_null($ucsince)) {
-                    $ucsince = $this->_temp['mailbox']['highestmodseq'];
-                }
+            /* If CONDSTORE is enabled, we need to verify UNCHANGEDSINCE
+             * added to ensure we get MODSEQ updated information. */
+            if (is_null($ucsince)) {
+                $ucsince = $this->_temp['mailbox']['highestmodseq'];
             }
 
             if ($ucsince) {
@@ -2891,6 +2871,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     array('t' => Horde_Imap_Client::DATA_NUMBER, 'v' => $ucsince)
                 );
             }
+        } elseif (!empty($options['unchangedsince'])) {
+            /* RFC 4551 [3.1] - trying to do a UNCHANGEDSINCE STORE on a
+             * mailbox that doesn't support it will return BAD. Catch that
+             * here and throw an exception. */
+             $this->_exception('Mailbox does not support mod-sequences.', 'MBOXNOMODSEQ');
         }
 
         $this->_temp['modified'] = new Horde_Imap_Client_Ids();
@@ -2918,7 +2903,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         /* Update the flags in the cache. Only update if store was successful
          * and flag information was not returned. */
-        if ($condstore && !empty($this->_temp['fetchresp']['seq'])) {
+        if (!empty($this->_temp['mailbox']['highestmodseq']) &&
+            !empty($this->_temp['fetchresp']['seq'])) {
             $fr = $this->_temp['fetchresp'];
             $tocache = $uids = array();
 
@@ -4198,11 +4184,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'NOMODSEQ':
             // Defined by RFC 4551 [3.1.2]
             $this->_temp['mailbox']['highestmodseq'] = 0;
-
-            // Delete cache for mailbox, if it exists.
-            if ($this->_initCache()) {
-                $this->cache->deleteMailbox($this->_selected);
-            }
             break;
 
         case 'MODIFIED':
