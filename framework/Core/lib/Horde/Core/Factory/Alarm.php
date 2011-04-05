@@ -47,7 +47,6 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
         $driver = empty($GLOBALS['conf']['alarms']['driver'])
             ? 'Null'
             : $GLOBALS['conf']['alarms']['driver'];
-
         $params = Horde::getDriverConfig('alarms', $driver);
 
         if (strcasecmp($driver, 'Sql') === 0) {
@@ -100,6 +99,9 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
     {
         global $session;
 
+        $driver = empty($GLOBALS['conf']['alarms']['driver'])
+            ? 'Null'
+            : $GLOBALS['conf']['alarms']['driver'];
         $params = Horde::getDriverConfig('alarms', $driver);
 
         if ($session->exists('horde', 'alarm_loaded') &&
