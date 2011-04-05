@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2011-04-06</date>
- <time>01:05:32</time>
+ <time>01:05:47</time>
  <version>
-  <release>1.0.0</release>
+  <release>1.0.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -35,9 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
-* First stable release for Horde 4.
-* [jan] Fix Cyrsql driver (Vilius Sumskas &lt;vilius@lnk.lt&gt;, Bug #9781).
-* [jan] Add SHA-256 hashing and add SHA as alias for SHA1.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -361,6 +359,19 @@
 * First stable release for Horde 4.
 * [jan] Fix Cyrsql driver (Vilius Sumskas &lt;vilius@lnk.lt&gt;, Bug #9781).
 * [jan] Add SHA-256 hashing and add SHA as alias for SHA1.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-06</date>
+   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
