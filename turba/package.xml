@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-05</date>
- <time>23:45:46</time>
+ <date>2011-04-06</date>
+ <time>01:49:42</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -1131,7 +1131,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-04-05</date>
+   <date>2011-04-06</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * First stable release for Horde 4.
