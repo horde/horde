@@ -104,6 +104,10 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
             : $GLOBALS['conf']['alarms']['driver'];
         $params = Horde::getDriverConfig('alarms', $driver);
 
+        if (!isset($params['ttl'])) {
+            $params['ttl'] = 0;
+        }
+
         if ($session->exists('horde', 'alarm_loaded') &&
             (time() - $session->get('horde', 'alarm_loaded')) < $params['ttl']) {
             return;
