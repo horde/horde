@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 4.0\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-05 13:52+0200\n"
+"POT-Creation-Date: 2011-04-05 14:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -524,20 +524,12 @@ msgstr ""
 msgid "Base graphics directory \"%s\" not found."
 msgstr ""
 
-#: config/registry.d/beatnik.php:4
-msgid "Beatnik"
-msgstr ""
-
 #: templates/portal/layout.inc:90
 msgid "Block Settings"
 msgstr ""
 
 #: templates/portal/layout.inc:72
 msgid "Block Type"
-msgstr ""
-
-#: config/registry.d/thomas.php:4
-msgid "Blogs"
 msgstr ""
 
 #: themes/bluemoon/info.php:2
@@ -550,10 +542,6 @@ msgstr ""
 
 #: config/registry.php:195
 msgid "Bookmarks"
-msgstr ""
-
-#: config/registry.d/groo.php:4
-msgid "Books"
 msgstr ""
 
 #: lib/Block/Fortune.php:103
@@ -674,10 +662,6 @@ msgstr ""
 
 #: config/prefs.php:443
 msgid "Choose how to display times:"
-msgstr ""
-
-#: config/registry.d/classified.php:4
-msgid "Classified Ads"
 msgstr ""
 
 #: lib/Block/WeatherdotcomStrings.php:19
@@ -1237,10 +1221,6 @@ msgstr ""
 msgid "Event Invites:"
 msgstr ""
 
-#: config/registry.d/eventmgr.php:4
-msgid "Event Manager"
-msgstr ""
-
 #: config/prefs.php:539 templates/portal/layout.inc:101
 msgid "Every 15 minutes"
 msgstr ""
@@ -1696,10 +1676,6 @@ msgstr ""
 msgid "Invalid product code."
 msgstr ""
 
-#: config/registry.d/minerva.php:4
-msgid "Invoices"
-msgstr ""
-
 #: lib/Block/WeatherdotcomStrings.php:37
 msgid "Isolated T-Storms"
 msgstr ""
@@ -1730,10 +1706,6 @@ msgstr ""
 
 #: config/nls.php:180
 msgid "Korean (EUC-KR)"
-msgstr ""
-
-#: config/registry.d/pigeon.php:4
-msgid "LDAP Browser"
 msgstr ""
 
 #: login.php:356 templates/login/login.inc:34
@@ -1992,10 +1964,6 @@ msgstr ""
 
 #: config/prefs.php:565
 msgid "Menu mode:"
-msgstr ""
-
-#: config/registry.d/letter.php:4
-msgid "Messaging"
 msgstr ""
 
 #: lib/Block/Metar.php:22
@@ -3028,10 +2996,6 @@ msgstr ""
 msgid "Sports"
 msgstr ""
 
-#: config/registry.d/spread.php:4
-msgid "Spread Sheets"
-msgstr ""
-
 #: lib/Block/Metar.php:60 lib/Block/Weatherdotcom.php:61
 msgid "Standard"
 msgstr ""
@@ -3194,10 +3158,6 @@ msgstr ""
 
 #: lib/Block/WeatherdotcomStrings.php:93
 msgid "T-Storms Late"
-msgstr ""
-
-#: config/registry.d/watson.php:4
-msgid "TV Schedule"
 msgstr ""
 
 #: lib/Block/Cloud.php:14
@@ -3451,10 +3411,6 @@ msgstr ""
 msgid "Translations"
 msgstr ""
 
-#: config/registry.d/gulliver.php:4
-msgid "Trips"
-msgstr ""
-
 #: config/nls.php:184
 msgid "Turkish (ISO-8859-9)"
 msgstr ""
@@ -3642,10 +3598,6 @@ msgstr ""
 
 #: lib/Block/WeatherdotcomStrings.php:101
 msgid "Very High"
-msgstr ""
-
-#: config/registry.d/oscar.php:4
-msgid "Videos"
 msgstr ""
 
 #: config/nls.php:186
