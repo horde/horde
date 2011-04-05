@@ -2,6 +2,7 @@
 v3.0
 ----
 
+[jan] Fix generating tooltip previews of encrypted notes.
 [jan] Fix application-specific permission checks (Bug #9786).
 [mjr] Datatree share to SQL upgrade script refactored for Horde 4.
 [mjr] Default sorting criteria by creation date (Bug #7332).

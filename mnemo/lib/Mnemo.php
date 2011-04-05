@@ -147,7 +147,11 @@ class Mnemo
      */
     public static function getNotePreview($note)
     {
-        $lines = explode("\n", wordwrap($note['body']));
+        $body = $note['body'];
+        if ($body instanceof Mnemo_Exception) {
+            $body = $body->getMessage();
+        }
+        $lines = explode("\n", wordwrap($body));
         return implode("\n", array_splice($lines, 0, 20));
     }
 
