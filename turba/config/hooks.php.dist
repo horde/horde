@@ -14,43 +14,6 @@
 class Turba_Hooks
 {
     /**
-     * PREFERENCE INIT: Set preference values on login.
-     *
-     * See horde/config/hooks.php.dist for more information.
-     */
-//    public function prefs_init($pref, $value, $username, $scope_ob)
-//    {
-//        switch ($pref) {
-//        case 'default_dir':
-//            /* Sets the user's personal address book as the default address
-//             * book. */
-//            if (!$GLOBALS['session']->get('turba', 'has_share')) {
-//               return;
-//            }
-//
-//             $cfgSources = Turba::availableSources();
-//             $shares = Turba::listShares(true);
-//
-//             foreach ($shares as $uid => $share) {
-//                 $params = @unserialize($share->get('params'));
-//                 if (empty($params['source'])) {
-//                     continue;
-//                 }
-//
-//                 try {
-//                     $driver = Turba_Driver::factory($params['source'], $cfgSources[$params['source']]);
-//                     if ($driver->checkDefaultShare($share, $cfgSources[$params['source']])) {
-//                         return $uid;
-//                     }
-//                 } catch (Turba_Exception $e) {}
-//             }
-//
-//             return $value;
-//         }
-//     }
-
-
-    /**
      * Called when we store a value.
      *
      * @param string $attribute      Attribute name.
