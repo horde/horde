@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-04-06</date>
- <time>01:49:42</time>
+ <time>01:50:41</time>
  <version>
-  <release>3.0.0</release>
+  <release>3.0.1</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -40,12 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* First stable release for Horde 4.
-* [mjr] Fix deletion of virtual address books (Bug # 9779).
-* [jan] Fix saving searches to virtual address books (Bug #9776).
-* [mjr] Datatree share to SQL upgrade script refactored for Horde 4.
-* [jan] Move all executable scripts to bin/ and prefix with turba-.
-* [jan] Add fields to all addresses if multiple passed to addField() API method (Request #3482).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1140,6 +1135,19 @@
 * [mjr] Datatree share to SQL upgrade script refactored for Horde 4.
 * [jan] Move all executable scripts to bin/ and prefix with turba-.
 * [jan] Add fields to all addresses if multiple passed to addField() API method (Request #3482).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.1</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
