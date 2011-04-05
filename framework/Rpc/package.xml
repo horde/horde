@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* First stable release for Horde 4.
 * [mjr] Fix for broken Nokia MfE clients (Bug #9757).
  </notes>
  <contents>

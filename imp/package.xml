@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* First stable release for Horde 4.
 * [jan] Notify about new mails in any Horde application.
 * [mms] New mail notifications now handled by the Horde Notification system (Request #9751).
 * [mms] Fix resuming messages with attachments (Bug #9780).
@@ -44,8 +45,7 @@
 * [mms] Fix honoring default encryption option in dynamic view.
 * [jan] Show full alarm notifications in dynamic view (Request #9748).
 * [jan] Fix saving S/MIME certs to address book.
-* [mms] Support importing of compressed mailbox files if the zip extension is
-  not available.
+* [mms] Support importing of compressed mailbox files if the zip extension is not available.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

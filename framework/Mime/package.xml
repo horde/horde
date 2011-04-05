@@ -29,7 +29,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Fix Horde_Mime::isChild().
+* First stable release for Horde 4.
+* [mms] Fix Horde_Mime::isChild().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

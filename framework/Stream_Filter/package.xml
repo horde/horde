@@ -28,7 +28,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Add CRC32 filter.
+* First stable release for Horde 4.
+* [mms] Add CRC32 filter.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Add ability to sort mailboxes return from Horde_Imap_Client_Base#statusMultiple().
+* First stable release for Horde 4.
+* [mms] Add ability to sort mailboxes return from Horde_Imap_Client_Base#statusMultiple().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

@@ -34,10 +34,11 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Add $canCompress and $canDecompress properties to Horde_Compress_Base.
-* Drivers now extend Horde_Compress_Base.
-* Add Horde_Compress_Exception.
-* Do all zip compression on stream data in streams.
+* First stable release for Horde 4.
+* [mms] Add $canCompress and $canDecompress properties to Horde_Compress_Base.
+* [mms] Drivers now extend Horde_Compress_Base.
+* [mms] Add Horde_Compress_Exception.
+* [mms] Do all zip compression on stream data in streams.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

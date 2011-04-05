@@ -23,6 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* First stable release for Horde 4.
 * [jan] Add removeMaps() method to Horde backend driver.
 * [jan] Convert database access to use Horde_Db.
  </notes>
@@ -1100,7 +1101,6 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <date>2011-03-29</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
    </notes>
   </release>
  </changelog>

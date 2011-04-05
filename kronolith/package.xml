@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* First stable release for Horde 4.
 * [jan] Fix application-specific permission checks (Bug #9786).
 * [jan] Fix fatal error when using the max_events permission (Bug #9784).
 * [mjr] Datatree share to SQL upgrade script refactored for Horde 4.

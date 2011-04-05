@@ -39,7 +39,7 @@ Reading, writing and listing of files are all supported, and there are both obje
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* First stable release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* 
+* First stable release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

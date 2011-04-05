@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* First stable release for Horde 4.
 * [mjr] Fix deletion of virtual address books (Bug # 9779).
 * [jan] Fix saving searches to virtual address books (Bug #9776).
 * [mjr] Datatree share to SQL upgrade script refactored for Horde 4.

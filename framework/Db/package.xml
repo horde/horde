@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* First stable release for Horde 4.
 * [jan] Add buildClause() from obsolete Horde_Sql.
  </notes>
  <contents>

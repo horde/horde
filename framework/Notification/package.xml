@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Fixed Decorator notify() behavior.
+* First stable release for Horde 4.
+* [mms] Fixed decorator notify() behavior.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

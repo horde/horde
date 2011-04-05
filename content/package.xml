@@ -23,11 +23,12 @@
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* First stable release for Horde 4.
 * [jan] Fix case-insensitive filtering of duplicate tags (Bug #9617).
  </notes>
  <contents>

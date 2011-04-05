@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* First stable release for Horde 4.
 * [jan] Fix application-specific permission checks (Bug #9786).
 * [jan] Correctly escape vacation subjects with quote characters in Maildrop driver (Bug #9156).
 * [jan] Catch all PEAR errors in Sieve driver.

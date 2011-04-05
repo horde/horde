@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* First stable release for Horde 4.
 * [mms] Add listAlarms() to methods provided by Horde_Core_Registry_Application.
 * [jan] Delay sidebar creation if the sidebar is generated through JavaScript.
 * [jan] Use localized application names when sorting the preference menu tree.

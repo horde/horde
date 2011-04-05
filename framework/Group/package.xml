@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* First stable release for Horde 4.
 * [jan] Add parameter to listAll() to only return groups that a user is member of.
  </notes>
  <contents>
@@ -281,7 +282,6 @@ Initial release as a PEAR package
    <date>2011-03-29</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
    </notes>
   </release>
  </changelog>

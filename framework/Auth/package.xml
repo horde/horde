@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
+* First stable release for Horde 4.
 * [jan] Fix Cyrsql driver (Vilius Sumskas &lt;vilius@lnk.lt&gt;, Bug #9781).
 * [jan] Add SHA-256 hashing and add SHA as alias for SHA1.
  </notes>
