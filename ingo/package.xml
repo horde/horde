@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-05</date>
- <time>23:45:45</time>
+ <date>2011-04-06</date>
+ <time>01:41:14</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -903,7 +903,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-04-05</date>
+   <date>2011-04-06</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * First stable release for Horde 4.
