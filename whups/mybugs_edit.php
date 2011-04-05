@@ -14,8 +14,8 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('whups');
 
 // Instantiate the blocks objects.
-$blocks = $injector->getInstance('Horde_Core_Factory_BlockCollection')->create(array('whups'));
-$layout = new Horde_Core_Block_Layout_Manager($blocks, @unserialize($prefs->getValue('mybugs_layout')));
+$blocks = $injector->getInstance('Horde_Core_Factory_BlockCollection')->create(array('whups'), 'mybugs_layout');
+$layout = $blocks->getLayoutManager();
 
 // Handle requested actions.
 $layout->handle(Horde_Util::getFormData('action'),

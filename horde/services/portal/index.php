@@ -22,21 +22,9 @@ if (($r_time = $prefs->getValue('summary_refresh_time'))
     Horde::metaRefresh($r_time, Horde::url('services/portal/'));
 }
 
-// Load layout from preferences.
-$layout_pref = @unserialize($prefs->getValue('portal_layout'));
-if (!is_array($layout_pref)) {
-    $layout_pref = array();
-}
-
-$bc = $injector->getInstance('Horde_Core_Factory_BlockCollection')->create();
-
-if (!count($layout_pref)) {
-    $layout_pref = $bc->getFixedBlocks();
-}
-
 // Render layout.
 $view = new Horde_Core_Block_Layout_View(
-    $layout_pref,
+    $injector->getInstance('Horde_Core_Factory_BlockCollection')->create()->getLayout(),
     Horde::url('services/portal/edit.php'),
     Horde::url('services/portal/index.php', true)
 );

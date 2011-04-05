@@ -27,21 +27,17 @@ if ($r_time = $prefs->getValue('summary_refresh_time')) {
 
 // Load layout from preferences for authenticated users, and a default
 // block set for guests.
-$mybugs_layout = @unserialize($prefs->getValue('mybugs_layout'));
-if (!$mybugs_layout) {
-    if ($registry->isAuthenticated()) {
-        $mybugs_layout = array(
-            array(array('app' => 'whups', 'params' => array('type' => 'mytickets', 'params' => false), 'height' => 1, 'width' => 1)),
-            array(array('app' => 'whups', 'params' => array('type' => 'myrequests', 'params' => false), 'height' => 1, 'width' => 1)),
-            array(array('app' => 'whups', 'params' => array('type' => 'myqueries', 'params' => false), 'height' => 1, 'width' => 1)));
-        $prefs->setValue('mybugs_layout', serialize($mybugs_layout));
-    } else {
-        // @TODO: show some blocks that are useful to guests.
-        $mybugs_layout = array();
-    }
+if (!@unserialize($prefs->getValue('mybugs_layout') &&
+    $registry->isAuthenticated())) {
+    $prefs->setValue('mybugs_layout', serialize(array(
+        array(array('app' => 'whups', 'params' => array('type' => 'mytickets', 'params' => false), 'height' => 1, 'width' => 1)),
+        array(array('app' => 'whups', 'params' => array('type' => 'myrequests', 'params' => false), 'height' => 1, 'width' => 1)),
+        array(array('app' => 'whups', 'params' => array('type' => 'myqueries', 'params' => false), 'height' => 1, 'width' => 1))
+    )));
 }
+
 $layout = new Horde_Core_Block_Layout_View(
-    $mybugs_layout,
+    $injector->getInstance('Horde_Core_Factory_Block_Collection')->create(array('whups'), 'mybugs_layout')->getLayout(),
     Horde::url('mybugs_edit.php'),
     Horde::url('mybugs.php', true)
 );

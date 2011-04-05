@@ -77,11 +77,11 @@ class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements
      * @param Horde_Core_Block_Collection $collection  TODO
      * @param array $layout                            TODO
      */
-    public function __construct($collection, $layout = array())
+    public function __construct(Horde_Core_Block_Collection $collection)
     {
         $this->_collection = $collection;
-        $this->_layout = $layout;
         $this->_editUrl = Horde::selfUrl();
+        $this->_layout = $collection->getLayout();
 
         // Fill the _covered caches and empty rows.
         $rows = count($this->_layout);

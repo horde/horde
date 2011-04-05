@@ -10,7 +10,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $layout = new Horde_Core_Block_Layout_View(
-    @unserialize($prefs->getValue('myansel_layout')),
+    $injector->getInstance('Horde_Core_Factory_Block_Collection')->create(array('ansel'), 'myansel_layout')->getLayout(),
     Horde::url('browse_edit.php'),
     Horde::url('browse.php', true)
 );
