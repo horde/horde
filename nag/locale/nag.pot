@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nag H4 (3.0)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"POT-Creation-Date: 2011-04-05 13:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,12 +68,12 @@ msgstr ""
 msgid "%s at %s"
 msgstr ""
 
-#: lib/Application.php:340 lib/Block/Summary.php:147 lib/Nag.php:771
+#: lib/Application.php:341 lib/Block/Summary.php:147 lib/Nag.php:771
 #, php-format
 msgid "%s is due in %s"
 msgstr ""
 
-#: lib/Application.php:341 lib/Block/Summary.php:144 lib/Nag.php:769
+#: lib/Application.php:342 lib/Block/Summary.php:144 lib/Nag.php:769
 #, php-format
 msgid "%s is due now."
 msgstr ""
@@ -272,7 +272,7 @@ msgstr ""
 msgid "Changes made for this task:"
 msgstr ""
 
-#: lib/Application.php:194
+#: lib/Application.php:195
 msgid "Choose how you want to receive reminders for tasks with alarms:"
 msgstr ""
 
@@ -661,7 +661,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: lib/Application.php:394 task.php:82 task.php:119
+#: lib/Application.php:395 task.php:82 task.php:119
 msgid "New Task"
 msgstr ""
 
@@ -761,7 +761,7 @@ msgstr ""
 #: lib/Api.php:895 lib/Api.php:935 lib/Api.php:950 lib/Api.php:989
 #: lib/Api.php:1027 lib/Api.php:1052 lib/Api.php:1104 lib/Api.php:1121
 #: lib/Api.php:1151 lib/Api.php:1238 lib/Api.php:1317 lib/Api.php:1371
-#: lib/Application.php:275 lib/Nag.php:285
+#: lib/Application.php:276 lib/Nag.php:285
 msgid "Permission Denied"
 msgstr ""
 
@@ -811,7 +811,7 @@ msgstr ""
 msgid "Saved %s."
 msgstr ""
 
-#: lib/Application.php:426 search.php:19 templates/list/header.inc:3
+#: lib/Application.php:427 search.php:19 templates/list/header.inc:3
 #: templates/search/search.inc:31
 msgid "Search"
 msgstr ""
@@ -1114,7 +1114,7 @@ msgstr ""
 msgid "The Tasks backend is not currently available: %s"
 msgstr ""
 
-#: lib/Application.php:135
+#: lib/Application.php:136
 msgid "The current hour"
 msgstr ""
 
@@ -1191,7 +1191,7 @@ msgstr ""
 msgid "There was an error importing the iCalendar data."
 msgstr ""
 
-#: lib/Application.php:250 lib/Application.php:262
+#: lib/Application.php:251 lib/Application.php:263
 #, php-format
 msgid "There was an error removing tasks for %s. Details have been logged."
 msgstr ""
@@ -1408,7 +1408,7 @@ msgstr ""
 msgid "_Task List"
 msgstr ""
 
-#: lib/Application.php:140
+#: lib/Application.php:141
 msgid "am"
 msgstr ""
 
@@ -1429,7 +1429,7 @@ msgstr ""
 msgid "iCalendar (vTodo)"
 msgstr ""
 
-#: lib/Application.php:413
+#: lib/Application.php:414
 #, php-format
 msgid "in %s"
 msgstr ""
@@ -1454,7 +1454,7 @@ msgstr ""
 msgid "not completed"
 msgstr ""
 
-#: lib/Application.php:140
+#: lib/Application.php:141
 msgid "pm"
 msgstr ""
 

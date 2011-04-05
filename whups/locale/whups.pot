@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"POT-Creation-Date: 2011-04-05 13:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -118,7 +118,7 @@ msgstr ""
 msgid "Add Attribute Criterion"
 msgstr ""
 
-#: mybugs.php:51
+#: mybugs.php:47
 msgid "Add Content"
 msgstr ""
 
@@ -981,7 +981,7 @@ msgstr ""
 msgid "Moved ticket %d to \"%s\""
 msgstr ""
 
-#: mybugs.php:50
+#: mybugs.php:46
 #, php-format
 msgid "My %s"
 msgstr ""

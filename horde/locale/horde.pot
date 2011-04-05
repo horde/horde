@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 4.0\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"POT-Creation-Date: 2011-04-05 13:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -269,7 +269,7 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: services/portal/index.php:60
+#: services/portal/index.php:48
 msgid "Add Content"
 msgstr ""
 
@@ -2086,11 +2086,11 @@ msgstr ""
 msgid "My Facebook Stream"
 msgstr ""
 
-#: services/portal/index.php:54
+#: services/portal/index.php:42
 msgid "My Portal"
 msgstr ""
 
-#: services/portal/edit.php:41
+#: services/portal/edit.php:32
 msgid "My Portal Layout"
 msgstr ""
 
@@ -4047,7 +4047,7 @@ msgstr ""
 msgid "_Groups"
 msgstr ""
 
-#: lib/Application.php:55
+#: lib/Application.php:56
 msgid "_Home"
 msgstr ""
 
