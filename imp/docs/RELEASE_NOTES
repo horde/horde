@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MAJORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the final release candidate of the
-Internet Mail Program (IMP) version H4 (5.0).
+The Horde Team is pleased to announce the final release of the Internet Mail
+Program (IMP) version H4 (5.0).
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
 open source webmail applications in the world. It allows universal, web-based
@@ -23,28 +23,42 @@ access to IMAP and POP3 mail servers and provides Ajax, mobile and traditional
 interfaces with a rich range of features normally found only in desktop email
 clients.
 
-We encourage widespread testing and feedback via the mailing lists or our bug
-tracking system. Updated translations are very welcome.
-
 To install IMP, you need to install Horde first. See
 https://github.com/horde/horde/blob/master/horde/docs/INSTALL for details. Once
 Horde is installed, you can install IMP with the following command:
 
-  pear install horde/imp-beta
+  pear install horde/imp
 
 Then log in to Horde with your adminstrator account to configure the
 application and install the database schema from the configuration interface.
 
-The major changes compared to the IMP version H4 (5.0-RC1) are:
+The major changes compared to the IMP version H4 (5.0-RC2) are:
 
-    * Improved vertical layout.
-    * Improved key navigation.
-    * Support importing of compressed mailbox files.
+    * Improved new mail notifications, now available in all applications.
+    * Improved alarm notifications in dynamic view.
     * Many small bugfixes and improvements.
 
-The full list of changes (from version H4 (5.0-RC1)) can be viewed here:
+The major changes compared to the IMP version H3 (4.3) are:
 
-https://github.com/horde/horde/blob/beed8107ca1a20aae880c39595a749261c40deba/imp/docs/CHANGES
+    * Updated for Horde 4.
+    * All interfaces in a single application.
+    * New mobile frontend.
+    * Much improved AJAX frontend including a vertical pane layout.
+    * New IMAP library written from scratch with broad RFC support and huge
+      performance improvements.
+    * More powerful search and filter functionality.
+    * Smart-reply feature.
+    * Improved new mail notifications.
+    * Localized special folders.
+    * Better display of HTML messages.
+    * HTML signatures.
+    * Draft auto-saving.
+    * Support for custom IMAP flags.
+    * Reduced memory usage.
+
+The full list of changes can be viewed here:
+
+https://github.com/horde/horde/blob/3994cf28ea75e8ae13bdb762066e81a3af4c0050/imp/docs/CHANGES
 
 Have fun!
 
@@ -53,10 +67,20 @@ ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Improved vertical layout.
-Improved key navigation.
-Support importing of compressed mailbox files.
-Many small bugfixes and improvements.
+Updated for Horde 4.
+All interfaces in a single application.
+New mobile frontend.
+Much improved AJAX frontend including a vertical pane layout.
+New IMAP library written from scratch with broad RFC support and huge performance improvements.
+More powerful search and filter functionality.
+Smart-reply feature.
+Improved new mail notifications.
+Localized special folders.
+Better display of HTML messages.
+HTML signatures.
+Draft auto-saving.
+Support for custom IMAP flags.
+Reduced memory usage.
 FM;
 
 $this->notes['name'] = 'IMP';

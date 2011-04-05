@@ -14,33 +14,35 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the final release candidate of the Turba
-Contact Manager version H4 (3.0).
+The Horde Team is pleased to announce the final release of the Turba Contact
+Manager version H4 (3.0).
 
 Turba is the Horde contact management application. Leveraging the Horde
 framework to provide seamless integration with IMP and other Horde
 applications, it supports storing contacts in SQL, LDAP, Kolab, and IMSP
 address books.
 
-We encourage widespread testing and feedback via the mailing lists or our bug
-tracking system. Updated translations are very welcome.
-
 To install Turba, you need to install Horde first. See
 https://github.com/horde/horde/blob/master/horde/docs/INSTALL for details. Once
 Horde is installed, you can install Turba with the following command:
 
-  pear install horde/turba-beta
+  pear install horde/turba
 
 Then log in to Horde with your adminstrator account to configure the
 application and install the database schema from the configuration interface.
 
-The major changes compared to the Turba version H4 (3.0-RC1) are:
+The major changes compared to the Turba version H4 (3.0-RC2) are:
 
-    * Small bug fixes.
+    * Many small bugfixes and improvements.
 
-The full list of changes (from version H4 (3.0-RC1)) can be viewed here:
+The major changes compared to the Turba version H3 (2.3) are:
 
-https://github.com/horde/horde/blob/0fdaca74c9ddcde7e63b7237a8ad1cbed6ae5b56/turba/docs/CHANGES
+    * Updated for Horde 4.
+    * Duplicates searching and merging.
+
+The full list of changes can be viewed here:
+
+https://github.com/horde/horde/blob/b2514fb99f2e0e389d70ab0ff12d0995a9c5845e/turba/docs/CHANGES
 
 Have fun!
 
@@ -49,7 +51,8 @@ ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Small bug fixes.
+Updated for Horde 4.
+Duplicates searching and merging.
 FM;
 
 $this->notes['name'] = 'Turba';

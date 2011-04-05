@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the final release candidate of the
-Kronolith Calendar Application version H4 (3.0).
+The Horde Team is pleased to announce the final release of the Kronolith
+Calendar Application version H4 (3.0).
 
 Kronolith is the Horde calendar application. It provides web-based calendars
 backed by a SQL database or a Kolab server. Supported features include Ajax and
@@ -24,25 +24,36 @@ mobile interfaces, shared calendars, remote calendars, invitation management
 events, and a sophisticated day/week view which handles arbitrary numbers of
 overlapping events.
 
-We encourage widespread testing and feedback via the mailing lists or our bug
-tracking system. Updated translations are very welcome.
-
 To install Kronolith, you need to install Horde first. See
 https://github.com/horde/horde/blob/master/horde/docs/INSTALL for details. Once
 Horde is installed, you can install Kronolith with the following command:
 
-  pear install horde/kronolith-beta
+  pear install horde/kronolith
 
 Then log in to Horde with your adminstrator account to configure the
 application and install the database schema from the configuration interface.
 
-The major changes compared to the Kronolith version H4 (3.0-RC1) are:
+The major changes compared to the Kronolith version H4 (3.0-RC2) are:
 
-    * Small bug fixes.
+    * Many small bugfixes and improvements.
 
-The full list of changes (from version H4 (3.0-RC1)) can be viewed here:
+The major changes compared to the Kronolith version H3 (2.3) are:
 
-https://github.com/horde/horde/blob/91827f1e758203df40489ad87a95518105d660bf/kronolith/docs/CHANGES
+    * Updated for Horde 4.
+    * New AJAX frontend with integrated tasks support.
+    * New mobile frontend.
+    * Resource scheduling.
+    * System calendars.
+    * Calendar coloring.
+    * Calendar and event tagging.
+    * Cross-timezone support.
+    * CalDAV client support.
+    * Improved recurring event exceptions.
+    * Improved notification and invitation messages.
+
+The full list of changes can be viewed here:
+
+https://github.com/horde/horde/blob/cdbf3cb139b5b5508b51316852176c2fbbe23546/kronolith/docs/CHANGES
 
 Have fun!
 
@@ -51,7 +62,17 @@ ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Small bug fixes.
+Updated for Horde 4.
+New AJAX frontend with integrated tasks support.
+New mobile frontend.
+Resource scheduling.
+System calendars.
+Calendar coloring.
+Calendar and event tagging.
+Cross-timezone support.
+CalDAV client support.
+Improved recurring event exceptions.
+Improved notification and invitation messages.
 FM;
 
 $this->notes['name'] = 'Kronolith';

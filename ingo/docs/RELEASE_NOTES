@@ -10,36 +10,40 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the final release candidate of the Ingo
-Email Filter Rules Manager version H4 (2.0).
+The Horde Team is pleased to announce the final release of the Ingo Email
+Filter Rules Manager version H4 (2.0).
 
 Ingo is an email-filter management application. It is fully internationalized,
 integrated with Horde and the IMP Webmail client, and supports both server-side
 (Sieve, procmail) and client-side (IMAP) message filtering.
 
-We encourage widespread testing and feedback via the mailing lists or our bug
-tracking system. Updated translations are very welcome.
-
 To install Ingo, you need to install Horde first. See
 https://github.com/horde/horde/blob/master/horde/docs/INSTALL for details. Once
 Horde is installed, you can install Ingo with the following command:
 
-  pear install horde/ingo-beta
+  pear install horde/ingo
 
 Then log in to Horde with your adminstrator account to configure the
 application and install the database schema from the configuration interface.
 
-The major changes compared to the Ingo version H4 (2.0-RC1) are:
+The major changes compared to the Ingo version H4 (2.0-RC2) are:
 
-    * Fixed updating forward rules in SQL driver.
+    * Changed default Sieve port to 4190.
+    * Many small bugfixes and improvements.
 
-The full list of changes (from version H4 (2.0-RC1)) can be viewed here:
+The major changes compared to the Ingo version H3 (1.2) are:
 
-https://github.com/horde/horde/blob/8b7af5705ad06ffc41f9f141a4ebc52eb506891f/ingo/docs/CHANGES
+    * Updated for Horde 4.
+    * Using IMP API for IMAP filtering.
+    * Changed default Sieve port to 4190.
+
+The full list of changes can be viewed here:
+
+https://github.com/horde/horde/blob/cdbf3cb139b5b5508b51316852176c2fbbe23546/ingo/docs/CHANGES
 
 Have fun!
 
@@ -48,7 +52,9 @@ ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Fixed updating forward rules in SQL driver.
+Updated for Horde 4.
+Using IMP API for IMAP filtering.
+Changed default Sieve port to 4190.
 FM;
 
 $this->notes['name'] = 'Ingo';
