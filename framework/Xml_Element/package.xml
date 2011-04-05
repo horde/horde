@@ -3,15 +3,15 @@
  <name>Horde_Xml_Element</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Xml Element object</summary>
- <description>This package provides an element object that can be used to provide SimpleXML-like functionality over a DOM object. The main advantage over using SimpleXML is the ability to add multiple levels of new elements in a single call, without introducing &quot;ghost&quot; objects.</description>
+ <description>This package provides an element object that can be used to provide SimpleXML-like functionality over a DOM object. The main advantage over using SimpleXML is the ability to add multiple levels of new elements in a single call, without introducing "ghost" objects.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-05</date>
- <time>23:37:31</time>
+ <date>2011-04-06</date>
+ <time>01:24:00</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -173,7 +173,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-04-05</date>
+   <date>2011-04-06</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * First stable release for Horde 4.
