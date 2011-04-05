@@ -23,9 +23,9 @@
   <active>yes</active>
  </developer>
  <date>2011-04-06</date>
- <time>01:07:23</time>
+ <time>01:07:46</time>
  <version>
-  <release>1.0.0</release>
+  <release>1.0.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -34,12 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* First stable release for Horde 4.
-* [mms] Add Horde_Core_Notification_Handler_Decorator_Base.
-* [mms] Add listAlarms() to methods provided by Horde_Core_Registry_Application.
-* [jan] Delay sidebar creation if the sidebar is generated through JavaScript.
-* [jan] Use localized application names when sorting the preference menu tree.
-* [mms] Fix adding port to certain urls passed to Horde::url() (Bug #9712).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1380,6 +1375,19 @@
 * [jan] Delay sidebar creation if the sidebar is generated through JavaScript.
 * [jan] Use localized application names when sorting the preference menu tree.
 * [mms] Fix adding port to certain urls passed to Horde::url() (Bug #9712).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
