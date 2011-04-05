@@ -618,10 +618,15 @@ class IMP_Prefs_Ui
             $current_users = array_keys($curr_acl);
             $new_user = array();
 
-            foreach (array('anyone') + $GLOBALS['registry']->callAppMethod('imp', 'authUserList') as $user) {
-                if (!in_array($user, $current_users)) {
-                    $new_user[] = htmlspecialchars($user);
+            try {
+                foreach (array('anyone') + $GLOBALS['registry']->callAppMethod('imp', 'authUserList') as $user) {
+                    if (!in_array($user, $current_users)) {
+                        $new_user[] = htmlspecialchars($user);
+                    }
                 }
+            } catch (Horde_Exception $e) {
+                $GLOBALS['notification']->push($e);
+                return;
             }
             $t->set('new_user', $new_user);
         } else {
