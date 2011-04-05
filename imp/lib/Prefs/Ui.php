@@ -757,7 +757,7 @@ class IMP_Prefs_Ui
         try {
             $curr_acl = $acl->getACL($folder);
         } catch (IMP_Exception $e) {
-            $notification->notify($e);
+            $notification->push($e);
             return;
         }
 
@@ -774,7 +774,7 @@ class IMP_Prefs_Ui
                     $acl->addRights($folder, $new_user, implode('', $ui->vars->new_acl));
                     $notification->push(sprintf(_("ACL for \"%s\" successfully created for the mailbox \"%s\"."), $new_user, $folder->label), 'horde.success');
                 } catch (IMP_Exception $e) {
-                    $notification->notify($e);
+                    $notification->push($e);
                 }
             }
         }
