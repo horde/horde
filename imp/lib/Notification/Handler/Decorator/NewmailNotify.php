@@ -27,7 +27,7 @@ extends Horde_Notification_Handler_Decorator_Base
     {
         global $injector, $prefs, $session;
 
-        $pushed = $GLOBALS['registry']->pushApp('imp');
+        $pushed = $GLOBALS['registry']->pushApp('imp', array('check_perms' => true, 'logintasks' => false));
 
         if (!$prefs->getValue('newmail_notify') ||
             !($listener instanceof Horde_Notification_Listener_Status) ||
