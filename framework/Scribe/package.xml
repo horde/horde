@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-05</date>
- <time>23:37:24</time>
+ <date>2011-04-06</date>
+ <time>01:18:10</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -143,7 +143,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-04-05</date>
+   <date>2011-04-06</date>
    <license uri="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</license>
    <notes>
 * First stable release for Horde 4.
