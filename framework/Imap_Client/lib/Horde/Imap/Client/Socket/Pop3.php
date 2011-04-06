@@ -477,7 +477,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         }
 
         if ($flags & Horde_Imap_Client::STATUS_UIDVALIDITY) {
-            $ret['uidvalidity'] = microtime(true);
+            $ret['uidvalidity'] = $this->queryCapability('UIDL')
+                ? 1
+                : microtime(true);
         }
 
         if ($flags & Horde_Imap_Client::STATUS_UNSEEN) {
