@@ -65,3 +65,4 @@ $env = '#!/bin/sh
 env PHPRC="' . realpath($path) . '" PATH="' . realpath($path) . '/pear:$PATH" PHP_PEAR_SYSCONF_DIR="' . realpath($path) . '" $SHELL';
 file_put_contents(realpath($path) . '/devenv', $env);
 chmod(realpath($path) . '/devenv', 0755);
+symlink(realpath($path) . '/pear/horde-components', realpath($path) . '/pear/hc');
