@@ -193,7 +193,7 @@ class Turba_Driver_Ldap extends Turba_Driver
             : 'ldap_search';
 
         if (!($res = @$func($this->_ds, $this->_params['root'], $filter, $attr, 0, $sizelimit))) {
-            throw Turba_Exception(sprintf(_("Query failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
+            throw new Turba_Exception(sprintf(_("Query failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
         }
 
         return $this->_getResults($fields, $res);
