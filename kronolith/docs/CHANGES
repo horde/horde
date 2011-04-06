@@ -2,6 +2,7 @@
 v3.0.1-git
 ----------
 
+[jan] Remove debug code in Ajax library (Bug #9818).
 
 
 ----

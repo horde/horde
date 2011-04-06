@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [jan] Remove debug code in Ajax library (Bug #9818).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1694,7 +1694,7 @@
    <date>2011-04-06</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [jan] Remove debug code in Ajax library (Bug #9818).
    </notes>
   </release>
  </changelog>
