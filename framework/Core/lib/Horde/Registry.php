@@ -593,7 +593,9 @@ class Horde_Registry
 
             if (!isset($app['name'])) {
                 $app['name'] = '';
-            } elseif (!file_exists($app['fileroot']) ||
+            }
+
+            if (!file_exists($app['fileroot']) ||
                       (empty($this->_args['test']) &&
                        file_exists($app['fileroot'] . '/config/conf.xml') &&
                        !file_exists($app['fileroot'] . '/config/conf.php'))) {
