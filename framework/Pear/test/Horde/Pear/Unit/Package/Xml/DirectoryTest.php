@@ -37,7 +37,6 @@ extends Horde_Pear_TestCase
 {
     public function testGetFiles()
     {
-        var_dump($this->_getList(dirname(__FILE__) . '/../../../fixture/directory'));
         $this->assertEquals(
             array(
                 '/lib/Old.php',
