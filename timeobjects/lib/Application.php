@@ -29,5 +29,5 @@ require_once HORDE_BASE . '/lib/core.php';
 
 class Timeobjects_Application extends Horde_Registry_Application
 {
-    public $version = '1.0';
+    public $version = '1.0.1-git';
 }
