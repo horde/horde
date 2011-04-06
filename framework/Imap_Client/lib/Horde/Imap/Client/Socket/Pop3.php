@@ -73,6 +73,13 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     protected $_deleted = array();
 
     /**
+     * This object returns POP3 Fetch data objects.
+     *
+     * @var string
+     */
+    protected $_fetchDataClass = 'Horde_Imap_Client_Data_Fetch_Pop3';
+
+    /**
      * The socket connection to the POP3 server.
      *
      * @var resource

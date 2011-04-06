@@ -2477,7 +2477,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         /* At this point, we don't have access to the UID of the entry. Thus,
          * need to cache data locally until we reach the end. */
-        $ob = new Horde_Imap_Client_Data_Fetch();
+        $ob = new $this->_fetchDataClass();
         $ob->setSeq($id);
 
         while ($i < $cnt) {

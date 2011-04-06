@@ -60,6 +60,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
     protected $_debug = null;
 
     /**
+     * The fetch data object type to return.
+     *
+     * @var string
+     */
+    protected $_fetchDataClass = 'Horde_Imap_Client_Data_Fetch';
+
+    /**
      * Cached server data.
      *
      * @var array
@@ -1977,7 +1984,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         /* Build the default fetch entries. */
         if (empty($options['fetch_res'])) {
-            $fetch_ob = new Horde_Imap_Client_Data_Fetch();
+            $fetch_ob = new $this->_fetchDataClass();
             $ret = array();
 
             $res_seq = $this->_getSeqUidLookup($options['ids']);
