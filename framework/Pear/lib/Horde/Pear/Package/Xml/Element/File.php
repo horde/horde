@@ -115,13 +115,22 @@ class Horde_Pear_Package_Xml_Element_File
     /**
      * Insert the file entry into the XML at the given point.
      *
-     * @params Horde_Pear_Package_Xml_Element_File $point Insertion point.
+     * @params DOMNode $point Insertion point.
      *
      * @return NULL
      */
-    public function insert(Horde_Pear_Package_Xml_Element_File $point = null)
+    public function insert(DOMNode $point = null)
     {
-        $point = $this->_parent->getDirectoryNode()->lastChild;
+        if ($point === null) {
+            $point = $this->_parent->getDirectoryNode()->lastChild;
+        } else {
+            if ($point->previousSibling) {
+                $ws = trim($point->previousSibling->textContent);
+                if (empty($ws)) {
+                    $point = $point->previousSibling;
+                }
+            }
+        }
 
         $this->setFileNode(
             $this->_xml->insert(
@@ -145,9 +154,9 @@ class Horde_Pear_Package_Xml_Element_File
     {
         $file = $this->getFileNode();
         $dir = $this->_parent->getDirectoryNode();
-        $ws = trim($file->nextSibling->textContent);
+        $ws = trim($file->previousSibling->textContent);
         if (empty($ws)) {
-            $dir->removeChild($file->nextSibling);
+            $dir->removeChild($file->previousSibling);
         }
         $dir->removeChild($file);
     }

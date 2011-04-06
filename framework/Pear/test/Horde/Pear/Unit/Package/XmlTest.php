@@ -264,6 +264,29 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testUpdateOrder()
+    {
+        $this->assertContains(
+            '<dir name="lib">
+    <dir name="A">
+     <file name="a.php" role="php" />
+    </dir> <!-- /lib/A -->
+    <dir name="b">
+     <file name="a.php" role="php" />
+    </dir> <!-- /lib/b -->
+    <dir name="z">
+     <file name="a.php" role="php" />
+    </dir> <!-- /lib/z -->
+    <file name="A.php" role="php" />
+    <file name="R.php" role="php" />
+    <file name="Stays.php" role="php">
+      <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+    </file>
+    <file name="Z.php" role="php" />',
+            (string) $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/order')
+        );
+    }
+
     public function testRole()
     {
         $xml = $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/simple-empty');

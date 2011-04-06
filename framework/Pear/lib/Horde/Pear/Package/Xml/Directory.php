@@ -142,7 +142,8 @@ class Horde_Pear_Package_Xml_Directory
     {
         $this->_files[basename($file)] = $this->_element->insertFile(
             basename($file),
-            $params['role']
+            $params['role'],
+            $this->_getFileInsertionPoint(basename($file))
         );
     }
 
@@ -192,10 +193,59 @@ class Horde_Pear_Package_Xml_Directory
         }
         if (!isset($this->_subdirectories[$next])) {
             $this->_subdirectories[$next] = new Horde_Pear_Package_Xml_Directory(
-                $this->_element->insertSubDirectory($next),
+                $this->_element->insertSubDirectory(
+                    $next,
+                    $this->_getDirectoryInsertionPoint($next)
+                ),
                 $this->_element->getLevel() + 1
             );
         }
         return $this->_subdirectories[$next]->getParent($tree);
+    }
+
+    /**
+     * Identify the insertion point for a new directory.
+     *
+     * @param string $new The key for the new element.
+     *
+     * @return mixed The insertion point.
+     */
+    private function _getDirectoryInsertionPoint($new)
+    {
+        $keys = array_keys($this->_subdirectories);
+        array_push($keys, $new);
+        sort($keys);
+        $pos = array_search($new, $keys);
+        if ($pos < count($this->_subdirectories)) {
+            return $this->_subdirectories[$keys[$pos + 1]]->getDirectory()->getDirectoryNode();
+        } else {
+            if (empty($this->_files)) {
+                return null;
+            } else {
+                $keys = array_keys($this->_files);
+                sort($keys);
+                return $this->_files[$keys[0]]->getFileNode();
+            }
+        }
+    }
+
+    /**
+     * Identify the insertion point for a new file.
+     *
+     * @param string $new The key for the new element.
+     *
+     * @return mixed The insertion point.
+     */
+    private function _getFileInsertionPoint($new)
+    {
+        $keys = array_keys($this->_files);
+        array_push($keys, $new);
+        sort($keys);
+        $pos = array_search($new, $keys);
+        if ($pos < count($this->_files)) {
+            return $this->_files[$keys[$pos + 1]]->getFileNode();
+        } else {
+            return null;
+        }
     }
 }
