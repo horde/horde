@@ -1,6 +1,6 @@
 <?php
 /**
- * Agora_Search:: class provides the functions & forms for search.
+ * Agora_Form_Search:: class provides the functions & forms for search.
  *
  * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
  *
@@ -10,7 +10,7 @@
  * @author  Jason Felice <jason.m.felice@gmail.com>
  * @package Agora
  */
-class SearchForm extends Horde_Form {
+class Agora_Form_Search extends Horde_Form {
 
     /**
      * Get list of available forums
@@ -26,7 +26,7 @@ class SearchForm extends Horde_Form {
     /**
      * Set up forum object
      */
-    function SearchForm(&$vars, $scope)
+    function __construct(&$vars, $scope)
     {
         parent::Horde_Form($vars, _("Search Forums"));
 

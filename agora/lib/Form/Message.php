@@ -9,7 +9,7 @@
  *
  * @package Agora
  */
-class MessageForm extends Horde_Form {
+class Agora_Form_Message extends Horde_Form {
 
     function validate(&$vars, $canAutoFill = false)
     {

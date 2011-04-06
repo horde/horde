@@ -1534,8 +1534,7 @@ class Agora_Messages {
     {
         global $conf;
 
-        require_once AGORA_BASE . '/lib/Forms/Message.php';
-        $form = new MessageForm($vars, $title);
+        $form = new Agora_Form_Message($vars, $title);
         $form->setButtons($editing ? _("Save") : _("Post"));
         $form->addHidden('', 'url', 'text', false);
 
@@ -2243,6 +2242,7 @@ class Agora_Messages {
         Horde::assertDriverConfig($this->_params, 'storage',
                                   array('phptype', 'charset'));
 
+        $conn_charset = strtolower(preg_replace(array('/[^a-zA-Z0-9]/', '/iso8859(\d)/'), array('', 'latin$1'), $this->_params['charset']));
         $charset = $this->_params['charset'];
         unset($this->_params['charset']);
 
@@ -2268,6 +2268,8 @@ class Agora_Messages {
         }
 
         $this->_db->setFetchMode(MDB2_FETCHMODE_ASSOC);
+        $this->_db->setCharset($conn_charset);
+        $this->_write_db->setCharset($conn_charset);
         $this->_write_db->setOption('seqcol_name', 'id');
         $this->_db->setOption('portability', MDB2_PORTABILITY_ALL ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
         $this->_params['charset'] = $charset;

@@ -9,11 +9,11 @@
  *
  * @package Agora
  */
-class ForumForm extends Horde_Form {
+class Agora_Form_Forum extends Horde_Form {
 
     /**
      */
-    function ForumForm(&$vars, $title)
+    function __construct(&$vars, $title)
     {
         global $forums, $conf;
 

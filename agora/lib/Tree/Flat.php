@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Tree_agoraflat:: class extends the Horde_Tree class to provide
+ * The Agora_Tree_Flat:: class extends the Horde_Tree_Base class to provide
  * agora flat threded view.
  *
  * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
@@ -11,7 +11,7 @@
  * @author Ben Chavet <ben@horde.org>
  * @author Duck <duck@obala.net>
  */
-class Horde_Tree_agoraflat extends Horde_Tree {
+class Agora_Tree_Flat extends Horde_Tree_Base {
 
     /**
      * TODO
@@ -23,9 +23,9 @@ class Horde_Tree_agoraflat extends Horde_Tree {
     /**
      * Constructor.
      */
-    function Horde_Tree_agoraflat($tree_name, $params)
+    public function __construct($tree_name, array $params = array())
     {
-        parent::Horde_Tree($tree_name, $params);
+        parent::__construct($tree_name, 'Html', $params);
         $this->_static = true;
     }
 
@@ -34,7 +34,7 @@ class Horde_Tree_agoraflat extends Horde_Tree {
      *
      * @return string  The HTML code of the rendered tree.
      */
-    function getTree()
+    public function getTree($static = false)
     {
         $this->_buildIndents($this->_root_nodes);
 
@@ -54,7 +54,7 @@ class Horde_Tree_agoraflat extends Horde_Tree {
      *
      * @return boolean  Whether or not this Tree:: backend will function.
      */
-    function isSupported()
+    public function isSupported()
     {
         return true;
     }
@@ -63,7 +63,7 @@ class Horde_Tree_agoraflat extends Horde_Tree {
      * Returns just the JS node definitions as a string. This is a no-op for
      * the select renderer.
      */
-    function renderNodeDefinitions()
+    public function renderNodeDefinitions()
     {
     }
 
@@ -76,7 +76,7 @@ class Horde_Tree_agoraflat extends Horde_Tree {
      * selected --  Whether this node is selected
      * </pre>
      */
-    function addNodeParams($id, $params = array())
+    public function addNodeParams($id, $params = array())
     {
         if (!is_array($params)) {
             $params = array($params);
@@ -101,7 +101,7 @@ class Horde_Tree_agoraflat extends Horde_Tree {
      *
      * @return string  The tree rendering.
      */
-    function _buildTree($node_id)
+    protected function _buildTree($node_id)
     {
         $extra = $this->_nodes[$node_id]['extra'][1];
         $output = '<div class="messageContainer" style="margin-left: ' . (int)$this->_nodes[$node_id]['indent'] . '0px">' . "\n"
