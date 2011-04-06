@@ -83,7 +83,6 @@ class Horde_Pear_Package_Xml_Contents
         $element->setDocument($this->_xml);
         $element->setDirectoryNode($contents);
         $this->_dir_list = new Horde_Pear_Package_Xml_Directory(
-            $xml,
             $element,
             1
         );

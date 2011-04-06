@@ -28,13 +28,6 @@
 class Horde_Pear_Package_Xml_Directory
 {
     /**
-     * The package.xml handler to operate on.
-     *
-     * @var Horde_Pear_Package_Xml
-     */
-    private $_xml;
-
-    /**
      * The directory node.
      *
      * @var Horde_Pear_Package_Xml_Element_Directory
@@ -73,17 +66,14 @@ class Horde_Pear_Package_Xml_Directory
      *                                                         tree.
      */
     public function __construct(
-        Horde_Pear_Package_Xml $xml,
         Horde_Pear_Package_Xml_Element_Directory $dir,
         $level
     ) {
-        $this->_xml = $xml;
         $this->_element = $dir;
         $this->_level = $level;
         $subdirectories = $this->_element->getSubdirectories();
         foreach ($subdirectories as $name => $element) {
             $this->_subdirectories[$name] = new Horde_Pear_Package_Xml_Directory(
-                $this->_xml,
                 $element,
                 $this->_level + 1
             );
@@ -237,7 +227,6 @@ class Horde_Pear_Package_Xml_Directory
         }
         if (!isset($this->_subdirectories[$next])) {
             $this->_subdirectories[$next] = new Horde_Pear_Package_Xml_Directory(
-                $this->_xml,
                 $this->_element->insertSubDirectory($next),
                 $this->_element->getLevel() + 1
             );
