@@ -39,6 +39,8 @@ implements Horde_Pear_Package_Contents_InstallAs
      */
     public function getInstallAs($file)
     {
-        return substr($file, 1);
+        $elements = explode('/', substr($file, 1));
+        array_shift($elements);
+        return join('/', $elements);
     }
 }
