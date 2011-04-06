@@ -167,7 +167,11 @@ class Horde_Pear_Package_Xml_Directory
      */
     private function _deleteFile($file)
     {
-        $this->_files[basename($file)]->remove($this->_element);
+        $this->_files[basename($file)]->delete();
+        unset($this->_files[basename($file)]);
+        if (empty($this->_files) && empty($this->_subdirectories)) {
+            $this->_element->delete();
+        }
     }
 
     /**

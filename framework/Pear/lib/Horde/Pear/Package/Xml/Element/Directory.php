@@ -269,4 +269,32 @@ class Horde_Pear_Package_Xml_Element_Directory
         $this->setDirectoryNode($dir);
     }
 
+    /**
+     * Remove the directory entry from the XML.
+     *
+     * @return NULL
+     */
+    public function delete()
+    {
+        $dir = $this->getDirectoryNode();
+        if ($dir->nextSibling) {
+            $ws = trim($dir->nextSibling->textContent);
+            if (empty($ws)) {
+                $dir->parentNode->removeChild($dir->nextSibling);
+            }
+        }
+        if ($dir->nextSibling) {
+            $comment = trim($dir->nextSibling->textContent);
+            if ($comment == $this->_path) {
+                $dir->parentNode->removeChild($dir->nextSibling);
+            }
+        }
+        if ($dir->nextSibling) {
+            $ws = trim($dir->nextSibling->textContent);
+            if (empty($ws)) {
+                $dir->parentNode->removeChild($dir->nextSibling);
+            }
+        }
+        $dir->parentNode->removeChild($dir);
+    }
 }

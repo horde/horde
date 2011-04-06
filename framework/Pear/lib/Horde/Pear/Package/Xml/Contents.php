@@ -111,11 +111,11 @@ class Horde_Pear_Package_Xml_Contents
     {
         $files = $contents->getContents();
         $added = array_diff(array_keys($files), $this->_dir_list->getFiles());
-        $removed = array_diff($this->_dir_list->getFiles(), array_keys($files));
+        $deleted = array_diff($this->_dir_list->getFiles(), array_keys($files));
         foreach ($added as $file) {
             $this->add($file, $files[$file]);
         }
-        foreach ($removed as $file) {
+        foreach ($deleted as $file) {
             $this->delete($file);
         }
     }

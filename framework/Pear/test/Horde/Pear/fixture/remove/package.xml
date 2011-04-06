@@ -28,6 +28,13 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="lib">
+    <dir name="a">
+     <file name="a.php" role="php" />
+    </dir> <!-- /lib/a -->
+    <dir name="b">
+     <file name="a.php" role="php" />
+     <file name="b.php" role="php" />
+    </dir> <!-- /lib/b -->
     <file name="Old.php" role="php" />
     <file name="Stays.php" role="php">
       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />

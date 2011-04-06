@@ -255,6 +255,15 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testUpdatePrune()
+    {
+        $this->assertContains(
+            '<dir name="lib">
+    <dir name="b">',
+            (string) $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/remove')
+        );
+    }
+
     public function testRole()
     {
         $xml = $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/simple-empty');

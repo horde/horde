@@ -139,11 +139,9 @@ class Horde_Pear_Package_Xml_Element_File
     /**
      * Remove the file entry from the XML.
      *
-     * @params Horde_Pear_Package_Xml_Element_Directory $parent The parent.
-     *
      * @return NULL
      */
-    public function remove()
+    public function delete()
     {
         $file = $this->getFileNode();
         $dir = $this->_parent->getDirectoryNode();
