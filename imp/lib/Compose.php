@@ -242,7 +242,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
             try {
                 $imap_url = $imp_imap->getUtils()->createUrl(array(
-                    'type' => $GLOBALS['session']->get('imp', 'protocol'),
+                    'type' => $imp_imap->pop3 ? 'pop' : 'imap',
                     'username' => $imp_imap->getParam('username'),
                     'hostspec' => $imp_imap->getParam('hostspec'),
                     'mailbox' => $this->getMetadata('mailbox'),
@@ -444,9 +444,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         if ($val) {
             $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
             $imap_url = $imp_imap->getUtils()->parseUrl(rtrim(ltrim($val, '<'), '>'));
+            $protocol = $imp_imap->pop3 ? 'pop' : 'imap';
 
             try {
-                if (($imap_url['type'] == $GLOBALS['session']->get('imp', 'protocol')) &&
+                if (($imap_url['type'] == $protocol) &&
                     ($imap_url['username'] == $imp_imap->getParam('username')) &&
                     // Ignore hostspec and port, since these can change
                     // even though the server is the same. UIDVALIDITY should

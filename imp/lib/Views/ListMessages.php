@@ -416,14 +416,15 @@ class IMP_Views_ListMessages
         $charset = 'UTF-8';
         $imp_ui = new IMP_Ui_Mailbox($mbox);
         $no_flags_hook = false;
+        $pop3 = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3;
 
         /* Display message information. */
         reset($overview['overview']);
         while (list(,$ob) = each($overview['overview'])) {
             /* Initialize the header fields. */
             $msg = array(
-                'imapuid' => (($GLOBALS['session']->get('imp', 'protocol') == 'pop') ? $ob['uid'] : intval($ob['uid'])),
-                'view' => $ob['mailbox'],
+                'imapuid' => ($pop3 ? $ob['uid'] : intval($ob['uid'])),
+                'view' => $ob['mailbox']
             );
 
             /* Get all the flag information. */

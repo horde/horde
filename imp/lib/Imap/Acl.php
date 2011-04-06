@@ -22,7 +22,9 @@ class IMP_Imap_Acl
      */
     public function __construct()
     {
-        if ($GLOBALS['session']->get('imp', 'protocol') != 'imap') {
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+
+        if (!$imp_imap->imap) {
             throw new IMP_Exception(_("ACL requires an IMAP server."));
         }
 
@@ -30,7 +32,7 @@ class IMP_Imap_Acl
             throw new IMP_Exception(_("ACLs not configured for this server."));
         }
 
-        if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->queryCapability('ACL')) {
+        if (!$imp_imap->queryCapability('ACL')) {
             throw new IMP_Exception(_("IMAP server does not support ACLs."));
         }
     }

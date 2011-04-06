@@ -391,7 +391,7 @@ if (isset($filter_url)) {
     $hdr_template->set('filter_img', Horde::img('filters.png', _("Apply Filters")));
 }
 $hdr_template->set('search', false);
-if ($session->get('imp', 'protocol') != 'pop') {
+if ($imp_imap->imap) {
     $hdr_template->set('search_img', Horde::img('search.png', _("Search")));
 
     if (!$search_mbox) {
@@ -470,7 +470,7 @@ if ($pageOb['msgcount']) {
     $n_template->set('sessiontag', Horde_Util::formInput());
     $n_template->set('use_folders', $imp_imap->allowFolders());
     $n_template->set('readonly', $readonly);
-    $n_template->set('use_pop', $session->get('imp', 'protocol') == 'pop');
+    $n_template->set('use_pop', $imp_imap->pop3);
 
     if (!$n_template->get('use_pop')) {
         $args = array(

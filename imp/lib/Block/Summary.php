@@ -76,8 +76,7 @@ class IMP_Block_Summary extends Horde_Core_Block
             $mbox_str = strval($mbox);
 
             if (isset($status[$mbox_str]) &&
-                (($mbox_str == 'INBOX') ||
-                 ($session->get('imp', 'protocol') != 'pop')) &&
+                ($mbox->inbox || $imp_imap->imap) &&
                 (empty($this->_params['show_unread']) ||
                  !empty($status[$mbox_str]['unseen']))) {
                  $mbox_status = $status[$mbox_str];

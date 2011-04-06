@@ -391,7 +391,7 @@ class IMP_Mailbox implements Serializable
              * implementation. We will always prefer REFERENCES, but will
              * fallback to ORDEREDSUBJECT if the server doesn't support THREAD
              * sorting. */
-            return (($GLOBALS['session']->get('imp', 'protocol') == 'imap') &&
+            return ($injector->getInstance('IMP_Factory_Imap')->create()->imap &&
                     !$this->search);
 
         case 'uidvalid':
@@ -483,7 +483,7 @@ class IMP_Mailbox implements Serializable
         /* Restrict POP3 sorting to sequence only.  Although possible to
          * abstract other sorting methods, all other methods require a
          * download of all messages, which is too much overhead.*/
-        if ($GLOBALS['session']->get('imp', 'protocol') == 'pop') {
+        if ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3) {
             $ob['by'] = Horde_Imap_Client::SORT_SEQUENCE;
             return $ob;
         }

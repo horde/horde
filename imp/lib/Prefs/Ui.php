@@ -32,10 +32,12 @@ class IMP_Prefs_Ui
      */
     public function prefsInit($ui)
     {
-        global $conf, $injector, $registry, $session;
+        global $conf, $injector, $registry;
+
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         /* Hide appropriate prefGroups. */
-        if ($session->get('imp', 'protocol') == 'pop') {
+        if ($imp_imap->pop3) {
             $ui->suppressGroups[] = 'flags';
             $ui->suppressGroups[] = 'searches';
             $ui->suppressGroups[] = 'server';
@@ -61,7 +63,7 @@ class IMP_Prefs_Ui
             $ui->suppressGroups[] = 'smime';
         }
 
-        if (!$injector->getInstance('IMP_Factory_Imap')->create()->allowFolders()) {
+        if (!$imp_imap->allowFolders()) {
             $ui->suppressGroups[] = 'searches';
         }
     }
@@ -76,6 +78,7 @@ class IMP_Prefs_Ui
         global $conf, $injector, $prefs, $registry, $session;
 
         $cprefs = $ui->getChangeablePrefs();
+        $pop3 = $injector->getInstance('IMP_Factory_Imap')->create()->pop3;
 
         switch ($ui->group) {
         case 'identities':
@@ -151,13 +154,13 @@ class IMP_Prefs_Ui
             case 'rename_sentmail_monthly':
             case 'tree_view':
             case 'use_trash':
-                if ($session->get('imp', 'protocol') == 'pop') {
+                if ($pop3) {
                     $ui->suppress[] = $val;
                 }
                 break;
 
             case 'delete_spam_after_report':
-                if ($session->get('imp', 'protocol') == 'pop') {
+                if ($pop3) {
                     $tmp = $ui->prefs['delete_spam_after_report']['enum'];
                     unset($tmp[2]);
                     $ui->override['delete_spam_after_report'] = $tmp;
@@ -180,7 +183,7 @@ class IMP_Prefs_Ui
             case 'purge_trash_interval':
             case 'purge_trash_keep':
             case 'trashselect':
-                if (($session->get('imp', 'protocol') == 'pop') ||
+                if ($pop3 ||
                     $prefs->isLocked('use_trash') ||
                     !$prefs->getValue('use_trash')) {
                     $ui->suppress[] = $val;

@@ -167,21 +167,22 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     {
         global $conf, $injector, $prefs, $session;
 
-        $unsubmode = (($session->get('imp', 'protocol') == 'pop') ||
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+
+        $unsubmode = ($imp_imap->pop3 ||
                       !$prefs->getValue('subscribe') ||
                       $session->get('imp', 'showunsub'));
 
         /* Reset class variables to the defaults. */
         $this->changed = true;
         $this->_currkey = $this->_currparent = null;
-        $this->_delimiter = '/';
+        $this->_delimiter = null;
         $this->_namespaces = $this->_parent = $this->_tree = array();
         $this->_showunsub = $unsubmode;
         unset($this->_cache['fulllist'], $this->_cache['subscribed']);
 
         /* Do IMAP specific initialization. */
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-        if ($session->get('imp', 'protocol') == 'imap') {
+        if ($imp_imap->imap) {
             $ns = $imp_imap->getNamespaceList();
             $ptr = reset($ns);
             $this->_delimiter = $ptr['delimiter'];
@@ -316,58 +317,65 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         }
         $this->_setOpen($elt, $open);
 
+        if (is_null($this->_delimiter)) {
+            $elt['c'] = 0;
+            return $elt;
+        }
+
         $ns_info = $this->_getNamespace($name);
-        $delimiter = is_null($ns_info) ? $this->_delimiter : $ns_info['delimiter'];
+        $delimiter = is_null($ns_info)
+            ? $this->_delimiter
+            : $ns_info['delimiter'];
         $tmp = explode($delimiter, $name);
         $elt['c'] = count($tmp) - 1;
 
-        if ($GLOBALS['session']->get('imp', 'protocol') != 'pop') {
-            try {
-                $this->_setInvisible($elt, !Horde::callHook('display_folder', array($elt['v']), 'imp'));
-            } catch (Horde_Exception_HookNotSet $e) {}
+        try {
+            $this->_setInvisible($elt, !Horde::callHook('display_folder', array($elt['v']), 'imp'));
+        } catch (Horde_Exception_HookNotSet $e) {}
 
-            if ($elt['c'] != 0) {
-                $elt['p'] = implode(is_null($ns_info) ? $this->_delimiter : $ns_info['delimiter'], array_slice($tmp, 0, $elt['c']));
-            }
+        if ($elt['c'] != 0) {
+            $elt['p'] = implode(is_null($ns_info) ? $this->_delimiter : $ns_info['delimiter'], array_slice($tmp, 0, $elt['c']));
+        }
 
-            if (!is_null($ns_info)) {
-                switch ($ns_info['type']) {
-                case Horde_Imap_Client::NS_PERSONAL:
-                    /* Strip personal namespace. */
-                    if (!empty($ns_info['name']) && ($elt['c'] != 0)) {
-                        --$elt['c'];
-                        if (strpos($elt['p'], $ns_info['delimiter']) === false) {
-                            $elt['p'] = self::BASE_ELT;
-                        } elseif (strpos($elt['v'], $ns_info['name'] . 'INBOX' . $ns_info['delimiter']) === 0) {
-                            $elt['p'] = 'INBOX';
-                        }
-                    }
-                    break;
+        if (is_null($ns_info)) {
+            return $elt;
+        }
 
-                case Horde_Imap_Client::NS_OTHER:
-                case Horde_Imap_Client::NS_SHARED:
-                    if (substr($ns_info['name'], 0, -1 * strlen($ns_info['delimiter'])) == $elt['v']) {
-                        $elt['a'] = self::ELT_NOSELECT | self::ELT_NAMESPACE;
-                    }
-
-                    if ($GLOBALS['prefs']->getValue('tree_view')) {
-                        $name = ($ns_info['type'] == Horde_Imap_Client::NS_OTHER)
-                            ? self::OTHER_KEY
-                            : self::SHARED_KEY;
-                        if ($elt['c'] == 0) {
-                            $elt['p'] = $name;
-                            ++$elt['c'];
-                        } elseif ($this->_tree[$name] && self::ELT_NOSHOW) {
-                            if ($elt['c'] == 1) {
-                                $elt['p'] = $name;
-                            }
-                        } else {
-                            ++$elt['c'];
-                        }
-                    }
-                    break;
+        switch ($ns_info['type']) {
+        case Horde_Imap_Client::NS_PERSONAL:
+            /* Strip personal namespace. */
+            if (!empty($ns_info['name']) && ($elt['c'] != 0)) {
+                --$elt['c'];
+                if (strpos($elt['p'], $ns_info['delimiter']) === false) {
+                    $elt['p'] = self::BASE_ELT;
+                } elseif (strpos($elt['v'], $ns_info['name'] . 'INBOX' . $ns_info['delimiter']) === 0) {
+                    $elt['p'] = 'INBOX';
                 }
             }
+            break;
+
+        case Horde_Imap_Client::NS_OTHER:
+        case Horde_Imap_Client::NS_SHARED:
+            if (substr($ns_info['name'], 0, -1 * strlen($ns_info['delimiter'])) == $elt['v']) {
+                $elt['a'] = self::ELT_NOSELECT | self::ELT_NAMESPACE;
+            }
+
+            if ($GLOBALS['prefs']->getValue('tree_view')) {
+                $name = ($ns_info['type'] == Horde_Imap_Client::NS_OTHER)
+                    ? self::OTHER_KEY
+                    : self::SHARED_KEY;
+                if ($elt['c'] == 0) {
+                    $elt['p'] = $name;
+                    ++$elt['c'];
+                } elseif ($this->_tree[$name] && self::ELT_NOSHOW) {
+                    if ($elt['c'] == 1) {
+                        $elt['p'] = $name;
+                    }
+                } else {
+                    ++$elt['c'];
+                }
+            }
+            break;
         }
 
         return $elt;

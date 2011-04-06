@@ -201,7 +201,7 @@ class IMP_Api extends Horde_Registry_Api
         return array(
             'hostspec' => $imap_ob->ob->getParam('hostspec'),
             'port' => $imap_ob->ob->getParam('port'),
-            'protocol' => $GLOBALS['session']->get('imp', 'protocol'),
+            'protocol' => $imap_ob->pop3 ? 'pop' : 'imap',
             'secure' => $imap_ob->ob->getParam('secure')
         );
     }
@@ -273,7 +273,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function flagList($mailbox = null)
     {
-        if ($GLOBALS['session']->get('imp', 'protocol') == 'pop') {
+        if ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3) {
             return array();
         }
 

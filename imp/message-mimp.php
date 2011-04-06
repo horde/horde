@@ -98,11 +98,13 @@ $uid = $index_ob['uid'];
 
 /* Get envelope/flag/header information. */
 try {
+    $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+
     /* Need to fetch flags before HEADERTEXT, because SEEN flag might be set
      * before we can grab it. */
     $query = new Horde_Imap_Client_Fetch_Query();
     $query->flags();
-    $flags_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox, $query, array(
+    $flags_ret = $imp_imap->fetch($mailbox, $query, array(
         'ids' => new Horde_Imap_Client_Ids($uid)
     ));
 
@@ -111,7 +113,7 @@ try {
     $query->headerText(array(
         'peek' => $readonly
     ));
-    $fetch_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox, $query, array(
+    $fetch_ret = $imp_imap->fetch($mailbox, $query, array(
         'ids' => new Horde_Imap_Client_Ids($uid)
     ));
 } catch (Horde_Imap_Client_Exception $e) {
@@ -121,7 +123,6 @@ try {
 $envelope = $fetch_ret[$uid]->getEnvelope();
 $flags = $flags_ret[$uid]->getFlags();
 $mime_headers = $fetch_ret[$uid]->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_PARSE);
-$use_pop = ($session->get('imp', 'protocol') == 'pop');
 
 /* Parse the message. */
 try {

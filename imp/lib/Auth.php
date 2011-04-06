@@ -17,7 +17,6 @@
  * maildomain - (string) See config/backends.php.
  * notepadavail - (boolean) Is listing of notepads available?
  * pgp - (array) TODO
- * protocol - (string) Either 'imap' or 'pop'.
  * rteavail - (boolean) Is the HTML editor available?
  * search - (IMP_Search) The IMP_Search object.
  * server_key - (string) Server used to login.
@@ -186,6 +185,10 @@ class IMP_Auth
             $user .= ' (Horde user ' . $auth_id . ')';
         }
 
+        $protocol = $imap_ob->imap
+            ? 'imap'
+            : ($imap_ob->pop3 ? 'pop' : '');
+
         $msg = sprintf(
             $msg . ' for %s [%s]%s to {%s:%s%s}',
             $user,
@@ -193,7 +196,7 @@ class IMP_Auth
             empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? '' : ' (forwarded for [' . $_SERVER['HTTP_X_FORWARDED_FOR'] . '])',
             $imap_ob->ob ? $imap_ob->getParam('hostspec') : '',
             $imap_ob->ob ? $imap_ob->getParam('port') : '',
-            $GLOBALS['session']->exists('imp', 'protocol') ? ' [' . $GLOBALS['session']->get('imp', 'protocol') . ']' : ''
+            $protocol ? ' [' . $protocol . ']' : ''
         );
 
         Horde::logMessage($msg, $level);
@@ -300,7 +303,7 @@ class IMP_Auth
     {
         $init_url = $GLOBALS['prefs']->getValue('initial_page');
         if (!$init_url ||
-            ($GLOBALS['session']->get('imp', 'protocol') == 'pop')) {
+            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3) {
             $init_url = 'INBOX';
         }
 
@@ -379,15 +382,12 @@ class IMP_Auth
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
-        /* Set the protocol. */
-        $session->set('imp', 'protocol', isset($ptr['protocol']) ? $ptr['protocol'] : 'imap');
-
         /* Set the maildomain. */
         $maildomain = $prefs->getValue('mail_domain');
         $session->set('imp', 'maildomain', $maildomain ? $maildomain : (isset($ptr['maildomain']) ? $ptr['maildomain'] : ''));
 
         /* Store some basic IMAP server information. */
-        if ($session->get('imp', 'protocol') == 'imap') {
+        if ($imp_imap->imap) {
             foreach (array('acl', 'admin', 'namespace', 'quota') as $val) {
                 if (!empty($ptr[$val])) {
                     $tmp = $ptr[$val];

@@ -28,6 +28,7 @@ Horde_Registry::appInit('imp', array(
     'timezone' => true
 ));
 
+$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 $imp_search = $injector->getInstance('IMP_Search');
 $imp_ui_mimp = $injector->getInstance('IMP_Ui_Mimp');
 $vars = Horde_Variables::getDefaultVariables();
@@ -109,7 +110,7 @@ case 's':
 
 // 'rs' = run search
 case 'rs':
-    if (!empty($vars->search) && ($session->get('imp', 'protocol') == 'imap')) {
+    if (!empty($vars->search) && $imp_imap->imap) {
         /* Create the search query and reset the global mailbox variable. */
         $q_ob = $imp_search->createQuery(array(new IMP_Search_Element_Text($vars->search, false)), array(
             'mboxes' => array(IMP::$mailbox)
@@ -242,7 +243,7 @@ if (!$search_mbox && IMP::$mailbox->threadsort) {
 }
 
 /* Add search link. */
-if ($session->get('imp', 'protocol') == 'imap') {
+if ($imp_imap->imap) {
     if ($search_mbox) {
         $mboxes = $imp_search[IMP::$mailbox]->mboxes;
         $orig_mbox = IMP_Mailbox::get(reset($mboxes));

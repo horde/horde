@@ -234,7 +234,7 @@ class IMP_Flags implements ArrayAccess, Serializable
             'personal' => null
         ), $opts);
 
-        $imap = ($GLOBALS['session']->get('imp', 'protocol') == 'imap');
+        $imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->imap;
         $ret = array();
 
         foreach (array_merge($this->_flags, $this->_userflags) as $val) {

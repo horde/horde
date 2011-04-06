@@ -261,6 +261,7 @@ class IMP_Application extends Horde_Registry_Application
         global $injector, $prefs, $registry;
 
         $menu_mailbox_url = Horde::url('mailbox.php');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         $menu->addArray(array(
             'icon' => 'folders/inbox.png',
@@ -268,7 +269,7 @@ class IMP_Application extends Horde_Registry_Application
             'url' => IMP::generateIMPUrl($menu_mailbox_url, 'INBOX')
         ));
 
-        if ($GLOBALS['session']->get('imp', 'protocol') != 'pop') {
+        if ($imp_imap->imap) {
             if ($prefs->getValue('use_trash') &&
                 $prefs->getValue('empty_trash_menu') &&
                 ($trash_folder = IMP_Mailbox::getPref('trash_folder')) &&
@@ -304,7 +305,7 @@ class IMP_Application extends Horde_Registry_Application
             ));
         }
 
-        if ($injector->getInstance('IMP_Factory_Imap')->create()->allowFolders()) {
+        if ($imp_imap->allowFolders()) {
             $menu->addArray(array(
                 'icon' => 'folders/folder.png',
                 'text' => _("_Folders"),
@@ -312,7 +313,7 @@ class IMP_Application extends Horde_Registry_Application
             ));
         }
 
-        if ($GLOBALS['session']->get('imp', 'protocol') != 'pop') {
+        if ($imp_imap->imap) {
             $menu->addArray(array(
                 'icon' => 'search.png',
                 'text' =>_("_Search"),
@@ -550,7 +551,7 @@ class IMP_Application extends Horde_Registry_Application
             )
         );
 
-        if ($GLOBALS['session']->get('imp', 'protocol') == 'pop') {
+        if ($injector->getInstance('IMP_Factory_Imap')->create()->pop3) {
             return;
         }
 

@@ -12,6 +12,9 @@
  * @category Horde
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
+ *
+ * @property boolean $imap  If true, this is an IMAP connection.
+ * @property boolean $pop3  If true, this is a POP3 connection.
  */
 class IMP_Imap implements Serializable
 {
@@ -56,6 +59,19 @@ class IMP_Imap implements Serializable
      * @var array
      */
     protected $_uidvalid = array();
+
+    /**
+     */
+    public function __get($key)
+    {
+        switch ($key) {
+        case 'imap':
+            return $this->ob && ($this->ob instanceof Horde_Imap_Client_Socket);
+
+        case 'pop3':
+            return $this->ob && ($this->ob instanceof Horde_Imap_Client_Socket_Pop3);
+        }
+    }
 
     /**
      * Create a new Horde_Imap_Client object.
@@ -193,9 +209,7 @@ class IMP_Imap implements Serializable
 
             /* This check can only be done for regular IMAP mailboxes
              * UIDNOTSTICKY not valid for POP3). */
-            if (!$res &&
-                ($GLOBALS['session']->get('imp', 'protocol') == 'imap') &&
-                !$mailbox->search) {
+            if (!$res && $this->imap && !$mailbox->search) {
                 try {
                     $status = $this->ob->status($mbox_key, Horde_Imap_Client::STATUS_UIDNOTSTICKY);
                     $res = $status['uidnotsticky'];
@@ -233,7 +247,7 @@ class IMP_Imap implements Serializable
         global $session;
 
         // POP3 does not support UIDVALIDITY.
-        if ($session->get('imp', 'protocol') == 'pop') {
+        if ($this->pop3) {
             return;
         }
 
@@ -279,7 +293,7 @@ class IMP_Imap implements Serializable
      */
     public function getNamespace($mailbox = null, $personal = false)
     {
-        if ($GLOBALS['session']->get('imp', 'protocol') == 'pop') {
+        if ($this->pop3) {
             return null;
         }
 
@@ -309,7 +323,7 @@ class IMP_Imap implements Serializable
      */
     public function defaultNamespace()
     {
-        if ($GLOBALS['session']->get('imp', 'protocol') == 'pop') {
+        if ($this->pop3) {
             return null;
         }
 

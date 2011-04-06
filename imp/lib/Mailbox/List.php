@@ -275,7 +275,7 @@ class IMP_Mailbox_List implements Countable, Serializable
                     $this->_sorted = array_reverse($this->_sorted);
                 }
             } else {
-                if (($GLOBALS['session']->get('imp', 'protocol') != 'pop') &&
+                if (($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->imap) &&
                     $this->_mailbox->hideDeletedMsgs()) {
                     $query = new Horde_Imap_Client_Search_Query();
                     $query->flag(Horde_Imap_Client::FLAG_DELETED, false);

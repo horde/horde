@@ -31,8 +31,9 @@ $registry->setTimeZone();
 /* We know we are going to be exclusively dealing with this mailbox, so
  * select it on the IMAP server (saves some STATUS calls). Open R/W to clear
  * the RECENT flag. */
+$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 if (!IMP::$mailbox->search) {
-    $injector->getInstance('IMP_Factory_Imap')->create()->openMailbox(IMP::$mailbox, Horde_Imap_Client::OPEN_READWRITE);
+    $imp_imap->openMailbox(IMP::$mailbox, Horde_Imap_Client::OPEN_READWRITE);
 }
 
 /* Make sure we have a valid index. */
@@ -225,7 +226,7 @@ try {
      * before we can grab it. */
     $query = new Horde_Imap_Client_Fetch_Query();
     $query->flags();
-    $flags_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox, $query, array(
+    $flags_ret = $imp_imap->fetch($mailbox, $query, array(
         'ids' => new Horde_Imap_Client_Ids($uid)
     ));
 
@@ -234,7 +235,7 @@ try {
     $query->headerText(array(
         'peek' => $peek
     ));
-    $fetch_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox, $query, array(
+    $fetch_ret = $imp_imap->fetch($mailbox, $query, array(
         'ids' => new Horde_Imap_Client_Ids($uid)
     ));
 } catch (Horde_Imap_Client_Exception $e) {
@@ -246,7 +247,6 @@ try {
 $envelope = $fetch_ret[$uid]->getEnvelope();
 $flags = $flags_ret[$uid]->getFlags();
 $mime_headers = $fetch_ret[$uid]->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_PARSE);
-$use_pop = ($session->get('imp', 'protocol') == 'pop');
 
 /* Get the title/mailbox label of the mailbox page. */
 $page_label = IMP::$mailbox->label;
@@ -449,10 +449,10 @@ $t_template->set('message_token', $message_token);
 $n_template = $injector->createInstance('Horde_Template');
 $n_template->setOption('gettext', true);
 $n_template->set('readonly', $readonly);
-$n_template->set('usepop', $use_pop);
+$n_template->set('usepop', $imp_imap->pop3);
 $n_template->set('id', 1);
 
-if (!$use_pop) {
+if ($imp_imap->imap) {
     $n_template->set('mailbox', IMP::$mailbox->form_to);
 
     $tmp = $imp_flags->getList(array(
@@ -475,7 +475,7 @@ if (!$use_pop) {
     $n_template->set('flaglist_set', $form_set);
     $n_template->set('flaglist_unset', $form_unset);
 
-    if ($injector->getInstance('IMP_Factory_Imap')->create()->allowFolders()) {
+    if ($imp_imap->allowFolders()) {
         $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget moveAction', '', '', _("Move"), true));
         $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget copyAction', '', '', _("Copy"), true));
         $n_template->set('options', IMP::flistSelect(array(
@@ -517,7 +517,7 @@ if (!$readonly) {
         $a_template->set('delete', Horde::widget($self_link->copy()->add('actionID', 'undelete_message'), _("Undelete"), 'widget', '', '', _("Undelete"), true));
     } else {
         $a_template->set('delete', Horde::widget($self_link->copy()->add('actionID', 'delete_message'), _("Delete"), 'widget', '', '', _("_Delete"), true));
-        if ($use_pop) {
+        if ($imp_imap->pop3) {
             Horde::addInlineJsVars(array(
                 'ImpMessage.pop3delete' => _("Are you sure you want to PERMANENTLY delete these messages?")
             ));

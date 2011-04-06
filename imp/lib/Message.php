@@ -21,23 +21,6 @@
 class IMP_Message
 {
     /**
-     * Using POP to access mailboxes?
-     *
-     * @var boolean
-     */
-    protected $_usepop = false;
-
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        if ($GLOBALS['session']->get('imp', 'protocol') == 'pop') {
-            $this->_usepop = true;
-        }
-    }
-
-    /**
      * Copies or moves a list of messages to a new mailbox.
      * Handles search and Trash mailboxes.
      * Also handles moves to the tasklist and/or notepad applications.
@@ -186,9 +169,11 @@ class IMP_Message
         $maillog_update = (empty($options['keeplog']) && !empty($conf['maillog']['use_maillog']));
         $return_value = 0;
 
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+
         /* Check for Trash folder. */
         $use_trash_folder = $use_vtrash = false;
-        if (!$this->_usepop && empty($options['nuke']) && $use_trash) {
+        if ($imp_imap->imap && empty($options['nuke']) && $use_trash) {
             $use_vtrash = $trash->vtrash;
             $use_trash_folder = !$use_vtrash;
         }
@@ -196,8 +181,6 @@ class IMP_Message
         if ($use_trash_folder && !$trash->create()) {
             return false;
         }
-
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 
         foreach ($indices as $ob) {
             $error = null;
@@ -258,7 +241,7 @@ class IMP_Message
                 $expunge_now = false;
                 $del_flags = array(Horde_Imap_Client::FLAG_DELETED);
 
-                if ($this->_usepop ||
+                if ($imp_imap->pop3 ||
                     !empty($options['nuke']) ||
                     ($use_trash && ($ob->mbox == $trash)) ||
                     $ob->mbox->vtrash) {

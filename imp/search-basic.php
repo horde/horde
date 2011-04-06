@@ -23,7 +23,7 @@ if (IMP::getViewMode() != 'imp') {
     exit;
 }
 
-if ($session->get('imp', 'protocol') == 'pop') {
+if ($injector->getInstance('IMP_Factory_Imap')->create()->pop3) {
     $notification->push(_("Searching is not available with a POP3 server."), 'horde.error');
     $from_message_page = true;
     $actionID = $start = null;
