@@ -45,7 +45,7 @@ var DimpCore = {
                 return;
             }
 
-            var u = (DIMP.conf.pop3 ? o.value : o.value.numericSort()),
+            var u = (DIMP.conf.pop3 ? o.value.clone() : o.value.numericSort()),
                 first = u.shift(),
                 last = first,
                 out = [];

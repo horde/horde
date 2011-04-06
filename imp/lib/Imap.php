@@ -177,7 +177,7 @@ class IMP_Imap implements Serializable
      */
     public function updateFetchIgnore()
     {
-        if ($this->ob) {
+        if ($this->imap) {
             $special = IMP_Mailbox::getSpecialMailboxes();
 
             $this->ob->fetchCacheIgnore(array(

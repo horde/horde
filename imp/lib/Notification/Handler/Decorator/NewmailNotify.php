@@ -31,21 +31,22 @@ extends Horde_Core_Notification_Handler_Decorator_Base
     {
         global $injector, $prefs, $session;
 
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+
         if (!$prefs->getValue('newmail_notify') ||
             !($listener instanceof Horde_Notification_Listener_Status) ||
-            !($ob = $injector->getInstance('IMP_Factory_Imap')->create()) ||
-            !$ob->ob) {
+            !$imp_imap->imap) {
             return;
         }
 
-        $ns = $ob->getNamespace();
+        $ns = $imp_imap->getNamespace();
         $recent = array();
 
-        foreach ($ob->statusMultiple($injector->getInstance('IMP_Imap_Tree')->getPollList(), Horde_Imap_Client::STATUS_RECENT, array('sort' => true, 'sort_delimiter' => $ns['delimiter'])) as $key => $val) {
+        foreach ($imp_imap->statusMultiple($injector->getInstance('IMP_Imap_Tree')->getPollList(), Horde_Imap_Client::STATUS_RECENT, array('sort' => true, 'sort_delimiter' => $ns['delimiter'])) as $key => $val) {
             if (!empty($val['recent'])) {
                 /* Open the mailbox R/W so we ensure the 'recent' flag is
                  * cleared. */
-                $ob->openMailbox($key, Horde_Imap_Client::OPEN_READWRITE);
+                $imp_imap->openMailbox($key, Horde_Imap_Client::OPEN_READWRITE);
 
                 $recent[IMP_Mailbox::get($key)->display] = $val['recent'];
             }

@@ -428,30 +428,32 @@ class IMP_Views_ListMessages
             );
 
             /* Get all the flag information. */
-            if (!$no_flags_hook) {
-                try {
-                    $ob['flags'] = array_merge($ob['flags'], Horde::callHook('msglist_flags', array($ob, 'dimp'), 'imp'));
-                } catch (Horde_Exception_HookNotSet $e) {
-                    $no_flags_hook = true;
+            if (!$pop3) {
+                if (!$no_flags_hook) {
+                    try {
+                        $ob['flags'] = array_merge($ob['flags'], Horde::callHook('msglist_flags', array($ob, 'dimp'), 'imp'));
+                    } catch (Horde_Exception_HookNotSet $e) {
+                        $no_flags_hook = true;
+                    }
                 }
-            }
 
-            $flag_parse = $GLOBALS['injector']->getInstance('IMP_Flags')->parse(array(
-                'flags' => $ob['flags'],
-                'headers' => $ob['headers'],
-                'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']->to, array('charset' => $charset))
-            ));
+                $flag_parse = $GLOBALS['injector']->getInstance('IMP_Flags')->parse(array(
+                    'flags' => $ob['flags'],
+                    'headers' => $ob['headers'],
+                    'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']->to, array('charset' => $charset))
+                ));
 
-            if (!empty($flag_parse)) {
-                $msg['flag'] = array();
-                foreach ($flag_parse as $val) {
-                    $msg['flag'][] = $val->id;
+                if (!empty($flag_parse)) {
+                    $msg['flag'] = array();
+                    foreach ($flag_parse as $val) {
+                        $msg['flag'][] = $val->id;
+                    }
                 }
-            }
 
-            /* Drafts. */
-            if ($imp_ui->isDraft($ob['flags'])) {
-                $msg['draft'] = 1;
+                /* Drafts. */
+                if ($imp_ui->isDraft($ob['flags'])) {
+                    $msg['draft'] = 1;
+                }
             }
 
             /* Format size information. */

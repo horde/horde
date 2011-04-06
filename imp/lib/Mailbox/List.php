@@ -489,13 +489,18 @@ class IMP_Mailbox_List implements Countable, Serializable
             return $total;
 
         case IMP::MAILBOX_START_FIRSTUNSEEN:
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+            if ($imp_imap->pop3) {
+                return 1;
+            }
+
             $sortpref = $this->_mailbox->getSort();
 
             /* Optimization: if sorting by sequence then first unseen
              * information is returned via a SELECT/EXAMINE call. */
             if ($sortpref['by'] == Horde_Imap_Client::SORT_SEQUENCE) {
                 try {
-                    $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->status($this->_mailbox, Horde_Imap_Client::STATUS_FIRSTUNSEEN);
+                    $res = $imp_imap->status($this->_mailbox, Horde_Imap_Client::STATUS_FIRSTUNSEEN);
                     if (!is_null($res['firstunseen'])) {
                         return $res['firstunseen'];
                     }
@@ -510,6 +515,10 @@ class IMP_Mailbox_List implements Countable, Serializable
                 : ($this->getArrayIndex($unseen_msgs['min']) + 1);
 
         case IMP::MAILBOX_START_LASTUNSEEN:
+            if ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3) {
+                return 1;
+            }
+
             $unseen_msgs = $this->unseenMessages(Horde_Imap_Client::SORT_RESULTS_MAX, true);
             return empty($unseen_msgs['max'])
                 ? 1

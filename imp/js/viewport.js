@@ -863,7 +863,7 @@ var ViewPort = Class.create({
         buffer.update(Object.isArray(r.data) ? {} : r.data, Object.isArray(r.rowlist) ? {} : r.rowlist, r.metadata || {}, { reset: r.reset, resetmd: r.resetmd, update: r.update });
 
         if (r.reset) {
-            this.select(new ViewPort_Selection());
+            this.deselect(this.getSelected());
         } else if (r.update && r.disappear && r.disappear.size()) {
             this.deselect(this.createSelection('uid', r.disappear, r.view));
             buffer.removeData(r.disappear);

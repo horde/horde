@@ -1817,6 +1817,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     static public function flagEntry($flags, $add, $indices)
     {
+        if ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3) {
+            return new stdClass;
+        }
+
         $changed = $GLOBALS['injector']->getInstance('IMP_Flags')->changed($flags, $add);
 
         $result = new stdClass;
