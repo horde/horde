@@ -29,6 +29,9 @@
   <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="a">
+     <dir name="a">
+      <file name="a.php" role="php" />
+     </dir> <!-- /lib/a -->
      <file name="a.php" role="php" />
     </dir> <!-- /lib/a -->
     <dir name="b">

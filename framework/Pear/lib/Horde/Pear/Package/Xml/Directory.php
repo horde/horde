@@ -35,6 +35,13 @@ class Horde_Pear_Package_Xml_Directory
     private $_element;
 
     /**
+     * The parent directory.
+     *
+     * @var Horde_Pear_Package_Xml_Directory
+     */
+    private $_parent;
+
+    /**
      * The list of subdirectories.
      *
      * @var array
@@ -51,15 +58,20 @@ class Horde_Pear_Package_Xml_Directory
     /**
      * Constructor.
      *
-     * @param Horde_Pear_Package_Xml_Element_Directory $dir The directory element.
+     * @param Horde_Pear_Package_Xml_Element_Directory $dir    The directory element.
+     * @param Horde_Pear_Package_Xml_Directory         $parent The parent directory.
      */
-    public function __construct(Horde_Pear_Package_Xml_Element_Directory $dir)
-    {
+    public function __construct(
+        Horde_Pear_Package_Xml_Element_Directory $dir,
+        Horde_Pear_Package_Xml_Directory $parent = null
+    ) {
         $this->_element = $dir;
+        $this->_parent = $parent;
         $subdirectories = $this->_element->getSubdirectories();
         foreach ($subdirectories as $name => $element) {
             $this->_subdirectories[$name] = new Horde_Pear_Package_Xml_Directory(
-                $element
+                $element,
+                $this
             );
         }
         $this->_files = $this->_element->getFiles();
@@ -170,8 +182,34 @@ class Horde_Pear_Package_Xml_Directory
     {
         $this->_files[basename($file)]->delete();
         unset($this->_files[basename($file)]);
+        $this->_prune();
+    }
+
+    /**
+     * Delete a subdirectory from the list.
+     *
+     * @param string $dir The directory name.
+     *
+     * @return NULL
+     */
+    private function _deleteSubdirectory($dir)
+    {
+        unset($this->_subdirectories[$dir]);
+        $this->_prune();
+    }
+
+    /**
+     * Prune this directory if it is empty.
+     *
+     * @return NULL
+     */
+    private function _prune()
+    {
         if (empty($this->_files) && empty($this->_subdirectories)) {
             $this->_element->delete();
+            if (!empty($this->_parent)) {
+                $this->_parent->_deleteSubdirectory($this->_element->getName());
+            }
         }
     }
 
@@ -197,7 +235,7 @@ class Horde_Pear_Package_Xml_Directory
                     $next,
                     $this->_getDirectoryInsertionPoint($next)
                 ),
-                $this->_element->getLevel() + 1
+                $this
             );
         }
         return $this->_subdirectories[$next]->getParent($tree);
