@@ -82,26 +82,13 @@ class Horde_Pear_Package_Xml_Directory
      */
     public function getFiles()
     {
-        return array_map(
-            array($this, '_prependRoot'),
-            $this->_getFiles()
-        );
-    }
-
-    /**
-     * Return the list of files in this hierarchy.
-     *
-     * @return array The file list.
-     */
-    private function _getFiles()
-    {
         $result = array();
         foreach ($this->_subdirectories as $directory) {
             $result = array_merge(
                 $result,
                 array_map(
                     array($this, '_prependDirectory'),
-                    $directory->_getFiles()
+                    $directory->getFiles()
                 )
             );
         }
@@ -116,18 +103,6 @@ class Horde_Pear_Package_Xml_Directory
     }
 
     /**
-     * Prepend the root directory separator to the path name.
-     *
-     * @param string $path The input path name.
-     *
-     * @return The completed path.
-     */
-    private function _prependRoot($path)
-    {
-        return '/' . $path;
-    }
-
-    /**
      * Prepend the directory name of this directory to the path name.
      *
      * @param string $path The input path name.
@@ -136,7 +111,9 @@ class Horde_Pear_Package_Xml_Directory
      */
     private function _prependDirectory($path)
     {
-        return $this->_element->getName() . '/' . $path;
+        return strtr(
+            $this->_element->getName() . '/' . $path, array('//' => '/')
+        );
     }
 
     /**
