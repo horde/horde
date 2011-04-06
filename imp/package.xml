@@ -34,7 +34,8 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [mms] IMP will refuse to work with POP3 servers that don't support UIDL.
+* [mms] Many POP3 fixes.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

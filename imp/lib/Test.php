@@ -200,6 +200,14 @@ class IMP_Test extends Horde_Test
             }
 
             // @todo IMAP Charset Search Support
+        } else {
+            $ret .= '<strong>Checking for the UIDL capability:</strong> ';
+
+            if ($imap_client->queryCapability('UIDL')) {
+                $ret .= '<span style="color:green">SUCCESS</span><p />';
+            } else {
+                return $this->_errorMsg(new Exception('The POP3 server does not support the *REQUIRED* UIDL capability.'));
+            }
         }
 
         return $ret;
@@ -212,7 +220,7 @@ class IMP_Test extends Horde_Test
      */
     protected function _errorMsg($e)
     {
-        return '<span style=\"color:red\">ERROR</span> - The server returned the following error message:' .
+        return '<span style="color:red">ERROR</span> - The server returned the following error message:' .
             '<pre>' . $e->getMessage() . '</pre><p />';
     }
 

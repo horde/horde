@@ -130,6 +130,12 @@ class IMP_Imap implements Serializable
         $this->ob = $ob;
 
         if ($protocol == 'pop') {
+            /* Check for UIDL support. */
+            if (!$this->queryCapability('UIDL')) {
+                Horde::logMessage('The POP3 server does not support the *REQUIRED* UIDL capability.', 'ERR');
+                return false;
+            }
+
             /* Turn some options off if we are working with POP3. */
             $prefs->setValue('save_sent_mail', false);
             $prefs->setLocked('save_sent_mail', true);
