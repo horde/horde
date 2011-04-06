@@ -35,13 +35,6 @@ class Horde_Pear_Package_Xml_Directory
     private $_element;
 
     /**
-     * The level in the tree.
-     *
-     * @var int
-     */
-    private $_level;
-
-    /**
      * The list of subdirectories.
      *
      * @var array
@@ -58,24 +51,15 @@ class Horde_Pear_Package_Xml_Directory
     /**
      * Constructor.
      *
-     * @param Horde_Pear_Package_Xml                    $xml   The package.xml
-     *                                                         handler to operate
-     *                                                         on.
-     * @param Horde_Pear_Package_Xml_Element_Directory  $dir   The directory element.
-     * @param int                                       $level The level in the
-     *                                                         tree.
+     * @param Horde_Pear_Package_Xml_Element_Directory $dir The directory element.
      */
-    public function __construct(
-        Horde_Pear_Package_Xml_Element_Directory $dir,
-        $level
-    ) {
+    public function __construct(Horde_Pear_Package_Xml_Element_Directory $dir)
+    {
         $this->_element = $dir;
-        $this->_level = $level;
         $subdirectories = $this->_element->getSubdirectories();
         foreach ($subdirectories as $name => $element) {
             $this->_subdirectories[$name] = new Horde_Pear_Package_Xml_Directory(
-                $element,
-                $this->_level + 1
+                $element
             );
         }
         $this->_files = $this->_element->getFiles();
