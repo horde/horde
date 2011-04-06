@@ -627,22 +627,12 @@ var DimpBase = {
                 this.setFolderLabel(this.folder, this.viewport.getMetaData('unseen') || 0);
             }
 
-            this.updateTitle(this.viewport.getMetaData('noexist'));
-
             if (this.rownum) {
                 this.viewport.select(this.rownum);
                 this.rownum = null;
             }
 
-            // 'label' will not be set if there has been an error
-            // retrieving data from the server.
-            l = this.viewport.getMetaData('label');
-            if (l) {
-                if (this.isSearch(null, true)) {
-                    l += ' (' + this.search.label + ')';
-                }
-                $('folderName').update(l);
-            }
+            this.updateTitle(true);
 
             if (this.folderswitch) {
                 this.folderswitch = false;
@@ -1249,35 +1239,34 @@ var DimpBase = {
         a.store('flag', flag);
     },
 
-    // nodefer - (boolean) If true, don't defer updating if folder element
-    //           does not exist.
-    updateTitle: function(nodefer)
+    updateTitle: function(foldername)
     {
-        if (!$('dimpmain_folder').visible()) {
+        var elt, flabel, unseen,
+            label = this.viewport.getMetaData('label');
+
+        // 'label' will not be set if there has been an error
+        // retrieving data from the server.
+        if (!label || !$('dimpmain_folder').visible()) {
             return;
         }
-
-        var elt, unseen,
-            // Label is HTML encoded - but this is not HTML code so unescape.
-            label = this.viewport.getMetaData('label').unescapeHTML();
 
         if (this.isSearch()) {
             if (this.isSearch(null, true)) {
                 label += ' (' + this.search.label + ')';
             }
-        } else {
-            elt = $(this.getFolderId(this.folder));
-            if (elt) {
-                unseen = elt.retrieve('u');
-                if (unseen > 0) {
-                    label += ' (' + unseen + ')';
-                }
-            } else if (!nodefer) {
-                this.updateTitle.bind(this).defer();
+        } else if (elt = $(this.getFolderId(this.folder))) {
+            unseen = elt.retrieve('u');
+            if (unseen > 0) {
+                flabel = label;
+                label += ' (' + unseen + ')';
             }
         }
 
-        this.setTitle(label);
+        // Label is HTML encoded - but this is not HTML code so unescape.
+        this.setTitle(label.unescapeHTML());
+        if (foldername) {
+            $('folderName').update(flabel ? flabel : label);
+        }
     },
 
     sort: function(sortby)
