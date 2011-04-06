@@ -149,27 +149,6 @@ class Horde_Pear_Package_Xml
     }
 
     /**
-     * Append a file in the file listing.
-     *
-     * @param DOMNode $node       The node to append the file to.
-     * @param string  $name       The name of the file.
-     * @param string  $install_as The install location for the file..
-     *
-     * @return DOMNode The new file node.
-     */
-    public function appendInstall(DOMNode $node, $name, $install_as)
-    {
-        $this->_insertWhiteSpaceBefore($node->lastChild, "\n   ");
-        $file = $this->_xml->createElementNS(
-            self::XMLNAMESPACE, 'install'
-        );
-        $file->setAttribute('as', $install_as);
-        $file->setAttribute('name', $name);
-        $node->insertBefore($file, $node->lastChild);
-        return $file;
-    }
-
-    /**
      * Mark the package as being release and set the timestamps to now.
      *
      * @return NULL

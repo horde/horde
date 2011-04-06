@@ -132,9 +132,46 @@ class Horde_Pear_Package_Xml_Contents
     {
         $this->_dir_list->addFile($file, $params);
         if (!in_array($file, array_keys($this->_install_list))) {
-            $this->_install_list[$file] = $this->_xml->appendInstall(
-                $this->_filelist, substr($file, 1), $params['as']
+            $point = $this->_getInstallInsertionPoint($file);
+            if ($point === null) {
+                $point = $this->_filelist->lastChild;
+            } else {
+                if ($point->previousSibling) {
+                    $ws = trim($point->previousSibling->textContent);
+                    if (empty($ws)) {
+                        $point = $point->previousSibling;
+                    }
+                }
+            }
+            $this->_install_list[$file] = $this->_xml->insert(
+                array(
+                    "\n   ",
+                    'install' => array(
+                        'as' => $params['as'], 'name' => substr($file, 1)
+                    ),
+                ),
+                $point
             );
+        }
+    }
+
+    /**
+     * Identify the insertion point for a new file.
+     *
+     * @param string $new The key for the new element.
+     *
+     * @return mixed The insertion point.
+     */
+    private function _getInstallInsertionPoint($new)
+    {
+        $keys = array_keys($this->_install_list);
+        array_push($keys, $new);
+        sort($keys);
+        $pos = array_search($new, $keys);
+        if ($pos < count($this->_install_list)) {
+            return $this->_install_list[$keys[$pos + 1]];
+        } else {
+            return null;
         }
     }
 
