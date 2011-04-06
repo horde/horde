@@ -122,7 +122,14 @@ implements Horde_Pear_Package_Type
      */
     public function getInstallAs()
     {
-        $class = 'Horde_Pear_Package_Contents_InstallAs_Horde' . $this->getType();
+        switch ($this->getName()) {
+        case 'components':
+            $class = 'Horde_Pear_Package_Contents_InstallAs_HordeComponent';
+            break;
+        default:
+            $class = 'Horde_Pear_Package_Contents_InstallAs_Horde' . $this->getType();
+            break;
+        }
         return new $class();
     }
 
