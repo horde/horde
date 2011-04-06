@@ -3,18 +3,9 @@
 ======================
 
  - Add a release helper module.
-   - Update package.xml to bump version and empty notes after the release.
    - Allow to configure the mail transport for sending announcements.
    - Validate that the release does not exist before releasing.
    - Error handling.
-
- - Extract elements to Horde_Pear
-   - Extract content handling
-   - Extract filelist generation
-   - Extract package.xml update
-   - Extract package.xml generation
-
- - Fix context-sensitive help generation (include options).
 
  - Bootstrapping script
    - must be able to update the bootstrapped environment (probably
