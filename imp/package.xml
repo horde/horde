@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-07</date>
- <time>10:17:01</time>
+ <date>2011-04-08</date>
+ <time>00:36:42</time>
  <version>
   <release>5.0.1</release>
   <api>5.0.0</api>
@@ -270,28 +270,6 @@
      <file name="Null.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Sentmail -->
-    <dir name="tests">
-     <dir name="Imp">
-      <dir name="fixtures">
-       <file name="maildirsize" role="horde" />
-      </dir> <!-- /lib/tests/Imp/fixtures -->
-      <dir name="Stub">
-       <file name="HtmlViewer.php" role="horde" />
-      </dir> <!-- /lib/tests/Imp/Stub -->
-      <dir name="Unit">
-       <dir name="Mime">
-        <dir name="Viewer">
-         <file name="HtmlTest.php" role="horde" />
-         <file name="ItipTest.php" role="horde" />
-        </dir> <!-- /lib/tests/Imp/Unit/Mime/Viewer -->
-       </dir> <!-- /lib/tests/Imp/Unit/Mime -->
-       <file name="QuotaTest.php" role="horde" />
-      </dir> <!-- /lib/tests/Imp/Unit -->
-      <file name="AllTests.php" role="horde" />
-      <file name="Autoload.php" role="horde" />
-      <file name="phpunit.xml" role="horde" />
-     </dir> <!-- /lib/tests/Imp -->
-    </dir> <!-- /lib/tests -->
     <dir name="Tree">
      <file name="Flist.php" role="horde" />
     </dir> <!-- /lib/Tree -->
@@ -763,6 +741,28 @@
     <file name=".htaccess" role="horde" />
     <file name="common-header.inc" role="horde" />
    </dir> <!-- /templates -->
+   <dir name="test">
+    <dir name="Imp">
+     <dir name="fixtures">
+      <file name="maildirsize" role="test" />
+     </dir> <!-- /test/Imp/fixtures -->
+     <dir name="Stub">
+      <file name="HtmlViewer.php" role="test" />
+     </dir> <!-- /test/Imp/Stub -->
+     <dir name="Unit">
+      <dir name="Mime">
+       <dir name="Viewer">
+        <file name="HtmlTest.php" role="test" />
+        <file name="ItipTest.php" role="test" />
+       </dir> <!-- /test/Imp/Unit/Mime/Viewer -->
+      </dir> <!-- /test/Imp/Unit/Mime -->
+      <file name="QuotaTest.php" role="test" />
+     </dir> <!-- /test/Imp/Unit -->
+     <file name="AllTests.php" role="test" />
+     <file name="Autoload.php" role="test" />
+     <file name="phpunit.xml" role="test" />
+    </dir> <!-- /test/Imp -->
+   </dir> <!-- /test -->
    <dir name="themes">
     <dir name="azur">
      <file name="screen.css" role="horde" />
@@ -1529,14 +1529,6 @@
    <install as="imp/lib/Sentmail/Base.php" name="lib/Sentmail/Base.php" />
    <install as="imp/lib/Sentmail/Null.php" name="lib/Sentmail/Null.php" />
    <install as="imp/lib/Sentmail/Sql.php" name="lib/Sentmail/Sql.php" />
-   <install as="imp/lib/tests/Imp/AllTests.php" name="lib/tests/Imp/AllTests.php" />
-   <install as="imp/lib/tests/Imp/Autoload.php" name="lib/tests/Imp/Autoload.php" />
-   <install as="imp/lib/tests/Imp/phpunit.xml" name="lib/tests/Imp/phpunit.xml" />
-   <install as="imp/lib/tests/Imp/fixtures/maildirsize" name="lib/tests/Imp/fixtures/maildirsize" />
-   <install as="imp/lib/tests/Imp/Stub/HtmlViewer.php" name="lib/tests/Imp/Stub/HtmlViewer.php" />
-   <install as="imp/lib/tests/Imp/Unit/QuotaTest.php" name="lib/tests/Imp/Unit/QuotaTest.php" />
-   <install as="imp/lib/tests/Imp/Unit/Mime/Viewer/HtmlTest.php" name="lib/tests/Imp/Unit/Mime/Viewer/HtmlTest.php" />
-   <install as="imp/lib/tests/Imp/Unit/Mime/Viewer/ItipTest.php" name="lib/tests/Imp/Unit/Mime/Viewer/ItipTest.php" />
    <install as="imp/lib/Tree/Flist.php" name="lib/Tree/Flist.php" />
    <install as="imp/lib/Ui/Compose.php" name="lib/Ui/Compose.php" />
    <install as="imp/lib/Ui/Editor.php" name="lib/Ui/Editor.php" />
@@ -1741,6 +1733,14 @@
    <install as="imp/templates/saveimage/saveimage.html" name="templates/saveimage/saveimage.html" />
    <install as="imp/templates/smime/import_key.html" name="templates/smime/import_key.html" />
    <install as="imp/templates/test/mailserver.inc" name="templates/test/mailserver.inc" />
+   <install as="Imp/AllTests.php" name="test/Imp/AllTests.php" />
+   <install as="Imp/Autoload.php" name="test/Imp/Autoload.php" />
+   <install as="Imp/phpunit.xml" name="test/Imp/phpunit.xml" />
+   <install as="Imp/fixtures/maildirsize" name="test/Imp/fixtures/maildirsize" />
+   <install as="Imp/Stub/HtmlViewer.php" name="test/Imp/Stub/HtmlViewer.php" />
+   <install as="Imp/Unit/QuotaTest.php" name="test/Imp/Unit/QuotaTest.php" />
+   <install as="Imp/Unit/Mime/Viewer/HtmlTest.php" name="test/Imp/Unit/Mime/Viewer/HtmlTest.php" />
+   <install as="Imp/Unit/Mime/Viewer/ItipTest.php" name="test/Imp/Unit/Mime/Viewer/ItipTest.php" />
    <install as="imp/themes/azur/screen.css" name="themes/azur/screen.css" />
    <install as="imp/themes/bluemoon/screen.css" name="themes/bluemoon/screen.css" />
    <install as="imp/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
@@ -2128,10 +2128,14 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-04-07</date>
+   <date>2011-04-08</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Fix displaying all message parts in standard view (Bug #9827).
+* [mms] Allow .eml files to be imported into a mailbox (Request #9827).
+* [mms] Fix vertical layout resize in dynamic view (Bug #9834).
 * [mms] Fix link for filters menu item (Bug #9831).
+* [mms] Fix composing messages in mobile view.
 * [mms] IMP will refuse to work with POP3 servers that don&apos;t support UIDL.
 * [mms] Many POP3 fixes.
    </notes>
