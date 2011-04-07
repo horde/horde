@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:37:00</time>
+ <date>2011-04-07</date>
+ <time>10:17:01</time>
  <version>
   <release>5.0.1</release>
   <api>5.0.0</api>
@@ -34,7 +34,8 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [mms] IMP will refuse to work with POP3 servers that don't support UIDL.
+* [mms] Fix link for filters menu item (Bug #9831).
+* [mms] IMP will refuse to work with POP3 servers that don&apos;t support UIDL.
 * [mms] Many POP3 fixes.
  </notes>
  <contents>
@@ -2117,14 +2118,18 @@
   <release>
    <version>
     <release>5.0.1</release>
-    <api>5.0.0</api></version>
+    <api>5.0.0</api>
+   </version>
    <stability>
     <release>stable</release>
-    <api>stable</api></stability>
-   <date>2011-04-06</date>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-07</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [mms] Fix link for filters menu item (Bug #9831).
+* [mms] IMP will refuse to work with POP3 servers that don&apos;t support UIDL.
+* [mms] Many POP3 fixes.
    </notes>
   </release>
  </changelog>

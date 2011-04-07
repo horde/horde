@@ -2,6 +2,7 @@
 v5.0.1-git
 ----------
 
+[mms] Fix link for filters menu item (Bug #9831).
 [mms] Fix composing messages in mobile view.
 [mms] IMP will refuse to work with POP3 servers that don't support UIDL.
 [mms] Many POP3 fixes.

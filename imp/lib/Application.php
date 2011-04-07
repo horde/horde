@@ -325,7 +325,7 @@ class IMP_Application extends Horde_Registry_Application
             $menu->addArray(array(
                 'icon' => 'filters.png',
                 'text' => _("Fi_lters"),
-                'url' => Horde::url('filterprefs.php')
+                'url' => Horde::getServiceLink('prefs', 'imp')->add('group', 'filters')
             ));
         }
     }
