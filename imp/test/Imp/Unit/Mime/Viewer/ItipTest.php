@@ -69,10 +69,12 @@ extends PHPUnit_Framework_TestCase
             ->will($this->returnCallback(array($this, '_registryGetCharset')));
         $GLOBALS['registry'] = $registry;
 
+        $session = $this->getMock('Horde_Session');
+        $GLOBALS['session'] = $session;
+
         $GLOBALS['conf']['server']['name'] = 'localhost';
         $_GET['identity'] = 'test';
         $_SERVER['REMOTE_ADDR'] = 'localhost';
-        $_SESSION = array('imp' => array('view' => 'imp'));
     }
 
     public function _injectorGetInstance($interface)
@@ -464,7 +466,7 @@ extends PHPUnit_Framework_TestCase
         $_GET['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar(), 'BIG5');
         $viewer->render('inline');
-        $this->assertEquals('BIG5', $this->_getMimeMessage()->getPart(1)->getCharset());
+        $this->assertEquals('big5', $this->_getMimeMessage()->getPart(1)->getCharset());
     }
 
     public function testResultMimeMessagePartTwoHasRegistryCharset()
@@ -476,7 +478,7 @@ extends PHPUnit_Framework_TestCase
         if (!$ics) {
             $this->fail('Missing second message part!');
         }
-        $this->assertEquals('BIG5', $ics->getCharset());
+        $this->assertEquals('big5', $ics->getCharset());
     }
 
     public function testResultMimeMessagePartTwoHasFileName()
