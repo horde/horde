@@ -208,7 +208,7 @@ class Components_Pear_Factory
      */
     public function getPackageXml($package_xml_path)
     {
-        return new Horde_Pear_Package_Xml(fopen($package_xml_path, 'r'));
+        return new Horde_Pear_Package_Xml($package_xml_path);
     }
 
     /**

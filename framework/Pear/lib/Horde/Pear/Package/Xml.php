@@ -38,6 +38,13 @@ class Horde_Pear_Package_Xml
     private $_xml;
 
     /**
+     * The path to the XML file.
+     *
+     * @var string
+     */
+    private $_path;
+
+    /**
      * The XPath query handler.
      *
      * @var DOMXpath
@@ -47,11 +54,16 @@ class Horde_Pear_Package_Xml
     /**
      * Constructor.
      *
-     * @param resource $xml The package.xml as stream.
+     * @param resource|string $xml The package.xml as stream or path.
      */
     public function __construct($xml)
     {
-        rewind($xml);
+        if (is_resource($xml)) {
+            rewind($xml);
+        } else {
+            $this->_path = $xml;
+            $xml = fopen($xml, 'r');
+        }
         $this->_xml = new DOMDocument('1.0', 'UTF-8');
         $this->_xml->loadXML(stream_get_contents($xml));
         $this->_xpath = new DOMXpath($this->_xml);
@@ -83,11 +95,20 @@ class Horde_Pear_Package_Xml
         );
     }
 
+    /**
+     * Catch undefined method calls and try to run them as task.
+     *
+     * @param string $name      The method/task name.
+     * @param array  $arguments The arguments for the call.
+     *
+     * @return NULL
+     */
     public function __call($name, $arguments)
     {
         $class = 'Horde_Pear_Package_Task_' . ucfirst($name);
         if (class_exists($class)) {
-
+            $task = new $class($arguments);
+            $task->run();
         } else {
             throw new InvalidArgumentException(sprintf('No task %s!', $name));
         }
