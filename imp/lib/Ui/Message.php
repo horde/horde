@@ -635,7 +635,7 @@ class IMP_Ui_Message
         }
 
         $atc_parts = ($show_parts == 'all')
-            ? array_diff(array_keys($atc_parts), array_keys($display_ids))
+            ? array_keys($display_ids)
             : array_keys($atc_parts);
 
         return array(
