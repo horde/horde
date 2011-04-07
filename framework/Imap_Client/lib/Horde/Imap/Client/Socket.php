@@ -2001,7 +2001,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     while (list($k, $v) = each($sorted)) {
                         if (is_null($last) || ($last != $v)) {
                             if ($i) {
-                                $slices[array_search($res, $start)] = array_slice($sorted, array_search($sorted, $start), $i + 1);
+                                $slices[array_search($start, $res)] = array_slice($sorted, array_search($start, $sorted), $i + 1);
                                 $i = 0;
                             }
                             $last = $v;
@@ -2011,7 +2011,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         }
                     }
                     if ($i) {
-                        $slices[array_search($res, $start)] = array_slice($sorted, array_search($sorted, $start), $i + 1);
+                        $slices[array_search($start, $res)] = array_slice($sorted, array_search($start, $sorted), $i + 1);
                     }
                 }
             }
