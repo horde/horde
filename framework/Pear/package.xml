@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>23:14:24</time>
+ <date>2011-04-07</date>
+ <time>13:44:30</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -67,6 +67,7 @@
         </dir> <!-- /lib/Horde/Pear/Package/Xml/Element -->
         <file name="Contents.php" role="php" />
         <file name="Directory.php" role="php" />
+        <file name="Factory.php" role="php" />
        </dir> <!-- /lib/Horde/Pear/Package/Xml -->
        <file name="Contents.php" role="php" />
        <file name="Type.php" role="php" />
@@ -102,6 +103,7 @@
           </dir> <!-- /test/Horde/Pear/fixture/horde/framework/simple/lib -->
          </dir> <!-- /test/Horde/Pear/fixture/horde/framework/simple -->
         </dir> <!-- /test/Horde/Pear/fixture/horde/framework -->
+        <file name=".gitignore" role="php" />
        </dir> <!-- /test/Horde/Pear/fixture/horde -->
        <dir name="one">
         <file name="File.php" role="test" />
@@ -214,6 +216,7 @@
    <install as="Horde/Pear/Package/Xml/Directory.php" name="lib/Horde/Pear/Package/Xml/Directory.php" />
    <install as="Horde/Pear/Package/Xml/Element/Directory.php" name="lib/Horde/Pear/Package/Xml/Element/Directory.php" />
    <install as="Horde/Pear/Package/Xml/Element/File.php" name="lib/Horde/Pear/Package/Xml/Element/File.php" />
+   <install as="Horde/Pear/Package/Xml/Factory.php" name="lib/Horde/Pear/Package/Xml/Factory.php" />
    <install as="Horde/Pear/Registry.php" name="lib/Horde/Pear/Registry.php" />
    <install as="Horde/Pear/Remote.php" name="lib/Horde/Pear/Remote.php" />
    <install as="Horde/Pear/Rest.php" name="lib/Horde/Pear/Rest.php" />
@@ -246,6 +249,7 @@
    <install as="Horde/Pear/fixture/directory/lib/Stays.php" name="test/Horde/Pear/fixture/directory/lib/Stays.php" />
    <install as="Horde/Pear/fixture/directory/test.php" name="test/Horde/Pear/fixture/directory/test.php" />
    <install as="Horde/Pear/fixture/empty/File.php" name="test/Horde/Pear/fixture/empty/File.php" />
+   <install as="Horde/Pear/fixture/horde/.gitignore" name="test/Horde/Pear/fixture/horde/.gitignore" />
    <install as="Horde/Pear/fixture/horde/framework/simple/lib/Old.php" name="test/Horde/Pear/fixture/horde/framework/simple/lib/Old.php" />
    <install as="Horde/Pear/fixture/horde/framework/simple/lib/Stays.php" name="test/Horde/Pear/fixture/horde/framework/simple/lib/Stays.php" />
    <install as="Horde/Pear/fixture/one/File.php" name="test/Horde/Pear/fixture/one/File.php" />
@@ -295,7 +299,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-04-06</date>
+   <date>2011-04-07</date>
    <license uri="REPLACE">REPLACE</license>
    <notes>
 * [gwr] Imported the .gitignore handling for content lists from the components tool.
