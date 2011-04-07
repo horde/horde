@@ -223,4 +223,4 @@ var ImpMessage = {
 };
 
 document.observe('dom:loaded', ImpMessage.onDomLoad.bind(ImpMessage));
-document.observe('IMPDialog:onClick', IMPMessage.onDialogClick.bind(ImpMessage));
+document.observe('IMPDialog:onClick', ImpMessage.onDialogClick.bind(ImpMessage));
