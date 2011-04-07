@@ -52,11 +52,18 @@ class Horde_Pear_Package_Xml
     private $_xpath;
 
     /**
+     * The factory for required instances.
+     *
+     * @var Horde_Pear_Package_Xml_Factory
+     */
+    private $_factory;
+
+    /**
      * Constructor.
      *
      * @param resource|string $xml The package.xml as stream or path.
      */
-    public function __construct($xml)
+    public function __construct($xml, $factory = null)
     {
         if (is_resource($xml)) {
             rewind($xml);
@@ -68,6 +75,11 @@ class Horde_Pear_Package_Xml
         $this->_xml->loadXML(stream_get_contents($xml));
         $this->_xpath = new DOMXpath($this->_xml);
         $this->_xpath->registerNamespace('p', self::XMLNAMESPACE);
+        if ($factory === null) {
+            $this->_factory = new Horde_Pear_Package_Xml_Factory();
+        } else {
+            $this->_factory = $factory;
+        }
     }
 
     /**
@@ -105,12 +117,16 @@ class Horde_Pear_Package_Xml
      */
     public function __call($name, $arguments)
     {
-        $class = 'Horde_Pear_Package_Task_' . ucfirst($name);
-        if (class_exists($class)) {
-            $task = new $class($arguments);
-            $task->run();
+        if (substr($name, 0, 6) == 'create') {
+            return $this->_factory->create(substr($name, 6), $arguments);
         } else {
-            throw new InvalidArgumentException(sprintf('No task %s!', $name));
+            $class = 'Horde_Pear_Package_Task_' . ucfirst($name);
+            if (class_exists($class)) {
+                $task = new $class($this, $arguments);
+                $task->run();
+            } else {
+                throw new InvalidArgumentException(sprintf('No task %s!', $name));
+            }
         }
     }
 

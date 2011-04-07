@@ -173,10 +173,7 @@ class Horde_Pear_Package_Xml_Element_Directory
         $result = array();
         foreach ($this->_xml->findNodesRelativeTo('./p:dir', $this->getDirectoryNode()) as $directory) {
             $name = $directory->getAttribute('name');
-            $result[$name] = new Horde_Pear_Package_Xml_Element_Directory(
-                $name,
-                $this
-            );
+            $result[$name] = $this->_xml->createElementDirectory($name, $this);
             $result[$name]->setDirectoryNode($directory);
         }
         return $result;
@@ -192,10 +189,7 @@ class Horde_Pear_Package_Xml_Element_Directory
         $result = array();
         foreach ($this->_xml->findNodesRelativeTo('./p:file', $this->getDirectoryNode()) as $file) {
             $name = $file->getAttribute('name');
-            $result[$name] = new Horde_Pear_Package_Xml_Element_File(
-                $name,
-                $this
-            );
+            $result[$name] = $this->_xml->createElementFile($name, $this);
             $result[$name]->setFileNode($file);
         }
         return $result;
@@ -213,7 +207,7 @@ class Horde_Pear_Package_Xml_Element_Directory
      */
     public function insertFile($name, $role, DOMNode $point = null)
     {
-        $element = new Horde_Pear_Package_Xml_Element_File($name, $this, $role);
+        $element = $this->_xml->createElementFile($name, $this, $role);
         $element->insert($point);
         return $element;
     }
@@ -229,7 +223,7 @@ class Horde_Pear_Package_Xml_Element_Directory
      */
     public function insertSubDirectory($name, DOMNode $point = null)
     {
-        $element = new Horde_Pear_Package_Xml_Element_Directory($name, $this);
+        $element = $this->_xml->createElementDirectory($name, $this);
         $element->_insert($this, $point);
         return $element;
     }

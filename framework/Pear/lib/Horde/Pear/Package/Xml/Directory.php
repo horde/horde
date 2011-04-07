@@ -59,20 +59,18 @@ class Horde_Pear_Package_Xml_Directory
      * Constructor.
      *
      * @param Horde_Pear_Package_Xml_Element_Directory $dir    The directory element.
-     * @param Horde_Pear_Package_Xml_Directory         $parent The parent directory.
+     * @param mixed                                    $parent The parent directory
+     *                                                         or the XML document.
      */
     public function __construct(
         Horde_Pear_Package_Xml_Element_Directory $dir,
-        Horde_Pear_Package_Xml_Directory $parent = null
+        $parent
     ) {
         $this->_element = $dir;
         $this->_parent = $parent;
         $subdirectories = $this->_element->getSubdirectories();
         foreach ($subdirectories as $name => $element) {
-            $this->_subdirectories[$name] = new Horde_Pear_Package_Xml_Directory(
-                $element,
-                $this
-            );
+            $this->_subdirectories[$name] = $this->_create($element, $this);
         }
         $this->_files = $this->_element->getFiles();
     }
@@ -112,6 +110,25 @@ class Horde_Pear_Package_Xml_Directory
             )
         );
         return $result;
+    }
+
+    /**
+     * Create a new directory handler.
+     *
+     * @param Horde_Pear_Package_Xml_Element_Directory $element The represented element.
+     * @param Horde_Pear_Package_Xml_Directory         $parent  The parent directory.
+     *
+     * @return Horde_Pear_Package_Xml_Directory
+     */
+    private function _create(
+        Horde_Pear_Package_Xml_Element_Directory $element,
+        Horde_Pear_Package_Xml_Directory $parent
+    ) {
+        if ($this->_parent instanceOf Horde_Pear_Package_Xml_Directory) {
+            return $this->_parent->_create($element, $parent);
+        } else {
+            return $this->_parent->createDirectory($element, $parent);
+        }
     }
 
     /**
@@ -207,7 +224,7 @@ class Horde_Pear_Package_Xml_Directory
     {
         if (empty($this->_files) && empty($this->_subdirectories)) {
             $this->_element->delete();
-            if (!empty($this->_parent)) {
+            if ($this->_parent instanceOf Horde_Pear_Package_Xml_Directory) {
                 $this->_parent->_deleteSubdirectory($this->_element->getName());
             }
         }
@@ -230,7 +247,7 @@ class Horde_Pear_Package_Xml_Directory
             return $this;
         }
         if (!isset($this->_subdirectories[$next])) {
-            $this->_subdirectories[$next] = new Horde_Pear_Package_Xml_Directory(
+            $this->_subdirectories[$next] = $this->_create(
                 $this->_element->insertSubDirectory(
                     $next,
                     $this->_getDirectoryInsertionPoint($next)
