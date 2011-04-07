@@ -112,7 +112,7 @@ if (file_exists(HORDE_BASE . '/lib/bundle.php')) {
             $apps[0]['vstatus'] = _("No stable version exists yet.");
         } elseif (version_compare($versions[BUNDLE_NAME]['version'], BUNDLE_VERSION, '>')) {
             $apps[0]['load'] = $error;
-            $apps[0]['vstatus'] = Horde::link($versions[BUNDLE_NAME]['url'], sprintf(_("Download %s"), BUNDLE_FULLNAME)) . sprintf(_("A newer version (%s) exists."), $versions[BUNDLE_NAME]['version']) . '</a> ';
+            $apps[0]['vstatus'] = Horde::link($versions[BUNDLE_NAME]['url'], sprintf(_("Download %s"), BUNDLE_FULLNAME), '', '_blank') . sprintf(_("A newer version (%s) exists."), $versions[BUNDLE_NAME]['version']) . '</a> ';
         } else {
             $apps[0]['load'] = $success;
             $apps[0]['vstatus'] = _("Application is up-to-date.");
@@ -150,7 +150,7 @@ foreach ($a as $app) {
                 $apps[$i]['vstatus'] = _("No stable version exists yet.");
             } elseif (version_compare(preg_replace('/H\d \((.*)\)/', '$1', $versions[$app]['version']), $apps[$i]['version'], '>')) {
                 $apps[$i]['load'] = $error;
-                $apps[$i]['vstatus'] = Horde::link($versions[$app]['url'], sprintf(_("Download %s"), $app)) . sprintf(_("A newer version (%s) exists."), $versions[$app]['version']) . '</a> ';
+                $apps[$i]['vstatus'] = Horde::link($versions[$app]['url'], sprintf(_("Download %s"), $app), '', '_blank') . sprintf(_("A newer version (%s) exists."), $versions[$app]['version']) . '</a> ';
             } else {
                 $apps[$i]['load'] = $success;
                 $apps[$i]['vstatus'] = _("Application is up-to-date.");
