@@ -144,7 +144,10 @@ case _("Expand Names"):
 case 'r':
 case 'ra':
 case 'rl':
-    if (!($imp_contents = $imp_ui->getIMPContents(new IMP_Indices(IMP::$thismailbox, IMP::$uid)))) {
+    try {
+        $imp_contents = $imp_ui->getContents();
+    } catch (IMP_Exception $e) {
+        $notification->push($e, 'horde.error');
         break;
     }
 
@@ -163,9 +166,13 @@ case 'rl':
 
 // 'f' = forward
 case 'f':
-    if (!($imp_contents = $imp_ui->getIMPContents(new IMP_Indices(IMP::$thismailbox, IMP::$uid)))) {
+    try {
+        $imp_contents = $imp_ui->getContents();
+    } catch (IMP_Exception $e) {
+        $notification->push($e, 'horde.error');
         break;
     }
+
     $fwd_msg = $imp_compose->forwardMessage(IMP_Compose::FORWARD_ATTACH, $imp_contents, false);
     $header = $fwd_msg['headers'];
 
@@ -175,12 +182,14 @@ case 'f':
 
 // 'rc' = redirect compose
 case 'rc':
-    $title = _("Redirect");
-    if (!($imp_contents = $imp_ui->getIMPContents(new IMP_Indices(IMP::$thismailbox, IMP::$uid)))) {
-        // TODO: Error message
+    try {
+        $imp_contents = $imp_ui->getContents();
+    } catch (IMP_Exception $e) {
+        $notification->push($e, 'horde.error');
         break;
     }
     $imp_compose->redirectMessage($imp_contents);
+    $title = _("Redirect");
     break;
 
 case _("Redirect"):
@@ -219,24 +228,18 @@ case _("Send"):
     $old_header = $header;
     $header = array();
 
-    if ($imp_compose->replyType()) {
-        if (!($imp_contents = $imp_ui->getIMPContents(new IMP_Indices($imp_compose->getMetadata('mailbox'), $imp_compose->getMetadata('uid'))))) {
-            break;
-        }
+    switch ($imp_compose->replyType(true)) {
+    case IMP_Compose::REPLY:
+        $reply_msg = $imp_compose->replyMessage(IMP_Compose::REPLY_SENDER, $imp_compose->getContentsOb(), $f_to);
+        $msg = $reply_msg['body'];
+        $message .= "\n" . $msg;
+        break;
 
-        switch ($imp_compose->replyType(true)) {
-        case IMP_Compose::REPLY:
-            $reply_msg = $imp_compose->replyMessage(IMP_Compose::REPLY_SENDER, $imp_contents, $f_to);
-            $msg = $reply_msg['body'];
-            $message .= "\n" . $msg;
-            break;
-
-        case IMP_Compose::FORWARD:
-            $fwd_msg = $imp_compose->forwardMessage(IMP_Compose::FORWARD_ATTACH, $imp_contents);
-            $msg = $fwd_msg['body'];
-            $message .= "\n" . $msg;
-            break;
-        }
+    case IMP_Compose::FORWARD:
+        $fwd_msg = $imp_compose->forwardMessage(IMP_Compose::FORWARD_ATTACH, $imp_compose->getContentsOb());
+        $msg = $fwd_msg['body'];
+        $message .= "\n" . $msg;
+        break;
     }
 
     try {
