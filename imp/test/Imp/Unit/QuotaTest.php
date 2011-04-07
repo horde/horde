@@ -6,7 +6,7 @@
  *
  * @author     Michael Slusarz <slusarz@curecanti.org>
  * @category   Horde
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.fsf.org/copyleft/gpl.html GPL
  * @link       http://pear.horde.org/index.php?package=Imp
  * @package    IMP
  * @subpackage UnitTests
@@ -27,7 +27,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  *
  * @author     Michael Slusarz <slusarz@curecanti.org>
  * @category   Horde
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.fsf.org/copyleft/gpl.html GPL
  * @link       http://pear.horde.org/index.php?package=Imp
  * @package    IMP
  * @subpackage UnitTests

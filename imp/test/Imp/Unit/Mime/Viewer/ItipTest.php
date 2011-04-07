@@ -8,7 +8,7 @@
  * @package    IMP
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.fsf.org/copyleft/gpl.html GPL
  * @link       http://pear.horde.org/index.php?package=Imp
  */
 

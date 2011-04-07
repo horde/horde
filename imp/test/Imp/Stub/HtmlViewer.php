@@ -1,20 +1,20 @@
 <?php
 /**
- * Stub for the testing the IMP HTML Mime Viewer driver.
+ * Stub for testing the IMP HTML Mime Viewer driver.
  * Needed because we need to overwrite a protected method.
  *
  * PHP version 5
  *
  * @author     Michael Slusarz <slusarz@curecanti.org>
  * @category   Horde
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.fsf.org/copyleft/gpl.html GPL
  * @link       http://pear.horde.org/index.php?package=Imp
  * @package    IMP
  * @subpackage UnitTests
  */
 
 /**
- * Test the IMP HTML Mime Viewer driver.
+ * Stub for testing the IMP HTML Mime Viewer driver.
  * Needed because we need to overwrite a protected method.
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
@@ -24,7 +24,7 @@
  *
  * @author     Michael Slusarz <slusarz@curecanti.org>
  * @category   Horde
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.fsf.org/copyleft/gpl.html GPL
  * @link       http://pear.horde.org/index.php?package=Imp
  * @package    IMP
  * @subpackage UnitTests
