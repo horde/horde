@@ -83,6 +83,16 @@ class Horde_Pear_Package_Xml
         );
     }
 
+    public function __call($name, $arguments)
+    {
+        $class = 'Horde_Pear_Package_Task_' . ucfirst($name);
+        if (class_exists($class)) {
+
+        } else {
+            throw new InvalidArgumentException(sprintf('No task %s!', $name));
+        }
+    }
+
     /**
      * Update the content listings in the package.xml.
      *

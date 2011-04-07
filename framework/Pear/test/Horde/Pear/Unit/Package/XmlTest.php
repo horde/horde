@@ -294,6 +294,15 @@ extends Horde_Pear_TestCase
         $this->assertEquals('php', $file->getAttribute('role'));
     }
 
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testUndefined()
+    {
+        $xml = $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/simple');
+        $xml->noSuchTaskHasBeenDefined();
+    }
+
 
     private function _assertNodeExists($xml, $xpath)
     {
