@@ -115,7 +115,7 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
     {
         /* Build a custom query, based on the config file. */
         $query = str_replace(
-            array('\L', 'P'),
+            array('\L', '\P'),
             array(
                 $this->_db->quote($userId),
                 $this->_db->quote(Horde_Auth::getCryptedPassword($credentials['password'], '', $this->_params['encryption'], $this->_params['show_encryption']))
