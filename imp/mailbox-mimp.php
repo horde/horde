@@ -133,8 +133,12 @@ $title = IMP::$mailbox->label;
 
 /* Modify title for display on page. */
 if ($pageOb['msgcount']) {
-    $unseen = $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
-    $title .= ' (' . $unseen . '/' .  $pageOb['msgcount'] . ')';
+    $title .= ' (';
+    if ($imp_imap->imap) {
+        $unseen = $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
+        $title .= $unseen . ' ' . _("unseen") . '/';
+    }
+    $title .= $pageOb['msgcount'] . ' ' . _("total") . ')';
 }
 if ($pageOb['pagecount'] > 1) {
     $title .= ' - ' . $pageOb['page'] . ' ' . _("of") . ' ' . $pageOb['pagecount'];

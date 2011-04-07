@@ -35,7 +35,8 @@ class IMP_Ui_Mimp
             $items[] = array(_("New Message"), Horde::url('compose-mimp.php')->unique());
         }
 
-        if (!in_array($page, array('folders', 'search'))) {
+        if (!in_array($page, array('folders', 'search')) &&
+            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->allowFolders()) {
             $items[] = array(_("Folders"), Horde::url('folders-mimp.php'));
         }
 
