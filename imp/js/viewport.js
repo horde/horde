@@ -1224,7 +1224,7 @@ var ViewPort = Class.create({
         case 'vert':
             drag = DragDrop.Drags.getDrag(e.element());
             sp.vert.width = drag.lastCoord[0] - this.opts.list_container.viewportOffset()[0];
-            this.opts.list_container.setStyle({ width: sp.vert.width + 'px' });
+            this.opts.content.setStyle({ width: sp.vert.width + 'px' });
             change = drag.wasDragged;
             break;
         }
@@ -1250,7 +1250,7 @@ var ViewPort = Class.create({
             break;
 
         case 'vert':
-            this.opts.list_container.setStyle({ width: parseInt(this.opts.container.clientWidth * 0.45, 10) + 'px' });
+            this.opts.content.setStyle({ width: parseInt(this.opts.container.clientWidth * 0.45, 10) + 'px' });
             change = true;
         }
 
