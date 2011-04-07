@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>23:47:53</time>
+ <date>2011-04-07</date>
+ <time>10:47:55</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -200,6 +200,9 @@
         <file name="IGNORE.txt" role="horde" />
        </dir> <!-- /test/Components/fixture/framework/simple -->
       </dir> <!-- /test/Components/fixture/framework -->
+      <dir name="horde">
+       <file name=".keep" role="horde" />
+      </dir> <!-- /test/Components/fixture/horde -->
       <dir name="packages">
        <file name="Console_Getopt-1.9.1.tgz" role="test" />
        <file name="PEAR-1.9.1.tgz" role="test" />
@@ -264,6 +267,7 @@
        <file name="simple.template" role="test" />
        <file name="variables.template" role="test" />
       </dir> <!-- /test/Components/fixture/templates -->
+      <file name=".gitignore" role="horde" />
      </dir> <!-- /test/Components/fixture -->
      <dir name="Integration">
       <dir name="Components">
@@ -450,6 +454,7 @@
    <install as="Components/phpunit.xml" name="test/Components/phpunit.xml" />
    <install as="Components/StoryTestCase.php" name="test/Components/StoryTestCase.php" />
    <install as="Components/TestCase.php" name="test/Components/TestCase.php" />
+   <install as="Components/fixture/.gitignore" name="test/Components/fixture/.gitignore" />
    <install as="Components/fixture/changelog/lib/Some.php" name="test/Components/fixture/changelog/lib/Some.php" />
    <install as="Components/fixture/channels/pear.horde.org.channel.xml" name="test/Components/fixture/channels/pear.horde.org.channel.xml" />
    <install as="Components/fixture/channels/pear.php.net.channel.xml" name="test/Components/fixture/channels/pear.php.net.channel.xml" />
@@ -469,6 +474,7 @@
    <install as="Components/fixture/framework/simple/lib/Second.php" name="test/Components/fixture/framework/simple/lib/Second.php" />
    <install as="Components/fixture/framework/simple/lib/Stays.php" name="test/Components/fixture/framework/simple/lib/Stays.php" />
    <install as="Components/fixture/framework/simple/migration/test.sql" name="test/Components/fixture/framework/simple/migration/test.sql" />
+   <install as="Components/fixture/horde/.keep" name="test/Components/fixture/horde/.keep" />
    <install as="Components/fixture/packages/Console_Getopt-1.9.1.tgz" name="test/Components/fixture/packages/Console_Getopt-1.9.1.tgz" />
    <install as="Components/fixture/packages/PEAR-1.9.1.tgz" name="test/Components/fixture/packages/PEAR-1.9.1.tgz" />
    <install as="Components/fixture/pear/Console_Getopt/lib/Console.php" name="test/Components/fixture/pear/Console_Getopt/lib/Console.php" />
@@ -544,7 +550,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-04-06</date>
+   <date>2011-04-07</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * [gwr] Replaced use of PEAR_PackageFileManager for updating package.xml with Horde_Pear.
