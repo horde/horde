@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Allow .eml files to be imported into a mailbox (Request #9827).
 * [mms] Fix vertical layout resize in dynamic view (Bug #9834).
 * [mms] Fix link for filters menu item (Bug #9831).
 * [mms] Fix composing messages in mobile view.

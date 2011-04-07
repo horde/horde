@@ -390,11 +390,12 @@ class IMP_Folder
     }
 
     /**
-     * Imports messages into a given mailbox from a mbox file.
+     * Imports messages into a given mailbox from a mbox (see RFC 4155) -or-
+     * a message source (eml) file.
      *
      * @param string $mailbox  The mailbox to put the messages into
      *                         (UTF7-IMAP).
-     * @param string $fname    Filename containing the mbox data.
+     * @param string $fname    Filename containing the message data.
      *
      * @return mixed  False (boolean) on fail or the number of messages
      *                imported (integer) on success.
@@ -402,7 +403,7 @@ class IMP_Folder
      */
     public function importMbox($mailbox, $fname, $type)
     {
-        $fd = $msg = null;
+        $fd = $format = $msg = null;
 
         if (!file_exists($fname)) {
             return false;
@@ -478,7 +479,13 @@ class IMP_Folder
         while (!feof($fd)) {
             $line = fgets($fd);
 
-            if (preg_match('/From (.+@.+|- )/A', $line)) {
+            /* RFC 4155 - mbox format. */
+            // TODO: Better preg for matching From line
+            // See(?) http://code.iamcal.com/php/rfc822/
+            if ((!$format || ($format == 'mbox')) &&
+                preg_match('/^From (.+@.+|- )/', $line)) {
+                $format = 'mbox';
+
                 if ($msg) {
                     /* Send in chunks to take advantage of MULTIAPPEND (if
                      * available). */
@@ -487,6 +494,12 @@ class IMP_Folder
 
                 $msg = fopen('php://temp', 'r+');
             } elseif ($msg) {
+                fwrite($msg, $line);
+            } elseif (!$format && trim($line)) {
+                /* Allow blank space at beginning of file. Anything else is
+                 * treated as message input. */
+                $format = 'eml';
+                $msg = fopen('php://temp', 'r+');
                 fwrite($msg, $line);
             }
         }

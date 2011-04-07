@@ -89,7 +89,7 @@ class IMP_Ui_Folder
             throw new IMP_Exception(sprintf(_("There was an error importing %s."), $mbox_name));
         }
 
-        return sprintf(_("Imported %d messages from %s."), $res, $mbox_name);
+        return sprintf(ngettext('Imported %d message from %s.', 'Imported %d messages from %s', $res), $res, $mbox_name);
     }
 
 }
