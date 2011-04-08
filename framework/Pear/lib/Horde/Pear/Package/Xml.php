@@ -83,6 +83,28 @@ class Horde_Pear_Package_Xml
     }
 
     /**
+     * Return the path to the package.xml file.
+     *
+     * @return string The path to the package.xml.
+     */
+    public function getContent($type = 'horde', $path = null)
+    {
+        if ($path === null) {
+            if ($this->_path === null) {
+                throw new Horde_Pear_Exception('The path has not been provided!');
+            }
+            $path = $this->_path;
+        }
+        if (!is_object($type)) {
+            if (!class_exists($type)) {
+                $type = 'Horde_Pear_Package_Type_' . ucfirst($type);
+            }
+            $type = new $type(dirname($this->_path));
+        }
+        return new Horde_Pear_Package_Contents_List($type);
+    }
+
+    /**
      * Return the package name.
      *
      * @return string The name of the package.
@@ -113,86 +135,16 @@ class Horde_Pear_Package_Xml
      * @param string $name      The method/task name.
      * @param array  $arguments The arguments for the call.
      *
-     * @return NULL
+     * @return mixed
      */
     public function __call($name, $arguments)
     {
         if (substr($name, 0, 6) == 'create') {
             return $this->_factory->create(substr($name, 6), $arguments);
         } else {
-            $class = 'Horde_Pear_Package_Task_' . ucfirst($name);
-            if (class_exists($class)) {
-                $task = new $class($this, $arguments);
-                $task->run();
-            } else {
-                throw new InvalidArgumentException(sprintf('No task %s!', $name));
-            }
+            array_unshift($arguments, $this);
+            $this->_factory->createTask($name, $arguments)->run();
         }
-    }
-
-    /**
-     * Update the content listings in the package.xml.
-     *
-     * @param Horde_Pear_Package_Contents $contents The content handler.
-     *
-     * @return NULL
-     */
-    public function updateContents(Horde_Pear_Package_Contents $content_list)
-    {
-        $contents = $this->findNode('/p:package/p:contents/p:dir');
-        $filelist = $this->findNode('/p:package/p:phprelease/p:filelist');
-        if (!$contents) {
-            $dependencies = $this->findNode('/p:package/p:dependencies');
-            $contents_root = $this->_xml->createElementNS(
-                self::XMLNAMESPACE, 'contents'
-            );
-            $dependencies->parentNode->insertBefore($contents_root, $dependencies);
-            $this->_insertWhiteSpaceBefore($dependencies, "\n ");
-
-            $contents = $this->appendInitialDirectory($contents_root, '/', '/', 1);
-        }
-        if (!$filelist) {
-            $changelog = $this->findNode('/p:package/p:changelog');
-            $phprelease = $this->_xml->createElementNS(
-                self::XMLNAMESPACE, 'phprelease'
-            );
-            $changelog->parentNode->insertBefore($phprelease, $changelog);
-            $this->_insertWhiteSpaceBefore($changelog, "\n ");
-
-            $filelist = $this->_xml->createElementNS(
-                self::XMLNAMESPACE, 'filelist'
-            );
-            $this->_insertWhiteSpace($phprelease, "\n  ");
-            $phprelease->appendChild($filelist);
-            $this->_insertWhiteSpace($phprelease, "\n ");
-            $this->_insertWhiteSpace($filelist, "\n  ");
-        }
-        $current = new Horde_Pear_Package_Xml_Contents($this, $contents, $filelist);
-        $current->update($content_list);
-        $this->timestamp();
-    }
-
-    /**
-     * Append the initial directory in the content listing.
-     *
-     * @param DOMNode $node   The node to append the directory to.
-     * @param string  $name   The name of the directory.
-     * @param string  $path   The directory path relative to the package root.
-     * @param int     $level  The depth of the tree.
-     *
-     * @return DOMNode The new directory node.
-     */
-    public function appendInitialDirectory(DOMNode $node, $name, $path, $level)
-    {
-        $this->_insertWhiteSpace($node, "\n " . str_repeat(' ', $level));
-        $dir = $this->_xml->createElementNS(self::XMLNAMESPACE, 'dir');
-        $dir->setAttribute('name', $name);
-        $node->appendChild($dir);
-        $this->_insertWhiteSpace($node, " ");
-        $this->_insertComment($node, ' ' . $path . ' ');
-        $this->_insertWhiteSpace($node, "\n" . str_repeat(' ', $level));
-        $this->_insertWhiteSpace($dir, "\n" . str_repeat(' ', $level + 1));
-        return $dir;
     }
 
     /**
@@ -639,35 +591,6 @@ class Horde_Pear_Package_Xml
         return $ws_node;
     }
 
-    /**
-     * Insert a comment.
-     *
-     * @param DOMNode $parent  The parent DOMNode.
-     * @param string  $comment The comment text.
-     *
-     * @return NULL
-     */
-    private function _insertComment($parent, $comment)
-    {
-        $comment_node = $this->_xml->createComment($comment);
-        $parent->appendChild($comment_node);
-    }
-
-    /**
-     * Insert some white space before the specified node.
-     *
-     * @param DOMNode $node The DOMNode.
-     * @param string  $ws   Additional white space that should be inserted.
-     *
-     * @return NULL
-     */
-    public function _insertWhiteSpaceBefore($node, $ws)
-    {
-        $ws_node = $this->_xml->createTextNode($ws);
-        $node->parentNode->insertBefore($ws_node, $node);
-    }
-
-
 
     public function insert($elements, $point)
     {
@@ -691,12 +614,16 @@ class Horde_Pear_Package_Xml
         if (!is_array($elements)) {
             $elements = array($elements);
         }
-        foreach ($elements as $element) {
+        $node = null;
+        foreach ($elements as $key => $element) {
             if (is_string($element)) {
                 $element = $this->createText($element);
+            } else if (is_array($element)) {
+                $node = $element = $this->createNode($key, $element);
             }
             $parent->appendChild($element);
         }
+        return $node;
     }
 
     public function createText($text)
