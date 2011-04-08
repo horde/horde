@@ -330,11 +330,11 @@ directory.
 
 
 HTML 4 Compliance
-====================
+=================
 
 All Horde libraries and applications that generate content to be sent to a web
-browser are expected to generate HTML 4 compliant syntax.  This is a change from
-earlier mandates to use XHTML 1.0.
+browser are expected to generate HTML 4 compliant syntax.  This is a change
+from earlier mandates to use XHTML 1.0.
 
 All tag names and parameters must be lower case including javascript event
 handlers::
@@ -841,7 +841,9 @@ Disk I/O
 --------
 Disk read and write operations are slow.  If possible read and write files in
 large chunks.  According to the PHP documentation, file_get_contents() is
-potentially much faster than using fopen()/fread()/fclose().
+potentially much faster than using fopen()/fread()/fclose(). BUT the
+trade-off is the need to read the entire file into memory, so use of
+file_get_contents() depends on the data size.
 
 
 STDIN/STDOUT/STDERR
@@ -853,3 +855,28 @@ To access either STDIN, STDOUT, or STDERR, the following code should be used::
         $line = fgets([STDIN|STDOUT|STDERR]);
         // process $line here
     }
+
+
+PHP Function Issues
+===================
+
+fpassthru()
+-----------
+This function can fail depending on the size of the stream. Instead, use
+fread() to get the stream data:
+
+// NO: fpassthru($stream);
+while (!feof($stream)) {
+    echo fread($stream, 8192);
+}
+
+stream_get_contents()
+---------------------
+This function was broken before PHP 5.2.7; the offset parameter did not
+respect a value of 0 (i.e. rewinding to beginning of stream).
+
+Use rewind() instead:
+
+// NO: $foo = stream_get_contents($stream, -1, 0);
+rewind($stream);
+$foo = stream_get_contents($stream);
