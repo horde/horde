@@ -105,14 +105,16 @@ var Slider2 = Class.create({
 
     _startDrag: function(e)
     {
-        if (!e.isLeftClick()) {
+        var elt = e.element();
+
+        if (!e.isLeftClick() || elt == this.sbup || elt == this.sbdown) {
             return;
         }
 
         var dir,
             hoffsets = this.handle.cumulativeOffset();
 
-        if (e.element() == this.track) {
+        if (elt == this.track) {
             dir = (e.pointerY() < hoffsets[1]) ? -1 : 1;
             this.setScrollPosition(this.getValue() - dir + (this.options.pagesize * dir));
         } else {
