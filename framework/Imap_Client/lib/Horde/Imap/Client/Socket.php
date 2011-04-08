@@ -2757,13 +2757,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if (is_array($data)) {
             for ($i = 0, $cnt = count($data); $i < $cnt; ++$i) {
-                if (is_resource($data[$i])) {
-                    rewind($data[$i]);
-                    $entry = stream_get_contents($data[$i]);
+                if (is_resource($data[$i + 1])) {
+                    rewind($data[$i + 1]);
+                    $entry = stream_get_contents($data[$i + 1]);
                 } else {
-                    $entry = $data[$i];
+                    $entry = $data[$i + 1];
                 }
-                $params[strtolower($data[++$i])] = $entry;
+                $params[strtolower($data[$i++])] = $entry;
             }
         }
 
