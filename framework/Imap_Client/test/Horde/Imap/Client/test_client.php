@@ -370,8 +370,8 @@ $uid1 = $uid2 = $uid3 = $uid4 = null;
 
 print "\nAppending test e-mail 1 (with Flagged), 2 via a stream (with Seen), 3 via a stream, and 4 (with internaldate):\n";
 try {
-    $handle = fopen($currdir . '/test_email.txt', 'r');
-    $handle2 = fopen($currdir . '/test_email2.txt', 'r');
+    $handle = fopen($currdir . '/fixtures/test_email.txt', 'r');
+    $handle2 = fopen($currdir . '/fixtures/test_email2.txt', 'r');
     $uid = $imap_client->append($test_mbox, array(
         array('data' => $test_email, 'flags' => array(Horde_Imap_Client::FLAG_FLAGGED), 'messageid' => 'abcd1234efgh5678@test1.example.com'),
         array('data' => $handle, 'flags' => array(Horde_Imap_Client::FLAG_SEEN), 'messageid' => 'aaabbbcccddd111222333444@test1.example.com'),
@@ -849,7 +849,7 @@ if ($use_imapproxy) {
 
 if (isset($fetch_res)) {
     print "\nTesting Horde_Mime_Part::parseMessage() on complex MIME message:\n";
-    $parse_text_res = Horde_Mime_Part::parseMessage(file_get_contents($currdir . '/test_email2.txt'));
+    $parse_text_res = Horde_Mime_Part::parseMessage(file_get_contents($currdir . '/fixtures/test_email2.txt'));
     print_r($parse_text_res);
 }
 
