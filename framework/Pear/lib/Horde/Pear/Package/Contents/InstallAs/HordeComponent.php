@@ -43,8 +43,9 @@ implements Horde_Pear_Package_Contents_InstallAs
         $basedir = array_shift($elements);
         switch ($basedir) {
         case 'locale':
-        case 'migration':
             return substr($file, 1);
+        case 'migration':
+            return $basedir . '/' . basename($file);
         default:
             return join('/', $elements);
         }
