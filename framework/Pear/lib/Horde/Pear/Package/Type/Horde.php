@@ -138,7 +138,7 @@ implements Horde_Pear_Package_Type
             $class = 'Horde_Pear_Package_Contents_InstallAs_Horde' . $this->getType();
             break;
         }
-        return new $class();
+        return new $class($this);
     }
 
     /**
