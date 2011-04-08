@@ -154,10 +154,7 @@ class Horde_Pear_Package_Xml_Element_File
     {
         $file = $this->getFileNode();
         $dir = $this->_parent->getDirectoryNode();
-        $ws = trim($file->previousSibling->textContent);
-        if (empty($ws)) {
-            $dir->removeChild($file->previousSibling);
-        }
+        $this->_xml->removeWhitespace($file->previousSibling);
         $dir->removeChild($file);
     }
 }

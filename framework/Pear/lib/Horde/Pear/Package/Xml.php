@@ -644,4 +644,24 @@ class Horde_Pear_Package_Xml
         }
         return $node;
     }
+
+    public function removeWhitespace($node)
+    {
+        if ($node) {
+            $ws = trim($node->textContent);
+            if (empty($ws)) {
+                $node->parentNode->removeChild($node);
+            }
+        }
+    }
+
+    public function removeComment($node, $comment)
+    {
+        if ($node) {
+            $current = trim($node->textContent);
+            if ($current == $comment) {
+                $node->parentNode->removeChild($node);
+            }
+        }
+    }
 }

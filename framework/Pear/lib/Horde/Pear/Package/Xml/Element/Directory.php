@@ -275,24 +275,9 @@ class Horde_Pear_Package_Xml_Element_Directory
     public function delete()
     {
         $dir = $this->getDirectoryNode();
-        if ($dir->nextSibling) {
-            $ws = trim($dir->nextSibling->textContent);
-            if (empty($ws)) {
-                $dir->parentNode->removeChild($dir->nextSibling);
-            }
-        }
-        if ($dir->nextSibling) {
-            $comment = trim($dir->nextSibling->textContent);
-            if ($comment == $this->_path) {
-                $dir->parentNode->removeChild($dir->nextSibling);
-            }
-        }
-        if ($dir->nextSibling) {
-            $ws = trim($dir->nextSibling->textContent);
-            if (empty($ws)) {
-                $dir->parentNode->removeChild($dir->nextSibling);
-            }
-        }
+        $this->_xml->removeWhitespace($dir->nextSibling);
+        $this->_xml->removeComment($dir->nextSibling, $this->_path);
+        $this->_xml->removeWhitespace($dir->nextSibling);
         $dir->parentNode->removeChild($dir);
     }
 }
