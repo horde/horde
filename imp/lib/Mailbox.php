@@ -800,8 +800,8 @@ class IMP_Mailbox implements Serializable
                 break;
 
             case self::SPECIAL_SENT:
-                foreach ($val as $val2) {
-                    $sub[strval($val2)] = _("Sent");
+                if (count($val) == 1) {
+                    $sub[strval(reset($val))] = _("Sent");
                 }
                 break;
 
@@ -817,9 +817,9 @@ class IMP_Mailbox implements Serializable
 
         foreach ($sub as $key => $val) {
             if ((($key != 'INBOX') || ($this->_mbox == $out)) &&
-                stripos($out, $key) === 0) {
+                strpos($this->_mbox, $key) === 0) {
                 $len = strlen($key);
-                if ((strlen($out) == $len) || ($out[$len] == $delimiter)) {
+                if ((strlen($this->_mbox) == $len) || ($this->_mbox[$len] == $delimiter)) {
                     $out = substr_replace($out, Horde_String::convertCharset($val, 'UTF-8', 'UTF7-IMAP'), 0, $len);
                     break;
                 }
