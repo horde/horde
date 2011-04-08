@@ -1518,7 +1518,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 $params['orig_label'] = empty($opts['basename'])
                     ? $val->abbrev_label
                     : $val->basename;
-                $label = htmlspecialchars($params['orig_label']);
+                $label = $params['orig_label'];
                 break;
 
             case 'Javascript':
