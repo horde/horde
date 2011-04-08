@@ -282,7 +282,7 @@ class Horde_Pear_Package_Xml_Directory
     {
         $keys = array_keys($this->_subdirectories);
         array_push($keys, $new);
-        sort($keys);
+        usort($keys, array($this, '_fileOrder'));
         $pos = array_search($new, $keys);
         if ($pos < count($this->_subdirectories)) {
             return $this->_subdirectories[$keys[$pos + 1]]->getDirectory()->getDirectoryNode();
@@ -291,10 +291,23 @@ class Horde_Pear_Package_Xml_Directory
                 return null;
             } else {
                 $keys = array_keys($this->_files);
-                sort($keys);
+                usort($keys, array($this, '_fileOrder'));
                 return $this->_files[$keys[0]]->getFileNode();
             }
         }
+    }
+
+    /**
+     * Sort order for files in the content list.
+     *
+     * @param string $a First path.
+     * @param string $b Second path.
+     *
+     * @return int Sort comparison result.
+     */
+    private function _fileOrder($a, $b)
+    {
+        return strnatcasecmp($a, $b);
     }
 
     /**
@@ -308,7 +321,7 @@ class Horde_Pear_Package_Xml_Directory
     {
         $keys = array_keys($this->_files);
         array_push($keys, $new);
-        sort($keys);
+        usort($keys, array($this, '_fileOrder'));
         $pos = array_search($new, $keys);
         if ($pos < count($this->_files)) {
             return $this->_files[$keys[$pos + 1]]->getFileNode();

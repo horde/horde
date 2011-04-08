@@ -187,7 +187,7 @@ class Horde_Pear_Package_Xml_Contents
                 && count($ea) != count($eb)) {
                 return count($ea) < count($eb) ? -1 : 1;
             }
-            return strnatcmp($pa, $pb);
+            return strnatcasecmp($pa, $pb);
         }
         return $this->_fileOrder(join('/', $ea), join('/', $eb));
     }
