@@ -2,6 +2,7 @@
 v5.0.1-git
 ----------
 
+[mms] Fix importing PGP private keys.
 [mms] More intelligent part naming if name is not specified in the message
       (Request #9853).
 [jan] Avoid double escaping of folder names in sent-mail drop down list.
