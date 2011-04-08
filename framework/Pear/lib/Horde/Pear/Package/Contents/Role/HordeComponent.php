@@ -39,6 +39,13 @@ implements Horde_Pear_Package_Contents_Role
      */
     public function getRole($file)
     {
-        return 'php';
+        $elements = explode('/', substr($file, 1));
+        $basedir = array_shift($elements);
+        switch ($basedir) {
+        case 'test':
+            return 'test';
+        default:
+            return 'php';
+        }
     }
 }
