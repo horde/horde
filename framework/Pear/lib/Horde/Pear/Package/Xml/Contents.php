@@ -180,16 +180,17 @@ class Horde_Pear_Package_Xml_Contents
     {
         $ea = explode('/', $a);
         $eb = explode('/', $b);
-        $pa = array_shift($ea);
-        $pb = array_shift($eb);
-        if ($pa != $pb) {
-            if ((count($ea) == 0 || count($eb) == 0)
-                && count($ea) != count($eb)) {
-                return count($ea) < count($eb) ? -1 : 1;
+        while (true) {
+            $pa = array_shift($ea);
+            $pb = array_shift($eb);
+            if ($pa != $pb) {
+                if ((count($ea) == 0 || count($eb) == 0)
+                    && count($ea) != count($eb)) {
+                    return count($ea) < count($eb) ? -1 : 1;
+                }
+                return strnatcasecmp($pa, $pb);
             }
-            return strnatcasecmp($pa, $pb);
         }
-        return $this->_fileOrder(join('/', $ea), join('/', $eb));
     }
 
     /**
