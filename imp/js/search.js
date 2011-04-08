@@ -256,7 +256,7 @@ var ImpSearch = {
             new Element('SPAN').insert(new Element('INPUT', { type: 'text', size: 8 }).setValue(data.v)).insert(' ').insert($($('within_criteria').clone(true)).writeAttribute({ id: null }).show().setValue(data.l))
         ];
         this.criteria[this.insertCriteria(tmp)] = { t: id };
-        tmp[1].activate();
+        tmp[1].down().activate();
     },
 
     insertFilter: function(id, not)
