@@ -179,12 +179,9 @@ class Horde_Pear_Package_Xml_Contents
     {
         $this->_dir_list->deleteFile($file);
         if (isset($this->_install_list[$file])) {
-            $ws = trim($this->_install_list[$file]->nextSibling->textContent);
-            if (empty($ws)) {
-                $this->_filelist->removeChild(
-                    $this->_install_list[$file]->nextSibling
-                );
-            }
+            $this->_xml->removeWhitespace(
+                $this->_install_list[$file]->nextSibling
+            );
             $this->_filelist->removeChild($this->_install_list[$file]);
         }
     }
