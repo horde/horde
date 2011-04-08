@@ -726,11 +726,12 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 
 /* Attachment file list */
 #attach_list {
+    overflow: hidden;
     padding-left: 15px;
+    width: 500px;
 }
 #attach_list li {
     padding-top: 5px;
-    width: 500px;
 }
 #attach_list span.remove {
     border: 1px solid #ccc;
@@ -743,12 +744,6 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 }
 #attach_list span.attachName {
     color: blue;
-    display: -moz-inline-stack;
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    width: 500px;
 }
 #attach_list span.attachName:hover, #attach_list span.remove:hover {
     color: red;
