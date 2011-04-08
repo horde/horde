@@ -42,6 +42,9 @@ implements Horde_Pear_Package_Contents_Role
         $elements = explode('/', substr($file, 1));
         $basedir = array_shift($elements);
         switch ($basedir) {
+        case 'locale':
+        case 'migration':
+            return 'data';
         case 'test':
             return 'test';
         default:
