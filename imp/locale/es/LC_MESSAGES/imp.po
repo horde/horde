@@ -1,4 +1,4 @@
-# Spanish translations for imp package.
+# Spanish teanslations for imp package.
 # Traducciones al español para el paquete imp.
 # Copyright 2008-2011 The Horde Project
 # This file is distributed under the same license as the imp package.
@@ -3829,8 +3829,8 @@ msgstr ""
 #: lib/Compose.php:210
 #, php-format
 msgid ""
-"Saving the draft failed. The %s header contains an invalid e-mail address: %"
-"s."
+"Saving the draft failed. The %s header contains an invalid e-mail address: "
+"%s."
 msgstr ""
 "Fallo al guardar el borrador. La cabecera %s contiene una dirección de "
 "correo inválida: %s."
@@ -4662,7 +4662,7 @@ msgid ""
 "from you when you have read this message. Please click %s to send the "
 "notification message."
 msgstr ""
-"El remitente de este mensaje le solicita una Notificación de Consulta de "
+"El remitente de este mensaje le solicita una Notificación de Disposición de "
 "Mensaje cuando lo haya leído. Pulse %s para enviársela."
 
 #: templates/javascript_defs.php:38
@@ -5851,3 +5851,2422 @@ msgstr "su lista negra"
 #: lib/Filter.php:91
 msgid "your whitelist"
 msgstr "su lista blanca"
+
+#: lib/Views/ShowMessage.php:278
+msgid "%d Attachment"
+msgid_plural "%d Attachments"
+msgstr[0] "%d adjunto"
+msgstr[1] "%d adjuntos"
+
+#: lib/Ajax/Application.php:1441
+msgid "%s messages were purged from \"%s\"."
+msgstr "Se purgaron %s mensajes de \"%s\"."
+
+#: lib/Block/Newmail.php:79
+msgid "%s more unseen message..."
+msgstr "%s mensaje mas sin leer..."
+
+msgid "%s more unseen messages..."
+msgstr "%s mensajes mas sin leer..."
+
+#: lib/Ajax/Application.php:839
+msgid "%s was successfully added to your address book."
+msgstr "Se ha añadido correctamente %s a su libreta de direcciones."
+
+#: templates/dimp/index.inc:497
+msgid ""
+"%s will delete the current message and move to the next message if a single "
+"message is selected."
+msgstr ""
+"%s eliminará el mensaje actual y se trasladaá al siguiente mensaje, si se ha "
+"seleccionado un único mensaje."
+
+#: lib/Ajax/Application.php:1439
+msgid "1 message was purged from \"%s\"."
+msgstr "Se purgó 1 mensaje de \"%s\"."
+
+#: templates/dimp/javascript_defs.php
+msgid ""
+"A popup window could not be opened. Your browser may be blocking popups."
+msgstr ""
+"No se puede abrir una ventana emergente. Su navegador debe estar bloqueando "
+"las ventanas emergentes."
+
+#: templates/dimp/message/message.html:145 templates/dimp/index.inc:443
+msgid "Add to Address Book"
+msgstr "Añadir a la Libreta de direcciones"
+
+#: templates/dimp/index.inc:102
+msgid "Base Level"
+msgstr "Nivel base"
+
+#: compose-mimp.php:53
+msgid "Bcc: "
+msgstr "Bcc: "
+
+#: templates/dimp/javascript_defs.php:180
+msgid ""
+"Cancelling this message will permanently discard its contents and will "
+"delete auto-saved drafts.\n"
+"Are you sure you want to do this?"
+msgstr ""
+"Cancelar este mensaje desecharápermanentemente su contenido y se eliminarán "
+"los borradores guardados de forma automática.\n"
+"¿Seguro que desea hacerésto?"
+
+#: compose-mimp.php:50
+msgid "Cc: "
+msgstr "Cc: "
+
+#: templates/dimp/index.inc:491
+msgid ""
+"Click on a message while holding down the %s key to select multiple "
+"messages.  To select a range of messages, click the first message of the "
+"range, navigate to the last message of the range, and then click on the last "
+"message while holding down the %s key."
+msgstr ""
+"Pulse un mensaje manteniendo presionada la tecla %s para seleccionar varios "
+"mensajes. Para seleccionar un rango de mensajes, pulse el primero, "
+"desplácese hasta el último del rango y pulse sobre él manteniendo presionada "
+"la tecla %s."
+
+#: templates/dimp/index.inc:164
+msgid "Collapse Headers"
+msgstr "Colapsar cabeceras"
+
+#: templates/dimp/index.inc:140
+msgid "Compose"
+msgstr "Redactar"
+
+#: templates/dimp/javascript_defs.php:133
+msgid "Ceeate folder:"
+msgstr "Crear carpeta:"
+
+#: templates/dimp/index.inc.orig:298
+msgid "Create subfolder"
+msgstr "Crear subcarpeta"
+
+#: templates/dimp/javascript_defs.php:134
+msgid "Create subfolder:"
+msgstr "Crear subcarpeta:"
+
+#: templates/dimp/index.inc:486 templates/dimp/index.inc:491
+msgid "Ctrl"
+msgstr "Ctrl"
+
+#: imp/templates/dimp/index.inc:497
+msgid "Del"
+msgstr "Elim"
+
+#: templates/dimp/index.inc:266
+msgid "Delete Folder"
+msgstr "Eliminar carpeta"
+
+#: templates/dimp/index.inc:497
+msgid "Delete the currently selected message(s)."
+msgstr "Borra el/los mensaje(s) seleccionado(s) actualmente."
+
+#: templates/dimp/index.inc:265
+msgid "Empty Folder"
+msgstr "Vaciar carpeta"
+
+#: templates/dimp/index.inc:499
+msgid "Enter"
+msgstr "Intro"
+
+#: templates/dimp/index.inc:163
+msgid "Expand Headers"
+msgstr "Expandir cabeceras"
+
+#: folders-mimp.php:63 templates/mobile/folders.html.php:4
+msgid "Folders"
+msgstr "Carpetas"
+
+#: templates/mobile/message.html.php:14
+msgid "From:"
+msgstr "De:"
+
+#: templates/dimp/index.inc:141
+msgid "Get Mail"
+msgstr "Traer correo"
+
+#: templates/dimp/index.inc:141
+msgid "_Get Mail"
+msgstr "_Traer correo"
+
+#: lib/Block/Newmail.php:41
+msgid "Go to your Inbox..."
+msgstr "Ir al buzón de Entrada..."
+
+#: templates/dimp/index.inc:392
+msgid "Hide Preview"
+msgstr "Ocultar vista previa"
+
+#: templates/dimp/index.inc:496
+msgid "Home"
+msgstr "Inicio"
+
+#: templates/dimp/index.inc:48
+msgid "Horde"
+msgstr "Horde"
+
+#: templates/dimp/index.inc:136
+msgid "Innocent"
+msgstr "Inofensivo"
+
+#: templates/dimp/index.inc:80
+msgid "Log Out"
+msgstr "Salir"
+
+#: templates/dimp/index.inc:80
+msgid "_Log Out"
+msgstr "_Salir"
+
+#: lib/Views/ListMessages.php:187
+msgid "Mailbox %s does not exist."
+msgstr "El buzón %s no existe."
+
+#: templates/dimp/index.inc:268
+msgid "Mark all as"
+msgstr "Marcar todos como"
+
+#: templates/dimp/javascript_defs.php:145
+msgid "Messages"
+msgstr "Mensajes"
+
+#: templates/dimp/javascript_defs.php:147
+msgid "Move %s to %s"
+msgstr "Mover %s a %s"
+
+#: templates/dimp/index.inc:494
+msgid "Move one page up/down through the message list."
+msgstr "Desplazan una página arriba/abajo a través del listado de mensajes."
+
+#: templates/dimp/index.inc:496
+msgid "Move to the beginning/end of the message list."
+msgstr "Desplazan hasta el comienzo o el final del listado de mensajes."
+
+#: templates/dimp/index.inc:493
+msgid "Move up/down through the message list."
+msgstr "Desplaza arriba/abajo en la lista de mensajes."
+
+#: lib/Block/Newmail.php:43
+msgid "No unread messages"
+msgstr "No mensajes no leídos"
+
+#: templates/dimp/javascript_defs.php:150
+msgid "Ok"
+msgstr "Aceptar"
+
+#: templates/dimp/index.inc:167 templates/dimp/index.inc:177
+msgid "Open in new window"
+msgstr "Abrir en una nueva ventana"
+
+#: templates/dimp/index.inc:499
+msgid "Open message in a popup window."
+msgstr "Abre el mensaje en una ventana emergente."
+
+#: templates/dimp/index.inc.orig:142
+msgid "Other Actions"
+msgstr "Otras acciones"
+
+#: templates/dimp/index.inc:494 templates/dimp/index.inc:495
+msgid "PgDown"
+msgstr "Abajo"
+
+#: templates/dimp/index.inc:494 templates/dimp/index.inc:495
+msgid "PgUp"
+msgstr "Arriba"
+
+#: templates/mobile/mailbox.html.php
+msgid "Portal"
+msgstr "Portal"
+
+#: templates/dimp/javascript_defs.php:184
+msgid ""
+"Really discard all formatting information? This operation cannot be undone."
+msgstr ""
+"¿Eliminar realmente toda la información de formato? Esta operación no se "
+"puede deshacer."
+
+#: templates/dimp/index.inc:264
+msgid "Rename Folder"
+msgstr "Renombrar carpeta"
+
+#: templates/dimp/javascript_defs.php:154
+msgid "Rename folder to:"
+msgstr "Renombrar carpeta como:"
+
+#: message-mimp.php:277
+msgid "Reply to List"
+msgstr "Responder a la lista"
+
+#: templates/dimp/index.inc:191
+msgid "Resume Draft"
+msgstr "Reanudar borrador"
+
+#: lib/Views/ShowMessage.php:280
+msgid "Save All"
+msgstr "Guardar todo"
+
+#: templates/dimp/compose/compose.html:144
+msgid "Save Attachments in sent folder"
+msgstr "Guardar adjuntos en la carpeta de correo enviado"
+
+#: lib/Views/Compose.php:133
+msgid "Save as Draft"
+msgstr "Guardar como borrador"
+
+#: lib/Views/Compose.php:133 templates/dimp/compose/compose.html:42
+msgid "Save in"
+msgstr "Guardar en"
+
+#: templates/dimp/index.inc:518 templates/dimp/index.inc:527
+msgid "Select All"
+msgstr "Seleccionar todas"
+
+#: templates/dimp/index.inc.orig:500
+msgid "Select all messages in the current mailbox."
+msgstr "Seleccionar todos los mensajes del buzón actual."
+
+#: compose-mimp.php:201
+msgid "Send"
+msgstr "Enviar"
+
+#: templates/dimp/index.inc:486
+msgid "Shift"
+msgstr "May"
+
+#: templates/dimp/index.inc:393
+msgid "Show Preview"
+msgstr "Mostrar vista previa"
+
+#: templates/dimp/compose/compose.html:137
+msgid "The attachment limit has been reached."
+msgstr "Se ha alcanzado el límite de adjuntos."
+
+#: templates/dimp/javascript_defs.php:125
+msgid "The connection to the server has been restored."
+msgstr "Se ha reanudado la conexión al servido."
+
+#: templates/dimp/index.inc:492
+msgid "The following keyboard shortcuts are available:"
+msgstr "Se dispone de los siguientes atajos de teclado:"
+
+#: templates/dimp/javascript_defs.php:141
+msgid "The server is still generating the message list."
+msgstr "El servidor está generando aún el listado de mensajes."
+
+#: templates/dimp/javascript_defs.php:142
+msgid "The server was unable to generate the message list."
+msgstr "El servidor no pudo generar el listado de mensajes."
+
+msgid ""
+"There has been no contact with the server for several minutes. The server "
+"may be temporarily unavailable or network problems may be interrupting your "
+"session. You will not see any updates until the connection is restored."
+msgstr ""
+"No se ha podido contactar con el servidor durante varios minutos. El "
+"servidor puede estar temporalmente fuera de servicio o que haya problemas de "
+"red que estén interrumpiendo su sesión. No podrá ver ninguna actualización "
+"hasta que se restablezca la conexión."
+
+#: templates/dimp/index.inc:427 templates/dimp/javascript_defs.php:10
+#: templates/dimp/index.inc:443
+msgid "Thread"
+msgstr "Conversación"
+
+#: templates/dimp/index.inc:483
+msgid "To preview a message, select it from the message list."
+msgstr "Para previsualizar un mensaje, selecciónelo en la lista de mensajes."
+
+#: templates/dimp/index.inc:486
+msgid "A right-click on a message or a folder will display available actions."
+msgstr ""
+"Pulsando con el botón derecho en los mensajes se mostrarán las acciones "
+"disponibles."
+
+#: compose-mimp.php:48
+msgid "To: "
+msgstr "Para: "
+
+#: templates/dimp/javascript_defs.php:185
+msgid "Uploading..."
+msgstr "Cargando..."
+
+#: templates/dimp/javascript_defs.php:153
+msgid "User Options"
+msgstr "Opciones personales"
+
+#: templates/dimp/javascript_defs.php:129
+msgid "base level of the folder tree"
+msgstr "nivel base del árbol de carpetas"
+
+#: mailbox-mimp.php:139
+msgid "of"
+msgstr "de"
+
+#: templates/dimp/index.inc:395
+msgid "Vertical Layout"
+msgstr "Presentación vertical"
+
+#: templates/dimp/javascript_defs.php:139 templates/dimp/index.inc:53
+msgid "Alerts _Log"
+msgstr "_Historico alertas"
+
+#: templates/dimp/index.inc.orig:77
+msgid "Preferences"
+msgstr "Preferencias"
+
+#: message.php:545 templates/dimp/index.inc:383
+msgid "As Attachment"
+msgstr "Como adjunto"
+
+#: message.php:546 templates/dimp/index.inc:384
+msgid "In Body Text"
+msgstr "Sólo el texto del cuerpo"
+
+#: message.php:547 templates/dimp/index.inc.orig:385
+msgid "Attachment and Body Text"
+msgstr "Adjuntos y texto del mensaje"
+
+#: templates/dimp/index.inc:349
+msgid "Mark as"
+msgstr "Marcar como"
+
+#: templates/dimp/index.inc.orig:421
+msgid "Help"
+msgstr "Ayuda"
+
+#: mailbox.php:450 templates/dimp/javascript_defs.php:146
+msgid "%d - %d of %d Messages"
+msgstr "%d - %d de %d Mensajes"
+
+#: horde/imp/lib/Quota/Base.php:51
+msgid "%.0f%% of %.0f %s"
+msgstr "%.0f%% de %.0f %s"
+
+#: lib/Mime/Viewer/Itip.php:663
+msgid "%s has cancelled an instance of the recurring \"%s\"."
+msgstr "%s ha cancelado una instancia de \"%s\"."
+
+#: horde/imp/lib/Spam.php:194
+msgid "%d messages have been reported as innocent."
+msgstr "%d mensajes han resultado inocentes."
+
+#: horde/imp/templates/mobile/javascript_defs.php:81
+msgid "%d more messages..."
+msgstr "%d mensajes mas..."
+
+#: horde/imp/lib/Spam.php:146
+msgid "%s report from %s"
+msgstr "%s informe de %s"
+
+#: horde/imp/message.php:444
+msgid "(%d&nbsp;of&nbsp;%d)"
+msgstr "(%d&nbsp;de&nbsp;%d)"
+
+#: horde/imp/message-mimp.php:355
+msgid "(Message %d of %d)"
+msgstr "(Mensaje %d de %d)"
+
+#: horde/imp/lib/Mime/Viewer/Itip.php:533
+#: horde/imp/lib/Mime/Viewer/Itip.php:823
+#: horde/imp/lib/Mime/Viewer/Itip.php:952
+msgid "-- select --"
+msgstr "-- seleccionar --"
+
+#: horde/imp/lib/Mime/Viewer/Pgp.php:297
+msgid "A PGP Public Key is attached to the message."
+msgstr "El mensaje contiene una clave pública PGP adjunta."
+
+#: horde/imp/lib/Compose.php.orig:2742 horde/imp/lib/Compose.php:2751
+msgid ""
+"A message you were composing when your session expired has been recovered. "
+"You may resume composing your message by going to your Drafts folder."
+msgstr ""
+"Se ha recuperado un mensaje que estaba redactando cuando su sesión expiró. "
+"Puede continuar su redacción dirigiendose a la carpeta Borradores."
+
+#: lib/Prefs/Ui.php:769
+msgid "ACL for \"%s\" successfully created for the mailbox \"%s\"."
+msgstr "ACL para \"%s\" en la carpeta \"%s\" creado correctamente."
+
+#: horde/imp/lib/Imap/Acl.php:26
+msgid "ACL requires an IMAP server."
+msgstr "ACL nceesita un servidor IMAP."
+
+#: lib/Prefs/Ui.php:794
+msgid "ACL rights for \"%s\" updated for the mailbox \"%s\"."
+msgstr "ACL Se han actualizado los permisos para \"%s\" en la carpeta \"%s\"."
+
+#: horde/imp/lib/Imap/Acl.php:30
+msgid "ACLs not configured for this server."
+msgstr "ACLs no configurados para este servidor."
+
+#: horde/imp/lib/Mime/Viewer/Itip.php:627
+msgid "Accept and update in my calendar"
+msgstr "Aceptar una actualización en mi calendario"
+
+#: horde/imp/search.php:460
+msgid "Add search folder:"
+msgstr "Añadir un carpeta de busqueda:"
+
+#: lib/Prefs/Ui.php:916
+msgid "Added flag \"%s\"."
+msgstr "Marca \"%s\" añadida."
+
+#: horde/imp/config/prefs.php:643
+msgid ""
+"Additional headers to display when viewing: <em>(enter each header on a new "
+"line)</em>"
+msgstr ""
+"Cabeceras adicionales para mostrar en la visualización: <em>(introducir cada "
+"cabecera en una nueva línea)</em>"
+
+#: horde/imp/templates/dimp/index.inc:474
+msgid "Advanced Search..."
+msgstr "Búsqueda avanzada..."
+
+#: horde/imp/templates/dimp/javascript_defs.php:136
+msgid ""
+"All messages in this mailbox will be downloaded into one MBOX file. This may "
+"take some time. Are you sure you want to continue?"
+msgstr ""
+"Todos los mensajes del buzón serán descargados en un fichero MBX. Esto puede "
+"tardar algún timpo. ¿Esta seguro de que desea continuar?"
+
+#: lib/Prefs/Ui.php:804
+msgid "All rights on mailbox \"%s\" successfully removed for \"%s\"."
+msgstr ""
+"Todos los derechos en el buzón \"%s\" han sido correctamente eliminados para "
+"\"%s\"."
+
+#: horde/imp/config/prefs.php:669
+msgid "Always prompt"
+msgstr "Preguntar siempre"
+
+#: horde/imp/lib/Ui/Compose.php:65
+msgid "Ambiguous address found."
+msgstr "Se ha encontrado una dirección ambigua."
+
+#: compose-mimp.php:359
+msgid "Ambiguous matches for \"%s\" (first 5 matches displayed):"
+msgstr "Coincidencias ambiguas para \"%s\" (se muestra las 5 primeras):"
+
+#: compose-mimp.php:360
+msgid "Ambiguous matches for \"%s\":"
+msgstr "Coincidencias ambiguas para \"%s\":"
+
+#: horde/imp/lib/Message.php:588
+msgid "An error occured while attempting to strip the attachment."
+msgstr "Ocurrio un error al intentar eliminar los adjuntos."
+
+#: horde/imp/message.php:672
+msgid "Are you sure you want to PERMANENTLY delete all attachments?"
+msgstr ""
+"¿Está seguro de que quiere eliminar PERMANENTEMENTE todos los adjuntos?"
+
+#: horde/imp/message.php:522
+msgid "Are you sure you want to PERMANENTLY delete these messages?"
+msgstr "¿Está seguro de que quiere borrar PERMANENTEMENTE estos mensajes?"
+
+#: horde/imp/lib/Prefs/Ui.php:1287
+msgid "Are you sure you want to delete this filter?"
+msgstr "¿Está seguro de que quiere eliminar este filtro?"
+
+#: horde/imp/lib/Prefs/Ui.php:865
+msgid "Are you sure you want to delete this flag?"
+msgstr "¿Está seguro de que quiere eliminar esta marca?"
+
+#: horde/imp/lib/Prefs/Ui.php:1288
+msgid "Are you sure you want to delete this virtual folder?"
+msgstr "¿Está seguro de que quiere borrar esta carpeta virtual?"
+
+#: horde/imp/templates/imp/javascript_defs.php:65
+msgid ""
+"Are you sure you want to move the message(s)? (Some message information "
+"might get lost, like message headers, text formatting or attachments!)"
+msgstr ""
+"¿Está seguro de que quiere mover este/estos mensajes(s)? (se puede perder "
+"alguna información cómo cabeceras del mensaje, formato del texto o adjuntos?"
+
+#: horde/imp/templates/imp/javascript_defs.php:34
+msgid "Are you sure you wish to delete all mail in this mailbox?"
+msgstr "¿Esta seguro de que quiere borrar todos los mensajes del buzón?"
+
+#: horde/imp/config/prefs.php:995
+msgid "Arrival time on server"
+msgstr "Hora de llegada al servidor"
+
+#: horde/imp/config/prefs.php:399
+msgid "As attachment"
+msgstr "Como adjunto"
+
+#: horde/imp/config/prefs.php:401
+msgid "As both body text and an attachment"
+msgstr "Como texto del mensaje y como adjunto"
+
+#: horde/imp/compose.php:943
+msgid "Attach a copy of your PGP public key to the message?"
+msgstr "¿Adjuntar al mensaje una copia de su clave pública PGP?"
+
+#: horde/imp/compose.php:948
+msgid "Attach your contact information to the message?"
+msgstr "¿Adjuntar su información de contacto al mensaje?"
+
+#: horde/imp/lib/Ajax/Application.php:1540 horde/imp/message.php:189
+#: horde/imp/message-dimp.php:36
+msgid "Attachment successfully stripped."
+msgstr "Adjuntos correctamente eliminados."
+
+#: horde/imp/config/prefs.php:575
+msgid ""
+"Automatically show images in messages when the sender is in my address book?"
+msgstr ""
+"¿Mostrar automaticamente las imágenes de mensajes cuyo remitente está en mi "
+"libreta de direcciones?"
+
+#: horde/imp/lib/Application.php:612
+msgid "Back"
+msgstr "Atrás"
+
+#: horde/imp/config/prefs.php:566
+msgid "Block images in messages unless they are specifically requested?"
+msgstr ""
+"Bloquear imágenes en los mensajes salvo que se hayan solicitado "
+"específicamente"
+
+#: horde/imp/search.php:375
+msgid "Built-in Filters cannot be edited."
+msgstr "Los filtros incorporados no se pueden editar."
+
+#: horde/imp/search.php:368
+msgid "Built-in Virtual Folders cannot be edited."
+msgstr "Las Carpetas Virtuales incorporadas no se pueden editar."
+
+#: horde/imp/lib/Search/Filter/Bulk.php:22
+#: horde/imp/lib/Search/Element/Bulk.php:45 horde/imp/search.php:112
+msgid "Bulk Messages"
+msgstr "Mensajes Masivos"
+
+msgid ""
+"Cancelling this message will permanently discard its contents and will "
+"delete auto-saved drafts.nAre you sure you want to do this?"
+msgstr ""
+"Cancelando este mensaje descartará permanentemente su contenido y se "
+"borrarán las copias guardadas automáticamente. ¿Está seguro de quiere hacer "
+"esto?"
+
+#: horde/imp/lib/Imap/Tree.php:1441
+msgid "Cannot directly create mailbox in this folder."
+msgstr "En esta carpeta no puede crear subcarpetas."
+
+#: horde/imp/lib/Mime/Viewer/Partial.php:99
+msgid ""
+"Cannot display message - found only %s of %s parts of this message in the "
+"current mailbox."
+msgstr ""
+"No se puede mostrar el mensaje - se han encontrado sólo %s de %s partes del "
+"mismo en la carpeta actual"
+
+#: horde/imp/lib/Message.php:182
+msgid "Cannot move messages to Trash - no Trash mailbox set in preferences."
+msgstr ""
+"No se pueden enviar mensajes a la Papelera - no se ha definido la carpeta "
+"Papelera en las preferencias."
+
+#: horde/imp/smime.php:108
+msgid "Cannot retrieve public key from message."
+msgstr "No se puede obtener la clave pública del mensanje."
+
+#: horde/imp/lib/Message.php:492
+msgid "Cannot strip the MIME part as the mailbox is read-only."
+msgstr ""
+"No se pueden eliminar las partes MIME ya que la carpeta es de sólo lectura."
+
+#: horde/imp/config/prefs.php:917
+msgid ""
+"Change display preferences such as how many messages you see on each page "
+"and how messages are sorted."
+msgstr ""
+"Cambiar las preferencias de visualización como cuantos mensajes se ven en "
+"cada página y como se ordenan estos."
+
+#: horde/imp/config/prefs.php:1037
+msgid "Change folder navigation display preferences."
+msgstr ""
+"Cambiar las preferencias de visualización de la navegación de carpetas."
+
+#: horde/imp/config/prefs.php:1468
+msgid "Characters to display in preview:"
+msgstr "Caractéres para mostrar en la vista previa:"
+
+#: horde/imp/config/prefs.php:1310
+msgid "Check for valid recipient PGP public keys while replying?"
+msgstr "¿Comprobar al responder las claves públicas PGP de los destinatarios?"
+
+#: horde/imp/lib/Ui/Compose.php:110
+#: horde/imp/templates/dimp/javascript_defs.php:131
+msgid "Checking..."
+msgstr "Comprobando..."
+
+#: horde/imp/templates/dimp/index.inc:147
+msgid "Clear Search"
+msgstr "Limpiar Búsqueda"
+
+#: horde/imp/mailbox.php:576 horde/imp/templates/dimp/index.inc:447
+msgid "Clear Sort"
+msgstr "Limpiar Orden"
+
+#: horde/imp/lib/Mime/Viewer/Images.php:108
+msgid ""
+"Click %s to convert the image file into a format your browser can attempt to "
+"view."
+msgstr ""
+"Pulsar %s para convertir el fichero imagen a un formato que su navegador "
+"pueda intentar mostrar."
+
+#: horde/imp/lib/Mime/Viewer/Smime.php:314
+#: horde/imp/lib/Mime/Viewer/Smime.php:318
+msgid "Click HERE to verify the data."
+msgstr "Pulsar AQUÍ para verificar los datos."
+
+#: horde/imp/templates/dimp/index.inc.orig:510
+#: horde/imp/templates/dimp/index.inc:526
+msgid "Click HERE to view the message in a new window."
+msgstr "Pulsar AQUÍ para ver el mensaje en una ventana nueva."
+
+#: horde/imp/lib/Prefs/Ui.php:1016
+msgid "Click here to open all mailto: links using %s."
+msgstr "Pular aquí para abrir todos los enlaces mailto: utilizando %s."
+
+#: horde/imp/lib/Prefs/Ui.php:899
+msgid "Color Picker"
+msgstr "Elegir color"
+
+#: horde/imp/compose-mimp.php:45
+msgid "Compose Message"
+msgstr "Redactar mensaje"
+
+#: horde/imp/config/prefs.php:216
+msgid "Compose messages with an HTML editor by default?"
+msgstr "¿Redactar por defecto los mensajes con un editor HTML?"
+
+#: horde/imp/config/prefs.php:886
+msgid "Configure flag highlighting."
+msgstr "Configurar el resaltado para las marcas."
+
+#: horde/imp/config/prefs.php:1239
+msgid "Configure how event or meeting requests should be handled."
+msgstr "Configurar como se gestionan las invitaciones a eventos y reuniones."
+
+#: horde/imp/config/prefs.php:387
+msgid "Configure how you forward mail."
+msgstr "Configurar como se reenvía el correo."
+
+#: horde/imp/config/prefs.php:342
+msgid "Configure how you reply to mail."
+msgstr "Configurar como se responde al correo."
+
+#: horde/imp/config/prefs.php:167
+msgid "Configure how you send mail."
+msgstr "Configurar como se envía el correo."
+
+#: horde/imp/config/prefs.php:1517
+msgid "Configure preferences for the dynamic view."
+msgstr "Configurar las preferencias para la visualización dinámica."
+
+#: horde/imp/config/prefs.php:1401
+msgid "Configure preferences for the mobile view."
+msgstr "Configurar las preferencias para la visualización para móviles."
+
+#: horde/imp/config/prefs.php:1435
+msgid "Configure preferences for the traditional view."
+msgstr "Configurar las preferencias para la visualización tradicional."
+
+#: horde/imp/config/prefs.php:762
+msgid "Configure spam reporting."
+msgstr "Configurar la notificación de spam."
+
+#: horde/imp/search.php:116
+msgid "Contains Attachment(s)"
+msgstr "Contiene adjunto(s)"
+
+#: horde/imp/lib/Mime/Viewer/Html.php:117
+msgid "Convert HTML data to plain text and view in new window."
+msgstr "Convertir los datos HTML en texto plano y verlo en una ventana nueva."
+
+#: horde/imp/templates/dimp/javascript_defs.php:132
+msgid "Copy %s to %s"
+msgstr "Copiar %s a %s"
+
+#: horde/imp/lib/Crypt/Pgp.php:346
+msgid "Could not connect to public PGP keyserver"
+msgstr "No se pudo conectar con el servidor de claves PGP"
+
+#: horde/imp/lib/Message.php:785
+msgid "Could not delete messages from %s. This mailbox is read-only."
+msgstr "No se pueden borrar mensajes de %s. La carpeta es de sólo lectura."
+
+#: lib/Ajax/Application.php:2105
+msgid "Could not open mailbox \"%s\"."
+msgstr "No se puede abrir la carpeta \"%s\"."
+
+#: horde/imp/lib/Imap/Acl.php:51
+msgid "Could not retrieve ACL"
+msgstr "No se pudo recuperar el ACL"
+
+#: horde/imp/lib/Ui/Compose.php:184
+msgid "Could not retrieve message data from the mail server."
+msgstr "No se pudieron recuperar los datos del mensaje del servidor de correo."
+
+#: horde/imp/lib/Crypt/Pgp.php:241
+msgid "Could not retrieve public key for %s."
+msgstr "No se pudo recuperar la clave pública para %s."
+
+#: horde/imp/lib/Compose.php:914 horde/imp/lib/Compose.php:929
+msgid "Could not save recipients."
+msgstr "No se pudieron salvar los destinatarios."
+
+#: lib/Imap/Acl.php:71
+msgid "Couldn't give user \"%s\" these rights for the mailbox \"%s\": %s"
+msgstr ""
+"No se pudieron condecer estos derechos al usuario \"%s\" para la carpeta \"%s"
+"\": %s"
+
+#: lib/Imap/Acl.php:93
+msgid ""
+"Couldn't remove from user \"%s\" these rights for the mailbox \"%s\": %s"
+msgstr ""
+"No se pudieron eliminar estos derechos al usuario \"%s\" para la carpeta \"%s"
+"\": %s"
+
+#: horde/imp/lib/Prefs/Ui.php:1367
+msgid "Create a new sent-mail folder"
+msgstr "Crear una nueva carpeta Enviados"
+
+#: horde/imp/templates/dimp/javascript_defs.php:133
+msgid "Create folder:"
+msgstr "Crear carpeta:"
+
+#: horde/imp/lib/Prefs/Ui.php:684 horde/imp/lib/Prefs/Ui.php:712
+msgid "Create subfolders"
+msgstr "Crear subcarpetas"
+
+#: horde/imp/config/prefs.php:998
+msgid "Criteria to use when sorting by date:"
+msgstr "Criterios a utilizar cuando se ordena por fecha:"
+
+#: horde/imp/search.php:67
+msgid "Custom Header"
+msgstr "Cabezara personalizada"
+
+#: horde/imp/search.php:488
+msgid "Custom Header:"
+msgstr "Cabecera personalizada:"
+
+#: horde/imp/lib/Search/Element/Date.php:60 horde/imp/search.php:79
+msgid "Date Equals (=)"
+msgstr "Fecha igual (=)"
+
+#: horde/imp/search.php:489
+msgid "Date Selection"
+msgstr "Selección de fecha"
+
+#: horde/imp/lib/Search/Element/Date.php:68 horde/imp/search.php:87
+msgid "Date Since (>=)"
+msgstr "Desde fecha (>=)"
+
+#: horde/imp/lib/Search/Element/Date.php:64 horde/imp/search.php:83
+msgid "Date Until (<)"
+msgstr "Hasta fehca (<)"
+
+#: horde/imp/config/prefs.php:996
+msgid "Date in message headers"
+msgstr "Fecha en las cabceras del mensaje"
+
+#: horde/imp/lib/Mime/Viewer/Itip.php:636
+msgid "Delegate position"
+msgstr "Posición delegada"
+
+#: horde/imp/lib/Prefs/Ui.php:719
+msgid "Delete and purge messages"
+msgstr "Borrar y purgar mensajes"
+
+#: horde/imp/config/prefs.php:791
+msgid "Delete message"
+msgstr "Borrar mensaje"
+
+#: horde/imp/lib/Prefs/Ui.php:698
+msgid "Delete messages"
+msgstr "Borrar mensajes"
+
+#: horde/imp/config/prefs.php:286
+msgid ""
+"Delete old linked attachments after this many months (0 to never delete)?"
+msgstr ""
+"¿Borrar los adjuntos enlazados después de estos meses? (0 para no borrar "
+"nunca)"
+
+#: horde/imp/config/prefs.php:498
+msgid ""
+"Delete old sent mail folders after this many months (0 to never delete)?"
+msgstr ""
+"Borrar las carpetas de Enviados depués de estos meses? (0 para no borrar "
+"nunca)"
+
+#: horde/imp/lib/Prefs/Ui.php:691
+msgid "Delete subfolders"
+msgstr "Borrar subcarpetas"
+
+#: horde/imp/lib/Prefs/Ui.php:720
+msgid "Delete/Purge"
+msgstr "Borrar/Purgar"
+
+#: lib/Ajax/Application.php:125
+msgid "Deleted Virtual Folder \"%s\"."
+msgstr "Borrar carpeta virtual \"%s\"."
+
+#: compose.php:161 lib/Ajax/Application.php:1394
+msgid "Deleted attachment \"%s\"."
+msgstr "Adjuntos borrados \"%s\"."
+
+#: lib/Prefs/Ui.php:931
+msgid "Deleted flag \"%s\"."
+msgstr "Marca borrada \"%s\"."
+
+#: horde/imp/config/prefs.php:1027
+msgid "Display attachment information about a message in the mailbox listing?"
+msgstr ""
+"¿Mostrar la información de adjuntos de un mensaje en la lista del buzón?"
+
+#: horde/imp/config/prefs.php:1508
+msgid "Display confirmation in popup window after sending a message?"
+msgstr ""
+"¿Mostrar una ventana emergente con la confirmación después de enviar un "
+"mensaje."
+
+#: horde/imp/config/prefs.php:1411
+msgid "Display only the first 250 characters of a message initially?"
+msgstr "¿Mostrar inicialmente sólo los 250 pimeros caracteres de un mensaje?"
+
+#: horde/imp/search.php:495
+msgid "Do NOT Match"
+msgstr "NO coincide"
+
+#: horde/imp/config/prefs.php:631
+msgid "Do not show parts"
+msgstr "No mostrar las partes"
+
+#: horde/imp/templates/dimp/index.inc:456
+msgid "Don't Show"
+msgstr "No mostrar"
+
+#: horde/imp/message-mimp.php:151
+msgid "Download Attachment"
+msgstr "Decargar adjunto"
+
+#: templates/imp/folders/actions.html:35 templates/dimp/index.inc:286
+#: templates/dimp/index.inc:302
+msgid "Download [.zip file]"
+msgstr "Descargar [fichero .zip]"
+
+#: horde/imp/lib/Ajax/Application.php:1975
+msgid "Draft automatically saved."
+msgstr "Borrador guardado automráticamente."
+
+#: horde/imp/config/prefs.php:1516
+msgid "Dynamic View"
+msgstr "Vista dinámica"
+
+#: horde/imp/lib/Mime/Viewer/Html.php:193
+msgid "EXAMPLE"
+msgstr "EJEMPLO"
+
+#: horde/imp/templates/dimp/index.inc.orig:333
+#: horde/imp/templates/dimp/index.inc:349
+msgid "Edit Virtual Folders"
+msgstr "Editar Carpeta virtual"
+
+#: horde/imp/config/prefs.php:320
+msgid "Edit stationery and form responses."
+msgstr "Editar plantilla y formato de respuestas."
+
+#: horde/imp/lib/Mime/Viewer/Itip.php:525
+#: horde/imp/lib/Mime/Viewer/Itip.php:527
+#: horde/imp/lib/Mime/Viewer/Itip.php:701
+#: horde/imp/lib/Mime/Viewer/Itip.php:703
+msgid "End:"
+msgstr "Fin:"
+
+#: horde/imp/lib/Prefs/Ui.php:330
+msgid "Enter the name for your new drafts folder."
+msgstr "Introducir el nombre para su nueva carpeta Borradores."
+
+#: horde/imp/lib/Prefs/Ui.php:392
+msgid "Enter the name for your new spam folder."
+msgstr "Introducir el nombre para su nueva carpeta Spam."
+
+#: horde/imp/lib/Prefs/Ui.php:402
+msgid "Enter the name for your new trash folder."
+msgstr "Introducir el nombre para su nueva carpeta Papelera."
+
+#: horde/imp/lib/Ajax/Imple/PassphraseDialog.php:70
+msgid "Enter the passphrase used to encrypt this message."
+msgstr "Introducir la contraseña utilizada para cifrar el mensaje."
+
+#: horde/imp/lib/Ajax/Imple/PassphraseDialog.php:66
+msgid "Enter your personal PGP passphrase."
+msgstr "Introducir su contraseña PGP personal."
+
+#: horde/imp/lib/Ajax/Imple/PassphraseDialog.php:74
+msgid "Enter your personal S/MIME passphrase."
+msgstr "Introducir su contraseña S/MIME personal."
+
+#: horde/imp/lib/Search/Element/Text.php:52
+msgid "Entire Message (including Headers)"
+msgstr "Mensaje completo (incluyendo cabceras)"
+
+#: horde/imp/templates/dimp/javascript_defs.php:124
+msgid "Error when communicating with the server."
+msgstr "Error al comunicar con el servidor."
+
+#: horde/imp/templates/dimp/index.inc.orig:39
+#: horde/imp/templates/dimp/index.inc:39
+msgid ""
+"Error! This application requires javascript to be available and enabled in "
+"your browser."
+msgstr ""
+"Error! Esta aplicación necesita que javascript esté disponible y activado en "
+"su navegador."
+
+#: horde/imp/config/prefs.php:1238
+msgid "Event Requests"
+msgstr "Petición de Eventos"
+
+#: horde/imp/templates/dimp/index.inc:454
+msgid "Filter By"
+msgstr "Filtrar por"
+
+#: horde/imp/locale/imp.pot:1872 horde/imp/search.php:301
+msgid "Filter \"%s\" created succesfully."
+msgstr "Filtro \"%s\" correctamente creado."
+
+#: horde/imp/lib/Prefs/Ui.php:1313
+msgid "Filter \"%s\" deleted."
+msgstr "Filtro \"%s\" eliminado."
+
+#: horde/imp/search.php:297
+msgid "Filter \"%s\" edited successfully."
+msgstr "Filtro \"%s\" correctamente editado."
+
+#: horde/imp/config/prefs.php:541
+msgid "Filter message content for unwanted text (e.g. profanity)?"
+msgstr ""
+"¿Filtrar el contenido del mensaje por texto no deseado (e.g. blasfemia)?"
+
+#: horde/imp/config/prefs.php:941
+msgid "First (oldest) Unseen Message"
+msgstr "Primer (más antiguo) mensaje no leido"
+
+#: horde/imp/search.php:490
+msgid "Flag:"
+msgstr "Marcador:"
+
+#: horde/imp/lib/Flag/Imap/Flagged.php:37
+msgid "Flagged for Followup"
+msgstr "Marcado para seguimiento"
+
+#: horde/imp/config/prefs.php:1036
+msgid "Folder Display"
+msgstr "Vista de carpetas"
+
+#: horde/imp/templates/dimp/index.inc:98
+msgid "Folder Options"
+msgstr "Opciones de carpeta"
+
+#: horde/imp/config/prefs.php:559
+msgid ""
+"For messages with alternative representations of the text part, which part "
+"should we display?"
+msgstr ""
+"Para mensajes con vistas alteernativas de las partes de texto, ¿que parte se "
+"mostrará?"
+
+#: horde/imp/lib/Compose.php:1868
+msgid "Forwarded Message"
+msgstr "Mensaje reenviado"
+
+#: horde/imp/compose-mimp.php:172
+msgid "Forwarded message will be automatically added to your outgoing message."
+msgstr ""
+"El mensaje reenviado se añadirá automaticcámente a su mensaje saliente."
+
+#: horde/imp/lib/Flag/Imap/Forwarded.php:33
+msgid "Forwarded"
+msgstr "Reenviado"
+
+#: horde/imp/config/prefs.php:13 horde/imp/config/prefs.php:113
+#: horde/imp/config/prefs.php:135
+msgid "General"
+msgstr "General"
+
+#: horde/imp/lib/Compose.php:1134
+msgid "HTML Message"
+msgstr "Mensaje HTML"
+
+#: horde/imp/lib/Mime/Viewer/Html.php:113
+msgid "HTML data"
+msgstr "Datos HTML"
+
+#: horde/imp/config/prefs.php:556
+msgid "HTML part"
+msgstr "Parte HTML"
+
+#: horde/imp/config/prefs.php:602
+msgid "Hidden in List Messages"
+msgstr "Oculto en la lista de mensajes"
+
+#: horde/imp/config/prefs.php:603
+msgid "Hidden in Thread View and List Messages"
+msgstr "Oculto en la vista de conversación y en la lista de mensajes"
+
+#: horde/imp/templates/dimp/index.inc:394
+msgid "Horizontal Layout"
+msgstr "Presentación horizontal"
+
+#: horde/imp/config/prefs.php:403
+msgid "How should messages be forwarded by default?"
+msgstr "Por defecto ¿Cómo se reenvían los mensajes?"
+
+#: horde/imp/lib/Mime/Viewer/Pgp.php:252
+msgid ""
+"However, no personal private key exists so the message cannot be decrypted."
+msgstr ""
+"Sin embargo no exite clave privada, por tanto el mensaje no puede ser "
+"descifrado."
+
+#: horde/imp/lib/Imap/Acl.php:34
+msgid "IMAP server does not support ACLs."
+msgstr "El servidor IMAP no soporta ACLs."
+
+#: horde/imp/pgp.php:67
+msgid ""
+"Imported key contains your PGP private key. Only add your public key in the "
+"first step!"
+msgstr ""
+"La clave importada contiene su clave privada PGP. ¡Añada sólo la clave "
+"públioca en el primer paso!"
+
+#: horde/imp/config/prefs.php:400
+msgid "In the body text"
+msgstr "En el texto del mensaje"
+
+#: horde/imp/lib/Prefs/Ui.php:1446
+msgid "Information on Personal Public Certificate"
+msgstr "Información en el certiticado personal público"
+
+#: horde/imp/lib/Prefs/Ui.php:663
+msgid "Insert messages"
+msgstr "Insertar mensaje"
+
+#: horde/imp/templates/dimp/javascript_defs.php:128
+msgid "Invalid Subject"
+msgstr "Asunto inválido"
+
+#: horde/imp/lib/Compose.php.orig:1004 horde/imp/lib/Compose.php:1013
+msgid "Invalid e-mail address: %s."
+msgstr "Dirección de correo inválida: %s."
+
+#: horde/imp/lib/Ajax/Imple/PassphraseDialog.php:145
+#: horde/imp/lib/Ajax/Imple/PassphraseDialog.php:158
+msgid "Invalid passphrase entered."
+msgstr "Se ha introducido una contraseña inválida."
+
+#: horde/imp/lib/Prefs/Ui.php:1077
+msgid ""
+"Key generation may take a long time to complete. Continue with key "
+"generation?"
+msgstr ""
+"La generación de la clave puede llevar mucho tiempo. ¿Quiere continuar?"
+
+#: horde/imp/config/prefs.php:942
+msgid "Last (newest) Unseen Message"
+msgstr "Último (más nuevo) mensaje no leído"
+
+#: horde/imp/lib/Ajax/Application.php:1357
+msgid "Loaded stationery \"%s\"."
+msgstr "Plantilla \"%s\" cargada."
+
+#: horde/imp/lib/Ui/Mimp.php:42 horde/imp/templates/mobile/mailbox.html.php:8
+#: horde/imp/templates/mobile/folders.html.php:6
+#: horde/imp/templates/mobile/message.html.php:5
+msgid "Log out"
+msgstr "Salir"
+
+#: horde/imp/templates/dimp/javascript_defs.php:151
+msgid "Logging Out..."
+msgstr "Saliendo..."
+
+#: horde/imp/config/prefs.local.php.orig:918
+#: horde/imp/config/prefs.local.php:918 horde/imp/config/prefs.php:916
+msgid "Mailbox Display"
+msgstr "Vista de buzón"
+
+#: horde/imp/lib/Mailbox/List.php:265 horde/imp/lib/Mailbox/List.php:289
+msgid "Mailbox listing failed"
+msgstr "La lista del buzón ha fallado"
+
+#: horde/imp/lib/Imap.php:249
+msgid "Mailbox structure on server has changed."
+msgstr "La estructura del buzón en el servidor ha cambiado."
+
+#: horde/imp/lib/Search/Filter/Mailinglist.php:22
+#: horde/imp/lib/Search/Element/Mailinglist.php:44 horde/imp/search.php:120
+msgid "Mailing List Messages"
+msgstr "Mensajes de listas de correo"
+
+#: horde/imp/config/prefs.php:422
+msgid "Manage message drafts."
+msgstr "Gestionar borradores de mensajes."
+
+#: horde/imp/config/prefs.php:479
+msgid "Manage sent mail folders."
+msgstr "Gestionar carpetas de correo enviado"
+
+#: horde/imp/config/prefs.php:137
+msgid "Manage your saved searches"
+msgstr "Gestionar sus búsquedas guardadas"
+
+#: horde/imp/lib/Prefs/Ui.php:649
+msgid "Mark with Seen/Unseen flags"
+msgstr "Marcar como Leído/No leído"
+
+#: horde/imp/lib/Prefs/Ui.php:656
+msgid "Mark with other flags (e.g. Important/Answered)"
+msgstr "Poner otras marcas (p.e. Importante/Contestado)"
+
+#: horde/imp/templates/dimp/javascript_defs.php:140
+msgid "Mbox file:"
+msgstr "Fichero Mbox:"
+
+#: horde/imp/lib/Search/Element/Text.php:51
+msgid "Message Body"
+msgstr "Cuerpo del mensaje"
+
+#: horde/imp/config/prefs.php:421
+msgid "Message Drafts"
+msgstr "Borradores de mensajes"
+
+#: horde/imp/config/prefs.php:885
+msgid "Message Flags"
+msgstr "Marcas de mensajes"
+
+#: horde/imp/config/prefs.php:386
+msgid "Message Forwards"
+msgstr "Reenvíos de mensajes"
+
+#: horde/imp/templates/dimp/index.inc:241
+msgid "Message Log"
+msgstr "Histórico de mensajes"
+
+#: horde/imp/config/prefs.php:341
+msgid "Message Replies"
+msgstr "Respuestas de mensajes"
+
+#: horde/imp/lib/Ajax/Application.php:1786
+msgid "Message \"%s\" redirected successfully."
+msgstr "Mensaje \"%s\" correctamente redirigido."
+
+#: horde/imp/lib/Ajax/Application.php:1493
+#: horde/imp/lib/Ajax/Application.php:1720 horde/imp/compose-mimp.php:285
+#: horde/imp/compose.php:476
+msgid "Message \"%s\" sent successfully."
+msgstr "Mensaje \"%s\" enviado correctamente."
+
+#: horde/imp/lib/Flag/System/Attachment.php:29
+msgid "Message has Attachments"
+msgstr "El mensaje contiene adjuntos"
+
+#: horde/imp/lib/Flag/System/Encrypted.php:29
+msgid "Message is Encrypted"
+msgstr "El mensaje está cifrado"
+
+#: horde/imp/lib/Flag/System/Signed.php:29
+msgid "Message is Signed"
+msgstr "El mensaje está firmado"
+
+#: horde/imp/lib/Search/Filter/Attachment.php:22
+msgid "Messages with Attachments"
+msgstr "Mensajes con adjuntos"
+
+#: horde/imp/config/prefs.php:1247
+msgid "Minutes needed to consider a event as a non-conflicting one in iTip"
+msgstr ""
+"Minutos que se necesitan para considerar un evento como no conflictivo en "
+"iTip"
+
+#: horde/imp/mobile.php:19
+msgid "Mobile Mail"
+msgstr "Correo para móviles"
+
+#: horde/imp/config/prefs.php:1400
+msgid "Mobile View"
+msgstr "Vista para móviles"
+
+#: horde/imp/templates/dimp/index.inc102
+msgid "Move to Base Level"
+msgstr "Mover al nivel base"
+
+#: horde/imp/config/prefs.php:804
+msgid "Move to Inbox"
+msgstr "Mover a Entrada"
+
+#: horde/imp/config/prefs.php:792
+msgid "Move to spam folder"
+msgstr "Mover a la carpeta Spam"
+
+#: horde/imp/templates/dimp/index.inc:498
+msgid "Move to the next unseen message (non-search folders only)."
+msgstr "Ir al siguiente mensaje no leido (carpetas que no sean búsquedas)."
+
+#: horde/imp/compose-dimp.php:135
+msgid "Multiple messages can only be forwarded as attachments."
+msgstr "Varios mensajes juntos solo pueden ser reenviados como adjuntos."
+
+#: horde/imp/config/prefs.php:958
+msgid "NONE"
+msgstr "NINGUNO"
+
+#: horde/imp/config/prefs.php:668
+msgid "Never send read receipt"
+msgstr "No enviar nunca confirmación de lectura"
+
+#: horde/imp/mailbox-mimp.php:249
+msgid "New Search in %s"
+msgstr "Nueva búsqueda en %s"
+
+#: horde/imp/lib/Block/Newmail.php:23
+msgid "Newest Unseen Messages"
+msgstr "Mensaje no leido más nuevo"
+
+#: horde/imp/templates/mobile/message.html.php:24
+#: horde/imp/templates/common-header.inc:84
+msgid "Next"
+msgstr "Siguiente"
+
+#: horde/imp/templates/dimp/javascript_defs.php:148
+msgid "No Alerts"
+msgstr "Sin alertas"
+
+#: horde/imp/lib/Spam.php:175
+msgid "No Subject"
+msgstr "Sin asunto"
+
+#: horde/imp/templates/dimp/index.inc.orig:327
+#: horde/imp/templates/dimp/index.inc:343
+msgid "No actions available"
+msgstr "No hay acciones diposnibles"
+
+#: horde/imp/smime.php:118
+msgid "No certificate found."
+msgstr "No se ha encontrado ningún certificado."
+
+#: horde/imp/lib/Folder.php:227 horde/imp/lib/Folder.php:264
+msgid "No folders were specified."
+msgstr "No se ha especificado ninguna carpeta."
+
+#: horde/imp/lib/Ajax/Imple/PassphraseDialog.php:148
+#: horde/imp/lib/Ajax/Imple/PassphraseDialog.php:161
+msgid "No passphrase entered."
+msgstr "No se ha introducido ninguna contraseña."
+
+#: horde/imp/lib/Mime/Viewer/Smime.php:193
+msgid "No personal private key exists so the data is unable to be decrypted."
+msgstr "No exste clave privada por lo que no se pueden descifrar los datos."
+
+#: horde/imp/templates/dimp/javascript_defs.php:183
+msgid "No spelling errors found."
+msgstr "No se han encontrado errores de ortografía."
+
+#: horde/imp/lib/Flag/Base.php:180
+msgid "Not %s"
+msgstr "No %s"
+
+#: horde/imp/templates/mobile/notice.html.php:3
+msgid "Notice"
+msgstr "Aviso"
+
+#: horde/imp/lib/Search/Element/Within.php:73 horde/imp/search.php:91
+msgid "Older Than"
+msgstr "Más antiguo que"
+
+#: horde/imp/config/prefs.php:1418
+msgid ""
+"Only show download confirmation page if message part is greater than this "
+"size, in bytes. Set to 0 to always require the confirmation page."
+msgstr ""
+"Mostrar la página de confirmación sólo si la parte del mensaje es mayor que "
+"este tamaño en bytes. Introducir 0 para pedir siempre la página de "
+"confirmación."
+
+#: horde/imp/config/prefs.php:915 horde/imp/config/prefs.php:1035
+#: horde/imp/config/prefs.php:1095 horde/imp/config/prefs.php:1166
+#: horde/imp/config/prefs.php:1237 horde/imp/config/prefs.php:1255
+#: horde/imp/config/prefs.php:1335 horde/imp/config/prefs.php:1399
+#: horde/imp/config/prefs.php:1433 horde/imp/config/prefs.php:1515
+msgid "Other"
+msgstr "Otro"
+
+#: horde/imp/lib/Prefs/Ui.php:1132
+msgid "PGP passphrase successfully unloaded."
+msgstr "La contraseña PGP se ha descargado correctamente."
+
+msgid ""
+"PGP support requires popup windows to be used. If your browser is currently "
+"set to disable popup windows, you must change this setting or else the PGP "
+"features will not work correctly."
+msgstr ""
+"El uso de PGP necesita utilizar ventanas emergentes. Si su navegador está "
+"configurado para evitar ventanas emergentes, necesitará cambiar esta "
+"configuración o las funcionalidades PGP no funcionarán correctamente."
+
+#: horde/imp/lib/Views/ShowMessage.php:277 horde/imp/message.php:707
+msgid "Parts"
+msgstr "Partes"
+
+#: horde/imp/templates/dimp/javascript_defs.php:135
+msgid "Permanently delete %s?"
+msgstr "¿Borrar permanentemente %s?"
+
+#: horde/imp/templates/dimp/javascript_defs.php:137
+msgid "Permanently delete all messages in %s?"
+msgstr "¿Borrar permanentemente todos los mensajes en %s?"
+
+#: horde/imp/lib/Search/Filter/Personal.php:22
+#: horde/imp/lib/Search/Element/Personal.php:61 horde/imp/search.php:124
+msgid "Personal Messages"
+msgstr "Mensajes personales"
+
+#: horde/imp/smime.php:90
+msgid "Personal S/MIME certificates NOT imported."
+msgstr "Los ceertificados personales S/MIME NO se han importado."
+
+#: horde/imp/lib/Compose.php.orig:1155 horde/imp/lib/Compose.php:1164
+msgid "Plaintext Message"
+msgstr "Mensaje de texto plano"
+
+#: horde/imp/config/prefs.local.php.orig:557
+#: horde/imp/config/prefs.local.php:557 horde/imp/config/prefs.php:557
+msgid "Plaintext part"
+msgstr "Parte de texto plano"
+
+#: horde/imp/lib/Application.php:388 horde/imp/lib/Application.php.orig:363
+msgid "Please choose a mail server."
+msgstr "Por favor, seleccione un servidor de correo."
+
+#: horde/imp/lib/Prefs/Ui.php:864
+msgid "Please enter the label for the new flag:"
+msgstr "Por favor, introduzca la etiqueta para la nueva marca:"
+
+#: horde/imp/search.php:492
+msgid "Please select at least one search criteria."
+msgstr "Por favori, seleccione al menos un criterio de búsqueda."
+
+#: horde/imp/lib/Mime/Viewer/Itip.php:790
+msgid "Possible Conflicts"
+msgstr "Posibles conflictos"
+
+#: horde/imp/lib/Prefs/Ui.php:670
+msgid "Post to this mailbox (not enforced by IMAP)"
+msgstr "Enviar a este buzón (no exigido por IMAP)"
+
+#: horde/imp/config/prefs.php:63
+msgid "Precede your text signature with dashes ('-- ')?"
+msgstr "¿Preceder el texto de su firma con guiones ('-- ')?"
+
+#: horde/imp/templates/mobile/message.html.php:23
+#: horde/imp/templates/common-header.inc:81
+msgid "Previous"
+msgstr "Anterior"
+
+#: horde/imp/config/prefs.php:672
+msgid "Prompt only if necessary; otherwise automatically send"
+msgstr ""
+"Preguntar sólamente si es necesario; en otro caso enviar automaticamente"
+
+#: horde/imp/config/prefs.php:674
+msgid ""
+"Prompt to send read receipt (a/k/a message disposition notification) when "
+"requested by the sender?"
+msgstr ""
+"¿Preguntar para enviar la confirmación de lectura (notificación de "
+"disposición de mensaje) cuando haya sido solicitada por el remitente?"
+
+#: horde/imp/config/prefs.php:515
+msgid "Purge messages in sent mail folder(s) older than this amount of days."
+msgstr "Purgar mensajes en la(s) carpeta(s) Enviados anteriores a estos días."
+
+#: horde/imp/lib/Prefs/Ui.php:705
+msgid "Purge messages"
+msgstr "Purgar mensajes"
+
+#: horde/imp/config/prefs.php:507
+msgid "Purge sent mail how often:"
+msgstr "Frecuencia para purgar los mensajes enviados:"
+
+#: horde/imp/lib/Quota/Base.php:48
+msgid "Quota status: %.2f %s / %.2f %s (%.2f%%)"
+msgstr "Estado de cuota: %.2f %s / %.2f %s (%.2f%%)"
+
+#: horde/imp/lib/Quota/Base.php:54
+msgid "Quota status: %.2f %s / NO LIMIT"
+msgstr "Estado de cuota: %.2f %s / SIN LÍMITE"
+
+#: horde/imp/lib/Prefs/Ui.php:642
+msgid "Read messages"
+msgstr "Leer mensajes"
+
+#: horde/imp/mailbox-mimp.php:142 horde/imp/mailbox.php:403
+#: horde/imp/templates/dimp/index.inc:117
+msgid "Read-Only"
+msgstr "Sólo-lectura"
+
+#: horde/imp/templates/dimp/index.inc:318
+msgid "Rebuild Folder List"
+msgstr "Reconstruir lista de carpetas"
+
+#: horde/imp/lib/Compose.php:535
+msgid "Recipient address does not match the currently selected identity."
+msgstr ""
+"La dirección de destinatario no coincide con la identidad seleccionada."
+
+#: horde/imp/search.php:47 horde/imp/templates/dimp/index.inc:465
+msgid "Recipients (To/Cc/Bcc)"
+msgstr "Destinatarios (Para/Cc/Bcc)"
+
+#: horde/imp/templates/dimp/index.inc:148
+msgid "Refresh Search Results"
+msgstr "Refrescar redultados de la búsqueda"
+
+#: horde/imp/lib/Auth.php:118
+msgid "Remote server is down. Please try again later."
+msgstr "El servidor remoto está caido. Por favor inténtelo más tarde."
+
+#: horde/imp/templates/dimp/javascript_defs.php:182
+msgid "Remove"
+msgstr "Eliminar"
+
+#: horde/imp/config/prefs.php:490
+msgid "Rename sent mail folder at beginning of month?"
+msgstr "¿Renombrar la carpeta de enviados al principio de mes?"
+
+#: horde/imp/message-mimp.php:281
+msgid "Reply All"
+msgstr "Responder a todos"
+
+#: horde/imp/compose-mimp.php:160
+msgid "Reply text will be automatically appended to your outgoing message."
+msgstr ""
+"El texto de respuesta se añadirá automaticamente a su mensaje de salida."
+
+#: horde/imp/search.php:504
+msgid "Return to %s"
+msgstr "Devolver a %s"
+
+#: horde/imp/lib/Prefs/Ui.php:1486
+msgid "S/MIME passphrase successfully unloaded."
+msgstr "La contraseña S/MIME decargada correctamente."
+
+#: horde/imp/smime.php:36
+msgid "S/MIME public key successfully added."
+msgstr "Clave pública PGP añadida correctamente."
+
+#: horde/imp/lib/Mime/Viewer/Smime.php:188
+msgid ""
+"S/MIME support is not currently enabled so the data is unable to be "
+"decrypted."
+msgstr ""
+"El soporte para S/MIME no esta activado, por lo que no se puden descifrar "
+"los datos."
+
+#: horde/imp/config/prefs.php:1361
+msgid ""
+"S/MIME support requires popup windows to be used. If your browser is "
+"currently set to disable popup windows, you must change this setting or else "
+"the S/MIME features will not work correctly."
+msgstr ""
+"El soporte para S/MIME necesita utilizar ventanas emergentes. Si su "
+"navegador está configurado para evitar ventanas emergentes debe cambiar esta "
+"configuración o las funcionalidades S/MIME no funcionarán correctamente."
+
+#: horde/imp/lib/Mime/Viewer/Smime.php:302
+msgid "Save Certificate in your Address Book"
+msgstr "Guardar el certificado en la libreta de direcciones"
+
+#: horde/imp/lib/Mime/Viewer/Pgp.php:307
+msgid "Save the key to your address book."
+msgstr "Guardar la clave en la libreta de direcciones."
+
+#: horde/imp/config/prefs.php:136
+msgid "Saved Searches"
+msgstr "Guardar búsquedas"
+
+#: horde/imp/search.php:494
+msgid "Saved searches require a label."
+msgstr "Las búsquedas guardadas necesitan una etiqueta."
+
+#: horde/imp/templates/dimp/index.inc:495
+msgid "Scroll up/down through the display of the previewed message."
+msgstr "Desplazar arriba/abajo sobre la vista del mensaje."
+
+#: horde/imp/templates/dimp/index.inc:278
+msgid "Search All Subfolders"
+msgstr "Buscar en todas las subcarpetas"
+
+#: horde/imp/templates/dimp/index.inc:452
+msgid "Search By"
+msgstr "Buscar por"
+
+#: horde/imp/search.php:497
+msgid "Search Term:"
+msgstr "Término de búsqueda:"
+
+#: horde/imp/search.php:498
+msgid "Search all subfolders?"
+msgstr "¿Buscar en todas las subcarpetas?"
+
+#: horde/imp/lib/Ui/Compose.php:60
+msgid "Search for \"%s\" failed: no address found."
+msgstr "La búsqueda de \"%s\" ha fallado: dirección no encontrada."
+
+#: horde/imp/search-basic.php:27
+msgid "Searching is not available with a POP3 server."
+msgstr "No es posible buscar en servidores POP3."
+
+#: horde/imp/lib/Mime/Viewer/Smime.php:292
+msgid "Sender: %s"
+msgstr "Remitente: %s"
+
+#: horde/imp/config/prefs.php:478
+msgid "Sent Mail"
+msgstr "Correo enviado"
+
+#: horde/imp/config/prefs.php:208
+msgid "Set a priority header when composing messages?"
+msgstr "¿Incluir una cabcera de prioridad al redactar mensajes?"
+
+#: horde/imp/lib/Prefs/Ui.php:677
+msgid "Set permissions for other users"
+msgstr "Definir permisos para otros usuarios"
+
+#: horde/imp/templates/dimp/index.inc:473
+msgid "Show Addresses - %d recipients"
+msgstr "Ver Direcciones - %d destinatarios"
+
+#: horde/imp/message.php:663
+msgid "Show All Message Parts"
+msgstr "Ver todas las partes de los mensajes"
+
+#: horde/imp/templates/dimp/index.inc:455
+msgid "Show Only"
+msgstr "Ver sólo"
+
+#: horde/imp/config/prefs.php:630
+msgid "Show all attachments"
+msgstr "Ver todos los adjuntos"
+
+#: horde/imp/config/prefs.php:907
+msgid "Show all flags (including flags set by other mail programs)?"
+msgstr ""
+"¿Ver todas las marcas (includas las definidas por otros programas de correo)?"
+
+#: horde/imp/config/prefs.php:1425
+msgid ""
+"Show all inline parts by default in message view? If unchecked, will treat "
+"all but the first viewable inline part as attachments."
+msgstr ""
+"¿Ver todas las partes \"en línea\" en la vista del mensaje? Si no se elige "
+"todas las partes excepto la primera visible serán tratadas como adjuntos."
+
+#: horde/imp/config/prefs.php:629
+msgid "Show all parts"
+msgstr "Ver todas las partes"
+
+#: horde/imp/templates/mobile/message.html.php:17
+msgid "Show less"
+msgstr "Ver menos"
+
+#: horde/imp/templates/mobile/message.html.php:13
+msgid "Show more"
+msgstr "Ver más"
+
+#: horde/imp/config/prefs.php:1525
+msgid "Show the dynamic view by default, if the browser supports it?"
+msgstr "¿Ver por defecto la vista dinámica si el navegador lo soporta?"
+
+#: horde/imp/lib/Search/Element/Size.php:55 horde/imp/search.php:100
+msgid "Size (KB) <"
+msgstr "Tamaño (KB) <"
+
+#: horde/imp/lib/Search/Element/Size.php:54 horde/imp/search.php:105
+msgid "Size (KB) >"
+msgstr "Tamaño (KB) >"
+
+#: horde/imp/config/prefs.php:761
+msgid "Spam Reporting"
+msgstr "Notificación de Spam"
+
+#: horde/imp/lib/Mime/Viewer/Itip.php:516
+#: horde/imp/lib/Mime/Viewer/Itip.php:518
+#: horde/imp/lib/Mime/Viewer/Itip.php:692
+#: horde/imp/lib/Mime/Viewer/Itip.php:694
+msgid "Start:"
+msgstr "Comienzo:"
+
+#: horde/imp/config/prefs.local.php.orig:1477
+#: horde/imp/config/prefs.local.php:1477 horde/imp/config/prefs.php:1475
+msgid "Strip linebreaks in preview?"
+msgstr "¿Suprimir los cambios de línea en la vista previa?"
+
+#: horde/imp/lib/Ajax/Application.php:1486
+msgid ""
+"The Message Disposition Notification was not sent. This is what the server "
+"said"
+msgstr ""
+"La Notificación de disposición de mensaje no ha sino enviada. Esto es lo que "
+"dijo el servidor."
+
+#: horde/imp/lib/Ajax/Application.php:1493
+msgid "The Message Disposition Notification was sent successfully."
+msgstr "La Notificación de disposición de mensaje se envió correctamente."
+
+#: horde/imp/lib/Mime/Viewer/Pgp.php:267
+msgid ""
+"The data in this part does not appear to be a valid PGP encrypted message. "
+"Error: "
+msgstr ""
+"Los datos de esta parte no parecen ser un mensaje cifrado PGP válido. Error: "
+
+#: horde/imp/lib/Mime/Viewer/Pgp.php:233
+msgid "The data in this part has been compressed via PGP."
+msgstr "Los datos de esta parte del mensaje se han comprimido usando PGP."
+
+#: horde/imp/lib/Mime/Viewer/Pgp.php:359
+msgid ""
+"The data in this part has been digitally signed via PGP, but the signature "
+"cannot be verified."
+msgstr ""
+"Los datos de esta parte del mensaje han sido firmados digitalmente con PGP "
+"pero la firma no puede ser verificada."
+
+#: horde/imp/lib/Mime/Viewer/Pgp.php:363
+msgid "The data in this part has been digitally signed via PGP."
+msgstr ""
+"Los datos de esta parte del mensaje han sido firmados digitalmente usando "
+"PGP."
+
+#: horde/imp/lib/Mime/Viewer/Smime.php:245
+msgid "The data in this part has been digitally signed via S/MIME."
+msgstr ""
+"Los datos de esta parte del mensaje han sido firmados digitalmente usando S/"
+"MIME."
+
+#: horde/imp/lib/Mime/Viewer/Pgp.php:183
+msgid ""
+"The data in this part has been encrypted via PGP, however, PGP support is "
+"disabled so the message cannot be decrypted."
+msgstr ""
+"Los datos de esta parte del mensaje han sido cifrados con PGP, sin embargo, "
+"el soporte para PGP esta deshabilitado y por tanto el mensaje no puede ser "
+"descifrado."
+
+#: horde/imp/lib/Mime/Viewer/Pgp.php:204 horde/imp/lib/Mime/Viewer/Pgp.php:235
+msgid "The data in this part has been encrypted via PGP."
+msgstr "Los datos de esta parte del mensaje han sido cifrados usando PGP."
+
+#: horde/imp/lib/Mime/Viewer/Smime.php:178
+msgid "The data in this part has been encrypted via S/MIME."
+msgstr "Los datos de esta parte del mensaje han sido cifrados usando S/MIME."
+
+#: horde/imp/config/prefs.php:226
+msgid "The default font family to use in the HTML editor."
+msgstr "La familia de fuentes por defecto que se utilizará en el editor HTML."
+
+#: horde/imp/config/prefs.php:235
+msgid "The default font size to use in the HTML editor (in pixels)."
+msgstr ""
+"El tamaño de fuente por defecto que se utilizará en el editor HTML (en "
+"pixels)."
+
+#: horde/imp/lib/Compose.php:313
+msgid "The draft was not successfully saved."
+msgstr "El borrado no se ha guardado correctamente."
+
+#: horde/imp/lib/Mime/Viewer/Itip.php:178
+msgid "The event was updated in your calendar."
+msgstr "El evento se ha actualizado correctamente en su calendario."
+
+#: horde/imp/lib/Folder.php:124
+msgid "The folder \"%s\" already exists."
+msgstr "Ya existe la carpeta \"%s\"."
+
+#: horde/imp/lib/Contents.php:438
+msgid "The initial portion of this text part is displayed below."
+msgstr "La  porción inicial de esta parte de texto se muestra a continuación."
+
+#: horde/imp/lib/Spam.php:187
+msgid "The message \"%s\" has been reported as innocent."
+msgstr "El mensaje \"%s\" se ha considerado como inocente."
+
+#: horde/imp/lib/Spam.php:181
+msgid "The message \"%s\" has been reported as spam."
+msgstr "El mensaje \"%s\" se ha considerado como spam."
+
+#: horde/imp/templates/imp/javascript_defs.php:42
+msgid "The message being composed has been closed."
+msgstr "El mensaje que se estaba redactando se ha cerrado."
+
+#: horde/imp/lib/Spam.php:188
+msgid "The message from \"%s\" has been reported as innocent."
+msgstr "El mensaje de \"%s\" se ha considerado como inocente."
+
+#: horde/imp/lib/Spam.php:182
+msgid "The message from \"%s\" has been reported as spam."
+msgstr "El mensaje de \"%s\" se ha considerado como spam."
+
+#: horde/imp/lib/Compose.php:2711
+msgid ""
+"The message you were composing has been saved as a draft. The next time you "
+"login, you may resume composing your message."
+msgstr ""
+"El mensaje que estaba redactando se ha guardado como borrador. La siguiente "
+"vez que se conecte podrá continuar con su redacción."
+
+#: horde/imp/lib/Message.php:113
+msgid "The source directory is read-only."
+msgstr "El directorio origen es de sólo-lectura."
+
+#: horde/imp/lib/Message.php:107
+msgid "The target directory is read-only."
+msgstr "El directorio destino es de sólo-lectura."
+
+#: horde/imp/lib/Folder.php:402
+msgid "The uploaded file cannot be opened"
+msgstr "El fichero subido no se puede abrir"
+
+#: horde/imp/lib/Mime/Viewer/Alternative.php:110
+msgid "There are no alternative parts that can be displayed inline."
+msgstr ""
+"No hay partes alternativas del mensaje que puedan se mostradas en línea."
+
+#: horde/imp/lib/Ui/Message.php:634
+msgid "There are no parts that can be shown inline."
+msgstr "No hay partes que puedan ser mostradas en línea."
+
+#: horde/imp/mailbox-mimp.php:81
+msgid "There was an error viewing the requested message."
+msgstr "Hubo un error visualizando el mensaje solicitado."
+
+#: horde/imp/lib/Message.php:206 horde/imp/lib/Message.php:637
+msgid "This folder is read-only."
+msgstr "La carpeta es de sólo-lectura."
+
+#: horde/imp/lib/Mime/Viewer/Pdf.php:82
+msgid "This is a thumbnail of a PDF file attached to this message."
+msgstr "Esto es una miniatura de un fichero PDF adjunto a este mensaje."
+
+#: horde/imp/lib/Mime/Viewer/Images.php:141
+msgid "This is a thumbnail of an image attached to this message."
+msgstr "Esto es una miniatura de una imagen adjunta a este mensaje."
+
+#: horde/imp/templates/dimp/javascript_defs.php:138
+msgid "This is the notification log"
+msgstr "Este es el histórico de notificaciones"
+
+#: horde/imp/lib/Mime/Viewer/Appledouble.php:91
+msgid "This message contains a Macintosh file (named \"%s\")."
+msgstr "Este mensaje contiene un fichero Macintosh (llamado \"%s\")."
+
+#: horde/imp/lib/Mime/Viewer/Html.php:115
+msgid ""
+"This message part contains HTML data, but inline HTML display is disabled."
+msgstr ""
+"Este mensaje contiene datos HTML pero la visualización en línea de HTML está "
+"desactivada"
+
+#: horde/imp/lib/Mime/Viewer/Html.php:68
+msgid ""
+"This message part contains HTML data, but this data can not be displayed "
+"inline."
+msgstr ""
+"Esta parte del mensaje contiene datos HTML pero no se puede mostrar en línea."
+
+#: horde/imp/lib/Contents.php:509
+msgid "This message was written in a character set (%s) other than your own."
+msgstr ""
+"Este mensaje se escribió en un juego de caracteres (%s) distino del suyo."
+
+#: horde/imp/lib/Contents.php:492 horde/imp/message-mimp.php:161
+msgid "This part is empty."
+msgstr "Esta parte del mensaje está vacía."
+
+#: horde/imp/thread.php:133
+msgid "Thread List"
+msgstr "Lista de la conversación."
+
+#: horde/imp/message-mimp.php:296
+msgid "To %s"
+msgstr "Para %s"
+
+#: horde/imp/lib/Ui/Message.php:179
+msgid "Today, %s %s"
+msgstr "Hoy, %s %s"
+
+#: horde/imp/config/prefs.php:1434
+msgid "Traditional View"
+msgstr "Vista tradicional"
+
+#: horde/imp/lib/Mime/Viewer/Itip.php:186
+msgid "Trying to import the event instead."
+msgstr "Intentando importar el evento en su lugar."
+
+#: horde/imp/templates/dimp/index.inc:507
+msgid "Unable to view message in preview pane."
+msgstr "Imposible ver el mensaje en el panel de vista previa."
+
+#: horde/imp/templates/dimp/index.inc:350
+#: horde/imp/templates/dimp/index.inc:399
+msgid "Unmark as"
+msgstr "Desmarcar como"
+
+#: horde/imp/lib/Contents.php:1101
+msgid "Unnamed Message Part"
+msgstr "Parte del mensaje sin nombre"
+
+#: horde/imp/lib/Mime/Viewer/Itip.php:628
+#: horde/imp/lib/Mime/Viewer/Itip.php:665
+msgid "Update in my calendar"
+msgstr "Actualizar en mi calendario"
+
+#: horde/imp/lib/Prefs/Ui.php:635
+msgid "User can see the mailbox"
+msgstr "El usuario puede ver el buzón"
+
+#: horde/imp/templates/dimp/javascript_defs.php:157
+msgid "Verifying..."
+msgstr "Verificando..."
+
+#: horde/imp/lib/Mime/Viewer/Smime.php:298
+msgid "View Certificate"
+msgstr "Ver certificado"
+
+#: horde/imp/lib/Mime/Viewer/Html.php:69
+#: horde/imp/lib/Mime/Viewer/Html.php:116
+msgid "View HTML data in new window."
+msgstr "Ver datos HTML en una ventana nueva."
+
+#: horde/imp/lib/Mime/Viewer/Pdf.php:148
+msgid "View PDF File"
+msgstr "Ver el fichero PDF"
+
+#: horde/imp/lib/Prefs/Ui.php:1445
+msgid "View Personal Public Certificate"
+msgstr "Ver certificado público personal"
+
+#: horde/imp/lib/Mime/Viewer/Pgp.php:309
+msgid "View Public Key"
+msgstr "Ver clave pública"
+
+#: horde/imp/templates/dimp/index.inc:184
+#: horde/imp/templates/dimp/index.inc:371
+msgid "View Source"
+msgstr "Ver original"
+
+#: horde/imp/lib/Prefs/Ui.php:1311
+msgid "Virtual Folder \"%s\" deleted."
+msgstr "Carpeta virtual \"%s\" eliminada."
+
+#: horde/imp/search.php:316
+msgid "Virtual Folder \"%s\" edited successfully."
+msgstr "Carpeta virtual \"%s\" editada correctamente."
+
+#: horde/imp/templates/dimp/javascript_defs.php:158
+msgid "Virtual Folder: %s"
+msgstr "Carpeta virtual: %s"
+
+#: horde/imp/lib/Search/Vfolder/Vinbox.php:23
+msgid "Virtual Inbox"
+msgstr "Carpeta de entrada virtual"
+
+#: horde/imp/config/prefs.php:806
+msgid ""
+"What should we do with messages after they have been reported as innocent?"
+msgstr "¿Que hacer con los mensajes cuando hayan sido considerados inocentes?"
+
+#: horde/imp/config/prefs.php:794
+msgid "What should we do with messages after they have been reported as spam?"
+msgstr "¿Que hacer con los mensajes cuando hayan sido considerados spam?"
+
+#: horde/imp/config/prefs.php:412
+msgid ""
+"When forwarding a message in the body text, should we use the same format as "
+"the original message?"
+msgstr ""
+"Al reenviar un mensaje como texto, ¿se debe utilizar el mismo formato que en "
+"el mensaje original?"
+
+#: horde/imp/config/prefs.php:946
+msgid "When opening a mailbox for the first time, where do you want to start?"
+msgstr "Al abrir un buzón por primera vez, dónde desea empezar?"
+
+#: horde/imp/config/prefs.php:361
+msgid ""
+"When replying to a message, should we use the same format as the original "
+"message?"
+msgstr ""
+"Al responder a un mensaje, ¿se debe utilizar el mismo formato que en le "
+"mensaje original?"
+
+#: horde/imp/config/prefs.php:277
+msgid "When saving sent mail, should we save attachment data?"
+msgstr ""
+"Al guardar mensajes enviados, ¿se guardarán también los datos adjuntos?"
+
+#: horde/imp/config/prefs.php:633
+msgid "Which message parts do you want to display in the summary?"
+msgstr "¿Que partes del mensaje quiere que se muestren en el resumen?"
+
+#: horde/imp/lib/Prefs/Ui.php:503
+msgid ""
+"You have activated move to Trash but no Trash folder is defined. You will be "
+"unable to delete messages until you set a Trash folder in the preferences."
+msgstr ""
+"Ha activado mover a la Papelera pero no tiene definida una carpeta de "
+"Papelera. No podrá borrar mensajes hasta que haya definido una carpeta de "
+"papalera en las preferencias."
+
+#: horde/imp/lib/Mime/Viewer/Smime.php:203
+msgid ""
+"You must enter the passphrase for your S/MIME private key to view this data."
+msgstr ""
+"Debe introducier la contraseña de su clave privada S/MIME para ver estos "
+"datos."
+
+#: horde/imp/lib/Mime/Viewer/Pgp.php:214
+msgid "You must enter the passphrase used to encrypt this message to view it."
+msgstr ""
+"Debe introducier la contraseña que se usó para cifrar este mensaje para "
+"poder verlo."
+
+#: horde/imp/lib/Maillog.php:167
+msgid "You replied to all recipients of this message on %s."
+msgstr "Respondió a todos los destinatarios de este mensaje en %s."
+
+#: horde/imp/lib/Maillog.php:171
+msgid "You replied to this message via the mailing list on %s."
+msgstr "Respondió a este mensaje a través de la lista en %s."
+
+#: horde/imp/lib/Search/Element/Within.php:74 horde/imp/search.php:95
+msgid "Younger Than"
+msgstr "Anterior a"
+
+#: horde/imp/lib/Prefs/Identity.php:132
+msgid ""
+"Your From address is not a valid email address. This can be fixed in your "
+"Personal Information preferences page."
+msgstr ""
+"Su dirección de origne no es una dirección de correo válida. Lo puede "
+"corregir en la página de preferencias de Información personal"
+
+#: horde/imp/lib/Auth.php:459
+msgid ""
+"Your browser is too old to display the dynamic mode. Using traditional mode "
+"instead."
+msgstr ""
+"Su nageador es demasiado antiguo para utilizar el modo dinámico. Use el modo "
+"tradiacional."
+
+#: horde/imp/compose-mimp.php:295 horde/imp/compose.php:446
+msgid ""
+"Your identity has been switched to the identity associated with the current "
+"recipient address. The identity will not be checked again during this "
+"compose action."
+msgstr ""
+"Ha cambiado su identidad a la que está asociada con su dirección de origen "
+"actual. Durante la redacción no se volverá a comprobar su identidad."
+
+#: horde/imp/lib/Ajax/Application.php:515
+msgid "\"%s\" mailbox no longer polled for new mail."
+msgstr ""
+"No se volverá a comprobar la llegada de mensajes nuevos para el buzón \"%s\"."
+
+#: horde/imp/lib/Ajax/Application.php:512
+msgid "\"%s\" mailbox now polled for new mail."
+msgstr ""
+"Se volverá a comprobar la llegada de mensajes nuevos para el buzón \"%s\"."
+
+#: horde/imp/templates/dimp/index.inc:67 horde/imp/templates/dimp/index.inc:70
+#: horde/imp/templates/dimp/index.inc:73
+msgid "_Portal"
+msgstr "_Portal"
+
+#: horde/imp/lib/Contents.php:510
+msgid "click here"
+msgstr "pulsar aquí"
+
+#: horde/imp/lib/Search/Element/Within.php:86
+msgid "days"
+msgstr "días"
+
+#: horde/imp/lib/Search/Element/Flag.php:58
+msgid "flagged \"%s\""
+msgstr "marcado \"%s\""
+
+#: horde/imp/lib/Application.php:613
+msgid "loading"
+msgstr "cargando"
+
+#: horde/imp/lib/Search/Element/Attachment.php:58
+msgid "messages with attachment(s)"
+msgstr "mensajes con adjunto(s)"
+
+#: horde/imp/lib/Search/Element/Attachment.php:57
+msgid "messages without attachment(s)"
+msgstr "mensajes sin adunto(s)"
+
+#: horde/imp/lib/Search/Element/Within.php:82
+msgid "months"
+msgstr "meses"
+
+#: horde/imp/view.php:103
+msgid "part %s"
+msgstr "parte %s"
+
+#: horde/imp/lib/IMP.php:555 horde/imp/templates/imp/compose/compose.html:44
+#: horde/imp/templates/imp/compose/compose.html:80
+#: horde/imp/templates/imp/compose/compose.html:94
+#: horde/imp/templates/imp/compose/compose.html:250
+#: horde/imp/templates/imp/compose/compose.html:251
+#: horde/imp/templates/imp/flist/flist.html:13
+#: horde/imp/templates/imp/mailbox/navbar.html:10
+#: horde/imp/templates/imp/mailbox/navbar.html:29
+#: horde/imp/templates/imp/message/navbar_navigate.html:11
+#: horde/imp/templates/imp/folders/actions.html:13
+#: horde/imp/templates/imp/contacts/contacts.html:19
+#: horde/imp/templates/imp/search/search.html:93
+#: horde/imp/templates/dimp/compose/compose.html:75
+#: horde/imp/templates/dimp/javascript_defs.php:156
+#: horde/imp/templates/mimp/compose/compose.html:13
+#: horde/imp/templates/mimp/mailbox/mailbox.html:36
+#: horde/imp/templates/prefs/stationery.html:9
+#: horde/imp/templates/prefs/stationery.html:29
+#: horde/imp/templates/prefs/stationery.html:30
+#: horde/imp/templates/prefs/initialpage.html:8
+#: horde/imp/templates/prefs/initialpage.html:10
+#: horde/imp/templates/prefs/sentmail.html:8
+#: horde/imp/templates/prefs/trash.html:9
+msgid "selected"
+msgstr "selecionado"
+
+#: horde/imp/templates/dimp/index.inc.orig:486
+#: horde/imp/templates/dimp/index.inc:502
+msgid "will display available actions."
+msgstr "mostrará acciones disponibles."
+
+#: horde/imp/lib/Search/Element/Within.php:78
+msgid "years"
+msgstr "años"
+
+#: horde/imp/templates/mimp/mailbox/mailbox.html:36
+msgid "Action:"
+msgstr "Acción:"
+
+#: horde/imp/templates/dimp/compose/compose.html:119
+msgid "Add Bcc"
+msgstr "Insertar Bcc"
+
+#: horde/imp/templates/dimp/compose/compose.html:116
+msgid "Add Cc"
+msgstr "Insertar Cc"
+
+#: horde/imp/templates/imp/search/search.html:42
+msgid "Add OR clause"
+msgstr "Insertar causulas O"
+
+#: horde/imp/templates/imp/search/search.html:40
+msgid "Add search criteria:"
+msgstr "Insertar criterio de búsqueda:"
+
+#: horde/imp/templates/mimp/compose/compose.html:61
+msgid "Attach"
+msgstr "Adjuntar"
+
+#: horde/imp/templates/dimp/compose/compose.html:103
+msgid "Bcc:"
+msgstr "Bcc:"
+
+#: horde/imp/templates/dimp/compose/compose.html:92
+msgid "Cc:"
+msgstr "Cc:"
+
+#: horde/imp/templates/dimp/compose/compose.html:168
+msgid "Click this box to add the original message as an attachment."
+msgstr ""
+"Pinchar en esta caja para insertar el texto original del mensaje como un "
+"adjunto."
+
+#: horde/imp/templates/dimp/compose/compose.html:164
+msgid "Click this box to add the original message text to the body."
+msgstr "Pinchar en esta caja para insertar el texto original en el mensaje."
+
+#: horde/imp/templates/prefs/flags.html:8
+msgid "Color"
+msgstr "Color"
+
+#: horde/imp/templates/imp/flist/flist.html:6
+msgid "Create New Mailbox"
+msgstr "Crear nueva carpeta"
+
+#: horde/imp/templates/imp/search/search.html:121
+msgid "Days"
+msgstr "Días"
+
+#: horde/imp/templates/prefs/smimeprivatekey.html:34
+msgid "Delete Personal Certificate"
+msgstr "Borrar certificado personal"
+
+#: horde/imp/templates/mimp/mailbox/mailbox.html:42
+msgid "Do Action"
+msgstr "Ralizar la acción"
+
+#: horde/imp/templates/mimp/message/part.html:5
+msgid "Download attachment"
+msgstr "Descargar adjunto"
+
+#: horde/imp/templates/imp/search/search.html:11
+msgid "Edit Filter"
+msgstr "Editar filtro"
+
+#: horde/imp/templates/imp/mailbox/header.html:29
+msgid "Empty Mailbox"
+msgstr "Vaciar buzón"
+
+#: horde/imp/templates/prefs/searches.html:9
+#: horde/imp/templates/prefs/searches.html:53
+msgid "Enabled?"
+msgstr "Activado?"
+
+#: horde/imp/templates/dimp/compose/compose.html:56
+msgid "Encryption:"
+msgstr "Cifrado:"
+
+#: horde/imp/templates/imp/mailbox/header.html:22
+msgid "Exit Search"
+msgstr "Salir de la búsqueda"
+
+#: horde/imp/templates/imp/search/search.html:94
+#: horde/imp/templates/prefs/searches.html:52
+msgid "Filter"
+msgstr "Filtro"
+
+#: horde/imp/templates/imp/mailbox/navbar.html:27
+#: horde/imp/templates/imp/mailbox/navbar.html:29
+msgid "Filter Messages"
+msgstr "Filtrar mensajes"
+
+#: horde/imp/templates/imp/search/search-basic.html:42
+msgid "Go to Advanced Search Page..."
+msgstr "Ir a la página de Búsqueda avanzada..."
+
+#: horde/imp/templates/dimp/compose/compose.html:28
+msgid "HTML composition"
+msgstr "Redacción HTML"
+
+#: horde/imp/templates/prefs/flags.html:7
+msgid "Icon"
+msgstr "Icono"
+
+#: horde/imp/templates/prefs/smimeprivatekey.html:40
+msgid "Import Personal Certificate"
+msgstr "Importar certificado personal"
+
+#: horde/imp/templates/prefs/flags.html:6
+msgid "Label"
+msgstr "Etiqueda"
+
+#: horde/imp/templates/imp/search/search.html:101
+msgid "Label:"
+msgstr "Etiqueta:"
+
+#: horde/imp/templates/imp/message/navbar_navigate.html:9
+#: horde/imp/templates/imp/message/navbar_navigate.html:11
+msgid "Mark Message"
+msgstr "Marcar mensaje"
+
+#: horde/imp/templates/imp/mailbox/navbar.html:8
+#: horde/imp/templates/imp/mailbox/navbar.html:10
+msgid "Mark Messages"
+msgstr "Marcar mensajes"
+
+#: horde/imp/templates/mimp/compose/compose.html:71
+#: horde/imp/templates/mimp/mailbox/mailbox.html:47
+#: horde/imp/templates/mimp/mailbox/search.html:14
+#: horde/imp/templates/mimp/message/message.html:32
+#: horde/imp/templates/mimp/folders/folders.html:5
+msgid "Menu"
+msgstr "Menu"
+
+#: horde/imp/templates/dimp/message/message.html:116
+#: horde/imp/templates/mimp/compose/compose.html:43
+msgid "Message:"
+msgstr "Mensaje:"
+
+#: horde/imp/templates/imp/search/search.html:122
+msgid "Months"
+msgstr "Meses"
+
+#: horde/imp/templates/imp/thread/thread.html:2
+msgid "Multiple Message View:"
+msgstr "Vista de multiples mensajes:"
+
+#: horde/imp/templates/prefs/acl.html:28
+msgid "Negative Right"
+msgstr "Permiso negativo"
+
+#: horde/imp/templates/prefs/flags.html:47
+msgid "New Flag"
+msgstr "Nueva marca"
+
+#: horde/imp/templates/prefs/searches.html:35
+#: horde/imp/templates/prefs/searches.html:71
+msgid "No Actions Available"
+msgstr "No hay acciones disponibles"
+
+#: horde/imp/templates/prefs/searches.html:86
+msgid "No Saved Searches Defined."
+msgstr "No hay búsquedas guardadas definidas."
+
+#: horde/imp/templates/imp/search/search.html:35
+msgid "No Search Criteria"
+msgstr "No hay criterio de búsqueda"
+
+#: horde/imp/templates/imp/search/search.html:65
+msgid "No Search Folders"
+msgstr "No hay carpetas de búsqueda"
+
+#: horde/imp/templates/imp/mailbox/empty_mailbox.html:4
+msgid "No messages matched your search criteria."
+msgstr "Ningún mensaje coincide con su criterio de búsqueda."
+
+#: horde/imp/templates/mimp/mailbox/mailbox.html:30
+msgid "No messages."
+msgstr "No hay mensajes."
+
+#: horde/imp/templates/prefs/sound.html:2
+msgid ""
+"Play a sound on new mail? Although most browsers support embedded sound "
+"files, some may require a plugin."
+msgstr ""
+"¿Reproducir un sonido all recibir un nuevo mensaje? Aunque la mayoría de "
+"navegadores soportan ficheros de sonido embebidos, algunos pueden necesitar "
+"un plugin."
+
+#: horde/imp/templates/dimp/compose/compose.html:50
+msgid "Priority:"
+msgstr "Prioridad:"
+
+#: horde/imp/templates/dimp/compose/compose.html:35
+msgid "Read Receipt"
+msgstr "Confirmación de lectura"
+
+#: horde/imp/templates/mimp/mailbox/mailbox.html:40
+msgid "Report As Innocent"
+msgstr "Considerar como inocente"
+
+#: horde/imp/templates/mimp/mailbox/mailbox.html:39
+msgid "Report As Spam"
+msgstr "Considerar como Spam"
+
+#: horde/imp/templates/mimp/message/part.html:12
+msgid "Return to message view"
+msgstr "Volver a la vista de mensaje"
+
+#: horde/imp/templates/mimp/mailbox/search.html:10
+msgid "Run Search"
+msgstr "Ejecutar búsqueda"
+
+#: horde/imp/templates/prefs/smimeprivatekey.html:8
+msgid "S/MIME Personal Certificate support requires a secure web connection."
+msgstr ""
+"El soporte de certificados peersonales S/MIME exije una conexión web segura."
+
+#: horde/imp/templates/imp/search/search-basic.html:10
+msgid "Search Criteria:"
+msgstr "Criterio de búsqueda:"
+
+#: horde/imp/templates/imp/search/search-basic.html:27
+msgid "Search Flags:"
+msgstr "Marcas de búsqueda:"
+
+#: horde/imp/templates/mimp/mailbox/search.html:7
+msgid "Search:"
+msgstr "Búsqueda:"
+
+#: horde/imp/templates/prefs/specialuse.html:3
+msgid "Server Suggestion:"
+msgstr "Sugerencia del servidor:"
+
+#: horde/imp/templates/mimp/message/message.html:6
+msgid "Show All"
+msgstr "Ver todos"
+
+#: horde/imp/templates/prefs/stationery.html:32
+msgid "Switch"
+msgstr "Cambiar"
+
+#: horde/imp/templates/imp/search/search.html:91
+msgid "Type:"
+msgstr "Tipo:"
+
+#: horde/imp/templates/imp/mailbox/navbar.html:17
+#: horde/imp/templates/imp/message/navbar_navigate.html:18
+msgid "Unmark as:"
+msgstr "Desmarcar como:"
+
+#: horde/imp/templates/prefs/trash.html:9
+msgid "Use Virtual Trash"
+msgstr "Utilizar papelera virtual"
+
+#: horde/imp/templates/mimp/message/message.html:28
+msgid "View Full Message"
+msgstr "Ver mensaje completo"
+
+#: horde/imp/templates/imp/search/search.html:123
+msgid "Years"
+msgstr "Años"
+
+#: horde/imp/templates/dimp/compose/compose.html:160
+msgid ""
+"You are currently replying to the mailing list. Click this box to reply to "
+"the original sender instead."
+msgstr ""
+"Esta contestando a la lista de distribución. Pinchar esta caja para "
+"responder únicamente al remitente original."
+
+#: horde/imp/templates/prefs/smimeprivatekey.html:3
+msgid "Your S/MIME Public/Private Certificate"
+msgstr "Sus certificados S/MIME público/privado"
+
+#: horde/imp/templates/prefs/signaturehtml.html:2
+msgid ""
+"Your signature to use when composing with the HTML editor (if empty, the "
+"text signature will be used):"
+msgstr ""
+"Firma para utilizar cuando se redacte con el editor HTML (se utilizará la "
+"firma de texto si no se indica ninguna):"
+
+#: horde/imp/templates/imp/folders/folders_confirm.html:18
+msgid "messages"
+msgstr "mensajes"
