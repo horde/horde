@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [jan] Fix display of status icons in traditional view (Bug #9844).
 * [mms] Fix displaying all message parts in standard view (Bug #9827).
 * [mms] Allow .eml files to be imported into a mailbox (Request #9827).
 * [mms] Fix vertical layout resize in dynamic view (Bug #9834).
@@ -2131,6 +2132,7 @@
    <date>2011-04-08</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [jan] Fix display of status icons in traditional view (Bug #9844).
 * [mms] Fix displaying all message parts in standard view (Bug #9827).
 * [mms] Allow .eml files to be imported into a mailbox (Request #9827).
 * [mms] Fix vertical layout resize in dynamic view (Bug #9834).

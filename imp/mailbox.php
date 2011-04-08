@@ -776,7 +776,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
                 $msg['bg'] = $val->bgcolor;
             }
             $css_class[] = $val->css;
-            $msg['status'] .= $val->div;
+            $msg['status'] .= $val->span;
         }
     }
     $msg['class'] = implode(' ', $css_class);
