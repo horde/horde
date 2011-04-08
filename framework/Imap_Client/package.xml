@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-07</date>
- <time>14:50:41</time>
+ <date>2011-04-08</date>
+ <time>11:13:09</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Fix for IMAP servers that report MODSEQ information even though CONDSTORE has not been enabled (Bug #9845).
 * Fix server-side sorting of subjects in Socket driver (Bug #9840).
 * Fix UIDVALIDITY determination for POP3 servers that support UIDL.
 * Added Horde_Imap_Client_Data_Fetch_Pop3 object.
@@ -299,9 +300,10 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-04-07</date>
+   <date>2011-04-08</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* Fix for IMAP servers that report MODSEQ information even though CONDSTORE has not been enabled (Bug #9845).
 * Fix server-side sorting of subjects in Socket driver (Bug #9840).
 * Fix UIDVALIDITY determination for POP3 servers that support UIDL.
 * Added Horde_Imap_Client_Data_Fetch_Pop3 object.
