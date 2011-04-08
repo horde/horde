@@ -42,9 +42,18 @@ implements Horde_Pear_Package_Contents_Role
         $elements = explode('/', substr($file, 1));
         $basedir = array_shift($elements);
         switch ($basedir) {
+        case 'bin':
+            return 'script';
+        case 'COPYING':
+        case 'doc':
+        case 'examples':
+            return 'doc';
+        case 'data':
         case 'locale':
         case 'migration':
             return 'data';
+        case 'js':
+            return 'horde';
         case 'test':
             return 'test';
         default:
