@@ -9,8 +9,6 @@
  * 'cc' - TODO
  * 'folder'
  * 'identity' - TODO
- * 'popup' - Explicitly mark window as popup. Needed if compose page is
- *           opened from a page other than the base DIMP page.
  * 'subject' - TODO
  * 'type' - TODO
  * 'to' - TODO
@@ -52,9 +50,6 @@ $get_sig = true;
 $msg = '';
 
 $js = array();
-if ($vars->popup) {
-    $js['DIMP.conf_compose.popup'] = 1;
-}
 
 $identity = $injector->getInstance('IMP_Identity');
 if (!$prefs->isLocked('default_identity') && isset($vars->identity)) {

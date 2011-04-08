@@ -22,7 +22,7 @@ var DimpCompose = {
             sbd = $('send_button_redirect');
 
         if (window.confirm(DIMP.text_compose.cancel)) {
-            if ((this.is_popup || DIMP.conf_compose.popup) &&
+            if (this.is_popup &&
                 DimpCore.base &&
                 !DIMP.conf_compose.qreply) {
                 DimpCore.base.focus();
@@ -52,7 +52,7 @@ var DimpCompose = {
     {
         if (DIMP.conf_compose.qreply) {
             this.closeQReply();
-        } else if (this.is_popup || DIMP.conf_compose.popup) {
+        } else if (this.is_popup) {
             DimpCore.closePopup();
         } else {
             DimpCore.redirect(DIMP.conf.URI_DIMP);
@@ -1031,7 +1031,7 @@ var DimpCompose = {
         DimpCore.growler_log = false;
         DimpCore.init();
 
-        this.is_popup = DimpCore.base;
+        this.is_popup = !Object.isUndefined(DimpCore.base);
 
         /* Initialize redirect elements (always needed). */
         $('redirect').observe('submit', Event.stop);
