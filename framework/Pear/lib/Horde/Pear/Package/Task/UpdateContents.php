@@ -80,28 +80,32 @@ implements Horde_Pear_Package_Task
     {
         $contents = $this->_xml->findNode('/p:package/p:contents/p:dir');
         if ($contents && !empty($this->_options['regenerate'])) {
-            $contents->parentNode->removeChild($contents);
+            $contents = $this->_xml->findNode('/p:package/p:contents');
+            $this->_xml->removeWhitespace($contents->previousSibling);
+            $this->_xml->findNode('/p:package')->removeChild($contents);
             $contents = false;
         }
 
         $filelist = $this->_xml->findNode('/p:package/p:phprelease/p:filelist');
         if ($filelist && !empty($this->_options['regenerate'])) {
-            $filelist->parentNode->removeChild($filelist);
+            $filelist = $this->_xml->findNode('/p:package/p:phprelease');
+            $this->_xml->removeWhitespace($filelist->previousSibling);
+            $this->_xml->findNode('/p:package')->removeChild($filelist);
             $filelist = false;
         }
 
         if (!$contents) {
             $root = $this->_xml->insert(
                 array(
-                    "\n ",
                     'contents' => array(),
+                    "\n ",
                 ),
                 $this->_xml->findNode('/p:package/p:dependencies')
             );
             $contents = $this->_xml->append(
                 array(
                     "\n  ",
-                    'dir' => array('name' => '/'),
+                    'dir' => array('baseinstalldir' => '/', 'name' => '/'),
                     ' ',
                     $this->_xml->createComment(' / '),
                     "\n ",
@@ -114,8 +118,8 @@ implements Horde_Pear_Package_Task
         if (!$filelist) {
             $root = $this->_xml->insert(
                 array(
-                    "\n ",
                     'phprelease' => array(),
+                    "\n ",
                 ),
                 $this->_xml->findNode('/p:package/p:changelog')
             );
