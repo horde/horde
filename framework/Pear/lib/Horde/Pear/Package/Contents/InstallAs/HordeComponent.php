@@ -42,6 +42,9 @@ implements Horde_Pear_Package_Contents_InstallAs
         $elements = explode('/', substr($file, 1));
         $basedir = array_shift($elements);
         switch ($basedir) {
+        case 'COPYING':
+        case 'examples':
+        case 'js':
         case 'locale':
             return substr($file, 1);
         case 'migration':
