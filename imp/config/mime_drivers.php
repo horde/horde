@@ -241,5 +241,13 @@ $mime_drivers = array(
             'message/rfc822',
             'x-extension/eml'
         )
+    ),
+
+    /* External-body (RFC 2046 [5.2.3]) display.
+     * YOU SHOULD NOT NORMALLY ALTER THIS SETTING. */
+    'externalbody' => array(
+        'handles' => array(
+            'message/external-body'
+        )
     )
 );

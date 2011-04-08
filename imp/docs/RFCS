@@ -91,9 +91,10 @@ SMTP
 MIME
 ====
 
+:RFC 1740: MIME Encapsulation of Macintosh files - MacMIME
 :RFC 1847: Security Multiparts for MIME: Multipart/Signed and
            Multipart/Encrypted
-:RFC 1740: MIME Encapsulation of Macintosh files - MacMIME
+:RFC 1873: Message/External-Body Content-ID Access Type
 :RFC 1896: The text/enriched MIME Content-type
 :RFC 2045: MIME Part One: Format of Internet Message Bodies
 :RFC 2046: MIME Part Two: Media Types
