@@ -345,7 +345,10 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 </div>
 
 <div class="context" id="ctx_message" style="display:none">
- <a id="ctx_message_resume" style="display:none"><span class="iconImg"></span><?php echo _("Resume Draft") ?></a>
+ <div style="display:none">
+  <a id="ctx_message_resume"><span class="iconImg"></span><?php echo _("Resume Draft") ?></a>
+  <a id="ctx_message_view"><span class="iconImg"></span><?php echo _("View Message") ?></a>
+ </div>
  <a id="ctx_message_reply"><span class="iconImg"></span><?php echo _("Reply") ?></a>
  <a id="ctx_message_forward"><span class="iconImg"></span><?php echo _("Forward") ?></a>
  <div style="display:none">

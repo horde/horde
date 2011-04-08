@@ -969,7 +969,7 @@ span.dimpactionResume {
 #ctx_message_undeleted span.iconImg, #oa_undeleted span.iconImg {
     background-image: url("../graphics/undelete.png");
 }
-#ctx_folder_seen span.iconImg {
+#ctx_folder_seen span.iconImg, #ctx_message_view span.iconImg {
     background-image: url("../graphics/mail_seen.png");
 }
 #ctx_folder_unseen span.iconImg, #ctx_folder_poll span.iconImg, #ctx_folder_nopoll span.iconImg {

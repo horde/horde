@@ -946,6 +946,10 @@ var DimpBase = {
             this.composeMailbox('resume');
             break;
 
+        case 'ctx_message_view':
+            this.viewport.getSelected().get('dataob').each(this.msgWindow.bind(this));
+            break;
+
         case 'ctx_reply_reply':
         case 'ctx_reply_reply_all':
         case 'ctx_reply_reply_list':
@@ -1171,10 +1175,10 @@ var DimpBase = {
             [ $('ctx_message_source').up() ].invoke(DIMP.conf.preview_pref ? 'hide' : 'show');
             sel = this.viewport.getSelected();
             if (sel.size() == 1) {
-                [ $('ctx_message_resume') ].invoke(sel.get('dataob').first().draft ? 'show' : 'hide');
+                [ $('ctx_message_resume').up('DIV') ].invoke(sel.get('dataob').first().draft ? 'show' : 'hide');
                 [ $('ctx_message_unsetflag') ].compact().invoke('hide');
             } else {
-                $('ctx_message_resume').hide();
+                $('ctx_message_resume').up('DIV').hide();
                 [ $('ctx_message_unsetflag') ].compact().invoke('show');
             }
             break;
