@@ -49,13 +49,6 @@ class Horde_Pear_Package_Xml_Contents
     private $_dir_list;
 
     /**
-     * The list of files in the "contents" section.
-     *
-     * @var array
-     */
-    private $_file_list = array();
-
-    /**
      * The list of files in the "filelist" section.
      *
      * @var array
