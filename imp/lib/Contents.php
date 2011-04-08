@@ -1101,9 +1101,26 @@ class IMP_Contents
             ? $part->getDescription(true)
             : $part->getName(true);
 
-        return $name
-            ? $name
-            : $part->getType() . ' ' . _("Part");
+        if ($name) {
+            return $name;
+        }
+
+        $ptype = $part->getPrimaryType();
+        switch ($ptype) {
+        case 'multipart':
+            if (($part->getSubType() == 'related') &&
+                ($view_id = $part->getMetaData('viewable_part')) &&
+                ($viewable = $this->getMIMEPart($view_id, array('nocontents' => true)))) {
+                return $this->getPartName($viewable, $descrip);
+            }
+            /* Fall-through. */
+
+        case 'application':
+            return Horde_String::ucfirst($part->getSubType()) . ' ' . _("part");
+
+        default:
+            return Horde_String::ucfirst($ptype) . ' ' . _("part");
+        }
     }
 
 }

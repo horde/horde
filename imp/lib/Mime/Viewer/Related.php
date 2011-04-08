@@ -124,14 +124,18 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
             }
         }
 
-        /* We want the inline display to show multipart/related vs. the
-         * viewable MIME part.  This is because a multipart/related part is
-         * not downloadable and clicking on the MIME part may not produce the
-         * desired result in the full display (i.e. HTML parts with related
-         * images). */
-        if (!is_null($data_id) && ($data_id !== $related_id)) {
-            $ret[$related_id] = $ret[$data_id];
-            $ret[$data_id] = null;
+        if (!is_null($data_id)) {
+            $this->_mimepart->setMetadata('viewable_part', $data_id);
+
+            /* We want the inline display to show multipart/related vs. the
+             * viewable MIME part.  This is because a multipart/related part
+             * is not downloadable and clicking on the MIME part may not
+             * produce the desired result in the full display (i.e. HTML parts
+             * with related images). */
+            if ($data_id !== $related_id) {
+                $ret[$related_id] = $ret[$data_id];
+                $ret[$data_id] = null;
+            }
         }
 
         return $ret;

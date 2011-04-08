@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-04-08</date>
- <time>00:36:42</time>
+ <time>13:49:36</time>
  <version>
   <release>5.0.1</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] More intelligent part naming if name is not specified in the message (Request #9853).
 * [jan] Avoid double escaping of folder names in sent-mail drop down list.
 * [jan] Fix translation of special folders on certain IMAP servers.
 * [jan] Fix display of status icons in traditional view (Bug #9844).
@@ -2134,6 +2135,7 @@
    <date>2011-04-08</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] More intelligent part naming if name is not specified in the message (Request #9853).
 * [jan] Avoid double escaping of folder names in sent-mail drop down list.
 * [jan] Fix translation of special folders on certain IMAP servers.
 * [jan] Fix display of status icons in traditional view (Bug #9844).
