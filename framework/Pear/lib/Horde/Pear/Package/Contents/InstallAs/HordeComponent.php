@@ -40,7 +40,13 @@ implements Horde_Pear_Package_Contents_InstallAs
     public function getInstallAs($file)
     {
         $elements = explode('/', substr($file, 1));
-        array_shift($elements);
-        return join('/', $elements);
+        $basedir = array_shift($elements);
+        switch ($basedir) {
+        case 'locale':
+        case 'migration':
+            return substr($file, 1);
+        default:
+            return join('/', $elements);
+        }
     }
 }
