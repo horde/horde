@@ -30,13 +30,17 @@ class Horde_Pear_Package_Xml_Factory
     /**
      * Create an instance.
      *
-     * @param string $type The instance type.
+     * @param string $type      The instance type.
+     * @param array  $arguments The constructor arguments.
      *
      * @return mixed The instance.
      */
     public function create($type, $arguments)
     {
         switch ($type) {
+        case 'Contents':
+            $class = 'Horde_Pear_Package_Xml_Contents';
+            break;
         case 'Directory':
             $class = 'Horde_Pear_Package_Xml_Directory';
             break;
@@ -53,5 +57,24 @@ class Horde_Pear_Package_Xml_Factory
         }
         $reflectionObj = new ReflectionClass($class);
         return $reflectionObj->newInstanceArgs($arguments); 
+    }
+
+    /**
+     * Create a task handler.
+     *
+     * @param string $type      The task type.
+     * @param array  $arguments The constructor arguments.
+     *
+     * @return Horde_Pear_Package_Task The task instance.
+     */
+    public function createTask($type, $arguments)
+    {
+        $class = 'Horde_Pear_Package_Task_' . ucfirst($type);
+        if (class_exists($class)) {
+            $reflectionObj = new ReflectionClass($class);
+            return $reflectionObj->newInstanceArgs($arguments); 
+        } else {
+            throw new InvalidArgumentException(sprintf('No task %s!', $type));
+        }
     }
 }
