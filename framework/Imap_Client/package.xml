@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-04-08</date>
- <time>11:18:13</time>
+ <time>11:37:40</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Parse broken date strings that contain timezone information in parantheses (Request #9847).
 * Fix for IMAP servers that report MODSEQ information even though CONDSTORE has not been enabled (Bug #9845).
 * Fix server-side sorting of subjects in Socket driver (Bug #9840).
 * Fix UIDVALIDITY determination for POP3 servers that support UIDL.
@@ -82,6 +83,7 @@
        </dir> <!-- /test/Horde/Imap/Client/fixtures -->
        <file name="AllTests.php" role="test" />
        <file name="Autoload.php" role="test" />
+       <file name="DateTimeTest.php" role="test" />
        <file name="IdsTest.php" role="test" />
        <file name="SubjectParseTest.php" role="test" />
        <file name="test_client.php" role="test" />
@@ -190,6 +192,7 @@
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
    <install as="Horde/Imap/Client/AllTests.php" name="test/Horde/Imap/Client/AllTests.php" />
    <install as="Horde/Imap/Client/Autoload.php" name="test/Horde/Imap/Client/Autoload.php" />
+   <install as="Horde/Imap/Client/DateTimeTest.php" name="test/Horde/Imap/Client/DateTimeTest.php" />
    <install as="Horde/Imap/Client/IdsTest.php" name="test/Horde/Imap/Client/IdsTest.php" />
    <install as="Horde/Imap/Client/SubjectParseTest.php" name="test/Horde/Imap/Client/SubjectParseTest.php" />
    <install as="Horde/Imap/Client/test_client.php" name="test/Horde/Imap/Client/test_client.php" />
@@ -305,6 +308,7 @@
    <date>2011-04-08</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* Parse broken date strings that contain timezone information in parantheses (Request #9847).
 * Fix for IMAP servers that report MODSEQ information even though CONDSTORE has not been enabled (Bug #9845).
 * Fix server-side sorting of subjects in Socket driver (Bug #9840).
 * Fix UIDVALIDITY determination for POP3 servers that support UIDL.
