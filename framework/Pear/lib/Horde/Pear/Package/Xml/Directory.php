@@ -120,15 +120,28 @@ class Horde_Pear_Package_Xml_Directory
      *
      * @return Horde_Pear_Package_Xml_Directory
      */
+    private function _getRoot()
+    {
+        if ($this->_parent instanceOf Horde_Pear_Package_Xml_Directory) {
+            return $this->_parent->_getRoot();
+        } else {
+            return $this->_parent;
+        }
+    }
+
+    /**
+     * Create a new directory handler.
+     *
+     * @param Horde_Pear_Package_Xml_Element_Directory $element The represented element.
+     * @param Horde_Pear_Package_Xml_Directory         $parent  The parent directory.
+     *
+     * @return Horde_Pear_Package_Xml_Directory
+     */
     private function _create(
         Horde_Pear_Package_Xml_Element_Directory $element,
         Horde_Pear_Package_Xml_Directory $parent
     ) {
-        if ($this->_parent instanceOf Horde_Pear_Package_Xml_Directory) {
-            return $this->_parent->_create($element, $parent);
-        } else {
-            return $this->_parent->createDirectory($element, $parent);
-        }
+        return $this->_getRoot()->createDirectory($element, $parent);
     }
 
     /**
