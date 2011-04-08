@@ -85,7 +85,7 @@ class Components_Runner_Update
             if ($options['pretend'] && $action == 'update') {
                 $action = 'diff';
             }
-            $package->updatePackageFile($action);
+            $package->updatePackageFile($action, $options);
         }
 
     }

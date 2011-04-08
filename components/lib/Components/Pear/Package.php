@@ -323,14 +323,10 @@ class Components_Pear_Package
      *
      * @return NULL
      */
-    public function updatePackageFile($action = 'update')
+    public function updatePackageFile($action = 'update', $options = array())
     {
         $package_xml = $this->_getPackageXml();
-        $package_xml->updateContents(
-            new Horde_Pear_Package_Contents_List(
-                new Horde_Pear_Package_Type_Horde(dirname($this->_package_xml_path))
-            )
-        );
+        $package_xml->updateContents(null, $options);
         switch($action) {
         case 'print':
             print (string) $package_xml;

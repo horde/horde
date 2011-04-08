@@ -61,8 +61,14 @@ extends Components_Module_Base
                     'default' => 'update',
                     'help'    => 'An optional argument to "--updatexml" that allows choosing the action that should be performed. The default is "update" which will rewrite the package.xml. "diff" allows you to produce a diffed output of the changes that would be applied with "update" - the "Horde_Text_Diff" package needs to be installed for that. "print" will output the new package.xml to the screen rather than rewriting it.'
                 )
-            )
-
+            ),
+            new Horde_Argv_Option(
+                '--regenerate',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Replace the old lists with a fresh listing.'
+                )
+            ),
         );
     }
 
@@ -95,7 +101,8 @@ extends Components_Module_Base
     public function getContextOptionHelp()
     {
         return array(
-            '--pretend' => 'Display a textual diff of the current package.xml and the updated package.xml. The package.xml file does not get modified.'
+            '--pretend' => 'Display a textual diff of the current package.xml and the updated package.xml. The package.xml file does not get modified.',
+            '--regenerate' => 'Purge the old file listings and replace them with a completely fresh list.',
         );
     }
 
