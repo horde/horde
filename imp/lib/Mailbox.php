@@ -130,9 +130,9 @@ class IMP_Mailbox implements Serializable
         }
 
         try {
-            return ($mbox instanceof IMP_Mailbox)
-                ? $mbox
-                : $GLOBALS['injector']->getInstance('IMP_Factory_Mailbox')->create(strval($mbox));
+            return $GLOBALS['injector']
+                ->getInstance('IMP_Factory_Mailbox')
+                ->create(strval($mbox));
         } catch (IMP_Exception $e) {
             return null;
         }
