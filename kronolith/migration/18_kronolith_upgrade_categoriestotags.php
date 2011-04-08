@@ -46,16 +46,15 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
             // Do we need to tag the event again, but as the share owner?
             try {
                 $cal = $this->_shares->getShare($row['calendar_id']);
+                if ($cal->get('owner') != $row['event_creator_id']) {
+                    $this->_tagger->tag(
+                        $cal->get('owner'),
+                        array('object' => $row['event_uid'], 'type' => $this->_type_ids['event']),
+                        Horde_String::convertCharset($row['event_category'], $this->getOption('charset'), 'UTF-8')
+                    );
+                }
             } catch (Exception $e) {
                 $this->announce('Unable to find Share: ' . $row['calendar_id'] . ' Skipping.');
-            }
-
-            if ($cal->get('owner') != $row['event_creator_id']) {
-                $this->_tagger->tag(
-                    $cal->get('owner'),
-                    array('object' => $row['event_uid'], 'type' => $this->_type_ids['event']),
-                    Horde_String::convertCharset($row['event_category'], $this->getOption('charset'), 'UTF-8')
-                );
             }
         }
         $this->announce('Event categories successfully migrated.');
