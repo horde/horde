@@ -203,17 +203,9 @@ case 'save_message':
         $name = 'saved_message';
     }
 
-    if (!($from = Horde_Mime_Address::bareAddress($mime_headers->getValue('from')))) {
-        $from = '<>';
-    }
-
-    $date = new DateTime($mime_headers->getValue('date'));
-
-    $hdr = 'From ' . $from . ' ' . $date->format('D M d H:i:s Y') . "\r\n";
     $msg = $contents->fullMessageText(array('stream' => true));
     fseek($msg, 0, SEEK_END);
-    $browser->downloadHeaders($name . '.eml', 'message/rfc822', false, strlen($hdr) + ftell($msg));
-    echo $hdr;
+    $browser->downloadHeaders($name . '.eml', 'message/rfc822', false, ftell($msg));
     rewind($msg);
     while (!feof($msg)) {
         echo fread($msg, 8192);
