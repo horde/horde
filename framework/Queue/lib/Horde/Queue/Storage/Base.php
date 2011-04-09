@@ -1,4 +1,4 @@
 <?php
-class Horde_Queue_Storage_Base
+abstract class Horde_Queue_Storage_Base
 {
 }

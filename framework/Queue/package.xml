@@ -41,14 +41,12 @@
        <file name="RequestShutdown.php" role="php" />
       </dir> <!-- /lib/Horde/Queue/Runner -->
       <dir name="Storage">
+       <file name="Array.php" role="php" />
        <file name="Base.php" role="php" />
        <file name="Db.php" role="php" />
-       <file name="RequestOnly.php" role="php" />
        <file name="Sqs.php" role="php" />
       </dir> <!-- /lib/Horde/Queue/Storage -->
-      <dir name="Task">
-       <file name="Base.php" role="php" />
-      </dir> <!-- /lib/Horde/Queue/Task -->
+      <file name="Task.php" role="php" />
      </dir> <!-- /lib/Horde/Queue -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
@@ -69,11 +67,11 @@
    <install as="examples/Horde/Queue/shutdown_runner.php" name="examples/Horde/Queue/shutdown_runner.php" />
    <install as="Horde/Queue/Runner/Base.php" name="lib/Horde/Queue/Runner/Base.php" />
    <install as="Horde/Queue/Runner/RequestShutdown.php" name="lib/Horde/Queue/Runner/RequestShutdown.php" />
+   <install as="Horde/Queue/Storage/Array.php" name="lib/Horde/Queue/Storage/Array.php" />
    <install as="Horde/Queue/Storage/Base.php" name="lib/Horde/Queue/Storage/Base.php" />
    <install as="Horde/Queue/Storage/Db.php" name="lib/Horde/Queue/Storage/Db.php" />
-   <install as="Horde/Queue/Storage/RequestOnly.php" name="lib/Horde/Queue/Storage/RequestOnly.php" />
    <install as="Horde/Queue/Storage/Sqs.php" name="lib/Horde/Queue/Storage/Sqs.php" />
-   <install as="Horde/Queue/Task/Base.php" name="lib/Horde/Queue/Task/Base.php" />
+   <install as="Horde/Queue/Task.php" name="lib/Horde/Queue/Task.php" />
   </filelist>
  </phprelease>
  <changelog>

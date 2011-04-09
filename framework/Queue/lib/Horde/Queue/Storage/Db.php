@@ -13,5 +13,4 @@ class Horde_Queue_Storage_Db extends Horde_Queue_Storage_Base
     public function getMany($num = 50)
     {
     }
-
 }

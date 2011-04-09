@@ -2,7 +2,7 @@
 /**
  * Stores queue tasks in the current request. No persistence.
  */
-class Horde_Queue_Storage_RequestOnly extends Horde_Queue_Storage_Base
+class Horde_Queue_Storage_Array extends Horde_Queue_Storage_Base
 {
     protected $_tasks = array();
 
@@ -15,5 +15,4 @@ class Horde_Queue_Storage_RequestOnly extends Horde_Queue_Storage_Base
     {
         return array_splice($this->_tasks, 0, $num);
     }
-
 }
