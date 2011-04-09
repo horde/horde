@@ -29,7 +29,7 @@ class Horde_Core_Auth_Signup_SQLObject
      *
      * @var string
      */
-    protected $name;
+    public $name;
 
     /**
      * Constructor.

@@ -66,7 +66,6 @@ if ($formsignup->validate()) {
 
 $title = _("User Registration");
 require HORDE_TEMPLATES . '/common-header.inc';
-require HORDE_TEMPLATES . '/login/header.inc';
 $notification->notify(array('listeners' => 'status'));
 $formsignup->renderActive($formsignup->getRenderer(), $vars, 'signup.php', 'post');
 require HORDE_TEMPLATES . '/common-footer.inc';
