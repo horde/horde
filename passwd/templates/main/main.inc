@@ -42,22 +42,20 @@ function setFocus()
 <div id="menu">
 <?php
 Horde::addScriptFile('stripe.js', 'horde', true);
-require_once 'Horde/Menu.php';
-$menu = &new Menu(HORDE_MENU_MASK_ALL & ~HORDE_MENU_MASK_PREFS);
-echo $menu->render();
+Horde::menu();
 $item = 1;
 ?>
 </div>
 <?php $notification->notify(array('listeners' => 'status')) ?>
 
 <form method="post" action="<?php echo Horde::url('main.php', false, -1, true) ?>" name="passwd">
-<?php echo Util::formInput() ?>
+<?php echo Horde_Util::formInput() ?>
 <?php if ($conf['backend']['backend_list'] == 'hidden'): ?>
 <input type="hidden" name="backend" value="<?php echo htmlspecialchars($backend_key) ?>" />
 <?php endif; if ($conf['user']['change'] !== true): ?>
 <input type="hidden" name="userid" value="<?php echo htmlspecialchars($userid) ?>" />
 <?php endif; ?>
-<input type="hidden" name="return_to" value="<?php echo htmlspecialchars(Util::getFormData('return_to')) ?>" />
+<input type="hidden" name="return_to" value="<?php echo htmlspecialchars(Horde_Util::getFormData('return_to')) ?>" />
 
 <h1 class="header">
 <?php
@@ -79,7 +77,7 @@ if ($conf['backend']['backend_list'] == 'hidden') {
   <input type="text" id="userid" name="userid" value="<?php echo htmlspecialchars($userid) ?>" />
  </td>
  <td class="rightAlign">
-  <?php echo Help::link('passwd', 'passwd-username') ?>
+  <?php echo Horde_Help::link('passwd', 'passwd-username') ?>
  </td>
 </tr>
 <?php endif; ?>
@@ -92,7 +90,7 @@ if ($conf['backend']['backend_list'] == 'hidden') {
   <input type="password" tabindex="1" id="oldpassword" name="oldpassword" size="32" />
  </td>
  <td class="rightAlign">
-  <?php echo Help::link('passwd', 'passwd-old-password') ?>
+  <?php echo Horde_Help::link('passwd', 'passwd-old-password') ?>
  </td>
 </tr>
 
@@ -104,7 +102,7 @@ if ($conf['backend']['backend_list'] == 'hidden') {
   <input type="password" tabindex="2" id="newpassword0" name="newpassword0" size="32" />
  </td>
  <td class="rightAlign">
-  <?php echo Help::link('passwd', 'passwd-new-password') ?>
+  <?php echo Horde_Help::link('passwd', 'passwd-new-password') ?>
  </td>
 </tr>
 
@@ -116,7 +114,7 @@ if ($conf['backend']['backend_list'] == 'hidden') {
   <input type="password" tabindex="3" id="newpassword1" name="newpassword1" size="32" />
  </td>
  <td class="rightAlign">
-  <?php echo Help::link('passwd', 'passwd-confirm-password') ?>
+  <?php echo Horde_Help::link('passwd', 'passwd-confirm-password') ?>
  </td>
 </tr>
 
@@ -131,7 +129,7 @@ if ($conf['backend']['backend_list'] == 'hidden') {
   </select>
  </td>
  <td class="rightAlign">
-     <?php echo Help::link('passwd', 'passwd-server') ?>
+     <?php echo Horde_Help::link('passwd', 'passwd-server') ?>
  </td>
 </tr>
 <?php endif; ?>

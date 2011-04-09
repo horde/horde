@@ -12,7 +12,9 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-require PASSWD_BASE . '/config/backends.php';
+Horde_Registry::appInit('passwd');
+
+$backends = Passwd::getBackends();
 
 // Get the backend details.
 $backend_key = Horde_Util::getFormData('backend', false);

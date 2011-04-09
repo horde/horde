@@ -14,6 +14,51 @@
  */
 class Passwd {
 
+    static public function getBackends()
+    {
+        $backends = Horde::loadConfiguration('backends.php', 'backends', 'passwd');
+        if (!isset($backends) || !is_array($backends)) {
+            throw new Passwd_Exception(_("No backends configured in backends.php"));
+        }
+
+        $backend = null;
+        foreach ($backends as $name => $temp) {
+            if (!empty($temp['disabled'])) {
+                continue;
+            }
+            if (!isset($backend[$name])) {
+                $backend[$name] = $name;
+            } elseif (!empty($temp['preferred'])) {
+                if (is_array($temp['preferred'])) {
+                    foreach ($temp['preferred'] as $val) {
+                        if (($val == $_SERVER['SERVER_NAME']) ||
+                            ($val == $_SERVER['HTTP_HOST'])) {
+                            $backend[$name] = $name;
+                        }
+                    }
+                } elseif (($temp['preferred'] == $_SERVER['SERVER_NAME']) ||
+                          ($temp['preferred'] == $_SERVER['HTTP_HOST'])) {
+                    $backend[$name] = $name;
+                }
+            }
+        }
+
+        /* Check for valid backend configuration. */
+        if (is_null($backend)) {
+            throw new Passwd_Exception(_("No backend configured for this host"));
+        }
+
+        $name = array_keys($backend);
+        $backend[$name[0]] = $backends[$name[0]];
+
+        /* Make sure the 'params' entry exists. */
+        if (!isset($backend[$name[0]]['params'])) {
+            $backend[$name[0]]['params'] = array();
+        }
+
+        return $backend;
+    }
+
     /**
      * Determines if the given backend is the "preferred" backend for
      * this web server.  This decision is based on the global

@@ -100,6 +100,7 @@
  */
 
 $backends['hordesql'] = array (
+    'disabled' => false,
     'name' => 'Horde Authentication',
     'preferred' => '',
     'password policy' => array(
@@ -115,6 +116,7 @@ $backends['hordesql'] = array (
 );
 
 $backends['poppassd'] = array(
+    'disabled' => true,
     'name' => 'Poppassd Server',
     'preferred' => '',
     'password policy' => array(
@@ -129,6 +131,7 @@ $backends['poppassd'] = array(
 );
 
 $backends['servuftp'] = array(
+    'disabled' => true,
     'name' => 'Serv-U FTP Server',
     'preferred' => '',
     'password policy' => array(
@@ -144,6 +147,7 @@ $backends['servuftp'] = array(
 );
 
 $backends['expect'] = array(
+    'disabled' => true,
     'name' => 'Expect Script',
     'preferred' => '',
     'password policy' => array(
@@ -159,6 +163,7 @@ $backends['expect'] = array(
 );
 
 $backends['sudo_expect'] = array(
+    'disabled' => true,
     'name' => 'Expect with Sudo Script',
     'preferred' => '',
     'password policy' => array(
@@ -172,6 +177,7 @@ $backends['sudo_expect'] = array(
 );
 
 $backends['smbpasswd'] = array(
+    'disabled' => true,
     'name' => 'Samba Server',
     'preferred' => '',
     'password policy' => array(
@@ -187,6 +193,7 @@ $backends['smbpasswd'] = array(
 
 // NOTE: to set the ldap userdn, see horde/config/hooks.php
 $backends['ldap'] = array(
+    'disabled' => true,
     'name' => 'LDAP Server',
     'preferred' => '',
     'password policy' => array(
@@ -212,6 +219,7 @@ $backends['ldap'] = array(
 
 // NOTE: to set the ldap userdn, see horde/config/hooks.php
 $backends['ldapadmin'] = array(
+    'disabled' => true,
     'name' => 'LDAP Server with Admin Bindings',
     'preferred' => '',
     'password policy' => array(
@@ -251,6 +259,7 @@ $backends['ldapadmin'] = array(
 // NOTE: to make work with samba 2.x schema you must change lm_attribute and
 // nt_attribute
 $backends['smbldap'] = array(
+    'disabled' => true,
     'name' => 'Samba/LDAP Server',
     'preferred' => '',
     'password policy' => array(
@@ -281,6 +290,7 @@ $backends['smbldap'] = array(
 );
 
 $backends['sql'] = array (
+    'disabled' => true,
     'name' => 'Exampe SQL Server',
     'preferred' => '',
     'password policy' => array(
@@ -315,6 +325,7 @@ $backends['sql'] = array (
 );
 
 $backends['vmailmgr'] = array(
+    'disabled' => true,
     'name' => 'VMailMgr Server',
     'preferred' => '',
     'password policy' => array(),
@@ -325,6 +336,7 @@ $backends['vmailmgr'] = array(
 );
 
 $backends['vpopmail'] = array (
+    'disabled' => true,
     'name' => 'Vpopmail Server',
     'preferred' => '',
     'password policy' => array(
@@ -350,6 +362,7 @@ $backends['vpopmail'] = array (
 );
 
 $backends['pine'] = array(
+    'disabled' => true,
     'name' => 'Pine Password File',
     'preferred' => '',
     'password policy' => array(
@@ -372,6 +385,7 @@ $backends['pine'] = array(
 );
 
 $backends['kolab'] = array(
+    'disabled' => true,
     'name' => 'Local Kolab Server',
     'preferred' => '',
     'password policy' => array(
@@ -383,6 +397,7 @@ $backends['kolab'] = array(
 );
 
 $backends['myscript'] = array(
+    'disabled' => true,
     'name' => 'Custom script',
     'preferred' => '',
     'password policy' => array(
@@ -404,6 +419,7 @@ $backends['myscript'] = array(
 // attempts to determine the success or failure based on searching the returned
 // html page for the values listed in the 'eval_results' array.
 $backends['http'] = array (
+    'disabled' => true,
     'name' => 'Email password on IMAP server',
     'preferred' => '',
     'password policy' => array(
@@ -430,6 +446,7 @@ $backends['http'] = array (
 );
 
 $backends['soap'] = array(
+    'disabled' => true,
     'name' => 'SOAP Server',
     'preferred' => '',
     'password policy' => array(
@@ -459,6 +476,7 @@ $backends['soap'] = array(
 // In most installations you probably only need to change the 
 // hostspec and /or  password fields.
 $backends['postfixadmin'] = array (
+    'disabled' => true,
     'name' => 'Postfix Admin server',
     'preferred' => '',
     'password policy' => array(
@@ -501,6 +519,7 @@ $backends['postfixadmin'] = array (
 // that, when set to true, will cause the rest of the drivers be skipped if a
 // particular one fails.
 $backends['composite'] = array(
+    'disabled' => true,
    'name' => 'All Services',
    'preferred' => '',
     'password policy' => array(
