@@ -94,7 +94,9 @@ class Horde_Db_Adapter_Pdo_Mysql extends Horde_Db_Adapter_Pdo_Base
         unset(
             $dsnOpts['adapter'],
             $dsnOpts['username'],
-            $dsnOpts['password']
+            $dsnOpts['password'],
+            $dsnOpts['charset'],
+            $dsnOpts['phptype']
         );
         $dsnOpts = $this->_normalizeConfig($dsnOpts);
 
