@@ -62,7 +62,6 @@ framework/Share/test/Horde/Share/conf.php
 /chora/config/backends.php
 /gollem/config/backends.php
 /luxor/config/backends.php
-/passwd/config/backends.php
 framework/bin/*.conf
 !/horde/admin/config/
 !/kolab/*
