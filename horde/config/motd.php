@@ -12,7 +12,7 @@ ob_start();
 
 ?>
 <br />
-<table width="100%"><tr><td align="center"><img src="themes/default/graphics/horde-power1.png" alt="Powered by Horde" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="<?php echo Horde_Themes::img('horde-power1.png') ?>" alt="Powered by Horde" /></td></tr></table>
 
 <?php
 $motd = ob_get_clean();
