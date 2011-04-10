@@ -2,6 +2,8 @@
 v4.0.1-git
 ----------
 
+[cjh] Show an unknown app icon rather than a broken image if an application
+      doesn't have an icon (Bug #9867).
 
 
 ----

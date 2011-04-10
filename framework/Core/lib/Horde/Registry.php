@@ -1497,10 +1497,13 @@ class Horde_Registry
 
         if (isset($this->applications[$app][$parameter])) {
             $pval = $this->applications[$app][$parameter];
+        } elseif ($parameter == 'icon') {
+            $pval = Horde_Themes::img($app . '.png', $app);
+            if ((string)$pval == '') {
+                $pval = Horde_Themes::img('app-unknown.png', 'horde');
+            }
         } else {
-            $pval = ($parameter == 'icon')
-                ? Horde_Themes::img($app . '.png', $app)
-                : (isset($this->applications['horde'][$parameter]) ? $this->applications['horde'][$parameter] : null);
+            $pval = isset($this->applications['horde'][$parameter]) ? $this->applications['horde'][$parameter] : null;
         }
 
         return ($parameter == 'name')
