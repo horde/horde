@@ -1090,14 +1090,14 @@ class IMP_Contents
     /**
      * Return the descriptive part label, making sure it is not empty.
      *
-     * @param Horde_Mime_Part $part  The MIME Part object.
-     * @param boolean $descrip       Use description?  If false, uses name.
+     * @param Horde_Mime_Part $part            The MIME Part object.
+     * @param boolean         $useDescription  Use description? If false, uses name.
      *
      * @return string  The part label (non-empty).
      */
-    public function getPartName(Horde_Mime_Part $part, $descrip)
+    public function getPartName(Horde_Mime_Part $part, $useDescription)
     {
-        $name = $descrip
+        $name = $useDescription
             ? $part->getDescription(true)
             : $part->getName(true);
 
@@ -1111,7 +1111,7 @@ class IMP_Contents
             if (($part->getSubType() == 'related') &&
                 ($view_id = $part->getMetaData('viewable_part')) &&
                 ($viewable = $this->getMIMEPart($view_id, array('nocontents' => true)))) {
-                return $this->getPartName($viewable, $descrip);
+                return $this->getPartName($viewable, $useDescription);
             }
             /* Fall-through. */
 

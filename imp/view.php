@@ -129,7 +129,7 @@ case 'download_render':
             $mime->setContents($render[key($render)]['data'], array('encoding' => 'binary'));
         }
 
-        $name = $contents->getPartName($mime);
+        $name = $contents->getPartName($mime, false);
 
         /* Compress output? */
         if ($vars->zip) {
