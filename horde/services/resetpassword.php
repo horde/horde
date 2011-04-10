@@ -20,7 +20,7 @@ if (!$auth->hasCapability('resetpassword')) {
 
 $vars = Horde_Variables::getDefaultVariables();
 
-$title = _("Reset Your Password");
+$title = _("Reset your password");
 $form = new Horde_Form($vars, $title);
 $form->setButtons(_("Continue"));
 
@@ -93,8 +93,8 @@ if ($can_validate && $form->validate($vars)) {
     }
 }
 
-require HORDE_TEMPLATES . '/common-header.inc';
-$notification->notify(array('listeners' => 'status'));
-$renderer = new Horde_Form_Renderer();
-$form->renderActive($renderer, $vars, 'resetpassword.php', 'post');
-require HORDE_TEMPLATES . '/common-footer.inc';
+$renderer = new Horde_Core_Ui_ModalFormRenderer();
+$bodyClass = 'modal-form';
+require $registry->get('templates', 'horde') . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/login/resetpassword.inc';
+require $registry->get('templates', 'horde') . '/common-footer.inc';

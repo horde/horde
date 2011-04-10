@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [cjh] Fix signups, and update style on signup and reset password pages to match the login page (Bug #9856, partially from Ian Roth <iron_hat@hotmail.com>).
 * [cjh] Show an unknown app icon rather than a broken image if an application doesn't have an icon (Bug #9867).
  </notes>
  <contents>
@@ -253,6 +254,7 @@
        <file name="JsCalendar.php" role="php" />
        <file name="Language.php" role="php" />
        <file name="Layout.php" role="php" />
+       <file name="ModalFormRenderer.php" role="php" />
        <file name="Pager.php" role="php" />
        <file name="Tabs.php" role="php" />
        <file name="TagCloud.php" role="php" />
@@ -1161,6 +1163,7 @@
    <install as="Horde/Core/Ui/JsCalendar.php" name="lib/Horde/Core/Ui/JsCalendar.php" />
    <install as="Horde/Core/Ui/Language.php" name="lib/Horde/Core/Ui/Language.php" />
    <install as="Horde/Core/Ui/Layout.php" name="lib/Horde/Core/Ui/Layout.php" />
+   <install as="Horde/Core/Ui/ModalFormRenderer.php" name="lib/Horde/Core/Ui/ModalFormRenderer.php" />
    <install as="Horde/Core/Ui/Pager.php" name="lib/Horde/Core/Ui/Pager.php" />
    <install as="Horde/Core/Ui/Tabs.php" name="lib/Horde/Core/Ui/Tabs.php" />
    <install as="Horde/Core/Ui/TagCloud.php" name="lib/Horde/Core/Ui/TagCloud.php" />

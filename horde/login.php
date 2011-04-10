@@ -372,7 +372,7 @@ if (!empty($js_files)) {
 }
 
 Horde::addInlineJsVars($js_code);
-$bodyClass = 'login-form';
+$bodyClass = 'modal-form';
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require $registry->get('templates', 'horde') . '/login/login.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

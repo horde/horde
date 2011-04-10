@@ -1,4 +1,4 @@
-<div id="login-form">
+<div class="modal-form">
 
 <?php $notification->notify(array('listeners' => 'status')) ?>
 
@@ -40,7 +40,7 @@
 <?php endif; ?>
 
 <div>
- <input id="login-button" name="login_button" class="button" value="<?php echo _("Log in") ?>" type="submit" />
+ <input id="login-button" name="login_button" class="button submit-button" value="<?php echo _("Log in") ?>" type="submit" />
 </div>
 
 <?php

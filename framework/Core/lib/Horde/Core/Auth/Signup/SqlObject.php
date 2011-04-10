@@ -12,7 +12,7 @@
  * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
  * @package  Core
  */
-class Horde_Core_Auth_Signup_SQLObject
+class Horde_Core_Auth_Signup_SqlObject
 {
     /**
      * Key-value hash that will be serialized.
@@ -23,13 +23,12 @@ class Horde_Core_Auth_Signup_SQLObject
     protected $_data = array();
 
     /**
-     * The unique name of this object.
-     * These names have the same requirements as other object names - they
-     * must be unique, etc.
+     * The unique name of this object. These names have the same requirements
+     * as other object names - they must be unique, etc.
      *
      * @var string
      */
-    protected $name;
+    protected $_name;
 
     /**
      * Constructor.
@@ -54,7 +53,7 @@ class Horde_Core_Auth_Signup_SQLObject
     /**
      * Sets the data array.
      *
-     * @param array  The data array to store internally.
+     * @param array $data  The data array to store internally.
      */
     public function setData($data)
     {
@@ -71,7 +70,10 @@ class Horde_Core_Auth_Signup_SQLObject
         }
 
         unset($this->_data['signup_data']);
-        $this->_data['dateReceived'] = $data['signup_date'];
+
+        if (isset($data['signup_date'])) {
+            $this->_data['dateReceived'] = $data['signup_date'];
+        }
     }
 
     /**
@@ -83,5 +85,4 @@ class Horde_Core_Auth_Signup_SQLObject
     {
         return $this->_name;
     }
-
 }
