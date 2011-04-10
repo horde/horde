@@ -979,28 +979,6 @@ class Horde_Config
             'default' => $this->_default($ctx . '|ca', '')
         );
 
-        $oci8_fields = array(
-            'persistent' => $persistent,
-            'username' => $username,
-            'password' => $password
-        );
-        if (function_exists('oci_connect')) {
-            $oci8_fields['database'] = array(
-                '_type' => 'text',
-                'required' => true,
-                'desc' => 'Database name or Easy Connect parameter',
-                'default' => $this->_default($ctx . '|database', 'horde')
-            );
-        } else {
-            $oci8_fields['hostspec'] = array(
-                '_type' => 'text',
-                'required' => true,
-                'desc' => 'Database name or Easy Connect parameter',
-                'default' => $this->_default($ctx . '|hostspec', 'horde')
-            );
-        }
-        $oci8_fields['charset'] = $charset;
-
         $read_hostspec = array(
             '_type' => 'text',
             'required' => true,
@@ -1051,7 +1029,7 @@ class Horde_Config
                     'fields' => array()
                 ),
                 'mysql' => array(
-                    'desc' => 'MySQL',
+                    'desc' => 'MySQL / PDO',
                     'fields' => array(
                         'persistent' => $persistent,
                         'username' => $username,
