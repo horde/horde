@@ -3116,11 +3116,6 @@ var DimpBase = {
         });
     },
 
-    hasFlag: function(f, r)
-    {
-        return (r.flag ? r.flag.include(f) : false);
-    },
-
     updateFlag: function(vs, flag, add)
     {
         var s = {};
