@@ -2585,6 +2585,17 @@ class Turba_Driver implements Countable
     }
 
     /**
+     * Override the name setting for this driver.
+     *
+     * @param string $name  The source name. This is the key into the
+     *                      $cfgSources array.
+     */
+    public function setSourceName($name)
+    {
+        $this->_name = $name;
+    }
+
+    /**
      * Return the owner to use when searching or creating contacts in
      * this address book.
      *

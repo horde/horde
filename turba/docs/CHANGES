@@ -2,13 +2,13 @@
 v3.0.1-git
 ----------
 
-
+[mjr] Fix merging duplicate contacts (Bug #9828).
 
 ----
 v3.0
 ----
 
-[mjr] Fix deletion of virtual address books (Bug # 9779).
+[mjr] Fix deletion of virtual address books (Bug #9779).
 [jan] Fix saving searches to virtual address books (Bug #9776).
 [mjr] Datatree share to SQL upgrade script refactored for Horde 4.
 [jan] Move all executable scripts to bin/ and prefix with turba-.

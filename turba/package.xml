@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [mjr] Fix merging duplicate contacts (Bug #9828).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1147,7 +1147,7 @@
    <date>2011-04-06</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+*
    </notes>
   </release>
  </changelog>
