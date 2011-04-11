@@ -239,7 +239,7 @@ foreach ($flag_parse as $val) {
 }
 
 /* Create the body of the message. */
-$inlineout = $imp_ui->getInlineOutput($imp_contents, array(
+$inlineout = $imp_contents->getInlineOutput(array(
     'display_mask' => IMP_Contents::RENDER_INLINE,
     'no_inline_all' => !$prefs->getValue('mimp_inline_all'),
     'sep' => '<br /><hr />'

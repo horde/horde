@@ -257,12 +257,17 @@ class IMP_Views_ShowMessage
 
         /* Do MDN processing now. */
         if ($imp_ui->MDNCheck($mailbox, $uid, $mime_headers)) {
-            $result['msgtext'] .= $imp_ui->formatStatusMsg(array(array('id' => 'sendMdnMessage', 'text' => array(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link('#', '', '', '', '', '', '', array('id' => 'send_mdn_link')) . _("HERE") . '</a>')))));
+            $result['msgtext'] .= $imp_contents->formatStatusMsg(array(array(
+                'id' => 'sendMdnMessage',
+                'text' => array(
+                    _("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link('#', '', '', '', '', '', '', array('id' => 'send_mdn_link')) . _("HERE") . '</a>')
+                )
+            )));
         }
 
         /* Build body text. This needs to be done before we build the
          * attachment list. */
-        $inlineout = $imp_ui->getInlineOutput($imp_contents, array(
+        $inlineout = $imp_contents->getInlineOutput(array(
             'mask' => $contents_mask,
             'part_info_display' => $part_info_display,
             'show_parts' => $show_parts
