@@ -2,6 +2,7 @@
 v3.0.1-git
 ----------
 
+[mjr] Fix importing objects with categories (Bug #9841).
 [mjr] Fix merging duplicate contacts (Bug #9828).
 [mjr] Allow unsetting the GAL and Client Address Book settings (Bug #9843).
 
