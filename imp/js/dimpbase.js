@@ -2599,7 +2599,7 @@ var DimpBase = {
 
         var f = r.flag,
             sb = f.uids
-                ? this.viewport.getSelection().search({ imapuid: { equal: DimpCore.parseRangeString(f.uids)[f.mbox] }, view: { equal: f.mbox } })
+                ? this.viewport.createSelection('uid', DimpCore.parseRangeString(f.uids)[f.mbox], f.mbox)
                 : this.viewport.createSelectionBuffer();
 
         if (f.add) {
