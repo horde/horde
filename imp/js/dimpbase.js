@@ -1737,6 +1737,12 @@ var DimpBase = {
 
     pollCallback: function(r)
     {
+        /* Don't update polled status until the sidebar is visible. Otherwise,
+         * preview callbacks may not correctly update unseen status. */
+        if (!$('foldersSidebar').visible()) {
+            return this.pollCallback.bind(this, r).defer();
+        }
+
         if (r.poll) {
             $H(r.poll).each(function(u) {
                 this.updateUnseenStatus(u.key, u.value);
