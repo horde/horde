@@ -84,10 +84,11 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
          * or both. If we find a multipart alternative that contains at least
          * one viewable part, we will display all viewable subparts of that
          * alternative. */
+        $imp_contents = $this->getConfigParam('imp_contents');
         foreach ($subparts as $mime_id => $type) {
             $ret[$mime_id] = null;
             if ((strcmp($base_id, $mime_id) !== 0) &&
-                $this->getConfigParam('imp_contents')->canDisplay($mime_id, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL) &&
+                $imp_contents->canDisplay($mime_id, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL) &&
                 /* Show HTML if $prefer_plain is false-y or if
                  * alternative_display is not 'html'. */
                 (!$prefer_plain ||
@@ -137,7 +138,7 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
         $need_render = $subparts = $render_part->contentTypeMap();
 
         foreach (array_keys($subparts) as $val) {
-            if (isset($need_render[$val])) {
+            if (isset($display_ids[$val]) && isset($need_render[$val])) {
                 $render = $this->getConfigParam('imp_contents')->renderMIMEPart($val, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL);
 
                 foreach (array_keys($render) as $id) {

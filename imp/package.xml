@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-08</date>
- <time>13:49:36</time>
+ <date>2011-04-11</date>
+ <time>00:22:49</time>
  <version>
   <release>5.0.1</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix unneeded body part downloads in alternative parts (Bug #9862).
 * [mms] Fix importing PGP private keys.
 * [mms] More intelligent part naming if name is not specified in the message (Request #9853).
 * [jan] Avoid double escaping of folder names in sent-mail drop down list.
@@ -2133,7 +2134,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-04-08</date>
+   <date>2011-04-11</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [mms] More intelligent part naming if name is not specified in the message (Request #9853).

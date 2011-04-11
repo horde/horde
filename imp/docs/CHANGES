@@ -2,6 +2,7 @@
 v5.0.1-git
 ----------
 
+[mms] Fix unneeded body part downloads in alternative parts (Bug #9862).
 [mms] Fix importing PGP private keys.
 [mms] More intelligent part naming if name is not specified in the message
       (Request #9853).
