@@ -2076,7 +2076,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         /* Set the size of the part explicitly since the part will not
          * contain the data until send time. */
-        $part->setBytes($part->getBytes());
+        $bytes = $part->getBytes();
+        $part->setBytes($bytes);
 
         /* We don't want the contents stored in the serialized object, so
          * remove. We store the data in VFS in binary format so indicate that
