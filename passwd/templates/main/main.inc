@@ -42,10 +42,12 @@ function setFocus()
 <div id="menu">
 <?php
 Horde::addScriptFile('stripe.js', 'horde', true);
-Horde::menu();
+$menu = new Horde_Menu(Horde_Menu::MASK_ALL & ~Horde_Menu::MASK_PREFS);
+echo $menu->render();
 $item = 1;
 ?>
 </div>
+<?php require HORDE_BASE . '/services/sidebar.php'; ?>
 <?php $notification->notify(array('listeners' => 'status')) ?>
 
 <form method="post" action="<?php echo Horde::url('main.php', false, -1, true) ?>" name="passwd">
