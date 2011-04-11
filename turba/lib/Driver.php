@@ -2627,64 +2627,6 @@ class Turba_Driver implements Countable
     }
 
     /**
-     * Static method to construct Turba_Driver objects.
-     *
-     * @param string $name   String containing the internal name of this
-     *                       source.
-     * @param array $config  Array containing the configuration information for
-     *                       this source.
-     *
-     * @return Turba_Driver  The concrete driver object.
-     * @throws Turba_Exception
-     */
-    static public function factory($name, array $config)
-    {
-        $class = __CLASS__ . '_' . ucfirst(basename($config['type']));
-
-        if (class_exists($class)) {
-            $driver = new $class($config['params']);
-        } else {
-            throw new Turba_Exception(sprintf(_("Unable to load the definition of %s."), $class));
-        }
-
-        /* Store name and title. */
-        $driver->_name = $name;
-        $driver->title = $config['title'];
-
-        /* Initialize */
-        $driver->_init();
-
-        /* Store and translate the map at the Source level. */
-        $driver->map = $config['map'];
-        foreach ($driver->map as $key => $val) {
-            if (!is_array($val)) {
-                $driver->fields[$key] = $val;
-            }
-        }
-
-        /* Store tabs. */
-        if (isset($config['tabs'])) {
-            $driver->tabs = $config['tabs'];
-        }
-
-        /* Store remaining fields. */
-        if (isset($config['strict'])) {
-            $driver->strict = $config['strict'];
-        }
-        if (isset($config['approximate'])) {
-            $driver->approximate = $config['approximate'];
-        }
-        if (isset($config['list_name_field'])) {
-            $driver->listNameField = $config['list_name_field'];
-        }
-        if (isset($config['alternative_name'])) {
-            $driver->alternativeName = $config['alternative_name'];
-        }
-
-        return $driver;
-    }
-
-    /**
      * Initialize the driver.
      *
      * @throws Turba_Exception
