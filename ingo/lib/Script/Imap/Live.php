@@ -58,7 +58,7 @@ class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api
             $query->envelope();
 
             try {
-                return $GLOBALS['registry']->call('mail/imapOb')->fetch($this->_params['mailbox'], $query, array('ids' => $indices));
+                return $GLOBALS['registry']->call('mail/imapOb')->fetch($this->_params['mailbox'], $query, array('ids' => new Horde_Imap_Client_Ids($indices)));
             } catch (Horde_Imap_Client_Exception $e) {}
         }
 

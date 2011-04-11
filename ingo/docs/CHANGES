@@ -2,6 +2,7 @@
 v2.0.1-git
 ----------
 
+[mms] Fix imap filtering using envelope data (Bug #9859).
 
 
 ----
