@@ -41,6 +41,7 @@
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
 * [mjr] Fix merging duplicate contacts (Bug #9828).
+* [mjr] Allow unsetting the GAL and Client Address Book settings (Bug #9843).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

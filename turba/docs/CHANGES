@@ -3,6 +3,7 @@ v3.0.1-git
 ----------
 
 [mjr] Fix merging duplicate contacts (Bug #9828).
+[mjr] Allow unsetting the GAL and Client Address Book settings (Bug #9843).
 
 ----
 v3.0
