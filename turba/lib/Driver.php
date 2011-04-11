@@ -180,11 +180,13 @@ class Turba_Driver implements Countable
     {
         /* Handle category. */
         if (!empty($hash['category'])) {
-            if (!empty($hash['category']['new'])) {
+            if (is_array($hash['category']) && !empty($hash['category']['new'])) {
                 $cManager = new Horde_Prefs_CategoryManager();
                 $cManager->add($hash['category']['value']);
+                $hash['category'] = $hash['category']['value'];
+            } else {
+                $hash['category'] = $hash['category'];
             }
-            $hash['category'] = $hash['category']['value'];
         }
 
         // Add composite fields to $hash if at least one field part exists
