@@ -11,7 +11,9 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
+
 /* Load mobile? */
+$mode = $session->get('horde', 'mode');
 if ($mode == 'smartmobile' || $mode == 'mobile') {
     include ANSEL_BASE . '/mobile.php';
     exit;
