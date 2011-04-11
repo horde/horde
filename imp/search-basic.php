@@ -63,7 +63,7 @@ if ($vars->search_basic_mbox) {
                 ($vars->search_criteria == 'body'),
                 $vars->search_criteria_not
             );
-        break;
+            break;
         }
     }
 
@@ -75,15 +75,21 @@ if ($vars->search_basic_mbox) {
         );
     }
 
-    /* Store the search in the session. */
-    $q_ob = $imp_search->createQuery($c_list, array(
-        'id' => IMP_Search::BASIC_SEARCH,
-        'mboxes' => array($vars->search_basic_mbox),
-        'type' => IMP_Search::CREATE_QUERY
-    ));
+    if (empty($c_list)) {
+        $notification->push(_("No search criteria specified."), 'horde.error');
+        $vars->search_mailbox = $vars->search_basic_mbox;
+        unset($vars->search_basic_mbox);
+    } else {
+        /* Store the search in the session. */
+        $q_ob = $imp_search->createQuery($c_list, array(
+            'id' => IMP_Search::BASIC_SEARCH,
+            'mboxes' => array($vars->search_basic_mbox),
+            'type' => IMP_Search::CREATE_QUERY
+        ));
 
-    /* Redirect to the mailbox screen. */
-    Horde::url('mailbox.php', true)->add('mailbox', strval($q_ob))->redirect();
+        /* Redirect to the mailbox screen. */
+        Horde::url('mailbox.php', true)->add('mailbox', strval($q_ob))->redirect();
+    }
 }
 
 $flist = $injector->getInstance('IMP_Flags')->getList(array(
