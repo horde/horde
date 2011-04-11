@@ -384,6 +384,8 @@ class Turba_Application extends Horde_Registry_Application
             foreach ($addressbooks as &$addressbook) {
                 $addressbook = $addressbook['title'];
             }
+
+            $addressbooks[''] = _("None");
             return $addressbooks;
         }
     }
