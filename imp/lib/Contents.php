@@ -368,6 +368,7 @@ class IMP_Contents
          * want to download the body of that part here. */
         if (!empty($id) &&
             !is_null($part) &&
+            (substr($id, -2) != '.0') &&
             empty($options['nocontents']) &&
             $this->_mailbox &&
             !$part->getContents(array('stream' => true))) {
