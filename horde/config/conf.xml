@@ -248,6 +248,8 @@
         <value>crypt-blowfish</value>
         <value>crypt-des</value>
         <value>crypt-md5</value>
+        <value>crypt-sha256</value>
+        <value>crypt-sha512</value>
         <value>md5-base64</value>
         <value>md5-hex</value>
         <value>plain</value>
@@ -328,6 +330,8 @@
          <value>crypt-blowfish</value>
          <value>crypt-des</value>
          <value>crypt-md5</value>
+         <value>crypt-sha256</value>
+         <value>crypt-sha512</value>
          <value>md5-base64</value>
          <value>md5-hex</value>
          <value>msad</value>
@@ -388,6 +392,8 @@
         <value>crypt-blowfish</value>
         <value>crypt-des</value>
         <value>crypt-md5</value>
+        <value>crypt-sha256</value>
+        <value>crypt-sha512</value>
         <value>md5-base64</value>
         <value>md5-hex</value>
         <value>plain</value>
@@ -494,6 +500,8 @@
         <value>crypt-blowfish</value>
         <value>crypt-des</value>
         <value>crypt-md5</value>
+        <value>crypt-sha256</value>
+        <value>crypt-sha512</value>
         <value>md5-base64</value>
         <value>md5-hex</value>
         <value>plain</value>
@@ -563,6 +571,8 @@
         <value>crypt-blowfish</value>
         <value>crypt-des</value>
         <value>crypt-md5</value>
+        <value>crypt-sha256</value>
+        <value>crypt-sha512</value>
         <value>md5-base64</value>
         <value>md5-hex</value>
         <value>plain</value>
@@ -633,6 +643,8 @@
         <value>crypt-blowfish</value>
         <value>crypt-des</value>
         <value>crypt-md5</value>
+        <value>crypt-sha256</value>
+        <value>crypt-sha512</value>
         <value>md5-base64</value>
         <value>md5-hex</value>
         <value>plain</value>

@@ -177,7 +177,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
 
         $this->_users = array();
         while (!feof($fp)) {
-            $line = trim(fgets($fp, 128));
+            $line = trim(fgets($fp, 256));
             if (empty($line)) {
                 continue;
             }

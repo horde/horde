@@ -115,6 +115,8 @@ class Horde_Auth
         case 'crypt':
         case 'crypt-des':
         case 'crypt-md5':
+        case 'crypt-sha256':
+        case 'crypt-sha512':
         case 'crypt-blowfish':
             return ($show_encrypt ? '{crypt}' : '') . crypt($plaintext, $salt);
 
@@ -217,6 +219,16 @@ class Horde_Auth
             return $seed
                 ? substr(preg_replace('|^{crypt}|i', '', $seed), 0, 16)
                 : '$2$' . base64_encode(hash('md5', sprintf('%08X%08X%08X', mt_rand(), mt_rand(), mt_rand()), true)) . '$';
+
+        case 'crypt-sha256':
+            return $seed
+                ? substr(preg_replace('|^{crypt}|i', '', $seed), 0, strrpos($seed,'$'))
+                : '$5$' . base64_encode(hash('md5', sprintf('%08X%08X%08X', mt_rand(), mt_rand(), mt_rand()), true)) . '$';
+
+        case 'crypt-sha512':
+            return $seed
+                ? substr(preg_replace('|^{crypt}|i', '', $seed), 0, strrpos($seed,'$'))
+                : '$6$' . base64_encode(hash('md5', sprintf('%08X%08X%08X', mt_rand(), mt_rand(), mt_rand()), true)) . '$';
 
         case 'ssha':
             return $seed
