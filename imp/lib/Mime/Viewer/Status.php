@@ -45,12 +45,6 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
      */
     protected function _renderInline()
     {
-        /* If this is a straight message/disposition-notification part, just
-         * output the text. */
-        if ($this->_mimepart->getType() == 'message/delivery-status') {
-            return $this->getConfigParam('imp_contents')->renderMIMEPart($this->_mimepart->getMIMEId(), IMP_Contents::RENDER_FULL, array('type' => 'text/plain'));
-        }
-
         return $this->_renderInfo();
     }
 
@@ -130,27 +124,16 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
             break;
         }
 
-        /* Print the human readable message. */
-        $first_part = $this->getConfigParam('imp_contents')->renderMIMEPart($part1_id, IMP_Contents::RENDER_INLINE_AUTO);
-
         /* Display a link to the returned message, if it exists. */
         $part3 = $this->getConfigParam('imp_contents')->getMIMEPart($part3_id);
         if ($part3) {
             $status[0]['text'][] = sprintf($msg_link, $this->getConfigParam('imp_contents')->linkViewJS($part3, 'view_attach', _("HERE"), array('jstext' => $msg_link_status, 'ctype' => 'message/rfc822')));
         }
 
-        if (empty($first_part)) {
-            $data = '';
-        } else {
-            $status[0]['text'][] = _("The mail server generated the following informational message:");
-            $status = array_merge($status, $first_part[$part1_id]['status']);
-            $data = $first_part[$part1_id]['data'];
-        }
-
-        $ret = array_combine($parts, array_fill(0, count($parts), null));
+        $ret = array_combine(array($part2_id, $part3_id), array(null, null));
 
         $ret[$this->_mimepart->getMimeId()] = array(
-            'data' => $data,
+            'data' => '',
             'status' => $status,
             'type' => 'text/html; charset=' . $this->getConfigParam('charset'),
             'wrap' => 'mimePartWrap'

@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Show human readable message in multipart/report parts in the richest
+        format possible (Bug #9873).
 * [mms] Fix unneeded body part downloads in alternative parts (Bug #9862).
 * [mms] Fix importing PGP private keys.
 * [mms] More intelligent part naming if name is not specified in the message (Request #9853).
