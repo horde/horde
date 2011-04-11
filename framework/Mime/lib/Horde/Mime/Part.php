@@ -234,7 +234,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     public function __wakeup()
     {
         if (!empty($this->_contents)) {
-            $this->setContents($this->_contents);
+            $contents = $this->_contents;
+            $this->_contents = null;
+            $this->setContents($contents);
         }
     }
 

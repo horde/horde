@@ -159,6 +159,25 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testUnserialize()
+    {
+        $part = new Horde_Mime_Part();
+        $part->setType('text/plain');
+        $part->setContents('Test');
+
+        $part1 = unserialize(serialize($part));
+
+        $this->assertEquals(
+            'Test',
+            $part1->getContents()
+        );
+
+        $this->assertInternalType(
+            'resource',
+            $part1->getContents(array('stream' => true))
+        );
+    }
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();
