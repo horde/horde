@@ -1091,11 +1091,12 @@ class IMP_Contents
      * Return the descriptive part label, making sure it is not empty.
      *
      * @param Horde_Mime_Part $part            The MIME Part object.
-     * @param boolean         $useDescription  Use description? If false, uses name.
+     * @param boolean         $useDescription  Use description? If false, uses
+     *                                         name.
      *
      * @return string  The part label (non-empty).
      */
-    public function getPartName(Horde_Mime_Part $part, $useDescription)
+    public function getPartName(Horde_Mime_Part $part, $useDescription = false)
     {
         $name = $useDescription
             ? $part->getDescription(true)
