@@ -1392,6 +1392,7 @@ var DimpBase = {
             pp_uid = this._getPPId(data.imapuid, data.view);
 
             if (this.ppfifo.indexOf(pp_uid) != -1) {
+                this.flag('\\seen', true, { mailbox: data.view, uid: data.imapuid });
                 return this._loadPreviewCallback(this.ppcache[pp_uid]);
             }
         }
@@ -3101,19 +3102,24 @@ var DimpBase = {
     // opts = (Object) 'mailbox', 'uid'
     flag: function(flag, add, opts)
     {
-        var vs = this._getFlagSelection(opts || {});
+        var need,
+            vs = this._getFlagSelection(opts || {});
 
-        if (!vs.size()) {
-            return;
-        }
-
-        DimpCore.doAction('flagMessages', this.viewport.addRequestParams({
-            add: Number(add),
-            flags: Object.toJSON([ flag ]),
-            view: this.folder
-        }), {
-            uids: vs
+        need = vs.get('dataob').any(function(ob) {
+            return add
+                ? (!ob.flag || !ob.flag.include(flag))
+                : (ob.flag && ob.flag.include(flag));
         });
+
+        if (need) {
+            DimpCore.doAction('flagMessages', this.viewport.addRequestParams({
+                add: Number(add),
+                flags: Object.toJSON([ flag ]),
+                view: this.folder
+            }), {
+                uids: vs
+            });
+        }
     },
 
     updateFlag: function(vs, flag, add)
