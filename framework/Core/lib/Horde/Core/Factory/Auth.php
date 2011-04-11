@@ -113,11 +113,11 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
 
         case 'cyrsql':
             $imap_config = array(
-                'hostspec' => empty($params['hostspec']) ? null : $params['hostspec'],
+                'hostspec' => empty($params['cyrhost']) ? null : $params['cyrhost'],
                 'password' => $params['cyrpass'],
-                'port' => empty($params['port']) ? null : $params['port'],
+                'port' => empty($params['cyrport']) ? null : $params['cyrport'],
                 'secure' => ($params['secure'] == 'none') ? null : $params['secure'],
-                'username' => $params['cyradmin']
+                'username' => $params['cyradmin'],
             );
 
             try {

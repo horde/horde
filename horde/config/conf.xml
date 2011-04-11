@@ -591,13 +591,19 @@
       administrator"/>
       <configstring name="cyrpass" desc="The password for the cyrus
       administrator"/>
-      <configstring name="hostspec" desc="The hostname or IP address of the
+      <configstring name="cyrhost" desc="The hostname or IP address of the
       server">localhost</configstring>
-      <configinteger name="port" desc="The server port to which we will
+      <configinteger name="cyrport" desc="The server port to which we will
       connect. IMAP is generally 143, while IMAP-SSL is generally
       993.">143</configinteger>
       <configenum name="secure" desc="The encryption to use to connect to
-      the IMAP server." />none
+      the IMAP server.">none
+       <values>
+        <value>none</value>
+        <value>tls</value>
+        <value>ssl</value>
+       </values>
+      </configenum>
       <configenum name="phptype" desc="The name of the database">mysql
        <values>
         <value desc="Microsoft SQL Server">mssql</value>
