@@ -39,14 +39,14 @@ class IMP_Block_Summary extends Horde_Core_Block
     protected function _params()
     {
         return array(
-            'show_unread' => array(
-                'type' => 'boolean',
-                'name' => _("Only display folders with unread messages in them?"),
-                'default' => 0
-            ),
             'show_total' => array(
                 'type' => 'boolean',
                 'name' => _("Show total number of mails in folder?"),
+                'default' => 0
+            ),
+            'show_unread' => array(
+                'type' => 'boolean',
+                'name' => _("Only display folders with unread messages in them?"),
                 'default' => 0
             )
         );
@@ -58,7 +58,7 @@ class IMP_Block_Summary extends Horde_Core_Block
     {
         global $injector, $notification, $prefs, $session;
 
-        /* Filter on INBOX display, if requested. */
+        /* Filter on INBOX display.  INBOX is always polled. */
         if ($prefs->getValue('filter_on_display')) {
             $injector->getInstance('IMP_Filter')->filter('INBOX');
         }
@@ -67,7 +67,7 @@ class IMP_Block_Summary extends Horde_Core_Block
 
         /* Get list of mailboxes to poll. */
         $poll = $injector->getInstance('IMP_Imap_Tree')->getPollList(true);
-        $status = $imp_imap->statusMultiple($poll, Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES);
+        $status = $imp_imap->statusMultiple($poll, Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT);
 
         $anyUnseen = false;
         $html = $onclick = '';
@@ -95,6 +95,7 @@ class IMP_Block_Summary extends Horde_Core_Block
                 }
                 $html .= '</td><td>' .
                     (!empty($mbox_status['unseen']) ? '<strong>' . $mbox_status['unseen'] . '</strong>' : '0') .
+                    (!empty($mbox_status['recent']) ? ' <span style="color:red">(' . sprintf(_("%d new"), $mbox_status['recent']) . ')</span>' : '') .
                     (!empty($this->_params['show_total']) ? '</td><td>(' . $mbox_status['messages'] . ')' : '') .
                     '</td></tr>';
             }
