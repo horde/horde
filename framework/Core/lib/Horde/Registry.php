@@ -1304,6 +1304,11 @@ class Horde_Registry
         $this->importConfig($app);
         $this->loadPrefs($app);
 
+        /* Reset language, since now we can grab language from prefs. */
+        if (!$checkPerms && (count($this->_appStack) == 1)) {
+            $this->setLanguageEnvironment(null, $app);
+        }
+
         /* Call pre-push hook. */
         try {
             Horde::callHook('pushapp', array(), $app);
