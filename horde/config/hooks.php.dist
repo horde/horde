@@ -48,7 +48,7 @@
  *
  * Authentication/Login Hooks
  * ==========================
- * There are three special hooks called during the initial authentication
+ * There are four special hooks called during the initial authentication
  * of every Horde application. These hooks are avilable in ALL applications.
  * These hooks are only called ONCE per session.
  *
@@ -82,8 +82,7 @@
  * postauthenticate
  * ----------------
  * This hook is used to dynamically alter the login credentials after
- * authentication occurs. You can also use this hook to perform tasks that
- * depend on the application to be fully initialized.
+ * authentication occurs.
  *
  * Parameters in:
  *   $userId (string): The Horde ID.
@@ -110,13 +109,21 @@
  *   [throw Horde_Auth_Exception] - Fatal error.
  *   (string) - The converted username.
  *
+ * appinitialized
+ * --------------
+ * This hook is called after an application is authenticated to and the
+ * initial application initialization is complete.
+ *
+ * This hook takes no parameters and expects no return value. An Exception
+ * thrown from this hook will cause a fatal error.
+ *
  *
  * Application Switching Hooks
  * ===========================
  * These hooks are called every time an application is switched to.
  * They may be called MULTIPLE times per page access.
  * Actions that only need to be done once per login should use the
- * postauthenticate hook instead.
+ * appinitialized hook instead.
  *
  * pushapp
  * -------
@@ -126,7 +133,7 @@
 
  * pushapp_post
  * ------------
- * This hook is called before an application is successfully switched to.
+ * This hook is called after an application is successfully switched to.
  * It is passed no parameters and expects no return value.
  * Any Exception thrown in this hook is ignored.
  *
@@ -447,6 +454,13 @@ class Horde_Hooks
 //        return $toHorde
 //            ? Horde_String::lower($userId)
 //            : $userId;
+//    }
+
+
+//    // APPLICATION INITIALIZATION HOOK: See above for format.
+//    public function appinitialized()
+//    {
+//        // Code to run when an application is first initialized
 //    }
 
 

@@ -2159,29 +2159,33 @@ class Horde_Registry
         if ($this->getAuth()) {
             /* Store app credentials. */
             $this->setAuthCredential($credentials, null, $app);
-            return;
+        } else {
+            /* Initial authentication to Horde. */
+            $session->set('horde', 'auth/authId', $authId);
+            $session->set('horde', 'auth/browser', $browser->getAgentString());
+            if (!empty($options['change'])) {
+                $session->set('horde', 'auth/change', 1);
+            }
+            $session->set('horde', 'auth/credentials', $app);
+            if (isset($_SERVER['REMOTE_ADDR'])) {
+                $session->set('horde', 'auth/remoteAddr', $_SERVER['REMOTE_ADDR']);
+            }
+            $session->set('horde', 'auth/timestamp', time());
+            $session->set('horde', 'auth/userId', $this->convertUsername(trim($authId), true));
+
+            $this->setAuthCredential($credentials, null, $app);
+
+            /* Reload preferences for the new user. */
+            unset($GLOBALS['prefs']);
+            $injector->getInstance('Horde_Core_Factory_Prefs')->clearCache();
+            $this->loadPrefs();
+
+            $this->setLanguageEnvironment(isset($options['language']) ? $this->preferredLang($options['language']) : null, $app);
         }
 
-        $session->set('horde', 'auth/authId', $authId);
-        $session->set('horde', 'auth/browser', $browser->getAgentString());
-        if (!empty($options['change'])) {
-            $session->set('horde', 'auth/change', 1);
-        }
-        $session->set('horde', 'auth/credentials', $app);
-        if (isset($_SERVER['REMOTE_ADDR'])) {
-            $session->set('horde', 'auth/remoteAddr', $_SERVER['REMOTE_ADDR']);
-        }
-        $session->set('horde', 'auth/timestamp', time());
-        $session->set('horde', 'auth/userId', $this->convertUsername(trim($authId), true));
-
-        $this->setAuthCredential($credentials, null, $app);
-
-        /* Reload preferences for the new user. */
-        unset($GLOBALS['prefs']);
-        $injector->getInstance('Horde_Core_Factory_Prefs')->clearCache();
-        $this->loadPrefs();
-
-        $this->setLanguageEnvironment(isset($options['language']) ? $this->preferredLang($options['language']) : null, $app);
+        try {
+            Horde::callHook('appinitialized', array(), $app);
+        } catch (Horde_Exception_HookNotSet $e) {}
     }
 
     /**

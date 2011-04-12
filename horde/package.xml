@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mms] Add appinitialized hook.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

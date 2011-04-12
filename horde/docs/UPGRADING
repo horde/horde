@@ -18,6 +18,17 @@ schemes. Log in as an administrator, go to Administration => Configuration and
 update anything that's highlighted as outdated.
 
 
+Upgrading Horde from 4.0 to 4.0.1
+=================================
+
+Hooks
+-----
+
+The appinitialized hook was added.  See ``config/hooks.php.dist`` for more
+details on this hook.
+
+
+
 Upgrading Horde from 3.3.x to 4.x
 =================================
 

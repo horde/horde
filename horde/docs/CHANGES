@@ -2,10 +2,12 @@
 v4.0.1-git
 ----------
 
-[cjh] Fix cyrsql configuration, rename cyrus host and port parameters to not clash with
-      Horde_Db parameters (Bug #9864).
-[cjh] Fix signups, and update style on signup and reset password pages to match the login page
-      (Bug #9856, partially from Ian Roth <iron_hat@hotmail.com>).
+[mms] Add appinitialized hook.
+[cjh] Fix cyrsql configuration, rename cyrus host and port parameters to not
+      clash with Horde_Db parameters (Bug #9864).
+[cjh] Fix signups, and update style on signup and reset password pages to
+      match the login page (Bug #9856, partially from Ian Roth
+      <iron_hat@hotmail.com>).
 [cjh] Show an unknown app icon rather than a broken image if an application
       doesn't have an icon (Bug #9867).
 
