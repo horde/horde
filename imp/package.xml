@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix spurious viewport loading in rare situations (Bug #9768).
 * [mms] Show human readable message in multipart/report parts in the richest
         format possible (Bug #9873).
 * [mms] Fix unneeded body part downloads in alternative parts (Bug #9862).

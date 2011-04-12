@@ -726,19 +726,25 @@ class IMP_Mailbox implements Serializable
      * the mailbox. Additionally, if CONDSTORE is available on the remote
      * IMAP server, this ID will change if flag information changes.
      *
+     * For search mailboxes, this value never changes (search mailboxes must
+     * be forcibly refreshed).
+     *
      * @return string  The cache ID string, which will change when the
      *                 composition of this mailbox changes.
      */
     protected function _getCacheID()
     {
-        if (!$this->search) {
-            $sortpref = $this->getSort(true);
-            try {
-                return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getCacheId($this->_mbox, array($sortpref['by'], $sortpref['dir']));
-            } catch (Horde_Imap_Client_Exception $e) {}
+        if ($this->search) {
+            return '1';
         }
 
-        return strval(new Horde_Support_Randomid());
+        $sortpref = $this->getSort(true);
+        try {
+            return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getCacheId($this->_mbox, array($sortpref['by'], $sortpref['dir']));
+        } catch (Horde_Imap_Client_Exception $e) {
+            /* Assume an error means that a mailbox can not be trusted. */
+            return strval(new Horde_Support_Randomid());
+        }
     }
 
     /**
