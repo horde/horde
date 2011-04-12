@@ -71,6 +71,11 @@ class Horde_Test
             'descrip' => 'MIME Magic Support (fileinfo)',
             'error' => 'The fileinfo PECL module is used to provide MIME Magic scanning on unknown data. See horde/docs/INSTALL for information on how to install PECL extensions.'
         ),
+        'fileinfo_check' => array(
+            'descrip' => 'MIME Magic Support (fileinfo) - Configuration',
+            'error' => 'The fileinfo module could not open the default MIME Magic database location. You will need to manually specify the MIME Magic database location in the config file.',
+            'function' => '_checkFileinfo'
+        ),
         'ftp' => array(
             'descrip' => 'FTP Support',
             'error' => 'FTP support is only required if you want to authenticate against an FTP server, upload your configuration files with FTP, or use an FTP server for file storage.'
@@ -442,12 +447,9 @@ class Horde_Test
             }
 
             if (is_null($status_out)) {
-                if (!is_null($test_function)) {
-                    $mod_test = call_user_func(array($this, $test_function));
-                } else {
-                    $mod_test = extension_loaded($key);
-                }
-
+                $mod_test = is_null($test_function)
+                    ? extension_loaded($key)
+                    : call_user_func(array($this, $test_function));
                 $status_out = $this->_status($mod_test, $fatal);
             }
 
@@ -481,6 +483,22 @@ class Horde_Test
     {
         return extension_loaded('iconv') &&
                in_array(ICONV_IMPL, array('libiconv', 'glibc'));
+    }
+
+    /**
+     * Additional check for fileinfo module.
+     *
+     * @return boolean  False on error.
+     */
+    protected function _checkFileinfo()
+    {
+        if (extension_loaded('fileinfo') &&
+            ($res = @finfo_open())) {
+            finfo_close($res);
+            return true;
+        }
+
+        return false;
     }
 
     /**
