@@ -158,13 +158,12 @@ class Horde
             }
 
             if ($admin || $cli) {
-                if ($error instanceof Exception) {
-                    $trace = $error;
-                } else {
-                    $trace = debug_backtrace();
-                }
-                $backtrace = new Horde_Support_Backtrace($trace);
-                $errortext .= '<div id="backtrace"><pre>' . (string)$backtrace . '</pre></div>';
+                $trace = ($error instanceof Exception)
+                    ? $error
+                    : debug_backtrace();
+                $errortext .= '<div id="backtrace"><pre>' .
+                    strval(new Horde_Support_Backtrace($trace)) .
+                    '</pre></div>';
                 if (is_object($error)) {
                     $errortext .= '<h3>' . Horde_Core_Translation::t("Details") . '</h3>';
                     $errortext .= '<h4>' . Horde_Core_Translation::t("The full error message is logged in Horde's log file, and is shown below only to administrators. Non-administrative users will not see error details.") . '</h4>';
