@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-04-06</date>
- <time>01:07:46</time>
+ <date>2011-04-12</date>
+ <time>11:46:40</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -34,9 +34,10 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mms] Reinitialize language after loading prefs before authentication (Bug #9822).
 * [cjh] Fix cyrsql configuration, rename cyrus host and port parameters to not clash with Horde_Db parameters (Bug #9864).
 * [cjh] Fix signups, and update style on signup and reset password pages to match the login page (Bug #9856, partially from Ian Roth &lt;iron_hat@hotmail.com&gt;).
-* [cjh] Show an unknown app icon rather than a broken image if an application doesn't have an icon (Bug #9867).
+* [cjh] Show an unknown app icon rather than a broken image if an application doesn&apos;t have an icon (Bug #9867).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1388,7 +1389,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-04-12</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * 
