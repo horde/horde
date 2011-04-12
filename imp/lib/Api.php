@@ -120,7 +120,10 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function deleteMessages($mailbox, $indices)
     {
-        return $GLOBALS['injector']->getInstance('IMP_Message')->delete(array($mailbox => $indices), array('nuke' => true));
+        return $GLOBALS['injector']->getInstance('IMP_Message')->delete(
+            new IMP_Indices($mailbox, $indices),
+            array('nuke' => true)
+        );
     }
 
     /**
@@ -163,7 +166,11 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function flagMessages($mailbox, $indices, $flags, $set)
     {
-        return $GLOBALS['injector']->getInstance('IMP_Message')->flag($flags, array($mailbox => $indices), $set);
+        return $GLOBALS['injector']->getInstance('IMP_Message')->flag(
+            $flags,
+            new IMP_Indices($mailbox, $indices),
+            $set
+        );
     }
 
     /**

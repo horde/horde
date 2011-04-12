@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-04-12</date>
- <time>02:06:12</time>
+ <time>16:35:05</time>
  <version>
   <release>5.0.1</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix deleteMessages and flagMessages API calls (Bug #9888).
 * [mms] More intelligent polling in dynamic view (Request #9808).
 * [mms] Fix spurious viewport loading in rare situations (Bug #9768).
 * [mms] Show human readable message in multipart/report parts in the richest
