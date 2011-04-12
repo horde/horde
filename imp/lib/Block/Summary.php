@@ -70,7 +70,7 @@ class IMP_Block_Summary extends Horde_Core_Block
         $status = $imp_imap->statusMultiple($poll, Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES);
 
         $anyUnseen = false;
-        $html_out = $onclick = '';
+        $html = $onclick = '';
 
         foreach ($poll as $mbox) {
             $mbox_str = strval($mbox);
@@ -81,19 +81,19 @@ class IMP_Block_Summary extends Horde_Core_Block
                  !empty($status[$mbox_str]['unseen']))) {
                  $mbox_status = $status[$mbox_str];
 
-                $html_out .= '<tr style="cursor:pointer" class="text"' . $onclick . '><td>';
+                $html .= '<tr style="cursor:pointer" class="text"' . $onclick . '><td>';
 
                 if (!empty($mbox_status['unseen'])) {
-                    $html_out .= '<strong>';
+                    $html .= '<strong>';
                     $anyUnseen = true;
                 }
 
-                $html_out .= IMP::generateIMPUrl('mailbox.php', $mbox_str)->link() . $mbox->display . '</a>';
+                $html .= IMP::generateIMPUrl('mailbox.php', $mbox_str)->link() . $mbox->display . '</a>';
 
                 if (!empty($mbox_status['unseen'])) {
-                    $html_out .= '</strong>';
+                    $html .= '</strong>';
                 }
-                $html_out .= '</td><td>' .
+                $html .= '</td><td>' .
                     (!empty($mbox_status['unseen']) ? '<strong>' . $mbox_status['unseen'] . '</strong>' : '0') .
                     (!empty($this->_params['show_total']) ? '</td><td>(' . $mbox_status['messages'] . ')' : '') .
                     '</td></tr>';
@@ -102,23 +102,15 @@ class IMP_Block_Summary extends Horde_Core_Block
 
         if (!empty($this->_params['show_unread'])) {
             if (count($folders) == 0) {
-                $html_out = _("No folders are being checked for new mail.");
+                $html = _("No folders are being checked for new mail.");
             } elseif (!$anyUnseen) {
-                $html_out = '<em>' . _("No folders with unseen messages") . '</em>';
+                $html = '<em>' . _("No folders with unseen messages") . '</em>';
             }
         }
 
-        $html = '<table cellspacing="0" width="100%">';
-
-        /* Quota info, if available. */
-        Horde::startBuffer();
-        IMP::quota();
-        $quota_msg = Horde::endBuffer();
-        if (!empty($quota_msg)) {
-            $html .= '<tr><td colspan="3">' . $quota_msg . '</td></tr>';
-        }
-
-        return $html . $html_out . '</table>';
+        return '<table cellspacing="0" width="100%">' .
+            $html .
+            '</table>';
     }
 
 }
