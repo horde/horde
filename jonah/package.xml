@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>jonah</name>
+ <channel>pear.horde.org</channel>
+ <summary>Jonah is an application for handling news.</summary>
+ <description>Jonah is a portal system for displaying news and other data
+from various sources, written in PHP and utilizing the Horde Application
+Framework.</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-04-12</date>
+ <time>22:22:28</time>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="channels">
+    <file name="delete.php" role="horde" />
+    <file name="edit.php" role="horde" />
+    <file name="index.php" role="horde" />
+   </dir> <!-- /channels -->
+   <dir name="config">
+    <file name=".htaccess" role="horde" />
+    <file name="conf.xml" role="horde" />
+    <file name="routes.php" role="horde" />
+    <file name="templates.php" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="delivery">
+    <file name=".htaccess" role="horde" />
+    <file name="html.php" role="horde" />
+    <file name="index.php" role="horde" />
+    <file name="rss.php" role="horde" />
+   </dir> <!-- /delivery -->
+   <dir name="docs">
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="lighttpd-jonah.conf" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="lib">
+    <dir name="Block">
+     <file name="Cloud.php" role="horde" />
+     <file name="Delivery.php" role="horde" />
+     <file name="Latest.php" role="horde" />
+     <file name="News.php" role="horde" />
+     <file name="NewsPopular.php" role="horde" />
+     <file name="Story.php" role="horde" />
+    </dir> <!-- /lib/Block -->
+    <dir name="Driver">
+     <file name="Sql.php" role="horde" />
+    </dir> <!-- /lib/Driver -->
+    <dir name="Factory">
+     <file name="Driver.php" role="horde" />
+    </dir> <!-- /lib/Factory -->
+    <dir name="Form">
+     <file name="Feed.php" role="horde" />
+     <file name="Story.php" role="horde" />
+    </dir> <!-- /lib/Form -->
+    <dir name="View">
+     <file name="Base.php" role="horde" />
+     <file name="ChannelDelete.php" role="horde" />
+     <file name="ChannelEdit.php" role="horde" />
+     <file name="ChannelList.php" role="horde" />
+     <file name="DeliveryHtml.php" role="horde" />
+     <file name="StoryDelete.php" role="horde" />
+     <file name="StoryEdit.php" role="horde" />
+     <file name="StoryList.php" role="horde" />
+     <file name="StoryPdf.php" role="horde" />
+     <file name="StoryView.php" role="horde" />
+     <file name="TagSearchList.php" role="horde" />
+    </dir> <!-- /lib/View -->
+    <file name=".htaccess" role="horde" />
+    <file name="Api.php" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Driver.php" role="horde" />
+    <file name="Exception.php" role="horde" />
+    <file name="FeedParser.php" role="horde" />
+    <file name="Jonah.php" role="horde" />
+    <file name="Test.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="jonah.mo" role="horde" />
+      <file name="jonah.po" role="horde" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/de -->
+    <dir name="en">
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="jonah.mo" role="horde" />
+      <file name="jonah.po" role="horde" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/es -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="jonah.mo" role="horde" />
+      <file name="jonah.po" role="horde" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="jonah.mo" role="horde" />
+      <file name="jonah.po" role="horde" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file name="jonah.mo" role="horde" />
+      <file name="jonah.po" role="horde" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+    </dir> <!-- /locale/nl -->
+    <dir name="ro">
+     <dir name="LC_MESSAGES">
+      <file name="jonah.mo" role="horde" />
+      <file name="jonah.po" role="horde" />
+     </dir> <!-- /locale/ro/LC_MESSAGES -->
+    </dir> <!-- /locale/ro -->
+    <dir name="tr">
+     <dir name="LC_MESSAGES">
+      <file name="jonah.mo" role="horde" />
+      <file name="jonah.po" role="horde" />
+     </dir> <!-- /locale/tr/LC_MESSAGES -->
+    </dir> <!-- /locale/tr -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file name="jonah.mo" role="horde" />
+      <file name="jonah.po" role="horde" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_TW -->
+    <file name=".htaccess" role="horde" />
+    <file name="jonah.pot" role="horde" />
+   </dir> <!-- /locale -->
+   <dir name="migration">
+    <file name="1_jonah_base_tables.php" role="horde" />
+    <file name="2_jonah_upgrade_autoincrement.php" role="horde" />
+   </dir> <!-- /migration -->
+   <dir name="scripts">
+    <dir name="sql">
+     <file name="jonah.mssql.sql" role="horde" />
+     <file name="jonah.sql" role="horde" />
+    </dir> <!-- /scripts/sql -->
+    <dir name="upgrades">
+     <file name="2005-03-13_release_date.sql" role="horde" />
+     <file name="2006-01-01_release_date.sql" role="horde" />
+     <file name="2006-02-22_dates.sql" role="horde" />
+     <file name="2006-05-11_channel_page.sql" role="horde" />
+     <file name="2006-05-12_permalink.sql" role="horde" />
+     <file name="2007-06-07_tags.sql" role="horde" />
+     <file name="2008-08-22_add_channel_slugs.sql" role="horde" />
+     <file name="2008-08-22_add_story_authors.sql" role="horde" />
+     <file name="2008-12-17_add_full_feed.sql" role="horde" />
+    </dir> <!-- /scripts/upgrades -->
+    <file name=".htaccess" role="horde" />
+    <file name="feed_tester.php" role="horde" />
+   </dir> <!-- /scripts -->
+   <dir name="stories">
+    <file name="delete.php" role="horde" />
+    <file name="edit.php" role="horde" />
+    <file name="index.php" role="horde" />
+    <file name="pdf.php" role="horde" />
+    <file name="results.php" role="horde" />
+    <file name="share.php" role="horde" />
+    <file name="view.php" role="horde" />
+   </dir> <!-- /stories -->
+   <dir name="templates">
+    <dir name="delivery">
+     <file name="html.html" role="horde" />
+     <file name="rss.xml" role="horde" />
+     <file name="rss2.xml" role="horde" />
+     <file name="rss2_full.xml" role="horde" />
+     <file name="rss_full.xml" role="horde" />
+    </dir> <!-- /templates/delivery -->
+    <dir name="main">
+     <file name="main.html" role="horde" />
+    </dir> <!-- /templates/main -->
+    <dir name="stories">
+     <dir name="layout">
+      <file name="view.html.php" role="horde" />
+     </dir> <!-- /templates/stories/layout -->
+     <dir name="partial">
+      <file name="_story.html.php" role="horde" />
+     </dir> <!-- /templates/stories/partial -->
+     <file name="index.html.php" role="horde" />
+     <file name="share.html" role="horde" />
+    </dir> <!-- /templates/stories -->
+    <dir name="view">
+     <file name="channellist.html.php" role="horde" />
+    </dir> <!-- /templates/view -->
+    <file name=".htaccess" role="horde" />
+    <file name="menu.inc" role="horde" />
+   </dir> <!-- /templates -->
+   <dir name="themes">
+    <dir name="default">
+     <dir name="graphics">
+      <file name="atom.png" role="horde" />
+      <file name="az.png" role="horde" />
+      <file name="blog.png" role="horde" />
+      <file name="editstory.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="feed.png" role="horde" />
+      <file name="jonah.png" role="horde" />
+      <file name="lists.png" role="horde" />
+      <file name="new.png" role="horde" />
+      <file name="search.png" role="horde" />
+      <file name="story_marker.png" role="horde" />
+      <file name="za.png" role="horde" />
+     </dir> <!-- /themes/default/graphics -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/default -->
+   </dir> <!-- /themes -->
+   <file name=".htaccess" role="horde" />
+   <file name="dispatcher.php" role="horde" />
+   <file name="feed.php" role="horde" />
+   <file name="index.php" role="horde" />
+   <file name="LICENSE" role="data" />
+   <file name="README" role="data" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>DB</name>
+    <channel>pear.php.net</channel>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="jonah/.htaccess" name=".htaccess" />
+   <install as="jonah/dispatcher.php" name="dispatcher.php" />
+   <install as="jonah/feed.php" name="feed.php" />
+   <install as="jonah/index.php" name="index.php" />
+   <install as="LICENSE" name="LICENSE" />
+   <install as="README" name="README" />
+   <install as="jonah/channels/delete.php" name="channels/delete.php" />
+   <install as="jonah/channels/edit.php" name="channels/edit.php" />
+   <install as="jonah/channels/index.php" name="channels/index.php" />
+   <install as="jonah/config/.htaccess" name="config/.htaccess" />
+   <install as="jonah/config/conf.xml" name="config/conf.xml" />
+   <install as="jonah/config/routes.php" name="config/routes.php" />
+   <install as="jonah/config/templates.php" name="config/templates.php" />
+   <install as="jonah/delivery/.htaccess" name="delivery/.htaccess" />
+   <install as="jonah/delivery/html.php" name="delivery/html.php" />
+   <install as="jonah/delivery/index.php" name="delivery/index.php" />
+   <install as="jonah/delivery/rss.php" name="delivery/rss.php" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="lighttpd-jonah.conf" name="docs/lighttpd-jonah.conf" />
+   <install as="jonah/lib/.htaccess" name="lib/.htaccess" />
+   <install as="jonah/lib/Api.php" name="lib/Api.php" />
+   <install as="jonah/lib/Application.php" name="lib/Application.php" />
+   <install as="jonah/lib/Driver.php" name="lib/Driver.php" />
+   <install as="jonah/lib/Exception.php" name="lib/Exception.php" />
+   <install as="jonah/lib/FeedParser.php" name="lib/FeedParser.php" />
+   <install as="jonah/lib/Jonah.php" name="lib/Jonah.php" />
+   <install as="jonah/lib/Test.php" name="lib/Test.php" />
+   <install as="jonah/lib/Block/Cloud.php" name="lib/Block/Cloud.php" />
+   <install as="jonah/lib/Block/Delivery.php" name="lib/Block/Delivery.php" />
+   <install as="jonah/lib/Block/Latest.php" name="lib/Block/Latest.php" />
+   <install as="jonah/lib/Block/News.php" name="lib/Block/News.php" />
+   <install as="jonah/lib/Block/NewsPopular.php" name="lib/Block/NewsPopular.php" />
+   <install as="jonah/lib/Block/Story.php" name="lib/Block/Story.php" />
+   <install as="jonah/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
+   <install as="jonah/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
+   <install as="jonah/lib/Form/Feed.php" name="lib/Form/Feed.php" />
+   <install as="jonah/lib/Form/Story.php" name="lib/Form/Story.php" />
+   <install as="jonah/lib/View/Base.php" name="lib/View/Base.php" />
+   <install as="jonah/lib/View/ChannelDelete.php" name="lib/View/ChannelDelete.php" />
+   <install as="jonah/lib/View/ChannelEdit.php" name="lib/View/ChannelEdit.php" />
+   <install as="jonah/lib/View/ChannelList.php" name="lib/View/ChannelList.php" />
+   <install as="jonah/lib/View/DeliveryHtml.php" name="lib/View/DeliveryHtml.php" />
+   <install as="jonah/lib/View/StoryDelete.php" name="lib/View/StoryDelete.php" />
+   <install as="jonah/lib/View/StoryEdit.php" name="lib/View/StoryEdit.php" />
+   <install as="jonah/lib/View/StoryList.php" name="lib/View/StoryList.php" />
+   <install as="jonah/lib/View/StoryPdf.php" name="lib/View/StoryPdf.php" />
+   <install as="jonah/lib/View/StoryView.php" name="lib/View/StoryView.php" />
+   <install as="jonah/lib/View/TagSearchList.php" name="lib/View/TagSearchList.php" />
+   <install as="jonah/locale/.htaccess" name="locale/.htaccess" />
+   <install as="jonah/locale/jonah.pot" name="locale/jonah.pot" />
+   <install as="jonah/locale/de/help.xml" name="locale/de/help.xml" />
+   <install as="jonah/locale/de/LC_MESSAGES/jonah.mo" name="locale/de/LC_MESSAGES/jonah.mo" />
+   <install as="jonah/locale/de/LC_MESSAGES/jonah.po" name="locale/de/LC_MESSAGES/jonah.po" />
+   <install as="jonah/locale/en/help.xml" name="locale/en/help.xml" />
+   <install as="jonah/locale/es/help.xml" name="locale/es/help.xml" />
+   <install as="jonah/locale/es/LC_MESSAGES/jonah.mo" name="locale/es/LC_MESSAGES/jonah.mo" />
+   <install as="jonah/locale/es/LC_MESSAGES/jonah.po" name="locale/es/LC_MESSAGES/jonah.po" />
+   <install as="jonah/locale/fi/help.xml" name="locale/fi/help.xml" />
+   <install as="jonah/locale/fi/LC_MESSAGES/jonah.mo" name="locale/fi/LC_MESSAGES/jonah.mo" />
+   <install as="jonah/locale/fi/LC_MESSAGES/jonah.po" name="locale/fi/LC_MESSAGES/jonah.po" />
+   <install as="jonah/locale/fr/LC_MESSAGES/jonah.mo" name="locale/fr/LC_MESSAGES/jonah.mo" />
+   <install as="jonah/locale/fr/LC_MESSAGES/jonah.po" name="locale/fr/LC_MESSAGES/jonah.po" />
+   <install as="jonah/locale/nl/LC_MESSAGES/jonah.mo" name="locale/nl/LC_MESSAGES/jonah.mo" />
+   <install as="jonah/locale/nl/LC_MESSAGES/jonah.po" name="locale/nl/LC_MESSAGES/jonah.po" />
+   <install as="jonah/locale/ro/LC_MESSAGES/jonah.mo" name="locale/ro/LC_MESSAGES/jonah.mo" />
+   <install as="jonah/locale/ro/LC_MESSAGES/jonah.po" name="locale/ro/LC_MESSAGES/jonah.po" />
+   <install as="jonah/locale/tr/LC_MESSAGES/jonah.mo" name="locale/tr/LC_MESSAGES/jonah.mo" />
+   <install as="jonah/locale/tr/LC_MESSAGES/jonah.po" name="locale/tr/LC_MESSAGES/jonah.po" />
+   <install as="jonah/locale/zh_TW/LC_MESSAGES/jonah.mo" name="locale/zh_TW/LC_MESSAGES/jonah.mo" />
+   <install as="jonah/locale/zh_TW/LC_MESSAGES/jonah.po" name="locale/zh_TW/LC_MESSAGES/jonah.po" />
+   <install as="jonah/migration/1_jonah_base_tables.php" name="migration/1_jonah_base_tables.php" />
+   <install as="jonah/migration/2_jonah_upgrade_autoincrement.php" name="migration/2_jonah_upgrade_autoincrement.php" />
+   <install as="jonah/scripts/.htaccess" name="scripts/.htaccess" />
+   <install as="jonah/scripts/feed_tester.php" name="scripts/feed_tester.php" />
+   <install as="jonah/scripts/sql/jonah.mssql.sql" name="scripts/sql/jonah.mssql.sql" />
+   <install as="jonah/scripts/sql/jonah.sql" name="scripts/sql/jonah.sql" />
+   <install as="jonah/scripts/upgrades/2005-03-13_release_date.sql" name="scripts/upgrades/2005-03-13_release_date.sql" />
+   <install as="jonah/scripts/upgrades/2006-01-01_release_date.sql" name="scripts/upgrades/2006-01-01_release_date.sql" />
+   <install as="jonah/scripts/upgrades/2006-02-22_dates.sql" name="scripts/upgrades/2006-02-22_dates.sql" />
+   <install as="jonah/scripts/upgrades/2006-05-11_channel_page.sql" name="scripts/upgrades/2006-05-11_channel_page.sql" />
+   <install as="jonah/scripts/upgrades/2006-05-12_permalink.sql" name="scripts/upgrades/2006-05-12_permalink.sql" />
+   <install as="jonah/scripts/upgrades/2007-06-07_tags.sql" name="scripts/upgrades/2007-06-07_tags.sql" />
+   <install as="jonah/scripts/upgrades/2008-08-22_add_channel_slugs.sql" name="scripts/upgrades/2008-08-22_add_channel_slugs.sql" />
+   <install as="jonah/scripts/upgrades/2008-08-22_add_story_authors.sql" name="scripts/upgrades/2008-08-22_add_story_authors.sql" />
+   <install as="jonah/scripts/upgrades/2008-12-17_add_full_feed.sql" name="scripts/upgrades/2008-12-17_add_full_feed.sql" />
+   <install as="jonah/stories/delete.php" name="stories/delete.php" />
+   <install as="jonah/stories/edit.php" name="stories/edit.php" />
+   <install as="jonah/stories/index.php" name="stories/index.php" />
+   <install as="jonah/stories/pdf.php" name="stories/pdf.php" />
+   <install as="jonah/stories/results.php" name="stories/results.php" />
+   <install as="jonah/stories/share.php" name="stories/share.php" />
+   <install as="jonah/stories/view.php" name="stories/view.php" />
+   <install as="jonah/templates/.htaccess" name="templates/.htaccess" />
+   <install as="jonah/templates/menu.inc" name="templates/menu.inc" />
+   <install as="jonah/templates/delivery/html.html" name="templates/delivery/html.html" />
+   <install as="jonah/templates/delivery/rss.xml" name="templates/delivery/rss.xml" />
+   <install as="jonah/templates/delivery/rss2.xml" name="templates/delivery/rss2.xml" />
+   <install as="jonah/templates/delivery/rss2_full.xml" name="templates/delivery/rss2_full.xml" />
+   <install as="jonah/templates/delivery/rss_full.xml" name="templates/delivery/rss_full.xml" />
+   <install as="jonah/templates/main/main.html" name="templates/main/main.html" />
+   <install as="jonah/templates/stories/index.html.php" name="templates/stories/index.html.php" />
+   <install as="jonah/templates/stories/share.html" name="templates/stories/share.html" />
+   <install as="jonah/templates/stories/layout/view.html.php" name="templates/stories/layout/view.html.php" />
+   <install as="jonah/templates/stories/partial/_story.html.php" name="templates/stories/partial/_story.html.php" />
+   <install as="jonah/templates/view/channellist.html.php" name="templates/view/channellist.html.php" />
+   <install as="jonah/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="jonah/themes/default/graphics/atom.png" name="themes/default/graphics/atom.png" />
+   <install as="jonah/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
+   <install as="jonah/themes/default/graphics/blog.png" name="themes/default/graphics/blog.png" />
+   <install as="jonah/themes/default/graphics/editstory.png" name="themes/default/graphics/editstory.png" />
+   <install as="jonah/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="jonah/themes/default/graphics/feed.png" name="themes/default/graphics/feed.png" />
+   <install as="jonah/themes/default/graphics/jonah.png" name="themes/default/graphics/jonah.png" />
+   <install as="jonah/themes/default/graphics/lists.png" name="themes/default/graphics/lists.png" />
+   <install as="jonah/themes/default/graphics/new.png" name="themes/default/graphics/new.png" />
+   <install as="jonah/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
+   <install as="jonah/themes/default/graphics/story_marker.png" name="themes/default/graphics/story_marker.png" />
+   <install as="jonah/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-04-12</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>
