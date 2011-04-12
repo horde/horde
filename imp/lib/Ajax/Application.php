@@ -73,7 +73,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         /* Add poll information to outgoing data. */
-        if ($poll = $this->pollEntry(array_keys(array_flip($this->_poll)))) {
+        if ($poll = $this->pollEntry($this->_poll)) {
             $res->poll = $poll;
         }
 
@@ -1886,7 +1886,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result = array();
 
         foreach (IMP_Mailbox::get($mboxes) as $val) {
-            if ($val->polled) {
+            if (!isset($result[strval($val)]) && $val->polled) {
                 $result[strval($val)] = $val->poll_info->unseen;
             }
         }
