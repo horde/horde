@@ -56,7 +56,7 @@ case 'deleteform':
 
     $name = $groups->getName($gid);
     try {
-        $groups->remove($group);
+        $groups->remove($gid);
         $notification->push(sprintf(_("Successfully deleted \"%s\"."), $name), 'horde.success');
         $gid = null;
     } catch (Horde_Group_Exception $e) {

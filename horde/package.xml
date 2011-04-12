@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Fix deleting groups.
 * [jan] Fix adding new groups (Bug #9881).
 * [jan] Fix displaying the Facebook preference group.
 * [mms] Add appinitialized hook.
@@ -4037,6 +4038,7 @@
    <date>2011-04-06</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Fix deleting groups.
 * [jan] Fix adding new groups (Bug #9881).
 * [jan] Fix displaying the Facebook preference group.
 * [mms] Add appinitialized hook.
