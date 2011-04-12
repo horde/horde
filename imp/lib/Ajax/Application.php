@@ -29,6 +29,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     protected $_poll = array();
 
     /**
+     * Add quota information to response?
+     *
+     * @var boolean
+     */
+    protected $_quota = false;
+
+    /**
      * The list of actions that require readonly access to the session.
      *
      * @var array
@@ -61,12 +68,22 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     {
         $res = parent::doAction();
 
+        if (!is_object($res)) {
+            return $res;
+        }
+
         /* Add poll information to outgoing data. */
         if ($poll = $this->pollEntry(array_keys(array_flip($this->_poll)))) {
-            if (!is_object($res)) {
-                $res = new stdClass;
-            }
             $res->poll = $poll;
+        }
+
+        /* Add quota information to outgoing data. */
+        if ($GLOBALS['session']->get('imp', 'imap_quota') &&
+            ($quotadata = IMP::quotaData(false))) {
+            $res->quota = array(
+                'm' => $quotadata['message'],
+                'p' => round($quotadata['percent'])
+            );
         }
 
         return $res;
@@ -302,7 +319,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   'a' - (array) Mailboxes that were added.
      *   'c' - (array) Mailboxes that were changed.
      *   'd' - (array) Mailboxes that were deleted.
-     * 'quota' - (array) See _getQuota().
+     * 'quota' - (array) 'p': Quota percentage; 'm': Quota message
      * </pre>
      */
     public function listMailboxes()
@@ -383,10 +400,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             'd' => array()
         ));
 
-        $quota = $this->_getQuota();
-        if (!is_null($quota)) {
-            $result->quota = $quota;
-        }
+        $this->_quota = true;
 
         if ($this->_vars->initial) {
             session_start();
@@ -467,7 +481,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *                entries:
      * <pre>
      * 'poll' - (array) See pollEntry().
-     * 'quota' - (array) See _getQuota().
+     * 'quota' - (array) 'p': Quota percentage; 'm': Quota message
      * 'ViewPort' - (object) See _viewPortData().
      * </pre>
      */
@@ -490,12 +504,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->ViewPort = $this->_viewPortData(true);
         }
 
-        if (!is_null($changed)) {
-            $quota = $this->_getQuota();
-            if (!is_null($quota)) {
-                $result->quota = $quota;
-            }
-        }
+        $this->_quota = true;
 
         return $result;
     }
@@ -2180,26 +2189,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $list_msg = new IMP_Views_ListMessages();
         return $list_msg->listMessages($args);
-    }
-
-    /**
-     * Generate quota information.
-     *
-     * @return array  'p': Quota percentage; 'm': Quota message
-     */
-    protected function _getQuota()
-    {
-        if ($GLOBALS['session']->get('imp', 'imap_quota')) {
-            $quotadata = IMP::quotaData(false);
-            if (!empty($quotadata)) {
-                return array(
-                    'm' => $quotadata['message'],
-                    'p' => round($quotadata['percent'])
-                );
-            }
-        }
-
-        return null;
     }
 
     /**
