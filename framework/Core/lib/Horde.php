@@ -220,14 +220,18 @@ HTML;
                 case E_WARNING:
                     $priority = Horde_Log::WARN;
                     break;
+
                 case E_NOTICE:
                     $priority = Horde_Log::NOTICE;
                     break;
+
                 default:
                     $priority = Horde_Log::DEBUG;
                     break;
                 }
+
                 self::logMessage(new ErrorException('PHP ERROR: ' . $errstr, 0, $errno, $errfile, $errline), $priority);
+                self::logMessage(new Horde_Support_Backtrace(), Horde_Log::DEBUG);
             } catch (Exception $e) {}
         }
     }
