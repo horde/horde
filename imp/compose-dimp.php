@@ -87,7 +87,7 @@ case 'reply_list':
     $msg = $reply_msg['body'];
     $header = $reply_msg['headers'];
     if ($vars->type == 'reply_auto') {
-        $fillform_opts['auto'] = $reply_msg['type'];
+        $fillform_opts['auto'] = array_search($reply_msg['type'], $reply_map);
     }
 
     switch ($reply_msg['type']) {
