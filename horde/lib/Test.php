@@ -8,11 +8,13 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Jon Parise <jon@horde.org>
- * @author  Brent J. Nordquist <bjn@horde.org>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Test
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jon Parise <jon@horde.org>
+ * @author   Brent J. Nordquist <bjn@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Horde
  */
 
 /* If gettext is not loaded, define a dummy _() function so that
@@ -45,10 +47,12 @@ class Horde_Test
      * <pre>
      * KEY:   module name
      * VALUE: Either the description or an array with the following entries:
-     *        'descrip' - (string) Module description
-     *        'error' - (string) Error message
-     *        'fatal' - (boolean) Is missing module fatal?
-     *        'phpver' - (string) The PHP version above which to do the test
+     *        descrip: (string) Module description
+     *        error: (string) Error message
+     *        fatal: (boolean) Is missing module fatal?
+     *        function: (string) Reference to function to run. If function
+     *                  returns non-empty value, error message will be output.
+     *        phpver: (string) The PHP version above which to do the test
      * </pre>
      *
      * @var array
@@ -177,13 +181,12 @@ class Horde_Test
      * <pre>
      * KEY:   setting name
      * VALUE: An array with the following entries:
-     *        'error' - (string) Error Message
-     *        'function' - (string) Reference to function to run. If function
-     *                     returns non-empty value, error message will be
-     *                     output.
-     *        'setting' - (mixed) Either a boolean (whether setting should be
-     *                    on or off) or 'value', which will simply output the
-     *                    value of the setting.
+     *        error: (string) Error message.
+     *        function: (string) Reference to function to run. If function
+     *                  returns non-empty value, error message will be output.
+     *        setting: (mixed) Either a boolean (whether setting should be
+     *                 on or off) or 'value', which will simply output the
+     *                 value of the setting.
      * </pre>
      *
      * @var array
@@ -255,13 +258,13 @@ class Horde_Test
      * <pre>
      * KEY:   PEAR class name
      * VALUE: An array with the following entries:
-     *        'depends' - (?) This module depends on another module.
-     *        'error' - (string) Error message.
-     *        'function' - (string) Reference to function to run if module is
-     *                     found.
-     *        'path' - (string) The path to the PEAR module. Only needed if
+     *        depends: (?) This module depends on another module.
+     *        error: (string) Error message.
+     *        function: (string) Reference to function to run if module is
+     *                  found.
+     *        path: (string) The path to the PEAR module. Only needed if
      *                 KEY is not autoloadable.
-     *        'required' - (boolean) Is this PEAR module required?
+     *        required: (boolean) Is this PEAR module required?
      * </pre>
      *
      * @var array
@@ -325,8 +328,8 @@ class Horde_Test
      * <pre>
      * KEY:   app name
      * VALUE: An array with the following entries:
-     *        'error' - (string) Error message.
-     *        'version' - (string) Minimum version required of the app.
+     *        error: (string) Error message.
+     *        version: (string) Minimum version required of the app.
      * </pre>
      *
      * @var array
@@ -472,7 +475,7 @@ class Horde_Test
     /**
      * Additional check for iconv module implementation.
      *
-     * @return string  Returns error string on error.
+     * @return boolean  False on error.
      */
     protected function _checkIconvImplementation()
     {
