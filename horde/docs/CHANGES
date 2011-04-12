@@ -2,6 +2,7 @@
 v4.0.1-git
 ----------
 
+[jan] Fix displaying the Facebook preference group.
 [mms] Add appinitialized hook.
 [cjh] Fix cyrsql configuration, rename cyrus host and port parameters to not
       clash with Horde_Db parameters (Bug #9864).

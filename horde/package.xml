@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Fix displaying the Facebook preference group.
 * [mms] Add appinitialized hook.
  </notes>
  <contents>
@@ -4035,7 +4036,8 @@
    <date>2011-04-06</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Fix displaying the Facebook preference group.
+* [mms] Add appinitialized hook.
    </notes>
   </release>
  </changelog>
