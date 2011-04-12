@@ -36,8 +36,8 @@ class Horde_Util
      * @var array
      */
     static public $tmpLocations = array(
-        '/tmp', '/var/tmp', 'c:\WUTemp', 'c:\temp', 'c:\windows\temp',
-        'c:\winnt\temp'
+        '/tmp/', '/var/tmp/', 'c:\WUTemp\\', 'c:\temp\\', 'c:\windows\temp\\',
+        'c:\winnt\temp\\'
     );
 
     /**
