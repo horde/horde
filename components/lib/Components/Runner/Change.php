@@ -75,6 +75,8 @@ class Components_Runner_Change
         $options = $this->_config->getOptions();
 
         $package_xml = $this->_config->getComponentPackageXml();
+        $exists = file_exists($package_xml);
+
         if (!isset($options['pearrc'])) {
             $package = $this->_factory->createPackageForDefaultLocation(
                 $package_xml
@@ -91,15 +93,17 @@ class Components_Runner_Change
             $options['changed'] = $arguments[1];
         }
 
-        if (empty($options['pretend'])) {
-            $package->addNote($options['changed']);
-        } else {
-            $this->_output->info(
-                sprintf(
-                    'Would add change log entry to %s now.',
-                    $package->getPackageXml()
-                )
-            );
+        if ($exists) {
+            if (empty($options['pretend'])) {
+                $package->addNote($options['changed']);
+            } else {
+                $this->_output->info(
+                    sprintf(
+                        'Would add change log entry to %s now.',
+                        $package->getPackageXml()
+                    )
+                );
+            }
         }
 
         $changes = false;
@@ -123,11 +127,13 @@ class Components_Runner_Change
         }
 
         if (!empty($options['commit'])) {
-            $this->systemInDirectory(
-                'git add ' . $package->getPackageXml(),
-                $package->getComponentDirectory(),
-                $options
-            );
+            if ($exists) {
+                $this->systemInDirectory(
+                    'git add ' . $package->getPackageXml(),
+                    $package->getComponentDirectory(),
+                    $options
+                );
+            }
             if ($changes) {
                 $this->systemInDirectory(
                     'git add ' . $changes,

@@ -110,7 +110,6 @@ This module records a change log entry in package.xml (and docs/CHANGES in case 
         $arguments = $config->getArguments();
         if (!empty($options['changed'])
             || (isset($arguments[0]) && $arguments[0] == 'changed')) {
-            $this->requirePackageXml($config->getComponentDirectory());
             $this->_dependencies->getRunnerChange()->run();
             return true;
         }
