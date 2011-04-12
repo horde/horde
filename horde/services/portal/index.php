@@ -16,6 +16,7 @@ if ($session->get('horde', 'mode') == 'smartmobile' && Horde::ajaxAvailable()) {
     Horde::getServiceLink('portal')->redirect();
     exit;
 }
+
 // Get refresh interval.
 if (($r_time = $prefs->getValue('summary_refresh_time'))
     && !$browser->hasFeature('xmlhttpreq')) {
