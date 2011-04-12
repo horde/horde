@@ -7,12 +7,16 @@
 
 var HordeSidebar = {
     // Variables set in services/sidebar.php:
-    // domain, path, load, refresh, tree, url, width
+    // domain, path, refresh, tree, url, width
 
     toggleSidebar: function()
     {
         var expanded = $('expandedSidebar').visible(),
             expires = new Date();
+
+        if (!expanded) {
+            this.initLoadSidebar();
+        }
 
         $('expandedSidebar', 'hiddenSidebar').invoke('toggle');
         if ($('themelogo')) {
@@ -26,9 +30,21 @@ var HordeSidebar = {
         document.cookie = 'horde_sidebar_expanded=' + Number(!expanded) + ';DOMAIN=' + this.domain + ';PATH=' + this.path + ';expires=' + expires.toGMTString();
     },
 
-    updateSidebar: function()
+    refreshSidebar: function()
     {
         new PeriodicalExecuter(this.loadSidebar.bind(this), this.refresh);
+    },
+
+    initLoadSidebar: function()
+    {
+        if (!this.loaded) {
+            $('sidebarLoading').show();
+            this.loadSidebar();
+            if (this.refresh) {
+                this.refreshSidebar.bind(this).delay(this.refresh);
+            }
+            this.loaded = true;
+        }
     },
 
     loadSidebar: function()
@@ -41,6 +57,8 @@ var HordeSidebar = {
     onUpdateSidebar: function(response)
     {
         var layout, r;
+
+        $('sidebarLoading').hide();
 
         if (response.responseJSON) {
             $(HordeSidebar.tree.opts.target).update();
@@ -72,13 +90,8 @@ var HordeSidebar = {
     {
         if ($('hiddenSidebar').visible()) {
             this.setMargin(false);
-        }
-
-        if (this.refresh) {
-            this.updateSidebar.bind(this).delay(this.refresh);
-        }
-        if (this.load) {
-            this.loadSidebar();
+        } else {
+            this.initLoadSidebar();
         }
 
         $('expandButton', 'hiddenSidebar').invoke('observe', 'click', this.toggleSidebar.bind(this));

@@ -2,6 +2,7 @@
 v4.0.1-git
 ----------
 
+[mms] Don't load sidebar content if not expanded.
 [jan] Fix deleting groups.
 [jan] Fix adding new groups (Bug #9881).
 [jan] Fix displaying the Facebook preference group.
