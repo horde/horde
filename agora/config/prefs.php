@@ -77,7 +77,7 @@ if ($GLOBALS['conf']['avatar']['allow_avatars'] &&
 
 $_prefs['avatar_link'] = array(
     'type' => 'rawhtml',
-    'url' => '<p>' . _("Choose from a gallery of avatars:") . ' <input class="button" type="button" value="' . _("Click to Show Gallery") . '" onclick="' . Horde::popupJs(Horde::url('avatars/gallery.php'), array('height' => 320, 'width' => 320)) . '" /></p>'
+    //'url' => '<p>' . _("Choose from a gallery of avatars:") . ' <input class="button" type="button" value="' . _("Click to Show Gallery") . '" onclick="' . Horde::popupJs(Horde::url('avatars/gallery.php'), array('height' => 320, 'width' => 320)) . '" /></p>'
 );
 
 /* Forums */
