@@ -56,6 +56,7 @@ class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api
         if ($GLOBALS['registry']->hasMethod('mail/imapOb')) {
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->envelope();
+            $query->uid();
 
             try {
                 return $GLOBALS['registry']->call('mail/imapOb')->fetch($this->_params['mailbox'], $query, array('ids' => new Horde_Imap_Client_Ids($indices)));

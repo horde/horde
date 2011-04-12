@@ -66,6 +66,8 @@ abstract class Ingo_Script_Imap_Api
 
     /**
      * TODO
+     *
+     * @return Horde_Imap_Client_Data_Fetch
      */
     abstract public function fetchEnvelope($indices);
 
