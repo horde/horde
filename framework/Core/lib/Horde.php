@@ -231,7 +231,9 @@ HTML;
                 }
 
                 self::logMessage(new ErrorException('PHP ERROR: ' . $errstr, 0, $errno, $errfile, $errline), $priority);
-                self::logMessage(new Horde_Support_Backtrace(), Horde_Log::DEBUG);
+                if (class_exists('Horde_Support_Backtrace')) {
+                    self::logMessage(new Horde_Support_Backtrace(), Horde_Log::DEBUG);
+                }
             } catch (Exception $e) {}
         }
     }
