@@ -72,7 +72,7 @@ foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mailbox') as
 
 $js_vars['DimpMessage.flag'] = IMP_Ajax_Application::flagEntry(array(Horde_Imap_Client::FLAG_SEEN), true, new IMP_Indices($vars->folder, $vars->uid));
 
-if ($poll = IMP_Ajax_Application::pollEntry($vars->folder)) {
+if ($poll = IMP_Ajax_Application::pollEntry(array($vars->folder))) {
     $js_vars['DimpMessage.poll'] = $poll;
 }
 

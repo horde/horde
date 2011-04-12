@@ -2,6 +2,7 @@
 v5.0.1-git
 ----------
 
+[mms] More intelligent polling in dynamic view (Request #9808).
 [mms] Fix spurious viewport loading in rare situations (Bug #9768).
 [mms] Show human readable message in multipart/report parts in the richest
       format possible (Bug #9873).
