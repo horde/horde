@@ -14,48 +14,24 @@ Horde_Registry::appInit('horde', array('admin' => true));
 $groups = $injector->getInstance('Horde_Group');
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 
-$form = null;
+$form = 'add.inc';
 $actionID = Horde_Util::getFormData('actionID');
 $gid = Horde_Util::getFormData('gid');
 
 switch ($actionID) {
-/*
-case 'addchild':
-    if ($gid == Horde_Group::ROOT) {
-        $form = 'addchild.inc';
-        $gname = _("All Groups");
-    } else {
-        try {
-            $group = $groups->getGroupById($gid);
-            $gname = $group->getShortName();
-            $form = 'addchild.inc';
-        } catch (Horde_Group_Exception $e) {}
-    }
-    break;
-
-case 'addchildform':
-    $parent = $gid;
+case 'addform':
+    $name = Horde_Util::getFormData('name');
     try {
-        $child = ($parent == Horde_Group::ROOT)
-            ? $groups->newGroup(Horde_Util::getFormData('child'))
-            : $groups->newGroup(Horde_Util::getFormData('child'), $parent);
+        $gid = $groups->create($name);
+        $group = $groups->getData($gid);
+        $form = 'edit.inc';
+        $notification->push(sprintf(_("\"%s\" was added to the groups system."), $name), 'horde.success');
     } catch (Horde_Group_Exception $e) {
         Horde::logMessage($e, 'ERR');
         $notification->push(sprintf(_("Group was not created: %s."), $e->getMessage()), 'horde.error');
         break;
     }
-
-    try {
-        $groups->addGroup($child);
-        $notification->push(sprintf(_("\"%s\" was added to the groups system."), $child->getShortName()), 'horde.success');
-        $group = $child;
-        $form = 'edit.inc';
-    } catch (Horde_Group_Exception $e) {
-        Horde::logMessage($e, 'ERR');
-        $notification->push(sprintf(_("\"%s\" was not created: %s."), $child->getShortName(), $e->getMessage()), 'horde.error');
-    }
     break;
-*/
 
 case 'delete':
     if ($groups->readOnly()) {
