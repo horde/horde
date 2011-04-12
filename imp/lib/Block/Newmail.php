@@ -16,6 +16,10 @@ class IMP_Block_Newmail extends Horde_Core_Block
 {
     /**
      */
+    public $updateable = true;
+
+    /**
+     */
     public function __construct($app, $params = array())
     {
         parent::__construct($app, $params);
