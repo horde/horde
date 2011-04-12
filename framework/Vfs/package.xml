@@ -39,7 +39,7 @@ Reading, writing and listing of files are all supported, and there are both obje
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Fix creating temporary files with open_basedir restrictions.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -817,7 +817,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <date>2011-04-06</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Fix creating temporary files with open_basedir restrictions.
    </notes>
   </release>
  </changelog>

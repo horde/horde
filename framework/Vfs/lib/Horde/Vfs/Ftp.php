@@ -153,7 +153,7 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
 
         // Create a temporary file and register it for deletion at the
         // end of this request.
-        if (!($localFile = tempnam(null, 'vfs'))) {
+        if (!($localFile = Horde_Util::getTempFile('vfs'))) {
             throw new Horde_Vfs_Exception('Unable to create temporary file.');
         }
         register_shutdown_function(create_function('', '@unlink(\'' . addslashes($localFile) . '\');'));
@@ -226,7 +226,7 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
     public function writeData($path, $name, $data, $autocreate = false)
     {
         $this->_checkQuotaWrite('string', $data);
-        $tmpFile = tempnam(null, 'vfs');
+        $tmpFile = Horde_Util::getTempFile('vfs');
         file_put_contents($tmpFile, $data);
         try {
             $this->write($path, $name, $tmpFile, $autocreate);
@@ -679,7 +679,7 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
         if ($this->isFolder($path, $name)) {
             $this->_copyRecursive($path, $name, $dest);
         } else {
-            $tmpFile = tempnam(null, 'vfs');
+            $tmpFile = Horde_Util::getTempFile('vfs');
             $fetch = @ftp_get($this->_stream, $tmpFile, $orig, FTP_BINARY);
             if (!$fetch) {
                 unlink($tmpFile);

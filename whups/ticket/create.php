@@ -94,7 +94,7 @@ if ($valid3 && $valid2 && $valid1) {
     if (!empty($info['newattachment']['name'])) {
         $file_name = $info['newattachment']['name'];
 
-        $tmp_file_path = tempnam(Horde::getTempDir(), 'att');
+        $tmp_file_path = Horde::getTempFile('whups');
         if (move_uploaded_file($info['newattachment']['tmp_name'],
                                $tmp_file_path)) {
             $session->set('whups', 'deferred_attachment/' . $file_name, $tmp_file_path);

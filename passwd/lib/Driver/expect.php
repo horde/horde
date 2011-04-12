@@ -35,10 +35,7 @@ class Passwd_Driver_expect extends Passwd_Driver {
         }
 
         // Temporary logfile for error messages.
-        $log = tempnam(ini_get('upload_tmp_dir') ?
-                       ini_get('upload_tmp_dir') :
-                       '/tmp',
-                       'passwd');
+        $log = Horde_Util::getTempFile('passwd');
 
         // Open expect script for writing.
         $prog = $this->_params['program'] . ' -f ' . $this->_params['script'] .

@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
  <notes>
-* 
+* [jan] Fix creating temporary files with open_basedir restrictions.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -279,7 +279,7 @@
    <date>2011-04-06</date>
    <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
    <notes>
-* 
+* [jan] Fix creating temporary files with open_basedir restrictions.
    </notes>
   </release>
  </changelog>

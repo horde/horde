@@ -333,7 +333,7 @@ class Horde_Util
                                        $secure = false)
     {
         $tempDir = (empty($dir) || !is_dir($dir))
-            ? null
+            ? self::getTempDir()
             : $dir;
 
         $tempFile = tempnam($tempDir, $prefix);
