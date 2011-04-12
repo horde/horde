@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:31:40</time>
+ <date>2011-04-12</date>
+ <time>19:04:00</time>
  <version>
   <release>4.0.1</release>
   <api>4.0.0</api>
@@ -804,7 +804,7 @@
       <file name="index.html" role="horde" />
      </dir> <!-- /templates/admin/config -->
      <dir name="groups">
-      <file name="addchild.inc" role="horde" />
+      <file name="add.inc" role="horde" />
       <file name="delete.inc" role="horde" />
       <file name="edit.inc" role="horde" />
      </dir> <!-- /templates/admin/groups -->
@@ -844,6 +844,8 @@
     <dir name="login">
      <file name="login.inc" role="horde" />
      <file name="mobile.inc" role="horde" />
+     <file name="resetpassword.inc" role="horde" />
+     <file name="signup.inc" role="horde" />
     </dir> <!-- /templates/login -->
     <dir name="logintasks">
      <file name="logintasks.html" role="horde" />
@@ -1591,6 +1593,7 @@
       <file name="add_group.png" role="horde" />
       <file name="add_perm.png" role="horde" />
       <file name="administration.png" role="horde" />
+      <file name="app-unknown.png" role="horde" />
       <file name="az.png" role="horde" />
       <file name="blank.gif" role="horde" />
       <file name="block.png" role="horde" />
@@ -2860,7 +2863,7 @@
    <install as="templates/admin/config/config.html" name="templates/admin/config/config.html" />
    <install as="templates/admin/config/diff.html" name="templates/admin/config/diff.html" />
    <install as="templates/admin/config/index.html" name="templates/admin/config/index.html" />
-   <install as="templates/admin/groups/addchild.inc" name="templates/admin/groups/addchild.inc" />
+   <install as="templates/admin/groups/add.inc" name="templates/admin/groups/add.inc" />
    <install as="templates/admin/groups/delete.inc" name="templates/admin/groups/delete.inc" />
    <install as="templates/admin/groups/edit.inc" name="templates/admin/groups/edit.inc" />
    <install as="templates/admin/user/add.inc" name="templates/admin/user/add.inc" />
@@ -2888,6 +2891,8 @@
    <install as="templates/help/sidebar.inc" name="templates/help/sidebar.inc" />
    <install as="templates/login/login.inc" name="templates/login/login.inc" />
    <install as="templates/login/mobile.inc" name="templates/login/mobile.inc" />
+   <install as="templates/login/resetpassword.inc" name="templates/login/resetpassword.inc" />
+   <install as="templates/login/signup.inc" name="templates/login/signup.inc" />
    <install as="templates/logintasks/logintasks.html" name="templates/logintasks/logintasks.html" />
    <install as="templates/menu/menu.inc" name="templates/menu/menu.inc" />
    <install as="templates/portal/add.inc" name="templates/portal/add.inc" />
@@ -2966,6 +2971,7 @@
    <install as="themes/default/graphics/add_group.png" name="themes/default/graphics/add_group.png" />
    <install as="themes/default/graphics/add_perm.png" name="themes/default/graphics/add_perm.png" />
    <install as="themes/default/graphics/administration.png" name="themes/default/graphics/administration.png" />
+   <install as="themes/default/graphics/app-unknown.png" name="themes/default/graphics/app-unknown.png" />
    <install as="themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
    <install as="themes/default/graphics/blank.gif" name="themes/default/graphics/blank.gif" />
    <install as="themes/default/graphics/block.png" name="themes/default/graphics/block.png" />
@@ -4035,7 +4041,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-04-12</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Fix deleting groups.
