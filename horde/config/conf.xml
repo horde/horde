@@ -1342,7 +1342,7 @@
     <case name="File" desc="Filesystem storage">
      <configsection name="params">
       <configstring name="path" desc="The path to save the session files
-      in.">/tmp</configstring>
+      in.">/tmp/</configstring>
      </configsection>
     </case>
     <case name="Memcache" desc="Memcache only">
