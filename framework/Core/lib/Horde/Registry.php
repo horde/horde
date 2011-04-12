@@ -1320,6 +1320,7 @@ class Horde_Registry
             } catch (Horde_Exception $e) {
                 $this->popApp();
                 $this->applications[$app]['status'] = 'inactive';
+                Horde::logMessage($e);
                 throw $e;
             }
         }
