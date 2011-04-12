@@ -128,6 +128,9 @@ implements Horde_Pear_Package_Type
     public function getInstallAs()
     {
         switch ($this->getName()) {
+        case 'horde':
+            $class = 'Horde_Pear_Package_Contents_InstallAs_Horde';
+            break;
         case 'Horde_Role':
             $class = 'Horde_Pear_Package_Contents_InstallAs_HordeRole';
             break;

@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-04-08</date>
- <time>22:41:15</time>
+ <date>2011-04-12</date>
+ <time>20:51:55</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -44,6 +44,7 @@
          <file name="All.php" role="php" />
         </dir> <!-- /lib/Horde/Pear/Package/Contents/Include -->
         <dir name="InstallAs">
+         <file name="Horde.php" role="php" />
          <file name="HordeApplication.php" role="php" />
          <file name="HordeComponent.php" role="php" />
          <file name="HordeRole.php" role="php" />
@@ -238,6 +239,7 @@
    <install as="Horde/Pear/Package/Contents/Ignore/Nothing.php" name="lib/Horde/Pear/Package/Contents/Ignore/Nothing.php" />
    <install as="Horde/Pear/Package/Contents/Ignore/Patterns.php" name="lib/Horde/Pear/Package/Contents/Ignore/Patterns.php" />
    <install as="Horde/Pear/Package/Contents/Include/All.php" name="lib/Horde/Pear/Package/Contents/Include/All.php" />
+   <install as="Horde/Pear/Package/Contents/InstallAs/Horde.php" name="lib/Horde/Pear/Package/Contents/InstallAs/Horde.php" />
    <install as="Horde/Pear/Package/Contents/InstallAs/HordeApplication.php" name="lib/Horde/Pear/Package/Contents/InstallAs/HordeApplication.php" />
    <install as="Horde/Pear/Package/Contents/InstallAs/HordeComponent.php" name="lib/Horde/Pear/Package/Contents/InstallAs/HordeComponent.php" />
    <install as="Horde/Pear/Package/Contents/InstallAs/HordeRole.php" name="lib/Horde/Pear/Package/Contents/InstallAs/HordeRole.php" />
@@ -307,7 +309,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-04-08</date>
+   <date>2011-04-12</date>
    <license uri="REPLACE">REPLACE</license>
    <notes>
 * [gwr] Imported the .gitignore handling for content lists from the components tool.
