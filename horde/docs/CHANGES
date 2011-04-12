@@ -11,7 +11,7 @@ v4.0.1-git
       <iron_hat@hotmail.com>).
 [cjh] Show an unknown app icon rather than a broken image if an application
       doesn't have an icon (Bug #9867).
-
+[jan] Fix setting incorrect database charset in PDO drivers.
 
 ----
 v4.0
