@@ -247,8 +247,9 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
             parent::addUser($userId, $credentials);
         }
 
+        $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $this->_params['charset'], 'utf7-imap');
+
         try {
-            $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $this->_params['charset'], 'utf7-imap');
             $this->_imap->createMailbox($mailbox);
             $this->_imap->setACL($mailbox, $this->_params['cyradm'], 'lrswipcda');
             if (isset($this->_params['quota']) &&
@@ -302,6 +303,8 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
 
         /* Set ACL for mailbox deletion. */
         list($admin) = explode('@', $this->_params['cyradmin']);
+
+        $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $this->_params['charset'], 'utf7-imap');
 
         try {
             $this->_imap->setACL($mailbox, $admin, array('rights' => 'lrswipcda'));
