@@ -101,11 +101,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * @return mixed  False on failure, or an object with the following
      *                entries:
      * <pre>
-     * 'mailbox' - (object) Mailboxes that were altered. Contains the
-     *             following properties:
-     *   'a' - (array) Mailboxes that were added.
-     *   'c' - (array) Mailboxes that were changed.
-     *   'd' - (array) Mailboxes that were deleted.
+     * mailbox: (object) Mailboxes that were altered. Contains the
+     *          following properties:
+     *   a: (array) Mailboxes that were added.
+     *   c: (array) Mailboxes that were changed.
+     *   d: (array) Mailboxes that were deleted.
      * </pre>
      */
     public function createMailbox()
@@ -183,20 +183,20 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * Variables used:
      * <pre>
-     * 'new_name' - (string) New mailbox name (child node).
-     * 'new_parent' - (string) New parent name.
-     * 'old_name' - (string) Full name of old mailbox.
+     * new_name: (string) New mailbox name (child node) (UTF-8).
+     * new_parent: (string) New parent name (UTF7-IMAP).
+     * old_name: (string) Full name of old mailbox.
      * </pre>
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
      * <pre>
-     * 'mailbox' - (object) Mailboxes that were altered. Contains the
-     *             following properties:
-     *   'a' - (array) Mailboxes that were added.
-     *   'c' - (array) Mailboxes that were changed.
-     *   'd' - (array) Mailboxes that were deleted.
-     * 'poll' - (array) See pollEntry().
+     * mailbox: (object) Mailboxes that were altered. Contains the
+     *          following properties:
+     *   a: (array) Mailboxes that were added.
+     *   c: (array) Mailboxes that were changed.
+     *   d: (array) Mailboxes that were deleted.
+     * poll: (array) See pollEntry().
      * </pre>
      */
     public function renameMailbox()
