@@ -66,6 +66,7 @@ abstract class Horde_Core_Auth_Signup_Base
         $signup->setData(array_merge($signup->getData(), array(
             'dateReceived' => time(),
             'password' => $info['password'],
+            'email' => $info['email'],
         )));
 
         $this->_queueSignup($signup);
