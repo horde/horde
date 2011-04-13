@@ -724,6 +724,12 @@
      submitted registration requests? (WARNING: Setting to false would mean
      that every user who signs up would have automatic access to your horde
      system.)" required="false">true</configboolean>
+     <configswitch name="altemail" desc="Should non-registered users provide an
+     alternative email for notification?">false
+     <case name="true" desc="Yes (require)" />
+     <case name="optional" desc="Optional" />
+     <case name="false" desc="No" />
+     </configswitch>
     </case>
     <case name="false" desc="No" />
    </configswitch>
