@@ -822,8 +822,7 @@ var DimpCompose = {
             if (!isNaN(rows)) {
                 /* Due to the funky (broken) way some browsers (FF) count
                  * rows, we need to overshoot row estimate and decrement
-                 * downward until textarea size does not cause window
-                 * scrolling. */
+                 * until textarea size does not cause window scrolling. */
                 ++rows;
                 do {
                     msg.writeAttribute({ rows: rows--, disabled: false });
