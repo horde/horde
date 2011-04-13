@@ -1729,7 +1729,20 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $cmd = array_merge($cmd, $options['_query']['query']);
 
-        $this->_sendLine($cmd);
+        try {
+            $this->_sendLine($cmd);
+        } catch (Horde_Imap_Client_Exception $e) {
+            /* Bug #9842: Workaround broken Cyrus servers. */
+            if ($esearch &&
+                ($options['_query']['charset'] != 'US-ASCII')) {
+                $cap = $this->capability();
+                unset($cap['ESEARCH']);
+                $this->_setInit('capability', $cap);
+                return $this->_search($query, $options);
+            }
+
+            throw $e;
+        }
 
         if ($return_sort && !$server_sort) {
             if ($server_seq_sort) {
