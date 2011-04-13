@@ -1423,7 +1423,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      * @param string $parent  The parent name (UTF7-IMAP).
      * @param string $parent  The new mailbox name (UTF7-IMAP).
      *
-     * @return string  The full path to the new mailbox.
+     * @return IMP_Mailbox  The new mailbox.
      * @throws IMP_Exception
      */
     public function createMailboxName($parent, $new)
@@ -1436,7 +1436,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             if ($this->isNamespace($this->_tree[$parent])) {
                 $ns_info = $this->_getNamespace($new);
                 if (in_array($ns_info['type'], array(Horde_Imap_Client::NS_OTHER, Horde_Imap_Client::NS_SHARED))) {
-                    return $new;
+                    return IMP_Mailbox::get($new);
                 }
             }
             throw new IMP_Exception(_("Cannot directly create mailbox in this folder."));
@@ -1447,7 +1447,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $mbox .= substr_replace($parent, '', 0, strlen($ns_info['name']));
             $mbox = rtrim($mbox, $ns_info['delimiter']) . $ns_info['delimiter'];
         }
-        return $mbox . $new;
+
+        return IMP_Mailbox::get($mbox . $new);
     }
 
     /**

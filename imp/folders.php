@@ -130,8 +130,10 @@ case 'import_mbox':
 case 'create_folder':
     if ($vars->new_mailbox) {
         try {
-            $new_mailbox = $imaptree->createMailboxName($folder_list[0], Horde_String::convertCharset($vars->new_mailbox, 'UTF-8', 'UTF7-IMAP'));
-            $imp_folder->create($new_mailbox, $subscribe);
+            $imaptree->createMailboxName(
+                $folder_list[0],
+                Horde_String::convertCharset($vars->new_mailbox, 'UTF-8', 'UTF7-IMAP')
+            )->create();
         } catch (Horde_Exception $e) {
             $notification->push($e);
         }

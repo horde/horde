@@ -117,11 +117,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $imptree->eltDiffStart();
 
-        $new = Horde_String::convertCharset($this->_vars->mbox, 'UTF-8', 'UTF7-IMAP');
         try {
-            $new = $imptree->createMailboxName($this->_vars->parent, $new);
+            $result = $imptree->createMailboxName(
+                $this->_vars->parent,
+                Horde_String::convertCharset($this->_vars->mbox, 'UTF-8', 'UTF7-IMAP')
+            )->create();
 
-            if ($result =$GLOBALS['injector']->getInstance('IMP_Folder')->create($new, $GLOBALS['prefs']->getValue('subscribe'))) {
+            if ($result) {
                 $result = new stdClass;
                 $result->mailbox = $this->_getMailboxResponse($imptree);
             }
@@ -211,7 +213,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result = false;
 
         try {
-            $new = Horde_String::convertCharset($imptree->createMailboxName($this->_vars->new_parent, $this->_vars->new_name), 'UTF-8', 'UTF7-IMAP');
+            $new = $imptree->createMailboxName(
+                $this->_vars->new_parent,
+                Horde_String::convertCharset($this->_vars->new_name, 'UTF-8', 'UTF7-IMAP')
+            );
 
             if (($this->_vars->old_name != $new) &&
                 $GLOBALS['injector']->getInstance('IMP_Folder')->rename($this->_vars->old_name, $new)) {
