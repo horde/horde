@@ -99,9 +99,9 @@ class IMP_Views_ListMessages
         /* Run filters now. */
         if (!$is_search &&
             $GLOBALS['session']->get('imp', 'filteravail') &&
-            !empty($args['applyfilter']) ||
-            (($mbox == 'INBOX') &&
-             $GLOBALS['prefs']->getValue('filter_on_display'))) {
+            (!empty($args['applyfilter']) ||
+             ($mbox->inbox &&
+              $GLOBALS['prefs']->getValue('filter_on_display')))) {
             $injector->getInstance('IMP_Filter')->filter($mbox);
         }
 

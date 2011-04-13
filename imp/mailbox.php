@@ -212,10 +212,9 @@ $mailbox_token = $injector->getInstance('Horde_Token')->get('imp.mailbox');
 /* Deal with filter options. */
 if (!$readonly && $session->get('imp', 'filteravail')) {
     /* Only allow filter on display for INBOX. */
-    if ((IMP::$mailbox == 'INBOX') &&
-        $prefs->getValue('filter_on_display')) {
+    if (IMP::$mailbox->inbox && $prefs->getValue('filter_on_display')) {
         $do_filter = true;
-    } elseif ((IMP::$mailbox == 'INBOX') ||
+    } elseif (IMP::$mailbox->inbox ||
               ($prefs->getValue('filter_any_mailbox') && !$search_mbox)) {
         $filter_url = $mailbox_imp_url->copy()->add(array(
             'actionID' => 'filter',
@@ -296,7 +295,7 @@ if ($pageOb['pagecount']) {
 }
 
 /* Generate RSS link. */
-if (IMP::$mailbox == 'INBOX') {
+if (IMP::$mailbox->inbox) {
     $rss_box = '';
 } else {
     $rss_box = IMP::$mailbox;
