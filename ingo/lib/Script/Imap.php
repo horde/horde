@@ -91,9 +91,9 @@ class Ingo_Script_Imap extends Ingo_Script
      *
      * @param array $params  The parameter array. It MUST contain:
      * <pre>
-     * 'filter_seen' - (boolean) Only filter seen messages?
-     * 'mailbox' - (string) The name of the mailbox to filter.
-     * 'show_filter_msg' - (boolean) Show detailed filter status messages?
+     * filter_seen: (boolean) Only filter seen messages?
+     * mailbox: (string) The name of the mailbox to filter.
+     * show_filter_msg: (boolean) Show detailed filter status messages?
      * </pre>
      *
      * @return boolean  True if filtering performed, false if not.
@@ -384,7 +384,7 @@ class Ingo_Script_Imap extends Ingo_Script
      * Returns a query object prepared for adding further criteria.
      *
      * @param array $params  The parameter array. It MUST contain:
-     *                       - 'filter_seen': Only filter seen messages?
+     *                       - filter_seen: Only filter seen messages?
      *
      * @return Ingo_IMAP_Search_Query  A query object.
      */
