@@ -2,6 +2,7 @@
 v5.0.1-git
 ----------
 
+[mms] Don't attempt to poll non-IMAP mailboxes (Bug #9896).
 [mms] Fix deleting attachments from compose message in dynamic view (Bug
       #9899).
 [mms] Newmail portal block can now be configured to auto-update.
