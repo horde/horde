@@ -1701,6 +1701,16 @@ ViewPort_Buffer = Class.create({
         } else {
             this.usermdata.update(vals);
         }
+    },
+
+    debug: function()
+    {
+        return Object.toJSON({
+            data: this.data,
+            mdata: this.mdata,
+            rowlist: this.rowlist,
+            selected: this.selected.get('uid')
+        });
     }
 
 }),
