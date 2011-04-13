@@ -171,7 +171,6 @@ class IMP_Search_Query implements Serializable
                 $out = $this->mbox_list;
 
                 if ($s_list = $this->subfolder_list) {
-                    $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
                     foreach ($s_list as $val) {
                         $out = array_merge($out, $val->subfolders);
                     }
