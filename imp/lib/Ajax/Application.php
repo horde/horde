@@ -223,7 +223,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 $result = new stdClass;
                 $result->mailbox = $this->_getMailboxResponse($imptree);
 
-                $this->_poll[] = $this->_vars->new_name;
+                $this->_poll[] = strval($new);
             }
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
