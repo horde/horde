@@ -781,10 +781,9 @@ var DimpCompose = {
 
     resizeMsgArea: function()
     {
-        var lh, mah, rows,
+        var lh, mah, msg, msg_h, rows,
             cmp = $('composeMessageParent'),
             de = document.documentElement,
-            msg = $('composeMessage'),
             pad = 0;
 
         if (this.resizing) {
@@ -814,23 +813,21 @@ var DimpCompose = {
 
             this.rte.resize('99%', mah - pad - 1, false);
         } else if (!IMP_Compose_Base.editor_on) {
-            /* If the line-height CSS value exists, use that. */
-            if (!(lh = msg.getStyle('line-height'))) {
-                /* Logic: Determine the size of a given textarea row, divide
-                 * that size by the available height, round down to the lowest
-                 * integer row, and resize the textarea. */
-                lh = msg.clientHeight / msg.readAttribute('rows');
-            }
-            rows = parseInt(mah / parseInt(lh, 10), 10);
+            /* Logic: Determine the size of a given textarea row, divide
+             * that size by the available height, round down to the lowest
+             * integer row, and resize the textarea. */
+            msg = $('composeMessage');
+            rows = parseInt(mah / (msg.getHeight() / msg.readAttribute('rows')), 10);
+
             if (!isNaN(rows)) {
                 /* Due to the funky (broken) way some browsers (FF) count
-                 * rows, we need to overshoot row estimate and increment
+                 * rows, we need to overshoot row estimate and decrement
                  * downward until textarea size does not cause window
                  * scrolling. */
                 ++rows;
                 do {
                     msg.writeAttribute({ rows: rows--, disabled: false });
-                } while ((de.scrollHeight - de.clientHeight) > 0);
+                } while (rows && (de.scrollHeight - de.clientHeight) > 0);
             }
         }
 
