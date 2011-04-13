@@ -1732,7 +1732,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         try {
             $this->_sendLine($cmd);
         } catch (Horde_Imap_Client_Exception $e) {
-            /* Bug #9842: Workaround broken Cyrus servers. */
+            /* Bug #9842: Workaround broken Cyrus servers (as of 2.4.7). */
             if ($esearch &&
                 ($options['_query']['charset'] != 'US-ASCII')) {
                 $cap = $this->capability();
