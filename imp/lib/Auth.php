@@ -406,10 +406,11 @@ class IMP_Auth
             }
 
             /* Set the IMAP threading algorithm. */
+            $thread_cap = $imp_imap->queryCapability('THREAD');
             $session->set(
                 'imp',
                 'imap_thread',
-                in_array(isset($ptr['thread']) ? strtoupper($ptr['thread']) : 'REFERENCES', $imp_imap->queryCapability('THREAD'))
+                in_array(isset($ptr['thread']) ? strtoupper($ptr['thread']) : 'REFERENCES', is_array($thread_cap) ? $thread_cap : array())
                     ? 'REFERENCES'
                     : 'ORDEREDSUBJECT'
             );
