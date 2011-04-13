@@ -49,7 +49,7 @@ HordeMap.Geocoder.Google = Class.create(
     _callback: function(r)
     {
         if (r.Status.code != 200) {
-            this._errorCallback();
+            this._errorCallback('');
             return;
         }
         var results = [];
