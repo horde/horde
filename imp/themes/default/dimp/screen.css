@@ -726,7 +726,7 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 
 /* Attachment file list */
 #attach_list {
-    height: 125px;
+    max-height: 125px;
     overflow-x: hidden;
     overflow-y: auto;
     padding-left: 15px;
