@@ -259,7 +259,7 @@ class Ingo_Script_Imap extends Ingo_Script
                         if ($rule['flags'] & Ingo_Storage::FLAG_SEEN) {
                             $flags[] = '\\seen';
                         }
-                        $this->_api->setMessageFlags($indices, implode(' ', $flags));
+                        $this->_api->setMessageFlags($indices, $flags);
                     }
 
                     if ($rule['action'] == Ingo_Storage::ACTION_KEEP) {
