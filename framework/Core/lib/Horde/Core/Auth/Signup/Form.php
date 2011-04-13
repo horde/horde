@@ -24,7 +24,7 @@ class Horde_Core_Auth_Signup_Form extends Horde_Form
      *
      * @var params Horde_Variables  TODO
      */
-    public function __construct(&$vars)
+    public function __construct(&$vars, $showEmail = false, $requireEmail = false)
     {
         parent::__construct($vars, Horde_Core_Translation::t("Sign up for an account"));
 
@@ -39,7 +39,11 @@ class Horde_Core_Auth_Signup_Form extends Horde_Form
 
         if (!empty($extra)) {
             if (!isset($extra['user_name'])) {
-                $this->addVariable(Horde_Core_Translation::t("Choose a username"), 'user_name', 'text', true);
+                $v = $this->addVariable(Horde_Core_Translation::t("Choose a username"), 'user_name', 'text', true);
+                $v->setAction(Horde_Form_Action::factory('reload'));
+                if ($showEmail) {
+                    $this->addVariable(Horde_Core_Translation::t("Email address for notification"), 'email', 'text', $requireEmail);
+                }
             }
             if (!isset($extra['password'])) {
                 $this->addVariable(Horde_Core_Translation::t("Choose a password"), 'password', 'passwordconfirm', true, false, Horde_Core_Translation::t("type your password twice to confirm"));
@@ -55,7 +59,11 @@ class Horde_Core_Auth_Signup_Form extends Horde_Form
                                    $desc, $field_params);
             }
         } else {
-            $this->addVariable(Horde_Core_Translation::t("Choose a username"), 'user_name', 'text', true);
+            $v = $this->addVariable(Horde_Core_Translation::t("Choose a username"), 'user_name', 'text', true);
+            $v->setAction(Horde_Form_Action::factory('reload'));
+            if ($showEmail) {
+                $this->addVariable(Horde_Core_Translation::t("Email address for notification"), 'email', 'text', $requireEmail);
+            }
             $this->addVariable(Horde_Core_Translation::t("Choose a password"), 'password', 'passwordconfirm', true, false, Horde_Core_Translation::t("type your password twice to confirm"));
         }
     }

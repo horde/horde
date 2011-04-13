@@ -96,6 +96,23 @@ abstract class Horde_Core_Auth_Signup_Base
     }
 
     /**
+     * Check a username against existing users and signups.
+     *
+     * @param string $username  Username to check.
+     *
+     * @throws Horde_Exception
+     */
+    public function checkUsername($username)
+    {
+        // Check to see if the username already exists in the auth backend or
+        // the signup queue.
+        if ($GLOBALS['auth']->exists($username) ||
+            $this->exists($username)) {
+            throw new Horde_Exception(sprintf(Horde_Core_Translation::t("Username \"%s\" already exists."), $username));
+        }
+    }
+
+    /**
      * Perform common presignup actions.
      *
      * @param array $info  Reference to array of parameters.
@@ -109,12 +126,7 @@ abstract class Horde_Core_Auth_Signup_Base
         } catch (Horde_Exception_HookNotSet $e) {
         }
 
-        // Check to see if the username already exists in the auth backend or
-        // the signup queue.
-        if ($GLOBALS['auth']->exists($info['user_name']) ||
-            $this->exists($info['user_name'])) {
-            throw new Horde_Exception(sprintf(Horde_Core_Translation::t("Username \"%s\" already exists."), $info['user_name']));
-        }
+        $this->checkUsername($info['user_name']);
     }
 
     /**
