@@ -2,6 +2,8 @@
 v5.0.1-git
 ----------
 
+[mms] Fix deleting attachments from compose message in dynamic view (Bug
+      #9899).
 [mms] Newmail portal block can now be configured to auto-update.
 [mms] Fix deleteMessages and flagMessages API calls (Bug #9888).
 [mms] More intelligent polling in dynamic view (Request #9808).

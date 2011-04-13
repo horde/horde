@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-12</date>
- <time>17:26:19</time>
+ <date>2011-04-13</date>
+ <time>10:27:55</time>
  <version>
   <release>5.0.1</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix deleting attachments from compose message in dynamic view (Bug #9899).
 * [mms] Newmail portal block can now be configured to auto-update.
 * [mms] Fix deleteMessages and flagMessages API calls (Bug #9888).
 * [mms] More intelligent polling in dynamic view (Request #9808).
@@ -2140,7 +2141,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-04-12</date>
+   <date>2011-04-13</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [mms] More intelligent part naming if name is not specified in the message (Request #9853).

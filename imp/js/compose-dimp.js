@@ -751,7 +751,7 @@ var DimpCompose = {
         if (!$('attach_list').childElements().size()) {
             $('attach_list').hide();
         }
-        DimpCore.doAction('deleteAttach', { atc_indices: ids, imp_compose: $F('composeCache') });
+        DimpCore.doAction('deleteAttach', { atc_indices: Object.toJSON(ids), imp_compose: $F('composeCache') });
     },
 
     initAttachList: function()
