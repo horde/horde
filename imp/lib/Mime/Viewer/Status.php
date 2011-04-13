@@ -99,7 +99,7 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
                     'icon' => Horde::img('alerts/error.png', _("Error")),
                     'text' => array(
                         _("ERROR: Your message could not be delivered."),
-                        sprintf(_("Additional error message details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Additional message details"), 'params' => array('mode' => IMP_Contents::RENDER_INLINE))))
+                        sprintf(_("Technical error details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Technical details"), 'params' => array('ctype' => 'text/plain', 'mode' => IMP_Contents::RENDER_FULL))))
                     )
                 )
             );
@@ -115,7 +115,7 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
                     'icon' => Horde::img('alerts/success.png', _("Success")),
                     'text' => array(
                         _("Your message was successfully delivered."),
-                        sprintf(_("Additional message details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Additional message details"), 'params' => array('mode' => IMP_Contents::RENDER_INLINE))))
+                        sprintf(_("Technical message details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Technical details"), 'params' => array('mode' => IMP_Contents::RENDER_INLINE))))
                     )
                 )
             );
@@ -127,7 +127,7 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
         /* Display a link to the returned message, if it exists. */
         $part3 = $this->getConfigParam('imp_contents')->getMIMEPart($part3_id);
         if ($part3) {
-            $status[0]['text'][] = sprintf($msg_link, $this->getConfigParam('imp_contents')->linkViewJS($part3, 'view_attach', _("HERE"), array('jstext' => $msg_link_status, 'ctype' => 'message/rfc822')));
+            $status[0]['text'][] = sprintf($msg_link, $this->getConfigParam('imp_contents')->linkViewJS($part3, 'view_attach', _("HERE"), array('jstext' => $msg_link_status, 'params' => array('ctype' => 'message/rfc822'))));
         }
 
         $ret = array_combine(array($part2_id, $part3_id), array(null, null));
