@@ -8,7 +8,7 @@ $conf['auth']['admins'] = array('manager');
 $conf['group']['driver'] = 'mock';
 
 $conf['perms']['driverconfig'] = 'horde';
-$conf['perms']['driver'] = 'Null';
+$conf['perms']['driver'] = 'Sql';
 
 $conf['share']['driver'] = 'kolab';
 
