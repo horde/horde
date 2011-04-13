@@ -101,12 +101,8 @@ class IMP_Block_Summary extends Horde_Core_Block
             }
         }
 
-        if (!empty($this->_params['show_unread'])) {
-            if (count($folders) == 0) {
-                $html = _("No folders are being checked for new mail.");
-            } elseif (!$anyUnseen) {
-                $html = '<em>' . _("No folders with unseen messages") . '</em>';
-            }
+        if (!empty($this->_params['show_unread']) && !$anyUnseen) {
+            $html = '<em>' . _("No folders with unseen messages") . '</em>';
         }
 
         return '<table cellspacing="0" width="100%">' .
