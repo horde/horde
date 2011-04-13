@@ -43,7 +43,7 @@ class IMP_Filter
             : array($mbox);
 
         foreach ($mbox_list as $val) {
-            $GLOBALS['registry']->call('mail/applyFilters', array(array('mailbox' => $val)));
+            $GLOBALS['registry']->call('mail/applyFilters', array(array('mailbox' => strval($val))));
         }
     }
 
