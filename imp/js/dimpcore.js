@@ -560,7 +560,7 @@ var DimpCore = {
             default:
                 // CSS class based matching
                 if (elt.hasClassName('unblockImageLink')) {
-                    IMP.unblockImages(e);
+                    IMP_JS.unblockImages(e);
                 } else if (elt.hasClassName('pgpVerifyMsg')) {
                     elt.replace(DIMP.text.verify);
                     DimpCore.reloadMessage({ pgp_verify_msg: 1 });

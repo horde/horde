@@ -213,7 +213,7 @@ var ImpMessage = {
                     }
                 }
             } else if (elt.hasClassName('unblockImageLink')) {
-                IMP.unblockImages(e);
+                IMP_JS.unblockImages(e);
             }
 
             elt = elt.up();
