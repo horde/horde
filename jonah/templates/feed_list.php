@@ -11,7 +11,7 @@
 
 <?php if (!$prefs->isLocked('default_feed')): ?>
 <div id="feed-list-buttons">
- <form method="get" action="channels/edit.php">
+ <form method="get" action="<?php echo Horde::url('channels/edit.php'); ?>">
 <?php echo Horde_Util::formInput() ?>
   <input type="submit" class="button" value="<?php echo _("Create a new Feed") ?>" />
  </form>
