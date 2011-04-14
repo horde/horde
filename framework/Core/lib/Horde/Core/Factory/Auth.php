@@ -178,20 +178,6 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
                 $params['db'] = $this->_injector
                     ->getInstance('Horde_Db_Adapter');
             } else {
-                if (!is_null($orig_params)) {
-                    // Clean the connection params
-                    $dsn = array(
-                        'phptype' => 1,
-                        'socket' => 1,
-                        'port' => 1,
-                        'protocol' => 1,
-                        'hostspec' => 1,
-                        'username' => 1,
-                        'password' => 1,
-                        'database' => 1,
-                    );
-                    $orig_params = array_intersect_key($orig_params, $dsn);
-                }
                 $params['db'] = $this->_injector
                     ->getInstance('Horde_Core_Factory_Db')
                     ->create('horde', is_null($orig_params) ? 'auth' : $orig_params);
