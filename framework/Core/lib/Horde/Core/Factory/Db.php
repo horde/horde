@@ -70,7 +70,8 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
 
         // Prevent DSN from getting polluted
         if (!is_array($type) && $type == 'auth') {
-            unset($config['query_auth'],
+            unset($config['driverconfig'],
+                  $config['query_auth'],
                   $config['query_add'],
                   $config['query_getpw'],
                   $config['query_update'],
@@ -79,7 +80,10 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
                   $config['query_list'],
                   $config['query_exists'],
                   $config['encryption'],
-                  $config['show_encryption']);
+                  $config['show_encryption'],
+                  $config['username_field'],
+                  $config['password_field'],
+                  $config['table']);
         }
         unset($config['umask']);
 
