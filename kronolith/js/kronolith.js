@@ -1339,12 +1339,14 @@ KronolithCore = {
     updateCalendarDropDown: function(id)
     {
         $(id).update();
-        $H(Kronolith.conf.calendars.internal).each(function(cal) {
-            if (cal.value.edit) {
-                $(id).insert(new Element('option', { value: 'internal|' + cal.key })
-                             .setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg })
-                             .update(cal.value.name.escapeHTML()));
-            }
+        ['internal', 'remote'].each(function(type) {
+            $H(Kronolith.conf.calendars[type]).each(function(cal) {
+                if (cal.value.edit) {
+                    $(id).insert(new Element('option', { value: type + '|' + cal.key })
+                                 .setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg })
+                                 .update(cal.value.name.escapeHTML()));
+                }
+            });
         });
     },
 

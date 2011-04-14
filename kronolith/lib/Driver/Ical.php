@@ -349,7 +349,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     public function getEvent($eventId = null)
     {
         if (!$eventId) {
-            return new Kronolith_Event_Ical($this);
+            $event = new Kronolith_Event_Ical($this);
+            $event->permission = $this->getPermission();
+            return $event;
         }
 
         if ($this->isCalDAV()) {

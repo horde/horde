@@ -2,6 +2,7 @@
 v3.0.1-git
 ----------
 
+[jan] Support adding and editing of CalDAV events in dynamic view (Bug #9865).
 [jan] Remove debug code in Ajax library (Bug #9818).
 
 
