@@ -232,7 +232,7 @@ class Horde_Db_Migration_Migrator
                             $this->_migrationsPath
                         )
                     ),
-                    '/\/\d+_.*\.php$/',
+                    '/' . preg_quote(DIRECTORY_SEPARATOR, '/') . '\d+_.*\.php$/',
                     RecursiveRegexIterator::MATCH,
                     RegexIterator::USE_KEY
                 )
