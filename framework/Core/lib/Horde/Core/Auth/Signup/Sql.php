@@ -63,7 +63,7 @@ class Horde_Core_Auth_Signup_Sql extends Horde_Core_Auth_Signup_Base
      */
     public function exists($user)
     {
-        if (empty($GLOBALS['conf']['signup']['queue'])) {
+        if (empty($GLOBALS['conf']['signup']['approve'])) {
             return false;
         }
 
