@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [jan] Fix LDAP schema checking (Bug #9826).
 * [jan] Fix creating temporary files with open_basedir restrictions.
 * [mjr] Fix merging duplicate contacts (Bug #9828).
 * [mjr] Allow unsetting the GAL and Client Address Book settings (Bug #9843).
@@ -1150,7 +1151,11 @@
    <date>2011-04-06</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-*
+* [jan] Fix LDAP schema checking (Bug #9826).
+* [jan] Fix creating temporary files with open_basedir restrictions.
+* [mjr] Fix merging duplicate contacts (Bug #9828).
+* [mjr] Allow unsetting the GAL and Client Address Book settings (Bug #9843).
+* [mjr] Fix importing objects with categories (Bug #9841).
    </notes>
   </release>
  </changelog>
