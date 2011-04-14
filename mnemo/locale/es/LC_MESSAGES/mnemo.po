@@ -1,21 +1,17 @@
-# Spanish translations for mnemo package
-# Traducciones al español para el paquete mnemo.
-# Copyright 2008-2009 The Horde Project
-# This file is distributed under the same license as the mnemo package.
-# Automatically generated, 2008.
-#
-# Preserved most translations for previous versions of Mnemo
-#               from Manuel P. Ayala <mayala@unex.es>\n"
+# Spanish translations for lmd package.
+# Copyright (C) 2011 Horde Project
+# This file is distributed under the same license as the Mnemo package.
+# Automatically generated, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Mnemo H4 (3.0)\n"
+"Project-Id-Version: Mnemo H4 (3.0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-05 13:52+0200\n"
-"PO-Revision-Date: 2011-04-11 11:58+0200\n"
-"Last-Translator: Juan C. Blanco <jcblanco@fi.upm.es>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: es_ES\n"
+"POT-Creation-Date: 2011-04-14 17:07+0200\n"
+"PO-Revision-Date: 2011-04-14 17:07+0200\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
+"<jcblanco@fi.upm.es>\n"
+"Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -47,11 +43,11 @@ msgstr "Se ha denegado el acceso para guardar la nota en %s."
 #: lib/Block/Note.php:80
 #, php-format
 msgid "An error occurred displaying %s"
-msgstr "Ocurrió un error al mostrar %s"
+msgstr "Error al mostrar %s"
 
 #: lib/Block/Note.php:82
 msgid "An error occurred displaying the note"
-msgstr "Ocurrio un error al mostrar la nota"
+msgstr "Se ha producido un error mostrando la nota"
 
 #: config/prefs.php:63
 msgid "Ascending"
@@ -75,17 +71,16 @@ msgid "Change Permissions"
 msgstr "Cambiar permisos"
 
 #: config/prefs.php:13
-#, fuzzy
 msgid "Change your note sorting and display preferences."
-msgstr "Cambiar opciones de ordenación y visualización de notas."
+msgstr "Cambia opciones de ordenación y visualización de notas."
 
 #: config/prefs.php:20
 msgid "Choose your default Notepad."
-msgstr "Elija su libreta por defecto."
+msgstr "Elija su libreta por omisión."
 
 #: lib/Ajax/Imple/EditNote.php:43
 msgid "Click to add text..."
-msgstr "Pulsar para añadir texto..."
+msgstr "Pulse para añadir texto..."
 
 #: templates/list/header.inc:8
 msgid "Close Search"
@@ -117,15 +112,15 @@ msgstr "Descifrar"
 
 #: config/prefs.php:19
 msgid "Default Notepad"
-msgstr "Libreta por defecto"
+msgstr "Libreta por omisión"
 
 #: config/prefs.php:55
 msgid "Default sorting criteria:"
-msgstr "Criterio de clasificación por defecto:"
+msgstr "Criterio de clasificación por omisión:"
 
 #: config/prefs.php:66
 msgid "Default sorting direction:"
-msgstr "Sentido de clasificación por defecto:"
+msgstr "Sentido de clasificación por omisión:"
 
 #: lib/Form/DeleteNotepad.php:34 notepads/index.php:35
 #: templates/notepad_list.php:31 templates/view/memo.inc:16
@@ -159,7 +154,7 @@ msgstr "Descripción"
 
 #: config/prefs.php:12
 msgid "Display Preferences"
-msgstr "Mostrar preferencias"
+msgstr "Mostrar opciones"
 
 #: config/prefs.php:96
 msgid "Do you want to confirm deleting entries?"
@@ -215,7 +210,7 @@ msgstr "Exportar notas"
 
 #: config/prefs.php:11 config/prefs.php:18 config/prefs.php:25
 msgid "General Preferences"
-msgstr "Preferencias generales"
+msgstr "Opciones globales"
 
 #: templates/data/import.inc:1
 #, php-format
@@ -257,7 +252,7 @@ msgstr "Más opciones..."
 #: lib/Api.php:378
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr ""
-"Se han encontrado múltiples componentes iCalendar; sólo se soporta una vNote:"
+"Se encontraron multiples componentes iCalendar; sólo se soporta una vNote."
 
 #: templates/panel.inc:51
 msgid "My Notepads:"
@@ -284,9 +279,8 @@ msgid "No iCalendar data was found."
 msgstr "No se encontraron datos iCalendar."
 
 #: lib/Block/Note.php:71
-#, fuzzy
 msgid "No note loaded"
-msgstr "No hay notas coincidentes"
+msgstr "No se han cargadoi notas"
 
 #: templates/list/memo_footers.inc:4
 msgid "No notes match"
@@ -305,9 +299,8 @@ msgid "No_te"
 msgstr "_Nota"
 
 #: lib/Driver/Kolab.php:97 lib/Driver/Sql.php:80
-#, fuzzy
 msgid "Not Found"
-msgstr "No encontrada"
+msgstr "No encontrado"
 
 #: config/prefs.php:51
 msgid "Note Category"
@@ -330,7 +323,6 @@ msgid "Note not found."
 msgstr "No se encontró la nota."
 
 #: templates/memo/memo.inc:63
-#, fuzzy
 msgid "Note_pad:"
 msgstr "_Libreta"
 
@@ -344,9 +336,9 @@ msgid "Notepad List"
 msgstr "Lista de notas"
 
 #: lib/Mnemo.php:526
-#, fuzzy, php-format
+#, php-format
 msgid "Notepad of %s"
-msgstr "Libretas"
+msgstr "Libreta de %s"
 
 #: templates/panel.inc:33 templates/panel.inc:34
 msgid "Notepads"
@@ -358,7 +350,7 @@ msgstr "Resumen de notas"
 
 #: lib/Ajax/Imple/EditNote.php:46
 msgid "Ok"
-msgstr "De acuerdo"
+msgstr "Aceptar"
 
 #: lib/Api.php:105 lib/Api.php:138 lib/Api.php:170 lib/Api.php:201
 #: lib/Api.php:286 lib/Api.php:331 lib/Api.php:354
@@ -437,9 +429,8 @@ msgid "Show notes from these categories"
 msgstr "¿Mostrar las notas de estas categorías?"
 
 #: lib/Block/Note.php:34
-#, fuzzy
 msgid "Show this note"
-msgstr "Eliminar esta nota"
+msgstr "Mostrar esta nota"
 
 #: templates/list/memo_headers.inc:44
 msgid "Sort by Category"
@@ -493,7 +484,7 @@ msgstr "Se ha guardado la libreta \"%s\"."
 
 #: memo.php:136
 msgid "The passwords don't match."
-msgstr "La contraseña no coincide."
+msgstr "Las contraseñas no coinciden."
 
 #: data.php:193
 #, php-format
@@ -505,9 +496,11 @@ msgid "There was an error importing the iCalendar data."
 msgstr "Se produjo un error al importar los datos iCalendar."
 
 #: lib/Api.php:53 lib/Api.php:65
-#, fuzzy, php-format
+#, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
-msgstr "Se produjo un error al eliminar la nota: %s"
+msgstr ""
+"Se produjo un error al eliminar las notass de %s. Se han registrado los "
+"detalles."
 
 #: memo.php:245
 #, php-format
@@ -537,16 +530,15 @@ msgid "This note cannot be decrypted:"
 msgstr "Esta nota no se puede descifrar:"
 
 #: memo.php:31 memo.php:41 view.php:97 view.php:105
-#, fuzzy
 msgid ""
 "This note has been encrypted, and cannot be decrypted without a secure web "
 "connection"
-msgstr "Esta nota se ha cifrado, introduzca la contrasela a continuación."
+msgstr ""
+"Esta nota se ha cifrado y no se puede descifrar sin una conexión web segura"
 
 #: memo.php:28 view.php:94
-#, fuzzy
 msgid "This note has been encrypted, please provide the password below"
-msgstr "Esta nota se ha cifrado, introduzca la contrasela a continuación."
+msgstr "Esta nota se ha cifrado, introduzca la contrasela a continuación"
 
 #: lib/Api.php:280 lib/Driver/Kolab.php:281 lib/Driver/Sql.php:344
 msgid "This note has been encrypted."
@@ -565,7 +557,7 @@ msgstr "Tipo de contenido no soportado: %s"
 
 #: lib/Block/Note.php:16
 msgid "View note"
-msgstr "Ver la nota"
+msgstr "Ver nota"
 
 #: templates/data/import.inc:16
 msgid "Which Notepad should the notes be added to?"
@@ -585,9 +577,8 @@ msgid "You are not allowed to delete this notepad."
 msgstr "Carece de permiso para eliminar esta libreta."
 
 #: lib/Ajax/Imple/EditNote.php:74
-#, fuzzy
 msgid "You do not have permission to edit this note."
-msgstr "No dispone de permisos para ver la libreta %s."
+msgstr "Carece de permisos para modificar esta nota."
 
 #: note/pdf.php:46 view.php:46
 #, php-format
@@ -596,7 +587,7 @@ msgstr "No dispone de permisos para ver la libreta %s."
 
 #: config/prefs.php:84
 msgid "Your default notepad:"
-msgstr "Su libreta por defecto:"
+msgstr "Su libreta por omisión:"
 
 #: templates/panel.inc:46
 msgid "[Manage Notepads]"
@@ -611,7 +602,6 @@ msgid "_Category"
 msgstr "_Categoría"
 
 #: templates/memo/memo.inc:78
-#, fuzzy
 msgid "_Category:"
 msgstr "_Categoría"
 
@@ -648,7 +638,6 @@ msgid "_Password"
 msgstr "Contrase_ña"
 
 #: templates/memo/memo.inc:89
-#, fuzzy
 msgid "_Password:"
 msgstr "Contrase_ña"
 
@@ -658,7 +647,7 @@ msgstr "Im_primir"
 
 #: templates/memo/memo.inc:93
 msgid "_Repeat:"
-msgstr "_Repetir"
+msgstr "_Repetir:"
 
 #: lib/Application.php:78
 msgid "_Search"

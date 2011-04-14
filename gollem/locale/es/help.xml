@@ -1,112 +1,74 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
-  <entry id="file-actions" md5="4496a389972e236d397a3661b6767c9e" state="changed">
+
+<entry id="file-actions" md5="cc87d66c8d9030131bbb401968fa7c67" state="uptodate">
     <title>Administrador de archivos: Acciones</title>
-    <heading>Creaci&#xF3;n de carpetas</heading>
+    <heading>Creación de carpetas</heading>
     <para>
-    Para crear una carpeta en el directorio actual, elija Crear carpeta en la barra de men&#xFA;.
+    Para crear una carpeta en el directorio actual, elija Crear carpeta en la barra de menú.
     </para>
     <heading>Eliminar, cortar, copiar y pegar archivos</heading>
     <para>
     Para eliminar, cortar o copiar uno o varios archivos, primero tiene que seleccionar al menos uno.
-    Tras seleccionar uno o m&#xE1;s archivos mediante las casillas a la izquierda de los elementos, seleccione bien
-    Cortar elementos, Copiar elementos o Eliminar elementos del men&#xFA; desplegable Acciones. Si selecciona Cortar
-    o Copiar elementos tendr&#xE1; la posibilidad de pegar esos archivos en cualquier lugar del Gestor de archivos.
-    Navegue hasta la ubicaci&#xF3;n en la que quiera pegar los elementos y seleccione Pegar elementos del men&#xFA;
-    desplegable Acciones. Los elementos se trasladar&#xE1;n (Cortar elementos) o se copiar&#xE1;n (Copiar elementos)
-    a la ubicaci&#xF3;n que haya elegido.
+    Tras seleccionar uno o más archivos mediante las casillas a la izquierda de los elementos, seleccione bien
+    Cortar elementos, Copiar elementos o Eliminar elementos del menú desplegable Acciones. Si selecciona Cortar
+    o Copiar elementos tendrá la posibilidad de pegar esos archivos en cualquier lugar del Gestor de archivos.
+    Navegue hasta la ubicación en la que quiera pegar los elementos y seleccione Pegar elementos del menú
+    desplegable Acciones. Los elementos se trasladarán (Cortar elementos) o se copiarán (Copiar elementos)
+    a la ubicación que haya elegido.
     </para>
     <heading>Eliminar, cortar, copiar y pegar carpetas</heading>
     <para>
-    Por omisi&#xF3;n, s&#xF3;lo se pueden eliminar las carpetas que est&#xE9;n vac&#xED;as, sin embargo se puede activar la
-    eliminaci&#xF3;n de carpetas que no est&#xE9;n vac&#xED;as (borrado recursivo). Si intenta eliminar una carpeta que no est&#xE9; vac&#xED;a
-    sin activar esta opci&#xF3;n, la eliminaci&#xF3;n fallar&#xE1; y se mostrar&#xE1; un mensaje de error. Para activar la eliminaci&#xF3;n
-    de carpetas que no est&#xE9;n vac&#xED;as, pulse Opciones, Configuraci&#xF3;n y elija S&#xED; en el men&#xFA; desplegable de la opci&#xF3;n
-    &#xBF;Eliminar carpetas de forma recursiva?. &#xC9;sto activar&#xE1; la opci&#xF3;n de eliminaci&#xF3;n recursiva.
+    Por omisión, sólo se pueden eliminar las carpetas que estén vacías, sin embargo se puede activar la
+    eliminación de carpetas que no estén vacías (borrado recursivo). Si intenta eliminar una carpeta que no esté vacía
+    sin activar esta opción, la eliminación fallará y se mostrará un mensaje de error. Para activar la eliminación
+    de carpetas que no estén vacías, pulse Opciones, Configuración y elija Sí en el menú desplegable de la opción
+    ¿Eliminar carpetas de forma recursiva?. Ésto activará la opción de eliminación recursiva.
 
     Para eliminar, cortar o copiar una o varias carpetas, tiene que seleccionar al menos una.
-    Tras seleccionar una o m&#xE1;s carpetas mediante las casillas a la izquierda de los elementos, seleccione bien
-    Cortar elementos, Copiar elementos o Eliminar elementos del men&#xFA; desplegable Acciones. Si selecciona Cortar
-    o Copiar elementos tendr&#xE1; la posibilidad de pegar esas carpetas en cualquier lugar del Gestor de archivos.
-    Navegue hasta la ubicaci&#xF3;n en la que quiera pegar los elementos y seleccione Pegar elementos del men&#xFA;
-    desplegable Acciones. Los elementos se trasladar&#xE1;n (Cortar elementos) o se copiar&#xE1;n (Copiar elementos)
-    a la ubicaci&#xF3;n que haya elegido.
+    Tras seleccionar una o más carpetas mediante las casillas a la izquierda de los elementos, seleccione bien
+    Cortar elementos, Copiar elementos o Eliminar elementos del menú desplegable Acciones. Si selecciona Cortar
+    o Copiar elementos tendrá la posibilidad de pegar esas carpetas en cualquier lugar del Gestor de archivos.
+    Navegue hasta la ubicación en la que quiera pegar los elementos y seleccione Pegar elementos del menú
+    desplegable Acciones. Los elementos se trasladarán (Cortar elementos) o se copiarán (Copiar elementos)
+    a la ubicación que haya elegido.
     </para>
     <heading>Trabajando con el Portapapeles</heading>
     <para>
-    Una vez halla copiado o cortado un archivo o carpeta, se situar&#xE1; en el portapapeles. Puede ver el contenido
-    del portapapeles pulsando su icono, que est&#xE1; sobre el listado de carpetas a la derecha del icono Actualizar
-    El icono no se mostrar&#xE1; a menos que exista alg&#xFA;n elemento en el portapapeles. Los elementos cortados o copiados
-    no dispondr&#xE1;n de una casilla a su izquierda, lo que significa que est&#xE1;n en el portapapeles. Cuando pulse en el
-    icono del portapapeles, ver&#xE1; un listado de los elementos que haya copiado o cortado. Seleccione los elementos que
-    desee pegar y pulse pegar. Esos elementos se pegar&#xE1;n en la carpeta actual y se eliminar&#xE1;n del portapapeles.
-    Tras completar la operaci&#xF3;n de pegado, regresar&#xE1; a la carpeta actual. Si deseara eliminar un elemento del portapapeles,
-    s&#xF3;lo tiene que seleccionarlo y pulsar Limpiar. Esos elementos se eliminar&#xE1;n del portapapeles se mostrar&#xE1; de
+    Una vez halla copiado o cortado un archivo o carpeta, se situará en el portapapeles. Puede ver el contenido
+    del portapapeles pulsando su icono, que está sobre el listado de carpetas a la derecha del icono Actualizar
+    El icono no se mostrará a menos que exista algún elemento en el portapapeles. Los elementos cortados o copiados
+    no dispondrán de una casilla a su izquierda, lo que significa que están en el portapapeles. Cuando pulse en el
+    icono del portapapeles, verá un listado de los elementos que haya copiado o cortado. Desde el portapapeles puede pegar estos
+    elementos en el directorio actual, que se muestra sobre la lista de elementos. Seleccione los elementos que
+    desee pegar y pulse pegar. Esos elementos se pegarán en la carpeta actual y se eliminarán del portapapeles.
+    Tras completar la operación de pegado, regresará a la carpeta actual. Si deseara eliminar un elemento del portapapeles,
+    sólo tiene que seleccionarlo y pulsar Limpiar. Esos elementos se eliminarán del portapapeles se mostrará de
     nuevo la carpeta actual.
     </para>
-<!-- English entry:
-<entry id="file-actions">
-    <title>File Manager: Actions</title>
-    <heading>Creating Folders</heading>
-    <para>
-    To create a folder in the current directory, simply choose Create Folder from the Actions drop down box.
-    </para>
-    <heading>Delete, cut, copy and paste files</heading>
-    <para>
-    In order to delete, cut or copy a file or files, you need to select at least one file.
-    After you select one or more files using the checkboxes to the left of the item, select either Cut Items, Copy Items or
-    Delete Items from the Actions drop down box.  If you selected Cut Items or Copy Items, you now have the option to
-    paste those files elsewhere in the File Manager.  Navigate to the location that you wish to paste the items, then select
-    Paste Items from the Actions drop down box.  The items will now be either moved (Cut Items) or copied (Copy Items) to
-    the location that you chose.
-    </para>
-    <heading>Delete, cut, copy and paste directories</heading>
-    <para>
-    By default, you can only delete directories that are empty, however you can enable the deletion of non-empty directories
-    (recursive delete).  If you try to delete a non-empty directory without enabling this feature, deletion will fail with
-    an error.  To enable the deleting non-empty directories, click on Options, Settings and choose Yes from the drop down box
-    for the Delete Folders Recursively option.  This will enable the recursive delete option.
+</entry>
 
-    In order to delete, cut or copy a directory or directories, you need to select at least one directory.
-    After you select one or more directories using the checkboxes to the left of the item, select either Cut Items, Copy Items
-    or Delete Items from the Actions drop down box.  If you selected Cut Items or Copy Items, you now have the option to
-    paste those directories elsewhere in the File Manager.  Navigate to the location that you wish to paste the items, then
-    select Paste Items from the Actions drop down box.  The items will now either be moved (Cut Items) or copied (Copy Items)
-    to the location that you chose.
-    </para>
-    <heading>Working with the Clipboard</heading>
-    <para>
-    Once you copy or cut a file or directory, it is placed in the clipboard.  You can view the contents of the clipboard by clicking
-    on the clipboard icon, which is located above the directory/folder listing and to the right of the refresh icon.  This icon is not
-    present unless there are items in the clipboard.  Items that are cut or copied will not have a checkbox to the left of them, which
-    means they are in the clipboard.  Once you click on the clipboard viewer, you will see a list of items that you have copied or cut.
-    From the clipboard viewer, you can paste these items to the current directory, which is displayed above the list of items.
-    Simply check the items that you want to paste, then click paste.  These items will be pasted into the current directory and be removed
-    from the clipboard.  You will be returned to the current directory after the paste is complete.  If you would like to remove an item
-    from the clipboard, simply check the items and click clear.  These items will then be removed from the clipboard and you will be returned
-    to the current directory.
-    </para>
-</entry>--></entry>
-  <entry id="file-upload" md5="f07834ebb15641cdc4e349ed8d304d75" state="uptodate">
+<entry id="file-upload" md5="4bdaf29d2f497ba7a6b53ce378c9badf" state="uptodate">
     <title>Administrador de archivos: Carga</title>
     <heading>Carga de archivos</heading>
     <para>
     Para cargar uno o varios archivos, navegue hasta la carpeta del Administrador de archivos en la que desee cargarlos.
-    Se le conoce como la carpeta actual. Una vez en la carpeta adecuada del Administrador de archivos, pulse el bot&#xF3;n
-    Examinar. Se abrir&#xE1; una ventana de Carga de Archivos. Con dicha ventana abierta, navegue hasta el archivo que desee
-    cargar, selecci&#xF3;nelo y pulse Aceptar/Abrir. Puede cargar varios archivos a la vez. El Arministrador de archivos a&#xF1;adir&#xE1;
-    autom&#xE1;ticamente otro bot&#xF3;n Examinar tras cada archivo que seleccione. Una vez haya seleccionado todos los archivos
-    que desee cargar, pulse el bot&#xF3;n Cargar archivo y el archivo o archivos que hab&#xED;a seleccionado se cargar&#xE1;n en la carpeta
+    Se le conoce como la carpeta actual. Una vez en la carpeta adecuada del Administrador de archivos, pulse el botón
+    Examinar. Se abrirá una ventana de Carga de Archivos. Con dicha ventana abierta, navegue hasta el archivo que desee
+    cargar, selecciónelo y pulse Aceptar/Abrir. Puede cargar varios archivos a la vez. El Administrador de archivos añadirá
+    automáticamente otro botón Examinar tras cada archivo que seleccione. Una vez haya seleccionado todos los archivos
+    que desee cargar, pulse el botón Cargar archivo y el archivo o archivos que había seleccionado se cargarán en la carpeta
     actual del Administrador de archivos.
 </para>
 </entry>
-  <entry id="sorting" md5="0ce2080b01acce2e9affc2191fc0386c" state="uptodate">
-    <title>Ordenaci&#xF3;n de entradas</title>
-    <heading>Ordenaci&#xF3;n de entradas</heading>
+
+<entry id="sorting" md5="37139f2e5d83ce2930f1b6986580c2f0" state="uptodate">
+    <title>Ordenación de entradas</title>
+    <heading>Ordenación de entradas</heading>
     <para>
     Al ver un listado de archivos o carpetas, puede ordenarlo por cualquier columna. Para ello, pulse la cabecera
-    de la columna por la que desee realizar la ordenaci&#xF3;n y el listado se actualizar&#xE1;, ordenado por la columna que
-    haya seleccionado. Para conmutar entre ordenaci&#xF3;n ascendente o descendente, pulse en el icono de flecha de la
+    de la columna por la que desee realizar la ordenación y el listado se actualizará, ordenado por la columna que
+    haya seleccionado. Para conmutar entre ordenación ascendente o descendente, pulse en el icono de flecha de la
     cabecera de la columna.
     </para>
 </entry>

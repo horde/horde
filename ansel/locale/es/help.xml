@@ -1,7 +1,7 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
 
-<entry id="overview">
+<entry id="overview" state="uptodate" md5="df2fe059a57c3b7fb286dd279e155bad">
   <title>Introducción</title>
   <heading>Introducción</heading>
 
@@ -10,7 +10,7 @@
   </para>
 </entry>
 
-<entry id="upload">
+<entry id="upload" state="uptodate" md5="ca8e50685a92d0dd33690d9a24d23fb9">
   <title>Carga de imágenes: Introducción</title>
 
   <para>
@@ -18,7 +18,7 @@
   </para>
 </entry>
 
-<entry id="xppublish">
+<entry id="xppublish" state="uptodate" md5="f4067b7d23111b69a9b69920eb17d794">
   <title>Carga de imágenes: Publicación desde Windows XP</title>
   <heading>Uso de la característica Publicación en Web de Windows XP</heading>
 
@@ -33,13 +33,13 @@
   </para>
 
   <para>
-	  Haga doble-click en el archivo install-registry.reg. Se le consultará si desea importar esos valores al registro o no. Pulse &quot;Aceptar&quot;. Se le comunicará si los valores se importan correctamente; vuelva a pulsar &quot;Aceptar&quot;. ¡Ya está listo para cargar archivos!
+	  Haga doble-click en el archivo install-registry.reg. Se le consultará si desea importar esos valores al registro o no. Pulse "Aceptar". Se le comunicará si los valores se importan correctamente; vuelva a pulsar "Aceptar". ¡Ya está listo para cargar archivos!
   </para>
 
   <para><b>2. Carga</b></para>
 
   <para>
-	  Abra el Explorador de Windows y navegue hasta la carpeta que desea cargar o que contenga el/los archivo(s) que querría cargar. Asegúrese de que puede ver las &quot;Tareas de archivos y carpetas&quot; a la izquierda de la ventana del explorador. Debería poder ver la opción &quot;Publicar esta carpeta en la web&quot; o, si tiene un archivo concreto seleccionado, &quot;Publicar este archivo en la web&quot;. Pulse dicho vínculo y siga las instrucciones para seleccionar los archivos que desee cargar (se le permitirá seleccionar lo que quiera de la carpeta durante el proceso), inicie sesión, seleccione una galería o cree una nueva y publique la(s) imágen(es).
+	  Abra el Explorador de Windows y navegue hasta la carpeta que desea cargar o que contenga el/los archivo(s) que querría cargar. Asegúrese de que puede ver las "Tareas de archivos y carpetas" a la izquierda de la ventana del explorador. Debería poder ver la opción "Publicar esta carpeta en la web" o, si tiene un archivo concreto seleccionado, "Publicar este archivo en la web". Pulse dicho vínculo y siga las instrucciones para seleccionar los archivos que desee cargar (se le permitirá seleccionar lo que quiera de la carpeta durante el proceso), inicie sesión, seleccione una galería o cree una nueva y publique la(s) imágen(es).
   </para>
 </entry>
 
