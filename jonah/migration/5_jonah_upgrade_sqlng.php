@@ -38,7 +38,15 @@ class JonahUpgradeSqlng extends Horde_Db_Migration_Base
         $t->column('perm_guest_' . Horde_Perms::DELETE, 'boolean', array('default' => false, 'null' => false));
         $t->column('attribute_name', 'string', array('limit' => 255, 'null' => false));
         $t->column('attribute_desc', 'string', array('limit' => 255));
-        $t->column('attribute_color', 'string', array('limit' => 7));
+        $t->column('attribute_slug', 'string', array('limit' => 64));
+        $t->column('attribute_full_feed', 'integer', array('default' => 0, 'null' =>false));
+        $t->column('attribute_interval', 'integer');
+        $t->column('attribute_url', 'string', array('limit' => 255));
+        $t->column('attribute_link', 'string', array('limit' => 255));
+        $t->column('attribute_page_link', 'string', array('limit' => 255));
+        $t->column('attribute_story_url', 'string', array('limit' => 255));
+        $t->column('attribute_img', 'string', array('limit' => 255));
+        $t->column('attribute_updated', 'integer');
         $t->end();
 
         $this->addIndex('jonah_sharesng', array('share_name'));
