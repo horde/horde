@@ -58,7 +58,7 @@ var IMP_JS = {
                     img.style.backgroundImage = 'url(' + src + ')';
                 }
             }
-        });
+        }, this);
 
         if (!imgload) {
             this.iframeResize(iframeid);
