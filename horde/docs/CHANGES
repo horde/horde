@@ -2,6 +2,8 @@
 v4.0.1-git
 ----------
 
+[jan] Fix LDAP parameters of account portal block (Klaus Steinberger, Bug
+      #9770).
 [jan] Fix migration detection on Windows.
 [mjr] Correctly sanitize DSN when using custom cyrus auth driver (Bug #9879).
 [mjr] Fix some display issues when geocoding with HordeMap (Bug #9883).

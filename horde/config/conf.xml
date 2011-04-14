@@ -1668,12 +1668,14 @@
      </configsection>
     </case>
     <case name="ldap" desc="LDAP">
-     <configldap switchname="driverconfig">
-      <configstring name="attr" desc="LDAP attribute to search on">
-      uid</configstring>
-      <configboolean name="strip" desc="Strip domain from user
-      name?">false</configboolean>
-     </configldap>
+     <configsection name="params">
+      <configldap switchname="driverconfig">
+       <configstring name="attr" desc="LDAP attribute to search on">
+       uid</configstring>
+       <configboolean name="strip" desc="Strip domain from user
+       name?">false</configboolean>
+      </configldap>
+     </configsection>
     </case>
     <case name="kolab" desc="Kolab (LDAP)">
      <configsection name="params">
