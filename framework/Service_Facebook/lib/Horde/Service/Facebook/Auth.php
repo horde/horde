@@ -141,7 +141,7 @@ class Horde_Service_Facebook_Auth extends Horde_Service_Facebook_Base
      * Returns the user corresponding to the current session object.
      *
      * @throws Horde_Service_Facebook_Exception
-     * @return integer  User id
+     * @return string User id
      */
     public function &getLoggedInUser()
     {
@@ -151,7 +151,7 @@ class Horde_Service_Facebook_Auth extends Horde_Service_Facebook_Base
                 Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
         }
 
-        return $this->_facebook->callMethod(
+        return (string)$this->_facebook->callMethod(
             'facebook.users.getLoggedInUser',
             array('session_key' => $this->_sessionKey));
     }

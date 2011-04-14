@@ -31,7 +31,7 @@ if ($code = Horde_Util::getFormData('code')) {
             // Remember in user prefs
             $sid =  $sessionKey;
             $uid = $facebook->auth->getLoggedInUser();
-            $prefs->setValue('facebook', serialize(array('uid' => $uid, 'sid' => $sid)));
+            $prefs->setValue('facebook', serialize(array('uid' => (string)$uid, 'sid' => $sid)));
             $notification->push(_("Succesfully connected your Facebook account or updated permissions."), 'horde.success');
         } else {
             $notification->push(_("There was an error obtaining your Facebook session. Please try again later."), 'horde.error');
