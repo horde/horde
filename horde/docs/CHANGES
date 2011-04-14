@@ -2,6 +2,7 @@
 v4.0.1-git
 ----------
 
+[mjr] Correctly sanitize DSN when using custom cyrus auth driver (Bug #9879).
 [mjr] Fix some display issues when geocoding with HordeMap (Bug #9883).
 [mms] Don't load sidebar content if not expanded.
 [jan] Fix deleting groups.
