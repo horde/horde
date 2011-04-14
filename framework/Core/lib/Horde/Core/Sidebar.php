@@ -74,9 +74,9 @@ class Horde_Core_Sidebar
              * applications except those marked 'inactive'. */
             if (($isAdmin &&
                  $params['status'] != 'noadmin') ||
-                ($params['status'] == 'heading') ||
+                 $params['status'] == 'heading' ||
                 (in_array($params['status'], array('active', 'noadmin', 'sidebar')) &&
-                 $registry->hasPermission($app, Horde_Perms::SHOW))) {
+                 $registry->hasPermission((!empty($params['app']) ? $params['app'] : $app), Horde_Perms::SHOW))) {
                 $menu[$app] = $params;
 
                 if (isset($params['menu_parent'])) {
