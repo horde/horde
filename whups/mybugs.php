@@ -37,7 +37,7 @@ if (!@unserialize($prefs->getValue('mybugs_layout') &&
 }
 
 $layout = new Horde_Core_Block_Layout_View(
-    $injector->getInstance('Horde_Core_Factory_Block_Collection')->create(array('whups'), 'mybugs_layout')->getLayout(),
+    $injector->getInstance('Horde_Core_Factory_BlockCollection')->create(array('whups'), 'mybugs_layout')->getLayout(),
     Horde::url('mybugs_edit.php'),
     Horde::url('mybugs.php', true)
 );
