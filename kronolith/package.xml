@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [jan] Fix undefined function on Windows (Bug #9916).
 * [jan] Support adding and editing of CalDAV events in dynamic view (Bug #9865).
 * [jan] Remove debug code in Ajax library (Bug #9818).
  </notes>
@@ -1695,6 +1696,7 @@
    <date>2011-04-06</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [jan] Fix undefined function on Windows (Bug #9916).
 * [jan] Support adding and editing of CalDAV events in dynamic view (Bug #9865).
 * [jan] Remove debug code in Ajax library (Bug #9818).
    </notes>

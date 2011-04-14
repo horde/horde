@@ -2613,6 +2613,11 @@ class Kronolith
      */
     public static function parseDate($date)
     {
+        // strptime() is not available on Windows.
+        if (!function_exists('strptime')) {
+            return new Horde_Date($start);
+        }
+
         // strptime() is locale dependent, i.e. %p is not always matching
         // AM/PM. Set the locale to C to workaround this, but grab the
         // locale's D_FMT before that.
@@ -2630,7 +2635,7 @@ class Kronolith
             $date_arr = strptime($date, $format);
             if (!$date_arr) {
                 // Try throwing at Horde_Date finally.
-                return new Horde_Date($start);
+                return new Horde_Date($date);
             }
         }
 
