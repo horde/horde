@@ -34,7 +34,7 @@
 <?php foreach (array_keys($sorted_feeds) as $feed_id): ?>
  <?php $feed = $feeds[$feed_id] ?>
   <tr>
-   <td><?php echo Horde::link(Horde::url('stories/add'), _("Add Story")) . $add_img . '</a>' ?></td>
+     <td><?php echo Horde::link(Horde::url('stories/edit.php')->add('channel_id', $feed->getName()), _("Add Story")) . $add_img . '</a>' ?></td>
    <td><?php echo Horde::link(Horde::url('channels/' . $feed->getName() . '/edit'), _("Edit")) . $edit_img . '</a>' ?></td>
 <?php if (empty($conf['share']['no_sharing'])): ?>
    <td><?php echo Horde::link(Horde_Util::addParameter($perms_url_base, 'share', $feed->getName()), _("Change Permissions"), '', '_blank', Horde::popupJs($perms_url_base, array('params' => array('share' => $feed->getName()), 'urlencode' => true)) . 'return false;') . $perms_img . '</a>' ?></td>

@@ -150,6 +150,8 @@ class Jonah_Driver_Sql extends Jonah_Driver
      */
     protected function _timestampChannel($channel_id, $timestamp)
     {
+        //@todo: Timestamp the share here (or generate the last timestamp in another way).
+        return;
         $sql = sprintf('UPDATE jonah_channels SET channel_updated = %s WHERE channel_id = %s',
                        (int)$timestamp,
                        (int)$channel_id);
@@ -219,7 +221,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
             $info['read'] = 0;
         }
 
-        $values = array((int)$info['channel_id'],
+        $values = array($info['channel_id'],
                         Horde_String::convertCharset($info['author'], 'UTF-8', $this->_params['charset']),
                         Horde_String::convertCharset($info['title'], 'UTF-8', $this->_params['charset']),
                         Horde_String::convertCharset($info['description'], 'UTF-8', $this->_params['charset']),
@@ -230,7 +232,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
                         time(),
                         (int)$info['read']);
         if (empty($info['id'])) {
-            $channel = $this->getChannel($info['channel_id']);
+            $channel = Jonah::getFeed($info['channel_id']);
             $permalink = $this->getStoryLink($channel,$info);
             $values[] = $permalink;
             $sql = 'INSERT INTO jonah_stories (channel_id, story_author, story_title, story_desc, story_body_type, story_body, story_url, story_published, story_updated, story_read, story_permalink) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';

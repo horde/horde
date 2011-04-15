@@ -248,7 +248,7 @@ class Jonah
     public static function getFeed($feedId)
     {
         try {
-            $feed = $GLOBALS['jonah_shares']->getShareById($feedId);
+            $feed = $GLOBALS['jonah_shares']->getShare($feedId);
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
             return array();

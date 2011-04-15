@@ -106,6 +106,8 @@ class JonahShareTables extends Horde_Db_Migration_Base
             $this->announce('Dropping jonah channels tables');
             $this->dropTable('jonah_channels');
         }
+
+        $this->changeColumn('jonah_stories', 'channel_id', 'text');
     }
 
     /**
@@ -140,6 +142,8 @@ class JonahShareTables extends Horde_Db_Migration_Base
         $t->column('channel_updated', 'integer');
         $t->primaryKey(array('channel_id'));
         $t->end();
+
+        $this->changeColumn('jonah_stories', 'channel_id', 'int');
 
         //@todo convert data from shares.
     }

@@ -33,6 +33,7 @@ class Jonah_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
+        $GLOBALS['injector']->bindFactory('Jonah_Driver', 'Jonah_Factory_Driver', 'create');
         $GLOBALS['jonah_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 
         if ($channel_id = Horde_Util::getFormData('channel_id')) {
@@ -84,15 +85,16 @@ class Jonah_Application extends Horde_Registry_Application
             }
         }
         if ($channel_id = Horde_Util::getFormData('channel_id')) {
-            $channel = Jonah::getShare($channel_id);
-            if ($channel['channel_type'] == Jonah::INTERNAL_CHANNEL &&
-                Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::EDIT, $channel_id)) {
-                $menu->addArray(array(
-                    'icon' => 'new.png',
-                    'text' => _("_New Story"),
-                    'url' => Horde::url('stories/edit.php')->add('channel_id', (int)$channel_id)
-                ));
-            }
+            $channel = Jonah::getFeed($channel_id);
+            // @todo: The share feeds currently still lack type information.
+            /* if ($channel['channel_type'] == Jonah::INTERNAL_CHANNEL && */
+            /*     Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::EDIT, $channel_id)) { */
+            /*     $menu->addArray(array( */
+            /*         'icon' => 'new.png', */
+            /*         'text' => _("_New Story"), */
+            /*         'url' => Horde::url('stories/edit.php')->add('channel_id', (int)$channel_id) */
+            /*     )); */
+            /* } */
         }
     }
 

@@ -27,8 +27,8 @@ class Jonah_View_StoryList extends Jonah_View_Base
     {
         extract($this->_params, EXTR_REFS);
 
-        $channel = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannel($channel_id);
-        if (!Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::EDIT, $channel_id)) {
+        $channel = Jonah::getFeed($channel_id);
+        if (!$channel->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
             $notification->push(_("You are not authorised for this action."), 'horde.warning');
             $registry->authenticateFailure();
         }
@@ -60,7 +60,7 @@ class Jonah_View_StoryList extends Jonah_View_Base
         }
 
         /* Get channel details, for title, etc. */
-        $allow_delete = Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::DELETE, $channel_id);
+        $allow_delete = $channel->hasPermission($registry->getAuth(), Horde_Perms::DELETE);
 
         /* Build story specific fields. */
         foreach ($stories as $key => $story) {
@@ -103,7 +103,7 @@ class Jonah_View_StoryList extends Jonah_View_Base
         }
 
         /* Render page */
-        $title = $channel['channel_name'];
+        $title = $channel->get('name');
         $view = new Horde_View(array('templatePath' => JONAH_TEMPLATES . '/stories'));
         $view->stories = $stories;
         $view->read = true;

@@ -34,7 +34,7 @@ class Jonah_View_StoryEdit extends Jonah_View_Base
         /* Fetch the channel details, needed for later and to check if valid
          * channel has been requested. */
         try {
-            $channel = $driver->getChannel($channel_id);
+            $channel = Jonah::getFeed($channel_id);
         } catch (Exception $e) {
             $notification->push(sprintf(_("Story editing failed: %s"), $e->getMessage()), 'horde.error');
             Horde::url('channels/index.php', true)->redirect();
@@ -42,7 +42,7 @@ class Jonah_View_StoryEdit extends Jonah_View_Base
         }
 
         /* Check permissions. */
-        if (!Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::EDIT, $channel_id)) {
+        if (!$channel->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
             $notification->push(_("You are not authorised for this action."), 'horde.warning');
             $registry->authenticateFailure();
         }
