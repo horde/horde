@@ -38,6 +38,11 @@ To function properly, IMP **requires** the following:
 
 2. The following PHP capabilities:
 
+   .. Important:: Certain features in IMP 5 will not work with the suhosin
+                  **extension** (e.g. search mailboxes). You must disable the
+                  suhosin extension to use these features. It is reported that
+                  IMP 5 does work the suhosin **patch**.
+
    a. File Upload Support
 
       File upload support is **required** to allow attachments in mail
