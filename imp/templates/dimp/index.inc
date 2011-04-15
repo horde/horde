@@ -287,7 +287,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 </div>
 
 <div class="context" id="ctx_folder_flag" style="display:none">
- <a id="ctx_folder_seen"><span class="iconImg"></span><?php echo _("Read") ?></a>
+ <a id="ctx_folder_seen"><span class="iconImg"></span><?php echo _("Seen") ?></a>
  <a id="ctx_folder_unseen"><span class="iconImg"></span><?php echo _("Unseen") ?></a>
 </div>
 
