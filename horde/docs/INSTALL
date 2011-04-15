@@ -63,23 +63,23 @@ detailed instructions, start reading below at Prerequisites_.
 
      pear install horde/horde
 
-5. Configure Horde::
+6. Configure Horde::
 
      cd config/
      cp conf.php.dist conf.php
 
-6. Finish configuration::
+7. Finish configuration::
 
      http://your-server/horde/
 
    Go to Administration => Configuration => Horde
    (Or navigate to http://your-server/horde/admin/config)
 
-7. Create database tables
+8. Create database tables
 
    Go to Administration => Configuration. Click ``Update All DB Schemas``.
 
-8. Test Horde (optional)
+9. Test Horde (optional)
 
    Enable the test script in the Horde configuration at the ``General`` in the
    ``PHP Settings`` section, or edit ``horde/config/conf.php`` and set
