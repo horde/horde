@@ -1061,6 +1061,7 @@ $_prefs['nav_expanded'] = array(
 // folder tree view style
 $_prefs['tree_view'] = array(
     'value' => 0,
+    'advanced' => true,
     'type' => 'enum',
     'enum' => array(
         0 => _("Combine all namespaces"),
