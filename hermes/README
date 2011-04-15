@@ -23,7 +23,7 @@ Obtaining Hermes
 
 Further information on Hermes and the latest version can be obtained at
 
-  http://www.horde.org/hermes/
+  http://www.horde.org/apps/hermes
 
 
 Documentation
@@ -74,8 +74,8 @@ estimates on the tickets, allowing Hermes to indicate the ticket's percentage
 complete. The same happens automatically with tasks exported from Nag_ as cost
 objects.
 
-.. _Whups: http://www.horde.org/whups/
-.. _Nag: http://www.horde.org/nag/
+.. _Whups: http://www.horde.org/apps/whups
+.. _Nag: http://www.horde.org/apps/nag
 
 
 Using the OS X Widget
@@ -105,13 +105,13 @@ If you encounter problems with Hermes, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
 The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole. Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users also make occasional
 appearances on IRC, on the channel #horde on the freenode Network
@@ -130,7 +130,7 @@ The Hermes team
 
 
 .. _README: ?f=README.html
-.. _LICENSE: http://www.horde.org/licenses/asl.php
+.. _LICENSE: http://www.horde.org/licenses/apache
 .. _docs/CHANGES: ?f=CHANGES.html
 .. _docs/CREDITS: ?f=CREDITS.html
 .. _INSTALL:

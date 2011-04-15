@@ -34,7 +34,7 @@ To function properly, IMP **requires** the following:
                   prerequisites. Additionally, many of IMP's optional features
                   are configured via the Horde install.
 
-   .. _`Horde Application Framework`: http://www.horde.org/horde/
+   .. _`Horde Application Framework`: http://www.horde.org/apps/horde
 
 2. The following PHP capabilities:
 
@@ -112,7 +112,7 @@ The following items are not required, but are strongly **RECOMMENDED**:
 
    Turba is available from:
 
-      http://www.horde.org/turba/
+      http://www.horde.org/apps/turba
 
    Turba provides the local address book and an LDAP directory search function
    to IMP.
@@ -127,7 +127,7 @@ The following items are not required, but are strongly **RECOMMENDED**:
 
    Ingo is available from:
 
-      http://www.horde.org/ingo/
+      http://www.horde.org/apps/ingo
 
    Ingo provides the mail filtering interfaces to IMP.
 
@@ -141,7 +141,7 @@ The following items are not required, but are strongly **RECOMMENDED**:
 
    Nag is available from:
 
-      http://www.horde.org/nag/
+      http://www.horde.org/apps/nag
 
    If Nag is available on your system, users can easily create new tasks from
    individual email messages.
@@ -156,7 +156,7 @@ The following items are not required, but are strongly **RECOMMENDED**:
 
    Gollem is available from:
 
-      http://www.horde.org/gollem/
+      http://www.horde.org/apps/gollem
 
    Gollem allows a user to attach files from various VFS filesystems to
    outgoing messages in IMP.
@@ -226,7 +226,7 @@ Installing from Release Tarballs
 
 IMP can be obtained from the Horde website and FTP server, at
 
-   http://www.horde.org/imp/
+   http://www.horde.org/apps/imp
 
    ftp://ftp.horde.org/pub/imp/
 
@@ -410,13 +410,13 @@ If you encounter problems with IMP, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
 The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole.  Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users may also be found on IRC,
 on the channel #horde on the Freenode Network (irc.freenode.net).
@@ -424,7 +424,7 @@ on the channel #horde on the Freenode Network (irc.freenode.net).
 Please keep in mind that IMP is free software written by volunteers.  For
 information on reasonable support expectations, please read
 
-  http://www.horde.org/support.php
+  http://www.horde.org/community/support
 
 Thanks for using IMP!
 

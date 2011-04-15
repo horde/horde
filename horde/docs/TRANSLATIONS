@@ -120,9 +120,9 @@ and Brazilian Portuguese (pt_BR).
       Bericht
 
 
-.. _`i18n mailing list`: http://www.horde.org/mail/
+.. _`i18n mailing list`: http://www.horde.org/community/mail
 .. _`Horde's bug system`: http://bugs.horde.org
-.. _FAQ: http://www.horde.org/faq/
+.. _FAQ: http://wiki.horde.org/FAQ
 
 
 Solaris
@@ -214,7 +214,7 @@ For detailed help on a certain command run::
 Additional information about creating translations and fixing problems can be
 found in the `Administrator Guide`_.
 
-.. _i18n mailing list: http://www.horde.org/mail/
+.. _i18n mailing list: http://www.horde.org/community/mail
 
 Prerequisites
 ~~~~~~~~~~~~~
@@ -342,7 +342,7 @@ If you translate directly from a git checkout, this is usually not necessary
 because you work with all branches in the same directory and simply switch
 between them with ``git checkout``.
 
-.. _branches: http://www.horde.org/source/
+.. _branches: http://www.horde.org/development/modules
 
 Updating translations
 ~~~~~~~~~~~~~~~~~~~~~

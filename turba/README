@@ -22,7 +22,7 @@ Obtaining Turba
 
 Further information on Turba and the latest version can be obtained at
 
-  http://www.horde.org/turba/
+  http://www.horde.org/apps/turba
 
 
 Documentation
@@ -53,13 +53,13 @@ If you encounter problems with Turba, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
 The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole.  Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users also make occasional
 appearances on IRC, on the channel #horde on the freenode Network
@@ -78,7 +78,7 @@ The Turba team
 
 
 .. _README: ?f=README.html
-.. _LICENSE: http://www.horde.org/licenses/asl.php
+.. _LICENSE: http://www.horde.org/licenses/apache
 .. _docs/CHANGES: ?f=CHANGES.html
 .. _docs/CREDITS: ?f=CREDITS.html
 .. _INSTALL:

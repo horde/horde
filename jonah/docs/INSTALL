@@ -14,7 +14,7 @@ Obtaining Jonah
 
 Jonah can be obtained from the Horde website and FTP server, at
 
-   http://www.horde.org/jonah/
+   http://www.horde.org/apps/jonah
    ftp://ftp.horde.org/pub/jonah/
 
 Bleeding-edge development versions of Jonah are available via CVS; see
@@ -36,7 +36,7 @@ To function properly, Jonah REQUIRES the following:
      The Horde Framework can be obtained from the Horde website and
      FTP server, at
 
-        http://www.horde.org/horde/
+        http://www.horde.org/apps/horde
         ftp://ftp.horde.org/pub/horde/
 
      Many of Jonah's prerequisites are also Horde prerequisites.
@@ -176,13 +176,13 @@ If you encounter problems with Jonah, help is available!
 The Horde Frequently Asked Questions List (FAQ), available on the Web
 at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
 The Horde Project runs a number of mailing lists, for individual
 applications and for issues relating to the project as a whole.
 Information, archives, and subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users may also be found on IRC,
 on the channel #horde on the Freenode Network (irc.freenode.net).
@@ -190,7 +190,7 @@ on the channel #horde on the Freenode Network (irc.freenode.net).
 Please keep in mind that Jonah is free software written by volunteers.
 For information on reasonable support expectations, please read
 
-  http://www.horde.org/support.php
+  http://www.horde.org/community/support
 
 Thanks for using Jonah!
 

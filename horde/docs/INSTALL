@@ -15,17 +15,18 @@ functionality; it provides a base for other applications and tools for
 developers. When you have installed Horde as described below, you will
 probably want to install some of the available Horde applications, such as
 IMP_ (a webmail client), or Kronolith_ (a calendar). There is a list of Horde
-applications and projects at http://www.horde.org/projects.php.
+applications and projects at http://www.horde.org/apps.
 
 If you are interested in developing applications for Horde, there is developer
 documentation and references available at http://dev.horde.org/, and some
-tutorials and papers on Horde available at http://www.horde.org/papers/.
+tutorials and papers on Horde available at
+http://www.horde.org/community/papers.
 
 For information on the capabilities and features of Horde, see the file
 README_ in the top-level directory of the Horde distribution.
 
-.. _IMP: http://www.horde.org/imp/
-.. _Kronolith: http://www.horde.org/kronolith/
+.. _IMP: http://www.horde.org/apps/imp
+.. _Kronolith: http://www.horde.org/apps/kronolith
 
 
 Quick Install
@@ -506,7 +507,7 @@ Installing from Release Tarballs
 
 The Horde Framework can be obtained from the Horde website and FTP server, at
 
-   http://www.horde.org/horde/
+   http://www.horde.org/apps/horde
 
    ftp://ftp.horde.org/pub/horde/
 
@@ -519,21 +520,20 @@ The FTP directory contains the Horde PHP files which can be unpacked using
 ``tar`` and ``gunzip`` (see `Installing Horde`_, below).
 
 Bleeding-edge development versions of Horde and its applications are available
-via Git; see the file `docs/HACKING`_, or visit the website
-http://www.horde.org/source/, for information on accessing the Horde Git
-repository.
+via Git; visit the website http://www.horde.org/development, for information on
+accessing the Horde Git repository.
 
 You will probably also want one or more Horde applications, since Horde
 doesn't do much by itself; a list of available applications, with links to
 descriptions and downloads, can be found at
 
-   http://www.horde.org/projects.php
+   http://www.horde.org/apps
 
 While previous versions of Horde were numbered to correspond with a particular
 version of the IMP webmail application, that is no longer true as of Horde
 version 2.0. The current version of Horde will work with the current version
 of Horde applications. For more information about which versions are
-compatible see http://www.horde.org/source/versions.php.
+compatible see http://www.horde.org/development/versions.
 
 Horde is written in PHP, and must be installed in a web-accessible directory.
 The precise location of this directory will differ from system to system. If
@@ -804,7 +804,7 @@ Configuring Applications
 
 A list of available Horde applications can be found at
 
-   http://www.horde.org/projects.php
+   http://www.horde.org/apps
 
 Instructions on configuring Horde applications can be found in the ``INSTALL``
 file in the application's ``docs/`` directory.
@@ -850,13 +850,13 @@ If you encounter problems with Horde, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
 The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole. Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users may also be found on IRC,
 on the channel #horde on the Freenode Network (irc.freenode.net).
@@ -864,7 +864,7 @@ on the channel #horde on the Freenode Network (irc.freenode.net).
 Please keep in mind that Horde is free software written by volunteers.
 For information on reasonable support expectations, please read
 
-  http://www.horde.org/support.php
+  http://www.horde.org/community/support
 
 Thanks for using Horde!
 

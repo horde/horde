@@ -24,7 +24,7 @@ Obtaining Passwd
 
 Further information on Passwd and the latest version can be obtained at
 
-  http://www.horde.org/passwd/
+  http://www.horde.org/apps/passwd
 
 
 Documentation
@@ -54,13 +54,13 @@ If you encounter problems with Passwd, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
  
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
 The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole.  Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users also make occasional
 appearances on IRC, on the channel #horde on the freenode Network
@@ -79,7 +79,7 @@ The Sork team
 
 
 .. _README: ?f=README.html
-.. _COPYING: http://www.horde.org/licenses/gpl.php
+.. _COPYING: http://www.horde.org/licenses/gpl
 .. _docs/CHANGES: ?f=CHANGES.html
 .. _docs/CREDITS: ?f=CREDITS.html
 .. _INSTALL:

@@ -35,7 +35,7 @@ To function properly, Hermes **requires** the following:
                   Horde prerequisites. Additionally, many of Hermes's optional
                   features are configured via the Horde install.
 
-   .. _`Horde Application Framework`: http://www.horde.org/horde/
+   .. _`Horde Application Framework`: http://www.horde.org/apps/horde
 
 2. The following PHP capabilities:
 
@@ -58,7 +58,7 @@ To function properly, Hermes **requires** the following:
    clients/listClients API method. Check the `Horde Wiki`_ or ask on the
    `mailing list`_ for details.
 
-.. _Turba: http://www.horde.org/turba/
+.. _Turba: http://www.horde.org/apps/turba
 .. _`Horde Wiki`: http://wiki.horde.org/
 .. _`mailing list`: `Obtaining Support`_
 
@@ -75,8 +75,8 @@ The following items are not required, but are recommended:
    the tickets, allowing Hermes to indicate the ticket's percentage
    complete. Estimation times from Nag will be exported automatically too.
 
-.. _Whups: http://www.horde.org/whups/
-.. _Nag: http://www.horde.org/nag/
+.. _Whups: http://www.horde.org/apps/whups
+.. _Nag: http://www.horde.org/apps/nag
 
 
 Installing Hermes
@@ -123,7 +123,7 @@ Installing from Release Tarballs
 
 Hermes can be obtained from the Horde website and FTP server, at
 
-   http://www.horde.org/hermes/
+   http://www.horde.org/apps/hermes
 
    ftp://ftp.horde.org/pub/hermes/
 
@@ -204,13 +204,13 @@ If you encounter problems with Hermes, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
 The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole. Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users may also be found on IRC,
 on the channel #horde on the Freenode Network (irc.freenode.net).
@@ -218,7 +218,7 @@ on the channel #horde on the Freenode Network (irc.freenode.net).
 Please keep in mind that Hermes is free software written by volunteers.
 For information on reasonable support expectations, please read
 
-  http://www.horde.org/support.php
+  http://www.horde.org/community/support
 
 Thanks for using Hermes!
 
