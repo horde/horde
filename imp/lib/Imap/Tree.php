@@ -28,7 +28,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     const ELT_NAMESPACE = 2;
     const ELT_IS_OPEN = 4;
     const ELT_IS_SUBSCRIBED = 8;
-    const ELT_NOSHOW = 16;
+    // Unused constant: 16
     const ELT_IS_POLLED = 32;
     const ELT_NEED_SORT = 64;
     const ELT_VFOLDER = 128;
@@ -206,23 +206,26 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         /* Add namespace elements. */
-        foreach ($this->_namespaces as $key => $val) {
-            if (($val['type'] != Horde_Imap_Client::NS_PERSONAL) &&
-                $prefs->getValue('tree_view')) {
-                $elt = $this->_makeElt(
-                    ($val['type'] == Horde_Imap_Client::NS_OTHER) ? self::OTHER_KEY : self::SHARED_KEY,
-                    self::ELT_NOSELECT | self::ELT_NAMESPACE | self::ELT_NONIMAP | self::ELT_NOSHOW
-                );
+        if ($prefs->getValue('tree_view')) {
+            foreach ($this->_namespaces as $val) {
+                $type = null;
 
-                foreach ($this->_namespaces as $val2) {
-                    if (($val2['type'] == $val['type']) &&
-                        ($val2['name'] != $val['name'])) {
-                        $elt['a'] &= ~self::ELT_NOSHOW;
-                        break;
-                    }
+                switch ($val['type']) {
+                case Horde_Imap_Client::NS_OTHER:
+                    $type = self::OTHER_KEY;
+                    break;
+
+                case Horde_Imap_Client::NS_SHARED:
+                    $type = self::SHARED_KEY;
+                    break;
                 }
 
-                $this->_insertElt($elt);
+                if (!is_null($type) && !isset($this->_tree[$type])) {
+                    $this->_insertElt($this->_makeElt(
+                        $type,
+                        self::ELT_NOSELECT | self::ELT_NAMESPACE | self::ELT_NONIMAP
+                    ));
+                }
             }
         }
 
@@ -361,18 +364,15 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             }
 
             if ($GLOBALS['prefs']->getValue('tree_view')) {
-                $name = ($ns_info['type'] == Horde_Imap_Client::NS_OTHER)
-                    ? self::OTHER_KEY
-                    : self::SHARED_KEY;
-                if ($elt['c'] == 0) {
-                    $elt['p'] = $name;
-                    ++$elt['c'];
-                } elseif ($this->_tree[$name] && self::ELT_NOSHOW) {
-                    if ($elt['c'] == 1) {
-                        $elt['p'] = $name;
-                    }
-                } else {
-                    ++$elt['c'];
+                /* Don't add namespace element to tree. */
+                if ($this->isNamespace($elt)) {
+                    return false;
+                }
+
+                if ($elt['c'] == 1) {
+                    $elt['p'] = ($ns_info['type'] == Horde_Imap_Client::NS_OTHER)
+                        ? self::OTHER_KEY
+                        : self::SHARED_KEY;
                 }
             }
             break;
@@ -536,7 +536,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     protected function _insertElt($elt)
     {
-        if (isset($this->_tree[$elt['v']])) {
+        if (!$elt || isset($this->_tree[$elt['v']])) {
             return;
         }
 
@@ -796,8 +796,12 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         if ($elt && isset($this->_parent[$elt['v']])) {
             foreach ($this->_parent[$elt['v']] as $val) {
-                if ($this->isSubscribed($this->_tree[$val]) ||
-                    $this->hasChildren($this->_tree[$val])) {
+                if ($this->_showunsub &&
+                    !$this->isContainer($this->_tree[$val]) &&
+                    !$this->isNamespace($this->_tree[$val])) {
+                    return true;
+                } elseif ($this->isSubscribed($this->_tree[$val]) ||
+                          $this->hasChildren($this->_tree[$val])) {
                     return true;
                 }
             }
@@ -1710,13 +1714,6 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $this->_sortLevel($curr->value);
 
             $curr = $this->current();
-            if ($GLOBALS['prefs']->getValue('tree_view') &&
-                $curr->namespace &&
-                !$curr->nonimap &&
-                ($this->_tree[$curr->parent] && self::ELT_NOSHOW)) {
-                $this->next();
-                return;
-            }
         } else {
             /* Else, increment within the current subfolder. */
             ++$this->_currkey;
