@@ -838,9 +838,8 @@ Translations
 Note for international users: Horde uses GNU gettext to provide local
 translations of text displayed by applications; the translations are found in
 the po/ directory.  If a translation is not yet available for your locale (and
-you wish to create one), see the ``horde/po/README`` file, or if you're having
-trouble using a provided translation, please see the
-`horde/docs/TRANSLATIONS`_ file for instructions.
+you wish to create one), or if you're having trouble using a provided
+translation, please see the `horde/docs/TRANSLATIONS`_ file for instructions.
 
 
 Obtaining Support
