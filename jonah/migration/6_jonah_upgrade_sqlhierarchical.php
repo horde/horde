@@ -19,7 +19,7 @@ class JonahUpgradeSqlhierarchical extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $this->addColumn('jonah_shares', 'share_parents','text');
+        $this->addColumn('jonah_shares', 'share_parents', 'text');
     }
 
     /**
