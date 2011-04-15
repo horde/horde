@@ -20,16 +20,6 @@ class Jonah
     const INTERNAL_CHANNEL = 0;
 
     /**
-     * External channel.
-     */
-    const EXTERNAL_CHANNEL = 1;
-
-    /**
-     * Aggregated channel.
-     */
-    const AGGREGATED_CHANNEL = 2;
-
-    /**
      * Composite channel.
      */
     const COMPOSITE_CHANNEL = 3;
