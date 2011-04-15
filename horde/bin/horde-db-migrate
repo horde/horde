@@ -3,7 +3,7 @@
 /**
  * Database migration script.
  *
- * Usage: horde-db-migrate [(application|directory) [(up|down|version) [debug]]]
+ * Usage: horde-db-migrate [--options] [(application|directory) [(up|down|version)]]
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
@@ -30,7 +30,7 @@ Horde_Registry::appInit('horde', array(
 // Parse command line arguments.
 $parser = new Horde_Argv_Parser(
     array(
-        'usage' => '%prog [(application|directory) [(up|down|version) [debug]]]',
+        'usage' => '%prog [--options] [(application|directory) [(up|down|version)]]',
         'optionList' => array(
             new Horde_Argv_Option(
                 '-c',
