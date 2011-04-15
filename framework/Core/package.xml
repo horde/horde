@@ -23,7 +23,7 @@
   <active>yes</active>
  </developer>
  <date>2011-04-14</date>
- <time>23:40:28</time>
+ <time>23:48:47</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mms] Don&apos;t setup notification handlers in applications that are not yet authenticated (Bug #9733).
 * [mms] Allow Horde_Menu to accept string url values (Bug #9917).
 * [mjr] Correctly sanitize DSN when using custom cyrus auth driver (Bug #9879).
 * [mms] Reinitialize language after loading prefs before authentication (Bug #9822).
