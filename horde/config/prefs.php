@@ -432,13 +432,11 @@ $_prefs['time_format'] = array(
     'value' => '%X',
     'type' => 'enum',
     'enum' => array(
-        '%X' => strftime('%X'),
-        '%H:%M:%S' => strftime('%H:%M:%S'),
-        '%I:%M:%S %p' => strftime('%I:%M:%S %p'),
+        '%X' => strftime('%X') . ' (' . _("Default") . ')',
+        '%H:%M:%S' => strftime('%H:%M:%S') . ' (' . _("24-hour format") . ')',
         '%l:%M:%S %p' => strftime('%l:%M:%S %p'),
-        '%H:%M' => strftime('%H:%M'),
-        '%I:%M%p' => strftime('%I:%M%p'),
-        '%l:%M%p' => strftime('%l:%M%p'),
+        '%R' => strftime('%R') . ' (' . _("24-hour format") . ')',
+        '%l:%M %p' => strftime('%l:%M %p'),
     ),
     'desc' => _("Choose how to display times:")
 );
