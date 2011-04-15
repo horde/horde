@@ -1265,6 +1265,7 @@ div.GrowlerNoticeExit:hover {
 }
 .horde-message {
     background-color: #369;
+    border-color: #123;
 }
 .horde-alarm {
     background-color: orange;
