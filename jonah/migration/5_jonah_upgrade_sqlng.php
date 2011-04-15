@@ -19,7 +19,7 @@ class JonahUpgradeSqlng extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $t = $this->createTable('jonah_sharesng', array('primaryKey' => 'share_id'));
+        $t = $this->createTable('jonah_sharesng', array('autoincrementKey' => 'share_id'));
         $t->column('share_name', 'string', array('limit' => 255, 'null' => false));
         $t->column('share_owner', 'string', array('limit' => 255));
         $t->column('share_flags', 'integer', array('default' => 0, 'null' => false));
@@ -64,7 +64,7 @@ class JonahUpgradeSqlng extends Horde_Db_Migration_Base
         $this->addIndex('jonah_sharesng', array('perm_guest_' . Horde_Perms::EDIT));
         $this->addIndex('jonah_sharesng', array('perm_guest_' . Horde_Perms::DELETE));
 
-        $t = $this->createTable('jonah_sharesng_groups', array('primaryKey' => false));
+        $t = $this->createTable('jonah_sharesng_groups', array('autoincrementKey' => false));
         $t->column('share_id', 'integer', array('null' => false));
         $t->column('group_uid', 'string', array('limit' => 255, 'null' => false));
         $t->column('perm_' . Horde_Perms::SHOW, 'boolean', array('default' => false, 'null' => false));
@@ -80,7 +80,7 @@ class JonahUpgradeSqlng extends Horde_Db_Migration_Base
         $this->addIndex('jonah_sharesng_groups', array('perm_' . Horde_Perms::EDIT));
         $this->addIndex('jonah_sharesng_groups', array('perm_' . Horde_Perms::DELETE));
 
-        $t = $this->createTable('jonah_sharesng_users', array('primaryKey' => false));
+        $t = $this->createTable('jonah_sharesng_users', array('autoincrementKey' => false));
         $t->column('share_id', 'integer', array('null' => false));
         $t->column('user_uid', 'string', array('limit' => 255, 'null' => false));
         $t->column('perm_' . Horde_Perms::SHOW, 'boolean', array('default' => false, 'null' => false));
