@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-04-12</date>
- <time>11:46:40</time>
+ <date>2011-04-14</date>
+ <time>23:40:28</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mms] Allow Horde_Menu to accept string url values (Bug #9917).
 * [mjr] Correctly sanitize DSN when using custom cyrus auth driver (Bug #9879).
 * [mms] Reinitialize language after loading prefs before authentication (Bug #9822).
 * [cjh] Fix cyrsql configuration, rename cyrus host and port parameters to not clash with Horde_Db parameters (Bug #9864).
@@ -1390,7 +1391,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-12</date>
+   <date>2011-04-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 *
