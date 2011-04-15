@@ -32,9 +32,9 @@ Quick Install
 =============
 
 These are very terse instructions how to install Horde and its prerequisites
-on a LAMP sytem.  They are addressed to experienced administrators who know
-exactly what they are doing.  For more detailed instructions, start reading
-below at Prerequisites_.
+on a LAMP_ (Linux, Apache, MySQL, PHP) sytem.  They are addressed to
+experienced administrators who know exactly what they are doing.  For more
+detailed instructions, start reading below at Prerequisites_.
 
 1. Compiling PHP for Apache 2::
 
@@ -89,6 +89,8 @@ below at Prerequisites_.
      http://your-server/horde/test.php
 
    .. Important:: Disable the test script again after you are done.
+
+.. _LAMP: http://www.wikipedia.org/wiki/LAMP_(software_bundle)
 
 
 Prerequisites
