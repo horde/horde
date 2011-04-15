@@ -51,6 +51,17 @@ To function properly, IMP **requires** the following:
       `horde/docs/INSTALL`_ for instructions on how to enable file upload
       support.
 
+   b. OpenSSL support ``--with-openssl``
+
+      The OpenSSL PHP extension is used by IMP to provide S/MIME support.
+      Without the extension, all S/MIME options will be disabled.
+
+      Additionally, the OpenSSL PHP extension is REQUIRED if using TLS or SSL
+      to connect to the IMAP/POP3 server.
+
+      See http://www.php.net/openssl for information on compiling OpenSSL
+      into PHP.
+
 3. The following PEAR modules:
    (See `horde/docs/INSTALL`_ for instructions on installing PEAR modules)
 
@@ -171,9 +182,9 @@ The following items are not required, but are strongly **RECOMMENDED**:
 
       AcceptPathInfo On
 
-   If the webserver does not provide PATH_INFO information, IMP attempts to
-   create the information using other server variables, but this process is
-   slower and less reliable.
+   Lighttpd servers require::
+
+     "broken-scriptfilename" => "enable"
 
 6. A configured VFS backend.
 
