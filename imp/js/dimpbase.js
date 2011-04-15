@@ -2604,22 +2604,26 @@ var DimpBase = {
             return;
         }
 
-        var f = r.flag,
-            sb = f.uids
-                ? this.viewport.createSelection('uid', DimpCore.parseRangeString(f.uids)[f.mbox], f.mbox)
-                : this.viewport.createSelectionBuffer();
+        var sb = this.viewport.createSelectionBuffer();
 
-        if (f.add) {
-            f.add.each(function(f) {
-                this.updateFlag(sb, f, true);
-            }, this);
-        }
+        $H(DimpCore.parseRangeString(r.flag.uids)).each(function(m) {
+            var s = sb.search({
+                imapuid: { equal: m.value },
+                view: { equal: m.key }
+            });
 
-        if (f.remove) {
-            f.remove.each(function(f) {
-                this.updateFlag(sb, f, false);
-            }, this);
-        }
+            if (r.flag.add) {
+                r.flag.add.each(function(f) {
+                    this.updateFlag(s, f, true);
+                }, this);
+            }
+
+            if (r.flag.remove) {
+                r.flag.remove.each(function(f) {
+                    this.updateFlag(s, f, false);
+                }, this);
+            }
+        }, this);
     },
 
     _folderLoadCallback: function(r, callback)
@@ -3136,18 +3140,17 @@ var DimpBase = {
             this._updateFlag(ob, flag, add);
 
             if (this.isSearch()) {
-                if (s[ob.view]) {
-                    s[ob.view].push(ob.imapuid);
-                } else {
-                    s[ob.view] = [ ob.imapuid ];
+                if (!s[ob.view]) {
+                    s[ob.view] = [];
                 }
+                s[ob.view].push(ob.imapuid);
             }
         }, this);
 
         /* If this is a search mailbox, also need to update flag in base view,
          * if it is in the buffer. */
         $H(s).each(function(m) {
-            var tmp = this.viewport.getSelection(m.key).search({ imapuid: { equal: m.value }, view: { equal: m.key } });
+            var tmp = this.viewport.createSelectionBuffer(m.key).search({ imapuid: { equal: m.value }, view: { equal: m.key } });
             if (tmp.size()) {
                 this._updateFlag(tmp.get('dataob').first(), flag, add);
             }

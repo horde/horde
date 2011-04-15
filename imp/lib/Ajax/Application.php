@@ -267,34 +267,34 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Flag all messages in a mailbox.
      *
      * Variables used:
-     * <pre>
-     * 'add' - (integer) Add the flags?
-     * 'flags' - (string) The IMAP flags to add/remove (JSON serialized
-     *           array).
-     * 'mbox' - (string) The full malbox name.
-     * </pre>
+     *   - add: (integer) Add the flags?
+     *   - flags: (string) The IMAP flags to add/remove (JSON serialized
+     *            array).
+     *   - mbox: (string) The full mailbox name.
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
-     * <pre>
-     * 'flag' - (object) See flagEntry().
-     * 'poll' - (array) See pollEntry().
-     * </pre>
+     *   - flag: (object) See flagEntry().
+     *   - poll: (array) See pollEntry().
      */
     public function flagAll()
     {
         $flags = Horde_Serialize::unserialize($this->_vars->flags, Horde_Serialize::JSON);
-        if (!$this->_vars->mbox ||
-            empty($flags) ||
-            !$GLOBALS['injector']->getInstance('IMP_Message')->flagAllInMailbox($flags, array($this->_vars->mbox), $this->_vars->add)) {
+        if (!$this->_vars->mbox || empty($flags)) {
             return false;
         }
 
-        $result = new stdClass;
+        /* Grab list of UIDs before flagging, to make sure we correctly
+         * determine the exact subset that has been flagged. */
+        $mailbox_list = IMP_Mailbox::get($this->_vars->mbox)->getListOb()->getIndicesOb();
+        if (!$GLOBALS['injector']->getInstance('IMP_Message')->flagAllInMailbox($flags, array($this->_vars->mbox), $this->_vars->add)) {
+            return false;
+        }
 
         /* Get list of flags that were also affected by this flag
          * change. */
-        $result->flag = $this->flagEntry($flags, $this->_vars->add, $this->_vars->mbox);
+        $result = new stdClass;
+        $result->flag = $this->flagEntry($flags, $this->_vars->add, $mailbox_list);
 
         $this->_poll[] = $this->_vars->mbox;
 
@@ -1801,28 +1801,25 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     /**
      * Generate flag updated entry.
      *
-     * @param array $flags    List of flags that have changed.
-     * @param boolean $add    Were the flags added?
-     * @param mixed $indices  Either a mailbox string or an IMP_Indices
-     *                        object.
+     * @param array $flags          List of flags that have changed.
+     * @param boolean $add          Were the flags added?
+     * @param IMP_Indices $indices  Indices object.
      *
      * @return stdClass  Object with these properties:
-     * <pre>
-     * 'add' - (array) The list of flags that were added.
-     * 'mbox' - (string) The full mailbox name.
-     * 'remove' - (array) The list of flags that were removed.
-     * 'uids' - (string) Indices of the messages that have changed (IMAP
-     *          sequence string); if empty, all messages in mailbox have
-     *          changed.
-     * </pre>
+     *   - add: (array) The list of flags that were added.
+     *   - remove: (array) The list of flags that were removed.
+     *   - uids: (string) Indices of the messages that have changed (IMAP
+     *           sequence string).
      */
     static public function flagEntry($flags, $add, $indices)
     {
-        if ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3) {
+        global $injector;
+
+        if ($injector->getInstance('IMP_Factory_Imap')->create()->pop3) {
             return new stdClass;
         }
 
-        $changed = $GLOBALS['injector']->getInstance('IMP_Flags')->changed($flags, $add);
+        $changed = $injector->getInstance('IMP_Flags')->changed($flags, $add);
 
         $result = new stdClass;
         if (!empty($changed['add'])) {
@@ -1831,14 +1828,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         if (!empty($changed['remove'])) {
             $result->remove = array_map('strval', $changed['remove']);
         }
-
-        if ($indices instanceof IMP_Indices) {
-            list($mbox,) = $indices->getSingle();
-            $result->mbox = strval($mbox);
-            $result->uids = strval($indices);
-        } else {
-            $result->mbox = $indices;
-        }
+        $result->uids = strval($indices);
 
         return $result;
     }

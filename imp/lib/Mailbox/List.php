@@ -621,6 +621,28 @@ class IMP_Mailbox_List implements Countable, Serializable
     }
 
     /**
+     * Generate an IMP_Indices object out of the contents of this mailbox.
+     *
+     * @return IMP_Indices  An indices object.
+     */
+    public function getIndicesOb()
+    {
+        $this->_buildMailbox();
+        $ob = new IMP_Indices();
+
+        if ($this->_mailbox->search) {
+            reset($this->_sorted);
+            while (list($k, $v) = each($this->_sorted)) {
+                $ob->add($this->_sortedMbox[$k], $v);
+            }
+        } else {
+            $ob->add($this->_mailbox, $this->_sorted);
+        }
+
+        return $ob;
+    }
+
+    /**
      * Returns the current sorted array without the given messages.
      *
      * @param mixed $indices  An IMP_Indices object or true to remove all

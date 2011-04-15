@@ -2,6 +2,7 @@
 v5.0.1-git
 ----------
 
+[mms] Fix flagging messages in search mailboxes in dynamic view.
 [mms] Don't attempt to poll non-IMAP mailboxes (Bug #9896).
 [mms] Fix deleting attachments from compose message in dynamic view (Bug
       #9899).
