@@ -507,40 +507,26 @@ class IMP_Prefs_Ui
             $notification->push(_("You have activated move to Trash but no Trash folder is defined. You will be unable to delete messages until you set a Trash folder in the preferences."), 'horde.warning');
         }
 
-        switch ($ui->group) {
-        case 'compose':
-            if ($prefs->isDirty('mail_domain')) {
-                $maildomain = preg_replace('/[^-\.a-z0-9]/i', '', $prefs->getValue('mail_domain'));
-                $prefs->setValue('maildomain', $maildomain);
-                if (!empty($maildomain)) {
-                    $session->set('imp', 'maildomain', $maildomain);
-                }
+        if ($prefs->isDirty('mail_domain')) {
+            $maildomain = preg_replace('/[^-\.a-z0-9]/i', '', $prefs->getValue('mail_domain'));
+            $prefs->setValue('maildomain', $maildomain);
+            if (!empty($maildomain)) {
+                $session->set('imp', 'maildomain', $maildomain);
             }
-            break;
+        }
 
-        case 'dimp':
-            if ($prefs->isDirty('dynamic_view')) {
-                $session->set(
-                    'imp',
-                    'view',
-                    ($prefs->getValue('dynamic_view') && $session->get('horde', 'mode') != 'traditional')
-                        ? 'dimp'
-                        : ($browser->isMobile() ? 'mimp' : 'imp')
-                );
-            }
-            break;
+        if ($prefs->isDirty('dynamic_view')) {
+            $session->set(
+                'imp',
+                'view',
+                ($prefs->getValue('dynamic_view') && $session->get('horde', 'mode') != 'traditional')
+                    ? 'dimp'
+                    : ($browser->isMobile() ? 'mimp' : 'imp')
+            );
+        }
 
-        case 'display':
-            if ($prefs->isDirty('tree_view')) {
-                $registry->getApiInstance('imp', 'application')->mailboxesChanged();
-            }
-            break;
-
-        case 'server':
-            if ($prefs->isDirty('subscribe')) {
-                $registry->getApiInstance('imp', 'application')->mailboxesChanged();
-            }
-            break;
+        if ($prefs->isDirty('subscribe') || $prefs->isDirty('tree_view')) {
+            $registry->getApiInstance('imp', 'application')->mailboxesChanged();
         }
     }
 
