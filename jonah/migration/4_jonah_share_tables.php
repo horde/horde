@@ -22,7 +22,7 @@ class JonahShareTables extends Horde_Db_Migration_Base
         $tableList = $this->tables();
 
         if (!in_array('jonah_shares', $tableList)) {
-            $t = $this->createTable('jonah_shares', array('primaryKey' => 'share_id'));
+            $t = $this->createTable('jonah_shares', array('autoincrementKey' => 'share_id'));
             $t->column('share_name', 'string', array('limit' => 255, 'null' => false));
             $t->column('share_owner', 'string', array('limit' => 255, 'null' => false));
             $t->column('share_flags', 'integer', array('default' => 0, 'null' => false));
@@ -113,6 +113,34 @@ class JonahShareTables extends Horde_Db_Migration_Base
      */
     public function down()
     {
-    //forward only
+        $tableList = $this->tables();
+        if (in_array('jonah_shares', $tableList)) {
+            $this->dropTable('jonah_shares');
+        }
+        if (in_array('jonah_shares_users', $tableList)) {
+            $this->dropTable('jonah_shares_users');
+        }
+        if (in_array('jonah_shares_groups', $tableList)) {
+            $this->dropTable('jonah_shares_groups');
+        }
+
+        $t = $this->createTable('jonah_channels', array('autoincrementKey' => false));
+        $t->column('channel_id', 'integer', array('null' => false));
+        $t->column('channel_slug', 'string', array('limit' => 64, 'null' => false));
+        $t->column('channel_name', 'string', array('limit' => 255, 'null' => false));
+        $t->column('channel_type', 'integer');
+        $t->column('channel_full_feed', 'integer', array('null' => false, 'default' => 0));
+        $t->column('channel_desc', 'string', array('limit' => 255));
+        $t->column('channel_interval', 'integer');
+        $t->column('channel_url', 'string', array('limit' => 255));
+        $t->column('channel_link', 'string', array('limit' => 255));
+        $t->column('channel_page_link', 'string', array('limit' => 255));
+        $t->column('channel_story_url', 'string', array('limit' => 255));
+        $t->column('channel_img', 'string', array('limit' => 255));
+        $t->column('channel_updated', 'integer');
+        $t->primaryKey(array('channel_id'));
+        $t->end();
+
+        //@todo convert data from shares.
     }
 }
