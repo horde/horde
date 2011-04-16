@@ -896,7 +896,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
      * Saves an event and returns a signed result object including the saved
      * event.
      *
-     * @param Kronlith_Event $event      An event object.
+     * @param Kronolith_Event $event     An event object.
      * @param Kronolith_Event $original  If $event is an exception, this should
      *                                   be set to the original event.
      * @param array $attributes          The attributes sent by the client.
@@ -904,7 +904,9 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @return object  The result object.
      */
-    protected function _saveEvent(Kronolith_Event $event, Kronolith_Event $original = null, array $attributes = array())
+    protected function _saveEvent(Kronolith_Event $event,
+                                  Kronolith_Event $original = null,
+                                  array $attributes = array())
     {
         if ($this->_vars->targetcalendar) {
             $cal = $this->_vars->targetcalendar;
@@ -924,12 +926,16 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $end->hour = 23;
             $end->min = $end->sec = 59;
             Kronolith::addEvents($events, $event,
-                    new Horde_Date($this->_vars->view_start), $end, true, true);
-           // If this is an exception, we re-add the original event as well
-           // cstart and cend are the cacheStart and cacheEnd dates from the client.
+                                 new Horde_Date($this->_vars->view_start),
+                                 $end, true, true);
+            /* If this is an exception, we re-add the original event as well
+             * cstart and cend are the cacheStart and cacheEnd dates from the
+             * client. */
             if (!empty($original)) {
                 Kronolith::addEvents($events, $original,
-                    new Horde_Date($attributes->cstart), new Horde_Date($attributes->cend), true, true);
+                                     new Horde_Date($attributes->cstart),
+                                     new Horde_Date($attributes->cend),
+                                     true, true);
             }
             $result->events = count($events) ? $events : array();
         } catch (Exception $e) {
