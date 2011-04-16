@@ -105,13 +105,13 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
 
         if (!strlen($script)) {
             Ingo_Exception_Pear::catchError($this->_sieve->setActive(''));
-            $this->_uploadAdditional($addtional);
+            $this->_uploadAdditional($additional);
             return;
         }
 
         Ingo_Exception_Pear::catchError($this->_sieve->haveSpace($this->_params['scriptname'], strlen($script)));
         Ingo_Exception_Pear::catchError($this->_sieve->installScript($this->_params['scriptname'], $script, true));
-        $this->_uploadAdditional($addtional);
+        $this->_uploadAdditional($additional);
     }
 
     /**
