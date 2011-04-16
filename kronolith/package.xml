@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mjr] Fix drag/drop editing of recurring events (Bug #9880).
 * [jan] Fix undefined function on Windows (Bug #9916).
 * [jan] Support adding and editing of CalDAV events in dynamic view (Bug #9865).
 * [jan] Remove debug code in Ajax library (Bug #9818).
