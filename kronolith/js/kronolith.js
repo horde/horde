@@ -4701,6 +4701,9 @@ KronolithCore = {
         this.updateTimeFields(field.identify());
     },
 
+    /**
+     * Handles moving an event to a different day in month view.
+     */
     onDrop: function(e)
     {
         var drop = e.element(),
@@ -4718,10 +4721,24 @@ KronolithCore = {
             viewDates = this.viewDates(this.date, this.view),
             start = viewDates[0].toString('yyyyMMdd'),
             end = viewDates[1].toString('yyyyMMdd'),
-            sig = start + end + (Math.random() + '').slice(2);
+            sig = start + end + (Math.random() + '').slice(2),
+            events = this.getCacheForDate(lastDate.toString('yyyyMMdd'), cal),
+            attributes = $H({ offDays: diff });
+
+        var event;
+        events.each(function(e) {
+            if (e.key == eventid) {
+                event = e.value;
+            }
+        });
 
         drop.insert(el);
         this.startLoading(cal, sig);
+        if (event.r) {
+            attributes.set('rday', lastDate);
+            attributes.set('cstart', this.cacheStart);
+            attributes.set('cend', this.cacheEnd);
+        }
         this.doAction('updateEvent',
                       {
                           cal: cal,
@@ -4730,7 +4747,7 @@ KronolithCore = {
                           sig: sig,
                           view_start: start,
                           view_end: end,
-                          att: Object.toJSON($H({ offDays: diff }))
+                          att: Object.toJSON(attributes)
                       },
                       function(r) {
                           // Check if this is the still the result of the most
@@ -4878,6 +4895,12 @@ KronolithCore = {
             attributes = $H({ start: event.value.start,
                               end: event.value.end });
             element = div;
+        }
+        if (event.value.r) {
+            attributes.set('rstart', event.value.s);
+            attributes.set('rend', event.value.e);
+            attributes.set('cstart', this.cacheStart);
+            attributes.set('cend', this.cacheEnd);
         }
 
         element.retrieve('drags').invoke('destroy');
