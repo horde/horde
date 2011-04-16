@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [mjr] Fix saving/activating Timsieved scripts (jcblanco@fi.upm.es Bug #9924).
-* [mms] Fix imap filtering using envelope data (Bug #9859).
+* [mms] Fix IMAP filtering using envelope data (Bug #9859).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
