@@ -2,6 +2,7 @@
 v2.0.1-git
 ----------
 
+[mjr] Fix saving/activating Timsieved scripts (jcblanco@fi.upm.es Bug #9924).
 [mms] Fix imap filtering using envelope data (Bug #9859).
 
 
