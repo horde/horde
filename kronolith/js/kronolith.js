@@ -4723,14 +4723,8 @@ KronolithCore = {
             end = viewDates[1].toString('yyyyMMdd'),
             sig = start + end + (Math.random() + '').slice(2),
             events = this.getCacheForDate(lastDate.toString('yyyyMMdd'), cal),
-            attributes = $H({ offDays: diff });
-
-        var event;
-        events.each(function(e) {
-            if (e.key == eventid) {
-                event = e.value;
-            }
-        });
+            attributes = $H({ offDays: diff }),
+            event = events.find(function(e) { return e.key == eventid; });
 
         drop.insert(el);
         this.startLoading(cal, sig);
