@@ -463,7 +463,7 @@ class Kronolith_Application extends Horde_Registry_Application
                         false,
                         array(
                             'icon' => $alarmImg,
-                            'url' => $event->getViewUrl()
+                            'url' => $event->getViewUrl(array(), false, false)
                         )
                     );
                 }
