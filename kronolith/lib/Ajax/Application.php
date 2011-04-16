@@ -229,14 +229,6 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
 
         foreach ($attributes as $attribute => $value) {
             switch ($attribute) {
-            case 'start_date':
-                $start = new Horde_Date($value);
-                $event->start->year = $start->year;
-                $event->start->month = $start->month;
-                $event->start->mday = $start->mday;
-                $event->end = $event->start->add(array('min' => $event->durMin));
-                break;
-
             case 'start':
                 $event->start = new Horde_Date($value);
                 break;
