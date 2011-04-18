@@ -1,0 +1,102 @@
+What is Horde Groupware Webmail Edition?
+========================================
+
+:Last update:   $Date: 2007/11/26 17:50:42 $
+:Revision:      $Revision: 1.2 $
+:Contact:       horde@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
+
+Horde Groupware Webmail Edition is a free, enterprise ready, browser based
+communication suite. Users can read, send and organize email messages and
+manage and share calendars, contacts, tasks and notes with the standards
+compliant components from the `Horde Project`_. Horde Groupware Webmail
+Edition bundles the separately available applications IMP, DIMP, MIMP, Ingo,
+Kronolith, Turba, Nag and Mnemo.
+
+It can be extended with any of the released `Horde applications`_ or the
+`Horde modules`_ that are still in development, like a file manager, a
+bookmark manager, a forum or a wiki.
+
+This software is OSI Certified Open Source Software.  OSI Certified is a
+certification mark of the `Open Source Initiative`_.
+
+.. _`Horde Project`: http://www.horde.org/
+.. _`Horde applications`: http://www.horde.org/projects.php
+.. _`Horde modules`: http://www.horde.org/source/modules.php
+.. _`Open Source Initiative`: http://www.opensource.org/
+
+
+Obtaining Horde Groupware Webmail Edition
+-----------------------------------------
+
+Further information on Horde Groupware Webmail Edition and the latest version
+can be obtained at
+
+  http://www.horde.org/webmail/
+
+
+Documentation
+-------------
+
+The following documentation is available in the Horde Groupware Webmail
+Edition distribution:
+
+:README_:            This file
+:`docs/CHANGES`_:    Changes by release
+:`docs/INSTALL`_:    Installation instructions and notes
+:`docs/UPGRADING`_:  Pointers on upgrading from previous Horde Groupware
+                     Webmail Edition versions
+
+
+Installation
+------------
+
+Instructions for installing Horde Groupware Webmail Edition can be found in
+the file INSTALL_ in the ``docs/`` directory of the Horde Groupware Webmail
+Edition distribution.
+
+
+Assistance
+----------
+
+If you encounter problems with Horde Groupware Webmail Edition, help is
+available!
+
+The Horde Frequently Asked Questions List (FAQ), available on the Web at
+
+  http://www.horde.org/faq/
+
+The Horde Project runs a number of mailing lists, for individual applications
+and for issues relating to the project as a whole.  Information, archives, and
+subscription information can be found at
+
+  http://www.horde.org/mail/
+
+There is no separate mailing list for Horde Groupware Webmail Edition, please
+contact the mailing list of the component you have problems with, or the Horde
+mailing list for general problems and questions.
+
+Lastly, Horde developers, contributors and users also make occasional
+appearances on IRC, on the channel #horde on the freenode Network
+(irc.freenode.net).
+
+
+Licensing
+---------
+
+For licensing and copyright information, please see the file COPYING in the
+Horde Groupware Webmail Edition distribution and the COPYING and LICENSE files
+in the `kronolith`, `turba`, `nag` and `mnemo` subdirectories.
+
+Thanks,
+
+The Horde Groupware Webmail Edition team
+
+
+.. _README: ?f=README.html
+.. _docs/CHANGES: ?f=CHANGES.html
+.. _INSTALL:
+.. _docs/INSTALL: ?f=INSTALL.html
+.. _docs/UPGRADING: ?f=UPGRADING.html

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>horde-webmail</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Groupware Webmail Edition</summary>
+ <description>Horde Groupware Webmail Edition is a free, enterprise ready, browser based communication suite. Users can read, send and organize email messages with three different webmail interfaces and manage and share calendars, contacts, tasks and notes with the standards compliant components from the Horde Project.</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-02-24</date>
+ <time>11:54:55</time>
+ <version>
+  <release>2.0.0RC1</release>
+  <api>2.0.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/">OSI certified</license>
+ <notes>
+* First release candidate of Horde Groupware Webmail Edition 2.0.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="docs">
+    <file baseinstalldir="/" name="CHANGES" role="data" />
+    <file baseinstalldir="/" name="INSTALL" role="data" />
+    <file baseinstalldir="/" name="PERFORMANCE" role="data" />
+    <file baseinstalldir="/" name="README" role="data" />
+    <file baseinstalldir="/" name="RELEASE_NOTES" role="data" />
+    <file baseinstalldir="/" name="UPGRADING" role="data" />
+   </dir> <!-- //docs -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>horde</name>
+    <channel>pear.horde.org</channel>
+    <min>4.0.0</min>
+    <max>5.0.0</max>
+    <exclude>5.0.0</exclude>
+   </package>
+   <package>
+    <name>imp</name>
+    <channel>pear.horde.org</channel>
+    <min>5.0.0</min>
+    <max>6.0.0</max>
+    <exclude>6.0.0</exclude>
+   </package>
+   <package>
+    <name>ingo</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0</max>
+    <exclude>3.0.0</exclude>
+   </package>
+   <package>
+    <name>kronolith</name>
+    <channel>pear.horde.org</channel>
+    <min>3.0.0</min>
+    <max>4.0.0</max>
+    <exclude>4.0.0</exclude>
+   </package>
+   <package>
+    <name>mnemo</name>
+    <channel>pear.horde.org</channel>
+    <min>3.0.0</min>
+    <max>4.0.0</max>
+    <exclude>4.0.0</exclude>
+   </package>
+   <package>
+    <name>nag</name>
+    <channel>pear.horde.org</channel>
+    <min>3.0.0</min>
+    <max>4.0.0</max>
+    <exclude>4.0.0</exclude>
+   </package>
+   <package>
+    <name>turba</name>
+    <channel>pear.horde.org</channel>
+    <min>3.0.0</min>
+    <max>4.0.0</max>
+    <exclude>4.0.0</exclude>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="docs/CHANGES" name="docs/CHANGES" />
+   <install as="docs/INSTALL" name="docs/INSTALL" />
+   <install as="docs/PERFORMANCE" name="docs/PERFORMANCE" />
+   <install as="docs/README" name="docs/README" />
+   <install as="docs/RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="docs/UPGRADING" name="docs/UPGRADING" />
+  </filelist>
+ </phprelease>
+ <changelog>
+ </changelog>
+</package>

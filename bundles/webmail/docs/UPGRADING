@@ -1,0 +1,220 @@
+===========================================
+ Upgrading Horde Groupware Webmail Edition
+===========================================
+
+:Last update:   $Date: 2009/05/22 11:32:43 $
+:Revision:      $Revision: 1.11.2.1 $
+:Contact:       horde@lists.horde.org
+
+
+These are instructions to upgrade from earlier Horde Groupware Webmail Edition
+versions.  Please backup your existing data before running any of the steps
+described below, you need the backups in case anything goes wrong with the
+upgrade process, which cannot be reverted automatically. You can't use the
+updated data with your old Horde Groupware Webmail Edition version anymore.
+
+Please see below for changes between certain Horde Groupware versions that are
+not covered by the update script.
+
+The update script will automatically migrate database backends and update
+configuration files. It will add new and changed configurations at the end of
+existing configuration files, any changes done to old configuration files
+won't get lost, but might get overridden by new settings. You might want to
+check the updated configuration files after the update script has finished to
+make sure that any customizations that you did to the old version still work
+as expected.
+
+The ``.dist`` versions of the configuration files alway contain the most
+recent reference settings and the settings documentation. If you experience
+any problems with the configuration files after an update, or if you want
+cleaner configuration files without all the updating code, you can create
+fresh versions from the ``.dist`` files.
+
+These instructions are supposed to be used with a complete tarball of the new
+Horde Groupware Webmail Edition version. They don't work if you use a patch
+file to upgrade your installation, because the patch already contains all
+configuration file changes that the update script is going to add.
+
+1. Extract the tarball of the new version **in parallel** to the old
+   version. See the INSTALL_ file details how to unpack a tarball.
+
+   If you want to replace the old version with the new version eventually, you
+   should move the old version to a different place now and put the new
+   version in the place of the old one. You can still do this later, if you
+   want to, but you have to edit the configuration file then.
+
+2. Start the setup script::
+
+     ./scripts/setup.php
+
+3. Choose the update option in the setup menu and answer the questions from
+   the setup script.
+
+4. Pray.
+
+5. If everything went fine and without any error messages, point your browser
+   to the URL of the new version and log in as an administrator. Go to the
+   ``Administration -> Setup`` screen and update all configurations that are
+   marked as being outdated.
+
+6. If you want to replace the old version with the new one, and if you didn't
+   do this already in step 1, you can do it now. But you have to edit the
+   configuration file ``config/conf.php`` manually and change the setting
+   ``$conf['cookie']['path']`` to match the new URL path. Otherwise you won't
+   be able to login after you moved Horde Groupware Webmail Edition to a
+   different directory.
+
+
+Upgrading Horde Groupware Webmail Edition from 1.1.x to 1.1.1.1
+===============================================================
+
+
+Favourite Recpients Address Book
+--------------------------------
+
+An address book which lists the users' most favourite recipients had been
+added in version 1.1 already but has only been activated with this
+version. But for the address book to properly work, you also have to enable
+sent mail tracking in the configuration.
+
+Log in as an administrator, go to ``Administration -> Setup -> Webmail
+(imp)``, then choose the ``Other Settings`` tab and set the
+``$conf[sentmail][driver]`` setting to ``SQL``.
+
+
+Upgrading Horde Groupware Webmail Edition from 1.0.x to 1.1.x
+=============================================================
+
+
+Memcache Configuration
+----------------------
+
+All memcache configuration has been moved to the $conf['memcache'] parameter.
+
+
+Application Hooks
+-----------------
+
+All hooks that are specific to a single application have been moved to that
+application's ``config/hooks.php`` file. Split up your existing Hooks from
+``horde/config/hooks.php`` and move them to the correct application.
+
+
+Group Hooks
+-----------
+
+The format for group hook functions has changed from
+_group_hook_groupName($username) to _group_hook($groupName,
+$userName).  So you will need to modify any existing group hook
+functions in config/hooks.php for the new interface.
+
+Alternatively, an example _group_hook() function is provided in
+config/hooks.php that will call the old style hook functions for you.
+
+
+Custom Themes
+-------------
+
+Themes no longer have ``info.php`` files. If you have any custom
+themes that provide their own images, you must add a
+``themed_graphics`` file to the theme's directory (for all
+applications the theme provides images for) in order for Horde to know
+to use the custom images. The file can be empty or contain whatever
+you wish; it simply needs to exist.
+
+
+Static Log out Links
+--------------------
+
+If you have hardcoded a log out link in any custom templates or menu
+items, you must update it to use Horde::getServiceLink(). This is
+because logging out is now protected by a token to avoid CSRF
+exploits.
+
+
+Unified IMAP Quota Driver
+-------------------------
+
+Separate quota drivers for Cyrus and Courier servers are no longer
+necessary. These drivers have been replaced by a generic IMAP driver that
+should also be suitable for other IMAP servers that support the QUOTA
+extension. Update ``config/servers.php`` and change the 'quota' => 'driver'
+setting to 'imap'.
+
+
+User-Defined Mailbox Icons
+--------------------------
+
+The usage of the hook ``_imp_hook_mbox_icons()`` has changed.  If you use this
+hook, make sure you change your implementation so it returns the correct
+value.
+
+
+New Message List Format Hook
+----------------------------
+
+The new hook ``_imp_hook_msglist_format()`` has been added which allows the
+formatting of a message entry in the mailbox message list to be altered
+at the time the list is created.  This hook has made the following
+configuration options obsolete::
+
+   $conf['mailbox']['show_attachments']
+   $conf['mailbox']['show_xpriority']
+
+If you wish to continue using the functionality previously provided by these
+options, you should activate the msglist_format hook in ``config/conf.php``.
+The sample hook contained in ``config/hooks.php`` contains the code necessary
+to replicate the previous behavior.
+
+
+Spell Checking
+--------------
+
+The ``pspell`` driver is no longer supported since it does not work with
+HTML messages.  If using pspell, you must upgrade to aspell version 0.60+.
+
+
+Filters SQL Backend
+-------------------
+
+An SQL table has been added than can optionally be used as a storage backend
+for the filter rules. Using this backend no longer limits the number and size
+of rules.
+
+You have to execute the provided PHP script to migrate the existing rules from
+the preferences backend to the new database table::
+
+   php ingo/scripts/upgrades/convert_prefs_to_sql.php < filename
+
+``filename`` is a file that contains a list of users, one username per line.
+The username should be the same as how the preferences are stored in the
+preferences backend (e.g. usernames may have to be in the form
+user@example.com). You can create such a list with the following MySQL
+command::
+
+   mysql --user=root --password=<MySQL-root-password> --skip-column-names --batch --execute='SELECT DISTINCT pref_uid FROM horde_prefs' <db name>
+
+
+IMSP Driver and Share Support
+-----------------------------
+
+Share support has been added to the IMSP driver.  This support requires at
+least a Horde 3.2 install.  With this change, any IMSP address books the user
+has rights to will be represented internally as a Horde share.  Permissions
+changed on the share will be reflected back to the IMSP server.  If you set
+the configuration setting ``Name of source for creating new shares`` to
+``imsp`` then any shares created by the user will result in a new IMSP address
+book being created on the IMSP server.  Likewise, any IMSP address book
+deleted in Turba will be removed from the IMSP server.
+
+To enable this support, make sure you are using at least Horde 3.2, set the
+``use_shares`` attribute to true, and uncomment the IMSP
+``_horde_hook_share_*`` functions in ``horde/config/hooks.php``.
+
+With this change, the ``IMSP Address Book Administration`` option page has
+been removed, as the creation/deletion of address books is now handled with
+shares.
+
+.. Important:: IMSP contacts contained in contact groups that are not from an
+               IMSP source may not be visible within that group when migrating
+               an IMSP source to a share.
