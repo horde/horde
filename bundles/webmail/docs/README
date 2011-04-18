@@ -11,9 +11,9 @@ What is Horde Groupware Webmail Edition?
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages and
 manage and share calendars, contacts, tasks and notes with the standards
-compliant components from the `Horde Project`_. Horde Groupware Webmail
-Edition bundles the separately available applications IMP, DIMP, MIMP, Ingo,
-Kronolith, Turba, Nag and Mnemo.
+compliant components from the `Horde Project`_. Horde Groupware Webmail Edition
+bundles the separately available applications IMP, Ingo, Kronolith, Turba, Nag
+and Mnemo.
 
 It can be extended with any of the released `Horde applications`_ or the
 `Horde modules`_ that are still in development, like a file manager, a
@@ -23,8 +23,8 @@ This software is OSI Certified Open Source Software.  OSI Certified is a
 certification mark of the `Open Source Initiative`_.
 
 .. _`Horde Project`: http://www.horde.org/
-.. _`Horde applications`: http://www.horde.org/projects.php
-.. _`Horde modules`: http://www.horde.org/source/modules.php
+.. _`Horde applications`: http://www.horde.org/apps
+.. _`Horde modules`: http://www.horde.org/development/modules
 .. _`Open Source Initiative`: http://www.opensource.org/
 
 
@@ -34,7 +34,7 @@ Obtaining Horde Groupware Webmail Edition
 Further information on Horde Groupware Webmail Edition and the latest version
 can be obtained at
 
-  http://www.horde.org/webmail/
+  http://www.horde.org/apps/webmail
 
 
 Documentation
@@ -66,13 +66,13 @@ available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
 The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole.  Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 There is no separate mailing list for Horde Groupware Webmail Edition, please
 contact the mailing list of the component you have problems with, or the Horde

@@ -41,9 +41,6 @@ Webserver/PHP tuning
 * Compile PHP with the ``--enable-inline-optimization`` option to generate the
   fastest possible PHP executable.
 
-* Use of the mcrypt PHP extension should significantly increase performance
-  while also increasing security.
-
 * Enable PHP output compression in the Horde configuration. Do not enable
   compression in the PHP configuration (i.e. in ``php.ini``), because certain
   scripts don't work well with compression and Horde Groupware Webmail Edition

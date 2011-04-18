@@ -1,10 +1,8 @@
 ================================================
- Installing Horde Groupware Webmail Edition 1.1
+ Installing Horde Groupware Webmail Edition 2.0
 ================================================
 
-:Last update:   $Date: 2010-09-27 12:34:57 $
-:Revision:      $Revision: 1.13.4.1 $
-:Contact:       horde@lists.horde.org
+:Contact: horde@lists.horde.org
 
 .. contents:: Contents
 .. section-numbering::
@@ -13,28 +11,8 @@ This document contains instructions for installing Horde Groupware Webmail
 Edition on your system.
 
 For information on the capabilities and features of Horde Groupware Webmail
-Edition, see the file README_ in the top-level directory of the Horde
-Groupware Webmail Edition distribution.
-
-
-Obtaining Horde Groupware Webmail Edition
-=========================================
-
-Horde Groupware Webmail Edition can be obtained from the Horde website and FTP
-server, at
-
-   http://www.horde.org/webmail/
-
-   ftp://ftp.horde.org/pub/horde-webmail/
-
-Or, better yet, use a mirror that is closer to you.  The mirror list can be
-found at:
-
-   http://www.horde.org/mirrors.php
-
-The FTP directory contains the Horde Groupware Webmail Edition PHP files which
-can be unpacked using ``tar`` and ``gunzip`` (see `Installing Horde Groupware
-Webmail Edition`_, below).
+Edition, see the file README_ in the top-level directory of the Horde Groupware
+Webmail Edition distribution.
 
 
 Quick Install
@@ -45,39 +23,51 @@ Edition and its prerequisites on a LAMP sytem. They are addressed to
 experienced administrators who know exactly what they are doing.  For more
 detailed instructions, start reading below at Prerequisites_.
 
-1. Compiling PHP for Apache::
+1. Compiling PHP for Apache 2::
 
      cd php-x.x.x/
-     ./configure --with-apxs=/usr/sbin/apxs \
-                 --with-gettext --with-dom --with-mcrypt --with-imap \
-                 --with-iconv --enable-mbstring=all --enable-mbregex \
+     ./configure --with-apxs2=/usr/sbin/apxs2 \
+                 --with-gettext --enable-mbstring=all --enable-mbregex \
                  --with-gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-                 --with-mime-magic=/user/share/misc/magic.mime \
                  [--with-mysql|--with-pgsql|--with-oci8]
+                 [--with-tidy]
      make
      make install
 
 2. Restart Apache.
 
-3. Extract tarball::
+3. Register Horde PEAR channel::
 
-     cd /usr/local/apache/htdocs
-     tar zxvf /path/to/horde-webmail-x.y.z.tar.gz
-     mv horde-webmail-x.y.z horde
+     pear channel-discover pear.horde.org
 
-4. Configure Horde Groupware Webmail Edition::
+4. Set Horde installation directory::
 
-     ./scripts/setup.php
+     pear install horde/horde_role
+     pear run-scripts horde/horde_role
 
-5. Test Horde Groupware Webmail Edition::
+5. Install Horde Groupware Webmail Edition::
 
-     http://your-server/horde/test.php
+     pear install horde/horde-webmail
 
-6. Finish configuration::
+6. Configure Horde Groupware Webmail Edition::
+
+     cd config/
+     cp conf.php.dist conf.php
+
+7. Finish configuration::
 
      http://your-server/horde/
 
-   Go to Administration => Setup => Horde
+   Go to Administration => Configuration => Horde
+   (Or navigate to http://your-server/horde/admin/config)
+
+8. Create database tables
+
+   Go to Administration => Configuration. Click ``Update All DB Schemas``.
+
+9. Test Horde Groupware Webmail Edition::
+
+     http://your-server/horde/test.php
 
 
 Prerequisites
@@ -88,13 +78,11 @@ Edition to function properly.
 
 1. A webserver that supports PHP.
 
-   Horde Groupware Webmail Edition is developed under the Apache webserver,
-   which we recommend. Apache is available from
+   Horde Groupware Webmail Edition is primarily developed under the Apache and
+   Lighttpd webservers, which we recommend.  These servers are available from:
 
       http://httpd.apache.org/
-
-   Horde Groupware Webmail Edition has also been reportedly used successfully
-   under Microsoft IIS, among others.
+      http://www.lighttpd.net/
 
 2. A web server with PATH_INFO support.
 
@@ -110,10 +98,15 @@ Edition to function properly.
 
      "broken-scriptfilename" => "enable"
 
-3. PHP 4.3.0 or above.
+3. PHP 5.2.0 or above.
 
    PHP is the interpreted language in which Horde Groupware Webmail Edition is
-   written. You can obtain PHP at
+   written.
+
+   .. Note:: If possible, you should install PHP with your operating system's
+             package manager. Alternatively you build PHP yourself.
+
+   To build PHP from sources, you can obtain it at
 
       http://www.php.net/
 
@@ -143,75 +136,20 @@ Edition to function properly.
 
       See also note below on configuring Translations_.
 
-   b. XML and DOMXML support. ``--with-dom``
+   b. XML and DOMXML support.
 
-      Horde Groupware Webmail Edition's help engine and component setup
-      require XML support. While some webservers (including recent Apache
-      versions) have XML libraries built-in, others will require the expat XML
-      parser libraries, available from
+      XML and DOM support are enabled in PHP 5 by default. You only have to
+      make sure that you do **not** use ``--disable-dom``,
+      ``--disable-simplexml``, or ``--disable-xml``.
 
-        http://expat.sourceforge.net/
+      Make sure you are using a newer version of libxml.  Older version of
+      libxml (e.g. 2.6.26) have been reported to be partially broken when
+      handling certain charsets.
 
-      .. Important:: You must have **both** XML libraries installed for Horde
-                     Groupware Webmail Edition to work properly!
+   The following PHP options are **RECOMMENDED** to enable advanced features
+   in Horde Groupware Webmail Edition:
 
-      Older versions of PHP also require ``--with-xml`` to enable the
-      SAX XML functions. With recent versions of PHP, this is enabled
-      by default.
-
-   c. IMAP and POP3 support ``--with-imap``
-
-      Horde Groupware Webmail Edition **requires** the PHP imap extension to
-      provide IMAP and/or POP3 support.  To compile the imap extension, the
-      UW-IMAP c-client libray must be present on your system.  For help with
-      compiling the imap extension ninto PHP, you can view the PHP imap manual
-      entry:
-
-         http://www.php.net/imap
-
-      Because installation of the imap extension can be a non-trivial matter,
-      further configuration help/advice follows.
-
-      The UW-IMAP c-client library is available from
-
-         ftp://ftp.cac.washington.edu/imap/
-
-      The most recent code is normally located in a file named 'imap.tar.Z'.
-
-      After building the c-client library (instructions are at the top of
-      the Makefile in the base directory of the UW imap package), you may
-      need to rename the compiled library file so the local build system can
-      find it.  For example, compilation of c-client results in a file named
-      'c-client.a' in the 'c-client' directory.  On Linux (at least) this file
-      needs to be renamed or linked to libc-client.a, e.g.:
-      
-         ln -s c-client.a libc-client.a
-
-      Horde Groupware Webmail Edition can use IMAP-SSL and POP3-SSL if
-      available.  SSL support needs to be built-in to both the c-client
-      library and the PHP extension (see the ``--with-imap-ssl`` configure
-      option to PHP).
-
-      If using TLS or SSL to connect to the IMAP/POP3 server, OpenSSL support
-      is **required** in PHP. See `OpenSSL Support`_ below.
-
-      .. Tip:: If you notice strange behavior when running Horde Groupware
-               Webmail Edition (e.g. blank screens when accessing certain
-               messages, blank message bodies) you should always try
-               recompiling PHP with a different version of c-client.  The
-               different versions of the c-client library and PHP do not
-               always work well together, and often all it takes is to
-               recompile with a different c-client version and the problems
-               will go away.
-
-      .. Tip:: If running the webserver changerooted (i.e. the default setting
-               on OpenBSD), you may need additional configuration on your
-               system to ensure the c-client library works properly.
-               See: `Configuring c-client for changerooted webservers`_
-
-      .. _`Configuring c-client for changerooted webservers`: http://lists.horde.org/archives/imp/Week-of-Mon-20050321/041502.html
-
-   d. File Upload Support
+   a. File Upload Support
 
       File upload support is **required** to allow attachments in mail
       composition and to allow various importing features to work (e.g.
@@ -242,20 +180,16 @@ Edition to function properly.
 
        See the `File Uploads`_ FAQ entry for further information.
 
-   The following PHP options are **RECOMMENDED** to enable advanced features
-   in Horde Groupware Webmail Edition:
-
-   a. A preferences container.
+   b. A preferences container.
 
       Horde Groupware Webmail Edition can store user preferences in an SQL
       database, an LDAP directory, an IMSP server, a Kolab server, or in PHP
       sessions. An SQL database is used and configured by default.
 
       For SQL database preferences storage, Horde Groupware Webmail Edition is
-      thoroughly tested on MySQL (``--with-mysql``) and PostgreSQL
-      (``--with-pgsql``) and has been reported to work with Oracle
-      (``--with-oci8``) and SQL Server (``--with-mssql``). It may also work
-      with any other database supported by PEAR, but they are untested.
+      thoroughly tested on MySQL(i) (``--with-mysql(i)``) and PostgreSQL
+      (``--with-pgsql``), and has been reported to work with SQLite (enabled by
+      default).
 
       Preferences can also be stored via LDAP (``--with-ldap``), Kolab
       (``--with-ldap``), and IMSP.
@@ -274,27 +208,17 @@ Edition to function properly.
       the default values stored in each applications ``config/prefs.php`` file
       will be used.
 
-   b. Mcrypt support ``--with-mcrypt``
+   c. UTF-8 support (mbstring and iconv extensions) ``--enable-mbstring``
 
-      Mcrypt is a general-purpose cryptography library which is broader and
-      significantly more efficient (FASTER!) than PHP's own cryptographic
-      code. You can obtain mcrypt from
-
-         http://mcrypt.sourceforge.net/
-
-      Building PHP without mcrypt support will not stop Horde Groupware
-      Webmail Edition from working, but will force it to use weaker (and much
-      slower) encryption.
-
-   c. UTF-8 support ``--with-iconv --enable-mbstring=all --enable-mbregex``
-
-      If these extensions are enabled, Horde can support multibyte character
-      sets like UTF-8 (meaning that content with any charset can be viewed
-      with any translation).
+      If these extensions are enabled, Horde Groupware Webmail Edition can
+      better support multibyte character sets like UTF-8.
 
       For iconv support you should use the GNU libiconv library, which is more
       stable and supports more charsets, compared to other iconv
       implementations, like Solaris', for example.
+
+      Iconv support is enabled by default in PHP 5. You only have to make sure
+      that you do **not** use ``--without-iconv``
 
    d. GD support ``--with-gd``
 
@@ -309,28 +233,17 @@ Edition to function properly.
       ``--with-jpeg-dir`` option to make sure PHP can find the JPEG libraries
       it needs to compile.
 
-      You can also use the ImageMagick_ package to do these manipulations
-      instead.  See the ``Image Manipulation`` tab of the Horde setup for more
-      details.
+      You can also use the imagick_ extension or the ImageMagick_ package to do
+      these manipulations instead. The imagick_ extension is the recommended
+      method for image manipulation. See the ``Image Manipulation`` tab of the
+      Horde configuration for more details.
 
+      .. _imagick: http://pecl.php.net/package/imagick
       .. _ImageMagick: http://www.imagemagick.org
 
-   e. MIME Magic support ``--with-mime-magic``
+   e. tidy ``--with-tidy``
 
-      Horde Groupware Webmail Edition will use the MIME Magic extension to
-      guess the MIME type of files by analyzing their contents.
-
-      .. Note:: This extension is reported to be deprecated_ in favor of the
-                fileinfo PECL extension (see below).  However, some users have
-                reported that the fileinfo extension will not build correctly
-                on their system. If so, than the MIME Magic extension should
-                be used instead. Pick one or the other - there is no need to
-                compile both.
-
-      If using PHP 4.3.0 -> 4.3.1, you should use ``--enable-mime-magic``
-      instead of ``--with-mime-magic``.
-
-      .. _deprecated: http://www.php.net/mime_magic
+      The tidy PHP extension is required to sanitize HTML data.
 
 .. _`OpenSSL Support`:
 
@@ -345,14 +258,6 @@ Edition to function properly.
 
       See http://www.php.net/openssl for information on compiling OpenSSL
       into PHP.
-
-   g. tidy ``--with-tidy`` (PHP 5+ only)
-
-      The tidy PHP extension is required if you want Horde Groupware Webmail
-      Edition to sanitize the output of HTML messages before displaying to the
-      user and if you want to clean and repair outgoing HTML messages composed
-      via the HTML composition mode.  See ``imp/config/mime_drivers.php.dist``
-      for further instructions on how to enable this feature.
 
 4. Additional PECL Modules
 
@@ -390,23 +295,34 @@ Edition to function properly.
 
         pecl install fileinfo
 
-   b. json
-
-      The json extension will be used for JSON serialization if available.
-      json's author claims this module is 86 - 270 times faster than a pure
-      PHP solution.
-
-      THE JSON MODULE IS ONLY REQUIRED FOR VERSIONS OF PHP < 5.2. JSON
-      SUPPORT IS AUTOMATICALLY INCLUDED IN PHP 5.2+.
-
-      To install, enter the following at the command prompt::
-
-        pecl install json
-
    These PECL modules are **RECOMMENDED** to be installed if you need
    advanced functionality:
 
-   a. memcache
+   a. idn
+
+      idn is required in order to handle Internationalized Domain Names
+      (see RFC 3490).
+
+   b. imagick
+
+      The imagick module can be used by Horde's image library to provide all
+      kind of image manipulations.
+
+      To install, enter the following at the command prompt::
+
+        pecl install imagick
+
+   c. lzf
+
+      If the lzf module is available, Horde Groupware Webmail Edition can
+      compress some cached data in the current session, thus reducing the size
+      of the current session.
+
+      To install, enter the following at the command prompt::
+
+        pecl install lzf
+
+   d. memcache
 
       If using the memcached SessionHandler, the memcache PECL extension must
       be installed.
@@ -414,23 +330,6 @@ Edition to function properly.
       To install, enter the following at the command prompt::
 
         pecl install memcache
-
-   b. lzf
-
-      If the lzf module is available, Horde can compress some cached data in
-      the current session, thus reducing the size of the current session.
-
-      THE JSON MODULE IS ONLY REQUIRED FOR VERSIONS OF PHP < 5.2. JSON
-      SUPPORT IS AUTOMATICALLY INCLUDED IN PHP 5.2+.
-
-      To install, enter the following at the command prompt::
-
-        pecl install lzf
-
-   c. idn
-
-      idn is required in order to handle Internationalized Domain Names
-      (see RFC 3490).
 
 5. At least one IMAP or POP3 server.
 
@@ -446,17 +345,26 @@ Edition to function properly.
    Freely available IMAP servers (for \*nix systems) that have been verified
    to work with Horde Groupware Webmail Edition include:
 
-   - Courier-IMAP (http://www.inter7.com/courierimap.html)
    - Cyrus (http://asg.web.cmu.edu/cyrus/)
    - Dovecot (http://www.dovecot.org/)
+   - Courier-IMAP (http://www.inter7.com/courierimap.html)
+
+   More available IMAP servers are:
+
    - UW-IMAP (ftp://ftp.cac.washington.edu/imap/)
+   - Archiveopteryx (http://www.archiveopteryx.org/)
 
+   Most of these packages also include POP3 support as well.
 
-The following non-PHP prerequisites are **RECOMMENDED**, or are **REQUIRED**
-if you use a specific Horde Groupware Webmail Edition application (as noted in
-[brackets]):
+   The selected IMAP server MUST support IMAP4rev1 (RFC 3501).
+   The selected POP server MUST support POP3 (RFC 1939/STD 53).
 
-1. Sendmail or equivalent.
+   .. Note:: If using a POP server, it MUST support the UIDL capability.
+             Caching, on-demand filtering, searching, and sorting will be
+             disabled; POP3 support is limited to essentially only viewing
+             messages and performing basic mail actions.
+
+6. Sendmail or equivalent.
 
    Horde Groupware Webmail Edition uses sendmail, or a program that implements
    the ``sendmail(8)`` API (as included with postfix, qmail, and exim, among
@@ -465,10 +373,14 @@ if you use a specific Horde Groupware Webmail Edition application (as noted in
    speak directly with a remote SMTP server, but this may incur a performance
    penalty.
 
-2. aspell - Spelling Checker
 
-   Aspell, a comand-line program, is used as IMP's spell-checking engine.
-   You must install and configure aspell to use IMP's spell-check feature.
+The following non-PHP prerequisites are **RECOMMENDED**:
+
+1. aspell - Spelling Checker
+
+   Aspell, a comand-line program, is used as Horde Groupware Webmail Edition's
+   spell-checking engine.  You must install and configure aspell to use Horde
+   Groupware Webmail Edition's spell-check feature.
 
    Version 0.60 or higher is REQUIRED.
 
@@ -479,6 +391,92 @@ if you use a specific Horde Groupware Webmail Edition application (as noted in
 
 Installing Horde Groupware Webmail Edition
 ==========================================
+
+There are several ways to install Horde Groupware Webmail Edition. The
+recommended way to install Horde Groupware Webmail Edition is using the PEAR
+installer. Alternatively it can be installed from tarballs.
+
+
+Installing with PEAR
+~~~~~~~~~~~~~~~~~~~~
+
+First you need to register the Horde PEAR channel server to your local PEAR
+system. This has to be done only **once** ever on a single PEAR system::
+
+   pear channel-discover pear.horde.org
+
+Next install a so-called "role" for Horde. This role defines where Horde
+Groupware Webmail Edition is supposed to be installed. This should be a
+directory in your web server's web root, e.g. ``/var/www/webmail``. Again this
+has to be done only **once** ever on a single PEAR system::
+
+   pear install horde/horde_role
+   pear run-scripts horde/horde_role
+
+When installing Horde Groupware Webmail Edition through PEAR now, the installer
+will automatically install any dependencies of Horde Groupware Webmail Edition
+too. By default, only the required dependencies will be installed::
+
+   pear install horde/horde-webmail
+
+If you want to install Horde Groupware Webmail Edition even with all optional
+dependencies, you need to specify the ``-a`` flag. Please note that this might
+also try to install PHP extensions through PECL that might need further
+configuration or activation in your PHP configuration::
+
+   pear install -a horde/horde-webmail
+
+If you want to install Horde Groupware Webmail Edition with all optional
+dependencies, but without the binary PECL packages that have to be compiled,
+specify both the ``-a`` and the ``-B`` flag::
+
+   pear install -a -B horde/horde-webmail
+
+If you want to create a separate PEAR installation for installing Horde
+Groupware Webmail Edition, independent from the system-wide PEAR installation,
+this can be done with the following commands. The paths are only examples of
+course::
+
+   mkdir /var/www/webmail
+   pear config-create /var/www/webmail /var/www/webmail/pear.conf
+   pear -c /var/www/webmail/pear.conf install pear
+
+Then follow the regular installation steps, but use the ``pear`` command from
+the PEAR installation you just created, e.g.::
+
+   /var/www/webmail/pear/pear -c /var/www/webmail/pear.conf channel-discover pear.horde.org
+
+Finally create a .htaccess file in ``/var/www/webmail/`` or configure your web
+server in some other way to point PHP's ``include_path`` setting to the PEAR
+installation and the ``PHP_PEAR_SYSCONF_DIR`` environment variable to the web
+root::
+
+   php_value include_path /var/www/horde/pear/php
+   SetEnv PHP_PEAR_SYSCONF_DIR /var/www/horde
+
+
+Installing from Release Tarballs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. Important:: As of today, there are no tarballs released for Horde Groupware
+               Webmail Edition 2 yet. Please use the `Installing with PEAR`_
+               method to install Horde Groupware Webmail Edition 2.
+
+Horde Groupware Webmail Edition can be obtained from the Horde website and FTP
+server, at
+
+   http://www.horde.org/apps/webmail
+
+   ftp://ftp.horde.org/pub/horde-webmail/
+
+Or, better yet, use a mirror that is closer to you.  The mirror list can be
+found at:
+
+   http://www.horde.org/mirrors.php
+
+The FTP directory contains the Horde Groupware Webmail Edition PHP files which
+can be unpacked using ``tar`` and ``gunzip`` (see `Installing Horde Groupware
+Webmail Edition`_, below).
 
 Horde Groupware Webmail Edition is written in PHP, and must be installed in a
 web-accessible directory. The precise location of this directory will differ
@@ -527,49 +525,46 @@ Configuring Horde Groupware Webmail Edition
 
          DirectoryIndex index.php
 
-2. Creating databases and Configuring Horde Groupware Webmail Edition
+   c. If you plan to provide ActiveSync support to your users, you have to
+      create an alias of the ``/Microsoft-Servers-ActiveSync`` URL to
+      ``/webmail/rpc.php``. See http://wiki.horde.org/ActiveSync for details.
 
-   To configure Horde Groupware Webmail Edition and create the required
-   databases run the setup script from the ``scripts/`` directory::
+2. Configuring Horde Groupware Webmail Edition
 
-      ./scripts/setup.php
+3. Completing Configuration
 
-   If you are installing Horde Groupware Webmail Edition on a Windows system,
-   or get an error message similar to ``./horde/scripts/setup.php:
-   /usr/bin/php: bad interpreter: file or directory not found``, make sure
-   that you have a command line version of PHP installed and use it to run the
-   script::
+   Continue to configure Horde through all the tabs of the configuration
+   interface and click on ``Generate Horde Configuration``. An important item
+   that you probably want to configure is the ``Database Settings``, which
+   defines the database configuration that is used, by default, for several
+   different Horde sub-systems.
 
-      /usr/local/bin/php ./scripts/setup.php
+   .. Important:: By default Horde will be using database backends for most
+                  sub-systems. If you do not plan to use a database with Horde,
+                  you need to go through all tabs of the configuration screen
+                  and change the configuration for those systems from ``SQL``
+                  to a suitable alternative.
 
-   .. Note:: When you are asked to provide an administrator name during the
-             setup, please enter an **existing** IMAP user. You cannot create
-             new users or a separate administrator account with the setup
-             script.
+4. Creating databases
 
-   If for some reason, creating the databases with ``setup.php`` fails, you
-   can create the Horde databases manually.
+   Once you created the database configuration in the previous step, you can
+   create all database tables by hitting the ``Update all DB schemas`` button
+   in the configuration screen.
 
-   First, look in ``scripts/sql/`` to see if a ``groupware.`` script already
-   exists for your database. If so, you should be able to simply execute that
-   script as superuser in your database. Consult the ``scripts/sql/README``
-   file for more information.
+   Please note that this requires the database that you entered in the database
+   configuration to already exist, and the configured database user to have
+   sufficient permissions to create new tables in this database.
 
-   Be sure to change the default database user name and password in this
-   script to something else before creating the tables! Use the same password
-   that you entered while running ``setup.php``.
+   Alternatively you can run the ``bin/horde-db-migrate`` script in the Horde
+   directory from the command line.
 
-   If such a script does not exist, you'll need to build your own, using the
-   file ``groupware.sql`` as a starting point. If you need assistance in
-   creating databases for a database for which no ``groupware.`` script
-   exists, you may wish to let us know on the `Horde mailing list`_.
+   TODO: Update documentation once horde-db-migrate takes (super-) user credentials
+   as command line flags.
 
-   .. _`Horde mailing list`: horde@lists.horde.org
-
-3. Setting up alarm emails
+5. Setting up alarm emails
 
    If you want your users to be able to receive emails from the Horde_Alarm
-   system, you must set up a cron entry for ``horde/scripts/alarms.php``, you
+   system, you must set up a cron entry for ``horde-alarms``, you
    must have at least one administrator specified in the Horde configuration,
    and you must have the PHP CLI installed (a CGI binary is not supported -
    ``php -v`` will report what kind of PHP binary you have).
@@ -577,19 +572,21 @@ Configuring Horde Groupware Webmail Edition
    Running the job every 5 minutes is recommended::
 
       # Horde Alarms
-      */5 * * * * /usr/bin/php /var/www/horde/scripts/alarms.php
+      */5 * * * * /usr/bin/horde-alarms
 
-   (replace ``/usr/bin/php`` with the path to your PHP CLI and
-   ``/var/www/horde/`` with the path to your Horde installation)
+   If not installing Horde Groupware Webmail Edition through PEAR of if PEAR's
+   ``bin_dir`` configuration doesn't point to ``/usr/bin/``, replace
+   ``/usr/bin/horde-alarms`` with the path to the ``horde-alarms`` script in
+   your Horde installation.
 
-4. Testing Horde Groupware Webmail Edition
+6. Testing Horde Groupware Webmail Edition
 
    Once you have configured your webserver, PHP, and Horde Groupware Webmail
    Edition, bring up the included test page in your web browser to ensure that
    all necessary prerequisites have been met. If you installed Horde Groupware
    Webmail Edition as described above, the URL to the test page would be::
 
-      http://your-server/horde/test.php
+      http://your-server/webmail/test.php
 
    Check that your PHP version is acceptably recent, that all required module
    capabilities are present, and that ``magic_quotes_runtime`` is set to
@@ -600,19 +597,7 @@ Configuring Horde Groupware Webmail Edition
    inclusion``, make sure that the web server has the permission to read the
    ``test.php`` file.
 
-5. Completing Configuration
-
-   If the IMAP server, that you want to access with Horde Groupware Webmail
-   Edition, is not installed on the same server, open the configuration file
-   ``imp/config/servers.php`` and change the ``server`` setting in the example
-   configuration to the IP address or host name of your IMAP server.
-
-   You can now access Horde Groupware Webmail Edition with the user that you
-   specified during the setup, and you will be logged in as an administrator.
-   You can click on ``Setup`` in the ``Administration`` menu and configure
-   more details of Horde Groupware Webmail Edition.
-
-6. Securing Horde Groupware Webmail Edition
+7. Securing Horde Groupware Webmail Edition
 
    a. Global Passwords
 
@@ -674,11 +659,6 @@ Configuring Horde Groupware Webmail Edition
    For more information about securing your webserver, PHP and Horde Groupware
    Webmail Edition, see the `docs/SECURITY`_ file.
 
-7. Entering the survey
-
-   If you like, go to http://www.horde.org/survey/ and enter the details of
-   your system.
-
 
 Temporary Files
 ===============
@@ -700,9 +680,9 @@ Translations
 Note for international users: Horde Groupware Webmail Edition uses GNU gettext
 to provide local translations of text displayed by applications; the
 translations are found in the po/ directory.  If a translation is not yet
-available for your locale (and you wish to create one), see the
-``horde/po/README`` file, or if you're having trouble using a provided
-translation, please see the `horde/docs/TRANSLATIONS`_ file for instructions.
+available for your locale (and you wish to create one), or if you're having
+trouble using a provided translation, please see the `horde/docs/TRANSLATIONS`_
+file for instructions.
 
 
 Obtaining Support
@@ -713,13 +693,13 @@ available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
 The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole. Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 There is no separate mailing list for Horde Groupware Webmail Edition, please
 contact the mailing list of the component you have problems with, or the Horde
@@ -732,7 +712,7 @@ Please keep in mind that Horde Groupware Webmail Edition is free software
 written by volunteers.  For information on reasonable support expectations,
 please read
 
-  http://www.horde.org/support.php
+  http://www.horde.org/community/support
 
 Thanks for using Horde Groupware Webmail Edition!
 
