@@ -3970,6 +3970,7 @@ KronolithCore = {
                     this.quickClose();
                     break;
                 case 'kronolithEventForm':
+                    Horde_Calendar.hideCal();
                     this.closeRedBox();
                     this.go(this.lastLocation);
                     break;
@@ -3982,6 +3983,7 @@ KronolithCore = {
 
         switch (kc) {
         case Event.KEY_ESC:
+            Horde_Calendar.hideCal();
             this.closeRedBox();
             break;
         }
