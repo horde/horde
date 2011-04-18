@@ -4101,21 +4101,32 @@ KronolithCore = {
                 break;
 
             case 'kronolithEventSave':
-                this.saveEvent();
+                if (!elt.disabled) {
+                    this.saveEvent();
+                }
                 e.stop();
                 break;
 
             case 'kronolithEventSaveAsNew':
-                this.saveEvent(true);
+                if (!elt.disabled) {
+                    this.saveEvent(true);
+                }
                 e.stop();
                 break;
 
             case 'kronolithTaskSave':
-                this.saveTask();
+                if (!elt.disabled) {
+                    this.saveTask();
+                }
                 e.stop();
                 break;
 
             case 'kronolithEventDelete':
+                if (elt.disabled) {
+                    e.stop();
+                    break;
+                }
+
                 elt.disable();
                 var cal = $F('kronolithEventCalendar'),
                     eventid = $F('kronolithEventId');
@@ -4152,6 +4163,11 @@ KronolithCore = {
                 break;
 
             case 'kronolithTaskDelete':
+                if (elt.disabled) {
+                    e.stop();
+                    break;
+                }
+
                 elt.disable();
                 var tasklist = $F('kronolithTaskOldList'),
                     taskid = $F('kronolithTaskId');
@@ -4550,13 +4566,20 @@ KronolithCore = {
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithCalendarSave')) {
-                elt.disable();
-                if (!this.saveCalendar(elt.up('form'))) {
-                    elt.enable();
+                if (!elt.disabled) {
+                    elt.disable();
+                    if (!this.saveCalendar(elt.up('form'))) {
+                        elt.enable();
+                    }
                 }
                 e.stop();
                 break;
             } else if (elt.hasClassName('kronolithCalendarContinue')) {
+                if (elt.disabled) {
+                    e.stop();
+                    break;
+                }
+
                 elt.disable();
                 var form = elt.up('form'),
                     type = form.id.replace(/kronolithCalendarForm/, ''),
@@ -4637,16 +4660,18 @@ KronolithCore = {
                     break;
                 }
 
-                elt.disable();
-                this.doAction('deleteCalendar',
-                              { type: type, calendar: calendar },
-                              function(r) {
-                                  if (r.response.deleted) {
-                                      this.deleteCalendar(type, calendar);
-                                  }
-                                  this.closeRedBox();
-                                  this.go(this.lastLocation);
-                              }.bind(this));
+                if (!elt.disabled) {
+                    elt.disable();
+                    this.doAction('deleteCalendar',
+                                  { type: type, calendar: calendar },
+                                  function(r) {
+                                      if (r.response.deleted) {
+                                          this.deleteCalendar(type, calendar);
+                                      }
+                                      this.closeRedBox();
+                                      this.go(this.lastLocation);
+                                  }.bind(this));
+                }
                 e.stop();
                 break;
             } else if (elt.hasClassName('kronolithCalendarSubscribe') ||
