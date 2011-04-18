@@ -23,9 +23,6 @@ if (!in_array(Ingo_Storage::ACTION_BLACKLIST, $session->get('ingo', 'script_cate
 /* Get the backend. */
 $scriptor = Ingo::loadIngoScript();
 
-/* Determine if this scriptor supports mark-as-deleted. */
-$have_mark = $scriptor && in_array(Ingo_Storage::ACTION_FLAGONLY, $scriptor->availableActions());
-
 /* Get the blacklist object. */
 try {
     $blacklist = $ingo_storage->retrieve(Ingo_Storage::ACTION_BLACKLIST);
@@ -38,10 +35,6 @@ $folder = $blacklist_folder = null;
 /* Perform requested actions. */
 $vars = Horde_Variables::getDefaultVariables();
 switch ($vars->actionID) {
-case 'create_folder':
-    $blacklist_folder = Ingo::createFolder($vars->new_folder_name);
-    break;
-
 case 'rule_update':
     switch ($vars->action) {
     case 'delete':
@@ -53,11 +46,14 @@ case 'rule_update':
         break;
 
     case 'folder':
-        $folder = $vars->actionvalue;
+        $folder = Ingo::validateFolder($vars, 'actionvalue');
         break;
     }
 
-    if (($folder == Ingo::BLACKLIST_MARKER) && !$have_mark) {
+    if (($folder == Ingo::BLACKLIST_MARKER) &&
+        !$scriptor &&
+        !in_array(Ingo_Storage::ACTION_FLAGONLY, $scriptor->availableActions())) {
+
         $notification->push("Not supported by this script generator.", 'horde.error');
     } else {
         try {
@@ -83,17 +79,15 @@ case 'rule_update':
 if (!isset($blacklist_folder)) {
     $blacklist_folder = $blacklist->getBlacklistFolder();
 }
-$field_num = $have_mark ? 2 : 1;
-$folder_list = Ingo::flistSelect($blacklist_folder, 'filters', 'actionvalue',
-                                 'document.filters.action[' . $field_num .
-                                 '].checked=true');
+$folder_list = Ingo::flistSelect($blacklist_folder, 'filters', 'actionvalue');
 
 /* Get the blacklist rule. */
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 $bl_rule = $filters->findRule(Ingo_Storage::ACTION_BLACKLIST);
 
+Horde::addScriptFile('blacklist.js', 'ingo');
+
 $menu = Ingo::menu();
-Ingo::addNewFolderJs();
 $title = _("Blacklist Edit");
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $menu;

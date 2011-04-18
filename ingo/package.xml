@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-11</date>
- <time>00:35:47</time>
+ <date>2011-04-18</date>
+ <time>22:04:29</time>
  <version>
   <release>2.0.1</release>
   <api>2.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* [mms] Fix folder selection (Bug #9907).
 * [mms] Fix IMAP filtering using envelope data (Bug #9859).
  </notes>
  <contents>
@@ -61,6 +62,7 @@
     <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
    <dir name="js">
+    <file name="blacklist.js" role="horde" />
     <file name="filters.js" role="horde" />
     <file name="new_folder.js" role="horde" />
     <file name="rule.js" role="horde" />
@@ -608,6 +610,7 @@
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO" name="docs/TODO" />
    <install as="UPGRADING" name="docs/UPGRADING" />
+   <install as="ingo/js/blacklist.js" name="js/blacklist.js" />
    <install as="ingo/js/filters.js" name="js/filters.js" />
    <install as="ingo/js/new_folder.js" name="js/new_folder.js" />
    <install as="ingo/js/rule.js" name="js/rule.js" />
@@ -916,7 +919,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-11</date>
+   <date>2011-04-18</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 *
