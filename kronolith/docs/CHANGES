@@ -2,6 +2,8 @@
 v3.0.1-git
 ----------
 
+[jan] Don't store all task lists in the session.
+[jan] Fix new task lists not showing up until next login (Bug #9814).
 [mjr] Fix broken event alarm links in sidebar (Bug #9897).
 [mjr] Fix drag/drop editing of recurring events (Bug #9880).
 [jan] Fix undefined function on Windows (Bug #9916).

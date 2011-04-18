@@ -1058,26 +1058,39 @@ class Kronolith
         $GLOBALS['prefs']->setValue('holiday_drivers', serialize($GLOBALS['display_holidays']));
 
         /* Get a list of external calendars. */
-        $has_tasks = Kronolith::hasApiPermission('tasks');
-        $tasklists = $has_tasks
-            ? $GLOBALS['registry']->tasks->listTasklists()
-            : array();
         $GLOBALS['all_external_calendars'] = array();
+
+        /* Make sure all task lists exist. */
+        if (Kronolith::hasApiPermission('tasks') &&
+            $GLOBALS['registry']->hasMethod('tasks/listTimeObjects')) {
+            try {
+                $tasklists = $GLOBALS['registry']->tasks->listTasklists();
+                $categories = $GLOBALS['registry']->call('tasks/listTimeObjectCategories');
+                foreach ($categories as $name => $description) {
+                    if (!isset($tasklists[$name])) {
+                        continue;
+                    }
+                    $GLOBALS['all_external_calendars']['tasks/' . $name] = new Kronolith_Calendar_External_Tasks(array('api' => 'tasks', 'name' => $description, 'share' => $tasklists[$name]));
+                }
+            } catch (Horde_Exception $e) {
+                Horde::logMessage($e, 'DEBUG');
+            }
+        }
+
         if ($GLOBALS['session']->exists('kronolith', 'all_external_calendars')) {
             foreach ($GLOBALS['session']->get('kronolith', 'all_external_calendars') as $calendar) {
                 if (!Kronolith::hasApiPermission($calendar['a'])) {
                     continue;
                 }
-                $GLOBALS['all_external_calendars'][$calendar['a'] . '/' . $calendar['n']] = $calendar['a'] == 'tasks'
-                    ? new Kronolith_Calendar_External_Tasks(array('api' => $calendar['a'], 'name' => $calendar['d'], 'share' => $tasklists[$calendar['n']]))
-                    : new Kronolith_Calendar_External(array('api' => $calendar['a'], 'name' => $calendar['d'], 'id' => $calendar['n']));
+                $GLOBALS['all_external_calendars'][$calendar['a'] . '/' . $calendar['n']] = new Kronolith_Calendar_External(array('api' => $calendar['a'], 'name' => $calendar['d'], 'id' => $calendar['n']));
             }
         } else {
             $apis = array_unique($GLOBALS['registry']->listAPIs());
             $ext_cals = array();
 
             foreach ($apis as $api) {
-                if (!Kronolith::hasApiPermission($api) ||
+                if ($api == 'tasks' ||
+                    !Kronolith::hasApiPermission($api) ||
                     !$GLOBALS['registry']->hasMethod($api . '/listTimeObjects')) {
                     continue;
                 }
@@ -1092,9 +1105,7 @@ class Kronolith
                     if (!isset($tasklists[$name])) {
                         continue;
                     }
-                    $GLOBALS['all_external_calendars'][$api . '/' . $name] = $api == 'tasks'
-                        ? new Kronolith_Calendar_External_Tasks(array('api' => $api, 'name' => $description, 'share' => $tasklists[$name]))
-                        : new Kronolith_Calendar_External(array('api' => $api, 'name' => $description, 'id' => $name));
+                    $GLOBALS['all_external_calendars'][$api . '/' . $name] = new Kronolith_Calendar_External(array('api' => $api, 'name' => $description, 'id' => $name));
                     $ext_cals[] = array(
                         'a' => $api,
                         'n' => $name,
