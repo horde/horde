@@ -21,7 +21,7 @@ class Horde_Core_Factory_Notification extends Horde_Core_Factory_Base
             if ($GLOBALS['registry']->isAuthenticated(array('app' => $app, 'notransparent' => true))) {
                 try {
                     $GLOBALS['registry']->callAppMethod($app, 'setupNotification', array('args' => array($notify), 'noperms' => true));
-                } catch (Horde_Exception $e) {
+                } catch (Exception $e) {
                     continue;
                 }
             }
