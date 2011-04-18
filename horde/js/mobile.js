@@ -53,6 +53,7 @@
 
     doActionComplete: function(d, callback)
     {
+        HordeMobile.inAjaxCallback = true;
         var r = d.response;
         if (r && $.isFunction(callback)) {
             try {
