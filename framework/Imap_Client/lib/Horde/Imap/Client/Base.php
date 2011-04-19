@@ -2614,12 +2614,16 @@ abstract class Horde_Imap_Client_Base implements Serializable
             if (empty($status['uidnext'])) {
                 /* UIDNEXT is not strictly required on mailbox open. If it is
                  * not available, use the last UID + 1 in the mailbox
-                 * instead. */
-                $this->_temp['nocache'] = true;
-                $search_res = $this->_getSeqUidLookup(new Horde_Imap_Client_Ids($status['messages'], true));
-                unset($this->_temp['nocache']);
-                $uids = $search_res['uids']->ids;
-                $status['uidnext'] = intval(end($uids)) + 1;
+                 * instead (or 0 if mailbox is empty). */
+                if (empty($status['messages'])) {
+                    $status['uidnext'] = 0;
+                } else {
+                    $this->_temp['nocache'] = true;
+                    $search_res = $this->_getSeqUidLookup(new Horde_Imap_Client_Ids($status['messages'], true));
+                    unset($this->_temp['nocache']);
+                    $uids = $search_res['uids']->ids;
+                    $status['uidnext'] = intval(end($uids)) + 1;
+                }
             }
 
             $parts = array(
