@@ -1558,74 +1558,65 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                                               Defaults to an ALL
      *                                               search.
      * @param array $options                         Additional options:
-     * <pre>
-     * 'nocache' - (boolean) Don't cache the results.
-     *             DEFAULT: false (results cached, if possible)
-     * 'results' - (array) The data to return. Consists of zero or more of the
-     *                     following flags:
-     *             Horde_Imap_Client::SEARCH_RESULTS_COUNT
-     *             Horde_Imap_Client::SEARCH_RESULTS_MATCH (DEFAULT)
-     *             Horde_Imap_Client::SEARCH_RESULTS_MAX
-     *             Horde_Imap_Client::SEARCH_RESULTS_MIN
-     *             Horde_Imap_Client::SEARCH_RESULTS_SAVE (This option is
-     *             Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY
-     *             currently meant for internal use only)
-     * 'sequence' - (boolean) If true, returns an array of sequence numbers.
-     *              DEFAULT: Returns an array of UIDs
-     * 'sort' - (array) Sort the returned list of messages. Multiple sort
-     *          criteria can be specified. The following sort criteria
-     *          are available:
-     *          Horde_Imap_Client::SORT_ARRIVAL
-     *          Horde_Imap_Client::SORT_CC
-     *          Horde_Imap_Client::SORT_DATE
-     *          Horde_Imap_Client::SORT_FROM
-     *          Horde_Imap_Client::SORT_SEQUENCE
-     *          Horde_Imap_Client::SORT_SIZE
-     *          Horde_Imap_Client::SORT_SUBJECT
-     *          Horde_Imap_Client::SORT_TO
-     *          [On servers that support SORT=DISPLAY, these criteria are also
-     *           available:]
-     *          Horde_Imap_Client::SORT_DISPLAYFROM
-     *          Horde_Imap_Client::SORT_DISPLAYTO
-     *          [On servers that support SEARCH=FUZZY, this criteria is also
-     *           available:]
-     *          Horde_Imap_Client::SORT_RELEVANCY
-     *
-     *          Additionally, any sort criteria can be sorted in reverse order
-     *          (instead of the default ascending order) by adding a
-     *          Horde_Imap_Client::SORT_REVERSE element to the array directly
-     *          before adding the sort element.
-     *          DEFAULT: None.
-     * </pre>
+     *   - nocache: (boolean) Don't cache the results.
+     *              DEFAULT: false (results cached, if possible)
+     *   - results: (array) The data to return. Consists of zero or more of
+     *              the following flags:
+     *     + Horde_Imap_Client::SEARCH_RESULTS_COUNT
+     *     + Horde_Imap_Client::SEARCH_RESULTS_MATCH (DEFAULT)
+     *     + Horde_Imap_Client::SEARCH_RESULTS_MAX
+     *     + Horde_Imap_Client::SEARCH_RESULTS_MIN
+     *     + Horde_Imap_Client::SEARCH_RESULTS_SAVE (This option is currently
+     *       meant for internal use only)
+     *     + Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY
+     *   - sequence: (boolean) If true, returns an array of sequence numbers.
+     *               DEFAULT: Returns an array of UIDs
+     *   - sort: (array) Sort the returned list of messages. Multiple sort
+     *           criteria can be specified. Any sort criteria can be sorted in
+     *           reverse order (instead of the default ascending order) by
+     *           adding a Horde_Imap_Client::SORT_REVERSE element to the array
+     *           directly before adding the sort element.
+     *           The following sort criteria are available:
+     *     + Horde_Imap_Client::SORT_ARRIVAL
+     *     + Horde_Imap_Client::SORT_CC
+     *     + Horde_Imap_Client::SORT_DATE
+     *     + Horde_Imap_Client::SORT_FROM
+     *     + Horde_Imap_Client::SORT_SEQUENCE
+     *     + Horde_Imap_Client::SORT_SIZE
+     *     + Horde_Imap_Client::SORT_SUBJECT
+     *     + Horde_Imap_Client::SORT_TO
+     *     + [On servers that support SORT=DISPLAY, these criteria are also
+     *       available:]
+     *       + Horde_Imap_Client::SORT_DISPLAYFROM
+     *       + Horde_Imap_Client::SORT_DISPLAYTO
+     *     + [On servers that support SEARCH=FUZZY, this criteria is also
+     *       available:]
+     *       + Horde_Imap_Client::SORT_RELEVANCY
      *
      * @return array  An array with the following keys:
-     * <pre>
-     * 'count' - (integer) The number of messages that match the search
-     *           criteria.
-     *           Always returned.
-     * 'match' - (Horde_Imap_Client_Ids) The IDs that match $criteria, sorted
-     *           if the 'sort' modifier was set.
-     *           Returned if Horde_Imap_Client::SEARCH_RESULTS_MATCH is set.
-     * 'max' - (integer) The UID (default) or message sequence number (if
-     *         'sequence is true) of the highest message that satisifies
-     *         $criteria. Returns null if no matches found.
-     *         Returned if Horde_Imap_Client::SEARCH_RESULTS_MAX is set.
-     * 'min' - (integer) The UID (default) or message sequence number (if
-     *         'sequence is true) of the lowest message that satisifies
-     *         $criteria. Returns null if no matches found.
-     *         Returned if Horde_Imap_Client::SEARCH_RESULTS_MIN is set.
-     * 'modseq' - (integer) The highest mod-sequence for all messages being
-     *            returned.
-     *            Returned if 'sort' is false, the search query includes a
-     *            modseq command, and the server supports the CONDSTORE IMAP
-     *            extension.
-     * 'relevancy' - (array) The list of relevancy scores.
-     *               Returned if Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY
-     *               is set and the server supports FUZZY search matching.
-     * 'save' - (boolean) Whether the search results were saved. This value is
-     *          meant for internal use only. Returned if 'sort' is false and
-     *          Horde_Imap_Client::SEARCH_RESULTS_SAVE is set.
-     * </pre>
+     *   - count: (integer) The number of messages that match the search
+     *            criteria. Always returned.
+     *   - match: (Horde_Imap_Client_Ids) The IDs that match $criteria, sorted
+     *            if the 'sort' modifier was set. Returned if
+     *            Horde_Imap_Client::SEARCH_RESULTS_MATCH is set.
+     *   - max: (integer) The UID (default) or message sequence number (if
+     *          'sequence' is true) of the highest message that satisifies
+     *          $criteria. Returns null if no matches found. Returned if
+     *          Horde_Imap_Client::SEARCH_RESULTS_MAX is set.
+     *   - min: (integer) The UID (default) or message sequence number (if
+     *          'sequence' is true) of the lowest message that satisifies
+     *          $criteria. Returns null if no matches found. Returned if
+     *          Horde_Imap_Client::SEARCH_RESULTS_MIN is set.
+     *   - modseq: (integer) The highest mod-sequence for all messages being
+     *            returned. Returned if 'sort' is false, the search query
+     *            includes a MODSEQ command, and the server supports the
+     *            CONDSTORE IMAP extension.
+     *   - relevancy: (array) The list of relevancy scores. Returned if
+     *                Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY is set and
+     *                the server supports FUZZY search matching.
+     *   - save: (boolean) Whether the search results were saved. This value
+     *           is meant for internal use only. Returned if 'sort' is false
+     *           and Horde_Imap_Client::SEARCH_RESULTS_SAVE is set.
      * @throws Horde_Imap_Client_Exception
      */
     public function search($mailbox, $query = null, $options = array())

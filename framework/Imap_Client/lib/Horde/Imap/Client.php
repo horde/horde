@@ -68,7 +68,9 @@ class Horde_Imap_Client
     const SEARCH_RESULTS_MAX = 3;
     const SEARCH_RESULTS_MIN = 4;
     const SEARCH_RESULTS_SAVE = 5;
+    /* Fuzzy sort criteria defined in RFC 6203 */
     const SEARCH_RESULTS_RELEVANCY = 6;
+
     /* DEPRECATED: Use SEARCH_RESULTS_* instead. */
     const SORT_RESULTS_COUNT = 1;
     const SORT_RESULTS_MATCH = 2;
