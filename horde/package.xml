@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-12</date>
- <time>19:04:00</time>
+ <date>2011-04-19</date>
+ <time>15:25:05</time>
  <version>
   <release>4.0.1</release>
   <api>4.0.0</api>
@@ -381,6 +381,12 @@
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Block">
+     <dir name="Account">
+      <file name="Base.php" role="horde" />
+      <file name="Finger.php" role="horde" />
+      <file name="Ldap.php" role="horde" />
+      <file name="Localhost.php" role="horde" />
+     </dir> <!-- /lib/Block/Account -->
      <file name="Account.php" role="horde" />
      <file name="Cloud.php" role="horde" />
      <file name="FbStream.php" role="horde" />
@@ -2675,6 +2681,10 @@
    <install as="lib/Block/Vatid.php" name="lib/Block/Vatid.php" />
    <install as="lib/Block/Weatherdotcom.php" name="lib/Block/Weatherdotcom.php" />
    <install as="lib/Block/WeatherdotcomStrings.php" name="lib/Block/WeatherdotcomStrings.php" />
+   <install as="/lib/Block/Account/Base.php" name="lib/Block/Account/Base.php" />
+   <install as="/lib/Block/Account/Finger.php" name="lib/Block/Account/Finger.php" />
+   <install as="/lib/Block/Account/Ldap.php" name="lib/Block/Account/Ldap.php" />
+   <install as="/lib/Block/Account/Localhost.php" name="lib/Block/Account/Localhost.php" />
    <install as="lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
    <install as="lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="lib/LoginTasks/Task/AdminCheck.php" name="lib/LoginTasks/Task/AdminCheck.php" />
@@ -4044,7 +4054,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-12</date>
+   <date>2011-04-19</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Fix LDAP parameters of account portal block (Klaus Steinberger, Bug #9770).
