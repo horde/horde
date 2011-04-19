@@ -1496,58 +1496,56 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             ));
         }
 
-        if ($use_cache || $list_msgs) {
-            $expunged = array();
-
-            if (!empty($tmp['vanished'])) {
-                $i = count($tmp['vanished']);
-                $expunged = $tmp['vanished'];
-            } elseif (!empty($tmp['expunge'])) {
-                $i = $last = 0;
-                $lookup = $s_res['uids']->ids;
-
-                /* Expunge responses can come in any order. Thus, we need to
-                 * reindex anytime we have an index that appears equal to or
-                 * after a previously seen index. If an IMAP server is smart,
-                 * it will expunge in reverse order instead. */
-                foreach ($tmp['expunge'] as $val) {
-                    if ($i++ && ($val >= $last)) {
-                        $lookup = array_values($lookup);
-                    }
-                    $expunged[] = $lookup[$val - 1];
-                    $last = $val;
-                }
-            }
-
-            if (!empty($expunged)) {
-                if ($use_cache) {
-                    $this->_deleteMsgs($mailbox, $expunged);
-                }
-                $tmp['mailbox']['messages'] -= $i;
-
-                /* Update MODSEQ if active for mailbox. */
-                if (!empty($this->_temp['mailbox']['highestmodseq'])) {
-                    if (isset($this->_init['enabled']['QRESYNC'])) {
-                        $this->_updateMetaData($mailbox, array('HICmodseq' => $this->_temp['mailbox']['highestmodseq']), isset($this->_temp['mailbox']['uidvalidity']) ? $this->_temp['mailbox']['uidvalidity'] : null);
-                    } else {
-                        /* Unfortunately, RFC 4551 does not provide any method
-                         * to obtain the HIGHESTMODSEQ after an EXPUNGE is
-                         * completed. Instead, unselect the mailbox - if we
-                         * need to reselect the mailbox, the HIGHESTMODSEQ
-                         * info will appear in the EXAMINE/SELECT
-                         * HIGHESTMODSEQ response. */
-                        $this->close();
-                    }
-                }
-            }
-
-            return $list_msgs
-                ? new Horde_Imap_Client_Ids($expunged, $options['ids']->sequence)
-                : null;
-        } elseif (!empty($tmp['expunge'])) {
-            /* Updates status message count if not using cache. */
-            $tmp['mailbox']['messages'] -= count($tmp['expunge']);
+        if (!$use_cache && !$list_msgs) {
+            return null;
         }
+
+        $expunged = array();
+
+        if (!empty($tmp['vanished'])) {
+            $expunged = $tmp['vanished'];
+        } elseif (!empty($tmp['expunge'])) {
+            $i = $last = 0;
+            $lookup = $s_res['uids']->ids;
+
+            /* Expunge responses can come in any order. Thus, we need to
+             * reindex anytime we have an index that appears equal to or
+             * after a previously seen index. If an IMAP server is smart,
+             * it will expunge in reverse order instead. */
+            foreach ($tmp['expunge'] as $val) {
+                if ($i++ && ($val >= $last)) {
+                    $lookup = array_values($lookup);
+                }
+                $expunged[] = $lookup[$val - 1];
+                $last = $val;
+            }
+        }
+
+        if (empty($expunged)) {
+            return null;
+        }
+
+        if ($use_cache) {
+            $this->_deleteMsgs($mailbox, $expunged);
+        }
+
+        /* Update MODSEQ if active for mailbox. */
+        if (!empty($this->_temp['mailbox']['highestmodseq'])) {
+            if (isset($this->_init['enabled']['QRESYNC'])) {
+                $this->_updateMetaData($mailbox, array('HICmodseq' => $this->_temp['mailbox']['highestmodseq']), isset($this->_temp['mailbox']['uidvalidity']) ? $this->_temp['mailbox']['uidvalidity'] : null);
+            } else {
+                /* Unfortunately, RFC 4551 does not provide any method to
+                 * obtain the HIGHESTMODSEQ after an EXPUNGE is completed.
+                 * Instead, unselect the mailbox - if we need to reselect the
+                 * mailbox, the HIGHESTMODSEQ info will appear in the
+                 * EXAMINE/SELECT HIGHESTMODSEQ response. */
+                $this->close();
+            }
+        }
+
+        return $list_msgs
+            ? new Horde_Imap_Client_Ids($expunged, $options['ids']->sequence)
+            : null;
     }
 
     /**
@@ -1558,6 +1556,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _parseExpunge($seq)
     {
         $this->_temp['expunge'][] = $seq;
+
+        /* Bug #9915: Decrement the message list here because some broken
+         * IMAP servers will send an unneeded EXISTS response after the
+         * EXPUNGE list is processed (see RFC 3501 [7.4.1]). */
+        --$tmp['mailbox']['messages'];
     }
 
     /**
@@ -1581,9 +1584,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         } else {
             /* The second form is just VANISHED. This is returned from an
-             * EXPUNGE command and will be processed in _expunge() (since
-             * we need to adjust message counts in the current mailbox). */
+             * EXPUNGE command and will be processed in _expunge(). */
             $this->_temp['vanished'] = $this->utils->fromSequenceString($data[0]);
+            $tmp['mailbox']['messages'] -= count($this->_temp['vanished']);
         }
     }
 

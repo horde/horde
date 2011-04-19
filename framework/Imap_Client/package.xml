@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-13</date>
- <time>00:24:28</time>
+ <date>2011-04-18</date>
+ <time>18:19:45</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Work around broken IMAP clients that send EXISTS data in EXPUNGE response (Bug #9915).
 * Work around broken ESEARCH on Cyrus (Bug #9842).
 * Parse broken date strings that contain timezone information in parantheses (Request #9847).
 * Fix for IMAP servers that report MODSEQ information even though CONDSTORE has not been enabled (Bug #9845).
@@ -306,7 +307,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-04-13</date>
+   <date>2011-04-18</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Parse broken date strings that contain timezone information in parantheses (Request #9847).
