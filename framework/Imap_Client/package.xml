@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* Add support for SEARCH=FUZZY (RFC 6203).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

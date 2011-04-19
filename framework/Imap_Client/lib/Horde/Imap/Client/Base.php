@@ -1568,6 +1568,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *             Horde_Imap_Client::SEARCH_RESULTS_MAX
      *             Horde_Imap_Client::SEARCH_RESULTS_MIN
      *             Horde_Imap_Client::SEARCH_RESULTS_SAVE (This option is
+     *             Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY
      *             currently meant for internal use only)
      * 'sequence' - (boolean) If true, returns an array of sequence numbers.
      *              DEFAULT: Returns an array of UIDs
@@ -1586,6 +1587,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *           available:]
      *          Horde_Imap_Client::SORT_DISPLAYFROM
      *          Horde_Imap_Client::SORT_DISPLAYTO
+     *          [On servers that support SEARCH=FUZZY, this criteria is also
+     *           available:]
+     *          Horde_Imap_Client::SORT_RELEVANCY
      *
      *          Additionally, any sort criteria can be sorted in reverse order
      *          (instead of the default ascending order) by adding a
@@ -1615,6 +1619,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *            Returned if 'sort' is false, the search query includes a
      *            modseq command, and the server supports the CONDSTORE IMAP
      *            extension.
+     * 'relevancy' - (array) The list of relevancy scores.
+     *               Returned if Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY
+     *               is set and the server supports FUZZY search matching.
      * 'save' - (boolean) Whether the search results were saved. This value is
      *          meant for internal use only. Returned if 'sort' is false and
      *          Horde_Imap_Client::SEARCH_RESULTS_SAVE is set.
@@ -1636,6 +1643,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         $options['_query'] = $query->build($this->capability());
+
+        /* RFC 6203: MUST NOT request relevancy results if we are not using
+         * FUZZY searching. */
+        if (in_array(Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY, $options['results']) &&
+            !in_array('SEARCH=FUZZY', $options['_query']['exts_used'])) {
+            $this->_exception('Cannot specify RELEVANCY results if not doing a FUZZY search.', 'BADSEARCH');
+        }
 
         /* Optimization - if query is just for a count of either RECENT or
          * ALL messages, we can send status information instead. Can't

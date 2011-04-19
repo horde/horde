@@ -59,6 +59,8 @@ class Horde_Imap_Client
     /* SORT_SEQUENCE does a simple numerical sort on the returned
      * UIDs/sequence numbers. */
     const SORT_SEQUENCE = 12;
+    /* Fuzzy sort criteria defined in RFC 6203 */
+    const SORT_RELEVANCY = 13;
 
     /* Search results constants */
     const SEARCH_RESULTS_COUNT = 1;
@@ -66,6 +68,7 @@ class Horde_Imap_Client
     const SEARCH_RESULTS_MAX = 3;
     const SEARCH_RESULTS_MIN = 4;
     const SEARCH_RESULTS_SAVE = 5;
+    const SEARCH_RESULTS_RELEVANCY = 6;
     /* DEPRECATED: Use SEARCH_RESULTS_* instead. */
     const SORT_RESULTS_COUNT = 1;
     const SORT_RESULTS_MATCH = 2;

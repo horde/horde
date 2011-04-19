@@ -67,6 +67,9 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
     // Thrown on CREATE if special-use attribute is not supported.
     const USEATTR = 15;
 
+    // Bad search request
+    const BADSEARCH = 16;
+
 
     // Login failures
 

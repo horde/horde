@@ -39,6 +39,7 @@
  *   RFC 5819 - LIST-STATUS
  *   RFC 5957 - SORT=DISPLAY
  *   RFC 6154 - SPECIAL-USE/CREATE-SPECIAL-USE
+ *   RFC 6203 - SEARCH=FUZZY
  *
  *   draft-ietf-morg-inthread-01 - THREAD=REFS
  *
@@ -63,7 +64,6 @@
  *
  *   draft-ietf-morg-inthread-01 - SEARCH=INTHREAD
  *   draft-ietf-morg-multimailbox-search-07 - MULTISEARCH
- *   draft-ietf-morg-fuzzy-search-03 - SEARCH=FUZZY
  *   draft-krecicki-imap-move-01.txt - MOVE
  *
  * [See: http://www.iana.org/assignments/imap4-capabilities]
@@ -1617,6 +1617,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             Horde_Imap_Client::SORT_DISPLAYTO => 'DISPLAYTO',
             Horde_Imap_Client::SORT_FROM => 'FROM',
             Horde_Imap_Client::SORT_REVERSE => 'REVERSE',
+            Horde_Imap_Client::SORT_RELEVANCY => 'RELEVANCY',
             // This is a bogus entry to allow the sort options check to
             // correctly work below.
             Horde_Imap_Client::SORT_SEQUENCE => 'SEQUENCE',
@@ -1630,6 +1631,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             Horde_Imap_Client::SEARCH_RESULTS_MATCH => 'ALL',
             Horde_Imap_Client::SEARCH_RESULTS_MAX => 'MAX',
             Horde_Imap_Client::SEARCH_RESULTS_MIN => 'MIN',
+            Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY => 'RELEVANCY',
             Horde_Imap_Client::SEARCH_RESULTS_SAVE => 'SAVE'
         );
 
@@ -1777,8 +1779,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $ret['min'] = $esearch ? (isset($er['min']) ? $er['min'] : null) : (empty($sr) ? null : min($sr));
                 break;
 
+            case Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY:
+                $ret['relevancy'] = ($esearch && isset($er['relevancy'])) ? $er['relevancy'] : array();
+                break;
+
             case Horde_Imap_Client::SEARCH_RESULTS_SAVE:
                 $ret['save'] = $esearch ? empty($this->_temp['searchnotsaved']) : false;
+                break;
             }
         }
 
@@ -1828,7 +1835,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             ++$i;
         }
 
-        // This catches the case of an '(ALL)' esearch with no results
+        // This catches the case of an '(ALL)' ESEARCH with no results
         if ($i == $len) {
             return;
         }
@@ -1845,6 +1852,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case 'MAX':
             case 'MIN':
             case 'MODSEQ':
+            case 'RELEVANCY':
                 $this->_temp['esearchresp'][strtolower($tag)] = $val;
                 break;
             }
