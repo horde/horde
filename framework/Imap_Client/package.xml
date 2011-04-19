@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Work around broken IMAP clients that send EXISTS data in EXPUNGE response (Bug #9915).
+* [mms] Work around broken IMAP servers that send EXISTS data in EXPUNGE response (Bug #9915).
 * [mms] Work around broken ESEARCH on Cyrus (Bug #9842).
 * [mms] Parse broken date strings that contain timezone information in parantheses (Request #9847).
 * [mms] Fix for IMAP servers that report MODSEQ information even though CONDSTORE has not been enabled (Bug #9845).
@@ -310,7 +310,7 @@
    <date>2011-04-19</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* [mms] Work around broken IMAP clients that send EXISTS data in EXPUNGE response (Bug #9915).
+* [mms] Work around broken IMAP servers that send EXISTS data in EXPUNGE response (Bug #9915).
 * [mms] Work around broken ESEARCH on Cyrus (Bug #9842).
 * [mms] Parse broken date strings that contain timezone information in parantheses (Request #9847).
 * [mms] Fix for IMAP servers that report MODSEQ information even though CONDSTORE has not been enabled (Bug #9845).
