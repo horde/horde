@@ -345,12 +345,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $imp_draft = false;
         $reply_type = null;
 
-        if ($val = $headers->getValue('x-imp-draft-reply')) {
+        if ($draft_url = $headers->getValue('x-imp-draft-reply')) {
             if (!($reply_type = $headers->getValue('x-imp-draft-reply-type'))) {
                 $reply_type = self::REPLY;
             }
             $imp_draft = true;
-        } elseif ($val = $headers->getValue('x-imp-draft-forward')) {
+        } elseif ($draft_url = $headers->getValue('x-imp-draft-forward')) {
             $reply_type = self::FORWARD;
             $imp_draft = true;
         }
@@ -441,9 +441,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
         }
 
-        if ($val) {
+        if ($draft_url) {
             $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-            $imap_url = $imp_imap->getUtils()->parseUrl(rtrim(ltrim($val, '<'), '>'));
+            $imap_url = $imp_imap->getUtils()->parseUrl(rtrim(ltrim($draft_url, '<'), '>'));
             $protocol = $imp_imap->pop3 ? 'pop' : 'imap';
 
             try {
