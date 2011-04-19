@@ -196,11 +196,14 @@ class Horde_Ldap_Schema
      * @param string $oc Name or OID of objectclass.
      *
      * @return array Array with attributes.
-     * @throws Horde_Ldap_Exception
      */
     public function may($oc)
     {
-        return $this->_getAttr($oc, 'may');
+        try {
+            return $this->_getAttr($oc, 'may');
+        } catch (Horde_Ldap_Exception $e) {
+            return array();
+        }
     }
 
     /**
@@ -209,11 +212,14 @@ class Horde_Ldap_Schema
      * @param string $oc Name or OID of objectclass.
      *
      * @return array Array with attributes.
-     * @throws Horde_Ldap_Exception
      */
     public function must($oc)
     {
-        return $this->_getAttr($oc, 'must');
+        try {
+            return $this->_getAttr($oc, 'must');
+        } catch (Horde_Ldap_Exception $e) {
+            return array();
+        }
     }
 
     /**
