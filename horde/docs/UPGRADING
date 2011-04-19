@@ -21,6 +21,12 @@ update anything that's highlighted as outdated.
 Upgrading Horde from 4.0 to 4.0.1
 =================================
 
+Configuration Values
+--------------------
+
+Cyrsql driver: The 'unixhier' parameter has been replaced by the
+               'userhierarchy' parameter.
+
 Hooks
 -----
 
@@ -31,7 +37,6 @@ details on this hook.
 
 Upgrading Horde from 3.3.x to 4.x
 =================================
-
 
 New configuration scheme
 ------------------------

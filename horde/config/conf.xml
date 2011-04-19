@@ -663,9 +663,8 @@
       create under username"/>
       <configinteger name="quota" required="false" desc="The quota (in
       kilobytes) to grant on the mailbox"/>
-      <configboolean name="unixhier" desc="The value of imapd.conf's
-      unixhierarchysep setting. Check this if the value is true in
-      imapd.conf.">false</configboolean>
+      <configstring name="userhierarchy" required="false" desc="The user
+      hierarchy prefix."/>
       <configlist name="hidden_accounts" required="false" desc="A list of accounts to
       hide from the user interface">cyrus</configlist>
      </configsection>
