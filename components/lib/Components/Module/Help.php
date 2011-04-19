@@ -95,9 +95,9 @@ extends Components_Module_Base
             foreach ($modules->getModules() as $module) {
                 $element = $modules->getProvider()->getModule($module);
                 if (in_array($action, $element->getActions())) {
-                    $help = "\nACTION \"" . $action . "\"\n\n  ";
+                    $help = "\nACTION \"" . $action . "\"\n\n";
                     $help .= Horde_String::wordwrap(
-                        $element->getHelp($action), 75, "\n  ", true
+                        $element->getHelp($action), 75, "\n", true
                     );
                     $formatter = new Horde_Argv_IndentedHelpFormatter();
                     $parser = $this->_dependencies->getParser();
