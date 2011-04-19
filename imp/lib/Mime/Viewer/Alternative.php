@@ -132,7 +132,7 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
         /* At this point, $ret contains stubs for all parts living in the base
          * alternative part.
          * Go through all subparts of displayable part and make sure all parts
-         * are rendered.  Parts not rendered will be markes as not being
+         * are rendered.  Parts not rendered will be marked as not being
          * handled by this viewer (Bug #9365). */
         $render_part = $this->_mimepart->getPart($disp_id);
         $need_render = $subparts = $render_part->contentTypeMap();
