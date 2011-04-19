@@ -99,8 +99,7 @@ extends Components_Module_Base
      */
     public function getHelp($action)
     {
-        return 'This module generates a COMPONENT-1.0.0devYYYYMMDD.tgz snapshot of the selected component.
-';
+        return 'This module generates a COMPONENT-1.0.0devYYYYMMDD.tgz snapshot of the selected component.';
     }
 
     /**

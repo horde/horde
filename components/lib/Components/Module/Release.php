@@ -154,19 +154,11 @@ extends Components_Module_Base
      */
     public function getHelp($action)
     {
-        return 'Action "release"
+        return 'Releases the component. This handles a number of automated steps usually required when releasing a package to pear.horde.org. In the most simple situation it will be sufficient to move to the directory of the component you with to release and run
 
-Releases the component. This handles a number of automated steps usually
-required when releasing a package to pear.horde.org. In the most simple
-situation it will be sufficient to move to the directory of the component
-you with to release and run
+  horde-components release
 
- horde-components release
-
-This should perform all required actions. Sometimes it might be necessary
-to avoid some of the steps that are part of the release process. This can
-be done by adding additional arguments after the "release" keyword. Each
-argument indicates that the corresponding task should be run.
+This should perform all required actions. Sometimes it might be necessary to avoid some of the steps that are part of the release process. This can be done by adding additional arguments after the "release" keyword. Each argument indicates that the corresponding task should be run.
 
 The available tasks are:
 
@@ -182,14 +174,11 @@ The available tasks are:
  - next        : Update package.xml with the next version.
  - nextsentinel: Update the sentinels for the next version as well.
 
-The indentation indicates task that depend on a parent task. Activating them
-without activating the parent has no effect.
+The indentation indicates task that depend on a parent task. Activating them without activating the parent has no effect.
 
-The following example would generate the package and add the release tag to
-git without any other release task being performed:
+The following example would generate the package and add the release tag to git without any other release task being performed:
 
- horde-components release package tag
-';
+  horde-components release package tag';
     }
 
     /**

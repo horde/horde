@@ -90,10 +90,7 @@ extends Components_Module_Base
      */
     public function getHelp($action)
     {
-        return 'Action "changed"
-
-This module records a change log entry in package.xml (and docs/CHANGES in case it exists).
-';
+        return 'This module records a change log entry in package.xml (and docs/CHANGES in case it exists).';
     }
 
     /**
