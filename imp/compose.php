@@ -629,10 +629,14 @@ if (!$vars->compose_formToken && ($vars->actionID != 'draft')) {
     $header['bcc'] = Horde_Mime_Address::addrArray2String($identity->getBccAddresses());
 }
 
-foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
+foreach (array('to', 'cc', 'bcc') as $val) {
     if (!isset($header[$val])) {
         $header[$val] = $imp_ui->getAddressList($vars->$val);
     }
+}
+
+if (!isset($header['subject'])) {
+    $header['subject'] = $vars->subject;
 }
 
 /* If PGP encryption is set by default, and we have a recipient list on first
