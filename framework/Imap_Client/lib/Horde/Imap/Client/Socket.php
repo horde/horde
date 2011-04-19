@@ -33,7 +33,7 @@
  *   RFC 5255 - LANGUAGE/I18NLEVEL
  *   RFC 5256 - THREAD/SORT
  *   RFC 5258 - LIST-EXTENDED
- *   RFC 5267 - ESORT
+ *   RFC 5267 - ESORT; PARTIAL search return option
  *   RFC 5464 - METADATA
  *   RFC 5530 - IMAP Response Codes
  *   RFC 5819 - LIST-STATUS
@@ -57,7 +57,7 @@
  *              See: http://bugs.php.net/bug.php?id=48725
  *   RFC 5257 - ANNOTATE (Experimental)
  *   RFC 5259 - CONVERT
- *   RFC 5267 - CONTEXT
+ *   RFC 5267 - CONTEXT=SEARCH; CONTEXT=SORT
  *   RFC 5465 - NOTIFY
  *   RFC 5466 - FILTERS
  *   RFC 5738 - UTF8
@@ -1676,15 +1676,40 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if ($server_sort) {
             $cmd[] = 'SORT';
+            $results = array();
+
+            // Use ESEARCH (RFC 4466) response if server supports.
+            $esearch = false;
+
             // Check for ESORT capability (RFC 5267)
             if ($this->queryCapability('ESORT')) {
-                $results = array();
                 foreach ($options['results'] as $val) {
                     if (isset($results_criteria[$val]) &&
                         ($val != Horde_Imap_Client::SEARCH_RESULTS_SAVE)) {
                         $results[] = $results_criteria[$val];
                     }
                 }
+                $esearch = true;
+            }
+
+            // Add PARTIAL limiting (RFC 5267 [4.4])
+            if ((!$esearch || !empty($options['partial'])) &&
+                ($cap = $this->queryCapability('CONTEXT')) &&
+                in_array('SORT', $cap)) {
+                /* RFC 5267 indicates RFC 4466 ESEARCH support,
+                 * notwithstanding RFC 4731 support. */
+                $esearch = true;
+
+                if (!empty($options['partial'])) {
+                    /* Can't have both ALL and PARTIAL returns. */
+                    $results = array_diff($results, array('ALL'));
+
+                    $results[] = 'PARTIAL';
+                    $results[] = strval(new Horde_Imap_Client_Ids($options['partial']));
+                }
+            }
+
+            if ($esearch && empty($this->_init['noesearch'])) {
                 $cmd[] = 'RETURN';
                 $cmd[] = $results;
             }
@@ -1700,20 +1725,41 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // Charset is mandatory for SORT (RFC 5256 [3]).
             $cmd[] = $options['_query']['charset'];
         } else {
-            // Check if the server supports ESEARCH (RFC 4731).
-            $esearch = $this->queryCapability('ESEARCH');
+            $esearch = false;
+            $results = array();
 
             $cmd[] = 'SEARCH';
 
-            if ($esearch) {
-                // Always use ESEARCH if available because it returns results
-                // in a more compact sequence-set list
-                $results = array();
+            // Check if the server supports ESEARCH (RFC 4731).
+            if ($this->queryCapability('ESEARCH')) {
                 foreach ($options['results'] as $val) {
                     if (isset($results_criteria[$val])) {
                         $results[] = $results_criteria[$val];
                     }
                 }
+                $esearch = true;
+            }
+
+            // Add PARTIAL limiting (RFC 5267 [4.4]).
+            if ((!$esearch || !empty($options['partial'])) &&
+                ($cap = $this->queryCapability('CONTEXT')) &&
+                in_array('SEARCH', $cap)) {
+                /* RFC 5267 indicates RFC 4466 ESEARCH support,
+                 * notwithstanding RFC 4731 support. */
+                $esearch = true;
+
+                if (!empty($options['partial'])) {
+                    // Can't have both ALL and PARTIAL returns.
+                    $results = array_diff($results, array('ALL'));
+
+                    $results[] = 'PARTIAL';
+                    $results[] = strval(new Horde_Imap_Client_Ids($options['partial']));
+                }
+            }
+
+            if ($esearch && empty($this->_init['noesearch'])) {
+                // Always use ESEARCH if available because it returns results
+                // in a more compact sequence-set list
                 $cmd[] = 'RETURN';
                 $cmd[] = $results;
             }
@@ -1743,6 +1789,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $cap = $this->capability();
                 unset($cap['ESEARCH']);
                 $this->_setInit('capability', $cap);
+                $this->_setInit('noesearch', true);
                 return $this->_search($query, $options);
             }
 
@@ -1854,6 +1901,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case 'MODSEQ':
             case 'RELEVANCY':
                 $this->_temp['esearchresp'][strtolower($tag)] = $val;
+                break;
+
+            case 'PARTIAL':
+                $this->_temp['searchresp'] = $this->utils->fromSequenceString(end($val));
                 break;
             }
         }

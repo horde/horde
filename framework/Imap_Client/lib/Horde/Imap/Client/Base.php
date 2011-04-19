@@ -1560,6 +1560,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @param array $options                         Additional options:
      *   - nocache: (boolean) Don't cache the results.
      *              DEFAULT: false (results cached, if possible)
+     *   - partial: (mixed) The range of results to return (message sequence
+     *              numbers).
+     *              DEFAULT: All messages are returned.
      *   - results: (array) The data to return. Consists of zero or more of
      *              the following flags:
      *     + Horde_Imap_Client::SEARCH_RESULTS_COUNT
@@ -2888,7 +2891,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 break;
 
             case 'UTF-8':
-                /* SORT (RFC 5266) & ESORT (RFC 5267) require UTF-8
+                /* SORT (RFC 5256) & ESORT (RFC 5267) require UTF-8
                  * support. */
                 if ($this->queryCapability('SORT') ||
                     $this->queryCapability('ESORT')) {

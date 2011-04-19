@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Add support for PARTIAL search/sort results return (RFC 5267 [4.4]).
 * Add support for SEARCH=FUZZY (RFC 6203).
  </notes>
  <contents>
