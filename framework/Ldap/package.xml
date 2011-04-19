@@ -20,8 +20,8 @@
  <date>2011-04-06</date>
  <time>01:14:08</time>
  <version>
-  <release>1.0.1</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
  <notes>
+* [jan] Add parameter to Horde_Ldap_Schema#must() and #may() to return attributes from superior objectclasses too (Bug #9826).
 * [jan] Don&apos;t throw exceptions from Horde_Ldap_Schema#must() and #may() (Bug #9826).
  </notes>
  <contents>

@@ -621,7 +621,7 @@ class Turba_Driver_Ldap extends Turba_Driver
                 continue;
             }
 
-            $required = $schema->must($oc);
+            $required = $schema->must($oc, true);
             if (is_array($required)) {
                 foreach ($required as $v) {
                     if ($this->_isString($v)) {

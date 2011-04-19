@@ -193,14 +193,22 @@ class Horde_Ldap_Schema
     /**
      * Fetches attributes that MAY be present in the given objectclass.
      *
-     * @param string $oc Name or OID of objectclass.
+     * @param string $oc         Name or OID of objectclass.
+     * @param boolean $checksup  Check all superiour objectclasses too?
      *
      * @return array Array with attributes.
      */
-    public function may($oc)
+    public function may($oc, $checksup = false)
     {
         try {
-            return $this->_getAttr($oc, 'may');
+            $attributes = $this->_getAttr($oc, 'may');
+            if ($checksup) {
+                foreach ($this->superclass($oc) as $sup) {
+                    $attributes = array_merge($attributes, $this->may($sup));
+                }
+                $attributes = array_values(array_unique($attributes));
+            }
+            return $attributes;
         } catch (Horde_Ldap_Exception $e) {
             return array();
         }
@@ -209,14 +217,22 @@ class Horde_Ldap_Schema
     /**
      * Fetches attributes that MUST be present in the given objectclass.
      *
-     * @param string $oc Name or OID of objectclass.
+     * @param string $oc         Name or OID of objectclass.
+     * @param boolean $checksup  Check all superiour objectclasses too?
      *
      * @return array Array with attributes.
      */
-    public function must($oc)
+    public function must($oc, $checksup = false)
     {
         try {
-            return $this->_getAttr($oc, 'must');
+            $attributes = $this->_getAttr($oc, 'must');
+            if ($checksup) {
+                foreach ($this->superclass($oc) as $sup) {
+                    $attributes = array_merge($attributes, $this->must($sup));
+                }
+                $attributes = array_values(array_unique($attributes));
+            }
+            return $attributes;
         } catch (Horde_Ldap_Exception $e) {
             return array();
         }
