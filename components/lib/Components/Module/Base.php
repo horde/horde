@@ -89,6 +89,16 @@ implements Components_Module
     }
 
     /**
+     * Return the options that should be explained in the context help.
+     *
+     * @return array A list of option help texts.
+     */
+    public function getContextOptionHelp()
+    {
+        return array();
+    }
+
+    /**
      * Return the help text for the specified action.
      *
      * @param string $action The action.
