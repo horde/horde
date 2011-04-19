@@ -40,10 +40,17 @@ class Horde_Block_Account extends Horde_Core_Block
 
         case 'localhost':
         case 'finger':
-        case 'ldap':
         case 'kolab':
             $class = 'Accounts_Driver_' . $conf['accounts']['driver'];
             $mydriver = new $class($conf['accounts']['params']);
+            break;
+
+        case 'ldap':
+            $params = Horde::getDriverConfig('accounts', 'ldap');
+            $params['ldap'] = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Ldap')
+                ->create('horde', 'accounts');
+            $mydriver = new Accounts_Driver_ldap($params);
             break;
 
         default:
@@ -58,7 +65,7 @@ class Horde_Block_Account extends Horde_Core_Block
         if (is_a($username = $mydriver->getUsername(), 'PEAR_Error')) {
             return $username->getMessage();
         }
-        $table = array(_("Login") => $username);
+        $table = array(_("User Name") => $username);
         if (is_a($fullname = $mydriver->getFullname(), 'PEAR_Error')) {
             return $fullname->getMessage();
         } elseif ($fullname) {
@@ -418,12 +425,7 @@ class Accounts_Driver_ldap extends Accounts_Driver {
      */
     var $_ds;
 
-    /**
-     * Hash containing connection parameters.
-     *
-     * @var array
-     */
-    var $_params;
+    var $_information;
 
     /**
      * Constructs a new Accounts_Driver_ldap object.
@@ -432,54 +434,8 @@ class Accounts_Driver_ldap extends Accounts_Driver {
      */
     function Accounts_Driver_ldap($params = array())
     {
-        $this->_params = array_merge(
-            array('host' => 'localhost',
-                  'port' => 389,
-                  'basedn' => '',
-                  'attr' => 'uid',
-                  'version' => '3',
-                  'strip' => false,
-            ),
-            $params);
-    }
-
-    /**
-     */
-    function _bind()
-    {
-        if (is_resource($this->_ds) && get_resource_type($this->_ds) == 'ldap link') {
-            return true;
-        }
-
-        // Connect to the LDAP server.
-        $this->_ds = ldap_connect($this->_params['host'],
-                                  $this->_params['port']);
-        if (!$this->_ds) {
-            return PEAR::raiseError(_("Could not connect to LDAP server."));
-        }
-        if (isset($this->_params['version'])) {
-            if (!ldap_set_option($this->_ds, LDAP_OPT_PROTOCOL_VERSION,
-                                 $this->_params['version'])) {
-                Horde::logMessage(sprintf('Set LDAP protocol version to %d failed: [%d] %s',
-                                          $this->_params['version'],
-                                          ldap_errno($conn),
-                                          ldap_error($conn)),
-                                  __FILE__, __LINE__);
-                }
-        }
-
-        // Bind.
-        if (!empty($this->_params['binddn'])) {
-            $result = @ldap_bind($this->_ds, $this->_params['binddn'],
-                                 $this->_params['password']);
-        } else {
-            $result = @ldap_bind($this->_ds);
-        }
-        if (!$result) {
-            return PEAR::raiseError(_("Could not bind to LDAP server."));
-        }
-
-        return true;
+        $this->_ds = $params['ldap'];
+        $this->_params = $params;
     }
 
     /**
@@ -491,25 +447,23 @@ class Accounts_Driver_ldap extends Accounts_Driver {
      */
     function _getMaxPasswd()
     {
-        $result = $this->_bind();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        $dn = Horde_Ldap_Util::explodeDN($this->_params['basedn']);
+        $domaindn = array();
+        foreach ($dn as $rdn) {
+            $attribute = Horde_Ldap_Util::splitAttributeString($rdn);
+            if ($attribute[0] == 'DC') {
+                $domaindn[] = $rdn;
+            }
         }
+        $dn = Horde_Ldap_Util::canonicalDN($domaindn);
 
-        $domaindn = $this->_params['basedn'];
-        $adomaindn = explode('.', array_pop(explode(',', ldap_dn2ufn($domaindn))));
-        $domaindn = '';
-        foreach ($adomaindn as $name) {
-            $domaindn .= 'DC=' . $name . ',';
-        }
-        $domaindn = trim($domaindn, ',');
-        $searchResult = ldap_search($this->_ds, $domaindn, 'objectClass=*');
-        $first = @ldap_first_entry($this->_ds, $searchResult);
-        $res = @ldap_get_values($this->_ds, $first, 'maxPwdAge');
-        if ($res === false) {
+        $search = $this->_ds->search($domaindn, 'objectClass=*');
+        $entry = $search->shiftEntry();
+        try {
+            return $entry->getValue('maxPwdAge', 'single');
+        } catch (Horde_Ldap_Exception $e) {
             return false;
         }
-        return $res[0];
     }
 
     /**
@@ -524,40 +478,28 @@ class Accounts_Driver_ldap extends Accounts_Driver {
         $secsAfterADEpoch = $dateLargeInt / (10000000);
 
         // Unix epoch - AD epoch * number of tropical days * seconds in a day.
-        $ADToUnixConvertor = ((1970-1601) * 365.242190) * 86400;
+        $ADToUnixConvertor = ((1970 - 1601) * 365.242190) * 86400;
 
-        return intval($secsAfterADEpoch-$ADToUnixConvertor);
+        return intval($secsAfterADEpoch - $ADToUnixConvertor);
     }
 
     /**
-     * Returns the user account from the ldap source.
+     * Returns the user account from the LDAP source.
      *
-     * @return array  A hash with complete account details.
+     * @return Horde_Ldap_Entry  An entry with complete account details.
      */
     function _getAccount()
     {
-        static $information;
-        if (!isset($information)) {
-            $result = $this->_bind();
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
+        if (!isset($this->_information)) {
+            $search = $this->_ds->search($this->_params['basedn'],
+                                         $this->_params['attr'] . '=' . $this->getUsername());
+            if (!$search->count()) {
+                throw new Horde_Exception(_("User account not found"));
             }
-
-            // Get the fullname.
-            $searchResult = ldap_search($this->_ds, $this->_params['basedn'],
-                                        $this->_params['attr'] . '=' . $this->getUsername());
-            $first = ldap_first_entry($this->_ds, $searchResult);
-            $information = ldap_get_entries($this->_ds, $searchResult);
-
-            // Disconnect from the ldap server.
-            @ldap_close($this->_ds);
-
-            if ($information['count'] == 0) {
-                $information = PEAR::raiseError(_("User account not found"));
-            }
+            $this->_information = $search->shiftEntry();
         }
 
-        return $information;
+        return $this->_information;
     }
 
     /**
@@ -580,18 +522,11 @@ class Accounts_Driver_ldap extends Accounts_Driver {
     function getFullname()
     {
         $information = $this->_getAccount();
-        if (is_a($information, 'PEAR_Error')) {
-            return $information;
+        try {
+            return $information->getValue('cn', 'single');
+        } catch (Horde_Ldap_Exception $e) {
+            return false;
         }
-
-        if (isset($information[0]['cn;lang-es'][0]) &&
-            $information[0]['cn;lang-es'][0] != '') {
-            $name = $information[0]['cn;lang-es'][0];
-        } else {
-            $name = $information[0]['cn'][0];
-        }
-
-        return (empty($name) ? false : $name);
     }
 
     /**
@@ -602,15 +537,11 @@ class Accounts_Driver_ldap extends Accounts_Driver {
     function getHome()
     {
         $information = $this->_getAccount();
-        if (is_a($information, 'PEAR_Error')) {
-            return $information;
-        }
-
-        if (empty($information[0]['homedirectory'][0])) {
+        try {
+            return $information->getValue('homedirectory', 'single');
+        } catch (Horde_Ldap_Exception $e) {
             return false;
         }
-
-        return $information[0]['homedirectory'][0];
     }
 
     /**
@@ -621,19 +552,15 @@ class Accounts_Driver_ldap extends Accounts_Driver {
     function getShell()
     {
         $information = $this->_getAccount();
-        if (is_a($information, 'PEAR_Error')) {
-            return $information;
+        try {
+            return $information->getValue('useraccountcontrol', 'single');
+        } catch (Horde_Ldap_Exception $e) {
         }
-
-        if (isset($information[0]['useraccountcontrol'][0])) {
-            return _("Windows");
-        }
-
-        if (empty($information[0]['loginshell'][0])) {
+        try {
+            return $information->getValue('loginshell', 'single');
+        } catch (Horde_Ldap_Exception $e) {
             return false;
         }
-
-        return $information[0]['loginshell'][0];
     }
 
     /**
@@ -644,18 +571,15 @@ class Accounts_Driver_ldap extends Accounts_Driver {
     function getPasswordChange()
     {
         $information = $this->_getAccount();
-        if (is_a($information, 'PEAR_Error')) {
-            return $information;
+        try {
+            return strftime('%x', $information->getValue('shadowlastchange', 'single'));
+        } catch (Horde_Ldap_Exception $e) {
         }
-
-        if (isset($information[0]['shadowlastchange'][0])) {
-            $lastchange = strftime('%x', $information[0]['shadowlastchange'][0] * 86400);
-        } elseif (isset($information[0]['pwdlastset'][0])) {
-            $lastchangetime = $this->_convertWinTimeToUnix($information[0]['pwdlastset'][0]);
-            $lastchange = strftime('%x', $lastchangetime);
+        try {
+            return strftime('%x', $this->_convertWinTimeToUnix($information->getValue('pwdlastset', 'single')));
+        } catch (Horde_Ldap_Exception $e) {
+            return false;
         }
-
-        return (empty($lastchange) ? false : $lastchange);
     }
 
     /**
@@ -667,13 +591,11 @@ class Accounts_Driver_ldap extends Accounts_Driver {
     function checkPasswordStatus()
     {
         $information = $this->_getAccount();
-        if (is_a($information, 'PEAR_Error')) {
-            return $information;
-        }
 
-        if (isset($information[0]['pwdlastset'][0]) &&
-            isset($information[0]['useraccountcontrol'][0])) {
-            // Active Directory.
+        // Active Directory.
+        try {
+            $accountControl = $information->getValue('useraccountcontrol', 'single');
+            $pwdlastset     = $information->getValue('pwdlastset', 'single');
             $accountControl = $information[0]['useraccountcontrol'][0];
             if (($accountControl & 65536) != 0) {
                 // ADS_UF_DONT_EXPIRE_PASSWD
@@ -685,15 +607,12 @@ class Accounts_Driver_ldap extends Accounts_Driver {
             }
 
             $maxdays = $this->_getMaxPasswd();
-            if (is_a($maxdays, 'PEAR_error')) {
-                return $maxdays;
-            }
             if ($maxdays === false) {
                 return false;
             }
 
             $today = time();
-            $lastset = $information[0]['pwdlastset'][0] - $maxdays;
+            $lastset = $pwdlastset - $maxdays;
             $toexpire = floor(($this->_convertWinTimeToUnix($lastset) - $today) / 86400);
             if ($toexpire < 0) {
                 return _("Your password has expired");
@@ -702,18 +621,22 @@ class Accounts_Driver_ldap extends Accounts_Driver {
                 // Two weeks.
                 return sprintf(_("%d days until your password expires."), $toexpire);
             }
-        } elseif (isset($information[0]['shadowmax'][0]) &&
-                  isset($information[0]['shadowlastchange'][0]) &&
-                  isset($information[0]['shadowwarning'][0])) {
-            // OpenLDAP.
+        } catch (Horde_Ldap_Exception $e) {
+        }
+
+        // OpenLDAP.
+        try {
+            $shadowmax        = $information->getValue('shadowmax', 'single');
+            $shadowlastchange = $information->getValue('shadowlastchange', 'single');
+            $shadowwarning    = $information->getValue('shadowwarning', 'single');
             $today = floor(time() / 86400);
-            $warnday = $information[0]['shadowlastchange'][0] +
-                $information[0]['shadowmax'][0] - $information[0]['shadowwarning'][0];
-            $toexpire = $information[0]['shadowlastchange'][0] + $information[0]['shadowmax'][0] - $today;
+            $warnday = $shadowlastchange + $shadowmax - $shadowwarning;
+            $toexpire = $shadowlastchange + $shadowmax - $today;
 
             if ($today >= $warnday) {
                 return sprintf(_("%d days until your password expires."), $toexpire);
             }
+        } catch (Horde_Ldap_Exception $e) {
         }
 
         return false;
