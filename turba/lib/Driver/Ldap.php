@@ -612,26 +612,26 @@ class Turba_Driver_Ldap extends Turba_Driver
      */
     protected function _checkRequiredAttributes(array $objectclasses)
     {
-       $retval = array();
-       $schema = $this->_ldap->schema();
+        $ldap = new Horde_Ldap($this->_convertParameters($this->_params));
+        $schema = $ldap->schema();
 
-       foreach ($objectclasses as $oc) {
-           if (Horde_String::lower($oc) == 'top') {
-               continue;
-           }
+        $retval = array();
+        foreach ($objectclasses as $oc) {
+            if (Horde_String::lower($oc) == 'top') {
+                continue;
+            }
 
-           $required = $schema->must($oc);
+            $required = $schema->must($oc);
+            if (is_array($required)) {
+                foreach ($required as $v) {
+                    if ($this->_isString($v)) {
+                        $retval[] = Horde_String::lower($v);
+                    }
+                }
+            }
+        }
 
-           if (is_array($required)) {
-               foreach ($required as $v) {
-                   if ($this->_isString($v)) {
-                       $retval[] = Horde_String::lower($v);
-                   }
-               }
-           }
-       }
-
-       return $retval;
+        return $retval;
     }
 
     /**
