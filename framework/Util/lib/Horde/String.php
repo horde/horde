@@ -497,14 +497,15 @@ class Horde_String
             $line = self::substr($string, 0, $width, 'UTF-8');
             $string = self::substr($string, self::length($line, 'UTF-8'), null, 'UTF-8');
 
-            // Make sure didn't cut a word, unless we want hard breaks anyway.
+            // Make sure we didn't cut a word, unless we want hard breaks
+            // anyway.
             if (!$cut && preg_match('/^(.+?)((\s|\r?\n).*)/us', $string, $match)) {
                 $line .= $match[1];
                 $string = $match[2];
             }
 
             // Wrap at existing line breaks.
-            if (preg_match('/^(.*?)(\r?\n)(.*)$/u', $line, $match)) {
+            if (preg_match('/^(.*?)(\r?\n)(.*)$/su', $line, $match)) {
                 $wrapped .= $match[1] . $match[2];
                 $string = $match[3] . $string;
                 continue;

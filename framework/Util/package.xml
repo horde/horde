@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Fix wrapping of several follow-up lines with existing line breaks.
 * [jan] Fix creating temporary files with open_basedir restrictions.
  </notes>
  <contents>
@@ -341,6 +342,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2011-04-19</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Fix wrapping of several follow-up lines with existing line breaks.
 * [jan] Fix creating temporary files with open_basedir restrictions.
    </notes>
   </release>

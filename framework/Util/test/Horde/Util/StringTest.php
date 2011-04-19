@@ -341,6 +341,17 @@ fäücibüs mäüris ämet.
 EOT
 ,
             Horde_String::wordwrap($string));
+        $string = "Lörem ipsüm dölör sit ämet, cönsectetüer ädipiscing elit. Aliqüäm söllicitüdin fäücibüs mäüris ämet.\nLörem ipsüm dölör sit ämet.\nLörem ipsüm dölör sit ämet, cönsectetüer ädipiscing elit. Aliqüäm söllicitüdin fäücibüs mäüris ämet.";
+        $this->assertEquals(
+<<<EOT
+Lörem ipsüm dölör sit ämet, cönsectetüer ädipiscing elit. Aliqüäm
+söllicitüdin fäücibüs mäüris ämet.
+Lörem ipsüm dölör sit ämet.
+Lörem ipsüm dölör sit ämet, cönsectetüer ädipiscing elit. Aliqüäm
+söllicitüdin fäücibüs mäüris ämet.
+EOT
+,
+            Horde_String::wordwrap($string));
 
         // Test overlong words and word cut.
         $string = "Löremipsümdölörsitämet, cönsectetüerädipiscingelit.";
