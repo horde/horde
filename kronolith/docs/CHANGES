@@ -2,6 +2,7 @@
 v3.0.1-git
 ----------
 
+[jan] Allow to set external CalDAV server as default server (Request #9913).
 [jan] Don't store all task lists in the session.
 [jan] Fix new task lists not showing up until next login (Bug #9814).
 [mjr] Fix broken event alarm links in sidebar (Bug #9897).
