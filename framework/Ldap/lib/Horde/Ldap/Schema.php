@@ -204,7 +204,7 @@ class Horde_Ldap_Schema
             $attributes = $this->_getAttr($oc, 'may');
             if ($checksup) {
                 foreach ($this->superclass($oc) as $sup) {
-                    $attributes = array_merge($attributes, $this->may($sup));
+                    $attributes = array_merge($attributes, $this->may($sup, true));
                 }
                 $attributes = array_values(array_unique($attributes));
             }
@@ -228,7 +228,7 @@ class Horde_Ldap_Schema
             $attributes = $this->_getAttr($oc, 'must');
             if ($checksup) {
                 foreach ($this->superclass($oc) as $sup) {
-                    $attributes = array_merge($attributes, $this->must($sup));
+                    $attributes = array_merge($attributes, $this->must($sup, true));
                 }
                 $attributes = array_values(array_unique($attributes));
             }
