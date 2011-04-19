@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-18</date>
- <time>18:39:56</time>
+ <date>2011-04-19</date>
+ <time>18:56:43</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -372,9 +372,11 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-04-18</date>
+   <date>2011-04-19</date>
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
+* [mms] Fix default userhierarchy for Cyrsql driver (Bug #9895).
+* [cjh] Add crypt-sha256 and crypt-sha512 password hashes (patrickdk@patrickdk.com, Request #6991).
 * [mms] Fix addUser() in Customsql driver (Bug #9832).
    </notes>
   </release>

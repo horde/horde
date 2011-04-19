@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:21:33</time>
+ <date>2011-04-19</date>
+ <time>19:05:55</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -276,7 +276,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-04-19</date>
    <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
    <notes>
 * [jan] Fix creating temporary files with open_basedir restrictions.
