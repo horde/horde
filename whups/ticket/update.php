@@ -25,6 +25,7 @@ $vars = Horde_Variables::getDefaultVariables();
 $vars->set('id', $id = $ticket->getId());
 foreach ($ticket->getDetails() as $varname => $value) {
     if ($varname == 'owners') {
+        $owners = $gowners = array();
         foreach ($value as $owner) {
             if (strpos($owner, 'user:') !== false) {
                 $owners[] = $owner;
