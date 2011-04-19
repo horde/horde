@@ -48,9 +48,24 @@ class Horde_Core_Factory_Identity extends Horde_Core_Factory_Base
     {
         global $prefs, $registry;
 
-        $class = empty($driver)
-            ? 'Horde_Core_Prefs_Identity'
-            : Horde_String::ucfirst($driver) . '_Prefs_Identity';
+        $class = 'Horde_Core_Prefs_Identity';
+        switch ($driver) {
+        case 'horde':
+            // Bug #9936: There is a conflict between the horde/Prefs
+            // Identity base driver and the application-specific Identity
+            // driver for Horde.
+            $temp_class = 'Horde_Prefs_HordeIdentity';
+            if (class_exists($temp_class)) {
+                $class = $temp_class;
+            }
+            break;
+
+        default:
+            if (!empty($driver)) {
+                $class = Horde_String::ucfirst($driver) . '_Prefs_Identity';
+            }
+            break;
+        }
         $key = $class . '|' . $user;
 
         if (!isset($this->_instances[$key])) {
