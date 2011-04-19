@@ -2049,7 +2049,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->ViewPort->view = $this->_vars->view;
         }
 
-        if (!$del->remove) {
+        if (!isset($del->remove)) {
             $result->flag = $this->flagEntry(array(Horde_Imap_Client::FLAG_DELETED), true, $indices);
         }
 
