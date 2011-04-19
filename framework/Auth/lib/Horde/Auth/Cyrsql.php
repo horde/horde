@@ -98,13 +98,6 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
     protected $_imap;
 
     /**
-     * Hierarchy separator to use (e.g., is it user/mailbox or user.mailbox)
-     *
-     * @var string
-     */
-    protected $_separator = '.';
-
-    /**
      * Constructor.
      *
      * @param array $params  Parameters:
@@ -122,10 +115,8 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
      * 'imap' - (Horde_Imap_Client_Base) [REQUIRED] An IMAP client object.
      * 'quota' - (integer) The quota (in kilobytes) to grant on the mailbox.
      *           DEFAULT: NONE
-     * 'unixhier' - (boolean) The value of imapd.conf's unixhierarchysep
-     *              setting. Set this to true if the value is true in
-     *              imapd.conf.
-     *              DEFAULT: false
+     * 'userhierarchy' - (string) The user hierarchy prefix.
+     *                   DEFAULT: 'user.'
      * </pre>
      *
      * @throws InvalidArgumentException
@@ -144,15 +135,11 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
             'domain_field' => 'domain_name',
             'folders' => array(),
             'hidden_accounts' => array('cyrus'),
-            'quota' => null
+            'quota' => null,
+            'userhierarchy' => 'user.'
         ), $params);
 
         parent::__construct($params);
-
-        if (!empty($this->_params['unixhier'])) {
-            $this->_params['userhierarchy'] = 'user/';
-            $this->_separator = '/';
-        }
     }
 
     /**

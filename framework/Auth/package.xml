@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-07</date>
- <time>10:33:44</time>
+ <date>2011-04-18</date>
+ <time>18:39:56</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
+* [mms] Fix default userhierarchy for Cyrsql driver (Bug #9895).
 * [cjh] Add crypt-sha256 and crypt-sha512 password hashes (patrickdk@patrickdk.com, Request #6991).
 * [mms] Fix addUser() in Customsql driver (Bug #9832).
  </notes>
@@ -272,9 +273,9 @@
    <notes>
 * Imap driver now uses Horde_Imap_Client library.
 * Add signup drivers to package.xml (Bug #7345).
-* Fix the &quot;overwriting realm info from application auth drivers&quot; (Bug #6749)
+* Fix the "overwriting realm info from application auth drivers" (Bug #6749)
 * Switched Kolab auth handling from IMAP to LDAP by using Kolab_Server.
-* Added &quot;add user&quot; capability to the Kolab driver.
+* Added "add user" capability to the Kolab driver.
 * Adapted the Kolab auth driver to the changes in Kolab_Server.
    </notes>
   </release>
@@ -371,7 +372,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-04-07</date>
+   <date>2011-04-18</date>
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
 * [mms] Fix addUser() in Customsql driver (Bug #9832).
