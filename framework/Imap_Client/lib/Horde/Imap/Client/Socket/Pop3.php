@@ -556,19 +556,19 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         $ret = array();
         foreach ($options['results'] as $val) {
             switch ($val) {
-            case Horde_Imap_Client::SORT_RESULTS_COUNT:
+            case Horde_Imap_Client::SEARCH_RESULTS_COUNT:
                 $ret['count'] = count($res);
                 break;
 
-            case Horde_Imap_Client::SORT_RESULTS_MATCH:
+            case Horde_Imap_Client::SEARCH_RESULTS_MATCH:
                 $ret['match'] = new Horde_Imap_Client_Ids($res);
                 break;
 
-            case Horde_Imap_Client::SORT_RESULTS_MAX:
+            case Horde_Imap_Client::SEARCH_RESULTS_MAX:
                 $ret['max'] = empty($res) ? null : max($res);
                 break;
 
-            case Horde_Imap_Client::SORT_RESULTS_MIN:
+            case Horde_Imap_Client::SEARCH_RESULTS_MIN:
                 $ret['min'] = empty($res) ? null : min($res);
                 break;
             }

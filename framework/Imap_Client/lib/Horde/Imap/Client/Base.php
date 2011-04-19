@@ -1563,11 +1563,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *             DEFAULT: false (results cached, if possible)
      * 'results' - (array) The data to return. Consists of zero or more of the
      *                     following flags:
-     *             Horde_Imap_Client::SORT_RESULTS_COUNT
-     *             Horde_Imap_Client::SORT_RESULTS_MATCH (DEFAULT)
-     *             Horde_Imap_Client::SORT_RESULTS_MAX
-     *             Horde_Imap_Client::SORT_RESULTS_MIN
-     *             Horde_Imap_Client::SORT_RESULTS_SAVE (This option is
+     *             Horde_Imap_Client::SEARCH_RESULTS_COUNT
+     *             Horde_Imap_Client::SEARCH_RESULTS_MATCH (DEFAULT)
+     *             Horde_Imap_Client::SEARCH_RESULTS_MAX
+     *             Horde_Imap_Client::SEARCH_RESULTS_MIN
+     *             Horde_Imap_Client::SEARCH_RESULTS_SAVE (This option is
      *             currently meant for internal use only)
      * 'sequence' - (boolean) If true, returns an array of sequence numbers.
      *              DEFAULT: Returns an array of UIDs
@@ -1601,15 +1601,15 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *           Always returned.
      * 'match' - (Horde_Imap_Client_Ids) The IDs that match $criteria, sorted
      *           if the 'sort' modifier was set.
-     *           Returned if Horde_Imap_Client::SORT_RESULTS_MATCH is set.
+     *           Returned if Horde_Imap_Client::SEARCH_RESULTS_MATCH is set.
      * 'max' - (integer) The UID (default) or message sequence number (if
      *         'sequence is true) of the highest message that satisifies
      *         $criteria. Returns null if no matches found.
-     *         Returned if Horde_Imap_Client::SORT_RESULTS_MAX is set.
+     *         Returned if Horde_Imap_Client::SEARCH_RESULTS_MAX is set.
      * 'min' - (integer) The UID (default) or message sequence number (if
      *         'sequence is true) of the lowest message that satisifies
      *         $criteria. Returns null if no matches found.
-     *         Returned if Horde_Imap_Client::SORT_RESULTS_MIN is set.
+     *         Returned if Horde_Imap_Client::SEARCH_RESULTS_MIN is set.
      * 'modseq' - (integer) The highest mod-sequence for all messages being
      *            returned.
      *            Returned if 'sort' is false, the search query includes a
@@ -1617,7 +1617,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *            extension.
      * 'save' - (boolean) Whether the search results were saved. This value is
      *          meant for internal use only. Returned if 'sort' is false and
-     *          Horde_Imap_Client::SORT_RESULTS_SAVE is set.
+     *          Horde_Imap_Client::SEARCH_RESULTS_SAVE is set.
      * </pre>
      * @throws Horde_Imap_Client_Exception
      */
@@ -1625,8 +1625,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
     {
         if (empty($options['results'])) {
             $options['results'] = array(
-                Horde_Imap_Client::SORT_RESULTS_MATCH,
-                Horde_Imap_Client::SORT_RESULTS_COUNT
+                Horde_Imap_Client::SEARCH_RESULTS_MATCH,
+                Horde_Imap_Client::SEARCH_RESULTS_COUNT
             );
         }
 
@@ -1642,7 +1642,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
          * optimize with unseen queries because we may cause an infinite loop
          * between here and the status() call. */
         if ((count($options['results']) == 1) &&
-            (reset($options['results']) == Horde_Imap_Client::SORT_RESULTS_COUNT)) {
+            (reset($options['results']) == Horde_Imap_Client::SEARCH_RESULTS_COUNT)) {
             switch ($options['_query']['query']) {
             case 'ALL':
                 $ret = $this->status($this->_selected, Horde_Imap_Client::STATUS_MESSAGES);

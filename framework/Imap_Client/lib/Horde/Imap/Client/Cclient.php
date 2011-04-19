@@ -471,7 +471,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         if ($flags & Horde_Imap_Client::STATUS_FIRSTUNSEEN) {
             $search_query = new Horde_Imap_Client_Search_Query();
             $search_query->flag(Horde_Imap_Client::FLAG_SEEN, false);
-            $search = $this->search($mailbox, $search_query, array('results' => array(Horde_Imap_Client::SORT_RESULTS_MIN), 'sequence' => true));
+            $search = $this->search($mailbox, $search_query, array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MIN), 'sequence' => true));
 
             if (is_null($res)) {
                 return array('firstunseen' => $search['min']);
@@ -648,19 +648,19 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         $ret = array();
         foreach ($options['results'] as $val) {
             switch ($val) {
-            case Horde_Imap_Client::SORT_RESULTS_COUNT:
+            case Horde_Imap_Client::SEARCH_RESULTS_COUNT:
                 $ret['count'] = count($res);
                 break;
 
-            case Horde_Imap_Client::SORT_RESULTS_MATCH:
+            case Horde_Imap_Client::SEARCH_RESULTS_MATCH:
                 $ret['match'] = new Horde_Imap_Client_Ids($res, !empty($options['sequence']));
                 break;
 
-            case Horde_Imap_Client::SORT_RESULTS_MAX:
+            case Horde_Imap_Client::SEARCH_RESULTS_MAX:
                 $ret['max'] = empty($res) ? null : max($res);
                 break;
 
-            case Horde_Imap_Client::SORT_RESULTS_MIN:
+            case Horde_Imap_Client::SEARCH_RESULTS_MIN:
                 $ret['min'] = empty($res) ? null : min($res);
                 break;
             }

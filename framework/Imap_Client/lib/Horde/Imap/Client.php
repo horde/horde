@@ -60,6 +60,13 @@ class Horde_Imap_Client
      * UIDs/sequence numbers. */
     const SORT_SEQUENCE = 12;
 
+    /* Search results constants */
+    const SEARCH_RESULTS_COUNT = 1;
+    const SEARCH_RESULTS_MATCH = 2;
+    const SEARCH_RESULTS_MAX = 3;
+    const SEARCH_RESULTS_MIN = 4;
+    const SEARCH_RESULTS_SAVE = 5;
+    /* DEPRECATED: Use SEARCH_RESULTS_* instead. */
     const SORT_RESULTS_COUNT = 1;
     const SORT_RESULTS_MATCH = 2;
     const SORT_RESULTS_MAX = 3;

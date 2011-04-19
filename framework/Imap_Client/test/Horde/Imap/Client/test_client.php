@@ -520,7 +520,7 @@ try {
 
 print "\nSearching " . $test_mbox . " for all messages (returning message sequence numbers).\n";
 try {
-    print_r($imap_client->search($test_mbox, $all_query, array('results' => array(Horde_Imap_Client::SORT_RESULTS_COUNT, Horde_Imap_Client::SORT_RESULTS_MATCH, Horde_Imap_Client::SORT_RESULTS_MAX, Horde_Imap_Client::SORT_RESULTS_MIN), 'sequence' => true)));
+    print_r($imap_client->search($test_mbox, $all_query, array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_COUNT, Horde_Imap_Client::SEARCH_RESULTS_MATCH, Horde_Imap_Client::SEARCH_RESULTS_MAX, Horde_Imap_Client::SEARCH_RESULTS_MIN), 'sequence' => true)));
     print "Search: OK\n";
 } catch (Horde_Imap_Client_Exception $e) {
     print 'ERROR: ' . $e->getMessage() . "\n";
@@ -530,12 +530,12 @@ try {
 print "\nSearching " . $test_mbox . " (should be optimized by using internal status instead).\n";
 try {
     $query1 = $query2 = $all_query;
-    print_r($imap_client->search($test_mbox, $all_query, array('results' => array(Horde_Imap_Client::SORT_RESULTS_COUNT))));
+    print_r($imap_client->search($test_mbox, $all_query, array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_COUNT))));
     $query1->flag(Horde_Imap_Client::FLAG_RECENT);
-    print_r($imap_client->search($test_mbox, $query1, array('results' => array(Horde_Imap_Client::SORT_RESULTS_COUNT))));
+    print_r($imap_client->search($test_mbox, $query1, array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_COUNT))));
     $query2->flag(Horde_Imap_Client::FLAG_SEEN, false);
-    print_r($imap_client->search($test_mbox, $query2, array('results' => array(Horde_Imap_Client::SORT_RESULTS_COUNT))));
-    print_r($imap_client->search($test_mbox, $query2, array('results' => array(Horde_Imap_Client::SORT_RESULTS_MIN))));
+    print_r($imap_client->search($test_mbox, $query2, array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_COUNT))));
+    print_r($imap_client->search($test_mbox, $query2, array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MIN))));
     print "Search: OK\n";
 } catch (Horde_Imap_Client_Exception $e) {
     print 'ERROR: ' . $e->getMessage() . "\n";
