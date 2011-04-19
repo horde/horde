@@ -2,6 +2,7 @@
 v5.0.1-git
 ----------
 
+[mms] Fix resuming reply drafts in HTML mode (Bug #9928).
 [mms] Fix updating flags/logs on original messages after resuming from draft.
 [mms] Fix flagging messages in search mailboxes in dynamic view.
 [mms] Don't attempt to poll non-IMAP mailboxes (Bug #9896).

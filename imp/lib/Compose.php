@@ -261,6 +261,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                     break;
                 }
             } catch (Horde_Exception $e) {}
+        } else {
+            $draft_headers->addHeader('X-IMP-Draft', 'Yes');
         }
 
         return $base->toString(array(
@@ -349,10 +351,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             if (!($reply_type = $headers->getValue('x-imp-draft-reply-type'))) {
                 $reply_type = self::REPLY;
             }
-            $imp_draft = true;
+            $imp_draft = self::REPLY;
         } elseif ($draft_url = $headers->getValue('x-imp-draft-forward')) {
-            $reply_type = self::FORWARD;
-            $imp_draft = true;
+            $imp_draft = $reply_type = self::FORWARD;
+        } elseif ($headers->getValue('x-imp-draft')) {
+            $imp_draft = self::COMPOSE;
         }
 
         if (IMP::getViewMode() == 'mimp') {
@@ -2488,7 +2491,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @param array $options          Additional options:
      * <pre>
      * html - (boolean) Return text/html part, if available.
-     * imp_msg - (boolean) If true, the message data was created by IMP.
+     * imp_msg - (integer) If non-empty, the message data was created by IMP.
+     *           Either self::COMPOSE, self::FORWARD, or self::REPLY.
      * replylimit - (boolean) Enforce length limits?
      * toflowed - (boolean) Do flowed conversion?
      * </pre>
@@ -2502,21 +2506,36 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * 'text' - (string) The body text.
      * </pre>
      */
-    protected function _getMessageText($contents, $options = array())
+    protected function _getMessageText($contents, array $options = array())
     {
         $body_id = null;
         $mode = 'text';
+        $options = array_merge(array(
+            'imp_msg' => self::COMPOSE
+        ), $options);
 
         if (!empty($options['html']) &&
             $GLOBALS['session']->get('imp', 'rteavail')) {
             $body_id = $contents->findBody('html');
-            if (!is_null($body_id) &&
-                (empty($options['imp_msg']) ||
-                 (strval($body_id) == '1') ||
-                 Horde_Mime::isChild('1', $body_id))) {
-                $mode = 'html';
-            } else {
-                $body_id = null;
+            if (!is_null($body_id)) {
+                switch ($options['imp_msg']) {
+                case self::REPLY:
+                    $check_id = '2';
+                    break;
+
+                case self::COMPOSE:
+                case self::FORWARD:
+                default:
+                    $check_id = '1';
+                    break;
+                }
+
+                if ((strval($body_id) == $check_id) ||
+                    Horde_Mime::isChild($check_id, $body_id)) {
+                    $mode = 'html';
+                } else {
+                    $body_id = null;
+                }
             }
         }
 
