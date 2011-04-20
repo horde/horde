@@ -30,4 +30,44 @@ class IMP_Compose_Exception extends IMP_Exception
      */
     public $tied_identity = null;
 
+    /**
+     * If true, exception was already logged.
+     *
+     * @var boolean
+     */
+    protected $_logged = false;
+
+    /**
+     * @param string $log  The log level to immediately log the message to.
+     *                     If empty, will only log message if log() is
+     *                     explicitly called.
+     */
+    public function __construct($message = null, $log = null)
+    {
+        parent::__construct($message);
+
+        if (!is_null($log)) {
+            Horde::logMessage($this, $log);
+            $this->_logged = true;
+        }
+    }
+
+    /**
+     * Log error message.
+     *
+     * @return boolean  True if message was logged.
+     */
+    public function log()
+    {
+        if ($this->log) {
+            if (!$this->_logged) {
+                Horde::logMessage($this, 'ERR');
+                $this->_logged = true;
+            }
+            return true;
+        }
+
+        return false;
+    }
+
 }

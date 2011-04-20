@@ -150,7 +150,7 @@ class IMP_Spam
                         $imp_compose->sendMessage($to, $spam_headers, $mime, 'UTF-8');
                         $report_flag = true;
                     } catch (IMP_Compose_Exception $e) {
-                        Horde::logMessage($e, 'ERR');
+                        $e->log();
                     }
                 }
 

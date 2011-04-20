@@ -630,15 +630,17 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
             try {
                 $this->sendMessage($val['to'], $headers, $val['msg']);
+
+                /* Store history information. */
+                $sentmail->log($senttype, $headers->getValue('message-id'), $val['recipients'], true);
             } catch (IMP_Compose_Exception $e) {
                 /* Unsuccessful send. */
-                Horde::logMessage($e, 'ERR');
-                $sentmail->log($senttype, $headers->getValue('message-id'), $val['recipients'], false);
+                if ($e->log()) {
+                    $sentmail->log($senttype, $headers->getValue('message-id'), $val['recipients'], false);
+                }
                 throw new IMP_Compose_Exception(sprintf(_("There was an error sending your message: %s"), $e->getMessage()));
             }
 
-            /* Store history information. */
-            $sentmail->log($senttype, $headers->getValue('message-id'), $val['recipients'], true);
         }
 
         $sent_saved = true;
