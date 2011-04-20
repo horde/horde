@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORBUG, Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-After more than two years of development, the Horde Team is excited to announce
-the final release of the Horde Application Framework version 4.0.
+The Horde Team is pleased to announce the final release of the Horde
+Application Framework version 4.0.1.
 
 The Horde Application Framework is a flexible, modular, general-purpose web
 application framework written in PHP. It provides an extensive array of
@@ -24,92 +24,23 @@ developing modern web applications. It is the basis for a large number of
 production-level web applications, notably the Horde Groupware suites. For more
 information on Horde or the Horde Groupware suites, visit http://www.horde.org.
 
-The installation method for Horde 4 has been changed to use the PEAR
-installer. To prepare your local PEAR installation to install software from
-Horde's PEAR server, run the following commands from the command line:
-
-  pear channel-discover pear.horde.org
-  pear install horde/horde_role
-  pear run-scripts horde/horde_role
-
-The last command will ask you for the filessystem location for your Horde
-installation. This should be some path in your web server's document root,
-e.g. /var/www/horde. These commands only need to be run once. You are now
-prepared to install, upgrade and uninstall Horde packages. To install the
-release candidate of Horde, run the following commands:
-
-  pear install horde/horde
-
-Just go to the config/ directory of your Horde installation and copy
-conf.php.dist to conf.php:
-
-  cd /var/www/horde/config/
-  cp conf.php.dist conf.php
-
-Then point your browser to the installation location, go to the
-Administration/Configuration screen and start configuring. You probably want
-to:
-
-1. Configure a real authentication backend!
-2. Configure a database backend (Horde configuration, Database tab)
-3. Install the database tables ("Update all DB schemas" button)
-4. Configure any other applications you installed
-
-To upgrade from the test releases, you only have to run:
+To upgrade from earlier releases, you only have to run:
 
   pear upgrade -c horde
 
-Then log in as an administrator and update any outdated configurations and
-database schemas in the configuration interface.
+For detailed installation and configuration instructions, please see
+http://www.horde.org/apps/horde/docs/INSTALL
 
-For more detailed installation and configuration instructions, e.g. how to
-install Horde from PEAR into a location other than the system default, please
-see https://github.com/horde/horde/blob/master/horde/docs/INSTALL.
+The major changes compared to the Horde version 4.0 are:
 
-The major changes compared to the Horde version 4.0-RC2 are:
-
-    * Delayed sidebar loading.
-    * Improved resetting of SyncML states.
-    * Many small bugfixes and improvements.
-
-The major changes compared to the Horde version 3.3 are:
-
-    * Completely refactored component library for PHP 5.
-    * Much easier installation through PEAR installer.
-    * Simplified configuration process.
-    * ActiveSync support.
-    * Frameless layout.
-    * Grouping into advanced and simple user preferences.
-    * Improved caching and reduced session sizes.
-    * Much faster Share library.
-    * Better Share support for large user basis.
-    * Improved Image library.
-    * Reduced dependency on external libraries.
-    * Lots of improvements in all library components.
-
-The full list of changes can be viewed here:
-
-https://github.com/horde/horde/blob/ce5f6b8e67ecd339a102acbbea836edba47d88e2/horde/docs/CHANGES
-
-Have fun!
-
-The Horde Team.
+    * Added hook called after initialization of applications.
+    * Many smaller and larger bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Completely refactored component library for PHP 5.
-Much easier installation through PEAR installer.
-Simplified configuration process.
-ActiveSync support.
-Frameless layout.
-Grouping into advanced and simple user preferences.
-Improved caching and reduced session sizes.
-Much faster Share library.
-Better Share support for large user basis.
-Improved Image library.
-Reduced dependency on external libraries.
-Lots of improvements in all library components.
+Added hook called after initialization of applications.
+Many smaller and larger bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Horde';

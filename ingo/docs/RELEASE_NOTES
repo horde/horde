@@ -10,43 +10,28 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Ingo Email
-Filter Rules Manager version H4 (2.0).
+Filter Rules Manager version H4 (2.0.1).
 
 Ingo is an email-filter management application. It is fully internationalized,
 integrated with Horde and the IMP Webmail client, and supports both server-side
-(Sieve, procmail) and client-side (IMAP) message filtering.
+(Sieve, procmail) and client-side (IMAP) message filtering. For more
+information on Ingo, visit http://www.horde.org/apps/ingo.
 
-To install Ingo, you need to install Horde first. See
-https://github.com/horde/horde/blob/master/horde/docs/INSTALL for details. Once
-Horde is installed, you can install Ingo with the following command:
+The major changes compared to the Ingo version H4 (2.0) are:
 
-  pear install horde/ingo
-
-Then log in to Horde with your adminstrator account to configure the
-application and install the database schema from the configuration interface.
-
-The major changes compared to the Ingo version H4 (2.0-RC2) are:
-
-    * Changed default Sieve port to 4190.
-    * Many small bugfixes and improvements.
-
-The major changes compared to the Ingo version H3 (1.2) are:
-
-    * Updated for Horde 4.
-    * Using IMP API for IMAP filtering.
-    * Changed default Sieve port to 4190.
+    * Fixed IMAP filtering.
+    * Fixed folder selection.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Updated for Horde 4.
-Using IMP API for IMAP filtering.
-Changed default Sieve port to 4190.
+Fixed IMAP filtering.
+Fixed folder selection.
 FM;
 
 $this->notes['name'] = 'Ingo';

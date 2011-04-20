@@ -15,36 +15,22 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Turba Contact
-Manager version H4 (3.0).
+Manager version H4 (3.0.1).
 
 Turba is the Horde contact management application. Leveraging the Horde
 framework to provide seamless integration with IMP and other Horde
 applications, it supports storing contacts in SQL, LDAP, Kolab, and IMSP
-address books.
+address books. For more information on Turba, visit
+http://www.horde.org/apps/turba.
 
-To install Turba, you need to install Horde first. See
-https://github.com/horde/horde/blob/master/horde/docs/INSTALL for details. Once
-Horde is installed, you can install Turba with the following command:
+The major changes compared to the Turba version H4 (3.0) are:
 
-  pear install horde/turba
-
-Then log in to Horde with your adminstrator account to configure the
-application and install the database schema from the configuration interface.
-
-The major changes compared to the Turba version H4 (3.0-RC2) are:
-
-    * Many small bugfixes and improvements.
-
-The major changes compared to the Turba version H3 (2.3) are:
-
-    * Updated for Horde 4.
-    * Duplicates searching and merging.
+    * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Updated for Horde 4.
-Duplicates searching and merging.
+Small bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Turba';
