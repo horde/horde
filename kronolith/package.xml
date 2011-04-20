@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:53:44</time>
+ <date>2011-04-20</date>
+ <time>22:31:54</time>
  <version>
   <release>3.0.1</release>
   <api>3.0.0</api>
@@ -1698,7 +1698,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-04-20</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [jan] Don&apos;t store all task lists in the session.
@@ -1707,6 +1707,7 @@
 * [mjr] Fix drag/drop editing of recurring events (Bug #9880).
 * [jan] Fix undefined function on Windows (Bug #9916).
 * [jan] Support adding and editing of CalDAV events in dynamic view (Bug #9865).
+* [mjr] Allow migrations to complete despite of missing shares.
 * [jan] Remove debug code in Ajax library (Bug #9818).
    </notes>
   </release>
