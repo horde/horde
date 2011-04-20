@@ -78,6 +78,7 @@ TEST',
         $sentinel = new Horde_Release_Sentinel($tmp_dir);
         mkdir($tmp_dir . '/lib');
         file_put_contents($tmp_dir . '/lib/Application.php', "class Application {\npublic \$version = '0.0.0';\n}\n");
+        $mode = fileperms($tmp_dir . '/lib/Application.php');
         $sentinel->updateApplication('1.0.0');
         $this->assertEquals(
             'class Application {
@@ -86,5 +87,7 @@ public $version = \'1.0.0\';
 ',
             file_get_contents($tmp_dir . '/lib/Application.php')
         );
+        clearstatcache();
+        $this->assertEquals($mode, fileperms($tmp_dir . '/lib/Application.php'));
     }
 }

@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* [jan] Keep file mode of Application.php (Bug #9697).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -167,7 +167,7 @@
    <date>2011-03-16</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-*
+* [jan] Keep file mode of Application.php (Bug #9697).
    </notes>
   </release>
  </changelog>

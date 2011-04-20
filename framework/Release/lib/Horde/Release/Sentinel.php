@@ -135,6 +135,7 @@ class Horde_Release_Sentinel
         if ($application = $this->applicationFileExists()) {
             $tmp = Horde_Util::getTempFile();
 
+            $oldmode = fileperms($application);
             $oldfp = fopen($application, 'r');
             $newfp = fopen($tmp, 'w');
             while ($line = fgets($oldfp)) {
@@ -147,6 +148,7 @@ class Horde_Release_Sentinel
             }
             fclose($oldfp);
             fclose($newfp);
+            chmod($tmp, $oldmode);
 
             system("mv -f $tmp $application");
         }
