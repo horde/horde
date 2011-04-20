@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:50:41</time>
+ <date>2011-04-20</date>
+ <time>22:29:33</time>
  <version>
   <release>3.0.1</release>
   <api>3.0.0</api>
@@ -1148,7 +1148,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-04-20</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [jan] Fix LDAP schema checking (Bug #9826).

@@ -1,6 +1,6 @@
-----------
-v3.0.1-git
-----------
+------
+v3.0.1
+------
 
 [jan] Fix LDAP schema checking (Bug #9826).
 [jan] Fix creating temporary files with open_basedir restrictions.
