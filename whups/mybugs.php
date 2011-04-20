@@ -30,9 +30,9 @@ if ($r_time = $prefs->getValue('summary_refresh_time')) {
 if (!@unserialize($prefs->getValue('mybugs_layout') &&
     $registry->isAuthenticated())) {
     $prefs->setValue('mybugs_layout', serialize(array(
-        array(array('app' => 'whups', 'params' => array('type' => 'mytickets', 'params' => false), 'height' => 1, 'width' => 1)),
-        array(array('app' => 'whups', 'params' => array('type' => 'myrequests', 'params' => false), 'height' => 1, 'width' => 1)),
-        array(array('app' => 'whups', 'params' => array('type' => 'myqueries', 'params' => false), 'height' => 1, 'width' => 1))
+        array(array('app' => 'whups', 'params' => array('type2' => 'whups_Block_Mytickets', 'params' => false), 'height' => 1, 'width' => 1)),
+        array(array('app' => 'whups', 'params' => array('type2' => 'whups_Block_Myrequests', 'params' => false), 'height' => 1, 'width' => 1)),
+        array(array('app' => 'whups', 'params' => array('type2' => 'whups_Block_Myqueries', 'params' => false), 'height' => 1, 'width' => 1))
     )));
 }
 
