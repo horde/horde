@@ -17,8 +17,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-19</date>
- <time>19:03:56</time>
+ <date>2011-04-20</date>
+ <time>15:35:16</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -647,7 +647,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-19</date>
+   <date>2011-04-20</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [mms] Fix unserializing Horde_Mime_Part containing data (Bug #9819).
