@@ -1560,7 +1560,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         /* Bug #9915: Decrement the message list here because some broken
          * IMAP servers will send an unneeded EXISTS response after the
          * EXPUNGE list is processed (see RFC 3501 [7.4.1]). */
-        --$tmp['mailbox']['messages'];
+        --$this->_temp['mailbox']['messages'];
     }
 
     /**
@@ -1586,7 +1586,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             /* The second form is just VANISHED. This is returned from an
              * EXPUNGE command and will be processed in _expunge(). */
             $this->_temp['vanished'] = $this->utils->fromSequenceString($data[0]);
-            $tmp['mailbox']['messages'] -= count($this->_temp['vanished']);
+            $this->_temp['mailbox']['messages'] -= count($this->_temp['vanished']);
         }
     }
 
