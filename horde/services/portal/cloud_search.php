@@ -6,7 +6,7 @@
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
-
+ *
  * @TODO: If/when more apps support the searchTags api calls, probably
  *        should not hardcode the supported apps.  Also should allow excluding
  *        of applications in the tag search
