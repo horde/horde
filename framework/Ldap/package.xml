@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-04-20</date>
- <time>15:37:00</time>
+ <time>15:37:21</time>
  <version>
-  <release>1.1.0</release>
+  <release>1.1.1</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -29,8 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
  <notes>
-* [jan] Add parameter to Horde_Ldap_Schema#must() and #may() to return attributes from superior objectclasses too (Bug #9826).
-* [jan] Don&apos;t throw exceptions from Horde_Ldap_Schema#must() and #may() (Bug #9826).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -227,6 +226,19 @@
    <notes>
 * [jan] Add parameter to Horde_Ldap_Schema#must() and #may() to return attributes from superior objectclasses too (Bug #9826).
 * [jan] Don&apos;t throw exceptions from Horde_Ldap_Schema#must() and #may() (Bug #9826).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-20</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
