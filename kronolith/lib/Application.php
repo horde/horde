@@ -183,14 +183,6 @@ class Kronolith_Application extends Horde_Registry_Application
                 foreach (Kronolith::listInternalCalendars(false, Horde_Perms::EDIT) as $id => $calendar) {
                     $ui->override['default_share'][$id] = $calendar->get('name');
                 }
-                foreach ($GLOBALS['all_remote_calendars'] as $id => $calendar) {
-                    try {
-                        if ($calendar->hasPermission(Horde_Perms::EDIT)) {
-                            $ui->override['default_share'][$id] = $calendar->name();
-                        }
-                    } catch (Kronolith_Exception $e) {
-                    }
-                }
                 break;
 
             case 'event_alarms_select':
