@@ -80,7 +80,7 @@ foreach ($stories as &$story) {
     $story['permalink'] = htmlspecialchars($story['permalink']);
     $story['storylink'] = htmlspecialchars($driver->getStoryLink($channel, $story));
     $story['published'] = htmlspecialchars(date('r', $story['published']));
-    $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($story['owner']);
+    $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($story['author']);
     if ($name = $identity->getValue('fullname')) {
         $story['author'] = htmlspecialchars($name);
     } else {
