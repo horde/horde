@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-04-20</date>
- <time>22:27:22</time>
+ <time>22:28:19</time>
  <version>
-  <release>2.0.1</release>
+  <release>2.0.2-git</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [mms] Fix folder selection (Bug #9907).
-* [mms] Fix IMAP filtering using envelope data (Bug #9859).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -924,6 +923,19 @@
    <notes>
 * [mms] Fix folder selection (Bug #9907).
 * [mms] Fix IMAP filtering using envelope data (Bug #9859).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2-git</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-20</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
