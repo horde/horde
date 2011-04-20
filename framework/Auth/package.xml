@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2011-04-20</date>
- <time>15:31:54</time>
+ <time>15:32:20</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -35,9 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
-* [mms] Fix default userhierarchy for Cyrsql driver (Bug #9895).
-* [cjh] Add crypt-sha256 and crypt-sha512 password hashes (patrickdk@patrickdk.com, Request #6991).
-* [mms] Fix addUser() in Customsql driver (Bug #9832).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -378,6 +376,19 @@
 * [mms] Fix default userhierarchy for Cyrsql driver (Bug #9895).
 * [cjh] Add crypt-sha256 and crypt-sha512 password hashes (patrickdk@patrickdk.com, Request #6991).
 * [mms] Fix addUser() in Customsql driver (Bug #9832).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-20</date>
+   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
