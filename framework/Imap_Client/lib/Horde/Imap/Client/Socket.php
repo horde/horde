@@ -225,10 +225,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             reset($data[$i]);
             while (list(,$v) = each($data[$i])) {
                 $c[$v[0]] = array(
-                    'name' => $v[0],
                     'delimiter' => $v[1],
-                    'type' => $val,
-                    'hidden' => false
+                    'hidden' => false,
+                    'name' => $v[0],
+                    'translation' => '',
+                    'type' => $val
                 );
 
                 // RFC 4466: NAMESPACE extensions
