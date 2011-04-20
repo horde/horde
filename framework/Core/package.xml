@@ -23,9 +23,9 @@
   <active>yes</active>
  </developer>
  <date>2011-04-20</date>
- <time>15:33:59</time>
+ <time>15:34:23</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -34,14 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Fix loading correct identities driver for the Horde application (Bug #9936).
-* [mms] Don&apos;t setup notification handlers in applications that are not yet authenticated (Bug #9733).
-* [mms] Allow Horde_Menu to accept string url values (Bug #9917).
-* [mjr] Correctly sanitize DSN when using custom cyrus auth driver (Bug #9879).
-* [mms] Reinitialize language after loading prefs before authentication (Bug #9822).
-* [cjh] Fix cyrsql configuration, rename cyrus host and port parameters to not clash with Horde_Db parameters (Bug #9864).
-* [cjh] Fix signups, and update style on signup and reset password pages to match the login page (Bug #9856, partially from Ian Roth &lt;iron_hat@hotmail.com&gt;).
-* [cjh] Show an unknown app icon rather than a broken image if an application doesn&apos;t have an icon (Bug #9867).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1411,6 +1404,19 @@
 * [cjh] Fix cyrsql configuration, rename cyrus host and port parameters to not clash with Horde_Db parameters (Bug #9864).
 * [cjh] Fix signups, and update style on signup and reset password pages to match the login page (Bug #9856, partially from Ian Roth &lt;iron_hat@hotmail.com&gt;).
 * [cjh] Show an unknown app icon rather than a broken image if an application doesn&apos;t have an icon (Bug #9867).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-20</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
