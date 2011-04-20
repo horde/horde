@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-19</date>
- <time>19:00:26</time>
+ <date>2011-04-20</date>
+ <time>15:34:59</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -307,7 +307,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-04-19</date>
+   <date>2011-04-20</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [mms] Work around broken IMAP servers that send EXISTS data in EXPUNGE response (Bug #9915).
