@@ -607,10 +607,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         /* Only active QRESYNC/CONDSTORE if caching is enabled. */
         if ($this->_initCache()) {
             if ($this->queryCapability('QRESYNC')) {
-                /* QRESYNC requires ENABLE, so we just need to send one ENABLE
-                 * QRESYNC call to enable both QRESYNC && CONDSTORE. */
+                /* QRESYNC requires ENABLE. */
                 $this->_enable(array('QRESYNC'));
-                $this->_setInit('enabled', array_merge($this->_init['enabled'], array('CONDSTORE' => true)));
             } elseif ($this->queryCapability('CONDSTORE') &&
                       $this->queryCapability('ENABLE')) {
                 /* CONDSTORE may be available, but ENABLE may not be. */
@@ -758,13 +756,19 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     }
 
     /**
-     * Parse an ENABLED response (RFC 5161 [3.2])
+     * Parse an ENABLED response (RFC 5161 [3.2]).
      *
      * @param array $data  The server response.
      */
     protected function _parseEnabled($data)
     {
-        $this->_setInit('enabled', array_merge($this->_init['enabled'], array_flip($data)));
+        $enabled = array_flip($data);
+
+        if (in_array('QRESYNC', $data)) {
+            $enabled['CONDSTORE'] = true;
+        }
+
+        $this->_setInit('enabled', array_merge($this->_init['enabled'], $enabled));
     }
 
     /**
@@ -843,7 +847,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         if ($condstore) {
-            $this->_setInit('enabled', array_merge($this->_init['enabled'], array('CONDSTORE' => true)));
+            $this->_parseEnabled(array('CONDSTORE'));
         }
     }
 
