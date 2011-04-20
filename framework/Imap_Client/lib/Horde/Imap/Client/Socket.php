@@ -169,10 +169,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        /* RFC 5162 [1] - QRESYNC implies CONDSTORE, even if CONDSTORE is not
-         * listed as a capability. */
+        /* RFC 5162 [1] - QRESYNC implies CONDSTORE and ENABLE, even if they
+         * are not listed as capabilities. */
         if (isset($c['QRESYNC'])) {
             $c['CONDSTORE'] = true;
+            $c['ENABLE'] = true;
         }
 
         $this->_setInit('capability', $c);
@@ -607,11 +608,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         /* Only active QRESYNC/CONDSTORE if caching is enabled. */
         if ($this->_initCache()) {
             if ($this->queryCapability('QRESYNC')) {
-                /* QRESYNC requires ENABLE. */
                 $this->_enable(array('QRESYNC'));
-            } elseif ($this->queryCapability('CONDSTORE') &&
-                      $this->queryCapability('ENABLE')) {
-                /* CONDSTORE may be available, but ENABLE may not be. */
+            } elseif ($this->queryCapability('CONDSTORE')) {
                 $this->_enable(array('CONDSTORE'));
             }
         }
@@ -748,10 +746,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _enable($exts)
     {
-        // Only enable non-enabled extensions
-        $exts = array_diff($exts, array_keys($this->_init['enabled']));
-        if (!empty($exts)) {
-            $this->_sendLine(array_merge(array('ENABLE'), $exts));
+        if ($this->queryCapability('ENABLE')) {
+            // Only enable non-enabled extensions
+            $exts = array_diff($exts, array_keys($this->_init['enabled']));
+            if (!empty($exts)) {
+                $this->_sendLine(array_merge(array('ENABLE'), $exts));
+            }
         }
     }
 
