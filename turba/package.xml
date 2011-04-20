@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-04-20</date>
- <time>22:29:33</time>
+ <time>22:30:39</time>
  <version>
-  <release>3.0.1</release>
+  <release>3.0.2-git</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -40,11 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [jan] Fix LDAP schema checking (Bug #9826).
-* [jan] Fix creating temporary files with open_basedir restrictions.
-* [mjr] Fix merging duplicate contacts (Bug #9828).
-* [mjr] Allow unsetting the GAL and Client Address Book settings (Bug #9843).
-* [mjr] Fix importing objects with categories (Bug #9841).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1156,6 +1152,19 @@
 * [mjr] Fix merging duplicate contacts (Bug #9828).
 * [mjr] Allow unsetting the GAL and Client Address Book settings (Bug #9843).
 * [mjr] Fix importing objects with categories (Bug #9841).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.2-git</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-20</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
