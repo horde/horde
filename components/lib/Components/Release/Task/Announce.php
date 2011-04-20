@@ -76,6 +76,15 @@ extends Components_Release_Task_Base
             $this->getNotes()->getFocusList()
         );
         $mailer->append($this->getNotes()->getAnnouncement());
+        $mailer->append("\n\n" .
+            'The full list of changes can be viewed here:' .
+            "\n\n" .
+            $this->getNotes()->getChangelog() .
+            "\n\n" .
+            'Have fun!' .
+            "\n\n" .
+            'The Horde Team.'
+        );
 
         if (!$this->getTasks()->pretend()) {
             try {

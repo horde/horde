@@ -39,14 +39,6 @@ The major changes compared to the Turba version H3 (2.3) are:
 
     * Updated for Horde 4.
     * Duplicates searching and merging.
-
-The full list of changes can be viewed here:
-
-https://github.com/horde/horde/blob/b2514fb99f2e0e389d70ab0ff12d0995a9c5845e/turba/docs/CHANGES
-
-Have fun!
-
-The Horde Team.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */

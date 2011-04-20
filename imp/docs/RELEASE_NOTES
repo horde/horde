@@ -55,14 +55,6 @@ The major changes compared to the IMP version H3 (4.3) are:
     * Draft auto-saving.
     * Support for custom IMAP flags.
     * Reduced memory usage.
-
-The full list of changes can be viewed here:
-
-https://github.com/horde/horde/blob/3994cf28ea75e8ae13bdb762066e81a3af4c0050/imp/docs/CHANGES
-
-Have fun!
-
-The Horde Team.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */

@@ -35,14 +35,6 @@ The major changes compared to the Mnemo version H4 (3.0-RC2) are:
 
     * Default sorting criteria by creation date.
     * Many small bugfixes and improvements.
-
-The full list of changes can be viewed here:
-
-https://github.com/horde/horde/blob/bc1d5574fc8e55133ade5aaf1fe55b101071d4ee/mnemo/docs/CHANGES
-
-Have fun!
-
-The Horde Team.
 ML;
 
 /* Freshmeat release notes. */

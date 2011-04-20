@@ -42,14 +42,6 @@ The major changes compared to the Nag version H4 (2.3) are:
     * System task lists.
     * Task list coloring.
     * Quick task adding.
-
-The full list of changes can be viewed here:
-
-https://github.com/horde/horde/blob/cdbf3cb139b5b5508b51316852176c2fbbe23546/nag/docs/CHANGES
-
-Have fun!
-
-The Horde Team.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
