@@ -138,6 +138,7 @@ implements Horde_Pear_Package_Task
         $current = $this->_xml->createContents($this->_xml, $contents, $filelist);
         $current->update($this->_content);
         $this->_xml->timestamp();
+        $this->_xml->syncCurrentVersion();
     }
 
 }

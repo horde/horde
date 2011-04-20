@@ -22,6 +22,7 @@
  </stability>
  <license uri="REPLACE">REPLACE</license>
  <notes>
+* [jan] Update changelog when updating content (Bug #9935).
 * [gwr] Imported the .gitignore handling for content lists from the components tool.
 * [gwr] Consume empty notes.
  </notes>
@@ -312,6 +313,7 @@
    <date>2011-04-12</date>
    <license uri="REPLACE">REPLACE</license>
    <notes>
+* [jan] Update changelog when updating content (Bug #9935).
 * [gwr] Imported the .gitignore handling for content lists from the components tool.
 * [gwr] Consume empty notes.
    </notes>
