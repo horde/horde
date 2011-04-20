@@ -99,7 +99,7 @@ class Horde_Core_Block_Collection implements Serializable
      * Gets a block object.
      *
      * @param string $app    Application name.
-     * @param string $name   Block name.
+     * @param string $name   The Block's classname.
      * @param array $params  Parameters.  If null, the stored parameters will
      *                       be used.
      *
