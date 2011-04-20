@@ -41,7 +41,7 @@ class Kronolith_Ajax_Imple_Embed extends Horde_Core_Ajax_Imple
     public function handle($args, $post)
     {
         /* First, determine the type of view we are asking for */
-        $view = $args['view'];
+        $view = 'Kronolith_Block_'. Horde_String::ucfirst($args['view']);
 
         /* The DOM container to put the HTML in on the remote site */
         $container = $args['container'];
@@ -71,7 +71,7 @@ class Kronolith_Ajax_Imple_Embed extends Horde_Core_Ajax_Imple
         );
 
         /* Call the Horde_Block api to get the calendar HTML */
-        $title = $GLOBALS['registry']->call('horde/blockTitle', array('kronolith', $view, $params));
+        $title = $GLOBALS['registry']->call('horde/blockTitle', array($view, $params));
         $results = $GLOBALS['registry']->call('horde/blockContent', array('kronolith', $view, $params));
 
         /* Some needed paths */
