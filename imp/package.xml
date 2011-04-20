@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-04-20</date>
- <time>22:23:01</time>
+ <time>22:24:58</time>
  <version>
-  <release>5.0.1</release>
+  <release>5.0.2-git</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,30 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [mms] Fix resuming reply drafts in HTML mode (Bug #9928).
-* [mms] Fix updating flags/logs on original messages after resuming from draft.
-* [mms] Fix flagging messages in search mailboxes in dynamic view.
-* [mms] Don&apos;t attempt to poll non-IMAP mailboxes (Bug #9896).
-* [mms] Fix deleting attachments from compose message in dynamic view (Bug #9899).
-* [mms] Newmail portal block can now be configured to auto-update.
-* [mms] Fix deleteMessages and flagMessages API calls (Bug #9888).
-* [mms] More intelligent polling in dynamic view (Request #9808).
-* [mms] Fix spurious viewport loading in rare situations (Bug #9768).
-* [mms] Show human readable message in multipart/report parts in the richest
-        format possible (Bug #9873).
-* [mms] Fix unneeded body part downloads in alternative parts (Bug #9862).
-* [mms] Fix importing PGP private keys.
-* [mms] More intelligent part naming if name is not specified in the message (Request #9853).
-* [jan] Avoid double escaping of folder names in sent-mail drop down list.
-* [jan] Fix translation of special folders on certain IMAP servers.
-* [jan] Fix display of status icons in traditional view (Bug #9844).
-* [mms] Fix displaying all message parts in standard view (Bug #9827).
-* [mms] Allow .eml files to be imported into a mailbox (Request #9827).
-* [mms] Fix vertical layout resize in dynamic view (Bug #9834).
-* [mms] Fix link for filters menu item (Bug #9831).
-* [mms] Fix composing messages in mobile view.
-* [mms] IMP will refuse to work with POP3 servers that don&apos;t support UIDL.
-* [mms] Many POP3 fixes.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2179,6 +2156,19 @@
 * [mms] Fix composing messages in mobile view.
 * [mms] IMP will refuse to work with POP3 servers that don&apos;t support UIDL.
 * [mms] Many POP3 fixes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.2-git</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-20</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
