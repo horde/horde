@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-04-20</date>
- <time>13:09:03</time>
+ <time>13:09:38</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Correct fix for Bug #9915 (Bug #9943).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -324,6 +324,19 @@
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Correct fix for Bug #9915 (Bug #9943).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-20</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
