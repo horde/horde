@@ -1,6 +1,6 @@
-----------
-v2.0.1-git
-----------
+------
+v2.0.1
+------
 
 [mms] Fix folder selection (Bug #9907).
 [mms] Fix filtering using the IMAP driver (Bug #9859).
