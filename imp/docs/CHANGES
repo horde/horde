@@ -1,6 +1,6 @@
-----------
-v5.0.1-git
-----------
+------
+v5.0.1
+------
 
 [mms] Fix resuming reply drafts in HTML mode (Bug #9928).
 [mms] Fix updating flags/logs on original messages after resuming from draft.
