@@ -31,7 +31,7 @@
  <date>2011-04-20</date>
  <time>22:30:39</time>
  <version>
-  <release>3.0.2-git</release>
+  <release>3.0.2</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -1156,7 +1156,7 @@
   </release>
   <release>
    <version>
-    <release>3.0.2-git</release>
+    <release>3.0.2</release>
     <api>3.0.0</api></version>
    <stability>
     <release>stable</release>
