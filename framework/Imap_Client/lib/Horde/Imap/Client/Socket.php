@@ -215,7 +215,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $c = &$this->_temp['namespace'];
         $c = array();
-        $lang = $this->queryCapability('LANGUAGE');
 
         // Per RFC 2342, response from NAMESPACE command is:
         // (PERSONAL NAMESPACES) (OTHER_USERS NAMESPACE) (SHARED NAMESPACES)
@@ -231,9 +230,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     'type' => $val,
                     'hidden' => false
                 );
-                // RFC 5255 [3.4] - TRANSLATION extension
-                if ($lang && (strtoupper($v[2] == 'TRANSLATION'))) {
-                    $c[$v[0]]['translation'] = reset($v[3]);
+
+                // RFC 4466: NAMESPACE extensions
+                for ($i = 2; isset($v[$i]); ++$i) {
+                    switch (strtoupper($v[$i++])) {
+                    case 'TRANSLATION':
+                        // RFC 5255 [3.4] - TRANSLATION extension
+                        $c[$v[0]]['translation'] = reset($v[$i]);
+                        break;
+                    }
                 }
             }
         }
