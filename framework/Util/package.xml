@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-19</date>
- <time>19:06:47</time>
+ <date>2011-04-20</date>
+ <time>15:36:09</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -339,7 +339,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-19</date>
+   <date>2011-04-20</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Fix wrapping of several follow-up lines with existing line breaks.
