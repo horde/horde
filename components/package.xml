@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-04-20</date>
- <time>15:27:56</time>
+ <time>16:08:26</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -90,7 +90,7 @@
       <file name="Installer.php" role="php" />
       <file name="Release.php" role="php" />
       <file name="Snapshot.php" role="php" />
-      <file name="Update.php" role="horde" />
+      <file name="Update.php" role="php" />
      </dir> <!-- /lib/Components/Module -->
      <dir name="Pear">
       <file name="Dependencies.php" role="php" />
@@ -128,7 +128,7 @@
       <file name="Installer.php" role="php" />
       <file name="Release.php" role="php" />
       <file name="Snapshot.php" role="php" />
-      <file name="Update.php" role="horde" />
+      <file name="Update.php" role="php" />
      </dir> <!-- /lib/Components/Runner -->
      <file name="Config.php" role="php" />
      <file name="Configs.php" role="php" />
@@ -178,26 +178,26 @@
        </dir> <!-- /test/Components/fixture/framework/Optional -->
        <dir name="simple">
         <dir name="bin">
-         <file name="other_script" role="horde" />
-         <file name="script.php" role="horde" />
-         <file name="shell_script.sh" role="horde" />
+         <file name="other_script" role="test" />
+         <file name="script.php" role="test" />
+         <file name="shell_script.sh" role="test" />
         </dir> <!-- /test/Components/fixture/framework/simple/bin -->
         <dir name="js">
-         <file name="test.js" role="horde" />
+         <file name="test.js" role="test" />
         </dir> <!-- /test/Components/fixture/framework/simple/js -->
         <dir name="lib">
-         <file name="New.php" role="horde" />
-         <file name="Second.php" role="horde" />
-         <file name="Stays.php" role="horde" />
+         <file name="New.php" role="test" />
+         <file name="Second.php" role="test" />
+         <file name="Stays.php" role="test" />
         </dir> <!-- /test/Components/fixture/framework/simple/lib -->
         <dir name="migration">
-         <file name="test.sql" role="horde" />
+         <file name="test.sql" role="test" />
         </dir> <!-- /test/Components/fixture/framework/simple/migration -->
        </dir> <!-- /test/Components/fixture/framework/simple -->
       </dir> <!-- /test/Components/fixture/framework -->
       <dir name="horde">
-       <file name=".keep" role="horde" />
-      </dir> <!-- /test/Components/fixture/horde -->
+       <file name=".keep" role="test" />
+      </dir> <!-- /test/Components/fixture/test -->
       <dir name="packages">
        <file name="Console_Getopt-1.9.1.tgz" role="test" />
        <file name="PEAR-1.9.1.tgz" role="test" />
@@ -216,9 +216,9 @@
       </dir> <!-- /test/Components/fixture/pear -->
       <dir name="simple">
        <dir name="bin">
-        <file name="other_script" role="horde" />
-        <file name="script.php" role="horde" />
-        <file name="shell_script.sh" role="horde" />
+        <file name="other_script" role="test" />
+        <file name="script.php" role="test" />
+        <file name="shell_script.sh" role="test" />
        </dir> <!-- /test/Components/fixture/simple/bin -->
        <dir name="ignore">
         <file name="test1" role="test" />
@@ -262,7 +262,7 @@
        <file name="simple.template" role="test" />
        <file name="variables.template" role="test" />
       </dir> <!-- /test/Components/fixture/templates -->
-      <file name=".gitignore" role="horde" />
+      <file name=".gitignore" role="test" />
      </dir> <!-- /test/Components/fixture -->
      <dir name="Integration">
       <dir name="Components">
@@ -288,7 +288,7 @@
        </dir> <!-- /test/Components/Unit/Components/Helper -->
        <dir name="Module">
         <file name="SnapshotTest.php" role="test" />
-        <file name="UpdateTest.php" role="horde" />
+        <file name="UpdateTest.php" role="test" />
        </dir> <!-- /test/Components/Unit/Components/Module -->
        <dir name="Release">
         <dir name="Task">
@@ -551,7 +551,6 @@
 * [gwr] Fix appending the snapshot date for pre-releases.
 * [gwr] Allow to keep the version when generating snapshots.
 * [gwr] Accept an empty initial note.
-* First release candidate for Horde 4.
    </notes>
   </release>
  </changelog>
