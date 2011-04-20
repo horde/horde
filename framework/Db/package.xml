@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2011-04-20</date>
- <time>15:34:41</time>
+ <time>15:34:58</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -35,8 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [jan] Fix migration detection on Windows.
-* [jan] Fix setting incorrect charset in PDO drivers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -427,6 +426,19 @@
    <notes>
 * [jan] Fix migration detection on Windows.
 * [jan] Fix setting incorrect charset in PDO drivers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-20</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
