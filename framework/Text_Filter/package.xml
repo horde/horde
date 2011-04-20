@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-04-19</date>
- <time>19:06:31</time>
+ <date>2011-04-20</date>
+ <time>15:35:51</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -646,7 +646,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-19</date>
+   <date>2011-04-20</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [mms] Remove dependency on Horde_Text_Filter_Csstidy.
