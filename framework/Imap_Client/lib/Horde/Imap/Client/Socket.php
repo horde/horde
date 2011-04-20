@@ -945,11 +945,30 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         $this->login();
 
+        // RFC 5258 [3.1]: Use LSUB for MBOX_SUBSCRIBED if no other server
+        // return options are specified.
+        if (($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) &&
+            empty($options['attributes']) &&
+            empty($options['children']) &&
+            empty($options['recursivematch']) &&
+            empty($options['remote']) &&
+            empty($options['special_use']) &&
+            empty($options['status'])) {
+            return $this->_getMailboxList(
+                $pattern,
+                Horde_Imap_Client::MBOX_SUBSCRIBED,
+                array(
+                    'delimiter' => !empty($options['delimiter']),
+                    'flat' => !empty($options['flat']),
+                    'no_listext' => true,
+                    'utf8' => !empty($options['utf8'])
+                )
+            );
+        }
+
         // Get the list of subscribed/unsubscribed mailboxes. Since LSUB is
         // not guaranteed to have correct attributes, we must use LIST to
         // ensure we receive the correct information.
-        // TODO: Use LSUB for MBOX_SUBSCRIBED if no other options are
-        // set (RFC 5258 [3.1])
         if (($mode != Horde_Imap_Client::MBOX_ALL) &&
             !$this->queryCapability('LIST-EXTENDED')) {
             $subscribed = $this->_getMailboxList($pattern, Horde_Imap_Client::MBOX_SUBSCRIBED, array('flat' => true));
@@ -972,7 +991,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *
      * @param mixed $pattern     The mailbox search pattern(s).
      * @param integer $mode      Which mailboxes to return.
-     * @param array $options     Additional options.
+     * @param array $options     Additional options. 'no_listext' will skip
+     *                           using the LIST-EXTENDED capability.
      * @param array $subscribed  A list of subscribed mailboxes.
      *
      * @return array  See self::listMailboxes(().
@@ -994,7 +1014,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         );
         $t['listresponse'] = array();
 
-        if ($this->queryCapability('LIST-EXTENDED')) {
+        if ($this->queryCapability('LIST-EXTENDED') &&
+            empty($options['no_listext'])) {
             $cmd = array('LIST');
             $t['mailboxlist']['ext'] = true;
 
