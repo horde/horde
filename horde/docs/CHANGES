@@ -1,6 +1,6 @@
-----------
-v4.0.1-git
-----------
+------
+v4.0.1
+------
 
 [mjr] Fix the blockTitle and blockContent API methods.
 [jan] Fix creating folders with SQL VFS driver (Bug #9894).
