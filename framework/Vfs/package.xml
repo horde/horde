@@ -27,8 +27,8 @@ Reading, writing and listing of files are all supported, and there are both obje
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-19</date>
- <time>19:06:58</time>
+ <date>2011-04-20</date>
+ <time>15:36:25</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -815,7 +815,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-19</date>
+   <date>2011-04-20</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Fix creating folders with SQL driver (Bug #9894).
