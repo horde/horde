@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-04-20</date>
- <time>15:36:09</time>
+ <time>15:36:24</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -29,8 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Fix wrapping of several follow-up lines with existing line breaks.
-* [jan] Fix creating temporary files with open_basedir restrictions.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -344,6 +343,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <notes>
 * [jan] Fix wrapping of several follow-up lines with existing line breaks.
 * [jan] Fix creating temporary files with open_basedir restrictions.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-20</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
