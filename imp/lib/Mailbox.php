@@ -776,18 +776,21 @@ class IMP_Mailbox implements Serializable
         }
 
         $ns_info = $this->namespace_info;
-        $delimiter = is_null($ns_info)
-            ? ''
-            : $ns_info['delimiter'];
+        $out = $this->_mbox;
 
-        /* Strip namespace information. */
-        if (!is_null($ns_info) &&
-            !empty($ns_info['name']) &&
-            ($ns_info['type'] == Horde_Imap_Client::NS_PERSONAL) &&
-            substr($this->_mbox, 0, strlen($ns_info['name'])) == $ns_info['name']) {
-            $out = substr($this->_mbox, strlen($ns_info['name']));
-        } else {
-            $out = $this->_mbox;
+        if (!is_null($ns_info)) {
+            /* Return translated namespace information. */
+            if (!empty($ns_info['translate']) && $this->namespace) {
+                $this->_cache['display'] = Horde_String::convertCharset($ns_info['translate'], 'UTF7-IMAP', 'UTF-8');
+                return $this->_cache['display'];
+            }
+
+            /* Strip namespace information. */
+            if (!empty($ns_info['name']) &&
+                ($ns_info['type'] == Horde_Imap_Client::NS_PERSONAL) &&
+                (substr($this->_mbox, 0, strlen($ns_info['name'])) == $ns_info['name'])) {
+                $out = substr($this->_mbox, strlen($ns_info['name']));
+            }
         }
 
         if ($notranslate) {
@@ -825,7 +828,7 @@ class IMP_Mailbox implements Serializable
             if ((($key != 'INBOX') || ($this->_mbox == $out)) &&
                 strpos($this->_mbox, $key) === 0) {
                 $len = strlen($key);
-                if ((strlen($this->_mbox) == $len) || ($this->_mbox[$len] == $delimiter)) {
+                if ((strlen($this->_mbox) == $len) || ($this->_mbox[$len] == (is_null($ns_info) ? '' : $ns_info['delimiter']))) {
                     $out = substr_replace($out, Horde_String::convertCharset($val, 'UTF-8', 'UTF7-IMAP'), 0, $len);
                     break;
                 }
