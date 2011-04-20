@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-04-07</date>
- <time>10:47:55</time>
+ <date>2011-04-20</date>
+ <time>15:27:56</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -182,10 +182,6 @@
          <file name="script.php" role="horde" />
          <file name="shell_script.sh" role="horde" />
         </dir> <!-- /test/Components/fixture/framework/simple/bin -->
-        <dir name="ignore">
-         <file name="test1" role="horde" />
-         <file name="test2" role="horde" />
-        </dir> <!-- /test/Components/fixture/framework/simple/ignore -->
         <dir name="js">
          <file name="test.js" role="horde" />
         </dir> <!-- /test/Components/fixture/framework/simple/js -->
@@ -197,7 +193,6 @@
         <dir name="migration">
          <file name="test.sql" role="horde" />
         </dir> <!-- /test/Components/fixture/framework/simple/migration -->
-        <file name="IGNORE.txt" role="horde" />
        </dir> <!-- /test/Components/fixture/framework/simple -->
       </dir> <!-- /test/Components/fixture/framework -->
       <dir name="horde">
@@ -463,12 +458,9 @@
    <install as="Components/fixture/framework/Install/lib/Install.php" name="test/Components/fixture/framework/Install/lib/Install.php" />
    <install as="Components/fixture/framework/Old/lib/Old.php" name="test/Components/fixture/framework/Old/lib/Old.php" />
    <install as="Components/fixture/framework/Optional/lib/Optional.php" name="test/Components/fixture/framework/Optional/lib/Optional.php" />
-   <install as="Components/fixture/framework/simple/IGNORE.txt" name="test/Components/fixture/framework/simple/IGNORE.txt" />
    <install as="Components/fixture/framework/simple/bin/other_script" name="test/Components/fixture/framework/simple/bin/other_script" />
    <install as="Components/fixture/framework/simple/bin/script.php" name="test/Components/fixture/framework/simple/bin/script.php" />
    <install as="Components/fixture/framework/simple/bin/shell_script.sh" name="test/Components/fixture/framework/simple/bin/shell_script.sh" />
-   <install as="Components/fixture/framework/simple/ignore/test1" name="test/Components/fixture/framework/simple/ignore/test1" />
-   <install as="Components/fixture/framework/simple/ignore/test2" name="test/Components/fixture/framework/simple/ignore/test2" />
    <install as="Components/fixture/framework/simple/js/test.js" name="test/Components/fixture/framework/simple/js/test.js" />
    <install as="Components/fixture/framework/simple/lib/New.php" name="test/Components/fixture/framework/simple/lib/New.php" />
    <install as="Components/fixture/framework/simple/lib/Second.php" name="test/Components/fixture/framework/simple/lib/Second.php" />
@@ -550,7 +542,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-04-07</date>
+   <date>2011-04-20</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * [gwr] Replaced use of PEAR_PackageFileManager for updating package.xml with Horde_Pear.
