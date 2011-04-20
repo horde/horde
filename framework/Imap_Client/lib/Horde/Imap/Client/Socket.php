@@ -192,12 +192,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         $this->login();
 
-        if ($this->queryCapability('NAMESPACE')) {
-            $this->_sendLine('NAMESPACE');
-            return $this->_temp['namespace'];
+        if (!$this->queryCapability('NAMESPACE')) {
+            return array();
         }
 
-        return array();
+        $this->_sendLine('NAMESPACE');
+        return $this->_temp['namespace'];
     }
 
     /**
@@ -291,8 +291,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $this->_setInit('lang');
             }
 
-            // Set language if not using imapproxy
-            if ($this->_init['imapproxy']) {
+            // Set language if using imapproxy
+            if (!empty($this->_init['imapproxy'])) {
                 $this->setLanguage();
             }
 
@@ -459,10 +459,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // The user was pre-authenticated.
             $this->_temp['preauth'] = true;
             break;
-
-        default:
-            $this->_temp['preauth'] = false;
-            break;
         }
         $this->_parseServerResponse($ob);
 
@@ -471,16 +467,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_exception('This server does not support IMAP4rev1 (RFC 3501).', 'SERVER_CONNECT');
         }
 
-        // Set language if not using imapproxy
+        // Set language if NOT using imapproxy
         if (empty($this->_init['imapproxy'])) {
-            $this->_setInit('imapproxy', $this->queryCapability('XIMAPPROXY'));
-            if (!$this->_init['imapproxy']) {
+            if ($this->queryCapability('XIMAPPROXY')) {
+                $this->_setInit('imapproxy', true);
+            } else {
                 $this->setLanguage();
             }
         }
 
         // If pre-authenticated, we need to do all login tasks now.
-        if ($this->_temp['preauth']) {
+        if (!empty($this->_temp['preauth'])) {
             $this->login();
         }
     }
