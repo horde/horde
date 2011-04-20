@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-19</date>
- <time>18:56:43</time>
+ <date>2011-04-20</date>
+ <time>15:31:54</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -372,7 +372,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-04-19</date>
+   <date>2011-04-20</date>
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
 * [mms] Fix default userhierarchy for Cyrsql driver (Bug #9895).
