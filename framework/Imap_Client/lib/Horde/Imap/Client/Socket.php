@@ -275,16 +275,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if ($first_login && !$this->queryCapability('STARTTLS')) {
                 // We should never hit this - STARTTLS is required pursuant
                 // to RFC 3501 [6.2.1].
-                $this->_exception('Server does not support TLS connections.', 'NOSUPPORTIMAPEXT');
+                $this->_exception('Server does not support TLS connections.', 'LOGIN_TLSFAILURE');
             }
 
             // Switch over to a TLS connection.
             // STARTTLS returns no untagged response.
             $this->_sendLine('STARTTLS');
 
-            $res = @stream_socket_enable_crypto($this->_stream, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
-
-            if (!$res) {
+            if (!($res = @stream_socket_enable_crypto($this->_stream, true, STREAM_CRYPTO_METHOD_TLS_CLIENT))) {
                 $this->logout();
                 $this->_exception('Could not open secure TLS connection to the IMAP server.', 'LOGIN_TLSFAILURE');
             }
