@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-04-20</date>
- <time>22:12:30</time>
+ <time>22:14:10</time>
  <version>
-  <release>4.0.1</release>
+  <release>4.0.2</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,13 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Fix LDAP parameters of account portal block (Klaus Steinberger, Bug #9770).
-* [mjr] Fix some display issues when geocoding with HordeMap (Bug #9883).
-* [mms] Don&apos;t load sidebar content if not expanded.
-* [jan] Fix deleting groups.
-* [jan] Fix adding new groups (Bug #9881).
-* [jan] Fix displaying the Facebook preference group.
-* [mms] Add appinitialized hook.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4064,6 +4058,19 @@
 * [jan] Fix adding new groups (Bug #9881).
 * [jan] Fix displaying the Facebook preference group.
 * [mms] Add appinitialized hook.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-20</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
