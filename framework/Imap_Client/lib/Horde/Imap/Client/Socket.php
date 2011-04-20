@@ -721,13 +721,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     }
 
     /**
-     * Parse a LANGUAGE response (RFC 5255 [3.3])
+     * Parse a LANGUAGE response (RFC 5255 [3.3]).
      *
      * @param array $data  The server response.
      */
     protected function _parseLanguage($data)
     {
-        // Store data in $_params because it mustbe saved across page accesses
         if (count($data[0]) == 1) {
             // This is the language that was set.
             $this->_setInit('lang', reset($data[0]));
@@ -841,7 +840,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 ($this->_temp['parseresperr']['response'] == 'NO')) {
                 $this->_selected = null;
                 $this->_mode = 0;
-                $this->_exception($e->getMessage(), 'MAILBOX_NOOPEN');
+                $this->_exception($e, 'MAILBOX_NOOPEN');
             }
             throw $e;
         }
@@ -950,7 +949,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         // not guaranteed to have correct attributes, we must use LIST to
         // ensure we receive the correct information.
         // TODO: Use LSUB for MBOX_SUBSCRIBED if no other options are
-        // set (RFC 5258 3.1)
+        // set (RFC 5258 [3.1])
         if (($mode != Horde_Imap_Client::MBOX_ALL) &&
             !$this->queryCapability('LIST-EXTENDED')) {
             $subscribed = $this->_getMailboxList($pattern, Horde_Imap_Client::MBOX_SUBSCRIBED, array('flat' => true));

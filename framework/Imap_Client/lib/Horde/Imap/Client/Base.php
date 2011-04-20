@@ -202,7 +202,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Exception wrapper - logs an error message before (optionally) throwing
      * exception.
      *
-     * @param string $msg           Error message.
+     * @param mixed $msg            Error message/error object.
      * @param integer|string $code  Error code. If string, will convert from
      *                              the Exception constant of the same name.
      * @param boolean $logonly      If true, log only and don't throw
@@ -698,10 +698,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Sets the preferred language for server response messages (RFC 5255).
      *
-     * @param array $info  Overrides the value of the 'lang' param and sends
-     *                     this list of preferred languages instead. The
-     *                     special string 'i-default' can be used to restore
-     *                     the language to the server default.
+     * @param array $langs  Overrides the value of the 'lang' param and sends
+     *                      this list of preferred languages instead. The
+     *                      special string 'i-default' can be used to restore
+     *                      the language to the server default.
      *
      * @return string  The language accepted by the server, or null if the
      *                 default language is used.
@@ -709,22 +709,23 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     public function setLanguage($langs = null)
     {
-        if (!$this->queryCapability('LANGUAGE')) {
-            return null;
+        $lang = null;
+
+        if ($this->queryCapability('LANGUAGE')) {
+            $lang = is_null($langs)
+                ? (empty($this->_params['lang']) ? null : $this->_params['lang'])
+                : $langs;
         }
 
-        $lang = is_null($langs) ? (empty($this->_params['lang']) ? null : $this->_params['lang']) : $langs;
-        if (is_null($lang)) {
-            return null;
-        }
-
-        return $this->_setLanguage($lang);
+        return is_null($lang)
+            ? null
+            : $this->_setLanguage($lang);
     }
 
     /**
      * Sets the preferred language for server response messages (RFC 5255).
      *
-     * @param array $info  The preferred list of languages.
+     * @param array $langs  The preferred list of languages.
      *
      * @return string  The language accepted by the server, or null if the
      *                 default language is used.
