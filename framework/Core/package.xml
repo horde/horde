@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mjr] Fix editing settings of fixed portal blocks (Bug #9910).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1416,7 +1416,7 @@
    <date>2011-04-20</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mjr] Fix editing settings of fixed portal blocks (Bug #9910).
    </notes>
   </release>
  </changelog>
