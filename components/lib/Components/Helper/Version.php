@@ -150,6 +150,6 @@ class Components_Helper_Version
         if (!preg_match('/^(\d+\.\d+\.)(\d+).*$/', $version, $match)) {
             throw new Components_Exception('Invalid version number ' . $version);
         }
-        return $match[1] . $match[2]++ . '-git';
+        return $match[1] . ++$match[2] . '-git';
     }
 }
