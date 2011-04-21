@@ -28,11 +28,33 @@
 class Components_Helper_Version
 {
     /**
+     * Validates and normalizes a version to be a valid PEAR version.
+     *
+     * @param string $version  A version string.
+     *
+     * @return string  The normalized version string.
+     *
+     * @throws Components_Exception on invalid version string.
+     */
+    static public function validatePear($version)
+    {
+        if (!preg_match('/^(\d+\.\d+\.\d+)(-git|alpha\d*|beta\d*|RC\d+)$/', $version, $match)) {
+            throw new Components_Exception('Invalid version number ' . $version);
+        }
+        if ($match[2] == '-git') {
+            $match[2] = '';
+        }
+        return $match[1] . $match[2];
+    }
+
+    /**
      * Convert the PEAR package version number to Horde style.
      *
      * @param string $version The PEAR package version.
      *
      * @return string The Horde style version.
+     *
+     * @throws Components_Exception on invalid version string.
      */
     static public function pearToHorde($version)
     {
@@ -47,6 +69,9 @@ class Components_Helper_Version
             $post = '';
         }
         $vcomp = explode('.', $matches[1]);
+        if (count($vcomp) != 3) {
+            throw new Components_Exception('A version number must have 3 parts.');
+        }
         if ($vcomp[2] === '0') {
             $main = $vcomp[0] . '.' . $vcomp[1];
         } else {
@@ -62,6 +87,8 @@ class Components_Helper_Version
      * @param string $version The PEAR package version.
      *
      * @return string The description for bugs.horde.org.
+     *
+     * @throws Components_Exception on invalid version string.
      */
     static public function pearToTicketDescription($version)
     {
@@ -80,6 +107,9 @@ class Components_Helper_Version
             $post = ' Final';
         }
         $vcomp = explode('.', $matches[1]);
+        if (count($vcomp) != 3) {
+            throw new Components_Exception('A version number must have 3 parts.');
+        }
         if ($vcomp[2] === '0') {
             $main = $vcomp[0] . '.' . $vcomp[1];
         } else {
@@ -104,5 +134,22 @@ class Components_Helper_Version
         } else {
             return $branch . ' (' . self::pearToHorde($version) . ')';
         }
+    }
+
+    /**
+     * Increments the last part of a version number by one.
+     *
+     * @param string $version  A version number.
+     *
+     * @return string  The incremented version number.
+     *
+     * @throws Components_Exception on invalid version string.
+     */
+    static public function nextVersion($version)
+    {
+        if (!preg_match('/^(\d+\.\d+\.)(\d+).*$/', $version, $match)) {
+            throw new Components_Exception('Invalid version number ' . $version);
+        }
+        return $match[1] . $match[2]++ . '-git';
     }
 }

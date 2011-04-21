@@ -31,23 +31,6 @@ class Components_Release_Task_NextSentinel
 extends Components_Release_Task_Sentinel
 {
     /**
-     * Validate the preconditions required for this release task.
-     *
-     * @param array $options Additional options.
-     *
-     * @return array An empty array if all preconditions are met and a list of
-     *               error messages otherwise.
-     */
-    public function validate($options)
-    {
-        $errors = parent::validate($options);
-        if (empty($options['next_version'])) {
-            $errors[] = 'The "next_version" option has no value! What should the next version number be?';
-        }
-        return $errors;
-    }
-
-    /**
      * Run the task.
      *
      * @param array $options Additional options.
@@ -59,6 +42,9 @@ extends Components_Release_Task_Sentinel
         $sentinel = new Horde_Release_Sentinel(
             $this->getPackage()->getComponentDirectory()
         );
+        if (empty($options['next_version'])) {
+            $options['next_version'] = Components_Helper_Version::nextVersion($sentinel->getVersion());
+        }
         $changes_version = Components_Helper_Version::pearToHorde(
             $options['next_version']
         );

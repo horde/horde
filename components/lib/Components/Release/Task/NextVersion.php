@@ -41,9 +41,6 @@ extends Components_Release_Task_Base
     public function validate($options)
     {
         $errors = array();
-        if (empty($options['next_version'])) {
-            $errors[] = 'The "next_version" option has no value! What should the next version number be?';
-        }
         if ($options['next_note'] === null) {
             $errors[] = 'The "next_note" option has no value! What should the initial change log note be?';
         }
@@ -61,6 +58,10 @@ extends Components_Release_Task_Base
     {
         $api_state = isset($options['next_apistate']) ? $options['next_apistate'] : null;
         $rel_state = isset($options['next_relstate']) ? $options['next_relstate'] : null;
+        if (empty($options['next_version'])) {
+            $options['next_version'] = Components_Helper_Version::nextVersion($this->getPackage()->getVersion());
+        }
+        $options['next_version'] = Components_Helper_Version::validatePear($options['next_version']);
         if (!$this->getTasks()->pretend()) {
             $this->getPackage()->nextVersion(
                 $options['next_version'],
