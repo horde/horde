@@ -32,7 +32,7 @@
  <time>18:54:57</time>
  <version>
   <release>3.1.0</release>
-  <api>3.0.0</api>
+  <api>3.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -1170,7 +1170,7 @@
   <release>
    <version>
     <release>3.1.0</release>
-    <api>3.0.0</api></version>
+    <api>3.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>

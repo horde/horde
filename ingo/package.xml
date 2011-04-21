@@ -26,7 +26,7 @@
  <time>18:54:48</time>
  <version>
   <release>2.1.0</release>
-  <api>2.0.0</api>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -941,7 +941,7 @@
   <release>
    <version>
     <release>2.1.0</release>
-    <api>2.0.0</api></version>
+    <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
