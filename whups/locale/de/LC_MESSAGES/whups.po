@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-05 13:52+0200\n"
+"POT-Creation-Date: 2011-04-21 10:58+0200\n"
 "PO-Revision-Date: 2011-02-02 18:12+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
@@ -123,7 +123,7 @@ msgstr "Attribut hinzufügen"
 msgid "Add Attribute Criterion"
 msgstr "Attributkriterium hinzufügen"
 
-#: mybugs.php:47
+#: mybugs.php:40
 msgid "Add Content"
 msgstr "Inhalt hinzufügen"
 
@@ -245,7 +245,7 @@ msgid "Associations updated successfully."
 msgstr "Zuordnungen erfolgreich aktualisiert."
 
 #: lib/Forms/AddComment.php:22 lib/Forms/CreateTicket.php:164
-#: lib/Forms/EditTicket.php:141
+#: lib/Forms/EditTicket.php:139
 msgid "Attachment"
 msgstr "Anlage"
 
@@ -378,7 +378,7 @@ msgstr "Typ kopieren"
 msgid "Comma Separated Values (CSV file)"
 msgstr "Kommagetrennte Werte (CSV-Datei)"
 
-#: lib/Forms/AddComment.php:21 lib/Forms/EditTicket.php:146
+#: lib/Forms/AddComment.php:21 lib/Forms/EditTicket.php:144
 #: lib/Renderer/Query.php:86 ticket/queue.php:31 ticket/type.php:28
 msgid "Comment"
 msgstr "Kommentar"
@@ -511,7 +511,7 @@ msgstr "Sortierrichtung:"
 msgid "Delete"
 msgstr "Löschen"
 
-#: lib/Whups.php:854 lib/Whups.php:855
+#: lib/Whups.php:851 lib/Whups.php:852
 #, php-format
 msgid "Delete %s"
 msgstr "%s löschen"
@@ -606,7 +606,7 @@ msgstr "Beschreibung"
 msgid "Display Preferences"
 msgstr "Anzeige-Einstellungen"
 
-#: lib/Whups.php:845
+#: lib/Whups.php:842
 msgid "Download"
 msgstr "Herunterladen"
 
@@ -839,7 +839,7 @@ msgstr "Standardantwortname"
 msgid "Form Reply Text"
 msgstr "Standardantworttext"
 
-#: lib/Forms/EditTicket.php:158
+#: lib/Forms/EditTicket.php:156
 msgid "Form Reply:"
 msgstr "Standardantwort:"
 
@@ -851,7 +851,7 @@ msgstr "Allgemeine Einstellungen"
 msgid "Go"
 msgstr "Los"
 
-#: lib/Forms/CreateTicket.php:242 lib/Forms/EditTicket.php:130
+#: lib/Forms/CreateTicket.php:243 lib/Forms/EditTicket.php:128
 msgid "Group Owners"
 msgstr "Zuständige Gruppe"
 
@@ -960,7 +960,7 @@ msgstr "MM/TT/JJ HH:MM"
 msgid "Make a clone of %s"
 msgstr "Kopie von %s erstellen"
 
-#: lib/Forms/AddComment.php:36 lib/Forms/EditTicket.php:182
+#: lib/Forms/AddComment.php:36 lib/Forms/EditTicket.php:180
 msgid "Make this comment visible only to members of a group?"
 msgstr ""
 "Diesen Kommentar nur für Mitglieder einer bestimmten Gruppe sichtbar machen?"
@@ -998,7 +998,7 @@ msgstr "Neueste zuerst"
 msgid "Moved ticket %d to \"%s\""
 msgstr "Ticket %d nach \"%s\" verschoben"
 
-#: mybugs.php:46
+#: mybugs.php:39
 #, php-format
 msgid "My %s"
 msgstr "Meine %s"
@@ -1220,14 +1220,14 @@ msgstr "Offene Tickets in allen Warteschlangen"
 msgid "Or"
 msgstr "Oder"
 
-#: lib/Forms/CreateTicket.php:235 lib/Forms/CreateTicket.php:253
-#: lib/Forms/EditTicket.php:120 lib/Renderer/Query.php:82 lib/Ticket.php:627
+#: lib/Forms/CreateTicket.php:236 lib/Forms/CreateTicket.php:254
+#: lib/Forms/EditTicket.php:118 lib/Renderer/Query.php:82 lib/Ticket.php:627
 #: lib/Ticket.php:711 lib/Ticket.php:712 lib/Ticket.php:715 lib/Ticket.php:819
 #: lib/Ticket.php:840 lib/Ticket.php:961 lib/Whups.php:685
 msgid "Owners"
 msgstr "Zuständige"
 
-#: lib/Whups.php:854
+#: lib/Whups.php:851
 #, php-format
 msgid "Permanently delete %s?"
 msgstr "%s unwiederbringlich löschen?"
@@ -1242,7 +1242,7 @@ msgstr "Kommentar endgültig löschen?"
 msgid "Permission Denied"
 msgstr "Zugriff verweigert"
 
-#: lib/Forms/EditTicket.php:212 ticket/delete.php:36
+#: lib/Forms/EditTicket.php:210 ticket/delete.php:36
 msgid "Permission Denied."
 msgstr "Zugriff verweigert."
 
@@ -1943,7 +1943,7 @@ msgstr "Keine Typen zum Bearbeiten"
 msgid "There are no users responsible for this queue."
 msgstr "Für diese Warteschlange ist kein Benutzer verantwortlich."
 
-#: lib/Forms/CreateTicket.php:252
+#: lib/Forms/CreateTicket.php:253
 msgid "There are no users to which this ticket can be assigned."
 msgstr "Es gibt keine Benutzer, denen dieses Ticket zugewiesen werden kann."
 
@@ -2078,7 +2078,7 @@ msgstr "Beim Festlegen der Standard-Priorität ist ein Fehler aufgetreten:"
 msgid "There was an error setting the default state:"
 msgstr "Beim Festlegen des Standard-Status ist ein Fehler aufgetreten:"
 
-#: lib/Forms/AddComment.php:35 lib/Forms/EditTicket.php:181
+#: lib/Forms/AddComment.php:35 lib/Forms/EditTicket.php:179
 msgid "This comment is visible to everyone"
 msgstr "Dieser Kommentar ist für jedermann sichtbar"
 
@@ -2153,7 +2153,7 @@ msgstr "Dieser Warteschlange zugehörige Tickettypen"
 msgid "Ticket URL: %s"
 msgstr "Ticket-URL: %s"
 
-#: ticket/update.php:105
+#: ticket/update.php:106
 msgid "Ticket Updated"
 msgstr "Ticket aktualisiert"
 
@@ -2217,7 +2217,7 @@ msgstr "Unbekannter Knotentyp %s"
 msgid "Update"
 msgstr "Aktualisierung"
 
-#: ticket/update.php:119
+#: ticket/update.php:120
 #, php-format
 msgid "Update %s"
 msgstr "%s aktualisieren"
@@ -2367,7 +2367,7 @@ msgstr "[ Der Nachrichtentext konnte nicht dargestellt werden. ]"
 msgid "[Hidden]"
 msgstr "[Versteckt]"
 
-#: lib/Whups.php:776
+#: lib/Whups.php:773
 msgid "_Admin"
 msgstr "A_dministration"
 
@@ -2411,12 +2411,12 @@ msgstr "_Geschichte"
 msgid "_Load Query"
 msgstr "Ab_frage laden"
 
-#: lib/Whups.php:767
+#: lib/Whups.php:765
 #, php-format
 msgid "_My %s"
 msgstr "_Meine %s"
 
-#: lib/Whups.php:770
+#: lib/Whups.php:767
 msgid "_New Ticket"
 msgstr "_Neues Ticket"
 
@@ -2424,15 +2424,15 @@ msgstr "_Neues Ticket"
 msgid "_Property Criteria"
 msgstr "Eigens_chaftenkriterien"
 
-#: lib/Whups.php:771
+#: lib/Whups.php:768
 msgid "_Query Builder"
 msgstr "_Abfrageeditor"
 
-#: lib/Whups.php:772
+#: lib/Whups.php:769
 msgid "_Reports"
 msgstr "_Berichte"
 
-#: lib/Whups.php:769
+#: lib/Whups.php:766
 msgid "_Search"
 msgstr "_Suche"
 

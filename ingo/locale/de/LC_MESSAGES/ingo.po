@@ -1,14 +1,14 @@
 # German translations for Ingo.
 # Copyright 2003-2011 The Horde Project
 # This file is distributed under the same license as the Ingo package.
-# Jan Schneider <jan@horde.org>, 2003-2010.
+# Jan Schneider <jan@horde.org>, 2003-2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Ingo 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-05 13:52+0200\n"
-"PO-Revision-Date: 2011-02-02 17:34+0100\n"
+"POT-Creation-Date: 2011-04-21 10:58+0200\n"
+"PO-Revision-Date: 2011-04-21 11:13+0200\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -25,7 +25,7 @@ msgstr " und"
 msgid " or"
 msgstr " oder"
 
-#: templates/blacklist/blacklist.inc:17
+#: templates/blacklist/blacklist.inc:16
 msgid "Action for blacklisted addresses:"
 msgstr "Aktion für ausgeschlossene Adressen:"
 
@@ -54,7 +54,7 @@ msgstr "Adresse(n), an die keine Antwort geschickt werden soll:"
 msgid "Advanced Settings"
 msgstr "Erweiterte Einstellungen"
 
-#: templates/rule/header.inc:32
+#: templates/rule/header.inc:31
 msgid "All of the following"
 msgstr "Alle der folgenden"
 
@@ -66,7 +66,7 @@ msgstr "Regeln erlauben"
 msgid "Answered"
 msgstr "Beantwortet"
 
-#: templates/rule/header.inc:33
+#: templates/rule/header.inc:32
 msgid "Any of the following"
 msgstr "Einer der folgenden"
 
@@ -100,11 +100,11 @@ msgid "Bind failed: (%s) %s"
 msgstr "Verbindung fehlgeschlagen: (%s) %s"
 
 #: filters.php:179 lib/Block/Overview.php:84 lib/Block/Overview.php:87
-#: templates/blacklist/blacklist.inc:7
+#: templates/blacklist/blacklist.inc:6
 msgid "Blacklist"
 msgstr "Ausschlussliste"
 
-#: blacklist.php:97
+#: blacklist.php:91
 msgid "Blacklist Edit"
 msgstr "Ausschlussliste Bearbeiten"
 
@@ -121,7 +121,7 @@ msgstr "Ausgeschlossene Adressen"
 msgid "Body"
 msgstr "Text"
 
-#: filters.php:225 rule.php:317
+#: filters.php:225 rule.php:331
 msgid "Case Sensitive"
 msgstr "Groß-/Kleinschreibung beachten"
 
@@ -129,7 +129,7 @@ msgstr "Groß-/Kleinschreibung beachten"
 msgid "Cc"
 msgstr "Cc"
 
-#: blacklist.php:67 forward.php:49 rule.php:136 spam.php:99 vacation.php:71
+#: blacklist.php:63 forward.php:49 rule.php:151 spam.php:88 vacation.php:71
 #: whitelist.php:32
 msgid "Changes saved."
 msgstr "Änderungen gespeichert."
@@ -152,7 +152,11 @@ msgstr "%s kopieren"
 msgid "Copy of %s"
 msgstr "Kopie von %s"
 
-#: lib/Ingo.php:133
+#: lib/Ingo.php:165
+msgid "Could not validate IMAP mailbox."
+msgstr "Ungültiger IMAP-Ordner."
+
+#: lib/Ingo.php:118
 msgid "Create new folder"
 msgstr "Neuen Ordner erstellen"
 
@@ -206,8 +210,8 @@ msgstr "Empfänger (An, Cc, Bcc etc.)"
 msgid "Disable %s"
 msgstr "%s deaktivieren"
 
-#: forward.php:88 spam.php:144 templates/blacklist/blacklist.inc:10
-#: templates/rule/header.inc:14 templates/whitelist/whitelist.inc:8
+#: forward.php:88 spam.php:132 templates/blacklist/blacklist.inc:9
+#: templates/rule/header.inc:13 templates/whitelist/whitelist.inc:8
 #: vacation.php:137
 msgid "Disabled"
 msgstr "Deaktiviert"
@@ -330,7 +334,7 @@ msgstr "Nur ungelesene Nachrichten filtern"
 msgid "Filter Options"
 msgstr "Filtereinstellungen"
 
-#: templates/rule/header.inc:13
+#: templates/rule/header.inc:12
 msgid "Filter Rule"
 msgstr "Filterregel"
 
@@ -346,29 +350,29 @@ msgstr "Filterskript-Anzeige"
 msgid "Filter _Rules"
 msgstr "_Filterregeln"
 
-#: lib/Script/Imap.php:333
+#: lib/Script/Imap.php:337
 #, php-format
 msgid "Filter activity: %s message(s) have been copied to the folder \"%s\"."
 msgstr "Filteraktivität: %s Nachricht(en) wurden zum Ordner \"%s\" kopiert."
 
-#: lib/Script/Imap.php:312
+#: lib/Script/Imap.php:315
 #, php-format
 msgid "Filter activity: %s message(s) have been deleted."
 msgstr "Filteraktivität: %s Nachricht(en) wurden gelöscht."
 
-#: lib/Script/Imap.php:288
+#: lib/Script/Imap.php:290
 #, php-format
 msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
 msgstr "Filteraktivität: %s Nachricht(en) wurden zum Ordner \"%s\" verschoben."
 
-#: lib/Script/Imap.php:190
+#: lib/Script/Imap.php:191
 #, php-format
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
 msgstr ""
 "Filteraktivität: %s Nachricht(en), die der Ausschlussliste entsprachen, "
 "wurden gelöscht."
 
-#: lib/Script/Imap.php:326
+#: lib/Script/Imap.php:330
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been copied to the "
@@ -377,12 +381,12 @@ msgstr ""
 "Filteraktivität: Die Nachricht \"%s\" von \"%s\" wurde zum Ordner \"%s\" "
 "kopiert."
 
-#: lib/Script/Imap.php:306
+#: lib/Script/Imap.php:309
 #, php-format
 msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
 msgstr "Filteraktivität: Die Nachricht \"%s\" von \"%s\" wurde gelöscht."
 
-#: lib/Script/Imap.php:281
+#: lib/Script/Imap.php:283
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
@@ -391,7 +395,7 @@ msgstr ""
 "Filteraktivität: Die Nachricht \"%s\" von \"%s\" wurde zum Ordner \"%s\" "
 "verschoben."
 
-#: rule.php:184
+#: rule.php:199
 msgid "Filter not found."
 msgstr "Filterregel nicht gefunden."
 
@@ -403,7 +407,7 @@ msgstr "Zur Wiedervorlage Markiert"
 msgid "Folder to receive spam:"
 msgstr "Ordner für Spamnachrichten:"
 
-#: templates/rule/header.inc:30
+#: templates/rule/header.inc:29
 msgid "For an incoming message that matches:"
 msgstr "Für eingehende Nachrichten, auf die folgende Regeln zutreffen:"
 
@@ -489,7 +493,7 @@ msgstr "Kleiner als oder gleich"
 msgid "List-ID"
 msgstr "List-ID"
 
-#: templates/blacklist/blacklist.inc:20
+#: templates/blacklist/blacklist.inc:19
 msgid "Mar_k message as deleted"
 msgstr "Nachricht als _gelöscht markieren"
 
@@ -637,7 +641,7 @@ msgstr "Beteiligter (Von, An etc.)"
 msgid "Permission Denied"
 msgstr "Zugriff verweigert"
 
-#: lib/Ingo.php:471
+#: lib/Ingo.php:133
 msgid "Please enter the name of the new folder:"
 msgstr "Bitte geben Sie den Namen für den neuen Ordner an:"
 
@@ -684,8 +688,8 @@ msgstr "Neu versendet an (Resent-To)"
 msgid "Return to Filters List"
 msgstr "Zurück zur Filterliste"
 
-#: forward.php:30 forward.php:77 spam.php:56 spam.php:130
-#: templates/blacklist/blacklist.inc:42 templates/whitelist/whitelist.inc:24
+#: forward.php:30 forward.php:77 spam.php:56 spam.php:119
+#: templates/blacklist/blacklist.inc:41 templates/whitelist/whitelist.inc:24
 #: vacation.php:30 vacation.php:102
 msgid "Return to Rules List"
 msgstr "Zurück zur Regelliste"
@@ -714,15 +718,15 @@ msgstr "Regel \"%s\" deaktiviert."
 msgid "Rule \"%s\" enabled."
 msgstr "Regel \"%s\" aktiviert."
 
-#: forward.php:58 spam.php:108 vacation.php:80
+#: forward.php:58 spam.php:97 vacation.php:80
 msgid "Rule Disabled"
 msgstr "Regel deaktiviert"
 
-#: forward.php:53 spam.php:103 vacation.php:75
+#: forward.php:53 spam.php:92 vacation.php:75
 msgid "Rule Enabled"
 msgstr "Regel aktiviert"
 
-#: templates/rule/header.inc:21
+#: templates/rule/header.inc:20
 msgid "Rule Name:"
 msgstr "Regelname:"
 
@@ -739,7 +743,7 @@ msgstr "STARTTLS fehlgeschlagen: (%s) %s"
 msgid "S_pam"
 msgstr "Spa_m"
 
-#: forward.php:40 spam.php:72 templates/blacklist/blacklist.inc:41
+#: forward.php:40 spam.php:71 templates/blacklist/blacklist.inc:40
 #: templates/rule/footer.inc:60 templates/whitelist/whitelist.inc:23
 #: vacation.php:54
 msgid "Save"
@@ -749,12 +753,12 @@ msgstr "Speichern"
 msgid "Save Settings"
 msgstr "Einstellungen speichern"
 
-#: forward.php:55 forward.php:73 spam.php:105 spam.php:126 vacation.php:77
+#: forward.php:55 forward.php:73 spam.php:94 spam.php:115 vacation.php:77
 #: vacation.php:98
 msgid "Save and Disable"
 msgstr "Speichern und Deaktivieren"
 
-#: forward.php:50 forward.php:75 spam.php:100 spam.php:128 vacation.php:72
+#: forward.php:50 forward.php:75 spam.php:89 spam.php:117 vacation.php:72
 #: vacation.php:100
 msgid "Save and Enable"
 msgstr "Speichern und Aktivieren"
@@ -783,7 +787,7 @@ msgstr "Skript erfolgreich deaktiviert."
 msgid "Seen"
 msgstr "Gelesen"
 
-#: rule.php:214
+#: rule.php:228
 msgid "Select a field"
 msgstr "Wählen Sie ein Feld aus"
 
@@ -791,15 +795,15 @@ msgstr "Wählen Sie ein Feld aus"
 msgid "Select ruleset to display:"
 msgstr "Filtersatz auswählen:"
 
-#: rule.php:342 templates/blacklist/blacklist.inc:23
+#: rule.php:356 templates/blacklist/blacklist.inc:22
 msgid "Select target folder"
 msgstr "Zielordner auswählen"
 
-#: lib/Ingo.php:129
+#: lib/Ingo.php:114
 msgid "Select target folder:"
 msgstr "Zielordner auswählen:"
 
-#: rule.php:251
+#: rule.php:265
 msgid "Self-Defined Header"
 msgstr "Benutzerdefinierte Kopfeinträge"
 
@@ -837,7 +841,7 @@ msgstr "Absender (Von, Antwort-an etc.)"
 msgid "Spam Filter"
 msgstr "Spamfilter"
 
-#: spam.php:142 spam.php:149
+#: spam.php:130 spam.php:137
 msgid "Spam Filtering"
 msgstr "Spamfilter"
 
@@ -919,7 +923,7 @@ msgid "Vacation is not supported in the current filtering driver."
 msgstr ""
 "Abwesenheitsnachrichten werden vom aktuellen Filtertreiber nicht unterstützt."
 
-#: rule.php:348
+#: rule.php:362
 msgid "Value"
 msgstr "Wert"
 
@@ -961,7 +965,7 @@ msgstr "X-Spam-Score"
 msgid "X-Spam-Status"
 msgstr "X-Spam-Status"
 
-#: filters.php:73 rule.php:171
+#: filters.php:73 rule.php:186
 #, php-format
 msgid "You are not allowed to create more than %d rules."
 msgstr "Sie dürfen nicht mehr als %d Regeln erstellen."
@@ -970,18 +974,18 @@ msgstr "Sie dürfen nicht mehr als %d Regeln erstellen."
 msgid "You are not allowed to create or edit custom rules."
 msgstr "Sie dürfen keine eigenen Regeln erstellen oder bearbeiten."
 
-#: rule.php:91
+#: rule.php:90
 #, php-format
 msgid "You cannot create empty conditions. Please fill in a value for \"%s\"."
 msgstr ""
 "Sie können keine leeren Bedingungen festlegen. Bitte geben Sie einen Wert "
 "für \"%s\" an."
 
-#: filters.php:50 rule.php:148
+#: filters.php:50 rule.php:163
 msgid "You do not have permission to delete filter rules."
 msgstr "Sie haben nicht genügend Rechte, um Filterregeln zu löschen."
 
-#: filters.php:44 filters.php:114 filters.php:124 rule.php:52 rule.php:161
+#: filters.php:44 filters.php:114 filters.php:124 rule.php:51 rule.php:176
 msgid "You do not have permission to edit filter rules."
 msgstr "Sie haben nicht genügend Rechte, um Filterregeln zu bearbeiten."
 
@@ -989,11 +993,11 @@ msgstr "Sie haben nicht genügend Rechte, um Filterregeln zu bearbeiten."
 msgid "You have received a new message"
 msgstr "Sie haben eine neue Nachricht erhalten"
 
-#: lib/Script/Imap.php:283 lib/Script/Imap.php:308 lib/Script/Imap.php:328
+#: lib/Script/Imap.php:285 lib/Script/Imap.php:311 lib/Script/Imap.php:332
 msgid "[No Sender]"
 msgstr "[Kein Absender]"
 
-#: lib/Script/Imap.php:282 lib/Script/Imap.php:307 lib/Script/Imap.php:327
+#: lib/Script/Imap.php:284 lib/Script/Imap.php:310 lib/Script/Imap.php:331
 msgid "[No Subject]"
 msgstr "[Kein Betreff]"
 
@@ -1001,11 +1005,11 @@ msgstr "[Kein Betreff]"
 msgid "_Blacklist"
 msgstr "_Ausschlussliste"
 
-#: templates/blacklist/blacklist.inc:18
+#: templates/blacklist/blacklist.inc:17
 msgid "_Delete message completely"
 msgstr "Nachricht komplett _löschen"
 
-#: templates/blacklist/blacklist.inc:32
+#: templates/blacklist/blacklist.inc:31
 msgid "_Enter each address on a new line:"
 msgstr "_Jede Adresse in einer eigenen Zeile eintragen:"
 
@@ -1013,7 +1017,7 @@ msgstr "_Jede Adresse in einer eigenen Zeile eintragen:"
 msgid "_Forward"
 msgstr "_Weiterleitung"
 
-#: templates/blacklist/blacklist.inc:22
+#: templates/blacklist/blacklist.inc:21
 msgid "_Move message to folder:"
 msgstr "Nachricht in diesen Ordner _verschieben:"
 
