@@ -342,7 +342,7 @@ class IMP_Views_ListMessages
         }
 
         /* Build the overview list. */
-        $result->data = $this->_getOverviewData($mbox, array_keys($data), $is_search);
+        $result->data = $this->_getOverviewData($mbox, array_keys($data));
 
         /* Get unseen/thread information. */
         if (!$is_search) {
@@ -395,12 +395,11 @@ class IMP_Views_ListMessages
      * @param IMP_Mailbox $mbox  The current mailbox.
      * @param array $msglist     The list of message sequence numbers to
      *                           process.
-     * @param boolean $search    Is this a search mbox?
      *
      * @return array  TODO
      * @throws Horde_Exception
      */
-    private function _getOverviewData($mbox, $msglist, $search)
+    private function _getOverviewData($mbox, $msglist)
     {
         $msgs = array();
 
@@ -417,6 +416,7 @@ class IMP_Views_ListMessages
         $imp_ui = new IMP_Ui_Mailbox($mbox);
         $no_flags_hook = false;
         $pop3 = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3;
+        $search = $mbox->search;
 
         /* Display message information. */
         reset($overview['overview']);
