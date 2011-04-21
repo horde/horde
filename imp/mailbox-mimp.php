@@ -136,12 +136,12 @@ if ($pageOb['msgcount']) {
     $title .= ' (';
     if ($imp_imap->imap) {
         $unseen = $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
-        $title .= $unseen . ' ' . _("unseen") . '/';
+        $title .= sprintf(_("%d unseen"), $unseen) . '/';
     }
-    $title .= $pageOb['msgcount'] . ' ' . _("total") . ')';
+    $title .= sprintf(_("%d total"), $pageOb['msgcount']) . ')';
 }
 if ($pageOb['pagecount'] > 1) {
-    $title .= ' - ' . $pageOb['page'] . ' ' . _("of") . ' ' . $pageOb['pagecount'];
+    $title .= ' - ' . sprintf(_("%d of %d"), $pageOb['page'], $pageOb['pagecount']);
 }
 if ($readonly) {
     $title .= ' [' . _("Read-Only") . ']';
