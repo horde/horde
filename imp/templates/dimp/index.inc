@@ -293,7 +293,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 
 <div class="context" id="ctx_folder_export_opts" style="display:none">
  <a id="ctx_folder_export_mbox"><?php echo _("Uncompressed") ?></a>
- <a id="ctx_folder_export_zip"><?php echo _("Compressed [.zip file]") ?></a>
+ <a id="ctx_folder_export_zip"><?php echo _("Compressed (.zip file)") ?></a>
 </div>
 
 <div class="context" id="ctx_container" style="display:none">
