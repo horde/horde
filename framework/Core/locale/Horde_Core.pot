@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-05 13:52+0200\n"
+"POT-Creation-Date: 2011-04-21 10:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,17 +18,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: lib/Horde.php:1735
+#: lib/Horde.php:1745
 #, php-format
 msgid " (Accesskey %s)"
 msgstr ""
 
-#: lib/Horde/Core/Factory/Group.php:31
+#: lib/Horde/Core/Factory/Group.php:35
 #, php-format
 msgid "\"%s\" group driver not found."
 msgstr ""
 
-#: lib/Horde/Registry.php:1180 lib/Horde/Registry.php:1644
+#: lib/Horde/Registry.php:1183 lib/Horde/Registry.php:1656
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr ""
@@ -52,12 +52,7 @@ msgid_plural "%d days until your password expires."
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Horde/Core/Auth/Signup/Form.php:29
-#, php-format
-msgid "%s Sign Up"
-msgstr ""
-
-#: lib/Horde/Registry.php:1285
+#: lib/Horde/Registry.php:1288
 #, php-format
 msgid "%s is not authorized for %s."
 msgstr ""
@@ -67,23 +62,23 @@ msgstr ""
 msgid "-- select --"
 msgstr ""
 
-#: lib/Horde/Core/Notification/Status.php:72
+#: lib/Horde/Core/Notification/Event/Status.php:72
 msgid "1 day"
 msgstr ""
 
-#: lib/Horde/Core/Notification/Status.php:70
+#: lib/Horde/Core/Notification/Event/Status.php:70
 msgid "1 hour"
 msgstr ""
 
-#: lib/Horde/Core/Notification/Status.php:69
+#: lib/Horde/Core/Notification/Event/Status.php:69
 msgid "15 minutes"
 msgstr ""
 
-#: lib/Horde/Core/Notification/Status.php:68
+#: lib/Horde/Core/Notification/Event/Status.php:68
 msgid "5 minutes"
 msgstr ""
 
-#: lib/Horde/Core/Notification/Status.php:71
+#: lib/Horde/Core/Notification/Event/Status.php:71
 msgid "6 hours"
 msgstr ""
 
@@ -91,7 +86,7 @@ msgstr ""
 msgid "<Previous"
 msgstr ""
 
-#: lib/Horde.php:151
+#: lib/Horde.php:156
 msgid "A fatal error has occurred"
 msgstr ""
 
@@ -103,7 +98,7 @@ msgid ""
 "message."
 msgstr ""
 
-#: lib/Horde/Core/Auth/Signup/Base.php:84
+#: lib/Horde/Core/Auth/Signup/Base.php:83
 #, php-format
 msgid ""
 "A new account for the user \"%s\" has been requested through the signup form."
@@ -114,7 +109,7 @@ msgid ""
 "A popup window could not be opened. Your browser may be blocking popups."
 msgstr ""
 
-#: lib/Horde/Core/Auth/Signup/Base.php:92
+#: lib/Horde/Core/Auth/Signup/Base.php:91
 #, php-format
 msgid "Account signup request for \"%s\""
 msgstr ""
@@ -165,7 +160,7 @@ msgstr ""
 msgid "Administration"
 msgstr ""
 
-#: lib/Horde/Core/Notification/Status.php:88
+#: lib/Horde/Core/Notification/Event/Status.php:88
 msgid "Alarm"
 msgstr ""
 
@@ -185,7 +180,7 @@ msgstr ""
 msgid "An illegal value was specified."
 msgstr ""
 
-#: lib/Horde/Core/Auth/Signup/Base.php:86
+#: lib/Horde/Core/Auth/Signup/Base.php:85
 msgid "Approve the account:"
 msgstr ""
 
@@ -281,7 +276,7 @@ msgstr ""
 msgid "Delete permissions for \"%s\" and any sub-permissions?"
 msgstr ""
 
-#: lib/Horde/Core/Auth/Signup/Base.php:88
+#: lib/Horde/Core/Auth/Signup/Base.php:87
 msgid "Deny the account:"
 msgstr ""
 
@@ -289,11 +284,11 @@ msgstr ""
 msgid "Department"
 msgstr ""
 
-#: lib/Horde.php:169
+#: lib/Horde.php:173
 msgid "Details"
 msgstr ""
 
-#: lib/Horde.php:174
+#: lib/Horde.php:178
 msgid "Details have been logged for the administrator."
 msgstr ""
 
@@ -302,7 +297,7 @@ msgstr ""
 msgid "Dial %s"
 msgstr ""
 
-#: lib/Horde/Core/Notification/Status.php:67
+#: lib/Horde/Core/Notification/Event/Status.php:67
 msgid "Dismiss"
 msgstr ""
 
@@ -346,7 +341,7 @@ msgid "Enter the letters below:"
 msgstr ""
 
 #: lib/Horde/Core/Block/Layout/View.php:131
-#: lib/Horde/Core/Notification/Status.php:93
+#: lib/Horde/Core/Notification/Event/Status.php:93
 msgid "Error"
 msgstr ""
 
@@ -400,7 +395,7 @@ msgstr ""
 msgid "Guest Permissions"
 msgstr ""
 
-#: lib/Horde/Help.php:219 lib/Horde/Help.php:220 lib/Horde/Menu.php:185
+#: lib/Horde/Help.php:219 lib/Horde/Help.php:220 lib/Horde/Menu.php:189
 msgid "Help"
 msgstr ""
 
@@ -479,7 +474,7 @@ msgstr ""
 msgid "May"
 msgstr ""
 
-#: lib/Horde/Core/Notification/Status.php:98
+#: lib/Horde/Core/Notification/Event/Status.php:98
 msgid "Message"
 msgstr ""
 
@@ -554,12 +549,12 @@ msgstr ""
 msgid "No children can be added to this permission."
 msgstr ""
 
-#: lib/Horde.php:938
+#: lib/Horde.php:948
 #, php-format
 msgid "No configuration information specified for %s."
 msgstr ""
 
-#: lib/Horde/Core/Ajax/Application.php:202
+#: lib/Horde/Core/Ajax/Application.php:203
 msgid "No valid email address found"
 msgstr ""
 
@@ -636,7 +631,7 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: lib/Horde/Menu.php:177
+#: lib/Horde/Menu.php:181
 msgid "Problem"
 msgstr ""
 
@@ -653,7 +648,7 @@ msgstr ""
 msgid "Remove source"
 msgstr ""
 
-#: lib/Horde.php:947
+#: lib/Horde.php:957
 #, php-format
 msgid "Required \"%s\" not specified in %s configuration."
 msgstr ""
@@ -730,7 +725,11 @@ msgstr ""
 msgid "Sign up"
 msgstr ""
 
-#: lib/Horde/Core/Notification/Status.php:75
+#: lib/Horde/Core/Auth/Signup/Form.php:29
+msgid "Sign up for an account"
+msgstr ""
+
+#: lib/Horde/Core/Notification/Event/Status.php:75
 msgid "Snooze..."
 msgstr ""
 
@@ -738,7 +737,7 @@ msgstr ""
 msgid "Su"
 msgstr ""
 
-#: lib/Horde/Core/Notification/Status.php:103
+#: lib/Horde/Core/Notification/Event/Status.php:103
 msgid "Success"
 msgstr ""
 
@@ -761,26 +760,26 @@ msgid ""
 "window now."
 msgstr ""
 
-#: lib/Horde.php:721
+#: lib/Horde.php:731
 msgid "The encryption features require a secure web connection."
 msgstr ""
 
-#: lib/Horde.php:948
+#: lib/Horde.php:958
 #, php-format
 msgid "The file %s should contain a %s setting."
 msgstr ""
 
-#: lib/Horde.php:939
+#: lib/Horde.php:949
 #, php-format
 msgid "The file %s should contain some %s settings."
 msgstr ""
 
-#: lib/Horde/Registry.php:2256
+#: lib/Horde/Registry.php:2272
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr ""
 
-#: lib/Horde.php:170
+#: lib/Horde.php:174
 msgid ""
 "The full error message is logged in Horde's log file, and is shown below "
 "only to administrators. Non-administrative users will not see error details."
@@ -874,7 +873,7 @@ msgstr ""
 msgid "Upload"
 msgstr ""
 
-#: lib/Horde/Core/Auth/Signup/Sql.php:96
+#: lib/Horde/Core/Auth/Signup/Sql.php:95
 #, php-format
 msgid "User \"%s\" does not exist."
 msgstr ""
@@ -883,12 +882,12 @@ msgstr ""
 msgid "User Preferences"
 msgstr ""
 
-#: lib/Horde/Core/Auth/Signup/Base.php:117
+#: lib/Horde/Core/Auth/Signup/Base.php:116
 #, php-format
 msgid "Username \"%s\" already exists."
 msgstr ""
 
-#: lib/Horde/Core/Notification/Status.php:108
+#: lib/Horde/Core/Notification/Event/Status.php:108
 msgid "Warning"
 msgstr ""
 
@@ -933,7 +932,7 @@ msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Horde/Registry.php:1850
+#: lib/Horde/Registry.php:1862
 msgid "You are not authenticated."
 msgstr ""
 
@@ -987,15 +986,15 @@ msgstr ""
 msgid "[Show Quoted Text - %d lines]"
 msgstr ""
 
-#: lib/Horde/Menu.php:206
+#: lib/Horde/Menu.php:210
 msgid "_Log in"
 msgstr ""
 
-#: lib/Horde/Menu.php:201
+#: lib/Horde/Menu.php:205
 msgid "_Log out"
 msgstr ""
 
-#: lib/Horde/Menu.php:170
+#: lib/Horde/Menu.php:174
 msgid "_Preferences"
 msgstr ""
 
@@ -1017,7 +1016,7 @@ msgstr ""
 
 #: lib/Horde/Core/Auth/Signup/Form.php:45
 #: lib/Horde/Core/Auth/Signup/Form.php:59
-msgid "type the password twice to confirm"
+msgid "type your password twice to confirm"
 msgstr ""
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:102

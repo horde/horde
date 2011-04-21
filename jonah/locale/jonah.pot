@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jonah H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"POT-Creation-Date: 2011-04-21 10:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,7 +75,7 @@ msgstr ""
 msgid "An error occurred fetching channels: %s"
 msgstr ""
 
-#: lib/Driver/Sql.php:577
+#: lib/Driver/Sql.php:579
 #, php-format
 msgid "Channel \"%s\" not found."
 msgstr ""
@@ -124,11 +124,11 @@ msgstr ""
 msgid "Compact"
 msgstr ""
 
-#: lib/Jonah.php:223
+#: lib/Jonah.php:213
 msgid "Composite Feed"
 msgstr ""
 
-#: lib/Jonah.php:61 lib/Jonah.php:64
+#: lib/Jonah.php:51 lib/Jonah.php:54
 #, php-format
 msgid "Could not open %s: %s"
 msgstr ""
@@ -276,7 +276,7 @@ msgstr ""
 msgid "Latest News"
 msgstr ""
 
-#: lib/Jonah.php:84 lib/Jonah.php:220
+#: lib/Jonah.php:74 lib/Jonah.php:210
 msgid "Local Feed"
 msgstr ""
 
@@ -428,7 +428,7 @@ msgstr ""
 msgid "Results URL"
 msgstr ""
 
-#: lib/Jonah.php:174
+#: lib/Jonah.php:164
 msgid "Rich Text"
 msgstr ""
 
@@ -517,7 +517,7 @@ msgstr ""
 msgid "Story has not been deleted."
 msgstr ""
 
-#: lib/Driver/Sql.php:525
+#: lib/Driver/Sql.php:527
 #, php-format
 msgid "Story id \"%s\" not found."
 msgstr ""
@@ -547,7 +547,7 @@ msgstr ""
 msgid "Tags: "
 msgstr ""
 
-#: lib/Jonah.php:181
+#: lib/Jonah.php:171
 msgid "Text"
 msgstr ""
 

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Turba H4 (3.0)\n"
+"Project-Id-Version: Turba H4 (3.0.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-05 13:52+0200\n"
+"POT-Creation-Date: 2011-04-21 10:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,7 +51,7 @@ msgstr ""
 msgid "\"Lastname, Firstname\" (ie. Doe, John)"
 msgstr ""
 
-#: lib/Driver.php:651
+#: lib/Driver.php:653
 #, php-format
 msgid "%d. %s of %s"
 msgstr ""
@@ -108,7 +108,7 @@ msgid_plural "Added or updated %d contacts, but at least one contact failed:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Driver.php:2739
+#: lib/Driver.php:2694
 msgid "Adding contacts is not available."
 msgstr ""
 
@@ -182,7 +182,7 @@ msgstr ""
 msgid "Basic Search"
 msgstr ""
 
-#: lib/Driver/Ldap.php:99
+#: lib/Driver/Ldap.php:92
 #, php-format
 msgid "Bind failed: (%s) %s"
 msgstr ""
@@ -335,7 +335,7 @@ msgstr ""
 msgid "Company Address"
 msgstr ""
 
-#: lib/Driver/Ldap.php:66
+#: lib/Driver/Ldap.php:59
 msgid "Connection failure"
 msgstr ""
 
@@ -400,12 +400,12 @@ msgstr ""
 msgid "Delete denied."
 msgstr ""
 
-#: lib/Driver/Ldap.php:333
+#: lib/Driver/Ldap.php:326
 #, php-format
 msgid "Delete failed: (%s) %s"
 msgstr ""
 
-#: lib/Driver.php:2752
+#: lib/Driver.php:2707
 msgid "Deleting contacts is not available."
 msgstr ""
 
@@ -541,7 +541,7 @@ msgstr ""
 msgid "Failed to browse list"
 msgstr ""
 
-#: lib/Driver/Ldap.php:374
+#: lib/Driver/Ldap.php:367
 #, php-format
 msgid "Failed to change name: (%s) %s; Old DN = %s, New DN = %s, Root = %s"
 msgstr ""
@@ -708,7 +708,7 @@ msgstr ""
 msgid "Invalid entry"
 msgstr ""
 
-#: lib/Driver/Ldap.php:329
+#: lib/Driver/Ldap.php:322
 msgid "Invalid key specified."
 msgstr ""
 
@@ -724,7 +724,7 @@ msgstr ""
 msgid "Kolab Home Server"
 msgstr ""
 
-#: lib/Driver/Ldap.php:50
+#: lib/Driver/Ldap.php:43
 msgid ""
 "LDAP support is required but the LDAP module is not available or not loaded."
 msgstr ""
@@ -805,7 +805,7 @@ msgstr ""
 msgid "Middle Names"
 msgstr ""
 
-#: lib/Driver/Ldap.php:367
+#: lib/Driver/Ldap.php:360
 msgid "Missing DN in LDAP source configuration."
 msgstr ""
 
@@ -813,7 +813,7 @@ msgstr ""
 msgid "Mobile Phone"
 msgstr ""
 
-#: lib/Driver/Ldap.php:395 lib/Driver/Ldap.php:411
+#: lib/Driver/Ldap.php:388 lib/Driver/Ldap.php:404
 #, php-format
 msgid "Modify failed: (%s) %s"
 msgstr ""
@@ -869,7 +869,7 @@ msgstr ""
 msgid "Name:"
 msgstr ""
 
-#: add.php:71 lib/Application.php:478
+#: add.php:71 lib/Application.php:480
 msgid "New Contact"
 msgstr ""
 
@@ -921,7 +921,7 @@ msgstr ""
 msgid "No vCard data was found."
 msgstr ""
 
-#: templates/list/numPager.inc:8
+#: lib/Application.php:388 templates/list/numPager.inc:8
 msgid "None"
 msgstr ""
 
@@ -987,7 +987,7 @@ msgstr ""
 msgid "Permanently delete this contact?"
 msgstr ""
 
-#: deletefile.php:36 lib/Api.php:641 lib/Api.php:1588 lib/Driver.php:848
+#: deletefile.php:36 lib/Api.php:641 lib/Api.php:1588 lib/Driver.php:850
 #: lib/Driver/Sql.php:628
 msgid "Permission denied"
 msgstr ""
@@ -1021,17 +1021,17 @@ msgstr ""
 msgid "Private Address Book"
 msgstr ""
 
-#: lib/Driver/Ldap.php:196
+#: lib/Driver/Ldap.php:189
 #, php-format
 msgid "Query failed: (%s) %s"
 msgstr ""
 
-#: lib/Driver/Ldap.php:242 lib/Driver/Ldap.php:251 lib/Driver/Ldap.php:507
+#: lib/Driver/Ldap.php:235 lib/Driver/Ldap.php:244 lib/Driver/Ldap.php:500
 #, php-format
 msgid "Read failed: (%s) %s"
 msgstr ""
 
-#: lib/Driver.php:2727
+#: lib/Driver.php:2682
 msgid "Reading contacts is not available."
 msgstr ""
 
@@ -1046,7 +1046,7 @@ msgstr ""
 msgid "Remove from this list"
 msgstr ""
 
-#: lib/Driver.php:2777
+#: lib/Driver.php:2732
 msgid ""
 "Removing user data is not supported in the current address book storage "
 "driver."
@@ -1058,7 +1058,7 @@ msgid ""
 "deletes all entries in your current address book.</strong>"
 msgstr ""
 
-#: lib/Driver.php:728
+#: lib/Driver.php:730
 msgid "Requested object not found."
 msgstr ""
 
@@ -1074,7 +1074,7 @@ msgstr ""
 msgid "SIP"
 msgstr ""
 
-#: lib/Driver/Ldap.php:87
+#: lib/Driver/Ldap.php:80
 #, php-format
 msgid "STARTTLS failed: (%s) %s"
 msgstr ""
@@ -1087,11 +1087,11 @@ msgstr ""
 msgid "Save search as a virtual address book?"
 msgstr ""
 
-#: lib/Driver.php:2765
+#: lib/Driver.php:2720
 msgid "Saving contacts is not available."
 msgstr ""
 
-#: config/prefs.php:101 lib/Application.php:521
+#: config/prefs.php:101 lib/Application.php:523
 #: templates/block/minisearch.inc:19 templates/browse/header.inc:3
 #: templates/search/advanced.html.php:5 templates/search/basic.html.php:25
 #: templates/search/duplicate.html.php:12
@@ -1115,7 +1115,7 @@ msgstr ""
 msgid "Search for: "
 msgstr ""
 
-#: lib/Driver.php:2710
+#: lib/Driver.php:2665
 msgid "Searching is not available."
 msgstr ""
 
@@ -1401,8 +1401,8 @@ msgstr ""
 msgid "There was an error importing the iCalendar data."
 msgstr ""
 
-#: lib/Application.php:405 lib/Application.php:412 lib/Application.php:444
-#: lib/Application.php:458
+#: lib/Application.php:407 lib/Application.php:414 lib/Application.php:446
+#: lib/Application.php:460
 #, php-format
 msgid "There was an error removing an address book for %s"
 msgstr ""
@@ -1447,11 +1447,11 @@ msgstr ""
 msgid "Time Zone"
 msgstr ""
 
-#: lib/Driver/Share.php:101
+#: lib/Driver/Share.php:102
 msgid "Unable to find contact owner."
 msgstr ""
 
-#: lib/Driver.php:2647 lib/Factory/Driver.php:64
+#: lib/Factory/Driver.php:64
 #, php-format
 msgid "Unable to load the definition of %s."
 msgstr ""
@@ -1710,7 +1710,7 @@ msgstr ""
 msgid "female"
 msgstr ""
 
-#: lib/Application.php:491
+#: lib/Application.php:493
 #, php-format
 msgid "in %s"
 msgstr ""

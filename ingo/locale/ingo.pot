@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Ingo H4 (2.0)\n"
+"Project-Id-Version: Ingo H4 (2.0.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-05 13:52+0200\n"
+"POT-Creation-Date: 2011-04-21 10:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid " or"
 msgstr ""
 
-#: templates/blacklist/blacklist.inc:17
+#: templates/blacklist/blacklist.inc:16
 msgid "Action for blacklisted addresses:"
 msgstr ""
 
@@ -54,7 +54,7 @@ msgstr ""
 msgid "Advanced Settings"
 msgstr ""
 
-#: templates/rule/header.inc:32
+#: templates/rule/header.inc:31
 msgid "All of the following"
 msgstr ""
 
@@ -66,7 +66,7 @@ msgstr ""
 msgid "Answered"
 msgstr ""
 
-#: templates/rule/header.inc:33
+#: templates/rule/header.inc:32
 msgid "Any of the following"
 msgstr ""
 
@@ -100,11 +100,11 @@ msgid "Bind failed: (%s) %s"
 msgstr ""
 
 #: filters.php:179 lib/Block/Overview.php:84 lib/Block/Overview.php:87
-#: templates/blacklist/blacklist.inc:7
+#: templates/blacklist/blacklist.inc:6
 msgid "Blacklist"
 msgstr ""
 
-#: blacklist.php:97
+#: blacklist.php:91
 msgid "Blacklist Edit"
 msgstr ""
 
@@ -121,7 +121,7 @@ msgstr ""
 msgid "Body"
 msgstr ""
 
-#: filters.php:225 rule.php:317
+#: filters.php:225 rule.php:331
 msgid "Case Sensitive"
 msgstr ""
 
@@ -129,7 +129,7 @@ msgstr ""
 msgid "Cc"
 msgstr ""
 
-#: blacklist.php:67 forward.php:49 rule.php:136 spam.php:99 vacation.php:71
+#: blacklist.php:63 forward.php:49 rule.php:151 spam.php:88 vacation.php:71
 #: whitelist.php:32
 msgid "Changes saved."
 msgstr ""
@@ -152,7 +152,11 @@ msgstr ""
 msgid "Copy of %s"
 msgstr ""
 
-#: lib/Ingo.php:133
+#: lib/Ingo.php:165
+msgid "Could not validate IMAP mailbox."
+msgstr ""
+
+#: lib/Ingo.php:118
 msgid "Create new folder"
 msgstr ""
 
@@ -206,8 +210,8 @@ msgstr ""
 msgid "Disable %s"
 msgstr ""
 
-#: forward.php:88 spam.php:144 templates/blacklist/blacklist.inc:10
-#: templates/rule/header.inc:14 templates/whitelist/whitelist.inc:8
+#: forward.php:88 spam.php:132 templates/blacklist/blacklist.inc:9
+#: templates/rule/header.inc:13 templates/whitelist/whitelist.inc:8
 #: vacation.php:137
 msgid "Disabled"
 msgstr ""
@@ -327,7 +331,7 @@ msgstr ""
 msgid "Filter Options"
 msgstr ""
 
-#: templates/rule/header.inc:13
+#: templates/rule/header.inc:12
 msgid "Filter Rule"
 msgstr ""
 
@@ -343,46 +347,46 @@ msgstr ""
 msgid "Filter _Rules"
 msgstr ""
 
-#: lib/Script/Imap.php:333
+#: lib/Script/Imap.php:337
 #, php-format
 msgid "Filter activity: %s message(s) have been copied to the folder \"%s\"."
 msgstr ""
 
-#: lib/Script/Imap.php:312
+#: lib/Script/Imap.php:315
 #, php-format
 msgid "Filter activity: %s message(s) have been deleted."
 msgstr ""
 
-#: lib/Script/Imap.php:288
+#: lib/Script/Imap.php:290
 #, php-format
 msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
 msgstr ""
 
-#: lib/Script/Imap.php:190
+#: lib/Script/Imap.php:191
 #, php-format
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
 msgstr ""
 
-#: lib/Script/Imap.php:326
+#: lib/Script/Imap.php:330
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been copied to the "
 "folder \"%s\"."
 msgstr ""
 
-#: lib/Script/Imap.php:306
+#: lib/Script/Imap.php:309
 #, php-format
 msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
 msgstr ""
 
-#: lib/Script/Imap.php:281
+#: lib/Script/Imap.php:283
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
 "\"%s\"."
 msgstr ""
 
-#: rule.php:184
+#: rule.php:199
 msgid "Filter not found."
 msgstr ""
 
@@ -394,7 +398,7 @@ msgstr ""
 msgid "Folder to receive spam:"
 msgstr ""
 
-#: templates/rule/header.inc:30
+#: templates/rule/header.inc:29
 msgid "For an incoming message that matches:"
 msgstr ""
 
@@ -477,7 +481,7 @@ msgstr ""
 msgid "List-ID"
 msgstr ""
 
-#: templates/blacklist/blacklist.inc:20
+#: templates/blacklist/blacklist.inc:19
 msgid "Mar_k message as deleted"
 msgstr ""
 
@@ -617,7 +621,7 @@ msgstr ""
 msgid "Permission Denied"
 msgstr ""
 
-#: lib/Ingo.php:471
+#: lib/Ingo.php:133
 msgid "Please enter the name of the new folder:"
 msgstr ""
 
@@ -662,8 +666,8 @@ msgstr ""
 msgid "Return to Filters List"
 msgstr ""
 
-#: forward.php:30 forward.php:77 spam.php:56 spam.php:130
-#: templates/blacklist/blacklist.inc:42 templates/whitelist/whitelist.inc:24
+#: forward.php:30 forward.php:77 spam.php:56 spam.php:119
+#: templates/blacklist/blacklist.inc:41 templates/whitelist/whitelist.inc:24
 #: vacation.php:30 vacation.php:102
 msgid "Return to Rules List"
 msgstr ""
@@ -692,15 +696,15 @@ msgstr ""
 msgid "Rule \"%s\" enabled."
 msgstr ""
 
-#: forward.php:58 spam.php:108 vacation.php:80
+#: forward.php:58 spam.php:97 vacation.php:80
 msgid "Rule Disabled"
 msgstr ""
 
-#: forward.php:53 spam.php:103 vacation.php:75
+#: forward.php:53 spam.php:92 vacation.php:75
 msgid "Rule Enabled"
 msgstr ""
 
-#: templates/rule/header.inc:21
+#: templates/rule/header.inc:20
 msgid "Rule Name:"
 msgstr ""
 
@@ -717,7 +721,7 @@ msgstr ""
 msgid "S_pam"
 msgstr ""
 
-#: forward.php:40 spam.php:72 templates/blacklist/blacklist.inc:41
+#: forward.php:40 spam.php:71 templates/blacklist/blacklist.inc:40
 #: templates/rule/footer.inc:60 templates/whitelist/whitelist.inc:23
 #: vacation.php:54
 msgid "Save"
@@ -727,12 +731,12 @@ msgstr ""
 msgid "Save Settings"
 msgstr ""
 
-#: forward.php:55 forward.php:73 spam.php:105 spam.php:126 vacation.php:77
+#: forward.php:55 forward.php:73 spam.php:94 spam.php:115 vacation.php:77
 #: vacation.php:98
 msgid "Save and Disable"
 msgstr ""
 
-#: forward.php:50 forward.php:75 spam.php:100 spam.php:128 vacation.php:72
+#: forward.php:50 forward.php:75 spam.php:89 spam.php:117 vacation.php:72
 #: vacation.php:100
 msgid "Save and Enable"
 msgstr ""
@@ -761,7 +765,7 @@ msgstr ""
 msgid "Seen"
 msgstr ""
 
-#: rule.php:214
+#: rule.php:228
 msgid "Select a field"
 msgstr ""
 
@@ -769,15 +773,15 @@ msgstr ""
 msgid "Select ruleset to display:"
 msgstr ""
 
-#: rule.php:342 templates/blacklist/blacklist.inc:23
+#: rule.php:356 templates/blacklist/blacklist.inc:22
 msgid "Select target folder"
 msgstr ""
 
-#: lib/Ingo.php:129
+#: lib/Ingo.php:114
 msgid "Select target folder:"
 msgstr ""
 
-#: rule.php:251
+#: rule.php:265
 msgid "Self-Defined Header"
 msgstr ""
 
@@ -814,7 +818,7 @@ msgstr ""
 msgid "Spam Filter"
 msgstr ""
 
-#: spam.php:142 spam.php:149
+#: spam.php:130 spam.php:137
 msgid "Spam Filtering"
 msgstr ""
 
@@ -895,7 +899,7 @@ msgstr ""
 msgid "Vacation is not supported in the current filtering driver."
 msgstr ""
 
-#: rule.php:348
+#: rule.php:362
 msgid "Value"
 msgstr ""
 
@@ -937,7 +941,7 @@ msgstr ""
 msgid "X-Spam-Status"
 msgstr ""
 
-#: filters.php:73 rule.php:171
+#: filters.php:73 rule.php:186
 #, php-format
 msgid "You are not allowed to create more than %d rules."
 msgstr ""
@@ -946,16 +950,16 @@ msgstr ""
 msgid "You are not allowed to create or edit custom rules."
 msgstr ""
 
-#: rule.php:91
+#: rule.php:90
 #, php-format
 msgid "You cannot create empty conditions. Please fill in a value for \"%s\"."
 msgstr ""
 
-#: filters.php:50 rule.php:148
+#: filters.php:50 rule.php:163
 msgid "You do not have permission to delete filter rules."
 msgstr ""
 
-#: filters.php:44 filters.php:114 filters.php:124 rule.php:52 rule.php:161
+#: filters.php:44 filters.php:114 filters.php:124 rule.php:51 rule.php:176
 msgid "You do not have permission to edit filter rules."
 msgstr ""
 
@@ -963,11 +967,11 @@ msgstr ""
 msgid "You have received a new message"
 msgstr ""
 
-#: lib/Script/Imap.php:283 lib/Script/Imap.php:308 lib/Script/Imap.php:328
+#: lib/Script/Imap.php:285 lib/Script/Imap.php:311 lib/Script/Imap.php:332
 msgid "[No Sender]"
 msgstr ""
 
-#: lib/Script/Imap.php:282 lib/Script/Imap.php:307 lib/Script/Imap.php:327
+#: lib/Script/Imap.php:284 lib/Script/Imap.php:310 lib/Script/Imap.php:331
 msgid "[No Subject]"
 msgstr ""
 
@@ -975,11 +979,11 @@ msgstr ""
 msgid "_Blacklist"
 msgstr ""
 
-#: templates/blacklist/blacklist.inc:18
+#: templates/blacklist/blacklist.inc:17
 msgid "_Delete message completely"
 msgstr ""
 
-#: templates/blacklist/blacklist.inc:32
+#: templates/blacklist/blacklist.inc:31
 msgid "_Enter each address on a new line:"
 msgstr ""
 
@@ -987,7 +991,7 @@ msgstr ""
 msgid "_Forward"
 msgstr ""
 
-#: templates/blacklist/blacklist.inc:22
+#: templates/blacklist/blacklist.inc:21
 msgid "_Move message to folder:"
 msgstr ""
 

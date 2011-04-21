@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-05 13:52+0200\n"
+"POT-Creation-Date: 2011-04-21 10:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -118,7 +118,7 @@ msgstr ""
 msgid "Add Attribute Criterion"
 msgstr ""
 
-#: mybugs.php:47
+#: mybugs.php:40
 msgid "Add Content"
 msgstr ""
 
@@ -240,7 +240,7 @@ msgid "Associations updated successfully."
 msgstr ""
 
 #: lib/Forms/AddComment.php:22 lib/Forms/CreateTicket.php:164
-#: lib/Forms/EditTicket.php:141
+#: lib/Forms/EditTicket.php:139
 msgid "Attachment"
 msgstr ""
 
@@ -369,7 +369,7 @@ msgstr ""
 msgid "Comma Separated Values (CSV file)"
 msgstr ""
 
-#: lib/Forms/AddComment.php:21 lib/Forms/EditTicket.php:146
+#: lib/Forms/AddComment.php:21 lib/Forms/EditTicket.php:144
 #: lib/Renderer/Query.php:86 ticket/queue.php:31 ticket/type.php:28
 msgid "Comment"
 msgstr ""
@@ -500,7 +500,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: lib/Whups.php:854 lib/Whups.php:855
+#: lib/Whups.php:851 lib/Whups.php:852
 #, php-format
 msgid "Delete %s"
 msgstr ""
@@ -595,7 +595,7 @@ msgstr ""
 msgid "Display Preferences"
 msgstr ""
 
-#: lib/Whups.php:845
+#: lib/Whups.php:842
 msgid "Download"
 msgstr ""
 
@@ -827,7 +827,7 @@ msgstr ""
 msgid "Form Reply Text"
 msgstr ""
 
-#: lib/Forms/EditTicket.php:158
+#: lib/Forms/EditTicket.php:156
 msgid "Form Reply:"
 msgstr ""
 
@@ -839,7 +839,7 @@ msgstr ""
 msgid "Go"
 msgstr ""
 
-#: lib/Forms/CreateTicket.php:242 lib/Forms/EditTicket.php:130
+#: lib/Forms/CreateTicket.php:243 lib/Forms/EditTicket.php:128
 msgid "Group Owners"
 msgstr ""
 
@@ -944,7 +944,7 @@ msgstr ""
 msgid "Make a clone of %s"
 msgstr ""
 
-#: lib/Forms/AddComment.php:36 lib/Forms/EditTicket.php:182
+#: lib/Forms/AddComment.php:36 lib/Forms/EditTicket.php:180
 msgid "Make this comment visible only to members of a group?"
 msgstr ""
 
@@ -981,7 +981,7 @@ msgstr ""
 msgid "Moved ticket %d to \"%s\""
 msgstr ""
 
-#: mybugs.php:46
+#: mybugs.php:39
 #, php-format
 msgid "My %s"
 msgstr ""
@@ -1197,14 +1197,14 @@ msgstr ""
 msgid "Or"
 msgstr ""
 
-#: lib/Forms/CreateTicket.php:235 lib/Forms/CreateTicket.php:253
-#: lib/Forms/EditTicket.php:120 lib/Renderer/Query.php:82 lib/Ticket.php:627
+#: lib/Forms/CreateTicket.php:236 lib/Forms/CreateTicket.php:254
+#: lib/Forms/EditTicket.php:118 lib/Renderer/Query.php:82 lib/Ticket.php:627
 #: lib/Ticket.php:711 lib/Ticket.php:712 lib/Ticket.php:715 lib/Ticket.php:819
 #: lib/Ticket.php:840 lib/Ticket.php:961 lib/Whups.php:685
 msgid "Owners"
 msgstr ""
 
-#: lib/Whups.php:854
+#: lib/Whups.php:851
 #, php-format
 msgid "Permanently delete %s?"
 msgstr ""
@@ -1219,7 +1219,7 @@ msgstr ""
 msgid "Permission Denied"
 msgstr ""
 
-#: lib/Forms/EditTicket.php:212 ticket/delete.php:36
+#: lib/Forms/EditTicket.php:210 ticket/delete.php:36
 msgid "Permission Denied."
 msgstr ""
 
@@ -1892,7 +1892,7 @@ msgstr ""
 msgid "There are no users responsible for this queue."
 msgstr ""
 
-#: lib/Forms/CreateTicket.php:252
+#: lib/Forms/CreateTicket.php:253
 msgid "There are no users to which this ticket can be assigned."
 msgstr ""
 
@@ -2022,7 +2022,7 @@ msgstr ""
 msgid "There was an error setting the default state:"
 msgstr ""
 
-#: lib/Forms/AddComment.php:35 lib/Forms/EditTicket.php:181
+#: lib/Forms/AddComment.php:35 lib/Forms/EditTicket.php:179
 msgid "This comment is visible to everyone"
 msgstr ""
 
@@ -2092,7 +2092,7 @@ msgstr ""
 msgid "Ticket URL: %s"
 msgstr ""
 
-#: ticket/update.php:105
+#: ticket/update.php:106
 msgid "Ticket Updated"
 msgstr ""
 
@@ -2156,7 +2156,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: ticket/update.php:119
+#: ticket/update.php:120
 #, php-format
 msgid "Update %s"
 msgstr ""
@@ -2303,7 +2303,7 @@ msgstr ""
 msgid "[Hidden]"
 msgstr ""
 
-#: lib/Whups.php:776
+#: lib/Whups.php:773
 msgid "_Admin"
 msgstr ""
 
@@ -2347,12 +2347,12 @@ msgstr ""
 msgid "_Load Query"
 msgstr ""
 
-#: lib/Whups.php:767
+#: lib/Whups.php:765
 #, php-format
 msgid "_My %s"
 msgstr ""
 
-#: lib/Whups.php:770
+#: lib/Whups.php:767
 msgid "_New Ticket"
 msgstr ""
 
@@ -2360,15 +2360,15 @@ msgstr ""
 msgid "_Property Criteria"
 msgstr ""
 
-#: lib/Whups.php:771
+#: lib/Whups.php:768
 msgid "_Query Builder"
 msgstr ""
 
-#: lib/Whups.php:772
+#: lib/Whups.php:769
 msgid "_Reports"
 msgstr ""
 
-#: lib/Whups.php:769
+#: lib/Whups.php:766
 msgid "_Search"
 msgstr ""
 
