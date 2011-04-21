@@ -38,7 +38,7 @@ class Components_Helper_Version
      */
     static public function validatePear($version)
     {
-        if (!preg_match('/^(\d+\.\d+\.\d+)(-git|alpha\d*|beta\d*|RC\d+)$/', $version, $match)) {
+        if (!preg_match('/^(\d+\.\d+\.\d+)(-git|alpha\d*|beta\d*|RC\d+)?$/', $version, $match)) {
             throw new Components_Exception('Invalid version number ' . $version);
         }
         if ($match[2] == '-git') {
