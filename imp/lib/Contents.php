@@ -1118,10 +1118,10 @@ class IMP_Contents
             /* Fall-through. */
 
         case 'application':
-            return Horde_String::ucfirst($part->getSubType()) . ' ' . _("part");
+            return sprintf(_("%s part"), ucfirst($part->getSubType()));
 
         default:
-            return Horde_String::ucfirst($ptype) . ' ' . _("part");
+            return sprintf(_("%s part"), ucfirst($ptype));
         }
     }
 
