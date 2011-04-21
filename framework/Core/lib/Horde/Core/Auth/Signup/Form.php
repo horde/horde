@@ -42,7 +42,7 @@ class Horde_Core_Auth_Signup_Form extends Horde_Form
                 $this->addVariable(Horde_Core_Translation::t("Choose a username"), 'user_name', 'text', true);
             }
             if (!isset($extra['password'])) {
-                $this->addVariable(Horde_Core_Translation::t("Choose a password"), 'password', 'passwordconfirm', true, false, Horde_Core_Translation::t("type your password twice to confirm"));
+                $this->addVariable(Horde_Core_Translation::t("Choose a password"), 'password', 'passwordconfirm', true, false, Horde_Core_Translation::t("Type your password twice to confirm"));
             }
             foreach ($extra as $field_name => $field) {
                 $readonly = isset($field['readonly']) ? $field['readonly'] : null;
@@ -56,7 +56,7 @@ class Horde_Core_Auth_Signup_Form extends Horde_Form
             }
         } else {
             $this->addVariable(Horde_Core_Translation::t("Choose a username"), 'user_name', 'text', true);
-            $this->addVariable(Horde_Core_Translation::t("Choose a password"), 'password', 'passwordconfirm', true, false, Horde_Core_Translation::t("type your password twice to confirm"));
+            $this->addVariable(Horde_Core_Translation::t("Choose a password"), 'password', 'passwordconfirm', true, false, Horde_Core_Translation::t("Type your password twice to confirm"));
         }
     }
 
