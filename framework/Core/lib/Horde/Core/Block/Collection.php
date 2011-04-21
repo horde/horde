@@ -196,7 +196,7 @@ class Horde_Core_Block_Collection implements Serializable
     public function getBlocksWidget($cur_app = null, $cur_block = null,
                                     $onchange = false, $readonly = false)
     {
-        $widget = '<select name="app"';
+        $widget = '<select name=' . (!$readonly ? '"app"' : '"roapp"');
 
         if ($onchange) {
             $widget .= ' onchange="document.blockform.action.value=\'save-resume\';document.blockform.submit()"';
@@ -216,8 +216,12 @@ class Horde_Core_Block_Collection implements Serializable
                 $name
             );
         }
+        $widget .= "</select>\n";
+        if ($readonly) {
+            $widget .= '<input type="hidden" name="app" value="' . $cur_app . ':' . $cur_block . '" />' . "\n";
+        }
 
-        return $widget . "</select>\n";
+        return $widget;
     }
 
     /**
