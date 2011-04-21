@@ -61,10 +61,11 @@ abstract class Horde_Share_Object implements Serializable
      *
      * @param string $attribute  The attribute to set.
      * @param mixed $value       The value for $attribute.
+     * @param boolean $update    Immediately update only this change.
      *
      * @return boolean
      */
-    abstract public function set($attribute, $value);
+    abstract public function set($attribute, $value, $update = false);
 
     /**
      * Returns an attribute value from this object.

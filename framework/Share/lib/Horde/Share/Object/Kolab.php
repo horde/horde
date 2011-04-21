@@ -149,11 +149,9 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
     public function getPermissionId()
     {
         if ($this->_id === null) {
-            /**
-             * We only get here if permissions are being set before the name has
-been set. For the Kolab permission instance it should not matter if the name is
-a random string.
-            */
+            /* We only get here if permissions are being set before the name has
+             * been set. For the Kolab permission instance it should not matter if the name is
+             * a random string. */
             return md5(pack('I', mt_rand()));
         }
         return $this->_id;
@@ -202,10 +200,11 @@ a random string.
      *
      * @param string $attribute  The attribute to set.
      * @param mixed $value       The value for $attribute.
+     * @param boolean $update    Update *only* this change immediately.
      *
      * @return NULL
      */
-    public function set($attribute, $value)
+    public function set($attribute, $value, $update = false)
     {
         if ($attribute == 'owner') {
             $this->_id = $this->getShareOb()->constructId(
@@ -224,6 +223,11 @@ a random string.
             );
         }
         $this->_data[$attribute] = $value;
+
+        //@TODO: Not sure how to update a single attribute in kolab.
+        if ($update) {
+            $this->_save();
+        }
     }
 
     /**

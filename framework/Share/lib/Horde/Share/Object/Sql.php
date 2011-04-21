@@ -90,13 +90,28 @@ class Horde_Share_Object_Sql extends Horde_Share_Object implements Serializable
      *
      * @param string $attribute  The attribute to set.
      * @param mixed $value       The value for $attribute.
+     * @param boolean $update    Update *only* this change immeditely.
      */
     public function set($attribute, $value)
     {
         if ($attribute == 'owner') {
-            $this->data['share_owner'] = $value;
+            $driver_key = 'share_owner';
         } else {
-            $this->data['attribute_' . $attribute] = $value;
+            $driver_key = 'attribute_' . $attribute;
+        }
+        $this->data[$driver_key] = $value;
+
+        /* Update the backend, but only this current change */
+        if ($update) {
+            $db = $this->getShareOb()->getStorage();
+            // Manually convert the charset since we're not going through save()
+            $data = $this->getshareOb()->toDriverCharset(array($driver_key => $value));
+            $sql = 'UPDATE ' . $this->getShareOb()->getTable() . ' SET ' . $driver_key . ' = ? WHERE share_id = ?'
+            try {
+                $db->update($sql, array($data[$driver_key], $this->getId()));
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_Share_Exception($e);
+            }
         }
     }
 
