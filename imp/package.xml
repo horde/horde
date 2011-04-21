@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-20</date>
- <time>22:24:58</time>
+ <date>2011-04-21</date>
+ <time>18:54:43</time>
  <version>
-  <release>5.0.2</release>
+  <release>5.1.0</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -2166,6 +2166,19 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-20</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.1.0</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-21</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * 
