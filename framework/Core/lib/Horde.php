@@ -2084,7 +2084,8 @@ HTML;
             $params->onload = $options['onload'];
         }
         if (!empty($options['params'])) {
-            $params->params = http_build_query(array_map('rawurlencode', $options['params']));
+            // Bug #9903: 3rd parameter must explicitly be '&'
+            $params->params = http_build_query(array_map('rawurlencode', $options['params']), '', '&');
         }
         if (!empty($options['width'])) {
             $params->width = $options['width'];
