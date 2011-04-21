@@ -79,7 +79,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      * <pre>
      * 'app' - (string) The application which is providing authentication.
      * 'base' - (Horde_Auth_Base) The base Horde_Auth driver. Only needed if
-                'app' is 'horde'.
+     *          'app' is 'horde'.
      * </pre>
      *
      * @throws InvalidArgumentException
