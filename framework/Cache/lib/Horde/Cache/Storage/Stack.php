@@ -104,7 +104,7 @@ class Horde_Cache_Storage_Stack extends Horde_Cache_Storage_Base
         $master = $success = true;
 
         foreach (array_reverse($this->_stack) as $val) {
-            $result = $val->expire($id);
+            $result = $val->expire($key);
             if ($master && ($result === false)) {
                 $success = false;
             }

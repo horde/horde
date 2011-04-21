@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Fix expiring entries in sub-storages of Stack driver (Bug #9949).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -269,7 +269,7 @@ Initial packaging.
    <date>2011-04-20</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Fix expiring entries in sub-storages of Stack driver (Bug #9949).
    </notes>
   </release>
  </changelog>
