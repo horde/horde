@@ -95,7 +95,7 @@ class IMP_Block_Summary extends Horde_Core_Block
                 }
                 $html .= '</td><td>' .
                     (!empty($mbox_status['unseen']) ? '<strong>' . $mbox_status['unseen'] . '</strong>' : '0') .
-                    (!empty($mbox_status['recent']) ? ' <span style="color:red">(' . sprintf(_("%d new"), $mbox_status['recent']) . ')</span>' : '') .
+                    (!empty($mbox_status['recent']) ? ' <span style="color:red">(' . sprintf(ngettext("%d new", "%d new", $mbox_status['recent']), $mbox_status['recent']) . ')</span>' : '') .
                     (!empty($this->_params['show_total']) ? '</td><td>(' . $mbox_status['messages'] . ')' : '') .
                     '</td></tr>';
             }
