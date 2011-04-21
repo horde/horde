@@ -183,4 +183,22 @@ class Horde_Release_Sentinel
         }
         return false;
     }
+
+    /**
+     * Returns the current version from Application.php.
+     *
+     * @return string Version string.
+     */
+    public function getVersion()
+    {
+        if ($application = $this->applicationFileExists()) {
+            $oldfp = fopen($application, 'r');
+            while ($line = fgets($oldfp)) {
+                if (preg_match('/public \$version = \'([^\']*)\';/', $line, $match)) {
+                    return $match[1];
+                }
+            }
+            fclose($oldfp);
+        }
+    }
 }
