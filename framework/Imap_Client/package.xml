@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-20</date>
- <time>13:09:38</time>
+ <date>2011-04-21</date>
+ <time>12:24:38</time>
  <version>
-  <release>1.0.2</release>
+  <release>1.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -323,15 +323,18 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-04-21</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Correct fix for Bug #9915 (Bug #9943).
+* Return cloned objects from Data results, to prevent issues when caching (Bug #9931).
+* Optimize listing subscribed mailboxes for certain queries.
+* Add support for PARTIAL search/sort results return (RFC 5267 [4.4]).
+* Add support for SEARCH=FUZZY (RFC 6203).
    </notes>
   </release>
   <release>
    <version>
-    <release>1.0.2</release>
+    <release>1.0.3</release>
     <api>1.0.0</api></version>
    <stability>
     <release>stable</release>
