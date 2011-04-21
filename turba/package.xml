@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [mjr] Fix adding contacts with a category selected.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1164,7 +1164,7 @@
    <date>2011-04-20</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+*
    </notes>
   </release>
  </changelog>

@@ -184,8 +184,8 @@ class Turba_Driver implements Countable
                 $cManager = new Horde_Prefs_CategoryManager();
                 $cManager->add($hash['category']['value']);
                 $hash['category'] = $hash['category']['value'];
-            } else {
-                $hash['category'] = $hash['category'];
+            } elseif (is_array($hash['category'])) {
+                $hash['category'] = $hash['category']['value'];
             }
         }
 
