@@ -274,8 +274,8 @@ if (!($prefs->isLocked('default_encrypt')) &&
     $scripts[] = array('redbox.js', 'horde');
 }
 
-IMP_Dimp::header($title, $scripts);
 IMP::status();
+IMP_Dimp::header($title, $scripts);
 echo $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose-base.html');
 Horde::includeScriptFiles();
 Horde::outputInlineScript();
