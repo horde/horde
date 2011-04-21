@@ -50,36 +50,40 @@ detailed instructions, start reading below at Prerequisites_.
 
 2. Restart Apache.
 
-3. Register Horde PEAR channel::
+3. Make sure your PEAR package is up-to-date::
+
+     pear upgrade PEAR
+
+4. Register Horde PEAR channel::
 
      pear channel-discover pear.horde.org
 
-4. Set Horde installation directory::
+5. Set Horde installation directory::
 
      pear install horde/horde_role
      pear run-scripts horde/horde_role
 
-5. Install Horde::
+6. Install Horde::
 
      pear install horde/horde
 
-6. Configure Horde::
+7. Configure Horde::
 
      cd config/
      cp conf.php.dist conf.php
 
-7. Finish configuration::
+8. Finish configuration::
 
      http://your-server/horde/
 
    Go to Administration => Configuration => Horde
    (Or navigate to http://your-server/horde/admin/config)
 
-8. Create database tables
+9. Create database tables
 
    Go to Administration => Configuration. Click ``Update All DB Schemas``.
 
-9. Test Horde (optional)
+10. Test Horde (optional)
 
    Enable the test script in the Horde configuration at the ``General`` in the
    ``PHP Settings`` section, or edit ``horde/config/conf.php`` and set
@@ -444,14 +448,18 @@ latest, not yet released, fixes, you can install Horde from Git.
 Installing with PEAR
 ~~~~~~~~~~~~~~~~~~~~
 
-First you need to register the Horde PEAR channel server to your local PEAR
+Before beginning, make sure your PEAR package is up-to-date:
+
+   pear upgrade PEAR
+
+Next, you need to register the Horde PEAR channel server to your local PEAR
 system. This has to be done only **once** ever on a single PEAR system::
 
    pear channel-discover pear.horde.org
 
 Next install a so-called "role" for Horde. This role defines where Horde is
-supposed to be installed. This should be a directory in your web server's web
-root, e.g. ``/var/www/horde``. Again this has to be done only **once** ever on
+installed. This should be a directory in your web server's web root, e.g.
+``/var/www/horde``. Again this has to be done only **once** ever on
 a single PEAR system::
 
    pear install horde/horde_role
