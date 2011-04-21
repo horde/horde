@@ -506,64 +506,6 @@ root::
    SetEnv PHP_PEAR_SYSCONF_DIR /var/www/horde
 
 
-Installing from Release Tarballs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. Important:: As of today, there are no tarballs released for Horde 4
-               yet. Please use the `Installing with PEAR`_ method to install
-               Horde 4.
-
-The Horde Framework can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/apps/horde
-
-   ftp://ftp.horde.org/pub/horde/
-
-Or, better yet, use a mirror that is closer to you.  The mirror list can be
-found at:
-
-   http://www.horde.org/mirrors.php
-
-The FTP directory contains the Horde PHP files which can be unpacked using
-``tar`` and ``gunzip`` (see `Installing Horde`_, below).
-
-Bleeding-edge development versions of Horde and its applications are available
-via Git; visit the website http://www.horde.org/development, for information on
-accessing the Horde Git repository.
-
-You will probably also want one or more Horde applications, since Horde
-doesn't do much by itself; a list of available applications, with links to
-descriptions and downloads, can be found at
-
-   http://www.horde.org/apps
-
-While previous versions of Horde were numbered to correspond with a particular
-version of the IMP webmail application, that is no longer true as of Horde
-version 2.0. The current version of Horde will work with the current version
-of Horde applications. For more information about which versions are
-compatible see http://www.horde.org/development/versions.
-
-Horde is written in PHP, and must be installed in a web-accessible directory.
-The precise location of this directory will differ from system to system. If
-you have no idea where you should be installing Horde, install it directly
-under the root of your webserver's document tree.
-
-Since Horde is written in PHP, there is no compilation necessary; simply
-expand the distribution where you want it to reside and rename the root
-directory of the distribution to whatever you wish to appear in the
-URL. Please note that the default configuration expects Horde to be installed
-in the directory ``/horde`` though. For example, with the Apache webserver's
-default document root of ``/usr/local/apache/htdocs``, you would type::
-
-   cd /usr/local/apache/htdocs
-   tar zxvf /path/to/horde-x.y.z.tar.gz
-   mv horde-x.y.z horde
-
-You would then find Horde at the URL::
-
-   http://your-server/horde/
-
-
 Installing from Git
 ~~~~~~~~~~~~~~~~~~~
 

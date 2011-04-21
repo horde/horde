@@ -93,43 +93,6 @@ binary PECL packages that need to be compiled, specify both the ``-a`` and the
    pear install -a -B horde/turba
 
 
-Installing from Release Tarballs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. Important:: As of today, there are no tarballs released for Turba 3
-               yet. Please use the `Installing with PEAR`_ method to install
-               Turba 3.
-
-Turba can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/apps/turba
-
-   ftp://ftp.horde.org/pub/turba/
-
-Or use the mirror closest to you:
-
-   http://www.horde.org/mirrors.php
-
-Turba is written in PHP, and must be installed in a web-accessible directory.
-The precise location of this directory will differ from system to system.
-Conventionally, Turba is installed directly underneath Horde in the webserver's
-document tree.
-
-Since Turba is written in PHP, there is no compilation necessary; simply expand
-the distribution where you want it to reside and rename the root directory of
-the distribution to whatever you wish to appear in the URL.  For example, with
-the Apache webserver's default document root of ``/usr/local/apache/htdocs``,
-you would type::
-
-   cd /usr/local/apache/htdocs/horde
-   tar zxvf /path/to/turba-x.y.z.tar.gz
-   mv turba-x.y.z turba
-
-and would then find Turba at the URL::
-
-   http://your-server/horde/turba/
-
-
 Configuring Turba
 =================
 

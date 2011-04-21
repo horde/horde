@@ -228,43 +228,6 @@ binary PECL packages that need to be compiled, specify both the ``-a`` and the
    pear install -a -B horde/imp
 
 
-Installing from Release Tarballs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. Important:: As of today, there are no tarballs released for IMP 5
-               yet. Please use the `Installing with PEAR`_ method to install
-               IMP 5.
-
-IMP can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/apps/imp
-
-   ftp://ftp.horde.org/pub/imp/
-
-Or use the mirror closest to you:
-
-   http://www.horde.org/mirrors.php
-
-IMP is written in PHP, and must be installed in a web-accessible directory.
-The precise location of this directory will differ from system to system.
-Conventionally, IMP is installed directly underneath Horde in the web server's
-document tree.
-
-Since IMP is written in PHP, there is no compilation necessary; simply expand
-the distribution where you want it to reside and rename the root directory of
-the distribution to whatever you wish to appear in the URL.  For example, with
-the Apache web server's default document root of ``/usr/local/apache/htdocs``,
-you would type::
-
-   cd /usr/local/apache/htdocs/horde
-   tar zxvf /path/to/imp-x.y.z.tar.gz
-   mv imp-x.y.z imp
-
-and would then find IMP at the URL::
-
-   http://your-server/horde/imp/
-
-
 Configuring IMP
 ===============
 
