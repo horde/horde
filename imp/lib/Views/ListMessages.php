@@ -17,8 +17,13 @@ class IMP_Views_ListMessages
     /**
      * Returns a list of messages for use with ViewPort.
      *
-     * @var array $args  TODO (applyfilter, initial, mbox, qsearchmbox,
-     *                   qsearchfilter)
+     * @var array $args  TODO
+     *   - applyfilter
+     *   - change: (boolean)
+     *   - initial: (boolean)
+     *   - mbox: (string) The mailbox of the view.
+     *   - qsearchmbox: (string) The mailbox to do the quicksearch in.
+     *   - qsearchfilter
      *
      * @return array  TODO
      */
