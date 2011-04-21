@@ -79,7 +79,7 @@ class IMP_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
             return array();
         }
 
-        $status = array(_("This is a thumbnail of a PDF file attached to this message."));
+        $status = array(_("This is a thumbnail of a PDF file attachment."));
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
             $status[] = $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag(), null, null, null);

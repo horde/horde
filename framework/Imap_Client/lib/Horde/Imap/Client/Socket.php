@@ -33,12 +33,13 @@
  *   RFC 5255 - LANGUAGE/I18NLEVEL
  *   RFC 5256 - THREAD/SORT
  *   RFC 5258 - LIST-EXTENDED
- *   RFC 5267 - ESORT
+ *   RFC 5267 - ESORT; PARTIAL search return option
  *   RFC 5464 - METADATA
  *   RFC 5530 - IMAP Response Codes
  *   RFC 5819 - LIST-STATUS
  *   RFC 5957 - SORT=DISPLAY
  *   RFC 6154 - SPECIAL-USE/CREATE-SPECIAL-USE
+ *   RFC 6203 - SEARCH=FUZZY
  *
  *   draft-ietf-morg-inthread-01 - THREAD=REFS
  *
@@ -56,14 +57,13 @@
  *              See: http://bugs.php.net/bug.php?id=48725
  *   RFC 5257 - ANNOTATE (Experimental)
  *   RFC 5259 - CONVERT
- *   RFC 5267 - CONTEXT
+ *   RFC 5267 - CONTEXT=SEARCH; CONTEXT=SORT
  *   RFC 5465 - NOTIFY
  *   RFC 5466 - FILTERS
  *   RFC 5738 - UTF8
  *
  *   draft-ietf-morg-inthread-01 - SEARCH=INTHREAD
  *   draft-ietf-morg-multimailbox-search-07 - MULTISEARCH
- *   draft-ietf-morg-fuzzy-search-03 - SEARCH=FUZZY
  *   draft-krecicki-imap-move-01.txt - MOVE
  *
  * [See: http://www.iana.org/assignments/imap4-capabilities]
@@ -169,10 +169,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        /* RFC 5162 [1] - QRESYNC implies CONDSTORE, even if CONDSTORE is not
-         * listed as a capability. */
+        /* RFC 5162 [1] - QRESYNC implies CONDSTORE and ENABLE, even if they
+         * are not listed as capabilities. */
         if (isset($c['QRESYNC'])) {
             $c['CONDSTORE'] = true;
+            $c['ENABLE'] = true;
         }
 
         $this->_setInit('capability', $c);
@@ -192,12 +193,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         $this->login();
 
-        if ($this->queryCapability('NAMESPACE')) {
-            $this->_sendLine('NAMESPACE');
-            return $this->_temp['namespace'];
+        if (!$this->queryCapability('NAMESPACE')) {
+            return array();
         }
 
-        return array();
+        $this->_sendLine('NAMESPACE');
+        return $this->_temp['namespace'];
     }
 
     /**
@@ -215,7 +216,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $c = &$this->_temp['namespace'];
         $c = array();
-        $lang = $this->queryCapability('LANGUAGE');
 
         // Per RFC 2342, response from NAMESPACE command is:
         // (PERSONAL NAMESPACES) (OTHER_USERS NAMESPACE) (SHARED NAMESPACES)
@@ -226,14 +226,21 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             reset($data[$i]);
             while (list(,$v) = each($data[$i])) {
                 $c[$v[0]] = array(
-                    'name' => $v[0],
                     'delimiter' => $v[1],
-                    'type' => $val,
-                    'hidden' => false
+                    'hidden' => false,
+                    'name' => $v[0],
+                    'translation' => '',
+                    'type' => $val
                 );
-                // RFC 5255 [3.4] - TRANSLATION extension
-                if ($lang && (strtoupper($v[2] == 'TRANSLATION'))) {
-                    $c[$v[0]]['translation'] = reset($v[3]);
+
+                // RFC 4466: NAMESPACE extensions
+                for ($i = 2; isset($v[$i]); ++$i) {
+                    switch (strtoupper($v[$i++])) {
+                    case 'TRANSLATION':
+                        // RFC 5255 [3.4] - TRANSLATION extension
+                        $c[$v[0]]['translation'] = reset($v[$i]);
+                        break;
+                    }
                 }
             }
         }
@@ -269,16 +276,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if ($first_login && !$this->queryCapability('STARTTLS')) {
                 // We should never hit this - STARTTLS is required pursuant
                 // to RFC 3501 [6.2.1].
-                $this->_exception('Server does not support TLS connections.', 'NOSUPPORTIMAPEXT');
+                $this->_exception('Server does not support TLS connections.', 'LOGIN_TLSFAILURE');
             }
 
             // Switch over to a TLS connection.
             // STARTTLS returns no untagged response.
             $this->_sendLine('STARTTLS');
 
-            $res = @stream_socket_enable_crypto($this->_stream, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
-
-            if (!$res) {
+            if (!($res = @stream_socket_enable_crypto($this->_stream, true, STREAM_CRYPTO_METHOD_TLS_CLIENT))) {
                 $this->logout();
                 $this->_exception('Could not open secure TLS connection to the IMAP server.', 'LOGIN_TLSFAILURE');
             }
@@ -291,8 +296,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $this->_setInit('lang');
             }
 
-            // Set language if not using imapproxy
-            if ($this->_init['imapproxy']) {
+            // Set language if using imapproxy
+            if (!empty($this->_init['imapproxy'])) {
                 $this->setLanguage();
             }
 
@@ -459,10 +464,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // The user was pre-authenticated.
             $this->_temp['preauth'] = true;
             break;
-
-        default:
-            $this->_temp['preauth'] = false;
-            break;
         }
         $this->_parseServerResponse($ob);
 
@@ -471,16 +472,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_exception('This server does not support IMAP4rev1 (RFC 3501).', 'SERVER_CONNECT');
         }
 
-        // Set language if not using imapproxy
+        // Set language if NOT using imapproxy
         if (empty($this->_init['imapproxy'])) {
-            $this->_setInit('imapproxy', $this->queryCapability('XIMAPPROXY'));
-            if (!$this->_init['imapproxy']) {
+            if ($this->queryCapability('XIMAPPROXY')) {
+                $this->_setInit('imapproxy', true);
+            } else {
                 $this->setLanguage();
             }
         }
 
         // If pre-authenticated, we need to do all login tasks now.
-        if ($this->_temp['preauth']) {
+        if (!empty($this->_temp['preauth'])) {
             $this->login();
         }
     }
@@ -606,13 +608,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         /* Only active QRESYNC/CONDSTORE if caching is enabled. */
         if ($this->_initCache()) {
             if ($this->queryCapability('QRESYNC')) {
-                /* QRESYNC requires ENABLE, so we just need to send one ENABLE
-                 * QRESYNC call to enable both QRESYNC && CONDSTORE. */
                 $this->_enable(array('QRESYNC'));
-                $this->_setInit('enabled', array_merge($this->_init['enabled'], array('CONDSTORE' => true)));
-            } elseif ($this->queryCapability('CONDSTORE') &&
-                      $this->queryCapability('ENABLE')) {
-                /* CONDSTORE may be available, but ENABLE may not be. */
+            } elseif ($this->queryCapability('CONDSTORE')) {
                 $this->_enable(array('CONDSTORE'));
             }
         }
@@ -724,13 +721,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     }
 
     /**
-     * Parse a LANGUAGE response (RFC 5255 [3.3])
+     * Parse a LANGUAGE response (RFC 5255 [3.3]).
      *
      * @param array $data  The server response.
      */
     protected function _parseLanguage($data)
     {
-        // Store data in $_params because it mustbe saved across page accesses
         if (count($data[0]) == 1) {
             // This is the language that was set.
             $this->_setInit('lang', reset($data[0]));
@@ -749,21 +745,29 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _enable($exts)
     {
-        // Only enable non-enabled extensions
-        $exts = array_diff($exts, array_keys($this->_init['enabled']));
-        if (!empty($exts)) {
-            $this->_sendLine(array_merge(array('ENABLE'), $exts));
+        if ($this->queryCapability('ENABLE')) {
+            // Only enable non-enabled extensions
+            $exts = array_diff($exts, array_keys($this->_init['enabled']));
+            if (!empty($exts)) {
+                $this->_sendLine(array_merge(array('ENABLE'), $exts));
+            }
         }
     }
 
     /**
-     * Parse an ENABLED response (RFC 5161 [3.2])
+     * Parse an ENABLED response (RFC 5161 [3.2]).
      *
      * @param array $data  The server response.
      */
     protected function _parseEnabled($data)
     {
-        $this->_setInit('enabled', array_merge($this->_init['enabled'], array_flip($data)));
+        $enabled = array_flip($data);
+
+        if (in_array('QRESYNC', $data)) {
+            $enabled['CONDSTORE'] = true;
+        }
+
+        $this->_setInit('enabled', array_merge($this->_init['enabled'], $enabled));
     }
 
     /**
@@ -836,13 +840,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 ($this->_temp['parseresperr']['response'] == 'NO')) {
                 $this->_selected = null;
                 $this->_mode = 0;
-                $this->_exception($e->getMessage(), 'MAILBOX_NOOPEN');
+                $this->_exception($e, 'MAILBOX_NOOPEN');
             }
             throw $e;
         }
 
         if ($condstore) {
-            $this->_setInit('enabled', array_merge($this->_init['enabled'], array('CONDSTORE' => true)));
+            $this->_parseEnabled(array('CONDSTORE'));
         }
     }
 
@@ -941,11 +945,30 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         $this->login();
 
+        // RFC 5258 [3.1]: Use LSUB for MBOX_SUBSCRIBED if no other server
+        // return options are specified.
+        if (($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) &&
+            empty($options['attributes']) &&
+            empty($options['children']) &&
+            empty($options['recursivematch']) &&
+            empty($options['remote']) &&
+            empty($options['special_use']) &&
+            empty($options['status'])) {
+            return $this->_getMailboxList(
+                $pattern,
+                Horde_Imap_Client::MBOX_SUBSCRIBED,
+                array(
+                    'delimiter' => !empty($options['delimiter']),
+                    'flat' => !empty($options['flat']),
+                    'no_listext' => true,
+                    'utf8' => !empty($options['utf8'])
+                )
+            );
+        }
+
         // Get the list of subscribed/unsubscribed mailboxes. Since LSUB is
         // not guaranteed to have correct attributes, we must use LIST to
         // ensure we receive the correct information.
-        // TODO: Use LSUB for MBOX_SUBSCRIBED if no other options are
-        // set (RFC 5258 3.1)
         if (($mode != Horde_Imap_Client::MBOX_ALL) &&
             !$this->queryCapability('LIST-EXTENDED')) {
             $subscribed = $this->_getMailboxList($pattern, Horde_Imap_Client::MBOX_SUBSCRIBED, array('flat' => true));
@@ -968,7 +991,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *
      * @param mixed $pattern     The mailbox search pattern(s).
      * @param integer $mode      Which mailboxes to return.
-     * @param array $options     Additional options.
+     * @param array $options     Additional options. 'no_listext' will skip
+     *                           using the LIST-EXTENDED capability.
      * @param array $subscribed  A list of subscribed mailboxes.
      *
      * @return array  See self::listMailboxes(().
@@ -990,7 +1014,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         );
         $t['listresponse'] = array();
 
-        if ($this->queryCapability('LIST-EXTENDED')) {
+        if ($this->queryCapability('LIST-EXTENDED') &&
+            empty($options['no_listext'])) {
             $cmd = array('LIST');
             $t['mailboxlist']['ext'] = true;
 
@@ -1617,6 +1642,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             Horde_Imap_Client::SORT_DISPLAYTO => 'DISPLAYTO',
             Horde_Imap_Client::SORT_FROM => 'FROM',
             Horde_Imap_Client::SORT_REVERSE => 'REVERSE',
+            Horde_Imap_Client::SORT_RELEVANCY => 'RELEVANCY',
             // This is a bogus entry to allow the sort options check to
             // correctly work below.
             Horde_Imap_Client::SORT_SEQUENCE => 'SEQUENCE',
@@ -1630,6 +1656,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             Horde_Imap_Client::SEARCH_RESULTS_MATCH => 'ALL',
             Horde_Imap_Client::SEARCH_RESULTS_MAX => 'MAX',
             Horde_Imap_Client::SEARCH_RESULTS_MIN => 'MIN',
+            Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY => 'RELEVANCY',
             Horde_Imap_Client::SEARCH_RESULTS_SAVE => 'SAVE'
         );
 
@@ -1674,15 +1701,40 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if ($server_sort) {
             $cmd[] = 'SORT';
+            $results = array();
+
+            // Use ESEARCH (RFC 4466) response if server supports.
+            $esearch = false;
+
             // Check for ESORT capability (RFC 5267)
             if ($this->queryCapability('ESORT')) {
-                $results = array();
                 foreach ($options['results'] as $val) {
                     if (isset($results_criteria[$val]) &&
                         ($val != Horde_Imap_Client::SEARCH_RESULTS_SAVE)) {
                         $results[] = $results_criteria[$val];
                     }
                 }
+                $esearch = true;
+            }
+
+            // Add PARTIAL limiting (RFC 5267 [4.4])
+            if ((!$esearch || !empty($options['partial'])) &&
+                ($cap = $this->queryCapability('CONTEXT')) &&
+                in_array('SORT', $cap)) {
+                /* RFC 5267 indicates RFC 4466 ESEARCH support,
+                 * notwithstanding RFC 4731 support. */
+                $esearch = true;
+
+                if (!empty($options['partial'])) {
+                    /* Can't have both ALL and PARTIAL returns. */
+                    $results = array_diff($results, array('ALL'));
+
+                    $results[] = 'PARTIAL';
+                    $results[] = strval(new Horde_Imap_Client_Ids($options['partial']));
+                }
+            }
+
+            if ($esearch && empty($this->_init['noesearch'])) {
                 $cmd[] = 'RETURN';
                 $cmd[] = $results;
             }
@@ -1698,20 +1750,41 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // Charset is mandatory for SORT (RFC 5256 [3]).
             $cmd[] = $options['_query']['charset'];
         } else {
-            // Check if the server supports ESEARCH (RFC 4731).
-            $esearch = $this->queryCapability('ESEARCH');
+            $esearch = false;
+            $results = array();
 
             $cmd[] = 'SEARCH';
 
-            if ($esearch) {
-                // Always use ESEARCH if available because it returns results
-                // in a more compact sequence-set list
-                $results = array();
+            // Check if the server supports ESEARCH (RFC 4731).
+            if ($this->queryCapability('ESEARCH')) {
                 foreach ($options['results'] as $val) {
                     if (isset($results_criteria[$val])) {
                         $results[] = $results_criteria[$val];
                     }
                 }
+                $esearch = true;
+            }
+
+            // Add PARTIAL limiting (RFC 5267 [4.4]).
+            if ((!$esearch || !empty($options['partial'])) &&
+                ($cap = $this->queryCapability('CONTEXT')) &&
+                in_array('SEARCH', $cap)) {
+                /* RFC 5267 indicates RFC 4466 ESEARCH support,
+                 * notwithstanding RFC 4731 support. */
+                $esearch = true;
+
+                if (!empty($options['partial'])) {
+                    // Can't have both ALL and PARTIAL returns.
+                    $results = array_diff($results, array('ALL'));
+
+                    $results[] = 'PARTIAL';
+                    $results[] = strval(new Horde_Imap_Client_Ids($options['partial']));
+                }
+            }
+
+            if ($esearch && empty($this->_init['noesearch'])) {
+                // Always use ESEARCH if available because it returns results
+                // in a more compact sequence-set list
                 $cmd[] = 'RETURN';
                 $cmd[] = $results;
             }
@@ -1741,6 +1814,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $cap = $this->capability();
                 unset($cap['ESEARCH']);
                 $this->_setInit('capability', $cap);
+                $this->_setInit('noesearch', true);
                 return $this->_search($query, $options);
             }
 
@@ -1777,8 +1851,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $ret['min'] = $esearch ? (isset($er['min']) ? $er['min'] : null) : (empty($sr) ? null : min($sr));
                 break;
 
+            case Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY:
+                $ret['relevancy'] = ($esearch && isset($er['relevancy'])) ? $er['relevancy'] : array();
+                break;
+
             case Horde_Imap_Client::SEARCH_RESULTS_SAVE:
                 $ret['save'] = $esearch ? empty($this->_temp['searchnotsaved']) : false;
+                break;
             }
         }
 
@@ -1828,7 +1907,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             ++$i;
         }
 
-        // This catches the case of an '(ALL)' esearch with no results
+        // This catches the case of an '(ALL)' ESEARCH with no results
         if ($i == $len) {
             return;
         }
@@ -1845,7 +1924,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case 'MAX':
             case 'MIN':
             case 'MODSEQ':
+            case 'RELEVANCY':
                 $this->_temp['esearchresp'][strtolower($tag)] = $val;
+                break;
+
+            case 'PARTIAL':
+                $this->_temp['searchresp'] = $this->utils->fromSequenceString(end($val));
                 break;
             }
         }

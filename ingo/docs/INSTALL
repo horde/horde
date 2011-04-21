@@ -86,43 +86,6 @@ binary PECL packages that need to be compiled, specify both the ``-a`` and the
    pear install -a -B horde/ingo
 
 
-Installing from Release Tarballs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. Important:: As of today, there are no tarballs released for Ingo 2
-               yet. Please use the `Installing with PEAR`_ method to install
-               Ingo 2.
-
-Ingo can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/apps/ingo
-
-   ftp://ftp.horde.org/pub/ingo/
-
-Or use the mirror closest to you:
-
-   http://www.horde.org/mirrors.php
-
-Ingo is written in PHP, and must be installed in a web-accessible directory.
-The precise location of this directory will differ from system to system.
-Conventionally, Ingo is installed directly underneath Horde in the webserver's
-document tree.
-
-Since Ingo is written in PHP, there is no compilation necessary; simply expand
-the distribution where you want it to reside and rename the root directory of
-the distribution to whatever you wish to appear in the URL.  For example, with
-the Apache webserver's default document root of ``/usr/local/apache/htdocs``,
-you would type::
-
-   cd /usr/local/apache/htdocs/horde
-   tar zxvf /path/to/ingo-x.y.z.tar.gz
-   mv ingo-x.y.z ingo
-
-and would then find Ingo at the URL::
-
-   http://your-server/horde/ingo/
-
-
 Configuring Ingo
 ================
 
@@ -156,8 +119,8 @@ Configuring Ingo
    Ingo row of the configuration screen.
 
    Alternatively you creating the Ingo database tables can be accomplished with
-   horde's ``horde-db-migrate`` utility.  If your database is properly setup in the
-   Horde configuration, just run the following::
+   horde's ``horde-db-migrate`` utility.  If your database is properly setup in
+   the Horde configuration, just run the following::
 
       horde/bin/horde-db-migrate ingo
 

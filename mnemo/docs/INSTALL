@@ -73,43 +73,6 @@ binary PECL packages that need to be compiled, specify both the ``-a`` and the
    pear install -a -B horde/mnemo
 
 
-Installing from Release Tarballs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. Important:: As of today, there are no tarballs released for Mnemo 3
-               yet. Please use the `Installing with PEAR`_ method to install
-               Mnemo 3.
-
-Mnemo can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/apps/mnemo
-
-   ftp://ftp.horde.org/pub/mnemo/
-
-Or use the mirror closest to you:
-
-   http://www.horde.org/mirrors.php
-
-Mnemo is written in PHP, and must be installed in a web-accessible directory.
-The precise location of this directory will differ from system to system.
-Conventionally, Mnemo is installed directly underneath Horde in the
-webserver's document tree.
-
-Since Mnemo is written in PHP, there is no compilation necessary; simply
-expand the distribution where you want it to reside and rename the root
-directory of the distribution to whatever you wish to appear in the URL.  For
-example, with the Apache webserver's default document root of
-``/usr/local/apache/htdocs``, you would type::
-
-   cd /usr/local/apache/htdocs/horde
-   tar zxvf /path/to/mnemo-x.y.z.tar.gz
-   mv mnemo-x.y.z mnemo
-
-and would then find Mnemo at the URL::
-
-   http://your-server/horde/mnemo/
-
-
 Configuring Mnemo
 =================
 

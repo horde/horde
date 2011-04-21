@@ -202,7 +202,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Exception wrapper - logs an error message before (optionally) throwing
      * exception.
      *
-     * @param string $msg           Error message.
+     * @param mixed $msg            Error message/error object.
      * @param integer|string $code  Error code. If string, will convert from
      *                              the Exception constant of the same name.
      * @param boolean $logonly      If true, log only and don't throw
@@ -485,18 +485,16 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @return array  An array of namespace information with the name as the
      *                key and the following values:
-     * <pre>
-     * 'delimiter' - (string) The namespace delimiter.
-     * 'hidden' - (boolean) Is this a hidden namespace?
-     * 'name' - (string) The namespace name.
-     * 'translation' - OPTIONAL (string) This entry only present if the IMAP
-     *                 server supports RFC 5255 and the language has previous
-     *                 been set via setLanguage(). The translation will be in
-     *                 UTF7-IMAP.
-     * 'type' - (integer) The namespace type (either
-     *          Horde_Imap_Client::NS_PERSONAL, Horde_Imap_Client::NS_OTHER,
-     *          or Horde_Imap_Client::NS_SHARED).
-     * </pre>
+     *   - delimiter: (string) The namespace delimiter.
+     *   - hidden: (boolean) Is this a hidden namespace?
+     *   - name: (string) The namespace name.
+     *   - translation: (string) Returns the translated name of the namespace.
+     *                  Requires RFC 5255 and a previous call to
+     *                  setLanguage(). The translation will be returned in
+     *                  UTF7-IMAP.
+     *   - type: (integer) The namespace type (either
+     *           Horde_Imap_Client::NS_PERSONAL, Horde_Imap_Client::NS_OTHER,
+     *           or Horde_Imap_Client::NS_SHARED).
      * @throws Horde_Imap_Client_Exception
      */
     public function getNamespaces($additional = array())
@@ -524,10 +522,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
             if ($first && ($first['mailbox'] == $val)) {
                 $ns[$val] = array(
-                    'name' => $val,
                     'delimiter' => $first['delimiter'],
-                    'type' => Horde_Imap_Client::NS_SHARED,
-                    'hidden' => true
+                    'hidden' => true,
+                    'name' => $val,
+                    'translation' => '',
+                    'type' => Horde_Imap_Client::NS_SHARED
                 );
             }
         }
@@ -539,10 +538,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $mbox = $this->listMailboxes('', Horde_Imap_Client::MBOX_ALL, array('delimiter' => true));
             $first = reset($mbox);
             $ns[''] = array(
-                'name' => '',
                 'delimiter' => $first['delimiter'],
-                'type' => Horde_Imap_Client::NS_PERSONAL,
-                'hidden' => false
+                'hidden' => false,
+                'name' => '',
+                'translation' => '',
+                'type' => Horde_Imap_Client::NS_PERSONAL
             );
         }
 
@@ -698,10 +698,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Sets the preferred language for server response messages (RFC 5255).
      *
-     * @param array $info  Overrides the value of the 'lang' param and sends
-     *                     this list of preferred languages instead. The
-     *                     special string 'i-default' can be used to restore
-     *                     the language to the server default.
+     * @param array $langs  Overrides the value of the 'lang' param and sends
+     *                      this list of preferred languages instead. The
+     *                      special string 'i-default' can be used to restore
+     *                      the language to the server default.
      *
      * @return string  The language accepted by the server, or null if the
      *                 default language is used.
@@ -709,22 +709,23 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     public function setLanguage($langs = null)
     {
-        if (!$this->queryCapability('LANGUAGE')) {
-            return null;
+        $lang = null;
+
+        if ($this->queryCapability('LANGUAGE')) {
+            $lang = is_null($langs)
+                ? (empty($this->_params['lang']) ? null : $this->_params['lang'])
+                : $langs;
         }
 
-        $lang = is_null($langs) ? (empty($this->_params['lang']) ? null : $this->_params['lang']) : $langs;
-        if (is_null($lang)) {
-            return null;
-        }
-
-        return $this->_setLanguage($lang);
+        return is_null($lang)
+            ? null
+            : $this->_setLanguage($lang);
     }
 
     /**
      * Sets the preferred language for server response messages (RFC 5255).
      *
-     * @param array $info  The preferred list of languages.
+     * @param array $langs  The preferred list of languages.
      *
      * @return string  The language accepted by the server, or null if the
      *                 default language is used.
@@ -1558,67 +1559,68 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                                               Defaults to an ALL
      *                                               search.
      * @param array $options                         Additional options:
-     * <pre>
-     * 'nocache' - (boolean) Don't cache the results.
-     *             DEFAULT: false (results cached, if possible)
-     * 'results' - (array) The data to return. Consists of zero or more of the
-     *                     following flags:
-     *             Horde_Imap_Client::SEARCH_RESULTS_COUNT
-     *             Horde_Imap_Client::SEARCH_RESULTS_MATCH (DEFAULT)
-     *             Horde_Imap_Client::SEARCH_RESULTS_MAX
-     *             Horde_Imap_Client::SEARCH_RESULTS_MIN
-     *             Horde_Imap_Client::SEARCH_RESULTS_SAVE (This option is
-     *             currently meant for internal use only)
-     * 'sequence' - (boolean) If true, returns an array of sequence numbers.
-     *              DEFAULT: Returns an array of UIDs
-     * 'sort' - (array) Sort the returned list of messages. Multiple sort
-     *          criteria can be specified. The following sort criteria
-     *          are available:
-     *          Horde_Imap_Client::SORT_ARRIVAL
-     *          Horde_Imap_Client::SORT_CC
-     *          Horde_Imap_Client::SORT_DATE
-     *          Horde_Imap_Client::SORT_FROM
-     *          Horde_Imap_Client::SORT_SEQUENCE
-     *          Horde_Imap_Client::SORT_SIZE
-     *          Horde_Imap_Client::SORT_SUBJECT
-     *          Horde_Imap_Client::SORT_TO
-     *          [On servers that support SORT=DISPLAY, these criteria are also
-     *           available:]
-     *          Horde_Imap_Client::SORT_DISPLAYFROM
-     *          Horde_Imap_Client::SORT_DISPLAYTO
-     *
-     *          Additionally, any sort criteria can be sorted in reverse order
-     *          (instead of the default ascending order) by adding a
-     *          Horde_Imap_Client::SORT_REVERSE element to the array directly
-     *          before adding the sort element.
-     *          DEFAULT: None.
-     * </pre>
+     *   - nocache: (boolean) Don't cache the results.
+     *              DEFAULT: false (results cached, if possible)
+     *   - partial: (mixed) The range of results to return (message sequence
+     *              numbers).
+     *              DEFAULT: All messages are returned.
+     *   - results: (array) The data to return. Consists of zero or more of
+     *              the following flags:
+     *     + Horde_Imap_Client::SEARCH_RESULTS_COUNT
+     *     + Horde_Imap_Client::SEARCH_RESULTS_MATCH (DEFAULT)
+     *     + Horde_Imap_Client::SEARCH_RESULTS_MAX
+     *     + Horde_Imap_Client::SEARCH_RESULTS_MIN
+     *     + Horde_Imap_Client::SEARCH_RESULTS_SAVE (This option is currently
+     *       meant for internal use only)
+     *     + Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY
+     *   - sequence: (boolean) If true, returns an array of sequence numbers.
+     *               DEFAULT: Returns an array of UIDs
+     *   - sort: (array) Sort the returned list of messages. Multiple sort
+     *           criteria can be specified. Any sort criteria can be sorted in
+     *           reverse order (instead of the default ascending order) by
+     *           adding a Horde_Imap_Client::SORT_REVERSE element to the array
+     *           directly before adding the sort element.
+     *           The following sort criteria are available:
+     *     + Horde_Imap_Client::SORT_ARRIVAL
+     *     + Horde_Imap_Client::SORT_CC
+     *     + Horde_Imap_Client::SORT_DATE
+     *     + Horde_Imap_Client::SORT_FROM
+     *     + Horde_Imap_Client::SORT_SEQUENCE
+     *     + Horde_Imap_Client::SORT_SIZE
+     *     + Horde_Imap_Client::SORT_SUBJECT
+     *     + Horde_Imap_Client::SORT_TO
+     *     + [On servers that support SORT=DISPLAY, these criteria are also
+     *       available:]
+     *       + Horde_Imap_Client::SORT_DISPLAYFROM
+     *       + Horde_Imap_Client::SORT_DISPLAYTO
+     *     + [On servers that support SEARCH=FUZZY, this criteria is also
+     *       available:]
+     *       + Horde_Imap_Client::SORT_RELEVANCY
      *
      * @return array  An array with the following keys:
-     * <pre>
-     * 'count' - (integer) The number of messages that match the search
-     *           criteria.
-     *           Always returned.
-     * 'match' - (Horde_Imap_Client_Ids) The IDs that match $criteria, sorted
-     *           if the 'sort' modifier was set.
-     *           Returned if Horde_Imap_Client::SEARCH_RESULTS_MATCH is set.
-     * 'max' - (integer) The UID (default) or message sequence number (if
-     *         'sequence is true) of the highest message that satisifies
-     *         $criteria. Returns null if no matches found.
-     *         Returned if Horde_Imap_Client::SEARCH_RESULTS_MAX is set.
-     * 'min' - (integer) The UID (default) or message sequence number (if
-     *         'sequence is true) of the lowest message that satisifies
-     *         $criteria. Returns null if no matches found.
-     *         Returned if Horde_Imap_Client::SEARCH_RESULTS_MIN is set.
-     * 'modseq' - (integer) The highest mod-sequence for all messages being
-     *            returned.
-     *            Returned if 'sort' is false, the search query includes a
-     *            modseq command, and the server supports the CONDSTORE IMAP
-     *            extension.
-     * 'save' - (boolean) Whether the search results were saved. This value is
-     *          meant for internal use only. Returned if 'sort' is false and
-     *          Horde_Imap_Client::SEARCH_RESULTS_SAVE is set.
-     * </pre>
+     *   - count: (integer) The number of messages that match the search
+     *            criteria. Always returned.
+     *   - match: (Horde_Imap_Client_Ids) The IDs that match $criteria, sorted
+     *            if the 'sort' modifier was set. Returned if
+     *            Horde_Imap_Client::SEARCH_RESULTS_MATCH is set.
+     *   - max: (integer) The UID (default) or message sequence number (if
+     *          'sequence' is true) of the highest message that satisifies
+     *          $criteria. Returns null if no matches found. Returned if
+     *          Horde_Imap_Client::SEARCH_RESULTS_MAX is set.
+     *   - min: (integer) The UID (default) or message sequence number (if
+     *          'sequence' is true) of the lowest message that satisifies
+     *          $criteria. Returns null if no matches found. Returned if
+     *          Horde_Imap_Client::SEARCH_RESULTS_MIN is set.
+     *   - modseq: (integer) The highest mod-sequence for all messages being
+     *            returned. Returned if 'sort' is false, the search query
+     *            includes a MODSEQ command, and the server supports the
+     *            CONDSTORE IMAP extension.
+     *   - relevancy: (array) The list of relevancy scores. Returned if
+     *                Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY is set and
+     *                the server supports FUZZY search matching.
+     *   - save: (boolean) Whether the search results were saved. This value
+     *           is meant for internal use only. Returned if 'sort' is false
+     *           and Horde_Imap_Client::SEARCH_RESULTS_SAVE is set.
      * @throws Horde_Imap_Client_Exception
      */
     public function search($mailbox, $query = null, $options = array())
@@ -1636,6 +1638,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         $options['_query'] = $query->build($this->capability());
+
+        /* RFC 6203: MUST NOT request relevancy results if we are not using
+         * FUZZY searching. */
+        if (in_array(Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY, $options['results']) &&
+            !in_array('SEARCH=FUZZY', $options['_query']['exts_used'])) {
+            $this->_exception('Cannot specify RELEVANCY results if not doing a FUZZY search.', 'BADSEARCH');
+        }
 
         /* Optimization - if query is just for a count of either RECENT or
          * ALL messages, we can send status information instead. Can't
@@ -2883,7 +2892,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 break;
 
             case 'UTF-8':
-                /* SORT (RFC 5266) & ESORT (RFC 5267) require UTF-8
+                /* SORT (RFC 5256) & ESORT (RFC 5267) require UTF-8
                  * support. */
                 if ($this->queryCapability('SORT') ||
                     $this->queryCapability('ESORT')) {
