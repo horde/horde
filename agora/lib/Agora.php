@@ -363,7 +363,7 @@ class Agora {
         $msg_headers->addHeader('X-Horde-Agora-Post', $message_id);
 
         $msg_headers->addHeader('To', $forum['forum_distribution_address']);
-        $msg_headers->addHeader('From', $message['message_author']);
+        $msg_headers->addHeader('From', strpos($message['message_author'], '@') ? $message['message_author'] : $forum['forum_distribution_address']);
         $msg_headers->addHeader('Subject', '[' . $forum['forum_name'] . '] ' . $message['message_subject']);
 
         $body = new Horde_Mime_Part();
