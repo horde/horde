@@ -29,16 +29,28 @@ class Whups_Block_Queuesummary extends Horde_Core_Block
             return '<p><em>' . _("There are no open tickets.") . '</em></p>';
         }
 
+        $summary = $types = array();
+        foreach ($qsummary as $queue) {
+            $types[$queue['type']] = $queue['type'];
+            if (!isset($summary[$queue['id']])) {
+                $summary[$queue['id']] = $queue;
+            }
+            $summary[$queue['id']][$queue['type']] = $queue['open_tickets'];
+        }
+
         $html = '<thead><tr>';
         $sortby = 'queue_name';
-        foreach (array('queue_name' => _("Queue"), 'open_tickets' => _("Open Tickets")) as $column => $name) {
+        foreach (array_merge(array('queue_name' => _("Queue")), $types) as $column => $name) {
             $html .= '<th' . ($sortby == $column ? ' class="sortdown"' : '') . '>' . $name . '</th>';
         }
         $html .= '</tr></thead><tbody>';
 
-        foreach ($qsummary as $queue) {
-            $html .= '<tr><td>' . Horde::link(Whups::urlFor('queue', $queue, true), $queue['description']) . htmlspecialchars($queue['name']) . '</a></td>' .
-                '<td>' . htmlspecialchars($queue['open_tickets']) . '</td></tr>';
+        foreach ($summary as $queue) {
+            $html .= '<tr><td>' . Horde::link(Whups::urlFor('queue', $queue, true), $queue['description']) . htmlspecialchars($queue['name']) . '</a></td>';
+            foreach ($types as $type) {
+                $html .= '<td>' . (isset($queue[$type]) ? $queue[$type] : '&nbsp;') . '</td>';
+            }
+            $html .= '</tr>';
         }
 
         Horde::addScriptFile('tables.js', 'horde', true);

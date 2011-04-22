@@ -1263,14 +1263,15 @@ class Whups_Driver_sql extends Whups_Driver {
 
         $sql = 'SELECT q.queue_id AS id, q.queue_slug AS slug, '
             . 'q.queue_name AS name, q.queue_description AS description, '
-            . 'COUNT(t.ticket_id) AS open_tickets '
+            . 'ty.type_name as type, COUNT(t.ticket_id) AS open_tickets '
             . 'FROM whups_queues q LEFT JOIN whups_tickets t '
             . 'ON q.queue_id = t.queue_id '
             . 'INNER JOIN whups_states s '
             . 'ON (t.state_id = s.state_id AND s.state_category != \'resolved\') '
+            . 'INNER JOIN whups_types ty ON ty.type_id = t.type_id '
             . 'WHERE q.queue_id IN (' . $qstring . ') '
             . 'GROUP BY q.queue_id, q.queue_slug, q.queue_name, '
-            . 'q.queue_description ORDER BY q.queue_name';
+            . 'q.queue_description, ty.type_name ORDER BY q.queue_name';
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getQueueSummary(): query="%s"', $sql), 'DEBUG');
         $queues = $this->_db->getAll($sql, null, DB_FETCHMODE_ASSOC);
