@@ -3975,10 +3975,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     $this->_temp['parseresperr'] = $ob;
 
                     if ($ob['response'] == 'BAD') {
-                        $this->_exception('Bad IMAP request: ' . $errstr, $errcode);
+                        $this->_exception('Bad IMAP request: ' . trim($errstr), $errcode);
                     }
 
-                    $this->_exception('IMAP error: ' . $errstr, $errcode);
+                    $this->_exception('IMAP error: ' . trim($errstr), $errcode);
                 }
 
                 /* Update the cache, if needed. */
