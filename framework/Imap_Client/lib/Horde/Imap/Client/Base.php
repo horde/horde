@@ -2524,16 +2524,17 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @param array $options  Additional options:
      * <pre>
      * 'depth' - (string) Either "0", "1" or "infinity". Returns only the
-     *           given value ("0"), only values one level below the specified
+     *           given value (0), only values one level below the specified
      *           value (1) or all entries below the specified value
-     *           ("infinity").
+     *           (infinity).
      * 'maxsize' - (integer) The maximal size the returned values may have.
      *             DEFAULT: No maximal size.
-     *           DEFAULT: 0
      * </pre>
      *
      * @return array  An array with metadata names as the keys and metadata
-     *                values as the values.
+     *                values as the values. If 'maxsize' is set, and entries
+     *                exist on the server larger than this size, the size will
+     *                be returned in the key '*longentries'.
      * @throws Horde_Imap_Client_Exception
      */
     public function getMetadata($mailbox, $entries, $options = array())

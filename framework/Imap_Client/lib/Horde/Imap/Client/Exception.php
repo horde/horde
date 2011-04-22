@@ -94,6 +94,19 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
     // exist.
     const NONEXISTENT = 23;
 
+    // Setting metadata failed because the size of its value is too large.
+    // The maximum octet count the server is willing to accept will be
+    // in the exception message string.
+    const METADATA_MAXSIZE = 24;
+
+    // Setting metadata failed because it does not support private
+    // annotations on one of the specified mailboxes.
+    const METADATA_TOOMANY = 24;
+
+    // Setting metadata failed because the server does not support private
+    // annotations on one of the specified mailboxes.
+    const METADATA_NOPRIVATE = 24;
+
 
     // Login failures
 

@@ -4317,6 +4317,41 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             );
             break;
 
+        case 'METADATA':
+            $this->_tokenizeData($data);
+
+            switch (reset($this->_temp['token']['out'])) {
+            case 'LONGENTRIES':
+                // Defined by RFC 5464 [4.2.1]
+                $this->_temp['metadata']['*longentries'] = intval(end($this->_temp['token']['out']));
+                break;
+
+            case 'MAXSIZE':
+                // Defined by RFC 5464 [4.3]
+                $this->_temp['parsestatuserr'] = array(
+                    'METADATA_MAXSIZE',
+                    intval(end($this->_temp['token']['out']))
+                );
+                break;
+
+            case 'NOPRIVATE':
+                // Defined by RFC 5464 [4.3]
+                $this->_temp['parsestatuserr'] = array(
+                    'METADATA_NOPRIVATE',
+                    substr($ob['line'], $end_pos + 2)
+                );
+                break;
+
+            case 'TOOMANY':
+                // Defined by RFC 5464 [4.3]
+                $this->_temp['parsestatuserr'] = array(
+                    'METADATA_TOOMANY',
+                    substr($ob['line'], $end_pos + 2)
+                );
+                break;
+            }
+            break;
+
         case 'UNAVAILABLE':
             // Defined by RFC 5530 [3]
             $this->_temp['loginerr'] = 'LOGIN_UNAVAILABLE';
