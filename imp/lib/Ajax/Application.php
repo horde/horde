@@ -2075,8 +2075,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     protected function _changed($rw = null)
     {
+        $mbox = IMP_Mailbox::get($this->_vars->view);
+
         /* Only update search mailboxes on forced refreshes. */
-        if (IMP_Mailbox::get($this->_vars->view)->search) {
+        if ($mbox->search) {
             return !empty($this->_vars->forceUpdate);
         }
 
@@ -2095,7 +2097,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
         }
 
-        return (IMP_Mailbox::get($this->_vars->view)->cacheid != $this->_vars->cacheid);
+        return ($mbox->cacheid != $this->_vars->cacheid);
     }
 
     /**
