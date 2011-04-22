@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Whups 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-04-21 10:58+0200\n"
-"PO-Revision-Date: 2011-02-02 18:12+0100\n"
+"PO-Revision-Date: 2011-04-22 13:21+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
 "Language: de\n"
@@ -1344,7 +1344,7 @@ msgstr "Warteschlangenkurzname"
 
 #: lib/Block/Queuesummary.php:13
 msgid "Queue Summary"
-msgstr "Warteschlangenbeschreibung"
+msgstr "Warteschlangen-Übersicht"
 
 #: lib/Forms/CreateTicket.php:96 lib/Forms/EditTicket.php:74
 #: lib/Ticket.php:935 lib/Ticket.php:941 ticket/queue.php:82
