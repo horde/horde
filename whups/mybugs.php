@@ -20,8 +20,12 @@ if ($r_time = $prefs->getValue('summary_refresh_time')) {
 
 // Load layout from preferences for authenticated users, and a default
 // block set for guests.
-if (!@unserialize($prefs->getValue('mybugs_layout')) ||
-    !$registry->isAuthenticated()) {
+if (!$registry->isAuthenticated()) {
+    $prefs->setValue('mybugs_layout', serialize(array(
+        array(array('app' => 'whups', 'params' => array('type2' => 'whups_Block_Myqueries', 'params' => false), 'height' => 1, 'width' => 1)),
+        array(array('app' => 'whups', 'params' => array('type2' => 'whups_Block_Queuesummary', 'params' => false), 'height' => 1, 'width' => 1)),
+    )));
+} elseif (!@unserialize($prefs->getValue('mybugs_layout'))) {
     $prefs->setValue('mybugs_layout', serialize(array(
         array(array('app' => 'whups', 'params' => array('type2' => 'whups_Block_Mytickets', 'params' => false), 'height' => 1, 'width' => 1)),
         array(array('app' => 'whups', 'params' => array('type2' => 'whups_Block_Myrequests', 'params' => false), 'height' => 1, 'width' => 1)),
