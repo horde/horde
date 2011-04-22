@@ -358,7 +358,7 @@ class Agora {
 
         $msg_headers = new Horde_Mime_Headers();
         $msg_headers->addMessageIdHeader();
-        $msg_headers->addAgentHeader();
+        $msg_headers->addUserAgentHeader();
         $msg_headers->addHeader('Date', date('r'));
         $msg_headers->addHeader('X-Horde-Agora-Post', $message_id);
 
@@ -371,6 +371,11 @@ class Agora {
         $body->setCharset('UTF-8');
         $body->setContents($message['body']);
 
-        $body->send($forum['forum_distribution_address'], $msg_headers, $conf['mailer']['type'], $conf['mailer']['params']);
+        $class = 'Horde_Mail_Transport_' . ucfirst($conf['mailer']['type']);
+        if (class_exists($class)) {
+            $mailer = new $class($conf['mailer']['params']);
+        }
+
+        $body->send($forum['forum_distribution_address'], $msg_headers, $mailer);
     }
 }
