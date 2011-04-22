@@ -1232,31 +1232,29 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         /* UIDNEXT is not strictly required on mailbox open.
                          * See RFC 3501 [6.3.1]. */
                         $data[$val] = 0;
-                    } else {
-                        if ($key == Horde_Imap_Client::STATUS_UIDNOTSTICKY) {
-                            /* In the absence of uidnotsticky information, or
-                             * if UIDPLUS is not supported, we assume the UIDs
-                             * are sticky. */
-                            $data[$val] = false;
-                        } elseif (in_array($key, array(Horde_Imap_Client::STATUS_FIRSTUNSEEN, Horde_Imap_Client::STATUS_UNSEEN))) {
-                            /* If we already know there are no messages in the
-                             * current mailbox, we know there is no
-                             * firstunseen and unseen info also. */
-                            if (empty($this->_temp['mailbox']['messages'])) {
-                                $data[$val] = ($key == Horde_Imap_Client::STATUS_FIRSTUNSEEN) ? null : 0;
-                            } else {
-                                /* RFC 3501 [6.3.1] - FIRSTUNSEEN information
-                                 * is not mandatory. If missing EXAMINE/SELECT
-                                 * we need to do a search. An UNSEEN count
-                                 * also requires a search. */
-                                if (is_null($search)) {
-                                    $search_query = new Horde_Imap_Client_Search_Query();
-                                    $search_query->flag(Horde_Imap_Client::FLAG_SEEN, false);
-                                    $search = $this->search($mailbox, $search_query, array('results' => array(($key == Horde_Imap_Client::STATUS_FIRSTUNSEEN) ? Horde_Imap_Client::SEARCH_RESULTS_MIN : Horde_Imap_Client::SEARCH_RESULTS_COUNT), 'sequence' => true));
-                                }
-
-                                $data[$val] = $search[($key == Horde_Imap_Client::STATUS_FIRSTUNSEEN) ? 'min' : 'count'];
+                    } elseif ($key == Horde_Imap_Client::STATUS_UIDNOTSTICKY) {
+                        /* In the absence of uidnotsticky information, or
+                         * if UIDPLUS is not supported, we assume the UIDs
+                         * are sticky. */
+                        $data[$val] = false;
+                    } elseif (in_array($key, array(Horde_Imap_Client::STATUS_FIRSTUNSEEN, Horde_Imap_Client::STATUS_UNSEEN))) {
+                        /* If we already know there are no messages in the
+                         * current mailbox, we know there is no firstunseen
+                         * and unseen info also. */
+                        if (empty($this->_temp['mailbox']['messages'])) {
+                            $data[$val] = ($key == Horde_Imap_Client::STATUS_FIRSTUNSEEN) ? null : 0;
+                        } else {
+                            /* RFC 3501 [6.3.1] - FIRSTUNSEEN information is
+                             * not mandatory. If missing EXAMINE/SELECT we
+                             * need to do a search. An UNSEEN count also
+                             * requires a search. */
+                            if (is_null($search)) {
+                                $search_query = new Horde_Imap_Client_Search_Query();
+                                $search_query->flag(Horde_Imap_Client::FLAG_SEEN, false);
+                                $search = $this->search($mailbox, $search_query, array('results' => array(($key == Horde_Imap_Client::STATUS_FIRSTUNSEEN) ? Horde_Imap_Client::SEARCH_RESULTS_MIN : Horde_Imap_Client::SEARCH_RESULTS_COUNT), 'sequence' => true));
                             }
+
+                            $data[$val] = $search[($key == Horde_Imap_Client::STATUS_FIRSTUNSEEN) ? 'min' : 'count'];
                         }
                     }
                 } else {
