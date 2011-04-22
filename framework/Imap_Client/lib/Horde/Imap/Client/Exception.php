@@ -67,8 +67,32 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
     // Thrown on CREATE if special-use attribute is not supported.
     const USEATTR = 15;
 
-    // Bad search request
+    // Bad search request.
     const BADSEARCH = 16;
+
+    // The user did not have permissions to carry out the operation.
+    const NOPERM = 17;
+
+    // The operation was not successful because another user is holding
+    // a necessary resource. The operation may succeed if attempted later.
+    const INUSE = 18;
+
+    // The operation failed because data on the server was corrupt.
+    const CORRUPTION = 19;
+
+    // The operation failed because it exceeded some limit on the server.
+    const LIMIT = 20;
+
+    // The operation failed because the user is over their quota.
+    const QUOTA = 21;
+
+    // The operation failed because the requested creation object already
+    // exists.
+    const ALREADYEXISTS = 22;
+
+    // The operation failed because the requested deletion object did not
+    // exist.
+    const NONEXISTENT = 23;
 
 
     // Login failures

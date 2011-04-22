@@ -4344,10 +4344,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'NOPERM':
             // Defined by RFC 5530 [3]
+            $this->_temp['parsestatuserr'] = array(
+                'NOPERM',
+                substr($ob['line'], $end_pos + 2)
+            );
             break;
 
         case 'INUSE':
             // Defined by RFC 5530 [3]
+            $this->_temp['parsestatuserr'] = array(
+                'INUSE',
+                substr($ob['line'], $end_pos + 2)
+            );
             break;
 
         case 'EXPUNGEISSUED':
@@ -4357,6 +4365,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'CORRUPTION':
             // Defined by RFC 5530 [3]
+            $this->_temp['parsestatuserr'] = array(
+                'CORRUPTION',
+                substr($ob['line'], $end_pos + 2)
+            );
             break;
 
         case 'SERVERBUG':
@@ -4370,18 +4382,34 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'LIMIT':
             // Defined by RFC 5530 [3]
+            $this->_temp['parsestatuserr'] = array(
+                'LIMIT',
+                substr($ob['line'], $end_pos + 2)
+            );
             break;
 
         case 'OVERQUOTA':
             // Defined by RFC 5530 [3]
+            $this->_temp['parsestatuserr'] = array(
+                'OVERQUOTA',
+                substr($ob['line'], $end_pos + 2)
+            );
             break;
 
         case 'ALREADYEXISTS':
             // Defined by RFC 5530 [3]
+            $this->_temp['parsestatuserr'] = array(
+                'ALREADYEXISTS',
+                substr($ob['line'], $end_pos + 2)
+            );
             break;
 
         case 'NONEXISTENT':
             // Defined by RFC 5530 [3]
+            $this->_temp['parsestatuserr'] = array(
+                'NONEXISTENT',
+                substr($ob['line'], $end_pos + 2)
+            );
             break;
 
         case 'USEATTR':
