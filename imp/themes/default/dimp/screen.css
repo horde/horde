@@ -729,7 +729,7 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     max-height: 125px;
     overflow-x: hidden;
     overflow-y: auto;
-    padding-left: 15px;
+    padding: 0 0 2px 15px;
     width: 500px;
 }
 #attach_list li {
