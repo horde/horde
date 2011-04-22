@@ -3990,6 +3990,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         'seq' => true
                     ));
                 }
+
+                /* Issue NOOP if server suggests it. */
+                if (!empty($this->_temp['run_noop'])) {
+                    unset($this->_temp['run_noop']);
+                    $this->noop();
+                }
                 break;
             }
             $this->_parseServerResponse($ob);
@@ -4346,6 +4352,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'EXPUNGEISSUED':
             // Defined by RFC 5530 [3]
+            $this->_temp['run_noop'] = true;
             break;
 
         case 'CORRUPTION':
