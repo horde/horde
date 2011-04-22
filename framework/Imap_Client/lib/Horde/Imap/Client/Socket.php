@@ -4185,8 +4185,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'READ-ONLY':
+            $this->_mode = Horde_Imap_Client::OPEN_READONLY;
+            break;
+
         case 'READ-WRITE':
-            // Ignore - openMailbox() takes care of this for us
+            $this->_mode = Horde_Imap_Client::OPEN_READWRITE;
             break;
 
         case 'TRYCREATE':
