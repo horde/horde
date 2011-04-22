@@ -84,7 +84,7 @@ if ($actionID && ($actionID != 'message_missing')) {
 if (!$search_mbox) {
     try {
         $imp_imap->ob->openMailbox(IMP::$mailbox, Horde_Imap_Client::OPEN_READWRITE);
-    } catch (Horde_Imap_Client_Exception $e) {
+    } catch (IMP_Imap_Exception $e) {
         $actionID = null;
     }
 }

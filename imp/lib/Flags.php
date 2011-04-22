@@ -125,7 +125,7 @@ class IMP_Flags implements ArrayAccess, Serializable
              * allowed in EXAMINE mode. */
             $imp_imap->openMailbox($opts['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
             $status = $imp_imap->status($opts['mailbox'], Horde_Imap_Client::STATUS_PERMFLAGS);
-        } catch (Horde_Imap_Client_Exception $e) {
+        } catch (IMP_Imap_Exception $e) {
             return array_values($ret);
         }
 

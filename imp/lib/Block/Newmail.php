@@ -59,7 +59,7 @@ class IMP_Block_Newmail extends Horde_Core_Block
                 $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch('INBOX', $query, array(
                     'ids' => new Horde_Imap_Client_Ids(array_slice($indices, 0, $shown))
                 ));
-            } catch (Horde_Imap_Client_Exception $e) {
+            } catch (IMP_Imap_Exception $e) {
                 $fetch_ret = array();
             }
 

@@ -1003,7 +1003,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             if (isset($result->message->error)) {
                 $result = $this->_checkUidvalidity($result);
             }
-        } catch (Horde_Imap_Client_Exception $e) {
+        } catch (IMP_Imap_Exception $e) {
             $result->message = new stdClass;
             $result->message->error = $e->getMessage();
             $result->message->errortype = 'horde.error';
@@ -1079,7 +1079,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
             /* Add changed flag information. */
             $result->flag = $this->flagEntry(array(Horde_Imap_Client::FLAG_SEEN), true, $indices);
-        } catch (Horde_Imap_Client_Exception $e) {
+        } catch (IMP_Imap_Exception $e) {
             $result->preview->error = $e->getMessage();
             $result->preview->errortype = 'horde.error';
             $result->preview->mailbox = $args['mailbox'];
@@ -1483,8 +1483,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($mbox, $query, array(
                 'ids' => new Horde_Imap_Client_Ids($uid)
             ));
-        } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['notification']->push(_("The Message Disposition Notification was not sent. This is what the server said") . ': ' . $e->getMessage(), 'horde.error');
+        } catch (IMP_Imap_Exception $e) {
+            $e->notify(_("The Message Disposition Notification was not sent. This is what the server said") . ': ' . $e->getMessage());
             return false;
         }
 
@@ -2087,12 +2087,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         if (!is_null($rw)) {
             try {
                 $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->openMailbox($this->_vars->view, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
-            } catch (Horde_Imap_Client_Exception $e) {
-                if ($e->getCode() == Horde_Imap_Client_Exception::MAILBOX_NOOPEN) {
-                    $GLOBALS['notification']->push(sprintf(_("Could not open mailbox \"%s\"."), $this->_vars->view), 'horde.error');
-                } else {
-                    $GLOBALS['notification']->push($e, 'horde.error');
-                }
+            } catch (IMP_Imap_Exception $e) {
+                $e->notify();
                 return null;
             }
         }

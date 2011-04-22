@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-20</date>
- <time>15:39:05</time>
+ <date>2011-04-22</date>
+ <time>11:49:49</time>
  <version>
   <release>5.0.2</release>
   <api>5.0.0</api>
@@ -34,7 +34,8 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* Use translated namespace name if available.
+* [mms] Consolidate IMAP error handling code in IMP_Imap_Exception.
+* [mms] Use translated namespace name if available.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -147,6 +148,7 @@
     </dir> <!-- /lib/Flag -->
     <dir name="Imap">
      <file name="Acl.php" role="horde" />
+     <file name="Exception.php" role="horde" />
      <file name="Thread.php" role="horde" />
      <file name="Tree.php" role="horde" />
     </dir> <!-- /lib/Imap -->
@@ -1454,6 +1456,7 @@
    <install as="imp/lib/Flag/System/Signed.php" name="lib/Flag/System/Signed.php" />
    <install as="imp/lib/Flag/System/Unseen.php" name="lib/Flag/System/Unseen.php" />
    <install as="imp/lib/Imap/Acl.php" name="lib/Imap/Acl.php" />
+   <install as="imp/lib/Imap/Exception.php" name="lib/Imap/Exception.php" />
    <install as="imp/lib/Imap/Thread.php" name="lib/Imap/Thread.php" />
    <install as="imp/lib/Imap/Tree.php" name="lib/Imap/Tree.php" />
    <install as="imp/lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
@@ -2165,10 +2168,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-04-22</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* Use translated namespace name if available.
+* [mms] Consolidate IMAP error handling code in IMP_Imap_Exception.
+* [mms] Use translated namespace name if available.
    </notes>
   </release>
  </changelog>

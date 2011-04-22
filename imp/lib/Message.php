@@ -117,15 +117,14 @@ class IMP_Message
                         $opts['mailboxob']->isBuilt()) {
                         $opts['mailboxob']->removeMsgs(new IMP_Indices($ob->mbox, $ob->uids));
                     }
-                } catch (Horde_Imap_Client_Exception $e) {
-                    $error = $e->getMessage();
+                } catch (IMP_Imap_Exception $e) {
+                    $error = $e;
                 }
             }
 
             if ($error) {
-                $notification->push(sprintf($message, $ob->mbox->display, $targetMbox->display) . ': ' . $error, 'horde.error');
+                $error->notify(sprintf($message, $ob->mbox->display, $targetMbox->display) . ': ' . $error->getMessage());
                 $return_value = false;
-                continue;
             }
         }
 
@@ -218,7 +217,7 @@ class IMP_Message
                         $options['mailboxob']->isBuilt()) {
                         $options['mailboxob']->removeMsgs($imp_indices);
                     }
-                } catch (Horde_Imap_Client_Exception $e) {
+                } catch (IMP_Imap_Exception $e) {
                     // @todo Check for overquota error.
                     return false;
                 }
@@ -234,7 +233,7 @@ class IMP_Message
                         $fetch = $imp_imap->fetch($ob->mbox, $query, array(
                             'ids' => new Horde_Imap_Client_Ids($ob->uids)
                         ));
-                    } catch (Horde_Imap_Client_Exception $e) {}
+                    } catch (IMP_Imap_Exception $e) {}
                 }
 
                 /* Delete the messages. */
@@ -267,7 +266,7 @@ class IMP_Message
                             )
                         );
                     }
-                } catch (Horde_Imap_Client_Exception $e) {}
+                } catch (IMP_Imap_Exception $e) {}
 
                 /* Get the list of Message-IDs deleted, and remove the
                  * information from the mail log. */
@@ -567,7 +566,7 @@ class IMP_Message
                 )
             ));
             $new_uid = reset($new_uid->ids);
-        } catch (Horde_Imap_Client_Exception $e) {
+        } catch (IMP_Imap_Exception $e) {
             throw new IMP_Exception(_("An error occured while attempting to strip the attachment."));
         }
 
@@ -665,7 +664,7 @@ class IMP_Message
         foreach ($mboxes as $val) {
             try {
                 $imp_imap->store($val, $action_array);
-            } catch (Horde_Imap_Client_Exception $e) {
+            } catch (IMP_Imap_Exception $e) {
                 return false;
             }
         }
@@ -741,7 +740,7 @@ class IMP_Message
                     $opts['mailboxob']->isBuilt()) {
                     $opts['mailboxob']->removeMsgs($val[1]->all ? true : new IMP_Indices($val[0], $val[1]));
                 }
-            } catch (Horde_Imap_Client_Exception $e) {}
+            } catch (IMP_Imap_Exception $e) {}
         }
 
         if ($msg_list) {
@@ -793,7 +792,7 @@ class IMP_Message
                 }
 
                 $notification->push(sprintf(_("Emptied all messages from %s."), $mbox->display), 'horde.success');
-            } catch (Horde_Imap_Client_Exception $e) {}
+            } catch (IMP_Imap_Exception $e) {}
         }
     }
 
@@ -824,7 +823,7 @@ class IMP_Message
             return ($formatted)
                 ? sprintf(_("%.2fMB"), $size / (1024 * 1024))
                 : $size;
-        } catch (Horde_Imap_Client_Exception $e) {
+        } catch (IMP_Imap_Exception $e) {
             return 0;
         }
     }

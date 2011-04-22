@@ -49,7 +49,7 @@ class IMP_Imap_Acl
     {
         try {
             return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getACL($mbox);
-        } catch (Horde_Imap_Client_Exception $e) {
+        } catch (IMP_Imap_Exception $e) {
             throw new IMP_Exception(_("Could not retrieve ACL"));
         }
     }
@@ -69,7 +69,7 @@ class IMP_Imap_Acl
             $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->setACL($mbox, $user, array(
                 'rights' => $rights
             ));
-        } catch (Horde_Imap_Client_Exception $e) {
+        } catch (IMP_Imap_Exception $e) {
             throw new IMP_Exception(sprintf(_("Couldn't give user \"%s\" these rights for the mailbox \"%s\": %s"), $user, $mbox, $rights));
         }
     }
@@ -91,7 +91,7 @@ class IMP_Imap_Acl
                 'remove' => true,
                 'rights' => $rights
             ));
-        } catch (Horde_Imap_Client_Exception $e) {
+        } catch (IMP_Imap_Exception $e) {
             throw new IMP_Exception(sprintf(_("Couldn't remove from user \"%s\" these rights for the mailbox \"%s\": %s"), $user, $mbox, $rights));
         }
     }
@@ -131,7 +131,7 @@ class IMP_Imap_Acl
     {
         try {
             return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->listACLRights($mbox, $user);
-        } catch (Horde_Imap_Client_Exception $e) {
+        } catch (IMP_Imap_Exception $e) {
             return new Horde_Imap_Client_Data_AclRights(array(), $this->getRights());
         }
     }

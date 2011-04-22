@@ -246,7 +246,7 @@ class IMP_Mailbox implements Serializable
 
             try {
                 return (bool)$injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes($this->_mbox, array('flat' => true));
-            } catch (Horde_Imap_Client_Exception $e) {
+            } catch (IMP_Imap_Exception $e) {
                 return false;
             }
 
@@ -331,7 +331,7 @@ class IMP_Mailbox implements Serializable
                     $info->msgs = intval($msgs_info['messages']);
                     $info->unseen = intval($msgs_info['unseen']);
                 }
-            } catch (Horde_Imap_Client_Exception $e) {}
+            } catch (IMP_Imap_Exception $e) {}
 
             return $info;
 
@@ -741,7 +741,7 @@ class IMP_Mailbox implements Serializable
         $sortpref = $this->getSort(true);
         try {
             return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getCacheId($this->_mbox, array($sortpref['by'], $sortpref['dir']));
-        } catch (Horde_Imap_Client_Exception $e) {
+        } catch (IMP_Imap_Exception $e) {
             /* Assume an error means that a mailbox can not be trusted. */
             return strval(new Horde_Support_Randomid());
         }

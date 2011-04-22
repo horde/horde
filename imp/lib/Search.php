@@ -88,7 +88,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      * @param string $id  The search query id.
      *
      * @return IMP_Indices  An indices object.
-     * @throws Horde_Imap_Client_Exception
+     * @throws IMP_Imap_Exception
      */
     public function runSearch($ob, $id)
     {
@@ -142,7 +142,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
                 $results['match']->reverse();
             }
             return new IMP_Indices($mailbox, $results['match']);
-        } catch (Horde_Imap_Client_Exception $e) {
+        } catch (IMP_Imap_Exception $e) {
             return new IMP_Indices();
         }
     }

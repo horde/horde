@@ -226,7 +226,7 @@ case 'folders_empty_mailbox_confirm':
 
             try {
                 $elt_info = $imp_imap->status($val, Horde_Imap_Client::STATUS_MESSAGES);
-            } catch (Horde_Imap_Client_Exception $e) {
+            } catch (IMP_Imap_Exception $e) {
                 $elt_info = null;
             }
 

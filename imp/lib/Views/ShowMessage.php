@@ -120,8 +120,7 @@ class IMP_Views_ShowMessage
 
             /* Parse MIME info and create the body of the message. */
             $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($mailbox, $uid));
-        } catch (Horde_Imap_Client_Exception $e) {
-        } catch (IMP_Exception $e) {}
+        } catch (Exception $e) {}
 
         if (is_null($imp_contents)) {
             $result['error'] = $error_msg;

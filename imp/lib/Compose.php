@@ -312,7 +312,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $this->_metadata['draft_uid'] = new IMP_Indices($drafts_mbox, $ids);
             $this->changed = 'changed';
             return sprintf(_("The draft has been saved to the \"%s\" folder."), $drafts_mbox->display);
-        } catch (Horde_Imap_Client_Exception $e) {
+        } catch (IMP_Imap_Exception $e) {
             return _("The draft was not successfully saved.");
         }
     }
@@ -725,8 +725,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
             try {
                 $injector->getInstance('IMP_Factory_Imap')->create()->append($sent_folder, array(array('data' => $fcc, 'flags' => $flags)));
-            } catch (Horde_Imap_Client_Exception $e) {
-                $notification->push(sprintf(_("Message sent successfully, but not saved to %s"), $sent_folder->display));
+            } catch (IMP_Imap_Exception $e) {
+                $notification->push(sprintf(_("Message sent successfully, but not saved to %s."), $sent_folder->display));
                 $sent_saved = false;
             }
         }

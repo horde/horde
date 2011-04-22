@@ -266,7 +266,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             if (empty($result['INBOX'])) {
                 $result = $imp_imap->listMailboxes('INBOX', Horde_Imap_Client::MBOX_ALL, array('attributes' => true, 'delimiter' => true)) + $result;
             }
-        } catch (Horde_Imap_Client_Exception $e) {
+        } catch (IMP_Imap_Exception $e) {
             $result = array();
         }
 
@@ -464,7 +464,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         if (!empty($id)) {
             try {
                 $this->_insert($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->listMailboxes($id, Horde_Imap_Client::MBOX_ALL, array('attributes' => true, 'delimiter' => true, 'sort' => true)));
-            } catch (Horde_Imap_Client_Exception $e) {}
+            } catch (IMP_Imap_Exception $e) {}
         }
     }
 

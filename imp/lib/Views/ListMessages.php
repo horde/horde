@@ -251,7 +251,7 @@ class IMP_Views_ListMessages
                             if (!empty($res)) {
                                 $changed = array_flip(array_keys($res));
                             }
-                        } catch (Horde_Imap_Client_Exception $e) {}
+                        } catch (IMP_Imap_Exception $e) {}
                     }
                 }
             }
@@ -355,7 +355,7 @@ class IMP_Views_ListMessages
                 if ($info = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_UNSEEN)) {
                     $md->unseen = intval($info['unseen']);
                 }
-            } catch (Horde_Imap_Client_Exception $e) {}
+            } catch (IMP_Imap_Exception $e) {}
 
             if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
                 $imp_thread = new IMP_Imap_Thread($mailbox_list->getThreadOb());

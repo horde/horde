@@ -103,7 +103,7 @@ class IMP_Ui_Message
                 ));
                 $mdn_sent = in_array('$mdnsent', $res[$uid]->getFlags());
             }
-        } catch (Horde_Imap_Client_Exception $e) {}
+        } catch (IMP_Imap_Exception $e) {}
 
         if (!$mdn_flag) {
             /* 2nd test: Use Maillog as a fallback. */

@@ -107,7 +107,6 @@ class IMP_Imap implements Serializable
             'hostspec' => isset($server['hostspec']) ? $server['hostspec'] : null,
             'id' => empty($server['id']) ? false : $server['id'],
             'lang' => empty($server['lang']) ? false : $server['lang'],
-            'log' => array(__CLASS__, 'logError'),
             'password' => $password,
             'port' => isset($server['port']) ? $server['port'] : null,
             'secure' => isset($server['secure']) ? $server['secure'] : false,
@@ -124,6 +123,7 @@ class IMP_Imap implements Serializable
         try {
             $ob = Horde_Imap_Client::factory(($protocol == 'imap') ? 'Socket' : 'Socket_Pop3', $imap_config);
         } catch (Horde_Imap_Client_Exception $e) {
+            Horde::logMessage($e, 'ERR');
             return false;
         }
 
@@ -282,7 +282,6 @@ class IMP_Imap implements Serializable
         try {
             return $this->ob->getNamespaces($GLOBALS['session']->get('imp', 'imap_namespace', Horde_Session::TYPE_ARRAY));
         } catch (Horde_Imap_Client_Exception $e) {
-            // @todo Error handling
             return array();
         }
     }
@@ -383,7 +382,7 @@ class IMP_Imap implements Serializable
      *
      * @return mixed  The return from the requested method.
      * @throws BadMethodCallException
-     * @throws Horde_Imap_Client_Exception
+     * @throws IMP_Imap_Exception
      */
     public function __call($method, $params)
     {
@@ -394,52 +393,68 @@ class IMP_Imap implements Serializable
         try {
             $result = call_user_func_array(array($this->ob, $method), $params);
         } catch (Horde_Imap_Client_Exception $e) {
+            $error = new IMP_Imap_Exception($e);
+
             switch ($e->getCode()) {
             case Horde_Imap_Client_Exception::DISCONNECT:
-                $GLOBALS['notification']->push(_("Unexpectedly disconnected from the mail server."), 'horde.error');
+                $error->notify(_("Unexpectedly disconnected from the mail server."));
                 break;
 
             case Horde_Imap_Client_Exception::READERROR:
-                $GLOBALS['notification']->push(_("Error when communicating with the mail server."), 'horde.error');
+                $error->notify(_("Error when communicating with the mail server."));
+                break;
+
+            case Horde_Imap_Client_Exception::MAILBOX_NOOPEN:
+                if (strcasecmp($method, 'openMailbox') === 0) {
+                    $error->notify(sprintf(_("Could not open mailbox \"%s\"."), IMP_Mailbox::get(reset($params)))->label);
+                } else {
+                    $error->notify(_("Could not open mailbox."));
+                }
+                break;
+
+            case Horde_Imap_Client_Exception::CATENATE_TOOBIG:
+                $error->notify(_("Could not save message data because it is too large."));
                 break;
 
             // BC: Not available in Horde_Imap_Client 1.0.0
             case constant('Horde_Imap_Client_Exception::NOPERM'):
-                $GLOBALS['notification']->push(_("You did not have adequate permissions to carry out this operation."), 'horde.error');
+                $error->notify(_("You did not have adequate permissions to carry out this operation."));
                 break;
 
             // BC: Not available in Horde_Imap_Client 1.0.0
             case constant('Horde_Imap_Client_Exception::INUSE'):
-                $GLOBALS['notification']->push(_("There was a temporary issue when attempting this operation. Please try again later."), 'horde.error');
+                $error->notify(_("There was a temporary issue when attempting this operation. Please try again later."));
                 break;
 
             // BC: Not available in Horde_Imap_Client 1.0.0
             case constant('Horde_Imap_Client_Exception::CORRUPTION'):
-                $GLOBALS['notification']->push(_("The mail server is reporting corrupt data in your mailbox. Details have been logged for the administrator."), 'horde.error');
+                $error->notify(_("The mail server is reporting corrupt data in your mailbox. Details have been logged for the administrator."));
                 break;
 
             // BC: Not available in Horde_Imap_Client 1.0.0
             case constant('Horde_Imap_Client_Exception::LIMIT'):
-                $GLOBALS['notification']->push(_("The mail server has denied the request. Details have been logged for the administrator."), 'horde.error');
+                $error->notify(_("The mail server has denied the request. Details have been logged for the administrator."));
                 break;
 
             // BC: Not available in Horde_Imap_Client 1.0.0
             case constant('Horde_Imap_Client_Exception::QUOTA'):
-                $GLOBALS['notification']->push(_("The operation failed because you have exceeded your quota on the mail server."), 'horde.error');
+                $error->notify(_("The operation failed because you have exceeded your quota on the mail server."));
                 break;
 
             // BC: Not available in Horde_Imap_Client 1.0.0
             case constant('Horde_Imap_Client_Exception::ALREADYEXISTS'):
-                $GLOBALS['notification']->push(_("The object could not be created because it already exists."), 'horde.error');
+                $error->notify(_("The object could not be created because it already exists."));
                 break;
 
             // BC: Not available in Horde_Imap_Client 1.0.0
             case constant('Horde_Imap_Client_Exception::NONEXISTENT'):
-                $GLOBALS['notification']->push(_("The object could not be deleted because it does not exist."), 'horde.error');
+                $error->notify(_("The object could not be deleted because it does not exist."));
                 break;
             }
 
-            throw $e;
+            $error->log();
+
+            throw $error;
         }
 
         /* Special handling for various methods. */
@@ -514,11 +529,6 @@ class IMP_Imap implements Serializable
     static public function getEncryptKey()
     {
         return $GLOBALS['injector']->getInstance('Horde_Secret')->getKey('imp');
-    }
-
-    static public function logError($e)
-    {
-        Horde::logMessage($e, 'ERR');
     }
 
     /* Serializable methods. */

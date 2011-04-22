@@ -238,7 +238,7 @@ try {
     $fetch_ret = $imp_imap->fetch($mailbox, $query, array(
         'ids' => new Horde_Imap_Client_Ids($uid)
     ));
-} catch (Horde_Imap_Client_Exception $e) {
+} catch (IMP_Imap_Exception $e) {
     _returnToMailbox(null, 'message_missing');
     require IMP_BASE . '/mailbox.php';
     exit;

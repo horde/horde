@@ -116,7 +116,7 @@ try {
     $fetch_ret = $imp_imap->fetch($mailbox, $query, array(
         'ids' => new Horde_Imap_Client_Ids($uid)
     ));
-} catch (Horde_Imap_Client_Exception $e) {
+} catch (IMP_Imap_Exception $e) {
     IMP::generateIMPUrl('mailbox-mimp.php', $mailbox)->add('a', 'm')->redirect();
 }
 

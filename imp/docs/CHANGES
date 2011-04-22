@@ -2,6 +2,7 @@
 v5.0.2-git
 ----------
 
+[mms] Consolidate IMAP error handling code in IMP_Imap_Exception.
 [mms] Use translated namespace name if available.
 
 
