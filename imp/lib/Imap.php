@@ -383,6 +383,7 @@ class IMP_Imap implements Serializable
      *
      * @return mixed  The return from the requested method.
      * @throws BadMethodCallException
+     * @throws Horde_Imap_Client_Exception
      */
     public function __call($method, $params)
     {
@@ -390,7 +391,56 @@ class IMP_Imap implements Serializable
             throw new BadMethodCallException(sprintf('%s: Invalid method call "%s".', __CLASS__, $method));
         }
 
-        $result = call_user_func_array(array($this->ob, $method), $params);
+        try {
+            $result = call_user_func_array(array($this->ob, $method), $params);
+        } catch (Horde_Imap_Client_Exception $e) {
+            switch ($e->getCode()) {
+            case Horde_Imap_Client_Exception::DISCONNECT:
+                $GLOBALS['notification']->push(_("Unexpectedly disconnected from the mail server."), 'horde.error');
+                break;
+
+            case Horde_Imap_Client_Exception::READERROR:
+                $GLOBALS['notification']->push(_("Error when communicating with the mail server."), 'horde.error');
+                break;
+
+            // BC: Not available in Horde_Imap_Client 1.0.0
+            case constant('Horde_Imap_Client_Exception::NOPERM'):
+                $GLOBALS['notification']->push(_("You did not have adequate permissions to carry out this operation."), 'horde.error');
+                break;
+
+            // BC: Not available in Horde_Imap_Client 1.0.0
+            case constant('Horde_Imap_Client_Exception::INUSE'):
+                $GLOBALS['notification']->push(_("There was a temporary issue when attempting this operation. Please try again later."), 'horde.error');
+                break;
+
+            // BC: Not available in Horde_Imap_Client 1.0.0
+            case constant('Horde_Imap_Client_Exception::CORRUPTION'):
+                $GLOBALS['notification']->push(_("The mail server is reporting corrupt data in your mailbox. Details have been logged for the administrator."), 'horde.error');
+                break;
+
+            // BC: Not available in Horde_Imap_Client 1.0.0
+            case constant('Horde_Imap_Client_Exception::LIMIT'):
+                $GLOBALS['notification']->push(_("The mail server has denied the request. Details have been logged for the administrator."), 'horde.error');
+                break;
+
+            // BC: Not available in Horde_Imap_Client 1.0.0
+            case constant('Horde_Imap_Client_Exception::QUOTA'):
+                $GLOBALS['notification']->push(_("The operation failed because you have exceeded your quota on the mail server."), 'horde.error');
+                break;
+
+            // BC: Not available in Horde_Imap_Client 1.0.0
+            case constant('Horde_Imap_Client_Exception::ALREADYEXISTS'):
+                $GLOBALS['notification']->push(_("The object could not be created because it already exists."), 'horde.error');
+                break;
+
+            // BC: Not available in Horde_Imap_Client 1.0.0
+            case constant('Horde_Imap_Client_Exception::NONEXISTENT'):
+                $GLOBALS['notification']->push(_("The object could not be deleted because it does not exist."), 'horde.error');
+                break;
+            }
+
+            throw $e;
+        }
 
         /* Special handling for various methods. */
         switch ($method) {
