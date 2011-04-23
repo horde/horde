@@ -624,17 +624,18 @@ class Wicked_Driver_Sql extends Wicked_Driver {
     {
         static $pageNames;
         if (!isset($pageNames) || $no_cache) {
-            $query = 'SELECT page_name FROM ' . $this->_params['table'];
+            $query = 'SELECT page_id, page_name FROM ' . $this->_params['table'];
             Horde::logMessage('Wicked_Driver_sql::getPages(): ' . $query, 'DEBUG');
             try {
-                $result = $this->_db->selectValues($query);
+                $result = $this->_db->selectAssoc($query);
             } catch (Horde_Db_Exception $e) {
                 throw new Wicked_Exception($e);
             }
             $pageNames = $this->_convertFromDriver($result);
         }
+
         if ($special) {
-            return $pageNames + $this->getSpecialPages();
+            $pageNames += $this->getSpecialPages();
         }
 
         return $pageNames;
