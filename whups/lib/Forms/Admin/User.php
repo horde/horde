@@ -36,7 +36,7 @@ class AddUserForm extends Horde_Form {
                 $users = array();
                 foreach ($list as $user) {
                     if (!isset($current[$user])) {
-                        $users[$user] = Horde_Auth::removeHook($user);
+                        $users[$user] = $user;
                     }
                 }
                 $this->addVariable(_("User"), 'user', 'multienum', true, false, null, array($users));
