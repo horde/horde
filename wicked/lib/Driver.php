@@ -241,7 +241,7 @@ abstract class Wicked_Driver {
 
         /* We encode the path quoted printable so we won't get any nasty
          * characters the filesystem might reject. */
-        $path = Wicked::WICKED_VFS_ATTACH_PATH . '/' . $file['page_id'];
+        $path = Wicked::VFS_ATTACH_PATH . '/' . $file['page_id'];
         try {
             $vfs->writeData($path, $file['attachment_name'] . ';' . $result, $data, true);
         } catch (Horde_Vfs_Exception $e) {
@@ -263,7 +263,7 @@ abstract class Wicked_Driver {
     public function removeAttachment($pageId, $attachment, $version = null)
     {
         $vfs = $this->getVFS();
-        $path = Wicked::WICKED_VFS_ATTACH_PATH . '/' . $pageId;
+        $path = Wicked::VFS_ATTACH_PATH . '/' . $pageId;
 
         $fileList = $this->getAttachedFiles($pageId, true);
         foreach ($fileList as $file) {
@@ -294,12 +294,12 @@ abstract class Wicked_Driver {
     public function removeAllAttachments($pageId)
     {
         $vfs = $this->getVFS();
-        if (!$vfs->isFolder(Wicked::WICKED_VFS_ATTACH_PATH, $pageId)) {
+        if (!$vfs->isFolder(Wicked::VFS_ATTACH_PATH, $pageId)) {
             return;
         }
 
         try {
-            $vfs->deleteFolder(Wicked::WICKED_VFS_ATTACH_PATH, $pageId, true);
+            $vfs->deleteFolder(Wicked::VFS_ATTACH_PATH, $pageId, true);
         } catch (Horde_Vfs_Exception $e) {
             throw new Wicked_Exception($e);
         }
@@ -336,7 +336,7 @@ abstract class Wicked_Driver {
     public function getAttachmentContents($pageId, $filename, $version)
     {
         $vfs = $this->getVFS();
-        $path = Wicked::WICKED_VFS_ATTACH_PATH . '/' . $pageId;
+        $path = Wicked::VFS_ATTACH_PATH . '/' . $pageId;
 
         try {
             return $vfs->read($path, $filename . ';' . $version);
