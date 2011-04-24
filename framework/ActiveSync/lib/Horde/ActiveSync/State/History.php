@@ -224,6 +224,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_db->insert($sql, $params);
         } catch (Horde_Db_Exception $e) {
             /* Might exist already if the last sync attempt failed. */
+            $this->_logger->err(sprintf('[%s] Error saving state for synckey %s: %s', $this->_devId, $this->_syncKey, $e->getMessage()));
             $this->_db->delete('DELETE FROM ' . $this->_syncStateTable . ' WHERE sync_key = ?', array($this->_syncKey));
             $this->_db->insert($sql, $params);
         }
