@@ -41,7 +41,7 @@ class Components_Helper_Version
         if (!preg_match('/^(\d+\.\d+\.\d+)(-git|alpha\d*|beta\d*|RC\d+)?$/', $version, $match)) {
             throw new Components_Exception('Invalid version number ' . $version);
         }
-        if ($match[2] == '-git') {
+        if (!isset($match[2]) || ($match[2] == '-git')) {
             $match[2] = '';
         }
         return $match[1] . $match[2];
