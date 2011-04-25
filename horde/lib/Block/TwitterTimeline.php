@@ -143,7 +143,7 @@ EOT;
         Horde::addInlineScript($script, 'dom');
 
         /* Get the user's most recent tweet */
-        $latestStatus = htmlspecialchars($this->_profile->status->text);
+
 
         /* Build the UI */
         $view = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
@@ -151,8 +151,8 @@ EOT;
         $view->instance = $instance;
         $view->defaultText = $defaultText;
         $view->loadingImg = Horde::img('loading.gif', '', array('id' => $instance . '_loading', 'style' => 'display:none;'));
-        $view->latestStatus = $latestStatus;
-        $view->latestDate = Horde_Date_Utils::relativeDateTime(strtotime($this->_profile->status->created_at), $GLOBALS['prefs']->getValue('date_format'), ($GLOBALS['prefs']->getValue('twentyFour') ? "%H:%M" : "%I:%M %P"));
+        $view->latestStatus = !empty($this->_profile->status) ? htmlspecialchars($this->_profile->status->text) : '';
+        $view->latestDate = !empty($this->_profile->status) ?  Horde_Date_Utils::relativeDateTime(strtotime($this->_profile->status->created_at), $GLOBALS['prefs']->getValue('date_format'), ($GLOBALS['prefs']->getValue('twentyFour') ? "%H:%M" : "%I:%M %P")) : '';
         $view->bodyHeight = empty($this->_params['height']) ? 350 : $this->_params['height'];
 
         return $view->render('twitter-layout');
