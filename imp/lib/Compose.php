@@ -2447,7 +2447,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         foreach ($this as $att) {
-            $trailer .= "\n" . $baseurl->copy()->add(array('u' => $auth, 't' => $ts, 'f' => $att['part']->getName()));
+            $trailer .= "\n" . $baseurl->copy()->add(array(
+                'f' => $att['part']->getName(),
+                't' => $ts,
+                'u' => $auth
+            ));
 
             try {
                 if ($att['filetype'] == 'vfs') {

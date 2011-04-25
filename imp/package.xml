@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix viewing linked attachments (Bug #9972).
+* [mms] Add support for the content-id access type of message/external-body.
 * [mms] Consolidate IMAP error handling code in IMP_Imap_Exception.
 * [mms] Use translated namespace name if available.
  </notes>
