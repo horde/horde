@@ -655,12 +655,12 @@ class IMP_Mailbox implements Serializable
     static public function getSpecialMailboxes()
     {
         if (!self::$_specialCache) {
-            self::$_specialCache = array(
+            self::$_specialCache = array_filter(array(
                 self::SPECIAL_DRAFTS => self::getPref('drafts_folder'),
                 self::SPECIAL_SENT => $GLOBALS['injector']->getInstance('IMP_Identity')->getAllSentmailFolders(),
                 self::SPECIAL_SPAM => self::getPref('spam_folder'),
                 self::SPECIAL_TRASH => self::getPref('trash_folder')
-            );
+            ));
         }
 
         return self::$_specialCache;
