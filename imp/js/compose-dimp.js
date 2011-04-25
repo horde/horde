@@ -22,8 +22,7 @@ var DimpCompose = {
             sbd = $('send_button_redirect');
 
         if (window.confirm(DIMP.text_compose.cancel)) {
-            if (this.is_popup &&
-                DimpCore.base &&
+            if (this.baseAvailable() &&
                 !DIMP.conf_compose.qreply) {
                 DimpCore.base.focus();
             }
@@ -40,9 +39,7 @@ var DimpCompose = {
 
     updateDraftsMailbox: function()
     {
-        if (this.is_popup &&
-            DimpCore.base &&
-            DimpCore.base.DimpBase &&
+        if (this.baseAvailable() &&
             DimpCore.base.DimpBase.folder == DIMP.conf_compose.drafts_mbox) {
             DimpCore.base.DimpBase.poll();
         }
@@ -252,9 +249,7 @@ var DimpCompose = {
                 this.updateDraftsMailbox();
 
                 if (d.action == 'saveDraft') {
-                    if (this.is_popup &&
-                        DimpCore.base &&
-                        DimpCore.base.DimpCore &&
+                    if (this.baseAvailable() &&
                         !DIMP.conf_compose.qreply) {
                         DimpCore.base.DimpCore.showNotifications(r.msgs);
                         r.msgs = [];
@@ -266,9 +261,7 @@ var DimpCompose = {
                 break;
 
             case 'sendMessage':
-                if (this.is_popup &&
-                    DimpCore.base &&
-                    DimpCore.base.DimpBase) {
+                if (this.baseAvailable()) {
                     if (d.flag) {
                         DimpCore.base.DimpBase.flagCallback(d);
                     }
@@ -293,9 +286,7 @@ var DimpCompose = {
                 return this.closeCompose();
 
             case 'redirectMessage':
-                if (this.is_popup &&
-                    DimpCore.base &&
-                    DimpCore.base.DimpBase) {
+                if (this.baseAvailable()) {
                     if (d.log) {
                         DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
                     }
@@ -877,6 +868,13 @@ var DimpCompose = {
         }
 
         window.open(uri, 'contacts', 'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100');
+    },
+
+    baseAvailable: function()
+    {
+        return (this.is_popup &&
+                DimpCore.base &&
+                !DimpCore.base.closed);
     },
 
     /* Click observe handler. */
