@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-04-24</date>
- <time>23:25:49</time>
+ <date>2011-04-25</date>
+ <time>00:02:47</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mms] Correct fix for deletion of unwanted HTML nodes in XSS filter.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -673,10 +673,10 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-24</date>
+   <date>2011-04-25</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] Correct fix for deletion of unwanted HTML nodes in XSS filter.
    </notes>
   </release>
  </changelog>
