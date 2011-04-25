@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mms] Fix parsing NAMESPACE response in Socket driver (Bug #9970).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

@@ -234,11 +234,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 );
 
                 // RFC 4466: NAMESPACE extensions
-                for ($i = 2; isset($v[$i]); $i += 2) {
-                    switch (strtoupper($v[$i])) {
+                for ($j = 2; isset($v[$j]); $j += 2) {
+                    switch (strtoupper($v[$j])) {
                     case 'TRANSLATION':
                         // RFC 5255 [3.4] - TRANSLATION extension
-                        $c[$v[0]]['translation'] = reset($v[$i + 1]);
+                        $c[$v[0]]['translation'] = reset($v[$j + 1]);
                         break;
                     }
                 }
