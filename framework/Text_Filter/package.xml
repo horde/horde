@@ -23,9 +23,9 @@
   <active>yes</active>
  </developer>
  <date>2011-04-24</date>
- <time>23:25:34</time>
+ <time>23:25:49</time>
  <version>
-  <release>1.0.2</release>
+  <release>1.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Fix deletion of unwanted HTML nodes in XSS filter.
-* [mms] Make sure tidy can parse incoming HTML string (Bug #9946).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -665,6 +664,19 @@ Initial release as a PEAR package
    <notes>
 * [mms] Fix deletion of unwanted HTML nodes in XSS filter.
 * [mms] Make sure tidy can parse incoming HTML string (Bug #9946).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-24</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
