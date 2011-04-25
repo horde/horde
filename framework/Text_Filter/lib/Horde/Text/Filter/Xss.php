@@ -133,7 +133,13 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
     protected function _node($doc, $node)
     {
         if ($node->hasChildNodes()) {
-            foreach ($node->childNodes as $child) {
+            /* Iterate in the reverse direction through the node list. This
+             * allows us to alter the original list without breaking things
+             * (foreach() w/removeChild() may exit iteration after the removal
+             * is completed). */
+            for ($i = $node->childNodes->length; --$i > 0;) {
+                $child = $node->childNodes->item($i);
+
                 if ($child instanceof DOMElement) {
                     switch (strtolower($child->tagName)) {
                     case 'a':
