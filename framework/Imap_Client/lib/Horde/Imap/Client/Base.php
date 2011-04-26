@@ -2013,6 +2013,27 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return $this->_fetch($query, $ret, $options);
         }
 
+        /* If doing a changedsince/vanished search that involves a subset of
+         * UIDs, we need to limit the UIDs now. */
+        if ((!empty($options['changedsince']) ||
+             !empty($options['vanished'])) &&
+            !$options['ids']->all) {
+            $changed_query = new Horde_Imap_Client_Fetch_Query();
+            if ($options['ids']->sequence) {
+                $changed_query->seq();
+            } else {
+                $changed_query->uid();
+            }
+
+            $ret = array_intersect_key($ret, $this->_fetch($changed_query, array(), array(
+                'changedsince' => $options['changedsince'],
+                'ids' => $options['ids'],
+                'vanished' => !empty($options['vanished'])
+            )));
+
+            $options['ids'] = new Horde_Imap_Client_Ids(array_keys($ret), $options['ids']->sequence);
+        }
+
         /* Need Seq -> UID lookup if we haven't already grabbed it. */
         if (is_null($res_seq)) {
             $res_seq = $this->_getSeqUidLookup($options['ids']);
