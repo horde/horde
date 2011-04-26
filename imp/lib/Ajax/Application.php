@@ -504,8 +504,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->poll = $poll;
         }
 
-        if ($this->_vars->view &&
-            ($changed = $this->_changed())) {
+        if ($this->_vars->view && $this->_changed()) {
             $result->ViewPort = $this->_viewPortData(true);
         }
 

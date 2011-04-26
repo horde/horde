@@ -225,7 +225,7 @@ var DimpMessage = {
         DimpCore.init();
 
         if (DIMP.conf.disable_compose) {
-            tmp = $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').concat([ $('ctx_contacts_new') ]).compact().invoke('remove');
+            $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').concat([ $('ctx_contacts_new') ]).compact().invoke('remove');
         } else {
             DimpCore.addPopdown('reply_link', 'replypopdown');
             DimpCore.addPopdown('forward_link', 'forwardpopdown');

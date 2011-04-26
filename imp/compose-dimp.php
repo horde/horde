@@ -36,9 +36,6 @@ Horde_Registry::appInit('imp', array(
 
 $vars = Horde_Variables::getDefaultVariables();
 
-/* Determine if compose mode is disabled. */
-$compose_disable = !IMP::canCompose();
-
 /* The headers of the message. */
 $header = array();
 foreach (array('to', 'cc', 'bcc', 'subject') as $v) {
