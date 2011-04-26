@@ -3530,9 +3530,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $out = ++$this->_tag . ' ';
 
             /* Catch all FETCH responses until a tagged response. */
-            $this->_temp['fetchresp'] = empty($options['fetch'])
-                ? array('seq' => array(), 'uid' => array())
-                : $options['fetch'];
+            if (empty($options['fetch'])) {
+                $this->_temp['fetchresp'] = array(
+                    'seq' => array(),
+                    'uid' => array()
+                );
+            } else {
+                $this->_temp['fetchresp'] = &$options['fetch'];
+            }
         }
 
         if (is_array($data)) {

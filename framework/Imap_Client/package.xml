@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mms] Fix intermittent issues retrieving FETCH results in Socket driver.
 * [mms] Optimize expunging in Socket driver with UIDPLUS servers.
 * [mms] Fix parsing NAMESPACE response in Socket driver (Bug #9970).
  </notes>
