@@ -2949,7 +2949,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return $ret;
         }
 
-        if ($ids->all) {
+        if ($ids->all || $ids->search_res) {
             $search = null;
         } else {
             $search = new Horde_Imap_Client_Search_Query();
