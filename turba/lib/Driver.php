@@ -2379,7 +2379,7 @@ class Turba_Driver implements Countable
                 $message->companyname = $value;
                 break;
 
-            case 'departnemt':
+            case 'department':
                 $message->department = $value;
                 break;
 

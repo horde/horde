@@ -2,6 +2,7 @@
 v3.0.2-git
 ----------
 
+[jan] Fix exporting department attribute over ActiveSync.
 [mjr] Fix adding contacts with a category selected.
 
 ------

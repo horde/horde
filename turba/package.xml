@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [jan] Fix exporting department attribute over ActiveSync.
 * [mjr] Fix adding contacts with a category selected.
  </notes>
  <contents>
@@ -1164,7 +1165,8 @@
    <date>2011-04-20</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-*
+* [jan] Fix exporting department attribute over ActiveSync.
+* [mjr] Fix adding contacts with a category selected.
    </notes>
   </release>
  </changelog>
