@@ -57,7 +57,8 @@ class Horde_Variables implements Countable, Iterator
     public function __construct($vars = array(), $sanitize = false)
     {
         if (is_null($vars)) {
-            $vars = Horde_Util::dispelMagicQuotes($_REQUEST);
+            $request_copy = $_REQUEST;
+            $vars = Horde_Util::dispelMagicQuotes($request_copy);
         }
 
         if (isset($vars['_formvars'])) {

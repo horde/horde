@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mms] In Horde_Variables, operate on a copy of the $_REQUEST variable.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
