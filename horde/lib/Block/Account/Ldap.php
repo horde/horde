@@ -175,7 +175,7 @@ class Horde_Block_Account_Ldap extends Horde_Block_Account_Base
     {
         $information = $this->_getAccount();
         try {
-            return strftime('%x', $information->getValue('shadowlastchange', 'single'));
+            return strftime('%x', $information->getValue('shadowlastchange', 'single') * 86400);
         } catch (Horde_Ldap_Exception $e) {
         }
         try {
