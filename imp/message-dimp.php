@@ -70,10 +70,12 @@ foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mailbox') as
     }
 }
 
-$js_vars['DimpMessage.flag'] = IMP_Ajax_Application::flagEntry(array(Horde_Imap_Client::FLAG_SEEN), true, new IMP_Indices($vars->folder, $vars->uid));
+$ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
+$ajax_queue->flag(array(Horde_Imap_Client::FLAG_SEEN), true, new IMP_Indices($vars->folder, $vars->uid));
+$ajax_queue->poll($vars->folder);
 
-if ($poll = IMP_Ajax_Application::pollEntry(array($vars->folder))) {
-    $js_vars['DimpMessage.poll'] = $poll;
+foreach ($ajax_queue->generate() as $key => $val) {
+    $js_vars['DimpMessage.' . $key] = $val;
 }
 
 $js_out = Horde::addInlineJsVars($js_vars, array('ret_vars' => true));

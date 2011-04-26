@@ -2606,23 +2606,25 @@ var DimpBase = {
 
         var sb = this.viewport.createSelectionBuffer();
 
-        $H(DimpCore.parseRangeString(r.flag.uids)).each(function(m) {
-            var s = sb.search({
-                imapuid: { equal: m.value },
-                view: { equal: m.key }
-            });
+        r.flag.each(function(entry) {
+            $H(DimpCore.parseRangeString(entry.uids)).each(function(m) {
+                var s = sb.search({
+                    imapuid: { equal: m.value },
+                    view: { equal: m.key }
+                });
 
-            if (r.flag.add) {
-                r.flag.add.each(function(f) {
-                    this.updateFlag(s, f, true);
-                }, this);
-            }
+                if (entry.add) {
+                    entry.add.each(function(f) {
+                        this.updateFlag(s, f, true);
+                    }, this);
+                }
 
-            if (r.flag.remove) {
-                r.flag.remove.each(function(f) {
-                    this.updateFlag(s, f, false);
-                }, this);
-            }
+                if (entry.remove) {
+                    entry.remove.each(function(f) {
+                        this.updateFlag(s, f, false);
+                    }, this);
+                }
+            }, this);
         }, this);
     },
 
