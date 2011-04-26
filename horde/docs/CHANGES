@@ -2,6 +2,7 @@
 v4.0.2-git
 ----------
 
+[jan] Fix adding categories.
 [jan] Fix calculation of last password change in LDAP account portal block (Bug
       #9770).
 [jan] Don't check for outdated DB schemas if database support is disabled (Bug

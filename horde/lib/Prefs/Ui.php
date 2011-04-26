@@ -198,7 +198,7 @@ class Horde_Prefs_Ui
         Horde::addScriptFile('categoryprefs.js', 'horde');
         Horde::addScriptFile('colorpicker.js', 'horde');
         Horde::addInlineJsVars(array(
-            'HordeAlarmPrefs.category_text' => _("Enter a name for the new category:")
+            'HordeCategoryPrefs.category_text' => _("Enter a name for the new category:")
         ));
 
         $cManager = new Horde_Prefs_CategoryManager();

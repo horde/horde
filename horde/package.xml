@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Fix adding categories.
 * [jan] Don&apos;t check for outdated DB schemas if database support is disabled (Bug #9986).
  </notes>
  <contents>
@@ -4070,6 +4071,7 @@
    <date>2011-04-20</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Fix adding categories.
 * [jan] Don&apos;t check for outdated DB schemas if database support is disabled (Bug #9986).
    </notes>
   </release>
