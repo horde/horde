@@ -400,7 +400,7 @@ class IMP_Imap implements Serializable
                 $error->notify(_("Unexpectedly disconnected from the mail server."));
                 break;
 
-            case Horde_Imap_Client_Exception::READERROR:
+            case Horde_Imap_Client_Exception::SERVER_READERROR:
                 $error->notify(_("Error when communicating with the mail server."));
                 break;
 
