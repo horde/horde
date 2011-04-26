@@ -1493,7 +1493,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * There is no guarantee that if we are using QRESYNC that we will get
          * VANISHED responses, so this is unfortunately necessary. */
         if (is_null($s_res) && ($list_msgs || $use_cache)) {
-            $s_res = $this->_getSeqUidLookup(new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL, true));
+            $s_res = $uidplus
+                ? $this->_getSeqUidLookup($options['ids'], true)
+                : $this->_getSeqUidLookup(new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL, true)
+            );
         }
 
         /* Always use UID EXPUNGE if available. */

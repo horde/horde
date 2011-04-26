@@ -2932,19 +2932,22 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Returns UIDs for an ALL search, or for a sequence number -> UID lookup.
      *
      * @param Horde_Imap_Client_Ids $ids  The IDs to lookup.
+     * @param boolean $reverse            Perform reverse lookup (UID ->
+     *                                    Sequence number) if needed.
      *
      * @return array  An array with 2 possible entries:
      * <pre>
      * 'lookup' - (array) The mapping of sequence numbers [keys] to UIDs
-     *            [values]. Only calculated if $ids contain sequence numbers.
+     *            [values]. Calculated if $reverse is true.
      * 'uids' - (Horde_Imap_Client_Ids) The list of UIDs.
      * </pre>
      */
-    protected function _getSeqUidLookup(Horde_Imap_Client_Ids $ids)
+    protected function _getSeqUidLookup(Horde_Imap_Client_Ids $ids,
+                                        $reverse = false)
     {
         $ret = array('lookup' => array());
 
-        if (!$ids->sequence && !$ids->all) {
+        if (!$ids->sequence && !$ids->all && !$reverse) {
             $ret['uids'] = $ids;
             return $ret;
         }
@@ -2957,16 +2960,21 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         $res = $this->search($this->_selected, $search, array(
+            'sequence' => !$ids->sequence,
             'sort' => array(Horde_Imap_Client::SORT_SEQUENCE)
         ));
 
-        $ret['uids'] = $res['match'];
+        if ($res['count']) {
+            $ret['uids'] = $ids->sequence
+                ? $res['match']
+                : $ids;
 
-        if ($ids->sequence && $res['count']) {
             if ($ids->all) {
                 $seq = range(1, $res['count']);
             } else {
-                $seq = $ids->ids;
+                $seq = $ids->sequence
+                    ? $ids->ids
+                    : $res['match']->ids;
                 sort($seq, SORT_NUMERIC);
             }
             $ret['lookup'] = array_combine($seq, $ret['uids']->ids);
