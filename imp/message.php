@@ -449,10 +449,9 @@ $t_template->set('message_token', $message_token);
 $n_template = $injector->createInstance('Horde_Template');
 $n_template->setOption('gettext', true);
 $n_template->set('readonly', $readonly);
-$n_template->set('usepop', $imp_imap->pop3);
 $n_template->set('id', 1);
 
-if ($imp_imap->imap) {
+if ($imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
     $n_template->set('mailbox', IMP::$mailbox->form_to);
 
     $tmp = $imp_flags->getList(array(
@@ -474,17 +473,17 @@ if ($imp_imap->imap) {
 
     $n_template->set('flaglist_set', $form_set);
     $n_template->set('flaglist_unset', $form_unset);
+}
 
-    if ($imp_imap->allowFolders()) {
-        $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget moveAction', '', '', _("Move"), true));
-        $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget copyAction', '', '', _("Copy"), true));
-        $n_template->set('options', IMP::flistSelect(array(
-            'heading' => _("This message to"),
-            'inc_tasklists' => true,
-            'inc_notepads' => true,
-            'new_folder' => true
-        )));
-    }
+if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
+    $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget moveAction', '', '', _("Move"), true));
+    $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget copyAction', '', '', _("Copy"), true));
+    $n_template->set('options', IMP::flistSelect(array(
+        'heading' => _("This message to"),
+        'inc_tasklists' => true,
+        'inc_notepads' => true,
+        'new_folder' => true
+    )));
 }
 
 $n_template->set('back_to', Horde::widget($mailbox_url, sprintf(_("Back to %s"), $h_page_label), 'widget', '', '', sprintf(_("Bac_k to %s"), $h_page_label), true));

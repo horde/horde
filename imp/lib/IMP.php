@@ -336,7 +336,7 @@ class IMP
     {
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->set('forminput', Horde_Util::formInput());
-        $t->set('use_folders', $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->allowFolders(), true);
+        $t->set('use_folders', $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS), true);
         if ($t->get('use_folders')) {
             Horde::addScriptFile('imp.js', 'imp');
             $menu_view = $GLOBALS['prefs']->getValue('menu_view');

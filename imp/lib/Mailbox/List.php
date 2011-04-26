@@ -490,7 +490,7 @@ class IMP_Mailbox_List implements Countable, Serializable
 
         case IMP::MAILBOX_START_FIRSTUNSEEN:
             $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-            if ($imp_imap->pop3) {
+            if (!$imp_imap->accessMailbox($this->_mailbox, IMP_Imap::ACCESS_SORT)) {
                 return 1;
             }
 
@@ -515,7 +515,7 @@ class IMP_Mailbox_List implements Countable, Serializable
                 : ($this->getArrayIndex($unseen_msgs['min']) + 1);
 
         case IMP::MAILBOX_START_LASTUNSEEN:
-            if ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3) {
+            if (!$imp_imap->accessMailbox($this->_mailbox, IMP_Imap::ACCESS_SORT)) {
                 return 1;
             }
 

@@ -23,8 +23,8 @@ if (IMP::getViewMode() != 'imp') {
     exit;
 }
 
-if ($injector->getInstance('IMP_Factory_Imap')->create()->pop3) {
-    $notification->push(_("Searching is not available with a POP3 server."), 'horde.error');
+if ($injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_SEARCH)) {
+    $notification->push(_("Searching is not available."), 'horde.error');
     $from_message_page = true;
     $actionID = $start = null;
     require_once IMP_BASE . '/mailbox.php';

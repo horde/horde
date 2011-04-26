@@ -36,7 +36,7 @@ class IMP_Ui_Mimp
         }
 
         if (!in_array($page, array('folders', 'search')) &&
-            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->allowFolders()) {
+            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
             $items[] = array(_("Folders"), Horde::url('folders-mimp.php'));
         }
 

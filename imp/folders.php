@@ -24,7 +24,7 @@ Horde::addScriptFile('folders.js', 'imp');
 
 /* Redirect back to the mailbox if folder use is not allowed. */
 $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-if (!$imp_imap->allowFolders()) {
+if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
     $notification->push(_("Folder use is not enabled."), 'horde.error');
     Horde::url('mailbox.php', true)->redirect();
 }

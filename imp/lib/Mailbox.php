@@ -346,7 +346,7 @@ class IMP_Mailbox implements Serializable
             return $this->prefTo($this->_mbox);
 
         case 'readonly':
-            return $injector->getInstance('IMP_Factory_Imap')->create()->isReadOnly($this);
+            return $injector->getInstance('IMP_Factory_Imap')->create()->accessMailbox($this, IMP_Imap::ACCESS_READONLY);
 
         case 'search':
             return $injector->getInstance('IMP_Search')->isSearchMbox($this->_mbox);
@@ -480,10 +480,8 @@ class IMP_Mailbox implements Serializable
             'dir' => isset($entry['d']) ? $entry['d'] : $prefs->getValue('sortdir'),
         );
 
-        /* Restrict POP3 sorting to sequence only.  Although possible to
-         * abstract other sorting methods, all other methods require a
-         * download of all messages, which is too much overhead.*/
-        if ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3) {
+        /* Restrict to sequence sorting only. */
+        if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->accessMailbox($this, IMP_Imap::ACCESS_SORT)) {
             $ob['by'] = Horde_Imap_Client::SORT_SEQUENCE;
             return $ob;
         }

@@ -169,7 +169,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
-        $unsubmode = ($imp_imap->pop3 ||
+        $unsubmode = (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS) ||
                       !$prefs->getValue('subscribe') ||
                       $session->get('imp', 'showunsub'));
 
@@ -186,7 +186,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $ns = $imp_imap->getNamespaceList();
             $ptr = reset($ns);
             $this->_delimiter = $ptr['delimiter'];
-            if ($imp_imap->allowFolders()) {
+            if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
                 $this->_namespaces = $ns;
             }
         }
@@ -200,7 +200,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         /* Add INBOX and exit if folders aren't allowed or if we are using
          * POP3. */
-        if (!$imp_imap->allowFolders()) {
+        if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             $this->_insertElt($this->_makeElt('INBOX', self::ELT_IS_SUBSCRIBED));
             return;
         }
@@ -1375,7 +1375,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $this->changed = true;
         }
 
-        if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->allowFolders()) {
+        if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
             return;
         }
 

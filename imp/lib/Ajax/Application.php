@@ -1814,7 +1814,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     {
         global $injector;
 
-        if ($injector->getInstance('IMP_Factory_Imap')->create()->pop3) {
+        if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FLAGS)) {
             return new stdClass;
         }
 

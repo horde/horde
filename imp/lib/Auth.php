@@ -278,7 +278,7 @@ class IMP_Auth
     {
         $init_url = $GLOBALS['prefs']->getValue('initial_page');
         if (!$init_url ||
-            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3) {
+            !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
             $init_url = 'INBOX';
         }
 

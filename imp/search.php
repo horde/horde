@@ -143,7 +143,8 @@ $constants = array(
 /* Load basic search if javascript is not enabled or searching is not allowed
  * (basic page will do the required redirection in the latter case). */
 $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-if ($imp_imap->pop3 || !$browser->hasFeature('javascript')) {
+if (!$imp_imap->access(IMP_Imap::ACCESS_SEARCH) ||
+    !$browser->hasFeature('javascript')) {
     require IMP_BASE . '/search-basic.php';
     exit;
 }
@@ -356,7 +357,6 @@ if ($vars->criteria_form) {
 $t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 $t->set('action', Horde::url('search.php'));
-$t->set('virtualfolder', $imp_imap->imap);
 
 /* Determine if we are editing a search query. */
 $edit_query = IMP_Mailbox::get($vars->edit_query);

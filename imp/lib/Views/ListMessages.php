@@ -418,9 +418,12 @@ class IMP_Views_ListMessages
             'type' => $GLOBALS['prefs']->getValue('atc_flag')
         ));
         $charset = 'UTF-8';
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         $imp_ui = new IMP_Ui_Mailbox($mbox);
+
+        $flags = $imp_imap->access(IMP_Imap::ACCESS_FLAGS);
         $no_flags_hook = false;
-        $pop3 = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3;
+        $pop3 = $imp_imap->pop3;
         $search = $mbox->search;
 
         /* Display message information. */
@@ -433,7 +436,7 @@ class IMP_Views_ListMessages
             );
 
             /* Get all the flag information. */
-            if (!$pop3) {
+            if ($flags) {
                 if (!$no_flags_hook) {
                     try {
                         $ob['flags'] = array_merge($ob['flags'], Horde::callHook('msglist_flags', array($ob, 'dimp'), 'imp'));

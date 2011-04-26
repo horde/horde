@@ -240,7 +240,7 @@ class IMP_Message
                 $expunge_now = false;
                 $del_flags = array(Horde_Imap_Client::FLAG_DELETED);
 
-                if ($imp_imap->pop3 ||
+                if (!$imp_imap->access(IMP_Imap::ACCESS_TRASH) ||
                     !empty($options['nuke']) ||
                     ($use_trash && ($ob->mbox == $trash)) ||
                     $ob->mbox->vtrash) {

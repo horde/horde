@@ -99,8 +99,7 @@ class IMP_Flags implements ArrayAccess, Serializable
     public function getList(array $opts = array())
     {
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-
-        if ($imp_imap->pop3) {
+        if (!$imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
             return array();
         }
 

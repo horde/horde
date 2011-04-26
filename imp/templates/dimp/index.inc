@@ -309,7 +309,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="ctx_container_collapse"><span class="iconImg"></span><?php echo _("Collapse All") ?></a>
 </div>
 
-<?php if ($imp_imap->allowFolders()): ?>
+<?php if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)): ?>
 <div class="context" id="ctx_folderopts" style="display:none">
  <a id="ctx_folderopts_new"><span class="iconImg"></span><?php echo _("New Folder") ?></a>
 <?php if ($use_sub): ?>

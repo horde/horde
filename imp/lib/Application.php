@@ -305,7 +305,7 @@ class IMP_Application extends Horde_Registry_Application
             ));
         }
 
-        if ($imp_imap->allowFolders()) {
+        if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             $menu->addArray(array(
                 'icon' => 'folders/folder.png',
                 'text' => _("_Folders"),
@@ -526,32 +526,36 @@ class IMP_Application extends Horde_Registry_Application
             $injector->getInstance('IMP_Filter')->filter('INBOX');
         }
 
-        $tree->addNode(
-            strval($parent) . 'compose',
-            $parent,
-            _("New Message"),
-            0,
-            false,
-            array(
-                'icon' => Horde_Themes::img('compose.png'),
-                'url' => IMP::composeLink()
-            )
-        );
+        if (IMP::canCompose()) {
+            $tree->addNode(
+                strval($parent) . 'compose',
+                $parent,
+                _("New Message"),
+                0,
+                false,
+                array(
+                    'icon' => Horde_Themes::img('compose.png'),
+                    'url' => IMP::composeLink()
+                )
+            );
+        }
 
-        /* Add link to the search page. */
-        $tree->addNode(
-            strval($parent) . 'search',
-            $parent,
-            _("Search"),
-            0,
-            false,
-            array(
-                'icon' => Horde_Themes::img('search.png'),
-                'url' => Horde::url('search.php')
-            )
-        );
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap');
+        if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
+            $tree->addNode(
+                strval($parent) . 'search',
+                $parent,
+                _("Search"),
+                0,
+                false,
+                array(
+                    'icon' => Horde_Themes::img('search.png'),
+                    'url' => Horde::url('search.php')
+                )
+            );
+        }
 
-        if ($injector->getInstance('IMP_Factory_Imap')->create()->pop3) {
+        if (!$access->access(IMP_Imap::ACCESS_FOLDERS)) {
             return;
         }
 
