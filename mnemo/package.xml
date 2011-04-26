@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
  <notes>
-* 
+* [jan] Fix color picker for categories in the note list header (Bug #9980).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -819,7 +819,7 @@
    <date>2011-04-06</date>
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
-* 
+* [jan] Fix color picker for categories in the note list header (Bug #9980).
    </notes>
   </release>
  </changelog>
