@@ -42,7 +42,7 @@ class Horde_LoginTasks_Task_AdminCheck extends Horde_LoginTasks_Task
      */
     public function execute()
     {
-        if (!empty($GLOBALS['conf']['sql'])) {
+        if (!empty($GLOBALS['conf']['sql']['phptype'])) {
             /* Check for outdated DB schemas. */
             $migration = new Horde_Core_Db_Migration();
             foreach ($migration->apps as $app) {

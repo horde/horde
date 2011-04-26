@@ -2,6 +2,8 @@
 v4.0.2-git
 ----------
 
+[jan] Don't check for outdated DB schemas if database support is disabled (Bug
+      #9986).
 [mjr] Fix editing settings of fixed portal blocks (Bug #9910).
 
 
