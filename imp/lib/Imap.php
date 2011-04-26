@@ -240,15 +240,14 @@ class IMP_Imap implements Serializable
     }
 
     /**
-     * Do a UIDVALIDITY check - needed if UIDs are passed between page
-     * accesses.
+     * Do a UIDVALIDITY check.
      *
-     * @param string $mailbox  The mailbox to check. Must be an IMAP mailbox.
+     * @param IMP_Mailbox $mailbox  The mailbox to check.
      *
      * @return string  The mailbox UIDVALIDITY.
      * @throws IMP_Exception
      */
-    public function checkUidvalidity($mailbox)
+    public function checkUidvalidity(IMP_Mailbox $mailbox)
     {
         global $session;
 
@@ -257,19 +256,21 @@ class IMP_Imap implements Serializable
             return;
         }
 
-        if (!isset($this->_uidvalid[$mailbox])) {
+        $mbox_str = strval($mailbox);
+
+        if (!isset($this->_uidvalid[$mbox_str])) {
             $status = $this->ob->status($mailbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
             $val = $session->get('imp', 'uidvalid/' . $mailbox);
             $session->set('imp', 'uidvalid/' . $mailbox, $status['uidvalidity']);
 
-            $this->_uidvalid[$mailbox] = (!is_null($val) && ($status['uidvalidity'] != $val));
+            $this->_uidvalid[$mbox_str] = (!is_null($val) && ($status['uidvalidity'] != $val));
         }
 
-        if ($this->_uidvalid[$mailbox]) {
+        if ($this->_uidvalid[$mbox_str]) {
             throw new IMP_Exception(_("Mailbox structure on server has changed."));
         }
 
-        return $session->get('imp', 'uidvalid/' . $mailbox);
+        return $session->get('imp', 'uidvalid/' . $mbox_str);
     }
 
     /**

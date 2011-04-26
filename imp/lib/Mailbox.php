@@ -395,7 +395,7 @@ class IMP_Mailbox implements Serializable
                     !$this->search);
 
         case 'uidvalid':
-            return $injector->getInstance('IMP_Factory_Imap')->create()->checkUidvalidity($this->_mbox);
+            return $injector->getInstance('IMP_Factory_Imap')->create()->checkUidvalidity($this);
 
         case 'value':
             return $this->_mbox;
