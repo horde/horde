@@ -202,16 +202,19 @@ class Horde_Ldap_Schema
     {
         try {
             $attributes = $this->_getAttr($oc, 'may');
-            if ($checksup) {
+        } catch (Horde_Ldap_Exception $e) {
+            $attributes = array();
+        }
+        if ($checksup) {
+            try {
                 foreach ($this->superclass($oc) as $sup) {
                     $attributes = array_merge($attributes, $this->may($sup, true));
                 }
-                $attributes = array_values(array_unique($attributes));
+            } catch (Horde_Ldap_Exception $e) {
             }
-            return $attributes;
-        } catch (Horde_Ldap_Exception $e) {
-            return array();
+            $attributes = array_values(array_unique($attributes));
         }
+        return $attributes;
     }
 
     /**
@@ -226,16 +229,19 @@ class Horde_Ldap_Schema
     {
         try {
             $attributes = $this->_getAttr($oc, 'must');
-            if ($checksup) {
+        } catch (Horde_Ldap_Exception $e) {
+            $attributes = array();
+        }
+        if ($checksup) {
+            try {
                 foreach ($this->superclass($oc) as $sup) {
                     $attributes = array_merge($attributes, $this->must($sup, true));
                 }
-                $attributes = array_values(array_unique($attributes));
+            } catch (Horde_Ldap_Exception $e) {
             }
-            return $attributes;
-        } catch (Horde_Ldap_Exception $e) {
-            return array();
+            $attributes = array_values(array_unique($attributes));
         }
+        return $attributes;
     }
 
     /**

@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
  <notes>
-* 
+* [jan] Fix detecting superiour objectclass&apos; must/may attributes (Bug #9826).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -238,7 +238,7 @@
    <date>2011-04-20</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
    <notes>
-* 
+* [jan] Fix detecting superiour objectclass&apos; must/may attributes (Bug #9826).
    </notes>
   </release>
  </changelog>
