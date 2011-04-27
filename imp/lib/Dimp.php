@@ -62,6 +62,7 @@ class IMP_Dimp
         // Need to include script files before we start output
         $core_scripts = array(
             array('effects.js', 'horde'),
+            array('sound.js', 'horde'),
             array('horde.js', 'horde'),
             array('dimpcore.js', 'imp'),
             array('growler.js', 'horde')
