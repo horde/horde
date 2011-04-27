@@ -38,36 +38,41 @@ class IMP_Compose_Exception extends IMP_Exception
     protected $_logged = false;
 
     /**
-     * @param string $log  The log level to immediately log the message to.
-     *                     If empty, will only log message if log() is
-     *                     explicitly called.
+     * Creates a new Exception object and immediately logs the message.
+     *
+     * @param string $log     The log level to immediately log the message to.
+     *                        If empty, will only log message if log() is
+     *                        explicitly called.
+     * @param mixed $message  The exception message, PEAR_Error object, or
+     *                        Exception object.
+     * @param integer $code   A numeric error code.
+     *
+     * @return IMP_Compose_Exception  Exception argument.
      */
-    public function __construct($message = null, $log = null)
+    static public function createAndLog()
     {
-        parent::__construct($message);
-
-        if (!is_null($log)) {
-            Horde::logMessage($this, $log);
-            $this->_logged = true;
-        }
+        $e = new self(func_get_arg(1), func_get_arg(2));
+        $e->log(func_get_arg(0));
+        return $e;
     }
 
     /**
      * Log error message.
      *
+     * @param string $level  Level to log at.
+     *
      * @return boolean  True if message was logged.
      */
-    public function log()
+    public function log($level = 'ERR')
     {
-        if ($this->log) {
-            if (!$this->_logged) {
-                Horde::logMessage($this, 'ERR');
-                $this->_logged = true;
-            }
-            return true;
+        if ($this->_logged) {
+            return false;
         }
 
-        return false;
+        Horde::logMessage($this, $level);
+        $this->_logged = true;
+
+        return true;
     }
 
 }
