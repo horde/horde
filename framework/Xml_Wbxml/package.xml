@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Don't set codepage multiple times (Bug #9964).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

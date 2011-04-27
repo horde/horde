@@ -228,6 +228,7 @@ class Horde_Xml_Wbxml_Encoder extends Horde_Xml_Wbxml_ContentHandler
             }
             if ($this->_currentURI != $uri) {
                 $this->changecodepage($uri);
+                $this->_currentURI = $uri;
             }
             if ($this->_subParser == null) {
                 $this->writeTag($name, $attributes, true, $this->_charset);
@@ -403,11 +404,8 @@ class Horde_Xml_Wbxml_Encoder extends Horde_Xml_Wbxml_ContentHandler
         $cp = $this->_dtd->toCodePageURI($uri);
         if (strlen($cp)) {
             $this->_dtd = $this->_dtdManager->getInstanceURI($uri);
-
             $this->_output .= chr(Horde_Xml_Wbxml::GLOBAL_TOKEN_SWITCH_PAGE);
             $this->_output .= chr($cp);
-            $this->_currentURI = $uri;
-
         } else {
             $this->_subParser = new Horde_Xml_Wbxml_Encoder(true);
             $this->_subParserStack = 1;
