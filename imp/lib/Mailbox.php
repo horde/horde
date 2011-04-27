@@ -23,11 +23,13 @@
  *                            are replaced with localized strings and
  *                            namespace information is removed.
  * @property boolean $drafts  Is this a Drafts mailbox?
+ * @property boolean $editquery  Can this search query be edited?
  * @property boolean $editvfolder  Can this virtual folder be edited?
  * @property boolean $exists  Does this mailbox exist on the IMAP server?
  * @property boolean $fixed  Is this mailbox fixed (i.e. unchangable)?
  * @property string $form_to  Converts this mailbox to a form representation.
  * @property boolean $is_open  Is this level expanded?
+ * @property boolean $is_trash  Is this a trash folder?
  * @property object $icon  Icon information for the mailbox. Properties:
  *   - alt: (string) The alt text for the icon.
  *   - class: (string) The CSS class name.
@@ -54,6 +56,7 @@
  *             polled.
  * @property string $pref_from  Convert mailbox name from preference storage.
  * @property string $pref_to  Convert mailbox name to preference storage.
+ * @property boolean $query  Is this a search query?
  * @property boolean $readonly  Is this mailbox read-only?
  * @property boolean $search  Is this a search mailbox?
  * @property boolean $special  Is this is a "special" element?
@@ -231,6 +234,9 @@ class IMP_Mailbox implements Serializable
             $special = $this->getSpecialMailboxes();
             return ($this->_mbox == $special[self::SPECIAL_DRAFTS]);
 
+        case 'editquery':
+            return $injector->getInstance('IMP_Search')->isQuery($this->_mbox, true);
+
         case 'editvfolder':
             return $injector->getInstance('IMP_Search')->isVFolder($this->_mbox, true);
 
@@ -259,6 +265,9 @@ class IMP_Mailbox implements Serializable
 
         case 'is_open':
             return $injector->getInstance('IMP_Imap_Tree')->isOpen($this->_mbox);
+
+        case 'is_trash':
+            return (self::getPref('trash_folder') == $this) || $this->vtrash;
 
         case 'icon':
             return $this->_getIcon();
@@ -344,6 +353,9 @@ class IMP_Mailbox implements Serializable
 
         case 'pref_to':
             return $this->prefTo($this->_mbox);
+
+        case 'query':
+            return $injector->getInstance('IMP_Search')->isQuery($this->_mbox);
 
         case 'readonly':
             return $injector->getInstance('IMP_Factory_Imap')->create()->accessMailbox($this, IMP_Imap::ACCESS_READONLY);

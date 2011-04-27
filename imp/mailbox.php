@@ -49,8 +49,7 @@ try {
 } catch (Horde_Exception_HookNotSet $e) {}
 
 /* Is this a search mailbox? */
-$imp_search = $injector->getInstance('IMP_Search');
-$search_mbox = $imp_search->isSearchMbox(IMP::$mailbox);
+$search_mbox = IMP::$mailbox->search;
 $vars = Horde_Variables::getDefaultVariables();
 
 /* There is a chance that this page is loaded directly via message.php. If so,
@@ -66,6 +65,7 @@ if (!Horde_Util::nonInputVar('from_message_page')) {
 $do_filter = false;
 $imp_flags = $injector->getInstance('IMP_Flags');
 $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+$imp_search = $injector->getInstance('IMP_Search');
 $indices = new IMP_Indices($vars->indices);
 
 /* Run through the action handlers */
@@ -253,8 +253,7 @@ $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end'
 $sortpref = IMP::$mailbox->getSort();
 
 /* Determine if we are going to show the Hide/Purge Deleted Message links. */
-if (!$prefs->getValue('use_trash') &&
-    !$imp_search->isVinbox(IMP::$mailbox)) {
+if (!$prefs->getValue('use_trash') && !IMP::$mailbox->vinbox) {
     $showdelete = array('hide' => ($sortpref['by'] != Horde_Imap_Client::SORT_THREAD), 'purge' => true);
 } else {
     $showdelete = array('hide' => false, 'purge' => false);
@@ -334,7 +333,6 @@ if (!$preview_tooltip) {
 }
 
 $unread = $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
-$vtrash = $imp_search->isVTrash(IMP::$mailbox);
 
 Horde::addInlineScript(array(
     'ImpMailbox.unread = ' . intval($unread)
@@ -352,11 +350,11 @@ if ($unread) {
     $pagetitle = $title .= ' (' . $unread . ')';
 }
 
-if ($imp_search->isVFolder(IMP::$mailbox, true)) {
+if (IMP::$mailbox->editvfolder) {
     $query_text = wordwrap($imp_search[IMP::$mailbox]->querytext);
     $pagetitle .= ' [' . Horde::linkTooltip('#', $query_text, '', '', '', $query_text) . _("Virtual Folder") . '</a>]';
     $title .= ' [' . _("Virtual Folder") . ']';
-} elseif ($imp_search->isQuery(IMP::$mailbox, true)) {
+} elseif (IMP::$mailbox->editquery) {
     $query_text = wordwrap($imp_search[IMP::$mailbox]->querytext);
     $pagetitle = Horde::linkTooltip('#', $query_text, '', '', '', $query_text) . $pagetitle . '</a>';
 } else {
@@ -404,10 +402,10 @@ if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
             $hdr_template->set('empty_img', Horde::img('empty_spam.png', _("Empty folder")));
         }
     } else {
-        if ($imp_search->isVFolder(IMP::$mailbox, true)) {
+        if (IMP::$mailbox->editvfolder) {
             $edit_search = _("Edit Virtual Folder");
-        } elseif ($imp_search->isQuery(IMP::$mailbox)) {
-            if ($imp_search->isQuery(IMP::$mailbox, true)) {
+        } elseif (IMP::$mailbox->query) {
+            if (IMP::$mailbox->editquery) {
                 $edit_search = _("Edit Search Query");
             } else {
                 /* Basic search results. */
@@ -528,13 +526,13 @@ if ($pageOb['msgcount']) {
     /* Prepare the actions template. */
     $a_template = $injector->createInstance('Horde_Template');
     if (!$readonly) {
-        $del_class = ($use_trash && ($vtrash || (IMP::$mailbox == IMP_Mailbox::getPref('trash_folder'))))
+        $del_class = ($use_trash && IMP::$mailbox->is_trash)
             ? 'permdeleteAction'
             : 'deleteAction';
         $a_template->set('delete', Horde::widget('#', _("Delete"), 'widget ' . $del_class, '', '', _("_Delete")));
     }
 
-    if ($showdelete['purge'] || !is_null($vtrash)) {
+    if ($showdelete['purge'] || IMP::$mailbox->vtrash) {
         $a_template->set('undelete', Horde::widget('#', _("Undelete"), 'widget undeleteAction', '', '', _("_Undelete")));
     }
 
