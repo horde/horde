@@ -120,7 +120,7 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
             list($this->api, $category) = explode('/', $this->calendar, 2);
         }
         try {
-            $this->_params['registry']->call($this->api . '/saveTimeObject', array($event->timeobject));
+            $this->_params['registry']->call($this->api . '/saveTimeObject', array($event->toTimeobject()));
         } catch (Horde_Exception $e) {
             throw new Kronolith_Exception($e);
         }

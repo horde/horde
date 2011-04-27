@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [jan] Fix dragging tasks in the dynamic view.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1714,7 +1714,7 @@
    <date>2011-04-20</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [jan] Fix dragging tasks in the dynamic view.
    </notes>
   </release>
  </changelog>
