@@ -899,14 +899,14 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
      * @param Kronolith_Event $event     An event object.
      * @param Kronolith_Event $original  If $event is an exception, this should
      *                                   be set to the original event.
-     * @param array $attributes          The attributes sent by the client.
+     * @param object $attributes         The attributes sent by the client.
      *                                   Expected to contain cstart and cend.
      *
      * @return object  The result object.
      */
     protected function _saveEvent(Kronolith_Event $event,
                                   Kronolith_Event $original = null,
-                                  array $attributes = array())
+                                  $attributes = null)
     {
         if ($this->_vars->targetcalendar) {
             $cal = $this->_vars->targetcalendar;
