@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
-* 
+* Fix listing users in Customsql driver (Bug #9963).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

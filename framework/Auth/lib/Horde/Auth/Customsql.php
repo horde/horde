@@ -231,18 +231,10 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
         );
 
         try {
-            $result = $this->_db->selectAll($query);
+            return $this->_db->selectValues($query);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
-
-        /* Loop through and build return array. */
-        $users = array();
-        foreach ($result as $ar) {
-            $users[] = $ar[0];
-        }
-
-        return $users;
     }
 
     /**
