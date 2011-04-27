@@ -9,12 +9,12 @@
      <select id="flag<tag:id />" name="flag">
       <option value="" selected="selected"><gettext>Mark Messages</gettext></option>
       <option value="" disabled="disabled">- - - - - - - -</option>
-      <option value=""><gettext>Mark as:</gettext></option>
+      <option class="actionsSelectSection" value=""><gettext>Mark as:</gettext></option>
 <loop:flaglist_set>
       <option value="<tag:flaglist_set.f />">&nbsp;&nbsp;<tag:flaglist_set.l /></option>
 </loop:flaglist_set>
       <option value="" disabled="disabled">- - - - - - - -</option>
-      <option value=""><gettext>Unmark as:</gettext></option>
+      <option class="actionsSelectSection" value=""><gettext>Unmark as:</gettext></option>
 <loop:flaglist_unset>
       <option value="<tag:flaglist_unset.f />">&nbsp;&nbsp;<tag:flaglist_unset.l /></option>
 </loop:flaglist_unset>

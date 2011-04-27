@@ -35,6 +35,10 @@ table.mboxactions {
     width: 6%;
 }
 
+.actionsSelectSection {
+    font-weight: bold;
+}
+
 /* Message list table styles. */
 .searchfolder a.smallheader {
     display: block;
