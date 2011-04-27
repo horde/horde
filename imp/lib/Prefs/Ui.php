@@ -40,7 +40,7 @@ class IMP_Prefs_Ui
         if (!$imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
             $ui->suppressGroups[] = 'flags';
         }
-        if (!$imp_imap->access(IMP_Imap::ACCESS_SEARCHES)) {
+        if (!$imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
             $ui->suppressGroups[] = 'searches';
         }
 
