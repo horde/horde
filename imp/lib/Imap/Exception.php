@@ -38,12 +38,12 @@ class IMP_Imap_Exception extends Horde_Imap_Client_Exception
      * @param integer $level  Log level.
      * @param boolean $force  Force logging, even if already done?
      */
-    public function log($msg = null, $level = null, $force = false)
+    public function log($msg = null, $level = 'ERR', $force = false)
     {
         if (!$this->_logged || $force) {
             Horde::logMessage(
                 is_null($msg) ? $this : $msg,
-                is_null($level) ? $this->getCode() : $level
+                $level
             );
 
             $this->_logged = true;
