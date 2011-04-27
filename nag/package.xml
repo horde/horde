@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:55:30</time>
+ <date>2011-04-27</date>
+ <time>13:25:22</time>
  <version>
   <release>3.0.1</release>
   <api>3.0.0</api>
@@ -408,7 +408,6 @@
       <file name="unchecked.png" role="horde" />
       <file name="za.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
-     <file name="categoryCSS.php" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
     <dir name="fadetogreen">
@@ -795,7 +794,6 @@
    <install as="nag/templates/search/search.inc" name="templates/search/search.inc" />
    <install as="nag/templates/view/task.inc" name="templates/view/task.inc" />
    <install as="nag/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
-   <install as="nag/themes/default/categoryCSS.php" name="themes/default/categoryCSS.php" />
    <install as="nag/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="nag/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
    <install as="nag/themes/default/graphics/alarm.png" name="themes/default/graphics/alarm.png" />
@@ -942,7 +940,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-04-27</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [mjr] Fix editing tasklists (Bug #9965).

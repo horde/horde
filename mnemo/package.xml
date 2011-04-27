@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:57:00</time>
+ <date>2011-04-27</date>
+ <time>13:25:24</time>
  <version>
   <release>3.0.1</release>
   <api>3.0.0</api>
@@ -349,7 +349,6 @@
       <file name="search.png" role="horde" />
       <file name="za.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
-     <file name="categoryCSS.php" role="horde" />
      <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
@@ -686,7 +685,6 @@
    <install as="mnemo/templates/search/search.inc" name="templates/search/search.inc" />
    <install as="mnemo/templates/view/memo.inc" name="templates/view/memo.inc" />
    <install as="mnemo/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
-   <install as="mnemo/themes/default/categoryCSS.php" name="themes/default/categoryCSS.php" />
    <install as="mnemo/themes/default/rtl.css" name="themes/default/rtl.css" />
    <install as="mnemo/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="mnemo/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
@@ -816,7 +814,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-04-27</date>
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
 * [jan] Fix color picker for categories in the note list header (Bug #9980).
