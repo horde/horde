@@ -1097,11 +1097,6 @@ class Nag_Task
      */
     public function getCssStyle()
     {
-        if (!$this->category ||
-            in_array($this->category, array('_unfiled_', '_default_'))) {
-            return '';
-        }
-
         $cManager = new Horde_Prefs_CategoryManager();
         $colors = $cManager->colors();
         if (!isset($colors[$this->category])) {

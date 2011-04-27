@@ -536,11 +536,6 @@ class Mnemo
      */
     public function getCssStyle($category, $stickies = false)
     {
-        if (!$category ||
-            in_array($category, array('_unfiled_', '_default_'))) {
-            return '';
-        }
-
         $cManager = new Horde_Prefs_CategoryManager();
         $colors = $cManager->colors();
         if (!isset($colors[$category])) {
