@@ -113,7 +113,9 @@ class IMP_Flags implements ArrayAccess, Serializable
             }
         }
 
-        if (!isset($opts['mailbox']) || !strlen($opts['mailbox'])) {
+        if (!isset($opts['mailbox']) ||
+            !strlen($opts['mailbox']) ||
+            IMP_Mailbox::get($opts['mailbox'])->search) {
             return array_values($ret);
         }
 
