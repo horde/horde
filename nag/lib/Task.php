@@ -1090,4 +1090,27 @@ class Nag_Task
         $this->tasklist = $GLOBALS['prefs']->getValue('default_tasklist');
     }
 
+    /**
+     * CSS formatting.
+     *
+     * @return string  CSS formatting.
+     */
+    public function getCssStyle()
+    {
+        if (!$this->category ||
+            in_array($this->category, array('_unfiled_', '_default_'))) {
+            return '';
+        }
+
+        $cManager = new Horde_Prefs_CategoryManager();
+        $colors = $cManager->colors();
+        if (!isset($colors[$this->category])) {
+            return '';
+        }
+        $fgColors = $cManager->fgColors();
+
+        return 'color:' . (isset($fgColors[$this->category]) ? $fgColors[$this->category] : $fgColors['_default_']) . ';' .
+            'background:' . $colors[$this->category] . ';';
+    }
+
 }

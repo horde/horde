@@ -144,3 +144,10 @@ table#notepad-list th.sortdown {
 .notepad-list-icon {
     width: 1%;
 }
+
+.base-category {
+    padding: 0 4px;
+}
+.stickies-category {
+    color: black;
+}
