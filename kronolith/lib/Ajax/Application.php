@@ -965,14 +965,14 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
      * Causes an exception to be added to the original event as well.
      *
      * @param Kronolith_Event $event  The recurring event.
-     * @param array $attributes       The attributes passed from the client.
+     * @param object $attributes      The attributes passed from the client.
      *                                Expected to contain rstart and rend.
      *
      * @return Kronolith_Event  The event representing the exception, with
      *                          the start/end times set the same as the original
      *                          occurence.
      */
-    protected function _createExceptionEvent(Kronolith_Event $event, array $attributes)
+    protected function _createExceptionEvent(Kronolith_Event $event, $attributes)
     {
         // Add the exception to the original event
         if ($attributes->rstart) {
