@@ -175,7 +175,6 @@ $mime_drivers = array(
         'icons' => array(
             'default'                        => 'text.png',
             'application/javascript'         => 'script-js.png',
-            'application/x-extension-bash'   => 'shell.png',
             'application/x-extension-c'      => 'source-c.png',
             'application/x-extension-cpp'    => 'source-c.png',
             'application/x-extension-cs'     => 'source-c.png',
@@ -187,7 +186,6 @@ $mime_drivers = array(
             'application/x-extension-phps'   => 'php.png',
             'application/x-extension-py'     => 'source-python.png',
             'application/x-extension-python' => 'source-python.png',
-            'application/x-extension-sh'     => 'shell.png',
             'application/x-extension-xml'    => 'xml.png',
             'application/x-httpd-php'        => 'php.png',
             'application/x-httpd-php3'       => 'php.png',
@@ -207,7 +205,6 @@ $mime_drivers = array(
             'text/x-chdr'                    => 'source-h.png',
             'text/x-csrc'                    => 'source-c.png',
             'text/x-java'                    => 'source-java.png',
-            'text/x-sql'                     => 'sql.png',
             'text/xml'                       => 'xml.png',
         ),
     ),
