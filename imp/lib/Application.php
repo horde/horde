@@ -540,7 +540,7 @@ class IMP_Application extends Horde_Registry_Application
             );
         }
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
             $tree->addNode(
                 strval($parent) . 'search',
@@ -555,7 +555,7 @@ class IMP_Application extends Horde_Registry_Application
             );
         }
 
-        if (!$access->access(IMP_Imap::ACCESS_FOLDERS)) {
+        if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             return;
         }
 
