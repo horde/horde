@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mms] Filter CAPABILITY return if sent in response code (Bug #9976).
 * [mms] Correctly limit FETCH results when specifying changedsince or vanished options and all requested fetch data is already cached.
 * [mms] Fix intermittent issues retrieving FETCH results in Socket driver.
 * [mms] Optimize expunging in Socket driver with UIDPLUS servers.

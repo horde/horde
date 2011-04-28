@@ -308,6 +308,18 @@ abstract class Horde_Imap_Client_Base implements Serializable
         if (is_null($val)) {
             unset($this->_init[$key]);
         } else {
+            switch ($key) {
+            case 'capability':
+                if (!empty($this->_params['capability_ignore'])) {
+                    if ($this->_debug &&
+                        ($ignored = array_intersect_key($val, array_flip($this->_params['capability_ignore'])))) {
+                        fwrite($this->_debug, sprintf(">>> IGNORING these IMAP capabilities: %s\n", implode(', ', array_keys($ignored))));
+                    }
+                    $val = array_diff_key($val, array_flip($this->_params['capability_ignore']));
+                }
+                break;
+            }
+
             $this->_init[$key] = $val;
         }
         $this->changed = true;
@@ -434,17 +446,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     public function capability()
     {
         if (!isset($this->_init['capability'])) {
-            $capability = $this->_capability();
-
-            if (!empty($this->_params['capability_ignore'])) {
-                if ($this->_debug &&
-                    ($ignored = array_intersect_key($capability, array_flip($this->_params['capability_ignore'])))) {
-                    fwrite($this->_debug, sprintf(">>> IGNORING these IMAP capabilities: %s\n", implode(', ', array_keys($ignored))));
-                }
-                $capability = array_diff_key($capability, array_flip($this->_params['capability_ignore']));
-            }
-
-            $this->_setInit('capability', $capability);
+            $this->_setInit('capability', $this->_capability());
         }
 
         return $this->_init['capability'];
