@@ -515,7 +515,7 @@ class IMP_Mailbox_List implements Countable, Serializable
                 : ($this->getArrayIndex($unseen_msgs['min']) + 1);
 
         case IMP::MAILBOX_START_LASTUNSEEN:
-            if (!$imp_imap->accessMailbox($this->_mailbox, IMP_Imap::ACCESS_SORT)) {
+            if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->accessMailbox($this->_mailbox, IMP_Imap::ACCESS_SORT)) {
                 return 1;
             }
 
