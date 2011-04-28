@@ -813,6 +813,8 @@ class IMP_Mailbox implements Serializable
             'INBOX' => _("Inbox")
         );
 
+        /* Bug #9971: Special mailboxes can be empty IMP_Mailbox objects -
+         * catch this with the strlen check below. */
         foreach ($this->getSpecialMailboxes() as $key => $val) {
             switch ($key) {
             case self::SPECIAL_DRAFTS:
@@ -836,7 +838,8 @@ class IMP_Mailbox implements Serializable
         }
 
         foreach ($sub as $key => $val) {
-            if ((($key != 'INBOX') || ($this->_mbox == $out)) &&
+            if (strlen($key) &&
+                (($key != 'INBOX') || ($this->_mbox == $out)) &&
                 strpos($this->_mbox, $key) === 0) {
                 $len = strlen($key);
                 if ((strlen($this->_mbox) == $len) || ($this->_mbox[$len] == (is_null($ns_info) ? '' : $ns_info['delimiter']))) {
