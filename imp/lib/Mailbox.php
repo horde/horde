@@ -659,18 +659,19 @@ class IMP_Mailbox implements Serializable
      * Return the list of special mailboxes.
      *
      * @return array  A list of folders, with the self::SPECIAL_* constants as
-     *                keys and values containing the IMP_Mailbox objects
-     *                (self::SPECIAL_SENT contains an array of objects).
+     *                keys and values containing the IMP_Mailbox objects or
+     *                null if the mailbox doesn't exist (self::SPECIAL_SENT
+     *                contains an array of objects).
      */
     static public function getSpecialMailboxes()
     {
         if (!self::$_specialCache) {
-            self::$_specialCache = array_filter(array(
+            self::$_specialCache = array(
                 self::SPECIAL_DRAFTS => self::getPref('drafts_folder'),
                 self::SPECIAL_SENT => $GLOBALS['injector']->getInstance('IMP_Identity')->getAllSentmailFolders(),
                 self::SPECIAL_SPAM => self::getPref('spam_folder'),
-                self::SPECIAL_TRASH => self::getPref('trash_folder')
-            ));
+                self::SPECIAL_TRASH => $GLOBALS['prefs']->getValue('use_trash') ? self::getPref('trash_folder') : null
+            );
         }
 
         return self::$_specialCache;
