@@ -500,7 +500,7 @@ class IMP
         $params = array('mailbox' => $mailbox);
         if (!is_null($uid)) {
             $params['uid'] = $uid;
-            if ($mailbox != $tmailbox) {
+            if (!is_null($tmailbox) && ($mailbox != $tmailbox)) {
                 $params['thismailbox'] = $tmailbox;
             }
         }
