@@ -72,7 +72,7 @@ class IMP_Block_Newmail extends Horde_Core_Block
                 $subject = $imp_ui->getSubject($envelope->subject, true);
 
                 $html .= '<tr style="cursor:pointer" class="text"><td>' .
-                    IMP::generateIMPUrl('mailbox.php', 'INBOX', $uid)->link() .
+                    IMP::generateIMPUrl('message.php', 'INBOX', $uid)->link() .
                     '<strong>' . $from['from'] . '</strong><br />' .
                     $subject . '</a></td>' .
                     '<td>' . htmlspecialchars($date, ENT_QUOTES, $charset) . '</td></tr>';
