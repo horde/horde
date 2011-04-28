@@ -63,6 +63,7 @@ if (!Horde_Util::nonInputVar('from_message_page')) {
 }
 
 $do_filter = false;
+$flag_filter_prefix = "flag\0";
 $imp_flags = $injector->getInstance('IMP_Flags');
 $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 $imp_search = $injector->getInstance('IMP_Search');
@@ -173,11 +174,35 @@ case 'flag_messages':
 case 'filter_messages':
     if (!$readonly) {
         $filter = IMP_Mailbox::formFrom($vars->filter);
-        try {
-            $q_ob = $imp_search->applyFilter($filter, array(IMP::$mailbox));
+        $q_ob = null;
+
+        if (strpos($filter, $flag_filter_prefix) === 0) {
+            /* Flag filtering. */
+            $flag_filter = $imp_flags->parseFormId(substr($filter, strpos($filter, "\0") + 1));
+
+            try {
+                $q_ob = $imp_search->createQuery(array(
+                    new IMP_Search_Element_Flag(
+                        $flag_filter['flag'],
+                        $flag_filter['set']
+                    )),
+                    array(
+                        'mboxes' => array(IMP::$mailbox),
+                        'type' => IMP_Search::CREATE_QUERY
+                    )
+                );
+            } catch (InvalidArgumentException $e) {}
+        } else {
+            /* Pre-defined filters. */
+            try {
+                $q_ob = $imp_search->applyFilter($filter, array(IMP::$mailbox));
+            } catch (InvalidArgumentException $e) {}
+        }
+
+        if ($q_ob) {
             Horde::url('mailbox.php', true)->add('mailbox', strval($q_ob))->redirect();
             exit;
-        } catch (InvalidArgumentException $e) {}
+        }
     }
     break;
 
@@ -467,6 +492,7 @@ if ($pageOb['msgcount']) {
     $n_template->set('sessiontag', Horde_Util::formInput());
     $n_template->set('readonly', $readonly);
 
+    $filtermsg = false;
     if ($imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
         $args = array(
             'imap' => true,
@@ -487,9 +513,15 @@ if ($pageOb['msgcount']) {
 
         $n_template->set('flaglist_set', $form_set);
         $n_template->set('flaglist_unset', $form_unset);
+
+        if (!$search_mbox && $imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
+            $filtermsg = true;
+            $n_template->set('flag_filter', IMP_Mailbox::formTo($flag_filter_prefix));
+        }
     }
 
-    if ($imp_imap->accessMailbox(IMP::$mailbox, IMP_Imap::ACCESS_FILTERS)) {
+    if (!$search_mbox &&
+        $imp_imap->accessMailbox(IMP::$mailbox, IMP_Imap::ACCESS_FILTERS)) {
         $filters = array();
         $imp_search->setIteratorFilter(IMP_Search::LIST_FILTER);
         foreach ($imp_search as $val) {
@@ -498,10 +530,14 @@ if ($pageOb['msgcount']) {
                 'v' => IMP_Mailbox::formTo($val)
             );
         }
+
         if (!empty($filters)) {
+            $filtermsg = true;
             $n_template->set('filters', $filters);
         }
     }
+
+    $n_template->set('filtermsg', $filtermsg);
 
     if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
         $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget moveAction', '', '', _("Move"), true));
