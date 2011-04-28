@@ -2981,12 +2981,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         $res = $this->search($this->_selected, $search, array(
-            'sequence' => !$ids->sequence,
+            'sequence' => !$ids->all && !$ids->sequence,
             'sort' => array(Horde_Imap_Client::SORT_SEQUENCE)
         ));
 
         if ($res['count']) {
-            $ret['uids'] = $ids->sequence
+            $ret['uids'] = ($ids->all || $ids->sequence)
                 ? $res['match']
                 : $ids;
 
