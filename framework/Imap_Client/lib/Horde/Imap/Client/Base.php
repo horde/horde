@@ -437,6 +437,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $capability = $this->_capability();
 
             if (!empty($this->_params['capability_ignore'])) {
+                if ($this->_debug &&
+                    ($ignored = array_intersect_key($capability, array_flip($this->_params['capability_ignore'])))) {
+                    fwrite($this->_debug, sprintf(">>> IGNORING these IMAP capabilities: %s\n", implode(', ', array_keys($ignored))));
+                }
                 $capability = array_diff_key($capability, array_flip($this->_params['capability_ignore']));
             }
 
