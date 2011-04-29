@@ -3418,7 +3418,12 @@ KronolithCore = {
      */
     activateAdvancedPerms: function(type)
     {
-        [$('kronolithC' + type + 'PNone'), $('kronolithC' + type + 'PAll'), $('kronolithC' + type + 'PG')].invoke('writeAttribute', 'checked', false);
+        [$('kronolithC' + type + 'PNone'),
+         $('kronolithC' + type + 'PAll'),
+         $('kronolithC' + type + 'PU'),
+         $('kronolithC' + type + 'PG')].each(function(radio) {
+            radio.checked = false;
+        });
         $('kronolithC' + type + 'PBasic').hide();
         $('kronolithC' + type + 'PAdvanced').show();
     },
