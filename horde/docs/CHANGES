@@ -2,6 +2,7 @@
 v4.0.2-git
 ----------
 
+[mms] Fix issue causing slow syncs only in SyncML (Bug #10008).
 [jan] Fix adding categories.
 [jan] Fix calculation of last password change in LDAP account portal block (Bug
       #9770).
