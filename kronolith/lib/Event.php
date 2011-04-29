@@ -749,8 +749,6 @@ abstract class Kronolith_Event
             $exceptions = $this->recurrence->getExceptions();
             $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
             $search = new StdClass();
-            $search->start = $this->recurrence->getRecurStart();
-            $search->end = $this->recurrence->getRecurEnd();
             $search->baseid = $this->uid;
             $results = $kronolith_driver->search($search);
             foreach ($results as $days) {
