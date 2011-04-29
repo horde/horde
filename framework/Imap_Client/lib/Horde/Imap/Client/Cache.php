@@ -229,7 +229,8 @@ class Horde_Imap_Client_Cache
             }
 
             if ($this->_params['debug'] && !empty($ret_array)) {
-                fwrite($this->_params['debug'], '>>> Retrieved from cache (mailbox: ' . $mailbox . '; UIDs: ' . implode(',', array_keys($ret_array)) . ")\n");
+                $ids = new Horde_Imap_Client_Ids(array_keys($ret_array));
+                fwrite($this->_params['debug'], '>>> Retrieved from cache (mailbox: ' . $mailbox . '; UIDs: ' . $ids->tostring_sort . ")\n");
             }
         }
 
@@ -277,7 +278,8 @@ class Horde_Imap_Client_Cache
             $slices = $this->_getCacheSlices($mailbox, $save, true);
 
             if ($this->_params['debug']) {
-                fwrite($this->_params['debug'], '>>> Stored in cache (mailbox: ' . $mailbox . '; UIDs: ' . implode(',', $save) . ")\n");
+                $ids = new Horde_Imap_Client_Ids($save);
+                fwrite($this->_params['debug'], '>>> Stored in cache (mailbox: ' . $mailbox . '; UIDs: ' . $ids->tostring_sort . ")\n");
             }
         }
     }
@@ -365,7 +367,8 @@ class Horde_Imap_Client_Cache
 
         if (!empty($save)) {
             if ($this->_params['debug']) {
-                fwrite($this->_params['debug'], '>>> Deleted messages from cache (mailbox: ' . $mailbox . '; UIDs: ' . implode(',', $save) . ")\n");
+                $ids = new Horde_Imap_Client_Ids($save);
+                fwrite($this->_params['debug'], '>>> Deleted messages from cache (mailbox: ' . $mailbox . '; UIDs: ' . $ids->tostring_sort . ")\n");
             }
 
             $this->_save[$mailbox] = isset($this->_save[$mailbox]) ? array_merge($this->_save[$mailbox], $save) : $save;
@@ -448,7 +451,8 @@ class Horde_Imap_Client_Cache
         if (isset($ptr['delete'][$slice])) {
             $data = array_diff_key($data, $ptr['delete'][$slice]);
             if ($this->_params['debug']) {
-                fwrite($this->_params['debug'], '>>> Deleted messages from cache (mailbox: ' . $mailbox . '; UIDs: ' . implode(',', $ptr['delete'][$slice]) . ")\n");
+                $ids = new Horde_Imap_Client_Ids($ptr['delete'][$slice]);
+                fwrite($this->_params['debug'], '>>> Deleted messages from cache (mailbox: ' . $mailbox . '; UIDs: ' . $ids->tostring_sort . ")\n");
             }
             unset($ptr['delete'][$slice]);
 
