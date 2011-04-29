@@ -1316,7 +1316,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
             'sort_delimiter' => '.'
         ), $opts);
 
-        if ($this->queryCapability('LIST-STATUS')) {
+        /* Optimization: If there is one mailbox in list, and we are already
+         * in that mailbox, we should just do a straight STATUS call. */
+        if ($this->queryCapability('LIST-STATUS') &&
+            ((count($mailboxes) != 1) ||
+            Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap(reset($mailboxes)) != $this->_selected)) {
             try {
                 $ret = array();
                 foreach ($this->listMailboxes($mailboxes, Horde_Imap_Client::MBOX_ALL, array_merge($opts, array('status' => $flags))) as $val) {
