@@ -211,7 +211,7 @@ class Horde_Test
         ),
         'memory_limit' => array(
             'setting' => 'value',
-            'error' => 'If PHP\'s internal memory limit is not set high enough Horde will not be able to handle large data items. You should set the value of memory_limit in php.ini to a sufficiently high value - at least 64M is recommended.',
+            'error' => 'If PHP\'s internal memory limit is not set high enough Horde will not be able to handle large data items. It is recommended to set the value of memory_limit in php.ini to at least 64M.',
             'function' => '_checkMemoryLimit'
         ),
         'register_globals' => array(
