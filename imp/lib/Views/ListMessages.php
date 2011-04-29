@@ -227,34 +227,12 @@ class IMP_Views_ListMessages
         }
 
         /* Get the cached list. */
-        $cached = $changed = array();
+        $cached = array();
         if (!empty($args['cache'])) {
             $cached = $imp_imap->getUtils()->fromSequenceString($args['cache']);
-            if ($is_search) {
-                $cached = array_flip($cached);
-            } else {
-                $cached = array_flip(reset($cached));
-
-                /* Check for cached entries marked as changed via CONDSTORE
-                 * IMAP extension. If changed, resend the entire entry to
-                 * update the browser cache (done below). */
-                if ($args['change'] && $args['cacheid']) {
-                    if (!isset($parsed)) {
-                        $parsed = $imp_imap->parseCacheId($args['cacheid']);
-                    }
-                    if (!empty($parsed['highestmodseq'])) {
-                        $query = new Horde_Imap_Client_Fetch_Query();
-                        $query->uid();
-
-                        try {
-                            $changed = $imp_imap->fetch($mbox, $query, array(
-                                'changedsince' => $parsed['highestmodseq'],
-                                'ids' => new Horde_Imap_Client_Ids(array_keys($cached))
-                            ));
-                        } catch (IMP_Imap_Exception $e) {}
-                    }
-                }
-            }
+            $cached = $is_search
+                ? array_flip($cached)
+                : array_flip(reset($cached));
         }
 
         if (!empty($args['search_unseen'])) {
@@ -302,40 +280,61 @@ class IMP_Views_ListMessages
         $slice_start = max(1, $slice_start);
         $slice_end = min($msgcount, $slice_end);
 
-        /* Generate the message list and the UID -> rownumber list. */
-        $data = $msglist = $rowlist = array();
-        $uidlist = $this->_getUidList($slice_start, $slice_end, $sorted_list);
-        foreach ($uidlist as $uid => $seq) {
-            $msglist[$seq] = $sorted_list['s'][$seq];
-            $rowlist[$uid] = $seq;
-            /* Send browser message data if not already cached or if CONDSTORE
-             * has indicated that data has changed. */
-            if (!isset($cached[$uid]) || isset($changed[$uid])) {
-                $data[$seq] = 1;
+        /* Generate UID list. */
+        $changed = $data = $msglist = $rowlist = $uidlist = array();
+        for ($i = 1, $end = count($sorted_list['s']); $i <= $end; ++$i) {
+            $uid = $sorted_list['s'][$i];
+            if (isset($sorted_list['m'][$i])) {
+                $uid = $sorted_list['m'][$i] . IMP_Dimp::IDX_SEP . $uid;
             }
+            $uidlist[] = $uid;
         }
-        $result->rowlist = $rowlist;
 
         /* If we are updating the rowlist on the browser, and we have cached
          * browser data information, we need to send a list of messages that
          * have 'disappeared'. */
         if (isset($result->update)) {
-            if (($slice_start != 0) &&
-                ($slice_end != count($sorted_list['s']))) {
-                $uidlist = $this->_getUidList(1, count($sorted_list['s']), $sorted_list);
-            }
-
             $disappear = array();
-            foreach (array_keys($cached) as $val) {
-                if (!isset($uidlist[$val])) {
-                    $disappear[] = $val;
-                }
+            foreach (array_diff(array_keys($cached), $uidlist) as $uid) {
+                $disappear[] = $uid;
+                unset($cached[$uid]);
             }
-
             if (!empty($disappear)) {
                 $result->disappear = $disappear;
             }
         }
+
+        /* Check for cached entries marked as changed via CONDSTORE IMAP
+         * extension. If changed, resend the entire entry to update the
+         * browser cache (done below). */
+        if (!$is_search && $args['change'] && $args['cacheid']) {
+            if (!isset($parsed)) {
+                $parsed = $imp_imap->parseCacheId($args['cacheid']);
+            }
+            if (!empty($parsed['highestmodseq'])) {
+                $query = new Horde_Imap_Client_Fetch_Query();
+                $query->uid();
+
+                try {
+                    $changed = $imp_imap->fetch($mbox, $query, array(
+                        'changedsince' => $parsed['highestmodseq'],
+                        'ids' => new Horde_Imap_Client_Ids(array_keys($cached))
+                    ));
+                } catch (IMP_Imap_Exception $e) {}
+            }
+        }
+
+        foreach (array_slice($uidlist, $slice_start - 1, $slice_end - $slice_start + 1, true) as $key => $uid) {
+            $seq = ++$key;
+            $msglist[$seq] = $sorted_list['s'][$seq];
+            $rowlist[$uid] = $seq;
+            /* Send browser message data if not already cached or if
+             * CONDSTORE has indicated that data has changed. */
+            if (!isset($cached[$uid]) || isset($changed[$uid])) {
+                $data[$seq] = 1;
+            }
+        }
+        $result->rowlist = $rowlist;
 
         /* Build the list for rangeslice information. */
         if ($args['rangeslice']) {
@@ -366,32 +365,6 @@ class IMP_Views_ListMessages
         }
 
         return $result;
-    }
-
-    /**
-     * Generates the list of unique UIDs for the current mailbox.
-     *
-     * @param integer $start      The slice start.
-     * @param integer $end        The slice end.
-     * @param array $sorted_list  The sorted list array.
-     *
-     * @param array  UIDs as the keys, and sequence numbers as the values.
-     */
-    protected function _getUidList($start, $end, $sorted_list)
-    {
-        $ret = array();
-
-        for ($i = $start; $i <= $end; ++$i) {
-            $uid = $sorted_list['s'][$i];
-            if (isset($sorted_list['m'][$i])) {
-                $uid = $sorted_list['m'][$i] . IMP_Dimp::IDX_SEP . $uid;
-            }
-            if ($uid) {
-                $ret[$uid] = $i;
-            }
-        }
-
-        return $ret;
     }
 
     /**
