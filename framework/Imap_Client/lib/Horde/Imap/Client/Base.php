@@ -1309,6 +1309,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
                                    $flags = Horde_Imap_Client::STATUS_ALL,
                                    array $opts = array())
     {
+        if (empty($mailboxes)) {
+            return array();
+        }
+
         $ret = null;
 
         $opts = array_merge(array(
