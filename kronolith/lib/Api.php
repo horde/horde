@@ -825,7 +825,7 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         $kronolith_driver = Kronolith::getDriver(null, $calendar);
-        $events = $kronolith_driver->listEvents(null, null, false, false, false, true, true, true);
+        $events = $kronolith_driver->listEvents(null, null, false, false, false, false, false, true);
 
         $version = '2.0';
         switch ($contentType) {
