@@ -31,22 +31,6 @@ class Components_Release_Task_CommitPostRelease
 extends Components_Release_Task_Base
 {
     /**
-     * Validate the preconditions required for this release task.
-     *
-     * @param array $options Additional options.
-     *
-     * @return array An empty array if all preconditions are met and a list of
-     *               error messages otherwise.
-     */
-    public function validate($options)
-    {
-        if (empty($options['next_version'])) {
-            return array('The "next_version" option has no value! What should the next version number be?');
-        }
-        return array();
-    }
-
-    /**
      * Run the task.
      *
      * @param array $options Additional options.
@@ -55,6 +39,12 @@ extends Components_Release_Task_Base
      */
     public function run($options)
     {
+        if (empty($options['next_version'])) {
+            $options['next_version'] = Components_Helper_Version::validatePear(
+                Components_Helper_Version::nextVersion($this->getPackage()->getVersion())
+            );
+        }
+
         $this->systemInDirectory(
             'git commit -m "Development mode for ' . $this->getPackage()->getName()
             . '-' . $options['next_version'] . '"',
