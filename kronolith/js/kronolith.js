@@ -2734,7 +2734,7 @@ KronolithCore = {
      */
     removeTask: function(task, list)
     {
-        this.deleteTasksCache(task, list);
+        this.deleteTasksCache(list, task);
         $('kronolithViewTasksBody').select('tr').findAll(function(el) {
             return el.retrieve('tasklist') == list &&
                 el.retrieve('taskid') == task;
@@ -3555,6 +3555,12 @@ KronolithCore = {
         this.kronolithBody.select('div.kronolithEvent').findAll(function(el) {
             return el.retrieve('calendar') == type + '|' + calendar;
         }).invoke('remove');
+        if (type == 'tasklists' && this.view == 'tasks') {
+            this.deleteTasksCache(calendar.replace(/^tasks\//, ''));
+            $('kronolithViewTasksBody').select('tr').findAll(function(tr) {
+                return ('tasks/' + tr.retrieve('tasklist')) == calendar;
+            }).invoke('remove');
+        }
         delete Kronolith.conf.calendars[type][calendar];
     },
 
@@ -3776,18 +3782,23 @@ KronolithCore = {
     },
 
     /**
-     * Deletes a task from the cache.
+     * Deletes tasks from the cache.
      *
-     * @param string task  A task ID.
      * @param string list  A task list string.
+     * @param string task  A task ID. If empty, all tasks from the list are
+     *                     deleted.
      */
-    deleteTasksCache: function(task, list)
+    deleteTasksCache: function(list, task)
     {
         this.deleteCache(task, [ 'external', 'tasks/' + list ]);
         $w('complete incomplete').each(function(type) {
             if (!Object.isUndefined(this.tcache.get(type)) &&
                 !Object.isUndefined(this.tcache.get(type).get(list))) {
-                this.tcache.get(type).get(list).unset(task);
+                if (task) {
+                    this.tcache.get(type).get(list).unset(task);
+                } else {
+                    this.tcache.get(type).unset(list);
+                }
             }
         }, this);
     },
