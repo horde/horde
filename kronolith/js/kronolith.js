@@ -3527,6 +3527,9 @@ KronolithCore = {
                 Kronolith.conf.calendars[type][r.response.id] = r.response.calendar;
                 this.insertCalendarInList(type, r.response.id, r.response.calendar);
                 this.storeCache($H(), [type, r.response.id], this.viewDates(this.date, this.view), true);
+                if (type == 'tasklists') {
+                    this.storeTasksCache($H(), this.tasktype, r.response.id.replace(/^tasks\//, ''), true);
+                }
             }
         }
         form.down('.kronolithCalendarSave').enable();

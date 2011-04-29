@@ -2,6 +2,7 @@
 v3.0.2-git
 ----------
 
+[jan] Fix displaying of new tasks in new task lists.
 [jan] Fix displaying colors of task lists.
 [jan] Delete tasks from tasks view when deleting tasks lists.
 [jan] Don't export multi-day events as multiple events to iCalendar data (Bug
