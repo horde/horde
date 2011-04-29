@@ -2137,7 +2137,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * 'po' (polled) = Is the element polled? [boolean] [DEFAULT: no]
      * 's' (special) = Is this a "special" element? [boolean] [DEFAULT: no]
      * 't' (title) = The title value. [string] [DEFAULT: 'm' val]
-     * 'u' (unseen) = The number of unseen messages. [integer]
      * 'un' (unsubscribed) = Is this mailbox unsubscribed? [boolean]
      *                       [DEFAULT: no]
      * 'v' (virtual) = Virtual folder? 0 = not vfolder, 1 = system vfolder,
@@ -2166,9 +2165,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         if ($elt->parent != IMP_Imap_Tree::BASE_ELT) {
             $ob->pa = $elt->parent;
         }
-        if ($elt->polled) {
-            $ob->po = 1;
-        }
         if ($elt->vfolder) {
             $ob->v = $GLOBALS['injector']->getInstance('IMP_Search')->isVFolder($elt->value, true) ? 2 : 1;
         }
@@ -2184,8 +2180,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
         } else {
             if ($elt->polled) {
-                $poll_info = $elt->poll_info;
-                $ob->u = $poll_info->unseen;
+                $ob->po = 1;
+                $this->_queue->poll($elt);
             }
 
             if ($elt->special) {
