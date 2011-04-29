@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-21</date>
- <time>12:36:23</time>
+ <date>2011-04-29</date>
+ <time>10:46:27</time>
  <version>
   <release>1.0.4</release>
   <api>1.0.0</api>
@@ -356,10 +356,14 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-21</date>
+   <date>2011-04-29</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] Filter CAPABILITY return if sent in response code (Bug #9976).
+* [mms] Correctly limit FETCH results when specifying changedsince or vanished options and all requested fetch data is already cached.
+* [mms] Fix intermittent issues retrieving FETCH results in Socket driver.
+* [mms] Optimize expunging in Socket driver with UIDPLUS servers.
+* [mms] Fix parsing NAMESPACE response in Socket driver (Bug #9970).
    </notes>
   </release>
  </changelog>
