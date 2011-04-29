@@ -2368,6 +2368,9 @@ KronolithCore = {
         }).invoke('remove');
 
         tasktypes.each(function(type) {
+            if (!this.tcache.get(type)) {
+                return;
+            }
             var tasks = this.tcache.get(type).get(tasklist);
             $H(tasks).each(function(task) {
                 switch (tasktype) {
