@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* Fix issue causing slow syncs only (Bug #10008).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
