@@ -5,25 +5,6 @@
  *
  * Requires the horde/Cache package.
  *
- * <pre>
- * REQUIRED Parameters:
- * ====================
- * 'cacheob' - (Horde_Cache) The cache object to use.
- * 'hostspec' - (string) The IMAP hostspec.
- * 'port' - (string) The IMAP port.
- * 'username' - (string) The IMAP username.
- *
- * Optional Parameters:
- * ====================
- * 'debug' - (resource) If set, will output debug information to the stream
- *           identified.
- *           DEFAULT: No debug output
- * 'lifetime' - (integer) The lifetime of the cache data (in seconds).
- *              DEFAULT: 1 week (604800 secs)
- * 'slicesize' - (integer) The slicesize to use.
- *               DEFAULT: 50
- * </pre>
- *
  * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -107,7 +88,23 @@ class Horde_Imap_Client_Cache
     /**
      * Constructor.
      *
-     * @param array $params  The configuration parameters.
+     * @param array $params  Configuration parameters:
+     * <pre>
+     * REQUIRED Parameters:
+     *   - cacheob: (Horde_Cache) The cache object to use.
+     *   - hostspec: (string) The IMAP hostspec.
+     *   - port: (string) The IMAP port.
+     *   - username: (string) The IMAP username.
+     *
+     * Optional Parameters:
+     *   - debug: (resource) If set, will output debug information to the
+     *            given stream.
+     *            DEFAULT: No debug output
+     *   - lifetime: (integer) The lifetime of the cache data (in seconds).
+     *               DEFAULT: 1 week (604800 seconds)
+     *   - slicesize: (integer) The slicesize to use.
+     *                DEFAULT: 50
+     * </pre>
      *
      * @throws InvalidArgumentException
      */

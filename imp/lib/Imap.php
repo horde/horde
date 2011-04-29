@@ -92,7 +92,8 @@ class IMP_Imap implements Serializable
      * @param string $password  The password to authenticate with.
      * @param string $key       Create a new object using this server key.
      *
-     * @return boolean  The object on success, false on error.
+     * @return mixed  A Horde_Imap_Client_Base object on success, false on
+     *                error.
      */
     public function createImapObject($username, $password, $key)
     {
