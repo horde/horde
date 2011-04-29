@@ -1826,7 +1826,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
         }
 
-        $ob = new Horde_Imap_Client_Data_Thread($this->_thread($options), empty($options['sequence']) ? 'uid' : 'sequence');
+        $status_res = $this->status($this->_selected, Horde_Imap_Client::STATUS_MESSAGES);
+
+        $ob = new Horde_Imap_Client_Data_Thread($status_res['messages'] ? $this->_thread($options) : array(), empty($options['sequence']) ? 'uid' : 'sequence');
 
         if ($cache) {
             $this->_setSearchCache($ob, $cache);
