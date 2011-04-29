@@ -1079,7 +1079,8 @@ class Kronolith
 
         if ($GLOBALS['session']->exists('kronolith', 'all_external_calendars')) {
             foreach ($GLOBALS['session']->get('kronolith', 'all_external_calendars') as $calendar) {
-                if (!Kronolith::hasApiPermission($calendar['a'])) {
+                if (!Kronolith::hasApiPermission($calendar['a']) ||
+                    $calendar['a'] == 'tasks') {
                     continue;
                 }
                 $GLOBALS['all_external_calendars'][$calendar['a'] . '/' . $calendar['n']] = new Kronolith_Calendar_External(array('api' => $calendar['a'], 'name' => $calendar['d'], 'id' => $calendar['n']));
