@@ -47,15 +47,6 @@ class IMP_Imap implements Serializable
     static protected $_config;
 
     /**
-     * Access cache. Entries:
-     *   - s: (boolean) Are UIDS sticky?
-     *   - v: (integer) UIDVALIDITY
-     *
-     * @var array
-     */
-    protected $_access = array();
-
-    /**
      * Has this object changed?
      *
      * @var boolean
@@ -70,7 +61,9 @@ class IMP_Imap implements Serializable
     protected $_login = false;
 
     /**
-     * Mailbox data cache.
+     * Mailbox data cache. Entries:
+     *   - s: (boolean) Are UIDS sticky?
+     *   - v: (integer) UIDVALIDITY
      *
      * @var array
      */
@@ -267,8 +260,8 @@ class IMP_Imap implements Serializable
 
         if (!$right) {
             return false;
-        } elseif (isset($this->_access[$mbox_key][$right])) {
-            return $this->_access[$mbox_key][$right];
+        } elseif (isset($this->_temp[$mbox_key]['access'][$right])) {
+            return $this->_temp[$mbox_key]['access'][$right];
         }
 
         switch ($right) {
@@ -309,7 +302,7 @@ class IMP_Imap implements Serializable
             break;
         }
 
-        $this->_access[$mbox_key][$right] = $res;
+        $this->_temp[$mbox_key]['access'][$right] = $res;
 
         return $res;
     }
@@ -335,7 +328,7 @@ class IMP_Imap implements Serializable
             $error = !empty($this->_temp[$mbox_str]['v']);
         } else {
             $status = $this->ob->status($mailbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
-            $error = empty($this->_mboxes[$mbox_str]['v']) ||
+            $error = !empty($this->_mboxes[$mbox_str]['v']) &&
                 ($status['uidvalidity'] != $this->_mboxes[$mbox_str]['v']);
             $this->_mboxes[$mbox_str]['v'] = $status['uidvalidity'];
             $this->_changed = true;
