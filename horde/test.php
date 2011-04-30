@@ -121,7 +121,7 @@ case 'unregister':
 <html>
  <body>
  The test session has been unregistered.<br />
- <a href="$self_url">Go back</a> to the test.php page.<br />
+ <a href="<?php echo $self_url ?>">Go back</a> to the test.php page.<br />
  </body>
 </html>
 <?php
@@ -214,7 +214,7 @@ if ($config_output = $test_ob->requiredFileCheck()) {
 <ul>
 <?php if (!$init_exception): ?>
  <li>Session counter: <?php $tc = $session->get('horde', 'test_count'); echo ++$tc; $session->set('horde', 'test_count', $tc); ?> [refresh the page to increment the counter]</li>
- <li>To unregister the session: <a href="<?php $self_url->copy()->add('mode', 'unregister') ?>">click here</a></li>
+ <li>To unregister the session: <a href="<?php echo $self_url->copy()->add('mode', 'unregister') ?>">click here</a></li>
 <?php else: ?>
  <li style="color:red"><strong>The PHP session test is disabled until Horde is correctly configured.</strong></li>
 <?php endif; ?>
