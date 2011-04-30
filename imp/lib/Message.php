@@ -84,46 +84,35 @@ class IMP_Message
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 
         foreach ($indices as $ob) {
-            $error = null;
-
-            if ($targetMbox->readonly) {
-                $error = _("The target directory is read-only.");
-            }
-
-            if (!$error &&
-                ($action == 'move') &&
-                $ob->mbox->readonly) {
-                $error = _("The source directory is read-only.");
-            }
-
-            if (!$error) {
-                try {
-                    $ob->mbox->uidvalid;
-                } catch (IMP_Exception $e) {
-                    $error = $e->getMessage();
+            try {
+                if ($targetMbox->readonly) {
+                    throw new IMP_Exception(_("The target directory is read-only."));
                 }
-            }
 
-            /* Attempt to copy/move messages to new mailbox. */
-            if (!$error) {
-                try {
-                    $imp_imap->copy($ob->mbox, $targetMbox, array(
-                        'ids' => new Horde_Imap_Client_Ids($ob->uids),
-                        'move' => $imap_move
-                    ));
-
-                    if (($action == 'move') &&
-                        !empty($opts['mailboxob']) &&
-                        $opts['mailboxob']->isBuilt()) {
-                        $opts['mailboxob']->removeMsgs(new IMP_Indices($ob->mbox, $ob->uids));
-                    }
-                } catch (IMP_Imap_Exception $e) {
-                    $error = $e;
+                if (($action == 'move') && $ob->mbox->readonly) {
+                    throw new IMP_Exception(_("The source directory is read-only."));
                 }
-            }
 
-            if ($error) {
-                $error->notify(sprintf($message, $ob->mbox->display, $targetMbox->display) . ': ' . $error->getMessage());
+                $ob->mbox->uidvalid;
+
+                /* Attempt to copy/move messages to new mailbox. */
+                $imp_imap->copy($ob->mbox, $targetMbox, array(
+                    'ids' => new Horde_Imap_Client_Ids($ob->uids),
+                    'move' => $imap_move
+                ));
+
+                if (($action == 'move') &&
+                    !empty($opts['mailboxob']) &&
+                    $opts['mailboxob']->isBuilt()) {
+                    $opts['mailboxob']->removeMsgs(new IMP_Indices($ob->mbox, $ob->uids));
+                }
+            } catch (Exception $e) {
+                $error_msg = sprintf($message, $ob->mbox->display, $targetMbox->display) . ': ' . $e->getMessage();
+                if ($e instanceof IMP_Imap_Exception) {
+                    $e->notify($error_msg);
+                } else {
+                    $GLOBALS['notification']->push($error_msg, 'horde.error');
+                }
                 $return_value = false;
             }
         }
@@ -184,22 +173,14 @@ class IMP_Message
         }
 
         foreach ($indices as $ob) {
-            $error = null;
-
-            if ($ob->mbox->readonly) {
-                $error = _("This folder is read-only.");
-            }
-
-            if (!$error) {
-                try {
-                    $ob->mbox->uidvalid;
-                } catch (IMP_Exception $e) {
-                    $error = $e->getMessage();
+            try {
+                if ($ob->mbox->readonly) {
+                    throw new IMP_Exception(_("This folder is read-only."));
                 }
-            }
 
-            if ($error) {
-                $notification->push(sprintf(_("There was an error deleting messages from the folder \"%s\"."), $ob->mbox->display) . ' ' . $error, 'horde.error');
+                $ob->mbox->uidvalid;
+            } catch (IMP_Exception $e) {
+                $notification->push(sprintf(_("There was an error deleting messages from the folder \"%s\"."), $ob->mbox->display) . ' ' . $e->getMessage(), 'horde.error');
                 $return_value = false;
                 continue;
             }
@@ -615,25 +596,19 @@ class IMP_Message
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 
         foreach ($indices as $ob) {
-            $error = null;
-
-            if ($ob->mbox->readonly) {
-                $error = _("This folder is read-only.");
-            } else {
-                try {
-                    $ob->mbox->uidvalid;
-
-                    /* Flag/unflag the messages now. */
-                    $imp_imap->store($ob->mbox, array_merge($action_array, array(
-                        'ids' => new Horde_Imap_Client_Ids($ob->uids)
-                    )));
-                } catch (Exception $e) {
-                    $error = $e->getMessage();
+            try {
+                if ($ob->mbox->readonly) {
+                    throw new IMP_Exception(_("This folder is read-only."));
                 }
-            }
 
-            if ($error) {
-                $GLOBALS['notification']->push(sprintf(_("There was an error flagging messages in the folder \"%s\". This folder is read-only."), $ob->mbox->display), 'horde.error');
+                $ob->mbox->uidvalid;
+
+                /* Flag/unflag the messages now. */
+                $imp_imap->store($ob->mbox, array_merge($action_array, array(
+                    'ids' => new Horde_Imap_Client_Ids($ob->uids)
+                )));
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push(sprintf(_("There was an error flagging messages in the folder \"%s\": %s."), $ob->mbox->display, $e->getMessage()), 'horde.error');
                 return false;
             }
         }
