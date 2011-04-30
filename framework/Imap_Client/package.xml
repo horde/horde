@@ -24,7 +24,7 @@
  <notes>
 * [mms] Optimize re-opening a mailbox R/W if using CONDSTORE/QRESYNC.
 * [mms] Optimize statusMultiple() for currently selected mailbox.
-* [mms] Optimize thread() search in empty mailbox.
+* [mms] Optimize search()/thread() in empty mailboxes.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

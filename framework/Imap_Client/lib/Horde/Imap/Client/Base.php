@@ -1699,7 +1699,42 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
         }
 
-        $ret = $this->_search($query, $options);
+        /* Optimization: Catch when there are no messages in a mailbox. */
+        $status_res = $this->status($this->_selected, Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_HIGHESTMODSEQ);
+        if ($status_res['messages'] ||
+            in_array(Horde_Imap_Client::SEARCH_RESULTS_SAVE, $options['results'])) {
+            $ret = $this->_search($query, $options);
+        } else {
+            $ret = array(
+                'count' => 0
+            );
+
+            foreach ($options['results'] as $val) {
+                switch ($val) {
+                case Horde_Imap_Client::SEARCH_RESULTS_MATCH:
+                    $ret['match'] = new Horde_Imap_Client_Ids();
+                    break;
+
+                case Horde_Imap_Client::SEARCH_RESULTS_MAX:
+                    $ret['max'] = null;
+                    break;
+
+                case Horde_Imap_Client::SEARCH_RESULTS_MIN:
+                    $ret['min'] = null;
+                    break;
+
+                case Horde_Imap_Client::SEARCH_RESULTS_MIN:
+                    if (isset($status_res['highestmodseq'])) {
+                        $ret['modseq'] = $status_res['highestmodseq'];
+                    }
+                    break;
+
+                case Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY:
+                    $ret['relevancy'] = array();
+                    break;
+                }
+            }
+        }
 
         if ($cache) {
             $save = $ret;
