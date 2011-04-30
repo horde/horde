@@ -48,6 +48,7 @@ class IMP_Imap implements Serializable
 
     /**
      * Access cache. Entries:
+     *   - s: (boolean) Are UIDS sticky?
      *   - v: (integer) UIDVALIDITY
      *
      * @var array
@@ -283,11 +284,19 @@ class IMP_Imap implements Serializable
 
             /* This check can only be done for regular IMAP mailboxes
              * (UIDNOTSTICKY not valid for POP3). */
-            if (!$res && $this->imap && !$mailbox->search) {
-                try {
-                    $status = $this->ob->status($mbox_key, Horde_Imap_Client::STATUS_UIDNOTSTICKY);
-                    $res = $status['uidnotsticky'];
-                } catch (Horde_Imap_Client_Exception $e) {}
+            if (!$res && $this->imap) {
+                if (isset($this->_mboxes[$mbox_key]['s'])) {
+                    $res = !$this->_mboxes[$mbox_key]['s'];
+                } else {
+                    if ($mailbox->search) {
+                        try {
+                            $status = $this->ob->status($mbox_key, Horde_Imap_Client::STATUS_UIDNOTSTICKY);
+                            $res = $status['uidnotsticky'];
+                        } catch (Horde_Imap_Client_Exception $e) {}
+                    }
+                    $this->_mboxes[$mbox_key]['s'] = !$res;
+                    $this->_changed = true;
+                }
             }
             break;
 
