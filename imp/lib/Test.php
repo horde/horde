@@ -139,7 +139,7 @@ class IMP_Test extends Horde_Test
         $ret .= '<span style="color:green">SUCCESS</span><p />';
 
         if ($driver == 'Socket') {
-            $ret .= '<strong>The following IMAP server information was discovered from the remote server:</strong>' .
+            $ret .= '<strong>The following IMAP server information was discovered from the server:</strong>' .
                 '<blockquote><em>Namespace Information</em><blockquote><pre>';
 
             try {
@@ -184,7 +184,16 @@ class IMP_Test extends Horde_Test
                 $this->_errorMsg($e);
             }
 
-            $ret .= '</pre></blockquote></blockquote>';
+            $ret .= '</pre></blockquote></blockquote>' .
+                '<blockquote><em>Does IMAP server support UTF-8 in search queries?</em> ';
+
+            if ($imap_client->validSearchCharset('UTF-8')) {
+                $ret .= '<span style="color:green">YES</span>';
+            } else {
+                $ret .= '<span style="color:red">NO</span>';
+            }
+
+            $ret .= '</blockquote>';
 
             try {
                 $id_info = $imap_client->getID();
@@ -196,7 +205,7 @@ class IMP_Test extends Horde_Test
                     $ret .= '</pre></blockquote></blockquote>';
                 }
             } catch (Horde_Imap_Client_Exception $e) {
-                // Ignore a lack of the ID capability.
+                // Ignore lack of ID capability.
             }
 
             // @todo IMAP Charset Search Support
