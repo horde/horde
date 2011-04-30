@@ -13,6 +13,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  *
+ * @property boolean $changed  If true, this object has changed.
  * @property boolean $imap  If true, this is an IMAP connection.
  * @property boolean $pop3  If true, this is a POP3 connection.
  */
@@ -46,11 +47,19 @@ class IMP_Imap implements Serializable
     static protected $_config;
 
     /**
-     * Access cache.
+     * Access cache. Entries:
+     *   - v: (integer) UIDVALIDITY
      *
      * @var array
      */
     protected $_access = array();
+
+    /**
+     * Has this object changed?
+     *
+     * @var boolean
+     */
+    protected $_changed = false;
 
     /**
      * Have we logged into server yet?
@@ -60,6 +69,13 @@ class IMP_Imap implements Serializable
     protected $_login = false;
 
     /**
+     * Mailbox data cache.
+     *
+     * @var array
+     */
+    protected $_mboxes = array();
+
+    /**
      * Default namespace.
      *
      * @var array
@@ -67,17 +83,20 @@ class IMP_Imap implements Serializable
     protected $_nsdefault = null;
 
     /**
-     * UIDVALIDITY check cache.
+     * Temporary data cache (destroyed at end of request).
      *
      * @var array
      */
-    protected $_uidvalid = array();
+    protected $_temp = array();
 
     /**
      */
     public function __get($key)
     {
         switch ($key) {
+        case 'changed':
+            return $this->_changed || ($this->ob && $this->ob->changed);
+
         case 'imap':
             return $this->ob && ($this->ob instanceof Horde_Imap_Client_Socket);
 
@@ -263,7 +282,7 @@ class IMP_Imap implements Serializable
             } catch (Horde_Exception_HookNotSet $e) {}
 
             /* This check can only be done for regular IMAP mailboxes
-             * UIDNOTSTICKY not valid for POP3). */
+             * (UIDNOTSTICKY not valid for POP3). */
             if (!$res && $this->imap && !$mailbox->search) {
                 try {
                     $status = $this->ob->status($mbox_key, Horde_Imap_Client::STATUS_UIDNOTSTICKY);
@@ -296,8 +315,6 @@ class IMP_Imap implements Serializable
      */
     public function checkUidvalidity(IMP_Mailbox $mailbox)
     {
-        global $session;
-
         // POP3 does not support UIDVALIDITY.
         if ($this->pop3) {
             return;
@@ -305,19 +322,21 @@ class IMP_Imap implements Serializable
 
         $mbox_str = strval($mailbox);
 
-        if (!isset($this->_uidvalid[$mbox_str])) {
+        if (isset($this->_temp[$mbox_str]['v'])) {
+            $error = !empty($this->_temp[$mbox_str]['v']);
+        } else {
             $status = $this->ob->status($mailbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
-            $val = $session->get('imp', 'uidvalid/' . $mailbox);
-            $session->set('imp', 'uidvalid/' . $mailbox, $status['uidvalidity']);
-
-            $this->_uidvalid[$mbox_str] = (!is_null($val) && ($status['uidvalidity'] != $val));
+            $error = empty($this->_mboxes[$mbox_str]['v']) ||
+                ($status['uidvalidity'] != $this->_mboxes[$mbox_str]['v']);
+            $this->_mboxes[$mbox_str]['v'] = $status['uidvalidity'];
+            $this->_changed = true;
         }
 
-        if ($this->_uidvalid[$mbox_str]) {
+        if ($error) {
             throw new IMP_Exception(_("Mailbox structure on server has changed."));
         }
 
-        return $session->get('imp', 'uidvalid/' . $mbox_str);
+        return $this->_mboxes[$mbox_str]['v'];
     }
 
     /**
@@ -384,6 +403,7 @@ class IMP_Imap implements Serializable
             foreach ($this->getNamespaceList() as $val) {
                 if ($val['type'] == Horde_Imap_Client::NS_PERSONAL) {
                     $this->_nsdefault = $val;
+                    $this->_changed = true;
                     break;
                 }
             }
@@ -510,13 +530,13 @@ class IMP_Imap implements Serializable
         case 'createMailbox':
         case 'renameMailbox':
             // Mailbox is first parameter.
-            unset($this->_uidvalid[$params[0]]);
-            $GLOBALS['session']->remove('imp', 'uidvalid/' . $params[0]);
+            unset($this->_mboxes[$params[0]]);
+            $this->_changed = true;
             break;
 
         case 'login':
             if (!$this->_login) {
-                $this->_login = true;
+                $this->_changed = $this->_login = true;
                 $this->updateFetchIgnore();
             }
             break;
@@ -588,7 +608,8 @@ class IMP_Imap implements Serializable
         return serialize(array(
             $this->ob,
             $this->_nsdefault,
-            $this->_login
+            $this->_login,
+            $this->_mboxes
         ));
     }
 
@@ -599,7 +620,8 @@ class IMP_Imap implements Serializable
         list(
             $this->ob,
             $this->_nsdefault,
-            $this->_login
+            $this->_login,
+            $this->_mboxes
         ) = unserialize($data);
     }
 
