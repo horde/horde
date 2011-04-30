@@ -779,6 +779,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $condstore = false;
         $qresync = isset($this->_init['enabled']['QRESYNC']);
 
+        /* Don't sync mailbox if we are reopening R/W - we would catch any
+         * mailbox changes from an untagged request. */
+        $reopen = ($this->_selected == $mailbox);
+
         /* Let the 'CLOSE' response code handle mailbox switching if QRESYNC
          * is active. */
         if (empty($this->_temp['mailbox']['name']) ||
@@ -795,7 +799,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         );
 
         /* If QRESYNC is available, synchronize the mailbox. */
-        if ($qresync) {
+        if (!$reopen && $qresync) {
             $this->_initCache();
             $metadata = $this->cache->getMetaData($mailbox, null, array('HICmodseq', 'uidvalid'));
 
@@ -823,7 +827,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     );
                 }
             }
-        } elseif (!isset($this->_init['enabled']['CONDSTORE']) &&
+        } elseif (!$reopen &&
+                  !isset($this->_init['enabled']['CONDSTORE']) &&
                   $this->_initCache() &&
                   $this->queryCapability('CONDSTORE')) {
             /* Activate CONDSTORE now if ENABLE is not available. */
@@ -4305,7 +4310,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'CLOSED':
             // Defined by RFC 5162 [3.7]
             if (isset($this->_temp['qresyncmbox'])) {
-                $this->_temp['mailbox'] = array('name' => $this->_temp['qresyncmbox']);
+                $this->_temp['mailbox'] = array(
+                    'name' => $this->_temp['qresyncmbox']
+                );
                 $this->_selected = $this->_temp['qresyncmbox'];
             }
             break;
