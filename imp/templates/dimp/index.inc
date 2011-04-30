@@ -90,7 +90,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
      <?php echo $render_sidebar ?>
     </ul>
 <?php endif; ?>
-<?php if ($imp_imap->imap): ?>
+<?php if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)): ?>
     <div class="sepfull"></div>
     <ul class="folderlist" id="normalfolders">
      <li class="folder" id="folderopts">
@@ -119,7 +119,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
      </div>
 
      <div class="dimpActions">
-<?php if ($imp_imap->imap): ?>
+<?php if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)): ?>
       <div id="qsearch">
        <span class="iconImg" id="qsearch_icon"></span>
        <form action="#" method="post">
@@ -454,7 +454,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="ctx_mboxsort_none"><?php echo _("Clear Sort") ?></a>
 </div>
 
-<?php if ($imp_imap->imap): ?>
+<?php if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)): ?>
 <div class="context" id="ctx_qsearchopts" style="display:none">
  <a id="ctx_qsearchopts_by"><?php echo _("Search By") ?></a>
  <div class="sep"></div>

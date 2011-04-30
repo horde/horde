@@ -403,7 +403,7 @@ class IMP_Mailbox implements Serializable
              * implementation. We will always prefer REFERENCES, but will
              * fallback to ORDEREDSUBJECT if the server doesn't support THREAD
              * sorting. */
-            return ($injector->getInstance('IMP_Factory_Imap')->create()->imap &&
+            return ($injector->getInstance('IMP_Factory_Imap')->create()->accessMailbox($this, IMP_Imap::ACCESS_SORTTHREAD) &&
                     !$this->search);
 
         case 'uidvalid':
@@ -589,6 +589,10 @@ class IMP_Mailbox implements Serializable
     public function hideDeletedMsgs($force = false, $deleted = false)
     {
         global $injector, $prefs;
+
+        if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FLAGS)) {
+            return false;
+        }
 
         $delhide = isset($this->_cache['delhide'])
             ? $this->_cache['delhide']

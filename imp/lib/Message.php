@@ -172,7 +172,9 @@ class IMP_Message
 
         /* Check for Trash folder. */
         $use_trash_folder = $use_vtrash = false;
-        if ($imp_imap->imap && empty($options['nuke']) && $use_trash) {
+        if ($use_trash &&
+            empty($options['nuke']) &&
+            $imp_imap->access(IMP_Imap::ACCESS_TRASH)) {
             $use_vtrash = $trash->vtrash;
             $use_trash_folder = !$use_vtrash;
         }

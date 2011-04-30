@@ -269,32 +269,31 @@ class IMP_Application extends Horde_Registry_Application
             'url' => IMP::generateIMPUrl($menu_mailbox_url, 'INBOX')
         ));
 
-        if ($imp_imap->imap) {
-            if ($prefs->getValue('use_trash') &&
-                $prefs->getValue('empty_trash_menu') &&
-                ($trash_folder = IMP_Mailbox::getPref('trash_folder')) &&
-                ($trash_folder->vtrash || !$trash_folder->readonly)) {
-                $menu->addArray(array(
-                    'class' => '__noselection',
-                    'icon' => 'empty_trash.png',
-                    'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, 'UTF-8') . ')',
-                    'text' => _("Empty _Trash"),
-                    'url' => IMP::generateIMPUrl($menu_mailbox_url, $trash_folder)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
-                ));
-            }
+        if ($imp_imap->access(IMP_Imap::ACCESS_TRASH) &&
+            $prefs->getValue('use_trash') &&
+            $prefs->getValue('empty_trash_menu') &&
+            ($trash_folder = IMP_Mailbox::getPref('trash_folder')) &&
+            ($trash_folder->vtrash || !$trash_folder->readonly)) {
+            $menu->addArray(array(
+                'class' => '__noselection',
+                'icon' => 'empty_trash.png',
+                'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, 'UTF-8') . ')',
+                'text' => _("Empty _Trash"),
+                'url' => IMP::generateIMPUrl($menu_mailbox_url, $trash_folder)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
+            ));
+        }
 
-            $spam_folder = $prefs->getValue('spam_folder');
-            if ($prefs->getValue('empty_spam_menu') &&
-                ($spam_folder = IMP_Mailbox::getPref('spam_folder')) &&
-                !$spam_folder->readonly) {
-                $menu->addArray(array(
-                    'class' => '__noselection',
-                    'icon' =>  'empty_spam.png',
-                    'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, 'UTF-8') . ')',
-                    'text' => _("Empty _Spam"),
-                    'url' => IMP::generateIMPUrl($menu_mailbox_url, $spam_folder)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
-                ));
-            }
+        if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) &&
+            $prefs->getValue('empty_spam_menu') &&
+            ($spam_folder = IMP_Mailbox::getPref('spam_folder')) &&
+             !$spam_folder->readonly) {
+            $menu->addArray(array(
+                'class' => '__noselection',
+                'icon' =>  'empty_spam.png',
+                'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, 'UTF-8') . ')',
+                'text' => _("Empty _Spam"),
+                'url' => IMP::generateIMPUrl($menu_mailbox_url, $spam_folder)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
+            ));
         }
 
         if (IMP::canCompose()) {
@@ -313,7 +312,7 @@ class IMP_Application extends Horde_Registry_Application
             ));
         }
 
-        if ($imp_imap->imap) {
+        if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
             $menu->addArray(array(
                 'icon' => 'search.png',
                 'text' =>_("_Search"),

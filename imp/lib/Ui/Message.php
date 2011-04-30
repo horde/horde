@@ -427,8 +427,7 @@ class IMP_Ui_Message
      */
     public function moveAfterAction()
     {
-        return ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->imap &&
-                !IMP::$mailbox->hideDeletedMsgs() &&
+        return (!IMP::$mailbox->hideDeletedMsgs() &&
                 !$GLOBALS['prefs']->getValue('use_trash'));
     }
 

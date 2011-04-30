@@ -29,6 +29,7 @@ class IMP_Imap implements Serializable
     const ACCESS_READONLY = 100;
     const ACCESS_FILTERS = 101;
     const ACCESS_SORT = 102;
+    const ACCESS_SORTTHREAD = 103;
 
     /**
      * The Horde_Imap_Client object.
@@ -217,12 +218,12 @@ class IMP_Imap implements Serializable
     {
         switch ($right) {
         case self::ACCESS_FOLDERS:
+        case self::ACCESS_TRASH:
             return (!empty($GLOBALS['conf']['user']['allow_folders']) &&
                     !$this->pop3);
 
         case self::ACCESS_FLAGS:
         case self::ACCESS_SEARCH:
-        case self::ACCESS_TRASH:
         case self::ACCESS_UNSEEN:
             return !$this->pop3;
         }
@@ -272,6 +273,7 @@ class IMP_Imap implements Serializable
             break;
 
         case self::ACCESS_SORT:
+        case self::ACCESS_SORTTHREAD:
             /* Although possible to abstract other sorting methods, all other
              * non-sequence methods require a download of ALL messages, which
              * is too much overhead.*/

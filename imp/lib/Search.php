@@ -167,7 +167,8 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
          * Although there is a fallback to a PHP-based display sort, for
          * performance reasons only do a display sort if it is supported
          * on the server. */
-        if ($imp_imap->imap && !empty($opts['sort'])) {
+        if ($imp_imap->accessMailbox($mailbox, IMP_Imap::ACCESS_SORT) &&
+            !empty($opts['sort'])) {
             $sort_cap = $imp_imap->queryCapability('SORT');
 
             if (is_array($sort_cap) && in_array('DISPLAY', $sort_cap)) {

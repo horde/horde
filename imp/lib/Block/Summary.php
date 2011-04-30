@@ -79,7 +79,7 @@ class IMP_Block_Summary extends Horde_Core_Block
                 ($mbox->inbox || $imp_imap->imap) &&
                 (empty($this->_params['show_unread']) ||
                  !empty($status[$mbox_str]['unseen']))) {
-                 $mbox_status = $status[$mbox_str];
+                $mbox_status = $status[$mbox_str];
 
                 $html .= '<tr style="cursor:pointer" class="text"' . $onclick . '><td>';
 
