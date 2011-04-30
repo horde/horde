@@ -2695,8 +2695,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
         } else {
             if (empty($status['uidnext'])) {
                 /* UIDNEXT is not strictly required on mailbox open. If it is
-                 * not available, use the last UID + 1 in the mailbox
-                 * instead (or 0 if mailbox is empty). */
+                 * not available, use the last UID + 1 in the mailbox instead
+                 * (or 0 if mailbox is empty). */
                 if (empty($status['messages'])) {
                     $status['uidnext'] = 0;
                 } else {
@@ -3010,7 +3010,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @return array  An array with 2 possible entries:
      * <pre>
      * 'lookup' - (array) The mapping of sequence numbers [keys] to UIDs
-     *            [values]. Calculated if $reverse is true.
+     *            [values]. Calculated if $reverse is true or $ids are
+     *            sequence numbers.
      * 'uids' - (Horde_Imap_Client_Ids) The list of UIDs.
      * </pre>
      */
@@ -3019,7 +3020,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     {
         $ret = array('lookup' => array());
 
-        if (!$ids->sequence && !$ids->all && !$reverse) {
+        if (count($ids) && !$ids->sequence && !$reverse) {
             $ret['uids'] = $ids;
             return $ret;
         }

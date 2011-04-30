@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mms] Optimizing expunging when using QRESYNC.
 * [mms] Optimize re-opening a mailbox R/W if using CONDSTORE/QRESYNC.
 * [mms] Optimize statusMultiple() for currently selected mailbox.
 * [mms] Optimize search()/thread() in empty mailboxes.

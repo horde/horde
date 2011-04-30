@@ -1500,8 +1500,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if (is_null($s_res) && ($list_msgs || $use_cache)) {
             $s_res = $uidplus
                 ? $this->_getSeqUidLookup($options['ids'], true)
-                : $this->_getSeqUidLookup(new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL, true)
-            );
+                : $this->_getSeqUidLookup(new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL, true));
         }
 
         /* Always use UID EXPUNGE if available. */
@@ -1592,6 +1591,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * IMAP servers will send an unneeded EXISTS response after the
          * EXPUNGE list is processed (see RFC 3501 [7.4.1]). */
         --$this->_temp['mailbox']['messages'];
+        $this->_temp['mailbox']['lookup'] = array();
     }
 
     /**
@@ -1618,6 +1618,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * EXPUNGE command and will be processed in _expunge(). */
             $this->_temp['vanished'] = $this->utils->fromSequenceString($data[0]);
             $this->_temp['mailbox']['messages'] -= count($this->_temp['vanished']);
+            $this->_temp['mailbox']['lookup'] = array();
         }
     }
 
@@ -2614,6 +2615,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case 'UID':
                 $uid = $data[++$i];
                 $ob->setUid($uid);
+                $this->_temp['mailbox']['lookup'][$id] = $uid;
                 break;
 
             case 'MODSEQ':
@@ -3479,6 +3481,59 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
             break;
         }
+    }
+
+    /**
+     */
+    protected function _getSeqUidLookup(Horde_Imap_Client_Ids $ids,
+                                        $reverse = false)
+    {
+        $ob = array(
+            'lookup' => array(),
+            'uids' => new Horde_Imap_Client_Ids()
+        );
+
+        if (!empty($this->_temp['mailbox']['lookup']) &&
+            count($ids) &&
+            ($ids->sequence || $reverse)) {
+            $need = new Horde_Imap_Client_Ids(null, $ids->sequence);
+            $t = $this->_temp['mailbox']['lookup'];
+
+            foreach ($ids as $val) {
+                if ($ids->sequence) {
+                    if (isset($t[$val])) {
+                        $ob['lookup'][$val] = $t[$val];
+                        $ob['uids']->add($t[$val]);
+                    } else {
+                        $need->add($val);
+                    }
+                } else {
+                    if (($key = array_search($val, $t)) !== false) {
+                        $ob['lookup'][$key] = $val;
+                        $ob['uids']->add($val);
+                    } else {
+                        $need->add($val);
+                    }
+                }
+            }
+
+            if (!count($need)) {
+                return $ob;
+            }
+
+            $ids = $need;
+        }
+
+        $res = parent::_getSeqUidLookup($ids, $reverse);
+
+        if (!count($ob['uids'])) {
+            return $res;
+        }
+
+        $ob['lookup'] = array_merge($ob['lookup'], $res['lookup']);
+        $ob['uids']->add($res['uids']);
+
+        return $ob;
     }
 
     /* Internal functions. */
