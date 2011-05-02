@@ -280,7 +280,9 @@ class IMP_Mailbox_List implements Countable, Serializable
                     $query->flag(Horde_Imap_Client::FLAG_DELETED, false);
                 }
                 try {
-                    $res = $GLOBALS['injector']->getInstance('IMP_Search')->imapSearch($this->_mailbox, $query, array('sort' => array($sortpref['by'])));
+                    $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->search($this->_mailbox, $query, array(
+                        'sort' => array($sortpref['by'])
+                    ));
                     if ($sortpref['dir']) {
                         $res['match']->reverse();
                     }
@@ -370,7 +372,10 @@ class IMP_Mailbox_List implements Countable, Serializable
         }
 
         try {
-            $res = $imp_imap->search($this->_mailbox, $criteria, array('results' => array($results), 'sequence' => !$uid));
+            $res = $imp_imap->search($this->_mailbox, $criteria, array(
+                'results' => array($results),
+                'sequence' => !$uid
+            ));
             return $count ? $res['count'] : $res;
         } catch (IMP_Imap_Exception $e) {
             return $count ? 0 : array();

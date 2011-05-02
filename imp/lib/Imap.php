@@ -460,6 +460,12 @@ class IMP_Imap implements Serializable
             throw new BadMethodCallException(sprintf('%s: Invalid method call "%s".', __CLASS__, $method));
         }
 
+        switch ($method) {
+        case 'search':
+            $params = call_user_func_array(array($this, '_search'), $params);
+            break;
+        }
+
         try {
             $result = call_user_func_array(array($this->ob, $method), $params);
         } catch (Horde_Imap_Client_Exception $e) {
@@ -545,6 +551,52 @@ class IMP_Imap implements Serializable
         }
 
         return $result;
+    }
+
+    /**
+     * Prepares an IMAP search query.  Needed because certain configuration
+     * parameters may need to be dynamically altered before passed to the
+     * IMAP Client object.
+     *
+     * @param IMP_Mailbox $mailbox                   The mailbox to search.
+     * @param Horde_Imap_Client_Search_Query $query  The search query object.
+     * @param array $opts                            Additional options.
+     *
+     * @return array  Parameters to use in the search() call.
+     */
+    protected function _search(IMP_Mailbox $mailbox, $query, $opts)
+    {
+        /* If doing a from/to search, use display sorting if possible.
+         * Although there is a fallback to a PHP-based display sort, for
+         * performance reasons only do a display sort if it is supported
+         * on the server. */
+        if ($this->accessMailbox($mailbox, IMP_Imap::ACCESS_SORT) &&
+            !empty($opts['sort'])) {
+            $sort_cap = $this->queryCapability('SORT');
+
+            if (is_array($sort_cap) && in_array('DISPLAY', $sort_cap)) {
+                $pos = array_search(Horde_Imap_Client::SORT_FROM, $opts['sort']);
+                if ($pos !== false) {
+                    $opts['sort'][$pos] = Horde_Imap_Client::SORT_DISPLAYFROM;
+                }
+
+                $pos = array_search(Horde_Imap_Client::SORT_TO, $opts['sort']);
+                if ($pos !== false) {
+                    $opts['sort'][$pos] = Horde_Imap_Client::SORT_DISPLAYTO;
+                }
+            }
+        }
+
+        /* Make sure we search in the proper charset. */
+        if ($query) {
+            $query = clone $query;
+            $imap_charset = $this->validSearchCharset('UTF-8')
+                ? 'UTF-8'
+                : 'US-ASCII';
+            $query->charset($imap_charset, array('Horde_String', 'convertCharset'));
+        }
+
+        return array($mailbox, $query, $opts);
     }
 
     /* Static methods. */

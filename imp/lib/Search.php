@@ -106,11 +106,15 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
             $sortpref['by'] = $GLOBALS['prefs']->getValue('sortdate');
         }
 
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+
         foreach ($query_list as $mbox => $query) {
             if (!empty($ob)) {
                 $query->andSearch(array($ob));
             }
-            $results = $this->imapSearch($mbox, $query, array('sort' => array($sortpref['by'])));
+            $results = $imp_imap->search($mbox, $query, array(
+                'sort' => array($sortpref['by'])
+            ));
             if ($sortpref['dir']) {
                 $results['match']->reverse();
             }
@@ -137,7 +141,9 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
                              $sortdir = null)
     {
         try {
-            $results = $this->imapSearch($mailbox, $query, array('sort' => is_null($sortby) ? null : array($sortby)));
+            $results = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->search($mailbox, $query, array(
+                'sort' => is_null($sortby) ? null : array($sortby)
+            ));
             if ($sortdir) {
                 $results['match']->reverse();
             }
@@ -145,55 +151,6 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
         } catch (IMP_Imap_Exception $e) {
             return new IMP_Indices();
         }
-    }
-
-    /**
-     * Performs the IMAP search query on the server. Use this function,
-     * instead of directly calling Horde_Imap_Client's search() function,
-     * because certain configuration parameters may need to be dynamically
-     * altered.
-     *
-     * @param IMP_Mailbox $mailbox                   The mailbox to search.
-     * @param Horde_Imap_Client_Search_Query $query  The search query object.
-     * @param array $opts                            Additional options.
-     *
-     * @return array  Search results.
-     */
-    public function imapSearch($mailbox, $query, $opts = array())
-    {
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-
-        /* If doing a from/to search, use display sorting if possible.
-         * Although there is a fallback to a PHP-based display sort, for
-         * performance reasons only do a display sort if it is supported
-         * on the server. */
-        if ($imp_imap->accessMailbox($mailbox, IMP_Imap::ACCESS_SORT) &&
-            !empty($opts['sort'])) {
-            $sort_cap = $imp_imap->queryCapability('SORT');
-
-            if (is_array($sort_cap) && in_array('DISPLAY', $sort_cap)) {
-                $pos = array_search(Horde_Imap_Client::SORT_FROM, $opts['sort']);
-                if ($pos !== false) {
-                    $opts['sort'][$pos] = Horde_Imap_Client::SORT_DISPLAYFROM;
-                }
-
-                $pos = array_search(Horde_Imap_Client::SORT_TO, $opts['sort']);
-                if ($pos !== false) {
-                    $opts['sort'][$pos] = Horde_Imap_Client::SORT_DISPLAYTO;
-                }
-            }
-        }
-
-        /* Make sure we search in the proper charset. */
-        if ($query) {
-            $query = clone $query;
-            $imap_charset = $imp_imap->validSearchCharset('UTF-8')
-                ? 'UTF-8'
-                : 'US-ASCII';
-            $query->charset($imap_charset, array('Horde_String', 'convertCharset'));
-        }
-
-        return $imp_imap->search($mailbox, $query, $opts);
     }
 
     /**
