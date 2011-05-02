@@ -105,7 +105,7 @@ class Whups_Mail {
 
         // Authenticate as the correct Horde user.
         if (!empty($auth_user) && $auth_user != $GLOBALS['registry']->getAuth()) {
-            Horde_Auth::setAuth($auth_user, array());
+            $GLOBALS['registry']->setAuth($auth_user, array());
         }
 
         // See if we can match this message to an existing ticket.

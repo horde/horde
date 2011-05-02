@@ -50,7 +50,7 @@ foreach ($handle as $row) {
             $count = 0;
         }
         $user = $row['owner'];
-        Horde_Auth::setAuth($user, array());
+        $registry->setAuth($user, array());
         $cli->message('Importing ' . $user . '\'s address book');
 
         // Reset user prefs

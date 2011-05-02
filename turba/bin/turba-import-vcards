@@ -31,7 +31,7 @@ if (count($argv) != 3) {
 $source = $argv[1];
 $user = $argv[2];
 
-Horde_Auth::setAuth($user, array());
+$registry->setAuth($user, array());
 
 // Read standard input.
 $vcard = $cli->readStdin();

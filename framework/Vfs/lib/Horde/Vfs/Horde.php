@@ -53,7 +53,7 @@ class Horde_Vfs_Horde extends Horde_Vfs_Base
     {
         if (!empty($this->_params['user']) &&
             !empty($this->_params['password'])) {
-            Horde_Auth::setAuth($this->_params['user'], array('password' => $this->_params['password']));
+            $GLOBALS['registry']->setAuth($this->_params['user'], array('password' => $this->_params['password']));
         }
     }
 

@@ -378,6 +378,6 @@ class Folks_Hooks
             return;
         }
 
-        return Horde_Auth::setAuth($_COOKIE['folks_login_user'], array('transparent' => 1, 'password' => null));
+        return $GLOBALS['registry']->setAuth($_COOKIE['folks_login_user'], array('transparent' => 1, 'password' => null));
     }
 }
