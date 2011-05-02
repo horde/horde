@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Don't show IMP compose link if user doesn't have permissions to IMP (Bug #10016).
 * [mjr] Fix editing settings of fixed portal blocks (Bug #9910).
  </notes>
  <contents>
