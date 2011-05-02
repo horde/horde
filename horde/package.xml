@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mms] Fix authentication failure when TOS is not accepted.
 * [jan] Fix adding categories.
 * [jan] Don&apos;t check for outdated DB schemas if database support is disabled (Bug #9986).
  </notes>
