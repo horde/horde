@@ -175,6 +175,14 @@ class Horde_ActiveSync_Sync
             if ($this->_step < count($this->_changes)) {
                 $change = $this->_changes[$this->_step];
 
+                // Prevent corrupt server entries from causing infinite sync
+                // attempts.
+                while (empty($change['id']) && $this->_step < count($this->_changes) - 1) {
+                    $this->_logger->err('Missing UID value for an entry in: ' . $this->_folderId);
+                    $this->_step++;
+                    $change = $this->_changes[$this->_step];
+                }
+
                 switch($change['type']) {
                 case 'change':
                     $truncsize = self::_getTruncSize($this->_truncation);
