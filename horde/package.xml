@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-20</date>
- <time>22:14:10</time>
+ <date>2011-05-03</date>
+ <time>14:38:12</time>
  <version>
   <release>4.0.2</release>
   <api>4.0.0</api>
@@ -4069,9 +4069,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-05-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [mms] Fix authentication failure when TOS is not accepted.
 * [jan] Fix adding categories.
 * [jan] Don&apos;t check for outdated DB schemas if database support is disabled (Bug #9986).
    </notes>

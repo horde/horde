@@ -1,6 +1,6 @@
-----------
-v4.0.2-git
-----------
+------
+v4.0.2
+------
 
 [jan] SECURITY: Fix permission checks of guest users on system shares.
 [mms] SECURITY: Fix deletion of unwanted HTML nodes in XSS filter.
