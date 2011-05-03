@@ -57,6 +57,7 @@ while (!feof(STDIN)) {
 
     echo 'Converting filters for user: ' . $user;
 
+    $registry->clearAuth();
     $registry->setAuth($user, array());
     $session->set('ingo', 'current_share', ':' . $user);
 
