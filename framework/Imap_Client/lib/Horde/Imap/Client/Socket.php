@@ -1242,6 +1242,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                          * if UIDPLUS is not supported, we assume the UIDs
                          * are sticky. */
                         $data[$val] = false;
+                    } elseif ($key == Horde_Imap_Client::STATUS_PERMFLAGS) {
+                        /* If PERMFLAGS is not returned by server, must assume
+                         * that all flags can be changed permanently. See
+                         * RFC 3501 [6.3.1]. */
+                        $data[$val] = isset($this->_temp['mailbox'][$items[Horde_Imap_Client::STATUS_FLAGS]])
+                            ? $this->_temp['mailbox'][$items[Horde_Imap_Client::STATUS_FLAGS]]
+                            : array();
+                        $data[$val][] = "\\*";
                     } elseif (in_array($key, array(Horde_Imap_Client::STATUS_FIRSTUNSEEN, Horde_Imap_Client::STATUS_UNSEEN))) {
                         /* If we already know there are no messages in the
                          * current mailbox, we know there is no firstunseen
