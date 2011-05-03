@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-27</date>
- <time>13:25:22</time>
+ <date>2011-05-03</date>
+ <time>15:18:46</time>
  <version>
   <release>3.0.1</release>
   <api>3.0.0</api>
@@ -942,7 +942,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-27</date>
+   <date>2011-05-03</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [jan] Fix reversed logic of displaying sub-task tree icons depending on the text direction (Bug #10033).
