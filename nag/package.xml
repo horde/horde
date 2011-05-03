@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-05-03</date>
- <time>15:18:46</time>
+ <time>15:19:42</time>
  <version>
-  <release>3.0.1</release>
+  <release>3.0.2</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -28,9 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [jan] Fix reversed logic of displaying sub-task tree icons depending on the text direction (Bug #10033).
-* [jan] Fix encoding of non-ascii characters in parent task drop-down.
-* [mjr] Fix editing tasklists (Bug #9965).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -948,6 +946,19 @@
 * [jan] Fix reversed logic of displaying sub-task tree icons depending on the text direction (Bug #10033).
 * [jan] Fix encoding of non-ascii characters in parent task drop-down.
 * [mjr] Fix editing tasklists (Bug #9965).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
