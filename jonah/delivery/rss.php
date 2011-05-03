@@ -38,7 +38,7 @@ $criteria['published'] = true;
 // Fetch the channel info and the story list and check they are both valid.
 // Do a simple exit in case of errors.
 try {
-    $channel = $driver->getChannel($criteria['channel_id']);
+    $channel = Jonah::getFeed($criteria['channel_id']);
 } catch (Exception $e) {
     Horde::logMessage($e, 'ERR');
     header('HTTP/1.0 404 Not Found');
@@ -72,13 +72,12 @@ $template->set('xsl', Horde_Themes::getFeedXsl());
 if (!empty($criteria['tag_id'])) {
     $template->set('channel_name', sprintf(_("Stories tagged with %s in %s"), $tag_name, htmlspecialchars($channel['channel_name'])));
 } else {
-    $template->set('channel_name', htmlspecialchars($channel['channel_name']));
+    $template->set('channel_name', htmlspecialchars($channel->get('name')));
 }
-$template->set('channel_desc', htmlspecialchars($channel['channel_desc']));
-$template->set('channel_updated', htmlspecialchars(date('r', $channel['channel_updated'])));
-$template->set('channel_official', htmlspecialchars($channel['channel_official']));
-$template->set('channel_rss', htmlspecialchars(Horde_Util::addParameter(Horde::url('delivery/rss.php', true, -1), array('type' => 'rss', 'channel_id' => $channel['channel_id']))));
-$template->set('channel_rss2', htmlspecialchars(Horde_Util::addParameter(Horde::url('delivery/rss.php', true, -1), array('type' => 'rss2', 'channel_id' => $channel['channel_id']))));
+$template->set('channel_desc', htmlspecialchars($channel->get('desc')));
+$template->set('channel_updated', htmlspecialchars(date('r', $channel->get('updated'))));
+$template->set('channel_rss', htmlspecialchars(Horde_Util::addParameter(Horde::url('delivery/rss.php', true, -1), array('type' => 'rss', 'channel_id' => $channel->getName()))));
+$template->set('channel_rss2', htmlspecialchars(Horde_Util::addParameter(Horde::url('delivery/rss.php', true, -1), array('type' => 'rss2', 'channel_id' => $channel->getName()))));
 foreach ($stories as &$story) {
     $story['title'] = htmlspecialchars($story['title']);
     $story['description'] = htmlspecialchars($story['description']);
@@ -90,9 +89,10 @@ foreach ($stories as &$story) {
 }
 $template->set('stories', $stories);
 
-$browser->downloadHeaders($channel['channel_name'] . '.rss', 'text/xml', true);
+$browser->downloadHeaders($channel->getName() . '.rss', 'text/xml', true);
 $tpl = JONAH_TEMPLATES . '/delivery/' . $criteria['feed_type'];
-if (!empty($channel['channel_full_feed'])) {
+$full_feed = $channel->get('full_feed');
+if (!empty($full_feed)) {
     $tpl .= '_full';
 }
 echo $template->fetch($tpl . '.xml');

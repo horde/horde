@@ -407,8 +407,11 @@ class Jonah_Driver_Sql extends Jonah_Driver
             $limit = min($criteria['endnumber'] - $criteria['startnumber'], $criteria['limit']);
             $start = $criteria['startnumber'];
         }
-        if ($limit || $start != 0) {
-            $sql .= ' LIMIT ' . $start . ',' . $limit;
+        if ($limit) {
+            $sql .= ' LIMIT ' . $limit;
+        }
+        if ($start) {
+            $sql .= ' OFFSET ' . $start;
         }
 
         Horde::logMessage('SQL Query by Jonah_Driver_sql::_getStories(): ' . $sql, 'DEBUG');
