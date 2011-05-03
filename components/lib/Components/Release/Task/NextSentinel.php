@@ -43,7 +43,7 @@ extends Components_Release_Task_Sentinel
             $this->getPackage()->getComponentDirectory()
         );
         if (empty($options['next_version'])) {
-            $options['next_version'] = Components_Helper_Version::nextVersion($sentinel->getVersion());
+            $options['next_version'] = Components_Helper_Version::nextVersion(Components_Helper_Version::hordeToPear($sentinel->getVersion()));
         }
         $changes_version = Components_Helper_Version::pearToHorde(
             $options['next_version']
