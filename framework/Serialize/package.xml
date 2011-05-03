@@ -101,14 +101,16 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>lzf</name>
+    <channel>pecl.php.net</channel>
+    <min>1.5.2</min>
+   </package>
    <extension>
     <name>bz2</name>
    </extension>
    <extension>
     <name>json</name>
-   </extension>
-   <extension>
-    <name>lzf</name>
    </extension>
    <extension>
     <name>wddx</name>
