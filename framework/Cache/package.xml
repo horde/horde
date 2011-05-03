@@ -112,14 +112,15 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>APC</name>
+    <channel>pecl.php.net</channel>
+    <min>3.1.1</min>
+   </package>
+   <package>
     <name>lzf</name>
     <channel>pecl.php.net</channel>
     <min>1.5.2</min>
    </package>
-   <extension>
-    <name>apc</name>
-    <min>2.0.0</min>
-   </extension>
    <extension>
     <name>eaccelerator</name>
     <min>0.9.5</min>
