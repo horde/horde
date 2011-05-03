@@ -70,7 +70,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
             $sql = 'INSERT INTO jonah_channels' .
                    ' (channel_slug, channel_name, channel_type, channel_desc, channel_interval, channel_url, channel_link, channel_page_link, channel_story_url, channel_img)' .
                    ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-            Horde::logMessage('SQL Query by Jonah_Driver_sql::saveChannel(): ' . $sql, 'DEBUG');
+
             try {
                 $info['channel_id'] = $this->_db->insert($sql, $values);
             } catch (Horde_Db_Exception $e) {
@@ -81,7 +81,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
             $sql = 'UPDATE jonah_channels' .
                    ' SET channel_slug = ?, channel_name = ?, channel_type = ?, channel_desc = ?, channel_interval = ?, channel_url = ?, channel_link = ?, channel_page_link = ?, channel_story_url = ?, channel_img = ?' .
                    ' WHERE channel_id = ?';
-            Horde::logMessage('SQL Query by Jonah_Driver_sql::saveChannel(): ' . $sql, 'DEBUG');
+
             try {
                 $results = $this->_db->update($sql, $values);
             } catch (Horde_Db_Exception $e) {
@@ -90,53 +90,6 @@ class Jonah_Driver_Sql extends Jonah_Driver
         }
 
         return $info['channel_id'];
-    }
-
-    /**
-     * Get a list of stored channels.
-     *
-     * @return mixed         An array of channels.
-     * @throws Jonah_Exception
-     */
-    public function getChannels()
-    {
-        // @TODO: Remove channel_type filter when tables are updated.
-        $sql = 'SELECT channel_id, channel_name, channel_type, channel_updated FROM jonah_channels WHERE channel_type = ' . Jonah::INTERNAL_CHANNEL . ' ORDER BY channel_name';
-        Horde::logMessage('SQL Query by Jonah_Driver_sql::getChannels(): ' . $sql, 'DEBUG');
-        try {
-            $result = $this->_db->selectAll($sql);
-        } catch (Horde_Db_Exception $e) {
-            throw new Jonah_Exception($e);
-        }
-        for ($i = 0; $i < count($result); $i++) {
-            $result[$i]['channel_name'] = Horde_String::convertCharset($result[$i]['channel_name'], $this->_params['charset'], 'UTF-8');
-        }
-
-        return $result;
-    }
-
-    /**
-     * Retrieve a single channel definition from storage.
-     *
-     * @return array  The channel definition array.
-     * @throws Jonah_Exception
-     * @throws Horde_Exception_NotFound
-     */
-    protected function _getChannel($channel_id)
-    {
-        $sql = 'SELECT * FROM jonah_channels WHERE channel_id = ' . (int)$channel_id;
-
-        Horde::logMessage('SQL Query by Jonah_Driver_sql::_getChannel(): ' . $sql, 'DEBUG');
-        try {
-            $result = $this->_db->selectOne($sql, DB_FETCHMODE_ASSOC);
-        } catch (Horde_Db_Exception $e) {
-            throw new Jonah_Exception($e);
-        }
-        if (empty($result)) {
-            throw new Horde_Exception_NotFound(sprintf(_("Channel id \"%s\" not found."), $channel_id));
-        }
-
-        return $result;
     }
 
     /**
@@ -155,7 +108,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
         $sql = sprintf('UPDATE jonah_channels SET channel_updated = %s WHERE channel_id = %s',
                        (int)$timestamp,
                        (int)$channel_id);
-        Horde::logMessage('SQL Query by Jonah_Driver_sql::_timestampChannel(): ' . $sql, 'DEBUG');
+
         try {
             $result = $this->_db->update($sql);
         } catch (Horde_Db_Exception $e) {
@@ -174,7 +127,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
     protected function _readStory($story_id)
     {
         $sql = 'UPDATE jonah_stories SET story_read = story_read + 1 WHERE story_id = ' . (int)$story_id;
-        Horde::logMessage('SQL Query by Jonah_Driver_sql::_readStory(): ' . $sql, 'DEBUG');
+
         try {
             $result = $this->_db->update($sql);
         } catch (Horde_Db_Exception $e) {
@@ -198,7 +151,6 @@ class Jonah_Driver_Sql extends Jonah_Driver
         $sql = 'DELETE FROM jonah_channels WHERE channel_id = ?';
         $values = array($channel_id);
 
-        Horde::logMessage('SQL Query by Jonah_Driver_sql::deleteChannel(): ' . $sql, 'DEBUG');
         try {
             $result = $this->_db->delete($sql, $values);
         } catch (Horde_Db_Exception $e) {
@@ -236,7 +188,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
             $permalink = $this->getStoryLink($channel,$info);
             $values[] = $permalink;
             $sql = 'INSERT INTO jonah_stories (channel_id, story_author, story_title, story_desc, story_body_type, story_body, story_url, story_published, story_updated, story_read, story_permalink) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-            Horde::logMessage('SQL Query by Jonah_Driver_sql::_saveStory(): ' . $sql, 'DEBUG');
+
             try {
                 $info['id'] = $this->_db->insert($sql, $values);
             } catch (Horde_Db_Exception $e) {
@@ -245,7 +197,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
         } else {
             $values[] = (int)$info['id'];
             $sql = 'UPDATE jonah_stories SET channel_id = ?, story_author = ?, story_title = ?, story_desc = ?, story_body_type = ?, story_body = ?, story_url = ?, story_published = ?, story_updated = ?, story_read = ? WHERE story_id = ?';
-            Horde::logMessage('SQL Query by Jonah_Driver_sql::_saveStory(): ' . $sql, 'DEBUG');
+
             try {
                 $result = $this->_db->update($sql, $values);
             } catch (Horde_Db_Exception $e) {
@@ -400,6 +352,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
         }
         $limit = 0;
         $start = 0;
+        $limitOffset = array();
         if (isset($criteria['limit'])) {
             $limit = $criteria['limit'];
         }
@@ -408,13 +361,13 @@ class Jonah_Driver_Sql extends Jonah_Driver
             $start = $criteria['startnumber'];
         }
         if ($limit) {
-            $sql .= ' LIMIT ' . $limit;
+            $limitOffset['limit'] = $limit;
         }
         if ($start) {
-            $sql .= ' OFFSET ' . $start;
+            $limitOffset['offset'] = $start;
         }
+        $sql = $this->_db->addLimitOffset($sql, $limitOffset);
 
-        Horde::logMessage('SQL Query by Jonah_Driver_sql::_getStories(): ' . $sql, 'DEBUG');
         try {
             $results = $this->_db->selectAll($sql, $values);
         } catch (Horde_Db_Exception $e) {
@@ -468,7 +421,6 @@ class Jonah_Driver_Sql extends Jonah_Driver
 
         $values = array((int)$story_id);
 
-        Horde::logMessage('SQL Query by Jonah_Driver_sql::_getStory(): ' . $sql, 'DEBUG');
         try {
             $result = $this->_db->selectOne($sql, $values, DB_FETCHMODE_ASSOC);
         } catch (Horde_Db_Exception $e) {
@@ -496,7 +448,6 @@ class Jonah_Driver_Sql extends Jonah_Driver
         $channel = $this->getChannel($story['channel_id']);
         $sql = 'UPDATE jonah_stories SET story_permalink = ? WHERE story_id = ?';
         $values = array($this->getStoryLink($channel, $story), $story['id']);
-        Horde::logMessage('SQL Query by Jonah_Driver_sql::_addPermalink(): ' . $sql, 'DEBUG');
         try {
             $result = $this->_db->update($sql, $values);
         } catch (Horde_Db_Exception $e) {
@@ -519,11 +470,10 @@ class Jonah_Driver_Sql extends Jonah_Driver
         $sql = 'SELECT story_id FROM jonah_stories' .
                ' WHERE channel_id = ? AND story_published <= ?' .
                ' ORDER BY story_updated DESC';
-        $values = array((int)$channel_id, time());
+        $values = array($channel_id, time());
 
-        Horde::logMessage('SQL Query by Jonah_Driver_sql::getLatestStoryId(): ' . $sql, 'DEBUG');
         try {
-            $result = $this->_db->selectRow($sql, $values, DB_FETCHMODE_ASSOC);
+            $result = $this->_db->selectOne($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Jonah_Exception($e);
         }
@@ -541,9 +491,8 @@ class Jonah_Driver_Sql extends Jonah_Driver
     {
         $sql = 'DELETE FROM jonah_stories' .
                ' WHERE channel_id = ? AND story_id = ?';
-        $values = array((int)$channel_id, (int)$story_id);
+        $values = array($channel_id, (int)$story_id);
 
-        Horde::logMessage('SQL Query by Jonah_Driver_sql::deleteStory(): ' . $sql, 'DEBUG');
         try {
             $result = $this->_db->delete($sql, $values);
         } catch (Horde_Db_Exception $e) {}
