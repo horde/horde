@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2011-05-03</date>
- <time>13:23:47</time>
+ <time>13:24:07</time>
  <version>
-  <release>1.0.2</release>
+  <release>1.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
-* [jan] Fix listing users in Customsql driver (Bug #9963).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -389,6 +389,19 @@
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
 * [jan] Fix listing users in Customsql driver (Bug #9963).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
