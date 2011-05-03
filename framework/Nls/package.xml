@@ -339,9 +339,10 @@
     <name>Net_DNS2</name>
     <channel>pear.php.net</channel>
    </package>
-   <extension>
+   <package>
     <name>geoip</name>
-   </extension>
+    <channel>pecl.php.net</channel>
+   </package>
   </optional>
  </dependencies>
  <phprelease>
