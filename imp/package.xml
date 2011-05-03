@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-05-03</date>
- <time>16:24:38</time>
+ <time>16:27:23</time>
  <version>
   <release>5.0.3</release>
   <api>5.0.0</api>
@@ -2199,7 +2199,7 @@
    <date>2011-05-03</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [jan] Add missing files to package.
    </notes>
   </release>
  </changelog>
