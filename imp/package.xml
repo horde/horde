@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-05-03</date>
- <time>14:58:43</time>
+ <time>15:00:41</time>
  <version>
-  <release>5.0.2</release>
+  <release>5.0.3</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,11 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [mms] Add quick flag filtering to traditional view.
-* [mms] Fix viewing linked attachments (Bug #9972).
-* [mms] Add support for the content-id access type of message/external-body.
-* [mms] Consolidate IMAP error handling code in IMP_Imap_Exception.
-* [mms] Use translated namespace name if available.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2179,6 +2175,19 @@
 * [mms] Add support for the content-id access type of message/external-body.
 * [mms] Consolidate IMAP error handling code in IMP_Imap_Exception.
 * [mms] Use translated namespace name if available.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.3</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
