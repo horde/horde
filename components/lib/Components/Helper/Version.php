@@ -58,7 +58,7 @@ class Components_Helper_Version
      */
     static public function hordeToPear($version)
     {
-        if (!preg_match('/(H\d+ \()?([.\d]+)(-.*)((?(1)\)))/', $version, $matches)) {
+        if (!preg_match('/(H\d+ \()?([.\d]+)(-.+)?((?(1)\)))/', $version, $matches)) {
             throw new Components_Exception('Invalid version number ' . $version);
         }
         if (!empty($matches[3])) {

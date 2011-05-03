@@ -41,6 +41,10 @@ extends Components_TestCase
             '4.0-ALPHA1',
             Components_Helper_Version::pearToHorde('4.0.0alpha1')
         );
+        $this->assertEquals(
+            '4.0.0alpha1',
+            Components_Helper_Version::hordeToPear('4.0-ALPHA1')
+        );
     }
 
     public function testBeta()
@@ -49,13 +53,21 @@ extends Components_TestCase
             '4.0-BETA1',
             Components_Helper_Version::pearToHorde('4.0.0beta1')
         );
+        $this->assertEquals(
+            '4.0.0beta1',
+            Components_Helper_Version::hordeToPear('4.0-BETA1')
+        );
     }
 
     public function testRc1()
     {
         $this->assertEquals(
             '4.0-RC1',
-            Components_Helper_Version::pearToHorde('4.0.0rc1')
+            Components_Helper_Version::pearToHorde('4.0.0RC1')
+        );
+        $this->assertEquals(
+            '4.0.0RC1',
+            Components_Helper_Version::hordeToPear('4.0-RC1')
         );
     }
 
@@ -63,7 +75,11 @@ extends Components_TestCase
     {
         $this->assertEquals(
             '4.0-RC2',
-            Components_Helper_Version::pearToHorde('4.0.0rc2')
+            Components_Helper_Version::pearToHorde('4.0.0RC2')
+        );
+        $this->assertEquals(
+            '4.0.0RC2',
+            Components_Helper_Version::hordeToPear('4.0-RC2')
         );
     }
 
@@ -73,6 +89,10 @@ extends Components_TestCase
             '4.0',
             Components_Helper_Version::pearToHorde('4.0.0')
         );
+        $this->assertEquals(
+            '4.0.0',
+            Components_Helper_Version::hordeToPear('4.0')
+        );
     }
 
     public function testFourOhOneGit()
@@ -80,6 +100,10 @@ extends Components_TestCase
         $this->assertEquals(
             '4.0.1-git',
             Components_Helper_Version::pearToHorde('4.0.1-git')
+        );
+        $this->assertEquals(
+            '4.0.1dev',
+            Components_Helper_Version::hordeToPear('4.0.1-git')
         );
     }
 
@@ -89,6 +113,10 @@ extends Components_TestCase
             '4.1',
             Components_Helper_Version::pearToHorde('4.1.0')
         );
+        $this->assertEquals(
+            '4.1.0',
+            Components_Helper_Version::hordeToPear('4.1')
+        );
     }
 
     public function testFourOneOhBeta1()
@@ -96,6 +124,10 @@ extends Components_TestCase
         $this->assertEquals(
             '4.1-BETA1',
             Components_Helper_Version::pearToHorde('4.1.0beta1')
+        );
+        $this->assertEquals(
+            '4.1.0beta1',
+            Components_Helper_Version::hordeToPear('4.1-BETA1')
         );
     }
 
@@ -105,13 +137,21 @@ extends Components_TestCase
             '5.0',
             Components_Helper_Version::pearToHorde('5.0.0')
         );
+        $this->assertEquals(
+            '5.0.0',
+            Components_Helper_Version::hordeToPear('5.0')
+        );
     }
 
     public function testFiveTwoOhRc2()
     {
         $this->assertEquals(
             '5.2-RC2',
-            Components_Helper_Version::pearToHorde('5.2.0rc2')
+            Components_Helper_Version::pearToHorde('5.2.0RC2')
+        );
+        $this->assertEquals(
+            '5.2.0RC2',
+            Components_Helper_Version::hordeToPear('5.2-RC2')
         );
     }
 
