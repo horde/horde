@@ -61,19 +61,20 @@ class IMP_Ui_Message
     /**
      * Check if we need to send a MDN, and send if needed.
      *
-     * @param string $mailbox              The mailbox of the message.
+     * @param IMP_Mailbox $mailbox         The mailbox of the message.
      * @param integer $uid                 The UID of the message.
      * @param Horde_Mime_Headers $headers  The headers of the message.
      * @param boolean $confirmed           Has the MDN request been confirmed?
      *
      * @return boolean  True if the MDN request needs to be confirmed.
      */
-    public function MDNCheck($mailbox, $uid, $headers, $confirmed = false)
+    public function MDNCheck(IMP_Mailbox $mailbox, $uid, $headers,
+                             $confirmed = false)
     {
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         $pref_val = $GLOBALS['prefs']->getValue('send_mdn');
 
-        if (!$pref_val || IMP_Mailbox::get($mailbox)->readonly) {
+        if (!$pref_val || $mailbox->readonly) {
             return false;
         }
 
