@@ -10,47 +10,26 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Nag Task List
-Manager version H4 (3.0).
+Manager version H4 (3.0.1).
 
 Nag is a web-based application built upon the Horde Application Framework which
 provides a simple, clean interface for managing online task lists (i.e., todo
 lists). It also includes strong integration with the other Horde applications
 and allows users to share task lists or enable light-weight project management.
 
-To install Nag, you need to install Horde first. See
-https://github.com/horde/horde/blob/master/horde/docs/INSTALL for details. Once
-Horde is installed, you can install Nag with the following command:
+The major changes compared to the Nag version H4 (3.0) are:
 
-  pear install horde/nag
-
-Then log in to Horde with your adminstrator account to configure the
-application and install the database schema from the configuration interface.
-
-The major changes compared to the Nag version H4 (3.0-RC2) are:
-
-    * Many small bugfixes and improvements.
-
-The major changes compared to the Nag version H4 (2.3) are:
-
-    * Updated for Horde 4.
-    * New Ajax frontend (through Kronolith).
-    * System task lists.
-    * Task list coloring.
-    * Quick task adding.
+    * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Updated for Horde 4.
-New Ajax frontend (through Kronolith).
-System task lists.
-Task list coloring.
-Quick task adding.
+Small bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Nag';
