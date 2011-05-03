@@ -44,7 +44,7 @@ class Nag_Form_Task extends Horde_Form
             if ($vars->get('task_id') == $task->id) {
                 continue;
             }
-            $task_enums[htmlspecialchars($task->id)] = str_repeat('&nbsp;', $task->indent * 4) . htmlentities($task->name);
+            $task_enums[htmlspecialchars($task->id)] = str_repeat('&nbsp;', $task->indent * 4) . htmlspecialchars($task->name);
         }
         $users = array();
         $share = $GLOBALS['nag_shares']->getShare($tasklist);

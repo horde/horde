@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [jan] Fix encoding of non-ascii characters in parent task drop-down.
 * [mjr] Fix editing tasklists (Bug #9965).
  </notes>
  <contents>
@@ -943,6 +944,7 @@
    <date>2011-04-27</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [jan] Fix encoding of non-ascii characters in parent task drop-down.
 * [mjr] Fix editing tasklists (Bug #9965).
    </notes>
   </release>

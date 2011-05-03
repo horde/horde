@@ -2,6 +2,7 @@
 v3.0.1-git
 ----------
 
+[jan] Fix encoding of non-ascii characters in parent task drop-down.
 [mjr] Fix editing tasklists (Bug #9965).
 
 ----
