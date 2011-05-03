@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2011-05-03</date>
- <time>13:25:31</time>
+ <time>14:12:47</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -283,7 +283,7 @@ Initial packaging.
    <date>2011-05-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Fix dependency.
    </notes>
   </release>
  </changelog>
