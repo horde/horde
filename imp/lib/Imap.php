@@ -342,18 +342,43 @@ class IMP_Imap implements Serializable
     }
 
     /**
+     * Return the list of permanent flags available to set in the mailbox.
+     *
+     * @param IMP_Mailbox $mailbox  The mailbox to query.
+     *
+     * @return IMP_Imap_PermanentFlags  A permanent flags object.
      */
     public function getPermanentFlags(IMP_Mailbox $mailbox)
     {
-        /* Make sure we are in R/W mailbox mode (SELECT). No flags are
-         * allowed in EXAMINE mode. */
-        try {
-            $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_READWRITE);
-            $status = $this->status($mailbox, Horde_Imap_Client::STATUS_PERMFLAGS);
-            return $status['permflags'];
-        } catch (Horde_Imap_Client_Exception $e) {
-            return array();
+        if (!$this->access(self::ACCESS_FLAGS)) {
+            return new IMP_Imap_PermanentFlags();
         }
+
+        $mbox_str = strval($mailbox);
+
+        if (isset($this->_mboxes[$mbox_str]['p'])) {
+            return $this->_mboxes[$mbox_str]['p'];
+        }
+
+        try {
+            /* Make sure we are in R/W mailbox mode (SELECT). No flags are
+             * allowed in EXAMINE mode. */
+            $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_READWRITE);
+            $status = $this->status($mailbox, Horde_Imap_Client::STATUS_FLAGS | Horde_Imap_Client::STATUS_PERMFLAGS);
+        } catch (Horde_Imap_Client_Exception $e) {
+            /* Assume this is a temporary error and try again later. */
+            return new IMP_Imap_PermanentFlags();
+        }
+
+        $ret = new IMP_Imap_PermanentFlags($status['permflags'], $status['flags']);
+
+        /* Only cache for standard view - the rest of the views don't use
+         * this value very often. */
+        if (IMP::getViewMode() == 'imp') {
+            $this->_mboxes[$mbox_str]['p'] = $ret;
+        }
+
+        return $ret;
     }
 
     /**

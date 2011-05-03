@@ -119,8 +119,8 @@ class IMP_Flags implements ArrayAccess, Serializable
             return array_values($ret);
         }
 
-        /* Alter the list of flags for a mailbox depending on the return
-         * from the PERMANENTFLAGS IMAP response. */
+        /* Alter the list of flags for a mailbox depending on the mailbox's
+         * PERMANENTFLAGS status. */
         try {
             $permflags = $imp_imap->getPermanentFlags(IMP_Mailbox::get($opts['mailbox']));
         } catch (IMP_Imap_Exception $e) {
@@ -128,12 +128,10 @@ class IMP_Flags implements ArrayAccess, Serializable
         }
 
         /* Limited flags allowed in mailbox. */
-        if (array_search('\\*', $permflags) === false) {
-            foreach ($ret as $key => $val) {
-                if (($val instanceof IMP_Flag_Imap) &&
-                    !in_array($val->imapflag, $permflags)) {
-                    unset($ret[$key]);
-                }
+        foreach ($ret as $key => $val) {
+            if (($val instanceof IMP_Flag_Imap) &&
+                !$permflags->allowed($val->imapflag)) {
+                unset($ret[$key]);
             }
         }
 
@@ -148,9 +146,8 @@ class IMP_Flags implements ArrayAccess, Serializable
             }
 
             foreach ($permflags as $val) {
-                if (($val != '\\*') && !in_array($val, $imapflags)) {
-                    $ob = new IMP_Flag_User(Horde_String::convertCharset($val, 'UTF7-IMAP', 'UTF-8'), $val);
-                    $ret[] = $ob;
+                if (!in_array($val, $imapflags)) {
+                    $ret[] = new IMP_Flag_User(Horde_String::convertCharset($val, 'UTF7-IMAP', 'UTF-8'), $val);
                 }
             }
         }

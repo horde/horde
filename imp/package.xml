@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [mms] Cache list of settable flags for a mailbox.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

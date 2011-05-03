@@ -2,6 +2,7 @@
 v5.0.4-git
 ----------
 
+[mms] Cache list of settable flags for a mailbox.
 
 
 ------
