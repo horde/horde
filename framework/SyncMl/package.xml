@@ -11,8 +11,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:20:53</time>
+ <date>2011-05-03</date>
+ <time>13:40:57</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -1113,10 +1113,10 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-05-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] Fix issue causing slow syncs only (Bug #10008).
    </notes>
   </release>
  </changelog>
