@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [jan] Fix parsing of recurrence end date in dynamic view (Bug #10025).
 * [jan] Fix displaying of new tasks in new task lists.
 * [jan] Delete tasks from tasks view when deleting tasks lists.
 * [jan] Don&apos;t export multi-day events as multiple events to iCalendar data (Bug #10007).
@@ -1717,6 +1718,7 @@
    <date>2011-04-20</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [jan] Fix parsing of recurrence end date in dynamic view (Bug #10025).
 * [jan] Fix displaying of new tasks in new task lists.
 * [jan] Delete tasks from tasks view when deleting tasks lists.
 * [jan] Don&apos;t export multi-day events as multiple events to iCalendar data (Bug #10007).

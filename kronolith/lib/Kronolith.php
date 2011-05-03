@@ -2620,12 +2620,13 @@ class Kronolith
     /**
      * Parses a complete date-time string into a Horde_Date object.
      *
-     * @param string $date  The date-time string to parse.
+     * @param string $date       The date-time string to parse.
+     * @param boolean $withtime  Whether time is included in the string.
      *
      * @return Horde_Date  The parsed date.
      * @throws Horde_Date_Exception
      */
-    public static function parseDate($date)
+    public static function parseDate($date, $withtime = true)
     {
         // strptime() is not available on Windows.
         if (!function_exists('strptime')) {
@@ -2635,8 +2636,11 @@ class Kronolith
         // strptime() is locale dependent, i.e. %p is not always matching
         // AM/PM. Set the locale to C to workaround this, but grab the
         // locale's D_FMT before that.
-        $format = Horde_Nls::getLangInfo(D_FMT) . ' '
-            . ($GLOBALS['prefs']->getValue('twentyFour') ? '%H:%M' : '%I:%M %p');
+        $format = Horde_Nls::getLangInfo(D_FMT);
+        if ($withtime) {
+            $format .= ' '
+                . ($GLOBALS['prefs']->getValue('twentyFour') ? '%H:%M' : '%I:%M %p');
+        }
         $old_locale = setlocale(LC_TIME, 0);
         setlocale(LC_TIME, 'C');
 

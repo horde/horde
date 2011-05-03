@@ -2229,19 +2229,13 @@ abstract class Kronolith_Event
             }
             if (Horde_Util::getFormData('recur_end_type') == 'date') {
                 if ($end_date = Horde_Util::getFormData('recur_end_date')) {
-                    // Try exact format match first.
-                    if ($date_arr = strptime($end_date, $date_format)) {
-                        $recur_enddate =
-                            array('year'  => $date_arr['tm_year'] + 1900,
-                                  'month' => $date_arr['tm_mon'] + 1,
-                                  'day'  => $date_arr['tm_mday']);
-                    } else {
-                        $date_ob = new Horde_Date($end_date);
-                        $recur_enddate = array('year'  => $date_ob->year,
-                                               'month' => $date_ob->month,
-                                               'day'  => $date_ob->mday);
-                    }
+                    // From ajax interface.
+                    $date_ob = Kronolith::parseDate($end_date, false);
+                    $recur_enddate = array('year'  => $date_ob->year,
+                                           'month' => $date_ob->month,
+                                           'day'  => $date_ob->mday);
                 } else {
+                    // From traditional interface.
                     $recur_enddate = Horde_Util::getFormData('recur_end');
                 }
                 if ($this->recurrence->hasRecurEnd()) {
