@@ -337,7 +337,9 @@ class Horde_Share_Object_Sql extends Horde_Share_Object implements Serializable
      */
     public function hasPermission($userid, $permission, $creator = null)
     {
-        if ($userid == $this->data['share_owner']) {
+        /* Test identity because system share owners are null, and guests are
+         * false. */
+        if ($userid === $this->data['share_owner']) {
             return true;
         }
         return $this->getShareOb()->getPermsObject()->hasPermission($this->getPermission(), $userid, $permission, $creator);

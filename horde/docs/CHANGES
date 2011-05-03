@@ -2,6 +2,7 @@
 v4.0.2-git
 ----------
 
+[jan] SECURITY: Fix permission checks of guest users on system shares.
 [mms] Fix authentication failure when TOS is not accepted.
 [jan] Don't show IMP compose link if user doesn't have permissions to IMP (Bug
       #10016).
