@@ -115,7 +115,7 @@ class Kronolith
 
         $kronolith_webroot = $registry->get('webroot');
         $horde_webroot = $registry->get('webroot', 'horde');
-        $has_tasks = Kronolith::hasApiPermission('tasks');
+        $has_tasks = self::hasApiPermission('tasks');
         $app_urls = array();
         if (isset($GLOBALS['conf']['menu']['apps']) &&
             is_array($GLOBALS['conf']['menu']['apps'])) {
@@ -808,7 +808,7 @@ class Kronolith
             $eventStart = $event->start;
             $eventEnd = $event->end;
         }
-        Kronolith::addEvents($events, $event, $eventStart, $eventEnd, $showRecurrence, $json, false);
+        self::addEvents($events, $event, $eventStart, $eventEnd, $showRecurrence, $json, false);
     }
 
     /**
@@ -874,7 +874,7 @@ class Kronolith
         $title = $r->untaggedText();
         $start = $d->timestamp();
 
-        $kronolith_driver = Kronolith::getDriver(null, $calendar);
+        $kronolith_driver = self::getDriver(null, $calendar);
         $event = $kronolith_driver->getEvent();
         $event->initialized = true;
         $event->title = $title;
@@ -1061,7 +1061,7 @@ class Kronolith
         $GLOBALS['all_external_calendars'] = array();
 
         /* Make sure all task lists exist. */
-        if (Kronolith::hasApiPermission('tasks') &&
+        if (self::hasApiPermission('tasks') &&
             $GLOBALS['registry']->hasMethod('tasks/listTimeObjects')) {
             try {
                 $tasklists = $GLOBALS['registry']->tasks->listTasklists();
@@ -1079,7 +1079,7 @@ class Kronolith
 
         if ($GLOBALS['session']->exists('kronolith', 'all_external_calendars')) {
             foreach ($GLOBALS['session']->get('kronolith', 'all_external_calendars') as $calendar) {
-                if (!Kronolith::hasApiPermission($calendar['a']) ||
+                if (!self::hasApiPermission($calendar['a']) ||
                     $calendar['a'] == 'tasks') {
                     continue;
                 }
@@ -1091,7 +1091,7 @@ class Kronolith
 
             foreach ($apis as $api) {
                 if ($api == 'tasks' ||
-                    !Kronolith::hasApiPermission($api) ||
+                    !self::hasApiPermission($api) ||
                     !$GLOBALS['registry']->hasMethod($api . '/listTimeObjects')) {
                     continue;
                 }
@@ -1138,7 +1138,7 @@ class Kronolith
         /* If an authenticated doesn't own a calendar, create it. */
         if (!empty($GLOBALS['conf']['share']['auto_create']) &&
             $GLOBALS['registry']->getAuth() &&
-            !count(Kronolith::listInternalCalendars(true))) {
+            !count(self::listInternalCalendars(true))) {
             $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
             $share = $GLOBALS['kronolith_shares']->newShare(
                 $GLOBALS['registry']->getAuth(),
@@ -1688,7 +1688,7 @@ class Kronolith
 
         // Delete the calendar.
         try {
-            Kronolith::getDriver()->delete($calendar->getName());
+            self::getDriver()->delete($calendar->getName());
         } catch (Exception $e) {
             throw new Kronolith_Exception(sprintf(_("Unable to delete \"%s\": %s"), $calendar->get('name'), $ed->getMessage()));
         }
@@ -1744,7 +1744,7 @@ class Kronolith
                 $share->save();
                 if ($GLOBALS['conf']['share']['notify']) {
                     $view->ownerChange = true;
-                    $multipart = Kronolith::buildMimeMessage($view, 'notification', $image);
+                    $multipart = self::buildMimeMessage($view, 'notification', $image);
                     $to = $GLOBALS['injector']
                         ->getInstance('Horde_Core_Factory_Identity')
                         ->create($new_owner)
@@ -1762,7 +1762,7 @@ class Kronolith
             if ($GLOBALS['conf']['share']['hidden']) {
                 $view->subscribe = Horde::url('calendars/subscribe.php', true)->add('calendar', $share->getName());
             }
-            $multipart = Kronolith::buildMimeMessage($view, 'notification', $image);
+            $multipart = self::buildMimeMessage($view, 'notification', $image);
         }
 
         if ($GLOBALS['registry']->isAdmin() ||
@@ -1789,9 +1789,9 @@ class Kronolith
                 $perm->removeDefaultPermission(Horde_Perms::DELETE, false);
             }
             if (Horde_Util::getFormData('default_delegate')) {
-                $perm->addDefaultPermission(Kronolith::PERMS_DELEGATE, false);
+                $perm->addDefaultPermission(self::PERMS_DELEGATE, false);
             } else {
-                $perm->removeDefaultPermission(Kronolith::PERMS_DELEGATE, false);
+                $perm->removeDefaultPermission(self::PERMS_DELEGATE, false);
             }
 
             // Process guest permissions.
@@ -1816,9 +1816,9 @@ class Kronolith
                 $perm->removeGuestPermission(Horde_Perms::DELETE, false);
             }
             if (Horde_Util::getFormData('guest_delegate')) {
-                $perm->addGuestPermission(Kronolith::PERMS_DELEGATE, false);
+                $perm->addGuestPermission(self::PERMS_DELEGATE, false);
             } else {
-                $perm->removeGuestPermission(Kronolith::PERMS_DELEGATE, false);
+                $perm->removeGuestPermission(self::PERMS_DELEGATE, false);
             }
         }
 
@@ -1844,9 +1844,9 @@ class Kronolith
             $perm->removeCreatorPermission(Horde_Perms::DELETE, false);
         }
         if (Horde_Util::getFormData('creator_delegate')) {
-            $perm->addCreatorPermission(Kronolith::PERMS_DELEGATE, false);
+            $perm->addCreatorPermission(self::PERMS_DELEGATE, false);
         } else {
-            $perm->removeCreatorPermission(Kronolith::PERMS_DELEGATE, false);
+            $perm->removeCreatorPermission(self::PERMS_DELEGATE, false);
         }
 
         // Process user permissions.
@@ -1894,7 +1894,7 @@ class Kronolith
                 $has_perms = true;
             }
             if (!empty($u_delegate[$key])) {
-                $perm->addUserPermission($user, Kronolith::PERMS_DELEGATE, false);
+                $perm->addUserPermission($user, self::PERMS_DELEGATE, false);
                 $has_perms = true;
             }
 
@@ -1944,7 +1944,7 @@ class Kronolith
                 $has_perms = true;
             }
             if (!empty($g_delegate[$key])) {
-                $perm->addGroupPermission($group, Kronolith::PERMS_DELEGATE, false);
+                $perm->addGroupPermission($group, self::PERMS_DELEGATE, false);
                 $has_perms = true;
             }
 
@@ -2135,8 +2135,8 @@ class Kronolith
                 // name.
                 if (empty($newAttendeeParsedPart->host)) {
                     $attendees[] = array(
-                        'attendance' => Kronolith::PART_REQUIRED,
-                        'response'   => Kronolith::RESPONSE_NONE,
+                        'attendance' => self::PART_REQUIRED,
+                        'response'   => self::RESPONSE_NONE,
                         'name'       => $newAttendee,
                     );
                     continue;
@@ -2158,8 +2158,8 @@ class Kronolith
                     // Avoid overwriting existing attendees with the default
                     // values.
                     $attendees[Horde_String::lower($email)] = array(
-                        'attendance' => Kronolith::PART_REQUIRED,
-                        'response'   => Kronolith::RESPONSE_NONE,
+                        'attendance' => self::PART_REQUIRED,
+                        'response'   => self::RESPONSE_NONE,
                         'name'       => $name);
                 } catch (Horde_Mime_Exception $e) {
                     $notification->push($e, 'horde.error');
@@ -2313,7 +2313,7 @@ class Kronolith
             $ics->setContentTypeParameter('METHOD', $method);
             $ics->setCharset('UTF-8');
 
-            $multipart = Kronolith::buildMimeMessage($view, 'notification', $image);
+            $multipart = self::buildMimeMessage($view, 'notification', $image);
             $multipart->addPart($ics);
             $recipient = empty($status['name']) ? $email : Horde_Mime_Address::trimAddress($status['name'] . ' <' . $email . '>');
             $mail = new Horde_Mime_Mail(
@@ -2470,11 +2470,11 @@ class Kronolith
         $declined = array();
         $accepted = array();
         foreach ($event->getResources() as $id => $resource) {
-            if ($resource['response'] == Kronolith::RESPONSE_DECLINED) {
-                $r = Kronolith::getDriver('Resource')->getResource($id);
+            if ($resource['response'] == self::RESPONSE_DECLINED) {
+                $r = self::getDriver('Resource')->getResource($id);
                 $declined[] = $r->get('name');
-            } elseif ($resource['response'] == Kronolith::RESPONSE_ACCEPTED) {
-                $r = Kronolith::getDriver('Resource')->getResource($id);
+            } elseif ($resource['response'] == self::RESPONSE_ACCEPTED) {
+                $r = self::getDriver('Resource')->getResource($id);
                 $accepted[] = $r->get('name');
             }
 
@@ -2720,7 +2720,7 @@ class Kronolith
         if ((!$event->private ||
              $event->creator == $GLOBALS['registry']->getAuth()) &&
             $event->hasPermission(Horde_Perms::READ) &&
-            Kronolith::getDefaultCalendar(Horde_Perms::EDIT)) {
+            self::getDefaultCalendar(Horde_Perms::EDIT)) {
             $tabs->addTab(
                 $event->hasPermission(Horde_Perms::EDIT) ? _("_Edit") : _("Save As New"),
                 $event->getEditUrl(),
