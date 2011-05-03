@@ -23,9 +23,9 @@
   <active>yes</active>
  </developer>
  <date>2011-05-03</date>
- <time>13:27:04</time>
+ <time>13:27:27</time>
  <version>
-  <release>1.0.2</release>
+  <release>1.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Don&apos;t show IMP compose link if user doesn&apos;t have permissions to IMP (Bug #10016).
-* [mjr] Fix editing settings of fixed portal blocks (Bug #9910).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1405,6 +1404,19 @@
    <notes>
 * [jan] Don&apos;t show IMP compose link if user doesn&apos;t have permissions to IMP (Bug #10016).
 * [mjr] Fix editing settings of fixed portal blocks (Bug #9910).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
