@@ -18,9 +18,9 @@ owns or has access to.</description>
   <active>yes</active>
  </lead>
  <date>2011-05-03</date>
- <time>13:39:33</time>
+ <time>13:39:47</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@ owns or has access to.</description>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] SECURITY: Fix permission checks of guest users on system shares.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -718,6 +718,19 @@ Initial release as a PEAR package
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] SECURITY: Fix permission checks of guest users on system shares.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
