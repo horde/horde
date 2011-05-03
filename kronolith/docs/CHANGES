@@ -1,6 +1,6 @@
-----------
-v3.0.2-git
-----------
+------
+v3.0.2
+------
 
 [jan] Don't show event edit links if user doesn't have edit permissions on any
       calendar.

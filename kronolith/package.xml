@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-20</date>
- <time>22:33:04</time>
+ <date>2011-05-03</date>
+ <time>16:23:11</time>
  <version>
   <release>3.0.2</release>
   <api>3.0.0</api>
@@ -1716,7 +1716,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-05-03</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [jan] Don&apos;t show event edit links if user doesn&apos;t have edit permissions on any calendar.
