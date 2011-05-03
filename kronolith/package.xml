@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-05-03</date>
- <time>16:23:11</time>
+ <time>16:24:24</time>
  <version>
-  <release>3.0.2</release>
+  <release>3.0.3</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,12 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [jan] Don&apos;t show event edit links if user doesn&apos;t have edit permissions on any calendar.
-* [jan] Fix parsing of recurrence end date in dynamic view (Bug #10025).
-* [jan] Fix displaying of new tasks in new task lists.
-* [jan] Delete tasks from tasks view when deleting tasks lists.
-* [jan] Don&apos;t export multi-day events as multiple events to iCalendar data (Bug #10007).
-* [jan] Fix dragging tasks in the dynamic view.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1725,6 +1720,19 @@
 * [jan] Delete tasks from tasks view when deleting tasks lists.
 * [jan] Don&apos;t export multi-day events as multiple events to iCalendar data (Bug #10007).
 * [jan] Fix dragging tasks in the dynamic view.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.3</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
