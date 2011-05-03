@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Store preferences for guests in the session.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
