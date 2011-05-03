@@ -1,6 +1,6 @@
-----------
-v5.0.2-git
-----------
+------
+v5.0.2
+------
 
 [mms] Add quick flag filtering to traditional view.
 [mms] Fix viewing linked attachments (Bug #9972).
