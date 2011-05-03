@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-05-03</date>
- <time>13:32:01</time>
+ <time>13:32:16</time>
  <version>
-  <release>1.1.1</release>
+  <release>1.1.2</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
  <notes>
-* [jan] Fix detecting superiour objectclass&apos; must/may attributes (Bug #9826).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -239,6 +239,19 @@
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
    <notes>
 * [jan] Fix detecting superiour objectclass&apos; must/may attributes (Bug #9826).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
