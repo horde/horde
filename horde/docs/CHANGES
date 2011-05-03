@@ -3,11 +3,13 @@ v4.0.2-git
 ----------
 
 [jan] SECURITY: Fix permission checks of guest users on system shares.
+[mms] SECURITY: Fix deletion of unwanted HTML nodes in XSS filter.
 [mms] Fix authentication failure when TOS is not accepted.
 [jan] Don't show IMP compose link if user doesn't have permissions to IMP (Bug
       #10016).
 [mms] Fix issue causing slow syncs only in SyncML (Bug #10008).
 [jan] Fix adding categories.
+[jan] Fix listing users in Customsql driver (Bug #9963).
 [jan] Fix calculation of last password change in LDAP account portal block (Bug
       #9770).
 [jan] Don't check for outdated DB schemas if database support is disabled (Bug
