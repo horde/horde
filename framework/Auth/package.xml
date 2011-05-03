@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-20</date>
- <time>15:32:20</time>
+ <date>2011-05-03</date>
+ <time>13:23:47</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
-* Fix listing users in Customsql driver (Bug #9963).
+* [jan] Fix listing users in Customsql driver (Bug #9963).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -385,10 +385,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-05-03</date>
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
-* 
+* [jan] Fix listing users in Customsql driver (Bug #9963).
    </notes>
   </release>
  </changelog>
