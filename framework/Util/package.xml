@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-20</date>
- <time>15:36:24</time>
+ <date>2011-05-03</date>
+ <time>13:45:01</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -352,10 +352,10 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-05-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] In Horde_Variables, operate on a copy of the $_REQUEST variable.
    </notes>
   </release>
  </changelog>
