@@ -160,7 +160,7 @@ class IMP_Message
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 
         /* Check for Trash folder. */
-        $use_trash_folder = $use_vtrash = false;
+        $no_expunge = $use_trash_folder = $use_vtrash = false;
         if ($use_trash &&
             empty($options['nuke']) &&
             $imp_imap->access(IMP_Imap::ACCESS_TRASH)) {
@@ -169,7 +169,10 @@ class IMP_Message
         }
 
         if ($use_trash_folder && !$trash->create()) {
-            return false;
+            /* If trash folder could not be created, just mark message as
+             * deleted. */
+            $no_expunge = true;
+            $return_value = $use_trash_folder = false;
         }
 
         foreach ($indices as $ob) {
@@ -186,7 +189,9 @@ class IMP_Message
             }
 
             $imp_indices = new IMP_Indices($ob->mbox, $ob->uids);
-            $return_value += count($ob->uids);
+            if ($return_value !== false) {
+                $return_value += count($ob->uids);
+            }
 
             /* Trash is only valid for IMAP mailboxes. */
             if ($use_trash_folder && ($ob->mbox != $trash)) {
@@ -228,7 +233,7 @@ class IMP_Message
                     ($use_trash && ($ob->mbox == $trash)) ||
                     $ob->mbox->vtrash) {
                     /* Purge messages immediately. */
-                    $expunge_now = true;
+                    $expunge_now = !$no_expunge;
                 } elseif ($use_vtrash) {
                     /* If we are using virtual trash, we must mark the message
                      * as seen or else it will appear as an 'unseen' message
