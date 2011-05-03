@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-05-03</date>
- <time>14:12:47</time>
+ <time>14:13:01</time>
  <version>
-  <release>1.0.3</release>
+  <release>1.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Fix dependency.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -284,6 +284,19 @@ Initial packaging.
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Fix dependency.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
