@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-20</date>
- <time>15:33:58</time>
+ <date>2011-05-03</date>
+ <time>13:25:18</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -267,7 +267,7 @@ Initial packaging.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-05-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Fix expiring entries in sub-storages of Stack driver (Bug #9949).
