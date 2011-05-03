@@ -2661,8 +2661,9 @@ abstract class Kronolith_Event
                 $link .= ' ' . $status;
             }
 
-            if (!$this->private ||
-                $this->creator == $GLOBALS['registry']->getAuth()) {
+            if ((!$this->private ||
+                 $this->creator == $GLOBALS['registry']->getAuth()) &&
+                Kronolith::getDefaultCalendar(Horde_Perms::EDIT)) {
                 $url = $this->getEditUrl(
                     array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'),
                           'url' => $from_url));

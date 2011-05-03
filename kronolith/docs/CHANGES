@@ -2,6 +2,8 @@
 v3.0.2-git
 ----------
 
+[jan] Don't show event edit links if user doesn't have edit permissions on any
+      calendar.
 [jan] Fix parsing of recurrence end date in dynamic view (Bug #10025).
 [jan] Fix displaying of new tasks in new task lists.
 [jan] Fix displaying colors of task lists.

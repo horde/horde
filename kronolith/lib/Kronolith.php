@@ -2719,7 +2719,8 @@ class Kronolith
          * we can read the event. */
         if ((!$event->private ||
              $event->creator == $GLOBALS['registry']->getAuth()) &&
-            $event->hasPermission(Horde_Perms::READ)) {
+            $event->hasPermission(Horde_Perms::READ) &&
+            Kronolith::getDefaultCalendar(Horde_Perms::EDIT)) {
             $tabs->addTab(
                 $event->hasPermission(Horde_Perms::EDIT) ? _("_Edit") : _("Save As New"),
                 $event->getEditUrl(),

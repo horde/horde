@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [jan] Don&apos;t show event edit links if user doesn&apos;t have edit permissions on any calendar.
 * [jan] Fix parsing of recurrence end date in dynamic view (Bug #10025).
 * [jan] Fix displaying of new tasks in new task lists.
 * [jan] Delete tasks from tasks view when deleting tasks lists.
@@ -1718,6 +1719,7 @@
    <date>2011-04-20</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [jan] Don&apos;t show event edit links if user doesn&apos;t have edit permissions on any calendar.
 * [jan] Fix parsing of recurrence end date in dynamic view (Bug #10025).
 * [jan] Fix displaying of new tasks in new task lists.
 * [jan] Delete tasks from tasks view when deleting tasks lists.
