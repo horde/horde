@@ -290,7 +290,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function flagList($mailbox = null)
     {
-        if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->accessMailbox(IMP_Mailbox::get($mailbox), IMP_Imap::ACCESS_FLAGS)) {
+        if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FLAGS)) {
             return array();
         }
 
