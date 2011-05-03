@@ -2979,12 +2979,15 @@ abstract class Horde_Imap_Client_Base implements Serializable
             if (is_null($support)) {
                 $query = new Horde_Imap_Client_Search_Query();
                 $query->charset($charset);
+                $query->ids(new Horde_Imap_Client_Ids(1, true));
                 $query->text('a');
                 try {
-                    $this->search('INBOX', $query);
+                    $this->search('INBOX', $query, array(
+                        'sequence' => true
+                    ));
                     $support = true;
                 } catch (Horde_Imap_Client_Exception $e) {
-                    /* BADCHARSET is only a MAYBE return - but there is no
+                    /* BADCHARSET is only a MAY return - but there is no
                      * other way of determining charset support. */
                     $support = ($e->getCode() != Horde_Imap_Client_Exception::BADCHARSET);
                 }
