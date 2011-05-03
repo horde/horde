@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix adding to whitelist from dynamic view (Bug #10036; rui.carneiro@portugalmail.net).
 * [mms] Cache list of settable flags for a mailbox.
  </notes>
  <contents>

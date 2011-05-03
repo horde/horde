@@ -3095,7 +3095,7 @@ var DimpBase = {
     blacklist: function(blacklist, opts)
     {
         opts = opts || {};
-        this._doMsgAction('blacklist', opts, { blacklist: blacklist });
+        this._doMsgAction('blacklist', opts, { blacklist: Number(blacklist) });
     },
 
     // opts = 'mailbox', 'uid'
