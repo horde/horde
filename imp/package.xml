@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-05-03</date>
- <time>15:00:41</time>
+ <time>16:24:38</time>
  <version>
   <release>5.0.3</release>
   <api>5.0.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [jan] Add missing files to package.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -91,6 +91,7 @@
       <file name="PassphraseDialog.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
+     <file name="Queue.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Block">
      <file name="Newmail.php" role="horde" />
@@ -182,6 +183,7 @@
       <file name="Alternative.php" role="horde" />
       <file name="Appledouble.php" role="horde" />
       <file name="Enriched.php" role="horde" />
+      <file name="Externalbody.php" role="horde" />
       <file name="Html.php" role="horde" />
       <file name="Images.php" role="horde" />
       <file name="Itip.php" role="horde" />
@@ -930,6 +932,12 @@
     <dir name="postnuke">
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/postnuke -->
+    <dir name="purple">
+     <dir name="dimp">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/purple/dimp -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/purple -->
     <dir name="silver">
      <dir name="dimp">
       <file name="screen.css" role="horde" />
@@ -1413,6 +1421,7 @@
    <install as="imp/lib/Spam.php" name="lib/Spam.php" />
    <install as="imp/lib/Test.php" name="lib/Test.php" />
    <install as="imp/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="imp/lib/Ajax/Queue.php" name="lib/Ajax/Queue.php" />
    <install as="imp/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="imp/lib/Ajax/Imple/PassphraseDialog.php" name="lib/Ajax/Imple/PassphraseDialog.php" />
    <install as="imp/lib/Block/Newmail.php" name="lib/Block/Newmail.php" />
@@ -1475,6 +1484,7 @@
    <install as="imp/lib/Mime/Viewer/Alternative.php" name="lib/Mime/Viewer/Alternative.php" />
    <install as="imp/lib/Mime/Viewer/Appledouble.php" name="lib/Mime/Viewer/Appledouble.php" />
    <install as="imp/lib/Mime/Viewer/Enriched.php" name="lib/Mime/Viewer/Enriched.php" />
+   <install as="imp/lib/Mime/Viewer/Externalbody.php" name="lib/Mime/Viewer/Externalbody.php" />
    <install as="imp/lib/Mime/Viewer/Html.php" name="lib/Mime/Viewer/Html.php" />
    <install as="imp/lib/Mime/Viewer/Images.php" name="lib/Mime/Viewer/Images.php" />
    <install as="imp/lib/Mime/Viewer/Itip.php" name="lib/Mime/Viewer/Itip.php" />
@@ -1869,6 +1879,8 @@
    <install as="imp/themes/lucblue/screen.css" name="themes/lucblue/screen.css" />
    <install as="imp/themes/mozilla/screen.css" name="themes/mozilla/screen.css" />
    <install as="imp/themes/postnuke/screen.css" name="themes/postnuke/screen.css" />
+   <install as="imp/themes/purple/screen.css" name="themes/purple/screen.css" />
+   <install as="imp/themes/purple/dimp/screen.css" name="themes/purple/dimp/screen.css" />
    <install as="imp/themes/silver/screen.css" name="themes/silver/screen.css" />
    <install as="imp/themes/silver/dimp/screen.css" name="themes/silver/dimp/screen.css" />
    <install as="imp/themes/silver/graphics/addressbook_add.png" name="themes/silver/graphics/addressbook_add.png" />

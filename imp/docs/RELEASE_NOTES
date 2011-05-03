@@ -10,18 +10,22 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Internet Mail
-Program (IMP) version H4 (5.0.2).
+Program (IMP) version H4 (5.0.3).
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
 open source webmail applications in the world. It allows universal, web-based
 access to IMAP and POP3 mail servers and provides Ajax, mobile and traditional
 interfaces with a rich range of features normally found only in desktop email
 clients. For more information on IMP, visit http://www.horde.org/apps/imp.
+
+The major changes compared to the IMP version H4 (5.0.2) are:
+
+    * Added files missing in the 5.0.2 release.
 
 The major changes compared to the IMP version H4 (5.0.1) are:
 
