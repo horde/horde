@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-05-03</date>
- <time>14:38:12</time>
+ <time>14:39:36</time>
  <version>
-  <release>4.0.2</release>
+  <release>4.0.3</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,9 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Fix authentication failure when TOS is not accepted.
-* [jan] Fix adding categories.
-* [jan] Don&apos;t check for outdated DB schemas if database support is disabled (Bug #9986).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4075,6 +4073,19 @@
 * [mms] Fix authentication failure when TOS is not accepted.
 * [jan] Fix adding categories.
 * [jan] Don&apos;t check for outdated DB schemas if database support is disabled (Bug #9986).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.3</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
