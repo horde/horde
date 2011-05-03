@@ -91,9 +91,7 @@ class IMP_Ui_Message
         /* See if we have already processed this message. */
         /* 1st test: MDNSent keyword (RFC 3503 [3.1]). */
         try {
-            $status = $imp_imap->status($mailbox, Horde_Imap_Client::STATUS_PERMFLAGS);
-            if (in_array('\\*', $status['permflags']) ||
-                in_array('$mdnsent', $status['permflags'])) {
+            if (array_intersect(array('\\*', '$mdnsent'), $imp_imap->getPermanentFlags($mailbox))) {
                 $mdn_flag = true;
 
                 $query = new Horde_Imap_Client_Fetch_Query();
