@@ -13,8 +13,9 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Imap_PermanentFlags implements Iterator, Serializable
+class IMP_Imap_PermanentFlags implements Iterator
 {
+    /* IMAP flag indicating flags can be created in mailbox. */
     const CREATE = "\\*";
 
     /**
@@ -48,8 +49,8 @@ class IMP_Imap_PermanentFlags implements Iterator, Serializable
                                 array $flags = array())
     {
         $this->_nocreate = !in_array(self::CREATE, $permflags);
-        $this->_noset = array_diff($status['permflags'], $status['flags'], array(self::CREATE));
-        $this->_set = array_intersect($status['permflags'], $status['flags']);
+        $this->_noset = array_diff($permflags, $flags, array(self::CREATE));
+        $this->_set = array_intersect($permflags, $flags);
     }
 
     /**
@@ -80,9 +81,7 @@ class IMP_Imap_PermanentFlags implements Iterator, Serializable
 
     public function next()
     {
-        if ($this->valid()) {
-            next($this->_set);
-        }
+        next($this->_set);
     }
 
     public function rewind()
@@ -93,34 +92,6 @@ class IMP_Imap_PermanentFlags implements Iterator, Serializable
     public function valid()
     {
         return !is_null(key($this->_set));
-    }
-
-    /* Serializable methods. */
-
-    /**
-     */
-    public function serialize()
-    {
-        return json_encode(array_filter(array(
-            'nc' => $this->_nocreate,
-            'ns' => $this->_noset,
-            's' => $this->_set
-        )));
-    }
-
-    /**
-     */
-    public function unserialize($data)
-    {
-        $data = json_decode($data, true);
-
-        $this->_nocreate = !empty($data['nc']);
-        if (isset($data['ns'])) {
-            $this->_noset = $data['ns'];
-        }
-        if (isset($data['s'])) {
-            $this->_set = $data['s'];
-        }
     }
 
 }

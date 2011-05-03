@@ -4,7 +4,6 @@ v5.0.4-git
 
 [mms] Fix adding to whitelist from dynamic view (Bug #10036;
       rui.carneiro@portugalmail.net).
-[mms] Cache list of settable flags for a mailbox.
 
 
 ------
