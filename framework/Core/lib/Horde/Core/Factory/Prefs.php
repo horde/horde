@@ -86,66 +86,67 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
 
         if (isset($this->_instances[$sig])) {
             $this->_instances[$sig]->retrieve($scope);
-        } else {
-            try {
-                switch ($driver) {
-                case 'Horde_Prefs_Storage_Ldap':
-                    $params['ldap'] = $this->_injector
-                        ->getInstance('Horde_Core_Factory_Ldap')
-                        ->create('horde', 'ldap');
-                    break;
+            return $this->_instances[$sig];
+        }
 
-                case 'Horde_Prefs_Storage_Session':
-                    $driver = 'Horde_Prefs_Storage_Null';
-                    $opts['cache'] = false;
-                    break;
+        try {
+            switch ($driver) {
+            case 'Horde_Prefs_Storage_Ldap':
+                $params['ldap'] = $this->_injector
+                    ->getInstance('Horde_Core_Factory_Ldap')
+                    ->create('horde', 'ldap');
+                break;
 
-                case 'Horde_Prefs_Storage_Sql':
-                    $params['db'] = $this->_injector
-                        ->getInstance('Horde_Db_Adapter');
-                    break;
-                case 'Horde_Prefs_Storage_Imsp':
-                    $imspParams = $GLOBALS['conf']['imsp'];
-                    $imspParams['username'] = $GLOBALS['registry']->getAuth('bare');
-                    $imspParams['password'] = $GLOBALS['registry']->getAuthCredential('password');
-                    $params['imsp'] = $this->_injector
-                        ->getInstance('Horde_Core_Factory_Imsp')->create('Options', $imspParams);
-                }
-            } catch (Horde_Exception $e) {
-                $this->_notifyError($e);
+            case 'Horde_Prefs_Storage_Session':
                 $driver = 'Horde_Prefs_Storage_Null';
                 $opts['cache'] = false;
+                break;
+
+            case 'Horde_Prefs_Storage_Sql':
+                $params['db'] = $this->_injector
+                    ->getInstance('Horde_Db_Adapter');
+                break;
+            case 'Horde_Prefs_Storage_Imsp':
+                $imspParams = $GLOBALS['conf']['imsp'];
+                $imspParams['username'] = $GLOBALS['registry']->getAuth('bare');
+                $imspParams['password'] = $GLOBALS['registry']->getAuthCredential('password');
+                $params['imsp'] = $this->_injector
+                    ->getInstance('Horde_Core_Factory_Imsp')->create('Options', $imspParams);
             }
+        } catch (Horde_Exception $e) {
+            $this->_notifyError($e);
+            $driver = 'Horde_Prefs_Storage_Null';
+            $opts['cache'] = false;
+        }
 
-            $config_driver = new Horde_Core_Prefs_Storage_Configuration($opts['user']);
-            $hooks_driver = new Horde_Core_Prefs_Storage_Hooks($opts['user'], array('conf_ob' => $config_driver));
+        $config_driver = new Horde_Core_Prefs_Storage_Configuration($opts['user']);
+        $hooks_driver = new Horde_Core_Prefs_Storage_Hooks($opts['user'], array('conf_ob' => $config_driver));
 
-            $drivers = $driver
-                ? array(
-                      $config_driver,
-                      new $driver($opts['user'], $params),
-                      $hooks_driver
-                  )
-                : array(
-                      $config_driver,
-                      $hooks_driver
-                  );
+        $drivers = $driver
+            ? array(
+                  $config_driver,
+                  new $driver($opts['user'], $params),
+                  $hooks_driver
+              )
+            : array(
+                  $config_driver,
+                  $hooks_driver
+              );
 
-            if ($driver && $opts['cache']) {
-                $opts['cache'] = new Horde_Core_Prefs_Cache_Session($opts['user']);
-            } else {
-                unset($opts['cache']);
-            }
+        if ($driver && $opts['cache']) {
+            $opts['cache'] = new Horde_Core_Prefs_Cache_Session($opts['user']);
+        } else {
+            unset($opts['cache']);
+        }
 
-            try {
-                $this->_instances[$sig] = new Horde_Prefs($scope, $drivers, $opts);
-            } catch (Horde_Prefs_Exception $e) {
-                $this->_notifyError($e);
+        try {
+            $this->_instances[$sig] = new Horde_Prefs($scope, $drivers, $opts);
+        } catch (Horde_Prefs_Exception $e) {
+            $this->_notifyError($e);
 
-                /* Store data in the cached session object. */
-                $opts['cache'] = new Horde_Core_Prefs_Cache_Session($opts['user']);
-                $this->_instances[$sig] = new Horde_Prefs($scope, array($config_driver, $hooks_driver), $opts);
-            }
+            /* Store data in the cached session object. */
+            $opts['cache'] = new Horde_Core_Prefs_Cache_Session($opts['user']);
+            $this->_instances[$sig] = new Horde_Prefs($scope, array($config_driver, $hooks_driver), $opts);
         }
 
         return $this->_instances[$sig];
