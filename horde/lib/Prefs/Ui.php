@@ -446,6 +446,7 @@ class Horde_Prefs_Ui
                 $haveSession = true;
             }
         } catch (Horde_Service_Facebook_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
             $haveSession = false;
             $prefs->setValue('facebook', serialize(array('uid' => '', 'sid' => 0)));
         }
