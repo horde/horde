@@ -123,14 +123,14 @@ class Jonah_Application extends Horde_Registry_Application
 
         foreach ($channels as $channel) {
             $tree->addNode(
-                $parent . $channel->getId(),
+                $parent . $channel->getName(),
                 $parent,
-                $channel->getName(),
+                $channel->get('name'),
                 1,
                 false,
                 array(
                     'icon' => $story_img,
-                    'url' => $url->add('channel_id', $channel->getId())
+                    'url' => $url->add('channel_id', $channel->getName())
                 )
             );
         }

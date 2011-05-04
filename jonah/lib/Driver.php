@@ -186,14 +186,15 @@ class Jonah_Driver
      */
     public function getStoryLink($channel, $story)
     {
+        $story_url = $channel->get('story_url');
         if ((empty($story['url']) || !empty($story['body'])) &&
-            !empty($channel['channel_story_url'])) {
-            $url = $channel['channel_story_url'];
+            !empty($story_url)) {
+            $url = $story_url;
         } else {
             $url = Horde::url('stories/view.php', true, -1)->add(array('channel_id' => '%c', 'id' => '%s'))->setRaw(false);
         }
         return new Horde_Url(str_replace(array('%25c', '%25s', '%c', '%s'),
-                                         array('%c', '%s', $channel['channel_id'], $story['id']),
+                                         array('%c', '%s', $channel->getName(), $story['id']),
                                          $url));
     }
 
