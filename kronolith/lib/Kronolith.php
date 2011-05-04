@@ -1103,9 +1103,6 @@ class Kronolith
                 }
 
                 foreach ($categories as $name => $description) {
-                    if (isset($tasklists[$name])) {
-                        continue;
-                    }
                     $GLOBALS['all_external_calendars'][$api . '/' . $name] = new Kronolith_Calendar_External(array('api' => $api, 'name' => $description, 'id' => $name));
                     $ext_cals[] = array(
                         'a' => $api,
