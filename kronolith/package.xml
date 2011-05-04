@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [jan] Fix date picker in advanced search form (Bug #10039).
 * [mjr] Remove visible exceptions when deleting recurring events (Bug #10013).
 * [mjr] Fix issue causing listTimeObject calendars to not appear (Bug #10012).
  </notes>
@@ -1733,7 +1734,11 @@
    <date>2011-05-03</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+<<<<<<< HEAD
 * [mjr] Remove visible exceptions when deleting recurring events (Bug #10013).
+=======
+* [jan] Fix date picker in advanced search form (Bug #10039).
+>>>>>>> [jan] Fix date picker in advanced search form (Bug #10039).
 * [mjr] Fix issue causing listTimeObject calendars to not appear (Bug #10012).
    </notes>
   </release>

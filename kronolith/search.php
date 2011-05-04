@@ -106,7 +106,7 @@ if ($search_mode == 'basic') {
     Horde::addInlineScript(array(
         '$("title").focus()'
     ), 'dom');
-    Horde_Core_Ui_JsCalendar::init();
+    Horde_Core_Ui_JsCalendar::init(array('full_weekdays' => true));
     Horde::addScriptFile('edit.js', 'kronolith');
 }
 
