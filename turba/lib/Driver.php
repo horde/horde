@@ -2371,6 +2371,14 @@ class Turba_Driver implements Countable
                 $message->email1address = Horde_Icalendar_Vcard::getBareEmail($value);
                 break;
 
+            case 'homeEmail':
+                $message->email2address = Horde_Icalendar_Vcard::getBareEmail($value);
+                break;
+
+            case 'workEmail':
+                $message->email3address = Horde_Icalendar_Vcard::getBareEmail($value);
+                break;
+
             case 'title':
                 $message->jobtitle = $value;
                 break;
