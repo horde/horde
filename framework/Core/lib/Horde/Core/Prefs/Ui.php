@@ -873,7 +873,7 @@ class Horde_Core_Prefs_Ui
         $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create(null, $this->app);
 
         if ($this->vars->delete_identity) {
-            $id = intval($this->vars->id);
+            $id = intval($this->vars->identity);
             $deleted_identity = $identity->delete($id);
             $this->_loadPrefs($this->app);
             $notification->push(sprintf(Horde_Core_Translation::t("The identity \"%s\" has been deleted."), $deleted_identity[0]['id']), 'horde.success');

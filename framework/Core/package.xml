@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mjr] Fix issue with deleting identities (Bug #9997).
 * [jan] Store preferences for guests in the session.
  </notes>
  <contents>
@@ -1416,7 +1417,7 @@
    <date>2011-05-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+*
    </notes>
   </release>
  </changelog>

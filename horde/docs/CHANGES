@@ -2,6 +2,7 @@
 v4.0.3-git
 ----------
 
+[mjr] Fix issue with deleting identities (Bug #9997).
 [mjr] Fix issue causing credentials to be lost when accessing the API during
       ActiveSync requests (Bug #9733).
 [jan] Store preferences for guests in the session.
@@ -39,6 +40,7 @@ v4.0.1
 [mjr] Fix some display issues when geocoding with HordeMap (Bug #9883).
 [mms] Don't load sidebar content if not expanded.
 [jan] Fix deleting groups.
+
 [jan] Fix adding new groups (Bug #9881).
 [jan] Fix displaying the Facebook preference group.
 [mms] Add appinitialized hook.
