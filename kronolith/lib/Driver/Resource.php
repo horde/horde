@@ -193,13 +193,14 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      * Right now, all users have Horde_Perms::READ, but only system admins have
      * Horde_Perms::EDIT | Horde_Perms::DELETE
      *
-     * @param integer $perms  A Horde_Perms::* constant.
-     * @param array $filter   A hash of field/values to filter on.
+     * @param integer $perms   A Horde_Perms::* constant.
+     * @param array $filter    A hash of field/values to filter on.
+     * @param string $orderby  Field to order results by. Null for no ordering.
      *
      * @return an array of Kronolith_Resource objects.
      * @throws Kronolith_Exception
      */
-    public function listResources($perms = Horde_Perms::READ, $filter = array())
+    public function listResources($perms = Horde_Perms::READ, $filter = array(), $orderby = null)
     {
         if (($perms & (Horde_Perms::EDIT | Horde_Perms::DELETE)) &&
             !$GLOBALS['registry']->isAdmin()) {
@@ -215,6 +216,10 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
                 $clause .= 'resource_' . $field . ' = ?' . (($i++ < ($c - 1)) ? ' AND ' : '');
             }
             $query .= $clause;
+        }
+
+        if (!empty($orderby)) {
+            $query .= ' ORDER BY resource_' . $orderby;
         }
 
         try {
