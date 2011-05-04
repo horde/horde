@@ -435,7 +435,7 @@ class Horde_Prefs_Ui
 
         // Ensure we have authorized horde.
         try {
-            // @TODO: FB is in the process of adding the to the Graph API.
+            // @TODO: FB is in the process of adding this to the Graph API.
             $session_uid = $facebook->auth->getLoggedInUser();
             $fbp = unserialize($prefs->getValue('facebook'));
             $uid = $fbp['uid'];
@@ -447,7 +447,7 @@ class Horde_Prefs_Ui
             }
         } catch (Horde_Service_Facebook_Exception $e) {
             $haveSession = false;
-            $prefs->setValue('facebook', serialize(array('uid' => $uid, 'sid' => 0)));
+            $prefs->setValue('facebook', serialize(array('uid' => '', 'sid' => 0)));
         }
 
         // We have a session, build the template.
