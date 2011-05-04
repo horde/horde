@@ -214,7 +214,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             throw new Kronolith_Exception($e);
         }
 
-        return !$empty ? $event : false;
+        return !empty($event) ? $event : false;
     }
 
     /**
