@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mjr] Fix issue causing credentials to be lost when accessing the API during ActiveSync requests (Bug #9733).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

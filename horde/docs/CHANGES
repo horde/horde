@@ -2,6 +2,8 @@
 v4.0.3-git
 ----------
 
+[mjr] Fix issue causing credentials to be lost when accessing the API during
+      ActiveSync requests (Bug #9733).
 [jan] Store preferences for guests in the session.
 
 
