@@ -61,7 +61,7 @@ if (count($results)) {
             $mail_link = $registry->call('mail/compose', array(
                 array('to' => addslashes($contact['email']))
             ));
-        } catch (Turba_Exception $e) {
+        } catch (Horde_Exception $e) {
             $mail_link = 'mailto:' . urlencode($contact['email']);
         }
 
