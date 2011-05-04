@@ -2500,7 +2500,12 @@ class Turba_Driver implements Countable
         if (!$message->isGhosted('email1address')) {
             $hash['email'] = Horde_Icalendar_Vcard::getBareEmail($message->email1address);
         }
-
+        if (!$message->isGhosted('email2address')) {
+            $hash['homeEmail'] = Horde_Icalendar_Vcard::getBareEmail($message->email2address);
+        }
+        if (!$message->isGhosted('email3address')) {
+            $hash['workEmail'] = Horde_Icalendar_Vcard::getBareEmail($message->email3address);
+        }
         /* Categories */
         if (count($message->categories)) {
             $hash['category'] = implode('|', $message->categories);
