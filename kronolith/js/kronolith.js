@@ -2200,6 +2200,7 @@ KronolithCore = {
             span.insert(' ')
                 .insert(new Element('img', { src: Kronolith.conf.images.recur.replace(/fff/, Kronolith.conf.calendars[calendar[0]][calendar[1]].fg.substr(1)), title: Kronolith.text.recur[event.r] }));
         } else if (event.bid) {
+            div.store('bid', event.bid);
             span.insert(' ')
                 .insert(new Element('img', { src: Kronolith.conf.images.exception.replace(/fff/, Kronolith.conf.calendars[calendar[0]][calendar[1]].fg.substr(1)), title: Kronolith.text.recur.exception }));
         }
@@ -2220,6 +2221,15 @@ KronolithCore = {
             return el.retrieve('calendar') == calendar &&
                 (!event || el.retrieve('eventid') == event);
         }).invoke('remove');
+    },
+
+    removeException: function(calendar, uid)
+    {
+        this.kronolithBody.select('div.kronolithEvent').findAll(function(el) {
+            if (el.retrieve('calendar') == calendar && el.retrieve('bid') == uid) {
+                this.removeEvent(calendar, el.retrieve('eventid'));
+            }
+        }.bind(this));
     },
 
     /**
@@ -4172,6 +4182,9 @@ KronolithCore = {
                                           days = this.findEventDays(cal, eventid);
                                       }
                                       this.removeEvent(cal, eventid);
+                                      if (r.response.uid) {
+                                          this.removeException(cal, r.response.uid);
+                                      }
                                       if (days && days.length) {
                                           this.reRender(days);
                                       }

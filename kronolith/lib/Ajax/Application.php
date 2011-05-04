@@ -277,7 +277,9 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                 $GLOBALS['notification']->push(_("You do not have permission to delete this event."), 'horde.warning');
                 return $result;
             }
-
+            if ($event->recurs()) {
+                $result->uid = $event->uid;
+            }
             $deleted = $kronolith_driver->deleteEvent($event->id);
             if ($this->_vars->sendupdates) {
                 Kronolith::sendITipNotifications($event, $GLOBALS['notification'], Kronolith::ITIP_CANCEL);
