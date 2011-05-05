@@ -2,6 +2,7 @@
 v4.0.3-git
 ----------
 
+[jan] Fix rendering of DataTree browse tree.
 [mjr] Fix issue with deleting identities (Bug #9997).
 [mjr] Fix issue causing credentials to be lost when accessing the API during
       ActiveSync requests (Bug #9733).

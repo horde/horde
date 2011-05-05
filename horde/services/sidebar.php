@@ -17,55 +17,58 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
-/* We may not be in global scope since this file can be included from other
- * scripts. */
-global $conf, $injector, $language, $prefs, $registry;
+function _renderSidebar()
+{
+    global $conf, $injector, $language, $prefs, $registry;
 
-if (!Horde_Util::getFormData('ajaxui') &&
-    ($conf['menu']['always'] ||
-     ($registry->getAuth() && $prefs->getValue('show_sidebar')))) {
-    $sidebar = $injector->getInstance('Horde_Core_Sidebar');
-    $is_js = $sidebar->isJavascript();
-    $tree = $is_js
-        ? $sidebar->getBaseTree()
-        : $sidebar->getTree();
+    if (!Horde_Util::getFormData('ajaxui') &&
+        ($conf['menu']['always'] ||
+         ($registry->getAuth() && $prefs->getValue('show_sidebar')))) {
+        $sidebar = $injector->getInstance('Horde_Core_Sidebar');
+        $is_js = $sidebar->isJavascript();
+        $tree = $is_js
+            ? $sidebar->getBaseTree()
+            : $sidebar->getTree();
 
-    Horde::addScriptFile('sidebar.js', 'horde');
+        Horde::addScriptFile('sidebar.js', 'horde');
 
-    $ajax_url = Horde::getServiceLink('ajax', 'horde');
-    $ajax_url->pathInfo = 'sidebarUpdate';
+        $ajax_url = Horde::getServiceLink('ajax', 'horde');
+        $ajax_url->pathInfo = 'sidebarUpdate';
 
-    $rtl = intval($registry->nlsconfig->curr_rtl);
-    $show_sidebar = !isset($_COOKIE['horde_sidebar_expanded']) || $_COOKIE['horde_sidebar_expanded'];
-    $width = intval($prefs->getValue('sidebar_width'));
+        $rtl = intval($registry->nlsconfig->curr_rtl);
+        $show_sidebar = !isset($_COOKIE['horde_sidebar_expanded']) || $_COOKIE['horde_sidebar_expanded'];
+        $width = intval($prefs->getValue('sidebar_width'));
 
-    if ($is_js) {
-        Horde::addInlineJsVars(array(
-            'HordeSidebar.domain' => $conf['cookie']['domain'],
-            'HordeSidebar.path' => $conf['cookie']['path'],
-            '-HordeSidebar.refresh' => intval($prefs->getValue('menu_refresh_time')),
-            'HordeSidebar.url' => strval($ajax_url),
-            '-HordeSidebar.width' => $width
-        ));
-    }
+        if ($is_js) {
+            Horde::addInlineJsVars(array(
+                'HordeSidebar.domain' => $conf['cookie']['domain'],
+                'HordeSidebar.path' => $conf['cookie']['path'],
+                '-HordeSidebar.refresh' => intval($prefs->getValue('menu_refresh_time')),
+                'HordeSidebar.url' => strval($ajax_url),
+                '-HordeSidebar.width' => $width
+            ));
+        }
 
-    require $registry->get('templates', 'horde') . '/sidebar/sidebar.inc';
+        require $registry->get('templates', 'horde') . '/sidebar/sidebar.inc';
 
-    if ($show_sidebar) {
-        $style = $rtl
-            ? 'margin-right:' . $width . 'px'
-            : 'margin-left:' . $width . 'px';
+        if ($show_sidebar) {
+            $style = $rtl
+                ? 'margin-right:' . $width . 'px'
+                : 'margin-left:' . $width . 'px';
+        } else {
+            /* Default to 18px. If local theme changes alter this value, it will
+             * automatically be determined by javascript at load time. */
+            $style = $rtl
+                ? 'margin-right:18px'
+                : 'margin-left:18px';
+        }
+
+        echo '<div id="horde_body" class="body" style="' . $style . '">';
     } else {
-        /* Default to 18px. If local theme changes alter this value, it will
-         * automatically be determined by javascript at load time. */
-        $style = $rtl
-            ? 'margin-right:18px'
-            : 'margin-left:18px';
+        echo '<div class="body" id="horde_body">';
     }
 
-    echo '<div id="horde_body" class="body" style="' . $style . '">';
-} else {
-    echo '<div class="body" id="horde_body">';
+    $GLOBALS['sidebarLoaded'] = true;
 }
 
-$GLOBALS['sidebarLoaded'] = true;
+_renderSidebar();
