@@ -15,7 +15,8 @@ if (file_exists($baseFile)) {
 }
 Horde_Registry::appInit('horde', array('cli' => true));
 
-$p = Horde_Perms::factory('datatree');
+$dt = Horde_DataTree::factory($conf['datatree']['driver'], array('group' => 'horde.perms'));
+$p = new Horde_Perms_Datatree(array('datatree' => $dt));
 
 $query = '
 INSERT INTO
@@ -24,7 +25,7 @@ VALUES
     (?, ?, ?, ?)
 ';
 
-$db = $injector->getInstance('Horde_Core_Factory_DbPear')->create();
+$db = $injector->getInstance('Horde_Db_Adapter');
 
 foreach ($p->getTree() as $id => $row) {
     if ($id == -1) {
@@ -39,10 +40,7 @@ foreach ($p->getTree() as $id => $row) {
     $parents = implode(':', array_keys($parents));
 
     $params = array($id, $object->name, $parents, serialize($object->data));
-    $db->query($query, $params);
+    $db->insert($query, $params);
 }
-
-$max = (int)$db->getOne('SELECT MAX(perm_id) FROM horde_perms');
-while ($max > $db->nextId('horde_perms'));
 
 echo "\nDone.\n";

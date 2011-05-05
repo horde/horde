@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Update DataTree conversion scripts for Horde 4.
 * [jan] Fix rendering of DataTree browse tree.
 * [mjr] Fix issue causing credentials to be lost when accessing the API during ActiveSync requests (Bug #9733).
  </notes>
@@ -4088,7 +4089,9 @@
    <date>2011-05-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-*
+* [jan] Update DataTree conversion scripts for Horde 4.
+* [jan] Fix rendering of DataTree browse tree.
+* [mjr] Fix issue causing credentials to be lost when accessing the API during ActiveSync requests (Bug #9733).
    </notes>
   </release>
  </changelog>
