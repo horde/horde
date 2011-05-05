@@ -1397,7 +1397,17 @@ class Turba_Driver implements Countable
                 if ($fields && !isset($fields['EMAIL'])) {
                     break;
                 }
-                $vcard->setAttribute('EMAIL', Horde_Icalendar_Vcard::getBareEmail($val));
+                if ($version == '2.1') {
+                    $vcard->setAttribute(
+                        'EMAIL',
+                        Horde_Icalendar_Vcard::getBareEmail($val),
+                        array('INTERNET' => null));
+                } else {
+                    $vcard->setAttribute(
+                        'EMAIL',
+                        Horde_Icalendar_Vcard::getBareEmail($val),
+                        array('TYPE' => 'INTERNET'));
+                }
                 break;
 
             case 'homeEmail':
