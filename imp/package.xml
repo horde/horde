@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-03</date>
- <time>16:29:14</time>
+ <date>2011-05-05</date>
+ <time>09:57:30</time>
  <version>
   <release>5.0.4</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix display of subfolders in mobile view (Bug #10043).
 * [mms] Improved determination of available flags in a mailbox.
 * [mms] Fix adding to whitelist from dynamic view (Bug #10036; rui.carneiro@portugalmail.net).
  </notes>
@@ -150,6 +151,7 @@
     <dir name="Imap">
      <file name="Acl.php" role="horde" />
      <file name="Exception.php" role="horde" />
+     <file name="PermanentFlags.php" role="horde" />
      <file name="Thread.php" role="horde" />
      <file name="Tree.php" role="horde" />
     </dir> <!-- /lib/Imap -->
@@ -270,6 +272,7 @@
     </dir> <!-- /lib/Sentmail -->
     <dir name="Tree">
      <file name="Flist.php" role="horde" />
+     <file name="Jquerymobile.php" role="horde" />
     </dir> <!-- /lib/Tree -->
     <dir name="Ui">
      <file name="Compose.php" role="horde" />
@@ -1466,6 +1469,7 @@
    <install as="imp/lib/Flag/System/Unseen.php" name="lib/Flag/System/Unseen.php" />
    <install as="imp/lib/Imap/Acl.php" name="lib/Imap/Acl.php" />
    <install as="imp/lib/Imap/Exception.php" name="lib/Imap/Exception.php" />
+   <install as="imp/lib/Imap/PermanentFlags.php" name="lib/Imap/PermanentFlags.php" />
    <install as="imp/lib/Imap/Thread.php" name="lib/Imap/Thread.php" />
    <install as="imp/lib/Imap/Tree.php" name="lib/Imap/Tree.php" />
    <install as="imp/lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
@@ -1544,6 +1548,7 @@
    <install as="imp/lib/Sentmail/Null.php" name="lib/Sentmail/Null.php" />
    <install as="imp/lib/Sentmail/Sql.php" name="lib/Sentmail/Sql.php" />
    <install as="imp/lib/Tree/Flist.php" name="lib/Tree/Flist.php" />
+   <install as="imp/lib/Tree/Jquerymobile.php" name="lib/Tree/Jquerymobile.php" />
    <install as="imp/lib/Ui/Compose.php" name="lib/Ui/Compose.php" />
    <install as="imp/lib/Ui/Editor.php" name="lib/Ui/Editor.php" />
    <install as="imp/lib/Ui/Folder.php" name="lib/Ui/Folder.php" />
@@ -2210,10 +2215,12 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-03</date>
+   <date>2011-05-05</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [mms] Fix display of subfolders in mobile view (Bug #10043).
+* [mms] Improved determination of available flags in a mailbox.
+* [mms] Fix adding to whitelist from dynamic view (Bug #10036; rui.carneiro@portugalmail.net).
    </notes>
   </release>
  </changelog>

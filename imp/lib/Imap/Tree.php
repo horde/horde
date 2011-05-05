@@ -1540,6 +1540,16 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 $label = $params['orig_label'];
                 break;
 
+            case 'IMP_Tree_Jquerymobile':
+                $is_open = true;
+                $label = htmlspecialchars($val->display);
+                $icon = $val->icon;
+                $params['icon'] = $icon->icon;
+                $params['special'] = $val->special;
+                $params['class'] = 'imp-folder';
+                $params['urlattributes'] = array('mailbox' => $val->value);
+                break;
+
             case 'Javascript':
                 $is_open = $val->is_open;
                 $label = empty($opts['basename'])
@@ -1554,22 +1564,12 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 $is_open = $val->is_open;
                 $label = htmlspecialchars(Horde_String::abbreviate($val->display, 30 - ($val->level * 2)));
                 break;
-
-            case 'Jquerymobile':
-                $is_open = true;
-                $label = htmlspecialchars($val->display);
-                $icon = $val->icon;
-                $params['icon'] = $icon->icon;
-                $params['special'] = $val->special;
-                $params['class'] = 'imp-folder';
-                $params['urlattributes'] = array('mailbox' => $val->value);
-                break;
             }
 
             if (!empty($opts['poll_info']) && $val->polled) {
                 $poll_info = $val->poll_info;
 
-                if ($opts['render_type'] == 'Jquerymobile') {
+                if ($opts['render_type'] == 'IMP_Tree_Jquerymobile') {
                     if ($poll_info->unseen) {
                         $after = $poll_info->unseen;
                     }
@@ -1586,13 +1586,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             if ($val->container) {
                 $params['container'] = true;
             } else {
-                if ($opts['render_type'] == 'Jquerymobile') {
-                    $params['url'] = '#';
-                } else {
-                    $params['url'] = $mailbox_url->add('mailbox', $val->value);
-                    if ($this->_showunsub && !$val->sub) {
-                        $params['class'] = 'folderunsub';
-                    }
+                $params['url'] = $mailbox_url->add('mailbox', $val->value);
+                if ($this->_showunsub && !$val->sub) {
+                    $params['class'] = 'folderunsub';
                 }
             }
 
