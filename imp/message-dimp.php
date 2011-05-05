@@ -205,7 +205,10 @@ if (!$disable_compose) {
     $t->set('forward_select', !$prefs->isLocked('forward_default'));
 }
 
+Horde::startBuffer();
 IMP::status();
+$t->set('status', Horde::endBuffer());
+
 IMP_Dimp::header($show_msg_result['title'], $scripts);
 
 echo $t->fetch(IMP_TEMPLATES . '/dimp/message/message.html');

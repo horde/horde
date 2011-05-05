@@ -273,7 +273,7 @@ if (!($prefs->isLocked('default_encrypt')) &&
 
 Horde::startBuffer();
 IMP::status();
-$status = Horde::endBuffer();
+$t->set('status', Horde::endBuffer());
 
 IMP_Dimp::header($title, $scripts);
 echo $status;
