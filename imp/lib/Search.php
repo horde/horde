@@ -129,15 +129,15 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      * queries with custom sorts to be used without affecting cached
      * mailboxes.
      *
-     * @param object $query     The search query object
-     *                          (Horde_Imap_Client_Search_Query).
-     * @param string $mailbox   The mailbox to search.
-     * @param integer $sortby   The sort criteria.
-     * @param integer $sortdir  The sort directory.
+     * @param Horde_Imap_Client_Search_Query $query  The search query object.
+     * @param IMP_Mailbox $mailbox                   The mailbox to search.
+     * @param integer $sortby                        The sort criteria.
+     * @param integer $sortdir                       The sort directory.
      *
      * @return IMP_Indices  An indices object.
      */
-    public function runQuery($query, $mailbox, $sortby = null,
+    public function runQuery(Horde_Imap_Client_Search_Query $query,
+                             IMP_Mailbox $mailbox, $sortby = null,
                              $sortdir = null)
     {
         try {

@@ -25,7 +25,7 @@ try {
 }
 
 $items = array();
-$mailbox = 'INBOX';
+$mailbox = IMP_Mailbox::get('INBOX');
 $new_mail = $request = $searchid = false;
 $unseen_num = 0;
 
@@ -46,7 +46,6 @@ if (!empty($request)) {
     $new_mail = (isset($request_parts[1]) && ($request_parts[1] === 'new'));
 }
 
-$mailbox = IMP_Mailbox::get($mailbox);
 $imp_mailbox = $mailbox->getListOb();
 
 /* Obtain some information describing the mailbox state. */
@@ -64,7 +63,7 @@ $ids = $injector->getInstance('IMP_Search')->runQuery($query, $mailbox, Horde_Im
 if (count($ids)) {
     $imp_ui = new IMP_Ui_Mailbox($mailbox);
 
-    $overview = $imp_mailbox->getMailboxArray(array_slice($ids[$mailbox], 0, 20), array('preview' => $prefs->getValue('preview_enabled')));
+    $overview = $imp_mailbox->getMailboxArray(array_slice($ids[strval($mailbox)], 0, 20), array('preview' => $prefs->getValue('preview_enabled')));
 
     foreach ($overview['overview'] as $ob) {
         $from_addr = $imp_ui->getFrom($ob['envelope'], array('fullfrom' => true));

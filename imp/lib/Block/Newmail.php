@@ -31,14 +31,16 @@ class IMP_Block_Newmail extends Horde_Core_Block
      */
     protected function _content()
     {
+        $inbox = IMP_Mailbox::get('INBOX');
+
         /* Filter on INBOX display, if requested. */
         if ($GLOBALS['prefs']->getValue('filter_on_display')) {
-            $GLOBALS['injector']->getInstance('IMP_Filter')->filter('INBOX');
+            $GLOBALS['injector']->getInstance('IMP_Filter')->filter($inbox);
         }
 
         $query = new Horde_Imap_Client_Search_Query();
         $query->flag(Horde_Imap_Client::FLAG_SEEN, false);
-        $ids = $GLOBALS['injector']->getInstance('IMP_Search')->runQuery($query, 'INBOX', Horde_Imap_Client::SORT_SEQUENCE, 1);
+        $ids = $GLOBALS['injector']->getInstance('IMP_Search')->runQuery($query, $inbox, Horde_Imap_Client::SORT_SEQUENCE, 1);
         $indices = $ids['INBOX'];
 
         $html = '<table cellspacing="0" width="100%">';
@@ -47,7 +49,7 @@ class IMP_Block_Newmail extends Horde_Core_Block
             $html .= '<tr><td><em>' . _("No unread messages") . '</em></td></tr>';
         } else {
             $charset = 'UTF-8';
-            $imp_ui = new IMP_Ui_Mailbox('INBOX');
+            $imp_ui = new IMP_Ui_Mailbox($inbox);
             $shown = empty($this->_params['msgs_shown'])
                 ? 3
                 : $this->_params['msgs_shown'];
@@ -56,7 +58,7 @@ class IMP_Block_Newmail extends Horde_Core_Block
             $query->envelope();
 
             try {
-                $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch('INBOX', $query, array(
+                $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($inbox, $query, array(
                     'ids' => new Horde_Imap_Client_Ids(array_slice($indices, 0, $shown))
                 ));
             } catch (IMP_Imap_Exception $e) {
@@ -72,7 +74,7 @@ class IMP_Block_Newmail extends Horde_Core_Block
                 $subject = $imp_ui->getSubject($envelope->subject, true);
 
                 $html .= '<tr style="cursor:pointer" class="text"><td>' .
-                    IMP::generateIMPUrl('message.php', 'INBOX', $uid)->link() .
+                    IMP::generateIMPUrl('message.php', $inbox, $uid)->link() .
                     '<strong>' . $from['from'] . '</strong><br />' .
                     $subject . '</a></td>' .
                     '<td>' . htmlspecialchars($date, ENT_QUOTES, $charset) . '</td></tr>';
@@ -85,7 +87,7 @@ class IMP_Block_Newmail extends Horde_Core_Block
         }
 
         return $html .
-               '<tr><td colspan="2" style="cursor:pointer" align="right">' . IMP::generateIMPUrl('mailbox.php', 'INBOX')->link() . $text . '</a></td></tr>' .
+               '<tr><td colspan="2" style="cursor:pointer" align="right">' . IMP::generateIMPUrl('mailbox.php', $inbox)->link() . $text . '</a></td></tr>' .
                '</table>';
     }
 
