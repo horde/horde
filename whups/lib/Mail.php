@@ -76,7 +76,7 @@ class Whups_Mail {
         $body_id = $message->findBody();
         if ($body_id) {
             $part = $message->getPart($body_id);
-            $comment .= Horde_String::convertCharset($part->transferDecode(), $part->getCharset(), 'UTF-8');
+            $comment .= Horde_String::convertCharset($part->getContents(), $part->getCharset(), 'UTF-8');
         } else {
             $comment .= _("[ Could not render body of message. ]");
         }
