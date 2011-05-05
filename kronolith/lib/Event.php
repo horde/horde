@@ -286,6 +286,13 @@ abstract class Kronolith_Event
     public $exceptionoriginaldate;
 
     /**
+     * The event .
+     *
+     * @var stdClass
+     */
+    protected $_duration;
+
+    /**
      * Constructor.
      *
      * @param Kronolith_Driver $driver  The backend driver that this event is
@@ -1764,9 +1771,8 @@ abstract class Kronolith_Event
 
     public function getDuration()
     {
-        static $duration = null;
-        if (isset($duration)) {
-            return $duration;
+        if (isset($this->_duration)) {
+            return $this->_duration;
         }
 
         if ($this->start && $this->end) {
@@ -1802,13 +1808,13 @@ abstract class Kronolith_Event
             $whole_day_match = false;
         }
 
-        $duration = new stdClass;
-        $duration->day = $dur_day_match;
-        $duration->hour = $dur_hour_match;
-        $duration->min = $dur_min_match;
-        $duration->wholeDay = $whole_day_match;
+        $this->_duration = new stdClass;
+        $this->_duration->day = $dur_day_match;
+        $this->_duration->hour = $dur_hour_match;
+        $this->_duration->min = $dur_min_match;
+        $this->_duration->wholeDay = $whole_day_match;
 
-        return $duration;
+        return $this->_duration;
     }
 
     /**
