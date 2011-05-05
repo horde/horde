@@ -36,6 +36,7 @@ if ((!empty($_SERVER['CONTENT_TYPE']) &&
      (strpos($_SERVER['CONTENT_TYPE'], 'application/vnd.ms-sync.wbxml') !== false)) ||
    (strpos($_SERVER['REQUEST_URI'], 'Microsoft-Server-ActiveSync') !== false)) {
     /* ActiveSync Request */
+    $conf['cookie']['path'] = '/Microsoft-Server-ActiveSync';
     $serverType = 'ActiveSync';
     $nocompress = true;
 } elseif (!empty($_SERVER['PATH_INFO']) ||
