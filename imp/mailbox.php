@@ -520,8 +520,7 @@ if ($pageOb['msgcount']) {
         }
     }
 
-    if (!$search_mbox &&
-        $imp_imap->accessMailbox(IMP::$mailbox, IMP_Imap::ACCESS_FILTERS)) {
+    if (!$search_mbox && IMP::$mailbox->access_filters) {
         $filters = array();
         $imp_search->setIteratorFilter(IMP_Search::LIST_FILTER);
         foreach ($imp_search as $val) {
@@ -681,7 +680,7 @@ if (IMP::$mailbox->special_outgoing) {
 }
 
 /* Determine which of Subject/Thread to emphasize. */
-if (!IMP::$mailbox->threadsort) {
+if (!IMP::$mailbox->access_sortthread) {
     unset($headers[Horde_Imap_Client::SORT_THREAD]);
 } else {
     if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {

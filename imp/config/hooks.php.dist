@@ -378,9 +378,9 @@ class IMP_Hooks
      * trash folders.)
      *
      * @return array  A list of mailboxes, with the name as keys and the
-     *               values an array with 'icon' and 'alt' entries.
-     *               If a mailbox name doesn't appear in the list, the default
-     *               mailbox icon is displayed.
+     *                values an array with 'icon' and 'alt' entries.
+     *                If a mailbox name doesn't appear in the list, the
+     *                default mailbox icon is displayed.
      */
 //    public function mbox_icons()
 //    {

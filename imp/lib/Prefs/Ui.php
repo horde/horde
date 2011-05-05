@@ -505,6 +505,10 @@ class IMP_Prefs_Ui
     {
         global $browser, $notification, $prefs, $registry, $session;
 
+        if ($prefs->isDirty('use_trash')) {
+            $GLOBALS['injector']->getInstance('IMP_Factory_Mailbox')->expire(IMP_Mailbox::getPref('trash_folder'));
+        }
+
         /* Always check to make sure we have a valid trash folder if delete to
          * trash is active. */
         if (($prefs->isDirty('use_trash') || $prefs->isDirty('trash_folder')) &&
@@ -1896,6 +1900,8 @@ class IMP_Prefs_Ui
             $prefs->isLocked($pref)) {
             return false;
         }
+
+        $injector->getInstance('IMP_Factory_Mailbox')->expire(IMP_Mailbox::getPref($pref));
 
         if ($folder == self::PREF_NO_FOLDER) {
             return $prefs->setValue($pref, '');

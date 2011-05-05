@@ -128,7 +128,7 @@ class IMP_Views_ListMessages
 
         /* Mail-specific viewport information. */
         $md = &$result->metadata;
-        if (!$mbox->threadsort) {
+        if (!$mbox->access_sortthread) {
             $md->nothread = 1;
         }
         if ($args['initial'] || !is_null($args['sortby'])) {

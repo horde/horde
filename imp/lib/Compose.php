@@ -455,7 +455,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                     // Ignore hostspec and port, since these can change
                     // even though the server is the same. UIDVALIDITY should
                     // catch any true server/backend changes.
-                    ($imp_imap->checkUidvalidity(IMP_Mailbox::get($imap_url['mailbox'])) == $imap_url['uidvalidity']) &&
+                    (IMP_Mailbox::get($imap_url['mailbox'])->uidvalid == $imap_url['uidvalidity']) &&
                     $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imap_url['mailbox'], $imap_url['uid']))) {
                     $this->_metadata['mailbox'] = IMP_Mailbox::get($imap_url['mailbox']);
                     $this->_metadata['uid'] = $imap_url['uid'];

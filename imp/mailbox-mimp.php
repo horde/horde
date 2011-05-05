@@ -237,7 +237,7 @@ foreach ($hdr_list as $key => $val) {
 }
 
 /* Add thread header entry. */
-if (!$search_mbox && IMP::$mailbox->threadsort) {
+if (!$search_mbox && IMP::$mailbox->access_sortthread) {
     if (is_null($imp_thread)) {
         $t->set('hdr_subject_minor', $t->get('hdr_thread'));
     } else {

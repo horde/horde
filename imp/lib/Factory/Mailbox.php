@@ -25,7 +25,7 @@
  * @link     http://pear.horde.org/index.php?package=IMP
  * @package  IMP
  */
-class IMP_Factory_Mailbox
+class IMP_Factory_Mailbox extends Horde_Core_Factory_Base
 {
     /**
      * Instances.
@@ -33,23 +33,6 @@ class IMP_Factory_Mailbox
      * @var array
      */
     private $_instances = array();
-
-    /**
-     * The injector.
-     *
-     * @var Horde_Injector
-     */
-    private $_injector;
-
-    /**
-     * Constructor.
-     *
-     * @param Horde_Injector $injector  The injector to use.
-     */
-    public function __construct(Horde_Injector $injector)
-    {
-        $this->_injector = $injector;
-    }
 
     /**
      * Return the IMP_Mailbox:: instance.
@@ -65,11 +48,50 @@ class IMP_Factory_Mailbox
             return $mbox;
         }
 
-        if (empty($this->_instances[$mbox])) {
-            $this->_instances[$mbox] = new IMP_Mailbox($mbox);
+        if (!isset($this->_instances[$mbox])) {
+            if (empty($this->_instances)) {
+                register_shutdown_function(array($this, 'shutdown'));
+            }
+
+            $ob = new IMP_Mailbox($mbox);
+            $ob->cache = $GLOBALS['session']->get('imp', 'mbox_ob/' . $mbox, Horde_Session::TYPE_ARRAY);
+
+            $this->_instances[$mbox] = $ob;
         }
 
         return $this->_instances[$mbox];
+    }
+
+    /**
+     * Saves IMP_Mailbox instances to the session.
+     *
+     * A bit hackish - it would theoretically be cleaner code if we just
+     * stored a serialized version of the object in the value. However, this
+     * incurs the overhead of 1) having to define the classname in each
+     * serialized string, and 2) the mailbox name will be duplicated inside
+     * of the object (since it is the same as the key). Since a user may
+     * have 100's of mailboxes, we need to pack info as tightly as possible
+     * in the session; thus, the slightly unorthodox way we store the
+     * mailbox data in the session.
+     */
+    public function shutdown()
+    {
+        foreach ($this->_instances as $ob) {
+            if ($ob->changed) {
+                $GLOBALS['session']->set('imp', 'mbox_ob/' . strval($ob), $ob->cache);
+            }
+        }
+    }
+
+    /**
+     * Expire a cache entry.
+     *
+     * @param string $mbox  A mailbox name.
+     */
+    public function expire($mbox)
+    {
+        $GLOBALS['session']->remove('imp', 'mbox_ob/' . $mbox);
+        unset($this->_instance[$mbox]);
     }
 
 }
