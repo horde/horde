@@ -92,7 +92,7 @@ class Horde_Share_Object_Sql extends Horde_Share_Object implements Serializable
      * @param mixed $value       The value for $attribute.
      * @param boolean $update    Update *only* this change immeditely.
      */
-    public function set($attribute, $value)
+    public function set($attribute, $value, $update = false)
     {
         if ($attribute == 'owner') {
             $driver_key = 'share_owner';
