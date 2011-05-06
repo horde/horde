@@ -106,7 +106,7 @@ class Horde_Share_Object_Sql extends Horde_Share_Object implements Serializable
             $db = $this->getShareOb()->getStorage();
             // Manually convert the charset since we're not going through save()
             $data = $this->getshareOb()->toDriverCharset(array($driver_key => $value));
-            $sql = 'UPDATE ' . $this->getShareOb()->getTable() . ' SET ' . $driver_key . ' = ? WHERE share_id = ?'
+            $sql = 'UPDATE ' . $this->getShareOb()->getTable() . ' SET ' . $driver_key . ' = ? WHERE share_id = ?';
             try {
                 $db->update($sql, array($data[$driver_key], $this->getId()));
             } catch (Horde_Db_Exception $e) {
