@@ -10,11 +10,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:19:14</time>
+ <date>2011-05-06</date>
+ <time>12:24:46</time>
  <version>
-  <release>1.0.1</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,12 +22,14 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* 
+* [jan] Add CLI client example.
+* [jan] Add Horde_Services_Twitter::create() factory method.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="doc">
-    <file name="twitter.php.example" role="doc" />
+    <file name="twitter_browser.php" role="doc" />
+    <file name="twitter_cli.php" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -98,7 +100,8 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="twitter.php.example" name="doc/twitter.php.example" />
+   <install as="twitter_browser.php" name="doc/twitter_browser.php" />
+   <install as="twitter_cli.php" name="doc/twitter_cli.php" />
    <install as="Horde/Service/Twitter.php" name="lib/Horde/Service/Twitter.php" />
    <install as="Horde/Service/Twitter/Account.php" name="lib/Horde/Service/Twitter/Account.php" />
    <install as="Horde/Service/Twitter/Auth.php" name="lib/Horde/Service/Twitter/Auth.php" />
@@ -187,15 +190,16 @@
   </release>
   <release>
    <version>
-    <release>1.0.1</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-05-06</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-* 
+* [jan] Add CLI client example.
+* [jan] Add Horde_Services_Twitter::create() factory method.
    </notes>
   </release>
  </changelog>
