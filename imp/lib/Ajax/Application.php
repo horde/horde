@@ -966,7 +966,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         $args = array(
-            'mailbox' => strval($mbox),
+            'mailbox' => $mbox,
             'uid' => $idx
         );
         $result = new stdClass;
@@ -1020,7 +1020,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         $args = array(
-            'mailbox' => strval($mbox),
+            'mailbox' => $mbox,
             'preview' => true,
             'uid' => $idx
         );

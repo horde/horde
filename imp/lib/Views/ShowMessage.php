@@ -50,14 +50,12 @@ class IMP_Views_ShowMessage
     /**
      * Create the object used to display the message.
      *
-     * @param array $args  Configuration parameters.
-     * <pre>
-     * 'headers' - (array) The headers desired in the returned headers array
-     *             (only used with non-preview view)
-     * 'mailbox' - (IMP_Mailbox) The mailbox name
-     * 'preview' - (boolean) Is this the preview view?
-     * 'uid' - (integer) The UID of the message
-     * </pre>
+     * @param array $args  Configuration parameters:
+     *   - headers: (array) The headers desired in the returned headers array
+     *              (only used with non-preview view).
+     *   - mailbox: (IMP_Mailbox) The mailbox of the message.
+     *   - preview: (boolean) Is this the preview view?
+     *   - uid: (integer) The UID of the message.
      *
      * @return array  Array with the following keys:
      * <pre>

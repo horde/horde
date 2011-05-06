@@ -24,13 +24,14 @@ if (!$vars->uid || !$vars->folder) {
 }
 
 $imp_ui = new IMP_Ui_Message();
+$mailbox = IMP_Mailbox::get($vars->folder);
 $js_onload = $js_vars = array();
-$readonly = IMP_Mailbox::get($vars->folder)->readonly;
+$readonly = $mailbox->readonly;
 
 switch ($vars->actionID) {
 case 'strip_attachment':
     try {
-        $indices = $injector->getInstance('IMP_Message')->stripPart(new IMP_Indices($vars->folder, $vars->uid), $vars->id);
+        $indices = $injector->getInstance('IMP_Message')->stripPart(new IMP_Indices($mailbox, $vars->uid), $vars->id);
         $js_vars['-DimpMessage.strip'] = 1;
         list(,$vars->uid) = $indices->getSingle();
         $notification->push(_("Attachment successfully stripped."), 'horde.success');
@@ -42,7 +43,7 @@ case 'strip_attachment':
 
 $args = array(
     'headers' => array_diff(array_keys($imp_ui->basicHeaders()), array('subject')),
-    'mailbox' => $vars->folder,
+    'mailbox' => $mailbox,
     'preview' => false,
     'uid' => $vars->uid
 );
@@ -71,8 +72,8 @@ foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mailbox') as
 }
 
 $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
-$ajax_queue->flag(array(Horde_Imap_Client::FLAG_SEEN), true, new IMP_Indices($vars->folder, $vars->uid));
-$ajax_queue->poll($vars->folder);
+$ajax_queue->flag(array(Horde_Imap_Client::FLAG_SEEN), true, new IMP_Indices($mailbox, $vars->uid));
+$ajax_queue->poll($mailbox);
 
 foreach ($ajax_queue->generate() as $key => $val) {
     $js_vars['DimpMessage.' . $key] = $val;
@@ -85,7 +86,7 @@ $disable_compose = !IMP::canCompose();
 
 if (!$disable_compose) {
     $compose_args = array(
-        'folder' => $vars->folder,
+        'folder' => $mailbox,
         'messageCache' => '',
         'popup' => false,
         'qreply' => true,
@@ -149,7 +150,7 @@ $t->set('forward_button', IMP_Dimp::actionButton(array(
 
 if (!empty($conf['spam']['reporting']) &&
     (!$conf['spam']['spamfolder'] ||
-     ($vars->folder != IMP_Mailbox::getPref('spam_folder')))) {
+     ($mailbox != IMP_Mailbox::getPref('spam_folder')))) {
     $t->set('spam_button', IMP_Dimp::actionButton(array(
         'icon' => 'Spam',
         'id' => 'button_spam',
@@ -159,7 +160,7 @@ if (!empty($conf['spam']['reporting']) &&
 
 if (!empty($conf['notspam']['reporting']) &&
     (!$conf['notspam']['spamfolder'] ||
-    ($vars->folder == IMP_Mailbox::getPref('spam_folder')))) {
+    ($mailbox == IMP_Mailbox::getPref('spam_folder')))) {
     $t->set('ham_button', IMP_Dimp::actionButton(array(
         'icon' => 'Ham',
         'id' => 'button_ham',
