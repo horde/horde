@@ -98,8 +98,7 @@ class IMP_Flags implements ArrayAccess, Serializable
      */
     public function getList(array $opts = array())
     {
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-        if (!$imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
+        if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FLAGS)) {
             return array();
         }
 
@@ -121,11 +120,7 @@ class IMP_Flags implements ArrayAccess, Serializable
 
         /* Alter the list of flags for a mailbox depending on the mailbox's
          * PERMANENTFLAGS status. */
-        try {
-            $permflags = $imp_imap->getPermanentFlags(IMP_Mailbox::get($opts['mailbox']));
-        } catch (IMP_Imap_Exception $e) {
-            return array_values($ret);
-        }
+        $permflags = IMP_Mailbox::get($opts['mailbox'])->permflags;
 
         /* Limited flags allowed in mailbox. */
         foreach ($ret as $key => $val) {

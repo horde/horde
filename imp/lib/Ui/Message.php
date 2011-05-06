@@ -90,21 +90,19 @@ class IMP_Ui_Message
 
         /* See if we have already processed this message. */
         /* 1st test: MDNSent keyword (RFC 3503 [3.1]). */
-        try {
-            if ($imp_imap->getPermanentFlags($mailbox)->allowed('$mdnsent')) {
-                $mdn_flag = true;
+        if ($mailbox->permflags->allowed('$mdnsent')) {
+            $mdn_flag = true;
 
-                $query = new Horde_Imap_Client_Fetch_Query();
-                $query->flags();
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->flags();
 
+            try {
                 $res = $imp_imap->fetch($mailbox, $query, array(
                     'ids' => new Horde_Imap_Client_Ids($uid)
                 ));
                 $mdn_sent = in_array('$mdnsent', $res[$uid]->getFlags());
-            }
-        } catch (IMP_Imap_Exception $e) {}
-
-        if (!$mdn_flag) {
+            } catch (IMP_Imap_Exception $e) {}
+        } else {
             /* 2nd test: Use Maillog as a fallback. */
             $mdn_sent = IMP_Maillog::sentMDN($msg_id, 'displayed');
         }

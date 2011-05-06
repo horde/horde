@@ -51,6 +51,9 @@
  * @property array $namespace_info  See IMP_Imap::getNamespace().
  * @property boolean $nonimap  Is this a non-IMAP element?
  * @property array $parent  The parent element value.
+ * @property IMP_Imap_PermanentFlags $permflags  Return the list of permanent
+ *                                               flags available to set in the
+ *                                               mailbox.
  * @property boolean $polled  Show polled information?
  * @property object $poll_info  Poll information for the mailbox. Properties:
  *   - msgs: (integer) The number of total messages in the element, if polled.
@@ -341,6 +344,21 @@ class IMP_Mailbox implements Serializable
             return $elt
                 ? $elt['p']
                 : '';
+
+        case 'permflags':
+            $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+
+            if ($imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
+                try {
+                    /* Make sure we are in R/W mailbox mode (SELECT). No flags
+                     * are allowed in EXAMINE mode. */
+                    $imp_imap->openMailbox($this->_mbox, Horde_Imap_Client::OPEN_READWRITE);
+                    $status = $imp_imap->status($this->_mbox, Horde_Imap_Client::STATUS_FLAGS | Horde_Imap_Client::STATUS_PERMFLAGS);
+                    return new IMP_Imap_PermanentFlags($status['permflags'], $status['flags']);
+                } catch (Exception $e) {}
+            }
+
+            return new IMP_Imap_PermanentFlags();
 
         case 'poll_info':
             $info = new stdClass;

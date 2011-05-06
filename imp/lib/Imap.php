@@ -230,28 +230,6 @@ class IMP_Imap implements Serializable
     }
 
     /**
-     * Return the list of permanent flags available to set in the mailbox.
-     *
-     * @param IMP_Mailbox $mailbox  The mailbox to query.
-     *
-     * @return IMP_Imap_PermanentFlags  A permanent flags object.
-     */
-    public function getPermanentFlags(IMP_Mailbox $mailbox)
-    {
-        if ($this->access(self::ACCESS_FLAGS)) {
-            try {
-                /* Make sure we are in R/W mailbox mode (SELECT). No flags are
-                 * allowed in EXAMINE mode. */
-                $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_READWRITE);
-                $status = $this->status($mailbox, Horde_Imap_Client::STATUS_FLAGS | Horde_Imap_Client::STATUS_PERMFLAGS);
-                return new IMP_Imap_PermanentFlags($status['permflags'], $status['flags']);
-            } catch (Horde_Imap_Client_Exception $e) {}
-        }
-
-        return new IMP_Imap_PermanentFlags();
-    }
-
-    /**
      * Get the namespace list.
      *
      * @return array  See Horde_Imap_Client_Base#getNamespaces().
