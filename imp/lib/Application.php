@@ -273,7 +273,7 @@ class IMP_Application extends Horde_Registry_Application
             $prefs->getValue('use_trash') &&
             $prefs->getValue('empty_trash_menu') &&
             ($trash_folder = IMP_Mailbox::getPref('trash_folder')) &&
-            ($trash_folder->vtrash || !$trash_folder->readonly)) {
+            ($trash_folder->vtrash || $trash_folder->access_expunge)) {
             $menu->addArray(array(
                 'class' => '__noselection',
                 'icon' => 'empty_trash.png',
@@ -286,7 +286,7 @@ class IMP_Application extends Horde_Registry_Application
         if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) &&
             $prefs->getValue('empty_spam_menu') &&
             ($spam_folder = IMP_Mailbox::getPref('spam_folder')) &&
-             !$spam_folder->readonly) {
+            $spam_folder->access_expunge) {
             $menu->addArray(array(
                 'class' => '__noselection',
                 'icon' =>  'empty_spam.png',

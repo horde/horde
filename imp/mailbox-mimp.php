@@ -84,9 +84,7 @@ case 'm':
 
 // 'e' = expunge mailbox
 case 'e':
-    if (!$readonly) {
-        $injector->getInstance('IMP_Message')->expungeMailbox(array(strval(IMP::$mailbox) => 1));
-    }
+    $injector->getInstance('IMP_Message')->expungeMailbox(array(strval(IMP::$mailbox) => 1));
     break;
 
 // 'c' = change sort
@@ -215,9 +213,9 @@ $menu = array(array(_("Refresh"), $mailbox));
 $search_mbox = $imp_search->isSearchMbox(IMP::$mailbox);
 
 /* Determine if we are going to show the Purge Deleted link. */
-if (!$readonly &&
-    !$prefs->getValue('use_trash') &&
-    !$imp_search->isVinbox(IMP::$mailbox)) {
+if (!$prefs->getValue('use_trash') &&
+    !$imp_search->isVinbox(IMP::$mailbox) &&
+    IMP::$mailbox->access_expunge) {
     $menu[] = array(_("Purge Deleted"), $mailbox->copy()->add('a', 'e'));
 }
 

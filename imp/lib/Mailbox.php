@@ -15,9 +15,13 @@
  *
  * @property string $abbrev_label  Abbreviated version of $label - displays
  *                                 only the bare mailbox name (no parents).
+ * @property boolean $access_expunge  Can messages be expunged in this
+ *                                    mailbox?
  * @property boolean $access_filters  Is filtering available?
  * @property boolean $access_sort  Is sorting available?
  * @property boolean $access_sortthread  Is thread sort available?
+ * @property mixed $acl  Either an ACL object for the mailbox, or null if
+ *                       no ACL found for the mailbox.
  * @property string $basename  The basename of the mailbox (UTF-8).
  * @property string $cacheid  Cache ID for the mailbox.
  * @property boolean $children  Does the element have children?
@@ -91,6 +95,7 @@ class IMP_Mailbox implements Serializable
 
     /**
      * Cached data.  Entries:
+     *   - a: (array) ACL rights
      *   - d: (string) Display string
      *   - i: (array) Icons array
      *   - ro: (boolean) Read-only?
@@ -196,6 +201,11 @@ class IMP_Mailbox implements Serializable
                 ? $label
                 : substr($label, $pos + 1);
 
+        case 'access_expunge':
+            return (!$this->readonly &&
+                    (!($acl = $this->acl) ||
+                    ($acl[Horde_Imap_Client::ACL_EXPUNGE])));
+
         case 'access_filters':
             return !$this->search &&
                    !$injector->getInstance('IMP_Factory_Imap')->create()->pop3;
@@ -214,6 +224,26 @@ class IMP_Mailbox implements Serializable
              * sorting. */
             return ($injector->getInstance('IMP_Factory_Imap')->create()->imap &&
                     !$this->search);
+
+        case 'acl':
+            if (isset($this->cache['a'])) {
+                return is_null($this->cache['a'])
+                    ? null
+                    : new Horde_Imap_Client_Data_Acl($this->cache['a']);
+            }
+
+            try {
+                $acl = $injector->getInstance('IMP_Imap_Acl')->getACL($this, true);
+                /* Store string representation of ACL for a more compact
+                 * serialized format. */
+                $this->cache['a'] = strval($acl);
+            } catch (IMP_Exception $e) {
+                $acl = $this->cache['a'] = null;
+            }
+
+            $this->changed = true;
+
+            return $acl;
 
         case 'basename':
             if ($this->nonimap) {

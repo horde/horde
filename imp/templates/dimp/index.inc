@@ -420,9 +420,11 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <?php endif; ?>
 <?php endif; ?>
 <?php if (!$use_trash): ?>
- <div class="sep"></div>
- <a id="oa_purge_deleted"><span class="iconImg"></span><?php echo _("Purge Deleted") ?></a>
- <a id="oa_undeleted"><span class="iconImg"></span><?php echo _("Undelete") ?></a>
+ <div id="oa_purge_options">
+  <div class="sep"></div>
+  <a id="oa_purge_deleted"><span class="iconImg"></span><?php echo _("Purge Deleted") ?></a>
+  <a id="oa_undeleted"><span class="iconImg"></span><?php echo _("Undelete") ?></a>
+ </div>
 <?php endif; ?>
  <div class="sep"></div>
  <a id="oa_help"><span class="iconImg"></span><?php echo _("Help") ?></a>

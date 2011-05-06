@@ -148,8 +148,13 @@ class IMP_Views_ListMessages
             } elseif ($mbox == IMP_Mailbox::getPref('spam_folder')) {
                 $md->spam = 1;
             }
+
             if ($is_search) {
                 $md->search = 1;
+            }
+
+            if (!$mbox->access_expunge) {
+                $md->noexpunge = 1;
             }
 
             /* Generate flag array. */

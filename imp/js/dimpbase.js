@@ -683,6 +683,9 @@ var DimpBase = {
                     tmp.compact().invoke('show');
                     $('folderName').next().hide();
                 }
+
+                /* ACL changes. */
+                [ $('oa_purge_deleted') ].compact().invoke(this.viewport.getMetaData('noexpunge') ? 'hide' : 'show');
             } else if (this.filtertoggle &&
                        this.viewport.getMetaData('sortby') == $H(DIMP.conf.sort).get('thread').v) {
                 ssc = $H(DIMP.conf.sort).get('date').v;
@@ -1129,6 +1132,7 @@ var DimpBase = {
                 $('oa_preview_show').show();
                 break;
             }
+
             tmp = [ $('oa_undeleted') ];
             $('oa_blacklist', 'oa_whitelist').each(function(o) {
                 if (o) {
@@ -1148,6 +1152,10 @@ var DimpBase = {
             }
 
             tmp.compact().invoke(sel.size() ? 'show' : 'hide');
+
+            if (tmp = $('oa_purge_options')) {
+                [ tmp ].invoke(tmp.select('> a').any(Element.visible) ? 'show' : 'hide');
+            }
             break;
 
         case 'ctx_sortopts':

@@ -2,6 +2,7 @@
 v5.0.4-git
 ----------
 
+[mms] Use ACLs to determine when to hide Purge Deleted option (Request #9537).
 [mms] Cache various calculated mailbox information in the session.
 [mms] Fix adding flags in advanced search (Bug #10049).
 [mms] Fix display of subfolders in mobile view (Bug #10043).

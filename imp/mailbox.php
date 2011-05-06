@@ -212,9 +212,7 @@ case 'hide_deleted':
     break;
 
 case 'expunge_mailbox':
-    if (!$readonly) {
-        $injector->getInstance('IMP_Message')->expungeMailbox(array(strval(IMP::$mailbox) => 1));
-    }
+    $injector->getInstance('IMP_Message')->expungeMailbox(array(strval(IMP::$mailbox) => 1));
     break;
 
 case 'filter':
@@ -279,9 +277,15 @@ $sortpref = IMP::$mailbox->getSort();
 
 /* Determine if we are going to show the Hide/Purge Deleted Message links. */
 if (!$prefs->getValue('use_trash') && !IMP::$mailbox->vinbox) {
-    $showdelete = array('hide' => ($sortpref['by'] != Horde_Imap_Client::SORT_THREAD), 'purge' => true);
+    $showdelete = array(
+        'hide' => ($sortpref['by'] != Horde_Imap_Client::SORT_THREAD),
+        'purge' => IMP::$mailbox->access_expunge
+    );
 } else {
-    $showdelete = array('hide' => false, 'purge' => false);
+    $showdelete = array(
+        'hide' => false,
+        'purge' => false
+    );
 }
 if ($showdelete['hide'] && !$prefs->isLocked('delhide')) {
     if ($prefs->getValue('delhide')) {
@@ -289,9 +293,6 @@ if ($showdelete['hide'] && !$prefs->isLocked('delhide')) {
     } else {
         $deleted_prompt = _("Hide Deleted");
     }
-}
-if ($readonly) {
-    $showdelete['purge'] = false;
 }
 
 /* Generate paging links. */
@@ -467,7 +468,7 @@ if (empty($pageOb['end'])) {
            has hidden, deleted messages. */
         $del_template = $injector->createInstance('Horde_Template');
         $del_template->set('hide', Horde::widget($refresh_url->copy()->add(array('actionID' => 'hide_deleted', 'mailbox_token' => $mailbox_token)), $deleted_prompt, 'widget hideAction', '', '', $deleted_prompt));
-        if (!$readonly) {
+        if (IMP::$mailbox->access_expunge) {
             $del_template->set('purge', Horde::widget($refresh_url->copy()->add(array('actionID' => 'expunge_mailbox', 'mailbox_token' => $mailbox_token)), _("Purge Deleted"), 'widget purgeAction', '', '', _("Pur_ge Deleted")));
         }
         echo $del_template->fetch(IMP_TEMPLATES . '/imp/mailbox/actions_deleted.html');

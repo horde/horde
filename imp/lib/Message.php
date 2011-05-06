@@ -687,7 +687,7 @@ class IMP_Message
         foreach ($mbox_list as $key => $val) {
             $key = IMP_Mailbox::get($key);
 
-            if (!$key->readonly) {
+            if ($key->access_expunge) {
                 $ids = new Horde_Imap_Client_Ids(is_array($val) ? $val : Horde_Imap_Client_Ids::ALL);
 
                 if ($key->search) {
