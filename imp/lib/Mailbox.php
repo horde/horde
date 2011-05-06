@@ -764,7 +764,7 @@ class IMP_Mailbox implements Serializable
      */
     static public function getSpecialMailboxes()
     {
-        if (!self::$_temp['specialCache']) {
+        if (!isset(self::$_temp['specialCache'])) {
             self::$_temp['specialCache'] = array(
                 self::SPECIAL_DRAFTS => self::getPref('drafts_folder'),
                 self::SPECIAL_SENT => $GLOBALS['injector']->getInstance('IMP_Identity')->getAllSentmailFolders(),
