@@ -4,9 +4,11 @@
  *
  * Copyright 2009-2011 The Horde Project (http://www.horde.org)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
- *
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @category Horde
+ * @package  Service_Twitter
  */
 
 require_once dirname(__FILE__) . '/../lib/base.php';
