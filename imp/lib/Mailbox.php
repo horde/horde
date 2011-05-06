@@ -338,7 +338,28 @@ class IMP_Mailbox implements Serializable
                 : $ns_info['delimiter'];
 
         case 'namespace_info':
-            return $injector->getInstance('IMP_Factory_Imap')->create()->getNamespace($this->_mbox);
+            $keys = array('delimiter', 'hidden', 'name', 'translation', 'type');
+
+            if (isset($this->cache['n'])) {
+                return is_null($this->cache['n'])
+                    ? null
+                    : array_combine($keys, $this->cache['n']);
+            }
+
+            $ns_info = $injector->getInstance('IMP_Factory_Imap')->create()->getNamespace($this->_mbox);
+            if (is_null($ns_info)) {
+                $this->cache['n'] = null;
+            } else {
+                /* Store data compressed in the cache array. */
+                $this->cache['n'] = array();
+                foreach ($keys as $key) {
+                    $this->cache['n'][] = $ns_info[$key];
+                }
+            }
+
+            $this->changed = true;
+
+            return $ns_info;
 
         case 'nonimap':
             return $injector->getInstance('IMP_Imap_Tree')->isNonImapElt($this->_mbox);
