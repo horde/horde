@@ -28,7 +28,7 @@ class Horde_Service_Twitter_Statuses
     /**
      * Constructor
      *
-     * @param Horde_Service_Twiiter $twitter
+     * @param Horde_Service_Twitter $twitter
      */
     public function __construct($twitter)
     {
