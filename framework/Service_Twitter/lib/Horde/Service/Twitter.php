@@ -68,16 +68,13 @@ class Horde_Service_Twitter
      protected $_httpClient;
 
     /**
-     * Const'r
+     * Constructor.
      *
-     * @param array $config  Configuration parameters:
-     *   <pre>
-     *     'oauth'    - Horde_Oauth object if using Oauth
-     *     'username' - if using Basic auth
-     *     'password' - if using Basic auth
-     *   </pre>
+     * @param Horde_Service_Twitter_Auth $auth        An authentication object
+     * @param Horde_Service_Twitter_Request $request  A request object.
      */
-    public function __construct(Horde_Service_Twitter_Auth $auth, Horde_Service_Twitter_Request $request)
+    public function __construct(Horde_Service_Twitter_Auth $auth,
+                                Horde_Service_Twitter_Request $request)
     {
         $this->_auth = $auth;
         $this->_auth->setTwitter($this);
