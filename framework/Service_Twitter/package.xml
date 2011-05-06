@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-05-06</date>
- <time>12:24:46</time>
+ <time>12:26:44</time>
  <version>
-  <release>1.1.0</release>
+  <release>1.1.1</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [jan] Add CLI client example.
-* [jan] Add Horde_Services_Twitter::create() factory method.
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -200,6 +199,19 @@
    <notes>
 * [jan] Add CLI client example.
 * [jan] Add Horde_Services_Twitter::create() factory method.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-06</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+*
    </notes>
   </release>
  </changelog>
