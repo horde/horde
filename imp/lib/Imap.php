@@ -303,23 +303,6 @@ class IMP_Imap implements Serializable
     }
 
     /**
-     * Make sure a user-entered mailbox contains namespace information.
-     *
-     * @param string $mbox  The user-entered mailbox string.
-     *
-     * @return string  The mailbox string with any necessary namespace info
-     *                 added.
-     */
-    public function appendNamespace($mbox)
-    {
-        $ns_info = $this->getNamespace($mbox);
-        if (is_null($ns_info)) {
-            $ns_info = $this->defaultNamespace();
-        }
-        return $ns_info['name'] . $mbox;
-    }
-
-    /**
      * Return the Horde_Imap_Client_Utils object.
      *
      * @return Horde_Imap_Client_Utils  The utility object.

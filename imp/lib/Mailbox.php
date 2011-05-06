@@ -45,8 +45,8 @@
  *                          can be modified by user hook.
  * @property integer $level  The child level of this element.
  * @property string $namespace  Is this a namespace element?
- * @property string $namespace_append  The mailbox with necessary namespace
- *                                     information appended.
+ * @property IMP_Mailbox $namespace_append  The mailbox with necessary
+ *                                          namespace information appended.
  * @property string $namespace_delimiter  The delimiter for this namespace.
  * @property array $namespace_info  See IMP_Imap::getNamespace().
  * @property boolean $nonimap  Is this a non-IMAP element?
@@ -325,7 +325,11 @@ class IMP_Mailbox implements Serializable
             return $injector->getInstance('IMP_Imap_Tree')->isNamespace($this->_mbox);
 
         case 'namespace_append':
-            return self::get($injector->getInstance('IMP_Factory_Imap')->create()->appendNamespace($this->_mbox));
+            $ns_info = $this->namespace_info;
+            if (is_null($ns_info)) {
+                $ns_info = $injector->getInstance('IMP_Factory_Imap')->create()->defaultNamespace();
+            }
+            return self::get($ns_info['name'] . $this->_mbox);
 
         case 'namespace_delimiter':
             $ns_info = $this->namespace_info;
