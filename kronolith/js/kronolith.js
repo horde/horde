@@ -4787,7 +4787,7 @@ KronolithCore = {
 
         drop.insert(el);
         this.startLoading(cal, sig);
-        if (event.r) {
+        if (event.value.r) {
             attributes.set('rday', lastDate);
             attributes.set('cstart', this.cacheStart);
             attributes.set('cend', this.cacheEnd);
