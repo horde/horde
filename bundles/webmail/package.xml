@@ -5,22 +5,16 @@
  <summary>Horde Groupware Webmail Edition</summary>
  <description>Horde Groupware Webmail Edition is a free, enterprise ready, browser based communication suite. Users can read, send and organize email messages with three different webmail interfaces and manage and share calendars, contacts, tasks and notes with the standards compliant components from the Horde Project.</description>
  <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-02-24</date>
- <time>11:54:55</time>
+ <date>2011-05-07</date>
+ <time>00:44:49</time>
  <version>
-  <release>2.0.0RC1</release>
-  <api>2.0.0</api>
+  <release>4.0.0RC1</release>
+  <api>4.0.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -28,18 +22,41 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* First release candidate of Horde Groupware Webmail Edition 2.0.
+* First release candidate of Horde Groupware Webmail Edition 4.0.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="config">
+    <dir name="prefs.d">
+     <file name="10-webmail.php" role="horde" />
+    </dir> <!-- /config/prefs.d -->
+   </dir> <!-- /config -->
    <dir name="docs">
-    <file baseinstalldir="/" name="CHANGES" role="data" />
-    <file baseinstalldir="/" name="INSTALL" role="data" />
-    <file baseinstalldir="/" name="PERFORMANCE" role="data" />
-    <file baseinstalldir="/" name="README" role="data" />
-    <file baseinstalldir="/" name="RELEASE_NOTES" role="data" />
-    <file baseinstalldir="/" name="UPGRADING" role="data" />
-   </dir> <!-- //docs -->
+    <file name="CHANGES" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="PERFORMANCE" role="doc" />
+    <file name="README" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
+    <file name="UPGRADING" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="imp">
+    <dir name="config">
+     <dir name="conf.d">
+      <file name="10-webmail.php" role="horde" />
+     </dir> <!-- /imp/config/conf.d -->
+     <dir name="prefs.d">
+      <file name="10-webmail.php" role="horde" />
+     </dir> <!-- /imp/config/prefs.d -->
+     <file name="hooks.php" role="horde" />
+    </dir> <!-- /imp/config -->
+   </dir> <!-- /imp -->
+   <dir name="turba">
+    <dir name="config">
+     <dir name="conf.d">
+      <file name="10-webmail.php" role="horde" />
+     </dir> <!-- /turba/config/conf.d -->
+    </dir> <!-- /turba/config -->
+   </dir> <!-- /turba -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -53,28 +70,28 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0</min>
+    <min>4.0.2</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
    </package>
    <package>
     <name>imp</name>
     <channel>pear.horde.org</channel>
-    <min>5.0.0</min>
+    <min>5.0.3</min>
     <max>6.0.0</max>
     <exclude>6.0.0</exclude>
    </package>
    <package>
     <name>ingo</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.0.1</min>
     <max>3.0.0</max>
     <exclude>3.0.0</exclude>
    </package>
    <package>
     <name>kronolith</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.0</min>
+    <min>3.0.2</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
@@ -88,14 +105,14 @@
    <package>
     <name>nag</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.0</min>
+    <min>3.0.1</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
    <package>
     <name>turba</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.0</min>
+    <min>3.0.2</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
@@ -103,14 +120,35 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="docs/CHANGES" name="docs/CHANGES" />
-   <install as="docs/INSTALL" name="docs/INSTALL" />
-   <install as="docs/PERFORMANCE" name="docs/PERFORMANCE" />
-   <install as="docs/README" name="docs/README" />
-   <install as="docs/RELEASE_NOTES" name="docs/RELEASE_NOTES" />
-   <install as="docs/UPGRADING" name="docs/UPGRADING" />
+   <install as="config/prefs.d/10-webmail.php" name="config/prefs.d/10-webmail.php" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="PERFORMANCE" name="docs/PERFORMANCE" />
+   <install as="README" name="docs/README" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="UPGRADING" name="docs/UPGRADING" />
+   <install as="imp/config/hooks.php" name="imp/config/hooks.php" />
+   <install as="imp/config/conf.d/10-webmail.php" name="imp/config/conf.d/10-webmail.php" />
+   <install as="imp/config/prefs.d/10-webmail.php" name="imp/config/prefs.d/10-webmail.php" />
+   <install as="turba/config/conf.d/10-webmail.php" name="turba/config/conf.d/10-webmail.php" />
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <date>2011-05-07</date>
+   <time>11:54:55</time>
+   <version>
+    <release>4.0.0RC1</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* First release candidate of Horde Groupware Webmail Edition 4.0.
+   </notes>
+  </release>
  </changelog>
 </package>

@@ -69,6 +69,10 @@ framework/bin/*.conf
 !/kolab/*/*/*
 !/kolab/*/*/*/*
 /kolab/config/*.local.php
+!/bundles/*/config/*.d/*.php
+!/bundles/*/*/config/*.d/*.php
+!/bundles/*/config/hooks.php
+!/bundles/*/*/config/hooks.php
 
 # Application specific excludes
 ApertureToAnselExportPlugin/build/
