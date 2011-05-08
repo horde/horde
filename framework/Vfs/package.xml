@@ -427,10 +427,6 @@ Reading, writing and listing of files are all supported, and there are both obje
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>PEAR</name>
-    <channel>pear.php.net</channel>
-   </package>
-   <package>
     <name>ssh2</name>
     <channel>pecl.php.net</channel>
     <min>0.10</min>

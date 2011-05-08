@@ -422,10 +422,6 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
-   <package>
-    <name>PEAR</name>
-    <channel>pear.php.net</channel>
-   </package>
    <extension>
     <name>soap</name>
    </extension>
