@@ -91,6 +91,21 @@
 class Horde_Auth_Cyrsql extends Horde_Auth_Sql
 {
     /**
+     * An array of capabilities, so that the driver can report which
+     * operations it supports and which it doesn't.
+     *
+     * @var array
+     */
+    protected $_capabilities = array(
+        'add'           => true,
+        'list'          => true,
+        'remove'        => true,
+        'resetpassword' => false,
+        'update'        => true,
+        'authenticate'  => true,
+    );
+
+    /**
      * Horde_Imap_Client object.
      *
      * @var Horde_Imap_Client_Base
