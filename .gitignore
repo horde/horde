@@ -64,11 +64,6 @@ framework/Share/test/Horde/Share/conf.php
 /luxor/config/backends.php
 framework/bin/*.conf
 !/horde/admin/config/
-!/kolab/*
-!/kolab/*/*
-!/kolab/*/*/*
-!/kolab/*/*/*/*
-/kolab/config/*.local.php
 !/bundles/*/config/*.d/*.php
 !/bundles/*/*/config/*.d/*.php
 !/bundles/*/config/hooks.php
