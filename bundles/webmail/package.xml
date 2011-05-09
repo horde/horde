@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-07</date>
- <time>00:44:49</time>
+ <date>2011-05-09</date>
+ <time>12:20:24</time>
  <version>
   <release>4.0.0RC1</release>
   <api>4.0.0</api>
@@ -50,6 +50,13 @@
      <file name="hooks.php" role="horde" />
     </dir> <!-- /imp/config -->
    </dir> <!-- /imp -->
+   <dir name="kronolith">
+    <dir name="config">
+     <dir name="conf.d">
+      <file name="10-webmail.php" role="horde" />
+     </dir> <!-- /kronolith/config/conf.d -->
+    </dir> <!-- /kronolith/config -->
+   </dir> <!-- /kronolith -->
    <dir name="turba">
     <dir name="config">
      <dir name="conf.d">
@@ -130,12 +137,13 @@
    <install as="imp/config/hooks.php" name="imp/config/hooks.php" />
    <install as="imp/config/conf.d/10-webmail.php" name="imp/config/conf.d/10-webmail.php" />
    <install as="imp/config/prefs.d/10-webmail.php" name="imp/config/prefs.d/10-webmail.php" />
+   <install as="kronolith/config/conf.d/10-webmail.php" name="kronolith/config/conf.d/10-webmail.php" />
    <install as="turba/config/conf.d/10-webmail.php" name="turba/config/conf.d/10-webmail.php" />
   </filelist>
  </phprelease>
  <changelog>
   <release>
-   <date>2011-05-07</date>
+   <date>2011-05-09</date>
    <time>11:54:55</time>
    <version>
     <release>4.0.0RC1</release>
