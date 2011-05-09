@@ -65,7 +65,7 @@ detailed instructions, start reading below at Prerequisites_.
 
 6. Install Horde::
 
-     pear install horde/horde
+     pear install -a -B horde/horde
 
 7. Configure Horde::
 
@@ -466,8 +466,13 @@ a single PEAR system::
    pear run-scripts horde/horde_role
 
 When installing Horde through PEAR now, the installer will automatically
-install any dependencies of Horde too. By default, only the required
-dependencies will be installed::
+install any dependencies of Horde too.  If you want to install Horde with all
+optional dependencies, but without the binary PECL packages that have to be
+compiled, specify both the ``-a`` and the ``-B`` flag::
+
+   pear install -a -B horde/horde
+
+By default, only the required dependencies will be installed::
 
    pear install horde/horde
 
@@ -477,12 +482,6 @@ extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
    pear install -a horde/horde
-
-If you want to install Horde with all optional dependencies, but without the
-binary PECL packages that have to be compiled, specify both the ``-a`` and the
-``-B`` flag::
-
-   pear install -a -B horde/horde
 
 If you want to create a separate PEAR installation for installing Horde,
 independent from the system-wide PEAR installation, this can be done with the

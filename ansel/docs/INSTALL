@@ -134,8 +134,13 @@ First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
 environment for Horde and install the Horde Framework.
 
 When installing Ansel through PEAR now, the installer will automatically
-install any dependencies of Ansel too. By default, only the required
-dependencies will be installed::
+install any dependencies of Ansel too. If you want to install Ansel with all
+optional dependencies, but without the binary PECL packages that need to be
+compiled, specify both the ``-a`` and the ``-B`` flag::
+
+   pear install -a -B horde/ansel
+
+By default, only the required dependencies will be installed::
 
    pear install horde/ansel
 
@@ -145,12 +150,6 @@ extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
    pear install -a horde/ansel
-
-If you want to install Ansel with all optional dependencies, but without the
-binary PECL packages that need to be compiled, specify both the ``-a`` and the
-``-B`` flag::
-
-   pear install -a -B horde/ansel
 
 
 Installing from Release Tarballs

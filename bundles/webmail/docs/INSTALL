@@ -47,7 +47,7 @@ detailed instructions, start reading below at Prerequisites_.
 
 5. Install Horde Groupware Webmail Edition::
 
-     pear install horde/webmail
+     pear install -a -B horde/webmail
 
 6. Configure Horde Groupware Webmail Edition::
 
@@ -415,7 +415,13 @@ has to be done only **once** ever on a single PEAR system::
 
 When installing Horde Groupware Webmail Edition through PEAR now, the installer
 will automatically install any dependencies of Horde Groupware Webmail Edition
-too. By default, only the required dependencies will be installed::
+too. If you want to install Horde Groupware Webmail Edition with all optional
+dependencies, but without the binary PECL packages that have to be compiled,
+specify both the ``-a`` and the ``-B`` flag::
+
+   pear install -a -B horde/webmail
+
+By default, only the required dependencies will be installed::
 
    pear install horde/webmail
 
@@ -425,12 +431,6 @@ also try to install PHP extensions through PECL that might need further
 configuration or activation in your PHP configuration::
 
    pear install -a horde/webmail
-
-If you want to install Horde Groupware Webmail Edition with all optional
-dependencies, but without the binary PECL packages that have to be compiled,
-specify both the ``-a`` and the ``-B`` flag::
-
-   pear install -a -B horde/webmail
 
 If you want to create a separate PEAR installation for installing Horde
 Groupware Webmail Edition, independent from the system-wide PEAR installation,

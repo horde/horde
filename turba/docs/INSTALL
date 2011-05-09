@@ -74,8 +74,13 @@ First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
 environment for Horde and install the Horde Framework.
 
 When installing Turba through PEAR now, the installer will automatically
-install any dependencies of Turba too. By default, only the required
-dependencies will be installed::
+install any dependencies of Turba too. If you want to install Turba with all
+optional dependencies, but without the binary PECL packages that need to be
+compiled, specify both the ``-a`` and the ``-B`` flag::
+
+   pear install -a -B horde/turba
+
+By default, only the required dependencies will be installed::
 
    pear install horde/turba
 
@@ -85,12 +90,6 @@ extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
    pear install -a horde/turba
-
-If you want to install Turba with all optional dependencies, but without the
-binary PECL packages that need to be compiled, specify both the ``-a`` and the
-``-B`` flag::
-
-   pear install -a -B horde/turba
 
 
 Configuring Turba

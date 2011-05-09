@@ -66,9 +66,14 @@ Installing with PEAR
 First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
 environment for Horde and install the Horde Framework.
 
-When installing Ingo through PEAR now, the installer will automatically
-install any dependencies of Ingo too. By default, only the required
-dependencies will be installed::
+When installing Ingo through PEAR now, the installer will automatically install
+any dependencies of Ingo too. If you want to install Ingo with all optional
+dependencies, but without the binary PECL packages that need to be compiled,
+specify both the ``-a`` and the ``-B`` flag::
+
+   pear install -a -B horde/ingo
+
+By default, only the required dependencies will be installed::
 
    pear install horde/ingo
 
@@ -78,12 +83,6 @@ extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
    pear install -a horde/ingo
-
-If you want to install Ingo with all optional dependencies, but without the
-binary PECL packages that need to be compiled, specify both the ``-a`` and the
-``-B`` flag::
-
-   pear install -a -B horde/ingo
 
 
 Configuring Ingo

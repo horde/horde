@@ -58,9 +58,14 @@ Installing with PEAR
 First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
 environment for Horde and install the Horde Framework.
 
-When installing Nag through PEAR now, the installer will automatically
-install any dependencies of Nag too. By default, only the required
-dependencies will be installed::
+When installing Nag through PEAR now, the installer will automatically install
+any dependencies of Nag too. If you want to install Nag with all optional
+dependencies, but without the binary PECL packages that need to be compiled,
+specify both the ``-a`` and the ``-B`` flag::
+
+   pear install -a -B horde/nag
+
+By default, only the required dependencies will be installed::
 
    pear install horde/nag
 
@@ -70,12 +75,6 @@ extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
    pear install -a horde/nag
-
-If you want to install Nag with all optional dependencies, but without the
-binary PECL packages that need to be compiled, specify both the ``-a`` and the
-``-B`` flag::
-
-   pear install -a -B horde/nag
 
 
 Configuring Nag
