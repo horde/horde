@@ -61,6 +61,7 @@ if (isset($show_msg_result['error'])) {
 $scripts = array(
     array('contextsensitive.js', 'horde'),
     array('textarearesize.js', 'horde'),
+    array('toggle_quotes.js', 'horde'),
     array('message-dimp.js', 'imp'),
     array('imp.js', 'imp'),
 );
