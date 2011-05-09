@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
- <name>kolab</name>
+ <name>kolab-webmail</name>
  <channel>pear.horde.org</channel>
- <summary>A meta-package providing configuration for running Horde with the Kolab server.</summary>
- <description>This package pulls in all Horde applications that can work with a Kolab backend. It provides the minimal set of required configuration settings so that the system will work out of the box with the Kolab server backend.</description>
+ <summary>Horde Kolab Edition</summary>
+ <description>Horde Kolab Edition is a free, enterprise ready, browser based communication suite for the Kolab server. Users can read, send and organize email messages with three different webmail interfaces and manage and share calendars, contacts, tasks and notes with the standards compliant components from the Horde Project.</description>
  <lead>
   <name>Gunnar Wrobel</name>
   <user>wrobel</user>
@@ -13,8 +13,8 @@
  <date>2011-03-18</date>
  <time>11:22:12</time>
  <version>
-  <release>1.0.0alpha1</release>
-  <api>1.0.0alpha1</api>
+  <release>4.0.0alpha1</release>
+  <api>4.0.0alpha1</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GPLv2</license>
  <notes>
-* Initial release.
+* First release candidate of Horde Kolab Edition 4.0.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -94,74 +94,11 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
-    <name>horde</name>
+    <name>webmail</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0RC2</min>
+    <min>4.0.0RC1</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
-   </package>
-   <package>
-    <name>content</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0RC2</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>imp</name>
-    <channel>pear.horde.org</channel>
-    <min>5.0.0RC2</min>
-    <max>6.0.0</max>
-    <exclude>6.0.0</exclude>
-   </package>
-   <package>
-    <name>ingo</name>
-    <channel>pear.horde.org</channel>
-    <min>2.0.0RC2</min>
-    <max>3.0.0</max>
-    <exclude>3.0.0</exclude>
-   </package>
-   <package>
-    <name>jonah</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0RC2</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>kronolith</name>
-    <channel>pear.horde.org</channel>
-    <min>3.0.0RC2</min>
-    <max>4.0.0</max>
-    <exclude>4.0.0</exclude>
-   </package>
-   <package>
-    <name>mnemo</name>
-    <channel>pear.horde.org</channel>
-    <min>3.0.0RC2</min>
-    <max>4.0.0</max>
-    <exclude>4.0.0</exclude>
-   </package>
-   <package>
-    <name>nag</name>
-    <channel>pear.horde.org</channel>
-    <min>3.0.0RC2</min>
-    <max>4.0.0</max>
-    <exclude>4.0.0</exclude>
-   </package>
-   <package>
-    <name>timeobjects</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0RC2</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>turba</name>
-    <channel>pear.horde.org</channel>
-    <min>3.0.0RC2</min>
-    <max>4.0.0</max>
-    <exclude>4.0.0</exclude>
    </package>
   </required>
  </dependencies>
