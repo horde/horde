@@ -57,11 +57,6 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
     {
         $parts = array_keys($this->_mimepart->contentTypeMap());
 
-        reset($parts);
-        $part1_id = next($parts);
-        $part2_id = Horde_Mime::mimeIdArithmetic($part1_id, 'next');
-        $part3_id = Horde_Mime::mimeIdArithmetic($part2_id, 'next');
-
         /* RFC 3464 [2]: There are three parts to a delivery status
          * multipart/report message:
          *   (1) Human readable message
@@ -71,6 +66,15 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
          * Information on the message status is found in the 'Action' field
          * located in part #2 (RFC 3464 [2.3.3]). It can be either 'failed',
          * 'delayed', 'delivered', 'relayed', or 'expanded'. */
+
+        if (count($parts) < 2) {
+            return array();
+        }
+
+        reset($parts);
+        $part1_id = next($parts);
+        $part2_id = Horde_Mime::mimeIdArithmetic($part1_id, 'next');
+        $part3_id = Horde_Mime::mimeIdArithmetic($part2_id, 'next');
 
         /* Get the action first - it appears in the second part. */
         $action = null;
