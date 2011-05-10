@@ -384,7 +384,7 @@ class IMP_Imap implements Serializable
                 break;
 
             // BC: Not available in Horde_Imap_Client 1.0.0
-            case constant('Horde_Imap_Client_Exception::QUOTA'):
+            case constant('Horde_Imap_Client_Exception::OVERQUOTA'):
                 $error->notify(_("The operation failed because you have exceeded your quota on the mail server."));
                 break;
 
