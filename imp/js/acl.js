@@ -7,7 +7,7 @@
 
 document.observe('dom:loaded', function() {
     $('aclfolder').observe('change', function(e) {
-        $('change_acl_folder').disable();
-        $('prefs').submit();
+        $($('prefs').getInputs('checkbox')).flatten().invoke('disable');
+        $('change_acl_folder').click();
     });
 });
