@@ -84,7 +84,7 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
     const LIMIT = 20;
 
     // The operation failed because the user is over their quota.
-    const QUOTA = 21;
+    const OVERQUOTA = 21;
 
     // The operation failed because the requested creation object already
     // exists.

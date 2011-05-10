@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mms] Fix OVERQUOTA Exception error constant (Bug #10068; Felipe Zipitría <fzipi@fing.edu.uy>).
 * [mms] Correctly return PERMANENTFLAGS information if missing in server return.
 * [mms] Optimizing expunging when using QRESYNC.
 * [mms] Optimize re-opening a mailbox R/W if using CONDSTORE/QRESYNC.
