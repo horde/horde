@@ -844,7 +844,7 @@ class IMP_Hooks
      * open source project to test and track these developments, make it
      * near impossible to accurately identify a list of mobile browsers
      * that can handle a interface with more features than the base
-     * mobile view. Therefore, this hook provides a wait for a site
+     * mobile view. Therefore, this hook provides a way for a site
      * administrator to best decide when (and if) they want to allow this
      * advanced functionality to be available in the mobile view.
      *
