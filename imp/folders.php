@@ -219,9 +219,20 @@ case 'folders_empty_mailbox_confirm':
         $loop = array();
         $rowct = 0;
         foreach ($folder_list as $val) {
-            if (($vars->actionID == 'delete_folder_confirm') && $val->fixed) {
-                $notification->push(sprintf(_("The folder \"%s\" may not be deleted."), $val->display), 'horde.error');
-                continue;
+            switch ($vars->actionID) {
+            case 'delete_folder_confirm':
+                if ($val->fixed) {
+                    $notification->push(sprintf(_("The folder \"%s\" may not be deleted."), $val->display), 'horde.error');
+                    continue 2;
+                }
+                break;
+
+            case 'folders_empty_mailbox_confirm':
+                if (!$val->access_deletemsgs || !$val->access_expunge) {
+                    $notification->push(sprintf(_("The folder \"%s\" may not be emptied."), $val->display), 'horde.error');
+                    continue 2;
+                }
+                break;
             }
 
             try {

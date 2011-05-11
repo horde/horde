@@ -745,7 +745,7 @@ class IMP_Message
             : null;
 
         foreach (IMP_Mailbox::get($mbox_list) as $mbox) {
-            if ($mbox->readonly) {
+            if (!$mbox->access_deletemsgs || !$mbox->access_expunge) {
                 $notification->push(sprintf(_("Could not delete messages from %s. This mailbox is read-only."), $mbox->display), 'horde.error');
                 continue;
             }
