@@ -177,7 +177,7 @@ class IMP_Message
 
         foreach ($indices as $ob) {
             try {
-                if ($ob->mbox->readonly) {
+                if (!$ob->mbox->access_deletemsgs) {
                     throw new IMP_Exception(_("This folder is read-only."));
                 }
 
@@ -195,19 +195,21 @@ class IMP_Message
 
             /* Trash is only valid for IMAP mailboxes. */
             if ($use_trash_folder && ($ob->mbox != $trash)) {
-                try {
-                    $imp_imap->copy($ob->mbox, $trash, array(
-                        'ids' => new Horde_Imap_Client_Ids($ob->uids),
-                        'move' => true
-                    ));
+                if ($ob->mbox->access_expunge) {
+                    try {
+                        $imp_imap->copy($ob->mbox, $trash, array(
+                            'ids' => new Horde_Imap_Client_Ids($ob->uids),
+                            'move' => true
+                        ));
 
-                    if (!empty($options['mailboxob']) &&
-                        $options['mailboxob']->isBuilt()) {
-                        $options['mailboxob']->removeMsgs($imp_indices);
+                        if (!empty($options['mailboxob']) &&
+                            $options['mailboxob']->isBuilt()) {
+                            $options['mailboxob']->removeMsgs($imp_indices);
+                        }
+                    } catch (IMP_Imap_Exception $e) {
+                        // @todo Check for overquota error.
+                        return false;
                     }
-                } catch (IMP_Imap_Exception $e) {
-                    // @todo Check for overquota error.
-                    return false;
                 }
             } else {
                 /* Get the list of Message-IDs for the deleted messages if

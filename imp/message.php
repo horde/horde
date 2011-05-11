@@ -85,28 +85,22 @@ case 'whitelist':
     break;
 
 case 'delete_message':
-    if (!$readonly) {
-        $imp_message->delete(
-            $indices,
-            array(
-                'mailboxob' => $imp_mailbox
-            )
-        );
-        if ($prefs->getValue('mailbox_return')) {
-            _returnToMailbox($imp_mailbox->getMessageIndex());
-            require IMP_BASE . '/mailbox.php';
-            exit;
-        }
-        if ($imp_ui->moveAfterAction()) {
-            $imp_mailbox->setIndex(1);
-        }
+    $imp_message->delete(
+        $indices,
+        array('mailboxob' => $imp_mailbox)
+    );
+    if ($prefs->getValue('mailbox_return')) {
+        _returnToMailbox($imp_mailbox->getMessageIndex());
+        require IMP_BASE . '/mailbox.php';
+        exit;
+    }
+    if ($imp_ui->moveAfterAction()) {
+        $imp_mailbox->setIndex(1);
     }
     break;
 
 case 'undelete_message':
-    if (!$readonly) {
-        $imp_message->undelete($indices);
-    }
+    $imp_message->undelete($indices);
     break;
 
 case 'move_message':
@@ -511,7 +505,7 @@ if (!$prefs->getValue('compose_popup')) {
     $compose_params += array('start' => $msgindex, 'mailbox' => IMP::$mailbox);
 }
 
-if (!$readonly) {
+if (IMP::$mailbox->access_deletemsgs) {
     if (in_array(Horde_Imap_Client::FLAG_DELETED, $flags)) {
         $a_template->set('delete', Horde::widget($self_link->copy()->add('actionID', 'undelete_message'), _("Undelete"), 'widget', '', '', _("Undelete"), true));
     } else {

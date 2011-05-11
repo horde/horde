@@ -153,10 +153,6 @@ class IMP_Views_ListMessages
                 $md->search = 1;
             }
 
-            if (!$mbox->access_expunge) {
-                $md->noexpunge = 1;
-            }
-
             /* Generate flag array. */
             $flaglist = $injector->getInstance('IMP_Flags')->getList(array(
                 'imap' => true,
@@ -188,6 +184,14 @@ class IMP_Views_ListMessages
         /* These entries may change during a session, so always need to
          * update them. */
         $md->readonly = intval($mbox->readonly);
+        if (!$md->readonly) {
+            if (!$mbox->access_deletemsgs) {
+                $md->nodelete = 1;
+            }
+            if (!$mbox->access_expunge) {
+                $md->noexpunge = 1;
+            }
+        }
 
         /* Check for mailbox existence now. If there are no messages, there
          * is a chance that the mailbox doesn't exist. If there is at least
