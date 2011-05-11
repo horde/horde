@@ -18,6 +18,9 @@
  - Allow channel dependency detection with external/local package
    dependencies.
 
+ - Better install support (allow installing/updating both git and
+   released components)
+
  - Add validations (+ before release)
    - COPYING
    - Tests
