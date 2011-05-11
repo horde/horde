@@ -2122,26 +2122,32 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * @param IMP_Mailbox $elt  A mailbox object.
      *
      * @return stdClass  The element object. Contains the following items:
-     * <pre>
-     * 'ch' (children) = Does the mailbox contain children? [boolean]
-     *                   [DEFAULT: no]
-     * 'cl' (class) = The CSS class. [string] [DEFAULT: 'base']
-     * 'co' (container) = Is this mailbox a container element? [boolean]
-     *                    [DEFAULT: no]
-     * 'i' (icon) = A user defined icon to use. [string] [DEFAULT: none]
-     * 'l' (label) = The mailbox display label. [string] [DEFAULT: 'm' val]
-     * 'm' (mbox) = The mailbox value. [string]
-     * 'n' (non-imap) = A non-IMAP element? [boolean] [DEFAULT: no]
-     * 'pa' (parent) = The parent element. [string] [DEFAULT:
-     *                 DIMP.conf.base_mbox]
-     * 'po' (polled) = Is the element polled? [boolean] [DEFAULT: no]
-     * 's' (special) = Is this a "special" element? [boolean] [DEFAULT: no]
-     * 't' (title) = The title value. [string] [DEFAULT: 'm' val]
-     * 'un' (unsubscribed) = Is this mailbox unsubscribed? [boolean]
-     *                       [DEFAULT: no]
-     * 'v' (virtual) = Virtual folder? 0 = not vfolder, 1 = system vfolder,
-     *                 2 = user vfolder [integer] [DEFAULT: 0]
-     * </pre>
+     *   - ch: (boolean) [children] Does the mailbox contain children?
+     *         DEFAULT: no
+     *   - cl: (string) [class] The CSS class.
+     *         DEFAULT: 'base'
+     *   - co: (boolean) [container] Is this mailbox a container element?
+     *         DEFAULT: no
+     *   - i: (string) [icon] A user defined icon to use.
+     *        DEFAULT: none
+     *   - l: (string) [label] The mailbox display label.
+     *        DEFAULT: 'm' val
+     *   - m: (string) [mbox] The mailbox value.
+     *   - n: (boolean) [non-imap] A non-IMAP element?
+     *        DEFAULT: no
+     *   - pa: (string) [parent] The parent element.
+     *         DEFAULT: DIMP.conf.base_mbox
+     *   - po: (boolean) [polled] Is the element polled?
+     *         DEFAULT: no
+     *   - s: (boolean) [special] Is this a "special" element?
+     *        DEFAULT: no
+     *   - t: (string) [title] Mailbox title.
+     *        DEFAULT: 'm' val
+     *   - un: (boolean) [unsubscribed] Is this mailbox unsubscribed?
+     *         DEFAULT: no
+     *   - v: (integer) [virtual] Virtual folder? 0 = not vfolder, 1 = system
+     *        vfolder, 2 = user vfolder
+     *        DEFAULT: 0
      */
     protected function _createMailboxElt(IMP_Mailbox $elt)
     {
