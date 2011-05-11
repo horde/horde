@@ -2172,7 +2172,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $ob->pa = $elt->parent;
         }
         if ($elt->vfolder) {
-            $ob->v = $GLOBALS['injector']->getInstance('IMP_Search')->isVFolder($elt->value, true) ? 2 : 1;
+            $ob->v = $elt->editvfolder ? 2 : 1;
         }
         if (!$elt->sub) {
             $ob->un = 1;
