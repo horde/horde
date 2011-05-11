@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-29</date>
- <time>10:46:47</time>
+ <date>2011-05-11</date>
+ <time>00:16:59</time>
  <version>
   <release>1.0.5</release>
   <api>1.0.0</api>
@@ -374,10 +374,15 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-29</date>
+   <date>2011-05-11</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] Fix OVERQUOTA Exception error constant (Bug #10068; Felipe Zipitría &lt;fzipi@fing.edu.uy&gt;).
+* [mms] Correctly return PERMANENTFLAGS information if missing in server return.
+* [mms] Optimizing expunging when using QRESYNC.
+* [mms] Optimize re-opening a mailbox R/W if using CONDSTORE/QRESYNC.
+* [mms] Optimize statusMultiple() for currently selected mailbox.
+* [mms] Optimize search()/thread() in empty mailboxes.
    </notes>
   </release>
  </changelog>
