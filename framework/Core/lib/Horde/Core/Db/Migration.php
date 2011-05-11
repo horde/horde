@@ -46,7 +46,7 @@ class Horde_Core_Db_Migration
     public function __construct($basedir = null, $pearconf = null)
     {
         // Loop through all applications.
-        foreach ($GLOBALS['registry']->listApps(array('hidden', 'notoolbar', 'admin', 'active', 'inactive'), false, null) as $app) {
+        foreach ($GLOBALS['registry']->listApps(array('hidden', 'notoolbar', 'admin', 'noadmin', 'active', 'inactive'), false, null) as $app) {
             $dir = $GLOBALS['registry']->get('fileroot', $app) . '/migration';
             if (is_dir($dir)) {
                 $this->apps[] = $app;
