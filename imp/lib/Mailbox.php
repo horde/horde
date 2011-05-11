@@ -462,24 +462,17 @@ class IMP_Mailbox implements Serializable
             $this->changed = true;
 
             /* This check works for regular and search mailboxes. */
-            try {
-                if (Horde::callHook('mbox_readonly', array($this->_mbox), 'imp')) {
-                    $this->cache['ro'] = true;
-                    return true;
-                }
-            } catch (Horde_Exception_HookNotSet $e) {}
-
-            /* This check can only be done for regular IMAP mailboxes
-             * (UIDNOTSTICKY not valid for POP3). */
-            if (!$this->search) {
-                $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-                if ($imp_imap->imap) {
-                    try {
-                        $status = $imp_imap->status($this->_mbox, Horde_Imap_Client::STATUS_UIDNOTSTICKY);
-                        $this->cache['ro'] = $status['uidnotsticky'];
-                    } catch (Horde_Imap_Client_Exception $e) {}
+            if (empty(self::$_temp['ro_hook'])) {
+                try {
+                    if (Horde::callHook('mbox_readonly', array($this->_mbox), 'imp')) {
+                        $this->cache['ro'] = true;
+                    }
+                } catch (Horde_Exception_HookNotSet $e) {
+                    self::$_temp['ro_hook'] = true;
                 }
             }
+
+            /* The UIDNOTSTICKY check would go here. */
 
             return $this->cache['ro'];
 
