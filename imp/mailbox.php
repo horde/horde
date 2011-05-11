@@ -136,15 +136,11 @@ case 'fwd_digest':
     break;
 
 case 'delete_messages':
-    if (!$readonly) {
-        $injector->getInstance('IMP_Message')->delete($indices);
-    }
+    $injector->getInstance('IMP_Message')->delete($indices);
     break;
 
 case 'undelete_messages':
-    if (!$readonly) {
-        $injector->getInstance('IMP_Message')->undelete($indices);
-    }
+    $injector->getInstance('IMP_Message')->undelete($indices);
     break;
 
 case 'move_messages':
@@ -220,9 +216,7 @@ case 'filter':
     break;
 
 case 'empty_mailbox':
-    if (!$readonly) {
-        $injector->getInstance('IMP_Message')->emptyMailbox(array(strval(IMP::$mailbox)));
-    }
+    $injector->getInstance('IMP_Message')->emptyMailbox(array(strval(IMP::$mailbox)));
     break;
 
 case 'view_messages':
@@ -562,7 +556,7 @@ if ($pageOb['msgcount']) {
 
     /* Prepare the actions template. */
     $a_template = $injector->createInstance('Horde_Template');
-    if (!$readonly) {
+    if (IMP::$mailbox->access_deletemsgs) {
         $del_class = ($use_trash && IMP::$mailbox->is_trash)
             ? 'permdeleteAction'
             : 'deleteAction';

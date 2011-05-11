@@ -47,9 +47,6 @@ switch ($vars->a) {
 // 'u' = undelete message
 case 'd':
 case 'u':
-    if ($readonly) {
-        break;
-    }
     $msg_index = $imp_mailbox->getMessageIndex();
     $imp_indices = new IMP_Indices($imp_mailbox);
     $imp_message = $injector->getInstance('IMP_Message');
@@ -264,7 +261,7 @@ $compose_params = array(
 );
 
 $menu = array();
-if (!$readonly) {
+if (IMP::$mailbox->access_deletemsgs) {
     $menu[] = in_array(Horde_Imap_Client::FLAG_DELETED, $flags)
         ? array(_("Undelete"), $self_link->copy()->add('a', 'u'))
         : array(_("Delete"), $self_link->copy()->add(array('a' => 'd', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));

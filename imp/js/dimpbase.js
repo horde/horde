@@ -674,17 +674,17 @@ var DimpBase = {
                 }
 
                 /* Read-only changes. 'oa_setflag' is handled elsewhere. */
-                tmp = [ $('button_deleted') ].compact().invoke('up').concat($('ctx_message_deleted', 'ctx_message_setflag', 'ctx_message_undeleted'));
-
+                tmp = [ $('ctx_message_setflag') ].compact();
                 if (this.viewport.getMetaData('readonly')) {
-                    tmp.compact().invoke('hide');
+                    tmp.invoke('hide');
                     $('folderName').next().show();
                 } else {
-                    tmp.compact().invoke('show');
+                    tmp.invoke('show');
                     $('folderName').next().hide();
                 }
 
                 /* ACL changes. */
+                [ $('button_deleted') ].compact().invoke('up').concat($('ctx_message_deleted', 'ctx_message_undeleted')).compact().invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
                 [ $('oa_purge_deleted') ].compact().invoke(this.viewport.getMetaData('noexpunge') ? 'hide' : 'show');
             } else if (this.filtertoggle &&
                        this.viewport.getMetaData('sortby') == $H(DIMP.conf.sort).get('thread').v) {

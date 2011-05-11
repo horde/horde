@@ -49,10 +49,6 @@ switch ($vars->checkbox) {
 // 'u' = undelete message
 case 'd':
 case 'u':
-    if ($readonly) {
-        break;
-    }
-
     $imp_message = $injector->getInstance('IMP_Message');
 
     if ($vars->checkbox == 'd') {
@@ -271,6 +267,7 @@ $t->set('menu', $imp_ui_mimp->getMenu('mailbox', $menu));
 try {
     if (Horde::callHook('mimp_advanced', array('checkbox'), 'imp')) {
         $t->set('checkbox', $mailbox_url->copy()->add('p', $pageOb['page']));
+        $t->set('delete', IMP::$mailbox->access_deletemsgs);
         $t->set('forminput', Horde_Util::formInput());
         $t->set('mt', $injector->getInstance('Horde_Token')->get('imp.message-mimp'));
     }
