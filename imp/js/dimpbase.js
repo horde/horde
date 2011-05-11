@@ -1098,6 +1098,7 @@ var DimpBase = {
             tmp = $(this.getSubFolderId(baseelt.readAttribute('id')));
             [ $('ctx_folder_expand').up() ].invoke(tmp ? 'show' : 'hide');
 
+            [ $('ctx_folder_empty') ].invoke(baseelt.retrieve('ne') ? 'hide' : 'show');
             // Fall-through
 
         case 'ctx_container':
@@ -2909,6 +2910,9 @@ var DimpBase = {
         }
 
         li.store('ftype', ftype);
+        if (ob.ne) {
+            li.store('ne', 1);
+        }
 
         // Make the new folder a drop target.
         if (!ob.v) {

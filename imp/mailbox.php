@@ -419,14 +419,6 @@ if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
 
     if (!$search_mbox) {
         $hdr_template->set('search_url', Horde::url('search-basic.php')->add('search_mailbox', IMP::$mailbox));
-        if (!$readonly) {
-            $hdr_template->set('empty', $mailbox_imp_url->copy()->add(array(
-                'actionID' => 'empty_mailbox',
-                'mailbox' => IMP::$mailbox,
-                'mailbox_token' => $mailbox_token
-            )));
-            $hdr_template->set('empty_img', Horde::img('empty_spam.png', _("Empty folder")));
-        }
     } else {
         if (IMP::$mailbox->editvfolder) {
             $edit_search = _("Edit Virtual Folder");
@@ -447,6 +439,15 @@ if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
             $hdr_template->set('edit_search_img', Horde::img('edit.png', $edit_search));
         }
     }
+}
+
+if (IMP::$mailbox->access_deletemsgs && IMP::$mailbox->access_expunge) {
+    $hdr_template->set('empty', $mailbox_imp_url->copy()->add(array(
+        'actionID' => 'empty_mailbox',
+        'mailbox' => IMP::$mailbox,
+        'mailbox_token' => $mailbox_token
+    )));
+    $hdr_template->set('empty_img', Horde::img('empty_spam.png', _("Empty folder")));
 }
 
 /* Generate mailbox summary string. */

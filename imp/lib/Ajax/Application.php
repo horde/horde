@@ -2135,6 +2135,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - m: (string) [mbox] The mailbox value.
      *   - n: (boolean) [non-imap] A non-IMAP element?
      *        DEFAULT: no
+     *   - ne: (boolean) [no expunge] Is expunging not allowed in mailbox?
+     *         DEFAULT: no
      *   - pa: (string) [parent] The parent element.
      *         DEFAULT: DIMP.conf.base_mbox
      *   - po: (boolean) [polled] Is the element polled?
@@ -2192,8 +2194,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
             if ($elt->special) {
                 $ob->s = 1;
-            } elseif (!$elt->vfolder && $elt->children) {
+            } elseif (empty($ob->v) && $elt->children) {
                 $ob->cl = 'exp';
+            }
+
+            if (empty($ob->v) &&
+                (!$elt->access_deletemsgs || !$elt->access_expunge)) {
+                $ob->ne = 1;
             }
         }
 
