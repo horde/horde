@@ -138,6 +138,19 @@ class Horde_Config
     }
 
     /**
+     * @since Horde_Core 1.1.0
+     */
+    public function configFile()
+    {
+        $path = $GLOBALS['registry']->get('fileroot', $this->_app) . '/config';
+        $configFile = $path . '/conf.php';
+        if (is_link($configFile)) {
+            $configFile = readlink($configFile);
+        }
+        return $configFile;
+    }
+
+    /**
      * Reads the application's conf.xml file and builds an associative array
      * from its XML tree.
      *
@@ -241,6 +254,50 @@ class Horde_Config
         }
 
         return $this->_oldConfig;
+    }
+
+    /**
+     * Generates and writes the content of the application's configuration
+     * file.
+     *
+     * @since Horde_Core 1.1.0
+     *
+     * @param Horde_Variables $formvars  The processed configuration form
+     *                                   data.
+     * @param string $php                The content of the generated
+     *                                   configuration file.
+     *
+     * @return boolean  True if the configuration file could be written
+     *                  immediately to the file system.
+     */
+    public function writePHPConfig($formvars, &$php)
+    {
+        $php = $this->generatePHPConfig($formvars);
+        $path = $GLOBALS['registry']->get('fileroot', $this->_app) . '/config';
+        $configFile = $this->configFile();
+        if (file_exists($configFile)) {
+            if (@copy($configFile, $path . '/conf.bak.php')) {
+                $GLOBALS['notification']->push(sprintf(_("Successfully saved the backup configuration file %s."), Horde_Util::realPath($path . '/conf.bak.php')), 'horde.success');
+            } else {
+                $GLOBALS['notification']->push(sprintf(_("Could not save the backup configuration file %s."), Horde_Util::realPath($path . '/conf.bak.php')), 'horde.warning');
+            }
+        }
+        if ($fp = @fopen($configFile, 'w')) {
+            /* Can write, so output to file. */
+            fwrite($fp, $php);
+            fclose($fp);
+            $GLOBALS['notification']->push(sprintf(_("Successfully wrote %s"), Horde_Util::realPath($configFile)), 'horde.success');
+            $GLOBALS['registry']->rebuild();
+            return true;
+        } else {
+            /* Cannot write. */
+            $GLOBALS['notification']->push(sprintf(_("Could not save the configuration file %s. You can either use one of the options to save the code back on %s or copy manually the code below to %s."), Horde_Util::realPath($configFile), Horde::link(Horde::url('admin/config/index.php') . '#update', _("Configuration")) . _("Configuration") . '</a>', Horde_Util::realPath($configFile)), 'horde.warning', array('content.raw'));
+
+            /* Save to session. */
+            $GLOBALS['session']->set('horde', 'config/' . $this->_app, $php);
+        }
+
+        return false;
     }
 
     /**

@@ -25,8 +25,8 @@
  <date>2011-05-03</date>
  <time>13:27:27</time>
  <version>
-  <release>1.0.3</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Add Horde_Config#configFile() and Horde_Config#writePHPConfiguration().
 * [mjr] Fix issue with deleting identities (Bug #9997).
 * [jan] Store preferences for guests in the session.
  </notes>
@@ -1409,8 +1410,8 @@
   </release>
   <release>
    <version>
-    <release>1.0.3</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
