@@ -93,7 +93,7 @@ case 'rebuild_tree':
 
 case 'expunge_folder':
     if (!empty($folder_list)) {
-        $injector->getInstance('IMP_Message')->expungeMailbox($folder_list->indices());
+        $injector->getInstance('IMP_Message')->expungeMailbox(array_fill_keys($folder_list, null));
     }
     break;
 
