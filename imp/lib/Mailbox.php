@@ -239,16 +239,17 @@ class IMP_Mailbox implements Serializable
                     : new Horde_Imap_Client_Data_Acl($this->cache['a']);
             }
 
-            try {
-                $acl = $injector->getInstance('IMP_Imap_Acl')->getACL($this, true);
-                /* Store string representation of ACL for a more compact
-                 * serialized format. */
-                $this->cache['a'] = strval($acl);
-            } catch (IMP_Exception $e) {
-                $acl = $this->cache['a'] = null;
-            }
-
+            $acl = $this->cache['a'] = null;
             $this->changed = true;
+
+            if (!$this->nonimap) {
+                try {
+                    $acl = $injector->getInstance('IMP_Imap_Acl')->getACL($this, true);
+                    /* Store string representation of ACL for a more compact
+                     * serialized format. */
+                    $this->cache['a'] = strval($acl);
+                } catch (IMP_Exception $e) {}
+            }
 
             return $acl;
 
