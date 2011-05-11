@@ -134,7 +134,7 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
             $status[0]['text'][] = sprintf($msg_link, $this->getConfigParam('imp_contents')->linkViewJS($part3, 'view_attach', _("HERE"), array('jstext' => $msg_link_status, 'params' => array('ctype' => 'message/rfc822'))));
         }
 
-        $ret = array_combine(array($part2_id, $part3_id), array(null, null));
+        $ret = array_fill_keys($parts, null);
 
         $ret[$this->_mimepart->getMimeId()] = array(
             'data' => '',
