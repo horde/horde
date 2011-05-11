@@ -754,6 +754,33 @@ class IMP_Mailbox implements Serializable
         return $delhide;
     }
 
+    /**
+     * Run a search query on this mailbox that is not stored in the current
+     * session. Allows custom queries with custom sorts to be used without
+     * affecting cached mailboxes.
+     *
+     * @param Horde_Imap_Client_Search_Query $query  The search query object.
+     * @param integer $sortby                        The sort criteria.
+     * @param integer $sortdir                       The sort directory.
+     *
+     * @return IMP_Indices  An indices object.
+     */
+    public function runSearchQuery(Horde_Imap_Client_Search_Query $query,
+                                   $sortby = null, $sortdir = null)
+    {
+        try {
+            $results = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->search($this, $query, array(
+                'sort' => is_null($sortby) ? null : array($sortby)
+            ));
+            if ($sortdir) {
+                $results['match']->reverse();
+            }
+            return new IMP_Indices($this, $results['match']);
+        } catch (IMP_Imap_Exception $e) {
+            return new IMP_Indices();
+        }
+    }
+
     /* Static methods. */
 
     /**

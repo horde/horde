@@ -40,7 +40,6 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
         global $injector, $prefs;
 
         $imp_message = $injector->getInstance('IMP_Message');
-        $imp_search = $injector->getInstance('IMP_Search');
 
         /* Get the current UNIX timestamp minus the number of days specified
          * in 'purge_sentmail_keep'.  If a message has a timestamp prior to
@@ -57,7 +56,7 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
              * than 'purge_sentmail_keep' days. */
             $query = new Horde_Imap_Client_Search_Query();
             $query->dateSearch($del_time, Horde_Imap_Client_Search_Query::DATE_BEFORE);
-            $msg_ids = $imp_search->runQuery($query, $mbox);
+            $msg_ids = $mbox->runSearchQuery($query);
 
             /* Go through the message list and delete the messages. */
             if ($imp_message->delete($msg_ids, array('nuke' => true))) {

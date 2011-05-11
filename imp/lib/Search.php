@@ -125,35 +125,6 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     }
 
     /**
-     * Run a search query not stored in the current session.  Allows custom
-     * queries with custom sorts to be used without affecting cached
-     * mailboxes.
-     *
-     * @param Horde_Imap_Client_Search_Query $query  The search query object.
-     * @param IMP_Mailbox $mailbox                   The mailbox to search.
-     * @param integer $sortby                        The sort criteria.
-     * @param integer $sortdir                       The sort directory.
-     *
-     * @return IMP_Indices  An indices object.
-     */
-    public function runQuery(Horde_Imap_Client_Search_Query $query,
-                             IMP_Mailbox $mailbox, $sortby = null,
-                             $sortdir = null)
-    {
-        try {
-            $results = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->search($mailbox, $query, array(
-                'sort' => is_null($sortby) ? null : array($sortby)
-            ));
-            if ($sortdir) {
-                $results['match']->reverse();
-            }
-            return new IMP_Indices($mailbox, $results['match']);
-        } catch (IMP_Imap_Exception $e) {
-            return new IMP_Indices();
-        }
-    }
-
-    /**
      * Creates the IMAP search query in the IMP session.
      *
      * @param array $criteria  The search criteria array.
