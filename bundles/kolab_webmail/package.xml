@@ -38,52 +38,52 @@
    <dir name="imp">
     <dir name="config">
      <dir name="backends.d">
-      <file name="20-kolab.php" role="php" />
+      <file name="20-kolab.php" role="horde" />
      </dir> <!-- /imp/config/backends.d -->
      <dir name="conf.d">
-      <file name="20-kolab.php" role="php" />
+      <file name="20-kolab.php" role="horde" />
      </dir> <!-- /imp/config/conf.d -->
     </dir> <!-- /imp/config -->
    </dir> <!-- /imp -->
    <dir name="ingo">
     <dir name="config">
      <dir name="backends.d">
-      <file name="20-kolab.php" role="php" />
+      <file name="20-kolab.php" role="horde" />
      </dir> <!-- /ingo/config/backends.d -->
     </dir> <!-- /ingo/config -->
    </dir> <!-- /ingo -->
    <dir name="kronolith">
     <dir name="config">
      <dir name="conf.d">
-      <file name="20-kolab.php" role="php" />
+      <file name="20-kolab.php" role="horde" />
      </dir> <!-- /kronolith/config/conf.d -->
     </dir> <!-- /kronolith/config -->
    </dir> <!-- /kronolith -->
    <dir name="mnemo">
     <dir name="config">
      <dir name="conf.d">
-      <file name="20-kolab.php" role="php" />
+      <file name="20-kolab.php" role="horde" />
      </dir> <!-- /mnemo/config/conf.d -->
     </dir> <!-- /mnemo/config -->
    </dir> <!-- /mnemo -->
    <dir name="nag">
     <dir name="config">
      <dir name="conf.d">
-      <file name="20-kolab.php" role="php" />
+      <file name="20-kolab.php" role="horde" />
      </dir> <!-- /nag/config/conf.d -->
     </dir> <!-- /nag/config -->
    </dir> <!-- /nag -->
    <dir name="turba">
     <dir name="config">
      <dir name="backends.d">
-      <file name="20-kolab.php" role="php" />
+      <file name="20-kolab.php" role="horde" />
      </dir> <!-- /turba/config/backends.d -->
      <dir name="conf.d">
-      <file name="20-kolab.php" role="php" />
+      <file name="20-kolab.php" role="horde" />
      </dir> <!-- /turba/config/conf.d -->
     </dir> <!-- /turba/config -->
    </dir> <!-- /turba -->
-   <file name="COPYING" role="horde" />
+   <file name="COPYING" role="data" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
