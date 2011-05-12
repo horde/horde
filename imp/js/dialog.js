@@ -1,12 +1,11 @@
 /**
- * Javascript code used to display a RedBox dialog.
+ * Javascript API used to display a RedBox dialog in IMP.
  *
  * Usage:
  * ------
  * IMPDialog.display({
  *     // [REQUIRED] Cancel text
  *     cancel_text: '',
- *     dialog_load: '',
  *     form: '',
  *     // The ID for the form
  *     form_id: 'RB_confirm',
@@ -54,20 +53,6 @@ var IMPDialog = {
             data = decodeURIComponent(data).evalJSON(true);
         }
 
-        if (data.dialog_load) {
-            new Ajax.Request(data.dialog_load, { onComplete: this._onComplete.bind(this) });
-        } else {
-            this._display(data);
-        }
-    },
-
-    _onComplete: function(response)
-    {
-        this._display(response.responseJSON.response);
-    },
-
-    _display: function(data)
-    {
         if (data.uri) {
             this.params = data.params;
             this.type = data.type;
