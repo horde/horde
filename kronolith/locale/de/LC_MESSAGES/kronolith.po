@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kronolith 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-04-21 10:58+0200\n"
-"PO-Revision-Date: 2011-02-02 18:05+0100\n"
+"PO-Revision-Date: 2011-05-12 11:49+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
 "Language: de\n"
@@ -3135,7 +3135,7 @@ msgstr "Dienstag"
 #: templates/edit/edit.inc:244 templates/index/edit.inc:72
 #: templates/index/task.inc:48 templates/view/view.inc:14
 msgid "URL"
-msgstr "Homepage"
+msgstr "URL"
 
 #: lib/Ajax/Application.php:766 lib/Ajax/Application.php:782
 #: lib/Form/DeleteResource.php:57 lib/Form/DeleteResourceGroup.php:58
