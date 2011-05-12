@@ -30,9 +30,9 @@
  *              true - IMP will attempt to use the user's existing credentials
  *                     (the username/password they used to log in to Horde) to
  *                     login to this source.
- *              false - Everything after and including the first @ in the
- *                      username will be stripped off before attempting
- *                      authentication. (DEFAULT)
+ *                     Everything after and including the first @ in the
+ *                     username will be stripped off before attempting
+ *                     authentication. (DEFAULT)
  *              'full' - The username will be used unmodified.
  *
  * protocol: (string) The server protocol. Either 'pop' or 'imap'.
