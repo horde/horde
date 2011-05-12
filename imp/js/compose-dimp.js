@@ -22,7 +22,7 @@ var DimpCompose = {
             sbd = $('send_button_redirect');
 
         if (window.confirm(DIMP.text_compose.cancel)) {
-            if (this.baseAvailable() &&
+            if (this.baseAvailable(true) &&
                 !DIMP.conf_compose.qreply) {
                 DimpCore.base.focus();
             }
@@ -870,11 +870,12 @@ var DimpCompose = {
         window.open(uri, 'contacts', 'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100');
     },
 
-    baseAvailable: function()
+    baseAvailable: function(dimpbase)
     {
         return (this.is_popup &&
                 DimpCore.base &&
-                !DimpCore.base.closed);
+                !DimpCore.base.closed &&
+                (!dimpbase || DimpCore.base.DimpBase));
     },
 
     /* Click observe handler. */
