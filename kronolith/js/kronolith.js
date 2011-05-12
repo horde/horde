@@ -1166,7 +1166,7 @@ KronolithCore = {
                 ext.set(api, $H());
             }
             ext.get(api).set(parts.join('/'), cal.value);
-            extNames.set(api, cal.value.api);
+            extNames.set(api, cal.value.api ? cal.value.api : Kronolith.text.external_category);
         });
         ext.each(function(api) {
             extContainer

@@ -260,6 +260,7 @@ class Kronolith
             'more' => _("more..."),
             'prefs' => _("Preferences"),
             'shared' => _("Shared"),
+            'external_category' => _("Other events"),
             'no_url' => _("You must specify a URL."),
             'no_calendar_title' => _("The calendar title must not be empty."),
             'no_tasklist_title' => _("The task list title must not be empty."),
