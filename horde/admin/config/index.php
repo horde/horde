@@ -122,20 +122,19 @@ $conf_url = Horde::url('admin/config/config.php');
 $apps = $libraries = array();
 $i = -1;
 $config_outdated = $schema_outdated = false;
-if (file_exists(HORDE_BASE . '/lib/bundle.php')) {
-    include HORDE_BASE . '/lib/bundle.php';
+if (class_exists('Horde_Bundle')) {
     $apps[0] = array('sort' => '00',
-                     'name' => '<strong>' . BUNDLE_FULLNAME . '</strong>',
+                     'name' => '<strong>' . Horde_Bundle::FULLNAME . '</strong>',
                      'icon' => Horde::img($registry->get('icon', 'horde'),
-                                          BUNDLE_FULLNAME, '', ''),
-                     'version' => '<strong>' . BUNDLE_VERSION . '</strong>');
+                                          Horde_Bundle::FULLNAME, '', ''),
+                     'version' => '<strong>' . Horde_Bundle::VERSION . '</strong>');
     if (!empty($versions)) {
-        if (!isset($versions[BUNDLE_NAME])) {
+        if (!isset($versions[Horde_Bundle::NAME])) {
             $apps[0]['load'] = $warning;
             $apps[0]['vstatus'] = _("No stable version exists yet.");
-        } elseif (version_compare($versions[BUNDLE_NAME]['version'], BUNDLE_VERSION, '>')) {
+        } elseif (version_compare($versions[Horde_Bundle::NAME]['version'], Horde_Bundle::VERSION, '>')) {
             $apps[0]['load'] = $error;
-            $apps[0]['vstatus'] = Horde::link($versions[BUNDLE_NAME]['url'], sprintf(_("Download %s"), BUNDLE_FULLNAME), '', '_blank') . sprintf(_("A newer version (%s) exists."), $versions[BUNDLE_NAME]['version']) . '</a> ';
+            $apps[0]['vstatus'] = Horde::link($versions[Horde_Bundle::NAME]['url'], sprintf(_("Download %s"), Horde_Bundle::FULLNAME), '', '_blank') . sprintf(_("A newer version (%s) exists."), $versions[Horde_Bundle::NAME]['version']) . '</a> ';
         } else {
             $apps[0]['load'] = $success;
             $apps[0]['vstatus'] = _("Application is up-to-date.");

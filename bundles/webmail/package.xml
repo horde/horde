@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-09</date>
- <time>12:20:24</time>
+ <date>2011-05-12</date>
+ <time>11:15:18</time>
  <version>
   <release>4.0.0RC1</release>
   <api>4.0.0</api>
@@ -57,6 +57,9 @@
      </dir> <!-- /kronolith/config/conf.d -->
     </dir> <!-- /kronolith/config -->
    </dir> <!-- /kronolith -->
+   <dir name="lib">
+    <file name="Bundle.php" role="horde" />
+   </dir> <!-- /lib -->
    <dir name="turba">
     <dir name="config">
      <dir name="conf.d">
@@ -138,12 +141,13 @@
    <install as="imp/config/conf.d/10-webmail.php" name="imp/config/conf.d/10-webmail.php" />
    <install as="imp/config/prefs.d/10-webmail.php" name="imp/config/prefs.d/10-webmail.php" />
    <install as="kronolith/config/conf.d/10-webmail.php" name="kronolith/config/conf.d/10-webmail.php" />
+   <install as="lib/Bundle.php" name="lib/Bundle.php" />
    <install as="turba/config/conf.d/10-webmail.php" name="turba/config/conf.d/10-webmail.php" />
   </filelist>
  </phprelease>
  <changelog>
   <release>
-   <date>2011-05-09</date>
+   <date>2011-05-12</date>
    <time>11:54:55</time>
    <version>
     <release>4.0.0RC1</release>

@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-07</date>
- <time>00:18:22</time>
+ <date>2011-05-12</date>
+ <time>12:32:31</time>
  <version>
   <release>4.0.0RC1</release>
   <api>4.0.0</api>
@@ -31,6 +31,9 @@
      <file name="10-groupware.php" role="horde" />
     </dir> <!-- /config/prefs.d -->
    </dir> <!-- /config -->
+   <dir name="lib">
+    <file name="Bundle.php" role="horde" />
+   </dir> <!-- /lib -->
    <dir name="turba">
     <dir name="config">
      <dir name="conf.d">
@@ -53,6 +56,7 @@
  <phprelease>
   <filelist>
    <install as="config/prefs.d/10-groupware.php" name="config/prefs.d/10-groupware.php" />
+   <install as="lib/Bundle.php" name="lib/Bundle.php" />
    <install as="turba/config/conf.d/10-groupware.php" name="turba/config/conf.d/10-groupware.php" />
   </filelist>
  </phprelease>

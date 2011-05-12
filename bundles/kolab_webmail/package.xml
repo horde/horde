@@ -10,8 +10,8 @@
   <email>wrobel@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-18</date>
- <time>11:22:12</time>
+ <date>2011-05-12</date>
+ <time>14:25:54</time>
  <version>
   <release>4.0.0alpha1</release>
   <api>4.0.0alpha1</api>
@@ -59,6 +59,9 @@
      </dir> <!-- /kronolith/config/conf.d -->
     </dir> <!-- /kronolith/config -->
    </dir> <!-- /kronolith -->
+   <dir name="lib">
+    <file name="Bundle.php" role="horde" />
+   </dir> <!-- /lib -->
    <dir name="mnemo">
     <dir name="config">
      <dir name="conf.d">
@@ -117,6 +120,7 @@
    <install as="imp/config/conf.d/20-kolab.php" name="imp/config/conf.d/20-kolab.php" />
    <install as="ingo/config/backends.d/20-kolab.php" name="ingo/config/backends.d/20-kolab.php" />
    <install as="kronolith/config/conf.d/20-kolab.php" name="kronolith/config/conf.d/20-kolab.php" />
+   <install as="lib/Bundle.php" name="lib/Bundle.php" />
    <install as="mnemo/config/conf.d/20-kolab.php" name="mnemo/config/conf.d/20-kolab.php" />
    <install as="nag/config/conf.d/20-kolab.php" name="nag/config/conf.d/20-kolab.php" />
    <install as="turba/config/backends.d/20-kolab.php" name="turba/config/backends.d/20-kolab.php" />
@@ -127,17 +131,17 @@
  <changelog>
   <release>
    <version>
-    <release>1.0.0alpha1</release>
-    <api>1.0.0alpha1</api>
+     <release>4.0.0alpha1</release>
+     <api>4.0.0alpha1</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-03-18</date>
+   <date>2011-05-12</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GPLv2</license>
    <notes>
-* Initial release.
+* First release candidate of Horde Kolab Edition 4.0.
    </notes>
   </release>
  </changelog>
