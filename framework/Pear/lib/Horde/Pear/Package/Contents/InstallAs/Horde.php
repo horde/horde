@@ -63,12 +63,8 @@ implements Horde_Pear_Package_Contents_InstallAs
         case 'docs':
         case 'test':
             return join('/', $elements);
-        case 'COPYING':
-        case 'LICENSE':
-        case 'README':
-            return substr($file, 1);
         default:
-            return $file;
+            return substr($file, 1);
         }
     }
 }
