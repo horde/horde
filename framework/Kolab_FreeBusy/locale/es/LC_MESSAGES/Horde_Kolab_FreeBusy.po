@@ -18,30 +18,28 @@ msgstr ""
 
 #: lib/Horde/Kolab/FreeBusy/View.php:241
 msgid "401 Unauthorized"
-msgstr ""
+msgstr "401 Unauthorized"
 
 #: lib/Horde/Kolab/FreeBusy/View.php:220
-#, fuzzy
 msgid "404 Not Found"
-msgstr "Sin sonido"
+msgstr "404 Not Found"
 
 #: lib/Horde/Kolab/FreeBusy/View.php:258
 msgid "500 Server Error"
-msgstr ""
+msgstr "500 Server Error"
 
 #: lib/Horde/Kolab/FreeBusy/View.php:258
 msgid "Error"
 msgstr "Error"
 
 #: lib/Horde/Kolab/FreeBusy/Report.php:66
-#, fuzzy
 msgid "Errors:"
-msgstr "Error"
+msgstr "Errores:"
 
 #: lib/Horde/Kolab/FreeBusy/Report.php:58
 #, php-format
 msgid "Failed regenerating calendar %s: %s"
-msgstr ""
+msgstr "Fallo al regenerar la agenda %s: %s"
 
 #: lib/Horde/Kolab/FreeBusy/Imap.php:141
 #, php-format
@@ -54,64 +52,60 @@ msgid "Folder %s has type \"%s\" not \"event\"!"
 msgstr "¡La carpeta %s es de tipo \"%s\" no \"acontecimiento\"!"
 
 #: lib/Horde/Kolab/FreeBusy/Driver/Base.php:196
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid authentication for user %s!"
-msgstr "Dirección de correo no válida."
+msgstr "Autentificación inválidad para el usuario %s!"
 
 #: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:218
-#, fuzzy, php-format
+#, php-format
 msgid "No such account %s!"
-msgstr "¡El objeto %s no existe!"
+msgstr "No existe la cuenta %s!"
 
 #: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php:82
-#, fuzzy, php-format
+#, php-format
 msgid "No such folder %s"
-msgstr "El archivo no existe"
+msgstr "La carpeta %s no existe"
 
 #: lib/Horde/Kolab/FreeBusy/View.php:220
-#, fuzzy
 msgid "Not found"
-msgstr "No se ha encontrado %s."
+msgstr "No encontrado"
 
 #: lib/Horde/Kolab/FreeBusy/Driver/Base.php:192
-#, fuzzy
 msgid "Please authenticate!"
-msgstr "No está autentificado."
+msgstr "Por favor, autentifiquese!"
 
 #: lib/Horde/Kolab/FreeBusy/Report.php:45
 msgid "Starting to regenerate the free/busy cache..."
-msgstr ""
+msgstr "Se ha comenzando a regenerar la cache de disponibilidad de tiempo..."
 
 #: lib/Horde/Kolab/FreeBusy/Report.php:74
 msgid "Successfully regenerated all calendar caches!"
-msgstr ""
+msgstr "Se han regenrado correctamente todas las caches de las agendas"
 
 #: lib/Horde/Kolab/FreeBusy/Report.php:51
-#, fuzzy, php-format
+#, php-format
 msgid "Successfully regenerated calendar \"%s\"!"
-msgstr "Se ha eliminado correctamente \"%s\"."
+msgstr "Se ha regenerado correctamente la agenda \"%s\"!"
 
 #: lib/Horde/Kolab/FreeBusy/View.php:218
-#, fuzzy, php-format
+#, php-format
 msgid "The requested URL %s was not found on this server."
-msgstr ""
-"No se encontró en el sistema el programa para ver este tipo de datos (%s)."
+msgstr "La URL solicitada %s no se ha encotrado en este servidor."
 
 #: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php:197
-#, fuzzy
 msgid "Unable to determine owner of the free/busy data!"
-msgstr "Incapaz de determinar el directorio actual."
+msgstr ""
+"Imposible determinar el propietario de los datos de disponibilidad de tiempo!"
 
 #: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:295
-#, fuzzy, php-format
+#, php-format
 msgid "Unable to read free/busy information from %s"
-msgstr "Incapaz de cargar la definición de %s."
+msgstr "No se ha podido leer la información de disponibilidad de tiempo de %s."
 
 #: lib/Horde/Kolab/FreeBusy/View.php:241
 msgid "Unauthorized"
-msgstr ""
+msgstr "No autorizado"
 
 #: lib/Horde/Kolab/FreeBusy/View.php:242
-#, fuzzy
 msgid "You are not authorized to access the requested URL."
-msgstr "Carece de permiso para modificar grupos."
+msgstr "No está autorizado para acceder a la URL solicitada."

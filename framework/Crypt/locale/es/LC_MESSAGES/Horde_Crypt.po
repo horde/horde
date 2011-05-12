@@ -137,12 +137,12 @@ msgstr "Dirección de correo"
 
 #: lib/Horde/Crypt/Pgp.php:1584 lib/Horde/Crypt/Pgp.php:1592
 msgid "Error while talking to pgp binary."
-msgstr ""
+msgstr "Error hablando con el programa pgp."
 
 #: lib/Horde/Crypt/Smime.php:1251 lib/Horde/Crypt/Smime.php:1269
 #: lib/Horde/Crypt/Smime.php:1284
 msgid "Error while talking to smime binary."
-msgstr ""
+msgstr "Error hablando con el programa smime."
 
 #: lib/Horde/Crypt/Pgp.php:425
 msgid "Expiration Date"
@@ -377,7 +377,6 @@ msgstr ""
 "Para comprobar el mensaje firmado hace falta el bloque de firma separado."
 
 #: lib/Horde/Crypt/Smime.php:1146
-#, fuzzy
 msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
 msgstr "Hace falta el módulo openssl para la clase Horde_Crypt_smime::."
 

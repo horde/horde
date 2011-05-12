@@ -18,7 +18,7 @@ msgstr ""
 
 #: lib/Horde/Token/Base.php:196
 msgid "This token has been used before!"
-msgstr ""
+msgstr "Esta ficha ya ha sido utilizada antes"
 
 #: lib/Horde/Token/Base.php:172
 msgid ""
@@ -26,3 +26,6 @@ msgid ""
 "malicious request. If you intended to perform this action, you can retry it "
 "now."
 msgstr ""
+"No se pudo verificar que esta solicitud fue realmente enviada por usted. "
+"Puede ser una solicitud maliintencionada. Si quería realizar esta acción, "
+"puede probar otra vez ahora."

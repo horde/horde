@@ -18,4 +18,4 @@ msgstr ""
 
 #: lib/Horde/Block/Scribd.php:48
 msgid "Scribd Documents"
-msgstr ""
+msgstr "Documentos Scribd"

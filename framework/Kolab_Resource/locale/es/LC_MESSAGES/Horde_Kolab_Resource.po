@@ -19,23 +19,23 @@ msgstr ""
 #: lib/Horde/Kolab/Resource.php:576
 #, php-format
 msgid "%s has been cancelled"
-msgstr ""
+msgstr "se ha cancelado %s"
 
 #: lib/Horde/Kolab/Resource.php:555 lib/Horde/Kolab/Resource.php:560
-#, fuzzy, php-format
+#, php-format
 msgid "Error processing \"%s\""
-msgstr "Error al escribir \"%s\"."
+msgstr "Error procesando \"%s\"."
 
 #: lib/Horde/Kolab/Resource.php:575
 msgid "The following event has been successfully removed:"
-msgstr ""
+msgstr "El siguiente acontecimiento fue eliminado correctamente:"
 
 #: lib/Horde/Kolab/Resource.php:559
 #, php-format
 msgid "The following event that was canceled is not present in %s's calendar:"
-msgstr ""
+msgstr "El siguiente acontecimiento que se canceló no esta en la agenda de %s:"
 
 #: lib/Horde/Kolab/Resource.php:554
-#, fuzzy, php-format
+#, php-format
 msgid "Unable to access %s's calendar:"
-msgstr "Incapaz de acceder al directorio VFS."
+msgstr "Imposible acceder a la agenda de %s:"

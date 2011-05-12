@@ -30,7 +30,9 @@ msgstr "%.2fMB / %.2fMB  (%.2f%%)"
 #: manager.php:581
 #, php-format
 msgid "%d item"
-msgstr "%d elemento"
+msgid_plural "%d items"
+msgstr[0] "%d elemento"
+msgstr[1] "%d elementos"
 
 #: manager.php:581
 #, php-format
@@ -429,7 +431,7 @@ msgstr "Formato de Quota"
 
 #: templates/manager/manager.html:14
 msgid "Read"
-msgstr "Lectura"
+msgstr "Leer"
 
 #: manager.php:310
 msgid "Refresh"

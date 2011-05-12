@@ -18,41 +18,41 @@ msgstr ""
 
 #: lib/Horde/Itip/Response/Type/Accept.php:49
 msgid "Accepted"
-msgstr ""
+msgstr "Aceptada"
 
 #: lib/Horde/Itip/Response/Type/Decline.php:49
 msgid "Declined"
-msgstr ""
+msgstr "Rechazada"
 
 #: lib/Horde/Itip/Event/Vevent.php:106
-#, fuzzy
 msgid "No summary available"
-msgstr "servicio no disponible"
+msgstr "Resumen no disponible"
 
 #: lib/Horde/Itip/Response/Type/Tentative.php:49
 msgid "Tentative"
-msgstr ""
+msgstr "Provisional"
 
 #: lib/Horde/Itip/Response/Type/Accept.php:63
 msgid "has accepted the invitation to the following event"
-msgstr ""
+msgstr "ha aceptado la invitación al siguiente acontecimiento"
 
 #: lib/Horde/Itip/Response/Type/Accept.php:62
 msgid "has accepted the update to the following event"
-msgstr ""
+msgstr "ha aceptado la actualización del siguiente acontecimiento"
 
 #: lib/Horde/Itip/Response/Type/Decline.php:63
 msgid "has declined the invitation to the following event"
-msgstr ""
+msgstr "ha rechazado la invitación al siguiente acontecimiento"
 
 #: lib/Horde/Itip/Response/Type/Decline.php:62
 msgid "has declined the update to the following event"
-msgstr ""
+msgstr "ha rechazado la actualizacion del siguiente acontecimiento"
 
 #: lib/Horde/Itip/Response/Type/Tentative.php:63
 msgid "has tentatively accepted the invitation to the following event"
-msgstr ""
+msgstr "ha aceptado provisionalmente la invitación al siguiente acontecimiento"
 
 #: lib/Horde/Itip/Response/Type/Tentative.php:62
 msgid "has tentatively accepted the update to the following event"
 msgstr ""
+"ha rechazao provisionalmente la actualizacion del siguinte acontecimiento"

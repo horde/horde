@@ -378,7 +378,7 @@ msgstr "Al crear un usuario hay que introducir una contraseña."
 
 #: lib/Forms/EditDomainForm.php:36
 msgid "Quota"
-msgstr "Espacio asignado"
+msgstr "Quota"
 
 #: virtuals/edit.php:57
 msgid "Remote address"

@@ -210,7 +210,7 @@ msgstr "Exportar notas"
 
 #: config/prefs.php:11 config/prefs.php:18 config/prefs.php:25
 msgid "General Preferences"
-msgstr "Opciones globales"
+msgstr "Pref. generales"
 
 #: templates/data/import.inc:1
 #, php-format

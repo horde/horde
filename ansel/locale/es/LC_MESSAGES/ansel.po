@@ -226,15 +226,15 @@ msgstr "-o, --order=<name|date|random>  Criterio de ordenación"
 
 #: scripts/recursive_import.php:246
 msgid "-p, --password[=password]       Horde login password"
-msgstr "-p, --password[=clave]          Clave de inicio de Horde"
+msgstr "-p, --password[=contraseña]     Contraseña de inicio de Horde"
 
 #: scripts/ansel.php:313
 msgid "-p, --password[=password]     Horde login password"
-msgstr "-p, --password[=clave]       Clave de inicio de Horde"
+msgstr "-p, --password[=contraseña]   Contraseña de inicio de Horde"
 
 #: scripts/all_images_exif_to_tags.php:99 scripts/remote_import.php:312
 msgid "-p, --password[=password]    Horde login password"
-msgstr "-p, --password[=clave]       Clave de inicio de Horde"
+msgstr "-p, --password[=contraseña]  Contraseña de inicio de Horde"
 
 #: scripts/remote_import.php:316
 msgid "-r, --remotehost[=url]       The url of the remote rpc server."
@@ -1161,7 +1161,7 @@ msgstr "Se comunicó la galería."
 #: config/prefs.php:10 config/prefs.php:21 config/prefs.php:28
 #: config/prefs.php:38
 msgid "General Preferences"
-msgstr "Opciones globales"
+msgstr "Pref. generales"
 
 #: config/prefs.php:180 lib/Form/Watermark.php:35
 msgid "Giant"
@@ -1305,7 +1305,7 @@ msgstr "Salir"
 #: scripts/recursive_import.php:73
 #, php-format
 msgid "Logged in successfully as \"%s\"."
-msgstr "Se ha conectado correctamente como \"%s\"."
+msgstr "Se inició sesión correctamente como \"%s\"."
 
 #: scripts/ansel.php:107
 msgid "Login is incorrect."
@@ -1325,8 +1325,8 @@ msgstr "¿Establecerla como foto por omisión de esta galería?"
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too."
 msgstr ""
-"Los argumentos obligatorios de las opciones largas son también obligatorios "
-"para las opciones cortas."
+"Los argumentos requeridos por las opciones completas también son requeridos "
+"en las opciones abreviadas."
 
 #: templates/image/crop_image.inc:137
 msgid "Manual"
@@ -2047,7 +2047,7 @@ msgstr "Seleccionar todas"
 
 #: templates/view/gallerylightbox.inc:150 templates/view/results.inc:79
 msgid "Select None"
-msgstr "Limpiar selección"
+msgstr "Seleccionar nada"
 
 #: templates/tile/image.inc:5
 msgid "Select for Action"
@@ -2143,7 +2143,7 @@ msgstr "Los IDs de galería permiten el acceso directo a la galería visitando:"
 
 #: config/prefs.php:177 lib/Form/Watermark.php:32
 msgid "Small"
-msgstr "PEqueño"
+msgstr "Pequeño"
 
 #: templates/view/list.inc:15
 msgid "Sort by:"
@@ -2754,7 +2754,7 @@ msgstr "cargando"
 
 #: group.php:82
 msgid "none"
-msgstr "Ninguna"
+msgstr "ninguno"
 
 #: lib/View/EmbeddedRenderer/Mini.php:148
 #: lib/View/GalleryRenderer/GalleryLightbox.php:142

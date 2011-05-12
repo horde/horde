@@ -17,9 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/Horde/Compress/Rar.php:54
-#, fuzzy
 msgid "Invalid RAR data."
-msgstr "Datos ZIP no válidos"
+msgstr "Datos RAR no válidos"
 
 #: lib/Horde/Compress/Zip.php:197 lib/Horde/Compress/Zip.php:224
 #: lib/Horde/Compress/Zip.php:244
@@ -32,14 +31,12 @@ msgid "Invalid file format"
 msgstr "Formato de archivo no válido"
 
 #: lib/Horde/Compress/Zip.php:93
-#, fuzzy
 msgid "This server can't compress zip files."
-msgstr "Este servidor no puede descomprimir archivos zip y gzip."
+msgstr "Este servidor no puede comprimir archivos zip."
 
 #: lib/Horde/Compress/Gzip.php:42
-#, fuzzy
 msgid "This server can't uncompress gzip files."
-msgstr "Este servidor no puede descomprimir archivos zip y gzip."
+msgstr "Este servidor no puede descomprimir archivos gzip."
 
 #: lib/Horde/Compress/Gzip.php:49 lib/Horde/Compress/Gzip.php:79
 #: lib/Horde/Compress/Tar.php:74

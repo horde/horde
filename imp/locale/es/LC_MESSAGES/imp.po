@@ -343,8 +343,8 @@ msgstr ""
 msgid ""
 "A popup window could not be opened. Your browser may be blocking popups."
 msgstr ""
-"No se puede abrir una ventana emergente. Su navegador debe estar bloqueando "
-"las ventanas emergentes."
+"No se pudo abrir una ventana emergente. Su navegador puede estar "
+"bloqueandolas."
 
 #: templates/dimp/index.inc:495
 msgid "A right-click on a message or a folder will display available actions."
@@ -2707,7 +2707,7 @@ msgstr "Tamaño máximo de adjunto"
 
 #: lib/Application.php:193
 msgid "Maximum Number of Folders"
-msgstr "Número máximo de carpetas"
+msgstr "Máximo número de carpetas"
 
 #: lib/Application.php:197
 msgid "Maximum Number of Recipients per Message"
@@ -3501,7 +3501,7 @@ msgstr "¿Encabezar la firma con guiones ('-- ')?"
 
 #: templates/dimp/index.inc:77
 msgid "Preferences"
-msgstr "Opciones"
+msgstr "Preferencias"
 
 #: compose.php:1011
 msgid "Preview"
@@ -3652,7 +3652,7 @@ msgstr "%f escribió:"
 
 #: lib/Prefs/Ui.php:652 templates/dimp/index.inc:290
 msgid "Read"
-msgstr "Lectura"
+msgstr "Leer"
 
 #: templates/dimp/compose/compose.html:35
 msgid "Read Receipt"

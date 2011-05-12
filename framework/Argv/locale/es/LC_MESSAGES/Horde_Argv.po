@@ -19,61 +19,58 @@ msgstr ""
 #: lib/Horde/Argv/Parser.php:507
 #, php-format
 msgid "%s option does not take a value"
-msgstr ""
+msgstr "La opción %s no coge ningún valor"
 
 #: lib/Horde/Argv/Parser.php:497 lib/Horde/Argv/Parser.php:549
 #, php-format
 msgid "%s option requires %d arguments"
-msgstr ""
+msgstr "La opción %s necesita %d parámetros"
 
 #: lib/Horde/Argv/Parser.php:495 lib/Horde/Argv/Parser.php:547
 #, php-format
 msgid "%s option requires an argument"
-msgstr ""
+msgstr "La opción %s necesita un parámetro"
 
 #: lib/Horde/Argv/Parser.php:672
 msgid "Options"
 msgstr "Opciones"
 
 #: lib/Horde/Argv/TitledHelpFormatter.php:29
-#, fuzzy
 msgid "Usage"
-msgstr "Uso de la clave:"
+msgstr "Uso"
 
 #: lib/Horde/Argv/IndentedHelpFormatter.php:29
-#, fuzzy
 msgid "Usage:"
-msgstr "Uso de la clave:"
+msgstr "Uso:"
 
 #: lib/Horde/Argv/Parser.php:199
-#, fuzzy
 msgid "[options]"
-msgstr "Opciones"
+msgstr "[opciones]"
 
 #: lib/Horde/Argv/Option.php:129
 #, php-format
 msgid "option %s: invalid choice: '%s' (choose from %s)"
-msgstr ""
+msgstr "Opción %s: la elección es no válida '%s' (elegido de %s)"
 
 #: lib/Horde/Argv/Option.php:111
 #, php-format
 msgid "option %s: invalid floating-point value: '%s'"
-msgstr ""
+msgstr "Opción %s: número de coma flotante no válido: '%s'"
 
 #: lib/Horde/Argv/Option.php:101
 #, php-format
 msgid "option %s: invalid integer value: '%s'"
-msgstr ""
+msgstr "Opción %s: número entero no válido: '%s'"
 
 #: lib/Horde/Argv/Option.php:102
 #, php-format
 msgid "option %s: invalid long integer value: '%s'"
-msgstr ""
+msgstr "Opción %s: número entero largo no válido: '%s'"
 
 #: lib/Horde/Argv/Parser.php:171
 msgid "show program's version number and exit"
-msgstr ""
+msgstr "mostrar él número de versión del programa y salir"
 
 #: lib/Horde/Argv/Parser.php:165
 msgid "show this help message and exit"
-msgstr ""
+msgstr "mostrar esta ayuda y salir"

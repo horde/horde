@@ -53,18 +53,16 @@ msgid "-- select --"
 msgstr "-- seleccionar --"
 
 #: Form/Type.php:843 Form/Type.php:886
-#, fuzzy
 msgid "A temporary directory"
-msgstr "No se encuentra un directorio temporal."
+msgstr "Un directorio temporal."
 
 #: Form/Type.php:773
 msgid "Address"
 msgstr "Dirección"
 
 #: Form/Type.php:795
-#, fuzzy
 msgid "Address Link"
-msgstr "Direcciones"
+msgstr "Dirección de enlace"
 
 #: Form/Type.php:1620
 msgid "Allow multiple addresses?"
@@ -186,21 +184,19 @@ msgstr "Cabecera"
 
 #: Form/Type/tableset.php:58
 msgid "Headers"
-msgstr "Encabezados"
+msgstr "Cabeceras"
 
 #: Form/Type.php:617
-#, fuzzy
 msgid "Helpers"
-msgstr "¿Ayudante?"
+msgstr "Ayudantes"
 
 #: Form/Type.php:528
 msgid "IP address"
 msgstr "Dirección IP"
 
 #: Form/Type.php:558
-#, fuzzy
 msgid "IPv6 address"
-msgstr "Dirección IP"
+msgstr "Dirección IPv6"
 
 #: Form/Type.php:3349
 msgid "Id"
@@ -330,9 +326,8 @@ msgid "Only one email address is allowed."
 msgstr "Sólo se permite una dirección de correo."
 
 #: Form/Type.php:839
-#, fuzzy
 msgid "PGP Key"
-msgstr "Clave PGP pública"
+msgstr "Clave PGP"
 
 #: Form/Type.php:2142
 msgid "Password"
@@ -348,7 +343,7 @@ msgstr "Las contraseñas tienen que coincidir."
 
 #: Form/Type.php:841
 msgid "Path to the GnuPG binary"
-msgstr ""
+msgstr "Camino para el ejecutable GnuPG"
 
 #: Form/Type.php:475
 msgid "Phone number"
@@ -417,7 +412,7 @@ msgstr "Valores de la derecha"
 
 #: Form/Type.php:884
 msgid "S/MIME Key"
-msgstr ""
+msgstr "Clave S/MIME"
 
 #: Form/Type.php:3645
 msgid "SQL statement for value lookups"
@@ -465,9 +460,8 @@ msgid "Sort order selection"
 msgstr "Selección del sentido de la clasificación"
 
 #: Form/Type.php:3200
-#, fuzzy
 msgid "Sound selection"
-msgstr "Selección de color"
+msgstr "Selección de sonido"
 
 #: Form/Type.php:98
 msgid "Spacer"
@@ -487,7 +481,7 @@ msgstr "Lista de cadenas"
 
 #: Form/Type.php:440
 msgid "String list returning an array"
-msgstr ""
+msgstr "La lista de cadenas devuelve un array"
 
 #: Form.php:361 Form/Renderer.php:326
 msgid "Submit"

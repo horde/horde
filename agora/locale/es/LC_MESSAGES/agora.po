@@ -187,7 +187,7 @@ msgstr "No se pudo enviar el mensaje: "
 
 #: scripts/phorum2agora.php:65
 msgid "Couldn't read command-line options."
-msgstr "No se pudieron lees las opciones de línea de comandos."
+msgstr "No se pudieron leer las opciones de línea de comandos."
 
 #: lib/Forms/Forum.php:26
 msgid "Create"
@@ -438,7 +438,7 @@ msgstr "Entrada de base de datos defectuosa."
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too."
 msgstr ""
-"Los argumentos requeridos de las opciones extendidas también son requeridos "
+"Los argumentos requeridos por las opciones completas también son requeridos "
 "en las opciones abreviadas."
 
 #: messages/merge.php:47 messages/merge.php:73 lib/Messages.php:942

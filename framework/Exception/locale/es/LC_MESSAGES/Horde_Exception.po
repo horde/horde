@@ -17,9 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/Horde/Exception/NotFound.php:32
-#, fuzzy
 msgid "Not Found"
-msgstr "Sin sonido"
+msgstr "No encontrado"
 
 #: lib/Horde/Exception/PermissionDenied.php:32
 msgid "Permission Denied"

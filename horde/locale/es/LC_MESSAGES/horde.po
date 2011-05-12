@@ -2064,7 +2064,7 @@ msgstr "Modo"
 
 #: lib/Block/WeatherdotcomStrings.php:99
 msgid "Moderate"
-msgstr "Moderada"
+msgstr "Moderar"
 
 #: config/prefs.php:452
 msgid "Monday"
@@ -2610,7 +2610,7 @@ msgstr "Rueda de la fortuna"
 #: templates/shares/edit.inc:269 templates/shares/edit.inc:283
 #: templates/shares/edit.inc:312
 msgid "Read"
-msgstr "Lectura"
+msgstr "Leer"
 
 #: templates/prefs/facebook.html:32
 msgid "Read enabled"
@@ -3011,7 +3011,7 @@ msgstr "Evitar tareas de inicio"
 
 #: lib/Block/Iframe.php:35
 msgid "Small"
-msgstr "PEqueño"
+msgstr "Pequeño"
 
 #: lib/Block/WeatherdotcomStrings.php:78
 msgid "Snow"

@@ -19,7 +19,7 @@ msgstr ""
 
 #: feed/index.php:124
 msgid " to "
-msgstr " a "
+msgstr " para "
 
 #: templates/edit/edit.inc:275
 #, php-format
@@ -1909,7 +1909,7 @@ msgstr "Hora de reunión posible"
 
 #: lib/Kronolith.php:261
 msgid "Preferences"
-msgstr "Opciones"
+msgstr "Preferencias"
 
 #: templates/index/agenda.inc:8 templates/index/day.inc:8
 #: templates/index/month.inc:6 templates/index/week.inc:7
@@ -1995,7 +1995,7 @@ msgstr "_Inserción rápida"
 #: templates/perms/perms.inc:267 templates/perms/perms.inc:294
 #: templates/perms/perms.inc:309 templates/perms/perms.inc:343
 msgid "Read"
-msgstr "Lectura"
+msgstr "Leer"
 
 #: lib/Form/DeleteCalendar.php:31
 #, php-format

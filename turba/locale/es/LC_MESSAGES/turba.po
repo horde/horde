@@ -1314,7 +1314,7 @@ msgstr "El archivo %s no contenía ningún contacto."
 
 #: view.php:17
 msgid "The VFS backend needs to be configured to enable attachment uploads."
-msgstr "Hay que configurar el motor VFS para permitir la carga de adjuntos."
+msgstr "Para activar la carga de adjuntos hay que configurar el motor VFS."
 
 #: lib/Factory/Driver.php:56
 #, php-format

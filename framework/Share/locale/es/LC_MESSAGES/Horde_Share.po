@@ -34,7 +34,7 @@ msgstr "Notas"
 
 #: lib/Horde/Share/Object/Kolab.php:137
 msgid "Preferences"
-msgstr ""
+msgstr "Preferencias"
 
 #: lib/Horde/Share/Kolab.php:117 lib/Horde/Share/Sql.php:210
 #, php-format
@@ -61,9 +61,8 @@ msgstr "El motor de integración Horde/Kolab no soporta \"%s\""
 
 #: lib/Horde/Share/Object/Kolab.php:373
 msgid "The Kolab share object has not been initialized yet!"
-msgstr ""
+msgstr "El objeto para compartir de Kolab no ha sido inicializado todavía!"
 
 #: lib/Horde/Share/Object/Kolab.php:153
-#, fuzzy
 msgid "The share has already been initialized!"
-msgstr "Ya se ha procesado este formulario."
+msgstr "El recurso compartido ya se había inicializado"

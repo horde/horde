@@ -211,7 +211,7 @@ msgstr "No se puede enviar a la lista de distribución %s. %s"
 #: lib/Jonah.php:87
 #, php-format
 msgid "Could not open %s."
-msgstr "No se puede abrir %s."
+msgstr "No se pudo abrir %s."
 
 #: lib/Block/latest.php:49
 msgid "Count reads of the latest story when this block is displayed"
@@ -817,7 +817,7 @@ msgstr "Se ha enviado correctamente a la lista de distribución %s."
 
 #: lib/Block/cloud.php:3 lib/Block/cloud.php:35
 msgid "Tag Cloud"
-msgstr "Conjunto de etiquetas"
+msgstr "Nube de etiquetas"
 
 #: lib/News.php:834 lib/News.php:839 lib/News.php:844 lib/News.php:850
 #: lib/News.php:855

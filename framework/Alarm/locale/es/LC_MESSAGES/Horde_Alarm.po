@@ -18,23 +18,20 @@ msgstr ""
 
 #: lib/Horde/Alarm/Handler/Desktop.php:86
 msgid "Desktop notification (with certain browsers)"
-msgstr ""
+msgstr "Notificación en el escritorio (con ciertos navegadores)"
 
 #: lib/Horde/Alarm/Handler/Mail.php:118
 msgid "Email"
 msgstr "Correo"
 
 #: lib/Horde/Alarm/Handler/Mail.php:138
-#, fuzzy
 msgid "Email address (optional)"
-msgstr "Dirección de correo"
+msgstr "Dirección de correo (opcional)"
 
 #: lib/Horde/Alarm/Handler/Notify.php:81
-#, fuzzy
 msgid "Inline"
-msgstr "en línea"
+msgstr "En línea"
 
 #: lib/Horde/Alarm/Handler/Notify.php:101
-#, fuzzy
 msgid "Play a sound?"
-msgstr "Seleccione un sonido."
+msgstr "¿Reproducir un sonido?"

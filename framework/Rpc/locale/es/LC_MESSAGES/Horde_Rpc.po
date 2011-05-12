@@ -28,9 +28,8 @@ msgid "Method \"%s\" is not defined"
 msgstr "El método \"%s\" no está definido"
 
 #: lib/Horde/Rpc/Phpgw.php:160
-#, fuzzy
 msgid "No valid XML data returned:"
-msgstr "No se han devuelto datos XML válidos"
+msgstr "No se han devuelto datos XML válidos:"
 
 #: lib/Horde/Rpc/Phpgw.php:158
 msgid "Request couldn't be answered. Returned errorcode: "

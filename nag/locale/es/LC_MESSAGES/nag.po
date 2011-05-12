@@ -25,17 +25,21 @@ msgstr " (%s incluyendo subtareas)"
 #: lib/Nag.php:116
 #, php-format
 msgid "%d hour"
-msgstr "%d hora"
+msgid_plural "%d hours"
+msgstr[0] "%d hora"
+msgstr[1] "%d horas"
 
 #: lib/Nag.php:118
 #, php-format
 msgid "%d hour, %d minute"
 msgstr "%d hora, %d minuto"
 
-#: lib/Nag.php:120
+#: lib/Nag.php:120 lib/Nag.php:126 lib/Nag.php:128
 #, php-format
-msgid "%d hour, %d minutes"
-msgstr "%d hora, %d minutos"
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minuto"
+msgstr[1] "%d minutos"
 
 #: lib/Nag.php:108
 #, php-format
@@ -51,16 +55,6 @@ msgstr "%d horas, %d minuto"
 #, php-format
 msgid "%d hours, %d minutes"
 msgstr "%d horas, %d minutos"
-
-#: lib/Nag.php:126
-#, php-format
-msgid "%d minute"
-msgstr "%d minuto"
-
-#: lib/Nag.php:128
-#, php-format
-msgid "%d minutes"
-msgstr "%d minutos"
 
 #: lib/Nag.php:585
 #, php-format
@@ -547,7 +541,7 @@ msgstr "Tareas futuras"
 
 #: config/prefs.php:11 config/prefs.php:18 config/prefs.php:25
 msgid "General Preferences"
-msgstr "Opciones globales"
+msgstr "Pref. generales"
 
 #: lib/Ui/VarRenderer/Nag.php:168
 msgid "Hour"

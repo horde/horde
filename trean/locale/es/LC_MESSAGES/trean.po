@@ -113,7 +113,7 @@ msgstr "Y"
 
 #: lib/Trean.php:176
 msgid "Accepted"
-msgstr "Aceptado"
+msgstr "Aceptada"
 
 #: templates/add/add.inc:59 lib/Block/tree_menu.php:24
 msgid "Add"
@@ -151,7 +151,7 @@ msgstr "Ascendente (A a la Z)"
 
 #: perms.php:44
 msgid "Attempt to edit a non-existent share."
-msgstr "Se ha intentado modificar un recurso compartido inexistente."
+msgstr "Intenta modificar un recurso compartido inexistente."
 
 #: lib/Trean.php:208
 msgid "Bad Gateway"
@@ -211,7 +211,7 @@ msgstr "Conflicto"
 
 #: lib/Trean.php:172
 msgid "Continue"
-msgstr "Seguir"
+msgstr "Continuar"
 
 #: templates/browse.php:105 templates/browse.php:106
 msgid "Control access to this folder"
@@ -487,11 +487,11 @@ msgstr "Nuevo marcador"
 
 #: lib/Trean.php:90
 msgid "New Folder"
-msgstr "Añadir carpeta"
+msgstr "Carpeta nueva"
 
 #: templates/browse.php:80
 msgid "New folder"
-msgstr "Añadir carpeta"
+msgstr "Carpeta nueva"
 
 #: templates/edit/delete_folder_confirmation.inc:15
 msgid "No"
@@ -516,7 +516,7 @@ msgstr "Información no autoritativa"
 
 #: templates/search.php:66
 msgid "None"
-msgstr "Ninguno"
+msgstr "Ninguna"
 
 #: lib/Trean.php:194
 msgid "Not Acceptable"
@@ -568,7 +568,7 @@ msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
 msgstr ""
-"Sólo de propietario o el administrador del sistema puede cambiar la "
+"Sólo el propietario o el administrador del sistema pueden cambiar la "
 "propiedad o los permisos del propietario de un recurso compartido"
 
 #: config/.bak/prefs.php.dist:54
@@ -589,7 +589,7 @@ msgstr "Pago requerido"
 
 #: templates/add/add.inc:4
 msgid "Please enter a name for the new folder:"
-msgstr "Introduzca el nombre de la carpeta nueva:"
+msgstr "Introduzca el nombre de la nueva carpeta:"
 
 #: lib/Trean.php:200
 msgid "Precondition Failed"
@@ -659,11 +659,11 @@ msgstr "Ver otros"
 
 #: templates/search.php:65
 msgid "Select All"
-msgstr "Seleccionar todos"
+msgstr "Seleccionar todas"
 
 #: templates/views/BookmarkList.php:29
 msgid "Select All/Select None"
-msgstr "Seleccionar todos/nada"
+msgstr "Seleccionar todas/nada"
 
 #: templates/search.php:66
 msgid "Select None"
@@ -672,7 +672,7 @@ msgstr "Seleccionar nada"
 #: templates/search.php:64
 #, php-format
 msgid "Select: %s, %s"
-msgstr "Seleccionado: %s, %s"
+msgstr "Seleccionar: %s, %s"
 
 #: lib/Trean.php:209
 msgid "Service Unavailable"
@@ -785,7 +785,7 @@ msgstr "URL"
 
 #: lib/Trean.php:189
 msgid "Unauthorized"
-msgstr "Sin autorización"
+msgstr "No autorizado"
 
 #: templates/reports.php:100
 #, php-format
@@ -829,7 +829,7 @@ msgstr "Carece de permisos para crear más de %d marcadores."
 #: data.php:56 data.php:107 add.php:86
 #, php-format
 msgid "You are not allowed to create more than %d folders."
-msgstr "Carece de permisos para crear más de %d carpetas."
+msgstr "No tiene permiso para crear más de %d carpetas."
 
 #: browse.php:24
 msgid "You do not have permission to view this folder."

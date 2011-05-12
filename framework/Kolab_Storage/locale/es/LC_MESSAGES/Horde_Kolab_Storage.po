@@ -18,14 +18,14 @@ msgstr ""
 
 #: lib/Horde/Kolab/Storage/Folder/Base.php:993
 #: lib/Horde/Kolab/Storage/Folder/Base.php:999
-#, fuzzy, php-format
+#, php-format
 msgid "Failed retrieving the message with ID %s. Original error: %s."
-msgstr "Incapaz de obtener mensaje IMAP %s. El error fue %s"
+msgstr "Error al recuperar el mensaje con ID %s. Error original: %s."
 
 #: lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:228
-#, fuzzy, php-format
+#, php-format
 msgid "Failed triggering folder %s. Error was: %s"
-msgstr "Incapaz de obtener mensaje IMAP %s. El error fue %s"
+msgstr "Fallo al obtener la carpeta %s. El error fue %s"
 
 #: lib/Horde/Kolab/Storage/Data.php:630
 #, php-format
@@ -49,6 +49,9 @@ msgid ""
 "object has been modified by somebody else while you were editing it. Your "
 "edits have been lost."
 msgstr ""
+"El mensaje con ID %s no existe. Esto probablemente quiere decir que el "
+"objeto Kolab ha sido modificado por alguien mientras usted lo editaba. Sus "
+"modificaciones se han perdido."
 
 #: lib/Horde/Kolab/Storage/Folder/Base.php:1054
 #, php-format
@@ -69,4 +72,4 @@ msgstr "Incapaz de renombrar %s como %s: la carpeta destino ya existe"
 #: lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:261
 #, php-format
 msgid "Unable to trigger URL %s. Response: %s"
-msgstr ""
+msgstr "Imposible lanzar la URL %s. Respuesta: %s"

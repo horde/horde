@@ -383,7 +383,7 @@ msgstr "¿Exportadas?"
 
 #: config/prefs.php:11 config/prefs.php:18
 msgid "General Preferences"
-msgstr "Opciones globales"
+msgstr "Pref. generales"
 
 #: index.php:24
 msgid "Help"
@@ -535,7 +535,7 @@ msgstr "Introduzca primero valores válidos en el formulario."
 
 #: lib/Hermes.php:438
 msgid "Preferences"
-msgstr "Opciones"
+msgstr "Preferencias"
 
 #: templates/index/index.inc:61
 msgid "Previous month"

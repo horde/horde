@@ -17,12 +17,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/Horde/Service/Facebook/Request.php:94
-#, fuzzy
 msgid "Service is unavailable. Please try again later."
-msgstr ""
-"El servicio no está disponible en la actualidad. Pruebe otra vez más tarde."
+msgstr "El servicio no está disponible. Pruebe otra vez más tarde."
 
 #: lib/Horde/Service/Facebook/UploadRequest.php:94
-#, fuzzy, php-format
+#, php-format
 msgid "Upload failed: %s"
 msgstr "Falló la copia: %s"

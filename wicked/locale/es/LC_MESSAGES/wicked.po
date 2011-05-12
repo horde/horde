@@ -75,7 +75,7 @@ msgstr "-p, --password[=contraseña]  Contraseña de inicio de Horde"
 
 #: scripts/wicked.php:165
 msgid "-u, --username[=username]    Horde login username"
-msgstr "-u, --usename[=nombre de usuario] Nombre de usuario de inicio de Horde"
+msgstr "-u, --username[=usuario]     Usuario de inicio de Horde"
 
 #: templates/display/MergeOrRename.html:31
 msgid "Add the text from this page"
@@ -220,7 +220,7 @@ msgstr ""
 
 #: scripts/wicked.php:42
 msgid "Couldn't read command-line options."
-msgstr "No se pudieron leer las opciones de la línea de comandos."
+msgstr "No se pudieron leer las opciones de línea de comandos."
 
 #: templates/edit/create.inc:46
 msgid "Create"
@@ -723,7 +723,7 @@ msgstr "Enviar"
 #: lib/Page/DeletePage.php:136
 #, php-format
 msgid "Successfully deleted \"%s\"."
-msgstr "Se eliminó correctamente \"%s\"."
+msgstr "Se ha eliminado correctamente \"%s\"."
 
 #: lib/Page/AttachedFiles.php:207
 #, php-format

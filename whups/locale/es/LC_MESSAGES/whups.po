@@ -839,7 +839,7 @@ msgstr "Respuesta:"
 
 #: config/prefs.php:11 config/prefs.php:22 config/prefs.php:28
 msgid "General Preferences"
-msgstr "Opciones globales"
+msgstr "Pref. generales"
 
 #: templates/menu.inc:5
 msgid "Go"
@@ -1720,7 +1720,7 @@ msgstr "Dirección de correo del solicitante"
 
 #: lib/Ticket.php:431 lib/Ticket.php:481 view.php:43
 msgid "The VFS backend needs to be configured to enable attachment uploads."
-msgstr "Hay que configurar el motor VFS para permitir la carga de adjuntos."
+msgstr "Para activar la carga de adjuntos hay que configurar el motor VFS."
 
 #: admin/index.php:907
 #, php-format

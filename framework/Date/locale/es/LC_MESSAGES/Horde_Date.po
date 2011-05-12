@@ -17,9 +17,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/Horde/Date/Utils.php:106
-#, fuzzy, php-format
+#, php-format
 msgid "%d days ago"
-msgstr " (hace %s días)"
+msgstr "hace %d días"
 
 #: lib/Horde/Date/Utils.php:96
 #, php-format
@@ -29,11 +29,11 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: lib/Horde/Date/Utils.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
-msgstr[0] "%d minutos"
-msgstr[1] "%d minutos"
+msgstr[0] "hace %d minuto"
+msgstr[1] "hace %d minutos"
 
 #: lib/Horde/Date/Utils.php:87
 #, php-format
@@ -70,6 +70,6 @@ msgid "Yearly"
 msgstr "Anualmente"
 
 #: lib/Horde/Date/Utils.php:101
-#, fuzzy, php-format
+#, php-format
 msgid "yesterday at %s"
-msgstr " (ayer)"
+msgstr "ayer a las %s"

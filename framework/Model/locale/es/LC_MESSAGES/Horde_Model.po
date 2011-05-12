@@ -54,13 +54,12 @@ msgid "-- select --"
 msgstr "-- seleccionar --"
 
 #: www/test.php:39
-#, fuzzy
 msgid "A Date"
-msgstr "Fecha"
+msgstr "Una fecha"
 
 #: lib/Horde/Form/VarRenderer/Xhtml.php:456
 msgid "Add column"
-msgstr ""
+msgstr "Añadir columna"
 
 #: www/test.php:82
 msgid "Add user"
@@ -90,11 +89,11 @@ msgstr "Agosto"
 
 #: www/test.php:57
 msgid "Bar field"
-msgstr ""
+msgstr "Campo de barras"
 
 #: www/test.php:37
 msgid "Boolean"
-msgstr ""
+msgstr "Booleano"
 
 #: lib/Horde/Form.php:1446
 msgid "Character to split multiple addresses with"
@@ -102,12 +101,11 @@ msgstr "Carácter con el que separar varias direcciones"
 
 #: www/test.php:60
 msgid "Checkbox Group"
-msgstr ""
+msgstr "Grupo de casillas"
 
 #: www/test.php:30
-#, fuzzy
 msgid "Color"
-msgstr "Colombia"
+msgstr "Color"
 
 #: lib/Horde/Form/VarRenderer/Xhtml.php:398
 #: lib/Horde/Form/VarRenderer/Xhtml.php:399
@@ -127,9 +125,8 @@ msgid "Counted text"
 msgstr "Texto contado"
 
 #: www/test.php:51
-#, fuzzy
 msgid "Credit Card"
-msgstr "Número de tarjeta de crédito"
+msgstr "Tarjeta de crédito"
 
 #: lib/Horde/Form.php:3017
 msgid "Credit card number"
@@ -192,9 +189,8 @@ msgid "Email with confirmation"
 msgstr "Correo con confirmación"
 
 #: www/test.php:50
-#, fuzzy
 msgid "Email2"
-msgstr "Correo"
+msgstr "2º Correo"
 
 #: lib/Horde/Form/VarRenderer/Xhtml.php:200
 #: lib/Horde/Form/VarRenderer/Xhtml.php:201
@@ -256,16 +252,15 @@ msgstr "Id"
 
 #: www/test.php:24
 msgid "If other, please describe"
-msgstr ""
+msgstr "En otro caso, por favor, descríbalo"
 
 #: www/test.php:44
-#, fuzzy
 msgid "Insert some text"
-msgstr "Insertar mensajes"
+msgstr "Insertar cualquier texto"
 
 #: www/test.php:44
 msgid "Insert some text in this box"
-msgstr ""
+msgstr "Insertar cualquier texto en esta caja"
 
 #: lib/Horde/Form.php:737 www/test.php:38
 msgid "Integer"
@@ -278,9 +273,8 @@ msgstr "Lista de enteros"
 #: lib/Horde/Form.php:1793 lib/Horde/Form.php:1853 lib/Horde/Form.php:1916
 #: lib/Horde/Form.php:1995 lib/Horde/Form/Type/Enum.php:37
 #: lib/Horde/Form/Type/Set.php:30 lib/Horde/Form/Type/Set.php:62
-#, fuzzy
 msgid "Invalid data."
-msgstr "Datos ZIP no válidos"
+msgstr "Datos no válidos."
 
 #: lib/Horde/Form/VarRenderer/Xhtml.php:581
 msgid "Invert selection"
@@ -351,9 +345,8 @@ msgid "MM"
 msgstr "MM"
 
 #: lib/Horde/Form/VarRenderer/Xhtml.php:1062
-#, fuzzy
 msgid "Map24 map"
-msgstr "Mapa mapquest"
+msgstr "Mapa Map24"
 
 #: lib/Horde/Form/VarRenderer/Xhtml.php:993
 #: lib/Horde/Form/VarRenderer/Xhtml.php:1077
@@ -506,9 +499,8 @@ msgid "Protect address from spammers?"
 msgstr "¿Proteger dirección contra spammers?"
 
 #: www/test.php:55
-#, fuzzy
 msgid "Radio Group"
-msgstr "Modificar grupo"
+msgstr "Botón de grupo"
 
 #: lib/Horde/Form.php:1961
 msgid "Radio selection"
@@ -523,9 +515,8 @@ msgid "Relationship browser"
 msgstr "Navegador de relaciones"
 
 #: lib/Horde/Form/VarRenderer/Xhtml.php:459
-#, fuzzy
 msgid "Remove column"
-msgstr "Eliminar usuario"
+msgstr "Eliminar columna"
 
 #: lib/Horde/Form/Renderer/Xhtml.php:298
 msgid "Required Field"
@@ -569,19 +560,16 @@ msgid "Select none"
 msgstr "Anular selección"
 
 #: www/test.php:22
-#, fuzzy
 msgid "Select something"
-msgstr "Anular selección"
+msgstr "Seleccionar cualquier cosa"
 
 #: www/test.php:48
-#, fuzzy
 msgid "Select something2"
-msgstr "Anular selección"
+msgstr "Seleccionar cualquier cosa"
 
 #: www/test.php:33
-#, fuzzy
 msgid "Select:"
-msgstr "Seleccionar todo"
+msgstr "Seleccionar:"
 
 #: lib/Horde/Form/VarRenderer/Xhtml.php:948
 msgid "Send SMS"
@@ -609,9 +597,8 @@ msgid "Show seconds?"
 msgstr "¿Mostrar segundos?"
 
 #: www/test.php:36
-#, fuzzy
 msgid "Simple description"
-msgstr "Descripción completa"
+msgstr "Descripción simple"
 
 #: lib/Horde/Form.php:858 lib/Horde/Form.php:878 lib/Horde/Form.php:1930
 #: lib/Horde/Form.php:2727 lib/Horde/Form.php:2912
@@ -651,11 +638,13 @@ msgid "The text you entered did not match the text on the screen."
 msgstr "El texto introducido no coincide con el texto de la pantalla."
 
 #: lib/Horde/Form.php:1042
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "There are too many characters in this field. You have entered %s characters; "
 "you must enter less than %s."
-msgstr "En este campo hay demasiados caracteres. Ha introducido %d carácter; "
+msgstr ""
+"En este campo hay demasiados caracteres. Ha introducido %s caracteres; Debe "
+"introducir menos de %s."
 
 #: lib/Horde/Form.php:2933 lib/Horde/Form/Type/CreditCard.php:18
 msgid "This does not seem to be a valid card number."
@@ -737,9 +726,9 @@ msgid "Username"
 msgstr "Usuario"
 
 #: lib/Horde/Form.php:834 lib/Horde/Form/Type/String.php:29
-#, fuzzy, php-format
+#, php-format
 msgid "Value is over the maximum length of %s."
-msgstr "El valor excede la longitud máxima de %d."
+msgstr "El valor excede la longitud máxima de %s."
 
 #: lib/Horde/Form.php:1928 lib/Horde/Form.php:1963 lib/Horde/Form.php:2007
 #: lib/Horde/Form.php:2725
@@ -777,7 +766,7 @@ msgstr "No introdujo una dirección de correo válida."
 
 #: www/test.php:57
 msgid "You have to fill in some long text here"
-msgstr ""
+msgstr "Debe rellenar un texto largo aquí"
 
 #: lib/Horde/Form.php:901 lib/Horde/Form/Type/Phone.php:19
 msgid ""
