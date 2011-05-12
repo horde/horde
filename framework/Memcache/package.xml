@@ -3,7 +3,7 @@
  <name>Horde_Memcache</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Memcache API</summary>
- <description>The Horde_Memcache library provides an API to access a memcache installation in Horde code.</description>
+ <description>Provides an API to access a memcache installation.</description>
  <lead>
   <name>Michael Slusarz</name>
   <user>slusarz</user>
