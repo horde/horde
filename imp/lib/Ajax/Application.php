@@ -223,6 +223,33 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
+     * AJAX action: Check access rights for a mailbox, and provide number of
+     * messages to be emptied.
+     *
+     * Variables used:
+     *   - mbox: (string) The name of the mailbox to check.
+     *
+     * @return integer  The number of messages to be deleted.
+     */
+    public function emptyMailboxPrepare()
+    {
+        $mbox = IMP_Mailbox::get($this->_vars->mbox);
+
+        if (!$mbox->access_deletemsgs || !$mbox->access_expunge) {
+            $GLOBALS['notification']->push(sprintf(_("The folder \"%s\" may not be emptied."), $mbox->display), 'horde.error');
+            return 0;
+        }
+
+        $poll_info = $mbox->poll_info;
+        if (empty($poll_info->msgs)) {
+            $GLOBALS['notification']->push(sprintf(_("The folder \"%s\" is already empty."), $mbox->display), 'horde.message');
+            return 0;
+        }
+
+        return $poll_info->msgs;
+    }
+
+    /**
      * AJAX action: Empty a mailbox.
      *
      * Variables used:
@@ -2135,8 +2162,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - m: (string) [mbox] The mailbox value.
      *   - n: (boolean) [non-imap] A non-IMAP element?
      *        DEFAULT: no
-     *   - ne: (boolean) [no expunge] Is expunging not allowed in mailbox?
-     *         DEFAULT: no
      *   - pa: (string) [parent] The parent element.
      *         DEFAULT: DIMP.conf.base_mbox
      *   - po: (boolean) [polled] Is the element polled?
@@ -2196,11 +2221,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 $ob->s = 1;
             } elseif (empty($ob->v) && $elt->children) {
                 $ob->cl = 'exp';
-            }
-
-            if (empty($ob->v) &&
-                (!$elt->access_deletemsgs || !$elt->access_expunge)) {
-                $ob->ne = 1;
             }
         }
 

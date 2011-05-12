@@ -795,14 +795,11 @@ var DimpBase = {
 
         case 'ctx_folder_empty':
             tmp = e.findElement('LI');
-
-            this.folderaction = DimpCore.doAction.bind(DimpCore, 'emptyMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this._emptyMailboxCallback.bind(this) });
-
-            IMPDialog.display({
-                cancel_text: DIMP.text.cancel,
-                noinput: true,
-                ok_text: DIMP.text.ok,
-                text: DIMP.text.empty_folder.sub('%s', tmp.readAttribute('title'))
+            DimpCore.doAction('emptyMailboxPrepare', {
+                access: 'empty',
+                mbox: tmp.retrieve('mbox')
+            },{
+                callback: this._emptyMailboxPromptCallback.bind(this, tmp.retrieve('mbox'), tmp.readAttribute('title'))
             });
             break;
 
@@ -1098,7 +1095,6 @@ var DimpBase = {
             tmp = $(this.getSubFolderId(baseelt.readAttribute('id')));
             [ $('ctx_folder_expand').up() ].invoke(tmp ? 'show' : 'hide');
 
-            [ $('ctx_folder_empty') ].invoke(baseelt.retrieve('ne') ? 'hide' : 'show');
             // Fall-through
 
         case 'ctx_container':
@@ -2594,6 +2590,20 @@ var DimpBase = {
         }
     },
 
+    _emptyMailboxPromptCallback: function(mbox, title, r)
+    {
+        if (r.response) {
+            this.folderaction = DimpCore.doAction.bind(DimpCore, 'emptyMailbox', { mbox: mbox }, { callback: this._emptyMailboxCallback.bind(this) });
+
+            IMPDialog.display({
+                cancel_text: DIMP.text.cancel,
+                noinput: true,
+                ok_text: DIMP.text.ok,
+                text: DIMP.text.empty_folder.sub('%s', title).sub('%d', r.response)
+            });
+        }
+    },
+
     _emptyMailboxCallback: function(r)
     {
         if (r.response.mbox) {
@@ -2910,9 +2920,6 @@ var DimpBase = {
         }
 
         li.store('ftype', ftype);
-        if (ob.ne) {
-            li.store('ne', 1);
-        }
 
         // Make the new folder a drop target.
         if (!ob.v) {
