@@ -378,7 +378,7 @@ class Horde_Share_Sql extends Horde_Share_Base
         }
 
         $query = 'SELECT DISTINCT s.* '
-            . $this->getShareCriteria($userid, $params['perm'], $params['attributes'], $params['parent'], $params['all_levels'])
+            . $this->_getShareCriteria($userid, $params['perm'], $params['attributes'], $params['parent'], $params['all_levels'])
             . ' ORDER BY ' . $sortfield
             . (($params['direction'] == 0) ? ' ASC' : ' DESC');
 
@@ -466,7 +466,7 @@ class Horde_Share_Sql extends Horde_Share_Base
                                $from = 0, $count = 0)
     {
         $sql = 'SELECT DISTINCT(s.share_owner) '
-            . $this->getShareCriteria($this->_user, $perm, null, $parent, $allLevels);
+            . $this->_getShareCriteria($this->_user, $perm, null, $parent, $allLevels);
 
         if ($count) {
             $sql = $this->_db->addLimitOffset($sql, array('limit' => $count, 'offset' => $from));
@@ -504,7 +504,7 @@ class Horde_Share_Sql extends Horde_Share_Base
     public function countOwners($perm = Horde_Perms::SHOW, $parent = null, $allLevels = true)
     {
         $sql = 'SELECT COUNT(DISTINCT(s.share_owner)) '
-            . $this->getShareCriteria($this->_user, $perm, null, $parent, $allLevels);
+            . $this->_getShareCriteria($this->_user, $perm, null, $parent, $allLevels);
 
         try {
             $results = $this->_db->selectValue($sql);
@@ -595,7 +595,7 @@ class Horde_Share_Sql extends Horde_Share_Base
         $attributes = null, $parent = null, $allLevels = true)
     {
         $query = 'SELECT COUNT(DISTINCT s.share_id) '
-            . $this->getShareCriteria($userid, $perm, $attributes, $parent, $allLevels);
+            . $this->_getShareCriteria($userid, $perm, $attributes, $parent, $allLevels);
 
         try {
             $this->_db->selectValue($query);
@@ -737,9 +737,9 @@ class Horde_Share_Sql extends Horde_Share_Base
      * @return string  The criteria string for fetching this user's shares.
      * @throws Horde_Share_Exception
      */
-    public function getShareCriteria($userid, $perm = Horde_Perms::SHOW,
-                                     $attributes = null, $parent = null,
-                                     $allLevels = true)
+    protected function _getShareCriteria($userid, $perm = Horde_Perms::SHOW,
+                                         $attributes = null, $parent = null,
+                                         $allLevels = true)
     {
         $query = $where = '';
         if (!is_null($perm)) {

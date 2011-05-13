@@ -161,7 +161,7 @@ class Horde_Share_Datatree extends Horde_Share_Base
     {
         $key = serialize(array($userid, $params['perm'], $params['attributes']));
         if (empty($this->_listCache[$key])) {
-            $criteria = $this->getShareCriteria($userid, $params['perm'],
+            $criteria = $this->_getShareCriteria($userid, $params['perm'],
                                                 $params['attributes']);
             $sharelist = $this->_datatree->getByAttributes($criteria,
                                                            DATATREE_ROOT,
@@ -195,7 +195,7 @@ class Horde_Share_Datatree extends Horde_Share_Base
     protected function _countShares($userid, $perm = Horde_Perms::SHOW,
                                     $attributes = null)
     {
-        $criteria = $this->getShareCriteria($userid, $perm, $attributes);
+        $criteria = $this->_getShareCriteria($userid, $perm, $attributes);
         return $this->_datatree->countByAttributes($criteria, DATATREE_ROOT, true, 'id');
     }
 
@@ -281,7 +281,7 @@ class Horde_Share_Datatree extends Horde_Share_Base
      *
      * @return array  The criteria tree for fetching this user's shares.
      */
-    public function getShareCriteria($userid, $perm = Horde_Perms::SHOW,
+    protected function _getShareCriteria($userid, $perm = Horde_Perms::SHOW,
                                          $attributes = null)
     {
         if (!empty($userid)) {
