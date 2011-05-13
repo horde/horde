@@ -1795,6 +1795,8 @@ KronolithCore = {
                 style = { backgroundColor: Kronolith.conf.calendars[calendar[0]][calendar[1]].bg,
                           color: Kronolith.conf.calendars[calendar[0]][calendar[1]].fg };
 
+            div.writeAttribute('title', event.value.t);
+
             if (event.value.al) {
                 if (view == 'day') {
                     $('kronolithViewDay').down('.kronolithAllDayContainer').insert(div.setStyle(style));
@@ -2078,6 +2080,7 @@ KronolithCore = {
                 div = _createElement(event)
                 .setStyle({ backgroundColor: Kronolith.conf.calendars[calendar[0]][calendar[1]].bg,
                             color: Kronolith.conf.calendars[calendar[0]][calendar[1]].fg });
+            div.writeAttribute('title', event.value.t);
             monthDay.insert(div);
             if (event.value.pe) {
                 div.setStyle({ cursor: 'move' });
