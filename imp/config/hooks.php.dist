@@ -38,6 +38,7 @@ class IMP_Hooks
      * AUTHENTICATION HOOK: post-authentication actions.
      *
      * See horde/config/hooks.php.dist for more information.
+     * See preauthenticate() above for the list of credentials available.
      */
 //     public function postauthenticate($userId, $credentials)
 //     {
