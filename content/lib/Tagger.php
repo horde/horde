@@ -694,6 +694,11 @@ class Content_Tagger
                 continue;
             }
 
+            // Don't attempt to tag with an empty value
+            if (empty($tag)) {
+                continue;
+            }
+
             // Get the ids for any tags that already exist.
             $sql = 'SELECT tag_id FROM ' . $this->_t('tags')
                 . ' WHERE LOWER(tag_name) = LOWER('
