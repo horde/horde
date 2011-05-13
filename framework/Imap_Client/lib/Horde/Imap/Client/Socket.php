@@ -1892,13 +1892,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _parseSearch($data)
     {
-        // The extended search response will have a (NAME VAL) entry(s) at
-        // the end of the returned data. Do a check for this data.
-        if (is_array(end($data))) {
-            $this->_parseEsearch(array_pop($data));
-        }
-
-        $this->_temp['searchresp'] = $data;
+        /* More than one search response may be sent. */
+        $this->_temp['searchresp'] = array_merge($this->_temp['searchresp'], $data);
     }
 
     /**
@@ -1932,7 +1927,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $tag = strtoupper($data[$i]);
             switch ($tag) {
             case 'ALL':
-                $this->_temp['searchresp'] = $this->utils->fromSequenceString($val);
+                $this->_parseSearch($this->utils->fromSequenceString($val));
                 break;
 
             case 'COUNT':
@@ -1944,7 +1939,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 break;
 
             case 'PARTIAL':
-                $this->_temp['searchresp'] = $this->utils->fromSequenceString(end($val));
+                $this->_parseSearch($this->utils->fromSequenceString(end($val)));
                 break;
             }
         }
