@@ -10,6 +10,14 @@
 
 These are instructions to upgrade from earlier Passwd versions.
 
+Upgrading Passwd is as easy as running::
+
+   pear upgrade -a -B horde/passwd
+
+If you want to upgrade from a Passwd version prior to 4.0, please
+follow the instructions in INSTALL_ to install the most recent Passwd
+version using the PEAR installer.
+
 After updating to a newer Passwd version, you **always** need to update
 configurations and database schemes. Log in as an administrator, go to
 Administration => Configuration and update anything that's highlighted as
