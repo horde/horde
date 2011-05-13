@@ -570,14 +570,15 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
             . 'syncml_uid = ?';
         $values = array($this->_syncDeviceID, $database, $this->_user);
         try {
-            $res = $this->_db->selectOne($query, $values);
-            return array(
-                $res['syncml_clientanchor'],
-                $res['syncml_serveranchor']
-            );
-        } catch (Horde_Db_Exception $e) {
-            return false;
-        }
+            if ($res = $this->_db->selectOne($query, $values)) {
+                return array(
+                    $res['syncml_clientanchor'],
+                    $res['syncml_serveranchor']
+                );
+            }
+        } catch (Horde_Db_Exception $e) {}
+
+        return false;
     }
 
     /**
