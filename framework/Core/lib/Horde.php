@@ -571,7 +571,7 @@ HTML;
 
         case 'problem':
             return self::url('services/problem.php', false, $opts)
-                ->add('return_url', urlencode(self::selfUrl(true, true, true)));
+                ->add('return_url', self::selfUrl(true, true, true));
 
         case 'sidebar':
             return self::url('services/sidebar.php', false, $opts);
