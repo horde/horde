@@ -205,7 +205,7 @@ class Ansel_Faces_Base
         $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')->listGalleries(
             array('perm' => Horde_Perms::READ));
 
-        $sql = 'SELECT COUNT(*) FROM ansel_faces f WHERE f.gallery_id IN(' . implode(',' $galleries) . ')';
+        $sql = 'SELECT COUNT(*) FROM ansel_faces f WHERE f.gallery_id IN (' . implode(',', $galleries) . ')';
         try {
             return $GLOBALS['ansel_db']->selectValue($sql);
         } catch (Horde_Db_Exception $e) {
