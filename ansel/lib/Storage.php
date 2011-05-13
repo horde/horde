@@ -434,7 +434,8 @@ class Ansel_Storage
             throw new Ansel_Exception($e);
         }
 
-        if (is_null($image)) {
+        if (!$image) {
+                        Horde::debug(debug_backtrace());
             throw new Horde_Exception_NotFound(_("Photo not found"));
         } else {
             $image['image_filename'] = Horde_String::convertCharset($image['image_filename'], $GLOBALS['conf']['sql']['charset'], 'UTF-8');
@@ -875,11 +876,13 @@ class Ansel_Storage
      *                             ignored if this is non-empty).
      * @param mixed $sort          The field(s) to sort by.
      *
-     * @return array  An array of image_ids
+     * @return array  An array of images. Either an array of ids, or an array
+     *                of field values, keyed by id.
      * @throws Ansel_Exception
      */
     public function listImages($gallery_id, $from = 0, $count = 0,
-                        $fields = 'image_id', $where = '', $sort = 'image_sort')
+                               $fields = 'image_id', $where = '',
+                               $sort = 'image_sort')
     {
         if (is_array($fields)) {
             $field_count = count($fields);
@@ -904,7 +907,12 @@ class Ansel_Storage
         $sql = $this->_db->addLimitOffset($sql, array('limit' => $count, 'offset' => $from));
         try {
             if ($field_count > 1) {
-                return $this->_db->selectAll($sql);
+                $results = $this->_db->selectAll($sql);
+                $images = array();
+                foreach ($results as $image) {
+                    $images[$image['image_id']] = $image;
+                }
+                return $images;
             } else {
                 return $this->_db->selectValues($sql);
             }
