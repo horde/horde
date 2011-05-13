@@ -2997,6 +2997,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             $this->_sendLine($cmd);
+            $this->_storeUpdateCache('replace', $options['replace']);
         } else {
             foreach (array('add' => '+', 'remove' => '-') as $k => $v) {
                 if (!empty($options[$k])) {
@@ -3007,71 +3008,82 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     }
 
                     $this->_sendLine($cmdtmp);
+                    $this->_storeUpdateCache($k, $options[$k]);
                 }
-            }
-        }
-
-        /* Update the flags in the cache. Only update if store was successful
-         * and flag information was not returned. */
-        if (isset($this->_init['enabled']['CONDSTORE']) &&
-            !empty($this->_temp['mailbox']['highestmodseq']) &&
-            !empty($this->_temp['fetchresp']['seq'])) {
-            $fr = $this->_temp['fetchresp'];
-            $tocache = $uids = array();
-
-            if (empty($fr['uid'])) {
-                $res = $fr['seq'];
-                $seq_res = $this->_getSeqUidLookup(new Horde_Imap_Client_Ids(array_keys($res), true));
-            } else {
-                $res = $fr['uid'];
-                $seq_res = null;
-            }
-
-            foreach (array_keys($res) as $key) {
-                if (!$res[$key]->exists(Horde_Imap_Client::FETCH_FLAGS)) {
-                    $uids[$key] = is_null($seq_res)
-                        ? $key
-                        : $seq_res['lookup'][$key];
-                }
-            }
-
-            /* Get the list of flags from the cache. */
-            if (empty($options['replace'])) {
-                /* Caching is guaranteed to be active if CONDSTORE is
-                 * active. */
-                $data = $this->cache->get($this->_selected, array_values($uids), array('HICflags'), $this->_temp['mailbox']['uidvalidity']);
-
-                foreach ($uids as $key => $uid) {
-                    $flags = isset($data[$uid]['HICflags'])
-                        ? $data[$uid]['HICflags']
-                        : array();
-                    if (!empty($options['add'])) {
-                        $flags = array_merge($flags, $options['add']);
-                    }
-                    if (!empty($options['remove'])) {
-                        $flags = array_diff($flags, $options['remove']);
-                    }
-
-                    $tocache[$uid] = $res[$key];
-                    $tocache[$uid]->setFlags(array_keys(array_flip($flags)));
-                }
-            } else {
-                foreach ($uids as $uid) {
-                    $tocache[$uid] = $res[$key];
-                    $tocache[$uid]->setFlags($options['replace']);
-                }
-            }
-
-            if (!empty($tocache)) {
-                $this->_updateCache($tocache, array(
-                    'fields' => array(
-                        Horde_Imap_Client::FETCH_FLAGS
-                    )
-                ));
             }
         }
 
         return $this->_temp['modified'];
+    }
+
+    /**
+     * Update the flags in the cache. Only update if STORE was successful and
+     * flag information was not returned.
+     */
+    protected function _storeUpdateCache($type, $update_flags)
+    {
+        if (!isset($this->_init['enabled']['CONDSTORE']) ||
+            empty($this->_temp['mailbox']['highestmodseq']) ||
+            empty($this->_temp['fetchresp']['seq'])) {
+            return;
+        }
+
+        $fr = $this->_temp['fetchresp'];
+        $tocache = $uids = array();
+
+        if (empty($fr['uid'])) {
+            $res = $fr['seq'];
+            $seq_res = $this->_getSeqUidLookup(new Horde_Imap_Client_Ids(array_keys($res), true));
+        } else {
+            $res = $fr['uid'];
+            $seq_res = null;
+        }
+
+        foreach (array_keys($res) as $key) {
+            if (!$res[$key]->exists(Horde_Imap_Client::FETCH_FLAGS)) {
+                $uids[$key] = is_null($seq_res)
+                    ? $key
+                    : $seq_res['lookup'][$key];
+            }
+        }
+
+        /* Get the list of flags from the cache. */
+        switch ($type) {
+        case 'add':
+        case 'remove':
+            /* Caching is guaranteed to be active if CONDSTORE is active. */
+            $data = $this->cache->get($this->_selected, array_values($uids), array('HICflags'), $this->_temp['mailbox']['uidvalidity']);
+
+            foreach ($uids as $key => $uid) {
+                $flags = isset($data[$uid]['HICflags'])
+                    ? $data[$uid]['HICflags']
+                    : array();
+                if ($type == 'add') {
+                    $flags = array_merge($flags, $update_flags);
+                } else {
+                    $flags = array_diff($flags, $update_flags);
+                }
+
+                $tocache[$uid] = $res[$key];
+                $tocache[$uid]->setFlags(array_keys(array_flip($flags)));
+            }
+            break;
+
+        case 'update':
+            foreach ($uids as $uid) {
+                $tocache[$uid] = $res[$key];
+                $tocache[$uid]->setFlags($update_flags);
+            }
+            break;
+        }
+
+        if (!empty($tocache)) {
+            $this->_updateCache($tocache, array(
+                'fields' => array(
+                    Horde_Imap_Client::FETCH_FLAGS
+                )
+            ));
+        }
     }
 
     /**
@@ -4367,7 +4379,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'MODIFIED':
             // Defined by RFC 4551 [3.2]
-            $this->_temp['modified'] = new Horde_Imap_Client_Ids($data);
+            $this->_temp['modified']->add($data);
             break;
 
         case 'CLOSED':
