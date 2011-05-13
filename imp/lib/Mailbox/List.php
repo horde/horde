@@ -408,7 +408,7 @@ class IMP_Mailbox_List implements Countable, Serializable
 
         $ret = array('msgcount' => count($this->_sorted));
 
-        $page_size = $GLOBALS['prefs']->getValue('max_msgs');
+        $page_size = max($GLOBALS['prefs']->getValue('max_msgs'), 1);
 
         if ($ret['msgcount'] > $page_size) {
             $ret['pagecount'] = ceil($ret['msgcount'] / $page_size);
