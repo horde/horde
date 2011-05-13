@@ -2,6 +2,7 @@
 v4.0.3-git
 ----------
 
+[mjr] Fix usage of countOwners() and listOwners() in the Sqlng driver.
 [mms] Fix return link after reporting problem (Bug #10069).
 [jan] Add button to update all configurations with default values at once.
 [jan] Update DataTree conversion scripts for Horde 4.

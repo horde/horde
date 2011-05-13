@@ -29,7 +29,7 @@ owns or has access to.</description>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mjr] Fix usage of countOwners() and listOwners() in the Sqlng driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -730,7 +730,7 @@ Initial release as a PEAR package
    <date>2011-05-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mjr] Fix usage of countOwners() and listOwners() in the Sqlng driver.
    </notes>
   </release>
  </changelog>
