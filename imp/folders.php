@@ -209,7 +209,7 @@ case 'folders_empty_mailbox':
 case 'mark_folder_seen':
 case 'mark_folder_unseen':
     if (!empty($folder_list)) {
-        $injector->getInstance('IMP_Message')->flagAllInMailbox(array('seen'), $folder_list, ($vars->actionID == 'mark_folder_seen'));
+        $injector->getInstance('IMP_Message')->flagAllInMailbox(array('\\seen'), $folder_list, ($vars->actionID == 'mark_folder_seen'));
     }
     break;
 
