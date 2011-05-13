@@ -150,6 +150,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $this->_imptmp = array(
                 'blockimg' => null,
                 'cid' => null,
+                'cid_used' => array(),
                 'img' => $blockimg,
                 'imgblock' => false,
                 'inline' => $inline,
@@ -239,6 +240,12 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         /* Filter bad language. */
         $data = IMP::filterText($data);
+
+        /* Add unused cid information. */
+        if ($related_part &&
+            $unused = array_diff($this->_imptmp['cid'], $this->_imptmp['cid_used'])) {
+            $related_part->setMetadata('related_cids_unused', array_values($unused));
+        }
 
         return array(
             'data' => $data,
@@ -342,6 +349,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                             'imp_img_view' => 'data'
                         )));
                         $node->setAttribute('src', $val);
+                        $this->_imptmp['cid_used'][] = $this->_imptmp['cid'][$val];
                     }
 
                     /* Block images.*/
@@ -378,6 +386,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                             'imp_img_view' => 'data'
                         )));
                         $node->setAttribute('background', $val);
+                        $this->_imptmp['cid_used'][] = $this->_imptmp['cid'][$val];
                     }
 
                     /* Block images.*/
@@ -432,6 +441,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 'id' => $this->_imptmp['cid'][$matches[2]],
                 'imp_img_view' => 'data'
             )));
+            $this->_imptmp['cid_used'][] = $this->_imptmp['cid'][$matches[2]];
         } else {
             $this->_imptmp['node']->setAttribute('htmlimgblocked', $matches[2]);
             $this->_imptmp['imgblock'] = true;

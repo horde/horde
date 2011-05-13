@@ -2,6 +2,8 @@
 v5.0.4-git
 ----------
 
+[mms] Workaround broken messages by allow viewing multipart/related parts that
+      are not referenced in the base part (Request #9827).
 [mms] Use ACLs to determine when to hide Purge Deleted option (Request #9537).
 [mms] Cache various calculated mailbox information in the session.
 [mms] Fix adding flags in advanced search (Bug #10049).
