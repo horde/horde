@@ -530,11 +530,8 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
     public function setValue($key, $val, $identity = null)
     {
         if ($key == 'sent_mail_folder') {
-            $mbox_ob = $GLOBALS['injector']->getInstance('IMP_Factory_Mailbox');
-            foreach ($this->getAllSentmailFolders() as $val) {
-                $mbox_ob->expire($val);
-            }
             $val = IMP_Mailbox::prefTo($val);
+            $val->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
         }
         return parent::setValue($key, $val, $identity);
     }

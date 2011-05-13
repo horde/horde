@@ -408,9 +408,12 @@ class IMP_Imap implements Serializable
         switch ($method) {
         case 'createMailbox':
         case 'renameMailbox':
-        case 'setACL':
             // Mailbox is first parameter.
-            $GLOBALS['injector']->getInstance('IMP_Factory_Mailbox')->expire($params[0]);
+            IMP_Mailbox::get($params[0])->expire();
+            break;
+
+        case 'setACL':
+            IMP_Mailbox::get($params[0])->expire(IMP_Mailbox::CACHE_ACL);
             break;
 
         case 'login':

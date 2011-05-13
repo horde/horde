@@ -506,7 +506,7 @@ class IMP_Prefs_Ui
         global $browser, $notification, $prefs, $registry, $session;
 
         if ($prefs->isDirty('use_trash')) {
-            $GLOBALS['injector']->getInstance('IMP_Factory_Mailbox')->expire(IMP_Mailbox::getPref('trash_folder'));
+            IMP_Mailbox::getPref('trash_folder')->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
         }
 
         /* Always check to make sure we have a valid trash folder if delete to
@@ -1901,7 +1901,7 @@ class IMP_Prefs_Ui
             return false;
         }
 
-        $injector->getInstance('IMP_Factory_Mailbox')->expire(IMP_Mailbox::getPref($pref));
+        IMP_Mailbox::getPref($pref)->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
 
         if ($folder == self::PREF_NO_FOLDER) {
             return $prefs->setValue($pref, '');

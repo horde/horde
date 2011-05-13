@@ -1971,7 +1971,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $mbox = IMP_Mailbox::get($this->_vars->view);
 
-        if ($mbox->hideDeletedMsgs(false, true)) {
+        if ($mbox->hideDeletedMsgs(true)) {
             $del->remove = 1;
         }
 

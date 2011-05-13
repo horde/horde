@@ -27,6 +27,8 @@
  */
 class IMP_Factory_Mailbox extends Horde_Core_Factory_Base
 {
+    const STORAGE_KEY = 'mbox/';
+
     /**
      * Instances.
      *
@@ -54,7 +56,7 @@ class IMP_Factory_Mailbox extends Horde_Core_Factory_Base
             }
 
             $ob = new IMP_Mailbox($mbox);
-            $ob->cache = $GLOBALS['session']->get('imp', 'mbox_ob/' . $mbox, Horde_Session::TYPE_ARRAY);
+            $ob->cache = $GLOBALS['session']->get('imp', self::STORAGE_KEY . $mbox, Horde_Session::TYPE_ARRAY);
 
             $this->_instances[$mbox] = $ob;
         }
@@ -77,21 +79,16 @@ class IMP_Factory_Mailbox extends Horde_Core_Factory_Base
     public function shutdown()
     {
         foreach ($this->_instances as $ob) {
-            if ($ob->changed) {
-                $GLOBALS['session']->set('imp', 'mbox_ob/' . strval($ob), $ob->cache);
+            switch ($ob->changed) {
+            case IMP_Mailbox::CHANGED_YES:
+                $GLOBALS['session']->set('imp', self::STORAGE_KEY . $ob, $ob->cache);
+                break;
+
+            case IMP_Mailbox::CHANGED_DELETE:
+                $GLOBALS['session']->remove('imp', self::STORAGE_KEY . $ob);
+                break;
             }
         }
-    }
-
-    /**
-     * Expire a cache entry.
-     *
-     * @param string $mbox  A mailbox name.
-     */
-    public function expire($mbox)
-    {
-        $GLOBALS['session']->remove('imp', 'mbox_ob/' . $mbox);
-        unset($this->_instance[$mbox]);
     }
 
 }
