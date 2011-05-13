@@ -3503,6 +3503,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
     }
 
+    /* Overriden methods. */
+
     /**
      */
     protected function _getSeqUidLookup(Horde_Imap_Client_Ids $ids,
@@ -3554,6 +3556,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $ob['uids']->add($res['uids']);
 
         return $ob;
+    }
+
+    /**
+     */
+    protected function _getSearchCache($type, $mailbox, $options)
+    {
+        /* Search caching requires MODSEQ, which may not be active for a
+         * mailbox. */
+        return empty($this->_temp['mailbox']['highestmodseq'])
+            ? null
+            : parent::_getSearchCache($type, $mailbox, $options);
     }
 
     /* Internal functions. */

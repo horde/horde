@@ -3261,7 +3261,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @return mixed  If retrieved, array is returned with data in key 'data'
      *                and the search ID in key 'id'.
-     *                Otherwise, returns cacheid.
+     *                If caching is available, returns cacheid string.
+     *                Returns null if caching is not available.
      */
     protected function _getSearchCache($type, $mailbox, $options)
     {
