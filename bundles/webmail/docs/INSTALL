@@ -61,9 +61,11 @@ detailed instructions, start reading below at Prerequisites_.
    Go to Administration => Configuration => Horde
    (Or navigate to http://your-server/horde/admin/config)
 
+   Go to Administration => Configuration. Click ``Update all configurations``.
+
 8. Create database tables
 
-   Go to Administration => Configuration. Click ``Update All DB Schemas``.
+   Go to Administration => Configuration. Click ``Update all DB schemas``.
 
 9. Test Horde Groupware Webmail Edition::
 
@@ -531,19 +533,52 @@ Configuring Horde Groupware Webmail Edition
 
 2. Configuring Horde Groupware Webmail Edition
 
+   To configure Horde Groupware Webmail Edition, change to the
+   ``config/`` directory of the installed distribution, and copy the
+   ``conf.php.dist`` configuration file to ``conf.php``.
+
+   Documentation on the format and purpose of the configuration files
+   in the ``config/`` directory can be found in each file. The
+   defaults will be correct for most sites. If you wish to customize
+   Horde Groupware Webmail Edition's appearance and behavior, create
+   "local" files for the configuration file you want to change. For
+   example if you want to change the default value and lock a
+   preference, create a ``config/prefs.local.php`` file with the
+   following content::
+
+      <?php
+      $_prefs['prefname']['value'] = 'somedefault';
+      $_prefs['prefname']['locked'] = true;
+
+   This works analogous with any other configuration file.
+
+   .. Warning:: All configuration files in Horde Groupware Webmail
+                Edition are PHP scripts that are executed by the web
+                server. If you make an error in one of these files,
+                Horde might stop working. Thus it is always a good
+                idea to test the configuration files after you edited
+                them. If you want to test mime_drivers.local.php for
+                example run::
+
+                   php -l mime_drivers.local.php
+
 3. Completing Configuration
 
-   Continue to configure Horde through all the tabs of the configuration
-   interface and click on ``Generate Horde Configuration``. An important item
-   that you probably want to configure is the ``Database Settings``, which
-   defines the database configuration that is used, by default, for several
-   different Horde sub-systems.
+   Go to Administration => Configuration
+   (Or navigate to http://your-server/horde/admin/config).
 
-   .. Important:: By default Horde will be using database backends for most
-                  sub-systems. If you do not plan to use a database with Horde,
-                  you need to go through all tabs of the configuration screen
-                  and change the configuration for those systems from ``SQL``
-                  to a suitable alternative.
+   Click the "Horde" link, open the "Database" tab, enter your
+   database information.
+
+   Open the "Authentication" tab, set the ``$conf[auth][driver]``
+   setting to "Let a Horde application handle authentication". Set the
+   ``$conf[auth][admins]`` setting to an **existing** (your) user name
+   of the mail server.
+
+   Click "Generate Horde Configuation". Go back to the "Configuration"
+   screen and click "Update all configurations.". If you get warnings
+   that the configuration files couldn't be saved, follow the
+   instructions on the screen to save them.
 
 4. Creating databases
 
