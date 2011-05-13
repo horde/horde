@@ -20,41 +20,16 @@ class Ansel
     /**
      * Create and initialize the database object.
      *
-     * @return mixed MDB2 object
-     * @throws Ansel_Exception
+     * @return Horde_Db_Adapter
      */
-    static public function &getDb()
+    static public function getDb()
     {
-        $config = $GLOBALS['conf']['sql'];
-        unset($config['charset']);
-        $mdb = MDB2::singleton($config);
-        if ($mdb instanceof PEAR_Error) {
-            throw new Ansel_Exception($mdb->getMessage());
-        }
-        $mdb->setOption('seqcol_name', 'id');
-
-        /* Set DB portability options. */
-        switch ($mdb->phptype) {
-        case 'mssql':
-            $mdb->setOption('field_case', CASE_LOWER);
-            $mdb->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ERRORS | MDB2_PORTABILITY_RTRIM | MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES);
-            break;
-        default:
-            switch ($mdb->phptype) {
-            case 'oci8':
-                $mdb->setOption('emulate_database', false);
-                break;
-            }
-            $mdb->setOption('field_case', CASE_LOWER);
-            $mdb->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ERRORS | MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES);
-        }
-
-        return $mdb;
+        return $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
     }
 
     static public function keysFromNames($gallery)
     {
-        return $gallery->getId();
+        return $gallery->id;
     }
 
     /**
@@ -96,14 +71,14 @@ class Ansel
         }
 
         foreach ($galleries as $gallery) {
-            $gallery_id = $gallery->getId();
+            $gallery_id = $gallery->id;
             $gallery_name = $gallery->get('name');
             $label = Horde_String::abbreviate($gallery_name);
             $len = Horde_String::length($gallery_name);
             $treeparams = array();
             $treeparams['selected'] = $gallery_id == $params->selected;
             $parent = $gallery->getParent();
-            $parent = empty($parent) ? null : $parent->getId();
+            $parent = empty($parent) ? null : $parent->id;
             $tree->addNode($gallery->id, $parent, $label, null, true, $treeparams);
         }
 

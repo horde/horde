@@ -35,13 +35,20 @@ class Ansel_Style
      */
     protected $_properties;
 
+    /**
+     * Work around issue with arrays and __get
+     */
+    public $widgets = array();
+
     public function __construct($properties)
     {
         $widgets = !empty($properties['widgets']) ? $properties['widgets'] : array();
         unset($properties['widgets']);
+        $properties['widgets'] = null;
+        $this->widgets = array_merge(array('Actions' => array()), $widgets);
+
         $this->_properties = array_merge(array('gallery_view' => 'Gallery',
-                                               'background' => 'none',
-                                               'widgets' => array_merge(array('Actions' => array()), $widgets)),
+                                               'background' => 'none'),
                                          $properties);
     }
 
@@ -66,7 +73,7 @@ class Ansel_Style
         return $view;
     }
 
-    public function &__get($property)
+    public function __get($property)
     {
         if ($property == 'keyimage_type') {
             // Force the same type of effect for key image/stacks if available
@@ -98,6 +105,19 @@ class Ansel_Style
     public function __isset($property)
     {
         return !empty($property);
+    }
+
+    /**
+     * HACK - not sure how to upgrade the serialized Ansel_Style objects in the
+     * stored galleries... the data is protected, so unserializing it wouldn't
+     * give access to the needed information to move it.
+     */
+    public function __wakeup()
+    {
+       if (!empty($this->_properties['widgets'])) {
+           $this->widgets = $this->_properties['widgets'];
+           unset($this->_properties['widgets']);
+       }
     }
 
 }

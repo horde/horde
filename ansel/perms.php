@@ -27,19 +27,20 @@ $actionID = Horde_Util::getFormData('actionID', 'edit');
 switch ($actionID) {
 case 'edit':
     try {
-        $share = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery(Horde_Util::getFormData('cid', 0));
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery(Horde_Util::getFormData('cid', 0));
+        $share = $gallery->getShare();
         $form = 'edit.inc';
         $perm = $share->getPermission();
     } catch (Horde_Exception_NotFound $e) {
-        if (($share_name = Horde_Util::getFormData('share')) !== null) {
-            try {
-                $share = $GLOBALS['injector']->getInstance('Ansel_Storage')->shares->getShare($share_name);
-                $form = 'edit.inc';
-                $perm = $share->getPermission();
-            } catch (Horde_Share_Exception $e) {
-                $notification->push($e->getMessage(), 'horde.error');
-            }
-        }
+        // if (($share_name = Horde_Util::getFormData('share')) !== null) {
+        //     try {
+        //         $share = $GLOBALS['injector']->getInstance('Ansel_Storage')->shares->getShare($share_name);
+        //         $form = 'edit.inc';
+        //         $perm = $share->getPermission();
+        //     } catch (Horde_Share_Exception $e) {
+        //         $notification->push($e->getMessage(), 'horde.error');
+        //     }
+        // }
     }
 
     if (!$GLOBALS['registry']->getAuth() ||
@@ -51,7 +52,8 @@ case 'edit':
 case 'editform':
 case 'editforminherit':
     try {
-        $share = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery(Horde_Util::getFormData('cid'));
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery(Horde_Util::getFormData('cid'));
+        $share = $gallery->getShare();
     } catch (Horde_Share_Exception $e) {
         $notification->push(_("Attempt to edit a non-existent share."), 'horde.error');
     }
@@ -71,8 +73,7 @@ case 'editforminherit':
             if ($old_owner != $GLOBALS['registry']->getAuth() && !$registry->isAdmin()) {
                 $notification->push(_("Only the owner or system administrator may change ownership or owner permissions for a share"), 'horde.error');
             } else {
-                $share->set('owner', $new_owner);
-                $share->save();
+                $gallery->set('owner', $new_owner, true);
                 if (Horde_Util::getFormData('owner_show')) {
                     $perm->addUserPermission($new_owner, Horde_Perms::SHOW, false);
                 } else {
@@ -253,7 +254,7 @@ if (empty($share)) {
     $children = $GLOBALS['injector']
         ->getInstance('Ansel_Storage')
         ->listGalleries(array('perm' => Horde_Perms::READ,
-                              'parent' => $share));
+                              'parent' => $gallery->id));
     $title = sprintf(_("Edit Permissions for %s"), $share->get('name'));
 }
 

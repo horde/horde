@@ -102,7 +102,6 @@ class Ansel_Block_Gallery extends Horde_Core_Block
         if (!empty($this->_params['use_lightbox'])) {
             $params['lightbox'] = true;
         }
-
         $html = Ansel::embedCode($params);
 
         // Be nice to people with <noscript>

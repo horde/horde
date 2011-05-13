@@ -193,8 +193,8 @@ class Ansel_View_GalleryProperties
                 'download' => $gallery->get('download'),
                 'mode' => $gallery->get('view_mode'),
                 'passwd' => $gallery->get('passwd'),
-                'parent' => !is_null($parent) ? $parent->getId() : $parent,
-                'id' => $gallery->getId(),
+                'parent' => !is_null($parent) ? $parent->id : $parent,
+                'id' => $gallery->id,
                 'owner' => $gallery->get('owner'),
                 'style' => $gallery->getStyle()
             );
@@ -282,7 +282,7 @@ class Ansel_View_GalleryProperties
                 // Did the parent change?
                 $old_parent = $gallery->getParent();
                 if (!is_null($old_parent)) {
-                    $old_parent_id = $old_parent->getId();
+                    $old_parent_id = $old_parent->id;
                 } else {
                     $old_parent_id = null;
                 }
@@ -338,7 +338,6 @@ class Ansel_View_GalleryProperties
 
             // Create the new gallery.
             $perm = (!empty($parent)) ? $parent->getPermission() : null;
-            $parent = (!empty($gallery_parent)) ? $gallery_parent : null;
 
             try {
                 $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->createGallery(
@@ -352,9 +351,9 @@ class Ansel_View_GalleryProperties
                               'view_mode' => $gallery_mode,
                               'passwd' => $gallery_passwd,
                               ),
-                        $perm, $parent);
+                        $perm, $gallery_parent);
 
-                $galleryId = $gallery->getId();
+                $galleryId = $gallery->id;
                 $msg = sprintf(_("The gallery \"%s\" was created successfully."), $gallery_name);
                 Horde::logMessage($msg, 'DEBUG');
                 $GLOBALS['notification']->push($msg, 'horde.success');
@@ -406,7 +405,9 @@ class Ansel_View_GalleryProperties
         foreach ($files as $file) {
             if (substr($file, -9) == 'Thumb.php') {
                 try {
-                    $generator = Ansel_ImageGenerator::factory(substr($file, 0, -4), array('style' => ''));
+                    $generator = Ansel_ImageGenerator::factory(
+                        substr($file, 0, -4),
+                        array('style' => Ansel::getStyleDefinition('ansel_default')));
                     $thumbs[substr($file, 0, -4)] = $generator->title;
                 } catch (Ansel_Exception $e) {}
             }

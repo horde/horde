@@ -41,7 +41,7 @@ class Ansel_Api extends Horde_Registry_Api
             $owners = array();
             $galleries = $storage->listGalleries(array('all_levels' => false));
             foreach ($galleries  as $gallery) {
-                $owners[$gallery->data['share_owner'] ? $gallery->data['share_owner'] : '-system-'] = true;
+                $owners[$gallery->get('owner') ? $gallery->get('owner') : '-system-'] = true;
             }
 
             $results = array();
@@ -99,13 +99,12 @@ class Ansel_Api extends Horde_Registry_Api
 
             $results = array();
             foreach ($galleries as $gallery) {
-                $retpath = 'ansel/' . implode('/', $parts) . '/' . $gallery->getId();
+                $retpath = 'ansel/' . implode('/', $parts) . '/' . $gallery->id;
                 if (in_array('name', $properties)) {
-                    $results[$retpath]['name'] = $gallery->data['attribute_name'];
+                    $results[$retpath]['name'] = $gallery->get('name');
                 }
                 if (in_array('displayname', $properties)) {
-                    $results[$retpath]['displayname'] = rawurlencode(
-                        $gallery->data['attribute_name']);
+                    $results[$retpath]['displayname'] = rawurlencode($gallery->get('name'));
                 }
                 if (in_array('icon', $properties)) {
                     $results[$retpath]['icon'] = Horde_Themes::img('ansel.png');
@@ -399,7 +398,6 @@ class Ansel_Api extends Horde_Registry_Api
      *   (string)scope  The scope to use, if not the default.
      * </pre>
      *
-     * @return boolean
      * @throws Horde_Exception_PermissionDenied
      */
     public function removeImage($gallery_id, $image_id, $params = array())
@@ -420,7 +418,7 @@ class Ansel_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied deleting photos from \"%s\"."), $gallery->get('name')));
         }
 
-        return $gallery->removeImage($image);
+        $gallery->removeImage($image);
     }
 
     /**
@@ -432,8 +430,8 @@ class Ansel_Api extends Horde_Registry_Api
      *    (string)scope    The scope to use, if not the default.
      *    (array)perm      An array of permission data if Ansel's defaults are
      *                     not desired. Takes an array like:
-                               array('guest' => Horde_Perms::SHOW | Horde_Perms::READ,
-                                     'default' => Horde_Perms::SHOW | Horde_Perms::READ);
+     *                        array('guest' => Horde_Perms::SHOW | Horde_Perms::READ,
+     *                              'default' => Horde_Perms::SHOW | Horde_Perms::READ);
      *    (integer)parent  The gallery id of the parent gallery, if not a top level gallery.
      *
      *
@@ -561,7 +559,7 @@ class Ansel_Api extends Horde_Registry_Api
         $style = empty($params['style']) ?
             Ansel::getStyleDefinition('ansel_default') :
             Ansel::getStyleDefinition($params['style']);
-        
+
         return $gallery->getKeyImage($style);
     }
 
@@ -686,7 +684,7 @@ class Ansel_Api extends Horde_Registry_Api
             ->listGalleries($params);
         $return = array();
         foreach ($galleries as $gallery) {
-            $return[$gallery->getId()] = array_merge($gallery->data,
+            $return[$gallery->id] = array_merge($gallery->data,
                                                 array('crumbs' => $gallery->getGalleryCrumbData()));
         }
 
@@ -789,7 +787,7 @@ class Ansel_Api extends Horde_Registry_Api
                 return array();
             }
             $g = current($galleries);
-            $gallery_id = $g->getId();
+            $gallery_id = $g->id;
         } elseif (!empty($slug)) {
             $gallery = $storage->getGalleryBySlug($slug);
         } else {

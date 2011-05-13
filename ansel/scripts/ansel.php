@@ -123,12 +123,12 @@ if (!empty($resetting)) {
     foreach ($galleries as $gallery) {
         if (empty($resetType) || $resetType == 'stacks') {
             $gallery->clearStacks();
-            $cli->message(sprintf(_("Successfully reset stack cache for gallery: %d"), $gallery->getId()), 'cli.success');
+            $cli->message(sprintf(_("Successfully reset stack cache for gallery: %d"), $gallery->id), 'cli.success');
 
         }
         if (empty($resetType) || $resetType == 'thumbs') {
             $gallery->clearViews();
-            $cli->message(sprintf(_("Successfully reset image cache for gallery: %d"), $gallery->getId()), 'cli.success');
+            $cli->message(sprintf(_("Successfully reset image cache for gallery: %d"), $gallery->id), 'cli.success');
         }
     }
 
@@ -195,7 +195,7 @@ if (!empty($list)) {
         $cli->writeln();
         foreach ($galleries as $gallery) {
             $name = $gallery->get('name');
-            $id = $gallery->getId();
+            $id = $gallery->id;
             $msg = "$id/$name";
             $cli->writeln($msg);
             Horde::logMessage($msg, 'DEBUG');

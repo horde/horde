@@ -161,33 +161,28 @@ class Ansel_Faces_Base
      * @param integer $count  Limit
      *
      * @return mixed  An array of faces data
+     * @throws Ansel_Exception
      */
-    protected function _fetchFaces($info, $from = 0, $count = 0)
+    protected function _fetchFaces(array $info, $from = 0, $count = 0)
     {
-        // add gallery permission
-        // FIXME: This is a REALLY ugly hack, permissions checking like this
-        // should be encapsulated by the shares driver and not parsed from
-        // an internally generated query string fragment. Will need to split
-        // this out into two seperate operations somehow.
-        $share = substr($GLOBALS['injector']->getInstance('Ansel_Storage')->shares->getShareCriteria(
-            $GLOBALS['registry']->getAuth(), Horde_Perms::READ), 5);
+        $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')->listGalleries(
+            array('perm' => Horde_Perms::READ));
 
-        $sql = 'SELECT f.face_id, f.gallery_id, f.image_id, f.face_name FROM ansel_faces f, '
-                . str_replace('WHERE', 'WHERE (', $share)
-                . ' ) AND f.gallery_id = s.share_id'
-                . (isset($info['filter']) ? ' AND ' . $info['filter'] : '')
+        $sql = 'SELECT f.face_id, f.gallery_id, f.image_id, f.face_name FROM ansel_faces f WHERE f.gallery_id IN('
+                . implode(',', $galleries) . ')'
                 . ' ORDER BY ' . (isset($info['order']) ? $info['order'] : ' f.face_id DESC');
 
-        $GLOBALS['ansel_db']->setLimit($count, $from);
-        $result = $GLOBALS['ansel_db']->query($sql);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception_Wrapped($result);
-        } elseif ($result->numRows() == 0) {
+        $sql = $GLOBALS['ansel_db']->addLimitOffset($sql, array('offset' => $from, 'limit' => $count));
+        try {
+            $faces = $GLOBALS['ansel_db']->selectAll($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
+        if (empty($faces)) {
             return array();
         }
 
-        $faces = array();
-        while ($face = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
+        foreach ($faces as $face) {
             $faces[$face['face_id']] = array('face_name' => $face['face_name'],
                                              'face_id' => $face['face_id'],
                                              'gallery_id' => $face['gallery_id'],
@@ -205,24 +200,17 @@ class Ansel_Faces_Base
      * @return integer  The count of faces
      * @throws Ansel_Exception
      */
-    protected function _countFaces($info)
+    protected function _countFaces(array $info)
     {
-        // add gallery permission
-        // FIXME: Ditto on the REALLY ugly hack comment from above!
-        $share = substr($GLOBALS['injector']->getInstance('Ansel_Storage')->shares->getShareCriteria(
-            $GLOBALS['registry']->getAuth(), Horde_Perms::READ), 5);
+        $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')->listGalleries(
+            array('perm' => Horde_Perms::READ));
 
-        $sql = 'SELECT COUNT(*) FROM ansel_faces f, '
-                . str_replace('WHERE', 'WHERE (', $share)
-                . ' ) AND f.gallery_id = s.share_id'
-                . (isset($info['filter']) ? ' AND ' . $info['filter'] : '');
-
-        $result = $GLOBALS['ansel_db']->queryOne($sql);
-        if ($result instanceof PEAR_Error) {
-            throw new Ansel_Exception($result);
+        $sql = 'SELECT COUNT(*) FROM ansel_faces f WHERE f.gallery_id IN(' . implode(',' $galleries) . ')';
+        try {
+            return $GLOBALS['ansel_db']->selectValue($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Ansel_Exception($e);
         }
-
-        return $result;
     }
 
     /**

@@ -407,7 +407,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         $ids = array();
         foreach ($images as $imageId) {
             $ids[] = (int)$imageId;
-            if ($imageId == $this->_gallery->data['attribute_default']) {
+            if ($imageId == $this->_gallery->get('default')) {
                 $this->_gallery->set('default', null, true);
             }
         }
@@ -482,9 +482,9 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         $image_gallery = $image->gallery;
 
         /* Change gallery info. */
-        if ($this->_gallery->data['attribute_default'] == $image->id) {
-            $this->_gallery->data['attribute_default'] = null;
-            $this->_gallery->data['attribute_default_type'] = 'auto';
+        if ($this->_gallery->get('default') == $image->id) {
+            $this->_gallery->set('default', null);
+            $this->_gallery->set('default_type' , 'auto');
         }
 
         /* Delete cached files from VFS. */
@@ -507,7 +507,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
 
         /* Update the modified flag if we are not a stack image */
         if (!$isStack) {
-            $this->_gallery->data['attribute_last_modified'] = time();
+            $this->_gallery->set('last_modified'), time());
         }
 
         /* Save all gallery changes */
@@ -611,9 +611,9 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
             /* Get a list of all the subgalleries */
             $subs = $GLOBALS['injector']
                 ->getInstance('Ansel_Storage')
-                ->listGalleries(array('parent' => $this->_gallery));
+                ->listGalleries(array('parent' => $this->_gallery->id));
             foreach ($subs as $sub) {
-                $this->_subGalleries[] = $sub->getId();
+                $this->_subGalleries[] = $sub->id;
             }
         }
     }

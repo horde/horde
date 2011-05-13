@@ -28,7 +28,7 @@ class Ansel_Factory_Storage extends Horde_Core_Factory_Base
     {
         $scope = $this->_injector->getInstance('Ansel_Config')->get('scope');
         if (empty($this->_instances[$scope])) {
-            $this->_instances[$scope] = new Ansel_Storage($this->_injector->getInstance('Horde_Core_Factory_Share')->create($scope, 'Sql'));
+            $this->_instances[$scope] = new Ansel_Storage($this->_injector->getInstance('Horde_Core_Factory_Share')->create($scope));
         }
 
         return $this->_instances[$scope];

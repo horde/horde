@@ -50,7 +50,7 @@ class Ansel_Block_Recentlyadded extends Horde_Core_Block
 
             foreach ($GLOBALS['injector']->getInstance('Ansel_Storage')->listGalleries(array('perm' => Horde_Perms::READ)) as $gal) {
                 if (!$gal->hasPasswd() && $gal->isOldEnough()) {
-                    $params['gallery']['values'][$gal->getId()] = $gal->get('name');
+                    $params['gallery']['values'][$gal->id] = $gal->get('name');
                 }
             }
         }

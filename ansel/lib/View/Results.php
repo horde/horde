@@ -86,7 +86,7 @@ class Ansel_View_Results extends Ansel_View_Ansel
                         sprintf(_("Access denied deleting photos from \"%s\"."), $image), 'horde.error');
                  } else {
                      try {
-                         $result = $gallery->removeImage($image);
+                         $gallery->removeImage($image);
                          $notification->push(_("Deleted the photo."), 'horde.success');
                      } catch (Ansel_Exception $e) {
                         $notification->push(

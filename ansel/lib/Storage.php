@@ -15,16 +15,16 @@ class Ansel_Storage
     /**
      * database handle
      *
-     * @var MDB2
+     * @var Horde_Db_Adapter
      */
-    private $_db = null;
+    private $_db;
 
     /**
      * The Horde_Shares object to use for this scope.
      *
      * @var Horde_Share
      */
-    private $_shares = null;
+    private $_shares;
 
     /**
      * Local cache of retrieved images
@@ -36,7 +36,7 @@ class Ansel_Storage
     /**
      * Const'r
      *
-     * @param Horde_Share_Sql_Hierarchical  The share object
+     * @param Horde_Core_Share_Driver  The share object
      *
      * @return Ansel_Storage
      */
@@ -45,10 +45,7 @@ class Ansel_Storage
         /* This is the only supported share backend for Ansel */
         $this->_shares = $shareOb;
 
-        /* Ansel_Gallery is just a subclass of Horde_Share_Object */
-        $this->_shares->setShareClass('Ansel_Gallery');
-
-        /* Database handle */
+        /* Database handle @TODO: Clean up creating the db */
         $this->_db = $GLOBALS['ansel_db'];
     }
 
@@ -72,7 +69,7 @@ class Ansel_Storage
     * @param array $attributes             The gallery attributes.
     * @param Horde_Perms_Permission $perm  The permissions for the gallery if
     *                                      the defaults are not desirable.
-    * @param mixed $parent                 The id of the parent gallery (if any)
+    * @param integer $parent               The id of the parent gallery (if any)
     *
     * @return Ansel_Gallery  A new gallery object.
     * @throws Ansel_Exception
@@ -121,17 +118,17 @@ class Ansel_Storage
 
         /* Create the gallery */
         try {
-            $gallery = $this->_shares->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()), $attributes['name']);
-            
+            $gallery_share = $this->_shares->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()), $attributes['name']);
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage, 'ERR');
             throw new Ansel_Exception($e);
         }
+        $gallery = new Ansel_Gallery($gallery_share);
         Horde::logMessage('New Ansel_Gallery object instantiated', 'DEBUG');
 
         /* Set the gallery's parent if needed */
         if (!is_null($parent)) {
-            $result = $gallery->setParent($parent);
+            $gallery->setParent($parent);
 
             /* Clear the parent from the cache */
             if ($GLOBALS['conf']['ansel_cache']['usecache']) {
@@ -148,7 +145,7 @@ class Ansel_Storage
 
         /* Save it to storage */
         try {
-            $result = $this->_shares->addShare($gallery);
+            $result = $this->_shares->addShare($gallery_share);
         } catch (Horde_Share_Exception $e) {
             $error = sprintf(_("The gallery \"%s\" could not be created: %s"),
                              $attributes['name'], $e->getMessage());
@@ -157,7 +154,7 @@ class Ansel_Storage
         }
 
         /* Convenience */
-        $gallery->id = $gallery->getId();
+        $gallery->id = $gallery->id;
 
         /* Add default permissions. */
         if (empty($perm)) {
@@ -239,10 +236,10 @@ class Ansel_Storage
      */
     public function getGalleryBySlug($slug, array $overrides = array())
     {
-        $shares = $this->_shares->listShares(
-            $GLOBALS['registry']->getAuth(),
-            array('attributes' => array('slug' => $slug)));
-
+        $shares = $this->buildGalleries(
+            $this->_shares->listShares(
+                $GLOBALS['registry']->getAuth(),
+                array('attributes' => array('slug' => $slug))));
         if (!count($shares)) {
             throw new Horde_Exception_NotFound(sprintf(_("Gallery %s not found."), $slug));
         }
@@ -265,8 +262,9 @@ class Ansel_Storage
         if (!count($overrides) && $GLOBALS['conf']['ansel_cache']['usecache'] &&
             ($gallery = $GLOBALS['injector']->getInstance('Horde_Cache')->get('Ansel_Gallery' . $gallery_id, $GLOBALS['conf']['cache']['default_lifetime'])) !== false) {
 
-            $cached_gallery = unserialize($gallery);
-            if ($cached_gallery) { return $cached_gallery; }
+            if ($cached_gallery = unserialize($gallery)) {
+                return $cached_gallery;
+            }
         }
 
         try {
@@ -274,6 +272,7 @@ class Ansel_Storage
         } catch (Horde_Share_Exception $e) {
             throw new Ansel_Exception($e);
         }
+        $result = new Ansel_Gallery($result);
 
         // Don't cache if we have overridden anything
         if (!count($overrides)) {
@@ -300,9 +299,10 @@ class Ansel_Storage
     public function getGalleriesBySlugs(array $slugs, $perms = Horde_Perms::SHOW)
     {
         try {
-            return $this->_shares->listShares(
-                $GLOBALS['registry']->getAuth(),
-                array('perm' => $perms, 'attribtues' => array('slugs' => $slugs)));
+            return $this->buildGalleries(
+                $this->_shares->listShares(
+                    $GLOBALS['registry']->getAuth(),
+                    array('perm' => $perms, 'attribtues' => array('slugs' => $slugs))));
         } catch (Horde_Share_Exception $e) {
             throw new Ansel_Exception($e);
         }
@@ -320,7 +320,8 @@ class Ansel_Storage
     public function getGalleries(array $ids, $perms = Horde_Perms::SHOW)
     {
         try {
-            $shares = $this->_shares->getShares($ids);
+            $shares = $this->buildGalleries(
+                $this->_shares->getShares($ids));
         } catch (Horde_Share_Exception $e) {
             throw new Ansel_Exception($e);
         }
@@ -388,7 +389,7 @@ class Ansel_Storage
 
         /* Delete the gallery from storage */
         try {
-            $this->_shares->removeShare($gallery);
+            $this->_shares->removeShare($gallery->getShare());
         } catch (Horde_Share_Exception $e) {
             throw new Ansel_Exception($e);
         }
@@ -425,24 +426,16 @@ class Ansel_Storage
             return $this->_images[$id];
         }
 
-        $q = $this->_db->prepare('SELECT ' . $this->_getImageFields() . ' FROM ansel_images WHERE image_id = ?');
-        if ($q instanceof PEAR_Error) {
-            Horde::logMessage($q, 'ERR');
-            throw new Ansel_Exception($q);
+        $q = 'SELECT ' . $this->_getImageFields() . ' FROM ansel_images WHERE image_id = ?';
+        try {
+            $image = $this->_db->selectOne($q, array((int)$id));
+        } catch (Horde_Db_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            throw new Ansel_Exception($e);
         }
-        $result = $q->execute((int)$id);
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Ansel_Exception($result);
-        }
-        $image = $result->fetchRow(MDB2_FETCHMODE_ASSOC);
-        $q->free();
-        $result->free();
+
         if (is_null($image)) {
             throw new Horde_Exception_NotFound(_("Photo not found"));
-        } elseif ($image instanceof PEAR_Error) {
-            Horde::logMessage($image, 'ERR');
-            throw new Ansel_Exception($image);
         } else {
             $image['image_filename'] = Horde_String::convertCharset($image['image_filename'], $GLOBALS['conf']['sql']['charset'], 'UTF-8');
             $image['image_caption'] = Horde_String::convertCharset($image['image_caption'], $GLOBALS['conf']['sql']['charset'], 'UTF-8');
@@ -455,38 +448,33 @@ class Ansel_Storage
     /**
      * Save image details to storage. Does NOT update the cached image files.
      *
-     * @param Ansel_Image $image
+     * @param Ansel_Image $image  The image to save.
      *
      * @return integer The image id
-     *
      * @throws Ansel_Exception
      */
     public function saveImage(Ansel_Image $image)
     {
         /* If we have an id, then it's an existing image.*/
         if ($image->id) {
-            $update = $this->_db->prepare('UPDATE ansel_images SET image_filename = ?, image_type = ?, image_caption = ?, image_sort = ?, image_original_date = ?, image_latitude = ?, image_longitude = ?, image_location = ?, image_geotag_date = ? WHERE image_id = ?');
-            if ($update instanceof PEAR_Error) {
-                Horde::logMessage($update, 'ERR');
-                throw new Ansel_Exception($update);
+            $update = 'UPDATE ansel_images SET image_filename = ?, image_type = ?, image_caption = ?, image_sort = ?, image_original_date = ?, image_latitude = ?, image_longitude = ?, image_location = ?, image_geotag_date = ? WHERE image_id = ?';
+            try {
+               return $this->_db->update(
+                   $update,
+                   array(Horde_String::convertCharset($image->filename, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
+                         $image->type,
+                         Horde_String::convertCharset($image->caption, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
+                         $image->sort,
+                         $image->originalDate,
+                         $image->lat,
+                         $image->lng,
+                         $image->location,
+                         $image->geotag_timestamp,
+                         $image->id));
+            } catch (Horde_Db_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                throw new Ansel_Exception($e);
             }
-            $result = $update->execute(array(Horde_String::convertCharset($image->filename, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
-                                             $image->type,
-                                             Horde_String::convertCharset($image->caption, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
-                                             $image->sort,
-                                             $image->originalDate,
-                                             $image->lat,
-                                             $image->lng,
-                                             $image->location,
-                                             $image->geotag_timestamp,
-                                             $image->id));
-            if ($result instanceof PEAR_Error) {
-                Horde::logMessage($update, 'ERR');
-                throw new Ansel_Exception($result);
-            }
-            $update->free();
-
-            return $result;
         }
 
         /* Saving a new Image */
@@ -494,40 +482,28 @@ class Ansel_Storage
             throw new Ansel_Exception(_("Incomplete photo"));
         }
 
-        /* Get the next image_id */
-        $image_id = $this->_db->nextId('ansel_images');
-        if ($image_id instanceof PEAR_Error) {
-            throw new Ansel_Exception($image_id);
-        }
-
         /* Prepare the SQL statement */
-        $insert = $this->_db->prepare('INSERT INTO ansel_images (image_id, gallery_id, image_filename, image_type, image_caption, image_uploaded_date, image_sort, image_original_date, image_latitude, image_longitude, image_location, image_geotag_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-        if ($insert instanceof PEAR_Error) {
-            Horde::logMessage($insert, 'ERR');
-            throw new Ansel_Exception($insert);
-        }
+        $insert = 'INSERT INTO ansel_images (gallery_id, image_filename, image_type, image_caption, image_uploaded_date, image_sort, image_original_date, image_latitude, image_longitude, image_location, image_geotag_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
         /* Perform the INSERT */
-        $result = $insert->execute(array($image_id,
-                                         $image->gallery,
-                                         Horde_String::convertCharset($image->filename, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
-                                         $image->type,
-                                         Horde_String::convertCharset($image->caption, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
-                                         $image->uploaded,
-                                         $image->sort,
-                                         $image->originalDate,
-                                         $image->lat,
-                                         $image->lng,
-                                         $image->location,
-                                         (empty($image->lat) ? 0 : $image->uploaded)));
-        $insert->free();
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Ansel_Exception($result);
+        try {
+            $image->id = $this->_db->insert(
+                $insert,
+                array($image->gallery,
+                      Horde_String::convertCharset($image->filename, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
+                      $image->type,
+                      Horde_String::convertCharset($image->caption, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
+                      $image->uploaded,
+                      $image->sort,
+                      $image->originalDate,
+                      $image->lat,
+                      $image->lng,
+                      $image->location,
+                     (empty($image->lat) ? 0 : $image->uploaded)));
+        } catch (Horde_Db_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            throw new Ansel_Exception($e);
         }
-
-        /* Keep the image_id */
-        $image->id = $image_id;
 
         return $image->id;
     }
@@ -539,17 +515,17 @@ class Ansel_Storage
      * @param string  $attributes  The attribute name
      * @param string  $value       The attrbute value
      *
-     * @return void
      * @throws Ansel_Exception
      */
     public function saveImageAttribute($image_id, $attribute, $value)
     {
-        $insert = $this->_db->prepare('INSERT INTO ansel_image_attributes (image_id, attr_name, attr_value) VALUES (?, ?, ?)');
-        $result = $insert->execute(array($image_id, $attribute, Horde_String::convertCharset($value, 'UTF-8', $GLOBALS['conf']['sql']['charset'])));
-        if ($result instanceof PEAR_Error) {
-            throw new Ansel_Exception($result);
+        try {
+            $this->_db->insert(
+                'INSERT INTO ansel_image_attributes (image_id, attr_name, attr_value) VALUES (?, ?, ?)',
+                array($image_id, $attribute, Horde_String::convertCharset($value, 'UTF-8', $GLOBALS['conf']['sql']['charset'])));
+        } catch (Horde_Db_Exception $e) {
+            throw new Ansel_Exception($e);
         }
-        $insert->free();
     }
 
     /**
@@ -585,31 +561,31 @@ class Ansel_Storage
 
         /* Limit the query? */
         if (isset($params['count']) && isset($params['from'])) {
-            $this->_db->setLimit($params['count'], $params['from']);
+            $sql = $this->_db->addLimitOffset($sql, array('limit' => $params['count'], 'offset' => $params['from']));
         }
-
-        $images = $this->_db->query($sql);
-        if ($images instanceof PEAR_Error) {
+        try {
+            $images = $this->_db->select($sql);
+        } catch (Horde_Db_Exception $e) {
             throw new Ansel_Exception($images);
-        } elseif ($images->numRows() == 0 && empty($params['gallery_id'])) {
-            $images->free();
+        }
+        //@TODO: Revist this
+        if (empty($images) && empty($params['gallery_id'])) {
             throw new Horde_Exception_NotFound(_("Images not found"));
-        } elseif ($images->numRows() == 0) {
+        } elseif (empty($images)) {
             return array();
         }
 
         $return = array();
-        while ($image = $images->fetchRow(MDB2_FETCHMODE_ASSOC)) {
+        foreach ($images as $image) {
             $image['image_filename'] = Horde_String::convertCharset($image['image_filename'], $GLOBALS['conf']['sql']['charset'], 'UTF-8');
             $image['image_caption'] = Horde_String::convertCharset($image['image_caption'], $GLOBALS['conf']['sql']['charset'], 'UTF-8');
             $return[$image['image_id']] = new Ansel_Image($image);
             $this->_images[(int)$image['image_id']] = &$return[$image['image_id']];
         }
-        $images->free();
 
         /* Need to get comment counts if comments are enabled */
         $ccounts = $this->_getImageCommentCounts(array_keys($return));
-        if (!($ccounts instanceof PEAR_Error) && count($ccounts)) {
+        if (count($ccounts)) {
             foreach ($return as $key => $image) {
                 $return[$key]->commentCount = (!empty($ccounts[$key]) ? $ccounts[$key] : 0);
             }
@@ -657,8 +633,6 @@ class Ansel_Storage
      * @param string $slugs     An array of gallery slugs.
      * @param string $where     Additional where clause
      *
-     * @TODO: Need to refactor this to not directly access the share table and
-     *  no longer use ->getShareCriteria
      * @return array An array of Ansel_Image objects
      * @throws Ansel_Exception
      */
@@ -667,50 +641,39 @@ class Ansel_Storage
         $results = array();
 
         if (!count($galleries) && !count($slugs)) {
-            $sql = 'SELECT DISTINCT ' . $this->_getImageFields('i') . ' FROM ansel_images i, '
-            . str_replace('WHERE' , ' WHERE i.gallery_id = s.share_id AND (', substr($this->_shares->getShareCriteria($GLOBALS['registry']->getAuth()), 5)) . ')';
-        } elseif (!count($slugs) && count($galleries)) {
+            $galleries = $this->_shares->listShares($GLOBALS['registry']->getAuth());
+        }
+        if (!count($slugs)) {
             // Searching by gallery_id
             $sql = 'SELECT ' . $this->_getImageFields() . ' FROM ansel_images '
                    . 'WHERE gallery_id IN ('
                    . str_repeat('?, ', count($galleries) - 1) . '?) ';
+            $criteria = $galleries;
         } elseif (count($slugs)) {
             // Searching by gallery_slug so we need to join the share table
             $sql = 'SELECT ' . $this->_getImageFields() . ' FROM ansel_images LEFT JOIN '
                 . $this->_shares->getTable() . ' ON ansel_images.gallery_id = '
                 . $this->_shares->getTable() . '.share_id ' . 'WHERE attribute_slug IN ('
                 . str_repeat('?, ', count($slugs) - 1) . '?) ';
+            $criteria = $slugs;
         } else {
             return array();
         }
-
         $sql .= ' ORDER BY image_uploaded_date DESC';
         if ($limit > 0) {
-            $GLOBALS['ansel_db']->setLimit((int)$limit);
+            $sql = $this->_db->setLimitOffset($sql, array('limit' => (int)$limit));
         }
-        $query = $this->_db->prepare($sql);
-        if ($query instanceof PEAR_Error) {
-           throw new Ansel_Exception($query);
-        }
-
-        if (count($slugs)) {
-            $images = $query->execute($slugs);
-        } else {
-            $images = $query->execute($galleries);
-        }
-        $query->free();
-        if ($images instanceof PEAR_Error) {
-            throw new Ansel_Exception($images);
-        } elseif ($images->numRows() == 0) {
-            return array();
+        try {
+            $images = $this->_db->selectAll($sql, $criteria);
+        } catch (Horde_Db_Exception $e) {
+            throw new Ansel_Exception($e);
         }
 
-        while ($image = $images->fetchRow(MDB2_FETCHMODE_ASSOC)) {
+        foreach($images as $image) {
             $image['image_filename'] = Horde_String::convertCharset($image['image_filename'], $GLOBALS['conf']['sql']['charset'], 'UTF-8');
             $image['image_caption'] = Horde_String::convertCharset($image['image_caption'], $GLOBALS['conf']['sql']['charset'], 'UTF-8');
             $results[] = new Ansel_Image($image);
         }
-        $images->free();
 
         return $results;
     }
@@ -740,32 +703,29 @@ class Ansel_Storage
     * Return the count of galleries that the user has specified permissions to
     * and that match any of the requested attributes.
     *
-    * @param string  $userid       The user to check access for.
-    * @param integer $perm         The level of permissions to require for a
-    *                              gallery to return it.
-    * @param mixed   $attributes   Restrict the galleries counted to those
-    *                              matching $attributes. An array of
-    *                              attribute/values pairs or a gallery owner
-    *                              username.
-    * @param string  $parent       The parent share to start counting at.
-    * @param boolean $allLevels    Return all levels, or just the direct
-    *                              children of $parent? Defaults to all levels.
+    * @param string  $userid         The user to check access for.
+    * @param integer $perm           The level of permissions to require for a
+    *                                gallery to return it.
+    * @param mixed   $attributes     Restrict the galleries counted to those
+    *                                matching $attributes. An array of
+    *                                attribute/values pairs or a gallery owner
+    *                                username.
+    * @param Ansel_Gallery  $parent  The parent share to start counting at.
+    * @param boolean $allLevels      Return all levels, or just the direct
+    *                                children of $parent? Defaults to all levels.
     *
     * @return integer  The count
     * @throws Ansel_Exception
     */
     public function countGalleries($userid, $perm = Horde_Perms::SHOW,
-        $attributes = null, $parent = null, $allLevels = true)
+        $attributes = null, Ansel_Gallery $parent = null, $allLevels = true)
     {
         static $counts;
 
-        if ($parent instanceof Ansel_Gallery) {
-            $parent_id = $parent->getId();
+        if (!empty($parent)) {
+            $parent_id = $parent->id;
         } else {
-            $parent_id = $parent;
-            if (!is_null($parent)) {
-                $parent = $this->_shares->getShare($parent);
-            }
+            $parent_id = null;
         }
 
         $key = "$userid,$perm,$parent_id,$allLevels" . serialize($attributes);
@@ -775,7 +735,7 @@ class Ansel_Storage
 
         try {
             $count = $this->_shares->countShares($userid, $perm, $attributes,
-                                                 $parent, $allLevels);
+                                                 $parent_id, $allLevels);
         } catch (Horde_Share_Exception $e) {
             throw new Ansel_Exception($e);
         }
@@ -809,7 +769,8 @@ class Ansel_Storage
     public function listGalleries(array $params = array())
     {
         try {
-            $shares = $this->_shares->listShares($GLOBALS['registry']->getAuth(), $params);
+            $shares = $this->buildGalleries(
+                $this->_shares->listShares($GLOBALS['registry']->getAuth(), $params));
         } catch (Horde_Share_Exception $e) {
             throw new Ansel_Exception($e);
         }
@@ -898,9 +859,8 @@ class Ansel_Storage
         if (!$galleries) {
             return false;
         }
-        $gallery_key = array_rand($galleries);
 
-        return $galleries[$gallery_key];
+        return $galleries[array_rand($galleries)];
     }
 
     /**
@@ -910,7 +870,7 @@ class Ansel_Storage
      * @param integer $from        The image to start listing.
      * @param integer $count       The numer of images to list.
      * @param mixed $fields        The fields to return (either an array of
-     *                             fileds or a single string).
+     *                             fields or a single string).
      * @param string $where        A SQL where clause ($gallery_id will be
      *                             ignored if this is non-empty).
      * @param mixed $sort          The field(s) to sort by.
@@ -940,17 +900,16 @@ class Ansel_Storage
         } else {
             $query_where = 'WHERE gallery_id = ' . $gallery_id;
         }
-        $this->_db->setLimit($count, $from);
         $sql = 'SELECT ' . $fields . ' FROM ansel_images ' . $query_where . ' ORDER BY ' . $sort;
-        Horde::logMessage('Query by Ansel_Storage::listImages: ' . $sql, 'DEBUG');
-        $results = $this->_db->query($sql);
-        if ($results instanceof PEAR_Error) {
-            throw new Ansel_Exception($results);
-        }
-        if ($field_count > 1) {
-            return $results->fetchAll(MDB2_FETCHMODE_ASSOC, true, true, false);
-        } else {
-            return $results->fetchCol();
+        $sql = $this->_db->addLimitOffset($sql, array('limit' => $count, 'offset' => $from));
+        try {
+            if ($field_count > 1) {
+                return $this->_db->selectAll($sql);
+            } else {
+                return $this->_db->selectValues($sql);
+            }
+        } catch (Horde_Db_Exception $e) {
+            throw new Ansel_Exception($e);
         }
     }
 
@@ -991,9 +950,11 @@ class Ansel_Storage
      */
     public function getImageAttributes($image_id)
     {
-        $results = $GLOBALS['ansel_db']->queryAll('SELECT attr_name, attr_value FROM ansel_image_attributes WHERE image_id = ' . (int)$image_id, null, MDB2_FETCHMODE_ASSOC, true);
-        if ($results instanceof PEAR_Error) {
-            throw new Ansel_Exception($results());
+        try {
+            return $this->_db->selectAll(
+                'SELECT attr_name, attr_value FROM ansel_image_attributes WHERE image_id = ' . (int)$image_id);
+        } catch (Horde_Db_Exception $e) {
+            throw new Ansel_Exception($e);
         }
 
         return $results;
@@ -1036,15 +997,13 @@ class Ansel_Storage
     {
         $sql = 'SELECT DISTINCT image_location, image_latitude, image_longitude FROM ansel_images WHERE LENGTH(image_location) > 0';
         if (strlen($search)) {
-            $sql .= ' AND image_location LIKE ' . $GLOBALS['ansel_db']->quote("$search%");
+            $sql .= ' AND image_location LIKE ' . $this->_db->quoteString("$search%");
         }
-        Horde::logMessage(sprintf("SQL QUERY BY Ansel_Storage::searchLocations: %s", $sql), 'DEBUG');
-        $results = $this->_db->query($sql);
-        if ($results instanceof PEAR_Error) {
-            throw new Ansel_Exception($results);
+        try {
+            return $this->_db->selectAll($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Ansel_Exception($e);
         }
-
-        return $results->fetchAll(MDB2_FETCHMODE_ASSOC, true, true, false);
     }
 
     /**
@@ -1054,15 +1013,15 @@ class Ansel_Storage
      * @param array $image_ids     An array of image ids
      * @param integer $gallery_id  The gallery id to move the images to.
      *
-     * @return void
      * @throws Ansel_Exception
      */
     public function setImagesGallery(array $image_ids, $gallery_id)
     {
-        $result = $this->_db->exec('UPDATE ansel_images SET gallery_id = ' . $gallery_id . ' WHERE image_id IN (' . implode(',', $image_ids) . ')');
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Ansel_Exception($result);
+        try {
+            $this->_db->update('UPDATE ansel_images SET gallery_id = ' . $gallery_id . ' WHERE image_id IN (' . implode(',', $image_ids) . ')');
+        } catch (Horde_Db_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+            throw new Ansel_Exception($e);
         }
     }
 
@@ -1071,13 +1030,12 @@ class Ansel_Storage
      *
      * @param integer $image_id  The image id(s) to remove.
      *
-     * @return void
      * @throws Ansel_Exception
      */
     public function removeImage($image_id)
     {
-        $this->_db->exec('DELETE FROM ansel_images WHERE image_id = ' . (int)$image_id);
-        $this->_db->exec('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$image_id);
+        $this->_db->delete('DELETE FROM ansel_images WHERE image_id = ' . (int)$image_id);
+        $this->_db->delete('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$image_id);
     }
 
     /**
@@ -1105,21 +1063,20 @@ class Ansel_Storage
      * Ensure the style hash is recorded in the database.
      *
      * @param string $hash  The hash to record.
-     *
-     * @return void
      */
     public function ensureHash($hash)
     {
-        $query = $this->_db->prepare('SELECT COUNT(*) FROM ansel_hashes WHERE style_hash = ?');
-        $results = $query->execute($hash);
-        if ($results instanceof PEAR_Error) {
-            throw new Ansel_Exception($results->getMessage());
+        $query = 'SELECT COUNT(*) FROM ansel_hashes WHERE style_hash = ?';
+        try {
+            $results = $this->_db->selectValue($query, array($hash));
+        } catch (Horde_Db_Exception $e) {
+            throw new Ansel_Exception($e);
         }
-        if (!$results->fetchOne()) {
-            $query = $this->_db->prepare('INSERT INTO ansel_hashes (style_hash) VALUES(?)');
-            $results = $query->execute($hash);
-            if ($results instanceof PEAR_Error) {
-                throw new Ansel_Exception($results->getMessage());
+        if (!$results) {
+            try {
+                $this->_db->insert('INSERT INTO ansel_hashes (style_hash) VALUES(?)', array($hash));
+            } catch (Horde_Db_Exception $e) {
+                throw new Ansel_Exception($e);
             }
         }
     }
@@ -1131,11 +1088,26 @@ class Ansel_Storage
      */
     public function getHashes()
     {
-        $hashes = $this->_db->query('SELECT style_hash FROM ansel_hashes');
-        if (!($hashes instanceof PEAR_Error)) {
-            return $hashes->fetchCol();
-        } else {
-            throw new Ansel_Exception($hashes);
+        try {
+            return $this->_db->selectValues('SELECT style_hash FROM ansel_hashes');
+        } catch (Horde_Db_Exception $e) {
+            throw new Ansel_Exception($e);
         }
     }
+
+    public function buildGallery($share)
+    {
+        return current($this->buildGalleries(array($share)));
+    }
+
+    public function buildGalleries(array $shares)
+    {
+        $results = array();
+        foreach ($shares as $id => $share) {
+            $results[$id] = new Ansel_Gallery($share);
+        }
+
+        return $results;
+    }
+
 }
