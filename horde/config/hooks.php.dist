@@ -37,7 +37,7 @@
  * NOTE: Because the prefs_init hook is called BEFORE the application is
  *       initialized, application data will not be available in this hook.
  *       If you want to alter preferences values based on application data,
- *       you should use the postauthenticate hook instead.
+ *       you should use the authinitialized hook instead.
  *
  * On change
  * ---------
