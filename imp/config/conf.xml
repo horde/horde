@@ -8,6 +8,9 @@
    save sent-mail or postponed messages, along with the obvious effects of
    restricting the user to their INBOX.">true
     <case name="true" desc="Yes">
+     <configboolean name="autocreate_special" required="false"
+     desc="Automatically create special mailboxes (Drafts, Sent Mail, Spam,
+     Trash) on login?">false</configboolean>
      <configboolean name="select_sentmail_folder" desc="If this is true, then
      users will be given a drop down menu in the compose window allowing them
      to choose which folder to save their sent messages to. If this is false,
