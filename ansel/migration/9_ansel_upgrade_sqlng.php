@@ -48,7 +48,7 @@ class AnselUpgradeSqlng extends Horde_Db_Migration_Base
         $t->column('attribute_default', 'integer');
         $t->column('attribute_default_type', 'string', array('limit' => 6));
         $t->column('attribute_default_prettythumb', 'text');
-        $t->column('attribute_style', 'string', array('limit' => 255));
+        $t->column('attribute_style', 'text');
         $t->column('attribute_last_modified', 'integer');
         $t->column('attribute_date_created', 'integer');
         $t->column('attribute_images', 'integer', array('null' => false, 'default' => 0));
