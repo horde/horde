@@ -507,7 +507,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
 
         /* Update the modified flag if we are not a stack image */
         if (!$isStack) {
-            $this->_gallery->set('last_modified'), time());
+            $this->_gallery->set('last_modified', time());
         }
 
         /* Save all gallery changes */
