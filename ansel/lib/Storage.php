@@ -991,8 +991,8 @@ class Ansel_Storage
         if (empty($galleries)) {
             return array();
         }
-        $ids = array_map(array('Ansel', 'keysFromNames'), $galleries);
-        $where = 'gallery_id IN(' . implode(',', $ids) . ') AND LENGTH(image_latitude) > 0 GROUP BY image_latitude, image_longitude';
+
+        $where = 'gallery_id IN(' . implode(',', array_keys($galleries)) . ') AND LENGTH(image_latitude) > 0 GROUP BY image_latitude, image_longitude';
         return $this->listImages(0, $start, $count, array('image_id as id', 'image_id', 'gallery_id', 'image_latitude', 'image_longitude', 'image_location'), $where, 'image_geotag_date DESC');
     }
 
@@ -1107,16 +1107,31 @@ class Ansel_Storage
         }
     }
 
-    public function buildGallery($share)
+    /**
+     * Build a single Ansel_Gallery object from a Horde_Share_Object
+     *
+     * @param Horde_Share_Object $share  The share
+     *
+     * @return Ansel_Gallery
+     */
+    public function buildGallery(Horde_Share_Object $share)
     {
         return current($this->buildGalleries(array($share)));
     }
 
+    /**
+     * Build an array of Ansel_Gallery objects from an array of
+     * Horde_Share_Object objects.
+     *
+     * @param array $shares  An array of Horde_Share_Object objects.
+     *
+     * @return array A hash (keyed by gallery_id) of Ansel_Gallery objects.
+     */
     public function buildGalleries(array $shares)
     {
         $results = array();
         foreach ($shares as $id => $share) {
-            $results[$id] = new Ansel_Gallery($share);
+            $results[$share->getId()] = new Ansel_Gallery($share);
         }
 
         return $results;
