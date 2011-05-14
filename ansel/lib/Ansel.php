@@ -27,11 +27,6 @@ class Ansel
         return $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
     }
 
-    static public function keysFromNames($gallery)
-    {
-        return $gallery->id;
-    }
-
     /**
      * Return a string containing an <option> listing of the given
      * gallery array.
