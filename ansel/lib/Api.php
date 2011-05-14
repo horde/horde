@@ -903,9 +903,9 @@ class Ansel_Api extends Horde_Registry_Api
      *
      * @return mixed  An array containing tag_name, and total | PEAR_Error
      */
-    public function listTagInfo($tags = null)
+    public function getTagInfo($tags = null)
     {
-        return Ansel_Tags::listTagInfo($tags);
+        return $GLOBALS['injector']->getInstance('Ansel_Tagger')->getTagInfo($tags);
     }
 
     /**
@@ -926,7 +926,7 @@ class Ansel_Api extends Horde_Registry_Api
      * @param integer $from          The number of the story to start with.
      * @param string $resource_type  An array of channel_ids to limit the search to.
      * @param string $user           Restrict results to resources owned by $user.
-     * @param boolean $raw           Return the raw story data?
+     * @param boolean $raw           Return the raw data?
      * @param string $app            Application scope to use, if not the default.
      *
      * @return mixed  An array of results | PEAR_Error
@@ -936,7 +936,7 @@ class Ansel_Api extends Horde_Registry_Api
                                $app = 'ansel')
     {
         $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $app);
-        $results = Ansel_Tags::searchTags($names, $max, $from,  $resource_type, $user);
+        $results = $GLOBALS['injector']->getInstance('Ansel_Tagger')->search($names, array('type' => $resource_type, 'user' => $user));
 
         // Check for error or if we requested the raw data array.
         if ($raw) {
