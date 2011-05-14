@@ -624,7 +624,7 @@ var DimpBase = {
                 [ $('search_edit') ].invoke(this.search || this.viewport.getMetaData('noedit') ? 'hide' : 'show');
                 $('searchbar').show();
             } else {
-                this.setFolderLabel(this.folder, this.viewport.getMetaData('unseen') || 0);
+                this.setFolderLabel(this.folder);
             }
 
             if (this.rownum) {
@@ -1629,10 +1629,6 @@ var DimpBase = {
 
     updateUnseenStatus: function(mbox, unseen)
     {
-        if (this.viewport) {
-            this.viewport.setMetaData({ unseen: unseen }, mbox);
-        }
-
         this.setFolderLabel(mbox, unseen);
 
         if (this.folder == mbox) {

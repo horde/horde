@@ -357,20 +357,12 @@ class IMP_Views_ListMessages
         /* Build the overview list. */
         $result->data = $this->_getOverviewData($mbox, array_keys($data));
 
-        /* Get unseen/thread information. */
-        if (!$is_search) {
-            try {
-                if ($info = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_UNSEEN)) {
-                    $md->unseen = intval($info['unseen']);
-                }
-            } catch (IMP_Imap_Exception $e) {}
-
-            if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
-                $imp_thread = new IMP_Imap_Thread($mailbox_list->getThreadOb());
-                $md->thread = (object)$imp_thread->getThreadTreeOb($msglist, $sortpref['dir']);
-            }
-        } else {
+        if ($is_search) {
             $result->search = 1;
+        } elseif ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
+            /* Get thread information. */
+            $imp_thread = new IMP_Imap_Thread($mailbox_list->getThreadOb());
+            $md->thread = (object)$imp_thread->getThreadTreeOb($msglist, $sortpref['dir']);
         }
 
         return $result;
