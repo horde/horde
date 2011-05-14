@@ -606,4 +606,5 @@ class Horde_Share_Test_Base extends Horde_Test_Case
     protected function switchAuth($user)
     {
     }
+
 }

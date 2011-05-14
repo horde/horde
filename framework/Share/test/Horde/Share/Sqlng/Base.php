@@ -102,6 +102,25 @@ class Horde_Share_Test_Sqlng_Base extends Horde_Share_Test_Base
     /**
      * @depends testPermissions
      */
+     public function testListOwners()
+     {
+        $owners = self::$share->listOwners();
+        $this->assertInternalType('array', $owners);
+        $this->assertTrue(in_array('john', $owners));
+     }
+
+    /**
+     * @depends testPermissions
+     */
+     public function testCountOwners()
+     {
+        $count = self::$share->countOwners();
+        $this->assertTrue($count > 0);
+     }
+
+    /**
+     * @depends testPermissions
+     */
     public function testListAllShares()
     {
         parent::listAllShares();
