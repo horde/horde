@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-05-03</date>
- <time>13:27:27</time>
+ <date>2011-05-14</date>
+ <time>14:37:45</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -1415,10 +1415,12 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-03</date>
+   <date>2011-05-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-*
+* [jan] Add Horde_Config#configFile() and Horde_Config#writePHPConfiguration().
+* [mjr] Fix issue with deleting identities (Bug #9997).
+* [jan] Store preferences for guests in the session.
    </notes>
   </release>
  </changelog>
