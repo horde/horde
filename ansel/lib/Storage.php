@@ -662,7 +662,7 @@ class Ansel_Storage
         }
         $sql .= ' ORDER BY image_uploaded_date DESC';
         if ($limit > 0) {
-            $sql = $this->_db->setLimitOffset($sql, array('limit' => (int)$limit));
+            $sql = $this->_db->addLimitOffset($sql, array('limit' => (int)$limit));
         }
         try {
             $images = $this->_db->selectAll($sql, $criteria);
