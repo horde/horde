@@ -133,6 +133,16 @@ class Horde_Menu
     }
 
     /**
+     * Set menu mask.
+     *
+     * @param integer $mask  Display mask.
+     */
+    public function setMask($mask = self::MASK_ALL)
+    {
+        $this->_mask = $mask;
+    }
+
+    /**
      * TODO
      */
     public function setPosition($id, $pos)
