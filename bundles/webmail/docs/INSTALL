@@ -562,13 +562,17 @@ Configuring Horde Groupware Webmail Edition
 
                    php -l mime_drivers.local.php
 
-3. Completing Configuration
+3. Create Database Configuration
 
    Go to Administration => Configuration
    (Or navigate to http://your-server/horde/admin/config).
 
    Click the "Horde" link, open the "Database" tab, enter your
    database information.
+
+   Click "Generate Horde Configuation". If you get warnings
+   that the configuration files couldn't be saved, follow the
+   instructions on the screen to save them.
 
    Open the "Authentication" tab, set the ``$conf[auth][driver]``
    setting to "Let a Horde application handle authentication". Set the
@@ -596,7 +600,26 @@ Configuring Horde Groupware Webmail Edition
    TODO: Update documentation once horde-db-migrate takes (super-) user credentials
    as command line flags.
 
-5. Setting up alarm emails
+5. Completing Configuration
+
+   Go to Administration => Configuration
+   (Or navigate to http://your-server/horde/admin/config).
+
+   Click "Update all configurations.". If you get warnings that the
+   configuration files couldn't be saved, follow the instructions on
+   the screen to save them.
+
+   Click the "Horde" link, open the "Authentication" tab, set the
+   ``$conf[auth][driver]`` setting to "Let a Horde application handle
+   authentication". Set the ``$conf[auth][params][app]`` setting to
+   "imp". Set the ``$conf[auth][admins]`` setting to an **existing**
+   (your) user name of the mail server.
+
+   Click "Generate Horde Configuation". If you get warnings
+   that the configuration files couldn't be saved, follow the
+   instructions on the screen to save them.
+
+6. Setting up alarm emails
 
    If you want your users to be able to receive emails from the Horde_Alarm
    system, you must set up a cron entry for ``horde-alarms``, you
@@ -614,7 +637,7 @@ Configuring Horde Groupware Webmail Edition
    ``/usr/bin/horde-alarms`` with the path to the ``horde-alarms`` script in
    your Horde installation.
 
-6. Testing Horde Groupware Webmail Edition
+7. Testing Horde Groupware Webmail Edition
 
    Once you have configured your webserver, PHP, and Horde Groupware Webmail
    Edition, bring up the included test page in your web browser to ensure that
@@ -632,7 +655,7 @@ Configuring Horde Groupware Webmail Edition
    inclusion``, make sure that the web server has the permission to read the
    ``test.php`` file.
 
-7. Securing Horde Groupware Webmail Edition
+8. Securing Horde Groupware Webmail Edition
 
    a. Global Passwords
 
