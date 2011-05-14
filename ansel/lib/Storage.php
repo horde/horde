@@ -642,14 +642,18 @@ class Ansel_Storage
         $results = array();
 
         if (!count($galleries) && !count($slugs)) {
-            $galleries = $this->_shares->listShares($GLOBALS['registry']->getAuth());
+            // Don't need the Ansel_Gallery object, so save some resources and
+            // only query the share system.
+            $shares = $this->_shares->listShares($GLOBALS['registry']->getAuth());
         }
         if (!count($slugs)) {
             // Searching by gallery_id
             $sql = 'SELECT ' . $this->_getImageFields() . ' FROM ansel_images '
                    . 'WHERE gallery_id IN ('
-                   . str_repeat('?, ', count($galleries) - 1) . '?) ';
-            $criteria = $galleries;
+                   . str_repeat('?, ', count($shares) - 1) . '?) ';
+            foreach ($shares as $g) {
+                $criteria[] = $g->getId();
+            }
         } elseif (count($slugs)) {
             // Searching by gallery_slug so we need to join the share table
             $sql = 'SELECT ' . $this->_getImageFields() . ' FROM ansel_images LEFT JOIN '
