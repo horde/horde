@@ -23,14 +23,17 @@ class Horde_Core_Factory_Notification extends Horde_Core_Factory_Base
         $this->_notify->addDecorator(new Horde_Notification_Handler_Decorator_Alarm($this->_injector->getInstance('Horde_Core_Factory_Alarm'), $GLOBALS['registry']->getAuth()));
         $this->_notify->addDecorator(new Horde_Core_Notification_Handler_Decorator_Hordelog());
 
-        foreach ($GLOBALS['registry']->listApps(null, false, Horde_Perms::READ) as $app) {
-            if ($GLOBALS['registry']->isAuthenticated(array('app' => $app, 'notransparent' => true))) {
-                try {
-                    $GLOBALS['registry']->callAppMethod($app, 'setupNotification', array('args' => array($this->_notify), 'noperms' => true));
-                } catch (Exception $e) {
-                    continue;
+        try {
+            foreach ($GLOBALS['registry']->listApps(null, false, Horde_Perms::READ) as $app) {
+                if ($GLOBALS['registry']->isAuthenticated(array('app' => $app, 'notransparent' => true))) {
+                    try {
+                        $GLOBALS['registry']->callAppMethod($app, 'setupNotification', array('args' => array($this->_notify), 'noperms' => true));
+                    } catch (Exception $e) {
+                        continue;
+                    }
                 }
             }
+        } catch (Horde_Exception $e) {
         }
 
         return $this->_notify;
