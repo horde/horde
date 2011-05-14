@@ -88,7 +88,12 @@ if ($vars->action == 'config') {
         $form->setSubmitted(true);
         if ($form->validate($vars)) {
             $config = new Horde_Config($app);
-            $config->writePHPConfig($vars);
+            $configFile = $config->configFile();
+            if ($config->writePHPConfig($vars)) {
+                $notification->push(sprintf(_("Successfully wrote %s"), Horde_Util::realPath($configFile)), 'horde.success');
+            } else {
+                $notification->push(sprintf(_("Could not save the configuration file %s. Use one of the options below to save the code."), Horde_Util::realPath($configFile)), 'horde.warning', array('content.raw'));
+            }
         } else {
             $notification->push(sprintf(_("The configuration for %s cannot be updated automatically. Please update the configuration manually."), $app), 'horde.error');
         }

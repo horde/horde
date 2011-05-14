@@ -286,16 +286,12 @@ class Horde_Config
             /* Can write, so output to file. */
             fwrite($fp, $php);
             fclose($fp);
-            $GLOBALS['notification']->push(sprintf(_("Successfully wrote %s"), Horde_Util::realPath($configFile)), 'horde.success');
             $GLOBALS['registry']->rebuild();
             return true;
-        } else {
-            /* Cannot write. */
-            $GLOBALS['notification']->push(sprintf(_("Could not save the configuration file %s. You can either use one of the options to save the code back on %s or copy manually the code below to %s."), Horde_Util::realPath($configFile), Horde::link(Horde::url('admin/config/index.php') . '#update', _("Configuration")) . _("Configuration") . '</a>', Horde_Util::realPath($configFile)), 'horde.warning', array('content.raw'));
-
-            /* Save to session. */
-            $GLOBALS['session']->set('horde', 'config/' . $this->_app, $php);
         }
+
+        /* Cannot write. Save to session. */
+        $GLOBALS['session']->set('horde', 'config/' . $this->_app, $php);
 
         return false;
     }
