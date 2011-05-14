@@ -344,12 +344,12 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     /* Multipart/related. */
                     if (($tag == 'img') &&
                         isset($this->_imptmp['cid'][$val])) {
+                        $this->_imptmp['cid_used'][] = $this->_imptmp['cid'][$val];
                         $val = $this->getConfigParam('imp_contents')->urlView(null, 'view_attach', array('params' => array(
                             'id' => $this->_imptmp['cid'][$val],
                             'imp_img_view' => 'data'
                         )));
                         $node->setAttribute('src', $val);
-                        $this->_imptmp['cid_used'][] = $this->_imptmp['cid'][$val];
                     }
 
                     /* Block images.*/
@@ -381,12 +381,12 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
                     /* Multipart/related. */
                     if (isset($this->_imptmp['cid'][$val])) {
+                        $this->_imptmp['cid_used'][] = $this->_imptmp['cid'][$val];
                         $val = $this->getConfigParam('imp_contents')->urlView(null, 'view_attach', array('params' => array(
                             'id' => $this->_imptmp['cid'][$val],
                             'imp_img_view' => 'data'
                         )));
                         $node->setAttribute('background', $val);
-                        $this->_imptmp['cid_used'][] = $this->_imptmp['cid'][$val];
                     }
 
                     /* Block images.*/
