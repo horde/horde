@@ -107,6 +107,8 @@ class IMP_Mailbox implements Serializable
     const CACHE_DISPLAY = 'd';
     // (array) Icons array
     const CACHE_ICONS = 'i';
+    // (array) Namespace information
+    const CACHE_NAMESPACE = 'n';
     // (boolean) Read-only?
     const CACHE_READONLY = 'ro';
     // (integer) UIDVALIDITY
@@ -397,20 +399,33 @@ class IMP_Mailbox implements Serializable
         case 'namespace_info':
             $keys = array('delimiter', 'hidden', 'name', 'translation', 'type');
 
-            if (isset($this->cache['n'])) {
-                return is_null($this->cache['n'])
-                    ? null
-                    : array_combine($keys, $this->cache['n']);
+            if (isset($this->cache[self::CACHE_NAMESPACE])) {
+                $ns = $this->cache[self::CACHE_NAMESPACE];
+
+                if (is_null($ns)) {
+                    return null;
+                }
+
+                $ret = array();
+                foreach ($keys as $key => $val) {
+                    $ret[$val] = isset($ns[$key])
+                        ? $ns[$key]
+                        : '';
+                }
+
+                return $ret;
             }
 
             $ns_info = $injector->getInstance('IMP_Factory_Imap')->create()->getNamespace($this->_mbox);
             if (is_null($ns_info)) {
-                $this->cache['n'] = null;
+                $this->cache[self::CACHE_NAMESPACE] = null;
             } else {
                 /* Store data compressed in the cache array. */
-                $this->cache['n'] = array();
-                foreach ($keys as $key) {
-                    $this->cache['n'][] = $ns_info[$key];
+                $this->cache[self::CACHE_NAMESPACE] = array();
+                foreach ($keys as $id => $key) {
+                    if ($ns_info[$key]) {
+                        $this->cache[self::CACHE_NAMESPACE][$id] = $ns_info[$key];
+                    }
                 }
             }
 
