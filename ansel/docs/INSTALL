@@ -144,8 +144,8 @@ By default, only the required dependencies will be installed::
 
    pear install horde/ansel
 
-If you want to install Ansel even with all optional dependencies, you need to
-specify the ``-a`` flag. Please note that this might also try to install PHP
+If you want to install Ansel even with all binary dependencies, you need to
+remove the ``-B`` flag. Please note that this might also try to install PHP
 extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
