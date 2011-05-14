@@ -19,6 +19,7 @@
  *                          automatically expands subfolder searches.
  * @property array $mbox_list  The list of individual mailboxes to query (no
  *                             subfolder mailboxes).
+ * @property IMP_Mailbox $mbox_ob  The IMP_Mailbox object for this query.
  * @property string $mid  The query ID with the search mailbox prefix.
  * @property array $query  The list of IMAP queries that comprise this search.
  *                         Keys are mailbox names, values are
@@ -200,6 +201,9 @@ class IMP_Search_Query implements Serializable
             }
 
             return $this->_cache[$name];
+
+        case 'mbox_ob':
+            return IMP_Mailbox::get($this->mid);
 
         case 'mid':
             return IMP_Search::MBOX_PREFIX . $this->_id;

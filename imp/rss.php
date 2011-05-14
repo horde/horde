@@ -71,7 +71,7 @@ if (count($ids)) {
             'title' => $imp_ui->getSubject($ob['envelope']->subject),
             'pubDate' => $ob['envelope']->date->format('r'),
             'description' => isset($ob['preview']) ? $ob['preview'] : '',
-            'url' => Horde::url(IMP::generateIMPUrl('message.php', $mailbox, $ob['uid'], $mailbox), true, array('append_session' => -1)),
+            'url' => Horde::url($mailbox->url('message.php', $ob['uid'], $mailbox), true, array('append_session' => -1)),
             'fromAddr' => $from_addr['fullfrom'],
             'toAddr' => Horde_Mime_Address::addrArray2String($ob['envelope']->to, array('charset' => 'UTF-8'))
         ));
@@ -89,7 +89,7 @@ $t->set('pubDate', htmlspecialchars(date('r')));
 $t->set('desc', htmlspecialchars($description));
 $t->set('title', htmlspecialchars($registry->get('name') . ' - ' . $mailbox->label));
 $t->set('items', $items, true);
-$t->set('url', htmlspecialchars(Horde::url(IMP::generateIMPUrl('message.php', $mailbox), true, array('append_session' => -1))));
+$t->set('url', htmlspecialchars(Horde::url($mailbox->url('message.php'), true, array('append_session' => -1))));
 $t->set('rss_url', htmlspecialchars(Horde::url('rss.php', true, array('append_session' => -1))));
 $browser->downloadHeaders('mailbox.rss', 'text/xml', true);
 echo $t->fetch(IMP_TEMPLATES . '/rss/mailbox.rss');

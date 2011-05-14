@@ -41,7 +41,7 @@ $t->setOption('gettext', true);
 $readonly = IMP::$mailbox->readonly;
 
 /* Get the base URL for this page. */
-$mailbox_url = IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox);
+$mailbox_url = IMP::$mailbox->url('mailbox-mimp.php');
 
 /* Perform message actions (via advanced UI). */
 switch ($vars->checkbox) {
@@ -113,7 +113,7 @@ case 'rs':
 
         /* Need to re-calculate these values. */
         $readonly = IMP::$mailbox->readonly;
-        $mailbox_url = IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox);
+        $mailbox_url = IMP::$mailbox->url('mailbox-mimp.php');
     }
     break;
 }
@@ -198,7 +198,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     /* Generate the target link. */
     $msg['target'] = in_array(Horde_Imap_Client::FLAG_DRAFT, $ob['flags'])
         ? IMP::composeLink(array(), array('a' => 'd', 'thismailbox' => IMP::$mailbox, 'uid' => $ob['uid'], 'bodypart' => 1))
-        : IMP::generateIMPUrl('message-mimp.php', IMP::$mailbox, $ob['uid'], $ob['mailbox']);
+        : IMP::$mailbox->url('message-mimp.php', $ob['uid'], $ob['mailbox']);
 
     $msgs[] = $msg;
 }
@@ -245,7 +245,7 @@ if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
     if ($search_mbox) {
         $mboxes = $imp_search[IMP::$mailbox]->mboxes;
         $orig_mbox = IMP_Mailbox::get(reset($mboxes));
-        $menu[] = array(sprintf(_("New Search in %s"), $orig_mbox->label), IMP::generateIMPUrl('mailbox-mimp.php', $orig_mbox)->add('a', 's'));
+        $menu[] = array(sprintf(_("New Search in %s"), $orig_mbox->label), $orig_mbox->url('mailbox-mimp.php')->add('a', 's'));
     } else {
         $menu[] = array(_("Search"), $mailbox_url->copy()->add('a', 's'));
     }

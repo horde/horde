@@ -88,7 +88,7 @@ class IMP_Block_Summary extends Horde_Core_Block
                     $anyUnseen = true;
                 }
 
-                $html .= IMP::generateIMPUrl('mailbox.php', $mbox_str)->link() . $mbox->display . '</a>';
+                $html .= $mbox->url('mailbox.php')->link() . $mbox->display . '</a>';
 
                 if (!empty($mbox_status['unseen'])) {
                     $html .= '</strong>';

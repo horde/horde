@@ -324,7 +324,7 @@ class IMP_Views_ShowMessage
             } catch (Horde_Exception_HookNotSet $e) {}
 
             $result['list_info'] = $imp_ui->getListInformation($mime_headers);
-            $result['save_as'] = Horde::downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), IMP::getIMPMboxParameters($mailbox, $uid, $mailbox)));
+            $result['save_as'] = Horde::downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), $mailbox->urlParams($uid)));
         }
 
         if (empty($result['js'])) {

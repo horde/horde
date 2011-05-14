@@ -341,7 +341,7 @@ if ($vars->criteria_form) {
 
         switch ($redirect_target) {
         case 'mailbox':
-            Horde::url('mailbox.php', true)->add('mailbox', strval($q_ob))->redirect();
+            $q_ob->mbox_ob->url('mailbox.php')->redirect();
             break;
 
         case 'prefs':

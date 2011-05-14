@@ -448,66 +448,6 @@ class IMP
     }
 
     /**
-     * Generates a URL with necessary mailbox/UID information.
-     *
-     * @param string|Horde_Url $page  Page name to link to.
-     * @param string $mailbox         The base mailbox to use on the linked
-     *                                page.
-     * @param string $uid             The UID to use on the linked page.
-     * @param string $tmailbox        The mailbox associated with $uid.
-     * @param boolean $encode         Encode the argument separator?
-     *
-     * @return Horde_Url  URL to $page with any necessary mailbox information
-     *                    added to the parameter list of the URL.
-     */
-    static public function generateIMPUrl($page, $mailbox, $uid = null,
-                                          $tmailbox = null, $encode = true)
-    {
-        if ($page instanceof Horde_Url) {
-            $url = clone $page;
-        } else {
-            switch (self::getViewMode()) {
-            case 'dimp':
-                $anchor = is_null($uid)
-                    ? ('mbox:' . $mailbox)
-                    : ('msg:' . strval(new IMP_Indices($mailbox, $uid)));
-                return Horde::url('index.php')->setAnchor($anchor);
-
-            default:
-                $url = Horde::url($page);
-                break;
-            }
-        }
-
-        return $url->add(self::getIMPMboxParameters($mailbox, $uid, $tmailbox))->setRaw(!$encode);
-    }
-
-    /**
-     * Returns a list of parameters necessary to indicate current mailbox
-     * status.
-     *
-     * @param string $mailbox   The mailbox to use on the linked page.
-     * @param string $uid       The UID to use on the linked page.
-     * @param string $tmailbox  The mailbox associated with $uid to use on
-     *                          the linked page.
-     *
-     * @return array  The list of parameters needed to indicate the current
-     *                mailbox status.
-     */
-    static public function getIMPMboxParameters($mailbox, $uid = null,
-                                                $tmailbox = null)
-    {
-        $params = array('mailbox' => $mailbox);
-        if (!is_null($uid)) {
-            $params['uid'] = $uid;
-            if (!is_null($tmailbox) && ($mailbox != $tmailbox)) {
-                $params['thismailbox'] = $tmailbox;
-            }
-        }
-        return $params;
-    }
-
-    /**
      * Return a list of valid encrypt HTML option tags.
      *
      * @param string $default      The default encrypt option.

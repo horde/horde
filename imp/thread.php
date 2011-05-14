@@ -134,8 +134,8 @@ foreach ($imp_indices as $ob) {
         } else {
             $curr_msg['link'] = Horde::widget('#display', _("Back to Multiple Message View Index"), 'widget', '', '', _("Back to Multiple Message View Index"), true);
         }
-        $curr_msg['link'] .= ' | ' . Horde::widget(IMP::generateIMPUrl('message.php', IMP::$mailbox, $idx, $ob->mbox), _("Go to Message"), 'widget', '', '', _("Go to Message"), true);
-        $curr_msg['link'] .= ' | ' . Horde::widget(IMP::generateIMPUrl('mailbox.php', $ob->mbox)->add(array('start' => $imp_mailbox->getArrayIndex($idx))), sprintf(_("Back to %s"), $page_label), 'widget', '', '', sprintf(_("Bac_k to %s"), $page_label));
+        $curr_msg['link'] .= ' | ' . Horde::widget(IMP::$mailbox->url('message.php', $idx, $ob->mbox), _("Go to Message"), 'widget', '', '', _("Go to Message"), true);
+        $curr_msg['link'] .= ' | ' . Horde::widget(IMP::$mailbox->url('mailbox.php')->add(array('start' => $imp_mailbox->getArrayIndex($idx))), sprintf(_("Back to %s"), $page_label), 'widget', '', '', sprintf(_("Bac_k to %s"), $page_label));
 
         $curr_tree['subject'] = (($mode == 'thread') ? $threadtree[$idx] : null) . ' ' . Horde::link('#i' . $idx) . Horde_String::truncate($subject_header, 60) . '</a> (' . $addr . ')';
 
@@ -153,7 +153,7 @@ $template->set(
     'subject',
     $mode == 'thread' ? $subject : sprintf(_("%d Messages"), count($msgs)));
 if ($mode == 'thread') {
-    $delete_link = IMP::generateIMPUrl('mailbox.php', IMP::$mailbox)->add(array(
+    $delete_link = IMP::$mailbox->url('mailbox.php')->add(array(
         'actionID' => 'delete_messages',
         'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')
     ));

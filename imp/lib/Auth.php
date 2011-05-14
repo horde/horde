@@ -309,7 +309,7 @@ class IMP_Auth
                 $page = 'folders.php';
             } else {
                 $page = 'mailbox.php';
-                $result->url = IMP::generateIMPUrl($page, $mbox);
+                $result->url = $mbox->url($page);
             }
             break;
 
@@ -318,7 +318,7 @@ class IMP_Auth
                 $page = 'folders-mimp.php';
             } else {
                 $page ='mailbox-mimp.php';
-                $result->url = IMP::generateIMPUrl($page, $mbox);
+                $result->url = $mbox->url($page);
             }
             break;
 

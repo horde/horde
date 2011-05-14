@@ -1272,7 +1272,7 @@ class IMP_Prefs_Ui
 
             $editable = !$vfolder_locked && $imp_search->isVFolder($val, true);
             $m_url = ($val->enabled && ($view_mode == 'imp'))
-                ? IMP::generateIMPUrl('mailbox.php', strval($val))->link(array('class' => 'vfolderenabled'))
+                ? $val->url('mailbox.php')->link(array('class' => 'vfolderenabled'))
                 : null;
 
             if ($view_mode == 'dimp') {

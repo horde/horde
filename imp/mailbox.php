@@ -56,7 +56,7 @@ $vars = Horde_Variables::getDefaultVariables();
  * don't re-include config files, and the following variables will already be
  * set: $actionID, $start. */
 $mailbox_url = Horde::url('mailbox.php');
-$mailbox_imp_url = IMP::generateIMPUrl('mailbox.php', IMP::$mailbox)->add('newmail', 1);
+$mailbox_imp_url = IMP::$mailbox->url('mailbox.php')->add('newmail', 1);
 if (!Horde_Util::nonInputVar('from_message_page')) {
     $actionID = $vars->actionID;
     $start = $vars->start;
@@ -221,7 +221,7 @@ case 'empty_mailbox':
     break;
 
 case 'view_messages':
-    IMP::generateIMPUrl('thread.php', IMP::$mailbox, null, null, false)->add(array('mode' => 'msgview', 'msglist' => strval($indices)))->redirect();
+    IMP::$mailbox->url('thread.php', null, null, false)->add(array('mode' => 'msgview', 'msglist' => strval($indices)))->redirect();
 }
 
 /* Token to use in requests */
@@ -424,7 +424,7 @@ if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
                 /* Basic search results. */
                 $search_mailbox = $imp_search[IMP::$mailbox]->mboxes[0];
                 $hdr_template->set('search_url', Horde::url('search-basic.php')->add('search_mailbox', $search_mailbox));
-                $hdr_template->set('searchclose', IMP::generateIMPUrl('mailbox.php', $search_mailbox));
+                $hdr_template->set('searchclose', $search_mailbox->url('mailbox.php', $search_mailbox));
             }
         }
 
@@ -439,7 +439,6 @@ if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
 if (IMP::$mailbox->access_deletemsgs && IMP::$mailbox->access_expunge) {
     $hdr_template->set('empty', $mailbox_imp_url->copy()->add(array(
         'actionID' => 'empty_mailbox',
-        'mailbox' => IMP::$mailbox,
         'mailbox_token' => $mailbox_token
     )));
     $hdr_template->set('empty_img', Horde::img('empty_spam.png', _("Empty folder")));
@@ -781,7 +780,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     $msg['id'] = preg_replace('/[^0-9a-z\-_:\.]/i', '_', str_replace('_', '__', rawurlencode($ob['uid'] . $ob['mailbox'])));
 
     /* Generate the target link. */
-    $target = IMP::generateIMPUrl('message.php', IMP::$mailbox, $ob['uid'], $ob['mailbox']);
+    $target = IMP::$mailbox->url('message.php', $ob['uid'], $ob['mailbox']);
 
     /* Get all the flag information. */
     try {
@@ -847,7 +846,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         break;
 
     case 1:
-        $from_uri = IMP::generateIMPUrl('message.php', IMP::$mailbox, $ob['uid'], $ob['mailbox']);
+        $from_uri = IMP::$mailbox->url('message.php', $ob['uid'], $ob['mailbox']);
         $msg['from'] = Horde::link($from_uri, $msg['fullfrom']) . $msg['from'] . '</a>';
         break;
     }

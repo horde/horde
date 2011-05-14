@@ -1519,9 +1519,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $parent = null;
         }
 
-        $mailbox_url = (IMP::getViewMode() == 'mimp')
-            ? Horde::url('mailbox-mimp.php')
-            : Horde::url('mailbox.php');
+        $mailbox_page = (IMP::getViewMode() == 'mimp')
+            ? 'mailbox-mimp.php'
+            : 'mailbox.php';
 
         foreach ($this as $val) {
             $after = '';
@@ -1586,7 +1586,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             if ($val->container) {
                 $params['container'] = true;
             } else {
-                $params['url'] = $mailbox_url->add('mailbox', $val->value);
+                $params['url'] = $val->url($mailbox_page);
                 if ($this->_showunsub && !$val->sub) {
                     $params['class'] = 'folderunsub';
                 }

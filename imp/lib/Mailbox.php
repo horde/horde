@@ -829,6 +829,58 @@ class IMP_Mailbox implements Serializable
         }
     }
 
+    /**
+     * Generate a URL using the current mailbox.
+     *
+     * @param string|Horde_Url $page  Page name to link to.
+     * @param string $uid             The UID to use on the linked page.
+     * @param string $tmailbox        The mailbox associated with $uid.
+     * @param boolean $encode         Encode the argument separator?
+     *
+     * @return Horde_Url  URL to $page with any necessary mailbox information
+     *                    added to the parameter list of the URL.
+     */
+    public function url($page, $uid = null, $tmailbox = null, $encode = true)
+    {
+        if ($page instanceof Horde_Url) {
+            $url = clone $page;
+        } else {
+            if (IMP::getViewMode() == 'dimp') {
+                $anchor = is_null($uid)
+                    ? ('mbox:' . $this->_mbox)
+                    : ('msg:' . strval(new IMP_Indices($this->_mbox, $uid)));
+                return Horde::url('index.php')->setAnchor($anchor);
+            }
+
+            $url = Horde::url($page);
+        }
+
+        return $url->add($this->urlParams($uid, $tmailbox))->setRaw(!$encode);
+    }
+
+    /**
+     * Returns list of URL parameters necessary to indicate current mailbox
+     * status.
+     *
+     * @param string $uid       The UID to use on the linked page.
+     * @param string $tmailbox  The mailbox associated with $uid to use on
+     *                          the linked page.
+     *
+     * @return array  The list of parameters needed to indicate the current
+     *                mailbox status.
+     */
+    public function urlParams($uid = null, $tmailbox = null)
+    {
+        $params = array('mailbox' => strval($this));
+        if (!is_null($uid)) {
+            $params['uid'] = $uid;
+            if (!is_null($tmailbox) && ($this->_mbox != $tmailbox)) {
+                $params['thismailbox'] = strval(IMP_Mailbox::get($tmailbox));
+            }
+        }
+        return $params;
+    }
+
     /* Static methods. */
 
     /**
