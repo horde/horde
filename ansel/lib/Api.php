@@ -1028,19 +1028,21 @@ class Ansel_Api extends Horde_Registry_Api
     /**
      * Checks if the gallery exists
      *
-     * @param string $app          Application scope to use, if not the default.
      * @param integer $gallery_id  The gallery id
      * @param string $slug         The gallery slug
+     * @param string $app          Application scope to use, if not the default.
      *
      * @return boolean
      */
-    public function galleryExists($app, $gallery_id = null, $slug = '')
+    public function galleryExists($gallery_id, $slug = '', $app = null)
     {
         if (!is_null($app)) {
-            $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $app);
+            $GLOBALS['injector']->getInstance('Ansel_Config')
+                ->set('scope', $app);
         }
 
-        return $GLOBALS['injector']->getInstance('Ansel_Storage')->galleryExists($gallery_id, $slug);
+        return $GLOBALS['injector']->getInstance('Ansel_Storage')
+            ->galleryExists($gallery_id, $slug);
     }
 
     /**
