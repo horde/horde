@@ -85,7 +85,10 @@ class Ansel_Api extends Horde_Registry_Api
                     array('parent' => $gallery_id,
                           'all_levels' => false,
                           'perm' => Horde_Perms::SHOW));
-                $images = $this->listImages(null, $gallery_id, Horde_Perms::SHOW, 'mini');
+                $images = $this->listImages(
+                    $gallery_id,
+                    array('perms' => Horde_Perms::SHOW,
+                          'view' => 'mini'));
 
             } elseif (count($parts) > 2 &&
                       $this->galleryExists(null, $parts[count($parts) - 2]) &&
@@ -785,48 +788,47 @@ class Ansel_Api extends Horde_Registry_Api
      * also. Using api call getImageURL results in a lot of overhead when
      * e.g. generating a select list.
      *
-     * @param string $app          Application scope to use, if not the default.
      * @param integer $gallery_id  Gallery id to get images from.
-     * @param integer $perm        The level of permissions to require for a
-     *                             gallery to return it.
-     * @param string $view         Viewsize to generate URLs for.
-     * @param boolean $full        Return a full URL
-     * @param integer $from        Start image.
-     * @param integer $count       End image.
-     * @param string $style        Use this gallery style.
-     * @param string $slug         Gallery slug
+     * @param array $params        Additional parameters:
+     *<pre>
+     *  (string)app          Application scope to use, if not the default.
+     *  (integer)perm        The level of permissions to require.
+     *  (string)view         View size to generate URLs for.
+     *  (boolean)full        Return a full URL.
+     *  (integer)from        Start image.
+     *  (integer)count       End image.
+     *  (string)style        Use this gallery style.
+     *  (string)slug         Gallery slug (ignore gallery_id).
+     *</pre>
      *
-     * @return array  Two dimensional array with image names ids (key) and urls.
+     * @return array  Hash of image data (see below) keyed by image_id.
+     *<pre>
+     *  name
+     *  caption
+     *  type
+     *  uploaded
+     *  original_date
+     *  url
+     *</pre>
      */
-    public function listImages($app = null, $gallery_id = null, $perm = Horde_Perms::SHOW,
-        $view = 'screen', $full = false, $from = 0,
-        $count = 0, $style = null, $slug = '')
+    public function listImages($gallery_id, array $params = array())
     {
-        if (!is_null($app)) {
-            $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $app);
+        $params = new Horde_Support_Array($params);
+        if ($params->app)) {
+            $GLOBALS['injector']->getInstance('Ansel_Config')
+                ->set('scope', $params->app);
         }
-
         $storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
-        // Determine the default gallery when none is given. The first gallery
-        // in the list is the default gallery.
-        if (is_null($gallery_id) && empty($slug)) {
-            $galleries = $storage->listGalleries(array('perm' => $perm));
-            if (!count($galleries)) {
-                return array();
-            }
-            $g = current($galleries);
-            $gallery_id = $g->id;
-        } elseif (!empty($slug)) {
-            $gallery = $storage->getGalleryBySlug($slug);
+        if ($params->slug) {
+            $gallery = $storage->getGalleryBySlug($params->slug);
         } else {
             $gallery = $storage->getGallery($gallery_id);
         }
-
-        $images = $gallery->listImages();
-        if ($style) {
-            $style = Ansel::getStyleDefinition($style);
+        $images = $gallery->listImages($params->get('from', 0), $params->get('count', 0));
+        if ($params->style) {
+            $params->style = Ansel::getStyleDefinition($params->style);
         } else {
-            $style = $gallery->getStyle();
+            $params->style = $gallery->getStyle();
         }
 
         $counter = 0;
@@ -838,12 +840,14 @@ class Ansel_Api extends Horde_Registry_Api
             $imagelist[$id]['type'] = $image->type;
             $imagelist[$id]['uploaded'] = $image->uploaded;
             $imagelist[$id]['original_date'] = $image->originalDate;
-            $imagelist[$id]['url'] = Ansel::getImageUrl($id, $view, $full, $style);
-            if (!is_null($app) && $GLOBALS['conf']['vfs']['src'] != 'direct') {
-                $imagelist[$id]['url']->add('app', $app);
+            $imagelist[$id]['url'] = Ansel::getImageUrl(
+                $id, $params->view, $params->get('full', false), $params->style);
+            if ($params->app && $GLOBALS['conf']['vfs']['src'] != 'direct') {
+                $imagelist[$id]['url']->add('app', $params->app);
             }
             $imagelist[$id]['url'] = $imagelist[$id]['url']->toString();
         }
+
         return $imagelist;
     }
 
