@@ -854,45 +854,54 @@ class Ansel_Api extends Horde_Registry_Api
     /**
      * Return a list of recently added images
      *
-     * @param string $app       Application used if null then use default.
-     * @param array $galleries  An array of gallery ids to check.  If left empty,
-     *                          will search all galleries with the given
-     *                          permissions for the current user.
-     * @param integer $perms    Horde_Perms::* constant.
-     * @param string $view      The type of image view to return.
-     * @param boolean $full     Return a full URL if this is true.
-     * @param integer  $limit   The maximum number of images to return.
-     * @param string $style     Force the use of this gallery style
-     * @param string $slugs     An array of gallery slugs
+     * @param array $params  Parameter (optionally) containing:
+     *<pre>
+     *   (string)app       Application used if null then use default.
+     *   (array)galleries  An array of gallery ids to check.  If left empty,
+     *                     will search all galleries with the given
+     *                     permissions for the current user.
+     *   (integer)perms    Horde_Perms::* constant.
+     *   (string)view      The type of image view to return.
+     *   (boolean)full     Return a full URL if this is true.
+     *   (integer)limit    The maximum number of images to return.
+     *   (string)style     Force the use of this gallery style
+     *   (array)slugs      An array of gallery slugs
      *
-     * @return array  An array of image objects.
+     * @return array  A hash of image information arrays, keyed by image_id:
+     * @see Ansel_Api::getImages
      */
-    public function getRecentImages($app = null, $galleries = array(),
-        $perms = Horde_Perms::SHOW, $view = 'screen',
-        $full = false, $limit = 10, $style = null,
-        $slugs = array())
+    public function getRecentImages(array $params = array())
     {
-        if (!is_null($app)) {
-            $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $app);
+        if ($params->app)) {
+            $GLOBALS['injector']->getInstance('Ansel_Config')
+                ->set('scope', $params->app);
         }
-        $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getRecentImages($galleries, $limit, $slugs);
+        $images = $GLOBALS['injector']->getInstance('Ansel_Storage')
+            ->getRecentImages(
+                $params->get('galleries', array()),
+                $params->get('limit', 10),
+                $params->get('slugs', arary()));
         $imagelist = array();
-        if ($style) {
-            $style = Ansel::getStyleDefinition($style);
+        if ($params->style) {
+            $params->style = Ansel::getStyleDefinition($params->style);
         }
         foreach ($images as $image) {
             $id = $image->id;
             $imagelist[$id]['id'] = $id;
             $imagelist[$id]['name'] = $image->filename;
-            $imagelist[$id]['url'] = Ansel::getImageUrl($id, $view, $full, $style);
+            $imagelist[$id]['url'] = Ansel::getImageUrl(
+                $id,
+                $params->get('view', 'screen'),
+                $params->get('full', false),
+                $params->style);
             $imagelist[$id]['caption'] = $image->caption;
             $imagelist[$id]['filename'] = $image->filename;
             $imagelist[$id]['gallery'] = $image->gallery;
             $imagelist[$id]['uploaded'] = $image->uploaded;
             $imagelist[$id]['original_date'] = $image->originalDate;
 
-            if (!is_null($app) && $GLOBALS['conf']['vfs']['src'] != 'direct') {
-                $imagelist[$id]['url']->add('app', $app);
+            if ($params->app) && $GLOBALS['conf']['vfs']['src'] != 'direct') {
+                $imagelist[$id]['url']->add('app', $params->app);
             }
         }
         return $imagelist;
