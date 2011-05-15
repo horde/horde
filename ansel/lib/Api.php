@@ -870,6 +870,8 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function getRecentImages(array $params = array())
     {
+        $params = new Horde_Support_Array($params);
+
         if ($params->app) {
             $GLOBALS['injector']->getInstance('Ansel_Config')
                 ->set('scope', $params->app);
@@ -878,7 +880,7 @@ class Ansel_Api extends Horde_Registry_Api
             ->getRecentImages(
                 $params->get('galleries', array()),
                 $params->get('limit', 10),
-                $params->get('slugs', arary()));
+                $params->get('slugs', array()));
         $imagelist = array();
         if ($params->style) {
             $params->style = Ansel::getStyleDefinition($params->style);

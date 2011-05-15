@@ -646,13 +646,18 @@ class Ansel_Storage
             // only query the share system.
             $shares = $this->_shares->listShares($GLOBALS['registry']->getAuth());
         }
+
         if (!count($slugs)) {
             // Searching by gallery_id
             $sql = 'SELECT ' . $this->_getImageFields() . ' FROM ansel_images '
                    . 'WHERE gallery_id IN ('
                    . str_repeat('?, ', count($shares) - 1) . '?) ';
+            $criteria = array();
             foreach ($shares as $g) {
                 $criteria[] = $g->getId();
+            }
+            if (!count($criteria)) {
+                return array();
             }
         } elseif (count($slugs)) {
             // Searching by gallery_slug so we need to join the share table
@@ -664,6 +669,7 @@ class Ansel_Storage
         } else {
             return array();
         }
+
         $sql .= ' ORDER BY image_uploaded_date DESC';
         if ($limit > 0) {
             $sql = $this->_db->addLimitOffset($sql, array('limit' => (int)$limit));
