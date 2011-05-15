@@ -13,7 +13,7 @@
  */
 class Ansel
 {
-    /* Sort constants */
+    // Sort constants
     const SORT_ASCENDING = 0;
     const SORT_DESCENDING = 1;
 
@@ -117,7 +117,7 @@ class Ansel
             if ($rewrite && (empty($data['special']))) {
                 $url = '';
 
-                /* Viewing a List */
+                // Viewing a List
                 if ($data['view'] == 'List') {
 
                     $groupby = isset($data['groupby'])
@@ -139,7 +139,7 @@ class Ansel
                     return $url;
                 }
 
-                /* Viewing a Gallery or Image */
+                // Viewing a Gallery or Image
                 if ($data['view'] == 'Gallery' || $data['view'] == 'Image') {
 
                     /**
@@ -198,8 +198,8 @@ class Ansel
                         $url->add($extras);
                     }
 
-                    /* Slight hack until we delegate at least some of the url
-                     * generation to the gallery/image/view object. */
+                    //Slight hack until we delegate at least some of the url
+                    // generation to the gallery/image/view object.
                     if ($data['view'] == 'Image' &&
                         !empty($data['gallery_view']) &&
                         $data['gallery_view'] == 'GalleryLightbox') {
@@ -237,7 +237,7 @@ class Ansel
             } else {
                 $url = Horde::url('view.php', $full, $append_session);
 
-                /* See note above about delegating url generation to gallery/view */
+                // See note above about delegating url generation to gallery/view
                 if ($data['view'] == 'Image' &&
                     !empty($data['gallery_view']) &&
                     $data['gallery_view'] == 'GalleryLightbox') {
@@ -606,14 +606,14 @@ class Ansel
     {
         $styles = $GLOBALS['injector']->getInstance('Ansel_Styles');
 
-        /* Build the available styles, but don't show hidden styles */
+        // Build the available styles, but don't show hidden styles
         foreach ($styles as $key => $style) {
             if (empty($style['hide'])) {
                 $options[$key] = $style['title'];
             }
         }
 
-        /* Nothing explicitly selected, use the global pref */
+        // Nothing explicitly selected, use the global pref
         if ($selected == '') {
             $selected = $GLOBALS['prefs']->getValue('default_gallerystyle');
         }
@@ -687,12 +687,12 @@ class Ansel
             exit;
         }
 
-        /* Requested a gallery */
+        // Requested a gallery
         if (!is_null($gallery)) {
-            /* We can name the zip file with the slug if we have it */
+            // We can name the zip file with the slug if we have it
             $slug = $gallery->get('slug');
 
-            /* Set the date in case we are viewing in date mode */
+            // Set the date in case we are viewing in date mode
             $gallery->setDate(Ansel::getDateParameter());
 
             /*
@@ -702,7 +702,7 @@ class Ansel
             $images = $gallery->listImages();
         }
 
-        /* At this point, we should always have a list of images */
+        // At this point, we should always have a list of images
         if (!count($images)) {
             $notification->push(sprintf(_("There are no photos in %s to download."),
                                 $gallery->get('name')), 'horde.message');
