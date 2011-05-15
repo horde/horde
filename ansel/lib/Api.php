@@ -814,7 +814,7 @@ class Ansel_Api extends Horde_Registry_Api
     public function listImages($gallery_id, array $params = array())
     {
         $params = new Horde_Support_Array($params);
-        if ($params->app)) {
+        if ($params->app) {
             $GLOBALS['injector']->getInstance('Ansel_Config')
                 ->set('scope', $params->app);
         }
@@ -872,7 +872,7 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function getRecentImages(array $params = array())
     {
-        if ($params->app)) {
+        if ($params->app) {
             $GLOBALS['injector']->getInstance('Ansel_Config')
                 ->set('scope', $params->app);
         }
@@ -900,7 +900,7 @@ class Ansel_Api extends Horde_Registry_Api
             $imagelist[$id]['uploaded'] = $image->uploaded;
             $imagelist[$id]['original_date'] = $image->originalDate;
 
-            if ($params->app) && $GLOBALS['conf']['vfs']['src'] != 'direct') {
+            if ($params->app && $GLOBALS['conf']['vfs']['src'] != 'direct') {
                 $imagelist[$id]['url']->add('app', $params->app);
             }
         }
@@ -911,28 +911,34 @@ class Ansel_Api extends Horde_Registry_Api
     /**
      * Counts the number of galleries.
      *
-     * @param string $app         Application scope to use, if not the default.
-     * @param integer $perm       The level of permissions to require for a gallery
-     *                            to return it.
-     * @param mixed $attributes   Restrict the galleries counted to those matching
-     *                            $attributes. An array of attribute/value pairs or
-     *                            a gallery owner username.
-     * @param integer $parent     The parent gallery id to start searching at.
-     * @param boolean $allLevels  Return all levels, or just the direct children of
-     *                            $parent?
+     * @param array $params  Parameter array containing the following optional:
+     *<pre>
+     *  (string)app         Application scope to use, if not the default.
+     *  (integer)perm       The level of permissions to require for a gallery
+     *                      to return it.
+     *  (mixed)attributes   Restrict the galleries counted to those matching
+     *                      attributes. An array of attribute/value pairs or
+     *                      a gallery owner username.
+     *  (integer)parent     The parent gallery id to start searching at.
+     *  (boolean)allLevels  Return all levels, or just the direct children of
+     *                      $parent?
      *
      * @return integer  Returns the number of matching galleries.
      */
-    public function countGalleries($app = null, $perm = Horde_Perms::SHOW, $attributes = null,
-        $parent = null, $allLevels = true)
+    public function countGalleries(array $params = array())
     {
-        if (!is_null($app)) {
-            $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $app);
+        if ($params->app) {
+            $GLOBALS['injector']->getInstance('Ansel_Config')
+                ->set('scope', $params->app);
         }
 
-        return $GLOBALS['injector']->getInstance('Ansel_Storage')->countGalleries($GLOBALS['registry']->getAuth(), $perm,
-            $attributes, $parent,
-            $allLevels);
+        return $GLOBALS['injector']->getInstance('Ansel_Storage')
+            ->countGalleries(
+                $GLOBALS['registry']->getAuth(),
+                $params->get('perm', Horde_Perms::SHOW),
+                $params->attributes,
+                $params->parent,
+                $params->get('allLevels', true));
     }
 
     /**
