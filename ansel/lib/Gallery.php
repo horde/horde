@@ -1140,7 +1140,7 @@ class Ansel_Gallery implements Serializable
         $json->id = $this->id;
         $json->n = $this->get('name');
         $json->dc = $this->get('date_created');
-        $json->dm = $this->get('date_modified');
+        $json->dm = $this->get('last_modified');
         $json->d = $this->get('desc');
         $json->ki = Ansel::getImageUrl($this->getKeyImage($style), 'thumb', false, $style)->toString(true);
         $json->imgs = array();
@@ -1179,6 +1179,21 @@ class Ansel_Gallery implements Serializable
         }
 
         return $json;
+    }
+
+    public function toArray()
+    {
+        $fields = array(
+            'date_created', 'last_modified', 'owner', 'name', 'desc', 'default',
+             'default_type', 'default_prettythumb', 'images', 'has_subgalleries',
+             'slug', 'age', 'download', 'passwd', 'faces', 'view_mode');
+        $gallery = array();
+        foreach ($fields as $field) {
+            $gallery[$field] = $this->get($field);
+        }
+        $gallery['id'] = $this->id;
+
+        return $gallery;
     }
 
 }
