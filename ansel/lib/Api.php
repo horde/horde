@@ -792,11 +792,10 @@ class Ansel_Api extends Horde_Registry_Api
      * @param array $params        Additional parameters:
      *<pre>
      *  (string)app          Application scope to use, if not the default.
-     *  (integer)perm        The level of permissions to require.
      *  (string)view         View size to generate URLs for.
      *  (boolean)full        Return a full URL.
      *  (integer)from        Start image.
-     *  (integer)count       End image.
+     *  (integer)limit       Max count of images to return.
      *  (string)style        Use this gallery style.
      *  (string)slug         Gallery slug (ignore gallery_id).
      *</pre>
@@ -824,7 +823,7 @@ class Ansel_Api extends Horde_Registry_Api
         } else {
             $gallery = $storage->getGallery($gallery_id);
         }
-        $images = $gallery->listImages($params->get('from', 0), $params->get('count', 0));
+        $images = $gallery->listImages($params->get('from', 0), $params->get('limit', 0));
         if ($params->style) {
             $params->style = Ansel::getStyleDefinition($params->style);
         } else {
@@ -860,7 +859,6 @@ class Ansel_Api extends Horde_Registry_Api
      *   (array)galleries  An array of gallery ids to check.  If left empty,
      *                     will search all galleries with the given
      *                     permissions for the current user.
-     *   (integer)perms    Horde_Perms::* constant.
      *   (string)view      The type of image view to return.
      *   (boolean)full     Return a full URL if this is true.
      *   (integer)limit    The maximum number of images to return.
