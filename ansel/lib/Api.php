@@ -956,15 +956,9 @@ class Ansel_Api extends Horde_Registry_Api
     }
 
     /**
-     * Searches images/galleries tagged with all requested tags.
+     * SearchTags API:
      * Returns an application-agnostic array (useful for when doing a tag search
-     * across multiple applications) containing the following keys:
-     * <pre>
-     *  'title'    - The title for this resource.
-     *  'desc'     - A terse description of this resource.
-     *  'view_url' - The URL to view this resource.
-     *  'app'      - The Horde application this resource belongs to.
-     * </pre>
+     * across multiple applications)
      *
      * The 'raw' results array can be returned instead by setting $raw = true.
      *
@@ -976,7 +970,13 @@ class Ansel_Api extends Horde_Registry_Api
      * @param boolean $raw           Return the raw data?
      * @param string $app            Application scope to use, if not the default.
      *
-     * @return mixed  An array of results | PEAR_Error
+     * @return array An array of results:
+     * <pre>
+     *  'title'    - The title for this resource.
+     *  'desc'     - A terse description of this resource.
+     *  'view_url' - The URL to view this resource.
+     *  'app'      - The Horde application this resource belongs to.
+     * </pre>
      */
     public function searchTags($names, $max = 10, $from = 0,
                                $resource_type = 'all', $user = null, $raw = false,
