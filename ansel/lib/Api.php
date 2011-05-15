@@ -684,8 +684,9 @@ class Ansel_Api extends Horde_Registry_Api
             ->listGalleries($params);
         $return = array();
         foreach ($galleries as $gallery) {
-            $return[$gallery->id] = array_merge($gallery->data,
-                                                array('crumbs' => $gallery->getGalleryCrumbData()));
+            $return[$gallery->id] = array_merge(
+                $gallery->data,
+                array('crumbs' => $gallery->getGalleryCrumbData()));
         }
 
         return $return;
