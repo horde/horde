@@ -7,7 +7,7 @@
  * configuration.
  */
 
-if ($GLOBALS['conf']['avatar']['allow_avatars']) {
+if (!empty($GLOBALS['conf']['avatar']) && $GLOBALS['conf']['avatar']['allow_avatars']) {
     $prefGroups['display_avatar'] = array(
         'column' => _("My Information"),
         'label' => _("Avatar"),
