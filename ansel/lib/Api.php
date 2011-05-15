@@ -1092,4 +1092,5 @@ class Ansel_Api extends Horde_Registry_Api
 
         return $return;
     }
+
 }
