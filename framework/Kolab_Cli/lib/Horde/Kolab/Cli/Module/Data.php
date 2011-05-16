@@ -213,6 +213,10 @@ implements Horde_Kolab_Cli_Module
         case 'deleteall':
             $world['storage']->getData($folder_name, $arguments[3])->deleteAll();
             break;
+        case 'deleteuids':
+            $data = $world['storage']->getData($folder_name, $arguments[3]);
+            $objects = $data->deleteBackendIds(explode(',', $arguments[4]));
+            break;
         case 'backendid':
             $data = $world['storage']->getData($folder_name, $arguments[3]);
             $cli->writeln((string) $data->getBackendId($arguments[4]));
