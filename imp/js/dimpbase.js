@@ -2024,11 +2024,13 @@ var DimpBase = {
         switch (kc) {
         case Event.KEY_DELETE:
         case Event.KEY_BACKSPACE:
-            r = sel.get('dataob');
-            if (e.shiftKey) {
-                this.moveSelected((r.last().VP_rownum == this.viewport.getMetaData('total_rows')) ? (r.first().VP_rownum - 1) : (r.last().VP_rownum + 1), true);
+            if ($('button_deleted').visible()) {
+                r = sel.get('dataob');
+                if (e.shiftKey) {
+                    this.moveSelected((r.last().VP_rownum == this.viewport.getMetaData('total_rows')) ? (r.first().VP_rownum - 1) : (r.last().VP_rownum + 1), true);
+                }
+                this.deleteMsg({ vs: sel });
             }
-            this.deleteMsg({ vs: sel });
             e.stop();
             break;
 
