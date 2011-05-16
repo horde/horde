@@ -85,7 +85,11 @@ class Mnemo
 
         foreach ($display_notepads as $notepad) {
             $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($notepad);
-            $storage->retrieve();
+            try {
+                $storage->retrieve();
+            } catch (Mnemo_Exception $e) {
+                $GLOBALS['notification']->push($e, 'horde.error');
+            }
             $newmemos = $storage->listMemos();
             $memos = array_merge($memos, $newmemos);
         }

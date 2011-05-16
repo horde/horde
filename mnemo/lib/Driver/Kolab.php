@@ -73,10 +73,22 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      */
     private function _getDataForNotepad($notepad)
     {
-        return $this->_kolab->getData(
-            $GLOBALS['mnemo_shares']->getShare($notepad)->get('folder'),
-            'note'
-        );
+        try {
+            return $this->_kolab->getData(
+                $GLOBALS['mnemo_shares']->getShare($notepad)->get('folder'),
+                'note'
+            );
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Mnemo_Exception(
+                sprintf(
+                    'Failed retrieving Kolab data for notepad %s: %s',
+                    $notepad,
+                    $e->getMessage()
+                ),
+                0,
+                $e
+            );
+        }
     }
 
     /**
