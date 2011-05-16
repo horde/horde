@@ -17,8 +17,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-20</date>
- <time>15:35:35</time>
+ <date>2011-05-16</date>
+ <time>12:25:25</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* Fix encoding of headers if charset passed to toArray() is empty (Bug #10054).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -660,10 +660,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-05-16</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* Fix encoding of headers if charset passed to toArray() is empty (Bug #10054).
    </notes>
   </release>
  </changelog>
