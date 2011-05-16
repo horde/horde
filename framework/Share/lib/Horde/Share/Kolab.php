@@ -293,7 +293,11 @@ class Horde_Share_Kolab extends Horde_Share_Base
         );
         $data['desc'] = $query->getDescription($this->_idDecode($id));
         if (isset($data['parent'])) {
-            $data['parent'] = $this->_idEncode($data['parent']);
+            try {
+                $data['parent'] = $this->_idEncode($data['parent']);
+            } catch (Horde_Kolab_Storage_Exception $e) {
+                unset($data['parent']);
+            }
         }
         return $this->_createObject($id, $data);
     }
