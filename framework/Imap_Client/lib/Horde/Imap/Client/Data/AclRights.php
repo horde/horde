@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Imap_Client
  */
-class Horde_Imap_Client_Data_AclRights implements ArrayAccess, Iterator, Serializable
+class Horde_Imap_Client_Data_AclRights extends Horde_Imap_Client_Data_AclCommon implements ArrayAccess, Iterator, Serializable
 {
     /**
      * ACL optional rights.
@@ -45,16 +45,7 @@ class Horde_Imap_Client_Data_AclRights implements ArrayAccess, Iterator, Seriali
             }
         }
 
-        // Clients conforming to RFC 4314 MUST ignore the virtual ACL_CREATE
-        // and ACL_DELETE rights. See RFC 4314 [2.1].
-        if ($this[Horde_Imap_Client::ACL_CREATE] &&
-            $this[Horde_Imap_Client::ACL_CREATEMBOX]) {
-            unset($this[Horde_Imap_Client::ACL_CREATE]);
-        }
-        if ($this[Horde_Imap_Client::ACL_DELETE] &&
-            $this[Horde_Imap_Client::ACL_DELETEMSGS]) {
-            unset($this[Horde_Imap_Client::ACL_DELETE]);
-        }
+        $this->_normalize();
     }
 
     /**
@@ -64,7 +55,7 @@ class Horde_Imap_Client_Data_AclRights implements ArrayAccess, Iterator, Seriali
      */
     public function __toString()
     {
-        return array_keys(array_flip(array_merge(array_values($this->_required), array_keys($this->_optional))));
+        return implode('', array_keys(array_flip(array_merge(array_values($this->_required), array_keys($this->_optional)))));
     }
 
     /* ArrayAccess methods. */
@@ -96,6 +87,7 @@ class Horde_Imap_Client_Data_AclRights implements ArrayAccess, Iterator, Seriali
     public function offsetSet($offset, $value)
     {
         $this->_optional[$offset] = $value;
+        $this->_normalize();
     }
 
     /**
@@ -104,6 +96,7 @@ class Horde_Imap_Client_Data_AclRights implements ArrayAccess, Iterator, Seriali
     {
         unset($this->_optional[$offset]);
         $this->_required = array_values(array_diff($this->_required, array($offset)));
+        $this->_normalize();
     }
 
     /* Iterator methods. */

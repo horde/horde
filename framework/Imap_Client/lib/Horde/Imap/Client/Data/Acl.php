@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Imap_Client
  */
-class Horde_Imap_Client_Data_Acl implements ArrayAccess, Iterator, Serializable
+class Horde_Imap_Client_Data_Acl extends Horde_Imap_Client_Data_AclCommon implements ArrayAccess, Iterator, Serializable
 {
     /**
      * ACL rights.
@@ -29,17 +29,7 @@ class Horde_Imap_Client_Data_Acl implements ArrayAccess, Iterator, Serializable
     public function __construct($rights = '')
     {
         $this->_rights = str_split($rights);
-
-        // Clients conforming to RFC 4314 MUST ignore the virtual ACL_CREATE
-        // and ACL_DELETE rights. See RFC 4314 [2.1].
-        if ($this[Horde_Imap_Client::ACL_CREATE] &&
-            $this[Horde_Imap_Client::ACL_CREATEMBOX]) {
-            unset($this[Horde_Imap_Client::ACL_CREATE]);
-        }
-        if ($this[Horde_Imap_Client::ACL_DELETE] &&
-            $this[Horde_Imap_Client::ACL_DELETEMSGS]) {
-            unset($this[Horde_Imap_Client::ACL_DELETE]);
-        }
+        $this->_normalize();
     }
 
     /**
@@ -62,10 +52,14 @@ class Horde_Imap_Client_Data_Acl implements ArrayAccess, Iterator, Serializable
     public function diff($rights)
     {
         $rlist = str_split($rights);
+        $ignored = array(
+            Horde_Imap_Client::ACL_CREATE,
+            Horde_Imap_Client::ACL_DELETE
+        );
 
         return array(
-            'added' => implode('', array_diff($rlist, $this->_rights)),
-            'removed' => implode('', array_diff($this->_rights, $rlist))
+            'added' => implode('', array_diff($rlist, $this->_rights, $ignored)),
+            'removed' => implode('', array_diff($this->_rights, $rlist, $ignored))
         );
     }
 
@@ -92,9 +86,11 @@ class Horde_Imap_Client_Data_Acl implements ArrayAccess, Iterator, Serializable
         if ($value) {
             if (!$this[$offset]) {
                 $this->_rights[] = $offset;
+                $this->_normalize();
             }
         } elseif ($this[$offset]) {
             unset($this[$offset]);
+            $this->_normalize();
         }
     }
 
@@ -103,6 +99,7 @@ class Horde_Imap_Client_Data_Acl implements ArrayAccess, Iterator, Serializable
     public function offsetUnset($offset)
     {
         $this->_rights = array_values(array_diff($this->_rights, array($offset)));
+        $this->_normalize();
     }
 
     /* Iterator methods. */

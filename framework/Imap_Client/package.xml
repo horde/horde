@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-11</date>
- <time>00:17:40</time>
+ <date>2011-05-16</date>
+ <time>13:58:29</time>
  <version>
   <release>1.0.6</release>
   <api>1.0.0</api>
@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] More than one SEARCH response may be sent, so don't overwrite existing values.
+* [mms] Work around broken ACL server implementations (Bug #10079).
+* [mms] More than one SEARCH response may be sent, so don&apos;t overwrite existing values.
 * [mms] Disable search caching if a mailbox reports it does not support mod sequences (Bug #9833).
 * [mms] Fix storing IMAP flag cache info if specifying both add and remove options to store().
  </notes>
@@ -40,6 +41,7 @@
          <file name="Pop3.php" role="php" />
         </dir> <!-- /lib/Horde/Imap/Client/Data/Fetch -->
         <file name="Acl.php" role="php" />
+        <file name="AclCommon.php" role="php" />
         <file name="AclNegative.php" role="php" />
         <file name="AclRights.php" role="php" />
         <file name="Envelope.php" role="php" />
@@ -179,6 +181,7 @@
    <install as="Horde/Imap/Client/Utils.php" name="lib/Horde/Imap/Client/Utils.php" />
    <install as="Horde/Imap/Client/Cclient/Pop3.php" name="lib/Horde/Imap/Client/Cclient/Pop3.php" />
    <install as="Horde/Imap/Client/Data/Acl.php" name="lib/Horde/Imap/Client/Data/Acl.php" />
+   <install as="Horde/Imap/Client/Data/AclCommon.php" name="lib/Horde/Imap/Client/Data/AclCommon.php" />
    <install as="Horde/Imap/Client/Data/AclNegative.php" name="lib/Horde/Imap/Client/Data/AclNegative.php" />
    <install as="Horde/Imap/Client/Data/AclRights.php" name="lib/Horde/Imap/Client/Data/AclRights.php" />
    <install as="Horde/Imap/Client/Data/Envelope.php" name="lib/Horde/Imap/Client/Data/Envelope.php" />
@@ -389,10 +392,13 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-11</date>
+   <date>2011-05-16</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] Work around broken ACL servers (Bug #10079).
+* [mms] More than one SEARCH response may be sent, so don&apos;t overwrite existing values.
+* [mms] Disable search caching if a mailbox reports it does not support mod sequences (Bug #9833).
+* [mms] Fix storing IMAP flag cache info if specifying both add and remove options to store().
    </notes>
   </release>
  </changelog>
