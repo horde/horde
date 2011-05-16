@@ -74,6 +74,7 @@ class Horde_Memcache implements Serializable
         'hostspec' => 'localhost',
         'large_items' => true,
         'persistent' => false,
+        'prefix' => 'horde',
         'port' => 11211,
     );
 
@@ -101,7 +102,6 @@ class Horde_Memcache implements Serializable
     public function __construct($params = array())
     {
         $this->_params = array_merge($this->_params, $params);
-        $this->_params['prefix'] = (empty($this->_params['prefix'])) ? 'horde' : $this->_params['prefix'];
 
         if (isset($params['logger'])) {
             $this->_logger = $params['logger'];
