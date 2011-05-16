@@ -1965,9 +1965,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
     /**
      * Adds an attachment to a Horde_Mime_Part from an uploaded file.
-     * The actual attachment data is stored in a separate file - the
-     * Horde_Mime_Part information entries 'temp_filename' and 'temp_filetype'
-     * are set with this information.
      *
      * @param string $name  The input field name from the form.
      *
