@@ -653,9 +653,15 @@ class Ansel_Storage
                    . 'WHERE gallery_id IN ('
                    . str_repeat('?, ', count($shares) - 1) . '?) ';
             $criteria = array();
-            foreach ($shares as $g) {
-                $criteria[] = $g->getId();
+
+            if (!count($galleries)) {
+                foreach ($this->_shares->listShares($GLOBALS['registry']->getAuth()) as $g) {
+                    $criteria[] = $g->getId();
+                }
+            } else {
+                $criteria = $galleries;
             }
+
             if (!count($criteria)) {
                 return array();
             }
