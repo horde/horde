@@ -35,7 +35,7 @@ class Horde_Imap_Client_Data_Acl extends Horde_Imap_Client_Data_AclCommon implem
     /**
      * String representation of the ACL.
      *
-     * @return string  String representation.
+     * @return string  String representation (RFC 4314 compliant).
      */
     public function __toString()
     {
@@ -44,6 +44,7 @@ class Horde_Imap_Client_Data_Acl extends Horde_Imap_Client_Data_AclCommon implem
 
     /**
      * Computes the difference to another rights string.
+     * Virtual rights are ignored.
      *
      * @param string $rights  The rights to compute against.
      *
@@ -51,15 +52,11 @@ class Horde_Imap_Client_Data_Acl extends Horde_Imap_Client_Data_AclCommon implem
      */
     public function diff($rights)
     {
-        $rlist = str_split($rights);
-        $ignored = array(
-            Horde_Imap_Client::ACL_CREATE,
-            Horde_Imap_Client::ACL_DELETE
-        );
+        $rlist = array_diff(str_split($rights), array_keys($this->_virtual));
 
         return array(
-            'added' => implode('', array_diff($rlist, $this->_rights, $ignored)),
-            'removed' => implode('', array_diff($this->_rights, $rlist, $ignored))
+            'added' => implode('', array_diff($rlist, $this->_rights)),
+            'removed' => implode('', array_diff($this->_rights, $rlist))
         );
     }
 
@@ -90,7 +87,6 @@ class Horde_Imap_Client_Data_Acl extends Horde_Imap_Client_Data_AclCommon implem
             }
         } elseif ($this[$offset]) {
             unset($this[$offset]);
-            $this->_normalize();
         }
     }
 
@@ -99,7 +95,6 @@ class Horde_Imap_Client_Data_Acl extends Horde_Imap_Client_Data_AclCommon implem
     public function offsetUnset($offset)
     {
         $this->_rights = array_values(array_diff($this->_rights, array($offset)));
-        $this->_normalize();
     }
 
     /* Iterator methods. */

@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-05-16</date>
- <time>13:58:29</time>
+ <time>15:20:40</time>
  <version>
   <release>1.0.6</release>
   <api>1.0.0</api>
@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Work around broken ACL server implementations (Bug #10079).
+* [mms] Fix setACL() for Socket driver (was always doing replace instead of add/remove).
+* [mms] Fix ACL parsing on RFC 2086 server implementations (Bug #10079).
 * [mms] More than one SEARCH response may be sent, so don&apos;t overwrite existing values.
 * [mms] Disable search caching if a mailbox reports it does not support mod sequences (Bug #9833).
 * [mms] Fix storing IMAP flag cache info if specifying both add and remove options to store().
@@ -395,7 +396,8 @@
    <date>2011-05-16</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* [mms] Work around broken ACL servers (Bug #10079).
+* [mms] Fix setACL() for Socket driver (was always doing replace instead of add/remove).
+* [mms] Fix ACL parsing on RFC 2086 server implementations (Bug #10079).
 * [mms] More than one SEARCH response may be sent, so don&apos;t overwrite existing values.
 * [mms] Disable search caching if a mailbox reports it does not support mod sequences (Bug #9833).
 * [mms] Fix storing IMAP flag cache info if specifying both add and remove options to store().

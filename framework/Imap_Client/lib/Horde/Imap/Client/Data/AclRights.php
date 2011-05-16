@@ -51,7 +51,8 @@ class Horde_Imap_Client_Data_AclRights extends Horde_Imap_Client_Data_AclCommon 
     /**
      * String representation of the ACL.
      *
-     * @return string  String representation.
+     * @return string  String representation (RFC 4314 compliant).
+     *
      */
     public function __toString()
     {
@@ -96,7 +97,6 @@ class Horde_Imap_Client_Data_AclRights extends Horde_Imap_Client_Data_AclCommon 
     {
         unset($this->_optional[$offset]);
         $this->_required = array_values(array_diff($this->_required, array($offset)));
-        $this->_normalize();
     }
 
     /* Iterator methods. */

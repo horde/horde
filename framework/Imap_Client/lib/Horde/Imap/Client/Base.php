@@ -2467,9 +2467,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @param array $options     Additional options:
      * <pre>
      * 'remove' - (boolean) If true, removes rights for $identifier.
-     *            DEFAULT: Rights in 'rights' are added.
+     *            DEFAULT: false
      * 'rights' - (string) The rights to alter.
-     *            DEFAULT: No rights are altered.
+     *            DEFAULT: If 'remove' is true, removes all rights. If
+     *            'remove' is false, no rights are altered.
      * </pre>
      *
      * @throws Horde_Imap_Client_Exception
@@ -2480,6 +2481,21 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $this->_exception('Server does not support the ACL extension.', 'NOSUPPORTIMAPEXT');
         }
 
+        if (!empty($options['rights'])) {
+            $acl = ($options['rights'] instanceof Horde_Imap_Client_Data_Acl)
+                ? $options['rights']
+                : new Horde_Imap_Client_Data_Acl(strval($options['rights']));
+
+            $options['rights'] = empty($options['remove'])
+                ? '+'
+                : '-';
+            $options['rights'] .= $acl->getString($this->queryCapability('RIGHTS') ? Horde_Imap_Client_Data_AclCommon::RFC_4314 : Horde_Imap_Client_Data_AclCommon::RFC_2086);
+        }
+
+        if (empty($options['rights']) && empty($options['remove'])) {
+            return;
+        }
+
         return $this->_setACL(Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($mailbox), Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($identifier), $options);
     }
 
@@ -2488,7 +2504,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @param string $mailbox     A mailbox (UTF7-IMAP).
      * @param string $identifier  The identifier to alter (UTF7-IMAP).
-     * @param array $options      Additional options.
+     * @param array $options      Additional options. 'rights' contains the
+     *                            string of rights to set on the server.
      *
      * @throws Horde_Imap_Client_Exception
      */
