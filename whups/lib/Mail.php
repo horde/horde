@@ -76,7 +76,18 @@ class Whups_Mail {
         $body_id = $message->findBody();
         if ($body_id) {
             $part = $message->getPart($body_id);
-            $comment .= Horde_String::convertCharset($part->getContents(), $part->getCharset(), 'UTF-8');
+            $content = Horde_String::convertCharset($part->getContents(), $part->getCharset(), 'UTF-8');
+            switch ($part->getType()) {
+            case 'text/plain':
+                $comment .= $content;
+                break;
+            case 'text/html':
+                $comment .= Horde_Text_Filter::filter($content, array('Html2text'), array(array('width' => 0)));;
+                break;
+            default:
+                $comment .= _("[ Could not render body of message. ]");
+                break;
+            }
         } else {
             $comment .= _("[ Could not render body of message. ]");
         }
@@ -148,7 +159,6 @@ class Whups_Mail {
         foreach ($dl_list as $key) {
             if (strpos($key, '.', 1) === false) {
                 $part = $message->getPart($key);
-                $part->transferDecodeContents();
                 $tmp_name = Horde::getTempFile('whups');
                 $fp = @fopen($tmp_name, 'wb');
                 if (!$fp) {
@@ -159,6 +169,19 @@ class Whups_Mail {
                 fwrite($fp, $part->getContents());
                 fclose($fp);
                 $part_name = $part->getName(true);
+                if (!$part_name) {
+                    $ptype = $part->getPrimaryType();
+                    switch ($ptype) {
+                    case 'multipart':
+                    case 'application':
+                        $part_name = sprintf(_("%s part"), ucfirst($part->getSubType()));
+                        break;
+                    default:
+                        $part_name = sprintf(_("%s part"), ucfirst($ptype));
+                        break;
+                    }
+                    $part_name .= '.' . Horde_Mime_Magic::mimeToExt($part->getType());
+                }
                 $ticket->change('attachment', array('name' => $part_name,
                                                     'tmp_name' => $tmp_name));
                 $result = $ticket->commit();
