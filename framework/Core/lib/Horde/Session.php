@@ -216,44 +216,41 @@ class Horde_Session
      */
     public function get($app, $name, $mask = 0)
     {
-        if (!$this->exists($app, $name)) {
-            if ($subkeys = $this->_subkeys($app, $name)) {
-                $ret = array();
-                foreach ($subkeys as $k => $v) {
-                    $ret[$k] = $this->get($app, $v, $mask);
-                }
-                return $ret;
-            }
-
-            if (strpos($name, self::DATA) === 0) {
-                return $this->retrieve($name);
-            }
-
-            switch ($mask) {
-            case self::TYPE_ARRAY:
-                return array();
-
-            case self::TYPE_OBJECT:
-                return new stdClass;
-
-            default:
-                return null;
-            }
-        }
-
         if (isset($_SESSION[$app][self::NOT_SERIALIZED . $name])) {
             return $_SESSION[$app][self::NOT_SERIALIZED . $name];
+        } elseif (isset($_SESSION[$app][self::IS_SERIALIZED . $name])) {
+            $data = $_SESSION[$app][self::IS_SERIALIZED . $name];
+
+            if ($this->_lzf &&
+                (($data = @lzf_decompress($data)) === false)) {
+                $this->remove($app, $name);
+                return $this->get($app, $name);
+            }
+
+            return @unserialize($data);
         }
 
-        $data = $_SESSION[$app][self::IS_SERIALIZED . $name];
-
-        if ($this->_lzf &&
-            (($data = @lzf_decompress($data)) === false)) {
-            $this->remove($app, $name);
-            return $this->get($app, $name);
+        if ($subkeys = $this->_subkeys($app, $name)) {
+            $ret = array();
+            foreach ($subkeys as $k => $v) {
+                $ret[$k] = $this->get($app, $v, $mask);
+            }
+            return $ret;
         }
 
-        return @unserialize($data);
+        if (strpos($name, self::DATA) === 0) {
+            return $this->retrieve($name);
+        }
+
+        switch ($mask) {
+        case self::TYPE_ARRAY:
+            return array();
+
+        case self::TYPE_OBJECT:
+            return new stdClass;
+        }
+
+        return null;
     }
 
     /**
