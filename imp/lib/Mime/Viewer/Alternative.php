@@ -28,17 +28,6 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
     );
 
     /**
-     * Metadata for the current viewer/data.
-     *
-     * @var array
-     */
-    protected $_metadata = array(
-        'compressed' => false,
-        'embedded' => false,
-        'forceinline' => false
-    );
-
-    /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See parent::render().
