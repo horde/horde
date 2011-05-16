@@ -25,7 +25,7 @@ class Passwd_Driver_horde extends Passwd_Driver {
      */
     public function changePassword($username,  $old_password, $new_password)
     {
-    
+
         $registry = $GLOBALS['registry'];
         $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
 
