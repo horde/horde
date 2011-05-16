@@ -14,7 +14,7 @@
  <date>2011-04-06</date>
  <time>01:13:54</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.1.0</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [gwr] Added support for deleting messages by backend UID.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -985,7 +985,7 @@
   </release>
   <release>
    <version>
-    <release>1.0.1</release>
+    <release>1.1.0</release>
     <api>1.0.0</api></version>
    <stability>
     <release>stable</release>
@@ -993,7 +993,7 @@
    <date>2011-04-06</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [gwr] Added support for deleting messages by backend UID.
    </notes>
   </release>
  </changelog>

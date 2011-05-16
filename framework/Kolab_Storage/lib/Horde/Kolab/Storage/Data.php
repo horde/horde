@@ -161,4 +161,28 @@ extends Horde_Kolab_Storage_Queriable
      */
     public function getObjects();
 
+    /**
+     * Delete the specified objects from this data set.
+     *
+     * @param array|string $object_ids Id(s) of the object to be deleted.
+     *
+     * @return NULL
+     */
+    public function delete($object_ids);
+
+    /**
+     * Delete all objects from this data set.
+     *
+     * @return NULL
+     */
+    public function deleteAll();
+
+    /**
+     * Delete the specified messages from this folder.
+     *
+     * @param array|string $uids Backend id(s) of the message to be deleted.
+     *
+     * @return NULL
+     */
+    public function deleteBackendIds($uids);
 }

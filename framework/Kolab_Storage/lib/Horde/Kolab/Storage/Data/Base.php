@@ -428,9 +428,9 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     }
 
     /**
-     * Delete the specified messages from this folder.
+     * Delete the specified objects from this data set.
      *
-     * @param array|string $object_ids Id(s) of the message to be deleted.
+     * @param array|string $object_ids Id(s) of the object to be deleted.
      *
      * @return NULL
      */
@@ -450,19 +450,33 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
                 );
             }
         }
-
-        $this->_driver->deleteMessages($this->_folder->getPath(), $uids);
-        $this->_driver->expunge($this->_folder->getPath());
+        $this->deleteBackendIds($uids);
     }
 
     /**
-     * Delete all messages from the current data set.
+     * Delete all objects from this data set.
      *
      * @return NULL
      */
     public function deleteAll()
     {
         $this->delete($this->getObjectIds());
+    }
+
+    /**
+     * Delete the specified messages from this folder.
+     *
+     * @param array|string $uids Backend id(s) of the message to be deleted.
+     *
+     * @return NULL
+     */
+    public function deleteBackendIds($uids)
+    {
+        if (!is_array($uids)) {
+            $uids = array($uids);
+        }
+        $this->_driver->deleteMessages($this->_folder->getPath(), $uids);
+        $this->_driver->expunge($this->_folder->getPath());
     }
 
     /**
