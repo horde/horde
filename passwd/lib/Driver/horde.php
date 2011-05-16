@@ -4,8 +4,6 @@
  * caring about the actual implementation. It relies on the current horde
  * authentication mechanism's ability to update the user
  *
- * $Horde: passwd/lib/Driver/horde.php
- *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -28,11 +26,11 @@ class Passwd_Driver_horde extends Passwd_Driver {
     public function changePassword($username,  $old_password, $new_password)
     {
     
-        $registry = $GLOBALS['injector']->getInstance('Horde_Registry');
+        $registry = $GLOBALS['registry'];
         $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
 
         if (!$auth->hasCapability('update')) {
-            return PEAR::raiseERROR(_('The current horde configuration does not allow changing passwords'));
+            return PEAR::raiseError(_('The current horde configuration does not allow changing passwords'));
         }
 
         /* Check the provided old password. */
@@ -41,7 +39,7 @@ class Passwd_Driver_horde extends Passwd_Driver {
             /* actually modify the password */
             return $auth->updateUser($username, $username, array('password' => $new_password) );
         } else {
-            return PEAR::raiseERROR(_('The provided old password is not right'));        
+            return PEAR::raiseError(_('The provided old password is not right'));        
         }
 
     }
