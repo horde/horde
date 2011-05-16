@@ -16,6 +16,14 @@
 class IMP_Mime_Viewer_Vcard extends Horde_Core_Mime_Viewer_Vcard
 {
     /**
+     */
+    protected $_metadata = array(
+        'compressed' => false,
+        'embedded' => false,
+        'forceinline' => true
+    );
+
+    /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * URL parameters used by this function:
