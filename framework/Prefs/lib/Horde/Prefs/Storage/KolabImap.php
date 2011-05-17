@@ -17,9 +17,9 @@ class Horde_Prefs_Storage_KolabImap extends Horde_Prefs_Storage_Base
     /**
      * Handle for the current Kolab connection.
      *
-     * @var Kolab
+     * @var Horde_Kolab_Storage
      */
-    protected $_connection;
+    protected $_kolab;
 
     /**
      * ID of the config default share
@@ -27,6 +27,34 @@ class Horde_Prefs_Storage_KolabImap extends Horde_Prefs_Storage_Base
      * @var string
      */
     protected $_share;
+
+    /**
+     * Constructor.
+     *
+     * @param string $user   The username.
+     * @param array $params  Configuration parameters.
+     * <pre>
+     * 'kolab'  - (Horde_Kolab_Storage) [REQUIRED] The storage backend.
+     * 'folder' - (string) The default name of the preferences folder.
+     *            DEFAULT: _('Preferences')
+     * </pre>
+     *
+     * @throws InvalidArgumentException
+     */
+    public function __construct($user, array $params = array())
+    {
+        if (!isset($params['kolab'])) {
+            throw new InvalidArgumentException('Missing "kolab" parameter.');
+        }
+        $this->_kolab = $params['kolab'];
+        unset($params['kolab']);
+
+        $params = array_merge(array(
+            'folder' => Horde_Prefs_Translation::t("Preferences")
+        ), $params);
+
+        parent::__construct($user, $params);
+    }
 
     /**
      */

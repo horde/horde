@@ -22,8 +22,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:17:16</time>
+ <date>2011-05-17</date>
+ <time>07:05:38</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -340,6 +340,7 @@
       <dir name="Unit">
        <dir name="Storage">
         <file name="FileTest.php" role="test" />
+        <file name="KolabImapTest.php" role="test" />
        </dir> <!-- /test/Horde/Prefs/Unit/Storage -->
       </dir> <!-- /test/Horde/Prefs/Unit -->
       <file name="AllTests.php" role="test" />
@@ -407,6 +408,13 @@
    </package>
    <package>
     <name>Horde_Imsp</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Kolab_Storage</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
     <max>2.0.0</max>
@@ -524,6 +532,7 @@
    <install as="Horde/Prefs/Autoload.php" name="test/Horde/Prefs/Autoload.php" />
    <install as="Horde/Prefs/phpunit.xml" name="test/Horde/Prefs/phpunit.xml" />
    <install as="Horde/Prefs/Unit/Storage/FileTest.php" name="test/Horde/Prefs/Unit/Storage/FileTest.php" />
+   <install as="Horde/Prefs/Unit/Storage/KolabImapTest.php" name="test/Horde/Prefs/Unit/Storage/KolabImapTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -666,7 +675,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-05-17</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * 
