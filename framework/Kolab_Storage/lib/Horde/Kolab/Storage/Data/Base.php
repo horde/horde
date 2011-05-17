@@ -466,6 +466,8 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     /**
      * Delete the specified messages from this folder.
      *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
      * @param array|string $uids Backend id(s) of the message to be deleted.
      *
      * @return NULL
