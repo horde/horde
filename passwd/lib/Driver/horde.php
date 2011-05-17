@@ -27,7 +27,7 @@ class Passwd_Driver_horde extends Passwd_Driver {
      */
     public function changePassword($username,  $old_password, $new_password)
     {
-    
+
         $registry = $GLOBALS['injector']->getInstance('Horde_Registry');
         $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
 
@@ -41,7 +41,7 @@ class Passwd_Driver_horde extends Passwd_Driver {
             /* actually modify the password */
             return $auth->updateUser($username, $username, array('password' => $new_password) );
         } else {
-            return PEAR::raiseERROR(_('The provided old password is not right'));        
+            return PEAR::raiseERROR(_('The provided old password is not right'));
         }
 
     }
