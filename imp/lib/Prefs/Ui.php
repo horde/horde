@@ -711,20 +711,6 @@ class IMP_Prefs_Ui
                     'title' => _("Purge")
                 );
                 break;
-
-            case Horde_Imap_Client::ACL_CREATE:
-                $entry = array(
-                    'desc' =>_("Create subfolders"),
-                    'title' => _("Create Folder")
-                );
-                break;
-
-            case Horde_Imap_Client::ACL_DELETE:
-                $entry = array(
-                    'desc' => _("Delete and purge messages"),
-                    'title' => _("Delete/Purge")
-                );
-                break;
             }
 
             $entry['val'] = $val;
