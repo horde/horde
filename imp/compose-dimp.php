@@ -276,7 +276,6 @@ IMP::status();
 $t->set('status', Horde::endBuffer());
 
 IMP_Dimp::header($title, $scripts);
-echo $status;
 echo $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose-base.html');
 Horde::includeScriptFiles();
 Horde::outputInlineScript();
