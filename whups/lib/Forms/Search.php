@@ -43,11 +43,15 @@ class SearchForm extends Horde_Form {
         $states = array();
         foreach ($types as $typeID => $typeName) {
             $states = $GLOBALS['whups_driver']->getAllStateInfo($typeID);
-            $list = array();
+            $list = $default = array();
             foreach ($states as $state) {
                 $list[$state['state_id']] = $state['state_name'];
+                if ($state['state_category'] != 'resolved') {
+                    $default[] = $state['state_id'];
+                }
             }
-            $this->addVariable($typeName, "states[$typeID]", 'multienum', false, false, null, array ($list, 4));
+            $v = $this->addVariable($typeName, "states[$typeID]", 'multienum', false, false, null, array ($list, 4));
+            $v->setDefault($default);
         }
 
         $this->setSection('dates', _("Dates"));

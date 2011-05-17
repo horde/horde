@@ -11,6 +11,7 @@ v2.0-cvs
 v1.0.2-cvs
 ----------
 
+[jan] Select unresolved states in search form by default.
 [jan] Add upgrade scripts for next-generation SQL share driver.
 [jan] Add Hungarian translation (Andras Galos <galosa@netinform.hu>).
 [jan] Add option to delete individual ticket history entries.
