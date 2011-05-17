@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-05</date>
- <time>09:57:30</time>
+ <date>2011-05-16</date>
+ <time>22:20:36</time>
  <version>
   <release>5.0.4</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Base64url encode breacdrumb hash information in dynamic view.
 * [mms] Add login task to autocreate special mailboxes.
 * [mms] Workaround broken messages by allow viewing multipart/related parts that are not referenced in the base part.
 * [mms] Use ACLs to determine when to hide Purge Deleted option (Request #9537).
@@ -69,6 +70,7 @@
    </dir> <!-- /docs -->
    <dir name="js">
     <file name="acl.js" role="horde" />
+    <file name="base64url.js" role="horde" />
     <file name="compose-base.js" role="horde" />
     <file name="compose-dimp.js" role="horde" />
     <file name="compose.js" role="horde" />
@@ -167,6 +169,7 @@
       <file name="UpgradeAuth.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
      <dir name="Task">
+      <file name="Autocreate.php" role="horde" />
       <file name="DeleteAttachmentsMonthly.php" role="horde" />
       <file name="DeleteSentmailMonthly.php" role="horde" />
       <file name="FilterOnLogin.php" role="horde" />
@@ -858,6 +861,7 @@
       <file name="key_down.png" role="horde" />
       <file name="key_up.png" role="horde" />
       <file name="loading.gif" role="horde" />
+      <file name="locked.png" role="horde" />
       <file name="logo.png" role="horde" />
       <file name="logout.png" role="horde" />
       <file name="mail_answered.png" role="horde" />
@@ -890,6 +894,7 @@
       <file name="sbcursor_top.png" role="horde" />
       <file name="scroller.png" role="horde" />
       <file name="scroller_back.png" role="horde" />
+      <file name="search.png" role="horde" />
       <file name="select.png" role="horde" />
       <file name="shared.png" role="horde" />
       <file name="signed.png" role="horde" />
@@ -1386,6 +1391,7 @@
    <install as="imp/docs/RFCS" name="docs/RFCS" />
    <install as="imp/docs/UPGRADING" name="docs/UPGRADING" />
    <install as="imp/js/acl.js" name="js/acl.js" />
+   <install as="imp/js/base64url.js" name="js/base64url.js" />
    <install as="imp/js/compose-base.js" name="js/compose-base.js" />
    <install as="imp/js/compose-dimp.js" name="js/compose-dimp.js" />
    <install as="imp/js/compose.js" name="js/compose.js" />
@@ -1480,6 +1486,7 @@
    <install as="imp/lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
    <install as="imp/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="imp/lib/LoginTasks/SystemTask/UpgradeAuth.php" name="lib/LoginTasks/SystemTask/UpgradeAuth.php" />
+   <install as="imp/lib/LoginTasks/Task/Autocreate.php" name="lib/LoginTasks/Task/Autocreate.php" />
    <install as="imp/lib/LoginTasks/Task/DeleteAttachmentsMonthly.php" name="lib/LoginTasks/Task/DeleteAttachmentsMonthly.php" />
    <install as="imp/lib/LoginTasks/Task/DeleteSentmailMonthly.php" name="lib/LoginTasks/Task/DeleteSentmailMonthly.php" />
    <install as="imp/lib/LoginTasks/Task/FilterOnLogin.php" name="lib/LoginTasks/Task/FilterOnLogin.php" />
@@ -1821,6 +1828,7 @@
    <install as="imp/themes/default/graphics/key_down.png" name="themes/default/graphics/key_down.png" />
    <install as="imp/themes/default/graphics/key_up.png" name="themes/default/graphics/key_up.png" />
    <install as="imp/themes/default/graphics/loading.gif" name="themes/default/graphics/loading.gif" />
+   <install as="imp/themes/default/graphics/locked.png" name="themes/default/graphics/locked.png" />
    <install as="imp/themes/default/graphics/logo.png" name="themes/default/graphics/logo.png" />
    <install as="imp/themes/default/graphics/logout.png" name="themes/default/graphics/logout.png" />
    <install as="imp/themes/default/graphics/mail_answered.png" name="themes/default/graphics/mail_answered.png" />
@@ -1853,6 +1861,7 @@
    <install as="imp/themes/default/graphics/sbcursor_top.png" name="themes/default/graphics/sbcursor_top.png" />
    <install as="imp/themes/default/graphics/scroller.png" name="themes/default/graphics/scroller.png" />
    <install as="imp/themes/default/graphics/scroller_back.png" name="themes/default/graphics/scroller_back.png" />
+   <install as="imp/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
    <install as="imp/themes/default/graphics/select.png" name="themes/default/graphics/select.png" />
    <install as="imp/themes/default/graphics/shared.png" name="themes/default/graphics/shared.png" />
    <install as="imp/themes/default/graphics/signed.png" name="themes/default/graphics/signed.png" />
@@ -2220,9 +2229,15 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-05</date>
+   <date>2011-05-16</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Base64url encode breacdrumb hash information in dynamic view.
+* [mms] Add login task to autocreate special mailboxes.
+* [mms] Workaround broken messages by allow viewing multipart/related parts that are not referenced in the base part.
+* [mms] Use ACLs to determine when to hide Purge Deleted option (Request #9537).
+* [mms] Cache various calculated mailbox information in the session.
+* [mms] Fix adding flags in advanced search (Bug #10049).
 * [mms] Fix display of subfolders in mobile view (Bug #10043).
 * [mms] Improved determination of available flags in a mailbox.
 * [mms] Fix adding to whitelist from dynamic view (Bug #10036; rui.carneiro@portugalmail.net).

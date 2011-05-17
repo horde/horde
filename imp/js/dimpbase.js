@@ -272,7 +272,7 @@ var DimpBase = {
         }
 
         window.location.hash = h
-            ? escape(encodeURIComponent(h))
+            ? h.base64urlEncode()
             : null;
     },
 
@@ -3316,7 +3316,7 @@ var DimpBase = {
         }
 
         if (!tmp.empty()) {
-            tmp = decodeURIComponent(unescape(tmp)).split(':', 2);
+            tmp = tmp.base64urlDecode().split(':', 2);
             this.go(tmp[0], tmp[1]);
         } else if (DIMP.conf.initial_page) {
             this.go('mbox', DIMP.conf.initial_page);

@@ -864,7 +864,7 @@ class IMP_Mailbox implements Serializable
                 $anchor = is_null($uid)
                     ? ('mbox:' . $this->_mbox)
                     : ('msg:' . strval(new IMP_Indices($this->_mbox, $uid)));
-                return Horde::url('index.php')->setAnchor($anchor);
+                return Horde::url('index.php')->setAnchor(IMP::base64urlEncode($anchor));
             }
 
             $url = Horde::url($page);

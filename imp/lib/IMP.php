@@ -571,4 +571,28 @@ class IMP
         );
     }
 
+    /**
+     * Base64url (RFC 4648 [5]) encode a string.
+     *
+     * @param string $in  Unencoded string.
+     *
+     * @return string  Encoded string.
+     */
+    static public function base64urlEncode($in)
+    {
+        return strtr(rtrim(base64_encode($in), '='), '+/', '-_');
+    }
+
+    /**
+     * Base64url (RFC 4648 [5]) decode a string.
+     *
+     * @param string $in  Encoded string.
+     *
+     * @return string  Decoded string.
+     */
+    static public function base64urlDecode($in)
+    {
+        return base64_decode(strtr($in, '-_', '+/'));
+    }
+
 }
