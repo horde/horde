@@ -67,7 +67,7 @@ function doResort(column, sortDown)
                  if (!empty($info['owners'])) {
                      $owners = array();
                      foreach ($thevalue as $owner) {
-                         $owners[] = Whups::formatUser($owner, false);
+                         $owners[] = Whups::formatUser($owner, false, true, true);
                      }
                      $thevalue = implode(', ', $owners);
                  }
