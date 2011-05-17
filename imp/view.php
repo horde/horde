@@ -19,11 +19,9 @@
  * ctype - (string) The content-type to use instead of the content-type
  *           found in the original Horde_Mime_Part object.
  * id - (string) The MIME part ID to display.
- * mailbox - (string) The mailbox of the message.
  * mode - (integer) The view mode to use.
  *          DEFAULT: IMP_Contents::RENDER_FULL
  * pmode - (string) The print mode of this request ('content', 'headers').
- * uid - (string) The UID of the message.
  * zip - (boolean) Download in .zip format?
  *
  * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
@@ -67,20 +65,20 @@ case 'compose_attach_preview':
     break;
 
 case 'download_mbox':
-    if (!isset($vars->mailbox)) {
+    if (empty(IMP::$thismailbox)) {
         exit;
     }
 
     // Exception will be displayed as fatal error.
-    $injector->getInstance('IMP_Ui_Folder')->downloadMbox(array($vars->mailbox), $vars->zip);
+    $injector->getInstance('IMP_Ui_Folder')->downloadMbox(array(strval(IMP::$thismailbox)), $vars->zip);
     break;
 
 default:
-    if (!$vars->uid || !isset($vars->mailbox)) {
+    if (empty(IMP::$thismailbox) || empty(IMP::$uid)) {
         exit;
     }
 
-    $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($vars->mailbox, $vars->uid));
+    $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices(IMP::$thismailbox, IMP::$uid));
     break;
 }
 
