@@ -431,7 +431,7 @@ $t_template = $injector->createInstance('Horde_Template');
 $t_template->set('message_url', $message_url);
 $t_template->set('form_input', Horde_Util::formInput());
 $t_template->set('mailbox', IMP::$mailbox->form_to);
-$t_template->set('thismailbox', htmlspecialchars($mailbox));
+$t_template->set('thismailbox', IMP::$thismailbox->form_to);
 $t_template->set('start', htmlspecialchars($msgindex));
 $t_template->set('uid', htmlspecialchars($uid));
 $t_template->set('label', sprintf(_("%s: %s"), $header_label, $shortsub));

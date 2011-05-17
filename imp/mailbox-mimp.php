@@ -92,7 +92,7 @@ case 'c':
 case 's':
     $title = sprintf(_("Search %s"), IMP::$mailbox->label);
 
-    $t->set('mailbox', IMP::$mailbox);
+    $t->set('mailbox', IMP::$mailbox->form_to);
     $t->set('menu', $imp_ui_mimp->getMenu('search'));
     $t->set('title', $title);
     $t->set('url', $mailbox_url);
