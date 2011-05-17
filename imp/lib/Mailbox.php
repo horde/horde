@@ -605,7 +605,11 @@ class IMP_Mailbox implements Serializable
     }
 
     /**
-     * TODO
+     * Return the mailbox list object.
+     *
+     * @param IMP_Indices $indices  See IMP_Factory_MailboxList::__construct().
+     *
+     * @return IMP_Mailbox_List  See IMP_Factory_MailboxList::__construct().
      */
     public function getListOb($indices = null)
     {
@@ -613,7 +617,9 @@ class IMP_Mailbox implements Serializable
     }
 
     /**
-     * TODO
+     * Return the search query object for this mailbox.
+     *
+     * @return IMP_Search_Query  The search query object.
      */
     public function getSearchOb()
     {
