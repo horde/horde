@@ -23,6 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [gwr] Added support for storing data query results in the cache.
 * [gwr] Added support for deleting messages by backend UID.
 * [jan] Updated Spanish translation.
  </notes>
@@ -994,6 +995,7 @@
    <date>2011-04-06</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [gwr] Added support for storing data query results in the cache.
 * [gwr] Added support for deleting messages by backend UID.
    </notes>
   </release>

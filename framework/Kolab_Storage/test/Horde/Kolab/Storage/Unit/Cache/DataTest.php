@@ -506,6 +506,28 @@ extends Horde_Kolab_Storage_TestCase
             ->getAttachmentByType('200', 'application/x-vnd.kolab.event');
     }
 
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingQuery()
+    {
+        $this->getMockDataCache()->getQuery('x');
+    }
+
+    public function testHasQuery()
+    {
+        $cache = $this->getMockDataCache();
+        $cache->setQuery('x', 'something');
+        $this->assertTrue($cache->hasQuery('x'));
+    }
+
+    public function testGetSetQuery()
+    {
+        $cache = $this->getMockDataCache();
+        $cache->setQuery('x', 'something');
+        $this->assertEquals('something', $cache->getQuery('x'));
+    }
+
     private function _getSyncedCache()
     {
         $cache = $this->getMockDataCache();

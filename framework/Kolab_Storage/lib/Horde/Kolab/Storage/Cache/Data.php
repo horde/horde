@@ -56,6 +56,9 @@ class Horde_Kolab_Storage_Cache_Data
     /** Holds the version number of the cache format. */
     const FORMAT_VERSION = '1';
 
+    /** Holds query results. */
+    const QUERIES = 'Q';
+
     /**
      * The core cache driver.
      *
@@ -313,6 +316,57 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
+     * Is the specified query data available in the cache?
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @param string $key The query key.
+     *
+     * @return boolean True in case cached data is available.
+     */
+    public function hasQuery($key)
+    {
+        $this->_load();
+        return isset($this->_data[self::QUERIES][$key]);
+    }
+
+    /**
+     * Return query information.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @param string $key The query key.
+     *
+     * @return mixed The query data.
+     */
+    public function getQuery($key)
+    {
+        if ($this->hasQuery($key)) {
+            return $this->_data[self::QUERIES][$key];
+        } else {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf('Missing query cache data (Key: %s). Synchronize first!', $key)
+            );
+        }
+    }
+
+    /**
+     * Set query information.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @param string $key  The query key.
+     * @param mixed  $data The query data.
+     *
+     * @return NULL
+     */
+    public function setQuery($key, $data)
+    {
+        $this->_load();
+        $this->_data[self::QUERIES][$key] = $data;
+    }
+
+    /**
      * Fetch the specified cache entry in case it is present. Returns an empty
      * array otherwise.
      *
@@ -415,6 +469,7 @@ class Horde_Kolab_Storage_Cache_Data
                 $this->_data[self::B2O][$obid] = false;
             }
         }
+        $this->_data[self::QUERIES] = array();
         $this->_data[self::STAMP] = serialize($stamp);
         $this->_data[self::DATA_VERSION] = $version;
         $this->_data[self::VERSION] = self::FORMAT_VERSION;
