@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mms] Fix UTF-8 -> UTF7-IMAP encoding of ampersands (Bug #10093).
 * [mms] Fix setACL() for Socket driver (was always doing replace instead of add/remove).
 * [mms] Fix ACL parsing on RFC 2086 server implementations (Bug #10079).
 * [mms] More than one SEARCH response may be sent, so don&apos;t overwrite existing values.
