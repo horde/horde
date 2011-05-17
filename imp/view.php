@@ -78,7 +78,7 @@ default:
         exit;
     }
 
-    $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices(IMP::$thismailbox, IMP::$uid));
+    $contents = $injector->getInstance('IMP_Factory_Contents')->create(IMP::$thismailbox->getIndicesOb(IMP::$uid));
     break;
 }
 

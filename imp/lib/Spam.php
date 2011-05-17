@@ -57,7 +57,7 @@ class IMP_Spam
                 /* Fetch the raw message contents (headers and complete
                  * body). */
                 try {
-                    $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($ob->mbox, $idx));
+                    $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($ob->mbox->getIndicesOb($idx));
                 } catch (IMP_Exception $e) {
                     continue;
                 }

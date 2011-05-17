@@ -31,7 +31,7 @@ $readonly = $mailbox->readonly;
 switch ($vars->actionID) {
 case 'strip_attachment':
     try {
-        $indices = $injector->getInstance('IMP_Message')->stripPart(new IMP_Indices($mailbox, $vars->uid), $vars->id);
+        $indices = $injector->getInstance('IMP_Message')->stripPart($mailbox->getIndicesOb($uid), $vars->id);
         $js_vars['-DimpMessage.strip'] = 1;
         list(,$vars->uid) = $indices->getSingle();
         $notification->push(_("Attachment successfully stripped."), 'horde.success');
@@ -73,7 +73,7 @@ foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mailbox') as
 }
 
 $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
-$ajax_queue->flag(array(Horde_Imap_Client::FLAG_SEEN), true, new IMP_Indices($mailbox, $vars->uid));
+$ajax_queue->flag(array(Horde_Imap_Client::FLAG_SEEN), true, $mailbox->getIndicesOb($uid));
 $ajax_queue->poll($mailbox);
 
 foreach ($ajax_queue->generate() as $key => $val) {

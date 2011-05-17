@@ -628,6 +628,19 @@ class IMP_Mailbox implements Serializable
     }
 
     /**
+     * Return an indices object for this mailbox.
+     *
+     * @param mixed $in  Either a single UID, array of UIDs, or a
+     *                   Horde_Imap_Client_Ids object.
+     *
+     * @return IMP_Indices  An indices object.
+     */
+    public function getIndicesOb($in)
+    {
+        return new IMP_Indices($this, $in);
+    }
+
+    /**
      * Return the sorting preference for this mailbox.
      *
      * @param boolean $convert  Convert 'by' to a Horde_Imap_Client constant?
@@ -813,7 +826,7 @@ class IMP_Mailbox implements Serializable
             if ($sortdir) {
                 $results['match']->reverse();
             }
-            return new IMP_Indices($this, $results['match']);
+            return $this->getIndicesOb($results['match']);
         } catch (IMP_Imap_Exception $e) {
             return new IMP_Indices();
         }
@@ -869,7 +882,7 @@ class IMP_Mailbox implements Serializable
             if (IMP::getViewMode() == 'dimp') {
                 $anchor = is_null($uid)
                     ? ('mbox:' . $this->_mbox)
-                    : ('msg:' . strval(new IMP_Indices($this->_mbox, $uid)));
+                    : ('msg:' . strval($this->getIndicesOb($uid)));
                 return Horde::url('index.php')->setAnchor(IMP::base64urlEncode($anchor));
             }
 

@@ -104,7 +104,7 @@ class IMP_Message
                 if (($action == 'move') &&
                     !empty($opts['mailboxob']) &&
                     $opts['mailboxob']->isBuilt()) {
-                    $opts['mailboxob']->removeMsgs(new IMP_Indices($ob->mbox, $ob->uids));
+                    $opts['mailboxob']->removeMsgs($ob->mbox->getIndicesOb($ob->uids));
                 }
             } catch (Exception $e) {
                 $error_msg = sprintf($message, $ob->mbox->display, $targetMbox->display) . ': ' . $e->getMessage();
@@ -188,7 +188,7 @@ class IMP_Message
                 continue;
             }
 
-            $imp_indices = new IMP_Indices($ob->mbox, $ob->uids);
+            $imp_indices = $ob->mbox->getIndicesOb($ob->uids);
             if ($return_value !== false) {
                 $return_value += count($ob->uids);
             }
@@ -309,7 +309,7 @@ class IMP_Message
         foreach ($indices as $ob) {
             foreach ($ob->uids as $uid) {
                 /* Fetch the message contents. */
-                $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($ob->mbox, $uid));
+                $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($ob->mbox->getIndicesOb($uid));
 
                 /* Fetch the message headers. */
                 $imp_headers = $imp_contents->getHeaderOb();
@@ -566,7 +566,7 @@ class IMP_Message
             'nuke' => true
         ));
 
-        $indices_ob = new IMP_Indices($mbox, $new_uid);
+        $indices_ob = $mbox->getIndicesOb($new_uid);
 
         if (!empty($opts['mailboxob'])) {
             $opts['mailboxob']->setIndex($indices_ob);
@@ -722,7 +722,7 @@ class IMP_Message
 
                 if (!empty($opts['mailboxob']) &&
                     $opts['mailboxob']->isBuilt()) {
-                    $opts['mailboxob']->removeMsgs($val[1]->all ? true : new IMP_Indices($val[0], $val[1]));
+                    $opts['mailboxob']->removeMsgs($val[1]->all ? true : $val[0]->getIndicesOb($val[1]));
                 }
             } catch (IMP_Imap_Exception $e) {}
         }
@@ -772,7 +772,7 @@ class IMP_Message
                     $this->expungeMailbox(array(strval($mbox) => 1));
                 } else {
                     $ret = $imp_imap->search($mbox);
-                    $this->delete(new IMP_Indices($mbox, $ret['match']));
+                    $this->delete($mbox->getIndicesOb($ret['match']));
                 }
 
                 $notification->push(sprintf(_("Emptied all messages from %s."), $mbox->display), 'horde.success');

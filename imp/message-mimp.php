@@ -29,7 +29,7 @@ Horde_Registry::appInit('imp', array(
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Make sure we have a valid index. */
-$imp_mailbox = IMP::$mailbox->getListOb(new IMP_Indices(IMP::$thismailbox, IMP::$uid));
+$imp_mailbox = IMP::$mailbox->getListOb(IMP::$thismailbox->getIndicesOb(IMP::$uid));
 if (!$imp_mailbox->isValidIndex()) {
     IMP::$mailbox->url('mailbox-mimp.php')->add('a', 'm')->redirect();
 }

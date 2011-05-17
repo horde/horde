@@ -105,7 +105,7 @@ switch ($vars->a) {
 // 'd' = draft
 case 'd':
     try {
-        $result = $imp_compose->resumeDraft(new IMP_Indices(IMP::$thismailbox, IMP::$uid));
+        $result = $imp_compose->resumeDraft(IMP::$thismailbox->getIndicesOb(IMP::$uid));
 
         $msg = $result['msg'];
         $header = array_merge($header, $result['header']);

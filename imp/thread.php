@@ -29,7 +29,7 @@ $mode = $vars->mode
     : 'thread';
 
 $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-$imp_mailbox = IMP::$mailbox->getListOb(new IMP_Indices(IMP::$thismailbox, IMP::$uid));
+$imp_mailbox = IMP::$mailbox->getListOb(IMP::$thismailbox->getIndicesOb(IMP::$uid));
 
 $error = false;
 if ($mode == 'thread') {
@@ -79,7 +79,7 @@ if ($mode == 'thread') {
 
     $imp_thread = new IMP_Imap_Thread($threadob);
     $threadtree = $imp_thread->getThreadImageTree($thread, false);
-    $imp_indices = new IMP_Indices(IMP::$mailbox, $thread);
+    $imp_indices = IMP::$mailbox->getIndicesOb($thread);
 }
 
 $charset = 'UTF-8';
@@ -98,7 +98,7 @@ foreach ($imp_indices as $ob) {
 
         /* Get the body of the message. */
         $curr_msg = $curr_tree = array();
-        $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($ob->mbox, $idx));
+        $contents = $injector->getInstance('IMP_Factory_Contents')->create($ob->mbox->getIndicesOb($idx));
         $mime_id = $contents->findBody();
         if ($contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE)) {
             $ret = $contents->renderMIMEPart($mime_id, IMP_Contents::RENDER_INLINE);
@@ -158,7 +158,7 @@ if ($mode == 'thread') {
         'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')
     ));
     foreach ($thread as $val) {
-        $delete_link->add(array('indices[]' => strval(new IMP_Indices(IMP::$mailbox, $val)), 'start' => $imp_mailbox->getArrayIndex($val)));
+        $delete_link->add(array('indices[]' => strval(IMP::$mailbox->getIndicesOb($val)), 'start' => $imp_mailbox->getArrayIndex($val)));
     }
     $template->set('delete', Horde::link($delete_link, _("Delete Thread"), null, null, null, null, null, array('id' => 'threaddelete')) . Horde::img('delete.png', _("Delete Thread")) . '</a>');
     Horde::addInlineScript(array(

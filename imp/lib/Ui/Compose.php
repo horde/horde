@@ -161,7 +161,7 @@ class IMP_Ui_Compose
 
         if (is_null($vars)) {
             /* IMP: compose.php */
-            $indices = new IMP_Indices(IMP::$thismailbox, IMP::$uid);
+            $indices = IMP::$thismailbox->getIndicesOb(IMP::$uid);
         } elseif ($vars->folder && $vars->uid) {
             /* DIMP: compose-dimp.php */
             $indices = new IMP_Indices($vars->folder, $vars->uid);

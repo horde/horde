@@ -213,7 +213,7 @@ case 'mailto_link':
 
 case 'draft':
     try {
-        $result = $imp_compose->resumeDraft(new IMP_Indices(IMP::$thismailbox, IMP::$uid));
+        $result = $imp_compose->resumeDraft(IMP::$thismailbox->getIndicesOb(IMP::$uid));
 
         if (!is_null($rtemode)) {
             $rtemode = ($result['mode'] == 'html');
