@@ -242,20 +242,41 @@ class IMP
         }
 
         $args = array_merge(self::_decodeMailto($args), $extra);
+        $callback = $raw = false;
         $view = self::getViewMode();
 
         if ($simplejs || ($view == 'dimp')) {
             $args['popup'] = 1;
 
-            $url = Horde::url(($view == 'dimp') ? 'compose-dimp.php' : 'compose.php')->setRaw(true)->add($args);
-            $url->toStringCallback = array(__CLASS__, 'composeLinkSimpleCallback');
+            $url = ($view == 'dimp')
+                ? 'compose-dimp.php'
+                : 'compose.php';
+            $raw = true;
+            $callback = array(__CLASS__, 'composeLinkSimpleCallback');
         } elseif (($view != 'mimp') &&
                   $GLOBALS['prefs']->getValue('compose_popup') &&
                   $GLOBALS['browser']->hasFeature('javascript')) {
-            $url = Horde::url('compose.php')->add($args);
-            $url->toStringCallback = array(__CLASS__, 'composeLinkJsCallback');
+            $url = 'compose.php';
+            $callback = array(__CLASS__, 'composeLinkJsCallback');
         } else {
-            $url = Horde::url(($view == 'mimp') ? 'compose-mimp.php' : 'compose.php')->add($args);
+            $url = ($view == 'mimp')
+                ? 'compose-mimp.php'
+                : 'compose.php';
+        }
+
+        if (isset($args['thismailbox'])) {
+            $url = IMP_Mailbox::get($args['thismailbox'])->url($url, $args['uid']);
+            unset($args['thismailbox'], $args['uid']);
+        } elseif (isset($args['mailbox'])) {
+            $url = IMP_Mailbox::get($args['mailbox'])->url($url, $args['uid']);
+            unset($args['mailbox'], $args['uid']);
+        } else {
+            $url = Horde::url($url);
+        }
+
+        $url->setRaw($raw)->add($args);
+        if ($callback) {
+            $url->toStringCallback = $callback;
         }
 
         return $url;

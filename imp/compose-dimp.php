@@ -7,12 +7,10 @@
  * -----------------------
  * 'bcc' - TODO
  * 'cc' - TODO
- * 'folder'
  * 'identity' - TODO
  * 'subject' - TODO
  * 'type' - TODO
  * 'to' - TODO
- * 'uid' - TODO
  * 'uids' - TODO
  * </pre>
  *
@@ -186,7 +184,7 @@ case 'forward_redirect':
 
 case 'resume':
     try {
-        $result = $imp_compose->resumeDraft(new IMP_Indices($vars->folder, $vars->uid));
+        $result = $imp_compose->resumeDraft(IMP::$mailbox->getIndicesOb(IMP::$uid));
 
         if ($result['mode'] == 'html') {
             $show_editor = true;
@@ -258,6 +256,7 @@ if ($vars->type != 'redirect') {
 Horde::addInlineScript($compose_result['jsonload'], 'dom');
 
 $scripts = array(
+    array('base64url.js', 'imp'),
     array('compose-base.js', 'imp'),
     array('compose-dimp.js', 'imp'),
     array('md5.js', 'horde'),

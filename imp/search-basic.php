@@ -34,8 +34,8 @@ if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCE
 $imp_search = $injector->getInstance('IMP_Search');
 $vars = Horde_Variables::getDefaultVariables();
 
-/* If search_basic_mbox is set, we are processing the search query. */
-if ($vars->search_basic_mbox) {
+/* If search_basic is set, we are processing the search query. */
+if ($vars->search_basic) {
     $c_list = array();
 
     if ($vars->search_criteria_text) {
@@ -77,24 +77,22 @@ if ($vars->search_basic_mbox) {
 
     if (empty($c_list)) {
         $notification->push(_("No search criteria specified."), 'horde.error');
-        $vars->search_mailbox = $vars->search_basic_mbox;
-        unset($vars->search_basic_mbox);
     } else {
         /* Store the search in the session. */
         $q_ob = $imp_search->createQuery($c_list, array(
             'id' => IMP_Search::BASIC_SEARCH,
-            'mboxes' => array($vars->search_basic_mbox),
+            'mboxes' => array(IMP::$mailbox),
             'type' => IMP_Search::CREATE_QUERY
         ));
 
         /* Redirect to the mailbox screen. */
-        Horde::url('mailbox.php', true)->add('mailbox', strval($q_ob))->redirect();
+        IMP_Mailbox::get($q_ob)->url('mailbox.php')->redirect();
     }
 }
 
 $flist = $injector->getInstance('IMP_Flags')->getList(array(
     'imap' => true,
-    'mailbox' => $vars->search_mailbox
+    'mailbox' => IMP::$mailbox
 ));
 $flag_set = array();
 foreach ($flist as $val) {
@@ -109,8 +107,8 @@ $t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 
 $t->set('action', Horde::url('search-basic.php'));
-$t->set('mbox', htmlspecialchars($vars->search_mailbox));
-$t->set('search_title', sprintf(_("Search %s"), htmlspecialchars(IMP_Mailbox::get($vars->search_mailbox)->display)));
+$t->set('mbox', IMP::$mailbox->form_to);
+$t->set('search_title', sprintf(_("Search %s"), htmlspecialchars(IMP::$mailbox->display)));
 $t->set('flist', $flag_set);
 
 $title = _("Search");
@@ -120,7 +118,7 @@ echo $menu;
 IMP::status();
 
 if ($browser->hasFeature('javascript')) {
-    $t->set('advsearch', Horde::link(Horde::url('search.php')->add(array('search_mailbox' => $vars->search_mailbox))));
+    $t->set('advsearch', Horde::link(IMP::$mailbox->url('search.php')));
 }
 
 echo $t->fetch(IMP_TEMPLATES . '/imp/search/search-basic.html');

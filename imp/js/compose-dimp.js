@@ -142,6 +142,10 @@ var DimpCompose = {
                 : l.l;
         }
 
+        if (id == 'sm') {
+            s = s.base64urlEncode();
+        }
+
         $(k.opts.input).setValue(s);
         $(k.opts.label).writeAttribute('title', l.escapeHTML()).setText(l.truncate(15)).up(1).show();
 

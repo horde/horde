@@ -162,8 +162,8 @@ var DimpBase = {
     //     'msg' - (string) IMAP sequence string
     //     'prefs' - (object) Extra parameters to add to prefs URL
     //     'search' - (object)
-    //         'edit_query' = folder to edit
-    //         'search_mailbox' = folders to search
+    //         'edit_query' = If 1, mailbox will be edited
+    //         'mailbox' = folders to search
     //         'subfolder' = do subfolder search
     //         If not set, loads search screen with current mailbox as
     //         default search mailbox
@@ -244,7 +244,7 @@ var DimpBase = {
 
         case 'search':
             if (!data) {
-                data = { search_mailbox: this.folder };
+                data = { mailbox: this.folder.base64urlEncode() };
             }
             this.highlightSidebar();
             this.setTitle(DIMP.text.search);
@@ -351,7 +351,7 @@ var DimpBase = {
     {
         var url = DIMP.conf.URI_MESSAGE;
         url += (url.include('?') ? '&' : '?') +
-               $H({ folder: r.view,
+               $H({ mailbox: r.view.base64urlEncode(),
                     uid: r.imapuid }).toQueryString();
         DimpCore.popupWindow(url, 'msgview' + r.view + r.imapuid);
     },
@@ -923,7 +923,7 @@ var DimpBase = {
         case 'ctx_folder_search':
         case 'ctx_folder_searchsub':
             this.go('search', {
-                search_mailbox: e.findElement('LI').retrieve('mbox'),
+                mailbox: e.findElement('LI').retrieve('mbox').base64urlEncode(),
                 subfolder: Number(id.endsWith('searchsub'))
             });
             break;
@@ -949,7 +949,7 @@ var DimpBase = {
 
         case 'ctx_message_source':
             this.viewport.getSelected().get('dataob').each(function(v) {
-                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: v.imapuid, mailbox: v.view, actionID: 'view_source', id: 0 }, true), v.imapuid + '|' + v.view);
+                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: v.imapuid, mailbox: v.view.base64urlEncode(), actionID: 'view_source', id: 0 }, true), v.imapuid + '|' + v.view);
             }, this);
             break;
 
@@ -1015,7 +1015,10 @@ var DimpBase = {
             break;
 
         case 'ctx_vfolder_edit':
-            tmp = { edit_query: e.findElement('LI').retrieve('mbox') };
+            tmp = {
+                edit_query: 1,
+                mailbox: e.findElement('LI').retrieve('mbox').base64urlEncode()
+            };
             // Fall through
 
         case 'ctx_qsearchopts_advanced':
@@ -2253,7 +2256,10 @@ var DimpBase = {
                 return;
 
             case 'search_edit':
-                this.go('search', { edit_query: this.folder });
+                this.go('search', {
+                    edit_query: 1,
+                    mailbox: this.folder.base64urlEncode()
+                });
                 e.stop();
                 return;
 
@@ -2345,7 +2351,7 @@ var DimpBase = {
                 return;
 
             case 'msg_view_source':
-                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.imapuid, mailbox: this.pp.view, actionID: 'view_source', id: 0 }, true), this.pp.imapuid + '|' + this.pp.view);
+                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.imapuid, mailbox: this.pp.view.base64urlEncode(), actionID: 'view_source', id: 0 }, true), this.pp.imapuid + '|' + this.pp.view);
                 break;
 
             case 'msg_resume_draft':
@@ -2398,7 +2404,7 @@ var DimpBase = {
 
             default:
                 if (elt.hasClassName('printAtc')) {
-                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.imapuid, mailbox: this.pp.view, actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.pp.imapuid + '|' + this.pp.view + '|print', IMP_JS.printWindow);
+                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.imapuid, mailbox: this.pp.view.base64urlEncode(), actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.pp.imapuid + '|' + this.pp.view + '|print', IMP_JS.printWindow);
                     e.stop();
                     return;
                 } else if (elt.hasClassName('stripAtc')) {

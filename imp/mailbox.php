@@ -405,7 +405,7 @@ if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
     $hdr_template->set('search_img', Horde::img('search.png', _("Search")));
 
     if (!$search_mbox) {
-        $hdr_template->set('search_url', Horde::url('search-basic.php')->add('search_mailbox', IMP::$mailbox));
+        $hdr_template->set('search_url', IMP::$mailbox->url('search-basic.php'));
     } else {
         if (IMP::$mailbox->editvfolder) {
             $edit_search = _("Edit Virtual Folder");
@@ -414,9 +414,9 @@ if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
                 $edit_search = _("Edit Search Query");
             } else {
                 /* Basic search results. */
-                $search_mailbox = $imp_search[IMP::$mailbox]->mboxes[0];
-                $hdr_template->set('search_url', Horde::url('search-basic.php')->add('search_mailbox', $search_mailbox));
-                $hdr_template->set('searchclose', $search_mailbox->url('mailbox.php', $search_mailbox));
+                $search_mailbox = IMP_Mailbox::get($imp_search[IMP::$mailbox]->mboxes[0]);
+                $hdr_template->set('search_url', $search_mailbox->url('search-basic.php'));
+                $hdr_template->set('searchclose', $search_mailbox->url('mailbox.php'));
             }
         }
 

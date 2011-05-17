@@ -943,11 +943,11 @@ class IMP_Mailbox implements Serializable
      */
     public function urlParams($uid = null, $tmailbox = null)
     {
-        $params = array('mailbox' => strval($this));
+        $params = array('mailbox' => $this->form_to);
         if (!is_null($uid)) {
             $params['uid'] = $uid;
             if (!is_null($tmailbox) && ($this->_mbox != $tmailbox)) {
-                $params['thismailbox'] = strval(IMP_Mailbox::get($tmailbox));
+                $params['thismailbox'] = IMP_Mailbox::get($tmailbox)->form_to;
             }
         }
         return $params;
@@ -960,13 +960,15 @@ class IMP_Mailbox implements Serializable
      * Needed because null characters (used for various internal non-IMAP
      * mailbox representations) will not work in form elements.
      *
-     * @param string $mbox  The mailbox name.
+     * @param mixed $mbox  The mailbox name(s).
      *
-     * @return IMP_Mailbox  The mailbox object.
+     * @return mixed  The mailbox object(s).
      */
     static public function formFrom($mbox)
     {
-        return self::get(rawurldecode($mbox));
+        return is_array($mbox)
+            ? array_filter(array_map(array(__CLASS__, 'formFrom'), $mbox))
+            : self::get(IMP::base64urlDecode($mbox));
     }
 
     /**
@@ -974,13 +976,15 @@ class IMP_Mailbox implements Serializable
      * Needed because null characters (used for various internal non-IMAP
      * mailbox representations) will not work in form elements.
      *
-     * @param string $mbox  The mailbox name.
+     * @param mixed $mbox  The mailbox name(s).
      *
-     * @return string  The converted mailbox string.
+     * @return mixed  The converted mailbox string(s).
      */
     static public function formTo($mbox)
     {
-        return htmlspecialchars(rawurlencode($mbox), ENT_COMPAT, 'UTF-8');
+        return is_array($mbox)
+            ? array_filter(array_map(array(__CLASS__, 'formTo'), $mbox))
+            : IMP::base64urlEncode($mbox);
     }
 
     /**

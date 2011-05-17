@@ -788,7 +788,7 @@ class IMP_Contents
 
         if ($this->_mailbox) {
             $params['uid'] = $this->_uid;
-            $params['mailbox'] = $this->_mailbox;
+            $params['mailbox'] = $this->_mailbox->form_to;
         }
 
         return $params;

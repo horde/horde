@@ -1607,8 +1607,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             }
 
             $tree->addNode(
-                strval($parent) . $val->value,
-                ($val->level) ? strval($parent) . $val->parent : $parent,
+                $val->form_to,
+                ($val->level) ? IMP_Mailbox::get($val->parent)->form_to : $parent,
                 $label,
                 $val->level,
                 $is_open,

@@ -52,7 +52,7 @@ $imaptree = $injector->getInstance('IMP_Imap_Tree');
 /* $folder_list is already encoded in UTF7-IMAP, but entries are
  * urlencoded. */
 $folder_list = isset($vars->folder_list)
-    ? array_map(array('IMP_Mailbox', 'formFrom'), $vars->folder_list)
+    ? IMP_Mailbox::formFrom($vars->folder_list)
     : array();
 
 /* Token to use in requests */
@@ -317,7 +317,7 @@ case 'search':
     if (!empty($folder_list)) {
         $url = new Horde_Url(Horde::url('search.php'));
         $url->add('subfolder', 1)
-            ->add('search_mailbox', $folder_list)
+            ->add('mailbox_list', IMP_Mailbox::formTo($folder_list))
             ->redirect();
     }
     break;

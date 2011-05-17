@@ -409,7 +409,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      */
     public function editUrl($id)
     {
-        return Horde::url('search.php')->add(array('edit_query' => $this->createSearchId($id)));
+        return IMP_Mailbox::get($this->createSearchId($id))->url('search.php')->add(array('edit_query' => 1));
     }
 
     /**
