@@ -214,39 +214,6 @@ class IMP
     }
 
     /**
-     * Prepares the arguments to use for composeLink().
-     *
-     * @param mixed $args   List of arguments to pass to compose.php. If this
-     *                      is passed in as a string, it will be parsed as a
-     *                      toaddress?subject=foo&cc=ccaddress (mailto-style)
-     *                      string.
-     * @param array $extra  Hash of extra, non-standard arguments to pass to
-     *                      compose.php.
-     *
-     * @return array  The array of args to use for composeLink().
-     */
-    static public function composeLinkArgs($args = array(), $extra = array())
-    {
-        if (is_string($args)) {
-            $string = $args;
-            $args = array();
-            if (($pos = strpos($string, '?')) !== false) {
-                parse_str(substr($string, $pos + 1), $args);
-                $args['to'] = substr($string, 0, $pos);
-            } else {
-                $args['to'] = $string;
-            }
-        }
-
-        $args = self::_decodeMailto($args);
-
-        /* Merge the two argument arrays. */
-        return (is_array($extra) && !empty($extra))
-            ? array_merge($args, $extra)
-            : $args;
-    }
-
-    /**
      * Returns the appropriate link to call the message composition script.
      *
      * @param mixed $args       List of arguments to pass to compose script.
@@ -263,7 +230,18 @@ class IMP
     static public function composeLink($args = array(), $extra = array(),
                                        $simplejs = false)
     {
-        $args = self::composeLinkArgs($args, $extra);
+        if (is_string($args)) {
+            $string = $args;
+            $args = array();
+            if (($pos = strpos($string, '?')) !== false) {
+                parse_str(substr($string, $pos + 1), $args);
+                $args['to'] = substr($string, 0, $pos);
+            } else {
+                $args['to'] = $string;
+            }
+        }
+
+        $args = array_merge(self::_decodeMailto($args), $extra);
         $view = self::getViewMode();
 
         if ($simplejs || ($view == 'dimp')) {
