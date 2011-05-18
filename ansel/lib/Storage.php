@@ -720,7 +720,7 @@ class Ansel_Storage
     *                         attribute/values pairs or a gallery owner
     *                         username.
     * (Ansel_Gallery)parent   The parent share to start counting at.
-    * (boolean)allLevels      Return all levels, or just the direct children of
+    * (boolean)all_levels      Return all levels, or just the direct children of
     *                         $parent? [true]
     * (array)tags             Filter results by galleries tagged with tags.
     *</pre>
@@ -729,8 +729,6 @@ class Ansel_Storage
     * @throws Ansel_Exception
     */
     public function countGalleries($userid, array $params = array())
-     // $perm = Horde_Perms::SHOW,
-     //    $attributes = null, Ansel_Gallery $parent = null, $allLevels = true)
     {
         static $counts;
 
@@ -741,7 +739,7 @@ class Ansel_Storage
             $parent_id = null;
         }
         $perm = $oparams->get('perm', Horde_Perms::SHOW);
-        $key = "$userid,$perm,$parent_id,{$oparams->allLevels}" . serialize($oparams->get('attributes', array()));
+        $key = "$userid,$perm,$parent_id,{$oparams->all_levels}" . serialize($oparams->get('attributes', array())) . serialize($oparams->get('tags', array()));
         if (isset($counts[$key])) {
             return $counts[$key];
         }
@@ -756,7 +754,7 @@ class Ansel_Storage
                     $userid,
                     $perm, $oparams->get('attributes', array()),
                     $parent_id,
-                    $oparams->get('allLevels', true));
+                    $oparams->get('all_levels', true));
             } catch (Horde_Share_Exception $e) {
                 throw new Ansel_Exception($e);
             }

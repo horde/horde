@@ -30,7 +30,7 @@ $num_galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')
     ->countGalleries(
       $GLOBALS['registry']->getAuth(),
       array('attributes' => $group,
-            'allLevels' => false));
+            'all_levels' => false));
 
 if ($num_galleries < 5) {
     $mini_galleries = $GLOBALS['injector']

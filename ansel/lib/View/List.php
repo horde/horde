@@ -112,8 +112,8 @@ class Ansel_View_List extends Ansel_View_Ansel
 
             $this->_numGalleries = $ansel_storage->countGalleries(
                 $GLOBALS['registry']->getAuth(),
-                array('attribtues' => $filter,
-                      'allLevels' => false,
+                array('attributes' => $filter,
+                      'all_levels' => false,
                       'tags' => !empty($params['tags']) ? $params['tags'] : null));
 
             if ($this->_numGalleries == 0 && empty($this->_params['api'])) {

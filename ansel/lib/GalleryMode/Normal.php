@@ -42,7 +42,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
             $numimages = $this->countImages();
             $num_galleries = $storage->countGalleries(
                 $GLOBALS['registry']->getAuth(),
-                array('parent' => $this->_gallery, 'allLevels' => false));
+                array('parent' => $this->_gallery, 'all_levels' => false));
 
             /* Now fetch the subgalleries, but only if we need to */
             if ($num_galleries > $from) {
@@ -116,7 +116,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
                     $GLOBALS['registry']->getAuth(),
                     array('perm' => $perm,
                           'parent' => $this->_gallery,
-                          'allLevels' => false));
+                          'all_levels' => false));
 
         if (!$galleries_only) {
             $iCnt = $this->countImages(false);

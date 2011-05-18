@@ -921,24 +921,23 @@ class Ansel_Api extends Horde_Registry_Api
      *                      attributes. An array of attribute/value pairs or
      *                      a gallery owner username.
      *  (integer)parent     The parent gallery id to start searching at.
-     *  (boolean)allLevels  Return all levels, or just the direct children of
+     *  (boolean)all_levels  Return all levels, or just the direct children of
      *                      $parent?
      *
      * @return integer  Returns the number of matching galleries.
      */
     public function countGalleries(array $params = array())
     {
-        if ($params->app) {
+        if (!empty($params['app'])) {
             $GLOBALS['injector']->getInstance('Ansel_Config')
-                ->set('scope', $params->app);
+                ->set('scope', $params['app']);
+            unset($params['app']);
         }
 
         return $GLOBALS['injector']->getInstance('Ansel_Storage')
             ->countGalleries(
                 $GLOBALS['registry']->getAuth(),
-                array(
-                    'attributes' => $params->attributes,
-                    'parent' => $params->parent));
+                $params);
     }
 
     /**
