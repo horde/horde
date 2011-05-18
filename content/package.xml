@@ -16,8 +16,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:59:44</time>
+ <date>2011-05-18</date>
+ <time>18:38:16</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -96,13 +96,17 @@
     <file name="2_rampage_tag_tables.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="test">
-    <dir name="fixtures">
-     <file name="schema.sql" role="test" />
-    </dir> <!-- /test/fixtures -->
-    <dir name="Tags">
-     <file name="TaggerTest.php" role="test" />
-    </dir> <!-- /test/Tags -->
-    <file name="AllTests.php" role="test" />
+    <dir name="Content">
+     <dir name="fixtures">
+      <file name="schema.sql" role="test" />
+     </dir> <!-- /test/Content/fixtures -->
+     <dir name="Tags">
+      <file name="TaggerTest.php" role="test" />
+     </dir> <!-- /test/Content/Tags -->
+     <file name="AllTests.php" role="test" />
+     <file name="Autoload.php" role="test" />
+     <file name="Base.php" role="test" />
+    </dir> <!-- /test/Content -->
    </dir> <!-- /test -->
    <file name=".htaccess" role="horde" />
   </dir> <!-- / -->
@@ -226,9 +230,11 @@
    <install as="content/lib/Users/Manager.php" name="lib/Users/Manager.php" />
    <install as="content/migration/1_rampage_base_tables.php" name="migration/1_rampage_base_tables.php" />
    <install as="content/migration/2_rampage_tag_tables.php" name="migration/2_rampage_tag_tables.php" />
-   <install as="AllTests.php" name="test/AllTests.php" />
-   <install as="fixtures/schema.sql" name="test/fixtures/schema.sql" />
-   <install as="Tags/TaggerTest.php" name="test/Tags/TaggerTest.php" />
+   <install as="Content/AllTests.php" name="test/Content/AllTests.php" />
+   <install as="Content/Autoload.php" name="test/Content/Autoload.php" />
+   <install as="Content/Base.php" name="test/Content/Base.php" />
+   <install as="Content/fixtures/schema.sql" name="test/Content/fixtures/schema.sql" />
+   <install as="Content/Tags/TaggerTest.php" name="test/Content/Tags/TaggerTest.php" />
    <install as="content/.htaccess" name=".htaccess" />
   </filelist>
  </phprelease>
@@ -317,7 +323,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-05-18</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * 
