@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2011-05-18</date>
- <time>14:40:25</time>
+ <time>14:41:21</time>
  <version>
-  <release>1.0.3</release>
+  <release>1.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
-* [mms] Cyrsql driver doesn&apos;t support resetting passwords currently (Bug #10060).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -402,6 +402,19 @@
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
 * [mms] Cyrsql driver doesn&apos;t support resetting passwords currently (Bug #10060).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-18</date>
+   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
