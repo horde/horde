@@ -1543,19 +1543,27 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if (!empty($tmp['vanished'])) {
             $expunged = $tmp['vanished'];
         } elseif (!empty($tmp['expunge'])) {
-            $i = $last = 0;
-            $lookup = $s_res['uids']->ids;
+            $lookup = $s_res['lookup'];
 
             /* Expunge responses can come in any order. Thus, we need to
              * reindex anytime we have an index that appears equal to or
              * after a previously seen index. If an IMAP server is smart,
              * it will expunge in reverse order instead. */
-            foreach ($tmp['expunge'] as $val) {
-                if ($i++ && ($val >= $last)) {
-                    $lookup = array_values($lookup);
+            foreach ($tmp['expunge'] as &$val) {
+                $found = false;
+                $tmp2 = array();
+
+                foreach (array_keys($lookup) as $i => $seq) {
+                    if ($found) {
+                        $tmp2[$seq - 1] = $lookup[$seq];
+                    } elseif ($seq == $val) {
+                        $expunged[] = $lookup[$seq];
+                        $tmp2 = array_slice($lookup, 0, $i, true);
+                        $found = true;
+                    }
                 }
-                $expunged[] = $lookup[$val - 1];
-                $last = $val;
+
+                $lookup = $tmp2;
             }
         }
 
