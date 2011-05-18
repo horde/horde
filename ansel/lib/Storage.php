@@ -766,8 +766,9 @@ class Ansel_Storage
     *                        direct children [TRUE]
     *     (integer)from      The gallery to start listing at.
     *     (integer)count     The number of galleries to return.
-    *     (string)sort_by    Attribute to sort by
+    *     (string)sort_by    Attribute to sort by.
     *     (integer)direction The direction to sort by [Ansel::SORT_ASCENDING]
+    *     (array)tags        An array of tags to limit results by.
     *   </pre>
     *
     * @return array An array of Ansel_Gallery objects
@@ -775,9 +776,29 @@ class Ansel_Storage
     */
     public function listGalleries(array $params = array())
     {
+        $galleries = array();
         try {
-            $shares = $this->buildGalleries(
-                $this->_shares->listShares($GLOBALS['registry']->getAuth(), $params));
+            $shares = $this->_shares->listShares($GLOBALS['registry']->getAuth(), $params);
+            if (!empty($params['tags'])) {
+                if (!empty($params['attributes']) && !is_array($params['attributes'])) {
+                    $user = $params['attributes'];
+                } elseif (!empty($params['attributes']['owner'])) {
+                    $user = $params['attributes']['owner'];
+                } else {
+                    $user = null;
+                }
+                $tagged = $GLOBALS['injector']->getInstance('Ansel_Tagger')
+                    ->search($params['tags'],
+                             array('type' => 'galleries', 'user' => $user));
+                foreach ($shares as $shares) {
+                    if (in_array($share->getId(), $tagged)) {
+                        $galleries[] = $share;
+                    }
+                }
+            } else {
+                $galleries = $shares;
+            }
+            $shares = $this->buildGalleries($galleries);
         } catch (Horde_Share_Exception $e) {
             throw new Ansel_Exception($e);
         }

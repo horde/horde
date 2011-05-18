@@ -33,11 +33,11 @@ class Ansel_View_List extends Ansel_View_Ansel
      *  In addition to the params taken by Ansel_View_Gallery, this view
      *  can also take:
      *
-     *  groupby      -  Group the results (owner, category etc...)
+     *  groupby      -  Group the results (owner)
      *
      *  owner        -  The owner to group by
      *
-     *  category     -  The category to group by
+     *  tags         -  Limit to galleries matching tags
      *
      *  gallery_ids  -  No fitering, just show these galleries
      *
@@ -108,6 +108,9 @@ class Ansel_View_List extends Ansel_View_Ansel
             $filter = array();
             if (!is_null($this->_owner)) {
                 $filter['owner'] = $this->_owner;
+            }
+            if (!empty($params['tags'])) {
+              $filter['tags'] = $params['tags'];
             }
 
             $this->_numGalleries = $ansel_storage->countGalleries(

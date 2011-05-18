@@ -695,6 +695,7 @@ class Ansel_Api extends Horde_Registry_Api
      *  (integer)count      The number of galleries to return.
      *  (string)sort_by     Attribute to sort by
      *  (integer)direction  The direction to sort by [Ansel::SORT_ASCENDING]
+     *     (array)tags        An array of tags to limit results by.
      *</pre>
      *
      * @return array  An array of gallery information.
