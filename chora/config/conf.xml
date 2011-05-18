@@ -115,7 +115,7 @@
   <configsection name="menu">
    <configheader>Menu Settings</configheader>
    <configmultienum name="apps" desc="Select any applications that should be
-   linked in Chora's menu">
+   linked in Chora's menu" required="false">
     <values>
      <configspecial application="horde" name="apps" />
     </values>

@@ -87,7 +87,7 @@
   <configsection name="menu">
    <configheader>Menu Settings</configheader>
    <configmultienum name="apps" desc="Select any applications that should be
-   linked in Whups' menu">
+   linked in Whups' menu" required="false">
     <values>
      <configspecial application="horde" name="apps" />
     </values>

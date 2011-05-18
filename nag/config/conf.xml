@@ -20,7 +20,7 @@
   <configboolean name="import_export" desc="Should we display an Import/Export
   link in the Horde application menus?">true</configboolean>
   <configmultienum name="apps" desc="Select any applications
-  that should be linked in Nag's menu">
+  that should be linked in Nag's menu" required="false">
    <values>
     <configspecial application="horde" name="apps" />
    </values>

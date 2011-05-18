@@ -4,7 +4,7 @@
  <configsection name="menu" desc="Menu settings">
   <configheader>Menu settings</configheader>
   <configmultienum name="apps" desc="Select any applications that should be
-  linked in Passwd's menu">
+  linked in Passwd's menu" required="false">
    <values>
     <configspecial application="horde" name="apps" />
    </values>
