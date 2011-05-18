@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-27</date>
- <time>13:25:24</time>
+ <date>2011-05-18</date>
+ <time>18:15:28</time>
  <version>
   <release>3.0.1</release>
   <api>3.0.0</api>
@@ -815,10 +815,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-27</date>
+   <date>2011-05-18</date>
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
-* [jan] Fix accidental encryption of notes.
+* [jan] Fix accidental encryption of notes (Bug #9981).
 * [jan] Fix color picker for categories in the note list header (Bug #9980).
    </notes>
   </release>
