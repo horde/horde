@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-05-18</date>
- <time>14:48:17</time>
+ <time>14:49:16</time>
  <version>
-  <release>1.0.2</release>
+  <release>1.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Fix encoding of headers if charset passed to toArray() is empty (Bug #10054).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -664,6 +664,19 @@
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [mms] Fix encoding of headers if charset passed to toArray() is empty (Bug #10054).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-18</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
