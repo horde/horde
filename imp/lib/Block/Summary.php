@@ -41,7 +41,7 @@ class IMP_Block_Summary extends Horde_Core_Block
         return array(
             'show_total' => array(
                 'type' => 'boolean',
-                'name' => _("Show total number of mails in folder?"),
+                'name' => _("Show total number of messages in folder?"),
                 'default' => 0
             ),
             'show_unread' => array(
@@ -70,7 +70,7 @@ class IMP_Block_Summary extends Horde_Core_Block
         $status = $imp_imap->statusMultiple($poll, Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT);
 
         $anyUnseen = false;
-        $html = $onclick = '';
+        $mboxes = array();
 
         foreach ($poll as $mbox) {
             $mbox_str = strval($mbox);
@@ -81,33 +81,48 @@ class IMP_Block_Summary extends Horde_Core_Block
                  !empty($status[$mbox_str]['unseen']))) {
                 $mbox_status = $status[$mbox_str];
 
-                $html .= '<tr style="cursor:pointer" class="text"' . $onclick . '><td>';
-
+                $mbox = $mbox->url('mailbox.php')->link() . $mbox->display . '</a>';
                 if (!empty($mbox_status['unseen'])) {
-                    $html .= '<strong>';
+                    $mbox = '<strong>' . $mbox . '</strong>';
                     $anyUnseen = true;
                 }
 
-                $html .= $mbox->url('mailbox.php')->link() . $mbox->display . '</a>';
-
+                $unseen = array();
                 if (!empty($mbox_status['unseen'])) {
-                    $html .= '</strong>';
+                   $unseen[] =  '<strong>' . $mbox_status['unseen'] . ' ' . _("Unseen") . '</strong>';
                 }
-                $html .= '</td><td>' .
-                    (!empty($mbox_status['unseen']) ? '<strong>' . $mbox_status['unseen'] . '</strong>' : '0') .
-                    (!empty($mbox_status['recent']) ? ' <span style="color:red">(' . sprintf(ngettext("%d new", "%d new", $mbox_status['recent']), $mbox_status['recent']) . ')</span>' : '') .
-                    (!empty($this->_params['show_total']) ? '</td><td>(' . $mbox_status['messages'] . ')' : '') .
-                    '</td></tr>';
+                if (!empty($mbox_status['recent'])) {
+                   $unseen[] = '<span style="color:red">(' . sprintf(ngettext("%d new", "%d new", $mbox_status['recent']), $mbox_status['recent']) . ')</span>';
+                }
+                if (!empty($this->_params['show_total'])) {
+                    if (count($unseen)) {
+                        $unseen[] = '|';
+                    }
+                    if ($mbox_status['messages']) {
+                        $unseen[] = $mbox_status['messages'] . ' ' . _("Total");
+                    } else {
+                        $unseen[] = _("No Messages");
+                    }
+                }
+
+                $mboxes[$mbox] = $unseen;
             }
         }
 
         if (!empty($this->_params['show_unread']) && !$anyUnseen) {
-            $html = '<em>' . _("No folders with unseen messages") . '</em>';
+            return '<em>' . _("No folders with unseen messages") . '</em>';
         }
 
-        return '<table cellspacing="0" width="100%">' .
-            $html .
-            '</table>';
+        $out = '<div style="float:left;padding-right:30px;">';
+        foreach (array_keys($mboxes) as $val) {
+            $out .= '<div>' . $val . '</div>';
+        }
+        $out .= '</div><div>';
+        foreach (array_values($mboxes) as $val) {
+            $out .= '<div>' . implode(' ', $val) . '</div>';
+        }
+
+        return $out . '</div>';
     }
 
 }
