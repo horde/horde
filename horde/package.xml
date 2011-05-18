@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-05-18</date>
- <time>15:05:50</time>
+ <time>15:07:53</time>
  <version>
-  <release>4.0.3</release>
+  <release>4.0.4</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,11 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Fix return link after reporting problem (Bug #10069).
-* [jan] Add button to update all configurations with default values at once.
-* [jan] Update DataTree conversion scripts for Horde 4.
-* [jan] Fix rendering of DataTree browse tree.
-* [mjr] Fix issue causing credentials to be lost when accessing the API during ActiveSync requests (Bug #9733).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4096,6 +4092,19 @@
 * [jan] Update DataTree conversion scripts for Horde 4.
 * [jan] Fix rendering of DataTree browse tree.
 * [mjr] Fix issue causing credentials to be lost when accessing the API during ActiveSync requests (Bug #9733).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.4</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-18</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
