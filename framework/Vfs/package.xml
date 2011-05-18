@@ -27,8 +27,8 @@ Reading, writing and listing of files are all supported, and there are both obje
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-20</date>
- <time>15:36:40</time>
+ <date>2011-05-18</date>
+ <time>14:52:18</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -828,10 +828,10 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-05-18</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] Fix call to setAuth() (Bug #10027).
    </notes>
   </release>
  </changelog>
