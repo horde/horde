@@ -109,14 +109,12 @@ class Ansel_View_List extends Ansel_View_Ansel
             if (!is_null($this->_owner)) {
                 $filter['owner'] = $this->_owner;
             }
-            if (!empty($params['tags'])) {
-              $filter['tags'] = $params['tags'];
-            }
 
             $this->_numGalleries = $ansel_storage->countGalleries(
                 $GLOBALS['registry']->getAuth(),
                 array('attribtues' => $filter,
-                      'allLevels' => false));
+                      'allLevels' => false,
+                      'tags' => !empty($params['tags']) ? $params['tags'] : null));
 
             if ($this->_numGalleries == 0 && empty($this->_params['api'])) {
                 if ($this->_owner && $filter == $this->_owner && $this->_owner == $GLOBALS['registry']->getAuth()) {
@@ -134,7 +132,8 @@ class Ansel_View_List extends Ansel_View_Ansel
                           'from' => $this->_page * $this->_g_perPage,
                           'count' => $this->_g_perPage,
                           'sort_by' => $this->_sortBy,
-                          'direction' => $this->_sortDir));
+                          'direction' => $this->_sortDir,
+                          'tags' => !empty($params['tags']) ? $params['tags'] : null));
             }
         }
     }
