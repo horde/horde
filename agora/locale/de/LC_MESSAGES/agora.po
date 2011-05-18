@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Agora 1.0\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-21 10:58+0200\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: 2011-02-02 17:35+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -91,8 +91,8 @@ msgstr "Antworten zu diesem Thema zulassen"
 msgid "Approve"
 msgstr "Freigeben"
 
-#: config/prefs.php:102 config/prefs.php:141 config/prefs.php:184
-#: config/prefs.php:268 lib/Comments.php:71
+#: config/prefs.php:103 config/prefs.php:142 config/prefs.php:185
+#: config/prefs.php:269 lib/Comments.php:71
 msgid "Ascending"
 msgstr "Aufsteigend"
 
@@ -104,11 +104,11 @@ msgstr "Anhang"
 msgid "Author"
 msgstr "Autor"
 
-#: config/prefs.php:13
+#: config/prefs.php:14
 msgid "Avatar"
 msgstr "Avatar"
 
-#: config/prefs.php:72
+#: config/prefs.php:73
 #, php-format
 msgid ""
 "Avatars must be smaller than %s by %s pixels and less than %sKb in size."
@@ -145,7 +145,7 @@ msgstr "Kommentare"
 msgid "Comments on %s"
 msgstr "Kommentar zu %s"
 
-#: config/prefs.php:55
+#: config/prefs.php:56
 msgid "Comments view"
 msgstr "Kommentaranzeige"
 
@@ -197,31 +197,31 @@ msgstr "Erstellen"
 msgid "Current attachment"
 msgstr "Aktueller Anhang"
 
-#: config/prefs.php:93 config/prefs.php:131 config/prefs.php:175
-#: config/prefs.php:259 forums.php:53 lib/Api.php:301 lib/Block/Forums.php:89
+#: config/prefs.php:94 config/prefs.php:132 config/prefs.php:176
+#: config/prefs.php:260 forums.php:53 lib/Api.php:301 lib/Block/Forums.php:89
 #: lib/Block/Thread.php:78 lib/Block/Threads.php:113 lib/Comments.php:65
 #: lib/Comments.php:86 messages/index.php:139 moderate.php:57 owner.php:56
 msgid "Date"
 msgstr "Datum"
 
-#: config/prefs.php:261
+#: config/prefs.php:262
 msgid "Default comments view sort:"
 msgstr "Standard-Sortierreihenfolge der Kommentare:"
 
-#: config/prefs.php:95
+#: config/prefs.php:96
 msgid "Default forums view sort:"
 msgstr "Standard-Sortierreihenfolge der Foren:"
 
-#: config/prefs.php:105 config/prefs.php:144 config/prefs.php:187
-#: config/prefs.php:271
+#: config/prefs.php:106 config/prefs.php:145 config/prefs.php:188
+#: config/prefs.php:272
 msgid "Default sorting direction:"
 msgstr "Sortierrichtung:"
 
-#: config/prefs.php:177
+#: config/prefs.php:178
 msgid "Default thread view sort:"
 msgstr "Standard-Sortierreihenfolge in Themen:"
 
-#: config/prefs.php:134
+#: config/prefs.php:135
 msgid "Default threads view sort:"
 msgstr "Standard-Sortierreihenfolge der Themen:"
 
@@ -253,8 +253,8 @@ msgstr "Beitrag löschen"
 msgid "Delete the existing attachment?"
 msgstr "Den aktuellen Anhang löschen?"
 
-#: config/prefs.php:103 config/prefs.php:142 config/prefs.php:185
-#: config/prefs.php:269 lib/Comments.php:72
+#: config/prefs.php:104 config/prefs.php:143 config/prefs.php:186
+#: config/prefs.php:270 lib/Comments.php:72
 msgid "Descending"
 msgstr "Absteigend"
 
@@ -262,20 +262,20 @@ msgstr "Absteigend"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: config/prefs.php:20 config/prefs.php:27 config/prefs.php:37
-#: config/prefs.php:47 config/prefs.php:54
+#: config/prefs.php:21 config/prefs.php:28 config/prefs.php:38
+#: config/prefs.php:48 config/prefs.php:55
 msgid "Display Preferences"
 msgstr "Anzeige-Einstellungen"
 
-#: config/prefs.php:250
+#: config/prefs.php:251
 msgid "Display full message bodies in the comments view?"
 msgstr "Kompletten Beitragstext in der Kommentaransicht anzeigen?"
 
-#: config/prefs.php:198
+#: config/prefs.php:199
 msgid "Display full message bodies in the thread list view?"
 msgstr "Kompletten Beitragstext in der Themenliste anzeigen?"
 
-#: config/prefs.php:221
+#: config/prefs.php:222
 msgid "Display graphical emoticons?"
 msgstr "Emoticons anzeigen?"
 
@@ -312,11 +312,11 @@ msgstr "Beitrag bearbeiten"
 msgid "Enter a brief description of this forum"
 msgstr "Geben Sie eine kurze Beschreibung für dieses Forum ein"
 
-#: config/prefs.php:247 lib/Comments.php:58 messages/index.php:160
+#: config/prefs.php:248 lib/Comments.php:58 messages/index.php:160
 msgid "Flat"
 msgstr "Flach"
 
-#: config/prefs.php:89 forums.php:53 lib/Block/Forums.php:89
+#: config/prefs.php:90 forums.php:53 lib/Block/Forums.php:89
 #: lib/Block/Threads.php:42 messages/move.php:45 moderate.php:57
 #: moderators.php:70 moderators.php:73 templates/moderators.html.php:8
 msgid "Forum"
@@ -352,7 +352,7 @@ msgstr "Forum nicht gelöscht."
 msgid "Forums"
 msgstr "Foren"
 
-#: config/prefs.php:21
+#: config/prefs.php:22
 msgid "Forums View"
 msgstr "Forenansicht"
 
@@ -365,7 +365,7 @@ msgstr "Foren in %s"
 msgid "From"
 msgstr "Von"
 
-#: templates/threads.html.php:44
+#: templates/threads.html.php:46
 msgid "Goto page:"
 msgstr "Zu Seite:"
 
@@ -395,7 +395,7 @@ msgstr "Ist dies ein moderiertes Forum?"
 msgid "Keywords"
 msgstr "Stichwörter"
 
-#: config/prefs.php:91
+#: config/prefs.php:92
 msgid "Last Message"
 msgstr "Letzter Beitrag"
 
@@ -403,7 +403,7 @@ msgstr "Letzter Beitrag"
 msgid "Last Post"
 msgstr "Letzter Beitrag"
 
-#: config/prefs.php:132 threads.php:54
+#: config/prefs.php:133 threads.php:54
 msgid "Last post"
 msgstr "Letzter Beitrag"
 
@@ -462,7 +462,7 @@ msgstr "Beitrag %s als Spam gemeldet"
 msgid "Message ID \"%d\" not found"
 msgstr "Beitrags-ID \"%d\" nicht gefunden"
 
-#: config/prefs.php:48
+#: config/prefs.php:49
 msgid "Message View"
 msgstr "Beitragsansicht"
 
@@ -478,7 +478,7 @@ msgstr "Der Beitrag wurde nicht gelöscht."
 msgid "Message posted."
 msgstr "Beitrag gespeichert."
 
-#: config/prefs.php:90 templates/messages/index.html.php:1
+#: config/prefs.php:91 templates/messages/index.html.php:1
 msgid "Messages"
 msgstr "Beiträge"
 
@@ -510,7 +510,7 @@ msgstr "Verschieben"
 msgid "Move \"%s\" to another forum"
 msgstr "\"%s\" in ein anderes Forum verschieben"
 
-#: config/prefs.php:12
+#: config/prefs.php:13
 msgid "My Information"
 msgstr "Meine Informationen"
 
@@ -530,7 +530,7 @@ msgstr "Neues Thema"
 msgid "New posts"
 msgstr "Neue Beiträge"
 
-#: config/prefs.php:194
+#: config/prefs.php:195
 msgid "No"
 msgstr "Nein"
 
@@ -546,7 +546,7 @@ msgstr "Kein Forum ausgewählt."
 msgid "No forums have been created."
 msgstr "Es wurden keine Foren erstellt."
 
-#: config/prefs.php:218
+#: config/prefs.php:219
 msgid "No graphical emoticons"
 msgstr "Emoticons nicht anzeigen"
 
@@ -570,19 +570,19 @@ msgstr "Keine Themen"
 msgid "No, do not allow replies"
 msgstr "Nein, Antworten nicht zulassen"
 
-#: config/prefs.php:118
+#: config/prefs.php:119
 msgid "Number of forums to display on each page"
 msgstr "Anzahl der Foren pro Seite"
 
-#: config/prefs.php:211
+#: config/prefs.php:212
 msgid "Number of message to display on each page"
 msgstr "Anzahl der Beiträge pro Seite"
 
-#: config/prefs.php:163 config/prefs.php:284
+#: config/prefs.php:164 config/prefs.php:285
 msgid "Number of messages to display on each page"
 msgstr "Anzahl der Beiträge pro Seite"
 
-#: config/prefs.php:150
+#: config/prefs.php:151
 msgid "Number of views in 24hrs to trigger a 'hot-thread':"
 msgstr ""
 "Anzahl der Seitenaufrufe innerhalb von 24 Stunden, um ein Thema als \"heiß\" "
@@ -637,8 +637,8 @@ msgstr "Antwort auf \"%s\" schreiben"
 msgid "Post message"
 msgstr "Neuer Beitrag"
 
-#: config/prefs.php:92 config/prefs.php:129 config/prefs.php:174
-#: config/prefs.php:258 forums.php:53 lib/Api.php:299 lib/Block/Forums.php:89
+#: config/prefs.php:93 config/prefs.php:130 config/prefs.php:175
+#: config/prefs.php:259 forums.php:53 lib/Api.php:299 lib/Block/Forums.php:89
 #: lib/Block/Thread.php:78 lib/Block/Threads.php:113 lib/Comments.php:84
 #: lib/Tree/Flat.php:110 messages/index.php:139 moderate.php:57 owner.php:56
 #: templates/messages/flat_thread.html.php:7
@@ -651,7 +651,7 @@ msgstr "Geschrieben von"
 msgid "Posted by %s on %s"
 msgstr "Geschrieben von %s am %s"
 
-#: config/prefs.php:130 forums.php:53 lib/Block/Forums.php:89 threads.php:54
+#: config/prefs.php:131 forums.php:53 lib/Block/Forums.php:89 threads.php:54
 msgid "Posts"
 msgstr "Beiträge"
 
@@ -703,7 +703,7 @@ msgstr "In Betreffs suchen?"
 msgid "Search in these forums"
 msgstr "Diese Foren durchsuchen"
 
-#: config/prefs.php:14
+#: config/prefs.php:15
 msgid "Set the avatar image that is shown with your posts."
 msgstr ""
 "Legen Sie das Avatarbild fest, das neben Ihren Beiträgen angezeigt wird."
@@ -716,23 +716,23 @@ msgstr ""
 "Markieren Sie diese Einstellung, wenn alle Beiträge von einem Moderator "
 "kontrolliert werden sollen, bevor sie erscheinen."
 
-#: config/prefs.php:22
+#: config/prefs.php:23
 msgid "Set your preferences for the forums view."
 msgstr "Legen Sie Ihre Einstellungen für die Forenansicht fest."
 
-#: config/prefs.php:49
+#: config/prefs.php:50
 msgid "Set your preferences for the message view."
 msgstr "Legen Sie Ihre Einstellungen für die Beitragsansicht fest."
 
-#: config/prefs.php:39 config/prefs.php:56
+#: config/prefs.php:40 config/prefs.php:57
 msgid "Set your preferences for the single thread view."
 msgstr "Legen Sie Ihre Einstellungen für die Ansicht einzelner Themen fest."
 
-#: config/prefs.php:29
+#: config/prefs.php:30
 msgid "Set your preferences for the threads view."
 msgstr "Legen Sie Ihre Einstellungen für die Themenansicht fest."
 
-#: config/prefs.php:219
+#: config/prefs.php:220
 msgid "Show graphical emoticons"
 msgstr "Emoticons anzeigen"
 
@@ -740,7 +740,7 @@ msgstr "Emoticons anzeigen"
 msgid "Single Thread"
 msgstr "Einzelnes Thema"
 
-#: config/prefs.php:38
+#: config/prefs.php:39
 msgid "Single Thread View"
 msgstr "Ansicht einzelner Themen"
 
@@ -786,7 +786,7 @@ msgstr "Erster"
 msgid "Subforums"
 msgstr "Unterforen"
 
-#: config/prefs.php:128 config/prefs.php:173 config/prefs.php:257
+#: config/prefs.php:129 config/prefs.php:174 config/prefs.php:258
 #: lib/Api.php:297 lib/Block/Thread.php:78 lib/Block/Threads.php:113
 #: lib/Comments.php:67 lib/Comments.php:82 lib/Messages.php:1563
 #: lib/Messages.php:1566 messages/index.php:139 moderate.php:57 owner.php:56
@@ -800,7 +800,7 @@ msgstr ""
 "Das VFS-Backend muss konfiguriert sein, um das Hochladen von Dateien zu "
 "erlauben."
 
-#: config/prefs.php:68
+#: config/prefs.php:69
 msgid "The location of your avatar image."
 msgstr "Der Ort Ihres Avatarbildes."
 
@@ -808,7 +808,7 @@ msgstr "Der Ort Ihres Avatarbildes."
 msgid "There are no forums."
 msgstr "Keine Foren gefunden."
 
-#: templates/threads.html.php:69
+#: templates/threads.html.php:71
 msgid "There are no threads in this forum."
 msgstr "In diesem Forum befinden sich noch keine Beiträge."
 
@@ -822,7 +822,7 @@ msgstr ""
 "Damit wird das Forum, alle Unterforen und alle dazugehörigen Beiträge "
 "gelöscht."
 
-#: config/prefs.php:127 config/prefs.php:172 config/prefs.php:248
+#: config/prefs.php:128 config/prefs.php:173 config/prefs.php:249
 #: lib/Block/Thread.php:32 lib/Block/Thread.php:78 lib/Comments.php:59
 #: messages/index.php:139 messages/index.php:151
 msgid "Thread"
@@ -868,7 +868,7 @@ msgstr "Thema freigegeben."
 msgid "Threads"
 msgstr "Themen"
 
-#: config/prefs.php:28
+#: config/prefs.php:29
 msgid "Threads View"
 msgstr "Themenansicht"
 
@@ -927,7 +927,7 @@ msgstr "Gelesen"
 msgid "With Thread: "
 msgstr "Mit Thema: "
 
-#: config/prefs.php:195
+#: config/prefs.php:196
 msgid "Yes"
 msgstr "Ja"
 
@@ -935,7 +935,7 @@ msgstr "Ja"
 msgid "Yes, allow replies"
 msgstr "Ja, Antworten zulassen"
 
-#: config/prefs.php:196
+#: config/prefs.php:197
 msgid "Yes, and don't thread them"
 msgstr "Ja, ohne einzurücken"
 
@@ -1015,7 +1015,7 @@ msgstr "_Suche"
 msgid "_Threads"
 msgstr "_Themen"
 
-#: templates/forums.html.php:51 templates/threads.html.php:60
+#: templates/forums.html.php:51 templates/threads.html.php:62
 msgid "by"
 msgstr "von"
 

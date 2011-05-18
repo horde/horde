@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gollem H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,11 +78,11 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: config/prefs.php:66
+#: config/prefs.php:67
 msgid "Ascending"
 msgstr ""
 
-#: config/prefs.php:96
+#: config/prefs.php:97
 msgid "Ask"
 msgstr ""
 
@@ -193,11 +193,11 @@ msgstr ""
 msgid "Cut"
 msgstr ""
 
-#: config/prefs.php:58
+#: config/prefs.php:59
 msgid "Default sorting criteria:"
 msgstr ""
 
-#: config/prefs.php:69
+#: config/prefs.php:70
 msgid "Default sorting direction:"
 msgstr ""
 
@@ -205,11 +205,11 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: config/prefs.php:98
+#: config/prefs.php:99
 msgid "Delete folders recursively?"
 msgstr ""
 
-#: config/prefs.php:67
+#: config/prefs.php:68
 msgid "Descending"
 msgstr ""
 
@@ -247,31 +247,31 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: config/prefs.php:85
+#: config/prefs.php:86
 msgid "File Actions"
 msgstr ""
 
-#: config/prefs.php:14
+#: config/prefs.php:15
 msgid "File Display"
 msgstr ""
 
-#: config/prefs.php:55
+#: config/prefs.php:56
 msgid "File Modification Time"
 msgstr ""
 
-#: config/prefs.php:54
+#: config/prefs.php:55
 msgid "File Name"
 msgstr ""
 
-#: config/prefs.php:56
+#: config/prefs.php:57
 msgid "File Size"
 msgstr ""
 
-#: config/prefs.php:53
+#: config/prefs.php:54
 msgid "File Type"
 msgstr ""
 
-#: config/prefs.php:86
+#: config/prefs.php:87
 msgid "File action settings."
 msgstr ""
 
@@ -279,7 +279,7 @@ msgstr ""
 msgid "File deleted: "
 msgstr ""
 
-#: config/prefs.php:15
+#: config/prefs.php:16
 msgid "File display preferences."
 msgstr ""
 
@@ -339,7 +339,7 @@ msgstr ""
 msgid "Item cut to clipboard: %s"
 msgstr ""
 
-#: config/prefs.php:76
+#: config/prefs.php:77
 msgid "Items per page"
 msgstr ""
 
@@ -347,7 +347,7 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-#: config/prefs.php:33
+#: config/prefs.php:34
 msgid "List folders first?"
 msgstr ""
 
@@ -367,7 +367,7 @@ msgstr ""
 msgid "New folder created: "
 msgstr ""
 
-#: config/prefs.php:94
+#: config/prefs.php:95
 msgid "No"
 msgstr ""
 
@@ -465,7 +465,7 @@ msgstr ""
 msgid "Server"
 msgstr ""
 
-#: config/prefs.php:26
+#: config/prefs.php:27
 msgid "Show dotfiles?"
 msgstr ""
 
@@ -541,7 +541,7 @@ msgstr ""
 msgid "Upload File(s)"
 msgstr ""
 
-#: config/prefs.php:13 config/prefs.php:84
+#: config/prefs.php:14 config/prefs.php:85
 msgid "User Interface"
 msgstr ""
 
@@ -553,7 +553,7 @@ msgstr ""
 msgid "Write"
 msgstr ""
 
-#: config/prefs.php:95
+#: config/prefs.php:96
 msgid "Yes"
 msgstr ""
 

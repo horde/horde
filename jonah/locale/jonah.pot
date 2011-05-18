@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jonah H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-21 10:58+0200\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -120,7 +120,7 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
-#: config/templates.php:44
+#: config/templates.php:45
 msgid "Compact"
 msgstr ""
 
@@ -251,7 +251,7 @@ msgstr ""
 msgid "Include full story content in syndicated feeds?"
 msgstr ""
 
-#: config/templates.php:33
+#: config/templates.php:34
 msgid "Internal"
 msgstr ""
 
@@ -288,7 +288,7 @@ msgstr ""
 msgid "Maximum Stories"
 msgstr ""
 
-#: config/templates.php:22
+#: config/templates.php:23
 msgid "Media"
 msgstr ""
 
@@ -471,7 +471,7 @@ msgid ""
 "Slug names may contain only letters, numbers or the _ (underscore) character."
 msgstr ""
 
-#: config/templates.php:11
+#: config/templates.php:12
 msgid "Standard"
 msgstr ""
 
@@ -605,7 +605,7 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: config/templates.php:55
+#: config/templates.php:56
 msgid "Ultracompact"
 msgstr ""
 

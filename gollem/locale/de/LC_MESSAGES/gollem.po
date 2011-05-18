@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gollem 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: 2011-02-02 18:15+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -80,11 +80,11 @@ msgstr "Sind Sie sicher, dass Sie fortfahren möchten?"
 msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
 
-#: config/prefs.php:66
+#: config/prefs.php:67
 msgid "Ascending"
 msgstr "Aufsteigend"
 
-#: config/prefs.php:96
+#: config/prefs.php:97
 msgid "Ask"
 msgstr "Nachfragen"
 
@@ -200,11 +200,11 @@ msgstr "Aktuelles Verzeichnis:"
 msgid "Cut"
 msgstr "Ausschneiden"
 
-#: config/prefs.php:58
+#: config/prefs.php:59
 msgid "Default sorting criteria:"
 msgstr "Sortierreihenfolge:"
 
-#: config/prefs.php:69
+#: config/prefs.php:70
 msgid "Default sorting direction:"
 msgstr "Sortierrichtung:"
 
@@ -212,11 +212,11 @@ msgstr "Sortierrichtung:"
 msgid "Delete"
 msgstr "Löschen"
 
-#: config/prefs.php:98
+#: config/prefs.php:99
 msgid "Delete folders recursively?"
 msgstr "Verzeichnisse rekursiv löschen?"
 
-#: config/prefs.php:67
+#: config/prefs.php:68
 msgid "Descending"
 msgstr "Absteigend"
 
@@ -254,31 +254,31 @@ msgstr "Ausführen"
 msgid "File"
 msgstr "Datei"
 
-#: config/prefs.php:85
+#: config/prefs.php:86
 msgid "File Actions"
 msgstr "Dateiaktionen"
 
-#: config/prefs.php:14
+#: config/prefs.php:15
 msgid "File Display"
 msgstr "Dateianzeige"
 
-#: config/prefs.php:55
+#: config/prefs.php:56
 msgid "File Modification Time"
 msgstr "Dateiänderung"
 
-#: config/prefs.php:54
+#: config/prefs.php:55
 msgid "File Name"
 msgstr "Dateiname"
 
-#: config/prefs.php:56
+#: config/prefs.php:57
 msgid "File Size"
 msgstr "Dateigröße"
 
-#: config/prefs.php:53
+#: config/prefs.php:54
 msgid "File Type"
 msgstr "Dateityp"
 
-#: config/prefs.php:86
+#: config/prefs.php:87
 msgid "File action settings."
 msgstr "Dateiaktionen-Einstellungen"
 
@@ -286,7 +286,7 @@ msgstr "Dateiaktionen-Einstellungen"
 msgid "File deleted: "
 msgstr "Datei gelöscht: "
 
-#: config/prefs.php:15
+#: config/prefs.php:16
 msgid "File display preferences."
 msgstr "Dateianzeige-Einstellungen"
 
@@ -346,7 +346,7 @@ msgstr "Element in Zwischenablage kopiert: %s"
 msgid "Item cut to clipboard: %s"
 msgstr "Element in Zwischenablage verschoben: %s"
 
-#: config/prefs.php:76
+#: config/prefs.php:77
 msgid "Items per page"
 msgstr "Elemente pro Seite"
 
@@ -354,7 +354,7 @@ msgstr "Elemente pro Seite"
 msgid "Language"
 msgstr "Sprache"
 
-#: config/prefs.php:33
+#: config/prefs.php:34
 msgid "List folders first?"
 msgstr "Verzeichnisse zuerst anzeigen?"
 
@@ -374,7 +374,7 @@ msgstr "Name:"
 msgid "New folder created: "
 msgstr "Neues Verzeichnis erstellt: "
 
-#: config/prefs.php:94
+#: config/prefs.php:95
 msgid "No"
 msgstr "Nein"
 
@@ -472,7 +472,7 @@ msgstr "Backend auswählen:"
 msgid "Server"
 msgstr "Server"
 
-#: config/prefs.php:26
+#: config/prefs.php:27
 msgid "Show dotfiles?"
 msgstr "Versteckte Dateien anzeigen?"
 
@@ -553,7 +553,7 @@ msgstr "Hoch nach %s"
 msgid "Upload File(s)"
 msgstr "Datei(en) Hochladen"
 
-#: config/prefs.php:13 config/prefs.php:84
+#: config/prefs.php:14 config/prefs.php:85
 msgid "User Interface"
 msgstr "Benutzeroberfläche"
 
@@ -565,7 +565,7 @@ msgstr "Zwischenablage anzeigen"
 msgid "Write"
 msgstr "Schreiben"
 
-#: config/prefs.php:95
+#: config/prefs.php:96
 msgid "Yes"
 msgstr "Ja"
 

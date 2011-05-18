@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Cli \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-26 21:38+0100\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -104,7 +104,7 @@ msgstr ""
 msgid "%s is no local file!"
 msgstr ""
 
-#: lib/Horde/Kolab/Cli/Module/Data.php:223
+#: lib/Horde/Kolab/Cli/Module/Data.php:227
 #: lib/Horde/Kolab/Cli/Module/Folder.php:228
 #: lib/Horde/Kolab/Cli/Module/Format.php:165
 #: lib/Horde/Kolab/Cli/Module/Ledger.php:152

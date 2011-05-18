@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Vilma 0.1-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: 2011-02-02 18:19+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -146,11 +146,11 @@ msgstr "Zieltyp"
 msgid "Disable Delivery Only"
 msgstr "Nur Ausgehendes abweisen"
 
-#: config/prefs.php:12
+#: config/prefs.php:13
 msgid "Display details"
 msgstr "Anzeigedetails"
 
-#: config/prefs.php:11
+#: config/prefs.php:12
 msgid "Display listings"
 msgstr "Anzeigelisten"
 
@@ -373,7 +373,7 @@ msgstr "Gruppen-Name"
 msgid "Groups"
 msgstr "Gruppen"
 
-#: config/prefs.php:21
+#: config/prefs.php:22
 msgid "How many domain to display per page."
 msgstr "Anzahl der Domains pro Seite."
 
@@ -503,7 +503,7 @@ msgstr "Externe Adresse"
 msgid "Remote e-mail address"
 msgstr "Externe E-Mail-Adresse"
 
-#: config/prefs.php:13
+#: config/prefs.php:14
 msgid "Set default display parameters."
 msgstr "Legen Sie Ihre Standard-Anzeigeeinstellungen fest."
 
