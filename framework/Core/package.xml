@@ -23,9 +23,9 @@
   <active>yes</active>
  </developer>
  <date>2011-05-18</date>
- <time>14:42:08</time>
+ <time>14:43:03</time>
  <version>
-  <release>1.1.1</release>
+  <release>1.1.2</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Updated German translation.
-* [mms] Optimize session storage.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1434,6 +1433,19 @@
    <notes>
 * [jan] Updated German translation.
 * [mms] Optimize session storage.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-18</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
