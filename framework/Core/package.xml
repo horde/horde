@@ -34,7 +34,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Updated German translation.
+* [mms] Optimize session storage.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

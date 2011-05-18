@@ -24,6 +24,7 @@
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
 * [gwr] Added support for deleting messages by backend UID.
+* [jan] Updated Spanish translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

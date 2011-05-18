@@ -31,6 +31,7 @@ owns or has access to.</description>
  <notes>
 * [mjr] Fix usage of countOwners() and listOwners() in the Sqlng driver.
 * [mjr] Add ability to immediately save a single attribute change.
+* [jan] Updated Spanish translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

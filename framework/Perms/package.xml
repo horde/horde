@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Fix setting cache in DataTree driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
