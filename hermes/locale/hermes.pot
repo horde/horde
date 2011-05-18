@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,7 +74,7 @@ msgstr ""
 msgid "Add Job Type"
 msgstr ""
 
-#: config/prefs.php:29
+#: config/prefs.php:30
 msgid ""
 "Add stop watch name and start and end time to the description of the time "
 "entry?"
@@ -261,7 +261,7 @@ msgstr ""
 msgid "Display Name"
 msgstr ""
 
-#: config/prefs.php:19
+#: config/prefs.php:20
 msgid "Display Preferences"
 msgstr ""
 
@@ -379,7 +379,7 @@ msgstr ""
 msgid "Exported?"
 msgstr ""
 
-#: config/prefs.php:11 config/prefs.php:18
+#: config/prefs.php:12 config/prefs.php:19
 msgid "General Preferences"
 msgstr ""
 
@@ -587,7 +587,7 @@ msgstr ""
 msgid "Select Client"
 msgstr ""
 
-#: config/prefs.php:20
+#: config/prefs.php:21
 msgid ""
 "Select confirmation preferences, how to display the different views and "
 "choose default view."
@@ -605,7 +605,7 @@ msgstr ""
 msgid "Set date"
 msgstr ""
 
-#: config/prefs.php:13
+#: config/prefs.php:14
 msgid "Set preferences on the stop watch timer."
 msgstr ""
 
@@ -620,7 +620,7 @@ msgid ""
 "the description will automatically be \"%s\"."
 msgstr ""
 
-#: config/prefs.php:43
+#: config/prefs.php:44
 msgid "Show the dynamic view by default, if the browser supports it?"
 msgstr ""
 
@@ -632,7 +632,7 @@ msgstr ""
 msgid "Stop Watch"
 msgstr ""
 
-#: config/prefs.php:12
+#: config/prefs.php:13
 msgid "Stop watch Preferences"
 msgstr ""
 

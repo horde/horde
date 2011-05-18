@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trean H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -145,7 +145,7 @@ msgstr ""
 msgid "Are you sure you want to delete the selected bookmarks?"
 msgstr ""
 
-#: config/prefs.php:33
+#: config/prefs.php:34
 msgid "Ascending (A to Z)"
 msgstr ""
 
@@ -193,11 +193,11 @@ msgstr ""
 msgid "Combine"
 msgstr ""
 
-#: config/prefs.php:60
+#: config/prefs.php:61
 msgid "Completely collapsed"
 msgstr ""
 
-#: config/prefs.php:62
+#: config/prefs.php:63
 msgid "Completely expanded"
 msgstr ""
 
@@ -264,7 +264,7 @@ msgstr ""
 msgid "Deleted the folder \"%s\""
 msgstr ""
 
-#: config/prefs.php:34
+#: config/prefs.php:35
 msgid "Descending (9 to 1)"
 msgstr ""
 
@@ -273,7 +273,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: config/prefs.php:12
+#: config/prefs.php:13
 msgid "Display Preferences"
 msgstr ""
 
@@ -331,7 +331,7 @@ msgstr ""
 msgid "Firefox/Mozilla"
 msgstr ""
 
-#: config/prefs.php:61
+#: config/prefs.php:62
 msgid "First level shown"
 msgstr ""
 
@@ -376,7 +376,7 @@ msgstr ""
 msgid "HTTP Version not supported"
 msgstr ""
 
-#: config/prefs.php:23 lib/Block/Bookmarks.php:60
+#: config/prefs.php:24 lib/Block/Bookmarks.php:60
 msgid "Highest Rated"
 msgstr ""
 
@@ -430,7 +430,7 @@ msgstr ""
 msgid "Method Not Allowed"
 msgstr ""
 
-#: config/prefs.php:24 lib/Block/Bookmarks.php:61
+#: config/prefs.php:25 lib/Block/Bookmarks.php:61
 msgid "Most Clicked"
 msgstr ""
 
@@ -554,11 +554,11 @@ msgid ""
 "permissions for a share"
 msgstr ""
 
-#: config/prefs.php:52
+#: config/prefs.php:53
 msgid "Open links in a new window?"
 msgstr ""
 
-#: config/prefs.php:11
+#: config/prefs.php:12
 msgid "Other Preferences"
 msgstr ""
 
@@ -661,19 +661,19 @@ msgstr ""
 msgid "Service Unavailable"
 msgstr ""
 
-#: config/prefs.php:13
+#: config/prefs.php:14
 msgid "Set how to display bookmark listings and how to open links."
 msgstr ""
 
-#: config/prefs.php:63
+#: config/prefs.php:64
 msgid "Should your list of bookmark folders be open when you log in?"
 msgstr ""
 
-#: config/prefs.php:44
+#: config/prefs.php:45
 msgid "Show folder actions panel?"
 msgstr ""
 
-#: config/prefs.php:25
+#: config/prefs.php:26
 msgid "Sort bookmarks by:"
 msgstr ""
 
@@ -681,7 +681,7 @@ msgstr ""
 msgid "Sort by"
 msgstr ""
 
-#: config/prefs.php:35
+#: config/prefs.php:36
 msgid "Sort direction:"
 msgstr ""
 
@@ -747,7 +747,7 @@ msgstr ""
 msgid "There was an error saving the folder: %s"
 msgstr ""
 
-#: config/prefs.php:22 lib/Block/Bookmarks.php:59 lib/Forms/Search.php:21
+#: config/prefs.php:23 lib/Block/Bookmarks.php:59 lib/Forms/Search.php:21
 #: templates/add.html.php:37 templates/edit/bookmark.inc:10
 #: templates/views/BookmarkList.php:26
 msgid "Title"
