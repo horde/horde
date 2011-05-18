@@ -1,6 +1,6 @@
-----------
-v3.0.3-git
-----------
+------
+v3.0.3
+------
 
 [jan] Add header for timeobjects calendars.
 [jan] Fix date picker in advanced search form (Bug #10039).
