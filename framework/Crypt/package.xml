@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-20</date>
- <time>15:34:41</time>
+ <date>2011-05-18</date>
+ <time>14:43:04</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -628,10 +628,10 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-05-18</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Updated Spanish translation.
    </notes>
   </release>
  </changelog>
