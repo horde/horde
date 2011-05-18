@@ -28,7 +28,7 @@
 
  <configsection name="user">
   <configboolean name="change" desc="Should we allow the user to specify the
-  username?">true</configboolean>
+  username?" required="false">true</configboolean>
   <configlist name="refused" required="false" desc="Define usernames for which
   we will refuse to change passwords.">
   root,bin,daemon,adm,lp,shutdown,halt,uucp,ftp,anonymous,nobody,httpd,operator,guest,diginext,bind,cyrus,courier,games,kmem,mailnull,man,mysql,news,postfix,sshd,tty,www
@@ -37,6 +37,6 @@
 
  <configsection name="password">
   <configboolean name="strengthtests" desc="Should strength tests be done on
-  the new password">false</configboolean>
+  the new password" required="false">false</configboolean>
  </configsection>
 </configuration>
