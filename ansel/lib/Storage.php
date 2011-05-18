@@ -728,7 +728,7 @@ class Ansel_Storage
     * @return integer  The count
     * @throws Ansel_Exception
     */
-    public function countGalleries($userid, array $params = array())
+    public function countGalleries($userid, $params = array())
      // $perm = Horde_Perms::SHOW,
      //    $attributes = null, Ansel_Gallery $parent = null, $allLevels = true)
     {
@@ -788,7 +788,7 @@ class Ansel_Storage
     * @return array An array of Ansel_Gallery objects
     * @throws Ansel_Exception
     */
-    public function listGalleries(array $params = array())
+    public function listGalleries($params = array())
     {
         $galleries = array();
         try {
