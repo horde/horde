@@ -67,6 +67,11 @@ class Horde_Imap_Client_Utf7ConvertTest extends PHPUnit_Framework_TestCase
             $utf7_imap
         );
 
+        $orig = 'Envoy&AOk-';
+        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
+        $this->assertEquals(
+            'Envoy&AOk-',
+            $utf7_imap
+        );
     }
-
 }

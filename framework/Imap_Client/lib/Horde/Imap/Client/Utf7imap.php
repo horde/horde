@@ -171,7 +171,7 @@ class Horde_Imap_Client_Utf7imap
         /* No need to do conversion if all chars are in US-ASCII range or if
          * no ampersand is present. But will assume that an already encoded
          * ampersand means string is in UTF7-IMAP already. */
-        if (!preg_match('/[\x80-\xff]|&(?:$|[^-])/', $str)) {
+        if (!preg_match('/[\x80-\xff]|&$|&(?![,+A-z0-9]*-)/', $str)) {
             return $str;
         }
 
