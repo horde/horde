@@ -32,12 +32,12 @@
  <configtab name="server" desc="Server">
   <configsection name="server">
    <configswitch name="server_list" desc="Should we display a list of servers
-   (defined in config/backends.php) for users to choose from? The options are
-   'shown', 'hidden', and 'none'. If the server list is hidden then you can use
-   the 'preferred' mechanism to auto-select from it based on an HTTP
-   virtualhost or another piece of data. If it is shown, the user will be able
-   to pick from any of the options. If none, no server list will be shown and
-   the defaults will be used unless another mechanism changes them.">none
+   for users to choose from? The options are 'shown', 'hidden', and 'none'. If
+   the server list is hidden then you can use the 'preferred' mechanism to
+   auto-select from it based on an HTTP virtualhost or another piece of
+   data. If it is shown, the user will be able to pick from any of the
+   options. If none, no server list will be shown and the defaults will be used
+   unless another mechanism changes them.">none
     <case name="none" desc="None" />
     <case name="shown" desc="Shown" />
     <case name="hidden" desc="Hidden" />
