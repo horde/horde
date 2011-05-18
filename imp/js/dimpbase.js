@@ -257,6 +257,13 @@ var DimpBase = {
             this.setTitle(DIMP.text.prefs);
             this.iframeContent(type, DimpCore.addURLParam(DIMP.conf.URI_PREFS_IMP, data));
             break;
+
+        case 'portal':
+            this.highlightSidebar('appprefs');
+            this.setHash(type);
+            this.setTitle(DIMP.text.portal);
+            this.iframeContent(type, DIMP.conf.URI_PORTAL);
+            break;
         }
     },
 
@@ -2222,6 +2229,7 @@ var DimpBase = {
                 this._handleFolderMouseClick(e);
                 break;
 
+            case 'appportal':
             case 'hometab':
             case 'logolink':
                 this.go('portal');
