@@ -134,7 +134,7 @@ foreach ($apps as $app) {
         }
     } catch (Exception $e) {
         echo $e->getMessage() . "\n";
-        exit(1);
+        continue;
     }
 
     $cli->message("Ending $app schema version: " . $migrator->getCurrentVersion());
