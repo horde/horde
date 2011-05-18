@@ -60,11 +60,11 @@
  *   RFC 5267 - CONTEXT=SEARCH; CONTEXT=SORT
  *   RFC 5465 - NOTIFY
  *   RFC 5466 - FILTERS
- *   RFC 5738 - UTF8
+ *   RFC 5738 - UTF8 (Very limited support)
+ *   RFC 6237 - MULTISEARCH
  *
- *   draft-ietf-morg-inthread-01 - SEARCH=INTHREAD
- *   draft-ietf-morg-multimailbox-search-07 - MULTISEARCH
- *   draft-krecicki-imap-move-01.txt - MOVE
+ *   draft-ietf-morg-inthread-01 - SEARCH=INTHREAD (Appears to be dead)
+ *   draft-krecicki-imap-move-01.txt - MOVE (Appears to be dead)
  *
  * [See: http://www.iana.org/assignments/imap4-capabilities]
  * </pre>
