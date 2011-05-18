@@ -62,7 +62,6 @@ if (!Horde_Util::nonInputVar('from_message_page')) {
     $start = $vars->start;
 }
 
-$do_filter = false;
 $flag_filter_prefix = "flag\0";
 $imp_flags = $injector->getInstance('IMP_Flags');
 $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
@@ -213,7 +212,7 @@ case 'expunge_mailbox':
     break;
 
 case 'filter':
-    $do_filter = true;
+    IMP::$mailbox->filter();
     break;
 
 case 'empty_mailbox':
@@ -228,22 +227,15 @@ case 'view_messages':
 $mailbox_token = $injector->getInstance('Horde_Token')->get('imp.mailbox');
 
 /* Deal with filter options. */
-if (!$readonly && $session->get('imp', 'filteravail')) {
-    /* Only allow filter on display for INBOX. */
-    if (IMP::$mailbox->inbox && $prefs->getValue('filter_on_display')) {
-        $do_filter = true;
-    } elseif (IMP::$mailbox->inbox ||
-              ($prefs->getValue('filter_any_mailbox') && !$search_mbox)) {
-        $filter_url = $mailbox_imp_url->copy()->add(array(
-            'actionID' => 'filter',
-            'mailbox_token' => $mailbox_token
-        ));
-    }
-}
-
-/* Run filters now. */
-if ($do_filter) {
-    $injector->getInstance('IMP_Filter')->filter(IMP::$mailbox);
+if (!$readonly &&
+    $session->get('imp', 'filteravail') &&
+    !IMP::$mailbox->filterOnDisplay() &&
+    (IMP::$mailbox->inbox ||
+     ($prefs->getValue('filter_any_mailbox') && !$search_mbox))) {
+    $filter_url = $mailbox_imp_url->copy()->add(array(
+        'actionID' => 'filter',
+        'mailbox_token' => $mailbox_token
+    ));
 }
 
 /* Generate folder options list. */

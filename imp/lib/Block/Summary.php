@@ -56,12 +56,10 @@ class IMP_Block_Summary extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $injector, $notification, $prefs, $session;
+        global $injector;
 
         /* Filter on INBOX display.  INBOX is always polled. */
-        if ($prefs->getValue('filter_on_display')) {
-            $injector->getInstance('IMP_Filter')->filter('INBOX');
-        }
+        IMP_Mailbox::get('INBOX')->filterOnDisplay();
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 

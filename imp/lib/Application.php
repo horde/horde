@@ -518,12 +518,9 @@ class IMP_Application extends Horde_Registry_Application
     public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array())
     {
-        global $injector, $prefs, $registry;
+        global $injector, $registry;
 
-        /* Run filters now */
-        if ($prefs->getValue('filter_on_display')) {
-            $injector->getInstance('IMP_Filter')->filter('INBOX');
-        }
+        IMP_Mailbox::get('INBOX')->filterOnDisplay();
 
         if (IMP::canCompose()) {
             $tree->addNode(

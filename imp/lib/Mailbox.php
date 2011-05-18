@@ -605,6 +605,33 @@ class IMP_Mailbox implements Serializable
     }
 
     /**
+     * Runs filters on this mailbox.
+     */
+    public function filter()
+    {
+        if (!$this->search) {
+            $GLOBALS['injector']->getInstance('IMP_Filter')->filter($this);
+        }
+    }
+
+    /**
+     * Filters this mailbox if it is the INBOX and the filter on display pref
+     * is active.
+     *
+     * @return boolean  True if filter() was called.
+     */
+    public function filterOnDisplay()
+    {
+        if ($this->inbox &&
+            $GLOBALS['prefs']->getValue('filter_on_display')) {
+            $this->filter();
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Return the mailbox list object.
      *
      * @param IMP_Indices $indices  See IMP_Factory_MailboxList::__construct().

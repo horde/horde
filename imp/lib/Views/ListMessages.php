@@ -102,12 +102,10 @@ class IMP_Views_ListMessages
         $GLOBALS['registry']->setTimeZone();
 
         /* Run filters now. */
-        if (!$is_search &&
-            $GLOBALS['session']->get('imp', 'filteravail') &&
-            (!empty($args['applyfilter']) ||
-             ($mbox->inbox &&
-              $GLOBALS['prefs']->getValue('filter_on_display')))) {
-            $injector->getInstance('IMP_Filter')->filter($mbox);
+        if ($mbox->inbox) {
+            $mbox->filterOnDisplay();
+        } elseif (!empty($args['applyfilter'])) {
+            $mbox->filter();
         }
 
         /* Generate the sorted mailbox list now. */

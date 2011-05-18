@@ -34,9 +34,7 @@ class IMP_Block_Newmail extends Horde_Core_Block
         $inbox = IMP_Mailbox::get('INBOX');
 
         /* Filter on INBOX display, if requested. */
-        if ($GLOBALS['prefs']->getValue('filter_on_display')) {
-            $GLOBALS['injector']->getInstance('IMP_Filter')->filter($inbox);
-        }
+        $inbox->filterOnDisplay();
 
         $query = new Horde_Imap_Client_Search_Query();
         $query->flag(Horde_Imap_Client::FLAG_SEEN, false);
