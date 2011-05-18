@@ -143,6 +143,10 @@ class Horde_Imap_Client
     const FLAG_MDNSENT = '$mdnsent';
     // RFC 5550 [2.8]
     const FLAG_FORWARDED = '$forwarded';
+    // RFC 5788 registered keywords:
+    // http://www.ietf.org/mail-archive/web/morg/current/msg00441.html
+    const FLAG_JUNK = '$junk';
+    const FLAG_NOTJUNK = '$notjunk';
 
     /* Special-use mailbox attributes (RFC 6154 [2]). */
     const SPECIALUSE_ALL = '\\All';
