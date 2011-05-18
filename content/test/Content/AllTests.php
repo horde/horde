@@ -7,12 +7,7 @@
 if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'Content_AllTests::main');
 }
-
-require dirname(__FILE__) . '/../lib/Types/Manager.php';
-require dirname(__FILE__) . '/../lib/Users/Manager.php';
-require dirname(__FILE__) . '/../lib/Objects/Manager.php';
-require dirname(__FILE__) . '/../lib/Tagger.php';
-
+$GLOBALS['mappings'] = array('Content' => dirname(__FILE__) . '/../../lib');
 /**
  * Prepare the test setup.
  */
