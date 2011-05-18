@@ -2009,7 +2009,7 @@ var DimpBase = {
         switch (kc) {
         case Event.KEY_DELETE:
         case Event.KEY_BACKSPACE:
-            if ($('button_deleted').visible()) {
+            if (!this.viewport.getMetaData('nodelete')) {
                 r = sel.get('dataob');
                 if (e.shiftKey) {
                     this.moveSelected((r.last().VP_rownum == this.viewport.getMetaData('total_rows')) ? (r.first().VP_rownum - 1) : (r.last().VP_rownum + 1), true);
