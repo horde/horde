@@ -19,7 +19,7 @@ class Horde_Bundle
     /**
      * The bundle version.
      */
-    const VERSION = '4.0-RC1';
+    const VERSION = '4.0-RC2';
 
     /**
      * The bundle descriptive name.
