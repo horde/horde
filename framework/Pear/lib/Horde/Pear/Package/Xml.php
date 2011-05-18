@@ -96,7 +96,7 @@ class Horde_Pear_Package_Xml
             $path = $this->_path;
         }
         if (!is_object($type)) {
-            if (!class_exists($type)) {
+            if ($type == 'horde' || !class_exists($type)) {
                 $type = 'Horde_Pear_Package_Type_' . ucfirst($type);
             }
             $type = new $type(dirname($this->_path));
@@ -219,9 +219,9 @@ class Horde_Pear_Package_Xml
     {
         $notes = trim($this->getNodeText('/p:package/p:notes'));
         if ($notes != '*') {
-            $new_notes = "\n* " . $note . "\n" . $notes . "\n "; 
+            $new_notes = "\n* " . $note . "\n" . $notes . "\n ";
         } else {
-            $new_notes = "\n* " . $note . "\n "; 
+            $new_notes = "\n* " . $note . "\n ";
         }
         $this->replaceTextNode('/p:package/p:notes', $new_notes);
 
