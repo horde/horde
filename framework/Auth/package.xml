@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-03</date>
- <time>13:24:07</time>
+ <date>2011-05-18</date>
+ <time>14:40:25</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
-* [mms] Cyrsql driver doesn't support resetting passwords currently (Bug #10060).
+* [mms] Cyrsql driver doesn&apos;t support resetting passwords currently (Bug #10060).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -398,10 +398,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-03</date>
+   <date>2011-05-18</date>
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
-* 
+* [mms] Cyrsql driver doesn&apos;t support resetting passwords currently (Bug #10060).
    </notes>
   </release>
  </changelog>
