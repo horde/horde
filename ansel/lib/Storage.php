@@ -728,35 +728,35 @@ class Ansel_Storage
     * @return integer  The count
     * @throws Ansel_Exception
     */
-    public function countGalleries($userid, $params = array())
+    public function countGalleries($userid, array $params = array())
      // $perm = Horde_Perms::SHOW,
      //    $attributes = null, Ansel_Gallery $parent = null, $allLevels = true)
     {
         static $counts;
 
-        $params = new Horde_Support_Array($params);
-        if ($params->parent) {
-            $parent_id = $params->parent->id;
+        $oparams = new Horde_Support_Array($params);
+        if ($oparams->parent) {
+            $parent_id = $oparams->parent->id;
         } else {
             $parent_id = null;
         }
-        $perm = $params->get('perm', Horde_Perms::SHOW);
-        $key = "$userid,$perm,$parent_id,{$params->allLevels}" . serialize($params->get('attributes', array()));
+        $perm = $oparams->get('perm', Horde_Perms::SHOW);
+        $key = "$userid,$perm,$parent_id,{$oparams->allLevels}" . serialize($oparams->get('attributes', array()));
         if (isset($counts[$key])) {
             return $counts[$key];
         }
 
         // Unfortunately, we need to go the long way around to count shares if
         // we are filtering by tags.
-        if ($params->tags) {
+        if ($oparams->tags) {
             $count = count($this->listGalleries($params));
         } else {
             try {
                 $count = $this->_shares->countShares(
                     $userid,
-                    $perm, $params->get('attributes', array()),
+                    $perm, $oparams->get('attributes', array()),
                     $parent_id,
-                    $params->get(allLevels, true));
+                    $oparams->get('allLevels', true));
             } catch (Horde_Share_Exception $e) {
                 throw new Ansel_Exception($e);
             }
