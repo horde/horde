@@ -1776,21 +1776,6 @@ var DimpBase = {
         }
     },
 
-    _portalCallback: function(r)
-    {
-        if (r.response.linkTags) {
-            var head = $(document.documentElement).down('HEAD');
-            r.response.linkTags.each(function(newLink) {
-                var link = new Element('LINK', { type: 'text/css', rel: 'stylesheet', href: newLink.href });
-                if (newLink.media) {
-                    link.media = newLink.media;
-                }
-                head.insert(link);
-            });
-        }
-        $('dimpmain_iframe').update(r.response.portal);
-    },
-
     /* Search functions. */
     isSearch: function(id, qsearch)
     {
