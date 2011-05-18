@@ -69,8 +69,6 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
      <span class="iconImgSidebar hordeIcon"></span>
      <a href="<?php echo Horde::getServiceLink('portal') ?>"<?php if (strlen($ak)) echo ' accesskey="' . $ak . '"'?>><?php echo Horde::highlightAccessKey(_("_Portal"), $ak) ?></a>
     </li>
-<?php else: ?>
-    <?php echo _simpleButton('appportal', _("_Portal"), 'hordeIcon') ?>
 <?php endif; ?>
 <?php endif; ?>
 <?php if (Horde_Menu::showService('prefs')): ?>
