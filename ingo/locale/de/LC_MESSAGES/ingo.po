@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-21 10:58+0200\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: 2011-04-21 11:13+0200\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -78,7 +78,7 @@ msgstr "Filterregeln anwenden"
 msgid "Are you sure you want to delete this rule?"
 msgstr "Sind Sie sicher, dass Sie diese Regel löschen möchten?"
 
-#: config/prefs.php:26
+#: config/prefs.php:27
 msgid "Automatically activate the script after each change?"
 msgstr "Das Skript nach jeder Änderung automatisch aktivieren?"
 
@@ -86,7 +86,7 @@ msgstr "Das Skript nach jeder Änderung automatisch aktivieren?"
 msgid "Basic Settings"
 msgstr "Einfache Einstellungen"
 
-#: config/fields.php:51
+#: config/fields.php:52
 msgid "Bcc"
 msgstr "Bcc"
 
@@ -117,7 +117,7 @@ msgstr "Ausschlusslisten werden vom aktuellen Filtertreiber nicht unterstützt."
 msgid "Blacklisted Addresses"
 msgstr "Ausgeschlossene Adressen"
 
-#: config/fields.php:104
+#: config/fields.php:105
 msgid "Body"
 msgstr "Text"
 
@@ -125,7 +125,7 @@ msgstr "Text"
 msgid "Case Sensitive"
 msgstr "Groß-/Kleinschreibung beachten"
 
-#: config/fields.php:47
+#: config/fields.php:48
 msgid "Cc"
 msgstr "Cc"
 
@@ -201,7 +201,7 @@ msgstr "In meinen Posteingang ausliefern und weiterleiten nach..."
 msgid "Deliver to folder..."
 msgstr "Ausliefern in den Ordner..."
 
-#: config/fields.php:87
+#: config/fields.php:88
 msgid "Destination (To, Cc, Bcc, etc.)"
 msgstr "Empfänger (An, Cc, Bcc etc.)"
 
@@ -433,7 +433,7 @@ msgstr "Weiterleitung"
 msgid "Forwards Edit"
 msgstr "Weiterleitung Bearbeiten"
 
-#: config/fields.php:43
+#: config/fields.php:44
 msgid "From"
 msgstr "Von"
 
@@ -489,7 +489,7 @@ msgstr "Kleiner als"
 msgid "Less than or equal to"
 msgstr "Kleiner als oder gleich"
 
-#: config/fields.php:63
+#: config/fields.php:64
 msgid "List-ID"
 msgstr "List-ID"
 
@@ -625,7 +625,7 @@ msgstr "Anzahl der Tage zwischen den Abwesenheitsnachrichten:"
 msgid "Only flag the message"
 msgstr "Nachricht nur markieren"
 
-#: config/prefs.php:13
+#: config/prefs.php:14
 msgid "Other Preferences"
 msgstr "Andere Einstellungen"
 
@@ -633,7 +633,7 @@ msgstr "Andere Einstellungen"
 msgid "Overview"
 msgstr "Übersicht"
 
-#: config/fields.php:95
+#: config/fields.php:96
 msgid "Participant (From, To, etc.)"
 msgstr "Beteiligter (Von, An etc.)"
 
@@ -645,7 +645,7 @@ msgstr "Zugriff verweigert"
 msgid "Please enter the name of the new folder:"
 msgstr "Bitte geben Sie den Namen für den neuen Ordner an:"
 
-#: config/prefs.php:15
+#: config/prefs.php:16
 msgid "Preferences about script updating."
 msgstr "Einstellungen zur Skript-Aktualisierung."
 
@@ -653,7 +653,7 @@ msgstr "Einstellungen zur Skript-Aktualisierung."
 msgid "Reason:"
 msgstr "Grund:"
 
-#: config/fields.php:67
+#: config/fields.php:68
 msgid "Received"
 msgstr "Empfangen (Received)"
 
@@ -676,11 +676,11 @@ msgstr ""
 "Das Löschen von Benutzerdaten wird vom aktuellen Filter-Speicherbackend "
 "nicht unterstützt."
 
-#: config/fields.php:55
+#: config/fields.php:56
 msgid "Resent-From"
 msgstr "Neu versendet von (Resent-From)"
 
-#: config/fields.php:59
+#: config/fields.php:60
 msgid "Resent-To"
 msgstr "Neu versendet an (Resent-To)"
 
@@ -767,7 +767,7 @@ msgstr "Speichern und Aktivieren"
 msgid "Script"
 msgstr "Skript"
 
-#: config/prefs.php:14
+#: config/prefs.php:15
 msgid "Script Updating"
 msgstr "Skript-Aktualisierung"
 
@@ -807,7 +807,7 @@ msgstr "Zielordner auswählen:"
 msgid "Self-Defined Header"
 msgstr "Benutzerdefinierte Kopfeinträge"
 
-#: config/fields.php:39
+#: config/fields.php:40
 msgid "Sender"
 msgstr "Absender (Sender)"
 
@@ -828,11 +828,11 @@ msgid "Simple spam filtering is not supported in the current filtering driver."
 msgstr ""
 "Vereinfachte Spamfilter werden vom aktuellen Filtertreiber nicht unterstützt."
 
-#: config/fields.php:99
+#: config/fields.php:100
 msgid "Size"
 msgstr "Größe"
 
-#: config/fields.php:91
+#: config/fields.php:92
 msgid "Source (From, Reply-to, etc.)"
 msgstr "Absender (Von, Antwort-an etc.)"
 
@@ -857,7 +857,7 @@ msgstr "Beginn der Abwesenheit:"
 msgid "Stop checking if this rule matches?"
 msgstr "Weitere Überprüfung anhalten, wenn diese Regel zutrifft?"
 
-#: config/fields.php:35
+#: config/fields.php:36
 msgid "Subject"
 msgstr "Betreff"
 
@@ -891,7 +891,7 @@ msgstr "Beim Aktivieren des Skripts ist ein Fehler aufgetreten."
 msgid "There was an error deactivating the script."
 msgstr "Beim Deaktivieren des Skripts ist ein Fehler aufgetreten."
 
-#: config/fields.php:31
+#: config/fields.php:32
 msgid "To"
 msgstr "An"
 
@@ -949,19 +949,19 @@ msgstr "Positivlisten werden vom aktuellen Filtertreiber nicht unterstützt."
 msgid "Whitelisted Addresses"
 msgstr "Positivgelistete Adressen"
 
-#: config/fields.php:83
+#: config/fields.php:84
 msgid "X-Priority"
 msgstr "X-Priority"
 
-#: config/fields.php:71
+#: config/fields.php:72
 msgid "X-Spam-Level"
 msgstr "X-Spam-Level"
 
-#: config/fields.php:75
+#: config/fields.php:76
 msgid "X-Spam-Score"
 msgstr "X-Spam-Score"
 
-#: config/fields.php:79
+#: config/fields.php:80
 msgid "X-Spam-Status"
 msgstr "X-Spam-Status"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-21 10:58+0200\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: 2011-04-04 10:36+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -27,7 +27,7 @@ msgstr " (Zugriffstaste %s)"
 msgid "\"%s\" group driver not found."
 msgstr "\"%s\"-Gruppen-Treiber nicht gefunden."
 
-#: lib/Horde/Registry.php:1183 lib/Horde/Registry.php:1656
+#: lib/Horde/Registry.php:1184 lib/Horde/Registry.php:1657
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr "\"%s\" ist in der Horde Registry nicht konfiguriert."
@@ -51,7 +51,7 @@ msgid_plural "%d days until your password expires."
 msgstr[0] "In %d Tag wird Ihr Passwort ungültig."
 msgstr[1] "In %d Tagen wird Ihr Passwort ungültig."
 
-#: lib/Horde/Registry.php:1288
+#: lib/Horde/Registry.php:1289
 #, php-format
 msgid "%s is not authorized for %s."
 msgstr "%s ist für %s nicht autorisiert."
@@ -210,7 +210,7 @@ msgstr "Verfügbare Adressbücher:"
 msgid "Birthday"
 msgstr "Geburtstag"
 
-#: lib/Horde/Core/Block/Collection.php:388
+#: lib/Horde/Core/Block/Collection.php:392
 #, php-format
 msgid "Block \"%s\" of application \"%s\" not found."
 msgstr "Block \"%s\" der Anwendung \"%s\" nicht gefunden."
@@ -251,6 +251,11 @@ msgstr "Firma"
 #: lib/Horde/Core/Prefs/Identity.php:54
 msgid "Confirm new email address"
 msgstr "Bestätigung der neuen E-Mail-Adresse"
+
+#: lib/Horde/Config.php:282
+#, php-format
+msgid "Could not save the backup configuration file %s."
+msgstr "Backup der Konfiguration %s konnte nicht gespeichert werden."
 
 #: lib/Horde/Core/Perms/Ui.php:293
 msgid "Creator Permissions"
@@ -750,6 +755,11 @@ msgstr "So"
 msgid "Success"
 msgstr "Erfolg"
 
+#: lib/Horde/Config.php:280
+#, php-format
+msgid "Successfully saved the backup configuration file %s."
+msgstr "Backup der Konfiguration %s erfolgreich gespeichert."
+
 #: lib/Horde/Core/Ui/JsCalendar.php:109
 msgid "Sunday"
 msgstr "Sonntag"
@@ -786,7 +796,7 @@ msgstr "Die Datei %s sollte einen %s Eintrag enthalten."
 msgid "The file %s should contain some %s settings."
 msgstr "Die Datei %s sollte einige %s Einträge enthalten."
 
-#: lib/Horde/Registry.php:2272
+#: lib/Horde/Registry.php:2273
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr ""
@@ -813,7 +823,7 @@ msgstr ""
 "Die neue E-Mail-Adresse kann zur Zeit nicht bestätigt werden, probieren Sie "
 "es später noch einmal: "
 
-#: lib/Horde/Core/Factory/Prefs.php:193
+#: lib/Horde/Core/Factory/Prefs.php:189
 #, php-format
 msgid ""
 "The preference \"%s\" could not be saved because its data exceeds the "
@@ -822,7 +832,7 @@ msgstr ""
 "Die Benutzereinstellung \"%s\" konnte nicht gespeichert werden, weil ihre "
 "Daten die maximal erlaubte Größe überschreiten"
 
-#: lib/Horde/Core/Factory/Prefs.php:165
+#: lib/Horde/Core/Factory/Prefs.php:161
 msgid ""
 "The preferences backend is currently unavailable and your preferences have "
 "not been loaded. You may continue to use the system with default preferences."
@@ -886,6 +896,11 @@ msgstr "Di"
 #: lib/Horde/Core/Ui/JsCalendar.php:111
 msgid "Tuesday"
 msgstr "Dienstag"
+
+#: lib/Horde/Core/Auth/Signup/Form.php:45
+#: lib/Horde/Core/Auth/Signup/Form.php:59
+msgid "Type your password twice to confirm"
+msgstr "Geben Sie das Passwort zweimal zur Bestätigung ein"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:386
 msgid "URL"
@@ -958,7 +973,7 @@ msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] "Sie dürfen nicht mehr als %d Block erstellen."
 msgstr[1] "Sie dürfen nicht mehr als %d Blöcke erstellen."
 
-#: lib/Horde/Registry.php:1862
+#: lib/Horde/Registry.php:1863
 msgid "You are not authenticated."
 msgstr "Sie sind nicht angemeldet."
 
@@ -982,7 +997,7 @@ msgstr ""
 "\n"
 "Wenn Sie mit diese Nachricht nichts anfangen können, bitte löschen."
 
-#: lib/Horde/Core/Factory/Vfs.php:69
+#: lib/Horde/Core/Factory/Vfs.php:75
 msgid "You must configure a VFS backend."
 msgstr "Sie müssen ein VFS-Backend konfigurieren."
 
@@ -1047,11 +1062,6 @@ msgstr "mm"
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:411
 msgid "ss"
 msgstr "ss"
-
-#: lib/Horde/Core/Auth/Signup/Form.php:45
-#: lib/Horde/Core/Auth/Signup/Form.php:59
-msgid "Type your password twice to confirm"
-msgstr "Geben Sie das Passwort zweimal zur Bestätigung ein"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:102
 msgid "vCard"

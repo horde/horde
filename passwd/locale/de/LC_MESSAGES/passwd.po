@@ -2,14 +2,14 @@
 # Copyright 2002-2009 The Horde Project
 # This file is distributed under the same license as the Passwd package.
 # Jens Tkotz <jens.tkotz@f2h9.de>, 2002.
-# Jan Schneider <jan@horde.org>, 2002-2009.
+# Jan Schneider <jan@horde.org>, 2002-2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Passwd 3.1-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-21 10:58+0200\n"
-"PO-Revision-Date: 2009-11-21 13:18+0100\n"
+"POT-Creation-Date: 2011-05-18 12:43+0200\n"
+"PO-Revision-Date: 2011-05-18 12:44+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
 "Language: de\n"
@@ -126,8 +126,8 @@ msgstr "Fehler beim Ändern des Passworts für %s: %s"
 msgid "Full buffer."
 msgstr "Zwischenspeicher voll."
 
-#: lib/Driver.php:72 lib/Driver/http.php:72 lib/Driver/kolab.php:84
-#: lib/Driver/ldap.php:144 lib/Driver/poppassd.php:120
+#: lib/Driver.php:72 lib/Driver/horde.php:41 lib/Driver/http.php:72
+#: lib/Driver/kolab.php:84 lib/Driver/ldap.php:144 lib/Driver/poppassd.php:120
 #: lib/Driver/vmailmgr.php:42
 msgid "Incorrect old password."
 msgstr "Falsches altes Passwort."
@@ -226,6 +226,11 @@ msgstr "'phptype' wurde in der SQL-Konfiguration nicht angegeben."
 #: templates/main/main.inc:142
 msgid "Reset"
 msgstr "Zurücksetzen"
+
+#: lib/Driver/horde.php:32
+msgid "The current horde configuration does not allow changing passwords."
+msgstr ""
+"Die aktuelle Horde-Konfiguration erlaubt keine Änderung der Passwörter."
 
 #: lib/Driver/http.php:65
 msgid "The requested website for changing user passwords could not be reached."
