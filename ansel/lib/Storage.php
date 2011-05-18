@@ -752,8 +752,11 @@ class Ansel_Storage
             $count = count($this->listGalleries($params));
         } else {
             try {
-                $count = $this->_shares->countShares($userid, $perm, $attributes,
-                                                     $parent_id, $allLevels);
+                $count = $this->_shares->countShares(
+                    $userid,
+                    $perm, $params->get('attributes', array()),
+                    $parent_id,
+                    $params->get(allLevels, true));
             } catch (Horde_Share_Exception $e) {
                 throw new Ansel_Exception($e);
             }
