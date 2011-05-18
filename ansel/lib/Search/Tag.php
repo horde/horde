@@ -110,7 +110,9 @@ class Ansel_Search_Tag
         /* Instantiate the Gallery objects */
         $galleries = array();
         foreach ($gresults as $gallery) {
-            $galleries[] = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery);
+            try {
+                $galleries[] = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery);
+            } catch (Horde_Exception_NotFound $e) {}
         }
 
         /* Do we need to get images? */
