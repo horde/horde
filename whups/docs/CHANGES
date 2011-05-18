@@ -2,6 +2,7 @@
 v2.0-cvs
 --------
 
+[jan] Add listSlugs API method.
 [jan] Convert HTML messages to plain text when processing mail messages.
 [jan] Fix creating temporary files with open_basedir restrictions.
 [jan] Provide default configuration files instead of .dist versions.

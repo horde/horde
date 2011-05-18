@@ -470,6 +470,16 @@ class Whups_Api extends Horde_Registry_Api
     }
 
     /**
+     * Return a list of slugs that the current user has read permissions for
+     *
+     * @return array  Array of queue details
+     */
+    public function listSlugs()
+    {
+        return Whups::permissionsFilter($GLOBALS['whups_driver']->getSlugs(), 'queue', Horde_Perms::SHOW);
+    }
+
+    /**
      * Get details for a queue
      *
      * @param array | integer $queue  Either an array of queue ids or a single queue id.

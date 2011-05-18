@@ -1367,6 +1367,30 @@ class Whups_Driver_sql extends Whups_Driver {
         return $internals;
     }
 
+    function getSlugs()
+    {
+        static $slugs;
+
+        if ($slugs) {
+            return $slugs;
+        }
+
+        $query = 'SELECT queue_id, queue_slug FROM whups_queues '
+            . 'WHERE queue_slug IS NOT NULL AND queue_slug <> \'\' '
+            . 'ORDER BY queue_slug';
+        Horde::logMessage(sprintf('Whups_Driver_sql::getSlugs(): query="%s"',
+                                  $query), 'DEBUG');
+        $queues = $this->_db->getAssoc($query);
+        if (is_a($queues, 'PEAR_Error')) {
+            Horde::logMessage($queues, 'ERR');
+            return array();
+        }
+
+        $slugs = Horde_String::convertCharset($queues, $this->_params['charset'], 'UTF-8');
+
+        return $slugs;
+    }
+
     function updateQueue($queueId, $name, $description, $types, $versioned,
                          $slug = '', $email = '', $default = null)
     {
