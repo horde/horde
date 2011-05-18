@@ -113,7 +113,7 @@ class Ansel_Search_Tag
             try {
                 $galleries[] = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery);
             } catch (Horde_Exception_NotFound $e) {
-                Horde::Log('Gallery Not Found: ' . $e->getMessage(), 'ERR');
+                Horde::logMessage('Gallery Not Found: ' . $e->getMessage(), 'ERR');
             }
         }
 
