@@ -107,7 +107,7 @@
 
 
 $backends['hordeauth'] = array (
-    'disabled' => false,
+    'disabled' => true,
     'name' => 'Horde Authentication',
     'preferred' => '',
     'password policy' => array(
@@ -118,7 +118,7 @@ $backends['hordeauth'] = array (
 );
 
 $backends['hordesql'] = array (
-    'disabled' => true,
+    'disabled' => false,
     'name' => 'Horde Sql Authentication',
     'preferred' => '',
     'password policy' => array(
@@ -126,11 +126,13 @@ $backends['hordesql'] = array (
         'minNumeric' => 1,
     ),
     'driver' => 'sql',
-    'params' => array_merge($conf['sql'],
+    'params' => array_merge($GLOBALS['conf']['sql'],
                             array('table' => 'horde_users',
                                   'user_col' => 'user_uid',
                                   'pass_col' => 'user_pass',
-                                  'show_encryption' => false)),
+                                  'show_encryption' => false,
+                                  'encryption' => $GLOBALS['conf']['auth']['params']['encryption']
+                                  )),
 );
 
 $backends['poppassd'] = array(
