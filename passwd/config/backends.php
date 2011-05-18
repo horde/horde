@@ -40,6 +40,7 @@
  *
  * driver:    The Passwd driver used to change the password. Valid
  *            Valid values are currently:
+ *              horde        Change the password on the configured horde authentication
  *              ldap         Change the password on a ldap server
  *              smbldap      Change the password on a ldap server for both
  *                           ldap and samba auth
@@ -99,9 +100,22 @@
  *
  */
 
-$backends['hordesql'] = array (
+
+
+$backends['hordeauth'] = array (
     'disabled' => false,
     'name' => 'Horde Authentication',
+    'preferred' => '',
+    'password policy' => array(
+        'minLength' => 6,
+        'minNumeric' => 1,
+    ),
+    'driver' => 'horde',
+);
+
+$backends['hordesql'] = array (
+    'disabled' => true,
+    'name' => 'Horde Sql Authentication',
     'preferred' => '',
     'password policy' => array(
         'minLength' => 6,
