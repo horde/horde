@@ -109,4 +109,3 @@ FM;
 
 $this->notes['name'] = 'Horde Groupware Webmail Edition';
 $this->notes['fm']['project'] = 'horde-webmail';
-$this->notes['fm']['branch'] = 'Default';
