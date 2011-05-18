@@ -2,6 +2,7 @@
 v5.0.4-git
 ----------
 
+[mms] Fix setting/unsetting passphrases in preferences (Bug #10096).
 [mms] Base64url encode breacdrumb hash information in dynamic view.
 [mms] Add login task to autocreate special mailboxes.
 [mms] Workaround broken messages by allow viewing multipart/related parts that

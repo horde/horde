@@ -1068,13 +1068,15 @@ class IMP_Prefs_Ui
                 $t->set('sendkey', Horde::link($ui->selfUrl(array('special' => true))->add('send_pgp_key', 1), _("Send Key to Public Keyserver")));
                 $t->set('personalkey-public-help', Horde_Help::link('imp', 'pgp-personalkey-public'));
 
-                $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'PassphraseDialog'), array(
-                    'type' => 'pgpPersonal'
-                ));
-
-                $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
-                $passphrase = $imp_pgp->getPassphrase('personal');
-                $t->set('passphrase', empty($passphrase) ? Horde::link('#', _("Enter Passphrase"), null, null, null, null, null, array('id' => $imple->getPassphraseId())) . _("Enter Passphrase") : Horde::link($ui->selfUrl(array('special' => true))->add('unset_pgp_passphrase', 1), _("Unload Passphrase")) . _("Unload Passphrase"));
+                if ($passphrase = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp')->getPassphrase('personal')) {
+                    $t->set('passphrase', Horde::link($ui->selfUrl(array('special' => true, 'token' => true))->add('unset_pgp_passphrase', 1), _("Unload Passphrase")) . _("Unload Passphrase"));
+                } else {
+                    $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'PassphraseDialog'), array(
+                        'reloadurl' => $ui->selfUrl()->setRaw(true),
+                        'type' => 'pgpPersonal'
+                    ));
+                    $t->set('passphrase', Horde::link('#', _("Enter Passphrase"), null, null, null, null, null, array('id' => $imple->getPassphraseId())) . _("Enter Passphrase"));
+                }
 
                 $t->set('viewprivate', Horde::link($pgp_url->copy()->add('actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
                 $t->set('infoprivate', Horde::link($pgp_url->copy()->add('actionID', 'info_personal_private_key'), _("Information on Personal Private Key"), null, 'info_key'));
@@ -1467,13 +1469,15 @@ class IMP_Prefs_Ui
                 $t->set('viewpublic', Horde::link($smime_url->copy()->add('actionID', 'view_personal_public_key'), _("View Personal Public Certificate"), null, 'view_key'));
                 $t->set('infopublic', Horde::link($smime_url->copy()->add('actionID', 'info_personal_public_key'), _("Information on Personal Public Certificate"), null, 'info_key'));
 
-                $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'PassphraseDialog'), array(
-                    'type' => 'smimePersonal'
-                ));
-
-                $imp_smime = $GLOBALS['injector']->getInstance('IMP_Crypt_Smime');
-                $passphrase = $imp_smime->getPassphrase();
-                $t->set('passphrase', empty($passphrase) ? Horde::link('#', _("Enter Passphrase"), null, null, null, null, null, array('id' => $imple->getPassphraseId())) . _("Enter Passphrase") : Horde::link($ui->selfUrl(array('special' => true))->add('unset_smime_passphrase', 1), _("Unload Passphrase")) . _("Unload Passphrase"));
+                if ($passphrase = $GLOBALS['injector']->getInstance('IMP_Crypt_Smime')->getPassphrase()) {
+                    $t->set('passphrase', Horde::link($ui->selfUrl(array('special' => true))->add('unset_smime_passphrase', 1), _("Unload Passphrase")) . _("Unload Passphrase"));
+                } else {
+                    $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'PassphraseDialog'), array(
+                        'reloadurl' => $ui->selfUrl()->setRaw(true),
+                        'type' => 'smimePersonal'
+                    ));
+                    $t->set('passphrase', Horde::link('#', _("Enter Passphrase"), null, null, null, null, null, array('id' => $imple->getPassphraseId())) . _("Enter Passphrase"));
+                }
 
                 $t->set('viewprivate', Horde::link($smime_url->copy()->add('actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
                 $t->set('personalkey-delete-help', Horde_Help::link('imp', 'smime-delete-personal-certs'));

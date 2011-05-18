@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-16</date>
- <time>22:20:36</time>
+ <date>2011-05-18</date>
+ <time>14:07:20</time>
  <version>
   <release>5.0.4</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix setting/unsetting passphrases in preferences (Bug #10096).
 * [mms] Base64url encode breacdrumb hash information in dynamic view.
 * [mms] Add login task to autocreate special mailboxes.
 * [mms] Workaround broken messages by allow viewing multipart/related parts that are not referenced in the base part.
@@ -2229,9 +2230,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-16</date>
+   <date>2011-05-18</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Fix setting/unsetting passphrases in preferences (Bug #10096).
 * [mms] Base64url encode breacdrumb hash information in dynamic view.
 * [mms] Add login task to autocreate special mailboxes.
 * [mms] Workaround broken messages by allow viewing multipart/related parts that are not referenced in the base part.

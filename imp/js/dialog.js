@@ -15,6 +15,7 @@
  *     // OK text.
  *     ok_text: '',
  *     password: '',
+ *     reloadurl: '',
  *     // [REQUIRED] The text to display at top of dialog box
  *     text: '',
  *
@@ -57,6 +58,10 @@ var IMPDialog = {
             this.params = data.params;
             this.type = data.type;
             this.uri = data.uri;
+        }
+
+        if (data.reloadurl) {
+            this.reloadurl = data.reloadurl;
         }
 
         if (!data.form_opts) {
@@ -129,7 +134,11 @@ var IMPDialog = {
             this.noreload = false;
             RedBox.getWindowContents().fire('IMPDialog:success', this.type);
             if (!this.noreload) {
-                location.reload();
+                if (this.reloadurl) {
+                    location = this.reloadurl;
+                } else {
+                    location.reload();
+                }
             }
         } else if (r.response.error) {
             alert(r.response.error);
