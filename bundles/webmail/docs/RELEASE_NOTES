@@ -108,4 +108,5 @@ CalDAV client support.
 FM;
 
 $this->notes['name'] = 'Horde Groupware Webmail Edition';
+$this->notes['list'] = 'horde';
 $this->notes['fm']['project'] = 'horde-webmail';
