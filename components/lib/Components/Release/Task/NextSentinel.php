@@ -1,7 +1,7 @@
 <?php
 /**
  * Components_Release_Task_NextSentinel:: updates the CHANGES and the
- * Application.php files with the next package version.
+ * Application.php/Bundle.php files with the next package version.
  *
  * PHP version 5
  *
@@ -14,7 +14,7 @@
 
 /**
  * Components_Release_Task_CurrentSentinel:: updates the CHANGES and the
- * Application.php files with the current package version.
+ * Application.php/Bundle.php files with the current package version.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -60,6 +60,9 @@ extends Components_Release_Task_Sentinel
             }
             if ($application = $sentinel->applicationFileExists()) {
                 $this->_updateInfo('replace', $application, $application_version);
+            }
+            if ($bundle = $sentinel->bundleFileExists()) {
+                $this->_updateInfo('replace', $bundle, $application_version);
             }
         }
         $this->_commit($sentinel, 'CommitPostRelease');

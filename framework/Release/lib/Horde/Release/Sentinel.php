@@ -37,6 +37,9 @@ class Horde_Release_Sentinel
     /** Path to the Application.php file. */
     const APPLICATION = '/lib/Application.php';
 
+    /** Path to the Bundle.php file. */
+    const BUNDLE = '/lib/Bundle.php';
+
     /**
      * Base component path.
      *
@@ -124,7 +127,7 @@ class Horde_Release_Sentinel
     }
 
     /**
-     * Update the Application.php file in case it exists.
+     * Update the Application.php or Bundle.php file in case it exists.
      *
      * @param string $new_version Version string that should be added.
      *
@@ -151,6 +154,25 @@ class Horde_Release_Sentinel
             chmod($tmp, $oldmode);
 
             system("mv -f $tmp $application");
+        } elseif ($bundle = $this->bundleFileExists()) {
+            $tmp = Horde_Util::getTempFile();
+
+            $oldmode = fileperms($bundle);
+            $oldfp = fopen($bundle, 'r');
+            $newfp = fopen($tmp, 'w');
+            while ($line = fgets($oldfp)) {
+                $line = preg_replace(
+                    '/const VERSION = \'[^\']*\';/',
+                    'const VERSION = \'' . $version . '\';',
+                    $line
+                );
+                fwrite($newfp, $line);
+            }
+            fclose($oldfp);
+            fclose($newfp);
+            chmod($tmp, $oldmode);
+
+            system("mv -f $tmp $bundle");
         }
     }
 
@@ -185,7 +207,22 @@ class Horde_Release_Sentinel
     }
 
     /**
-     * Returns the current version from Application.php.
+     * Indicates if there is a Bundle.php file for this component.
+     *
+     * @return string|boolean The path to the Bundle.php file if it exists,
+     *                        false otherwise.
+     */
+    public function bundleFileExists()
+    {
+        $bundle = $this->_component . self::BUNDLE;
+        if (file_exists($bundle)) {
+            return $bundle;
+        }
+        return false;
+    }
+
+    /**
+     * Returns the current version from Application.php or Bundle.php.
      *
      * @return string Version string.
      */
@@ -195,6 +232,15 @@ class Horde_Release_Sentinel
             $oldfp = fopen($application, 'r');
             while ($line = fgets($oldfp)) {
                 if (preg_match('/public \$version = \'([^\']*)\';/', $line, $match)) {
+                    return $match[1];
+                }
+            }
+            fclose($oldfp);
+        }
+        if ($bundle = $this->bundleFileExists()) {
+            $oldfp = fopen($bundle, 'r');
+            while ($line = fgets($oldfp)) {
+                if (preg_match('/const VERSION = \'([^\']*)\';/', $line, $match)) {
                     return $match[1];
                 }
             }

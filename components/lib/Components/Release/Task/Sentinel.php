@@ -69,6 +69,12 @@ extends Components_Release_Task_Base
                     $this->getPackage()->getComponentDirectory()
                 );
             }
+            if ($bundle = $sentinel->bundleFileExists()) {
+                $this->systemInDirectory(
+                    'git add ' . $bundle,
+                    $this->getPackage()->getComponentDirectory()
+                );
+            }
         }
     }
 
