@@ -45,7 +45,9 @@ class Ansel_Block_RecentComments extends Horde_Core_Block
         );
         $storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
         if (empty($GLOBALS['conf']['gallery']['listlimit']) ||
-            ($storage->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit'])) {
+            ($storage->countGalleries(
+                $GLOBALS['registry']->getAuth(),
+                array('perm' => Horde_Perms::READ)) < $GLOBALS['conf']['gallery']['listlimit'])) {
 
             foreach ($storage->listGalleries(array('perm' => Horde_Perms::READ)) as $gal) {
                 $params['gallery']['values'][$gal->id] = $gal->get('name');

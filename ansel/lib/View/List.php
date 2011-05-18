@@ -114,7 +114,9 @@ class Ansel_View_List extends Ansel_View_Ansel
             }
 
             $this->_numGalleries = $ansel_storage->countGalleries(
-                $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, $filter, null, false);
+                $GLOBALS['registry']->getAuth(),
+                array('attribtues' => $filter,
+                      'allLevels' => false));
 
             if ($this->_numGalleries == 0 && empty($this->_params['api'])) {
                 if ($this->_owner && $filter == $this->_owner && $this->_owner == $GLOBALS['registry']->getAuth()) {

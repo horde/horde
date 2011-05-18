@@ -936,10 +936,9 @@ class Ansel_Api extends Horde_Registry_Api
         return $GLOBALS['injector']->getInstance('Ansel_Storage')
             ->countGalleries(
                 $GLOBALS['registry']->getAuth(),
-                $params->get('perm', Horde_Perms::SHOW),
-                $params->attributes,
-                $params->parent,
-                $params->get('allLevels', true));
+                array(
+                    'attributes' => $params->attributes,
+                    'parent' => $params->parent));
     }
 
     /**

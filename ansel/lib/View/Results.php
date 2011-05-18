@@ -262,7 +262,7 @@ class Ansel_View_Results extends Ansel_View_Ansel
                                                      'actionID' => 'add'));
 
         $vars = Horde_Variables::getDefaultVariables();
-        $option_move = $option_copy = $ansel_storage->countGalleries(Horde_Perms::EDIT);
+        $option_move = $option_copy = $ansel_storage->countGalleries($GLOBALS['registry']->getAuth(), array('perm' => Horde_Perms::EDIT);
 
         $this->_pagestart = ($this->_page * $this->_perPage) + 1;
         $this->_pageend = min($this->_pagestart + $numimages - 1, $this->_pagestart + $this->_perPage - 1);

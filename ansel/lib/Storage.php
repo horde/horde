@@ -710,43 +710,54 @@ class Ansel_Storage
     * Return the count of galleries that the user has specified permissions to
     * and that match any of the requested attributes.
     *
-    * @param string  $userid         The user to check access for.
-    * @param integer $perm           The level of permissions to require for a
-    *                                gallery to return it.
-    * @param mixed   $attributes     Restrict the galleries counted to those
-    *                                matching $attributes. An array of
-    *                                attribute/values pairs or a gallery owner
-    *                                username.
-    * @param Ansel_Gallery  $parent  The parent share to start counting at.
-    * @param boolean $allLevels      Return all levels, or just the direct
-    *                                children of $parent? Defaults to all levels.
+    * @param string userid  The user to check access for.
+    * @param array $params  Parameter array:
+    *<pre>
+    *  (integer)perm          The level of permissions to require for a
+    *                         gallery to return it [Horde_Perms::SHOW]
+    *  (mixed)attributes      Restrict the galleries counted to those
+    *                         matching $attributes. An array of
+    *                         attribute/values pairs or a gallery owner
+    *                         username.
+    * (Ansel_Gallery)parent   The parent share to start counting at.
+    * (boolean)allLevels      Return all levels, or just the direct children of
+    *                         $parent? [true]
+    * (array)tags             Filter results by galleries tagged with tags.
+    *</pre>
     *
     * @return integer  The count
     * @throws Ansel_Exception
     */
-    public function countGalleries($userid, $perm = Horde_Perms::SHOW,
-        $attributes = null, Ansel_Gallery $parent = null, $allLevels = true)
+    public function countGalleries($userid, array $params = array())
+     // $perm = Horde_Perms::SHOW,
+     //    $attributes = null, Ansel_Gallery $parent = null, $allLevels = true)
     {
         static $counts;
 
-        if (!empty($parent)) {
-            $parent_id = $parent->id;
+        $params = new Horde_Support_Array($params);
+        if ($params->parent) {
+            $parent_id = $params->parent->id;
         } else {
             $parent_id = null;
         }
-
-        $key = "$userid,$perm,$parent_id,$allLevels" . serialize($attributes);
+        $perm = $params->get('perm', Horde_Perms::SHOW);
+        $key = "$userid,$perm,$parent_id,{$params->allLevels}" . serialize($params->get('attributes', array()));
         if (isset($counts[$key])) {
             return $counts[$key];
         }
 
-        try {
-            $count = $this->_shares->countShares($userid, $perm, $attributes,
-                                                 $parent_id, $allLevels);
-        } catch (Horde_Share_Exception $e) {
-            throw new Ansel_Exception($e);
+        // Unfortunately, we need to go the long way around to count shares if
+        // we are filtering by tags.
+        if ($params->tags) {
+            $count = count($this->listGalleries($params));
+        } else {
+            try {
+                $count = $this->_shares->countShares($userid, $perm, $attributes,
+                                                     $parent_id, $allLevels);
+            } catch (Horde_Share_Exception $e) {
+                throw new Ansel_Exception($e);
+            }
         }
-
         $counts[$key] = $count;
 
         return $count;
