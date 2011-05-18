@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo 2.0\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2008-05-12 11:43+0200\n"
-"PO-Revision-Date: 2008-03-19 12:00+0100\n"
-"Last-Translator: Martin Matuska <martin@matuska.org>\n"
+"POT-Creation-Date: 2011-04-05 13:52+0200\n"
+"PO-Revision-Date: 2011-05-18 17:39+0100\n"
+"Last-Translator: Martin Matuška <martin@matuska.org>\n"
 "Language-Team: Slovak <vix@vazka.sk>\n"
+"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,80 +22,79 @@ msgstr ""
 msgid "%s characters"
 msgstr "%s znakov"
 
-#: data.php:200
+#: data.php:195
 #, php-format
 msgid "%s file successfully imported"
 msgstr "súbor %s úspešne importovaný"
 
-#: notepads.php:102 lib/Mnemo.php:451 lib/Forms/DeleteNotepad.php:86
-#, php-format
-msgid "%s's Notepad"
-msgstr "Poznámky používateľa %s"
-
-#: memo.php:201
+#: memo.php:248
 msgid "Access denied deleting note."
 msgstr "Pri vymazávaní poznámky bol zamietnutý prístup."
 
-#: memo.php:150 memo.php:153
+#: memo.php:183 memo.php:186
 msgid "Access denied moving the note."
 msgstr "Pri presúvaní poznámky bol zamietnutý prístup."
 
-#: memo.php:120
+#: memo.php:134
 #, php-format
 msgid "Access denied saving note to %s."
 msgstr "Pri ukladaní poznámky do %s bol zamietnutý prístup."
 
-#: memo.php:118
+#: lib/Block/Note.php:80
 #, php-format
-msgid "Access denied saving note: %s"
-msgstr "Pri ukladaní poznámky bol zamietnutý prístup: %s"
+msgid "An error occurred displaying %s"
+msgstr "Chyba pri zobrazovaní %s"
 
-#: config/prefs.php.dist:70
+#: lib/Block/Note.php:82
+msgid "An error occurred displaying the note"
+msgstr "Chyba pri zobrazovaní poznámky"
+
+#: config/prefs.php:63
 msgid "Ascending"
 msgstr "Vzostupne"
 
-#: data.php:32 templates/data/import.inc:11
+#: data.php:27 templates/data/import.inc:11
 msgid "CSV"
 msgstr "CSV (hodnoty oddelené čiarkou)"
 
-#: lib/Forms/DeleteNotepad.php:45 lib/Forms/DeleteNotepad.php:51
+#: lib/Ajax/Imple/EditNote.php:45 lib/Form/DeleteNotepad.php:34
+#: lib/Form/DeleteNotepad.php:40
 msgid "Cancel"
 msgstr "Zrušiť"
 
-#: data.php:54 templates/view/memo.inc:26
+#: data.php:49 templates/view/memo.inc:26
 msgid "Category"
 msgstr "Kategória"
 
-#: templates/notepads/notepads.inc:22
-msgid "Change"
-msgstr "Zmeniť"
-
-#: notepads/index.php:32 templates/notepad_list.php:31
+#: notepads/index.php:34 templates/notepad_list.php:29
 msgid "Change Permissions"
 msgstr "Zmeniť práva"
 
-#: config/prefs.php.dist:14
-msgid "Change your note sorting and display options."
-msgstr "Nastavenie triedenia a zobrazovania poznámok."
+#: config/prefs.php:13
+msgid "Change your note sorting and display preferences."
+msgstr "Upravte Vaše nastavenia triedenia a zobrazovania poznámok."
 
-#: config/prefs.php.dist:21
+#: config/prefs.php:20
 msgid "Choose your default Notepad."
 msgstr "Vybrať prednastavený poznámkový blok:"
+
+#: lib/Ajax/Imple/EditNote.php:43
+msgid "Click to add text..."
+msgstr "Kliknite na pridanie textu..."
 
 #: templates/list/header.inc:8
 msgid "Close Search"
 msgstr "Zavrieť hľadanie"
 
-#: templates/notepads/notepads.inc:15 templates/notepads/notepads.inc:64
-#: lib/Forms/CreateNotepad.php:39
+#: lib/Form/CreateNotepad.php:25
 msgid "Create"
 msgstr "Vytvoriť"
 
-#: lib/Forms/CreateNotepad.php:34
+#: lib/Form/CreateNotepad.php:20
 msgid "Create Notepad"
 msgstr "Vytvoriť poznámkový blok"
 
-#: templates/notepad_list.php:8
+#: templates/notepad_list.php:9
 msgid "Create a new Notepad"
 msgstr "Vytvoriť nový poznámkový blok"
 
@@ -102,38 +102,41 @@ msgstr "Vytvoriť nový poznámkový blok"
 msgid "Created"
 msgstr "Vytvorené"
 
-#: templates/view/memo.inc:54 templates/memo/memo.inc:23
+#: templates/list/memo_headers.inc:40
+msgid "Date"
+msgstr "Dátum"
+
+#: templates/memo/memo.inc:23 templates/view/memo.inc:54
 msgid "Decrypt"
 msgstr "Dešifrovať"
 
-#: config/prefs.php.dist:20
+#: config/prefs.php:19
 msgid "Default Notepad"
 msgstr "Prednastavený poznámkový blok"
 
-#: config/prefs.php.dist:61
+#: config/prefs.php:55
 msgid "Default sorting criteria:"
 msgstr "Prednastavený spôsob triedenia:"
 
-#: config/prefs.php.dist:72
+#: config/prefs.php:66
 msgid "Default sorting direction:"
 msgstr "Prednastavený smer triedenia:"
 
-#: notepads/index.php:33 templates/notepad_list.php:33
-#: templates/notepads/notepads.inc:65 templates/view/memo.inc:16
-#: lib/Forms/DeleteNotepad.php:45
+#: lib/Form/DeleteNotepad.php:34 notepads/index.php:35
+#: templates/notepad_list.php:31 templates/view/memo.inc:16
 msgid "Delete"
 msgstr "Vymazať"
 
-#: lib/Forms/DeleteNotepad.php:40
+#: lib/Form/DeleteNotepad.php:29
 #, php-format
 msgid "Delete %s"
 msgstr "Vymazať %s"
 
-#: config/prefs.php.dist:27
+#: config/prefs.php:26
 msgid "Delete Confirmation"
 msgstr "Potvrdenie vymazania"
 
-#: config/prefs.php.dist:28
+#: config/prefs.php:27
 msgid "Delete button behaviour"
 msgstr "Správanie sa tlačidla vymazať"
 
@@ -141,32 +144,23 @@ msgstr "Správanie sa tlačidla vymazať"
 msgid "Delete this note"
 msgstr "Vymazať túto poznámku"
 
-#: config/prefs.php.dist:71
+#: config/prefs.php:64
 msgid "Descending"
 msgstr "Zostupne"
 
-#: lib/Forms/CreateNotepad.php:37 lib/Forms/EditNotepad.php:44
+#: lib/Form/CreateNotepad.php:23 lib/Form/EditNotepad.php:30
 msgid "Description"
 msgstr "Popis"
 
-#: templates/notepads/notepads.inc:60
-msgid "Description:"
-msgstr "Popis:"
+#: config/prefs.php:12
+msgid "Display Preferences"
+msgstr "Nastavenia zobrazenia"
 
-#: lib/Driver/kolab.php:556
-#, php-format
-msgid "Did not find note %s"
-msgstr "Nenájdená poznámka %s"
-
-#: config/prefs.php.dist:13
-msgid "Display Options"
-msgstr "Nastavenie zobrazenia"
-
-#: config/prefs.php.dist:117
+#: config/prefs.php:96
 msgid "Do you want to confirm deleting entries?"
 msgstr "Chcete potvrdiť vymazanie záznamov?"
 
-#: notepads/index.php:31 templates/notepad_list.php:29
+#: notepads/index.php:33 templates/notepad_list.php:27
 #: templates/view/memo.inc:13
 msgid "Edit"
 msgstr "Upraviť"
@@ -176,29 +170,30 @@ msgstr "Upraviť"
 msgid "Edit \"%s\""
 msgstr "Upraviť \"%s\""
 
-#: lib/Forms/EditNotepad.php:40
+#: lib/Form/EditNotepad.php:26
 #, php-format
 msgid "Edit %s"
 msgstr "Upraviť %s"
 
-#: templates/list/memo_headers.inc:30 lib/Block/summary.php:74
+#: lib/Block/Summary.php:91 lib/Block/Summary.php:92
+#: templates/list/memo_headers.inc:30
 msgid "Edit Note"
 msgstr "Upraviť poznámku"
 
-#: templates/list/memo_headers.inc:45
+#: templates/list/memo_headers.inc:48
 msgid "Edit categories and colors"
 msgstr "Upraviť kategórie a farby"
 
-#: memo.php:104
+#: memo.php:114 memo.php:146
 #, php-format
 msgid "Edit: %s"
 msgstr "Upraviť: %s"
 
-#: templates/list/memo_summaries.inc:15 lib/Block/summary.php:93
+#: lib/Block/Summary.php:113 templates/list/memo_summaries.inc:15
 msgid "Empty Note"
 msgstr "Prázdna poznámka"
 
-#: lib/Driver.php:118
+#: lib/Driver.php:85
 msgid ""
 "Encryption support has not been configured, please contact your "
 "administrator."
@@ -214,8 +209,8 @@ msgstr "Export"
 msgid "Export Notes"
 msgstr "Exportovať poznámky"
 
-#: config/prefs.php.dist:12 config/prefs.php.dist:19 config/prefs.php.dist:26
-msgid "General Options"
+#: config/prefs.php:11 config/prefs.php:18 config/prefs.php:25
+msgid "General Preferences"
 msgstr "Všeobecné nastavenia"
 
 #: templates/data/import.inc:1
@@ -223,7 +218,7 @@ msgstr "Všeobecné nastavenia"
 msgid "Import Notes, Step %d"
 msgstr "Import poznámok, krok %d"
 
-#: data.php:206
+#: data.php:201
 msgid "Import/Export Notes"
 msgstr "Import/Export poznámok"
 
@@ -235,43 +230,44 @@ msgstr "V: "
 msgid "Last Modified"
 msgstr "Posledná aktualizácia"
 
-#: notepads/index.php:37 templates/notepad_list.php:2
+#: notepads/index.php:39 templates/notepad_list.php:2
 msgid "Manage Notepads"
 msgstr "Spravovať poznámkové bloky"
 
-#: lib/api.php:82
+#: lib/Application.php:57
 msgid "Maximum Number of Notes"
 msgstr "Maximálny počet poznámok"
 
-#: data.php:53
+#: data.php:48
 msgid "Memo Text"
 msgstr "Text poznámky"
 
-#: lib/Block/tree_menu.php:3
-msgid "Menu List"
-msgstr "Zoznam menu"
+#: config/prefs.php:53
+msgid "Modification Date"
+msgstr "Dátum poslednej zmeny"
 
 #: templates/list/header.inc:9
 msgid "More Options..."
 msgstr "Dalšie možnosti..."
 
-#: templates/panel.inc:50
+#: lib/Api.php:378
+msgid "Multiple iCalendar components found; only one vNote is supported."
+msgstr ""
+"Bolo nájdených viac komponentov iCalendar; podporovaná je iba jedna vNote."
+
+#: templates/panel.inc:51
 msgid "My Notepads:"
 msgstr "Moje poznámkové bloky:"
 
-#: list.php:31
+#: list.php:29 stickies.php:29
 msgid "My Notes"
 msgstr "Moje poznámky"
 
-#: lib/Forms/CreateNotepad.php:36 lib/Forms/EditNotepad.php:43
+#: lib/Form/CreateNotepad.php:22 lib/Form/EditNotepad.php:29
 msgid "Name"
 msgstr "Meno"
 
-#: templates/notepads/notepads.inc:53
-msgid "Name:"
-msgstr "Meno:"
-
-#: memo.php:57 lib/Block/tree_menu.php:23
+#: lib/Application.php:134 memo.php:92 memo.php:138
 msgid "New Note"
 msgstr "Nová poznámka"
 
@@ -279,9 +275,13 @@ msgstr "Nová poznámka"
 msgid "Next"
 msgstr "Ďalej"
 
-#: lib/api.php:286
+#: lib/Api.php:222 lib/Api.php:371
 msgid "No iCalendar data was found."
 msgstr "Neboli nájdené žiadne údaje iCalendar."
+
+#: lib/Block/Note.php:71
+msgid "No note loaded"
+msgstr "Žiadna poznámka nebola nahraná"
 
 #: templates/list/memo_footers.inc:4
 msgid "No notes match"
@@ -291,7 +291,7 @@ msgstr "Žiadne poznámky nevyhovujú"
 msgid "No notes match the current criteria."
 msgstr "Žiadne poznámky nevyhovujú aktuálnym kritériám."
 
-#: lib/Block/summary.php:101
+#: lib/Block/Summary.php:121
 msgid "No notes to display"
 msgstr "Žiadne poznámky na zobrazenie"
 
@@ -299,23 +299,19 @@ msgstr "Žiadne poznámky na zobrazenie"
 msgid "No_te"
 msgstr "Po_známka"
 
-#: lib/Driver/sql.php:195
-msgid "Not found"
-msgstr "Nenájdené."
+#: lib/Driver/Kolab.php:97 lib/Driver/Sql.php:80
+msgid "Not Found"
+msgstr "Nenájdené"
 
-#: config/prefs.php.dist:59
+#: config/prefs.php:51
 msgid "Note Category"
 msgstr "Kategória poznámky"
 
-#: view.php:121
+#: view.php:115
 msgid "Note Details"
 msgstr "Detaily poznámky"
 
-#: notepads.php:113
-msgid "Note Lists"
-msgstr "Zoznamy poznámkových blokov"
-
-#: config/prefs.php.dist:58
+#: config/prefs.php:50
 msgid "Note Text"
 msgstr "Text poznámky"
 
@@ -323,54 +319,50 @@ msgstr "Text poznámky"
 msgid "Note _Text"
 msgstr "_Text poznámky"
 
-#: view.php:56 memo.php:67 note/pdf.php:57
+#: memo.php:102 memo.php:143 note/pdf.php:52 view.php:52
 msgid "Note not found."
 msgstr "Poznámka nebola nájdená."
 
-#: templates/memo/memo.inc:59
-msgid "Note_pad"
-msgstr "_Poznámkový blok"
+#: templates/memo/memo.inc:63
+msgid "Note_pad:"
+msgstr "Poznámkový_blok:"
 
-#: templates/notepad_list.php:15 templates/list/memo_headers.inc:33
-#: config/prefs.php.dist:60
+#: config/prefs.php:52 templates/list/memo_headers.inc:33
+#: templates/notepad_list.php:17
 msgid "Notepad"
 msgstr "Poznámkový blok"
 
-#: templates/notepad_list.php:12
+#: templates/notepad_list.php:14
 msgid "Notepad List"
 msgstr "Zoznam poznámkových blokov"
 
-#: templates/panel.inc:32 templates/panel.inc:33
-#: templates/notepads/notepads.inc:42
+#: lib/Mnemo.php:526
+#, php-format
+msgid "Notepad of %s"
+msgstr "Poznámkový blok %s"
+
+#: templates/panel.inc:33 templates/panel.inc:34
 msgid "Notepads"
 msgstr "Poznámkové bloky"
 
-#: notepads.php:32
-msgid "Notepads must have a name."
-msgstr "Poznámkové bloky musia mať názov."
-
-#: templates/notepads/notepads.inc:45
-msgid "Notepads:"
-msgstr "Poznámkové bloky:"
-
-#: lib/Block/summary.php:3
+#: lib/Block/Summary.php:12
 msgid "Notes Summary"
 msgstr "Súhrn poznámok"
 
-#: lib/api.php:161 lib/api.php:201 lib/api.php:234 lib/api.php:264
-#: lib/api.php:351 lib/api.php:410 lib/api.php:439
+#: lib/Ajax/Imple/EditNote.php:46
+msgid "Ok"
+msgstr "Ok"
+
+#: lib/Api.php:105 lib/Api.php:138 lib/Api.php:170 lib/Api.php:201
+#: lib/Api.php:286 lib/Api.php:331 lib/Api.php:354
 msgid "Permission Denied"
 msgstr "Prístup zamietnutý"
 
-#: lib/Forms/DeleteNotepad.php:56
+#: lib/Form/DeleteNotepad.php:47
 msgid "Permission denied"
 msgstr "Prístup zamietnutý"
 
-#: templates/notepads/notepads.inc:56
-msgid "Permissions"
-msgstr "Práva"
-
-#: lib/Forms/DeleteNotepad.php:43
+#: lib/Form/DeleteNotepad.php:32
 #, php-format
 msgid ""
 "Really delete the notepad \"%s\"? This cannot be undone and all data on this "
@@ -383,8 +375,8 @@ msgstr ""
 msgid "Really delete this note?"
 msgstr "Naozaj zmazať túto poznámku?"
 
-#: templates/panel.inc:68 templates/memo/memo.inc:57
-#: lib/Forms/EditNotepad.php:46
+#: lib/Form/EditNotepad.php:32 templates/memo/memo.inc:58
+#: templates/panel.inc:69
 msgid "Save"
 msgstr "Uložiť"
 
@@ -392,22 +384,18 @@ msgstr "Uložiť"
 msgid "Save as PDF"
 msgstr "Uložiť ako PDF"
 
-#: search.php:17 templates/search/search.inc:4 templates/search/search.inc:27
-#: templates/list/header.inc:4 lib/Block/tree_menu.php:44
+#: lib/Application.php:167 search.php:22 templates/list/header.inc:4
+#: templates/search/search.inc:4 templates/search/search.inc:27
 msgid "Search"
 msgstr "Hľadať"
 
-#: list.php:54
+#: list.php:52 notes/index.php:38 stickies.php:52
 msgid "Search Results"
 msgstr "Výsledky hľadania"
 
-#: templates/panel.inc:38
+#: templates/panel.inc:39
 msgid "Search for Notepads:"
 msgstr "Hľadať poznámkové bloky:"
-
-#: templates/notepads/notepads.inc:47
-msgid "Select a notepad"
-msgstr "Vyberte poznámkový blok"
 
 #: templates/data/export.inc:9
 msgid "Select the export format:"
@@ -421,33 +409,37 @@ msgstr "Vyberte súbor na import:"
 msgid "Select the format of the source file:"
 msgstr "Vyberte formát zdrojového súboru:"
 
-#: templates/panel.inc:59
+#: templates/panel.inc:60
 msgid "Shared Notepads:"
 msgstr "Zdieľané poznámkové bloky:"
 
-#: config/prefs.php.dist:39
+#: config/prefs.php:36
 msgid "Should the Notepad be shown in its own column in the List view?"
 msgstr "Má byť poznámkový blok zobrazený vo vlastnom stĺpci v prehľade?"
 
-#: lib/Block/summary.php:34
+#: lib/Block/Summary.php:42
 msgid "Show action buttons?"
 msgstr "Zobraziť tlačidlá akcií?"
 
-#: lib/Block/summary.php:37
+#: lib/Block/Summary.php:47
 msgid "Show notepad name?"
 msgstr "Zobraziť meno poznámkového bloku?"
 
-#: config/prefs.php.dist:49
-msgid "Show notepad options panel?"
-msgstr "Zobraziť panel s nastaveniami poznámkového bloku?"
-
-#: lib/Block/summary.php:40
+#: lib/Block/Summary.php:52
 msgid "Show notes from these categories"
 msgstr "Zobraziť poznámky z týchto kategórií"
 
-#: templates/list/memo_headers.inc:41
+#: lib/Block/Note.php:34
+msgid "Show this note"
+msgstr "Zobraziť túto poznámku"
+
+#: templates/list/memo_headers.inc:44
 msgid "Sort by Category"
 msgstr "Triediť podľa kategórie"
+
+#: templates/list/memo_headers.inc:40
+msgid "Sort by Modification Date"
+msgstr "Zodadiť podľa dátumu poslednej zmeny"
 
 #: templates/list/memo_headers.inc:37
 msgid "Sort by Note Text"
@@ -457,40 +449,26 @@ msgstr "Triediť podľa textu poznámky"
 msgid "Sort by Notepad"
 msgstr "Triediť podľa poznámkového bloku"
 
-#: memo.php:175
+#: memo.php:221
 #, php-format
 msgid "Successfully saved \"%s\"."
 msgstr "Úspešne uložené: \"%s\"."
 
-#: data.php:194
+#: data.php:190
 #, php-format
 msgid "The %s file didn't contain any notes."
 msgstr "Súbor %s neobsahoval žiadne poznámky."
 
-#: lib/Driver.php:53
-msgid "The Notes backend is not currently available."
-msgstr "Backend pre poznámky nie je k dispozícii."
-
-#: lib/Driver.php:227
-#, php-format
-msgid "The Notes backend is not currently available: %s"
-msgstr "Backend pre poznámky nie je k dispozícii: %s"
-
-#: memo.php:198
+#: memo.php:243
 msgid "The note was deleted."
 msgstr "Poznámka bola vymazaná."
 
-#: notepads.php:45 notepads.php:56
-#, php-format
-msgid "The notepad \"%s\" couldn't be created: %s"
-msgstr "Poznámkový blok \"%s\" sa nepodarilo vytvoriť: %s"
-
-#: notepads.php:47 notepads/create.php:31
+#: notepads/create.php:29
 #, php-format
 msgid "The notepad \"%s\" has been created."
 msgstr "Poznámkový blok \"%s\" bol vytvorený."
 
-#: notepads.php:88 notepads/delete.php:48
+#: notepads/delete.php:43
 #, php-format
 msgid "The notepad \"%s\" has been deleted."
 msgstr "Poznámkový blok \"%s\" bol vymazaný."
@@ -500,121 +478,119 @@ msgstr "Poznámkový blok \"%s\" bol vymazaný."
 msgid "The notepad \"%s\" has been renamed to \"%s\"."
 msgstr "Poznámkový blok \"%s\" bol premenovaný na \"%s\"."
 
-#: notepads.php:58 notepads/edit.php:44
+#: notepads/edit.php:44
 #, php-format
 msgid "The notepad \"%s\" has been saved."
 msgstr "Poznámkový blok \"%s\" bol uložený."
 
-#: data.php:197
+#: memo.php:136
+msgid "The passwords don't match."
+msgstr "Heslá nesúhlasia."
+
+#: data.php:193
 #, php-format
 msgid "There was an error importing the data: %s"
 msgstr "Nastala chyba pri importe údajov: %s"
 
-#: lib/api.php:280
+#: lib/Api.php:216 lib/Api.php:365
 msgid "There was an error importing the iCalendar data."
 msgstr "Nastala chyba pri importe údajov iCalendar."
 
-#: lib/api.php:458
-msgid "There was an error importing the vNote data."
-msgstr "Nastala chyba pri importe údajov vNote."
+#: lib/Api.php:53 lib/Api.php:65
+#, php-format
+msgid "There was an error removing notes for %s. Details have been logged."
+msgstr ""
+"Pri odstraňovaní poznámok pre %s nastala chyba. Podrobnosti boli zaznamenané."
 
-#: memo.php:196
+#: memo.php:245
 #, php-format
 msgid "There was an error removing the note: %s"
 msgstr "Nastala chyba pri odstraňovaní poznámky: %s"
 
-#: memo.php:173
+#: memo.php:219
 #, php-format
 msgid "There was an error saving the note: %s"
 msgstr "Nastala chyba pri ukladaní poznámky: %s"
 
-#: view.php:45 note/pdf.php:46
+#: note/pdf.php:42 view.php:42
 #, php-format
 msgid "There was an error viewing this notepad: %s"
 msgstr "Nastala chyba pri prezeraní tohto poznámkového bloku: %s."
 
-#: data.php:78
+#: data.php:74
 msgid "There were no memos to export."
 msgstr "Nie sú žiadne poznámky pre export."
 
-#: data.php:105
+#: data.php:106
 msgid "This file format is not supported."
 msgstr "Tento formát súboru nie je podporovaný."
 
-#: view.php:111 memo.php:91
+#: memo.php:38 view.php:102
 msgid "This note cannot be decrypted:"
 msgstr "Táto poznámka nemôže byť dešifrovaná:"
 
-#: view.php:103 memo.php:83
-msgid "This note has been encrypted, please provide the password below."
-msgstr "Táto poznámka bola zašifrovaná, prosím zadajte heslo nižšie."
+#: memo.php:31 memo.php:41 view.php:97 view.php:105
+msgid ""
+"This note has been encrypted, and cannot be decrypted without a secure web "
+"connection"
+msgstr ""
+"Táto poznámka bola zašifrovaná a nemôže byť dešifrovaná bez zabezpečeného "
+"webového spojenia."
 
-#: view.php:100 view.php:108 memo.php:80 memo.php:88 lib/Driver/sql.php:448
-#: lib/Driver/kolab.php:766
+#: memo.php:28 view.php:94
+msgid "This note has been encrypted, please provide the password below"
+msgstr "Táto poznámka bola zašifrovaná, prosím zadajte heslo nižšie"
+
+#: lib/Api.php:280 lib/Driver/Kolab.php:281 lib/Driver/Sql.php:344
 msgid "This note has been encrypted."
 msgstr "Táto poznámka bola zašifrovaná."
 
-#: notepads/delete.php:24
-msgid "This notepad cannot be deleted"
-msgstr "Tento poznámkový blok nemôže byť vymazaný."
-
-#: notepads.php:83 lib/Forms/DeleteNotepad.php:63
-#, php-format
-msgid "Unable to delete \"%s\": %s"
-msgstr "Nepodarilo sa vymazať \"%s\": %s"
-
-#: lib/Driver.php:230
-#, php-format
-msgid "Unable to load the definition of %s."
-msgstr "Nemožné nahrať definíciu %s."
-
-#: lib/Forms/EditNotepad.php:55
-#, php-format
-msgid "Unable to save notepad \"%s\": %s"
-msgstr "Nepodarilo sa uložiť poznámkový blok \"%s\": %s"
-
-#: templates/view/memo.inc:27 templates/list/memo_summaries.inc:17
-#: lib/Mnemo.php:267 lib/Mnemo.php:268 lib/Mnemo.php:282 lib/Mnemo.php:283
-#: lib/Block/summary.php:96
+#: lib/Block/Summary.php:116 lib/Mnemo.php:271 lib/Mnemo.php:272
+#: lib/Mnemo.php:286 lib/Mnemo.php:287 templates/list/memo_summaries.inc:20
+#: templates/view/memo.inc:27
 msgid "Unfiled"
 msgstr "Nenastavená"
 
-#: lib/api.php:316 lib/api.php:373 lib/api.php:466
+#: lib/Api.php:249 lib/Api.php:305 lib/Api.php:388
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Nepodporovaný typ obsahu (Content-Type): %s"
+
+#: lib/Block/Note.php:16
+msgid "View note"
+msgstr "Zobraziť poznámku"
 
 #: templates/data/import.inc:16
 msgid "Which Notepad should the notes be added to?"
 msgstr "Do ktorého poznámkového bloku sa majú pridať poznámky?"
 
-#: notepads/edit.php:28
+#: notepads/edit.php:31
 msgid "You are not allowed to change this notepad."
 msgstr "Nemáte právo na zmenu tohto poznámkového bloku."
 
-#: data.php:42 data.php:129 memo.php:37
+#: data.php:40 data.php:127 memo.php:75
 #, php-format
 msgid "You are not allowed to create more than %d notes."
 msgstr "Nemáte právo vytvoriť viac ako %d poznámok."
 
-#: notepads/delete.php:35
+#: notepads/delete.php:29
 msgid "You are not allowed to delete this notepad."
 msgstr "Nemáte právo na zmazanie tohto poznámkového bloku."
 
-#: view.php:49 note/pdf.php:50
+#: lib/Ajax/Imple/EditNote.php:74
+msgid "You do not have permission to edit this note."
+msgstr "Nemáte právo na úpravu tejto poznámky"
+
+#: note/pdf.php:46 view.php:46
 #, php-format
 msgid "You do not have permission to view the notepad %s."
 msgstr "Nemáte právo na zobrazenie poznámkového bloku %s."
 
-#: notepads.php:68
-msgid "You must select a notepad to be deleted."
-msgstr "Musíte označiť poznámkový blok, ktorý má byť vymazaný."
-
-#: templates/prefs/notepadselect.inc:10
+#: config/prefs.php:84
 msgid "Your default notepad:"
 msgstr "Prednastavený poznámkový blok:"
 
-#: templates/panel.inc:45
+#: templates/panel.inc:46
 msgid "[Manage Notepads]"
 msgstr "[Spravovať poznámkové bloky]"
 
@@ -622,9 +598,13 @@ msgstr "[Spravovať poznámkové bloky]"
 msgid "_Body"
 msgstr "_Telo"
 
-#: templates/memo/memo.inc:70 templates/list/memo_headers.inc:41
+#: templates/list/memo_headers.inc:44
 msgid "_Category"
 msgstr "_Kategória"
+
+#: templates/memo/memo.inc:78
+msgid "_Category:"
+msgstr "_Kategória:"
 
 #: templates/view/memo.inc:16
 msgid "_Delete"
@@ -634,7 +614,7 @@ msgstr "_Vymazať"
 msgid "_Edit"
 msgstr "_Upraviť"
 
-#: templates/memo/memo.inc:74
+#: templates/memo/memo.inc:84
 msgid "_Encrypt?"
 msgstr "Zaši_frovať?"
 
@@ -642,28 +622,35 @@ msgstr "Zaši_frovať?"
 msgid "_For: "
 msgstr "_Podľa: "
 
-#: lib/Mnemo.php:488
+#: lib/Application.php:82
 msgid "_Import/Export"
 msgstr "_Import/Export"
 
-#: lib/Mnemo.php:475
+#: lib/Application.php:69
 msgid "_List Notes"
 msgstr "_Zoznam poznámok"
 
-#: lib/Mnemo.php:480
+#: lib/Application.php:74
 msgid "_New Note"
 msgstr "_Nová poznámka"
 
-#: templates/view/memo.inc:52 templates/memo/memo.inc:21
-#: templates/memo/memo.inc:79
+#: templates/memo/memo.inc:21 templates/view/memo.inc:52
 msgid "_Password"
 msgstr "_Heslo"
 
-#: lib/Mnemo.php:493
+#: templates/memo/memo.inc:89
+msgid "_Password:"
+msgstr "_Heslo:"
+
+#: lib/Application.php:87
 msgid "_Print"
 msgstr "_Tlačiť"
 
-#: lib/Mnemo.php:484
+#: templates/memo/memo.inc:93
+msgid "_Repeat:"
+msgstr "_Zopakovať:"
+
+#: lib/Application.php:78
 msgid "_Search"
 msgstr "_Hľadať"
 
@@ -671,24 +658,24 @@ msgstr "_Hľadať"
 msgid "_Title"
 msgstr "_Názov"
 
-#: view.php:74 view.php:83
+#: view.php:68 view.php:77
 #, php-format
 msgid "by %s"
 msgstr "používateľom %s"
 
-#: view.php:76 view.php:85
+#: view.php:70 view.php:79
 msgid "by me"
 msgstr "Vami"
 
-#: lib/Block/tree_menu.php:33
+#: lib/Application.php:154
 #, php-format
 msgid "in %s"
 msgstr "v %s"
 
-#: data.php:90 templates/data/export.inc:4
+#: data.php:85 templates/data/export.inc:4
 msgid "notes.csv"
 msgstr "poznamky.csv"
 
-#: data.php:33 templates/data/import.inc:12
+#: data.php:28 templates/data/import.inc:12
 msgid "vNote"
 msgstr "vNote"

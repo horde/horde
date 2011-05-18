@@ -7,69 +7,70 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 3.0\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 02:42+0200\n"
-"PO-Revision-Date: 2008-03-19 12:00+0100\n"
-"Last-Translator: Martin Matuska <martin@matuska.org>\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
+"PO-Revision-Date: 2011-05-18 17:24+0100\n"
+"Last-Translator: Martin Matuška <martin@matuska.org>\n"
 "Language-Team: Slovak <vix@vazka.sk>\n"
+"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: lib/Block/weatherdotcom.php:260 lib/Block/weatherdotcom.php:363
-#: lib/Block/weatherdotcom.php:409
+#: lib/Block/Weatherdotcom.php:240 lib/Block/Weatherdotcom.php:343
+#: lib/Block/Weatherdotcom.php:389
 msgid " at "
 msgstr " rýchlosť "
 
-#: admin/groups.php:50
+#: admin/groups.php:28
 #, php-format
 msgid "\"%s\" was added to the groups system."
 msgstr "Skupina \"%s\" bol pridaná do systému."
 
-#: admin/perms/addchild.php:43
+#: admin/perms/addchild.php:44
 #, php-format
 msgid "\"%s\" was added to the permissions system."
 msgstr "Právo \"%s\" bolo pridané do systému."
 
-#: admin/groups.php:56 admin/perms/addchild.php:47
+#: admin/perms/addchild.php:48
 #, php-format
 msgid "\"%s\" was not created: %s."
 msgstr "\"%s\" nebolo možné vytvoriť: %s."
 
-#: lib/Block/account.php:83
+#: lib/Block/Account.php:80
 #, php-format
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "%.2fMB použitých z povolených %.2fMB (%.2f%%)"
 
-#: lib/Block/weatherdotcom.php:241
+#: lib/Block/Weatherdotcom.php:221
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s a %s"
 
-#: lib/Block/account.php:708 lib/Block/account.php:720
+#: lib/Block/Account/Ldap.php:228 lib/Block/Account/Ldap.php:243
 #, php-format
 msgid "%d days until your password expires."
 msgstr "%d dní do vypršania platnosti hesla."
 
-#: lib/Block/metar.php:281
+#: lib/Block/Metar.php:259
 #, php-format
 msgid "%d minutes"
 msgstr "%d minút"
 
-#: services/facebook.php:114
+#: services/facebook/index.php:122
 #, php-format
 msgid "%d person likes this"
 msgid_plural "%d persons like this"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d človeku sa to páči"
+msgstr[1] "%d ľuďom sa to páči"
+msgstr[2] "%d ľuďom sa to páči"
 
 #: templates/admin/user/list.inc:4
 #, php-format
 msgid "%d to %d of %d"
 msgstr "%d až %d z %d"
 
-#: lib/Block/weatherdotcom.php:288
+#: lib/Block/Weatherdotcom.php:268
 #, php-format
 msgid "%d-day forecast"
 msgstr "predpoveď na %d dní"
@@ -79,29 +80,29 @@ msgstr "predpoveď na %d dní"
 msgid "%s - Notice"
 msgstr "%s - Poznámka"
 
-#: admin/config/config.php:21 admin/config/index.php:226
-#, fuzzy, php-format
+#: admin/config/config.php:21 admin/config/index.php:350
+#, php-format
 msgid "%s Configuration"
-msgstr "Konfigurácia"
+msgstr "%s Konfigurácia"
 
 #: services/logintasks.php:64
-#, fuzzy, php-format
+#, php-format
 msgid "%s Tasks - Confirmation"
-msgstr "Heslo s potvrdením"
+msgstr "%s Úlohy - Potvrdenie"
 
 #: services/logintasks.php:74
 #, php-format
 msgid "%s Terms of Agreement"
 msgstr "Podmienky použitia %s"
 
-#: lib/Block/metar.php:154 lib/Block/metar.php:160 lib/Block/metar.php:234
-#: lib/Block/metar.php:340 lib/Block/metar.php:346
+#: lib/Block/Metar.php:132 lib/Block/Metar.php:138 lib/Block/Metar.php:212
+#: lib/Block/Metar.php:318 lib/Block/Metar.php:324
 #, php-format
 msgid "%s at %s %s"
 msgstr "%s vo výške %s %s"
 
 #: services/logintasks.php:63
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s is ready to perform the tasks checked below. Check the box for any "
 "operation(s) you want to perform at this time."
@@ -109,30 +110,25 @@ msgstr ""
 "%s je pripravený vykonať operácie údržby označené nižšie. Zaškrtnite "
 "štvorček pri operáciách, ktoré chcete teraz vykonať."
 
-#: lib/Block/vatid.php:58
-#, php-format
-msgid "%s not found."
-msgstr "%s nebol nájdený."
-
-#: lib/Block/weatherdotcom.php:367 lib/Block/weatherdotcom.php:412
+#: lib/Block/Weatherdotcom.php:347 lib/Block/Weatherdotcom.php:392
 msgid ", gusting "
 msgstr ", v nárazoch"
 
-#: lib/Block/metar.php:183 lib/Block/metar.php:188
+#: lib/Block/Metar.php:161 lib/Block/Metar.php:166
 #, php-format
 msgid ", gusting %s %s"
 msgstr ", v nárazoch %s %s"
 
-#: lib/Block/metar.php:196
+#: lib/Block/Metar.php:174
 #, php-format
 msgid ", variable from %s to %s"
 msgstr ", premenná v rozsahu %s až %s"
 
-#: lib/Block/time.php:26
+#: lib/Block/Time.php:31
 msgid "12 Hour Format"
 msgstr "12-hodinový formát"
 
-#: lib/Block/time.php:25
+#: lib/Block/Time.php:30
 msgid "24 Hour Format"
 msgstr "24-hodinový formát"
 
@@ -140,99 +136,112 @@ msgstr "24-hodinový formát"
 msgid "24 hours"
 msgstr "24 hodín"
 
-#: templates/prefs/facebook.html:15
+#: config/prefs.php:437 config/prefs.php:439
+msgid "24-hour format"
+msgstr "24-hodinový formát"
+
+#: templates/prefs/facebook.html:14
 msgid ""
 "<tag:app_name /> can interact with your Facebook account, but you must login "
 "to Facebook manually each time."
 msgstr ""
+"<tag:app_name /> môže používať Váš účet Facebook, musíte sa ale do Facebooku "
+"zakaždým manuálne prihlásiť."
 
-#: templates/prefs/facebook.html:38
-msgid "<tag:app_name /> cannot read your stream messages."
+#: templates/prefs/facebook.html:49
+msgid "<tag:app_name /> cannot read information about your Facebook friends."
 msgstr ""
+"<tag:app_name /> nemôže načítať informácie o Vaších priateľoch na Facebooku."
 
-#: templates/prefs/facebook.html:26
+#: templates/prefs/facebook.html:37
+msgid ""
+"<tag:app_name /> cannot read your stream messages and various other Facebook "
+"data items."
+msgstr "<tag:app_name /> nemôže načítať Vaše správy a iné dáta z Facebooku."
+
+#: templates/prefs/facebook.html:25
 msgid ""
 "<tag:app_name /> cannot set your status messages or publish other content to "
 "Facebook."
 msgstr ""
+"<tag:app_name /> nemôže nastaviť Váš stav alebo publikovať iný obsah na "
+"Facebooku."
 
 #: templates/prefs/twitter.html:9
 msgid "<tag:appname /> can interact with your Twitter account"
-msgstr ""
+msgstr "<tag:appname /> môže používať Váš účtet Twitter"
 
 #: services/keyboard.php:46
 msgid "A characters"
 msgstr "A znakov"
 
-#: lib/Block/metar.php:117
-msgid "A database backend is required for this block."
-msgstr "Pre tento blok je požadovaný databázový backend."
-
-#: admin/activesync.php:35
+#: admin/activesync.php:31
 msgid ""
 "A device wipe has been requested. Device will be wiped on next "
 "syncronization attempt."
 msgstr ""
+"Bolo aktivované vymazanie zariadenia . Zariadenie bude vymazané počas "
+"najbližšej synchronizácie."
 
-#: admin/config/index.php:92 admin/config/index.php:124
+#: admin/config/index.php:142 admin/config/index.php:180
 #, php-format
 msgid "A newer version (%s) exists."
 msgstr "K dispozícii je nová verzia (%s)."
 
-#: lib/Prefs/Ui.php:743
+#: lib/Prefs/Ui.php:712
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
 "during the next synchronisation."
 msgstr ""
+"Bolo aktivované vzdialené vymazanie zariadenia s ID %s. Zariadenie bude "
+"vymazané počas najbližšej synchronizácie."
 
-#: lib/Block/weatherdotcom_strings.php:7
+#: lib/Block/WeatherdotcomStrings.php:7
 msgid "AM Clouds"
 msgstr "Predpoludním oblačno"
 
-#: lib/Block/weatherdotcom_strings.php:8
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:8
 msgid "AM Drizzle"
 msgstr "Predpoludním ľahké mrholenie"
 
-#: lib/Block/weatherdotcom_strings.php:9
+#: lib/Block/WeatherdotcomStrings.php:9
 msgid "AM Fog"
 msgstr "Predpoludním hmla"
 
-#: lib/Block/weatherdotcom_strings.php:10
+#: lib/Block/WeatherdotcomStrings.php:10
 msgid "AM Light Rain"
 msgstr "Predpoludním ľahký dážď"
 
-#: lib/Block/weatherdotcom_strings.php:11
+#: lib/Block/WeatherdotcomStrings.php:11
 msgid "AM Light Snow"
 msgstr "Predpoludním ľahké sneženie"
 
-#: lib/Block/weatherdotcom_strings.php:12
+#: lib/Block/WeatherdotcomStrings.php:12
 msgid "AM Rain"
 msgstr "Predpoludním dážď"
 
-#: lib/Block/weatherdotcom_strings.php:13
+#: lib/Block/WeatherdotcomStrings.php:13
 msgid "AM Showers"
 msgstr "Predpoludním prehánky"
 
-#: lib/Block/weatherdotcom_strings.php:14
+#: lib/Block/WeatherdotcomStrings.php:14
 msgid "AM Snow"
 msgstr "Predpoludním sneh"
 
-#: lib/Block/weatherdotcom_strings.php:15
+#: lib/Block/WeatherdotcomStrings.php:15
 msgid "AM Snow Showers"
 msgstr "Predpoludním snehové prehánky"
 
-#: lib/Block/weatherdotcom_strings.php:16
+#: lib/Block/WeatherdotcomStrings.php:16
 msgid "AM Sun"
 msgstr "Predpoludním slnečno"
 
-#: lib/Block/weatherdotcom_strings.php:17
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:17
 msgid "AM T-Showers"
 msgstr "Predpoludním prehánky"
 
-#: lib/Block/weatherdotcom_strings.php:18
+#: lib/Block/WeatherdotcomStrings.php:18
 msgid "AM T-Storms"
 msgstr "Predpoludním búrky"
 
@@ -240,41 +249,39 @@ msgstr "Predpoludním búrky"
 msgid "AM/PM"
 msgstr "AM/PM"
 
-#: lib/Block/account.php:3
+#: lib/Block/Account.php:19
 msgid "Account Information"
 msgstr "Informácie o účte"
 
-#: config/prefs.php.dist:276
+#: config/prefs.php:295
 msgid "Account Password"
 msgstr "Heslo pre účet"
 
-#: admin/activesync.php:126
-#, fuzzy
+#: admin/activesync.php:122
 msgid "Actions"
-msgstr "Nastavenia"
+msgstr "Činnosti"
 
-#: config/prefs.php.dist:676
+#: config/prefs.php:693
 msgid "ActiveSync"
-msgstr ""
+msgstr "ActiveSync"
 
-#: admin/activesync.php:71
-#, fuzzy
+#: admin/activesync.php:67
 msgid "ActiveSync Device Administration"
-msgstr "Správa používateľov"
+msgstr "Správa zariadení ActiveSync"
 
-#: admin/activesync.php:199 lib/Api.php:80
+#: admin/activesync.php:195 lib/Api.php:80
 msgid "ActiveSync Devices"
-msgstr ""
+msgstr "Zariadenia ActiveSync"
 
-#: admin/activesync.php:20 lib/Prefs/Ui.php:376
+#: admin/activesync.php:20 lib/Prefs/Ui.php:351
 msgid "ActiveSync not activated."
-msgstr ""
+msgstr "ActiveSync nie je aktivovaný."
 
-#: templates/admin/groups/addchild.inc:12 templates/portal/add.inc:14
+#: templates/admin/groups/add.inc:11 templates/portal/add.inc:14
 msgid "Add"
 msgstr "Pridať"
 
-#: services/portal/index.php:68
+#: services/portal/index.php:49
 msgid "Add Content"
 msgstr "Pridať obsah"
 
@@ -282,18 +289,13 @@ msgstr "Pridať obsah"
 msgid "Add Here:"
 msgstr "Pridať:"
 
-#: templates/admin/groups/edit.inc:49
+#: templates/admin/groups/edit.inc:56
 msgid "Add Members"
 msgstr "Pridať členov"
 
-#: admin/groups.php:253 templates/admin/groups/addchild.inc:7
-#, php-format
-msgid "Add a child group to \"%s\""
-msgstr "Pridať podskupinu do \"%s\""
-
-#: admin/groups.php:238
-msgid "Add a new group"
-msgstr "Pridať novú skupinu"
+#: templates/admin/groups/add.inc:6
+msgid "Add a group"
+msgstr "Pridať skupinu"
 
 #: admin/user.php:21
 msgid "Add a new user:"
@@ -303,7 +305,7 @@ msgstr "Pridať používateľa:"
 msgid "Add new alarm"
 msgstr "Pridať nový alarm"
 
-#: templates/data/csvmap.inc:92
+#: templates/data/csvmap.inc:93
 msgid "Add pair"
 msgstr "Pridať pár"
 
@@ -329,11 +331,11 @@ msgstr "\"%s\" bol pridaný do systému. Teraz sa môžete prihlásiť."
 msgid "Adding users is disabled."
 msgstr "Pridávanie používateľov je zakázané."
 
-#: lib/Block/vatid.php:101
+#: lib/Block/Vatid.php:117
 msgid "Address"
 msgstr "Adresa"
 
-#: config/registry.php.dist:142
+#: config/registry.php:114
 msgid "Address Book"
 msgstr "Adresár"
 
@@ -361,7 +363,7 @@ msgstr "Názov alarmu"
 msgid "Alarms"
 msgstr "Alarmy"
 
-#: lib/Block/fortune.php:94
+#: lib/Block/Fortune.php:93
 msgid "All"
 msgstr "Všetky"
 
@@ -369,33 +371,31 @@ msgstr "Všetky"
 msgid "All Authenticated Users"
 msgstr "Všetci overení používatelia"
 
-#: admin/groups.php:26 admin/groups.php:244
-msgid "All Groups"
-msgstr "Všetky skupiny"
-
-#: admin/activesync.php:50
+#: admin/activesync.php:46
 msgid "All policy keys successfully reset."
-msgstr ""
+msgstr "Všetky policy keys úspešne resetované."
 
-#: lib/Prefs/Ui.php:753
+#: lib/Prefs/Ui.php:722
 msgid ""
 "All state removed for your devices. They will resynchronize next time they "
 "connect to the server."
 msgstr ""
+"Všetky stavy Vaších zariadení boli vynulované. Zariadenia sa budú pri "
+"najbližšom spojení so serverom opätovne synchronizovať."
 
-#: lib/Prefs/Ui.php:724
+#: lib/Prefs/Ui.php:693
 msgid "All synchronization sessions deleted."
 msgstr "Všetky sedenia synchronizácie boli vymazané."
 
-#: config/prefs.php.dist:644
+#: config/prefs.php:659
 msgid "Alternate IMSP Login"
 msgstr "Alternatívne prihlasovacie meno IMSP"
 
-#: config/prefs.php.dist:658
+#: config/prefs.php:673
 msgid "Alternate IMSP Password"
 msgstr "Alternatívne heslo IMSP"
 
-#: config/prefs.php.dist:652
+#: config/prefs.php:667
 msgid "Alternate IMSP Username"
 msgstr "Alternatívne používateľské meno IMSP"
 
@@ -403,7 +403,7 @@ msgstr "Alternatívne používateľské meno IMSP"
 msgid "Alternate email address"
 msgstr "Alternatívna e-mailová adresa"
 
-#: lib/Block/weatherdotcom.php:170
+#: lib/Block/Weatherdotcom.php:150
 msgid "An unknown error has occured."
 msgstr "Nastala neznáma chyba."
 
@@ -411,7 +411,7 @@ msgstr "Nastala neznáma chyba."
 msgid "Answer"
 msgstr "Odpoveď"
 
-#: templates/data/csvmap.inc:112 templates/admin/config/index.html:11
+#: templates/data/csvmap.inc:113 templates/admin/config/index.html:27
 msgid "Application"
 msgstr "Aplikácia"
 
@@ -423,11 +423,11 @@ msgstr "Kontext aplikácie: "
 msgid "Application List"
 msgstr "Zoznam aplikácií"
 
-#: admin/config/index.php:160
+#: admin/config/index.php:220
 msgid "Application is ready."
 msgstr "Aplikácia je pripravená."
 
-#: admin/config/index.php:95 admin/config/index.php:127
+#: admin/config/index.php:145 admin/config/index.php:183
 msgid "Application is up-to-date."
 msgstr "Aplikácia je aktuálna."
 
@@ -435,7 +435,7 @@ msgstr "Aplikácia je aktuálna."
 msgid "Approve"
 msgstr "Schváliť"
 
-#: config/nls.php:167
+#: config/nls.php:168
 msgid "Arabic (Windows-1256)"
 msgstr "Arabsky (Windows-1256)"
 
@@ -451,34 +451,38 @@ msgstr "Naozaj chcete vymazať žiadosť o prihlásenie \"%s\"?"
 
 #: templates/admin/groups/delete.inc:7
 #, php-format
-msgid "Are you sure you wish to delete \"%s\" and any sub-groups?"
-msgstr "Naozaj chcete vymazať \"%s\" a všetky podskupiny?"
+msgid "Are you sure you wish to delete \"%s\"?"
+msgstr "Naozaj chcete vymazať \"%s\"?"
 
-#: config/nls.php:168
+#: config/nls.php:169
 msgid "Armenian (ARMSCII-8)"
 msgstr "Arménsky (ARMSCII-8)"
 
-#: lib/Block/fortune.php:35
+#: lib/Block/Fortune.php:35
 msgid "Art"
 msgstr "Umenie"
 
-#: lib/Block/fortune.php:36
+#: lib/Block/Fortune.php:36
 msgid "Ascii Art"
 msgstr "Ascii umenie"
+
+#: lib/LoginTasks/Task/AdminCheck.php:51
+msgid "At least one database schema is outdated."
+msgstr "Minimálne jedna schéma databázy je zastaralá."
 
 #: templates/problem/problem.inc:43
 msgid "Attachment"
 msgstr "Príloha"
 
-#: admin/groups.php:72
+#: admin/groups.php:53
 msgid "Attempt to delete a non-existent group."
 msgstr "Pokus o vymazanie neexistujúcej skupiny."
 
-#: admin/perms/delete.php:24
+#: admin/perms/delete.php:25
 msgid "Attempt to delete a non-existent permission."
 msgstr "Pokus o vymazanie neexistujúceho práva."
 
-#: admin/perms/edit.php:92
+#: admin/perms/edit.php:93
 msgid "Attempt to edit a non-existent permission."
 msgstr "Pokus o úpravu neexistujúceho práva."
 
@@ -486,24 +490,31 @@ msgstr "Pokus o úpravu neexistujúceho práva."
 msgid "Attempt to edit a non-existent share."
 msgstr "Pokus o úpravu neexistujúceho zdieľaného objektu."
 
-#: admin/sessions.php:40
-#, fuzzy
+#: admin/sessions.php:39
 msgid "Authenticated to:"
-msgstr "Všetci overení používatelia"
+msgstr "Overené ako:"
 
-#: templates/prefs/facebook.html:27
+#: templates/prefs/facebook.html:50
+msgid "Authorize Access to Friends Data:"
+msgstr "Autorizovať prístup k údajom o priateľoch:"
+
+#: templates/prefs/facebook.html:26
 msgid "Authorize Publish"
-msgstr ""
+msgstr "Autorizovať zverejnenie"
 
-#: templates/prefs/facebook.html:39
+#: templates/prefs/facebook.html:38
 msgid "Authorize Read:"
-msgstr ""
+msgstr "Autorizovať čítanie:"
 
-#: templates/prefs/facebook.html:16
+#: templates/prefs/facebook.html:15
 msgid "Authorize an infinite session:"
-msgstr ""
+msgstr "Autorizovať neobmedzené sedenie"
 
-#: templates/data/csvmap.inc:70
+#: login.php:219
+msgid "Automatic"
+msgstr "Automatický výber"
+
+#: templates/data/csvmap.inc:71
 msgid "Available fields:"
 msgstr "Dostupné položky:"
 
@@ -511,11 +522,11 @@ msgstr "Dostupné položky:"
 msgid "Azur"
 msgstr "Azúrová"
 
-#: lib/Block/fortune.php:37
+#: lib/Block/Fortune.php:37
 msgid "BOFH Excuses"
 msgstr "BOFH Excuses"
 
-#: config/nls.php:169
+#: config/nls.php:170
 msgid "Baltic (ISO-8859-13)"
 msgstr "Balticky (ISO-8859-13)"
 
@@ -544,11 +555,11 @@ msgstr "Modrý mesiac"
 msgid "Blue and White"
 msgstr "Modrá a biela"
 
-#: config/registry.php.dist:226
+#: config/registry.php:196
 msgid "Bookmarks"
 msgstr "Záložky"
 
-#: lib/Block/fortune.php:103
+#: lib/Block/Fortune.php:103
 msgid "Both"
 msgstr "Obe"
 
@@ -556,7 +567,7 @@ msgstr "Obe"
 msgid "Brown"
 msgstr "Hnedá"
 
-#: admin/sessions.php:38
+#: admin/sessions.php:37
 msgid "Browser:"
 msgstr "Prehliadač:"
 
@@ -564,15 +575,15 @@ msgstr "Prehliadač:"
 msgid "Burnt Orange"
 msgstr "Spálený pomaranč"
 
-#: lib/Block/weatherdotcom.php:166
+#: lib/Block/Weatherdotcom.php:146
 msgid "Cache init was not completed."
 msgstr "Inicializácia vyrovnávacej pamäte nie je kompletná."
 
-#: config/registry.php.dist:157
+#: config/registry.php:136
 msgid "Calendar"
 msgstr "Kalendár"
 
-#: lib/Block/weatherdotcom.php:250
+#: lib/Block/Weatherdotcom.php:230
 msgid "Calm"
 msgstr "Bezvetrie"
 
@@ -589,25 +600,24 @@ msgstr "Zrušiť"
 msgid "Cancel Problem Report"
 msgstr "Zrušiť správu o probléme"
 
-#: admin/activesync.php:183 templates/prefs/activesync.html:31
-#, fuzzy
+#: admin/activesync.php:179 templates/prefs/activesync.html:31
 msgid "Cancel Wipe"
-msgstr "Zrušiť"
+msgstr "Zrušiť vymazanie"
 
 #: services/resetpassword.php:17
 msgid "Cannot reset password automatically, contact your administrator."
 msgstr ""
 "Nepodarilo sa automaticky zmeniť heslo, kontaktujte svojho administrátora."
 
-#: config/prefs.php.dist:440
+#: config/prefs.php:462
 msgid "Categories and Labels"
 msgstr "Kategórie a popisky"
 
-#: config/nls.php:170
+#: config/nls.php:171
 msgid "Celtic (ISO-8859-14)"
 msgstr "Keltské (ISO-8859-14)"
 
-#: config/nls.php:171
+#: config/nls.php:172
 msgid "Central European (ISO-8859-2)"
 msgstr "Stredoeurópske (ISO-8859-2)"
 
@@ -619,13 +629,9 @@ msgstr "Zmeniť"
 msgid "Change Your Password"
 msgstr "Zmeniť Vaše heslo"
 
-#: config/prefs.php.dist:214
-msgid ""
-"Change the name and address that people see when they read and reply to your "
-"emails."
-msgstr ""
-"Nastavenie mena a adries, ktoré vidia ľudia, keď čítajú a odpovedajú na Vaše "
-"e-maily."
+#: config/prefs.php:232
+msgid "Change your personal information."
+msgstr "Upraviť Vaše osobné informácie."
 
 #: services/changepassword.php:17
 msgid ""
@@ -635,7 +641,7 @@ msgstr ""
 "Zmena hesla nie je podporovaná v aktuálnej konfigurácii. Kontaktujte Vašeho "
 "správcu systému."
 
-#: lib/Block/vatid.php:45
+#: lib/Block/Vatid.php:41
 msgid "Check"
 msgstr "Skontrolovať"
 
@@ -643,19 +649,15 @@ msgstr "Skontrolovať"
 msgid "Check for newer versions"
 msgstr "Skontrolovať na nové verzie"
 
-#: lib/Block/vatid.php:47
+#: lib/Block/Vatid.php:43
 msgid "Checking"
 msgstr "Kontroluje sa"
 
-#: templates/admin/groups/addchild.inc:10
-msgid "Child"
-msgstr "Dieťa"
-
-#: config/nls.php:172
+#: config/nls.php:173
 msgid "Chinese Simplified (GB2312)"
 msgstr "Čínske zjednodušené (GB2312)"
 
-#: config/nls.php:173
+#: config/nls.php:174
 msgid "Chinese Traditional (Big5)"
 msgstr "Činske tradicionálne (Big5)"
 
@@ -664,26 +666,23 @@ msgstr "Činske tradicionálne (Big5)"
 msgid "Choose %s"
 msgstr "Vyberte %s"
 
-#: config/prefs.php.dist:403
-#, fuzzy
+#: config/prefs.php:428
 msgid "Choose how to display dates (abbreviated format):"
-msgstr "Vyberte spôsob zobrazovania dátumov:"
+msgstr "Vyberte spôsob zobrazovania dátumov (skrátený formát):"
 
-#: config/prefs.php.dist:377
-#, fuzzy
+#: config/prefs.php:403
 msgid "Choose how to display dates (full format):"
-msgstr "Vyberte spôsob zobrazovania dátumov:"
+msgstr "Vyberte spôsob zobrazovania dátumov (plný formát):"
 
-#: config/prefs.php.dist:419
-#, fuzzy
+#: config/prefs.php:442
 msgid "Choose how to display times:"
-msgstr "Vyberte spôsob zobrazovania dátumov:"
+msgstr "Vyberte spôsob zobrazovania času:"
 
-#: lib/Block/weatherdotcom_strings.php:19
+#: lib/Block/WeatherdotcomStrings.php:19
 msgid "Clear"
 msgstr "Jasno"
 
-#: admin/sqlshell.php:109
+#: admin/sqlshell.php:117
 msgid "Clear Query"
 msgstr "Vyprázdniť príkaz"
 
@@ -700,11 +699,11 @@ msgstr "Odstrániť používateľa"
 msgid "Clear user data"
 msgstr "Vymazať používateľské údaje"
 
-#: lib/Block/weatherdotcom_strings.php:20
+#: lib/Block/WeatherdotcomStrings.php:20
 msgid "Clearing Early"
 msgstr "Ráno dážď"
 
-#: lib/Block/weatherdotcom_strings.php:21
+#: lib/Block/WeatherdotcomStrings.php:21
 msgid "Clearing Late"
 msgstr "Neskôr dážď"
 
@@ -713,8 +712,10 @@ msgid ""
 "Click on one of your selected address books and then select all fields to "
 "search."
 msgstr ""
+"Kliknite na jeden z Vaších vybraných adresárov a vyberte všetky polia, v "
+"ktorých sa má hľadať."
 
-#: templates/logintasks/logintasks.html:38
+#: templates/logintasks/logintasks.html:28
 msgid "Click to Continue"
 msgstr "Kliknite pre pokračovanie"
 
@@ -726,23 +727,23 @@ msgstr "Klientské ukotvenie"
 msgid "Close Window"
 msgstr "Zatvoriť okno"
 
-#: lib/Block/metar.php:239
+#: lib/Block/Metar.php:217
 msgid "Clouds"
 msgstr "Oblaky"
 
-#: lib/Block/weatherdotcom_strings.php:22
+#: lib/Block/WeatherdotcomStrings.php:22
 msgid "Clouds Early"
 msgstr "Ráno oblačno"
 
-#: lib/Block/weatherdotcom_strings.php:23
+#: lib/Block/WeatherdotcomStrings.php:23
 msgid "Clouds Late"
 msgstr "Neskôr oblačno"
 
-#: lib/Block/weatherdotcom_strings.php:24
+#: lib/Block/WeatherdotcomStrings.php:24
 msgid "Cloudy"
 msgstr "Oblačno"
 
-#: admin/sessions.php:31
+#: admin/sessions.php:30
 msgid "Collapse"
 msgstr "Zbaliť"
 
@@ -750,7 +751,7 @@ msgstr "Zbaliť"
 msgid "Collapse Sidebar"
 msgstr "Zbaliť bočný panel"
 
-#: lib/Prefs/Ui.php:237
+#: lib/Prefs/Ui.php:213
 msgid "Color Picker"
 msgstr "Výber farby"
 
@@ -762,24 +763,24 @@ msgstr "Príkaz"
 msgid "Command Shell"
 msgstr "Príkazový interpreter"
 
-#: services/facebook.php:101
-#, fuzzy, php-format
+#: services/facebook/index.php:109
+#, php-format
 msgid "Comments: %d"
-msgstr "Komentár"
+msgstr "Komentáre: %d"
 
-#: lib/Block/fortune.php:38
+#: lib/Block/Fortune.php:38
 msgid "Computers"
 msgstr "Počítače"
 
-#: lib/Block/weatherdotcom.php:300
+#: lib/Block/Weatherdotcom.php:280
 msgid "Condition"
 msgstr "Podmienka"
 
-#: lib/Block/metar.php:244
+#: lib/Block/Metar.php:222
 msgid "Conditions"
 msgstr "Podmienky"
 
-#: admin/config/config.php:65 templates/admin/config/config.html:9
+#: admin/config/config.php:69 templates/admin/config/config.html:9
 msgid "Configuration"
 msgstr "Konfigurácia"
 
@@ -787,20 +788,19 @@ msgstr "Konfigurácia"
 msgid "Configuration Differences"
 msgstr "Rozdiely v konfigurácii"
 
-#: config/prefs.php.dist:665
+#: config/prefs.php:682
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr "Nastavenia pre synchronizáciu s PDA, Smartphone a Outlookom."
 
-#: admin/config/index.php:155
+#: admin/config/index.php:215
 msgid "Configuration is out of date."
 msgstr "Konfigurácia potrebuje aktualizáciu."
 
-#: templates/admin/config/index.html:61
-#, fuzzy
+#: templates/admin/config/index.html:89
 msgid "Configuration upgrade scripts available"
-msgstr "Sú dostupné skripty na upgrade nastavení"
+msgstr "Skripty na aktualizáciu nastavení sú k dispozícii"
 
-#: admin/config/index.php:111
+#: admin/config/index.php:160
 #, php-format
 msgid "Configure %s"
 msgstr "Konfigurovať %s"
@@ -813,7 +813,7 @@ msgstr "Potvrďte heslo"
 msgid "Continue"
 msgstr "Pokračovať"
 
-#: lib/Block/fortune.php:39
+#: lib/Block/Fortune.php:39
 msgid "Cookie"
 msgstr "Cookie"
 
@@ -821,26 +821,17 @@ msgstr "Cookie"
 msgid "Cornflower"
 msgstr "Kukuričný kvet"
 
-#: lib/Block/account.php:484
-msgid "Could not bind to LDAP server."
-msgstr "Nepodarilo sa prihlásiť do LDAP serveru."
-
-#: lib/Block/account.php:463
-msgid "Could not connect to LDAP server."
-msgstr "Nepodarilo sa pripojiť k LDAP serveru."
-
 #: admin/config/index.php:27
 #, php-format
 msgid "Could not connect to server \"%s\" using FTP: %s"
 msgstr "Nepodarilo sa pripojiť k serveru \"%s\" pomocou FTP: %s"
 
-#: admin/config/index.php:66
-#, fuzzy
+#: admin/config/index.php:71
 msgid "Could not contact server. Try again later."
-msgstr "Neočakávaná odpoveď od servera na, skúste neskôr."
+msgstr "Nepodarilo sa kontaktovať server. Skúste neskôr."
 
 #: admin/config/scripts.php:35
-#, fuzzy, php-format
+#, php-format
 msgid "Could not delete configuration upgrade script \"%s\"."
 msgstr "Nepodarilo sa vymazať skript na aktualizáciu konfigurácie \"%s\"."
 
@@ -849,6 +840,7 @@ msgid ""
 "Could not find authorization for <tag:appname /> to interact with your "
 "Twitter account"
 msgstr ""
+"Nenašla sa autorizácia pre <tag:appname /> na prácu s Vaším účtom Twitter."
 
 #: services/resetpassword.php:92
 msgid ""
@@ -860,7 +852,7 @@ msgstr ""
 "podrobnosti nie sú správne. Skúste to znovu alebo kontaktujte Vášho "
 "administrátora, ak potrebujete pomoc."
 
-#: admin/config/config.php:43
+#: admin/config/config.php:47
 msgid "Could not revert configuration."
 msgstr "Nepodarilo sa vrátiť konfiguráciu."
 
@@ -869,17 +861,26 @@ msgstr "Nepodarilo sa vrátiť konfiguráciu."
 msgid "Could not save a backup configuation: %s"
 msgstr "Nepodarilo sa uložiť zálohu konfigurácie: %s."
 
-#: admin/config/scripts.php:94
-#, fuzzy, php-format
+#: admin/config/scripts.php:96
+#, php-format
 msgid "Could not save configuration upgrade script to: \"%s\"."
 msgstr "Nepodarilo sa uložiť skript na aktualizáciu konfigurácie do: \"%s\"."
 
-#: admin/config/config.php:53
+#: admin/config/config.php:57
 #, php-format
 msgid "Could not save the backup configuration file %s."
 msgstr "Nepodarilo sa uložiť zálohu konfigurácie do súboru %s."
 
-#: admin/config/config.php:65
+#: admin/config/index.php:95
+#, php-format
+msgid ""
+"Could not save the configuration file %s. Use one of the options below to "
+"save the code."
+msgstr ""
+"Nepodarilo sa uložiť konfiguračný súbor %s. Prosím vyberte na uloženie kódu "
+"jednu z možností uvedených nižšie."
+
+#: admin/config/config.php:69
 #, php-format
 msgid ""
 "Could not save the configuration file %s. You can either use one of the "
@@ -894,7 +895,7 @@ msgstr ""
 msgid "Could not write configuration for \"%s\": %s"
 msgstr "Nepodarilo sa zapísať konfiguráciu pre \"%s\": %s"
 
-#: lib/Block/vatid.php:91
+#: lib/Block/Vatid.php:105
 msgid "Country"
 msgstr "Krajina"
 
@@ -903,11 +904,10 @@ msgid "Create"
 msgstr "Vytvoriť"
 
 #: templates/prefs/identityselect.html:22
-#, fuzzy
 msgid "Create New Identity"
-msgstr "Vaša prednastavená identita"
+msgstr "Vytvoriť novú identitu"
 
-#: lib/Block/moon.php:24
+#: lib/Block/Moon.php:25
 msgid "Current 4 Phases"
 msgstr "Aktuálne 4 fázy"
 
@@ -915,33 +915,45 @@ msgstr "Aktuálne 4 fázy"
 msgid "Current Alarms"
 msgstr "Aktuálne alarmy"
 
-#: admin/sessions.php:23
+#: admin/sessions.php:22
 msgid "Current Sessions"
 msgstr "Aktuálne relácie"
 
-#: lib/Block/time.php:3 lib/Block/time.php:36
+#: lib/Block/Time.php:17
 msgid "Current Time"
 msgstr "Aktuálny čas"
 
-#: lib/Block/metar.php:31
+#: lib/Block/Metar.php:29
 msgid "Current Weather"
 msgstr "Aktuálne počasie"
 
-#: lib/Block/weatherdotcom.php:279
+#: lib/Block/Weatherdotcom.php:259
 msgid "Current condition: "
 msgstr "Aktuálne podmienky: "
 
-#: config/nls.php:174
+#: config/nls.php:175
 msgid "Cyrillic (KOI8-R)"
 msgstr "Kyrilické (KOI8-R)"
 
-#: config/nls.php:175
+#: config/nls.php:176
 msgid "Cyrillic (Windows-1251)"
 msgstr "Kyrilické (Windows-1251)"
 
-#: config/nls.php:176
+#: config/nls.php:177
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr "Kyrilické/Ukrajinské (KOI8-U)"
+
+#: admin/config/index.php:233 admin/config/index.php:271
+msgid "DB access is not configured."
+msgstr "Prístup do databázy nie je nastavený."
+
+#: admin/config/index.php:239 admin/config/index.php:278
+msgid "DB schema is out of date."
+msgstr "Schéma databázy je zastaralá."
+
+#: admin/config/index.php:244 admin/config/index.php:283
+msgid "DB schema is ready."
+msgstr "Schéma databázy je pripravená."
 
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
@@ -950,23 +962,23 @@ msgstr "Kyrilické/Ukrajinské (KOI8-U)"
 msgid "DD"
 msgstr "DD"
 
-#: templates/data/csvmap.inc:101
+#: templates/data/csvmap.inc:102
 msgid "Data"
 msgstr "Údaje"
 
-#: admin/datatree.php:62
+#: admin/datatree.php:60
 msgid "DataTree"
 msgstr "DataTree"
 
-#: admin/datatree.php:59
+#: admin/datatree.php:57
 msgid "DataTree Browser"
 msgstr "Prezerač dátového stromu (DataTree)"
 
-#: templates/prefs/syncml.html:11
+#: templates/admin/config/index.html:33 templates/prefs/syncml.html:11
 msgid "Database"
 msgstr "Databáza"
 
-#: lib/Block/vatid.php:94
+#: lib/Block/Vatid.php:108
 msgid "Date"
 msgstr "Dátum"
 
@@ -979,27 +991,37 @@ msgstr "Dátum prijatia"
 msgid "Date: %s; time: %s"
 msgstr "Dátum: %s; čas: %s"
 
-#: lib/Block/weatherdotcom.php:295 lib/Block/weatherdotcom.php:324
+#: lib/Block/Weatherdotcom.php:275 lib/Block/Weatherdotcom.php:304
 msgid "Day"
 msgstr "Deň"
 
-#: lib/Prefs/Ui.php:69 lib/Prefs/Ui.php:74
+#: config/prefs.php:353 config/prefs.php:436 lib/Prefs/Ui.php:80
+#: lib/Prefs/Ui.php:94
 msgid "Default"
 msgstr "Prednastavené"
 
-#: lib/Prefs/Ui.php:252 lib/Prefs/Ui.php:282
+#: lib/Prefs/Ui.php:228 lib/Prefs/Ui.php:258
 msgid "Default Color"
 msgstr "Prednastavená farba"
 
-#: lib/Block/account.php:78
+#: lib/Block/Account.php:76
 msgid "Default Shell"
 msgstr "Prednastavený shell"
 
-#: lib/Block/fortune.php:40
+#: config/prefs.php:356
+msgid "Default charset for sending e-mail messages:"
+msgstr "Prednastavená znaková sada na odosielanie e-mailových správ:"
+
+#: config/prefs.php:268
+msgid "Default location to use for location-aware features."
+msgstr ""
+"Prednastavená poloha na použitie funkcií pracujúcich s geografickou polohou."
+
+#: lib/Block/Fortune.php:40
 msgid "Definitions"
 msgstr "Definície"
 
-#: admin/groups.php:68 templates/admin/groups/delete.inc:10
+#: admin/groups.php:49 templates/admin/groups/delete.inc:10
 #: templates/admin/user/list.inc:34 templates/shares/edit.inc:63
 #: templates/shares/edit.inc:83 templates/shares/edit.inc:98
 #: templates/shares/edit.inc:118 templates/shares/edit.inc:134
@@ -1012,7 +1034,7 @@ msgstr "Definície"
 msgid "Delete"
 msgstr "Vymazať"
 
-#: admin/alarms.php:122 admin/groups.php:254
+#: admin/alarms.php:122 admin/groups.php:205
 #, php-format
 msgid "Delete \"%s\""
 msgstr "Vymazať \"%s\""
@@ -1021,16 +1043,16 @@ msgstr "Vymazať \"%s\""
 msgid "Delete All SyncML Data"
 msgstr "Vymazať všetky SyncML dáta"
 
-#: admin/groups.php:215
+#: admin/groups.php:179
 msgid "Delete Group"
 msgstr "Vymazať skupinu"
 
 #: admin/config/scripts.php:33
-#, fuzzy, php-format
+#, php-format
 msgid "Deleted configuration upgrade script \"%s\"."
 msgstr "Skript na aktualizáciu konfigurácie \"%s\" bol vymazaný."
 
-#: lib/Prefs/Ui.php:717
+#: lib/Prefs/Ui.php:685
 #, php-format
 msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
 msgstr ""
@@ -1040,7 +1062,7 @@ msgstr ""
 msgid "Describe the Problem"
 msgstr "Popíšte problém"
 
-#: config/registry.php.dist:239
+#: config/registry.php:208
 msgid "Development"
 msgstr "Vývoj"
 
@@ -1048,120 +1070,98 @@ msgstr "Vývoj"
 msgid "Device"
 msgstr "Zariadenie"
 
-#: admin/activesync.php:119
-#, fuzzy
+#: admin/activesync.php:115
 msgid "Device ID"
-msgstr "Zariadenie"
+msgstr "ID zariadenia"
 
 #: templates/prefs/activesync.html:11
-#, fuzzy
 msgid "Device Management"
-msgstr "Správca súborov"
+msgstr "Správa zariadení"
 
-#: lib/Prefs/Ui.php:432
-#, fuzzy
+#: lib/Prefs/Ui.php:404
 msgid "Device id:"
-msgstr "Zariadenie"
+msgstr "ID zariadenia:"
 
-#: admin/activesync.php:167 lib/Prefs/Ui.php:420
+#: admin/activesync.php:163 lib/Prefs/Ui.php:392
 msgid "Device is wiped"
-msgstr ""
+msgstr "Zariadenie bolo vymazané"
 
-#: admin/activesync.php:45
-#, fuzzy
+#: admin/activesync.php:41
 msgid "Device successfully removed."
-msgstr "Úspešne uložené: %s"
+msgstr "Zariadenie úspešne odstránené."
 
-#: admin/activesync.php:40
+#: admin/activesync.php:36
 msgid "Device wipe successfully canceled."
-msgstr ""
+msgstr "Vymazanie zariadenia bolo úspešne prerušené."
 
-#: lib/Block/metar.php:212
+#: lib/Block/Metar.php:190
 msgid "Dew Point"
 msgstr "Rosný bod"
 
-#: lib/Block/metar.php:289
+#: lib/Block/Metar.php:267
 msgid "Dew Point for last hour: "
 msgstr "Rosný bod za poslednú hodinu: "
 
-#: lib/Block/weatherdotcom.php:231
+#: lib/Block/Weatherdotcom.php:211
 msgid "Dew point: "
 msgstr "Rosný bod: "
 
-#: templates/prefs/facebook.html:11 templates/prefs/facebook.html:22
-#: templates/prefs/facebook.html:34 templates/prefs/twitter.html:10
-#, fuzzy
+#: templates/prefs/facebook.html:10 templates/prefs/facebook.html:21
+#: templates/prefs/facebook.html:33 templates/prefs/facebook.html:45
+#: templates/prefs/twitter.html:10
 msgid "Disable"
-msgstr "Vypísať zoznam tabuliek"
+msgstr "Vypnúť"
 
-#: config/prefs.php.dist:345
+#: config/prefs.php:372
 msgid "Display 24-hour times?"
 msgstr "Zobrazovať čas v 24-hodinovom formáte?"
 
-#: config/prefs.php.dist:468
-#, fuzzy
+#: config/prefs.php:488
 msgid "Display Preferences"
-msgstr "Zobraziť detailnú predpoveď"
+msgstr "Zobraziť nastavenia"
 
-#: lib/Block/weatherdotcom.php:86
+#: lib/Block/Weatherdotcom.php:79
 msgid "Display detailed forecast"
 msgstr "Zobraziť detailnú predpoveď"
 
-#: lib/Block/metar.php:84
+#: lib/Block/Metar.php:71
 msgid "Display forecast (TAF)"
 msgstr "Zobraziť predpoveď (TAF)"
-
-#: scripts/import_squirrelmail_prefs.php:77
-#, fuzzy
-msgid "Do not use Drafts"
-msgstr "Nevymazať"
-
-#: scripts/import_squirrelmail_prefs.php:44
-#: scripts/import_squirrelmail_prefs.php:145
-#, fuzzy
-msgid "Do not use Sent"
-msgstr "Nevymazať"
-
-#: scripts/import_squirrelmail_prefs.php:183
-msgid "Do not use Trash"
-msgstr ""
 
 #: templates/data/csvinfo.inc:12 templates/data/tsvinfo.inc:12
 msgid "Does the first row contain the field names? If yes, check this box:"
 msgstr "Obsahuje prvý riadok názvy polí? Ak áno, zaškrtnite políčko: "
 
-#: templates/login/login.inc:72
+#: templates/login/login.inc:54
 msgid "Don't have an account? Sign up."
 msgstr "Nemáte prístup? Zaregistrujte sa."
 
-#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:61
-#, fuzzy
-msgid "Done"
-msgstr "Žiaden"
-
-#: admin/config/index.php:92 admin/config/index.php:124
+#: admin/config/index.php:142 admin/config/index.php:180
 #, php-format
 msgid "Download %s"
 msgstr "Stiahnuť %s"
 
-#: admin/config/index.php:179
+#: admin/config/index.php:301
 msgid "Download generated configuration as PHP script."
 msgstr "Stiahnuť vygenerovanú konfiguráciu ako PHP skript."
 
-#: lib/Block/weatherdotcom_strings.php:25
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:25
 msgid "Drizzle"
-msgstr "Predpoludním ľahké mrholenie"
+msgstr "Ľahké mrholenie"
 
-#: lib/Block/fortune.php:41
+#: lib/Block/Fortune.php:41
 msgid "Drugs"
 msgstr "Drogy"
+
+#: login.php:227
+msgid "Dynamic"
+msgstr "Dynamický"
 
 #: services/keyboard.php:64
 msgid "E characters"
 msgstr "E znakov"
 
-#: lib/Block/vatid.php:3
+#: lib/Block/Vatid.php:14
 msgid "EU VAT identification"
 msgstr "Identifikácia európskeho IČ DPH"
 
@@ -1180,13 +1180,9 @@ msgstr "Upraviť"
 msgid "Edit \"%s\""
 msgstr "Upraviť \"%s\""
 
-#: admin/groups.php:214
-msgid "Edit Group"
-msgstr "Upraviť skupinu"
-
 #: templates/prefs/app.html:7
 msgid "Edit Preferences for"
-msgstr ""
+msgstr "Užívateľské nastavenia pre"
 
 #: services/shares/edit.php:259
 msgid "Edit permissions"
@@ -1197,20 +1193,19 @@ msgstr "Upraviť práva"
 msgid "Edit permissions for \"%s\""
 msgstr "Upraviť práva pre \"%s\""
 
-#: lib/Block/fortune.php:42
+#: lib/Block/Fortune.php:42
 msgid "Education"
 msgstr "Vzdelávanie"
 
-#: templates/admin/groups/edit.inc:11 templates/admin/user/update.inc:45
+#: templates/admin/groups/edit.inc:12 templates/admin/user/update.inc:45
 msgid "Email Address"
 msgstr "Emailová adresa:"
 
-#: lib/Prefs/Ui.php:225
-#, fuzzy
+#: lib/Prefs/Ui.php:201
 msgid "Enter a name for the new category:"
 msgstr "Zadajte prosím meno pre novú kategóriu:"
 
-#: config/prefs.php.dist:288
+#: config/prefs.php:306
 msgid ""
 "Enter a security question which you will be asked if you need to reset your "
 "password, e.g. 'what is the name of your pet?':"
@@ -1218,22 +1213,20 @@ msgstr ""
 "Zadajte bezpečnostnú otázku, na ktorú budete musieť odpovedať ak zabudnete "
 "heslo, napr. 'ako sa volá moje zvieratko?':"
 
-#: lib/Block/metar.php:41 lib/Block/weatherdotcom.php:50
-msgid "Error"
-msgstr "Chyba"
-
-#: lib/Prefs/Ui.php:577 services/twitter.php:128 services/twitter.php:151
-#, fuzzy, php-format
+#: lib/Prefs/Ui.php:546 services/twitter/index.php:132
+#: services/twitter/index.php:155
+#, php-format
 msgid ""
 "Error connecting to Twitter: %s Details have been logged for the "
 "administrator."
-msgstr "Interná chyba LDAP.  Detaily boli zaznamenané pre administrátora."
+msgstr ""
+"Chyba pripojenia na Twitter: %s Detaily boli zaznamenané pre administrátora."
 
-#: lib/Prefs/Ui.php:715
+#: lib/Prefs/Ui.php:687
 msgid "Error deleting synchronization session:"
 msgstr "Chyba pri vymazávaní sedenia synchronizácie:"
 
-#: lib/Prefs/Ui.php:722
+#: lib/Prefs/Ui.php:695
 msgid "Error deleting synchronization sessions:"
 msgstr "Chyba pri vymazávaní nastavení synchronizácie:"
 
@@ -1242,33 +1235,31 @@ msgstr "Chyba pri vymazávaní nastavení synchronizácie:"
 msgid "Error updating password: %s"
 msgstr "Chyba pri aktualizácii hesla: %s."
 
-#: lib/Block/fortune.php:43
+#: lib/Block/Fortune.php:43
 msgid "Ethnic"
 msgstr "Etnické"
 
-#: services/facebook.php:69
+#: services/facebook/index.php:77
 msgid "Event Invites:"
-msgstr ""
+msgstr "Pozvánky k termínu:"
 
-#: templates/portal/layout.inc:101 config/prefs.php.dist:520
+#: config/prefs.php:538 templates/portal/layout.inc:101
 msgid "Every 15 minutes"
 msgstr "Každých 15 minút"
 
-#: config/prefs.php.dist:559
+#: config/prefs.php:574
 msgid "Every 2 minutes"
 msgstr "Každé 2 minúty"
 
-#: templates/portal/layout.inc:98 config/prefs.php.dist:517
-#: config/prefs.php.dist:557
+#: config/prefs.php:535 config/prefs.php:572 templates/portal/layout.inc:98
 msgid "Every 30 seconds"
 msgstr "Každých 30 sekúnd"
 
-#: templates/portal/layout.inc:100 config/prefs.php.dist:519
-#: config/prefs.php.dist:560
+#: config/prefs.php:537 config/prefs.php:575 templates/portal/layout.inc:100
 msgid "Every 5 minutes"
 msgstr "Každých 5 minút"
 
-#: templates/portal/layout.inc:102 config/prefs.php.dist:521
+#: config/prefs.php:539 templates/portal/layout.inc:102
 msgid "Every half hour"
 msgstr "Každú polhodinu"
 
@@ -1276,118 +1267,115 @@ msgstr "Každú polhodinu"
 msgid "Every hour"
 msgstr "Každú hodinu"
 
-#: templates/portal/layout.inc:99 config/prefs.php.dist:518
-#: config/prefs.php.dist:558
+#: config/prefs.php:536 config/prefs.php:573 templates/portal/layout.inc:99
 msgid "Every minute"
 msgstr "Každú minútu"
 
-#: templates/data/datemap.inc:24
+#: templates/data/datemap.inc:26
 msgid "Example values:"
 msgstr "Napríklad:"
 
-#: admin/cmdshell.php:48 admin/phpshell.php:55 admin/sqlshell.php:108
+#: admin/cmdshell.php:48 admin/phpshell.php:55 admin/sqlshell.php:116
 msgid "Execute"
 msgstr "Spustiť"
 
-#: admin/sessions.php:30
+#: admin/sessions.php:29
 msgid "Expand"
 msgstr "Rozbaliť"
 
-#: lib/Block/iframe.php:29
+#: lib/Block/Iframe.php:38
 msgid "Extra Large"
 msgstr "Veľmi veľké"
 
-#: templates/admin/config/index.html:74
-#, fuzzy
+#: templates/admin/config/index.html:102
 msgid "FTP upload of configuration"
-msgstr "Konfigurácia %s bola uložená."
+msgstr "Nahranie konfigurácie pomocou FTP"
 
-#: config/prefs.php.dist:604
+#: config/prefs.php:620
 msgid "Facebook Integration"
-msgstr ""
+msgstr "Integrácia s Facebookom"
 
 #: themes/fadetogreen/info.php:9
 msgid "Fade to Green"
 msgstr "Únik do zelenej"
 
-#: lib/Block/weatherdotcom_strings.php:26
+#: lib/Block/WeatherdotcomStrings.php:26
 msgid "Fair"
 msgstr "Dobré"
 
-#: lib/Block/feed.php:41
+#: lib/Block/Feed.php:56
 msgid "Feed"
 msgstr "Dávka"
 
-#: lib/Block/feed.php:17
+#: lib/Block/Feed.php:28
 msgid "Feed Address"
 msgstr "Adresa feedu"
 
-#: lib/Block/metar.php:215
+#: lib/Block/Metar.php:193
 msgid "Feels Like"
 msgstr "Pocit teploty"
 
-#: lib/Block/weatherdotcom.php:235
+#: lib/Block/Weatherdotcom.php:215
 msgid "Feels like: "
 msgstr "Pocit teploty: "
 
-#: lib/Block/weatherdotcom_strings.php:27
+#: lib/Block/WeatherdotcomStrings.php:27
 msgid "Few Showers"
 msgstr "Malé zrážky"
 
-#: lib/Block/weatherdotcom_strings.php:28
+#: lib/Block/WeatherdotcomStrings.php:28
 msgid "Few Snow Showers"
 msgstr "Drobné snehové prehánky"
 
 #: templates/prefs/addressbooks.html:17
 msgid "Fields to search"
-msgstr ""
+msgstr "Polia na prehľadanie"
 
-#: config/registry.php.dist:340
+#: config/registry.php:292
 msgid "File Manager"
 msgstr "Správca súborov"
 
-#: lib/Block/fb_stream.php:82
-#, fuzzy
+#: lib/Block/FbStream.php:54
 msgid "Filter"
-msgstr "Filtre"
+msgstr "Filter"
 
-#: config/registry.php.dist:93
+#: config/registry.php:88
 msgid "Filters"
 msgstr "Filtre"
 
-#: lib/Block/moon.php:164
+#: lib/Block/Moon.php:167
 msgid "First Half"
 msgstr "Prvá polovica"
 
-#: lib/Block/moon.php:72 lib/Block/moon.php:74
+#: lib/Block/Moon.php:75 lib/Block/Moon.php:77
 msgid "First Quarter"
 msgstr "Prvá štvrť"
 
-#: lib/Block/weatherdotcom_strings.php:29
+#: lib/Block/WeatherdotcomStrings.php:29
 msgid "Fog"
 msgstr "Hmla"
 
-#: lib/Block/weatherdotcom_strings.php:30
+#: lib/Block/WeatherdotcomStrings.php:30
 msgid "Fog Early"
 msgstr "Ráno hmla"
 
-#: lib/Block/weatherdotcom_strings.php:31
+#: lib/Block/WeatherdotcomStrings.php:31
 msgid "Fog Late"
 msgstr "Neskôr hmla"
 
-#: lib/Block/weatherdotcom_strings.php:32
+#: lib/Block/WeatherdotcomStrings.php:32
 msgid "Foggy"
 msgstr "Hmlisto"
 
-#: lib/Block/fortune.php:44
+#: lib/Block/Fortune.php:44
 msgid "Food"
 msgstr "Potrava"
 
-#: lib/Block/metar.php:329
+#: lib/Block/Metar.php:307
 msgid "Forecast (TAF)"
 msgstr "Predpoveď (TAF)"
 
-#: lib/Block/weatherdotcom.php:74
+#: lib/Block/Weatherdotcom.php:67
 msgid ""
 "Forecast Days (note that the returned forecast returns both day and night; a "
 "large number here could result in a wide block)"
@@ -1395,44 +1383,44 @@ msgstr ""
 "Predpoveď na uvedený počet dní (pamätajte na to, že predpoveď je pre dni aj "
 "noci a tak môže veľké číslo vytvoriť veľmi široký blok)"
 
-#: templates/login/login.inc:81
+#: templates/login/login.inc:58
 msgid "Forgot your password?"
 msgstr "Zabudli ste heslo?"
 
-#: lib/Block/fortune.php:28
+#: lib/Block/Fortune.php:25
 msgid "Fortune"
 msgstr "Fortuna"
 
-#: lib/Block/fortune.php:106
+#: lib/Block/Fortune.php:108
 msgid "Fortune type"
 msgstr "Typ fortuny"
 
-#: lib/Block/fortune.php:45
+#: lib/Block/Fortune.php:45
 msgid "Fortunes"
 msgstr "Fortuny"
 
-#: lib/Block/fortune.php:46
+#: lib/Block/Fortune.php:46
 msgid "Fortunes 2"
 msgstr "Fortuny 2"
 
-#: config/registry.php.dist:376
+#: config/registry.php:314
 msgid "Forums"
 msgstr "Fóra"
 
-#: config/registry.php.dist:113
-msgid "Forwards"
-msgstr "Presmerovania"
-
-#: lib/Block/weatherdotcom_strings.php:33
+#: lib/Block/WeatherdotcomStrings.php:33
 msgid "Freezing Drizzle"
 msgstr "Mrznúci dážď"
 
-#: services/facebook.php:68
+#: services/facebook/index.php:76
 msgid "Friend Requests:"
-msgstr ""
+msgstr "Žiadosti o priateľstvo:"
 
-#: lib/Block/weatherdotcom.php:252 lib/Block/weatherdotcom.php:362
-#: lib/Block/weatherdotcom.php:408
+#: templates/prefs/facebook.html:44
+msgid "Friends enabled"
+msgstr "Priatelia zapnutí"
+
+#: lib/Block/Weatherdotcom.php:232 lib/Block/Weatherdotcom.php:342
+#: lib/Block/Weatherdotcom.php:388
 msgid "From the "
 msgstr "Zo smeru "
 
@@ -1440,11 +1428,11 @@ msgstr "Zo smeru "
 msgid "Full Description"
 msgstr "Úplný popis"
 
-#: lib/Block/moon.php:79 lib/Block/moon.php:174
+#: lib/Block/Moon.php:82 lib/Block/Moon.php:177
 msgid "Full Moon"
 msgstr "Spln"
 
-#: lib/Block/account.php:68 templates/admin/user/update.inc:37
+#: lib/Block/Account.php:70 templates/admin/user/update.inc:37
 msgid "Full Name"
 msgstr "Celé meno:"
 
@@ -1457,31 +1445,27 @@ msgstr "Generovať konfiguráciu pre aplikáciu %s"
 msgid "Generated Code"
 msgstr "Generovaný kód"
 
-#: lib/Block/fb_stream.php:192 lib/Block/twitter_timeline.php:171
+#: lib/Block/FbStream.php:170 templates/block/twitter-layout.html.php:34
 msgid "Get More"
-msgstr ""
+msgstr "Získať viac"
 
 #: templates/prefs/app.html:10
 msgid "Global Preferences"
-msgstr ""
+msgstr "Všeobecné nastavenia"
 
 #: templates/prefs/app.html:17
 msgid "Go"
 msgstr "Odoslať"
 
-#: lib/Block/fortune.php:47
+#: lib/Block/Fortune.php:47
 msgid "Goedel"
 msgstr "Goedel"
 
-#: lib/Block/google.php:3 lib/Block/google.php:19
+#: lib/Block/Google.php:14
 msgid "Google Search"
 msgstr "Hľadať na Google"
 
-#: lib/Block/google.php:30
-msgid "Google search is not enabled."
-msgstr "Hľadanie Google nie je zapnuté."
-
-#: config/nls.php:177
+#: config/nls.php:178
 msgid "Greek (ISO-8859-7)"
 msgstr "Grécky (ISO-8859-7)"
 
@@ -1493,16 +1477,20 @@ msgstr "Zelená"
 msgid "Grey"
 msgstr "Šedá"
 
-#: admin/groups.php:195
+#: admin/groups.php:160
 msgid "Group Administration"
 msgstr "Administrácia skupín"
 
-#: admin/groups.php:44
+#: templates/admin/groups/add.inc:9
+msgid "Group name"
+msgstr "Názov skupiny"
+
+#: admin/groups.php:31
 #, php-format
 msgid "Group was not created: %s."
 msgstr "Skupina nebola vytvorená: %s."
 
-#: admin/groups.php:268 templates/shares/edit.inc:266
+#: admin/groups.php:219 templates/shares/edit.inc:266
 msgid "Groups"
 msgstr "Skupiny"
 
@@ -1510,29 +1498,29 @@ msgstr "Skupiny"
 msgid "Guest Permissions"
 msgstr "Práva anonymných používateľov"
 
-#: lib/Block/weatherdotcom_strings.php:34
+#: lib/Block/WeatherdotcomStrings.php:34
 msgid "Haze"
 msgstr "Opar"
 
-#: lib/Block/weatherdotcom_strings.php:35
+#: lib/Block/WeatherdotcomStrings.php:35
 msgid "Heavy Rain"
 msgstr "Ťažký dážď"
 
-#: lib/Block/weatherdotcom_strings.php:36
+#: lib/Block/WeatherdotcomStrings.php:36
 msgid "Heavy T-Storm"
 msgstr "Silná búrka"
 
-#: config/nls.php:178
+#: config/nls.php:179
 msgid "Hebrew (ISO-8859-8-I)"
 msgstr "Hebrejsky (ISO-8859-8-I)"
 
-#: lib/Block/iframe.php:24
+#: lib/Block/Iframe.php:32
 msgid "Height"
 msgstr "Výška"
 
-#: lib/Block/fb_stream.php:92 lib/Block/twitter_timeline.php:87
-msgid "Height of map (width automatically adjusts to block)"
-msgstr ""
+#: lib/Block/FbStream.php:69 lib/Block/TwitterTimeline.php:70
+msgid "Height of stream content (width automatically adjusts to block)"
+msgstr "Výška obsahu (šírka sa automaticky upraví podľa bloku)"
 
 #: services/help/index.php:17 templates/help/index.inc:4
 msgid "Help"
@@ -1542,7 +1530,7 @@ msgstr "Pomocník"
 msgid "Help _Topics"
 msgstr "Zoznam _tém Pomocníka"
 
-#: lib/Block/moon.php:27
+#: lib/Block/Moon.php:28
 msgid "Hemisphere"
 msgstr "Pologuľa"
 
@@ -1554,23 +1542,23 @@ msgstr "Tu je začiatok súboru:"
 msgid "Hi-Contrast"
 msgstr "Vysoký kontrast"
 
-#: templates/prefs/app.html:23
+#: templates/prefs/app.html:24
 msgid "Hide Advanced Preferences"
-msgstr ""
+msgstr "Skryť rozšírené nastavenia"
 
 #: services/portal/cloud_search.php:33
 msgid "Hide Results"
 msgstr "Skryť výsledky"
 
-#: lib/Block/weatherdotcom_strings.php:100
+#: lib/Block/WeatherdotcomStrings.php:100
 msgid "High"
 msgstr "Vysoká"
 
-#: lib/Block/account.php:73
+#: lib/Block/Account.php:73
 msgid "Home Directory"
 msgstr "Domáci priečinok"
 
-#: config/registry.php.dist:76
+#: config/registry.php:75
 msgid "Horde"
 msgstr "Horde"
 
@@ -1578,23 +1566,23 @@ msgstr "Horde"
 msgid "Horde Website"
 msgstr "Webová stránka Horde"
 
-#: templates/data/csvinfo.inc:21
+#: templates/data/csvinfo.inc:20
 msgid "How many fields (columns) are there?"
 msgstr "Zadajte počet polí (stĺpcov)?"
 
-#: lib/Block/feed.php:21
+#: lib/Block/Feed.php:36
 msgid "How many seconds before we check for new articles?"
 msgstr "Koľko sekúnd pred kontrolou, či nie sú nové články?"
 
-#: lib/Block/metar.php:225 lib/Block/weatherdotcom.php:303
+#: lib/Block/Metar.php:203 lib/Block/Weatherdotcom.php:283
 msgid "Humidity"
 msgstr "Vlhkosť"
 
-#: lib/Block/weatherdotcom.php:263
+#: lib/Block/Weatherdotcom.php:243
 msgid "Humidity: "
 msgstr "Vlhkosť: "
 
-#: lib/Block/fortune.php:48
+#: lib/Block/Fortune.php:48
 msgid "Humorists"
 msgstr "Humoristi"
 
@@ -1602,7 +1590,7 @@ msgstr "Humoristi"
 msgid "I characters"
 msgstr "I znakov"
 
-#: config/prefs.php.dist:545
+#: config/prefs.php:561
 msgid "Icons Only"
 msgstr "Iba ikony"
 
@@ -1611,7 +1599,7 @@ msgstr "Iba ikony"
 msgid "Icons for %s"
 msgstr "Ikony %s"
 
-#: config/prefs.php.dist:546
+#: config/prefs.php:562
 msgid "Icons with text"
 msgstr "Ikony a text"
 
@@ -1619,7 +1607,7 @@ msgstr "Ikony a text"
 msgid "Ideas"
 msgstr "Nápady"
 
-#: config/prefs.php.dist:226
+#: config/prefs.php:243
 msgid "Identity's name:"
 msgstr "Názov identity:"
 
@@ -1629,7 +1617,7 @@ msgstr "Názov identity:"
 msgid "Import, Step %d"
 msgstr "Import, krok %d"
 
-#: templates/data/datemap.inc:15
+#: templates/data/datemap.inc:17
 #, php-format
 msgid "Imported field: %s"
 msgstr "Importované pole: %s"
@@ -1638,9 +1626,9 @@ msgstr "Importované pole: %s"
 msgid "Imported fields:"
 msgstr "Importované polia:"
 
-#: lib/Block/twitter_timeline.php:136
+#: lib/Block/TwitterTimeline.php:118
 msgid "In reply to:"
-msgstr ""
+msgstr "Ako odpoveď na:"
 
 #: templates/data/csvmap.inc:57
 msgid ""
@@ -1665,90 +1653,88 @@ msgstr ""
 msgid "Individual Users"
 msgstr "Jednotliví používatelia"
 
-#: templates/prefs/facebook.html:10
-#, fuzzy
+#: templates/prefs/facebook.html:9
 msgid "Infinite sessions enabled."
-msgstr "Nepodarilo sa zobraziť relácie: %s"
+msgstr "Neobmedzené sedenia zapnuté."
 
-#: config/registry.php.dist:281
+#: config/registry.php:241
 msgid "Information"
 msgstr "Informácie"
 
-#: lib/Block/weatherdotcom.php:332
+#: lib/Block/Weatherdotcom.php:312
 msgid "Information no longer available."
 msgstr "Informácie už nie sú k dispozícii."
 
-#: templates/admin/groups/edit.inc:36
+#: templates/admin/groups/edit.inc:42
 msgid "Inherited Members"
 msgstr "Prevzaní členovia"
 
-#: config/prefs.php.dist:304
+#: config/prefs.php:320
 msgid "Insert an email address to which you can receive the new password:"
 msgstr "Zadajte e-mailovú adresu, na ktorú dostanete nové heslo:"
 
-#: config/prefs.php.dist:296
+#: config/prefs.php:313
 msgid "Insert the required answer to the security question:"
 msgstr "Zadajte požadovanú odpoveď na bezpečnostnú otázku:"
 
-#: lib/Block/vatid.php:52
+#: lib/Block/Vatid.php:57
 msgid "Invalid VAT identification number format."
 msgstr "Neplatný formát IČ DPH"
 
 #: admin/signup_confirm.php:43
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid action %s"
-msgstr "Neplatná aplikácia."
+msgstr "Neplatná voľba %s"
 
 #: admin/config/config.php:24
 msgid "Invalid application."
 msgstr "Neplatná aplikácia."
 
 #: admin/signup_confirm.php:33
-#, fuzzy
 msgid "Invalid hash."
-msgstr "Neplatné ID dávky."
+msgstr "Nesprávny hash."
 
-#: lib/Block/weatherdotcom.php:180
+#: lib/Block/Weatherdotcom.php:160
 msgid "Invalid license key."
 msgstr "Neplatný licenčný kľúč."
 
-#: lib/Block/weatherdotcom.php:174
+#: lib/Block/Weatherdotcom.php:154
 msgid "Invalid location provided."
 msgstr "Neplatná lokalita."
 
-#: admin/perms/addchild.php:23
+#: admin/perms/addchild.php:24
 msgid "Invalid parent permission."
 msgstr "Neplatné rodičovské právo."
 
-#: lib/Block/weatherdotcom.php:176
+#: lib/Block/Weatherdotcom.php:156
 msgid "Invalid partner id."
 msgstr "Neplatné partner ID."
 
-#: lib/Block/weatherdotcom.php:178
+#: lib/Block/Weatherdotcom.php:158
 msgid "Invalid product code."
 msgstr "Neplatný kód produktu."
 
-#: lib/Block/weatherdotcom_strings.php:37
+#: lib/Block/WeatherdotcomStrings.php:37
 msgid "Isolated T-Storms"
 msgstr "Ojedinelé búrky"
 
-#: config/nls.php:179
+#: config/nls.php:180
 msgid "Japanese (ISO-2022-JP)"
 msgstr "Japonsky (ISO-2022-JP)"
 
-#: lib/Block/twitter_timeline.php:138
+#: lib/Block/TwitterTimeline.php:120
 msgid "Just now..."
-msgstr ""
+msgstr "Práve teraz..."
 
-#: lib/Block/fortune.php:49
+#: lib/Block/Fortune.php:49
 msgid "Kernel Newbies"
 msgstr "Kernel-nováčikovia"
 
-#: services/help/index.php:138
+#: services/help/index.php:134
 msgid "Keyword"
 msgstr "Kľúčové slovo"
 
-#: lib/Block/fortune.php:50
+#: lib/Block/Fortune.php:50
 msgid "Kids"
 msgstr "Deti"
 
@@ -1756,36 +1742,35 @@ msgstr "Deti"
 msgid "Kolab"
 msgstr "Kolab"
 
-#: config/nls.php:180
+#: config/nls.php:181
 msgid "Korean (EUC-KR)"
 msgstr "Kórejsky (EUC-KR)"
 
-#: login.php:314 templates/login/login.inc:49
+#: login.php:356 templates/login/login.inc:34
 msgid "Language"
 msgstr "Jazyk"
 
-#: lib/Block/iframe.php:28
+#: lib/Block/Iframe.php:37
 msgid "Large"
 msgstr "Veľké"
 
-#: lib/Block/moon.php:167
+#: lib/Block/Moon.php:170
 msgid "Last Half"
 msgstr "Posledná polovica"
 
-#: lib/Block/account.php:91
+#: lib/Block/Account.php:86
 msgid "Last Password Change"
 msgstr "Posledná zmena hesla"
 
-#: lib/Block/moon.php:84 lib/Block/moon.php:86
+#: lib/Block/Moon.php:87 lib/Block/Moon.php:89
 msgid "Last Quarter"
 msgstr "Posledná štvrť"
 
-#: admin/activesync.php:98 templates/prefs/activesync.html:21
-#, fuzzy
+#: admin/activesync.php:94 templates/prefs/activesync.html:21
 msgid "Last Sync Time"
-msgstr "Lokalizácia a čas"
+msgstr "Posledná synchronizácia"
 
-#: lib/Block/metar.php:146
+#: lib/Block/Metar.php:124
 msgid "Last Updated:"
 msgstr "Posledná aktualizácia:"
 
@@ -1803,16 +1788,15 @@ msgstr "Posledné prihlásenie: %s z %s"
 msgid "Last login: Never"
 msgstr "Posledné prihlásenie: nikdy"
 
-#: lib/Block/twitter_timeline.php:168
-#, fuzzy
+#: templates/block/twitter-layout.html.php:19
 msgid "Latest"
-msgstr "Lesotho"
+msgstr "Naposledy"
 
 #: themes/lavander/info.php:2
 msgid "Lavender"
 msgstr "Levanduľa"
 
-#: lib/Block/fortune.php:51
+#: lib/Block/Fortune.php:51
 msgid "Law"
 msgstr "Právo"
 
@@ -1820,62 +1804,59 @@ msgstr "Právo"
 msgid "Light Blue"
 msgstr "Svetlomodrá"
 
-#: lib/Block/weatherdotcom_strings.php:38
+#: lib/Block/WeatherdotcomStrings.php:38
 msgid "Light Drizzle"
 msgstr "Ľahké mrholenie"
 
-#: lib/Block/weatherdotcom_strings.php:39
+#: lib/Block/WeatherdotcomStrings.php:39
 msgid "Light Rain"
 msgstr "Ľahký dážď"
 
-#: lib/Block/weatherdotcom_strings.php:40
+#: lib/Block/WeatherdotcomStrings.php:40
 msgid "Light Rain Early"
 msgstr "Ráno ľahký dážď"
 
-#: lib/Block/weatherdotcom_strings.php:41
+#: lib/Block/WeatherdotcomStrings.php:41
 msgid "Light Rain Late"
 msgstr "Neskôr ľahký dážď"
 
-#: lib/Block/weatherdotcom_strings.php:42
+#: lib/Block/WeatherdotcomStrings.php:42
 msgid "Light Rain Shower"
 msgstr "Ľahké dažďové prehánky"
 
-#: lib/Block/weatherdotcom_strings.php:43
+#: lib/Block/WeatherdotcomStrings.php:43
 msgid "Light Rain with Thunder"
 msgstr "Ľahký dážď s hrmením"
 
-#: lib/Block/weatherdotcom_strings.php:44
+#: lib/Block/WeatherdotcomStrings.php:44
 msgid "Light Snow"
 msgstr "Ľahké sneženie"
 
-#: lib/Block/weatherdotcom_strings.php:45
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:45
 msgid "Light Snow Early"
-msgstr "Ráno ľahký dážď"
+msgstr "Z rána ľahké sneženie"
 
-#: lib/Block/weatherdotcom_strings.php:46
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:46
 msgid "Light Snow Late"
-msgstr "Neskôr ľahký dážď"
+msgstr "Neskôr ľahké sneženie"
 
-#: lib/Block/weatherdotcom_strings.php:47
+#: lib/Block/WeatherdotcomStrings.php:47
 msgid "Light Snow Shower"
 msgstr "Ľahké snehové prehánky"
 
-#: services/facebook.php:105
-#, fuzzy
+#: services/facebook/index.php:113
 msgid "Like"
-msgstr "Linka"
+msgstr "Páči sa mi"
 
-#: lib/Block/fortune.php:52
+#: lib/Block/Fortune.php:52
 msgid "Limerick"
 msgstr "Limerick"
 
-#: lib/Block/fortune.php:53
+#: lib/Block/Fortune.php:53
 msgid "Linux Cookie"
 msgstr "Linux Cookie"
 
-#: admin/sqlshell.php:113
+#: admin/sqlshell.php:121
 msgid "List Tables"
 msgstr "Vypísať zoznam tabuliek"
 
@@ -1884,7 +1865,7 @@ msgstr "Vypísať zoznam tabuliek"
 msgid "Listing alarms failed: %s"
 msgstr "Nepodarilo sa zobraziť alarmy: %s"
 
-#: admin/sessions.php:62
+#: admin/sessions.php:66
 #, php-format
 msgid "Listing sessions failed: %s"
 msgstr "Nepodarilo sa zobraziť relácie: %s"
@@ -1893,54 +1874,58 @@ msgstr "Nepodarilo sa zobraziť relácie: %s"
 msgid "Listing users is disabled."
 msgstr "Zobrazovanie zoznamu používateľov je zakázané."
 
-#: lib/Block/fortune.php:54
+#: lib/Block/Fortune.php:54
 msgid "Literature"
 msgstr "Literatúra"
 
-#: lib/Block/weatherdotcom.php:215
+#: templates/sidebar/sidebar.inc:5
+msgid "Loading..."
+msgstr "Nahrávam..."
+
+#: lib/Block/Weatherdotcom.php:195
 msgid "Local time: "
 msgstr "Miestny čas: "
 
-#: config/prefs.php.dist:313
+#: config/prefs.php:329
 msgid "Locale and Time"
 msgstr "Lokalizácia a čas"
 
-#: lib/Block/metar.php:64 lib/Block/sunrise.php:20
-#: lib/Block/weatherdotcom.php:59
+#: lib/Block/Metar.php:51 lib/Block/Sunrise.php:23
+#: lib/Block/Weatherdotcom.php:52
 msgid "Location"
 msgstr "Lokalita"
 
-#: login.php:261 templates/login/login.inc:64
+#: login.php:303 templates/login/login.inc:43
 msgid "Log in"
 msgstr "Prihlásenie"
 
-#: lib/Block/account.php:64
-msgid "Login"
-msgstr "Prihlásenie"
+#: templates/portal/mobile.inc:7
+msgid "Log out"
+msgstr "Odhlásenie"
 
-#: login.php:286
+#: login.php:328
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
 "Prihlásenie zlyhalo, pretože ste zadali nesprávne používateľské meno alebo "
 "heslo."
 
-#: login.php:282
+#: login.php:324
 msgid "Login failed."
 msgstr "Prihlásenie zlyhalo."
 
-#: templates/prefs/facebook.html:46
+#: templates/prefs/facebook.html:57
 msgid "Login to Facebook and authorize <tag:app_name />"
-msgstr ""
+msgstr "Prihlásiť sa do Facebooku a autorizovať <tag:app_name />"
 
 #: templates/prefs/twitter.html:21
 msgid "Login to Twitter and authorize the <tag:appname /> application"
-msgstr ""
+msgstr "Prihlásiť sa do Twitteru a autorizovať <tag:appname />"
 
-#: lib/Block/fortune.php:55
+#: lib/Block/Fortune.php:55
 msgid "Love"
 msgstr "Láska"
 
-#: lib/Block/weatherdotcom_strings.php:98
+#: lib/Block/WeatherdotcomStrings.php:98
 msgid "Low"
 msgstr "Nízka"
 
@@ -1959,19 +1944,19 @@ msgstr "Loyola modrá"
 msgid "MM"
 msgstr "MM"
 
-#: lib/Block/fortune.php:56
+#: lib/Block/Fortune.php:56
 msgid "Magic"
 msgstr "Mágia"
 
-#: config/registry.php.dist:85
+#: config/registry.php:80
 msgid "Mail"
 msgstr "Pošta"
 
-#: config/registry.php.dist:403
+#: config/registry.php:332
 msgid "Mail Admin"
 msgstr "Poslať e-mail administrátorovi"
 
-#: config/prefs.php.dist:441
+#: config/prefs.php:463
 msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
@@ -1979,123 +1964,119 @@ msgstr ""
 "Spravovať zoznam kategórií, s ktorými označujete položky a farby asociované "
 "s týmito kategóriami."
 
-#: config/prefs.php.dist:677
+#: config/prefs.php:694
 msgid "Manage your ActiveSync devices."
-msgstr ""
+msgstr "Spravovať zariadenia ActiveSync."
 
-#: templates/data/csvmap.inc:96
+#: templates/data/csvmap.inc:97
 msgid "Matching fields:"
 msgstr "Vyhovujúce polia:"
 
-#: lib/Block/metar.php:301
+#: lib/Block/Metar.php:279
 msgid "Max temp last 24 hours: "
 msgstr "Najvyššia teplota za posledných 24 hodín: "
 
-#: lib/Block/metar.php:293
+#: lib/Block/Metar.php:271
 msgid "Max temp last 6 hours: "
 msgstr "Najvyššia teplota za posledných 6 hodín: "
 
-#: lib/Application.php:38
+#: lib/Application.php:32
 msgid "Maximum Number of Portal Blocks"
 msgstr "Maximálny počet portálových blokov"
 
-#: lib/Block/fb_stream.php:86
-#, fuzzy
+#: lib/Block/FbStream.php:60
 msgid "Maximum number of entries to display"
-msgstr "Počet článkov na zobrazenie"
+msgstr "Maximálny počet záznamov na zobrazenie"
 
-#: lib/Block/fortune.php:57
+#: lib/Block/Fortune.php:57
 msgid "Medicine"
 msgstr "Medicína"
 
-#: lib/Block/iframe.php:27
+#: lib/Block/Iframe.php:36
 msgid "Medium"
 msgstr "Stredné"
 
-#: templates/admin/groups/edit.inc:17
+#: templates/admin/groups/edit.inc:19
 msgid "Members"
 msgstr "Členovia"
 
-#: config/prefs.php.dist:548
+#: templates/block/twitter-layout.html.php:25
+msgid "Mentions"
+msgstr "Spomínania"
+
+#: config/prefs.php:564
 msgid "Menu mode:"
 msgstr "Zobrazenie menu:"
 
-#: lib/Block/metar.php:5
+#: lib/Block/Metar.php:22
 msgid "Metar Weather"
 msgstr "Počasie Metar"
 
-#: lib/Block/metar.php:42
-msgid "Metar block not available."
-msgstr "Údaje Metar nie sú dostupné."
-
-#: lib/Block/metar.php:110
-msgid ""
-"Metar block not available. Details have been logged for the administrator."
-msgstr ""
-"Údaje Metar nie sú k dispozícii. Detaily boli zaznamenané pre administrátora."
-
-#: lib/Block/weatherdotcom.php:168
+#: lib/Block/Weatherdotcom.php:148
 msgid "MetarDB is not connected."
 msgstr "MetarDB nie je pripojená."
 
-#: lib/Block/metar.php:74 lib/Block/weatherdotcom.php:69
+#: lib/Block/Metar.php:61 lib/Block/Weatherdotcom.php:62
 msgid "Metric"
 msgstr "Metrické"
 
-#: lib/Block/metar.php:305
+#: lib/Block/Metar.php:283
 msgid "Min temp last 24 hours: "
 msgstr "Najnižšia teplota za posledných 24 hodín: "
 
-#: lib/Block/metar.php:297
+#: lib/Block/Metar.php:275
 msgid "Min temp last 6 hours: "
 msgstr "Najnižšia teplota za posledných 6 hodín: "
 
-#: lib/Block/fortune.php:58
+#: lib/Block/Fortune.php:58
 msgid "Miscellaneous"
 msgstr "Rôzne"
 
-#: admin/config/index.php:135
-msgid ""
-"Missing configuration. You must generate it before using this application."
-msgstr ""
-"Chýba konfigurácia. Ak chcete používať túto aplikáciu, musíte teraz vytvoriť "
-"konfiguráciu."
+#: admin/config/index.php:192
+msgid "Missing configuration."
+msgstr "Chýbajú nastavenia."
 
-#: lib/Block/weatherdotcom_strings.php:48
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:48
 msgid "Mist"
-msgstr "Zoznam"
+msgstr "Hmlisto"
 
-#: lib/Block/weatherdotcom_strings.php:99
+#: login.php:235
+msgid "Mobile"
+msgstr "Mobilný"
+
+#: login.php:231
+msgid "Mobile (Smartphone)"
+msgstr "Mobilný (Smartphone)"
+
+#: login.php:215
+msgid "Mode"
+msgstr "Mód"
+
+#: lib/Block/WeatherdotcomStrings.php:99
 msgid "Moderate"
 msgstr "Mierny"
 
-#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:57
-#, php-format
-msgid "Modified sequence for %s"
-msgstr ""
-
-#: config/prefs.php.dist:430
+#: config/prefs.php:451
 msgid "Monday"
 msgstr "Pondelok"
 
-#: lib/Block/moon.php:3 lib/Block/moon.php:14
+#: lib/Block/Moon.php:13
 msgid "Moon Phases"
 msgstr "Mesačné fázy"
 
-#: lib/Block/weatherdotcom_strings.php:49
+#: lib/Block/WeatherdotcomStrings.php:49
 msgid "Mostly Clear"
 msgstr "Prevažne jasno"
 
-#: lib/Block/weatherdotcom_strings.php:50
+#: lib/Block/WeatherdotcomStrings.php:50
 msgid "Mostly Cloudy"
 msgstr "Prevažne oblačno"
 
-#: lib/Block/weatherdotcom_strings.php:51
+#: lib/Block/WeatherdotcomStrings.php:51
 msgid "Mostly Cloudy and Windy"
 msgstr "Prevažne oblačno a veterno"
 
-#: lib/Block/weatherdotcom_strings.php:52
+#: lib/Block/WeatherdotcomStrings.php:52
 msgid "Mostly Sunny"
 msgstr "Prevažne slnečno"
 
@@ -2103,31 +2084,39 @@ msgstr "Prevažne slnečno"
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: config/registry.php.dist:333
+#: config/registry.php:287
 msgid "My Account"
 msgstr "Moje konto"
 
-#: lib/Block/account.php:27
+#: lib/Block/Account.php:26
 msgid "My Account Information"
 msgstr "Informácie o Vašom účte"
 
-#: lib/Block/fb_stream.php:3 lib/Block/fb_stream.php:105
+#: lib/Block/FbStream.php:30
 msgid "My Facebook Stream"
-msgstr ""
+msgstr "Môj Facebook"
 
-#: services/portal/index.php:62
+#: services/portal/index.php:43
 msgid "My Portal"
 msgstr "Môj portál"
 
-#: services/portal/edit.php:36
+#: services/portal/edit.php:32
 msgid "My Portal Layout"
 msgstr "Vzhľad môjho portálu"
 
-#: templates/logintasks/logintasks.html:35
+#: templates/logintasks/logintasks.html:25
 msgid "NO, I Do NOT Agree"
 msgstr "Nie, NESÚHLASÍM."
 
-#: lib/Block/vatid.php:98
+#: templates/prefs/activesync.html:48
+msgid ""
+"NOTE: WIPING A DEVICE MAY RESET IT TO FACTORY DEFAULTS. PLEASE MAKE SURE YOU "
+"REALLY WANT TO DO THIS BEFORE REQUESTING A WIPE"
+msgstr ""
+"POZOR: VYMAZANIE ZARIADENIA MÔŽE VIESŤ K JEHO NAVRÁTENIU NA TOVÁRENSKÉ "
+"NASTAVENIA. PROSÍM DÔKLADNE PREVERTE, ČI CHCETE NAOZAJ ZARIADENIE VYMAZAŤ."
+
+#: lib/Block/Vatid.php:113
 msgid "Name"
 msgstr "Meno"
 
@@ -2135,8 +2124,7 @@ msgstr "Meno"
 msgid "NeXT"
 msgstr "NeXT"
 
-#: templates/portal/layout.inc:97 config/prefs.php.dist:516
-#: config/prefs.php.dist:556
+#: config/prefs.php:534 config/prefs.php:571 templates/portal/layout.inc:97
 msgid "Never"
 msgstr "Nikdy"
 
@@ -2144,12 +2132,11 @@ msgstr "Nikdy"
 msgid "New Category"
 msgstr "Nová kategória"
 
-#: services/facebook.php:65
-#, fuzzy
+#: services/facebook/index.php:73
 msgid "New Messages:"
-msgstr "Nová správa pre %s"
+msgstr "Nové správy:"
 
-#: lib/Block/moon.php:44 lib/Block/moon.php:66 lib/Block/moon.php:172
+#: lib/Block/Moon.php:47 lib/Block/Moon.php:69 lib/Block/Moon.php:175
 msgid "New Moon"
 msgstr "Nov"
 
@@ -2165,20 +2152,20 @@ msgstr "Nové heslo"
 msgid "New passwords don't match."
 msgstr "Nové heslá musia byť rovnaké."
 
-#: lib/Block/fortune.php:59 config/registry.php.dist:288
+#: config/registry.php:246 lib/Block/Fortune.php:59
 msgid "News"
 msgstr "News"
 
-#: templates/data/csvinfo.inc:25 templates/data/csvmap.inc:119
-#: templates/data/datemap.inc:41 templates/data/tsvinfo.inc:15
+#: templates/data/csvinfo.inc:23 templates/data/csvmap.inc:120
+#: templates/data/datemap.inc:43 templates/data/tsvinfo.inc:15
 msgid "Next"
 msgstr "Ďalej"
 
-#: lib/Block/moon.php:25
+#: lib/Block/Moon.php:26
 msgid "Next 4 Phases"
 msgstr "Nasledujúce 4 fázy"
 
-#: lib/Block/weatherdotcom.php:382
+#: lib/Block/Weatherdotcom.php:362
 msgid "Night"
 msgstr "Noc"
 
@@ -2200,16 +2187,16 @@ msgstr "Žiadna zmena."
 msgid "No icons found."
 msgstr "Žiadne ikony neboli nájdené."
 
-#: lib/Block/metar.php:121 lib/Block/sunrise.php:38
-#: lib/Block/weatherdotcom.php:133
+#: lib/Block/Metar.php:99 lib/Block/Sunrise.php:45
+#: lib/Block/Weatherdotcom.php:113
 msgid "No location is set."
 msgstr "Nie je nastavená lokalita."
 
-#: lib/Block/weatherdotcom.php:172
+#: lib/Block/Weatherdotcom.php:152
 msgid "No location provided."
 msgstr "Nie je nastavená lokalita."
 
-#: lib/Block/fortune.php:101
+#: lib/Block/Fortune.php:101
 msgid "No offensive fortunes"
 msgstr "Žiadne urážlivé fortuny"
 
@@ -2217,49 +2204,47 @@ msgstr "Žiadne urážlivé fortuny"
 msgid "No pending signups."
 msgstr "Žiadne prebiehajúce prihlásenia."
 
-#: admin/config/index.php:89 admin/config/index.php:121
+#: admin/config/index.php:139 admin/config/index.php:177
 msgid "No stable version exists yet."
 msgstr "Žiadne stabilné verzie ešte nie sú k dispozícii."
 
-#: lib/Block/weatherdotcom.php:143
+#: lib/Block/Weatherdotcom.php:123
 msgid "No temporary directory available for cache."
 msgstr "Pre vyrovnávaciu pamäť nie je dostupný žiaden dočasný priečinok."
 
 #: admin/signup_confirm.php:57
-#, fuzzy
 msgid "No username specified."
-msgstr "Nebolo špecifikované žiadne meno."
+msgstr "Nebolo zadané používateľské meno."
 
-#: admin/config/index.php:140
+#: admin/config/index.php:198
 msgid "No version found in original configuration. Regenerate configuration."
 msgstr ""
 "V pôvodnej konfigurácii nebola nájdená žiadna verzia. Vygenerujte znovu "
 "konfiguráciu."
 
-#: admin/config/index.php:148
+#: admin/config/index.php:207
 msgid "No version found in your configuration. Regenerate configuration."
 msgstr ""
 "V konfigurácii nebola nájdená žiadna verzia. Vygenerujte znovu konfiguráciu."
 
-#: lib/Prefs/Ui.php:411 templates/prefs/activesync.html:43
+#: lib/Prefs/Ui.php:383 templates/prefs/activesync.html:43
 #: templates/prefs/identityselect.html:20 templates/prefs/syncml.html:34
 msgid "None"
 msgstr "Žiaden"
 
-#: config/nls.php:181
+#: config/nls.php:182
 msgid "Nordic (ISO-8859-10)"
 msgstr "Severské (ISO-8859-10)"
 
-#: lib/Block/moon.php:30 lib/Block/moon.php:58
+#: lib/Block/Moon.php:31 lib/Block/Moon.php:61
 msgid "Northern Hemisphere"
 msgstr "Severná pologuľa"
 
-#: admin/activesync.php:171 lib/Prefs/Ui.php:426
-#, fuzzy
+#: admin/activesync.php:167 lib/Prefs/Ui.php:398
 msgid "Not Provisioned"
-msgstr "Upraviť právo"
+msgstr "Neprepojené"
 
-#: config/registry.php.dist:211
+#: config/registry.php:184
 msgid "Notes"
 msgstr "Poznámky"
 
@@ -2267,13 +2252,13 @@ msgstr "Poznámky"
 msgid "Nothing to browse, go back."
 msgstr "Nič na prezeranie, vráťte sa späť."
 
-#: lib/Block/feed.php:18
+#: lib/Block/Feed.php:31
 msgid "Number of articles to display"
 msgstr "Počet článkov na zobrazenie"
 
-#: lib/Block/twitter_timeline.php:91
+#: lib/Block/TwitterTimeline.php:75
 msgid "Number of seconds to wait to refresh"
-msgstr ""
+msgstr "Počet sekúnd, po ktorých sa má obnoviť stránka"
 
 #: services/keyboard.php:92
 msgid "O characters"
@@ -2283,11 +2268,11 @@ msgstr "O znakov"
 msgid "Object Creator"
 msgstr "Autor objektu"
 
-#: lib/Block/fortune.php:99
+#: lib/Block/Fortune.php:98
 msgid "Offense filter"
 msgstr "Filter na nadávky"
 
-#: config/registry.php.dist:301
+#: config/registry.php:258
 msgid "Office"
 msgstr "Pracovisko"
 
@@ -2303,7 +2288,7 @@ msgstr "Staré heslo"
 msgid "Old password is not correct."
 msgstr "Staré heslo je nesprávne."
 
-#: lib/Block/fortune.php:102
+#: lib/Block/Fortune.php:102
 msgid "Only offensive fortunes"
 msgstr "Iba urážlivé fortuny"
 
@@ -2315,16 +2300,15 @@ msgstr ""
 "Vlastníka alebo práva vlastníka pre zdieľaný objekt môže zmeniť iba vlastník "
 "alebo systémový administrátor"
 
-#: lib/Block/fortune.php:60
+#: lib/Block/Fortune.php:60
 msgid "Operating System"
 msgstr "Operačný systém"
 
 #: templates/shares/edit.inc:236
-#, fuzzy
 msgid "Or enter a user name:"
-msgstr "Zvoľte si používateľské meno"
+msgstr "Alebo zadajte používateľské meno:"
 
-#: config/registry.php.dist:135
+#: config/registry.php:109
 msgid "Organizing"
 msgstr "Organizovanie"
 
@@ -2332,10 +2316,9 @@ msgstr "Organizovanie"
 msgid "Other"
 msgstr "Iné"
 
-#: config/prefs.php.dist:467 config/prefs.php.dist:582
-#: config/prefs.php.dist:603 config/prefs.php.dist:624
-#: config/prefs.php.dist:643 config/prefs.php.dist:663
-#: config/prefs.php.dist:675
+#: config/prefs.php:487 config/prefs.php:598 config/prefs.php:619
+#: config/prefs.php:639 config/prefs.php:658 config/prefs.php:680
+#: config/prefs.php:692
 msgid "Other Information"
 msgstr "Ďalšie informácie"
 
@@ -2363,57 +2346,55 @@ msgstr "PHP kód"
 msgid "PHP Shell"
 msgstr "PHP Shell"
 
-#: lib/Block/weatherdotcom_strings.php:54
+#: lib/Block/WeatherdotcomStrings.php:54
 msgid "PM Clouds"
 msgstr "Popoludní oblačno"
 
-#: lib/Block/weatherdotcom_strings.php:55
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:55
 msgid "PM Drizzle"
-msgstr "Popoludní ľahké mrholenie"
+msgstr "Popoludní mrholenie"
 
-#: lib/Block/weatherdotcom_strings.php:56
+#: lib/Block/WeatherdotcomStrings.php:56
 msgid "PM Fog"
 msgstr "Popoludní hmla"
 
-#: lib/Block/weatherdotcom_strings.php:57
+#: lib/Block/WeatherdotcomStrings.php:57
 msgid "PM Light Rain"
 msgstr "Popoludní ľahký dážď"
 
-#: lib/Block/weatherdotcom_strings.php:58
+#: lib/Block/WeatherdotcomStrings.php:58
 msgid "PM Light Snow"
 msgstr "Popoludní ľahké sneženie"
 
-#: lib/Block/weatherdotcom_strings.php:59
+#: lib/Block/WeatherdotcomStrings.php:59
 msgid "PM Rain"
 msgstr "Popoludní dážď"
 
-#: lib/Block/weatherdotcom_strings.php:60
+#: lib/Block/WeatherdotcomStrings.php:60
 msgid "PM Showers"
 msgstr "Popoludní prehánky"
 
-#: lib/Block/weatherdotcom_strings.php:61
+#: lib/Block/WeatherdotcomStrings.php:61
 msgid "PM Snow"
 msgstr "Popoludní sneh"
 
-#: lib/Block/weatherdotcom_strings.php:62
+#: lib/Block/WeatherdotcomStrings.php:62
 msgid "PM Snow Showers"
 msgstr "Popoludní snehové prehánky"
 
-#: lib/Block/weatherdotcom_strings.php:63
+#: lib/Block/WeatherdotcomStrings.php:63
 msgid "PM Sun"
 msgstr "Popoludní slnečno"
 
-#: lib/Block/weatherdotcom_strings.php:64
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:64
 msgid "PM T-Showers"
 msgstr "Popoludní prehánky"
 
-#: lib/Block/weatherdotcom_strings.php:65
+#: lib/Block/WeatherdotcomStrings.php:65
 msgid "PM T-Storms"
 msgstr "Popoludní búrky"
 
-#: lib/Block/account.php:287
+#: lib/Block/Account/Localhost.php:53
 msgid "POSIX extension is missing"
 msgstr "Rozšírenie POSIX chýba"
 
@@ -2421,12 +2402,12 @@ msgstr "Rozšírenie POSIX chýba"
 msgid "P_HP Shell"
 msgstr "P_HP Shell"
 
-#: lib/Block/weatherdotcom_strings.php:53
+#: lib/Block/WeatherdotcomStrings.php:53
 msgid "Partly Cloudy"
 msgstr "Čiastočne oblačno"
 
-#: admin/config/index.php:192 admin/user.php:35 admin/user.php:49 login.php:81
-#: templates/admin/user/update.inc:20 config/registry.php.dist:355
+#: admin/config/index.php:314 admin/user.php:35 admin/user.php:49
+#: config/registry.php:304 login.php:194 templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Heslo"
 
@@ -2434,7 +2415,7 @@ msgstr "Heslo"
 msgid "Password changed successfully."
 msgstr "Heslo bolo úspešne zmenené."
 
-#: lib/Prefs/Ui.php:326
+#: lib/Prefs/Ui.php:302
 msgid "Password:"
 msgstr "Heslo:"
 
@@ -2442,7 +2423,7 @@ msgstr "Heslo:"
 msgid "Passwords must match."
 msgstr "Heslá musia byť rovnaké."
 
-#: admin/sqlshell.php:100
+#: admin/sqlshell.php:105
 msgid "Paste"
 msgstr "Vložiť"
 
@@ -2450,16 +2431,15 @@ msgstr "Vložiť"
 msgid "Pending Signups:"
 msgstr "Prebiehajúce registrácie:"
 
-#: lib/Block/fortune.php:61
+#: lib/Block/Fortune.php:61
 msgid "People"
 msgstr "Ľudia"
 
-#: templates/logintasks/logintasks.html:30
-#, fuzzy
+#: templates/logintasks/logintasks.html:20
 msgid "Perform Login Tasks"
-msgstr "Úlohy pri prihlásení"
+msgstr "Vykonať úlohy pri prihlásení"
 
-#: admin/perms/delete.php:42
+#: admin/perms/delete.php:43
 #, php-format
 msgid "Permission \"%s\" not deleted."
 msgstr "Právo \"%s\" nebolo vymazané."
@@ -2468,36 +2448,34 @@ msgstr "Právo \"%s\" nebolo vymazané."
 msgid "Permissions"
 msgstr "Práva"
 
-#: admin/perms/addchild.php:51 admin/perms/delete.php:46
-#: admin/perms/edit.php:110 admin/perms/index.php:17
+#: admin/perms/addchild.php:52 admin/perms/delete.php:47
+#: admin/perms/edit.php:111 admin/perms/index.php:17
 msgid "Permissions Administration"
 msgstr "Administrácia práv"
 
-#: config/prefs.php.dist:213
+#: config/prefs.php:231
 msgid "Personal Information"
 msgstr "Osobné informácie"
 
-#: lib/Block/fortune.php:62
+#: lib/Block/Fortune.php:62
 msgid "Pets"
 msgstr "Domáce zvieratá"
 
-#: config/registry.php.dist:385
+#: config/registry.php:320
 msgid "Photos"
 msgstr "Fotografie"
 
-#: lib/Block/fortune.php:63
+#: lib/Block/Fortune.php:63
 msgid "Platitudes"
 msgstr "Platitudes"
 
-#: login.php:87
-#, fuzzy
+#: login.php:200
 msgid "Please enter a password."
-msgstr "Zadajte prosím platný čas."
+msgstr "Prosím zadajte heslo."
 
-#: login.php:86
-#, fuzzy
+#: login.php:199
 msgid "Please enter a username."
-msgstr "Zadajte prosím platný čas."
+msgstr "Prosím zadajte používateľské meno."
 
 #: templates/problem/problem.inc:7
 msgid "Please provide a summary of the problem."
@@ -2511,40 +2489,37 @@ msgstr ""
 "Prečítajte si prosím nasledujúci text. MUSÍTE súhlasiť s podmienkami, ak "
 "chcete používať tento systém."
 
-#: services/facebook.php:67
-#, fuzzy
+#: services/facebook/index.php:75
 msgid "Pokes:"
-msgstr "Domáce zvieratá"
+msgstr "Štuchnutia:"
 
-#: admin/activesync.php:105
-#, fuzzy
+#: admin/activesync.php:101
 msgid "Policy Key"
-msgstr "Verejný kľúč"
+msgstr "Kľúč pravidla"
 
-#: lib/Prefs/Ui.php:432
-#, fuzzy
+#: lib/Prefs/Ui.php:404
 msgid "Policy Key:"
-msgstr "Verejný kľúč"
+msgstr "Kľúč pravidla:"
 
-#: lib/Block/fortune.php:64
+#: lib/Block/Fortune.php:64
 msgid "Politics"
 msgstr "Politika"
 
-#: services/facebook.php:101
-#, fuzzy, php-format
+#: services/facebook/index.php:109
+#, php-format
 msgid "Posted %s"
-msgstr "Vyberte %s"
+msgstr "Vytvorené %s"
 
 #: templates/block/twitter_tweet.html.php:26
-#, fuzzy, php-format
+#, php-format
 msgid "Posted %s via %s"
-msgstr "%d %s a %s"
+msgstr "Vytvorené %s cez %s"
 
 #: themes/postnuke/info.php:2
 msgid "Postnuke"
 msgstr "Postnuke"
 
-#: lib/Block/metar.php:261 lib/Block/metar.php:266
+#: lib/Block/Metar.php:239 lib/Block/Metar.php:244
 #, php-format
 msgid "Precipitation for last %d hour: "
 msgid_plural "Precipitation for last %d hours: "
@@ -2552,19 +2527,19 @@ msgstr[0] "Zrážky za poslednú %d hodinu: "
 msgstr[1] "Zrážky za posledné %d hodiny: "
 msgstr[2] "Zrážky za posledných %d hodín: "
 
-#: lib/Block/weatherdotcom.php:301
+#: lib/Block/Weatherdotcom.php:281
 msgid "Precipitation<br />chance"
 msgstr "Pravdepodobnosť<br />zrážok"
 
-#: lib/Block/metar.php:220
+#: lib/Block/Metar.php:198
 msgid "Pressure"
 msgstr "Tlak"
 
-#: lib/Block/metar.php:254
+#: lib/Block/Metar.php:232
 msgid "Pressure at sea level: "
 msgstr "Tlak na úrovni mora: "
 
-#: lib/Block/weatherdotcom.php:239
+#: lib/Block/Weatherdotcom.php:219
 msgid "Pressure: "
 msgstr "Tlak: "
 
@@ -2572,52 +2547,51 @@ msgstr "Tlak: "
 msgid "Problem Description"
 msgstr "Popis problému"
 
-#: admin/activesync.php:171 lib/Prefs/Ui.php:425
-#, fuzzy
+#: admin/activesync.php:167 lib/Prefs/Ui.php:397
 msgid "Provisioned"
-msgstr "Právo"
+msgstr "Prepojené"
 
-#: templates/prefs/facebook.html:21
+#: templates/prefs/facebook.html:20
 msgid "Publish enabled."
-msgstr ""
+msgstr "Publikovanie zapnuté."
 
 #: themes/purple/info.php:2
 msgid "Purple Horde"
 msgstr "Fialové Horde"
 
-#: admin/sqlshell.php:50
+#: admin/sqlshell.php:54
 msgid "Query"
 msgstr "Dotaz"
 
-#: lib/Block/account.php:83
+#: lib/Block/Account.php:79
 msgid "Quota"
 msgstr "Kvóta"
 
-#: lib/Block/weatherdotcom_strings.php:66
+#: lib/Block/WeatherdotcomStrings.php:66
 msgid "Rain"
 msgstr "Dážď"
 
-#: lib/Block/weatherdotcom_strings.php:67
+#: lib/Block/WeatherdotcomStrings.php:67
 msgid "Rain Early"
 msgstr "Ráno dážď"
 
-#: lib/Block/weatherdotcom_strings.php:68
+#: lib/Block/WeatherdotcomStrings.php:68
 msgid "Rain Late"
 msgstr "Neskôr dážď"
 
-#: lib/Block/weatherdotcom_strings.php:69
+#: lib/Block/WeatherdotcomStrings.php:69
 msgid "Rain Shower"
 msgstr "Dažďové prehánky"
 
-#: lib/Block/weatherdotcom_strings.php:70
+#: lib/Block/WeatherdotcomStrings.php:70
 msgid "Rain and Snow"
 msgstr "Dážď a sneh"
 
-#: lib/Block/weatherdotcom_strings.php:71
+#: lib/Block/WeatherdotcomStrings.php:71
 msgid "Rain to Snow"
 msgstr "Dážď až sneh"
 
-#: lib/Block/fortune.php:6
+#: lib/Block/Fortune.php:18
 msgid "Random Fortune"
 msgstr "Náhodná Fortune"
 
@@ -2631,10 +2605,9 @@ msgstr "Náhodná Fortune"
 msgid "Read"
 msgstr "Čítať"
 
-#: templates/prefs/facebook.html:33
-#, fuzzy
+#: templates/prefs/facebook.html:32
 msgid "Read enabled"
-msgstr "Čítať správy"
+msgstr "Čítanie zapnuté"
 
 #: templates/admin/user/remove.inc:8
 #, php-format
@@ -2649,11 +2622,11 @@ msgstr ""
 "Naozaj vymazať používateľské údaje pre používateľa \"%s\"? Túto operáciu "
 "nemožno vrátiť späť."
 
-#: config/prefs.php.dist:562
+#: config/prefs.php:577
 msgid "Refresh Dynamic Menu Elements:"
 msgstr "Obnoviť prvky dynamického menu:"
 
-#: config/prefs.php.dist:523
+#: config/prefs.php:541
 msgid "Refresh Portal View:"
 msgstr "Obnoviť zobrazenie portálu:"
 
@@ -2661,37 +2634,37 @@ msgstr "Obnoviť zobrazenie portálu:"
 msgid "Refresh rate:"
 msgstr "Obnovovacia frekvencia:"
 
-#: admin/activesync.php:134
+#: admin/activesync.php:130
 msgid "Registered User Devices"
-msgstr ""
+msgstr "Registrované používateľské zariadenia"
 
-#: lib/Block/metar.php:321
+#: lib/Block/Metar.php:299
 msgid "Remarks"
 msgstr "Postrehy"
 
-#: admin/sessions.php:39 admin/sessions.php:50
+#: admin/sessions.php:38 admin/sessions.php:54
 msgid "Remote Host:"
 msgstr "Vzdialený počítač:"
 
-#: config/prefs.php.dist:583
+#: config/prefs.php:599
 msgid "Remote Servers"
 msgstr "Vzdialené servery"
 
-#: lib/Prefs/Ui.php:324
+#: lib/Prefs/Ui.php:300
 msgid "Remote URL (http://www.example.com/horde):"
 msgstr "Vzdialená URL (http://www.example.com/horde):"
 
-#: admin/activesync.php:185 templates/admin/groups/edit.inc:23
+#: admin/activesync.php:181 templates/admin/groups/edit.inc:26
 #: templates/admin/user/approve.inc:40
 #: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
 msgid "Remove"
 msgstr "Odstrániť"
 
-#: templates/data/csvmap.inc:118
+#: templates/data/csvmap.inc:119
 msgid "Remove pair"
 msgstr "Odstrániť pár"
 
-#: admin/config/index.php:211
+#: admin/config/index.php:333
 msgid "Remove saved script from server's temporary directory."
 msgstr "Odstrániť uložený skript z dočasného priečinka na serveri."
 
@@ -2705,16 +2678,14 @@ msgid "Remove user: %s"
 msgstr "Odstrániť používateľa: %s"
 
 #: templates/block/twitter_tweet.html.php:34
-#, fuzzy
 msgid "Reply"
-msgstr "Odpovedať na"
+msgstr "Odpovedať"
 
-#: admin/activesync.php:138
-#, fuzzy
+#: admin/activesync.php:134
 msgid "Reprovision All Devices"
-msgstr "Prístup odmietnutý"
+msgstr "Nanovo prepojiť všetky zariadenia"
 
-#: lib/Block/weatherdotcom.php:160
+#: lib/Block/Weatherdotcom.php:140
 msgid "Requested service could not be found."
 msgstr "Požadovaná služba nebola nájdená."
 
@@ -2727,21 +2698,23 @@ msgstr "Vymazať formulár"
 msgid "Reset Password"
 msgstr "Obnoviť heslo"
 
-#: services/resetpassword.php:23
-msgid "Reset Your Password"
-msgstr "Obnoviť Vaše heslo"
-
 #: templates/prefs/activesync.html:6
 msgid ""
 "Reset all device state. This will cause your devices to resyncronize all "
 "items."
 msgstr ""
+"Vynulovať stavy všetkých Vaších zariadení. Toto spôsobí opätovnú "
+"synchronizáciu všetkých položiek na Vaších zariadeniach."
 
-#: admin/sqlshell.php:111
+#: services/resetpassword.php:23
+msgid "Reset your password"
+msgstr "Obnoviť Vaše heslo"
+
+#: admin/sqlshell.php:119
 msgid "Restore Last Query"
 msgstr "Vrátiť posledný príkaz"
 
-#: admin/cmdshell.php:23 admin/phpshell.php:74 admin/sqlshell.php:53
+#: admin/cmdshell.php:23 admin/phpshell.php:74 admin/sqlshell.php:57
 msgid "Results"
 msgstr "Výsledky"
 
@@ -2751,43 +2724,37 @@ msgid "Results for %s"
 msgstr "Výsledky pre %s"
 
 #: templates/prefs/end.html:7
-#, fuzzy
 msgid "Return to Main Screen"
-msgstr "Návrat na nastavenia"
+msgstr "Návrat na hlavnú stránku"
 
 #: templates/block/twitter_tweet.html.php:35
-#, fuzzy
 msgid "Retweet"
-msgstr "Vymazať formulár"
+msgstr "Opätovne tweetovať"
 
 #: templates/block/twitter_tweet.html.php:30
 #, php-format
 msgid "Retweeted by %s"
-msgstr ""
+msgstr "Opätovne tweetované používateľom %s"
 
 #: services/changepassword.php:30
 msgid "Retype new password"
 msgstr "Zopakujte nové heslo"
 
-#: admin/config/config.php:33 admin/config/config.php:37
+#: admin/config/config.php:33 admin/config/config.php:42
 msgid "Revert Configuration"
 msgstr "Vrátiť konfiguráciu"
 
-#: lib/Block/fortune.php:65
+#: lib/Block/Fortune.php:65
 msgid "Riddles"
 msgstr "Hádanky"
 
-#: admin/sqlshell.php:101
+#: admin/sqlshell.php:106
 msgid "Run"
 msgstr "Spustiť"
 
-#: admin/sqlshell.php:14
+#: admin/sqlshell.php:38
 msgid "SQL Shell"
 msgstr "SQL Shell"
-
-#: config/registry.php.dist:363
-msgid "SSH"
-msgstr "SSH"
 
 #: lib/Api.php:67
 msgid "S_QL Shell"
@@ -2797,7 +2764,7 @@ msgstr "S_QL Shell"
 msgid "Save"
 msgstr "Uložiť"
 
-#: templates/admin/groups/edit.inc:63 templates/shares/edit.inc:330
+#: templates/admin/groups/edit.inc:70 templates/shares/edit.inc:330
 #, php-format
 msgid "Save \"%s\""
 msgstr "Uložiť \"%s\""
@@ -2806,7 +2773,7 @@ msgstr "Uložiť \"%s\""
 msgid "Save and Finish"
 msgstr "Uložiť a ukončiť"
 
-#: admin/config/index.php:183
+#: admin/config/index.php:305
 msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
@@ -2814,20 +2781,20 @@ msgstr ""
 "Uložiť vygenerovanú konfiguráciu ako PHP skript do dočasného priečinka Vášho "
 "servera."
 
-#: admin/config/scripts.php:92
-#, fuzzy, php-format
+#: admin/config/scripts.php:94
+#, php-format
 msgid "Saved configuration upgrade script to: \"%s\"."
 msgstr "Skript na aktualizáciu nastavení bol uložený do: \"%s\"."
 
-#: lib/Block/weatherdotcom_strings.php:72
+#: lib/Block/WeatherdotcomStrings.php:72
 msgid "Scattered Showers"
 msgstr "Ojedinelé zrážky"
 
-#: lib/Block/weatherdotcom_strings.php:73
+#: lib/Block/WeatherdotcomStrings.php:73
 msgid "Scattered T-Storms"
 msgstr "Ojedinelé búrky"
 
-#: lib/Block/fortune.php:66
+#: lib/Block/Fortune.php:66
 msgid "Science"
 msgstr "Veda"
 
@@ -2835,7 +2802,7 @@ msgstr "Veda"
 msgid "Sea_rch"
 msgstr "Hľadať"
 
-#: services/help/index.php:134 templates/admin/user/list.inc:16
+#: services/help/index.php:130 templates/admin/user/list.inc:16
 msgid "Search"
 msgstr "Hľadať"
 
@@ -2861,7 +2828,7 @@ msgstr "Vyberte používateľa na pridanie:"
 
 #: templates/prefs/addressbooks.html:5
 msgid "Select all fields to search when expanding addresses."
-msgstr ""
+msgstr "Vyberte polia na prehľadanie pri rozbaľovaní adries."
 
 #: services/keyboard.php:38
 msgid ""
@@ -2895,11 +2862,11 @@ msgstr "Vyberte oddeľovač vo formáte času:"
 msgid "Select the time format:"
 msgstr "Vyberte formát času:"
 
-#: config/prefs.php.dist:509
+#: config/prefs.php:527
 msgid "Select your color scheme."
 msgstr "Vyberte si farebnú schému"
 
-#: config/prefs.php.dist:328
+#: config/prefs.php:344
 msgid "Select your preferred language:"
 msgstr "Vyberte jazyk:"
 
@@ -2907,7 +2874,7 @@ msgstr "Vyberte jazyk:"
 msgid "Send Problem Report"
 msgstr "Poslať správu o probléme"
 
-#: lib/Block/metar.php:311
+#: lib/Block/Metar.php:289
 msgid "Sensor: "
 msgstr "Senzor: "
 
@@ -2915,7 +2882,7 @@ msgstr "Senzor: "
 msgid "Server Time"
 msgstr "Serverový čas"
 
-#: lib/Block/weatherdotcom.php:164
+#: lib/Block/Weatherdotcom.php:144
 msgid "Server data wrong or not available."
 msgstr "Údaje zo servera sú nesprávne alebo nie sú k dispozícii."
 
@@ -2923,7 +2890,7 @@ msgstr "Údaje zo servera sú nesprávne alebo nie sú k dispozícii."
 msgid "Session Admin"
 msgstr "Správa relácií"
 
-#: admin/sessions.php:37
+#: admin/sessions.php:36
 msgid "Session Timestamp:"
 msgstr "Časová pečať relácie:"
 
@@ -2931,41 +2898,38 @@ msgstr "Časová pečať relácie:"
 msgid "Sessions"
 msgstr "_Relácie"
 
-#: config/prefs.php.dist:277
-#, fuzzy
+#: config/prefs.php:296
 msgid ""
 "Set preferences to allow you to reset your password if you ever forget it."
-msgstr "Nastavte možnosti na obnovenie Vášho hesla ak ho zabudnete."
+msgstr "Nastaviť možnosť obnovenia hesla v prípade jeho zabudnutia."
 
-#: config/prefs.php.dist:605
+#: config/prefs.php:621
 msgid "Set up integration with your Facebook account."
-msgstr ""
+msgstr "Nastaviť integráciu s účtom Facebook."
 
-#: config/prefs.php.dist:626
+#: config/prefs.php:641
 msgid "Set up integration with your Twitter account."
-msgstr ""
+msgstr "Nastaviť integráciu s účtom Twitter."
 
-#: config/prefs.php.dist:584
+#: config/prefs.php:600
 msgid "Set up remote servers that you want to access from your portal."
 msgstr ""
 "Nastavenie vzdialených serverov, ku ktorým chcete pristupovať z Vášho "
 "portálu."
 
-#: config/prefs.php.dist:314
-#, fuzzy
+#: config/prefs.php:330
 msgid "Set your preferred language, timezone and date preferences."
 msgstr "Vyberte jazyk, časovú zónu a nastavenia dátumu."
 
-#: config/prefs.php.dist:469
-#, fuzzy
+#: config/prefs.php:489
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display preferences."
 msgstr ""
-"Nastavenie aplikácie spúšťanej pri štarte, farebnej schémy, intervalu "
-"obnovovania stránky a iných vlastností zobrazenia."
+"Vyberte nastavenie aplikácie spúšťanej pri štarte, farebnej schémy, "
+"intervalu obnovovania stránky a iných vlastností zobrazenia."
 
-#: lib/Block/weatherdotcom.php:190
+#: lib/Block/Weatherdotcom.php:170
 msgid "Several locations possible with the parameter: "
 msgstr "Do úvahy prichádza niekoľko lokalít pomocou parametra: "
 
@@ -2973,7 +2937,7 @@ msgstr "Do úvahy prichádza niekoľko lokalít pomocou parametra: "
 msgid "Short Summary"
 msgstr "Krátky súhrn"
 
-#: config/prefs.php.dist:570
+#: config/prefs.php:584
 msgid "Should access keys be defined for most links?"
 msgstr "Majú sa pre väčšinu odkazov vytvoriť skratkové klávesy?"
 
@@ -2987,49 +2951,47 @@ msgstr "Majú sa pre väčšinu odkazov vytvoriť skratkové klávesy?"
 msgid "Show"
 msgstr "Zobraziť"
 
-#: templates/prefs/app.html:21
-#, fuzzy
+#: templates/prefs/app.html:22
 msgid "Show Advanced Preferences"
-msgstr "zobraziť rozdiely"
+msgstr "Zobraziť rozšírené nastavenia"
 
-#: admin/config/index.php:173
+#: admin/config/index.php:295
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
 msgstr ""
 "Zobraziť rozdiely medzi práve uloženou a novovygenerovanou konfiguráciou."
 
-#: lib/Block/feed.php:24
+#: lib/Block/Feed.php:41
 msgid "Show extra detail?"
 msgstr "Zobraziť extra detaily?"
 
-#: config/prefs.php.dist:491
+#: config/prefs.php:510
 msgid "Show last login time when logging in?"
 msgstr "Má sa pri prihlásení zobraziť čas posledného prihlásenia?"
 
-#: lib/Block/fb_stream.php:89
-#, fuzzy
+#: lib/Block/FbStream.php:65
 msgid "Show notifications"
-msgstr "Upozornenie vo vyskakovacom okne"
+msgstr "Zobraziť notifikácie"
 
-#: config/prefs.php.dist:530
+#: config/prefs.php:547
 #, php-format
 msgid "Show the %s Menu on the left?"
 msgstr "Zobraziť menu %s na ľavej strane?"
 
-#: lib/Block/weatherdotcom_strings.php:74
+#: lib/Block/WeatherdotcomStrings.php:74
 msgid "Showers"
 msgstr "Prehánky"
 
-#: lib/Block/weatherdotcom_strings.php:75
+#: lib/Block/WeatherdotcomStrings.php:75
 msgid "Showers Early"
 msgstr "Ráno prehánky"
 
-#: lib/Block/weatherdotcom_strings.php:76
+#: lib/Block/WeatherdotcomStrings.php:76
 msgid "Showers Late"
 msgstr "Neskôr prehánky"
 
-#: lib/Block/weatherdotcom_strings.php:77
+#: lib/Block/WeatherdotcomStrings.php:77
 msgid "Showers in the Vicinity"
 msgstr "Preháňky v okolí"
 
@@ -3037,97 +2999,94 @@ msgstr "Preháňky v okolí"
 msgid "Simplex"
 msgstr "Simplex"
 
-#: templates/logintasks/logintasks.html:31
-#, fuzzy
+#: templates/logintasks/logintasks.html:21
 msgid "Skip Login Tasks"
-msgstr "Úlohy pri prihlásení"
+msgstr "Preskočiť úlohy pri prihlásení"
 
-#: lib/Block/iframe.php:26
+#: lib/Block/Iframe.php:35
 msgid "Small"
 msgstr "Malé"
 
-#: lib/Block/weatherdotcom_strings.php:78
+#: lib/Block/WeatherdotcomStrings.php:78
 msgid "Snow"
 msgstr "Sneh"
 
-#: lib/Block/weatherdotcom_strings.php:79
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:79
 msgid "Snow Early"
-msgstr "Ráno prehánky"
+msgstr "Zrána sneženie"
 
-#: lib/Block/weatherdotcom_strings.php:80
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:80
 msgid "Snow Late"
-msgstr "Neskôr prehánky"
+msgstr "Neskôr snežneie"
 
-#: lib/Block/weatherdotcom_strings.php:81
+#: lib/Block/WeatherdotcomStrings.php:81
 msgid "Snow Shower"
 msgstr "Snehová prehánka"
 
-#: lib/Block/weatherdotcom_strings.php:82
+#: lib/Block/WeatherdotcomStrings.php:82
 msgid "Snow Showers"
 msgstr "Snehové prehánky"
 
-#: lib/Block/weatherdotcom_strings.php:83
+#: lib/Block/WeatherdotcomStrings.php:83
 msgid "Snow Showers Early"
 msgstr "Ráno snehové prehánky"
 
-#: lib/Block/weatherdotcom_strings.php:84
+#: lib/Block/WeatherdotcomStrings.php:84
 msgid "Snow Showers Late"
 msgstr "Neskôr snehové prehánky"
 
-#: lib/Block/metar.php:273
+#: lib/Block/Metar.php:251
 msgid "Snow depth: "
 msgstr "Hĺbka snehu: "
 
-#: lib/Block/metar.php:277
+#: lib/Block/Metar.php:255
 msgid "Snow equivalent in water: "
 msgstr "Množstvo vody ekvivalentné snehu: "
 
-#: lib/Block/fortune.php:67
+#: lib/Block/Fortune.php:67
 msgid "Songs & Poems"
 msgstr "Piesne a básne"
 
-#: config/nls.php:182
+#: config/nls.php:183
 msgid "South European (ISO-8859-3)"
 msgstr "Juhoeurópske (ISO-8859-3)"
 
-#: lib/Block/moon.php:31 lib/Block/moon.php:60
+#: lib/Block/Moon.php:32 lib/Block/Moon.php:63
 msgid "Southern Hemisphere"
 msgstr "Južná pologuľa"
-
-#: config/registry.php.dist:102
-msgid "Spam"
-msgstr "Spam"
 
 #: services/keyboard.php:14
 msgid "Special Character Input"
 msgstr "Vloženie špeciálnych znakov"
 
-#: lib/Block/fortune.php:68
+#: lib/Block/Fortune.php:68
 msgid "Sports"
 msgstr "Športy"
 
-#: lib/Block/metar.php:73 lib/Block/weatherdotcom.php:68
+#: lib/Block/Metar.php:60 lib/Block/Weatherdotcom.php:61
 msgid "Standard"
 msgstr "Štandardné"
 
-#: lib/Block/fortune.php:69
+#: lib/Block/Fortune.php:69
 msgid "Star Trek"
 msgstr "Star Trek"
 
 #: templates/prefs/activesync.html:2
 msgid "State Management"
-msgstr ""
+msgstr "Správa stavov"
 
-#: admin/activesync.php:112 templates/admin/config/index.html:17
+#: admin/activesync.php:108 templates/admin/config/index.html:39
 #: templates/prefs/activesync.html:22
 msgid "Status"
 msgstr "Stav"
 
-#: services/facebook.php:144
+#: services/facebook/index.php:147
 msgid "Status unable to be set."
-msgstr ""
+msgstr "Stav nemohol byť nastavený."
+
+#: templates/block/twitter-layout.html.php:24
+msgid "Stream"
+msgstr "Príspevky"
 
 #: util/icon_browser.php:40
 #, php-format
@@ -3143,11 +3102,12 @@ msgstr ""
 "Požiadavka na pridanie \"%s\" do systému bola odoslaná. Nemôžete sa "
 "prihlásiť, kým nebude Vaša požiadavka schválená."
 
-#: services/facebook.php:38
-msgid "Succesfully connected your Facebook account."
+#: services/facebook/index.php:35
+msgid "Succesfully connected your Facebook account or updated permissions."
 msgstr ""
+"Úspešné pripojenie na Váš účet Facebook alebo aktualizované prístupové práva."
 
-#: admin/sqlshell.php:88
+#: admin/sqlshell.php:92
 msgid "Success"
 msgstr "Úspech"
 
@@ -3161,7 +3121,7 @@ msgstr "Úspešne pridané do systému: \"%s\"."
 msgid "Successfully cleared data for user \"%s\" from the system."
 msgstr "Vymazanie údajov zo systému pre používateľa \"%s\" bolo úspešné."
 
-#: admin/groups.php:78 admin/perms/delete.php:36
+#: admin/groups.php:60 admin/perms/delete.php:37
 #, php-format
 msgid "Successfully deleted \"%s\"."
 msgstr "Úspešne vymazané: \"%s\"."
@@ -3171,7 +3131,7 @@ msgstr "Úspešne vymazané: \"%s\"."
 msgid "Successfully removed \"%s\" from the system."
 msgstr "Vymazanie \"%s\" zo systému bolo úspešné."
 
-#: admin/config/config.php:40
+#: admin/config/config.php:44
 msgid "Successfully reverted configuration. Reload to see changes."
 msgstr ""
 "Návrat ku konfigurácii bol úspešný. Pre zobrazenie zmien znovu načítajte "
@@ -3181,7 +3141,7 @@ msgstr ""
 msgid "Successfully saved backup configuration."
 msgstr "Záloha konfigurácie bola uložená."
 
-#: admin/config/config.php:51
+#: admin/config/config.php:55
 #, php-format
 msgid "Successfully saved the backup configuration file %s."
 msgstr "Záložný súbor s konfiguráciou %s bol úspešne uložený."
@@ -3191,91 +3151,89 @@ msgstr "Záložný súbor s konfiguráciou %s bol úspešne uložený."
 msgid "Successfully updated \"%s\""
 msgstr "Úspešne aktualizované: \"%s\""
 
-#: admin/config/config.php:60 admin/config/index.php:47
+#: admin/config/config.php:64 admin/config/index.php:47
+#: admin/config/index.php:93
 #, php-format
 msgid "Successfully wrote %s"
 msgstr "Úspešne uložené: %s"
 
-#: lib/Block/sunrise.php:63
+#: lib/Block/Sunrise.php:70
 msgid "Sun Rise"
 msgstr "Východ slnka"
 
-#: lib/Block/sunrise.php:66
+#: lib/Block/Sunrise.php:73
 msgid "Sun Set"
 msgstr "Západ slnka"
 
-#: config/prefs.php.dist:429
+#: config/prefs.php:450
 msgid "Sunday"
 msgstr "Nedeľa"
 
-#: lib/Block/weatherdotcom_strings.php:85
+#: lib/Block/WeatherdotcomStrings.php:85
 msgid "Sunny"
 msgstr "Slnečno"
 
-#: lib/Block/weatherdotcom.php:220
+#: lib/Block/Weatherdotcom.php:200
 msgid "Sunrise"
 msgstr "Východ slnka"
 
-#: lib/Block/sunrise.php:3 lib/Block/sunrise.php:14
+#: lib/Block/Sunrise.php:13
 msgid "Sunrise/Sunset"
 msgstr "Východ/západ slnka"
 
-#: lib/Block/weatherdotcom.php:219
+#: lib/Block/Weatherdotcom.php:199
 msgid "Sunrise: "
 msgstr "Východ slnka: "
 
-#: lib/Block/weatherdotcom.php:223
+#: lib/Block/Weatherdotcom.php:203
 msgid "Sunset"
 msgstr "Západ slnka"
 
-#: lib/Block/weatherdotcom.php:222
+#: lib/Block/Weatherdotcom.php:202
 msgid "Sunset: "
 msgstr "Západ slnka: "
 
-#: config/prefs.php.dist:664
+#: config/prefs.php:681
 msgid "SyncML"
 msgstr "SyncML"
 
-#: lib/Block/feed.php:3
+#: lib/Block/Feed.php:18
 msgid "Syndicated Feed"
 msgstr "Syndikovaná dávka"
 
-#: lib/Block/weatherdotcom_strings.php:86
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:86
 msgid "T-Showers"
-msgstr "Prehánky"
+msgstr "Búrky"
 
-#: lib/Block/weatherdotcom_strings.php:87
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:87
 msgid "T-Showers Early"
-msgstr "Ráno prehánky"
+msgstr "Zrána prehánky"
 
-#: lib/Block/weatherdotcom_strings.php:88
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:88
 msgid "T-Showers Late"
 msgstr "Neskôr prehánky"
 
-#: lib/Block/weatherdotcom_strings.php:89
+#: lib/Block/WeatherdotcomStrings.php:89
 msgid "T-Storm"
 msgstr "Búrka"
 
-#: lib/Block/weatherdotcom_strings.php:90
+#: lib/Block/WeatherdotcomStrings.php:90
 msgid "T-Storm and Windy"
 msgstr "Búrka a veterno"
 
-#: lib/Block/weatherdotcom_strings.php:91
+#: lib/Block/WeatherdotcomStrings.php:91
 msgid "T-Storms"
 msgstr "Búrky"
 
-#: lib/Block/weatherdotcom_strings.php:92
+#: lib/Block/WeatherdotcomStrings.php:92
 msgid "T-Storms Early"
 msgstr "Ráno búrky"
 
-#: lib/Block/weatherdotcom_strings.php:93
+#: lib/Block/WeatherdotcomStrings.php:93
 msgid "T-Storms Late"
 msgstr "Neskôr búrky"
 
-#: lib/Block/cloud.php:3 lib/Block/cloud.php:23
+#: lib/Block/Cloud.php:14
 msgid "Tag Cloud"
 msgstr "Oblak s heslami"
 
@@ -3283,7 +3241,7 @@ msgstr "Oblak s heslami"
 msgid "Tango Blue"
 msgstr "Tango modrá"
 
-#: config/registry.php.dist:184
+#: config/registry.php:160
 msgid "Tasks"
 msgstr "Úlohy"
 
@@ -3291,49 +3249,47 @@ msgstr "Úlohy"
 msgid "Teal"
 msgstr "Teal"
 
-#: lib/Block/metar.php:285
+#: lib/Block/Metar.php:263
 msgid "Temp for last hour: "
 msgstr "Teplota za poslednú hodinu: "
 
-#: lib/Block/metar.php:209
+#: lib/Block/Metar.php:187
 msgid "Temperature"
 msgstr "Teplota"
 
-#: lib/Block/weatherdotcom.php:227
+#: lib/Block/Weatherdotcom.php:207
 msgid "Temperature: "
 msgstr "Teplota: "
 
-#: lib/Block/weatherdotcom.php:296
+#: lib/Block/Weatherdotcom.php:276
 #, php-format
 msgid "Temperature<br />(%sHi%s/%sLo%s) &deg;%s"
 msgstr "Teplota<br />(%sMax%s/%sMin%s) &deg;%s"
 
-#: lib/Prefs/Ui.php:518 services/facebook.php:31
+#: lib/Prefs/Ui.php:478 services/facebook/index.php:40
 msgid "Temporarily unable to connect with Facebook, Please try again."
-msgstr ""
+msgstr "Nepodarilo sa spojiť s Facebookom, prosím skúste neskôr."
 
-#: lib/Block/twitter_timeline.php:122
-#, fuzzy
+#: lib/Block/TwitterTimeline.php:104
 msgid "Temporarily unable to contact Twitter. Please try again later."
-msgstr ""
-"Nastala chyba pri aktualizácii detailov kontaktu. Prosím skúste to neskôr."
+msgstr "Nepodarilo sa spojiť s Twitterom. Prosím skúste neskôr."
 
 #: services/keyboard.php:148
 msgid "Text Area"
 msgstr "Textová oblasť"
 
-#: config/prefs.php.dist:544
+#: config/prefs.php:560
 msgid "Text Only"
 msgstr "Iba text"
 
-#: config/nls.php:183
+#: config/nls.php:184
 msgid "Thai (TIS-620)"
 msgstr "Thajské (TIS-620)"
 
-#: lib/Prefs/Ui.php:747
-#, fuzzy, php-format
+#: lib/Prefs/Ui.php:716
+#, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
-msgstr "Server \"%s\" bol vymazaný."
+msgstr "Vzdialené vymazanie pre zariadenie %s bolo zrušené."
 
 #: admin/alarms.php:81
 msgid "The alarm has been deleted."
@@ -3343,11 +3299,20 @@ msgstr "Alarm bol vymazaný."
 msgid "The alarm has been saved."
 msgstr "Alarm bol uložený."
 
-#: config/prefs.php.dist:246
-msgid "The default e-mail address to use with this identity:"
+#: admin/config/index.php:98
+#, php-format
+msgid ""
+"The configuration for %s cannot be updated automatically. Please update the "
+"configuration manually."
 msgstr ""
+"Konfigurácia pre %s nemohla byť automaticky aktualizovaná. Prosím "
+"aktualizujte konfiguráciu manuálne."
 
-#: lib/Block/vatid.php:76
+#: config/prefs.php:261
+msgid "The default e-mail address to use with this identity:"
+msgstr "Prednastavená e-mailová adresa pre túto identitu:"
+
+#: lib/Block/Vatid.php:87
 msgid ""
 "The member state service could not be reached in time. Try again later or "
 "with a different member state."
@@ -3355,7 +3320,7 @@ msgstr ""
 "Služba členského štátu nebola dosiahnutá v určenom časovom limite. Skúste "
 "neskôr alebo vyberte iný členský štát."
 
-#: lib/Block/vatid.php:73
+#: lib/Block/Vatid.php:83
 msgid ""
 "The member state service is currently not available. Try again later or with "
 "a different member state."
@@ -3363,25 +3328,25 @@ msgstr ""
 "Služba členského štátu nie je dostupná. Skúste neskôr alebo vyberte iný "
 "členský štát."
 
-#: lib/Block/vatid.php:67
+#: lib/Block/Vatid.php:75
 msgid "The provided country code is invalid."
 msgstr "Uvedený kód štátu je neplatný."
 
-#: lib/Prefs/Ui.php:681
+#: lib/Prefs/Ui.php:650
 #, php-format
 msgid "The server \"%s\" has been deleted."
 msgstr "Server \"%s\" bol vymazaný."
 
-#: lib/Prefs/Ui.php:676
+#: lib/Prefs/Ui.php:645
 #, php-format
 msgid "The server \"%s\" has been saved."
 msgstr "Server \"%s\" bol uložený."
 
-#: lib/Block/vatid.php:70
+#: lib/Block/Vatid.php:79
 msgid "The service is currently not available. Try again later."
 msgstr "Služba momentálne nie je dostupná. Skúste neskôr."
 
-#: lib/Block/vatid.php:79
+#: lib/Block/Vatid.php:91
 msgid "The service is currently too busy. Try again later."
 msgstr "Služba je momentálne preťažená. Skúste neskôr."
 
@@ -3391,15 +3356,17 @@ msgid "The signup request for \"%s\" has been removed."
 msgstr "Žiadosť o prihlásenie \"%s\" bola vymazaná."
 
 #: admin/signup_confirm.php:39
-#, fuzzy, php-format
+#, php-format
 msgid "The signup request for user \"%s\" has been removed."
-msgstr "Žiadosť o prihlásenie \"%s\" bola vymazaná."
+msgstr "Žiadosť o prihlásenie používateľa \"%s\" bola vymazaná."
 
-#: lib/LoginTasks/Task/TestScriptActive.php:38
+#: lib/LoginTasks/Task/AdminCheck.php:60
 msgid ""
 "The test script is currently enabled. For security reasons, disable test "
 "scripts when you are done testing (see horde/docs/INSTALL)."
 msgstr ""
+"Testovací skript je zapnutý. Prosím vypnite z bezpečnostných dôvodov  tento "
+"skript po ukončení testovania (pozri horde/docs/INSTLAL)."
 
 #: admin/signup_confirm.php:60 admin/user.php:72
 #, php-format
@@ -3407,18 +3374,9 @@ msgid "The user \"%s\" already exists."
 msgstr "Užívateľ \"%s\" už existuje."
 
 #: services/shares/edit.php:85 services/shares/edit.php:177
-#, fuzzy, php-format
+#, php-format
 msgid "The user \"%s\" does not exist."
-msgstr "Zdieľanie \"%s\" neexistuje."
-
-#: lib/Block/weatherdotcom.php:51 lib/Block/weatherdotcom.php:106
-msgid "The weather.com block is not available."
-msgstr "Blok weather.com nie je dostupný."
-
-#: lib/Prefs/Ui.php:46
-#, fuzzy
-msgid "Theme directory can't be opened"
-msgstr "Priečinok s témami \"%s\" nebol nájdený."
+msgstr "Používateľ \"%s\" neexistuje."
 
 #: util/icon_browser.php:28
 #, php-format
@@ -3445,12 +3403,12 @@ msgstr "Nastala chyba pri odstraňovaní \"%s\" zo systému: "
 msgid "There was a problem updating \"%s\": %s"
 msgstr "Nastala chyba pri aktualizácii \"%s\": %s"
 
-#: lib/Block/twitter_timeline.php:110 lib/Block/twitter_timeline.php:126
-#, fuzzy, php-format
+#: lib/Block/TwitterTimeline.php:92 lib/Block/TwitterTimeline.php:108
+#, php-format
 msgid "There was an error contacting Twitter: %s"
-msgstr "Nastala chyba pri importe údajov kontaktu:"
+msgstr "Chyba pri spojení s Twitterom: %s"
 
-#: admin/config/config.php:70
+#: admin/config/config.php:75
 msgid ""
 "There was an error in the configuration form. Perhaps you left out a "
 "required field."
@@ -3458,39 +3416,50 @@ msgstr ""
 "Nastala chyba v konfiguračnom formulári. Pravdepodobne ste nevyplnili "
 "požadované pole."
 
-#: lib/Block/fb_stream.php:158 lib/Block/fb_stream.php:183
-#: services/facebook.php:54 services/facebook.php:71
-#, fuzzy, php-format
+#: lib/Block/FbStream.php:135 lib/Block/FbStream.php:161
+#: services/facebook/index.php:62 services/facebook/index.php:79
+#, php-format
 msgid "There was an error making the request: %s"
-msgstr "Nastala chyba pri čítaní údajov o kontakte."
+msgstr "Chyba pri požiadavke: %s"
 
-#: lib/Api.php:284
+#: services/facebook/index.php:37
+msgid ""
+"There was an error obtaining your Facebook session. Please try again later."
+msgstr "Chyba pri čítaní sedenia Facebook. Prosím skúste neskôr znovu."
+
+#: lib/Api.php:279
 #, php-format
 msgid ""
 "There was an error removing global data for %s. Details have been logged."
 msgstr ""
+"Chyba pri odstraňovaní globálnych údajov pre %s. Detaily boli zaznamenané "
+"pre administrátora."
 
-#: lib/Block/vatid.php:89
+#: services/facebook/index.php:49
+msgid "There was an error with the requested permissions"
+msgstr "Chyba pri vyžadovaných prístupových právach."
+
+#: lib/Block/Vatid.php:102
 msgid "This VAT identification number is invalid."
 msgstr "Toto IČ DPH je neplatné."
 
-#: lib/Block/vatid.php:86
+#: lib/Block/Vatid.php:99
 msgid "This VAT identification number is valid."
 msgstr "Toto IČ DPH je platné."
 
-#: lib/Block/weatherdotcom_strings.php:94
+#: lib/Block/WeatherdotcomStrings.php:94
 msgid "Thunder"
 msgstr "Hrmenie"
 
-#: config/registry.php.dist:260
+#: config/registry.php:224
 msgid "Tickets"
 msgstr "Tickets"
 
-#: config/registry.php.dist:308
+#: config/registry.php:263
 msgid "Time Tracking"
 msgstr "Time Tracking"
 
-#: lib/Block/time.php:23
+#: lib/Block/Time.php:27
 msgid "Time format"
 msgstr "Formát času"
 
@@ -3502,11 +3471,11 @@ msgstr "Časová pečať alebo neznáme"
 msgid "Timestamps of successful synchronization sessions"
 msgstr "Časové záznamy úspečných sedení synchronizácie"
 
-#: lib/Block/iframe.php:22
+#: lib/Block/Iframe.php:28
 msgid "Title"
 msgstr "Titulok"
 
-#: templates/data/csvmap.inc:95
+#: templates/data/csvmap.inc:96
 msgid ""
 "To exclude a particular field form the import or to correct a wrong match "
 "select a field in the lists below and hit \"Remove pair\"."
@@ -3515,7 +3484,6 @@ msgstr ""
 "pole v zoznamoch a kliknite na \"Odstrániť pár\"."
 
 #: templates/prefs/addressbooks.html:10
-#, fuzzy
 msgid ""
 "To select multiple fields, hold down the Control (PC) or Command (Mac) while "
 "clicking."
@@ -3523,96 +3491,91 @@ msgstr ""
 "Pre výber viacerých položiek držte počas klikania klávesu Control (PC) alebo "
 "Command (Mac)."
 
-#: lib/Block/weatherdotcom.php:313
+#: lib/Block/Weatherdotcom.php:293
 msgid "Today"
 msgstr "Dnes"
 
-#: lib/Block/weatherdotcom.php:315
+#: lib/Block/Weatherdotcom.php:295
 msgid "Tomorrow"
 msgstr "Zajtra"
 
-#: lib/Block/fortune.php:70
+#: login.php:223
+msgid "Traditional"
+msgstr "Tradičný"
+
+#: lib/Block/Fortune.php:70
 msgid "Translations"
 msgstr "Preklady"
 
-#: config/nls.php:184
+#: config/nls.php:185
 msgid "Turkish (ISO-8859-9)"
 msgstr "Turecky (ISO-8859-9)"
 
-#: lib/Block/twitter_timeline.php:166
-#, fuzzy
+#: templates/block/twitter-layout.html.php:15
 msgid "Tweet"
-msgstr "Text"
+msgstr "Tweet"
 
-#: config/prefs.php.dist:625
-#, fuzzy
+#: config/prefs.php:640
 msgid "Twitter Integration"
-msgstr "Ďalšie informácie"
+msgstr "Integrácia s Twitterom"
 
-#: lib/Block/twitter_timeline.php:23 lib/Block/twitter_timeline.php:64
-#: lib/Block/twitter_timeline.php:74 lib/Block/twitter_timeline.php:78
-#, php-format
+#: lib/Block/TwitterTimeline.php:41
 msgid "Twitter Timeline"
-msgstr ""
+msgstr "Twitter časová os"
 
-#: lib/Block/twitter_timeline.php:70
+#: lib/Block/TwitterTimeline.php:57
 #, php-format
 msgid "Twitter Timeline for %s"
-msgstr ""
+msgstr "Twitter časová os pre %s"
 
 #: services/keyboard.php:108
 msgid "U characters"
 msgstr "U znakov"
 
-#: lib/Block/weatherdotcom.php:273
+#: lib/Block/Weatherdotcom.php:253
 msgid "U.V. index: "
 msgstr "U.V. index: "
 
-#: lib/Block/iframe.php:19
+#: lib/Block/Iframe.php:23
 msgid "URL"
 msgstr "URL"
 
-#: services/twitter.php:64
+#: services/twitter/index.php:68
 #, php-format
 msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
 msgstr ""
+"Nepodarilo sa spojiť s Twitterom. Prosím skúste neskôr znovu. Chyba: %s"
 
-#: admin/groups.php:82 admin/perms/delete.php:39
+#: admin/groups.php:63 admin/perms/delete.php:40
 #, php-format
 msgid "Unable to delete \"%s\": %s."
 msgstr "Nemožno vymazať \"%s\": %s."
 
-#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:55
-#, fuzzy, php-format
-msgid "Unable to modify the sequence for %s: %s"
-msgstr "Nemožno vymazať \"%s\": %s."
-
-#: services/facebook.php:175
-#, fuzzy
+#: services/facebook/index.php:172
 msgid "Unable to set like."
-msgstr "Nepodarilo sa spustiť program smbclient."
+msgstr "Nepodarilo sa nastaviť \"páči sa mi\"."
 
 #: templates/prefs/end.html:4
 msgid "Undo Changes"
 msgstr "Zrušiť zmeny"
 
-#: lib/Prefs/Ui.php:266
+#: lib/Prefs/Ui.php:242
 msgid "Unfiled"
 msgstr "Nenastavená"
 
-#: config/nls.php:185
+#: config/nls.php:186
 msgid "Unicode (UTF-8)"
 msgstr "Unikód (UTF-8)"
 
-#: lib/Block/metar.php:70 lib/Block/weatherdotcom.php:64
+#: lib/Block/Metar.php:57 lib/Block/Weatherdotcom.php:57
 msgid "Units"
 msgstr "Jednotky"
 
-#: lib/Block/weatherdotcom.php:162
+#: lib/Block/Weatherdotcom.php:142
 msgid "Unknown location provided."
 msgstr "Neznáma lokalita."
 
-#: lib/Block/fb_stream.php:179 templates/admin/user/list.inc:36
+#: lib/Block/FbStream.php:157 templates/admin/user/list.inc:36
 msgid "Update"
 msgstr "Aktualizácia"
 
@@ -3621,29 +3584,46 @@ msgstr "Aktualizácia"
 msgid "Update %s"
 msgstr "Aktualizovať %s"
 
+#: admin/config/index.php:163 admin/config/index.php:258
+#, php-format
+msgid "Update %s schema"
+msgstr "Aktualizovať schému %s"
+
+#: templates/admin/config/index.html:19
+msgid "Update all DB schemas"
+msgstr "Aktualizovať všetky databázové schémy"
+
+#: templates/admin/config/index.html:11
+msgid "Update all configurations"
+msgstr "Aktualizovať všetky konfigurácie"
+
 #: templates/admin/user/update.inc:53
 msgid "Update user"
 msgstr "Aktualizovať používateľa"
 
-#: admin/groups.php:144 admin/perms/edit.php:104 services/shares/edit.php:249
+#: admin/groups.php:103 admin/perms/edit.php:105 services/shares/edit.php:249
 #, php-format
 msgid "Updated \"%s\"."
 msgstr "Aktualizácia \"%s\" bola úspešná."
 
-#: admin/config/index.php:190
+#: admin/config/index.php:113
+#, php-format
+msgid "Updated schema for %s."
+msgstr "Schéma \"%s\" bola aktualizovaná."
+
+#: admin/config/index.php:312
 msgid "Upload"
 msgstr "Nahrať"
 
-#: admin/config/index.php:198
-#, fuzzy
+#: admin/config/index.php:320
 msgid "Uploaded all application configuration files to the server."
 msgstr "Všetky súbory s konfiguráciou boli nahrané na server."
 
-#: config/prefs.php.dist:645
+#: config/prefs.php:660
 msgid "Use if name/password is different for IMSP server."
 msgstr "Použite v prípade, že je meno/heslo odlišné pre IMSP server."
 
-#: templates/admin/groups/edit.inc:22 templates/admin/groups/edit.inc:60
+#: templates/admin/groups/edit.inc:24 templates/admin/groups/edit.inc:67
 msgid "User"
 msgstr "Používateľ"
 
@@ -3651,10 +3631,13 @@ msgstr "Používateľ"
 msgid "User Administration"
 msgstr "Správa používateľov"
 
-#: lib/Prefs/Ui.php:432
-#, fuzzy
+#: lib/Prefs/Ui.php:404
 msgid "User Agent:"
-msgstr "Použiť aktuálne: %s"
+msgstr "Používateľský agent:"
+
+#: lib/Block/Account.php:68
+msgid "User Name"
+msgstr "Používateľské meno"
 
 #: signup.php:67
 msgid "User Registration"
@@ -3665,11 +3648,10 @@ msgid "User Registration has been disabled for this site."
 msgstr "Registrácia používateľov bola pre tento systém zakázaná."
 
 #: admin/signup_confirm.php:25 signup.php:27
-#, fuzzy
 msgid "User Registration is not properly configured for this site."
-msgstr "Registrácia používateľov bola pre tento systém zakázaná."
+msgstr "Registrácia používateľov nie je na tomto systéme správne nastavená."
 
-#: lib/Block/account.php:561
+#: lib/Block/Account/Ldap.php:101
 msgid "User account not found"
 msgstr "Používateľský účet nebol nájdený."
 
@@ -3677,16 +3659,17 @@ msgstr "Používateľský účet nebol nájdený."
 msgid "User to add:"
 msgstr "Vyberte používateľa na pridanie:"
 
-#: admin/config/index.php:191 admin/user.php:32 admin/user.php:48 login.php:76
-#: services/resetpassword.php:29 templates/admin/user/approve.inc:22
+#: admin/config/index.php:313 admin/user.php:32 admin/user.php:48
+#: login.php:189 services/resetpassword.php:29
+#: templates/admin/user/approve.inc:22
 msgid "Username"
 msgstr "Používateľské meno"
 
-#: lib/Prefs/Ui.php:325
+#: lib/Prefs/Ui.php:301
 msgid "Username:"
 msgstr "Používateľské meno:"
 
-#: templates/admin/groups/edit.inc:53
+#: templates/admin/groups/edit.inc:60
 msgid "Users"
 msgstr "Používatelia"
 
@@ -3694,63 +3677,63 @@ msgstr "Používatelia"
 msgid "Users in the system:"
 msgstr "Používatelia systému:"
 
-#: lib/Block/vatid.php:19
+#: lib/Block/Vatid.php:21
 msgid "VAT id number verification"
 msgstr "Overenie IČ DPH"
 
-#: lib/Block/vatid.php:42
+#: lib/Block/Vatid.php:39
 msgid "VAT identification number:"
 msgstr "IČ DPH:"
 
-#: lib/Block/vatid.php:93
+#: lib/Block/Vatid.php:107
 msgid "VAT number"
 msgstr "IČ DPH"
 
-#: config/registry.php.dist:122
-msgid "Vacation"
-msgstr "Dovolenka"
-
-#: lib/Block/weatherdotcom.php:248
+#: lib/Block/Weatherdotcom.php:228
 msgid "Variable"
 msgstr "Premenná"
 
-#: config/registry.php.dist:246
+#: templates/admin/config/index.html:46
+msgid "Version Check"
+msgstr "Kontrola verzií"
+
+#: config/registry.php:213
 msgid "Version Control"
 msgstr "Manažment verzií"
 
-#: lib/Block/weatherdotcom_strings.php:101
+#: lib/Block/WeatherdotcomStrings.php:101
 msgid "Very High"
 msgstr "Veľmi vysoká"
 
-#: config/nls.php:186
+#: config/nls.php:187
 msgid "Vietnamese (VISCII)"
 msgstr "Vietnamsky (VISCII)"
 
-#: lib/Block/iframe.php:3
+#: lib/Block/Iframe.php:13
 msgid "View an external web page"
 msgstr "Zobraziť externú www stránku"
 
-#: lib/Block/metar.php:204
+#: lib/Block/Metar.php:182
 msgid "Visibility"
 msgstr "Viditeľnosť"
 
-#: lib/Block/weatherdotcom.php:267
+#: lib/Block/Weatherdotcom.php:247
 msgid "Visibility: "
 msgstr "Viditeľnosť: "
 
-#: lib/Block/account.php:98
+#: lib/Block/Account.php:96
 msgid "Warning"
 msgstr "Varovanie"
 
-#: lib/Block/weatherdotcom.php:32
+#: lib/Block/Weatherdotcom.php:41
 msgid "Weather Forecast"
 msgstr "Predpoveď počasia"
 
-#: lib/Block/weatherdotcom.php:429
+#: lib/Block/Weatherdotcom.php:409
 msgid "Weather data provided by"
 msgstr "Údaje o počasí poskytuje"
 
-#: config/registry.php.dist:369
+#: config/registry.php:309
 msgid "Web Site"
 msgstr "WWW stránka"
 
@@ -3758,32 +3741,27 @@ msgstr "WWW stránka"
 msgid "Welcome"
 msgstr "Vitajte"
 
-#: templates/login/login.inc:5 templates/login/mobile.inc:1
-#, php-format
-msgid "Welcome to %s"
-msgstr "Víta Vás %s"
-
-#: templates/portal/mobile.inc:1
+#: templates/portal/mobile.inc:5
 #, php-format
 msgid "Welcome, %s"
 msgstr "Vitajte, %s"
 
-#: config/nls.php:187
+#: config/nls.php:188
 msgid "Western (ISO-8859-1)"
 msgstr "Západné (ISO-8859-1)"
 
-#: config/nls.php:188
+#: config/nls.php:189
 msgid "Western (ISO-8859-15)"
 msgstr "Západné (ISO-8859-15)"
 
-#: config/prefs.php.dist:483
+#: config/prefs.php:503
 #, php-format
 msgid "What application should %s display after login?"
 msgstr "Ktorú aplikáciu má %s zobraziť po prihlásení?"
 
-#: lib/Block/twitter_timeline.php:131
+#: lib/Block/TwitterTimeline.php:113
 msgid "What are you working on now?"
-msgstr ""
+msgstr "Na čom práve pracujete?"
 
 #: templates/data/csvinfo.inc:14
 msgid "What is the delimiter character?"
@@ -3793,73 +3771,68 @@ msgstr "Aký je znak pre oddeľovač?"
 msgid "What is the quote character?"
 msgstr "Aký je znak pre úvodzovku?"
 
-#: lib/Block/fb_stream.php:165
+#: lib/Block/FbStream.php:143
 msgid "What's on your mind?"
-msgstr ""
+msgstr "Nad čím práve rozmýšľate?"
 
-#: config/prefs.php.dist:427
+#: config/prefs.php:453
 msgid "Which day would you like to be displayed as the first day of the week?"
 msgstr "Ktorý deň mý byť zobrazený ako prvý deň v týždni?"
 
-#: lib/Block/moon.php:21
+#: lib/Block/Moon.php:22
 msgid "Which phases"
 msgstr "Ktoré fázy"
 
-#: config/prefs.php.dist:536
-#, fuzzy, php-format
+#: config/prefs.php:553
+#, php-format
 msgid "Width of the %s menu on the left:"
-msgstr "Zobraziť menu %s na ľavej strane?"
+msgstr "Šírka menu %s na ľavej strane:"
 
-#: config/registry.php.dist:394
+#: config/registry.php:326
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/weatherdotcom.php:303 lib/Block/weatherdotcom_strings.php:95
+#: lib/Block/Weatherdotcom.php:283 lib/Block/WeatherdotcomStrings.php:95
 msgid "Wind"
 msgstr "Vietor"
 
-#: lib/Block/weatherdotcom_strings.php:96
+#: lib/Block/WeatherdotcomStrings.php:96
 msgid "Wind Early"
 msgstr "Ráno veterno"
 
-#: lib/Block/weatherdotcom_strings.php:97
+#: lib/Block/WeatherdotcomStrings.php:97
 msgid "Wind Late"
 msgstr "Neskôr veterno"
 
-#: lib/Block/metar.php:79
+#: lib/Block/Metar.php:66
 msgid "Wind speed in knots"
 msgstr "Rýchlosť vetra v uzloch"
 
-#: lib/Block/metar.php:151
+#: lib/Block/Metar.php:129
 msgid "Wind:"
 msgstr "Vietor:"
 
-#: lib/Block/weatherdotcom.php:246
+#: lib/Block/Weatherdotcom.php:226
 msgid "Wind: "
 msgstr "Vietor: "
 
-#: lib/Block/account.php:634
-msgid "Windows"
-msgstr "Windows"
-
-#: admin/activesync.php:181 templates/prefs/activesync.html:28
-#, fuzzy
+#: admin/activesync.php:177 templates/prefs/activesync.html:28
 msgid "Wipe"
-msgstr "St"
+msgstr "Vymazať"
 
-#: admin/activesync.php:162 lib/Prefs/Ui.php:415
+#: admin/activesync.php:158 lib/Prefs/Ui.php:387
 msgid "Wipe is pending"
-msgstr ""
+msgstr "Vymazanie čaká na spracovanie"
 
-#: lib/Block/fortune.php:71
+#: lib/Block/Fortune.php:71
 msgid "Wisdom"
 msgstr "Múdrosť"
 
-#: lib/Block/fortune.php:72
+#: lib/Block/Fortune.php:72
 msgid "Work"
 msgstr "Práca"
 
-#: config/registry.php.dist:275
+#: config/registry.php:236
 msgid "X-Ref"
 msgstr "X-Ref"
 
@@ -3870,106 +3843,115 @@ msgstr "X-Ref"
 msgid "YY"
 msgstr "YY"
 
-#: templates/logintasks/logintasks.html:34
+#: templates/logintasks/logintasks.html:24
 msgid "Yes, I Agree"
 msgstr "Súhlasím."
 
-#: services/facebook.php:110 services/facebook.php:169
+#: services/facebook/index.php:118 services/facebook/index.php:166
 #, php-format
 msgid "You and %d other person likes this"
 msgid_plural "You and %d other people like this"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Páči sa to Vám a %d ďalšiemu človeku"
+msgstr[1] "Páči sa to Vám a %d ďalším ľudom"
+msgstr[2] "Páči sa to Vám a %d ďalším ľudom"
 
-#: lib/Api.php:301
+#: lib/Api.php:297
 msgid "You are not allowed to add groups."
 msgstr "Nie ste autentifikovaný."
 
-#: lib/Api.php:476
+#: lib/Api.php:414
 msgid "You are not allowed to add shares."
 msgstr "Nemáte právo pridávať zdieľania."
 
-#: lib/Api.php:350 lib/Api.php:373 lib/Api.php:399 lib/Api.php:422
+#: lib/Api.php:340 lib/Api.php:363
 msgid "You are not allowed to change groups."
 msgstr "Nemáte právo meniť skupiny."
 
-#: lib/Api.php:561 lib/Api.php:598 lib/Api.php:640 lib/Api.php:667
+#: lib/Api.php:495 lib/Api.php:532 lib/Api.php:566 lib/Api.php:591
 msgid "You are not allowed to change shares."
 msgstr "Nemáte právo meniť zdieľania."
 
-#: lib/Api.php:327
+#: lib/Api.php:319
 msgid "You are not allowed to delete groups."
 msgstr "Nemáte právo vymazať skupiny."
 
-#: lib/Api.php:505
+#: lib/Api.php:439
 msgid "You are not allowed to delete shares."
 msgstr "Nemáte právo zrušiť zdieľania."
 
-#: lib/Api.php:820
+#: lib/Api.php:723
 msgid "You are not allowed to list groups of shares."
 msgstr "Nemáte právo zobraziť zoznam skupín zdieľaní."
 
-#: lib/Api.php:702 lib/Api.php:744
+#: lib/Api.php:617 lib/Api.php:655
 msgid "You are not allowed to list share permissions."
 msgstr "Nemáte právo čítať práva k zdieľaniu."
 
-#: lib/Api.php:532
+#: lib/Api.php:464
 msgid "You are not allowed to list shares."
 msgstr "Nemáte právo zobraziť zoznam zdieľaní."
 
-#: lib/Api.php:448
+#: lib/Api.php:386
 msgid "You are not allowed to list users of groups."
 msgstr "Nemáte právo zobraziť zoznam užívateľov v skupinách."
 
-#: lib/Api.php:786
+#: lib/Api.php:693
 msgid "You are not allowed to list users of shares."
 msgstr "Nemáte právo zobraziť zoznam užívateľov v zdielaniach."
 
-#: lib/Api.php:216
+#: lib/Api.php:221
 msgid "You are not allowed to remove user data."
 msgstr "Nemáte právo odstrániť užívateľské údaje."
 
-#: lib/Block/fb_stream.php:159 lib/Block/fb_stream.php:184
-#: services/facebook.php:55 services/facebook.php:72
+#: lib/Block/FbStream.php:136 lib/Block/FbStream.php:162
+#: services/facebook/index.php:63 services/facebook/index.php:80
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
-msgstr ""
+msgstr "Môžete tiež skontrolovať Vaše nastavenia pre Facebook v %s."
 
-#: lib/LoginTasks/Task/TosAgreement.php:54
+#: lib/LoginTasks/Task/TosAgreement.php:64
 msgid ""
 "You did not agree to the Terms of Service agreement, so you were not allowed "
 "to login."
 msgstr ""
+"Nesúhlasili ste s podmienkami používania a preto nemáte povolené prihlásenie."
 
-#: login.php:278
+#: login.php:320
 msgid "You have been logged out."
 msgstr "Boli ste odhlásený."
 
-#: lib/Block/fb_stream.php:124
+#: services/facebook/index.php:47
+msgid "You have denied the requested permissions."
+msgstr "Odmietli ste požadované práva."
+
+#: lib/Block/FbStream.php:97
 #, php-format
 msgid ""
 "You have not properly connected your Facebook account with Horde. You should "
 "check your Facebook settings in your %s."
 msgstr ""
+"Nemáte správne prepojený účet Facebook so systémom Horde. Nastavenia pre "
+"Facebook môžete upraviť v %s."
 
-#: lib/Block/twitter_timeline.php:182
+#: lib/Block/TwitterTimeline.php:168
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
 "check your Twitter settings in your %s."
 msgstr ""
+"Nemáte správne prepojený účet Twitter so systémom Horde. Nastavenia pre "
+"Facebook môžete upraviť v %s."
 
-#: services/facebook.php:112 services/facebook.php:163
-#: services/facebook.php:171
+#: services/facebook/index.php:120 services/facebook/index.php:160
+#: services/facebook/index.php:168
 msgid "You like this"
-msgstr ""
+msgstr "Vám sa to páči"
 
 #: templates/problem/problem.inc:11
 msgid "You must describe the problem before you can send the problem report."
 msgstr "Musíte popísať problém predtým, ako odošlete správu o probléme."
 
-#: lib/Prefs/Ui.php:679
+#: lib/Prefs/Ui.php:648
 msgid "You must select an server to be deleted."
 msgstr "Musíte vybrať server, ktorý má byť vymazaný."
 
@@ -3993,13 +3975,12 @@ msgstr "Musíte určiť používateľa, ktorý sa má aktualizovať."
 msgid "Your Email Address"
 msgstr "Vaša e-mailová adresa"
 
-#: config/prefs.php.dist:212 config/prefs.php.dist:275
-#: config/prefs.php.dist:312 config/prefs.php.dist:439
+#: config/prefs.php:230 config/prefs.php:294 config/prefs.php:328
+#: config/prefs.php:461
 msgid "Your Information"
 msgstr "Vaše informácie"
 
-#: login.php:270
-#, fuzzy
+#: login.php:312
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -4028,8 +4009,7 @@ msgstr ""
 "Váš autentifikačný modul nepodporuje zobrazovanie zoznamu používateľov, "
 "alebo bola táto možnosť z nejakého dôvodu zakázaná."
 
-#: login.php:274
-#, fuzzy
+#: login.php:316
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -4037,19 +4017,19 @@ msgstr ""
 "Zdá sa, že Váš prehliadač sa zmenil od začiatku Vašej relácie %s. Pre Vašu "
 "bezpečnosť sa musíte znovu prihlásiť."
 
-#: lib/Block/iframe.php:58
+#: lib/Block/Iframe.php:67
 msgid "Your browser does not support this feature."
 msgstr "Váš prehliadač nepodporuje túto funkciu."
 
-#: config/prefs.php.dist:337
+#: config/prefs.php:365
 msgid "Your current time zone:"
 msgstr "Vaša aktuálna časová zóna:"
 
-#: config/prefs.php.dist:236
+#: config/prefs.php:252
 msgid "Your full name:"
 msgstr "Vaše meno:"
 
-#: login.php:290
+#: login.php:332
 msgid "Your login has expired."
 msgstr "Vaše prihlásenie vypršalo."
 
@@ -4063,13 +4043,12 @@ msgid "Your password has been reset"
 msgstr "Vaše heslo bolo obnovené"
 
 #: services/resetpassword.php:87
-#, fuzzy
 msgid ""
 "Your password has been reset, but couldn't be sent to you. Please contact "
 "the administrator."
 msgstr ""
-"Vaše heslo bolo obnovené, skontrolujte si poštu a prihláste sa s Vaším novým "
-"heslom."
+"Vaše heslo bolo obnovené, ale nepodarilo sa ho Vám odoslať. Prosím "
+"kontaktujte administrátora."
 
 #: services/resetpassword.php:82
 msgid ""
@@ -4079,33 +4058,31 @@ msgstr ""
 "Vaše heslo bolo obnovené, skontrolujte si poštu a prihláste sa s Vaším novým "
 "heslom."
 
-#: lib/Block/account.php:689 lib/Block/account.php:704
+#: lib/Block/Account/Ldap.php:212 lib/Block/Account/Ldap.php:224
 msgid "Your password has expired"
 msgstr "Vašemu heslu vypršala platnosť"
 
-#: login.php:178
+#: login.php:163
 msgid "Your password has expired."
 msgstr "Vašemu heslu vypršala platnosť."
 
-#: lib/Prefs/Ui.php:322
+#: lib/Prefs/Ui.php:298
 msgid "Your remote servers:"
 msgstr "Vaše vzdialené servery:"
 
-#: login.php:266
-#, fuzzy
+#: login.php:308
 msgid "Your session has expired. Please login again."
-msgstr ""
-"Platnosť Vašej relácie pre aplikáciu %s vypršala. Prosím prihláste sa znovu."
+msgstr "Platnosť Vašej relácie vypršala. Prosím prihláste sa znovu."
 
-#: lib/Block/fortune.php:73
+#: lib/Block/Fortune.php:73
 msgid "Zippy"
 msgstr "Zippy"
 
-#: services/problem.php:107
+#: services/problem.php:109
 msgid "[Problem Report]"
 msgstr "[Správa o probléme]"
 
-#: admin/sessions.php:39
+#: admin/sessions.php:38
 msgid "[Unknown]"
 msgstr "[Neznáme]"
 
@@ -4118,9 +4095,8 @@ msgid "_CLI"
 msgstr "_CLI"
 
 #: lib/Api.php:27
-#, fuzzy
 msgid "_Configuration"
-msgstr "Konfigurácia"
+msgstr "_Konfigurácia"
 
 #: lib/Api.php:52
 msgid "_DataTree"
@@ -4129,6 +4105,10 @@ msgstr "_DataTree"
 #: lib/Api.php:37
 msgid "_Groups"
 msgstr "_Skupiny"
+
+#: lib/Application.php:56
+msgid "_Home"
+msgstr "_Úvodná stránka"
 
 #: lib/Api.php:42
 msgid "_Permissions"
@@ -4142,21 +4122,21 @@ msgstr "Po_užívatelia"
 msgid "attachment"
 msgstr "príloha"
 
-#: lib/Block/metar.php:167 lib/Block/metar.php:353
+#: lib/Block/Metar.php:145 lib/Block/Metar.php:331
 #, php-format
 msgid "calm"
 msgstr "bezvetrie"
 
-#: lib/Block/weatherdotcom_strings.php:102
+#: lib/Block/WeatherdotcomStrings.php:102
 msgid "falling"
 msgstr "klesá"
 
-#: lib/Block/metar.php:169 lib/Block/metar.php:355 lib/Block/metar.php:381
+#: lib/Block/Metar.php:147 lib/Block/Metar.php:333 lib/Block/Metar.php:359
 #, php-format
 msgid "from the %s (%s) at %s %s"
 msgstr "zo smeru %s (%s) rýchlosťou %s %s"
 
-#: lib/Block/weatherdotcom.php:254
+#: lib/Block/Weatherdotcom.php:234
 msgid "gusting"
 msgstr ", v nárazoch"
 
@@ -4164,21 +4144,21 @@ msgstr ", v nárazoch"
 msgid "inline"
 msgstr "v správe"
 
-#: lib/Block/fb_stream.php:124 lib/Block/fb_stream.php:159
-#: lib/Block/fb_stream.php:184 lib/Block/twitter_timeline.php:182
-#: services/facebook.php:55 services/facebook.php:72
+#: lib/Block/FbStream.php:97 lib/Block/FbStream.php:136
+#: lib/Block/FbStream.php:162 lib/Block/TwitterTimeline.php:168
+#: services/facebook/index.php:63 services/facebook/index.php:80
 msgid "preferences"
-msgstr ""
+msgstr "používateľské nastavenia"
 
-#: lib/Block/weatherdotcom_strings.php:104
+#: lib/Block/WeatherdotcomStrings.php:104
 msgid "rising"
 msgstr "stúpa"
 
-#: admin/config/config.php:80
+#: admin/config/config.php:85
 msgid "show differences"
 msgstr "zobraziť rozdiely"
 
-#: lib/Block/weatherdotcom_strings.php:103
+#: lib/Block/WeatherdotcomStrings.php:103
 msgid "steady"
 msgstr "ustálený"
 
@@ -4190,6 +4170,6 @@ msgstr "pre potvrdenie zadajte heslo dvakrát"
 msgid "unified"
 msgstr "unifikované"
 
-#: lib/Block/weatherdotcom.php:6
+#: lib/Block/Weatherdotcom.php:34
 msgid "weather.com"
 msgstr "weather.com"

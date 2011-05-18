@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Browser \n"
+"Project-Id-Version: Horde_Browser\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-03-24 16:00+0100\n"
-"PO-Revision-Date: 2011-03-24 16:00+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2011-05-18 16:08+0100\n"
+"Last-Translator: Martin Matuška <martin@matuska.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgstr "Súbor nebol nahraný."
 #: lib/Horde/Browser.php:1053
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
-msgstr ""
+msgstr "Nahraný súbor je prázdny. Možno neexistuje na Vašom počítači."
 
 #: lib/Horde/Browser.php:1050
 #, php-format

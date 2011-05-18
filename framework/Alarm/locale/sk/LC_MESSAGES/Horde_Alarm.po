@@ -7,34 +7,32 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Alarm\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2011-04-05 13:52+0200\n"
+"PO-Revision-Date: 2011-05-18 16:08+0100\n"
+"Last-Translator: Martin Matuška <martin@matuska.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: lib/Horde/Alarm/Handler/Desktop.php:86
+#: lib/Horde/Alarm/Handler/Desktop.php:79
 msgid "Desktop notification (with certain browsers)"
-msgstr ""
+msgstr "Notifikácia na ploche (u niektorých prehliadačov)"
 
-#: lib/Horde/Alarm/Handler/Mail.php:118
+#: lib/Horde/Alarm/Handler/Mail.php:121
 msgid "Email"
 msgstr "Email"
 
-#: lib/Horde/Alarm/Handler/Mail.php:138
-#, fuzzy
+#: lib/Horde/Alarm/Handler/Mail.php:141
 msgid "Email address (optional)"
-msgstr "Emailová adresa:"
+msgstr "E-Mailová adresa (voliteľné)"
 
-#: lib/Horde/Alarm/Handler/Notify.php:81
-#, fuzzy
+#: lib/Horde/Alarm/Handler/Notify.php:77
 msgid "Inline"
-msgstr "v správe"
+msgstr "V správe"
 
-#: lib/Horde/Alarm/Handler/Notify.php:101
-#, fuzzy
+#: lib/Horde/Alarm/Handler/Notify.php:97
 msgid "Play a sound?"
-msgstr "Prosím vyberte zvuk."
+msgstr "Prehrať zvuk?"

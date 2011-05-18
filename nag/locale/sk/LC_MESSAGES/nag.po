@@ -985,8 +985,8 @@ msgstr "Úloha \"%s\" bola pridaná do zoznamu \"%s\", s termínom splnenia: %s.
 #: lib/Nag.php:669
 #, php-format
 msgid ""
-"The task \"%s\" has been deleted from \"%s\" tasklist, with a due date of: %"
-"s."
+"The task \"%s\" has been deleted from \"%s\" tasklist, with a due date of: "
+"%s."
 msgstr "Úloha \"%s\" bola vymazaná zo zoznamu \"%s\", s termínom splnenia: %s."
 
 #: lib/Nag.php:664

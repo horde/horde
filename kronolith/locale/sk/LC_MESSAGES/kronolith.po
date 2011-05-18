@@ -1162,8 +1162,8 @@ msgstr "Nová udalosť"
 #: lib/Kronolith.php:398
 #, php-format
 msgid ""
-"New calendar created and automatically shared with the following group(s): %"
-"s."
+"New calendar created and automatically shared with the following group(s): "
+"%s."
 msgstr ""
 "Nový kalendár bol vytvorený a je automaticky zdieľaný s nasledovnými "
 "skupinami: %s."
@@ -1992,8 +1992,8 @@ msgstr "Udalosť \"%s\" bola pridaná do kalendára \"%s\", ktorá je dňa %s o 
 #: lib/Kronolith.php:1606
 #, php-format
 msgid ""
-"The event \"%s\" has been deleted from \"%s\" calendar, which was on %s at %"
-"s."
+"The event \"%s\" has been deleted from \"%s\" calendar, which was on %s at "
+"%s."
 msgstr ""
 "Udalosť \"%s\" bola vymazaná z kalendára \"%s\", ktorá bola dňa %s o %s."
 
@@ -2393,8 +2393,8 @@ msgid ""
 "You do not have an email address configured in your Personal Information "
 "Options. You must set one %shere%s before event notifications can be sent."
 msgstr ""
-"V nastavení identity nemáte nastavenú e-mailovú adresu. Musíte ju nastaviť %"
-"stu%s skôr, ako sa budú posielať upozornenia na udalosti."
+"V nastavení identity nemáte nastavenú e-mailovú adresu. Musíte ju nastaviť "
+"%stu%s skôr, ako sa budú posielať upozornenia na udalosti."
 
 #: add.php:30
 #, php-format
