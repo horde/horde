@@ -311,8 +311,7 @@ class Ansel_Tagger
      *                       - user (array) - only include objects owned by
      *                         these users.
      *
-     * @return  A hash of 'calendars' and 'events' that each contain an array
-     *          of calendar_ids and event_uids respectively.
+     * @return  A hash of 'gallery' and 'image' ids.
      * @throws Ansel_Exception
      */
     public function search($tags, $filter = array())
@@ -320,12 +319,12 @@ class Ansel_Tagger
         $args = array();
 
         /* These filters are mutually exclusive */
-        if (array_key_exists('user', $filter)) {
+        if (!empty($filter['user'])) {
             $args['userId'] = $filter['user'];
         } elseif (!empty($filter['gallery'])) {
-            // Only events located in specific calendar(s)
+            // Only events located in specific galleries
             if (!is_array($filter['gallery'])) {
-                $filter['gallry'] = array($filter['gallery']);
+                $filter['gallery'] = array($filter['gallery']);
             }
             $args['gallery'] = $filter['gallery'];
         }
