@@ -2,6 +2,7 @@
 v3.0.1-git
 ----------
 
+[jan] Fix accidental encryption of notes (Bug #9981).
 [jan] Fix color picker for categories in the note list header (Bug #9980).
 
 

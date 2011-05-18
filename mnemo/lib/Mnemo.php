@@ -453,6 +453,9 @@ class Mnemo
      */
     public static function getPassphrase($id)
     {
+        if (!$id) {
+            return;
+        }
         if ($passphrase = $GLOBALS['session']->get('mnemo', 'passphrase/' . $id)) {
             $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
             return $secret->read($secret->getKey('mnemo'), $passphrase);

@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
  <notes>
+* [jan] Fix accidental encryption of notes (Bug #9981).
 * [jan] Fix color picker for categories in the note list header (Bug #9980).
  </notes>
  <contents>
@@ -817,6 +818,7 @@
    <date>2011-04-27</date>
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
+* [jan] Fix accidental encryption of notes.
 * [jan] Fix color picker for categories in the note list header (Bug #9980).
    </notes>
   </release>
