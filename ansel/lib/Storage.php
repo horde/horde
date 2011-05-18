@@ -803,9 +803,10 @@ class Ansel_Storage
                 }
                 $tagged = $GLOBALS['injector']->getInstance('Ansel_Tagger')
                     ->search($params['tags'],
-                             array('type' => 'galleries', 'user' => $user));
-                foreach ($shares as $shares) {
-                    if (in_array($share->getId(), $tagged)) {
+                             array('type' => 'gallery', 'user' => $user));
+
+                foreach ($shares as $share) {
+                    if (in_array($share->getId(), $tagged['galleries'])) {
                         $galleries[] = $share;
                     }
                 }
