@@ -41,7 +41,7 @@ framework/Group/test/Horde/Group/conf.php
 framework/Kolab_Storage/test/Horde/Kolab/Storage/conf.php
 framework/Ldap/test/Horde/Ldap/conf.php
 framework/Share/test/Horde/Share/conf.php
-
+content/test/Content/conf.php
 # Dynamically generated content that may live in the repo directories
 /lib/
 /libs/
