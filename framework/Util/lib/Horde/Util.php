@@ -679,8 +679,11 @@ class Horde_Util
             return true;
         }
 
-        /* See if we can call dl() at all, by the current ini settings. */
-        if ((ini_get('enable_dl') != 1) || (ini_get('safe_mode') == 1)) {
+        /* See if we can call dl() at all, by the current ini settings.
+         * dl() has been removed in some PHP 5.3 SAPIs. */
+        if ((ini_get('enable_dl') != 1) ||
+            (ini_get('safe_mode') == 1) ||
+            !function_exists('dl')) {
             return false;
         }
 
@@ -705,7 +708,7 @@ class Horde_Util
             }
         }
 
-        return @dl($ext . '.' . $suffix) || @dl('php_' . $ext . '.' . $suffix);
+        return dl($ext . '.' . $suffix) || dl('php_' . $ext . '.' . $suffix);
     }
 
     /**
