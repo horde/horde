@@ -189,7 +189,9 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 }
             }
             $type = $img->getContentType();
-            $data = $img->raw(true);
+            try {
+                $data = $img->raw(true);
+            } catch (Exception $e) {}
         }
 
         if (!$img || !$data) {
