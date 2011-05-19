@@ -102,7 +102,7 @@ class Content_Tagger
      *
      * @return void
      */
-    public function tag($userId, $objectId, $tags, $created = null)
+    public function tag($userId, $objectId, $tags, Horde_Date $created = null)
     {
         if (is_null($created)) {
             $created = date('Y-m-d\TH:i:s');
