@@ -504,19 +504,28 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
-    protected function getMessageStorage(
-        $params = array()
+    protected function getDataStorage(
+        $data, $params = array()
     ) {
         $factory = new Horde_Kolab_Storage_Factory(
             array_merge(
                 array(
                     'driver' => 'mock',
-                    'params' => $this->getMessageAccount()
+                    'params' => $data
                 ),
                 $params
             )
         );
         return $factory->create();
+    }
+
+    protected function getMessageStorage(
+        $params = array()
+    ) {
+        return $this->getDataStorage(
+            $this->getMessageAccount(),
+            $params
+        );
     }
 
     protected function getCachedQueryForList($bare_list, $factory)
