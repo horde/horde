@@ -50,10 +50,10 @@ class Ansel_View_List extends Ansel_View_Ansel
 
         parent::__construct($params);
 
-        /* Notifications */
+        // Notifications
         $notification = $GLOBALS['injector']->getInstance('Horde_Notification');
 
-        /* Ansel_Storage */
+        // Ansel_Storage
         $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
 
         // We'll need this in the template.
@@ -81,7 +81,6 @@ class Ansel_View_List extends Ansel_View_Ansel
         }
 
         $this->_special = Horde_Util::getFormData('special');
-
         if (!$this->_owner && !$this->_special && $this->_groupby != 'none' ) {
             Ansel::getUrlFor(
               'group',
@@ -95,6 +94,7 @@ class Ansel_View_List extends Ansel_View_Ansel
         } else {
             $this->_page = Horde_Util::getFormData('page', 0);
         }
+
         $this->_g_perPage = $this->tilesperpage ?
           $this->tilesperpage :
           $prefs->getValue('tilesperpage');
@@ -137,8 +137,7 @@ class Ansel_View_List extends Ansel_View_Ansel
                 $this->_galleryList = array();
             } else {
                 $this->_galleryList = $ansel_storage->listGalleries(
-                    array('perm' => Horde_Perms::SHOW,
-                          'attributes' => $filter,
+                    array('attributes' => $filter,
                           'all_levels' => false,
                           'from' => $this->_page * $this->_g_perPage,
                           'count' => $this->_g_perPage,
