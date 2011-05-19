@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [jan] Fix advanced search with empty search criteria (Bug #10038).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1748,7 +1748,7 @@
    <date>2011-05-18</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [jan] Fix advanced search with empty search criteria (Bug #10038).
    </notes>
   </release>
  </changelog>

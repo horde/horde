@@ -58,8 +58,7 @@ if ($search_mode == 'basic') {
      * a default end date. */
     $event->initialized = true;
 
-    $q_title = Horde_Util::getFormData('title');
-    if (strlen($q_title)) {
+    if (Horde_Util::getFormData('actionID') == 'search_calendar') {
         $event->readForm();
         if (Horde_Util::getFormData('status') == Kronolith::STATUS_NONE) {
             $event->status = null;
