@@ -23,7 +23,9 @@ require_once 'Horde/Test/Autoload.php';
 // including Horde/Test/Autoload.php, but it doesn't work. In fact, the above
 // require_once statment is redundant - Autoload.php is already included by the
 // time we get here (at least for me...).
-$mappings = array('Content' => dirname(__FILE__) . '/../../lib');
+$mappings = array(
+    'Content_Test' => dirname(__FILE__),
+    'Content' => dirname(__FILE__) . '/../../lib');
 $mapping = '';
 if (!empty($mappings)) {
     foreach ($mappings as $prefix => $path) {
