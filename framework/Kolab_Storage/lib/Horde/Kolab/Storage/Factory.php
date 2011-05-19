@@ -199,6 +199,9 @@ class Horde_Kolab_Storage_Factory
             );
             $parser->setLogger($params['logger']);
         }
+        if (!empty($params['ignore_parse_errors'])) {
+            $parser->setLogger(false);
+        }
         if (!empty($params['timelog'])) {
             $driver = new Horde_Kolab_Storage_Driver_Decorator_Timer(
                 $driver, $timer, $params['timelog']

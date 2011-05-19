@@ -76,13 +76,16 @@ implements  Horde_Kolab_Storage_Data_Parser
     /**
      * Indicate a problem in the log.
      *
-     * @param string $message The warn message.
+     * @param Exception $message The warn message.
      */
     private function _warn($message)
     {
-        if ($this->_logger !== null) {
-            $this->_logger->warn($message);
+        if ($this->_logger === null) {
+            throw $message;
+        } else if ($this->_logger === false) {
+            return;
         }
+        $this->_logger->warn($message->getMessage());
     }
 
     /**
@@ -144,7 +147,7 @@ implements  Horde_Kolab_Storage_Data_Parser
                 $objects[$obid] = $this->getFormat()->parse($folder, $obid, $structure['structure'], $options);
             } catch (Horde_Kolab_Storage_Exception $e) {
                 $objects[$obid] = false;
-                $this->_warn($e->getMessage());
+                $this->_warn($e);
             }
             if ($this->_driver->hasCatenateSupport()) {
                 $objects[$obid]['__structure'] = $structure['structure'];

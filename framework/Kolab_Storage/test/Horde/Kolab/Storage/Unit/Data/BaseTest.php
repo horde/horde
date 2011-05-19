@@ -40,7 +40,9 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->assertEquals(
             array(1 => false),
-            $this->_getBrokenStore()->fetch(array('1'))
+            $this->_getBrokenStore(
+                array('ignore_parse_errors' => true)
+            )->fetch(array('1'))
         );
     }
 
