@@ -95,11 +95,6 @@ implements ArrayAccess
                 );
             }
             if (isset($element['m'])) {
-                $keys = array_keys($element['m']);
-                $folder['status'] = array(
-                    'uidvalidity' => time(),
-                    'uidnext' => empty($keys) ? 1 : max($keys) + 1
-                );
                 $folder['mails'] = $element['m'];
                 foreach ($element['m'] as $uid => $mail) {
                     if (isset($mail['structure'])) {
