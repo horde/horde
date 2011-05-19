@@ -530,8 +530,12 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
     public function setValue($key, $val, $identity = null)
     {
         if ($key == 'sent_mail_folder') {
+            if ($val) {
+                $val->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
+            } else {
+                IMP_Mailbox::get('INBOX')->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
+            }
             $val = IMP_Mailbox::prefTo($val);
-            $val->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
         }
         return parent::setValue($key, $val, $identity);
     }

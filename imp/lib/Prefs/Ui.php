@@ -1384,7 +1384,7 @@ class IMP_Prefs_Ui
 
         $js = array();
         foreach (array_keys($identity->getAll('id')) as $key) {
-            $js[$key] = $identity->getValue('sent_mail_folder', $key);
+            $js[$key] = strval($identity->getValue('sent_mail_folder', $key));
         };
 
         Horde::addInlineJsVars(array(
@@ -1425,14 +1425,16 @@ class IMP_Prefs_Ui
             return false;
         }
 
-        $sent_mail_folder = IMP_Mailbox::formFrom($ui->vars->sent_mail_folder);
-        if (empty($sent_mail_folder) && $ui->vars->sent_mail_folder_new) {
+        if (!$ui->vars->sent_mail_folder && $ui->vars->sent_mail_folder_new) {
             $sent_mail_folder = Horde_String::convertCharset($ui->vars->sent_mail_folder_new, 'UTF-8', 'UTF7-IMAP');
-        } elseif (strpos($sent_mail_folder, self::PREF_SPECIALUSE) === 0) {
-            $sent_mail_folder = substr($folder, strlen(self::PREF_SPECIALUSE));
-        } elseif (($sent_mail_folder == self::PREF_DEFAULT) &&
-                  ($sm_default = $prefs->getDefault('sent_mail_folder'))) {
-            $sent_mail_folder = $sm_default;
+        } else {
+            $sent_mail_folder = IMP_Mailbox::formFrom($ui->vars->sent_mail_folder);
+            if (strpos($sent_mail_folder, self::PREF_SPECIALUSE) === 0) {
+                $sent_mail_folder = substr($folder, strlen(self::PREF_SPECIALUSE));
+            } elseif (($sent_mail_folder == self::PREF_DEFAULT) &&
+                      ($sm_default = $prefs->getDefault('sent_mail_folder'))) {
+                $sent_mail_folder = $sm_default;
+            }
         }
 
         if (($sent_mail_folder = IMP_Mailbox::get($sent_mail_folder)->namespace_append) &&

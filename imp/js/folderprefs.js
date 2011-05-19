@@ -54,10 +54,9 @@ var ImpFolderPrefs = {
         this.folders.keys().each(function(f) {
             $(f).observe('change', this.newFolderName.bindAsEventListener(this));
         }, this);
-
-        document.observe('HordeIdentitySelect:change', this.changeIdentity.bindAsEventListener(this));
     }
 
 };
 
 document.observe('dom:loaded', ImpFolderPrefs.onDomLoad.bind(ImpFolderPrefs));
+document.observe('HordeIdentitySelect:change', ImpFolderPrefs.changeIdentity.bindAsEventListener(ImpFolderPrefs));
