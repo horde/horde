@@ -105,6 +105,9 @@ implements ArrayAccess
                     if (isset($mail['parts'])) {
                         $folder['mails'][$uid]['structure']['parts'] = $mail['parts'];
                     }
+                    if (isset($mail['file'])) {
+                        $folder['mails'][$uid]['stream'] = fopen($mail['file'], 'r');
+                    }
                 }
             }
             if (isset($element['s'])) {
