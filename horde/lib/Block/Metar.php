@@ -33,7 +33,7 @@ class Horde_Block_Metar extends Horde_Core_Block
      */
     protected function _params()
     {
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create();
+        $db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create();
 
         $result = $db->query('SELECT icao, name, country FROM metarAirports ORDER BY country');
         if ($result instanceof PEAR_Error) {
