@@ -8,7 +8,7 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  Ansel
@@ -37,21 +37,24 @@ class Ansel_Tagger
      */
     public function __construct(Content_Tagger $tagger)
     {
-        /* Remember the types to avoid having Content query them again. */
+        // Remember the types to avoid having Content query them again.
         $key = 'ansel.tagger.type_ids';
         $ids = $GLOBALS['injector']->getInstance('Horde_Cache')->get($key, 360);
         if ($ids) {
             $this->_type_ids = unserialize($ids);
         } else {
-            $type_mgr = $GLOBALS['injector']->getInstance('Content_Types_Manager');
+            $type_mgr = $GLOBALS['injector']
+                ->getInstance('Content_Types_Manager');
             try {
                 $types = $type_mgr->ensureTypes(array('gallery', 'image'));
             } catch (Content_Exception $e) {
                 throw new Ansel_Exception($e);
             }
-            $this->_type_ids = array('gallery' => (int)$types[0],
-                                     'image' => (int)$types[1]);
-            $GLOBALS['injector']->getInstance('Horde_Cache')->set($key, serialize($this->_type_ids));
+            $this->_type_ids = array(
+                'gallery' => (int)$types[0],
+                'image' => (int)$types[1]);
+            $GLOBALS['injector']->getInstance('Horde_Cache')
+                ->set($key, serialize($this->_type_ids));
         }
 
         $this->_tagger = $tagger;
@@ -83,10 +86,11 @@ class Ansel_Tagger
 
         try {
             $this->_tagger->tag(
-                    $owner,
-                    array('object' => $localId,
-                          'type' => $this->_type_ids[$content_type]),
-                    $tags);
+                $owner,
+                array(
+                    'object' => $localId,
+                    'type' => $this->_type_ids[$content_type]),
+                $tags);
         } catch (Content_Exception $e) {
             throw new Ansel_Exception($e);
         }
