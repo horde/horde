@@ -50,6 +50,12 @@ class Whups_Mail {
             return true;
         }
 
+        // Try to avoid bounces
+        if (strpos($headers->getValue('Content-Type'), 'multipart/report') !== false ||
+            strpos($headers->getValue('from'), 'MAILER-DAEMON') !== false) {
+            return true;
+        }
+
         // Use the message subject as the ticket summary.
         $info['summary'] = $headers->getValue('subject');
         $from = $headers->getValue('from');
