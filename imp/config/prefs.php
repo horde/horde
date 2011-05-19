@@ -668,9 +668,9 @@ $_prefs['send_mdn'] = array(
     'enum' => array(
         0 => _("Never send read receipt"),
         1 => _("Always prompt"),
-// This preference is not given to the user by default - it makes it too easy for
-// spam messages to determine valid e-mail addresses.
-//        2 => _("Prompt only if necessary; otherwise automatically send")
+        // This preference is not given to the user by default - it makes it
+        // too easy for spam messages to determine valid e-mail addresses.
+        // 2 => _("Prompt only if necessary; otherwise automatically send")
     ),
     'desc' => _("Prompt to send read receipt (a/k/a message disposition notification) when requested by the sender?"),
     'help' => 'prefs-send_mdn'
