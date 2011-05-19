@@ -808,7 +808,7 @@ class Content_Tagger
     {
         if (is_array($object)) {
             $object = current($this->_objectManager->ensureObjects(
-                $object['object'], current($this->_typeManager->ensureTypes($object['type']))));
+                $object['object'], (int)current($this->_typeManager->ensureTypes($object['type']))));
         }
 
         return (int)$object;
