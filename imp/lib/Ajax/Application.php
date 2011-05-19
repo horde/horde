@@ -1611,32 +1611,29 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * See the list of variables needed for _dimpComposeSetup(). Additional
      * variables used:
-     * <pre>
-     * 'encrypt' - (integer) The encryption method to use
-     *             (IMP ENCRYPT constants).
-     * 'html' - (integer) In HTML compose mode?
-     * 'message' - (string) The message text.
-     * 'priority' - TODO
-     * 'request_read_receipt' - (boolean) Add request read receipt header?
-     * 'save_attachments_select' - TODO
-     * 'save_sent_mail' - TODO
-     * 'save_sent_mail_folder' - (string) TODO
-     * </pre>
+     *   - encrypt: (integer) The encryption method to use (IMP ENCRYPT
+     *              constants).
+     *   - html: (integer) In HTML compose mode?
+     *   - message: (string) The message text.
+     *   - priority: (string) The priority of the message.
+     *   - request_read_receipt: (boolean) Add request read receipt header?
+     *   - save_attachments_select: (boolean) Whether to save attachments.
+     *   - save_sent_mail: (boolean) True if saving sent mail.
+     *   - save_sent_mail_folder: (string) base64url encoded version of
+     *                            sent mailbox to use.
      *
      * @return object  An object with the following entries:
-     * <pre>
-     * 'action' - (string) The AJAX action string
-     * 'draft_delete' - (integer) TODO
-     * 'encryptjs' - (array) Javascript to run after encryption failure.
-     * 'flag' - (array) See IMP_Ajax_Queue::generate().
-     * 'identity' - (integer) If set, this is the identity that is tied to
-     *              the current recipient address.
-     * 'log' - (array) TODO
-     * 'mailbox' - (array) TODO
-     * 'mbox' - (string) Mailbox of original message.
-     * 'success' - (integer) 1 on success, 0 on failure.
-     * 'uid' - (integer) IMAP UID of original message.
-     * </pre>
+     *   - action: (string) The AJAX action string
+     *   - draft_delete: (integer) If set, remove auto-saved drafts.
+     *   - encryptjs: (array) Javascript to run after encryption failure.
+     *   - flag: (array) See IMP_Ajax_Queue::generate().
+     *   - identity: (integer) If set, this is the identity that is tied to
+     *               the current recipient address.
+     *   - log: (array) Maillog information
+     *   - mailbox: (array) See _getMailboxResponse().
+     *   - mbox: (string) Mailbox of original message.
+     *   - success: (integer) 1 on success, 0 on failure.
+     *   - uid: (integer) IMAP UID of original message.
      */
     public function sendMessage()
     {
