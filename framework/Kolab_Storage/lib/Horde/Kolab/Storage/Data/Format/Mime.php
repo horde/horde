@@ -138,6 +138,9 @@ implements Horde_Kolab_Storage_Data_Format
         case 'task':
             return array_search('application/x-vnd.kolab.task', $types);
             break;
+        case 'h-prefs':
+            return array_search('application/x-vnd.kolab.h-prefs', $types);
+            break;
         case 'h-ledger':
             return array_search('application/x-vnd.kolab.h-ledger', $types);
             break;
@@ -153,19 +156,16 @@ implements Horde_Kolab_Storage_Data_Format
         switch ($type) {
         case 'contact':
             return 'application/x-vnd.kolab.contact';
-            break;
         case 'event':
             return 'application/x-vnd.kolab.event';
-            break;
         case 'note':
             return 'application/x-vnd.kolab.note';
-            break;
         case 'task':
             return 'application/x-vnd.kolab.task';
-            break;
+        case 'h-prefs':
+            return 'application/x-vnd.kolab.h-prefs';
         case 'h-ledger':
             return 'application/x-vnd.kolab.h-ledger';
-            break;
         default:
             throw new Horde_Kolab_Storage_Exception(
                 sprintf('Unsupported object type %s!', $type)
