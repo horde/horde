@@ -831,15 +831,15 @@ class Ansel_Gallery implements Serializable
      *
      * @param array $tags  An array of tag names to associate with this image.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Exception_PermissionDenied
      */
     public function setTags(array $tags)
     {
-        if ($this->_share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+        if ($this->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $GLOBALS['injector']->getInstance('Ansel_Tagger')
                 ->tag($this->id, $tags, $this->get('owner'), 'gallery');
         } else {
-            throw new Horde_Exception(_("Access denied adding tags to this gallery."));
+            throw new Horde_PermissionDenied(_("Access denied adding tags to this gallery."));
         }
     }
 
