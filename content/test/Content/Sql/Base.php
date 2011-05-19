@@ -22,6 +22,8 @@ class Content_Test_Sql_Base extends Content_Test_Base
      */
     static $migrator;
 
+    static $reason;
+
     public function testCreate()
     {
         $this->_create();
