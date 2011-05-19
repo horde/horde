@@ -434,52 +434,62 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
-    protected function getMessageAccount()
+    protected function getDataAccount($additional_folders)
     {
         return array(
             'username' => 'test@example.com',
             'host' => 'localhost',
             'port' => 143,
             'data' => $this->getMockData(
-                array(
-                    'user/test' => null,
-                    'user/test/a' => null,
-                    'user/test/Test' => array('m' => array()),
-                    'user/test/Empty' => array('m' => array()),
-                    'user/test/ÄÖÜ' => array('m' => array()),
-                    'user/test/Pretend' => array('m' => array(1 => array())),
-                    'user/test/WithDeleted' => array(
-                        'm' => array(
-                            1 => array(
-                                'flags' => Horde_Kolab_Storage_Driver_Mock_Data::FLAG_DELETED
-                            ),
-                            4 => array()
-                        ),
-                        's' => array(
-                            'uidvalidity' => '12346789',
-                            'uidnext' => 5
-                        )
+                array_merge(
+                    array(
+                        'user/test' => null,
+                        'user/test/a' => null,
+                        'user/test/Test' => array('m' => array()),
+                        'user/test/Empty' => array('m' => array()),
+                        'user/test/ÄÖÜ' => array('m' => array()),
+                        'user/test/Pretend' => array('m' => array(1 => array())),
+                        'user/test/Contacts' => array('t' => 'contact.default'),
+                        'user/test/Notes' => array('t' => 'note.default'),
+                        'user/test/OtherNotes' => array('t' => 'note'),
+                        'user/test/Tasks' => array('t' => 'task.default'),
                     ),
-                    'user/test/Calendar' => array(
-                        't' => 'event.default',
-                        'm' => array(
-                            1 => $this->getDefaultEventData('.1'),
-                            2 => $this->getDefaultEventData('.2'),
-                            3 => array(
-                                'flags' => Horde_Kolab_Storage_Driver_Mock_Data::FLAG_DELETED
-                            ),
-                            4 => $this->getDefaultEventData('.3'),
-                        ),
-                        's' => array(
-                            'uidvalidity' => '12346789',
-                            'uidnext' => 5
-                        )
+                    $additional_folders
+                )
+            )
+        );
+    }
 
+    protected function getMessageAccount()
+    {
+        return $this->getDataAccount(
+            array(
+                'user/test/WithDeleted' => array(
+                    'm' => array(
+                        1 => array(
+                            'flags' => Horde_Kolab_Storage_Driver_Mock_Data::FLAG_DELETED
+                        ),
+                        4 => array()
                     ),
-                    'user/test/Contacts' => array('t' => 'contact.default'),
-                    'user/test/Notes' => array('t' => 'note.default'),
-                    'user/test/OtherNotes' => array('t' => 'note'),
-                    'user/test/Tasks' => array('t' => 'task.default'),
+                    's' => array(
+                        'uidvalidity' => '12346789',
+                        'uidnext' => 5
+                    )
+                ),
+                'user/test/Calendar' => array(
+                    't' => 'event.default',
+                    'm' => array(
+                        1 => $this->getDefaultEventData('.1'),
+                        2 => $this->getDefaultEventData('.2'),
+                        3 => array(
+                            'flags' => Horde_Kolab_Storage_Driver_Mock_Data::FLAG_DELETED
+                        ),
+                        4 => $this->getDefaultEventData('.3'),
+                    ),
+                    's' => array(
+                        'uidvalidity' => '12346789',
+                        'uidnext' => 5
+                    )
                 )
             )
         );
