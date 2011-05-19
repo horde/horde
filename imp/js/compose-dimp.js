@@ -392,7 +392,7 @@ var DimpCompose = {
                 callback: this.setMessageText.bind(this, false)
             });
 
-            this.rte.destroy();
+            this.rte.destroy(true);
             delete this.rte;
         } else {
             this.RTELoading('show');
