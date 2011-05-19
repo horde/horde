@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2011-05-19</date>
- <time>13:57:37</time>
+ <time>14:19:07</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -97,18 +97,20 @@
    </dir> <!-- /migration -->
    <dir name="test">
     <dir name="Content">
-     <dir name="fixtures">
-      <file name="schema.sql" role="test" />
-     </dir> <!-- /test/Content/fixtures -->
      <dir name="Sql">
       <dir name="Pdo">
+       <file name="MysqlTest.php" role="test" />
+       <file name="PgsqlTest.php" role="test" />
        <file name="SqliteTest.php" role="test" />
       </dir> <!-- /test/Content/Sql/Pdo -->
       <file name="Base.php" role="test" />
+      <file name="MysqliTest.php" role="test" />
+      <file name="MysqlTest.php" role="test" />
      </dir> <!-- /test/Content/Sql -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
      <file name="Base.php" role="test" />
+     <file name="conf.php.dist" role="test" />
     </dir> <!-- /test/Content -->
     <file name="TaggerTest.php" role="test" />
    </dir> <!-- /test -->
@@ -238,8 +240,12 @@
    <install as="Content/AllTests.php" name="test/Content/AllTests.php" />
    <install as="Content/Autoload.php" name="test/Content/Autoload.php" />
    <install as="Content/Base.php" name="test/Content/Base.php" />
-   <install as="Content/fixtures/schema.sql" name="test/Content/fixtures/schema.sql" />
+   <install as="Content/conf.php.dist" name="test/Content/conf.php.dist" />
    <install as="Content/Sql/Base.php" name="test/Content/Sql/Base.php" />
+   <install as="Content/Sql/MysqliTest.php" name="test/Content/Sql/MysqliTest.php" />
+   <install as="Content/Sql/MysqlTest.php" name="test/Content/Sql/MysqlTest.php" />
+   <install as="Content/Sql/Pdo/MysqlTest.php" name="test/Content/Sql/Pdo/MysqlTest.php" />
+   <install as="Content/Sql/Pdo/PgsqlTest.php" name="test/Content/Sql/Pdo/PgsqlTest.php" />
    <install as="Content/Sql/Pdo/SqliteTest.php" name="test/Content/Sql/Pdo/SqliteTest.php" />
    <install as="content/.htaccess" name=".htaccess" />
   </filelist>
