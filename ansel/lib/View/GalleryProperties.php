@@ -268,7 +268,7 @@ class Ansel_View_GalleryProperties
                     $gallery->set('name', $gallery_name);
                 }
                 $gallery->set('desc', $gallery_desc);
-                $gallery->setTags(!empty($gallery_tags) ? explode(',', $gallery_tags) : '');
+                $gallery->setTags(!empty($gallery_tags) ? explode(',', $gallery_tags) : array());
                 $gallery->set('style', $style);
                 $gallery->set('slug', $gallery_slug);
                 $gallery->set('age', $gallery_age);

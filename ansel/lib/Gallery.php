@@ -837,7 +837,7 @@ class Ansel_Gallery implements Serializable
     {
         if ($this->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $GLOBALS['injector']->getInstance('Ansel_Tagger')
-                ->tag($this->id, $tags, $this->get('owner'), 'gallery');
+                ->replaceTags($this->id, $tags, $this->get('owner'), 'gallery');
         } else {
             throw new Horde_PermissionDenied(_("Access denied adding tags to this gallery."));
         }
