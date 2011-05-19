@@ -638,14 +638,14 @@ extends PHPUnit_Framework_TestCase
                         $folder['mails'][$uid]['structure']['parts'] = $mail['parts'];
                     }
                 }
-            } else {
-                $folder['status'] = array(
-                    'uidvalidity' => time(),
-                    'uidnext' => 1
-                );
             }
             if (isset($element['s'])) {
                 $folder['status'] = $element['s'];
+            } else {
+                $folder['status'] = array(
+                    'uidvalidity' => time(),
+                    'uidnext' => !empty($folder['mails']) ? max(array_keys($folder['mails'])) + 1 : 1
+                );
             }
             $result[$path] = $folder;
         }
