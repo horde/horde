@@ -48,11 +48,81 @@ implements ArrayAccess
     /**
      * Constructor.
      *
-     * @param array $data The initial data.
+     * @param array $data This may be match the internal format used by this
+     *                    class to represent the IMAP mock data or it can be an
+     *                    abbreviated format (@see
+     *                    Horde_Kolab_Storage_Driver_Mock_Data::_setupBrief).
      */
     public function __construct($data)
     {
+        if (isset($data['format'])) {
+            $format = $data['format'];
+            unset($data['format']);
+            switch ($format) {
+            case 'brief':
+                $data = $this->_convertBrief($data);
+                break;
+            default:
+                break;
+            }
+        }
         $this->_data = $data;
+    }
+
+    /**
+     * Generate the internal mock data representation from an abbreviated mock
+     * data format.
+     *
+     * @todo Document the format
+     *
+     * @param array $data The abbreviated data format.
+     */
+    private function _convertBrief(array $data)
+    {
+        $result = array();
+        foreach ($data as $path => $element) {
+            if (!isset($element['p'])) {
+                $folder = array('permissions' => array('anyone' => 'alrid'));
+            } else {
+                $folder = array('permissions' => $element['p']);
+            }
+            if (isset($element['a'])) {
+                $folder['annotations'] = $element['a'];
+            }
+            if (isset($element['t'])) {
+                $folder['annotations'] = array(
+                    '/shared/vendor/kolab/folder-type' => $element['t'],
+                );
+            }
+            if (isset($element['m'])) {
+                $keys = array_keys($element['m']);
+                $folder['status'] = array(
+                    'uidvalidity' => time(),
+                    'uidnext' => empty($keys) ? 1 : max($keys) + 1
+                );
+                $folder['mails'] = $element['m'];
+                foreach ($element['m'] as $uid => $mail) {
+                    if (isset($mail['structure'])) {
+                        $folder['mails'][$uid]['structure'] = unserialize(
+                            base64_decode(file_get_contents($mail['structure']))
+                        );
+                    }
+                    if (isset($mail['parts'])) {
+                        $folder['mails'][$uid]['structure']['parts'] = $mail['parts'];
+                    }
+                }
+            }
+            if (isset($element['s'])) {
+                $folder['status'] = $element['s'];
+            } else {
+                $folder['status'] = array(
+                    'uidvalidity' => time(),
+                    'uidnext' => !empty($folder['mails']) ? max(array_keys($folder['mails'])) + 1 : 1
+                );
+            }
+            $result[$path] = $folder;
+        }
+        return $result;
     }
 
     /**

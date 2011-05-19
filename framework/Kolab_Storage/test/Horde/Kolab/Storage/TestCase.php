@@ -606,50 +606,8 @@ extends PHPUnit_Framework_TestCase
 
     protected function getMockData($elements)
     {
-        $result = array();
-        foreach ($elements as $path => $element) {
-            if (!isset($element['p'])) {
-                $folder = array('permissions' => array('anyone' => 'alrid'));
-            } else {
-                $folder = array('permissions' => $element['p']);
-            }
-            if (isset($element['a'])) {
-                $folder['annotations'] = $element['a'];
-            }
-            if (isset($element['t'])) {
-                $folder['annotations'] = array(
-                    '/shared/vendor/kolab/folder-type' => $element['t'],
-                );
-            }
-            if (isset($element['m'])) {
-                $keys = array_keys($element['m']);
-                $folder['status'] = array(
-                    'uidvalidity' => time(),
-                    'uidnext' => empty($keys) ? 1 : max($keys) + 1
-                );
-                $folder['mails'] = $element['m'];
-                foreach ($element['m'] as $uid => $mail) {
-                    if (isset($mail['structure'])) {
-                        $folder['mails'][$uid]['structure'] = unserialize(
-                            base64_decode(file_get_contents($mail['structure']))
-                        );
-                    }
-                    if (isset($mail['parts'])) {
-                        $folder['mails'][$uid]['structure']['parts'] = $mail['parts'];
-                    }
-                }
-            }
-            if (isset($element['s'])) {
-                $folder['status'] = $element['s'];
-            } else {
-                $folder['status'] = array(
-                    'uidvalidity' => time(),
-                    'uidnext' => !empty($folder['mails']) ? max(array_keys($folder['mails'])) + 1 : 1
-                );
-            }
-            $result[$path] = $folder;
-        }
-        return new Horde_Kolab_Storage_Driver_Mock_Data($result);
+        $elements['format'] = 'brief';
+        return new Horde_Kolab_Storage_Driver_Mock_Data($elements);
     }
 
     protected function getDefaultEventData($add = '')
