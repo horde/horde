@@ -649,7 +649,7 @@ extends PHPUnit_Framework_TestCase
             }
             $result[$path] = $folder;
         }
-        return $result;
+        return new Horde_Kolab_Storage_Driver_Mock_Data($result);
     }
 
     protected function getDefaultEventData($add = '')
