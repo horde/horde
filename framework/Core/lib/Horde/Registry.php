@@ -2164,7 +2164,7 @@ class Horde_Registry
             ? 'horde'
             : $options['app'];
 
-        if ($this->getAuth()) {
+        if ($this->getAuth() == $authId) {
             /* Store app credentials. */
             $this->setAuthCredential($credentials, null, $app);
         } else {
