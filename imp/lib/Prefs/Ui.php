@@ -598,7 +598,7 @@ class IMP_Prefs_Ui
                  * permissions; enabled indicates the right has been given to
                  * the user. */
                 $rightsmbox = $acl->getRightsMbox($folder, $index);
-                foreach ($rightslist as $val) {
+                foreach (array_keys($rightslist) as $val) {
                     $entry['rule'][] = array(
                         'disable' => !$canEdit || !$rightsmbox[$val],
                         'on' => $rule[$val],
@@ -633,88 +633,9 @@ class IMP_Prefs_Ui
         }
 
         $rights = array();
-        foreach ($rightslist as $val) {
-            switch ($val) {
-            case Horde_Imap_Client::ACL_LOOKUP:
-               $entry = array(
-                   'desc' => _("User can see the mailbox"),
-                   'title' => _("List")
-               );
-               break;
-
-            case Horde_Imap_Client::ACL_READ:
-               $entry = array(
-                   'desc' => _("Read messages"),
-                   'title' => _("Read")
-               );
-               break;
-
-            case Horde_Imap_Client::ACL_SEEN:
-               $entry = array(
-                   'desc' => _("Mark with Seen/Unseen flags"),
-                   'title' => _("Mark (Seen)")
-               );
-               break;
-
-            case Horde_Imap_Client::ACL_WRITE:
-               $entry = array(
-                   'desc' => _("Mark with other flags (e.g. Important/Answered)"),
-                   'title' => _("Mark (Other)")
-               );
-               break;
-
-            case Horde_Imap_Client::ACL_INSERT:
-                $entry = array(
-                    'desc' => _("Insert messages"),
-                    'title' => _("Insert")
-                );
-                break;
-
-            case Horde_Imap_Client::ACL_POST:
-                $entry = array(
-                    'desc' => _("Post to this mailbox (not enforced by IMAP)"),
-                    'title' => _("Post")
-                );
-                break;
-
-            case Horde_Imap_Client::ACL_ADMINISTER:
-                $entry = array(
-                    'desc' => _("Set permissions for other users"),
-                    'title' => _("Administer")
-                );
-                break;
-
-            case Horde_Imap_Client::ACL_CREATEMBOX:
-                $entry = array(
-                    'desc' => _("Create subfolders"),
-                    'title' => _("Create Folders")
-                );
-                break;
-
-            case Horde_Imap_Client::ACL_DELETEMBOX:
-                $entry = array(
-                    'desc' => _("Delete subfolders"),
-                    'title' => _("Delete Folders")
-                );
-                break;
-
-            case Horde_Imap_Client::ACL_DELETEMSGS:
-                $entry = array(
-                    'desc' => _("Delete messages"),
-                    'title' => _("Delete")
-                );
-                break;
-
-            case Horde_Imap_Client::ACL_EXPUNGE:
-                $entry = array(
-                    'desc' => _("Purge messages"),
-                    'title' => _("Purge")
-                );
-                break;
-            }
-
-            $entry['val'] = $val;
-            $rights[] = $entry;
+        foreach ($rightslist as $key => $val) {
+            $val['val'] = $key;
+            $rights[] = $val;
         }
         $t->set('rights', $rights);
 
