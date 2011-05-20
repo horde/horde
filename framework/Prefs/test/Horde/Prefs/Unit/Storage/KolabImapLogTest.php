@@ -62,6 +62,26 @@ class Horde_Prefs_Unit_Storage_KolabImapLogTest extends Horde_Test_Log
         $this->assertLogContains('Horde_Prefs_Storage_KolabImap: Failed retrieving Kolab preferences data storage (No Kolab storage backend available.');
     }
 
+    public function testCreateFolder()
+    {
+        $p = new Horde_Prefs(
+            'test',
+            array(
+                new Horde_Prefs_Storage_KolabImap(
+                    'test',
+                    array(
+                        'kolab' => $this->_createStorage(),
+                        'logger' => $this->getLogger()
+                    )
+                ),
+                new Horde_Prefs_Stub_Storage('test')
+            )
+        );
+        $p['a'] = 'c';
+        $p->store();
+        $this->assertLogContains('Horde_Prefs_Storage_KolabImap: Created default Kolab preferences folder "Preferences".');
+    }
+
     private function _createDefaultStorage()
     {
         return $this->_createStorage(
@@ -76,7 +96,7 @@ class Horde_Prefs_Unit_Storage_KolabImapLogTest extends Horde_Test_Log
         );
     }
 
-private function _createStorage($data = array())
+    private function _createStorage($data = array())
     {
         $factory = new Horde_Kolab_Storage_Factory(
             array(
