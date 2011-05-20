@@ -22,14 +22,14 @@ class Passwd_Driver {
      *
      * @var array
      */
-    var $_params = array();
+    public $_params = array();
 
     /**
      * Error string that will be returned to the user if an error occurs.
      *
      * @var string
      */
-    var $_errorstr;
+    public $_errorstr;
 
     /**
      * Constructs a new expect Passwd_Driver object.
