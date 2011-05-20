@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde 3.0\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2011-05-18 17:24+0100\n"
+"PO-Revision-Date: 2011-05-20 16:00+0100\n"
 "Last-Translator: Martin Matuška <martin@matuska.org>\n"
 "Language-Team: Slovak <vix@vazka.sk>\n"
 "Language: sk\n"
@@ -303,7 +303,7 @@ msgstr "Pridať používateľa:"
 
 #: admin/alarms.php:22
 msgid "Add new alarm"
-msgstr "Pridať nový alarm"
+msgstr "Pridať nový budík"
 
 #: templates/data/csvmap.inc:93
 msgid "Add pair"
@@ -341,27 +341,27 @@ msgstr "Adresár"
 
 #: admin/alarms.php:26
 msgid "Alarm end"
-msgstr "Koniec alarmu"
+msgstr "Koniec budíka"
 
 #: admin/alarms.php:28
 msgid "Alarm methods"
-msgstr "Spôsob alarmu"
+msgstr "Spôsob budíka"
 
 #: admin/alarms.php:25
 msgid "Alarm start"
-msgstr "Začiatok alarmu"
+msgstr "Začiatok budíka"
 
 #: admin/alarms.php:27
 msgid "Alarm text"
-msgstr "Text alarmu"
+msgstr "Text budíka"
 
 #: admin/alarms.php:24
 msgid "Alarm title"
-msgstr "Názov alarmu"
+msgstr "Názov budíka"
 
 #: admin/alarms.php:133
 msgid "Alarms"
-msgstr "Alarmy"
+msgstr "Budíky"
 
 #: lib/Block/Fortune.php:93
 msgid "All"
@@ -913,11 +913,11 @@ msgstr "Aktuálne 4 fázy"
 
 #: templates/admin/alarms/list.html.php:2
 msgid "Current Alarms"
-msgstr "Aktuálne alarmy"
+msgstr "Aktuálne budíky"
 
 #: admin/sessions.php:22
 msgid "Current Sessions"
-msgstr "Aktuálne relácie"
+msgstr "Aktuálne sedenia"
 
 #: lib/Block/Time.php:17
 msgid "Current Time"
@@ -1863,12 +1863,12 @@ msgstr "Vypísať zoznam tabuliek"
 #: admin/alarms.php:130
 #, php-format
 msgid "Listing alarms failed: %s"
-msgstr "Nepodarilo sa zobraziť alarmy: %s"
+msgstr "Nepodarilo sa zobraziť budíky: %s"
 
 #: admin/sessions.php:66
 #, php-format
 msgid "Listing sessions failed: %s"
-msgstr "Nepodarilo sa zobraziť relácie: %s"
+msgstr "Nepodarilo sa zobraziť sedenia: %s"
 
 #: templates/admin/user/nolist.inc:2
 msgid "Listing users is disabled."
@@ -2648,11 +2648,11 @@ msgstr "Vzdialený počítač:"
 
 #: config/prefs.php:599
 msgid "Remote Servers"
-msgstr "Vzdialené servery"
+msgstr "Externé servery"
 
 #: lib/Prefs/Ui.php:300
 msgid "Remote URL (http://www.example.com/horde):"
-msgstr "Vzdialená URL (http://www.example.com/horde):"
+msgstr "Externá URL (http://www.example.com/horde):"
 
 #: admin/activesync.php:181 templates/admin/groups/edit.inc:26
 #: templates/admin/user/approve.inc:40
@@ -2888,15 +2888,15 @@ msgstr "Údaje zo servera sú nesprávne alebo nie sú k dispozícii."
 
 #: admin/sessions.php:14
 msgid "Session Admin"
-msgstr "Správa relácií"
+msgstr "Správa sedení"
 
 #: admin/sessions.php:36
 msgid "Session Timestamp:"
-msgstr "Časová pečať relácie:"
+msgstr "Časová pečať sedenia:"
 
 #: lib/Api.php:57
 msgid "Sessions"
-msgstr "_Relácie"
+msgstr "Sedenia"
 
 #: config/prefs.php:296
 msgid ""
@@ -2914,8 +2914,7 @@ msgstr "Nastaviť integráciu s účtom Twitter."
 #: config/prefs.php:600
 msgid "Set up remote servers that you want to access from your portal."
 msgstr ""
-"Nastavenie vzdialených serverov, ku ktorým chcete pristupovať z Vášho "
-"portálu."
+"Nastavenie externých serverov, ku ktorým chcete pristupovať z Vášho portálu."
 
 #: config/prefs.php:330
 msgid "Set your preferred language, timezone and date preferences."
@@ -3293,11 +3292,11 @@ msgstr "Vzdialené vymazanie pre zariadenie %s bolo zrušené."
 
 #: admin/alarms.php:81
 msgid "The alarm has been deleted."
-msgstr "Alarm bol vymazaný."
+msgstr "Budík bol vymazaný."
 
 #: admin/alarms.php:70
 msgid "The alarm has been saved."
-msgstr "Alarm bol uložený."
+msgstr "Budík bol uložený."
 
 #: admin/config/index.php:98
 #, php-format
@@ -3985,7 +3984,7 @@ msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
 msgstr ""
-"Vaša internetová adresa sa zmenila od začiatku Vašej relácie %s. Pre Vašu "
+"Vaša internetová adresa sa zmenila od začiatku Vašeho sedenia %s. Pre Vašu "
 "bezpečnosť sa musíte znovu prihlásiť."
 
 #: templates/problem/problem.inc:30
@@ -4014,7 +4013,7 @@ msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
 msgstr ""
-"Zdá sa, že Váš prehliadač sa zmenil od začiatku Vašej relácie %s. Pre Vašu "
+"Zdá sa, že Váš prehliadač sa zmenil od začiatku Vašeho sedenia %s. Pre Vašu "
 "bezpečnosť sa musíte znovu prihlásiť."
 
 #: lib/Block/Iframe.php:67
@@ -4068,11 +4067,11 @@ msgstr "Vašemu heslu vypršala platnosť."
 
 #: lib/Prefs/Ui.php:298
 msgid "Your remote servers:"
-msgstr "Vaše vzdialené servery:"
+msgstr "Vaše externé servery:"
 
 #: login.php:308
 msgid "Your session has expired. Please login again."
-msgstr "Platnosť Vašej relácie vypršala. Prosím prihláste sa znovu."
+msgstr "Platnosť Vašeho sedenia vypršala. Prosím prihláste sa znovu."
 
 #: lib/Block/Fortune.php:73
 msgid "Zippy"
@@ -4088,7 +4087,7 @@ msgstr "[Neznáme]"
 
 #: lib/Api.php:47
 msgid "_Alarms"
-msgstr "_Alarmy"
+msgstr "_Budíky"
 
 #: lib/Api.php:72
 msgid "_CLI"

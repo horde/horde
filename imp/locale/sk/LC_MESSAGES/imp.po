@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: IMP 4.0\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-04-21 11:26+0200\n"
-"PO-Revision-Date: 2011-05-18 18:09+0100\n"
+"PO-Revision-Date: 2011-05-20 16:07+0100\n"
 "Last-Translator: Martin Matuška <martin@matuska.org>\n"
 "Language-Team: Slovak <vix@vazka.sk>\n"
 "Language: sk\n"
@@ -1001,7 +1001,7 @@ msgstr "Skontrolovať platnosť verejných PGP-kľúčov odosielateľa pri odpov
 
 #: config/prefs.php:200
 msgid "Check spelling before sending a message?"
-msgstr "Skontrolovať pravopis pred odoslaním správy?"
+msgstr "Kontrolovať správu pred odoslaním na pravopisné chyby?"
 
 #: lib/Ui/Compose.php:110 templates/dimp/javascript_defs.php:138
 msgid "Checking..."
@@ -1622,7 +1622,7 @@ msgstr "Zobraziť potvrdzovacie okno po odoslaní správy?"
 
 #: config/prefs.php:866
 msgid "Display notification when new mail arrives?"
-msgstr "Zobraziť oznámenie pri prijatí novej správy?"
+msgstr "Zobraziť upozornenie pri prijatí novej správy?"
 
 #: config/prefs.php:1412
 msgid "Display only the first 250 characters of a message initially?"
@@ -1916,7 +1916,7 @@ msgstr ""
 
 #: config/prefs.php:1239
 msgid "Event Requests"
-msgstr "Požiadavky udalostí"
+msgstr "Žiadosti o stretnutia"
 
 #: lib/Mime/Viewer/Itip.php:131
 msgid "Event successfully deleted."
@@ -2236,7 +2236,7 @@ msgstr "Skryť adresy"
 
 #: templates/dimp/javascript_defs.php:146
 msgid "Hide Alerts _Log"
-msgstr "Skryť _upozornenia"
+msgstr "Skryť upozornenia"
 
 #: mailbox.php:266
 msgid "Hide Deleted"
@@ -2840,7 +2840,7 @@ msgstr "Správy"
 
 #: config/prefs.php:1005
 msgid "Messages per page in the mailbox view."
-msgstr "Správ na stránku v zozname správ"
+msgstr "Počet správ na stránku v zozname správ"
 
 #: mailbox.php:234
 msgid "Messages to"
@@ -2852,7 +2852,7 @@ msgstr "Správy s prílohami"
 
 #: config/prefs.php:1248
 msgid "Minutes needed to consider a event as a non-conflicting one in iTip"
-msgstr "Počet minút potrebný na považovanie udalosti za nekonfliktnú v iTip"
+msgstr "Počet minút potrebný na považovanie udalosti v iTip za nekonfliktnú"
 
 #: mobile.php:19
 msgid "Mobile Mail"
@@ -3473,7 +3473,7 @@ msgstr "Prosím vyberte aspoň jedno kritérium pre hľadanie."
 
 #: config/prefs.php:1077
 msgid "Poll all folders for new mail?"
-msgstr "Kontrolovať novú poštu vo všetkých priečinkoch?"
+msgstr "Kontrolovať všetky priečinky na novú poštu?"
 
 #: templates/mobile/folders.html.php:3 templates/mobile/mailbox.html.php:4
 msgid "Portal"
@@ -3538,11 +3538,11 @@ msgstr "Heslo k privátnemu kľúču:"
 
 #: config/prefs.php:274
 msgid "Prompt every time an attachment is sent; default to NO"
-msgstr "Pýtať sa zakaždým pri posielaní prílohy; štandardne NIE"
+msgstr "Zakaždým sa pýtať pri posielaní prílohy; prednastavené NIE"
 
 #: config/prefs.php:273
 msgid "Prompt every time an attachment is sent; default to YES"
-msgstr "Pýtať sa zakaždým pri posielaní prílohy; štandardne ÁNO"
+msgstr "Zakaždým sa pýtať pri posielaní prílohy; prednastavené ÁNO"
 
 #: config/prefs.php:674
 msgid ""
@@ -3715,7 +3715,7 @@ msgstr "Obnoviť"
 
 #: config/prefs.php:859
 msgid "Refresh Folder Views:"
-msgstr "Obnoviť zobrazenie priečinkov:"
+msgstr "Náhľad priečinkov obnoviť:"
 
 #: templates/dimp/index.inc:148
 msgid "Refresh Search Results"
@@ -4048,7 +4048,7 @@ msgstr "Uložiť do"
 
 #: config/prefs.php:1180
 msgid "Save recipients automatically to the default address book?"
-msgstr "Ukladať príjemcov automaticky do štandardného adresára kontaktov?"
+msgstr "Automaticky ukladať príjemcov do štandardného adresára kontaktov?"
 
 #: config/prefs.php:87
 msgid "Save sent mail?"
@@ -4386,11 +4386,11 @@ msgstr "Zobrazovať ukážky ako popisky?"
 
 #: config/prefs.php:193
 msgid "Show the Bcc: header field when composing mail?"
-msgstr "Zobraziť hlavičku \"Skrytá kópia:\" pri písaní správy?"
+msgstr "Zobraziť pri písaní správy hlavičku \"Skrytá kópia:\"?"
 
 #: config/prefs.php:186
 msgid "Show the Cc: header field when composing mail?"
-msgstr "Zobraziť hlavičku \"Kópia:\" pri písaní správy?"
+msgstr "Zobraziť pri písaní správy hlavičku \"Kópia:\"?"
 
 #: config/prefs.php:1526
 msgid "Show the dynamic view by default, if the browser supports it?"
@@ -4616,7 +4616,7 @@ msgstr "Text"
 
 #: config/prefs.php:1017
 msgid "The From: column of the message should be linked:"
-msgstr "Pole Od: v správe by má byť prepojené s:"
+msgstr "Stĺpec Od: v správe má ukazovať na nasledujúci odkaz:"
 
 #: lib/Mime/Viewer/Appledouble.php:92
 msgid "The Macintosh resource fork"
@@ -5155,11 +5155,11 @@ msgstr "Pre náhľad správy vyberte správu zo zoznamu správ."
 #: thread.php:117 thread.php:118 templates/dimp/compose/compose.html:77
 #: templates/dimp/compose/compose.html:195 templates/imp/thread/thread.html:17
 msgid "To:"
-msgstr "Pre:"
+msgstr "Komu:"
 
 #: compose-mimp.php:48
 msgid "To: "
-msgstr "Pre:"
+msgstr "Komu:"
 
 #: lib/Ui/Message.php:179
 #, php-format
@@ -5491,7 +5491,7 @@ msgstr ""
 
 #: config/prefs.php:277
 msgid "When saving sent mail, should we save attachment data?"
-msgstr "Majú sa uložiť prílohy pri ukladaní odoslanej pošty?"
+msgstr "Majú sa s odoslanou poštou ukladať aj prílohy?"
 
 #: config/prefs.php:242
 msgid ""
@@ -5777,7 +5777,7 @@ msgstr ""
 
 #: lib/Prefs/Ui.php:843
 msgid "Your default encryption method for sending messages:"
-msgstr "Váš prednastavený spôsob šifrovania pre posielanie správ:"
+msgstr "Váš prednastavený spôsob šifrovania odoslaných správ:"
 
 #: templates/dimp/compose/compose.html:167
 msgid ""

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Turba 2.0\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-04-21 10:58+0200\n"
-"PO-Revision-Date: 2011-05-18 17:40+0100\n"
+"PO-Revision-Date: 2011-05-20 16:11+0100\n"
 "Last-Translator: Martin Matuška <martin@matuska.org>\n"
 "Language-Team: Slovak <vix@vazka.sk>\n"
 "Language: sk\n"
@@ -309,7 +309,7 @@ msgstr "Telefón (všeobecné)"
 
 #: config/attributes.php:503
 msgid "Common Post Office Box"
-msgstr "P.O.Box (všeobecné)"
+msgstr "P. O. Box (všeobecné)"
 
 #: config/attributes.php:521
 msgid "Common Postal Code"
@@ -648,7 +648,7 @@ msgstr "Telefón (domov)"
 
 #: config/attributes.php:147
 msgid "Home Post Office Box"
-msgstr "P.O.Box (domov)"
+msgstr "P. O. Box (domov)"
 
 #: config/attributes.php:165
 msgid "Home Postal Code"
@@ -981,7 +981,7 @@ msgstr "Iné"
 
 #: config/attributes.php:341 config/attributes.php:348
 msgid "PGP Public Key"
-msgstr "PGP verejný kľúč"
+msgstr "Verejný kľúč PGP"
 
 #: config/attributes.php:486
 msgid "PTT"
@@ -1548,7 +1548,7 @@ msgstr "Telefón (práca)"
 
 #: config/attributes.php:189
 msgid "Work Post Office Box"
-msgstr "P.O. Box (práca)"
+msgstr "P. O. Box (práca)"
 
 #: config/attributes.php:207
 msgid "Work Postal Code"

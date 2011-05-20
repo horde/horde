@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Ingo H3 (1.2-RC2)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-04-05 13:52+0200\n"
-"PO-Revision-Date: 2011-05-18 17:35+0100\n"
+"PO-Revision-Date: 2011-05-19 18:17+0100\n"
 "Last-Translator: Martin Matuška <martin@matuska.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -88,7 +88,7 @@ msgstr "Zálkadné nastavenia"
 
 #: config/fields.php:51
 msgid "Bcc"
-msgstr "Bcc"
+msgstr "Skrytá kópia"
 
 #: lib/Storage.php:310
 msgid "Begins with"
@@ -127,7 +127,7 @@ msgstr "Rozlišovať veľké/malé písmená"
 
 #: config/fields.php:47
 msgid "Cc"
-msgstr "Cc"
+msgstr "Kópia"
 
 #: blacklist.php:67 forward.php:49 rule.php:136 spam.php:99 vacation.php:71
 #: whitelist.php:32
@@ -222,7 +222,7 @@ msgstr "Neposielať odpoveď do e-mailových konferencií?"
 
 #: templates/rule/footer.inc:10
 msgid "Do this:"
-msgstr "Vyknoať činnosť:"
+msgstr "Vykonať činnosť:"
 
 #: lib/Storage.php:311
 msgid "Doesn't begin with"
@@ -882,11 +882,11 @@ msgstr "Nastala chyba pri vypínaní skriptu."
 
 #: config/fields.php:31
 msgid "To"
-msgstr "Pre"
+msgstr "Komu"
 
 #: templates/filters/filter.html:29
 msgid "To:"
-msgstr "Pre:"
+msgstr "Komu:"
 
 #: lib/Script.php:144
 #, php-format

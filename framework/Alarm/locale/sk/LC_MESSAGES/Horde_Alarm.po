@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde_Alarm\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-04-05 13:52+0200\n"
-"PO-Revision-Date: 2011-05-18 16:08+0100\n"
+"PO-Revision-Date: 2011-05-20 15:17+0100\n"
 "Last-Translator: Martin Matuška <martin@matuska.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -19,11 +19,11 @@ msgstr ""
 
 #: lib/Horde/Alarm/Handler/Desktop.php:79
 msgid "Desktop notification (with certain browsers)"
-msgstr "Notifikácia na ploche (u niektorých prehliadačov)"
+msgstr "Upozornenie na pracovnej ploche (iba niektoré prehliadače)"
 
 #: lib/Horde/Alarm/Handler/Mail.php:121
 msgid "Email"
-msgstr "Email"
+msgstr "E-mail"
 
 #: lib/Horde/Alarm/Handler/Mail.php:141
 msgid "Email address (optional)"
@@ -31,7 +31,7 @@ msgstr "E-Mailová adresa (voliteľné)"
 
 #: lib/Horde/Alarm/Handler/Notify.php:77
 msgid "Inline"
-msgstr "V správe"
+msgstr "V prehliadači"
 
 #: lib/Horde/Alarm/Handler/Notify.php:97
 msgid "Play a sound?"
