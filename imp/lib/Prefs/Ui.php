@@ -986,7 +986,7 @@ class IMP_Prefs_Ui
             if ($t->get('has_key')) {
                 $t->set('viewpublic', Horde::link($pgp_url->copy()->add('actionID', 'view_personal_public_key'), _("View Personal Public Key"), null, 'view_key'));
                 $t->set('infopublic', Horde::link($pgp_url->copy()->add('actionID', 'info_personal_public_key'), _("Information on Personal Public Key"), null, 'info_key'));
-                $t->set('sendkey', Horde::link($ui->selfUrl(array('special' => true))->add('send_pgp_key', 1), _("Send Key to Public Keyserver")));
+                $t->set('sendkey', Horde::link($ui->selfUrl(array('special' => true, 'token' => true))->add('send_pgp_key', 1), _("Send Key to Public Keyserver")));
                 $t->set('personalkey-public-help', Horde_Help::link('imp', 'pgp-personalkey-public'));
 
                 if ($passphrase = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp')->getPassphrase('personal')) {
