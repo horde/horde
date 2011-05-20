@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:13:54</time>
+ <date>2011-05-20</date>
+ <time>05:28:34</time>
  <version>
   <release>1.1.0</release>
   <api>1.0.0</api>
@@ -23,6 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [gwr] Added preference data query.
 * [gwr] Added support for storing data query results in the cache.
 * [gwr] Added support for deleting messages by backend UID.
 * [jan] Updated Spanish translation.
@@ -63,6 +64,13 @@
         <dir name="Parser">
          <file name="Structure.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Storage/Data/Parser -->
+        <dir name="Query">
+         <dir name="Preferences">
+          <file name="Base.php" role="php" />
+          <file name="Cache.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Storage/Data/Query/Preferences -->
+         <file name="Preferences.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Storage/Data/Query -->
         <file name="Base.php" role="php" />
         <file name="Cached.php" role="php" />
         <file name="Format.php" role="php" />
@@ -445,6 +453,8 @@
         <file name="event.3.xml.qp" role="test" />
         <file name="event.struct" role="test" />
         <file name="event.xml.qp" role="test" />
+        <file name="preferences.1" role="test" />
+        <file name="preferences.2" role="test" />
        </dir> <!-- /test/Horde/Kolab/Storage/fixtures -->
        <dir name="Server">
         <file name="DriverTest.php" role="test" />
@@ -465,6 +475,12 @@
          <dir name="Parser">
           <file name="StructureTest.php" role="test" />
          </dir> <!-- /test/Horde/Kolab/Storage/Unit/Data/Parser -->
+         <dir name="Query">
+          <dir name="Preferences">
+           <file name="BaseTest.php" role="test" />
+           <file name="CacheTest.php" role="test" />
+          </dir> <!-- /test/Horde/Kolab/Storage/Unit/Data/Query/Preferences -->
+         </dir> <!-- /test/Horde/Kolab/Storage/Unit/Data/Query -->
          <file name="BaseTest.php" role="test" />
          <file name="CachedTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Storage/Unit/Data -->
@@ -646,6 +662,9 @@
    <install as="Horde/Kolab/Storage/Data/Query.php" name="lib/Horde/Kolab/Storage/Data/Query.php" />
    <install as="Horde/Kolab/Storage/Data/Format/Mime.php" name="lib/Horde/Kolab/Storage/Data/Format/Mime.php" />
    <install as="Horde/Kolab/Storage/Data/Parser/Structure.php" name="lib/Horde/Kolab/Storage/Data/Parser/Structure.php" />
+   <install as="Horde/Kolab/Storage/Data/Query/Preferences.php" name="lib/Horde/Kolab/Storage/Data/Query/Preferences.php" />
+   <install as="Horde/Kolab/Storage/Data/Query/Preferences/Base.php" name="lib/Horde/Kolab/Storage/Data/Query/Preferences/Base.php" />
+   <install as="Horde/Kolab/Storage/Data/Query/Preferences/Cache.php" name="lib/Horde/Kolab/Storage/Data/Query/Preferences/Cache.php" />
    <install as="Horde/Kolab/Storage/Decorator/Log.php" name="lib/Horde/Kolab/Storage/Decorator/Log.php" />
    <install as="Horde/Kolab/Storage/Decorator/Synchronization.php" name="lib/Horde/Kolab/Storage/Decorator/Synchronization.php" />
    <install as="Horde/Kolab/Storage/Driver/Base.php" name="lib/Horde/Kolab/Storage/Driver/Base.php" />
@@ -790,6 +809,8 @@
    <install as="Horde/Kolab/Storage/fixtures/event.3.xml.qp" name="test/Horde/Kolab/Storage/fixtures/event.3.xml.qp" />
    <install as="Horde/Kolab/Storage/fixtures/event.struct" name="test/Horde/Kolab/Storage/fixtures/event.struct" />
    <install as="Horde/Kolab/Storage/fixtures/event.xml.qp" name="test/Horde/Kolab/Storage/fixtures/event.xml.qp" />
+   <install as="Horde/Kolab/Storage/fixtures/preferences.1" name="test/Horde/Kolab/Storage/fixtures/preferences.1" />
+   <install as="Horde/Kolab/Storage/fixtures/preferences.2" name="test/Horde/Kolab/Storage/fixtures/preferences.2" />
    <install as="Horde/Kolab/Storage/Server/DriverTest.php" name="test/Horde/Kolab/Storage/Server/DriverTest.php" />
    <install as="Horde/Kolab/Storage/Stub/DataQuery.php" name="test/Horde/Kolab/Storage/Stub/DataQuery.php" />
    <install as="Horde/Kolab/Storage/Stub/ListQuery.php" name="test/Horde/Kolab/Storage/Stub/ListQuery.php" />
@@ -804,6 +825,8 @@
    <install as="Horde/Kolab/Storage/Unit/Data/CachedTest.php" name="test/Horde/Kolab/Storage/Unit/Data/CachedTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Data/Format/MimeTest.php" name="test/Horde/Kolab/Storage/Unit/Data/Format/MimeTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Data/Parser/StructureTest.php" name="test/Horde/Kolab/Storage/Unit/Data/Parser/StructureTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/Data/Query/Preferences/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/Data/Query/Preferences/BaseTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/Data/Query/Preferences/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/Data/Query/Preferences/CacheTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Decorator/LogTest.php" name="test/Horde/Kolab/Storage/Unit/Decorator/LogTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Decorator/SynchronizationTest.php" name="test/Horde/Kolab/Storage/Unit/Decorator/SynchronizationTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Driver/CclientTest.php" name="test/Horde/Kolab/Storage/Unit/Driver/CclientTest.php" />
@@ -992,7 +1015,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-05-20</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [gwr] Added support for storing data query results in the cache.

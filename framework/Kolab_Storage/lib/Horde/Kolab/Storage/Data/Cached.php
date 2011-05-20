@@ -229,7 +229,6 @@ extends Horde_Kolab_Storage_Data_Base
      */
     public function synchronize()
     {
-        parent::synchronize();
         $current = $this->getStamp();
         if (!$this->_data_cache->isInitialized()) {
             $this->_completeSynchronization($current);
@@ -251,6 +250,7 @@ extends Horde_Kolab_Storage_Data_Base
                 $changes[Horde_Kolab_Storage_Folder_Stamp::DELETED]
             );
             $this->_data_cache->save();
+            parent::synchronize();
         }
     }
 
@@ -272,5 +272,6 @@ extends Horde_Kolab_Storage_Data_Base
             $this->getVersion()
         );
         $this->_data_cache->save();
+        parent::synchronize();
     }
 }

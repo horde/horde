@@ -28,8 +28,9 @@
 interface Horde_Kolab_Storage_Data
 extends Horde_Kolab_Storage_Queriable
 {
-    /** Identifies the basic list query */
-    const QUERY_BASE  = 'Data';
+    /** Identifies the preferences query */
+    /** @since Horde_Kolab_Storage 1.1.0 */
+    const QUERY_PREFS  = 'Preferences';
 
     /**
      * Return the ID of this data handler.

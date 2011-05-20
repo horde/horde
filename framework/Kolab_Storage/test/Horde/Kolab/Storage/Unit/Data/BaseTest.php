@@ -157,11 +157,11 @@ extends Horde_Kolab_Storage_TestCase
             $data, array('factory' => $factory)
         );
         $data->registerQuery(
-            Horde_Kolab_Storage_Data::QUERY_BASE, $query
+            Horde_Kolab_Storage_Data::QUERY_PREFS, $query
         );
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Stub_DataQuery',
-            $data->getQuery()
+            $data->getQuery(Horde_Kolab_Storage_Data::QUERY_PREFS)
         );
     }
 
@@ -174,7 +174,7 @@ extends Horde_Kolab_Storage_TestCase
         $data = $this->getMessageStorage()
             ->getData('INBOX/Calendar');
         $data->registerQuery(
-            Horde_Kolab_Storage_Data::QUERY_BASE,
+            Horde_Kolab_Storage_Data::QUERY_PREFS,
             new Horde_Kolab_Storage_Stub_ListQuery(
                 $this->getMessageStorage()
                 ->getList(),

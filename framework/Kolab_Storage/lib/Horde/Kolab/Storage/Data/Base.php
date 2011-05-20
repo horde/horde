@@ -523,9 +523,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function getQuery($name = null)
     {
-        if ($name === null) {
-            $name = self::QUERY_BASE;
-        }
         if (isset($this->_queries[$name])) {
             return $this->_queries[$name];
         } else {
