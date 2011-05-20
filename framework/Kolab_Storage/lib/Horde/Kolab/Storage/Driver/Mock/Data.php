@@ -390,7 +390,11 @@ implements ArrayAccess
     {
         $this->select($folder);
         foreach ($uids as $uid) {
-            $this->_selected['mails'][$uid]['flags'] |= self::FLAG_DELETED;
+            if (isset($this->_selected['mails'][$uid]['flags'])) {
+                $this->_selected['mails'][$uid]['flags'] |= self::FLAG_DELETED;
+            } else {
+                $this->_selected['mails'][$uid]['flags'] = self::FLAG_DELETED;
+            }
         }
     }
 
