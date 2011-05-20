@@ -4,7 +4,7 @@
  <configsection name="storage">
   <configheader>Beatnik Storage</configheader>
   <configswitch name="driver" desc="What backend should we use for storing DNS
-  records?">
+  records?">sql
    <case name="pdnsgsql" desc="PowerDNS Generic SQL">
     <configsection name="params">
      <configsql switchname="driverconfig">
