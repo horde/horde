@@ -2,6 +2,8 @@
 v3.0.4-git
 ----------
 
+[jan] Only highlight days in the mini calendar that are currently displayed
+      (Bug #10048).
 [jan] Fix advanced search with empty search criteria (Bug #10038).
 
 

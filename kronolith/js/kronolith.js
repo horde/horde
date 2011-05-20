@@ -1039,9 +1039,12 @@ KronolithCore = {
      */
     buildMinical: function(tbody, date, view, idPrefix)
     {
-        var dates = this.viewDates(date, 'month'), day = dates[0].clone(),
-            date7 = date.clone().add(1).week(), today = Date.today(),
-            weekStart, weekEnd, dateString, td, tr, i;
+        var dates = this.viewDates(date, 'month'),
+            day = dates[0].clone(),
+            date7 = date.clone().add(1).week(),
+            today = Date.today(),
+            week = this.viewDates(this.date, 'week'),
+            dateString, td, tr, i;
 
         // Remove old calendar rows. Maybe we should only rebuild the minical
         // if necessary.
@@ -1072,9 +1075,9 @@ KronolithCore = {
 
             // Highlight days currently being displayed.
             if (view &&
-                (view == 'month' ||
-                 (view == 'week' && date.between(weekStart, weekEnd)) ||
-                 (view == 'day' && date.equals(day)) ||
+                ((view == 'month' && this.date.between(dates[0], dates[1])) ||
+                 (view == 'week' && day.between(week[0], week[1])) ||
+                 (view == 'day' && day.equals(this.date)) ||
                  (view == 'agenda' && !day.isBefore(date) && day.isBefore(date7)))) {
                 td.addClassName('kronolithSelected');
             }
