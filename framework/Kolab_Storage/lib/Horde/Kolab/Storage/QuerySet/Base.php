@@ -71,6 +71,17 @@ implements Horde_Kolab_Storage_QuerySet
     );
 
     /**
+     * Predefined query sets.
+     *
+     * @var array
+     */
+    private $_data_query_sets = array(
+        self::HORDE => array(
+            Horde_Kolab_Storage_Data::QUERY_PREFS => 'h-prefs',
+        )
+    );
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Factory $factory The factory.
@@ -87,6 +98,7 @@ implements Horde_Kolab_Storage_QuerySet
         Horde_Kolab_Storage_Factory $factory, array $params = array()
     ) {
         $this->_factory = $factory;
+
         if (isset($params['list']['classmap'])) {
             $this->_class_map = array_merge(
                 $this->_class_map, $params['list']['classmap']
@@ -98,7 +110,7 @@ implements Horde_Kolab_Storage_QuerySet
             } else {
                 throw new Horde_Kolab_Storage_Exception(
                     sprintf(
-                        'Query set %s not supported!',
+                        'List query set %s not supported!',
                         $params['list']['queryset']
                     )
                 );
@@ -109,6 +121,22 @@ implements Horde_Kolab_Storage_QuerySet
         }
         if (empty($this->_list_queries)) {
             $this->_list_queries = $this->_list_query_sets[self::BASIC];
+        }
+
+        if (isset($params['data']['queryset'])) {
+            if (isset($this->_data_query_sets[$params['data']['queryset']])) {
+                $this->_data_queries = $this->_data_query_sets[$params['data']['queryset']];
+            } else {
+                throw new Horde_Kolab_Storage_Exception(
+                    sprintf(
+                        'Data query set %s not supported!',
+                        $params['data']['queryset']
+                    )
+                );
+            }
+        }
+        if (isset($params['data']['myset'])) {
+            $this->_data_queries = array_merge($this->_data_queries, $params['data']['myset']);
         }
     }
 
@@ -202,6 +230,46 @@ implements Horde_Kolab_Storage_QuerySet
             }
         }
     }
+
+    /**
+     * Add a data query.
+     *
+     * @param Horde_Kolab_Storage_Data $data   The data.
+     * @param string                   $type   The query type.
+     * @param array                    $params Additional query parameters.
+     *
+     * @return NULL
+     */
+    private function _addDataQuery(Horde_Kolab_Storage_Data $data, $type, $params = array())
+    {
+        if (isset($this->_class_map[$type])) {
+            $params = array_merge(
+                $this->_getDataQueryParameters($data),
+                $params
+            );
+            $data->registerQuery(
+                $type,
+                $this->_createDataQuery(
+                    $this->_class_map[$type], $data, $params
+                )
+            );
+        } else {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf('Query type %s not supported!', $type)
+            );
+        }
+    }
+
+    /**
+     * Fetch any additional parameters required when creating data queries.
+     *
+     * @param Horde_Kolab_Storage_Data $data   The data.
+     *
+     * @return array The parameters for data queries.
+     */
+    abstract protected function _getDataQueryParameters(
+        Horde_Kolab_Storage_Data $data
+    );
 
     /**
      * Create the specified data query type.
