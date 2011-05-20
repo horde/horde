@@ -81,7 +81,7 @@ abstract class Horde_Prefs_Storage_Base
      * @param string $pref   The pref to clear. If null, clears the entire
      *                       scope.
      *
-     * @throws Horde_Db_Exception
+     * @throws Horde_Prefs_Exception
      */
     abstract public function remove($scope = null, $pref = null);
 
