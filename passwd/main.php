@@ -187,7 +187,7 @@ do {
 
     // Create a Password_Driver instance.
     require_once PASSWD_BASE . '/lib/Driver.php';
-    $daemon = Passwd_Driver::factory($driver, $params);
+    $daemon = $GLOBALS['injector']->getInstance('Passwd_Factory_Driver')->create($backend_key);
 
     if (is_a($daemon, 'PEAR_Error')) {
         $notification->push(_("Password module is not properly configured"),
