@@ -1,11 +1,9 @@
 <?php
 /**
  * The SQL driver attempts to change a user's password stored in an SQL
- * databse and implements the Passwd_Driver API.
+ * database and implements the Passwd_Driver API.
  *
- * $Horde: passwd/lib/Driver/sql.php,v 1.24.2.8 2009/01/06 15:25:23 jan Exp $
- *
- * Copyright 2000-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
@@ -15,43 +13,47 @@
  * @author  Tjeerd van der Zee <admin@xar.nl>
  * @author  Mattias Webjörn Eriksson <mattias@webjorn.org>
  * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
+ * @author  Ralf Lang <lang@b1-systems.de> (H4 conversion)
  * @package Passwd
  */
 class Passwd_Driver_sql extends Passwd_Driver {
 
     /**
-     * SQL connection object.
+     * Handle for the current database connection.
      *
-     * @var DB
+     * @var Horde_Db_Adapter
      */
-    var $_db;
 
-    /**
-     * State of SQL connection.
-     *
-     * @var boolean
-     */
-    var $_connected = false;
+    protected $_db;
 
     /**
      * Constructs a new Passwd_Driver_sql object.
      *
-     * @param array $params  A hash containing connection parameters.
+     * @param string $name   The source name
+     * @param array $params  Additional parameters needed:
+     * <pre>
+     * 'db' - (Horde_Db_Adapter) A DB Adapter object.
+     * optional:
+     * 'table'           - (string)  The name of the user database table
+     * 'encryption'      - (string)  The encryption type
+     * 'user_col'        - (string)  The table column for user name
+     * 'pass_col'        - (string)  The table column for password
+     * 'show_encryption' - (boolean) Prepend the encryption type to the password?
+     * 'query_lookup'    - (string)  Should we use a custom query for lookup?
+     * 'query_modify'    - (string)  Should we use a custom query for changing?
+     * </pre>
      */
     function Passwd_Driver_sql($params = array())
     {
-        if (isset($params['phptype'])) {
-            $this->_params['phptype'] = $params['phptype'];
+        if (isset($params['db'])) {
+            $this->_db = $params['db'];
+            unset($params['db']);
         } else {
-            return PEAR::raiseError(_("Required 'phptype' not specified in Passwd SQL configuration."));
+            throw new InvalidArgumentException('Missing required Horde_Db_Adapter object');
         }
-
-        /* Use defaults from Horde, but allow overriding in backends.php. */
-        $this->_params = array_merge(Horde::getDriverConfig('', 'sql'), $params);
-
         /* These default to matching the Auth_sql defaults. */
         $this->_params['table'] = isset($params['table']) ? $params['table'] : 'horde_users';
-        $this->_params['encryption'] = isset($params['encryption']) ? $params['encryption'] : 'md5';
+        $this->_params['encryption'] = isset($params['encryption']) ? $params['encryption'] : 'ssha';
         $this->_params['user_col'] = isset($params['user_col']) ? $params['user_col'] : 'user_uid';
         $this->_params['pass_col'] = isset($params['pass_col']) ? $params['pass_col'] : 'user_pass';
         $this->_params['show_encryption'] = isset($params['show_encryption']) ? $params['show_encryption'] : false;
@@ -59,38 +61,7 @@ class Passwd_Driver_sql extends Passwd_Driver {
         $this->_params['query_modify'] = isset($params['query_modify']) ? $params['query_modify'] : false;
     }
 
-    /**
-     * Connect to the database.
-     *
-     * @return boolean  True on success or PEAR_Error on failure.
-     */
-    function _connect()
-    {
-        if (!$this->_connected) {
-            /* Connect to the SQL server using the supplied parameters. */
-            include_once 'DB.php';
-            $this->_db = &DB::connect($this->_params,
-                                      array('persistent' => !empty($this->_params['persistent'])));
-            if (is_a($this->_db, 'PEAR_Error')) {
-                return PEAR::raiseError(_("Unable to connect to SQL server."));
-            }
-
-            // Set DB portability options.
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-
-            $this->_connected = true;
-        }
-
-        return true;
-    }
-
-    /**
+     /**
      * Find out if a username and password is valid.
      *
      * @param string $userID        The userID to check.
@@ -100,12 +71,6 @@ class Passwd_Driver_sql extends Passwd_Driver {
      */
     function _lookup($user, $old_password)
     {
-        /* Connect to the database */
-        $res = $this->_connect();
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
         if (!empty($this->_params['query_lookup'])) {
             list($sql, $values) = $this->_parseQuery($this->_params['query_lookup'], $user, $old_password);
         } else {
@@ -114,25 +79,24 @@ class Passwd_Driver_sql extends Passwd_Driver {
                     ' WHERE ' . $this->_params['user_col'] . ' = ?';
             $values = array($user);
         }
+
+        /* Run query. */
+        try {
+            $result = $this->_db->selectOne($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            return PEAR::raiseError($e->__toString());
+            // throw new Passwd_Exception($e);
+        }
         Horde::logMessage('SQL Query by Passwd_Driver_sql::_lookup(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
-        /* Execute the query. */
-        $result = $this->_db->query($sql, $values);
-        if (!is_a($result, 'PEAR_Error')) {
-            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-            $result->free();
-            if (is_array($row)) {
-                /* Get the password from the database. */
-                if (!isset($row[$this->_params['pass_col']])) {
-                    return PEAR::raiseError(sprintf(_("Password column \"%s\" not found in password table."), $this->_params['pass_col']));
-                }
-                $current_password = $row[$this->_params['pass_col']];
-
-                /* Check the passwords match. */
-                return $this->comparePasswords($current_password, $old_password);
-            }
+        if (is_array($result)) {
+            $current_password = $result[$this->_params['pass_col']];
+        } else {
+            // throw new Passwd_Exception(_("User not found"));
+            return PEAR::raiseError(_("User not found"));
         }
-        return PEAR::raiseError(_("User not found"));
+        /* Check the passwords match. */
+        return $this->comparePasswords($current_password, $old_password);
     }
 
     /**
@@ -145,12 +109,6 @@ class Passwd_Driver_sql extends Passwd_Driver {
      */
     function _modify($user, $new_password)
     {
-        /* Connect to the database. */
-        $res = $this->_connect();
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
         if (!empty($this->_params['query_modify'])) {
             list($sql, $values) = $this->_parseQuery($this->_params['query_modify'], $user, $new_password);
         } else {
@@ -166,7 +124,15 @@ class Passwd_Driver_sql extends Passwd_Driver {
         Horde::logMessage('SQL Query by Passwd_Driver_sql::_modify(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
-        $result = $this->_db->query($sql, $values);
+
+        try {
+            $this->_db->update($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            return PEAR::raiseError($e->__toString());
+            // throw new Passwd_Exception($e);
+        }
+
+        $result = $this->_db->update($sql, $values);
 
         if (is_a($result, 'PEAR_Error')) {
             return $result;
