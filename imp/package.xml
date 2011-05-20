@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix resizing compose window in dynamic view for IE 7/8 (Bug #10075).
 * [mms] Fix setting/unsetting passphrases in preferences (Bug #10096).
 * [mms] Base64url encode breacdrumb hash information in dynamic view.
 * [mms] Add login task to autocreate special mailboxes.

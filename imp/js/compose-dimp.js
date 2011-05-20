@@ -770,13 +770,8 @@ var DimpCompose = {
         }
     },
 
-    resizeMsgArea: function()
+    resizeMsgArea: function(e)
     {
-        var lh, mah, msg, msg_h, rows,
-            cmp = $('composeMessageParent'),
-            de = document.documentElement,
-            pad = 0;
-
         if (this.resizing) {
             return;
         }
@@ -785,6 +780,17 @@ var DimpCompose = {
             this.resizeMsgArea.bind(this).defer();
             return;
         }
+
+        // IE 7/8 Bug - can't resize TEXTAREA in the resize event (Bug #10075)
+        if (e && Prototype.Browser.IE) {
+            this.resizeMsgArea.bind(this).delay(0.1);
+            return;
+        }
+
+        var lh, mah, msg, msg_h, rows,
+            cmp = $('composeMessageParent'),
+            de = document.documentElement,
+            pad = 0;
 
         /* Needed because IE 8 will trigger resize events when we change
          * the rows attribute, which will cause an infinite loop. */
@@ -1033,7 +1039,7 @@ var DimpCompose = {
         } else {
             document.observe('change', this.changeHandler.bindAsEventListener(this));
         }
-        Event.observe(window, 'resize', this.resizeMsgArea.bind(this));
+        Event.observe(window, 'resize', this.resizeMsgArea.bindAsEventListener(this));
         $('compose').observe('submit', Event.stop);
         $('submit_frame').observe('load', this.attachmentComplete.bind(this));
 
