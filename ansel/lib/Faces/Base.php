@@ -94,16 +94,9 @@ class Ansel_Faces_Base
         $sql .= ' FROM ansel_faces WHERE image_id = ' . (int)$image_id
             . ' ORDER BY face_id DESC';
 
-       Horde::logMessage('SQL Query by Ansel_Faces::getImageFacesData: ' . $sql, 'DEBUG');
-       $result = $GLOBALS['ansel_db']->query($sql);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception_Wrapped($result);
-        } elseif ($result->numRows() == 0) {
-            return array();
-        }
-
+        $result = $GLOBALS['ansel_db']->select($sql);
         $faces = array();
-        while ($face = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
+        foreach ($result as $face) {
             if ($full) {
                 $faces[$face['face_id']] = array(
                     'face_name' => $face['face_name'],
@@ -135,19 +128,13 @@ class Ansel_Faces_Base
         $sql = 'SELECT face_id, image_id, gallery_id, face_name FROM ansel_faces '
             . ' WHERE gallery_id = ' . (int)$gallery . ' ORDER BY face_id DESC';
 
-        $result = $GLOBALS['ansel_db']->query($sql);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception_Wrapped($result);
-        } elseif ($result->numRows() == 0) {
-            return array();
-        }
-
+        $result = $GLOBALS['ansel_db']->select($sql);
         $faces = array();
-        while ($face = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
+        foreach ($result as $face) {
             $faces[$face['face_id']] = array('face_name' => $face['face_name'],
-                                      'face_id' => $face['face_id'],
-                                      'gallery_id' => $face['gallery_id'],
-                                      'image_id' => $face['image_id']);
+                                             'face_id' => $face['face_id'],
+                                             'gallery_id' => $face['gallery_id'],
+                                             'image_id' => $face['image_id']);
         }
 
         return $faces;
@@ -441,10 +428,6 @@ class Ansel_Faces_Base
 
         if (empty($face_id)) {
             $new = true;
-            $face_id = $GLOBALS['ansel_db']->nextId('ansel_faces');
-            if ($face_id instanceof PEAR_Error) {
-                throw new Ansel_Exception($face_id);
-            }
         }
 
         // The user edits the screen image not the full image
@@ -471,11 +454,12 @@ class Ansel_Faces_Base
                             $x2,
                             $y2,
                             $face_id);
-        } else {
 
+            $GLOBALS['ansel_db']->update($sql, $params);
+        } else {
             $sql = 'INSERT INTO ansel_faces (face_id, image_id, gallery_id, face_name, '
-                    . ' face_x1, face_y1, face_x2, face_y2)'
-                    . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+                . ' face_x1, face_y1, face_x2, face_y2)'
+                . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
             $params = array($face_id,
                             $image->id,
                             $image->gallery,
@@ -484,16 +468,8 @@ class Ansel_Faces_Base
                             $y1,
                             $x2,
                             $y2);
-        }
 
-        $q = $GLOBALS['ansel_db']->prepare($sql, null, MDB2_PREPARE_MANIP);
-        if ($q instanceof PEAR_Error) {
-            throw new Horde_Exception_Wrapped($q);
-        }
-        $result = $q->execute($params);
-        $q->free();
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception_Wrapped($result);
+            $face_id = $GLOBALS['ansel_db']->insert($sql, $params);
         }
 
         // Update gallery and image counts
@@ -505,7 +481,6 @@ class Ansel_Faces_Base
 
         return $face_id;
     }
-
 
     /**
      * Look for and save faces in a picture, and optionally create the face
