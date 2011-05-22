@@ -326,15 +326,23 @@ class IMP_Views_ListMessages
                 $parsed = $imp_imap->parseCacheId($args['cacheid']);
             }
             if (!empty($parsed['highestmodseq'])) {
-                $query = new Horde_Imap_Client_Fetch_Query();
-                $query->uid();
+                $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_LASTMODSEQ | Horde_Imap_Client::STATUS_LASTMODSEQUIDS);
+                if ($status['lastmodseq'] == $parsed['highestmodseq']) {
+                    /* QRESYNC already provided the updated list of flags -
+                     * we can grab the updated UIDS through this STATUS call
+                     * and save a FETCH. */
+                    $changed = array_flip($status['lastmodsequids']);
+                } else {
+                    $query = new Horde_Imap_Client_Fetch_Query();
+                    $query->uid();
 
-                try {
-                    $changed = $imp_imap->fetch($mbox, $query, array(
-                        'changedsince' => $parsed['highestmodseq'],
-                        'ids' => new Horde_Imap_Client_Ids(array_keys($cached))
-                    ));
-                } catch (IMP_Imap_Exception $e) {}
+                    try {
+                        $changed = $imp_imap->fetch($mbox, $query, array(
+                            'changedsince' => $parsed['highestmodseq'],
+                            'ids' => new Horde_Imap_Client_Ids(array_keys($cached))
+                        ));
+                    } catch (IMP_Imap_Exception $e) {}
+                }
             }
         }
 
