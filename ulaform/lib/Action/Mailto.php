@@ -3,17 +3,15 @@
  * Ulaform_Action_mailto Class provides a Ulaform action driver to mail the
  * results of a form to one or more recipients.
  *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * $Horde: ulaform/lib/Action/mailto.php,v 1.22 2009-07-09 08:18:44 slusarz Exp $
- *
- * @author Marko Djukic <marko@oblo.com>
+ * @author  Marko Djukic <marko@oblo.com>
  * @package Ulaform
  */
-class Ulaform_Action_mailto extends Ulaform_Action {
+class Ulaform_Action_Mailto extends Ulaform_Action {
 
     /**
      * Actually carry out the action.

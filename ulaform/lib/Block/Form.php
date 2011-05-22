@@ -1,7 +1,5 @@
 <?php
 
-$block_name = _("Show Form");
-
 /**
  * Ulaform Form Block Class
  *
@@ -19,14 +17,17 @@ $block_name = _("Show Form");
  * @author  Marko Djukic <marko@oblo.com>
  * @package Horde_Block
  */
-class Horde_Block_Ulaform_form extends Horde_Block {
+class Ulaform_Block_Form extends Horde_Core_Block {
 
-    var $_app = 'ulaform';
+    public function __construct($app, $params = array())
+    {
+        parent::__construct($app, $params);
+
+        $this->_name = _("Show Form");
+    }
 
     function _params()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         /* Available Forms for use in a block. */
         $params['form_id'] = array('name' => _("Form"),
                                    'type' => 'enum',
@@ -51,8 +52,6 @@ class Horde_Block_Ulaform_form extends Horde_Block {
 
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         $vars = Horde_Variables::getDefaultVariables();
         $formname = $vars->get('formname');
         $done = false;

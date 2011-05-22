@@ -2,9 +2,7 @@
 /**
  * The Ulaform script to create a new form or edit an existing form's details.
  *
- * $Horde: ulaform/edit.php,v 1.48 2009-07-14 18:43:45 selsky Exp $
- *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -12,13 +10,10 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Form/Action.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ulaform', array('admin' => true));
 
-/* Only admin should be using this. */
-if (!Horde_Auth::isAdmin()) {
-    Horde::authenticationFailureRedirect();
-}
+require_once 'Horde/Form/Action.php';
 
 /* Get some variables. */
 $changed_action = false;
@@ -26,6 +21,7 @@ $vars = Horde_Variables::getDefaultVariables();
 $form_id = $vars->get('form_id');
 $old_form_action = $vars->get('old_form_action');
 $formname = $vars->get('formname');
+$ulaform_driver = $injector->getInstance('Ulaform_Factory_Driver')->create();
 
 /* Check if a form is being edited. */
 if ($form_id && !$formname) {
@@ -78,7 +74,7 @@ if (!empty($action_params)) {
 }
 
 /* Set default language for the form. */
-$v = &$form->addVariable(_("Default language"), 'form_params[language]', 'enum', false, false, null, array(Horde_Nls::$config['languages'], _("-- default configured --")));
+$v = &$form->addVariable(_("Default language"), 'form_params[language]', 'enum', false, false, null, array($registry->nlsconfig->languages, _("-- default configured --")));
 $v->setOption('htmlchars', true);
 
 /* TODO: set up Ulaform to insert any javascript saved here into the form. */
@@ -95,11 +91,11 @@ if ($formname && !$changed_action) {
         $form->getInfo($vars, $info);
         $form_id = $ulaform_driver->saveForm($info);
         if (is_a($form_id, 'PEAR_Error')) {
-            Horde::logMessage($form_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($form_id, 'ERR');
             $notification->push(sprintf(_("Error saving form. %s."), $form_id->getMessage()), 'horde.error');
         } else {
             $notification->push(_("Form details saved."), 'horde.success');
-            $url = Horde::applicationUrl('forms.php', true);
+            $url = Horde::url('forms.php', true);
             header('Location: ' . $url);
             exit;
         }
@@ -107,11 +103,14 @@ if ($formname && !$changed_action) {
 }
 
 /* Render the form. */
-$template->set('main', Horde_Util::bufferOutput(array($form, 'renderActive'), new Horde_Form_Renderer(), $vars, 'edit.php', 'post'));
-$template->set('menu', Ulaform::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+$template = $injector->getInstance('Horde_Template');
+Horde::startBuffer();
+$form->renderActive(new Horde_Form_Renderer(), $vars, 'edit.php', 'post');
+$template->set('main', Horde::endBuffer());
 
 $title = _("Edit Forms");
-require ULAFORM_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 echo $template->fetch(ULAFORM_TEMPLATES . '/main/main.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

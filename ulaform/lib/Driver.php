@@ -2,12 +2,10 @@
 /**
  * Ulaform_Driver Class
  *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
- *
- * $Horde: ulaform/lib/Driver.php,v 1.35 2009-06-10 05:25:20 slusarz Exp $
  *
  * @author  Marko Djukic <marko@oblo.com>
  * @author  Brent J. Nordquist <bjn@horde.org>
@@ -21,16 +19,19 @@ class Ulaform_Driver {
      *
      * @var array
      */
-    var $_params = array();
+    protected $_params = array();
+
+    protected $_driver;
 
     /**
      * Constructor
      *
      * @param array $params  Any parameters needed for this driver.
      */
-    function Ulaform_Driver($params)
+    function __construct($params)
     {
         $this->_params = $params;
+        $this->_driver = $GLOBALS['injector']->getInstance('Ulaform_Factory_Driver')->create();
     }
 
     /**
@@ -40,7 +41,7 @@ class Ulaform_Driver {
      */
     function getFormsList()
     {
-        $forms = $this->getForms();
+        $forms = $this->_driver->getForms();
         if (is_a($forms, 'PEAR_Error')) {
             return $forms;
         }
@@ -49,11 +50,11 @@ class Ulaform_Driver {
         $i = 0;
         foreach ($forms as $form) {
             $forms_list[$i]['id'] = $form['form_id'];
-            $forms_list[$i]['del_url'] = Horde_Util::addParameter(Horde::applicationUrl('delete.php'), 'form_id', $form['form_id']);
-            $forms_list[$i]['edit_url'] = Horde_Util::addParameter(Horde::applicationUrl('edit.php'), 'form_id', $form['form_id']);
-            $forms_list[$i]['preview_url'] = Horde_Util::addParameter(Horde::applicationUrl('display.php'), 'form_id', $form['form_id']);
-            $forms_list[$i]['html_url'] = Horde_Util::addParameter(Horde::applicationUrl('genhtml.php'), 'form_id', $form['form_id']);
-            $forms_list[$i]['view_url'] = Horde_Util::addParameter(Horde::applicationUrl('fields.php'), 'form_id', $form['form_id']);
+            $forms_list[$i]['del_url'] = Horde_Util::addParameter(Horde::url('delete.php'), 'form_id', $form['form_id']);
+            $forms_list[$i]['edit_url'] = Horde_Util::addParameter(Horde::url('edit.php'), 'form_id', $form['form_id']);
+            $forms_list[$i]['preview_url'] = Horde_Util::addParameter(Horde::url('display.php'), 'form_id', $form['form_id']);
+            $forms_list[$i]['html_url'] = Horde_Util::addParameter(Horde::url('genhtml.php'), 'form_id', $form['form_id']);
+            $forms_list[$i]['view_url'] = Horde_Util::addParameter(Horde::url('fields.php'), 'form_id', $form['form_id']);
             $forms_list[$i]['name'] = $form['form_name'];
             $forms_list[$i]['action'] = $form['form_action'];
             $forms_list[$i]['onsubmit'] = $form['form_onsubmit'];
@@ -61,6 +62,44 @@ class Ulaform_Driver {
         }
 
         return $forms_list;
+    }
+
+    /**
+     * Get a list of fields that belong to a forms.
+     *
+     * @return array  Array of the available fields for a specific
+     *                form.
+     */
+    function getFieldsList($form_id)
+    {
+        $form = $this->_driver->getForm($form_id);
+        if (is_a($form, 'PEAR_Error')) {
+            return $form;
+        }
+
+        $fields = $this->_driver->getFields($form_id);
+        if (is_a($fields, 'PEAR_Error')) {
+            return $fields;
+        }
+
+        $fields_list = array();
+        $i = 0;
+        foreach ($fields as $field) {
+            $url_params = array('form_id' => $form_id,
+                                'field_id' => $field['field_id']);
+            $fields_list[$i] = array(
+                'del_url' => Horde_Util::addParameter(Horde::url('deletefield.php'), $url_params),
+                'edit_url' => Horde_Util::addParameter(Horde::url('fields.php'), $url_params),
+                'id' => $field['field_id'],
+                'name' => $field['field_name'],
+                'label' => $field['field_label'],
+                'type' => $field['field_type'],
+                'required' => $field['field_required'] ? _("Yes") : _("No"),
+                'readonly' => $field['field_readonly'] ? _("Yes") : _("No"));
+            $i++;
+        }
+
+        return $fields_list;
     }
 
     /**
@@ -72,12 +111,12 @@ class Ulaform_Driver {
      */
     function getFieldsArray($form_id)
     {
-        $form = $this->getForm($form_id);
+        $form = $this->_driver->getForm($form_id);
         if (is_a($form, 'PEAR_Error')) {
             return $form;
         }
 
-        $fields = $this->getFields($form_id);
+        $fields = $this->_driver->getFields($form_id);
         if (is_a($fields, 'PEAR_Error')) {
             return $fields;
         }
@@ -92,7 +131,7 @@ class Ulaform_Driver {
 
     function getField($form_id, $field_id)
     {
-        $field = $this->getFields($form_id, $field_id);
+        $field = $this->_driver->getFields($form_id, $field_id);
         if (is_a($field, 'PEAR_Error')) {
             return $field;
         }
@@ -107,72 +146,24 @@ class Ulaform_Driver {
 
     function submitForm($form_data)
     {
-        $form = $this->getForm($form_data['form_id']);
-        $fields = $this->getFields($form_data['form_id']);
+        $form = $this->_driver->getForm($form_data['form_id']);
+        $fields = $this->_driver->getFields($form_data['form_id']);
 
         require_once ULAFORM_BASE . '/lib/Action.php';
-        $action = &Ulaform_Action::singleton($form['form_action'], $this->_params);
+        $action = $GLOBALS['injector']->getInstance('Ulaform_Factory_Action')->create($form['form_action']);
 
         return $action->doAction($form['form_params'], $form_data, $fields);
     }
 
-    /**
-     * Attempts to return a concrete Ulaform_Driver instance based on $driver.
-     *
-     * @param string $driver  The type of concrete Ulaform_Driver subclass to
-     *                        return.
-     * @param array $params   A hash containing any additional configuration or
-     *                        connection parameters a subclass might need.
-     *
-     * @return Ulaform_Driver  The newly created concrete Ulaform_Driver
-     *                         instance, or false on error.
-     */
-    function &factory($driver, $params = array())
+    public function hasPermission($perm = Horde_Perms::SHOW, $form_id = null)
     {
-        $driver = basename($driver);
-        include_once dirname(__FILE__) . '/Driver/' . $driver . '.php';
-        $class = 'Ulaform_Driver_' . $driver;
-        if (class_exists($class)) {
-            $ulaform = &new $class($params);
-            return $ulaform;
-        } else {
-            Horde::fatal(PEAR::raiseError(sprintf(_("No such backend \"%s\" found"), $driver)), __FILE__, __LINE__);
-        }
-    }
-
-    /**
-     * Attempts to return a reference to a concrete Ulaform_Driver instance
-     * based on $driver.
-     *
-     * It will only create a new instance if no Ulaform_Driver instance with
-     * the same parameters currently exists.
-     *
-     * This should be used if multiple storage sources are required.
-     *
-     * This method must be invoked as: $var = &Ulaform_Driver::singleton()
-     *
-     * @param string $driver  The type of concrete Ulaform_Driver subclass to
-     *                        return.
-     * @param array $params   A hash containing any additional configuration or
-     *                        connection parameters a subclass might need.
-     *
-     * @return mixed  The created concrete Ulaform_Driver instance, or false on
-     *                error.
-     */
-    function &singleton($driver, $params = array())
-    {
-        static $instances;
-
-        if (!isset($instances)) {
-            $instances = array();
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        if (!$perms->exists('ulaform:forms:' . $form_id)) {
+            return ($perm & Horde_Perms::DELETE) ? false : true;
         }
 
-        $signature = serialize(array($driver, $params));
-        if (!isset($instances[$signature])) {
-            $instances[$signature] = &Ulaform_Driver::factory($driver, $params);
-        }
-
-        return $instances[$signature];
+        return $perms->hasPermission('ulaform:forms', $GLOBALS['registry']->getAuth(), $perm) ||
+            $perms->hasPermission('ulaform:forms:' . $form_id, $GLOBALS['registry']->getAuth(), $perm);
     }
 
 }

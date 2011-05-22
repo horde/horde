@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- $Horde: ulaform/config/conf.xml,v 1.2 2003-05-13 16:03:42 mdjukic Exp $ -->
+<!-- $Id$ -->
 <configuration>
  <configsection name="forms" desc="Forms settings">
   <configheader>

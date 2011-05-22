@@ -1,27 +1,25 @@
 <?php
 /**
- * Ulaform_Action_template Class provides a Ulaform action driver to complete
+ * Ulaform_Action_Template Class provides a Ulaform action driver to complete
  * a template provided by another Horde application replacing template data with
  * form informatino.
  *
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * $Horde: ulaform/lib/Action/template.php,v 1.3 2009-06-10 05:25:20 slusarz Exp $
- *
- * @author Ben Klang <ben@alkaloid.net>
+ * @author  Ben Klang <ben@alkaloid.net>
  * @package Ulaform
  */
-class Ulaform_Action_template extends Ulaform_Action {
+class Ulaform_Action_Template extends Ulaform_Action {
 
     /**
      * Actually carry out the action.
      */
     function doAction($form_params, $form_data, $fields)
     {
-        Horde::fatal(_("Not Implemented."), __FILE__, __LINE__);
+        throw new Horde_Exception(_("Not Implemented."));
     }
 
     /**

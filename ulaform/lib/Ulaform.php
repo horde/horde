@@ -2,12 +2,10 @@
 /**
  * The Ulaform:: class providing some support functions to the Ulaform module.
  *
- * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
- *
- * $Horde: ulaform/lib/Ulaform.php,v 1.42 2009-12-01 12:52:42 jan Exp $
  *
  * @author  Marko Djukic <marko@oblo.com>
  * @author  Brent J. Nordquist <bjn@horde.org>
@@ -143,14 +141,14 @@ class Ulaform {
     {
         static $permsCache;
 
-        $admin = Horde_Auth::isAdmin();
+        $admin = $GLOBALS['registry']->isAdmin();
         /* Horde admin is always authorised. */
         if ($admin) {
             return $in;
         }
 
         $out = array();
-        $userID = Horde_Auth::getAuth();
+        $userID = $GLOBALS['registry']->getAuth();
         switch ($filter) {
         /* Check permissions for a single form or for an array of forms. */
         case 'form':
@@ -169,7 +167,7 @@ class Ulaform {
                 if (!is_null($key)) {
                     $form_id = $form[$key];
                 }
-                if ($GLOBALS['perms']->hasPermission('ulaform:form:' . $form_id, $userID, $permission)) {
+                if ($GLOBALS['perms']->hasPermission('ulaform:forms:' . $form_id, $userID, $permission)) {
                     /* Cache and set into the $out array. */
                     $permsCache[$form_id][$permission] = true;
                     $out[$form_id] = $form;
@@ -184,62 +182,6 @@ class Ulaform {
         }
 
         return $out;
-    }
-
-    /**
-     * Get a list of fields that belong to a forms.
-     *
-     * @return array  Array of the available fields for a specific
-     *                form.
-     */
-    function getFieldsList($form_id)
-    {
-        $form = $GLOBALS['ulaform_driver']->getForm($form_id);
-        if (is_a($form, 'PEAR_Error')) {
-            return $form;
-        }
-
-        $fields = $GLOBALS['ulaform_driver']->getFields($form_id);
-        if (is_a($fields, 'PEAR_Error')) {
-            return $fields;
-        }
-
-        $fields_list = array();
-        $i = 0;
-        foreach ($fields as $field) {
-            $url_params = array('form_id' => $form_id,
-                                'field_id' => $field['field_id']);
-            $fields_list[$i] = array(
-                'del_url' => Horde_Util::addParameter(Horde::applicationUrl('deletefield.php'), $url_params),
-                'edit_url' => Horde_Util::addParameter(Horde::applicationUrl('fields.php'), $url_params),
-                'id' => $field['field_id'],
-                'name' => $field['field_name'],
-                'label' => $field['field_label'],
-                'type' => $field['field_type'],
-                'required' => $field['field_required'] ? _("Yes") : _("No"),
-                'readonly' => $field['field_readonly'] ? _("Yes") : _("No"));
-            $i++;
-        }
-
-        return $fields_list;
-    }
-
-
-    /**
-     * Build Ulaform's list of menu items.
-     */
-    function getMenu($returnType = 'object')
-    {
-        $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
-
-        $menu->addArray(array('url' => Horde::applicationUrl('forms.php'), 'text' => _("_List Forms"), 'icon' => 'ulaform.png'));
-        $menu->addArray(array('url' => Horde::applicationUrl('edit.php'), 'text' => _("_New Form"), 'icon' => 'new.png'));
-
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
     }
 
 }

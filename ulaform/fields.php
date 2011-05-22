@@ -4,9 +4,7 @@
  * It recognises what extra parameters need to be instered for a particular
  * field and adjusts the form accordingly.
  *
- * $Horde: ulaform/fields.php,v 1.58 2009-07-14 18:43:45 selsky Exp $
- *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -14,13 +12,10 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Form/Action.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ulaform', array('admin' => true));
 
-/* Only admin should be using this. */
-if (!Horde_Auth::isAdmin()) {
-    Horde::authenticationFailureRedirect();
-}
+require_once 'Horde/Form/Action.php';
 
 /* Get some variables. */
 $vars = Horde_Variables::getDefaultVariables();
@@ -81,26 +76,26 @@ $vars->set('old_field_type', $field_type);
 if ($fieldform->validate($vars)) {
     /* Save field if valid and the current and old field type match. */
     $fieldform->getInfo($vars, $info);
-    $save_field = $ulaform_driver->saveField($info);
-    if (is_a($save_field, 'PEAR_Error')) {
-        Horde::logMessage($save_field, __FILE__, __LINE__, PEAR_LOG_ERR);
-        $notification->push(sprintf(_("Error saving field. %s."), $save_field->getMessage()), 'horde.error');
-    } else {
+    try {
+        $save_field = $injector->getInstance('Ulaform_Factory_Driver')->create()->saveField($info);
         $notification->push(_("Field saved."), 'horde.success');
-        $url = Horde::applicationUrl('fields.php', true);
+        $url = Horde::url('fields.php', true);
         $url = Horde_Util::addParameter($url, array('form_id' => $info['form_id']),
                                   null, false);
         header('Location: ' . $url);
         exit;
+    } catch (Horde_Exception $e) {
+        Horde::logMessage($save_field, 'ERR');
+        $notification->push(sprintf(_("Error saving field. %s."), $e->getMessage()), 'horde.error');
     }
 }
 
 /* Get a field list. */
-$fields_list = Ulaform::getFieldsList($form_id);
+$fields_list = $ulaform_driver->getFieldsList($form_id);
 if (is_a($fields_list, 'PEAR_Error')) {
     /* Go back to forms if inexistant form_id. */
     $notification->push($fields_list->getMessage(), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('forms.php'));
+    header('Location: ' . Horde::url('forms.php'));
     exit;
 } elseif (empty($fields_list)) {
     /* Show a warning if no fields present. */
@@ -108,28 +103,31 @@ if (is_a($fields_list, 'PEAR_Error')) {
 }
 
 /* Set up the template fields. */
+$template = $injector->getInstance('Horde_Template');
 $template->setOption('gettext', true);
-$template->set('menu', Ulaform::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
 
 /* Set up the template action links. */
-$actions = Horde::link(Horde_Util::addParameter(Horde::applicationUrl('genhtml.php'), 'form_id', $form_id), _("Generate HTML")) . Horde::img('html.png', _("Generate HTML")) . '</a> ' . Horde::link(Horde_Util::addParameter(Horde::applicationUrl('display.php'), 'form_id', $form_id), _("Preview")) . Horde::img('display.png', _("Preview")) . '</a> ' . Horde::link(Horde_Util::addParameter(Horde::applicationUrl('sortfields.php'), 'form_id', $form_id), _("Sort fields")) . Horde::img('sort.png', _("Sort fields")) . '</a>';
+$actions = Horde::link(Horde_Util::addParameter(Horde::url('genhtml.php'), 'form_id', $form_id), _("Generate HTML")) . Horde::img('html.png', _("Generate HTML")) . '</a> ' . Horde::link(Horde_Util::addParameter(Horde::url('display.php'), 'form_id', $form_id), _("Preview")) . Horde::img('display.png', _("Preview")) . '</a> ' . Horde::link(Horde_Util::addParameter(Horde::url('sortfields.php'), 'form_id', $form_id), _("Sort fields")) . Horde::img('sort.png', _("Sort fields")) . '</a>';
 $template->set('actions', $actions);
 
 /* Render the form. */
-$template->set('inputform', Horde_Util::bufferOutput(array($fieldform, 'renderActive'), new Horde_Form_Renderer(), $vars, 'fields.php', 'post'));
+Horde::startBuffer();
+$fieldform->renderActive(new Horde_Form_Renderer(), $vars, 'fields.php', 'post');
+$template->set('inputform', Horde::endBuffer());
 
 /* Set up the field list. */
 $fieldproperties = array('name' => _("Name"), 'label' => _("Label"), 'type' => _("Type"), 'required' => _("Required"), 'readonly' => _("Read only"), 'desc' => _("Description"));
 $template->set('fieldproperties', $fieldproperties);
 $images = array(
-    'delete' => Horde::img('delete.png', _("Delete Field"), null, $registry->getImageDir('horde')),
-    'edit' => Horde::img('edit.png', _("Edit Field"), '', $registry->getImageDir('horde')));
+    'delete' => Horde::img('delete.png', _("Delete Field"), null),
+    'edit' => Horde::img('edit.png', _("Edit Field"), ''));
 $template->set('images', $images);
 $template->set('fields', $fields_list, true);
 
 /* Render the page. */
 $title = _("Form Fields");
-require ULAFORM_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 echo $template->fetch(ULAFORM_TEMPLATES . '/fields/fields.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -1,36 +1,62 @@
 <?php
 /**
- * Ulaform_Action_sql Class provides a Ulaform action driver to submit the
+ * Ulaform_Action_Sql Class provides a Ulaform action driver to submit the
  * results of a form to database.
  *
- * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * $Horde: ulaform/lib/Action/sql.php,v 1.27 2009-07-09 08:18:44 slusarz Exp $
- *
  * @author  Vilius Sumskas <vilius@lnk.lt>
  * @package Ulaform
  */
-class Ulaform_Action_sql extends Ulaform_Action {
+class Ulaform_Action_Sql extends Ulaform_Action {
 
-    var $_db;
+    /**
+     * The database connection object.
+     *
+     * @var Horde_Db_Adapter
+     */
+    protected $_db;
+
+    /**
+     * Charset
+     *
+     * @var string
+     */
+    protected $_charset;
+
+    /**
+     * Construct a new SQL storage object.
+     *
+     * @param array $params    The connection parameters
+     *
+     * @throws InvalidArguementException
+     */
+    public function __construct($params = array())
+    {
+        if (empty($params['db'])) {
+            throw new InvalidArgumentException('Missing required connection parameter(s).');
+        }
+        $this->_db = $params['db'];
+        $this->_charset = $params['charset'];
+    }
 
     /**
      * Actually carry out the action.
      *
-     * @return mixed True or PEAR Error.
+     * @return boolean  True on success.
+     * @throws Ulaform_Exception
      */
     function doAction($form_params, $form_data, $fields)
     {
-        /*  Connect to database. */
-        $this->initialise();
-
         /* Check if table exists. */
-        if (!in_array($form_params['table'], $this->_db->getListOf('tables'))) {
-            if (is_a($result = $this->createDataTable($form_params, $fields), 'PEAR_Error')) {
-                return $result;
+        if (!in_array($form_params['table'], $this->_db->tables())) {
+            try {
+                $this->createDataTable($form_params, $fields);
+            } catch (Horde_Db_Exception $e) {
+                throw new Ulaform_Exception($e->getMessage());
             }
         }
 
@@ -43,8 +69,8 @@ class Ulaform_Action_sql extends Ulaform_Action {
             case 'image':
                 if (count($form_data[$field['field_name']])) {
                     $data = file_get_contents($form_data[$field['field_name']]['file']);
-                    if ($this->_db->dbsyntax == 'mssql' ||
-                        $this->_db->dbsyntax == 'pgsql') {
+                    if (Horde_String::lower($this->_db->adapterName()) == 'mssql' ||
+                        Horde_String::lower($this->_db->adapterName()) == 'pgsql') {
                         $data = bin2hex($data);
                     }
                     $columns[] = $field['field_name'];
@@ -60,7 +86,7 @@ class Ulaform_Action_sql extends Ulaform_Action {
             default:
                 $data = $form_data[$field['field_name']];
                 $columns[] = $field['field_name'];
-                $values[] = Horde_String::convertCharset($data, Horde_Nls::getCharset(), $this->_params['charset']);
+                $values[] = Horde_String::convertCharset($data, 'UTF-8', $this->_charset);
                 break;
             }
         }
@@ -69,13 +95,13 @@ class Ulaform_Action_sql extends Ulaform_Action {
                        implode(', ', $columns),
                        str_repeat('?, ', count($values) - 1) . '?');
 
-        Horde::logMessage('SQL Query by Ulaform_Action_sql::doAction(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
-        $result = $this->_db->query($sql, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        } else {
-            return true;
+        try {
+            $this->_db->execute($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Ulaform_Exception($e->getMessage());
         }
+
+        return true;
     }
 
     /**
@@ -109,7 +135,8 @@ class Ulaform_Action_sql extends Ulaform_Action {
     /**
      * Create table for submiting data.
      *
-     * @return mixed True or PEAR Error.
+     * @return boolean  True on success.
+     * @throws Ulaform_Exception
      */
     function createDataTable($form_params, $fields)
     {
@@ -120,7 +147,7 @@ class Ulaform_Action_sql extends Ulaform_Action {
             case 'file':
             case 'image':
                 // TODO: Use Horde_SQL
-                switch ($this->_db->dbsyntax) {
+                switch (Horde_String::lower($this->_db->adapterName())) {
                 case 'pgsql':
                     $columns[] = $field['field_name'] . ' TEXT';
                     break;
@@ -153,48 +180,11 @@ class Ulaform_Action_sql extends Ulaform_Action {
                        implode(', ', $columns));
 
         /* Create table. */
-        $result = $this->_db->query($sql);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        } else {
-            return true;
+        try {
+            $this->_db->execute($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Ulaform_Exception($e);
         }
-    }
-
-    function initialise()
-    {
-        global $registry;
-
-        Horde::assertDriverConfig($this->_params, 'sql',
-                                  array('phptype'));
-
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-
-        /* Connect to the SQL server using the supplied parameters. */
-        require_once 'DB.php';
-        $this->_db = &DB::connect($this->_params,
-                                  array('persistent' => !empty($this->_params['persistent'])));
-        if (is_a($this->_db, 'PEAR_Error')) {
-            Horde::fatal($this->_db, __FILE__, __LINE__);
-        }
-
-        // Set DB portability options.
-        switch ($this->_db->phptype) {
-        case 'mssql':
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
-
         return true;
     }
 
