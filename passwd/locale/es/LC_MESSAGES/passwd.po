@@ -7,11 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Passwd H4 (3.1.4-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-14 17:07+0200\n"
+"POT-Creation-Date: 2011-05-18 12:43+0200\n"
 "PO-Revision-Date: 2011-04-14 17:07+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -125,8 +126,8 @@ msgstr "Fallo al cambiar la contraseña de %s: %s"
 msgid "Full buffer."
 msgstr "Buffer lleno"
 
-#: lib/Driver.php:72 lib/Driver/http.php:72 lib/Driver/kolab.php:84
-#: lib/Driver/ldap.php:144 lib/Driver/poppassd.php:120
+#: lib/Driver.php:72 lib/Driver/horde.php:41 lib/Driver/http.php:72
+#: lib/Driver/kolab.php:84 lib/Driver/ldap.php:144 lib/Driver/poppassd.php:120
 #: lib/Driver/vmailmgr.php:42
 msgid "Incorrect old password."
 msgstr "Contraseña anterior incorrecta"
@@ -232,6 +233,10 @@ msgstr ""
 #: templates/main/main.inc:142
 msgid "Reset"
 msgstr "Limpiar"
+
+#: lib/Driver/horde.php:32
+msgid "The current horde configuration does not allow changing passwords."
+msgstr ""
 
 #: lib/Driver/http.php:65
 msgid "The requested website for changing user passwords could not be reached."

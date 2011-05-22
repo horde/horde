@@ -7,11 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo H4 (3.0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-14 17:07+0200\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: 2011-04-14 17:07+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -49,7 +50,7 @@ msgstr "Error al mostrar %s"
 msgid "An error occurred displaying the note"
 msgstr "Se ha producido un error mostrando la nota"
 
-#: config/prefs.php:63
+#: config/prefs.php:64
 msgid "Ascending"
 msgstr "Ascendente"
 
@@ -70,11 +71,11 @@ msgstr "Categoría"
 msgid "Change Permissions"
 msgstr "Cambiar permisos"
 
-#: config/prefs.php:13
+#: config/prefs.php:14
 msgid "Change your note sorting and display preferences."
 msgstr "Cambia opciones de ordenación y visualización de notas."
 
-#: config/prefs.php:20
+#: config/prefs.php:21
 msgid "Choose your default Notepad."
 msgstr "Elija su libreta por omisión."
 
@@ -110,15 +111,15 @@ msgstr "Fecha"
 msgid "Decrypt"
 msgstr "Descifrar"
 
-#: config/prefs.php:19
+#: config/prefs.php:20
 msgid "Default Notepad"
 msgstr "Libreta por omisión"
 
-#: config/prefs.php:55
+#: config/prefs.php:56
 msgid "Default sorting criteria:"
 msgstr "Criterio de clasificación por omisión:"
 
-#: config/prefs.php:66
+#: config/prefs.php:67
 msgid "Default sorting direction:"
 msgstr "Sentido de clasificación por omisión:"
 
@@ -132,11 +133,11 @@ msgstr "Eliminar"
 msgid "Delete %s"
 msgstr "Eliminar %s"
 
-#: config/prefs.php:26
+#: config/prefs.php:27
 msgid "Delete Confirmation"
 msgstr "Confirmación de eliminación"
 
-#: config/prefs.php:27
+#: config/prefs.php:28
 msgid "Delete button behaviour"
 msgstr "Comportamiento del botón eliminar"
 
@@ -144,7 +145,7 @@ msgstr "Comportamiento del botón eliminar"
 msgid "Delete this note"
 msgstr "Eliminar esta nota"
 
-#: config/prefs.php:64
+#: config/prefs.php:65
 msgid "Descending"
 msgstr "Descendente"
 
@@ -152,11 +153,11 @@ msgstr "Descendente"
 msgid "Description"
 msgstr "Descripción"
 
-#: config/prefs.php:12
+#: config/prefs.php:13
 msgid "Display Preferences"
 msgstr "Mostrar opciones"
 
-#: config/prefs.php:96
+#: config/prefs.php:97
 msgid "Do you want to confirm deleting entries?"
 msgstr "¿Quiere confirmar la eliminación de entradas?"
 
@@ -208,7 +209,7 @@ msgstr "Exportar"
 msgid "Export Notes"
 msgstr "Exportar notas"
 
-#: config/prefs.php:11 config/prefs.php:18 config/prefs.php:25
+#: config/prefs.php:12 config/prefs.php:19 config/prefs.php:26
 msgid "General Preferences"
 msgstr "Pref. generales"
 
@@ -233,7 +234,7 @@ msgstr "Última modificación"
 msgid "Manage Notepads"
 msgstr "Gestionar libretas"
 
-#: lib/Application.php:57
+#: lib/Application.php:56
 msgid "Maximum Number of Notes"
 msgstr "Número máximo de notas"
 
@@ -241,7 +242,7 @@ msgstr "Número máximo de notas"
 msgid "Memo Text"
 msgstr "Texto de la nota"
 
-#: config/prefs.php:53
+#: config/prefs.php:54
 msgid "Modification Date"
 msgstr "Fecha de modificación"
 
@@ -266,7 +267,7 @@ msgstr "Mis notas"
 msgid "Name"
 msgstr "Nombre"
 
-#: lib/Application.php:134 memo.php:92 memo.php:138
+#: lib/Application.php:133 memo.php:92 memo.php:138
 msgid "New Note"
 msgstr "Añadir"
 
@@ -298,11 +299,11 @@ msgstr "Sin notas visibles"
 msgid "No_te"
 msgstr "_Nota"
 
-#: lib/Driver/Kolab.php:97 lib/Driver/Sql.php:80
+#: lib/Driver/Kolab.php:109 lib/Driver/Sql.php:80
 msgid "Not Found"
 msgstr "No encontrado"
 
-#: config/prefs.php:51
+#: config/prefs.php:52
 msgid "Note Category"
 msgstr "Categoría de la nota"
 
@@ -310,7 +311,7 @@ msgstr "Categoría de la nota"
 msgid "Note Details"
 msgstr "Detalles de la nota"
 
-#: config/prefs.php:50
+#: config/prefs.php:51
 msgid "Note Text"
 msgstr "Texto de la nota"
 
@@ -326,7 +327,7 @@ msgstr "No se encontró la nota."
 msgid "Note_pad:"
 msgstr "_Libreta"
 
-#: config/prefs.php:52 templates/list/memo_headers.inc:33
+#: config/prefs.php:53 templates/list/memo_headers.inc:33
 #: templates/notepad_list.php:17
 msgid "Notepad"
 msgstr "Libreta"
@@ -335,7 +336,7 @@ msgstr "Libreta"
 msgid "Notepad List"
 msgstr "Lista de notas"
 
-#: lib/Mnemo.php:526
+#: lib/Mnemo.php:530
 #, php-format
 msgid "Notepad of %s"
 msgstr "Libreta de %s"
@@ -383,7 +384,7 @@ msgstr "Guardar"
 msgid "Save as PDF"
 msgstr "Guardar como PDF"
 
-#: lib/Application.php:167 search.php:22 templates/list/header.inc:4
+#: lib/Application.php:166 search.php:22 templates/list/header.inc:4
 #: templates/search/search.inc:4 templates/search/search.inc:27
 msgid "Search"
 msgstr "Buscar"
@@ -412,7 +413,7 @@ msgstr "Seleccione el formato del archivo origen:"
 msgid "Shared Notepads:"
 msgstr "Libretas compartidas:"
 
-#: config/prefs.php:36
+#: config/prefs.php:37
 msgid "Should the Notepad be shown in its own column in the List view?"
 msgstr "¿Mostrar la libreta en su propia columna en la vista de Listado?"
 
@@ -540,12 +541,12 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password below"
 msgstr "Esta nota se ha cifrado, introduzca la contrasela a continuación"
 
-#: lib/Api.php:280 lib/Driver/Kolab.php:281 lib/Driver/Sql.php:344
+#: lib/Api.php:280 lib/Driver/Kolab.php:293 lib/Driver/Sql.php:344
 msgid "This note has been encrypted."
 msgstr "Esta nota se ha cifrado."
 
-#: lib/Block/Summary.php:116 lib/Mnemo.php:271 lib/Mnemo.php:272
-#: lib/Mnemo.php:286 lib/Mnemo.php:287 templates/list/memo_summaries.inc:20
+#: lib/Block/Summary.php:116 lib/Mnemo.php:275 lib/Mnemo.php:276
+#: lib/Mnemo.php:290 lib/Mnemo.php:291 templates/list/memo_summaries.inc:20
 #: templates/view/memo.inc:27
 msgid "Unfiled"
 msgstr "Sin categoría"
@@ -585,7 +586,7 @@ msgstr "Carece de permisos para modificar esta nota."
 msgid "You do not have permission to view the notepad %s."
 msgstr "No dispone de permisos para ver la libreta %s."
 
-#: config/prefs.php:84
+#: config/prefs.php:85
 msgid "Your default notepad:"
 msgstr "Su libreta por omisión:"
 
@@ -621,15 +622,15 @@ msgstr "¿Ci_frar?"
 msgid "_For: "
 msgstr "Te_xto: "
 
-#: lib/Application.php:82
+#: lib/Application.php:81
 msgid "_Import/Export"
 msgstr "_Importar/Exportar"
 
-#: lib/Application.php:69
+#: lib/Application.php:68
 msgid "_List Notes"
 msgstr "_Listar"
 
-#: lib/Application.php:74
+#: lib/Application.php:73
 msgid "_New Note"
 msgstr "_Añadir"
 
@@ -641,7 +642,7 @@ msgstr "Contrase_ña"
 msgid "_Password:"
 msgstr "Contrase_ña"
 
-#: lib/Application.php:87
+#: lib/Application.php:86
 msgid "_Print"
 msgstr "Im_primir"
 
@@ -649,7 +650,7 @@ msgstr "Im_primir"
 msgid "_Repeat:"
 msgstr "_Repetir:"
 
-#: lib/Application.php:78
+#: lib/Application.php:77
 msgid "_Search"
 msgstr "_Buscar"
 
@@ -666,7 +667,7 @@ msgstr "por %s"
 msgid "by me"
 msgstr "por mi"
 
-#: lib/Application.php:154
+#: lib/Application.php:153
 #, php-format
 msgid "in %s"
 msgstr "a %s"

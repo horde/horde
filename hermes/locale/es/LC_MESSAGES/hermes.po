@@ -7,11 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-14 17:07+0200\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: 2011-04-14 17:07+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -74,7 +75,7 @@ msgstr "¿Activa?"
 msgid "Add Job Type"
 msgstr "Añadir tipo de trabajo"
 
-#: config/prefs.php:29
+#: config/prefs.php:30
 msgid ""
 "Add stop watch name and start and end time to the description of the time "
 "entry?"
@@ -263,7 +264,7 @@ msgstr "Descripción"
 msgid "Display Name"
 msgstr "Mostrar nombre"
 
-#: config/prefs.php:19
+#: config/prefs.php:20
 msgid "Display Preferences"
 msgstr "Mostrar opciones"
 
@@ -381,7 +382,7 @@ msgstr "Exportar tiempo"
 msgid "Exported?"
 msgstr "¿Exportadas?"
 
-#: config/prefs.php:11 config/prefs.php:18
+#: config/prefs.php:12 config/prefs.php:19
 msgid "General Preferences"
 msgstr "Pref. generales"
 
@@ -593,7 +594,7 @@ msgstr "Examine el horario adjunto"
 msgid "Select Client"
 msgstr "Seleccionar cliente"
 
-#: config/prefs.php:20
+#: config/prefs.php:21
 msgid ""
 "Select confirmation preferences, how to display the different views and "
 "choose default view."
@@ -613,7 +614,7 @@ msgstr "Seleccione el formato de exportación"
 msgid "Set date"
 msgstr "Definir fecha"
 
-#: config/prefs.php:13
+#: config/prefs.php:14
 msgid "Set preferences on the stop watch timer."
 msgstr "Define opciones del cronómetro."
 
@@ -630,7 +631,7 @@ msgstr ""
 "¿Hay que introducir la descripción de los periodos del cliente? Si no es el "
 "caso, de forma automática la descripción será \"%s\"."
 
-#: config/prefs.php:43
+#: config/prefs.php:44
 msgid "Show the dynamic view by default, if the browser supports it?"
 msgstr "¿Mostrar la vista dinámica por omisión si el navegador lo permite?"
 
@@ -642,7 +643,7 @@ msgstr "Iniciar"
 msgid "Stop Watch"
 msgstr "Cronómetro"
 
-#: config/prefs.php:12
+#: config/prefs.php:13
 msgid "Stop watch Preferences"
 msgstr "Opciones de cronómetro"
 

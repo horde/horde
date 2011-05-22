@@ -7,11 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-14 17:07+0200\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: 2011-04-14 17:07+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -60,6 +61,11 @@ msgstr "Se ha añadido a %s a los encargados de \"%s\""
 #, php-format
 msgid "%s days"
 msgstr "%s días"
+
+#: lib/Mail.php:177 lib/Mail.php:180
+#, php-format
+msgid "%s part"
+msgstr "parte %s"
 
 #: queue/rss.php:100
 #, php-format
@@ -119,7 +125,7 @@ msgstr "Añadir atributo"
 msgid "Add Attribute Criterion"
 msgstr "Añadir criterio de atributo"
 
-#: mybugs.php:47
+#: mybugs.php:44
 msgid "Add Content"
 msgstr "Añadir contenido"
 
@@ -189,7 +195,7 @@ msgstr "Añadir Observador"
 msgid "Adding your ticket failed: %s."
 msgstr "Ha fallado la adición de la incidencia: %s."
 
-#: config/prefs.php:29
+#: config/prefs.php:30
 msgid "Address Books"
 msgstr "Libretas de direcciones"
 
@@ -210,7 +216,7 @@ msgstr "Cualquiera"
 msgid "Any Group"
 msgstr "Cualquier grupo"
 
-#: config/prefs.php:64
+#: config/prefs.php:65
 msgid "Ascending"
 msgstr "Ascendente"
 
@@ -218,12 +224,12 @@ msgstr "Ascendente"
 msgid "Assign"
 msgstr "Asignar"
 
-#: config/prefs.php:53 lib/Api.php:702 lib/Driver.php:213
+#: config/prefs.php:54 lib/Api.php:702 lib/Driver.php:213
 #: lib/Renderer/Query.php:154 lib/Ticket.php:989 lib/Whups.php:688
 msgid "Assigned"
 msgstr "Asignada"
 
-#: lib/Forms/Query.php:337 lib/Forms/Search.php:60
+#: lib/Forms/Query.php:337 lib/Forms/Search.php:64
 msgid "Assigned from"
 msgstr "Asignada desde"
 
@@ -290,7 +296,7 @@ msgstr "Atributos"
 msgid "Attributes for this Type"
 msgstr "Atributos para este tipo"
 
-#: config/prefs.php:131
+#: config/prefs.php:132
 msgid "Autolink to other tickets in comments?"
 msgstr "¿Vincular automáticamente a otras incidencias en los comentarios?"
 
@@ -330,13 +336,13 @@ msgstr "Subcadena sin distinción de may./min."
 msgid "Change"
 msgstr "Cambiar"
 
-#: config/prefs.php:13
+#: config/prefs.php:14
 msgid "Change display preferences such as how search results are sorted."
 msgstr ""
 "Cambia opciones de visualización tales como cómo ordenar los resultados de "
 "las búsquedas."
 
-#: config/prefs.php:24
+#: config/prefs.php:25
 msgid "Change preferences for email notifications of ticket activity."
 msgstr ""
 "Cambia la configuración de los avisos de actividad de incidencias por correo."
@@ -353,7 +359,7 @@ msgstr "Elija Añadir consulta en vez de eliminar el nodo raiz."
 msgid "Choose:"
 msgstr "Elegir:"
 
-#: config/prefs.php:139
+#: config/prefs.php:140
 msgid "Chronological (oldest first)"
 msgstr "Cronológico (antiguos primero)"
 
@@ -369,7 +375,7 @@ msgstr "Descripción del duplicado"
 msgid "Clone Type"
 msgstr "Duplicar tipo"
 
-#: config/templates.php:45
+#: config/templates.php:46
 msgid "Comma Separated Values (CSV file)"
 msgstr "Valores separados por comas (archivo CSV)"
 
@@ -410,7 +416,7 @@ msgstr "Copia de %s"
 msgid "Could not find any groups."
 msgstr "No se pudo encontrar ningún grupo."
 
-#: lib/Mail.php:123
+#: lib/Mail.php:134
 #, php-format
 msgid "Could not find ticket \"%s\"."
 msgstr "No se pudo encontrar la incidencia \"%s\"."
@@ -423,7 +429,7 @@ msgstr "Crear prioridades por omisión"
 msgid "Create Default States"
 msgstr "Crear estados por omisión"
 
-#: config/prefs.php:77
+#: config/prefs.php:78
 msgid "Create Ticket"
 msgstr "Añadir incidencia"
 
@@ -443,7 +449,7 @@ msgstr "Añadir incidencia - Paso 3"
 msgid "Create Ticket - Step 4"
 msgstr "Añadir incidencia - Paso 4"
 
-#: config/prefs.php:52 lib/Api.php:707 lib/Renderer/Query.php:139
+#: config/prefs.php:53 lib/Api.php:707 lib/Renderer/Query.php:139
 #: lib/Ticket.php:974 lib/Whups.php:686
 msgid "Created"
 msgstr "Creado"
@@ -452,7 +458,7 @@ msgstr "Creado"
 msgid "Created By"
 msgstr "Creada por"
 
-#: lib/Forms/Query.php:328 lib/Forms/Search.php:54
+#: lib/Forms/Query.php:328 lib/Forms/Search.php:58
 msgid "Created from"
 msgstr "Creada desde"
 
@@ -468,11 +474,11 @@ msgstr "Consulta actual"
 msgid "Current Ticket Type"
 msgstr "Tipo de incidencia actual"
 
-#: config/prefs.php:105
+#: config/prefs.php:106
 msgid "DD/MM/YY"
 msgstr "DD/MM/YY"
 
-#: config/prefs.php:106
+#: config/prefs.php:107
 msgid "DD/MM/YY HH:MM:SS"
 msgstr "DD/MM/YY HH:MM:SS"
 
@@ -480,11 +486,11 @@ msgstr "DD/MM/YY HH:MM:SS"
 msgid "DO NOT REPLY TO THIS MESSAGE. THIS EMAIL ADDRESS IS NOT MONITORED."
 msgstr "NO CONTESTE A ESTE MENSAJE. ESTA DIRECCIÓN NO SE CONSULTA."
 
-#: config/prefs.php:110
+#: config/prefs.php:111
 msgid "Date/Time format for search results"
 msgstr "Formato de Fecha/Hora de los resultados de la búsqueda"
 
-#: lib/Forms/Search.php:53
+#: lib/Forms/Search.php:57
 msgid "Dates"
 msgstr "Fechas"
 
@@ -492,11 +498,11 @@ msgstr "Fechas"
 msgid "Default Ticket Type"
 msgstr "Tipo de incidencia por omisión"
 
-#: config/prefs.php:56
+#: config/prefs.php:57
 msgid "Default sorting criteria:"
 msgstr "Criterio de clasificación por omisión:"
 
-#: config/prefs.php:67
+#: config/prefs.php:68
 msgid "Default sorting direction:"
 msgstr "Sentido de clasificación por omisión:"
 
@@ -504,7 +510,7 @@ msgstr "Sentido de clasificación por omisión:"
 msgid "Delete"
 msgstr "Eliminar"
 
-#: lib/Whups.php:854 lib/Whups.php:855
+#: lib/Whups.php:851 lib/Whups.php:852
 #, php-format
 msgid "Delete %s"
 msgstr "Eliminar %s"
@@ -587,7 +593,7 @@ msgstr "Adjunto eliminado"
 msgid "Deleted Attachment: %s"
 msgstr "Adjunto eliminado: %s"
 
-#: config/prefs.php:65
+#: config/prefs.php:66
 msgid "Descending"
 msgstr "Descendente"
 
@@ -595,11 +601,11 @@ msgstr "Descendente"
 msgid "Description"
 msgstr "Descripción"
 
-#: config/prefs.php:12
+#: config/prefs.php:13
 msgid "Display Preferences"
 msgstr "Mostrar opciones"
 
-#: lib/Whups.php:845
+#: lib/Whups.php:842
 msgid "Download"
 msgstr "Descargar"
 
@@ -621,7 +627,7 @@ msgstr "Vencimiento &rArr; %s"
 msgid "Due Date"
 msgstr "Fecha de vencimiento"
 
-#: lib/Forms/Query.php:340 lib/Forms/Search.php:62
+#: lib/Forms/Query.php:340 lib/Forms/Search.php:66
 msgid "Due from"
 msgstr "Vencido desde"
 
@@ -837,7 +843,7 @@ msgstr "Texto de la respuesta"
 msgid "Form Reply:"
 msgstr "Respuesta:"
 
-#: config/prefs.php:11 config/prefs.php:22 config/prefs.php:28
+#: config/prefs.php:12 config/prefs.php:23 config/prefs.php:29
 msgid "General Preferences"
 msgstr "Pref. generales"
 
@@ -865,7 +871,7 @@ msgstr "Historia"
 msgid "Hoist Children"
 msgstr "Servidor descendiente"
 
-#: config/prefs.php:45 lib/Forms/Query.php:175 lib/Renderer/Query.php:81
+#: config/prefs.php:46 lib/Forms/Query.php:175 lib/Renderer/Query.php:81
 #: lib/Whups.php:671 lib/Whups.php:678
 msgid "Id"
 msgstr "Id"
@@ -942,11 +948,11 @@ msgstr "Cargar consulta"
 msgid "Loading..."
 msgstr "Cargando..."
 
-#: config/prefs.php:103
+#: config/prefs.php:104
 msgid "MM/DD/YY"
 msgstr "DD/MM/YY"
 
-#: config/prefs.php:104
+#: config/prefs.php:105
 msgid "MM/DD/YY HH:MM:SS"
 msgstr "DD/MM/YY HH:MM:SS"
 
@@ -983,7 +989,7 @@ msgstr "Tiempo máximo sin resolver una incidencia"
 msgid "Minimum time a ticket is unresolved"
 msgstr "Tiempo mínimo sin resolver una incidencia"
 
-#: config/prefs.php:140
+#: config/prefs.php:141
 msgid "Most recent first"
 msgstr "Recientes primero"
 
@@ -992,7 +998,7 @@ msgstr "Recientes primero"
 msgid "Moved ticket %d to \"%s\""
 msgstr "Se ha trasladado la incidencia %d a \"%s\""
 
-#: mybugs.php:46
+#: mybugs.php:43
 #, php-format
 msgid "My %s"
 msgstr "Mis %s"
@@ -1002,7 +1008,7 @@ msgstr "Mis %s"
 msgid "My %s :: Add Content"
 msgstr "Mi %s :: Añadir contenido"
 
-#: lib/Block/Myqueries.php:13 search.php:177
+#: search.php:177
 msgid "My Queries"
 msgstr "Mis consultas"
 
@@ -1010,7 +1016,7 @@ msgstr "Mis consultas"
 msgid "My Requests"
 msgstr "Mis solicitudes"
 
-#: config/prefs.php:75 lib/Block/Mytickets.php:13
+#: config/prefs.php:76 lib/Block/Mytickets.php:13
 msgid "My Tickets"
 msgstr "Mis incidencias"
 
@@ -1148,7 +1154,7 @@ msgstr "Ninguna"
 msgid "Not"
 msgstr "No"
 
-#: config/prefs.php:23
+#: config/prefs.php:24
 msgid "Notification Preferences"
 msgstr "Opciones de notificaciones"
 
@@ -1156,22 +1162,18 @@ msgstr "Opciones de notificaciones"
 msgid "Older? Please update first!"
 msgstr "¿Antiguo? ¡Realice una actualización primero!"
 
-#: config/prefs.php:117
+#: config/prefs.php:118
 msgid "Only notify me of ticket changes from other users?"
 msgstr ""
 "¿Comunicarme sólo los cambios de incidencias realizados por otros usuarios?"
 
-#: config/prefs.php:124
+#: config/prefs.php:125
 msgid "Only notify me of ticket changes with comments?"
 msgstr "¿Comunicarme sólo los cambios de incidencias con comentarios?"
 
 #: queue/rss.php:40
 msgid "Open"
 msgstr "Abierta"
-
-#: lib/Block/Queuesummary.php:34
-msgid "Open Tickets"
-msgstr "Incidencias abiertas"
 
 #: reports.php:20
 msgid "Open Tickets by Owner"
@@ -1222,7 +1224,7 @@ msgstr "O"
 msgid "Owners"
 msgstr "Propietarios"
 
-#: lib/Whups.php:854
+#: lib/Whups.php:851
 #, php-format
 msgid "Permanently delete %s?"
 msgstr "¿Eliminar definitivamente %s?"
@@ -1250,7 +1252,7 @@ msgstr "Permiso denegado."
 msgid "Priorities for this Type"
 msgstr "Prioridades de este tipo"
 
-#: config/prefs.php:49 lib/Forms/CreateTicket.php:158
+#: config/prefs.php:50 lib/Forms/CreateTicket.php:158
 #: lib/Forms/EditTicket.php:84 lib/Forms/Query.php:202
 #: lib/Renderer/Query.php:123 lib/Ticket.php:620 lib/Ticket.php:814
 #: lib/Ticket.php:956 lib/Whups.php:673 lib/Whups.php:682 ticket/queue.php:113
@@ -1302,8 +1304,8 @@ msgstr "ID de la consulta"
 msgid "Query to run"
 msgstr "Consulta a realizar"
 
-#: config/prefs.php:50 lib/Block/Queuecontents.php:35
-#: lib/Block/Queuesummary.php:34 lib/Forms/Query.php:185
+#: config/prefs.php:51 lib/Block/Queuecontents.php:35
+#: lib/Block/Queuesummary.php:43 lib/Forms/Query.php:185
 #: lib/Forms/Search.php:38 lib/Renderer/Query.php:92 lib/Ticket.php:616
 #: lib/Ticket.php:810 lib/Ticket.php:921 lib/Ticket.php:926 lib/Whups.php:683
 msgid "Queue"
@@ -1444,12 +1446,12 @@ msgstr "Solicitante"
 msgid "Required Attribute?"
 msgstr "¿Atributo requerido?"
 
-#: config/prefs.php:54 lib/Api.php:716 lib/Driver.php:214
+#: config/prefs.php:55 lib/Api.php:716 lib/Driver.php:214
 #: lib/Renderer/Query.php:149 lib/Ticket.php:994 lib/Whups.php:689
 msgid "Resolved"
 msgstr "Resuelta"
 
-#: lib/Forms/Query.php:334 lib/Forms/Search.php:58
+#: lib/Forms/Query.php:334 lib/Forms/Search.php:62
 msgid "Resolved from"
 msgstr "Resuelta desde"
 
@@ -1484,6 +1486,10 @@ msgstr "Guardar consulta"
 #: lib/Forms/Search.php:17 search.php:67
 msgid "Save as Query"
 msgstr "Guardar como consulta"
+
+#: lib/Block/Myqueries.php:13
+msgid "Saved Queries"
+msgstr "Consultas guardadas"
 
 #: lib/Application.php:192 search.php:154
 msgid "Search"
@@ -1523,16 +1529,16 @@ msgstr "Resultados de la búsqueda: %s de %s"
 msgid "Search Summary"
 msgstr "Resumen de la búsqueda"
 
-#: config/prefs.php:76
+#: config/prefs.php:77
 msgid "Search Tickets"
 msgstr "Buscar incidencias"
 
-#: config/prefs.php:30
+#: config/prefs.php:31
 msgid "Select address book sources for adding and searching for addresses."
 msgstr ""
 "Seleccione libretas de direcciones para la adición y búsqueda de direcciones."
 
-#: config/prefs.php:79
+#: config/prefs.php:80
 msgid "Select the view to display after login:"
 msgstr "Seleccione la vista mostrada al entrar:"
 
@@ -1594,20 +1600,20 @@ msgstr "Establecer tipo para %s"
 msgid "Set _Type"
 msgstr "Establecer _tipo"
 
-#: config/prefs.php:142
+#: config/prefs.php:143
 msgid "Show comments in chronological order, or most recent first?"
 msgstr ""
 "¿Mostrar los comentarios en orden cronológico o primero los más recientes?"
 
-#: config/prefs.php:93
+#: config/prefs.php:94
 msgid "Show ticket IDs in the summary view?"
 msgstr "¿Mostrar los IDs de incidencias en la vista de resumen?"
 
-#: config/prefs.php:86
+#: config/prefs.php:87
 msgid "Show tickets you have requested in the summary view?"
 msgstr "¿Mostrar las incidencias solicitadas en la vista de resumen?"
 
-#: config/templates.php:18
+#: config/templates.php:19
 msgid "Simple HTML Report"
 msgstr "Informe HTML simple"
 
@@ -1632,7 +1638,7 @@ msgstr "Ordenar por %s"
 msgid "Spam protection"
 msgstr "Protección anti spam"
 
-#: config/prefs.php:47 lib/Forms/EditTicket.php:78 lib/Forms/Query.php:197
+#: config/prefs.php:48 lib/Forms/EditTicket.php:78 lib/Forms/Query.php:197
 #: lib/Renderer/Query.php:115 lib/Ticket.php:619 lib/Ticket.php:813
 #: lib/Ticket.php:952 lib/Whups.php:674 lib/Whups.php:680 ticket/queue.php:112
 #: ticket/type.php:61
@@ -1684,7 +1690,7 @@ msgstr "Se ha duplicado correctamente %s como %s."
 msgid "Successfully changed ticket type."
 msgstr "Se ha cambiado correctamente el tipo de incidencia."
 
-#: config/prefs.php:46 lib/Forms/CreateTicket.php:163
+#: config/prefs.php:47 lib/Forms/CreateTicket.php:163
 #: lib/Forms/EditTicket.php:62 lib/Renderer/Query.php:87 lib/Ticket.php:626
 #: lib/Ticket.php:653 lib/Ticket.php:656 lib/Ticket.php:660 lib/Ticket.php:819
 #: lib/Ticket.php:828 lib/Ticket.php:915 lib/Whups.php:672 lib/Whups.php:679
@@ -1710,7 +1716,7 @@ msgstr "Obtenido de %s"
 msgid "Text"
 msgstr "Texto"
 
-#: lib/Driver/sql.php:78 lib/Driver/sql.php:1379
+#: lib/Driver/sql.php:78 lib/Driver/sql.php:1380
 msgid "That queue slug is already taken. Please select another."
 msgstr "Este ID de seguimiento ya está en uso. Seleccione otro."
 
@@ -2131,7 +2137,7 @@ msgstr "Tipos de incidencias asociadas a esta cola"
 msgid "Ticket URL: %s"
 msgstr "URL de la incidencia: %s"
 
-#: ticket/update.php:105
+#: ticket/update.php:106
 msgid "Ticket Updated"
 msgstr "Incidencia actualizada"
 
@@ -2144,7 +2150,7 @@ msgstr "Incidencias"
 msgid "Tickets matching the query \"%s\"."
 msgstr "Incidencias que satisfacen la consulta \"%s\"."
 
-#: config/prefs.php:48 lib/Forms/Query.php:178 lib/Renderer/Query.php:106
+#: config/prefs.php:49 lib/Forms/Query.php:178 lib/Renderer/Query.php:106
 #: lib/Ticket.php:618 lib/Ticket.php:812 lib/Ticket.php:948 lib/Whups.php:681
 #: ticket/queue.php:85
 msgid "Type"
@@ -2195,7 +2201,7 @@ msgstr "Nodo tipo %s desconocido"
 msgid "Update"
 msgstr "Actualizar"
 
-#: ticket/update.php:119
+#: ticket/update.php:120
 #, php-format
 msgid "Update %s"
 msgstr "Actualizar %s"
@@ -2212,7 +2218,7 @@ msgstr "Actualizada"
 msgid "Updated By"
 msgstr "Actualizado por"
 
-#: lib/Forms/Query.php:331 lib/Forms/Search.php:56
+#: lib/Forms/Query.php:331 lib/Forms/Search.php:60
 msgid "Updated from"
 msgstr "Actualizada desde"
 
@@ -2237,7 +2243,7 @@ msgstr "Usuarios encargados de esta cola"
 msgid "Users responsible for this queue"
 msgstr "Usuarios encargados de esta cola"
 
-#: config/prefs.php:51 lib/Forms/Query.php:189 lib/Renderer/Query.php:100
+#: config/prefs.php:52 lib/Forms/Query.php:189 lib/Renderer/Query.php:100
 #: lib/Ticket.php:617 lib/Ticket.php:811
 msgid "Version"
 msgstr "Versión"
@@ -2274,19 +2280,19 @@ msgstr "Observar esta incidencia"
 msgid "Watchers for %s"
 msgstr "Observadores de %s"
 
-#: config/prefs.php:101
+#: config/prefs.php:102
 msgid "Weekday Day Month"
 msgstr "Día de la semana Día Mes"
 
-#: config/prefs.php:102
+#: config/prefs.php:103
 msgid "Weekday Day Month HH:MM:SS TZ"
 msgstr "Día de la semana Día Mes HH:MM:SS TZ"
 
-#: config/prefs.php:107
+#: config/prefs.php:108
 msgid "YY/MM/DD"
 msgstr "DD/MM/YY"
 
-#: config/prefs.php:108
+#: config/prefs.php:109
 msgid "YY/MM/DD HH:MM:SS"
 msgstr "DD/MM/YY HH:MM:SS"
 
@@ -2337,7 +2343,7 @@ msgstr ""
 "El ID de su incidencia es %s. Se ha notificado su solicitud a la persona "
 "adecuada."
 
-#: lib/Mail.php:81
+#: lib/Mail.php:88 lib/Mail.php:92
 msgid "[ Could not render body of message. ]"
 msgstr "[ No se pudo generar el cuerpo del mensaje. ]"
 
@@ -2345,7 +2351,7 @@ msgstr "[ No se pudo generar el cuerpo del mensaje. ]"
 msgid "[Hidden]"
 msgstr "[Oculto]"
 
-#: lib/Whups.php:776
+#: lib/Whups.php:773
 msgid "_Admin"
 msgstr "A_dministrar"
 
@@ -2389,12 +2395,12 @@ msgstr "_Historial"
 msgid "_Load Query"
 msgstr "Ca_rgar"
 
-#: lib/Whups.php:767
+#: lib/Whups.php:765
 #, php-format
 msgid "_My %s"
 msgstr "_Mis %s"
 
-#: lib/Whups.php:770
+#: lib/Whups.php:767
 msgid "_New Ticket"
 msgstr "_Añadir"
 
@@ -2402,15 +2408,15 @@ msgstr "_Añadir"
 msgid "_Property Criteria"
 msgstr "Criterios de prop_iedades"
 
-#: lib/Whups.php:771
+#: lib/Whups.php:768
 msgid "_Query Builder"
 msgstr "_Consultas"
 
-#: lib/Whups.php:772
+#: lib/Whups.php:769
 msgid "_Reports"
 msgstr "_Informes"
 
-#: lib/Whups.php:769
+#: lib/Whups.php:766
 msgid "_Search"
 msgstr "_Buscar"
 
@@ -2442,7 +2448,7 @@ msgstr "contenga la subcadena (diferenciando may. de min.)"
 msgid "contains the word"
 msgstr "contenga la palabra"
 
-#: lib/Mail.php:117 lib/Mail.php:141 lib/Mail.php:166
+#: lib/Mail.php:128 lib/Mail.php:152 lib/Mail.php:189
 msgid "current user:"
 msgstr "usuario actual:"
 
@@ -2466,7 +2472,7 @@ msgstr "es menor que"
 msgid "matches the pattern"
 msgstr "cumple el patrón"
 
-#: lib/Forms/Search.php:55 lib/Forms/Search.php:57 lib/Forms/Search.php:59
-#: lib/Forms/Search.php:61 lib/Forms/Search.php:63
+#: lib/Forms/Search.php:59 lib/Forms/Search.php:61 lib/Forms/Search.php:63
+#: lib/Forms/Search.php:65 lib/Forms/Search.php:67
 msgid "to"
 msgstr "para"

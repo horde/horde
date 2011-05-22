@@ -29,6 +29,8 @@ msgstr "No se ha cargado ningún archivo"
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
 msgstr ""
+"Parece que el archivo cargado está vacío. Puede que no existe en su "
+"ordenador."
 
 #: lib/Horde/Browser.php:1050
 #, php-format
