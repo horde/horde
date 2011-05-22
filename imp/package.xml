@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-18</date>
- <time>14:07:20</time>
+ <date>2011-05-22</date>
+ <time>02:00:31</time>
  <version>
   <release>5.0.4</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Support $Junk/$NotJunk keywords when marking spam/ham.
 * [jan] Fix link to send PGP key to keyserver (Bug #10070).
 * [mms] Fix resizing compose window in dynamic view for IE 7/8 (Bug #10075).
 * [mms] Fix setting/unsetting passphrases in preferences (Bug #10096).
@@ -142,6 +143,8 @@
       <file name="Draft.php" role="horde" />
       <file name="Flagged.php" role="horde" />
       <file name="Forwarded.php" role="horde" />
+      <file name="Junk.php" role="horde" />
+      <file name="NotJunk.php" role="horde" />
       <file name="Seen.php" role="horde" />
      </dir> <!-- /lib/Flag/Imap -->
      <dir name="System">
@@ -1473,6 +1476,8 @@
    <install as="imp/lib/Flag/Imap/Draft.php" name="lib/Flag/Imap/Draft.php" />
    <install as="imp/lib/Flag/Imap/Flagged.php" name="lib/Flag/Imap/Flagged.php" />
    <install as="imp/lib/Flag/Imap/Forwarded.php" name="lib/Flag/Imap/Forwarded.php" />
+   <install as="imp/lib/Flag/Imap/Junk.php" name="lib/Flag/Imap/Junk.php" />
+   <install as="imp/lib/Flag/Imap/NotJunk.php" name="lib/Flag/Imap/NotJunk.php" />
    <install as="imp/lib/Flag/Imap/Seen.php" name="lib/Flag/Imap/Seen.php" />
    <install as="imp/lib/Flag/System/Attachment.php" name="lib/Flag/System/Attachment.php" />
    <install as="imp/lib/Flag/System/Encrypted.php" name="lib/Flag/System/Encrypted.php" />
@@ -2232,9 +2237,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-18</date>
+   <date>2011-05-22</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Support $Junk/$NotJunk keywords when marking spam/ham.
 * [jan] Fix link to send PGP key to keyserver (Bug #10070).
 * [mms] Fix resizing compose window in dynamic view for IE 7/8 (Bug #10075).
 * [mms] Fix setting/unsetting passphrases in preferences (Bug #10096).

@@ -2,6 +2,7 @@
 v5.0.4-git
 ----------
 
+[mms] Support $Junk/$NotJunk keywords when marking spam/ham.
 [jan] Fix link to send PGP key to keyserver (Bug #10070).
 [mms] Fix resizing compose window in dynamic view for IE 7/8 (Bug #10075).
 [mms] Fix setting/unsetting passphrases in preferences (Bug #10096).
