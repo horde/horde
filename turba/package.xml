@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [jan] Fix editing of multiple contacts at once (Bug #10085).
 * [jan] Enable homeAdress and workAdress composite fields by default.
  </notes>
  <contents>
@@ -1178,6 +1179,7 @@
    <date>2011-05-03</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [jan] Fix editing of multiple contacts at once (Bug #10085).
 * [jan] Enable homeAdress and workAdress composite fields by default.
    </notes>
   </release>

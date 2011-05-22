@@ -2,6 +2,7 @@
 v3.0.3-git
 ----------
 
+[jan] Fix editing of multiple contacts at once (Bug #10085).
 [jan] Enable homeAdress and workAdress composite fields by default.
 
 
