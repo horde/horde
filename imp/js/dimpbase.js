@@ -1187,7 +1187,7 @@ var DimpBase = {
             [ $('ctx_message_source').up() ].invoke(DIMP.conf.preview_pref ? 'hide' : 'show');
             sel = this.viewport.getSelected();
             if (sel.size() == 1) {
-                [ $('ctx_message_resume').up('DIV') ].invoke(sel.get('dataob').first().draft ? 'show' : 'hide');
+                [ $('ctx_message_resume').up('DIV') ].invoke(this.isDraft(sel) ? 'show' : 'hide');
                 [ $('ctx_message_unsetflag') ].compact().invoke('hide');
             } else {
                 $('ctx_message_resume').up('DIV').hide();
@@ -1487,7 +1487,7 @@ var DimpBase = {
         }
 
         // Toggle resume link
-        [ $('msg_resume_draft').up() ].invoke(vs.get('dataob').first().draft ? 'show' : 'hide');
+        [ $('msg_resume_draft').up() ].invoke(this.isDraft(vs) ? 'show' : 'hide');
 
         $('messageBody').update(
             (r.msgtext === null)
@@ -2202,7 +2202,7 @@ var DimpBase = {
             tmp = this.viewport.createSelection('domid', elt.identify());
             tmp2 = tmp.get('dataob').first();
 
-            if (tmp2.draft && this.viewport.getMetaData('drafts')) {
+            if (this.isDraft(tmp) && this.viewport.getMetaData('drafts')) {
                 DimpCore.compose('resume', { uids: tmp });
             } else {
                 this.msgWindow(tmp2);
@@ -3179,6 +3179,12 @@ var DimpBase = {
         }
 
         this.viewport.updateRow(ob);
+    },
+
+    isDraft: function(vs)
+    {
+        return this.viewport.getMetaData('drafts') ||
+               vs.get('dataob').first().flag.include(DIMP.conf.FLAG_DRAFT);
     },
 
     /* Miscellaneous folder actions. */

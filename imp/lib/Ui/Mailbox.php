@@ -233,17 +233,4 @@ class IMP_Ui_Mailbox
         return empty($new_subject) ? $subject : $new_subject;
     }
 
-    /**
-     * Determines if a message is a draft and can be resumed.
-     *
-     * @param array $flags  The list of IMAP flags.
-     *
-     * @return boolean  True if the message is a draft.
-     */
-    public function isDraft($flags = array())
-    {
-        return (in_array(Horde_Imap_Client::FLAG_DRAFT, $flags) ||
-                $this->_mailbox->drafts);
-    }
-
 }

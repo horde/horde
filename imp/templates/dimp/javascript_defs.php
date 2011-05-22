@@ -52,6 +52,7 @@ $code['conf'] = array_filter(array(
     'URI_VIEW' => strval(Horde::url('view.php')),
 
     'FLAG_DELETED' => Horde_Imap_Client::FLAG_DELETED,
+    'FLAG_DRAFT' => Horde_Imap_Client::FLAG_DRAFT,
     'FLAG_SEEN' => Horde_Imap_Client::FLAG_SEEN,
 
     'IDX_SEP' => IMP_Dimp::IDX_SEP,

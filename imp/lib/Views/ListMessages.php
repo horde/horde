@@ -15,6 +15,13 @@
 class IMP_Views_ListMessages
 {
     /**
+     * Does the flags hook exist?
+     *
+     * @var boolean
+     */
+    protected $_flaghook = true;
+
+    /**
      * Returns a list of messages for use with ViewPort.
      *
      * @var array $args  TODO
@@ -389,12 +396,10 @@ class IMP_Views_ListMessages
             'headers' => true,
             'type' => $GLOBALS['prefs']->getValue('atc_flag')
         ));
-        $charset = 'UTF-8';
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         $imp_ui = new IMP_Ui_Mailbox($mbox);
 
         $flags = $imp_imap->access(IMP_Imap::ACCESS_FLAGS);
-        $no_flags_hook = false;
         $pop3 = $imp_imap->pop3;
         $search = $mbox->search;
 
@@ -409,18 +414,18 @@ class IMP_Views_ListMessages
 
             /* Get all the flag information. */
             if ($flags) {
-                if (!$no_flags_hook) {
+                if ($this->_flaghook) {
                     try {
                         $ob['flags'] = array_merge($ob['flags'], Horde::callHook('msglist_flags', array($ob, 'dimp'), 'imp'));
                     } catch (Horde_Exception_HookNotSet $e) {
-                        $no_flags_hook = true;
+                        $this->_flaghook = false;
                     }
                 }
 
                 $flag_parse = $GLOBALS['injector']->getInstance('IMP_Flags')->parse(array(
                     'flags' => $ob['flags'],
                     'headers' => $ob['headers'],
-                    'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']->to, array('charset' => $charset))
+                    'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']->to, array('charset' => 'UTF-8'))
                 ));
 
                 if (!empty($flag_parse)) {
@@ -429,21 +434,16 @@ class IMP_Views_ListMessages
                         $msg['flag'][] = $val->id;
                     }
                 }
-
-                /* Drafts. */
-                if ($imp_ui->isDraft($ob['flags'])) {
-                    $msg['draft'] = 1;
-                }
             }
 
             /* Format size information. */
-            $msg['size'] = htmlspecialchars($imp_ui->getSize($ob['size']), ENT_QUOTES, $charset);
+            $msg['size'] = htmlspecialchars($imp_ui->getSize($ob['size']), ENT_QUOTES, 'UTF-8');
 
             /* Format the Date: Header. */
-            $msg['date'] = htmlspecialchars($imp_ui->getDate($ob['envelope']->date), ENT_QUOTES, $charset);
+            $msg['date'] = htmlspecialchars($imp_ui->getDate($ob['envelope']->date), ENT_QUOTES, 'UTF-8');
 
             /* Format the From: Header. */
-            $getfrom = $imp_ui->getFrom($ob['envelope'], array('specialchars' => $charset));
+            $getfrom = $imp_ui->getFrom($ob['envelope'], array('specialchars' => 'UTF-8'));
             $msg['from'] = $getfrom['from'];
 
             /* Format the Subject: Header. */
