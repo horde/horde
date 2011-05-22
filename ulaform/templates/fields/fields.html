@@ -1,0 +1,61 @@
+<div id="menu">
+ <tag:menu />
+</div>
+
+<tag:notify />
+
+<tag:inputform />
+<br class="spacer" />
+
+<if:fields>
+<div class="header">
+ <span class="rightFloat">
+  <tag:actions />
+ </span>
+ <gettext>Fields</gettext>
+</div>
+
+<table width="100%" class="linedRow leftAlign" cellspacing="0">
+ <tr class="item">
+  <th class="nowrap" width="1%">&nbsp;</th>
+  <th>
+   <tag:fieldproperties.name />
+  </th>
+  <th>
+   <tag:fieldproperties.label />
+  </th>
+  <th>
+   <tag:fieldproperties.type />
+  </th>
+  <th>
+   <tag:fieldproperties.required />
+  </th>
+  <th>
+   <tag:fieldproperties.readonly />
+  </th>
+ </tr>
+ <loop:fields>
+ <tr>
+  <td class="nowrap">
+   <a href="<tag:fields.edit_url />"><tag:images.edit /></a>
+   <a href="<tag:fields.del_url />"><tag:images.delete /></a>
+  </td>
+  <td>
+   <tag:fields.name />
+  </td>
+  <td>
+   <tag:fields.label />
+  </td>
+  <td>
+   <tag:fields.type />
+  </td>
+  <td>
+   <tag:fields.required />
+  </td>
+  <td>
+   <tag:fields.readonly />
+  </td>
+ </tr>
+ </loop:fields>
+</table>
+</if:fields>

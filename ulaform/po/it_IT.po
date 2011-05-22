@@ -1,0 +1,419 @@
+# Italian translations for Ulaform package.
+# Copyright 2003-2009 The Horde Project
+# This file is distributed under the same license as the Ulaform package.
+# Automatically generated, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Ulaform 0.1-cvs\n"
+"POT-Creation-Date: 2004-08-30 14:11+0200\n"
+"PO-Revision-Date: 2004-09-14 14:43+0100\n"
+"Last-Translator: jacopo <poedit@goracci.com>\n"
+"Language-Team: Italian <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: edit.php:88
+msgid "-- default configured --"
+msgstr ""
+
+#: edit.php:67
+msgid "-- select --"
+msgstr "-- seleziona --"
+
+#: delete.php:37 edit.php:67 forms.php:37
+msgid "Action"
+msgstr "Azione"
+
+#: forms.php:36
+msgid "Available Forms"
+msgstr "Moduli Disponibili"
+
+#: lib/Action/mailto.php:87
+msgid "Bcc"
+msgstr "Bcc"
+
+#: lib/Action/mailto.php:83
+msgid "Cc"
+msgstr "Cc"
+
+#: edit.php:48
+msgid "Changed action driver."
+msgstr "Cambiato il driver dell'azione."
+
+#: genhtml.php:40
+msgid "Changed embed type."
+msgstr "Cambiato tipo di inserimento."
+
+#: config/fields.php.dist:49
+msgid "Characters"
+msgstr "Caratteri"
+
+#: config/fields.php.dist:40 config/fields.php.dist:47
+msgid "Columns"
+msgstr "Colonne"
+
+#: display.php:32
+#, fuzzy, php-format
+msgid "Could not fetch form ID '%s'. %s"
+msgstr "Non puoi creare il forum. %s"
+
+#: edit.php:61
+msgid "Create"
+msgstr "Crea"
+
+#: lib/Ulaform.php:141
+msgid "Create Form"
+msgstr "Crea Modulo"
+
+#: edit.php:88
+msgid "Default language"
+msgstr "Linguaggio di default"
+
+#: delete.php:38 delete.php:41 deletefield.php:46 deletefield.php:52
+msgid "Delete"
+msgstr "Elimina"
+
+#: deletefield.php:43 fields.php:139
+msgid "Delete Field"
+msgstr "Elimina Campo"
+
+#: forms.php:31
+msgid "Delete Form"
+msgstr "Elimina Modulo"
+
+#: deletefield.php:50
+msgid "Delete this field?"
+msgstr "Elimina questo campo?"
+
+#: delete.php:33
+msgid "Delete this form?"
+msgstr "Elimina questo modulo?"
+
+#: fields.php:63 fields.php:137
+msgid "Description"
+msgstr "Descrizione"
+
+#: delete.php:38 deletefield.php:46 deletefield.php:68
+msgid "Do not delete"
+msgstr "Non eliminare"
+
+#: fields.php:140
+msgid "Edit Field"
+msgstr "Modifica Campo"
+
+#: forms.php:32
+msgid "Edit Form"
+msgstr "Modifica Modulo"
+
+#: config/fields.php.dist:121 config/fields.php.dist:129
+msgid "End year"
+msgstr "Anno fine"
+
+#: config/fields.php.dist:64 config/fields.php.dist:84
+#: config/fields.php.dist:92 config/fields.php.dist:100
+#: config/fields.php.dist:108 config/fields.php.dist:147
+msgid "Enter a comma separated list of values."
+msgstr "Inserisci una lista di valori separati da virgole."
+
+#: deletefield.php:60
+#, php-format
+msgid "Error deleting field. %s."
+msgstr "Errore durante l'eliminazione del campo. %s."
+
+#: delete.php:49
+#, php-format
+msgid "Error deleting form. %s."
+msgstr "Errore durante l'eliminazione del modulo. %s."
+
+#: fields.php:94
+#, php-format
+msgid "Error saving field. %s."
+msgstr "Errore durante il salvataggio del campo. %s."
+
+#: sortfields.php:49
+#, php-format
+msgid "Error saving fields. %s."
+msgstr "Errore durante il salvataggio dei campi. %s."
+
+#: edit.php:106
+#, php-format
+msgid "Error saving form. %s."
+msgstr "Errore durante il salvataggio del modulo. %s."
+
+#: display.php:67 lib/Block/form.php:89
+#, php-format
+msgid "Error submitting form. %s."
+msgstr "Errore durante l'invio del modulo. %s."
+
+#: deletefield.php:62
+#, php-format
+msgid "Field '%s' deleted."
+msgstr "Campo '%s' eliminato."
+
+#: fields.php:43
+msgid "Field Details"
+msgstr "Dettagli Campo"
+
+#: deletefield.php:69
+msgid "Field not deleted."
+msgstr "Campo non eliminato."
+
+#: fields.php:96
+msgid "Field saved."
+msgstr "Campo salvato."
+
+#: sortfields.php:51
+msgid "Field sort order saved."
+msgstr "Ordine dei campi salvato."
+
+#: lib/Block/form.php:32
+msgid "Form"
+msgstr "Modulo"
+
+#: delete.php:32 edit.php:58
+msgid "Form Details"
+msgstr "Dettagli Modulo"
+
+#: forms.php:37
+msgid "Form Name"
+msgstr "Nome Modulo"
+
+#: delete.php:51
+msgid "Form deleted."
+msgstr "Modulo eliminato."
+
+#: edit.php:108
+msgid "Form details saved."
+msgstr "Dettagli modulo salvati."
+
+#: delete.php:58
+msgid "Form has not been deleted."
+msgstr "Modulo non e' stato eliminato."
+
+#: display.php:69 lib/Block/form.php:91
+msgid "Form submitted successfully."
+msgstr "Modulo inviato con successo."
+
+#: config/fields.php.dist:135
+msgid "Format used to display"
+msgstr "Formato usato per mostrare"
+
+#: config/fields.php.dist:133
+msgid "Format used to submit"
+msgstr "Formato utilizzato nel invio"
+
+#: lib/Ulaform.php:138
+msgid "Forms List"
+msgstr "Elenco Moduli"
+
+#: lib/Action/mailto.php:79
+msgid "From"
+msgstr "Da"
+
+#: fields.php:141 forms.php:34 genhtml.php:50
+msgid "Generate HTML"
+msgstr "Genera HTML"
+
+#: genhtml.php:45
+#, php-format
+msgid "HTML Generation for '%s'"
+msgstr "Generazione HTML per '%s'"
+
+#: genhtml.php:64
+msgid "Height"
+msgstr "Altezza"
+
+#: genhtml.php:54
+msgid "Iframes"
+msgstr "Iframes"
+
+#: fields.php:52
+msgid "Internal name"
+msgstr "Nome interno"
+
+#: fields.php:51 fields.php:137
+msgid "Label"
+msgstr "Testo"
+
+#: lib/Action/mailto.php:63
+msgid "Mailto"
+msgstr "Mailto"
+
+#: lib/Driver/sql.php:74 lib/Driver/sql.php:147
+msgid "Missing form"
+msgstr "Modulo mancante"
+
+#: edit.php:61
+msgid "Modify"
+msgstr "Modifica"
+
+#: delete.php:36 edit.php:64 fields.php:137 genhtml.php:63
+msgid "Name"
+msgstr "Nome"
+
+#: lib/Driver.php:121 lib/Driver.php:122
+msgid "No"
+msgstr "No"
+
+#: fields.php:113
+msgid "No available fields."
+msgstr "Nessun campo disponibile."
+
+#: forms.php:28
+msgid "No available forms."
+msgstr "Nessun modulo disponibile."
+
+#: deletefield.php:35
+msgid "No field specified."
+msgstr "Nessun campo specificato."
+
+#: lib/Action.php:88
+#, php-format
+msgid "No such action '%s' found"
+msgstr "Nessuna azione '%s' trovata"
+
+#: lib/Driver.php:176
+#, php-format
+msgid "No such backend '%s' found"
+msgstr "Nessun backend '%s' trovato"
+
+#: display.php:34
+#, fuzzy, php-format
+msgid "No such form ID '%s'."
+msgstr "Nuovo Utente per '%s'"
+
+#: edit.php:92
+msgid "On submit"
+msgstr "Sul invio"
+
+#: genhtml.php:54
+msgid "PHP using PEAR classes"
+msgstr "PHP usando PEAR classi"
+
+#: fields.php:142
+msgid "Preview"
+msgstr "Anteprima"
+
+#: forms.php:33
+msgid "Preview Form"
+msgstr "Anteprima Modulo"
+
+#: fields.php:62 fields.php:137
+msgid "Read only"
+msgstr "Solo lettura"
+
+#: lib/Driver.php:77 lib/Driver.php:102
+msgid "Requested form does not exist."
+msgstr "Il modulo richiesto non esiste."
+
+#: fields.php:61 fields.php:137
+msgid "Required"
+msgstr "Obbligatorio"
+
+#: config/fields.php.dist:38 config/fields.php.dist:45
+msgid "Rows"
+msgstr "Righe"
+
+#: lib/Action/sql.php:63
+msgid "SQL"
+msgstr "SQL"
+
+#: sortfields.php:37
+msgid "Save"
+msgstr "Salva"
+
+#: fields.php:46
+msgid "Save Field"
+msgstr "Salva Campi"
+
+#: genhtml.php:55
+msgid "Select how you wish to embed the form"
+msgstr "Seleziona come desideri di inserire il modulo"
+
+#: sortfields.php:38
+msgid "Select the sort order of the fields"
+msgstr "Seleziona l'ordine dei campi"
+
+#: fields.php:52
+msgid ""
+"Set this name if you have a particular reason to override the automatic "
+"internal naming of fields."
+msgstr ""
+"Imposta questo nome nel caso in cui hai qualche motivo particolare per "
+"ignorare la modalita' automatica di assegnazione di nomi."
+
+#: lib/Block/form.php:3
+msgid "Show Form"
+msgstr "Mostra Modulo"
+
+#: config/fields.php.dist:131
+msgid "Show the date picker"
+msgstr "Mostra il selezionatore di date"
+
+#: sortfields.php:34
+msgid "Sort Fields"
+msgstr "Riordina Campi"
+
+#: fields.php:143
+msgid "Sort fields"
+msgstr "Riordina campi"
+
+#: config/fields.php.dist:119 config/fields.php.dist:127
+msgid "Start year"
+msgstr "Anno inizio"
+
+#: lib/Action/mailto.php:78
+msgid "Subject"
+msgstr "Oggetto"
+
+#: lib/Action/sql.php:78
+msgid "Table"
+msgstr "tavola"
+
+#: forms.php:25
+#, php-format
+msgid "There was an error listing forms: %s."
+msgstr "Si e' verificato un errore elencando i moduli: %s"
+
+#: lib/Action/mailto.php:64
+msgid ""
+"This driver allows the sending of form results via email to one or more "
+"recipients."
+msgstr ""
+"Questo driver permette l'invio dei risultati del modulo via email ad uno o "
+"piu' destinatari."
+
+#: lib/Action/sql.php:64
+#, fuzzy
+msgid "This driver allows to insertion of form results into a database."
+msgstr ""
+"Questo driver permette l'invio dei risultati del modulo via email ad uno o "
+"piu' destinatari."
+
+#: fields.php:71
+msgid "This field type has extra parameters."
+msgstr "Questo campo contiene ulteriori parametri."
+
+#: lib/Action/mailto.php:80
+msgid "To"
+msgstr "A"
+
+#: fields.php:56 fields.php:137
+msgid "Type"
+msgstr "Tipo"
+
+#: config/fields.php.dist:61 config/fields.php.dist:81
+#: config/fields.php.dist:89 config/fields.php.dist:97
+#: config/fields.php.dist:105 config/fields.php.dist:144
+msgid "Values"
+msgstr "Valori"
+
+#: genhtml.php:65
+msgid "Width"
+msgstr "Larghezza"
+
+#: lib/Driver.php:121 lib/Driver.php:122
+msgid "Yes"
+msgstr "Si"

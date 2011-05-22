@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<!-- $Horde: ulaform/locale/en_US/help.xml,v 1.1 2003-08-15 18:20:22 mdjukic Exp $ -->
+<help>
+
+<entry id="form-action">
+    <title>Form Creation: Action</title>
+    <heading>Action</heading>
+    <para>
+    You can select what kind of action the form is to trigger when submitted. The currently installed actions are listed in the drop down box.
+    </para>
+</entry>
+
+<entry id="on-submit">
+    <title>Form Creation: On Submit</title>
+    <heading>On Submit</heading>
+    <para>
+    You can insert any valid javascript here to run when the form is submitted.
+    </para>
+</entry>
+
+</help>
