@@ -1157,10 +1157,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * Flag: Horde_Imap_Client::STATUS_LASTMODSEQUIDS
      *   Return key: 'lastmodsequids'
-     *   Return format: (array) If the server supports the CONDSTORE IMAP
+     *   Return format: (array) If the server supports the QRESYNC IMAP
      *                  extension, this will be the list of UIDs changed in
      *                  the mailbox when it was first opened if HIGHESTMODSEQ
-     *                  changed. Else an empty array if CONDSTORE not
+     *                  changed. Else an empty array if QRESYNC not
      *                  available, the mailbox does not support mod-sequences,
      *                  or the mod-sequence did not change.
      *

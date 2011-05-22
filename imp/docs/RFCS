@@ -85,7 +85,7 @@ SMTP
 ====
 
 :RFC 821/RFC 2821/RFC 5321: Simple Mail Transfer Protocol
-:RFC 1652:                  SMTP Service Extension for 8bit-MIMEtransport
+:RFC 1652/RFC 6152:         SMTP Service Extension for 8bit MIME Transport
 
 
 MIME

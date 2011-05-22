@@ -1258,9 +1258,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                             $data[$val] = ($key == Horde_Imap_Client::STATUS_FIRSTUNSEEN) ? null : 0;
                         } else {
                             /* RFC 3501 [6.3.1] - FIRSTUNSEEN information is
-                             * not mandatory. If missing EXAMINE/SELECT we
-                             * need to do a search. An UNSEEN count also
-                             * requires a search. */
+                             * not mandatory. If missing in EXAMINE/SELECT
+                             * results, we need to do a search. An UNSEEN
+                             * count also requires a search. */
                             if (is_null($search)) {
                                 $search_query = new Horde_Imap_Client_Search_Query();
                                 $search_query->flag(Horde_Imap_Client::FLAG_SEEN, false);
