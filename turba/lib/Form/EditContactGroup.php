@@ -16,18 +16,23 @@ class Turba_Form_EditContactGroup extends Turba_Form_EditContact
         $objectkeys = $vars->get('objectkeys');
         $source = $vars->get('source');
         $key = $vars->get('key');
-        if ($source . ':' . $key == $objectkeys[0]) {
+        if (count($objectkeys) == 1) {
+            /* Only one contact. */
+            $this->setButtons(_("Finish"));
+        } elseif ($source . ':' . $key == $objectkeys[0]) {
             /* First contact */
             $this->setButtons(_("Next"));
+            $this->appendButtons(_("Finish"));
         } elseif ($source . ':' . $key == $objectkeys[count($objectkeys) - 1]) {
             /* Last contact */
             $this->setButtons(_("Previous"));
+            $this->appendButtons(_("Finish"));
         } else {
             /* In between */
             $this->setButtons(_("Previous"));
             $this->appendButtons(_("Next"));
+            $this->appendButtons(_("Finish"));
         }
-        $this->appendButtons(_("Finish"));
     }
 
     public function renderActive($renderer, $vars, $action, $method)
