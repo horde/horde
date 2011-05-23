@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [gwr] Added support for the Kolab IMAP based preferences backend.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1445,7 +1445,7 @@
    <date>2011-05-18</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [gwr] Added support for the Kolab IMAP based preferences backend.
    </notes>
   </release>
  </changelog>

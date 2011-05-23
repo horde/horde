@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [gwr] Fixed the driver for the Kolab IMAP backend.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -678,7 +678,7 @@ Initial release as a PEAR package
    <date>2011-05-17</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [gwr] Fixed the driver for the Kolab IMAP backend.
    </notes>
   </release>
  </changelog>
