@@ -854,6 +854,14 @@ class Horde_Test
         $ret .= is_writable(HORDE_BASE . '/static')
             ? '<strong style="color:green">Yes</strong>'
             : "<strong style=\"color:red\">No</strong><br /><strong style=\"color:orange\">If caching javascript and CSS files by storing them in static files (HIGHLY RECOMMENDED), this directory must be writable as the user the web server runs as.</strong>";
+
+        if (extension_loaded('imagick')) {
+            $im = new Imagick();
+            $imagick = is_callable(array($im, 'getIteratorIndex'));
+            $ret .= '</li></ul><h1>Imagick</h1><ul>' .
+                '<li>Imagick compiled against current ImageMagick version: ' . ($imagick ? 'Yes' : 'No');
+        }
+
         return $ret . '</li></ul>';
     }
 

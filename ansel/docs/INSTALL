@@ -72,7 +72,9 @@ To function properly, Ansel **requires** the following:
       generating thumbnails with rounded corners and drop shadows. To use the
       imagick module, make sure you still set the path to ``convert`` as
       described below. You can alternatively use the GD_ extension or the
-      ImageMagick_ software, but one of these is **required**.
+      ImageMagick_ software, but one of these is **required**. The imagick
+      extension **must** be compiled against ImageMagick version 6.2.9 or
+      better, though version 6.5.7 or better is recommended though.
 
    b. _`OpenCV`
 
@@ -103,7 +105,8 @@ To function properly, Ansel **requires** the following:
    ``convert`` utility in Horde's configuration screen
    (``Administration/Configuration/Horde/Image Manipulation``). You can
    alternatively use the GD_ extension or the imagick_ extension, but one of
-   these is **required**.
+   these is **required**. If using ImageMagick software, version 6.5.7 or better
+   is recommended.
 
    .. _`ImageMagick software`: http://www.imagemagick.org/
 

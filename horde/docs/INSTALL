@@ -241,7 +241,8 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       You can also use the imagick_ extension or the ImageMagick_ package to do
       these manipulations instead. The imagick_ extension is the recommended
       method for image manipulation. See the ``Image Manipulation`` tab of the
-      Horde configuration for more details.
+      Horde configuration for more details. ImageMagick version 6.5.7 or better
+      is recommended.
 
       .. _imagick: http://pecl.php.net/package/imagick
       .. _ImageMagick: http://www.imagemagick.org
@@ -391,6 +392,9 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       To install, enter the following at the command prompt::
 
         pecl install imagick
+
+      The imagick extension **must** be compiled against ImageMagick version
+      6.2.9 or better, though version 6.5.7 or better is recommended.
 
    d. lzf
 
