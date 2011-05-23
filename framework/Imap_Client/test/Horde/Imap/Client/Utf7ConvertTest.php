@@ -58,25 +58,6 @@ class Horde_Imap_Client_Utf7ConvertTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testBrokenConversion()
-    {
-        $this->markTestIncomplete('Detecting this string as unencoded is broken.');
-
-        $orig = 'Foo&Bar-2011';
-
-        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
-        $this->assertEquals(
-            'Foo&-Bar-2011',
-            $utf7_imap
-        );
-
-        $utf8 = Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($utf7_imap);
-        $this->assertEquals(
-            $orig,
-            $utf8
-        );
-    }
-
     public function testAmpersandConversion()
     {
         $orig = '&';
@@ -112,6 +93,21 @@ class Horde_Imap_Client_Utf7ConvertTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'T&APY-st-',
             $utf7_imap
+        );
+
+        // Bug #10093
+        $orig = 'Foo&Bar-2011';
+
+        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
+        $this->assertEquals(
+            'Foo&-Bar-2011',
+            $utf7_imap
+        );
+
+        $utf8 = Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($utf7_imap);
+        $this->assertEquals(
+            $orig,
+            $utf8
         );
     }
 }
