@@ -67,6 +67,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
     {
         switch ($app) {
         case 'mnemo':
+        case 'jonah':
             $this->_type = 'note';
             break;
         case 'kronolith':
