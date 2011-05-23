@@ -601,6 +601,7 @@ class IMP_Message
             ? array('add' => $flags)
             : array('remove' => $flags);
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $ret = true;
 
         foreach ($indices as $ob) {
             try {
@@ -616,11 +617,11 @@ class IMP_Message
                 )));
             } catch (Exception $e) {
                 $GLOBALS['notification']->push(sprintf(_("There was an error flagging messages in the folder \"%s\": %s."), $ob->mbox->display, $e->getMessage()), 'horde.error');
-                return false;
+                $ret = false;
             }
         }
 
-        return true;
+        return $ret;
     }
 
     /**

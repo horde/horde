@@ -365,7 +365,7 @@ class IMP_Imap implements Serializable
 
             // BC: Not available in Horde_Imap_Client 1.0.0
             case constant('Horde_Imap_Client_Exception::NOPERM'):
-                $error->notify(_("You did not have adequate permissions to carry out this operation."));
+                $error->notify(_("You do not have adequate permissions to carry out this operation."));
                 break;
 
             // BC: Not available in Horde_Imap_Client 1.0.0

@@ -647,9 +647,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return false;
         }
 
+        $mbox = IMP_Mailbox::get($this->_vars->view);
+
         /* Change sort preferences if necessary. */
         if (isset($this->_vars->sortby) || isset($this->_vars->sortdir)) {
-            IMP_Mailbox::get($this->_vars->view)->setSort($this->_vars->sortby, $this->_vars->sortdir);
+            $mbox->setSort($this->_vars->sortby, $this->_vars->sortdir);
         }
 
         $changed = $this->_changed(false);
@@ -657,7 +659,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         if (is_null($changed)) {
             $list_msg = new IMP_Views_ListMessages();
             $result = new stdClass;
-            $result->ViewPort = $list_msg->getBaseOb($this->_vars->view);
+            $result->ViewPort = $list_msg->getBaseOb($mbox);
 
             $req_id = $this->_vars->requestid;
             if (!is_null($req_id)) {
@@ -667,7 +669,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return $result;
         }
 
-        $this->_queue->poll($this->_vars->view);
+        $this->_queue->poll($mbox);
 
         if ($changed ||
             $this->_vars->rangeslice ||
@@ -1077,7 +1079,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
 
             /* Add changed flag information. */
-            $this->_queue->flag(array(Horde_Imap_Client::FLAG_SEEN), true, $indices);
+            $status = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->status($this->_vars->view, Horde_Imap_Client::STATUS_PERMFLAGS);
+            if (in_array(Horde_Imap_Client::FLAG_SEEN, $status['permflags'])) {
+                $this->_queue->flag(array(Horde_Imap_Client::FLAG_SEEN), true, $indices);
+            }
         } catch (IMP_Imap_Exception $e) {
             $result->preview->error = $e->getMessage();
             $result->preview->errortype = 'horde.error';
