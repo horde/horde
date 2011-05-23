@@ -9,7 +9,12 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('horde', array('admin' => true));
+$permission = 'sqlshell';
+Horde_Registry::appInit('horde');
+if (!$registry->isAdmin() && 
+    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
+    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
+}
 
 $db = $injector->getInstance('Horde_Db_Adapter');
 $q_cache = $session->get('horde', 'sql_query_cache', Horde_Session::TYPE_ARRAY);

@@ -27,12 +27,23 @@ class Horde_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        return array(
+        $permissions = array(
             'max_blocks' => array(
                 'title' => _("Maximum Number of Portal Blocks"),
                 'type' => 'int'
+            ),
+            'administration' => array(
+                'title' => _("Administration"),
             )
         );
+
+        try {
+            foreach ($GLOBALS['registry']->callByPackage('horde', 'admin_list') as $perm_key => $perm_details) {
+                $permissions['administration:' . $perm_key] = array('title' => Horde::stripAccessKey($perm_details['name']));
+            }
+        } catch (Horde_Exception $e) {/*what to do if this fails?*/}
+
+        return $permissions;
     }
 
     /**

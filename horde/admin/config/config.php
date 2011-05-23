@@ -9,7 +9,12 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-Horde_Registry::appInit('horde', array('admin' => true));
+$permission = 'configuration';
+Horde_Registry::appInit('horde');
+if (!$registry->isAdmin() && 
+    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
+    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
+}
 
 if (!Horde_Util::extensionExists('domxml') &&
     !Horde_Util::extensionExists('dom')) {
