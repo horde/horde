@@ -159,24 +159,24 @@ az ikonra kattintva kinyomtatható a képernyő tartalma.
     To embed a small Month View of the current month:
   </para>
     <i>&lt;div id="kronocalendar"&gt;&lt;/div&gt;&lt;script
-    src="http://hostname.example.com/horde/kronolith/imple.php?imple=Embed
-    /container=kronocalendar/view=month/calendar=calendar_name"
+    src="http://hostname.example.com/horde/horde/services/imple.php?imple=Embed/
+    impleApp=kronolith/container=kronocalendar/view=month/calendar=calendar_name"
     type="text/javascript"&gt;&lt;/script&gt;</i>
   <para>
     To embed an Upcoming Events View (note the 'months' and 'maxevents'
     parameters):
   </para>
     <i>&lt;div id="kronolist"&gt;&lt;/div&gt;&lt;script
-    src="http://hostname.example.com/horde/kronolith/imple.php?imple=Embed
-    /view=monthlist/calendar=calendar_name/container=kronolist/months=2/
-    maxevents=10" type="text/javascript"&gt;&lt;/script&gt;</i>
+    src="http://hostname.example.com/horde/horde/services/imple.php?imple=Embed/
+    impleApp=kronolith/view=monthlist/calendar=calendar_name/container=kronolist
+    /months=2/maxevents=10" type="text/javascript"&gt;&lt;/script&gt;</i>
   <para>
     To embed a Summary View:
   </para>
     <i>&lt;div id="kronosummary"&gt;
     &lt;/div&gt;&lt;script type="text/javascript"
-    src="http://hostname.example.com/horde/kronolith/imple.php?imple=Embed
-    /container=kronosummary/view=summary/calendar=calendar_name
+    src="http://hostname.example.com/horde/horde/services/imple.php?imple=Embed/
+    impleApp=kronolith/container=kronosummary/view=summary/calendar=calendar_name
     "&gt;&lt;/script&gt;</i>
 </entry>
 </help>
