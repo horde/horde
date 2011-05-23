@@ -76,11 +76,11 @@ Thanks,
 The Chora team
 
 
-.. _README: ?f=README.html
+.. _README: README
 .. _COPYING: http://www.horde.org/licenses/gpl
-.. _docs/BUGS: ?f=BUGS.html
-.. _docs/CHANGES: ?f=CHANGES.html
-.. _docs/CREDITS: ?f=CREDITS.html
+.. _docs/BUGS: BUGS
+.. _docs/CHANGES: CHANGES
+.. _docs/CREDITS: CREDITS
 .. _INSTALL:
-.. _docs/INSTALL: ?f=INSTALL.html
-.. _docs/TODO: ?f=TODO.html
+.. _docs/INSTALL: INSTALL
+.. _docs/TODO: TODO
