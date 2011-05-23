@@ -2658,8 +2658,10 @@ var DimpBase = {
             this.highlightSidebar(this.getFolderId(this.folder));
         }
 
-        $('foldersLoading').hide();
-        $('foldersSidebar').show();
+        if ($('foldersLoading').visible()) {
+            $('foldersLoading').hide();
+            $('foldersSidebar').show();
+        }
 
         if (nf && nf.getStyle('max-height') !== null) {
             this._sizeFolderlist();
