@@ -80,6 +80,26 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
+     * AJAX action: Check access rights for creation of a sub mailbox.
+     *
+     * Variables used:
+     *   - mbox: (string) The name of the mailbox to check.
+     *
+     * @return boolean  True if sub mailboxes can be created
+     */
+    public function createMailboxPrepare()
+    {
+        $mbox = IMP_Mailbox::get($this->_vars->mbox);
+
+        if (!$mbox->access_creatembox) {
+            $GLOBALS['notification']->push(sprintf(_("You may not create child folders in \"%s\"."), $mbox->display), 'horde.error');
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * AJAX action: Create a mailbox.
      *
      * Variables used:
@@ -123,6 +143,36 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         return $result;
+    }
+
+    /**
+     * AJAX action: Check access rights for deletion/rename of mailbox.
+     *
+     * Variables used:
+     *   - mbox: (string) The name of the mailbox to check.
+     *   - type: (string) Either 'delete' or 'rename'.
+     *
+     * @return boolean  True if sub mailboxes can be created
+     */
+    public function deleteMailboxPrepare()
+    {
+        $mbox = IMP_Mailbox::get($this->_vars->mbox);
+
+        if (!$mbox->fixed && $mbox->access_deletembox) {
+            return true;
+        }
+
+        switch ($this->_vars->type) {
+        case 'delete':
+            $GLOBALS['notification']->push(sprintf(_("You may not delete \"%s\"."), $mbox->display), 'horde.error');
+            break;
+
+        case 'rename':
+            $GLOBALS['notification']->push(sprintf(_("You may not rename \"%s\"."), $mbox->display), 'horde.error');
+            break;
+        }
+
+        return false;
     }
 
     /**

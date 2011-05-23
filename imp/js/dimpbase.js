@@ -791,13 +791,24 @@ var DimpBase = {
             menu = e.memo.trigger;
 
         switch (id) {
+        case 'ctx_container_create':
         case 'ctx_folder_create':
-            this.createSubFolder(e.element());
+            DimpCore.doAction('createMailboxPrepare', {
+                mbox: e.findElement('LI').retrieve('mbox')
+            },{
+                callback: this._mailboxPromptCallback.bind(this, 'create', { elt: e.element() })
+            });
             break;
 
         case 'ctx_container_rename':
         case 'ctx_folder_rename':
-            this.renameFolder(e.findElement('LI'));
+            tmp = e.findElement('LI');
+            DimpCore.doAction('deleteMailboxPrepare', {
+                mbox: tmp.retrieve('mbox'),
+                type: 'rename'
+            },{
+                callback: this._mailboxPromptCallback.bind(this, 'rename', { elt: tmp })
+            });
             break;
 
         case 'ctx_folder_empty':
@@ -805,21 +816,18 @@ var DimpBase = {
             DimpCore.doAction('emptyMailboxPrepare', {
                 mbox: tmp.retrieve('mbox')
             },{
-                callback: this._emptyMailboxPromptCallback.bind(this, tmp.retrieve('mbox'), tmp.readAttribute('title'))
+                callback: this._mailboxPromptCallback.bind(this, 'empty', { elt: tmp })
             });
             break;
 
         case 'ctx_folder_delete':
         case 'ctx_vfolder_delete':
             tmp = e.findElement('LI');
-
-            this.folderaction = DimpCore.doAction.bind(DimpCore, 'deleteMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this.mailboxCallback.bind(this) });
-
-            IMPDialog.display({
-                cancel_text: DIMP.text.cancel,
-                noinput: true,
-                ok_text: DIMP.text.ok,
-                text: DIMP.text.delete_folder.sub('%s', tmp.readAttribute('title'))
+            DimpCore.doAction('deleteMailboxPrepare', {
+                mbox: tmp.retrieve('mbox'),
+                type: 'delete'
+            },{
+                callback: this._mailboxPromptCallback.bind(this, 'delete', { elt: tmp })
             });
             break;
 
@@ -882,10 +890,6 @@ var DimpBase = {
         case 'ctx_folder_sub':
         case 'ctx_folder_unsub':
             this.subscribeFolder(e.findElement('LI').retrieve('mbox'), id == 'ctx_folder_sub');
-            break;
-
-        case 'ctx_container_create':
-            this.createSubFolder(e.element());
             break;
 
         case 'ctx_folderopts_new':
@@ -2453,28 +2457,45 @@ var DimpBase = {
         });
     },
 
-    /* Handle rename folder actions. */
-    renameFolder: function(folder)
+    _mailboxPromptCallback: function(type, params, r)
     {
-        if (Object.isUndefined(folder)) {
-            return;
-        }
+        if (r.response && params.elt) {
+            switch (type) {
+            case 'create':
+                this._createFolderForm(this._folderAction.bindAsEventListener(this, params.elt, 'createsub'), DIMP.text.createsub_prompt);
+                break;
 
-        folder = $(folder);
-        this._createFolderForm(this._folderAction.bindAsEventListener(this, folder, 'rename'), DIMP.text.rename_prompt, folder.retrieve('l').unescapeHTML());
+            case 'delete':
+                this.folderaction = DimpCore.doAction.bind(DimpCore, 'deleteMailbox', { mbox: params.elt }, { callback: this.mailboxCallback.bind(this) });
+                IMPDialog.display({
+                    cancel_text: DIMP.text.cancel,
+                    noinput: true,
+                    ok_text: DIMP.text.ok,
+                    text: DIMP.text.delete_folder.sub('%s', params.elt.readAttribute('title'))
+                });
+                break;
+
+            case 'empty':
+                this.folderaction = DimpCore.doAction.bind(DimpCore, 'emptyMailbox', { mbox: params.elt.retrieve('mbox') }, { callback: this._emptyMailboxCallback.bind(this) });
+                IMPDialog.display({
+                    cancel_text: DIMP.text.cancel,
+                    noinput: true,
+                    ok_text: DIMP.text.ok,
+                    text: DIMP.text.empty_folder.sub('%s', params.elt.readAttribute('title')).sub('%d', r.response)
+                });
+                break;
+
+            case 'rename':
+                this._createFolderForm(this._folderAction.bindAsEventListener(this, params.elt, 'rename'), DIMP.text.rename_prompt, params.elt.retrieve('l').unescapeHTML());
+                break;
+            }
+        }
     },
 
     /* Handle insert folder actions. */
     createBaseFolder: function()
     {
         this._createFolderForm(this._folderAction.bindAsEventListener(this, '', 'create'), DIMP.text.create_prompt);
-    },
-
-    createSubFolder: function(folder)
-    {
-        if (!Object.isUndefined(folder)) {
-            this._createFolderForm(this._folderAction.bindAsEventListener(this, $(folder), 'createsub'), DIMP.text.createsub_prompt);
-        }
     },
 
     _createFolderForm: function(action, text, val)
@@ -2577,20 +2598,6 @@ var DimpBase = {
         if (r.remove && search.size()) {
             this.viewport.remove(search, { noupdate: r.ViewPort });
             this._expirePPCache(uids);
-        }
-    },
-
-    _emptyMailboxPromptCallback: function(mbox, title, r)
-    {
-        if (r.response) {
-            this.folderaction = DimpCore.doAction.bind(DimpCore, 'emptyMailbox', { mbox: mbox }, { callback: this._emptyMailboxCallback.bind(this) });
-
-            IMPDialog.display({
-                cancel_text: DIMP.text.cancel,
-                noinput: true,
-                ok_text: DIMP.text.ok,
-                text: DIMP.text.empty_folder.sub('%s', title).sub('%d', r.response)
-            });
         }
     },
 

@@ -221,7 +221,7 @@ case 'folders_empty_mailbox_confirm':
         foreach ($folder_list as $val) {
             switch ($vars->actionID) {
             case 'delete_folder_confirm':
-                if ($val->fixed) {
+                if ($val->fixed || !$val->access_deletembox) {
                     $notification->push(sprintf(_("The folder \"%s\" may not be deleted."), $val->display), 'horde.error');
                     continue 2;
                 }

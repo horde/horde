@@ -15,6 +15,8 @@
  *
  * @property string $abbrev_label  Abbreviated version of $label - displays
  *                                 only the bare mailbox name (no parents).
+ * @property boolean $access_creatembox  Can sub mailboxes be created?
+ * @property boolean $access_deletembox  Can this mailbox be deleted?
  * @property boolean $access_deletemsgs  Can messages be deleted in this
  *                                       mailbox?
  * @property boolean $access_expunge  Can messages be expunged in this
@@ -224,6 +226,14 @@ class IMP_Mailbox implements Serializable
             return (($pos = strrpos($label, $this->namespace_delimiter)) === false)
                 ? $label
                 : substr($label, $pos + 1);
+
+        case 'access_creatembox':
+            return (!($acl = $this->acl) ||
+                    ($acl[Horde_Imap_Client::ACL_CREATEMBOX]));
+
+        case 'access_deletembox':
+            return (!($acl = $this->acl) ||
+                    ($acl[Horde_Imap_Client::ACL_DELETEMBOX]));
 
         case 'access_deletemsgs':
             return (!$this->readonly &&

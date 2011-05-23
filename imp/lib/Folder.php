@@ -44,8 +44,9 @@ class IMP_Folder
         $deleted = array();
 
         foreach (IMP_Mailbox::get($folders) as $folder) {
-            if (!$force && $folder->fixed) {
+            if ((!$force && $folder->fixed) || !$folder->access_deletembox)  {
                 $notification->push(sprintf(_("The folder \"%s\" may not be deleted."), $folder->display), 'horde.error');
+                $return_value = false;
                 continue;
             }
 
@@ -175,7 +176,7 @@ class IMP_Folder
             return false;
         }
 
-        if (!$force && $old->fixed) {
+        if ((!$force && $old->fixed) || !$old->deletembox) {
             $GLOBALS['notification']->push(sprintf(_("The folder \"%s\" may not be renamed."), $old->display), 'horde.error');
             return false;
         }
