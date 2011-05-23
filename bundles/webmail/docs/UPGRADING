@@ -38,7 +38,7 @@ Upgrading a Horde Groupware Webmail Edition 1.x
 
 For upgrading from a Horde Groupware Webmail Edition version 1.x to
 4.0 or later, see the section `Upgrading a Horde Groupware Webmail
-Edition 4 or later'_.
+Edition 4 or later`_.
 
 The update script will automatically migrate database backends and
 update configuration files. It will add new and changed configurations
@@ -242,3 +242,6 @@ shares.
 .. Important:: IMSP contacts contained in contact groups that are not from an
                IMSP source may not be visible within that group when migrating
                an IMSP source to a share.
+
+
+.. _INSTALL: INSTALL
