@@ -803,7 +803,6 @@ var DimpBase = {
         case 'ctx_folder_empty':
             tmp = e.findElement('LI');
             DimpCore.doAction('emptyMailboxPrepare', {
-                access: 'empty',
                 mbox: tmp.retrieve('mbox')
             },{
                 callback: this._emptyMailboxPromptCallback.bind(this, tmp.retrieve('mbox'), tmp.readAttribute('title'))
