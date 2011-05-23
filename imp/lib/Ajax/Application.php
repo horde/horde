@@ -2197,8 +2197,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $ob->l = $tmp;
         }
 
-        if ($elt->parent != IMP_Imap_Tree::BASE_ELT) {
-            $ob->pa = $elt->parent;
+        $parent = $elt->parent;
+        if ($parent != IMP_Imap_Tree::BASE_ELT) {
+            $ob->pa = strval($parent);
         }
         if ($elt->vfolder) {
             $ob->v = $elt->editvfolder ? 2 : 1;

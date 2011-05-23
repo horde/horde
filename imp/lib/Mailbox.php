@@ -56,7 +56,8 @@
  * @property string $namespace_delimiter  The delimiter for this namespace.
  * @property array $namespace_info  See IMP_Imap::getNamespace().
  * @property boolean $nonimap  Is this a non-IMAP element?
- * @property array $parent  The parent element value.
+ * @property IMP_Mailbox $parent  The parent element. Returns null if no
+ *                                parent.
  * @property IMP_Imap_PermanentFlags $permflags  Return the list of permanent
  *                                               flags available to set in the
  *                                               mailbox.
@@ -439,8 +440,8 @@ class IMP_Mailbox implements Serializable
         case 'parent':
             $elt = $injector->getInstance('IMP_Imap_Tree')->getElement($this->_mbox);
             return $elt
-                ? $elt['p']
-                : '';
+                ? self::get($elt['p'])
+                : null;
 
         case 'permflags':
             $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();

@@ -1780,12 +1780,12 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                         $this->_currkey = null;
                     }
                 } else {
-                    $this->_currparent = $tmp->parent;
-                    $this->_currkey = array_search($tmp->value, $this->_parent[$tmp->parent]);
+                    $this->_currparent = strval($tmp->parent);
+                    $this->_currkey = array_search($tmp->value, $this->_parent[$this->_currparent]);
 
                     if ($c['mask'] & self::FLIST_SAMELEVEL) {
                         $this->_currkey = 0;
-                        $c['samelevel'] = $tmp->parent;
+                        $c['samelevel'] = $this->_currparent;
                     }
                 }
             } else {
@@ -1905,7 +1905,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             return null;
         }
 
-        $p = $this[$parent]->parent;
+        $p = strval($this[$parent]->parent);
 
         return array(
             $p,
