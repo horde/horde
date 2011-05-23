@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-18</date>
- <time>16:34:05</time>
+ <date>2011-05-23</date>
+ <time>14:40:25</time>
  <version>
   <release>4.0.0RC2</release>
   <api>4.0.0</api>
@@ -35,7 +35,6 @@
     <file name="CHANGES" role="doc" />
     <file name="INSTALL" role="doc" />
     <file name="PERFORMANCE" role="doc" />
-    <file name="README" role="doc" />
     <file name="RELEASE_NOTES" role="doc" />
     <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
@@ -67,6 +66,7 @@
      </dir> <!-- /turba/config/conf.d -->
     </dir> <!-- /turba/config -->
    </dir> <!-- /turba -->
+   <file name="README" role="data" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -137,11 +137,11 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="README" name="README" />
    <install as="config/prefs.d/10-webmail.php" name="config/prefs.d/10-webmail.php" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="INSTALL" name="docs/INSTALL" />
    <install as="PERFORMANCE" name="docs/PERFORMANCE" />
-   <install as="README" name="docs/README" />
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="imp/config/hooks.php" name="imp/config/hooks.php" />
@@ -176,7 +176,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2011-05-18</date>
+   <date>2011-05-23</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 * 
