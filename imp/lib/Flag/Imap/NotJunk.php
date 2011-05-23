@@ -17,6 +17,10 @@ class IMP_Flag_Imap_NotJunk extends IMP_Flag_Imap
 {
     /**
      */
+    protected $_css = 'flagNotJunk';
+
+    /**
+     */
     // TODO: BC
     protected $_imapflag = '$notjunk';
 
