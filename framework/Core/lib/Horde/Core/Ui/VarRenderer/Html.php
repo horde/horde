@@ -82,7 +82,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
                        htmlspecialchars($var->getValue($vars)),
                        $var->isDisabled() ? ' disabled="disabled" ' : '',
                        empty($maxlength) ? '' : ' maxlength="' . $maxlength . '"',
-                       $this->_getActionScripts($form, $var)    
+                       $this->_getActionScripts($form, $var)
                );
     }
 
