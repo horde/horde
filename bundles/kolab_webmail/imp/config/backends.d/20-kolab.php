@@ -4,7 +4,7 @@ $servers = array();
 
 $servers['kolab'] = array(
     'name' => 'Kolab Cyrus IMAP Server',
-    'hostspec' => 'localhost',
+    'hostspec' => $GLOBALS['injector']->getInstance('Horde_Kolab_Session')->getImapServer(),
     'hordeauth' => 'full',
     'protocol' => 'imap',
     'port' => $GLOBALS['conf']['kolab']['imap']['port'],
