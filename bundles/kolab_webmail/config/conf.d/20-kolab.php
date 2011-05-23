@@ -12,9 +12,7 @@ $conf['group']['driver'] = 'Mock';
 $conf['perms']['driverconfig'] = 'horde';
 $conf['perms']['driver'] = 'Sql';
 
-//@todo: Fix Kolab driver
-$conf['prefs']['params']['driverconfig'] = 'horde';
-$conf['prefs']['driver'] = 'Sql';
+$conf['prefs']['driver'] = 'KolabImap';
 
 $conf['share']['driver'] = 'Kolab';
 $conf['share']['auto_create'] = true;
