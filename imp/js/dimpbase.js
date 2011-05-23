@@ -793,10 +793,11 @@ var DimpBase = {
         switch (id) {
         case 'ctx_container_create':
         case 'ctx_folder_create':
+            tmp = e.findElement('LI');
             DimpCore.doAction('createMailboxPrepare', {
-                mbox: e.findElement('LI').retrieve('mbox')
+                mbox: tmp.retrieve('mbox')
             },{
-                callback: this._mailboxPromptCallback.bind(this, 'create', { elt: e.element() })
+                callback: this._mailboxPromptCallback.bind(this, 'create', { elt: tmp, orig_elt: e.element() })
             });
             break;
 
@@ -2462,11 +2463,11 @@ var DimpBase = {
         if (r.response && params.elt) {
             switch (type) {
             case 'create':
-                this._createFolderForm(this._folderAction.bindAsEventListener(this, params.elt, 'createsub'), DIMP.text.createsub_prompt);
+                this._createFolderForm(this._folderAction.bindAsEventListener(this, params.orig_elt, 'createsub'), DIMP.text.createsub_prompt.sub('%s', params.elt.readAttribute('title')));
                 break;
 
             case 'delete':
-                this.folderaction = DimpCore.doAction.bind(DimpCore, 'deleteMailbox', { mbox: params.elt }, { callback: this.mailboxCallback.bind(this) });
+                this.folderaction = DimpCore.doAction.bind(DimpCore, 'deleteMailbox', { mbox: params.elt.retrieve('mbox') }, { callback: this.mailboxCallback.bind(this) });
                 IMPDialog.display({
                     cancel_text: DIMP.text.cancel,
                     noinput: true,
@@ -2486,7 +2487,7 @@ var DimpBase = {
                 break;
 
             case 'rename':
-                this._createFolderForm(this._folderAction.bindAsEventListener(this, params.elt, 'rename'), DIMP.text.rename_prompt, params.elt.retrieve('l').unescapeHTML());
+                this._createFolderForm(this._folderAction.bindAsEventListener(this, params.elt, 'rename'), DIMP.text.rename_prompt.sub('%s', params.elt.readAttribute('title')), params.elt.retrieve('l').unescapeHTML());
                 break;
             }
         }
