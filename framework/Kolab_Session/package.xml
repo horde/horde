@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:13:38</time>
+ <date>2011-05-23</date>
+ <time>15:46:17</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -49,6 +49,7 @@
         </dir> <!-- /lib/Horde/Kolab/Session/Valid/Decorator -->
         <file name="Base.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Session/Valid -->
+       <file name="Abstract.php" role="php" />
        <file name="Base.php" role="php" />
        <file name="Exception.php" role="php" />
        <file name="Storage.php" role="php" />
@@ -131,6 +132,7 @@
  <phprelease>
   <filelist>
    <install as="Horde/Kolab/Session.php" name="lib/Horde/Kolab/Session.php" />
+   <install as="Horde/Kolab/Session/Abstract.php" name="lib/Horde/Kolab/Session/Abstract.php" />
    <install as="Horde/Kolab/Session/Base.php" name="lib/Horde/Kolab/Session/Base.php" />
    <install as="Horde/Kolab/Session/Exception.php" name="lib/Horde/Kolab/Session/Exception.php" />
    <install as="Horde/Kolab/Session/Storage.php" name="lib/Horde/Kolab/Session/Storage.php" />
@@ -245,7 +247,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-05-23</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * 

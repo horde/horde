@@ -14,6 +14,9 @@
 /**
  * The Horde_Kolab_Session class holds user details in the current session.
  *
+ * @todo Rename from Horde_Kolab_Session_Base ->
+ * Horde_Kolab_Session_Ldap at some point.
+ *
  * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -25,7 +28,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Base implements Horde_Kolab_Session
+class Horde_Kolab_Session_Base extends Horde_Kolab_Session_Abstract
 {
     /**
      * Kolab configuration parameters.
@@ -33,55 +36,6 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      * @var array
      */
     private $_params;
-
-    /**
-     * The session data.
-     *
-     * @var array
-     */
-    private $_data;
-
-    /**
-     * User ID.
-     *
-     * @var string
-     */
-    private $_user_id;
-
-    /**
-     * Kolab UID of the user.
-     *
-     * @var string
-     */
-    private $_user_uid;
-
-    /**
-     * Primary Kolab mail address of the user.
-     *
-     * @var string
-     */
-    private $_user_mail;
-
-    /**
-     * Full name.
-     *
-     * @var string
-     */
-    private $_user_name;
-
-    /**
-     * The imap server for the current user.
-     *
-     * @var string
-     */
-    private $_imap_server = false;
-
-    /**
-     * The free/busy server for the current user.
-     *
-     * @var string
-     */
-    private $_freebusy_server;
 
     /**
      * The kolab user database connection.
@@ -241,109 +195,5 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
         }
 
         $this->_data['fb']['server'] = sprintf($fb_format, $fb_server);
-    }
-
-    /**
-     * Return the user id used for connecting the session.
-     *
-     * @return string The user id.
-     */
-    public function getId()
-    {
-        if (isset($this->_data['user']['id'])) {
-            return $this->_data['user']['id'];
-        }
-    }
-
-    /**
-     * Return the users mail address.
-     *
-     * @return string The users mail address.
-     */
-    public function getMail()
-    {
-        if (isset($this->_data['user']['mail'])) {
-            return $this->_data['user']['mail'];
-        }
-    }
-
-    /**
-     * Return the users uid.
-     *
-     * @return string The users uid.
-     */
-    public function getUid()
-    {
-        if (isset($this->_data['user']['uid'])) {
-            return $this->_data['user']['uid'];
-        }
-    }
-
-    /**
-     * Return the users name.
-     *
-     * @return string The users name.
-     */
-    public function getName()
-    {
-        if (isset($this->_data['user']['name'])) {
-            return $this->_data['user']['name'];
-        }
-    }
-
-    /**
-     * Return the imap server.
-     *
-     * @return string The imap host for the current user.
-     */
-    public function getImapServer()
-    {
-        if (isset($this->_data['imap']['server'])) {
-            return $this->_data['imap']['server'];
-        }
-    }
-
-    /**
-     * Return the freebusy server.
-     *
-     * @return string The freebusy host for the current user.
-     */
-    public function getFreebusyServer()
-    {
-        if (isset($this->_data['fb']['server'])) {
-            return $this->_data['fb']['server'];
-        }
-    }
-
-    /**
-     * Import the session data from an array.
-     *
-     * @param array The session data.
-     *
-     * @return NULL
-     */
-    public function import(array $session_data)
-    {
-        $this->_data = $session_data;
-    }
-
-    /**
-     * Export the session data as array.
-     *
-     * @return array The session data.
-     */
-    public function export()
-    {
-        return $this->_data;
-    }
-
-    /**
-     * Clear the session data.
-     *
-     * @return NULL
-     */
-    public function purge()
-    {
-        $this->_data = array();
     }
 }
