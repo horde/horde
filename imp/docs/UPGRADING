@@ -323,3 +323,6 @@ Virtual Folders
 The format for saved Virtual Folders has changed.  To convert to the new
 format you must run the script located at
 ``scripts/upgrades/convert_vfolders.php``.
+
+
+.. _INSTALL: INSTALL

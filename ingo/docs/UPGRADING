@@ -130,3 +130,6 @@ Backends parameter changes - procmail driver
 In ``config/backends.php``, the ``procmailrc`` parameter in the procmail
 entry has been deprecated.  It has been replaced by the ``filename``
 parameter.
+
+
+.. _INSTALL: INSTALL

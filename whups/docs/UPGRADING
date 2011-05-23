@@ -39,3 +39,6 @@ Execute the provided SQL script to update your data to the new Whups version,
 e.g.::
 
    mysql --user=root --password=<MySQL-root-password>  <db name> < scripts/upgrades/1.0_to_1.0.1.sql
+
+
+.. _INSTALL: INSTALL

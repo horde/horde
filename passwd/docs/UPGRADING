@@ -50,3 +50,6 @@ called 'be_username' in each of it's sub-drivers. If this parameter is
 present, its value overrides any other value of $userid it is passed. If you
 wish to use this functionality of the composite driver, look at the example
 _passwd_hook_username function in horde/config/hooks.php.dist.
+
+
+.. _INSTALL: INSTALL

@@ -268,3 +268,6 @@ previous versions, that is, a seperate, private addressbook for each user.
                need for maintaining the two seperate tables. If you desire not
                to enable share support, you may still use seperate tables and
                set permissions via the administration interface.
+
+
+.. _INSTALL: INSTALL

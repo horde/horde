@@ -117,3 +117,6 @@ with free/busy urls has changed both the name and the format. The preference
 used to be called "search_abook" and contained a serialized PHP array. The new
 preference is called "search_sources", contains a tab-separated list, and goes
 along with the "search_fields" preference.
+
+
+.. _INSTALL: INSTALL

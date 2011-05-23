@@ -381,4 +381,4 @@ Execute the provided PHP script to migrate your histories to the new table::
    horde-move-history-out-of-datatree
 
 
-.. _INSTALL: ?f=INSTALL.html
+.. _INSTALL: INSTALL
