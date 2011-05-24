@@ -1,6 +1,7 @@
 <?php
 /**
- * The Horde_Kolab_Session class holds user details in the current session.
+ * The Horde_Kolab_Session_Base class holds user details retrieved via
+ * LDAP in the current session.
  *
  * PHP version 5
  *
@@ -12,7 +13,8 @@
  */
 
 /**
- * The Horde_Kolab_Session class holds user details in the current session.
+ * The Horde_Kolab_Session_Base class holds user details retrieved via
+ * LDAP in the current session.
  *
  * @todo Rename from Horde_Kolab_Session_Base ->
  * Horde_Kolab_Session_Ldap at some point.

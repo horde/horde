@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-05-23</date>
- <time>15:46:17</time>
+ <date>2011-05-24</date>
+ <time>20:52:54</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [gwr] Added a backend that avoids querying LDAP.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -39,6 +39,9 @@
        <dir name="Exception">
         <file name="Badlogin.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Session/Exception -->
+       <dir name="Factory">
+        <file name="Imap.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Session/Factory -->
        <dir name="Storage">
         <file name="Mock.php" role="php" />
         <file name="Session.php" role="php" />
@@ -52,6 +55,7 @@
        <file name="Abstract.php" role="php" />
        <file name="Base.php" role="php" />
        <file name="Exception.php" role="php" />
+       <file name="Imap.php" role="php" />
        <file name="Storage.php" role="php" />
        <file name="Valid.php" role="php" />
       </dir> <!-- /lib/Horde/Kolab/Session -->
@@ -67,6 +71,10 @@
         <file name="AnonymousTest.php" role="test" />
         <file name="ValidTest.php" role="test" />
        </dir> <!-- /test/Horde/Kolab/Session/Integration -->
+       <dir name="Stub">
+        <file name="Imap.php" role="test" />
+        <file name="ImapFactory.php" role="test" />
+       </dir> <!-- /test/Horde/Kolab/Session/Stub -->
        <dir name="Unit">
         <dir name="Decorator">
          <file name="AnonymousTest.php" role="test" />
@@ -85,6 +93,7 @@
          <file name="BaseTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Session/Unit/Valid -->
         <file name="BaseTest.php" role="test" />
+        <file name="ImapTest.php" role="test" />
        </dir> <!-- /test/Horde/Kolab/Session/Unit -->
        <file name="AllTests.php" role="test" />
        <file name="Autoload.php" role="test" />
@@ -111,6 +120,15 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+  </required>
+  <optional>
+   <package>
+    <name>Horde_Imap_Client</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
    <package>
     <name>Horde_Kolab_Server</name>
     <channel>pear.horde.org</channel>
@@ -118,8 +136,6 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
-  </required>
-  <optional>
    <package>
     <name>Horde_Log</name>
     <channel>pear.horde.org</channel>
@@ -135,6 +151,7 @@
    <install as="Horde/Kolab/Session/Abstract.php" name="lib/Horde/Kolab/Session/Abstract.php" />
    <install as="Horde/Kolab/Session/Base.php" name="lib/Horde/Kolab/Session/Base.php" />
    <install as="Horde/Kolab/Session/Exception.php" name="lib/Horde/Kolab/Session/Exception.php" />
+   <install as="Horde/Kolab/Session/Imap.php" name="lib/Horde/Kolab/Session/Imap.php" />
    <install as="Horde/Kolab/Session/Storage.php" name="lib/Horde/Kolab/Session/Storage.php" />
    <install as="Horde/Kolab/Session/Valid.php" name="lib/Horde/Kolab/Session/Valid.php" />
    <install as="Horde/Kolab/Session/Decorator/Anonymous.php" name="lib/Horde/Kolab/Session/Decorator/Anonymous.php" />
@@ -142,6 +159,7 @@
    <install as="Horde/Kolab/Session/Decorator/Logged.php" name="lib/Horde/Kolab/Session/Decorator/Logged.php" />
    <install as="Horde/Kolab/Session/Decorator/Stored.php" name="lib/Horde/Kolab/Session/Decorator/Stored.php" />
    <install as="Horde/Kolab/Session/Exception/Badlogin.php" name="lib/Horde/Kolab/Session/Exception/Badlogin.php" />
+   <install as="Horde/Kolab/Session/Factory/Imap.php" name="lib/Horde/Kolab/Session/Factory/Imap.php" />
    <install as="Horde/Kolab/Session/Storage/Mock.php" name="lib/Horde/Kolab/Session/Storage/Mock.php" />
    <install as="Horde/Kolab/Session/Storage/Session.php" name="lib/Horde/Kolab/Session/Storage/Session.php" />
    <install as="Horde/Kolab/Session/Valid/Base.php" name="lib/Horde/Kolab/Session/Valid/Base.php" />
@@ -152,7 +170,10 @@
    <install as="Horde/Kolab/Session/TestCase.php" name="test/Horde/Kolab/Session/TestCase.php" />
    <install as="Horde/Kolab/Session/Integration/AnonymousTest.php" name="test/Horde/Kolab/Session/Integration/AnonymousTest.php" />
    <install as="Horde/Kolab/Session/Integration/ValidTest.php" name="test/Horde/Kolab/Session/Integration/ValidTest.php" />
+   <install as="Horde/Kolab/Session/Stub/Imap.php" name="test/Horde/Kolab/Session/Stub/Imap.php" />
+   <install as="Horde/Kolab/Session/Stub/ImapFactory.php" name="test/Horde/Kolab/Session/Stub/ImapFactory.php" />
    <install as="Horde/Kolab/Session/Unit/BaseTest.php" name="test/Horde/Kolab/Session/Unit/BaseTest.php" />
+   <install as="Horde/Kolab/Session/Unit/ImapTest.php" name="test/Horde/Kolab/Session/Unit/ImapTest.php" />
    <install as="Horde/Kolab/Session/Unit/Decorator/AnonymousTest.php" name="test/Horde/Kolab/Session/Unit/Decorator/AnonymousTest.php" />
    <install as="Horde/Kolab/Session/Unit/Decorator/BaseTest.php" name="test/Horde/Kolab/Session/Unit/Decorator/BaseTest.php" />
    <install as="Horde/Kolab/Session/Unit/Decorator/LoggedTest.php" name="test/Horde/Kolab/Session/Unit/Decorator/LoggedTest.php" />
@@ -247,10 +268,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-23</date>
+   <date>2011-05-24</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [gwr] Added a backend that avoids querying LDAP.
    </notes>
   </release>
  </changelog>
