@@ -29,8 +29,11 @@ class Horde_Imap_Client_Data_AclCommon
             Horde_Imap_Client::ACL_DELETEMBOX
         ),
         Horde_Imap_Client::ACL_DELETE => array(
-            Horde_Imap_Client::ACL_DELETEMBOX,
             Horde_Imap_Client::ACL_DELETEMSGS,
+            // Don't put this first - we do checks on the existence of the
+            // first element in this array to determine the RFC type, and this
+            // is duplicate of right contained in ACL_CREATE.
+            Horde_Imap_Client::ACL_DELETEMBOX,
             Horde_Imap_Client::ACL_EXPUNGE
         )
     );
