@@ -72,7 +72,19 @@ class Horde_Imap_Client_Data_Acl extends Horde_Imap_Client_Data_AclCommon implem
          * component RFC 4314 rights. */
         foreach ($this->_virtual as $key => $val) {
             if ($this[$key]) {
-                $this->_rights = array_unique(array_merge(array_diff($this->_rights, array($key)), $val));
+                unset($this[$key]);
+
+                $found = false;
+                foreach ($val as $val2) {
+                    if ($this[$val2]) {
+                        $found = true;
+                        break;
+                    }
+                }
+
+                if (!$found) {
+                    $this->_rights = array_unique(array_merge($this->_rights, $val));
+                }
             }
         }
     }
