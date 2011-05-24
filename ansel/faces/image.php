@@ -19,22 +19,22 @@ $name = '';
 $autocreate = true;
 $image_id = (int)Horde_Util::getPost('image');
 $reload = (int)Horde_Util::getPost('reload');
-$result = $faces->getImageFacesData($image_id);
+$results = $faces->getImageFacesData($image_id);
 
 // Attempt to get faces from the picture if we don't already have results,
 // or if we were asked to explicitly try again.
-if (($reload || empty($result))) {
+if (($reload || empty($results))) {
     $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id);
     try {
         $image->createView('screen');
-        $result = $faces->getFromPicture($image_id, $autocreate);
+        $results = $faces->getFromPicture($image_id, $autocreate);
     } catch (Horde_Exception $e) {
         Horde::logMessage($e, 'ERR');
-        $result = null;
+        $results = null;
     }
 }
 
-if (!empty($result)) {
+if (!empty($results)) {
     $customurl = Horde::url('faces/custom.php');
     require_once ANSEL_TEMPLATES . '/faces/image.inc';
 } else {

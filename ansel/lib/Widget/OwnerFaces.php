@@ -45,10 +45,10 @@ class Ansel_Widget_OwnerFaces extends Ansel_Widget_Base
         $html .= '<div style="display: block'
             . ';background:' . $this->_style->background
             . ';width:100%;max-height:300px;overflow:auto;" id="faces_widget_content" >';
-        foreach ($results as $face_id => $face) {
+        foreach ($results as $face) {
             $facename = htmlspecialchars($face['face_name']);
             $html .= '<a href="' . Ansel_Faces::getLink($face) . '" title="' . $facename . '">'
-                    . '<img src="' . $this->_faces->getFaceUrl($face['image_id'], $face_id, 'mini')
+                    . '<img src="' . $this->_faces->getFaceUrl($face['image_id'], $face['face_id'], 'mini')
                     . '" style="padding-bottom: 5px; padding-left: 5px" alt="' . $facename . '" /></a>';
         }
 

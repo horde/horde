@@ -44,8 +44,11 @@ class Ansel_Faces_Base
             $image->load('screen');
 
             // Make sure we have an on-disk copy of the file.
-            $file = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->readFile($image->getVFSPath('screen'),
-                                                    $image->getVFSName('screen'));
+            $file = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Vfs')
+                ->create('images')
+                ->readFile($image->getVFSPath('screen'),
+                           $image->getVFSName('screen'));
         } else {
             $file = $image;
         }
@@ -82,8 +85,8 @@ class Ansel_Faces_Base
      * @param boolean $full      Get full face data or just face_id and
      *                           face_name.
      *
-     * @return  Array of faces data
-     * @throws Horde_Exception
+     * @return  Array An array of faces data.
+     * @throws Ansel_Exception
      */
     public function getImageFacesData($image_id, $full = false)
     {
@@ -94,25 +97,11 @@ class Ansel_Faces_Base
         $sql .= ' FROM ansel_faces WHERE image_id = ' . (int)$image_id
             . ' ORDER BY face_id DESC';
 
-        $result = $GLOBALS['ansel_db']->select($sql);
-        $faces = array();
-        foreach ($result as $face) {
-            if ($full) {
-                $faces[$face['face_id']] = array(
-                    'face_name' => $face['face_name'],
-                    'face_id' => $face['face_id'],
-                    'gallery_id' => $face['gallery_id'],
-                    'face_x1' => $face['face_x1'],
-                    'face_y1' => $face['face_y1'],
-                    'face_x2' => $face['face_x2'],
-                    'face_y2' => $face['face_y2'],
-                    'image_id' => $image_id);
-            } else {
-                $faces[$face['face_id']] = $face['face_name'];
-            }
+        try {
+            return $GLOBALS['ansel_db']->selectAll($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Ansel_Exception($e)
         }
-
-        return $faces;
     }
 
     /**
@@ -120,24 +109,19 @@ class Ansel_Faces_Base
      *
      * @param integer $gallery  gallery_id to get data for.
      *
-     * @return mixed  array of faces data.
-     * @throws Horde_Exception
+     * @return array  An array of faces data.
+     * @throws Ansel_Exception
      */
     public function getGalleryFaces($gallery)
     {
         $sql = 'SELECT face_id, image_id, gallery_id, face_name FROM ansel_faces '
             . ' WHERE gallery_id = ' . (int)$gallery . ' ORDER BY face_id DESC';
 
-        $result = $GLOBALS['ansel_db']->select($sql);
-        $faces = array();
-        foreach ($result as $face) {
-            $faces[$face['face_id']] = array('face_name' => $face['face_name'],
-                                             'face_id' => $face['face_id'],
-                                             'gallery_id' => $face['gallery_id'],
-                                             'image_id' => $face['image_id']);
+        try {
+            return $GLOBALS['ansel_db']->selectAll($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Ansel_Exception($e);
         }
-
-        return $faces;
     }
 
     /**
@@ -147,13 +131,15 @@ class Ansel_Faces_Base
      * @param integer $from   Offset
      * @param integer $count  Limit
      *
-     * @return mixed  An array of faces data
+     * @return mixed  An array of face hashes containing face_id, gallery_id,
+     *                image_id, face_name.
+     *
      * @throws Ansel_Exception
      */
     protected function _fetchFaces(array $info, $from = 0, $count = 0)
     {
-        $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')->listGalleries(
-            array('perm' => Horde_Perms::READ));
+        $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')
+            ->listGalleries(array('perm' => Horde_Perms::READ));
 
         $sql = 'SELECT f.face_id, f.gallery_id, f.image_id, f.face_name FROM ansel_faces f WHERE f.gallery_id IN('
                 . implode(',', $galleries) . ')'
@@ -165,18 +151,6 @@ class Ansel_Faces_Base
         } catch (Horde_Db_Exception $e) {
             throw new Ansel_Exception($e);
         }
-        if (empty($faces)) {
-            return array();
-        }
-
-        foreach ($faces as $face) {
-            $faces[$face['face_id']] = array('face_name' => $face['face_name'],
-                                             'face_id' => $face['face_id'],
-                                             'gallery_id' => $face['gallery_id'],
-                                             'image_id' => $face['image_id']);
-        }
-
-        return $faces;
     }
 
     /**

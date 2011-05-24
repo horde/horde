@@ -93,26 +93,26 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
         $faces_html = '<div id="faces-on-image">';
 
         // Iterate over all the found faces and build the tiles.
-        foreach ($images as $face_id => $face) {
+        foreach ($images as $face) {
 
             // Get the tile for this face
             $html .= Ansel_Faces::getFaceTile($face);
 
             // Build the overlay for the image
-            $faces_html .= '<div id="facediv' . $face_id . '" class="face-div" style="'
+            $faces_html .= '<div id="facediv' . $face['face_id'] . '" class="face-div" style="'
                 . 'width: ' . ($face['face_x2'] - $face['face_x1']) . 'px;'
                 . ' margin-left: ' . $face['face_x1'] . 'px; '
                 . ' height: ' . ($face['face_y2'] - $face['face_y1']) . 'px;'
                 . ' margin-top: ' . $face['face_y1'] . 'px;" >'
-                . '<div id="facedivname' . $face_id . '" class="face-div-name" style="display:none;">'
+                . '<div id="facedivname' . $face['face_id'] . '" class="face-div-name" style="display:none;">'
                 . $face['face_name'] . '</div></div>' . "\n";
 
             // Attach events to the face tile for showing the overlay
             $faces_html .= '<script type = "text/javascript">';
-            $faces_html .= '$(\'facediv' . $face_id . '\').observe(\'mouseover\', function() {showFace(' . $face_id . ')});'
-                . '$(\'facediv' . $face_id . '\').observe(\'mouseout\', function() {hideFace(' . $face_id . ')});'
-                . '$(\'face' . $face_id . '\').firstDescendant().observe(\'mouseover\', function() {showFace(' . $face_id . ')});'
-                . '$(\'face' . $face_id . '\').firstDescendant().observe(\'mouseout\', function() {hideFace(' . $face_id . ')});'
+            $faces_html .= '$(\'facediv' . $face['face_id'] . '\').observe(\'mouseover\', function() {showFace(' . $face['face_id'] . ')});'
+                . '$(\'facediv' . $face['face_id'] . '\').observe(\'mouseout\', function() {hideFace(' . $face['face_id'] . ')});'
+                . '$(\'face' . $face['face_id'] . '\').firstDescendant().observe(\'mouseover\', function() {showFace(' . $face['face_id'] . ')});'
+                . '$(\'face' . $face['face_id'] . '\').firstDescendant().observe(\'mouseout\', function() {hideFace(' . $face['face_id'] . ')});'
                 . "\n</script>\n";
         }
 
