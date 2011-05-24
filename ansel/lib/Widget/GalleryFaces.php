@@ -83,7 +83,7 @@ class Ansel_Widget_GalleryFaces extends Ansel_Widget_Base
         }
 
         // Close up the nodes
-        $html .= '</div></div>';
+        $html .= '</div></div></div></div>';
 
         return $html;
     }
