@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-16</date>
- <time>15:20:40</time>
+ <date>2011-05-24</date>
+ <time>10:18:29</time>
  <version>
   <release>1.0.6</release>
   <api>1.0.0</api>
@@ -22,8 +22,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Fix/optimize updating Sequence -> UID list when processing EXPUNGEs (Bug #10097).
-* [mms] Fix UTF-8 -> UTF7-IMAP encoding of ampersands (Bug #10093).
+* [mms] Fix/optimize updating Sequence -&gt; UID list when processing EXPUNGEs (Bug #10097).
+* [mms] Fix UTF-8 -&gt; UTF7-IMAP encoding of ampersands (Bug #10093).
 * [mms] Fix setACL() for Socket driver (was always doing replace instead of add/remove).
 * [mms] Fix ACL parsing on RFC 2086 server implementations (Bug #10079).
 * [mms] More than one SEARCH response may be sent, so don&apos;t overwrite existing values.
@@ -84,6 +84,7 @@
         <file name="test_email.txt" role="test" />
         <file name="test_email2.txt" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/fixtures -->
+       <file name="AclTest.php" role="test" />
        <file name="AllTests.php" role="test" />
        <file name="Autoload.php" role="test" />
        <file name="DateTimeTest.php" role="test" />
@@ -194,6 +195,7 @@
    <install as="Horde/Imap/Client/Fetch/Query.php" name="lib/Horde/Imap/Client/Fetch/Query.php" />
    <install as="Horde/Imap/Client/Search/Query.php" name="lib/Horde/Imap/Client/Search/Query.php" />
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
+   <install as="Horde/Imap/Client/AclTest.php" name="test/Horde/Imap/Client/AclTest.php" />
    <install as="Horde/Imap/Client/AllTests.php" name="test/Horde/Imap/Client/AllTests.php" />
    <install as="Horde/Imap/Client/Autoload.php" name="test/Horde/Imap/Client/Autoload.php" />
    <install as="Horde/Imap/Client/DateTimeTest.php" name="test/Horde/Imap/Client/DateTimeTest.php" />
@@ -395,9 +397,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-16</date>
+   <date>2011-05-24</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [mms] Fix/optimize updating Sequence -&gt; UID list when processing EXPUNGEs (Bug #10097).
+* [mms] Fix UTF-8 -&gt; UTF7-IMAP encoding of ampersands (Bug #10093).
 * [mms] Fix setACL() for Socket driver (was always doing replace instead of add/remove).
 * [mms] Fix ACL parsing on RFC 2086 server implementations (Bug #10079).
 * [mms] More than one SEARCH response may be sent, so don&apos;t overwrite existing values.
