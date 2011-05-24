@@ -100,7 +100,7 @@ class Ansel_Faces_Base
         try {
             return $GLOBALS['ansel_db']->selectAll($sql);
         } catch (Horde_Db_Exception $e) {
-            throw new Ansel_Exception($e)
+            throw new Ansel_Exception($e);
         }
     }
 
