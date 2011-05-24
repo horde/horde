@@ -854,6 +854,8 @@ var DimpCompose = {
         var t = $('toggle' + type),
             s = t.siblings().first();
 
+        new TextareaResize(type);
+
         $('send' + type).show();
         if (s && s.visible()) {
             t.hide();
@@ -1018,15 +1020,13 @@ var DimpCompose = {
 
         this.is_popup = !Object.isUndefined(DimpCore.base);
 
-        /* Initialize redirect elements (always needed). */
-        $('redirect').observe('submit', Event.stop);
-        new TextareaResize('redirect_to');
-        if (DIMP.conf_compose.URI_ABOOK) {
-            $('redirect_sendto').down('TD.label SPAN').addClassName('composeAddrbook');
-        }
-
-        /* Nothing more to do if this is strictly a redirect window. */
+        /* Initialize redirect elements. */
         if (DIMP.conf_compose.redirect) {
+            $('redirect').observe('submit', Event.stop);
+            new TextareaResize('redirect_to');
+            if (DIMP.conf_compose.URI_ABOOK) {
+                $('redirect_sendto').down('TD.label SPAN').addClassName('composeAddrbook');
+            }
             $('dimpLoading').hide();
             $('redirect', 'pageContainer').invoke('show');
             return;
@@ -1084,14 +1084,7 @@ var DimpCompose = {
             this.setPopdownLabel('e', $F('encrypt'));
         }
 
-        // Automatically resize compose address fields.
         new TextareaResize('to');
-        if (DIMP.conf_compose.cc) {
-            new TextareaResize('cc');
-        }
-        if (DIMP.conf_compose.bcc) {
-            new TextareaResize('bcc');
-        }
 
         /* Add addressbook link formatting. */
         if (DIMP.conf_compose.URI_ABOOK) {
