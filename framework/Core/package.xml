@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-05-18</date>
- <time>14:43:03</time>
+ <date>2011-05-23</date>
+ <time>23:12:00</time>
  <version>
   <release>1.1.2</release>
   <api>1.1.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mms] Fix running Horde login tasks (Bug #9767).
 * [gwr] Added support for the Kolab IMAP based preferences backend.
  </notes>
  <contents>
@@ -1442,9 +1443,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-18</date>
+   <date>2011-05-23</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [mms] Fix running Horde login tasks (Bug #9767).
 * [gwr] Added support for the Kolab IMAP based preferences backend.
    </notes>
   </release>

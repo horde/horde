@@ -1338,8 +1338,8 @@ class Horde_Registry
 
         /* Do login tasks. */
         if ($checkPerms &&
-            ($tasks = $GLOBALS['injector']->getInstance('Horde_Core_Factory_LoginTasks')->create($app)) &&
-            !empty($options['logintasks'])) {
+            !empty($options['logintasks']) &&
+            ($tasks = $GLOBALS['injector']->getInstance('Horde_Core_Factory_LoginTasks')->create($app))) {
             $tasks->runTasks(array(
                 'url' => Horde::selfUrl(true, true, true)
             ));
