@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-05-25</date>
- <time>16:30:43</time>
+ <time>16:31:31</time>
  <version>
-  <release>1.0.6</release>
+  <release>1.0.7</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,14 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Fix changedsince FETCH results when no cacheable fields were present in query.
-* [mms] Fix/optimize updating Sequence -&gt; UID list when processing EXPUNGEs (Bug #10097).
-* [mms] Fix UTF-8 -&gt; UTF7-IMAP encoding of ampersands (Bug #10093).
-* [mms] Fix setACL() for Socket driver (was always doing replace instead of add/remove).
-* [mms] Fix ACL parsing on RFC 2086 server implementations (Bug #10079).
-* [mms] More than one SEARCH response may be sent, so don&apos;t overwrite existing values.
-* [mms] Disable search caching if a mailbox reports it does not support mod sequences (Bug #9833).
-* [mms] Fix storing IMAP flag cache info if specifying both add and remove options to store().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -409,6 +402,19 @@
 * [mms] More than one SEARCH response may be sent, so don&apos;t overwrite existing values.
 * [mms] Disable search caching if a mailbox reports it does not support mod sequences (Bug #9833).
 * [mms] Fix storing IMAP flag cache info if specifying both add and remove options to store().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-25</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
