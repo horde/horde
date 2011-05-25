@@ -4,8 +4,6 @@
  * It is an abstraction layer allowing POP3 commands to be used based on
  * IMAP equivalents.
  *
- * Caching is not supported in this driver.
- *
  * This driver implements the following POP3-related RFCs:
  *   - STD 53/RFC 1939: POP3 specification
  *   - RFC 2195: CRAM-MD5 authentication
@@ -96,9 +94,14 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         }
 
         parent::__construct($params);
+    }
 
-        // Disable caching.
-        $this->_params['cache'] = array('fields' => array());
+    /**
+     */
+    protected function _initCache($current = false)
+    {
+        return parent::_initCache($current) &&
+               $this->queryCapability('UIDL');
     }
 
     /**
@@ -767,6 +770,10 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             }
         }
 
+        $this->_updateCache($results, array(
+            'seq' => $options['ids']->sequence
+        ));
+
         return $results;
     }
 
@@ -971,6 +978,14 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     protected function _setMetadata($mailbox, $data)
     {
         $this->_exception('IMAP metadata not supported on POP3 servers.', 'POP3_NOTSUPPORTED');
+    }
+
+    /**
+     */
+    protected function _getSearchCache($type, $mailbox, $options)
+    {
+        /* POP3 does not support search caching. */
+        return null;
     }
 
     /* Internal functions. */

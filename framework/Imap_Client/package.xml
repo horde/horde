@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-05-25</date>
- <time>14:07:11</time>
+ <time>14:53:31</time>
  <version>
   <release>1.0.7</release>
   <api>1.0.0</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Enable cache support for POP3 Socket driver (FETCH data only).
 * Fix APOP authentication for POP3 Socket driver.
  </notes>
  <contents>
@@ -414,6 +415,7 @@
    <date>2011-05-25</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* Enable cache support for POP3 Socket driver (FETCH data only).
 * Fix APOP authentication for POP3 Socket driver.
    </notes>
   </release>
