@@ -3437,4 +3437,36 @@ abstract class Horde_Imap_Client_Base implements Serializable
         return $stream;
     }
 
+    /**
+     * Parses human-readable response text for response codes.
+     *
+     * @param string $text  The response text.
+     *
+     * @return object  An object with the following properties:
+     *   - code: (string) The response code, if it exists.
+     *   - data: (string) The response code data, if it exists.
+     *   - text: (string) The human-readable response text.
+     */
+    protected function _parseResponseText($text)
+    {
+        $ret = new stdClass;
+
+        $text = trim($text);
+        if ($text[0] == '[') {
+            $pos = strpos($text, ' ', 2);
+            $end_pos = strpos($text, ']', 2);
+            if ($pos > $end_pos) {
+                $ret->code = strtoupper(substr($text, 1, $end_pos - 1));
+            } else {
+                $ret->code = strtoupper(substr($text, 1, $pos - 1));
+                $ret->data = substr($text, $pos + 1, $end_pos - $pos - 1);
+            }
+            $ret->text = trim(substr($text, $end_pos + 1));
+        } else {
+            $ret->text = $text;
+        }
+
+        return $ret;
+    }
+
 }
