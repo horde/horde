@@ -2059,11 +2059,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $ret = &$options['fetch_res'];
         }
 
-        /* If nothing is cacheable, we can do a straight search. */
-        if (empty($cache_array)) {
-            return $this->_fetch($query, $ret, $options);
-        }
-
         /* If doing a changedsince/vanished search that involves a subset of
          * UIDs, we need to limit the UIDs now. */
         if ((!empty($options['changedsince']) ||
@@ -2083,6 +2078,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
             )));
 
             $options['ids'] = new Horde_Imap_Client_Ids(array_keys($ret), $options['ids']->sequence);
+        }
+
+        /* If nothing is cacheable, we can do a straight search. */
+        if (empty($cache_array)) {
+            return $this->_fetch($query, $ret, $options);
         }
 
         /* Need Seq -> UID lookup if we haven't already grabbed it. */
