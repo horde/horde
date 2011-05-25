@@ -91,8 +91,8 @@ class IMP_Imap implements Serializable
      * @param string $password  The password to authenticate with.
      * @param string $key       Create a new object using this server key.
      *
-     * @return mixed  A Horde_Imap_Client_Base object on success, false on
-     *                error.
+     * @return Horde_Imap_Client_Base  Client object.
+     * @throws IMP_Imap_Exception
      */
     public function createImapObject($username, $password, $key)
     {
@@ -103,7 +103,9 @@ class IMP_Imap implements Serializable
         }
 
         if (($server = $this->loadServerConfig($key)) === false) {
-            return false;
+            $error = new IMP_Imap_Exception('Could not load server configuration.');
+            $error->log();
+            throw $error;
         }
 
         $protocol = isset($server['protocol'])
@@ -135,19 +137,14 @@ class IMP_Imap implements Serializable
         try {
             $ob = Horde_Imap_Client::factory(($protocol == 'imap') ? 'Socket' : 'Socket_Pop3', $imap_config);
         } catch (Horde_Imap_Client_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            return false;
+            $error = new IMP_Imap_Exception($e);
+            $error->log();
+            throw $error;
         }
 
         $this->ob = $ob;
 
         if ($protocol == 'pop') {
-            /* Check for UIDL support. */
-            if (!$this->queryCapability('UIDL')) {
-                Horde::logMessage('The POP3 server does not support the *REQUIRED* UIDL capability.', 'ERR');
-                return false;
-            }
-
             /* Turn some options off if we are working with POP3. */
             $prefs->setValue('save_sent_mail', false);
             $prefs->setLocked('save_sent_mail', true);
@@ -418,6 +415,14 @@ class IMP_Imap implements Serializable
 
         case 'login':
             if (!$this->_login) {
+                /* Check for POP3 UIDL support. */
+                if ($this->pop3 &&
+                    !$this->queryCapability('UIDL')) {
+                    $error = new IMP_Imap_Exception('The POP3 server does not support the REQUIRED UIDL capability.');
+                    $error->log();
+                    throw $error;
+                }
+
                 $this->_changed = $this->_login = true;
                 $this->updateFetchIgnore();
             }

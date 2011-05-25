@@ -87,9 +87,11 @@ class IMP_Auth
                 throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
             }
 
-            if (!$imp_imap->createImapObject($credentials['userId'], $credentials['password'], $credentials['server'])) {
+            try {
+                $imp_imap->createImapObject($credentials['userId'], $credentials['password'], $credentials['server']);
+            } catch (IMP_Imap_Exception $e) {
                 self::_logMessage(false, $imp_imap);
-                throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
+                throw $e->authException();
             }
 
             $result = array(

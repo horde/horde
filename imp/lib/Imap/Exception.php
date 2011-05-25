@@ -88,6 +88,7 @@ class IMP_Imap_Exception extends Horde_Imap_Client_Exception
             $code = Horde_Auth::REASON_EXPIRED;
             break;
 
+        case Horde_Imap_Client_Exception::SERVER_CONNECT:
         case Horde_Imap_Client_Exception::LOGIN_UNAVAILABLE:
             $code = Horde_Auth::REASON_MESSAGE;
             $e = _("Remote server is down. Please try again later.");
@@ -96,7 +97,6 @@ class IMP_Imap_Exception extends Horde_Imap_Client_Exception
         case Horde_Imap_Client_Exception::LOGIN_NOAUTHMETHOD:
         case Horde_Imap_Client_Exception::LOGIN_PRIVACYREQUIRED:
         case Horde_Imap_Client_Exception::LOGIN_TLSFAILURE:
-        case Horde_Imap_Client_Exception::SERVER_CONNECT:
         default:
             $code = Horde_Auth::REASON_FAILED;
             break;
