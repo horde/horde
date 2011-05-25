@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-05-25</date>
- <time>16:36:00</time>
+ <time>16:38:29</time>
  <version>
-  <release>5.0.4</release>
+  <release>5.0.5</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,21 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [mms] Fix filter links in the preferences UI (Bug #10117).
-* [mms] Fix print icon for non text/html displayable attachments (Bug #10112).
-* [mms] Support $Junk/$NotJunk keywords when marking spam/ham.
-* [jan] Fix link to send PGP key to keyserver (Bug #10070).
-* [mms] Fix resizing compose window in dynamic view for IE 7/8 (Bug #10075).
-* [mms] Fix setting/unsetting passphrases in preferences (Bug #10096).
-* [mms] Base64url encode breacdrumb hash information in dynamic view.
-* [mms] Add login task to autocreate special mailboxes.
-* [mms] Workaround broken messages by allow viewing multipart/related parts that are not referenced in the base part.
-* [mms] Use ACLs to determine when to hide various UI options (Request #9537).
-* [mms] Cache various calculated mailbox information in the session.
-* [mms] Fix adding flags in advanced search (Bug #10049).
-* [mms] Fix display of subfolders in mobile view (Bug #10043).
-* [mms] Improved determination of available flags in a mailbox.
-* [mms] Fix adding to whitelist from dynamic view (rui.carneiro@portugalmail.net, Bug #10036).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2257,6 +2243,19 @@
 * [mms] Fix display of subfolders in mobile view (Bug #10043).
 * [mms] Improved determination of available flags in a mailbox.
 * [mms] Fix adding to whitelist from dynamic view (rui.carneiro@portugalmail.net, Bug #10036).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.5</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-25</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
