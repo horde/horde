@@ -3578,11 +3578,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * Perform a command on the IMAP server. A connection to the server must
      * have already been made.
      *
-     * @todo RFC 3501 allows the sending of multiple commands at once. For
-     *       simplicity of implementation at this time, we will execute
-     *       commands one at a time. This allows us to easily determine data
-     *       meant for a command while scanning for untagged responses
-     *       unilaterally sent by the server.
+     * RFC 3501 allows the sending of multiple commands at once. For
+     * simplicity of implementation, we will execute commands one at a time.
+     * This allows us to easily determine data meant for a command while
+     * scanning for untagged responses unilaterally sent by the server.
+     * The only advantage of pipelining commands is to reduce the (small)
+     * amount of overhead needed to send commands. Modern IMAP servers do not
+     * meaningfully optimize response order internally, so that is not a
+     * worthwhile reason to implement pipelining.
      *
      * @param mixed $data    The IMAP command to execute. If string output as
      *                       is. If array, parsed via parseCommandArray(). If
@@ -4271,7 +4274,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'BADCHARSET':
-            /* @todo Store the list of search charsets supported by the server
+            /* TODO: Store the list of search charsets supported by the server
              * (this is a MAY response, not a MUST response) */
             $this->_temp['parsestatuserr'] = array(
                 'BADCHARSET',
