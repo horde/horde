@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-05-25</date>
- <time>16:33:07</time>
+ <time>16:36:00</time>
  <version>
   <release>5.0.4</release>
   <api>5.0.0</api>
@@ -2256,7 +2256,7 @@
 * [mms] Fix adding flags in advanced search (Bug #10049).
 * [mms] Fix display of subfolders in mobile view (Bug #10043).
 * [mms] Improved determination of available flags in a mailbox.
-* [mms] Fix adding to whitelist from dynamic view (Bug #10036; rui.carneiro@portugalmail.net).
+* [mms] Fix adding to whitelist from dynamic view (rui.carneiro@portugalmail.net, Bug #10036).
    </notes>
   </release>
  </changelog>
