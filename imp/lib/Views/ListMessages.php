@@ -416,6 +416,7 @@ class IMP_Views_ListMessages
         while (list(,$ob) = each($overview['overview'])) {
             /* Initialize the header fields. */
             $msg = array(
+                'flag' => array(),
                 'imapuid' => ($pop3 ? $ob['uid'] : intval($ob['uid'])),
                 'view' => $ob['mailbox']
             );
@@ -436,11 +437,8 @@ class IMP_Views_ListMessages
                     'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']->to, array('charset' => 'UTF-8'))
                 ));
 
-                if (!empty($flag_parse)) {
-                    $msg['flag'] = array();
-                    foreach ($flag_parse as $val) {
-                        $msg['flag'][] = $val->id;
-                    }
+                foreach ($flag_parse as $val) {
+                    $msg['flag'][] = $val->id;
                 }
             }
 

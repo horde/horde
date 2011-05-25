@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix POP3 regressions.
 * [mms] Workaround broken suhosin extension to allow search mailboxes (Request #9842).
  </notes>
  <contents>
