@@ -228,6 +228,13 @@ case 'print_attach':
     reset($render);
     $render_key = key($render);
 
+    if (stripos($render[$render_key]['type'], 'text/html') !== 0) {
+        print_r($render[$render_key]['type']);
+        header('Content-Type: ' . $render[$render_key]['type']);
+        echo $render[$render_key]['data'];
+        exit;
+    }
+
     $imp_ui = new IMP_Ui_Message();
     $basic_headers = $imp_ui->basicHeaders();
     unset($basic_headers['bcc'], $basic_headers['reply-to']);

@@ -2,6 +2,7 @@
 v5.0.4-git
 ----------
 
+[mms] Fix print icon for non text/html displayable attachments (Bug #10112).
 [mms] Support $Junk/$NotJunk keywords when marking spam/ham.
 [jan] Fix link to send PGP key to keyserver (Bug #10070).
 [mms] Fix resizing compose window in dynamic view for IE 7/8 (Bug #10075).
