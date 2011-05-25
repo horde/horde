@@ -9,10 +9,8 @@
  *   - RFC 2195: CRAM-MD5 authentication
  *   - RFC 2449: POP3 extension mechanism
  *   - RFC 2595/4616: PLAIN authentication
- *   - RFC 1734/5034: POP3 SASL
- *
- * TODO (or not necessary?):
  *   - RFC 3206: AUTH/SYS response codes
+ *   - RFC 1734/5034: POP3 SASL
  *
  * ---------------------------------------------------------------------------
  *
@@ -222,7 +220,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             }
         }
 
-        $this->_exception('POP3 server denied authentication.');
+        $this->_exception('POP3 server denied authentication.', $e->getCode() ? $e->getCode() : 'LOGIN_AUTHENTICATIONFAILED');
     }
 
     /**
@@ -1017,10 +1015,8 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      * Gets a line from the stream and parses it.
      *
      * @return array  An array with the following keys:
-     * <pre>
-     * 'line' - (string) The server response text.
-     * 'response' - (string) Either 'OK', 'END', '+', or ''.
-     * </pre>
+     *   - line: (string) The server response text.
+     *   - response: (string) Either 'OK', 'END', '+', or ''.
      * @throws Horde_Imap_Client_Exception
      */
     protected function _getLine()
@@ -1041,18 +1037,52 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             fwrite($this->_debug, 'S (' . microtime(true) . '): ' . $read . "\n");
         }
 
-        $prefix = explode(' ', $read, 2);
+        $read = explode(' ', $read, 2);
 
-        switch ($prefix[0]) {
+        switch ($read[0]) {
         case '+OK':
             $ob['response'] = 'OK';
-            if (isset($prefix[1])) {
-                $ob['line'] = $prefix[1];
+            if (isset($read[1])) {
+                $response = $this->_getResponseText($read[1]);
+                $ob['line'] = $response->text;
             }
             break;
 
         case '-ERR':
-            $this->_exception('POP3 Error: ' . isset($prefix[1]) ? $prefix[1] : 'no error message');
+            $errcode = 0;
+            if (isset($read[1])) {
+                $response = $this->_getResponseText($read[1]);
+                $errtext = $response->text;
+                if (isset($response->code)) {
+                    switch ($response->code) {
+                    // RFC 2449 [8.1.1]
+                    case 'IN-USE':
+                    // RFC 2449 [8.1.2]
+                    case 'LOGIN-DELAY':
+                        $errcode = 'LOGIN_UNAVAILABLE';
+                        break;
+
+                    // RFC 3206 [4]
+                    case 'SYS/TEMP':
+                        $errcode = 'POP3_TEMP_ERROR';
+                        break;
+
+                    // RFC 3206 [4]
+                    case 'SYS/PERM':
+                        $errcode = 'POP3_PERM_ERROR';
+                        break;
+
+                    // RFC 3206 [5]
+                    case 'AUTH':
+                        $errcode = 'LOGIN_AUTHENTICATIONFAILED';
+                        break;
+                    }
+                }
+            } else {
+                $errtext = '[No error message provided by server]';
+            }
+
+            $this->_exception('POP3 Error: ' . $errtext, $errcode);
 
         case '.':
             $ob['response'] = 'END';

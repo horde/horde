@@ -137,4 +137,14 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
     // Could not open/access mailbox
     const MAILBOX_NOOPEN = 200;
 
+
+    // POP3 specific error codes
+
+    // Temporary issue. Generally, there is no need to alarm the user for
+    // errors of this type.
+    const POP3_TEMP_ERROR = 300;
+
+    // Permanent error indicated by server.
+    const POP3_PERM_ERROR = 301;
+
 }

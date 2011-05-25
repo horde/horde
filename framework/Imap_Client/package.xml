@@ -22,8 +22,9 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Enable cache support for POP3 Socket driver (FETCH data only).
-* Fix APOP authentication for POP3 Socket driver.
+* [mms] Support response code for POP3 servers (RFC 2449/3206).
+* [mms] Enable cache support for POP3 Socket driver (FETCH data only).
+* [mms] Fix APOP authentication for POP3 Socket driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
