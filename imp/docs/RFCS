@@ -67,6 +67,7 @@ The following POP3 extensions/features are supported
 :RFC 2195:          CRAM-MD5 authentication
 :RFC 2449:          POP3 extension mechanism
 :RFC 2595/RFC 4616: PLAIN authentication
+:RFC 3206:          The SYS and AUTH POP Response Codes
 
 
 Mail Messages

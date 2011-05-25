@@ -367,11 +367,13 @@ class IMP_Imap implements Serializable
 
             // BC: Not available in Horde_Imap_Client 1.0.0
             case constant('Horde_Imap_Client_Exception::INUSE'):
+            case constant('Horde_Imap_Client_Exception::POP3_TEMP_ERROR'):
                 $error->notify(_("There was a temporary issue when attempting this operation. Please try again later."));
                 break;
 
             // BC: Not available in Horde_Imap_Client 1.0.0
             case constant('Horde_Imap_Client_Exception::CORRUPTION'):
+            case constant('Horde_Imap_Client_Exception::POP3_PERM_ERROR'):
                 $error->notify(_("The mail server is reporting corrupt data in your mailbox. Details have been logged for the administrator."));
                 break;
 

@@ -2,6 +2,7 @@
 v5.0.5-git
 ----------
 
+[mms] Handle response codes/errors returned from POP3 servers.
 [mms] Fix POP3 regressions.
 [mms] Workaround broken suhosin extension to allow search mailboxes (Request
       #9842).
