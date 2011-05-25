@@ -1,21 +1,20 @@
 <?php
 /**
- * Horde_Imap_Client_Socket_Pop3 provides an interface to a POP3 server using
- * PHP functions.
- * This driver is an abstraction layer allowing POP3 commands to be used based
- * on the IMAP equivalents.
+ * This driver provides an interface to a POP3 server using PHP functions.
+ * It is an abstraction layer allowing POP3 commands to be used based on
+ * IMAP equivalents.
  *
  * Caching is not supported in this driver.
  *
  * This driver implements the following POP3-related RFCs:
- * STD 53/RFC 1939 - POP3 specification
- * RFC 2195 - CRAM-MD5 authentication
- * RFC 2449 - POP3 extension mechanism
- * RFC 2595/4616 - PLAIN authentication
- * RFC 1734/5034 - POP3 SASL
+ *   - STD 53/RFC 1939: POP3 specification
+ *   - RFC 2195: CRAM-MD5 authentication
+ *   - RFC 2449: POP3 extension mechanism
+ *   - RFC 2595/4616: PLAIN authentication
+ *   - RFC 1734/5034: POP3 SASL
  *
  * TODO (or not necessary?):
- * RFC 3206 - AUTH/SYS response codes
+ *   - RFC 3206: AUTH/SYS response codes
  *
  * ---------------------------------------------------------------------------
  *
