@@ -1106,7 +1106,6 @@ $prefGroups['filters'] = array(
 
 $_prefs['filters_link'] = array(
     'type' => 'link',
-    'url' => $GLOBALS['registry']->hasMethod('mail/showFilters') ? $GLOBALS['registry']->link('mail/showFilters') : '',
     'img' => 'filters.png',
     'desc' => _("Edit your Filter Rules"),
     'help' => 'filter-edit-rules'
@@ -1115,7 +1114,6 @@ $_prefs['filters_link'] = array(
 $_prefs['filters_blacklist_link'] = array(
     'type' => 'link',
     'img' => 'filters.png',
-    'url' => $GLOBALS['registry']->hasMethod('mail/showBlacklist') ? $GLOBALS['registry']->link('mail/showBlacklist') : '',
     'desc' => _("Edit your Blacklist"),
     'help' => 'filter-edit-blacklist'
 );
@@ -1123,7 +1121,6 @@ $_prefs['filters_blacklist_link'] = array(
 $_prefs['filters_whitelist_link'] = array(
     'type' => 'link',
     'img' => 'filters.png',
-    'url' => $GLOBALS['registry']->hasMethod('mail/showWhitelist') ? $GLOBALS['registry']->link('mail/showWhitelist') : '',
     'desc' => _("Edit your Whitelist"),
     'help' => 'filter-edit-whitelist'
 );

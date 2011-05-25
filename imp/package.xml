@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix filter links in the preferences UI (Bug #10117).
 * [mms] Fix print icon for non text/html displayable attachments (Bug #10112).
 * [mms] Support $Junk/$NotJunk keywords when marking spam/ham.
 * [jan] Fix link to send PGP key to keyserver (Bug #10070).

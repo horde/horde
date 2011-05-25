@@ -205,19 +205,25 @@ class IMP_Prefs_Ui
                 break;
 
             case 'filters_blacklist_link':
-                if (!$registry->hasMethod('mail/showBlacklist')) {
+                try {
+                    $ui->prefs[$val]['url'] = $registry->link('mail/showBlacklist');
+                } catch (Horde_Exception $e) {
                     $ui->suppress[] = $val;
                 }
                 break;
 
             case 'filters_link':
-                if (!$registry->hasMethod('mail/showFilters')) {
+                try {
+                    $ui->prefs[$val]['url'] = $registry->link('mail/showFilters');
+                } catch (Horde_Exception $e) {
                     $ui->suppress[] = $val;
                 }
                 break;
 
             case 'filters_whitelist_link':
-                if (!$registry->hasMethod('mail/showWhitelist')) {
+                try {
+                    $ui->prefs[$val]['url'] = $registry->link('mail/showWhitelist');
+                } catch (Horde_Exception $e) {
                     $ui->suppress[] = $val;
                 }
                 break;
