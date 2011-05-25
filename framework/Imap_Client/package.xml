@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-05-25</date>
- <time>16:31:31</time>
+ <time>14:07:11</time>
  <version>
   <release>1.0.7</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* Fix APOP authentication for POP3 Socket driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -414,7 +414,7 @@
    <date>2011-05-25</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* Fix APOP authentication for POP3 Socket driver.
    </notes>
   </release>
  </changelog>
