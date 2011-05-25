@@ -319,12 +319,16 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             // RFC 5034
             $this->_sendLine('AUTH LOGIN');
             $this->_sendLine(base64_encode($this->_params['username']));
-            $this->_sendLine(base64_encode($this->getParam('password')));
+            $this->_sendLine(base64_encode($this->getParam('password')), array(
+                'debug' => '[AUTH LOGIN Command - password]'
+            ));
             break;
 
         case 'PLAIN':
             // RFC 5034
-            $this->_sendLine('AUTH PLAIN ' . base64_encode(chr(0) . $this->_params['username'] . chr(0) . $this->getParam('password')));
+            $this->_sendLine('AUTH PLAIN ' . base64_encode(chr(0) . $this->_params['username'] . chr(0) . $this->getParam('password')), array(
+                'debug' => sprintf('[AUTH PLAIN Command - username: %s]', $this->_params['username'])
+            ));
             break;
 
         case 'APOP':
@@ -335,7 +339,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         case 'USER':
             // RFC 1939 [7]
             $this->_sendLine('USER ' . $this->_params['username']);
-            $this->_sendLine('PASS ' . $this->getParam('password'));
+            $this->_sendLine('PASS ' . $this->getParam('password'), array(
+                'debug' => '[USER Command - password]'
+            ));
             break;
         }
     }
