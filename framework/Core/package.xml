@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-05-23</date>
- <time>23:12:00</time>
+ <date>2011-05-25</date>
+ <time>00:56:13</time>
  <version>
   <release>1.1.2</release>
   <api>1.1.0</api>
@@ -263,6 +263,7 @@
       </dir> <!-- /lib/Horde/Core/Ui -->
       <file name="Block.php" role="php" />
       <file name="Browser.php" role="php" />
+      <file name="LoginTasks.php" role="php" />
       <file name="Perms.php" role="php" />
       <file name="Sidebar.php" role="php" />
       <file name="Translation.php" role="php">
@@ -1035,6 +1036,7 @@
    <install as="Horde/Config/Form.php" name="lib/Horde/Config/Form.php" />
    <install as="Horde/Core/Block.php" name="lib/Horde/Core/Block.php" />
    <install as="Horde/Core/Browser.php" name="lib/Horde/Core/Browser.php" />
+   <install as="Horde/Core/LoginTasks.php" name="lib/Horde/Core/LoginTasks.php" />
    <install as="Horde/Core/Perms.php" name="lib/Horde/Core/Perms.php" />
    <install as="Horde/Core/Sidebar.php" name="lib/Horde/Core/Sidebar.php" />
    <install as="Horde/Core/Translation.php" name="lib/Horde/Core/Translation.php" />
@@ -1443,7 +1445,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-23</date>
+   <date>2011-05-25</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [mms] Fix running Horde login tasks (Bug #9767).
