@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-03</date>
- <time>14:13:18</time>
+ <date>2011-05-26</date>
+ <time>11:35:44</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* Use memcache flags to keep track of large objects (Request #10123; goncalo.queiros@portugalmail.net).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -159,10 +159,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-03</date>
+   <date>2011-05-26</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* Use memcache flags to keep track of large objects (Request #10123; goncalo.queiros@portugalmail.net).
    </notes>
   </release>
  </changelog>

@@ -191,13 +191,6 @@ class Horde_Memcache implements Serializable
      */
     public function delete($key, $timeout = 0)
     {
-        if (!empty($this->_params['large_items'])) {
-            /* No need to delete the oversized parts - memcache's LRU
-             * algorithm will eventually cause these pieces to be recycled. */
-            if (!isset($this->_noexist[$key . '_os'])) {
-                $this->_memcache->delete($this->_key($key . '_os'), $timeout);
-            }
-        }
         if (isset($this->_noexist[$key])) {
             return false;
         }
@@ -216,7 +209,8 @@ class Horde_Memcache implements Serializable
      */
     public function get($keys)
     {
-        $key_map = $os = $os_keys = $out_array = array();
+        $flags = null;
+        $key_map = $missing_parts = $os = $out_array = array();
         $ret_array = true;
 
         if (!is_array($keys)) {
@@ -225,42 +219,27 @@ class Horde_Memcache implements Serializable
         }
         $search_keys = $keys;
 
-        if (!empty($this->_params['large_items'])) {
-            foreach ($keys as $val) {
-                $os_keys[$val] = $search_keys[] = $val . '_os';
-            }
-        }
-
         foreach ($search_keys as $v) {
             $key_map[$v] = $this->_key($v);
         }
 
-        $res = $this->_memcache->get(array_values($key_map));
-        if ($res === false) {
+        if (($res = $this->_memcache->get(array_values($key_map), $flags)) === false) {
             return false;
         }
 
         /* Check to see if we have any oversize items we need to get. */
-        if (!empty($os_keys)) {
-            foreach ($os_keys as $key => $val) {
-                if (!empty($res[$key_map[$val]])) {
-                    /* This is an oversize key entry. */
-                    $os[$key] = $this->_getOSKeyArray($key, $res[$key_map[$val]]);
+        if (!empty($this->_params['large_items'])) {
+            foreach ($key_map as $key => $val) {
+                if (($part_count = ($flags[$val] >> 8) - 1)) {
+                    $os[$key] = $this->_getOSKeyArray($key, $part_count);
+                    foreach ($os[$key] as $val2) {
+                        $missing_parts[] = $key_map[$val2] = $this->_key[$val2];
+                    }
                 }
             }
 
-            if (!empty($os)) {
-                $search_keys = $search_keys2 = array();
-                foreach ($os as $val) {
-                    $search_keys = array_merge($search_keys, $val);
-                }
-
-                foreach ($search_keys as $v) {
-                    $search_keys2[] = $key_map[$v] = $this->_key($v);
-                }
-
-                $res2 = $this->_memcache->get($search_keys2);
-                if ($res2 === false) {
+            if (!empty($missing_parts)) {
+                if (($res2 = $this->_memcache->get($missing_parts)) === false) {
                     return false;
                 }
 
@@ -337,22 +316,15 @@ class Horde_Memcache implements Serializable
 
         for ($i = 0; ($i * self::MAX_SIZE) < $len; ++$i) {
             $curr_key = $i ? ($key . '_s' . $i) : $key;
-            $res = $this->_memcache->set($this->_key($curr_key), substr($var, $i * self::MAX_SIZE, self::MAX_SIZE), empty($this->_params['compression']) ? 0 : MEMCACHE_COMPRESSED, $expire);
+
+            $flags = $this->_getFlags($i ? 0 : ceil($len / self::MAX_SIZE));
+            $res = $this->_memcache->set($this->_key($curr_key), substr($var, $i * self::MAX_SIZE, self::MAX_SIZE), $flags, $expire);
             if ($res === false) {
                 $this->delete($key);
                 $i = 1;
                 break;
             }
             unset($this->_noexist[$curr_key]);
-        }
-
-        if (($res !== false) && !empty($this->_params['large_items'])) {
-            $os_key = $this->_key($key . '_os');
-            if (--$i) {
-                $this->_memcache->set($os_key, $i, 0, $expire);
-            } elseif (!isset($this->_noexist[$key . '_os'])) {
-                $this->_memcache->delete($os_key);
-            }
         }
 
         return $res;
@@ -376,7 +348,7 @@ class Horde_Memcache implements Serializable
 
         if ($len > self::MAX_SIZE) {
             if (!empty($this->_params['large_items'])) {
-                $res = $this->_memcache->get(array($this->_key($key), $this->_key($key . '_os')));
+                $res = $this->_memcache->get($this->_key($key));
                 if (!empty($res)) {
                     return $this->_set($key, $var, $expire, $len);
                 }
@@ -384,15 +356,7 @@ class Horde_Memcache implements Serializable
             return false;
         }
 
-        if ($this->_memcache->replace($this->_key($key), $var, empty($this->_params['compression']) ? 0 : MEMCACHE_COMPRESSED, $expire)) {
-            if (!empty($this->_params['large_items']) &&
-                !isset($this->_noexist[$key . '_os'])) {
-                $this->_memcache->delete($this->_key($key . '_os'));
-            }
-            return true;
-        }
-
-        return false;
+        return $this->_memcache->replace($this->_key($key), $var, $this->_getFlags(1), $expire);
     }
 
     /**
@@ -462,6 +426,21 @@ class Horde_Memcache implements Serializable
             $ret[] = $key . '_s' . ($i + 1);
         }
         return $ret;
+    }
+
+    /**
+     * Get flags for memcache call.
+     *
+     * @param integer $count
+     *
+     * @return integer
+     */
+    protected function _getFlags($count)
+    {
+        $flags = empty($this->_params['compression'])
+            ? 0
+            : MEMCACHE_COMPRESSED;
+        return ($flags | $count << 8);
     }
 
 }
