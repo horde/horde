@@ -137,6 +137,7 @@ $_prefs['default_due'] = array(
 $_prefs['default_due_days'] = array(
     'value' => 1,
     'type' => 'number',
+    'zero' => true,
     'desc' => _("When creating a new task, how many days in the future should the default due date be (0 means today)?"),
 );
 

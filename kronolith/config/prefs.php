@@ -98,6 +98,7 @@ $_prefs['defaultview'] = array(
 $_prefs['max_events'] = array(
     'value' => 3,
     'type' => 'number',
+    'zero' => true,
     'desc' => _("How many events should be displayed per day in the month view? Set to 0 to always show all events."),
 );
 

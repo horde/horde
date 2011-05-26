@@ -284,6 +284,7 @@ $_prefs['delete_attachments_monthly_keep'] = array(
     'value' => 6,
     'advanced' => true,
     'type' => 'number',
+    'zero' => true,
     'desc' => _("Delete old linked attachments after this many months (0 to never delete)?"),
     'help' => 'prefs-delete_attachments_monthly_keep'
 );
@@ -496,6 +497,7 @@ $_prefs['rename_sentmail_monthly'] = array(
 $_prefs['delete_sentmail_monthly_keep'] = array(
     'value' => 0,
     'type' => 'number',
+    'zero' => true,
     'desc' => _("Delete old sent mail folders after this many months (0 to never delete)?"),
     'help' => 'prefs-delete_sentmail_monthly_keep'
 );
@@ -1414,6 +1416,7 @@ $_prefs['mimp_download_confirm'] = array(
     'value' => 0,
     'advanced' => true,
     'type' => 'number',
+    'zero' => true,
     'desc' => _("Only show download confirmation page if message part is greater than this size, in bytes. Set to 0 to always require the confirmation page.")
 );
 

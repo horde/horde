@@ -157,6 +157,8 @@
  * ADDITIONAL KEYS:
  *   'desc' - (string) The description text to use on the preferences page.
  *   'value' - (number) The preference value.
+ *   'zero' - (boolean) By default, a number must be non-zero. If this is
+ *            true, zeros will be accepted as valid input.
  *
  * 'password'
  * ----------

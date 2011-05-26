@@ -333,7 +333,7 @@ class Horde_Core_Prefs_Ui
                 $num = $this->vars->$pref;
                 if ((string)(double)$num !== $num) {
                     $this->_errors[$pref] = Horde_Core_Translation::t("This value must be a number.");
-                } elseif (empty($num)) {
+                } elseif (empty($num) && empty($this->prefs[$pref]['zero'])) {
                     $this->_errors[$pref] = Horde_Core_Translation::t("This value must be non-zero.");
                 } else {
                     $updated |= $save->setValue($pref, $num);
