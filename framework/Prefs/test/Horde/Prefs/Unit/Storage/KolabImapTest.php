@@ -32,6 +32,11 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  */
 class Horde_Prefs_Unit_Storage_KolabImapTest extends PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $_SESSION = array();
+    }
+
     /**
      * @expectedException InvalidArgumentException
      */

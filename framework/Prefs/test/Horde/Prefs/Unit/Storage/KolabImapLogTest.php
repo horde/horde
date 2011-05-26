@@ -32,6 +32,11 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  */
 class Horde_Prefs_Unit_Storage_KolabImapLogTest extends Horde_Test_Log
 {
+    public function setUp()
+    {
+        $_SESSION = array();
+    }
+
     public function testMissingScope()
     {
         $a = new Horde_Prefs(
