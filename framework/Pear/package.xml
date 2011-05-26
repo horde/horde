@@ -216,6 +216,15 @@
     <min>1.9.0</min>
    </pearinstaller>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Http</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
