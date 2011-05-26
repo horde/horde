@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-25</date>
- <time>16:46:20</time>
+ <date>2011-05-26</date>
+ <time>10:16:00</time>
  <version>
   <release>5.0.5</release>
   <api>5.0.0</api>
@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix sending messages with linked attachments (Bug #10125).
+* [mms] Handle response codes/errors returned from POP3 servers.
 * [mms] Fix POP3 regressions.
 * [mms] Workaround broken suhosin extension to allow search mailboxes (Request #9842).
  </notes>
@@ -2253,9 +2255,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-25</date>
+   <date>2011-05-26</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Fix sending messages with linked attachments (Bug #10125).
+* [mms] Handle response codes/errors returned from POP3 servers.
 * [mms] Fix POP3 regressions.
 * [mms] Workaround broken suhosin extension to allow search mailboxes (Request #9842).
    </notes>

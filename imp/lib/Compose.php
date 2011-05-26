@@ -2424,7 +2424,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $baseurl = Horde::url('attachment.php', true)->setRaw(true);
 
         try {
-            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
         } catch (Horde_Vfs_Exception $e) {
             throw new IMP_Compose_Exception($e);
         }
