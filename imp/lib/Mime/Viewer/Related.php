@@ -105,27 +105,29 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
 
         /* Fix for broken messages that don't refer to a related CID within
          * the base part. */
-        foreach ($this->_mimepart->getMetadata('related_cids_unused') as $val) {
-            $summary = $this->getConfigParam('imp_contents')->getSummary(
-                $val,
-                IMP_Contents::SUMMARY_SIZE |
-                IMP_Contents::SUMMARY_ICON |
-                IMP_Contents::SUMMARY_DESCRIP_LINK |
-                IMP_Contents::SUMMARY_DOWNLOAD
-            );
+        if ($unused = $this->_mimepart->getMetadata('related_cids_unused')) {
+            foreach ($unused as $val) {
+                $summary = $this->getConfigParam('imp_contents')->getSummary(
+                    $val,
+                    IMP_Contents::SUMMARY_SIZE |
+                    IMP_Contents::SUMMARY_ICON |
+                    IMP_Contents::SUMMARY_DESCRIP_LINK |
+                    IMP_Contents::SUMMARY_DOWNLOAD
+                );
 
-            $ret[$related_id]['status'][] = array(
-                'icon' => Horde::img('alerts/error.png', _("Error")),
-                'text' => array(
-                    _("This part contains an attachment that can not be displayed within this part:"),
-                    implode('&nbsp;', array(
-                        $summary['icon'],
-                        $summary['description'],
-                        $summary['size'],
-                        $summary['download']
-                    ))
-                )
-            );
+                $ret[$related_id]['status'][] = array(
+                    'icon' => Horde::img('alerts/error.png', _("Error")),
+                    'text' => array(
+                        _("This part contains an attachment that can not be displayed within this part:"),
+                        implode('&nbsp;', array(
+                            $summary['icon'],
+                            $summary['description'],
+                            $summary['size'],
+                            $summary['download']
+                        ))
+                    )
+                );
+            }
         }
 
         return $ret;
