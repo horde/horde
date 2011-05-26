@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [mjr] Fix importing LDIF files (Bug: 10139).
 * [mjr] Fix issue introduced in 3.0.1 that caused contact images to not display (Bug #10050).
 * [jan] Fix editing of multiple contacts at once (Bug #10085).
 * [jan] Enable homeAdress and workAdress composite fields by default.
@@ -1180,6 +1181,7 @@
    <date>2011-05-03</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mjr] Fix importing LDIF files (Bug: 10139).
 * [mjr] Fix issue introduced in 3.0.1 that caused contact images to not display (Bug #10050).
 * [jan] Fix editing of multiple contacts at once (Bug #10085).
 * [jan] Enable homeAdress and workAdress composite fields by default.

@@ -2,6 +2,7 @@
 v3.0.3-git
 ----------
 
+[mjr] Fix importing LDIF files (Bug: 10139).
 [mjr] Fix issue introduced in 3.0.1 that caused contact images to not display
       (Bug #10050).
 [jan] Fix editing of multiple contacts at once (Bug #10085).
