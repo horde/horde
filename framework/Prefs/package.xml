@@ -26,7 +26,7 @@
  <time>07:05:38</time>
  <version>
   <release>1.1.0</release>
-  <api>1.0.0</api>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -680,7 +680,7 @@ Initial release as a PEAR package
   <release>
    <version>
     <release>1.1.0</release>
-    <api>1.0.0</api></version>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
