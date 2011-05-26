@@ -171,26 +171,8 @@ class Horde_Imap_Client_Utf7imap
         /* No need to do conversion if all chars are in US-ASCII range or if
          * no ampersand is present. But will assume that an already encoded
          * ampersand means string is in UTF7-IMAP already. */
-        if (!preg_match('/[\x80-\xff]|&$/', $str)) {
-            if (!preg_match_all('/&([,+A-Za-z0-9]*)-/', $str, $matches, PREG_SET_ORDER)) {
-                return $str;
-            }
-
-            $encoded = true;
-
-            /* Make assumption that any "encoded" string that contains
-             * control characters is, in fact, not an encoded string. */
-            foreach ($matches as $val) {
-                if ($val[1] &&
-                    !preg_match('/[[:alnum:][:punct:]]/u', self::Utf7ImapToUtf8($val[0]))) {
-                    $encoded = false;
-                    break;
-                }
-            }
-
-            if ($encoded) {
-                return $str;
-            }
+        if (!preg_match('/[\x80-\xff]|&$|&(?![,+A-Za-z0-9]*-)/', $str)) {
+            return $str;
         }
 
         /* Try mbstring, if available, which should be faster. Don't use the

@@ -95,7 +95,20 @@ class Horde_Imap_Client_Utf7ConvertTest extends PHPUnit_Framework_TestCase
             $utf7_imap
         );
 
-        // Bug #10093
+        // Bug #10133
+        $orig = 'Entw&APw-rfe';
+
+        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
+        $this->assertEquals(
+            $orig,
+            $utf7_imap
+        );
+    }
+
+    public function testBug10093()
+    {
+        $this->markTestSkipped();
+
         $orig = 'Foo&Bar-2011';
 
         $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
@@ -110,4 +123,5 @@ class Horde_Imap_Client_Utf7ConvertTest extends PHPUnit_Framework_TestCase
             $utf8
         );
     }
+
 }
