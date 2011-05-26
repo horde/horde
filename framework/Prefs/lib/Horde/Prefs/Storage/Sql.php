@@ -139,7 +139,7 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
                     try {
                         $this->_db->insert($query, $values);
                     } catch (Horde_Db_Exception $e) {
-                        throw Horde_Prefs_Exception($e);
+                        throw new Horde_Prefs_Exception($e);
                     }
                 } else {
                     // Update the existing row.
@@ -158,7 +158,7 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
                     try {
                         $this->_db->update($query, $values);
                     } catch (Horde_Db_Exception $e) {
-                        throw Horde_Prefs_Exception($e);
+                        throw new Horde_Prefs_Exception($e);
                     }
                 }
             }
@@ -186,7 +186,7 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
         try {
             $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {
-            throw Horde_Prefs_Exception($e);
+            throw new Horde_Prefs_Exception($e);
         }
     }
 
