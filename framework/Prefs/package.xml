@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [gwr] Added a script for exporting/importing preferences from/to a backend.
 * [gwr] Added support for listing the scopes in some storage backends.
 * [gwr] Fixed the driver for the Kolab IMAP backend.
  </notes>
@@ -394,6 +395,13 @@
   </required>
   <optional>
    <package>
+    <name>Horde_Autoloader</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
@@ -679,6 +687,7 @@ Initial release as a PEAR package
    <date>2011-05-17</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [gwr] Added a script for exporting/importing preferences from/to a backend.
 * [gwr] Added support for listing the scopes in some storage backends.
 * [gwr] Fixed the driver for the Kolab IMAP backend.
    </notes>
