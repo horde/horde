@@ -66,11 +66,7 @@ implements Horde_Kolab_Storage_Data_Query_Preferences
      */
     public function getApplicationPreferences($application)
     {
-        if ($this->_mapping === null) {
-            foreach ($this->_data->getObjects() as $id => $data) {
-                $this->_mapping[$data['application']] = $id;
-            }
-        }
+        $this->_initMapping();
         if (isset($this->_mapping[$application])) {
             return $this->_data->getObject($this->_mapping[$application]);
         } else {
@@ -80,6 +76,33 @@ implements Horde_Kolab_Storage_Data_Query_Preferences
                     $application
                 )
             );
+        }
+    }
+
+    /**
+     * Return the applications for which preferences exist in the backend.
+     *
+     * @param string $application The application.
+     *
+     * @return array The applications.
+     */
+    public function getApplications()
+    {
+        $this->_initMapping();
+        return array_keys($this->_mapping);
+    }
+
+    /**
+     * Initialize the application <-> object mapping.
+     *
+     * @return NULL
+     */
+    private function _initMapping()
+    {
+        if ($this->_mapping === null) {
+            foreach ($this->_data->getObjects() as $id => $data) {
+                $this->_mapping[$data['application']] = $id;
+            }
         }
     }
 

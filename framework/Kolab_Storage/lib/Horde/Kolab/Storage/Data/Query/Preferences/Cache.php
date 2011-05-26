@@ -66,10 +66,22 @@ implements Horde_Kolab_Storage_Data_Query_Preferences
     ) {
         $this->_data = $data;
         $this->_data_cache = $params['cache'];
+    }
+
+    /**
+     * Ensure we have the query data.
+     *
+     * @return NULL
+     */
+    private function _init()
+    {
+        if ($this->_mapping !== null) {
+            return;
+        }
         if ($this->_data_cache->hasQuery(self::PREFS)) {
             $this->_mapping = $this->_data_cache->getQuery(self::PREFS);
         } else {
-            $this->_mapping = array();
+            $this->synchronize();
         }
     }
 
@@ -82,6 +94,7 @@ implements Horde_Kolab_Storage_Data_Query_Preferences
      */
     public function getApplicationPreferences($application)
     {
+        $this->_init();
         if (isset($this->_mapping[$application])) {
             return $this->_data->getObject($this->_mapping[$application]);
         } else {
@@ -95,6 +108,19 @@ implements Horde_Kolab_Storage_Data_Query_Preferences
     }
 
     /**
+     * Return the applications for which preferences exist in the backend.
+     *
+     * @param string $application The application.
+     *
+     * @return array The applications.
+     */
+    public function getApplications()
+    {
+        $this->_init();
+        return array_keys($this->_mapping);
+    }
+
+    /**
      * Synchronize the preferences information with the information from the
      * backend.
      *
@@ -102,10 +128,10 @@ implements Horde_Kolab_Storage_Data_Query_Preferences
      */
     public function synchronize()
     {
+        $this->_mapping = array();
         foreach ($this->_data->getObjects() as $id => $data) {
             $this->_mapping[$data['application']] = $id;
         }
         $this->_data_cache->setQuery(self::PREFS, $this->_mapping);
-        $this->_data_cache->save();
     }
 }

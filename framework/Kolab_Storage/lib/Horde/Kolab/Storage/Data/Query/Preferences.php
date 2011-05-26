@@ -38,4 +38,13 @@ extends Horde_Kolab_Storage_Data_Query
      * @return array The preferences.
      */
     public function getApplicationPreferences($application);
+
+    /**
+     * Return the applications for which preferences exist in the backend.
+     *
+     * @param string $application The application.
+     *
+     * @return array The applications.
+     */
+    public function getApplications();
 }
