@@ -1039,7 +1039,7 @@ class IMP_Mailbox implements Serializable
      *
      * @param string $mbox  The full IMAP mailbox name (UTF7-IMAP).
      *
-     * @return string  THe value to store in a preference.
+     * @return string  The value to store in a preference.
      */
     static public function prefTo($mbox)
     {
@@ -1047,7 +1047,7 @@ class IMP_Mailbox implements Serializable
         $def_ns = $imp_imap->defaultNamespace();
         $empty_ns = $imp_imap->getNamespace('');
 
-        if (($ns = $imp_imap->getNamespace($mbox)) !== null) {
+        if (($ns = self::get($mbox)->namespace_info) !== null) {
              if ($ns['name'] == $def_ns['name']) {
                  /* From personal namespace => strip namespace. */
                  return substr($mbox, strlen($def_ns['name']));
@@ -1057,7 +1057,7 @@ class IMP_Mailbox implements Serializable
              }
          }
 
-        return $mbox;
+        return strval($mbox);
     }
 
     /* Internal methods. */
