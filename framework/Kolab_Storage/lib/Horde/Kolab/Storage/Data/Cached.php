@@ -85,6 +85,7 @@ extends Horde_Kolab_Storage_Data_Base
                 $this->getStamp(),
                 $this->getVersion()
             );
+            parent::synchronize();
             $this->_data_cache->save();
         }
         return $result;
@@ -134,6 +135,7 @@ extends Horde_Kolab_Storage_Data_Base
                 $this->getVersion(),
                 array($old_obid)
             );
+            parent::synchronize();
             $this->_data_cache->save();
         }
     }
@@ -249,8 +251,8 @@ extends Horde_Kolab_Storage_Data_Base
                 $this->getVersion(),
                 $changes[Horde_Kolab_Storage_Folder_Stamp::DELETED]
             );
-            $this->_data_cache->save();
             parent::synchronize();
+            $this->_data_cache->save();
         }
     }
 
@@ -271,7 +273,7 @@ extends Horde_Kolab_Storage_Data_Base
             $stamp,
             $this->getVersion()
         );
-        $this->_data_cache->save();
         parent::synchronize();
+        $this->_data_cache->save();
     }
 }
