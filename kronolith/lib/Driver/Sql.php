@@ -175,8 +175,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             $cond = substr($cond, 0, strlen($cond) - 5) . '))';
         }
 
-        $eventIds = $this->_listEventsConditional($query->start,
-                                                  $query->end,
+        $eventIds = $this->_listEventsConditional(empty($query->start) ? null : $query->start,
+                                                  empty($query->end) ? null : $query->end,
                                                   $cond,
                                                   $values);
         $events = array();
