@@ -188,7 +188,8 @@ extends Horde_Kolab_Storage_TestCase
             )
         );
         $data = $store->getData('INBOX/Notes');
-        $data->create(array('summary' => 'test', 'uid' => 'UID'));
+        $object = array('summary' => 'test', 'uid' => 'UID');
+        $data->create($object);
         $data->modify(array('summary' => 'modified', 'uid' => 'UID'));
         $object = $data->getObject('UID');
         $this->assertEquals('modified', $object['summary']);
