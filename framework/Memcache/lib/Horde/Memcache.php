@@ -185,7 +185,7 @@ class Horde_Memcache implements Serializable
         /* Check to see if we have any oversize items we need to get. */
         if (!empty($this->_params['large_items'])) {
             foreach ($key_map as $key => $val) {
-                if (($part_count = ($flags[$val] >> 8) - 1)) {
+                if (($part_count = ($flags[$val] >> 8) - 1) > 0) {
                     $os[$key] = $this->_getOSKeyArray($key, $part_count);
                     foreach ($os[$key] as $val2) {
                         $missing_parts[] = $key_map[$val2] = $this->_key[$val2];
