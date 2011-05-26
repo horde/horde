@@ -57,6 +57,6 @@ extends Horde_Pear_TestCase
         $element->setDirectoryNode(
             $xml->findNode('/p:package/p:contents/p:dir')
         );
-        return new Horde_Pear_Package_Xml_Directory($element);
+        return new Horde_Pear_Package_Xml_Directory($element, $xml);
     }
 }

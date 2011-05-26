@@ -126,7 +126,7 @@ extends Horde_Pear_TestCase
     public function testInstallAsApplication()
     {
         $this->assertInstanceOf(
-            'Horde_Pear_Package_Contents_InstallAs_HordeApplication',
+            'Horde_Pear_Package_Contents_InstallAs_Horde',
             $this->_getApplicationFixture()->getInstallAs()
         );
     }

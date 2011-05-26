@@ -55,6 +55,9 @@ extends Horde_Pear_TestCase
 
     private function _getRest()
     {
+        if (!class_exists('Horde_Http_Client')) {
+            $this->markTestSkipped('Horde_Http is missing!');
+        }
         $string = 'RESPONSE';
         $body = new Horde_Support_StringStream($string);
         $response = new Horde_Http_Response_Mock('', $body->fopen());
