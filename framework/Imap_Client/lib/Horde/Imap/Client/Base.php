@@ -1413,9 +1413,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
             } elseif (is_resource($data['data'])) {
                 $text = '';
                 rewind($data['data']);
-                while ($in = fread($data['data'], 1024)) {
-                    $text .= $in;
-                    if (preg_match("/\n\r*\n\r*/", $text)) {
+                while (!feof($data['data'])) {
+                    $text .= fread($data['data'], 512);
+                    if (preg_match("/\n\r{2,}/", $text)) {
                         break;
                     }
                 }

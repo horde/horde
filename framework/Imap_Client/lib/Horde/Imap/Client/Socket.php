@@ -3677,8 +3677,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     fwrite($this->_debug, '[LITERAL DATA - ' . ftell($data) . ' bytes]' . "\n");
                 } else {
                     rewind($data);
-                    while ($in = fread($data, 8192)) {
-                        fwrite($this->_debug, $in);
+                    while (!feof($data)) {
+                        fwrite($this->_debug, fread($data, 8192));
                     }
                 }
             } else {
@@ -3732,8 +3732,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         } else {
             $binary = false;
             rewind($data);
-            while (($in = fread($data, 4096))) {
-                if (strpos($in, "\0") !== false) {
+            while (!feof($data)) {
+                if (strpos(fread($data, 4096), "\0") !== false) {
                     $binary = true;
                     break;
                 }
@@ -3923,7 +3923,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $stream = true;
             }
 
-            while ($len && ($in = fread($this->_stream, min($len, 8192)))) {
+            while ($len && !feof($this->_stream)) {
+                $in = fread($this->_stream, min($len, 8192));
                 if ($stream) {
                     fwrite($data, $in);
                 } else {
