@@ -25,7 +25,7 @@
  <date>2011-05-17</date>
  <time>07:05:38</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.1.0</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [gwr] Added support for listing the scopes in some storage backends.
 * [gwr] Fixed the driver for the Kolab IMAP backend.
  </notes>
  <contents>
@@ -670,7 +671,7 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>1.0.1</release>
+    <release>1.1.0</release>
     <api>1.0.0</api></version>
    <stability>
     <release>stable</release>
@@ -678,6 +679,7 @@ Initial release as a PEAR package
    <date>2011-05-17</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [gwr] Added support for listing the scopes in some storage backends.
 * [gwr] Fixed the driver for the Kolab IMAP backend.
    </notes>
   </release>

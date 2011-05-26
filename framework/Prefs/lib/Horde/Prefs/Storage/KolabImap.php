@@ -190,6 +190,24 @@ class Horde_Prefs_Storage_KolabImap extends Horde_Prefs_Storage_Base
         }
     }
 
+    /**
+     * Lists all available scopes.
+     *
+     * @return array The list of scopes stored in the backend.
+     */
+    public function listScopes()
+    {
+        try {
+            $data = $this->_getStorage();
+        } catch (Horde_Prefs_Exception $e) {
+            $this->_logMissingStorage($e);
+            return;
+        }
+
+        return $data->getQuery(Horde_Kolab_Storage_Data::QUERY_PREFS)
+            ->getApplications();
+    }
+
     /* Helper functions. */
 
     /**

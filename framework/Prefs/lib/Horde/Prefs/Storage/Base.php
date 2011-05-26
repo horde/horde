@@ -85,4 +85,14 @@ abstract class Horde_Prefs_Storage_Base
      */
     abstract public function remove($scope = null, $pref = null);
 
+    /**
+     * Lists all available scopes.
+     *
+     * @return array The list of scopes stored in the backend.
+     */
+    public function listScopes()
+    {
+        throw new Horde_Prefs_Exception('Not implemented!');
+    }
+
 }
