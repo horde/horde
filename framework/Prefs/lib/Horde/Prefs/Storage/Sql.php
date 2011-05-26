@@ -190,4 +190,22 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
         }
     }
 
+    /**
+     * Lists all available scopes.
+     *
+     * @since Horde_Prefs 1.1.0
+     *
+     * @return array The list of scopes stored in the backend.
+     */
+    public function listScopes()
+    {
+        $query = 'SELECT ' . $this->_db->distinct('pref_scope') . ' FROM '
+            . $this->_params['table'];
+        try {
+            return $this->_db->selectValues($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Prefs_Exception($e);
+        }
+    }
+
 }
