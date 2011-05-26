@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-05-26</date>
- <time>11:38:25</time>
+ <time>18:19:20</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -28,7 +28,9 @@
   <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
-     <file name="Exception.php" role="php" />
+     <dir name="Memcache">
+      <file name="Exception.php" role="php" />
+     </dir> <!-- /lib/Horde/Memcache -->
      <file name="Memcache.php" role="php" />
     </dir> <!-- //lib/Horde -->
    </dir> <!-- //lib -->
@@ -60,8 +62,8 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="Horde/Exception.php" name="lib/Horde/Exception.php" />
    <install as="Horde/Memcache.php" name="lib/Horde/Memcache.php" />
+   <install as="Horde/Memcache/Exception.php" name="lib/Horde/Memcache/Exception.php" />
   </filelist>
  </phprelease>
  <changelog>
