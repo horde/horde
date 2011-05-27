@@ -790,8 +790,11 @@ class Ansel_Storage
     {
         $galleries = array();
         try {
-            $shares = $this->_shares->listShares($GLOBALS['registry']->getAuth(), $params);
             if (!empty($params['tags'])) {
+                $count = !empty($params['count']) ? $params['count'] : null;
+                $from = !empty($params['from']) ? $params['from'] : null;
+                unset($params['count'], $params['from']);
+                $shares = $this->_shares->listShares($GLOBALS['registry']->getAuth(), $params);
                 if (!empty($params['attributes']) && !is_array($params['attributes'])) {
                     $user = $params['attributes'];
                 } elseif (!empty($params['attributes']['owner'])) {
@@ -808,8 +811,9 @@ class Ansel_Storage
                         $galleries[] = $share;
                     }
                 }
+                $galleries = array_slice($galleries, $from, $count);
             } else {
-                $galleries = $shares;
+                $galleries = $this->_shares->listShares($GLOBALS['registry']->getAuth(), $params);
             }
             $shares = $this->buildGalleries($galleries);
         } catch (Horde_Share_Exception $e) {
