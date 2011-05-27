@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-01</date>
- <time>15:39:09</time>
+ <date>2011-06-04</date>
+ <time>13:36:04</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mms] pecl/Memcache version 3.0.3 upwards started to reserve the first 16 bits for internal flag use (Ticket #10123; goncalo.queiros@portugalmail.net).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -176,10 +176,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-01</date>
+   <date>2011-06-04</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] pecl/Memcache version 3.0.3 upwards started to reserve the first 16 bits for internal flag use (Ticket #10123; goncalo.queiros@portugalmail.net).
    </notes>
   </release>
  </changelog>
