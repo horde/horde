@@ -326,9 +326,9 @@ class Ansel_Storage
             throw new Ansel_Exception($e);
         }
         $galleries = array();
-        foreach ($shares as $id => $gallery) {
+        foreach ($shares as $gallery) {
             if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), $perms)) {
-                $galleries[$id] = $gallery;
+                $galleries[] = $gallery;
             }
         }
 
@@ -1166,8 +1166,8 @@ class Ansel_Storage
     public function buildGalleries(array $shares)
     {
         $results = array();
-        foreach ($shares as $id => $share) {
-            $results[$share->getId()] = new Ansel_Gallery($share);
+        foreach ($shares as $share) {
+            $results[] = new Ansel_Gallery($share);
         }
 
         return $results;
