@@ -285,7 +285,7 @@ form[action^="https://"] input[type="submit"] {
     background-repeat: no-repeat;
     padding-right: 10%;
 }
-input[disabled], textarea[disabled] {
+input[disabled], input[disabled]:hover, textarea[disabled] {
     background-color: #e9e9e9;
     color: #a8a8a8;
 }
