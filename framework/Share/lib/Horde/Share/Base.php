@@ -258,9 +258,7 @@ abstract class Horde_Share_Base
     {
         $all_shares = $missing_ids = array();
         foreach ($cids as $cid) {
-            if (isset($this->_shareMap[$cid])) {
-                $all_shares[$this->_shareMap[$cid]] = $this->_cache[$this->_shareMap[$cid]];
-            } else {
+            if (!isset($this->_shareMap[$cid])) {
                 $missing_ids[] = $cid;
             }
         }
@@ -270,8 +268,11 @@ abstract class Horde_Share_Base
             foreach (array_keys($shares) as $key) {
                 $this->_cache[$key] = $shares[$key];
                 $this->_shareMap[$shares[$key]->getId()] = $key;
-                $all_shares[$key] = $this->_cache[$key];
             }
+        }
+
+        foreach ($cids as $cid) {
+            $all_shares[$this->_shareMap[$cid]] = $this->_cache[$this->_shareMap[$cid]];
         }
 
         return $all_shares;
