@@ -32,15 +32,7 @@ case 'edit':
         $form = 'edit.inc';
         $perm = $share->getPermission();
     } catch (Horde_Exception_NotFound $e) {
-        // if (($share_name = Horde_Util::getFormData('share')) !== null) {
-        //     try {
-        //         $share = $GLOBALS['injector']->getInstance('Ansel_Storage')->shares->getShare($share_name);
-        //         $form = 'edit.inc';
-        //         $perm = $share->getPermission();
-        //     } catch (Horde_Share_Exception $e) {
-        //         $notification->push($e->getMessage(), 'horde.error');
-        //     }
-        // }
+        $notification->push($e->getMessage(), 'horde.error');
     }
 
     if (!$GLOBALS['registry']->getAuth() ||
