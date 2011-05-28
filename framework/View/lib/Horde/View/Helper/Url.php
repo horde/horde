@@ -411,7 +411,7 @@ class Horde_View_Helper_Url extends Horde_View_Helper_Base
                 $requestUri = $_SERVER['REQUEST_URI'];
             }
 
-            return $urlString == $requestUri;
+            return rtrim($urlString, '/') == rtrim($requestUri, '/');
         }
     }
 
