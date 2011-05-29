@@ -131,12 +131,12 @@ class Ansel_Search_Tag
                 $registry->hasMethod('forums/numMessagesBatch')) {
 
                 $ids = array_keys($images);
-                $ccounts = $GLOBALS['registry']->call('forums/numMessagesBatch', array($ids, 'ansel'));
-                if (!($ccounts instanceof PEAR_Error)) {
+                try {
+                    $ccounts = $GLOBALS['registry']->forums->numMessagesBatch($ids, 'ansel');
                     foreach ($images as $image) {
                         $image->commentCount = (!empty($ccounts[$image->id]) ? $ccounts[$image->id] : 0);
                     }
-                }
+                } catch (Horde_Exception $e) {}
             }
         } else {
             $images = array();

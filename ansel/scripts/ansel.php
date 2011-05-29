@@ -7,9 +7,17 @@
 * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
 *
 * @author Vijay Mahrra <webmaster@stain.net>
+* @author Michael J Rubinsky <mrubinsk@horde.org>
+* @package Ansel
 */
-
-require_once dirname(__FILE__) . '/../lib/Application.php';
+if (file_exists(dirname(__FILE__) . '/../../ansel/lib/Application.php')) {
+    $baseDir = dirname(__FILE__) . '/../';
+} else {
+    require_once 'PEAR/Config.php';
+    $baseDir = PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/ansel/';
+}
+require_once $baseDir . 'lib/Application.php';
 Horde_Registry::appInit('ansel', array('cli' => true));
 
 // We accept the user name on the command-line.

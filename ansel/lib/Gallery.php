@@ -473,34 +473,27 @@ class Ansel_Gallery implements Serializable
             $GLOBALS['injector']->getInstance('Ansel_Tagger')
                 ->tag($newId, $tags, $gallery->get('owner'), 'image');
 
-            /* exif data - it's cheaper to get it from local storage */
-            try {
-                $count = $GLOBALS['ansel_db']->selectValue(
-                    'SELECT COUNT(image_id) FROM ansel_image_attributes WHERE image_id = ' . (int) $newId . ';');
-            } catch (Horde_Db_Exception $e) {
-                Horde::logMessage($e->getMessage, 'ERR');
-                throw new Ansel_Exception($e);
+            // Check that new image_id doesn't have existing attributes,
+            // throw exception if it does.
+            $newAttributes = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getImageAttributes($newId);
+            if (count($newAttributes)) {
+                throw new Ansel_Exception(_("Image already has existing attribtues."));
             }
-            if ($count == 0) {
-                try {
-                    $exif = $GLOBALS['ansel_db']->selectAssoc(
-                        'SELECT attr_name, attr_value FROM ansel_image_attributes WHERE image_id = ' . (int) $imageId . ';');
-                } catch (Horde_Db_Exception $e) {
-                    Horde::log($e->getMessage, 'ERR');
-                    throw new Ansel_Exception($e);
-                }
-                if (is_array($exif) && count($exif) > 0) {
-                    $insert = 'INSERT INTO ansel_image_attributes (image_id, attr_name, attr_value) VALUES (?, ?, ?)';
-                    try {
-                        foreach ($exif as $name => $value){
-                            $GLOBALS['ansel_db']->insert($insert, array($newId, $name, $value));
-                        }
-                    } catch (Horde_Db_Exception $e) {
-                        Horde::logMessage($e->getMessage(), 'ERR');
-                        throw new Ansel_Exception($e);
-                    }
+
+            $exif = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getImageAttributes($imageId);
+
+            if (is_array($exif) && count($exif) > 0) {
+                foreach ($exif as $name => $value){
+                    $GLOBALS['injector']
+                        ->getInstance('Ansel_Storage')
+                        ->saveImageAttribute($newId, $name, $value);
                 }
             }
+
             ++$imgCnt;
         }
 
@@ -517,12 +510,8 @@ class Ansel_Gallery implements Serializable
      */
     public function setImageOrder($imageId, $pos)
     {
-        try {
-            $GLOBALS['ansel_db']->update('UPDATE ansel_images SET image_sort = ' . (int)$pos . ' WHERE image_id = ' . (int)$imageId);
-        } catch (Horde_Db_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
-            throw new Horde_Exception($e);
-        }
+        $GLOBALS['injector']->getInstance('Ansel_Storage')
+            ->setImageSortOrder($imageId, $pos);
     }
 
     /**
@@ -653,7 +642,7 @@ class Ansel_Gallery implements Serializable
      * @param integer $from  The image to start fetching.
      * @param integer $count The numer of images to return.
      *
-     * @param mixed An array of Ansel_Image objects | PEAR_Error
+     * @param array  An array of Ansel_Image objects
      */
     public function getImages($from = 0, $count = 0)
     {
@@ -665,7 +654,7 @@ class Ansel_Gallery implements Serializable
      *
      * @param integer $limit  The maximum number of images to return.
      *
-     * @return mixed  An array of Ansel_Image objects | PEAR_Error
+     * @return array  An array of Ansel_Image objects
      */
     public function getRecentImages($limit = 10)
     {

@@ -7,34 +7,49 @@
  *
  * Make sure to run this as a user who has full permissions on the VFS
  * directory.
+ *
+ * @author Ben Chavet <ben@horde.org>
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
+ * @pacakge Ansel
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+if (file_exists(dirname(__FILE__) . '/../../ansel/lib/Application.php')) {
+    $baseDir = dirname(__FILE__) . '/../';
+} else {
+    require_once 'PEAR/Config.php';
+    $baseDir = PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/ansel/';
+}
+require_once $baseDir . 'lib/Application.php';
 Horde_Registry::appInit('ansel', array('cli' => true));
 
-// Default arguments.
-$move = $verbose = false;
+$parser = new Horde_Argv_Parser(
+    array(
+        'usage' => '%prog [--options]',
+        'optionList' => array(
+            new Horde_Argv_Option(
+                '-m',
+                '--move',
+                array(
+                    'help' => 'Actually move dangling images to GC folder.',
+                    'default' => false,
+                    'action' => 'store_true'
+                )
+            ),
 
-// Parse command-line arguments.
-$ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'mv',
-                              array('move', 'verbose'));
-
-if ($ret instanceof PEAR_Error) {
-    die("Couldn't read command-line options.\n");
-}
-list($opts, $args) = $ret;
-foreach ($opts as $opt) {
-    list($optName, $optValue) = $opt;
-    switch ($optName) {
-    case '--move':
-        $move = true;
-        break;
-
-    case 'v':
-    case '--verbose':
-        $verbose = true;
-    }
-}
+            new Horde_Argv_Option(
+                '-v',
+                '--verbose',
+                array(
+                    'help' => 'Verbose output',
+                    'default' => false,
+                    'action' => 'store_true'
+                )
+            )
+        )
+    )
+);
+list($opts, $args) = $parser->parseArgs();
 
 $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
 $vfspath = '.horde/ansel/';
@@ -58,11 +73,11 @@ foreach ($hash as $dir) {
 
             $count++;
 
-            if ($verbose) {
+            if ($opts['verbose']) {
                 echo $vfspath . $image['name'] . ' -> ' . $garbagepath . $image['name'] . "\n";
             }
 
-            if ($move) {
+            if ($opts['move']) {
                 $vfs->move($vfspath . $dir['name'] . '/full/', $image['name'], $garbagepath);
                 $vfs->deleteFile($vfspath . $dir['name'] . '/screen/', $image['name']);
                 $vfs->deleteFile($vfspath . $dir['name'] . '/thumb/', $image['name']);
@@ -81,7 +96,7 @@ foreach ($hash as $dir) {
 
 if ($count) {
     echo "\nFound dangling images";
-    if ($move) {
+    if ($opts['move']) {
         echo " and moved $count to $garbagepath.\n";
     } else {
         echo ", run this script with --move to clean them up.\n";

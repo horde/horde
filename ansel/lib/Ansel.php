@@ -18,16 +18,6 @@ class Ansel
     const SORT_DESCENDING = 1;
 
     /**
-     * Create and initialize the database object.
-     *
-     * @return Horde_Db_Adapter
-     */
-    static public function getDb()
-    {
-        return $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
-    }
-
-    /**
      * Return a string containing an <option> listing of the given
      * gallery array.
      *

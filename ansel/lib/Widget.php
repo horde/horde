@@ -21,7 +21,8 @@ class Ansel_Widget
      * @param string $driver  The type of widget to create.
      * @param array $params   Any parameters the widget needs.
      *
-     * @return mixed Ansel_Widget object | PEAR_Error
+     * @return Ansel_Widget object
+     * @throws Ansel_Exception
      */
     static public function factory($driver, $params = array())
     {
@@ -31,6 +32,7 @@ class Ansel_Widget
             return new $class($params);
         }
 
-        throw new Horde_Exception('Class definition of ' . $class . ' not found.');
+        throw new Ansel_Exception('Class definition of ' . $class . ' not found.');
     }
+
 }

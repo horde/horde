@@ -133,7 +133,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
      * @param integer $from  The image to start listing.
      * @param integer $count The numer of images to list.
      *
-     * @return mixed  An array of image_ids | PEAR_Error
+     * @return array  An array of image_ids
      */
     public function listImages($from = 0, $count = 0)
     {
@@ -242,11 +242,10 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
         if (($GLOBALS['conf']['comments']['allow'] == 'all' || ($GLOBALS['conf']['comments']['allow'] == 'authenticated' && $GLOBALS['registry']->getAuth())) &&
             $GLOBALS['registry']->hasMethod('forums/deleteForum')) {
 
-            $result = $GLOBALS['registry']->call('forums/deleteForum',
-                                                 array('ansel', $image->id));
-
-            if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, 'ERR');
+            try {
+                $result = $GLOBALS['registry']->forums->deleteForum('ansel', $image->id);
+            } catch (Horde_Exception $e) {
+                Horde::logMessage($e, 'ERR');
                 return false;
             }
         }

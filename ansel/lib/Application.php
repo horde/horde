@@ -68,7 +68,8 @@ class Ansel_Application extends Horde_Registry_Application
         }
 
         // Create db, share, and vfs instances.
-        $GLOBALS['ansel_db'] = Ansel::getDb();
+        // @TODO: This only place that uses the global now are the face methods.
+        $GLOBALS['ansel_db'] = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
 
         /* Set up a default config */
         $GLOBALS['injector']->bindImplementation('Ansel_Config', 'Ansel_Config');
