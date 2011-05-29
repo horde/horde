@@ -798,9 +798,9 @@ class Ansel_Api extends Horde_Registry_Api
      * @param integer $gallery_id  Gallery id to get images from.
      * @param array $params        Additional parameters:
      *<pre>
-     *  (string)app          Application scope to use, if not the default.
-     *  (string)view         View size to generate URLs for.
-     *  (boolean)full        Return a full URL.
+     *  (string)app          Application scope to use [ansel].
+     *  (string)view         View size to generate URLs for [thumb].
+     *  (boolean)full        Return a full URL [false].
      *  (integer)from        Start image.
      *  (integer)limit       Max count of images to return.
      *  (string)style        Use this gallery style.
