@@ -847,7 +847,7 @@ class Ansel_Api extends Horde_Registry_Api
             $imagelist[$id]['uploaded'] = $image->uploaded;
             $imagelist[$id]['original_date'] = $image->originalDate;
             $imagelist[$id]['url'] = Ansel::getImageUrl(
-                $id, $params->view, $params->get('full', false), $params->style);
+                $id, $params->get('view', 'thumb'), $params->get('full', false), $params->style);
             if ($params->app && $GLOBALS['conf']['vfs']['src'] != 'direct') {
                 $imagelist[$id]['url']->add('app', $params->app);
             }
