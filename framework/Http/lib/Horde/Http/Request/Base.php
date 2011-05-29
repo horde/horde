@@ -17,92 +17,46 @@
 abstract class Horde_Http_Request_Base
 {
     /**
-     * URI
-     * @var string
-     */
-    protected $_uri;
-
-    /**
-     * Request method
-     * @var string
-     */
-    protected $_method = 'GET';
-
-    /**
      * Request headers
      * @var array
      */
     protected $_headers = array();
 
     /**
-     * Request data. Can be an array of form data that will be encoded
-     * automatically, or a raw string
-     * @var mixed
+     * @var array
      */
-    protected $_data;
-
-    /**
-     * Authentication username
-     * @var string
-     */
-    protected $_username = '';
-
-    /**
-     * Authentication password
-     * @var string
-     */
-    protected $_password = '';
-
-    /**
-     * Authentication scheme
-     * @var const Horde_Http::AUTH_*
-     */
-    protected $_authenticationScheme = Horde_Http::AUTH_ANY;
-
-    /**
-     * Proxy server
-     * @var string
-     */
-    protected $_proxyServer = null;
-
-    /**
-     * Proxy port
-     * @var string
-     */
-    protected $_proxyPort = null;
-
-    /**
-     * Proxy username
-     * @var string
-     */
-    protected $_proxyUsername = null;
-
-    /**
-     * Proxy password
-     * @var string
-     */
-    protected $_proxyPassword = null;
-
-    /**
-     * Proxy authentication schem
-     * @var const Horde_Http::AUTH_*
-     */
-    protected $_proxyAuthenticationScheme = Horde_Http::AUTH_BASIC;
-
-    /**
-     * HTTP timeout
-     * @var float
-     */
-    protected $_timeout = 5;
+    protected $_options = array();
 
     /**
      * Constructor
      */
-    public function __construct($args = array())
+    public function __construct($options = array())
     {
-        foreach ($args as $key => $value) {
-            $this->$key = $value;
-        }
+        $this->setOptions($options);
+    }
+
+    public function setOptions($options = array())
+    {
+        $this->_options = array_merge($this->getDefaultOptions(), $options);
+    }
+
+    public function getDefaultOptions()
+    {
+        return array(
+            'uri' => null,
+            'method' => 'GET',
+            'data' => null,
+            'username' => '',
+            'password' => '',
+            'authenticationSchema' => Horde_Http::AUTH_ANY,
+            'proxyServer' => null,
+            'proxyPort' => null,
+            'proxyUsername' => null,
+            'proxyPassword' => null,
+            'proxyAuthenticationScheme' => Horde_Http::AUTH_BASIC,
+            'timeout' => 5,
+            'redirects' => 5,
+        );
     }
 
     /**
@@ -120,7 +74,12 @@ abstract class Horde_Http_Request_Base
      */
     public function __get($name)
     {
-        return isset($this->{'_' . $name}) ? $this->{'_' . $name} : null;
+        switch ($name) {
+        case 'headers':
+            return $this->_headers;
+        }
+
+        return isset($this->_options[$name]) ? $this->_options[$name] : null;
     }
 
     /**
@@ -137,7 +96,7 @@ abstract class Horde_Http_Request_Base
             break;
         }
 
-        $this->{'_' . $name} = $value;
+        $this->_options[$name] = $value;
     }
 
     /**

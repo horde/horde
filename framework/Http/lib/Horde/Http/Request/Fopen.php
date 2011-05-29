@@ -88,6 +88,7 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
         $opts['http']['header'] = implode("\n", $hdr);
         $opts['http']['content'] = $data;
         $opts['http']['timeout'] = $this->timeout;
+        $opts['http']['max_redirects'] = $this->redirects;
 
         $context = stream_context_create($opts);
         $stream = @fopen($uri, 'rb', false, $context);
@@ -106,5 +107,4 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
 
         return new Horde_Http_Response_Fopen($uri, $stream, $headers);
     }
-
 }
