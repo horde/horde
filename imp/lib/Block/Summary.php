@@ -79,15 +79,15 @@ class IMP_Block_Summary extends Horde_Core_Block
                  !empty($status[$mbox_str]['unseen']))) {
                 $mbox_status = $status[$mbox_str];
 
-                $mbox = $mbox->url('mailbox.php')->link() . $mbox->display . '</a>';
+                $label = $mbox->url('mailbox.php')->link() . $mbox->display . '</a>';
                 if (!empty($mbox_status['unseen'])) {
-                    $mbox = '<strong>' . $mbox . '</strong>';
+                    $label = '<strong>' . $label . '</strong>';
                     $anyUnseen = true;
                 }
 
                 $unseen = array();
                 if (!empty($mbox_status['unseen'])) {
-                   $unseen[] =  '<strong>' . $mbox_status['unseen'] . ' ' . _("Unseen") . '</strong>';
+                   $unseen[] =  '<strong>' . $mbox->url('mailbox.php')->link() . $mbox_status['unseen'] . ' ' . _("Unseen") . '</a></strong>';
                 }
                 if (!empty($mbox_status['recent'])) {
                    $unseen[] = '<span style="color:red">(' . sprintf(ngettext("%d new", "%d new", $mbox_status['recent']), $mbox_status['recent']) . ')</span>';
@@ -103,7 +103,11 @@ class IMP_Block_Summary extends Horde_Core_Block
                     }
                 }
 
-                $mboxes[$mbox] = $unseen;
+                if (empty($unseen)) {
+                    $unseen[] = '&nbsp;';
+                }
+
+                $mboxes[$label] = $unseen;
             }
         }
 
