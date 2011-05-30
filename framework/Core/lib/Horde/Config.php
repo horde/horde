@@ -670,7 +670,7 @@ class Horde_Config
                 break;
 
             case 'configsql':
-                $conf[$node->getAttribute('switchname')] = $this->_configSQL($ctx, $node);
+                $conf[$node->getAttribute('switchname')] = $this->configSQL($ctx, $node);
                 break;
 
             case 'configvfs':
@@ -936,8 +936,7 @@ class Horde_Config
      *
      * @return array  An associative array with the SQL configuration tree.
      */
-    protected function _configSQL($ctx, $node = null,
-                                  $switchname = 'driverconfig')
+    public function configSQL($ctx, $node = null, $switchname = 'driverconfig')
     {
         $persistent = array(
             '_type' => 'boolean',
@@ -1181,7 +1180,7 @@ class Horde_Config
      */
     protected function _configVFS($ctx, $node)
     {
-        $sql = $this->_configSQL($ctx . '|params');
+        $sql = $this->configSQL($ctx . '|params');
         $default = $node->getAttribute('default');
         $default = empty($default) ? 'horde' : $default;
         list($default, $isDefault) = $this->__default($ctx . '|' . $node->getAttribute('switchname'), $default);
