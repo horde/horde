@@ -112,7 +112,6 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
     private function _init()
     {
         if (!$this->_isInitialized()) {
-            //@todo: Reconsider if we really want an automatic synchronization.
             $this->synchronize();
         }
     }
