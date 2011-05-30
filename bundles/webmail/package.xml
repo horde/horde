@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-23</date>
- <time>14:40:25</time>
+ <date>2011-05-25</date>
+ <time>19:36:39</time>
  <version>
   <release>4.0.0RC2</release>
   <api>4.0.0</api>
@@ -26,6 +26,9 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="webmail-install" role="script" />
+   </dir> <!-- /bin -->
    <dir name="config">
     <dir name="prefs.d">
      <file name="10-webmail.php" role="horde" />
@@ -143,6 +146,7 @@
  <phprelease>
   <filelist>
    <install as="README" name="README" />
+   <install as="webmail-install" name="bin/webmail-install" />
    <install as="config/prefs.d/10-webmail.php" name="config/prefs.d/10-webmail.php" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="INSTALL" name="docs/INSTALL" />
@@ -181,7 +185,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2011-05-23</date>
+   <date>2011-05-25</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 * 
