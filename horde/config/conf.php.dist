@@ -38,7 +38,7 @@ $conf['server']['name'] = $_SERVER['SERVER_NAME'];
 // need to change the default, and you probably know it if you do. The
 // exception is if you have $conf['use_ssl'] set to 1, as described
 // above.
-$conf['server']['port'] = $_SERVER['SERVER_PORT'];
+// $conf['server']['port'] = 80;
 
 // What domain should we set cookies from? If you have a cluster that
 // needs to share cookies, this might be '.example.com' - the leading
