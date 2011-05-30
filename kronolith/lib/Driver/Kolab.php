@@ -43,18 +43,21 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     private $_synchronized;
 
     /**
-     * Shortcut to the imap connection
+     * The current calendar.
      *
-     * @var Kolab_IMAP
+     * @var Horde_Kolab_Storage_Data
      */
-    private $_store;
+    private $_data;
 
     /**
      * Attempts to open a Kolab Groupware folder.
      */
     public function initialize()
     {
-        $this->_kolab = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
+        if (empty($this->_params['storage'])) {
+            throw new InvalidArgumentException('Missing required Horde_Kolab_Storage instance');
+        }
+        $this->_kolab = $this->_params['storage'];
         $this->reset();
     }
 
@@ -104,7 +107,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         }
 
         // Connect to the Kolab backend
-        $this->_store = $this->_kolab->getData(
+        $this->_data = $this->_kolab->getData(
             $GLOBALS['all_calendars'][$this->calendar]->share()->get('folder'),
             'event'
         );
@@ -112,7 +115,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
 
         // build internal event cache
         $this->_events_cache = array();
-        $events = $this->_store->getObjects();
+        $events = $this->_data->getObjects();
         foreach ($events as $event) {
             $this->_events_cache[$event['uid']] = new Kronolith_Event_Kolab($this, $event);
         }
@@ -188,7 +191,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
 
         $result = $this->synchronize();
 
-        if ($this->_store->objectUidExists($uid)) {
+        if ($this->_data->objectIdExists($uid)) {
             return $uid;
         }
 
@@ -374,9 +377,13 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
             : array('action' => 'add');
 
         if (!$event->uid) {
-            $event->uid = $this->_store->generateUID();
+            $event->uid = $this->_data->generateUID();
         }
-        $this->_store->save($event->toKolab(), $edit ? $event->uid : null);
+        if (!$edit) {
+            $this->_data->create($event->toKolab());
+        } else {
+            $this->_data->modify($event->toKolab());
+        }
 
         /* Deal with tags */
         if ($edit) {
@@ -386,7 +393,6 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         }
 
         $cal = $GLOBALS['kronolith_shares']->getShare($event->calendar);
-        $tagger->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
 
         /* Notify about the changed event. */
         Kronolith::sendNotification($event, $edit ? 'edit' : 'add');
@@ -402,7 +408,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         $this->synchronize(true);
 
         if (is_callable('Kolab', 'triggerFreeBusyUpdate')) {
-            //Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($event->calendar));
+            //Kolab::triggerFreeBusyUpdate($this->_data->parseFolder($event->calendar));
         }
 
         return $event->uid;
@@ -427,14 +433,14 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         $target = $kronolith_shares->getShare($newCalendar);
         $folder = $target->getId();
 
-        $result = $this->_store->move($eventId, $folder);
+        $result = $this->_data->move($eventId, $folder);
         if ($result) {
             unset($this->_events_cache[$eventId]);
         }
 
         if (is_callable('Kolab', 'triggerFreeBusyUpdate')) {
-            //Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($this->calendar));
-            //Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($newCalendar));
+            //Kolab::triggerFreeBusyUpdate($this->_data->parseFolder($this->calendar));
+            //Kolab::triggerFreeBusyUpdate($this->_data->parseFolder($newCalendar));
         }
 
         return $event;
@@ -452,9 +458,9 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         $this->open($calendar);
         $result = $this->synchronize();
 
-        $result = $this->_store->deleteAll($calendar);
+        $result = $this->_data->deleteAll($calendar);
         if (is_callable('Kolab', 'triggerFreeBusyUpdate')) {
-            //Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($calendar));
+            //Kolab::triggerFreeBusyUpdate($this->_data->parseFolder($calendar));
         }
     }
 
@@ -471,12 +477,12 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     {
         $result = $this->synchronize();
 
-        if (!$this->_store->objectUidExists($eventId)) {
+        if (!$this->_data->objectUidExists($eventId)) {
             throw new Kronolith_Exception(sprintf(_("Event not found: %s"), $eventId));
         }
 
         $event = $this->getEvent($eventId);
-        if ($this->_store->delete($eventId)) {
+        if ($this->_data->delete($eventId)) {
             // Notify about the deleted event.
             if (!$silent) {
                 Kronolith::sendNotification($event, 'delete');
@@ -490,7 +496,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
             }
 
             if (is_callable('Kolab', 'triggerFreeBusyUpdate')) {
-                //Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($event->calendar));
+                //Kolab::triggerFreeBusyUpdate($this->_data->parseFolder($event->calendar));
             }
 
             unset($this->_events_cache[$eventId]);

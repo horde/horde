@@ -15,6 +15,7 @@ class Horde_Argv_CountTest extends Horde_Argv_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $this->parser = new Horde_Argv_InterceptingParser(array('usage' => Horde_Argv_Option::SUPPRESS_USAGE));
         $this->vOpt = $this->makeOption('-v', array('action' => 'count', 'dest' => 'verbose'));
         $this->parser->addOption($this->vOpt);

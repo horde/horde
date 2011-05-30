@@ -14,6 +14,7 @@
 
 /**
  * Dumps a variable for inspection.
+ *
  * Portions borrowed from Paul M. Jones' Solar_Debug
  *
  * @author     Mike Naberezny <mike@maintainable.com>
@@ -29,14 +30,15 @@ class Horde_View_Helper_Debug extends Horde_View_Helper_Base
     /**
      * Dumps a variable for inspection.
      *
-     * @param   string  $var
-     * @return  string
+     * @param mixed $var  A variable.
+     *
+     * @return string  Debug output of the variable.
      */
     public function debug($var)
     {
         return '<pre class="debug_dump">'
-             . htmlspecialchars($this->_fetch($var))
-             . '</pre>';
+            . htmlspecialchars($this->_fetch($var))
+            . '</pre>';
     }
 
     /**
@@ -49,17 +51,19 @@ class Horde_View_Helper_Debug extends Horde_View_Helper_Base
      * Also see for future ideas:
      * http://mikenaberezny.com/archives/55
      *
-     * @param Exception $e
+     * @param Exception $e  An exception to dump.
+     *
+     * @return string  Debug output of the exception.
      */
     public function dump(Exception $e)
     {
         $input = array(
-            'type' => get_class($e),
-            'code' => $e->getCode(),
+            'type'    => get_class($e),
+            'code'    => $e->getCode(),
             'message' => $e->getMessage(),
-            'line' => $e->getLine(),
-            'file' => $e->getFile(),
-            'trace' => $e->getTrace(),
+            'line'    => $e->getLine(),
+            'file'    => $e->getFile(),
+            'trace'   => $e->getTrace(),
         );
 
         // Store previous output.
@@ -72,19 +76,18 @@ class Horde_View_Helper_Debug extends Horde_View_Helper_Base
     /**
      * Returns formatted output from var_dump().
      *
-     * Buffers the var_dump output for a variable and applies some
-     * simple formatting for readability.
+     * Buffers the var_dump() output for a variable and applies some simple
+     * formatting for readability.
      *
-     * @param  mixed   $var   variable to dump
-     * @return string         formatted results of var_dump()
+     * @param mixed $var  Variable to dump.
+     *
+     * @return string  Formatted results of var_dump().
      */
     protected function _fetch($var)
     {
         ob_start();
         var_dump($var);
-        $output = ob_get_clean();
-        $output = preg_replace("/\]\=\>\n(\s+)/m", "] => ", $output);
-        return $output;
+        return preg_replace('/\]\=\>\n(\s+)/m', '] => ', ob_get_clean());
     }
 
     protected function _sub($f)
@@ -119,7 +122,8 @@ class Horde_View_Helper_Debug extends Horde_View_Helper_Base
                     $r = new ReflectionFunction($f['function']);
                 }
                 return $r->getParameters();
-            } catch(Exception $e) {}
+            } catch(Exception $e) {
+            }
         }
         return array();
     }

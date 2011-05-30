@@ -21,7 +21,7 @@ class VilmaBaseTables extends Horde_Db_Migration_Base
         $tableList = $this->tables();
 
         if (!in_array('vilma_domains', $tableList)) {
-            $t = $this->createTable('vilma_domains', array('primaryKey' => 'domain_id'));
+            $t = $this->createTable('vilma_domains', array('autoincrementKey' => 'domain_id'));
             $t->column('domain_id', 'integer', array('null' => false));
             $t->column('domain_name', 'string', array('limit' => 128, 'null' => false));
             $t->column('domain_transport', 'string', array('limit' => 128, 'null' => false));
@@ -34,7 +34,7 @@ class VilmaBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('vilma_users', $tableList)) {
-            $t = $this->createTable('vilma_users', array('primaryKey' => 'user_id'));
+            $t = $this->createTable('vilma_users', array('autoincrementKey' => 'user_id'));
             $t->column('user_id', 'integer', array('null' => false));
             $t->column('user_name', 'string', array('limit' => 255, 'null' => false));
             $t->column('user_clear', 'string', array('limit' => 255, 'null' => false));
@@ -54,7 +54,7 @@ class VilmaBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('vilma_virtuals', $tableList)) {
-            $t = $this->createTable('vilma_virtuals', array('primaryKey' => 'virtual_id'));
+            $t = $this->createTable('vilma_virtuals', array('autoincrementKey' => 'virtual_id'));
             $t->column('virtual_id', 'integer', array('null' => false));
             $t->column('virtual_email', 'string', array('limit' => 128, 'null' => false));
             $t->column('virtual_destination', 'string', array('limit' => 128, 'null' => false));

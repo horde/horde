@@ -23,7 +23,7 @@ class Ansel_Api extends Horde_Registry_Api
      *
      * @return array  The contents of $path
      */
-    public function browse($path = '', $properties = array())
+    public function browse($path = '', array $properties = array())
     {
         // Default properties.
         if (!$properties) {
@@ -41,7 +41,7 @@ class Ansel_Api extends Horde_Registry_Api
             $owners = array();
             $galleries = $storage->listGalleries(array('all_levels' => false));
             foreach ($galleries  as $gallery) {
-                $owners[$gallery->data['share_owner'] ? $gallery->data['share_owner'] : '-system-'] = true;
+                $owners[$gallery->get('owner') ? $gallery->get('owner') : '-system-'] = true;
             }
 
             $results = array();
@@ -73,39 +73,43 @@ class Ansel_Api extends Horde_Registry_Api
         } else {
             if (count($parts) == 1) {
                 // This request is for all galleries owned by the requested user.
-                $galleries = $storage->listGalleries(array('attributes' => $parts[0],
-                                                           'all_levels' => false));
+                $galleries = $storage->listGalleries(
+                    array('attributes' => $parts[0],
+                          'all_levels' => false));
                 $images = array();
             } elseif ($this->galleryExists(null, end($parts))) {
                 // This request if for a certain gallery, list all sub-galleries
                 // and images.
                 $gallery_id = end($parts);
-                $galleries = $storage->listGalleries(array('parent' => $gallery_id,
-                                                           'all_levels' => false,
-                                                           'perm' => Horde_Perms::SHOW));
-                $images = $this->listImages(null, $gallery_id, Horde_Perms::SHOW, 'mini');
+                $galleries = $storage->listGalleries(
+                    array('parent' => $gallery_id,
+                          'all_levels' => false,
+                          'perm' => Horde_Perms::SHOW));
+                $images = $this->listImages(
+                    $gallery_id,
+                    array('perms' => Horde_Perms::SHOW,
+                          'view' => 'mini'));
 
             } elseif (count($parts) > 2 &&
                       $this->galleryExists(null, $parts[count($parts) - 2]) &&
                       ($image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage(end($parts)))) {
 
-                return array('data' => $image->raw(),
-                             'mimetype' => $image->type,
-                             'mtime' => $image->uploaded);
-
+                return array(
+                    'data' => $image->raw(),
+                    'mimetype' => $image->type,
+                    'mtime' => $image->uploaded);
             } else {
                 throw new Horde_Exception_NotFound(_("File not found."));
             }
 
             $results = array();
             foreach ($galleries as $gallery) {
-                $retpath = 'ansel/' . implode('/', $parts) . '/' . $gallery->getId();
+                $retpath = 'ansel/' . implode('/', $parts) . '/' . $gallery->id;
                 if (in_array('name', $properties)) {
-                    $results[$retpath]['name'] = $gallery->data['attribute_name'];
+                    $results[$retpath]['name'] = $gallery->get('name');
                 }
                 if (in_array('displayname', $properties)) {
-                    $results[$retpath]['displayname'] = rawurlencode(
-                        $gallery->data['attribute_name']);
+                    $results[$retpath]['displayname'] = rawurlencode($gallery->get('name'));
                 }
                 if (in_array('icon', $properties)) {
                     $results[$retpath]['icon'] = Horde_Themes::img('ansel.png');
@@ -169,7 +173,9 @@ class Ansel_Api extends Horde_Registry_Api
      * @param string $content       The file content.
      * @param string $content_type  The file's content type.
      *
-     * @return array  The event UIDs, or a PEAR_Error on failure.
+     * @return array  The event UIDs.
+     * @throws Horde_Exception_PermissionDenied
+     * @throws Horde_Exception_NotFound
      */
     public function put($path, $content, $content_type)
     {
@@ -242,14 +248,14 @@ class Ansel_Api extends Horde_Registry_Api
     /**
      * Returns decoded image data
      *
-     * @param string $data         The id of the image.
+     * @param string $data         The image data
      * @param string $encoding     The encoding type for the image data.
      *                             (none, base64, or binhex)
      * @param string $compression  The compression type for the image data.
      *                             (none, gzip, or lzf)
      * @param boolean $upload      Process direction (true of encode/compress or false if decode/decompress)
      *
-     * @return string  The image path.
+     * @return string  The decoded/encoded image data
      */
     protected function _getImageData($data, $encoding = 'none', $compression = 'none', $upload = true)
     {
@@ -284,15 +290,16 @@ class Ansel_Api extends Horde_Registry_Api
      * Stores an image in a gallery and returns gallery and image data.
      *
      * @param integer $gallery_id  The gallery id to add the image to.
-     * @param array $image         Image data array.  This can either be the return
-     *                             from Horde_Form_Type_image:: or an array with
-     *                             the following four fields:
+     * @param array $image         Image data array. This can either be the
+     *                             return from Horde_Form_Type_image:: or an
+     *                             array with the following four fields:
      *                             'filename', 'description', 'data', 'type' and
      *                             optionally 'tags'
      *
      * @param array $params  An array of additional parameters:
      * <pre>
-     *   (string)slug         If set, use this as the gallery slug (ignores $gallery_id)
+     *   (string)slug         If set, use this as the gallery slug
+     *                        (ignores $gallery_id)
      *   (string)scope        The scope to use, if not the default.
      *   (boolean)default     Set this as the key gallery image.
      *   (array)gallery_data  Any gallery parameters to change at this time.
@@ -305,26 +312,27 @@ class Ansel_Api extends Horde_Registry_Api
      * @throws InvalidArgumentException
      * @throws Horde_Exception_PermissionDenied
      */
-    public function saveImage($gallery_id, $image, $params = array())
+    public function saveImage($gallery_id, array $image, array $params = array())
     {
-        /* Set application scope */
+        // Set application scope
         if (!empty($params['scope'])) {
             $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $params['scope']);
         }
 
-        /* Build image upload structure */
+        // Build image upload structure
         if (isset($image['filename']) &&
             isset($image['description']) &&
             isset($image['data']) &&
             isset($image['type'])) {
                 Horde::logMessage(sprintf("Receiving image %s in saveImage() with a raw filesize of %i", $image['filename'], strlen($image['data'])), 'DEBUG');
-                $image_data = array('image_filename' => $image['filename'],
-                                    'image_caption' => $image['description'],
-                                    'image_type' => $image['type'],
-                                    'data' => $this->_getImageData($image['data'], (empty($params['encoding']) ? 'none' : $params['encoding']), (empty($params['compression']) ? 'none' : $params['compression']), true));
+                $image_data = array(
+                    'image_filename' => $image['filename'],
+                    'image_caption' => $image['description'],
+                    'image_type' => $image['type'],
+                    'data' => $this->_getImageData($image['data'], (empty($params['encoding']) ? 'none' : $params['encoding']), (empty($params['compression']) ? 'none' : $params['compression']), true));
         }
 
-        /* Validate the image data and other requirements */
+        // Validate the image data and other requirements
         if (empty($image_data) && getimagesize($image['file']) === false) {
             throw new InvalidArgumentException(_("The file you uploaded does not appear to be a valid photo."));
         }
@@ -337,12 +345,12 @@ class Ansel_Api extends Horde_Registry_Api
             $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_id);
         }
 
-        /* Check perms for requested gallery */
+        // Check perms for requested gallery
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied adding photos to \"%s\"."), $gallery->get('name')));
         }
 
-        /* Changing any values while we are at it? */
+        // Changing any values while we are at it?
         if (!empty($params['gallery_data'])) {
             foreach ($params['gallery_data'] as $key => $value) {
                 $gallery->set($key, $value);
@@ -364,25 +372,26 @@ class Ansel_Api extends Horde_Registry_Api
         }
         $image_id = $gallery->addImage($image_data, !empty($params['default']));
 
-        /* Call the postupload hook if needed */
+        // Call the postupload hook if needed
         if (empty($params['skiphook'])) {
             $this->postBatchUpload($image_id);
         }
 
-        return array('image_id'   => (int)$image_id,
-                     'gallery_id' => (int)$gallery->id,
-                     'gallery_slug' => $gallery->get('slug'),
-                     'image_count' => (int)$gallery->countImages());
+        return array(
+            'image_id'   => (int)$image_id,
+            'gallery_id' => (int)$gallery->id,
+            'gallery_slug' => $gallery->get('slug'),
+            'image_count' => (int)$gallery->countImages());
     }
 
     /**
      * Notify Ansel that a group of images has just been uploaded. Used for when
-     * the _ansel_hook_postupload hook should be called with a group of recently
+     * the postupload hook should be called with a group of recently
      * uploaded images, as opposed to calling it once after each image is saved.
      *
      * @param array $image_ids  An array of image ids.
      */
-    public function postBatchUpload($image_ids)
+    public function postBatchUpload(array $image_ids)
     {
         try {
             Horde::callHook('postupload', array($image_ids), 'ansel');
@@ -399,17 +408,16 @@ class Ansel_Api extends Horde_Registry_Api
      *   (string)scope  The scope to use, if not the default.
      * </pre>
      *
-     * @return boolean
      * @throws Horde_Exception_PermissionDenied
      */
-    public function removeImage($gallery_id, $image_id, $params = array())
+    public function removeImage($gallery_id, $image_id, array $params = array())
     {
-        /* Check global Ansel permissions */
-        if (!$GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('ansel')) {
+        // Check global Ansel permissions
+        if (!$GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('ansel', $GLOBALS['registry']->getAuth())) {
             throw new Horde_Exception_PermissionDenied(_("Access denied deleting galleries."));
         }
 
-        /* Set a custom scope, if needed */
+        // Set a custom scope, if needed
         if (!empty($params['scope'])) {
             $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $params['scope']);
         }
@@ -420,7 +428,7 @@ class Ansel_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied deleting photos from \"%s\"."), $gallery->get('name')));
         }
 
-        return $gallery->removeImage($image);
+        $gallery->removeImage($image);
     }
 
     /**
@@ -428,19 +436,19 @@ class Ansel_Api extends Horde_Registry_Api
      *
      * @param array $attributes  The gallery attributes
      * @param array $params      Additional (optional) parameters:
-     *  <pre>
+     *<pre>
      *    (string)scope    The scope to use, if not the default.
      *    (array)perm      An array of permission data if Ansel's defaults are
      *                     not desired. Takes an array like:
-                               array('guest' => Horde_Perms::SHOW | Horde_Perms::READ,
-                                     'default' => Horde_Perms::SHOW | Horde_Perms::READ);
+     *                        array('guest' => Horde_Perms::SHOW | Horde_Perms::READ,
+     *                              'default' => Horde_Perms::SHOW | Horde_Perms::READ);
      *    (integer)parent  The gallery id of the parent gallery, if not a top level gallery.
-     *
+     *</pre>
      *
      * @return integer  The gallery id of the new gallery
      * @throws Horde_Exception_PermissionDenied
      */
-    public function createGallery($attributes, $params = array())
+    public function createGallery($attributes, array $params = array())
     {
         if (!($GLOBALS['registry']->isAdmin() ||
             (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('ansel') && $GLOBALS['registry']->getAuth()) ||
@@ -449,12 +457,13 @@ class Ansel_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied(_("Access denied creating new galleries."));
         }
 
-        /* Custom scope? */
+        // Custom scope?
         if (!empty($params['scope'])) {
-            $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $params['scope']);
+            $GLOBALS['injector']->getInstance('Ansel_Config')
+                ->set('scope', $params['scope']);
         }
 
-        /* Non-default perms? */
+        // Non-default perms?
         if (!empty($params['perm'])) {
             // The name is inconsequential; it is only used as a container to
             // represent permissions when passed to the Ansel backend.
@@ -464,8 +473,10 @@ class Ansel_Api extends Horde_Registry_Api
             $permobj = null;
         }
 
-        /* Create the gallery */
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->createGallery($attributes, $permobj, $parent);
+        // Create the gallery
+        $gallery = $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
+            ->createGallery($attributes, $permobj, $parent);
 
         return $gallery->id;
     }
@@ -479,27 +490,29 @@ class Ansel_Api extends Horde_Registry_Api
      *    (string)scope  the scope to use, if not the default
      *  </pre>
      *
-     * @return boolean true
+     * @throws Ansel_Exception
      * @throws Horde_Exception_PermissionDenied
      */
-    public function removeGallery($gallery_id, $params = array())
+    public function removeGallery($gallery_id, array $params = array())
     {
-        /* Check global Ansel permissions */
-        if (!$GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('ansel')) {
+        // Check global Ansel permissions
+        if (!$GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('ansel', $GLOBALS['registry']->getAuth())) {
             throw new Horde_Exception_PermissionDenied(_("Access denied deleting galleries."));
         }
 
-        /* Custom scope, if needed */
+        // Custom scope, if needed
         if (!empty($params['scope'])) {
-            $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $params['scope']);
+            $GLOBALS['injector']->getInstance('Ansel_Config')
+                ->set('scope', $params['scope']);
         }
 
-        /* Get, and check perms on the gallery */
+        // Get, and check perms on the gallery
         $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_id);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
             throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied deleting gallery \"%s\"."), $gallery->get('name')));
         } else {
-            return $GLOBALS['injector']->getInstance('Ansel_Storage')->removeGallery($gallery);
+            return $GLOBALS['injector']->getInstance('Ansel_Storage')
+                ->removeGallery($gallery);
         }
     }
 
@@ -508,14 +521,15 @@ class Ansel_Api extends Horde_Registry_Api
      *
      * @param integer $gallery_id   The gallery id.
      * @param array $params         Array of optional parameters:
-     *  <pre>
+     *<pre>
      *    (string)scope  Scope to use, if not the default.
      *    (string)slug   If set, ignore gallery_id and use this as the slug.
-     *  </pre>
+     * </pre>
      *
      * @return integer  The number of images in the gallery.
+     * @throws Ansel_Exception
      */
-    public function count($gallery_id = null, $params = array())
+    public function count($gallery_id = null, array $params = array())
     {
         if (!empty($params['scope'])) {
             $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $params['scope']);
@@ -538,30 +552,33 @@ class Ansel_Api extends Horde_Registry_Api
      *
      * @param integer $gallery_id  The gallery id.
      * @param array $params        Additional parameters:
-     *   <pre>
-     *     (string)scope   Application scope, if not the default
-     *     (string)style   A named style to use, if not ansel_default
-     *     (string)slug    Ignore gallery_id, and use this as the slug
-     *   </pre>
+     *<pre>
+     *  (string)scope   Application scope, if not the default
+     *  (string)style   A named style to use, if not ansel_default
+     *  (string)slug    Ignore gallery_id, and use this as the slug
+     *</pre>
      *
      * @return integer  The key image id.
      */
-    public function getGalleryKeyImage($gallery_id, $params = array())
+    public function getGalleryKeyImage($gallery_id, array $params = array())
     {
         if (!empty($params['scope'])) {
-            $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $params['scope']);
+            $GLOBALS['injector']->getInstance('Ansel_Config')
+                ->set('scope', $params['scope']);
         }
 
         if (!empty($params['slug'])) {
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGalleryBySlug($params['slug']);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')
+                ->getGalleryBySlug($params['slug']);
         } else {
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_id);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')
+                ->getGallery($gallery_id);
         }
 
         $style = empty($params['style']) ?
             Ansel::getStyleDefinition('ansel_default') :
             Ansel::getStyleDefinition($params['style']);
-        
+
         return $gallery->getKeyImage($style);
     }
 
@@ -579,20 +596,22 @@ class Ansel_Api extends Horde_Registry_Api
      *
      * @return string  The image path.
      */
-    public function getImageUrl($image_id, $params = array())
+    public function getImageUrl($image_id, array $params = array())
     {
         if (!empty($params['scope'])) {
-            $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $params['scope']);
+            $GLOBALS['injector']->getInstance('Ansel_Config')
+                ->set('scope', $params['scope']);
         }
 
         $style = empty($params['style']) ?
             Ansel::getStyleDefinition('ansel_default') :
             Ansel::getStyleDefinition($params['style']);
 
-        return (string)Ansel::getImageUrl($image_id,
-                                          empty($params['view']) ? 'screen': $params['view'],
-                                          empty($params['full']) ? false : $params['full'],
-                                          $style);
+        return (string)Ansel::getImageUrl(
+            $image_id,
+            empty($params['view']) ? 'screen': $params['view'],
+            empty($params['full']) ? false : $params['full'],
+            $style);
     }
 
     /**
@@ -602,42 +621,51 @@ class Ansel_Api extends Horde_Registry_Api
      *
      * @param integer $image_id  The id of the image.
      * @param array $params      Optional parameters:
-     *   <pre>
-     *    (string)scope        Application scope, if not default.
-     *    (string)view         The image view type to return (screen, thumb etc...)
-     *    (string)style        Force the use of this gallery style
-     *    (string)encoding     Encoding type (base64, binhex)
-     *    (string)compression  Compression type (gzip, lzf)
-     *   </pre>
+     *<pre>
+     *  (string)scope        Application scope, if not default.
+     *  (string)view         The image view type to return (screen, thumb etc...)
+     *  (string)style        Force the use of this gallery style
+     *  (string)encoding     Encoding type (base64, binhex)
+     *  (string)compression  Compression type (gzip, lzf)
+     *</pre>
      *
      * @return string  The raw image data.
      * @throws Horde_Exception_Permission_Denied
+     * @throws Ansel_Exception
      */
-    public function getImageContent($image_id, $params = array())
+    public function getImageContent($image_id, array $params = array())
     {
         if (!empty($params['scope'])) {
-            $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $params['scope']);
+            $GLOBALS['injector']->getInstance('Ansel_Config')
+                ->set('scope', $params['scope']);
         }
 
-        /* Get image and gallery */
-        $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id);
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($image->gallery);
+        // Get image and gallery
+        $image = $GLOBALS['injector']->getInstance('Ansel_Storage')
+            ->getImage($image_id);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')
+            ->getGallery($image->gallery);
 
-        /* Check age and password */
+        // Check age and password
         if (!$gallery->hasPasswd() || !$gallery->isOldEnough()) {
-            throw new Horde_Exception_PermissionDenied(_("Locked galleries are not viewable via the api."));
+            throw new Horde_Exception_PermissionDenied(
+                _("Locked galleries are not viewable via the api."));
         }
 
         if ($view == 'full') {
-            /* Check permissions for full view */
+            // Check permissions for full view
             if (!$gallery->canDownload()) {
-                throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied downloading full sized photos from \"%s\"."), $gallery->get('name')));
+                throw new Horde_Exception_PermissionDenied(
+                    sprintf(_("Access denied downloading full sized photos from \"%s\"."), $gallery->get('name')));
             }
 
-            /* Try reading the data */
+            // Try reading the data
             try {
-                $data = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->read($image->getVFSPath('full'), $image->getVFSName('full'));
-            } catch (VFS_Exception $e) {
+                $data = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Vfs')
+                    ->create('images')
+                    ->read($image->getVFSPath('full'), $image->getVFSName('full'));
+            } catch (Horde_Vfs_Exception $e) {
                 Horde::logMessage($e->getMessage(), 'ERR');
                 throw new Ansel_Exception($e->getMessage());
             }
@@ -647,7 +675,7 @@ class Ansel_Api extends Horde_Registry_Api
             } else {
                 $params['style'] = null;
             }
-            $result = $image->load($view, $params['style']);
+            $image->load($view, $params['style']);
             $data = $image->_image->raw();
         }
 
@@ -658,36 +686,39 @@ class Ansel_Api extends Horde_Registry_Api
      * Returns a list of all galleries.
      *
      * @param array $params  Optional parameters:
-     *   <pre>
-     *     (string)scope      The application scope, if not default.
-     *     (integer)perm      The permissions filter to use [Horde_Perms::SHOW]
-     *     (mixed)attributes  Restrict the galleries returned to those matching
-     *                        the filters. Can be an array of attribute/values
-     *                        pairs or a gallery owner username.
-     *     (integer)parent    The parent share to start listing at.
-     *     (boolean)all_levels If set, return all levels below parent, not just
-     *                        direct children [TRUE]
-     *     (integer)from      The gallery to start listing at.
-     *     (integer)count     The number of galleries to return.
-     *     (string)sort_by    Attribute to sort by
-     *     (integer)direction The direction to sort by [Ansel::SORT_ASCENDING]
-     *   </pre>
+     *<pre>
+     *  (string)scope       The application scope, if not default.
+     *  (integer)perm       The permissions filter to use [Horde_Perms::SHOW]
+     *  (mixed)attributes   Restrict the galleries returned to those matching
+     *                      the filters. Can be an array of attribute/values
+     *                      pairs or a gallery owner username.
+     *  (integer)parent     The parent share to start listing at.
+     *  (boolean)all_levels If set, return all levels below parent, not just
+     *                      direct children [TRUE]
+     *  (integer)from       The gallery to start listing at.
+     *  (integer)count      The number of galleries to return.
+     *  (string)sort_by     Attribute to sort by
+     *  (integer)direction  The direction to sort by [Ansel::SORT_ASCENDING]
+     *  (array)tags        An array of tags to limit results by.
+     *</pre>
      *
      * @return array  An array of gallery information.
      */
-    public function listGalleries($params = array())
+    public function listGalleries(array $params = array())
     {
-        // If no app is given use Ansel's own gallery
+        // If no scope is given use Ansel's default
         if (!empty($params['scope'])) {
-            $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $params['scope']);
+            $GLOBALS['injector']->getInstance('Ansel_Config')
+                ->set('scope', $params['scope']);
         }
         $galleries = $GLOBALS['injector']
             ->getInstance('Ansel_Storage')
             ->listGalleries($params);
         $return = array();
         foreach ($galleries as $gallery) {
-            $return[$gallery->getId()] = array_merge($gallery->data,
-                                                array('crumbs' => $gallery->getGalleryCrumbData()));
+            $return[] = array_merge(
+                $gallery->toArray(),
+                array('crumbs' => $gallery->getGalleryCrumbData()));
         }
 
         return $return;
@@ -698,27 +729,31 @@ class Ansel_Api extends Horde_Registry_Api
      *
      * @param array $ids   An array of gallery ids.
      * @param string $app  Application scope to use, if not the default.
-     * @param array $slugs An array of gallery slugs.
+     * @param array $slugs An array of gallery slugs (ignore $ids).
      *
      * @return array An array of gallery data arrays
      */
-    public function getGalleries($ids = array(), $app = null, $slugs = array())
+    public function getGalleries(array $ids, $app = null, array $slugs = array())
     {
         if (!is_null($app)) {
             $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $app);
         }
 
         if (count($slugs)) {
-            $results = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGalleriesBySlugs($slugs);
+            $results = $GLOBALS['injector']->getInstance('Ansel_Storage')
+                ->getGalleriesBySlugs($slugs);
         } else {
-            $results = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGalleries($ids);
+            $results = $GLOBALS['injector']->getInstance('Ansel_Storage')
+                ->getGalleries($ids);
         }
 
         // We can't just return the results of the getGalleries call - we need
         // to build the non-object return structure.
         $galleries = array();
         foreach ($results as $gallery) {
-            $galleries[$gallery->id] = array_merge($gallery->data, array('crumbs' => $gallery->getGalleryCrumbData()));
+            $galleries[$gallery->id] = array_merge(
+                $gallery->data,
+                array('crumbs' => $gallery->getGalleryCrumbData()));
         }
 
         return $galleries;
@@ -729,23 +764,24 @@ class Ansel_Api extends Horde_Registry_Api
      * listGalleries().
      *
      * @param array $params  Optional parameters:
-     *   <pre>
-     *     (string)scope      Application scope, if not default.
-     *     (integer)selected  The gallery_id of the gallery that is selected
-     *     (integer)perm      The permissions filter to use [Horde_Perms::SHOW]
-     *     (mixed)filter      Restrict the galleries returned to those matching
-     *                        the filters. Can be an array of attribute/values
-     *                        pairs or a gallery owner username.
-     *     (integer)parent    The parent share to start listing at.
-     *     (integer)from      The gallery to start listing at.
-     *     (integer)count     The number of galleries to return.
-     *     (integer)ignore    An Ansel_Gallery id to ignore when building the tree.
-     *   </pre>
+     *<pre>
+     *  (string)scope      Application scope, if not default.
+     *  (integer)selected  The gallery_id of the gallery that is selected
+     *  (integer)perm      The permissions filter to use [Horde_Perms::SHOW]
+     *  (mixed)filter      Restrict the galleries returned to those matching
+     *                     the filters. Can be an array of attribute/values
+     *                     pairs or a gallery owner username.
+     *  (integer)parent    The parent share to start listing at.
+     *  (integer)from      The gallery to start listing at.
+     *  (integer)count     The number of galleries to return.
+     *  (integer)ignore    An Ansel_Gallery id to ignore when building the tree.
+     *</pre>
      */
-    public function selectGalleries($params = array())
+    public function selectGalleries(array $params = array())
     {
         if (!empty($params['scope'])) {
-            $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $params['scope']);
+            $GLOBALS['injector']->getInstance('Ansel_Config')
+                ->set('scope', $params['scope']);
             unset($params['scope']);
         }
 
@@ -759,48 +795,46 @@ class Ansel_Api extends Horde_Registry_Api
      * also. Using api call getImageURL results in a lot of overhead when
      * e.g. generating a select list.
      *
-     * @param string $app          Application scope to use, if not the default.
      * @param integer $gallery_id  Gallery id to get images from.
-     * @param integer $perm        The level of permissions to require for a
-     *                             gallery to return it.
-     * @param string $view         Viewsize to generate URLs for.
-     * @param boolean $full        Return a full URL
-     * @param integer $from        Start image.
-     * @param integer $count       End image.
-     * @param string $style        Use this gallery style.
-     * @param string $slug         Gallery slug
+     * @param array $params        Additional parameters:
+     *<pre>
+     *  (string)app          Application scope to use [ansel].
+     *  (string)view         View size to generate URLs for [thumb].
+     *  (boolean)full        Return a full URL [false].
+     *  (integer)from        Start image.
+     *  (integer)limit       Max count of images to return.
+     *  (string)style        Use this gallery style.
+     *  (string)slug         Gallery slug (ignore gallery_id).
+     *</pre>
      *
-     * @return array  Two dimensional array with image names ids (key) and urls.
+     * @return array  Hash of image data (see below) keyed by image_id.
+     *<pre>
+     *  name
+     *  caption
+     *  type
+     *  uploaded
+     *  original_date
+     *  url
+     *</pre>
      */
-    public function listImages($app = null, $gallery_id = null, $perm = Horde_Perms::SHOW,
-        $view = 'screen', $full = false, $from = 0,
-        $count = 0, $style = null, $slug = '')
+    public function listImages($gallery_id, array $params = array())
     {
-        if (!is_null($app)) {
-            $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $app);
+        $params = new Horde_Support_Array($params);
+        if ($params->app) {
+            $GLOBALS['injector']->getInstance('Ansel_Config')
+                ->set('scope', $params->app);
         }
-
         $storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
-        // Determine the default gallery when none is given. The first gallery
-        // in the list is the default gallery.
-        if (is_null($gallery_id) && empty($slug)) {
-            $galleries = $storage->listGalleries(array('perm' => $perm));
-            if (!count($galleries)) {
-                return array();
-            }
-            $g = current($galleries);
-            $gallery_id = $g->getId();
-        } elseif (!empty($slug)) {
-            $gallery = $storage->getGalleryBySlug($slug);
+        if ($params->slug) {
+            $gallery = $storage->getGalleryBySlug($params->slug);
         } else {
             $gallery = $storage->getGallery($gallery_id);
         }
-
-        $images = $gallery->listImages();
-        if ($style) {
-            $style = Ansel::getStyleDefinition($style);
+        $images = $gallery->listImages($params->get('from', 0), $params->get('limit', 0));
+        if ($params->style) {
+            $params->style = Ansel::getStyleDefinition($params->style);
         } else {
-            $style = $gallery->getStyle();
+            $params->style = $gallery->getStyle();
         }
 
         $counter = 0;
@@ -812,57 +846,69 @@ class Ansel_Api extends Horde_Registry_Api
             $imagelist[$id]['type'] = $image->type;
             $imagelist[$id]['uploaded'] = $image->uploaded;
             $imagelist[$id]['original_date'] = $image->originalDate;
-            $imagelist[$id]['url'] = Ansel::getImageUrl($id, $view, $full, $style);
-            if (!is_null($app) && $GLOBALS['conf']['vfs']['src'] != 'direct') {
-                $imagelist[$id]['url']->add('app', $app);
+            $imagelist[$id]['url'] = Ansel::getImageUrl(
+                $id, $params->get('view', 'thumb'), $params->get('full', false), $params->style);
+            if ($params->app && $GLOBALS['conf']['vfs']['src'] != 'direct') {
+                $imagelist[$id]['url']->add('app', $params->app);
             }
             $imagelist[$id]['url'] = $imagelist[$id]['url']->toString();
         }
+
         return $imagelist;
     }
 
     /**
      * Return a list of recently added images
      *
-     * @param string $app       Application used if null then use default.
-     * @param array $galleries  An array of gallery ids to check.  If left empty,
-     *                          will search all galleries with the given
-     *                          permissions for the current user.
-     * @param integer $perms    Horde_Perms::* constant.
-     * @param string $view      The type of image view to return.
-     * @param boolean $full     Return a full URL if this is true.
-     * @param integer  $limit   The maximum number of images to return.
-     * @param string $style     Force the use of this gallery style
-     * @param string $slugs     An array of gallery slugs
+     * @param array $params  Parameter (optionally) containing:
+     *<pre>
+     *   (string)app       Application used if null then use default.
+     *   (array)galleries  An array of gallery ids to check.  If left empty,
+     *                     will search all galleries with the given
+     *                     permissions for the current user.
+     *   (string)view      The type of image view to return.
+     *   (boolean)full     Return a full URL if this is true.
+     *   (integer)limit    The maximum number of images to return.
+     *   (string)style     Force the use of this gallery style
+     *   (array)slugs      An array of gallery slugs
      *
-     * @return array  An array of image objects.
+     * @return array  A hash of image information arrays, keyed by image_id:
+     * @see Ansel_Api::getImages
      */
-    public function getRecentImages($app = null, $galleries = array(),
-        $perms = Horde_Perms::SHOW, $view = 'screen',
-        $full = false, $limit = 10, $style = null,
-        $slugs = array())
+    public function getRecentImages(array $params = array())
     {
-        if (!is_null($app)) {
-            $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $app);
+        $params = new Horde_Support_Array($params);
+
+        if ($params->app) {
+            $GLOBALS['injector']->getInstance('Ansel_Config')
+                ->set('scope', $params->app);
         }
-        $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getRecentImages($galleries, $limit, $slugs);
+        $images = $GLOBALS['injector']->getInstance('Ansel_Storage')
+            ->getRecentImages(
+                $params->get('galleries', array()),
+                $params->get('limit', 10),
+                $params->get('slugs', array()));
         $imagelist = array();
-        if ($style) {
-            $style = Ansel::getStyleDefinition($style);
+        if ($params->style) {
+            $params->style = Ansel::getStyleDefinition($params->style);
         }
         foreach ($images as $image) {
             $id = $image->id;
             $imagelist[$id]['id'] = $id;
             $imagelist[$id]['name'] = $image->filename;
-            $imagelist[$id]['url'] = Ansel::getImageUrl($id, $view, $full, $style);
+            $imagelist[$id]['url'] = Ansel::getImageUrl(
+                $id,
+                $params->get('view', 'screen'),
+                $params->get('full', false),
+                $params->style);
             $imagelist[$id]['caption'] = $image->caption;
             $imagelist[$id]['filename'] = $image->filename;
             $imagelist[$id]['gallery'] = $image->gallery;
             $imagelist[$id]['uploaded'] = $image->uploaded;
             $imagelist[$id]['original_date'] = $image->originalDate;
 
-            if (!is_null($app) && $GLOBALS['conf']['vfs']['src'] != 'direct') {
-                $imagelist[$id]['url']->add('app', $app);
+            if ($params->app && $GLOBALS['conf']['vfs']['src'] != 'direct') {
+                $imagelist[$id]['url']->add('app', $params->app);
             }
         }
         return $imagelist;
@@ -872,28 +918,32 @@ class Ansel_Api extends Horde_Registry_Api
     /**
      * Counts the number of galleries.
      *
-     * @param string $app         Application scope to use, if not the default.
-     * @param integer $perm       The level of permissions to require for a gallery
-     *                            to return it.
-     * @param mixed $attributes   Restrict the galleries counted to those matching
-     *                            $attributes. An array of attribute/value pairs or
-     *                            a gallery owner username.
-     * @param integer $parent     The parent gallery id to start searching at.
-     * @param boolean $allLevels  Return all levels, or just the direct children of
-     *                            $parent?
+     * @param array $params  Parameter array containing the following optional:
+     *<pre>
+     *  (string)app         Application scope to use, if not the default.
+     *  (integer)perm       The level of permissions to require for a gallery
+     *                      to return it.
+     *  (mixed)attributes   Restrict the galleries counted to those matching
+     *                      attributes. An array of attribute/value pairs or
+     *                      a gallery owner username.
+     *  (integer)parent     The parent gallery id to start searching at.
+     *  (boolean)all_levels  Return all levels, or just the direct children of
+     *                      $parent?
      *
      * @return integer  Returns the number of matching galleries.
      */
-    public function countGalleries($app = null, $perm = Horde_Perms::SHOW, $attributes = null,
-        $parent = null, $allLevels = true)
+    public function countGalleries(array $params = array())
     {
-        if (!is_null($app)) {
-            $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $app);
+        if (!empty($params['app'])) {
+            $GLOBALS['injector']->getInstance('Ansel_Config')
+                ->set('scope', $params['app']);
+            unset($params['app']);
         }
 
-        return $GLOBALS['injector']->getInstance('Ansel_Storage')->countGalleries($GLOBALS['registry']->getAuth(), $perm,
-            $attributes, $parent,
-            $allLevels);
+        return $GLOBALS['injector']->getInstance('Ansel_Storage')
+            ->countGalleries(
+                $GLOBALS['registry']->getAuth(),
+                $params);
     }
 
     /**
@@ -903,23 +953,17 @@ class Ansel_Api extends Horde_Registry_Api
      * @param array $tags  An optional array of tag_ids. If omitted, all tags
      *                     will be included.
      *
-     * @return mixed  An array containing tag_name, and total | PEAR_Error
+     * @return array  An array containing tag_name, and total
      */
-    public function listTagInfo($tags = null)
+    public function getTagInfo($tags = null)
     {
-        return Ansel_Tags::listTagInfo($tags);
+        return $GLOBALS['injector']->getInstance('Ansel_Tagger')->getTagInfo($tags);
     }
 
     /**
-     * Searches images/galleries tagged with all requested tags.
+     * SearchTags API:
      * Returns an application-agnostic array (useful for when doing a tag search
-     * across multiple applications) containing the following keys:
-     * <pre>
-     *  'title'    - The title for this resource.
-     *  'desc'     - A terse description of this resource.
-     *  'view_url' - The URL to view this resource.
-     *  'app'      - The Horde application this resource belongs to.
-     * </pre>
+     * across multiple applications)
      *
      * The 'raw' results array can be returned instead by setting $raw = true.
      *
@@ -928,17 +972,23 @@ class Ansel_Api extends Horde_Registry_Api
      * @param integer $from          The number of the story to start with.
      * @param string $resource_type  An array of channel_ids to limit the search to.
      * @param string $user           Restrict results to resources owned by $user.
-     * @param boolean $raw           Return the raw story data?
+     * @param boolean $raw           Return the raw data?
      * @param string $app            Application scope to use, if not the default.
      *
-     * @return mixed  An array of results | PEAR_Error
+     * @return array An array of results:
+     * <pre>
+     *  'title'    - The title for this resource.
+     *  'desc'     - A terse description of this resource.
+     *  'view_url' - The URL to view this resource.
+     *  'app'      - The Horde application this resource belongs to.
+     * </pre>
      */
     public function searchTags($names, $max = 10, $from = 0,
                                $resource_type = 'all', $user = null, $raw = false,
                                $app = 'ansel')
     {
         $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $app);
-        $results = Ansel_Tags::searchTags($names, $max, $from,  $resource_type, $user);
+        $results = $GLOBALS['injector']->getInstance('Ansel_Tagger')->search($names, array('type' => $resource_type, 'user' => $user));
 
         // Check for error or if we requested the raw data array.
         if ($raw) {
@@ -983,19 +1033,21 @@ class Ansel_Api extends Horde_Registry_Api
     /**
      * Checks if the gallery exists
      *
-     * @param string $app          Application scope to use, if not the default.
      * @param integer $gallery_id  The gallery id
      * @param string $slug         The gallery slug
+     * @param string $app          Application scope to use, if not the default.
      *
      * @return boolean
      */
-    public function galleryExists($app, $gallery_id = null, $slug = '')
+    public function galleryExists($gallery_id, $slug = '', $app = null)
     {
         if (!is_null($app)) {
-            $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $app);
+            $GLOBALS['injector']->getInstance('Ansel_Config')
+                ->set('scope', $app);
         }
 
-        return $GLOBALS['injector']->getInstance('Ansel_Storage')->galleryExists($gallery_id, $slug);
+        return $GLOBALS['injector']->getInstance('Ansel_Storage')
+            ->galleryExists($gallery_id, $slug);
     }
 
     /**
@@ -1045,4 +1097,5 @@ class Ansel_Api extends Horde_Registry_Api
 
         return $return;
     }
+
 }

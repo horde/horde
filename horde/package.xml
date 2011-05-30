@@ -16,19 +16,31 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-09</date>
- <time>00:07:01</time>
+ <lead>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Michael Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-05-18</date>
+ <time>15:07:53</time>
  <version>
-  <release>4.0.0beta1</release>
+  <release>4.0.4</release>
   <api>4.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Fix viewing applications with no mobile view from mobile devices.
+* [gwr] Added support for the Kolab IMAP based preferences backend.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -46,6 +58,9 @@
      <dir name="en">
       <file name="help.xml" role="horde" />
      </dir> <!-- /admin/locale/en -->
+     <dir name="es">
+      <file name="help.xml" role="horde" />
+     </dir> <!-- /admin/locale/es -->
      <dir name="eu">
       <file name="help.xml" role="horde" />
      </dir> <!-- /admin/locale/eu -->
@@ -78,25 +93,27 @@
     <file name="user.php" role="horde" />
    </dir> <!-- /admin -->
    <dir name="bin">
-    <dir name="import">
-     <file name="import_squirrelmail_prefs" role="script" />
-    </dir> <!-- /bin/import -->
-    <file name="active_sessions" role="horde" />
-    <file name="alarms" role="horde" />
-    <file name="check_logger" role="horde" />
-    <file name="clear_cache" role="script" />
-    <file name="crond" role="horde" />
-    <file name="db_migrate" role="horde" />
-    <file name="memcache_stats" role="horde" />
-    <file name="run_task" role="horde" />
-    <file name="set_perms" role="script" />
-    <file name="themes" role="script" />
-    <file name="translation" role="horde" />
+    <file name="horde-active-sessions" role="script" />
+    <file name="horde-alarms" role="script" />
+    <file name="horde-check-logger" role="script" />
+    <file name="horde-clear-cache" role="script" />
+    <file name="horde-convert-datatree-groups-to-sql" role="script" />
+    <file name="horde-convert-datatree-perms-to-sql" role="script" />
+    <file name="horde-crond" role="script" />
+    <file name="horde-db-migrate" role="script" />
+    <file name="horde-import-squirrelmail-prefs" role="script" />
+    <file name="horde-memcache-stats" role="script" />
+    <file name="horde-move-history-out-of-datatree" role="script" />
+    <file name="horde-run-task" role="script" />
+    <file name="horde-set-perms" role="script" />
+    <file name="horde-themes" role="script" />
+    <file name="horde-translation" role="script" />
    </dir> <!-- /bin -->
    <dir name="config">
     <dir name="registry.d">
      <file name="README" role="horde" />
     </dir> <!-- /config/registry.d -->
+    <file name=".htaccess" role="horde" />
     <file name="conf.php.dist" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="hooks.php.dist" role="horde" />
@@ -113,7 +130,6 @@
     <file name="CONTRIBUTING" role="doc" />
     <file name="CREDITS" role="doc" />
     <file name="INSTALL" role="doc" />
-    <file name="LICENSES" role="doc" />
     <file name="lighttpd-horde.conf" role="doc" />
     <file name="PERFORMANCE" role="doc" />
     <file name="RELEASE" role="doc" />
@@ -309,6 +325,7 @@
      <file name="plupload.silverlight.xap" role="horde" />
      <file name="uploader.js" role="horde" />
     </dir> <!-- /js/plupload -->
+    <file name="accesskeys.html" role="horde" />
     <file name="accesskeys.js" role="horde" />
     <file name="activesyncadmin.js" role="horde" />
     <file name="activesyncprefs.js" role="horde" />
@@ -322,6 +339,7 @@
     <file name="effects.js" role="horde" />
     <file name="facebookclient.js" role="horde" />
     <file name="form_assign.js" role="horde" />
+    <file name="form_ghost.js" role="horde" />
     <file name="form_helpers.js" role="horde" />
     <file name="form_sections.js" role="horde" />
     <file name="growler.js" role="horde" />
@@ -359,6 +377,12 @@
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Block">
+     <dir name="Account">
+      <file name="Base.php" role="horde" />
+      <file name="Finger.php" role="horde" />
+      <file name="Ldap.php" role="horde" />
+      <file name="Localhost.php" role="horde" />
+     </dir> <!-- /lib/Block/Account -->
      <file name="Account.php" role="horde" />
      <file name="Cloud.php" role="horde" />
      <file name="FbStream.php" role="horde" />
@@ -378,7 +402,7 @@
     <dir name="LoginTasks">
      <dir name="SystemTask">
       <file name="GarbageCollection.php" role="horde" />
-      <file name="UpgradeFromHorde3.php" role="horde" />
+      <file name="Upgrade.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
      <dir name="Task">
       <file name="AdminCheck.php" role="horde" />
@@ -392,6 +416,7 @@
     <dir name="tests">
      <file name="webroot.phpt" role="horde" />
     </dir> <!-- /lib/tests -->
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="core.php" role="horde" />
@@ -685,9 +710,11 @@
      </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/zh_TW -->
+    <file name=".htaccess" role="horde" />
     <file name="horde.pot" role="horde" />
    </dir> <!-- /locale -->
    <dir name="rpc">
+    <file name=".htaccess" role="horde" />
     <file name="index.php" role="horde" />
    </dir> <!-- /rpc -->
    <dir name="scripts">
@@ -712,17 +739,14 @@
      <file name="3.1_to_3.2.sql" role="data" />
      <file name="3.1_to_3.2.sybase.sql" role="data" />
      <file name="3.3_to_3.3.5.sql" role="data" />
-     <file name="2008-08-29_fix_mdb2_sequences.php" role="data" />
+     <file name="2008-08-29_fix_mdb2_sequences.php" role="horde" />
      <file name="2009-04-13_horde_pgsql_upgrade.sql" role="data" />
-     <file name="convert_datatree_groups_to_sql.php" role="data" />
-     <file name="convert_datatree_perms_to_sql.php" role="data" />
-     <file name="migrate_user_categories.php" role="data" />
-     <file name="move_history_out_of_datatree.php" role="data" />
     </dir> <!-- /scripts/upgrades -->
+    <file name=".htaccess" role="data" />
     <file name="cookie_login.php" role="data" />
     <file name="get_login.php" role="data" />
     <file name="horde.logrotate" role="data" />
-    <file name="http_login_refer.php" role="data" />
+    <file name="http_login.php" role="data" />
     <file name="SCRIPTS" role="data" />
     <file name="temp-cleanup.cron" role="data" />
    </dir> <!-- /scripts -->
@@ -730,6 +754,9 @@
     <dir name="download">
      <file name="index.php" role="horde" />
     </dir> <!-- /services/download -->
+    <dir name="facebook">
+     <file name="index.php" role="horde" />
+    </dir> <!-- /services/facebook -->
     <dir name="help">
      <file name="index.php" role="horde" />
     </dir> <!-- /services/help -->
@@ -749,12 +776,14 @@
     <dir name="shares">
      <file name="edit.php" role="horde" />
     </dir> <!-- /services/shares -->
+    <dir name="twitter">
+     <file name="index.php" role="horde" />
+    </dir> <!-- /services/twitter -->
     <file name="ajax.php" role="horde" />
     <file name="cache.php" role="horde" />
     <file name="cacheview.php" role="horde" />
     <file name="changepassword.php" role="horde" />
     <file name="confirm.php" role="horde" />
-    <file name="facebook.php" role="horde" />
     <file name="go.php" role="horde" />
     <file name="imple.php" role="horde" />
     <file name="keyboard.php" role="horde" />
@@ -765,7 +794,6 @@
     <file name="resetpassword.php" role="horde" />
     <file name="sidebar.php" role="horde" />
     <file name="snooze.php" role="horde" />
-    <file name="twitter.php" role="horde" />
    </dir> <!-- /services -->
    <dir name="static">
     <file name="README" role="horde" />
@@ -781,7 +809,7 @@
       <file name="index.html" role="horde" />
      </dir> <!-- /templates/admin/config -->
      <dir name="groups">
-      <file name="addchild.inc" role="horde" />
+      <file name="add.inc" role="horde" />
       <file name="delete.inc" role="horde" />
       <file name="edit.inc" role="horde" />
      </dir> <!-- /templates/admin/groups -->
@@ -821,6 +849,8 @@
     <dir name="login">
      <file name="login.inc" role="horde" />
      <file name="mobile.inc" role="horde" />
+     <file name="resetpassword.inc" role="horde" />
+     <file name="signup.inc" role="horde" />
     </dir> <!-- /templates/login -->
     <dir name="logintasks">
      <file name="logintasks.html" role="horde" />
@@ -878,6 +908,7 @@
      <file name="php_version.inc" role="horde" />
      <file name="version.inc" role="horde" />
     </dir> <!-- /templates/test -->
+    <file name=".htaccess" role="horde" />
     <file name="common-footer-mobile.inc" role="horde" />
     <file name="common-footer.inc" role="horde" />
     <file name="common-header-mobile.inc" role="horde" />
@@ -1567,6 +1598,7 @@
       <file name="add_group.png" role="horde" />
       <file name="add_perm.png" role="horde" />
       <file name="administration.png" role="horde" />
+      <file name="app-unknown.png" role="horde" />
       <file name="az.png" role="horde" />
       <file name="blank.gif" role="horde" />
       <file name="block.png" role="horde" />
@@ -2037,6 +2069,7 @@
     <file name="barcode.php" role="horde" />
     <file name="icon_browser.php" role="horde" />
    </dir> <!-- /util -->
+   <file name=".htaccess" role="data" />
    <file name="COPYING" role="data" />
    <file name="index.php" role="horde" />
    <file name="login.php" role="horde" />
@@ -2056,91 +2089,290 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>Horde_Alarm</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Argv</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Auth</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Autoloader</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Browser</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Date</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Group</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Http</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Image</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_LoginTasks</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mime</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Nls</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Perms</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Prefs</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Rpc</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Serialize</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Support</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Template</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Text_Diff</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Token</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Text_Filter</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Tree</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Url</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_View</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Vfs</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>Net_DNS2</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <extension>
+    <name>filter</name>
+   </extension>
+   <extension>
+    <name>gettext</name>
+   </extension>
+   <extension>
+    <name>hash</name>
+   </extension>
   </required>
   <optional>
    <package>
+    <name>Horde_ActiveSync</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_DataTree</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Db</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Feed</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Oauth</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Service_Facebook</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Service_Twitter</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>Horde_SyncMl</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Services_Weather</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>SOAP</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <extension>
+    <name>iconv</name>
+   </extension>
   </optional>
  </dependencies>
  <usesrole>
@@ -2167,6 +2399,7 @@
    <install as="admin/config/scripts.php" name="admin/config/scripts.php" />
    <install as="admin/locale/de/help.xml" name="admin/locale/de/help.xml" />
    <install as="admin/locale/en/help.xml" name="admin/locale/en/help.xml" />
+   <install as="admin/locale/es/help.xml" name="admin/locale/es/help.xml" />
    <install as="admin/locale/eu/help.xml" name="admin/locale/eu/help.xml" />
    <install as="admin/locale/fi/help.xml" name="admin/locale/fi/help.xml" />
    <install as="admin/locale/hr/help.xml" name="admin/locale/hr/help.xml" />
@@ -2175,18 +2408,22 @@
    <install as="admin/perms/delete.php" name="admin/perms/delete.php" />
    <install as="admin/perms/edit.php" name="admin/perms/edit.php" />
    <install as="admin/perms/index.php" name="admin/perms/index.php" />
-   <install as="bin/active_sessions" name="bin/active_sessions" />
-   <install as="bin/alarms" name="bin/alarms" />
-   <install as="bin/check_logger" name="bin/check_logger" />
-   <install as="clear_cache" name="bin/clear_cache" />
-   <install as="bin/crond" name="bin/crond" />
-   <install as="bin/db_migrate" name="bin/db_migrate" />
-   <install as="bin/memcache_stats" name="bin/memcache_stats" />
-   <install as="bin/run_task" name="bin/run_task" />
-   <install as="set_perms" name="bin/set_perms" />
-   <install as="themes" name="bin/themes" />
-   <install as="bin/translation" name="bin/translation" />
-   <install as="import_squirrelmail_prefs" name="bin/import/import_squirrelmail_prefs" />
+   <install as="horde-active-sessions" name="bin/horde-active-sessions" />
+   <install as="horde-alarms" name="bin/horde-alarms" />
+   <install as="horde-check-logger" name="bin/horde-check-logger" />
+   <install as="horde-clear-cache" name="bin/horde-clear-cache" />
+   <install as="horde-convert-datatree-groups-to-sql" name="bin/horde-convert-datatree-groups-to-sql" />
+   <install as="horde-convert-datatree-perms-to-sql" name="bin/horde-convert-datatree-perms-to-sql" />
+   <install as="horde-crond" name="bin/horde-crond" />
+   <install as="horde-db-migrate" name="bin/horde-db-migrate" />
+   <install as="horde-import-squirrelmail-prefs" name="bin/horde-import-squirrelmail-prefs" />
+   <install as="horde-memcache-stats" name="bin/horde-memcache-stats" />
+   <install as="horde-move-history-out-of-datatree" name="bin/horde-move-history-out-of-datatree" />
+   <install as="horde-run-task" name="bin/horde-run-task" />
+   <install as="horde-set-perms" name="bin/horde-set-perms" />
+   <install as="horde-themes" name="bin/horde-themes" />
+   <install as="horde-translation" name="bin/horde-translation" />
+   <install as="config/.htaccess" name="config/.htaccess" />
    <install as="config/conf.php.dist" name="config/conf.php.dist" />
    <install as="config/conf.xml" name="config/conf.xml" />
    <install as="config/hooks.php.dist" name="config/hooks.php.dist" />
@@ -2202,7 +2439,6 @@
    <install as="CONTRIBUTING" name="docs/CONTRIBUTING" />
    <install as="CREDITS" name="docs/CREDITS" />
    <install as="INSTALL" name="docs/INSTALL" />
-   <install as="LICENSES" name="docs/LICENSES" />
    <install as="lighttpd-horde.conf" name="docs/lighttpd-horde.conf" />
    <install as="PERFORMANCE" name="docs/PERFORMANCE" />
    <install as="RELEASE" name="docs/RELEASE" />
@@ -2210,6 +2446,7 @@
    <install as="SECURITY" name="docs/SECURITY" />
    <install as="TRANSLATIONS" name="docs/TRANSLATIONS" />
    <install as="UPGRADING" name="docs/UPGRADING" />
+   <install as="js/accesskeys.html" name="js/accesskeys.html" />
    <install as="js/accesskeys.js" name="js/accesskeys.js" />
    <install as="js/activesyncadmin.js" name="js/activesyncadmin.js" />
    <install as="js/activesyncprefs.js" name="js/activesyncprefs.js" />
@@ -2223,6 +2460,7 @@
    <install as="js/effects.js" name="js/effects.js" />
    <install as="js/facebookclient.js" name="js/facebookclient.js" />
    <install as="js/form_assign.js" name="js/form_assign.js" />
+   <install as="js/form_ghost.js" name="js/form_ghost.js" />
    <install as="js/form_helpers.js" name="js/form_helpers.js" />
    <install as="js/form_sections.js" name="js/form_sections.js" />
    <install as="js/growler.js" name="js/growler.js" />
@@ -2418,6 +2656,7 @@
    <install as="js/plupload/uploader.js" name="js/plupload/uploader.js" />
    <install as="js/plupload/i18n/da.js" name="js/plupload/i18n/da.js" />
    <install as="js/plupload/i18n/sv.js" name="js/plupload/i18n/sv.js" />
+   <install as="lib/.htaccess" name="lib/.htaccess" />
    <install as="lib/Api.php" name="lib/Api.php" />
    <install as="lib/Application.php" name="lib/Application.php" />
    <install as="lib/core.php" name="lib/core.php" />
@@ -2438,13 +2677,18 @@
    <install as="lib/Block/Vatid.php" name="lib/Block/Vatid.php" />
    <install as="lib/Block/Weatherdotcom.php" name="lib/Block/Weatherdotcom.php" />
    <install as="lib/Block/WeatherdotcomStrings.php" name="lib/Block/WeatherdotcomStrings.php" />
+   <install as="/lib/Block/Account/Base.php" name="lib/Block/Account/Base.php" />
+   <install as="/lib/Block/Account/Finger.php" name="lib/Block/Account/Finger.php" />
+   <install as="/lib/Block/Account/Ldap.php" name="lib/Block/Account/Ldap.php" />
+   <install as="/lib/Block/Account/Localhost.php" name="lib/Block/Account/Localhost.php" />
    <install as="lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
-   <install as="lib/LoginTasks/SystemTask/UpgradeFromHorde3.php" name="lib/LoginTasks/SystemTask/UpgradeFromHorde3.php" />
+   <install as="lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="lib/LoginTasks/Task/AdminCheck.php" name="lib/LoginTasks/Task/AdminCheck.php" />
    <install as="lib/LoginTasks/Task/LastLogin.php" name="lib/LoginTasks/Task/LastLogin.php" />
    <install as="lib/LoginTasks/Task/TosAgreement.php" name="lib/LoginTasks/Task/TosAgreement.php" />
    <install as="lib/Prefs/Ui.php" name="lib/Prefs/Ui.php" />
    <install as="lib/tests/webroot.phpt" name="lib/tests/webroot.phpt" />
+   <install as="locale/.htaccess" name="locale/.htaccess" />
    <install as="locale/horde.pot" name="locale/horde.pot" />
    <install as="locale/ar/LC_MESSAGES/horde.mo" name="locale/ar/LC_MESSAGES/horde.mo" />
    <install as="locale/ar/LC_MESSAGES/horde.po" name="locale/ar/LC_MESSAGES/horde.po" />
@@ -2563,11 +2807,13 @@
    <install as="locale/zh_TW/help.xml" name="locale/zh_TW/help.xml" />
    <install as="locale/zh_TW/LC_MESSAGES/horde.mo" name="locale/zh_TW/LC_MESSAGES/horde.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/horde.po" name="locale/zh_TW/LC_MESSAGES/horde.po" />
+   <install as="rpc/.htaccess" name="rpc/.htaccess" />
    <install as="rpc/index.php" name="rpc/index.php" />
+   <install as="scripts/.htaccess" name="scripts/.htaccess" />
    <install as="scripts/cookie_login.php" name="scripts/cookie_login.php" />
    <install as="scripts/get_login.php" name="scripts/get_login.php" />
    <install as="scripts/horde.logrotate" name="scripts/horde.logrotate" />
-   <install as="scripts/http_login_refer.php" name="scripts/http_login_refer.php" />
+   <install as="scripts/http_login.php" name="scripts/http_login.php" />
    <install as="scripts/SCRIPTS" name="scripts/SCRIPTS" />
    <install as="scripts/temp-cleanup.cron" name="scripts/temp-cleanup.cron" />
    <install as="scripts/ldap/horde.ldif" name="scripts/ldap/horde.ldif" />
@@ -2588,16 +2834,11 @@
    <install as="scripts/upgrades/3.3_to_3.3.5.sql" name="scripts/upgrades/3.3_to_3.3.5.sql" />
    <install as="scripts/upgrades/2008-08-29_fix_mdb2_sequences.php" name="scripts/upgrades/2008-08-29_fix_mdb2_sequences.php" />
    <install as="scripts/upgrades/2009-04-13_horde_pgsql_upgrade.sql" name="scripts/upgrades/2009-04-13_horde_pgsql_upgrade.sql" />
-   <install as="scripts/upgrades/convert_datatree_groups_to_sql.php" name="scripts/upgrades/convert_datatree_groups_to_sql.php" />
-   <install as="scripts/upgrades/convert_datatree_perms_to_sql.php" name="scripts/upgrades/convert_datatree_perms_to_sql.php" />
-   <install as="scripts/upgrades/migrate_user_categories.php" name="scripts/upgrades/migrate_user_categories.php" />
-   <install as="scripts/upgrades/move_history_out_of_datatree.php" name="scripts/upgrades/move_history_out_of_datatree.php" />
    <install as="services/ajax.php" name="services/ajax.php" />
    <install as="services/cache.php" name="services/cache.php" />
    <install as="services/cacheview.php" name="services/cacheview.php" />
    <install as="services/changepassword.php" name="services/changepassword.php" />
    <install as="services/confirm.php" name="services/confirm.php" />
-   <install as="services/facebook.php" name="services/facebook.php" />
    <install as="services/go.php" name="services/go.php" />
    <install as="services/imple.php" name="services/imple.php" />
    <install as="services/keyboard.php" name="services/keyboard.php" />
@@ -2608,8 +2849,8 @@
    <install as="services/resetpassword.php" name="services/resetpassword.php" />
    <install as="services/sidebar.php" name="services/sidebar.php" />
    <install as="services/snooze.php" name="services/snooze.php" />
-   <install as="services/twitter.php" name="services/twitter.php" />
    <install as="services/download/index.php" name="services/download/index.php" />
+   <install as="services/facebook/index.php" name="services/facebook/index.php" />
    <install as="services/help/index.php" name="services/help/index.php" />
    <install as="services/images/pixel.php" name="services/images/pixel.php" />
    <install as="services/images/view.php" name="services/images/view.php" />
@@ -2619,7 +2860,9 @@
    <install as="services/portal/index.php" name="services/portal/index.php" />
    <install as="services/portal/mobile.php" name="services/portal/mobile.php" />
    <install as="services/shares/edit.php" name="services/shares/edit.php" />
+   <install as="services/twitter/index.php" name="services/twitter/index.php" />
    <install as="static/README" name="static/README" />
+   <install as="templates/.htaccess" name="templates/.htaccess" />
    <install as="templates/common-footer-mobile.inc" name="templates/common-footer-mobile.inc" />
    <install as="templates/common-footer.inc" name="templates/common-footer.inc" />
    <install as="templates/common-header-mobile.inc" name="templates/common-header-mobile.inc" />
@@ -2629,7 +2872,7 @@
    <install as="templates/admin/config/config.html" name="templates/admin/config/config.html" />
    <install as="templates/admin/config/diff.html" name="templates/admin/config/diff.html" />
    <install as="templates/admin/config/index.html" name="templates/admin/config/index.html" />
-   <install as="templates/admin/groups/addchild.inc" name="templates/admin/groups/addchild.inc" />
+   <install as="templates/admin/groups/add.inc" name="templates/admin/groups/add.inc" />
    <install as="templates/admin/groups/delete.inc" name="templates/admin/groups/delete.inc" />
    <install as="templates/admin/groups/edit.inc" name="templates/admin/groups/edit.inc" />
    <install as="templates/admin/user/add.inc" name="templates/admin/user/add.inc" />
@@ -2657,6 +2900,8 @@
    <install as="templates/help/sidebar.inc" name="templates/help/sidebar.inc" />
    <install as="templates/login/login.inc" name="templates/login/login.inc" />
    <install as="templates/login/mobile.inc" name="templates/login/mobile.inc" />
+   <install as="templates/login/resetpassword.inc" name="templates/login/resetpassword.inc" />
+   <install as="templates/login/signup.inc" name="templates/login/signup.inc" />
    <install as="templates/logintasks/logintasks.html" name="templates/logintasks/logintasks.html" />
    <install as="templates/menu/menu.inc" name="templates/menu/menu.inc" />
    <install as="templates/portal/add.inc" name="templates/portal/add.inc" />
@@ -2735,6 +2980,7 @@
    <install as="themes/default/graphics/add_group.png" name="themes/default/graphics/add_group.png" />
    <install as="themes/default/graphics/add_perm.png" name="themes/default/graphics/add_perm.png" />
    <install as="themes/default/graphics/administration.png" name="themes/default/graphics/administration.png" />
+   <install as="themes/default/graphics/app-unknown.png" name="themes/default/graphics/app-unknown.png" />
    <install as="themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
    <install as="themes/default/graphics/blank.gif" name="themes/default/graphics/blank.gif" />
    <install as="themes/default/graphics/block.png" name="themes/default/graphics/block.png" />
@@ -3699,6 +3945,7 @@
    <install as="themes/tango-blue/graphics/tree/rev-leaf.png" name="themes/tango-blue/graphics/tree/rev-leaf.png" />
    <install as="util/barcode.php" name="util/barcode.php" />
    <install as="util/icon_browser.php" name="util/icon_browser.php" />
+   <install as=".htaccess" name=".htaccess" />
    <install as="COPYING" name="COPYING" />
    <install as="index.php" name="index.php" />
    <install as="login.php" name="login.php" />
@@ -3723,6 +3970,141 @@
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0beta1</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-16</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Fix updating schema for individual libraries.
+* Improved control over which application view to load.
+* Fix viewing applications with no mobile view from mobile devices.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0RC1</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-23</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First release candidate for Horde 4.
+* [gwr] Allow disabling applications for administrators.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0RC2</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Rename all scripts in bin/ to be prefixed with horde- and installed in bin_dir (Request #9647).
+* [jan] Fire access keys on hidden elements in Internet Explorer (Bug #8057).
+* [jan] Don&apos;t fire access keys twice in Chrome browsers.
+* [jan] Fix JavaScript date calculations across DST boundaries.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [mms] Add pushapp_post hook.
+* [jan] Fix application-specific permission checks (Bug #9786).
+* [jan] Fix resetting passwords (Vilius Sumskas &lt;vilius@lnk.lt&gt;, Bug #9800).
+* [jan] Delete object mappings too when deleting SyncML anchors (Request #9377).
+* [jan] Move all executable upgrade scripts to bin/ and prefix with horde-.
+* [mjr] Fix ActiveSync provisioning.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.1</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-20</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Fix LDAP parameters of account portal block (Klaus Steinberger, Bug #9770).
+* [mjr] Fix some display issues when geocoding with HordeMap (Bug #9883).
+* [mms] Don&apos;t load sidebar content if not expanded.
+* [jan] Fix deleting groups.
+* [jan] Fix adding new groups (Bug #9881).
+* [jan] Fix displaying the Facebook preference group.
+* [mms] Add appinitialized hook.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [mms] Fix authentication failure when TOS is not accepted.
+* [jan] Fix adding categories.
+* [jan] Don&apos;t check for outdated DB schemas if database support is disabled (Bug #9986).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.3</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-18</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [mms] Fix return link after reporting problem (Bug #10069).
+* [jan] Add button to update all configurations with default values at once.
+* [jan] Update DataTree conversion scripts for Horde 4.
+* [jan] Fix rendering of DataTree browse tree.
+* [mjr] Fix issue causing credentials to be lost when accessing the API during ActiveSync requests (Bug #9733).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.4</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-18</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [gwr] Added support for the Kolab IMAP based preferences backend.
    </notes>
   </release>
  </changelog>

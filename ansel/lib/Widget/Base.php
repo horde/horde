@@ -72,6 +72,9 @@ abstract class Ansel_Widget_Base
      * by the Ansel_View once this widget is added.
      *
      * @param Ansel_View $view  The view to attach to
+     *
+     * @return boolean.
+     * @TODO: Remove return value, throw exception instead.
      */
     public function attach($view)
     {

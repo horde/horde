@@ -1,4 +1,4 @@
 <?php
-class Hermes_Exception extends Horde_Exception_Prior
+class Hermes_Exception extends Horde_Exception_Wrapped
 {
 }

@@ -16,25 +16,30 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-09</date>
- <time>00:40:28</time>
+ <date>2011-05-03</date>
+ <time>15:19:42</time>
  <version>
-  <release>3.0.0beta1</release>
+  <release>3.0.2</release>
   <api>3.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* Fix saving tasks via PUT method.
-* Fix deleting task lists.
-* Fix hiding the External prefs group (Bug #9643).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="nag-convert-datatree-shares-to-sql" role="script" />
+    <file name="nag-convert-sql-shares-to-sqlng" role="script" />
+    <file name="nag-create-missing-add-histories-sql" role="script" />
+    <file name="nag-import-vtodos" role="script" />
+   </dir> <!-- /bin -->
    <dir name="config">
+    <file name=".htaccess" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="hooks.php.dist" role="horde" />
     <file name="menu.php.dist" role="horde" />
@@ -80,11 +85,28 @@
      <file name="EditTaskList.php" role="horde" />
      <file name="Task.php" role="horde" />
     </dir> <!-- /lib/Form -->
+    <dir name="test">
+     <dir name="Nag">
+      <dir name="Stub">
+       <file name="Registry.php" role="horde" />
+      </dir> <!-- /lib/test/Nag/Stub -->
+      <dir name="Unit">
+       <dir name="Driver">
+        <file name="KolabTest.php" role="horde" />
+       </dir> <!-- /lib/test/Nag/Unit/Driver -->
+      </dir> <!-- /lib/test/Nag/Unit -->
+      <file name="AllTests.php" role="horde" />
+      <file name="Autoload.php" role="horde" />
+      <file name="phpunit.xml" role="data" />
+      <file name="TestCase.php" role="horde" />
+     </dir> <!-- /lib/test/Nag -->
+    </dir> <!-- /lib/test -->
     <dir name="Ui">
      <dir name="VarRenderer">
       <file name="Nag.php" role="horde" />
      </dir> <!-- /lib/Ui/VarRenderer -->
     </dir> <!-- /lib/Ui -->
+    <file name=".htaccess" role="data" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Driver.php" role="horde" />
@@ -312,6 +334,7 @@
       <file name="nag.po" role="horde" />
      </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
     </dir> <!-- /locale/zh_TW -->
+    <file name=".htaccess" role="horde" />
     <file name="nag.pot" role="horde" />
    </dir> <!-- /locale -->
    <dir name="migration">
@@ -324,14 +347,6 @@
     <file name="7_nag_upgrade_sqlhierarchical.php" role="horde" />
     <file name="8_nag_upgrade_sqlnghierarchical.php" role="horde" />
    </dir> <!-- /migration -->
-   <dir name="scripts">
-    <dir name="upgrades">
-     <file name="convert_datatree_shares_to_sql.php" role="data" />
-     <file name="convert_sql_shares_to_sqlng.php" role="data" />
-     <file name="create_missing_add_histories_sql.php" role="data" />
-    </dir> <!-- /scripts/upgrades -->
-    <file name="import_vtodos.php" role="data" />
-   </dir> <!-- /scripts -->
    <dir name="tasklists">
     <file name="create.php" role="horde" />
     <file name="delete.php" role="horde" />
@@ -393,7 +408,6 @@
       <file name="unchecked.png" role="horde" />
       <file name="za.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
-     <file name="categoryCSS.php" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
     <dir name="fadetogreen">
@@ -457,11 +471,163 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0alpha1</min>
+    <min>4.0.0</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
    </package>
+   <package>
+    <name>Horde_Auth</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Core</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Data</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Date</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Date_Parser</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Form</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Group</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_History</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Icalendar</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mime</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Perms</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Prefs</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Share</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Support</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Text_Filter</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Url</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_View</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <extension>
+    <name>gettext</name>
+   </extension>
   </required>
+  <optional>
+   <package>
+    <name>Horde_ActiveSync</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Db</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+  </optional>
  </dependencies>
  <usesrole>
   <role>horde</role>
@@ -470,6 +636,11 @@
  </usesrole>
  <phprelease>
   <filelist>
+   <install as="nag-convert-datatree-shares-to-sql" name="bin/nag-convert-datatree-shares-to-sql" />
+   <install as="nag-convert-sql-shares-to-sqlng" name="bin/nag-convert-sql-shares-to-sqlng" />
+   <install as="nag-create-missing-add-histories-sql" name="bin/nag-create-missing-add-histories-sql" />
+   <install as="nag-import-vtodos" name="bin/nag-import-vtodos" />
+   <install as="nag/config/.htaccess" name="config/.htaccess" />
    <install as="nag/config/conf.xml" name="config/conf.xml" />
    <install as="nag/config/hooks.php.dist" name="config/hooks.php.dist" />
    <install as="nag/config/menu.php.dist" name="config/menu.php.dist" />
@@ -482,6 +653,7 @@
    <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="vtodo/todo.ics" name="docs/vtodo/todo.ics" />
    <install as="nag/js/calendar.js" name="js/calendar.js" />
+   <install as=".htaccess" name="lib/.htaccess" />
    <install as="nag/lib/Api.php" name="lib/Api.php" />
    <install as="nag/lib/Application.php" name="lib/Application.php" />
    <install as="nag/lib/Driver.php" name="lib/Driver.php" />
@@ -502,7 +674,14 @@
    <install as="nag/lib/Form/Type/NagDue.php" name="lib/Form/Type/NagDue.php" />
    <install as="nag/lib/Form/Type/NagMethod.php" name="lib/Form/Type/NagMethod.php" />
    <install as="nag/lib/Form/Type/NagStart.php" name="lib/Form/Type/NagStart.php" />
+   <install as="nag/lib/test/Nag/AllTests.php" name="lib/test/Nag/AllTests.php" />
+   <install as="nag/lib/test/Nag/Autoload.php" name="lib/test/Nag/Autoload.php" />
+   <install as="test/Nag/phpunit.xml" name="lib/test/Nag/phpunit.xml" />
+   <install as="nag/lib/test/Nag/TestCase.php" name="lib/test/Nag/TestCase.php" />
+   <install as="nag/lib/test/Nag/Stub/Registry.php" name="lib/test/Nag/Stub/Registry.php" />
+   <install as="nag/lib/test/Nag/Unit/Driver/KolabTest.php" name="lib/test/Nag/Unit/Driver/KolabTest.php" />
    <install as="nag/lib/Ui/VarRenderer/Nag.php" name="lib/Ui/VarRenderer/Nag.php" />
+   <install as="nag/locale/.htaccess" name="locale/.htaccess" />
    <install as="nag/locale/nag.pot" name="locale/nag.pot" />
    <install as="nag/locale/ar/LC_MESSAGES/nag.mo" name="locale/ar/LC_MESSAGES/nag.mo" />
    <install as="nag/locale/ar/LC_MESSAGES/nag.po" name="locale/ar/LC_MESSAGES/nag.po" />
@@ -592,10 +771,6 @@
    <install as="nag/migration/6_nag_upgrade_sqlng.php" name="migration/6_nag_upgrade_sqlng.php" />
    <install as="nag/migration/7_nag_upgrade_sqlhierarchical.php" name="migration/7_nag_upgrade_sqlhierarchical.php" />
    <install as="nag/migration/8_nag_upgrade_sqlnghierarchical.php" name="migration/8_nag_upgrade_sqlnghierarchical.php" />
-   <install as="scripts/import_vtodos.php" name="scripts/import_vtodos.php" />
-   <install as="scripts/upgrades/convert_datatree_shares_to_sql.php" name="scripts/upgrades/convert_datatree_shares_to_sql.php" />
-   <install as="scripts/upgrades/convert_sql_shares_to_sqlng.php" name="scripts/upgrades/convert_sql_shares_to_sqlng.php" />
-   <install as="scripts/upgrades/create_missing_add_histories_sql.php" name="scripts/upgrades/create_missing_add_histories_sql.php" />
    <install as="nag/tasklists/create.php" name="tasklists/create.php" />
    <install as="nag/tasklists/delete.php" name="tasklists/delete.php" />
    <install as="nag/tasklists/edit.php" name="tasklists/edit.php" />
@@ -619,7 +794,6 @@
    <install as="nag/templates/search/search.inc" name="templates/search/search.inc" />
    <install as="nag/templates/view/task.inc" name="templates/view/task.inc" />
    <install as="nag/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
-   <install as="nag/themes/default/categoryCSS.php" name="themes/default/categoryCSS.php" />
    <install as="nag/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="nag/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
    <install as="nag/themes/default/graphics/alarm.png" name="themes/default/graphics/alarm.png" />
@@ -690,6 +864,101 @@
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0beta1</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-16</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* Fix saving tasks via PUT method.
+* Fix deleting task lists.
+* Fix hiding the External prefs group (Bug #9643).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0RC1</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-23</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* First release candidate for Horde 4.
+* [gwr] Adapted the Kolab driver to Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0RC2</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-30</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* Second release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* First stable release for Horde 4.
+* [jan] Fix application-specific permission checks (Bug #9786).
+* [mjr] Datatree share to SQL upgrade script refactored for Horde 4.
+* [jan] Fix creating new tasks through WebDAV (Bug #9675).
+* [jan] Move all executable scripts to bin/ and prefix with nag-.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.1</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [jan] Fix reversed logic of displaying sub-task tree icons depending on the text direction (Bug #10033).
+* [jan] Fix encoding of non-ascii characters in parent task drop-down.
+* [mjr] Fix editing tasklists (Bug #9965).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

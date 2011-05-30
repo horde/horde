@@ -76,8 +76,8 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      */
     public function init()
     {
-        $this->setFilters($this->getFilters(), false);
-        $this->setVFolders($this->getVFolders(), false);
+        $this->_getFilters();
+        $this->_getVFolders();
     }
 
     /**
@@ -88,7 +88,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      * @param string $id  The search query id.
      *
      * @return IMP_Indices  An indices object.
-     * @throws Horde_Imap_Client_Exception
+     * @throws IMP_Imap_Exception
      */
     public function runSearch($ob, $id)
     {
@@ -101,96 +101,27 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
         }
 
         /* How do we want to sort results? */
-        $sortpref = IMP::$mailbox->getSort(true);
+        $sortpref = IMP_Mailbox::get($this[$id])->getSort(true);
         if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
             $sortpref['by'] = $GLOBALS['prefs']->getValue('sortdate');
         }
+
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 
         foreach ($query_list as $mbox => $query) {
             if (!empty($ob)) {
                 $query->andSearch(array($ob));
             }
-            $results = $this->imapSearch($mbox, $query, array('reverse' => $sortpref['dir'], 'sort' => array($sortpref['by'])));
+            $results = $imp_imap->search($mbox, $query, array(
+                'sort' => array($sortpref['by'])
+            ));
+            if ($sortpref['dir']) {
+                $results['match']->reverse();
+            }
             $sorted->add($mbox, $results['match']);
         }
 
         return $sorted;
-    }
-
-    /**
-     * Run a search query not stored in the current session.  Allows custom
-     * queries with custom sorts to be used without affecting cached
-     * mailboxes.
-     *
-     * @param object $query     The search query object
-     *                          (Horde_Imap_Client_Search_Query).
-     * @param string $mailbox   The mailbox to search.
-     * @param integer $sortby   The sort criteria.
-     * @param integer $sortdir  The sort directory.
-     *
-     * @return IMP_Indices  An indices object.
-     */
-    public function runQuery($query, $mailbox, $sortby = null,
-                             $sortdir = null)
-    {
-        try {
-            $results = $this->imapSearch($mailbox, $query, array('sort' => is_null($sortby) ? null : array($sortby)));
-            if ($sortdir) {
-                $results['match']->reverse();
-            }
-            return new IMP_Indices($mailbox, $results['match']);
-        } catch (Horde_Imap_Client_Exception $e) {
-            return new IMP_Indices();
-        }
-    }
-
-    /**
-     * Performs the IMAP search query on the server. Use this function,
-     * instead of directly calling Horde_Imap_Client's search() function,
-     * because certain configuration parameters may need to be dynamically
-     * altered.
-     *
-     * @param IMP_Mailbox $mailbox                   The mailbox to search.
-     * @param Horde_Imap_Client_Search_Query $query  The search query object.
-     * @param array $opts                            Additional options.
-     *
-     * @return array  Search results.
-     */
-    public function imapSearch($mailbox, $query, $opts = array())
-    {
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-
-        /* If doing a from/to search, use display sorting if possible.
-         * Although there is a fallback to a PHP-based display sort, for
-         * performance reasons only do a display sort if it is supported
-         * on the server. */
-        if (($GLOBALS['session']->get('imp', 'protocol') == 'imap') &&
-            !empty($opts['sort'])) {
-            $sort_cap = $imp_imap->queryCapability('SORT');
-
-            if (is_array($sort_cap) && in_array('DISPLAY', $sort_cap)) {
-                $pos = array_search(Horde_Imap_Client::SORT_FROM, $opts['sort']);
-                if ($pos !== false) {
-                    $opts['sort'][$pos] = Horde_Imap_Client::SORT_DISPLAYFROM;
-                }
-
-                $pos = array_search(Horde_Imap_Client::SORT_TO, $opts['sort']);
-                if ($pos !== false) {
-                    $opts['sort'][$pos] = Horde_Imap_Client::SORT_DISPLAYTO;
-                }
-            }
-        }
-
-        /* Make sure we search in the proper charset. */
-        if ($query) {
-            $query = clone $query;
-            $imap_charset = $imp_imap->validSearchCharset('UTF-8')
-                ? 'UTF-8'
-                : 'US-ASCII';
-            $query->charset($imap_charset, array('Horde_String', 'convertCharset'));
-        }
-
-        return $imp_imap->search($mailbox, $query, $opts);
     }
 
     /**
@@ -271,12 +202,20 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     }
 
     /**
-     * Obtains the list of filters for the current user.
+     * Saves the list of filters for the current user.
      *
-     * @return array  The list of filters.  Keys are mailbox IDs, values are
-     *                IMP_Search_Filter objects.
+     * @param array $filters  The filter list.
      */
-    public function getFilters()
+    public function setFilters($filters)
+    {
+        $GLOBALS['prefs']->setValue('filter', serialize(array_values($filters)));
+        $this->_getFilters();
+    }
+
+    /**
+     * Loads the list of filters for the current user.
+     */
+    protected function _getFilters()
     {
         $filters = array();
 
@@ -304,24 +243,10 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
             }
         }
 
-        return $filters;
-    }
-
-    /**
-     * Saves the list of filters for the current user.
-     *
-     * @param array $filters  The filter list.
-     * @param boolean $save   Save the filter list to the preference backend?
-     */
-    public function setFilters($filters, $save = true)
-    {
-        if ($save) {
-            $GLOBALS['prefs']->setValue('filter', serialize(array_values($filters)));
-        }
-
         $this->_search['filters'] = $filters;
         $this->changed = true;
     }
+
 
     /**
      * Is a mailbox a filter query?
@@ -365,12 +290,20 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     }
 
     /**
-     * Obtains the list of virtual folders for the current user.
+     * Saves the list of virtual folders for the current user.
      *
-     * @return array  The list of virtual folders.  Keys are mailbox IDs,
-     *                values are IMP_Search_Vfolder objects.
+     * @param array $vfolders  The virtual folder list.
      */
-    public function getVFolders()
+    public function setVFolders($vfolders)
+    {
+        $GLOBALS['prefs']->setValue('vfolder', serialize(array_values($vfolders)));
+        $this->_getVFolders();
+    }
+
+    /**
+     * Loads the list of virtual folders for the current user.
+     */
+    protected function _getVFolders()
     {
         $vf = array();
 
@@ -402,31 +335,13 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
             }
         }
 
-        return $vf;
-    }
-
-    /**
-     * Saves the list of virtual folders for the current user.
-     *
-     * @param array $vfolders  The virtual folder list.
-     * @param boolean $save    Save the virtual folder list to the preference
-     *                         backend?
-     */
-    public function setVFolders($vfolders, $save = true)
-    {
-        global $injector, $prefs;
-
-        if ($save) {
-            $GLOBALS['prefs']->setValue('vfolder', serialize(array_values($vfolders)));
-        }
-
         /* Only update if IMP_Imap_Tree is already initialized; otherwise,
          * we have a cyclic dependency. */
         if (IMP_Factory_Imaptree::initialized()) {
-            $injector->getInstance('IMP_Imap_Tree')->updateVFolders($vfolders);
+            $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->updateVFolders($vf);
         }
 
-        $this->_search['vfolders'] = $vfolders;
+        $this->_search['vfolders'] = $vf;
         $this->changed = true;
     }
 
@@ -494,7 +409,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      */
     public function editUrl($id)
     {
-        return Horde::url('search.php')->add(array('edit_query' => $this->createSearchId($id)));
+        return IMP_Mailbox::get($this->createSearchId($id))->url('search.php')->add(array('edit_query' => 1));
     }
 
     /**
@@ -713,7 +628,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
             }
 
             if (($this->_filter & self::LIST_VFOLDER) &&
-                $this->isVfolder($ob)) {
+                $this->isVFolder($ob)) {
                 return true;
             }
         }

@@ -5,6 +5,18 @@
  <summary>A web based address book</summary>
  <description>Turba is the Horde contact management application. Leveraging the Horde framework to provide seamless integration with IMP and other Horde applications, it supports storing contacts in SQL, LDAP, Kolab, and IMSP address books.</description>
  <lead>
+  <name>Michael Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
@@ -16,19 +28,22 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-09</date>
- <time>00:38:03</time>
+ <date>2011-05-03</date>
+ <time>15:14:55</time>
  <version>
-  <release>3.0.0beta1</release>
+  <release>3.0.3</release>
   <api>3.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
- <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* Fix the listTimeObjects API for shared sources (Bug #9649).
+* [mjr] Fix importing LDIF files (Bug: 10139).
+* [mjr] Fix issue introduced in 3.0.1 that caused contact images to not display (Bug #10050).
+* [jan] Fix editing of multiple contacts at once (Bug #10085).
+* [jan] Enable homeAdress and workAdress composite fields by default.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -38,7 +53,16 @@
     <file name="edit.php" role="horde" />
     <file name="index.php" role="horde" />
    </dir> <!-- /addressbooks -->
+   <dir name="bin">
+    <file name="turba-convert-datatree-shares-to-sql" role="script" />
+    <file name="turba-convert-sql-shares-to-sqlng" role="script" />
+    <file name="turba-import-squirrelmail-file-abook" role="script" />
+    <file name="turba-import-squirrelmail-sql-abook" role="script" />
+    <file name="turba-import-vcards" role="script" />
+    <file name="turba-public-to-horde-share" role="script" />
+   </dir> <!-- /bin -->
    <dir name="config">
+    <file name=".htaccess" role="horde" />
     <file name="attributes.php" role="horde" />
     <file name="backends.php" role="horde" />
     <file name="conf.xml" role="horde" />
@@ -81,13 +105,6 @@
      <file name="Ldif.php" role="horde" />
     </dir> <!-- /lib/Data -->
     <dir name="Driver">
-     <dir name="Kolab">
-      <dir name="Wrapper">
-       <file name="New.php" role="horde" />
-       <file name="Old.php" role="horde" />
-      </dir> <!-- /lib/Driver/Kolab/Wrapper -->
-      <file name="Wrapper.php" role="horde" />
-     </dir> <!-- /lib/Driver/Kolab -->
      <file name="Facebook.php" role="horde" />
      <file name="Favourites.php" role="horde" />
      <file name="Group.php" role="horde" />
@@ -114,9 +131,7 @@
     </dir> <!-- /lib/Form -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
-      <file name="UpgradeFromTurba2.php" role="horde" />
-      <file name="UpgradeLists.php" role="horde" />
-      <file name="UpgradePrefs.php" role="horde" />
+      <file name="Upgrade.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
     </dir> <!-- /lib/LoginTasks -->
     <dir name="Object">
@@ -156,6 +171,7 @@
      <file name="EditContact.php" role="horde" />
      <file name="List.php" role="horde" />
     </dir> <!-- /lib/View -->
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Driver.php" role="horde" />
@@ -409,6 +425,7 @@
       <file name="turba.po" role="horde" />
      </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
     </dir> <!-- /locale/zh_TW -->
+    <file name=".htaccess" role="horde" />
     <file name="turba.pot" role="horde" />
    </dir> <!-- /locale -->
    <dir name="migration">
@@ -423,14 +440,7 @@
      <file name="addou" role="data" />
      <file name="addou.pl" role="data" />
     </dir> <!-- /scripts/ldap -->
-    <dir name="upgrades">
-     <file name="convert_datatree_shares_to_sql.php" role="data" />
-     <file name="convert_sql_shares_to_sqlng.php" role="data" />
-     <file name="public_to_horde_share.php" role="data" />
-    </dir> <!-- /scripts/upgrades -->
-    <file name="import_squirrelmail_file_abook.php" role="data" />
-    <file name="import_squirrelmail_sql_abook.php" role="data" />
-    <file name="import_vcards.php" role="data" />
+    <file name=".htaccess" role="data" />
     <file name="Turba.reg" role="data" />
    </dir> <!-- /scripts -->
    <dir name="templates">
@@ -472,6 +482,7 @@
     <dir name="test">
      <file name="ldapserver.inc" role="horde" />
     </dir> <!-- /templates/test -->
+    <file name=".htaccess" role="horde" />
     <file name="addressbook_list.php" role="horde" />
     <file name="menu.inc" role="horde" />
    </dir> <!-- /templates -->
@@ -565,30 +576,193 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0alpha1</min>
+    <min>4.0.0</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
    </package>
+   <package>
+    <name>Horde_Auth</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Core</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Data</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Date</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Form</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Group</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_History</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Icalendar</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mail</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mime</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Nls</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Perms</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Prefs</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Serialize</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Share</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Support</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Url</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_View</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <extension>
+    <name>gettext</name>
+   </extension>
+   <extension>
+    <name>hash</name>
+   </extension>
+   <extension>
+    <name>json</name>
+   </extension>
   </required>
   <optional>
    <package>
+    <name>Horde_ActiveSync</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Imsp</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Ldap</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.1.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Service_Facebook</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -605,6 +779,13 @@
    <install as="turba/addressbooks/delete.php" name="addressbooks/delete.php" />
    <install as="turba/addressbooks/edit.php" name="addressbooks/edit.php" />
    <install as="turba/addressbooks/index.php" name="addressbooks/index.php" />
+   <install as="turba-convert-datatree-shares-to-sql" name="bin/turba-convert-datatree-shares-to-sql" />
+   <install as="turba-convert-sql-shares-to-sqlng" name="bin/turba-convert-sql-shares-to-sqlng" />
+   <install as="turba-import-squirrelmail-file-abook" name="bin/turba-import-squirrelmail-file-abook" />
+   <install as="turba-import-squirrelmail-sql-abook" name="bin/turba-import-squirrelmail-sql-abook" />
+   <install as="turba-import-vcards" name="bin/turba-import-vcards" />
+   <install as="turba-public-to-horde-share" name="bin/turba-public-to-horde-share" />
+   <install as="turba/config/.htaccess" name="config/.htaccess" />
    <install as="turba/config/attributes.php" name="config/attributes.php" />
    <install as="turba/config/backends.php" name="config/backends.php" />
    <install as="turba/config/conf.xml" name="config/conf.xml" />
@@ -632,6 +813,7 @@
    <install as="turba/js/columnprefs.js" name="js/columnprefs.js" />
    <install as="turba/js/contact_tabs.js" name="js/contact_tabs.js" />
    <install as="turba/js/search.js" name="js/search.js" />
+   <install as="turba/lib/.htaccess" name="lib/.htaccess" />
    <install as="turba/lib/Api.php" name="lib/Api.php" />
    <install as="turba/lib/Application.php" name="lib/Application.php" />
    <install as="turba/lib/Driver.php" name="lib/Driver.php" />
@@ -652,9 +834,6 @@
    <install as="turba/lib/Driver/Share.php" name="lib/Driver/Share.php" />
    <install as="turba/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
    <install as="turba/lib/Driver/Vbook.php" name="lib/Driver/Vbook.php" />
-   <install as="turba/lib/Driver/Kolab/Wrapper.php" name="lib/Driver/Kolab/Wrapper.php" />
-   <install as="turba/lib/Driver/Kolab/Wrapper/New.php" name="lib/Driver/Kolab/Wrapper/New.php" />
-   <install as="turba/lib/Driver/Kolab/Wrapper/Old.php" name="lib/Driver/Kolab/Wrapper/Old.php" />
    <install as="turba/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="turba/lib/Form/AddContact.php" name="lib/Form/AddContact.php" />
    <install as="turba/lib/Form/Contact.php" name="lib/Form/Contact.php" />
@@ -664,9 +843,7 @@
    <install as="turba/lib/Form/EditAddressBook.php" name="lib/Form/EditAddressBook.php" />
    <install as="turba/lib/Form/EditContact.php" name="lib/Form/EditContact.php" />
    <install as="turba/lib/Form/EditContactGroup.php" name="lib/Form/EditContactGroup.php" />
-   <install as="turba/lib/LoginTasks/SystemTask/UpgradeFromTurba2.php" name="lib/LoginTasks/SystemTask/UpgradeFromTurba2.php" />
-   <install as="turba/lib/LoginTasks/SystemTask/UpgradeLists.php" name="lib/LoginTasks/SystemTask/UpgradeLists.php" />
-   <install as="turba/lib/LoginTasks/SystemTask/UpgradePrefs.php" name="lib/LoginTasks/SystemTask/UpgradePrefs.php" />
+   <install as="turba/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="turba/lib/Object/Group.php" name="lib/Object/Group.php" />
    <install as="turba/lib/tests/ApiTest.php" name="lib/tests/ApiTest.php" />
    <install as="tests/az.png" name="lib/tests/az.png" />
@@ -696,6 +873,7 @@
    <install as="turba/lib/View/List.php" name="lib/View/List.php" />
    <install as="turba/lib/View/List/AlphaFilter.php" name="lib/View/List/AlphaFilter.php" />
    <install as="turba/lib/View/List/PageFilter.php" name="lib/View/List/PageFilter.php" />
+   <install as="turba/locale/.htaccess" name="locale/.htaccess" />
    <install as="turba/locale/turba.pot" name="locale/turba.pot" />
    <install as="turba/locale/ar/LC_MESSAGES/turba.mo" name="locale/ar/LC_MESSAGES/turba.mo" />
    <install as="turba/locale/ar/LC_MESSAGES/turba.po" name="locale/ar/LC_MESSAGES/turba.po" />
@@ -791,15 +969,11 @@
    <install as="turba/migration/3_turba_upgrade_sqlng.php" name="migration/3_turba_upgrade_sqlng.php" />
    <install as="turba/migration/4_turba_upgrade_sqlhierarchical.php" name="migration/4_turba_upgrade_sqlhierarchical.php" />
    <install as="turba/migration/5_turba_upgrade_sqlnghierarchical.php" name="migration/5_turba_upgrade_sqlnghierarchical.php" />
-   <install as="scripts/import_squirrelmail_file_abook.php" name="scripts/import_squirrelmail_file_abook.php" />
-   <install as="scripts/import_squirrelmail_sql_abook.php" name="scripts/import_squirrelmail_sql_abook.php" />
-   <install as="scripts/import_vcards.php" name="scripts/import_vcards.php" />
+   <install as="scripts/.htaccess" name="scripts/.htaccess" />
    <install as="scripts/Turba.reg" name="scripts/Turba.reg" />
    <install as="scripts/ldap/addou" name="scripts/ldap/addou" />
    <install as="scripts/ldap/addou.pl" name="scripts/ldap/addou.pl" />
-   <install as="scripts/upgrades/convert_datatree_shares_to_sql.php" name="scripts/upgrades/convert_datatree_shares_to_sql.php" />
-   <install as="scripts/upgrades/convert_sql_shares_to_sqlng.php" name="scripts/upgrades/convert_sql_shares_to_sqlng.php" />
-   <install as="scripts/upgrades/public_to_horde_share.php" name="scripts/upgrades/public_to_horde_share.php" />
+   <install as="turba/templates/.htaccess" name="templates/.htaccess" />
    <install as="turba/templates/addressbook_list.php" name="templates/addressbook_list.php" />
    <install as="turba/templates/menu.inc" name="templates/menu.inc" />
    <install as="turba/templates/block/minisearch.inc" name="templates/block/minisearch.inc" />
@@ -890,9 +1064,127 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-09</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0beta1</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-16</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* Fix the listTimeObjects API for shared sources (Bug #9649).
+* Fix importing contacts with SyncML (Simon Bühler, Bug #9641).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0RC1</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-23</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* First release candidate for Horde 4.
+* [gwr] Adapted the Kolab driver to Horde 4.
+* [mjr] Fix issue that caused erroneous file listings for objects in sources without a __uid value.
+* [cjh] Fix storing of binary fields.
+* [mjr] Fix/refactor IMSP driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0RC2</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* Second release candidate for Horde 4.
+* [mjr] Fix issue that caused the inability to preview contact images while uploading (Bug #9702).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* First stable release for Horde 4.
+* [mjr] Fix deletion of virtual address books (Bug # 9779).
+* [jan] Fix saving searches to virtual address books (Bug #9776).
+* [mjr] Datatree share to SQL upgrade script refactored for Horde 4.
+* [jan] Move all executable scripts to bin/ and prefix with turba-.
+* [jan] Add fields to all addresses if multiple passed to addField() API method (Request #3482).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.1</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-20</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* [jan] Fix LDAP schema checking (Bug #9826).
+* [jan] Fix creating temporary files with open_basedir restrictions.
+* [mjr] Fix merging duplicate contacts (Bug #9828).
+* [mjr] Allow unsetting the GAL and Client Address Book settings (Bug #9843).
+* [mjr] Fix importing objects with categories (Bug #9841).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* [jan] Fix exporting department attribute over ActiveSync.
+* [mjr] Fix adding contacts with a category selected.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.3</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* [mjr] Fix importing LDIF files (Bug: 10139).
+* [mjr] Fix issue introduced in 3.0.1 that caused contact images to not display (Bug #10050).
+* [jan] Fix editing of multiple contacts at once (Bug #10085).
+* [jan] Enable homeAdress and workAdress composite fields by default.
    </notes>
   </release>
  </changelog>

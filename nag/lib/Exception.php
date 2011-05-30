@@ -9,6 +9,6 @@
  *
  * @package Nag
  */
-class Nag_Exception extends Horde_Exception_Prior
+class Nag_Exception extends Horde_Exception_Wrapped
 {
 }

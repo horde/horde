@@ -116,7 +116,7 @@ function emptyGalleryCheck($gallery)
     if ($gallery->hasSubGalleries()) {
         $children = $GLOBALS['injector']
             ->getInstance('Ansel_Storage')
-            ->listGalleries(array('parent' => $gallery));
+            ->listGalleries(array('parent' => $gallery->id));
         foreach ($children as $child) {
             // First check all children to see if they are empty...
             emptyGalleryCheck($child);
@@ -126,7 +126,7 @@ function emptyGalleryCheck($gallery)
             }
 
             // Refresh the gallery values since we mucked around a bit with it
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery->getId());
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery->id);
             // Now that any empty children are removed, see if we are empty
             if (!$gallery->countImages() && !$gallery->hasSubGalleries()) {
                 $result = $GLOBALS['injector']->getInstance('Ansel_Storage')->removeGallery($gallery);

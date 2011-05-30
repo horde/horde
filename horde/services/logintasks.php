@@ -105,6 +105,7 @@ $template->set('notify', Horde::endBuffer());
 Horde::addScriptFile('logintasks.js', 'horde');
 
 $bodyId = 'services_logintasks';
+$bodyClass = 'modal-form';
 require HORDE_TEMPLATES . '/common-header.inc';
 echo $template->fetch(HORDE_TEMPLATES . '/logintasks/logintasks.html');
 require HORDE_TEMPLATES . '/common-footer.inc';

@@ -26,14 +26,15 @@ class Horde_Service_Facebook_Notes extends Horde_Service_Facebook_Base
     {
         // Session key is *required*
         if (!$skey = $this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception('session_key is required',
-                                               Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
+            throw new Horde_Service_Facebook_Exception(
+                'session_key is required',
+                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
-        return $this->_facebook->callMethod('notes.create',
+        return $this->_facebook->callMethod(
+            'notes.create',
             array('uid' => $uid,
                   'title' => $title,
-                  'content' => $content,
-                  'session_key' => $skey));
+                  'content' => $content));
     }
 
     /**
@@ -49,13 +50,14 @@ class Horde_Service_Facebook_Notes extends Horde_Service_Facebook_Base
     {
         // Session key is *required*
         if (!$skey = $this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception('session_key is required',
-                                               Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
+            throw new Horde_Service_Facebook_Exception(
+                'session_key is required',
+                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
-        return $this->_facebook->callMethod('notes.delete',
+        return $this->_facebook->callMethod(
+            'notes.delete',
             array('uid' => $uid,
-                  'note_id' => $note_id,
-                  'session_key' => $skey));
+                  'note_id' => $note_id));
     }
 
     /**
@@ -72,15 +74,16 @@ class Horde_Service_Facebook_Notes extends Horde_Service_Facebook_Base
     {
         // Session key is *required*
         if (!$skey = $this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception('session_key is required',
-                                               Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
+            throw new Horde_Service_Facebook_Exception(
+                'session_key is required',
+                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        return $this->_facebook->callMethod('notes.edit',
+        return $this->_facebook->callMethod(
+            'notes.edit',
             array('note_id' => $note_id,
                   'title' => $title,
-                  'content' => $content,
-                  'session_key' => $skey));
+                  'content' => $content));
     }
 
     /**
@@ -99,13 +102,14 @@ class Horde_Service_Facebook_Notes extends Horde_Service_Facebook_Base
     {
         // Session key is *required*
         if (!$skey = $this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception('session_key is required',
-                                               Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
+            throw new Horde_Service_Facebook_Exception(
+                'session_key is required',
+                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        return $this->_facebook->callMethod('notes.get',
-            array('session_key' => $skey,
-                  'uid' => $uid,
+        return $this->_facebook->callMethod(
+            'notes.get',
+            array('uid' => $uid,
                   'note_ids' => json_encode($note_ids)));
     }
 

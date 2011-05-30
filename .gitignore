@@ -41,7 +41,7 @@ framework/Group/test/Horde/Group/conf.php
 framework/Kolab_Storage/test/Horde/Kolab/Storage/conf.php
 framework/Ldap/test/Horde/Ldap/conf.php
 framework/Share/test/Horde/Share/conf.php
-
+content/test/Content/conf.php
 # Dynamically generated content that may live in the repo directories
 /lib/
 /libs/
@@ -62,9 +62,12 @@ framework/Share/test/Horde/Share/conf.php
 /chora/config/backends.php
 /gollem/config/backends.php
 /luxor/config/backends.php
-/passwd/config/backends.php
 framework/bin/*.conf
 !/horde/admin/config/
+!/bundles/*/config/*.d/*.php
+!/bundles/*/*/config/*.d/*.php
+!/bundles/*/config/hooks.php
+!/bundles/*/*/config/hooks.php
 
 # Application specific excludes
 ApertureToAnselExportPlugin/build/

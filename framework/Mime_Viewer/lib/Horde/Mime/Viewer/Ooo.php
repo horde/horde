@@ -64,9 +64,10 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Base
      */
     protected function _render()
     {
-        $has_xslt = Horde_Util::extensionExists('xslt');
-        $has_ssfile = function_exists('domxml_xslt_stylesheet_file');
-        if (($use_xslt = $has_xslt || $has_ssfile)) {
+        $has_xsl = Horde_Util::extensionExists('xsl');
+        // DOESN'T WORK AT THE MOMENT
+        $has_xsl = false;
+        if ($has_xsl) {
             $tmpdir = Horde_Util::createTempDir(true);
         }
 
@@ -82,17 +83,20 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Base
         if (!$this->getConfigParam('zip')) {
             $this->setConfigParam('zip', Horde_Compress::factory('Zip'));
         }
-        $list = $this->getConfigParam('zip')->decompress($this->_mimepart->getContents(), array('action' => Horde_Compress_Zip::ZIP_LIST));
+        $list = $this->getConfigParam('zip')
+            ->decompress($this->_mimepart->getContents(),
+                         array('action' => Horde_Compress_Zip::ZIP_LIST));
 
         foreach ($list as $key => $file) {
             if (in_array($file['name'], $fnames)) {
-                $content = $zip->decompress($this->_mimepart->getContents(), array(
-                    'action' => Horde_Compress_Zip::ZIP_DATA,
-                    'info' => $list,
-                    'key' => $key
-                ));
+                $content = $this->getConfigParam('zip')
+                    ->decompress($this->_mimepart->getContents(), array(
+                        'action' => Horde_Compress_Zip::ZIP_DATA,
+                        'info' => $list,
+                        'key' => $key
+                    ));
 
-                if ($use_xslt) {
+                if ($has_xsl) {
                     file_put_contents($tmpdir . $file['name'], $content);
                 } elseif ($file['name'] == 'content.xml') {
                     return array(
@@ -106,34 +110,24 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Base
             }
         }
 
-        if (!Horde_Util::extensionExists('xslt')) {
+        if (!$has_xsl) {
             return array();
         }
 
-        $xsl_file = dirname(__FILE__) . '/Ooo/main_html.xsl';
-
-        if ($has_ssfile) {
-            /* Use DOMXML */
-            $xslt = domxml_xslt_stylesheet_file($xsl_file);
-            $dom  = domxml_open_file($tmpdir . 'content.xml');
-            $result = @$xslt->process($dom, array(
-                'metaFileURL' => $tmpdir . 'meta.xml',
-                'stylesFileURL' => $tmpdir . 'styles.xml',
-                'disableJava' => true
-            ));
-            $result = $xslt->result_dump_mem($result);
-        } else {
-            // Use XSLT
-            $xslt = xslt_create();
-            $result = @xslt_process($xslt, $tmpdir . 'content.xml', $xsl_file, null, null, array(
-                'metaFileURL' => $tmpdir . 'meta.xml',
-                'stylesFileURL' => $tmpdir . 'styles.xml',
-                'disableJava' => true
-            ));
-            if (!$result) {
-                $result = xslt_error($xslt);
-            }
-            xslt_free($xslt);
+        $xslt = new XSLTProcessor();
+        $xsl = new DOMDocument();
+        $xsl->load(realpath(dirname(__FILE__) . '/Ooo/main_html.xsl'));
+        $xslt->importStylesheet($xsl);
+        $xslt->setParameter('http://www.w3.org/1999/XSL/Transform', array(
+            'metaFileURL' => $tmpdir . 'meta.xml',
+            'stylesFileURL' => $tmpdir . 'styles.xml',
+            'disableJava' => true
+        ));
+        $xml = new DOMDocument();
+        $xml->load(realpath($tmpdir . 'content.xml'));
+        $result = $xslt->transformToXml($xml);
+        if (!$result) {
+            $result = libxml_get_last_error()->message;
         }
 
         return array(

@@ -105,15 +105,13 @@ extends Horde_Kolab_Storage_Base
         $object_type = null,
         $data_version = 1
     ) {
-        $data = new Horde_Kolab_Storage_Data_Base(
+        return new Horde_Kolab_Storage_Data_Cached(
             $folder,
             $master,
             $factory,
+            $this->_cache,
             $object_type,
             $data_version
-        );
-        return new Horde_Kolab_Storage_Data_Decorator_Cache(
-            $data, $this->_cache->getDataCache($data->getIdParameters())
         );
     }
 }

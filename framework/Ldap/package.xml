@@ -17,19 +17,19 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:47:34</time>
+ <date>2011-05-03</date>
+ <time>13:32:16</time>
  <version>
-  <release>1.0.0beta1</release>
-  <api>1.0.0</api>
+  <release>1.1.2</release>
+  <api>1.1.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
  <notes>
-*
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -87,17 +87,20 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <extension>
+    <name>ldap</name>
+   </extension>
   </required>
  </dependencies>
  <phprelease>
@@ -149,6 +152,106 @@
 * Converted to PHP5 strict standards.
 * Converted to use exceptions.
 * Included functions from the previous Horde_LDAP for backwards compatibility.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-16</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
+   <notes>
+* First beta release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-22</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
+   <notes>
+* First release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
+   <notes>
+* Second release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-06</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
+   <notes>
+* First stable release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-20</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
+   <notes>
+* [jan] Add parameter to Horde_Ldap_Schema#must() and #may() to return attributes from superior objectclasses too (Bug #9826).
+* [jan] Don&apos;t throw exceptions from Horde_Ldap_Schema#must() and #may() (Bug #9826).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
+   <notes>
+* [jan] Fix detecting superiour objectclass&apos; must/may attributes (Bug #9826).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

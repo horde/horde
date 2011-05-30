@@ -12,6 +12,6 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Prefs
  */
-class Horde_Prefs_Exception extends Horde_Exception_Prior
+class Horde_Prefs_Exception extends Horde_Exception_Wrapped
 {
 }

@@ -10,19 +10,19 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:45:56</time>
+ <date>2011-04-06</date>
+ <time>01:11:13</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -47,7 +47,9 @@
     <dir name="Horde">
      <dir name="History">
       <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
       <file name="InterfaceTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/History -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -64,21 +66,14 @@
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Injector</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -94,7 +89,9 @@
    <install as="migration/1_horde_history_base_tables.php" name="migration/Horde_History/1_horde_history_base_tables.php" />
    <install as="migration/2_horde_history_upgrade_autoincrement.php" name="migration/Horde_History/2_horde_history_upgrade_autoincrement.php" />
    <install as="Horde/History/AllTests.php" name="test/Horde/History/AllTests.php" />
+   <install as="Horde/History/Autoload.php" name="test/Horde/History/Autoload.php" />
    <install as="Horde/History/InterfaceTest.php" name="test/Horde/History/InterfaceTest.php" />
+   <install as="Horde/History/phpunit.xml" name="test/Horde/History/phpunit.xml" />
   </filelist>
  </phprelease>
  <changelog>
@@ -142,6 +139,79 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-16</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First beta release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-22</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Second release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First stable release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

@@ -138,13 +138,20 @@ class Horde_Group_Mock extends Horde_Group_Base
     }
 
     /**
-     * Returns a list of all groups, with IDs as keys and names as values.
+     * Returns a list of all groups a user may see, with IDs as keys and names
+     * as values.
+     *
+     * @param string $member  Only return groups that this user is a member of.
      *
      * @return array  All existing groups.
      * @throws Horde_Group_Exception
      */
-    public function listAll()
+    public function listAll($member = null)
     {
+        if (!is_null($member)) {
+            return $this->listGroups($member);
+        }
+
         $groups = array();
         foreach ($this->_groups as $gid => $group) {
             $groups[$gid] = $group['name'];

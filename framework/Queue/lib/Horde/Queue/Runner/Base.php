@@ -7,5 +7,4 @@ class Horde_Queue_Runner_Base
     {
         $this->_storage = $storage;
     }
-
 }

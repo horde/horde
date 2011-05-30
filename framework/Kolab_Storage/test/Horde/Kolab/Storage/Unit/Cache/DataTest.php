@@ -259,6 +259,18 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testExceptionOnDuplicate()
+    {
+        $this->_getSyncedCacheWithMoreData()
+            ->store(
+                array('3' => array('uid' => 'test')),
+                new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
+                '1'
+            );
+    }
 
     /**
      * @expectedException Horde_Kolab_Storage_Exception
@@ -492,6 +504,28 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->_getSyncedCacheWithAttachment('Y')
             ->getAttachmentByType('200', 'application/x-vnd.kolab.event');
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingQuery()
+    {
+        $this->getMockDataCache()->getQuery('x');
+    }
+
+    public function testHasQuery()
+    {
+        $cache = $this->getMockDataCache();
+        $cache->setQuery('x', 'something');
+        $this->assertTrue($cache->hasQuery('x'));
+    }
+
+    public function testGetSetQuery()
+    {
+        $cache = $this->getMockDataCache();
+        $cache->setQuery('x', 'something');
+        $this->assertEquals('something', $cache->getQuery('x'));
     }
 
     private function _getSyncedCache()

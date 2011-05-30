@@ -18,7 +18,7 @@ $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
 // Quota information
 $show_quota = $session->get('imp', 'imap_quota')
-    ? '<span class="used">' . Horde::img('quotauncover.gif') . '</span>'
+    ? '<span class="used">' . Horde::img('quotauncover.gif', '', array('width' => 99)) . '</span>'
     : '';
 
 function _simpleButton($id, $text, $image, $nodisplay = false)
@@ -55,16 +55,20 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
     <?php echo _simpleButton('applyfilterlink', _("Apply Filters"), 'filtersIcon') ?>
 <?php endif; ?>
    </ul>
+<?php if ($show_quota): ?>
+   <div id="quota">
+    <div id="quota-text"></div>
+    <?php echo $show_quota ?>
+   </div>
+<?php endif; ?>
    <div class="sepfull"></div>
    <ul id="serviceActions">
 <?php if (($registry->get('status', 'horde') != 'hidden') && ($registry->get('status', 'horde') != 'notoolbar')): ?>
 <?php if (empty($GLOBALS['conf']['menu']['apps_iframe'])): $ak = Horde::getAccessKey(_("_Portal"), true); ?>
-    <li class="servicelink"<?php if (strlen($ak)) echo ' accesskey="' . $ak . '"'?>
+    <li class="servicelink">
      <span class="iconImgSidebar hordeIcon"></span>
-     <a href="<?php echo Horde::url('services/portal/', false, array('app' => 'horde')) ?>"><?php echo Horde::highlightAccessKey(_("_Portal"), $ak) ?></a>
+     <a href="<?php echo Horde::getServiceLink('portal') ?>"<?php if (strlen($ak)) echo ' accesskey="' . $ak . '"'?>><?php echo Horde::highlightAccessKey(_("_Portal"), $ak) ?></a>
     </li>
-<?php else: ?>
-    <?php echo _simpleButton('appportal', _("_Portal"), 'hordeIcon') ?>
 <?php endif; ?>
 <?php endif; ?>
 <?php if (Horde_Menu::showService('prefs')): ?>
@@ -84,7 +88,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
      <?php echo $render_sidebar ?>
     </ul>
 <?php endif; ?>
-<?php if ($session->get('imp', 'protocol') != 'pop'): ?>
+<?php if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)): ?>
     <div class="sepfull"></div>
     <ul class="folderlist" id="normalfolders">
      <li class="folder" id="folderopts">
@@ -101,30 +105,9 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
   </div>
 
   <div id="dimpmain">
-   <div id="dimpmain_portal"><?php echo _("Loading...") ?></div>
+   <div id="dimpmain_iframe"><?php echo _("Loading...") ?></div>
    <div id="dimpmain_folder" style="display:none">
     <div id="dimpmain_folder_top">
-     <div id="tabbar">
-<?php if (!empty($render_tabs)): ?>
-      <div class="tabset">
-       <ul>
-        <li>
-         <a id="hometab"><img src="<?php echo $registry->get('icon', 'horde') ?>" alt="<?php echo _("Portal") ?>" /><?php echo _("Portal") ?></a>
-        </li>
-        <?php echo $render_tabs ?>
-<?php if ($show_quota): ?>
-        <li id="quota">
-         <?php echo $show_quota ?>
-        </li>
-<?php endif; ?>
-       </ul>
-      </div>
-<?php elseif ($show_quota): ?>
-      <div id="quota">
-        <?php echo $show_quota ?>
-      </div>
-<?php endif; ?>
-     </div>
      <div class="header mboxheader">
       <div>
        <span class="rightFloat" id="msgHeader"></span>
@@ -134,7 +117,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
      </div>
 
      <div class="dimpActions">
-<?php if ($session->get('imp', 'protocol') != 'pop'): ?>
+<?php if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)): ?>
       <div id="qsearch">
        <span class="iconImg" id="qsearch_icon"></span>
        <form action="#" method="post">
@@ -157,25 +140,16 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
       <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Other', 'id' => 'button_other', 'title' => _("Other Actions"))) ?></div>
      </div>
 
-    <div id="searchbar" style="display:none">
-     <span id="search_label"></span>
-     <span class="iconImg closeImg" id="search_close" title="<?php echo _("Clear Search") ?>"></span>
-     <span class="iconImg dimpactionRefresh" id="search_refresh" title="<?php echo _("Refresh Search Results") ?>"></span>
-     <span class="iconImg dimpactionEditsearch" id="search_edit" style="display:none" title="<?php echo _("Edit Search Query") ?>"></span>
-    </div>
-
-     <div id="msglistHeader" class="item">
-      <div class="iconImg msgStatus">
-       <div class="iconImg msCheck" title="<?php echo _("Select All") ?>"></div>
-      </div>
-      <div class="msgFrom sep"></div>
-      <div class="msgSubject sep"></div>
-      <div class="msgDate sep"></div>
-      <div class="msgSize sep"></div>
+     <div id="searchbar" style="display:none">
+      <span id="search_label"></span>
+      <span class="iconImg closeImg" id="search_close" title="<?php echo _("Clear Search") ?>"></span>
+      <span class="iconImg dimpactionRefresh" id="search_refresh" title="<?php echo _("Refresh Search Results") ?>"></span>
+      <span class="iconImg dimpactionEditsearch" id="search_edit" style="display:none" title="<?php echo _("Edit Search Query") ?>"></span>
      </div>
     </div>
 
     <div id="msgSplitPane"></div>
+
     <span id="viewportLoading" class="loadingImg" style="display:none"></span>
 
     <div id="previewPane" style="display:none">
@@ -305,11 +279,19 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
   <a id="ctx_folder_expand"><span class="iconImg"></span><?php echo _("Expand All") ?></a>
   <a id="ctx_folder_collapse"><span class="iconImg"></span><?php echo _("Collapse All") ?></a>
  </div>
+ <div class="sep"></div>
+ <a id="ctx_folder_export"><span class="iconImg"></span><?php echo _("Export") ?></a>
+ <a id="ctx_folder_import"><span class="iconImg"></span><?php echo _("Import") ?></a>
 </div>
 
 <div class="context" id="ctx_folder_flag" style="display:none">
- <a id="ctx_folder_seen"><span class="iconImg"></span><?php echo _("Read") ?></a>
+ <a id="ctx_folder_seen"><span class="iconImg"></span><?php echo _("Seen") ?></a>
  <a id="ctx_folder_unseen"><span class="iconImg"></span><?php echo _("Unseen") ?></a>
+</div>
+
+<div class="context" id="ctx_folder_export_opts" style="display:none">
+ <a id="ctx_folder_export_mbox"><?php echo _("Uncompressed") ?></a>
+ <a id="ctx_folder_export_zip"><?php echo _("Compressed (.zip file)") ?></a>
 </div>
 
 <div class="context" id="ctx_container" style="display:none">
@@ -325,18 +307,20 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="ctx_container_collapse"><span class="iconImg"></span><?php echo _("Collapse All") ?></a>
 </div>
 
-<?php if ($imp_imap->allowFolders()): ?>
+<?php if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)): ?>
 <div class="context" id="ctx_folderopts" style="display:none">
  <a id="ctx_folderopts_new"><span class="iconImg"></span><?php echo _("New Folder") ?></a>
 <?php if ($use_sub): ?>
  <a id="ctx_folderopts_sub" style="display:none"><span class="iconImg"></span><?php echo _("Hide Unsubscribed") ?></a>
- <a id="ctx_folderopts_unsub"><span class="iconImg"></span><?php echo _("Show Unsubscribed") ?></a>
+ <a id="ctx_folderopts_unsub"><span class="iconImg"></span><?php echo _("Show All Folders") ?></a>
 <?php endif; ?>
  <a id="ctx_folderopts_expand"><span class="iconImg"></span><?php echo _("Expand All") ?></a>
  <a id="ctx_folderopts_collapse"><span class="iconImg"></span><?php echo _("Collapse All") ?></a>
  <div class="sep"></div>
  <a id="ctx_folderopts_reload"><span class="iconImg"></span><?php echo _("Rebuild Folder List") ?></a>
 </div>
+
+<iframe name="submit_frame" id="submit_frame" style="display:none" src="javascript:false;"></iframe>
 <?php endif; ?>
 
 <div class="context" id="ctx_noactions" style="display:none">
@@ -359,7 +343,10 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 </div>
 
 <div class="context" id="ctx_message" style="display:none">
- <a id="ctx_message_resume" style="display:none"><span class="iconImg"></span><?php echo _("Resume Draft") ?></a>
+ <div style="display:none">
+  <a id="ctx_message_resume"><span class="iconImg"></span><?php echo _("Resume Draft") ?></a>
+  <a id="ctx_message_view"><span class="iconImg"></span><?php echo _("View Message") ?></a>
+ </div>
  <a id="ctx_message_reply"><span class="iconImg"></span><?php echo _("Reply") ?></a>
  <a id="ctx_message_forward"><span class="iconImg"></span><?php echo _("Forward") ?></a>
  <div style="display:none">
@@ -431,12 +418,22 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <?php endif; ?>
 <?php endif; ?>
 <?php if (!$use_trash): ?>
- <div class="sep"></div>
- <a id="oa_purge_deleted"><span class="iconImg"></span><?php echo _("Purge Deleted") ?></a>
- <a id="oa_undeleted"><span class="iconImg"></span><?php echo _("Undelete") ?></a>
+ <div id="oa_purge_options">
+  <div class="sep"></div>
+  <a id="oa_purge_deleted"><span class="iconImg"></span><?php echo _("Purge Deleted") ?></a>
+  <a id="oa_undeleted"><span class="iconImg"></span><?php echo _("Undelete") ?></a>
+ </div>
 <?php endif; ?>
  <div class="sep"></div>
  <a id="oa_help"><span class="iconImg"></span><?php echo _("Help") ?></a>
+</div>
+
+<div class="context" id="ctx_sortopts" style="display:none;">
+ <a id="oa_sort_from"><span class="iconImg"></span><?php echo _("From") ?></a>
+ <a id="oa_sort_subject"><span class="iconImg"></span><?php echo _("Subject") ?></a>
+ <a id="oa_sort_thread"><span class="iconImg"></span><?php echo _("Thread") ?></a>
+ <a id="oa_sort_date"><span class="iconImg"></span><?php echo _("Date") ?></a>
+ <a id="oa_sort_size"><span class="iconImg"></span><?php echo _("Size") ?></a>
 </div>
 
 <div class="context" id="ctx_filter" style="display:none">
@@ -457,7 +454,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="ctx_mboxsort_none"><?php echo _("Clear Sort") ?></a>
 </div>
 
-<?php if ($session->get('imp', 'protocol') != 'pop'): ?>
+<?php if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)): ?>
 <div class="context" id="ctx_qsearchopts" style="display:none">
  <a id="ctx_qsearchopts_by"><?php echo _("Search By") ?></a>
  <div class="sep"></div>
@@ -520,4 +517,24 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
    <td><a href="#" class="messageBodyErrorLink"><?php echo _("Click HERE to view the message in a new window.") ?></a></td>
   </tr>
  </table>
+</div>
+
+<div id="msglistHeaderContainer">
+ <div class="item msglistHeader" id="msglistHeaderHoriz" style="display:none">
+  <div class="iconImg msgStatus">
+   <div class="iconImg msCheck" title="<?php echo _("Select All") ?>"></div>
+  </div>
+  <div class="msgFrom sep"></div>
+  <div class="msgSubject sep"></div>
+  <div class="msgDate sep"></div>
+  <div class="msgSize sep"></div>
+ </div>
+ <div class="item msglistHeader" id="msglistHeaderVert" style="display:none">
+  <div class="iconImg msgStatus">
+   <div class="iconImg msCheck" title="<?php echo _("Select All") ?>"></div>
+  </div>
+  <div class="msgSort">
+   <a class="widget" id="vertical_sort">Sort</a>
+  </div>
+ </div>
 </div>

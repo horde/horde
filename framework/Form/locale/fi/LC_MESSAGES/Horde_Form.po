@@ -1,528 +1,533 @@
 # Finnish translations for Horde_Form module.
 # Copyright (C) 2010 Horde Project
 # This file is distributed under the same license as the Horde_Form module.
-# Automatically generated, 2010.
+# Leena Heino <liinu@uta.fi>, 2010-2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Form\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: i18n@lists.horde.org\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"PO-Revision-Date: 2011-04-03 10:11:57+0300\n"
+"Last-Translator: Leena Heino <liinu@uta.fi>\n"
+"Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: Form/Type.php:2520
+#: lib/Horde/Form/Type.php:2484
 #, php-format
 msgid " (%s days ago)"
 msgstr " (%s päivää sitten)"
 
-#: Form/Type.php:2528
+#: lib/Horde/Form/Type.php:2492
 #, php-format
 msgid " (in %s days)"
 msgstr " (%s päivässä)"
 
-#: Form/Type.php:2524
+#: lib/Horde/Form/Type.php:2488
 msgid " (today)"
 msgstr " (tänään)"
 
-#: Form/Type.php:2526
+#: lib/Horde/Form/Type.php:2490
 msgid " (tomorrow)"
 msgstr " (huomenna)"
 
-#: Form/Type.php:2522
+#: lib/Horde/Form/Type.php:2486
 msgid " (yesterday)"
 msgstr " (eilen)"
 
-#: Form/Type.php:1460
+#: lib/Horde/Form/Type.php:1438
 #, php-format
 msgid "\"%s\" is not a valid email address."
-msgstr "\"%s\" ei ole oikean muotoinen sähköpostiosoite."
+msgstr "\"%s\" ei ole kelvollinen sähköpostiosoite."
 
-#: Form/Type.php:2475
+#: lib/Horde/Form/Type.php:2453
 #, php-format
 msgid "%s is required"
 msgstr "%s on pakollinen"
 
-#: Form/Type.php:2190 Form/Type.php:2253
+#: lib/Horde/Form/Type.php:2168 lib/Horde/Form/Type.php:2231
 msgid "-- select --"
 msgstr "-- valitse --"
 
-#: Form/Type.php:843 Form/Type.php:886
-#, fuzzy
+#: lib/Horde/Form/Type.php:820 lib/Horde/Form/Type.php:863
 msgid "A temporary directory"
-msgstr "Väliaikaishakemistoa ei löytynyt."
+msgstr "Väliaikaishakemisto"
 
-#: Form/Type.php:773
+#: lib/Horde/Form/Type.php:750
 msgid "Address"
 msgstr "Osoite"
 
-#: Form/Type.php:795
-#, fuzzy
+#: lib/Horde/Form/Type.php:772
 msgid "Address Link"
-msgstr "Osoitekirja"
+msgstr "Osoitelinkki"
 
-#: Form/Type.php:1620
+#: lib/Horde/Form/Type.php:1598
 msgid "Allow multiple addresses?"
-msgstr "Salli monta osoittetta."
+msgstr "Sallitaanko monta osoitetta?"
 
-#: Form/Type.php:3473
+#: lib/Horde/Form/Type.php:3433
 msgid "Assignment columns"
-msgstr "Tehtäväsarakkeet"
+msgstr "Tehtävänantosarakkeet"
 
-#: Form/Type.php:3745
+#: lib/Horde/Form/Type.php:3693
 msgid "Category"
 msgstr "Luokitus"
 
-#: Form/Type.php:1632
+#: lib/Horde/Form/Type.php:1610
 msgid "Character to split multiple addresses with"
 msgstr "Merkki, jolla erotetaan osoitteet toisistaan"
 
-#: Form/Type.php:3161
+#: lib/Horde/Form/Type.php:3121
 msgid "Colour selection"
 msgstr "Värivalinta"
 
-#: Form/Type.php:2072
+#: lib/Horde/Form/Type.php:2050
 msgid "Column titles"
 msgstr "Sarakkeiden otsikot"
 
-#: Form/Type.php:662
+#: lib/Horde/Form/Type.php:639
 msgid "Counted text"
 msgstr "Laskettu teksti"
 
-#: Form/Type.php:909
+#: lib/Horde/Form/Type.php:886
 msgid "Country drop down list"
 msgstr "Maiden alasvetovalikko"
 
-#: Form/Type.php:3588
+#: lib/Horde/Form/Type.php:3548
 msgid "Credit card number"
-msgstr "Luottokortinnumero"
+msgstr "Luottokorttinumero"
 
-#: Form/Type.php:3643
+#: lib/Horde/Form/Type.php:3591
 msgid ""
 "DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
 msgstr ""
-"DSN (lisätietoa http://pear.php.net/manual/en/package.database.db.intro-dsn."
+"DSN (lisätietoja http://pear.php.net/manual/en/package.database.db.intro-dsn."
 "php)"
 
-#: Form/Type.php:3641
+#: lib/Horde/Form/Type.php:3589
 msgid "Database lookup"
 msgstr "Tietokantahaku"
 
-#: Form/Type.php:2549
+#: lib/Horde/Form/Type.php:2513
 msgid "Date"
 msgstr "Päiväys"
 
-#: Form/Type.php:3121
+#: lib/Horde/Form/Type.php:3081
 msgid "Date and time selection"
-msgstr "Päivämäärän valinta"
+msgstr "Päiväyksen ja ajan valinta"
 
-#: Form/Type.php:2958
+#: lib/Horde/Form/Type.php:2918
 msgid "Date selection"
-msgstr "Päivämäärän valinta"
+msgstr "Päiväyksen valinta"
 
-#: Form/Type.php:132
+#: lib/Horde/Form/Type.php:109
 msgid "Description"
 msgstr "Kuvaus"
 
-#: Form/Type.php:2968 Form/Type.php:3131
+#: lib/Horde/Form/Type.php:2928 lib/Horde/Form/Type.php:3091
 msgid "Display format"
 msgstr "Esitystapa"
 
-#: Form/Type.php:2233
+#: lib/Horde/Form/Type.php:2211
 msgid "Drop down list"
 msgstr "Alasvetovalikko"
 
-#: Form/Type.php:1617
+#: lib/Horde/Form/Type.php:1595
 msgid "Email"
 msgstr "Sähköposti"
 
-#: Form/Type.php:2088
+#: lib/Horde/Form/Type.php:2066
 msgid "Email addresses must match."
-msgstr "Sähköpostiosoitteiden pitää olla samat."
+msgstr "Sähköpostiosoitteiden pitää täsmätä."
 
-#: Form/Type.php:2115
+#: lib/Horde/Form/Type.php:2093
 msgid "Email with confirmation"
 msgstr "Sähköposti varmistuksella"
 
-#: Form/Type.php:2746 Form/Type.php:2962 Form/Type.php:3125
+#: lib/Horde/Form/Type.php:2708 lib/Horde/Form/Type.php:2922
+#: lib/Horde/Form/Type.php:3085
 msgid "End year"
 msgstr "Päättymisvuosi"
 
-#: Form/Type.php:2070
+#: lib/Horde/Form/Type.php:2048
 msgid "Field matrix"
 msgstr "Kenttämatriisi"
 
-#: Form/Type.php:3696
+#: lib/Horde/Form/Type.php:3644
 msgid "Figlet CAPTCHA"
 msgstr "Figlet CAPTCHA"
 
-#: Form/Type.php:3700
+#: lib/Horde/Form/Type.php:3648
 msgid "Figlet font"
 msgstr "Figlet kirjasin"
 
-#: Form/Type.php:3347
+#: lib/Horde/Form/Type.php:3307
 msgid "File selection"
 msgstr "Tiedoston valinta"
 
-#: Form/Type.php:952
+#: lib/Horde/Form/Type.php:929
 msgid "File upload"
-msgstr "Tiedoston tuonti"
+msgstr "Tiedoston vienti"
 
-#: Form/Type.php:3719
+#: lib/Horde/Form/Type.php:3667
 msgid "Font"
 msgstr "Kirjasin"
 
-#: Form/Type.php:152
+#: lib/Horde/Form/Type.php:129
 msgid "HTML"
 msgstr "HTML"
 
-#: Form/Type.php:115 Form/Type.php:3285
+#: lib/Horde/Form/Type.php:92 lib/Horde/Form/Type.php:3245
 msgid "Header"
 msgstr "Otsake"
 
-#: Form/Type/tableset.php:58
+#: lib/Horde/Form/Type/tableset.php:55
 msgid "Headers"
-msgstr "Otsake"
+msgstr "Otsakeet"
 
-#: Form/Type.php:617
-#, fuzzy
+#: lib/Horde/Form/Type.php:594
 msgid "Helpers"
-msgstr "Avustaja?"
+msgstr "Avustajat"
 
-#: Form/Type.php:528
+#: lib/Horde/Form/Type.php:505
 msgid "IP address"
 msgstr "IP-osoite"
 
-#: Form/Type.php:558
-#, fuzzy
+#: lib/Horde/Form/Type.php:535
 msgid "IPv6 address"
-msgstr "IP-osoite"
+msgstr "IPv6-osoite"
 
-#: Form/Type.php:3349
+#: lib/Horde/Form/Type.php:3309
 msgid "Id"
 msgstr "Id"
 
-#: Form/Type.php:3715
+#: lib/Horde/Form/Type.php:3663
 msgid "Image CAPTCHA"
 msgstr "Kuva CAPTCHA"
 
-#: Form/Type.php:1292
+#: lib/Horde/Form/Type.php:1270
 msgid "Image upload"
 msgstr "Kuvan vienti"
 
-#: Form/Type.php:263
+#: lib/Horde/Form/Type.php:240
 msgid "Integer"
 msgstr "Kokonaisluku"
 
-#: Form/Type.php:317
+#: lib/Horde/Form/Type.php:294
 msgid "Integer list"
 msgstr "Kokonaislukulista"
 
-#: Form/Type.php:2208 Form/Type.php:2283 Form/Type.php:2356 Form/Type.php:2435
-#: Form/Type/tableset.php:34
+#: lib/Horde/Form/Type.php:2186 lib/Horde/Form/Type.php:2261
+#: lib/Horde/Form/Type.php:2334 lib/Horde/Form/Type.php:2413
+#: lib/Horde/Form/Type/tableset.php:31
 msgid "Invalid data submitted."
 msgstr "Lähetettiin epäkelpoa tietoa."
 
-#: Form/Type.php:3479
+#: lib/Horde/Form/Type.php:3439
 msgid "Left header"
 msgstr "Vasen otsake"
 
-#: Form/Type.php:3475
+#: lib/Horde/Form/Type.php:3435
 msgid "Left values"
-msgstr "Vasen arvoja"
+msgstr "Vasen arvot"
 
-#: Form/Type.php:1352
+#: lib/Horde/Form/Type.php:1330
 msgid "Link"
 msgstr "Linkki"
 
-#: Form/Type.php:1355
+#: lib/Horde/Form/Type.php:1333
 msgid "Link URL"
 msgstr "URL-linkki"
 
-#: Form/Type.php:1370
+#: lib/Horde/Form/Type.php:1348
 msgid "Link access key"
-msgstr "Linkin pikanäppäin"
+msgstr "Pikanäppäinlinkki"
 
-#: Form/Type.php:3353
+#: lib/Horde/Form/Type.php:3313
 msgid "Link style"
 msgstr "Linkkityyli"
 
-#: Form/Type.php:1361
+#: lib/Horde/Form/Type.php:1339
 msgid "Link target"
 msgstr "Linkin kohde"
 
-#: Form/Type.php:1358 Form/Type.php:3351
+#: lib/Horde/Form/Type.php:1336 lib/Horde/Form/Type.php:3311
 msgid "Link text"
 msgstr "Linkin teksti"
 
-#: Form/Type.php:1626
+#: lib/Horde/Form/Type.php:1604
 msgid "Link the email address to the compose page when displaying?"
-msgstr "Linkitä sähköpostiosoite kirjoita uusi viesti sivulle näkymässä."
+msgstr "Linkitetäänkö sähköpostiosoite kirjoita uusi viesti -toimintoon?"
 
-#: Form/Type.php:1367
+#: lib/Horde/Form/Type.php:1345
 msgid "Link title attribute"
 msgstr "Linkin otsikkoatribuutti"
 
-#: Form/Type.php:611
+#: lib/Horde/Form/Type.php:588
 msgid "Long text"
 msgstr "Pitkä teksti"
 
-#: Form/Type.php:1298
+#: lib/Horde/Form/Type.php:1276
 msgid "Maximum file size in bytes"
 msgstr "Suurin sallittu koko tavuina"
 
-#: Form/Type.php:400 Form/Type.php:420 Form/Type.php:446
+#: lib/Horde/Form/Type.php:377 lib/Horde/Form/Type.php:397
+#: lib/Horde/Form/Type.php:423
 msgid "Maximum length"
 msgstr "Suurin sallittu pituus"
 
-#: Form/Type.php:487
+#: lib/Horde/Form/Type.php:464
 msgid "Mobile phone number"
 msgstr "Matkapuhelinnumero"
 
-#: Form/Type.php:2742
+#: lib/Horde/Form/Type.php:2704
 msgid "Month and year"
 msgstr "kuukausi ja vuosi"
 
-#: Form/Type.php:2309
+#: lib/Horde/Form/Type.php:2287
 msgid "Multi-level drop down lists"
 msgstr "Monitasoinen alasvetovalikko"
 
-#: Form/Type.php:2366
+#: lib/Horde/Form/Type.php:2344
 msgid "Multiple selection"
 msgstr "Monivalinta"
 
-#: Form/Type.php:236
+#: lib/Horde/Form/Type.php:213
 msgid "Number"
 msgstr "Lukumäärä"
 
-#: Form/Type.php:668
+#: lib/Horde/Form/Type.php:645
 msgid "Number of characters"
 msgstr "Merkkien lukumäärä"
 
-#: Form/Type.php:615 Form/Type.php:666 Form/Type.php:777 Form/Type.php:847
-#: Form/Type.php:890
+#: lib/Horde/Form/Type.php:592 lib/Horde/Form/Type.php:643
+#: lib/Horde/Form/Type.php:754 lib/Horde/Form/Type.php:824
+#: lib/Horde/Form/Type.php:867
 msgid "Number of columns"
 msgstr "Sarakkaiden lukumäärä"
 
-#: Form/Type.php:613 Form/Type.php:664 Form/Type.php:775 Form/Type.php:845
-#: Form/Type.php:888
+#: lib/Horde/Form/Type.php:590 lib/Horde/Form/Type.php:641
+#: lib/Horde/Form/Type.php:752 lib/Horde/Form/Type.php:822
+#: lib/Horde/Form/Type.php:865
 msgid "Number of rows"
 msgstr "Rivien lukumäärä"
 
-#: Form/Type.php:290
+#: lib/Horde/Form/Type.php:267
 msgid "Octal"
 msgstr "Oktaali"
 
-#: Form/Type.php:1364
+#: lib/Horde/Form/Type.php:1342
 msgid "Onclick event"
 msgstr "Napsautustapahtuma"
 
-#: Form/Type.php:2098
+#: lib/Horde/Form/Type.php:2076
 msgid "Only one email address allowed."
 msgstr "Voit laittaa vain yhden sähköpostiosoitteen."
 
-#: Form/Type.php:1449
+#: lib/Horde/Form/Type.php:1427
 msgid "Only one email address is allowed."
 msgstr "Voit laittaa vain yhden sähköpostiosoitteen."
 
-#: Form/Type.php:839
-#, fuzzy
+#: lib/Horde/Form/Type.php:816
 msgid "PGP Key"
-msgstr "Julkinen PGP-avain"
+msgstr "PGP-avain"
 
-#: Form/Type.php:2142
+#: lib/Horde/Form/Type.php:2120
 msgid "Password"
 msgstr "Salasana"
 
-#: Form/Type.php:2175
+#: lib/Horde/Form/Type.php:2153
 msgid "Password with confirmation"
 msgstr "Salasana varmistuksella"
 
-#: Form/Type.php:2157
+#: lib/Horde/Form/Type.php:2135
 msgid "Passwords must match."
-msgstr "Salasanojen pitää olla samat."
+msgstr "Salasanojen pitää täsmätä."
 
-#: Form/Type.php:841
+#: lib/Horde/Form/Type.php:818
 msgid "Path to the GnuPG binary"
-msgstr ""
+msgstr "Polku GnuPG ohjelmaan"
 
-#: Form/Type.php:475
+#: lib/Horde/Form/Type.php:452
 msgid "Phone number"
 msgstr "Puhelinnumero"
 
-#: Form/Type.php:3191
+#: lib/Horde/Form/Type.php:3151
 msgid "Please choose a sound."
 msgstr "Valitse ääni."
 
-#: Form/Type.php:2720
+#: lib/Horde/Form/Type.php:2682
 msgid "Please enter a month and a year."
 msgstr "Anna kuukausi ja vuosi."
 
-#: Form/Type.php:513 Form/Type.php:543
+#: lib/Horde/Form/Type.php:490 lib/Horde/Form/Type.php:520
 msgid "Please enter a valid IP address."
-msgstr "Anna oikea IP-osoite."
+msgstr "Anna toimiva IP-osoite."
 
-#: Form/Type.php:2800
+#: lib/Horde/Form/Type.php:2762
 msgid "Please enter a valid date, check the number of days in the month."
-msgstr "Anna oikea päivämäärä; Tarkista päivien lukumäärä kuukaudessa."
+msgstr "Anna kunnollinen päiväys, tarkista päivien lukumäärä kuukaudessa."
 
-#: Form/Type.php:2598
+#: lib/Horde/Form/Type.php:2562
 msgid "Please enter a valid time."
 msgstr "Anna aika oikeassa muodossa."
 
-#: Form/Type.php:911 Form/Type.php:2237 Form/Type.php:2313 Form/Type.php:3647
+#: lib/Horde/Form/Type.php:888 lib/Horde/Form/Type.php:2215
+#: lib/Horde/Form/Type.php:2291 lib/Horde/Form/Type.php:3595
 msgid "Prompt text"
-msgstr "Kehotteen teksti"
+msgstr "Kehoitteen teksti"
 
-#: Form/Type.php:1623
+#: lib/Horde/Form/Type.php:1601
 msgid "Protect address from spammers?"
 msgstr "Suojaa osoite roskapostittajilta?"
 
-#: Form/Type.php:2401
+#: lib/Horde/Form/Type.php:2379
 msgid "Radio selection"
 msgstr "Radiopainike"
 
-#: Form/Type.php:396 Form/Type.php:416 Form/Type.php:442
+#: lib/Horde/Form/Type.php:373 lib/Horde/Form/Type.php:393
+#: lib/Horde/Form/Type.php:419
 msgid "Regex"
-msgstr "Säännöllinen lauseke"
+msgstr "Säännöllinenlauseke"
 
-#: Form/Type.php:3605
+#: lib/Horde/Form/Type.php:3565
 msgid "Relationship browser"
-msgstr "Realaatioselain"
+msgstr "Suhdeselain"
 
-#: Form/Renderer.php:344
+#: lib/Horde/Form/Renderer.php:330
 msgid "Required Field"
 msgstr "Pakollinen kenttä"
 
-#: Form.php:632
+#: lib/Horde/Form.php:624
 msgid "Required secret is invalid - potentially malicious request."
-msgstr "Pakollinen salatieto on väärä - mahdollisesti vihamielinen pyyntö."
+msgstr "Pakollinen salatieto on väärin - mahdollisesti vihamielinen pyyntö."
 
-#: Form.php:368 Form/Renderer.php:329
+#: lib/Horde/Form.php:360 lib/Horde/Form/Renderer.php:315
 msgid "Reset"
 msgstr "Tyhjennä"
 
-#: Form/Type.php:3481
+#: lib/Horde/Form/Type.php:3441
 msgid "Right header"
 msgstr "Oikea otsake"
 
-#: Form/Type.php:3477
+#: lib/Horde/Form/Type.php:3437
 msgid "Right values"
 msgstr "Oikea arvot"
 
-#: Form/Type.php:884
+#: lib/Horde/Form/Type.php:861
 msgid "S/MIME Key"
-msgstr ""
+msgstr "S/MIME-avain"
 
-#: Form/Type.php:3645
+#: lib/Horde/Form/Type.php:3593
 msgid "SQL statement for value lookups"
 msgstr "SQL-lause arvojen hakemiseen"
 
-#: Form/Type.php:3326
+#: lib/Horde/Form/Type.php:3286
 msgid "Select Files"
 msgstr "Valitse tiedostot"
 
-#: Form/Type.php:2803
+#: lib/Horde/Form/Type.php:2765
 msgid "Select all date components."
-msgstr "Valitse kaikki päivämääräkomponentit"
+msgstr "Valitse kaikki päiväyksen komponentit"
 
-#: Form/Type.php:2450
+#: lib/Horde/Form/Type.php:2428
 msgid "Set"
 msgstr "Aseta"
 
-#: Form/Type.php:3355
+#: lib/Horde/Form/Type.php:3315
 msgid "Show icon?"
 msgstr "Näytä ikoni?"
 
-#: Form/Type.php:1296
+#: lib/Horde/Form/Type.php:1274
 msgid "Show option to keep original?"
 msgstr "Näytä asetus pitääksesi alkuperäisen?"
 
-#: Form/Type.php:2964 Form/Type.php:3127
+#: lib/Horde/Form/Type.php:2924 lib/Horde/Form/Type.php:3087
 msgid "Show picker?"
 msgstr "Näytä valitsin?"
 
-#: Form/Type.php:2688 Form/Type.php:3133
+#: lib/Horde/Form/Type.php:2650 lib/Horde/Form/Type.php:3093
 msgid "Show seconds?"
 msgstr "Näytä sekunnit?"
 
-#: Form/Type.php:1294
+#: lib/Horde/Form/Type.php:1272
 msgid "Show upload?"
-msgstr "Näytä tuonti?"
+msgstr "Näytä vienti?"
 
-#: Form/Type.php:398 Form/Type.php:418 Form/Type.php:444 Form/Type.php:2370
-#: Form/Type.php:3283 Form/Type.php:3483
+#: lib/Horde/Form/Type.php:375 lib/Horde/Form/Type.php:395
+#: lib/Horde/Form/Type.php:421 lib/Horde/Form/Type.php:2348
+#: lib/Horde/Form/Type.php:3243 lib/Horde/Form/Type.php:3443
 msgid "Size"
 msgstr "Koko"
 
-#: Form/Type.php:3279
+#: lib/Horde/Form/Type.php:3239
 msgid "Sort order selection"
 msgstr "Järjestyksen suunnan valinta"
 
-#: Form/Type.php:3200
-#, fuzzy
+#: lib/Horde/Form/Type.php:3160
 msgid "Sound selection"
-msgstr "Värivalinta"
+msgstr "Äänivalinta"
 
-#: Form/Type.php:98
+#: lib/Horde/Form/Type.php:75
 msgid "Spacer"
 msgstr "Väli"
 
-#: Form/Type.php:2744 Form/Type.php:2960 Form/Type.php:3123
+#: lib/Horde/Form/Type.php:2706 lib/Horde/Form/Type.php:2920
+#: lib/Horde/Form/Type.php:3083
 msgid "Start year"
 msgstr "Alkamisvuosi"
 
-#: Form/Type.php:2966 Form/Type.php:3129
+#: lib/Horde/Form/Type.php:2926 lib/Horde/Form/Type.php:3089
 msgid "Storage format"
 msgstr "Tallennusmuoto"
 
-#: Form/Type.php:414
+#: lib/Horde/Form/Type.php:391
 msgid "String list"
 msgstr "Merkkijonolista"
 
-#: Form/Type.php:440
+#: lib/Horde/Form/Type.php:417
 msgid "String list returning an array"
-msgstr ""
+msgstr "Merkkijonolista palautti taulukon"
 
-#: Form.php:361 Form/Renderer.php:326
+#: lib/Horde/Form.php:353 lib/Horde/Form/Renderer.php:312
 msgid "Submit"
 msgstr "Lähetä"
 
-#: Form/Type/tableset.php:54
+#: lib/Horde/Form/Type/tableset.php:51
 msgid "Table Set"
-msgstr "Taulukon asetukset"
+msgstr "Taulukkojoukko"
 
-#: Form/Type.php:394 Form/Type.php:3698 Form/Type.php:3717
+#: lib/Horde/Form/Type.php:371 lib/Horde/Form/Type.php:3646
+#: lib/Horde/Form/Type.php:3665
 msgid "Text"
 msgstr "Teksti"
 
-#: Form/Type.php:1056
+#: lib/Horde/Form/Type.php:1033
 msgid ""
 "The image file size could not be determined or it was 0 bytes. The upload "
 "may have been interrupted."
 msgstr ""
-"Kuvatiedoston kokoa ei pystytty päättelemään tai se oli 0 tavua. Tuonti "
+"Kuvatiedoston kokoa ei pystytty päättelemään tai se oli 0 tavua. Vienti "
 "mahdollisesti keskeytyi."
 
-#: Form/Type.php:1060
+#: lib/Horde/Form/Type.php:1037
 #, php-format
 msgid "The image file was larger than the maximum allowed size (%d bytes)."
 msgstr "Kuvatiedoston koko on suurempi kuin suurin sallittu koko (%d tavua)."
 
-#: Form/Type.php:1629
+#: lib/Horde/Form/Type.php:1607
 msgid "The name to use when linking to the compose page"
 msgstr "Nimi jota käytetään linkitettäessa luo sivulle"
 
-#: Form/Type.php:3673
+#: lib/Horde/Form/Type.php:3621
 msgid "The text you entered did not match the text on the screen."
 msgstr "Kirjoittamasi teksti ei vastaa tekstiä ruudulla."
 
-#: Form/Type.php:644
+#: lib/Horde/Form/Type.php:621
 #, php-format
 msgid ""
 "There are too many characters in this field. You have entered %d character; "
@@ -531,43 +536,49 @@ msgid_plural ""
 msgstr[0] "Tässä kentässä on liian monta merkkiä. Annoit %d merkin; "
 msgstr[1] "Tässä kentässä on liian monta merkkiä. Annoit %d merkkiä; "
 
-#: Form/Type.php:3504
+#: lib/Horde/Form/Type.php:3464
 msgid "This does not seem to be a valid card number."
 msgstr "Tämä ei vaikuta oikealta korttinumerolta."
 
-#: Form/Type.php:169 Form/Type.php:246 Form/Type.php:273 Form/Type.php:300
-#: Form/Type.php:365 Form/Type.php:459 Form/Type.php:517 Form/Type.php:547
-#: Form/Type.php:641 Form/Type.php:1041 Form/Type.php:2083 Form/Type.php:2130
-#: Form/Type.php:2152 Form/Type.php:2199 Form/Type.php:2274 Form/Type.php:2345
-#: Form/Type.php:2559 Form/Type.php:2601 Form/Type.php:2795 Form/Type.php:3144
-#: Form/Type.php:3183 Form/Type.php:3496 Form/Type.php:3668 Form/Type.php:3751
-#: Form/Variable.php:471 Form/Variable.php:479
+#: lib/Horde/Form/Type.php:146 lib/Horde/Form/Type.php:223
+#: lib/Horde/Form/Type.php:250 lib/Horde/Form/Type.php:277
+#: lib/Horde/Form/Type.php:342 lib/Horde/Form/Type.php:436
+#: lib/Horde/Form/Type.php:494 lib/Horde/Form/Type.php:524
+#: lib/Horde/Form/Type.php:618 lib/Horde/Form/Type.php:1018
+#: lib/Horde/Form/Type.php:2061 lib/Horde/Form/Type.php:2108
+#: lib/Horde/Form/Type.php:2130 lib/Horde/Form/Type.php:2177
+#: lib/Horde/Form/Type.php:2252 lib/Horde/Form/Type.php:2323
+#: lib/Horde/Form/Type.php:2523 lib/Horde/Form/Type.php:2565
+#: lib/Horde/Form/Type.php:2757 lib/Horde/Form/Type.php:3104
+#: lib/Horde/Form/Type.php:3143 lib/Horde/Form/Type.php:3456
+#: lib/Horde/Form/Type.php:3616 lib/Horde/Form/Type.php:3699
+#: lib/Horde/Form/Variable.php:454 lib/Horde/Form/Variable.php:462
 msgid "This field is required."
 msgstr "Tämä kenttä on pakollinen."
 
-#: Form/Type.php:254
+#: lib/Horde/Form/Type.php:231
 msgid "This field may only contain integers."
-msgstr "Tässä kentässä pitää olla vain kokonaislukuja."
+msgstr "Tässä kentässä saa olla vain kokonaislukuja."
 
-#: Form/Type.php:2567
+#: lib/Horde/Form/Type.php:2531
 msgid "This field may only contain numbers and the colon."
-msgstr "Tässä kentässä pitää olla numeroita ja pilkku-merkkejä."
+msgstr "Tässä kentässä saa olla vain numeroita ja pilkku."
 
-#: Form/Type.php:281
+#: lib/Horde/Form/Type.php:258
 msgid "This field may only contain octal values."
-msgstr "Tässä kentässä pitää olla oktaalilukuja."
+msgstr "Tässä kentässä saa olla vain oktaalilukuja."
 
-#: Form/Type.php:308
+#: lib/Horde/Form/Type.php:285
 msgid "This field must be a comma or space separated list of integers"
 msgstr ""
-"Tässä kentässä pitää olla lista kokonaislukuja, jotka pitää olla erotettu "
-"pilkulla tai välilyönnillä"
+"Tässä kentässä saa olla vain lista kokonaislukuja, jotka on erotettu "
+"toisistaan pilkulla tai välilyönnillä"
 
-#: Form/Type.php:180
+#: lib/Horde/Form/Type.php:157
 msgid "This field must be a valid number."
-msgstr "Arvon pitää olla numero."
+msgstr "Tässä kentässä pitää olla numero."
 
-#: Form/Type.php:3152
+#: lib/Horde/Form/Type.php:3112
 msgid ""
 "This field must contain a color code in the RGB Hex format, for example "
 "'#1234af'."
@@ -575,73 +586,74 @@ msgstr ""
 "Tässä kentässä on värimääritys, jonka pitää olla RGB Hex muodoss, "
 "esimerkiksi '#1234af'."
 
-#: Form.php:629
+#: lib/Horde/Form.php:621
 msgid "This form has already been processed."
 msgstr "Tämä lomake on jo käsitelty."
 
-#: Form/Type.php:2576
+#: lib/Horde/Form/Type.php:2540
 msgid "Time"
 msgstr "Aika"
 
-#: Form/Type.php:2686
+#: lib/Horde/Form/Type.php:2648
 msgid "Time selection"
 msgstr "Ajan valinta"
 
-#: Form/Type.php:1321
+#: lib/Horde/Form/Type.php:1299
 msgid "True or false"
 msgstr "Tosi vai epätosi"
 
-#: Form/Type.php:360
+#: lib/Horde/Form/Type.php:337
 #, php-format
 msgid "Value is over the maximum length of %d."
 msgstr "Arvo on yli pituuden maksimiarvon %d."
 
-#: Form/Type.php:2368 Form/Type.php:2403 Form/Type.php:2452 Form/Type.php:3281
-#: Form/Type/tableset.php:56
+#: lib/Horde/Form/Type.php:2346 lib/Horde/Form/Type.php:2381
+#: lib/Horde/Form/Type.php:2430 lib/Horde/Form/Type.php:3241
+#: lib/Horde/Form/Type/tableset.php:53
 msgid "Values"
 msgstr "Arvot"
 
-#: Form/Type.php:2235 Form/Type.php:2311
+#: lib/Horde/Form/Type.php:2213 lib/Horde/Form/Type.php:2289
 msgid "Values to select from"
 msgstr "Valittavat arvot"
 
-#: Form/Type.php:3485
+#: lib/Horde/Form/Type.php:3445
 msgid "Width in CSS units"
 msgstr "Leveys CSS mittayksikköinä"
 
-#: Form/Type.php:2102
+#: lib/Horde/Form/Type.php:2080
 msgid "You did not enter a valid email address."
 msgstr "Et antanut oikean muotoista sähköpostiosoitetta."
 
-#: Form/Type.php:3028
+#: lib/Horde/Form/Type.php:2988
 msgid "You must choose a date."
-msgstr "Sinun täytyy valita päivämäärä."
+msgstr "Sinun pitää valita päiväys."
 
-#: Form/Type.php:3026
+#: lib/Horde/Form/Type.php:2986
 msgid "You must choose a time."
-msgstr "Sinun täytyy valita aika."
+msgstr "Sinun pitää valita aika."
 
-#: Form/Type.php:463
+#: lib/Horde/Form/Type.php:440
 msgid ""
 "You must enter a valid phone number, digits only with an optional '+' for "
 "the international dialing prefix."
 msgstr ""
-"Sinun pitää antaa oikea puhelinnumero, vain numeroita ja mahdollisesti '+' "
-"jos käytät kansainvälistä puhelinnumeromuotoa."
+"Sinun pitää antaa puhelinnumero muodossa, jossa on vain numeroita ja "
+"mahdollisesti '+' jos käytät kansainvälistä puhelinnumeromuotoa."
 
-#: Form/Type.php:371
+#: lib/Horde/Form/Type.php:348
 msgid "You must enter a valid value."
 msgstr "Sinun täytyy antaa oikea arvo."
 
-#: Form/Type.php:1470
+#: lib/Horde/Form/Type.php:1448
 msgid "You must enter an email address."
 msgstr "Sinun pitää antaa sähköpostiosoite."
 
-#: Form/Type.php:1468
+#: lib/Horde/Form/Type.php:1446
 msgid "You must enter at least one email address."
 msgstr "Sinun pitää antaa ainakin yksi sähköpostiosoite."
 
-#: Form/Type.php:645
+#: lib/Horde/Form/Type.php:622
 #, php-format
 msgid "you must enter less than %d."
-msgstr "sinun pitää antaa ainakin %d."
+msgstr "sinun pitää antaa vähemmän kuin %d."

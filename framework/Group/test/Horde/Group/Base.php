@@ -95,6 +95,14 @@ class Horde_Group_Test_Base extends Horde_Test_Case
         $this->assertEquals('My Other Group', $groups[self::$groupids[1]]);
     }
 
+    protected function _listAllWithMember()
+    {
+        $groups = self::$group->listAll('joe');
+        $this->assertEquals(2, count($groups));
+        $this->assertEquals('My Group',       $groups[self::$groupids[0]]);
+        $this->assertEquals('My Other Group', $groups[self::$groupids[1]]);
+    }
+
     protected function _removeUser()
     {
         $this->assertNull(self::$group->removeUser(self::$groupids[1], 'joe'));

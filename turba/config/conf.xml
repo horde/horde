@@ -6,7 +6,7 @@
   <configboolean name="import_export" desc="Should we display an Import/Export
   link in Turba's menu?">true</configboolean>
   <configmultienum name="apps" desc="Select any applications
-  that should be linked in Turba's menu">
+  that should be linked in Turba's menu" required="false"> 
    <values>
     <configspecial application="horde" name="apps"/>
    </values>

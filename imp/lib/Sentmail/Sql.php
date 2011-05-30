@@ -42,16 +42,12 @@ class IMP_Sentmail_Sql extends IMP_Sentmail_Base
     protected $_db;
 
     /**
-     * Constructor.
-     *
      * @param array $params  Parameters:
      * <pre>
-     * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
-     * 'table' - (string) The name of the sentmail table.
-     *           DEFAULT: 'imp_sentmail'
+     * db - (Horde_Db_Adapter) [REQUIRED] The DB instance.
+     * table - (string) The name of the sentmail table.
+     *         DEFAULT: 'imp_sentmail'
      * </pre>
-     *
-     * @throws IMP_Exception
      */
     public function __construct(array $params = array())
     {
@@ -69,13 +65,6 @@ class IMP_Sentmail_Sql extends IMP_Sentmail_Base
     }
 
     /**
-     * Logs an attempt to send a message per recipient.
-     *
-     * @param string $action      Why the message was sent, i.e. "new",
-     *                            "reply", "forward", etc.
-     * @param string $message_id  The Message-ID.
-     * @param string $recipients  A message recipient.
-     * @param boolean $success    Whether the attempt was successful.
      */
     protected function _log($action, $message_id, $recipient, $success)
     {
@@ -97,17 +86,8 @@ class IMP_Sentmail_Sql extends IMP_Sentmail_Base
     }
 
     /**
-     * Returns the most favourite recipients.
-     *
-     * @param integer $limit  Return this number of recipients.
-     * @param array $filter   A list of messages types that should be returned.
-     *                        A value of null returns all message types.
-     *
-     * @return array  A list with the $limit most favourite recipients.
-     * @throws IMP_Exception
      */
-    public function favouriteRecipients($limit,
-                                        $filter = array('new', 'forward', 'reply', 'redirect'))
+    public function favouriteRecipients($limit, $filter = null)
     {
         /* Build the SQL query. */
         $where = '';
@@ -132,14 +112,6 @@ class IMP_Sentmail_Sql extends IMP_Sentmail_Base
     }
 
     /**
-     * Returns the number of recipients within a certain time period.
-     *
-     * @param integer $hours  Time period in hours.
-     * @param boolean $user   Return the number of recipients for the current
-     *                        user?
-     *
-     * @return integer  The number of recipients in the given time period.
-     * @throws IMP_Exception
      */
     public function numberOfRecipients($hours, $user = false)
     {
@@ -159,10 +131,6 @@ class IMP_Sentmail_Sql extends IMP_Sentmail_Base
     }
 
     /**
-     * Deletes all log entries older than a certain date.
-     *
-     * @param integer $before  Unix timestamp before that all log entries
-     *                         should be deleted.
      */
     protected function _deleteOldEntries($before)
     {

@@ -51,7 +51,8 @@ class Horde_Core_Text_Filter_Emails extends Horde_Text_Filter_Emails
     {
         if ($this->_params['always_mailto'] ||
             (!$this->_params['callback'] &&
-             !$GLOBALS['registry']->hasMethod('mail/compose'))) {
+             (!($app = $GLOBALS['registry']->hasMethod('mail/compose')) ||
+              !$GLOBALS['registry']->hasPermission($app, Horde_Perms::EDIT)))) {
             return parent::_regexCallback($matches);
         }
 

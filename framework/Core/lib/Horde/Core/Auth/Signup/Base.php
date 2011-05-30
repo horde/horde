@@ -60,13 +60,13 @@ abstract class Horde_Core_Auth_Signup_Base
 
         // If it's a unique username, go ahead and queue the request.
         $signup = $this->newSignup($info['user_name']);
-        $signup->data = empty($info['extra'])
-            ? array()
-            : $info['extra'];
-        $signup->data = array_merge($signup->data, array(
+        if (!empty($info['extra'])) {
+            $signup->setData($info['extra']);
+        }
+        $signup->setData(array_merge($signup->getData(), array(
             'dateReceived' => time(),
-            'password' => $info['password']
-        ));
+            'password' => $info['password'],
+        )));
 
         $this->_queueSignup($signup);
 
@@ -75,13 +75,12 @@ abstract class Horde_Core_Auth_Signup_Base
         } catch (Horde_Exception_HookNotSet $e) {
         }
 
-
         if (!empty($conf['signup']['email'])) {
             $link = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/admin/signup_confirm.php', true, -1)->setRaw(true)->add(array(
-                'u' => $signup->name,
-                'h' => hash_hmac('sha1', $signup->name, $conf['secret_key'])
+                'u' => $signup->getName(),
+                'h' => hash_hmac('sha1', $signup->getName(), $conf['secret_key'])
             ));
-            $message = sprintf(Horde_Core_Translation::t("A new account for the user \"%s\" has been requested through the signup form."), $signup->name)
+            $message = sprintf(Horde_Core_Translation::t("A new account for the user \"%s\" has been requested through the signup form."), $signup->getName())
                 . "\n\n"
                 . Horde_Core_Translation::t("Approve the account:")
                 . "\n" . $link->copy()->add('a', 'approve') . "\n"
@@ -89,7 +88,7 @@ abstract class Horde_Core_Auth_Signup_Base
                 . "\n" . $link->copy()->add('a', 'deny');
             $mail = new Horde_Mime_Mail(array(
                 'body' => $message,
-                'Subject' => sprintf(Horde_Core_Translation::t("Account signup request for \"%s\""), $signup->name),
+                'Subject' => sprintf(Horde_Core_Translation::t("Account signup request for \"%s\""), $signup->getName()),
                 'To' => $conf['signup']['email'],
                 'From' => $conf['signup']['email']));
             $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
@@ -163,5 +162,4 @@ abstract class Horde_Core_Auth_Signup_Base
      * @throws Horde_Exception
      */
     abstract public function newSignup($name);
-
 }

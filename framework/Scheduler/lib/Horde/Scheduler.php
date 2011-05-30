@@ -85,7 +85,7 @@ class Horde_Scheduler
             $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
             $vfs->writeData('.horde/scheduler', Horde_String::lower(get_class($this)) . $id, serialize($this), true);
             return true;
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return false;
         }
@@ -116,7 +116,7 @@ class Horde_Scheduler
             if ($tmp = @unserialize($data)) {
                 $scheduler = $tmp;
             }
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             Horde::logMessage($e, 'ERR');
         }
 

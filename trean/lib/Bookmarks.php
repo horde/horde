@@ -51,14 +51,14 @@ class Trean_Bookmarks
         $clauses = array();
         $values = array();
         foreach ($search_criteria as $criterion) {
-            $clause = Horde_Sql::buildClause($GLOBALS['trean_db'],
-                                             'bookmark_' . $criterion[0],
-                                             $criterion[1],
-                                             Horde_String::convertCharset($criterion[2],
-                                                                          $GLOBALS['conf']['sql']['charset'],
-                                                                          'UTF-8'),
-                                             true,
-                                             isset($criterion[3]) ? $criterion[3] : array());
+            $clause = $GLOBALS['trean_db']->buildClause(
+                'bookmark_' . $criterion[0],
+                $criterion[1],
+                Horde_String::convertCharset($criterion[2],
+                                             $GLOBALS['conf']['sql']['charset'],
+                                             'UTF-8'),
+                true,
+                isset($criterion[3]) ? $criterion[3] : array());
             $clauses[] = $clause[0];
             $values = array_merge($values, $clause[1]);
         }

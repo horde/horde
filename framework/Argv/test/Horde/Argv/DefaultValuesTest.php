@@ -15,6 +15,7 @@ class Horde_Argv_DefaultValuesTest extends Horde_Argv_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $this->parser = new Horde_Argv_Parser();
         $this->parser->addOption('-v', '--verbose', array('default' => true));
         $this->parser->addOption('-q', '--quiet', array('dest' => 'verbose'));

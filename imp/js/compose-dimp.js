@@ -22,8 +22,7 @@ var DimpCompose = {
             sbd = $('send_button_redirect');
 
         if (window.confirm(DIMP.text_compose.cancel)) {
-            if ((this.is_popup || DIMP.conf_compose.popup) &&
-                DimpCore.base &&
+            if (this.baseAvailable(true) &&
                 !DIMP.conf_compose.qreply) {
                 DimpCore.base.focus();
             }
@@ -40,9 +39,7 @@ var DimpCompose = {
 
     updateDraftsMailbox: function()
     {
-        if (this.is_popup &&
-            DimpCore.base &&
-            DimpCore.base.DimpBase &&
+        if (this.baseAvailable() &&
             DimpCore.base.DimpBase.folder == DIMP.conf_compose.drafts_mbox) {
             DimpCore.base.DimpBase.poll();
         }
@@ -52,7 +49,7 @@ var DimpCompose = {
     {
         if (DIMP.conf_compose.qreply) {
             this.closeQReply();
-        } else if (this.is_popup || DIMP.conf_compose.popup) {
+        } else if (this.is_popup) {
             DimpCore.closePopup();
         } else {
             DimpCore.redirect(DIMP.conf.URI_DIMP);
@@ -145,20 +142,8 @@ var DimpCompose = {
                 : l.l;
         }
 
-        /* Stationery switch. */
-        if (id == 's') {
-            DimpCore.doAction('stationery', {
-                html: Number(IMP_Compose_Base.editor_on),
-                id: s,
-                identity: $F('identity'),
-                text: (IMP_Compose_Base.editor_on ? this.rte.getData() : $F('composeMessage'))
-            }, {
-                ajaxopts: { asynchronous: false },
-                callback: function(r) {
-                    this.setBodyText(r.response.text);
-                }.bind(this)
-            });
-            return;
+        if (id == 'sm') {
+            s = s.base64urlEncode();
         }
 
         $(k.opts.input).setValue(s);
@@ -268,9 +253,7 @@ var DimpCompose = {
                 this.updateDraftsMailbox();
 
                 if (d.action == 'saveDraft') {
-                    if (this.is_popup &&
-                        DimpCore.base &&
-                        DimpCore.base.DimpCore &&
+                    if (this.baseAvailable() &&
                         !DIMP.conf_compose.qreply) {
                         DimpCore.base.DimpCore.showNotifications(r.msgs);
                         r.msgs = [];
@@ -282,9 +265,7 @@ var DimpCompose = {
                 break;
 
             case 'sendMessage':
-                if (this.is_popup &&
-                    DimpCore.base &&
-                    DimpCore.base.DimpBase) {
+                if (this.baseAvailable()) {
                     if (d.flag) {
                         DimpCore.base.DimpBase.flagCallback(d);
                     }
@@ -309,9 +290,7 @@ var DimpCompose = {
                 return this.closeCompose();
 
             case 'redirectMessage':
-                if (this.is_popup &&
-                    DimpCore.base &&
-                    DimpCore.base.DimpBase) {
+                if (this.baseAvailable()) {
                     if (d.log) {
                         DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
                     }
@@ -417,7 +396,7 @@ var DimpCompose = {
                 callback: this.setMessageText.bind(this, false)
             });
 
-            this.rte.destroy();
+            this.rte.destroy(true);
             delete this.rte;
         } else {
             this.RTELoading('show');
@@ -480,6 +459,7 @@ var DimpCompose = {
             this.editor_wait = true;
             this.rte.setData($F('composeMessage'), function() { this.editor_wait = false; }.bind(this));
             $('composeMessage').next().show();
+            this.RTELoading('hide');
         }
         this.sc_submit = false;
     },
@@ -492,7 +472,15 @@ var DimpCompose = {
 
         if (IMP_Compose_Base.editor_on) {
             this.rte.updateElement();
+            this.RTELoading('show', true);
             $('composeMessage').next().hide();
+        }
+    },
+
+    _onSpellCheckError: function()
+    {
+        if (IMP_Compose_Base.editor_on) {
+            this.RTELoading('hide');
         }
     },
 
@@ -729,7 +717,7 @@ var DimpCompose = {
     {
         var span = new Element('SPAN').insert(opts.name),
             li = new Element('LI').insert(span).insert(' [' + opts.type + '] (' + opts.size + ' KB) '),
-            input = new Element('SPAN', { atc_id: opts.num, className: 'remove' }).insert(DIMP.text_compose.remove);
+            input = new Element('SPAN', { className: 'button remove' }).insert(DIMP.text_compose.remove).store('atc_id', opts.num);
         li.insert(input);
         $('attach_list').insert(li).show();
 
@@ -745,7 +733,7 @@ var DimpCompose = {
         var ids = [];
         e.each(function(n) {
             n = $(n);
-            ids.push(n.down('SPAN.remove').readAttribute('atc_id'));
+            ids.push(n.down('SPAN.remove').retrieve('atc_id'));
             n.fade({
                 afterFinish: function() {
                     n.remove();
@@ -758,7 +746,7 @@ var DimpCompose = {
         if (!$('attach_list').childElements().size()) {
             $('attach_list').hide();
         }
-        DimpCore.doAction('deleteAttach', { atc_indices: ids, imp_compose: $F('composeCache') });
+        DimpCore.doAction('deleteAttach', { atc_indices: Object.toJSON(ids), imp_compose: $F('composeCache') });
     },
 
     initAttachList: function()
@@ -786,14 +774,8 @@ var DimpCompose = {
         }
     },
 
-    resizeMsgArea: function()
+    resizeMsgArea: function(e)
     {
-        var lh, mah, rows,
-            cmp = $('composeMessageParent'),
-            de = document.documentElement,
-            msg = $('composeMessage'),
-            pad = 0;
-
         if (this.resizing) {
             return;
         }
@@ -802,6 +784,17 @@ var DimpCompose = {
             this.resizeMsgArea.bind(this).defer();
             return;
         }
+
+        // IE 7/8 Bug - can't resize TEXTAREA in the resize event (Bug #10075)
+        if (e && Prototype.Browser.IE) {
+            this.resizeMsgArea.bind(this).delay(0.1);
+            return;
+        }
+
+        var lh, mah, msg, msg_h, rows,
+            cmp = $('composeMessageParent'),
+            de = document.documentElement,
+            pad = 0;
 
         /* Needed because IE 8 will trigger resize events when we change
          * the rows attribute, which will cause an infinite loop. */
@@ -821,23 +814,20 @@ var DimpCompose = {
 
             this.rte.resize('99%', mah - pad - 1, false);
         } else if (!IMP_Compose_Base.editor_on) {
-            /* If the line-height CSS value exists, use that. */
-            if (!(lh = msg.getStyle('line-height'))) {
-                /* Logic: Determine the size of a given textarea row, divide
-                 * that size by the available height, round down to the lowest
-                 * integer row, and resize the textarea. */
-                lh = msg.clientHeight / msg.readAttribute('rows');
-            }
-            rows = parseInt(mah / parseInt(lh, 10), 10);
+            /* Logic: Determine the size of a given textarea row, divide
+             * that size by the available height, round down to the lowest
+             * integer row, and resize the textarea. */
+            msg = $('composeMessage');
+            rows = parseInt(mah / (msg.getHeight() / msg.readAttribute('rows')), 10);
+
             if (!isNaN(rows)) {
                 /* Due to the funky (broken) way some browsers (FF) count
-                 * rows, we need to overshoot row estimate and increment
-                 * downward until textarea size does not cause window
-                 * scrolling. */
+                 * rows, we need to overshoot row estimate and decrement
+                 * until textarea size does not cause window scrolling. */
                 ++rows;
                 do {
                     msg.writeAttribute({ rows: rows--, disabled: false });
-                } while ((de.scrollHeight - de.clientHeight) > 0);
+                } while (rows && (de.scrollHeight - de.clientHeight) > 0);
             }
         }
 
@@ -868,6 +858,8 @@ var DimpCompose = {
         var t = $('toggle' + type),
             s = t.siblings().first();
 
+        new TextareaResize(type);
+
         $('send' + type).show();
         if (s && s.visible()) {
             t.hide();
@@ -888,6 +880,14 @@ var DimpCompose = {
         }
 
         window.open(uri, 'contacts', 'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100');
+    },
+
+    baseAvailable: function(dimpbase)
+    {
+        return (this.is_popup &&
+                DimpCore.base &&
+                !DimpCore.base.closed &&
+                (!dimpbase || DimpCore.base.DimpBase));
     },
 
     /* Click observe handler. */
@@ -964,7 +964,7 @@ var DimpCompose = {
                 if (orig.match('SPAN.remove')) {
                     this.removeAttach([ orig.up() ]);
                 } else if (orig.match('SPAN.attachName')) {
-                    atc_num = orig.next().readAttribute('atc_id');
+                    atc_num = orig.next().retrieve('atc_id');
                     DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { composeCache: $F('composeCache'), actionID: 'compose_attach_preview', id: atc_num }), $F('composeCache') + '|' + atc_num);
                 }
                 break;
@@ -1022,17 +1022,15 @@ var DimpCompose = {
         DimpCore.growler_log = false;
         DimpCore.init();
 
-        this.is_popup = DimpCore.base;
+        this.is_popup = !Object.isUndefined(DimpCore.base);
 
-        /* Initialize redirect elements (always needed). */
-        $('redirect').observe('submit', Event.stop);
-        new TextareaResize('redirect_to');
-        if (DIMP.conf_compose.URI_ABOOK) {
-            $('redirect_sendto').down('TD.label SPAN').addClassName('composeAddrbook');
-        }
-
-        /* Nothing more to do if this is strictly a redirect window. */
+        /* Initialize redirect elements. */
         if (DIMP.conf_compose.redirect) {
+            $('redirect').observe('submit', Event.stop);
+            new TextareaResize('redirect_to');
+            if (DIMP.conf_compose.URI_ABOOK) {
+                $('redirect_sendto').down('TD.label SPAN').addClassName('composeAddrbook');
+            }
             $('dimpLoading').hide();
             $('redirect', 'pageContainer').invoke('show');
             return;
@@ -1045,7 +1043,7 @@ var DimpCompose = {
         } else {
             document.observe('change', this.changeHandler.bindAsEventListener(this));
         }
-        Event.observe(window, 'resize', this.resizeMsgArea.bind(this));
+        Event.observe(window, 'resize', this.resizeMsgArea.bindAsEventListener(this));
         $('compose').observe('submit', Event.stop);
         $('submit_frame').observe('load', this.attachmentComplete.bind(this));
 
@@ -1054,6 +1052,7 @@ var DimpCompose = {
         if (DIMP.conf_compose.rte_avail) {
             document.observe('SpellChecker:after', this._onSpellCheckAfter.bind(this));
             document.observe('SpellChecker:before', this._onSpellCheckBefore.bind(this));
+            document.observe('SpellChecker:error', this._onSpellCheckError.bind(this));
         }
 
         /* Create sent-mail list. */
@@ -1089,23 +1088,7 @@ var DimpCompose = {
             this.setPopdownLabel('e', $F('encrypt'));
         }
 
-        /* Create stationery list. */
-        if (DIMP.conf_compose.stationery) {
-            this.createPopdown('s', {
-                base: $('stationery_label').up(),
-                data: DIMP.conf_compose.stationery,
-                label: 'stationery_label'
-            });
-        }
-
-        // Automatically resize compose address fields.
         new TextareaResize('to');
-        if (DIMP.conf_compose.cc) {
-            new TextareaResize('cc');
-        }
-        if (DIMP.conf_compose.bcc) {
-            new TextareaResize('bcc');
-        }
 
         /* Add addressbook link formatting. */
         if (DIMP.conf_compose.URI_ABOOK) {

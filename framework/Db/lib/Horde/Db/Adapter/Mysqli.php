@@ -173,7 +173,7 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      */
     public function isActive()
     {
-        $this->last_query = 'SELECT 1';
+        $this->_lastQuery = 'SELECT 1';
         return isset($this->_connection) && $this->_connection->query('SELECT 1');
     }
 
@@ -238,18 +238,20 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
     }
 
     /**
-     * Returns a record hash with the column names as keys and column values
-     * as values.
+     * Returns a record hash with the column names as keys and column values as
+     * values.
      *
-     * @param   string  $sql
-     * @param   mixed   $arg1  Either an array of bound parameters or a query name.
-     * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
-     * @return  array
+     * @param string $sql   A query.
+     * @param mixed  $arg1  Either an array of bound parameters or a query name.
+     * @param string $arg2  If $arg1 contains bound parameters, the query name.
+     *
+     * @return array|boolean  A record hash or false if no record found.
      */
-    public function selectOne($sql, $arg1=null, $arg2=null)
+    public function selectOne($sql, $arg1 = null, $arg2 = null)
     {
         $result = $this->execute($sql, $arg1, $arg2);
-        return $result ? $result->fetch_array(MYSQLI_ASSOC) : array();
+        $result = $result ? $result->fetch_array(MYSQLI_ASSOC) : array();
+        return is_null($result) ? false : $result;
     }
 
     /**
@@ -305,7 +307,7 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
         $t = new Horde_Support_Timer();
         $t->push();
 
-        $this->last_query = $sql;
+        $this->_lastQuery = $sql;
         $stmt = $this->_connection->query($sql);
         if (!$stmt) {
             $this->_logInfo($sql, 'QUERY FAILED: ' . $this->_connection->error);

@@ -454,96 +454,104 @@ class Nag_Api extends Horde_Registry_Api
             }
 
             foreach ($iCal->getComponents() as $content) {
-                if ($content instanceof Horde_Icalendar_Vtodo) {
-                    $task = new Nag_Task();
-                    $task->fromiCalendar($content);
-                    $task->tasklist = $tasklist;
-                    if (isset($task->uid)) {
+                if (!($content instanceof Horde_Icalendar_Vtodo)) {
+                    continue;
+                }
+                $task = new Nag_Task();
+                $task->fromiCalendar($content);
+                $task->tasklist = $tasklist;
+                $create = true;
+                if (isset($task->uid)) {
+                    try {
                         $existing = $storage->getByUID($task->uid);
-                        // Entry exists, remove from uids_remove list so we
-                        // won't delete in the end.
-                        if (isset($uids_remove[$task->uid])) {
-                            unset($uids_remove[$task->uid]);
+                        $create = false;
+                    } catch (Horde_Exception_NotFound $e) {
+                    }
+                }
+                if (!$create) {
+                    // Entry exists, remove from uids_remove list so we
+                    // won't delete in the end.
+                    if (isset($uids_remove[$task->uid])) {
+                        unset($uids_remove[$task->uid]);
+                    }
+                    if ($existing->private &&
+                        $existing->owner != $GLOBALS['registry']->getAuth()) {
+                        continue;
+                    }
+                    // Check if our task is newer then the existing - get
+                    // the task's history.
+                    $history = $GLOBALS['injector']->getInstance('Horde_History');
+                    $created = $modified = null;
+                    try {
+                        $log = $history->getHistory('nag:' . $tasklist . ':' . $task->uid);
+                        foreach ($log as $entry) {
+                            switch ($entry['action']) {
+                            case 'add':
+                                $created = $entry['ts'];
+                                break;
+
+                            case 'modify':
+                                $modified = $entry['ts'];
+                                break;
+                            }
                         }
-                        if ($existing->private &&
-                            $existing->owner != $GLOBALS['registry']->getAuth()) {
+                    } catch (Exception $e) {}
+                    if (empty($modified) && !empty($add)) {
+                        $modified = $add;
+                    }
+                    if (!empty($modified) &&
+                        $modified >= $content->getAttribute('LAST-MODIFIED')) {
+                            // LAST-MODIFIED timestamp of existing entry
+                            // is newer: don't replace it.
                             continue;
                         }
-                        // Check if our task is newer then the existing - get
-                        // the task's history.
-                        $history = $GLOBALS['injector']->getInstance('Horde_History');
-                        $created = $modified = null;
-                        try {
-                            $log = $history->getHistory('nag:' . $tasklist . ':' . $task->uid);
-                            foreach ($log as $entry) {
-                                switch ($entry['action']) {
-                                case 'add':
-                                    $created = $entry['ts'];
-                                    break;
 
-                                case 'modify':
-                                    $modified = $entry['ts'];
-                                    break;
-                                }
-                            }
-                        } catch (Exception $e) {}
-                        if (empty($modified) && !empty($add)) {
-                            $modified = $add;
-                        }
-                        if (!empty($modified) &&
-                            $modified >= $content->getAttribute('LAST-MODIFIED')) {
-                                // LAST-MODIFIED timestamp of existing entry
-                                // is newer: don't replace it.
-                                continue;
-                            }
-
-                        // Don't change creator/owner.
-                        $owner = $existing->owner;
-                        $taskId = $existing->id;
-                        try {
-                            $storage->modify(
-                                $taskId,
-                                isset($task->name) ? $task->name : $existing->name,
-                                isset($task->desc) ? $task->desc : $existing->desc,
-                                isset($task->start) ? $task->start : $existing->start,
-                                isset($task->due) ? $task->due : $existing->due,
-                                isset($task->priority) ? $task->priority : $existing->priority,
-                                isset($task->estimate) ? $task->estimate : 0,
-                                isset($task->completed) ? (int)$task->completed : $existing->completed,
-                                isset($task->category) ? $task->category : $existing->category,
-                                isset($task->alarm) ? $task->alarm : $existing->alarm,
-                                isset($task->parent_id) ? $task->parent_id : $existing->parent_id,
-                                isset($task->private) ? $task->private : $existing->private,
-                                $owner,
-                                isset($task->assignee) ? $task->assignee : $existing->assignee
-                            );
-                        } catch (Nag_Exception $e) {
-                            throw new Nag_Exception($e->getMessage(), 500);
-                        }
-                        $ids[] = $task->uid;
-                    } else {
-                        try {
-                            $newTask = $storage->add(
-                                isset($task->name) ? $task->name : '',
-                                isset($task->desc) ? $task->desc : '',
-                                isset($task->start) ? $task->start : 0,
-                                isset($task->due) ? $task->due : 0,
-                                isset($task->priority) ? $task->priority : 3,
-                                isset($task->estimate) ? $task->estimate : 0,
-                                !empty($task->completed),
-                                isset($task->category) ? $task->category : '',
-                                isset($task->alarm) ? $task->alarm : 0,
-                                isset($task->uid) ? $task->uid : null,
-                                isset($task->parent_id) ? $task->parent_id : '',
-                                !empty($task->private),
-                                $GLOBALS['registry']->getAuth(),
-                                isset($task->assignee) ? $task->assignee : null);
-                        } catch (Nag_Exception $e) {
-                            throw new Nag_Exception($e->getMessage(), 500);
-                        }
-                        // use UID rather than ID
-                        $ids[] = $newTask[1];
+                    // Don't change creator/owner.
+                    $owner = $existing->owner;
+                    $taskId = $existing->id;
+                    try {
+                        $storage->modify(
+                            $taskId,
+                            isset($task->name) ? $task->name : $existing->name,
+                            isset($task->desc) ? $task->desc : $existing->desc,
+                            isset($task->start) ? $task->start : $existing->start,
+                            isset($task->due) ? $task->due : $existing->due,
+                            isset($task->priority) ? $task->priority : $existing->priority,
+                            isset($task->estimate) ? $task->estimate : 0,
+                            isset($task->completed) ? (int)$task->completed : $existing->completed,
+                            isset($task->category) ? $task->category : $existing->category,
+                            isset($task->alarm) ? $task->alarm : $existing->alarm,
+                            isset($task->parent_id) ? $task->parent_id : $existing->parent_id,
+                            isset($task->private) ? $task->private : $existing->private,
+                            $owner,
+                            isset($task->assignee) ? $task->assignee : $existing->assignee
+                        );
+                    } catch (Nag_Exception $e) {
+                        throw new Nag_Exception($e->getMessage(), 500);
                     }
+                    $ids[] = $task->uid;
+                } else {
+                    try {
+                        $newTask = $storage->add(
+                            isset($task->name) ? $task->name : '',
+                            isset($task->desc) ? $task->desc : '',
+                            isset($task->start) ? $task->start : 0,
+                            isset($task->due) ? $task->due : 0,
+                            isset($task->priority) ? $task->priority : 3,
+                            isset($task->estimate) ? $task->estimate : 0,
+                            !empty($task->completed),
+                            isset($task->category) ? $task->category : '',
+                            isset($task->alarm) ? $task->alarm : 0,
+                            isset($task->uid) ? $task->uid : null,
+                            isset($task->parent_id) ? $task->parent_id : '',
+                            !empty($task->private),
+                            $GLOBALS['registry']->getAuth(),
+                            isset($task->assignee) ? $task->assignee : null);
+                    } catch (Nag_Exception $e) {
+                        throw new Nag_Exception($e->getMessage(), 500);
+                    }
+                    // use UID rather than ID
+                    $ids[] = $newTask[1];
                 }
             }
             break;
@@ -1389,59 +1397,6 @@ class Nag_Api extends Horde_Registry_Api
             $existing->completed_date,
             $existing->tasklist
         );
-    }
-
-    /**
-     * Lists alarms for a given moment.
-     *
-     * @param integer $time  The time to retrieve alarms for.
-     * @param string $user   The user to retreive alarms for. All users if null.
-     *
-     * @return array  An array of UIDs
-     */
-    public function listAlarms($time, $user = null)
-    {
-        if ((empty($user) || $user != $GLOBALS['registry']->getAuth()) &&
-            !$GLOBALS['registry']->isAdmin()) {
-
-            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
-        }
-
-        $storage = Nag_Driver::singleton();
-        $group = $GLOBALS['injector']->getInstance('Horde_Group');
-        $alarm_list = array();
-        $tasklists = is_null($user) ?
-            array_keys($GLOBALS['nag_shares']->listAllShares()) :
-            $GLOBALS['display_tasklists'];
-
-        $alarms = Nag::listAlarms($time, $tasklists);
-        foreach ($alarms as $alarm) {
-            try {
-                $share = $GLOBALS['nag_shares']->getShare($alarm->tasklist);
-            } catch (Horde_Share_Exception $e) {
-                continue;
-            }
-            if (empty($user)) {
-                $users = $share->listUsers(Horde_Perms::READ);
-                $groups = $share->listGroups(Horde_Perms::READ);
-                foreach ($groups as $gid) {
-                    $users = array_merge($users, $group->listUsers($gid));
-                }
-                $users = array_unique($users);
-            } else {
-                $users = array($user);
-            }
-            foreach ($users as $alarm_user) {
-                $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('nag', array(
-                    'cache' => false,
-                    'user' => $alarm_user
-                ));
-                $GLOBALS['registry']->setLanguageEnvironment($prefs->getValue('language'));
-                $alarm_list[] = $alarm->toAlarm($alarm_user, $prefs);
-            }
-        }
-
-        return $alarm_list;
     }
 
 }

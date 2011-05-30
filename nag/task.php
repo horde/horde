@@ -64,7 +64,7 @@ if (is_null($actionID)) {
 switch ($actionID) {
 case 'add_task':
     /* Check permissions. */
-    $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+    $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
     if ($perms->hasAppPermission('max_tasks') !== true &&
         $perms->hasAppPermission('max_tasks') <= Nag::countTasks()) {
         Horde::permissionDeniedError(
@@ -160,7 +160,7 @@ case 'save_task':
                                    $info['tasklist_id']);
     } else {
         /* Check permissions. */
-        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
         if ($perms->hasAppPermission('max_tasks') !== true &&
             $perms->hasAppPermission('max_tasks') <= Nag::countTasks()) {
             Horde::url('list.php', true)->redirect();

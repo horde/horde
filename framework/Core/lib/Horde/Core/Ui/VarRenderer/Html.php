@@ -34,7 +34,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
         if (!empty($linfo['mon_decimal_point'])) {
             $value = str_replace('.', $linfo['mon_decimal_point'], $value);
         }
-        return sprintf('<input type="number" size="5" name="%s" id="%s" value="%s"%s />',
+        return sprintf('<input type="text" size="5" name="%s" id="%s" value="%s"%s />',
                        htmlspecialchars($var->getVarName()),
                        $this->_genID($var->getVarName(), false),
                        $value,
@@ -82,7 +82,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
                        htmlspecialchars($var->getValue($vars)),
                        $var->isDisabled() ? ' disabled="disabled" ' : '',
                        empty($maxlength) ? '' : ' maxlength="' . $maxlength . '"',
-                       $this->_getActionScripts($form, $var)    
+                       $this->_getActionScripts($form, $var)
                );
     }
 
@@ -577,11 +577,11 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
         Horde::addScriptFile('sorter.js', 'horde');
 
         return '<input type="hidden" name="' . htmlspecialchars($var->getVarName()) .
-            '[array]" value="" ' . $this->_genID($varname . '_array') . '/>' .
+            '[array]" value="" ' . $this->_genID($var->getVarName() . '_array') . '/>' .
             '<select class="leftFloat" multiple="multiple" size="' .
             (int)$var->type->getSize() . '" name="' . htmlspecialchars($var->getVarName()) .
             '[list]" onchange="' . $instance . '.deselectHeader();" ' .
-            $this->_genID($varname . '_list') . '>' .
+            $this->_genID($var->getVarName() . '_list') . '>' .
             $var->type->getOptions($var->getValue($vars)) . '</select><div class="leftFloat">' .
             Horde::link('#', Horde_Core_Translation::t("Move up"), '', '', $instance . '.moveColumnUp(); return false;') . Horde::img('nav/up.png', Horde_Core_Translation::t("Move up")) . '</a><br />' .
             Horde::link('#', Horde_Core_Translation::t("Move up"), '', '', $instance . '.moveColumnDown(); return false;') . Horde::img('nav/down.png', Horde_Core_Translation::t("Move down")) . '</a></div>' .
@@ -1355,7 +1355,12 @@ EOT;
 
     protected function _renderVarDisplay_datetime($form, &$var, &$vars)
     {
-        return htmlspecialchars($var->type->formatDate($var->getValue($vars))) . Horde_Form_Type_date::getAgo($var->getValue($vars));
+        $value = $var->getValue($vars);
+        $html = htmlspecialchars($var->type->formatDate($value));
+        if (!$var->type->emptyDateArray($value)) {
+            $html .= Horde_Form_Type_date::getAgo($value);
+        }
+        return $html;
     }
 
     protected function _renderVarDisplay_invalid($form, &$var, &$vars)

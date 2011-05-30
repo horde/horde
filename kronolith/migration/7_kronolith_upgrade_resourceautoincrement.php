@@ -19,7 +19,7 @@ class KronolithUpgradeResourceAutoIncrement extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $this->changeColumn('kronolith_resources', 'resource_id', 'primaryKey');
+        $this->changeColumn('kronolith_resources', 'resource_id', 'autoincrementKey');
         try {
             $this->dropTable('kronolith_resources_seq');
         } catch (Horde_Db_Exception $e) {

@@ -96,12 +96,12 @@ class Ingo_Storage_Sql extends Ingo_Storage
             } catch (Horde_Db_Exception $e) {
                 throw new Ingo_Exception($e);
             }
+            $ob = new Ingo_Storage_Forward();
             if (!empty($data)) {
-                $ob = new Ingo_Storage_Forward();
                 $ob->setForwardAddresses(explode("\n", $data['forward_addresses']), false);
                 $ob->setForwardKeep((bool)$data['forward_keep']);
                 $ob->setSaved(true);
-            } elseif ($data = @unserialize($GLOBALS['prefs']->getDefault('vacation'))) {
+            } elseif ($data = @unserialize($GLOBALS['prefs']->getDefault('forward'))) {
                 $ob->setForwardAddresses($data['a'], false);
                 $ob->setForwardKeep($data['k']);
             }
@@ -176,8 +176,6 @@ class Ingo_Storage_Sql extends Ingo_Storage
      * @access private
      *
      * @param Ingo_Storage_Rule|Ingo_Storage_Filters $ob  The object to store.
-     *
-     * @return boolean  True on success.
      */
     protected function _store($ob)
     {
@@ -223,15 +221,9 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 }
             }
             $ob->setSaved(true);
-            $ret = true;
-            break;
-
-        case self::ACTION_FILTERS:
-            $ret = true;
             break;
 
         case self::ACTION_FORWARD:
-            $query = sprintf($query, $this->_params['table_forwards']);
             $values = array(
                 implode("\n", $ob->getForwardAddresses()),
                 (int)(bool)$ob->getForwardKeep(),
@@ -281,7 +273,6 @@ class Ingo_Storage_Sql extends Ingo_Storage
             break;
 
         case self::ACTION_SPAM:
-            $query = sprintf($query, $this->_params['table_spam']);
             $values = array(
                 (int)$ob->getSpamLevel(),
                 $ob->getSpamFolder(),
@@ -299,13 +290,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
             }
             $ob->setSaved(true);
             break;
-
-        default:
-            $ret = false;
-            break;
         }
-
-        return $ret;
     }
 
     /**

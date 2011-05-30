@@ -15,6 +15,7 @@ class Horde_Argv_ExtendAddTypesTest extends Horde_Argv_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $this->parser = new Horde_Argv_InterceptingParser(array('usage' => Horde_Argv_Option::SUPPRESS_USAGE,
                                                                 'optionClass' => 'Horde_Argv_ExtendAddTypesTest_MyOption'));
         $this->parser->addOption("-a", null, array('type' => "string", 'dest' => "a"));

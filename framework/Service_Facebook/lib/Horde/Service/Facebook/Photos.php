@@ -37,27 +37,26 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
      *
      * @return boolean
      */
-    public function &addTag($pid, $tag_uid, $tag_text, $x, $y, $tags, $uid = 0)
+    public function &addTag($pid, $tag_uid, $tag_text, $x, $y, array $tags, $uid = 0)
     {
         // Requires either a owner_uid or a session_key
         if (empty($uid) && !$this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception('photos.addTag requires either a uid or a session_key',
-                                               Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
+            throw new Horde_Service_Facebook_Exception(
+                'photos.addTag requires either a uid or a session_key',
+                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        $params = array('pid' => $pid,
-                  'tag_uid' => $tag_uid,
-                  'tag_text' => $tag_text,
-                  'x' => $x,
-                  'y' => $y,
-                  'tags' => (is_array($tags)) ? json_encode($tags) : null);
+        $params = array(
+            'pid' => $pid,
+            'tag_uid' => $tag_uid,
+            'tag_text' => $tag_text,
+            'x' => $x,
+            'y' => $y,
+            'tags' => (is_array($tags)) ? json_encode($tags) : null);
+
         if (!empty($owner_uid)) {
             $params['owner_uid'] = $uid;
         }
-        if ($skey = $this->_facebook->auth->getSessionKey()) {
-            $params['session_key'] = $skey;
-        }
-
         $results = $this->_facebook->callMethod('facebook.photos.addTag', $params);
 
         return $results;
@@ -79,30 +78,29 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
      *
      * @return array  An album object
      */
-    public function &createAlbum($name, $description = '', $location = '', $visible = '', $uid = 0)
+    public function &createAlbum($name, $description = '', $location = '',
+                                 $visible = '', $uid = 0)
     {
         // Requires either a owner_uid or a session_key
         if (empty($owner_uid) && !$this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception('photos.addTag requires either a owner_uid or a session_key',
-                                               Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
+            throw new Horde_Service_Facebook_Exception(
+                'photos.addTag requires either a owner_uid or a session_key',
+                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        $params = array('name' => $name,
-                  'description' => $description,
-                  'location' => $location,
-                  'visible' => $visible);
+        $params = array(
+          'name' => $name,
+          'description' => $description,
+          'location' => $location,
+          'visible' => $visible);
 
         // Yes, this method uses 'uid' while some of the others use
         // 'owner_uid' - don't ask me...
         if (!empty($uid)) {
             $params['uid'] = $uid;
         }
-
-        if ($skey = $this->_facebook->auth->getSessionKey()) {
-            $params['session_key'] = $skey;
-        }
-
-        $results = $this->_facebook->callMethod('facebook.photos.createAlbum', $params);
+        $results = $this->_facebook->callMethod(
+            'facebook.photos.createAlbum', $params);
 
         return $results;
     }
@@ -124,23 +122,21 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
     {
         // Requires a session_key
         if (!$skey = $this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception('photos.addTag requires a session_key',
-                                               Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
+            throw new Horde_Service_Facebook_Exception(
+                'photos.addTag requires a session_key',
+                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        $params = array('session_key' => $skey);
+        $params = array();
         if ($subj_id) {
             $params['subj_id'] = $subj_id;
         }
-
         if ($aid) {
             $params['aid'] = $aid;
         }
-
         if ($pids) {
             $params['pids'] = $pids;
         }
-
         $results = $this->_facebook->callMethod('facebook.photos.get', $params);
 
         return $results;
@@ -162,14 +158,16 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
     {
         // Requires a session_key
         if (!$skey = $this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception('photos.addTag requires a session_key',
-                                               Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
+            throw new Horde_Service_Facebook_Exception(
+                'photos.addTag requires a session_key',
+                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        $results = $this->_facebook->callMethod('facebook.photos.getAlbums',
-                                                 array('uid' => $uid,
-                                                       'aids' => $aids,
-                                                       'session_key' => $skey));
+        $results = $this->_facebook->callMethod(
+            'facebook.photos.getAlbums',
+             array('uid' => $uid,
+                   'aids' => $aids));
+
        return $results;
     }
 
@@ -186,11 +184,13 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
     {
         // Requires a session_key
         if (!$skey = $this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception('photos.addTag requires a session_key',
-                                               Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
+            throw new Horde_Service_Facebook_Exception(
+                'photos.addTag requires a session_key',
+                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
-
-        $results = $this->_facebook->callMethod('facebook.photos.getTags', array('pids' => $pids, 'session_key' => $skey));
+        $results = $this->_facebook->callMethod(
+            'facebook.photos.getTags',
+            array('pids' => $pids));
 
         return $results;
     }
@@ -211,20 +211,17 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
     {
         // Requires either a owner_uid or a session_key
         if (empty($uid) && !$skey = $this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception('photos.addTag requires either a uid or a session_key',
-                                               Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
+            throw new Horde_Service_Facebook_Exception(
+                'photos.addTag requires either a uid or a session_key',
+                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
         $params = array('aid' => $aid, 'caption' => $caption);
         if (!empty($uid)) {
             $params['uid'] = $uid;
         }
-
-        if (!empty($skey)) {
-            $params['session_key'] = $skey;
-        }
-
-        $results = $this->_facebook->callUploadMethod('facebook.photos.upload', $params, $file);
+        $results = $this->_facebook->callUploadMethod(
+            'facebook.photos.upload', $params, $file);
 
         return $results;
     }

@@ -1,5 +1,13 @@
 <?php
-
+/**
+ * This file defines Horde's core API interface. Other core Horde libraries
+ * can interact with Content through this API.
+ *
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @category Horde
+ * @package TimeObjects
+ */
 /* Determine the base directories. */
 if (!defined('TIMEOBJECTS_BASE')) {
     define('TIMEOBJECTS_BASE', dirname(__FILE__) . '/..');
@@ -21,5 +29,5 @@ require_once HORDE_BASE . '/lib/core.php';
 
 class Timeobjects_Application extends Horde_Registry_Application
 {
-    public $version = 'H4 (0.1-git)';
+    public $version = '1.0.1-git';
 }

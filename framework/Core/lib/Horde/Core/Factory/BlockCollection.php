@@ -39,18 +39,34 @@ class Horde_Core_Factory_BlockCollection extends Horde_Core_Factory_Base
     /**
      * Return the Block_Collection instance.
      *
-     * @param array $apps  The applications whose blocks to list.
+     * @param array $apps     The applications whose blocks to list.
+     * @param string $layout  The preference name for the layout
+     *                        configuration.
      *
      * @return Horde_Core_Block_Collection  The singleton instance.
      * @throws Horde_Exception
      */
-    public function create(array $apps = array())
+    public function create(array $apps = array(), $layout = 'portal_layout')
     {
+        global $registry, $session;
+
+        if (empty($apps)) {
+            $apps = $registry->listApps();
+        } else {
+            $apps = array_intersect($registry->listApps(), $apps);
+        }
+
         sort($apps);
-        $sig = hash('md5', serialize($apps));
+        $sig = hash('md5', serialize(array($apps, $layout)));
 
         if (!isset($this->_instances[$sig])) {
-            $this->_instances[$sig] = new Horde_Core_Block_Collection($apps);
+            if (!($ob = $session->retrieve('horde', 'blocks/' . $sig))) {
+                $ob = new Horde_Core_Block_Collection($apps, $layout);
+                $session->set('horde', 'blocks/' . $sig, $ob);
+
+            }
+
+            $this->_instances[$sig] = $ob;
         }
 
         return $this->_instances[$sig];

@@ -8,6 +8,9 @@
    save sent-mail or postponed messages, along with the obvious effects of
    restricting the user to their INBOX.">true
     <case name="true" desc="Yes">
+     <configboolean name="autocreate_special" required="false"
+     desc="Automatically create special mailboxes (Drafts, Sent Mail, Spam,
+     Trash) on login?">false</configboolean>
      <configboolean name="select_sentmail_folder" desc="If this is true, then
      users will be given a drop down menu in the compose window allowing them
      to choose which folder to save their sent messages to. If this is false,
@@ -23,34 +26,18 @@
    will be a 'Message Source' link in the parts list of every message, allowing
    the user to view the entire raw message, or to download it and save it to
    disk.">true</configboolean>
-   <configswitch name="select_view" desc="Allow user to select the application
-   view mode on login?">false
-    <case name="true" desc="Yes"/>
-    <case name="false" desc="No">
-     <configenum name="force_view" desc="Force an application view to be used
-     for all users?">
-      <values>
-       <value desc="None (use user's browser and 'dynamic_view'
-       preference)"></value>
-       <value desc="Traditional">imp</value>
-       <value desc="Dynamic">dimp</value>
-       <value desc="Mobile">mimp</value>
-      </values>
-     </configenum>
-    </case>
-   </configswitch>
   </configsection>
  </configtab>
 
  <configtab name="server" desc="Server">
   <configsection name="server">
    <configswitch name="server_list" desc="Should we display a list of servers
-   (defined in config/backends.php) for users to choose from? The options are
-   'shown', 'hidden', and 'none'. If the server list is hidden then you can use
-   the 'preferred' mechanism to auto-select from it based on an HTTP
-   virtualhost or another piece of data. If it is shown, the user will be able
-   to pick from any of the options. If none, no server list will be shown and
-   the defaults will be used unless another mechanism changes them.">none
+   for users to choose from? The options are 'shown', 'hidden', and 'none'. If
+   the server list is hidden then you can use the 'preferred' mechanism to
+   auto-select from it based on an HTTP virtualhost or another piece of
+   data. If it is shown, the user will be able to pick from any of the
+   options. If none, no server list will be shown and the defaults will be used
+   unless another mechanism changes them.">none
     <case name="none" desc="None" />
     <case name="shown" desc="Shown" />
     <case name="hidden" desc="Hidden" />

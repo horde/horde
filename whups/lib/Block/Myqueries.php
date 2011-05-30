@@ -10,7 +10,7 @@ class Whups_Block_Myqueries extends Horde_Core_Block
     {
         parent::__construct($app, $params);
 
-        $this->_name = _("My Queries");
+        $this->_name = _("Saved Queries");
     }
 
     /**

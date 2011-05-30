@@ -1,12 +1,13 @@
 <?php
 $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
-$horde_groups = $GLOBALS['injector']->getInstance('Horde_Group');
 
 $groups = array();
 try {
-    $groups = empty($GLOBALS['conf']['share']['any_group'])
-        ? $horde_groups->listGroups($GLOBALS['registry']->getAuth())
-        : $horde_groups->listAll();
+    $groups = $GLOBALS['injector']
+        ->getInstance('Horde_Group')
+        ->listAll(empty($GLOBALS['conf']['share']['any_group'])
+                  ? $GLOBALS['registry']->getAuth()
+                  : null);
     asort($groups);
 } catch (Horde_Group_Exception $e) {}
 

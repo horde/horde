@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nag H4 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-10 13:15+0100\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: 2011-03-10 13:14+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -67,12 +67,12 @@ msgstr "%d Minuten"
 msgid "%s at %s"
 msgstr "%s um %s"
 
-#: lib/Application.php:290 lib/Block/Summary.php:147 lib/Nag.php:771
+#: lib/Application.php:340 lib/Block/Summary.php:147 lib/Nag.php:771
 #, php-format
 msgid "%s is due in %s"
 msgstr "%s ist in %s fällig"
 
-#: lib/Application.php:291 lib/Block/Summary.php:144 lib/Nag.php:769
+#: lib/Application.php:341 lib/Block/Summary.php:144 lib/Nag.php:769
 #, php-format
 msgid "%s is due now."
 msgstr "%s ist fällig."
@@ -148,7 +148,7 @@ msgstr[1] "%d Aufgaben hinzugefügt"
 msgid "Alarm"
 msgstr "Alarm"
 
-#: templates/data/export.inc:34
+#: config/prefs.php:191 templates/data/export.inc:34
 msgid "All tasks"
 msgstr "Alle Aufgaben"
 
@@ -166,7 +166,12 @@ msgstr ""
 "Um eine Benachrichtigungsmethode auswählen zu können, muss erst ein Alarm "
 "gesetzt werden."
 
-#: data.php:56 lib/Form/Task.php:101 templates/list/task_headers.inc:64
+#: config/prefs.php:116
+msgid "Ascending"
+msgstr "Aufsteigend"
+
+#: config/prefs.php:60 config/prefs.php:87 config/prefs.php:105 data.php:56
+#: lib/Form/Task.php:101 templates/list/task_headers.inc:64
 #: templates/view/task.inc:12
 msgid "Assignee"
 msgstr "Zuständiger"
@@ -192,14 +197,18 @@ msgstr "Abbrechen"
 msgid "Cat_egory"
 msgstr "_Kategorie"
 
-#: data.php:55 lib/Form/Task.php:93 lib/Form/Task.php:97
-#: templates/view/task.inc:8
+#: config/prefs.php:64 config/prefs.php:82 config/prefs.php:100 data.php:55
+#: lib/Form/Task.php:93 lib/Form/Task.php:97 templates/view/task.inc:8
 msgid "Category"
 msgstr "Kategorie"
 
 #: tasklists/index.php:60 templates/tasklist_list.php:35
 msgid "Change Permissions"
 msgstr "Rechte Ändern"
+
+#: config/prefs.php:14
+msgid "Change your task sorting and display preferences."
+msgstr "Ändern Sie die Aufgabensortierung und Anzeigeeinstellungen."
 
 #: lib/Nag.php:966
 #, php-format
@@ -270,13 +279,30 @@ msgstr ""
 "Legen Sie fest, wie Sie über Aufgaben mit Alarmen benachrichtigt werden "
 "möchten:"
 
+#: config/prefs.php:160
+msgid ""
+"Choose if you want to be notified of new, edited, and deleted tasks by email:"
+msgstr ""
+"Legen Sie fest, ob Sie per Email über neue, geänderte oder gelöschte "
+"Aufgaben benachrichtigt werden möchten:"
+
+#: config/prefs.php:42
+msgid "Choose if you want to be notified of task changes and task alarms."
+msgstr ""
+"Legen Sie fest, ob Sie über Aufgabenänderungen und Aufgabenalarme "
+"benachrichtigt werden möchten."
+
+#: config/prefs.php:35
+msgid "Choose your default task list."
+msgstr "Wählen Sie Ihre Standard-Aufgabenliste aus."
+
 #: templates/tasklist_list.php:31 templates/tasklist_list.php:32
 msgid "Click or copy this URL to display this task list"
 msgstr ""
 "Kopieren Sie diese Adresse in Ihren Browser oder klicken Sie darauf, um "
 "diese Aufgabenliste anzuzeigen"
 
-#: templates/panel.inc:48
+#: templates/panel.inc:49
 msgid "Close"
 msgstr "Schließen"
 
@@ -302,6 +328,10 @@ msgstr "\"%s\" erledigen"
 msgid "Complete Task"
 msgstr "Aufgabe erledigen"
 
+#: config/prefs.php:193
+msgid "Complete tasks"
+msgstr "Erledigte Aufgaben"
+
 #: lib/Block/Summary.php:216 lib/Nag.php:600 mobile.php:129
 msgid "Completed"
 msgstr "Erledigt"
@@ -324,8 +354,8 @@ msgstr ""
 msgid "Completed tasks"
 msgstr "Erledigte Aufgaben"
 
-#: lib/Form/Task.php:115 templates/list/task_headers.inc:31
-#: templates/view/task.inc:42
+#: config/prefs.php:85 config/prefs.php:103 lib/Form/Task.php:115
+#: templates/list/task_headers.inc:31 templates/view/task.inc:42
 msgid "Completed?"
 msgstr "Erledigt?"
 
@@ -337,7 +367,7 @@ msgstr "Erledigungsdatum"
 msgid "Completion Status"
 msgstr "Fortschritt"
 
-#: lib/Api.php:606
+#: lib/Api.php:614
 #, php-format
 msgid "Connection failed: %s"
 msgstr "Verbindung fehlgeschlagen: %s"
@@ -374,6 +404,14 @@ msgstr "Tag"
 msgid "Day(s)"
 msgstr "Tag(e)"
 
+#: config/prefs.php:34
+msgid "Default Task List"
+msgstr "Standard-Aufgabenliste"
+
+#: config/prefs.php:28
+msgid "Defaults for new tasks"
+msgstr "Standardeinstellungen für neue Aufgaben"
+
 #: lib/Form/Task.php:105
 msgid "Delay Start Until"
 msgstr "Start verzögern bis"
@@ -388,6 +426,14 @@ msgstr "Löschen"
 msgid "Delete %s"
 msgstr "%s löschen"
 
+#: config/prefs.php:20
+msgid "Delete Confirmation"
+msgstr "Löschbestätigung"
+
+#: config/prefs.php:21
+msgid "Delete button behaviour"
+msgstr "Verhalten beim Löschen."
+
 #: lib/Form/Renderer/Task.php:39 lib/Form/Task.php:126 task.php:115
 msgid "Delete this task"
 msgstr "Diese Aufgabe löschen"
@@ -397,9 +443,13 @@ msgstr "Diese Aufgabe löschen"
 msgid "Deleted %s."
 msgstr "%s gelöscht."
 
-#: lib/Api.php:585
+#: lib/Api.php:593
 msgid "Deleting entire tasklists is not supported."
 msgstr "Das Löschen ganzer Aufgabenlisten wird nicht unterstützt."
+
+#: config/prefs.php:117
+msgid "Descending"
+msgstr "Absteigend"
 
 #: data.php:54 lib/Form/CreateTaskList.php:25 lib/Form/Task.php:122
 msgid "Description"
@@ -409,13 +459,32 @@ msgstr "Beschreibung"
 msgid "Description:"
 msgstr "Beschreibung:"
 
+#: config/prefs.php:13
+msgid "Display Preferences"
+msgstr "Anzeige-Einstellungen"
+
 #: templates/tasklist_list.php:19
 msgid "Display URL"
 msgstr "Anzeige-Adresse"
 
+#: config/prefs.php:126
+msgid "Do you want to confirm deleting entries?"
+msgstr "Möchten Sie das Löschen von Einträgen bestätigen?"
+
+#: config/prefs.php:167
+msgid ""
+"Don't send me a notification if I've added, changed or deleted the task?"
+msgstr ""
+"Mir keine Benachrichtigung schicken, wenn ich selbst den Termin hinzugefügt, "
+"geändert oder gelöscht habe?"
+
 #: data.php:57 lib/Form/Task.php:104 templates/view/task.inc:26
 msgid "Due By"
 msgstr "Fällig am"
+
+#: config/prefs.php:61 config/prefs.php:83 config/prefs.php:101
+msgid "Due Date"
+msgstr "Fälligkeitsdatum"
 
 #: lib/Ui/VarRenderer/Nag.php:150
 msgid "Due date specified."
@@ -464,7 +533,8 @@ msgstr ""
 msgid "Error deleting task: %s"
 msgstr "Fehler beim Löschen der Aufgabe: %s"
 
-#: data.php:62 lib/Form/Task.php:114 templates/list/task_headers.inc:60
+#: config/prefs.php:63 config/prefs.php:86 config/prefs.php:104 data.php:62
+#: lib/Form/Task.php:114 templates/list/task_headers.inc:60
 #: templates/view/task.inc:38
 msgid "Estimated Time"
 msgstr "Geschätzte Zeit"
@@ -477,9 +547,17 @@ msgstr "Exportieren"
 msgid "Export Tasks"
 msgstr "Aufgaben exportieren"
 
-#: templates/data/export.inc:36
+#: config/prefs.php:48
+msgid "External Data"
+msgstr "Externe Daten"
+
+#: config/prefs.php:194 templates/data/export.inc:36
 msgid "Future tasks"
 msgstr "Zukünftige Aufgaben"
+
+#: config/prefs.php:12 config/prefs.php:19 config/prefs.php:26
+msgid "General Preferences"
+msgstr "Allgemeine Einstellungen"
 
 #: lib/Ui/VarRenderer/Nag.php:168
 msgid "Hour"
@@ -510,7 +588,7 @@ msgstr "Unerledigte Aufgaben"
 msgid "Incomplete sub tasks, complete them first"
 msgstr "Unerledigte Unteraufgaben, erledigen Sie diese erst"
 
-#: templates/data/export.inc:35
+#: config/prefs.php:192 templates/data/export.inc:35
 msgid "Incomplete tasks"
 msgstr "Unerledigte Aufgaben"
 
@@ -555,7 +633,7 @@ msgstr "\"%s\" als unerledigt markieren"
 msgid "Mark as incomplete"
 msgstr "Als unerledigt markieren"
 
-#: lib/Application.php:66
+#: lib/Application.php:64
 msgid "Maximum Number of Tasks"
 msgstr "Maximale Anzahl an Aufgaben"
 
@@ -575,12 +653,12 @@ msgstr "Monat"
 msgid "More Options..."
 msgstr "Weitere Optionen..."
 
-#: lib/Api.php:1160
+#: lib/Api.php:1168
 msgid "Multiple iCalendar components found; only one vTodo is supported."
 msgstr ""
 "Mehrere iCalendar-Komponenten gefunden; nur ein vTodo wird unterstützt."
 
-#: templates/panel.inc:76
+#: templates/panel.inc:77
 msgid "My Task Lists:"
 msgstr "Meine Aufgabenlisten:"
 
@@ -596,22 +674,21 @@ msgstr "Na_me"
 msgid "Na_me"
 msgstr "Na_me"
 
-#: lib/Driver/Kolab.php:735
-#, php-format
-msgid "Nag/kolab: Did not find task %s"
-msgstr "Nag/kolab: Aufgabe %s nicht gefunden"
-
 #: data.php:53 lib/Form/CreateTaskList.php:23 lib/Form/Task.php:80
 msgid "Name"
 msgstr "Name"
 
-#: lib/Application.php:344 task.php:82 task.php:119
+#: lib/Application.php:394 task.php:82 task.php:119
 msgid "New Task"
 msgstr "Neue Aufgabe"
 
 #: templates/data/import.inc:39
 msgid "Next"
 msgstr "Weiter"
+
+#: config/prefs.php:155
+msgid "No"
+msgstr "Nein"
 
 #: lib/Ui/VarRenderer/Nag.php:95
 msgid "No delay"
@@ -621,7 +698,7 @@ msgstr "Keine Verzögerung"
 msgid "No due date."
 msgstr "Kein Fälligkeitsdatum"
 
-#: lib/Api.php:789 lib/Api.php:841 lib/Api.php:1167
+#: lib/Api.php:797 lib/Api.php:849 lib/Api.php:1175
 msgid "No iCalendar data was found."
 msgstr "Es wurden keine iCalendar-Daten gefunden."
 
@@ -653,6 +730,10 @@ msgstr "Keiner"
 msgid "Not Completed"
 msgstr "Nicht Erledigt"
 
+#: lib/Driver/Kolab.php:93
+msgid "Not Found"
+msgstr "Nicht gefunden"
+
 #: templates/view/task.inc:18
 msgid "Not Private"
 msgstr "Nicht Privat"
@@ -661,13 +742,29 @@ msgstr "Nicht Privat"
 msgid "Not completed"
 msgstr "Nicht erledigt"
 
-#: lib/Api.php:644
+#: lib/Api.php:652
 msgid "Not configured"
 msgstr "Nicht konfiguriert"
 
 #: lib/Form/Task.php:108
 msgid "Notification"
 msgstr "Benachrichtigung"
+
+#: config/prefs.php:41
+msgid "Notifications"
+msgstr "Benachrichtigungen"
+
+#: config/prefs.php:157
+msgid "On all shown task lists"
+msgstr "Bei allen angezeigten Aufgabenlisten"
+
+#: config/prefs.php:158
+msgid "On all task lists I have read access to"
+msgstr "Bei allen Aufgabenlisten, für die ich Leserechte habe"
+
+#: config/prefs.php:156
+msgid "On my task lists only"
+msgstr "Nur bei meinen Aufgabenlisten"
 
 #: templates/list/task_headers.inc:39
 msgid "P_ri"
@@ -677,11 +774,11 @@ msgstr "_Pri"
 msgid "Parent task"
 msgstr "Überaufgabe"
 
-#: lib/Api.php:650 lib/Api.php:684 lib/Api.php:737 lib/Api.php:768
-#: lib/Api.php:887 lib/Api.php:927 lib/Api.php:942 lib/Api.php:981
-#: lib/Api.php:1019 lib/Api.php:1044 lib/Api.php:1096 lib/Api.php:1113
-#: lib/Api.php:1143 lib/Api.php:1230 lib/Api.php:1309 lib/Api.php:1363
-#: lib/Api.php:1407 lib/Nag.php:285
+#: lib/Api.php:658 lib/Api.php:692 lib/Api.php:745 lib/Api.php:776
+#: lib/Api.php:895 lib/Api.php:935 lib/Api.php:950 lib/Api.php:989
+#: lib/Api.php:1027 lib/Api.php:1052 lib/Api.php:1104 lib/Api.php:1121
+#: lib/Api.php:1151 lib/Api.php:1238 lib/Api.php:1317 lib/Api.php:1371
+#: lib/Application.php:275 lib/Nag.php:285
 msgid "Permission Denied"
 msgstr "Zugriff verweigert"
 
@@ -689,7 +786,8 @@ msgstr "Zugriff verweigert"
 msgid "Portal"
 msgstr "Portal"
 
-#: data.php:60 lib/Form/Task.php:111 templates/view/task.inc:34
+#: config/prefs.php:59 config/prefs.php:80 config/prefs.php:98 data.php:60
+#: lib/Form/Task.php:111 templates/view/task.inc:34
 msgid "Priority"
 msgstr "Priorität"
 
@@ -724,7 +822,7 @@ msgid "Really delete this task?"
 msgstr "Diese Aufgabe wirklich löschen?"
 
 #: lib/Form/EditTaskList.php:45 lib/Form/Renderer/Task.php:37
-#: lib/Form/Task.php:124 templates/panel.inc:94
+#: lib/Form/Task.php:124 templates/panel.inc:95
 msgid "Save"
 msgstr "Speichern"
 
@@ -733,7 +831,7 @@ msgstr "Speichern"
 msgid "Saved %s."
 msgstr "%s gespeichert."
 
-#: lib/Application.php:376 search.php:19 templates/list/header.inc:3
+#: lib/Application.php:426 search.php:19 templates/list/header.inc:3
 #: templates/search/search.inc:31
 msgid "Search"
 msgstr "Suche"
@@ -746,7 +844,7 @@ msgstr "Suchen in:"
 msgid "Search _Text:"
 msgstr "Such_text:"
 
-#: templates/panel.inc:64
+#: templates/panel.inc:65
 msgid "Search for Task Lists:"
 msgstr "Nach Aufgabenlisten suchen:"
 
@@ -758,6 +856,11 @@ msgstr "Suche:"
 #, php-format
 msgid "Search: Results for \"%s\""
 msgstr "Suche: Ergebnisse für \"%s\""
+
+#: config/prefs.php:66
+msgid "Select the columns that should be shown in the list view:"
+msgstr ""
+"Wählen Sie die Spalten, die in der Listenansicht angezeigt werden sollen:"
 
 #: templates/data/export.inc:11
 msgid "Select the export format:"
@@ -779,13 +882,26 @@ msgstr "Wählen Sie die Aufgabenliste(n), die exportiert werden soll(en):"
 msgid "Select the task states to export:"
 msgstr "Wählen Sie den Status der Aufgaben, die exportiert werden sollen:"
 
-#: templates/panel.inc:85
+#: templates/panel.inc:86
 msgid "Shared Task Lists:"
 msgstr "Gemeinsame Aufgabenlisten:"
 
 #: lib/Block/Summary.php:63
 msgid "Show action buttons?"
 msgstr "Aktionsknöpfe anzeigen?"
+
+#: config/prefs.php:196
+msgid "Show complete, incomplete, or all tasks in the task list?"
+msgstr ""
+"Erledigte, unerledigte oder alle Aufgaben in der Aufgabenliste anzeigen?"
+
+#: config/prefs.php:183
+msgid "Show data from any of these other applications in your task list?"
+msgstr "Daten von einer dieser Anwendungen in Ihren Aufgabenlisten anzeigen?"
+
+#: config/prefs.php:49
+msgid "Show data from other applications or sources."
+msgstr "Daten von anderen Anwendungen oder Quellen anzeigen."
 
 #: lib/Block/Summary.php:68
 msgid "Show due dates?"
@@ -851,10 +967,19 @@ msgstr "Sortieren nach Benutzername"
 msgid "Sort by estimated time"
 msgstr "Sortieren nach geschätzter Zeit"
 
+#: config/prefs.php:119
+msgid "Sort direction:"
+msgstr "Sortierrichtung:"
+
+#: config/prefs.php:90
+msgid "Sort tasks by:"
+msgstr "Aufgaben sortieren nach:"
+
 #: data.php:59
 msgid "Start"
 msgstr "Beginn"
 
+#: config/prefs.php:62 config/prefs.php:84 config/prefs.php:102
 #: templates/view/task.inc:22
 msgid "Start Date"
 msgstr "Startdatum"
@@ -891,6 +1016,11 @@ msgstr "Aufgabenalarm"
 msgid "Task Alarm?"
 msgstr "Aufgabenalarm?"
 
+#: config/prefs.php:27
+msgid "Task Defaults"
+msgstr "Standardvorgaben"
+
+#: config/prefs.php:58 config/prefs.php:88 config/prefs.php:106
 #: lib/Form/Task.php:84 templates/tasklist_list.php:17
 msgid "Task List"
 msgstr "Aufgabenliste"
@@ -899,7 +1029,7 @@ msgstr "Aufgabenliste"
 msgid "Task List Description"
 msgstr "Aufgabenlistenbeschreibung"
 
-#: templates/panel.inc:5
+#: templates/panel.inc:6
 msgid "Task List Information"
 msgstr "Informationen über Aufgabenliste"
 
@@ -911,6 +1041,10 @@ msgstr "Aufgabenlistenübersicht"
 msgid "Task List Name"
 msgstr "Aufgabenlistenname"
 
+#: config/prefs.php:33 config/prefs.php:40 config/prefs.php:47
+msgid "Task List and Share Preferences"
+msgstr "Aufgabenlisten- und Rechte-Einstellungen"
+
 #: templates/tasklist_info.php:6
 #, php-format
 msgid "Task List owned by %s."
@@ -920,9 +1054,13 @@ msgstr "Diese Aufgabenliste gehört %s."
 msgid "Task List owned by system."
 msgstr "Diese Aufgabenliste gehört dem System."
 
-#: templates/panel.inc:58 templates/panel.inc:59
+#: templates/panel.inc:59 templates/panel.inc:60
 msgid "Task Lists"
 msgstr "Aufgabenlisten"
+
+#: config/prefs.php:81 config/prefs.php:99
+msgid "Task Name"
+msgstr "Betreff"
 
 #: templates/list/task_summaries.inc:56
 msgid "Task Note"
@@ -965,7 +1103,7 @@ msgstr "Aufgabe geändert:"
 msgid "Task not found."
 msgstr "Aufgabe nicht gefunden."
 
-#: lib/Api.php:598
+#: lib/Api.php:606
 msgid "Tasklist does not exist or no permission to delete"
 msgstr "Die Aufgabenliste existiert nicht oder keine Berechtigung zu löschen."
 
@@ -973,7 +1111,7 @@ msgstr "Die Aufgabenliste existiert nicht oder keine Berechtigung zu löschen."
 msgid "Tasklist does not exist or no permission to edit"
 msgstr "Die Aufgabenliste existiert nicht oder keine Berechtigung zum Ändern."
 
-#: lib/Api.php:1281
+#: lib/Api.php:1289
 msgid "Tasks"
 msgstr "Aufgaben"
 
@@ -1047,6 +1185,10 @@ msgstr "Die Aufgabenliste \"%s\" wurde nach \"%s\" umbenannt."
 msgid "The task list \"%s\" has been saved."
 msgstr "Die Aufgabenliste \"%s\" wurde gespeichert."
 
+#: config/prefs.php:108
+msgid "Then:"
+msgstr "Dann:"
+
 #: templates/list/empty.inc:2
 msgid "There are no tasks matching the current criteria."
 msgstr "Es gibt keine Aufgaben, die den Suchkriterien entsprechen."
@@ -1071,7 +1213,7 @@ msgstr "Beim Speichern der Aufgabe ist ein Fehler aufgetreten: %s."
 msgid "There was an error importing the data: %s"
 msgstr "Beim Importieren der Daten ist ein Fehler aufgetreten: %s"
 
-#: lib/Api.php:450 lib/Api.php:781 lib/Api.php:1152
+#: lib/Api.php:450 lib/Api.php:789 lib/Api.php:1160
 msgid "There was an error importing the iCalendar data."
 msgstr "Beim Importieren der iCalendar Daten ist ein Fehler aufgetreten."
 
@@ -1108,7 +1250,7 @@ msgstr "Als privat markiert"
 msgid "Turned privacy on"
 msgstr "Nicht mehr als privat markiert"
 
-#: lib/Api.php:616
+#: lib/Api.php:624
 #, php-format
 msgid "Unable to delete tasklist \"%s\": %s"
 msgstr "Die Aufgabenliste \"%s\" kann nicht gelöscht werden: %s"
@@ -1133,8 +1275,8 @@ msgstr "Nicht zugeordnet"
 msgid "Unique ID"
 msgstr "Eindeutige ID"
 
-#: lib/Api.php:552 lib/Api.php:872 lib/Api.php:1004 lib/Api.php:1067
-#: lib/Api.php:1212
+#: lib/Api.php:560 lib/Api.php:880 lib/Api.php:1012 lib/Api.php:1075
+#: lib/Api.php:1220
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Nicht unterstützer Inhaltstyp: %s"
@@ -1154,6 +1296,22 @@ msgstr "Wir möchten Sie an diese fällige Aufgabe erinnern."
 #: lib/Nag.php:629 lib/Ui/VarRenderer/Nag.php:193
 msgid "Week(s)"
 msgstr "Woche(n)"
+
+#: config/prefs.php:147
+msgid "What do you want to be the default due time for tasks?"
+msgstr "Zur welcher Zeit sollen Aufgaben standardmäßig fällig sein?"
+
+#: config/prefs.php:140
+msgid ""
+"When creating a new task, how many days in the future should the default due "
+"date be (0 means today)?"
+msgstr ""
+"Wieviele Tage in der Zukunft soll das Fälligkeitsdatum von neuen Aufgaben "
+"standardmäßig liegen (0 bedeutet heute)?"
+
+#: config/prefs.php:133
+msgid "When creating a new task, should it default to having a due date?"
+msgstr "Soll eine neue Aufgabe standardmäßig ein Fälligkeitsdatum haben?"
 
 #: templates/data/import.inc:21
 msgid "Which tasklist should the tasks be added to?"
@@ -1211,7 +1369,11 @@ msgstr ""
 "Sie wollten benachrichtigt werden, wenn Aufgaben in Ihren Aufgabenlisten "
 "geändert werden."
 
-#: templates/panel.inc:71
+#: config/prefs.php:209
+msgid "Your default task list:"
+msgstr "Ihre Standard-Aufgabenliste:"
+
+#: templates/panel.inc:72
 msgid "[Manage Task Lists]"
 msgstr "[Aufgabenlisten verwalten]"
 
@@ -1260,23 +1422,23 @@ msgstr "_Bearbeiten"
 msgid "_Future tasks"
 msgstr "_Zukünftige Aufgaben"
 
-#: lib/Application.php:95
+#: lib/Application.php:94
 msgid "_Import/Export"
 msgstr "_Import/Export"
 
-#: lib/Application.php:78
+#: lib/Application.php:76
 msgid "_List Tasks"
 msgstr "Aufgaben_liste"
 
-#: lib/Application.php:83
+#: lib/Application.php:81
 msgid "_New Task"
 msgstr "_Neue Aufgabe"
 
-#: lib/Application.php:86
+#: lib/Application.php:85
 msgid "_Quick Add"
 msgstr "Schnell Hin_zufügen"
 
-#: lib/Application.php:91
+#: lib/Application.php:90
 msgid "_Search"
 msgstr "_Suche"
 
@@ -1309,7 +1471,7 @@ msgstr "erledigt"
 msgid "iCalendar (vTodo)"
 msgstr "iCalendar (vTodo)"
 
-#: lib/Application.php:363
+#: lib/Application.php:413
 #, php-format
 msgid "in %s"
 msgstr "in %s"

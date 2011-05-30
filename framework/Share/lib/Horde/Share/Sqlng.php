@@ -41,7 +41,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
      *
      * @see Horde_Share_Base::__construct()
      */
-    public function __construct($app, $user, Horde_Perms $perms,
+    public function __construct($app, $user, Horde_Perms_Base $perms,
                                 Horde_Group_Base $groups)
     {
         parent::__construct($app, $user, $perms, $groups);
@@ -173,6 +173,76 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Share_Exception($e);
         }
+    }
+
+    /**
+     * Count the number of users who have shares with the given permissions
+     * for the current user.
+     *
+     * @param integer $perm       The level of permissions required.
+     * @param mixed $parent       The parent share to start looking in.
+     *                            (Horde_Share_Object, share_id, or null).
+     * @param boolean $allLevels  Return all levels, or just the direct
+     *                            children of $parent?
+     *
+     * @return integer  Number of users.
+     * @throws Horde_Share_Exception
+     */
+    public function countOwners($perm = Horde_Perms::SHOW, $parent = null, $allLevels = true)
+    {
+        $perms = self::convertBitmaskToArray($perm);
+        $sql = 'SELECT COUNT(DISTINCT(s.share_owner)) FROM ' . $this->_table . ' s WHERE '
+            . $this->_getShareCriteria($this->_user, $perms, null, $parent, $allLevels);
+
+        try {
+            $results = $this->_db->selectValue($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Share_Exception($e);
+        }
+
+        return $results;
+    }
+
+    /**
+     * Return a list of users who have shares with the given permissions
+     * for the current user.
+     *
+     * @param integer $perm       The level of permissions required.
+     * @param mixed  $parent      The parent share to start looking in.
+     *                            (Horde_Share_Object, share_id, or null)
+     * @param boolean $allLevels  Return all levels, or just the direct
+     *                            children of $parent? Defaults to all levels.
+     * @param integer $from       The user to start listing at.
+     * @param integer $count      The number of users to return.
+     *
+     * @return array  List of users.
+     * @throws Horde_Share_Exception
+     */
+    public function listOwners($perm = Horde_Perms::SHOW, $parent = null, $allLevels = true,
+                               $from = 0, $count = 0)
+    {
+        $perms = self::convertBitmaskToArray($perm);
+        $sql = 'SELECT DISTINCT(s.share_owner) FROM ' . $this->_table . ' s WHERE '
+            . $this->_getShareCriteria($this->_user, $perms, null, $parent, $allLevels);
+
+        if ($count) {
+            $sql = $this->_db->addLimitOffset($sql, array('limit' => $count, 'offset' => $from));
+        }
+
+        try {
+            $allowners = $this->_db->selectValues($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Share_Exception($e);
+        }
+
+        $owners = array();
+        foreach ($allowners as $owner) {
+            if ($this->countShares($this->_user, $perm, $owner, $parent, $allLevels)) {
+                $owners[] = $owner;
+            }
+        }
+
+        return $owners;
     }
 
     /**
@@ -391,7 +461,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
      *
      * @return string  The generated criteria string.
      */
-    protected function _getPermsCriteria($base, $perms)
+    protected function _getPermsCriteria($base, array $perms)
     {
         $criteria = array();
         foreach ($perms as $perm) {

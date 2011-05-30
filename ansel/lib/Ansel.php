@@ -1,7 +1,7 @@
 <?php
 /**
  * Ansel Base Class.
-
+ *
  * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -13,49 +13,9 @@
  */
 class Ansel
 {
-    /* Sort constants */
+    // Sort constants
     const SORT_ASCENDING = 0;
     const SORT_DESCENDING = 1;
-
-    /**
-     * Create and initialize the database object.
-     *
-     * @return mixed MDB2 object
-     * @throws Ansel_Exception
-     */
-    static public function &getDb()
-    {
-        $config = $GLOBALS['conf']['sql'];
-        unset($config['charset']);
-        $mdb = MDB2::singleton($config);
-        if ($mdb instanceof PEAR_Error) {
-            throw new Ansel_Exception($mdb->getMessage());
-        }
-        $mdb->setOption('seqcol_name', 'id');
-
-        /* Set DB portability options. */
-        switch ($mdb->phptype) {
-        case 'mssql':
-            $mdb->setOption('field_case', CASE_LOWER);
-            $mdb->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ERRORS | MDB2_PORTABILITY_RTRIM | MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES);
-            break;
-        default:
-            switch ($mdb->phptype) {
-            case 'oci8':
-                $mdb->setOption('emulate_database', false);
-                break;
-            }
-            $mdb->setOption('field_case', CASE_LOWER);
-            $mdb->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ERRORS | MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES);
-        }
-
-        return $mdb;
-    }
-
-    static public function keysFromNames($gallery)
-    {
-        return $gallery->getId();
-    }
 
     /**
      * Return a string containing an <option> listing of the given
@@ -96,14 +56,14 @@ class Ansel
         }
 
         foreach ($galleries as $gallery) {
-            $gallery_id = $gallery->getId();
+            $gallery_id = $gallery->id;
             $gallery_name = $gallery->get('name');
             $label = Horde_String::abbreviate($gallery_name);
             $len = Horde_String::length($gallery_name);
             $treeparams = array();
             $treeparams['selected'] = $gallery_id == $params->selected;
             $parent = $gallery->getParent();
-            $parent = empty($parent) ? null : $parent->getId();
+            $parent = empty($parent) ? null : $parent->id;
             $tree->addNode($gallery->id, $parent, $label, null, true, $treeparams);
         }
 
@@ -147,7 +107,7 @@ class Ansel
             if ($rewrite && (empty($data['special']))) {
                 $url = '';
 
-                /* Viewing a List */
+                // Viewing a List
                 if ($data['view'] == 'List') {
 
                     $groupby = isset($data['groupby'])
@@ -169,7 +129,7 @@ class Ansel
                     return $url;
                 }
 
-                /* Viewing a Gallery or Image */
+                // Viewing a Gallery or Image
                 if ($data['view'] == 'Gallery' || $data['view'] == 'Image') {
 
                     /**
@@ -228,8 +188,8 @@ class Ansel
                         $url->add($extras);
                     }
 
-                    /* Slight hack until we delegate at least some of the url
-                     * generation to the gallery/image/view object. */
+                    //Slight hack until we delegate at least some of the url
+                    // generation to the gallery/image/view object.
                     if ($data['view'] == 'Image' &&
                         !empty($data['gallery_view']) &&
                         $data['gallery_view'] == 'GalleryLightbox') {
@@ -267,7 +227,7 @@ class Ansel
             } else {
                 $url = Horde::url('view.php', $full, $append_session);
 
-                /* See note above about delegating url generation to gallery/view */
+                // See note above about delegating url generation to gallery/view
                 if ($data['view'] == 'Image' &&
                     !empty($data['gallery_view']) &&
                     $data['gallery_view'] == 'GalleryLightbox') {
@@ -636,14 +596,14 @@ class Ansel
     {
         $styles = $GLOBALS['injector']->getInstance('Ansel_Styles');
 
-        /* Build the available styles, but don't show hidden styles */
+        // Build the available styles, but don't show hidden styles
         foreach ($styles as $key => $style) {
             if (empty($style['hide'])) {
                 $options[$key] = $style['title'];
             }
         }
 
-        /* Nothing explicitly selected, use the global pref */
+        // Nothing explicitly selected, use the global pref
         if ($selected == '') {
             $selected = $GLOBALS['prefs']->getValue('default_gallerystyle');
         }
@@ -717,12 +677,12 @@ class Ansel
             exit;
         }
 
-        /* Requested a gallery */
+        // Requested a gallery
         if (!is_null($gallery)) {
-            /* We can name the zip file with the slug if we have it */
+            // We can name the zip file with the slug if we have it
             $slug = $gallery->get('slug');
 
-            /* Set the date in case we are viewing in date mode */
+            // Set the date in case we are viewing in date mode
             $gallery->setDate(Ansel::getDateParameter());
 
             /*
@@ -732,7 +692,7 @@ class Ansel
             $images = $gallery->listImages();
         }
 
-        /* At this point, we should always have a list of images */
+        // At this point, we should always have a list of images
         if (!count($images)) {
             $notification->push(sprintf(_("There are no photos in %s to download."),
                                 $gallery->get('name')), 'horde.message');

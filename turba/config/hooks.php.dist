@@ -14,41 +14,6 @@
 class Turba_Hooks
 {
     /**
-     * Sets the user's personal address book as the default address book.
-     *
-     * While this is not necessary for most features, some might rely on a
-     * default to be set.
-     *
-     * @param string $username  The username.
-     *
-     * @return string  The share id of the default address book.
-     */
-//     public function default_dir($username = null)
-//     {
-//         if (!$username || !$GLOBALS['session']->get('turba', 'has_share')) {
-//             return;
-//         }
-//
-//         $cfgSources = Turba::availableSources();
-//         $shares = Turba::listShares(true);
-//
-//         foreach ($shares as $uid => $share) {
-//             $params = @unserialize($share->get('params'));
-//             if (empty($params['source'])) {
-//                 continue;
-//             }
-//
-//             try {
-//                 $driver = Turba_Driver::factory($params['source'], $cfgSources[$params['source']]);
-//                 if ($driver->checkDefaultShare($share, $cfgSources[$params['source']])) {
-//                     return $uid;
-//                 }
-//             } catch (Turba_Exception $e) {}
-//         }
-//     }
-// }
-
-    /**
      * Called when we store a value.
      *
      * @param string $attribute      Attribute name.
@@ -70,6 +35,7 @@ class Turba_Hooks
 //
 //         return $new;
 //     }
+
 
     /**
      * Called when we display a value.
@@ -94,5 +60,25 @@ class Turba_Hooks
 //
 //         throw new Turba_Exception('No decode handler.');
 //     }
+
+    /**
+     * Example hook demonstrating how to dynamically populate the addressbooks
+     * prefs so share enabled sources can be force added correctly.
+     *
+     */
+//    public function pushapp_post()
+//    {
+//        // If you only want to add certain address books, or only the default
+//        // share, you can add that logic here as well. The important part is
+//        // to make sure you run Turba::availableSources() through
+//        // Turba::getConfigFromShares() to ensure the full share list is built
+//        // and available before you act on it.
+//        // Also note that this example does not save the prefs to storage,
+//        // as the example assumes a locked pref.
+//        $GLOBALS['prefs']->setValue(
+//            'addressbooks',
+//            json_encode(array_keys(Turba::getConfigFromShares(Turba::availableSources()))),
+//            array('nosave' => true));
+//    }
 
 }

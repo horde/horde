@@ -120,7 +120,10 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function deleteMessages($mailbox, $indices)
     {
-        return $GLOBALS['injector']->getInstance('IMP_Message')->delete(array($mailbox => $indices), array('nuke' => true));
+        return $GLOBALS['injector']->getInstance('IMP_Message')->delete(
+            new IMP_Indices($mailbox, $indices),
+            array('nuke' => true)
+        );
     }
 
     /**
@@ -134,7 +137,12 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function copyMessages($mailbox, $indices, $target)
     {
-        return $GLOBALS['injector']->getInstance('IMP_Message')->copy($target, 'copy', new IMP_Indices($mailbox, $indices), array('create' => true));
+        return $GLOBALS['injector']->getInstance('IMP_Message')->copy(
+            $target,
+            'copy',
+            new IMP_Indices($mailbox, $indices),
+            array('create' => true)
+        );
     }
 
     /**
@@ -148,7 +156,12 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function moveMessages($mailbox, $indices, $target)
     {
-        return $GLOBALS['injector']->getInstance('IMP_Message')->copy($target, 'move', new IMP_Indices($mailbox, $indices), array('create' => true));
+        return $GLOBALS['injector']->getInstance('IMP_Message')->copy(
+            $target,
+            'move',
+            new IMP_Indices($mailbox, $indices),
+            array('create' => true)
+        );
     }
 
     /**
@@ -163,7 +176,11 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function flagMessages($mailbox, $indices, $flags, $set)
     {
-        return $GLOBALS['injector']->getInstance('IMP_Message')->flag($flags, array($mailbox => $indices), $set);
+        return $GLOBALS['injector']->getInstance('IMP_Message')->flag(
+            $flags,
+            new IMP_Indices($mailbox, $indices),
+            $set
+        );
     }
 
     /**
@@ -177,7 +194,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function searchMailbox($mailbox, $query)
     {
-        $results = $GLOBALS['injector']->getInstance('IMP_Search')->runQuery($query, $mailbox);
+        $results = IMP_Mailbox::get($mailbox)->runSearchQuery($query);
         return isset($results[$mailbox])
             ? $results[$mailbox]
             : array();
@@ -201,7 +218,7 @@ class IMP_Api extends Horde_Registry_Api
         return array(
             'hostspec' => $imap_ob->ob->getParam('hostspec'),
             'port' => $imap_ob->ob->getParam('port'),
-            'protocol' => $GLOBALS['session']->get('imp', 'protocol'),
+            'protocol' => $imap_ob->pop3 ? 'pop' : 'imap',
             'secure' => $imap_ob->ob->getParam('secure')
         );
     }
@@ -210,8 +227,10 @@ class IMP_Api extends Horde_Registry_Api
      * Returns the list of favorite recipients.
      *
      * @param integer $limit  Return this number of recipients.
-     * @param array $filter   A list of messages types that should be returned.
-     *                        A value of null returns all message types.
+     * @param array $filter   A list of messages types that should be
+     *                        returned.  Valid types: 'forward', 'mdn', 'new',
+     *                        'reply', and 'redirect'. A value of null returns
+     *                        all message types.
      *
      * @return array  A list with the $limit most favourite recipients.
      * @throws IMP_Exception
@@ -219,6 +238,35 @@ class IMP_Api extends Horde_Registry_Api
     public function favouriteRecipients($limit,
                                         $filter = array('new', 'forward', 'reply', 'redirect'))
     {
+        if (!empty($filter)) {
+            $new_filter = array();
+            foreach ($filter as $val) {
+                switch ($val) {
+                case 'forward':
+                    $new_filter[] = IMP_Sentmail::FORWARD;
+                    break;
+
+                case 'mdn':
+                    $new_filter[] = IMP_Sentmail::MDN;
+                    break;
+
+                case 'new':
+                    $new_filter[] = IMP_Sentmail::NEWMSG;
+                    break;
+
+                case 'redirect':
+                    $new_filter[] = IMP_Sentmail::REDIRECT;
+                    break;
+
+                case 'reply':
+                    $new_filter[] = IMP_Sentmail::REPLY;
+                    break;
+                }
+            }
+
+            $filter = $new_filter;
+        }
+
         return $GLOBALS['injector']->getInstance('IMP_Sentmail')->favouriteRecipients($limit, $filter);
     }
 
@@ -242,7 +290,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function flagList($mailbox = null)
     {
-        if ($GLOBALS['session']->get('imp', 'protocol') == 'pop') {
+        if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FLAGS)) {
             return array();
         }
 

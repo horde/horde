@@ -5,7 +5,7 @@
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php
  * @category   Horde
- * @package    Horde_Db
+ * @package    Db
  */
 
 /**
@@ -15,7 +15,7 @@
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://opensource.org/licenses/bsd-license.php
  * @category   Horde
- * @package    Horde_Db
+ * @package    Db
  */
 class Horde_Db_Value_Binary implements Horde_Db_Value
 {

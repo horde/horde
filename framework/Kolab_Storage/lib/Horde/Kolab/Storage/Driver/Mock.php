@@ -622,6 +622,23 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
+     * Retrieves a complete message.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uid    The message UID.
+     *
+     * @return array The message encapsuled as an array that contains a
+     *               Horde_Mime_Headers and a Horde_Mime_Part object.
+     */
+    public function fetchComplete($folder, $uid)
+    {
+        return $this->_data->fetchComplete(
+            $this->_convertToInternal($folder),
+            $uid
+        );
+    }
+
+    /**
      * Retrieves a bodypart for the given message ID and mime part ID.
      *
      * @param string $folder The folder to fetch the messages from.
@@ -657,44 +674,48 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
-     * Deletes messages from the current folder.
+     * Deletes messages from the specified folder.
      *
-     * @param integer $uids  IMAP message ids.
+     * @param string  $folder  The folder to delete messages from.
+     * @param integer $uids    IMAP message ids.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return NULL
      */
     public function deleteMessages($folder, $uids)
     {
-        if (!is_array($uids)) {
-            $uids = array($uids);
-        }
-        return $this->_imap->store($folder, array('add' => array('\\deleted'), 'ids' => $uids));
+        $this->_data->deleteMessages(
+            $this->_convertToInternal($folder),
+            $uids
+        );
     }
 
     /**
      * Moves a message to a new folder.
      *
-     * @param integer $uid        IMAP message id.
-     * @param string $new_folder  Target folder.
+     * @param integer $uid         IMAP message id.
+     * @param string  $old_folder  Source folder.
+     * @param string  $new_folder  Target folder.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return NULL
      */
-    public function moveMessage($old_folder, $uid, $new_folder)
+    public function moveMessage($uid, $old_folder, $new_folder)
     {
-        $options = array('ids' => array($uid), 'move' => true);
-        return $this->_imap->copy($old_folder, $new_folder, $options);
+        $this->_data->moveMessage(
+            $uid,
+            $this->_convertToInternal($old_folder),
+            $this->_convertToInternal($new_folder)
+        );
     }
 
     /**
      * Expunges messages in the current folder.
      *
-     * @param string $folder The folder to append the message(s) to. Either
-     *                        in UTF7-IMAP or UTF-8.
+     * @param string $folder The folder to expunge.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return NULL
      */
     public function expunge($folder)
     {
-        return $this->_imap->expunge($folder);
+        $this->_data->expunge($this->_convertToInternal($folder));
     }
 }

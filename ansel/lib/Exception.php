@@ -10,6 +10,6 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Exception extends Horde_Exception_Prior
+class Ansel_Exception extends Horde_Exception_Wrapped
 {
 }

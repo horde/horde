@@ -11,6 +11,6 @@
  * @category Horde
  * @package  SessionHandler
  */
-class Horde_SessionHandler_Exception extends Horde_Exception_Prior
+class Horde_SessionHandler_Exception extends Horde_Exception_Wrapped
 {
 }

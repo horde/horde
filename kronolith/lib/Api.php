@@ -825,7 +825,7 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         $kronolith_driver = Kronolith::getDriver(null, $calendar);
-        $events = $kronolith_driver->listEvents(null, null, false, false, false, true, true, true);
+        $events = $kronolith_driver->listEvents(null, null, false, false, false, false, false, true);
 
         $version = '2.0';
         switch ($contentType) {
@@ -1168,77 +1168,6 @@ class Kronolith_Api extends Horde_Registry_Api
             $hideExceptions,
             $coverDates,
             $fetchTags);
-    }
-
-    /**
-     * Lists alarms for a given moment.
-     *
-     * @param integer $time  The time to retrieve alarms for.
-     * @param string $user   The user to retrieve alarms for. All users if null.
-     *
-     * @return array  An array of UIDs
-     * @throws Kronolith_Exception
-     */
-    public function listAlarms($time, $user = null)
-    {
-        $current_user = $GLOBALS['registry']->getAuth();
-        if ((empty($user) || $user != $current_user) && !$GLOBALS['registry']->isAdmin()) {
-            throw new Horde_Exception_PermissionDenied();
-        }
-
-        $group = $GLOBALS['injector']->getInstance('Horde_Group');
-        $alarm_list = array();
-        $time = new Horde_Date($time);
-        $calendars = is_null($user) ? array_keys($GLOBALS['kronolith_shares']->listAllShares()) : $GLOBALS['display_calendars'];
-        $alarms = Kronolith::listAlarms($time, $calendars, true);
-        foreach ($alarms as $calendar => $cal_alarms) {
-            if (!$cal_alarms) {
-                continue;
-            }
-            try {
-                $share = $GLOBALS['kronolith_shares']->getShare($calendar);
-            } catch (Exception $e) {
-                continue;
-            }
-            if (empty($user)) {
-                $users = $share->listUsers(Horde_Perms::READ);
-                $groups = $share->listGroups(Horde_Perms::READ);
-                foreach ($groups as $gid) {
-                    try {
-                        $users = array_merge($users, $group->listUsers($gid));
-                    } catch (Horde_Group_Exception $e) {}
-                }
-                $users = array_unique($users);
-            } else {
-                $users = array($user);
-            }
-            $owner = $share->get('owner');
-            foreach ($cal_alarms as $event) {
-                foreach ($users as $alarm_user) {
-                    if ($alarm_user == $current_user) {
-                        $prefs = $GLOBALS['prefs'];
-                    } else {
-                        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('kronolith', array(
-                            'cache' => false,
-                            'user' => $alarm_user
-                        ));
-                    }
-                    $shown_calendars = unserialize($prefs->getValue('display_cals'));
-                    $reminder = $prefs->getValue('event_reminder');
-                    if (($reminder == 'owner' && $alarm_user == $owner) ||
-                        ($reminder == 'show' && in_array($calendar, $shown_calendars)) ||
-                        $reminder == 'read') {
-                            $GLOBALS['registry']->setLanguageEnvironment($prefs->getValue('language'));
-                            $alarm = $event->toAlarm($time, $alarm_user, $prefs);
-                            if ($alarm) {
-                                $alarm_list[] = $alarm;
-                            }
-                        }
-                }
-            }
-        }
-
-        return $alarm_list;
     }
 
     /**

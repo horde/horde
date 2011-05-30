@@ -26,7 +26,6 @@ class Horde_Core_Auth_Signup_Sql extends Horde_Core_Auth_Signup_Base
      */
     public function __construct()
     {
-        parent::__construct();
         $this->_params = array_merge(
             $this->_params,
             array('table' => 'horde_signups'),
@@ -64,7 +63,7 @@ class Horde_Core_Auth_Signup_Sql extends Horde_Core_Auth_Signup_Base
      */
     public function exists($user)
     {
-        if (empty($GLOBALS['conf']['signup']['queue'])) {
+        if (empty($GLOBALS['conf']['signup']['approve'])) {
             return false;
         }
 
@@ -95,8 +94,8 @@ class Horde_Core_Auth_Signup_Sql extends Horde_Core_Auth_Signup_Base
         if (empty($result)) {
             throw new Horde_Exception(sprintf(Horde_Core_Translation::t("User \"%s\" does not exist."), $username));
         }
-        $object = new Horde_Core_Auth_Signup_SqlObject($data['user_name']);
-        $object->setData($data);
+        $object = new Horde_Core_Auth_Signup_SqlObject($result['user_name']);
+        $object->setData($result);
 
         return $object;
     }

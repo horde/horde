@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: 2011-02-02 17:26+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Page/StandardPage.php:282
+#: lib/Page/StandardPage.php:283
 #, php-format
 msgid "%d minute"
 msgid_plural "%d minutes"
@@ -466,7 +466,7 @@ msgstr "Latex"
 msgid "Least Popular"
 msgstr "Unbeliebteste"
 
-#: lib/Page/SyncDiff.php:63 lib/Page/SyncDiff.php:69
+#: lib/Page/SyncDiff.php:59 lib/Page/SyncDiff.php:66
 #: templates/sync/diff.inc:32 templates/sync/diff.inc:68
 msgid "Local"
 msgstr "Lokal"
@@ -532,7 +532,7 @@ msgstr "Kleinere Änderung"
 msgid "Most Popular"
 msgstr "Beliebteste"
 
-#: lib/Block/page.php:35
+#: lib/Block/Page.php:46
 msgid "Name of wiki page to display"
 msgstr "Name der anzuzeigenden Wikiseite"
 
@@ -640,7 +640,7 @@ msgstr "Fehler beim Blockieren der Seite: %s"
 msgid "Page failed to unlock: %s"
 msgstr "Fehler beim Freigeben der Seite: %s"
 
-#: lib/Driver/Sql.php:499 lib/Page/AddPage.php:48 lib/Page/NewPage.php:65
+#: lib/Driver/Sql.php:497 lib/Page/AddPage.php:48 lib/Page/NewPage.php:65
 msgid "Page name must not be empty"
 msgstr "Der Seitenname darf nicht leer sein."
 
@@ -648,7 +648,7 @@ msgstr "Der Seitenname darf nicht leer sein."
 msgid "Page unlocked"
 msgstr "Seite freigegeben"
 
-#: lib/Application.php:66
+#: lib/Application.php:58
 msgid "Pages"
 msgstr "Seiten"
 
@@ -710,7 +710,7 @@ msgstr "Geschichte aktualisieren"
 msgid "Reload Page"
 msgstr "Seite aktualisieren"
 
-#: lib/Page/SyncDiff.php:64 lib/Page/SyncDiff.php:68
+#: lib/Page/SyncDiff.php:60 lib/Page/SyncDiff.php:65
 #: templates/sync/diff.inc:40 templates/sync/diff.inc:76
 msgid "Remote"
 msgstr "Extern"
@@ -729,7 +729,7 @@ msgstr "\"%s\" nach \"%s\" umbenannt."
 msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
 msgstr "\"%s\" nach \"%s\" umbenannt. Neue Seite: %s\n"
 
-#: lib/Driver/Sql.php:566
+#: lib/Driver/Sql.php:564
 #, php-format
 msgid "Renamed page from %s"
 msgstr "Seite umbenannt von %s"
@@ -760,7 +760,7 @@ msgstr "Version %s wiederherstellen"
 msgid "Reverted to version %s of \"%s\"."
 msgstr "Version %s von \"%s\" wiederhergestellt."
 
-#: lib/Driver/Sql.php:503
+#: lib/Driver/Sql.php:501
 msgid "Robots are not allowed to create pages"
 msgstr "Roboter dürfen keine Seiten erstellen"
 
@@ -847,7 +847,7 @@ msgstr "\"%s\" wurde erfolgreich gelöscht."
 msgid "Successfully deleted version %s of \"%s\" from \"%s\""
 msgstr "Version %s von \"%s\" erfolgreich aus \"%s\" gelöscht"
 
-#: lib/Page/SyncDiff.php:104
+#: lib/Page/SyncDiff.php:100
 msgid "Sync Diff"
 msgstr "Synchronisations-Unterschiede"
 
@@ -875,7 +875,7 @@ msgstr "Synchronisation ist deaktiviert"
 msgid "Table of Contents"
 msgstr "Inhaltsverzeichnis"
 
-#: lib/Page/StandardPage.php:250
+#: lib/Page/StandardPage.php:251
 msgid "The page is already locked."
 msgstr "Die Seite ist bereits gesperrt."
 
@@ -986,7 +986,7 @@ msgstr "Extern anzeigen"
 msgid "Wiki Templates"
 msgstr "Wiki-Vorlagen"
 
-#: lib/Block/page.php:3
+#: lib/Block/Page.php:20
 msgid "Wiki page"
 msgstr "Wikiseite"
 
@@ -1073,7 +1073,7 @@ msgstr "_Letzte Änderungen"
 msgid "_Usage"
 msgstr "Anleitung"
 
-#: lib/Page/StandardPage.php:276
+#: lib/Page/StandardPage.php:277
 msgid "a guest"
 msgstr "einem Gast"
 

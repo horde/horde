@@ -40,7 +40,7 @@ var HordeCategoryPrefs = {
     colorPicker: function(e)
     {
         var elt = e.element(),
-            input = e.element().previous();
+            input = e.element().up().previous('INPUT');
 
         new ColorPicker({
             color: $F(input),

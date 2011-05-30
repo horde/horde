@@ -132,4 +132,14 @@ class Horde_Mime_MimeTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testIsChild()
+    {
+        $this->assertTrue(Horde_Mime::isChild('1', '1.0'));
+        $this->assertTrue(Horde_Mime::isChild('1', '1.1'));
+        $this->assertTrue(Horde_Mime::isChild('1', '1.1.0'));
+        $this->assertFalse(Horde_Mime::isChild('1', '1'));
+        $this->assertFalse(Horde_Mime::isChild('1', '2.1'));
+        $this->assertFalse(Horde_Mime::isChild('1', '10.0'));
+    }
+
 }

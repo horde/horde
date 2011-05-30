@@ -308,6 +308,22 @@ class Ingo_Script_Procmail extends Ingo_Script
     }
 
     /**
+     * Returns any additional scripts that need to be sent to the transport
+     * layer.
+     *
+     * @return array  A list of scripts with script names as keys and script
+     *                code as values.
+     */
+    public function additionalScripts()
+    {
+        if (isset($this->_params['forward_file']) &&
+            isset($this->_params['forward_string'])) {
+            return array($this->_params['forward_file'] => $this->_params['forward_string']);
+        }
+        return array();
+    }
+
+    /**
      * Adds an item to the recipe list.
      *
      * @param object $item  The item to add to the recipe list.

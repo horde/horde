@@ -12,7 +12,6 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('admin' => true));
 
 $title = _("Session Admin");
-Horde::addScriptFile('prototype.js', 'horde');
 Horde::addInlineScript(array(
     '$$("DIV.sesstoggle").invoke("observe", "click", function() { [ this.nextSiblings(), this.immediateDescendants() ].flatten().compact().invoke("toggle"); })'
 ), 'dom');

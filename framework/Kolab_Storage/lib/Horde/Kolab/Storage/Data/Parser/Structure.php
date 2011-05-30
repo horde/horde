@@ -44,6 +44,13 @@ implements  Horde_Kolab_Storage_Data_Parser
     private $_format;
 
     /**
+     * A log handler.
+     *
+     * @param mixed
+     */
+    private $_logger;
+
+    /**
      * Constructor
      *
      * @param Horde_Kolab_Storage_Driver $driver The backend driver.
@@ -52,6 +59,33 @@ implements  Horde_Kolab_Storage_Data_Parser
         Horde_Kolab_Storage_Driver $driver
     ) {
         $this->_driver = $driver;
+    }
+
+    /**
+     * Set the logger.
+     *
+     * @param mixed $logger The log handler (must provide the warn() method).
+     *
+     * @return NULL
+     */
+    public function setLogger($logger)
+    {
+        $this->_logger = $logger;
+    }
+
+    /**
+     * Indicate a problem in the log.
+     *
+     * @param Exception $message The warn message.
+     */
+    private function _warn($message)
+    {
+        if ($this->_logger === null) {
+            throw $message;
+        } else if ($this->_logger === false) {
+            return;
+        }
+        $this->_logger->warn($message->getMessage());
     }
 
     /**
@@ -109,8 +143,15 @@ implements  Horde_Kolab_Storage_Data_Parser
                     'Backend returned a structure without the expected "structure" element.'
                 );
             }
-            //@todo: deal with exceptions
-            $objects[$obid] = $this->getFormat()->parse($folder, $obid, $structure['structure'], $options);
+            try {
+                $objects[$obid] = $this->getFormat()->parse($folder, $obid, $structure['structure'], $options);
+            } catch (Horde_Kolab_Storage_Exception $e) {
+                $objects[$obid] = false;
+                $this->_warn($e);
+            }
+            if ($this->_driver->hasCatenateSupport()) {
+                $objects[$obid]['__structure'] = $structure['structure'];
+            }
             $this->_fetchAttachments($objects[$obid], $folder, $obid, $options);
         }
         return $objects;
@@ -126,7 +167,7 @@ implements  Horde_Kolab_Storage_Data_Parser
      *
      * @return NULL
      */
-    private function _fetchAttachments(array &$object, $folder, $obid, $options = array())
+    private function _fetchAttachments(&$object, $folder, $obid, $options = array())
     {
         //@todo: implement
     }
@@ -182,14 +223,41 @@ implements  Horde_Kolab_Storage_Data_Parser
      *              format.
      * </pre>
      *
-     * @return NULL
+     * @return string The ID of the new object or true in case the backend does
+     *                not support this return value.
      */
     public function create($folder, $object, $options = array())
     {
-        $this->_driver->appendMessage(
+        return $this->_driver->appendMessage(
             $folder,
             $this->createObject($object, $options)
         );
+    }
+
+    /**
+     * Modify an existing object in the specified folder.
+     *
+     * @param string $folder  The folder to use.
+     * @param array  $object  The object.
+     * @param string $obid    The object ID in the backend.
+     * @param array  $options Additional options for storing.
+     * <pre>
+     *  'type'    - Required argument specifying the object type that should be
+     *              stored.
+     *  'version' - Optional argument specifying the version of the object
+     *              format.
+     * </pre>
+     *
+     * @return string The ID of the modified object or true in case the backend
+     *                does not support this return value.
+     */
+    public function modify($folder, $object, $obid, $options = array())
+    {
+        $modifiable = $this->_driver->getModifiable($folder, $obid, $object);
+        $new_uid = $this->_format->modify($modifiable, $object, $options);
+        $this->_driver->deleteMessages($folder, array($obid));
+        $this->_driver->expunge($folder);
+        return $new_uid;
     }
 
     /**

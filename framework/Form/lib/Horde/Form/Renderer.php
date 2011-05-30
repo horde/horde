@@ -164,7 +164,7 @@ class Horde_Form_Renderer {
         }
 
         $open_section = $form->getOpenSection();
-        if (empty($open_section)) {
+        if (is_null($open_section)) {
             $open_section = '__base';
         }
         printf('<div id="%s" style="display:%s;"><table%s cellspacing="0">',

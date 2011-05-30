@@ -34,13 +34,6 @@ class Horde_Xml_Wbxml_ContentHandler
         $this->_currentUri = new Horde_Xml_Wbxml_LifoQueue();
     }
 
-    /**
-     */
-    public function raiseError($error)
-    {
-        return PEAR::raiseError($error);
-    }
-
     public function getCharsetStr()
     {
         return $this->_charset;

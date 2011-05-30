@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Imap_Client
  */
-class Horde_Imap_Client_Exception extends Horde_Exception_Prior
+class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
 {
     /* Error message codes. */
 
@@ -67,6 +67,46 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Prior
     // Thrown on CREATE if special-use attribute is not supported.
     const USEATTR = 15;
 
+    // Bad search request.
+    const BADSEARCH = 16;
+
+    // The user did not have permissions to carry out the operation.
+    const NOPERM = 17;
+
+    // The operation was not successful because another user is holding
+    // a necessary resource. The operation may succeed if attempted later.
+    const INUSE = 18;
+
+    // The operation failed because data on the server was corrupt.
+    const CORRUPTION = 19;
+
+    // The operation failed because it exceeded some limit on the server.
+    const LIMIT = 20;
+
+    // The operation failed because the user is over their quota.
+    const OVERQUOTA = 21;
+
+    // The operation failed because the requested creation object already
+    // exists.
+    const ALREADYEXISTS = 22;
+
+    // The operation failed because the requested deletion object did not
+    // exist.
+    const NONEXISTENT = 23;
+
+    // Setting metadata failed because the size of its value is too large.
+    // The maximum octet count the server is willing to accept will be
+    // in the exception message string.
+    const METADATA_MAXSIZE = 24;
+
+    // Setting metadata failed because it does not support private
+    // annotations on one of the specified mailboxes.
+    const METADATA_TOOMANY = 24;
+
+    // Setting metadata failed because the server does not support private
+    // annotations on one of the specified mailboxes.
+    const METADATA_NOPRIVATE = 24;
+
 
     // Login failures
 
@@ -96,5 +136,15 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Prior
 
     // Could not open/access mailbox
     const MAILBOX_NOOPEN = 200;
+
+
+    // POP3 specific error codes
+
+    // Temporary issue. Generally, there is no need to alarm the user for
+    // errors of this type.
+    const POP3_TEMP_ERROR = 300;
+
+    // Permanent error indicated by server.
+    const POP3_PERM_ERROR = 301;
 
 }

@@ -54,7 +54,8 @@ class IMP_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
 
         if (!$img || !$data) {
             $type = 'image/png';
-            $data = file_get_contents(IMP_BASE . '/themes/graphics/mini-error.png');
+            $img_ob = Horde_Themes::img('mini-error.png', 'imp');
+            $data = file_get_contents($img_ob->fs);
         }
 
         return array(
@@ -78,7 +79,7 @@ class IMP_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
             return array();
         }
 
-        $status = array(_("This is a thumbnail of a PDF file attached to this message."));
+        $status = array(_("This is a thumbnail of a PDF file attachment."));
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
             $status[] = $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag(), null, null, null);
@@ -144,7 +145,7 @@ class IMP_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
      */
     protected function _outputImgTag()
     {
-        return '<img src="' . $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach', array('params' => array('pdf_view_thumbnail' => 1))) . '" alt="' . htmlspecialchars(_("View PDF File"), ENT_COMPAT, $this->getConfigParam('charset')) . '" />';
+        return '<img src="' . $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach', array('params' => array('pdf_view_thumbnail' => 1)))->setRaw(false) . '" alt="' . htmlspecialchars(_("View PDF File"), ENT_COMPAT, $this->getConfigParam('charset')) . '" />';
     }
 
 }

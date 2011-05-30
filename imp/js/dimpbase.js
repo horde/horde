@@ -9,9 +9,9 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   cfolderaction, expandfolder, folder, folderswitch, pollPE, pp,
-    //   preview_replace, resize, rownum, search, splitbar, template, uid,
-    //   viewport
+    //   expandfolder, folder, folderaction, folderswitch, pollPE, pp,
+    //   preview_replace, qsearch_ghost, resize, rownum, search, splitbar,
+    //   template, uid, viewport
     // msglist_template_horiz and msglist_template_vert set via
     //   js/mailbox-dimp.js
     cacheids: {},
@@ -162,8 +162,8 @@ var DimpBase = {
     //     'msg' - (string) IMAP sequence string
     //     'prefs' - (object) Extra parameters to add to prefs URL
     //     'search' - (object)
-    //         'edit_query' = folder to edit
-    //         'search_mailbox' = folders to search
+    //         'edit_query' = If 1, mailbox will be edited
+    //         'mailbox' = folders to search
     //         'subfolder' = do subfolder search
     //         If not set, loads search screen with current mailbox as
     //         default search mailbox
@@ -209,7 +209,7 @@ var DimpBase = {
             if (this.folder != data || !$('dimpmain_folder').visible()) {
                 this.highlightSidebar(this.getFolderId(data));
                 if (!$('dimpmain_folder').visible()) {
-                    $('dimpmain_portal').hide();
+                    $('dimpmain_iframe').hide();
                     $('dimpmain_folder').show();
                 }
             }
@@ -219,7 +219,7 @@ var DimpBase = {
         }
 
         $('dimpmain_folder').hide();
-        $('dimpmain_portal').update(DIMP.text.loading).show();
+        $('dimpmain_iframe').update(DIMP.text.loading).show();
 
         switch (type) {
         case 'app':
@@ -231,8 +231,6 @@ var DimpBase = {
             this.setHash('app', data.app);
             if (data.data) {
                 this.iframeContent(data.app, data.data);
-            } else if (DIMP.conf.portal_urls[data.app]) {
-                this.iframeContent(data.app, DIMP.conf.portal_urls[data.app]);
             }
             break;
 
@@ -246,18 +244,11 @@ var DimpBase = {
 
         case 'search':
             if (!data) {
-                data = { search_mailbox: this.folder };
+                data = { mailbox: this.folder.base64urlEncode() };
             }
             this.highlightSidebar();
             this.setTitle(DIMP.text.search);
             this.iframeContent(type, DimpCore.addURLParam(DIMP.conf.URI_SEARCH, data));
-            break;
-
-        case 'portal':
-            this.highlightSidebar('appportal');
-            this.setHash(type);
-            this.setTitle(DIMP.text.portal);
-            DimpCore.doAction('showPortal', {}, { callback: this._portalCallback.bind(this) });
             break;
 
         case 'prefs':
@@ -265,6 +256,13 @@ var DimpBase = {
             this.setHash(type);
             this.setTitle(DIMP.text.prefs);
             this.iframeContent(type, DimpCore.addURLParam(DIMP.conf.URI_PREFS_IMP, data));
+            break;
+
+        case 'portal':
+            this.highlightSidebar('appprefs');
+            this.setHash(type);
+            this.setTitle(DIMP.text.portal);
+            this.iframeContent(type, DIMP.conf.URI_PORTAL);
             break;
         }
     },
@@ -281,7 +279,7 @@ var DimpBase = {
         }
 
         window.location.hash = h
-            ? escape(encodeURIComponent(h))
+            ? h.base64urlEncode()
             : null;
     },
 
@@ -338,7 +336,7 @@ var DimpBase = {
 
     iframeContent: function(name, loc)
     {
-        var container = $('dimpmain_portal'), iframe;
+        var container = $('dimpmain_iframe'), iframe;
         if (!container) {
             DimpCore.showNotifications([ { type: 'horde.error', message: 'Bad portal!' } ]);
             return;
@@ -353,7 +351,7 @@ var DimpBase = {
     {
         var url = DIMP.conf.URI_MESSAGE;
         url += (url.include('?') ? '&' : '?') +
-               $H({ folder: r.view,
+               $H({ mailbox: r.view.base64urlEncode(),
                     uid: r.imapuid }).toQueryString();
         DimpCore.popupWindow(url, 'msgview' + r.view + r.imapuid);
     },
@@ -410,8 +408,6 @@ var DimpBase = {
     _createViewPort: function()
     {
         var container = $('msgSplitPane');
-
-        [ $('msglistHeader') ].invoke(DIMP.conf.preview_pref == 'vert' ? 'hide' : 'show');
 
         this.template = {
             horiz: new Template(this.msglist_template_horiz),
@@ -501,11 +497,15 @@ var DimpBase = {
 
                 switch (mode) {
                 case 'vert':
+                    $('msglistHeaderHoriz').hide();
+                    $('msglistHeaderVert').show();
                     r.VP_bg.unshift('vpRowVert');
                     r.className = r.VP_bg.join(' ');
                     return this.template.vert.evaluate(r);
 
                 default:
+                    $('msglistHeaderVert').hide();
+                    $('msglistHeaderHoriz').show();
                     r.VP_bg.unshift('vpRowHoriz');
                     r.className = r.VP_bg.join(' ');
                     return this.template.horiz.evaluate(r);
@@ -517,6 +517,7 @@ var DimpBase = {
             buffer_pages: DIMP.conf.buffer_pages,
             empty_msg: DIMP.text.vp_empty,
             list_class: 'msglist',
+            list_header: $('msglistHeaderContainer').remove(),
             page_size: DIMP.conf.splitbar_pos,
             pane_data: 'previewPane',
             pane_mode: DIMP.conf.preview_pref,
@@ -630,25 +631,15 @@ var DimpBase = {
                 [ $('search_edit') ].invoke(this.search || this.viewport.getMetaData('noedit') ? 'hide' : 'show');
                 $('searchbar').show();
             } else {
-                this.setFolderLabel(this.folder, this.viewport.getMetaData('unseen') || 0);
+                this.setFolderLabel(this.folder);
             }
-
-            this.updateTitle(this.viewport.getMetaData('noexist'));
 
             if (this.rownum) {
                 this.viewport.select(this.rownum);
                 this.rownum = null;
             }
 
-            // 'label' will not be set if there has been an error
-            // retrieving data from the server.
-            l = this.viewport.getMetaData('label');
-            if (l) {
-                if (this.isSearch(null, true)) {
-                    l += ' (' + this.search.label + ')';
-                }
-                $('folderName').update(l);
-            }
+            this.updateTitle(true);
 
             if (this.folderswitch) {
                 this.folderswitch = false;
@@ -662,6 +653,8 @@ var DimpBase = {
                     } else {
                         tmp.show();
                     }
+
+                    this._sizeFolderlist();
                 }
 
                 if (this.viewport.getMetaData('drafts')) {
@@ -688,15 +681,18 @@ var DimpBase = {
                 }
 
                 /* Read-only changes. 'oa_setflag' is handled elsewhere. */
-                tmp = [ $('button_deleted') ].compact().invoke('up').concat($('ctx_message_deleted', 'ctx_message_setflag', 'ctx_message_undeleted'));
-
+                tmp = [ $('ctx_message_setflag') ].compact();
                 if (this.viewport.getMetaData('readonly')) {
-                    tmp.compact().invoke('hide');
+                    tmp.invoke('hide');
                     $('folderName').next().show();
                 } else {
-                    tmp.compact().invoke('show');
+                    tmp.invoke('show');
                     $('folderName').next().hide();
                 }
+
+                /* ACL changes. */
+                [ $('button_deleted') ].compact().invoke('up').concat($('ctx_message_deleted', 'ctx_message_undeleted')).compact().invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
+                [ $('oa_purge_deleted') ].compact().invoke(this.viewport.getMetaData('noexpunge') ? 'hide' : 'show');
             } else if (this.filtertoggle &&
                        this.viewport.getMetaData('sortby') == $H(DIMP.conf.sort).get('thread').v) {
                 ssc = $H(DIMP.conf.sort).get('date').v;
@@ -795,28 +791,87 @@ var DimpBase = {
             menu = e.memo.trigger;
 
         switch (id) {
+        case 'ctx_container_create':
         case 'ctx_folder_create':
-            this.createSubFolder(e.element());
+            tmp = e.findElement('LI');
+            DimpCore.doAction('createMailboxPrepare', {
+                mbox: tmp.retrieve('mbox')
+            },{
+                callback: this._mailboxPromptCallback.bind(this, 'create', { elt: tmp, orig_elt: e.element() })
+            });
             break;
 
         case 'ctx_container_rename':
         case 'ctx_folder_rename':
-            this.renameFolder(e.findElement('LI'));
+            tmp = e.findElement('LI');
+            DimpCore.doAction('deleteMailboxPrepare', {
+                mbox: tmp.retrieve('mbox'),
+                type: 'rename'
+            },{
+                callback: this._mailboxPromptCallback.bind(this, 'rename', { elt: tmp })
+            });
             break;
 
         case 'ctx_folder_empty':
             tmp = e.findElement('LI');
-            if (window.confirm(DIMP.text.empty_folder.sub('%s', tmp.readAttribute('title')))) {
-                DimpCore.doAction('emptyMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this._emptyMailboxCallback.bind(this) });
-            }
+            DimpCore.doAction('emptyMailboxPrepare', {
+                mbox: tmp.retrieve('mbox')
+            },{
+                callback: this._mailboxPromptCallback.bind(this, 'empty', { elt: tmp })
+            });
             break;
 
         case 'ctx_folder_delete':
         case 'ctx_vfolder_delete':
             tmp = e.findElement('LI');
-            if (window.confirm(DIMP.text.delete_folder.sub('%s', tmp.readAttribute('title')))) {
-                DimpCore.doAction('deleteMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this.mailboxCallback.bind(this) });
-            }
+            DimpCore.doAction('deleteMailboxPrepare', {
+                mbox: tmp.retrieve('mbox'),
+                type: 'delete'
+            },{
+                callback: this._mailboxPromptCallback.bind(this, 'delete', { elt: tmp })
+            });
+            break;
+
+        case 'ctx_folder_export_mbox':
+        case 'ctx_folder_export_zip':
+            tmp = e.findElement('LI');
+
+            this.folderaction = DimpCore.redirect.bind(DimpCore, DimpCore.addURLParam(DIMP.conf.URI_VIEW, {
+                actionID: 'download_mbox',
+                mailbox: tmp.retrieve('mbox'),
+                zip: Number(id == 'ctx_folder_export_zip')
+            }));
+
+            IMPDialog.display({
+                cancel_text: DIMP.text.cancel,
+                noinput: true,
+                ok_text: DIMP.text.ok,
+                text: DIMP.text.download_folder
+            });
+            break;
+
+        case 'ctx_folder_import':
+            tmp = e.findElement('LI').retrieve('mbox');
+
+            IMPDialog.display({
+                cancel_text: DIMP.text.cancel,
+                form: new Element('DIV').insert(
+                          new Element('INPUT', { name: 'import_file', type: 'file' })
+                      ).insert(
+                          new Element('INPUT', { name: 'import_mbox', value: tmp }).hide()
+                      ),
+                form_id: 'mbox_import',
+                form_opts: {
+                    action: DIMP.conf.URI_AJAX + 'importMailbox',
+                    className: 'RBForm',
+                    enctype: 'multipart/form-data',
+                    method: 'post',
+                    name: 'mbox_import',
+                    target: 'submit_frame'
+                },
+                ok_text: DIMP.text.ok,
+                text: DIMP.text.import_mbox
+            });
             break;
 
         case 'ctx_folder_seen':
@@ -836,10 +891,6 @@ var DimpBase = {
         case 'ctx_folder_sub':
         case 'ctx_folder_unsub':
             this.subscribeFolder(e.findElement('LI').retrieve('mbox'), id == 'ctx_folder_sub');
-            break;
-
-        case 'ctx_container_create':
-            this.createSubFolder(e.element());
             break;
 
         case 'ctx_folderopts_new':
@@ -872,7 +923,7 @@ var DimpBase = {
         case 'ctx_folder_search':
         case 'ctx_folder_searchsub':
             this.go('search', {
-                search_mailbox: e.findElement('LI').retrieve('mbox'),
+                mailbox: e.findElement('LI').retrieve('mbox').base64urlEncode(),
                 subfolder: Number(id.endsWith('searchsub'))
             });
             break;
@@ -898,12 +949,16 @@ var DimpBase = {
 
         case 'ctx_message_source':
             this.viewport.getSelected().get('dataob').each(function(v) {
-                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: v.imapuid, mailbox: v.view, actionID: 'view_source', id: 0 }, true), v.imapuid + '|' + v.view);
+                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: v.imapuid, mailbox: v.view.base64urlEncode(), actionID: 'view_source', id: 0 }, true), v.imapuid + '|' + v.view);
             }, this);
             break;
 
         case 'ctx_message_resume':
             this.composeMailbox('resume');
+            break;
+
+        case 'ctx_message_view':
+            this.viewport.getSelected().get('dataob').each(this.msgWindow.bind(this));
             break;
 
         case 'ctx_reply_reply':
@@ -951,8 +1006,19 @@ var DimpBase = {
             this.toggleHelp();
             break;
 
+        case 'oa_sort_from':
+        case 'oa_sort_date':
+        case 'oa_sort_size':
+        case 'oa_sort_subject':
+        case 'oa_sort_thread':
+            this.sort(DIMP.conf.sort.get(id.substring(8)).v);
+            break;
+
         case 'ctx_vfolder_edit':
-            tmp = { edit_query: e.findElement('LI').retrieve('mbox') };
+            tmp = {
+                edit_query: 1,
+                mailbox: e.findElement('LI').retrieve('mbox').base64urlEncode()
+            };
             // Fall through
 
         case 'ctx_qsearchopts_advanced':
@@ -970,9 +1036,7 @@ var DimpBase = {
         case 'ctx_qsearchby_subject':
             DIMP.conf.qsearchfield = id.substring(14);
             this._updatePrefs('dimp_qsearch_field', DIMP.conf.qsearchfield);
-            if (!$('qsearch').hasClassName('qsearchActive')) {
-                this._setQsearchText(true);
-            }
+            this._setQsearchText();
             break;
 
         case 'ctx_mboxsort_none':
@@ -1079,6 +1143,7 @@ var DimpBase = {
                 $('oa_preview_show').show();
                 break;
             }
+
             tmp = [ $('oa_undeleted') ];
             $('oa_blacklist', 'oa_whitelist').each(function(o) {
                 if (o) {
@@ -1098,6 +1163,26 @@ var DimpBase = {
             }
 
             tmp.compact().invoke(sel.size() ? 'show' : 'hide');
+
+            if (tmp = $('oa_purge_options')) {
+                [ tmp ].invoke(tmp.select('> a').any(Element.visible) ? 'show' : 'hide');
+            }
+            break;
+
+        case 'ctx_sortopts':
+            elts = $(ctx_id).select('a span.iconImg');
+            tmp = this.viewport.getMetaData('sortby');
+
+            elts.each(function(e) {
+                e.removeClassName('sortdown').removeClassName('sortup');
+            });
+
+            $H(DIMP.conf.sort).detect(function(s) {
+                if (s.value.v == tmp) {
+                    $('oa_sort_' + s.key).down('.iconImg').addClassName(this.viewport.getMetaData('sortdir') ? 'sortup' : 'sortdown');
+                    return true;
+                }
+            }, this);
             break;
 
         case 'ctx_qsearchby':
@@ -1109,10 +1194,10 @@ var DimpBase = {
             [ $('ctx_message_source').up() ].invoke(DIMP.conf.preview_pref ? 'hide' : 'show');
             sel = this.viewport.getSelected();
             if (sel.size() == 1) {
-                [ $('ctx_message_resume') ].invoke(sel.get('dataob').first().draft ? 'show' : 'hide');
+                [ $('ctx_message_resume').up('DIV') ].invoke(this.isDraft(sel) ? 'show' : 'hide');
                 [ $('ctx_message_unsetflag') ].compact().invoke('hide');
             } else {
-                $('ctx_message_resume').hide();
+                $('ctx_message_resume').up('DIV').hide();
                 [ $('ctx_message_unsetflag') ].compact().invoke('show');
             }
             break;
@@ -1177,35 +1262,34 @@ var DimpBase = {
         a.store('flag', flag);
     },
 
-    // nodefer - (boolean) If true, don't defer updating if folder element
-    //           does not exist.
-    updateTitle: function(nodefer)
+    updateTitle: function(foldername)
     {
-        if (!$('dimpmain_folder').visible()) {
+        var elt, flabel, unseen,
+            label = this.viewport.getMetaData('label');
+
+        // 'label' will not be set if there has been an error
+        // retrieving data from the server.
+        if (!label || !$('dimpmain_folder').visible()) {
             return;
         }
-
-        var elt, unseen,
-            // Label is HTML encoded - but this is not HTML code so unescape.
-            label = this.viewport.getMetaData('label').unescapeHTML();
 
         if (this.isSearch()) {
             if (this.isSearch(null, true)) {
                 label += ' (' + this.search.label + ')';
             }
-        } else {
-            elt = $(this.getFolderId(this.folder));
-            if (elt) {
-                unseen = elt.retrieve('u');
-                if (unseen > 0) {
-                    label += ' (' + unseen + ')';
-                }
-            } else if (!nodefer) {
-                this.updateTitle.bind(this).defer();
+        } else if (elt = $(this.getFolderId(this.folder))) {
+            unseen = elt.retrieve('u');
+            if (unseen > 0) {
+                flabel = label;
+                label += ' (' + unseen + ')';
             }
         }
 
-        this.setTitle(label);
+        // Label is HTML encoded - but this is not HTML code so unescape.
+        this.setTitle(label.unescapeHTML());
+        if (foldername) {
+            $('folderName').update(flabel ? flabel : label);
+        }
     },
 
     sort: function(sortby)
@@ -1233,7 +1317,7 @@ var DimpBase = {
     {
         var hdr, tmp,
             ptr = DIMP.conf.sort,
-            m = $('msglistHeader');
+            m = $('msglistHeaderHoriz');
 
         if (Object.isUndefined(sortby)) {
             sortby = this.viewport.getMetaData('sortby');
@@ -1272,6 +1356,10 @@ var DimpBase = {
             hdr = { l: ptr.get('subject'), s: ptr.get('thread') };
         }
 
+        // Needed due to IE 7 buggy behavior (Bug #9734).
+        if (Prototype.Browser.IE) {
+            tmp.update('');
+        }
         tmp.update(hdr.l.e.removeClassName('smallSort').update(hdr.l.t));
         hdr.l.e.store('sortby', hdr.l.v);
         if (hdr.s) {
@@ -1298,7 +1386,6 @@ var DimpBase = {
         if (mode != DIMP.conf.preview_pref) {
             DIMP.conf.preview_pref = mode;
             this._updatePrefs('dimp_show_preview', mode);
-            [ $('msglistHeader') ].invoke(mode == 'vert' ? 'hide' : 'show');
             this.viewport.showSplitPane(mode);
             if (!old) {
                 this.initPreviewPane();
@@ -1324,6 +1411,7 @@ var DimpBase = {
             pp_uid = this._getPPId(data.imapuid, data.view);
 
             if (this.ppfifo.indexOf(pp_uid) != -1) {
+                this.flag('\\seen', true, { mailbox: data.view, uid: data.imapuid });
                 return this._loadPreviewCallback(this.ppcache[pp_uid]);
             }
         }
@@ -1406,7 +1494,7 @@ var DimpBase = {
         }
 
         // Toggle resume link
-        [ $('msg_resume_draft').up() ].invoke(vs.get('dataob').first().draft ? 'show' : 'hide');
+        [ $('msg_resume_draft').up() ].invoke(this.isDraft(vs) ? 'show' : 'hide');
 
         $('messageBody').update(
             (r.msgtext === null)
@@ -1555,10 +1643,6 @@ var DimpBase = {
 
     updateUnseenStatus: function(mbox, unseen)
     {
-        if (this.viewport) {
-            this.viewport.setMetaData({ unseen: unseen }, mbox);
-        }
-
         this.setFolderLabel(mbox, unseen);
 
         if (this.folder == mbox) {
@@ -1668,6 +1752,12 @@ var DimpBase = {
 
     pollCallback: function(r)
     {
+        /* Don't update polled status until the sidebar is visible. Otherwise,
+         * preview callbacks may not correctly update unseen status. */
+        if (!$('foldersSidebar').visible()) {
+            return this.pollCallback.bind(this, r).defer();
+        }
+
         if (r.poll) {
             $H(r.poll).each(function(u) {
                 this.updateUnseenStatus(u.key, u.value);
@@ -1684,7 +1774,7 @@ var DimpBase = {
     _displayQuota: function(r)
     {
         var q = $('quota').cleanWhitespace();
-        q.setText(r.m);
+        $('quota-text').setText(r.m);
         q.down('SPAN.used IMG').writeAttribute('width', 99 - r.p);
     },
 
@@ -1700,34 +1790,11 @@ var DimpBase = {
         }
     },
 
-    _portalCallback: function(r)
-    {
-        if (r.response.linkTags) {
-            var head = $(document.documentElement).down('HEAD');
-            r.response.linkTags.each(function(newLink) {
-                var link = new Element('LINK', { type: 'text/css', rel: 'stylesheet', href: newLink.href });
-                if (newLink.media) {
-                    link.media = newLink.media;
-                }
-                head.insert(link);
-            });
-        }
-        $('dimpmain_portal').update(r.response.portal);
-    },
-
     /* Search functions. */
     isSearch: function(id, qsearch)
     {
         id = id ? id : this.folder;
         return id && id.startsWith(DIMP.conf.searchprefix) && (!qsearch || this.search);
-    },
-
-    _quicksearchOnBlur: function()
-    {
-        $('qsearch').removeClassName('qsearchFocus');
-        if (!$F('qsearch_input')) {
-            this._setQsearchText(true);
-        }
     },
 
     quicksearchRun: function()
@@ -1761,10 +1828,6 @@ var DimpBase = {
             return;
         }
 
-        if (!qs.hasClassName('qsearchFocus')) {
-            this._setQsearchText(true);
-        }
-
         if (this.isSearch()) {
             this.resetSelected();
             $(qs, 'qsearch_icon', 'qsearch_input').invoke('show');
@@ -1776,11 +1839,13 @@ var DimpBase = {
         }
     },
 
-    // d = (boolean) Deactivate quicksearch input?
-    _setQsearchText: function(d)
+    /* Set quicksearch text. */
+    _setQsearchText: function()
     {
-        $('qsearch_input').setValue(d ? DIMP.text.search + ' (' + $('ctx_qsearchby_' + DIMP.conf.qsearchfield).getText() + ')' : '');
-        [ $('qsearch') ].invoke(d ? 'removeClassName' : 'addClassName', 'qsearchActive');
+        $('qsearch_input').writeAttribute('title', DIMP.text.search + ' (' + $('ctx_qsearchby_' + DIMP.conf.qsearchfield).getText() + ')');
+        if (this.qsearch_ghost) {
+            this.qsearch_ghost.refresh();
+        }
     },
 
     /* Enable/Disable DIMP action buttons as needed. */
@@ -1912,7 +1977,7 @@ var DimpBase = {
     keydownHandler: function(e)
     {
         var all, cnt, co, form, h, need, pp, ps, r, row, rownum, rowoff, sel,
-            tmp, vsel,
+            tmp, vsel, prev,
             elt = e.element(),
             kc = e.keyCode || e.charCode;
 
@@ -1958,25 +2023,30 @@ var DimpBase = {
         switch (kc) {
         case Event.KEY_DELETE:
         case Event.KEY_BACKSPACE:
-            r = sel.get('dataob');
-            if (e.shiftKey) {
-                this.moveSelected((r.last().VP_rownum == this.viewport.getMetaData('total_rows')) ? (r.first().VP_rownum - 1) : (r.last().VP_rownum + 1), true);
+            if (!this.viewport.getMetaData('nodelete')) {
+                r = sel.get('dataob');
+                if (e.shiftKey) {
+                    this.moveSelected((r.last().VP_rownum == this.viewport.getMetaData('total_rows')) ? (r.first().VP_rownum - 1) : (r.last().VP_rownum + 1), true);
+                }
+                this.deleteMsg({ vs: sel });
             }
-            this.deleteMsg({ vs: sel });
             e.stop();
             break;
 
         case Event.KEY_UP:
         case Event.KEY_DOWN:
+        case Event.KEY_LEFT:
+        case Event.KEY_RIGHT:
+            prev = kc == Event.KEY_UP || kc == Event.KEY_LEFT;
             if (e.shiftKey && this.lastrow != -1) {
-                row = this.viewport.createSelection('rownum', this.lastrow + ((kc == Event.KEY_UP) ? -1 : 1));
+                row = this.viewport.createSelection('rownum', this.lastrow + ((prev) ? -1 : 1));
                 if (row.size()) {
                     row = row.get('dataob').first();
                     this.viewport.scrollTo(row.VP_rownum);
                     this.msgSelect(row.VP_domid, { shift: true });
                 }
             } else {
-                this.moveSelected(kc == Event.KEY_UP ? -1 : 1, false, kc == Event.KEY_DOWN);
+                this.moveSelected(prev ? -1 : 1, false, !prev);
             }
             e.stop();
             break;
@@ -1989,11 +2059,11 @@ var DimpBase = {
                 if (h != pp.scrollHeight) {
                     switch (kc) {
                     case Event.KEY_PAGEUP:
-                        pp.scrollTop = Math.max(pp.scrollTop - h, 0);
+                        pp.scrollTop = Math.max(pp.scrollTop - h + 20, 0);
                         break;
 
                     case Event.KEY_PAGEDOWN:
-                        pp.scrollTop = Math.min(pp.scrollTop + h, pp.scrollHeight - h + 1);
+                        pp.scrollTop = Math.min(pp.scrollTop + h - 20, pp.scrollHeight - h + 1);
                         break;
                     }
                 }
@@ -2139,7 +2209,7 @@ var DimpBase = {
             tmp = this.viewport.createSelection('domid', elt.identify());
             tmp2 = tmp.get('dataob').first();
 
-            if (tmp2.draft && this.viewport.getMetaData('drafts')) {
+            if (this.isDraft(tmp) && this.viewport.getMetaData('drafts')) {
                 DimpCore.compose('resume', { uids: tmp });
             } else {
                 this.msgWindow(tmp2);
@@ -2166,6 +2236,7 @@ var DimpBase = {
                 this._handleFolderMouseClick(e);
                 break;
 
+            case 'appportal':
             case 'hometab':
             case 'logolink':
                 this.go('portal');
@@ -2185,7 +2256,10 @@ var DimpBase = {
                 return;
 
             case 'search_edit':
-                this.go('search', { edit_query: this.folder });
+                this.go('search', {
+                    edit_query: 1,
+                    mailbox: this.folder.base64urlEncode()
+                });
                 e.stop();
                 return;
 
@@ -2200,7 +2274,6 @@ var DimpBase = {
                 e.stop();
                 return;
 
-            case 'appportal':
             case 'appprefs':
                 this.go(id.substring(3));
                 e.stop();
@@ -2233,12 +2306,20 @@ var DimpBase = {
                 e.stop();
                 return;
 
-            case 'msglistHeader':
+            case 'msglistHeaderHoriz':
                 tmp = e.element();
                 if (tmp.hasClassName('msCheck')) {
                     this.selectAll();
                 } else {
                     this.sort(tmp.retrieve('sortby'));
+                }
+                e.stop();
+                return;
+
+            case 'msglistHeaderVert':
+                tmp = e.element();
+                if (tmp.hasClassName('msCheck')) {
+                    this.selectAll();
                 }
                 e.stop();
                 return;
@@ -2270,7 +2351,7 @@ var DimpBase = {
                 return;
 
             case 'msg_view_source':
-                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.imapuid, mailbox: this.pp.view, actionID: 'view_source', id: 0 }, true), this.pp.imapuid + '|' + this.pp.view);
+                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.imapuid, mailbox: this.pp.view.base64urlEncode(), actionID: 'view_source', id: 0 }, true), this.pp.imapuid + '|' + this.pp.view);
                 break;
 
             case 'msg_resume_draft':
@@ -2294,14 +2375,6 @@ var DimpBase = {
                 if (e.element().hasClassName('applicationtab')) {
                     // Prefix is 'apptab_'
                     this.go('menu', e.element().identify().substring(7));
-                    e.stop();
-                    return;
-                }
-                break;
-
-            case 'dimpmain_portal':
-                if (e.element().match('H1.header a')) {
-                    this.go('app', { app: e.element().readAttribute('app') });
                     e.stop();
                     return;
                 }
@@ -2331,7 +2404,7 @@ var DimpBase = {
 
             default:
                 if (elt.hasClassName('printAtc')) {
-                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.imapuid, mailbox: this.pp.view, actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.pp.imapuid + '|' + this.pp.view + '|print', IMP.printWindow);
+                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.imapuid, mailbox: this.pp.view.base64urlEncode(), actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.pp.imapuid + '|' + this.pp.view + '|print', IMP_JS.printWindow);
                     e.stop();
                     return;
                 } else if (elt.hasClassName('stripAtc')) {
@@ -2348,21 +2421,6 @@ var DimpBase = {
         parentfunc(e);
     },
 
-    mousedownHandler: function(e)
-    {
-        var elt;
-
-        if (e.findElement('#qsearch') &&
-            (e.element().readAttribute('id') != 'qsearch_icon')) {
-            elt = $('qsearch');
-            elt.addClassName('qsearchFocus');
-            if (!elt.hasClassName('qsearchActive')) {
-                this._setQsearchText(false);
-            }
-            $('qsearch_input').focus();
-        }
-    },
-
     mouseoverHandler: function(e)
     {
         if (DragDrop.Drags.drag) {
@@ -2373,14 +2431,24 @@ var DimpBase = {
         }
     },
 
-    changeHandler: function(e)
+    submitFrameHandler: function()
     {
-        var elt = e.element();
+        var sf = $('submit_frame'),
+            doc = sf.contentDocument || sf.contentWindow.document,
+            r = doc.body.innerHTML.evalJSON(true);
 
-        if (elt.readAttribute('name') == 'search_criteria' &&
-            elt.descendantOf('RB_window')) {
-            [ elt.next() ].invoke($F(elt) ? 'show' : 'hide');
-            RedBox.setWindowPosition();
+        if (r) {
+            if (r.response.action) {
+                switch (r.response.action) {
+                case 'importMailbox':
+                    if (r.response.mbox = this.folder) {
+                        this.viewport.reload();
+                    }
+                    break;
+                }
+            }
+
+            DimpCore.doActionComplete({ responseJSON: r });
         }
     },
 
@@ -2396,15 +2464,39 @@ var DimpBase = {
         });
     },
 
-    /* Handle rename folder actions. */
-    renameFolder: function(folder)
+    _mailboxPromptCallback: function(type, params, r)
     {
-        if (Object.isUndefined(folder)) {
-            return;
-        }
+        if (r.response && params.elt) {
+            switch (type) {
+            case 'create':
+                this._createFolderForm(this._folderAction.bindAsEventListener(this, params.orig_elt, 'createsub'), DIMP.text.createsub_prompt.sub('%s', params.elt.readAttribute('title')));
+                break;
 
-        folder = $(folder);
-        this._createFolderForm(this._folderAction.bindAsEventListener(this, folder, 'rename'), DIMP.text.rename_prompt, folder.retrieve('l').unescapeHTML());
+            case 'delete':
+                this.folderaction = DimpCore.doAction.bind(DimpCore, 'deleteMailbox', { mbox: params.elt.retrieve('mbox') }, { callback: this.mailboxCallback.bind(this) });
+                IMPDialog.display({
+                    cancel_text: DIMP.text.cancel,
+                    noinput: true,
+                    ok_text: DIMP.text.ok,
+                    text: DIMP.text.delete_folder.sub('%s', params.elt.readAttribute('title'))
+                });
+                break;
+
+            case 'empty':
+                this.folderaction = DimpCore.doAction.bind(DimpCore, 'emptyMailbox', { mbox: params.elt.retrieve('mbox') }, { callback: this._emptyMailboxCallback.bind(this) });
+                IMPDialog.display({
+                    cancel_text: DIMP.text.cancel,
+                    noinput: true,
+                    ok_text: DIMP.text.ok,
+                    text: DIMP.text.empty_folder.sub('%s', params.elt.readAttribute('title')).sub('%d', r.response)
+                });
+                break;
+
+            case 'rename':
+                this._createFolderForm(this._folderAction.bindAsEventListener(this, params.elt, 'rename'), DIMP.text.rename_prompt.sub('%s', params.elt.readAttribute('title')), params.elt.retrieve('l').unescapeHTML());
+                break;
+            }
+        }
     },
 
     /* Handle insert folder actions. */
@@ -2413,19 +2505,11 @@ var DimpBase = {
         this._createFolderForm(this._folderAction.bindAsEventListener(this, '', 'create'), DIMP.text.create_prompt);
     },
 
-    createSubFolder: function(folder)
-    {
-        if (!Object.isUndefined(folder)) {
-            this._createFolderForm(this._folderAction.bindAsEventListener(this, $(folder), 'createsub'), DIMP.text.createsub_prompt);
-        }
-    },
-
     _createFolderForm: function(action, text, val)
     {
-        this.cfolderaction = action;
+        this.folderaction = action;
         IMPDialog.display({
             cancel_text: DIMP.text.cancel,
-            form_id: 'RB_confirm',
             input_val: val,
             ok_text: DIMP.text.ok,
             text: text
@@ -2543,22 +2627,28 @@ var DimpBase = {
             return;
         }
 
-        var f = r.flag,
-            sb = f.uids
-                ? this.viewport.getSelection().search({ imapuid: { equal: DimpCore.parseRangeString(f.uids)[f.mbox] }, view: { equal: f.mbox } })
-                : this.viewport.createSelectionBuffer();
+        var sb = this.viewport.createSelectionBuffer();
 
-        if (f.add) {
-            f.add.each(function(f) {
-                this.updateFlag(sb, f, true);
-            }, this);
-        }
+        r.flag.each(function(entry) {
+            $H(DimpCore.parseRangeString(entry.uids)).each(function(m) {
+                var s = sb.search({
+                    imapuid: { equal: m.value },
+                    view: { equal: m.key }
+                });
 
-        if (f.remove) {
-            f.remove.each(function(f) {
-                this.updateFlag(sb, f, false);
+                if (entry.add) {
+                    entry.add.each(function(f) {
+                        this.updateFlag(s, f, true);
+                    }, this);
+                }
+
+                if (entry.remove) {
+                    entry.remove.each(function(f) {
+                        this.updateFlag(s, f, false);
+                    }, this);
+                }
             }, this);
-        }
+        }, this);
     },
 
     _folderLoadCallback: function(r, callback)
@@ -2581,8 +2671,10 @@ var DimpBase = {
             this.highlightSidebar(this.getFolderId(this.folder));
         }
 
-        $('foldersLoading').hide();
-        $('foldersSidebar').show();
+        if ($('foldersLoading').visible()) {
+            $('foldersLoading').hide();
+            $('foldersSidebar').show();
+        }
 
         if (nf && nf.getStyle('max-height') !== null) {
             this._sizeFolderlist();
@@ -2843,7 +2935,6 @@ var DimpBase = {
         // Check for unseen messages
         if (ob.po) {
             li.store('u', '');
-            this.setFolderLabel(mbox, ob.u);
         }
 
         switch (ftype) {
@@ -2878,7 +2969,7 @@ var DimpBase = {
     deleteFolder: function(folder)
     {
         if (this.folder == folder) {
-            this.go();
+            this.go('mbox', 'INBOX');
         }
         this.deleteFolderElt(this.getFolderId(folder), true);
     },
@@ -3029,7 +3120,7 @@ var DimpBase = {
     blacklist: function(blacklist, opts)
     {
         opts = opts || {};
-        this._doMsgAction('blacklist', opts, { blacklist: blacklist });
+        this._doMsgAction('blacklist', opts, { blacklist: Number(blacklist) });
     },
 
     // opts = 'mailbox', 'uid'
@@ -3047,24 +3138,24 @@ var DimpBase = {
     // opts = (Object) 'mailbox', 'uid'
     flag: function(flag, add, opts)
     {
-        var vs = this._getFlagSelection(opts || {});
+        var need,
+            vs = this._getFlagSelection(opts || {});
 
-        if (!vs.size()) {
-            return;
-        }
-
-        DimpCore.doAction('flagMessages', this.viewport.addRequestParams({
-            add: Number(add),
-            flags: Object.toJSON([ flag ]),
-            view: this.folder
-        }), {
-            uids: vs
+        need = vs.get('dataob').any(function(ob) {
+            return add
+                ? (!ob.flag || !ob.flag.include(flag))
+                : (ob.flag && ob.flag.include(flag));
         });
-    },
 
-    hasFlag: function(f, r)
-    {
-        return (r.flag ? r.flag.include(f) : false);
+        if (need) {
+            DimpCore.doAction('flagMessages', this.viewport.addRequestParams({
+                add: Number(add),
+                flags: Object.toJSON([ flag ]),
+                view: this.folder
+            }), {
+                uids: vs
+            });
+        }
     },
 
     updateFlag: function(vs, flag, add)
@@ -3075,18 +3166,17 @@ var DimpBase = {
             this._updateFlag(ob, flag, add);
 
             if (this.isSearch()) {
-                if (s[ob.view]) {
-                    s[ob.view].push(ob.imapuid);
-                } else {
-                    s[ob.view] = [ ob.imapuid ];
+                if (!s[ob.view]) {
+                    s[ob.view] = [];
                 }
+                s[ob.view].push(ob.imapuid);
             }
         }, this);
 
         /* If this is a search mailbox, also need to update flag in base view,
          * if it is in the buffer. */
         $H(s).each(function(m) {
-            var tmp = this.viewport.getSelection(m.key).search({ imapuid: { equal: m.value }, view: { equal: m.key } });
+            var tmp = this.viewport.createSelectionBuffer(m.key).search({ imapuid: { equal: m.value }, view: { equal: m.key } });
             if (tmp.size()) {
                 this._updateFlag(tmp.get('dataob').first(), flag, add);
             }
@@ -3104,6 +3194,12 @@ var DimpBase = {
         }
 
         this.viewport.updateRow(ob);
+    },
+
+    isDraft: function(vs)
+    {
+        return this.viewport.getMetaData('drafts') ||
+               vs.get('dataob').first().flag.include(DIMP.conf.FLAG_DRAFT);
     },
 
     /* Miscellaneous folder actions. */
@@ -3138,7 +3234,7 @@ var DimpBase = {
 
     loadingImg: function(id, show)
     {
-        DimpCore.loadingImg(id + 'Loading', id == 'viewport' ? 'msgSplitPane' : 'previewPane', show);
+        DimpCore.loadingImg(id + 'Loading', id == 'viewport' ? $('msgSplitPane').down('DIV.msglist') : 'previewPane', show);
     },
 
     // p = (element) Parent element
@@ -3164,9 +3260,12 @@ var DimpBase = {
 
         /* Register global handlers now. */
         document.observe('keydown', this.keydownHandler.bindAsEventListener(this));
-        document.observe('change', this.changeHandler.bindAsEventListener(this));
         document.observe('dblclick', this.dblclickHandler.bindAsEventListener(this));
         Event.observe(window, 'resize', this.onResize.bind(this));
+
+        if (tmp = $('submit_frame')) {
+            tmp.observe('load', this.submitFrameHandler.bind(this));
+        }
 
         /* Limit to folders sidebar only. */
         $('foldersSidebar').observe('mouseover', this.mouseoverHandler.bindAsEventListener(this));
@@ -3190,7 +3289,9 @@ var DimpBase = {
         /* Init quicksearch. These needs to occur before loading the message
          * list since it may be disabled if we are in a search mailbox. */
         if ($('qsearch')) {
-            $('qsearch_input').observe('blur', this._quicksearchOnBlur.bind(this));
+            this._setQsearchText();
+            this.qsearch_ghost = new FormGhost('qsearch_input');
+
             DimpCore.addContextMenu({
                 id: 'qsearch_icon',
                 left: true,
@@ -3212,6 +3313,10 @@ var DimpBase = {
             DIMP.conf.filters_o.each(function(f) {
                 this.contextAddFilter(f, DIMP.conf.filters[f]);
             }, this);
+
+            /* Don't submit FORM. Really only needed for Opera (Bug #9730)
+             * but shouldn't hurt otherwise. */
+            $('qsearch_input').up('FORM').observe('submit', Event.stop);
         }
 
         /* Store these text strings for updating purposes. */
@@ -3225,24 +3330,22 @@ var DimpBase = {
         }
 
         if (!tmp.empty()) {
-            tmp = decodeURIComponent(unescape(tmp)).split(':', 2);
+            tmp = tmp.base64urlDecode().split(':', 2);
             this.go(tmp[0], tmp[1]);
-        } else if (DIMP.conf.login_view == 'inbox') {
-            this.go();
+        } else if (DIMP.conf.initial_page) {
+            this.go('mbox', DIMP.conf.initial_page);
         } else {
-            this.go('portal');
-            this.loadMailbox('INBOX', { background: true });
+            this.go();
         }
 
         /* Create the folder list. Any pending notifications will be caught
          * via the return from this call. */
         this._listFolders({ initial: 1, mboxes: this.folder });
 
-        this._setQsearchText(true);
-
         /* Add popdown menus. Check for disabled compose at the same time. */
         DimpCore.addPopdown('button_other', 'otheractions', true);
         DimpCore.addPopdown('folderopts_link', 'folderopts', true);
+        DimpCore.addPopdown('vertical_sort', 'sortopts', true);
 
         DM.addSubMenu('ctx_message_reply', 'ctx_reply');
         DM.addSubMenu('ctx_message_forward', 'ctx_forward');
@@ -3253,6 +3356,7 @@ var DimpBase = {
             }
         });
         DM.addSubMenu('ctx_folder_setflag', 'ctx_folder_flag');
+        DM.addSubMenu('ctx_folder_export', 'ctx_folder_export_opts');
 
         /* Create flag entries. */
         DIMP.conf.flags_o.each(function(f) {
@@ -3272,7 +3376,7 @@ var DimpBase = {
         }
 
         DimpCore.addContextMenu({
-            id: 'msglistHeader',
+            id: 'msglistHeaderHoriz',
             type: 'mboxsort'
         });
 
@@ -3383,8 +3487,14 @@ document.observe('DragDrop2:mouseup', DimpBase.onDragMouseUp.bindAsEventListener
 
 /* IMPDialog listener. */
 document.observe('IMPDialog:onClick', function(e) {
-    if (e.element().identify() == 'RB_confirm') {
-        this.cfolderaction(e.memo);
+    switch (e.element().identify()) {
+    case 'RB_confirm':
+        this.folderaction(e.memo);
+        break;
+
+    case 'mbox_import':
+        e.element().submit();
+        break;
     }
 }.bindAsEventListener(DimpBase));
 
@@ -3400,7 +3510,6 @@ DimpCore.onDoActionComplete = function(r) {
 
 /* Click handler. */
 DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpBase.clickHandler.bind(DimpBase));
-document.observe('mousedown', DimpBase.mousedownHandler.bindAsEventListener(DimpBase));
 
 /* ContextSensitive handlers. */
 DimpCore.contextOnClick = DimpCore.contextOnClick.wrap(DimpBase.contextOnClick.bind(DimpBase));

@@ -1,6 +1,6 @@
 <?php
 /**
- * A Horde_Injector:: based Horde_Vfs:: factory.
+ * A Horde_Injector based Horde_Vfs factory.
  *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
@@ -9,7 +9,7 @@
  */
 
 /**
- * A Horde_Injector:: based Horde_Vfs:: factory.
+ * A Horde_Injector based Horde_Vfs factory.
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
@@ -31,18 +31,28 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
     private $_instances = array();
 
     /**
-     * Obtain the Vfs instance.
+     * Returns the VFS instance.
      *
      * @param string $scope  The vfs scope to return.
+     * @param array $params  Configuration parameters. If specified this
+     *                       configuration is used instead of the configuration
+     *                       from conf.php.
      *
-     * @return VFS  The VFS object
+     * @return Horde_Vfs  The VFS object.
      */
-    public function create($scope = 'horde')
+    public function create($scope = 'horde', $params = null)
     {
         if (empty($this->_instances[$scope])) {
-            $params = $this->getConfig($scope);
-            $this->_instances[$scope] = VFS::factory($params['type'], $params['params']);
-            $this->_instances[$scope]->setLogger($this->_injector->getInstance('Horde_Log_Logger'));
+            if (!$params) {
+                $params = $this->getConfig($scope);
+            }
+
+            $class = 'Horde_Vfs_' . basename(Horde_String::ucfirst($params['type']));
+            if (!class_exists($class)) {
+                throw new Horde_Exception('Class definition of ' . $class . ' not found.');
+            }
+
+            $this->_instances[$scope] = new $class($params['params']);
         }
 
         return $this->_instances[$scope];
@@ -61,7 +71,7 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
     {
         global $conf;
 
-        if (($name !== 'horde') && !isset($conf[$name]['type'])) {
+        if ($name !== 'horde' && !isset($conf[$name]['type'])) {
             throw new Horde_Exception(Horde_Core_Translation::t("You must configure a VFS backend."));
         }
 
@@ -69,22 +79,20 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
             ? $conf['vfs']
             : $conf[$name];
 
-        switch ($vfs['type']) {
+        switch (Horde_String::lower($vfs['type'])) {
         case 'sql':
-            $db_pear = $this->_injector->getInstance('Horde_Core_Factory_DbPear');
-            $vfs['params'] = $db_pear->getConfig('vfs');
-            $vfs['params']['db'] = $db_pear->create('read', 'horde', 'vfs');
-            $vfs['params']['writedb'] = $db_pear->create('rw', 'horde', 'vfs');
-            break;
-
-        case 'sql_file':
-            $db_pear = $this->_injector->getInstance('Horde_Core_Factory_DbPear');
-            $vfs['params'] = $db_pear->getConfig('vfs');
-            $vfs['params']['db'] = $db_pear->create('rw', 'horde', 'vfs');
+        case 'sqlfile':
+        case 'musql':
+            if ($name == 'horde' || $conf[$name]['type'] == 'horde') {
+                $vfs['params']['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
+            } else {
+                $vfs['params']['db'] = $this->_injector
+                    ->getInstance('Horde_Core_Factory_Db')
+                    ->create('horde', 'vfs');
+            }
             break;
         }
 
         return $vfs;
     }
-
 }

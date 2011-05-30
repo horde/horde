@@ -12,7 +12,11 @@
  */
 
 /* CONFIGURATION */
-$BUGZILLA_DSN = 'mysql://root:password@localhost/bugzilla';
+$BUGZILLA_DSN = array('adapter' => 'mysql',
+                      'user' => 'root',
+                      'password' => 'password',
+                      'host' => 'localhost',
+                      'database' => 'bugzilla');
 $BUGZILLA_STATES = array('NEW', 'ASSIGNED', 'RESOLVED', 'REOPENED', 'CLOSED');
 $BUGZILLA_BUG_TYPE = array('Bug', 'Imported Bugzilla Bug');
 $BUGZILLA_PRIORITIES = array('P1', 'P2', 'P3', 'P4', 'P5');
@@ -52,22 +56,7 @@ function info($text)
 }
 
 /* Connect to the Bugzilla database. */
-$bugzilla = DB::connect($BUGZILLA_DSN);
-if ($bugzilla instanceof PEAR_Error) {
-    error('Failed to connect to Bugzilla database', $bugzilla);
-    exit;
-}
-
-// Set DB portability options
-switch ($bugzilla->phptype) {
-case 'mssql':
-    $bugzilla->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-    break;
-default:
-    $bugzilla->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-}
-
-$bugzilla->setFetchMode(DB_FETCHMODE_ASSOC);
+$bugzilla = $injector->getInstance('Horde_Db')->createDb($BUGZILLA_DSN);
 
 sectionHeader('Creating Types');
 $type = $whups_driver->addType($BUGZILLA_BUG_TYPE[0], $BUGZILLA_BUG_TYPE[1]);
@@ -108,8 +97,8 @@ $cli->writeln();
 $components = array();
 
 sectionHeader('Importing Components');
-$res = $bugzilla->query('select value, program, description from components');
-while ($row = $res->fetchRow()) {
+$res = $bugzilla->select('SELECT value, program, description FROM components');
+foreach ($res as $row) {
     $result = $whups_driver->addQueue($row['value'], $row['description']);
     if (is_a($result, 'PEAR_Error')) {
         error('Failed to add queue: ' . $row['value'], $result);
@@ -137,8 +126,8 @@ $queues = $whups_driver->getQueues();
 $versions = array();
 
 sectionHeader('Importing Versions');
-$res = $bugzilla->query('select value, program from versions');
-while ($row = $res->fetchRow()) {
+$res = $bugzilla->select('SELECT value, program FROM versions');
+foreach ($res as $row) {
     /* Bugzilla manages versions on a per-product basis.  Whups manages
      * versions on a per-queue (i.e., per-component) basis.  Add this
      * product's versions to each each of its components. */
@@ -166,16 +155,16 @@ $cli->writeln();
 $profiles = array();
 
 sectionHeader('Loading Profiles');
-$res = $bugzilla->query('select userid, login_name from profiles');
-while ($row = $res->fetchRow()) {
+$res = $bugzilla->select('SELECT userid, login_name FROM profiles');
+foreach ($res as $row) {
     $profiles[($row['userid'])] = $row['login_name'];
 }
 info('Loaded ' . count($profiles) . ' profiles');
 $cli->writeln();
 
 sectionHeader('Importing Bugs');
-$res = $bugzilla->query('select * from bugs');
-while ($row = $res->fetchRow()) {
+$res = $bugzilla->select('SELECT * FROM bugs');
+foreach ($res as $row) {
     $info = array();
 
     $info['queue'] = array_search($row['component'], $queues);

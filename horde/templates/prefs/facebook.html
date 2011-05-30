@@ -30,15 +30,27 @@
     <if:have_read>
      <div class="fbbluebox">
       <gettext>Read enabled</gettext>
-      <div class="fbaction"><input type="submit" class="fbbutton" value="<gettext>Disable</gettext>" onclick="document.prefs.actionID.value='revokeRead'; return true" /></div>
+      <div class="fbaction"><input type="submit" class="fbbutton" value="<gettext>Disable</gettext>" onclick="document.prefs.fbactionID.value='revokeRead'; return true" /></div>
      </div>
     <else:have_read>
      <div class="fbbluebox">
-      <gettext><tag:app_name /> cannot read your stream messages.</gettext>
+      <gettext><tag:app_name /> cannot read your stream messages and various other Facebook data items.</gettext>
       <div class="fbaction"><gettext>Authorize Read:</gettext><a class="fbbutton" href="<tag:read_url />">Facebook</a></div>
      </div>
     </else:have_read>
     </if:have_read>
+    <if:have_friends>
+     <div class="fbbluebox">
+      <gettext>Friends enabled</gettext>
+      <div class="fbaction"><input type="submit" class="fbbutton" value="<gettext>Disable</gettext>" onclick="document.prefs.fbactionID.value='revokeFriends'; return true" /></div>
+     </div>
+    <else:have_friends>
+     <div class="fbbluebox">
+      <gettext><tag:app_name /> cannot read information about your Facebook friends.</gettext>
+      <div class="fbaction"><gettext>Authorize Access to Friends Data:</gettext><a class="fbbutton" href="<tag:friends_url />">Facebook</a></div>
+     </div>
+    </else:have_friends>
+    </if:have_friends>
 <else:have_session>
     <div class="notice">Could not find authorization for <tag:user_name /> to interact with your Facebook account.</div>
     <br />

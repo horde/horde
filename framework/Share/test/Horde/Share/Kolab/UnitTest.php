@@ -74,7 +74,7 @@ extends PHPUnit_Framework_TestCase
     public function testGetTypeString()
     {
         $driver = new Horde_Share_Kolab(
-            'mnemo', 'john', new Horde_Perms(), new Horde_Group_Test()
+            'mnemo', 'john', new Horde_Perms_Null(), new Horde_Group_Test()
         );        
         $this->assertInternalType('string', $driver->getType());
     }
@@ -82,7 +82,7 @@ extends PHPUnit_Framework_TestCase
     public function testMnemoSupport()
     {
         $driver = new Horde_Share_Kolab(
-            'mnemo', 'john', new Horde_Perms(), new Horde_Group_Test()
+            'mnemo', 'john', new Horde_Perms_Null(), new Horde_Group_Test()
         );        
         $this->assertEquals('note', $driver->getType());
     }
@@ -90,7 +90,7 @@ extends PHPUnit_Framework_TestCase
     public function testKronolithSupport()
     {
         $driver = new Horde_Share_Kolab(
-            'kronolith', 'john', new Horde_Perms(), new Horde_Group_Test()
+            'kronolith', 'john', new Horde_Perms_Null(), new Horde_Group_Test()
         );        
         $this->assertEquals('event', $driver->getType());
     }
@@ -98,7 +98,7 @@ extends PHPUnit_Framework_TestCase
     public function testTurbaSupport()
     {
         $driver = new Horde_Share_Kolab(
-            'turba', 'john', new Horde_Perms(), new Horde_Group_Test()
+            'turba', 'john', new Horde_Perms_Null(), new Horde_Group_Test()
         );        
         $this->assertEquals('contact', $driver->getType());
     }
@@ -106,7 +106,7 @@ extends PHPUnit_Framework_TestCase
     public function testNagSupport()
     {
         $driver = new Horde_Share_Kolab(
-            'nag', 'john', new Horde_Perms(), new Horde_Group_Test()
+            'nag', 'john', new Horde_Perms_Null(), new Horde_Group_Test()
         );        
         $this->assertEquals('task', $driver->getType());
     }
@@ -117,7 +117,7 @@ extends PHPUnit_Framework_TestCase
     public function testSupportException()
     {
         $driver = new Horde_Share_Kolab(
-            'NOTSUPPORTED', 'john', new Horde_Perms(), new Horde_Group_Test()
+            'NOTSUPPORTED', 'john', new Horde_Perms_Null(), new Horde_Group_Test()
         );        
     }
 
@@ -371,6 +371,17 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testCreatorPermission()
+    {
+        $share = $this->_getPrefilledDriver();
+        $object = $share->newShare('john', 'IGNORED', 'Test');
+        $share->addShare($object);
+        $this->assertTrue(
+            $share->getShareById($this->_getId('john', 'Test'))
+            ->hasPermission('john', Horde_Perms::SHOW)
+        );
+    }
+
     public function testNewShareName()
     {
         $share = $this->_getCompleteDriver();
@@ -564,7 +575,7 @@ extends PHPUnit_Framework_TestCase
     private function _getDriver($app = 'mnemo')
     {
         return new Horde_Share_Kolab(
-            $app, 'john', new Horde_Perms(), new Horde_Group_Test()
+            $app, 'john', new Horde_Perms_Null(), new Horde_Group_Test()
         );
     }
 

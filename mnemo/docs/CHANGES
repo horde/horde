@@ -1,4 +1,37 @@
 ----------
+v3.0.2-git
+----------
+
+
+
+------
+v3.0.1
+------
+
+[jan] Fix accidental encryption of notes (Bug #9981).
+[jan] Fix color picker for categories in the note list header (Bug #9980).
+
+
+----
+v3.0
+----
+
+[jan] Fix generating tooltip previews of encrypted notes.
+[jan] Fix application-specific permission checks (Bug #9786).
+[mjr] Datatree share to SQL upgrade script refactored for Horde 4.
+[mjr] Default sorting criteria by creation date (Bug #7332).
+[jan] Move all executable scripts to bin/ and prefix with mnemo-.
+
+
+--------
+v3.0-RC1
+--------
+
+[jan] Update installation and upgrade instructions.
+[gwr] Adapted the Kolab driver to Horde 4.
+
+
+----------
 v3.0-BETA1
 ----------
 

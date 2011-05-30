@@ -63,7 +63,7 @@ class Horde_Auth
     static public function factory($driver, $params = null)
     {
         /* Base drivers (in Auth/ directory). */
-        $class = __CLASS__ . '_' . $driver;
+        $class = __CLASS__ . '_' . ucfirst($driver);
         if (@class_exists($class)) {
             return new $class($params);
         }
@@ -108,12 +108,15 @@ class Horde_Auth
             return Horde_String::convertCharset('"' . $plaintext . '"', 'ISO-8859-1', 'UTF-16LE');
 
         case 'sha':
+        case 'sha1':
             $encrypted = base64_encode(pack('H*', hash('sha1', $plaintext)));
             return $show_encrypt ? '{SHA}' . $encrypted : $encrypted;
 
         case 'crypt':
         case 'crypt-des':
         case 'crypt-md5':
+        case 'crypt-sha256':
+        case 'crypt-sha512':
         case 'crypt-blowfish':
             return ($show_encrypt ? '{crypt}' : '') . crypt($plaintext, $salt);
 
@@ -124,6 +127,11 @@ class Horde_Auth
         case 'ssha':
             $encrypted = base64_encode(pack('H*', hash('sha1', $plaintext . $salt)) . $salt);
             return $show_encrypt ? '{SSHA}' . $encrypted : $encrypted;
+
+        case 'sha256':
+        case 'ssha256':
+            $encrypted = base64_encode(pack('H*', hash('sha256', $plaintext . $salt)) . $salt);
+            return $show_encrypt ? '{SSHA256}' . $encrypted : $encrypted;
 
         case 'smd5':
             $encrypted = base64_encode(pack('H*', hash('md5', $plaintext . $salt)) . $salt);
@@ -212,10 +220,26 @@ class Horde_Auth
                 ? substr(preg_replace('|^{crypt}|i', '', $seed), 0, 16)
                 : '$2$' . base64_encode(hash('md5', sprintf('%08X%08X%08X', mt_rand(), mt_rand(), mt_rand()), true)) . '$';
 
+        case 'crypt-sha256':
+            return $seed
+                ? substr(preg_replace('|^{crypt}|i', '', $seed), 0, strrpos($seed,'$'))
+                : '$5$' . base64_encode(hash('md5', sprintf('%08X%08X%08X', mt_rand(), mt_rand(), mt_rand()), true)) . '$';
+
+        case 'crypt-sha512':
+            return $seed
+                ? substr(preg_replace('|^{crypt}|i', '', $seed), 0, strrpos($seed,'$'))
+                : '$6$' . base64_encode(hash('md5', sprintf('%08X%08X%08X', mt_rand(), mt_rand(), mt_rand()), true)) . '$';
+
         case 'ssha':
             return $seed
                 ? substr(base64_decode(preg_replace('|^{SSHA}|i', '', $seed)), 20)
-                : substr(pack('H*', sha1(substr(pack('h*', hash('md5', mt_rand())), 0, 8) . $plaintext)), 0, 4);
+                : substr(pack('H*', hash('sha1', substr(pack('h*', hash('md5', mt_rand())), 0, 8) . $plaintext)), 0, 4);
+
+        case 'sha256':
+        case 'ssha256':
+            return $seed
+                ? substr(base64_decode(preg_replace('|^{SSHA256}|i', '', $seed)), 20)
+                : substr(pack('H*', hash('sha256', substr(pack('h*', hash('md5', mt_rand())), 0, 8) . $plaintext)), 0, 4);
 
         case 'smd5':
             return $seed

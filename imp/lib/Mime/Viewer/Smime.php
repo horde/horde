@@ -122,7 +122,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                         'wrap' => self::$_cache[$id]['wrap']
                     )
                 );
-                if (self::$_cache[$id]['sig']) {
+                if (isset(self::$_cache[$id]['sig'])) {
                     $ret[self::$_cache[$id]['sig']] = null;
                 }
                 return $ret;
@@ -309,7 +309,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                 $status[] = $e->getMessage();
             }
         } else {
-            switch ($GLOBALS['session']->get('imp', 'view')) {
+            switch (IMP::getViewMode()) {
             case 'imp':
                 $status[] = Horde::link(IMP::selfUrl()->add('smime_verify_msg', 1)) . _("Click HERE to verify the data.") . '</a>';
                 break;

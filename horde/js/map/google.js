@@ -49,12 +49,12 @@ HordeMap.Geocoder.Google = Class.create(
     _callback: function(r)
     {
         if (r.Status.code != 200) {
-            this._errorCallback();
+            this._errorCallback('');
             return;
         }
         var results = [];
         r.Placemark.each(function(entry) {
-            var ll = {lon: entry.Point.coordinates[0], lat: entry.Point.coordinates[1], precision: entry.AddressDetails.Accuracy };
+            var ll = { lon: entry.Point.coordinates[0], lat: entry.Point.coordinates[1], precision: entry.AddressDetails.Accuracy };
             results.push(ll);
         });
         this._userCallback(results);

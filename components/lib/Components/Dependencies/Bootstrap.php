@@ -61,6 +61,7 @@ implements Components_Dependencies
                 break;
             case 'Components_Config':
                 require_once dirname(__FILE__) . '/../Config.php';
+                require_once dirname(__FILE__) . '/../Config/Base.php';
                 require_once dirname(__FILE__) . '/../Config/Bootstrap.php';
                 $this->_instances[$interface] = new Components_Config_Bootstrap();
                 break;
@@ -68,7 +69,7 @@ implements Components_Dependencies
                 require_once dirname(__FILE__) . '/../Output.php';
                 $this->_instances[$interface] = new Components_Output(
                     $this->getInstance('Horde_Cli'),
-                    $this->getInstance('Components_Config')
+                    $this->getInstance('Components_Config')->getOptions()
                 );
                 break;
             case 'Horde_Cli':
@@ -107,6 +108,46 @@ implements Components_Dependencies
      * @return NULL
      */
     public function initConfig(Components_Config $config)
+    {
+    }
+
+    /**
+     * Set the list of modules.
+     *
+     * @param Horde_Cli_Modular $modules The list of modules.
+     *
+     * @return NULL
+     */
+    public function setModules(Horde_Cli_Modular $modules)
+    {
+    }
+
+    /**
+     * Return the list of modules.
+     *
+     * @retunr Horde_Cli_Modular The list of modules.
+     */
+    public function getModules()
+    {
+    }
+
+    /**
+     * Set the CLI parser.
+     *
+     * @param Horde_Argv_Parser $parser The parser.
+     *
+     * @return NULL
+     */
+    public function setParser($parser)
+    {
+    }
+
+    /**
+     * Return the CLI parser.
+     *
+     * @retunr Horde_Argv_Parser The parser.
+     */
+    public function getParser()
     {
     }
 
@@ -161,6 +202,16 @@ implements Components_Dependencies
     }
 
     /**
+     * Returns the change log handler for a package.
+     *
+     * @return Components_Runner_Change The change log handler.
+     */
+    public function getRunnerChange()
+    {
+        return $this->getInstance('Components_Runner_Change');
+    }
+
+    /**
      * Returns the snapshot packaging handler for a package.
      *
      * @return Components_Runner_Snapshot The snapshot handler.
@@ -193,11 +244,21 @@ implements Components_Dependencies
     /**
      * Returns the package XML handler for a package.
      *
-     * @return Components_Runner_PearPackageXml The package XML handler.
+     * @return Components_Runner_Update The package XML handler.
      */
-    public function getRunnerPearPackageXml()
+    public function getRunnerUpdate()
     {
-        return $this->getInstance('Components_Runner_PearPackageXml');
+        return $this->getInstance('Components_Runner_Update');
+    }
+
+    /**
+     * Returns the release tasks handler.
+     *
+     * @return Components_Release_Tasks The release tasks handler.
+     */
+    public function getReleaseTasks()
+    {
+        return $this->getInstance('Components_Release_Tasks');
     }
 
     /**

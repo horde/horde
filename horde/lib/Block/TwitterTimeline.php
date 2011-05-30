@@ -13,8 +13,9 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author Ben Klang <ben@alkaloid.net>
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author  Ben Klang <ben@alkaloid.net>
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Horde
  */
 class Horde_Block_TwitterTimeline extends Horde_Core_Block
 {
@@ -66,7 +67,7 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
     {
         return array(
             'height' => array(
-                 'name' => _("Height of map (width automatically adjusts to block)"),
+                 'name' => _("Height of stream content (width automatically adjusts to block)"),
                  'type' => 'int',
                  'default' => 350
              ),
@@ -110,7 +111,7 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
 
         /* Build values to pass to the javascript twitter client */
         $defaultText = _("What are you working on now?");
-        $endpoint = Horde::url('services/twitter.php', true);
+        $endpoint = Horde::url('services/twitter/', true);
         $spinner = $instance . '_loading';
         $inputNode = $instance . '_newStatus';
         $inReplyToNode = $instance . '_inReplyTo';
@@ -142,7 +143,7 @@ EOT;
         Horde::addInlineScript($script, 'dom');
 
         /* Get the user's most recent tweet */
-        $latestStatus = htmlspecialchars($this->_profile->status->text);
+
 
         /* Build the UI */
         $view = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
@@ -150,8 +151,8 @@ EOT;
         $view->instance = $instance;
         $view->defaultText = $defaultText;
         $view->loadingImg = Horde::img('loading.gif', '', array('id' => $instance . '_loading', 'style' => 'display:none;'));
-        $view->latestStatus = $latestStatus;
-        $view->latestDate = Horde_Date_Utils::relativeDateTime(strtotime($this->_profile->status->created_at), $GLOBALS['prefs']->getValue('date_format'), ($GLOBALS['prefs']->getValue('twentyFour') ? "%H:%M" : "%I:%M %P"));
+        $view->latestStatus = !empty($this->_profile->status) ? htmlspecialchars($this->_profile->status->text) : '';
+        $view->latestDate = !empty($this->_profile->status) ?  Horde_Date_Utils::relativeDateTime(strtotime($this->_profile->status->created_at), $GLOBALS['prefs']->getValue('date_format'), ($GLOBALS['prefs']->getValue('twentyFour') ? "%H:%M" : "%I:%M %P")) : '';
         $view->bodyHeight = empty($this->_params['height']) ? 350 : $this->_params['height'];
 
         return $view->render('twitter-layout');

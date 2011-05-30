@@ -1,57 +1,39 @@
 <?php
 /**
- * Release focus. Possible values:
- * 0 - N/A
- * 1 - Initial freshmeat announcement
- * 2 - Documentation
- * 3 - Code cleanup
- * 4 - Minor feature enhancements
- * 5 - Major feature enhancements
- * 6 - Minor bugfixes
- * 7 - Major bugfixes
- * 8 - Minor security fixes
- * 9 - Major security fixes
+ * Release focus. Possible values (multiple possible with arrays):
+ * Horde_Release::FOCUS_INITIAL - Initial announcement
+ * Horde_Release::FOCUS_MINORFEATURE - Minor feature enhancement
+ * Horde_Release::FOCUS_MAJORFEATURE - Major feature enhancement
+ * Horde_Release::FOCUS_MINORBUG - Minor bugfixes
+ * Horde_Release::FOCUS_MAJORBUG - Major bugfixes
+ * Horde_Release::FOCUS_MINORSECURITY - Minor security fixes
+ * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
+ * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = 5;
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first alpha release of the Ingo Email
-Filter Rules Manager version H4 (2.0).
+The Horde Team is pleased to announce the final release of the Ingo Email
+Filter Rules Manager version H4 (2.0.1).
 
 Ingo is an email-filter management application. It is fully internationalized,
 integrated with Horde and the IMP Webmail client, and supports both server-side
-(Sieve, procmail) and client-side (IMAP) message filtering.
+(Sieve, procmail) and client-side (IMAP) message filtering. For more
+information on Ingo, visit http://www.horde.org/apps/ingo.
 
-IMPORTANT! This is a preview version that should not be used on production
-systems. This version is considered feature complete but there are likely to be
-bugs. You should not use this preview version with existing production
-data. Migration of data from earlier versions has not been fully tested yet and
-is not supported.
+The major changes compared to the Ingo version H4 (2.0) are:
 
-We encourage widespread testing and feedback via the mailing lists or our bug
-tracking system. Updated translations are very welcome, though some strings
-might still change before the release candidates are prepared.
-
-To install Ingo, you need to install Horde first. See
-https://github.com/horde/horde/blob/master/horde/docs/INSTALL for details. Once
-Horde is installed, you can install Ingo with the following command:
-
-  pear install horde/ingo-alpha
-
-Then log in to Horde with your adminstrator account to configure the
-application and install the database schema from the configuration interface.
-
-The major changes compared to the Ingo version H3 (1.2) are:
-
-    * Updated for Horde 4
-    * Using IMP API for IMAP filtering
+    * Fixed IMAP filtering.
+    * Fixed folder selection.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
+Fixed IMAP filtering.
+Fixed folder selection.
 FM;
 
 $this->notes['name'] = 'Ingo';
 $this->notes['fm']['project'] = 'ingo';
-$this->notes['fm']['branch'] = 'Default';
+$this->notes['fm']['branch'] = 'Horde 4';

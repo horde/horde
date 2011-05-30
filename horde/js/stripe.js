@@ -29,7 +29,7 @@ Horde.stripeElement = function(elt)
     } else {
         // Toggle the classname of any child node that is an element.
         e.each(function(c) {
-            c.removeClassName(classes[i]).addClassName(classes[++i % 2]);
+            c.removeClassName(classes[i % 2]).addClassName(classes[++i % 2]);
         });
     }
 };

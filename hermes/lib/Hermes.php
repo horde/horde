@@ -19,7 +19,7 @@ class Hermes
      * @staticvar array $clients
      * @return array  A hash of client_id => client_name
      */
-    static public function listClients($name = '')
+    public static function listClients($name = '')
     {
         static $clients;
 
@@ -47,13 +47,13 @@ class Hermes
         return $clients[$name];
     }
 
-    static public function getClientSelect()
+    public static function getClientSelect($id)
     {
         $clients = self::listClients();
-        $select = '<select name="client" id="hermesTimeFormClient">';
-        $select .= '<option value="">' . _("---Select Client---") . '</option>';
-        foreach ($clients as $id => $client) {
-            $select .= '<option value="' . $id . '">' . $client . '</option>';
+        $select = '<select name="client" id="' . $id . '">';
+        $select .= '<option value="">' . _("--- Select A Client ---") . '</option>';
+        foreach ($clients as $cid => $client) {
+            $select .= '<option value="' . $cid . '">' . $client . '</option>';
         }
 
         return $select . '</select>';
@@ -63,12 +63,12 @@ class Hermes
      * @TODO: Build these via ajax once we have UI support for editing jobtypes
      * @return <type>
      */
-    static public function getJobTypeSelect()
+    public static function getJobTypeSelect($id)
     {
         $types = $GLOBALS['injector']->getInstance('Hermes_Driver')->listJobTypes(array('enabled' => true));
-        $select = '<select name="type" id="hermesTimeFormJobtype">';
-        foreach ($types as $id => $type) {
-            $select .= '<option value="' . $id . '">' . $type['name'] . '</option>';
+        $select = '<select name="type" id="' . $id . '">';
+        foreach ($types as $tid => $type) {
+            $select .= '<option value="' . $tid . '">' . $type['name'] . '</option>';
         }
 
         return $select . '</select>';
@@ -77,7 +77,7 @@ class Hermes
     /**
      * Build Hermes' list of menu items.
      */
-    static public function getMenu($returnType = 'object')
+    public static function getMenu($returnType = 'object')
     {
         global $registry, $conf, $print_link;
 
@@ -122,7 +122,7 @@ class Hermes
      * @param <type> $id
      * @return <type>
      */
-    static public function canEditTimeslice($id)
+    public static function canEditTimeslice($id)
     {
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
@@ -152,7 +152,7 @@ class Hermes
      *
      * @return array an array suitable for Horde_Data::
      */
-    static public function makeExportHours($hours)
+    public static function makeExportHours($hours)
     {
         if (is_null($hours)) {
             return null;
@@ -195,7 +195,7 @@ class Hermes
      *
      * @return array A two-element array of the type and the type's parameters.
      */
-    static public function getEmployeesType($enumtype = 'multienum')
+    public static function getEmployeesType($enumtype = 'multienum')
     {
         $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
         if (!$auth->hasCapability('list')) {
@@ -221,7 +221,7 @@ class Hermes
         return array($enumtype, array($employees));
     }
 
-    static public function getCostObjectByID($id)
+    public static function getCostObjectByID($id)
     {
         static $cost_objects;
 
@@ -244,10 +244,10 @@ class Hermes
 
         throw new Horde_Exception_NotFound();
     }
-    
+
     /**
      */
-    static public function getCostObjectType($clientID = null)
+    public static function getCostObjectType($clientID = null)
     {
         global $registry;
 
@@ -326,7 +326,7 @@ class Hermes
         return $elts;
     }
 
-    static public function tabs()
+    public static function tabs()
     {
         /* Build search mode tabs. */
         $sUrl = Horde::selfUrl();
@@ -419,6 +419,7 @@ class Hermes
             'date_format' => str_replace(array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
                              array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
                              Horde_Nls::getLangInfo(D_FMT)),
+            'client_name_field' => $GLOBALS['conf']['client']['field']
         );
         if (!empty($GLOBALS['conf']['logo']['link'])) {
             $code['conf']['URI_HOME'] = $GLOBALS['conf']['logo']['link'];
@@ -442,6 +443,19 @@ class Hermes
         return Horde::addInlineJsVars(array(
             'var Hermes' => $code
         ), array('ret_vars' => true));
+    }
+
+    /**
+     * Returns whether to display the ajax view.
+     *
+     * return boolean  True if the ajax view should be displayed.
+     */
+    public static function showAjaxView()
+    {
+        global $prefs, $session;
+
+        $mode = $session->get('horde', 'mode');
+        return ($mode == 'dynamic' || ($prefs->getValue('dynamic_view') && $mode == 'auto')) && Horde::ajaxAvailable();
     }
 
 }

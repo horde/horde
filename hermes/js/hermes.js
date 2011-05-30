@@ -105,25 +105,15 @@ HermesCore = {
         this.viewLoading.push([ fullloc, data ]);
         switch (loc) {
         case 'time':
+        case 'search':
             this.closeView(loc);
             var locCap = loc.capitalize();
             $('hermesNav' + locCap).addClassName('on');
             switch (loc) {
             case 'time':
-                this.addHistory(fullloc);
-                this.view = loc;
                 this.updateView(loc);
                 this.loadSlices();
-                $('hermesView' + locCap).appear({
-                        duration: this.effectDur,
-                        queue: 'end',
-                        afterFinish: function() {
-                            this.loadNextView();
-                        }.bind(this)
-                });
-                //$('hermesLoading' + loc).insert($('hermesLoading').remove());
-                break;
-
+                // Fall through
             default:
                 if (!$('hermesView' + locCap)) {
                     break;
@@ -258,6 +248,10 @@ HermesCore = {
                 this.go('time');
                 e.stop();
                 return;
+            case 'hermesNavSearch':
+                this.go('search');
+                e.stop();
+                return;
             case 'hermesTimeSaveAsNew':
                 $('hermesTimeFormId').value = null;
             case 'hermesTimeSave':
@@ -282,15 +276,27 @@ HermesCore = {
                     e.stop();
                 }
                 return;
-             case 'hermesOptions':
+            case 'hermesOptions':
                 this.go('prefs');
                 e.stop();
                 return;
-             case 'hermesLogout':
+            case 'hermesLogout':
                 this.logout();
                 e.stop();
                 return;
-
+            case 'hermesTimeFormCollapse':
+                if ($('hermesTimeForm').visible()) {
+                    $('hermesTimeForm').slideUp({ duration: this.effectDur });
+                    $('hermesTimeFormCollapse').removeClassName('hermesTimeFormShown');
+                    $('hermesTimeFormCollapse').addClassName('hermesTimeFormHidden');
+                    $()
+                } else {
+                    $('hermesTimeForm').slideDown({ duration: this.effectDur });
+                    $('hermesTimeFormCollapse').addClassName('hermesTimeFormShown');
+                    $('hermesTimeFormCollapse').removeClassName('hermesTimeFormHidden');
+                }
+                e.stop();
+                return;
             }
 
             switch (elt.className) {
@@ -517,6 +523,7 @@ HermesCore = {
         this.updateView(this.view);
         this.buildTimeTable();
         $('hermesTimeForm').reset();
+        $('hermesTimeFormId').value = null;
         $('hermesTimeSaveAsNew').hide();
     },
 
@@ -545,17 +552,20 @@ HermesCore = {
      */
     updateView: function(view)
     {
-        var tbody = $('hermesTimeListInternal');
-        // TODO: Probably more effecient way
-        tbody.childElements().each(function(row) {
-            row.purge();
-            row.remove();
-        });
-        if ($('hermesTimeListHeader')) {
-            $('hermesTimeListHeader').select('div').each(function(d) {
-               d.removeClassName('sortup');
-               d.removeClassName('sortdown');
+        switch (view) {
+        case 'time':
+            var tbody = $('hermesTimeListInternal');
+            // TODO: Probably more effecient way
+            tbody.childElements().each(function(row) {
+                row.purge();
+                row.remove();
             });
+            if ($('hermesTimeListHeader')) {
+                $('hermesTimeListHeader').select('div').each(function(d) {
+                   d.removeClassName('sortup');
+                   d.removeClassName('sortdown');
+                });
+            }
         }
     },
 
@@ -666,7 +676,7 @@ HermesCore = {
         d = this.parseDate(slice.d);
         cell = row.down().update(' ');
         cell = cell.next().update(d.toString(Hermes.conf.date_format));
-        cell = cell.next().update((slice.cn.name) ? slice.cn.name : ' ');
+        cell = cell.next().update(slice.cn[Hermes.conf.client_name_field]);
         cell = cell.next().update((slice.con) ? slice.con : ' ');
         cell = cell.next().update((slice.tn) ? slice.tn : ' ');
         cell = cell.next().update((slice.desc) ? slice.desc : ' ');
@@ -922,7 +932,7 @@ HermesCore = {
 
     onResize: function(event)
     {
-        $('hermesTimeListBody').setStyle({height: document.height - 440 + 'px'});
+        //$('hermesTimeListBody').setStyle({height: document.height - 440 + 'px'});
     },
 
     sortDate: function(a, b)

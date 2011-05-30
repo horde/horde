@@ -14,7 +14,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Core
  */
-class Horde_Core_Block_Collection
+class Horde_Core_Block_Collection implements Serializable
 {
     /**
      * A hash storing the information about all available blocks from
@@ -25,26 +25,22 @@ class Horde_Core_Block_Collection
     protected $_blocks = array();
 
     /**
+     * Layout configuration preference name.
+     *
+     * @var string
+     */
+    protected $_layout;
+
+    /**
      * Constructor.
      *
-     * @param array $apps  The applications whose blocks to list.
+     * @param array $apps     The applications whose blocks to list.
+     * @param string $layout  Layout configuration preference name.
      */
-    public function __construct($apps = array())
+    public function __construct(array $apps, $layout)
     {
-        global $registry, $session;
-
-        if (empty($apps)) {
-            $apps = $registry->listApps();
-        }
-        sort($apps);
-        $signature = hash('md5', serialize($apps));
-
-        if ($this->_blocks = $session->get('horde', 'blocks/' . $signature)) {
-            return;
-        }
-
-        foreach (array_intersect($registry->listApps(), $apps) as $app) {
-            $drivers = $registry->getAppDrivers($app, 'Block');
+        foreach ($apps as $app) {
+            $drivers = $GLOBALS['registry']->getAppDrivers($app, 'Block');
             foreach ($drivers as $val) {
                 $tmp = new $val($app);
                 if ($tmp->enabled) {
@@ -53,12 +49,61 @@ class Horde_Core_Block_Collection
             }
         }
 
-        $session->set('horde', 'blocks/' . $signature, $this->_blocks);
+        $this->_layout = $layout;
     }
 
     /**
-     * TODO
+     * Return the layout configuration for this collection.
      *
+     * @return array  The layout configuration.
+     */
+    public function getLayout()
+    {
+        $layout = @unserialize($GLOBALS['prefs']->getValue($this->_layout));
+
+        if (empty($layout)) {
+            $layout = array();
+
+            if (isset($GLOBALS['conf']['portal']['fixed_blocks'])) {
+                foreach ($GLOBALS['conf']['portal']['fixed_blocks'] as $block) {
+                    list($app, $type) = explode(':', $block, 2);
+                    $layout[] = array(
+                        array(
+                            'app' => $app,
+                            'params' => array(
+                                'type2' => $type,
+                                'params' => false
+                            ),
+                            'height' => 1,
+                            'width' => 1
+                        )
+                    );
+                }
+            }
+        }
+
+        return $layout;
+    }
+
+    /**
+     * Return the layout manager for this collection.
+     *
+     * @return Horde_Core_Block_Layout_Manager  Layout manager object.
+     */
+    public function getLayoutManager()
+    {
+        return new Horde_Core_Block_Layout_Manager($this);
+    }
+
+    /**
+     * Gets a block object.
+     *
+     * @param string $app    Application name.
+     * @param string $name   The Block's classname.
+     * @param array $params  Parameters.  If null, the stored parameters will
+     *                       be used.
+     *
+     * @return Horde_Core_Block  Block object.
      * @throws Horde_Exception
      */
     public function getBlock($app, $name, $params = null)
@@ -76,6 +121,18 @@ class Horde_Core_Block_Collection
                 $registry->popApp($app);
             }
             throw new Horde_Exception(sprintf('%s not found.', $name));
+        }
+
+        if (is_null($params)) {
+            foreach ($this->getLayout() as $row) {
+                foreach ($row as $col) {
+                    if (is_array($col) &&
+                        (strcasecmp($col['params']['type2'], $name) === 0)) {
+                        $params = $col['params']['params'];
+                        break 2;
+                    }
+                }
+            }
         }
 
         $ob = new $name($app, $params);
@@ -122,22 +179,6 @@ class Horde_Core_Block_Collection
     {
         $layout = array();
 
-        if (isset($GLOBALS['conf']['portal']['fixed_blocks'])) {
-            foreach ($GLOBALS['conf']['portal']['fixed_blocks'] as $block) {
-                list($app, $type) = explode(':', $block, 2);
-                $layout[] = array(
-                    array(
-                        'app' => $app,
-                        'params' => array(
-                            'type2' => $type,
-                            'params' => false
-                        ),
-                        'height' => 1,
-                        'width' => 1
-                    )
-                );
-            }
-        }
 
         return $layout;
     }
@@ -155,7 +196,7 @@ class Horde_Core_Block_Collection
     public function getBlocksWidget($cur_app = null, $cur_block = null,
                                     $onchange = false, $readonly = false)
     {
-        $widget = '<select name="app"';
+        $widget = '<select name=' . (!$readonly ? '"app"' : '"roapp"');
 
         if ($onchange) {
             $widget .= ' onchange="document.blockform.action.value=\'save-resume\';document.blockform.submit()"';
@@ -175,8 +216,12 @@ class Horde_Core_Block_Collection
                 $name
             );
         }
+        $widget .= "</select>\n";
+        if ($readonly) {
+            $widget .= '<input type="hidden" name="app" value="' . $cur_app . ':' . $cur_block . '" />' . "\n";
+        }
 
-        return $widget . "</select>\n";
+        return $widget;
     }
 
     /**
@@ -353,7 +398,7 @@ class Horde_Core_Block_Collection
      * @param string $app    An application name.
      * @param string $block  A block name.
      *
-     * @return array  An array with all paramter names.
+     * @return array  An array with all parameter names.
      */
     public function getParams($app, $block)
     {
@@ -416,9 +461,23 @@ class Horde_Core_Block_Collection
      */
     public function isEditable($app, $block)
     {
-        $this->getParams($app, $block);
-        return (isset($this->_blocks[$app][$block]['params']) &&
-            count($this->_blocks[$app][$block]['params']));
+        $block = $this->getBlock($app, $block);
+        return $block->updateable || $block->getParams();
+    }
+
+    /* Serializable methods. */
+
+    public function serialize()
+    {
+        return json_encode(array(
+            $this->_blocks,
+            $this->_layout
+        ));
+    }
+
+    public function unserialize($data)
+    {
+        list($this->_blocks, $this->_layout) = json_decode($data, true);
     }
 
 }

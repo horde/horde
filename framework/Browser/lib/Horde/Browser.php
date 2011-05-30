@@ -1023,7 +1023,7 @@ class Horde_Browser
         }
 
         if (!($uploadSize = self::allowFileUploads())) {
-            throw new Horde_Browser_Exception('File uploads not supported.');
+            throw new Horde_Browser_Exception(Horde_Browser_Translation::t("File uploads not supported."));
         }
 
         /* Get any index on the field name. */
@@ -1040,24 +1040,24 @@ class Horde_Browser
         } else {
             /* No index, simple set up of vars to check. */
             if (!isset($_FILES[$field])) {
-                throw new Horde_Browser_Exception('No file uploaded', UPLOAD_ERR_NO_FILE);
+                throw new Horde_Browser_Exception(Horde_Browser_Translation::t("No file uploaded"), UPLOAD_ERR_NO_FILE);
             }
             $error = $_FILES[$field]['error'];
             $tmp_name = $_FILES[$field]['tmp_name'];
         }
 
         if (empty($_FILES) || ($error == UPLOAD_ERR_NO_FILE)) {
-            throw new Horde_Browser_Exception(sprintf('There was a problem with the file upload: No %s was uploaded.', $name), UPLOAD_ERR_NO_FILE);
+            throw new Horde_Browser_Exception(sprintf(Horde_Browser_Translation::t("There was a problem with the file upload: No %s was uploaded."), $name), UPLOAD_ERR_NO_FILE);
         } elseif (($error == UPLOAD_ERR_OK) && is_uploaded_file($tmp_name)) {
             if (!filesize($tmp_name)) {
-                throw new Horde_Browser_Exception('The uploaded file appears to be empty. It may not exist on your computer.', UPLOAD_ERR_NO_FILE);
+                throw new Horde_Browser_Exception(Horde_Browser_Translation::t("The uploaded file appears to be empty. It may not exist on your computer."), UPLOAD_ERR_NO_FILE);
             }
             // SUCCESS
         } elseif (($error == UPLOAD_ERR_INI_SIZE) ||
                   ($error == UPLOAD_ERR_FORM_SIZE)) {
-            throw new Horde_Browser_Exception(sprintf('There was a problem with the file upload: The %s was larger than the maximum allowed size (%d bytes).', $name, min($uploadSize, Horde_Util::getFormData('MAX_FILE_SIZE'))), $error);
+            throw new Horde_Browser_Exception(sprintf(Horde_Browser_Translation::t("There was a problem with the file upload: The %s was larger than the maximum allowed size (%d bytes)."), $name, min($uploadSize, Horde_Util::getFormData('MAX_FILE_SIZE'))), $error);
         } elseif ($error == UPLOAD_ERR_PARTIAL) {
-            throw new Horde_Browser_Exception(sprintf('There was a problem with the file upload: The %s was only partially uploaded.', $name), $error);
+            throw new Horde_Browser_Exception(sprintf(Horde_Browser_Translation::t("There was a problem with the file upload: The %s was only partially uploaded."), $name), $error);
         }
     }
 

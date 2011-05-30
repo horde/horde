@@ -18,7 +18,7 @@ class Mnemo_Block_Summary extends Horde_Core_Block
     {
         global $registry;
 
-	    $label = !empty($this->_params['block_title'])
+        $label = !empty($this->_params['block_title'])
             ? $this->_params['block_title']
             : $registry->get('name');
 
@@ -111,8 +111,8 @@ class Mnemo_Block_Summary extends Horde_Core_Block
                     '', '', '', '',
                     $memo['body'] != $memo['desc'] ? Mnemo::getNotePreview($memo) : '')
                 . (strlen($memo['desc']) ? htmlspecialchars($memo['desc']) : '<em>' . _("Empty Note") . '</em>')
-                . '</a></td><td width="1%" class="category'
-                . md5($memo['category']) . '">'
+                . '</a></td><td width="1%" class="base-category" style="'
+                . Mnemo::getCssStyle($memo['category']) . '">'
                 . htmlspecialchars($memo['category'] ? $memo['category'] : _("Unfiled"))
                 . "</td></tr>\n";
         }
@@ -120,8 +120,6 @@ class Mnemo_Block_Summary extends Horde_Core_Block
         if (!$memos) {
             return '<p><em>' . _("No notes to display") . '</em></p>';
         }
-
-        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('categoryCSS.php');
 
         return '<table cellspacing="0" width="100%" class="linedRow">' . $html
             . '</table>';

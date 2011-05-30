@@ -53,6 +53,9 @@ abstract class Horde_Share_Object implements Serializable
             $this->_shareOb = call_user_func($this->_shareCallback);
         }
 
+        if (empty($this->_shareOb)) {
+            throw new Horde_Share_Exception('Unable to obtain a Horde_Share object');
+        }
         return $this->_shareOb;
     }
 
@@ -61,10 +64,11 @@ abstract class Horde_Share_Object implements Serializable
      *
      * @param string $attribute  The attribute to set.
      * @param mixed $value       The value for $attribute.
+     * @param boolean $update    Immediately update only this change.
      *
      * @return boolean
      */
-    abstract public function set($attribute, $value);
+    abstract public function set($attribute, $value, $update = false);
 
     /**
      * Returns an attribute value from this object.

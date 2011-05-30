@@ -4,8 +4,15 @@
 
 :Contact: chora@lists.horde.org
 
+.. contents:: Contents
+.. section-numbering::
+
 
 These are instructions to upgrade from earlier Chora versions.
+
+After updating to a newer Chora version, you **always** need to update
+configurations. Log in as an administrator, go to Administration =>
+Configuration and update anything that's highlighted as outdated.
 
 
 Upgrading Chora from 2.x to 3.x

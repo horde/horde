@@ -22,7 +22,7 @@ class ImpBaseTables extends Horde_Db_Migration_Base
         // Create: imp_sentmail
         $tableList = $this->tables();
         if (!in_array('imp_sentmail', $tableList)) {
-            $t = $this->createTable('imp_sentmail', array('primaryKey' => false));
+            $t = $this->createTable('imp_sentmail', array('autoincrementKey' => false));
             $t->column('sentmail_id', 'bigint', array('null' => false));
             $t->column('sentmail_who', 'string', array('limit' => 255, 'null' => false));
             $t->column('sentmail_ts', 'bigint', array('null' => false));

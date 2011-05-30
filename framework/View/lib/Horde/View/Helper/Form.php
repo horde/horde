@@ -28,7 +28,7 @@ class Horde_View_Helper_Form extends Horde_View_Helper_Base
     public function formFor($objectName)
     {
         $args = func_get_args();
-        $options = (is_array(end($args))) ? array_pop($args) : array();
+        $options = is_array(end($args)) ? array_pop($args) : array();
 
         if (isset($options['url'])) {
             $urlOptions = $options['url'];
@@ -54,32 +54,39 @@ class Horde_View_Helper_Form extends Horde_View_Helper_Base
     public function fieldsFor($objectName)
     {
         $args = func_get_args();
-        $options = (is_array(end($args))) ? array_pop($args) : array();
+        $options = is_array(end($args)) ? array_pop($args) : array();
         $object  = isset($args[1]) ? $args[1] : null;
 
-        $builder = isset($options['builder']) ? $options['builder']
-                                              : Horde_View_Base::$defaultFormBuilder;
+        $builder = isset($options['builder'])
+            ? $options['builder']
+            : Horde_View_Base::$defaultFormBuilder;
 
         return new $builder($objectName, $object, $this->_view, $options);
     }
 
     /**
-     * Returns a label tag tailored for labelling an input field for a specified
-     * attribute (identified by +method+) on an object assigned to the template
-     * (identified by +object+). The text of label will default to the attribute
-     * name unless you specify it explicitly. Additional options on the label
-     * tag can be passed as a hash with +options+. These options will be tagged
-     * onto the HTML as an HTML element attribute as in the example shown.
+     * Returns a label tag tailored for labelling an input field for a
+     * specified attribute (identified by $method) on an object assigned to the
+     * template (identified by $objectName).
      *
-     * ==== Examples
-     *   label(:post, :title)
-     *   # => <label for="post_title">Title</label>
+     * The text of label will default to the attribute name unless you specify
+     * it explicitly. Additional options on the label tag can be passed as a
+     * hash with $options. These options will be tagged onto the HTML as an
+     * HTML element attribute as in the example shown.
      *
-     *   label(:post, :title, "A short title")
-     *   # => <label for="post_title">A short title</label>
+     * Examples:
      *
-     *   label(:post, :title, "A short title", :class => "title_label")
-     *   # => <label for="post_title" class="title_label">A short title</label>
+     * <code>
+     * $this->label('post', 'title');
+     * // => <label for="post_title">Title</label>
+     *
+     * $this->label('post', 'title', 'A short title')
+     * // => <label for="post_title">A short title</label>
+     *
+     * $this->label('post', 'title', 'A short title',
+     *              array('class' => 'title_label'));
+     * // => <label for="post_title" class="title_label">A short title</label>
+     * </code>
      */
     public function label($objectName, $method, $text, $options = array())
     {
@@ -145,5 +152,4 @@ class Horde_View_Helper_Form extends Horde_View_Helper_Base
         $tag = new $this->_instanceTag($objectName, $method, $this->_view, $object);
         return $tag->toTextAreaTag($options);
     }
-
 }

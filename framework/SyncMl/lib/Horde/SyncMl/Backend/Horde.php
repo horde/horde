@@ -13,9 +13,9 @@
 class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
 {
     /**
-     * A PEAR DB instance.
+     * A database instance.
      *
-     * @var DB
+     * @var Horde_Db_Adapter_Base
      */
     protected $_db;
 
@@ -37,7 +37,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
     {
         parent::__construct($params);
 
-        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create();
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create();
     }
 
     /**
@@ -52,7 +52,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
         if ($this->_backendMode == Horde_SyncMl_Backend::MODE_TEST) {
             /* After a session the user gets automatically logged out, so we
              * have to login again. */
-            Horde_Auth::setAuth($this->_user, array());
+            $GLOBALS['registry']->setAuth($this->_user, array());
         }
     }
 
@@ -504,8 +504,10 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
      */
     public function setAuthenticated($username, $credData)
     {
-        Horde_Auth::setAuth($username, $credData);
-        return $GLOBALS['registry']->getAuth();
+        global $registry;
+
+        $registry->setAuth($username, $credData);
+        return $registry->getAuth();
     }
 
     /**
@@ -530,25 +532,21 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
     {
         $database = $this->normalize($databaseURI);
 
+        $values = array($clientAnchorNext, $serverAnchorNext,
+                        $this->_syncDeviceID, $database, $this->_user);
         if (!$this->readSyncAnchors($databaseURI)) {
             $query = 'INSERT INTO horde_syncml_anchors '
                 . '(syncml_clientanchor, syncml_serveranchor, '
                 . 'syncml_syncpartner, syncml_db, syncml_uid) '
                 . 'VALUES (?, ?, ?, ?, ?)';
+            $this->_db->insert($query, $values);
         } else {
             $query = 'UPDATE horde_syncml_anchors '
                 . 'SET syncml_clientanchor = ?, syncml_serveranchor = ? '
                 . 'WHERE syncml_syncpartner = ? AND syncml_db = ? AND '
                 . 'syncml_uid = ?';
+            $this->_db->update($query, $values);
         }
-        $values = array($clientAnchorNext, $serverAnchorNext,
-                        $this->_syncDeviceID, $database, $this->_user);
-
-        $this->logMessage(
-            'SQL Query by Horde_SyncMl_Backend_Horde::writeSyncAnchors(): '
-            . $query . ', values: ' . implode(', ', $values), 'DEBUG');
-
-        return $this->_db->query($query, $values);
     }
 
     /**
@@ -566,22 +564,21 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
     public function readSyncAnchors($databaseURI)
     {
         $database = $this->normalize($databaseURI);
-
         $query = 'SELECT syncml_clientanchor, syncml_serveranchor '
             . 'FROM horde_syncml_anchors '
             . 'WHERE syncml_syncpartner = ? AND syncml_db = ? AND '
             . 'syncml_uid = ?';
         $values = array($this->_syncDeviceID, $database, $this->_user);
+        try {
+            if ($res = $this->_db->selectOne($query, $values)) {
+                return array(
+                    $res['syncml_clientanchor'],
+                    $res['syncml_serveranchor']
+                );
+            }
+        } catch (Horde_Db_Exception $e) {}
 
-        $this->logMessage(
-            'SQL Query by Horde_SyncMl_Backend_Horde::readSyncAnchors(): '
-            . $query . ', values: ' . implode(', ', $values), 'DEBUG');
-        $result = $this->_db->getRow($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            $this->logMessage($result, 'ERR');
-        }
-
-        return $result;
+        return false;
     }
 
     /**
@@ -598,17 +595,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
             . 'syncml_serveranchor FROM horde_syncml_anchors '
             . 'WHERE syncml_uid = ?';
         $values = array($user);
-
-        $this->logMessage(
-            'SQL Query by Horde_SyncMl_Backend_Horde::getUserAnchors(): '
-            . $query . ', values: ' . implode(', ', $values), 'DEBUG');
-        $result = $this->_db->getAssoc($query, false, $values,
-                                       DB_FETCHMODE_ASSOC, true);
-        if (is_a($result, 'PEAR_Error')) {
-            $this->logMessage($result, 'ERR');
-        }
-
-        return $result;
+        return $this->_db->selectAll($query, $values);
     }
 
     /**
@@ -626,8 +613,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
      */
     public function removeAnchor($user, $device = null, $database = null)
     {
-        $query = 'DELETE FROM horde_syncml_anchors '
-            . 'WHERE syncml_uid = ?';
+        $query = 'DELETE FROM horde_syncml_anchors WHERE syncml_uid = ?';
         $values = array($user);
         if (strlen($device)) {
             $query .= ' AND syncml_syncpartner = ?';
@@ -638,15 +624,36 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
             $values[] = $database;
         }
 
-        $this->logMessage(
-            'SQL Query by Horde_SyncMl_Backend_Horde::removeAnchor(): '
-            . $query . ', values: ' . implode(', ', $values), 'DEBUG');
-        $result = $this->_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            $this->logMessage($result, 'ERR');
+        $this->_db->delete($query, $values);
+    }
+
+    /**
+     * Deletes previously written sync maps for a user.
+     *
+     * If no device or database are specified, maps for all devices and/or
+     * databases will be deleted.
+     *
+     * @param string $user      A user name.
+     * @param string $device    The ID of the client device.
+     * @param string $database  Normalized URI of database to delete. Like
+     *                          calendar, tasks, contacts or notes.
+     *
+     * @return array
+     */
+    public function removeMaps($user, $device = null, $database = null)
+    {
+        $query = 'DELETE FROM horde_syncml_map WHERE syncml_uid = ?';
+        $values = array($user);
+        if (strlen($device)) {
+            $query .= ' AND syncml_syncpartner = ?';
+            $values[] = $device;
+        }
+        if (strlen($database)) {
+            $query .= ' AND syncml_db = ?';
+            $values[] = $database;
         }
 
-        return $result;
+        $this->_db->delete($query, $values);
     }
 
     /**
@@ -672,30 +679,22 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
     {
         $database = $this->normalize($databaseURI);
 
+        $values = array($suid, (int)$timestamp, $this->_syncDeviceID,
+                        $database, $this->_user, $cuid);
         // Check if entry exists. If not insert, otherwise update.
         if (!$this->_getSuid($databaseURI, $cuid)) {
             $query = 'INSERT INTO horde_syncml_map '
                 . '(syncml_suid, syncml_timestamp, syncml_syncpartner, '
                 . 'syncml_db, syncml_uid, syncml_cuid) '
                 . 'VALUES (?, ?, ?, ?, ?, ?)';
+            $this->_db->insert($query, $values);
         } else {
             $query = 'UPDATE horde_syncml_map '
                 . 'SET syncml_suid = ?, syncml_timestamp = ? '
                 . 'WHERE syncml_syncpartner = ? AND syncml_db = ? AND '
                 . 'syncml_uid = ? AND syncml_cuid = ?';
+            $this->_db->update($query, $values);
         }
-        $values = array($suid, (int)$timestamp, $this->_syncDeviceID,
-                        $database, $this->_user, $cuid);
-
-        $this->logMessage('SQL Query by Horde_SyncMl_Backend_Horde::createUidMap(): '
-                          . $query . ', values: ' . implode(', ', $values), 'DEBUG');
-        $result = $this->_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            $this->logMessage($result, 'ERR');
-            return $result;
-        }
-
-        return true;
     }
 
     /**
@@ -712,20 +711,11 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
     protected function _getSuid($databaseURI, $cuid)
     {
         $database = $this->normalize($databaseURI);
-
         $query = 'SELECT syncml_suid FROM horde_syncml_map '
             . 'WHERE syncml_syncpartner = ? AND syncml_db = ? AND '
             . 'syncml_uid = ? AND syncml_cuid = ?';
         $values = array($this->_syncDeviceID, $database, $this->_user, $cuid);
-
-        $this->logMessage('SQL Query by Horde_SyncMl_Backend_Horde::_getSuid(): '
-                          . $query . ', values: ' . implode(', ', $values), 'DEBUG');
-        $result = $this->_db->getOne($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            $this->logMessage($result, 'ERR');
-        }
-
-        return $result;
+        return $this->_db->selectValue($query, $values);
     }
 
     /**
@@ -747,15 +737,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
             . 'WHERE syncml_syncpartner = ? AND syncml_db = ? AND '
             . 'syncml_uid = ? AND syncml_suid = ?';
         $values = array($this->_syncDeviceID, $database, $this->_user, $suid);
-
-        $this->logMessage('SQL Query by Horde_SyncMl_Backend_Horde::_getCuid(): '
-                          . $query . ', values: ' . implode(', ', $values), 'DEBUG');
-        $result = $this->_db->getOne($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            $this->logMessage($result, 'ERR');
-        }
-
-        return $result;
+        return $this->_db->selectValue($query, $values);
     }
 
     /**
@@ -782,20 +764,11 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
     protected function _getChangeTS($databaseURI, $suid)
     {
         $database = $this->normalize($databaseURI);
-
         $query = 'SELECT syncml_timestamp FROM horde_syncml_map '
             . 'WHERE syncml_syncpartner = ? AND syncml_db = ? AND '
             . 'syncml_uid = ? AND syncml_suid = ?';
         $values = array($this->_syncDeviceID, $database, $this->_user, $suid);
-
-        $this->logMessage('SQL Query by Horde_SyncMl_Backend_Horde::_getChangeTS(): '
-                          . $query . ', values: ' . implode(', ', $values), 'DEBUG');
-        $result = $this->_db->getOne($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            $this->logMessage($result, 'ERR');
-        }
-
-        return $result;
+        $this->_db->selectValue($query, $values);
     }
 
     /**
@@ -812,20 +785,11 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
     public function eraseMap($databaseURI)
     {
         $database = $this->normalize($databaseURI);
-
         $query = 'DELETE FROM horde_syncml_map '
             . 'WHERE syncml_syncpartner = ? AND syncml_db = ? AND '
             . 'syncml_uid = ?';
         $values = array($this->_syncDeviceID, $database, $this->_user);
-
-        $this->logMessage('SQL Query by Horde_SyncMl_Backend_Horde::eraseMap(): '
-                          . $query . ', values: ' . implode(', ', $values), 'DEBUG');
-        $result = $this->_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            $this->logMessage($result, 'ERR');
-        }
-
-        return $result;
+        $this->_db->delete($query, $values);
     }
 
     /**
@@ -900,7 +864,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
          * user data. */
         $GLOBALS['conf']['auth']['admins'][] = $user;
 
-        Horde_Auth::setAuth($user, array());
+        $GLOBALS['registry']->setAuth($user, array());
     }
 
     /**
@@ -919,7 +883,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
 
         /* We need to be logged in to call removeUserData, otherwise we run
          * into permission issues. */
-        Horde_Auth::setAuth($this->_user, array());
+        $GLOBALS['registry']->setAuth($this->_user, array());
 
         print "\nCleaning up: removing test user data and test user...";
         $registry->removeUser($this->_user);

@@ -60,7 +60,7 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
         if (is_array($data)) {
             $httpRequest->setPostFields($data);
         } else {
-            $httpRequest->setRawPostData($data);
+            $httpRequest->setBody($data);
         }
 
         $httpOptions = array('timeout' => $this->timeout);
@@ -85,6 +85,9 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
 
         // Headers
         $httpOptions['headers'] = $this->headers;
+
+        // Redirects
+        $httpOptions['redirect'] = (int)$this->redirects;
 
         // Set options
         $httpRequest->setOptions($httpOptions);

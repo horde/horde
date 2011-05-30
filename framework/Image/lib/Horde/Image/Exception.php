@@ -6,6 +6,5 @@
  * @category Horde
  * @package Image
  */
-class Horde_Image_Exception extends Horde_Exception_Prior {
+class Horde_Image_Exception extends Horde_Exception_Wrapped {
 }
-?>

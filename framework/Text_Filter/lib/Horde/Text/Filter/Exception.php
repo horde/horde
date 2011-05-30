@@ -12,6 +12,6 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Text_Filter
  */
-class Horde_Text_Filter_Exception extends Horde_Exception_Prior
+class Horde_Text_Filter_Exception extends Horde_Exception_Wrapped
 {
 }

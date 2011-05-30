@@ -496,7 +496,7 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
 
     public function testCreateTableNoPk()
     {
-        $this->_createTestTable('sports', array('primaryKey' => false));
+        $this->_createTestTable('sports', array('autoincrementKey' => false));
 
         try {
             $sql = "SELECT id FROM sports WHERE id = 1";
@@ -509,7 +509,7 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
 
     public function testCreateTableWithNamedPk()
     {
-        $this->_createTestTable('sports', array('primaryKey' => 'sports_id'));
+        $this->_createTestTable('sports', array('autoincrementKey' => 'sports_id'));
 
         $sql = "SELECT sports_id FROM sports WHERE sports_id = 1";
         $this->assertEquals(1, $this->_conn->selectValue($sql));
@@ -526,7 +526,7 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
     public function testCreateTableWithSeparatePk()
     {
         $table = $this->_conn->createTable('testings');
-          $table->column('foo', 'primaryKey');
+          $table->column('foo', 'autoincrementKey');
 
         $pkColumn = $table['foo'];
         $this->assertEquals('`foo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY', $pkColumn->toSql());
@@ -534,7 +534,7 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
 
     public function testCreateTableCompositePk()
     {
-        $table = $this->_conn->createTable('testings', array('primaryKey' => array('a_id', 'b_id')));
+        $table = $this->_conn->createTable('testings', array('autoincrementKey' => array('a_id', 'b_id')));
           $table->column('a_id', 'integer');
           $table->column('b_id', 'integer');
         $table->end();
@@ -1046,7 +1046,7 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
 
     public function testTypeToSqlTypePrimaryKey()
     {
-        $result = $this->_conn->typeToSql('primaryKey');
+        $result = $this->_conn->typeToSql('autoincrementKey');
         $this->assertEquals('int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY', $result);
     }
 

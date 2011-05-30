@@ -130,7 +130,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         foreach (array('title', 'location', 'url', 'description') as $field) {
             if (!empty($query->$field)) {
-                $binds = Horde_Sql::buildClause($this->_db, 'event_' . $field, 'LIKE', $this->convertToDriver($query->$field), true);
+                $binds = $this->_db->buildClause('event_' . $field, 'LIKE', $this->convertToDriver($query->$field), true);
                 if (is_array($binds)) {
                     $cond .= $binds[0] . ' AND ';
                     $values = array_merge($values, $binds[1]);
@@ -141,7 +141,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
 
         if (!empty($query->baseid)) {
-            $binds = Horde_Sql::buildClause($this->_db, 'event_baseid', '=', $query->baseid, true);
+            $binds = $this->_db->buildClause('event_baseid', '=', $query->baseid, true);
             if (is_array($binds)) {
                 $cond .= $binds[0] . ' AND ';
                 $values = array_merge($values, $binds[1]);
@@ -151,7 +151,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
 
         if (isset($query->status)) {
-            $binds = Horde_Sql::buildClause($this->_db, 'event_status', '=', $query->status, true);
+            $binds = $this->_db->buildClause('event_status', '=', $query->status, true);
             if (is_array($binds)) {
                 $cond .= $binds[0] . ' AND ';
                 $values = array_merge($values, $binds[1]);
@@ -160,7 +160,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             }
         }
         if (!empty($query->creator)) {
-            $binds = Horde_Sql::buildClause($this->_db, 'event_creator_id', '=', $query->creator, true);
+            $binds = $this->_db->buildClause('event_creator_id', '=', $query->creator, true);
             if (is_array($binds)) {
                 $cond .= $binds[0] . ' AND ';
                 $values = array_merge($values, $binds[1]);
@@ -175,8 +175,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             $cond = substr($cond, 0, strlen($cond) - 5) . '))';
         }
 
-        $eventIds = $this->_listEventsConditional($query->start,
-                                                  $query->end,
+        $eventIds = $this->_listEventsConditional(empty($query->start) ? null : $query->start,
+                                                  empty($query->end) ? null : $query->end,
                                                   $cond,
                                                   $values);
         $events = array();
@@ -214,7 +214,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             throw new Kronolith_Exception($e);
         }
 
-        return !$empty ? $event : false;
+        return !empty($event) ? $event : false;
     }
 
     /**
@@ -393,7 +393,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Run the query. */
         try {
-            $result = $this->_db->selectOne($query, array($this->calendar));
+            $result = $this->_db->selectValue($query, array($this->calendar));
         } catch (Horde_Db_Exception $e) {
             throw new Kronolith_Exception($e);
         }

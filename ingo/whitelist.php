@@ -28,15 +28,11 @@ switch (Horde_Util::getFormData('actionID')) {
 case 'rule_update':
     try {
         $whitelist->setWhitelist(Horde_Util::getFormData('whitelist'));
-        if (!$ingo_storage->store($whitelist)) {
-            $notification->push("Error saving changes.", 'horde.error');
-        } else {
-            $notification->push(_("Changes saved."), 'horde.success');
-
-            if ($prefs->getValue('auto_update')) {
-                /* This does its own $notification->push() on error: */
-                Ingo::updateScript();
-            }
+        $ingo_storage->store($whitelist);
+        $notification->push(_("Changes saved."), 'horde.success');
+        if ($prefs->getValue('auto_update')) {
+            /* This does its own $notification->push() on error: */
+            Ingo::updateScript();
         }
 
         /* Update the timestamp for the rules. */

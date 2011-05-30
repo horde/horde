@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @author Jan Schneider <jan@horde.org>
+ */
+
+$baseFile = dirname(__FILE__) . '/../lib/Application.php';
+if (file_exists($baseFile)) {
+    require_once $baseFile;
+} else {
+    require_once 'PEAR/Config.php';
+    require_once PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/lib/Application.php';
+}
+Horde_Registry::appInit('horde', array('cli' => true, 'user_admin' => true));
+
+$injector->getInstance('Horde_Alarm')->notify(null, true, false, array('notify', 'desktop'));

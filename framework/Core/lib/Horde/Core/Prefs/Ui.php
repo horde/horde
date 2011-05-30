@@ -333,7 +333,7 @@ class Horde_Core_Prefs_Ui
                 $num = $this->vars->$pref;
                 if ((string)(double)$num !== $num) {
                     $this->_errors[$pref] = Horde_Core_Translation::t("This value must be a number.");
-                } elseif (empty($num)) {
+                } elseif (empty($num) && empty($this->prefs[$pref]['zero'])) {
                     $this->_errors[$pref] = Horde_Core_Translation::t("This value must be non-zero.");
                 } else {
                     $updated |= $save->setValue($pref, $num);
@@ -857,9 +857,6 @@ class Horde_Core_Prefs_Ui
         $t->set('entry', $entry);
 
         Horde::addInlineScript(array(
-            'HordeIdentitySelect.newChoice()'
-        ), 'dom');
-        Horde::addInlineScript(array(
             'HordeIdentitySelect.identities = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON)
         ));
 
@@ -876,7 +873,7 @@ class Horde_Core_Prefs_Ui
         $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create(null, $this->app);
 
         if ($this->vars->delete_identity) {
-            $id = intval($this->vars->id);
+            $id = intval($this->vars->identity);
             $deleted_identity = $identity->delete($id);
             $this->_loadPrefs($this->app);
             $notification->push(sprintf(Horde_Core_Translation::t("The identity \"%s\" has been deleted."), $deleted_identity[0]['id']), 'horde.success');
@@ -888,7 +885,9 @@ class Horde_Core_Prefs_Ui
         $current_from = $identity->getValue('from_addr');
         $id = intval($this->vars->identity);
 
-        if (!$prefs->isLocked('default_identity')) {
+        if ($prefs->isLocked('default_identity')) {
+            $id = $old_default;
+        } else {
             $new_default = intval($this->vars->default_identity);
             if ($new_default != $old_default) {
                 $identity->setDefault($new_default);

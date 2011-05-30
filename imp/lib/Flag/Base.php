@@ -70,7 +70,7 @@ abstract class IMP_Flag_Base implements Serializable
      * 'canset' - (boolean) Can this flag be set by the user?
      * 'css' - (string) The CSS class for the icon when the flag is set.
      * 'cssicon' - (string) The CSS class for the icon.
-     * 'div' - (string) Return DIV HTML to output the icon for use in a
+     * 'span' - (string) Return SPAN HTML to output the icon for use in a
      *         mailbox row.
      * 'fgcolor' - (string) The foreground (text) color.
      * 'form_set' - (string) Form value to use when setting flag.
@@ -106,9 +106,9 @@ abstract class IMP_Flag_Base implements Serializable
                 ? $this->_cssIcon
                 : $this->_css;
 
-        case 'div':
+        case 'span':
             return $this->_css
-                ? '<div class="iconImg msgflags ' . $this->css . '" title="' . htmlspecialchars($this->label) . '"></div>'
+                ? '<span class="iconImg msgflags ' . $this->css . '" title="' . htmlspecialchars($this->label) . '">&nbsp;</span>'
                 : '';
 
         case 'fgcolor':

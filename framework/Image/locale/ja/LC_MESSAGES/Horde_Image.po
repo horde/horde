@@ -1,72 +1,73 @@
-# Japanese translations for Horde_Image module.
-# Copyright (C) 2010 Horde Project
-# This file is distributed under the same license as the Horde_Image module.
-# Automatically generated, 2010.
+# Japanese translation for Horde.
+# Copyright 2004-2009 Horde Project
+# This file is distributed under the same license as the Horde package.
+# Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Image\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"PO-Revision-Date: 2011-03-16 18:20+0900\n"
+"Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: lib/Horde/Image/Exif.php:188
+#: lib/Horde/Image/Exif.php:180
 #, php-format
 msgid "%4f sec"
-msgstr ""
+msgstr "%4f 秒"
 
-#: lib/Horde/Image/Exif.php:281
+#: lib/Horde/Image/Exif.php:272
 #, php-format
 msgid "%d dots per unit"
-msgstr ""
+msgstr "%d ドット/単位"
 
-#: lib/Horde/Image/Exif.php:363 lib/Horde/Image/Exif.php:365
+#: lib/Horde/Image/Exif.php:354 lib/Horde/Image/Exif.php:356
 #, php-format
 msgid "%d mm"
-msgstr ""
+msgstr "%d ミリ"
 
-#: lib/Horde/Image/Exif.php:283
+#: lib/Horde/Image/Exif.php:274
 #, php-format
 msgid "%d per unit"
-msgstr ""
+msgstr "%d /単位"
 
-#: lib/Horde/Image/Exif.php:295
+#: lib/Horde/Image/Exif.php:286
 #, php-format
 msgid "%d pixels"
-msgstr ""
+msgstr "%d ピクセル"
 
-#: lib/Horde/Image/Exif.php:183
+#: lib/Horde/Image/Exif.php:175
 #, php-format
 msgid "%d sec"
-msgstr ""
+msgstr "%d 秒"
 
-#: lib/Horde/Image/Exif.php:190
-#, fuzzy, php-format
+#: lib/Horde/Image/Exif.php:182
+#, php-format
 msgid "%s / %s sec"
-msgstr "%s at %s %s"
+msgstr "%s / %s 秒"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:113
 msgid "/10s"
-msgstr ""
+msgstr "/10 秒"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:85
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:94
 msgid "1-area-focusing"
-msgstr ""
+msgstr "１領域焦点"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:91
 msgid "1-area-focusing (High speed)"
-msgstr ""
+msgstr "１領域焦点（高速）"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:426
 msgid "10s"
-msgstr ""
+msgstr "10秒"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:324
 msgid "1st curtain sync"
@@ -78,43 +79,43 @@ msgstr ""
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:429
 msgid "2s"
-msgstr ""
+msgstr "2s"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:191
 msgid "2x"
-msgstr ""
+msgstr "2x"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:88
 msgid "3-area-focusing (High speed)"
-msgstr ""
+msgstr "３領域焦点（高速）"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:192
 msgid "4x"
-msgstr ""
+msgstr "4x"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:82
 msgid "9-area-focusing"
-msgstr ""
+msgstr "９領域焦点"
 
-#: lib/Horde/Image/Exif.php:310
+#: lib/Horde/Image/Exif.php:301
 msgid "90 deg CCW"
-msgstr ""
+msgstr "90度反時計回り"
 
-#: lib/Horde/Image/Exif.php:312
+#: lib/Horde/Image/Exif.php:303
 msgid "90 deg CCW Mirrored"
-msgstr ""
+msgstr "90度反時計回り反転"
 
-#: lib/Horde/Image/Exif.php:314
+#: lib/Horde/Image/Exif.php:305
 msgid "90 deg CW"
-msgstr ""
+msgstr "90度時計回り"
 
-#: lib/Horde/Image/Exif.php:308
+#: lib/Horde/Image/Exif.php:299
 msgid "90 deg CW Mirrored"
-msgstr ""
+msgstr "90度時計回り反転"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:240
 msgid "AE Good"
-msgstr ""
+msgstr "AE 良好"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:256
 msgid "AF non D"
@@ -122,35 +123,33 @@ msgstr ""
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:150
 msgid "AI Focus"
-msgstr ""
+msgstr "AI 焦点"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:149
 msgid "AI Servo"
-msgstr ""
+msgstr "AI サーボ"
 
-#: lib/Horde/Image/Exif.php:271
-#, fuzzy
+#: lib/Horde/Image/Exif.php:262
 msgid "Action"
-msgstr "アプリケーション"
+msgstr "アクション"
 
-#: lib/Horde/Image/Exif.php:112 lib/Horde/Image/Exif.php:135
-#, fuzzy
+#: lib/Horde/Image/Exif.php:105 lib/Horde/Image/Exif.php:128
 msgid "Aperture"
-msgstr "気温"
+msgstr "絞り"
 
-#: lib/Horde/Image/Exif.php:268 lib/Horde/Image/Exif/Parser/Panasonic.php:266
+#: lib/Horde/Image/Exif.php:259 lib/Horde/Image/Exif/Parser/Panasonic.php:266
 msgid "Aperture Priority"
-msgstr ""
+msgstr "絞り優先"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:203
 msgid "Aperture Prority AE"
-msgstr ""
+msgstr "絞り優先 AE"
 
-#: lib/Horde/Image/Exif.php:126
+#: lib/Horde/Image/Exif.php:119
 msgid "Artist"
-msgstr ""
+msgstr "芸術家"
 
-#: lib/Horde/Image/Exif.php:426 lib/Horde/Image/Exif/Parser/Canon.php:127
+#: lib/Horde/Image/Exif.php:417 lib/Horde/Image/Exif/Parser/Canon.php:127
 #: lib/Horde/Image/Exif/Parser/Canon.php:229
 #: lib/Horde/Image/Exif/Parser/Canon.php:258
 #: lib/Horde/Image/Exif/Parser/Canon.php:364
@@ -162,133 +161,126 @@ msgstr ""
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:161
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:194
 msgid "Auto"
-msgstr ""
+msgstr "自動"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:131
 msgid "Auto + Red Eye Reduction"
-msgstr ""
+msgstr "自動＋赤目緩和"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:231
 msgid "Auto Focus Good"
-msgstr ""
+msgstr "自動焦点良好"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:267
 msgid "Auto Selected"
-msgstr ""
+msgstr "自動選択"
 
-#: lib/Horde/Image/Exif.php:260
+#: lib/Horde/Image/Exif.php:251
 msgid "Auto bracket"
-msgstr ""
+msgstr "自動ブラケット"
 
-#: lib/Horde/Image/Exif.php:258
+#: lib/Horde/Image/Exif.php:249
 msgid "Auto exposure"
-msgstr ""
+msgstr "自動露出"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:203
-#, fuzzy
 msgid "Auto, Continuous"
-msgstr "クリックすると次へ"
+msgstr "自動、継続"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:200
 msgid "Auto, Focus button"
-msgstr ""
+msgstr "自動、焦点ボタン"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:281
 msgid "Auto-DEP"
-msgstr ""
+msgstr "自動 DEP"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:279
 msgid "Av"
-msgstr ""
+msgstr "Av"
 
-#: lib/Horde/Image/Exif.php:388
+#: lib/Horde/Image/Exif.php:379
 msgid "Average"
-msgstr ""
+msgstr "平均"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:299
 msgid "Baby"
-msgstr ""
+msgstr "赤ちゃん"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:178
-#, fuzzy
 msgid "Black & White"
-msgstr "青と白"
+msgstr "黒と白"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:179
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:354
-#, fuzzy
 msgid "Black and White"
-msgstr "青と白"
+msgstr "黒と白"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:174
-#, fuzzy
 msgid "Bright+"
-msgstr "夜"
+msgstr "明るさ＋"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:175
-#, fuzzy
 msgid "Bright-"
-msgstr "夜"
+msgstr "明るさ－"
 
-#: lib/Horde/Image/Exif.php:193
+#: lib/Horde/Image/Exif.php:185
 msgid "Bulb"
-msgstr ""
+msgstr "バルブ"
 
-#: lib/Horde/Image/Exif.php:80
+#: lib/Horde/Image/Exif.php:73
 msgid "By"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:97
+#: lib/Horde/Image/Exif.php:90
 msgid "Camera Make"
-msgstr ""
+msgstr "カメラ製造元"
 
-#: lib/Horde/Image/Exif.php:98
-#, fuzzy
+#: lib/Horde/Image/Exif.php:91
 msgid "Camera Model"
-msgstr "カメルーン共和国"
+msgstr "カメラ型番"
 
-#: lib/Horde/Image/Exif.php:124
+#: lib/Horde/Image/Exif.php:117
 msgid "Camera Orientation"
-msgstr ""
+msgstr "カメラの向き"
 
-#: lib/Horde/Image/Exif.php:82
-#, fuzzy
+#: lib/Horde/Image/Exif.php:75
 msgid "Caption"
-msgstr "オプション"
+msgstr "表題"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:269
 #: lib/Horde/Image/Exif/Parser/Canon.php:392
 #: lib/Horde/Image/Exif/Parser/Nikon.php:228
 msgid "Center"
-msgstr ""
+msgstr "中央"
 
-#: lib/Horde/Image/Exif.php:389
+#: lib/Horde/Image/Exif.php:380
 msgid "Center Weighted Average"
-msgstr ""
+msgstr "中央重点平均"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:251
 msgid "Center-weighted"
-msgstr ""
+msgstr "中央重点"
 
-#: lib/Horde/Image/Exif.php:289
+#: lib/Horde/Image/Exif.php:280
 msgid "Centimeter"
-msgstr ""
+msgstr "センチメートル"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:140
 msgid "Chroma Saturation High"
-msgstr ""
+msgstr "彩度：高"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:141
 msgid "Chroma Saturation Low(ORG)"
-msgstr ""
+msgstr "彩度：低(ORG)"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:139
 msgid "Chroma Saturation Normal(STD)"
-msgstr ""
+msgstr "彩度：普通(STD)"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:259
 msgid "Close-up (Macro)"
-msgstr ""
+msgstr "接写（マクロ）"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:366
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:126
@@ -297,146 +289,138 @@ msgstr ""
 msgid "Cloudy"
 msgstr "曇り"
 
-#: lib/Horde/Image/Exif.php:406
-#, fuzzy
+#: lib/Horde/Image/Exif.php:397
 msgid "Cloudy weather"
-msgstr "現在の天気"
+msgstr "天候：曇り"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:164
-#, fuzzy
 msgid "Color"
-msgstr "コロンビア共和国"
+msgstr "色"
 
-#: lib/Horde/Image/Exif.php:476
+#: lib/Horde/Image/Exif.php:467
 msgid "Color Sequential Area Sensor"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:478
+#: lib/Horde/Image/Exif.php:469
 msgid "Color Sequential Linear Sensor"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:121
-#, fuzzy
+#: lib/Horde/Image/Exif.php:114
 msgid "Color Space"
-msgstr "色選択"
+msgstr "色空間"
 
-#: lib/Horde/Image/Exif.php:441
+#: lib/Horde/Image/Exif.php:432
 msgid "Compulsory Flash"
-msgstr ""
+msgstr "強制フラッシュ"
 
-#: lib/Horde/Image/Exif.php:443
+#: lib/Horde/Image/Exif.php:434
 msgid "Compulsory Flash, Return light detected"
-msgstr ""
+msgstr "強制フラッシュ、光検出"
 
-#: lib/Horde/Image/Exif.php:442
+#: lib/Horde/Image/Exif.php:433
 msgid "Compulsory Flash, Return light not detected"
-msgstr ""
+msgstr "強制フラッシュ、光未検出"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:140
 #: lib/Horde/Image/Exif/Parser/Canon.php:153
 #: lib/Horde/Image/Exif/Parser/Canon.php:336
-#, fuzzy
 msgid "Continuous"
-msgstr "続く"
+msgstr "連続"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:150
 msgid "Contrast High(HARD)"
-msgstr ""
+msgstr "コントラスト：高(HARD)"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:151
 msgid "Contrast Low(ORG)"
-msgstr ""
+msgstr "コントラスト：低(ORG)"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:149
 msgid "Contrast Normal(STD)"
-msgstr ""
+msgstr "コントラスト：普通(STD)"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:176
-#, fuzzy
 msgid "Contrast+"
-msgstr "高コントラスト"
+msgstr "コントラスト＋"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:177
-#, fuzzy
 msgid "Contrast-"
-msgstr "高コントラスト"
+msgstr "コントラスト－"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:351
 msgid "Cool"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:410
+#: lib/Horde/Image/Exif.php:401
 msgid "Cool white fluorescent"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:81 lib/Horde/Image/Exif.php:125
+#: lib/Horde/Image/Exif.php:74 lib/Horde/Image/Exif.php:118
 msgid "Copyright"
-msgstr ""
+msgstr "著作権"
 
 #: lib/Horde/Image/Exif/Bundled.php:269
 msgid "Couldnt Find IFD1"
-msgstr ""
+msgstr "IFD1 が見つけられません"
 
 #: lib/Horde/Image/Exif/Bundled.php:315
 msgid "Couldnt Find InteroperabilityIFD"
-msgstr ""
+msgstr "InteroperabilityIFD が見つけられません"
 
 #: lib/Horde/Image/Exif/Bundled.php:232
 msgid "Couldnt Find SubIFD"
-msgstr ""
+msgstr "SubIFD が見つけられません"
 
-#: lib/Horde/Image/Exif.php:270
-#, fuzzy
+#: lib/Horde/Image/Exif.php:261
 msgid "Creative"
-msgstr "作成"
+msgstr "クリエイティブ"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:370
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:131
 msgid "Custom"
-msgstr ""
+msgstr "カスタム"
 
-#: lib/Horde/Image/Exif.php:94
+#: lib/Horde/Image/Exif.php:87
 msgid "Date Photo Digitized"
-msgstr ""
+msgstr "写真をデジタル化した日付"
 
-#: lib/Horde/Image/Exif.php:92
+#: lib/Horde/Image/Exif.php:85
 msgid "Date Photo Modified"
-msgstr ""
+msgstr "写真を変更した日付"
 
-#: lib/Horde/Image/Exif.php:93
+#: lib/Horde/Image/Exif.php:86
 msgid "Date Photo Taken"
-msgstr ""
+msgstr "写真を撮った日付"
 
-#: lib/Horde/Image/Exif.php:409
+#: lib/Horde/Image/Exif.php:400
 msgid "Day white fluorescent"
-msgstr ""
+msgstr "昼白色蛍光灯"
 
-#: lib/Horde/Image/Exif.php:401 lib/Horde/Image/Exif/Parser/Fujifilm.php:125
+#: lib/Horde/Image/Exif.php:392 lib/Horde/Image/Exif/Parser/Fujifilm.php:125
 #: lib/Horde/Image/Exif/Parser/Nikon.php:198
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:164
-#, fuzzy
 msgid "Daylight"
-msgstr "夜"
+msgstr "日光"
 
-#: lib/Horde/Image/Exif.php:408
+#: lib/Horde/Image/Exif.php:399
 msgid "Daylight fluorescent"
-msgstr ""
+msgstr "昼光色蛍光灯"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:127
 msgid "DaylightColor-fluorescence"
-msgstr ""
+msgstr "昼光色蛍光灯"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:128
 msgid "DaywhiteColor-fluorescence"
-msgstr ""
+msgstr "昼白色蛍光灯"
 
-#: lib/Horde/Image/Exif.php:136
+#: lib/Horde/Image/Exif.php:129
 msgid "Depth of Field"
-msgstr ""
+msgstr "被写界深度"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:269
 msgid "Did Not Fire"
-msgstr ""
+msgstr "発光せず"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:276
 msgid "EasyShoot"
@@ -446,66 +430,61 @@ msgstr ""
 msgid "Evaluative"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:109
-#, fuzzy
+#: lib/Horde/Image/Exif.php:102
 msgid "Exposure"
-msgstr "指数"
+msgstr "露出"
 
-#: lib/Horde/Image/Exif.php:115
+#: lib/Horde/Image/Exif.php:108
 msgid "Exposure Bias"
-msgstr ""
+msgstr "露出バイアス"
 
-#: lib/Horde/Image/Exif.php:116
+#: lib/Horde/Image/Exif.php:109
 msgid "Exposure Mode"
-msgstr ""
+msgstr "露出モード"
 
-#: lib/Horde/Image/Exif.php:117
+#: lib/Horde/Image/Exif.php:110
 msgid "Exposure Program"
-msgstr ""
+msgstr "露出プログラム"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:271
 msgid "External"
-msgstr ""
+msgstr "外部"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:312
 msgid "External E-TTL"
-msgstr ""
+msgstr "外部 E-TTL"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:133
 msgid "External Flash"
-msgstr ""
+msgstr "外部フラッシュ"
 
-#: lib/Horde/Image/Exif.php:113
-#, fuzzy
+#: lib/Horde/Image/Exif.php:106
 msgid "F-Number"
-msgstr "数"
+msgstr "F 数"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:318
 msgid "FP sync used"
-msgstr ""
+msgstr "FP 同期使用"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:175
-#, fuzzy
 msgid "Fast Shutter"
-msgstr "下弦の月"
+msgstr "高速シャッター"
 
-#: lib/Horde/Image/Exif.php:137
+#: lib/Horde/Image/Exif.php:130
 msgid "Field of View"
-msgstr ""
+msgstr "被写界深度"
 
-#: lib/Horde/Image/Exif.php:102
-#, fuzzy
+#: lib/Horde/Image/Exif.php:95
 msgid "File Size"
-msgstr "アーカイブファイルサイズ"
+msgstr "ファイルサイズ"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:119
 msgid "Fine"
-msgstr ""
+msgstr "晴れ"
 
-#: lib/Horde/Image/Exif.php:405
-#, fuzzy
+#: lib/Horde/Image/Exif.php:396
 msgid "Fine weather"
-msgstr "Metar Weather"
+msgstr "晴天"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:284
 msgid "Fireworks"
@@ -513,84 +492,80 @@ msgstr ""
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:211
 msgid "Fisheye"
-msgstr ""
+msgstr "魚眼"
 
-#: lib/Horde/Image/Exif.php:404 lib/Horde/Image/Exif.php:438
+#: lib/Horde/Image/Exif.php:395 lib/Horde/Image/Exif.php:429
 #: lib/Horde/Image/Exif/Parser/Canon.php:369
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:176
 msgid "Flash"
-msgstr ""
+msgstr "フラッシュ"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:304
 msgid "Flash Did Not Fire"
-msgstr ""
+msgstr "フラッシュ発光せず"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:305
 msgid "Flash Fired"
-msgstr ""
+msgstr "フラッシュ発光"
 
-#: lib/Horde/Image/Exif.php:119
-#, fuzzy
+#: lib/Horde/Image/Exif.php:112
 msgid "Flash Setting"
-msgstr "ブロック設定"
+msgstr "フラッシュ設定"
 
-#: lib/Horde/Image/Exif.php:446
+#: lib/Horde/Image/Exif.php:437
 msgid "Flash, Auto-Mode"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:448
-msgid "Flash, Auto-Mode, Return light detected"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:447
-msgid "Flash, Auto-Mode, Return light not detected"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:440
-msgid "Flash, strobe return light detected"
-msgstr ""
+msgstr "フラッシュ、自動"
 
 #: lib/Horde/Image/Exif.php:439
+msgid "Flash, Auto-Mode, Return light detected"
+msgstr "フラッシュ、自動、発光"
+
+#: lib/Horde/Image/Exif.php:438
+msgid "Flash, Auto-Mode, Return light not detected"
+msgstr "フラッシュ、自動、未発光"
+
+#: lib/Horde/Image/Exif.php:431
+msgid "Flash, strobe return light detected"
+msgstr "フラッシュ、ストロボ反射光検出"
+
+#: lib/Horde/Image/Exif.php:430
 msgid "Flash, strobe return light not detected"
-msgstr ""
+msgstr "フラッシュ、ストロボ反射光未検出"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:200
-#, fuzzy
 msgid "Flourescence"
-msgstr "繰り返しなし"
+msgstr ""
 
-#: lib/Horde/Image/Exif.php:402 lib/Horde/Image/Exif/Parser/Canon.php:368
+#: lib/Horde/Image/Exif.php:393 lib/Horde/Image/Exif/Parser/Canon.php:368
 msgid "Fluorescent"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:110
-#, fuzzy
+#: lib/Horde/Image/Exif.php:103
 msgid "Focal Length"
-msgstr "鍵長"
+msgstr "焦点距離"
 
-#: lib/Horde/Image/Exif.php:111
+#: lib/Horde/Image/Exif.php:104
 msgid "Focal Length (35mm equiv)"
-msgstr ""
+msgstr "焦点距離（35mm 換算）"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:296
 msgid "Food"
 msgstr "食べ物"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:172
-#, fuzzy
 msgid "Full Auto"
-msgstr "満月"
+msgstr "全自動"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:170
 msgid "Halogen"
-msgstr ""
+msgstr "ハロゲン"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:115
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:116
 msgid "Hard"
-msgstr ""
+msgstr "ハード"
 
-#: lib/Horde/Image/Exif.php:104
+#: lib/Horde/Image/Exif.php:97
 msgid "Height"
 msgstr "高さ"
 
@@ -606,108 +581,99 @@ msgstr "高"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:302
 msgid "High Sensitivity"
-msgstr ""
+msgstr "高感度"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:441
 msgid "Horizontal (normal)"
-msgstr ""
+msgstr "水平（標準）"
 
-#: lib/Horde/Image/Exif.php:114
-#, fuzzy
+#: lib/Horde/Image/Exif.php:107
 msgid "ISO Setting"
-msgstr "ブロック設定"
+msgstr "ISO 設定"
 
-#: lib/Horde/Image/Exif.php:419
+#: lib/Horde/Image/Exif.php:410
 msgid "ISO studio tungsten"
-msgstr ""
+msgstr "ISO スタジオ・タングステン"
 
 #: lib/Horde/Image/Exif/Bundled.php:288
 msgid "Illegal size for IFD1"
-msgstr ""
+msgstr "IFD1 のサイズが不正です"
 
 #: lib/Horde/Image/Exif/Bundled.php:334
 msgid "Illegal size for InteroperabilityIFD"
-msgstr ""
+msgstr "InteroperabilityFD のサイズが不正です"
 
 #: lib/Horde/Image/Exif/Bundled.php:251
 msgid "Illegal size for SubIFD"
-msgstr ""
+msgstr "SubIFD のサイズが不正です"
 
-#: lib/Horde/Image/Exif.php:86
-#, fuzzy
+#: lib/Horde/Image/Exif.php:79
 msgid "Image Creator"
-msgstr "オブジェクト作成者"
+msgstr "画像作成者"
 
-#: lib/Horde/Image/Exif.php:128
+#: lib/Horde/Image/Exif.php:121
 msgid "Image Stabilization"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:79
-#, fuzzy
+#: lib/Horde/Image/Exif.php:72
 msgid "Image Title"
-msgstr "タイトル"
+msgstr "画像の題名"
 
-#: lib/Horde/Image/Exif.php:78
-#, fuzzy
+#: lib/Horde/Image/Exif.php:71
 msgid "Image keywords"
-msgstr "画像アップロード"
+msgstr "画像のキイワード"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:130
 #: lib/Horde/Image/Exif/Parser/Nikon.php:199
 msgid "Incandescense"
-msgstr ""
+msgstr "白熱灯"
 
-#: lib/Horde/Image/Exif.php:288
+#: lib/Horde/Image/Exif.php:279
 msgid "Inch"
-msgstr ""
+msgstr "インチ"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:375
 msgid "Infinite"
-msgstr ""
+msgstr "無限"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:315
-#, fuzzy
 msgid "Internal Flash"
-msgstr "整数の並び"
+msgstr "内部フラッシュ"
 
-#: lib/Horde/Image/Exif.php:273 lib/Horde/Image/Exif.php:491
+#: lib/Horde/Image/Exif.php:264 lib/Horde/Image/Exif.php:482
 #: lib/Horde/Image/Exif/Parser/Canon.php:174
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:199
 msgid "Landscape"
-msgstr ""
+msgstr "風景"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:164
 msgid "Large"
 msgstr "特大"
 
-#: lib/Horde/Image/Exif.php:95
-#, fuzzy
+#: lib/Horde/Image/Exif.php:88
 msgid "Latitude"
-msgstr "陳腐"
+msgstr "緯度"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:270
 #: lib/Horde/Image/Exif/Parser/Canon.php:395
-#, fuzzy
 msgid "Left"
-msgstr "左へ"
-
-#: lib/Horde/Image/Exif.php:134
-msgid "Lens"
-msgstr ""
+msgstr "左"
 
 #: lib/Horde/Image/Exif.php:127
-#, fuzzy
+msgid "Lens"
+msgstr "レンズ"
+
+#: lib/Horde/Image/Exif.php:120
 msgid "Light source"
-msgstr "淡青色"
+msgstr "光源"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:260
 msgid "Locked (Pan Mode)"
-msgstr ""
+msgstr "ロック（パンモード）"
 
-#: lib/Horde/Image/Exif.php:96
-#, fuzzy
+#: lib/Horde/Image/Exif.php:89
 msgid "Longitude"
-msgstr "長い文字列"
+msgstr "経度"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:200
 #: lib/Horde/Image/Exif/Parser/Canon.php:208
@@ -719,18 +685,18 @@ msgstr "低"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:372
 msgid "Low/High Quality"
-msgstr ""
+msgstr "低／高品質"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:105
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:272
 msgid "Macro"
-msgstr ""
+msgstr "マクロ"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:182
 msgid "Macro/Close-Up"
-msgstr ""
+msgstr "マクロ／接写"
 
-#: lib/Horde/Image/Exif.php:266 lib/Horde/Image/Exif.php:427
+#: lib/Horde/Image/Exif.php:257 lib/Horde/Image/Exif.php:418
 #: lib/Horde/Image/Exif/Parser/Canon.php:173
 #: lib/Horde/Image/Exif/Parser/Canon.php:257
 #: lib/Horde/Image/Exif/Parser/Canon.php:280
@@ -740,56 +706,54 @@ msgstr ""
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:182
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:197
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:275
-#, fuzzy
 msgid "Manual"
-msgstr "１月"
+msgstr "手動"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:205
 msgid "Manual Exposure"
-msgstr ""
+msgstr "手動露出"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:151
 #: lib/Horde/Image/Exif/Parser/Canon.php:154
 #: lib/Horde/Image/Exif/Parser/Canon.php:266
 msgid "Manual Focus"
-msgstr ""
+msgstr "手動焦点"
 
-#: lib/Horde/Image/Exif.php:259
+#: lib/Horde/Image/Exif.php:250
 msgid "Manual exposure"
-msgstr ""
+msgstr "手動露出"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:165
 msgid "Medium"
-msgstr "中くらい"
+msgstr "中"
 
-#: lib/Horde/Image/Exif.php:118
+#: lib/Horde/Image/Exif.php:111
 msgid "Metering Mode"
-msgstr ""
+msgstr "計測モード"
 
-#: lib/Horde/Image/Exif.php:302
-#, fuzzy
+#: lib/Horde/Image/Exif.php:293
 msgid "Mirrored"
-msgstr "ミラー"
+msgstr "左右反転"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:215
 msgid "Mode 1"
-msgstr ""
+msgstr "モード１"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:221
 msgid "Mode 2"
-msgstr ""
+msgstr "モード２"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:165
 msgid "Monochrome"
-msgstr ""
+msgstr "モノクロ"
 
-#: lib/Horde/Image/Exif.php:392
+#: lib/Horde/Image/Exif.php:383
 msgid "Multi-Segment"
-msgstr ""
+msgstr "マルチセグメント"
 
-#: lib/Horde/Image/Exif.php:391
+#: lib/Horde/Image/Exif.php:382
 msgid "Multi-Spot"
-msgstr ""
+msgstr "マルチスポット"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:462
 msgid "Natural"
@@ -802,31 +766,28 @@ msgstr "夜"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:260
 msgid "Night Portrait"
-msgstr ""
+msgstr "夜間ポートレート"
 
-#: lib/Horde/Image/Exif.php:493
-#, fuzzy
+#: lib/Horde/Image/Exif.php:484
 msgid "Night Scene"
-msgstr "弱い雪"
+msgstr "夜景"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:293
-#, fuzzy
 msgid "Night Scenery"
-msgstr "右ヘッダ"
+msgstr "夜景"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:323
 msgid "No"
 msgstr "いいえ"
 
-#: lib/Horde/Image/Exif.php:437 lib/Horde/Image/Exif.php:444
-#: lib/Horde/Image/Exif.php:445 lib/Horde/Image/Exif.php:449
+#: lib/Horde/Image/Exif.php:428 lib/Horde/Image/Exif.php:435
+#: lib/Horde/Image/Exif.php:436 lib/Horde/Image/Exif.php:440
 msgid "No Flash"
-msgstr ""
+msgstr "フラッシュなし"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:222
-#, fuzzy
 msgid "No Warning"
-msgstr "警告"
+msgstr "警告なし"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:190
 #: lib/Horde/Image/Exif/Parser/Nikon.php:210
@@ -845,20 +806,19 @@ msgstr "なし"
 #: lib/Horde/Image/Exif/Parser/Sanyo.php:98
 #: lib/Horde/Image/Exif/Parser/Sanyo.php:106
 msgid "Normal"
-msgstr ""
+msgstr "標準"
 
-#: lib/Horde/Image/Exif.php:300
+#: lib/Horde/Image/Exif.php:291
 msgid "Normal (O deg)"
-msgstr ""
+msgstr "標準（0度）"
 
-#: lib/Horde/Image/Exif.php:267
+#: lib/Horde/Image/Exif.php:258
 msgid "Normal Program"
-msgstr ""
+msgstr "標準プログラム"
 
-#: lib/Horde/Image/Exif.php:472
-#, fuzzy
+#: lib/Horde/Image/Exif.php:463
 msgid "Not defined"
-msgstr "これより後"
+msgstr "定義されてません"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:112
 #: lib/Horde/Image/Exif/Parser/Canon.php:126
@@ -871,9 +831,8 @@ msgstr "これより後"
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:345
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:369
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:423
-#, fuzzy
 msgid "Off"
-msgstr "オフィス"
+msgstr "オフ"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:128
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:160
@@ -881,19 +840,18 @@ msgstr "オフィス"
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:189
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:214
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:233
-#, fuzzy
 msgid "On"
-msgstr "オマーン"
+msgstr "オン"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:132
 msgid "On + Red Eye Reduction"
-msgstr ""
+msgstr "オン＋赤目緩和"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:272
 msgid "On Camera"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:473
+#: lib/Horde/Image/Exif.php:464
 msgid "One Chip Color Area Sensor"
 msgstr ""
 
@@ -901,153 +859,142 @@ msgstr ""
 msgid "One-Shot"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:394
+#: lib/Horde/Image/Exif.php:385
 msgid "Other"
 msgstr "その他"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:232
 msgid "Out of Focus"
-msgstr ""
+msgstr "ピント外れ"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:241
 msgid "Over Exposure"
-msgstr ""
+msgstr "露出過多"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:183
 msgid "Pan Focus"
-msgstr ""
+msgstr "パンフォーカス"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:278
-#, fuzzy
 msgid "Panning"
-msgstr "警告"
+msgstr "パン"
 
-#: lib/Horde/Image/Exif.php:393 lib/Horde/Image/Exif/Parser/Canon.php:250
+#: lib/Horde/Image/Exif.php:384 lib/Horde/Image/Exif/Parser/Canon.php:250
 msgid "Partial"
 msgstr ""
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:287
 msgid "Party"
-msgstr ""
+msgstr "パーティー"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:308
-#, fuzzy
 msgid "Pet"
 msgstr "ペット"
 
-#: lib/Horde/Image/Exif.php:101
-#, fuzzy
+#: lib/Horde/Image/Exif.php:94
 msgid "Photo Description"
-msgstr "説明"
+msgstr "写真の説明"
 
-#: lib/Horde/Image/Exif.php:100
-#, fuzzy
+#: lib/Horde/Image/Exif.php:93
 msgid "Photo Type"
-msgstr "写真"
+msgstr "写真の種類"
 
-#: lib/Horde/Image/Exif.php:287
+#: lib/Horde/Image/Exif.php:278
 msgid "Pixels"
-msgstr ""
+msgstr "ピクセル"
 
-#: lib/Horde/Image/Exif.php:272 lib/Horde/Image/Exif.php:492
+#: lib/Horde/Image/Exif.php:263 lib/Horde/Image/Exif.php:483
 #: lib/Horde/Image/Exif/Parser/Canon.php:180
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:198
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:251
-#, fuzzy
 msgid "Portrait"
-msgstr "ポート"
+msgstr "縦置き"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:197
-#, fuzzy
 msgid "Preset"
-msgstr "リセット"
+msgstr "プリセット"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:277
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:263
 msgid "Program"
-msgstr ""
+msgstr "プログラム"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:202
 msgid "Program AE"
-msgstr ""
+msgstr "プログラムAE"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:149
 msgid "RAW"
-msgstr ""
+msgstr "RAW"
 
-#: lib/Horde/Image/Exif.php:450
+#: lib/Horde/Image/Exif.php:441
 msgid "Red Eye"
-msgstr ""
+msgstr "赤目"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:129
-#, fuzzy
 msgid "Red Eye Reduction"
-msgstr "ラジオボタン"
+msgstr "赤目緩和"
 
-#: lib/Horde/Image/Exif.php:456
+#: lib/Horde/Image/Exif.php:447
 msgid "Red Eye, Auto-Mode"
-msgstr ""
+msgstr "赤目、自動モード"
 
-#: lib/Horde/Image/Exif.php:458
+#: lib/Horde/Image/Exif.php:449
 msgid "Red Eye, Auto-Mode, Return light detected"
-msgstr ""
+msgstr "赤目、自動モード、反射光あり"
 
-#: lib/Horde/Image/Exif.php:457
+#: lib/Horde/Image/Exif.php:448
 msgid "Red Eye, Auto-Mode, Return light not detected"
-msgstr ""
+msgstr "赤目、自動モード、反射光なし"
 
-#: lib/Horde/Image/Exif.php:453
+#: lib/Horde/Image/Exif.php:444
 msgid "Red Eye, Compulsory Flash"
-msgstr ""
+msgstr "赤目、強制フラッシュ"
 
-#: lib/Horde/Image/Exif.php:455
+#: lib/Horde/Image/Exif.php:446
 msgid "Red Eye, Compulsory Flash, Return light detected"
-msgstr ""
+msgstr "赤目、強制フラッシュ、反射光あり"
 
-#: lib/Horde/Image/Exif.php:454
+#: lib/Horde/Image/Exif.php:445
 msgid "Red Eye, Compulsory Flash, Return light not detected"
-msgstr ""
+msgstr "赤目、強制フラッシュ、反射光なし"
 
-#: lib/Horde/Image/Exif.php:452
+#: lib/Horde/Image/Exif.php:443
 msgid "Red Eye, Return light detected"
-msgstr ""
+msgstr "赤目、反射光あり"
 
-#: lib/Horde/Image/Exif.php:451
+#: lib/Horde/Image/Exif.php:442
 msgid "Red Eye, Return light not detected"
-msgstr ""
+msgstr "赤目、反射光なし"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:162
 msgid "Red-Eye Reduction"
-msgstr ""
+msgstr "赤目緩和"
 
-#: lib/Horde/Image/Exif.php:107
+#: lib/Horde/Image/Exif.php:100
 msgid "Resolution Unit"
 msgstr ""
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:268
 #: lib/Horde/Image/Exif/Parser/Canon.php:389
-#, fuzzy
 msgid "Right"
-msgstr "夜"
+msgstr "右"
 
-#: lib/Horde/Image/Exif.php:87
-#, fuzzy
+#: lib/Horde/Image/Exif.php:80
 msgid "Rights"
-msgstr "夜"
+msgstr ""
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:447
-#, fuzzy
 msgid "Rotate 270 CW"
-msgstr "180度回転"
+msgstr "時計回りに270度回転"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:444
-#, fuzzy
 msgid "Rotate 90 CW"
-msgstr "180度回転"
+msgstr "時計回りに90度回転"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:154
 msgid "SXGA Basic"
-msgstr ""
+msgstr "SXGA 基本"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:156
 msgid "SXGA Fine"
@@ -1055,69 +1002,62 @@ msgstr ""
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:155
 msgid "SXGA Normal"
-msgstr ""
+msgstr "SXGA 標準"
 
-#: lib/Horde/Image/Exif.php:129
-#, fuzzy
+#: lib/Horde/Image/Exif.php:122
 msgid "Scene Type"
-msgstr "鍵種類"
+msgstr ""
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:254
 msgid "Scenery"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:122
-#, fuzzy
+#: lib/Horde/Image/Exif.php:115
 msgid "Sensing Method"
-msgstr "メソッド"
+msgstr "送信メソッド"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:179
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:357
 msgid "Sepia"
-msgstr ""
+msgstr "セピア"
 
-#: lib/Horde/Image/Exif.php:407
+#: lib/Horde/Image/Exif.php:398
 msgid "Shade"
-msgstr ""
+msgstr "影"
 
-#: lib/Horde/Image/Exif.php:269 lib/Horde/Image/Exif/Parser/Fujifilm.php:204
+#: lib/Horde/Image/Exif.php:260 lib/Horde/Image/Exif/Parser/Fujifilm.php:204
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:269
-#, fuzzy
 msgid "Shutter Priority"
-msgstr "州または県"
+msgstr "シャッター優先"
 
-#: lib/Horde/Image/Exif.php:108
+#: lib/Horde/Image/Exif.php:101
 msgid "Shutter Speed"
-msgstr ""
+msgstr "シャッター速度"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:281
-#, fuzzy
 msgid "Simple"
-msgstr "Simplex"
+msgstr ""
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:152
 #: lib/Horde/Image/Exif/Parser/Canon.php:335
-#, fuzzy
 msgid "Single"
-msgstr "シンガポール共和国"
+msgstr ""
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:139
 msgid "Single/Timer"
 msgstr ""
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:176
-#, fuzzy
 msgid "Slow Shutter"
-msgstr "にわか雪"
+msgstr "低速シャッター"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:130
-#, fuzzy
 msgid "Slow Synchro"
-msgstr "にわか雪"
+msgstr "スローシンクロ"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:166
 msgid "Small"
-msgstr ""
+msgstr "小さい"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:290
 msgid "Snow"
@@ -1126,20 +1066,17 @@ msgstr "雪"
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:112
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:113
 msgid "Soft"
-msgstr ""
+msgstr "ソフト"
 
-#: lib/Horde/Image/Exif.php:99
-#, fuzzy
+#: lib/Horde/Image/Exif.php:92
 msgid "Software Version"
-msgstr "版"
+msgstr "ソフトウェアバージョン"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:202
-#, fuzzy
 msgid "SpeedLight"
-msgstr "高さ"
+msgstr ""
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:181
-#, fuzzy
 msgid "Sport"
 msgstr "スポーツ"
 
@@ -1148,34 +1085,31 @@ msgstr "スポーツ"
 msgid "Sports"
 msgstr "スポーツ"
 
-#: lib/Horde/Image/Exif.php:390
+#: lib/Horde/Image/Exif.php:381
 msgid "Spot"
-msgstr ""
+msgstr "スポット"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:97
 msgid "Spot-focusing"
-msgstr ""
+msgstr "点焦点"
 
-#: lib/Horde/Image/Exif.php:490 lib/Horde/Image/Exif/Parser/Panasonic.php:143
+#: lib/Horde/Image/Exif.php:481 lib/Horde/Image/Exif/Parser/Panasonic.php:143
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:387
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:405
 msgid "Standard"
 msgstr "標準"
 
-#: lib/Horde/Image/Exif.php:412
-#, fuzzy
+#: lib/Horde/Image/Exif.php:403
 msgid "Standard light A"
-msgstr "標準"
+msgstr "標準ライトA"
 
-#: lib/Horde/Image/Exif.php:413
-#, fuzzy
+#: lib/Horde/Image/Exif.php:404
 msgid "Standard light B"
-msgstr "標準"
+msgstr "標準ライトB"
 
-#: lib/Horde/Image/Exif.php:414
-#, fuzzy
+#: lib/Horde/Image/Exif.php:405
 msgid "Standard light C"
-msgstr "標準"
+msgstr "標準ライトC"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:365
 msgid "Sunny"
@@ -1183,45 +1117,44 @@ msgstr "晴れ"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:120
 msgid "Superfine"
-msgstr ""
+msgstr "高精細"
 
 #: lib/Horde/Image/Exif/Bundled.php:53
-#, fuzzy
 msgid "The file could not be opened."
-msgstr "アップロードデータを保存できませんでした。"
+msgstr "ファイルが開けませんでした。"
 
-#: lib/Horde/Image/Exif.php:475
+#: lib/Horde/Image/Exif.php:466
 msgid "Three Chip Color Area Sensor"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:477
+#: lib/Horde/Image/Exif.php:468
 msgid "Trilinear Sensor"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:403 lib/Horde/Image/Exif/Parser/Canon.php:367
+#: lib/Horde/Image/Exif.php:394 lib/Horde/Image/Exif/Parser/Canon.php:367
 msgid "Tungsten"
-msgstr ""
+msgstr "タングステン"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:278
 msgid "Tv"
-msgstr ""
+msgstr "Tv"
 
-#: lib/Horde/Image/Exif.php:474
+#: lib/Horde/Image/Exif.php:465
 msgid "Two Chip Color Area Sensor"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:485
+#: lib/Horde/Image/Exif.php:476
 msgid "Uncalibrated"
-msgstr ""
+msgstr "未校正"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:305
 msgid "Underwater"
-msgstr ""
+msgstr "水中"
 
-#: lib/Horde/Image/Exif.php:261 lib/Horde/Image/Exif.php:274
-#: lib/Horde/Image/Exif.php:290 lib/Horde/Image/Exif.php:387
-#: lib/Horde/Image/Exif.php:421 lib/Horde/Image/Exif.php:428
-#: lib/Horde/Image/Exif.php:479 lib/Horde/Image/Exif.php:494
+#: lib/Horde/Image/Exif.php:252 lib/Horde/Image/Exif.php:265
+#: lib/Horde/Image/Exif.php:281 lib/Horde/Image/Exif.php:378
+#: lib/Horde/Image/Exif.php:412 lib/Horde/Image/Exif.php:419
+#: lib/Horde/Image/Exif.php:470 lib/Horde/Image/Exif.php:485
 #: lib/Horde/Image/Exif/Parser/Canon.php:107
 #: lib/Horde/Image/Exif/Parser/Canon.php:121
 #: lib/Horde/Image/Exif/Parser/Canon.php:134
@@ -1271,18 +1204,18 @@ msgstr "不明"
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:432
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:450
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:465
-#, fuzzy, php-format
+#, php-format
 msgid "Unknown (%s)"
-msgstr "不明"
+msgstr "不明 (%s)"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:185
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:206
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:224
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:239
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:311
-#, fuzzy, php-format
+#, php-format
 msgid "Unknown(%s)"
-msgstr "不明"
+msgstr "不明(%s)"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:142
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:152
@@ -1295,40 +1228,38 @@ msgstr "不明"
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:224
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:233
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:242
-#, fuzzy
 msgid "Unknown: "
-msgstr "不明"
+msgstr "不明："
 
-#: lib/Horde/Image/Exif.php:395
-#, fuzzy, php-format
+#: lib/Horde/Image/Exif.php:386
+#, php-format
 msgid "Unknown: %s"
-msgstr "不明"
+msgstr "不明： %s"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:45
-#, fuzzy, php-format
+#, php-format
 msgid "Unknown: (%s)"
-msgstr "不明"
+msgstr "不明： (%s)"
 
-#: lib/Horde/Image/Exif.php:304
+#: lib/Horde/Image/Exif.php:295
 msgid "Upsidedown"
-msgstr ""
+msgstr "上下反転"
 
-#: lib/Horde/Image/Exif.php:306
+#: lib/Horde/Image/Exif.php:297
 msgid "Upsidedown Mirrored"
-msgstr ""
+msgstr "上下左右反転"
 
-#: lib/Horde/Image/Exif.php:88
+#: lib/Horde/Image/Exif.php:81
 msgid "Usage Terms"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:120
-#, fuzzy
+#: lib/Horde/Image/Exif.php:113
 msgid "User Comment"
-msgstr "コメント"
+msgstr "ユーザのコメント"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:151
 msgid "VGA Basic"
-msgstr ""
+msgstr "VGA 基本"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:153
 msgid "VGA Fine"
@@ -1336,7 +1267,7 @@ msgstr ""
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:152
 msgid "VGA Normal"
-msgstr ""
+msgstr "VGA 標準"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:146
 msgid "Very High"
@@ -1350,11 +1281,11 @@ msgstr ""
 msgid "Warning"
 msgstr "警告"
 
-#: lib/Horde/Image/Exif.php:123
+#: lib/Horde/Image/Exif.php:116
 msgid "White Balance"
-msgstr ""
+msgstr "ホワイトバランス"
 
-#: lib/Horde/Image/Exif.php:411
+#: lib/Horde/Image/Exif.php:402
 msgid "White fluorescent"
 msgstr ""
 
@@ -1362,31 +1293,31 @@ msgstr ""
 msgid "White-fluorescence"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:103
+#: lib/Horde/Image/Exif.php:96
 msgid "Width"
-msgstr ""
+msgstr "幅"
 
-#: lib/Horde/Image/Exif.php:105
+#: lib/Horde/Image/Exif.php:98
 msgid "X Resolution"
-msgstr ""
+msgstr "X 解像度"
 
-#: lib/Horde/Image/Exif.php:106
+#: lib/Horde/Image/Exif.php:99
 msgid "Y Resolution"
-msgstr ""
+msgstr "Y 解像度"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:320
 msgid "Yes"
 msgstr "はい"
 
-#: lib/Horde/Image/Exif.php:420
+#: lib/Horde/Image/Exif.php:411
 msgid "other light source"
-msgstr ""
+msgstr "その他の光源"
 
-#: lib/Horde/Image/Exif.php:484
+#: lib/Horde/Image/Exif.php:475
 msgid "sRGB"
-msgstr ""
+msgstr "sRGB"
 
 #: lib/Horde/Image/Exif/Bundled.php:800
-#, fuzzy, php-format
+#, php-format
 msgid "version %d"
-msgstr "版"
+msgstr "バージョン %d"

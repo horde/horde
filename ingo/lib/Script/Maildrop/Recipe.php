@@ -98,16 +98,9 @@ class Ingo_Script_Maildrop_Recipe
             break;
 
         case Ingo_Storage::ACTION_VACATION:
-            $from = '';
-            foreach ($params['action-value']['addresses'] as $address) {
-                $from = $address;
-            }
+            $from = reset($params['action-value']['addresses']);
 
-            /**
-             * @TODO
-             *
-             * Exclusion and listfilter
-             */
+            /* @TODO Exclusion and listfilter */
             $exclude = '';
             foreach ($params['action-value']['excludes'] as $address) {
                 $exclude .= $address . ' ';
@@ -126,11 +119,6 @@ class Ingo_Script_Maildrop_Recipe
                 // Set to same value as $_days in ingo/lib/Storage.php
                 $days = 7;
             }
-
-            // Writing vacation.msg file
-            $transport = Ingo::getTransport();
-            $transport->_connect();
-            $result = $transport->_vfs->writeData($transport->_params['vfs_path'], 'vacation.msg', $params['action-value']['reason'], true);
 
             // Rule : Do not send responses to bulk or list messages
             if ($params['action-value']['ignorelist'] == 1) {
@@ -161,7 +149,12 @@ class Ingo_Script_Maildrop_Recipe
                 $this->_action[] = '        ($current_time <= ' . $end . ')) ';
                 $this->_action[] = '      {';
             }
-            $this->_action[] = "  cc \"| mailbot -D " . $params['action-value']['days'] . " -c '" . $scriptparams['charset'] . "' -t \$HOME/vacation.msg -d \$HOME/vacation -A 'From: $from' -s '" . Horde_Mime::encode($params['action-value']['subject'], $scriptparams['charset'])  . "' /usr/sbin/sendmail -t \"";
+            $this->_action[] = '  cc "' . str_replace('"', '\\"', sprintf(
+                '| mailbot -D %d -c \'UTF-8\' -t $HOME/vacation.msg -d $HOME/vacation -A %s -s %s /usr/sbin/sendmail -t',
+                $params['action-value']['days'],
+                escapeshellarg('From: ' . $from),
+                escapeshellarg(Horde_Mime::encode($params['action-value']['subject'], 'UTF-8'))))
+                . '"';
             if (($start != 0) && ($end !== 0)) {
                 $this->_action[] = '      }';
                 $this->_action[] = '  }';

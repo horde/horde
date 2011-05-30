@@ -392,12 +392,14 @@ class Jonah_Driver_Sql extends Jonah_Driver
             $sql .= ' AND (';
             $multiple = false;
             foreach ($criteria['tags'] as $tag) {
-                if ($multiple) {
-                    $sql .= ' OR ';
+                if (!empty($criteria['tagIDs'][$tag])) {
+                    if ($multiple) {
+                        $sql .= ' OR ';
+                    }
+                    $sql .= 'tags.tag_id = ?';
+                    $values[] = $criteria['tagIDs'][$tag];
+                    $multiple = true;
                 }
-                $sql .= 'tags.tag_id = ?';
-                $values[] = $criteria['tagIDs'][$tag];
-                $multiple = true;
             }
             $sql .= ')';
         }

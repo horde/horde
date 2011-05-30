@@ -234,7 +234,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     public function __wakeup()
     {
         if (!empty($this->_contents)) {
-            $this->setContents($this->_contents);
+            $contents = $this->_contents;
+            $this->_contents = null;
+            $this->setContents($contents);
         }
     }
 
@@ -1712,7 +1714,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable
             while (list(,$d) = each($data)) {
                 if (is_resource($d)) {
                     rewind($d);
-                    @stream_copy_to_stream($d, $fp);
+                    while (!feof($d)) {
+                        fwrite($fp, fread($d, 8192));
+                    }
                 } else {
                     $len = strlen($d);
                     $i = 0;
@@ -1772,8 +1776,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable
         }
 
         rewind($fp);
-        while ($tmp = fread($fp, 8192)) {
-            $out .= $tmp;
+        while (!feof($fp)) {
+            $out .= fread($fp, 8192);
         }
 
         if ($close) {
@@ -1795,7 +1799,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     protected function _scanStream($fp, $type, $data = null)
     {
         rewind($fp);
-        while ($line = fread($fp, 8192)) {
+        while (!feof($fp)) {
+            $line = fread($fp, 8192);
             switch ($type) {
             case '8bit':
                 if (Horde_Mime::is8bit($line)) {

@@ -67,29 +67,18 @@ $v->setHelp('spam-level');
 $folder_var = $form->addVariable(_("Folder to receive spam:"), 'folder', 'ingo_folders', false);
 $folder_var->setHelp('spam-folder');
 $form->addHidden('', 'actionID', 'text', false);
-$form->addHidden('', 'new_folder_name', 'text', false);
 
 $form->setButtons(_("Save"));
 
 /* Perform requested actions. */
 if ($form->validate($vars)) {
-    $success = true;
+    $success = false;
 
-    // Create a new folder if requested.
-    if ($vars->actionID == 'create_folder') {
-        try {
-            $result = Ingo::createFolder($vars->new_folder_name);
-            if ($result) {
-                $spam->setSpamFolder($result);
-            } else {
-                $success = false;
-            }
-        } catch (Horde_Exception $e) {
-            $success = false;
-            $notification->push($e);
-        }
-    } else {
-        $spam->setSpamFolder($vars->folder);
+    try {
+        $spam->setSpamFolder(Ingo::validateFolder($vars, 'folder'));
+        $success = true;
+    } catch (Horde_Exception $e) {
+        $notification->push($e);
     }
 
     $spam->setSpamLevel($vars->level);
@@ -135,7 +124,6 @@ if (!$form->isSubmitted()) {
     $vars->level = $spam->getSpamLevel();
     $vars->folder = $spam->getSpamFolder();
     $vars->actionID = '';
-    $vars->new_folder_name = '';
 }
 
 /* Set form title. */
@@ -148,7 +136,6 @@ $form->setTitle($form_title);
 
 $title = _("Spam Filtering");
 $menu = Ingo::menu();
-Ingo::addNewFolderJs();
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $menu;
 Ingo::status();

@@ -47,6 +47,7 @@ if (Horde_Util::getFormData('submitbutton') == _("Revert Configuration")) {
         $notification->push(_("Could not revert configuration."), 'horde.error');
     }
 } elseif ($form->validate($vars)) {
+    // @todo: replace this section with $config->writePHPConfig() in Horde 5.
     $config = new Horde_Config($app);
     $php = $config->generatePHPConfig($vars);
     if (file_exists($configFile)) {

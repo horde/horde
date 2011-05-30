@@ -28,12 +28,11 @@ class SetTypeStep1Form extends Horde_Form {
         $this->addVariable(_("Comment"), 'newcomment', 'longtext', false);
 
         /* Group restrictions. */
-        $mygroups = $GLOBALS['injector']
-            ->getInstance('Horde_Group')
-            ->listGroups($GLOBALS['registry']->getAuth());
+        $groups = $GLOBALS['injector']->getInstance('Horde_Group');
+        $mygroups = $groups->listGroups($GLOBALS['registry']->getAuth());
         if ($mygroups) {
             foreach (array_keys($mygroups) as $gid) {
-                $grouplist[$gid] = $groups->getGroupName($gid, true);
+                $grouplist[$gid] = $groups->getName($gid, true);
             }
             asort($grouplist);
             $grouplist = array_merge(array(0 => _("Any Group")), $grouplist);
@@ -51,10 +50,10 @@ class SetTypeStep2Form extends Horde_Form {
 
         parent::Horde_Form($vars, $title);
 
-        $this->addHidden('', 'id', 'int', true, true);
+        $this->addHidden('', 'id', 'int', true, false);
         $this->addHidden('', 'group', 'int', false, false);
-        $this->addHidden('', 'type', 'int', true, true);
-        $this->addHidden('', 'newcomment', 'longtext', false, true);
+        $this->addHidden('', 'type', 'int', true, false);
+        $this->addHidden('', 'newcomment', 'longtext', false, false);
 
         /* Give user an opportunity to check that state and priority
          * are still valid. */

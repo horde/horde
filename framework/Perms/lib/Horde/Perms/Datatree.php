@@ -13,7 +13,7 @@
  * @category Horde
  * @package  Perms
  */
-class Horde_Perms_Datatree extends Horde_Perms
+class Horde_Perms_Datatree extends Horde_Perms_Base
 {
     /**
      * Pointer to a Horde_DataTree instance to manage the different permissions.
@@ -61,32 +61,17 @@ class Horde_Perms_Datatree extends Horde_Perms
     /**
      * Returns a new permissions object.
      *
-     * @param string $name  The permission's name.
+     * @param string $name   The permission's name.
+     * @param string $type   The permission type.
+     * @param array $params  The permission parameters.
      *
      * @return Horde_DataTreeObject_Permissions  A new permissions object.
      */
-    public function newPermission($name)
+    public function newPermission($name, $type = 'matrix', $params = null)
     {
-        $type = 'matrix';
-        $params = null;
-
-        if ($pos = strpos($name, ':')) {
-            try {
-                $info = $this->getApplicationPermissions(substr($name, 0, $pos));
-                if (isset($info['type']) && isset($info['type'][$name])) {
-                    $type = $info['type'][$name];
-                }
-
-                if (isset($info['params']) && isset($info['params'][$name])) {
-                    $params = $info['params'][$name];
-                }
-            } catch (Horde_Perms_Exception $e) {}
-        }
-
-        $perm = new Horde_Perms_Permission_DataTreeObject($name, $this->_cacheVersion, $type, $params);
+        $perm = new Horde_Perms_Permission_Datatree($name, $this->_cacheVersion, $type, $params);
         $perm->setCacheOb($this->_cache);
         $perm->setDataTree($this->_datatree);
-
         return $perm;
     }
 
@@ -106,7 +91,7 @@ class Horde_Perms_Datatree extends Horde_Perms
 
         $perm = $this->_cache->get('perm_' . $this->_cacheVersion . $name, $GLOBALS['conf']['cache']['default_lifetime']);
         if ($perm === false) {
-            $perm = $this->_datatree->getObject($name, 'Horde_Perms_Permission_DataTreeObject');
+            $perm = $this->_datatree->getObject($name, 'Horde_Perms_Permission_Datatree');
             $perm->setCacheVersion($this->_cacheVersion);
             $this->_cache->set('perm_' . $this->_cacheVersion . $name, serialize($perm), $GLOBALS['conf']['cache']['default_lifetime']);
             $this->_permsCache[$name] = $perm;
@@ -131,8 +116,8 @@ class Horde_Perms_Datatree extends Horde_Perms
         if ($cid == Horde_Perms::ROOT) {
             return $this->newPermission(Horde_Perms::ROOT);
         }
-        $perm = $this->_datatree->getObjectById($cid, 'Horde_Perms_Permission_DataTreeObject');
-        $perm->setCacheVersion($this->_cacheVersion);
+        $perm = $this->_datatree->getObjectById($cid, 'Horde_Perms_Permission_Datatree');
+        $perm->setCacheOb($this->_cache);
         return $perm;
     }
 
@@ -141,11 +126,11 @@ class Horde_Perms_Datatree extends Horde_Perms
      * be created with newPermission(), and have any initial users added to
      * it, before this function is called.
      *
-     * @param Horde_Perms_Permission_DataTreeObject $perm  The new perm
+     * @param Horde_Perms_Permission_Datatree $perm  The new perm
      *                                                     object.
      * @throws Horde_Perms_Exception
      */
-    public function addPermission(Horde_Perms_Permission_DataTreeObject $perm)
+    public function addPermission(Horde_Perms_Permission $perm)
     {
         $name = $perm->getName();
         if (empty($name)) {
@@ -160,12 +145,13 @@ class Horde_Perms_Datatree extends Horde_Perms
     /**
      * Removes a permission from the permissions system permanently.
      *
-     * @param Horde_Perms_Permission_DataTreeObject $perm  The permission to
+     * @param Horde_Perms_Permission_Datatree $perm  The permission to
      *                                                     remove.
      * @param boolean $force                               Force to remove
      *                                                     every child.
      */
-    public function removePermission(Horde_Perms_Permission_DataTreeObject $perm, $force = false)
+    public function removePermission(Horde_Perms_Permission $perm,
+                                     $force = false)
     {
         $keys = $this->_datatree->get(DATATREE_FORMAT_FLAT, $perm->name, true);
         foreach ($keys as $key) {
@@ -179,7 +165,7 @@ class Horde_Perms_Datatree extends Horde_Perms
     /**
      * Returns the unique identifier of this permission.
      *
-     * @param Horde_Perms_Permission_DataTreeObject $perm  The permission
+     * @param Horde_Perms_Permission_Datatree $perm  The permission
      *                                                     object to get the
      *                                                     ID of.
      *
@@ -244,5 +230,4 @@ class Horde_Perms_Datatree extends Horde_Perms
     {
         return $this->_datatree->get(DATATREE_FORMAT_FLAT, Horde_Perms::ROOT, true);
     }
-
 }

@@ -28,21 +28,21 @@ if (!$conf['compose']['link_attachments']) {
 
 // Gather required form variables.
 $vars = Horde_Variables::getDefaultVariables();
-if (!$vars->mail_user || !$vars->$time_stamp || !$vars->file_name) {
+if (!$vars->u || !$vars->t || !$vars->f) {
     throw new IMP_Exception(_("The attachment was not found."));
 }
 
 // Initialize the VFS.
 try {
     $vfsroot = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
-} catch (VFS_Exception $e) {
+} catch (Horde_Vfs_Exception $e) {
     throw new IMP_Exception(sprintf(_("Could not create the VFS backend: %s"), $e->getMessage()));
 }
 
 // Check if the file exists.
-$mail_user = basename($vars->mail_user);
-$time_stamp = basename($vars->time_stamp);
-$file_name = escapeshellcmd(basename($vars->file_name));
+$mail_user = basename($vars->u);
+$time_stamp = basename($vars->t);
+$file_name = escapeshellcmd(basename($vars->f));
 $full_path = sprintf(IMP_Compose::VFS_LINK_ATTACH_PATH . '/%s/%d', $mail_user, $time_stamp);
 if (!$vfsroot->exists($full_path, $file_name)) {
     throw new IMP_Exception(_("The specified attachment does not exist. It may have been deleted by the original sender."));
@@ -59,7 +59,7 @@ if ($conf['compose']['link_attachments_notify']) {
                 printf(_("Attachment %s deleted."), $file_name);
                 exit;
             }
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             Horde::logMessage($read_id, 'ERR');
         }
     } else {
@@ -106,7 +106,7 @@ if ($conf['compose']['link_attachments_notify']) {
 
                 $msg->send($mail_address, $msg_headers);
             }
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             Horde::logMessage($e, 'ERR');
         }
     }
@@ -115,7 +115,7 @@ if ($conf['compose']['link_attachments_notify']) {
 // Find the file's mime-type.
 try {
     $file_data = $vfsroot->read($full_path, $file_name);
-} catch (VFS_Exception $e) {
+} catch (Horde_Vfs_Exception $e) {
     Horde::logMessage($file_data, 'ERR');
     throw new IMP_Exception(_("The specified file cannot be read."));
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Standard (imp) contacts display page.
+ * Traditional (imp) contacts display page.
  *
  * URL parameters:
  * 'formfield' - (string) Overrides the form field to fill on closing the

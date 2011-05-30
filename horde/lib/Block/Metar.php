@@ -2,6 +2,8 @@
 /**
  * An applet for the portal screen to display METAR weather data for a
  * specified location (currently airports).
+ *
+ * @package Horde
  */
 class Horde_Block_Metar extends Horde_Core_Block
 {
@@ -15,7 +17,7 @@ class Horde_Block_Metar extends Horde_Core_Block
     {
         parent::__construct($app, $params);
 
-        $this->enabled = (isset($GLOBALS['conf']['sql']) &&
+        $this->enabled = (!empty($GLOBALS['conf']['sql']['phptype']) &&
                           class_exists('Services_Weather'));
         $this->_name = _("Metar Weather");
     }
@@ -31,7 +33,7 @@ class Horde_Block_Metar extends Horde_Core_Block
      */
     protected function _params()
     {
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create();
+        $db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create();
 
         $result = $db->query('SELECT icao, name, country FROM metarAirports ORDER BY country');
         if ($result instanceof PEAR_Error) {

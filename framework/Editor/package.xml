@@ -16,19 +16,19 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:45:05</time>
+ <date>2011-05-25</date>
+ <time>16:07:25</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -113,6 +113,12 @@
        <file name="logo_ckeditor.png" role="horde" />
       </dir> <!-- /js/plugins/about/dialogs -->
      </dir> <!-- /js/plugins/about -->
+     <dir name="adobeair">
+      <file name="plugin.js" role="horde" />
+     </dir> <!-- /js/plugins/adobeair -->
+     <dir name="ajax">
+      <file name="plugin.js" role="horde" />
+     </dir> <!-- /js/plugins/ajax -->
      <dir name="autogrow">
       <file name="plugin.js" role="horde" />
      </dir> <!-- /js/plugins/autogrow -->
@@ -162,6 +168,14 @@
        <file name="hiddenfield.gif" role="horde" />
       </dir> <!-- /js/plugins/forms/images -->
      </dir> <!-- /js/plugins/forms -->
+     <dir name="iframe">
+      <dir name="dialogs">
+       <file name="iframe.js" role="horde" />
+      </dir> <!-- /js/plugins/iframe/dialogs -->
+      <dir name="images">
+       <file name="placeholder.png" role="horde" />
+      </dir> <!-- /js/plugins/iframe/images -->
+     </dir> <!-- /js/plugins/iframe -->
      <dir name="iframedialog">
       <file name="plugin.js" role="horde" />
      </dir> <!-- /js/plugins/iframedialog -->
@@ -199,6 +213,17 @@
        <file name="pastetext.js" role="horde" />
       </dir> <!-- /js/plugins/pastetext/dialogs -->
      </dir> <!-- /js/plugins/pastetext -->
+     <dir name="placeholder">
+      <dir name="dialogs">
+       <file name="placeholder.js" role="horde" />
+      </dir> <!-- /js/plugins/placeholder/dialogs -->
+      <dir name="lang">
+       <file name="en.js" role="horde" />
+       <file name="he.js" role="horde" />
+      </dir> <!-- /js/plugins/placeholder/lang -->
+      <file name="placeholder.gif" role="horde" />
+      <file name="plugin.js" role="horde" />
+     </dir> <!-- /js/plugins/placeholder -->
      <dir name="scayt">
       <dir name="dialogs">
        <file name="options.js" role="horde" />
@@ -252,6 +277,9 @@
       <dir name="dialogs">
        <file name="specialchar.js" role="horde" />
       </dir> <!-- /js/plugins/specialchar/dialogs -->
+      <dir name="lang">
+       <file name="en.js" role="horde" />
+      </dir> <!-- /js/plugins/specialchar/lang -->
      </dir> <!-- /js/plugins/specialchar -->
      <dir name="styles">
       <dir name="styles">
@@ -325,6 +353,9 @@
        <file name="wsc.js" role="horde" />
       </dir> <!-- /js/plugins/wsc/dialogs -->
      </dir> <!-- /js/plugins/wsc -->
+     <dir name="xml">
+      <file name="plugin.js" role="horde" />
+     </dir> <!-- /js/plugins/xml -->
     </dir> <!-- /js/plugins -->
     <dir name="skins">
      <dir name="kama">
@@ -414,28 +445,28 @@
    <package>
     <name>Horde_Browser</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>Horde_Util</name>
+    <name>Horde_Serialize</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -518,6 +549,8 @@
    <install as="js/plugins/a11yhelp/lang/he.js" name="js/plugins/a11yhelp/lang/he.js" />
    <install as="js/plugins/about/dialogs/about.js" name="js/plugins/about/dialogs/about.js" />
    <install as="js/plugins/about/dialogs/logo_ckeditor.png" name="js/plugins/about/dialogs/logo_ckeditor.png" />
+   <install as="js/plugins/adobeair/plugin.js" name="js/plugins/adobeair/plugin.js" />
+   <install as="js/plugins/ajax/plugin.js" name="js/plugins/ajax/plugin.js" />
    <install as="js/plugins/autogrow/plugin.js" name="js/plugins/autogrow/plugin.js" />
    <install as="js/plugins/clipboard/dialogs/paste.js" name="js/plugins/clipboard/dialogs/paste.js" />
    <install as="js/plugins/colordialog/dialogs/colordialog.js" name="js/plugins/colordialog/dialogs/colordialog.js" />
@@ -535,6 +568,8 @@
    <install as="js/plugins/forms/dialogs/textarea.js" name="js/plugins/forms/dialogs/textarea.js" />
    <install as="js/plugins/forms/dialogs/textfield.js" name="js/plugins/forms/dialogs/textfield.js" />
    <install as="js/plugins/forms/images/hiddenfield.gif" name="js/plugins/forms/images/hiddenfield.gif" />
+   <install as="js/plugins/iframe/dialogs/iframe.js" name="js/plugins/iframe/dialogs/iframe.js" />
+   <install as="js/plugins/iframe/images/placeholder.png" name="js/plugins/iframe/images/placeholder.png" />
    <install as="js/plugins/iframedialog/plugin.js" name="js/plugins/iframedialog/plugin.js" />
    <install as="js/plugins/image/dialogs/image.js" name="js/plugins/image/dialogs/image.js" />
    <install as="js/plugins/link/dialogs/anchor.js" name="js/plugins/link/dialogs/anchor.js" />
@@ -544,6 +579,11 @@
    <install as="js/plugins/pagebreak/images/pagebreak.gif" name="js/plugins/pagebreak/images/pagebreak.gif" />
    <install as="js/plugins/pastefromword/filter/default.js" name="js/plugins/pastefromword/filter/default.js" />
    <install as="js/plugins/pastetext/dialogs/pastetext.js" name="js/plugins/pastetext/dialogs/pastetext.js" />
+   <install as="js/plugins/placeholder/placeholder.gif" name="js/plugins/placeholder/placeholder.gif" />
+   <install as="js/plugins/placeholder/plugin.js" name="js/plugins/placeholder/plugin.js" />
+   <install as="js/plugins/placeholder/dialogs/placeholder.js" name="js/plugins/placeholder/dialogs/placeholder.js" />
+   <install as="js/plugins/placeholder/lang/en.js" name="js/plugins/placeholder/lang/en.js" />
+   <install as="js/plugins/placeholder/lang/he.js" name="js/plugins/placeholder/lang/he.js" />
    <install as="js/plugins/scayt/dialogs/options.js" name="js/plugins/scayt/dialogs/options.js" />
    <install as="js/plugins/scayt/dialogs/toolbar.css" name="js/plugins/scayt/dialogs/toolbar.css" />
    <install as="js/plugins/showblocks/images/block_address.png" name="js/plugins/showblocks/images/block_address.png" />
@@ -580,6 +620,7 @@
    <install as="js/plugins/smiley/images/whatchutalkingabout_smile.gif" name="js/plugins/smiley/images/whatchutalkingabout_smile.gif" />
    <install as="js/plugins/smiley/images/wink_smile.gif" name="js/plugins/smiley/images/wink_smile.gif" />
    <install as="js/plugins/specialchar/dialogs/specialchar.js" name="js/plugins/specialchar/dialogs/specialchar.js" />
+   <install as="js/plugins/specialchar/lang/en.js" name="js/plugins/specialchar/lang/en.js" />
    <install as="js/plugins/styles/styles/default.js" name="js/plugins/styles/styles/default.js" />
    <install as="js/plugins/syntaxhighlight/plugin.js" name="js/plugins/syntaxhighlight/plugin.js" />
    <install as="js/plugins/syntaxhighlight/dialogs/syntaxhighlight.js" name="js/plugins/syntaxhighlight/dialogs/syntaxhighlight.js" />
@@ -608,6 +649,7 @@
    <install as="js/plugins/wsc/dialogs/tmpFrameset.html" name="js/plugins/wsc/dialogs/tmpFrameset.html" />
    <install as="js/plugins/wsc/dialogs/wsc.css" name="js/plugins/wsc/dialogs/wsc.css" />
    <install as="js/plugins/wsc/dialogs/wsc.js" name="js/plugins/wsc/dialogs/wsc.js" />
+   <install as="js/plugins/xml/plugin.js" name="js/plugins/xml/plugin.js" />
    <install as="js/skins/kama/dialog.css" name="js/skins/kama/dialog.css" />
    <install as="js/skins/kama/editor.css" name="js/skins/kama/editor.css" />
    <install as="js/skins/kama/icons.png" name="js/skins/kama/icons.png" />
@@ -704,6 +746,92 @@ Initial packaging
 * Removed Xinha driver.
 * Added CKEditor driver.
 * Removed FCKEditor driver
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-16</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First beta release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-22</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Second release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First stable release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-25</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Upgrade ckeditor to v3.5.4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-25</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

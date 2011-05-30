@@ -31,7 +31,7 @@
    <td width="33%">
     <label for="search_results" class="hidden"><gettext>Search Results</gettext></label>
     <select id="search_results" name="search_results" multiple="multiple" size="10">
-     <option value=""><gettext>* Please select address(es) *</gettext></option>
+     <option disabled="disabled" value=""><gettext>* Please select address(es) *</gettext></option>
 <loop:a_list>
      <option title="<tag:a_list />" value="<tag:a_list />"><tag:a_list /></option>
 </loop:a_list>
@@ -47,7 +47,7 @@
    <td width="33%">
     <label for="selected_addresses" class="hidden"><gettext>Selected Addresses</gettext></label>
     <select id="selected_addresses" name="selected_addresses" multiple="multiple" size="10">
-     <option value=""><gettext>* Add these by clicking OK *</gettext></option>
+     <option disabled="disabled" value=""><gettext>* Add these by clicking OK *</gettext></option>
 <loop:sa>
      <option value="<tag:sa />"><tag:sa /></option>
 </loop:sa>

@@ -209,6 +209,10 @@ table#tasklist-list th.sortdown {
     word-wrap: break-word;
 }
 
+.base-category {
+    padding: 0 4px;
+}
+
 #dueimg, #startimg {
     cursor: pointer;
     padding-left: 3px;

@@ -57,12 +57,10 @@
 #pragma mark Optional methods.
 - (NSString *)imageTitle
 {
-    NSLog(@"imageTitle: %@", imageTitle);
     return imageTitle;
 }
 - (NSString *)imageSubtitle
 {
-    NSLog(@"imageSubtitle: %@", [imageDate description]);
     return [imageDate description];
 }
 

@@ -66,30 +66,139 @@ extends Components_Module_Base
                 )
             ),
             new Horde_Argv_Option(
-                '-G',
-                '--nogit',
+                '--next_version',
                 array(
-                    'action' => 'store_true',
-                    'help'   => 'Avoid any git operations during the release.'
+                    'action' => 'store',
+                    'help'   => 'The version number planned for the next release of the component.'
                 )
             ),
             new Horde_Argv_Option(
-                '-m',
-                '--manual',
+                '--next_note',
                 array(
-                    'action' => 'store_true',
-                    'help'   => 'Avoid touching the package.xml during the release process.'
+                    'action' => 'store',
+                    'default' => '',
+                    'help'   => 'Initial change log note for the next version of the component [default: empty entry].'
+                )
+            ),
+            new Horde_Argv_Option(
+                '--next_apistate',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The next API stability [default: no change].'
+                )
+            ),
+            new Horde_Argv_Option(
+                '--next_relstate',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The next release stability [default: no change].'
+                )
+            ),
+            new Horde_Argv_Option(
+                '--from',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The sender address for mailing list announcements.'
+                )
+            ),
+            new Horde_Argv_Option(
+                '--horde_user',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The username for accessing bugs.horde.org.'
+                )
+            ),
+            new Horde_Argv_Option(
+                '--horde_pass',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The password for accessing bugs.horde.org.'
+                )
+            ),
+            new Horde_Argv_Option(
+                '--fm_token',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The token for accessing freshmeat.net.'
                 )
             ),
         );
     }
 
+    /**
+     * Get the usage description for this module.
+     *
+     * @return string The description.
+     */
+    public function getUsage()
+    {
+        return '  release     - Releases a component via pear.horde.org.
+';
+    }
+
+    /**
+     * Return the action arguments supported by this module.
+     *
+     * @return array A list of supported action arguments.
+     */
+    public function getActions()
+    {
+        return array('release');
+    }
+
+    /**
+     * Return the help text for the specified action.
+     *
+     * @param string $action The action.
+     *
+     * @return string The help text.
+     */
+    public function getHelp($action)
+    {
+        return 'Releases the component. This handles a number of automated steps usually required when releasing a package to pear.horde.org. In the most simple situation it will be sufficient to move to the directory of the component you with to release and run
+
+  horde-components release
+
+This should perform all required actions. Sometimes it might be necessary to avoid some of the steps that are part of the release process. This can be done by adding additional arguments after the "release" keyword. Each argument indicates that the corresponding task should be run.
+
+The available tasks are:
+
+ - timestamp   : Timestamp the package.xml and sync the change log.
+ - sentinel    : Update the sentinels in docs/CHANGES and lib/Application.php.
+ - commit      : Commit any changes with an automated message.
+ - package     : Prepare a *.tgz package.
+   - upload    : Upload the package to pear.horde.org
+ - tag         : Add a git release tag.
+ - announce    : Announce the release on the mailing lists.
+ - bugs        : Add the new release on bugs.horde.org
+ - freshmeat   : Add the new release on freshmeat.net
+ - next        : Update package.xml with the next version.
+ - nextsentinel: Update the sentinels for the next version as well.
+
+The indentation indicates task that depend on a parent task. Activating them without activating the parent has no effect.
+
+The following example would generate the package and add the release tag to git without any other release task being performed:
+
+  horde-components release package tag';
+    }
+
+    /**
+     * Determine if this module should act. Run all required actions if it has
+     * been instructed to do so.
+     *
+     * @param Components_Config $config The configuration.
+     *
+     * @return boolean True if the module performed some action.
+     */
     public function handle(Components_Config $config)
     {
         $options = $config->getOptions();
-        if (!empty($options['release'])) {
-            $this->requirePackageXml($config->getPackageDirectory());
+        $arguments = $config->getArguments();
+        if (!empty($options['release'])
+            || (isset($arguments[0]) && $arguments[0] == 'release')) {
+            $this->requirePackageXml($config->getComponentDirectory());
             $this->_dependencies->getRunnerRelease()->run();
+            return true;
         }
     }
 }

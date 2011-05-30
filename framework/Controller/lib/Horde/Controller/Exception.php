@@ -19,6 +19,6 @@
  * @category   Horde
  * @package    Controller
  */
-class Horde_Controller_Exception extends Horde_Exception_Prior
+class Horde_Controller_Exception extends Horde_Exception_Wrapped
 {
 }

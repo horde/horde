@@ -42,6 +42,7 @@ var HordeIdentitySelect = {
     onDomLoad: function()
     {
         $('identity').observe('change', this.newChoice.bind(this));
+        this.newChoice();
     }
 
 };

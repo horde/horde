@@ -38,6 +38,7 @@ class IMP_Hooks
      * AUTHENTICATION HOOK: post-authentication actions.
      *
      * See horde/config/hooks.php.dist for more information.
+     * See preauthenticate() above for the list of credentials available.
      */
 //     public function postauthenticate($userId, $credentials)
 //     {
@@ -50,7 +51,7 @@ class IMP_Hooks
      *
      * See horde/config/hooks.php.dist for more information.
      */
-//    public function prefs_init($pref, $value, $username)
+//    public function prefs_init($pref, $value, $username, $scope_ob)
 //    {
 //        switch ($pref) {
 //        case 'add_source':
@@ -153,8 +154,7 @@ class IMP_Hooks
 //        switch ($return_var) {
 //        case 1:
 //            // Virus found.
-//            Horde::logMessage('Virus found in uploaded attachment', 'INFO');
-//            throw new IMP_Compose_Exception('Virus found in uploaded attachment. Attachment will not be added to the compose message.');
+//            throw IMP_Compose_Exception::createAndLog('INFO', 'Virus found in uploaded attachment. Attachment will not be added to the compose message.');
 //
 //        case 2:
 //            // Error occurred.
@@ -211,7 +211,7 @@ class IMP_Hooks
 //                // Set flag in the session to indicate we should not check
 //                // this message for attachments again.
 //                $GLOBALS['session']->set('imp', 'attach_check/' . strval($compose), 1);
-//                throw new IMP_Compose_Exception('Found the word "' . $matches[1] . '" in the message text although there are no files attached to the message. Did you forget to attach a file?');
+//                throw IMP_Compose_Exception::createAndLog('DEBUG', 'Found the word "' . $matches[1] . '" in the message text although there are no files attached to the message. Did you forget to attach a file?');
 //            }
 //        }
 //    }
@@ -379,9 +379,9 @@ class IMP_Hooks
      * trash folders.)
      *
      * @return array  A list of mailboxes, with the name as keys and the
-     *               values an array with 'icon' and 'alt' entries.
-     *               If a mailbox name doesn't appear in the list, the default
-     *               mailbox icon is displayed.
+     *                values an array with 'icon' and 'alt' entries.
+     *                If a mailbox name doesn't appear in the list, the
+     *                default mailbox icon is displayed.
      */
 //    public function mbox_icons()
 //    {
@@ -845,7 +845,7 @@ class IMP_Hooks
      * open source project to test and track these developments, make it
      * near impossible to accurately identify a list of mobile browsers
      * that can handle a interface with more features than the base
-     * mobile view. Therefore, this hook provides a wait for a site
+     * mobile view. Therefore, this hook provides a way for a site
      * administrator to best decide when (and if) they want to allow this
      * advanced functionality to be available in the mobile view.
      *

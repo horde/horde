@@ -44,23 +44,21 @@ class Chora_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        // If chora isn't fully/properly setup, _init() will throw fatal
-        // errors. Don't want that if this class is being loaded simply to
-        // obtain basic chora application information.
-        // TODO: Fix by moving repository initialization code out if _init();
-        // should be loaded on-demand, for example.
-        if ($GLOBALS['registry']->initialApp != 'chora') {
-            return;
-        }
-
         global $acts, $conf, $defaultActs, $where, $atdir, $fullname, $sourceroot;
 
         try {
             $GLOBALS['sourceroots'] = Horde::loadConfiguration('backends.php', 'sourceroots');
         } catch (Horde_Exception $e) {
-            $GLOBALS['notification']->push($e);
             $GLOBALS['sourceroots'] = array();
+            // If chora isn't fully/properly setup, _init() will throw fatal
+            // errors. Don't want that if this class is being loaded simply to
+            // obtain basic chora application information.
+            if ($GLOBALS['registry']->initialApp != 'chora') {
+                return;
+            }
+            $GLOBALS['notification']->push($e);
         }
+
         $sourceroots = Chora::sourceroots();
 
         /**
@@ -104,7 +102,7 @@ class Chora_Application extends Horde_Registry_Application
                 $acts['rt'] = $last_sourceroot;
             } else {
                 foreach ($sourceroots as $key => $val) {
-                    if (isset($val['default'])) {
+                    if (!isset($acts['rt']) || isset($val['default'])) {
                         $acts['rt'] = $key;
                         break;
                     }

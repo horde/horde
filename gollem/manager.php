@@ -33,7 +33,7 @@ $read_perms = Gollem::checkPermissions('backend', Horde_Perms::READ);
 /* Set directory. */
 try {
     Gollem::changeDir();
-} catch (VFS_Exception $e) {
+} catch (Horde_Vfs_Exception $e) {
     $notification->push($e);
 }
 
@@ -186,7 +186,7 @@ case 'paste_items':
                                 Gollem::expireCache($file['path']);
                             }
                             $notification->push(sprintf(_("%s was successfully pasted."), $file['name'], $old_dir), 'horde.success');
-                        } catch (VFS_Exception $e) {
+                        } catch (Horde_Vfs_Exception $e) {
                             $notification->push(sprintf(_("Cannot paste \"%s\" (file cleared from clipboard): %s"), $file['name'], $e->getMessage()), 'horde.error');
                         }
                     }

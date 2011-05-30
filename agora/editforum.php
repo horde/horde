@@ -32,7 +32,7 @@ if (!$registry->isAdmin(array('permission' => 'agora:admin'))) {
     Horde::url('forums.php', true)->redirect();
 }
 
-$form = new ForumForm($vars, $title);
+$form = new Agora_Form_Forum($vars, $title);
 if ($form->validate()) {
     $forum_id = $form->execute($vars);
     if ($forum_id instanceof PEAR_Error) {

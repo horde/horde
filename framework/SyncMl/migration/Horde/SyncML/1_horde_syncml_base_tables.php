@@ -4,7 +4,7 @@ class HordeSyncmlBaseTables extends Horde_Db_Migration_Base
     public function up()
     {
         if (!in_array('horde_syncml_map', $this->tables())) {
-            $t = $this->createTable('horde_syncml_map', array('primaryKey' => false));
+            $t = $this->createTable('horde_syncml_map', array('autoincrementKey' => false));
             $t->column('syncml_syncpartner', 'string', array('limit' => 255, 'null' => false));
             $t->column('syncml_db', 'string', array('limit' => 255, 'null' => false));
             $t->column('syncml_uid', 'string', array('limit' => 255, 'null' => false));
@@ -19,7 +19,7 @@ class HordeSyncmlBaseTables extends Horde_Db_Migration_Base
             $this->addIndex('horde_syncml_map', array('syncml_suid'));
         }
         if (!in_array('horde_syncml_anchors', $this->tables())) {
-            $t = $this->createTable('horde_syncml_anchors', array('primaryKey' => false));
+            $t = $this->createTable('horde_syncml_anchors', array('autoincrementKey' => false));
             $t->column('syncml_syncpartner', 'string', array('limit' => 255, 'null' => false));
             $t->column('syncml_db', 'string', array('limit' => 255, 'null' => false));
             $t->column('syncml_uid', 'string', array('limit' => 255, 'null' => false));

@@ -10,28 +10,25 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:34:44</time>
+ <date>2011-04-06</date>
+ <time>01:03:54</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
  <notes>
-*
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="ActiveSync">
-      <dir name="ActiveSync">
-       <file name="Factory.php" role="php" />
-      </dir> <!-- /lib/Horde/ActiveSync/ActiveSync -->
       <dir name="Connector">
        <file name="Exporter.php" role="php" />
        <file name="Importer.php" role="php" />
@@ -120,11 +117,48 @@
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Support</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Core</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Db</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -133,7 +167,6 @@
    <install as="Horde/ActiveSync/Sync.php" name="lib/Horde/ActiveSync/Sync.php" />
    <install as="Horde/ActiveSync/Timezone.php" name="lib/Horde/ActiveSync/Timezone.php" />
    <install as="Horde/ActiveSync/Wbxml.php" name="lib/Horde/ActiveSync/Wbxml.php" />
-   <install as="Horde/ActiveSync/ActiveSync/Factory.php" name="lib/Horde/ActiveSync/ActiveSync/Factory.php" />
    <install as="Horde/ActiveSync/Connector/Exporter.php" name="lib/Horde/ActiveSync/Connector/Exporter.php" />
    <install as="Horde/ActiveSync/Connector/Importer.php" name="lib/Horde/ActiveSync/Connector/Importer.php" />
    <install as="Horde/ActiveSync/Driver/Base.php" name="lib/Horde/ActiveSync/Driver/Base.php" />
@@ -191,6 +224,80 @@
    <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-16</date>
+   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <notes>
+* First beta release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-22</date>
+   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <notes>
+* First release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
+   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <notes>
+* Second release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <notes>
+* First stable release for Horde 4.
+* [jan] Use Horde_Support_Uuid to generate UUIDs.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

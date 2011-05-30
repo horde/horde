@@ -41,7 +41,11 @@ div.msgSubject span.treeImg {
 /* Fixes broken inline-block. */
 .msgwrite span.loadingImg,
 #noticerow .notices li,
-#upload_wait {
+#upload_wait,
+a.address:hover,
+#attach_list span.attachName,
+#upload_wait
+{
     zoom: 1;
     *display: inline;
 }

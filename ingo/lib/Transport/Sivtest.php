@@ -14,15 +14,8 @@
  * @author  Liam Hoekenga <liamr@umich.edu>
  * @package Ingo
  */
-class Ingo_Transport_Sivtest extends Ingo_Transport
+class Ingo_Transport_Sivtest extends Ingo_Transport_Timsieved
 {
-    /**
-     * The Net_Sieve object.
-     *
-     * @var Net_Sieve
-     */
-    protected $_sieve;
-
     /**
      * Constructor.
      */
@@ -31,7 +24,7 @@ class Ingo_Transport_Sivtest extends Ingo_Transport
         $default_params = array(
             'hostspec'   => 'localhost',
             'logintype'  => '',
-            'port'       => 2000,
+            'port'       => 4190,
             'scriptname' => 'ingo',
             'admin'      => '',
             'usetls'     => true,
@@ -40,6 +33,8 @@ class Ingo_Transport_Sivtest extends Ingo_Transport
         );
 
         parent::__construct(array_merge($default_params, $params));
+
+        $this->_support_shares = false;
     }
 
     /**
@@ -57,53 +52,23 @@ class Ingo_Transport_Sivtest extends Ingo_Transport
             $this->_params['username'],
             $this->_params['password'],
             $this->_params['hostspec']);
-        $domain_socket = 'unix://' . $this->_params['socket'];
+
         $this->_sieve = new Net_Sieve(
             $this->_params['username'],
             $this->_params['password'],
-            $domain_socket,
+            'unix://' . $this->_params['socket'],
             0,
             null,
             null,
             false,
             true,
             $this->_params['usetls']);
+
         $res = $this->_sieve->getError();
         if ($res instanceof PEAR_Error) {
             unset($this->_sieve);
             throw new Ingo_Exception($res);
         }
-    }
-
-    /**
-     * Sets a script running on the backend.
-     *
-     * @param string $script  The sieve script.
-     *
-     * @throws Ingo_Exception
-     */
-    public function setScriptActive($script)
-    {
-        $this->_connect();
-
-        $res = $this->_sieve->haveSpace($this->_params['scriptname'], strlen($script));
-        if ($res instanceof PEAR_Error) {
-            throw new Ingo_Exception($res);
-        }
-
-        return $this->_sieve->installScript($this->_params['scriptname'], $script, true);
-    }
-
-    /**
-     * Returns the content of the currently active script.
-     *
-     * @return string  The complete ruleset of the specified user.
-     * @throws Ingo Exception
-     */
-    public function getScript()
-    {
-        $this->_connect();
-        return $this->_sieve->getScript($this->_sieve->getActive());
     }
 
     /**
@@ -122,8 +87,8 @@ class Ingo_Transport_Sivtest extends Ingo_Transport
         $command = '';
         $error_return = '';
 
-        if (strtolower($this->_params['logintype']) == 'gssapi'
-            && isset($_SERVER['KRB5CCNAME'])) {
+        if (strtolower($this->_params['logintype']) == 'gssapi' &&
+            isset($_SERVER['KRB5CCNAME'])) {
             $command .= 'KRB5CCNAME=' . $_SERVER['KRB5CCNAME'];
         }
 

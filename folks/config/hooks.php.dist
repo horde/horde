@@ -277,7 +277,7 @@ class Folks_Hooks
         $result = $db->selectOne($query, array($username, $info['extra']['email']), DB_FETCHMODE_ASSOC);
 
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception_Prior($result);
+            throw new Horde_Exception_Wrapped($result);
         } elseif (empty($result)) {
             return $info;
         } elseif ($result['user_uid'] == $username) {
@@ -290,7 +290,7 @@ class Folks_Hooks
     }
 
 // Following on from the example in the above function, this is how a sample
-// _horde_hook_signup_addextra function would look like.
+// signup_addextra function would look like.
 // Here we connect to the database and update folks user table
 // with additional user data and send confirmation code to check his email
 
@@ -378,6 +378,6 @@ class Folks_Hooks
             return;
         }
 
-        return Horde_Auth::setAuth($_COOKIE['folks_login_user'], array('transparent' => 1, 'password' => null));
+        return $GLOBALS['registry']->setAuth($_COOKIE['folks_login_user'], array('transparent' => 1, 'password' => null));
     }
 }

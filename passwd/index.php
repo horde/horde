@@ -11,13 +11,4 @@
  * @package Passwd
  */
 
-@define('PASSWD_BASE', dirname(__FILE__));
-$passwd_configured = (is_readable(PASSWD_BASE . '/config/conf.php') &&
-                      is_readable(PASSWD_BASE . '/config/backends.php'));
-
-if (!$passwd_configured) {
-    require PASSWD_BASE . '/../lib/Test.php';
-    Horde_Test::configFilesMissing('Passwd', PASSWD_BASE, array('conf.php', 'backends.php'));
-}
-
-require PASSWD_BASE . '/main.php';
+require dirname(__FILE__) . '/main.php';

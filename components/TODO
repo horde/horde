@@ -2,19 +2,26 @@
  Components TODO List
 ======================
 
- - The bootstrapping script (or one of the installed tools) must be
-   able to update the bootstrapped environment.
+ - Add a release helper module.
+   - Use config file.
+   - Make sure only the required modules get validation calls (e.g. freshmeat only when really trying to contact freshmeat)
+   - Allow to configure the mail transport for sending announcements.
+   - Validate that the release does not exist before releasing.
+   - Error handling.
 
- - The bootstrapping script (or one of the installed tools) should
-   support different installation targets.
-
- - The bootstrapping script should support a network-less installation.
-
- - Allow the component script to be context-sensitive and provide easy
-   commands when whithin a component directory
+ - Bootstrapping script
+   - must be able to update the bootstrapped environment (probably
+     sufficient if installing from released packages)
+   - Support for different installation targets.
+   - Support a network-less installation.
+   - Allow to specify the target location of the environment (default
+     horde/lib)
 
  - Allow channel dependency detection with external/local package
    dependencies.
+
+ - Better install support (allow installing/updating both git and
+   released components)
 
  - Add validations (+ before release)
    - COPYING
@@ -22,15 +29,8 @@
    - phpDocumentor
    - Code style
 
- - Add a release helper module.
-   - Validate that the release does not exist before releasing.
-   - Update sentinel in CHANGES and version number in Application.php before
-     and after the release.
-   - Update package.xml to bump version and empty notes after the release.
-   - Send release announcements if releasing applications.
-   - Update bugs.horde.org.
-   - Notify freshmeat.
-   - Error handling.
+ - Allow specifying no pear.conf file when using the installer (+
+   allow to use the "install" argument)
 
  - Support a configuration file.
 
@@ -75,9 +75,6 @@
  - WWW frontend
 
  - Fix dependency listing with the --optional=yes/no flag
-
- - Add a commit module that automatically adds a changelog entry in
-   the notes section of the package.xml
 
  - Allow absolute/relative paths as arguments
 

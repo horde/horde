@@ -85,8 +85,9 @@ class Ingo_Api extends Horde_Registry_Api
      *
      * @param array $params  The parameter array:
      * <pre>
-     * 'filter_seen' - TODO
-     * 'show_filter_msg' - TODO
+     * filter_seen
+     * mailbox
+     * show_filter_msg
      * </pre>
      *
      * @return boolean  True if filtering was performed, false if not.

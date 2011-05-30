@@ -4,57 +4,191 @@
 
 :Contact: horde@lists.horde.org
 
+.. contents:: Contents
+.. section-numbering::
+
 
 These are instructions to upgrade from earlier Horde versions. Please backup
 your existing data before running any of the steps described below. You can't
 use the updated data with your old Horde version anymore.
 
+Upgrading Horde (and all installed Horde libraries and applications)
+is as easy as running::
+
+   pear upgrade -a -B -c horde
+
+If you want to upgrade from a Horde version prior to 4.0, please
+follow the instructions in INSTALL_ to install the most recent Horde
+version using the PEAR installer.
+
 After updating to a newer Horde version, or a newer version of **any** Horde
-application, you **always** need to update **all** configuration files.
+application, you **always** need to update configurations and database
+schemes. Log in as an administrator, go to Administration => Configuration and
+update anything that's highlighted as outdated.
+
+
+Upgrading Horde from 4.0 to 4.0.1
+=================================
+
+Configuration Values
+--------------------
+
+Cyrsql driver: The 'unixhier' parameter has been replaced by the
+               'userhierarchy' parameter.
+
+
+Hooks
+-----
+
+The appinitialized hook was added.  See ``config/hooks.php.dist`` for more
+details on this hook.
 
 
 Upgrading Horde from 3.3.x to 4.x
 =================================
 
-TODO
-----
-* hooks changes
+New installation method
+-----------------------
 
-If using Postgres, you must upgrade various columns from TEXT to BYTEA. The
-necessary SQL statements are found at::
+Since Horde 4 the supported installation method has been changed to
+install Horde and all dependencies through the PEAR installer. See
+INSTALL_ for instructions how to install Horde through PEAR.
+
+Existing **data** from the latest Horde can be migrated from the
+configuration screen in the administration section. It is recommended
+to re-create the **configuration** from scratch though.
+
+
+New configuration scheme
+------------------------
+
+With Horde 4 it is no longer necessary to create any configuration files
+besides ``conf.php`` files. The default configuration files in the ``config/``
+directory should work for most systems. If some changes in those files are
+necessary, **DON'T EDIT THE FILES DIRECTLY or your CHANGES WILL BE LOST with
+the next upgrade**. Create ``*.local.php`` files instead and only add
+configuration settings that you want to change from the default values
+there. See the header of the configuration files for details and examples.
+
+``conf.php`` files are still created and updated as usual through the
+configuration interface.
+
+
+New database migrations
+-----------------------
+
+With Horde 4 database updates are no longer done by running SQL scripts through
+your database server's console or web frontend. A migration framework has been
+created instead that can be used through the web interface and a command line
+script.
+
+After updating, log in to Horde as an adminstrator, make sure that all
+configurations are up-to-date, then click on the ``Update all DB schemas``
+button. You can also update the database schemas individually if necessary.
+
+Alternatively there is a command line script ``horde-db-migrate`` that can be
+used for upgrading the database schemas. Call it without any parameters to
+upgrade schemas for all installed applications and components, or specify the
+application, component, or ``migration/`` directory that you want to upgrade
+individually.
+
+
+PostgreSQL
+----------
+
+If using PostgreSQL, you must upgrade the value column of the preference table
+from TEXT to BYTEA **before** running any other upgrade tasks. The necessary
+SQL statement is found at::
 
     scripts/upgrades/2009-04-13_horde_pgsql_upgrade.sql
 
-The following preferences are no longer used and can be removed:
+
+Configuration changes
+---------------------
+
+Many configuration names and values have changed. It is suggested that you
+start with a fresh configuration instead of trying to import some existing
+configuration from Horde 3.
+
+
+Preferences
+-----------
+
+The following preferences are no longer used and can be removed from the
+horde_prefs table if you want to save database storage:
 
     * confirm_maintenance
     * do_maintenance
     * editor_plugins
     * last_maintenance
 
-The following hooks have changed:
 
-    * preauthenticate (parameters; return value)
-    * postauthenticate (parameters; return value)
-    * username_tobackend, username_frombackend (combined and renamed to
-      authusername).
-    * prefs init/change
+Hooks
+-----
 
-The format for the config/mime_drivers.php configuration files has changed.
+The hooks format has been changed completely. ``hooks.php`` no longer contains
+separate functions for each hook, but a single class with separate methods for
+each hook. Please take a look at the new examples in ``hooks.php.dist`` before
+porting any hooks to Horde 4. Some hook signatures have changed, some hooks
+have been renamed, removed or added.
 
-Horde_Alarm is using UTC dates now.
+Noteably the following hooks have changed:
 
-Crypt_Blowfish is required.
+    * "preauthenticate" (Parameters and return value have changed)
+    * "postauthenticate" (Parameters and return value have changed)
+    * "username_tobackend", "username_frombackend" (Have been combined and
+      renamed to "authusername")
+    * There are only two methods prefs_init() and prefs_change() for all
+      preferences.
 
-Removed support for Firebird/InterBase, Informix, MS-SQL/Sybase, Oracle, ODBC, dBase, Frontbase, and mSQL database servers.
 
-Removed support for krb5 authentication driver.
+Alarms
+------
 
-Removed LDAP session handler.
+The alarm system is using UTC dates now. This can cause problems for a short
+time after updating to Horde and before the alarms have been refreshed. To
+avoid any problems you should empty the horde_alarms table after upgrading
+manually. This SQL query should work::
 
-Removed Mime Viewer drivers: Enscript & Webcpp. Use 'Syntaxhandler' instead.
+    DELETE FROM horde_alarms
 
-The registry.php file has changed ('status' => 'sidebar').
+The script to generate alarm notifications through a cron job
+(``scripts/alarms.php``) has been renamed and is installed to a different
+location when using the PEAR installation method. The new name is
+``bin/horde-alarms`` and it will be installed to ``/usr/bin/horde-alarms`` by
+default. Update your cron jobs accordingly.
+
+
+Groups
+------
+
+The groups system has been rewritten. Group hierarchies, i.e. parent and child
+groups are no longer supported. Support for nested groups will be added at a
+later point.
+
+
+PEAR packages
+-------------
+
+The Crypt_Blowfish package is required now. If you installed Horde using the
+PEAR installer, it will be installed automatically though.
+
+
+Removed features
+----------------
+
+* Database abstraction has been moved to a new Horde_Db component. Any database
+  support beside MySQL (native and PDO), PostgreSQL, and SQLite have been
+  removed. If you need support for any other RDBMS, consider sponsoring the
+  development of new drivers for that system.
+* DataTree support has been removed. Several systems used DataTree as a
+  possible backend for historical reasons. If you still used DataTree backends
+  in Horde 3 and didn't migrate to SQL drivers yet, now you have to. See
+  further below for instructions how to migrate away from DataTree backends.
+* The krb5 authentication driver has been removed.
+* The LDAP session handler has been removed.
+* The enscript and webcpp MIME Viewers have been replaced by the
+  'Syntaxhighlighter' driver.
 
 
 Upgrading Horde from 3.3.x to 3.3.5
@@ -98,15 +232,14 @@ version, e.g.::
 Beta SQL Drivers
 ----------------
 
-There are now beta-level SQL drivers for Groups, Shares, and
-Permissions. There is a script
-``horde/scripts/upgrades/convert_datatree_perms_to_sql.php`` that will migrate
-all of your DataTree-based permissions to the SQL backend, and
-``horde/scripts/upgrades/convert_datatree_groups_to_sql.php`` that will
-migrate groups. For shares, you will need to upgrade each application
-individually. Applications that use shares have entries in ``docs/UPGRADING``
-and upgrade scripts ``scripts/upgrades/convert_datatree_shares_to_sql.php``
-for creating the SQL share tables and migrating data.
+There are now beta-level SQL drivers for Groups, Shares, and Permissions. There
+is a script ``horde-convert-datatree-perms-to-sql`` that will migrate all of
+your DataTree-based permissions to the SQL backend, and
+``horde-convert-datatree-groups-to-sql`` that will migrate groups. For shares,
+you will need to upgrade each application individually. Applications that use
+shares have entries in ``docs/UPGRADING`` and upgrade scripts
+``app-convert-datatree-shares-to-sql`` for creating the SQL share tables and
+migrating data.
 
 The SQL drivers should perform much better than the DataTree versions,
 but they have not received the same level of testing, thus the beta
@@ -245,4 +378,7 @@ drastically improve performance.
 
 Execute the provided PHP script to migrate your histories to the new table::
 
-   php scripts/upgrades/move_history_out_of_datatree.php
+   horde-move-history-out-of-datatree
+
+
+.. _INSTALL: INSTALL

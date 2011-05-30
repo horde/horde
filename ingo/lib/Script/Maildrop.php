@@ -100,6 +100,13 @@ class Ingo_Script_Maildrop extends Ingo_Script
     protected $_recipes = array();
 
     /**
+     * The vacation reason to be saved in vacation.msg.
+     *
+     * @var string
+     */
+    protected $_reason;
+
+    /**
      * Returns a script previously generated with generate().
      *
      * @return string  The maildrop script.
@@ -262,7 +269,6 @@ class Ingo_Script_Maildrop extends Ingo_Script
         $actionval = array('addresses' => $addresses,
                            'subject' => $vacation->getVacationSubject(),
                            'days' => $vacation->getVacationDays(),
-                           'reason' => $vacation->getVacationReason(),
                            'ignorelist' => $vacation->getVacationIgnorelist(),
                            'excludes' => $vacation->getVacationExcludes(),
                            'start' => $vacation->getVacationStart(),
@@ -275,6 +281,7 @@ class Ingo_Script_Maildrop extends Ingo_Script
                             'disable' => $disable);
             $recipe = new Ingo_Script_Maildrop_Recipe($params, $this->_params);
             $this->addItem($recipe);
+            $this->_reason = $vacation->getVacationReason();
         }
     }
 
@@ -311,6 +318,18 @@ class Ingo_Script_Maildrop extends Ingo_Script
         }
 
         $this->addItem($recipe);
+    }
+
+    /**
+     * Returns any additional scripts that need to be sent to the transport
+     * layer.
+     *
+     * @return array  A list of scripts with script names as keys and script
+     *                code as values.
+     */
+    public function additionalScripts()
+    {
+        return array('vacation.msg' => $this->_reason);
     }
 
     /**

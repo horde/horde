@@ -61,6 +61,7 @@ Options:
 
     public function setUp()
     {
+        parent::setUp();
         $this->parser = $this->makeParser(80);
         $this->origColumns = isset($_ENV['COLUMNS']) ? $_ENV['COLUMNS'] : null;
     }

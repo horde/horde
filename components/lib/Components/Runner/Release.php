@@ -49,6 +49,13 @@ class Components_Runner_Release
     private $_output;
 
     /**
+     * The release tasks handler.
+     *
+     * @param Component_Release_Tasks
+     */
+    private $_release;
+
+    /**
      * Constructor.
      *
      * @param Components_Config       $config  The configuration for the current
@@ -56,23 +63,25 @@ class Components_Runner_Release
      * @param Components_Pear_Factory $factory The factory for PEAR
      *                                         dependencies.
      * @param Component_Output        $output  The output handler.
+     * @param Component_Release_Tasks $release The tasks handler.
      */
     public function __construct(
         Components_Config $config,
         Components_Pear_Factory $factory,
-        Components_Output $output
+        Components_Output $output,
+        Components_Release_Tasks $release
     ) {
         $this->_config = $config;
         $this->_factory = $factory;
         $this->_output = $output;
+        $this->_release = $release;
     }
 
     public function run()
     {
         $options = $this->_config->getOptions();
-        $arguments = $this->_config->getArguments();
 
-        $package_xml = $arguments[0] . '/package.xml';
+        $package_xml = $this->_config->getComponentPackageXml();
         if (!isset($options['pearrc'])) {
             $package = $this->_factory->createPackageForDefaultLocation(
                 $package_xml
@@ -84,17 +93,79 @@ class Components_Runner_Release
             );
         }
 
-        $path = $package->generateRelease(!empty($options['manual']));
-        print system('scp ' . $path . ' ' . $options['releaseserver'] . ':~/');
-        print system('ssh '. $options['releaseserver'] . ' "pirum add ' . $options['releasedir'] . ' ~/' . basename($path) . ' && rm ' . basename($path) . '"') . "\n";
+        $sequence = array();
 
-        $release = strtr(basename($path), array('.tgz' => ''));
+        $pre_commit = false;
 
-        if (empty($options['nogit'])) {
-            system('git commit -m "Released ' . $release . '." ' . $package_xml);
-            system('git tag -f -m "Released ' . $release . '." ' . strtolower($release));
+        if ($this->_doTask('timestamp')) {
+            $sequence[] = 'Timestamp';
+            $pre_commit = true;
         }
 
-        unlink($path);
+        if ($this->_doTask('sentinel')) {
+            $sequence[] = 'CurrentSentinel';
+            $pre_commit = true;
+        }
+
+        if ($this->_doTask('package')) {
+            $sequence[] = 'Package';
+            if ($this->_doTask('upload')) {
+                $options['upload'] = true;
+            }
+        }
+
+        if ($this->_doTask('commit') && $pre_commit) {
+            $sequence[] = 'CommitPreRelease';
+        }
+
+        if ($this->_doTask('tag')) {
+            $sequence[] = 'TagRelease';
+        }
+
+        if ($this->_doTask('announce')) {
+            $sequence[] = 'Announce';
+        }
+
+        if ($this->_doTask('bugs')) {
+            $sequence[] = 'Bugs';
+        }
+
+        if ($this->_doTask('freshmeat')) {
+            $sequence[] = 'Freshmeat';
+        }
+
+        if ($this->_doTask('next')) {
+            $sequence[] = 'NextVersion';
+        }
+        if ($this->_doTask('nextsentinel')) {
+            $sequence[] = 'NextSentinel';
+        }
+        if (($this->_doTask('next') || $this->_doTask('nextsentinel')) &&
+            $this->_doTask('commit')) {
+            $sequence[] = 'CommitPostRelease';
+        }
+
+        if (!empty($sequence)) {
+            $this->_release->run($sequence, $package, $options);
+        } else {
+            $this->_output->warn('Huh?! No tasks selected... All done!');
+        }
+    }
+
+    /**
+     * Did the user activate the given task?
+     *
+     * @param string $task The task name.
+     *
+     * @return boolean True if the task is active.
+     */
+    private function _doTask($task)
+    {
+        $arguments = $this->_config->getArguments();
+        if ((count($arguments) == 1 && $arguments[0] == 'release')
+            || in_array($task, $arguments)) {
+            return true;
+        }
+        return false;
     }
 }

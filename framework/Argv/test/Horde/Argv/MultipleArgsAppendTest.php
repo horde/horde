@@ -15,6 +15,7 @@ class Horde_Argv_MultipleArgsAppendTest extends Horde_Argv_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $this->parser = new Horde_Argv_InterceptingParser(array('usage' => Horde_Argv_Option::SUPPRESS_USAGE));
         $this->parser->addOption("-p", "--point", array(
             'action' => "store", 'nargs' => 3, 'type' => 'float', 'dest' => 'point'));

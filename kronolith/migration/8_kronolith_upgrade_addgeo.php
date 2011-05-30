@@ -21,7 +21,7 @@ class KronolithUpgradeAddGeo extends Horde_Db_Migration_Base
     {
         $tableList = $this->tables();
         if (!in_array('kronolith_events_geo', $tableList)) {
-            $t = $this->createTable('kronolith_events_geo', array('primaryKey' => false));
+            $t = $this->createTable('kronolith_events_geo', array('autoincrementKey' => false));
             $t->column('event_id', 'string', array('limit' => 32, 'null' => false));
             $t->column('event_lat', 'string', array('limit' => 32, 'null' => false));
             $t->column('event_lon', 'string', array('limit' => 32, 'null' => false));

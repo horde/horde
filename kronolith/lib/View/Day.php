@@ -14,7 +14,7 @@ class Kronolith_View_Day extends Kronolith_Day
     public $span = array();
     public $totalspan = 0;
     public $sidebyside = false;
-    protected $_events = array();
+    public $events = array();
     protected $_event_matrix = array();
     protected $_parsed = false;
     protected $_currentCalendars = array();
@@ -50,28 +50,18 @@ class Kronolith_View_Day extends Kronolith_Day
                     new Horde_Date(array('year' => $this->year,
                                          'month' => $this->month,
                                          'mday' => $this->mday)));
-                $this->_events = array_shift($events);
+                $this->events = array_shift($events);
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e, 'horde.error');
-                $this->_events = array();
+                $this->events = array();
             }
         } else {
-            $this->_events = $events;
+            $this->events = $events;
         }
 
-        if (!is_array($this->_events)) {
-            $this->_events = array();
+        if (!is_array($this->events)) {
+            $this->events = array();
         }
-    }
-
-    /**
-     * Setter for events array
-     *
-     * @param array $events
-     */
-    public function setEvents(array $events)
-    {
-        $this->_events = $events;
     }
 
     public function html()
@@ -85,8 +75,8 @@ class Kronolith_View_Day extends Kronolith_Day
         $started = false;
         $first_row = true;
         $addLinks = Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
-            ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
-             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > Kronolith::countEvents());
+            ($GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') === true ||
+             $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') > Kronolith::countEvents());
         $showLocation = Kronolith::viewShowLocation();
         $showTime = Kronolith::viewShowTime();
 
@@ -181,7 +171,7 @@ class Kronolith_View_Day extends Kronolith_Day
             foreach (array_keys($this->_currentCalendars) as $cid) {
                 $hspan = 0;
                 foreach ($this->_event_matrix[$cid][$i] as $key) {
-                    $event = &$this->_events[$key];
+                    $event = &$this->events[$key];
 
                     // Since we've made sure that this event's overlap is a
                     // factor of the total span, we get this event's
@@ -310,7 +300,7 @@ class Kronolith_View_Day extends Kronolith_Day
             $this->all_day_rowspan[$cid] = 0;
         }
 
-        foreach ($this->_events as $key => $event) {
+        foreach ($this->events as $key => $event) {
             // If we have side_by_side we only want to include the
             // event in the proper calendar.
             if ($this->sidebyside) {
@@ -335,7 +325,7 @@ class Kronolith_View_Day extends Kronolith_Day
                 $tmp[] = clone $event;
             }
         }
-        $this->_events = $tmp;
+        $this->events = $tmp;
 
         // Initialize the set of different rowspans needed.
         $spans = array(1 => true);
@@ -365,7 +355,7 @@ class Kronolith_View_Day extends Kronolith_Day
             $end->min += $this->slotLength;
 
             // Search through our events.
-            foreach ($this->_events as $key => $event) {
+            foreach ($this->events as $key => $event) {
                 // If we have side_by_side we only want to include the
                 // event in the proper calendar.
                 if ($this->sidebyside) {
@@ -402,7 +392,7 @@ class Kronolith_View_Day extends Kronolith_Day
                         $this->_event_matrix[$cid][$i][] = $key;
 
                         // Increment the event's vertical span.
-                        ++$this->_events[$key]->rowspan;
+                        ++$this->events[$key]->rowspan;
                     }
                 }
             }
@@ -413,8 +403,8 @@ class Kronolith_View_Day extends Kronolith_Day
                 $max = 0;
                 $count = count($this->_event_matrix[$cid][$i]);
                 foreach ($this->_event_matrix[$cid][$i] as $ev) {
-                    $this->_events[$ev]->overlap = max($this->_events[$ev]->overlap, $count);
-                    $max = max($max, $this->_events[$ev]->overlap);
+                    $this->events[$ev]->overlap = max($this->events[$ev]->overlap, $count);
+                    $max = max($max, $this->events[$ev]->overlap);
                 }
 
                 // Update the set of rowspans to include the value for
@@ -486,8 +476,8 @@ class Kronolith_View_Day extends Kronolith_Day
 
     protected function _sortByStart($evA, $evB)
     {
-        $sA = $this->_events[$evA]->start;
-        $sB = $this->_events[$evB]->start;
+        $sA = $this->events[$evA]->start;
+        $sB = $this->events[$evB]->start;
 
         return $sB->compareTime($sA);
     }

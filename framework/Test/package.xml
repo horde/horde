@@ -10,19 +10,25 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:51:11</time>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-05-20</date>
+ <time>07:38:01</time>
  <version>
-  <release>1.0.0beta1</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* [gwr] Added test case for log output.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -34,9 +40,12 @@
        <file name="Parser.php" role="php" />
       </dir> <!-- //lib/Horde/Test/Stub -->
       <file name="AllTests.php" role="php" />
+      <file name="Application.php" role="php" />
       <file name="Autoload.php" role="php" />
       <file name="Case.php" role="php" />
+      <file name="Exception.php" role="php" />
       <file name="Functional.php" role="php" />
+      <file name="Log.php" role="php" />
      </dir> <!-- //lib/Horde/Test -->
     </dir> <!-- //lib/Horde -->
    </dir> <!-- //lib -->
@@ -51,18 +60,57 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>Horde_Support</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>PHPUnit</name>
     <channel>pear.phpunit.de</channel>
     <min>3.5.0</min>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Cli</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Log</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <extension>
+    <name>dom</name>
+   </extension>
+   <extension>
+    <name>json</name>
+   </extension>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
    <install as="Horde/Test/AllTests.php" name="lib/Horde/Test/AllTests.php" />
+   <install as="Horde/Test/Application.php" name="lib/Horde/Test/Application.php" />
    <install as="Horde/Test/Autoload.php" name="lib/Horde/Test/Autoload.php" />
    <install as="Horde/Test/Case.php" name="lib/Horde/Test/Case.php" />
+   <install as="Horde/Test/Exception.php" name="lib/Horde/Test/Exception.php" />
    <install as="Horde/Test/Functional.php" name="lib/Horde/Test/Functional.php" />
+   <install as="Horde/Test/Log.php" name="lib/Horde/Test/Log.php" />
    <install as="Horde/Test/Stub/Cli.php" name="lib/Horde/Test/Stub/Cli.php" />
    <install as="Horde/Test/Stub/Parser.php" name="lib/Horde/Test/Stub/Parser.php" />
   </filelist>
@@ -81,6 +129,79 @@
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-16</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First beta release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-23</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Second release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First stable release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-20</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [gwr] Added test case for log output.
    </notes>
   </release>
  </changelog>

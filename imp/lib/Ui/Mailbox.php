@@ -54,10 +54,10 @@ class IMP_Ui_Mailbox
      *
      * @return array  An array of information:
      * <pre>
-     * 'error' - (boolean)
-     * 'from' - (string)
-     * 'fullfrom' - (string)
-     * 'to' - (boolean)
+     * 'error' - (boolean) True on error.
+     * 'from' - (string) The personal part of the From address.
+     * 'fullfrom' - (string) The full From address.
+     * 'to' - (boolean) True if this is who the message was sent to.
      * </pre>
      */
     public function getFrom($ob, $options = array())
@@ -231,19 +231,6 @@ class IMP_Ui_Mailbox
         }
 
         return empty($new_subject) ? $subject : $new_subject;
-    }
-
-    /**
-     * Determines if a message is a draft and can be resumed.
-     *
-     * @param array $flags  The list of IMAP flags.
-     *
-     * @return boolean  True if the message is a draft.
-     */
-    public function isDraft($flags = array())
-    {
-        return (in_array(Horde_Imap_Client::FLAG_DRAFT, $flags) ||
-                $this->_mailbox->drafts);
     }
 
 }

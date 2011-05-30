@@ -23,13 +23,6 @@ class Turba_Driver_Ldap extends Turba_Driver
     protected $_ds = 0;
 
     /**
-     * Schema object.
-     *
-     * @var Net_LDAP_Schema
-     */
-    protected $_schema;
-
-    /**
      * Cache _getSyntax() calls.
      *
      * @var array
@@ -193,7 +186,7 @@ class Turba_Driver_Ldap extends Turba_Driver
             : 'ldap_search';
 
         if (!($res = @$func($this->_ds, $this->_params['root'], $filter, $attr, 0, $sizelimit))) {
-            throw Turba_Exception(sprintf(_("Query failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
+            throw new Turba_Exception(sprintf(_("Query failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
         }
 
         return $this->_getResults($fields, $res);
@@ -619,26 +612,26 @@ class Turba_Driver_Ldap extends Turba_Driver
      */
     protected function _checkRequiredAttributes(array $objectclasses)
     {
-       $retval = array();
-       $schema = $this->_ldap->schema();
+        $ldap = new Horde_Ldap($this->_convertParameters($this->_params));
+        $schema = $ldap->schema();
 
-       foreach ($objectclasses as $oc) {
-           if (Horde_String::lower($oc) == 'top') {
-               continue;
-           }
+        $retval = array();
+        foreach ($objectclasses as $oc) {
+            if (Horde_String::lower($oc) == 'top') {
+                continue;
+            }
 
-           $required = $schema->must($oc);
+            $required = $schema->must($oc, true);
+            if (is_array($required)) {
+                foreach ($required as $v) {
+                    if ($this->_isString($v)) {
+                        $retval[] = Horde_String::lower($v);
+                    }
+                }
+            }
+        }
 
-           if (is_array($required)) {
-               foreach ($required as $v) {
-                   if ($this->_isString($v)) {
-                       $retval[] = Horde_String::lower($v);
-                   }
-               }
-           }
-       }
-
-       return $retval;
+        return $retval;
     }
 
     /**
@@ -695,7 +688,8 @@ class Turba_Driver_Ldap extends Turba_Driver
      */
     protected function _getSyntax($att)
     {
-        $schema = $this->_ldap->schema();
+        $ldap = new Horde_Ldap($this->_convertParameters($this->_params));
+        $schema = $ldap->schema();
 
         if (!isset($this->_syntaxCache[$att])) {
             $attv = $schema->get('attribute', $att);
@@ -707,4 +701,41 @@ class Turba_Driver_Ldap extends Turba_Driver
         return $this->_syntaxCache[$att];
     }
 
+    /**
+     * Converts Turba connection parameter so Horde_Ldap parameters.
+     *
+     * @param array $in  Turba parameters.
+     *
+     * @return array  Horde_Ldap parameters.
+     */
+    protected function _convertParameters(array $in)
+    {
+        $map = array(
+            'server' => 'hostspec',
+            'port' => 'port',
+            'tls' => 'tls',
+            'version' => 'version',
+            'root' => 'basedn',
+            'bind_dn' => 'binddn',
+            'bind_password' => 'bindpw',
+            // can both be specified in Turba but only one in Horde_Ldap.
+            //'objectclass',
+            //'filter' => 'filter',
+            'scope' => 'scope',
+            // charset is always utf-8
+            //'charset',
+            // Not yet implemented.
+            //'deref',
+            //'referrals',
+            //'sizelimit',
+            //'dn',
+        );
+        $out = array();
+        foreach ($in as $key => $value) {
+            if (isset($map[$key])) {
+                $out[$map[$key]] = $value;
+            }
+        }
+        return $out;
+    }
 }

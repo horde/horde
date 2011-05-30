@@ -1401,7 +1401,7 @@ class Horde_Form_Type_email extends Horde_Form_Type {
      * @param boolean $link_compose  Link the email address to the compose page
      *                               when displaying?
      * @param string $link_name      The name to use when linking to the
-                                     compose page.
+     *                               compose page.
      * @param string $delimiters     Character to split multiple addresses with.
      */
     function init($allow_multi = false, $strip_domain = false,
@@ -2470,31 +2470,18 @@ class Horde_Form_Type_date extends Horde_Form_Type {
     {
         if ($date === null) {
             return '';
-        } elseif (!is_array($date)) {
-            /* Date is not array, so assume timestamp. Work out the component
-             * parts using date(). */
-            $date = array('day'   => date('j', $date),
-                          'month' => date('n', $date),
-                          'year'  => date('Y', $date));
         }
 
-        $diffdays = Date_Calc::dateDiff((int)$date['day'],
-                                        (int)$date['month'],
-                                        (int)$date['year'],
-                                        date('j'), date('n'), date('Y'));
-
-        /* An error occured. */
-        if ($diffdays == -1) {
-            return;
+        try {
+            $today = new Horde_Date(time());
+            $date = new Horde_Date($date);
+            $ago = $date->toDays() - $today->toDays();
+        } catch (Horde_Date_Exception $e) {
+            return '';
         }
 
-        $ago = $diffdays * Date_Calc::compareDates((int)$date['day'],
-                                                   (int)$date['month'],
-                                                   (int)$date['year'],
-                                                   date('j'), date('n'),
-                                                   date('Y'));
         if ($ago < -1) {
-            return sprintf(Horde_Form_Translation::t(" (%s days ago)"), $diffdays);
+            return sprintf(Horde_Form_Translation::t(" (%s days ago)"), abs($ago));
         } elseif ($ago == -1) {
             return Horde_Form_Translation::t(" (yesterday)");
         } elseif ($ago == 0) {
@@ -2502,7 +2489,7 @@ class Horde_Form_Type_date extends Horde_Form_Type {
         } elseif ($ago == 1) {
             return Horde_Form_Translation::t(" (tomorrow)");
         } else {
-            return sprintf(Horde_Form_Translation::t(" (in %s days)"), $diffdays);
+            return sprintf(Horde_Form_Translation::t(" (in %s days)"), $ago);
         }
     }
 
@@ -2605,7 +2592,7 @@ class Horde_Form_Type_hourminutesecond extends Horde_Form_Type {
      *                         YYYY-MM-DD HH:MM:SS, timestamp YYYYMMDDHHMMSS and
      *                         UNIX epoch).
      *
-     * @return Date  The time object.
+     * @return Horde_Date  The time object.
      */
     function getTimeOb($time_in)
     {
@@ -2852,7 +2839,7 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type {
      *                         YYYY-MM-DD HH:MM:SS, timestamp YYYYMMDDHHMMSS
      *                         and UNIX epoch) plus the fourth YYYY-MM-DD.
      *
-     * @return Date  The date object.
+     * @return Horde_Date  The date object.
      */
     function getDateOb($date_in)
     {
@@ -2886,7 +2873,7 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type {
      */
     function formatDate($date)
     {
-        if (!is_a($date, 'Date')) {
+        if (!($date instanceof Horde_Date)) {
             $date = $this->getDateOb($date);
         }
 
@@ -3582,25 +3569,13 @@ class Horde_Form_Type_obrowser extends Horde_Form_Type {
 
 class Horde_Form_Type_dblookup extends Horde_Form_Type_enum {
 
-    function init($dsn, $sql, $prompt = null)
+    function init($db, $sql, $prompt = null)
     {
         $values = array();
-        $db = DB::connect($dsn);
-        if (!($db instanceof PEAR_Error)) {
-            // Set DB portability options.
-            switch ($db->phptype) {
-            case 'mssql':
-                $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-
-            default:
-                $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-
-            $col = $db->getCol($sql);
-            if (!($col instanceof PEAR_Error)) {
-                $values = array_combine($col, $col);
-            }
+        try {
+            $col = $db->selectValues($sql);
+            $values = array_combine($col, $col);
+        } catch (Horde_Db_Exception $e) {
         }
         parent::init($values, $prompt);
     }

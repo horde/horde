@@ -38,7 +38,7 @@ class Horde_Form {
     protected $_enctype = null;
     public $_help = false;
 
-    function Horde_Form(&$vars, $title = '', $name = null, $params = array())
+    function Horde_Form(&$vars, $title = '', $name = null)
     {
         if (empty($name)) {
             $name = Horde_String::lower(get_class($this));
@@ -252,7 +252,7 @@ class Horde_Form {
                   $var->getTypeName() == 'image') {
             $this->_enctype = 'multipart/form-data';
         }
-        if (empty($this->_currentSection)) {
+        if (empty($this->_currentSection) && $this->_currentSection !== 0) {
             $this->_currentSection = '__base';
         }
 

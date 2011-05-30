@@ -22,14 +22,14 @@ class Passwd_Driver {
      *
      * @var array
      */
-    var $_params = array();
+    public $_params = array();
 
     /**
      * Error string that will be returned to the user if an error occurs.
      *
      * @var string
      */
-    var $_errorstr;
+    public $_errorstr;
 
     /**
      * Constructs a new expect Passwd_Driver object.
@@ -58,7 +58,7 @@ class Passwd_Driver {
             $encryption = $this->_params['encryption'];
         }
 
-        $hashed = Auth::getCryptedPassword($plaintext,
+        $hashed = Horde_Auth::getCryptedPassword($plaintext,
                                            $encrypted,
                                            $encryption,
                                            false);
@@ -81,7 +81,7 @@ class Passwd_Driver {
      */
     function encryptPassword($plaintext)
     {
-        return Auth::getCryptedPassword($plaintext,
+        return Horde_Auth::getCryptedPassword($plaintext,
                                         '',
                                         $this->_params['encryption'],
                                         $this->_params['show_encryption']);

@@ -37,6 +37,8 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
      * 'onload' - (boolean) [OPTIONAL] If set, will trigger action on page
      *            load.
      * 'params' - (array) [OPTIONAL] Any additional parameters to pass.
+     * 'reloadurl' - (Horde_Url) [OPTIONAL] Reload using this URL instead of
+     *               refreshing the page.
      * 'type' - (string) The dialog type.
      * </pre>
      */
@@ -89,6 +91,10 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
             'type' => $this->_params['type'],
             'uri' => strval($this->_getUrl('PassphraseDialog', 'imp', array('sessionWrite' => 1)))
         );
+
+        if (isset($this->_params['reloadurl'])) {
+            $js_params['reloadurl'] = strval($this->_params['reloadurl']);
+        }
 
         Horde::addScriptFile('effects.js', 'horde');
         Horde::addScriptFile('redbox.js', 'horde');

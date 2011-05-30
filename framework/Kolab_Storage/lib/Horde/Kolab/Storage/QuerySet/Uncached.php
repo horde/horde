@@ -36,7 +36,8 @@ extends Horde_Kolab_Storage_QuerySet_Base
     protected $_class_map = array(
         Horde_Kolab_Storage_List::QUERY_SHARE => 'Horde_Kolab_Storage_List_Query_Share_Base',
         Horde_Kolab_Storage_List::QUERY_BASE => 'Horde_Kolab_Storage_List_Query_List_Base',
-        Horde_Kolab_Storage_List::QUERY_ACL => 'Horde_Kolab_Storage_List_Query_Acl_Base'
+        Horde_Kolab_Storage_List::QUERY_ACL => 'Horde_Kolab_Storage_List_Query_Acl_Base',
+        Horde_Kolab_Storage_Data::QUERY_PREFS => 'Horde_Kolab_Storage_Data_Query_Preferences_Base',
     );
 
     /**
@@ -47,6 +48,17 @@ extends Horde_Kolab_Storage_QuerySet_Base
      * @return array The parameters for list queries.
      */
     protected function _getListQueryParameters(Horde_Kolab_Storage_List $list) {
+        return array();
+    }
+
+    /**
+     * Fetch any additional parameters required when creating data queries.
+     *
+     * @param Horde_Kolab_Storage_Data $data   The data.
+     *
+     * @return array The parameters for data queries.
+     */
+    protected function _getDataQueryParameters(Horde_Kolab_Storage_Data $data) {
         return array();
     }
 }

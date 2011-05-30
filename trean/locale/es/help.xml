@@ -1,8 +1,8 @@
-<?xml version='1.0'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Horde: trean/locale/es_ES/help.xml,v 1.1 2008/03/21 00:28:28 jan Exp $ -->
 <help>
 
-<entry id="Overview">
+<entry id="Overview" md5="874d0785840aa202c81187da4d7e8043" state="uptodate">
     <title>Introducción</title>
     <heading>Introducción</heading>
     <para>La aplicación de marcadores le permite almacenar, organizar, gestionar y lo que es más importante, acceder a los marcadores de su navegador en línea y desde un único sitio accesible desde cualquier navegador y lugar.</para>

@@ -94,7 +94,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
     {
         try {
             $dom = new Horde_Domhtml($text, $this->_params['charset']);
-            $text = Horde_String::convertCharset($this->_node($dom->dom, $dom->dom), null, $this->_params['charset']);
+            $text = Horde_String::convertCharset($this->_node($dom->dom, $dom->dom), 'UTF-8', $this->_params['charset']);
             $dom_convert = true;
         } catch (Exception $e) {
             $text = strip_tags(preg_replace("/\<br\s*\/?\>/i", "\n", $text));

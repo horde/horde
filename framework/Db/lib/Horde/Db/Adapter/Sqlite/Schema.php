@@ -85,7 +85,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     public function nativeDatabaseTypes()
     {
         return array(
-            'primaryKey' => $this->_defaultPrimaryKeyType(),
+            'autoincrementKey' => $this->_defaultPrimaryKeyType(),
             'string'     => array('name' => 'varchar',  'limit' => 255),
             'text'       => array('name' => 'text',     'limit' => null),
             'integer'    => array('name' => 'int',      'limit' => null),
@@ -287,7 +287,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     {
         $this->_clearTableCache($tableName);
 
-        $defs = array(sprintf('$definition["%s"]->setType("%s"); if ("%s" == "primaryKey") $definition->primaryKey(false);', $columnName, $type, $type));
+        $defs = array(sprintf('$definition["%s"]->setType("%s"); if ("%s" == "autoincrementKey") $definition->primaryKey(false);', $columnName, $type, $type));
         if (isset($options['limit'])) {
             $defs[] = sprintf('$definition["%s"]->setLimit("%s");', $columnName, $options['limit']);
         }
@@ -409,7 +409,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         $pk = $this->primaryKey($from);
         if ($pk && count($pk->columns) == 1) {
             /* A primary key is not necessarily what matches the pseudo type
-             * "primaryKey". We need to parse the table definition to find out
+             * "autoincrementKey". We need to parse the table definition to find out
              * if the column is AUTOINCREMENT too. */
             $tableDefinition = $this->selectValue('SELECT sql FROM sqlite_master WHERE name = ? UNION ALL SELECT sql FROM sqlite_temp_master WHERE name = ?',
                                                   array($from, $from));
@@ -421,7 +421,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         } else {
             $pkColumn = null;
         }
-        $options = array_merge($options, array('primaryKey' => false));
+        $options = array_merge($options, array('autoincrementKey' => false));
 
         $copyPk = true;
         $definition = $this->createTable($to, $options);
@@ -430,10 +430,10 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
                 ? $options['rename'][$column->getName()]
                 : $column->getName();
             $columnType = $column->getName() == $pkColumn
-                ? 'primaryKey'
+                ? 'autoincrementKey'
                 : $column->getType();
 
-            if ($columnType == 'primaryKey') {
+            if ($columnType == 'autoincrementKey') {
                 $copyPk = false;
             }
             $definition->column($columnName, $columnType,

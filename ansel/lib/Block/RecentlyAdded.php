@@ -46,11 +46,14 @@ class Ansel_Block_Recentlyadded extends Horde_Core_Block
         );
 
         if (empty($GLOBALS['conf']['gallery']['listlimit']) ||
-            ($GLOBALS['injector']->getInstance('Ansel_Storage')->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit'])) {
+            ($GLOBALS['injector']->getInstance('Ansel_Storage')
+                ->countGalleries(
+                    $GLOBALS['registry']->getAuth(),
+                    array('perm' => Horde_Perms::READ)) < $GLOBALS['conf']['gallery']['listlimit'])) {
 
             foreach ($GLOBALS['injector']->getInstance('Ansel_Storage')->listGalleries(array('perm' => Horde_Perms::READ)) as $gal) {
                 if (!$gal->hasPasswd() && $gal->isOldEnough()) {
-                    $params['gallery']['values'][$gal->getId()] = $gal->get('name');
+                    $params['gallery']['values'][$gal->id] = $gal->get('name');
                 }
             }
         }

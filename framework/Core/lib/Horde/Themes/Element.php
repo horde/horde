@@ -11,6 +11,10 @@
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @package  Core
+ *
+ * @property $fs  (string) Filesystem location.
+ * @property $fulluri  (Horde_Url) Full URI.
+ * @property $uri (string) Relative URI.
  */
 class Horde_Themes_Element
 {
@@ -99,16 +103,6 @@ class Horde_Themes_Element
     }
 
     /**
-     * Retrieve URI/filesystem path values.
-     *
-     * @param string $name  One of:
-     * <pre>
-     * 'fs' - (string) Filesystem location.
-     * 'fulluri' - (Horde_Url) Full URI.
-     * 'uri' - (string) Relative URI.
-     * </pre>
-     *
-     * @return string  The requested value.
      */
     public function __get($name)
     {

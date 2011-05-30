@@ -29,9 +29,9 @@ Horde_Registry::appInit('imp', array(
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Make sure we have a valid index. */
-$imp_mailbox = IMP::$mailbox->getListOb(new IMP_Indices(IMP::$thismailbox, IMP::$uid));
+$imp_mailbox = IMP::$mailbox->getListOb(IMP::$thismailbox->getIndicesOb(IMP::$uid));
 if (!$imp_mailbox->isValidIndex()) {
-    IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox)->add('a', 'm')->redirect();
+    IMP::$mailbox->url('mailbox-mimp.php')->add('a', 'm')->redirect();
 }
 
 $readonly = IMP::$mailbox->readonly;
@@ -47,9 +47,6 @@ switch ($vars->a) {
 // 'u' = undelete message
 case 'd':
 case 'u':
-    if ($readonly) {
-        break;
-    }
     $msg_index = $imp_mailbox->getMessageIndex();
     $imp_indices = new IMP_Indices($imp_mailbox);
     $imp_message = $injector->getInstance('IMP_Message');
@@ -87,7 +84,7 @@ if ($msg_delete && $imp_ui->moveAfterAction()) {
  * case. */
 if (!$imp_mailbox->isValidIndex() ||
     ($msg_delete && $prefs->getValue('mailbox_return'))) {
-    IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox)->add('s', $msg_index)->redirect();
+    IMP::$mailbox->url('mailbox-mimp.php')->add('s', $msg_index)->redirect();
 }
 
 /* Now that we are done processing the messages, get the index and
@@ -98,11 +95,13 @@ $uid = $index_ob['uid'];
 
 /* Get envelope/flag/header information. */
 try {
+    $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+
     /* Need to fetch flags before HEADERTEXT, because SEEN flag might be set
      * before we can grab it. */
     $query = new Horde_Imap_Client_Fetch_Query();
     $query->flags();
-    $flags_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox, $query, array(
+    $flags_ret = $imp_imap->fetch($mailbox, $query, array(
         'ids' => new Horde_Imap_Client_Ids($uid)
     ));
 
@@ -111,23 +110,22 @@ try {
     $query->headerText(array(
         'peek' => $readonly
     ));
-    $fetch_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox, $query, array(
+    $fetch_ret = $imp_imap->fetch($mailbox, $query, array(
         'ids' => new Horde_Imap_Client_Ids($uid)
     ));
-} catch (Horde_Imap_Client_Exception $e) {
-    IMP::generateIMPUrl('mailbox-mimp.php', $mailbox)->add('a', 'm')->redirect();
+} catch (IMP_Imap_Exception $e) {
+    $mailbox->url('mailbox-mimp.php')->add('a', 'm')->redirect();
 }
 
 $envelope = $fetch_ret[$uid]->getEnvelope();
 $flags = $flags_ret[$uid]->getFlags();
 $mime_headers = $fetch_ret[$uid]->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_PARSE);
-$use_pop = ($session->get('imp', 'protocol') == 'pop');
 
 /* Parse the message. */
 try {
     $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imp_mailbox));
 } catch (IMP_Exception $e) {
-    IMP::generateIMPUrl('mailbox-mimp.php', $mailbox)->add('a', 'm')->redirect();
+    $mailbox->url('mailbox-mimp.php')->add('a', 'm')->redirect();
 }
 
 /* Get the starting index for the current message and the message count. */
@@ -135,8 +133,8 @@ $msgindex = $imp_mailbox->getMessageIndex();
 $msgcount = count($imp_mailbox);
 
 /* Generate the mailbox link. */
-$mailbox_link = IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox)->add('s', $msgindex);
-$self_link = IMP::generateIMPUrl('message-mimp.php', IMP::$mailbox, $uid, $mailbox);
+$mailbox_link = IMP::$mailbox->url('mailbox-mimp.php')->add('s', $msgindex);
+$self_link = IMP::$mailbox->url('message-mimp.php', $uid, $mailbox);
 
 /* Initialize Horde_Template. */
 $t = $injector->createInstance('Horde_Template');
@@ -238,7 +236,7 @@ foreach ($flag_parse as $val) {
 }
 
 /* Create the body of the message. */
-$inlineout = $imp_ui->getInlineOutput($imp_contents, array(
+$inlineout = $imp_contents->getInlineOutput(array(
     'display_mask' => IMP_Contents::RENDER_INLINE,
     'no_inline_all' => !$prefs->getValue('mimp_inline_all'),
     'sep' => '<br /><hr />'
@@ -263,7 +261,7 @@ $compose_params = array(
 );
 
 $menu = array();
-if (!$readonly) {
+if (IMP::$mailbox->access_deletemsgs) {
     $menu[] = in_array(Horde_Imap_Client::FLAG_DELETED, $flags)
         ? array(_("Undelete"), $self_link->copy()->add('a', 'u'))
         : array(_("Delete"), $self_link->copy()->add(array('a' => 'd', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
@@ -287,10 +285,10 @@ if (IMP::canCompose()) {
 
 /* Generate previous/next links. */
 if ($prev_msg = $imp_mailbox->getIMAPIndex(-1)) {
-    $menu[] = array(_("Previous Message"), IMP::generateIMPUrl('message-mimp.php', IMP::$mailbox, $prev_msg['uid'], $prev_msg['mailbox']));
+    $menu[] = array(_("Previous Message"), IMP::$mailbox->url('message-mimp.php', $prev_msg['uid'], $prev_msg['mailbox']));
 }
 if ($next_msg = $imp_mailbox->getIMAPIndex(1)) {
-    $menu[] = array(_("Next Message"), IMP::generateIMPUrl('message-mimp.php', IMP::$mailbox, $next_msg['uid'], $next_msg['mailbox']));
+    $menu[] = array(_("Next Message"), IMP::$mailbox->url('message-mimp.php', $next_msg['uid'], $next_msg['mailbox']));
 }
 
 $menu[] = array(sprintf(_("To %s"), IMP::$mailbox->label), $mailbox_link);

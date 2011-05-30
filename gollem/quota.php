@@ -47,7 +47,7 @@ if ($gollem_be['quota_val'] > -1) {
             $template->set('quotastyle', '<div>');
         }
         $template->set('quotadisplay', sprintf(_("%.2fMB / %.2fMB  (%.2f%%)"), $usage, $limit, $percent), true);
-    } catch (VFS_Exception $e) {
+    } catch (Horde_Vfs_Exception $e) {
         $template->set('quotaerror', true, true);
         $template->set('quotaerrormsg', $e->getMessage());
     }

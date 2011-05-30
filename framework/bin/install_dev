@@ -175,6 +175,9 @@ function link_app($app)
 print "\nLINKING applications to web directory " . $web_dir . "\n";
 if ($apps) {
     foreach ($apps as $app) {
+        if ($app == 'horde') {
+            continue;
+        }
         if (file_exists($horde_git . '/' . $app)) {
             link_app($app);
         }

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Token \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/Token/Base.php:195
+#: lib/Horde/Token/Base.php:187
 msgid "This token has been used before!"
 msgstr ""
 
-#: lib/Horde/Token/Base.php:171
+#: lib/Horde/Token/Base.php:182
+msgid "This token is invalid!"
+msgstr ""
+
+#: lib/Horde/Token/Base.php:159
 msgid ""
 "We cannot verify that this request was really sent by you. It could be a "
 "malicious request. If you intended to perform this action, you can retry it "

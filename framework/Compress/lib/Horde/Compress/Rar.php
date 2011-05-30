@@ -1,18 +1,24 @@
 <?php
 /**
- * The Horde_Compress_Rar class allows rar files to be read.
+ * This class allows rar files to be read.
  *
  * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Cochrane <mike@graftonhall.co.nz>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Compress
+ * @author   Michael Cochrane <mike@graftonhall.co.nz>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Compress
  */
-class Horde_Compress_Rar extends Horde_Compress
+class Horde_Compress_Rar extends Horde_Compress_Base
 {
+    /**
+     */
+    public $canDecompress = true;
+
     /**
      * Rar compression methods
      *
@@ -28,30 +34,25 @@ class Horde_Compress_Rar extends Horde_Compress
     );
 
     /**
-     * Decompress a rar file and get information from it.
-     *
-     * @param string $data   The rar file data.
-     * @param array $params  The parameter array (Unused).
-     *
-     * @return array  The uncompressed data:
+     * @return array  Info on the compressed file:
      * <pre>
      * KEY: Position in RAR archive
      * VALUES:
-     *   'attr'    --  File attributes
-     *   'date'    --  File modification time
-     *   'csize'   --  Compressed file size
-     *   'method'  --  Compression method
-     *   'name'    --  Filename
-     *   'size'    --  Original file size
+     *   attr - File attributes
+     *   date - File modification time
+     *   csize - Compressed file size
+     *   method - Compression method
+     *   name - Filename
+     *   size - Original file size
      * </pre>
      *
-     * @throws Horde_Exception
+     * @throws Horde_Compress_Exception
      */
-    public function decompress($data, $params = array())
+    public function decompress($data, array $params = array())
     {
         $blockStart = strpos($data, "\x52\x61\x72\x21\x1a\x07\x00");
         if ($blockStart === false) {
-            throw new Horde_Exception(Horde_Compress_Translation::t("Invalid RAR data."));
+            throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid RAR data."));
         }
 
         $data_len = strlen($data);

@@ -39,6 +39,38 @@ interface Components_Dependencies
     public function initConfig(Components_Config $config);
 
     /**
+     * Set the list of modules.
+     *
+     * @param Horde_Cli_Modular $modules The list of modules.
+     *
+     * @return NULL
+     */
+    public function setModules(Horde_Cli_Modular $modules);
+
+    /**
+     * Return the list of modules.
+     *
+     * @retunr Horde_Cli_Modular The list of modules.
+     */
+    public function getModules();
+
+    /**
+     * Set the CLI parser.
+     *
+     * @param Horde_Argv_Parser $parser The parser.
+     *
+     * @return NULL
+     */
+    public function setParser($parser);
+
+    /**
+     * Return the CLI parser.
+     *
+     * @retunr Horde_Argv_Parser The parser.
+     */
+    public function getParser();
+
+    /**
      * Returns the continuous integration setup handler.
      *
      * @return Components_Runner_CiSetup The CI setup handler.
@@ -58,6 +90,13 @@ interface Components_Dependencies
      * @return Components_Runner_Release The release handler.
      */
     public function getRunnerRelease();
+
+    /**
+     * Returns the change log handler for a package.
+     *
+     * @return Components_Runner_Change The change log handler.
+     */
+    public function getRunnerChange();
 
     /**
      * Returns the snapshot packaging handler for a package.
@@ -90,9 +129,16 @@ interface Components_Dependencies
     /**
      * Returns the package XML handler for a package.
      *
-     * @return Components_Runner_PearPackageXml The package XML handler.
+     * @return Components_Runner_Update The package XML handler.
      */
-    public function getRunnerPearPackageXml();
+    public function getRunnerUpdate();
+
+    /**
+     * Returns the release tasks handler.
+     *
+     * @return Components_Release_Tasks The release tasks handler.
+     */
+    public function getReleaseTasks();
 
     /**
      * Returns the output handler.

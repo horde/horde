@@ -11,31 +11,22 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
-  <name>Jan Schneider</name>
-  <user>jan</user>
-  <email>jan@horde.org</email>
-  <active>yes</active>
- </lead>
- <date>2011-03-08</date>
- <time>23:47:24</time>
+ <date>2011-05-20</date>
+ <time>05:28:34</time>
  <version>
-  <release>1.0.0beta1</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* [gwr] Added preference data query.
+* [gwr] Added support for storing data query results in the cache.
+* [gwr] Added support for deleting messages by backend UID.
+* [jan] Updated Spanish translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -67,17 +58,23 @@
         <file name="List.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/Cache -->
        <dir name="Data">
-        <dir name="Decorator">
-         <file name="Cache.php" role="php" />
-        </dir> <!-- /lib/Horde/Kolab/Storage/Data/Decorator -->
         <dir name="Format">
          <file name="Mime.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Storage/Data/Format -->
         <dir name="Parser">
          <file name="Structure.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Storage/Data/Parser -->
+        <dir name="Query">
+         <dir name="Preferences">
+          <file name="Base.php" role="php" />
+          <file name="Cache.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Storage/Data/Query/Preferences -->
+         <file name="Preferences.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Storage/Data/Query -->
         <file name="Base.php" role="php" />
+        <file name="Cached.php" role="php" />
         <file name="Format.php" role="php" />
+        <file name="Modifiable.php" role="php" />
         <file name="Old.php" role="php" />
         <file name="Parser.php" role="php" />
         <file name="Query.php" role="php" />
@@ -450,8 +447,14 @@
      <dir name="Kolab">
       <dir name="Storage">
        <dir name="fixtures">
+        <file name="broken_note.eml" role="test" />
+        <file name="event.1.xml.qp" role="test" />
+        <file name="event.2.xml.qp" role="test" />
+        <file name="event.3.xml.qp" role="test" />
         <file name="event.struct" role="test" />
         <file name="event.xml.qp" role="test" />
+        <file name="preferences.1" role="test" />
+        <file name="preferences.2" role="test" />
        </dir> <!-- /test/Horde/Kolab/Storage/fixtures -->
        <dir name="Server">
         <file name="DriverTest.php" role="test" />
@@ -466,16 +469,20 @@
          <file name="ListTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Storage/Unit/Cache -->
         <dir name="Data">
-         <dir name="Decorator">
-          <file name="CacheTest.php" role="test" />
-         </dir> <!-- /test/Horde/Kolab/Storage/Unit/Data/Decorator -->
          <dir name="Format">
           <file name="MimeTest.php" role="test" />
          </dir> <!-- /test/Horde/Kolab/Storage/Unit/Data/Format -->
          <dir name="Parser">
           <file name="StructureTest.php" role="test" />
          </dir> <!-- /test/Horde/Kolab/Storage/Unit/Data/Parser -->
+         <dir name="Query">
+          <dir name="Preferences">
+           <file name="BaseTest.php" role="test" />
+           <file name="CacheTest.php" role="test" />
+          </dir> <!-- /test/Horde/Kolab/Storage/Unit/Data/Query/Preferences -->
+         </dir> <!-- /test/Horde/Kolab/Storage/Unit/Data/Query -->
          <file name="BaseTest.php" role="test" />
+         <file name="CachedTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Storage/Unit/Data -->
         <dir name="Decorator">
          <file name="LogTest.php" role="test" />
@@ -533,7 +540,6 @@
        <file name="AttachmentTest.php" role="test" />
        <file name="Autoload.php" role="test" />
        <file name="conf.php.dist" role="test" />
-       <file name="DataTest.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="Scenario.php" role="test" />
        <file name="TestCase.php" role="test" />
@@ -553,67 +559,71 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>Horde_Cache</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Kolab_Format</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Cache</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
   </required>
   <optional>
    <package>
+    <name>Horde_Imap_Client</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>HTTP_Request</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
     <name>Net_IMAP</name>
     <channel>pear.php.net</channel>
     <min>1.1.0</min>
-   </package>
-   <package>
-    <name>Horde_Imap_Client</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
    </package>
    <extension>
     <name>imap</name>
@@ -644,13 +654,17 @@
    <install as="Horde/Kolab/Storage/Cache/Data.php" name="lib/Horde/Kolab/Storage/Cache/Data.php" />
    <install as="Horde/Kolab/Storage/Cache/List.php" name="lib/Horde/Kolab/Storage/Cache/List.php" />
    <install as="Horde/Kolab/Storage/Data/Base.php" name="lib/Horde/Kolab/Storage/Data/Base.php" />
+   <install as="Horde/Kolab/Storage/Data/Cached.php" name="lib/Horde/Kolab/Storage/Data/Cached.php" />
    <install as="Horde/Kolab/Storage/Data/Format.php" name="lib/Horde/Kolab/Storage/Data/Format.php" />
+   <install as="Horde/Kolab/Storage/Data/Modifiable.php" name="lib/Horde/Kolab/Storage/Data/Modifiable.php" />
    <install as="Horde/Kolab/Storage/Data/Old.php" name="lib/Horde/Kolab/Storage/Data/Old.php" />
    <install as="Horde/Kolab/Storage/Data/Parser.php" name="lib/Horde/Kolab/Storage/Data/Parser.php" />
    <install as="Horde/Kolab/Storage/Data/Query.php" name="lib/Horde/Kolab/Storage/Data/Query.php" />
-   <install as="Horde/Kolab/Storage/Data/Decorator/Cache.php" name="lib/Horde/Kolab/Storage/Data/Decorator/Cache.php" />
    <install as="Horde/Kolab/Storage/Data/Format/Mime.php" name="lib/Horde/Kolab/Storage/Data/Format/Mime.php" />
    <install as="Horde/Kolab/Storage/Data/Parser/Structure.php" name="lib/Horde/Kolab/Storage/Data/Parser/Structure.php" />
+   <install as="Horde/Kolab/Storage/Data/Query/Preferences.php" name="lib/Horde/Kolab/Storage/Data/Query/Preferences.php" />
+   <install as="Horde/Kolab/Storage/Data/Query/Preferences/Base.php" name="lib/Horde/Kolab/Storage/Data/Query/Preferences/Base.php" />
+   <install as="Horde/Kolab/Storage/Data/Query/Preferences/Cache.php" name="lib/Horde/Kolab/Storage/Data/Query/Preferences/Cache.php" />
    <install as="Horde/Kolab/Storage/Decorator/Log.php" name="lib/Horde/Kolab/Storage/Decorator/Log.php" />
    <install as="Horde/Kolab/Storage/Decorator/Synchronization.php" name="lib/Horde/Kolab/Storage/Decorator/Synchronization.php" />
    <install as="Horde/Kolab/Storage/Driver/Base.php" name="lib/Horde/Kolab/Storage/Driver/Base.php" />
@@ -786,12 +800,17 @@
    <install as="Horde/Kolab/Storage/AttachmentTest.php" name="test/Horde/Kolab/Storage/AttachmentTest.php" />
    <install as="Horde/Kolab/Storage/Autoload.php" name="test/Horde/Kolab/Storage/Autoload.php" />
    <install as="Horde/Kolab/Storage/conf.php.dist" name="test/Horde/Kolab/Storage/conf.php.dist" />
-   <install as="Horde/Kolab/Storage/DataTest.php" name="test/Horde/Kolab/Storage/DataTest.php" />
    <install as="Horde/Kolab/Storage/phpunit.xml" name="test/Horde/Kolab/Storage/phpunit.xml" />
    <install as="Horde/Kolab/Storage/Scenario.php" name="test/Horde/Kolab/Storage/Scenario.php" />
    <install as="Horde/Kolab/Storage/TestCase.php" name="test/Horde/Kolab/Storage/TestCase.php" />
+   <install as="Horde/Kolab/Storage/fixtures/broken_note.eml" name="test/Horde/Kolab/Storage/fixtures/broken_note.eml" />
+   <install as="Horde/Kolab/Storage/fixtures/event.1.xml.qp" name="test/Horde/Kolab/Storage/fixtures/event.1.xml.qp" />
+   <install as="Horde/Kolab/Storage/fixtures/event.2.xml.qp" name="test/Horde/Kolab/Storage/fixtures/event.2.xml.qp" />
+   <install as="Horde/Kolab/Storage/fixtures/event.3.xml.qp" name="test/Horde/Kolab/Storage/fixtures/event.3.xml.qp" />
    <install as="Horde/Kolab/Storage/fixtures/event.struct" name="test/Horde/Kolab/Storage/fixtures/event.struct" />
    <install as="Horde/Kolab/Storage/fixtures/event.xml.qp" name="test/Horde/Kolab/Storage/fixtures/event.xml.qp" />
+   <install as="Horde/Kolab/Storage/fixtures/preferences.1" name="test/Horde/Kolab/Storage/fixtures/preferences.1" />
+   <install as="Horde/Kolab/Storage/fixtures/preferences.2" name="test/Horde/Kolab/Storage/fixtures/preferences.2" />
    <install as="Horde/Kolab/Storage/Server/DriverTest.php" name="test/Horde/Kolab/Storage/Server/DriverTest.php" />
    <install as="Horde/Kolab/Storage/Stub/DataQuery.php" name="test/Horde/Kolab/Storage/Stub/DataQuery.php" />
    <install as="Horde/Kolab/Storage/Stub/ListQuery.php" name="test/Horde/Kolab/Storage/Stub/ListQuery.php" />
@@ -803,9 +822,11 @@
    <install as="Horde/Kolab/Storage/Unit/Cache/DataTest.php" name="test/Horde/Kolab/Storage/Unit/Cache/DataTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Cache/ListTest.php" name="test/Horde/Kolab/Storage/Unit/Cache/ListTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Data/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/Data/BaseTest.php" />
-   <install as="Horde/Kolab/Storage/Unit/Data/Decorator/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/Data/Decorator/CacheTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/Data/CachedTest.php" name="test/Horde/Kolab/Storage/Unit/Data/CachedTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Data/Format/MimeTest.php" name="test/Horde/Kolab/Storage/Unit/Data/Format/MimeTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Data/Parser/StructureTest.php" name="test/Horde/Kolab/Storage/Unit/Data/Parser/StructureTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/Data/Query/Preferences/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/Data/Query/Preferences/BaseTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/Data/Query/Preferences/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/Data/Query/Preferences/CacheTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Decorator/LogTest.php" name="test/Horde/Kolab/Storage/Unit/Decorator/LogTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Decorator/SynchronizationTest.php" name="test/Horde/Kolab/Storage/Unit/Decorator/SynchronizationTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Driver/CclientTest.php" name="test/Horde/Kolab/Storage/Unit/Driver/CclientTest.php" />
@@ -922,6 +943,83 @@
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-16</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First beta release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-22</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First release candidate for Horde 4.
+* [gwr] Fix creating/modifying objects.
+* [gwr] Deal with Kolab_Format parsing exceptions.
+* [gwr] Throw an exception on a duplicate UID within one folder.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Second release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First stable release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-20</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [gwr] Added support for storing data query results in the cache.
+* [gwr] Added support for deleting messages by backend UID.
    </notes>
   </release>
  </changelog>

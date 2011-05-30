@@ -11,6 +11,6 @@
  * @category Horde
  * @package  Secret
  */
-class Horde_Secret_Exception extends Horde_Exception_Prior
+class Horde_Secret_Exception extends Horde_Exception_Wrapped
 {
 }

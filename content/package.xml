@@ -11,24 +11,24 @@
   <active>yes</active>
  </lead>
  <lead>
-  <name>Jan Schneider</name>
-  <user>jan</user>
-  <email>jan@horde.org</email>
+  <name>Michael Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-09</date>
- <time>00:41:23</time>
+ <date>2011-05-19</date>
+ <time>14:19:07</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-*
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -45,19 +45,20 @@
     </dir> <!-- /app/views -->
    </dir> <!-- /app -->
    <dir name="bin">
-    <file name="object_add.php" role="script" />
-    <file name="object_delete.php" role="script" />
-    <file name="tag.php" role="script" />
-    <file name="tag_add.php" role="script" />
-    <file name="tag_delete.php" role="script" />
-    <file name="untag.php" role="script" />
+    <file name="content-object-add" role="script" />
+    <file name="content-object-delete" role="script" />
+    <file name="content-tag" role="script" />
+    <file name="content-tag-add" role="script" />
+    <file name="content-tag-delete" role="script" />
+    <file name="content-untag" role="script" />
    </dir> <!-- /bin -->
    <dir name="config">
     <file name="routes.php" role="horde" />
    </dir> <!-- /config -->
-   <dir name="doc">
-    <file name="TODO.txt" role="data" />
-   </dir> <!-- /doc -->
+   <dir name="docs">
+    <file name="RELEASE_NOTES" role="doc" />
+    <file name="TODO.txt" role="doc" />
+   </dir> <!-- /docs -->
    <dir name="lib">
     <dir name="Index">
      <file name="Index.php" role="horde" />
@@ -86,6 +87,7 @@
     <dir name="Users">
      <file name="Manager.php" role="horde" />
     </dir> <!-- /lib/Users -->
+    <file name="Application.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Tagger.php" role="horde" />
    </dir> <!-- /lib -->
@@ -94,14 +96,25 @@
     <file name="2_rampage_tag_tables.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="test">
-    <dir name="fixtures">
-     <file name="schema.sql" role="test" />
-    </dir> <!-- /test/fixtures -->
-    <dir name="Tags">
-     <file name="TaggerTest.php" role="test" />
-    </dir> <!-- /test/Tags -->
-    <file name="AllTests.php" role="test" />
+    <dir name="Content">
+     <dir name="Sql">
+      <dir name="Pdo">
+       <file name="MysqlTest.php" role="test" />
+       <file name="PgsqlTest.php" role="test" />
+       <file name="SqliteTest.php" role="test" />
+      </dir> <!-- /test/Content/Sql/Pdo -->
+      <file name="Base.php" role="test" />
+      <file name="MysqliTest.php" role="test" />
+      <file name="MysqlTest.php" role="test" />
+     </dir> <!-- /test/Content/Sql -->
+     <file name="AllTests.php" role="test" />
+     <file name="Autoload.php" role="test" />
+     <file name="Base.php" role="test" />
+     <file name="conf.php.dist" role="test" />
+    </dir> <!-- /test/Content -->
+    <file name="TaggerTest.php" role="test" />
    </dir> <!-- /test -->
+   <file name=".htaccess" role="horde" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -112,7 +125,78 @@
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>Horde_Core</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Date</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Db</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Injector</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Rdo</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <extension>
+    <name>gettext</name>
+   </extension>
+   <extension>
+    <name>json</name>
+   </extension>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Argv</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Controller</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+  </optional>
  </dependencies>
  <usesrole>
   <role>horde</role>
@@ -125,14 +209,16 @@
    <install as="content/app/controllers/TagController.php" name="app/controllers/TagController.php" />
    <install as="content/app/views/Tag/recentTags.html.php" name="app/views/Tag/recentTags.html.php" />
    <install as="content/app/views/Tag/searchTags.html.php" name="app/views/Tag/searchTags.html.php" />
-   <install as="object_add" name="bin/object_add.php" />
-   <install as="object_delete" name="bin/object_delete.php" />
-   <install as="tag" name="bin/tag.php" />
-   <install as="tag_add" name="bin/tag_add.php" />
-   <install as="tag_delete" name="bin/tag_delete.php" />
-   <install as="untag" name="bin/untag.php" />
+   <install as="content-object-add" name="bin/content-object-add" />
+   <install as="content-object-delete" name="bin/content-object-delete" />
+   <install as="content-tag" name="bin/content-tag" />
+   <install as="content-tag-add" name="bin/content-tag-add" />
+   <install as="content-tag-delete" name="bin/content-tag-delete" />
+   <install as="content-untag" name="bin/content-untag" />
    <install as="content/config/routes.php" name="config/routes.php" />
-   <install as="doc/TODO.txt" name="doc/TODO.txt" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="TODO.txt" name="docs/TODO.txt" />
+   <install as="content/lib/Application.php" name="lib/Application.php" />
    <install as="content/lib/Exception.php" name="lib/Exception.php" />
    <install as="content/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="content/lib/Index/Index.php" name="lib/Index/Index.php" />
@@ -150,9 +236,18 @@
    <install as="content/lib/Users/Manager.php" name="lib/Users/Manager.php" />
    <install as="content/migration/1_rampage_base_tables.php" name="migration/1_rampage_base_tables.php" />
    <install as="content/migration/2_rampage_tag_tables.php" name="migration/2_rampage_tag_tables.php" />
-   <install as="AllTests.php" name="test/AllTests.php" />
-   <install as="fixtures/schema.sql" name="test/fixtures/schema.sql" />
-   <install as="Tags/TaggerTest.php" name="test/Tags/TaggerTest.php" />
+   <install as="TaggerTest.php" name="test/TaggerTest.php" />
+   <install as="Content/AllTests.php" name="test/Content/AllTests.php" />
+   <install as="Content/Autoload.php" name="test/Content/Autoload.php" />
+   <install as="Content/Base.php" name="test/Content/Base.php" />
+   <install as="Content/conf.php.dist" name="test/Content/conf.php.dist" />
+   <install as="Content/Sql/Base.php" name="test/Content/Sql/Base.php" />
+   <install as="Content/Sql/MysqliTest.php" name="test/Content/Sql/MysqliTest.php" />
+   <install as="Content/Sql/MysqlTest.php" name="test/Content/Sql/MysqlTest.php" />
+   <install as="Content/Sql/Pdo/MysqlTest.php" name="test/Content/Sql/Pdo/MysqlTest.php" />
+   <install as="Content/Sql/Pdo/PgsqlTest.php" name="test/Content/Sql/Pdo/PgsqlTest.php" />
+   <install as="Content/Sql/Pdo/SqliteTest.php" name="test/Content/Sql/Pdo/SqliteTest.php" />
+   <install as="content/.htaccess" name=".htaccess" />
   </filelist>
  </phprelease>
  <changelog>
@@ -169,6 +264,81 @@
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-16</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* First beta release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-23</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* First release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-30</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Second release candidate for Horde 4.
+* [jan] Rename all scripts to be prefixed with content- (Request #9647).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-06</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* First stable release for Horde 4.
+* [jan] Fix case-insensitive filtering of duplicate tags (Bug #9617).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-19</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

@@ -165,7 +165,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
         }
 
         if ($this->_params['lock']) {
-            $this->_fplock = fopen(Horde::getTempDir() . '/passwd.lock', 'w');
+            $this->_fplock = fopen(Horde_Util::getTempDir() . '/passwd.lock', 'w');
             flock($this->_fplock, LOCK_EX);
             $this->_locked = true;
         }
@@ -177,7 +177,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
 
         $this->_users = array();
         while (!feof($fp)) {
-            $line = trim(fgets($fp, 128));
+            $line = trim(fgets($fp, 256));
             if (empty($line)) {
                 continue;
             }

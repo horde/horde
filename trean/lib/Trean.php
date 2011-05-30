@@ -43,7 +43,7 @@ class Trean
             return true;
         }
 
-        $allowed = $perms->getPermissions('trean:' . $permission);
+        $allowed = $perms->getPermissions('trean:' . $permission, $GLOBALS['registry']->getAuth());
         if (is_array($allowed)) {
             switch ($permission) {
             case 'max_folders':

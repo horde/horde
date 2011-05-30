@@ -110,13 +110,12 @@ class Ingo_Script_Imap_Mock extends Ingo_Script_Imap_Api
         foreach ($indices as $uid) {
             foreach (array_keys($this->_folders['INBOX']) as $i) {
                 if ($this->_folders['INBOX'][$i]['uid'] == $uid) {
-                    $fixture = $this->_fixtures[$this->_folders['INBOX'][$i]['fixture']];
-                    $result[] = array(
-                        'envelope' => array(
-                            'from' => $fixture->getValue('from'),
-                            'uid' => $uid
-                        )
-                    );
+                    $fetch = new Horde_Imap_Client_Data_Fetch();
+                    $fetch->setEnvelope(array(
+                        'from' => $this->_fixtures[$this->_folders['INBOX'][$i]['fixture']]->getValue('from')
+                    ));
+                    $fetch->setUid = $uid;
+                    $result[$uid] = $fetch;
                 }
             }
         }

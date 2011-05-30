@@ -4,28 +4,25 @@
  *
  * URL parameters:
  * ---------------
- * <pre>
- * 'actionID' - (string) The action ID to perform
- *   'compose_attach_preview'
- *   'download_all'
- *   'download_attach'
- *   'download_render'
- *   'print_attach'
- *   'save_message'
- *   'view_attach'
- *   'view_face'
- *   'view_source'
- * 'composeCache' - (string) Cache ID for compose object.
- * 'ctype' - (string) The content-type to use instead of the content-type
+ * actionID - (string) The action ID to perform
+ *   compose_attach_preview
+ *   download_all
+ *   download_attach
+ *   download_mbox
+ *   download_render
+ *   print_attach
+ *   save_message
+ *   view_attach
+ *   view_face
+ *   view_source
+ * composeCache - (string) Cache ID for compose object.
+ * ctype - (string) The content-type to use instead of the content-type
  *           found in the original Horde_Mime_Part object.
- * 'id' - (string) The MIME part ID to display.
- * 'mailbox' - (string) The mailbox of the message.
- * 'mode' - (integer) The view mode to use.
+ * id - (string) The MIME part ID to display.
+ * mode - (integer) The view mode to use.
  *          DEFAULT: IMP_Contents::RENDER_FULL
- * 'pmode' - (string) The print mode of this request ('content', 'headers').
- * 'uid - (string) The UID of the message.
- * 'zip' - (boolean) Download in .zip format?
- * </pre>
+ * pmode - (string) The print mode of this request ('content', 'headers').
+ * zip - (boolean) Download in .zip format?
  *
  * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
  *
@@ -53,10 +50,11 @@ Horde_Registry::appInit('imp', array(
     'session_control' => 'readonly'
 ));
 
-/* 'compose_attach_preview' doesn't use IMP_Contents since there is no mail
- * message data. Rather, we must use the IMP_Compose object to get the
- * necessary data for Horde_Mime_Part. */
-if ($vars->actionID == 'compose_attach_preview') {
+switch ($vars->actionID) {
+case 'compose_attach_preview':
+    /* 'compose_attach_preview' doesn't use IMP_Contents since there is no
+     * mail message data. Rather, we must use the IMP_Compose object to get
+     * the necessary data for Horde_Mime_Part. */
     $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($vars->composeCache);
     $mime = $imp_compose->buildAttachment($vars->id);
     $mime->setMimeId($vars->id);
@@ -64,11 +62,24 @@ if ($vars->actionID == 'compose_attach_preview') {
     /* Create a dummy IMP_Contents() object so we can use the view code below.
      * Then use the 'view_attach' handler to output. */
     $contents = new IMP_Contents($mime);
-} else {
-    if (!$vars->uid || !$vars->mailbox) {
+    break;
+
+case 'download_mbox':
+    if (empty(IMP::$thismailbox)) {
         exit;
     }
-    $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($vars->mailbox, $vars->uid));
+
+    // Exception will be displayed as fatal error.
+    $injector->getInstance('IMP_Ui_Folder')->downloadMbox(array(strval(IMP::$thismailbox)), $vars->zip);
+    break;
+
+default:
+    if (empty(IMP::$thismailbox) || empty(IMP::$uid)) {
+        exit;
+    }
+
+    $contents = $injector->getInstance('IMP_Factory_Contents')->create(IMP::$thismailbox->getIndicesOb(IMP::$uid));
+    break;
 }
 
 /* Run through action handlers */
@@ -98,7 +109,10 @@ case 'download_all':
         fseek($body, 0, SEEK_END);
         $browser->downloadHeaders($zipfile, 'application/zip', false, ftell($body));
         rewind($body);
-        fpassthru($body);
+        while (!feof($body)) {
+            echo fread($body, 8192);
+        }
+        fclose($body);
     }
     break;
 
@@ -113,7 +127,7 @@ case 'download_render':
             $mime->setContents($render[key($render)]['data'], array('encoding' => 'binary'));
         }
 
-        $name = $contents->getPartName($mime->getName(true));
+        $name = $contents->getPartName($mime);
 
         /* Compress output? */
         if ($vars->zip) {
@@ -143,7 +157,10 @@ case 'download_render':
         fseek($body, 0, SEEK_END);
         $browser->downloadHeaders($name, $type, false, ftell($body));
         rewind($body);
-        fpassthru($body);
+        while (!feof($body)) {
+            echo fread($body, 8192);
+        }
+        fclose($body);
     } else {
         $browser->downloadHeaders($name, $type, false, strlen($body));
         echo $body;
@@ -169,7 +186,10 @@ case 'view_source':
     fseek($msg, 0, SEEK_END);
     $browser->downloadHeaders('Message Source', 'text/plain', true, ftell($msg));
     rewind($msg);
-    fpassthru($msg);
+    while (!feof($msg)) {
+        echo fread($msg, 8192);
+    }
+    fclose($msg);
     break;
 
 case 'save_message':
@@ -181,19 +201,14 @@ case 'save_message':
         $name = 'saved_message';
     }
 
-    if (!($from = Horde_Mime_Address::bareAddress($mime_headers->getValue('from')))) {
-        $from = '<>';
-    }
-
-    $date = new DateTime($mime_headers->getValue('date'));
-
-    $hdr = 'From ' . $from . ' ' . $date->format('D M d H:i:s Y') . "\r\n";
     $msg = $contents->fullMessageText(array('stream' => true));
     fseek($msg, 0, SEEK_END);
-    $browser->downloadHeaders($name . '.eml', 'message/rfc822', false, strlen($hdr) + ftell($msg));
-    echo $hdr;
+    $browser->downloadHeaders($name . '.eml', 'message/rfc822', false, ftell($msg));
     rewind($msg);
-    fpassthru($msg);
+    while (!feof($msg)) {
+        echo fread($msg, 8192);
+    }
+    fclose($msg);
     break;
 
 case 'view_face':
@@ -206,133 +221,99 @@ case 'view_face':
     break;
 
 case 'print_attach':
-    /* Bug #8708 - Mozilla can't print multipage data in frames. No choice but
-     * to output headers and data on same page. */
-    if ($browser->isBrowser('mozilla')) {
-        $vars->pmode = 'headers';
+    if (!isset($vars->id) ||
+        !($render = $contents->renderMIMEPart($vars->id, IMP_Contents::RENDER_FULL))) {
+        break;
+    }
+    reset($render);
+    $render_key = key($render);
+
+    if (stripos($render[$render_key]['type'], 'text/html') !== 0) {
+        header('Content-Type: ' . $render[$render_key]['type']);
+        echo $render[$render_key]['data'];
+        exit;
     }
 
-    switch ($vars->pmode) {
-    case 'content':
-    case 'headers':
-        if (!isset($vars->id)) {
-            exit;
-        }
+    $imp_ui = new IMP_Ui_Message();
+    $basic_headers = $imp_ui->basicHeaders();
+    unset($basic_headers['bcc'], $basic_headers['reply-to']);
+    $headerob = $contents->getHeaderOb();
 
-        if (!($render = $contents->renderMIMEPart($vars->id, IMP_Contents::RENDER_FULL))) {
-            break;
-        }
-        reset($render);
-        $render_key = key($render);
+    $d_param = Horde_Mime::decodeParam('content-type', $render[$render_key]['type'], 'UTF-8');
 
-        switch ($vars->pmode) {
-        case 'headers':
-            $imp_ui = new IMP_Ui_Message();
-            $basic_headers = $imp_ui->basicHeaders();
-            unset($basic_headers['bcc'], $basic_headers['reply-to']);
-            $headerob = $contents->getHeaderOb();
-
-            $d_param = Horde_Mime::decodeParam('content-type', $render[$render_key]['type']);
-
-            $headers = array();
-            foreach ($basic_headers as $key => $val) {
-                if ($hdr_val = $headerob->getValue($key)) {
-                    /* Format date string. */
-                    if ($key == 'date') {
-                        $imp_ui_mbox = new IMP_Ui_Mailbox();
-                        $hdr_val = $imp_ui_mbox->getDate($hdr_val, IMP_Ui_Mailbox::DATE_FORCE | IMP_Ui_Mailbox::DATE_FULL);
-                    }
-
-                    $headers[] = array(
-                        'header' => htmlspecialchars($val),
-                        'value' => htmlspecialchars(Horde_String::convertCharset($hdr_val, null, $d_param['params']['charset']))
-                    );
-                }
-            }
-
-            if (!empty($conf['print']['add_printedby'])) {
-                $user_identity = $injector->getInstance('IMP_Identity');
-                $headers[] = array(
-                    'header' => htmlspecialchars(_("Printed By")),
-                    'value' => htmlspecialchars($user_identity->getFullname() ? $user_identity->getFullname() : $registry->getAuth())
-                );
-            }
-
-            $t = $injector->createInstance('Horde_Template');
-            $t->set('headers', $headers);
-
-            if (!$browser->isBrowser('mozilla')) {
-                Horde::startBuffer();
-                Horde::includeStylesheetFiles();
-                $t->set('css', Horde::endBuffer());
-                echo $t->fetch(IMP_TEMPLATES . '/print/headers.html');
-                break;
-            }
-
-            $elt = DOMDocument::loadHTML($t->fetch(IMP_TEMPLATES . '/print/headers.html'))->getElementById('headerblock');
-            $elt->removeAttribute('id');
-
-            if ($elt->hasAttribute('class')) {
-                $selectors = array('body');
-                foreach (explode(' ', $elt->getAttribute('class')) as $val) {
-                    if (strlen($val = trim($val))) {
-                        $selectors[] = '.' . $val;
-                    }
-                }
-
-                $css = $injector->getInstance('Horde_Themes_Css');
-                if ($style = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($css->loadCssFiles($css->getStylesheets()), 'csstidy', array('ob' => true, 'preserve_css' => false))->filterBySelector($selectors)) {
-                    $elt->setAttribute('style', ($elt->hasAttribute('style') ? rtrim($elt->getAttribute('style'), ' ;') . ';' : '') . $style);
-                }
-            }
-
-            $elt->removeAttribute('class');
-
-            /* Need to wrap headers in another DIV. */
-            $newdiv = new DOMDocument();
-            $div = $newdiv->createElement('div');
-            $div->appendChild($newdiv->importNode($elt, true));
-
-            // Fall-through
-
-        case 'content':
-            $browser->downloadHeaders($render[$render_key]['name'], $render[$render_key]['type'], true, strlen($render[$render_key]['data']));
-            if ($browser->isBrowser('mozilla')) {
-                $pstring = Horde_Mime::decodeParam('content-type', $render[$render_key]['type']);
-
-                $doc = new Horde_Domhtml($render[$render_key]['data'], $pstring['params']['charset']);
-
-                $bodyelt = $doc->dom->getElementsByTagName('body')->item(0);
-                $bodyelt->insertBefore($doc->dom->importNode($div, true), $bodyelt->firstChild);
-
-                /* Make the title the e-mail subject. */
-                $headers = $contents->getHeaderOb();
+    $headers = array();
+    foreach ($basic_headers as $key => $val) {
+        if ($hdr_val = $headerob->getValue($key)) {
+            /* Format date string. */
+            if ($key == 'date') {
                 $imp_ui_mbox = new IMP_Ui_Mailbox();
-
-                $headelt = $doc->getHead();
-                foreach ($headelt->getElementsByTagName('title') as $node) {
-                    $headelt->removeChild($node);
-                }
-                $headelt->appendChild($doc->dom->createElement('title', htmlspecialchars($imp_ui_mbox->getSubject($headers->getValue('subject')))));
-
-                echo $doc->returnHtml();
-            } else {
-                echo $render[$render_key]['data'];
+                $hdr_val = $imp_ui_mbox->getDate($hdr_val, IMP_Ui_Mailbox::DATE_FORCE | IMP_Ui_Mailbox::DATE_FULL);
             }
-            break;
+
+            $headers[] = array(
+                'header' => htmlspecialchars($val),
+                'value' => htmlspecialchars(Horde_String::convertCharset($hdr_val, null, $d_param['params']['charset']))
+            );
         }
-        break;
-
-    default:
-        $headers = $contents->getHeaderOb();
-        $imp_ui_mbox = new IMP_Ui_Mailbox();
-        $self_url = Horde::selfUrl(true, true);
-
-        $t = $injector->createInstance('Horde_Template');
-        $t->set('title', htmlspecialchars($imp_ui_mbox->getSubject($headers->getValue('subject'))));
-        $t->set('headers', $self_url->copy()->add('pmode', 'headers'));
-        $t->set('content', $self_url->copy()->add('pmode', 'content'));
-        echo $t->fetch(IMP_TEMPLATES . '/print/print.html');
-        break;
     }
+
+    if (!empty($conf['print']['add_printedby'])) {
+        $user_identity = $injector->getInstance('IMP_Identity');
+        $headers[] = array(
+            'header' => htmlspecialchars(_("Printed By")),
+            'value' => htmlspecialchars($user_identity->getFullname() ? $user_identity->getFullname() : $registry->getAuth())
+        );
+    }
+
+    $t = $injector->createInstance('Horde_Template');
+    $t->set('headers', $headers);
+
+    $elt = DOMDocument::loadHTML($t->fetch(IMP_TEMPLATES . '/print/headers.html'))->getElementById('headerblock');
+    $elt->removeAttribute('id');
+
+    if ($elt->hasAttribute('class')) {
+        $selectors = array('body');
+        foreach (explode(' ', $elt->getAttribute('class')) as $val) {
+            if (strlen($val = trim($val))) {
+                $selectors[] = '.' . $val;
+            }
+        }
+
+        $css = $injector->getInstance('Horde_Themes_Css');
+        // Csstidy filter may not be available.
+        try {
+            if ($style = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($css->loadCssFiles($css->getStylesheets()), 'csstidy', array('ob' => true, 'preserve_css' => false))->filterBySelector($selectors)) {
+                $elt->setAttribute('style', ($elt->hasAttribute('style') ? rtrim($elt->getAttribute('style'), ' ;') . ';' : '') . $style);
+            }
+        } catch (Horde_Exception $e) {}
+    }
+
+    $elt->removeAttribute('class');
+
+    /* Need to wrap headers in another DIV. */
+    $newdiv = new DOMDocument();
+    $div = $newdiv->createElement('div');
+    $div->appendChild($newdiv->importNode($elt, true));
+
+    $browser->downloadHeaders($render[$render_key]['name'], $render[$render_key]['type'], true, strlen($render[$render_key]['data']));
+
+    $pstring = Horde_Mime::decodeParam('content-type', $render[$render_key]['type'], 'UTF-8');
+
+    $doc = new Horde_Domhtml($render[$render_key]['data'], $pstring['params']['charset']);
+
+    $bodyelt = $doc->dom->getElementsByTagName('body')->item(0);
+    $bodyelt->insertBefore($doc->dom->importNode($div, true), $bodyelt->firstChild);
+
+    /* Make the title the e-mail subject. */
+    $headers = $contents->getHeaderOb();
+    $imp_ui_mbox = new IMP_Ui_Mailbox();
+
+    $headelt = $doc->getHead();
+    foreach ($headelt->getElementsByTagName('title') as $node) {
+        $headelt->removeChild($node);
+    }
+    $headelt->appendChild($doc->dom->createElement('title', htmlspecialchars($imp_ui_mbox->getSubject($headers->getValue('subject')))));
+
+    echo $doc->returnHtml();
+    break;
 }

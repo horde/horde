@@ -8,22 +8,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-$code = $filters = $flags = $portal_urls = array();
+$code = $filters = $flags = array();
 
 $compose_page = in_array(basename($_SERVER['PHP_SELF']), array('compose-dimp.php', 'message-dimp.php'));
-
-/* Add portal links - base page only. */
-if (!$compose_page) {
-    $dimp_block_list = Horde::loadConfiguration('portal.php', 'dimp_block_list', 'imp');
-    foreach ($dimp_block_list as $block) {
-        if ($block['ob'] instanceof Horde_Core_Block) {
-            $app = $block['ob']->getApp();
-            if (empty($portal_urls[$app])) {
-                $portal_urls[$app] = strval(Horde::url($GLOBALS['registry']->getInitialPage($app), true));
-            }
-        }
-    }
-}
 
 /* Generate filter array. */
 $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
@@ -55,14 +42,17 @@ foreach ($GLOBALS['injector']->getInstance('IMP_Flags')->getList() as $val) {
 $code['conf'] = array_filter(array(
     // URL variables
     'URI_AJAX' => Horde::getServiceLink('ajax', 'imp')->url,
+    'URI_SNOOZE' => (string)Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/snooze.php', true, -1),
     'URI_COMPOSE' => strval(Horde::url('compose-dimp.php')->setRaw(true)->add('ajaxui', 1)),
     'URI_DIMP' => strval(Horde::url('index-dimp.php')),
     'URI_MESSAGE' => strval(Horde::url('message-dimp.php')->setRaw(true)->add('ajaxui', 1)),
+    'URI_PORTAL' => strval(Horde::getServiceLink('portal')->setRaw(true)->add('ajaxui', 1)),
     'URI_PREFS_IMP' => strval(Horde::getServiceLink('prefs', 'imp')->setRaw(true)->add('ajaxui', 1)),
     'URI_SEARCH' => strval(Horde::url('search.php')),
     'URI_VIEW' => strval(Horde::url('view.php')),
 
     'FLAG_DELETED' => Horde_Imap_Client::FLAG_DELETED,
+    'FLAG_DRAFT' => Horde_Imap_Client::FLAG_DRAFT,
     'FLAG_SEEN' => Horde_Imap_Client::FLAG_SEEN,
 
     'IDX_SEP' => IMP_Dimp::IDX_SEP,
@@ -83,19 +73,24 @@ $code['conf'] = array_filter(array(
     'flags_o' => array_keys($flags),
     'fsearchid' => IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_FILTERSEARCH,
     'ham_spammbox' => intval(!empty($GLOBALS['conf']['notspam']['spamfolder'])),
-    'login_view' => $GLOBALS['prefs']->getValue('dimp_login_view'),
+    'initial_page' => strval(IMP_Auth::getInitialPage()->mbox),
     'mbox_expand' => intval($GLOBALS['prefs']->getValue('nav_expanded') == 2),
     'name' => $GLOBALS['registry']->get('name', 'imp'),
-    'pop3' => intval($GLOBALS['session']->get('imp', 'protocol') == 'pop'),
+    'pop3' => intval($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3),
     'popup_height' => 610,
     'popup_width' => 820,
-    'portal_urls' => $portal_urls,
     'preview_pref' => $GLOBALS['prefs']->getValue('dimp_show_preview'),
     'qsearchid' => IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_QUICKSEARCH,
     'qsearchfield' => $GLOBALS['prefs']->getValue('dimp_qsearch_field'),
     'refresh_time' => intval($GLOBALS['prefs']->getValue('refresh_time')),
     'searchprefix' => IMP_Search::MBOX_PREFIX,
     'sidebar_width' => max(intval($GLOBALS['prefs']->getValue('sidebar_width')), 150) . 'px',
+    'snooze' => array('0' => _("select..."),
+                      '5' => _("5 minutes"),
+                      '15' => _("15 minutes"),
+                      '60' => _("1 hour"),
+                      '360' => _("6 hours"),
+                      '1440' => _("1 day")),
     'sort' => array(
         'sequence' => array(
             't' => '',
@@ -145,11 +140,13 @@ $code['text'] = array(
     'check' => _("Checking..."),
     'copyto' => _("Copy %s to %s"),
     'create_prompt' => _("Create folder:"),
-    'createsub_prompt' => _("Create subfolder:"),
+    'createsub_prompt' => _("Create subfolder of %s:"),
     'delete_folder' => _("Permanently delete %s?"),
-    'empty_folder' => _("Permanently delete all messages in %s?"),
+    'download_folder' => _("All messages in this mailbox will be downloaded into one MBOX file. This may take some time. Are you sure you want to continue?"),
+    'empty_folder' => _("Permanently delete all %d messages in %s?"),
     'growlerinfo' => _("This is the notification log"),
     'hidealog' => Horde::highlightAccessKey(_("Hide Alerts _Log"), Horde::getAccessKey(_("Alerts _Log"), true)),
+    'import_mbox' => _("Mbox or .eml file:"),
     'listmsg_wait' => _("The server is still generating the message list."),
     'listmsg_timeout' => _("The server was unable to generate the message list."),
     'loading' => _("Loading..."),
@@ -162,11 +159,12 @@ $code['text'] = array(
     'ok' => _("Ok"),
     'onlogout' => _("Logging Out..."),
     'popup_block' => _("A popup window could not be opened. Your browser may be blocking popups."),
-    'portal' => ("Portal"),
+    'portal' => _("Portal"),
     'prefs' => _("User Options"),
-    'rename_prompt' => _("Rename folder to:"),
+    'rename_prompt' => _("Rename %s to:"),
     'search' => _("Search"),
     'selected' => _("selected"),
+    'snooze' => sprintf(_("You can snooze it for %s or %s dismiss %s it entirely"), '#{time}', '#{dismiss_start}', '#{dismiss_end}'),
     'verify' => _("Verifying..."),
     'vfolder' => _("Virtual Folder: %s"),
     'vp_empty' => _("There are no messages in this mailbox."),
@@ -232,18 +230,6 @@ if ($compose_page) {
         if (!empty($encrypt)) {
             $code['conf_compose']['encrypt'] = $encrypt;
         }
-    }
-
-    $stationery = $GLOBALS['injector']->getInstance('IMP_Compose_Stationery');
-    if (count($stationery)) {
-        $slist = array();
-        foreach ($stationery as $key => $val) {
-            $slist[] = array(
-                'l' => htmlspecialchars($val['n']),
-                'v' => intval($key)
-            );
-        }
-        $code['conf_compose']['stationery'] = $slist;
     }
 }
 

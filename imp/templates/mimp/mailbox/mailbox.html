@@ -34,8 +34,10 @@
   <div>
    <select name="checkbox">
     <option value="" selected="selected"><gettext>Action:</gettext></option>
+<if:delete>
     <option value="d">&nbsp;<gettext>Delete</gettext></option>
     <option value="u">&nbsp;<gettext>Undelete</gettext></option>
+</if:delete>
     <option value="s">&nbsp;<gettext>Report As Spam</gettext></option>
     <option value="i">&nbsp;<gettext>Report As Innocent</gettext></option>
    </select>

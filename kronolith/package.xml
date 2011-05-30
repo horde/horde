@@ -5,36 +5,48 @@
  <summary>A web based calendar</summary>
  <description>Kronolith is the Horde calendar application. It provides web-based calendars backed by a SQL database or a Kolab server. Supported features include Ajax and mobile interfaces, shared calendars, remote calendars, invitation management (iCalendar/iTip), free/busy management, resource management, alarms, recurring events, and a sophisticated day/week view which handles arbitrary numbers of overlapping events.</description>
  <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
  <lead>
-  <name>Jan Schneider</name>
-  <user>jan</user>
-  <email>jan@horde.org</email>
+  <name>Michael Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-09</date>
- <time>00:38:36</time>
+ <date>2011-05-18</date>
+ <time>15:10:33</time>
  <version>
-  <release>3.0.0beta1</release>
+  <release>3.0.4</release>
   <api>3.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* Only load external events in IFRAME if configured.
-* Fix retrieving event UIDs without date limit (Simon Bühler, Bug #9651).
-* Fix saving display status of other applications' calendars (Bug #9636).
-* Add migration for converting existing event categories to tags.
+* [jan] Only highlight days in the mini calendar that are currently displayed (Bug #10048).
+* [jan] Fix advanced search with empty search criteria (Bug #10038).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="kronolith-agenda" role="script" />
+    <file name="kronolith-convert-datatree-shares-to-sql" role="script" />
+    <file name="kronolith-convert-sql-shares-to-sqlng" role="script" />
+    <file name="kronolith-convert-to-utc" role="script" />
+    <file name="kronolith-import-icals" role="script" />
+    <file name="kronolith-import-squirrelmail-calendar" role="script" />
+   </dir> <!-- /bin -->
    <dir name="calendars">
     <file name="create.php" role="horde" />
     <file name="delete.php" role="horde" />
@@ -47,6 +59,7 @@
     <file name="subscribe.php" role="horde" />
    </dir> <!-- /calendars -->
    <dir name="config">
+    <file name=".htaccess" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="hooks.php.dist" role="horde" />
     <file name="menu.php.dist" role="horde" />
@@ -62,6 +75,7 @@
     <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
    <dir name="feed">
+    <file name=".htaccess" role="horde" />
     <file name="index.php" role="horde" />
    </dir> <!-- /feed -->
    <dir name="js">
@@ -151,7 +165,7 @@
     </dir> <!-- /lib/Geo -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
-      <file name="UpgradeFromKronolith2.php" role="horde" />
+      <file name="Upgrade.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
      <dir name="Task">
       <file name="PurgeEvents.php" role="horde" />
@@ -192,6 +206,7 @@
      <file name="WorkWeek.php" role="horde" />
      <file name="Year.php" role="horde" />
     </dir> <!-- /lib/View -->
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Calendar.php" role="horde" />
@@ -424,6 +439,7 @@
       <file name="kronolith.po" role="horde" />
      </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
     </dir> <!-- /locale/zh_TW -->
+    <file name=".htaccess" role="horde" />
     <file name="kronolith.pot" role="horde" />
    </dir> <!-- /locale -->
    <dir name="migration">
@@ -444,6 +460,8 @@
     <file name="15_kronolith_upgrade_sqlng.php" role="horde" />
     <file name="16_kronolith_upgrade_sqlhierarchical.php" role="horde" />
     <file name="17_kronolith_upgrade_sqlnghierarchical.php" role="horde" />
+    <file name="18_kronolith_upgrade_categoriestotags.php" role="horde" />
+    <file name="19_kronolith_upgrade_addmysqlgeo.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="resources">
     <dir name="groups">
@@ -457,19 +475,6 @@
     <file name="edit.php" role="horde" />
     <file name="index.php" role="horde" />
    </dir> <!-- /resources -->
-   <dir name="scripts">
-    <dir name="sql">
-     <file name="add_geo.mysql.sql" role="data" />
-    </dir> <!-- /scripts/sql -->
-    <dir name="upgrades">
-     <file name="convert_datatree_shares_to_sql.php" role="data" />
-     <file name="convert_sql_shares_to_sqlng.php" role="data" />
-     <file name="convert_to_utc.php" role="data" />
-    </dir> <!-- /scripts/upgrades -->
-    <file name="agenda.php" role="data" />
-    <file name="import_icals.php" role="data" />
-    <file name="import_squirrelmail_calendar.php" role="data" />
-   </dir> <!-- /scripts -->
    <dir name="templates">
     <dir name="agenda">
      <file name="notification.html.php" role="horde" />
@@ -833,39 +838,251 @@
    <package>
     <name>content</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0alpha1</min>
+    <min>4.0.0</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
    </package>
    <package>
-    <name>Date</name>
-    <channel>pear.php.net</channel>
-    <min>1.0.0alpha1</min>
+    <name>Horde_Auth</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Autoloader</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Core</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Data</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Date</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Date_Parser</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Form</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Group</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Http</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_History</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Icalendar</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Image</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Lock</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_LoginTasks</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mail</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mime</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Nls</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Notification</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Perms</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Serialize</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Share</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Support</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Text_Filter</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Url</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_View</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Date</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <extension>
+    <name>gettext</name>
+   </extension>
+   <extension>
+    <name>json</name>
+   </extension>
+   <extension>
+    <name>SimpleXML</name>
+   </extension>
   </required>
+  <optional>
+   <package>
+    <name>timeobjects</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_ActiveSync</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Db</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Date_Holidays</name>
+    <channel>pear.php.net</channel>
+    <min>0.21.0</min>
+   </package>
+   <extension>
+    <name>xmlwriter</name>
+   </extension>
+  </optional>
  </dependencies>
  <usesrole>
   <role>horde</role>
@@ -874,6 +1091,12 @@
  </usesrole>
  <phprelease>
   <filelist>
+   <install as="kronolith-agenda" name="bin/kronolith-agenda" />
+   <install as="kronolith-convert-datatree-shares-to-sql" name="bin/kronolith-convert-datatree-shares-to-sql" />
+   <install as="kronolith-convert-sql-shares-to-sqlng" name="bin/kronolith-convert-sql-shares-to-sqlng" />
+   <install as="kronolith-convert-to-utc" name="bin/kronolith-convert-to-utc" />
+   <install as="kronolith-import-icals" name="bin/kronolith-import-icals" />
+   <install as="kronolith-import-squirrelmail-calendar" name="bin/kronolith-import-squirrelmail-calendar" />
    <install as="kronolith/calendars/create.php" name="calendars/create.php" />
    <install as="kronolith/calendars/delete.php" name="calendars/delete.php" />
    <install as="kronolith/calendars/edit.php" name="calendars/edit.php" />
@@ -883,6 +1106,7 @@
    <install as="kronolith/calendars/remote_subscribe.php" name="calendars/remote_subscribe.php" />
    <install as="kronolith/calendars/remote_unsubscribe.php" name="calendars/remote_unsubscribe.php" />
    <install as="kronolith/calendars/subscribe.php" name="calendars/subscribe.php" />
+   <install as="kronolith/config/.htaccess" name="config/.htaccess" />
    <install as="kronolith/config/conf.xml" name="config/conf.xml" />
    <install as="kronolith/config/hooks.php.dist" name="config/hooks.php.dist" />
    <install as="kronolith/config/menu.php.dist" name="config/menu.php.dist" />
@@ -894,6 +1118,7 @@
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO" name="docs/TODO" />
    <install as="UPGRADING" name="docs/UPGRADING" />
+   <install as="kronolith/feed/.htaccess" name="feed/.htaccess" />
    <install as="kronolith/feed/index.php" name="feed/index.php" />
    <install as="kronolith/js/calendar-panel.js" name="js/calendar-panel.js" />
    <install as="kronolith/js/dragdrop2.js" name="js/dragdrop2.js" />
@@ -904,6 +1129,7 @@
    <install as="kronolith/js/mobile.js" name="js/mobile.js" />
    <install as="kronolith/js/tagactions.js" name="js/tagactions.js" />
    <install as="kronolith/js/views.js" name="js/views.js" />
+   <install as="kronolith/lib/.htaccess" name="lib/.htaccess" />
    <install as="kronolith/lib/Api.php" name="lib/Api.php" />
    <install as="kronolith/lib/Application.php" name="lib/Application.php" />
    <install as="kronolith/lib/Calendar.php" name="lib/Calendar.php" />
@@ -966,7 +1192,7 @@
    <install as="kronolith/lib/Geo/Base.php" name="lib/Geo/Base.php" />
    <install as="kronolith/lib/Geo/Mysql.php" name="lib/Geo/Mysql.php" />
    <install as="kronolith/lib/Geo/Sql.php" name="lib/Geo/Sql.php" />
-   <install as="kronolith/lib/LoginTasks/SystemTask/UpgradeFromKronolith2.php" name="lib/LoginTasks/SystemTask/UpgradeFromKronolith2.php" />
+   <install as="kronolith/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="kronolith/lib/LoginTasks/Task/PurgeEvents.php" name="lib/LoginTasks/Task/PurgeEvents.php" />
    <install as="kronolith/lib/Notification/Listener/AjaxStatus.php" name="lib/Notification/Listener/AjaxStatus.php" />
    <install as="kronolith/lib/Resource/Base.php" name="lib/Resource/Base.php" />
@@ -991,6 +1217,7 @@
    <install as="kronolith/lib/View/Week.php" name="lib/View/Week.php" />
    <install as="kronolith/lib/View/WorkWeek.php" name="lib/View/WorkWeek.php" />
    <install as="kronolith/lib/View/Year.php" name="lib/View/Year.php" />
+   <install as="kronolith/locale/.htaccess" name="locale/.htaccess" />
    <install as="kronolith/locale/kronolith.pot" name="locale/kronolith.pot" />
    <install as="kronolith/locale/ar/LC_MESSAGES/kronolith.mo" name="locale/ar/LC_MESSAGES/kronolith.mo" />
    <install as="kronolith/locale/ar/LC_MESSAGES/kronolith.po" name="locale/ar/LC_MESSAGES/kronolith.po" />
@@ -1088,6 +1315,8 @@
    <install as="kronolith/migration/15_kronolith_upgrade_sqlng.php" name="migration/15_kronolith_upgrade_sqlng.php" />
    <install as="kronolith/migration/16_kronolith_upgrade_sqlhierarchical.php" name="migration/16_kronolith_upgrade_sqlhierarchical.php" />
    <install as="kronolith/migration/17_kronolith_upgrade_sqlnghierarchical.php" name="migration/17_kronolith_upgrade_sqlnghierarchical.php" />
+   <install as="kronolith/migration/18_kronolith_upgrade_categoriestotags.php" name="migration/18_kronolith_upgrade_categoriestotags.php" />
+   <install as="kronolith/migration/19_kronolith_upgrade_addmysqlgeo.php" name="migration/19_kronolith_upgrade_addmysqlgeo.php" />
    <install as="kronolith/resources/create.php" name="resources/create.php" />
    <install as="kronolith/resources/delete.php" name="resources/delete.php" />
    <install as="kronolith/resources/edit.php" name="resources/edit.php" />
@@ -1096,13 +1325,6 @@
    <install as="kronolith/resources/groups/delete.php" name="resources/groups/delete.php" />
    <install as="kronolith/resources/groups/edit.php" name="resources/groups/edit.php" />
    <install as="kronolith/resources/groups/index.php" name="resources/groups/index.php" />
-   <install as="scripts/agenda.php" name="scripts/agenda.php" />
-   <install as="scripts/import_icals.php" name="scripts/import_icals.php" />
-   <install as="scripts/import_squirrelmail_calendar.php" name="scripts/import_squirrelmail_calendar.php" />
-   <install as="scripts/sql/add_geo.mysql.sql" name="scripts/sql/add_geo.mysql.sql" />
-   <install as="scripts/upgrades/convert_datatree_shares_to_sql.php" name="scripts/upgrades/convert_datatree_shares_to_sql.php" />
-   <install as="scripts/upgrades/convert_sql_shares_to_sqlng.php" name="scripts/upgrades/convert_sql_shares_to_sqlng.php" />
-   <install as="scripts/upgrades/convert_to_utc.php" name="scripts/upgrades/convert_to_utc.php" />
    <install as="kronolith/templates/calendar_info.php" name="templates/calendar_info.php" />
    <install as="kronolith/templates/calendar_list.php" name="templates/calendar_list.php" />
    <install as="kronolith/templates/calendar_titles.inc" name="templates/calendar_titles.inc" />
@@ -1389,6 +1611,146 @@
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0beta1</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-16</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* Only load external events in IFRAME if configured.
+* Fix retrieving event UIDs without date limit (Simon Bühler, Bug #9651).
+* Fix saving display status of other applications&apos; calendars (Bug #9636).
+* Add migration for converting existing event categories to tags.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0RC1</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-23</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* First release candidate for Horde 4.
+* [jan] Fix custom event alarm settings in traditional view (Bug #9154).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0RC2</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* Second release candidate for Horde 4.
+* [jan] Fix javascript error when viewing events with desktop notifications (Bug #9727).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* First stable release for Horde 4.
+* [jan] Fix application-specific permission checks (Bug #9786).
+* [jan] Fix fatal error when using the max_events permission (Bug #9784).
+* [mjr] Datatree share to SQL upgrade script refactored for Horde 4.
+* [mjr] Add migration for mysql specific geospatial fields (Bug #9758).
+* [jan] Set default alarm in dynamic view (Bug #9752).
+* [jan] Set default alarm in dynamic view (Bug #9752).
+* [jan] Move all executable scripts to bin/ and prefix with kronolith-.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.1</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-20</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [jan] Don&apos;t store all task lists in the session.
+* [jan] Fix new task lists not showing up until next login (Bug #9814).
+* [mjr] Fix broken event alarm links in sidebar (Bug #9897).
+* [mjr] Fix drag/drop editing of recurring events (Bug #9880).
+* [jan] Fix undefined function on Windows (Bug #9916).
+* [jan] Support adding and editing of CalDAV events in dynamic view (Bug #9865).
+* [mjr] Allow migrations to complete despite of missing shares.
+* [jan] Remove debug code in Ajax library (Bug #9818).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [jan] Don&apos;t show event edit links if user doesn&apos;t have edit permissions on any calendar.
+* [jan] Fix parsing of recurrence end date in dynamic view (Bug #10025).
+* [jan] Fix displaying of new tasks in new task lists.
+* [jan] Delete tasks from tasks view when deleting tasks lists.
+* [jan] Don&apos;t export multi-day events as multiple events to iCalendar data (Bug #10007).
+* [jan] Fix dragging tasks in the dynamic view.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.3</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-18</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [jan] Add header for timeobjects calendars.
+* [jan] Fix date picker in advanced search form (Bug #10039).
+* [mjr] Remove visible exceptions when deleting recurring events (Bug #10013).
+* [mjr] Fix issue causing listTimeObject calendars to not appear (Bug #10012).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.4</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-18</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [jan] Only highlight days in the mini calendar that are currently displayed (Bug #10048).
+* [jan] Fix advanced search with empty search criteria (Bug #10038).
    </notes>
   </release>
  </changelog>

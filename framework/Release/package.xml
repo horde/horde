@@ -5,12 +5,6 @@
  <summary>Horde Release generation library</summary>
  <description>This package provides the tools necessary to create the Horde distribution packages.</description>
  <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
@@ -22,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-03-07</date>
- <time>00:18:22</time>
+ <date>2011-03-16</date>
+ <time>22:27:16</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -34,18 +28,40 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* [jan] Keep file mode of Application.php (Bug #9697).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Release">
+      <file name="Freshmeat.php" role="php" />
+      <file name="MailingList.php" role="php" />
+      <file name="Sentinel.php" role="php" />
       <file name="Whups.php" role="php" />
-     </dir> <!-- //lib/Horde/Release -->
+     </dir> <!-- /lib/Horde/Release -->
      <file name="Release.php" role="php" />
-    </dir> <!-- //lib/Horde -->
-   </dir> <!-- //lib -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Release">
+      <dir name="Stub">
+       <file name="Release.php" role="test" />
+      </dir> <!-- /test/Horde/Release/Stub -->
+      <dir name="Unit">
+       <dir name="Release">
+        <file name="SentinelTest.php" role="test" />
+       </dir> <!-- /test/Horde/Release/Unit/Release -->
+       <file name="ReleaseTest.php" role="test" />
+      </dir> <!-- /test/Horde/Release/Unit -->
+      <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+      <file name="TestCase.php" role="test" />
+     </dir> <!-- /test/Horde/Release -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -57,7 +73,21 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
-    <name>Horde_Core</name>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Http</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
     <max>2.0.0</max>
@@ -77,12 +107,36 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>Horde_Serialize</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0beta1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
   </required>
  </dependencies>
  <phprelease>
   <filelist>
    <install as="Horde/Release.php" name="lib/Horde/Release.php" />
+   <install as="Horde/Release/Freshmeat.php" name="lib/Horde/Release/Freshmeat.php" />
+   <install as="Horde/Release/MailingList.php" name="lib/Horde/Release/MailingList.php" />
+   <install as="Horde/Release/Sentinel.php" name="lib/Horde/Release/Sentinel.php" />
    <install as="Horde/Release/Whups.php" name="lib/Horde/Release/Whups.php" />
+   <install as="Horde/Release/AllTests.php" name="test/Horde/Release/AllTests.php" />
+   <install as="Horde/Release/Autoload.php" name="test/Horde/Release/Autoload.php" />
+   <install as="Horde/Release/phpunit.xml" name="test/Horde/Release/phpunit.xml" />
+   <install as="Horde/Release/TestCase.php" name="test/Horde/Release/TestCase.php" />
+   <install as="Horde/Release/Stub/Release.php" name="test/Horde/Release/Stub/Release.php" />
+   <install as="Horde/Release/Unit/ReleaseTest.php" name="test/Horde/Release/Unit/ReleaseTest.php" />
+   <install as="Horde/Release/Unit/Release/SentinelTest.php" name="test/Horde/Release/Unit/Release/SentinelTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -99,6 +153,21 @@
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-16</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Keep file mode of Application.php (Bug #9697).
    </notes>
   </release>
  </changelog>

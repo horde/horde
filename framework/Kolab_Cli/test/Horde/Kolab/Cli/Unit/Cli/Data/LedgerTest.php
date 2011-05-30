@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_Cli
  */
-class Horde_Kolab_Cli_Unit_Cli_Data_LederTest
+class Horde_Kolab_Cli_Unit_Cli_Data_LedgerTest
 extends Horde_Kolab_Cli_TestCase
 {
     public function testCountEmpty()

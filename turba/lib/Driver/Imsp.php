@@ -15,9 +15,9 @@
 class Turba_Driver_Imsp extends Turba_Driver
 {
     /**
-     * Handle for the IMSP connection.
+     * Horde_Imsp object
      *
-     * @var Net_IMSP
+     * @var Horde_Imsp
      */
     protected $_imsp;
 
@@ -72,8 +72,9 @@ class Turba_Driver_Imsp extends Turba_Driver
      * @param array $params  Hash containing additional configuration
      *                       parameters.
      */
-    public function __construct($params)
+    public function __construct($name = '', $params)
     {
+        global $conf;
         parent::__construct($name, $params);
 
         $this->params       = $params;
@@ -81,26 +82,16 @@ class Turba_Driver_Imsp extends Turba_Driver
         $this->_groupValue  = $params['group_id_value'];
         $this->_myRights    = $params['my_rights'];
         $this->_perms       = $this->_aclToHordePerms($params['my_rights']);
-
-        global $conf;
-
         $this->_bookName = $this->getContactOwner();
-        $this->_imsp = Net_IMSP::singleton('Book', $this->params);
-        $result = $this->_imsp->init();
-        if ($result instanceof PEAR_Error) {
+
+        try {
+            $this->_imsp = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Imsp')
+                ->create('Book', $this->params);
+        } catch (Horde_Exception $e) {
             $this->_authenticated = false;
-            throw new Turba_Exception($result);
+            throw new Turba_Exception($e);
         }
-
-        if (!empty($conf['log'])) {
-            $logParams = $conf['log'];
-            $result = $this->_imsp->setLogger($conf['log']);
-            if ($result instanceof PEAR_Error) {
-                throw new Turba_Exception($result);
-            }
-        }
-
-        Horde::logMessage('IMSP Driver initialized for ' . $this->_bookName, 'DEBUG');
         $this->_authenticated = true;
     }
 
@@ -168,10 +159,11 @@ class Turba_Driver_Imsp extends Turba_Driver
         for ($i = 0; $i < $idCount; ++$i) {
             $result = array();
 
-            $temp = isset($IMSPGroups[$ids[$i]])
-                ? $IMSPGroups[$ids[$i]]
-                : $this->_imsp->getEntry($this->_bookName, $ids[$i]);
-            if ($temp instanceof PEAR_Error) {
+            try {
+                $temp = isset($IMSPGroups[$ids[$i]])
+                    ? $IMSPGroups[$ids[$i]]
+                    : $this->_imsp->getEntry($this->_bookName, $ids[$i]);
+            } catch (Horde_Imsp_Exception $e) {
                 continue;
             }
 
@@ -324,9 +316,10 @@ class Turba_Driver_Imsp extends Turba_Driver
      */
     protected function _delete($object_key, $object_id)
     {
-        $res = $this->_imsp->deleteEntry($this->_bookName, $object_id);
-        if ($res instanceof PEAR_Error) {
-            throw new Turba_Exception($res);
+        try {
+            $this->_imsp->deleteEntry($this->_bookName, $object_id);
+        } catch (Horde_Imsp_Exception $e) {
+            throw new Turba_Exception($e);
         }
     }
 
@@ -337,9 +330,10 @@ class Turba_Driver_Imsp extends Turba_Driver
      */
      protected function _deleteAll()
      {
-         $res = $this->_imsp->deleteAddressbook($this->_bookName);
-         if ($res instanceof PEAR_Error) {
-             throw new Turba_Exception($res);
+         try {
+             $this->_imsp->deleteAddressbook($this->_bookName);
+         } catch (Horde_Imsp_Exception $e) {
+             throw new Turba_Exception($e);
          }
      }
 
@@ -529,12 +523,12 @@ class Turba_Driver_Imsp extends Turba_Driver
         }
 
         if (!$names) {
-            $names = $this->_imsp->search($this->_bookName, $imspSearch);
-            if ($names instanceof PEAR_Error) {
-                $GLOBALS['notification']->push($names, 'horde.error');
-            } else {
+            try {
+                $names = $this->_imsp->search($this->_bookName, $imspSearch);
                 $cache->set($key, serialize($names));
                 return $names;
+            } catch (Horde_Imsp_Exception $e) {
+                $GLOBALS['notification']->push($names, 'horde.error');
             }
         } else {
             return $names;
@@ -649,10 +643,10 @@ class Turba_Driver_Imsp extends Turba_Driver
         }
 
         $result = Turba::createShare($share_id, $params);
-        $imsp_result = Net_IMSP_Utils::createBook($GLOBALS['cfgSources']['imsp'], $params['params']['name']);
-
-        if ($imsp_result instanceof PEAR_Error) {
-            throw new Turba_Exception($imsp_result);
+        try {
+            $imsp_result = Horde_Core_Imsp_Utils::createBook($GLOBALS['cfgSources']['imsp'], $params['params']['name']);
+        } catch (Horde_Imsp_Exception $e) {
+            throw new Turba_Exception($e);
         }
 
         return $result;
@@ -695,7 +689,7 @@ class Turba_Driver_Imsp extends Turba_Driver
      *
      * @return TODO
      */
-    protected function checkDefaultShare($share, $srcConfig)
+    public function checkDefaultShare($share, $srcConfig)
     {
         $params = @unserialize($share->get('params'));
         if (!isset($params['default'])) {

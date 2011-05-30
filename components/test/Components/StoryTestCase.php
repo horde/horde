@@ -100,25 +100,6 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
-        case 'calling hmk in a directory without package xml':
-            $temp = $this->_getTemporaryDirectory();
-            $oldcwd = getcwd();
-            chdir($temp);
-            $_SERVER['argv'] = array(
-                'hmk',
-            );
-            $world['output'] = $this->_callStrictHmake();
-            chdir($oldcwd);
-            break;
-        case 'calling hmk in a directory with package xml':
-            $oldcwd = getcwd();
-            chdir(dirname(__FILE__) . '/fixture/simple');
-            $_SERVER['argv'] = array(
-                'hmk',
-            );
-            $world['output'] = $this->_callStrictHmake();
-            chdir($oldcwd);
-            break;
         case 'calling the package with the pearrc, the updatexml option with action "print", and a Horde component':
             $_SERVER['argv'] = array(
                 'horde-components',
@@ -749,11 +730,6 @@ extends PHPUnit_Extensions_Story_TestCase
         }
     }
 
-    private function _callStrictHmake(array $parameters = array())
-    {
-        return $this->_callComponents($parameters, array($this, '_callStrictHmk'));
-    }
-
     private function _callStrictComponents(array $parameters = array())
     {
         return $this->_callComponents($parameters, array($this, '_callStrict'));
@@ -790,11 +766,6 @@ extends PHPUnit_Extensions_Story_TestCase
     private function _callStrict(array $parameters)
     {
         Components::main($parameters);
-    }
-
-    private function _callStrictHmk(array $parameters)
-    {
-        Components::hmk($parameters);
     }
 
     private function _setPearGlobals()

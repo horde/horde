@@ -457,6 +457,11 @@ body.kronolithAjax {
     -webkit-border-bottom-right-radius: 5px;
     border-radius: 0 0 5px 5px;
 }
+#kronolithApplications:hover li:first-child:last-child a {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
 #kronolithApplications a:hover {
     text-decoration: none;
     background-color: #d9d9d9;
@@ -859,7 +864,7 @@ div.kronolithFormActions {
 
 .kronolithTabsOption {
     position: relative;
-    line-height: 250%;
+    line-height: 150%;
 }
 #kronolithEventTabAttendees table {
     border-collapse: collapse;

@@ -7,6 +7,6 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Jonah
  */
-class Jonah_Exception extends Horde_Exception_Prior
+class Jonah_Exception extends Horde_Exception_Wrapped
 {
 }

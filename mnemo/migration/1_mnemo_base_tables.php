@@ -22,7 +22,7 @@ class MnemoBaseTables extends Horde_Db_Migration_Base
         $tableList = $this->tables();
 
         if (!in_array('mnemo_memos', $tableList)) {
-            $t = $this->createTable('mnemo_memos', array('primaryKey' => false));
+            $t = $this->createTable('mnemo_memos', array('autoincrementKey' => false));
             $t->column('memo_owner', 'string', array('limit' => 255, 'null' => false));
             $t->column('memo_id', 'string', array('limit' => 32, 'null' => false));
             $t->column('memo_uid', 'string', array('limit' => 255, 'null' => false));
@@ -38,7 +38,7 @@ class MnemoBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('mnemo_shares', $tableList)) {
-            $t = $this->createTable('mnemo_shares', array('primaryKey' => false));
+            $t = $this->createTable('mnemo_shares', array('autoincrementKey' => false));
             $t->column('share_id', 'integer', array('null' => false));
             $t->column('share_name', 'string', array('limit' => 255, 'null' => false));
             $t->column('share_owner', 'string', array('limit' => 255, 'null' => false));

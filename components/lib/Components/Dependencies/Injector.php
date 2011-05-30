@@ -41,6 +41,9 @@ implements Components_Dependencies
         $this->bindFactory(
             'Horde_Cli', 'Components_Dependencies', 'createCli'
         );
+        $this->bindFactory(
+            'Components_Output', 'Components_Dependencies', 'createOutput'
+        );
     }
 
     /**
@@ -53,6 +56,50 @@ implements Components_Dependencies
     public function initConfig(Components_Config $config)
     {
         $this->setInstance('Components_Config', $config);
+    }
+
+    /**
+     * Set the list of modules.
+     *
+     * @param Horde_Cli_Modular $modules The list of modules.
+     *
+     * @return NULL
+     */
+    public function setModules(Horde_Cli_Modular $modules)
+    {
+        $this->setInstance('Horde_Cli_Modular', $modules);
+    }
+
+    /**
+     * Return the list of modules.
+     *
+     * @retunr Horde_Cli_Modular The list of modules.
+     */
+    public function getModules()
+    {
+        return $this->getInstance('Horde_Cli_Modular');
+    }
+
+    /**
+     * Set the CLI parser.
+     *
+     * @param Horde_Argv_Parser $parser The parser.
+     *
+     * @return NULL
+     */
+    public function setParser($parser)
+    {
+        $this->setInstance('Horde_Argv_Parser', $parser);
+    }
+
+    /**
+     * Return the CLI parser.
+     *
+     * @retunr Horde_Argv_Parser The parser.
+     */
+    public function getParser()
+    {
+        return $this->getInstance('Horde_Argv_Parser');
     }
 
     /**
@@ -106,6 +153,16 @@ implements Components_Dependencies
     }
 
     /**
+     * Returns the change log handler for a package.
+     *
+     * @return Components_Runner_Change The change log handler.
+     */
+    public function getRunnerChange()
+    {
+        return $this->getInstance('Components_Runner_Change');
+    }
+
+    /**
      * Returns the snapshot packaging handler for a package.
      *
      * @return Components_Runner_Snapshot The snapshot handler.
@@ -138,11 +195,21 @@ implements Components_Dependencies
     /**
      * Returns the package XML handler for a package.
      *
-     * @return Components_Runner_PearPackageXml The package XML handler.
+     * @return Components_Runner_Update The package XML handler.
      */
-    public function getRunnerPearPackageXml()
+    public function getRunnerUpdate()
     {
-        return $this->getInstance('Components_Runner_PearPackageXml');
+        return $this->getInstance('Components_Runner_Update');
+    }
+
+    /**
+     * Returns the release tasks handler.
+     *
+     * @return Components_Release_Tasks The release tasks handler.
+     */
+    public function getReleaseTasks()
+    {
+        return $this->getInstance('Components_Release_Tasks');
     }
 
     /**
@@ -163,5 +230,18 @@ implements Components_Dependencies
     public function createCli()
     {
         return Horde_Cli::init();
+    }
+
+    /**
+     * Create the Components_Output handler.
+     *
+     * @return Components_Output The output handler.
+     */
+    public function createOutput($injector)
+    {
+        return new Components_Output(
+            $injector->getInstance('Horde_Cli'),
+            $injector->getInstance('Components_Config')->getOptions()
+        );
     }
 }

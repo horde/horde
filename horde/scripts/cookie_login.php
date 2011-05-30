@@ -8,7 +8,11 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+// Edit the following line to match the filesystem location of your Horde
+// installation.
+$HORDE_DIR = '/var/www/horde';
+
+require_once $HORDE_DIR . '/lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();

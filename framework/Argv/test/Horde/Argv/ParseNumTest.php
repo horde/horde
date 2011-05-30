@@ -15,6 +15,7 @@ class Horde_Argv_ParseNumTest extends Horde_Argv_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $this->parser = new Horde_Argv_InterceptingParser();
         $this->parser->addOption('-n', array('type' => 'int'));
         $this->parser->addOption('-l', array('type' => 'long'));

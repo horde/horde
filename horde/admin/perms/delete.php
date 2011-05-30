@@ -14,7 +14,8 @@ Horde_Registry::appInit('horde', array('admin' => true));
 
 /* Set up the form variables. */
 $vars = Horde_Variables::getDefaultVariables();
-$perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+$perms = $injector->getInstance('Horde_Perms');
+$corePerms = $injector->getInstance('Horde_Core_Perms');
 $perm_id = $vars->get('perm_id');
 $category = $vars->get('category');
 try {
@@ -26,20 +27,20 @@ try {
 }
 
 /* Set up form. */
-$ui = new Horde_Core_Perms_Ui($perms);
+$ui = new Horde_Core_Perms_Ui($perms, $corePerms);
 $ui->setVars($vars);
 $ui->setupDeleteForm($permission);
 
 if ($confirmed = $ui->validateDeleteForm($info)) {
     try {
         $result = $perms->removePermission($permission, true);
-        $notification->push(sprintf(_("Successfully deleted \"%s\"."), $perms->getTitle($permission->getName())), 'horde.success');
+        $notification->push(sprintf(_("Successfully deleted \"%s\"."), $corePerms->getTitle($permission->getName())), 'horde.success');
         Horde::url('admin/perms/index.php', true)->redirect();
     } catch (Exception $e) {
-        $notification->push(sprintf(_("Unable to delete \"%s\": %s."), $perms->getTitle($permission->getName()), $result->getMessage()), 'horde.error');
+        $notification->push(sprintf(_("Unable to delete \"%s\": %s."), $corePerms->getTitle($permission->getName()), $result->getMessage()), 'horde.error');
     }
 } elseif ($confirmed === false) {
-    $notification->push(sprintf(_("Permission \"%s\" not deleted."), $perms->getTitle($permission->getName())), 'horde.success');
+    $notification->push(sprintf(_("Permission \"%s\" not deleted."), $corePerms->getTitle($permission->getName())), 'horde.success');
     Horde::url('admin/perms/index.php', true)->redirect();
 }
 

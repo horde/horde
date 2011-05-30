@@ -65,9 +65,7 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
         }
 
         $params = array('ext_perm' => $ext_perm);
-        if (empty($uid)) {
-            $params['session_key'] = $this->_facebook->auth->getSessionKey();
-        } else {
+        if (!empty($uid)) {
             $params['uid'] = $uid;
         }
 
@@ -78,14 +76,16 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
      * Returns whether or not the user corresponding to the current
      * session object has the give the app basic authorization.
      *
+     * @TODO Deprecate when Graph API provides this functionality.
+     *
      * @param string $uid  Facebook userid
      *
-     * @throws Horde_Service_Facebook_Exception
      * @return boolean  true if the user has authorized the app
+     * @throws Horde_Service_Facebook_Exception
      */
     public function &isAppUser($uid = null)
     {
-        if (empty($uid) && !!$this->_facebook->auth->getSessionKey()) {
+        if (empty($uid) && $this->_facebook->auth->getSessionKey()) {
             $params = array('session_key' => $this->_facebook->auth->getSessionKey());
         } elseif (!empty($uid)) {
             $params = array('uid' => $uid);

@@ -123,7 +123,7 @@
     use for storing geolocation information?">
      <values>
       <value desc="None" default="true">false</value>
-      <value desc="MySql spatial extensions">Mysql</value>
+      <value desc="MySQL spatial extensions">Mysql</value>
       <value desc="General SQL (no spatial index support)">Sql</value>
      </values>
     </configenum> 

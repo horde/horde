@@ -37,10 +37,8 @@ class Horde_View_Helper_Javascript extends Horde_View_Helper_Base
                                  array_merge($htmlOptions, array('type' => 'text/javascript')));
     }
 
-    // @todo nodoc
     public function javascriptCdataSection($content)
     {
         return "\n//" . $this->cdataSection("\n$content\n//") . "\n";
     }
-
 }

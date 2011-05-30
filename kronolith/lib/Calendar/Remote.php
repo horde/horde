@@ -127,7 +127,7 @@ class Kronolith_Calendar_Remote extends Kronolith_Calendar
      */
     public function hasPermission($permission, $user = null, $creator = null)
     {
-        return Kronolith::getDriver('Ical', $this->_url)->getPermission() & $permission;
+        return (boolean)(Kronolith::getDriver('Ical', $this->_url)->getPermission() & $permission);
     }
 
     /**
@@ -172,7 +172,8 @@ class Kronolith_Calendar_Remote extends Kronolith_Calendar
     {
         return array_merge(
             parent::toHash(),
-            array('show' => in_array($this->_url, $GLOBALS['display_remote_calendars'])),
+            array('show' => in_array($this->_url, $GLOBALS['display_remote_calendars']),
+                  'edit' => $this->hasPermission(Horde_Perms::EDIT)),
             $this->credentials()
         );
     }

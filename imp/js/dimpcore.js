@@ -12,7 +12,7 @@ var DimpCore = {
     // Vars used and defaulting to null/false:
     //   DMenu, Growler, inAjaxCallback, is_init, is_logout
     //   onDoActionComplete
-    alarms: {},
+    alarms: [],
     base: null,
     growler_log: true,
     server_error: 0,
@@ -45,7 +45,7 @@ var DimpCore = {
                 return;
             }
 
-            var u = (DIMP.conf.pop3 ? o.value : o.value.numericSort()),
+            var u = (DIMP.conf.pop3 ? o.value.clone() : o.value.numericSort()),
                 first = u.shift(),
                 last = first,
                 out = [];
@@ -178,7 +178,9 @@ var DimpCore = {
             if (++this.server_error == 3) {
                 this.showNotifications([ { type: 'horde.error', message: DIMP.text.ajax_timeout } ]);
             }
-            request.request.options.onFailure(request, {});
+            if (request.request) {
+                request.request.options.onFailure(request, {});
+            }
             this.inAjaxCallback = false;
             return;
         }
@@ -228,13 +230,72 @@ var DimpCore = {
                 return true;
 
             case 'horde.alarm':
-                if (!this.alarms[m.flags.alarm.id]) {
-                    this.Growler.growl(m.flags.alarm.title + ': ' + m.flags.alarm.text, {
-                        className: 'horde-alarm',
-                        sticky: 1,
-                        log: 1
+                var alarm = m.flags.alarm;
+                // Only show one instance of an alarm growl.
+                if (this.alarms.include(alarm.id)) {
+                    break;
+                }
+
+                this.alarms.push(alarm.id);
+
+                var message = alarm.title.escapeHTML();
+                if (alarm.params && alarm.params.notify) {
+                    if (alarm.params.notify.url) {
+                        message = new Element('a', { href: alarm.params.notify.url })
+                            .insert(message);
+                    }
+                    if (alarm.params.notify.sound) {
+                        Sound.play(alarm.params.notify.sound);
+                    }
+                }
+                message = new Element('div')
+                    .insert(message);
+                if (alarm.params && alarm.params.notify &&
+                    alarm.params.notify.subtitle) {
+                    message.insert(new Element('br')).insert(alarm.params.notify.subtitle);
+                }
+                if (alarm.user) {
+                    var select = '<select>';
+                    $H(DIMP.conf.snooze).each(function(snooze) {
+                        select += '<option value="' + snooze.key + '">' + snooze.value + '</option>';
                     });
-                    this.alarms[m.flags.alarm.id] = 1;
+                    select += '</select>';
+                    message.insert('<br /><br />' + DIMP.text.snooze.interpolate({ time: select, dismiss_start: '<input type="button" value="', dismiss_end: '" class="button ko" />' }));
+                }
+                var growl = this.Growler.growl(message, {
+                    className: 'horde-alarm',
+                    life: 8,
+                    log: false,
+                    sticky: true
+                });
+                growl.store('alarm', alarm.id);
+
+                document.observe('Growler:destroyed', function(e) {
+                    var id = e.element().retrieve('alarm');
+                    if (id) {
+                        this.alarms = this.alarms.without(id);
+                    }
+                }.bindAsEventListener(this));
+
+                if (alarm.user) {
+                    message.down('select').observe('change', function(e) {
+                        if (e.element().getValue()) {
+                            this.Growler.ungrowl(growl);
+                            new Ajax.Request(
+                                DIMP.conf.URI_SNOOZE,
+                                { parameters: { alarm: alarm.id,
+                                                snooze: e.element().getValue() } });
+                        }
+                    }.bindAsEventListener(this))
+                    .observe('click', function(e) {
+                        e.stop();
+                    });
+                    message.down('input[type=button]').observe('click', function(e) {
+                        new Ajax.Request(
+                            DIMP.conf.URI_SNOOZE,
+                            { parameters: { alarm: alarm.id,
+                                            snooze: -1 } });
+                    }.bindAsEventListener(this));
                 }
                 break;
 
@@ -242,11 +303,15 @@ var DimpCore = {
             case 'horde.message':
             case 'horde.success':
             case 'horde.warning':
-                this.Growler.growl(m.message.escapeHTML(), {
-                    className: m.type.replace('.', '-'),
-                    life: (m.type == 'horde.error' ? 12 : 8),
-                    log: 1
-                });
+                this.Growler.growl(
+                    m.flags && m.flags.include('content.raw')
+                        ? m.message.replace(new RegExp('<a href="([^"]+)"'), '<a href="#" onclick="(function(){var base=DimpCore.base?DimpCore.base.DimpBase:DimpBase;base.go(\'app\',{app:null,data:\'$1\'});})();return false;"')
+                        : m.message.escapeHTML(),
+                    {
+                        className: m.type.replace('.', '-'),
+                        life: (m.type == 'horde.error' ? 12 : 8),
+                        log: 1
+                    });
                 break;
 
             case 'imp.reply':
@@ -277,7 +342,7 @@ var DimpCore = {
             this.popupWindow(this.addURLParam(DIMP.conf.URI_COMPOSE, params), 'compose' + new Date().getTime());
         } else {
             args.uids.get('dataob').each(function(d) {
-                params.folder = d.view;
+                params.mailbox = d.view.base64urlEncode();
                 params.uid = d.imapuid;
                 this.popupWindow(this.addURLParam(DIMP.conf.URI_COMPOSE, params), 'compose' + new Date().getTime());
             }, this);
@@ -413,7 +478,7 @@ var DimpCore = {
                 a = new Element('A', { className: 'address' }).store({ personal: o.personal, email: o.inner, address: (o.personal ? (o.personal + ' <' + o.inner + '>') : o.inner) });
                 if (o.personal) {
                     a.writeAttribute({ title: o.inner }).insert(o.personal.escapeHTML());
-                } else {
+                } else if (o.inner) {
                     a.insert(o.inner.escapeHTML());
                 }
                 this.DMenu.addElement(a.identify(), 'ctx_contacts', { offset: a, left: true });
@@ -495,13 +560,7 @@ var DimpCore = {
             default:
                 // CSS class based matching
                 if (elt.hasClassName('unblockImageLink')) {
-                    IMP.unblockImages(e);
-                } else if (elt.hasClassName('toggleQuoteShow')) {
-                    [ elt, elt.next() ].invoke('toggle');
-                    elt.next(1).blindDown({ duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
-                } else if (elt.hasClassName('toggleQuoteHide')) {
-                    [ elt, elt.previous() ].invoke('toggle');
-                    elt.next().blindUp({ duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
+                    IMP_JS.unblockImages(e);
                 } else if (elt.hasClassName('pgpVerifyMsg')) {
                     elt.replace(DIMP.text.verify);
                     DimpCore.reloadMessage({ pgp_verify_msg: 1 });

@@ -29,6 +29,13 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
     protected $_table;
 
     /**
+     * Charset
+     *
+     * @var string
+     */
+    protected $_charset;
+
+    /**
      * Construct a new SQL storage object.
      *
      * @param string $notepad  The name of the notepad to load/save notes from.
@@ -44,6 +51,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
         $this->_notepad = $notepad;
         $this->_db = $params['db'];
         $this->_table = $params['table'];
+        $this->_charset = $params['charset'];
     }
 
     /**
@@ -134,10 +142,10 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
                  ' VALUES (?, ?, ?, ?, ?, ?)';
         $values = array($this->_notepad,
                         $noteId,
-                        Horde_String::convertCharset($desc, 'UTF-8', $this->_params['charset']),
-                        Horde_String::convertCharset($body, 'UTF-8', $this->_params['charset']),
-                        Horde_String::convertCharset($category, 'UTF-8', $this->_params['charset']),
-                        Horde_String::convertCharset($uid, 'UTF-8', $this->_params['charset']));
+                        Horde_String::convertCharset($desc, 'UTF-8', $this->_charset),
+                        Horde_String::convertCharset($body, 'UTF-8', $this->_charset),
+                        Horde_String::convertCharset($category, 'UTF-8', $this->_charset),
+                        Horde_String::convertCharset($uid, 'UTF-8', $this->_charset));
 
         try {
             $this->_db->insert($query, $values);
@@ -172,14 +180,14 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
         }
 
         $query  = 'UPDATE ' . $this->_table . ' SET memo_desc = ?, memo_body = ?';
-        $values = array(Horde_String::convertCharset($desc, 'UTF-8', $this->_params['charset']),
-                        Horde_String::convertCharset($body, 'UTF-8', $this->_params['charset']));
+        $values = array(Horde_String::convertCharset($desc, 'UTF-8', $this->_charset),
+                        Horde_String::convertCharset($body, 'UTF-8', $this->_charset));
 
         // Don't change the category if it isn't provided.
         // @TODO: Category -> Tags
         if (!is_null($category)) {
             $query .= ', memo_category = ?';
-            $values[] = Horde_String::convertCharset($category, 'UTF-8', $this->_params['charset']);
+            $values[] = Horde_String::convertCharset($category, 'UTF-8', $this->_charset);
         }
         $query .= ' WHERE memo_owner = ? AND memo_id = ?';
         array_push($values, $this->_notepad, $noteId);
@@ -265,7 +273,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
     public function deleteAll()
     {
         $query = sprintf('DELETE FROM %s WHERE memo_owner = ?',
-			 $this->_table);
+             $this->_table);
         $values = array($this->_notepad);
 
         try {
@@ -326,7 +334,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
 
         // Decrypt note if requested.
         $encrypted = false;
-        $body = Horde_String::convertCharset($row['memo_body'], $this->_params['charset'], 'UTF-8');
+        $body = Horde_String::convertCharset($row['memo_body'], $this->_charset, 'UTF-8');
         if (strpos($body, '-----BEGIN PGP MESSAGE-----') === 0) {
             $encrypted = true;
             if (empty($passphrase)) {
@@ -348,11 +356,10 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
         // Create a new task based on $row's values.
         return array('memolist_id' => $row['memo_owner'],
                      'memo_id' => $row['memo_id'],
-                     'uid' => Horde_String::convertCharset($row['memo_uid'], $this->_params['charset'], 'UTF-8'),
-                     'desc' => Horde_String::convertCharset($row['memo_desc'], $this->_params['charset'], 'UTF-8'),
+                     'uid' => Horde_String::convertCharset($row['memo_uid'], $this->_charset, 'UTF-8'),
+                     'desc' => Horde_String::convertCharset($row['memo_desc'], $this->_charset, 'UTF-8'),
                      'body' => $body,
-                     'category' => Horde_String::convertCharset($row['memo_category'], $this->_params['charset'], 'UTF-8'),
+                     'category' => Horde_String::convertCharset($row['memo_category'], $this->_charset, 'UTF-8'),
                      'encrypted' => $encrypted);
     }
-
 }

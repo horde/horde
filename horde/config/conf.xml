@@ -248,6 +248,8 @@
         <value>crypt-blowfish</value>
         <value>crypt-des</value>
         <value>crypt-md5</value>
+        <value>crypt-sha256</value>
+        <value>crypt-sha512</value>
         <value>md5-base64</value>
         <value>md5-hex</value>
         <value>plain</value>
@@ -328,6 +330,8 @@
          <value>crypt-blowfish</value>
          <value>crypt-des</value>
          <value>crypt-md5</value>
+         <value>crypt-sha256</value>
+         <value>crypt-sha512</value>
          <value>md5-base64</value>
          <value>md5-hex</value>
          <value>msad</value>
@@ -368,7 +372,7 @@
      </configsection>
     </case>
 
-    <case name="pam" desc="PAM (Pluggable Authentication Modules, DEPRECATED)
+    <case name="pam" desc="PAM (Pluggable Authentication Modules)
     authentication">
      <configsection name="params">
       <configstring name="service" desc="The name of the PAM service to use
@@ -388,6 +392,8 @@
         <value>crypt-blowfish</value>
         <value>crypt-des</value>
         <value>crypt-md5</value>
+        <value>crypt-sha256</value>
+        <value>crypt-sha512</value>
         <value>md5-base64</value>
         <value>md5-hex</value>
         <value>plain</value>
@@ -494,6 +500,8 @@
         <value>crypt-blowfish</value>
         <value>crypt-des</value>
         <value>crypt-md5</value>
+        <value>crypt-sha256</value>
+        <value>crypt-sha512</value>
         <value>md5-base64</value>
         <value>md5-hex</value>
         <value>plain</value>
@@ -563,6 +571,8 @@
         <value>crypt-blowfish</value>
         <value>crypt-des</value>
         <value>crypt-md5</value>
+        <value>crypt-sha256</value>
+        <value>crypt-sha512</value>
         <value>md5-base64</value>
         <value>md5-hex</value>
         <value>plain</value>
@@ -581,13 +591,19 @@
       administrator"/>
       <configstring name="cyrpass" desc="The password for the cyrus
       administrator"/>
-      <configstring name="hostspec" desc="The hostname or IP address of the
+      <configstring name="cyrhost" desc="The hostname or IP address of the
       server">localhost</configstring>
-      <configinteger name="port" desc="The server port to which we will
+      <configinteger name="cyrport" desc="The server port to which we will
       connect. IMAP is generally 143, while IMAP-SSL is generally
       993.">143</configinteger>
       <configenum name="secure" desc="The encryption to use to connect to
-      the IMAP server." />none
+      the IMAP server.">none
+       <values>
+        <value>none</value>
+        <value>tls</value>
+        <value>ssl</value>
+       </values>
+      </configenum>
       <configenum name="phptype" desc="The name of the database">mysql
        <values>
         <value desc="Microsoft SQL Server">mssql</value>
@@ -633,6 +649,8 @@
         <value>crypt-blowfish</value>
         <value>crypt-des</value>
         <value>crypt-md5</value>
+        <value>crypt-sha256</value>
+        <value>crypt-sha512</value>
         <value>md5-base64</value>
         <value>md5-hex</value>
         <value>plain</value>
@@ -645,9 +663,8 @@
       create under username"/>
       <configinteger name="quota" required="false" desc="The quota (in
       kilobytes) to grant on the mailbox"/>
-      <configboolean name="unixhier" desc="The value of imapd.conf's
-      unixhierarchysep setting. Check this if the value is true in
-      imapd.conf.">false</configboolean>
+      <configstring name="userhierarchy" required="false" desc="The user
+      hierarchy prefix."/>
       <configlist name="hidden_accounts" required="false" desc="A list of accounts to
       hide from the user interface">cyrus</configlist>
      </configsection>
@@ -926,9 +943,10 @@
    <configheader>Permissions Settings</configheader>
    <configswitch name="driver" desc="What backend should we use for Horde
    Permissions?">Sql
-     <case name="Sql" desc="SQL">
-      <configsql switchname="driverconfig" />
-     </case>
+    <case name="Null" desc="Disable Permissions"/>
+    <case name="Sql" desc="SQL">
+     <configsql switchname="driverconfig" />
+    </case>
    </configswitch>
   </configsection>
  </configtab>
@@ -1292,7 +1310,7 @@
  <configtab name="vfs" desc="Virtual File Storage">
   <configsection name="vfs">
    <configheader>Virtual File Storage Settings</configheader>
-   <configvfs baseconfig="true" switchname="type" default="sql"/>
+   <configvfs baseconfig="true" switchname="type" default="Sql"/>
   </configsection>
  </configtab>
 
@@ -1323,7 +1341,7 @@
     <case name="File" desc="Filesystem storage">
      <configsection name="params">
       <configstring name="path" desc="The path to save the session files
-      in.">/tmp</configstring>
+      in.">/tmp/</configstring>
      </configsection>
     </case>
     <case name="Memcache" desc="Memcache only">
@@ -1628,7 +1646,7 @@
   <configsection name="accounts">
    <configswitch name="driver" desc="What driver should we use?">null
     <case name="null" desc="None"/>
-    <case name="localhost" desc="localhost">
+    <case name="localhost" desc="Localhost">
      <configsection name="params">
       <configstring name="quota_path" desc="Path to the quota program">
       /usr/bin/quota</configstring>
@@ -1645,16 +1663,18 @@
       <configstring name="finger_path" desc="Path to the finger
       program">/usr/bin/finger</configstring>
       <configstring name="host" desc="Host to request finger information
-      from">localhost</configstring>
+      from" required="false"/>
      </configsection>
     </case>
     <case name="ldap" desc="LDAP">
-     <configldap switchname="driverconfig">
-      <configstring name="attr" desc="LDAP attribute to search on">
-      uid</configstring>
-      <configboolean name="strip" desc="Strip domain from user
-      name?">false</configboolean>
-     </configldap>
+     <configsection name="params">
+      <configldap switchname="driverconfig">
+       <configstring name="attr" desc="LDAP attribute to search on">
+       uid</configstring>
+       <configboolean name="strip" desc="Strip domain from user
+       name?">false</configboolean>
+      </configldap>
+     </configsection>
     </case>
     <case name="kolab" desc="Kolab (LDAP)">
      <configsection name="params">
@@ -1677,6 +1697,23 @@
    <configboolean name="verify_from_addr" desc="If users are adding new From:
    addresses to their identities, should we send them a confirmation message
    to verify that the email address is really theirs?">false</configboolean>
+   <configswitch name="select_view" desc="Allow user to select the application
+   view mode on login?">true
+    <case name="true" desc="Yes"/>
+    <case name="false" desc="No">
+     <configenum name="force_view" desc="Force an application view to be used
+     for all users?">
+      <values>
+       <value desc="None (use user's browser and 'dynamic_view'
+       preference)"></value>
+       <value desc="Traditional">traditional</value>
+       <value desc="Dynamic">dynamic</value>
+       <value desc="Mobile">mobile</value>
+       <value desc="Smartphone">smartmobile</value>
+      </values>
+     </configenum>
+    </case>
+   </configswitch>
   </configsection>
  </configtab>
 
@@ -1696,12 +1733,14 @@
    <configheader>Facebook Integration Settings</configheader>
    <configdescription>If you want to allow your users to interact with their
    Facebook profiles, and you've set up the necessary settings on Facebook, you
-   can enter the key and secret here.</configdescription>
+   can enter the key and secret here. See
+   http://wiki.horde.org/Doc/Admin/Config/Horde/Facebook for
+   details.</configdescription>
    <configswitch name="enabled">false
     <case name="false" desc="Disabled" />
     <case name="true" desc="Enabled">
-     <configstring name="key" desc="Application API Key:"></configstring>
-     <configstring name="secret" desc="Application Secret:"></configstring>
+     <configstring name="id" desc="Application API ID"></configstring>
+     <configstring name="secret" desc="Application Secret"></configstring>
     </case>
    </configswitch>
   </configsection>
@@ -1737,9 +1776,9 @@
      <configstring name="port" desc="Server port:">406</configstring>
      <configswitch name="auth_method" desc="The authentication method to
      use">plaintext
-      <case name="plaintext" desc="Plaintext" />
-      <case name="cram_md5" desc="CRAM-MD5" />
-      <case name="imtest" desc="Cyrus imtest">
+      <case name="Plaintext" desc="Plaintext" />
+      <case name="CramMd5" desc="CRAM-MD5" />
+      <case name="Imtest" desc="Cyrus imtest">
        <configstring name="socket" desc="Path to the directory that will hold
        the socket. (The socket will be named 'imsp_username.sck').">
        /tmp/</configstring>
@@ -1869,7 +1908,7 @@
   <configsection name="activesync">
    <configdescription>To enable ActiveSync support, you must create an alias on
    your webserver to redirect /Microsoft-Servers-ActiveSync to /horde/rpc.php.
-   See http://wiki.horde.org/Project/ActiveSync for more information.
+   See http://wiki.horde.org/ActiveSync for more information.
    </configdescription>
    <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">true
     <case name="false" desc="Disabled" />
@@ -1937,7 +1976,7 @@
      <configsection name="securitypolicies">
      <configheader>Security Policies</configheader>
       <configswitch name="provisioning" quote="false" desc="How should device
-      provisioning be handled? Set to DISABLE to ignore provisioning. Set to 
+      provisioning be handled? Set to DISABLE to ignore provisioning. Set to
       ALLOW to force devices that CAN be provisioned to use provisioning, but
       allow older devices with no support for provisioning to still be used. Set
       to FORCE to only allow devices that are provisioned to connect to your

@@ -279,6 +279,32 @@ implements Horde_Kolab_Storage_Driver
     }
 
     /**
+     * Checks if the backend supports CATENATE.
+     *
+     * @return boolean True if the backend supports CATENATE.
+     */
+    public function hasCatenateSupport()
+    {
+        return false;
+    }
+
+    /**
+     * Return a modifiable message object.
+     *
+     * @param string $folder The folder to access.
+     * @param string $obid   The backend ID of the object to retrieve from the folder.
+     * @param array  $object The object data.
+     *
+     * @return Horde_Kolab_Storage_Driver_Modifiable The modifiable message object.
+     */
+    public function getModifiable($folder, $obid, $object)
+    {
+        return new Horde_Kolab_Storage_Data_Modifiable(
+            $this, $folder, $this->fetchComplete($folder, $obid)
+        );
+    }
+
+    /**
      * Retrieve the namespace information for this connection.
      *
      * @return Horde_Kolab_Storage_Folder_Namespace The initialized namespace handler.

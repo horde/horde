@@ -1,0 +1,62 @@
+<?php
+/**
+ * Test the directory handler.
+ *
+ * PHP version 5
+ *
+ * @category   Horde
+ * @package    Pear
+ * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link       http://pear.horde.org/index.php?package=Pear
+ */
+
+/**
+ * Prepare the test setup.
+ */
+require_once dirname(__FILE__) . '/../../../Autoload.php';
+
+/**
+ * Test the directory handler.
+ *
+ * Copyright 2011 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @category   Horde
+ * @package    Pear
+ * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link       http://pear.horde.org/index.php?package=Pear
+ */
+class Horde_Pear_Unit_Package_Xml_DirectoryTest
+extends Horde_Pear_TestCase
+{
+    public function testGetFiles()
+    {
+        $this->assertEquals(
+            array(
+                '/lib/Old.php',
+                '/lib/Stays.php',
+                '/test.php'
+            ),
+            $this->_getList(dirname(__FILE__) . '/../../../fixture/directory')->getFiles()
+        );
+    }
+
+    private function _getList($package)
+    {
+        $xml = new Horde_Pear_Package_Xml(
+            fopen($package . '/package.xml', 'r')
+        );
+        $element = new Horde_Pear_Package_Xml_Element_Directory('/');
+        $element->setDocument($xml);
+        $element->setDirectoryNode(
+            $xml->findNode('/p:package/p:contents/p:dir')
+        );
+        return new Horde_Pear_Package_Xml_Directory($element, $xml);
+    }
+}

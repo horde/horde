@@ -21,7 +21,6 @@ var SlideController = {
      */
     baseUrl: null,
     galleryId: 0,
-    galleryShare: 0,
     playing: false,
     interval: null,
     tempImage: new Image(),
@@ -29,11 +28,10 @@ var SlideController = {
     /**
      * Initialization.
      */
-    initialize: function(photos, start, baseUrl, galleryId, galleryShare) {
+    initialize: function(photos, start, baseUrl, galleryId) {
         SlideController.photoId = start || 0;
         SlideController.baseUrl = baseUrl;
         SlideController.galleryId = galleryId;
-        SlideController.galleryShare = galleryShare;
 
         Event.observe(window, 'load', function() {
             Event.observe(SlideController.tempImage, 'load', function() {
@@ -52,7 +50,7 @@ var SlideController = {
     },
 
     /**
-     * 
+     *
      */
     play: function() {
         $('ssPlay').hide();
@@ -130,14 +128,14 @@ Slide.prototype = {
         var params = '?gallery=' + SlideController.galleryId + '&image=' + SlideController.photos[SlideController.photoId][3] + '&page=' + SlideController.photos[SlideController.photoId][4];
         $('PhotoName').update(SlideController.photos[SlideController.photoId][1]);
         if ($('image_properties_link')) {
-            $('image_properties_link').href = SlideController.baseUrl + '/image.php' + params + '&actionID=modify&share=' + SlideController.galleryShare;
+            $('image_properties_link').href = SlideController.baseUrl + '/image.php' + params + '&actionID=modify';
             $('image_properties_link').observe('click', function(){SlideController.pause();Horde.popup({ url: this.href });return false;});
         }
         if ($('image_edit_link')) {
             $('image_edit_link').href = SlideController.baseUrl + '/image.php' + params + '&actionID=editimage';
         }
         if ($('image_ecard_link')) {
-          $('image_ecard_link') = SlideController.baseUrl + '/img/ecard.php?image=' + SlideController.photos[SlideController.photoId][3] + '&gallery=' + SlideController.galleryId;
+          $('image_ecard_link').href = SlideController.baseUrl + '/img/ecard.php?image=' + SlideController.photos[SlideController.photoId][3] + '&gallery=' + SlideController.galleryId;
           $('image_ecard_link').observe('click', function(){SlideController.pause();Horde.popup({ url: this.href });return false;});
         }
         if ($('image_delete_link')) {

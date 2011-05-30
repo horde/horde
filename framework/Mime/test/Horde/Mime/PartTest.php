@@ -135,6 +135,49 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testAlterPart()
+    {
+        $msg = file_get_contents(dirname(__FILE__) . '/fixtures/sample_msg.txt');
+        $part = Horde_Mime_Part::parseMessage($msg);
+
+        $map = $part->contentTypeMap();
+        $this->assertEquals(
+            'message/rfc822',
+            $map['2']
+        );
+
+        $part2 = new Horde_Mime_Part();
+        $part2->setType('text/plain');
+        $part2->setContents('foo');
+
+        $part->alterPart('2', $part2);
+
+        $map = $part->contentTypeMap();
+        $this->assertEquals(
+            'text/plain',
+            $map['2']
+        );
+    }
+
+    public function testUnserialize()
+    {
+        $part = new Horde_Mime_Part();
+        $part->setType('text/plain');
+        $part->setContents('Test');
+
+        $part1 = unserialize(serialize($part));
+
+        $this->assertEquals(
+            'Test',
+            $part1->getContents()
+        );
+
+        $this->assertInternalType(
+            'resource',
+            $part1->getContents(array('stream' => true))
+        );
+    }
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();

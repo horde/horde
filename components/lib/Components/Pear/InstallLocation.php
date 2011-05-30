@@ -405,8 +405,11 @@ class Components_Pear_InstallLocation
             )
         );
 
-        $hordeDir = $this->getPearConfig()->get('horde_dir', 'user', 'pear.horde.org');
-        $destDir = $this->getPearConfig()->get('php_dir');
+        $destDir = array(
+            'horde' => $this->getPearConfig()->get('horde_dir', 'user', 'pear.horde.org'),
+            'php' => $this->getPearConfig()->get('php_dir'),
+            'script' => $this->getPearConfig()->get('bin_dir'),
+        );
 
         ob_start();
         $warnings = array();
@@ -421,21 +424,14 @@ class Components_Pear_InstallLocation
 
             switch ($file['attribs']['role']) {
             case 'horde':
-                if (isset($file['attribs']['install-as'])) {
-                    $dest = $hordeDir . '/' . $file['attribs']['install-as'];
-                } else {
-                    $warnings[] = 'Could not determine install directory (role "horde") for ' . $hordeDir;
-                    continue;
-                }
-                break;
-
             case 'php':
+            case 'script':
                 if (isset($file['attribs']['install-as'])) {
-                    $dest = $destDir . '/' . $file['attribs']['install-as'];
+                    $dest = $destDir[$file['attribs']['role']] . '/' . $file['attribs']['install-as'];
                 } elseif (isset($file['attribs']['baseinstalldir'])) {
-                    $dest = $destDir . $file['attribs']['baseinstalldir'] . '/' . $file['attribs']['name'];
+                    $dest = $destDir[$file['attribs']['role']] . $file['attribs']['baseinstalldir'] . '/' . $file['attribs']['name'];
                 } else {
-                    $dest = $destDir . '/' . $file['attribs']['name'];
+                    $dest = $destDir[$file['attribs']['role']] . '/' . $file['attribs']['name'];
                 }
                 break;
 

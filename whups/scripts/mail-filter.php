@@ -110,7 +110,7 @@ if (isset($opts_hash['--help'])) {
 }
 if (isset($opts_hash['--default-auth'])) {
     $info['default_auth'] = $opts_hash['--default-auth'];
-    Horde_Auth::setAuth($info['default_auth'], array());
+    $registry->setAuth($info['default_auth'], array());
 }
 if (isset($opts_hash['--ticket'])) {
     $info['ticket'] = (int)$opts_hash['--ticket'];

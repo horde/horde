@@ -7,10 +7,12 @@
  <?php echo Horde::img('user.png') . ' ' . htmlspecialchars($group['name']) ?>
 </h1>
 
+<?php if (!$groups->readOnly()): ?>
 <p class="control">
  <?php echo Horde::label('email', _("Email Address")) ?>
  <input type="text" name="email" id="email" size="50" value="<?php echo htmlspecialchars($group['email']) ?>" />
 </p>
+<?php endif; ?>
 <br />
 
 <h1 class="header">
@@ -20,12 +22,16 @@
 <table class="linedRow nowrap" cellspacing="0" width="100%">
  <tr class="control">
   <th width="10%" class="leftAlign"><?php echo _("User") ?></th>
+  <?php if (!$groups->readOnly()): ?>
   <th width="90%" class="leftAlign"><?php echo _("Remove") ?></th>
+  <?php endif; ?>
  </tr>
 <?php foreach ($users as $user): ?>
  <tr>
   <td><?php echo Horde::label('remove_' . htmlspecialchars($user), htmlspecialchars($user), '') ?></td>
+  <?php if (!$groups->readOnly()): ?>
   <td><input type="checkbox" id="remove_<?php echo htmlspecialchars($user) ?>" name="remove[<?php echo htmlspecialchars($user) ?>]" /></td>
+  <?php endif; ?>
  </tr>
 <?php endforeach; ?>
 </table>
@@ -45,6 +51,7 @@
 <br />
 <?php endif; ?>
 
+<?php if (!$groups->readOnly()): ?>
 <h1 class="header">
  <?php echo Horde::img('user.png') . ' ' . _("Add Members") ?>
 </h1>
@@ -63,5 +70,6 @@
 <input type="submit" class="button" value="<?php echo htmlspecialchars(sprintf(_("Save \"%s\""), $group['name'])) ?>" />
 </p>
 <br />
+<?php endif; ?>
 
 </form>

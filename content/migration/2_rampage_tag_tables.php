@@ -7,7 +7,7 @@ class RampageTagTables extends Horde_Db_Migration_Base
 
         if (!in_array('rampage_tags', $tableList)) {
             // rampage_tags
-            $t = $this->createTable('rampage_tags', array('primaryKey' => 'tag_id'));
+            $t = $this->createTable('rampage_tags', array('autoincrementKey' => 'tag_id'));
             $t->column('tag_name', 'string', array('limit' => 255, 'null' => false));
             $t->end();
             $this->addIndex('rampage_tags', array('tag_name'), array('name' => 'rampage_tags_tag_name', 'unique' => true));
@@ -15,7 +15,7 @@ class RampageTagTables extends Horde_Db_Migration_Base
 
         if (!in_array('rampage_tagged', $tableList)) {
             // rampage_tagged
-            $t = $this->createTable('rampage_tagged', array('primaryKey' => array('user_id', 'object_id', 'tag_id')));
+            $t = $this->createTable('rampage_tagged', array('autoincrementKey' => array('user_id', 'object_id', 'tag_id')));
             $t->column('user_id',   'integer', array('null' => false, 'unsigned' => true));
             $t->column('object_id', 'integer', array('null' => false, 'unsigned' => true));
             $t->column('tag_id',    'integer', array('null' => false, 'unsigned' => true));
@@ -28,14 +28,14 @@ class RampageTagTables extends Horde_Db_Migration_Base
 
         if (!in_array('rampage_tag_stats', $tableList)) {
             // rampage_tag_stats
-            $t = $this->createTable('rampage_tag_stats', array('primaryKey' => 'tag_id'));
+            $t = $this->createTable('rampage_tag_stats', array('autoincrementKey' => 'tag_id'));
             $t->column('count', 'integer', array('unsigned' => true));
             $t->end();
         }
 
         if (!in_array('rampage_user_tag_stats', $tableList)) {
             // rampage_user_tag_stats
-            $t = $this->createTable('rampage_user_tag_stats', array('primaryKey' => array('user_id', 'tag_id')));
+            $t = $this->createTable('rampage_user_tag_stats', array('autoincrementKey' => array('user_id', 'tag_id')));
             $t->column('user_id', 'integer', array('null' => false, 'unsigned' => true));
             $t->column('tag_id',  'integer', array('null' => false, 'unsigned' => true));
             $t->column('count',   'integer', array('unsigned' => true));

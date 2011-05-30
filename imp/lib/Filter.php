@@ -43,7 +43,7 @@ class IMP_Filter
             : array($mbox);
 
         foreach ($mbox_list as $val) {
-            $GLOBALS['registry']->call('mail/applyFilters', array(array('mailbox' => $val)));
+            $GLOBALS['registry']->call('mail/applyFilters', array(array('mailbox' => strval($val))));
         }
     }
 
@@ -118,7 +118,7 @@ class IMP_Filter
 
             foreach ($ob->uids as $idx) {
                 /* Get the list of from addresses. */
-                $contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($ob->mbox, $idx));
+                $contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($ob->mbox->getIndicesOb($idx));
                 $hdr = $contents->getHeaderOb();
                 $addr[] = Horde_Mime_Address::bareAddress($hdr->getValue('from'));
             }

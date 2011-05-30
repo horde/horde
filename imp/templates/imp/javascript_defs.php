@@ -11,7 +11,7 @@
 $code = array(
 /* Variables used in core javascript files. */
     'conf' => array(
-        'pop3' => intval($GLOBALS['session']->get('imp', 'protocol') == 'pop'),
+        'pop3' => intval($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3),
         'fixed_folders' => empty($GLOBALS['conf']['server']['fixed_folders'])
             ? array()
             : $GLOBALS['conf']['server']['fixed_folders'],

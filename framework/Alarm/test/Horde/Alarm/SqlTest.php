@@ -88,7 +88,7 @@ class Horde_Alarm_SqlTest extends Horde_Test_Case
     public function testGet()
     {
         $alarm = self::$alarm->get('personalalarm', 'john');
-        $this->assertType('array', $alarm);
+        $this->assertInternalType('array', $alarm);
         $this->assertEquals('personalalarm', $alarm['id']);
         $this->assertEquals('john', $alarm['user']);
         $this->assertEquals(array(), $alarm['methods']);

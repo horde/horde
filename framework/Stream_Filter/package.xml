@@ -11,30 +11,24 @@
   <active>yes</active>
  </lead>
  <lead>
-  <name>Jan Schneider</name>
-  <user>jan</user>
-  <email>jan@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
   <name>Michael Slusarz</name>
   <user>slusarz</user>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:50:41</time>
+ <date>2011-04-06</date>
+ <time>01:20:07</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -42,6 +36,7 @@
     <dir name="Horde">
      <dir name="Stream">
       <dir name="Filter">
+       <file name="Crc32.php" role="php" />
        <file name="Eol.php" role="php" />
       </dir> <!-- /lib/Horde/Stream/Filter -->
      </dir> <!-- /lib/Horde/Stream -->
@@ -52,6 +47,7 @@
      <dir name="Stream">
       <dir name="Filter">
        <file name="AllTests.php" role="test" />
+       <file name="Crc32Test.php" role="test" />
        <file name="EolTest.php" role="test" />
       </dir> <!-- /test/Horde/Stream/Filter -->
      </dir> <!-- /test/Horde/Stream -->
@@ -71,8 +67,10 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="Horde/Stream/Filter/Crc32.php" name="lib/Horde/Stream/Filter/Crc32.php" />
    <install as="Horde/Stream/Filter/Eol.php" name="lib/Horde/Stream/Filter/Eol.php" />
    <install as="Horde/Stream/Filter/AllTests.php" name="test/Horde/Stream/Filter/AllTests.php" />
+   <install as="Horde/Stream/Filter/Crc32Test.php" name="test/Horde/Stream/Filter/Crc32Test.php" />
    <install as="Horde/Stream/Filter/EolTest.php" name="test/Horde/Stream/Filter/EolTest.php" />
   </filelist>
  </phprelease>
@@ -90,6 +88,80 @@
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-16</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First beta release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-22</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Second release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First stable release for Horde 4.
+* [mms] Add CRC32 filter.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

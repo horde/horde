@@ -1,5 +1,6 @@
 <?php
 /**
+ * @package Horde
  */
 class Horde_Block_Google extends Horde_Core_Block
 {

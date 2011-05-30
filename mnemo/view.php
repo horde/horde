@@ -15,8 +15,8 @@ $passphrase = Horde_Util::getFormData('memo_passphrase');
 
 /* We can either have a UID or a memo id and a notepad. Check for UID
  * first. */
-$storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
 if ($uid = Horde_Util::getFormData('uid')) {
+    $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
     try {
         $memo = $storage->getByUID($uid, $passphrase);
     } catch (Mnemo_Exception $e) {
@@ -60,7 +60,7 @@ $modifiedby = '';
 if (!empty($memo['uid'])) {
     $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('mnemo:' . $memolist_id . ':' . $memo['uid']);
     if ($log) {
-	foreach ($log as $entry) {
+    foreach ($log as $entry) {
             switch ($entry['action']) {
             case 'add':
                 $created = $entry['ts'];
@@ -128,6 +128,7 @@ if ($print_view) {
     $print_link = Horde::url($print_link);
     Horde::addScriptFile('stripe.js', 'horde', true);
     echo Horde::menu();
+    $notification->notify();
 }
 
 require MNEMO_TEMPLATES . '/view/memo.inc';

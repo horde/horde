@@ -16,4 +16,4 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
 // Load initial page as defined by view mode & preferences.
-require IMP_Auth::getInitialPage();
+require IMP_Auth::getInitialPage()->fullpath;

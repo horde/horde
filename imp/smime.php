@@ -105,7 +105,8 @@ case 'save_attachment_public_key':
     $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($vars->mailbox, $vars->uid));
     $mime_part = $contents->getMIMEPart($vars->mime_id);
     if (empty($mime_part)) {
-        throw new IMP_Exception(_("Cannot retrieve public key from message."));
+        $imp_smime->textWindowOutput('', _("Cannot retrieve public key from message."));
+        break;
     }
 
     /* Add the public key to the storage system. */
@@ -115,11 +116,17 @@ case 'save_attachment_public_key':
             : $contents->fullMessageText();
         $raw_text = $mime_part->replaceEOL($stream, Horde_Mime_Part::RFC_EOL);
     } catch (Horde_Exception $e) {
-        throw new IMP_Exception(_("No certificate found."));
+        $imp_smime->textWindowOutput('', _("No certificate found."));
+        break;
     }
 
-    $sig_result = $imp_smime->verifySignature($raw_text);
-    $imp_smime->addPublicKey($sig_result->cert);
+    try {
+        $sig_result = $imp_smime->verifySignature($raw_text);
+        $imp_smime->addPublicKey($sig_result->cert);
+    } catch (Horde_Exception $e) {
+        $imp_smime->textWindowOutput('', $e->getMessage());
+        break;
+    }
     echo Horde::wrapInlineScript(array('window.close();'));
     break;
 }

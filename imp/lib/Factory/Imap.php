@@ -28,6 +28,15 @@
 class IMP_Factory_Imap extends Horde_Core_Factory_Base
 {
     /**
+     * Name of the instance used for the initial authentication.
+     * Needed because the session may not be setup yet to indicate the
+     * default instance to use.
+     *
+     * @var string
+     */
+    private $_authInstance;
+
+    /**
      * Instances.
      *
      * @var array
@@ -55,7 +64,8 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base
         global $session;
 
         if (is_null($id) &&
-            !($id = $session->get('imp', 'server_key'))) {
+            !($id = $session->get('imp', 'server_key')) &&
+            !($id = $this->_authInstance)) {
             $id = 'default';
         }
 
@@ -70,6 +80,7 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base
                 $save = true;
             } else {
                 $ob = new IMP_Imap();
+                $this->_authInstance = $id;
             }
 
             $this->_instances[$id] = $ob;
@@ -88,7 +99,7 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base
     public function shutdown()
     {
         foreach (array_unique($this->_save) as $id) {
-            if ($this->_instances[$id]->ob->changed) {
+            if ($this->_instances[$id]->changed) {
                 $GLOBALS['session']->set('imp', 'imap_ob/' . $id, $this->_instances[$id]);
             }
         }

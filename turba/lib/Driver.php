@@ -180,11 +180,13 @@ class Turba_Driver implements Countable
     {
         /* Handle category. */
         if (!empty($hash['category'])) {
-            if (!empty($hash['category']['new'])) {
+            if (is_array($hash['category']) && !empty($hash['category']['new'])) {
                 $cManager = new Horde_Prefs_CategoryManager();
                 $cManager->add($hash['category']['value']);
+                $hash['category'] = $hash['category']['value'];
+            } elseif (is_array($hash['category'])) {
+                $hash['category'] = $hash['category']['value'];
             }
-            $hash['category'] = $hash['category']['value'];
         }
 
         // Add composite fields to $hash if at least one field part exists
@@ -1395,7 +1397,17 @@ class Turba_Driver implements Countable
                 if ($fields && !isset($fields['EMAIL'])) {
                     break;
                 }
-                $vcard->setAttribute('EMAIL', Horde_Icalendar_Vcard::getBareEmail($val));
+                if ($version == '2.1') {
+                    $vcard->setAttribute(
+                        'EMAIL',
+                        Horde_Icalendar_Vcard::getBareEmail($val),
+                        array('INTERNET' => null));
+                } else {
+                    $vcard->setAttribute(
+                        'EMAIL',
+                        Horde_Icalendar_Vcard::getBareEmail($val),
+                        array('TYPE' => 'INTERNET'));
+                }
                 break;
 
             case 'homeEmail':
@@ -2369,6 +2381,14 @@ class Turba_Driver implements Countable
                 $message->email1address = Horde_Icalendar_Vcard::getBareEmail($value);
                 break;
 
+            case 'homeEmail':
+                $message->email2address = Horde_Icalendar_Vcard::getBareEmail($value);
+                break;
+
+            case 'workEmail':
+                $message->email3address = Horde_Icalendar_Vcard::getBareEmail($value);
+                break;
+
             case 'title':
                 $message->jobtitle = $value;
                 break;
@@ -2377,7 +2397,7 @@ class Turba_Driver implements Countable
                 $message->companyname = $value;
                 break;
 
-            case 'departnemt':
+            case 'department':
                 $message->department = $value;
                 break;
 
@@ -2403,8 +2423,12 @@ class Turba_Driver implements Countable
             case 'birthday':
             case 'anniversary':
                 if (!empty($value)) {
-                    $date = new Horde_Date($value);
-                    $message->{$field} = $date;
+                    try {
+                        $date = new Horde_Date($value);
+                        $message->{$field} = $date;
+                    } catch (Horde_Date_Exception $e) {
+                        $message->$field = null;
+                    }
                 } else {
                     $message->$field = null;
                 }
@@ -2486,7 +2510,12 @@ class Turba_Driver implements Countable
         if (!$message->isGhosted('email1address')) {
             $hash['email'] = Horde_Icalendar_Vcard::getBareEmail($message->email1address);
         }
-
+        if (!$message->isGhosted('email2address')) {
+            $hash['homeEmail'] = Horde_Icalendar_Vcard::getBareEmail($message->email2address);
+        }
+        if (!$message->isGhosted('email3address')) {
+            $hash['workEmail'] = Horde_Icalendar_Vcard::getBareEmail($message->email3address);
+        }
         /* Categories */
         if (count($message->categories)) {
             $hash['category'] = implode('|', $message->categories);
@@ -2585,6 +2614,17 @@ class Turba_Driver implements Countable
     }
 
     /**
+     * Override the name setting for this driver.
+     *
+     * @param string $name  The source name. This is the key into the
+     *                      $cfgSources array.
+     */
+    public function setSourceName($name)
+    {
+        $this->_name = $name;
+    }
+
+    /**
      * Return the owner to use when searching or creating contacts in
      * this address book.
      *
@@ -2624,64 +2664,6 @@ class Turba_Driver implements Countable
     protected function _makeKey(array $attributes)
     {
         return hash('md5', mt_rand());
-    }
-
-    /**
-     * Static method to construct Turba_Driver objects.
-     *
-     * @param string $name   String containing the internal name of this
-     *                       source.
-     * @param array $config  Array containing the configuration information for
-     *                       this source.
-     *
-     * @return Turba_Driver  The concrete driver object.
-     * @throws Turba_Exception
-     */
-    static public function factory($name, array $config)
-    {
-        $class = __CLASS__ . '_' . ucfirst(basename($config['type']));
-
-        if (class_exists($class)) {
-            $driver = new $class($config['params']);
-        } else {
-            throw new Turba_Exception(sprintf(_("Unable to load the definition of %s."), $class));
-        }
-
-        /* Store name and title. */
-        $driver->_name = $name;
-        $driver->title = $config['title'];
-
-        /* Initialize */
-        $driver->_init();
-
-        /* Store and translate the map at the Source level. */
-        $driver->map = $config['map'];
-        foreach ($driver->map as $key => $val) {
-            if (!is_array($val)) {
-                $driver->fields[$key] = $val;
-            }
-        }
-
-        /* Store tabs. */
-        if (isset($config['tabs'])) {
-            $driver->tabs = $config['tabs'];
-        }
-
-        /* Store remaining fields. */
-        if (isset($config['strict'])) {
-            $driver->strict = $config['strict'];
-        }
-        if (isset($config['approximate'])) {
-            $driver->approximate = $config['approximate'];
-        }
-        if (isset($config['list_name_field'])) {
-            $driver->listNameField = $config['list_name_field'];
-        }
-        if (isset($config['alternative_name'])) {
-            $driver->alternativeName = $config['alternative_name'];
-        }
-
-        return $driver;
     }
 
     /**

@@ -85,7 +85,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
     public function nativeDatabaseTypes()
     {
         return array(
-            'primaryKey' => 'int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
+            'autoincrementKey' => 'int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
             'string'     => array('name' => 'varchar',  'limit' => 255),
             'text'       => array('name' => 'text',     'limit' => null),
             'integer'    => array('name' => 'int',      'limit' => 11),
@@ -349,7 +349,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
         $unsigned  = !empty($options['unsigned'])  ? $options['unsigned']  : null;
 
         $typeSql = $this->typeToSql($type, $limit, $precision, $scale, $unsigned);
-        $dropPk = $type == 'primaryKey' ? 'DROP PRIMARY KEY,' : '';
+        $dropPk = $type == 'autoincrementKey' ? 'DROP PRIMARY KEY,' : '';
 
         $sql = sprintf('ALTER TABLE %s %s CHANGE %s %s %s',
                        $quotedTableName,
@@ -357,7 +357,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
                        $quotedColumnName,
                        $quotedColumnName,
                        $typeSql);
-        if ($type != 'primaryKey') {
+        if ($type != 'autoincrementKey') {
             $sql = $this->addColumnOptions($sql, $options);
         }
 
@@ -484,5 +484,32 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
             $sql .= ' AUTO_INCREMENT';
         }
         return $sql;
+    }
+
+    /**
+     * Returns an expression using the specified operator.
+     *
+     * @param string $lhs    The column or expression to test.
+     * @param string $op     The operator.
+     * @param string $rhs    The comparison value.
+     * @param boolean $bind  If true, the method returns the query and a list
+     *                       of values suitable for binding as an array.
+     * @param array $params  Any additional parameters for the operator.
+     *
+     * @return string|array  The SQL test fragment, or an array containing the
+     *                       query and a list of values if $bind is true.
+     */
+    public function buildClause($lhs, $op, $rhs, $bind = false,
+                                $params = array())
+    {
+        switch ($op) {
+        case '~':
+            if ($bind) {
+                return array($lhs . ' REGEXP ?', array($rhs));
+            } else {
+                return $lhs . ' REGEXP ' . $rhs;
+            }
+        }
+        return parent::buildClause($lhs, $op, $rhs, $bind, $params);
     }
 }

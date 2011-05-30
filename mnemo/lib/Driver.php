@@ -35,7 +35,6 @@ abstract class Mnemo_Driver
      */
     protected $_pgp;
 
-
     /**
      * Lists memos based on the given criteria. All memos will be
      * returned by default.
@@ -82,12 +81,12 @@ abstract class Mnemo_Driver
      */
     protected function _loadPGP()
     {
-        if (empty($GLOBALS['conf']['utils']['gnupg'])) {
+        if (empty($GLOBALS['conf']['gnupg']['path'])) {
             throw new Mnemo_Exception(_("Encryption support has not been configured, please contact your administrator."));
         }
-
+ 
         $this->_pgp = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Crypt')->create('pgp', array(
-            'program' => $GLOBALS['conf']['utils']['gnupg']
+            'program' => $GLOBALS['conf']['gnupg']['path']
         ));
     }
 

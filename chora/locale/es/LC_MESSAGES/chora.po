@@ -1,17 +1,18 @@
-# Spanish translations for chora package
-# Traducciones al español para el paquete chora.
-# Copyright 2008-2011 The Horde Project
-# This file is distributed under the same license as the chora package.
-# Automatically generated, 2008.
+# Spanish translations for lmd package.
+# Copyright (C) 2011 Horde Project
+# This file is distributed under the same license as the Chora package.
+# Automatically generated, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Chora 2.1-cvs\n"
+"Project-Id-Version: Chora H4 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2008-03-18 08:46+0100\n"
-"PO-Revision-Date: 2008-03-18 08:46+0100\n"
-"Last-Translator: Manuel P. Ayala <mayala@unex.es>\n"
+"POT-Creation-Date: 2011-05-17 12:19+0200\n"
+"PO-Revision-Date: 2011-04-14 17:07+0200\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
+"<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,7 +22,7 @@ msgstr ""
 msgid "#"
 msgstr "#"
 
-#: templates/log/header.inc:17
+#: templates/log/header.inc:14
 #, php-format
 msgid ""
 "%1$s shows diffs to the previous revision. If you select a revision by "
@@ -31,47 +32,45 @@ msgstr ""
 "revisión pulsando su fila, %1$s mostrará las diferencias de la fila "
 "seleccionada."
 
-#: co.php:84
+#: co.php:82
 #, php-format
 msgid "%s Revision %s (%s ago)"
 msgstr "%s Revisión %s (hace %s)"
 
-#: templates/annotate/footer.inc:22
+#: lib/Application.php:169
 #, php-format
-msgid "%s ago"
-msgstr "hace %s"
+msgid "%s: Forbidden by server configuration"
+msgstr "%s: Prohibido por la configuración del servidor"
 
-#: templates/diff/hr/header.inc:25
+#: cvsgraph.php:24
+#, php-format
+msgid "%s: no such file or directory"
+msgstr "%s: no existe tal archivo ni directorio"
+
+#: app/views/diff/caption.html.php:4
 msgid "Added"
 msgstr "Añadido"
 
-#: templates/log/header.inc:31
+#: templates/directory/header.inc:7
 msgid "All Branches"
 msgstr "Todas las ramas"
 
-#: co.php:89
+#: co.php:88
 msgid "Annotate"
 msgstr "Anotaciones"
 
-#: templates/log/header.inc:60 templates/patchsets/header.inc:15
-#: templates/directory/header.inc:12 templates/stats/stats.inc:4
-#: templates/annotate/header.inc:5
+#: annotate.php:32 templates/annotate/header.inc:5
+#: templates/directory/header.inc:28 templates/patchsets/header_table.inc:13
+#: templates/stats/stats.inc:4
 msgid "Author"
 msgstr "Autor"
 
-#: templates/checkout/checkout.inc:4
-msgid "Author:"
-msgstr "Autor:"
-
 #: templates/directory/back.inc:4
 msgid "Back"
-msgstr "Atrás"
+msgstr "Volver"
 
-#: templates/checkout/checkout.inc:5
-msgid "Branch:"
-msgstr "Rama:"
-
-#: lib/Chora.php:494 lib/Chora.php:495 lib/Chora.php:499 lib/Chora.php:500
+#: app/views/_logMessage.html.php:18 lib/Chora.php:332 lib/Chora.php:333
+#: lib/Chora.php:336 lib/Chora.php:337
 msgid "Branches"
 msgstr "Ramas"
 
@@ -79,7 +78,7 @@ msgstr "Ramas"
 msgid "Branching to"
 msgstr "Ramificando a"
 
-#: lib/Chora.php:384
+#: lib/Chora.php:234
 msgid "Change repositories:"
 msgstr "Cambiar depósitos:"
 
@@ -87,10 +86,6 @@ msgstr "Cambiar depósitos:"
 #, php-format
 msgid "Changed: %s"
 msgstr "Cambiado: %s"
-
-#: templates/checkout/checkout.inc:12
-msgid "Checkout"
-msgstr "Inspeccionar"
 
 #: templates/cvsgraph/cvsgraph.inc:5
 msgid ""
@@ -100,73 +95,80 @@ msgstr ""
 "Haga click sobre los vínculos entre las revisiones para obtener las "
 "diferencias entre dichas revisiones."
 
-#: templates/cvsgraph/cvsgraph.inc:4
+#: templates/cvsgraph/cvsgraph.inc:3
 msgid "Click on the revisions and branches to display the file."
 msgstr "Haga click sobre las revisiones y ramas para mostrar el archivo."
 
-#: templates/diff/hr/header.inc:13
-msgid "Column"
-msgstr "Columna"
+#: templates/patchsets/header_table.inc:11
+msgid "Commit"
+msgstr "Actualizar"
+
+#: commit.php:28
+#, php-format
+msgid "Commit %s"
+msgstr "Actualizar %s"
+
+#: commit.php:38 patchsets.php:40
+msgid "Commit Not Found"
+msgstr "Actualización no encontrada"
 
 #: templates/stats/stats.inc:5
 msgid "Commits"
 msgstr "Actualizaciones"
 
-#: templates/diff/hr/header.inc:12
-msgid "Context"
-msgstr "Contexto"
+#: patchsets.php:28
+#, php-format
+msgid "Commits to %s"
+msgstr "Actualizar en %s"
 
-#: config/.bak/prefs.php.dist:11
-msgid "Customize tasks to run upon logging in to Chora."
-msgstr "Personalice las tareas a ejecutar al iniciar sesión en Chora."
-
-#: templates/directory/header.inc:15
+#: templates/directory/header.inc:31
 msgid "Da_te"
 msgstr "_Fecha"
 
-#: templates/log/header.inc:59 templates/patchsets/header.inc:14
-#: templates/directory/header.inc:15
+#: annotate.php:33 templates/directory/header.inc:31
+#: templates/patchsets/header_table.inc:12
 msgid "Date"
 msgstr "Fecha"
 
-#: patchsets.php:86
-msgid "Deleted"
-msgstr "Eliminado"
-
-#: templates/directory/file.inc:5 templates/directory/file.inc:17
+#: templates/directory/file.inc:5 templates/directory/file.inc:28
 msgid "Deleted File"
 msgstr "Archivo eliminado"
 
-#: patchsets.php:83 templates/log/header.inc:16
+#: templates/patchsets/header_table.inc:14
+msgid "Description"
+msgstr "Descripción"
+
+#: app/views/_logMessage.html.php:9 patchsets.php:52
+#: templates/log/header.inc:11
 msgid "Diff"
 msgstr "Diferencias"
 
-#: diff.php:70
+#: diff.php:65
 #, php-format
 msgid "Diff for %s between version %s and %s"
 msgstr "Diferencias de %s entre la versión %s y la %s"
+
+#: templates/annotate/line.inc:13
+#, php-format
+msgid "Diff to %s"
+msgstr "Diferencias con %s"
 
 #: templates/directory/dir.inc:4 templates/directory/dir.inc:6
 msgid "Directory"
 msgstr "Directorio"
 
-#: annotate.php:33 co.php:90
+#: annotate.php:48 co.php:89
 msgid "Download"
 msgstr "Descargar"
 
-#: templates/diff/hr/header.inc:9
+#: templates/diff/header.inc:8
 msgid "Download diff as: "
 msgstr "Descargar diff como: "
 
-#: templates/checkout/checkout.inc:23
+#: app/views/file/html.html.php:16 co.php:76
 #, php-format
 msgid "Download revision %s"
 msgstr "Descargar revisión %s"
-
-# ¿Dónde está?
-#: templates/diff/hr/header.inc:14
-msgid "Ed Script"
-msgstr "Script Ed"
 
 #: templates/error_page.inc:4
 msgid "Error"
@@ -176,278 +178,248 @@ msgstr "Error"
 msgid "Error Encountered"
 msgstr "Se ha encontrado un error"
 
-#: templates/directory/file.inc:7 templates/directory/file.inc:19
-#: templates/directory/header.inc:6
+#: templates/directory/file.inc:7 templates/directory/file.inc:30
+#: templates/directory/header.inc:22
 msgid "File"
 msgstr "Archivo"
 
-#: templates/patchsets/header.inc:16
-msgid "Files"
-msgstr "Archivos"
-
-#: templates/diff/hr/header.inc:16
+#: templates/diff/header.inc:12
 msgid "Get Diff"
 msgstr "Obtener diferencias"
 
-#: cvsgraph.php:51
+#: cvsgraph.php:53
 #, php-format
 msgid "Graph for %s"
 msgstr "Gráfico de %s"
 
-#: browse.php:58
+#: browsedir.php:42
 msgid "Hide Deleted Files"
 msgstr "Ocultar archivos eliminados"
 
-#: browse.php:58
+#: browsedir.php:42
 msgid "Hide _Deleted Files"
 msgstr "_Ocultar archivos eliminados"
 
-#: templates/directory/header.inc:17
+#: templates/directory/header.inc:33
 msgid "Last Log"
 msgstr "Último registro"
 
-#: templates/annotate/header.inc:8
+#: templates/annotate/header.inc:9
 msgid "Line"
 msgstr "Línea"
 
-#: templates/diff/hr/row.inc:3 templates/diff/hr/row.inc:6
-#, php-format
-msgid "Line %s"
-msgstr "Línea %s"
+#: annotate.php:53
+msgid "Loading..."
+msgstr "Cargando..."
 
 #: templates/headerbar.inc:5
 msgid "Location:"
 msgstr "Ubicación:"
 
-#: templates/log/header.inc:61 templates/patchsets/header.inc:17
-#: templates/checkout/checkout.inc:1
-msgid "Log Message"
-msgstr "Mensaje de registro"
-
-#: config/.bak/prefs.php.dist:10
-msgid "Login Tasks"
-msgstr "Tareas de inicio de sesión"
-
-#: lib/Chora.php:480 lib/Chora.php:481
+#: lib/Chora.php:319 lib/Chora.php:320
 msgid "Logs"
 msgstr "Registros"
 
-#: diff.php:44
+#: diff.php:41
 msgid "Malformed Query"
 msgstr "Consulta malformada"
 
-#: lib/Block/tree_menu.php:3
-msgid "Menu List"
-msgstr "Lista del menú"
-
-#: templates/diff/hr/header.inc:26
+#: app/views/diff/caption.html.php:5
 msgid "Modified"
-msgstr "Modificado"
+msgstr "Modific."
 
-#: patchsets.php:79
-msgid "New File"
-msgstr "Nuevo archivo"
+#: commit.php:25
+msgid "No commit ID given"
+msgstr "No se ha indicado un ID de actualización"
 
-#: templates/diff/hr/nochange.inc:3
-msgid "No Visible Changes"
-msgstr "Sin cambios visibles"
-
-#: templates/log/header.inc:47
-#, php-format
-msgid ""
-"Only showing the 100 latest revisions. %sShow all revisions?</a> (may take a "
-"while)."
-msgstr ""
-"Sólo se muestran las 100 últimas revisiones. %s¿Mostrar todas las revisiones?"
-"</a> (puede llevar un rato)."
-
-#: config/.bak/prefs.php.dist:9
-msgid "Other Options"
-msgstr "Otras opciones"
+#: lib/Application.php:112
+msgid "No repositories found."
+msgstr "No se encontraron depósitos"
 
 #: templates/directory/back.inc:4
 msgid "Parent Directory"
 msgstr "Directorio anterior"
 
-#: templates/patchsets/header.inc:13
-msgid "Patchset"
-msgstr "Parche"
-
-#: lib/Chora.php:487 lib/Chora.php:488
+#: lib/Chora.php:324 lib/Chora.php:325
 msgid "Patchsets"
 msgstr "Parches"
-
-#: patchsets.php:35
-#, php-format
-msgid "Patchsets for %s"
-msgstr "Parches de %s"
 
 #: templates/error_page.inc:13
 msgid "Please contact"
 msgstr "Póngase en contacto con"
 
-#: templates/annotate/header.inc:7
+#: templates/annotate/header.inc:8
 msgid "Prev"
 msgstr "Ant"
 
-#: templates/diff/hr/header.inc:27
+#: app/views/diff/caption.html.php:6
 msgid "Removed"
 msgstr "Eliminado"
 
-#: lib/api.php:30
+#: lib/Application.php:179
 msgid "Repositories"
 msgstr "Depósitos"
 
-#: templates/directory/header.inc:9 templates/annotate/header.inc:6
+#: templates/annotate/header.inc:6 templates/directory/header.inc:25
 msgid "Rev"
 msgstr "Rev"
 
-#: templates/log/header.inc:58
-msgid "Revision"
-msgstr "Revisión"
-
-#: browse.php:154
+#: annotate.php:25
 #, php-format
-msgid "Revisions for %s"
-msgstr "Revisión de %s"
+msgid "Revision %s not found"
+msgstr "No se encontró la revisión %s"
 
-#: templates/patchsets/header.inc:4
+#: co.php:45
+#, php-format
+msgid "Revision Not Found: %s is not a valid revision"
+msgstr "Revisión no encontrada: %s no es una revisión válida"
+
+#: templates/patchsets/header_table.inc:3
+msgid "Search Commits:"
+msgstr "Buscar actualizaciones:"
+
+#: templates/patchsets/header.inc:7
 msgid "Search Patchsets:"
 msgstr "Buscar parches:"
 
-#: templates/log/header.inc:4
-msgid "Search Revisions:"
-msgstr "Buscar revisiones:"
-
-#: templates/log/header.inc:29
+#: templates/log/header.inc:21
 msgid "Show Branch:"
 msgstr "Mostrar rama:"
 
-#: browse.php:60
+#: browsedir.php:42
 msgid "Show Deleted Files"
 msgstr "Mostrar archivos eliminados"
 
-#: templates/log/header.inc:18
+#: templates/log/header.inc:14
 msgid "Show Differences"
 msgstr "Mostrar diferencias"
 
-#: browse.php:60
+#: browsedir.php:42
 msgid "Show _Deleted Files"
 msgstr "_Mostrar archivos eliminados"
 
-#: templates/log/rev.inc:4
-msgid "Show changes to the previous revision"
-msgstr "Mostrar cambios desde la revisión anterior"
-
-#: templates/log/rev.inc:6
-msgid "Show changes to the selected revision"
-msgstr "Mostrar cambios con respecto a la revisión seleccionada"
-
-#: templates/log/header.inc:13
+#: templates/log/header.inc:8
 #, php-format
 msgid "Show diffs between %s and %s"
 msgstr "Mostrar diferencias entre %s y %s"
 
-#: annotate.php:30
+#: co.php:93
+msgid "Snapshot"
+msgstr "Instantánea"
+
+#: annotate.php:45
 #, php-format
 msgid "Source Annotation of %s (revision %s)"
 msgstr "Anotación origen de %s (revisión %s)"
 
-#: history.php:163
+#: history.php:129
 #, php-format
 msgid "Source Branching View for %s"
 msgstr "Vista ramificada origen de %s"
 
-#: browse.php:52
-#, php-format
-msgid "Source Directory of /%s"
-msgstr "Directorio origen de /%s"
-
-#: lib/Chora.php:179
+#: lib/Application.php:165
 msgid ""
-"SourceRoot not found! This could be a misconfiguration by the server "
+"Sourceroot not found. This could be a misconfiguration by the server "
 "administrator, or the server could be having temporary problems. Please try "
 "again later."
 msgstr ""
-"¡No se encontró el directorio origen! Puede tratarse de una desconfiguración "
+"No se encontró el directorio origen. Puede tratarse de una desconfiguración "
 "del administrador del servidor, o que el servidor tenga problemas "
 "temporales. Vuelva a probar más tarde."
 
-#: lib/Chora.php:505 lib/Chora.php:506
+#: lib/Chora.php:342 lib/Chora.php:343
 msgid "Statistics"
 msgstr "Estadísticas"
 
-#: stats.php:27
+#: stats.php:26
 #, php-format
 msgid "Statistics for %s"
 msgstr "Estadísticas de %s"
 
-#: templates/log/rev.inc:14 templates/patchsets/ps.inc:22
+#: app/views/_logMessage.html.php:27 templates/patchsets/ps.inc:8
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: templates/checkout/checkout.inc:6
-msgid "Tags:"
-msgstr "Etiquetas:"
+#: lib/Application.php:118
+#, php-format
+msgid "The repository with the slug '%s' was not found"
+msgstr "No se ha encontrado el depósito con ID '%s'"
+
+#: app/helpers/Diff.php:37
+#, php-format
+msgid "There was an error generating the diff: %s"
+msgstr "Se produjo un error al generar el diff: %s"
 
 #: templates/headerbar.inc:9
 msgid "Tracking Branch"
 msgstr "Rama de seguimiento"
 
-#: templates/diff/hr/header.inc:11
+#: templates/diff/header.inc:10
 msgid "Unified"
 msgstr "Unificado"
 
-#: templates/diff/hr/header.inc:24
+#: app/views/diff/caption.html.php:3
 msgid "Unmodified"
 msgstr "Sin cambios"
 
-#: config/.bak/prefs.php.dist:37
-msgid "Use last viewed file or directory at login time"
-msgstr "Usar último archivo o directorio visto al iniciar sesión"
-
-#: templates/diff/hr/header.inc:31 templates/diff/hr/header.inc:32
-#, php-format
-msgid "Version %s"
-msgstr "Versión %s"
-
-#: annotate.php:32 templates/log/header.inc:34
+#: annotate.php:47 templates/directory/header.inc:12
+#: templates/log/header.inc:25
 msgid "View"
 msgstr "Ver"
 
-#: lib/Chora.php:509
+#: templates/directory/header.inc:5
+msgid "View Branch:"
+msgstr "Ver rama:"
+
+#: app/views/_logMessage.html.php:6
+msgid "View commit"
+msgstr "Ver actualización"
+
+#: co.php:95 lib/Chora.php:345
 msgid "View:"
 msgstr "Ver:"
 
-#: templates/directory/header.inc:12
+#: co.php:88
+msgid "_Annotate"
+msgstr "_Anotar"
+
+#: templates/directory/header.inc:28
 msgid "_Author"
 msgstr "A_utor"
 
-#: lib/Chora.php:496 lib/Chora.php:501
+#: lib/Chora.php:333 lib/Chora.php:337
 msgid "_Branches"
 msgstr "_Ramas"
 
-#: lib/Chora.php:461
+#: lib/Application.php:198
 msgid "_Browse"
 msgstr "_Examinar"
 
-#: templates/directory/header.inc:6
+#: co.php:89
+msgid "_Download"
+msgstr "_Descargar"
+
+#: templates/directory/header.inc:22
 msgid "_File"
 msgstr "_Archivo"
 
-#: lib/Chora.php:482
+#: lib/Chora.php:320
 msgid "_Logs"
 msgstr "_Registros"
 
-#: lib/Chora.php:489
+#: lib/Chora.php:325
 msgid "_Patchsets"
 msgstr "_Parches"
 
-#: templates/directory/header.inc:9
+#: templates/directory/header.inc:25
 msgid "_Rev"
 msgstr "_Rev"
 
-#: lib/Chora.php:507
+#: co.php:93
+msgid "_Snapshot"
+msgstr "_Istantánea"
+
+#: lib/Chora.php:343
 msgid "_Statistics"
 msgstr "_Estadísticas"
 
@@ -456,11 +428,11 @@ msgstr "_Estadísticas"
 msgid "by %s"
 msgstr "por %s"
 
-#: lib/Chora.php:31
+#: lib/Chora.php:388
 msgid "day"
 msgstr "día"
 
-#: lib/Chora.php:31
+#: lib/Chora.php:388
 msgid "days"
 msgstr "días"
 
@@ -468,27 +440,27 @@ msgstr "días"
 msgid "for further information."
 msgstr "para más información."
 
-#: lib/Chora.php:30
+#: lib/Chora.php:387
 msgid "hour"
 msgstr "hora"
 
-#: lib/Chora.php:30
+#: lib/Chora.php:387
 msgid "hours"
 msgstr "horas"
 
-#: lib/Chora.php:29
+#: lib/Chora.php:386
 msgid "minute"
 msgstr "minuto"
 
-#: lib/Chora.php:29
+#: lib/Chora.php:386
 msgid "minutes"
 msgstr "minutos"
 
-#: lib/Chora.php:33
+#: lib/Chora.php:390
 msgid "month"
 msgstr "mes"
 
-#: lib/Chora.php:33
+#: lib/Chora.php:390
 msgid "months"
 msgstr "meses"
 
@@ -497,30 +469,30 @@ msgstr "meses"
 msgid "revision %s"
 msgstr "revisión %s"
 
-#: lib/Chora.php:28
+#: lib/Chora.php:385
 msgid "second"
 msgstr "segundo"
 
-#: lib/Chora.php:28
+#: lib/Chora.php:385
 msgid "seconds"
 msgstr "segundos"
 
-#: lib/Chora.php:42
+#: lib/Chora.php:406
 msgid "very little time"
 msgstr "muy poco tiempo"
 
-#: lib/Chora.php:32
+#: lib/Chora.php:389
 msgid "week"
 msgstr "semana"
 
-#: lib/Chora.php:32
+#: lib/Chora.php:389
 msgid "weeks"
 msgstr "semanas"
 
-#: lib/Chora.php:34
+#: lib/Chora.php:391
 msgid "year"
 msgstr "año"
 
-#: lib/Chora.php:34
+#: lib/Chora.php:391
 msgid "years"
 msgstr "años"

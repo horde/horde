@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Core_Perms_Ui:: class provides UI methods for the Horde permissions
+ * The Horde_Core_Perms_Ui class provides UI methods for the Horde permissions
  * system.
  *
  * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
@@ -17,9 +17,16 @@ class Horde_Core_Perms_Ui
     /**
      * The Horde_Perms object we're displaying UI stuff for.
      *
-     * @var Horde_Perms
+     * @var Horde_Perms_Base
      */
     protected $_perms;
+
+    /**
+     * The Horde_Core_Perms object we're displaying UI stuff for.
+     *
+     * @var Horde_Core_Perms
+     */
+    protected $_corePerms;
 
     /**
      * The Horde_Form object that will be used for displaying the edit form.
@@ -45,11 +52,14 @@ class Horde_Core_Perms_Ui
     /**
      * Constructor.
      *
-     * @param Horde_Perms $perms  The object to display UI stuff for.
+     * @param Horde_Perms_Base $perms  The object to display UI stuff for.
+     * @param Horde_Core_Perms_Base $corePerms
      */
-    public function __construct($perms)
+    public function __construct(Horde_Perms_Base $perms,
+                                Horde_Core_Perms $corePerms)
     {
         $this->_perms = $perms;
+        $this->_corePerms = $corePerms;
     }
 
     /**
@@ -111,7 +121,7 @@ class Horde_Core_Perms_Ui
                 }
 
                 try {
-                    $app_perms = $this->_perms->getApplicationPermissions($parents[0]);
+                    $app_perms = $this->_corePerms->getApplicationPermissions($parents[0]);
                 } catch (Horde_Perms_Exception $e) {
                     $GLOBALS['notification']->push($e);
                     continue;
@@ -129,7 +139,7 @@ class Horde_Core_Perms_Ui
                 $perms_extra[] = $edit_link;
                 $delete_link = $delete->add('perm_id', $perm_id)->link(array('class' => 'permsDelete', 'title' => Horde_Core_Translation::t("Delete Permission"))) . $delete_img . '</a>';
                 $perms_extra[] = $delete_link;
-                $name = $this->_perms->getTitle($node);
+                $name = $this->_corePerms->getTitle($node);
 
                 $expanded = isset($nodes[$current]) &&
                     strpos($nodes[$current], $node) === 0 &&
@@ -180,13 +190,13 @@ class Horde_Core_Perms_Ui
         /* Initialise form if required. */
         $this->_formInit();
 
-        $this->_form->setTitle(sprintf(Horde_Core_Translation::t("Add a child permission to \"%s\""), $this->_perms->getTitle($permission->getName())));
+        $this->_form->setTitle(sprintf(Horde_Core_Translation::t("Add a child permission to \"%s\""), $this->_corePerms->getTitle($permission->getName())));
         $this->_form->setButtons(Horde_Core_Translation::t("Add"));
         $this->_vars->set('perm_id', $this->_perms->getPermissionId($permission));
         $this->_form->addHidden('', 'perm_id', 'text', false);
 
         /* Set up the actual child adding field. */
-        $child_perms = $this->_perms->getAvailable($permission->getName());
+        $child_perms = $this->_corePerms->getAvailable($permission->getName());
         if ($child_perms === false) {
             /* False, so no childs are to be added below this level. */
             $this->_form->addVariable(Horde_Core_Translation::t("Permission"), 'child', 'invalid', true, false, null, array(Horde_Core_Translation::t("No children can be added to this permission.")));
@@ -197,6 +207,13 @@ class Horde_Core_Perms_Ui
                 $this->_form->addVariable(Horde_Core_Translation::t("Permissions"), 'child', 'enum', true, true, null, array($child_perms));
             } else {
                 /* Choice array available, so set up enum field. */
+                $prefix = $permission->getName() . ':';
+                $length = strlen($prefix);
+                foreach ($this->_perms->getTree() as $name) {
+                    if (strpos($name, $prefix) === 0) {
+                        unset($child_perms[substr($name, $length)]);
+                    }
+                }
                 $this->_form->addVariable(Horde_Core_Translation::t("Permissions"), 'child', 'enum', true, false, null, array($child_perms));
             }
         }
@@ -406,7 +423,7 @@ class Horde_Core_Perms_Ui
         }
 
         /* Set form title. */
-        $this->_form->setTitle(sprintf(Horde_Core_Translation::t("Edit permissions for \"%s\""), $this->_perms->getTitle($permission->getName())));
+        $this->_form->setTitle(sprintf(Horde_Core_Translation::t("Edit permissions for \"%s\""), $this->_corePerms->getTitle($permission->getName())));
     }
 
     /**
@@ -472,10 +489,10 @@ class Horde_Core_Perms_Ui
         /* Initialise form if required. */
         $this->_formInit();
 
-        $this->_form->setTitle(sprintf(Horde_Core_Translation::t("Delete permissions for \"%s\""), $this->_perms->getTitle($permission->getName())));
+        $this->_form->setTitle(sprintf(Horde_Core_Translation::t("Delete permissions for \"%s\""), $this->_corePerms->getTitle($permission->getName())));
         $this->_form->setButtons(array(Horde_Core_Translation::t("Delete"), Horde_Core_Translation::t("Do not delete")));
         $this->_form->addHidden('', 'perm_id', 'text', false);
-        $this->_form->addVariable(sprintf(Horde_Core_Translation::t("Delete permissions for \"%s\" and any sub-permissions?"), $this->_perms->getTitle($permission->getName())), 'prompt', 'description', false);
+        $this->_form->addVariable(sprintf(Horde_Core_Translation::t("Delete permissions for \"%s\" and any sub-permissions?"), $this->_corePerms->getTitle($permission->getName())), 'prompt', 'description', false);
     }
 
     /**

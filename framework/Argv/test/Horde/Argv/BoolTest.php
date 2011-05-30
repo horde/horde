@@ -15,6 +15,7 @@ class Horde_Argv_BoolTest extends Horde_Argv_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $options = array(
             $this->makeOption('-v', '--verbose',
                         array('action' => 'store_true', 'dest' => 'verbose', 'default' => '')),

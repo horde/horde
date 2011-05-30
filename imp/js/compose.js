@@ -166,7 +166,7 @@ var ImpCompose = {
     {
         var fields = [],
             usedFields = 0,
-            lastRow, newRow, td;
+            input, lastRow, newRow, td;
 
         $('upload_atc').select('input[type="file"]').each(function(i) {
             fields[fields.length] = i;
@@ -188,7 +188,11 @@ var ImpCompose = {
             if (lastRow) {
                 td = new Element('TD', { align: 'left' }).insert(new Element('STRONG').insert(IMP.text.compose_file + ' ' + (usedFields + 1) + ':')).insert('&nbsp;')
 
-                td.insert(new Element('INPUT', { type: 'file', id: 'upload_' + (usedFields + 1), name: 'upload_' + (usedFields + 1), size: 25 }));
+                input = new Element('INPUT', { type: 'file', id: 'upload_' + (usedFields + 1), name: 'upload_' + (usedFields + 1), size: 25 });
+                if (Prototype.Browser.IE) {
+                    input.observe('change', this.changeHandler.bindAsEventListener(this));
+                }
+                td.insert(input);
 
                 newRow = new Element('TR', { id: 'attachment_row_' + (usedFields + 1) }).insert(td);
 
@@ -303,8 +307,13 @@ var ImpCompose = {
         }
 
         document.observe('click', this.clickHandler.bindAsEventListener(this));
-        document.observe('change', this.changeHandler.bindAsEventListener(this));
         document.observe('SpellChecker:noerror', this._onNoErrorSpellCheck.bind(this));
+
+        if (Prototype.Browser.IE) {
+            $('identity', 'stationery', 'sentmail_folder', 'upload_1').compact().invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
+        } else {
+            document.observe('change', this.changeHandler.bindAsEventListener(this));
+        }
 
         if (this.auto_save) {
             /* Immediately execute to get MD5 hash of empty message. */

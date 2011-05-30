@@ -13,7 +13,7 @@
  */
 
 /**
- * View helpers for URLs
+ * View helpers for numbers.
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -27,25 +27,29 @@ class Horde_View_Helper_Number extends Horde_View_Helper_Base
 {
     /**
      * Formats the bytes in $size into a more understandable representation.
+     *
      * Useful for reporting file sizes to users. This method returns NULL if
      * $size cannot be converted into a number. You can change the default
      * precision of 1 in $precision.
      *
-     *   $this->numberToHumanSize(123)           => 123 Bytes
-     *   $this->numberToHumanSize(1234)          => 1.2 KB
-     *   $this->numberToHumanSize(12345)         => 12.1 KB
-     *   $this->numberToHumanSize(1234567)       => 1.2 MB
-     *   $this->numberToHumanSize(1234567890)    => 1.1 GB
-     *   $this->numberToHumanSize(1234567890123) => 1.1 TB
-     *   $this->numberToHumanSize(1234567, 2)    => 1.18 MB
+     * <pre>
+     * $this->numberToHumanSize(123)           => 123 Bytes
+     * $this->numberToHumanSize(1234)          => 1.2 KB
+     * $this->numberToHumanSize(12345)         => 12.1 KB
+     * $this->numberToHumanSize(1234567)       => 1.2 MB
+     * $this->numberToHumanSize(1234567890)    => 1.1 GB
+     * $this->numberToHumanSize(1234567890123) => 1.1 TB
+     * $this->numberToHumanSize(1234567, 2)    => 1.18 MB
+     * </pre>
      *
-     * @param  integer|float  $size        Size to format
-     * @param  integer        $preceision  Level of precision
-     * @return string                      Formatted size value
+     * @param integer|float $size  Size to format.
+     * @param integer $preceision  Level of precision.
+     *
+     * @return string  Formatted size value.
      */
     public function numberToHumanSize($size, $precision = 1)
     {
-        if (! is_numeric($size)) {
+        if (!is_numeric($size)) {
             return null;
         }
 
@@ -65,5 +69,4 @@ class Horde_View_Helper_Number extends Horde_View_Helper_Base
 
         return str_replace('.0', '', $size);
     }
-
 }

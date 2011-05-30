@@ -84,7 +84,8 @@ class Kronolith_View_DeleteEvent
                 $view = new Kronolith_View_Event($this->_event);
                 $view->html(false);
             }
-            if ($this->_event->hasPermission(Horde_Perms::EDIT)) {
+            if ($this->_event->hasPermission(Horde_Perms::READ) &&
+                Kronolith::getDefaultCalendar(Horde_Perms::EDIT)) {
                 $edit = new Kronolith_View_EditEvent($this->_event);
                 $edit->html(false);
             }

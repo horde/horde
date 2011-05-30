@@ -11,6 +11,6 @@
  * @category Horde
  * @package  Editor
  */
-class Horde_Editor_Exception extends Horde_Exception_Prior
+class Horde_Editor_Exception extends Horde_Exception_Wrapped
 {
 }

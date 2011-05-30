@@ -1,4 +1,148 @@
 ----------
+v5.0.5-git
+----------
+
+[mms] Fix sending messages with linked attachments (Bug #10125).
+[mms] Handle response codes/errors returned from POP3 servers.
+[mms] Fix POP3 regressions.
+[mms] Workaround broken suhosin extension to allow search mailboxes (Request
+      #9842).
+
+
+------
+v5.0.4
+------
+
+[mms] Fix filter links in the preferences UI (Bug #10117).
+[mms] Fix print icon for non text/html displayable attachments (Bug #10112).
+[mms] Support $Junk/$NotJunk keywords when marking spam/ham.
+[jan] Fix link to send PGP key to keyserver (Bug #10070).
+[mms] Fix resizing compose window in dynamic view for IE 7/8 (Bug #10075).
+[mms] Fix setting/unsetting passphrases in preferences (Bug #10096).
+[mms] Base64url encode breacdrumb hash information in dynamic view.
+[mms] Add login task to autocreate special mailboxes.
+[mms] Workaround broken messages by allow viewing multipart/related parts that
+      are not referenced in the base part (Request #9827).
+[mms] Use ACLs to determine when to hide various UI options (Request #9537).
+[mms] Cache various calculated mailbox information in the session.
+[mms] Fix adding flags in advanced search (Bug #10049).
+[mms] Fix display of subfolders in mobile view (Bug #10043).
+[mms] Improved determination of available flags in a mailbox.
+[mms] Fix adding to whitelist from dynamic view (rui.carneiro@portugalmail.net,
+      Bug #10036).
+
+
+------
+v5.0.3
+------
+
+[jan] Add missing files to package.
+
+
+------
+v5.0.2
+------
+
+[mms] Add quick flag filtering to traditional view.
+[mms] Fix viewing linked attachments (Bug #9972).
+[mms] Add support for the content-id access type of message/external-body.
+[mms] Consolidate IMAP error handling code in IMP_Imap_Exception.
+[mms] Use translated namespace name if available.
+
+
+------
+v5.0.1
+------
+
+[mms] Fix resuming reply drafts in HTML mode (Bug #9928).
+[mms] Fix updating flags/logs on original messages after resuming from draft.
+[mms] Fix flagging messages in search mailboxes in dynamic view.
+[mms] Don't attempt to poll non-IMAP mailboxes (Bug #9896).
+[mms] Fix deleting attachments from compose message in dynamic view (Bug
+      #9899).
+[mms] Newmail portal block can now be configured to auto-update.
+[mms] Fix deleteMessages and flagMessages API calls (Bug #9888).
+[mms] More intelligent polling in dynamic view (Request #9808).
+[mms] Fix spurious viewport loading in rare situations (Bug #9768).
+[mms] Show human readable message in multipart/report parts in the richest
+      format possible (Bug #9873).
+[mms] Fix unneeded body part downloads in alternative parts (Bug #9862).
+[mms] Fix importing PGP private keys.
+[mms] More intelligent part naming if name is not specified in the message
+      (Request #9853).
+[jan] Avoid double escaping of folder names in sent-mail drop down list.
+[jan] Fix translation of special folders on certain IMAP servers.
+[jan] Fix display of status icons in traditional view (Bug #9844).
+[mms] Fix displaying all message parts in standard view (Bug #9827).
+[mms] Allow .eml files to be imported into a mailbox (Request #9827).
+[mms] Fix vertical layout resize in dynamic view (Bug #9834).
+[mms] Fix link for filters menu item (Bug #9831).
+[mms] Fix composing messages in mobile view.
+[mms] IMP will refuse to work with POP3 servers that don't support UIDL.
+[mms] Many POP3 fixes.
+
+
+----
+v5.0
+----
+
+[jan] Notify about new mails in any Horde application.
+[mms] New mail notifications now handled by the Horde Notification system
+      (Request #9751).
+[mms] Fix resuming messages with attachments (Bug #9780).
+[mms] Fix javascript actions in standard view in IE 7/8 (Bugs #9801, 9809).
+[jan] Fix application-specific permission checks (Bug #9786).
+[mms] Fix printing of message parts in IE, regardless of local user settings
+      (Bug #9756).
+[mms] Fix IMP_Maillog regression from RC2 (Bug #9763).
+[mms] Fix honoring default encryption option in dynamic view.
+[jan] Show full alarm notifications in dynamic view (Request #9748).
+[jan] Fix saving S/MIME certs to address book.
+[mms] Support importing of compressed mailbox files if the zip extension is
+      not available.
+
+
+--------
+v5.0-RC2
+--------
+
+[mms] Fix max_folders permission (Bug #9741).
+[jan] Rename all scripts in bin/ to be prefixed with imp- (Request #9647).
+[jan] Correctly render notifications with embedded HTML in dynamic view
+      (Bug #9729).
+[mms] Fix moving to new mailbox, tasklist, and notepad in traditional view
+      (Bug #9732).
+[jan] Add left and right keys as aliases for up and down keys in dynamic view.
+[mms] Add mailbox sorting and select all messages to vertical layout in the
+      dynamic view (Request #9708).
+[jan] Fix expansion of quoted sections in thread view.
+[jan] Fix message previews in traditional view (Bug #9695).
+[jan] Support importing of compressed mailbox files.
+[jan] Fix upgrading of search_fields preference.
+[jan] Fix key navigation in traditional mailbox view.
+[mms] Don't cache FETCH data for the Spam and Trash mailboxes.
+[mms] All views now honor 'initial_page' preference.
+[mms] Fix loading virtual folder as initial page in standard view (Bug #9696).
+
+
+--------
+v5.0-RC1
+--------
+
+[jan] Update installation and upgrade instructions.
+[mms] Fix upgrading virtual folders from IMP 4 (Bug #9692).
+[mms] Fix editing the size search criteria.
+[mms] Optimize importing messages from mbox file.
+[mms] Fix deletion from Virtual Inbox in standard view (Bug #9686).
+[mms] Fix loading virtual folders from drop-down folder list (Bug #9687).
+[mms] Fix thread sort by newest messages first (Bug #9685).
+[mms] Add import/download mailbox ability to dynamic view.
+[jan] Remove application tabs from AJAX interface (Bug #9679).
+[mms] Move all portal rendering code to Horde.
+[mms] Fix flag display in message list in traditional view (Bug #9673).
+
+
+----------
 v5.0-BETA1
 ----------
 

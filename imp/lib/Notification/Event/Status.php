@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Notification_Event_Status extends Horde_Core_Notification_Status
+class IMP_Notification_Event_Status extends Horde_Core_Notification_Event_Status
 {
     /**
      * String representation of this object.

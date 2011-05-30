@@ -35,13 +35,13 @@ input {
 
 /* ini header */
 #quota {
-    float: right;
     font-weight: normal;
     padding-bottom: 3px;
 }
 div#quota {
-    margin: 3px;
+    margin-top: 3px;
     border-top-width: 0;
+    height: 14px;
 }
 #quota .used {
     float: left;
@@ -61,16 +61,16 @@ div#quota {
 .tabset li#quota {
     border-top: 0;
 }
+#quota-text {
+    position: absolute;
+    margin-left: 2px;
+    font-size: 95%;
+}
 
 #logo {
     display: none;
 }
 /* end header */
-
-/* Portal styles. */
-#dimpmain_portal h1.header a {
-    cursor: pointer;
-}
 
 /* SpellChecker styles. */
 #spellcheck {
@@ -89,9 +89,10 @@ div#quota {
 
 /* Splitbar styles. */
 #msgSplitPane {
-    border-left: 1px silver solid;
-    border-right: 1px silver solid;
-    border-bottom: 1px silver solid;
+    border: 1px silver solid;
+    border-top: 0;
+    overflow: hidden;
+    width: auto;
 }
 .splitBarHoriz, .splitBarVert, .splitBarVertSidebar {
     background: #e9e9e9 no-repeat scroll;
@@ -152,42 +153,50 @@ div.msgSize {
 }
 
 /* Message List Header and Column Header */
-#msglistHeader {
+.msglistHeader {
     font-weight: bold;
     overflow: hidden;
-    border: 1px solid silver;
-    border-top: 0;
+    border-bottom: 1px solid silver;
     background: transparent url("../graphics/backhead_orderby.png") repeat-x;
 }
-#msglistHeader a {
+.msglistHeader a {
     cursor: pointer;
 }
-#msglistHeader a.smallSort {
+.msglistHeader a.smallSort {
     font-size: 75%;
     font-weight: normal;
     padding-left: 4px !important;
 }
-#msglistHeader div {
+.msglistHeader div {
     padding-top: 1px;
     height: 15px;
     text-indent: 2px;
 }
-#msglistHeader div.sortup, #msglistHeader div.sortdown {
+.msglistHeader div.sortup, .msglistHeader div.sortdown {
     padding-left: 0;
     background-position: 2px;
 }
-#msglistHeader div.sortup a, #msglistHeader div.sortdown a {
+.msglistHeader div.sortup a, .msglistHeader div.sortdown a {
     padding-left: 14px;
 }
-#msglistHeader div.sep {
+.msglistHeader div.sep {
     border-left: 1px solid #ddd;
 }
 
+#msglistHeaderVert div.msgSort {
+    float: right;
+}
+#msglistHeaderVert div.msgSort span.iconImg {
+    margin-bottom: -2px;
+}
+
 /* Message ViewPort */
-span.vpEmpty, span.vpError {
+span.vpEmpty {
     display: block;
-    padding: 2px 0 0 2px;
-    font-weight: bold;
+    padding: 15px 80px 10px 35px;
+    background: transparent url("../graphics/ico_message_off.png") no-repeat scroll 10px 15px;
+    color: #a0a0a0;
+    line-height: 18px;
 }
 
 /* Rows */
@@ -218,7 +227,7 @@ div.flagLowpriority {
 div.flagUnseen {
     font-weight: bold;
 }
-div.flagDeleted {
+div.flagDeleted * {
     text-decoration: line-through;
 }
 
@@ -717,7 +726,11 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 
 /* Attachment file list */
 #attach_list {
-    padding-left: 15px;
+    max-height: 125px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0 0 2px 15px;
+    width: 500px;
 }
 #attach_list li {
     padding-top: 5px;
@@ -742,7 +755,11 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     display: -moz-inline-stack;
     display: inline-block;
     font-weight: bold;
+    overflow: hidden;
     padding-top: 2px;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    width: 500px;
 }
 
 span.attachmentImg {
@@ -758,7 +775,6 @@ span.attachmentImg {
 /* Email Addresses. */
 a.address {
     cursor: pointer;
-    position: static;
     text-decoration: underline;
     white-space: nowrap;
 }
@@ -769,6 +785,8 @@ a.address img {
 a.address:hover {
     background: #fff;
     border: 1px silver solid;
+    display: -moz-inline-stack;
+    display: inline-block;
     margin: -2px;
     padding: 1px;
     text-decoration: none;
@@ -795,7 +813,7 @@ a.address:hover img {
 
 /* Search-related styles */
 #qsearch {
-    background-color: #f3f3f3;
+    background-color: #fff;
     border: 1px solid #999;
     cursor: default;
     float: right;
@@ -810,22 +828,17 @@ a.address:hover img {
     display: inline;
 }
 #qsearch_icon {
-    background: #f3f3f3 url("../graphics/search.png") center no-repeat;
+    background: url("../graphics/search.png") center no-repeat;
     cursor: pointer;
     margin-right: 0;
     padding-top: 2px;
 }
 #qsearch_input {
+    background-color: #fff;
     border: none;
-    color: #a0a0a0;
+    color: #000;
     padding: 0 2px 0 0;
     width: 150px;
-}
-.qsearchFocus, .qsearchFocus #qsearch_icon, .qsearchFocus #qsearch_input {
-    background-color: #fff !important;
-}
-.qsearchFocus #qsearch_input {
-    color: #000 !important;
 }
 .qsearchMatch {
     font-weight: bold;
@@ -926,6 +939,9 @@ span.dimpactionDelete {
 span.dimpactionOther {
     background-image: url("../graphics/plus.png");
 }
+span.dimpactionSort {
+    background-image: url("../graphics/plus.png");
+}
 span.dimpactionSpellcheck {
     background-image: url("../graphics/spellcheck.png");
 }
@@ -955,7 +971,7 @@ span.dimpactionResume {
 #ctx_message_undeleted span.iconImg, #oa_undeleted span.iconImg {
     background-image: url("../graphics/undelete.png");
 }
-#ctx_folder_seen span.iconImg {
+#ctx_folder_seen span.iconImg, #ctx_message_view span.iconImg {
     background-image: url("../graphics/mail_seen.png");
 }
 #ctx_folder_unseen span.iconImg, #ctx_folder_poll span.iconImg, #ctx_folder_nopoll span.iconImg {
@@ -997,6 +1013,9 @@ span.dimpactionResume {
 #ctx_folder_delete span.iconImg, #ctx_vfolder_delete span.iconImg {
     background-image: url("../graphics/folders/delete.png");
 }
+#ctx_folder_export span.iconImg, #ctx_folder_import span.iconImg {
+    background-image: url("../graphics/download.png");
+}
 #ctx_message_spam span.iconImg {
     background-image: url("../graphics/spam.png");
 }
@@ -1023,6 +1042,12 @@ span.dimpactionResume {
     height: 15px;
     width: 15px;
 }
+#ctx_sortopts span.iconImg.sortup, #ctx_sortopts span.iconImg.sortdown {
+    background-color: inherit;
+    background-position: center;
+    padding: 0;
+}
+
 div.vpRow div.msgSubject span.flagUser {
     font-size: 90%;
     font-weight: normal;

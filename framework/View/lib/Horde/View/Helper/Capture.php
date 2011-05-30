@@ -27,13 +27,17 @@
 class Horde_View_Helper_Capture extends Horde_View_Helper_Base
 {
     /**
-     * Capture allows you to extract a part of the template into an
-     * instance variable. You can use this instance variable anywhere
-     * in your templates and even in your layout.  Example:
+     * Capture allows you to extract a part of the template into an instance
+     * variable.
      *
-     *  <?php $capture = $this->capture() ?>
-     *    Welcome To my shiny new web page!
-     *  <?php $this->greeting = $capture->end() ?>
+     * You can use this instance variable anywhere in your templates and even
+     * in your layout. Example:
+     *
+     * <code>
+     * <?php $capture = $this->capture() ?>
+     * Welcome To my shiny new web page!
+     * <?php $this->greeting = $capture->end() ?>
+     * </code>
      *
      * @return Horde_View_Helper_Capture_Base
      */
@@ -44,17 +48,19 @@ class Horde_View_Helper_Capture extends Horde_View_Helper_Base
 
     /**
      * Calling contentFor() stores the block of markup for later use.
+     *
      * Subsequently, you can retrieve it inside an instance variable
      * that will be named "contentForName" in another template
      * or in the layout.  Example:
      *
-     *    <?php $capture = $this->contentFor("header") %>
-     *      <script type="text/javascript"> alert('hello world') </script>
-     *    <?php $capture->end() %>
+     * <code>
+     * <?php $capture = $this->contentFor("header") ?>
+     * <script type="text/javascript">alert('hello world')</script>
+     * <?php $capture->end() ?>
      *
-     * You can then use $this->contentForHeader anywhere in your templates:
-     *
-     *    <?php echo $this->contentForHeader ?>
+     * // Use $this->contentForHeader anywhere in your templates:
+     * <?php echo $this->contentForHeader ?>
+     * </code>
      *
      * @param string $name  Name of the content that becomes the instance
      *                      variable name. "foo" -> "$this->contentForFoo"
@@ -64,5 +70,4 @@ class Horde_View_Helper_Capture extends Horde_View_Helper_Base
     {
         return new Horde_View_Helper_Capture_ContentFor($name, $this->_view);
     }
-
 }

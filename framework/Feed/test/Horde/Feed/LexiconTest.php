@@ -15,12 +15,7 @@ class Horde_Feed_LexiconTest extends PHPUnit_Framework_TestCase
      */
     public function testParse($file)
     {
-        try {
-            $feed = Horde_Feed::readFile($file);
-        } catch (Exception $e) {
-            $this->fail($e->getMessage());
-        }
-
+        $feed = Horde_Feed::readFile($file);
         $this->assertGreaterThan(0, count($feed));
     }
 

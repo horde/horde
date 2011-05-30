@@ -49,6 +49,14 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
     protected $_base;
 
     /**
+     * The view mode, used to determine if we show dynamic, mobile, traditional
+     * views.
+     *
+     * @var string
+     */
+    protected $_mode = 'auto';
+
+    /**
      * Available capabilities.
      *
      * @var array
@@ -71,7 +79,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      * <pre>
      * 'app' - (string) The application which is providing authentication.
      * 'base' - (Horde_Auth_Base) The base Horde_Auth driver. Only needed if
-                'app' is 'horde'.
+     *          'app' is 'horde'.
      * </pre>
      *
      * @throws InvalidArgumentException
@@ -122,6 +130,11 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             }
         } elseif (!parent::authenticate($userId, $credentials, $login)) {
             return false;
+        }
+
+        /* Remember the user's mode choice, if applicable */
+        if (!empty($credentials['mode'])) {
+            $this->_mode = $credentials['mode'];
         }
 
         return $this->_setAuth();
@@ -566,6 +579,10 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             'language' => $language
         ));
 
+        /* Only set the view mode on initial authentication */
+        if (!$GLOBALS['session']->get('horde', 'mode')) {
+            $this->_setMode();
+        }
         if ($this->_base &&
             isset($GLOBALS['notification']) &&
             ($expire = $this->_base->getCredential('expire'))) {
@@ -578,4 +595,36 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         return true;
     }
 
+    /**
+     * Sets the default global view mode in the horde session. This can be
+     * checked by applications, and  overridden if desired. Also sets a cookie
+     * to remember the last view selection if applicable.
+     */
+    protected function _setMode()
+    {
+        global $conf, $browser, $prefs, $registry;
+
+        if (empty($conf['user']['force_view'])) {
+            if (empty($conf['user']['select_view'])) {
+                // No value from login form, try to detect.
+                // THIS IS A HACK. DO PROPER SMARTPHONE DETECTION.
+                if ($browser->isMobile()) {
+                    $this->_mode = $browser->getBrowser() == 'webkit' ? 'smartmobile' : 'mobile';
+                }
+            } else {
+                setcookie('default_horde_view', $this->_mode, time() + 30 * 86400, $conf['cookie']['path'], $conf['cookie']['domain']);
+                if ($browser->isMobile() && $this->_mode == 'auto') {
+                    $this->_mode = $browser->getBrowser() == 'webkit' ? 'smartmobile' : 'mobile';
+                }
+            }
+        } else {
+            // Forcing mode as per config.
+            $this->_mode = $conf['user']['force_view'];
+        }
+
+        // Set it in the session.
+        $GLOBALS['session']->set('horde', 'mode', $this->_mode);
+    }
+
 }
+

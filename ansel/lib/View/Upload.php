@@ -220,7 +220,7 @@ EOT;
             if ($valid) {
                 /* Return to the gallery view. */
                 Ansel::getUrlFor('view',
-                                 array('gallery' => $this->_gallery->getId(),
+                                 array('gallery' => $this->_gallery->id,
                                        'slug' => $this->_gallery->get('slug'),
                                        'view' => 'Gallery',
                                        'page' => $page),

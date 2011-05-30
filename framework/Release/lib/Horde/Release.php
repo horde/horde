@@ -335,25 +335,13 @@ class Horde_Release
     public function updateSentinel()
     {
         $module = $this->_options['module'];
-        $all_caps_module = strtoupper($module);
+
         print "Updating CHANGES file for $module\n";
-        $version = 'v' . $this->_newSourceVersionStringPlain;
 
-        // construct the filenames
         $filename_only = 'CHANGES';
-        $filename = $this->_directoryName . '/docs/' . $filename_only;
-        $newfilename = $filename . '.new';
-        $oldfp = fopen($filename, 'r');
-        $newfp = fopen($newfilename, 'w');
-        fwrite($newfp, str_repeat('-', strlen($version)) . "\n$version\n" .
-               str_repeat('-', strlen($version)) . "\n\n\n\n\n");
-        while ($line = fgets($oldfp)) {
-            fwrite($newfp, $line);
-        }
-        fclose($oldfp);
-        fclose($newfp);
+        $updater = new Horde_Release_Sentinel($this->_directoryName);
+        $updater->updateChanges($this->_newSourceVersionStringPlain);
 
-        system("mv -f $newfilename $filename");
         if (!$this->_options['nocommit']) {
             system("cd {$this->_directoryName}/docs/; cvs commit -f -m \"Tarball script: building new $module release - {$this->_newSourceVersionString}\" $filename_only > /dev/null 2>&1");
         }
@@ -583,62 +571,56 @@ class Horde_Release
             }
         }
 
-        $ml = (!empty($this->notes['list'])) ? $this->notes['list'] : $module;
-        if (substr($ml, 0, 6) == 'horde-') {
-            $ml = 'horde';
-        }
+        $mailer = new Horde_Release_MailingList(
+            $module,
+            $this->notes['name'],
+            $this->_hordeVersionString,
+            $this->_options['ml']['from'],
+            isset($this->notes['list']) ? $this->notes['list'] : null,
+            $this->_ticketVersion,
+            $version['tag_list']
+        );
 
-        $to = "announce@lists.horde.org, vendor@lists.horde.org, $ml@lists.horde.org";
-        if (!$this->_latest) {
-            $to .= ', i18n@lists.horde.org';
-        }
+        $headers = $mailer->getHeaders();
 
         if (!empty($this->_options['noannounce'])) {
-            print "NOT announcing release on $to\n";
+            print "NOT announcing release on " . $headers['To'] . "\n";
         } else {
-            print "Announcing release to $to\n";
+            print "Announcing release to " . $headers['To'] . "\n";
         }
-
-        // Building headers
-        $subject = $this->notes['name'] . ' ' . $this->_sourceVersionString;
-        if ($this->_latest) {
-            $subject .= ' (final)';
-        }
-        if (in_array(self::FOCUS_MAJORSECURITY, $version['tag_list'])) {
-            $subject = '[SECURITY] ' . $subject;
-        }
-        $headers = array('From' => $this->_options['ml']['from'],
-                         'To' => $to,
-                         'Subject' => $subject);
 
         // Building message text
-        $body = $this->notes['ml']['changes'];
+        $mailer->append($this->notes['ml']['changes']);
         if ($this->_oldVersion) {
-            $body .= "\n\n" .
+            $mailer->append("\n\n" .
                 sprintf('The full list of changes (from version %s) can be viewed here:', $this->_oldSourceVersionString) .
                 "\n\n" .
-                $url_changelog;
+                $url_changelog
+            );
         }
-        $body .= "\n\n" .
+        $mailer->append("\n\n" .
             sprintf('The %s %s distribution is available from the following locations:', $this->notes['name'], $this->_sourceVersionString) .
             "\n\n" .
             sprintf('    ftp://ftp.horde.org/pub/%s/%s', $module, $this->_tarballName) . "\n" .
-            sprintf('    http://ftp.horde.org/pub/%s/%s', $module, $this->_tarballName);
+            sprintf('    http://ftp.horde.org/pub/%s/%s', $module, $this->_tarballName)
+        );
         if ($this->_makeDiff) {
-            $body .= "\n\n" .
+            $mailer->append("\n\n" .
                 sprintf('Patches against version %s are available at:', $this->_oldSourceVersionString) .
                 "\n\n" .
                 sprintf('    ftp://ftp.horde.org/pub/%s/patches/%s.gz', $module, $this->_patchName) . "\n" .
-                sprintf('    http://ftp.horde.org/pub/%s/patches/%s.gz', $module, $this->_patchName);
+                sprintf('    http://ftp.horde.org/pub/%s/patches/%s.gz', $module, $this->_patchName)
+            );
 
             if (!empty($this->_binaryDiffs)) {
-                $body .= "\n\n" .
+                $mailer->append("\n\n" .
                     'NOTE: Patches do not contain differences between files containing binary data.' . "\n" .
                     'These files will need to be updated via the distribution files:' . "\n\n    " .
-                    implode("\n    ", $this->_binaryDiffs);
+                    implode("\n    ", $this->_binaryDiffs)
+                );
             }
         }
-        $body .= "\n\n" .
+        $mailer->append("\n\n" .
             'Or, for quicker access, download from your nearest mirror:' .
             "\n\n" .
             '    http://www.horde.org/mirrors.php' .
@@ -650,20 +632,20 @@ class Horde_Release
             "\n\n" .
             'Have fun!' .
             "\n\n" .
-            'The Horde Team.';
+            'The Horde Team.'
+        );
 
         if (!empty($this->_options['noannounce'])) {
             print "Message headers:\n";
             print_r($headers);
-            print "Message body:\n$body\n";
+            print "Message body:\n" . $mailer->getBody() . "\n";
             return;
         }
 
         // Building and sending message
-        $mail = new Horde_Mime_Mail(array_merge($headers, array('body' => $body)));
         try {
             $class = 'Horde_Mail_Transport_' . ucfirst($this->_options['mailer']['type']);
-            $mail->send(new $class($this->_options['mailer']['params']));
+            $mailer->getMail()->send(new $class($this->_options['mailer']['params']));
         } catch (Horde_Mime_Exception $e) {
             print $e->getMessage() . "\n";
         }
@@ -689,7 +671,7 @@ class Horde_Release
                                     array('Content-Type' => 'application/json'));
         } catch (Horde_Http_Exception $e) {
             if (strpos($e->getMessage(), '201 Created') === false) {
-                throw new Horde_Exception_Prior($e);
+                throw new Horde_Exception_Wrapped($e);
             } else {
                 return '';
             }
@@ -710,7 +692,7 @@ class Horde_Release
         try {
             $response = $http->get('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/urls.json?auth_code=' . $this->_options['fm']['user_token']);
         } catch (Horde_Http_Exception $e) {
-            throw new Horde_Exception_Prior($e);
+            throw new Horde_Exception_Wrapped($e);
         }
 
         $url_response = Horde_Serialize::unserialize($response->getBody(), Horde_Serialize::JSON);
@@ -743,7 +725,7 @@ class Horde_Release
                     $response = $response->getBody();
                 } catch (Horde_Http_Exception $e) {
                     if (strpos($e->getMessage(), '201 Created') === false) {
-                        throw new Horde_Exception_Prior($e);
+                        throw new Horde_Exception_Wrapped($e);
                     } else {
                         $response = '';
                     }
@@ -757,7 +739,7 @@ class Horde_Release
                     $response = $response->getBody();
                     // Status: 200???
                 } catch (Horde_Http_Exception $e) {
-                    throw new Horde_Exception_Prior($e);
+                    throw new Horde_Exception_Wrapped($e);
                 }
             }
         }

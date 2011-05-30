@@ -9,9 +9,8 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
-// Instantiate the blocks objects.
-$blocks = $injector->getInstance('Horde_Core_Factory_BlockCollection')->create(array('ansel'));
-$layout = new Horde_Core_Block_Layout_Manager($blocks, @unserialize($prefs->getValue('myansel_layout')));
+$blocks = $injector->getInstance('Horde_Core_Factory_BlockCollection')->create(array('ansel'), 'myansel_layout');
+$layout = $blocks->getLayoutManager();
 
 // Handle requested actions.
 $layout->handle(Horde_Util::getFormData('action'),

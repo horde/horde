@@ -8,59 +8,58 @@
 *
 * @author Michael J. Rubinsky <mrubinsk@horde.org>
 */
-
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+if (file_exists(dirname(__FILE__) . '/../../ansel/lib/Application.php')) {
+    $baseDir = dirname(__FILE__) . '/../';
+} else {
+    require_once 'PEAR/Config.php';
+    $baseDir = PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/ansel/';
+}
+require_once $baseDir . 'lib/Application.php';
 Horde_Registry::appInit('ansel', array('cli' => true));
 
 /* Command line options */
-$ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'hu:p:f:',
-                              array('help', 'username=', 'password=', 'fields='));
+$parser = new Horde_Argv_Parser(
+    array(
+        'usage' => '%prog [--options]',
+        'optionList' => array(
+            new Horde_Argv_Option(
+                '-u',
+                '--username',
+                array(
+                    'help' => 'Horde username'
+                )
+            ),
+            new Horde_Argv_Option(
+                '-p',
+                '--password',
+                array(
+                    'help' => 'Horde password'
+                )
+            ),
+            new Horde_Argv_Option(
+                '-f',
+                '--fields',
+                array(
+                    'help' => 'A \':\' delimited list of exif fields to include',
+                    'default' =>  'DateTimeOriginal',
+                )
+            )
+        )
+    )
+);
 
-if ($ret instanceof PEAR_Error) {
-    $cli->fatal($ret->getMessage());
-}
-
-/* Show help and exit if no arguments were set. */
-list($opts, $args) = $ret;
-if (!$opts) {
-    showHelp();
-    exit;
-}
-
-// Default to only DateTimeOriginal
-$exif_fields = array('DateTimeOriginal');
-foreach ($opts as $opt) {
-    list($optName, $optValue) = $opt;
-    switch ($optName) {
-    case 'u':
-    case '--username':
-        $username = $optValue;
-        break;
-
-    case 'p':
-    case '--password':
-        $password = $optValue;
-        break;
-    case 'h':
-    case '--help':
-        showHelp();
-        exit;
-    case '--fields':
-    case 'f':
-        $exif_fields = explode(':', $optValue);
-        break;
-    }
-}
-
+// Show help and exit if no arguments were set.
+list($opts, $args) = $parser->parseArgs();
 Horde_Registry::appInit('ansel', array('authentication' => 'none'));
 
 // Login to horde if username & password are set.
-if (!empty($username) && !empty($password)) {
+if (!empty($opts['username']) && !empty($opts['password'])) {
     $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
-    if (!$auth->authenticate($username, array('password' => $password))) {
+    if (!$auth->authenticate($opts['username'], array('password' => $opts['password']))) {
         $cli->fatal(_("Username or password is incorrect."));
     } else {
-        $cli->message(sprintf(_("Logged in successfully as \"%s\"."), $username), 'cli.success');
+        $cli->message(sprintf(_("Logged in successfully as \"%s\"."), $opts['username']), 'cli.success');
     }
 } else {
     $cli->fatal(_("You must specify a valid username and password."));
@@ -72,30 +71,17 @@ if (!$registry->isAdmin()) {
 
 // Get the list of image ids that have exif data.
 $sql = 'SELECT DISTINCT image_id from ansel_image_attributes;';
-$results = $GLOBALS['ansel_db']->query($sql);
-if ($results instanceof PEAR_Error) {
-    $cli->fatal($results->getMessage());
+try {
+    $image_ids = $GLOBALS['ansel_db']->selectValues($sql);
+} catch (Horde_Db_Exception $e) {
+    $cli->fatal($e->getMessage());
 }
-$image_ids = $results->fetchAll(MDB2_FETCHMODE_ASSOC);
-$results->free();
-foreach (array_values($image_ids) as $image_id) {
-    $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id['image_id']);
-    $results = $image->exifToTags($exif_fields);
+foreach ($image_ids as $image_id) {
+    // $image = $GLOBALS['injector']
+    //     ->getInstance('Ansel_Storage')
+    //     ->getImage($image_id['image_id']);
+    // $results = $image->exifToTags(explode($opts['fields']));
     $cli->message(sprintf(_("Extracted exif fields from %s"), $image->filename), 'cli.success');
 }
 $cli->message(_("Done"));
 exit;
-
-function showHelp()
-{
-    global $cli;
-
-    $cli->writeln(sprintf(_("Usage: %s [OPTIONS]..."), basename(__FILE__)));
-    $cli->writeln();
-    $cli->writeln(_("Mandatory arguments to long options are mandatory for short options too."));
-    $cli->writeln();
-    $cli->writeln(_("-h, --help                   Show this help"));
-    $cli->writeln(_("-u, --username[=username]    Horde login username"));
-    $cli->writeln(_("-p, --password[=password]    Horde login password"));
-    $cli->writeln(_("-f, --fields[=exif_fields]   A ':' delimited list of exif fields to include DateTimeOriginal is default."));
-}

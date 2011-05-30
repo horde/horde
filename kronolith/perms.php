@@ -29,19 +29,23 @@ $reload = false;
 $actionID = Horde_Util::getFormData('actionID', 'edit');
 switch ($actionID) {
 case 'edit':
-    try {
-        $share = $shares->getShareById(Horde_Util::getFormData('cid', 0));
-        $perm = $share->getPermission();
-    } catch (Horde_Exception_NotFound $e) {
-        if (($category = Horde_Util::getFormData('share')) !== null) {
-            try {
-                $share = $shares->getShare($category);
-                $perm = $share->getPermission();
-            } catch (Exception $e) {
-                $notification->push($e, 'horde.error');
-            }
+    if ($cid = Horde_Util::getFormData('cid') !== null) {
+        try {
+            $share = $shares->getShareById(Horde_Util::getFormData('cid', 0));
             $perm = $share->getPermission();
+        } catch (Horde_Exception_NotFound $e) {
+            $notification->push($e, 'horde.error');
         }
+    } elseif (($category = Horde_Util::getFormData('share')) !== null) {
+        try {
+            $share = $shares->getShare($category);
+            $perm = $share->getPermission();
+        } catch (Exception $e) {
+            $notification->push($e, 'horde.error');
+        }
+        $perm = $share->getPermission();
+    } else {
+        throw new Horde_Exception('No share identifier provided.');
     }
 
     if (!$GLOBALS['registry']->getAuth() ||
@@ -104,9 +108,9 @@ if ($auth->hasCapability('list') &&
 
 $groupList = array();
 try {
-    $groupList = empty($conf['share']['any_group'])
-        ? $groups->listGroups($registry->getAuth())
-        : $groups->listAll();
+    $groupList = $groups->listAll(empty($conf['share']['any_group'])
+                                  ? $registry->getAuth()
+                                  : null);
     asort($groupList);
 } catch (Horde_Group_Exception $e) {
     Horde::logMessage($e, 'NOTICE');

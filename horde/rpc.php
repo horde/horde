@@ -23,9 +23,8 @@
 
 require_once dirname(__FILE__) . '/lib/Application.php';
 
-// We have a chicken-and-egg problem here regarding app initialization. Since
-// different RPC servers have different session requirements, we can't call
-// appInit() until we know which server we are requesting. We therefor don't
+// Since different RPC servers have different session requirements, we can't
+// call appInit() until we know which server we are requesting. We  don't
 // initialize the application until after we know the rpc server we want.
 $input = $session_control = null;
 $nocompress = false;
@@ -37,9 +36,9 @@ if ((!empty($_SERVER['CONTENT_TYPE']) &&
      (strpos($_SERVER['CONTENT_TYPE'], 'application/vnd.ms-sync.wbxml') !== false)) ||
    (strpos($_SERVER['REQUEST_URI'], 'Microsoft-Server-ActiveSync') !== false)) {
     /* ActiveSync Request */
+    $conf['cookie']['path'] = '/Microsoft-Server-ActiveSync';
     $serverType = 'ActiveSync';
     $nocompress = true;
-    $session_control = 'none';
 } elseif (!empty($_SERVER['PATH_INFO']) ||
           in_array($_SERVER['REQUEST_METHOD'], array('DELETE', 'PROPFIND', 'PUT', 'OPTIONS'))) {
     $serverType = 'Webdav';
@@ -96,6 +95,7 @@ case 'ActiveSync':
     }
     $params['backend'] = $injector->getInstance('Horde_ActiveSyncBackend');
     $params['server'] = $injector->getInstance('Horde_ActiveSyncServer');
+    $params['provisioning'] = $conf['activesync']['securitypolicies']['provisioning'];
     break;
 
 case 'Soap':

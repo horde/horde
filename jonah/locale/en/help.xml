@@ -17,18 +17,6 @@
     Feeds that are managed and provided by this system.
     </para>
 
-    <heading>External Feeds</heading>
-    <para>
-    Feeds that are managed and provided by external systems, e.g. other
-    websites.
-    </para>
-
-    <heading>Aggregated Feeds</heading>
-    <para>
-    Feeds that get their content from multiple external feeds. Internal
-    feeds can also be integrated through the RSS delivery.
-    </para>
-
     <heading>Composite Feeds</heading>
     <para>
     Feeds that get their content from multiple internal feeds.

@@ -6,7 +6,8 @@
  *
  * Copyright 2009-2011 The Horde Project (http://www.horde.org)
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Horde
  */
 class Horde_Block_FbStream extends Horde_Core_Block
 {
@@ -14,11 +15,6 @@ class Horde_Block_FbStream extends Horde_Core_Block
      * @var Horde_Service_Facebook
      */
     private $_facebook;
-
-    /**
-     * @var array holding user's facebook settings
-     */
-    private $_fbp;
 
     /**
      */
@@ -30,15 +26,7 @@ class Horde_Block_FbStream extends Horde_Core_Block
             $this->enabled = false;
             return;
         }
-
-        /* Authenticate the client */
-        $this->_fbp = unserialize($GLOBALS['prefs']->getValue('facebook'));
-        if (!empty($this->_fbp['sid'])) {
-            $this->_facebook->auth->setUser($this->_fbp['uid'], $this->_fbp['sid'], 0);
-        }
-
         parent::__construct($app, $params);
-
         $this->_name = _("My Facebook Stream");
     }
 
@@ -46,17 +34,18 @@ class Horde_Block_FbStream extends Horde_Core_Block
      */
     protected function _params()
     {
+        $fbp = unserialize($GLOBALS['prefs']->getValue('facebook'));
         $filters = array();
-
-        if (!empty($this->_fbp['sid'])) {
+        if (!empty($fbp['sid'])) {
             $fql = 'SELECT filter_key, name FROM stream_filter WHERE uid="'
-                . $this->_fbp['uid'] . '"';
+                . $fbp['uid'] . '"';
             try {
                 $stream_filters = $this->_facebook->fql->run($fql);
                 foreach ($stream_filters as $filter) {
                     $filters[$filter['filter_key']] = $filter['name'];
                 }
-            } catch (Horde_Service_Facebook_Exception $e) {}
+            } catch (Horde_Service_Facebook_Exception $e) {
+            }
         }
 
         return array(
@@ -69,7 +58,7 @@ class Horde_Block_FbStream extends Horde_Core_Block
             'count' => array(
                 'type' => 'int',
                 'name' => _("Maximum number of entries to display"),
-                'default' => ''
+                'default' => '20'
             ),
             'notifications' => array(
                 'type' => 'boolean',
@@ -77,7 +66,7 @@ class Horde_Block_FbStream extends Horde_Core_Block
                 'default' => true
             ),
             'height' => array(
-                 'name' => _("Height of map (width automatically adjusts to block)"),
+                 'name' => _("Height of stream content (width automatically adjusts to block)"),
                  'type' => 'int',
                  'default' => 250
             ),
@@ -99,19 +88,18 @@ class Horde_Block_FbStream extends Horde_Core_Block
     protected function _content()
     {
         $instance = hash('md5', mt_rand());
-        $endpoint = Horde::url('services/facebook.php', true);
+        $endpoint = Horde::url('services/facebook/', true);
         $html = '';
-
-        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('facebook.css');
 
         /* Init facebook driver, exit early if no prefs exist */
         $facebook = $this->_facebook;
-        $fbp = $this->_fbp;
-        if (empty($fbp['sid'])) {
+        if (!($facebook->auth->getSessionKey())) {
             return sprintf(_("You have not properly connected your Facebook account with Horde. You should check your Facebook settings in your %s."), Horde::getServiceLink('prefs', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
         }
+        $fbp = unserialize($GLOBALS['prefs']->getValue('facebook'));
 
         /* Add the client javascript / initialize it */
+        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('facebook.css');
         Horde::addScriptFile('facebookclient.js');
         $script = <<<EOT
             var Horde = window.Horde || {};
@@ -124,13 +112,15 @@ class Horde_Block_FbStream extends Horde_Core_Block
                getmore: '{$instance}_getmore',
                'input': '{$instance}_newStatus',
                'button': '{$instance}_button',
-               instance: '{$instance}'
+               instance: '{$instance}',
+               'filter': '{$this->_params['filter']}',
+               'count': '{$this->_params['count']}'
             });
 EOT;
         Horde::addInlineScript($script, 'dom');
 
         /* Build the UI */
-        $html .= '<div style="padding-left: 8px;padding-right:8px;">';
+        $html .= '<div style="padding: 8px 8px 0 8px">';
 
         /* Build the Notification Section */
         if (!empty($this->_params['notifications'])) {
@@ -147,6 +137,7 @@ EOT;
 
             return $html;
         }
+
         $status = array_pop($status);
         if (empty($status['status']['message'])) {
             $status['status']['message'] = _("What's on your mind?");
@@ -175,7 +166,7 @@ EOT;
 
 
        // Build the stream feed.
-        $html .= '<div id="' . $instance . '_fbcontent" style="height:' . (empty($this->_params['height']) ? 300 : $this->_params['height']) . 'px;overflow-y:auto;"></div>';
+        $html .= '<br /><div id="' . $instance . '_fbcontent" style="height:' . (empty($this->_params['height']) ? 300 : $this->_params['height']) . 'px;overflow-y:auto;overflow-x:hidden;"></div><br />';
         $html .= '<div class="hordeSmGetmore"><input type="button" id="' . $instance . '_getmore" class="button"  value="' . _("Get More") . '"></div>';
 
         $html .= '</div>'; // fbbody end

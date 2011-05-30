@@ -12,6 +12,6 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Text_Diff
  */
-class Horde_Text_Diff_Exception extends Horde_Exception_Prior
+class Horde_Text_Diff_Exception extends Horde_Exception_Wrapped
 {
 }

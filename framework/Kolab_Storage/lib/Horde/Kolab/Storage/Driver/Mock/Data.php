@@ -48,11 +48,79 @@ implements ArrayAccess
     /**
      * Constructor.
      *
-     * @param array $data The initial data.
+     * @param array $data This may be match the internal format used by this
+     *                    class to represent the IMAP mock data or it can be an
+     *                    abbreviated format (@see
+     *                    Horde_Kolab_Storage_Driver_Mock_Data::_setupBrief).
      */
     public function __construct($data)
     {
+        if (isset($data['format'])) {
+            $format = $data['format'];
+            unset($data['format']);
+            switch ($format) {
+            case 'brief':
+                $data = $this->_convertBrief($data);
+                break;
+            default:
+                break;
+            }
+        }
         $this->_data = $data;
+    }
+
+    /**
+     * Generate the internal mock data representation from an abbreviated mock
+     * data format.
+     *
+     * @todo Document the format
+     *
+     * @param array $data The abbreviated data format.
+     */
+    private function _convertBrief(array $data)
+    {
+        $result = array();
+        foreach ($data as $path => $element) {
+            if (!isset($element['p'])) {
+                $folder = array('permissions' => array('anyone' => 'alrid'));
+            } else {
+                $folder = array('permissions' => $element['p']);
+            }
+            if (isset($element['a'])) {
+                $folder['annotations'] = $element['a'];
+            }
+            if (isset($element['t'])) {
+                $folder['annotations'] = array(
+                    '/shared/vendor/kolab/folder-type' => $element['t'],
+                );
+            }
+            if (isset($element['m'])) {
+                $folder['mails'] = $element['m'];
+                foreach ($element['m'] as $uid => $mail) {
+                    if (isset($mail['structure'])) {
+                        $folder['mails'][$uid]['structure'] = unserialize(
+                            base64_decode(file_get_contents($mail['structure']))
+                        );
+                    }
+                    if (isset($mail['parts'])) {
+                        $folder['mails'][$uid]['structure']['parts'] = $mail['parts'];
+                    }
+                    if (isset($mail['file'])) {
+                        $folder['mails'][$uid]['stream'] = fopen($mail['file'], 'r');
+                    }
+                }
+            }
+            if (isset($element['s'])) {
+                $folder['status'] = $element['s'];
+            } else {
+                $folder['status'] = array(
+                    'uidvalidity' => time(),
+                    'uidnext' => !empty($folder['mails']) ? max(array_keys($folder['mails'])) + 1 : 1
+                );
+            }
+            $result[$path] = $folder;
+        }
+        return $result;
     }
 
     /**
@@ -185,9 +253,13 @@ implements ArrayAccess
     public function getUids($folder)
     {
         $this->select($folder);
-        return array_keys(
-            array_filter($this->_selected['mails'], array($this, '_notDeleted'))
-        );
+        if (empty($this->_selected['mails'])) {
+            return array();
+        } else {
+            return array_keys(
+                array_filter($this->_selected['mails'], array($this, '_notDeleted'))
+            );
+        }
     }
 
     /**
@@ -201,6 +273,27 @@ implements ArrayAccess
     {
         return !isset($message['flags'])
             || !($message['flags'] & self::FLAG_DELETED);
+    }
+
+    public function fetchComplete($folder, $uid)
+    {
+        $this->select($folder);
+        if (isset($this->_selected['mails'][$uid]['stream'])) {
+            rewind($this->_selected['mails'][$uid]['stream']);
+            $msg = stream_get_contents($this->_selected['mails'][$uid]['stream']);
+            return array(
+                Horde_Mime_Headers::parseHeaders($msg),
+                Horde_Mime_Part::parseMessage($msg)
+            );
+        } else {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf(
+                    'No message %s in folder %s!',
+                    $uid,
+                    $folder
+                )
+            );
+        }
     }
 
     /**
@@ -291,5 +384,43 @@ implements ArrayAccess
             'stream' => $msg,
         );
         return $this->_selected['status']['uidnext']++;
+    }
+
+    public function deleteMessages($folder, $uids)
+    {
+        $this->select($folder);
+        foreach ($uids as $uid) {
+            if (isset($this->_selected['mails'][$uid]['flags'])) {
+                $this->_selected['mails'][$uid]['flags'] |= self::FLAG_DELETED;
+            } else {
+                $this->_selected['mails'][$uid]['flags'] = self::FLAG_DELETED;
+            }
+        }
+    }
+
+    public function moveMessage($uid, $old_folder, $new_folder)
+    {
+        $this->select($old_folder);
+        if (!isset($this->_selected['mails'][$uid])) {
+            throw new Horde_Kolab_Storage_Exception(sprintf("No IMAP message %s!", $uid));
+        }
+        $mail = $this->_selected['mails'][$uid];
+        $this->deleteMessages($old_folder, array($uid));
+        $this->appendMessage($new_folder, $mail['stream']);
+        $this->expunge($old_folder);
+    }
+
+    public function expunge($folder)
+    {
+        $this->select($folder);
+        $delete = array();
+        foreach ($this->_selected['mails'] as $uid => $mail) {
+            if ($mail['flags'] & self::FLAG_DELETED) {
+                $delete[] = $uid;
+            }
+        }
+        foreach ($delete as $uid) {
+            unset($this->_selected['mails'][$uid]);
+        }
     }
 }

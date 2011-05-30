@@ -66,7 +66,7 @@ class Horde_Service_Twitter_Account
      * Ends the current session, invalidates the current auth token if using
      * OAuth.
      *
-     * @return mixed
+     * @return string
      */
     public function endSession()
     {

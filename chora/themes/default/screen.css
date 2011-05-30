@@ -230,6 +230,9 @@ span.commit-file-modified {
 .diffdel {
     color: red;
 }
+.difflink a {
+    font-weight: bold;
+}
 
 /* Checkout, File view */
 div.checkout, div.file-view-contents {

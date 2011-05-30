@@ -30,40 +30,42 @@
 class Horde_View_Helper_Benchmark_Timer
 {
     /**
-     * Time that the benchmark was started
+     * (Micro-)time that the benchmark was started.
      *
-     * @var float  microtime
+     * @var float
      */
-    private $_start;
+    protected $_start;
 
     /**
-     * Logger instance that will be used to record the
-     * time after the benchmark has ended
+     * Logger instance that will be used to record the time after the benchmark
+     * has ended.
      *
-     * @var null|Horde_Log_Logger
+     * @var Horde_Log_Logger
      */
-    private $_logger;
+    protected $_logger;
 
     /**
      * Message to log after the benchmark has ended
      *
      * @var string
      */
-    private $_message;
+    protected $_message;
 
     /**
-     * Log level to log after the benchmark has ended
+     * Log level to log after the benchmark has ended.
      *
      * @var string|integer
      */
-    private $_level;
+    protected $_level;
 
     /**
-     * Start a new benchmark.
+     * Starts a new benchmark.
      *
-     * @param string                 $message  Message to log after the benchmark has ended
-     * @param string|integer         $level    Log level to log after the benchmark has ended
-     * @param null|Horde_Log_Logger  $logger   Logger instance or NULL if none is available
+     * @param string $message           Message to log after the benchmark has
+     *                                  ended.
+     * @param string|integer $level     Log level to log after the benchmark
+     *                                  has ended.
+     * @param Horde_Log_Logger $logger  Logger instance.
      */
     public function __construct($message, $level = 'info', $logger = null)
     {
@@ -74,16 +76,16 @@ class Horde_View_Helper_Benchmark_Timer
     }
 
     /**
-     * End the benchmark and log the result.
+     * Ends the benchmark and log the result.
      */
     public function end()
     {
         if ($this->_logger) {
-            // compute elapsed time & build message
+            // Compute elapsed time and build message.
             $elapsed = microtime(true) - $this->_start;
-            $message = sprintf("{$this->_message} (%.5f)", $elapsed);
+            $message = sprintf('%s (%.5f)', $this->_message, $elapsed);
 
-            // log message (level may be specified as integer or string)
+            // Log message (level may be specified as integer or string).
             if (is_integer($this->_level)) {
                 $this->_logger->log($message, $this->_level);
             } else {
@@ -91,5 +93,4 @@ class Horde_View_Helper_Benchmark_Timer
             }
         }
     }
-
 }

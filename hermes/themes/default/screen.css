@@ -41,7 +41,7 @@ html, body {
 }
 body.hermesAjax {
     /*font-family: "American Typewriter","Constantia","Verdana",monospace;*/
-    overflow: hidden;
+   /* overflow: hidden;*/
 }
 /* Main views */
 #hermesBody {
@@ -50,9 +50,9 @@ body.hermesAjax {
     left: 175px;
     right: 10px;
     bottom: 10px;
-    overflow: auto;
+    /*overflow: auto;
     overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: hidden;*/
     width: auto;
 }
 
@@ -184,7 +184,7 @@ body.hermesAjax {
 #hermesMain {
     clear: both;
     padding-top: 5px;
-    height: 100%;
+    /*height: 100%;*/
 }
 
 /* Navigation bar */
@@ -266,13 +266,12 @@ body.hermesAjax {
 }
 
 /* Main view time */
-#hermesViewTimeContainer {
+.hermesViewTimeContainer {
     position: relative;
     top: 1px;
     right: 0;
     bottom: 0;
     left: 0;
-    border: 1px solid black;
 }
 
 /* Full timelist container */
@@ -329,7 +328,8 @@ font-family: "American Typewriter","Constantia","Verdana",monospace;
 }
 div.hermesTimeListDate, div.hermesTimeListHours, div.hermesTimeListDesc,
 div.hermesTimeListClient, div.hermesTimeListCostObject, div.hermesTimeListType,
-div.hermesTimeSliceOptions, div.hermesTimeListSelect, div.hermesTimeListBill {
+div.hermesTimeSliceOptions, div.hermesTimeListSelect, div.hermesTimeListBill,
+div.hermesTimeListEmployee {
     float: left;
     white-space: pre-wrap;
     overflow: hidden;
@@ -352,8 +352,8 @@ div.hermesTimeSliceOptions {
 }
 /* Body of timelist */
 #hermesTimeListBody {
-  overflow-x: hidden;
-  overflow-y: auto;
+/*  overflow-x: hidden;
+  overflow-y: auto;*/
   width: 100%;
 }
 /* Each entry */
@@ -381,23 +381,27 @@ div.hermesTimeSliceOptions {
 }
 
 .rounded.sliceEdit {
-  background: -moz-linear-gradient(-90deg, #F0F0F0, #DBDBDB);
-  background: -webkit-gradient(linear, left bottom, left top, #f0f0f0, #dbdbdb);
+  background: -moz-linear-gradient(-90deg, #eaeaea, #d7d7d7);
+  background: -webkit-gradient(linear, left bottom, left top, #eaeaea, #d7d7d7);
+  background-color: #eaeaea;
   color: #444444;
 }
 .rounded.sliceEdit:hover {
-  background: -moz-linear-gradient(-90deg, #E0E0E0, #BAB5B5);
-  background: -webkit-gradient(linear, left bottom, left top, #e0e0e0, #bab5b5);
+  background: -moz-linear-gradient(-90deg, #d7d7d7, #eaeaea);
+  background: -webkit-gradient(linear, left bottom, left top, #d7d7d7, #eaeaea);
+  background-color: #d7d7d7;
   border: 1px solid #BAB5B5;
   color: #333333;
 }
 .rounded.sliceDelete {
-  background: -moz-linear-gradient(-90deg, #F5B5B5, #ED8080) repeat scroll 0 0 transparent;
+  background: -moz-linear-gradient(-90deg, #f5b5b5, #ed8080) repeat scroll 0 0 transparent;
+  background-color: #f5b5b5;
   border: 1px solid #ED8080;
   color: #8A1111;
 }
 .rounded.sliceDelete:hover {
-  background: -moz-linear-gradient(-90deg, #DCA0A0, #D47272) repeat scroll 0 0 transparent;
+  background: -moz-linear-gradient(-90deg, #ed8080, #f5b5b5) repeat scroll 0 0 transparent;
+  background-color: #ed8080;
   border: 1px solid #D47272;
   color: #8A1111;
 }
@@ -469,6 +473,78 @@ a.rounded {
     padding-top: 6px;
 }
 
+/* Search Form */
+#hermesSearchFormInputs {
+    margin-left: 7px;
+    margin-right: 7px;
+}
+#hermesSearchFormInputs label {
+    font-weight: bold;
+    white-space: nowrap;
+}
+#hermesSearchFormInputs .input {
+  border: medium none;
+  margin: 7px 7px 0 0;
+  padding: 6px 5px 4px;
+}
+#hermesSearchFormInputs .hermesLongField {
+  border: medium none;
+  margin: 0  7px 0;
+  padding: 6px 5px 4px;
+  width: 98%;
+
+}
+#hermesSearchFormClient {
+    width: 180px;
+}
+#hermesSearchFormCostobject {
+    width: 180px;
+}
+#hermesSearchEntry {
+  background: none repeat scroll 0 0 #dbdbdb;
+  padding: 10px;
+}
+#hermesSearchListBody {
+/*  overflow-x: hidden;
+  overflow-y: auto;*/
+  width: 100%;
+}
+#hermesSearchList {
+    margin: 0 25px 0 25px;
+}
+/* Header */
+#hermesSearchListHeader {
+    width: 100%;
+    display: inline-block;
+    background-color: #ddd;
+    border-color: -moz-use-text-color silver silver;
+    border-right: 1px solid silver;
+    border-style: none solid solid;
+    border-width: 0 1px 1px;
+}
+#hermesSerachListHeader div {
+    height: 14px;
+    text-indent: 2px;
+    font-weight: bold;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+#hermesSearchListBody div {
+    text-indent: 2px;
+}
+#hermesSearchListHeader div.sortup, #hermesSearchListHeader div.sortdown {
+  background-position: 2px 50%;
+  padding-left: 0;
+}
+#hermesSearchListHeader div.sortup a, #hermesSearchListHeader div.sortdown a {
+    padding-left: 14px;
+}
+#hermesSearchListEmpty {
+    text-align: center;
+    font-style: italic;
+    font-size: 125%;
+}
+
 /* Left menu column */
 #hermesMenu {
     position: absolute;
@@ -479,12 +555,13 @@ a.rounded {
 }
 #hermesMenu .hermesMenuItem {
     margin: 0 0 4px 4px;
-    background: -moz-linear-gradient(-90deg, #F0F0F0, #DBDBDB);
-    background: -webkit-gradient(linear, left bottom, left top, #f0f0f0, #dbdbdb);
-    color: #444444;
+    background: -moz-linear-gradient(-90deg, #eaeaea, #d7d7d7);
+    background: -webkit-gradient(linear, left bottom, left top, #eaeaea, #d7d7d7);
+    background-color: #d9d9d9;
+    color: #202020;
 }
 /* Time summary */
-#hermesViewTimeContainer h2 {
+.hermesViewTimeContainer h2 {
     float: left;
 }
 .hermesMenuItem .rounded {
@@ -608,7 +685,7 @@ a.rounded {
     height: 16px;
     line-height: 16px;
     text-align: center;
-    background-color: #d6d6d6;
+    background-color: #d9d9d9;
     color: #202020;
     border: 1px #999 solid !important;
 }
@@ -629,4 +706,14 @@ a.rounded {
 }
 .hermesMinical .hermesSelected {
     background-color: #ffc;
+}
+#hermesTimeFormCollapse {
+    float: right;
+    padding-right:10px;
+}
+.hermesTimeFormShown {
+   background: url("graphics/minus.png") no-repeat scroll left  transparent;
+}
+.hermesTimeFormHidden {
+    background: url("graphics/plus.png") no-repeat scroll left transparent;
 }

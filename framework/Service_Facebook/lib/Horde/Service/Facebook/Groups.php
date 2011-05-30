@@ -24,11 +24,13 @@ class Horde_Service_Facebook_Groups extends Horde_Service_Facebook_Base
     {
         // Session key is *required*
         if (!$skey = $this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception('session_key is required',
-                                               Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
+            throw new Horde_Service_Facebook_Exception(
+                'session_key is required',
+                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
-        return $this->_facebook->callMethod('facebook.groups.get',
-            array('uid' => $uid, 'gids' => $gids, 'session_key' => $skey));
+        return $this->_facebook->callMethod(
+            'facebook.groups.get',
+            array('uid' => $uid, 'gids' => $gids));
     }
 
     /**
@@ -43,11 +45,13 @@ class Horde_Service_Facebook_Groups extends Horde_Service_Facebook_Base
     {
         // Session key is *required*
         if (!$skey = $this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception('session_key is required',
-                                               Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
+            throw new Horde_Service_Facebook_Exception(
+                'session_key is required',
+                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
-        return $this->_facebook->callMethod('facebook.groups.getMembers',
-             array('gid' => $gid, 'session_key' => $skey));
+        return $this->_facebook->callMethod(
+            'facebook.groups.getMembers',
+             array('gid' => $gid));
     }
 
 }

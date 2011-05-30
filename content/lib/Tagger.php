@@ -102,7 +102,7 @@ class Content_Tagger
      *
      * @return void
      */
-    public function tag($userId, $objectId, $tags, $created = null)
+    public function tag($userId, $objectId, $tags, Horde_Date $created = null)
     {
         if (is_null($created)) {
             $created = date('Y-m-d\TH:i:s');
@@ -117,12 +117,14 @@ class Content_Tagger
         $userId = current($this->_userManager->ensureUsers($userId));
 
         foreach ($this->ensureTags($tags) as $tagId) {
-            try {
-                 $this->_db->insert('INSERT INTO ' . $this->_t('tagged') . ' (user_id, object_id, tag_id, created)
-                                      VALUES (' . (int)$userId . ',' . (int)$objectId . ',' . (int)$tagId . ',' . $this->_db->quote($created) . ')');
-            } catch (Horde_Db_Exception $e) {
-                // @TODO should make sure it's a duplicate and re-throw if not
-                continue;
+            if (!$this->_db->selectValue('SELECT 1 from ' . $this->_t('tagged') . ' WHERE user_id = ? AND object_id = ? AND tag_id = ?', array((int)$userId, (int)$objectId, (int)$tagId))) {
+                try {
+                    $this->_db->insert(
+                        'INSERT INTO ' . $this->_t('tagged') . ' (user_id, object_id, tag_id, created) VALUES (?, ?, ?, ?)',
+                        array((int)$userId, (int)$objectId, (int)$tagId, $created));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Content_Exception($e);
+                }
             }
 
             // increment tag stats
@@ -684,36 +686,28 @@ class Content_Tagger
         }
 
         $tagIds = array();
-        $tagText = array();
 
         // Anything already typed as an integer is assumed to be a tag id.
         foreach ($tags as $tagIndex => $tag) {
             if (is_int($tag)) {
-                $tagIds[$tagIndex] = $tag;
-            } elseif (!empty($tag)) {
-                $tagText[$tag] = $tagIndex;
+                $tagIds[] = $tag;
+                continue;
             }
-        }
 
-        // Get the ids for any tags that already exist.
-        if (count($tagText)) {
-            $sql = 'SELECT tag_id, tag_name FROM ' . $this->_t('tags')
-                . ' WHERE tag_name IN (' . implode(',', array_map(array($this, 'toDriver'), array_keys($tagText))) . ')';
-            foreach ($this->_db->selectAll($sql) as $row) {
-                $tagTextCopy = $tagText;
-                foreach ($tagTextCopy as $tag => $tagIndex) {
-                    if (strtolower(Horde_String::convertCharset($row['tag_name'], $this->_db->getOption('charset'), 'UTF-8')) == strtolower($tag)) {
-                        unset($tagText[$tag]);
-                    }
-                }
-                $tagIds[$tagIndex] = $row['tag_id'];
+            // Don't attempt to tag with an empty value
+            if (empty($tag)) {
+                continue;
             }
-        }
 
-        if ($create) {
-            // Create any tags that didn't already exist
-            foreach ($tagText as $tag => $tagIndex) {
-                $tagIds[$tagIndex] = $this->_db->insert('INSERT INTO ' . $this->_t('tags') . ' (tag_name) VALUES (' . $this->toDriver($tag) . ')');
+            // Get the ids for any tags that already exist.
+            $sql = 'SELECT tag_id FROM ' . $this->_t('tags')
+                . ' WHERE LOWER(tag_name) = LOWER('
+                . $this->toDriver($tag) . ')';
+            if ($id = $this->_db->selectValue($sql)) {
+                $tagIds[] = $id;
+            } elseif ($create) {
+                // Create any tags that didn't already exist
+                $tagIds[] = $this->_db->insert('INSERT INTO ' . $this->_t('tags') . ' (tag_name) VALUES (' . $this->toDriver($tag) . ')');
             }
         }
 
@@ -814,7 +808,7 @@ class Content_Tagger
     {
         if (is_array($object)) {
             $object = current($this->_objectManager->ensureObjects(
-                $object['object'], current($this->_typeManager->ensureTypes($object['type']))));
+                $object['object'], (int)current($this->_typeManager->ensureTypes($object['type']))));
         }
 
         return (int)$object;

@@ -17,19 +17,19 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-11</date>
- <time>15:04:21</time>
+ <date>2011-05-18</date>
+ <time>14:53:46</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -63,6 +63,7 @@
        <file name="Dtd.php" role="php" />
        <file name="DtdManager.php" role="php" />
        <file name="Encoder.php" role="php" />
+       <file name="Exception.php" role="php" />
        <file name="HashTable.php" role="php" />
        <file name="LifoQueue.php" role="php" />
       </dir> <!-- /lib/Horde/Xml/Wbxml -->
@@ -92,7 +93,7 @@
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -118,6 +119,7 @@
    <install as="Horde/Xml/Wbxml/Dtd.php" name="lib/Horde/Xml/Wbxml/Dtd.php" />
    <install as="Horde/Xml/Wbxml/DtdManager.php" name="lib/Horde/Xml/Wbxml/DtdManager.php" />
    <install as="Horde/Xml/Wbxml/Encoder.php" name="lib/Horde/Xml/Wbxml/Encoder.php" />
+   <install as="Horde/Xml/Wbxml/Exception.php" name="lib/Horde/Xml/Wbxml/Exception.php" />
    <install as="Horde/Xml/Wbxml/HashTable.php" name="lib/Horde/Xml/Wbxml/HashTable.php" />
    <install as="Horde/Xml/Wbxml/LifoQueue.php" name="lib/Horde/Xml/Wbxml/LifoQueue.php" />
    <install as="Horde/Xml/Wbxml/Dtd/SyncMl.php" name="lib/Horde/Xml/Wbxml/Dtd/SyncMl.php" />
@@ -129,66 +131,6 @@
  <changelog>
   <release>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2003-11-25</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>
-Initial release as a package
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.5</release>
-    <api>0.5</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2005-09-21</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>
-Initial release working without external libwbxml support.
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.5.1</release>
-    <api>0.5.1</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2011-03-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>
-Converted to package.xml 2.0 for pear.horde.org
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.0.0alpha1</release>
-    <api>1.0.0</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2011-03-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>
-* First alpha release for Horde 4.
-   </notes>
-  </release>
-  <release>
-   <version>
     <release>1.0.0beta1</release>
     <api>1.0.0</api>
    </version>
@@ -196,10 +138,81 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-11</date>
+   <date>2011-03-16</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-*
+* First beta release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-22</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Second release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First stable release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-18</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Don&apos;t set codepage multiple times (Bug #9964).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-18</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

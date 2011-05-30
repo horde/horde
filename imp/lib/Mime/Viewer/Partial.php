@@ -87,7 +87,7 @@ class IMP_Mime_Viewer_Partial extends Horde_Mime_Viewer_Base
         /* Perform the search to find the other parts of the message. */
         $query = new Horde_Imap_Client_Search_Query();
         $query->headerText('Content-Type', $id);
-        $indices = $GLOBALS['injector']->getInstance('IMP_Search')->runQuery($query, $this->getConfigParam('imp_contents')->getMailbox());
+        $indices = $this->getConfigParam('imp_contents')->getMailbox()->runSearchQuery($query);
 
         /* If not able to find the other parts of the message, prepare a
          * status message. */
@@ -110,7 +110,7 @@ class IMP_Mime_Viewer_Partial extends Horde_Mime_Viewer_Base
                 if ($val == $number) {
                     $parts[$number] = $this->_mimepart->getContents();
                 } else {
-                    $ic = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($ob->mbox, $val));
+                    $ic = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($ob->mbox->getIndicesOb($val));
                     $parts[$ic->getMIMEMessage()->getContentTypeParameter('number')] = $ic->getBody();
                 }
             }

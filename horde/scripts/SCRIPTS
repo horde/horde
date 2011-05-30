@@ -20,6 +20,10 @@ sql/
 
     SQL utilities/scripts
 
+upgrades/
+
+    One-time conversion scripts and old pre-Horde-4 upgrade scripts.
+
 cookie_login.php
 
     Allows to login with user credentials provided by cookies.
@@ -30,7 +34,7 @@ get_login.php
 
 http_login_refer.php
 
-    TODO
+    Allows to login with user credentials provided by HTTP basic authentication.
 
 temp-cleanup.cron
 

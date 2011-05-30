@@ -91,9 +91,9 @@ class Ingo_Script_Imap extends Ingo_Script
      *
      * @param array $params  The parameter array. It MUST contain:
      * <pre>
-     * 'filter_seen' - (boolean) Only filter seen messages?
-     * 'mailbox' - (string) The name of the mailbox to filter.
-     * 'show_filter_msg' - (boolean) Show detailed filter status messages?
+     * filter_seen: (boolean) Only filter seen messages?
+     * mailbox: (string) The name of the mailbox to filter.
+     * show_filter_msg: (boolean) Show detailed filter status messages?
      * </pre>
      *
      * @return boolean  True if filtering performed, false if not.
@@ -166,16 +166,17 @@ class Ingo_Script_Imap extends Ingo_Script
                     continue;
                 }
 
-                foreach ($msgs as $k => $v) {
-                    $from_addr = Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrArray2String($v['envelope']['from'], array('charset' => 'UTF-8')));
+                foreach ($msgs as $v) {
+                    $from_addr = Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrArray2String($v->getEnvelope()->from, array('charset' => 'UTF-8')));
                     $found = false;
                     foreach ($addr as $val) {
                         if (strtolower($from_addr) == strtolower($val)) {
                             $found = true;
+                            break;
                         }
                     }
                     if (!$found) {
-                        $indices = array_diff($indices, array($k));
+                        $indices = array_diff($indices, array($v->getUid()));
                     }
                 }
 
@@ -258,16 +259,16 @@ class Ingo_Script_Imap extends Ingo_Script
                         if ($rule['flags'] & Ingo_Storage::FLAG_SEEN) {
                             $flags[] = '\\seen';
                         }
-                        $this->_api->setMessageFlags($indices, implode(' ', $flags));
+                        $this->_api->setMessageFlags($indices, $flags);
                     }
 
                     if ($rule['action'] == Ingo_Storage::ACTION_KEEP) {
                         /* Add these indices to the ignore list. */
                         $ignore_ids = array_unique($indices + $ignore_ids);
                     } elseif ($rule['action'] == Ingo_Storage::ACTION_MOVE) {
-                        /* We need to grab the overview first. */
+                        /* We need to grab the envelope first. */
                         if ($params['show_filter_msg'] &&
-                            !($overview = $this->_api->fetchEnvelope($indices))) {
+                            !($fetch = $this->_api->fetchEnvelope($indices))) {
                             continue;
                         }
 
@@ -276,23 +277,24 @@ class Ingo_Script_Imap extends Ingo_Script
 
                         /* Display notification message(s). */
                         if ($params['show_filter_msg']) {
-                            foreach ($overview as $msg) {
+                            foreach ($fetch as $msg) {
+                                $envelope = $msg->getEnvelope();
                                 $GLOBALS['notification']->push(
                                     sprintf(_("Filter activity: The message \"%s\" from \"%s\" has been moved to the folder \"%s\"."),
-                                            !empty($msg['envelope']['subject']) ? Horde_Mime::decode($msg['envelope']['subject'], $this->_params['charset']) : _("[No Subject]"),
-                                            !empty($msg['envelope']['from']) ? Horde_Mime::decode(Horde_Mime_Address::addrArray2String($msg['envelope']['from'], $this->_params['charset']), $this->_params['charset']) : _("[No Sender]"),
-                                            Horde_String::convertCharset($rule['action-value'], 'UTF7-IMAP', $this->_params['charset'])),
+                                            !empty($envelope->subject) ? Horde_Mime::decode($envelope->subject, 'UTF-8') : _("[No Subject]"),
+                                            !empty($envelope->from) ? Horde_Mime::decode(Horde_Mime_Address::addrArray2String($envelope->from, array('charset' => 'UTF-8')), 'UTF-8') : _("[No Sender]"),
+                                            Horde_String::convertCharset($rule['action-value'], 'UTF7-IMAP', 'UTF-8')),
                                     'horde.message');
                             }
                         } else {
                             $GLOBALS['notification']->push(sprintf(_("Filter activity: %s message(s) have been moved to the folder \"%s\"."),
                                                         count($indices),
-                                                        Horde_String::convertCharset($rule['action-value'], 'UTF7-IMAP', $this->_params['charset'])), 'horde.message');
+                                                        Horde_String::convertCharset($rule['action-value'], 'UTF7-IMAP', 'UTF-8')), 'horde.message');
                         }
                     } elseif ($rule['action'] == Ingo_Storage::ACTION_DISCARD) {
-                        /* We need to grab the overview first. */
+                        /* We need to grab the envelope first. */
                         if ($params['show_filter_msg'] &&
-                            !($overview = $this->_api->fetchEnvelope($indices))) {
+                            !($fetch = $this->_api->fetchEnvelope($indices))) {
                             continue;
                         }
 
@@ -301,11 +303,12 @@ class Ingo_Script_Imap extends Ingo_Script
 
                         /* Display notification message(s). */
                         if ($params['show_filter_msg']) {
-                            foreach ($overview as $msg) {
+                            foreach ($fetch as $msg) {
+                                $envelope = $msg->getEnvelope();
                                 $GLOBALS['notification']->push(
                                     sprintf(_("Filter activity: The message \"%s\" from \"%s\" has been deleted."),
-                                            !empty($msg['envelope']['subject']) ? Horde_Mime::decode($msg['envelope']['subject'], $this->_params['charset']) : _("[No Subject]"),
-                                            !empty($msg['envelope']['from']) ? Horde_Mime::decode($msg['envelope']['from'], $this->_params['charset']) : _("[No Sender]")),
+                                            !empty($envelope->subject) ? Horde_Mime::decode($envelope->subject, 'UTF-8') : _("[No Subject]"),
+                                            !empty($envelope->from) ? Horde_Mime::decode($envelope->from, 'UTF-8') : _("[No Sender]")),
                                     'horde.message');
                             }
                         } else {
@@ -314,23 +317,24 @@ class Ingo_Script_Imap extends Ingo_Script
                     } elseif ($rule['action'] == Ingo_Storage::ACTION_MOVEKEEP) {
                         /* Copy the messages to the requested mailbox. */
                         $this->_api->copyMessages($indices,
-                                                 $rule['action-value']);
+                                                  $rule['action-value']);
 
                         /* Display notification message(s). */
                         if ($params['show_filter_msg']) {
-                            if (!($overview = $this->_api->fetchEnvelope($indices))) {
+                            if (!($fetch = $this->_api->fetchEnvelope($indices))) {
                                 continue;
                             }
-                            foreach ($overview as $msg) {
+                            foreach ($fetch as $msg) {
+                                $envelope = $msg->getEnvelope();
                                 $GLOBALS['notification']->push(
                                     sprintf(_("Filter activity: The message \"%s\" from \"%s\" has been copied to the folder \"%s\"."),
-                                            !empty($msg['envelope']['subject']) ? Horde_Mime::decode($msg['envelope']['subject'], $this->_params['charset']) : _("[No Subject]"),
-                                            !empty($msg['envelope']['from']) ? Horde_Mime::decode($msg['envelope']['from'], $this->_params['charset']) : _("[No Sender]"),
-                                            Horde_String::convertCharset($rule['action-value'], 'UTF7-IMAP', $this->_params['charset'])),
+                                            !empty($envelope->subject) ? Horde_Mime::decode($envelope->subject, 'UTF-8') : _("[No Subject]"),
+                                            !empty($envelope->from) ? Horde_Mime::decode($envelope->from, 'UTF-8') : _("[No Sender]"),
+                                            Horde_String::convertCharset($rule['action-value'], 'UTF7-IMAP', 'UTF-8')),
                                     'horde.message');
                             }
                         } else {
-                            $GLOBALS['notification']->push(sprintf(_("Filter activity: %s message(s) have been copied to the folder \"%s\"."), count($indices), Horde_String::convertCharset($rule['action-value'], 'UTF7-IMAP', $this->_params['charset'])), 'horde.message');
+                            $GLOBALS['notification']->push(sprintf(_("Filter activity: %s message(s) have been copied to the folder \"%s\"."), count($indices), Horde_String::convertCharset($rule['action-value'], 'UTF7-IMAP', 'UTF-8')), 'horde.message');
                         }
                     }
                 }
@@ -353,8 +357,12 @@ class Ingo_Script_Imap extends Ingo_Script
     {
         if ($this->performAvailable() &&
             $GLOBALS['registry']->hasMethod('mail/server')) {
-            $server = $GLOBALS['registry']->call('mail/server');
-            return ($server['protocol'] == 'imap');
+            try {
+                $server = $GLOBALS['registry']->call('mail/server');
+                return ($server['protocol'] == 'imap');
+            } catch (Horde_Exception $e) {
+                return false;
+            }
         }
 
         return false;
@@ -376,7 +384,7 @@ class Ingo_Script_Imap extends Ingo_Script
      * Returns a query object prepared for adding further criteria.
      *
      * @param array $params  The parameter array. It MUST contain:
-     *                       - 'filter_seen': Only filter seen messages?
+     *                       - filter_seen: Only filter seen messages?
      *
      * @return Ingo_IMAP_Search_Query  A query object.
      */

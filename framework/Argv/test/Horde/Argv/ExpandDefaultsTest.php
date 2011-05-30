@@ -15,6 +15,7 @@ class Horde_Argv_ExpandDefaultsTest extends Horde_Argv_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $this->parser = new Horde_Argv_Parser(array('prog' => 'test'));
         $this->help_prefix = 'Usage: test [options]
 

@@ -166,7 +166,6 @@ class Ingo_Storage
      * @param Ingo_Storage_Rule|Ingo_Storage_Filters $ob  The object to store.
      * @param boolean $cache                              Cache the object?
      *
-     * @return boolean  True on success.
      * @throws Ingo_Exception
      */
     public function store(&$ob, $cache = true)
@@ -205,24 +204,19 @@ class Ingo_Storage
             }
         }
 
-        $result = $this->_store($ob);
+        $this->_store($ob);
         if ($cache) {
             $this->_cache[$ob->obType()] = array('ob' => $ob, 'mod' => true);
         }
-
-        return $result;
     }
 
     /**
      * Stores the specified data in the storage backend.
      *
      * @param Ingo_Storage_Rule|Ingo_Storage_Filters $ob  The object to store.
-     *
-     * @return boolean  True on success.
      */
     protected function _store(&$ob)
     {
-        return false;
     }
 
     /**

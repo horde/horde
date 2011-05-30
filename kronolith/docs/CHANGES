@@ -1,4 +1,81 @@
 ----------
+v3.0.4-git
+----------
+
+[jan] Only highlight days in the mini calendar that are currently displayed
+      (Bug #10048).
+[jan] Fix advanced search with empty search criteria (Bug #10038).
+
+
+------
+v3.0.3
+------
+
+[jan] Add header for timeobjects calendars.
+[jan] Fix date picker in advanced search form (Bug #10039).
+[mjr] Remove visible exceptions when deleting recurring events (Bug #10013).
+[mjr] Fix issue causing listTimeObject calendars to not appear (Bug #10012).
+
+
+------
+v3.0.2
+------
+
+[jan] Don't show event edit links if user doesn't have edit permissions on any
+      calendar.
+[jan] Fix parsing of recurrence end date in dynamic view (Bug #10025).
+[jan] Fix displaying of new tasks in new task lists.
+[jan] Fix displaying colors of task lists.
+[jan] Delete tasks from tasks view when deleting tasks lists.
+[jan] Don't export multi-day events as multiple events to iCalendar data (Bug
+      #10007).
+[jan] Fix dragging tasks in the dynamic view.
+
+
+------
+v3.0.1
+------
+
+[mjr] Fix calendar embedding.
+[jan] Don't store all task lists in the session.
+[jan] Fix new task lists not showing up until next login (Bug #9814).
+[mjr] Fix broken event alarm links in sidebar (Bug #9897).
+[mjr] Fix drag/drop editing of recurring events (Bug #9880).
+[jan] Fix undefined function on Windows (Bug #9916).
+[jan] Support adding and editing of CalDAV events in dynamic view (Bug #9865).
+[mjr] Allow migrations to complete despite of missing shares.
+[jan] Remove debug code in Ajax library (Bug #9818).
+
+
+----
+v3.0
+----
+
+[jan] Fix application-specific permission checks (Bug #9786).
+[jan] Fix fatal error when using the max_events permission (Bug #9784).
+[mjr] Datatree share to SQL upgrade script refactored for Horde 4.
+[mjr] Add migration for mysql specific geospatial fields (Bug #9758).
+[jan] Set default alarm in dynamic view (Bug #9752).
+[jan] Move all executable scripts to bin/ and prefix with kronolith-.
+
+
+--------
+v3.0-RC2
+--------
+
+[jan] Fix javascript error when viewing events with desktop notifications
+      (Bug #9727).
+
+
+--------
+v3.0-RC1
+--------
+
+[jan] Update installation and upgrade instructions.
+[jan] Fix custom event alarm settings in traditional view (Bug #9154).
+
+
+----------
 v3.0-BETA1
 ----------
 

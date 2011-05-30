@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Imap_Client
  */
-class Horde_Imap_Client_Data_Acl implements ArrayAccess, Iterator, Serializable
+class Horde_Imap_Client_Data_Acl extends Horde_Imap_Client_Data_AclCommon implements ArrayAccess, Iterator, Serializable
 {
     /**
      * ACL rights.
@@ -29,23 +29,13 @@ class Horde_Imap_Client_Data_Acl implements ArrayAccess, Iterator, Serializable
     public function __construct($rights = '')
     {
         $this->_rights = str_split($rights);
-
-        // Clients conforming to RFC 4314 MUST ignore the virtual ACL_CREATE
-        // and ACL_DELETE rights. See RFC 4314 [2.1].
-        if ($this[Horde_Imap_Client::ACL_CREATE] &&
-            $this[Horde_Imap_Client::ACL_CREATEMBOX]) {
-            unset($this[Horde_Imap_Client::ACL_CREATE]);
-        }
-        if ($this[Horde_Imap_Client::ACL_DELETE] &&
-            $this[Horde_Imap_Client::ACL_DELETEMSGS]) {
-            unset($this[Horde_Imap_Client::ACL_DELETE]);
-        }
+        $this->_normalize();
     }
 
     /**
      * String representation of the ACL.
      *
-     * @return string  String representation.
+     * @return string  String representation (RFC 4314 compliant).
      */
     public function __toString()
     {
@@ -54,6 +44,7 @@ class Horde_Imap_Client_Data_Acl implements ArrayAccess, Iterator, Serializable
 
     /**
      * Computes the difference to another rights string.
+     * Virtual rights are ignored.
      *
      * @param string $rights  The rights to compute against.
      *
@@ -61,12 +52,32 @@ class Horde_Imap_Client_Data_Acl implements ArrayAccess, Iterator, Serializable
      */
     public function diff($rights)
     {
-        $rlist = str_split($rights);
+        $rlist = array_diff(str_split($rights), array_keys($this->_virtual));
 
         return array(
             'added' => implode('', array_diff($rlist, $this->_rights)),
             'removed' => implode('', array_diff($this->_rights, $rlist))
         );
+    }
+
+    /**
+     * Normalize virtual rights (see RFC 4314 [2.1.1]).
+     */
+    protected function _normalize()
+    {
+        /* Clients conforming to RFC 4314 MUST ignore the virtual ACL_CREATE
+         * and ACL_DELETE rights. See RFC 4314 [2.1]. However, we still need
+         * to handle these rights when dealing with RFC 2086 servers since
+         * we are abstracting out use of ACL_CREATE/ACL_DELETE to their
+         * component RFC 4314 rights. */
+        foreach ($this->_virtual as $key => $val) {
+            if ($this[$key]) {
+                unset($this[$key]);
+                if (!$this[reset($val)]) {
+                    $this->_rights = array_unique(array_merge($this->_rights, $val));
+                }
+            }
+        }
     }
 
     /* ArrayAccess methods. */
@@ -92,8 +103,14 @@ class Horde_Imap_Client_Data_Acl implements ArrayAccess, Iterator, Serializable
         if ($value) {
             if (!$this[$offset]) {
                 $this->_rights[] = $offset;
+                $this->_normalize();
             }
         } elseif ($this[$offset]) {
+            if (isset($this->_virtual[$offset])) {
+                foreach ($this->_virtual[$offset] as $val) {
+                    unset($this[$val]);
+                }
+            }
             unset($this[$offset]);
         }
     }

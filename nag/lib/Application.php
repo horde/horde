@@ -34,7 +34,7 @@ class Nag_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (3.0-git)';
+    public $version = 'H4 (3.0.2-git)';
 
     /**
      */
@@ -53,8 +53,6 @@ class Nag_Application extends Horde_Registry_Application
         $GLOBALS['nag_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 
         Nag::initialize();
-
-        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('categoryCSS.php');
     }
 
     /**
@@ -78,11 +76,12 @@ class Nag_Application extends Horde_Registry_Application
         $menu->add(Horde::url('list.php'), _("_List Tasks"), 'nag.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
 
         if (Nag::getDefaultTasklist(Horde_Perms::EDIT) &&
-            ($injector->getInstance('Horde_Perms')->hasAppPermission('max_tasks') === true ||
-             $injector->getInstance('Horde_Perms')->hasAppPermission('max_tasks') > Nag::countTasks())) {
+            ($injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_tasks') === true ||
+             $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_tasks') > Nag::countTasks())) {
             $menu->add(Horde::url('task.php')->add('actionID', 'add_task'), _("_New Task"), 'add.png', null, null, null, Horde_Util::getFormData('task') ? '__noselection' : null);
             if ($GLOBALS['browser']->hasFeature('dom')) {
-                Horde::addScriptFile('redbox.js', 'horde', true);
+                Horde::addScriptFile('effects.js', 'horde');
+                Horde::addScriptFile('redbox.js', 'horde');
                 $menu->add(new Horde_Url(''), _("_Quick Add"), 'add.png', null, null, 'RedBox.showInline(\'quickAddInfoPanel\'); $(\'quickText\').focus(); return false;', Horde_Util::getFormData('task') ? 'quickAdd __noselection' : 'quickAdd');
             }
         }
@@ -100,12 +99,13 @@ class Nag_Application extends Horde_Registry_Application
      */
     public function hasPermission($permission, $allowed, $opts = array())
     {
-        switch ($permission) {
-        case 'max_tasks':
-            $allowed = max($allowed);
-            break;
+        if (is_array($allowed)) {
+            switch ($permission) {
+            case 'max_tasks':
+                $allowed = max($allowed);
+                break;
+            }
         }
-
         return $allowed;
     }
 
@@ -262,6 +262,56 @@ class Nag_Application extends Horde_Registry_Application
             throw new Nag_Exception(sprintf(_("There was an error removing tasks for %s. Details have been logged."), $user));
         }
     }
+
+    /* Alarm method. */
+
+    /**
+     */
+    public function listAlarms($time, $user = null)
+    {
+        if ((empty($user) || $user != $GLOBALS['registry']->getAuth()) &&
+            !$GLOBALS['registry']->isAdmin()) {
+
+            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+        }
+
+        $storage = Nag_Driver::singleton();
+        $group = $GLOBALS['injector']->getInstance('Horde_Group');
+        $alarm_list = array();
+        $tasklists = is_null($user) ?
+            array_keys($GLOBALS['nag_shares']->listAllShares()) :
+            $GLOBALS['display_tasklists'];
+
+        $alarms = Nag::listAlarms($time, $tasklists);
+        foreach ($alarms as $alarm) {
+            try {
+                $share = $GLOBALS['nag_shares']->getShare($alarm->tasklist);
+            } catch (Horde_Share_Exception $e) {
+                continue;
+            }
+            if (empty($user)) {
+                $users = $share->listUsers(Horde_Perms::READ);
+                $groups = $share->listGroups(Horde_Perms::READ);
+                foreach ($groups as $gid) {
+                    $users = array_merge($users, $group->listUsers($gid));
+                }
+                $users = array_unique($users);
+            } else {
+                $users = array($user);
+            }
+            foreach ($users as $alarm_user) {
+                $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('nag', array(
+                    'cache' => false,
+                    'user' => $alarm_user
+                ));
+                $GLOBALS['registry']->setLanguageEnvironment($prefs->getValue('language'));
+                $alarm_list[] = $alarm->toAlarm($alarm_user, $prefs);
+            }
+        }
+
+        return $alarm_list;
+    }
+
 
     /* Sidebar method. */
 

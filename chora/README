@@ -12,7 +12,7 @@ repository, written in PHP and utilizing the `Horde Application Framework`_.
 This software is OSI Certified Open Source Software.  OSI Certified is a
 certification mark of the `Open Source Initiative`_.
 
-.. _`Horde Application Framework`: http://www.horde.org/horde/
+.. _`Horde Application Framework`: http://www.horde.org/apps/horde
 .. _`Open Source Initiative`: http://www.opensource.org/
 
 
@@ -21,7 +21,7 @@ Obtaining Chora
 
 Further information on Chora and the latest version can be obtained at
 
-  http://www.horde.org/chora/
+  http://www.horde.org/apps/chora
 
 
 Documentation
@@ -52,13 +52,13 @@ If you encounter problems with Chora, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
 The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole.  Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users also make occasional
 appearances on IRC, on the channel #horde on the freenode Network
@@ -76,11 +76,11 @@ Thanks,
 The Chora team
 
 
-.. _README: ?f=README.html
-.. _COPYING: http://www.horde.org/licenses/gpl.php
-.. _docs/BUGS: ?f=BUGS.html
-.. _docs/CHANGES: ?f=CHANGES.html
-.. _docs/CREDITS: ?f=CREDITS.html
+.. _README: README
+.. _COPYING: http://www.horde.org/licenses/gpl
+.. _docs/BUGS: BUGS
+.. _docs/CHANGES: CHANGES
+.. _docs/CREDITS: CREDITS
 .. _INSTALL:
-.. _docs/INSTALL: ?f=INSTALL.html
-.. _docs/TODO: ?f=TODO.html
+.. _docs/INSTALL: INSTALL
+.. _docs/TODO: TODO

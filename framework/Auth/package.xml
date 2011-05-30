@@ -17,19 +17,25 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:43:00</time>
+ <lead>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-05-18</date>
+ <time>14:41:21</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
-*
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -44,12 +50,10 @@
       <file name="Composite.php" role="php" />
       <file name="Customsql.php" role="php" />
       <file name="Cyrsql.php" role="php" />
-      <file name="Cyrus.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Ftp.php" role="php" />
       <file name="Http.php" role="php" />
       <file name="Imap.php" role="php" />
-      <file name="Imsp.php" role="php" />
       <file name="Ipbasic.php" role="php" />
       <file name="Kolab.php" role="php" />
       <file name="Ldap.php" role="php" />
@@ -105,59 +109,74 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <extension>
+    <name>hash</name>
+   </extension>
   </required>
   <optional>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>Horde_Kolab_Server</name>
+    <name>Horde_Kolab_Session</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Ldap</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Imsp</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
-   <extension>
-    <name>pam_auth</name>
-   </extension>
-   <extension>
+   <package>
+    <name>Horde_Http</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>pam</name>
+    <channel>pecl.php.net</channel>
+   </package>
+   <package>
     <name>sasl</name>
+    <channel>pecl.php.net</channel>
+   </package>
+   <extension>
+    <name>ftp</name>
    </extension>
   </optional>
  </dependencies>
@@ -169,12 +188,10 @@
    <install as="Horde/Auth/Composite.php" name="lib/Horde/Auth/Composite.php" />
    <install as="Horde/Auth/Customsql.php" name="lib/Horde/Auth/Customsql.php" />
    <install as="Horde/Auth/Cyrsql.php" name="lib/Horde/Auth/Cyrsql.php" />
-   <install as="Horde/Auth/Cyrus.php" name="lib/Horde/Auth/Cyrus.php" />
    <install as="Horde/Auth/Exception.php" name="lib/Horde/Auth/Exception.php" />
    <install as="Horde/Auth/Ftp.php" name="lib/Horde/Auth/Ftp.php" />
    <install as="Horde/Auth/Http.php" name="lib/Horde/Auth/Http.php" />
    <install as="Horde/Auth/Imap.php" name="lib/Horde/Auth/Imap.php" />
-   <install as="Horde/Auth/Imsp.php" name="lib/Horde/Auth/Imsp.php" />
    <install as="Horde/Auth/Ipbasic.php" name="lib/Horde/Auth/Ipbasic.php" />
    <install as="Horde/Auth/Kolab.php" name="lib/Horde/Auth/Kolab.php" />
    <install as="Horde/Auth/Ldap.php" name="lib/Horde/Auth/Ldap.php" />
@@ -254,9 +271,9 @@
    <notes>
 * Imap driver now uses Horde_Imap_Client library.
 * Add signup drivers to package.xml (Bug #7345).
-* Fix the &quot;overwriting realm info from application auth drivers&quot; (Bug #6749)
+* Fix the "overwriting realm info from application auth drivers" (Bug #6749)
 * Switched Kolab auth handling from IMAP to LDAP by using Kolab_Server.
-* Added &quot;add user&quot; capability to the Kolab driver.
+* Added "add user" capability to the Kolab driver.
 * Adapted the Kolab auth driver to the changes in Kolab_Server.
    </notes>
   </release>
@@ -278,6 +295,126 @@
 * Removed Krb5 driver.
 * Moved signup code to horde/Core.
 * Split Horde_Auth into Horde_Auth and Horde_Auth_Base components.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-16</date>
+   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <notes>
+* First beta release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-22</date>
+   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <notes>
+* First release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
+   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <notes>
+* Second release candidate for Horde 4.
+* Remove Cyrus driver.
+* Remove support for pam_auth (Ticket #6860).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-06</date>
+   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <notes>
+* First stable release for Horde 4.
+* [jan] Fix Cyrsql driver (Vilius Sumskas &lt;vilius@lnk.lt&gt;, Bug #9781).
+* [jan] Add SHA-256 hashing and add SHA as alias for SHA1.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-20</date>
+   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <notes>
+* [mms] Fix default userhierarchy for Cyrsql driver (Bug #9895).
+* [cjh] Add crypt-sha256 and crypt-sha512 password hashes (patrickdk@patrickdk.com, Request #6991).
+* [mms] Fix addUser() in Customsql driver (Bug #9832).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <notes>
+* [jan] Fix listing users in Customsql driver (Bug #9963).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-18</date>
+   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <notes>
+* [mms] Cyrsql driver doesn&apos;t support resetting passwords currently (Bug #10060).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-18</date>
+   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

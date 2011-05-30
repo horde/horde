@@ -31,7 +31,7 @@ class IMP_Block_Summary extends Horde_Core_Block
      */
     protected function _title()
     {
-        return Horde::link(Horde::url($GLOBALS['registry']->getInitialPage(), true)) . $GLOBALS['registry']->get('name') . '</a>';
+        return Horde::link(IMP_Auth::getInitialPage()->url) . $GLOBALS['registry']->get('name') . '</a>';
     }
 
     /**
@@ -39,14 +39,14 @@ class IMP_Block_Summary extends Horde_Core_Block
     protected function _params()
     {
         return array(
+            'show_total' => array(
+                'type' => 'boolean',
+                'name' => _("Show total number of messages in folder?"),
+                'default' => 0
+            ),
             'show_unread' => array(
                 'type' => 'boolean',
                 'name' => _("Only display folders with unread messages in them?"),
-                'default' => 0
-            ),
-            'show_total' => array(
-                'type' => 'boolean',
-                'name' => _("Show total number of mails in folder?"),
                 'default' => 0
             )
         );
@@ -56,38 +56,71 @@ class IMP_Block_Summary extends Horde_Core_Block
      */
     protected function _content()
     {
-        $imp_ui = new IMP_Ui_Block();
-        list($html_out, $newmsgs) = $imp_ui->folderSummary($GLOBALS['session']->get('imp', 'view'));
+        global $injector;
 
-        $html = '<table cellspacing="0" width="100%">';
+        /* Filter on INBOX display.  INBOX is always polled. */
+        IMP_Mailbox::get('INBOX')->filterOnDisplay();
 
-        /* Quota info, if available. */
-        Horde::startBuffer();
-        IMP::quota();
-        $quota_msg = Horde::endBuffer();
-        if (!empty($quota_msg)) {
-            $html .= '<tr><td colspan="3">' . $quota_msg . '</td></tr>';
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+
+        /* Get list of mailboxes to poll. */
+        $poll = $injector->getInstance('IMP_Imap_Tree')->getPollList(true);
+        $status = $imp_imap->statusMultiple($poll, Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT);
+
+        $anyUnseen = false;
+        $mboxes = array();
+
+        foreach ($poll as $mbox) {
+            $mbox_str = strval($mbox);
+
+            if (isset($status[$mbox_str]) &&
+                ($mbox->inbox || $imp_imap->imap) &&
+                (empty($this->_params['show_unread']) ||
+                 !empty($status[$mbox_str]['unseen']))) {
+                $mbox_status = $status[$mbox_str];
+
+                $mbox = $mbox->url('mailbox.php')->link() . $mbox->display . '</a>';
+                if (!empty($mbox_status['unseen'])) {
+                    $mbox = '<strong>' . $mbox . '</strong>';
+                    $anyUnseen = true;
+                }
+
+                $unseen = array();
+                if (!empty($mbox_status['unseen'])) {
+                   $unseen[] =  '<strong>' . $mbox_status['unseen'] . ' ' . _("Unseen") . '</strong>';
+                }
+                if (!empty($mbox_status['recent'])) {
+                   $unseen[] = '<span style="color:red">(' . sprintf(ngettext("%d new", "%d new", $mbox_status['recent']), $mbox_status['recent']) . ')</span>';
+                }
+                if (!empty($this->_params['show_total'])) {
+                    if (count($unseen)) {
+                        $unseen[] = '|';
+                    }
+                    if ($mbox_status['messages']) {
+                        $unseen[] = $mbox_status['messages'] . ' ' . _("Total");
+                    } else {
+                        $unseen[] = _("No Messages");
+                    }
+                }
+
+                $mboxes[$mbox] = $unseen;
+            }
         }
 
-        /* Check to see if user wants new mail notification, but only
-         * if the user is logged into IMP. */
-        if ($GLOBALS['prefs']->getValue('nav_popup')) {
-            /* Always include these scripts so they'll be there if there's
-             * new mail in later dynamic updates. */
-            Horde::addScriptFile('effects.js', 'horde');
-            Horde::addScriptFile('redbox.js', 'horde');
+        if (!empty($this->_params['show_unread']) && !$anyUnseen) {
+            return '<em>' . _("No folders with unseen messages") . '</em>';
         }
 
-        if (!empty($newmsgs) &&
-            ($GLOBALS['prefs']->getValue('nav_audio') ||
-             $GLOBALS['prefs']->getValue('nav_popup'))) {
-            Horde::startBuffer();
-            IMP::newmailAlerts($newmsgs);
-            $GLOBALS['notification']->notify(array('listeners' => 'audio'));
-            $html .= Horde::endBuffer();
+        $out = '<div style="float:left;padding-right:30px;">';
+        foreach (array_keys($mboxes) as $val) {
+            $out .= '<div>' . $val . '</div>';
+        }
+        $out .= '</div><div>';
+        foreach (array_values($mboxes) as $val) {
+            $out .= '<div>' . implode(' ', $val) . '</div>';
         }
 
-        return $html . $html_out . '</table>';
+        return $out . '</div>';
     }
 
 }

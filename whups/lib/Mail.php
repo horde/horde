@@ -50,6 +50,12 @@ class Whups_Mail {
             return true;
         }
 
+        // Try to avoid bounces
+        if (strpos($headers->getValue('Content-Type'), 'multipart/report') !== false ||
+            strpos($headers->getValue('from'), 'MAILER-DAEMON') !== false) {
+            return true;
+        }
+
         // Use the message subject as the ticket summary.
         $info['summary'] = $headers->getValue('subject');
         $from = $headers->getValue('from');
@@ -76,7 +82,18 @@ class Whups_Mail {
         $body_id = $message->findBody();
         if ($body_id) {
             $part = $message->getPart($body_id);
-            $comment .= Horde_String::convertCharset($part->transferDecode(), $part->getCharset(), 'UTF-8');
+            $content = Horde_String::convertCharset($part->getContents(), $part->getCharset(), 'UTF-8');
+            switch ($part->getType()) {
+            case 'text/plain':
+                $comment .= $content;
+                break;
+            case 'text/html':
+                $comment .= Horde_Text_Filter::filter($content, array('Html2text'), array(array('width' => 0)));;
+                break;
+            default:
+                $comment .= _("[ Could not render body of message. ]");
+                break;
+            }
         } else {
             $comment .= _("[ Could not render body of message. ]");
         }
@@ -105,7 +122,7 @@ class Whups_Mail {
 
         // Authenticate as the correct Horde user.
         if (!empty($auth_user) && $auth_user != $GLOBALS['registry']->getAuth()) {
-            Horde_Auth::setAuth($auth_user, array());
+            $GLOBALS['registry']->setAuth($auth_user, array());
         }
 
         // See if we can match this message to an existing ticket.
@@ -148,7 +165,6 @@ class Whups_Mail {
         foreach ($dl_list as $key) {
             if (strpos($key, '.', 1) === false) {
                 $part = $message->getPart($key);
-                $part->transferDecodeContents();
                 $tmp_name = Horde::getTempFile('whups');
                 $fp = @fopen($tmp_name, 'wb');
                 if (!$fp) {
@@ -159,6 +175,19 @@ class Whups_Mail {
                 fwrite($fp, $part->getContents());
                 fclose($fp);
                 $part_name = $part->getName(true);
+                if (!$part_name) {
+                    $ptype = $part->getPrimaryType();
+                    switch ($ptype) {
+                    case 'multipart':
+                    case 'application':
+                        $part_name = sprintf(_("%s part"), ucfirst($part->getSubType()));
+                        break;
+                    default:
+                        $part_name = sprintf(_("%s part"), ucfirst($ptype));
+                        break;
+                    }
+                    $part_name .= '.' . Horde_Mime_Magic::mimeToExt($part->getType());
+                }
                 $ticket->change('attachment', array('name' => $part_name,
                                                     'tmp_name' => $tmp_name));
                 $result = $ticket->commit();

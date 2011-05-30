@@ -30,7 +30,7 @@
 class Horde_Kolab_Storage_TestCase
 extends PHPUnit_Framework_TestCase
 {
-    protected function completeFactory($factory)
+    protected function completeFactory($factory = null)
     {
         if ($factory === null) {
             return new Horde_Kolab_Storage_Factory();
@@ -434,51 +434,62 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
-    protected function getMessageAccount()
+    protected function getDataAccount($additional_folders)
     {
         return array(
             'username' => 'test@example.com',
             'host' => 'localhost',
             'port' => 143,
             'data' => $this->getMockData(
-                array(
-                    'user/test' => null,
-                    'user/test/a' => null,
-                    'user/test/Test' => array('m' => array()),
-                    'user/test/Empty' => array('m' => array()),
-                    'user/test/ÄÖÜ' => array('m' => array()),
-                    'user/test/Pretend' => array('m' => array(1 => array())),
-                    'user/test/WithDeleted' => array(
-                        'm' => array(
-                            1 => array(
-                                'flags' => Horde_Kolab_Storage_Driver_Mock_Data::FLAG_DELETED
-                            ),
-                            4 => array()
-                        ),
-                        's' => array(
-                            'uidvalidity' => '12346789',
-                            'uidnext' => 5
-                        )
+                array_merge(
+                    array(
+                        'user/test' => null,
+                        'user/test/a' => null,
+                        'user/test/Test' => array('m' => array()),
+                        'user/test/Empty' => array('m' => array()),
+                        'user/test/ÄÖÜ' => array('m' => array()),
+                        'user/test/Pretend' => array('m' => array(1 => array())),
+                        'user/test/Contacts' => array('t' => 'contact.default'),
+                        'user/test/Notes' => array('t' => 'note.default'),
+                        'user/test/OtherNotes' => array('t' => 'note'),
+                        'user/test/Tasks' => array('t' => 'task.default'),
                     ),
-                    'user/test/Calendar' => array(
-                        't' => 'event.default',
-                        'm' => array(
-                            1 => $this->getDefaultEventData(),
-                            2 => $this->getDefaultEventData(),
-                            3 => array(
-                                'flags' => Horde_Kolab_Storage_Driver_Mock_Data::FLAG_DELETED
-                            ),
-                            4 => $this->getDefaultEventData(),
-                        ),
-                        's' => array(
-                            'uidvalidity' => '12346789',
-                            'uidnext' => 5
-                        )
+                    $additional_folders
+                )
+            )
+        );
+    }
 
+    protected function getMessageAccount()
+    {
+        return $this->getDataAccount(
+            array(
+                'user/test/WithDeleted' => array(
+                    'm' => array(
+                        1 => array(
+                            'flags' => Horde_Kolab_Storage_Driver_Mock_Data::FLAG_DELETED
+                        ),
+                        4 => array()
                     ),
-                    'user/test/Contacts' => array('t' => 'contact.default'),
-                    'user/test/Notes' => array('t' => 'note.default'),
-                    'user/test/Tasks' => array('t' => 'task.default'),
+                    's' => array(
+                        'uidvalidity' => '12346789',
+                        'uidnext' => 5
+                    )
+                ),
+                'user/test/Calendar' => array(
+                    't' => 'event.default',
+                    'm' => array(
+                        1 => $this->getDefaultEventData('.1'),
+                        2 => $this->getDefaultEventData('.2'),
+                        3 => array(
+                            'flags' => Horde_Kolab_Storage_Driver_Mock_Data::FLAG_DELETED
+                        ),
+                        4 => $this->getDefaultEventData('.3'),
+                    ),
+                    's' => array(
+                        'uidvalidity' => '12346789',
+                        'uidnext' => 5
+                    )
                 )
             )
         );
@@ -493,19 +504,28 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
-    protected function getMessageStorage(
-        $params = array()
+    protected function getDataStorage(
+        $data, $params = array()
     ) {
         $factory = new Horde_Kolab_Storage_Factory(
             array_merge(
                 array(
                     'driver' => 'mock',
-                    'params' => $this->getMessageAccount()
+                    'params' => $data
                 ),
                 $params
             )
         );
         return $factory->create();
+    }
+
+    protected function getMessageStorage(
+        $params = array()
+    ) {
+        return $this->getDataStorage(
+            $this->getMessageAccount(),
+            $params
+        );
     }
 
     protected function getCachedQueryForList($bare_list, $factory)
@@ -579,14 +599,16 @@ extends PHPUnit_Framework_TestCase
 
     protected function assertLogContains($message)
     {
+        $messages = array();
         $found = false;
         foreach ($this->logHandler->events as $event) {
             if (strstr($event['message'], $message) !== false) {
                 $found = true;
                 break;
             }
+            $messages[] = $event['message'];
         }
-        $this->assertTrue($found);
+        $this->assertTrue($found, sprintf("Did not find \"%s\" in [\n%s\n]", $message, join("\n", $messages)));
     }
 
     protected function assertLogRegExp($regular_expression)
@@ -603,59 +625,17 @@ extends PHPUnit_Framework_TestCase
 
     protected function getMockData($elements)
     {
-        $result = array();
-        foreach ($elements as $path => $element) {
-            if (!isset($element['p'])) {
-                $folder = array('permissions' => array('anyone' => 'alrid'));
-            } else {
-                $folder = array('permissions' => $element['p']);
-            }
-            if (isset($element['a'])) {
-                $folder['annotations'] = $element['a'];
-            }
-            if (isset($element['t'])) {
-                $folder['annotations'] = array(
-                    '/shared/vendor/kolab/folder-type' => $element['t'],
-                );
-            }
-            if (isset($element['m'])) {
-                $keys = array_keys($element['m']);
-                $folder['status'] = array(
-                    'uidvalidity' => time(),
-                    'uidnext' => empty($keys) ? 1 : max($keys) + 1
-                );
-                $folder['mails'] = $element['m'];
-                foreach ($element['m'] as $uid => $mail) {
-                    if (isset($mail['structure'])) {
-                        $folder['mails'][$uid]['structure'] = unserialize(
-                            base64_decode(file_get_contents($mail['structure']))
-                        );
-                    }
-                    if (isset($mail['parts'])) {
-                        $folder['mails'][$uid]['structure']['parts'] = $mail['parts'];
-                    }
-                }
-            } else {
-                $folder['status'] = array(
-                    'uidvalidity' => time(),
-                    'uidnext' => 1
-                );
-            }
-            if (isset($element['s'])) {
-                $folder['status'] = $element['s'];
-            }
-            $result[$path] = $folder;
-        }
-        return $result;
+        $elements['format'] = 'brief';
+        return new Horde_Kolab_Storage_Driver_Mock_Data($elements);
     }
 
-    protected function getDefaultEventData()
+    protected function getDefaultEventData($add = '')
     {
         return array(
             'structure' => dirname(__FILE__) . '/fixtures/event.struct',
             'parts' => array(
                 '2' => array(
-                    'file' => dirname(__FILE__) . '/fixtures/event.xml.qp',
+                    'file' => dirname(__FILE__) . '/fixtures/event' . $add . '.xml.qp',
                 )
             )
         );

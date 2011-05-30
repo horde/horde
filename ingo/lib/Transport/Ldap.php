@@ -184,11 +184,14 @@ class Ingo_Transport_Ldap extends Ingo_Transport
     /**
      * Sets a script running on the backend.
      *
-     * @param string $script  The sieve script.
+     * @todo No idea how to handle $additional.
+     *
+     * @param string $script     The filter script.
+     * @param array $additional  Any additional scripts that need to uploaded.
      *
      * @throws Ingo_Exception
      */
-    protected function setScriptActive($script)
+    protected function setScriptActive($script, $additional = array())
     {
         $ldapcn = $this->_connect();
         $values = $this->_getScripts($ldapcn, $userDN);
@@ -223,8 +226,6 @@ class Ingo_Transport_Ldap extends Ingo_Transport
         }
 
         @ldap_close($ldapcn);
-
-        return true;
     }
 
     /**

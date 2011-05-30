@@ -6,12 +6,18 @@ HordeMap.Geocoder.Null = Class.create({
 
     geocode: function(address, callback, onErrorCallback)
     {
-        return onErrorCallback('No geocoding support');
+        // Try to get a lat/long out of this.
+        var ll = address.match(/(-?\d+\.\d+)\ (-?\d+\.\d+)/);
+        if (ll) {
+            return callback([{ lat: ll[1], lon: ll[2], 'address': address, precision: 1 }]);
+        }
+
+        return onErrorCallback('No geocoding support. Try entering a longitude latitude pair.');
     },
 
     reverseGeocode: function(lonlat, completeCallback, errorCallback)
     {
-        var ll = { lon: lonlat.lon, lat: lonlat.lat, address: lonlat.lon + ' ' + lonlat.lat};
+        var ll = { lon: lonlat.lon, lat: lonlat.lat, address: lonlat.lat + ' ' + lonlat.lon };
         return completeCallback([ll]);
     }
 });

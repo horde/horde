@@ -15,6 +15,7 @@ class Horde_Argv_ConflictOverrideTest extends Horde_Argv_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $this->parser = new Horde_Argv_InterceptingParser(array('usage' => Horde_Argv_Option::SUPPRESS_USAGE));
         $this->parser->setConflictHandler('resolve');
         $this->parser->addOption('-n', '--dry-run',

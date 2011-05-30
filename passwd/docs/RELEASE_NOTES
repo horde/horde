@@ -34,4 +34,4 @@ FM;
 $this->notes['name'] = 'Passwd';
 $this->notes['list'] = 'sork';
 $this->notes['fm']['project'] = 'passwd';
-$this->notes['fm']['branch'] = 'Horde 3';
+$this->notes['fm']['branch'] = 'Horde 4';

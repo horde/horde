@@ -105,7 +105,7 @@ switch ($vars->a) {
 // 'd' = draft
 case 'd':
     try {
-        $result = $imp_compose->resumeDraft(new IMP_Indices(IMP::$thismailbox, IMP::$uid));
+        $result = $imp_compose->resumeDraft(IMP::$thismailbox->getIndicesOb(IMP::$uid));
 
         $msg = $result['msg'];
         $header = array_merge($header, $result['header']);
@@ -144,10 +144,19 @@ case _("Expand Names"):
 case 'r':
 case 'ra':
 case 'rl':
-    if (!($imp_contents = $imp_ui->getIMPContents(new IMP_Indices(IMP::$thismailbox, IMP::$uid)))) {
+    try {
+        $imp_contents = $imp_ui->getContents();
+    } catch (IMP_Exception $e) {
+        $notification->push($e, 'horde.error');
         break;
     }
-    $actions = array('r' => 'reply', 'ra' => 'reply_all', 'rl' => 'reply_list');
+
+    $actions = array(
+        'r' => IMP_Compose::REPLY_SENDER,
+        'ra' => IMP_Compose::REPLY_ALL,
+        'rl' => IMP_Compose::REPLY_LIST
+    );
+
     $reply_msg = $imp_compose->replyMessage($actions[$vars->a], $imp_contents, $header['to']);
     $header = $reply_msg['headers'];
 
@@ -157,10 +166,14 @@ case 'rl':
 
 // 'f' = forward
 case 'f':
-    if (!($imp_contents = $imp_ui->getIMPContents(new IMP_Indices(IMP::$thismailbox, IMP::$uid)))) {
+    try {
+        $imp_contents = $imp_ui->getContents();
+    } catch (IMP_Exception $e) {
+        $notification->push($e, 'horde.error');
         break;
     }
-    $fwd_msg = $imp_compose->forwardMessage('forward_attach', $imp_contents, false);
+
+    $fwd_msg = $imp_compose->forwardMessage(IMP_Compose::FORWARD_ATTACH, $imp_contents, false);
     $header = $fwd_msg['headers'];
 
     $notification->push(_("Forwarded message will be automatically added to your outgoing message."), 'horde.message');
@@ -169,12 +182,14 @@ case 'f':
 
 // 'rc' = redirect compose
 case 'rc':
-    $title = _("Redirect");
-    if (!($imp_contents = $imp_ui->getIMPContents(new IMP_Indices(IMP::$thismailbox, IMP::$uid)))) {
-        // TODO: Error message
+    try {
+        $imp_contents = $imp_ui->getContents();
+    } catch (IMP_Exception $e) {
+        $notification->push($e, 'horde.error');
         break;
     }
     $imp_compose->redirectMessage($imp_contents);
+    $title = _("Redirect");
     break;
 
 case _("Redirect"):
@@ -182,9 +197,7 @@ case _("Redirect"):
         $imp_compose->sendRedirectMessage($imp_ui->getAddressList($header['to']));
         $imp_compose->destroy('send');
 
-        if ($prefs->getValue('compose_confirm')) {
-            $notification->push(_("Message redirected successfully."), 'horde.success');
-        }
+        $notification->push(_("Message redirected successfully."), 'horde.success');
         require IMP_BASE . '/mailbox-mimp.php';
         exit;
     } catch (Horde_Exception $e) {
@@ -215,24 +228,18 @@ case _("Send"):
     $old_header = $header;
     $header = array();
 
-    if ($ctype = $imp_compose->getMetadata('reply_type')) {
-        if (!($imp_contents = $imp_ui->getIMPContents(new IMP_Indices($imp_compose->getMetadata('mailbox'), $imp_compose->getMetadata('uid'))))) {
-            break;
-        }
+    switch ($imp_compose->replyType(true)) {
+    case IMP_Compose::REPLY:
+        $reply_msg = $imp_compose->replyMessage(IMP_Compose::REPLY_SENDER, $imp_compose->getContentsOb(), $f_to);
+        $msg = $reply_msg['body'];
+        $message .= "\n" . $msg;
+        break;
 
-        switch ($ctype) {
-        case 'reply':
-            $reply_msg = $imp_compose->replyMessage('reply', $imp_contents, $f_to);
-            $msg = $reply_msg['body'];
-            $message .= "\n" . $msg;
-            break;
-
-        case 'forward':
-            $fwd_msg = $imp_compose->forwardMessage('forward_attach', $imp_contents);
-            $msg = $fwd_msg['body'];
-            $message .= "\n" . $msg;
-            break;
-        }
+    case IMP_Compose::FORWARD:
+        $fwd_msg = $imp_compose->forwardMessage(IMP_Compose::FORWARD_ATTACH, $imp_compose->getContentsOb());
+        $msg = $fwd_msg['body'];
+        $message .= "\n" . $msg;
+        break;
     }
 
     try {
@@ -324,7 +331,7 @@ if ($vars->a == 'rc') {
 } else {
     $t->set('compose_enable', !$compose_disable);
     $t->set('msg', htmlspecialchars($msg));
-    $t->set('save_draft', $injector->getInstance('IMP_Factory_Imap')->create()->allowFolders() && !$readonly_drafts);
+    $t->set('save_draft', $injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS) && !$readonly_drafts);
     $t->set('subject', htmlspecialchars($header['subject']));
 
     if (!$prefs->isLocked('default_identity')) {

@@ -95,6 +95,48 @@ class Horde
     }
 
     /**
+     * Debug method.  Allows quick shortcut to produce debug output into a
+     * temporary file.
+     *
+     * @param mixed $event   Item to log.
+     * @param string $fname  Filename to log to. If empty, logs to
+     *                       'horde_debug.txt' in the temporary directory.
+     */
+    static public function debug($event = null, $fname = null)
+    {
+        if (is_null($fname)) {
+            $fname = self::getTempDir() . '/horde_debug.txt';
+        }
+
+        try {
+            $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream($fname));
+        } catch (Exception $e) {
+            return;
+        }
+
+        $html_ini = ini_set('html_errors', 'Off');
+        self::startBuffer();
+        if (!is_null($event)) {
+            echo "Variable information:\n";
+            var_dump($event);
+            echo "\n";
+        }
+
+        if (is_resource($event)) {
+            echo "Stream contents:\n";
+            rewind($event);
+            fpassthru($event);
+            echo "\n";
+        }
+
+        echo "Backtrace:\n";
+        echo strval(new Horde_Support_Backtrace());
+
+        $logger->log(self::endBuffer(), Horde_Log::DEBUG);
+        ini_set('html_errors', $html_ini);
+    }
+
+    /**
      * Aborts with a fatal error, displaying debug information to the user.
      *
      * @param mixed $error   Either a string or an object with a getMessage()
@@ -106,6 +148,7 @@ class Horde
     static public function fatal($error, $file = null, $line = null,
                                  $log = true)
     {
+        header('Content-type: text/html; charset=UTF-8');
         try {
             $admin = $GLOBALS['registry']->isAdmin();
             $cli = Horde_Cli::runningFromCLI();
@@ -120,13 +163,12 @@ class Horde
             }
 
             if ($admin || $cli) {
-                if ($error instanceof Exception) {
-                    $trace = $error;
-                } else {
-                    $trace = debug_backtrace();
-                }
-                $backtrace = new Horde_Support_Backtrace($trace);
-                $errortext .= '<div id="backtrace"><pre>' . (string)$backtrace . '</pre></div>';
+                $trace = ($error instanceof Exception)
+                    ? $error
+                    : debug_backtrace();
+                $errortext .= '<div id="backtrace"><pre>' .
+                    strval(new Horde_Support_Backtrace($trace)) .
+                    '</pre></div>';
                 if (is_object($error)) {
                     $errortext .= '<h3>' . Horde_Core_Translation::t("Details") . '</h3>';
                     $errortext .= '<h4>' . Horde_Core_Translation::t("The full error message is logged in Horde's log file, and is shown below only to administrators. Non-administrative users will not see error details.") . '</h4>';
@@ -179,7 +221,24 @@ HTML;
 
         if (class_exists('Horde_Log')) {
             try {
-                self::logMessage(new ErrorException('PHP ERROR: ' . $errstr, 0, $errno, $errfile, $errline), 'DEBUG');
+                switch ($errno) {
+                case E_WARNING:
+                    $priority = Horde_Log::WARN;
+                    break;
+
+                case E_NOTICE:
+                    $priority = Horde_Log::NOTICE;
+                    break;
+
+                default:
+                    $priority = Horde_Log::DEBUG;
+                    break;
+                }
+
+                self::logMessage(new ErrorException('PHP ERROR: ' . $errstr, 0, $errno, $errfile, $errline), $priority);
+                if (class_exists('Horde_Support_Backtrace')) {
+                    self::logMessage(new Horde_Support_Backtrace(), Horde_Log::DEBUG);
+                }
             } catch (Exception $e) {}
         }
     }
@@ -454,8 +513,8 @@ HTML;
 
         switch ($type) {
         case 'ajax':
-            return self::url('services/ajax.php/' . $app . '/', false, $opts)
-                ->remove('ajaxui');
+            $opts['noajax'] = true;
+            return self::url('services/ajax.php/' . $app . '/', false, $opts);
 
         case 'cache':
             $opts['append_session'] = -1;
@@ -466,23 +525,24 @@ HTML;
                 ->add('module', $app);
 
         case 'emailconfirm':
+            $opts['noajax'] = true;
             return self::url('services/confirm.php', false, $opts);
 
         case 'go':
-            return self::url('services/go.php', false, $opts)
-                ->remove('ajaxui');
+            $opts['noajax'] = true;
+            return self::url('services/go.php', false, $opts);
 
         case 'help':
             return self::url('services/help/', false, $opts)
                 ->add('module', $app);
 
         case 'imple':
-            return self::url('services/imple.php', false, $opts)
-                ->remove('ajaxui');
+            $opts['noajax'] = true;
+            return self::url('services/imple.php', false, $opts);
 
         case 'login':
-            return self::url('login.php', false, $opts)
-                ->remove('ajaxui');
+            $opts['noajax'] = true;
+            return self::url('login.php', false, $opts);
 
         case 'logintasks':
             return self::url('services/logintasks.php', false, $opts)
@@ -500,16 +560,18 @@ HTML;
                 return $url;
             }
             break;
+
         case 'portal':
-            if ($GLOBALS['browser']->isMobile()) {
+            if ($GLOBALS['session']->get('horde', 'mode') == 'smartmobile' && self::ajaxAvailable()) {
                 return self::url('services/portal/mobile.php', false, $opts);
             } else {
                 return self::url('services/portal/', false, $opts);
             }
             break;
+
         case 'problem':
             return self::url('services/problem.php', false, $opts)
-                ->add('return_url', urlencode(self::selfUrl(true, true, true)));
+                ->add('return_url', self::selfUrl(true, true, true));
 
         case 'sidebar':
             return self::url('services/sidebar.php', false, $opts);
@@ -727,22 +789,22 @@ HTML;
             $filelist[$file] = 0;
         }
 
-        // Load vhost configuration file.
-        if (!empty($GLOBALS['conf']['vhosts']) ||
-            (($app == 'horde') &&
-             ($config_file == 'conf.php') &&
-             !empty($conf['vhosts']))) {
-            $server_name = isset($GLOBALS['conf'])
-                ? $GLOBALS['conf']['server']['name']
-                : $conf['server']['name'];
-            $file = $config_dir . substr($config_file, 0, -4) . '-' . $server_name . '.php';
+        // Load vhost configuration file. The vhost conf.php for Horde is added
+        // later though, because the vhost configuration variable is not
+        // available at this point.
+        $vhost_added = false;
+        if (!empty($GLOBALS['conf']['vhosts'])) {
+            $file = $config_dir . substr($config_file, 0, -4) . '-' . $GLOBALS['conf']['server']['name'] . '.php';
 
             if (file_exists($file)) {
                 $filelist[$file] = 0;
             }
+            $vhost_added = true;
         }
 
-        foreach ($filelist as $file => $log_check) {
+        /* We need to use a while-loop here because we modify $filelist inside
+         * the loop. */
+        while (list($file, $log_check) = each($filelist)) {
             /* If we are not exporting variables located in the configuration
              * file, or we are not capturing the output, then there is no
              * need to load the configuration file more than once. */
@@ -767,6 +829,19 @@ HTML;
                 } else {
                     throw new Horde_Exception(sprintf('Failed to import configuration file "%s": ', $file) . strip_tags($output));
                 }
+            }
+
+            // Load vhost conf.php for Horde now if necessary.
+            if (!$vhost_added &&
+                $app == 'horde' &&
+                $config_file == 'conf.php') {
+                if (!empty($conf['vhosts'])) {
+                    $file = $config_dir . 'conf-' . $conf['server']['name'] . '.php';
+                    if (file_exists($file)) {
+                        $filelist[$file] = 0;
+                    }
+                }
+                $vhost_added = true;
             }
 
             $was_included = true;
@@ -906,6 +981,8 @@ HTML;
      * 'force_ssl' - (boolean) Ignore $conf['use_ssl'] and force creation of a
      *               SSL URL?
      *               DEFAULT: false
+     * 'noajax' - (boolean) Don't add AJAX UI parameter?
+     *            DEFAULT: false
      * </pre>
      *
      * @return Horde_Url  The URL with the session id appended (if needed).
@@ -929,7 +1006,9 @@ HTML;
         $schemeRegexp = '|^([a-zA-Z][a-zA-Z0-9+.-]{0,19})://|';
         $webroot = ltrim($GLOBALS['registry']->get('webroot', empty($opts['app']) ? null : $opts['app']), '/');
 
-        if ($full && !isset($puri['scheme']) && !preg_match($schemeRegexp, $webroot) ) {
+        if ($full &&
+            !isset($puri['scheme']) &&
+            !preg_match($schemeRegexp, $webroot) ) {
             /* Store connection parameters in local variables. */
             $server_name = $GLOBALS['conf']['server']['name'];
             $server_port = $GLOBALS['conf']['server']['port'];
@@ -954,7 +1033,7 @@ HTML;
                 break;
             }
 
-            /* If using non-standard ports, add the port to the URL. */
+            /* If using a non-standard port, add to the URL. */
             if (!empty($server_port) &&
                 ((($protocol == 'http') && ($server_port != 80)) ||
                  (($protocol == 'https') && ($server_port != 443)))) {
@@ -964,9 +1043,18 @@ HTML;
             $url = $protocol . '://' . $server_name;
         } elseif (isset($puri['scheme'])) {
             $url = $puri['scheme'] . '://' . $puri['host'];
+
+            /* If using a non-standard port, add to the URL. */
+            if (isset($puri['port']) &&
+                ((($puri['scheme'] == 'http') && ($puri['port'] != 80)) ||
+                 (($puri['scheme'] == 'https') && ($puri['port'] != 443)))) {
+                $url .= ':' . $puri['port'];
+            }
         }
 
-        if (isset($puri['path']) && substr($puri['path'], 0, 1) == '/' && !preg_match($schemeRegexp, $webroot)) {
+        if (isset($puri['path']) &&
+            (substr($puri['path'], 0, 1) == '/') &&
+            !preg_match($schemeRegexp, $webroot)) {
             $url .= $puri['path'];
         } elseif (isset($puri['path']) && preg_match($schemeRegexp, $webroot)) {
             $url = $webroot . (substr($puri['path'], 0, 1) != '/' ? '/' : '') . $puri['path'];
@@ -986,7 +1074,8 @@ HTML;
             $ob->add(session_name(), session_id());
         }
 
-        if (($append_session >= 0) &&
+        if (empty($opts['noajax']) &&
+            ($append_session >= 0) &&
             Horde_Util::getFormData('ajaxui')) {
             $ob->add('ajaxui', 1);
         }
@@ -1394,7 +1483,7 @@ HTML;
          * base64 encoded size. */
         return (($dataurl === true) ||
                 (filesize($in->fs) <= (($dataurl * 0.75) - 50)))
-            ? 'data:image/' . substr($in->uri, strrpos($in->uri, '.') + 1) . ';base64,' . base64_encode(file_get_contents($in->fs))
+            ? 'data:' . Horde_Mime_Magic::extToMime(substr($in->uri, strrpos($in->uri, '.') + 1)) . ';base64,' . base64_encode(file_get_contents($in->fs))
             : $in->uri;
     }
 
@@ -1880,12 +1969,10 @@ HTML;
             if (!$raw) {
                 switch ($key) {
                 case 'dom':
-                    self::addScriptFile('prototype.js', 'horde');
                     $val = 'document.observe("dom:loaded", function() {' . $val . '});';
                     break;
 
                 case 'load':
-                    self::addScriptFile('prototype.js', 'horde');
                     $val = 'Event.observe(window, "load", function() {' . $val . '});';
                     break;
                 }
@@ -1997,7 +2084,8 @@ HTML;
             $params->onload = $options['onload'];
         }
         if (!empty($options['params'])) {
-            $params->params = http_build_query(array_map('rawurlencode', $options['params']));
+            // Bug #9903: 3rd parameter must explicitly be '&'
+            $params->params = http_build_query(array_map('rawurlencode', $options['params']), '', '&');
         }
         if (!empty($options['width'])) {
             $params->width = $options['width'];

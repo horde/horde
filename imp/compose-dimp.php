@@ -7,14 +7,10 @@
  * -----------------------
  * 'bcc' - TODO
  * 'cc' - TODO
- * 'folder'
  * 'identity' - TODO
- * 'popup' - Explicitly mark window as popup. Needed if compose page is
- *           opened from a page other than the base DIMP page.
  * 'subject' - TODO
  * 'type' - TODO
  * 'to' - TODO
- * 'uid' - TODO
  * 'uids' - TODO
  * </pre>
  *
@@ -38,9 +34,6 @@ Horde_Registry::appInit('imp', array(
 
 $vars = Horde_Variables::getDefaultVariables();
 
-/* Determine if compose mode is disabled. */
-$compose_disable = !IMP::canCompose();
-
 /* The headers of the message. */
 $header = array();
 foreach (array('to', 'cc', 'bcc', 'subject') as $v) {
@@ -52,9 +45,6 @@ $get_sig = true;
 $msg = '';
 
 $js = array();
-if ($vars->popup) {
-    $js['DIMP.conf_compose.popup'] = 1;
-}
 
 $identity = $injector->getInstance('IMP_Identity');
 if (!$prefs->isLocked('default_identity') && isset($vars->identity)) {
@@ -80,21 +70,36 @@ case 'reply_list':
         break;
     }
 
-    $reply_msg = $imp_compose->replyMessage($vars->type, $contents, $header['to']);
+    $reply_map = array(
+        'reply' => IMP_Compose::REPLY_SENDER,
+        'reply_all' => IMP_Compose::REPLY_ALL,
+        'reply_auto' => IMP_Compose::REPLY_AUTO,
+        'reply_list' => IMP_Compose::REPLY_LIST
+    );
+
+    $reply_msg = $imp_compose->replyMessage($reply_map[$vars->type], $contents, $header['to']);
+
     $msg = $reply_msg['body'];
     $header = $reply_msg['headers'];
-    $header['replytype'] = 'reply';
     if ($vars->type == 'reply_auto') {
-        $fillform_opts['auto'] = $reply_msg['type'];
+        $fillform_opts['auto'] = array_search($reply_msg['type'], $reply_map);
     }
-    $vars->type = $reply_msg['type'];
 
-    if ($vars->type == 'reply') {
+    switch ($reply_msg['type']) {
+    case IMP_Compose::REPLY_SENDER:
         $title = _("Reply:");
-    } elseif ($vars->type == 'reply_all') {
+        $vars->type = 'reply';
+        break;
+
+    case IMP_Compose::REPLY_ALL:
         $title = _("Reply to All:");
-    } elseif ($vars->type == 'reply_list') {
+        $vars->type = 'reply_all';
+        break;
+
+    case IMP_Compose::REPLY_LIST:
         $title = _("Reply to List:");
+        $vars->type = 'reply_list';
+        break;
     }
     $title .= ' ' . $header['subject'];
 
@@ -122,7 +127,6 @@ case 'forward_both':
 
         try {
             $header = array(
-                'replytype' => 'forward',
                 'subject' => $imp_compose->attachImapMessage(new IMP_Indices($vars->uids))
             );
         } catch (IMP_Compose_Exception $e) {
@@ -139,16 +143,22 @@ case 'forward_both':
             break;
         }
 
-        $fwd_msg = $imp_compose->forwardMessage($vars->type, $contents);
+        $fwd_map = array(
+            'forward_attach' => IMP_Compose::FORWARD_ATTACH,
+            'forward_auto' => IMP_Compose::FORWARD_AUTO,
+            'forward_body' => IMP_Compose::FORWARD_BODY,
+            'forward_both' => IMP_Compose::FORWARD_BOTH
+        );
+
+        $fwd_msg = $imp_compose->forwardMessage($fwd_map[$vars->type], $contents);
         $msg = $fwd_msg['body'];
         $header = $fwd_msg['headers'];
-        $header['replytype'] = 'forward';
         $title = $header['title'];
         if ($fwd_msg['format'] == 'html') {
             $show_editor = true;
         }
         if ($vars->type == 'forward_auto') {
-            $fillform_opts['auto'] = $fwd_msg['type'];
+            $fillform_opts['auto'] = array_search($fwd_msg['type'], $fwd_map);
         }
 
         if (!$prefs->isLocked('default_identity') &&
@@ -174,7 +184,7 @@ case 'forward_redirect':
 
 case 'resume':
     try {
-        $result = $imp_compose->resumeDraft(new IMP_Indices($vars->folder, $vars->uid));
+        $result = $imp_compose->resumeDraft(IMP::$mailbox->getIndicesOb(IMP::$uid));
 
         if ($result['mode'] == 'html') {
             $show_editor = true;
@@ -230,7 +240,8 @@ $t->set('title', $title);
 
 $compose_result = IMP_Views_Compose::showCompose(array(
     'composeCache' => $imp_compose->getCacheId(),
-    'redirect' => ($vars->type == 'redirect')
+    'redirect' => ($vars->type == 'redirect'),
+    'show_editor' => $show_editor
 ));
 
 $t->set('compose_html', $compose_result['html']);
@@ -245,6 +256,7 @@ if ($vars->type != 'redirect') {
 Horde::addInlineScript($compose_result['jsonload'], 'dom');
 
 $scripts = array(
+    array('base64url.js', 'imp'),
     array('compose-base.js', 'imp'),
     array('compose-dimp.js', 'imp'),
     array('md5.js', 'horde'),
@@ -258,7 +270,10 @@ if (!($prefs->isLocked('default_encrypt')) &&
     $scripts[] = array('redbox.js', 'horde');
 }
 
+Horde::startBuffer();
 IMP::status();
+$t->set('status', Horde::endBuffer());
+
 IMP_Dimp::header($title, $scripts);
 echo $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose-base.html');
 Horde::includeScriptFiles();

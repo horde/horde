@@ -161,8 +161,7 @@ case '1':
     }
 
     /* Resort messages by thread */
-    require_once AGORA_BASE  . '/lib/Tree/flat.php';
-    $tree = new Horde_Tree_agoraflat('flatthread', array());
+    $tree = new Agora_Tree_Flat('flatthread');
     foreach ($threads_list as &$node) {
         $tree->addNode($node['message_id'], $node['parent'], $node['body'], $node['indent'], true, array(), $node);
     }

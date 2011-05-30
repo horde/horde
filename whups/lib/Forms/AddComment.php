@@ -25,12 +25,11 @@ class AddCommentForm extends Horde_Form {
         /* Group restrictions. */
         if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin')) ||
             $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('whups:hiddenComments', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            $mygroups = $GLOBALS['injector']
-                ->getInstance('Horde_Group')
-                ->listAll();
+            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
+            $mygroups = $groups->listGroups($GLOBALS['registry']->getAuth());
             if ($mygroups) {
                 foreach (array_keys($mygroups) as $gid) {
-                    $grouplist[$gid] = $groups->getGroupName($gid, true);
+                    $grouplist[$gid] = $groups->getName($gid, true);
                 }
                 asort($grouplist);
                 $grouplist = array_merge(array(0 => _("This comment is visible to everyone")), $grouplist);

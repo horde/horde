@@ -29,6 +29,9 @@ class IMP
     const NOTEPAD_EDIT = "notepad\0";
     const TASKLIST_EDIT = "tasklist\0";
 
+    /* Initial page constants. */
+    const INITIAL_FOLDERS = "initial\0folders";
+
     /* Sorting constants. */
     const IMAP_SORT_DATE = 100;
 
@@ -63,13 +66,27 @@ class IMP
     /**
      * Returns the current view mode for IMP.
      *
-     * @return string  Either 'dimp', 'imp', or 'mimp'.
+     * @return string  Either 'dimp', 'imp', 'mimp', or 'mobile'.
      */
     static public function getViewMode()
     {
         return ($view = $GLOBALS['session']->get('imp', 'view'))
             ? $view
             : 'imp';
+    }
+
+    /**
+     * Determines if we should display the ajax view based on a combination of
+     * user prefs and browser capabilities.
+     *
+     * @return boolean  A boolean indicating if we should show the ajax view.
+     */
+    static public function showAjaxView()
+    {
+        global $prefs, $session;
+
+        $mode = $session->get('horde', 'mode');
+        return ($mode == 'dynamic' || ($prefs->getValue('dynamic_view') && $mode == 'auto')) && Horde::ajaxAvailable();
     }
 
     /**
@@ -197,39 +214,6 @@ class IMP
     }
 
     /**
-     * Prepares the arguments to use for composeLink().
-     *
-     * @param mixed $args   List of arguments to pass to compose.php. If this
-     *                      is passed in as a string, it will be parsed as a
-     *                      toaddress?subject=foo&cc=ccaddress (mailto-style)
-     *                      string.
-     * @param array $extra  Hash of extra, non-standard arguments to pass to
-     *                      compose.php.
-     *
-     * @return array  The array of args to use for composeLink().
-     */
-    static public function composeLinkArgs($args = array(), $extra = array())
-    {
-        if (is_string($args)) {
-            $string = $args;
-            $args = array();
-            if (($pos = strpos($string, '?')) !== false) {
-                parse_str(substr($string, $pos + 1), $args);
-                $args['to'] = substr($string, 0, $pos);
-            } else {
-                $args['to'] = $string;
-            }
-        }
-
-        $args = self::_decodeMailto($args);
-
-        /* Merge the two argument arrays. */
-        return (is_array($extra) && !empty($extra))
-            ? array_merge($args, $extra)
-            : $args;
-    }
-
-    /**
      * Returns the appropriate link to call the message composition script.
      *
      * @param mixed $args       List of arguments to pass to compose script.
@@ -246,21 +230,53 @@ class IMP
     static public function composeLink($args = array(), $extra = array(),
                                        $simplejs = false)
     {
-        $args = self::composeLinkArgs($args, $extra);
+        if (is_string($args)) {
+            $string = $args;
+            $args = array();
+            if (($pos = strpos($string, '?')) !== false) {
+                parse_str(substr($string, $pos + 1), $args);
+                $args['to'] = substr($string, 0, $pos);
+            } else {
+                $args['to'] = $string;
+            }
+        }
+
+        $args = array_merge(self::_decodeMailto($args), $extra);
+        $callback = $raw = false;
         $view = self::getViewMode();
 
         if ($simplejs || ($view == 'dimp')) {
             $args['popup'] = 1;
 
-            $url = Horde::url(($view == 'dimp') ? 'compose-dimp.php' : 'compose.php')->setRaw(true)->add($args);
-            $url->toStringCallback = array(__CLASS__, 'composeLinkSimpleCallback');
+            $url = ($view == 'dimp')
+                ? 'compose-dimp.php'
+                : 'compose.php';
+            $raw = true;
+            $callback = array(__CLASS__, 'composeLinkSimpleCallback');
         } elseif (($view != 'mimp') &&
                   $GLOBALS['prefs']->getValue('compose_popup') &&
                   $GLOBALS['browser']->hasFeature('javascript')) {
-            $url = Horde::url('compose.php')->add($args);
-            $url->toStringCallback = array(__CLASS__, 'composeLinkJsCallback');
+            $url = 'compose.php';
+            $callback = array(__CLASS__, 'composeLinkJsCallback');
         } else {
-            $url = Horde::url(($view == 'mimp') ? 'compose-mimp.php' : 'compose.php')->add($args);
+            $url = ($view == 'mimp')
+                ? 'compose-mimp.php'
+                : 'compose.php';
+        }
+
+        if (isset($args['thismailbox'])) {
+            $url = IMP_Mailbox::get($args['thismailbox'])->url($url, $args['uid']);
+            unset($args['thismailbox'], $args['uid']);
+        } elseif (isset($args['mailbox'])) {
+            $url = IMP_Mailbox::get($args['mailbox'])->url($url, $args['uid']);
+            unset($args['mailbox'], $args['uid']);
+        } else {
+            $url = Horde::url($url);
+        }
+
+        $url->setRaw($raw)->add($args);
+        if ($callback) {
+            $url->toStringCallback = $callback;
         }
 
         return $url;
@@ -276,7 +292,7 @@ class IMP
      */
     static public function composeLinkSimpleCallback($url)
     {
-        return "javascript:void(window.open('" . strval($url) . "', '', 'width=820,height=610,status=1,scrollbars=yes,resizable=yes'));";
+        return "javascript:void(window.open('" . strval($url) . "','','width=820,height=610,status=1,scrollbars=yes,resizable=yes'));";
     }
 
     /**
@@ -319,7 +335,7 @@ class IMP
     {
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->set('forminput', Horde_Util::formInput());
-        $t->set('use_folders', $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->allowFolders(), true);
+        $t->set('use_folders', $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS), true);
         if ($t->get('use_folders')) {
             Horde::addScriptFile('imp.js', 'imp');
             $menu_view = $GLOBALS['prefs']->getValue('menu_view');
@@ -413,11 +429,6 @@ class IMP
                 : sprintf($strings['short'], $ret['percent'], $quota['limit'], $unit);
             $ret['percent'] = sprintf("%.2f", $ret['percent']);
         } else {
-            // Hide unlimited quota message?
-            if ($GLOBALS['session']->get('imp', 'quota_hide_when_unlimited')) {
-                return false;
-            }
-
             $ret['class'] = 'control';
             if ($quota['usage'] != 0) {
                 $quota['usage'] = $quota['usage'] / $calc;
@@ -433,54 +444,6 @@ class IMP
         }
 
         return $ret;
-    }
-
-    /**
-     * Generates a URL with necessary mailbox/UID information.
-     *
-     * @param string|Horde_Url $page  Page name to link to.
-     * @param string $mailbox         The base mailbox to use on the linked
-     *                                page.
-     * @param string $uid             The UID to use on the linked page.
-     * @param string $tmailbox        The mailbox associated with $uid.
-     * @param boolean $encode         Encode the argument separator?
-     *
-     * @return Horde_Url  URL to $page with any necessary mailbox information
-     *                    added to the parameter list of the URL.
-     */
-    static public function generateIMPUrl($page, $mailbox, $uid = null,
-                                          $tmailbox = null, $encode = true)
-    {
-        $url = ($page instanceof Horde_Url)
-            ? clone $page
-            : Horde::url($page);
-
-        return $url->add(self::getIMPMboxParameters($mailbox, $uid, $tmailbox))->setRaw(!$encode);
-    }
-
-    /**
-     * Returns a list of parameters necessary to indicate current mailbox
-     * status.
-     *
-     * @param string $mailbox   The mailbox to use on the linked page.
-     * @param string $uid       The UID to use on the linked page.
-     * @param string $tmailbox  The mailbox associated with $uid to use on
-     *                          the linked page.
-     *
-     * @return array  The list of parameters needed to indicate the current
-     *                mailbox status.
-     */
-    static public function getIMPMboxParameters($mailbox, $uid = null,
-                                                $tmailbox = null)
-    {
-        $params = array('mailbox' => $mailbox);
-        if (!is_null($uid)) {
-            $params['uid'] = $uid;
-            if ($mailbox != $tmailbox) {
-                $params['thismailbox'] = $tmailbox;
-            }
-        }
-        return $params;
     }
 
     /**
@@ -585,72 +548,6 @@ class IMP
     }
 
     /**
-     * Output configured alerts for newmail.
-     *
-     * @param mixed $var  Either an associative array with mailbox names as
-     *                    the keys and the message count as the values or
-     *                    an integer indicating the number of new messages
-     *                    in the current mailbox.
-     *
-     * @param integer $msgs  The number of new messages.
-     */
-    static public function newmailAlerts($var)
-    {
-        if ($GLOBALS['prefs']->getValue('nav_popup')) {
-            Horde::addInlineScript(array(
-                self::_getNewMessagePopup($var)
-            ), 'dom');
-        }
-
-        if ($sound = $GLOBALS['prefs']->getValue('nav_audio')) {
-            $GLOBALS['notification']->push(Horde_Themes::sound($sound), 'audio');
-        }
-    }
-
-    /**
-     * Outputs the necessary javascript code to display the new mail
-     * notification message.
-     *
-     * @param mixed $var  See self::newmailAlerts().
-     *
-     * @return string  The javascript for the popup message.
-     */
-    static protected function _getNewMessagePopup($var)
-    {
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
-        if (is_array($var)) {
-            if (empty($var)) {
-                return;
-            }
-            $folders = array();
-            foreach ($var as $mb => $nm) {
-                $folders[] = array(
-                    'name' => htmlspecialchars(IMP_Mailbox::get($mb)->display),
-                    'new' => intval($nm),
-                    'url' => self::generateIMPUrl('mailbox.php', $mb),
-                );
-            }
-            $t->set('folders', $folders);
-
-            $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-            if (($GLOBALS['session']->get('imp', 'protocol') != 'pop') &&
-                ($vinbox = $imp_search['vinbox']) &&
-                $vinbox->enabled) {
-                $t->set('vinbox', self::generateIMPUrl('mailbox.php', strval($vinbox))->link());
-            }
-        } else {
-            $t->set('msg', ($var == 1) ? _("You have 1 new message.") : sprintf(_("You have %s new messages."), $var));
-        }
-        $t_html = str_replace("\n", ' ', $t->fetch(IMP_TEMPLATES . '/newmsg/alert.html'));
-
-        Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('redbox.js', 'horde');
-
-        return 'RedBox.overlay = false; RedBox.showHtml(\'' . addcslashes($t_html, "'/") . '\');';
-    }
-
-    /**
      * Determines parameters needed to do an address search
      *
      * @return array  An array with two keys: 'fields' and 'sources'.
@@ -671,6 +568,30 @@ class IMP
             'fields' => $fields,
             'sources' => $src
         );
+    }
+
+    /**
+     * Base64url (RFC 4648 [5]) encode a string.
+     *
+     * @param string $in  Unencoded string.
+     *
+     * @return string  Encoded string.
+     */
+    static public function base64urlEncode($in)
+    {
+        return strtr(rtrim(base64_encode($in), '='), '+/', '-_');
+    }
+
+    /**
+     * Base64url (RFC 4648 [5]) decode a string.
+     *
+     * @param string $in  Encoded string.
+     *
+     * @return string  Decoded string.
+     */
+    static public function base64urlDecode($in)
+    {
+        return base64_decode(strtr($in, '-_', '+/'));
     }
 
 }

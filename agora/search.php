@@ -13,13 +13,11 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('agora');
 
-require_once AGORA_BASE . '/lib/Forms/Search.php';
-
 /* Set up the forums object. */
 $scope = Horde_Util::getGet('scope', 'agora');
 $messages = &Agora_Messages::singleton($scope);
 $vars = Horde_Variables::getDefaultVariables();
-$form = new SearchForm($vars, $scope);
+$form = new Agora_Form_Search($vars, $scope);
 $thread_page = Horde_Util::getFormData('thread_page');
 
 $view = new Agora_View();

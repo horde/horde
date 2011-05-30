@@ -26,7 +26,7 @@ Obtaining IMP
 
 Further information on IMP and the latest version can be obtained at:
 
-  http://www.horde.org/imp/
+  http://www.horde.org/apps/imp
 
 
 Documentation
@@ -39,7 +39,6 @@ The following documentation is available in the IMP distribution:
 :`docs/CHANGES`_:    Changes by release
 :`docs/CREDITS`_:    Project developers
 :`docs/INSTALL`_:    Installation instructions and notes
-:`docs/TODO`_:       Development TODO list
 :`docs/UPGRADING`_:  Pointers on upgrading from previous IMP versions
 
 
@@ -57,13 +56,13 @@ If you encounter problems with IMP, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
 The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole.  Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users also make occasional
 appearances on IRC, on the channel #horde on the freenode Network
@@ -81,11 +80,10 @@ Thanks,
 The IMP team
 
 
-.. _README: ?f=README.html
-.. _COPYING: http://www.horde.org/licenses/gpl.php
-.. _docs/CHANGES: ?f=CHANGES.html
-.. _docs/CREDITS: ?f=CREDITS.html
+.. _README: README
+.. _COPYING: http://www.horde.org/licenses/gpl
+.. _docs/CHANGES: CHANGES
+.. _docs/CREDITS: CREDITS
 .. _INSTALL:
-.. _docs/INSTALL: ?f=INSTALL.html
-.. _docs/TODO: ?f=TODO.html
-.. _docs/UPGRADING: ?f=UPGRADING.html
+.. _docs/INSTALL: INSTALL
+.. _docs/UPGRADING: UPGRADING

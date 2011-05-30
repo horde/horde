@@ -271,7 +271,6 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
             $this->_list->listFolders(),
             $this->_list->listFolderTypes()
         );
-        $this->_list->synchronize();
     }
 
     /**

@@ -68,6 +68,7 @@ class Horde_Db_Adapter_Pdo_PgsqlSuite extends PHPUnit_Framework_TestSuite
         }
 
         $config = Horde_Test_Case::getConfig('DB_ADAPTER_PDO_PGSQL_TEST_CONFIG',
+                                             null,
                                              array('username' => '',
                                                    'password' => '',
                                                    'dbname' => 'test'));

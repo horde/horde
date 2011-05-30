@@ -47,7 +47,7 @@ class Horde_View_Helper_CaptureTest extends PHPUnit_Framework_TestCase
             $capture->end();
             $this->fail();
         } catch (Exception $e) {
-            $this->assertType('Horde_View_Exception', $e);
+            $this->assertInstanceOf('Horde_View_Exception', $e);
             $this->assertRegExp('/capture already ended/i', $e->getMessage());
         }
     }

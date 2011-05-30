@@ -76,6 +76,13 @@ class Horde_Mime
     static public $brokenRFC2231 = false;
 
     /**
+     * Use windows-1252 charset when decoding ISO-8859-1 data?
+     *
+     * @var boolean
+     */
+    static public $decodeWindows1252 = false;
+
+    /**
      * Determines if a string contains 8-bit (non US-ASCII) characters.
      *
      * @param string $string   The string to check.
@@ -246,14 +253,11 @@ class Horde_Mime
                                          $defserver = null)
     {
         if (!is_array($addresses)) {
-            /* parseAddressList() does not process the null entry
-             * 'undisclosed-recipients:;' correctly. */
             $addresses = trim($addresses);
-            if (preg_match('/undisclosed-recipients:\s*;/i', $addresses)) {
-                return $addresses;
-            }
-
-            $addresses = Horde_Mime_Address::parseAddressList($addresses, array('defserver' => $defserver, 'nestgroups' => true));
+            $addresses = Horde_Mime_Address::parseAddressList($addresses, array(
+                'defserver' => $defserver,
+                'nestgroups' => true
+            ));
         }
 
         $text = '';
@@ -313,7 +317,11 @@ class Horde_Mime
             return $string;
         }
 
-        $charset = substr($string, $pos + 2, $d1);
+        $charset = $orig_charset = substr($string, $pos + 2, $d1);
+        if (self::$decodeWindows1252 &&
+            (Horde_String::lower($orig_charset) == 'iso-8859-1')) {
+            $orig_charset = 'windows-1252';
+        }
         $search = substr($search, $d1 + 1);
 
         $d2 = strpos($search, '?');
@@ -336,12 +344,12 @@ class Horde_Mime
         case 'Q':
         case 'q':
             $decoded = preg_replace('/=([0-9a-f]{2})/ie', 'chr(0x\1)', str_replace('_', ' ', $encoded_text));
-            $decoded = Horde_String::convertCharset($decoded, $charset, $to_charset);
+            $decoded = Horde_String::convertCharset($decoded, $orig_charset, $to_charset);
             break;
 
         case 'B':
         case 'b':
-            $decoded = Horde_String::convertCharset(base64_decode($encoded_text), $charset, $to_charset);
+            $decoded = Horde_String::convertCharset(base64_decode($encoded_text), $orig_charset, $to_charset);
             break;
 
         default:
@@ -362,7 +370,7 @@ class Horde_Mime
      * @return string  The decoded text.
      * @throws Horde_Mime_Exception
      */
-    static public function decodeAddrString($string, $to_charset = null)
+    static public function decodeAddrString($string, $to_charset)
     {
         $addr_list = array();
         foreach (Horde_Mime_Address::parseAddressList($string) as $ob) {
@@ -467,7 +475,6 @@ class Horde_Mime
      * @param mixed $data      The text of the header or an array of
      *                         param name => param values.
      * @param string $charset  The charset the text should be decoded to.
-     *                         Defaults to system charset.
      *
      * @return array  An array with the following entries:
      * <pre>
@@ -475,7 +482,7 @@ class Horde_Mime
      * 'val' - (string) The header's "base" value.
      * </pre>
      */
-    static public function decodeParam($type, $data, $charset = null)
+    static public function decodeParam($type, $data, $charset)
     {
         $convert = array();
         $ret = array('params' => array(), 'val' => '');
@@ -516,7 +523,7 @@ class Horde_Mime
                     $pos = strpos($tmp[$i], '=');
                     $p_name = trim(substr($tmp[$i], 0, $pos), "'\";\t\\ ");
                     $p_val = trim(str_replace('\;', ';', substr($tmp[$i], $pos + 1)), "'\";\t\\ ");
-                    if ($p_val[0] == '"') {
+                    if (strlen($p_val) && ($p_val[0] == '"')) {
                         $p_val = substr($p_val, 1, -1);
                     }
 
@@ -560,6 +567,10 @@ class Horde_Mime
             $val = $ret['params'][$name];
             $quote = strpos($val, "'");
             $orig_charset = substr($val, 0, $quote);
+            if (self::$decodeWindows1252 &&
+                (Horde_String::lower($orig_charset) == 'iso-8859-1')) {
+                $orig_charset = 'windows-1252';
+            }
             /* Ignore language. */
             $quote = strpos($val, "'", $quote + 1);
             substr($val, $quote + 1);
@@ -674,9 +685,9 @@ class Horde_Mime
      */
     static public function isChild($base, $id)
     {
-        if (substr($base, -2) == '.0') {
-            $base = substr($base, 0, -1);
-        }
+        $base = (substr($base, -2) == '.0')
+            ? substr($base, 0, -1)
+            : rtrim($base, '.') . '.';
 
         return ((($base == 0) && ($id != 0)) ||
                 (strpos(strval($id), strval($base)) === 0));

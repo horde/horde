@@ -81,64 +81,8 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object_Top
     protected function hashPassword($password)
     {
         $type = isset($this->server->params['hashtype'])
-            ? $this->server->params['hashtype'] : 'sha1';
-        switch ($type) {
-        case 'plain':
-            /**
-             * Do not hash passwords. This is of course not recommended.
-             */
-            return $password;
-        case 'sha256':
-            /**
-             * Hash passwords with sha256. Ensure your server actually supports this.
-             */
-            return $this->sha256($password, $this->gensalt());
-        default:
-            /**
-             * Hash passwords with sha1. The default.
-             */
-            return $this->ssha($password, $this->gensalt());
-        }
-    }
-
-    /**
-     * Return a salted hashed string.
-     *
-     * @param string $string The string to be transformed to a hash.
-     * @param string $salt   A salt string.
-     *
-     * @return string The salted hashed string.
-     */
-    protected function sha256($string, $salt)
-    {
-        return '{SSHA256}' . base64_encode(pack('H*', hash('sha256', $string . $salt)) . $salt);
-    }
-
-    /**
-     * Return a salted hashed string.
-     *
-     * @param string $string The string to be transformed to a hash.
-     * @param string $salt   A salt string.
-     *
-     * @return string The salted hashed string.
-     */
-    protected function ssha($string, $salt)
-    {
-        return '{SSHA}' . base64_encode(pack('H*', sha1($string . $salt)) . $salt);
-    }
-
-    /**
-     * Return 4 random bytes.
-     *
-     * @return string 4 random bytes.
-     */
-    public function gensalt()
-    {
-        $salt = '';
-        while (strlen($salt) < 4) {
-            $salt = $salt . chr(mt_rand(0, 255));
-        }
-        return $salt;
+            ? $this->server->params['hashtype'] : 'ssha';
+        return Horde_Auth::getCryptedPassword($password, '', $type, true);
     }
 
     /**

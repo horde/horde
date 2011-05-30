@@ -27,6 +27,8 @@
  */
 class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
 {
+    const STORAGE_KEY = 'mboxlist/';
+
     /**
      * Instances.
      *
@@ -70,7 +72,7 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
             case 'imp':
             case 'mimp':
                 try {
-                    $ob = $GLOBALS['session']->get('imp', 'imp_mailbox/' . $mailbox);
+                    $ob = $GLOBALS['session']->get('imp', self::STORAGE_KEY . $mailbox);
                 } catch (Exception $e) {
                     $ob = null;
                 }
@@ -87,8 +89,9 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
         switch ($mode) {
         case 'imp':
         case 'mimp':
-            $this->_instances[$mbox_key]->setIndex($indices);
+            /* 'checkcache' needs to be set before setIndex(). */
             $this->_instances[$mbox_key]->checkcache = is_null($indices);
+            $this->_instances[$mbox_key]->setIndex($indices);
             break;
         }
 
@@ -110,10 +113,19 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
              * unseen flag). */
             foreach ($this->_instances as $key => $val) {
                 if ($val->changed) {
-                    $GLOBALS['session']->set('imp', 'imp_mailbox/' . $key, $val);
+                    $GLOBALS['session']->set('imp', self::STORAGE_KEY . $key, $val);
                 }
             }
         }
+    }
+
+    /**
+     * Expires cached entries.
+     */
+    public function expireAll()
+    {
+        $GLOBALS['session']->remove('imp', self::STORAGE_KEY);
+        $this->_instances = array();
     }
 
 }

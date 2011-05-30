@@ -15,6 +15,7 @@ class Horde_Argv_CallbackManyArgsTest extends Horde_Argv_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $options = array(
             $this->makeOption('-a', '--apple', array('action' => 'callback', 'nargs' => 2,
                                                         'callback' => array($this, 'processMany'), 'type' => 'string')),

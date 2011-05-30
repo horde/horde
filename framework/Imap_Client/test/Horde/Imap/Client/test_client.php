@@ -370,8 +370,8 @@ $uid1 = $uid2 = $uid3 = $uid4 = null;
 
 print "\nAppending test e-mail 1 (with Flagged), 2 via a stream (with Seen), 3 via a stream, and 4 (with internaldate):\n";
 try {
-    $handle = fopen($currdir . '/test_email.txt', 'r');
-    $handle2 = fopen($currdir . '/test_email2.txt', 'r');
+    $handle = fopen($currdir . '/fixtures/test_email.txt', 'r');
+    $handle2 = fopen($currdir . '/fixtures/test_email2.txt', 'r');
     $uid = $imap_client->append($test_mbox, array(
         array('data' => $test_email, 'flags' => array(Horde_Imap_Client::FLAG_FLAGGED), 'messageid' => 'abcd1234efgh5678@test1.example.com'),
         array('data' => $handle, 'flags' => array(Horde_Imap_Client::FLAG_SEEN), 'messageid' => 'aaabbbcccddd111222333444@test1.example.com'),
@@ -520,7 +520,7 @@ try {
 
 print "\nSearching " . $test_mbox . " for all messages (returning message sequence numbers).\n";
 try {
-    print_r($imap_client->search($test_mbox, $all_query, array('results' => array(Horde_Imap_Client::SORT_RESULTS_COUNT, Horde_Imap_Client::SORT_RESULTS_MATCH, Horde_Imap_Client::SORT_RESULTS_MAX, Horde_Imap_Client::SORT_RESULTS_MIN), 'sequence' => true)));
+    print_r($imap_client->search($test_mbox, $all_query, array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_COUNT, Horde_Imap_Client::SEARCH_RESULTS_MATCH, Horde_Imap_Client::SEARCH_RESULTS_MAX, Horde_Imap_Client::SEARCH_RESULTS_MIN), 'sequence' => true)));
     print "Search: OK\n";
 } catch (Horde_Imap_Client_Exception $e) {
     print 'ERROR: ' . $e->getMessage() . "\n";
@@ -530,12 +530,12 @@ try {
 print "\nSearching " . $test_mbox . " (should be optimized by using internal status instead).\n";
 try {
     $query1 = $query2 = $all_query;
-    print_r($imap_client->search($test_mbox, $all_query, array('results' => array(Horde_Imap_Client::SORT_RESULTS_COUNT))));
+    print_r($imap_client->search($test_mbox, $all_query, array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_COUNT))));
     $query1->flag(Horde_Imap_Client::FLAG_RECENT);
-    print_r($imap_client->search($test_mbox, $query1, array('results' => array(Horde_Imap_Client::SORT_RESULTS_COUNT))));
+    print_r($imap_client->search($test_mbox, $query1, array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_COUNT))));
     $query2->flag(Horde_Imap_Client::FLAG_SEEN, false);
-    print_r($imap_client->search($test_mbox, $query2, array('results' => array(Horde_Imap_Client::SORT_RESULTS_COUNT))));
-    print_r($imap_client->search($test_mbox, $query2, array('results' => array(Horde_Imap_Client::SORT_RESULTS_MIN))));
+    print_r($imap_client->search($test_mbox, $query2, array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_COUNT))));
+    print_r($imap_client->search($test_mbox, $query2, array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MIN))));
     print "Search: OK\n";
 } catch (Horde_Imap_Client_Exception $e) {
     print 'ERROR: ' . $e->getMessage() . "\n";
@@ -849,7 +849,7 @@ if ($use_imapproxy) {
 
 if (isset($fetch_res)) {
     print "\nTesting Horde_Mime_Part::parseMessage() on complex MIME message:\n";
-    $parse_text_res = Horde_Mime_Part::parseMessage(file_get_contents($currdir . '/test_email2.txt'));
+    $parse_text_res = Horde_Mime_Part::parseMessage(file_get_contents($currdir . '/fixtures/test_email2.txt'));
     print_r($parse_text_res);
 }
 

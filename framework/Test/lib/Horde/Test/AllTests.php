@@ -77,7 +77,18 @@ class Horde_Test_AllTests
                 if (require $pathname) {
                     $class = str_replace(DIRECTORY_SEPARATOR, '_',
                                          preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
-                    $suite->addTestSuite(self::$_package . '_' . $class);
+                    try {
+                        $suite->addTestSuite(self::$_package . '_' . $class);
+                    } catch (InvalidArgumentException $e) {
+                        throw new Horde_Test_Exception(
+                            sprintf(
+                                'Failed adding test suite "%s" from file "%s": %s',
+                                self::$_package . '_' . $class,
+                                $pathname,
+                                $e->getMessage()
+                            )
+                        );
+                    }
                 }
             }
         }

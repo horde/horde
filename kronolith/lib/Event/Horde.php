@@ -81,13 +81,6 @@ class Kronolith_Event_Horde extends Kronolith_Event
     protected $_variableLength;
 
     /**
-     * Time object hash.
-     *
-     * @array
-     */
-    public $timeobject;
-
-    /**
      * Constructor.
      *
      * @param Kronolith_Driver $driver  The backend driver that this event is
@@ -167,9 +160,9 @@ class Kronolith_Event_Horde extends Kronolith_Event
     /**
      * Prepares this event to be saved to the backend.
      */
-    public function toDriver()
+    public function toTimeobject()
     {
-        $this->timeobject = array(
+        $timeobject = array(
             'id' => substr($this->id, strlen($this->_api) + 1),
             'icon' => $this->icon,
             'title' => $this->title,
@@ -181,27 +174,30 @@ class Kronolith_Event_Horde extends Kronolith_Event
             'ajax_link' => $this->_ajaxLink,
             'permissions' => $this->_permissions,
             'variable_length' => $this->_variableLength);
+
         if ($this->recurs()) {
-            $this->timeobject['recurrence'] = array('type' => $this->recurrence->getRecurType());
+            $timeobject['recurrence'] = array('type' => $this->recurrence->getRecurType());
             if ($end = $this->recurrence->getRecurEnd()) {
-                $this->timeobject['recurrence']['end'] = $end->format('Y-m-d\TH:i:s');
+                $timeobject['recurrence']['end'] = $end->format('Y-m-d\TH:i:s');
             }
             if ($interval = $this->recurrence->getRecurInterval()) {
-                $this->timeobject['recurrence']['interval'] = $interval;
+                $timeobject['recurrence']['interval'] = $interval;
             }
             if ($count = $this->recurrence->getRecurCount()) {
-                $this->timeobject['recurrence']['count'] = $count;
+                $timeobject['recurrence']['count'] = $count;
             }
             if ($days = $this->recurrence->getRecurOnDays()) {
-                $this->timeobject['recurrence']['days'] = $days;
+                $timeobject['recurrence']['days'] = $days;
             }
             if ($count = $this->recurrence->getRecurCount()) {
-                $this->timeobject['recurrence']['count'] = $count;
+                $timeobject['recurrence']['count'] = $count;
             }
             if ($exceptions = $this->recurrence->getExceptions()) {
-                $this->timeobject['recurrence']['exceptions'] = $exceptions;
+                $timeobject['recurrence']['exceptions'] = $exceptions;
             }
         }
+
+        return $timeobject;
     }
 
     /**

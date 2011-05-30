@@ -27,19 +27,19 @@
 class Horde_View_Helper_Capture_ContentFor extends Horde_View_Helper_Capture_Base
 {
     /**
-     * Name that will become "$this->contentForName"
+     * Name that will become "$this->contentForName".
      *
      * @var string
      */
     private $_name;
 
     /**
-     * Start capturing content that will be stored as
-     * $view->contentForName.
+     * Starts capturing content that will be stored as $view->contentForName.
      *
-     * @param string $name  Name of the content that becomes the instance
-     *                      variable name. "foo" -> "$this->contentForFoo"
-     * @param Horde_View_Base $view
+     * @param string $name           Name of the content that becomes the
+     *                               instance variable name.
+     *                               "foo" -> "$this->contentForFoo"
+     * @param Horde_View_Base $view  A view object.
      */
     public function __construct($name, $view)
     {
@@ -49,12 +49,11 @@ class Horde_View_Helper_Capture_ContentFor extends Horde_View_Helper_Capture_Bas
     }
 
     /**
-     * Stop capturing content and store it in the view.
+     * Stops capturing content and stores it in the view.
      */
     public function end()
     {
-        $name = 'contentFor' . ucfirst($this->_name);
+        $name = 'contentFor' . Horde_String::ucfirst($this->_name);
         $this->_view->$name = parent::end();
     }
-
 }

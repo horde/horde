@@ -35,10 +35,20 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
         /* Check for a javascript session state. */
         if (($session = $this->getOption('session')) &&
             isset($_COOKIE[$this->_instance . '_expanded'])) {
+            /* Get current session expanded values. */
+            $curr = call_user_func($session['get'], $this->_instance, '', Horde_Session::TYPE_ARRAY);
+
             /* Remove "exp" prefix from cookie value. */
-            foreach (explode(',', substr($_COOKIE[$this->_instance . '_expanded'], 3)) as $val) {
-                /* Save nodes to the session. */
+            $exp = explode(',', substr($_COOKIE[$this->_instance . '_expanded'], 3));
+
+            /* These are the expanded folders. */
+            foreach (array_filter($exp) as $val) {
                 call_user_func($session['set'], $this->_instance, $val, true);
+            }
+
+            /* These are previously expanded folders. */
+            foreach (array_diff(array_keys($curr), $exp) as $val) {
+                call_user_func($session['set'], $this->_instance, $val, false);
             }
         }
     }

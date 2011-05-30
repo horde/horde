@@ -61,19 +61,20 @@ class IMP_Ui_Message
     /**
      * Check if we need to send a MDN, and send if needed.
      *
-     * @param string $mailbox              The mailbox of the message.
+     * @param IMP_Mailbox $mailbox         The mailbox of the message.
      * @param integer $uid                 The UID of the message.
      * @param Horde_Mime_Headers $headers  The headers of the message.
      * @param boolean $confirmed           Has the MDN request been confirmed?
      *
      * @return boolean  True if the MDN request needs to be confirmed.
      */
-    public function MDNCheck($mailbox, $uid, $headers, $confirmed = false)
+    public function MDNCheck(IMP_Mailbox $mailbox, $uid, $headers,
+                             $confirmed = false)
     {
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         $pref_val = $GLOBALS['prefs']->getValue('send_mdn');
 
-        if (!$pref_val || IMP_Mailbox::get($mailbox)->readonly) {
+        if (!$pref_val || $mailbox->readonly) {
             return false;
         }
 
@@ -89,23 +90,19 @@ class IMP_Ui_Message
 
         /* See if we have already processed this message. */
         /* 1st test: MDNSent keyword (RFC 3503 [3.1]). */
-        try {
-            $status = $imp_imap->status($mailbox, Horde_Imap_Client::STATUS_PERMFLAGS);
-            if (in_array('\\*', $status['permflags']) ||
-                in_array('$mdnsent', $status['permflags'])) {
-                $mdn_flag = true;
+        if ($mailbox->permflags->allowed('$mdnsent')) {
+            $mdn_flag = true;
 
-                $query = new Horde_Imap_Client_Fetch_Query();
-                $query->flags();
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->flags();
 
+            try {
                 $res = $imp_imap->fetch($mailbox, $query, array(
                     'ids' => new Horde_Imap_Client_Ids($uid)
                 ));
                 $mdn_sent = in_array('$mdnsent', $res[$uid]->getFlags());
-            }
-        } catch (Horde_Imap_Client_Exception $e) {}
-
-        if (!$mdn_flag) {
+            } catch (IMP_Imap_Exception $e) {}
+        } else {
             /* 2nd test: Use Maillog as a fallback. */
             $mdn_sent = IMP_Maillog::sentMDN($msg_id, 'displayed');
         }
@@ -140,17 +137,17 @@ class IMP_Ui_Message
                     'from_addr' => $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create()->getDefaultFromAddress()
                 )
             );
-            IMP_Maillog::log('mdn', $msg_id, 'displayed');
+            IMP_Maillog::log(IMP_Maillog::MDN, $msg_id, 'displayed');
             $success = true;
 
             if ($mdn_flag) {
-                $GLOBALS['injector']->getInstance('IMP_Message')->flag(array(Horde_Imap_Client::FLAG_MDNSENT), new IMP_Indices($mailbox, $uid), true);
+                $GLOBALS['injector']->getInstance('IMP_Message')->flag(array(Horde_Imap_Client::FLAG_MDNSENT), $mailbox->getIndicesOb($uid), true);
             }
         } catch (Exception $e) {
             $success = false;
         }
 
-        $GLOBALS['injector']->getInstance('IMP_Sentmail')->log('mdn', '', $return_addr, $success);
+        $GLOBALS['injector']->getInstance('IMP_Sentmail')->log(IMP_Sentmail::MDN, '', $return_addr, $success);
 
         return false;
     }
@@ -313,7 +310,7 @@ class IMP_Ui_Message
 
         $add_link = null;
         $addr_array = array();
-        $mimp_view = ($GLOBALS['session']->get('imp', 'view') == 'mimp');
+        $mimp_view = IMP::getViewMode() == 'mimp';
 
         /* Set up the add address icon link if contact manager is
          * available. */
@@ -382,7 +379,7 @@ class IMP_Ui_Message
             }
         }
 
-        if ($GLOBALS['session']->get('imp', 'view') == 'mimp') {
+        if (IMP::getViewMode() == 'mimp') {
             return implode(', ', $addr_array);
         }
 
@@ -407,246 +404,6 @@ class IMP_Ui_Message
     }
 
     /**
-     * Prints out a MIME summary (in HTML).
-     *
-     * @param array $summary  Summary information from
-     *                        IMP_Contents::getSummary().
-     * @param array $display  The fields to display (in this order).
-     * @param boolean $atc    Is this an attachment?
-     *
-     * @return string  The formatted summary string.
-     */
-    public function formatSummary($summary, $display, $atc = false)
-    {
-        $tmp_summary = array();
-        foreach ($display as $val) {
-            if (isset($summary[$val])) {
-                $tmp_summary[] = $summary[$val];
-            }
-        }
-        return '<div class="mimePartInfo' . ($atc ? ' mimePartInfoAtc' : '') . '"><div>' . implode(' ', $tmp_summary) . '</div></div>';
-    }
-
-    /**
-     * Prints out a MIME status message (in HTML).
-     *
-     * @param array $data  An array of information (as returned from
-                           Horde_Mime_Viewer_Base::render()).
-     *
-     * @return string  The formatted status message string.
-     */
-    public function formatStatusMsg($data)
-    {
-        $out = '';
-
-        foreach ($data as $val) {
-            if (empty($val)) {
-                continue;
-            }
-
-            $out .= '<div><table class="mimeStatusMessageTable"' . (isset($val['id']) ? (' id="' . $val['id'] . '" ') : '') . '>';
-
-            /* If no image, simply print out the message. */
-            if (empty($val['icon'])) {
-                foreach ($val['text'] as $val) {
-                    $out .= '<tr><td>' . $val . '</td></tr>';
-                }
-            } else {
-                $out .= '<tr><td class="mimeStatusIcon">' . $val['icon'] . '</td><td><table>';
-                foreach ($val['text'] as $val) {
-                    $out .= '<tr><td>' . $val . '</td></tr>';
-                }
-                $out .= '</table></td></tr>';
-            }
-
-            $out .= '</table></div>';
-        }
-
-        return $out
-            ? '<div class="mimeStatusMessage">' . $out . '</div>'
-            : '';
-    }
-
-    /**
-     * Generate inline message display.
-     *
-     * @param object $imp_contents  The IMP_Contents object containing the
-     *                              message data.
-     * @param array $options        Additional options:
-     * <pre>
-     * 'display_mask' - (integer) The mask of display view type to render
-     *                  inline (DEFAULT: IMP_Contents::RENDER_INLINE_AUTO).
-     * 'mask' - (integer) The mask needed for a IMP_Contents::getSummary()
-     *          call.
-     * 'no_inline_all' - (boolean) If true, only display first inline part.
-     *                   Subsequent inline parts will be treated as
-     *                   attachments.
-     * 'part_info_display' - (array) The list of summary fields to display.
-     * 'show_parts' - (string) The value of the 'parts_display' pref.
-     * </pre>
-     *
-     * @return array  An array with the following keys:
-     * <pre>
-     * 'atc_parts' - (array) The list of attachment MIME IDs.
-     * 'display_ids' - (array) The list of display MIME IDs.
-     * 'js_onload' - (array) A list of javascript code to run onload.
-     * 'msgtext' - (string) The rendered HTML code.
-     * </pre>
-     */
-    public function getInlineOutput($imp_contents, $options = array())
-    {
-        $atc_parts = $display_ids = $js_onload = $wrap_ids = array();
-        $msgtext = array();
-        $parts_list = $imp_contents->getContentTypeMap();
-        $text_out = '';
-
-        $contents_mask = isset($options['mask'])
-            ? $options['mask']
-            : 0;
-        $display_mask = isset($options['display_mask'])
-            ? $options['display_mask']
-            : IMP_Contents::RENDER_INLINE_AUTO;
-        $no_inline_all = !empty($options['no_inline_all']);
-        $part_info_display = isset($options['part_info_display'])
-            ? $options['part_info_display']
-            : array();
-        $show_parts = isset($options['show_parts'])
-            ? $options['show_parts']
-            : $GLOBALS['prefs']->getValue('parts_display');
-
-        foreach ($parts_list as $mime_id => $mime_type) {
-            if (isset($display_ids[$mime_id]) ||
-                isset($atc_parts[$mime_id])) {
-                continue;
-            }
-
-            if (!($render_mode = $imp_contents->canDisplay($mime_id, $display_mask))) {
-                if ($imp_contents->isAttachment($mime_type)) {
-                    if ($show_parts == 'atc') {
-                        $atc_parts[$mime_id] = 1;
-                    }
-
-                    if ($contents_mask && empty($info['nosummary'])) {
-                        $msgtext[$mime_id] = array(
-                            'text' => $this->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true)
-                        );
-                    }
-                }
-                continue;
-            }
-
-            $render_part = $imp_contents->renderMIMEPart($mime_id, $render_mode);
-            if (($show_parts == 'atc') &&
-                $imp_contents->isAttachment($mime_type) &&
-                (empty($render_part) ||
-                 !($render_mode & IMP_Contents::RENDER_INLINE))) {
-                $atc_parts[$mime_id] = 1;
-            }
-
-            if (empty($render_part)) {
-                if ($contents_mask &&
-                    empty($info['nosummary']) &&
-                    $imp_contents->isAttachment($mime_type)) {
-                    $msgtext[$mime_id] = array(
-                        'text' => $this->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true)
-                    );
-                }
-                continue;
-            }
-
-            reset($render_part);
-            while (list($id, $info) = each($render_part)) {
-                $display_ids[$id] = 1;
-
-                if (empty($info)) {
-                    continue;
-                }
-
-                if ($no_inline_all === 1) {
-                    $atc_parts[$id] = 1;
-                    continue;
-                }
-
-                $part_text = '';
-
-                if (empty($info['attach'])) {
-                    if ($contents_mask) {
-                        if (empty($info['nosummary'])) {
-                            $part_text .= $this->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display);
-                        }
-
-                        $part_text .= $this->formatStatusMsg($info['status']) .
-                            '<div class="mimePartData">' . $info['data'] . '</div>';
-                    } else {
-                        if ($part_text && !empty($options['sep'])) {
-                            $part_text .= $options['sep'];
-                        }
-                        $part_text .= $info['data'];
-                    }
-                } else {
-                    if ($show_parts == 'atc') {
-                        $atc_parts[$id] = 1;
-                    }
-
-                    if ($contents_mask && empty($info['nosummary'])) {
-                        $part_text .= $this->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display, true);
-                    }
-                }
-
-                $msgtext[$id] = array(
-                    'text' => $part_text,
-                    'wrap' => empty($info['wrap']) ? null : $info['wrap']
-                );
-
-                if (isset($info['js'])) {
-                    $js_onload = array_merge($js_onload, $info['js']);
-                }
-
-                if ($no_inline_all) {
-                    $no_inline_all = 1;
-                }
-            }
-        }
-
-        if (!empty($msgtext)) {
-            uksort($msgtext, 'strnatcmp');
-        }
-
-        reset($msgtext);
-        while (list($id, $part) = each($msgtext)) {
-            while (count($wrap_ids) &&
-                   !Horde_Mime::isChild(end($wrap_ids), $id)) {
-                array_pop($wrap_ids);
-                $text_out .= '</div>';
-            }
-
-            if (!empty($part['wrap'])) {
-                $text_out .= '<div class="' . $part['wrap'] . '">';
-                $wrap_ids[] = $id;
-            }
-
-            $text_out .= $part['text'];
-        }
-
-        $text_out .= str_repeat('</div>', count($wrap_ids));
-
-        if (!strlen($text_out)) {
-            $text_out = $this->formatStatusMsg(array(array('text' => array(_("There are no parts that can be shown inline.")))));
-        }
-
-        $atc_parts = ($show_parts == 'all')
-            ? array_diff(array_keys($atc_parts), array_keys($display_ids))
-            : array_keys($atc_parts);
-
-        return array(
-            'atc_parts' => $atc_parts,
-            'display_ids' => array_keys($display_ids),
-            'js_onload' => $js_onload,
-            'msgtext' => $text_out
-        );
-    }
-
-    /**
      * Get the display subject (filtered, formatted, and linked).
      *
      * @param string $subject  The subject text.
@@ -667,8 +424,7 @@ class IMP_Ui_Message
      */
     public function moveAfterAction()
     {
-        return (($GLOBALS['session']->get('imp', 'protocol') != 'pop') &&
-                !IMP::$mailbox->hideDeletedMsgs() &&
+        return (!IMP::$mailbox->hideDeletedMsgs() &&
                 !$GLOBALS['prefs']->getValue('use_trash'));
     }
 

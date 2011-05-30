@@ -21,6 +21,13 @@
 class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
 {
     /**
+     * This object returns POP3 Fetch data objects.
+     *
+     * @var string
+     */
+    protected $_fetchDataClass = 'Horde_Imap_Client_Data_Fetch_Pop3';
+
+    /**
      */
     public function __construct($params)
     {

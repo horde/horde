@@ -118,11 +118,21 @@ class Horde_Imap_Client_DateTime implements Serializable
                 $this->_datetime = date_create($this->_string, $tz);
             } catch (Exception $e) {}
 
-            if (!$this->_datetime) {
+            if (!$this->_datetime &&
+                substr(rtrim($this->_string), -3) == ' UT') {
                 /* Bug #5717 - Check for UT vs. UTC. */
-                if (substr(rtrim($date), -3) == ' UT') {
+                try {
+                    $this->_datetime = date_create($this->_string . 'C', $tz);
+                } catch (Exception $e) {}
+            }
+
+            if (!$this->_datetime) {
+                /* Bug #9847 - Catch paranthesized timezone information
+                 * at end of date string. */
+                $date = preg_replace("/\s*\([^\)]+\)\s*$/", '', $this->_string, -1, $i);
+                if ($i) {
                     try {
-                        $this->_datetime = date_create($this->_string . 'C', $tz);
+                        $this->_datetime = date_create($date, $tz);
                     } catch (Exception $e) {}
                 }
             }

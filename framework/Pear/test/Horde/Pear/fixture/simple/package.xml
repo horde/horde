@@ -14,14 +14,15 @@
  <time>21:12:03</time>
  <version>
   <release>0.0.1</release>
-  <api>0.0.1</api>
+  <api>0.0.2</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
- <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+ <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPLv2.1</license>
  <notes>
+* Fixed bug #1
 * Initial release
  </notes>
  <contents>
@@ -60,8 +61,8 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-08-22</date>
-   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <date>2010-08-21</date>
+   <license uri="http://www.gnu.org/licenses/licenses/lgpl.html">LGPL</license>
    <notes>
 * Initial release
    </notes>

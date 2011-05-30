@@ -6,15 +6,9 @@
  <summary>Glue package for accessing a Kolab server from Horde</summary>
  <description>This package contains a number of helper functions that make communication between a Horde client and a Kolab server smoother. It is now deprecated in favor of the various Kolab_* packages.</description>
  <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
-  <name>Jan Schneider</name>
-  <user>jan</user>
-  <email>jan@horde.org</email>
+  <name>Gunnar Wrobel</name>
+  <user>wrobel</user>
+  <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
  <date>2011-03-07</date>

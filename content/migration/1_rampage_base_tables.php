@@ -7,7 +7,7 @@ class RampageBaseTables extends Horde_Db_Migration_Base
 
         if (!in_array('rampage_types', $tableList)) {
             // rampage_types
-            $t = $this->createTable('rampage_types', array('primaryKey' => 'type_id'));
+            $t = $this->createTable('rampage_types', array('autoincrementKey' => 'type_id'));
             $t->column('type_name', 'string', array('limit' => 255, 'null' => false));
             $t->end();
             $this->addIndex('rampage_types', array('type_name'), array('name' => 'rampage_objects_type_name', 'unique' => true));
@@ -15,7 +15,7 @@ class RampageBaseTables extends Horde_Db_Migration_Base
 
         if (!in_array('rampage_objects', $tableList)) {
             // rampage_objects
-            $t = $this->createTable('rampage_objects', array('primaryKey' => 'object_id'));
+            $t = $this->createTable('rampage_objects', array('autoincrementKey' => 'object_id'));
             $t->column('object_name', 'string',  array('limit' => 255, 'null' => false));
             $t->column('type_id',     'integer', array('null' => false, 'unsigned' => true));
             $t->end();
@@ -24,7 +24,7 @@ class RampageBaseTables extends Horde_Db_Migration_Base
 
         if (!in_array('rampage_users', $tableList)) {
             // rampage_users
-            $t = $this->createTable('rampage_users', array('primaryKey' => 'user_id'));
+            $t = $this->createTable('rampage_users', array('autoincrementKey' => 'user_id'));
             $t->column('user_name', 'string', array('limit' => 255, 'null' => false));
             $t->end();
             $this->addIndex('rampage_users', array('user_name'), array('name' => 'rampage_users_user_name', 'unique' => true));

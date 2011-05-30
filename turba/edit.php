@@ -76,15 +76,15 @@ if ($groupedit) {
 /* Execute() checks validation first. */
 try {
     $edited = $form->execute();
+    $url = Horde_Util::getFormData('url');
+    if (empty($url)) {
+        $url = $contact->url('Contact', true);
+    } else {
+        $url = new Horde_Url($url, true);
+    }
+    $url->unique()->redirect();
 } catch (Turba_Exception $e) {
 }
-$url = Horde_Util::getFormData('url');
-if (empty($url)) {
-    $url = $contact->url('Contact', true);
-} else {
-    $url = new Horde_Url($url, true);
-}
-$url->unique()->redirect();
 
 
 $title = sprintf(_("Edit \"%s\""), $contact->getValue('name'));

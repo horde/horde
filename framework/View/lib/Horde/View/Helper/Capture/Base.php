@@ -34,7 +34,7 @@ class Horde_View_Helper_Capture_Base
     protected $_buffering = true;
 
     /**
-     * Start capturing.
+     * Starts capturing.
      */
     public function __construct()
     {
@@ -42,9 +42,9 @@ class Horde_View_Helper_Capture_Base
     }
 
     /**
-     * Stop capturing and return what was captured.
+     * Stops capturing and returns what was captured.
      *
-     * @return string
+     * @return string  The captured string.
      * @throws Horde_View_Exception
      */
     public function end()
@@ -57,5 +57,4 @@ class Horde_View_Helper_Capture_Base
             throw new Horde_View_Exception('Capture already ended');
         }
     }
-
 }

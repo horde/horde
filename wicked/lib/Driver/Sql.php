@@ -142,7 +142,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
     public function searchTitles($searchtext)
     {
         $searchtext = $this->_convertToDriver($searchtext);
-        $where = Horde_Sql::buildClause($this->_db, 'page_name', 'LIKE', $searchtext);
+        $where = $this->_db->buildClause('page_name', 'LIKE', $searchtext);
         return $this->_retrieve($this->_params['table'], $where);
     }
 
@@ -269,9 +269,9 @@ class Wicked_Driver_Sql extends Wicked_Driver {
             }
         }
 
-        $where = Horde_Sql::buildClause($this->_db, 'page_name', 'LIKE', $firstword);
+        $where = $this->_db->buildClause('page_name', 'LIKE', $firstword);
         if (!empty($lastword) && $lastword != $firstword) {
-            $where .= ' OR ' . Horde_Sql::buildClause($this->_db, 'page_name', 'LIKE', $lastword);
+            $where .= ' OR ' . $this->_db->buildClause('page_name', 'LIKE', $lastword);
         }
 
         return $this->_retrieve($this->_params['table'], $where);
@@ -624,17 +624,18 @@ class Wicked_Driver_Sql extends Wicked_Driver {
     {
         static $pageNames;
         if (!isset($pageNames) || $no_cache) {
-            $query = 'SELECT page_name FROM ' . $this->_params['table'];
+            $query = 'SELECT page_id, page_name FROM ' . $this->_params['table'];
             Horde::logMessage('Wicked_Driver_sql::getPages(): ' . $query, 'DEBUG');
             try {
-                $result = $this->_db->selectValues($query);
+                $result = $this->_db->selectAssoc($query);
             } catch (Horde_Db_Exception $e) {
                 throw new Wicked_Exception($e);
             }
             $pageNames = $this->_convertFromDriver($result);
         }
+
         if ($special) {
-            return $pageNames + $this->getSpecialPages();
+            $pageNames += $this->getSpecialPages();
         }
 
         return $pageNames;

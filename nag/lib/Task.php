@@ -548,9 +548,9 @@ class Nag_Task
         }
         if ($this->indent) {
             if ($this->lastChild) {
-                $html .= Horde::img($GLOBALS['registry']->nlsconfig->curr_rtl ? 'tree/joinbottom.png' : 'tree/rev-joinbottom.png', '\\');
+                $html .= Horde::img($GLOBALS['registry']->nlsconfig->curr_rtl ? 'tree/rev-joinbottom.png' : 'tree/joinbottom.png', '\\');
             } else {
-                $html .= Horde::img($GLOBALS['registry']->nlsconfig->curr_rtl ? 'tree/join.png' : 'tree/rev-join.png', '+');
+                $html .= Horde::img($GLOBALS['registry']->nlsconfig->curr_rtl ? 'tree/rev-join.png' : 'tree/join.png', '+');
             }
         }
 
@@ -1088,6 +1088,24 @@ class Nag_Task
         }
 
         $this->tasklist = $GLOBALS['prefs']->getValue('default_tasklist');
+    }
+
+    /**
+     * CSS formatting.
+     *
+     * @return string  CSS formatting.
+     */
+    public function getCssStyle()
+    {
+        $cManager = new Horde_Prefs_CategoryManager();
+        $colors = $cManager->colors();
+        if (!isset($colors[$this->category])) {
+            return '';
+        }
+        $fgColors = $cManager->fgColors();
+
+        return 'color:' . (isset($fgColors[$this->category]) ? $fgColors[$this->category] : $fgColors['_default_']) . ';' .
+            'background:' . $colors[$this->category] . ';';
     }
 
 }

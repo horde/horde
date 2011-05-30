@@ -14,50 +14,29 @@ Horde_Registry::appInit('horde', array('admin' => true));
 $groups = $injector->getInstance('Horde_Group');
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 
-$form = null;
+$form = 'add.inc';
 $actionID = Horde_Util::getFormData('actionID');
 $gid = Horde_Util::getFormData('gid');
 
 switch ($actionID) {
-/*
-case 'addchild':
-    if ($gid == Horde_Group::ROOT) {
-        $form = 'addchild.inc';
-        $gname = _("All Groups");
-    } else {
-        try {
-            $group = $groups->getGroupById($gid);
-            $gname = $group->getShortName();
-            $form = 'addchild.inc';
-        } catch (Horde_Group_Exception $e) {}
-    }
-    break;
-
-case 'addchildform':
-    $parent = $gid;
+case 'addform':
+    $name = Horde_Util::getFormData('name');
     try {
-        $child = ($parent == Horde_Group::ROOT)
-            ? $groups->newGroup(Horde_Util::getFormData('child'))
-            : $groups->newGroup(Horde_Util::getFormData('child'), $parent);
+        $gid = $groups->create($name);
+        $group = $groups->getData($gid);
+        $form = 'edit.inc';
+        $notification->push(sprintf(_("\"%s\" was added to the groups system."), $name), 'horde.success');
     } catch (Horde_Group_Exception $e) {
         Horde::logMessage($e, 'ERR');
         $notification->push(sprintf(_("Group was not created: %s."), $e->getMessage()), 'horde.error');
         break;
     }
-
-    try {
-        $groups->addGroup($child);
-        $notification->push(sprintf(_("\"%s\" was added to the groups system."), $child->getShortName()), 'horde.success');
-        $group = $child;
-        $form = 'edit.inc';
-    } catch (Horde_Group_Exception $e) {
-        Horde::logMessage($e, 'ERR');
-        $notification->push(sprintf(_("\"%s\" was not created: %s."), $child->getShortName(), $e->getMessage()), 'horde.error');
-    }
     break;
-*/
 
 case 'delete':
+    if ($groups->readOnly()) {
+        break;
+    }
     try {
         $group = $groups->getName($gid);
         $form = 'delete.inc';
@@ -66,20 +45,22 @@ case 'delete':
     break;
 
 case 'deleteform':
-    if (Horde_Util::getFormData('confirm') == _("Delete")) {
-        if (!$groups->exists($gid)) {
-            $notification->push(_("Attempt to delete a non-existent group."), 'horde.error');
-            break;
-        }
+    if ($groups->readOnly() ||
+        Horde_Util::getFormData('confirm') != _("Delete")) {
+        break;
+    }
+    if (!$groups->exists($gid)) {
+        $notification->push(_("Attempt to delete a non-existent group."), 'horde.error');
+        break;
+    }
 
-        $name = $groups->getName($gid);
-        try {
-            $groups->remove($group);
-            $notification->push(sprintf(_("Successfully deleted \"%s\"."), $name), 'horde.success');
-            $gid = null;
-        } catch (Horde_Group_Exception $e) {
-            $notification->push(sprintf(_("Unable to delete \"%s\": %s."), $name, $e->getMessage()), 'horde.error');
-        }
+    $name = $groups->getName($gid);
+    try {
+        $groups->remove($gid);
+        $notification->push(sprintf(_("Successfully deleted \"%s\"."), $name), 'horde.success');
+        $gid = null;
+    } catch (Horde_Group_Exception $e) {
+        $notification->push(sprintf(_("Unable to delete \"%s\": %s."), $name, $e->getMessage()), 'horde.error');
     }
     break;
 
@@ -92,6 +73,9 @@ case 'edit':
     }
 
 case 'editform':
+    if ($groups->readOnly()) {
+        break;
+    }
     try {
         // Add any new users.
         $newuser = Horde_Util::getFormData('new_user');
@@ -187,12 +171,13 @@ $nodes = $groups->listAll();
 $spacer = '&nbsp;&nbsp;&nbsp;&nbsp;';
 $group_node = array('icon' => strval(Horde_Themes::img('group.png')));
 $group_url = Horde::url('admin/groups.php', true);
-$add = $group_url->copy()->add('actionID', 'addchild');
-$add_img = Horde::img('add_group.png');
 $edit = $group_url->copy()->add('actionID', 'edit');
-$delete = $group_url->copy()->add('actionID', 'delete');
-$edit_img = Horde::img('edit.png', _("Edit Group"));
-$delete_img = Horde::img('delete.png', _("Delete Group"));
+if (!$groups->readOnly()) {
+    $add = $group_url->copy()->add('actionID', 'addchild');
+    $add_img = Horde::img('add_group.png');
+    $delete = $group_url->copy()->add('actionID', 'delete');
+    $delete_img = Horde::img('delete.png', _("Delete Group"));
+}
 
 /* Set up the tree. */
 $tree = $injector->getInstance('Horde_Core_Factory_Tree')->create('admin_groups', 'Javascript', array(
@@ -213,8 +198,12 @@ foreach ($nodes as $id => $node) {
     $node_params = ($gid == $id) ? array('class' => 'selected') : array();
 
     $node_params['url'] = $edit->copy()->add('gid', $id);
-    //$add_link = Horde::link($add->copy()->add('gid', $id), sprintf(_("Add a child group to \"%s\""), $name)) . $add_img . '</a>';
-    $delete_link = Horde::link($delete->copy()->add('gid', $id), sprintf(_("Delete \"%s\""), $node)) . $delete_img . '</a>';
+    if ($groups->readOnly()) {
+        $delete_link = null;
+    } else {
+        //$add_link = Horde::link($add->copy()->add('gid', $id), sprintf(_("Add a child group to \"%s\""), $name)) . $add_img . '</a>';
+        $delete_link = Horde::link($delete->copy()->add('gid', $id), sprintf(_("Delete \"%s\""), $node)) . $delete_img . '</a>';
+    }
 
     $tree->addNode(
         $id,

@@ -33,17 +33,17 @@
      * @return array  The events matching the query.
      */
     public function &get($uid = null, $eids = null, $start_time = null,
-                                $end_time = null, $rsvp_status = null)
+                         $end_time = null, $rsvp_status = null)
     {
         // Note we return a reference to support batched calls
         //  (see Horde_Service_Facebook::callMethod)
-        return $this->_facebook->callMethod('facebook.events.get',
+        return $this->_facebook->callMethod(
+            'facebook.events.get',
             array('uid' => $uid,
                   'eids' => $eids,
                   'start_time' => $start_time,
                   'end_time' => $end_time,
-                  'rsvp_status' => $rsvp_status,
-                  'session_key' => $this->_facebook->auth->getSessionKey()));
+                  'rsvp_status' => $rsvp_status));
     }
 
     /**
@@ -56,9 +56,9 @@
      */
     public function &getMembers($eid)
     {
-        return $this->_facebook->callMethod('facebook.events.getMembers',
-                                             array('eid' => $eid,
-                                                   'session_key' => $this->_facebook->auth->getSessionKey()));
+        return $this->_facebook->callMethod(
+            'facebook.events.getMembers',
+             array('eid' => $eid));
     }
 
     /**
@@ -71,10 +71,10 @@
      */
     public function &rsvp($eid, $rsvp_status)
     {
-        return $this->_facebook->callMethod('facebook.events.rsvp',
+        return $this->_facebook->callMethod(
+            'facebook.events.rsvp',
             array('eid' => $eid,
-                  'rsvp_status' => $rsvp_status,
-                   'session_key' => $this->_facebook->auth->getSessionKey()));
+                  'rsvp_status' => $rsvp_status));
     }
 
 
@@ -89,10 +89,10 @@
      */
     public function &cancel($eid, $cancel_message = '')
     {
-        return $this->_facebook->callMethod('facebook.events.cancel',
+        return $this->_facebook->callMethod(
+            'facebook.events.cancel',
             array('eid' => $eid,
-                  'cancel_message' => $cancel_message,
-                  'session_key' => $this->_facebook->auth->getSessionKey()));
+                  'cancel_message' => $cancel_message));
     }
 
     /**
@@ -103,11 +103,11 @@
      *
      * @return integer  event id
      */
-    public function &create($event_info)
+    public function &create(array $event_info)
     {
-        return $this->_facebook->callMethod('facebook.events.create',
-            array('event_info' => $event_info,
-                  'session_key' => $this->_facebook->auth->getSessionKey()));
+        return $this->_facebook->callMethod(
+            'facebook.events.create',
+            array('event_info' => $event_info));
     }
 
     /**
@@ -118,12 +118,12 @@
      *
      * @return boolean  true if successful
      */
-    public function &edit($eid, $event_info)
+    public function &edit($eid, array $event_info)
     {
-        return $this->_facebook->callMethod('facebook.events.edit',
+        return $this->_facebook->callMethod(
+            'facebook.events.edit',
             array('eid' => $eid,
-                  'event_info' => $event_info,
-                  'session_key' => $this->_facebook->auth->getSessionKey()));
+                  'event_info' => $event_info));
     }
 
  }

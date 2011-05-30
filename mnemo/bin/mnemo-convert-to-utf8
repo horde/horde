@@ -1,0 +1,57 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This script converts the data in an SQL backend from any supported charset
+ * to UTF-8.
+ *
+ * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL). If you
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ *
+ * @author Jan Schneider <jan@horde.org>
+ */
+
+if (file_exists(dirname(__FILE__) . '/../../mnemo/lib/Application.php')) {
+    $baseDir = dirname(__FILE__) . '/../';
+} else {
+    require_once 'PEAR/Config.php';
+    $baseDir = PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/mnemo/';
+}
+require_once $baseDir . 'lib/Application.php';
+Horde_Registry::appInit('mnemo', array('cli' => true));
+
+if ($conf['storage']['driver'] != 'sql') {
+    exit("You must have an SQL backend configured.\n");
+}
+$table = 'mnemo_memos';
+$db = $injector->getInstance('Horde_Db_Adapter');
+
+// Get current charset.
+$charset = $cli->prompt('Please specify the current charset of the data',
+                        null, 'ISO-8859-1');
+
+// Read existing notes.
+try {
+    $results = $db->selectAll('SELECT memo_owner, memo_id, memo_desc, memo_body, memo_category FROM mnemo_memos');
+} catch (Horde_Db_Exception $e) {
+    $cli->fatal($e->getMessage());
+}
+$sth = 'UPDATE mnemo_memos SET memo_desc = ?, memo_body = ?, memo_category = ?'
+    . ' WHERE memo_owner = ? AND memo_id = ?';
+echo 'Converting notes';
+foreach ($results as $row) {
+    $values = Horde_String::convertCharset(
+        array($row['memo_desc'], $row['memo_body'], $row['memo_category']),
+        $charset, 'UTF-8');
+    $values[] = $row['memo_owner'];
+    $values[] = $row['memo_id'];
+    try {
+        $executed = $db->update($sth, $values);
+    } catch (Horde_Db_Exception $e) {
+        $cli->fatal($e->getMessage());
+    }
+    echo '.';
+}
+$cli->writeln($cli->green('Done'));

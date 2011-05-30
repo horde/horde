@@ -79,6 +79,38 @@ implements Components_Module
     }
 
     /**
+     * Return the action arguments supported by this module.
+     *
+     * @return array A list of supported action arguments.
+     */
+    public function getActions()
+    {
+        return array();
+    }
+
+    /**
+     * Return the options that should be explained in the context help.
+     *
+     * @return array A list of option help texts.
+     */
+    public function getContextOptionHelp()
+    {
+        return array();
+    }
+
+    /**
+     * Return the help text for the specified action.
+     *
+     * @param string $action The action.
+     *
+     * @return string The help text.
+     */
+    public function getHelp($action)
+    {
+        return '';
+    }
+
+    /**
      * Validate that there is a package.xml file in the provided directory.
      *
      * @param string $directory The package directory.

@@ -19,7 +19,7 @@ abstract class Horde_Service_Twitter_Request
     protected $_twitter;
 
     /**
-     * 
+     *
      * @var Horde_Controller_Request_Http
      */
     protected $_request;
@@ -34,7 +34,7 @@ abstract class Horde_Service_Twitter_Request
         $this->_twitter = $twitter;
     }
 
-    abstract public function get($url, $params = array());
-    abstract public function post($url, $params = array());
+    abstract public function get($url, array $params = array());
+    abstract public function post($url, array $params = array());
 
 }

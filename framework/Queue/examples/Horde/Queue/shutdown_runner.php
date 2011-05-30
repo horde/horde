@@ -1,16 +1,16 @@
 <?php
 
-set_include_path(get_include_path() . ':' . dirname(__FILE__) . '/../../../lib');
-include 'Horde/Autoloader.php';
+include 'Horde/Autoloader/Default.php';
 
-class TestTask extends Horde_Queue_Task_Base {
+class TestTask implements Horde_Queue_Task
+{
     public function run()
     {
         echo "executing\n";
     }
 }
 
-$qs = new Horde_Queue_Storage_RequestOnly();
+$qs = new Horde_Queue_Storage_Array();
 $qr = new Horde_Queue_Runner_RequestShutdown($qs);
 
 $qs->add(new TestTask());

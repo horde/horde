@@ -88,7 +88,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
     public function testTasksThatRepeatYearlyAreExecutedAtTheBeginningOfEachYear()
     {
         Horde_LoginTasks_Stub_Task::$executed = array();
-        $date = getdate();
+        $date = new Horde_Date(time());
         $tasks = $this->_getLoginTasks(
             array('Horde_LoginTasks_Stub_Year'),
             $date
@@ -98,7 +98,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             Horde_LoginTasks_Stub_Task::$executed
         );
 
-        $date['year']--;
+        $date->year--;
 
         Horde_LoginTasks_Stub_Task::$executed = array();
         $tasks = $this->_getLoginTasks(
@@ -115,7 +115,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
     public function testTasksThatRepeatMonthlyAreExecutedAtTheBeginningOfEachMonth()
     {
         Horde_LoginTasks_Stub_Task::$executed = array();
-        $date = getdate();
+        $date = new Horde_Date(time());
         $tasks = $this->_getLoginTasks(
             array('Horde_LoginTasks_Stub_Month'),
             $date
@@ -126,7 +126,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             Horde_LoginTasks_Stub_Task::$executed
         );
 
-        $date['mon']--;
+        $date->month--;
 
         Horde_LoginTasks_Stub_Task::$executed = array();
         $tasks = $this->_getLoginTasks(
@@ -143,7 +143,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
     public function testTasksThatRepeatWeeklyAreExecutedAtTheBeginningOfEachWeek()
     {
         Horde_LoginTasks_Stub_Task::$executed = array();
-        $date = getdate();
+        $date = new Horde_Date(time());
         $tasks = $this->_getLoginTasks(
             array('Horde_LoginTasks_Stub_Week'),
             $date
@@ -154,7 +154,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             Horde_LoginTasks_Stub_Task::$executed
         );
 
-        $date['mday'] = $date['mday'] - 7;
+        $date->mday -= 7;
 
         Horde_LoginTasks_Stub_Task::$executed = array();
         $tasks = $this->_getLoginTasks(
@@ -171,7 +171,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
     public function testTasksThatRepeatDailyAreExecutedAtTheBeginningOfEachDay()
     {
         Horde_LoginTasks_Stub_Task::$executed = array();
-        $date = getdate();
+        $date = new Horde_Date(time());
         $tasks = $this->_getLoginTasks(
             array('Horde_LoginTasks_Stub_Day'),
             $date
@@ -182,7 +182,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             Horde_LoginTasks_Stub_Task::$executed
         );
 
-        $date['mday'] = $date['mday'] - 1;
+        $date->mday--;
 
         Horde_LoginTasks_Stub_Task::$executed = array();
         $tasks = $this->_getLoginTasks(
@@ -199,7 +199,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
     public function testTasksThatRepeatEachLoginAreExecutedOnEachLogin()
     {
         Horde_LoginTasks_Stub_Task::$executed = array();
-        $date = getdate();
+        $date = new Horde_Date(time());
         $tasks = $this->_getLoginTasks(
             array('Horde_LoginTasks_Stub_Task'),
             $date
@@ -224,7 +224,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         );
 
         Horde_LoginTasks_Stub_Task::$executed = array();
-        $date = getdate();
+        $date = new Horde_Date(time());
         $tasks = $this->_getLoginTasks(
             array('Horde_LoginTasks_Stub_First'),
             $date
@@ -614,18 +614,8 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
 
     private function _getLoginTasks(array $tasks = array(), $last_run = false)
     {
-        $last_time = $last_run;
-        if ($last_time && !is_bool($last_time)) {
-            $last_time = array(
-                'test' => mktime(
-                              $last_run['hours'],
-                              $last_run['minutes'],
-                              $last_run['seconds'],
-                              $last_run['mon'],
-                              $last_run['mday'],
-                              $last_run['year']
-                          )
-            );
+        if ($last_run && !is_bool($last_run)) {
+            $last_run = array('test' => $last_run->timestamp());
         }
 
         $tasklist = array();
@@ -634,8 +624,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         }
 
         return new Horde_LoginTasks(
-            new Horde_LoginTasks_Stub_Backend($tasklist, $last_time)
+            new Horde_LoginTasks_Stub_Backend($tasklist, $last_run)
         );
     }
-
 }

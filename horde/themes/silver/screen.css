@@ -127,8 +127,8 @@ a.button {
 }
 .tooltip, div.nicetitle {
     color: #333;
-    background: #ffc;
-    border: 1px solid #333;
+    background: #eaeaea url("graphics/menu-active.png") repeat-x;
+    border: 1px solid #999;
 }
 
 /* Menu styles. */

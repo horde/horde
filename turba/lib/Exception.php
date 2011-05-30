@@ -12,6 +12,6 @@
  * @license  http://www.horde.org/licenses/asl.php ASL
  * @package  Turba
  */
-class Turba_Exception extends Horde_Exception_Prior
+class Turba_Exception extends Horde_Exception_Wrapped
 {
 }

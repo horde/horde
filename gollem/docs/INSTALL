@@ -1,6 +1,6 @@
-===================
- Installing Gollem
-===================
+=======================
+ Installing Gollem 2.0
+=======================
 
 :Contact: gollem@lists.horde.org
 
@@ -14,25 +14,6 @@ For information on the capabilities and features of Gollem, see the file
 README_ in the top-level directory of the Gollem distribution.
 
 
-Obtaining Gollem
-================
-
-Gollem can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/gollem/
-
-   ftp://ftp.horde.org/gollem/
-
-Or use the mirror closest to you:
-
-   http://www.horde.org/mirrors.php
-
-Bleeding-edge development versions of Gollem are available via CVS; see the
-file `horde/docs/HACKING`_ in the Horde distribution, or the website
-http://www.horde.org/source/, for information on accessing the Horde CVS
-repository.
-
-
 Prerequisites
 =============
 
@@ -41,26 +22,19 @@ To function properly, Gollem **REQUIRES** the following:
 1. A working Horde installation.
 
    Gollem runs within the `Horde Application Framework`_, a set of common tools
-   for Web applications written in PHP.  You must install Horde before
-   before installing Gollem.
+   for web applications written in PHP.  You must install Horde before
+   installing Gollem.
 
-   .. Important:: Gollem 2 requires version 4 of the Horde Framework -
+   .. Important:: Gollem 2.0 requires version 4.0+ of the Horde Framework -
                   earlier versions of Horde will **not** work.
-
-   The Horde Framework can be obtained from the Horde website and FTP server,
-   at
-
-      http://www.horde.org/horde/
-
-      ftp://ftp.horde.org/pub/horde/
-
-   Many of Gollem's prerequisites are also Horde prerequisites.
 
    .. Important:: Be sure to have completed all of the steps in the
                   `horde/docs/INSTALL`_ file for the Horde Framework before
-                  installing Gollem.
+                  installing Gollem. Many of Gollem's prerequisites are also
+                  Horde prerequisites. Additionally, many of Gollem's optional
+                  features are configured via the Horde install.
 
-   .. _`Horde Application Framework`: http://www.horde.org/horde/
+   .. _`Horde Application Framework`: http://www.horde.org/apps/horde
 
 
 2. The following PHP capabilities:
@@ -89,6 +63,54 @@ To function properly, Gollem **REQUIRES** the following:
 Installing Gollem
 =================
 
+There are several ways to install Gollem. The recommended way to install Gollem
+is using the PEAR installer. Alternatively it can be installed from
+tarballs. Finally, if you want to run the latest development code, or get the
+latest, not yet released, fixes, you can install Gollem from Git.
+
+
+Installing with PEAR
+~~~~~~~~~~~~~~~~~~~~
+
+First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
+environment for Horde and install the Horde Framework.
+
+When installing Gollem through PEAR now, the installer will automatically
+install any dependencies of Gollem too. If you want to install Gollem with all
+optional dependencies, but without the binary PECL packages that need to be
+compiled, specify both the ``-a`` and the ``-B`` flag::
+
+   pear install -a -B horde/gollem
+
+By default, only the required dependencies will be installed::
+
+   pear install horde/gollem
+
+If you want to install Gollem even with all binary dependencies, you need to
+remove the ``-B`` flag. Please note that this might also try to install PHP
+extensions through PECL that might need further configuration or activation in
+your PHP configuration::
+
+   pear install -a horde/gollem
+
+
+Installing from Release Tarballs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. Important:: As of today, there are no tarballs released for Gollem 2
+               yet. Please use the `Installing with PEAR`_ method to install
+               Gollem 2.
+
+Gollem can be obtained from the Horde website and FTP server, at
+
+   http://www.horde.org/apps/gollem
+
+   ftp://ftp.horde.org/gollem/
+
+Or use the mirror closest to you:
+
+   http://www.horde.org/mirrors.php
+
 Gollem is written in PHP, and must be installed in a web-accessible directory.
 The precise location of this directory will differ from system to system.
 Conventionally, Gollem is installed directly underneath Horde in the web
@@ -112,27 +134,7 @@ and would then find Gollem at the URL::
 Configuring Gollem
 ==================
 
-1. Configuring Horde for Gollem
-
-   a. Register the application
-
-      In ``horde/config/registry.php``, find the ``applications['gollem']``
-      stanza.  The default settings here should be okay, but you can change
-      them if desired.  If you have changed the location of Gollem relative to
-      Horde, either in the URL, in the filesystem or both, you must update the
-      ``fileroot`` and ``webroot`` settings to their correct values.
-
-2. Configuring Gollem
-
-   To configure Gollem, change to the ``config/`` directory of the installed
-   distribution, and copy the ``backends.php.dist`` configuration file to
-   ``backends.php`` and edit it to your needs. You must be sure to configure an
-   appropriate backend in ``backends.php``.
-
-   Documentation on the format and purpose of the configuration files in the
-   ``config/`` directory can be found in each file.  You may edit these files
-   if you wish to customize Gollem's appearance and behavior.  The defaults
-   will be correct for most sites.
+1. Configuring Gollem
 
    You must login to Horde as a Horde Administrator to finish the
    configuration of Gollem.  Use the Horde ``Administration`` menu item to get
@@ -145,20 +147,16 @@ Configuring Gollem
    of the other methods to create the configuration file
    ``gollem/config/conf.php``.
 
-   Note for international users: Gollem uses GNU gettext to provide local
-   translations of text displayed by applications; the translations are found
-   in the po/ directory.  If a translation is not yet available for your
-   locale (and you wish to create one), see the ``horde/po/README`` file, or
-   if you're having trouble using a provided translation, please see the
-   `horde/docs/TRANSLATIONS`_ file for instructions.
+   To configure Gollem, change to the ``config/`` directory of the installed
+   distribution, and copy the ``backends.php.dist`` configuration file to
+   ``backends.php`` and edit it to your needs. You must be sure to configure an
+   appropriate backend in ``backends.php``.
 
-3. Securing Gollem
-
-   Review the guidelines for security contained in `horde/docs/SECURITY`_.
-
-4. Tuning Gollem (Performance)
-
-   See `horde/docs/PERFORMANCE`_.
+   Documentation on the format and purpose of the other configuration files in
+   the ``config/`` directory can be found in each file. You may create
+   ``*.local.php`` versions of these files if you wish to customize Gollem's
+   appearance and behavior. See the header of the configuration files for
+   details and examples. The defaults will be correct for most sites.
 
 
 Obtaining Support
@@ -168,13 +166,13 @@ If you encounter problems with Gollem, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
 The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole.  Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users may also be found on IRC,
 on the channel #horde on the Freenode Network (irc.freenode.net).
@@ -182,7 +180,7 @@ on the channel #horde on the Freenode Network (irc.freenode.net).
 Please keep in mind that Gollem is free software written by volunteers.
 For information on reasonable support expectations, please read
 
-  http://www.horde.org/support.php
+  http://www.horde.org/community/support
 
 Thanks for using Gollem!
 
@@ -191,7 +189,6 @@ The Gollem Team
 
 .. _README: ?f=README.html
 .. _`horde/docs/INSTALL`: ../../horde/docs/?f=INSTALL.html
-.. _`horde/docs/HACKING`: ../../horde/docs/?f=HACKING.html
 .. _`horde/docs/TRANSLATIONS`: ../../horde/docs/?f=TRANSLATIONS.html
 .. _`horde/docs/SECURITY`: ../../horde/docs/?f=SECURITY.html
 .. _`horde/docs/PERFORMANCE`: ../../horde/docs/?f=PERFORMANCE.html

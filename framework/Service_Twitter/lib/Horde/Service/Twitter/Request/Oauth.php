@@ -18,9 +18,10 @@ class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
      * @param mixed (string | Horde_Url) $url  The url to request.
      * @param array  $params                   URL parameters.
      *
-     * @return mixed  Call results.
+     * @return string  Call results.
+     * @throws Horde_Service_Twitter_Exception
      */
-    public function get($url, $params = array())
+    public function get($url, array $params = array())
     {
         $key = md5($url . 'get' . serialize($params) . serialize($this->_twitter->auth->getAccessToken($this->_request)));
         $cache = $this->_twitter->responseCache;
@@ -47,7 +48,7 @@ class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
                 throw new Horde_Service_Twitter_Exception($body);
             }
         } catch (Horde_Http_Exception $e) {}
-        
+
         if (!empty($cache)) {
             $cache->set($key, $body);
         }
@@ -61,7 +62,7 @@ class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
      *
      * @see self::get
      */
-    public function post($url, $params = array())
+    public function post($url, array $params = array())
     {
         $request = new Horde_Oauth_Request($url, $params);
         $request->sign($this->_twitter->auth->oauth->signatureMethod,

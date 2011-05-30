@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Crypt \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,15 +22,15 @@ msgstr ""
 msgid "%s Fingerprint"
 msgstr ""
 
-#: lib/Horde/Crypt/Pgp.php:1246
+#: lib/Horde/Crypt/Pgp.php:1237
 msgid "A passphrase is required to decrypt a message."
 msgstr ""
 
-#: lib/Horde/Crypt/Pgp.php:1313
+#: lib/Horde/Crypt/Pgp.php:1304
 msgid "A public PGP key is required to verify a signed message."
 msgstr ""
 
-#: lib/Horde/Crypt/Pgp.php:1170
+#: lib/Horde/Crypt/Pgp.php:1168
 msgid ""
 "A public PGP key, private PGP key, and passphrase are required to sign a "
 "message."
@@ -76,20 +76,20 @@ msgstr ""
 msgid "Common Name"
 msgstr ""
 
-#: lib/Horde/Crypt/Pgp.php:945
+#: lib/Horde/Crypt/Pgp.php:943
 msgid "Connection refused to the public keyserver."
 msgstr ""
 
-#: lib/Horde/Crypt/Pgp.php:956
+#: lib/Horde/Crypt/Pgp.php:954
 #, php-format
 msgid "Connection refused to the public keyserver. Reason: %s (%s)"
 msgstr ""
 
-#: lib/Horde/Crypt/Pgp.php:1138
+#: lib/Horde/Crypt/Pgp.php:1136
 msgid "Could not PGP encrypt message: "
 msgstr ""
 
-#: lib/Horde/Crypt/Pgp.php:1207
+#: lib/Horde/Crypt/Pgp.php:1205
 msgid "Could not PGP sign message: "
 msgstr ""
 
@@ -101,7 +101,7 @@ msgstr ""
 msgid "Could not S/MIME sign message."
 msgstr ""
 
-#: lib/Horde/Crypt/Pgp.php:1282
+#: lib/Horde/Crypt/Pgp.php:1273
 msgid "Could not decrypt PGP data: "
 msgstr ""
 
@@ -109,11 +109,11 @@ msgstr ""
 msgid "Could not decrypt S/MIME data."
 msgstr ""
 
-#: lib/Horde/Crypt/Pgp.php:659
+#: lib/Horde/Crypt/Pgp.php:657
 msgid "Could not determine the recipient's e-mail address."
 msgstr ""
 
-#: lib/Horde/Crypt/Pgp.php:760 lib/Horde/Crypt/Pgp.php:853
+#: lib/Horde/Crypt/Pgp.php:758 lib/Horde/Crypt/Pgp.php:851
 msgid "Could not obtain public key from the keyserver."
 msgstr ""
 
@@ -129,7 +129,7 @@ msgstr ""
 msgid "Email Address"
 msgstr ""
 
-#: lib/Horde/Crypt/Pgp.php:1590 lib/Horde/Crypt/Pgp.php:1598
+#: lib/Horde/Crypt/Pgp.php:1579 lib/Horde/Crypt/Pgp.php:1587
 msgid "Error while talking to pgp binary."
 msgstr ""
 
@@ -182,7 +182,7 @@ msgstr ""
 msgid "Key Usage"
 msgstr ""
 
-#: lib/Horde/Crypt/Pgp.php:783
+#: lib/Horde/Crypt/Pgp.php:781
 msgid "Key already exists on the public keyserver."
 msgstr ""
 
@@ -274,19 +274,19 @@ msgstr ""
 msgid "Organisational Unit"
 msgstr ""
 
-#: lib/Horde/Crypt/Pgp.php:1412
+#: lib/Horde/Crypt/Pgp.php:1401
 msgid "PGP Digital Signature"
 msgstr ""
 
-#: lib/Horde/Crypt/Pgp.php:1456
+#: lib/Horde/Crypt/Pgp.php:1445
 msgid "PGP Encrypted Data"
 msgstr ""
 
-#: lib/Horde/Crypt/Pgp.php:1517
+#: lib/Horde/Crypt/Pgp.php:1506
 msgid "PGP Public Key"
 msgstr ""
 
-#: lib/Horde/Crypt/Pgp.php:1499
+#: lib/Horde/Crypt/Pgp.php:1488
 msgid "PGP Signed/Encrypted Data"
 msgstr ""
 
@@ -323,7 +323,7 @@ msgstr ""
 msgid "Returned error message:"
 msgstr ""
 
-#: lib/Horde/Crypt/Pgp.php:1650
+#: lib/Horde/Crypt/Pgp.php:1639
 msgid "Revocation key not generated successfully."
 msgstr ""
 
@@ -363,7 +363,7 @@ msgstr ""
 msgid "Telephone Number"
 msgstr ""
 
-#: lib/Horde/Crypt/Pgp.php:1317
+#: lib/Horde/Crypt/Pgp.php:1308
 msgid ""
 "The detached PGP signature block is required to verify the signed message."
 msgstr ""

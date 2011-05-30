@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>kolab</name>
+ <channel>pear.horde.org</channel>
+ <summary>A meta-package providing configuration for running Horde with the Kolab server.</summary>
+ <description>This package pulls in all Horde applications that can work with a Kolab backend. It provides the minimal set of required configuration settings so that the system will work out of the box with the Kolab server backend.</description>
+ <lead>
+  <name>Gunnar Wrobel</name>
+  <user>wrobel</user>
+  <email>wrobel@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-03-18</date>
+ <time>11:22:12</time>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GPLv2</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="config">
+    <dir name="conf.d">
+     <file name="10-kolab.php" role="horde" />
+    </dir> <!-- /config/conf.d -->
+    <dir name="registry.d">
+     <file name="10-kolab.php" role="horde" />
+    </dir> <!-- /config/registry.d -->
+   </dir> <!-- /config -->
+   <dir name="imp">
+    <dir name="config">
+     <dir name="backends.d">
+      <file name="10-kolab.php" role="php" />
+     </dir> <!-- /imp/config/backends.d -->
+     <dir name="conf.d">
+      <file name="10-kolab.php" role="php" />
+     </dir> <!-- /imp/config/conf.d -->
+    </dir> <!-- /imp/config -->
+   </dir> <!-- /imp -->
+   <dir name="ingo">
+    <dir name="config">
+     <dir name="backends.d">
+      <file name="10-kolab.php" role="php" />
+     </dir> <!-- /ingo/config/backends.d -->
+    </dir> <!-- /ingo/config -->
+   </dir> <!-- /ingo -->
+   <dir name="kronolith">
+    <dir name="config">
+     <dir name="conf.d">
+      <file name="10-kolab.php" role="php" />
+     </dir> <!-- /kronolith/config/conf.d -->
+    </dir> <!-- /kronolith/config -->
+   </dir> <!-- /kronolith -->
+   <dir name="mnemo">
+    <dir name="config">
+     <dir name="conf.d">
+      <file name="10-kolab.php" role="php" />
+     </dir> <!-- /mnemo/config/conf.d -->
+    </dir> <!-- /mnemo/config -->
+   </dir> <!-- /mnemo -->
+   <dir name="nag">
+    <dir name="config">
+     <dir name="conf.d">
+      <file name="10-kolab.php" role="php" />
+     </dir> <!-- /nag/config/conf.d -->
+    </dir> <!-- /nag/config -->
+   </dir> <!-- /nag -->
+   <dir name="turba">
+    <dir name="config">
+     <dir name="backends.d">
+      <file name="10-kolab.php" role="php" />
+     </dir> <!-- /turba/config/backends.d -->
+     <dir name="conf.d">
+      <file name="10-kolab.php" role="php" />
+     </dir> <!-- /turba/config/conf.d -->
+    </dir> <!-- /turba/config -->
+   </dir> <!-- /turba -->
+   <file name="COPYING" role="horde" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>horde</name>
+    <channel>pear.horde.org</channel>
+    <min>4.0.0RC2</min>
+    <max>5.0.0</max>
+    <exclude>5.0.0</exclude>
+   </package>
+   <package>
+    <name>content</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC2</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>imp</name>
+    <channel>pear.horde.org</channel>
+    <min>5.0.0RC2</min>
+    <max>6.0.0</max>
+    <exclude>6.0.0</exclude>
+   </package>
+   <package>
+    <name>ingo</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0RC2</min>
+    <max>3.0.0</max>
+    <exclude>3.0.0</exclude>
+   </package>
+   <package>
+    <name>kronolith</name>
+    <channel>pear.horde.org</channel>
+    <min>3.0.0RC2</min>
+    <max>4.0.0</max>
+    <exclude>4.0.0</exclude>
+   </package>
+   <package>
+    <name>mnemo</name>
+    <channel>pear.horde.org</channel>
+    <min>3.0.0RC2</min>
+    <max>4.0.0</max>
+    <exclude>4.0.0</exclude>
+   </package>
+   <package>
+    <name>nag</name>
+    <channel>pear.horde.org</channel>
+    <min>3.0.0RC2</min>
+    <max>4.0.0</max>
+    <exclude>4.0.0</exclude>
+   </package>
+   <package>
+    <name>timeobjects</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0RC2</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>turba</name>
+    <channel>pear.horde.org</channel>
+    <min>3.0.0RC2</min>
+    <max>4.0.0</max>
+    <exclude>4.0.0</exclude>
+   </package>
+  </required>
+ </dependencies>
+ <usesrole>
+  <role>horde</role>
+  <package>Role</package>
+  <channel>pear.horde.org</channel>
+ </usesrole>
+ <phprelease>
+  <filelist>
+   <install as="config/conf.d/10-kolab.php" name="config/conf.d/10-kolab.php" />
+   <install as="config/registry.d/10-kolab.php" name="config/registry.d/10-kolab.php" />
+   <install as="imp/config/backends.d/10-kolab.php" name="imp/config/backends.d/10-kolab.php" />
+   <install as="imp/config/conf.d/10-kolab.php" name="imp/config/conf.d/10-kolab.php" />
+   <install as="ingo/config/backends.d/10-kolab.php" name="ingo/config/backends.d/10-kolab.php" />
+   <install as="kronolith/config/conf.d/10-kolab.php" name="kronolith/config/conf.d/10-kolab.php" />
+   <install as="mnemo/config/conf.d/10-kolab.php" name="mnemo/config/conf.d/10-kolab.php" />
+   <install as="nag/config/conf.d/10-kolab.php" name="nag/config/conf.d/10-kolab.php" />
+   <install as="turba/config/backends.d/10-kolab.php" name="turba/config/backends.d/10-kolab.php" />
+   <install as="turba/config/conf.d/10-kolab.php" name="turba/config/conf.d/10-kolab.php" />
+   <install as="COPYING" name="COPYING" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-03-18</date>
+   <license uri="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GPLv2</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>

@@ -7,9 +7,17 @@
 * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
 *
 * @author Vijay Mahrra <webmaster@stain.net>
+* @author Michael J Rubinsky <mrubinsk@horde.org>
+* @package Ansel
 */
-
-require_once dirname(__FILE__) . '/../lib/Application.php';
+if (file_exists(dirname(__FILE__) . '/../../ansel/lib/Application.php')) {
+    $baseDir = dirname(__FILE__) . '/../';
+} else {
+    require_once 'PEAR/Config.php';
+    $baseDir = PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/ansel/';
+}
+require_once $baseDir . 'lib/Application.php';
 Horde_Registry::appInit('ansel', array('cli' => true));
 
 // We accept the user name on the command-line.
@@ -123,12 +131,12 @@ if (!empty($resetting)) {
     foreach ($galleries as $gallery) {
         if (empty($resetType) || $resetType == 'stacks') {
             $gallery->clearStacks();
-            $cli->message(sprintf(_("Successfully reset stack cache for gallery: %d"), $gallery->getId()), 'cli.success');
+            $cli->message(sprintf(_("Successfully reset stack cache for gallery: %d"), $gallery->id), 'cli.success');
 
         }
         if (empty($resetType) || $resetType == 'thumbs') {
             $gallery->clearViews();
-            $cli->message(sprintf(_("Successfully reset image cache for gallery: %d"), $gallery->getId()), 'cli.success');
+            $cli->message(sprintf(_("Successfully reset image cache for gallery: %d"), $gallery->id), 'cli.success');
         }
     }
 
@@ -195,7 +203,7 @@ if (!empty($list)) {
         $cli->writeln();
         foreach ($galleries as $gallery) {
             $name = $gallery->get('name');
-            $id = $gallery->getId();
+            $id = $gallery->id;
             $msg = "$id/$name";
             $cli->writeln($msg);
             Horde::logMessage($msg, 'DEBUG');

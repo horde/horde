@@ -15,6 +15,13 @@
  */
 class IMP_Sentmail
 {
+    /* Action constants. */
+    const NEWMSG = 'new';
+    const REPLY = 'reply';
+    const FORWARD = 'forward';
+    const REDIRECT = 'redirect';
+    const MDN = 'mdn';
+
     /**
      * Attempts to return a concrete instance based on $driver.
      *
@@ -35,7 +42,7 @@ class IMP_Sentmail
             return new $class($params);
         }
 
-        throw new IMP_Exception('Driver not found: ' . $driver);
+        throw new IMP_Exception(__CLASS__ . ': Driver not found: ' . $driver);
     }
 
 }

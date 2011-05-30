@@ -211,6 +211,7 @@ implements Horde_Kolab_Storage
                 $object_type,
                 $data_version
             );
+            $this->_query_set->addDataQuerySet($this->_data[$key]);
         }
         return $this->_data[$key];
     }

@@ -28,14 +28,15 @@ class IMP_Ui_Mimp
     {
         if (!in_array($page, array('mailbox', 'message')) ||
             (IMP::$mailbox != 'INBOX')) {
-            $items[] = array(_("Inbox"), IMP::generateIMPUrl('mailbox-mimp.php', 'INBOX'));
+            $items[] = array(_("Inbox"), IMP_Mailbox::get('INBOX')->url('mailbox-mimp.php'));
         }
 
         if (!in_array($page, array('compose', 'search')) && IMP::canCompose()) {
             $items[] = array(_("New Message"), Horde::url('compose-mimp.php')->unique());
         }
 
-        if (!in_array($page, array('folders', 'search'))) {
+        if (!in_array($page, array('folders', 'search')) &&
+            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
             $items[] = array(_("Folders"), Horde::url('folders-mimp.php'));
         }
 
@@ -48,11 +49,11 @@ class IMP_Ui_Mimp
             }
         }
 
-        $out = '<ol>';
+        $out = '<ul>';
         foreach ($items as $val) {
             $out .= '<li><a href="' . $val[1] . '">' . htmlspecialchars($val[0]) . '</a></li>';
         }
-        return $out . '</ol>';
+        return $out . '</ul>';
     }
 
 }

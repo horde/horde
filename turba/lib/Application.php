@@ -38,7 +38,7 @@ class Turba_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (3.0-git)';
+    public $version = 'H4 (3.0.3-git)';
 
     /**
      * Global variables defined:
@@ -80,7 +80,7 @@ class Turba_Application extends Horde_Registry_Application
         $default_source = Horde_Util::nonInputVar('source');
         if (empty($default_source)) {
             if (!($default_source = $GLOBALS['session']->get('turba', 'source'))) {
-                $default_source = Turba::getDefaultAddressBook();
+                $default_source = Turba::getDefaultAddressbook();
             }
             $default_source = Horde_Util::getFormData('source', $default_source);
         }
@@ -103,7 +103,7 @@ class Turba_Application extends Horde_Registry_Application
         }
 
         if (empty($cfgSources[$default_source]['browse'])) {
-            $default_source = Turba::getDefaultAddressBook();
+            $default_source = Turba::getDefaultAddressbook();
         }
         $GLOBALS['session']->set('turba', 'source', $default_source);
         $GLOBALS['default_source'] = $default_source;
@@ -384,6 +384,8 @@ class Turba_Application extends Horde_Registry_Application
             foreach ($addressbooks as &$addressbook) {
                 $addressbook = $addressbook['title'];
             }
+
+            $addressbooks[''] = _("None");
             return $addressbooks;
         }
     }

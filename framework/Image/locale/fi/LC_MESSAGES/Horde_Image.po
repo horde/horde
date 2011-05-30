@@ -1,156 +1,155 @@
 # Finnish translations for Horde_Image module.
 # Copyright (C) 2010 Horde Project
 # This file is distributed under the same license as the Horde_Image module.
-# Automatically generated, 2010.
+# Leena Heino <liinu@uta.fi>, 2010-2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Image\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: i18n@lists.horde.org\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"PO-Revision-Date: 2011-04-03 10:12:21+0300\n"
+"Last-Translator: Leena Heino <liinu@uta.fi>\n"
+"Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Image/Exif.php:188
+#: lib/Horde/Image/Exif.php:180
 #, php-format
 msgid "%4f sec"
-msgstr ""
+msgstr "%4f sek"
 
-#: lib/Horde/Image/Exif.php:281
+#: lib/Horde/Image/Exif.php:272
 #, php-format
 msgid "%d dots per unit"
-msgstr ""
+msgstr "%d pistettä per yksikkö"
 
-#: lib/Horde/Image/Exif.php:363 lib/Horde/Image/Exif.php:365
+#: lib/Horde/Image/Exif.php:354 lib/Horde/Image/Exif.php:356
 #, php-format
 msgid "%d mm"
-msgstr ""
+msgstr "%d mm"
 
-#: lib/Horde/Image/Exif.php:283
+#: lib/Horde/Image/Exif.php:274
 #, php-format
 msgid "%d per unit"
-msgstr ""
+msgstr "%d per yksikkö"
 
-#: lib/Horde/Image/Exif.php:295
+#: lib/Horde/Image/Exif.php:286
 #, php-format
 msgid "%d pixels"
-msgstr ""
+msgstr "%d pikseliä"
 
-#: lib/Horde/Image/Exif.php:183
+#: lib/Horde/Image/Exif.php:175
 #, php-format
 msgid "%d sec"
-msgstr ""
+msgstr "%d sek"
 
-#: lib/Horde/Image/Exif.php:190
-#, fuzzy, php-format
+#: lib/Horde/Image/Exif.php:182
+#, php-format
 msgid "%s / %s sec"
-msgstr "%s suunta %s %s"
+msgstr "%s / %s sek"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:113
 msgid "/10s"
-msgstr ""
+msgstr "/10s"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:85
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:94
 msgid "1-area-focusing"
-msgstr ""
+msgstr "1-alue-tarkennus"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:91
 msgid "1-area-focusing (High speed)"
-msgstr ""
+msgstr "1-alue-tarkennus (Suurinopeus)"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:426
 msgid "10s"
-msgstr ""
+msgstr "10s"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:324
 msgid "1st curtain sync"
-msgstr ""
+msgstr "1. verhosynkronointi"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:321
 msgid "2nd(rear)-curtain sync used"
-msgstr ""
+msgstr "2.(taka)-verhosynkronointi käytössä"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:429
 msgid "2s"
-msgstr ""
+msgstr "2s"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:191
 msgid "2x"
-msgstr ""
+msgstr "2x"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:88
 msgid "3-area-focusing (High speed)"
-msgstr ""
+msgstr "3-alue-tarkennus (Suurinopeus)"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:192
 msgid "4x"
-msgstr ""
+msgstr "4x"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:82
 msgid "9-area-focusing"
-msgstr ""
+msgstr "9-alue-tarkennus"
 
-#: lib/Horde/Image/Exif.php:310
+#: lib/Horde/Image/Exif.php:301
 msgid "90 deg CCW"
-msgstr ""
+msgstr "90 asteen VP"
 
-#: lib/Horde/Image/Exif.php:312
+#: lib/Horde/Image/Exif.php:303
 msgid "90 deg CCW Mirrored"
-msgstr ""
+msgstr "90 asteen VP peilikuvana"
 
-#: lib/Horde/Image/Exif.php:314
+#: lib/Horde/Image/Exif.php:305
 msgid "90 deg CW"
-msgstr ""
+msgstr "90 asteen VP"
 
-#: lib/Horde/Image/Exif.php:308
+#: lib/Horde/Image/Exif.php:299
 msgid "90 deg CW Mirrored"
-msgstr ""
+msgstr "90 asteen VP peilikuvana"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:240
 msgid "AE Good"
-msgstr ""
+msgstr "AE Hyvä"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:256
 msgid "AF non D"
-msgstr ""
+msgstr "AF ei D"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:150
 msgid "AI Focus"
-msgstr ""
+msgstr "AI tarkennus"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:149
 msgid "AI Servo"
-msgstr ""
+msgstr "AI servo"
 
-#: lib/Horde/Image/Exif.php:271
-#, fuzzy
+#: lib/Horde/Image/Exif.php:262
 msgid "Action"
-msgstr "Ohjelma"
+msgstr "Toiminta"
 
-#: lib/Horde/Image/Exif.php:112 lib/Horde/Image/Exif.php:135
-#, fuzzy
+#: lib/Horde/Image/Exif.php:105 lib/Horde/Image/Exif.php:128
 msgid "Aperture"
-msgstr "Lämpötila"
+msgstr "Aukko"
 
-#: lib/Horde/Image/Exif.php:268 lib/Horde/Image/Exif/Parser/Panasonic.php:266
+#: lib/Horde/Image/Exif.php:259 lib/Horde/Image/Exif/Parser/Panasonic.php:266
 msgid "Aperture Priority"
-msgstr ""
+msgstr "Aukkoprioriteetti"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:203
 msgid "Aperture Prority AE"
-msgstr ""
+msgstr "Aukkoprioriteetti AE"
 
-#: lib/Horde/Image/Exif.php:126
+#: lib/Horde/Image/Exif.php:119
 msgid "Artist"
-msgstr ""
+msgstr "Taiteilija"
 
-#: lib/Horde/Image/Exif.php:426 lib/Horde/Image/Exif/Parser/Canon.php:127
+#: lib/Horde/Image/Exif.php:417 lib/Horde/Image/Exif/Parser/Canon.php:127
 #: lib/Horde/Image/Exif/Parser/Canon.php:229
 #: lib/Horde/Image/Exif/Parser/Canon.php:258
 #: lib/Horde/Image/Exif/Parser/Canon.php:364
@@ -162,133 +161,126 @@ msgstr ""
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:161
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:194
 msgid "Auto"
-msgstr ""
+msgstr "Auto"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:131
 msgid "Auto + Red Eye Reduction"
-msgstr ""
+msgstr "Auto + punasilmäesto"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:231
 msgid "Auto Focus Good"
-msgstr ""
+msgstr "Automaattitarkennus hyvä"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:267
 msgid "Auto Selected"
-msgstr ""
+msgstr "Auto valittu"
 
-#: lib/Horde/Image/Exif.php:260
+#: lib/Horde/Image/Exif.php:251
 msgid "Auto bracket"
-msgstr ""
+msgstr "Auto haarukointi"
 
-#: lib/Horde/Image/Exif.php:258
+#: lib/Horde/Image/Exif.php:249
 msgid "Auto exposure"
-msgstr ""
+msgstr "Auto valotus"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:203
-#, fuzzy
 msgid "Auto, Continuous"
-msgstr "Napsauta jatkaaksesi"
+msgstr "Auto, jatkuva"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:200
 msgid "Auto, Focus button"
-msgstr ""
+msgstr "Auto, tarkennusnäppäin"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:281
 msgid "Auto-DEP"
-msgstr ""
+msgstr "Auto-DEP"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:279
 msgid "Av"
-msgstr ""
+msgstr "Av"
 
-#: lib/Horde/Image/Exif.php:388
+#: lib/Horde/Image/Exif.php:379
 msgid "Average"
-msgstr ""
+msgstr "Keskiarvo"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:299
 msgid "Baby"
-msgstr ""
+msgstr "Vauva"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:178
-#, fuzzy
 msgid "Black & White"
-msgstr "Sininen ja valkoinen"
+msgstr "Musta & valkoinen"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:179
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:354
-#, fuzzy
 msgid "Black and White"
-msgstr "Sininen ja valkoinen"
+msgstr "Musta ja valkoinen"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:174
-#, fuzzy
 msgid "Bright+"
-msgstr "Yö"
+msgstr "Kirkkaus+"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:175
-#, fuzzy
 msgid "Bright-"
-msgstr "Yö"
+msgstr "rkkaus-"
 
-#: lib/Horde/Image/Exif.php:193
+#: lib/Horde/Image/Exif.php:185
 msgid "Bulb"
-msgstr ""
+msgstr "Salamalamppu"
 
-#: lib/Horde/Image/Exif.php:80
+#: lib/Horde/Image/Exif.php:73
 msgid "By"
-msgstr ""
+msgstr "Tekijä"
 
-#: lib/Horde/Image/Exif.php:97
+#: lib/Horde/Image/Exif.php:90
 msgid "Camera Make"
-msgstr ""
+msgstr "Kameran valmistaja"
 
-#: lib/Horde/Image/Exif.php:98
-#, fuzzy
+#: lib/Horde/Image/Exif.php:91
 msgid "Camera Model"
-msgstr "Kamerun"
+msgstr "Kameran malli"
 
-#: lib/Horde/Image/Exif.php:124
+#: lib/Horde/Image/Exif.php:117
 msgid "Camera Orientation"
-msgstr ""
+msgstr "Kameran asento"
 
-#: lib/Horde/Image/Exif.php:82
-#, fuzzy
+#: lib/Horde/Image/Exif.php:75
 msgid "Caption"
-msgstr "Asetukset"
+msgstr "Kuvateksti"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:269
 #: lib/Horde/Image/Exif/Parser/Canon.php:392
 #: lib/Horde/Image/Exif/Parser/Nikon.php:228
 msgid "Center"
-msgstr ""
+msgstr "Keskitetty"
 
-#: lib/Horde/Image/Exif.php:389
+#: lib/Horde/Image/Exif.php:380
 msgid "Center Weighted Average"
-msgstr ""
+msgstr "Keskipainotettu keskiarvo"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:251
 msgid "Center-weighted"
-msgstr ""
+msgstr "Keskipainotettu"
 
-#: lib/Horde/Image/Exif.php:289
+#: lib/Horde/Image/Exif.php:280
 msgid "Centimeter"
-msgstr ""
+msgstr "Senttimetri"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:140
 msgid "Chroma Saturation High"
-msgstr ""
+msgstr "Kromakylläisyys korkea"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:141
 msgid "Chroma Saturation Low(ORG)"
-msgstr ""
+msgstr "Kromakylläisyys matala(ORG)"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:139
 msgid "Chroma Saturation Normal(STD)"
-msgstr ""
+msgstr "Kromakylläisyys normaali(STD)"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:259
 msgid "Close-up (Macro)"
-msgstr ""
+msgstr "Lähikuva (Makro)"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:366
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:126
@@ -297,301 +289,283 @@ msgstr ""
 msgid "Cloudy"
 msgstr "Pilvinen"
 
-#: lib/Horde/Image/Exif.php:406
-#, fuzzy
+#: lib/Horde/Image/Exif.php:397
 msgid "Cloudy weather"
-msgstr "Pilvinen myöhään"
+msgstr "Pilvinen sää"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:164
-#, fuzzy
 msgid "Color"
-msgstr "Kolumbia"
+msgstr "Väri"
 
-#: lib/Horde/Image/Exif.php:476
+#: lib/Horde/Image/Exif.php:467
 msgid "Color Sequential Area Sensor"
-msgstr ""
+msgstr "Värijärjestyksen mukainen tilasensori"
 
-#: lib/Horde/Image/Exif.php:478
+#: lib/Horde/Image/Exif.php:469
 msgid "Color Sequential Linear Sensor"
-msgstr ""
+msgstr "Värijärjestyksen mukainen lineaarisensori"
 
-#: lib/Horde/Image/Exif.php:121
-#, fuzzy
+#: lib/Horde/Image/Exif.php:114
 msgid "Color Space"
-msgstr "Värivalitsin"
+msgstr "Väriavaruus"
 
-#: lib/Horde/Image/Exif.php:441
+#: lib/Horde/Image/Exif.php:432
 msgid "Compulsory Flash"
-msgstr ""
+msgstr "Pakotettu salama"
 
-#: lib/Horde/Image/Exif.php:443
+#: lib/Horde/Image/Exif.php:434
 msgid "Compulsory Flash, Return light detected"
-msgstr ""
+msgstr "Pakotettu salama, heijastunutta valoa havaittu"
 
-#: lib/Horde/Image/Exif.php:442
+#: lib/Horde/Image/Exif.php:433
 msgid "Compulsory Flash, Return light not detected"
-msgstr ""
+msgstr "Pakotettu salama, heijastunutta valoa ei havaittu"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:140
 #: lib/Horde/Image/Exif/Parser/Canon.php:153
 #: lib/Horde/Image/Exif/Parser/Canon.php:336
-#, fuzzy
 msgid "Continuous"
-msgstr "Jatka"
+msgstr "Jatkuva"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:150
 msgid "Contrast High(HARD)"
-msgstr ""
+msgstr "Kontrasti korkea(HARD)"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:151
 msgid "Contrast Low(ORG)"
-msgstr ""
+msgstr "Kontrasti matala(ORG)"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:149
 msgid "Contrast Normal(STD)"
-msgstr ""
+msgstr "Kontrasti normaali(STD)"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:176
-#, fuzzy
 msgid "Contrast+"
-msgstr "Korkea kontrastinen"
+msgstr "Kontrasti+"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:177
-#, fuzzy
 msgid "Contrast-"
-msgstr "Korkea kontrastinen"
+msgstr "Kontrasti-"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:351
 msgid "Cool"
-msgstr ""
+msgstr "Viileä"
 
-#: lib/Horde/Image/Exif.php:410
+#: lib/Horde/Image/Exif.php:401
 msgid "Cool white fluorescent"
-msgstr ""
+msgstr "Viileä, valkoinen loisteputki"
 
-#: lib/Horde/Image/Exif.php:81 lib/Horde/Image/Exif.php:125
+#: lib/Horde/Image/Exif.php:74 lib/Horde/Image/Exif.php:118
 msgid "Copyright"
-msgstr ""
+msgstr "Tekijänoikeus"
 
 #: lib/Horde/Image/Exif/Bundled.php:269
 msgid "Couldnt Find IFD1"
-msgstr ""
+msgstr "Ei löytynyt IFD1"
 
 #: lib/Horde/Image/Exif/Bundled.php:315
 msgid "Couldnt Find InteroperabilityIFD"
-msgstr ""
+msgstr "Ei löytynyt InteroperabilityIFD"
 
 #: lib/Horde/Image/Exif/Bundled.php:232
 msgid "Couldnt Find SubIFD"
-msgstr ""
+msgstr "Ei löytynyt SubIFD"
 
-#: lib/Horde/Image/Exif.php:270
-#, fuzzy
+#: lib/Horde/Image/Exif.php:261
 msgid "Creative"
-msgstr "Luo"
+msgstr "Luova"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:370
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:131
 msgid "Custom"
-msgstr ""
+msgstr "Muokattu"
 
-#: lib/Horde/Image/Exif.php:94
+#: lib/Horde/Image/Exif.php:87
 msgid "Date Photo Digitized"
-msgstr ""
+msgstr "Digitoinnin päiväys"
 
-#: lib/Horde/Image/Exif.php:92
+#: lib/Horde/Image/Exif.php:85
 msgid "Date Photo Modified"
-msgstr ""
+msgstr "Muokkauksen päiväys"
 
-#: lib/Horde/Image/Exif.php:93
+#: lib/Horde/Image/Exif.php:86
 msgid "Date Photo Taken"
-msgstr ""
+msgstr "Kuvanoton päiväys"
 
-#: lib/Horde/Image/Exif.php:409
+#: lib/Horde/Image/Exif.php:400
 msgid "Day white fluorescent"
-msgstr ""
+msgstr "Päivänvalkea loisteputki"
 
-#: lib/Horde/Image/Exif.php:401 lib/Horde/Image/Exif/Parser/Fujifilm.php:125
+#: lib/Horde/Image/Exif.php:392 lib/Horde/Image/Exif/Parser/Fujifilm.php:125
 #: lib/Horde/Image/Exif/Parser/Nikon.php:198
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:164
-#, fuzzy
 msgid "Daylight"
-msgstr "Yö"
+msgstr "Päivänvalo"
 
-#: lib/Horde/Image/Exif.php:408
+#: lib/Horde/Image/Exif.php:399
 msgid "Daylight fluorescent"
-msgstr ""
+msgstr "Päivänvalo-loisteputki"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:127
 msgid "DaylightColor-fluorescence"
-msgstr ""
+msgstr "PäivänValoVäri-loisteputki"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:128
 msgid "DaywhiteColor-fluorescence"
-msgstr ""
+msgstr "PäivänValkoinenVäri-loisteputki"
 
-#: lib/Horde/Image/Exif.php:136
+#: lib/Horde/Image/Exif.php:129
 msgid "Depth of Field"
-msgstr ""
+msgstr "Kuvan syvyys"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:269
 msgid "Did Not Fire"
-msgstr ""
+msgstr "Ei syttynyt"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:276
 msgid "EasyShoot"
-msgstr ""
+msgstr "EasyShoot"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:249
 msgid "Evaluative"
-msgstr ""
+msgstr "Arvioiva"
+
+#: lib/Horde/Image/Exif.php:102
+msgid "Exposure"
+msgstr "Valotus"
+
+#: lib/Horde/Image/Exif.php:108
+msgid "Exposure Bias"
+msgstr "Valotuksen painotus"
 
 #: lib/Horde/Image/Exif.php:109
-#, fuzzy
-msgid "Exposure"
-msgstr "Exponentti"
-
-#: lib/Horde/Image/Exif.php:115
-msgid "Exposure Bias"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:116
 msgid "Exposure Mode"
-msgstr ""
+msgstr "Valotuksen tila"
 
-#: lib/Horde/Image/Exif.php:117
+#: lib/Horde/Image/Exif.php:110
 msgid "Exposure Program"
-msgstr ""
+msgstr "Valotuksen ohjelma"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:271
 msgid "External"
-msgstr ""
+msgstr "Ulkoinen"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:312
 msgid "External E-TTL"
-msgstr ""
+msgstr "Ulkoinen E-TTL"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:133
 msgid "External Flash"
-msgstr ""
+msgstr "Ulkoinen salama"
 
-#: lib/Horde/Image/Exif.php:113
-#, fuzzy
+#: lib/Horde/Image/Exif.php:106
 msgid "F-Number"
-msgstr "Lukumäärä"
+msgstr "F-numero"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:318
 msgid "FP sync used"
-msgstr ""
+msgstr "FP synk käytetty"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:175
-#, fuzzy
 msgid "Fast Shutter"
-msgstr "Jälkimmäinen neljännes"
+msgstr "Nopea suljin"
 
-#: lib/Horde/Image/Exif.php:137
+#: lib/Horde/Image/Exif.php:130
 msgid "Field of View"
-msgstr ""
+msgstr "Kuvan laajuus"
 
-#: lib/Horde/Image/Exif.php:102
-#, fuzzy
+#: lib/Horde/Image/Exif.php:95
 msgid "File Size"
-msgstr "Paketin koko"
+msgstr "Tiedoston koko"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:119
 msgid "Fine"
-msgstr ""
+msgstr "Hyvä"
 
-#: lib/Horde/Image/Exif.php:405
-#, fuzzy
+#: lib/Horde/Image/Exif.php:396
 msgid "Fine weather"
-msgstr "Metar sää"
+msgstr "Hyvä sää"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:284
 msgid "Fireworks"
-msgstr ""
+msgstr "Ilotulitus"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:211
 msgid "Fisheye"
-msgstr ""
+msgstr "Kalansilmä"
 
-#: lib/Horde/Image/Exif.php:404 lib/Horde/Image/Exif.php:438
+#: lib/Horde/Image/Exif.php:395 lib/Horde/Image/Exif.php:429
 #: lib/Horde/Image/Exif/Parser/Canon.php:369
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:176
 msgid "Flash"
-msgstr "Pika"
+msgstr "Salama"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:304
 msgid "Flash Did Not Fire"
-msgstr ""
+msgstr "Salama ei syttynyt"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:305
-#, fuzzy
 msgid "Flash Fired"
-msgstr "Pika"
+msgstr "Salama syttyi"
 
-#: lib/Horde/Image/Exif.php:119
-#, fuzzy
+#: lib/Horde/Image/Exif.php:112
 msgid "Flash Setting"
-msgstr "Osion asetukset"
+msgstr "Salaman asetukset"
 
-#: lib/Horde/Image/Exif.php:446
+#: lib/Horde/Image/Exif.php:437
 msgid "Flash, Auto-Mode"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:448
-msgid "Flash, Auto-Mode, Return light detected"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:447
-msgid "Flash, Auto-Mode, Return light not detected"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:440
-msgid "Flash, strobe return light detected"
-msgstr ""
+msgstr "Salama, automaattiasetus"
 
 #: lib/Horde/Image/Exif.php:439
+msgid "Flash, Auto-Mode, Return light detected"
+msgstr "Salama, automaattiasetus, heijastunutta valoa havaittu"
+
+#: lib/Horde/Image/Exif.php:438
+msgid "Flash, Auto-Mode, Return light not detected"
+msgstr "Salama, automaattiasetus, heijastunutta valoa ei havaittu"
+
+#: lib/Horde/Image/Exif.php:431
+msgid "Flash, strobe return light detected"
+msgstr "Salama, välkkyvää valoa havaittu"
+
+#: lib/Horde/Image/Exif.php:430
 msgid "Flash, strobe return light not detected"
-msgstr ""
+msgstr "Salama, välkkyvää valua ei havaittu"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:200
-#, fuzzy
 msgid "Flourescence"
-msgstr "Ei toistoa"
+msgstr "Loisteputki"
 
-#: lib/Horde/Image/Exif.php:402 lib/Horde/Image/Exif/Parser/Canon.php:368
+#: lib/Horde/Image/Exif.php:393 lib/Horde/Image/Exif/Parser/Canon.php:368
 msgid "Fluorescent"
-msgstr ""
+msgstr "Loisteputki"
 
-#: lib/Horde/Image/Exif.php:110
-#, fuzzy
+#: lib/Horde/Image/Exif.php:103
 msgid "Focal Length"
-msgstr "Avaimen pituus"
+msgstr "Polttoväli"
 
-#: lib/Horde/Image/Exif.php:111
+#: lib/Horde/Image/Exif.php:104
 msgid "Focal Length (35mm equiv)"
-msgstr ""
+msgstr "Polttoväli (vastaa 35mm)"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:296
 msgid "Food"
 msgstr "Ruoka"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:172
-#, fuzzy
 msgid "Full Auto"
-msgstr "Täysikuu"
+msgstr "Täysin automaattinen"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:170
 msgid "Halogen"
-msgstr ""
+msgstr "Halogeeni"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:115
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:116
 msgid "Hard"
-msgstr ""
+msgstr "Kova"
 
-#: lib/Horde/Image/Exif.php:104
+#: lib/Horde/Image/Exif.php:97
 msgid "Height"
 msgstr "Korkeus"
 
@@ -607,108 +581,99 @@ msgstr "Korkea"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:302
 msgid "High Sensitivity"
-msgstr ""
+msgstr "Korkea herkkyys"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:441
 msgid "Horizontal (normal)"
-msgstr ""
+msgstr "Horisontaalinen (normaali)"
 
-#: lib/Horde/Image/Exif.php:114
-#, fuzzy
+#: lib/Horde/Image/Exif.php:107
 msgid "ISO Setting"
-msgstr "Osion asetukset"
+msgstr "ISO-asetus"
 
-#: lib/Horde/Image/Exif.php:419
+#: lib/Horde/Image/Exif.php:410
 msgid "ISO studio tungsten"
-msgstr ""
+msgstr "ISO studio tungsteeni"
 
 #: lib/Horde/Image/Exif/Bundled.php:288
 msgid "Illegal size for IFD1"
-msgstr ""
+msgstr "Epäkelpo koko IFD1:lle"
 
 #: lib/Horde/Image/Exif/Bundled.php:334
 msgid "Illegal size for InteroperabilityIFD"
-msgstr ""
+msgstr "Epäkelpo koko InteroperabilityIFD:lle"
 
 #: lib/Horde/Image/Exif/Bundled.php:251
 msgid "Illegal size for SubIFD"
-msgstr ""
-
-#: lib/Horde/Image/Exif.php:86
-#, fuzzy
-msgid "Image Creator"
-msgstr "Objektin luoja"
-
-#: lib/Horde/Image/Exif.php:128
-msgid "Image Stabilization"
-msgstr ""
+msgstr "Epäkelpo koko SubIFD:lle"
 
 #: lib/Horde/Image/Exif.php:79
-#, fuzzy
-msgid "Image Title"
-msgstr "Kuva"
+msgid "Image Creator"
+msgstr "Kuvan luoja"
 
-#: lib/Horde/Image/Exif.php:78
-#, fuzzy
+#: lib/Horde/Image/Exif.php:121
+msgid "Image Stabilization"
+msgstr "Kuvanvakaus"
+
+#: lib/Horde/Image/Exif.php:72
+msgid "Image Title"
+msgstr "Kuva otsikko"
+
+#: lib/Horde/Image/Exif.php:71
 msgid "Image keywords"
-msgstr "Kuvan vienti"
+msgstr "Kuvan avainsanat"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:130
 #: lib/Horde/Image/Exif/Parser/Nikon.php:199
 msgid "Incandescense"
-msgstr ""
+msgstr "Hehkulamppu"
 
-#: lib/Horde/Image/Exif.php:288
+#: lib/Horde/Image/Exif.php:279
 msgid "Inch"
-msgstr ""
+msgstr "Tuuma"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:375
 msgid "Infinite"
-msgstr ""
+msgstr "Ääretön"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:315
-#, fuzzy
 msgid "Internal Flash"
-msgstr "Kokonaislukulista"
+msgstr "Sisäinen salama"
 
-#: lib/Horde/Image/Exif.php:273 lib/Horde/Image/Exif.php:491
+#: lib/Horde/Image/Exif.php:264 lib/Horde/Image/Exif.php:482
 #: lib/Horde/Image/Exif/Parser/Canon.php:174
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:199
 msgid "Landscape"
-msgstr ""
+msgstr "Maisema"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:164
 msgid "Large"
 msgstr "Suuri"
 
-#: lib/Horde/Image/Exif.php:95
-#, fuzzy
+#: lib/Horde/Image/Exif.php:88
 msgid "Latitude"
-msgstr "Kliseet"
+msgstr "Leveyspiiri"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:270
 #: lib/Horde/Image/Exif/Parser/Canon.php:395
-#, fuzzy
 msgid "Left"
-msgstr "Siirrä vasemmalle"
-
-#: lib/Horde/Image/Exif.php:134
-msgid "Lens"
-msgstr ""
+msgstr "Vasen"
 
 #: lib/Horde/Image/Exif.php:127
-#, fuzzy
+msgid "Lens"
+msgstr "Linssi"
+
+#: lib/Horde/Image/Exif.php:120
 msgid "Light source"
-msgstr "Vaalean sininen"
+msgstr "Valonlähde"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:260
 msgid "Locked (Pan Mode)"
-msgstr ""
+msgstr "Lukittu (Pan moodi)"
 
-#: lib/Horde/Image/Exif.php:96
-#, fuzzy
+#: lib/Horde/Image/Exif.php:89
 msgid "Longitude"
-msgstr "Pitkä teksti"
+msgstr "Pituuspiiri"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:200
 #: lib/Horde/Image/Exif/Parser/Canon.php:208
@@ -720,18 +685,18 @@ msgstr "Matala"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:372
 msgid "Low/High Quality"
-msgstr ""
+msgstr "Matala/Korkea laatu"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:105
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:272
 msgid "Macro"
-msgstr ""
+msgstr "Makro"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:182
 msgid "Macro/Close-Up"
-msgstr ""
+msgstr "Makro/Lähikuva"
 
-#: lib/Horde/Image/Exif.php:266 lib/Horde/Image/Exif.php:427
+#: lib/Horde/Image/Exif.php:257 lib/Horde/Image/Exif.php:418
 #: lib/Horde/Image/Exif/Parser/Canon.php:173
 #: lib/Horde/Image/Exif/Parser/Canon.php:257
 #: lib/Horde/Image/Exif/Parser/Canon.php:280
@@ -741,60 +706,58 @@ msgstr ""
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:182
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:197
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:275
-#, fuzzy
 msgid "Manual"
-msgstr "tammikuu"
+msgstr "Käsin"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:205
 msgid "Manual Exposure"
-msgstr ""
+msgstr "Käsivalotus"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:151
 #: lib/Horde/Image/Exif/Parser/Canon.php:154
 #: lib/Horde/Image/Exif/Parser/Canon.php:266
 msgid "Manual Focus"
-msgstr ""
+msgstr "Käsitarkennus"
 
-#: lib/Horde/Image/Exif.php:259
+#: lib/Horde/Image/Exif.php:250
 msgid "Manual exposure"
-msgstr ""
+msgstr "Käsivalotus"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:165
 msgid "Medium"
 msgstr "Keskikoinen"
 
-#: lib/Horde/Image/Exif.php:118
+#: lib/Horde/Image/Exif.php:111
 msgid "Metering Mode"
-msgstr ""
+msgstr "Mittausmoodi"
 
-#: lib/Horde/Image/Exif.php:302
-#, fuzzy
+#: lib/Horde/Image/Exif.php:293
 msgid "Mirrored"
 msgstr "Peilikuva"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:215
 msgid "Mode 1"
-msgstr ""
+msgstr "Moodi 1"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:221
 msgid "Mode 2"
-msgstr ""
+msgstr "Moodi 2"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:165
 msgid "Monochrome"
-msgstr ""
+msgstr "Yksiväri"
 
-#: lib/Horde/Image/Exif.php:392
+#: lib/Horde/Image/Exif.php:383
 msgid "Multi-Segment"
-msgstr ""
+msgstr "Monisegmentti"
 
-#: lib/Horde/Image/Exif.php:391
+#: lib/Horde/Image/Exif.php:382
 msgid "Multi-Spot"
-msgstr ""
+msgstr "Monipiste"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:462
 msgid "Natural"
-msgstr ""
+msgstr "Luonnollinen"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:177
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:201
@@ -803,32 +766,28 @@ msgstr "Yö"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:260
 msgid "Night Portrait"
-msgstr ""
+msgstr "Yömuotokuva"
 
-#: lib/Horde/Image/Exif.php:493
-#, fuzzy
+#: lib/Horde/Image/Exif.php:484
 msgid "Night Scene"
-msgstr "Kevyttä lumisadetta"
+msgstr "Yömaisema"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:293
-#, fuzzy
 msgid "Night Scenery"
-msgstr "Oikea otsake"
+msgstr "Yömaisema"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:323
 msgid "No"
 msgstr "Ei"
 
-#: lib/Horde/Image/Exif.php:437 lib/Horde/Image/Exif.php:444
-#: lib/Horde/Image/Exif.php:445 lib/Horde/Image/Exif.php:449
-#, fuzzy
+#: lib/Horde/Image/Exif.php:428 lib/Horde/Image/Exif.php:435
+#: lib/Horde/Image/Exif.php:436 lib/Horde/Image/Exif.php:440
 msgid "No Flash"
-msgstr "Pika"
+msgstr "Ei salamaa"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:222
-#, fuzzy
 msgid "No Warning"
-msgstr "Varoitus"
+msgstr "Ei varoitusta"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:190
 #: lib/Horde/Image/Exif/Parser/Nikon.php:210
@@ -847,20 +806,19 @@ msgstr "Ei mitään"
 #: lib/Horde/Image/Exif/Parser/Sanyo.php:98
 #: lib/Horde/Image/Exif/Parser/Sanyo.php:106
 msgid "Normal"
-msgstr ""
+msgstr "Normaali"
 
-#: lib/Horde/Image/Exif.php:300
+#: lib/Horde/Image/Exif.php:291
 msgid "Normal (O deg)"
-msgstr ""
+msgstr "Normaali (0 astetta)"
 
-#: lib/Horde/Image/Exif.php:267
+#: lib/Horde/Image/Exif.php:258
 msgid "Normal Program"
-msgstr ""
+msgstr "Normaaliohjelma"
 
-#: lib/Horde/Image/Exif.php:472
-#, fuzzy
+#: lib/Horde/Image/Exif.php:463
 msgid "Not defined"
-msgstr "Ei ennen"
+msgstr "Ei määritelty"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:112
 #: lib/Horde/Image/Exif/Parser/Canon.php:126
@@ -873,9 +831,8 @@ msgstr "Ei ennen"
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:345
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:369
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:423
-#, fuzzy
 msgid "Off"
-msgstr "Toimisto"
+msgstr "Pois päältä"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:128
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:160
@@ -883,239 +840,220 @@ msgstr "Toimisto"
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:189
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:214
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:233
-#, fuzzy
 msgid "On"
-msgstr "Oman"
+msgstr "Päällä"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:132
 msgid "On + Red Eye Reduction"
-msgstr ""
+msgstr "Päällä + punasilmäesto"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:272
 msgid "On Camera"
-msgstr ""
+msgstr "Kamerassa"
 
-#: lib/Horde/Image/Exif.php:473
+#: lib/Horde/Image/Exif.php:464
 msgid "One Chip Color Area Sensor"
-msgstr ""
+msgstr "Yhden piirin väritila-anturi"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:148
 msgid "One-Shot"
-msgstr ""
+msgstr "Yksikuva"
 
-#: lib/Horde/Image/Exif.php:394
+#: lib/Horde/Image/Exif.php:385
 msgid "Other"
 msgstr "Muu"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:232
 msgid "Out of Focus"
-msgstr ""
+msgstr "Epätarkka"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:241
 msgid "Over Exposure"
-msgstr ""
+msgstr "Ylivalotus"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:183
 msgid "Pan Focus"
-msgstr ""
+msgstr "Pan tarkennus"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:278
-#, fuzzy
 msgid "Panning"
-msgstr "Varoitus"
+msgstr "Rajaus"
 
-#: lib/Horde/Image/Exif.php:393 lib/Horde/Image/Exif/Parser/Canon.php:250
+#: lib/Horde/Image/Exif.php:384 lib/Horde/Image/Exif/Parser/Canon.php:250
 msgid "Partial"
-msgstr ""
+msgstr "Osittainen"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:287
 msgid "Party"
-msgstr ""
+msgstr "Juhlat"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:308
-#, fuzzy
 msgid "Pet"
-msgstr "Lemmikit"
+msgstr "Lemmikki"
 
-#: lib/Horde/Image/Exif.php:101
-#, fuzzy
+#: lib/Horde/Image/Exif.php:94
 msgid "Photo Description"
-msgstr "Kuvaus"
+msgstr "Valokuvan kuvaus"
 
-#: lib/Horde/Image/Exif.php:100
-#, fuzzy
+#: lib/Horde/Image/Exif.php:93
 msgid "Photo Type"
-msgstr "Valokuvat"
+msgstr "Valokuvan tyyppi"
 
-#: lib/Horde/Image/Exif.php:287
+#: lib/Horde/Image/Exif.php:278
 msgid "Pixels"
-msgstr ""
+msgstr "Valokuvakseliä"
 
-#: lib/Horde/Image/Exif.php:272 lib/Horde/Image/Exif.php:492
+#: lib/Horde/Image/Exif.php:263 lib/Horde/Image/Exif.php:483
 #: lib/Horde/Image/Exif/Parser/Canon.php:180
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:198
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:251
-#, fuzzy
 msgid "Portrait"
-msgstr "Portti"
+msgstr "Muotokuva"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:197
-#, fuzzy
 msgid "Preset"
-msgstr "Tyhjennä"
+msgstr "Esiasetus"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:277
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:263
 msgid "Program"
-msgstr ""
+msgstr "Ohjelma"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:202
 msgid "Program AE"
-msgstr ""
+msgstr "Ohjelmoitu AE"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:149
 msgid "RAW"
-msgstr ""
+msgstr "RAAKA"
 
-#: lib/Horde/Image/Exif.php:450
+#: lib/Horde/Image/Exif.php:441
 msgid "Red Eye"
-msgstr ""
+msgstr "Punasilmäisyys"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:129
-#, fuzzy
 msgid "Red Eye Reduction"
-msgstr "Radiopainike"
+msgstr "Punasilmäisyysesto"
 
-#: lib/Horde/Image/Exif.php:456
+#: lib/Horde/Image/Exif.php:447
 msgid "Red Eye, Auto-Mode"
-msgstr ""
+msgstr "Punasilmäisyys, automaattiasetus"
 
-#: lib/Horde/Image/Exif.php:458
+#: lib/Horde/Image/Exif.php:449
 msgid "Red Eye, Auto-Mode, Return light detected"
-msgstr ""
+msgstr "Punasilmäisyys, automaattiasetus, heijastunutta valoa havaittu"
 
-#: lib/Horde/Image/Exif.php:457
+#: lib/Horde/Image/Exif.php:448
 msgid "Red Eye, Auto-Mode, Return light not detected"
-msgstr ""
+msgstr "Punasilmäisyys, automaattiasetus, heijastunutta valoa ei havaittu"
 
-#: lib/Horde/Image/Exif.php:453
+#: lib/Horde/Image/Exif.php:444
 msgid "Red Eye, Compulsory Flash"
-msgstr ""
+msgstr "Punasilmäisyys, pakotettu salama"
 
-#: lib/Horde/Image/Exif.php:455
+#: lib/Horde/Image/Exif.php:446
 msgid "Red Eye, Compulsory Flash, Return light detected"
-msgstr ""
+msgstr "Punasilmäisyys, pakotettu salama, heijastunutta valoa havaittu"
 
-#: lib/Horde/Image/Exif.php:454
+#: lib/Horde/Image/Exif.php:445
 msgid "Red Eye, Compulsory Flash, Return light not detected"
-msgstr ""
+msgstr "Punasilmäisyys, pakotettu salama, heijastunutta valoa ei havaittu"
 
-#: lib/Horde/Image/Exif.php:452
+#: lib/Horde/Image/Exif.php:443
 msgid "Red Eye, Return light detected"
-msgstr ""
+msgstr "Punasilmäisyys, heijastunutta valoa havaittu"
 
-#: lib/Horde/Image/Exif.php:451
+#: lib/Horde/Image/Exif.php:442
 msgid "Red Eye, Return light not detected"
-msgstr ""
+msgstr "Punasilmäisyys, heijastunutta valoa ei havaittu"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:162
 msgid "Red-Eye Reduction"
-msgstr ""
+msgstr "Punasilmäisyysesto"
 
-#: lib/Horde/Image/Exif.php:107
+#: lib/Horde/Image/Exif.php:100
 msgid "Resolution Unit"
-msgstr ""
+msgstr "Tarkkuusyksikkö"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:268
 #: lib/Horde/Image/Exif/Parser/Canon.php:389
-#, fuzzy
 msgid "Right"
-msgstr "Yö"
+msgstr "Oikea"
 
-#: lib/Horde/Image/Exif.php:87
-#, fuzzy
+#: lib/Horde/Image/Exif.php:80
 msgid "Rights"
-msgstr "Yö"
+msgstr "Oikeudet"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:447
-#, fuzzy
 msgid "Rotate 270 CW"
-msgstr "Käännä 180"
+msgstr "Käännä 270 MP"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:444
-#, fuzzy
 msgid "Rotate 90 CW"
-msgstr "Käännä 180"
+msgstr "Käännä 90 MP"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:154
 msgid "SXGA Basic"
-msgstr ""
+msgstr "SXGA Perus"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:156
 msgid "SXGA Fine"
-msgstr ""
+msgstr "SXGA Tarkka"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:155
 msgid "SXGA Normal"
-msgstr ""
+msgstr "SXGA Normaali"
 
-#: lib/Horde/Image/Exif.php:129
-#, fuzzy
+#: lib/Horde/Image/Exif.php:122
 msgid "Scene Type"
-msgstr "Avaimen tyyppi"
+msgstr "Maisematyyppi"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:254
 msgid "Scenery"
-msgstr ""
+msgstr "Maisema"
 
-#: lib/Horde/Image/Exif.php:122
-#, fuzzy
+#: lib/Horde/Image/Exif.php:115
 msgid "Sensing Method"
-msgstr "Metodi"
+msgstr "Tunnistusmetodi"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:179
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:357
 msgid "Sepia"
-msgstr ""
+msgstr "Seepia"
 
-#: lib/Horde/Image/Exif.php:407
+#: lib/Horde/Image/Exif.php:398
 msgid "Shade"
-msgstr ""
+msgstr "Varjo"
 
-#: lib/Horde/Image/Exif.php:269 lib/Horde/Image/Exif/Parser/Fujifilm.php:204
+#: lib/Horde/Image/Exif.php:260 lib/Horde/Image/Exif/Parser/Fujifilm.php:204
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:269
-#, fuzzy
 msgid "Shutter Priority"
-msgstr "Lääni tai alue"
+msgstr "Sulkijan prioriteetti"
 
-#: lib/Horde/Image/Exif.php:108
+#: lib/Horde/Image/Exif.php:101
 msgid "Shutter Speed"
-msgstr ""
+msgstr "Sulkijan nopeus"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:281
-#, fuzzy
 msgid "Simple"
-msgstr "Simpleksi"
+msgstr "Yksinkertainen"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:152
 #: lib/Horde/Image/Exif/Parser/Canon.php:335
-#, fuzzy
 msgid "Single"
-msgstr "Singapore"
+msgstr "Yksittäinen"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:139
 msgid "Single/Timer"
-msgstr ""
+msgstr "Yksittäinen/Ajastin"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:176
-#, fuzzy
 msgid "Slow Shutter"
-msgstr "Lumisadetta"
+msgstr "Hidas suljin"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:130
-#, fuzzy
 msgid "Slow Synchro"
-msgstr "Lumisadetta"
+msgstr "Hidas synkronointi"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:166
 msgid "Small"
@@ -1128,56 +1066,50 @@ msgstr "Lumi"
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:112
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:113
 msgid "Soft"
-msgstr ""
+msgstr "Pehmeä"
 
-#: lib/Horde/Image/Exif.php:99
-#, fuzzy
+#: lib/Horde/Image/Exif.php:92
 msgid "Software Version"
-msgstr "Versio"
+msgstr "Ohjelmiston versio"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:202
-#, fuzzy
 msgid "SpeedLight"
-msgstr "Korkeus"
+msgstr "SpeedLight"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:181
-#, fuzzy
 msgid "Sport"
 msgstr "Urheilu"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:200
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:257
 msgid "Sports"
-msgstr "Urheilu"
+msgstr "Urheilut"
 
-#: lib/Horde/Image/Exif.php:390
+#: lib/Horde/Image/Exif.php:381
 msgid "Spot"
-msgstr ""
+msgstr "Piste"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:97
 msgid "Spot-focusing"
-msgstr ""
+msgstr "Pistetarkennus"
 
-#: lib/Horde/Image/Exif.php:490 lib/Horde/Image/Exif/Parser/Panasonic.php:143
+#: lib/Horde/Image/Exif.php:481 lib/Horde/Image/Exif/Parser/Panasonic.php:143
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:387
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:405
 msgid "Standard"
 msgstr "Standardi"
 
-#: lib/Horde/Image/Exif.php:412
-#, fuzzy
+#: lib/Horde/Image/Exif.php:403
 msgid "Standard light A"
-msgstr "Standardi"
+msgstr "Standardi valo A"
 
-#: lib/Horde/Image/Exif.php:413
-#, fuzzy
+#: lib/Horde/Image/Exif.php:404
 msgid "Standard light B"
-msgstr "Standardi"
+msgstr "Standardi valo B"
 
-#: lib/Horde/Image/Exif.php:414
-#, fuzzy
+#: lib/Horde/Image/Exif.php:405
 msgid "Standard light C"
-msgstr "Standardi"
+msgstr "Standardi valo C"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:365
 msgid "Sunny"
@@ -1185,45 +1117,44 @@ msgstr "Aurinkoinen"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:120
 msgid "Superfine"
-msgstr ""
+msgstr "Supertarkka"
 
 #: lib/Horde/Image/Exif/Bundled.php:53
-#, fuzzy
 msgid "The file could not be opened."
-msgstr "Tuotua tiedostoa ei voitu tallettaa."
+msgstr "Tiedostoa ei voitu avata."
 
-#: lib/Horde/Image/Exif.php:475
+#: lib/Horde/Image/Exif.php:466
 msgid "Three Chip Color Area Sensor"
-msgstr ""
+msgstr "Kolmen värikennon aluesensori"
 
-#: lib/Horde/Image/Exif.php:477
+#: lib/Horde/Image/Exif.php:468
 msgid "Trilinear Sensor"
-msgstr ""
+msgstr "Trilineaarinen sensori"
 
-#: lib/Horde/Image/Exif.php:403 lib/Horde/Image/Exif/Parser/Canon.php:367
+#: lib/Horde/Image/Exif.php:394 lib/Horde/Image/Exif/Parser/Canon.php:367
 msgid "Tungsten"
-msgstr ""
+msgstr "Tungsteeni"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:278
 msgid "Tv"
-msgstr ""
+msgstr "Tv"
 
-#: lib/Horde/Image/Exif.php:474
+#: lib/Horde/Image/Exif.php:465
 msgid "Two Chip Color Area Sensor"
-msgstr ""
+msgstr "Kahden piirin väritila-anturi"
 
-#: lib/Horde/Image/Exif.php:485
+#: lib/Horde/Image/Exif.php:476
 msgid "Uncalibrated"
-msgstr ""
+msgstr "Kalibroimaton"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:305
 msgid "Underwater"
-msgstr ""
+msgstr "Vedenalainen"
 
-#: lib/Horde/Image/Exif.php:261 lib/Horde/Image/Exif.php:274
-#: lib/Horde/Image/Exif.php:290 lib/Horde/Image/Exif.php:387
-#: lib/Horde/Image/Exif.php:421 lib/Horde/Image/Exif.php:428
-#: lib/Horde/Image/Exif.php:479 lib/Horde/Image/Exif.php:494
+#: lib/Horde/Image/Exif.php:252 lib/Horde/Image/Exif.php:265
+#: lib/Horde/Image/Exif.php:281 lib/Horde/Image/Exif.php:378
+#: lib/Horde/Image/Exif.php:412 lib/Horde/Image/Exif.php:419
+#: lib/Horde/Image/Exif.php:470 lib/Horde/Image/Exif.php:485
 #: lib/Horde/Image/Exif/Parser/Canon.php:107
 #: lib/Horde/Image/Exif/Parser/Canon.php:121
 #: lib/Horde/Image/Exif/Parser/Canon.php:134
@@ -1273,18 +1204,18 @@ msgstr "Tuntematon"
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:432
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:450
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:465
-#, fuzzy, php-format
+#, php-format
 msgid "Unknown (%s)"
-msgstr "Tuntematon"
+msgstr "Tuntematon (%s)"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:185
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:206
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:224
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:239
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:311
-#, fuzzy, php-format
+#, php-format
 msgid "Unknown(%s)"
-msgstr "Tuntematon"
+msgstr "Tuntematon(%s)"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:142
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:152
@@ -1297,48 +1228,46 @@ msgstr "Tuntematon"
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:224
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:233
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:242
-#, fuzzy
 msgid "Unknown: "
-msgstr "Tuntematon"
+msgstr "Tuntematon: "
 
-#: lib/Horde/Image/Exif.php:395
-#, fuzzy, php-format
+#: lib/Horde/Image/Exif.php:386
+#, php-format
 msgid "Unknown: %s"
-msgstr "Tuntematon"
+msgstr "Tuntematon: %s"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:45
-#, fuzzy, php-format
+#, php-format
 msgid "Unknown: (%s)"
-msgstr "Tuntematon"
+msgstr "Tuntematon (%s)"
 
-#: lib/Horde/Image/Exif.php:304
+#: lib/Horde/Image/Exif.php:295
 msgid "Upsidedown"
-msgstr ""
+msgstr "Ylösalaisin"
 
-#: lib/Horde/Image/Exif.php:306
+#: lib/Horde/Image/Exif.php:297
 msgid "Upsidedown Mirrored"
-msgstr ""
+msgstr "Ylösalaisin peilikuvana"
 
-#: lib/Horde/Image/Exif.php:88
+#: lib/Horde/Image/Exif.php:81
 msgid "Usage Terms"
-msgstr ""
+msgstr "Käyttöehdot"
 
-#: lib/Horde/Image/Exif.php:120
-#, fuzzy
+#: lib/Horde/Image/Exif.php:113
 msgid "User Comment"
-msgstr "Kommentti"
+msgstr "Käyttäjän kommentti"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:151
 msgid "VGA Basic"
-msgstr ""
+msgstr "VGA Perus"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:153
 msgid "VGA Fine"
-msgstr ""
+msgstr "VGA Tarkka"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:152
 msgid "VGA Normal"
-msgstr ""
+msgstr "VGA Normaali"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:146
 msgid "Very High"
@@ -1346,49 +1275,49 @@ msgstr "Erittäin korkea"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:348
 msgid "Warm"
-msgstr ""
+msgstr "Lämmin"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:223
 msgid "Warning"
 msgstr "Varoitus"
 
-#: lib/Horde/Image/Exif.php:123
+#: lib/Horde/Image/Exif.php:116
 msgid "White Balance"
-msgstr ""
+msgstr "Valkotasapaino"
 
-#: lib/Horde/Image/Exif.php:411
+#: lib/Horde/Image/Exif.php:402
 msgid "White fluorescent"
-msgstr ""
+msgstr "Valkoinen loisteputki"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:129
 msgid "White-fluorescence"
-msgstr ""
+msgstr "Valkoinen loisteputki"
 
-#: lib/Horde/Image/Exif.php:103
+#: lib/Horde/Image/Exif.php:96
 msgid "Width"
-msgstr ""
+msgstr "Leveys"
 
-#: lib/Horde/Image/Exif.php:105
+#: lib/Horde/Image/Exif.php:98
 msgid "X Resolution"
-msgstr ""
+msgstr "X resoluutio"
 
-#: lib/Horde/Image/Exif.php:106
+#: lib/Horde/Image/Exif.php:99
 msgid "Y Resolution"
-msgstr ""
+msgstr "Y resoluutio"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:320
 msgid "Yes"
 msgstr "Kyllä"
 
-#: lib/Horde/Image/Exif.php:420
+#: lib/Horde/Image/Exif.php:411
 msgid "other light source"
-msgstr ""
+msgstr "muu valonlähde"
 
-#: lib/Horde/Image/Exif.php:484
+#: lib/Horde/Image/Exif.php:475
 msgid "sRGB"
-msgstr ""
+msgstr "sRGB"
 
 #: lib/Horde/Image/Exif/Bundled.php:800
-#, fuzzy, php-format
+#, php-format
 msgid "version %d"
-msgstr "Versio"
+msgstr "versio %d"

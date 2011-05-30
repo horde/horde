@@ -83,7 +83,7 @@ class Ansel_Hooks
 //         } catch (Horde_Service_Facebook_Exception $e) {
 //             // For now, just pass back as a pear error...needs to be cleaned up
 //             $GLOBALS['notification']->push('Horde_Service_Facebook: ' . $e->getMessage(), 'horde.err');
-//             throw new Horde_Exception_Prior($e);
+//             throw new Horde_Exception_Wrapped($e);
 //         }
 //         if (!empty($GLOBALS['notification'])) {
 //             $GLOBALS['notification']->push('Notification published to Facebook.', 'horde.success');

@@ -295,8 +295,16 @@ input[disabled], textarea[disabled] {
 .htmlarea table {
     width: auto;
 }
+.form-header {
+    margin-bottom: 1em;
+    border-bottom: thin dashed #ccc;
+}
 .form-error {
     color: #f00;
+}
+.form-field-description {
+    color: #666;
+    font-size: 70%;
 }
 input, select, textarea {
     font-size: 100%;
@@ -522,11 +530,11 @@ span.treeImg16 {
     background: #eee;
 }
 
-/* Login form */
-body.login-form {
+/* Modal forms */
+body.modal-form {
     background-color: #e9e9e9;
 }
-#login-form {
+div.modal-form {
     font-size: 150%;
     width: 20em;
     margin: 5em auto;
@@ -541,35 +549,48 @@ body.login-form {
     -webkit-box-shadow: 0 0 2em #ccc;
     box-shadow: 0 0 2em #ccc;
 }
-#login-form .notices {
+div.modal-form .notices {
     padding-top: 1em;
     font-size: 75%;
 }
-#login-form a {
+div.modal-form a {
     color: #00f;
 }
-#login-form form {
+div.modal-form form {
     padding: 1em;
 }
-#login-form label {
+div.modal-form label {
     font-weight: bold;
 }
-#login-form input, #login-form select {
+div.modal-form input, div.modal-form select {
     -webkit-transition-property: -webkit-box-shadow, background;
     -webkit-transition-duration: 0.25s;
 
     width: 18em;
     margin-bottom: .5em;
 }
-#login-form #login-button {
+div.modal-form .submit-button {
     margin: .5em auto;
     text-align: center;
     width: auto;
 }
-#login-form .extras {
+div.modal-form .extras {
     font-size: 75%;
     border-top: thin dashed #ccc;
     margin: .5em 0;
+}
+
+/* Login tasks */
+div.logintasks-item {
+    margin-bottom: 1em;
+}
+div.logintasks-item label {
+    font-weight: normal;
+    font-size: 90%;
+}
+div.logintasks-item input {
+    width: auto;
+    margin-bottom: 0;
 }
 
 /* Sidebar styles. */
@@ -943,16 +964,16 @@ ul.sound-list {
 #RB_window p, #RB_window ul {
     margin-bottom: 3px;
 }
-#RB_confirm {
+.RB_confirm {
     width: 20em;
     padding: 1em;
     border: 1px solid #ccc;
     background: #ffc;
 }
-#RB_confirm input {
+.RB_confirm input {
     margin: .2em;
 }
-#RB_confirm ul {
+.RB_confirm ul {
     margin-left: .5em;
 }
 #RB_info {
@@ -1085,7 +1106,6 @@ ul.sound-list {
 
 /* Toggle quote styles. */
 .toggleQuoteHide, .toggleQuoteShow {
-    font-size: 80%;
     cursor: pointer;
     background: #ddd;
 }
@@ -1258,6 +1278,7 @@ div.GrowlerNoticeExit:hover {
 }
 .horde-message {
     background-color: #369;
+    border-color: #123;
 }
 .horde-alarm {
     background-color: orange;
@@ -1365,6 +1386,12 @@ div.GrowlerNoticeExit:hover {
     vertical-align: top;
 }
 
+/* Form ghosting. */
+.formGhost {
+    color: #a0a0a0 !important;
+    font-style: italic;
+}
+
 /* Social Media Related CSS */
 .hordeSmStreamstory {
     margin-bottom: 7px;
@@ -1372,13 +1399,13 @@ div.GrowlerNoticeExit:hover {
     position: relative;
 }
 .hordeSmStreambody {
-    padding: 0 0 0 70px;
     min-height: 70px;
 }
 .hordeSmStreaminfo {
     color: #777777;
     padding: 2px 0 0;
     font-style: italic;
+    font-size: 90%;
 }
 .hordeSmGetmore {
     text-align: center;

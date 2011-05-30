@@ -120,6 +120,12 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
     /**
      * Delete a folder.
      *
+     * WARNING: Do not use this call in case there is still data present in the
+     * folder. You are required to empty any data set *before* removing the
+     * folder. Otherwise there is no guarantee you can adhere to that Kolab
+     * specification that might require the triggering of remote systems to
+     * inform them about the removal of the folder.
+     *
      * @param string $folder The path of the folder to delete.
      *
      * @return NULL

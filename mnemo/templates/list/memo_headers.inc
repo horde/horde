@@ -33,8 +33,11 @@ function doPrefsUpdate(column, sortDown)
    <?php echo Horde::widget(Horde::url(Horde_Util::addParameter($baseurl, 'sortby', Mnemo::SORT_NOTEPAD)), _("Sort by Notepad"), 'sortlink', '', '', _("Notepad")) ?>&nbsp;
   </th>
 <?php endif; ?>
-  <th id="s<?php echo Mnemo::SORT_DESC ?>"<?php if ($sortby == Mnemo::SORT_DESC) echo ' class="' . $sortdirclass . '"' ?> width="82%">
-    <?php echo Horde::widget(Horde::url(Horde_Util::addParameter('list.php', 'sortby', Mnemo::SORT_DESC)), _("Sort by Note Text"), 'sortlink', '', '', _("No_te")) ?>
+  <th id="s<?php echo MNEMO::SORT_DESC ?>"<?php if ($sortby == MNEMO::SORT_DESC) echo ' class="' . $sortdirclass . '"' ?> width="80%">
+    <?php echo Horde::widget(Horde::url(Horde_Util::addParameter($baseurl, 'sortby', Mnemo::SORT_DESC)), _("Sort by Note Text"), 'sortlink', '', '', _("No_te")) ?>&nbsp;
+  </th>
+  <th id="s<?php echo MNEMO::SORT_MOD_DATE ?>"<?php if ($sortby == Mnemo::SORT_MOD_DATE) echo ' class="' . $sortdirclass . '"' ?> width="2%">
+    <?php echo Horde::widget(Horde::url(Horde_Util::addParameter($baseurl, 'sortby', MNEMO::SORT_MOD_DATE)), _("Sort by Modification Date"), 'sortlink', '', '', _("Date")) ?>&nbsp;
   </th>
   <th id="s<?php echo Mnemo::SORT_CATEGORY ?>"<?php if ($sortby == Mnemo::SORT_CATEGORY) echo ' class="' . $sortdirclass . '"' ?> width="15%">
     <?php
@@ -42,7 +45,7 @@ function doPrefsUpdate(column, sortDown)
     if ($GLOBALS['registry']->getAuth() && (!$GLOBALS['prefs']->isLocked('categories') ||
                             !$GLOBALS['prefs']->isLocked('category_colors'))) {
         $categoryUrl = Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs.php'), array('app' => 'horde', 'group' => 'categories'));
-        echo ' ' . Horde::link($categoryUrl, _("Edit categories and colors"), '', '_blank', 'popup(this.href); return false;') . Horde::img('colorpicker.png', _("Edit categories and colors"), '') . '</a>';
+        echo ' ' . Horde::link($categoryUrl, _("Edit categories and colors"), '', '_blank', 'Horde.popup({url:this.href});Event.stop(event);return false;') . Horde::img('colorpicker.png', _("Edit categories and colors"), '') . '</a>';
     }
     ?>
   </th>

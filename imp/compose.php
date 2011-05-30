@@ -158,7 +158,7 @@ if ($session->get('imp', 'file_upload')) {
     /* Delete attachments. */
     foreach ($deleteList as $val) {
         if ($notify) {
-            $notification->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($imp_compose[$val]['part']->getName(true))), 'horde.success');
+            $notification->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($imp_compose[$val]['part']->getName(true), 'UTF-8')), 'horde.success');
         }
         unset($imp_compose[$val]);
     }
@@ -213,7 +213,7 @@ case 'mailto_link':
 
 case 'draft':
     try {
-        $result = $imp_compose->resumeDraft(new IMP_Indices(IMP::$thismailbox, IMP::$uid));
+        $result = $imp_compose->resumeDraft(IMP::$thismailbox->getIndicesOb(IMP::$uid));
 
         if (!is_null($rtemode)) {
             $rtemode = ($result['mode'] == 'html');
@@ -245,30 +245,39 @@ case 'reply_list':
         break;
     }
 
-    $reply_msg = $imp_compose->replyMessage($vars->actionID, $contents, $vars->to);
+    $reply_map = array(
+        'reply' => IMP_Compose::REPLY_SENDER,
+        'reply_all' => IMP_Compose::REPLY_ALL,
+        'reply_auto' => IMP_Compose::REPLY_AUTO,
+        'reply_list' => IMP_Compose::REPLY_LIST
+    );
+
+    $reply_msg = $imp_compose->replyMessage($reply_map[$vars->actionID], $contents, $vars->to);
     $msg = $reply_msg['body'];
     $header = $reply_msg['headers'];
     $format = $reply_msg['format'];
-    $vars->actionID = $reply_msg['type'];
 
-    if (!is_null($rtemode)) {
-        $rtemode = $rtemode || $format == 'html';
-    }
-
-    switch ($vars->actionID) {
-    case 'reply':
+    switch ($reply_msg['type']) {
+    case IMP_Compose::REPLY_SENDER:
+        $vars->actionID = 'reply';
         $title = _("Reply:");
         break;
 
-    case 'reply_all':
+    case IMP_Compose::REPLY_ALL:
+        $vars->actionID = 'reply_all';
         $title = _("Reply to All:");
         break;
 
-    case 'reply_list':
+    case IMP_Compose::REPLY_LIST:
+        $vars->actionID = 'reply_list';
         $title = _("Reply to List:");
         break;
     }
     $title .= ' ' . $header['subject'];
+
+    if (!is_null($rtemode)) {
+        $rtemode = $rtemode || $format == 'html';
+    }
     break;
 
 case 'forward_attach':
@@ -282,7 +291,14 @@ case 'forward_both':
         break;
     }
 
-    $fwd_msg = $imp_compose->forwardMessage($vars->actionID, $contents);
+    $fwd_map = array(
+        'forward_attach' => IMP_Compose::FORWARD_ATTACH,
+        'forward_auto' => IMP_Compose::FORWARD_AUTO,
+        'forward_body' => IMP_Compose::FORWARD_BODY,
+        'forward_both' => IMP_Compose::FORWARD_BOTH
+    );
+
+    $fwd_msg = $imp_compose->forwardMessage($fwd_map[$vars->actionID], $contents);
     $msg = $fwd_msg['body'];
     $header = $fwd_msg['headers'];
     $format = $fwd_msg['format'];
@@ -313,9 +329,7 @@ case 'redirect_send':
                 echo Horde::wrapInlineScript(array('window.close();'));
             }
         } else {
-            if ($prefs->getValue('compose_confirm')) {
-                $notification->push(_("Message redirected successfully."), 'horde.success');
-            }
+            $notification->push(_("Message redirected successfully."), 'horde.success');
             $imp_ui->mailboxReturnUrl()->redirect();
         }
         exit;
@@ -459,9 +473,7 @@ case 'send_message':
             echo Horde::wrapInlineScript(array('window.close();'));
         }
     } else {
-        if ($prefs->getValue('compose_confirm') && $sent) {
-            $notification->push(_("Message sent successfully."), 'horde.success');
-        }
+        $notification->push(_("Message sent successfully."), 'horde.success');
         $imp_ui->mailboxReturnUrl()->redirect();
     }
     exit;
@@ -617,10 +629,14 @@ if (!$vars->compose_formToken && ($vars->actionID != 'draft')) {
     $header['bcc'] = Horde_Mime_Address::addrArray2String($identity->getBccAddresses());
 }
 
-foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
+foreach (array('to', 'cc', 'bcc') as $val) {
     if (!isset($header[$val])) {
         $header[$val] = $imp_ui->getAddressList($vars->$val);
     }
+}
+
+if (!isset($header['subject'])) {
+    $header['subject'] = $vars->subject;
 }
 
 /* If PGP encryption is set by default, and we have a recipient list on first
@@ -713,7 +729,7 @@ if ($redirect) {
         'compose_formToken' => Horde_Token::generateId('compose'),
         'compose_requestToken' => $injector->getInstance('Horde_Token')->get('imp.compose'),
         'composeCache' => $composeCacheID,
-        'mailbox' => htmlspecialchars(IMP::$mailbox),
+        'mailbox' => IMP::$thismailbox->form_to,
         'oldrtemode' => $rtemode,
         'rtemode' => $rtemode,
         'user' => $registry->getAuth()
@@ -738,7 +754,7 @@ if ($redirect) {
 
     $t->set('title', htmlspecialchars($title));
     $t->set('send_msg_ak', Horde::getAccessKeyAndTitle(_("_Send Message")));
-    if ($imp_imap->allowFolders() && !$readonly_drafts) {
+    if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) && !$readonly_drafts) {
         $t->set('save_draft_ak', Horde::getAccessKeyAndTitle(_("Save _Draft")));
     }
     $t->set('help', Horde_Help::link('imp', 'compose-buttons'));
@@ -860,12 +876,12 @@ if ($redirect) {
     }
     $t->set('compose_options', $compose_options);
 
-    $t->set('ssm', ($imp_imap->allowFolders() && !$prefs->isLocked('save_sent_mail')));
+    $t->set('ssm', ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) && !$prefs->isLocked('save_sent_mail')));
     if ($t->get('ssm')) {
         if ($readonly_sentmail) {
             $notification->push(sprintf(_("Cannot save sent-mail message to \"%s\" as that mailbox is read-only.", IMP_Mailbox::get($sent_mail_folder)->display), 'horde.warning'));
         }
-        $t->set('ssm_selected', $vars->compose_formToken ? ($save_sent_mail == 'on') : $identity->saveSentmail());
+        $t->set('ssm_selected', $vars->compose_formToken ? ($save_sent_mail == 'on') : $sent_mail_folder && $identity->saveSentmail());
         $t->set('ssm_label', Horde::label('ssm', _("Sa_ve a copy in ")));
         if ($vars->sent_mail_folder) {
             $sent_mail_folder = $vars->sent_mail_folder;
@@ -882,8 +898,9 @@ if ($redirect) {
 
             /* Check to make sure the sent-mail folder is created - it needs
              * to exist to show up in drop-down list. */
-            $sent_mail_folder = IMP_Mailbox::get($sent_mail_folder);
-            $sent_mail_folder->create();
+            if ($sent_mail_folder) {
+                IMP_Mailbox::get($sent_mail_folder)->create();
+            }
 
             $t->set('ssm_folders', IMP::flistSelect($ssm_folder_options));
         } else {
@@ -912,7 +929,7 @@ if ($redirect) {
         $t->set('rtemode', $rtemode);
     }
 
-    $t->set('message_label', Horde::label('message', _("Te_xt")));
+    $t->set('message_label', Horde::label('composeMessage', _("Te_xt")));
     $t->set('message_tabindex', ++$tabindex);
     $t->set('message', htmlspecialchars($msg));
 

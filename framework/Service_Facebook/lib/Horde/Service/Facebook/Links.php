@@ -20,18 +20,19 @@ class Horde_Service_Facebook_Links extends Horde_Service_Facebook_Base
      *
      * @return array  An array of links.
      */
-    public function &get($uid, $limit, $link_ids = null)
+    public function &get($uid, $limit, array $link_ids = null)
     {
         // Require a session
         if (!$skey = $this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception('session_key is required',
-                                               Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
+            throw new Horde_Service_Facebook_Exception(
+                'session_key is required',
+                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
-        return $this->_facebook->callMethod('links.get',
+        return $this->_facebook->callMethod(
+            'links.get',
             array('uid' => $uid,
                   'limit' => $limit,
-                  'link_ids' => json_encode($link_ids),
-                  'session_key' => $skey));
+                  'link_ids' => json_encode($link_ids)));
     }
 
     /**
@@ -48,14 +49,15 @@ class Horde_Service_Facebook_Links extends Horde_Service_Facebook_Base
     {
         // Require a session
         if (!$skey = $this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception('session_key is required',
-                                               Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
+            throw new Horde_Service_Facebook_Exception(
+                'session_key is required',
+                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
-        return $this->_facebook->callMethod('links.post',
+        return $this->_facebook->callMethod(
+            'links.post',
             array('uid' => $uid,
                   'url' => $url,
-                  'comment' => $comment,
-                  'session_key' => $skey));
+                  'comment' => $comment));
     }
 
 }

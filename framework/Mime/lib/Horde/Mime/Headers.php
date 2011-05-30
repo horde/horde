@@ -69,7 +69,8 @@ class Horde_Mime_Headers implements Serializable
      *
      * @param array $options  Optional parameters:
      * <pre>
-     * 'charset' => (string) Encodes the headers using this charset.
+     * 'charset' => (string) Encodes the headers using this charset. If empty,
+     *              encodes using internal charset (UTF-8).
      *              DEFAULT: No encoding.
      * 'defserver' => (string) The default domain to append to mailboxes.
      *              DEFAULT: No default name.
@@ -81,9 +82,9 @@ class Horde_Mime_Headers implements Serializable
      */
     public function toArray($options = array())
     {
-        $charset = empty($options['charset'])
-            ? null
-            : $options['charset'];
+        $charset = array_key_exists('charset', $options)
+            ? (empty($options['charset']) ? 'UTF-8' : $options['charset'])
+            : null;
         $address_keys = $this->addressFields();
         $mime = $this->mimeParamFields();
         $ret = array();
@@ -319,12 +320,12 @@ class Horde_Mime_Headers implements Serializable
             // Fields defined in RFC 2822 that contain address information
             if (in_array($lcHeader, $this->addressFields())) {
                 try {
-                    $value = Horde_Mime::decodeAddrString($value);
+                    $value = Horde_Mime::decodeAddrString($value, empty($options['charset']) ? 'UTF-8' : $options['charset']);
                 } catch (Horde_Mime_Exception $e) {
                     $value = '';
                 }
             } else {
-                $value = Horde_Mime::decode($value, null);
+                $value = Horde_Mime::decode($value, empty($options['charset']) ? 'UTF-8' : $options['charset']);
             }
         }
 
@@ -637,7 +638,7 @@ class Horde_Mime_Headers implements Serializable
             }
 
             if (in_array(Horde_String::lower($val[0]), $mime)) {
-                $res = Horde_Mime::decodeParam($val[0], $val[1]);
+                $res = Horde_Mime::decodeParam($val[0], $val[1], 'UTF-8');
                 $headers->addHeader($val[0], $res['val'], array('decode' => true, 'params' => $res['params']));
             } else {
                 $headers->addHeader($val[0], $val[1], array('decode' => true));

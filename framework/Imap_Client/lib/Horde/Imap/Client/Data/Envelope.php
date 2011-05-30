@@ -55,7 +55,9 @@ class Horde_Imap_Client_Data_Envelope
     public function __get($name)
     {
         if (isset($this->_data[$name])) {
-            return $this->_data[$name];
+            return is_object($this->_data[$name])
+                ? clone $this->_data[$name]
+                : $this->_data[$name];
         }
 
         switch ($name) {

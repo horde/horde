@@ -453,8 +453,8 @@ msgstr "Êtes-vous certain de vouloir effacer « %s » ?"
 #, php-format
 msgid "Are you sure you want to remove the signup request for \"%s\"?"
 msgstr ""
-"Êtes-vous certain de vouloir supprimer cette requête d'inscription pour « %"
-"s » ?"
+"Êtes-vous certain de vouloir supprimer cette requête d'inscription pour "
+"« %s » ?"
 
 #: templates/admin/groups/delete.inc:7
 #, php-format
@@ -3207,8 +3207,8 @@ msgstr "Enregistrement de la configuration de la sauvegarde réussi."
 #, php-format
 msgid "Successfully saved the backup configuration file %s."
 msgstr ""
-"Enregistrement réussi de la copie de sauvegarde du fichier de configuration %"
-"s."
+"Enregistrement réussi de la copie de sauvegarde du fichier de configuration "
+"%s."
 
 #: admin/user.php:184
 #, php-format
@@ -3460,8 +3460,8 @@ msgstr "Un problème est apparu lors de l'ajout de « %s » : %s"
 #, php-format
 msgid "There was a problem clearing data for user \"%s\" from the system: "
 msgstr ""
-"Un problème est apparu lors de la suppression des données de l'utilisateur « %"
-"s » : "
+"Un problème est apparu lors de la suppression des données de l'utilisateur "
+"« %s » : "
 
 #: admin/user.php:120
 #, php-format

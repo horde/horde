@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Timeobjects H4 (0.1-git)\n"
+"Project-Id-Version: Timeobjects 1.0.1-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-04-21 10:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,20 +17,20 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Driver/Weatherdotcom.php:221 lib/Driver/Weatherdotcom.php:236
+#: lib/Driver/Weatherdotcom.php:222 lib/Driver/Weatherdotcom.php:237
 #, php-format
 msgid " gusting %d%s"
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:154
+#: lib/Driver/Weatherdotcom.php:155
 msgid "An unknown error has occured."
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:150
+#: lib/Driver/Weatherdotcom.php:151
 msgid "Cache init was not completed."
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:210
+#: lib/Driver/Weatherdotcom.php:211
 #, php-format
 msgid ""
 "Conditions: %s\n"
@@ -40,7 +40,7 @@ msgid ""
 "Winds: From the %s at %d%s"
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:225
+#: lib/Driver/Weatherdotcom.php:226
 #, php-format
 msgid ""
 "Conditions: %s\n"
@@ -50,27 +50,27 @@ msgid ""
 "Winds: From the %s at %d%s"
 msgstr ""
 
-#: lib/Api.php:40
+#: lib/Api.php:43
 msgid "Facebook Events"
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:164
+#: lib/Driver/Weatherdotcom.php:165
 msgid "Invalid license key."
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:158
+#: lib/Driver/Weatherdotcom.php:159
 msgid "Invalid location provided."
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:160
+#: lib/Driver/Weatherdotcom.php:161
 msgid "Invalid partner id."
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:162
+#: lib/Driver/Weatherdotcom.php:163
 msgid "Invalid product code."
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:240
+#: lib/Driver/Weatherdotcom.php:241
 #, php-format
 msgid ""
 "Location: %s\n"
@@ -84,39 +84,34 @@ msgid ""
 "%s"
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:152
+#: lib/Driver/Weatherdotcom.php:153
 msgid "MetarDB is not connected."
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:120
+#: lib/Driver/Weatherdotcom.php:121
 msgid "No location is set."
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:156
+#: lib/Driver/Weatherdotcom.php:157
 msgid "No location provided."
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:129
+#: lib/Driver/Weatherdotcom.php:130
 msgid "No temporary directory available for cache."
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:144
+#: lib/Driver/Weatherdotcom.php:145
 msgid "Requested service could not be found."
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:148
+#: lib/Driver/Weatherdotcom.php:149
 msgid "Server data wrong or not available."
 msgstr ""
 
-#: lib/Driver.php:42
-#, php-format
-msgid "Unable to load the definition of %s."
-msgstr ""
-
-#: lib/Driver/Weatherdotcom.php:146
+#: lib/Driver/Weatherdotcom.php:147
 msgid "Unknown location provided."
 msgstr ""
 
-#: lib/Api.php:35
+#: lib/Api.php:38
 msgid "Weather"
 msgstr ""

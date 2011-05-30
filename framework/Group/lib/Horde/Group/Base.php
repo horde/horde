@@ -125,12 +125,15 @@ abstract class Horde_Group_Base
     }
 
     /**
-     * Returns a list of all groups, with IDs as keys and names as values.
+     * Returns a list of all groups a user may see, with IDs as keys and names
+     * as values.
+     *
+     * @param string $member  Only return groups that this user is a member of.
      *
      * @return array  All existing groups.
      * @throws Horde_Group_Exception
      */
-    abstract public function listAll();
+    abstract public function listAll($member = null);
 
     /**
      * Returns a list of users in a group.

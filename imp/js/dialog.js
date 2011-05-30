@@ -1,22 +1,42 @@
 /**
- * Javascript code used to display a RedBox dialog.
+ * Javascript API used to display a RedBox dialog in IMP.
  *
- * Parameters to display():
- * 'cancel_text' - [REQUIRED] Cancel text.
- * 'dialog_load' - TODO
- * 'form' - TODO
- * 'form_id' - The ID for the form (default: RB_confirm).
- * 'input_val' - TODO
- * 'noinput' - TODO
- * 'ok_text' - OK text.
- * 'password' - TODO
- * 'text' - [REQUIRED] The text to display at top of dialog box.
+ * Usage:
+ * ------
+ * IMPDialog.display({
+ *     // [REQUIRED] Cancel text
+ *     cancel_text: '',
+ *     form: '',
+ *     // The ID for the form
+ *     form_id: 'RB_confirm',
+ *     form_opts: {},
+ *     input_val: '',
+ *     noinput: false,
+ *     // OK text.
+ *     ok_text: '',
+ *     password: '',
+ *     reloadurl: '',
+ *     // [REQUIRED] The text to display at top of dialog box
+ *     text: '',
  *
- * If these are set, an AJAX action (to 'uri') will be initiated if the OK
- * button is pressed.
- * 'params' - TODO
- * 'type' - TODO
- * 'uri' - TODO
+ *     // If these are set, an AJAX action (to 'uri') will be initiated if the
+ *     // OK button is pressed:
+ *     params: {},
+ *     type: '',
+ *     uri: ''
+ * });
+ *
+ *
+ * Events triggered:
+ * -----------------
+ * IMPDialog:close
+ *   params: NONE
+ *
+ * IMPDialog:onClick
+ *   params: Event object
+ *
+ * IMPDialog:success
+ *   params: type parameter
  *
  * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
@@ -34,34 +54,37 @@ var IMPDialog = {
             data = decodeURIComponent(data).evalJSON(true);
         }
 
-        if (data.dialog_load) {
-            new Ajax.Request(data.dialog_load, { onComplete: this._onComplete.bind(this) });
-        } else {
-            this._display(data);
-        }
-    },
-
-    _onComplete: function(response)
-    {
-        this._display(response.responseJSON.response);
-    },
-
-    _display: function(data)
-    {
         if (data.uri) {
             this.params = data.params;
             this.type = data.type;
             this.uri = data.uri;
         }
 
-        var n = new Element('FORM', { action: '#', id: data.form_id || 'RB_confirm' }).insert(
+        if (data.reloadurl) {
+            this.reloadurl = data.reloadurl;
+        }
+
+        if (!data.form_opts) {
+            data.form_opts = {};
+        }
+
+        data.form_opts = Object.extend({
+            action: '#',
+            id: data.form_id || 'RB_confirm'
+        }, data.form_opts);
+
+        var n = new Element('FORM', data.form_opts).insert(
                     new Element('P').insert(data.text)
                 );
 
+        RedBox.onDisplay = null;
+
+        n.addClassName('RB_confirm');
         if (data.form) {
             n.insert(data.form);
         } else if (!data.noinput) {
             n.insert(new Element('INPUT', { name: 'dialog_input', type: data.password ? 'password' : 'text', size: 15 }).setValue(data.input_val));
+            RedBox.onDisplay = Form.focusFirstElement.curry(n);
         }
 
         if (data.ok_text) {
@@ -75,7 +98,6 @@ var IMPDialog = {
         ).observe('keydown', function(e) { if ((e.keyCode || e.charCode) == Event.KEY_RETURN) { e.stop(); this._onClick(e); } }.bind(this));
 
         RedBox.overlay = true;
-        RedBox.onDisplay = Form.focusFirstElement.curry(n);
         RedBox.showHtml(n);
     },
 
@@ -112,7 +134,11 @@ var IMPDialog = {
             this.noreload = false;
             RedBox.getWindowContents().fire('IMPDialog:success', this.type);
             if (!this.noreload) {
-                location.reload();
+                if (this.reloadurl) {
+                    location = this.reloadurl;
+                } else {
+                    location.reload();
+                }
             }
         } else if (r.response.error) {
             alert(r.response.error);

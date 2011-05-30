@@ -17,7 +17,7 @@ $search = Horde_Util::getFormData('search');
 $results = array();
 
 // Make sure we have a source.
-$source = Horde_Util::getFormData('source', Turba::getDefaultAddressBook());
+$source = Horde_Util::getFormData('source', Turba::getDefaultAddressbook());
 
 // Do the search if we have one.
 if (!is_null($search)) {
@@ -47,7 +47,6 @@ if (!is_null($search)) {
     } catch (Turba_Exception $e) {}
 }
 
-Horde::addScriptFile('prototype.js', 'horde');
 $bodyClass = 'summary';
 require $registry->get('templates', 'horde') . '/common-header.inc';
 
@@ -62,7 +61,7 @@ if (count($results)) {
             $mail_link = $registry->call('mail/compose', array(
                 array('to' => addslashes($contact['email']))
             ));
-        } catch (Turba_Exception $e) {
+        } catch (Horde_Exception $e) {
             $mail_link = 'mailto:' . urlencode($contact['email']);
         }
 

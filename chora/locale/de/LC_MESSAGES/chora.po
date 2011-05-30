@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Chora 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: 2011-02-02 18:08+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -29,17 +29,17 @@ msgstr ""
 "durch Klicken auf deren Zeile ausgewählt haben, zeigt %1$s die Unterschiede "
 "zu der ausgewählten Version an."
 
-#: co.php:86
+#: co.php:82
 #, php-format
 msgid "%s Revision %s (%s ago)"
 msgstr "%s Version %s (vor %s)"
 
-#: lib/Application.php:167
+#: lib/Application.php:169
 #, php-format
 msgid "%s: Forbidden by server configuration"
 msgstr "%s: Zugriff per Serverkonfiguration verweigert"
 
-#: cvsgraph.php:28
+#: cvsgraph.php:24
 #, php-format
 msgid "%s: no such file or directory"
 msgstr "%s: Datei oder Verzeichnis nicht gefunden"
@@ -52,11 +52,11 @@ msgstr "Hinzugefügt"
 msgid "All Branches"
 msgstr "Alle Branches"
 
-#: co.php:92
+#: co.php:88
 msgid "Annotate"
 msgstr "Kommentiert"
 
-#: annotate.php:36 templates/annotate/header.inc:5
+#: annotate.php:32 templates/annotate/header.inc:5
 #: templates/directory/header.inc:28 templates/patchsets/header_table.inc:13
 #: templates/stats/stats.inc:4
 msgid "Author"
@@ -66,7 +66,7 @@ msgstr "Autor"
 msgid "Back"
 msgstr "Zurück"
 
-#: app/views/_logMessage.html.php:15 lib/Chora.php:332 lib/Chora.php:333
+#: app/views/_logMessage.html.php:18 lib/Chora.php:332 lib/Chora.php:333
 #: lib/Chora.php:336 lib/Chora.php:337
 msgid "Branches"
 msgstr "Branches"
@@ -100,12 +100,12 @@ msgstr "Klicken Sie auf die Versionen oder Branches, um die Datei anzuzeigen."
 msgid "Commit"
 msgstr "Commit"
 
-#: commit.php:32
+#: commit.php:28
 #, php-format
 msgid "Commit %s"
 msgstr "Commit %s"
 
-#: commit.php:42 patchsets.php:44
+#: commit.php:38 patchsets.php:40
 msgid "Commit Not Found"
 msgstr "Commit nicht gefunden"
 
@@ -113,7 +113,7 @@ msgstr "Commit nicht gefunden"
 msgid "Commits"
 msgstr "Commits"
 
-#: patchsets.php:32
+#: patchsets.php:28
 #, php-format
 msgid "Commits to %s"
 msgstr "Commits für %s"
@@ -122,7 +122,7 @@ msgstr "Commits für %s"
 msgid "Da_te"
 msgstr "Da_tum"
 
-#: annotate.php:37 templates/directory/header.inc:31
+#: annotate.php:33 templates/directory/header.inc:31
 #: templates/patchsets/header_table.inc:12
 msgid "Date"
 msgstr "Datum"
@@ -135,11 +135,12 @@ msgstr "Gelöschte Dateien"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: patchsets.php:56 templates/log/header.inc:11
+#: app/views/_logMessage.html.php:9 patchsets.php:52
+#: templates/log/header.inc:11
 msgid "Diff"
 msgstr "Unterschiede"
 
-#: diff.php:56
+#: diff.php:65
 #, php-format
 msgid "Diff for %s between version %s and %s"
 msgstr "Unterschied von %s zwischen den Versionen %s und %s"
@@ -153,7 +154,7 @@ msgstr "Unterschiede zu %s"
 msgid "Directory"
 msgstr "Verzeichnis"
 
-#: annotate.php:52 co.php:93
+#: annotate.php:48 co.php:89
 msgid "Download"
 msgstr "Herunterladen"
 
@@ -161,7 +162,7 @@ msgstr "Herunterladen"
 msgid "Download diff as: "
 msgstr "Unterschiede herunterladen als: "
 
-#: app/views/file/html.html.php:16 co.php:80
+#: app/views/file/html.html.php:16 co.php:76
 #, php-format
 msgid "Download revision %s"
 msgstr "Version %s herunterladen"
@@ -183,16 +184,16 @@ msgstr "Datei"
 msgid "Get Diff"
 msgstr "Unterschiede herunterladen"
 
-#: cvsgraph.php:57
+#: cvsgraph.php:53
 #, php-format
 msgid "Graph for %s"
 msgstr "Grafik für %s"
 
-#: browsedir.php:46
+#: browsedir.php:42
 msgid "Hide Deleted Files"
 msgstr "Gelöschte Dateien verstecken"
 
-#: browsedir.php:46
+#: browsedir.php:42
 msgid "Hide _Deleted Files"
 msgstr "_Gelöschte Dateien verstecken"
 
@@ -204,7 +205,7 @@ msgstr "Letzter Eintrag"
 msgid "Line"
 msgstr "Zeile"
 
-#: annotate.php:57
+#: annotate.php:53
 msgid "Loading..."
 msgstr "Lade..."
 
@@ -216,7 +217,7 @@ msgstr "Position:"
 msgid "Logs"
 msgstr "Änderungen"
 
-#: diff.php:32
+#: diff.php:41
 msgid "Malformed Query"
 msgstr "Ungültige Abfrage"
 
@@ -224,11 +225,11 @@ msgstr "Ungültige Abfrage"
 msgid "Modified"
 msgstr "Geändert"
 
-#: commit.php:29
+#: commit.php:25
 msgid "No commit ID given"
 msgstr "Keine Commit-ID angegeben"
 
-#: lib/Application.php:110
+#: lib/Application.php:112
 msgid "No repositories found."
 msgstr "Keine Repositories gefunden."
 
@@ -252,7 +253,7 @@ msgstr "Vorige"
 msgid "Removed"
 msgstr "Entfernt"
 
-#: lib/Application.php:180
+#: lib/Application.php:179
 msgid "Repositories"
 msgstr "Repositories"
 
@@ -260,12 +261,12 @@ msgstr "Repositories"
 msgid "Rev"
 msgstr "Rev"
 
-#: annotate.php:29
+#: annotate.php:25
 #, php-format
 msgid "Revision %s not found"
 msgstr "Version %s nicht gefunden"
 
-#: co.php:49
+#: co.php:45
 #, php-format
 msgid "Revision Not Found: %s is not a valid revision"
 msgstr "Version nicht gefunde: %s ist keine gültige Version"
@@ -282,7 +283,7 @@ msgstr "Patchsätze suchen:"
 msgid "Show Branch:"
 msgstr "Branch anzeigen:"
 
-#: browsedir.php:46
+#: browsedir.php:42
 msgid "Show Deleted Files"
 msgstr "Gelöschte Dateien anzeigen"
 
@@ -290,7 +291,7 @@ msgstr "Gelöschte Dateien anzeigen"
 msgid "Show Differences"
 msgstr "Unterschiede anzeigen"
 
-#: browsedir.php:46
+#: browsedir.php:42
 msgid "Show _Deleted Files"
 msgstr "_Gelöschte Dateien anzeigen"
 
@@ -299,21 +300,21 @@ msgstr "_Gelöschte Dateien anzeigen"
 msgid "Show diffs between %s and %s"
 msgstr "Unterschiede zwischen %s und %s anzeigen"
 
-#: co.php:97
+#: co.php:93
 msgid "Snapshot"
 msgstr "Schnappschuss"
 
-#: annotate.php:49
+#: annotate.php:45
 #, php-format
 msgid "Source Annotation of %s (revision %s)"
 msgstr "Quell-Kommentar von %s (Version %s)"
 
-#: history.php:133
+#: history.php:129
 #, php-format
 msgid "Source Branching View for %s"
 msgstr "Branch Ansicht für %s"
 
-#: lib/Application.php:163
+#: lib/Application.php:165
 msgid ""
 "Sourceroot not found. This could be a misconfiguration by the server "
 "administrator, or the server could be having temporary problems. Please try "
@@ -327,16 +328,16 @@ msgstr ""
 msgid "Statistics"
 msgstr "Statistiken"
 
-#: stats.php:36
+#: stats.php:26
 #, php-format
 msgid "Statistics for %s"
 msgstr "Statistik für %s"
 
-#: app/views/_logMessage.html.php:24 templates/patchsets/ps.inc:8
+#: app/views/_logMessage.html.php:27 templates/patchsets/ps.inc:8
 msgid "Tags"
 msgstr "Tags"
 
-#: lib/Application.php:116
+#: lib/Application.php:118
 #, php-format
 msgid "The repository with the slug '%s' was not found"
 msgstr "Repository mit dem Kurznamen '%s' nicht gefunden"
@@ -358,7 +359,7 @@ msgstr "Unified"
 msgid "Unmodified"
 msgstr "Keine Änderung"
 
-#: annotate.php:51 templates/directory/header.inc:12
+#: annotate.php:47 templates/directory/header.inc:12
 #: templates/log/header.inc:25
 msgid "View"
 msgstr "Anzeigen"
@@ -371,11 +372,11 @@ msgstr "Branch anzeigen:"
 msgid "View commit"
 msgstr "Commit anzeigen"
 
-#: co.php:99 lib/Chora.php:345
+#: co.php:95 lib/Chora.php:345
 msgid "View:"
 msgstr "Anzeigen:"
 
-#: co.php:92
+#: co.php:88
 msgid "_Annotate"
 msgstr "_Kommentiert"
 
@@ -387,11 +388,11 @@ msgstr "_Autor"
 msgid "_Branches"
 msgstr "_Branches"
 
-#: lib/Application.php:202
+#: lib/Application.php:198
 msgid "_Browse"
 msgstr "_Liste"
 
-#: co.php:93
+#: co.php:89
 msgid "_Download"
 msgstr "He_runterladen"
 
@@ -411,7 +412,7 @@ msgstr "_Patchsätze"
 msgid "_Rev"
 msgstr "_Rev"
 
-#: co.php:97
+#: co.php:93
 msgid "_Snapshot"
 msgstr "_Schnappschuss"
 

@@ -284,7 +284,7 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
                         Ingo::getUser(),
                         $this->_filters[$id]['id']);
         try {
-            $this->_write_db->query($query, $values);
+            $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Ingo_Exception($e);
         }

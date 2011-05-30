@@ -70,7 +70,7 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
     {
         if (is_scalar($name) && $name !== false) {
             $natives = $this->_native();
-            $this->column($name, $natives['primaryKey']);
+            $this->column($name, $natives['autoincrementKey']);
         }
 
         $this->_primaryKey = $name;

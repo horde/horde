@@ -90,7 +90,7 @@ class Horde_Core_Share_Driver
             try {
                 $result = $locks->getLocks($this->_share->getShareOb()->getApp(), $shareid, $locktype);
             } catch (Horde_Lock_Exception $e) {
-                throw new Horde_Exception_Prior($e);
+                throw new Horde_Exception_Wrapped($e);
             }
             if (!empty($result)) {
                 // Lock found.
@@ -108,7 +108,7 @@ class Horde_Core_Share_Driver
             try {
                 $result = $locks->getLocks($itemscope, null, $locktype);
             } catch (Horde_Lock_Exception $e) {
-                throw new Horde_Exception_Prior($e);
+                throw new Horde_Exception_Wrapped($e);
             }
             if (!empty($result)) {
                 // Lock found.
@@ -161,7 +161,7 @@ class Horde_Core_Share_Driver
             $result = $locks->getLocks($this->_share->getShareOb()->getApp(), $shareid, $locktype);
         } catch (Horde_Lock_Exception $e) {
             Horde::logMessage($e, 'ERR');
-            throw new Horde_Exception_Prior($e);
+            throw new Horde_Exception_Wrapped($e);
         }
 
         if (empty($result) && !empty($item_uid)) {

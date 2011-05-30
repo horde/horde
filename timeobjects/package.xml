@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>timeobjects</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde timeobjects application</summary>
+ <description>The timeobjects application doesn&apos;t have an interface but provides streams of events to any applications that can consume them, notably the Horde calendar application. It contains drivers for facebook events and weather forecasts and can easily be extended by custom drivers.</description>
+ <lead>
+  <name>Michael Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-05-09</date>
+ <time>13:49:16</time>
+ <version>
+  <release>1.0.2</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>
+* 
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="docs">
+    <file name="RELEASE_NOTES" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="lib">
+    <dir name="Driver">
+     <file name="Base.php" role="horde" />
+     <file name="FacebookEvents.php" role="horde" />
+     <file name="Weatherdotcom.php" role="horde" />
+    </dir> <!-- /lib/Driver -->
+    <dir name="Factory">
+     <file name="Driver.php" role="horde" />
+    </dir> <!-- /lib/Factory -->
+    <file name="Api.php" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Driver.php" role="horde" />
+    <file name="Exception.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="timeobjects.mo" role="horde" />
+      <file name="timeobjects.po" role="horde" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="timeobjects.mo" role="horde" />
+      <file name="timeobjects.po" role="horde" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="timeobjects.mo" role="horde" />
+      <file name="timeobjects.po" role="horde" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
+    <file name=".htaccess" role="horde" />
+    <file name="timeobjects.pot" role="horde" />
+   </dir> <!-- /locale -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>Horde_Core</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Date</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Url</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <extension>
+    <name>gettext</name>
+   </extension>
+  </required>
+  <optional>
+   <package>
+    <name>Horde_Service_Facebook</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Services_Weather</name>
+    <channel>pear.php.net</channel>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="timeobjects/lib/Api.php" name="lib/Api.php" />
+   <install as="timeobjects/lib/Application.php" name="lib/Application.php" />
+   <install as="timeobjects/lib/Driver.php" name="lib/Driver.php" />
+   <install as="timeobjects/lib/Exception.php" name="lib/Exception.php" />
+   <install as="timeobjects/lib/Driver/Base.php" name="lib/Driver/Base.php" />
+   <install as="timeobjects/lib/Driver/FacebookEvents.php" name="lib/Driver/FacebookEvents.php" />
+   <install as="timeobjects/lib/Driver/Weatherdotcom.php" name="lib/Driver/Weatherdotcom.php" />
+   <install as="timeobjects/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
+   <install as="timeobjects/locale/.htaccess" name="locale/.htaccess" />
+   <install as="timeobjects/locale/timeobjects.pot" name="locale/timeobjects.pot" />
+   <install as="timeobjects/locale/de/LC_MESSAGES/timeobjects.mo" name="locale/de/LC_MESSAGES/timeobjects.mo" />
+   <install as="timeobjects/locale/de/LC_MESSAGES/timeobjects.po" name="locale/de/LC_MESSAGES/timeobjects.po" />
+   <install as="timeobjects/locale/fi/LC_MESSAGES/timeobjects.mo" name="locale/fi/LC_MESSAGES/timeobjects.mo" />
+   <install as="timeobjects/locale/fi/LC_MESSAGES/timeobjects.po" name="locale/fi/LC_MESSAGES/timeobjects.po" />
+   <install as="timeobjects/locale/ja/LC_MESSAGES/timeobjects.mo" name="locale/ja/LC_MESSAGES/timeobjects.mo" />
+   <install as="timeobjects/locale/ja/LC_MESSAGES/timeobjects.po" name="locale/ja/LC_MESSAGES/timeobjects.po" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-16</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* First beta release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-23</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* First release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-30</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Second release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-06</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* First stable release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-09</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* [jan] Fix installation paths.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-09</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
+   </notes>
+  </release>
+ </changelog>
+</package>

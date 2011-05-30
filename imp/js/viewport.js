@@ -38,7 +38,9 @@
  *               within this percentage of the end of the current cached
  *               viewport, send a background request to the server to retrieve
  *               the next slice.
- * list_class: (string) The CSS class to use for the list container.
+ * list_class: (string) The CSS class to use for the results list.
+ * list_header: (Element/string) A DOM element to insert above the results list
+ *              as a header.
  * lookbehind: (integer) What percentage of the received buffer should be
  *             used to download rows before the given row number?
  * onAjaxFailure: (function) Callback function that handles a failure response
@@ -240,8 +242,14 @@ var ViewPort = Class.create({
         this.opts.container = $(opts.container);
         this.opts.pane_data = $(opts.pane_data);
 
-        this.opts.content = new Element('DIV', { className: opts.list_class }).setStyle({ float: 'left', overflow: 'hidden' });
-        this.opts.container.insert(this.opts.content);
+        this.opts.content = new Element('DIV', { className: opts.list_class }).setStyle({ float: 'left' });
+        this.opts.list_container = new Element('DIV');
+        if (this.opts.list_header) {
+            this.opts.list_container.insert(this.opts.list_header);
+        }
+        this.opts.list_container.insert(this.opts.content);
+
+        this.opts.container.insert(this.opts.list_container);
 
         this.scroller = new ViewPort_Scroller(this);
 
@@ -476,9 +484,8 @@ var ViewPort = Class.create({
     // size = (integer) The page size to use instead of auto-determining.
     _onResize: function(size)
     {
-        var h,
-            c = this.opts.content,
-            c_opts = {},
+        var c_opts = {},
+            h = this.opts.list_header ?  this.opts.list_header.getHeight() : 0,
             lh = this._getLineHeight(),
             sp = this.split_pane;
 
@@ -497,19 +504,21 @@ var ViewPort = Class.create({
 
             if (!size) {
                 this.page_size = (sp.horiz.loc && sp.horiz.loc > 0)
-                    ? Math.min(sp.horiz.loc, this.getPageSize('splitmax'))
+                    ? Math.min(sp.horiz.loc, this.getPageSize('max'))
                     : this.getPageSize('default');
             }
             sp.horiz.loc = this.page_size;
 
-            if (sp.spacer) {
-                sp.spacer.hide();
-            }
-
-            h = lh * this.page_size;
-            c.setStyle({ height: h + 'px', width: '100%' });
+            h += lh * this.page_size;
+            this.opts.list_container.setStyle({
+                height: h + 'px',
+                float: 'none',
+                overflow: 'hidden',
+                width: 'auto'
+            });
+            this.opts.content.setStyle({ width: '100%' });
             sp.currbar.show();
-            this.opts.pane_data.setStyle({ height: (this._getMaxHeight() - h - lh) + 'px' }).show();
+            this.opts.pane_data.setStyle({ height: (this._getMaxHeight() - h) + 'px' }).show();
             break;
 
         case 'vert':
@@ -523,12 +532,12 @@ var ViewPort = Class.create({
                 sp.vert.width = parseInt(this.opts.container.clientWidth * 0.35, 10);
             }
 
-            if (sp.spacer) {
-                sp.spacer.hide();
-            }
-
-            h = lh * this.page_size;
-            c.setStyle({ height: h + 'px', width: sp.vert.width + 'px' });
+            h += lh * this.page_size;
+            this.opts.list_container.setStyle({
+                float: 'left',
+                height: h + 'px'
+            });
+            this.opts.content.setStyle({ width: sp.vert.width + 'px' });
             sp.currbar.setStyle({ height: h + 'px' }).show();
             this.opts.pane_data.setStyle({ height: h + 'px' }).show();
             break;
@@ -546,14 +555,13 @@ var ViewPort = Class.create({
                 this.page_size = this.getPageSize('max');
             }
 
-            if (sp.spacer) {
-                sp.spacer.show();
-            } else {
-                sp.spacer = new Element('DIV').setStyle({ clear: 'left' });
-                this.opts.content.up().insert(sp.spacer);
-            }
-
-            c.setStyle({ height: (lh * this.page_size) + 'px', width: '100%' });
+            this.opts.list_container.setStyle({
+                float: 'none',
+                height: (h + (lh * this.page_size)) + 'px',
+                overflow: 'hidden',
+                width: 'auto'
+            });
+            this.opts.content.setStyle({ width: '100%' });
             break;
         }
 
@@ -855,7 +863,7 @@ var ViewPort = Class.create({
         buffer.update(Object.isArray(r.data) ? {} : r.data, Object.isArray(r.rowlist) ? {} : r.rowlist, r.metadata || {}, { reset: r.reset, resetmd: r.resetmd, update: r.update });
 
         if (r.reset) {
-            this.select(new ViewPort_Selection());
+            this.deselect(this.getSelected());
         } else if (r.update && r.disappear && r.disappear.size()) {
             this.deselect(this.createSelection('uid', r.disappear, r.view));
             buffer.removeData(r.disappear);
@@ -1086,8 +1094,7 @@ var ViewPort = Class.create({
                 : Math.max(parseInt(this.getPageSize('max') * 0.45, 10), 5);
 
         case 'max':
-        case 'splitmax':
-            return parseInt(this._getMaxHeight() / this._getLineHeight()) - (type == 'max' ? 0 : 1);
+            return parseInt(this._getMaxHeight() / this._getLineHeight());
 
         default:
             return this.page_size;
@@ -1142,7 +1149,7 @@ var ViewPort = Class.create({
 
         switch (this.pane_mode) {
         case 'horiz':
-            new Drag(sp.currbar.setStyle({ clear: 'left' }), {
+            new Drag(sp.currbar, {
                 constraint: 'vertical',
                 ghosting: true,
                 nodrop: true,
@@ -1191,7 +1198,7 @@ var ViewPort = Class.create({
             // times in snap().
             sp.lh = this._getLineHeight();
             sp.lines = this.page_size;
-            sp.max = this.getPageSize('splitmax');
+            sp.max = this.getPageSize('max');
             sp.orig = this.page_size;
             sp.pos = this.opts.content.viewportOffset()[1];
         }
@@ -1216,7 +1223,7 @@ var ViewPort = Class.create({
 
         case 'vert':
             drag = DragDrop.Drags.getDrag(e.element());
-            sp.vert.width = drag.lastCoord[0] - this.opts.content.viewportOffset()[0];
+            sp.vert.width = drag.lastCoord[0] - this.opts.list_container.viewportOffset()[0];
             this.opts.content.setStyle({ width: sp.vert.width + 'px' });
             change = drag.wasDragged;
             break;
@@ -1274,7 +1281,6 @@ var ViewPort = Class.create({
     {
         return this.createSelection('rownum', this.getAllRows(view), view);
     },
-
 
     getSelection: function(view)
     {
@@ -1506,7 +1512,7 @@ ViewPort_Buffer = Class.create({
                 } else {
                     var val = this.usermdata.get(pair.key);
                     if (val) {
-                        this.usermdata.get(pair.key).update($H(pair.value));
+                        val.update($H(pair.value));
                     } else {
                         this.usermdata.set(pair.key, $H(pair.value));
                     }
@@ -1695,6 +1701,16 @@ ViewPort_Buffer = Class.create({
         } else {
             this.usermdata.update(vals);
         }
+    },
+
+    debug: function()
+    {
+        return Object.toJSON({
+            data: this.data,
+            mdata: this.mdata,
+            rowlist: this.rowlist,
+            selected: this.selected.get('uid')
+        });
     }
 
 }),

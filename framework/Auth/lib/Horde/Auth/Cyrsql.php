@@ -91,18 +91,26 @@
 class Horde_Auth_Cyrsql extends Horde_Auth_Sql
 {
     /**
+     * An array of capabilities, so that the driver can report which
+     * operations it supports and which it doesn't.
+     *
+     * @var array
+     */
+    protected $_capabilities = array(
+        'add'           => true,
+        'list'          => true,
+        'remove'        => true,
+        'resetpassword' => false,
+        'update'        => true,
+        'authenticate'  => true,
+    );
+
+    /**
      * Horde_Imap_Client object.
      *
      * @var Horde_Imap_Client_Base
      */
     protected $_imap;
-
-    /**
-     * Hierarchy separator to use (e.g., is it user/mailbox or user.mailbox)
-     *
-     * @var string
-     */
-    protected $_separator = '.';
 
     /**
      * Constructor.
@@ -122,10 +130,8 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
      * 'imap' - (Horde_Imap_Client_Base) [REQUIRED] An IMAP client object.
      * 'quota' - (integer) The quota (in kilobytes) to grant on the mailbox.
      *           DEFAULT: NONE
-     * 'unixhier' - (boolean) The value of imapd.conf's unixhierarchysep
-     *              setting. Set this to true if the value is true in
-     *              imapd.conf.
-     *              DEFAULT: false
+     * 'userhierarchy' - (string) The user hierarchy prefix.
+     *                   DEFAULT: 'user.'
      * </pre>
      *
      * @throws InvalidArgumentException
@@ -144,15 +150,11 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
             'domain_field' => 'domain_name',
             'folders' => array(),
             'hidden_accounts' => array('cyrus'),
-            'quota' => null
+            'quota' => null,
+            'userhierarchy' => 'user.'
         ), $params);
 
         parent::__construct($params);
-
-        if (!empty($this->_params['unixhier'])) {
-            $this->_params['userhierarchy'] = 'user/';
-            $this->_separator = '/';
-        }
     }
 
     /**
@@ -247,8 +249,9 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
             parent::addUser($userId, $credentials);
         }
 
+        $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $this->_params['charset'], 'utf7-imap');
+
         try {
-            $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $this->_params['charset'], 'utf7-imap');
             $this->_imap->createMailbox($mailbox);
             $this->_imap->setACL($mailbox, $this->_params['cyradm'], 'lrswipcda');
             if (isset($this->_params['quota']) &&
@@ -303,6 +306,8 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
         /* Set ACL for mailbox deletion. */
         list($admin) = explode('@', $this->_params['cyradmin']);
 
+        $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $this->_params['charset'], 'utf7-imap');
+
         try {
             $this->_imap->setACL($mailbox, $admin, array('rights' => 'lrswipcda'));
             $this->_imap->deleteMailbox($mailbox);
@@ -346,14 +351,14 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
         if (!empty($this->_params['domain_field']) &&
             ($this->_params['domain_field'] != 'none')) {
             foreach ($result as $ar) {
-                if (!in_array($ar[0], $this->_params['hidden_accounts'])) {
-                    $users[] = $ar[0] . '@' . $ar[1];
+                if (!in_array($ar[$this->_params['username_field']], $this->_params['hidden_accounts'])) {
+                    $users[] = $ar[$this->_params['username_field']] . '@' . $ar[$this->_params['domain_field']];
                 }
             }
         } else {
             foreach ($result as $ar) {
-                if (!in_array($ar[0], $this->_params['hidden_accounts'])) {
-                    $users[] = $ar[0];
+                if (!in_array($ar[$this->_params['username_field']], $this->_params['hidden_accounts'])) {
+                    $users[] = $ar[$this->_params['username_field']];
                 }
             }
         }

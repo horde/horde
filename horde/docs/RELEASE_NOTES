@@ -1,23 +1,21 @@
 <?php
 /**
- * Release focus. Possible values:
- * 0 - N/A
- * 1 - Initial freshmeat announcement
- * 2 - Documentation
- * 3 - Code cleanup
- * 4 - Minor feature enhancements
- * 5 - Major feature enhancements
- * 6 - Minor bugfixes
- * 7 - Major bugfixes
- * 8 - Minor security fixes
- * 9 - Major security fixes
+ * Release focus. Possible values (multiple possible with arrays):
+ * Horde_Release::FOCUS_INITIAL - Initial announcement
+ * Horde_Release::FOCUS_MINORFEATURE - Minor feature enhancement
+ * Horde_Release::FOCUS_MAJORFEATURE - Major feature enhancement
+ * Horde_Release::FOCUS_MINORBUG - Minor bugfixes
+ * Horde_Release::FOCUS_MAJORBUG - Major bugfixes
+ * Horde_Release::FOCUS_MINORSECURITY - Minor security fixes
+ * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
+ * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = 5;
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-After more than two years of development, the Horde Team is pleased to announce
-the first alpha release of the Horde Application Framework version 4.0.
+The Horde Team is pleased to announce the final release of the Horde
+Application Framework version 4.0.3.
 
 The Horde Application Framework is a flexible, modular, general-purpose web
 application framework written in PHP. It provides an extensive array of
@@ -26,73 +24,27 @@ developing modern web applications. It is the basis for a large number of
 production-level web applications, notably the Horde Groupware suites. For more
 information on Horde or the Horde Groupware suites, visit http://www.horde.org.
 
-IMPORTANT! This is a preview version that should not be used on production
-systems. This version is considered feature complete but there are likely to be
-bugs. You should not use this preview version with existing production
-data. Migration of data from earlier versions has not been fully tested yet and
-is not supported.
+To upgrade from earlier releases, you only have to run:
 
-We encourage widespread testing and feedback via the mailing lists or our bug
-tracking system. Updated translations are very welcome, though some strings
-might still change before the release candidates are prepared.
+  pear upgrade -c horde
 
-The installation method for Horde 4 has been changed to use the PEAR
-installer. To prepare your local PEAR installation to install software from
-Horde's PEAR server, run the following commands from the command line:
+For detailed installation and configuration instructions, please see
+http://www.horde.org/apps/horde/docs/INSTALL
 
-  pear channel-discover pear.horde.org
-  pear install horde/horde_role-alpha
-  pear run-scripts horde/horde_role
+The major changes compared to the Horde version 4.0.2 are:
 
-The last command will ask you for the filessystem location for your Horde
-installation. This should be some path in your web server's document root,
-e.g. /var/www/horde. These commands only need to be run once. You are now
-prepared to install, upgrade and uninstall Horde packages. To install the alpha
-release of Horde, run the following commands:
-
-  pear install horde/horde-alpha
-
-Just go to the config/ directory of your Horde installation and copy
-conf.php.dist to conf.php:
-
-  cd /var/www/horde/config/
-  cp conf.php.dist conf.php
-
-Then point your browser to the installation location, go to the
-Administration/Configuration screen and start configuring. You probably want
-to:
-
-1. Configure a real authentication backend!
-2. Configure a database backend (Horde configuration, Database tab)
-3. Install the database tables ("Update all DB schemas" button)
-4. Configure any other applications you installed
-
-For more detailed installation and configuration instructions, e.g. how to
-install Horde from PEAR into a location other than the system default, please
-see https://github.com/horde/horde/blob/master/horde/docs/INSTALL.
-
-The major changes compared to the Horde version 3.3 are:
-
-    * Completely refactored component library for PHP 5
-    * Much easier installation through PEAR installer
-    * Simplified configuration process
-    * Frameless layout
-    * Grouping into advanced and simple user preferences
-    * Improved caching and reduced session sizes
-    * Much faster Share library
-    * Better Share support for large user basis
-    * Improved Image library
-    * Reduced dependency on external libraries
-    * Lots of improvements in all library components
-
-Please see our issue tracker for a list of open bugs on this release:
-http://bugs.horde.org/query/showstoppers4
+    * Added button to update all configurations with default values at once.
+    * Updated DataTree conversion scripts for Horde 4.
+    * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
+Added button to update all configurations with default values at once.
+Updated DataTree conversion scripts for Horde 4.
+Small bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Horde';
 $this->notes['fm']['project'] = 'horde';
-$this->notes['fm']['branch'] = 'Horde 3';
+$this->notes['fm']['branch'] = 'Horde 4';

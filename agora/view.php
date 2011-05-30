@@ -11,7 +11,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('agora', array('cli' => true));
+Horde_Registry::appInit('agora');
 
 $action_id = Horde_Util::getFormData('action_id', 'download');
 $file_id = Horde_Util::getFormData('file_id');

@@ -5,15 +5,9 @@
  <summary>A toolset for CLI interfaces that are modular.</summary>
  <description>Command line interfaces can often be composed of different modules responsible for distinct actions. This package provides tools to support such a modular CLI.</description>
  <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
-  <name>Jan Schneider</name>
-  <user>jan</user>
-  <email>jan@horde.org</email>
+  <name>Gunnar Wrobel</name>
+  <user>wrobel</user>
+  <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
  <date>2011-03-07</date>

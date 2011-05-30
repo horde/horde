@@ -19,7 +19,12 @@ class IMP_Test extends Horde_Test
      *
      * @var array
      */
-    protected $_moduleList = array();
+    protected $_moduleList = array(
+        'zip' => array(
+            'descrip' => 'Zip Support',
+            'error' => 'The zip extension is used when importing compress mailboxes. IMP will fallback to using the zlib extension (if available) to read this data which should be sufficient for most installations. If zip support is desired, compile PHP with <code>--with-zip</code> to activate.'
+        )
+    );
 
     /**
      * PHP settings list.
@@ -134,7 +139,7 @@ class IMP_Test extends Horde_Test
         $ret .= '<span style="color:green">SUCCESS</span><p />';
 
         if ($driver == 'Socket') {
-            $ret .= '<strong>The following IMAP server information was discovered from the remote server:</strong>' .
+            $ret .= '<strong>The following IMAP server information was discovered from the server:</strong>' .
                 '<blockquote><em>Namespace Information</em><blockquote><pre>';
 
             try {
@@ -179,7 +184,16 @@ class IMP_Test extends Horde_Test
                 $this->_errorMsg($e);
             }
 
-            $ret .= '</pre></blockquote></blockquote>';
+            $ret .= '</pre></blockquote></blockquote>' .
+                '<blockquote><em>Does IMAP server support UTF-8 in search queries?</em> ';
+
+            if ($imap_client->validSearchCharset('UTF-8')) {
+                $ret .= '<span style="color:green">YES</span>';
+            } else {
+                $ret .= '<span style="color:red">NO</span>';
+            }
+
+            $ret .= '</blockquote>';
 
             try {
                 $id_info = $imap_client->getID();
@@ -191,10 +205,18 @@ class IMP_Test extends Horde_Test
                     $ret .= '</pre></blockquote></blockquote>';
                 }
             } catch (Horde_Imap_Client_Exception $e) {
-                // Ignore a lack of the ID capability.
+                // Ignore lack of ID capability.
             }
 
             // @todo IMAP Charset Search Support
+        } else {
+            $ret .= '<strong>Checking for the UIDL capability:</strong> ';
+
+            if ($imap_client->queryCapability('UIDL')) {
+                $ret .= '<span style="color:green">SUCCESS</span><p />';
+            } else {
+                return $this->_errorMsg(new Exception('The POP3 server does not support the *REQUIRED* UIDL capability.'));
+            }
         }
 
         return $ret;
@@ -207,7 +229,7 @@ class IMP_Test extends Horde_Test
      */
     protected function _errorMsg($e)
     {
-        return '<span style=\"color:red\">ERROR</span> - The server returned the following error message:' .
+        return '<span style="color:red">ERROR</span> - The server returned the following error message:' .
             '<pre>' . $e->getMessage() . '</pre><p />';
     }
 

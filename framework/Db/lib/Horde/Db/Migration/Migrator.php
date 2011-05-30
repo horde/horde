@@ -127,11 +127,17 @@ class Horde_Db_Migration_Migrator
      */
     public function getTargetVersion()
     {
-        $direction = $this->_direction;
-        $this->_direction = 'up';
-        $migration = array_pop($this->_getMigrationClasses());
-        $this->_direction = $direction;
-        return $migration->version;
+        $migrations = array();
+        foreach ($this->_getMigrationFiles() as $migrationFile) {
+            list($version, $name) = $this->_getMigrationVersionAndName($migrationFile);
+            $this->_assertUniqueMigrationVersion($migrations, $version);
+            $migrations[$version] = $name;
+        }
+
+        // Sort by version.
+        uksort($migrations, 'strnatcmp');
+
+        return key(array_reverse($migrations, true));
     }
 
     /**
@@ -226,7 +232,7 @@ class Horde_Db_Migration_Migrator
                             $this->_migrationsPath
                         )
                     ),
-                    '/\/\d+_.*\.php$/',
+                    '/' . preg_quote(DIRECTORY_SEPARATOR, '/') . '\d+_.*\.php$/',
                     RecursiveRegexIterator::MATCH,
                     RegexIterator::USE_KEY
                 )
@@ -270,7 +276,7 @@ class Horde_Db_Migration_Migrator
         if (in_array($this->_schemaTableName, $this->_connection->tables())) {
             return;
         }
-        $schemaTable = $this->_connection->createTable($this->_schemaTableName, array('primaryKey' => false));
+        $schemaTable = $this->_connection->createTable($this->_schemaTableName, array('autoincrementKey' => false));
         $schemaTable->column('version', 'integer');
         $schemaTable->end();
         $this->_connection->insert('INSERT INTO ' . $this->_schemaTableName . ' (version) VALUES (0)');

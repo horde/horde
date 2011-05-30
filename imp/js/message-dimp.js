@@ -106,7 +106,7 @@ var DimpMessage = {
             case 'button_deleted':
             case 'button_ham':
             case 'button_spam':
-                if (DimpCore.base) {
+                if (DimpCore.base.DimpBase) {
                     DimpCore.base.focus();
                     if (id == 'button_deleted') {
                         DimpCore.base.DimpBase.deleteMsg({ uid: this.uid, mailbox: this.mailbox });
@@ -166,7 +166,7 @@ var DimpMessage = {
 
             default:
                 if (elt.hasClassName('printAtc')) {
-                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.uid, mailbox: this.mailbox, actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.uid + '|' + this.mailbox + '|print', IMP.printWindow);
+                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.uid, mailbox: this.mailbox, actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.uid + '|' + this.mailbox + '|print', IMP_JS.printWindow);
                     e.stop();
                     return;
                 } else if (elt.hasClassName('stripAtc')) {
@@ -225,7 +225,7 @@ var DimpMessage = {
         DimpCore.init();
 
         if (DIMP.conf.disable_compose) {
-            tmp = $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').concat([ $('ctx_contacts_new') ]).compact().invoke('remove');
+            $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').concat([ $('ctx_contacts_new') ]).compact().invoke('remove');
         } else {
             DimpCore.addPopdown('reply_link', 'replypopdown');
             DimpCore.addPopdown('forward_link', 'forwardpopdown');
@@ -234,8 +234,11 @@ var DimpMessage = {
         /* Set up address linking. */
         [ 'from', 'to', 'cc', 'bcc', 'replyTo' ].each(function(a) {
             if (this[a]) {
-                var elt = $('msgHeader' + a.charAt(0).toUpperCase() + a.substring(1)).down('TD', 1);
-                elt.replace(DimpCore.buildAddressLinks(this[a], elt.clone(false)));
+                // Can't use capitalize() here.
+                var elt = $('msgHeader' + a.charAt(0).toUpperCase() + a.substring(1));
+                if (elt) {
+                    elt.down('TD', 1).replace(DimpCore.buildAddressLinks(this[a], elt.down('TD', 1).clone(false)));
+                }
             }
         }, this);
 
@@ -245,7 +248,7 @@ var DimpMessage = {
             DimpCore.updateMsgLog(this.log);
         }
 
-        if (DimpCore.base) {
+        if (DimpCore.base.DimpBase) {
             if (this.strip) {
                 DimpCore.base.DimpBase.poll();
             } else if (this.poll) {

@@ -70,7 +70,8 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
 
         // Prevent DSN from getting polluted
         if (!is_array($type) && $type == 'auth') {
-            unset($config['query_auth'],
+            unset($config['driverconfig'],
+                  $config['query_auth'],
                   $config['query_add'],
                   $config['query_getpw'],
                   $config['query_update'],
@@ -79,13 +80,16 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
                   $config['query_list'],
                   $config['query_exists'],
                   $config['encryption'],
-                  $config['show_encryption']);
+                  $config['show_encryption'],
+                  $config['username_field'],
+                  $config['password_field'],
+                  $config['table']);
         }
         unset($config['umask']);
 
         $e = null;
         try {
-            $this->_instances[$sig] = $this->_createDb($config);
+            $this->_instances[$sig] = $this->createDb($config);
         } catch (Horde_Exception $e) {}
 
         if ($pushed) {
@@ -108,14 +112,14 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
 
     /**
      */
-    protected function _createDb($config)
+    public function createDb($config)
     {
         // Split read?
         if (!empty($config['splitread'])) {
             unset($config['splitread']);
-            $write_db = $this->_createDb($config);
+            $write_db = $this->createDb($config);
             $config = array_merge($config, $config['read']);
-            $read_db = $this->_createDb($config);
+            $read_db = $this->createDb($config);
             return new Horde_Db_Adapter_SplitRead($read_db, $write_db);
         }
 

@@ -44,7 +44,7 @@ class Kronolith_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H4 (3.0-git)';
+    public $version = 'H4 (3.0.4-git)';
 
     /**
      * Global variables defined:
@@ -103,8 +103,8 @@ class Kronolith_Application extends Horde_Registry_Application
 
         $menu->add(Horde::url($prefs->getValue('defaultview') . '.php'), _("_Today"), 'today.png', null, null, null, '__noselection');
         if (Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
-            ($injector->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
-             $injector->getInstance('Horde_Perms')->hasAppPermission('max_events') > self::countEvents())) {
+            ($injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') === true ||
+             $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') > Kronolith::countEvents())) {
             $menu->add(Horde::url('new.php')->add('url', Horde::selfUrl(true, false, true)), _("_New Event"), 'new.png');
         }
 
@@ -136,12 +136,13 @@ class Kronolith_Application extends Horde_Registry_Application
      */
     public function hasPermission($permission, $allowed, $opts = array())
     {
-        switch ($permission) {
-        case 'max_events':
-            $allowed = max($allowed);
-            break;
+        if (is_array($allowed)) {
+            switch ($permission) {
+            case 'max_events':
+                $allowed = max($allowed);
+                break;
+            }
         }
-
         return $allowed;
     }
 
@@ -268,7 +269,7 @@ class Kronolith_Application extends Horde_Registry_Application
     {
         if ($GLOBALS['prefs']->isDirty('event_alarms')) {
             try {
-                $alarms = $GLOBALS['registry']->callByPackage('kronolith', 'listAlarms', array($_SERVER['REQUEST_TIME']));
+                $alarms = $GLOBALS['registry']->callAppMethod('kronolith', 'listAlarms', array('args' => array($_SERVER['REQUEST_TIME'])));
                 if (!empty($alarms)) {
                     $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
                     foreach ($alarms as $alarm) {
@@ -331,8 +332,9 @@ class Kronolith_Application extends Horde_Registry_Application
 
         $key = $GLOBALS['registry']->getAuthCredential('password');
         if ($key) {
-            $calUser = base64_encode(Secret::write($key, $calUser));
-            $calPasswd = base64_encode(Secret::write($key, $calPasswd));
+            $secret = $injector->getInstance('Horde_Secret');
+            $calUser = base64_encode($secret->write($key, $calUser));
+            $calPasswd = base64_encode($secret->write($key, $calPasswd));
         }
 
         $calActionID = isset($ui->vars->remote_action)
@@ -461,7 +463,7 @@ class Kronolith_Application extends Horde_Registry_Application
                         false,
                         array(
                             'icon' => $alarmImg,
-                            'url' => $event->getViewUrl()
+                            'url' => $event->getViewUrl(array(), false, false)
                         )
                     );
                 }
@@ -576,6 +578,72 @@ class Kronolith_Application extends Horde_Registry_Application
 
            });'
         );
+    }
+
+    /* Alarm method. */
+
+    /**
+     */
+    public function listAlarms($time, $user = null)
+    {
+        $current_user = $GLOBALS['registry']->getAuth();
+        if ((empty($user) || $user != $current_user) && !$GLOBALS['registry']->isAdmin()) {
+            throw new Horde_Exception_PermissionDenied();
+        }
+
+        $group = $GLOBALS['injector']->getInstance('Horde_Group');
+        $alarm_list = array();
+        $time = new Horde_Date($time);
+        $calendars = is_null($user) ? array_keys($GLOBALS['kronolith_shares']->listAllShares()) : $GLOBALS['display_calendars'];
+        $alarms = Kronolith::listAlarms($time, $calendars, true);
+        foreach ($alarms as $calendar => $cal_alarms) {
+            if (!$cal_alarms) {
+                continue;
+            }
+            try {
+                $share = $GLOBALS['kronolith_shares']->getShare($calendar);
+            } catch (Exception $e) {
+                continue;
+            }
+            if (empty($user)) {
+                $users = $share->listUsers(Horde_Perms::READ);
+                $groups = $share->listGroups(Horde_Perms::READ);
+                foreach ($groups as $gid) {
+                    try {
+                        $users = array_merge($users, $group->listUsers($gid));
+                    } catch (Horde_Group_Exception $e) {}
+                }
+                $users = array_unique($users);
+            } else {
+                $users = array($user);
+            }
+            $owner = $share->get('owner');
+            foreach ($cal_alarms as $event) {
+                foreach ($users as $alarm_user) {
+                    if ($alarm_user == $current_user) {
+                        $prefs = $GLOBALS['prefs'];
+                    } else {
+                        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('kronolith', array(
+                            'cache' => false,
+                            'user' => $alarm_user
+                        ));
+                    }
+                    $shown_calendars = unserialize($prefs->getValue('display_cals'));
+                    $reminder = $prefs->getValue('event_reminder');
+                    if (($reminder == 'owner' && $alarm_user == $owner) ||
+                        ($reminder == 'show' && in_array($calendar, $shown_calendars)) ||
+                        $reminder == 'read') {
+                            $GLOBALS['registry']->setLanguageEnvironment($prefs->getValue('language'));
+                            $alarm = $event->toAlarm($time, $alarm_user, $prefs);
+                            if ($alarm) {
+                                $alarm_list[] = $alarm;
+                            }
+                        }
+                }
+            }
+        }
+
+        return $alarm_list;
     }
 
 }

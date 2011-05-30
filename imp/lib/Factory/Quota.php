@@ -57,7 +57,7 @@ class IMP_Factory_Quota extends Horde_Core_Factory_Injector
         switch (Horde_String::lower($driver)) {
         case 'imap':
             $params['imap_ob'] = $imap_ob;
-            $params['mbox'] = $injector->getInstance('IMP_Search')->isSearchMbox(IMP::$mailbox)
+            $params['mbox'] = IMP::$mailbox->search
                 ? 'INBOX'
                 : IMP::$mailbox;
             break;

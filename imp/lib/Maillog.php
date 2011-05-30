@@ -15,10 +15,13 @@
  */
 class IMP_Maillog
 {
+    const MDN = 'mdn';
+
     /**
      * Create a log entry.
      *
-     * @param string $type    Either 'forward', 'redirect', 'reply', or 'mdn'.
+     * @param mixed $type     Either an IMP_Compose:: constant or an
+     *                        IMP_Maillog:: constant.
      * @param mixed $msg_ids  Either a single Message-ID or an array of
      *                        Message-IDs to log.
      * @param string $data    Any additional data to store. For 'forward' and
@@ -36,34 +39,50 @@ class IMP_Maillog
 
         foreach ($msg_ids as $val) {
             switch ($type) {
-            case 'forward':
+            case IMP_Compose::FORWARD:
+            case IMP_Compose::FORWARD_ATTACH:
+            case IMP_Compose::FORWARD_BODY:
+            case IMP_Compose::FORWARD_BOTH:
                 $params = array('recipients' => $data, 'action' => 'forward');
                 break;
 
-            case 'mdn':
+            case self::MDN:
                 $params = array('type' => $data, 'action' => 'mdn');
                 break;
 
-            case 'redirect':
+            case IMP_Compose::REDIRECT:
                 $params = array('recipients' => $data, 'action' => 'redirect');
                 break;
 
-            case 'reply':
-            case 'reply_all':
-            case 'reply_list':
-                $params = array('action' => $type);
+            case IMP_Compose::REPLY:
+            case IMP_Compose::REPLY_SENDER:
+                $params = array('action' => 'reply');
+                break;
+
+            case IMP_Compose::REPLY_ALL:
+                $params = array('action' => 'reply_all');
+                break;
+
+            case IMP_Compose::REPLY_LIST:
+                $params = array('action' => 'reply_list');
+                break;
+
+            default:
+                $params = null;
                 break;
             }
 
-            try {
-                $history->log(self::_getUniqueHistoryId($val), $params);
-            } catch (Exception $e) {
-                /* On error, log the error message only since informing the
-                 * user is just a waste of time and a potential point of
-                 * confusion, especially since they most likely don't even
-                 * know the message is being logged. */
-                $entry = sprintf('Could not log message details to Horde_History. Error returned: %s', $e->getMessage());
-                Horde::logMessage($entry, 'ERR');
+            if ($params) {
+                try {
+                    $history->log(self::_getUniqueHistoryId($val), $params);
+                } catch (Exception $e) {
+                    /* On error, log the error message only since informing the
+                     * user is just a waste of time and a potential point of
+                     * confusion, especially since they most likely don't even
+                     * know the message is being logged. */
+                    $entry = sprintf('Could not log message details to Horde_History. Error returned: %s', $e->getMessage());
+                    Horde::logMessage($entry, 'ERR');
+                }
             }
         }
     }

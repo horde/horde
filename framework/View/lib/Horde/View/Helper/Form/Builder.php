@@ -52,14 +52,16 @@ class Horde_View_Helper_Form_Builder
         return $this->_view->{$method}($this->_objectName, $objectProperty, $options);
     }
 
-    public function fieldsFor($name) {
+    public function fieldsFor($name)
+    {
         $name = "{$this->_objectName}[$name]";
         $args = func_get_args();
         $args[0] = $name;
         return call_user_func_array(array($this->_view, 'fieldsFor'), $args);
     }
 
-    public function checkBox($method, $options = array(), $checkedValue = '1', $uncheckedValue = '0')
+    public function checkBox($method, $options = array(), $checkedValue = '1',
+                             $uncheckedValue = '0')
     {
         $options = array_merge($options, array('object' => $this->_object));
         return $this->_view->checkBox($this->_objectName, $method, $options, $checkedValue, $uncheckedValue);
@@ -71,9 +73,6 @@ class Horde_View_Helper_Form_Builder
         return $this->_view->radioButton($this->_objectName, $method, $tagValue, $options);
     }
 
-    // @todo error_message_on
-    // @todo error_messages
-
     public function submit($value = 'Save changes', $options = array())
     {
         $options = array_merge(array('id' => "{$this->_objectName}_submit"), $options);
@@ -84,5 +83,4 @@ class Horde_View_Helper_Form_Builder
     {
         echo $this->_end;
     }
-
 }

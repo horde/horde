@@ -68,7 +68,7 @@ class Kronolith_View_EditEvent
         }
         if (!$this->_event->hasPermission(Horde_Perms::EDIT)) {
             try {
-                $calendar_id .= ':' . $this->_event->getShare()->get('owner');
+                $calendar_id .= '\\' . $this->_event->getShare()->get('owner');
             } catch (Exception $e) {
             }
         }
@@ -92,8 +92,8 @@ class Kronolith_View_EditEvent
 
         $buttons = array();
         if (!$this->_event->hasPermission(Horde_Perms::EDIT) &&
-            ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
-             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > Kronolith::countEvents())) {
+            ($GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') === true ||
+             $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') > Kronolith::countEvents())) {
             $buttons[] = '<input type="submit" class="button" name="saveAsNew" value="' . _("Save As New") . '" />';
         } else {
             if ($this->_event->hasPermission(Horde_Perms::EDIT)) {
@@ -101,8 +101,8 @@ class Kronolith_View_EditEvent
             }
             if ($this->_event->initialized) {
                 if (!$this->_event->recurs() &&
-                    ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
-                     $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > Kronolith::countEvents())) {
+                    ($GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') === true ||
+                     $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') > Kronolith::countEvents())) {
                     $buttons[] = '<input type="submit" class="button" name="saveAsNew" value="' . _("Save As New") . '" />';
                 }
             }

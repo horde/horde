@@ -1,7 +1,6 @@
 <?php
 /**
- * Horde_Share_sql:: provides the sql backend for the horde share
- * driver.
+ * Horde_Share_Sql provides the SQL backend for the Horde share system.
  *
  * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
@@ -52,7 +51,7 @@ class Horde_Share_Sql extends Horde_Share_Base
      *
      * @see Horde_Share_Base::__construct()
      */
-    public function __construct($app, $user, Horde_Perms $perms,
+    public function __construct($app, $user, Horde_Perms_Base $perms,
                                 Horde_Group_Base $groups)
     {
         parent::__construct($app, $user, $perms, $groups);
@@ -725,6 +724,8 @@ class Horde_Share_Sql extends Horde_Share_Base
     /**
      * Returns an array of criteria for querying shares.
      *
+     * @TODO Make this method protected, like all the other drivers.
+     *
      * @param string $userid      The userid of the user to check access for.
      * @param integer $perm       The level of permissions required. Set to null
      *                            to skip permission filtering.
@@ -806,9 +807,6 @@ class Horde_Share_Sql extends Horde_Share_Base
     /**
      * Returns criteria statement fragments for querying shares.
      *
-     * @todo: Horde_Sql:: stuff should be refactored/removed when it's ported
-     *        to Horde_Db
-     *
      * @param string  $userid  The userid of the user to check access for.
      * @param integer $perm    The level of permissions required.
      *
@@ -820,21 +818,21 @@ class Horde_Share_Sql extends Horde_Share_Base
         $query = $where = '';
 
         if (empty($userid)) {
-            $where = '(' . Horde_Sql::buildClause($this->_db, 's.perm_guest', '&', $perm) . ')';
+            $where = '(' . $this->_db->buildClause('s.perm_guest', '&', $perm) . ')';
         } else {
             // (owner == $userid)
             $where .= 's.share_owner = ' . $this->_db->quote($userid);
 
             // (name == perm_creator and val & $perm)
-            $where .= ' OR (' . Horde_Sql::buildClause($this->_db, 's.perm_creator', '&', $perm) . ')';
+            $where .= ' OR (' . $this->_db->buildClause('s.perm_creator', '&', $perm) . ')';
 
             // (name == perm_creator and val & $perm)
-            $where .= ' OR (' . Horde_Sql::buildClause($this->_db, 's.perm_default', '&', $perm) . ')';
+            $where .= ' OR (' . $this->_db->buildClause('s.perm_default', '&', $perm) . ')';
 
             // (name == perm_users and key == $userid and val & $perm)
             $query .= ' LEFT JOIN ' . $this->_table . '_users u ON u.share_id = s.share_id';
             $where .= ' OR ( u.user_uid = ' .  $this->_db->quote($userid)
-            . ' AND (' . Horde_Sql::buildClause($this->_db, 'u.perm', '&', $perm) . '))';
+            . ' AND (' . $this->_db->buildClause('u.perm', '&', $perm) . '))';
 
             // If the user has any group memberships, check for those also.
             try {
@@ -848,7 +846,7 @@ class Horde_Share_Sql extends Horde_Share_Base
                     }
                     $query .= ' LEFT JOIN ' . $this->_table . '_groups g ON g.share_id = s.share_id';
                     $where .= ' OR (g.group_uid IN (' . implode(',', $group_ids)
-                        . ') AND (' . Horde_Sql::buildClause($this->_db, 'g.perm', '&', $perm) . '))';
+                        . ') AND (' . $this->_db->buildClause('g.perm', '&', $perm) . '))';
                 }
             } catch (Horde_Group_Exception $e) {
                 $this->_logger->err($e);

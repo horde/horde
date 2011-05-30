@@ -193,27 +193,55 @@ class Horde_Ldap_Schema
     /**
      * Fetches attributes that MAY be present in the given objectclass.
      *
-     * @param string $oc Name or OID of objectclass.
+     * @param string $oc         Name or OID of objectclass.
+     * @param boolean $checksup  Check all superiour objectclasses too?
      *
      * @return array Array with attributes.
-     * @throws Horde_Ldap_Exception
      */
-    public function may($oc)
+    public function may($oc, $checksup = false)
     {
-        return $this->_getAttr($oc, 'may');
+        try {
+            $attributes = $this->_getAttr($oc, 'may');
+        } catch (Horde_Ldap_Exception $e) {
+            $attributes = array();
+        }
+        if ($checksup) {
+            try {
+                foreach ($this->superclass($oc) as $sup) {
+                    $attributes = array_merge($attributes, $this->may($sup, true));
+                }
+            } catch (Horde_Ldap_Exception $e) {
+            }
+            $attributes = array_values(array_unique($attributes));
+        }
+        return $attributes;
     }
 
     /**
      * Fetches attributes that MUST be present in the given objectclass.
      *
-     * @param string $oc Name or OID of objectclass.
+     * @param string $oc         Name or OID of objectclass.
+     * @param boolean $checksup  Check all superiour objectclasses too?
      *
      * @return array Array with attributes.
-     * @throws Horde_Ldap_Exception
      */
-    public function must($oc)
+    public function must($oc, $checksup = false)
     {
-        return $this->_getAttr($oc, 'must');
+        try {
+            $attributes = $this->_getAttr($oc, 'must');
+        } catch (Horde_Ldap_Exception $e) {
+            $attributes = array();
+        }
+        if ($checksup) {
+            try {
+                foreach ($this->superclass($oc) as $sup) {
+                    $attributes = array_merge($attributes, $this->must($sup, true));
+                }
+            } catch (Horde_Ldap_Exception $e) {
+            }
+            $attributes = array_values(array_unique($attributes));
+        }
+        return $attributes;
     }
 
     /**

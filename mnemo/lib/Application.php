@@ -36,7 +36,7 @@ class Mnemo_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (3.0-git)';
+    public $version = 'H4 (3.0.2-git)';
 
     /**
      * Global variables defined:
@@ -45,7 +45,6 @@ class Mnemo_Application extends Horde_Registry_Application
     protected function _init()
     {
         Mnemo::initialize();
-        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('categoryCSS.php');
     }
 
     /**
@@ -69,8 +68,8 @@ class Mnemo_Application extends Horde_Registry_Application
         $menu->add(Horde::url('list.php'), _("_List Notes"), 'mnemo.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
 
         if (Mnemo::getDefaultNotepad(Horde_Perms::EDIT) &&
-            ($injector->getInstance('Horde_Perms')->hasAppPermission('max_notes') === true ||
-             $injector->getInstance('Horde_Perms')->hasAppPermission('max_notes') > Mnemo::countMemos())) {
+            ($injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_notes') === true ||
+             $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_notes') > Mnemo::countMemos())) {
             $menu->add(Horde::url(Horde_Util::addParameter('memo.php', 'actionID', 'add_memo')), _("_New Note"), 'add.png', null, null, null, Horde_Util::getFormData('memo') ? '__noselection' : null);
         }
 
@@ -92,12 +91,13 @@ class Mnemo_Application extends Horde_Registry_Application
      */
     public function hasPermission($permission, $allowed, $opts = array())
     {
-        switch ($permission) {
-        case 'max_notes':
-            $allowed = max($allowed);
-            break;
+        if (is_array($allowed)) {
+            switch ($permission) {
+            case 'max_notes':
+                $allowed = max($allowed);
+                break;
+            }
         }
-
         return $allowed;
     }
 

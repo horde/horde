@@ -58,7 +58,7 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
 
         foreach (array('john', 'jane', '') as $user) {
             self::$_shares[$user] = new Horde_Share_Kolab(
-                'mnemo', $user, new Horde_Perms(), $group
+                'mnemo', $user, new Horde_Perms_Null(), $group
             );
             $factory = new Horde_Kolab_Storage_Factory(
                 array(

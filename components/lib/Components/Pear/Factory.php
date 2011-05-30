@@ -208,7 +208,7 @@ class Components_Pear_Factory
      */
     public function getPackageXml($package_xml_path)
     {
-        return new Horde_Pear_Package_Xml(fopen($package_xml_path, 'r'));
+        return new Horde_Pear_Package_Xml($package_xml_path);
     }
 
     /**
@@ -240,82 +240,8 @@ class Components_Pear_Factory
     public function createPackageFile(
         $package_xml_dir
     ) {
-        $environment = $this->_dependencies->getInstance('Components_Pear_InstallLocation');
-        $pkg = new PEAR_PackageFile_v2_rw();
-        $pkg->setPackage(basename($package_xml_dir));
-        $pkg->setDescription('REPLACE');
-        $pkg->setSummary('REPLACE');
-        $pkg->setReleaseVersion('0.0.1');
-        $pkg->setApiVersion('0.0.1');
-        $pkg->setReleaseStability('alpha');
-        $pkg->setApiStability('alpha');
-        $pkg->setChannel('pear.horde.org');
-        $pkg->addMaintainer(
-            'lead',
-            'chuck',
-            'Chuck Hagenbuch',
-            'chuck@horde.org'
-        );
-        $pkg->addMaintainer(
-            'lead',
-            'jan',
-            'Jan Schneider',
-            'jan@horde.org'
-        );
-        $pkg->setLicense('REPLACE', 'REPLACE');
-        $pkg->setNotes('* Initial release.');
-        $pkg->clearContents(true);
-        $pkg->clearDeps();
-        $pkg->setPhpDep('5.2.0');
-        $pkg->setPearinstallerDep('1.9.0');
-        $pkg->setPackageType('php');
-        $pkg->addFile('', 'something', array('role' => 'php'));
-        new PEAR_Validate();
-        return Components_Exception_Pear::catchError(
-            $pkg->getDefaultGenerator()
-            ->toPackageFile($package_xml_dir, 0)
-        );
-    }
-
-    /**
-     * Return a writeable PEAR Package representation.
-     *
-     * @param string                          $package_xml_path Path to the package.xml file.
-     * @param Components_Pear_InstallLocation $environment      The PEAR environment.
-     *
-     * @return PEAR_PackageFileManager2
-     */
-    public function getPackageRwFile(
-        $package_xml_path,
-        Components_Pear_InstallLocation $environment
-    ) {
-        /**
-         * Ensure we setup the PEAR_Config according to the PEAR environment
-         * the user set.
-         */
-        $environment->getPearConfig();
-
-        if (!class_exists('PEAR_PackageFileManager2')) {
-            throw new Components_Exception(
-                'The Package "PEAR_PackageFileManager2" is missing in the PEAR environment. Please install it so that you can run this action.'
-            );
-        }
-
-        $old_dir = getcwd();
-        chdir(dirname($package_xml_path));
-        $result = Components_Exception_Pear::catchError(
-            PEAR_PackageFileManager2::importOptions(
-                basename($package_xml_path),
-                array(
-                    'packagedirectory' => '.',
-                    'clearcontents' => false,
-                    'clearchangelog' => false,
-                    'simpleoutput' => true,
-                )
-            )
-        );
-        chdir($old_dir);
-        return $result;
+        $type = new Horde_Pear_Package_Type_Horde($package_xml_dir);
+        $type->writePackageXmlDraft();
     }
 
     /**
@@ -330,19 +256,5 @@ class Components_Pear_Factory
         $dependencies = $this->_dependencies->createInstance('Components_Pear_Dependencies');
         $dependencies->setPackage($package);
         return $dependencies;
-    }
-
-    /**
-     * Create a package content helper.
-     *
-     * @param PEAR_PackageFileManager2 $package The package.
-     *
-     * @return Components_Pear_Package_Contents The contents helper.
-     */
-    public function createContents(PEAR_PackageFileManager2 $package)
-    {
-        $contents = $this->_dependencies->createInstance('Components_Pear_Package_Contents');
-        $contents->setPackage($package);
-        return $contents;
     }
 }

@@ -204,7 +204,7 @@ class Horde_SyncMl_Device
         if ($this->useLocalTime()) {
             $content = preg_replace_callback(
                 '/\d{8}T\d{6}Z/',
-                array($this, 'convertUTC2LocalTime'),
+                array($this, '_convertUTC2LocalTime'),
                 $content);
         }
 
@@ -269,13 +269,13 @@ class Horde_SyncMl_Device
      * Converts an UTC timestamp like "20061222T110000Z" into a local
      * timestamp like "20061222T130000" using the server timezone.
      *
-     * @param string $utc  A datetime string in UTC.
+     * @param array $utc  Array with a datetime string in UTC.
      *
      * @return string  The datetime string converted to the local timezone.
      */
-    public function convertUTC2LocalTime($utc)
+    protected function _convertUTC2LocalTime($utc)
     {
-        $date = new Horde_Date($utc);
+        $date = new Horde_Date($utc[0]);
         $date->setTimezone(date_default_timezone_get());
         return $date->format("Ymd\THis");
     }

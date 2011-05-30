@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gollem 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: 2011-02-02 18:15+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -80,11 +80,11 @@ msgstr "Sind Sie sicher, dass Sie fortfahren möchten?"
 msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
 
-#: config/prefs.php.dist:64
+#: config/prefs.php:67
 msgid "Ascending"
 msgstr "Aufsteigend"
 
-#: config/prefs.php.dist:94
+#: config/prefs.php:97
 msgid "Ask"
 msgstr "Nachfragen"
 
@@ -92,11 +92,11 @@ msgstr "Nachfragen"
 msgid "Attributes"
 msgstr "Attribute"
 
-#: lib/Application.php:79
+#: lib/Application.php:225
 msgid "Backends"
 msgstr "Backends"
 
-#: lib/Application.php:149
+#: lib/Application.php:286
 msgid "Backends that will not be displayed:"
 msgstr "Backends die nicht angezeigt werden:"
 
@@ -145,7 +145,7 @@ msgstr "Rechte Ändern"
 msgid "Change Server"
 msgstr "Server wechseln"
 
-#: lib/Application.php:175
+#: lib/Application.php:309
 msgid "Check Quota"
 msgstr "Speicherplatzkontingent überprüfen"
 
@@ -157,7 +157,7 @@ msgstr "_Alle/Keine auswählen"
 msgid "Chmod done: "
 msgstr "Zugriffsrechte geändert:"
 
-#: lib/Application.php:145
+#: lib/Application.php:282
 msgid "Choose which backends to display, and in what order:"
 msgstr ""
 "Wählen Sie aus, welche Backends in welcher Reihenfolge angezeigt werden "
@@ -183,7 +183,7 @@ msgstr "Kopieren"
 msgid "Create Folder"
 msgstr "Verzeichnis erstellen"
 
-#: permissions.php:51
+#: permissions.php:53
 #, php-format
 msgid ""
 "Created empty permissions for \"%s\". You must explicitly grant access to "
@@ -200,11 +200,11 @@ msgstr "Aktuelles Verzeichnis:"
 msgid "Cut"
 msgstr "Ausschneiden"
 
-#: config/prefs.php.dist:56
+#: config/prefs.php:59
 msgid "Default sorting criteria:"
 msgstr "Sortierreihenfolge:"
 
-#: config/prefs.php.dist:67
+#: config/prefs.php:70
 msgid "Default sorting direction:"
 msgstr "Sortierrichtung:"
 
@@ -212,11 +212,11 @@ msgstr "Sortierrichtung:"
 msgid "Delete"
 msgstr "Löschen"
 
-#: config/prefs.php.dist:96
+#: config/prefs.php:99
 msgid "Delete folders recursively?"
 msgstr "Verzeichnisse rekursiv löschen?"
 
-#: config/prefs.php.dist:65
+#: config/prefs.php:68
 msgid "Descending"
 msgstr "Absteigend"
 
@@ -254,31 +254,31 @@ msgstr "Ausführen"
 msgid "File"
 msgstr "Datei"
 
-#: config/prefs.php.dist:83
+#: config/prefs.php:86
 msgid "File Actions"
 msgstr "Dateiaktionen"
 
-#: config/prefs.php.dist:12
+#: config/prefs.php:15
 msgid "File Display"
 msgstr "Dateianzeige"
 
-#: config/prefs.php.dist:53
+#: config/prefs.php:56
 msgid "File Modification Time"
 msgstr "Dateiänderung"
 
-#: config/prefs.php.dist:52
+#: config/prefs.php:55
 msgid "File Name"
 msgstr "Dateiname"
 
-#: config/prefs.php.dist:54
+#: config/prefs.php:57
 msgid "File Size"
 msgstr "Dateigröße"
 
-#: config/prefs.php.dist:51
+#: config/prefs.php:54
 msgid "File Type"
 msgstr "Dateityp"
 
-#: config/prefs.php.dist:84
+#: config/prefs.php:87
 msgid "File action settings."
 msgstr "Dateiaktionen-Einstellungen"
 
@@ -286,7 +286,7 @@ msgstr "Dateiaktionen-Einstellungen"
 msgid "File deleted: "
 msgstr "Datei gelöscht: "
 
-#: config/prefs.php.dist:13
+#: config/prefs.php:16
 msgid "File display preferences."
 msgstr "Dateianzeige-Einstellungen"
 
@@ -346,7 +346,7 @@ msgstr "Element in Zwischenablage kopiert: %s"
 msgid "Item cut to clipboard: %s"
 msgstr "Element in Zwischenablage verschoben: %s"
 
-#: config/prefs.php.dist:74
+#: config/prefs.php:77
 msgid "Items per page"
 msgstr "Elemente pro Seite"
 
@@ -354,7 +354,7 @@ msgstr "Elemente pro Seite"
 msgid "Language"
 msgstr "Sprache"
 
-#: config/prefs.php.dist:31
+#: config/prefs.php:34
 msgid "List folders first?"
 msgstr "Verzeichnisse zuerst anzeigen?"
 
@@ -374,7 +374,7 @@ msgstr "Name:"
 msgid "New folder created: "
 msgstr "Neues Verzeichnis erstellt: "
 
-#: config/prefs.php.dist:92
+#: config/prefs.php:95
 msgid "No"
 msgstr "Nein"
 
@@ -464,7 +464,7 @@ msgstr "Speichern"
 msgid "Select All/None"
 msgstr "Alle/Keine auswählen"
 
-#: lib/Application.php:147
+#: lib/Application.php:284
 msgid "Select a backend:"
 msgstr "Backend auswählen:"
 
@@ -472,7 +472,7 @@ msgstr "Backend auswählen:"
 msgid "Server"
 msgstr "Server"
 
-#: config/prefs.php.dist:24
+#: config/prefs.php:27
 msgid "Show dotfiles?"
 msgstr "Versteckte Dateien anzeigen?"
 
@@ -500,7 +500,7 @@ msgstr "Das Ursprungs-Fenster ist geschlossen worden. Abbruch."
 msgid "There are no files in this folder."
 msgstr "Dieses Verzeichnis ist leer."
 
-#: lib/Application.php:146
+#: lib/Application.php:283
 msgid "These backends will display in this order:"
 msgstr "Diese Backends werden in der folgenden Reihenfolge angezeigt:"
 
@@ -529,7 +529,7 @@ msgstr "Typ"
 msgid "Unable to create Gollem session"
 msgstr "Gollemsession konnte nicht gestartet werden"
 
-#: permissions.php:46
+#: permissions.php:48
 #, php-format
 msgid "Unable to create backend permission: %s"
 msgstr "Die Backendrechte konnten nicht erstellt werden: %s"
@@ -553,7 +553,7 @@ msgstr "Hoch nach %s"
 msgid "Upload File(s)"
 msgstr "Datei(en) Hochladen"
 
-#: config/prefs.php.dist:11 config/prefs.php.dist:82
+#: config/prefs.php:14 config/prefs.php:85
 msgid "User Interface"
 msgstr "Benutzeroberfläche"
 
@@ -565,7 +565,7 @@ msgstr "Zwischenablage anzeigen"
 msgid "Write"
 msgstr "Schreiben"
 
-#: config/prefs.php.dist:93
+#: config/prefs.php:96
 msgid "Yes"
 msgstr "Ja"
 
@@ -579,11 +579,11 @@ msgstr ""
 msgid "_Change Server"
 msgstr "Server _wechseln"
 
-#: lib/Application.php:163
+#: lib/Application.php:297
 msgid "_My Home"
 msgstr "_Meine Startseite"
 
-#: lib/Application.php:166
+#: lib/Application.php:300
 msgid "_Permissions"
 msgstr "_Rechte"
 

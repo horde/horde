@@ -59,7 +59,19 @@ class Horde_Imap_Client
     /* SORT_SEQUENCE does a simple numerical sort on the returned
      * UIDs/sequence numbers. */
     const SORT_SEQUENCE = 12;
+    /* Fuzzy sort criteria defined in RFC 6203 */
+    const SORT_RELEVANCY = 13;
 
+    /* Search results constants */
+    const SEARCH_RESULTS_COUNT = 1;
+    const SEARCH_RESULTS_MATCH = 2;
+    const SEARCH_RESULTS_MAX = 3;
+    const SEARCH_RESULTS_MIN = 4;
+    const SEARCH_RESULTS_SAVE = 5;
+    /* Fuzzy sort criteria defined in RFC 6203 */
+    const SEARCH_RESULTS_RELEVANCY = 6;
+
+    /* DEPRECATED: Use SEARCH_RESULTS_* instead. */
     const SORT_RESULTS_COUNT = 1;
     const SORT_RESULTS_MATCH = 2;
     const SORT_RESULTS_MAX = 3;
@@ -131,6 +143,10 @@ class Horde_Imap_Client
     const FLAG_MDNSENT = '$mdnsent';
     // RFC 5550 [2.8]
     const FLAG_FORWARDED = '$forwarded';
+    // RFC 5788 registered keywords:
+    // http://www.ietf.org/mail-archive/web/morg/current/msg00441.html
+    const FLAG_JUNK = '$junk';
+    const FLAG_NOTJUNK = '$notjunk';
 
     /* Special-use mailbox attributes (RFC 6154 [2]). */
     const SPECIALUSE_ALL = '\\All';
@@ -155,14 +171,16 @@ class Horde_Imap_Client
      *
      * Optional Parameters:
      * --------------------
-     * cache - (array) If set, caches data from fetch() calls. Requires the
-     *         horde/Cache package to be installed. The array can contain the
-     *         following keys (see Horde_Imap_Client_Cache:: for default
-     *         values):
+     * cache - (array) If set, caches data from fetch(), search(), and
+     *         thread() calls. Requires the horde/Cache package to be
+     *         installed. The array can contain the following keys (see
+     *         Horde_Imap_Client_Cache:: for default values):
      *   cacheob - [REQUIRED] (Horde_Cache) The cache object to use.
-     *   fields - [OPTIONAL] (array) The fetch criteria to cache. If not
-     *            defined, all cacheable data is cached. The following is a
-     *            list of criteria that can be cached:
+     *   fetch_ignore - (array) A list of mailboxes to ignore when storing
+     *                  fetch data.
+     *   fields - (array) The fetch criteria to cache. If not defined, all
+     *            cacheable data is cached. The following is a list of
+     *            criteria that can be cached:
      *              + Horde_Imap_Client::FETCH_ENVELOPE
      *              + Horde_Imap_Client::FETCH_FLAGS
      *                Only if server supports CONDSTORE extension
@@ -171,9 +189,8 @@ class Horde_Imap_Client
      *              + Horde_Imap_Client::FETCH_IMAPDATE
      *              + Horde_Imap_Client::FETCH_SIZE
      *              + Horde_Imap_Client::FETCH_STRUCTURE
-     *   lifetime - [OPTIONAL] (integer) The lifetime of the cache data (in
-     *              seconds).
-     *   slicesize - [OPTIONAL] (integer) The slicesize to use.
+     *   lifetime - (integer) The lifetime of the cache data (in seconds).
+     *   slicesize - (integer) The slicesize to use.
      * capability_ignore - (array) A list of IMAP capabilites to ignore, even
      *                     if they are supported on the server.
      *                     DEFAULT: No supported capabilities are ignored

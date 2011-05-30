@@ -23,10 +23,10 @@
  */
 class Horde_View_Helper_Form_InstanceTag_Base extends Horde_View_Helper_Tag
 {
-    protected $_defaultFieldOptions = array('size' => 30);
-    protected $_defaultRadioOptions = array();
+    protected $_defaultFieldOptions    = array('size' => 30);
+    protected $_defaultRadioOptions    = array();
     protected $_defaultTextAreaOptions = array('cols' => 40, 'rows' => 20);
-    protected $_defaultDateOptions = array('discardType' => true);
+    protected $_defaultDateOptions     = array('discardType' => true);
 
     protected $objectName;
     protected $objectProperty;
@@ -34,9 +34,9 @@ class Horde_View_Helper_Form_InstanceTag_Base extends Horde_View_Helper_Tag
     protected $autoIndex;
 
     /**
-     * @param  array  $values  Values to cycle through
      */
-    public function __construct($objectName, $objectProperty, $view, $object = null)
+    public function __construct($objectName, $objectProperty, $view,
+                                $object = null)
     {
         $this->_view = $view;
         $this->objectProperty = $objectProperty;
@@ -44,14 +44,13 @@ class Horde_View_Helper_Form_InstanceTag_Base extends Horde_View_Helper_Tag
 
         if (strpos($objectName, '[]')) {
             $objectName = rtrim($objectName, '[]');
-            if (! isset($object)) {
+            if (!isset($object)) {
                 $object = $view->{$objectName};
             }
             if (isset($object) && isset($object->id_before_type_cast)) {
                 $this->autoIndex = $object->id_before_type_cast;
             } else {
-                $msg = "object[] naming but object param and @object var don't exist or don't respond to id_before_type_cast";
-                throw new InvalidArgumentException($msg);
+                throw new InvalidArgumentException("object[] naming but object param and @object var don't exist or don't respond to id_before_type_cast");
             }
         }
 
@@ -78,44 +77,41 @@ class Horde_View_Helper_Form_InstanceTag_Base extends Horde_View_Helper_Tag
 
     protected function valueBeforeTypeCast($object)
     {
-        if (is_object($object)) {
-            if (isset($object->{"{$this->objectProperty}_before_type_cast"})) {
-                return $object->{"{$this->objectProperty}_before_type_cast"};
-            } else {
-                if (isset($object->{$this->objectProperty})) {
-                    return $object->{$this->objectProperty};
-                } else {
-                    return null;
-                }
-            }
-        } else {
+        if (!is_object($object)) {
             return null;
         }
+        if (isset($object->{"{$this->objectProperty}_before_type_cast"})) {
+            return $object->{"{$this->objectProperty}_before_type_cast"};
+        }
+        if (isset($object->{$this->objectProperty})) {
+            return $object->{$this->objectProperty};
+        }
+        return null;
     }
 
     protected function addDefaultNameAndId($options)
     {
         if (isset($options['index'])) {
-            if (! isset($options['name'])) {
+            if (!isset($options['name'])) {
                 $options['name'] = $this->tagNameWithIndex($options['index']);
             }
-            if (! isset($options['id'])) {
+            if (!isset($options['id'])) {
                 $options['id'] = $this->tagIdWithIndex($options['index']);
             }
             unset($options['index']);
-        } else if (isset($this->autoIndex)) {
-            if (! isset($options['name'])) {
+        } elseif (isset($this->autoIndex)) {
+            if (!isset($options['name'])) {
                 $options['name'] = $this->tagNameWithIndex($this->autoIndex);
             }
-            if (! isset($options['id'])) {
+            if (!isset($options['id'])) {
                 $options['id'] = $this->tagIdWithIndex($this->autoIndex);
             }
         } else {
-            if (! isset($options['name'])) {
+            if (!isset($options['name'])) {
                 $options['name'] = $this->tagName()
                                  . (isset($options['multiple']) ? '[]' : '');
             }
-            if (! isset($options['id'])) {
+            if (!isset($options['id'])) {
                 $options['id'] = $this->tagId();
             }
         }
@@ -148,5 +144,4 @@ class Horde_View_Helper_Form_InstanceTag_Base extends Horde_View_Helper_Tag
         $name = preg_replace('/_$/', '', $name);
         return $name;
     }
-
 }

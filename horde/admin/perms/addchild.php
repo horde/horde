@@ -15,6 +15,7 @@ Horde_Registry::appInit('horde', array('admin' => true));
 /* Set up the form variables. */
 $vars = Horde_Variables::getDefaultVariables();
 $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+$corePerms = $injector->getInstance('Horde_Core_Perms');
 $perm_id = $vars->get('perm_id');
 
 try {
@@ -25,26 +26,26 @@ try {
 }
 
 /* Set up form. */
-$ui = new Horde_Core_Perms_Ui($perms);
+$ui = new Horde_Core_Perms_Ui($perms, $corePerms);
 $ui->setVars($vars);
 $ui->setupAddForm($permission);
 
 if ($ui->validateAddForm($info)) {
     try {
         if ($info['perm_id'] == Horde_Perms::ROOT) {
-            $child = $perms->newPermission($info['child']);
+            $child = $corePerms->newPermission($info['child']);
             $result = $perms->addPermission($child);
         } else {
             $pOb = $perms->getPermissionById($info['perm_id']);
             $name = $pOb->getName() . ':' . str_replace(':', '.', $info['child']);
-            $child = $perms->newPermission($name);
+            $child = $corePerms->newPermission($name);
             $result = $perms->addPermission($child);
         }
-        $notification->push(sprintf(_("\"%s\" was added to the permissions system."), $perms->getTitle($child->getName())), 'horde.success');
+        $notification->push(sprintf(_("\"%s\" was added to the permissions system."), $corePerms->getTitle($child->getName())), 'horde.success');
         Horde::url('admin/perms/edit.php', true)->add('perm_id', $child->getId())->redirect();
     } catch (Exception $e) {
         Horde::logMessage($e, 'ERR');
-        $notification->push(sprintf(_("\"%s\" was not created: %s."), $perms->getTitle($child->getName()), $e->getMessage()), 'horde.error');
+        $notification->push(sprintf(_("\"%s\" was not created: %s."), $corePerms->getTitle($child->getName()), $e->getMessage()), 'horde.error');
     }
 }
 

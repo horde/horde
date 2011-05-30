@@ -92,7 +92,7 @@ var ImpSearch = {
                 break;
 
             case 'IMP_Search_Element_Size':
-                this.insertSize(crit.s ? 'size_larger' : 'size_smaller', crit.l);
+                this.insertSize(crit.l ? 'size_larger' : 'size_smaller', crit.s);
                 break;
 
             case 'IMP_Search_Element_Text':
@@ -256,7 +256,7 @@ var ImpSearch = {
             new Element('SPAN').insert(new Element('INPUT', { type: 'text', size: 8 }).setValue(data.v)).insert(' ').insert($($('within_criteria').clone(true)).writeAttribute({ id: null }).show().setValue(data.l))
         ];
         this.criteria[this.insertCriteria(tmp)] = { t: id };
-        tmp[1].activate();
+        tmp[1].down().activate();
     },
 
     insertFilter: function(id, not)
@@ -367,7 +367,7 @@ var ImpSearch = {
 
     disableFolder: function(disable, folder)
     {
-        $('search_folders_add').down('[value="' + escape(folder) + '"]').writeAttribute({ disabled: disable });
+        $('search_folders_add').down('[value="' + folder + '"]').writeAttribute({ disabled: disable });
     },
 
     // Miscellaneous actions
@@ -574,7 +574,7 @@ var ImpSearch = {
             break;
 
         case 'search_folders_add':
-            this.insertFolder(unescape($F('search_folders_add')));
+            this.insertFolder($F('search_folders_add'));
             break;
         }
 
@@ -593,6 +593,12 @@ var ImpSearch = {
         if (!this.data) {
             this.onDomLoad.bind(this).defer();
             return;
+        }
+
+        if (Prototype.Browser.IE) {
+            $('recent_searches', 'search_criteria_add', 'search_folders_add').compact().invoke('observe', 'change', ImpSearch.changeHandler.bindAsEventListener(ImpSearch));
+        } else {
+            document.observe('change', ImpSearch.changeHandler.bindAsEventListener(ImpSearch));
         }
 
         this.data.constants.date = $H(this.data.constants.date);
@@ -616,7 +622,6 @@ var ImpSearch = {
 
 };
 
-document.observe('change', ImpSearch.changeHandler.bindAsEventListener(ImpSearch));
 document.observe('click', ImpSearch.clickHandler.bindAsEventListener(ImpSearch));
 document.observe('dom:loaded', ImpSearch.onDomLoad.bindAsEventListener(ImpSearch));
 document.observe('Horde_Calendar:select', ImpSearch.calendarSelectHandler.bindAsEventListener(ImpSearch));

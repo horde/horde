@@ -19,7 +19,7 @@ extends Horde_Notification_Handler_Decorator_Base
     /**
      * A Horde_Alarm instance.
      *
-     * @var Horde_Alarm
+     * @var Horde_Core_Factory_Alarm
      */
     protected $_alarm;
 
@@ -34,10 +34,10 @@ extends Horde_Notification_Handler_Decorator_Base
      * Initialize the notification system, set up any needed session
      * variables, etc.
      *
-     * @param Horde_Alarm $alarm  The alarm system to notify.
-     * @param string $user        The current username.
+     * @param object $alarm  An alarm factory that implements create().
+     * @param string $user   The current username.
      */
-    public function __construct(Horde_Alarm $alarm, $user)
+    public function __construct($alarm, $user)
     {
         $this->_alarm = $alarm;
         $this->_user = $user;
@@ -46,17 +46,19 @@ extends Horde_Notification_Handler_Decorator_Base
     /**
      * Listeners are handling their messages.
      *
-     * @param array $options  An array containing display options for the
-     *                        listeners (see Horde_Notification_Handler for
-     *                        details).
+     * @param Horde_Notification_Handler $handler    The base handler object.
+     * @param Horde_Notification_Listener $listener  The Listener object that
+     *                                               is handling its messages.
      *
      * @throws Horde_Notification_Exception
      */
-    public function notify($options)
+    public function notify(Horde_Notification_Handler $handler,
+                           Horde_Notification_Listener $listener)
     {
-        if (in_array('status', $options['listeners'])) {
+        if ($listener instanceof Horde_Notification_Listener_Status) {
             try {
-                $this->_alarm->notify($this->_user);
+                // TODO: Use $handler
+                $this->_alarm->create()->notify($this->_user);
             } catch (Horde_Alarm_Exception $e) {
                 throw new Horde_Notification_Exception($e);
             }

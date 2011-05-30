@@ -20,14 +20,14 @@
 abstract class Horde_View_Helper_Base
 {
     /**
-     * The parent view invoking the helper
+     * The parent view invoking the helper.
      *
      * @var Horde_View
      */
     protected $_view;
 
     /**
-     * Create a helper for $view
+     * Creates a helper for $view.
      *
      * @param Horde_View $view The view to help.
      */
@@ -38,7 +38,7 @@ abstract class Horde_View_Helper_Base
     }
 
     /**
-     * Proxy on undefined property access (get)
+     * Proxy on undefined property access (get).
      */
     public function __get($name)
     {
@@ -46,7 +46,7 @@ abstract class Horde_View_Helper_Base
     }
 
     /**
-     * Proxy on undefined property access (set)
+     * Proxy on undefined property access (set).
      */
     public function __set($name, $value)
     {
@@ -54,16 +54,16 @@ abstract class Horde_View_Helper_Base
     }
 
     /**
-     * Call chaining so members of the view can be called (including other helpers)
+     * Call chaining so members of the view can be called (including other
+     * helpers).
      *
-     * @param string $method The method.
-     * @param array $args The parameters for the method.
+     * @param string $method  The method.
+     * @param array $args     The parameters for the method.
      *
-     * @return mixed The result of the method.
+     * @return mixed  The result of the method.
      */
     public function __call($method, $args)
     {
         return call_user_func_array(array($this->_view, $method), $args);
     }
-
 }

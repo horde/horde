@@ -30,7 +30,7 @@ $edit_allowed = Ingo::hasSharePermission(Horde_Perms::EDIT);
 $delete_allowed = Ingo::hasSharePermission(Horde_Perms::DELETE);
 
 /* Permissions. */
-$perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+$perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
 
 /* Perform requested actions. */
 switch ($vars->actionID) {

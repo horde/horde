@@ -10,19 +10,19 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:50:00</time>
+ <date>2011-04-06</date>
+ <time>01:19:01</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-*
+* [jan] Updated Spanish translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -39,7 +39,6 @@
        <file name="ErrorCodes.php" role="php" />
        <file name="Events.php" role="php" />
        <file name="Exception.php" role="php" />
-       <file name="Feeds.php" role="php" />
        <file name="Fql.php" role="php" />
        <file name="Friends.php" role="php" />
        <file name="Groups.php" role="php" />
@@ -332,19 +331,32 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Http</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <extension>
+    <name>json</name>
+   </extension>
+   <extension>
+    <name>SimpleXML</name>
+   </extension>
   </required>
  </dependencies>
  <phprelease>
@@ -357,7 +369,6 @@
    <install as="Horde/Service/Facebook/ErrorCodes.php" name="lib/Horde/Service/Facebook/ErrorCodes.php" />
    <install as="Horde/Service/Facebook/Events.php" name="lib/Horde/Service/Facebook/Events.php" />
    <install as="Horde/Service/Facebook/Exception.php" name="lib/Horde/Service/Facebook/Exception.php" />
-   <install as="Horde/Service/Facebook/Feeds.php" name="lib/Horde/Service/Facebook/Feeds.php" />
    <install as="Horde/Service/Facebook/Fql.php" name="lib/Horde/Service/Facebook/Fql.php" />
    <install as="Horde/Service/Facebook/Friends.php" name="lib/Horde/Service/Facebook/Friends.php" />
    <install as="Horde/Service/Facebook/Groups.php" name="lib/Horde/Service/Facebook/Groups.php" />
@@ -474,6 +485,80 @@
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-16</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* First beta release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-22</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* First release candidate for Horde 4.
+* [mjr] Refactored for OAuth2 Authentication
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Second release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-06</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* First stable release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-06</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

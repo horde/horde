@@ -501,14 +501,14 @@ class Whups_Driver_sql extends Whups_Driver {
         if (!empty($GLOBALS['conf']['vfs']['type'])) {
             try {
                 $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-            } catch (VFS_Exception $e) {
+            } catch (Horde_Vfs_Exception $e) {
                 return PEAR::raiseError($e->getMessage());
             }
 
             if ($vfs->isFolder(WHUPS_VFS_ATTACH_PATH, $id)) {
                 try {
                     $vfs->deleteFolder(WHUPS_VFS_ATTACH_PATH, $id, true);
-                } catch (VFS_Exception $e) {
+                } catch (Horde_Vfs_Exception $e) {
                     return PEAR::raiseError($e->getMessage());
                 }
             }
@@ -1225,7 +1225,7 @@ class Whups_Driver_sql extends Whups_Driver {
                 if ($vfs->exists($dir, $attachment['log_value'])) {
                     try {
                         $result = $vfs->deleteFile($dir, $attachment['log_value']);
-                    } catch (VFS_Exception $e) {
+                    } catch (Horde_Vfs_Exception $e) {
                         return PEAR::raiseError($e->getMessage());
                     }
                 } else {
@@ -1263,14 +1263,15 @@ class Whups_Driver_sql extends Whups_Driver {
 
         $sql = 'SELECT q.queue_id AS id, q.queue_slug AS slug, '
             . 'q.queue_name AS name, q.queue_description AS description, '
-            . 'COUNT(t.ticket_id) AS open_tickets '
+            . 'ty.type_name as type, COUNT(t.ticket_id) AS open_tickets '
             . 'FROM whups_queues q LEFT JOIN whups_tickets t '
             . 'ON q.queue_id = t.queue_id '
             . 'INNER JOIN whups_states s '
             . 'ON (t.state_id = s.state_id AND s.state_category != \'resolved\') '
+            . 'INNER JOIN whups_types ty ON ty.type_id = t.type_id '
             . 'WHERE q.queue_id IN (' . $qstring . ') '
             . 'GROUP BY q.queue_id, q.queue_slug, q.queue_name, '
-            . 'q.queue_description ORDER BY q.queue_name';
+            . 'q.queue_description, ty.type_name ORDER BY q.queue_name';
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getQueueSummary(): query="%s"', $sql), 'DEBUG');
         $queues = $this->_db->getAll($sql, null, DB_FETCHMODE_ASSOC);
@@ -1364,6 +1365,30 @@ class Whups_Driver_sql extends Whups_Driver {
 
         $internals = Horde_String::convertCharset($queues, $this->_params['charset'], 'UTF-8');
         return $internals;
+    }
+
+    function getSlugs()
+    {
+        static $slugs;
+
+        if ($slugs) {
+            return $slugs;
+        }
+
+        $query = 'SELECT queue_id, queue_slug FROM whups_queues '
+            . 'WHERE queue_slug IS NOT NULL AND queue_slug <> \'\' '
+            . 'ORDER BY queue_slug';
+        Horde::logMessage(sprintf('Whups_Driver_sql::getSlugs(): query="%s"',
+                                  $query), 'DEBUG');
+        $queues = $this->_db->getAssoc($query);
+        if (is_a($queues, 'PEAR_Error')) {
+            Horde::logMessage($queues, 'ERR');
+            return array();
+        }
+
+        $slugs = Horde_String::convertCharset($queues, $this->_params['charset'], 'UTF-8');
+
+        return $slugs;
     }
 
     function updateQueue($queueId, $name, $description, $types, $versioned,

@@ -16,6 +16,10 @@ class IMP_Block_Newmail extends Horde_Core_Block
 {
     /**
      */
+    public $updateable = true;
+
+    /**
+     */
     public function __construct($app, $params = array())
     {
         parent::__construct($app, $params);
@@ -27,22 +31,23 @@ class IMP_Block_Newmail extends Horde_Core_Block
      */
     protected function _content()
     {
+        $inbox = IMP_Mailbox::get('INBOX');
+
         /* Filter on INBOX display, if requested. */
-        if ($GLOBALS['prefs']->getValue('filter_on_display')) {
-            $GLOBALS['injector']->getInstance('IMP_Filter')->filter('INBOX');
-        }
+        $inbox->filterOnDisplay();
 
         $query = new Horde_Imap_Client_Search_Query();
         $query->flag(Horde_Imap_Client::FLAG_SEEN, false);
-        $ids = $GLOBALS['injector']->getInstance('IMP_Search')->runQuery($query, 'INBOX', Horde_Imap_Client::SORT_SEQUENCE, 1);
+        $ids = $inbox->runSearchQuery($query, Horde_Imap_Client::SORT_SEQUENCE, 1);
         $indices = $ids['INBOX'];
 
         $html = '<table cellspacing="0" width="100%">';
+        $text = _("Go to your Inbox...");
         if (empty($indices)) {
             $html .= '<tr><td><em>' . _("No unread messages") . '</em></td></tr>';
         } else {
             $charset = 'UTF-8';
-            $imp_ui = new IMP_Ui_Mailbox('INBOX');
+            $imp_ui = new IMP_Ui_Mailbox($inbox);
             $shown = empty($this->_params['msgs_shown'])
                 ? 3
                 : $this->_params['msgs_shown'];
@@ -51,10 +56,10 @@ class IMP_Block_Newmail extends Horde_Core_Block
             $query->envelope();
 
             try {
-                $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch('INBOX', $query, array(
+                $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($inbox, $query, array(
                     'ids' => new Horde_Imap_Client_Ids(array_slice($indices, 0, $shown))
                 ));
-            } catch (Horde_Imap_Client_Exception $e) {
+            } catch (IMP_Imap_Exception $e) {
                 $fetch_ret = array();
             }
 
@@ -66,20 +71,22 @@ class IMP_Block_Newmail extends Horde_Core_Block
                 $from = $imp_ui->getFrom($envelope, array('specialchars' => $charset));
                 $subject = $imp_ui->getSubject($envelope->subject, true);
 
-                $html .= '<tr style="cursor:pointer" class="text" onclick="DimpBase.go(\'msg\', \'{5}INBOX' . $uid . '\');return false;"><td>' .
+                $html .= '<tr style="cursor:pointer" class="text"><td>' .
+                    $inbox->url('message.php', $uid)->link() .
                     '<strong>' . $from['from'] . '</strong><br />' .
-                    $subject . '</td>' .
+                    $subject . '</a></td>' .
                     '<td>' . htmlspecialchars($date, ENT_QUOTES, $charset) . '</td></tr>';
             }
 
             $more_msgs = count($indices) - $shown;
-            $text = ($more_msgs > 0)
-                ? sprintf(ngettext("%d more unseen message...", "%d more unseen messages...", $more_msgs), $more_msgs)
-                : _("Go to your Inbox...");
-            $html .= '<tr><td colspan="2" style="cursor:pointer" align="right" onclick="DimpBase.go();return false;">' . $text . '</td></tr>';
+            if ($more_msgs > 0) {
+                $text = sprintf(ngettext("%d more unseen message...", "%d more unseen messages...", $more_msgs), $more_msgs);
+            }
         }
 
-        return $html . '</table>';
+        return $html .
+               '<tr><td colspan="2" style="cursor:pointer" align="right">' . $inbox->url('mailbox.php')->link() . $text . '</a></td></tr>' .
+               '</table>';
     }
 
 }

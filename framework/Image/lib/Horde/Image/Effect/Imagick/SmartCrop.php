@@ -27,7 +27,6 @@ class Horde_Image_Effect_Imagick_SmartCrop extends Horde_Image_Effect
 
     public function apply()
     {
-        mt_srand(1);
         $this->_params = new Horde_Support_Array($this->_params);
        
         // Existing geometry

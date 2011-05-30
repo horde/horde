@@ -1,7 +1,7 @@
 <?php
 /**
  * Components_Config:: interface represents a configuration type for the Horde
- * element tool.
+ * component tool.
  *
  * PHP version 5
  *
@@ -14,7 +14,7 @@
 
 /**
  * Components_Config:: interface represents a configuration type for the Horde
- * element tool.
+ * component tool.
  *
  * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
  *
@@ -47,6 +47,13 @@ interface Components_Config
     public function getOptions();
 
     /**
+     * Shift an element from the argument list.
+     *
+     * @return mixed The shifted element.
+     */
+    public function shiftArgument();
+
+    /**
      * Unshift an element to the argument list.
      *
      * @param string $element The element to unshift.
@@ -63,10 +70,20 @@ interface Components_Config
     public function getArguments();
 
     /**
-     * Return the first argument - the package directory - provided by the
-     * configuration handlers.
+     * Set the path to the component directory.
      *
-     * @return string The package directory.
+     * @param string  $path  The path to the component directory.
+     * @param boolean $shift Was the first argument used to indicate the
+     *                       component path and should be shifted away?
+     *
+     * @return NULL
      */
-    public function getPackageDirectory();
+    public function setComponentDirectory($path, $shift = false);
+
+    /**
+     * Return the path to the selected component directory.
+     *
+     * @return string The component directory.
+     */
+    public function getComponentDirectory();
 }

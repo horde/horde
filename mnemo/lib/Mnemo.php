@@ -31,6 +31,11 @@ class Mnemo
     const SORT_NOTEPAD = 2;
 
     /**
+     * Sort by moddate
+     */
+    const SORT_MOD_DATE = 3;
+
+    /**
      * Sort in ascending order.
      */
     const SORT_ASCEND = 0;
@@ -55,7 +60,8 @@ class Mnemo
      * also sort the resulting list, if requested.
      *
      * @param constant $sortby   The field by which to sort. (self::SORT_DESC,
-     *                           self::SORT_CATEGORY, self::SORT_NOTEPAD)
+     *                           self::SORT_CATEGORY, self::SORT_NOTEPAD,
+     *                           self::SORT_MOD_DATE)
      * @param constant $sortdir  The direction by which to sort.
      *                           (self::SORT_ASC, self::SORT_DESC)
      *
@@ -74,11 +80,16 @@ class Mnemo
             self::SORT_DESC => 'ByDesc',
             self::SORT_CATEGORY => 'ByCategory',
             self::SORT_NOTEPAD => 'ByNotepad',
+            self::SORT_MOD_DATE => 'ByModDate'
         );
 
         foreach ($display_notepads as $notepad) {
             $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($notepad);
-            $storage->retrieve();
+            try {
+                $storage->retrieve();
+            } catch (Mnemo_Exception $e) {
+                $GLOBALS['notification']->push($e, 'horde.error');
+            }
             $newmemos = $storage->listMemos();
             $memos = array_merge($memos, $newmemos);
         }
@@ -140,7 +151,11 @@ class Mnemo
      */
     public static function getNotePreview($note)
     {
-        $lines = explode("\n", wordwrap($note['body']));
+        $body = $note['body'];
+        if ($body instanceof Mnemo_Exception) {
+            $body = $body->getMessage();
+        }
+        $lines = explode("\n", wordwrap($body));
         return implode("\n", array_splice($lines, 0, 20));
     }
 
@@ -331,6 +346,77 @@ class Mnemo
     }
 
     /**
+     * Comparison function for sorting notes by modification date.
+     *
+     * @param array $a  Note one.
+     * @param array $b  Note two.
+     *
+     * @return integer  1 if note one is greater, -1 if note two is greater;
+     *                  0 if they are equal.
+     */
+    protected static function _sortByModDate($a, $b)
+    {
+        // Get notes` history
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
+
+        $guidA = 'mnemo:' . $a['memolist_id'] . ':' . $a['uid'];
+        $guidB = 'mnemo:' . $b['memolist_id'] . ':' . $b['uid'];
+
+        // Gets the timestamp of the most recent modification to the note
+        $modDateA = $history->getActionTimestamp($guidA, 'modify');
+        $modDateB = $history->getActionTimestamp($guidB, 'modify');
+
+        // If the note hasn't been modified, get the creation timestamp
+        if ($modDateA == 0) {
+            $modDateA = $history->getActionTimestamp($guidA, 'add');
+        }
+        if ($modDateB == 0) {
+            $modDateB = $history->getActionTimestamp($guidB, 'add');
+        }
+        if ($modDateA == $modDateB) {
+            return 0;
+        }
+
+        return ($modDateA > $modDateB) ? 1 : -1;
+    }
+
+     /**
+     * Comparison function for reverse sorting notes by modification date.
+     *
+     * @param array $a  Note one.
+     * @param array $b  Note two.
+     *
+     * @return integer  -1 if note one is greater, 1 if note two is greater,
+     *                  0 if they are equal.
+     */
+    protected static function _rsortByModDate($a, $b)
+    {
+        // Get note's history
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
+
+        $guidA = 'mnemo:' . $a['memolist_id'] . ':' . $a['uid'];
+        $guidB = 'mnemo:' . $b['memolist_id'] . ':' . $b['uid'];
+
+        // Gets the timestamp of the most recent modification to the note
+        $modDateA = $history->getActionTimestamp($guidA, 'modify');
+        $modDateB = $history->getActionTimestamp($guidB, 'modify');
+
+        // If the note hasn't been modified, get the creation timestamp
+        if ($modDateA == 0) {
+            $modDateA = $history->getActionTimestamp($guidA, 'add');
+        }
+        if ($modDateB == 0) {
+            $modDateB = $history->getActionTimestamp($guidB, 'add');
+        }
+
+        if ($modDateA == $modDateB) {
+            return 0;
+        }
+
+        return ($modDateA < $modDateB) ? 1 : -1;
+    }
+
+    /**
      * Returns the specified permission for the current user.
      *
      * @param string $permission  A permission, currently only 'max_notes'.
@@ -345,7 +431,7 @@ class Mnemo
             return true;
         }
 
-        $allowed = $perms->getPermissions('mnemo:' . $permission);
+        $allowed = $perms->getPermissions('mnemo:' . $permission, $GLOBALS['registry']->getAuth());
         if (is_array($allowed)) {
             switch ($permission) {
             case 'max_notes':
@@ -367,6 +453,9 @@ class Mnemo
      */
     public static function getPassphrase($id)
     {
+        if (!$id) {
+            return;
+        }
         if ($passphrase = $GLOBALS['session']->get('mnemo', 'passphrase/' . $id)) {
             $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
             return $secret->read($secret->getKey('mnemo'), $passphrase);
@@ -448,6 +537,36 @@ class Mnemo
         }
 
         $GLOBALS['prefs']->setValue('display_notepads', serialize($GLOBALS['display_notepads']));
+    }
+
+    /**
+     */
+    public function getCssStyle($category, $stickies = false)
+    {
+        $cManager = new Horde_Prefs_CategoryManager();
+        $colors = $cManager->colors();
+        if (!isset($colors[$category])) {
+            return '';
+        }
+        $fgColors = $cManager->fgColors();
+
+        if (!$stickies) {
+            return 'color:' . (isset($fgColors[$category]) ? $fgColors[$category] : $fgColors['_default_']) . ';' .
+                'background:' . $colors[$category] . ';';
+        }
+
+        $hex = str_replace('#', '', $colors[$category]);
+        if (strlen($hex) == 3) {
+            $r = hexdec(substr($hex, 0, 1));
+            $g = hexdec(substr($hex, 1, 1));
+            $b = hexdec(substr($hex, 2, 1));
+        } else {
+            $r = hexdec(substr($hex, 0, 2));
+            $g = hexdec(substr($hex, 2, 2));
+            $b = hexdec(substr($hex, 4, 2));
+        }
+
+        return "background: rgba($r, $g, $b, 0.5)";
     }
 
 }

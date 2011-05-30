@@ -235,9 +235,9 @@ if ($auth->hasCapability('list')) {
 
 $groupList = array();
 try {
-    $groupList = empty($conf['share']['any_group'])
-        ? $groups->listGroups($registry->getAuth())
-        : $groups->listAll();
+    $groupList = $groups->listAll(empty($conf['share']['any_group'])
+                                  ? $registry->getAuth()
+                                  : null);
     asort($groupList);
 } catch (Horde_Group_Exception $e) {
     Horde::logMessage($e, 'NOTICE');

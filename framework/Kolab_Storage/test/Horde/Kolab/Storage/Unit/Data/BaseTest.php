@@ -35,6 +35,24 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 class Horde_Kolab_Storage_Unit_Data_BaseTest
 extends Horde_Kolab_Storage_TestCase
 {
+
+    public function testBrokenObject()
+    {
+        $this->assertEquals(
+            array(1 => false),
+            $this->_getBrokenStore(
+                array('ignore_parse_errors' => true)
+            )->fetch(array('1'))
+        );
+    }
+
+    public function testBrokenObjectLog()
+    {
+        $this->_getBrokenStore(array('logger' => $this->getMockLogger()))
+            ->fetch(array('1'));
+        $this->assertLogContains('Unable to identify Kolab mime part in message 1 in folder INBOX/Notes!');
+    }
+
     public function testDefaultType()
     {
         $this->assertEquals(
@@ -92,7 +110,7 @@ extends Horde_Kolab_Storage_TestCase
         $objects = $this->getMessageStorage()
             ->getData('INBOX/Calendar')
             ->fetch(array(1, 2, 4));
-        $this->assertEquals('libkcal-543769073.139', $objects[4]['uid']);
+        $this->assertEquals('libkcal-543769073.130', $objects[4]['uid']);
     }
 
     public function testDataQueriable()
@@ -139,11 +157,11 @@ extends Horde_Kolab_Storage_TestCase
             $data, array('factory' => $factory)
         );
         $data->registerQuery(
-            Horde_Kolab_Storage_Data::QUERY_BASE, $query
+            Horde_Kolab_Storage_Data::QUERY_PREFS, $query
         );
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Stub_DataQuery',
-            $data->getQuery()
+            $data->getQuery(Horde_Kolab_Storage_Data::QUERY_PREFS)
         );
     }
 
@@ -156,7 +174,7 @@ extends Horde_Kolab_Storage_TestCase
         $data = $this->getMessageStorage()
             ->getData('INBOX/Calendar');
         $data->registerQuery(
-            Horde_Kolab_Storage_Data::QUERY_BASE,
+            Horde_Kolab_Storage_Data::QUERY_PREFS,
             new Horde_Kolab_Storage_Stub_ListQuery(
                 $this->getMessageStorage()
                 ->getList(),
@@ -181,8 +199,8 @@ extends Horde_Kolab_Storage_TestCase
             ->getData('INBOX/Calendar')
             ->getObjects();
         $this->assertEquals(
-            'libkcal-543769073.139',
-            $objects['libkcal-543769073.139']['uid']
+            'libkcal-543769073.130',
+            $objects['libkcal-543769073.130']['uid']
         );
     }
 
@@ -197,7 +215,11 @@ extends Horde_Kolab_Storage_TestCase
     public function testObjectIds()
     {
         $this->assertEquals(
-            array('libkcal-543769073.139'),
+            array(
+                'libkcal-543769073.132',
+                'libkcal-543769073.131',
+                'libkcal-543769073.130'
+            ),
             $this->getMessageStorage()->getData('INBOX/Calendar')->getObjectIds()
         );
     }
@@ -208,7 +230,7 @@ extends Horde_Kolab_Storage_TestCase
             '1',
             $this->getMessageStorage()
             ->getData('INBOX/Calendar')
-            ->getBackendId('libkcal-543769073.139')
+            ->getBackendId('libkcal-543769073.132')
         );
     }
 
@@ -227,7 +249,7 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertTrue(
             $this->getMessageStorage()
             ->getData('INBOX/Calendar')
-            ->objectIdExists('libkcal-543769073.139')
+            ->objectIdExists('libkcal-543769073.130')
         );
     }
 
@@ -244,9 +266,9 @@ extends Horde_Kolab_Storage_TestCase
     {
         $object = $this->getMessageStorage()
             ->getData('INBOX/Calendar')
-            ->getObject('libkcal-543769073.139');
+            ->getObject('libkcal-543769073.132');
         $this->assertEquals(
-            'libkcal-543769073.139',
+            'libkcal-543769073.132',
             $object['uid']
         );
     }
@@ -261,12 +283,14 @@ extends Horde_Kolab_Storage_TestCase
             ->getObject('NOSUCHOBJECT');
     }
 
-    public function testCreateReturnsNull()
+    public function testCreateReturnsString()
     {
-        $this->assertNull(
+        $object = array('summary' => 'test');
+        $this->assertEquals(
+            1,
             $this->getMessageStorage()
             ->getData('INBOX/Notes')
-            ->create(array('desc' => 'test'))
+            ->create($object)
         );
     }
 
@@ -277,18 +301,143 @@ extends Horde_Kolab_Storage_TestCase
             ->fetch(array(1, 2, 4), true);
         $part = $objects[4]['content'];
         rewind($part);
-        $this->assertContains('<uid>libkcal-543769073.139</uid>', stream_get_contents($part));
+        $this->assertContains('<uid>libkcal-543769073.130</uid>', stream_get_contents($part));
     }
 
     public function testCreateRaw()
     {
         $test = fopen('php://temp', 'r+');
+        $object = array('content' => $test);
         fputs($test, 'test');
         rewind($test);
-        $this->assertNull(
+        $this->assertEquals(
+            1,
             $this->getMessageStorage()
             ->getData('INBOX/Notes')
-            ->create(array('content' => $test), true)
+            ->create($object, true)
         );
+    }
+
+    public function testListAddedObjects()
+    {
+        $data = $this->getMessageStorage()->getData('INBOX/Notes');
+        $object = array('summary' => 'test', 'uid' => 'UID');
+        $data->create($object);
+        $this->assertEquals(
+            array('UID'),
+            $data->getObjectIds()
+        );
+    }
+
+    public function testDeleteObject()
+    {
+        $data = $this->getMessageStorage()->getData('INBOX/Notes');
+        $object = array('summary' => 'test', 'uid' => 'UID');
+        $data->create($object);
+        $data->delete('UID');
+        $this->assertEquals(
+            array(),
+            $data->getObjectIds()
+        );
+    }
+
+    public function testDeleteAll()
+    {
+        $data = $this->getMessageStorage()->getData('INBOX/Notes');
+        $object = array('summary' => 'test', 'uid' => 'UID1');
+        $data->create($object);
+        $object = array('summary' => 'test', 'uid' => 'UID2');
+        $data->create($object);
+        $data->deleteAll();
+        $this->assertEquals(
+            array(),
+            $data->getObjectIds()
+        );
+    }
+
+    public function testMoveObject()
+    {
+        $store = $this->getMessageStorage();
+        $data = $store->getData('INBOX/Notes');
+        $object = array('summary' => 'test', 'uid' => 'UID');
+        $data->create($object);
+        $data->move('UID', 'INBOX/OtherNotes');
+        $other = $store->getData('INBOX/OtherNotes');
+        $this->assertEquals(
+            array(),
+            $data->getObjectIds()
+        );
+        $this->assertEquals(
+            array('UID'),
+            $other->getObjectIds()
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testModifyWithoutUid()
+    {
+        $store = $this->getMessageStorage();
+        $data = $store->getData('INBOX/Notes');
+        $object = array('summary' => 'test', 'uid' => 'UID');
+        $data->create($object);
+        $data->modify(array('summary' => 'test'));
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testModifyWithIncorrectUid()
+    {
+        $store = $this->getMessageStorage();
+        $data = $store->getData('INBOX/Notes');
+        $object = array('summary' => 'test', 'uid' => 'UID');
+        $data->create($object);
+        $data->modify(array('summary' => 'test', 'uid' => 'NOSUCHUID'));
+    }
+
+    public function testModify()
+    {
+        $store = $this->getMessageStorage();
+        $data = $store->getData('INBOX/Notes');
+        $object = array('summary' => 'test', 'uid' => 'UID');
+        $data->create($object);
+        $data->modify(array('summary' => 'modified', 'uid' => 'UID'));
+        $object = $data->getObject('UID');
+        $this->assertEquals('modified', $object['summary']);
+    }
+     
+    private function _getBrokenStore($params = array())
+    {
+        $default_params = array(
+            'cache' => new Horde_Cache(new Horde_Cache_Storage_Mock()),
+            'driver' => 'mock',
+            'params' => array(
+                'username' => 'test',
+                'host' => 'localhost',
+                'port' => 143,
+                'data' => $this->getMockData(
+                    array(
+                        'user/test' => null,
+                        'user/test/Notes' => array(
+                            't' => 'note.default',
+                            'm' => array(
+                                1 => array(
+                                    'stream' => fopen(
+                                        dirname(__FILE__) . '/../../fixtures/broken_note.eml', 'r'
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        );
+        $params = array_merge($default_params, $params);
+        $factory = new Horde_Kolab_Storage_Factory($params);
+        $driver = $factory->createDriver();
+        $storage = $this->createStorage($driver, $factory);
+        return $storage->getData('INBOX/Notes');
     }
 }

@@ -77,16 +77,15 @@ class Horde_Menu
             $pos = count($this->_menu);
         }
 
-        $this->_menu[$pos] =
-            array(
-                'url' => $url,
-                'text' => $text,
-                'icon' => $icon,
-                'icon_path' => $icon_path,
-                'target' => $target,
-                'onclick' => $onclick,
-                'class' => $class
-            );
+        $this->_menu[$pos] = array(
+            'url' => ($url instanceof Horde_Url) ? $url : new Horde_Url($url),
+            'text' => $text,
+            'icon' => $icon,
+            'icon_path' => $icon_path,
+            'target' => $target,
+            'onclick' => $onclick,
+            'class' => $class
+        );
 
         return $pos;
     }
@@ -115,14 +114,19 @@ class Horde_Menu
             $pos = count($this->_menu);
         }
 
+        if (!isset($item['url'])) {
+            $item['url'] = new Horde_Url();
+        } elseif (!($item['url'] instanceof Horde_Url)) {
+            $item['url'] = new Horde_Url($item['url']);
+        }
+
         $this->_menu[$pos] = array_merge(array(
             'class' => '',
             'icon' => '',
             'icon_path' => null,
             'onclick' => null,
             'target' => '',
-            'text' => '',
-            'url' => ''
+            'text' => ''
         ), $item);
 
         return $pos;
@@ -247,7 +251,7 @@ class Horde_Menu
                 /* Try to match the item's path against the current
                  * script filename as well as other possible URLs to
                  * this script. */
-                if (self::isSelected($m['url'])) {
+                if ($this->isSelected($m['url'])) {
                     $m['class'] = 'current';
                 }
             } elseif ($m['class'] === '__noselection') {
@@ -359,14 +363,10 @@ class Horde_Menu
 
         /* Try to match the item's path against the current script
            filename as well as other possible URLs to this script. */
-        if (isset($check_url['path']) &&
+        return isset($check_url['path']) &&
             (($check_url['path'] == $server_url['path']) ||
              ($check_url['path'] . 'index.php' == $server_url['path']) ||
-             ($check_url['path'] . '/index.php' == $server_url['path']))) {
-            return true;
-        }
-
-        return false;
+             ($check_url['path'] . '/index.php' == $server_url['path']));
     }
 
     /**

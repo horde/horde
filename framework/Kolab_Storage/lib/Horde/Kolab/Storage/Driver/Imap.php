@@ -264,6 +264,18 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
+     * Opens the given folder.
+     *
+     * @param string $folder The folder to open
+     *
+     * @return NULL
+     */
+    public function select($folder, $mode = Horde_Imap_Client::OPEN_AUTO)
+    {
+        $this->getBackend()->openMailbox($folder, $mode);
+    }
+
+    /**
      * Returns the status of the current folder.
      *
      * @param string $folder Check the status of this folder.
@@ -294,6 +306,32 @@ extends Horde_Kolab_Storage_Driver_Base
         $uidsearch = $this->getBackend()->search($folder, $search_query);
         $uids = $uidsearch['match'];
         return $uids->ids;
+    }
+
+    /**
+     * Retrieves a complete message.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uid    The message UID.
+     *
+     * @return array The message encapsuled as an array that contains a
+     *               Horde_Mime_Headers and a Horde_Mime_Part object.
+     */
+    public function fetchComplete($folder, $uid)
+    {
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->fullText();
+
+        $ret = $this->getBackend()->fetch(
+            $folder,
+            $query,
+            array('ids' => new Horde_Imap_Client_Ids($uid))
+        );
+        $msg = $ret[$uid]->getFullMsg();
+        return array(
+            Horde_Mime_Headers::parseHeaders($msg),
+            Horde_Mime_Part::parseMessage($msg)
+        );
     }
 
     /**
@@ -362,15 +400,17 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function appendMessage($folder, $msg)
     {
-        return $this->getBackend()->append($folder, array(array('data' => $msg)));
+        $result = $this->getBackend()->append($folder, array(array('data' => $msg)));
+        return $result->ids[0];
     }
 
     /**
-     * Deletes messages from the current folder.
+     * Deletes messages from the specified folder.
      *
-     * @param integer $uids  IMAP message ids.
+     * @param string  $folder  The folder to delete messages from.
+     * @param integer $uids    IMAP message ids.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return NULL
      */
     public function deleteMessages($folder, $uids)
     {
@@ -383,12 +423,13 @@ extends Horde_Kolab_Storage_Driver_Base
     /**
      * Moves a message to a new folder.
      *
-     * @param integer $uid        IMAP message id.
-     * @param string $new_folder  Target folder.
+     * @param integer $uid         IMAP message id.
+     * @param string  $old_folder  Source folder.
+     * @param string  $new_folder  Target folder.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return NULL
      */
-    public function moveMessage($old_folder, $uid, $new_folder)
+    public function moveMessage($uid, $old_folder, $new_folder)
     {
         $options = array('ids' => new Horde_Imap_Client_Ids($uid), 'move' => true);
         return $this->getBackend()->copy($old_folder, $new_folder, $options);
@@ -397,25 +438,12 @@ extends Horde_Kolab_Storage_Driver_Base
     /**
      * Expunges messages in the current folder.
      *
-     * @param string $folder The folder to append the message(s) to. Either
-     *                        in UTF7-IMAP or UTF-8.
+     * @param string $folder The folder to expunge.
      *
-     * @return mixed  True or a PEAR error in case of an error.
+     * @return NULL
      */
     public function expunge($folder)
     {
         return $this->getBackend()->expunge($folder);
-    }
-
-    /**
-     * Opens the given folder.
-     *
-     * @param string $folder The folder to open
-     *
-     * @return NULL
-     */
-    public function select($folder, $mode = Horde_Imap_Client::OPEN_AUTO)
-    {
-        $this->getBackend()->openMailbox($folder, $mode);
     }
 }

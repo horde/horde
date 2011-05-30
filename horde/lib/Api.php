@@ -119,15 +119,17 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Returns a Horde_Block's title.
      *
-     * @param string $name   Block name.
+     * @param string $app    The block application name.
+     * @param string $name   The block name (NOT the class name).
      * @param array $params  Block parameters.
      *
      * @return string  The block title.
      */
-    public function blockTitle($name, $params = array())
+    public function blockTitle($app, $name, $params = array())
     {
+        $class = $app . '_Block_' . basename($name);
         try {
-            return $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlock($name, $params)->getTitle();
+            return $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlock($app, $class, $params)->getTitle();
         } catch (Horde_Exception $e) {
             return $e->getMessage();
         }
@@ -136,16 +138,17 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Returns a Horde_Block's content.
      *
-     * @param string $app    Block application.
-     * @param string $name   Block name.
+     * @param string $app    The block application name.
+     * @param string $name   The block name (NOT the classname).
      * @param array $params  Block parameters.
      *
      * @return string  The block content.
      */
     public function blockContent($app, $name, $params = array())
     {
+        $class = $app . '_Block_' . basename($name);
         try {
-            return $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlock($name, $params)->getContent();
+            return $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlock($app, $class, $params)->getContent();
         } catch (Horde_Exception $e) {
             return $e->getMessage();
         }
@@ -234,7 +237,7 @@ class Horde_Api extends Horde_Registry_Api
         /* Remove user from all groups */
         $groups = $GLOBALS['injector']->getInstance('Horde_Group');
         try {
-            $allGroups = $groups->getGroups($user);
+            $allGroups = $groups->listGroups($user);
             foreach (array_keys($allGroups) as $id) {
                 $groups->removeUser($id, $user);
             }
@@ -441,7 +444,7 @@ class Horde_Api extends Horde_Registry_Api
         try {
             $shares->removeShare($share);
         } catch (Horde_Share_Exception $e) {
-            throw new Horde_Exception_Prior($e);
+            throw new Horde_Exception_Wrapped($e);
         }
     }
 

@@ -84,9 +84,6 @@ class Horde_Core_Factory_KolabStorage extends Horde_Core_Factory_Base
         }
 
         $params = array(
-            'logger' => $this->_injector->getInstance('Horde_Log_Logger'),
-            'timelog' => $this->_injector->getInstance('Horde_Log_Logger'),
-            'cache' => $this->_injector->getInstance('Horde_Cache'),
             'driver' => 'horde',
             'params' => array(
                 'host' => $session->getImapServer(),
@@ -94,16 +91,17 @@ class Horde_Core_Factory_KolabStorage extends Horde_Core_Factory_Base
                 'password' => $GLOBALS['registry']->getAuthCredential('password'),
                 'port'     => $configuration['port'],
                 'secure'   => true
-            )
+            ),
+            'queryset' => array(
+                'list' => array('queryset' => 'horde'),
+                'data' => array('queryset' => 'horde'),
+            ),
+            'logger' => $this->_injector->getInstance('Horde_Log_Logger'),
+            'timelog' => $this->_injector->getInstance('Horde_Log_Logger'),
+            'cache' => $this->_injector->getInstance('Horde_Cache'),
         );
 
-        $factory = new Horde_Kolab_Storage_Factory();
-        $storage = $factory->createFromParams(
-            $params
-        );
-        $storage->addListQuery(
-            $storage->getList(), Horde_Kolab_Storage_List::QUERY_SHARE
-        );
-        return $storage;
+        $factory = new Horde_Kolab_Storage_Factory($params);
+        return $factory->create();
     }
 }

@@ -22,7 +22,7 @@ class TurbaBaseTables extends Horde_Db_Migration_Base
         $tableList = $this->tables();
 
         if (!in_array('turba_objects', $tableList)) {
-            $t = $this->createTable('turba_objects', array('primaryKey' => false));
+            $t = $this->createTable('turba_objects', array('autoincrementKey' => false));
             $t->column('object_id', 'string', array('limit' => 32, 'null' => false));
             $t->column('owner_id', 'string', array('limit' => 255, 'null' => false));
             $t->column('object_type', 'string', array('limit' => 255, 'default' => 'Object', 'null' => false));
@@ -79,7 +79,7 @@ class TurbaBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('turba_shares', $tableList)) {
-            $t = $this->createTable('turba_shares', array('primaryKey' => false));
+            $t = $this->createTable('turba_shares', array('autoincrementKey' => false));
             $t->column('share_id', 'integer', array('null' => false));
             $t->column('share_name', 'string', array('limit' => 255, 'null' => false));
             $t->column('share_owner', 'string', array('limit' => 255, 'null' => false));

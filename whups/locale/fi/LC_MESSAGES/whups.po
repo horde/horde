@@ -1,20 +1,21 @@
 # Finnish translation for Whups.
 # Copyright
-# Leena Heino <liinu@uta.fi>, 2004-2008.
+# Leena Heino <liinu@uta.fi>, 2004-2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Whups 1.0-cvs\n"
+"Project-Id-Version: Whups 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2008-09-24 17:02+0300\n"
-"PO-Revision-Date: 2008-09-12 12:59+0200\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"PO-Revision-Date: 2011-04-05 12:57:52+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: admin/index.php:745
+#: admin/index.php:744
 #, php-format
 msgid "\"%s\" is no longer among those responsible for \"%s\""
 msgstr "\"%s\" ei ole enää tästä asiasta vastuullisten joukossa \"%s\""
@@ -28,303 +29,302 @@ msgstr "#Id"
 msgid "%d people watching, %d people responsible"
 msgstr "%d henkilö tarkkailemassa, %d henkilöä vastuullisena"
 
-#: queue/rss.php:96
+#: queue/rss.php:92
 #, php-format
 msgid "%s %s tickets in %s"
 msgstr "%s %s tikettiä jonossa %s"
 
-#: queue/rss.php:100
+#: queue/rss.php:96
 #, php-format
 msgid "%s %s tickets in all queues"
 msgstr "%s %s tikettiä kaikissa jonoissa"
 
-#: lib/Renderer/Comment.php:120
+#: lib/Renderer/Comment.php:123
 #, php-format
 msgid "%s &rArr; %s"
 msgstr "%s &rArr; %s"
 
-#: lib/Driver.php:497
+#: lib/Driver.php:520
 #, php-format
 msgid "%s (%s) wrote:"
 msgstr "%s (%s) kirjoitti:"
 
-#: admin/index.php:700
+#: admin/index.php:699
 #, php-format
 msgid "%s added to those responsible for \"%s\""
-msgstr "%s lisäsi vastuulliset \"%s\""
+msgstr "%s lisäsi vastuulliseksi \"%s\""
 
 #: templates/reports/stats.inc:15
 #, php-format
 msgid "%s days"
 msgstr "%s päivää"
 
-#: queue/rss.php:104
+#: queue/rss.php:100
 #, php-format
 msgid "%s tickets in %s"
 msgstr "%s tikettiä jonossa %s"
 
-#: queue/rss.php:108
+#: queue/rss.php:104
 #, php-format
 msgid "%s tickets in all queues"
 msgstr "%s tikettiä kaikissa jonoissa"
 
-#: ticket/watch.php:60
+#: ticket/watch.php:57
 #, php-format
 msgid "%s will be notified when this ticket is updated."
 msgstr "%s:lle ilmoitetaan kun tätä tikettiä on päivitetty."
 
-#: ticket/watch.php:72
+#: ticket/watch.php:69
 #, php-format
 msgid "%s will no longer receive updates for this ticket."
 msgstr "%s ei enää saa tietoja koskien tätä tikettiä."
 
-#: admin/index.php:109
+#: lib/Driver.php:188
+msgid "(inactive)"
+msgstr "(ei käytössä)"
+
+#: admin/index.php:106
 msgid "- Stage 1"
 msgstr "- Vaihe 1"
 
-#: admin/index.php:114
+#: admin/index.php:111
 msgid "- Stage 2"
 msgstr "- Vaihe 2"
 
-#: scripts/mail-filter.php:172
+#: scripts/mail-filter.php:149
 msgid "--queue-name or --queue-id must specify a valid and public queue."
 msgstr ""
 "--queue-name tai --queue-id määritellä jonon, joka on kelvollinen ja "
 "julkinen."
 
-#: templates/prevnext.inc:16
+#: templates/prevnext.inc:15
 msgid "<<First"
 msgstr "<<Ensimmäinen"
 
-#: templates/prevnext.inc:20
+#: templates/prevnext.inc:18
 msgid "<Prev"
 msgstr "<Edellinen"
 
-#: view.php:69
+#: view.php:49
 #, php-format
 msgid "Access denied to %s"
 msgstr "Käyttö estetty %s"
 
-#: lib/Forms/Admin/Attribute.php:22
+#: lib/Forms/Admin/Attribute.php:20
 msgid "Add Attribute"
 msgstr "Lisää atribuutti"
 
-#: lib/Forms/Query.php:266
+#: lib/Forms/Query.php:270
 msgid "Add Attribute Criterion"
 msgstr "Lisää atribuutin kriteeri"
 
-#: mybugs.php:55
+#: mybugs.php:51
 msgid "Add Content"
 msgstr "Lisää sisältö"
 
-#: query/index.php:233
+#: query/index.php:235
 msgid "Add Criterion"
 msgstr "Lisää kriteeri"
 
-#: lib/Forms/Query.php:320
+#: lib/Forms/Query.php:324
 msgid "Add Date Criterion"
-msgstr "Lisää päivämäärän kriteeri"
+msgstr "Lisää päiväyksen kriteeri"
 
-#: lib/Forms/Admin/Reply.php:22
+#: lib/Forms/Admin/Reply.php:20
 msgid "Add Form Reply"
 msgstr "Lisää lomakevastaus"
 
-#: lib/Forms/Query.php:90
+#: lib/Forms/Query.php:88
 msgid "Add Group Criterion"
 msgstr "Lisää ryhmäkriteeri"
 
-#: lib/Forms/Admin/Priority.php:20
+#: lib/Forms/Admin/Priority.php:18
 msgid "Add Priority"
 msgstr "Lisää prioriteetti"
 
-#: lib/Forms/Query.php:168
+#: lib/Forms/Query.php:172
 msgid "Add Property Criterion"
 msgstr "Lisää ominaisuuden kriteeri"
 
-#: lib/Forms/Admin/Queue.php:20 lib/Forms/Admin/Queue.php:21
+#: lib/Forms/Admin/Queue.php:18 lib/Forms/Admin/Queue.php:19
 msgid "Add Queue"
 msgstr "Lisää jono"
 
-#: lib/Forms/Admin/State.php:20
+#: lib/Forms/Admin/State.php:18
 msgid "Add State"
 msgstr "Lisää tila"
 
-#: lib/Forms/Query.php:125
+#: lib/Forms/Query.php:129
 msgid "Add Text Criterion"
 msgstr "Lisää tekstikriteeri"
 
-#: lib/Forms/Admin/Type.php:20 lib/Forms/Admin/Type.php:21
+#: lib/Forms/Admin/Type.php:18 lib/Forms/Admin/Type.php:19
 msgid "Add Type"
 msgstr "Lisää tyyppi"
 
-#: admin/index.php:109 admin/index.php:114
+#: admin/index.php:106 admin/index.php:111
 #, php-format
 msgid "Add Type %s"
 msgstr "Lisää tyyppi %s"
 
-#: lib/Forms/Query.php:41
+#: lib/Forms/Query.php:39
 msgid "Add User Criterion"
 msgstr "Lisää käyttäjäkriteeri"
 
-#: lib/Forms/Admin/User.php:21
+#: lib/Forms/Admin/User.php:19
 msgid "Add Users"
 msgstr "Lisää käyttäjiä"
 
-#: lib/Forms/Admin/Version.php:20
+#: lib/Forms/Admin/Version.php:18
 msgid "Add Version"
 msgstr "Lisää versio"
 
-#: ticket/watch.php:48
+#: ticket/watch.php:45
 msgid "Add Watcher"
 msgstr "Lisää tarkkailija"
 
-#: templates/prefs/sourceselect.inc:298
-msgid "Add source"
-msgstr "Lisää lähde"
-
-#: ticket/create.php:55
+#: ticket/create.php:52
 #, php-format
 msgid "Adding your ticket failed: %s."
-msgstr "Tiketin lisääminen epäonnistui: %s."
+msgstr "Tikettiisi lisääminen epäonnistui: %s."
 
-#: config/prefs.php.dist:24
+#: config/prefs.php:29
 msgid "Address Books"
 msgstr "Osoitekirjat"
 
-#: lib/api.php:775 admin/index.php:54
+#: admin/index.php:51 lib/Application.php:61
 msgid "Administration"
 msgstr "Ylläpito"
 
-#: lib/Renderer/Query.php:77 lib/Forms/Query.php:24
+#: lib/Forms/Query.php:22 lib/Renderer/Query.php:75
 msgid "And"
 msgstr "Ja"
 
-#: lib/Forms/Query.php:175 lib/Forms/Query.php:182 lib/Forms/Query.php:187
-#: lib/Forms/Query.php:194 lib/Forms/Query.php:199 lib/Forms/Search.php:32
+#: lib/Forms/Query.php:179 lib/Forms/Query.php:186 lib/Forms/Query.php:191
+#: lib/Forms/Query.php:198 lib/Forms/Query.php:203 lib/Forms/Search.php:30
 msgid "Any"
 msgstr "Mikä tahansa"
 
-#: ticket/queue.php:48 ticket/type.php:42
+#: ticket/queue.php:43 ticket/type.php:38
 msgid "Any Group"
 msgstr "Mikä tahansa ryhmä"
 
-#: config/prefs.php.dist:64
+#: config/prefs.php:64
 msgid "Ascending"
 msgstr "Nouseva"
 
-#: lib/api.php:795
+#: lib/Application.php:82
 msgid "Assign"
 msgstr "Määrää"
 
-#: lib/Driver.php:198 lib/Ticket.php:986 lib/Whups.php:684 lib/api.php:913
-#: lib/Renderer/Query.php:156 config/prefs.php.dist:53
+#: config/prefs.php:53 lib/Api.php:702 lib/Driver.php:213
+#: lib/Renderer/Query.php:154 lib/Ticket.php:989 lib/Whups.php:688
 msgid "Assigned"
 msgstr "Määrätty"
 
-#: lib/Forms/Query.php:333 lib/Forms/Search.php:62
+#: lib/Forms/Query.php:337 lib/Forms/Search.php:60
 msgid "Assigned from"
-msgstr "Määrätty alkaen"
+msgstr "Määrääjä"
 
-#: lib/Forms/Query.php:334
+#: lib/Forms/Query.php:338
 msgid "Assigned to"
-msgstr "Määratty viimeistään"
+msgstr "Määratty"
 
-#: lib/Renderer/Comment.php:73
+#: lib/Renderer/Comment.php:71
 #, php-format
 msgid "Assigned to %s"
 msgstr "Määratty %s:lle"
 
-#: admin/index.php:1202
+#: admin/index.php:1203
 msgid "Associations updated successfully."
 msgstr "Assosiaatioiden päivitys onnistui."
 
-#: lib/Forms/CreateTicket.php:153 lib/Forms/AddComment.php:24
-#: lib/Forms/EditTicket.php:126
+#: lib/Forms/AddComment.php:22 lib/Forms/CreateTicket.php:164
+#: lib/Forms/EditTicket.php:141
 msgid "Attachment"
 msgstr "Liite"
 
-#: ticket/deleteAttachment.php:32
+#: ticket/delete_attachment.php:28
 #, php-format
 msgid "Attachment %s deleted."
 msgstr "Liite %s poistettiin."
 
-#: lib/Ticket.php:499
+#: lib/Driver/sql.php:1232 lib/Ticket.php:492
 #, php-format
 msgid "Attachment %s not found."
 msgstr "Liitettä %s ei löytynyt."
 
-#: lib/Ticket.php:996
+#: lib/Ticket.php:999
 msgid "Attachments"
 msgstr "Liitteet"
 
-#: query/index.php:159
+#: query/index.php:158
 msgid "Attri_bute Criteria"
 msgstr "Lisä_määreen kriteeri"
 
-#: lib/Driver.php:117
+#: lib/Driver.php:119
 #, php-format
 msgid "Attribute %d"
 msgstr "Atribuutti %d"
 
-#: lib/Forms/Admin/Attribute.php:26 lib/Forms/Admin/Attribute.php:96
-#: lib/Forms/Admin/Attribute.php:142
+#: lib/Forms/Admin/Attribute.php:24 lib/Forms/Admin/Attribute.php:94
+#: lib/Forms/Admin/Attribute.php:140
 msgid "Attribute Description"
 msgstr "Atribuutin kuvaus"
 
-#: lib/Forms/Admin/Attribute.php:25 lib/Forms/Admin/Attribute.php:74
-#: lib/Forms/Admin/Attribute.php:93 lib/Forms/Admin/Attribute.php:139
+#: lib/Forms/Admin/Attribute.php:23 lib/Forms/Admin/Attribute.php:72
+#: lib/Forms/Admin/Attribute.php:91 lib/Forms/Admin/Attribute.php:137
 msgid "Attribute Name"
 msgstr "Atribuutin nimi"
 
-#: lib/Forms/Admin/Attribute.php:31 lib/Forms/Admin/Attribute.php:103
+#: lib/Forms/Admin/Attribute.php:29 lib/Forms/Admin/Attribute.php:101
 msgid "Attribute Type"
 msgstr "Atribuutin tyyppi"
 
-#: lib/Forms/Search.php:20
+#: lib/Forms/Search.php:18
 msgid "Attributes"
 msgstr "Atribuutit"
 
-#: lib/Forms/Admin/Type.php:114
+#: lib/Forms/Admin/Type.php:112
 msgid "Attributes for this Type"
 msgstr "Atribuutit tälle tyyppille"
 
-#: config/prefs.php.dist:135
+#: config/prefs.php:131
 msgid "Autolink to other tickets in comments?"
-msgstr "Linkitä automaattisesti toisiin tiketteihin kommenteissa."
+msgstr "Autolinkitetäänkö toisiin tiketteihin kommenteissa?"
 
-#: templates/prefs/sourceselect.inc:291 templates/prefs/sourceselect.inc:293
-msgid "Available Address books:"
-msgstr "Olemassaolevat osoitekirjat"
-
-#: scripts/mail-filter.php:174
+#: scripts/mail-filter.php:151
 msgid "Available queues:"
 msgstr "Olemassaolevat jonot:"
 
-#: reports.php:24
+#: reports.php:21
 msgid "Average days to close by Owner"
-msgstr "Keskimääräinen aika, joka menee tikettiä selvitettäessä."
+msgstr ""
+"Kuinka monta päivää keskimäärin on omistajalla mennyt aikaa sulkea tiketti."
+
+#: reports.php:23
+msgid "Average days to close by Queue"
+msgstr ""
+"Kuinka monta päivää keskimäärin on jonoittain mennyt aikaa sulkea tiketti."
+
+#: reports.php:22
+msgid "Average days to close by Requester"
+msgstr ""
+"Kuinka monta päivää keskimäärin on asiakkaalla mennyt aikaa sulkea tiketti."
 
 #: reports.php:26
-msgid "Average days to close by Queue"
-msgstr "Keskimääräinen aika, kun tiketti on jonossa."
-
-#: reports.php:25
-msgid "Average days to close by Requester"
-msgstr "Keskimääräinen aika kun asiakas sulkee tiketin"
-
-#: reports.php:29
 msgid "Average time a ticket is unresolved"
-msgstr "Keskimääräinen aika kun tiketti on ratkaisematta"
+msgstr "Kuinka kauan tiketti on ollut selvittämättä"
 
-#: lib/Forms/Query.php:29
+#: lib/Forms/Query.php:27
 msgid "Branch Type"
 msgstr "Haaran tyyppi"
 
-#: scripts/mail-filter.php:199
+#: scripts/mail-filter.php:172
 msgid "Cannot authenticate at mail server:"
 msgstr "Ei voida tunnistautua postipalvelimelle:"
 
-#: lib/Query.php:164
+#: lib/Query.php:159
 msgid "Case Insensitive Substring"
 msgstr "Kirjainkokoriippumaton osamerkkijono"
 
@@ -332,151 +332,136 @@ msgstr "Kirjainkokoriippumaton osamerkkijono"
 msgid "Change"
 msgstr "Muuta"
 
-#: config/prefs.php.dist:11
-msgid "Change display options such as how search results are sorted."
+#: config/prefs.php:13
+msgid "Change display preferences such as how search results are sorted."
 msgstr ""
 "Voit muuttaa näkymän asetuksia kuten esimerkiksi miten hakujen tulokset "
 "järjestetään"
 
-#: config/prefs.php.dist:18
-msgid "Change options for email notifications of ticket activity."
+#: config/prefs.php:24
+msgid "Change preferences for email notifications of ticket activity."
 msgstr "Voit muuttaa asetuksia tikettien sähköpostiilmoituksille."
 
-#: query/index.php:162
+#: query/index.php:161
 msgid "Choose Action:"
 msgstr "Valitse toiminto:"
 
-#: lib/Query.php:678
+#: lib/Query.php:683
 msgid "Choose New Query instead of deleting the root node."
 msgstr "Valitse Uusi kysely, sen sijaan että poistaisi juurinoodin."
 
-#: templates/prefs/sourceselect.inc:287
-msgid "Choose the order of address books to search when expanding addresses."
-msgstr "Valitse osoitekirjojen järjestys laajennettaessa osoitteita."
-
-#: lib/Forms/CreateTicket.php:47 lib/Forms/CreateTicket.php:77
+#: lib/Forms/CreateTicket.php:50 lib/Forms/CreateTicket.php:80
 msgid "Choose:"
 msgstr "Valitse:"
 
-#: config/prefs.php.dist:145
+#: config/prefs.php:139
 msgid "Chronological (oldest first)"
 msgstr "Aikajärjestys (vanhin ensin)"
 
-#: templates/prefs/sourceselect.inc:317
-msgid ""
-"Click on one of your selected address books and then select all fields to "
-"search."
-msgstr ""
-"Napsauta yhtä valitsemaasi osoitekirjaa ja valitse sitten etsittävät kentät."
-
-#: lib/Forms/Admin/Type.php:195
+#: lib/Forms/Admin/Type.php:193
 msgid "Clone"
 msgstr "Kloonaa"
 
-#: lib/Forms/Admin/Type.php:202
+#: lib/Forms/Admin/Type.php:200
 msgid "Clone Description"
 msgstr "Kloonaa kuvaus"
 
-#: lib/Forms/Admin/Type.php:36 admin/index.php:151
+#: admin/index.php:148 lib/Forms/Admin/Type.php:34
 msgid "Clone Type"
 msgstr "Kloonaa tyyppi"
 
-#: config/templates.php.dist:43
+#: config/templates.php:45
 msgid "Comma Separated Values (CSV file)"
 msgstr "Pilkuilla erotetut arvot (CSV-tiedosto)"
 
-#: ticket/queue.php:35 ticket/type.php:32 lib/Renderer/Query.php:88
-#: lib/Forms/AddComment.php:23 lib/Forms/EditTicket.php:131
+#: lib/Forms/AddComment.php:21 lib/Forms/EditTicket.php:146
+#: lib/Renderer/Query.php:86 ticket/queue.php:31 ticket/type.php:28
 msgid "Comment"
 msgstr "Kommentti"
 
-#: lib/Renderer/Comment.php:159
+#: lib/Renderer/Comment.php:161
 #, php-format
 msgid "Comment #%d"
 msgstr "Kommentti #%d"
 
-#: lib/Renderer/Comment.php:157
+#: lib/Renderer/Comment.php:159
 #, php-format
 msgid "Comment #%d (Private)"
 msgstr "Kommentti #%d (Yksityinen)"
 
-#: ticket/comment.php:70
+#: ticket/comment.php:79
 msgid "Comment added"
 msgstr "Kommentti lisätty"
 
-#: ticket/comment.php:35
+#: ticket/comment.php:44
 #, php-format
 msgid "Comment on %s"
 msgstr "Kommentti asiasta %s"
 
-#: lib/Renderer/Query.php:87
+#: lib/Renderer/Query.php:85
 msgid "Commentor"
 msgstr "Kommentoija"
 
-#: lib/Forms/Admin/Type.php:200
+#: lib/Forms/Admin/Type.php:198
 #, php-format
 msgid "Copy of %s"
-msgstr "%s:n kopio"
+msgstr "Kopio %s"
 
-#: lib/MIME/Viewer/zip.php:52
-msgid "Could not extract the requested file from the Zip archive."
-msgstr "Pyydetyn tiedoston laajennus ei onnistunut Zip-tiedostosta."
-
-#: lib/Forms/Query.php:97
+#: lib/Forms/Query.php:101
 msgid "Could not find any groups."
 msgstr "Ei löydetty ainuttakaan ryhmää."
 
-#: lib/Mail.php:100
+#: lib/Mail.php:123
 #, php-format
 msgid "Could not find ticket \"%s\"."
 msgstr "Ei löytynyt tikettiä \"%s\"."
 
-#: lib/Forms/Admin/Type.php:102
+#: lib/Forms/Admin/Type.php:100
 msgid "Create Default Priorities"
 msgstr "Luo oletusprioriteetit"
 
-#: lib/Forms/Admin/Type.php:85
+#: lib/Forms/Admin/Type.php:83
 msgid "Create Default States"
 msgstr "Luo oletustilat"
 
-#: config/prefs.php.dist:77
+#: config/prefs.php:77
 msgid "Create Ticket"
 msgstr "Luo tiketti"
 
-#: lib/Forms/CreateTicket.php:28
+#: lib/Forms/CreateTicket.php:26
 msgid "Create Ticket - Step 1"
 msgstr "Luo tiketti- Askel 1"
 
-#: lib/Forms/CreateTicket.php:65
+#: lib/Forms/CreateTicket.php:68
 msgid "Create Ticket - Step 2"
 msgstr "Luo tiketti- Askel 2"
 
-#: lib/Forms/CreateTicket.php:112
+#: lib/Forms/CreateTicket.php:115
 msgid "Create Ticket - Step 3"
 msgstr "Luo tiketti- Askel 3"
 
-#: lib/Forms/CreateTicket.php:197
+#: lib/Forms/CreateTicket.php:208
 msgid "Create Ticket - Step 4"
 msgstr "Luo tiketti- Askel 4"
 
-#: lib/Ticket.php:971 lib/Whups.php:682 lib/api.php:918
-#: lib/Renderer/Query.php:141 config/prefs.php.dist:52
+#: config/prefs.php:52 lib/Api.php:707 lib/Renderer/Query.php:139
+#: lib/Ticket.php:974 lib/Whups.php:686
 msgid "Created"
 msgstr "Luotu"
 
-#: lib/Ticket.php:614 lib/Ticket.php:640
+#: lib/Ticket.php:624 lib/Ticket.php:650
 msgid "Created By"
 msgstr "Luoja"
 
-#: lib/Forms/Query.php:324 lib/Forms/Search.php:56
+#: lib/Forms/Query.php:328 lib/Forms/Search.php:54
 msgid "Created from"
 msgstr "Luotu alkaen"
 
-#: lib/Forms/Query.php:325
+#: lib/Forms/Query.php:329
 msgid "Created to"
 msgstr "Luotu viimeistään"
 
-#: query/index.php:223 query/index.php:240
+#: query/index.php:225 query/index.php:242
 msgid "Current Query"
 msgstr "Nykyinen haku"
 
@@ -484,276 +469,288 @@ msgstr "Nykyinen haku"
 msgid "Current Ticket Type"
 msgstr "Nykyinen tiketin tyyppi"
 
-#: lib/Ticket.php:725
+#: config/prefs.php:105
+msgid "DD/MM/YY"
+msgstr "PP/KK/VV"
+
+#: config/prefs.php:106
+msgid "DD/MM/YY HH:MM:SS"
+msgstr "PP/KK/VV TT:MM:SS"
+
+#: lib/Ticket.php:735
 msgid "DO NOT REPLY TO THIS MESSAGE. THIS EMAIL ADDRESS IS NOT MONITORED."
 msgstr ""
 "ÄLÄ VASTAA TÄHÄN VIESTIIN. TÄHÄN OSOITTEESEEN TULLEITA VIESTEJÄ EI LUETA."
 
-#: config/prefs.php.dist:108
+#: config/prefs.php:110
 msgid "Date/Time format for search results"
 msgstr "Päivämäärän/ajan muoto hakutuloksille"
 
-#: lib/Forms/Search.php:55
+#: lib/Forms/Search.php:53
 msgid "Dates"
 msgstr "Päivämäärät"
 
-#: lib/Forms/Admin/Queue.php:106
+#: lib/Forms/Admin/Queue.php:104
 msgid "Default Ticket Type"
 msgstr "Tiketin oletustyyppi"
 
-#: config/prefs.php.dist:55
+#: config/prefs.php:56
 msgid "Default sorting criteria:"
 msgstr "Oletusjärjestys:"
 
-#: config/prefs.php.dist:66
+#: config/prefs.php:67
 msgid "Default sorting direction:"
 msgstr "Oletusjärjestyksen suunta:"
 
-#: query/index.php:163
+#: query/index.php:162
 msgid "Delete"
 msgstr "Poista"
 
-#: lib/Whups.php:866 lib/Whups.php:867
+#: lib/Whups.php:854 lib/Whups.php:855
 #, php-format
 msgid "Delete %s"
 msgstr "Poista %s"
 
-#: ticket/delete.php:61
+#: ticket/delete.php:58
 #, php-format
 msgid "Delete %s?"
 msgstr "Poista %s?"
 
-#: lib/Forms/Admin/Attribute.php:57 admin/index.php:947
+#: admin/index.php:948 lib/Forms/Admin/Attribute.php:55
 msgid "Delete Attribute"
 msgstr "Poista atribuutti"
 
-#: lib/Forms/Admin/Attribute.php:132
+#: lib/Forms/Admin/Attribute.php:130
 msgid "Delete Attribute Confirmation"
 msgstr "Poista atribuutin varmistus"
 
-#: lib/Forms/Admin/Reply.php:36 admin/index.php:1082
+#: admin/index.php:1083 lib/Forms/Admin/Reply.php:34
 msgid "Delete Form Reply"
 msgstr "Poista lomakevastaus"
 
-#: lib/Forms/Admin/Reply.php:94
+#: lib/Forms/Admin/Reply.php:92
 msgid "Delete Form Reply Confirmation"
 msgstr "Poista lomakkeen vastausvarmistus"
 
-#: lib/Forms/Admin/Priority.php:36 admin/index.php:589
+#: admin/index.php:588 lib/Forms/Admin/Priority.php:34
 msgid "Delete Priority"
 msgstr "Poista prioriteetti"
 
-#: lib/Forms/Admin/Priority.php:107
+#: lib/Forms/Admin/Priority.php:105
 msgid "Delete Priority Confirmation"
 msgstr "Poista priotiteetin varmistus"
 
-#: lib/Forms/Query.php:447
+#: lib/Forms/Query.php:451
 msgid "Delete Query?"
 msgstr "Poista kysely?"
 
-#: lib/Forms/Admin/Queue.php:44 admin/index.php:332
+#: admin/index.php:328 lib/Forms/Admin/Queue.php:42
 msgid "Delete Queue"
 msgstr "Poista jono"
 
-#: lib/Forms/Admin/Queue.php:159
+#: lib/Forms/Admin/Queue.php:157
 msgid "Delete Queue Confirmation"
 msgstr "Poista jonon varmistua"
 
-#: lib/Forms/Admin/State.php:35 admin/index.php:454
+#: admin/index.php:453 lib/Forms/Admin/State.php:33
 msgid "Delete State"
 msgstr "Poista tila"
 
-#: lib/Forms/Admin/State.php:107
+#: lib/Forms/Admin/State.php:105
 msgid "Delete State Confirmation"
 msgstr "Poista tilan varmistus"
 
-#: lib/Forms/Admin/Type.php:37 admin/index.php:145
+#: admin/index.php:142 lib/Forms/Admin/Type.php:35
 msgid "Delete Type"
 msgstr "Poista tyyppi"
 
-#: lib/Forms/Admin/Type.php:149
+#: lib/Forms/Admin/Type.php:147
 msgid "Delete Type Confirmation"
 msgstr "Poista tyypin varmistus"
 
-#: lib/Forms/Admin/Version.php:36 admin/index.php:816
+#: admin/index.php:816 lib/Forms/Admin/Version.php:36
 msgid "Delete Version"
 msgstr "Poista versio"
 
-#: lib/Forms/Admin/Version.php:82
+#: lib/Forms/Admin/Version.php:84
 msgid "Delete Version Confirmation"
 msgstr "Poista version varmistus"
 
-#: lib/Ticket.php:619 lib/Ticket.php:717
+#: lib/Renderer/Comment.php:177 lib/Renderer/Comment.php:178
+msgid "Delete entry"
+msgstr "Poista tieto"
+
+#: lib/Ticket.php:629 lib/Ticket.php:727
 msgid "Deleted Attachment"
 msgstr "Poistettu liite"
 
-#: lib/Renderer/Comment.php:68
+#: lib/Renderer/Comment.php:66
 #, php-format
 msgid "Deleted Attachment: %s"
 msgstr "Poistettu liite: %s"
 
-#: config/prefs.php.dist:65
+#: config/prefs.php:65
 msgid "Descending"
 msgstr "Laskeva"
 
-#: lib/Forms/CreateTicket.php:154
+#: lib/Forms/CreateTicket.php:165
 msgid "Description"
 msgstr "Kuvaus"
 
-#: config/prefs.php.dist:10
-msgid "Display Options"
+#: config/prefs.php:12
+msgid "Display Preferences"
 msgstr "Näkymän asetukset"
 
-#: lib/Whups.php:857
+#: lib/Whups.php:845
 msgid "Download"
 msgstr "Tallenna"
 
-#: templates/view/results.inc:90
+#: templates/view/results.inc:91
 msgid "Download these results as: "
 msgstr "Lataa nämä tulokset nimellä: "
 
-#: lib/Ticket.php:611 lib/Ticket.php:808 lib/Ticket.php:976 lib/api.php:922
-#: lib/Renderer/Query.php:161
+#: lib/Api.php:711 lib/Renderer/Query.php:159 lib/Ticket.php:621
+#: lib/Ticket.php:815 lib/Ticket.php:979
 msgid "Due"
 msgstr "Määräaikaan"
 
-#: lib/Renderer/Comment.php:128
+#: lib/Renderer/Comment.php:131
 #, php-format
 msgid "Due &rArr; %s"
 msgstr "Määräajassa &rArr; %s"
 
-#: lib/Forms/CreateTicket.php:151 lib/Forms/EditTicket.php:74
+#: lib/Forms/CreateTicket.php:162 lib/Forms/EditTicket.php:90
 msgid "Due Date"
 msgstr "Määräajan päivämäärä"
 
-#: lib/Forms/Query.php:336 lib/Forms/Search.php:64
+#: lib/Forms/Query.php:340 lib/Forms/Search.php:62
 msgid "Due from"
 msgstr "Määräaika alkaen"
 
-#: lib/Forms/Query.php:337
+#: lib/Forms/Query.php:341
 msgid "Due to"
 msgstr "Määräaika viimeistään"
 
-#: lib/Query.php:230
+#: lib/Query.php:235
 msgid "E_xecute Query"
 msgstr "_Aja kysely"
 
-#: query/index.php:164
+#: query/index.php:163
 msgid "Edit"
 msgstr "Muokkaa"
 
-#: lib/Forms/Admin/Queue.php:82 lib/Forms/Admin/Type.php:63
+#: lib/Forms/Admin/Queue.php:80 lib/Forms/Admin/Type.php:61
 #, php-format
 msgid "Edit %s"
 msgstr "Muokkaa %s"
 
-#: lib/Forms/Admin/Attribute.php:57 lib/Forms/Admin/Attribute.php:86
-#: admin/index.php:942
+#: admin/index.php:943 lib/Forms/Admin/Attribute.php:55
+#: lib/Forms/Admin/Attribute.php:84
 msgid "Edit Attribute"
 msgstr "Muokkaa atribuuttia"
 
-#: lib/Forms/Query.php:266
+#: lib/Forms/Query.php:270
 msgid "Edit Attribute Criterion"
 msgstr "Muokkaa atribuutin kriteeriä"
 
-#: lib/Forms/Admin/Type.php:119
+#: lib/Forms/Admin/Type.php:117
 msgid "Edit Attributes"
 msgstr "Muokkaa atribuutteja"
 
-#: lib/Forms/Query.php:320
+#: lib/Forms/Query.php:324
 msgid "Edit Date Criterion"
 msgstr "Muokkaa päivämäärän kriteeriä"
 
-#: lib/Forms/Admin/Type.php:135
+#: lib/Forms/Admin/Type.php:133
 msgid "Edit Form Replies"
 msgstr "Muokkaa lomakevastauksia"
 
-#: lib/Forms/Admin/Reply.php:36 lib/Forms/Admin/Reply.php:64
-#: admin/index.php:1077
+#: admin/index.php:1078 lib/Forms/Admin/Reply.php:34
+#: lib/Forms/Admin/Reply.php:62
 msgid "Edit Form Reply"
 msgstr "Muokkaa lomakevastausta"
 
-#: lib/Forms/Query.php:90
+#: lib/Forms/Query.php:88
 msgid "Edit Group Criterion"
 msgstr "Muokkaa ryhmäkriteeriä"
 
-#: lib/Forms/Admin/Type.php:98
+#: lib/Forms/Admin/Type.php:96
 msgid "Edit Priorities"
 msgstr "Muokkaa priotiteetteja"
 
-#: lib/Forms/Admin/Priority.php:36 lib/Forms/Admin/Priority.php:59
-#: admin/index.php:584
+#: admin/index.php:583 lib/Forms/Admin/Priority.php:34
+#: lib/Forms/Admin/Priority.php:57
 msgid "Edit Priority"
 msgstr "Muokkaa prioriteettiä"
 
-#: lib/Forms/Query.php:168
+#: lib/Forms/Query.php:172
 msgid "Edit Property Criterion"
 msgstr "Muokkaa ominaisuuden kriteeriä"
 
-#: lib/Forms/Admin/Queue.php:44 lib/Forms/Admin/Queue.php:47
-#: admin/index.php:326
+#: admin/index.php:322 lib/Forms/Admin/Queue.php:42
+#: lib/Forms/Admin/Queue.php:45
 msgid "Edit Queue"
 msgstr "Muokkaa jonoa"
 
-#: lib/Forms/Admin/Queue.php:46
+#: lib/Forms/Admin/Queue.php:44
 msgid "Edit Queues"
 msgstr "Muokkaa jonona"
 
-#: lib/Forms/Admin/State.php:35 lib/Forms/Admin/State.php:56
-#: admin/index.php:449
+#: admin/index.php:448 lib/Forms/Admin/State.php:33
+#: lib/Forms/Admin/State.php:54
 msgid "Edit State"
 msgstr "Muokkaa tilaa"
 
-#: lib/Forms/Admin/Type.php:81
+#: lib/Forms/Admin/Type.php:79
 msgid "Edit States"
 msgstr "Muokkaa tiloja"
 
-#: lib/Forms/Query.php:125
+#: lib/Forms/Query.php:129
 msgid "Edit Text Criterion"
 msgstr "Muokkaa tekstikriteeriä"
 
-#: lib/Forms/Admin/Type.php:35 admin/index.php:139
+#: admin/index.php:136 lib/Forms/Admin/Type.php:33
 msgid "Edit Type"
 msgstr "Muokkaa tyypiä"
 
-#: lib/Forms/Query.php:41
+#: lib/Forms/Query.php:39
 msgid "Edit User Criterion"
 msgstr "Muokkaa käyttäjäkriteeri"
 
-#: lib/Forms/Admin/Version.php:36 lib/Forms/Admin/Version.php:59
-#: admin/index.php:811
+#: admin/index.php:811 lib/Forms/Admin/Version.php:36
+#: lib/Forms/Admin/Version.php:59
 msgid "Edit Version"
 msgstr "Muokkaa versiota"
 
-#: lib/Query.php:226
+#: lib/Query.php:231
 msgid "Edit _Permissions"
 msgstr "Muokkaa _oikeuksia"
 
-#: admin/index.php:34
+#: admin/index.php:31
 msgid "Edit _Types"
 msgstr "Muokkaa _tyyppejä"
 
-#: lib/Forms/Admin/Attribute.php:56
+#: lib/Forms/Admin/Attribute.php:54
 msgid "Edit or Delete Attributes"
 msgstr "Muokkaa tai poista atribuutteja"
 
-#: lib/Forms/Admin/Reply.php:35
+#: lib/Forms/Admin/Reply.php:33
 msgid "Edit or Delete Form Replies"
 msgstr "Muokkaa tai poista lomakevastauksia"
 
-#: lib/Forms/Admin/Priority.php:35
+#: lib/Forms/Admin/Priority.php:33
 msgid "Edit or Delete Priorities"
 msgstr "Muokkaa tai poista prioriteetteja"
 
-#: lib/Forms/Admin/Queue.php:43
+#: lib/Forms/Admin/Queue.php:41
 msgid "Edit or Delete Queues"
 msgstr "Muokkaa tai poista jonoja"
 
-#: lib/Forms/Admin/State.php:34
+#: lib/Forms/Admin/State.php:32
 msgid "Edit or Delete States"
 msgstr "Muokkaa tai poista tiloja"
 
-#: lib/Forms/Admin/Type.php:34
+#: lib/Forms/Admin/Type.php:32
 msgid "Edit or Delete Types"
 msgstr "Muokkaa tai poista tyyppejä"
 
@@ -761,119 +758,119 @@ msgstr "Muokkaa tai poista tyyppejä"
 msgid "Edit or Delete Versions"
 msgstr "Muokkaa tai poista versioita"
 
-#: lib/Forms/Admin/Reply.php:81
+#: lib/Forms/Admin/Reply.php:79
 msgid "Edit the permissions on this form reply"
 msgstr "Muokkaa tämän lomakevastauksen oikeuksia"
 
-#: lib/Forms/Admin/Queue.php:144
+#: lib/Forms/Admin/Queue.php:142
 msgid "Edit the permissions on this queue"
 msgstr "Muokkaa tämän jonon oikeuksia"
 
-#: lib/Forms/Admin/Queue.php:136
+#: lib/Forms/Admin/Queue.php:134
 msgid "Edit the users responsible for this queue"
 msgstr "Muokkaa käyttäjiä jotka ovat vastuussa tästä jonosta"
 
-#: lib/Forms/Admin/Queue.php:118
+#: lib/Forms/Admin/Queue.php:116
 msgid "Edit the versions for this queue"
 msgstr "Muokkaa versioita tälle jonolle"
 
-#: ticket/watch.php:24
+#: ticket/watch.php:20
 msgid "Email address to notify"
 msgstr "Sähköpostiosoite ilmoitukselle"
 
-#: ticket/watch.php:36
+#: ticket/watch.php:32
 msgid "Email address to remove"
 msgstr "Poistettava sähköpostiosoite"
 
-#: lib/api.php:504
+#: lib/Api.php:349
 msgid "Empty attachment"
 msgstr "Tyhjä liite"
 
-#: scripts/mail-filter.php:188 scripts/mail-filter.php:208
+#: ticket/delete_history.php:26
+msgid "Entry deleted."
+msgstr "Tieto poistettu."
+
+#: scripts/mail-filter.php:161 scripts/mail-filter.php:181
 msgid "Error processing message:"
 msgstr "Virhe käsiteltäessa viestiä:"
 
-#: query/index.php:191
+#: query/index.php:193
 #, php-format
 msgid "Error: Unknown query form \"%s\", defaulting to properties"
 msgstr "Virhe: Tuntematon kysely muotoa \"%s\", käytetään oletusominaisuuksia"
 
-#: lib/Query.php:163
+#: lib/Query.php:158
 msgid "Exact Match"
 msgstr "Täsmää täydellisesti"
 
-#: query/run.php:111
+#: query/run.php:112
 msgid "Execute Query"
 msgstr "Aja kysely"
 
-#: templates/prefs/sourceselect.inc:327
-msgid "Fields to search"
-msgstr "Haettavat kentät"
-
-#: lib/Forms/Admin.php:35
+#: lib/Forms/Admin.php:33
 msgid "For tickets from these queues"
 msgstr "Tiketeille tässä jonossa"
 
-#: lib/Forms/Admin.php:39
+#: lib/Forms/Admin.php:37
 msgid "For tickets which are"
 msgstr "Tiketeille jotka ovat"
 
-#: lib/api.php:806
+#: lib/Application.php:70
 msgid "Form Replies"
 msgstr "Lomakevastaukset"
 
-#: lib/Forms/Admin/Type.php:130
+#: lib/Forms/Admin/Type.php:128
 msgid "Form Replies for this Type"
 msgstr "Lomakevastaukset tälle tyypille"
 
-#: lib/Forms/Admin/Reply.php:25 lib/Forms/Admin/Reply.php:52
-#: lib/Forms/Admin/Reply.php:71 lib/Forms/Admin/Reply.php:101
+#: lib/Forms/Admin/Reply.php:23 lib/Forms/Admin/Reply.php:50
+#: lib/Forms/Admin/Reply.php:69 lib/Forms/Admin/Reply.php:99
 msgid "Form Reply Name"
 msgstr "Lomakevastauksen nimi"
 
-#: lib/Forms/Admin/Reply.php:26 lib/Forms/Admin/Reply.php:74
-#: lib/Forms/Admin/Reply.php:104
+#: lib/Forms/Admin/Reply.php:24 lib/Forms/Admin/Reply.php:72
+#: lib/Forms/Admin/Reply.php:102
 msgid "Form Reply Text"
 msgstr "Lomakevastauksen teksti"
 
-#: lib/Forms/EditTicket.php:143
+#: lib/Forms/EditTicket.php:158
 msgid "Form Reply:"
 msgstr "Lomakevastauksen vastaus"
 
-#: config/prefs.php.dist:9 config/prefs.php.dist:16 config/prefs.php.dist:23
-msgid "General Options"
+#: config/prefs.php:11 config/prefs.php:22 config/prefs.php:28
+msgid "General Preferences"
 msgstr "Yleiset asetukset"
 
 #: templates/menu.inc:5
 msgid "Go"
 msgstr "Mene"
 
-#: lib/Forms/CreateTicket.php:232 lib/Forms/EditTicket.php:114
+#: lib/Forms/CreateTicket.php:242 lib/Forms/EditTicket.php:130
 msgid "Group Owners"
 msgstr "Ryhmäomistajat"
 
-#: lib/Renderer/Query.php:85 lib/Forms/Query.php:98 lib/Forms/Query.php:100
+#: lib/Forms/Query.php:102 lib/Forms/Query.php:104 lib/Renderer/Query.php:83
 msgid "Groups"
 msgstr "Ryhmät"
 
-#: lib/api.php:778
+#: lib/Application.php:64
 msgid "Hidden Comments"
 msgstr "Piilotetut kommentit"
 
-#: ticket/index.php:43
+#: ticket/index.php:41
 msgid "History"
 msgstr "Historia"
 
-#: query/index.php:165
+#: query/index.php:164
 msgid "Hoist Children"
 msgstr "Nosta alitietoja"
 
-#: lib/Whups.php:667 lib/Whups.php:674 lib/Renderer/Query.php:83
-#: lib/Forms/Query.php:171 config/prefs.php.dist:45
+#: config/prefs.php:45 lib/Forms/Query.php:175 lib/Renderer/Query.php:81
+#: lib/Whups.php:671 lib/Whups.php:678
 msgid "Id"
 msgstr "Id"
 
-#: lib/Forms/Admin.php:42
+#: lib/Forms/Admin.php:40
 msgid ""
 "If you select any tickets that do not have an owner, who should we send "
 "email to?"
@@ -881,238 +878,225 @@ msgstr ""
 "Jos valitaan tikettejä, joilla ei ole omistajaa, niin kenelle sähköposti "
 "lähetetään?"
 
-#: query/index.php:166
+#: query/index.php:165
 msgid "Insert And"
 msgstr "Laita Ja"
 
-#: lib/Forms/Query.php:21
+#: lib/Forms/Query.php:19
 msgid "Insert Branch"
 msgstr "Laita Haara"
 
-#: query/index.php:168
+#: query/index.php:167
 msgid "Insert Not"
 msgstr "Laita Ei"
 
-#: query/index.php:167
+#: query/index.php:166
 msgid "Insert Or"
 msgstr "Laita Tai"
 
-#: lib/Forms/Admin/Queue.php:77 lib/Forms/Admin/Queue.php:78
+#: lib/Forms/Admin/Queue.php:75 lib/Forms/Admin/Queue.php:76
 msgid "Invalid Queue"
 msgstr "Epäkelpo jono"
 
-#: lib/Whups.php:261 lib/api.php:495
+#: lib/Api.php:340 lib/Whups.php:267
 msgid "Invalid Ticket Id"
 msgstr "Väärä Tiketti Id"
 
-#: lib/api.php:548
+#: lib/Api.php:392
 msgid "Invalid argument: Missing attribute name or value."
 msgstr "Epäkelpo argumentti: Puuttuu atribuutin nimi tai arvo."
 
-#: lib/api.php:533
+#: lib/Api.php:377
 msgid "Invalid arguments: Must supply a ticket number and new attributes."
 msgstr "Epäkelvot argumentit: Pitää antaa tiketin nimi tai uusi atribuutti."
 
-#: queue/index.php:30
+#: queue/index.php:27
 msgid "Invalid queue"
 msgstr "Epäkelpo jono"
 
-#: search/rss.php:30
+#: search/rss.php:28
 msgid "Invalid search"
 msgstr "Epäkelpo haku"
 
-#: lib/api.php:397
+#: lib/Api.php:248
 #, php-format
 msgid "Invalid ticket data supplied: %s"
 msgstr "Epäkelpoa tikettitietoa: %s"
 
-#: lib/Forms/Admin/Queue.php:113
+#: lib/Forms/Admin/Queue.php:111
 msgid "Keep a set of versions for this queue?"
 msgstr "Pidä tallessa versioita tälle jonolle."
 
-#: templates/prevnext.inc:30
+#: templates/prevnext.inc:26
 msgid "Last>>"
 msgstr "Viimeinen>>"
 
-#: lib/Forms/Query.php:411
+#: lib/Forms/Query.php:415
 msgid "Load Query"
 msgstr "Lataa kysely"
 
-#: lib/Forms/VarRenderer.php:46
+#: lib/Forms/VarRenderer.php:38
 msgid "Loading..."
 msgstr "Ladataan..."
 
-#: config/prefs.php.dist:106
+#: config/prefs.php:103
 msgid "MM/DD/YY"
-msgstr "MM/PP/VV"
+msgstr "KK/PP/VV"
 
-#: config/prefs.php.dist:107
+#: config/prefs.php:104
 msgid "MM/DD/YY HH:MM:SS"
-msgstr "MM/PP/VV TT:MM:SS"
+msgstr "KK/PP/VV TT:MM:SS"
 
-#: lib/Forms/Admin/Type.php:193
+#: lib/Forms/Admin/Type.php:191
 #, php-format
 msgid "Make a clone of %s"
-msgstr "Tee kloonaus %s:stä"
+msgstr "Tee klooni %s:stä"
 
-#: lib/Forms/AddComment.php:38 lib/Forms/EditTicket.php:167
+#: lib/Forms/AddComment.php:36 lib/Forms/EditTicket.php:182
 msgid "Make this comment visible only to members of a group?"
-msgstr "Laita tämä kommentti näkymään vain ryhmän jäsenille."
+msgstr "Laita tämä kommentti näkymään vain ryhmän jäsenille?"
 
-#: lib/Forms/Query.php:274
+#: lib/Forms/Query.php:278
 msgid "Match"
 msgstr "Täsmää"
 
-#: lib/Forms/Query.php:45 lib/Forms/Query.php:129 lib/Forms/Query.php:275
+#: lib/Forms/Query.php:43 lib/Forms/Query.php:133 lib/Forms/Query.php:279
 msgid "Match Operator"
 msgstr "Täsmäävä operaattori"
 
-#: lib/Query.php:167
+#: lib/Query.php:162
 msgid "Match Pattern"
 msgstr "Täsmää malliin"
 
-#: lib/Query.php:166
+#: lib/Query.php:161
 msgid "Match Word"
 msgstr "Täsmäävä sana"
 
-#: reports.php:30
+#: reports.php:27
 msgid "Maximum time a ticket is unresolved"
 msgstr "Pisin aika, jonka tiketti on ollut selvittämättä"
 
-#: lib/Block/tree_menu.php:3
-msgid "Menu List"
-msgstr "Valikkolista"
-
-#: reports.php:31
+#: reports.php:28
 msgid "Minimum time a ticket is unresolved"
 msgstr "Lyhin aika, jonka tiketti on ollut selvittämättä"
 
-#: config/prefs.php.dist:146
+#: config/prefs.php:140
 msgid "Most recent first"
 msgstr "Tuorein ensin"
 
-#: templates/prefs/sourceselect.inc:312
-msgid "Move down"
-msgstr "Siirrä alas"
-
-#: templates/prefs/sourceselect.inc:310
-msgid "Move up"
-msgstr "Siirrä ylös"
-
-#: ticket/queue.php:181
+#: ticket/queue.php:184
 #, php-format
 msgid "Moved ticket %d to \"%s\""
 msgstr "Siirrettiin tiketti %d \"%s\":lle"
 
-#: mybugs.php:54
+#: mybugs.php:50
 #, php-format
 msgid "My %s"
 msgstr "Minun %s"
 
-#: mybugs_edit.php:33
+#: mybugs_edit.php:29
 #, php-format
 msgid "My %s :: Add Content"
 msgstr "Minun %s :: Lisää sisältö"
 
-#: search.php:178 lib/Block/myqueries.php:3 lib/Block/myqueries.php:24
+#: lib/Block/Myqueries.php:13 search.php:177
 msgid "My Queries"
 msgstr "Minun kyselyt"
 
-#: lib/Block/myrequests.php:3 lib/Block/myrequests.php:24
+#: lib/Block/Myrequests.php:13
 msgid "My Requests"
 msgstr "Minun pyynnöt"
 
-#: lib/Block/mytickets.php:3 lib/Block/mytickets.php:24
-#: config/prefs.php.dist:75
+#: config/prefs.php:75 lib/Block/Mytickets.php:13
 msgid "My Tickets"
 msgstr "Minun tiketit"
 
-#: lib/api.php:884
+#: lib/Api.php:675
 msgid "My tickets by assignment date"
 msgstr "Minun tiketit määräyspäivän mukaan"
 
-#: lib/api.php:883
+#: lib/Api.php:674
 msgid "My tickets by creation date"
 msgstr "Minun tiketit luontipäivän mukaan"
 
-#: lib/api.php:885
+#: lib/Api.php:676
 msgid "My tickets by due date"
 msgstr "Minun tiketit määräpäivän mukaan"
 
-#: lib/api.php:886
+#: lib/Api.php:677
 msgid "My tickets by resolution date"
 msgstr "Minun tiketit selvityspäivän mukaan"
 
-#: lib/Forms/Query.php:422
+#: lib/Forms/Query.php:426
 msgid "Name"
 msgstr "Nimi"
 
-#: lib/Forms/Admin/Type.php:198
+#: lib/Forms/Admin/Type.php:196
 msgid "Name of the cloned copy"
 msgstr "Kloonatun kopion nimi"
 
-#: lib/Query.php:216
+#: lib/Query.php:221
 msgid "Ne_w Query"
 msgstr "Uu_si kysely"
 
-#: lib/Driver.php:197
+#: lib/Driver.php:212
 msgid "New"
 msgstr "Uusi"
 
-#: lib/Ticket.php:618 lib/Ticket.php:711
+#: lib/Ticket.php:628 lib/Ticket.php:721
 msgid "New Attachment"
 msgstr "Uusi liite"
 
-#: lib/Renderer/Comment.php:58 lib/Renderer/Comment.php:62
+#: lib/Renderer/Comment.php:56 lib/Renderer/Comment.php:60
 #, php-format
 msgid "New Attachment: %s"
 msgstr "Uusi liite: %s"
 
-#: ticket/queue.php:32
+#: ticket/queue.php:28
 msgid "New Queue"
 msgstr "Uusi jono"
 
-#: ticket/create.php:67 lib/Block/tree_menu.php:21
+#: lib/Application.php:180 ticket/create.php:63
 msgid "New Ticket"
 msgstr "Uusi tiketti"
 
-#: ticket/type.php:31
+#: ticket/type.php:27
 msgid "New Type"
 msgstr "Uuti tyyppi"
 
-#: templates/prevnext.inc:26
+#: templates/prevnext.inc:23
 msgid "Next>"
 msgstr "Seuraava>"
 
-#: ticket/delete.php:33 lib/Forms/Query.php:449
-#: lib/Forms/Admin/Attribute.php:149 lib/Forms/Admin/Priority.php:121
-#: lib/Forms/Admin/Queue.php:174 lib/Forms/Admin/Reply.php:110
-#: lib/Forms/Admin/State.php:121 lib/Forms/Admin/Type.php:176
-#: lib/Forms/Admin/Version.php:96
+#: lib/Forms/Admin/Attribute.php:147 lib/Forms/Admin/Priority.php:119
+#: lib/Forms/Admin/Queue.php:172 lib/Forms/Admin/Reply.php:108
+#: lib/Forms/Admin/State.php:119 lib/Forms/Admin/Type.php:174
+#: lib/Forms/Admin/Version.php:98 lib/Forms/Query.php:453 ticket/delete.php:29
 msgid "No"
 msgstr "Ei"
 
-#: lib/Ticket.php:100
+#: lib/Ticket.php:98
 #, php-format
 msgid ""
 "No priority for this ticket and no default priority for ticket type \"%s\" "
 "specified."
 msgstr ""
-"Tälle tiketille tai tikettityypille \"%s\" ei ole määritelty oletustyyppiä."
+"Tälle tiketille tai tikettityypille \"%s\" ei ole määritelty "
+"oletusprioriteettia."
 
-#: lib/Block/myqueries.php:46
+#: lib/Block/Myqueries.php:36
 msgid "No queries have been saved."
-msgstr "Ei kyselyitä talletettuna."
+msgstr "Ei kyselyitä tallennettuna."
 
-#: lib/Driver/sql.php:553 lib/Block/query.php:62
+#: lib/Block/Query.php:61 lib/Driver/sql.php:541
 msgid "No query to run"
 msgstr "Ei kyselyitä ajettavaksi"
 
-#: lib/Block/queuecontents.php:25
+#: lib/Block/Queuecontents.php:26
 msgid "No queues available."
 msgstr "Ei jonoja saatavilla."
 
-#: lib/Ticket.php:92
+#: lib/Ticket.php:90
 #, php-format
 msgid ""
 "No state for this ticket and no default state for ticket type \"%s\" "
@@ -1121,244 +1105,243 @@ msgstr ""
 "Tälle tikettityypille \"%s\" ei ole määritelty tilatietoja eikä "
 "oletustilatietoja."
 
-#: reports.php:35
+#: reports.php:32
 msgid "No stats available."
 msgstr "Tilastoja ei ole saatavilla."
 
-#: lib/Driver.php:533
-#, php-format
-msgid "No such backend \"%s\" found"
-msgstr "Taustajärjestelmää \"%s\" ei löytynyt"
-
-#: lib/View.php:33
+#: lib/View.php:31
 #, php-format
 msgid "No such view \"%s\" found"
 msgstr "Näkymää \"%s\" ei löytynyt"
 
-#: lib/Block/mytickets.php:45
+#: lib/Block/Mytickets.php:32
 msgid "No tickets are assigned to you."
 msgstr "Sinulle ei ole määrätty tikettejä."
 
-#: lib/Block/unassigned.php:45
+#: lib/Block/Unassigned.php:32
 msgid "No tickets are unassigned!"
 msgstr "Määrittelemättömiä tikettejä ei ole."
 
-#: lib/Block/queuecontents.php:62 lib/Block/queuecontents.php:73
+#: lib/Block/Queuecontents.php:60 lib/Block/Queuecontents.php:71
 msgid "No tickets in queue."
 msgstr "Ei tikettejä tässä jonossa"
 
-#: lib/Whups.php:716
+#: lib/Whups.php:720
 msgid "No tickets matched your search criteria."
 msgstr "Yksikään tiketti ei vastannut hakukriteetereitäsi."
 
-#: lib/Ticket.php:84
+#: lib/Ticket.php:82
 #, php-format
 msgid "No type for this ticket and no default type for queue \"%s\" specified."
 msgstr ""
 "Tälle tiketille tai tälle jonolle \"%s\" ei ole määritelty oletustyyppiä."
 
-#: templates/prefs/sourceselect.inc:35 lib/Reports.php:67
+#: lib/Reports.php:66
 msgid "None"
 msgstr "Ei mitään"
 
-#: lib/Renderer/Query.php:79 lib/Forms/Query.php:26
+#: lib/Forms/Query.php:24 lib/Renderer/Query.php:77
 msgid "Not"
 msgstr "Ei"
 
-#: config/prefs.php.dist:17
-msgid "Notification Options"
+#: config/prefs.php:23
+msgid "Notification Preferences"
 msgstr "Ilmoituksen asetukset"
 
-#: config/prefs.php.dist:117
+#: lib/Driver.php:193
+msgid "Older? Please update first!"
+msgstr "Vanhempi? Päivitä ensin!"
+
+#: config/prefs.php:117
 msgid "Only notify me of ticket changes from other users?"
 msgstr "Ilmoita minulle vain jos muut muuttavat tikettejä?"
 
-#: config/prefs.php.dist:126
+#: config/prefs.php:124
 msgid "Only notify me of ticket changes with comments?"
 msgstr "Ilmoita minulle vain jos muut muuttavat kommentteja?"
 
-#: queue/rss.php:43
+#: queue/rss.php:40
 msgid "Open"
 msgstr "Avoin"
 
-#: lib/Block/queuesummary.php:49
+#: lib/Block/Queuesummary.php:34
 msgid "Open Tickets"
 msgstr "Avoimet tiketit"
 
-#: reports.php:23
+#: reports.php:20
 msgid "Open Tickets by Owner"
 msgstr "Avoimet tiketit omistajan mukaan"
 
-#: reports.php:21
+#: reports.php:18
 msgid "Open Tickets by Priority"
 msgstr "Avoimet tiketit prioriteetin mukan"
 
-#: reports.php:18
+#: reports.php:15
 msgid "Open Tickets by Queue"
 msgstr "Avoiment tiketit jonon mukaan"
 
-#: reports.php:22
+#: reports.php:19
 msgid "Open Tickets by Requester"
 msgstr "Avoimet tiketit asiakkaan mukaan"
 
-#: reports.php:19
+#: reports.php:16
 msgid "Open Tickets by State"
 msgstr "Avoimet tiketit tilan mukaan"
 
-#: reports.php:20
+#: reports.php:17
 msgid "Open Tickets by Type"
 msgstr "Avoimet tiketit tyypin mukaan"
 
-#: lib/Block/queuecontents.php:47
+#: lib/Block/Queuecontents.php:47
 #, php-format
 msgid "Open Tickets in %s"
 msgstr "Avoimet tiketit jonossa %s"
 
-#: queue/index.php:43 queue/index.php:57 queue/rss.php:119
+#: queue/index.php:40 queue/index.php:54 queue/rss.php:115
 #, php-format
 msgid "Open tickets in %s"
 msgstr "Avoimet tiketit jonossa %s"
 
-#: queue/rss.php:121
+#: queue/rss.php:117
 msgid "Open tickets in all queues."
 msgstr "Avoimia tikettejä kaikissa jonoissa"
 
-#: lib/Renderer/Query.php:78 lib/Forms/Query.php:25
+#: lib/Forms/Query.php:23 lib/Renderer/Query.php:76
 msgid "Or"
 msgstr "Tai"
 
-#: lib/Ticket.php:617 lib/Ticket.php:701 lib/Ticket.php:702 lib/Ticket.php:705
-#: lib/Ticket.php:812 lib/Ticket.php:833 lib/Ticket.php:958 lib/Whups.php:681
-#: lib/Renderer/Query.php:84 lib/Forms/CreateTicket.php:225
-#: lib/Forms/CreateTicket.php:243 lib/Forms/EditTicket.php:104
+#: lib/Forms/CreateTicket.php:235 lib/Forms/CreateTicket.php:253
+#: lib/Forms/EditTicket.php:120 lib/Renderer/Query.php:82 lib/Ticket.php:627
+#: lib/Ticket.php:711 lib/Ticket.php:712 lib/Ticket.php:715 lib/Ticket.php:819
+#: lib/Ticket.php:840 lib/Ticket.php:961 lib/Whups.php:685
 msgid "Owners"
 msgstr "Omistajat"
 
-#: lib/Whups.php:866
+#: lib/Whups.php:854
 #, php-format
 msgid "Permanently delete %s?"
 msgstr "Poistetaanko pysyvästi %s?"
 
-#: ticket/delete.php:51 ticket/deleteAttachment.php:21 ticket/queue.php:131
-#: ticket/type.php:74 ticket/update.php:22
+#: lib/Renderer/Comment.php:177
+msgid "Permanently delete entry?"
+msgstr "Poistetaanko tieto pysyvästi?"
+
+#: ticket/delete.php:48 ticket/delete_attachment.php:17
+#: ticket/delete_history.php:16 ticket/queue.php:135 ticket/type.php:71
+#: ticket/update.php:19
 msgid "Permission Denied"
 msgstr "Käyttö kielletty"
 
-#: ticket/delete.php:40 lib/Forms/EditTicket.php:197
+#: lib/Forms/EditTicket.php:212 ticket/delete.php:36
 msgid "Permission Denied."
 msgstr "Käyttö kielletty."
 
-#: lib/Forms/Query.php:459 query/index.php:31 query/run.php:44
+#: lib/Forms/Query.php:463 query/index.php:29 query/run.php:43
 #, php-format
 msgid "Permission denied."
 msgstr "Käyttö kielletty."
 
-#: lib/Imple/ContactAutoCompleter.php:227
-msgid "Please resolve ambiguous or invalid addresses."
-msgstr "Korjaa epäselvä tai virheellinen osoite."
-
-#: lib/Forms/Admin/Type.php:93 lib/Forms/Admin/Type.php:171
+#: lib/Forms/Admin/Type.php:91 lib/Forms/Admin/Type.php:169
 msgid "Priorities for this Type"
 msgstr "Prioriteetit tälle tyypille"
 
-#: ticket/queue.php:117 ticket/type.php:66 lib/Ticket.php:610
-#: lib/Ticket.php:807 lib/Ticket.php:953 lib/Whups.php:669 lib/Whups.php:678
-#: lib/Renderer/Query.php:125 lib/Forms/CreateTicket.php:147
-#: lib/Forms/EditTicket.php:68 lib/Forms/Query.php:198
-#: config/prefs.php.dist:49
+#: config/prefs.php:49 lib/Forms/CreateTicket.php:158
+#: lib/Forms/EditTicket.php:84 lib/Forms/Query.php:202
+#: lib/Renderer/Query.php:123 lib/Ticket.php:620 lib/Ticket.php:814
+#: lib/Ticket.php:956 lib/Whups.php:673 lib/Whups.php:682 ticket/queue.php:113
+#: ticket/type.php:62
 msgid "Priority"
 msgstr "Prioriteetti"
 
-#: lib/Renderer/Comment.php:115
+#: lib/Renderer/Comment.php:118
 #, php-format
 msgid "Priority &rArr; %s"
-msgstr "Prioriteetti &rJärj; %s"
+msgstr "Prioriteetti &rArr; %s"
 
-#: lib/Forms/Admin/Priority.php:24 lib/Forms/Admin/Priority.php:70
-#: lib/Forms/Admin/Priority.php:118
+#: lib/Forms/Admin/Priority.php:22 lib/Forms/Admin/Priority.php:68
+#: lib/Forms/Admin/Priority.php:116
 msgid "Priority Description"
 msgstr "Prioriteetin kuvaus"
 
-#: lib/Forms/Admin/Priority.php:23 lib/Forms/Admin/Priority.php:48
-#: lib/Forms/Admin/Priority.php:67 lib/Forms/Admin/Priority.php:94
-#: lib/Forms/Admin/Priority.php:115
+#: lib/Forms/Admin/Priority.php:21 lib/Forms/Admin/Priority.php:46
+#: lib/Forms/Admin/Priority.php:65 lib/Forms/Admin/Priority.php:92
+#: lib/Forms/Admin/Priority.php:113
 msgid "Priority Name"
 msgstr "Prioriteetin nimi"
 
-#: search.php:178
+#: search.php:177
 msgid "Public Queries"
 msgstr "Julkiset kyselyt"
 
-#: query/index.php:172
+#: query/index.php:174
 msgid "Query Builder"
 msgstr "Kyselynrakentaja"
 
-#: lib/Forms/Query.php:387
+#: lib/Forms/Query.php:391
 msgid "Query Name"
 msgstr "Kyselyn nimi"
 
-#: lib/Forms/QueryParameterForm.php:20
+#: lib/Forms/QueryParameterForm.php:18
 msgid "Query Parameters"
 msgstr "Kyselyn parametrit"
 
-#: lib/Block/query.php:3 lib/Block/query.php:49 query/rss.php:63
-#: query/run.php:79
+#: lib/Block/Query.php:13 query/rss.php:60 query/run.php:81
 msgid "Query Results"
 msgstr "Kyselyn tulokset"
 
-#: lib/Forms/Query.php:389
+#: lib/Forms/Query.php:393
 msgid "Query Slug"
-msgstr "Kyselyn luoti"
+msgstr "Kysely luoti"
 
-#: lib/Block/query.php:33
+#: lib/Block/Query.php:35
 msgid "Query to run"
 msgstr "Ajettava kysely"
 
-#: lib/Ticket.php:606 lib/Ticket.php:803 lib/Ticket.php:918 lib/Ticket.php:923
-#: lib/Whups.php:679 lib/Renderer/Query.php:94 lib/Forms/Query.php:181
-#: lib/Forms/Search.php:40 lib/Block/queuecontents.php:32
-#: lib/Block/queuesummary.php:49 config/prefs.php.dist:50
+#: config/prefs.php:50 lib/Block/Queuecontents.php:35
+#: lib/Block/Queuesummary.php:34 lib/Forms/Query.php:185
+#: lib/Forms/Search.php:38 lib/Renderer/Query.php:92 lib/Ticket.php:616
+#: lib/Ticket.php:810 lib/Ticket.php:921 lib/Ticket.php:926 lib/Whups.php:683
 msgid "Queue"
 msgstr "Jono"
 
-#: lib/Renderer/Comment.php:100
+#: lib/Renderer/Comment.php:98
 #, php-format
 msgid "Queue &rArr; %s"
-msgstr "Jono &rJärj; %s"
+msgstr "Jono &rArr; %s"
 
-#: lib/Block/queuecontents.php:3 lib/Block/queuecontents.php:49
+#: lib/Block/Queuecontents.php:13
 msgid "Queue Contents"
 msgstr "Jonojen sisältö"
 
-#: lib/Forms/Admin/Queue.php:24 lib/Forms/Admin/Queue.php:89
-#: lib/Forms/Admin/Queue.php:170
+#: lib/Forms/Admin/Queue.php:22 lib/Forms/Admin/Queue.php:87
+#: lib/Forms/Admin/Queue.php:168
 msgid "Queue Description"
 msgstr "Jonon kuvaus"
 
-#: lib/Forms/Admin/Queue.php:30 lib/Forms/Admin/Queue.php:97
+#: lib/Forms/Admin/Queue.php:28 lib/Forms/Admin/Queue.php:95
 msgid "Queue Email"
 msgstr "Jonon sähköpostiosoite"
 
-#: lib/Forms/CreateTicket.php:34 lib/Forms/CreateTicket.php:45
-#: lib/Forms/Admin/Queue.php:23 lib/Forms/Admin/Queue.php:60
-#: lib/Forms/Admin/Queue.php:85 lib/Forms/Admin/Queue.php:166
+#: lib/Forms/Admin/Queue.php:21 lib/Forms/Admin/Queue.php:58
+#: lib/Forms/Admin/Queue.php:83 lib/Forms/Admin/Queue.php:164
+#: lib/Forms/CreateTicket.php:32 lib/Forms/CreateTicket.php:48
 msgid "Queue Name"
 msgstr "Jonon nimi"
 
-#: lib/Forms/Admin/Queue.php:26 lib/Forms/Admin/Queue.php:93
+#: lib/Forms/Admin/Queue.php:24 lib/Forms/Admin/Queue.php:91
 msgid "Queue Slug"
 msgstr "Jono luoti"
 
-#: lib/Block/queuesummary.php:3 lib/Block/queuesummary.php:24
+#: lib/Block/Queuesummary.php:13
 msgid "Queue Summary"
 msgstr "Jonon yhteenveto"
 
-#: ticket/queue.php:86 lib/Ticket.php:932 lib/Ticket.php:938
-#: lib/Forms/CreateTicket.php:93
+#: lib/Forms/CreateTicket.php:96 lib/Forms/EditTicket.php:74
+#: lib/Ticket.php:935 lib/Ticket.php:941 ticket/queue.php:82
 msgid "Queue Version"
 msgstr "Jonon versio"
 
-#: admin/index.php:35
+#: admin/index.php:32
 msgid "Queue/Type Matri_x"
 msgstr "Jono/Tyyppi matrii_si"
 
@@ -1366,280 +1349,271 @@ msgstr "Jono/Tyyppi matrii_si"
 msgid "Queue/Type Matrix"
 msgstr "Jono/Tyyppi matriisi"
 
-#: lib/api.php:163 lib/api.php:781
+#: lib/Api.php:31 lib/Application.php:67
 msgid "Queues"
 msgstr "Jonot"
 
-#: templates/prevnext.inc:32
+#: templates/prevnext.inc:28
 msgid "Re_turn to Search Results"
 msgstr "Pa_laa haun tulokset"
 
-#: lib/Forms/Admin/Attribute.php:147
+#: lib/Forms/Admin/Attribute.php:145
 msgid "Really delete this attribute? This may cause data problems!"
 msgstr ""
 "Poistetaanko todella tämä atribuutti? Tämä voi aiheuttaa ongelmia tiedoissa!"
 
-#: lib/Forms/Admin/Reply.php:108
+#: lib/Forms/Admin/Reply.php:106
 msgid "Really delete this form reply?"
 msgstr "Poistetaanko todella tämä lomakevastaus?"
 
-#: lib/Forms/Admin/Priority.php:122
+#: lib/Forms/Admin/Priority.php:120
 msgid "Really delete this priority? This may cause data problems!"
 msgstr ""
 "Poistetaanko todella tämä prioriteetti? Tämä voi aiheuttaa ongelmia "
 "tiedoissa!"
 
-#: lib/Forms/Query.php:450
+#: lib/Forms/Query.php:454
 msgid "Really delete this query? This operation is not undoable."
-msgstr "Poistetaanko todella tämä kysely? Tätä operaatio ei voi perua."
+msgstr "Poistetaanko todella tämä kysely? Tätä operaatiota ei voi perua."
 
-#: lib/Forms/Admin/Queue.php:176
-msgid "Really delete this queue? This may cause data problems!"
-msgstr "Poistetaanko todella tämä jono? Tämä voi aiheuttaa ongelmia tiedoissa!"
-
-#: lib/Forms/Admin/State.php:122
-msgid "Really delete this state? This may cause data problems!"
+#: lib/Forms/Admin/Queue.php:174
+msgid ""
+"Really delete this queue? This will also delete all associated tickets and "
+"their comments. This can not be undone!"
 msgstr ""
-"Poistetaanko todella  tämä tila? Tämä voi aiheuttaa ongelmia tiedoissa!"
+"Poistetaanko todella tämä jono? Tämä poistaa kaikki jonoon liitetyt tiketit "
+"ja niiden kommentit. Tätä toimintoa ei voi perua."
 
-#: ticket/delete.php:34
+#: lib/Forms/Admin/State.php:120
+msgid "Really delete this state? This may cause data problems!"
+msgstr "Poistetaanko todella tämä tila? Tämä voi aiheuttaa ongelmia tiedoissa!"
+
+#: ticket/delete.php:30
 msgid ""
 "Really delete this ticket? It will NOT be archived, and will be gone forever."
 msgstr ""
 "Poistetaanko todella tämä tiketti? Sitä ei arkistoida, joten se häviää "
 "lopullisesti."
 
-#: lib/Forms/Admin/Type.php:178
+#: lib/Forms/Admin/Type.php:176
 msgid "Really delete this type? This may cause data problems!"
 msgstr ""
 "Poistetaanko todella tämä tyyppi? Tämä voi aiheuttaa ongelmia tiedoissa!"
 
-#: lib/Forms/Admin/Version.php:97
+#: lib/Forms/Admin/Version.php:99
 msgid "Really delete this version? This may cause data problems!"
 msgstr ""
 "Poistetaanko todella tämä versio? Tämä voi aiheuttaa ongelmia tiedoissa!"
 
-#: lib/Mail.php:217
+#: lib/Mail.php:58
 msgid "Received message:"
 msgstr "Saatu vastaus:"
 
-#: search.php:162
+#: search.php:161
 msgid "Refine Search"
 msgstr "Tarkenna hakua"
 
-#: admin/index.php:1170
+#: admin/index.php:1171
 msgid "Reminders were sent."
 msgstr "Muistutukset lähetettiin."
 
-#: lib/Forms/Admin/User.php:59
+#: lib/Forms/Admin/User.php:57
 msgid "Remove User"
 msgstr "Poista käyttäjä"
 
-#: ticket/watch.php:49
+#: ticket/watch.php:46
 msgid "Remove Watcher"
 msgstr "Poista tarkkailija"
 
-#: templates/prefs/sourceselect.inc:300
-msgid "Remove source"
-msgstr "Poista lähde"
-
-#: lib/Renderer/Comment.php:95
+#: lib/Renderer/Comment.php:93
 msgid "Reply to this comment"
 msgstr "Vastaa tähän kommenttiin"
 
-#: reports.php:40
+#: reports.php:37
 msgid "Reports"
 msgstr "Raportit"
 
-#: lib/Ticket.php:965 lib/Whups.php:680 lib/Renderer/Query.php:86
+#: lib/Renderer/Query.php:84 lib/Ticket.php:968 lib/Whups.php:684
 msgid "Requester"
 msgstr "Asiakas"
 
-#: lib/Forms/Admin/Attribute.php:28 lib/Forms/Admin/Attribute.php:99
+#: lib/Forms/Admin/Attribute.php:26 lib/Forms/Admin/Attribute.php:97
 msgid "Required Attribute?"
 msgstr "Vaadittu atribuutti?"
 
-#: lib/Driver.php:199 lib/Ticket.php:991 lib/Whups.php:685 lib/api.php:927
-#: lib/Renderer/Query.php:151 config/prefs.php.dist:54
+#: config/prefs.php:54 lib/Api.php:716 lib/Driver.php:214
+#: lib/Renderer/Query.php:149 lib/Ticket.php:994 lib/Whups.php:689
 msgid "Resolved"
 msgstr "Selvitetty"
 
-#: lib/Forms/Query.php:330 lib/Forms/Search.php:60
+#: lib/Forms/Query.php:334 lib/Forms/Search.php:58
 msgid "Resolved from"
 msgstr "Selvitetty alkaen"
 
-#: lib/Forms/Query.php:331
+#: lib/Forms/Query.php:335
 msgid "Resolved to"
 msgstr "Selvitetty viimeistään"
 
-#: lib/Forms/Admin/User.php:61
+#: lib/Forms/Admin/User.php:59
 msgid "Responsible Users"
 msgstr "Vastuulliset käyttäjät"
 
-#: lib/Whups.php:306
+#: lib/Whups.php:309
 msgid "S_et Queue"
 msgstr "As_eta jono"
 
-#: lib/Query.php:234
+#: lib/Query.php:239
 msgid "Sa_ve Query"
-msgstr "Talleta k_ysely"
+msgstr "Tallenna k_ysely"
 
-#: templates/view/results.inc:96 lib/Forms/Query.php:385
+#: lib/Forms/Query.php:389 templates/view/results.inc:97
 msgid "Save"
-msgstr "Talleta"
+msgstr "Tallenna"
 
-#: query/index.php:233
+#: query/index.php:235
 msgid "Save Criterion"
-msgstr "Talleta kriteeri"
+msgstr "Tallenna kriteeri"
 
-#: lib/Forms/Query.php:384
+#: lib/Forms/Query.php:388
 msgid "Save Query"
-msgstr "Talleta kysely"
+msgstr "Tallenna kysely"
 
-#: search.php:69 lib/Forms/Search.php:19
+#: lib/Forms/Search.php:17 search.php:67
 msgid "Save as Query"
-msgstr "Talleta kyselynä"
+msgstr "Tallenna kyselynä"
 
-#: search.php:155 lib/Block/tree_menu.php:30
+#: lib/Application.php:192 search.php:154
 msgid "Search"
 msgstr "Haku"
 
-#: lib/Forms/Query.php:278
+#: lib/Forms/Query.php:282
 #, php-format
 msgid "Search %s Attribute"
 msgstr "Hae %s atribuuttia"
 
-#: lib/Forms/Query.php:272 lib/Forms/Query.php:281
+#: lib/Forms/Query.php:276 lib/Forms/Query.php:285
 msgid "Search Attribute"
 msgstr "Hae atribuutti"
 
-#: lib/Forms/Query.php:48 lib/Forms/Query.php:131
+#: lib/Forms/Query.php:46 lib/Forms/Query.php:135
 msgid "Search Comments"
 msgstr "Hae kommenttia"
 
-#: lib/Forms/Query.php:46
+#: lib/Forms/Query.php:44
 msgid "Search Owners"
 msgstr "Hae omistajia"
 
-#: lib/Forms/Query.php:47
+#: lib/Forms/Query.php:45
 msgid "Search Requester"
 msgstr "Hae asiakasta"
 
-#: search.php:147 search/rss.php:55 search/rss.php:59
+#: search.php:146 search/rss.php:52 search/rss.php:56
 msgid "Search Results"
 msgstr "Haun tulokset"
 
-#: templates/prevnext.inc:38
+#: templates/prevnext.inc:34
 #, php-format
 msgid "Search Results: %s of %s"
 msgstr "Haun tulokset %s / %s"
 
-#: lib/Forms/Query.php:130
+#: lib/Forms/Query.php:134
 msgid "Search Summary"
 msgstr "Hae yhteenvetoa"
 
-#: config/prefs.php.dist:76
+#: config/prefs.php:76
 msgid "Search Tickets"
 msgstr "Hae tikettiä"
 
-#: config/prefs.php.dist:25
+#: config/prefs.php:30
 msgid "Select address book sources for adding and searching for addresses."
 msgstr "Valitse osoitekirjalähteet osoitteiden lisäykselle ja haulle."
 
-#: templates/prefs/sourceselect.inc:319
-msgid "Select all fields to search when expanding addresses."
-msgstr "Valitse kaikki ne kentät, joista etsitään laajennettavia osoitteita."
-
-#: config/prefs.php.dist:78
+#: config/prefs.php:79
 msgid "Select the view to display after login:"
 msgstr "Valitse sisäänkirjautumisen jälkeen näytettävä näkymä:"
 
-#: templates/prefs/sourceselect.inc:303 templates/prefs/sourceselect.inc:305
-msgid "Selected Address books:"
-msgstr "Valitut osoitekirjat:"
-
-#: admin/index.php:36
+#: admin/index.php:33
 msgid "Sen_d Reminders"
 msgstr "Lähe_tä muistutukset"
 
-#: lib/Forms/Admin.php:23
+#: lib/Forms/Admin.php:21
 msgid "Send Reminders"
 msgstr "Lähetä muistutukset"
 
-#: lib/Forms/Admin.php:34
+#: lib/Forms/Admin.php:32
 msgid "Send only for this list of ticket ids"
 msgstr "Lähetä vain tälle lista tikettien id:stä"
 
-#: lib/Forms/Admin/Priority.php:80 lib/Forms/Admin/Priority.php:82
+#: lib/Forms/Admin/Priority.php:78 lib/Forms/Admin/Priority.php:80
 msgid "Set Default Priority"
 msgstr "Aseta oletusprioriteetti"
 
-#: lib/Forms/Admin/State.php:80 lib/Forms/Admin/State.php:82
+#: lib/Forms/Admin/State.php:78 lib/Forms/Admin/State.php:80
 msgid "Set Default State"
 msgstr "Aseta oletustila"
 
-#: ticket/queue.php:201 ticket/queue.php:210 ticket/queue.php:222
+#: ticket/queue.php:204 ticket/queue.php:213 ticket/queue.php:225
 msgid "Set Queue - Step 1"
 msgstr "Aseta jono - Askel 1"
 
-#: ticket/queue.php:202 ticket/queue.php:211
+#: ticket/queue.php:205 ticket/queue.php:214
 msgid "Set Queue - Step 2"
 msgstr "Aseta jono - Askel 2"
 
-#: ticket/queue.php:212
+#: ticket/queue.php:215
 msgid "Set Queue - Step 3"
 msgstr "Aseta jono - Askel 3"
 
-#: ticket/queue.php:189
+#: ticket/queue.php:192
 #, php-format
 msgid "Set Queue for %s"
 msgstr "Aseta jono %s:lle"
 
-#: lib/api.php:800
+#: lib/Application.php:83
 msgid "Set Requester"
-msgstr "Hae asiakasta"
+msgstr "Aseta asiakas"
 
-#: ticket/type.php:139 ticket/type.php:148
+#: ticket/type.php:136 ticket/type.php:145
 msgid "Set Type - Step 1"
 msgstr "Aseta tyyppi - Askel 1"
 
-#: ticket/type.php:140
+#: ticket/type.php:137
 msgid "Set Type - Step 2"
 msgstr "Aseta tyyppi - Askel 2"
 
-#: ticket/type.php:127
+#: ticket/type.php:124
 #, php-format
 msgid "Set Type for %s"
 msgstr "Aseta tyyppi %s:lle"
 
-#: lib/Whups.php:311
+#: lib/Whups.php:314
 msgid "Set _Type"
 msgstr "Aseta _tyyppi"
 
-#: config/prefs.php.dist:144
+#: config/prefs.php:142
 msgid "Show comments in chronological order, or most recent first?"
 msgstr "Näytä kommentit kronologisessa järjestyksess, tai uusin esin."
 
-#: config/prefs.php.dist:95
+#: config/prefs.php:93
 msgid "Show ticket IDs in the summary view?"
 msgstr "Näytä tiketti id:t yhteenvetonäkymässä."
 
-#: config/prefs.php.dist:87
+#: config/prefs.php:86
 msgid "Show tickets you have requested in the summary view?"
 msgstr "Näytä aloittamasi tiketit yhteevetonäkymässä."
 
-#: config/templates.php.dist:16
+#: config/templates.php:18
 msgid "Simple HTML Report"
 msgstr "Yksinkertainen raportti HTML-muodossa"
 
-#: lib/Forms/Admin/Queue.php:27
+#: lib/Forms/Admin/Queue.php:25
 #, php-format
 msgid ""
 "Slugs allows direct access to this queue's open tickets by visiting: %s. "
 "<br /> Slug names may contain only letters, numbers or the _ (underscore) "
 "character."
 msgstr ""
-"Luoti mahdollistaa suoran yhteyden tämän jonon avoimiin tiketteihin "
+"Luodit mahdollistavat suoran yhteyden tämän jonon avoimiin tiketteihin "
 "käymällä: %s. <br /> Luotien nimet voi sisältää vain kirjaimia, numeroita "
 "tai _ (alaviiva) -merkin."
 
@@ -1648,39 +1622,39 @@ msgstr ""
 msgid "Sort by %s"
 msgstr "Järjestä %s mukaan"
 
-#: lib/Forms/CreateTicket.php:136 lib/Forms/CreateTicket.php:175
-#: lib/Forms/AddComment.php:20 lib/Forms/AddComment.php:51
+#: lib/Forms/AddComment.php:18 lib/Forms/AddComment.php:49
+#: lib/Forms/CreateTicket.php:139 lib/Forms/CreateTicket.php:186
 msgid "Spam protection"
 msgstr "Roskapostisuojaus"
 
-#: ticket/queue.php:116 ticket/type.php:65 lib/Ticket.php:609
-#: lib/Ticket.php:806 lib/Ticket.php:949 lib/Whups.php:670 lib/Whups.php:676
-#: lib/Renderer/Query.php:117 lib/Forms/EditTicket.php:62
-#: lib/Forms/Query.php:193 config/prefs.php.dist:47
+#: config/prefs.php:47 lib/Forms/EditTicket.php:78 lib/Forms/Query.php:197
+#: lib/Renderer/Query.php:115 lib/Ticket.php:619 lib/Ticket.php:813
+#: lib/Ticket.php:952 lib/Whups.php:674 lib/Whups.php:680 ticket/queue.php:112
+#: ticket/type.php:61
 msgid "State"
 msgstr "Tila"
 
-#: lib/Renderer/Comment.php:110
+#: lib/Renderer/Comment.php:113
 #, php-format
 msgid "State &rArr; %s"
 msgstr "Tila &rArr; %s"
 
-#: lib/Forms/Admin/State.php:25 lib/Forms/Admin/State.php:70
+#: lib/Forms/Admin/State.php:23 lib/Forms/Admin/State.php:68
 msgid "State Category"
 msgstr "Tilan kategoria"
 
-#: lib/Forms/Admin/State.php:24 lib/Forms/Admin/State.php:67
-#: lib/Forms/Admin/State.php:118
+#: lib/Forms/Admin/State.php:22 lib/Forms/Admin/State.php:65
+#: lib/Forms/Admin/State.php:116
 msgid "State Description"
 msgstr "Tilan kuvaus"
 
-#: lib/Forms/Admin/State.php:23 lib/Forms/Admin/State.php:47
-#: lib/Forms/Admin/State.php:64 lib/Forms/Admin/State.php:96
-#: lib/Forms/Admin/State.php:115
+#: lib/Forms/Admin/State.php:21 lib/Forms/Admin/State.php:45
+#: lib/Forms/Admin/State.php:62 lib/Forms/Admin/State.php:94
+#: lib/Forms/Admin/State.php:113
 msgid "State Name"
 msgstr "Tilan nimi"
 
-#: lib/Forms/Admin/Type.php:76 lib/Forms/Admin/Type.php:165
+#: lib/Forms/Admin/Type.php:74 lib/Forms/Admin/Type.php:163
 msgid "States for this Type"
 msgstr "Tilat tälle tyypille"
 
@@ -1688,192 +1662,188 @@ msgstr "Tilat tälle tyypille"
 msgid "Status"
 msgstr "Tila"
 
-#: ticket/create.php:146
+#: ticket/create.php:141
 msgid "Submit"
 msgstr "Lähetä"
 
-#: query/run.php:93 query/run.php:94
+#: query/run.php:95 query/run.php:96
 msgid "Subscribe to this query"
 msgstr "Tilaa tämä kysely"
 
-#: admin/index.php:198
+#: admin/index.php:195
 #, php-format
 msgid "Successfully Cloned %s to %s."
 msgstr "Onnistuttiin kloonaamaan %s %s:ksi."
 
-#: ticket/type.php:118
+#: ticket/type.php:115
 msgid "Successfully changed ticket type."
 msgstr "Tiketin tyypin muutos onnistui."
 
-#: ticket/delete.php:30 lib/Ticket.php:616 lib/Ticket.php:643
-#: lib/Ticket.php:646 lib/Ticket.php:650 lib/Ticket.php:812 lib/Ticket.php:821
-#: lib/Ticket.php:912 lib/Whups.php:668 lib/Whups.php:675
-#: lib/Renderer/Query.php:89 lib/Forms/CreateTicket.php:152
-#: lib/Forms/EditTicket.php:58 config/prefs.php.dist:46
+#: config/prefs.php:46 lib/Forms/CreateTicket.php:163
+#: lib/Forms/EditTicket.php:62 lib/Renderer/Query.php:87 lib/Ticket.php:626
+#: lib/Ticket.php:653 lib/Ticket.php:656 lib/Ticket.php:660 lib/Ticket.php:819
+#: lib/Ticket.php:828 lib/Ticket.php:915 lib/Whups.php:672 lib/Whups.php:679
+#: ticket/delete.php:26
 msgid "Summary"
 msgstr "Yhteenveto"
 
-#: lib/Renderer/Comment.php:51
+#: lib/Renderer/Comment.php:49
 #, php-format
 msgid "Summary &rArr; %s"
-msgstr "Yheenveto &rJärj; %s"
+msgstr "Yheenveto &rArr; %s"
 
-#: lib/Forms/Search.php:43
+#: lib/Forms/Search.php:41
 msgid "Summary like"
 msgstr "Yhteenveto kuten"
 
-#: lib/Renderer/Comment.php:79
+#: lib/Renderer/Comment.php:77
 #, php-format
 msgid "Taken from %s"
 msgstr "Otettiin %s:ltä"
 
-#: lib/Forms/Query.php:128
+#: lib/Forms/Query.php:132
 msgid "Text"
 msgstr "Teksti"
 
-#: lib/Driver/sql.php:80 lib/Driver/sql.php:1306
+#: lib/Driver/sql.php:78 lib/Driver/sql.php:1379
 msgid "That queue slug is already taken. Please select another."
 msgstr "Tämä jonoluoti on jo varattu. Valitse joku toinen."
 
-#: lib/Forms/CreateTicket.php:129
+#: lib/Forms/CreateTicket.php:132
 msgid "The Requester's Email Address"
 msgstr "Asiakkaan sähköpostiosoite"
 
-#: view.php:58 lib/Ticket.php:439 lib/Ticket.php:487
+#: lib/Ticket.php:431 lib/Ticket.php:481 view.php:43
 msgid "The VFS backend needs to be configured to enable attachment uploads."
 msgstr ""
 "VFS-taustajärjestelmä pitää olla asennettu ennenkuin voi tuoda liitteitä."
 
-#: admin/index.php:906
+#: admin/index.php:907
 #, php-format
 msgid "The attribute \"%s\" has been added to %s."
 msgstr "Atribuutti \"%s\" on lisätty %s:lle."
 
-#: admin/index.php:1006
+#: admin/index.php:1007
 msgid "The attribute has been deleted."
 msgstr "Atribuutti on poistettu."
 
-#: admin/index.php:974
+#: admin/index.php:975
 msgid "The attribute has been modified."
 msgstr "Atribuuttia on muokattu"
 
-#: admin/index.php:1015
+#: admin/index.php:1016
 msgid "The attribute was not deleted."
 msgstr "Atribuuttia ei poistettu."
 
-#: admin/index.php:642
+#: admin/index.php:641
 msgid "The default priority has been set."
 msgstr "Oletusprioriteetti on asetettu."
 
-#: admin/index.php:506
+#: admin/index.php:505
 msgid "The default state has been set."
 msgstr "Oletustila on asetettu."
 
-#: admin/index.php:1043
+#: admin/index.php:1044
 #, php-format
 msgid "The form reply \"%s\" has been added to %s."
 msgstr "Lomakevastaus \"%s\" on lisätty %s:lle."
 
-#: admin/index.php:1135
+#: admin/index.php:1136
 msgid "The form reply has been deleted."
 msgstr "Lomakevastaus on poistettu."
 
-#: admin/index.php:1108
+#: admin/index.php:1109
 msgid "The form reply has been modified."
 msgstr "Lomakevastausta on muokattu."
 
-#: admin/index.php:1144
+#: admin/index.php:1145
 msgid "The form reply was not deleted."
 msgstr "Lomakevastausta ei poistettu."
 
-#: admin/index.php:556
+#: admin/index.php:555
 #, php-format
 msgid "The priority \"%s\" has been added to %s."
 msgstr "Prioriteetti \"%s\" on lisätty %s:lle."
 
-#: admin/index.php:661
+#: admin/index.php:660
 msgid "The priority has been deleted."
 msgstr "Prioriteetti on poistettu."
 
-#: admin/index.php:609
+#: admin/index.php:608
 msgid "The priority has been modified."
 msgstr "Prioriteettia on muokattu."
 
-#: admin/index.php:670
+#: admin/index.php:669
 msgid "The priority was not deleted."
 msgstr "Prioriteettiä ei poistettu."
 
-#: lib/Forms/Query.php:463
+#: lib/Forms/Query.php:467
 #, php-format
 msgid "The query \"%s\" couldn't be deleted: %s"
 msgstr "Kyselyä \"%s\" ei voitu poistaa: %s"
 
-#: lib/Forms/Query.php:465
+#: lib/Forms/Query.php:469
 #, php-format
 msgid "The query \"%s\" has been deleted."
 msgstr "Kysely \"%s\" on poistettu."
 
-#: lib/Forms/Query.php:430
+#: lib/Forms/Query.php:434
 #, php-format
 msgid "The query couldn't be loaded:"
 msgstr "Kyselyä ei voitu ladata."
 
-#: admin/index.php:300
+#: admin/index.php:296
 #, php-format
 msgid "The queue \"%s\" has been created."
 msgstr "Jono \"%s\" on luotu."
 
-#: admin/index.php:392
+#: admin/index.php:391
 msgid "The queue has been deleted."
 msgstr "Jono on poistettu."
 
-#: admin/index.php:359
+#: admin/index.php:356
 msgid "The queue has been modified."
 msgstr "Jonoa on muokattu."
 
-#: admin/index.php:400
+#: admin/index.php:399
 msgid "The queue was not deleted."
 msgstr "Jonoa ei poistettu."
 
-#: lib/MIME/Viewer/zip.php:58
-msgid "The requested file does not exist in the Zip attachment."
-msgstr "Pyydettyä tiedostoa ei ole Zip-liitteessä."
-
-#: data.php:26
+#: data.php:21
 msgid "The requested template does not exist."
 msgstr "Pyydettyä mallia ei ole olemassa."
 
-#: admin/index.php:422
+#: admin/index.php:421
 #, php-format
 msgid "The state \"%s\" has been added to %s."
 msgstr "Tila \"%s\" on lisätty %s:lle."
 
-#: admin/index.php:525
+#: admin/index.php:524
 msgid "The state has been deleted."
 msgstr "Tila on poistettu."
 
-#: admin/index.php:475
+#: admin/index.php:474
 msgid "The state has been modified."
 msgstr "Tilaa on muokattu."
 
-#: admin/index.php:533
+#: admin/index.php:532
 msgid "The state was not deleted."
 msgstr "Tilaa ei poistettu."
 
-#: ticket/delete.php:78
+#: ticket/delete.php:74
 msgid "The ticket was not deleted."
 msgstr "Tikettiä ei poistettu."
 
-#: admin/index.php:223
+#: admin/index.php:219
 #, php-format
 msgid "The type \"%s\" has been modified."
 msgstr "Tyyppiä \"%s\" on muokattu."
 
-#: admin/index.php:272
+#: admin/index.php:268
 msgid "The type has been deleted."
 msgstr "Tyyppi on poistettu."
 
-#: admin/index.php:280
+#: admin/index.php:276
 msgid "The type was not deleted."
 msgstr "Tyyppiä ei poistettu."
 
@@ -1882,59 +1852,59 @@ msgstr "Tyyppiä ei poistettu."
 msgid "The version \"%s\" has been added to %s."
 msgstr "Versio \"%s\" on lisätty %s:lle."
 
-#: admin/index.php:865
+#: admin/index.php:866
 msgid "The version has been deleted."
 msgstr "Versio on poistettu."
 
-#: admin/index.php:835
+#: admin/index.php:836
 msgid "The version has been modified."
 msgstr "Versiota on muokattu."
 
-#: admin/index.php:873
+#: admin/index.php:874
 msgid "The version was not deleted."
 msgstr "Versiota ei poistettu."
 
-#: lib/Forms/Admin/Attribute.php:70
+#: lib/Forms/Admin/Attribute.php:68
 msgid "There are no attribute types to edit"
 msgstr "Ei ole atribuuttityyppejä muokattavaksi."
 
-#: lib/Forms/Query.php:281
+#: lib/Forms/Query.php:285
 msgid "There are no attributes defined."
 msgstr "Ei ole määritelty atribuutteja."
 
-#: lib/Forms/Admin/Reply.php:48
+#: lib/Forms/Admin/Reply.php:46
 msgid "There are no form replies to edit"
 msgstr "Ei ole lomakevastauksia muokattavaksi"
 
-#: lib/Block/queuesummary.php:44
+#: lib/Block/Queuesummary.php:29
 msgid "There are no open tickets."
 msgstr "Ei ole avoimia tikettejä"
 
-#: lib/Forms/Admin/Priority.php:44 lib/Forms/Admin/Priority.php:90
+#: lib/Forms/Admin/Priority.php:42 lib/Forms/Admin/Priority.php:88
 msgid "There are no priorities to edit"
 msgstr "Ei ole prioriteettejä muokattavaksi"
 
-#: lib/Forms/Admin.php:31
+#: lib/Forms/Admin.php:29
 msgid "There are no queues available."
 msgstr "Ei ole jonoja saatavilla."
 
-#: lib/Forms/Admin/Queue.php:57
+#: lib/Forms/Admin/Queue.php:55
 msgid "There are no queues to edit"
 msgstr "Ei ole jonoja muokattavaksi"
 
-#: lib/Forms/CreateTicket.php:35
+#: lib/Forms/CreateTicket.php:33
 msgid "There are no queues which you can create tickets in."
 msgstr "Ei ole jonoja, johon voit luoda tikettejä."
 
-#: lib/Forms/Search.php:38
+#: lib/Forms/Search.php:36
 msgid "There are no queues which you can search."
 msgstr "Ei ole jonoja, joista voit etsiä."
 
-#: lib/Forms/Admin/State.php:43 lib/Forms/Admin/State.php:92
+#: lib/Forms/Admin/State.php:41 lib/Forms/Admin/State.php:90
 msgid "There are no states to edit"
 msgstr "Ei ole tiloja muokattavaksi"
 
-#: lib/Forms/CreateTicket.php:72
+#: lib/Forms/CreateTicket.php:75
 msgid ""
 "There are no ticket types associated with this queue; until there are, you "
 "cannot create any tickets in this queue."
@@ -1942,15 +1912,15 @@ msgstr ""
 "Tähän jonoon ei ole assosioitu tikettityyppejä: Voit luoda tikettejä vasta "
 "tikettityypit on määritelty."
 
-#: lib/Forms/Admin/Type.php:45
+#: lib/Forms/Admin/Type.php:43
 msgid "There are no types to edit"
 msgstr "Ei ole tyyppejä muokattavaksi"
 
-#: lib/Forms/Admin/User.php:75
+#: lib/Forms/Admin/User.php:73
 msgid "There are no users responsible for this queue."
 msgstr "Tälle jonolle ei ole vastuuhenkilöitä."
 
-#: lib/Forms/CreateTicket.php:242
+#: lib/Forms/CreateTicket.php:252
 msgid "There are no users to which this ticket can be assigned."
 msgstr "Ei ole käyttäjiä joille tämä tiketti voidään määrätä."
 
@@ -1958,33 +1928,33 @@ msgstr "Ei ole käyttäjiä joille tämä tiketti voidään määrätä."
 msgid "There are no versions to edit"
 msgstr "Ei ole versioita editoitaviksi"
 
-#: lib/Reports.php:143
+#: lib/Reports.php:142
 msgid "There is no data for this report."
 msgstr "Ei ole tietoja tähän raporttiin."
 
-#: admin/index.php:705
+#: admin/index.php:704
 #, php-format
 msgid "There was an error adding \"%s\" to the responsible list for \"%s\":"
 msgstr ""
 "Tapahtui virhe lisättäessä \"%s\" vastuullisten henkilöiden listalle \"%s\":"
 
-#: admin/index.php:911
+#: admin/index.php:912
 msgid "There was an error creating the attribute:"
 msgstr "Tapahtui virhe luotaessa atribuuttia:"
 
-#: admin/index.php:1051
+#: admin/index.php:1052
 msgid "There was an error creating the form reply:"
 msgstr "Tapahtui virhe luotaessa lomakevastausta:"
 
-#: admin/index.php:561
+#: admin/index.php:560
 msgid "There was an error creating the priority:"
 msgstr "Tapahtui virhe luotaessa prioriteettiä:"
 
-#: admin/index.php:309
+#: admin/index.php:305
 msgid "There was an error creating the queue:"
 msgstr "Tapahtui virhe luotaessa jonoa:"
 
-#: admin/index.php:426
+#: admin/index.php:425
 msgid "There was an error creating the state:"
 msgstr "Tapahtui virhe luotaessa tilaa:"
 
@@ -1992,101 +1962,101 @@ msgstr "Tapahtui virhe luotaessa tilaa:"
 msgid "There was an error creating the version:"
 msgstr "Tapahtui virhe luotaessa versiota:"
 
-#: admin/index.php:1010
+#: admin/index.php:1011
 msgid "There was an error deleting the attribute:"
 msgstr "Tapahtui virhe poistettaesssa atribuuttia:"
 
-#: admin/index.php:1139
+#: admin/index.php:1140
 msgid "There was an error deleting the form reply:"
 msgstr "Tapahtui virhe poistettaessa lomakevastausta:"
 
-#: admin/index.php:665
+#: admin/index.php:664
 msgid "There was an error deleting the priority:"
 msgstr "Tapahtui virhe poistettaessa prioriteettiä:"
 
-#: admin/index.php:395
+#: admin/index.php:394
 msgid "There was an error deleting the queue:"
 msgstr "Tapahtui virhe poistettaessa jonoa:"
 
-#: admin/index.php:528
+#: admin/index.php:527
 msgid "There was an error deleting the state:"
 msgstr "Tapahtui virhe poistettaessa tilaa:"
 
-#: ticket/delete.php:75
+#: ticket/delete.php:72
 msgid "There was an error deleting the ticket:"
 msgstr "Tapahtui virhe poistettaessa tikettiä:"
 
-#: admin/index.php:275
+#: admin/index.php:271
 msgid "There was an error deleting the type:"
 msgstr "Tapahtui virhe poistettaessa tyyppiä:"
 
-#: admin/index.php:868
+#: admin/index.php:869
 msgid "There was an error deleting the version:"
 msgstr "Tapahtui virhe poistettaessa versiota:"
 
-#: admin/index.php:982
+#: admin/index.php:983
 msgid "There was an error editing the attribute:"
 msgstr "Tapahtui virhe muokattaessa atribuuttia:"
 
-#: admin/index.php:1104
+#: admin/index.php:1105
 msgid "There was an error editing the form reply:"
 msgstr "Tapahtui virhe muokattaessa lomakevastausta:"
 
-#: admin/index.php:615
+#: admin/index.php:614
 msgid "There was an error editing the priority:"
 msgstr "Tapahtui virhe muokattaessa prioriteettiä:"
 
-#: admin/index.php:375
+#: admin/index.php:374
 msgid "There was an error editing the queue:"
 msgstr "Tapahtui virhe muokattaessa jonoa:"
 
-#: admin/index.php:480
+#: admin/index.php:479
 msgid "There was an error editing the state:"
 msgstr "Tapahtui virhe muokattaessa tilaa:"
 
-#: admin/index.php:841
+#: admin/index.php:842
 msgid "There was an error editing the version:"
 msgstr "Tapahtui virhe muokattaessa versiota:"
 
-#: lib/Forms/Admin/User.php:35
+#: lib/Forms/Admin/User.php:33
 #, php-format
 msgid "There was an error listing users: %s; %s"
 msgstr "Tapahtui virhe käyttäjiä listatessa: %s; %s"
 
-#: queue/index.php:52
+#: queue/index.php:49
 #, php-format
 msgid "There was an error locating tickets in this queue: "
 msgstr "Tapahtui virhe etsittäessä tikettejä tästä jonosta: "
 
-#: admin/index.php:219
+#: admin/index.php:215
 msgid "There was an error modifying the type:"
 msgstr "Tapahtui virhe muokattaessa tyyppiä:"
 
-#: search.php:140
+#: search.php:139
 #, php-format
 msgid "There was an error performing your search: %s"
 msgstr "Tapahtui virhe tehtäessä hakuasi: %s"
 
-#: admin/index.php:750
+#: admin/index.php:749
 #, php-format
 msgid ""
 "There was an error removing \"%s\" from the responsible list for \"%s\":"
 msgstr ""
 "Tapahtui virhe poistettaessa \"%s\" vastuuhenkilöiden listatalta \"%s\":"
 
-#: admin/index.php:638
+#: admin/index.php:637
 msgid "There was an error setting the default priority:"
 msgstr "Tapahtui virhe muokattaessa oletusprioriteettiä:"
 
-#: admin/index.php:502
+#: admin/index.php:501
 msgid "There was an error setting the default state:"
 msgstr "Tapahtui virhe muokattaessa oletustilaa:"
 
-#: lib/Forms/AddComment.php:37 lib/Forms/EditTicket.php:166
+#: lib/Forms/AddComment.php:35 lib/Forms/EditTicket.php:181
 msgid "This comment is visible to everyone"
 msgstr "Tämä komentti näkyy kaikille"
 
-#: lib/Forms/Admin/Queue.php:31
+#: lib/Forms/Admin/Queue.php:29
 msgid ""
 "This email address will be used when sending notifications for any queue "
 "tickets."
@@ -2094,15 +2064,16 @@ msgstr ""
 "Tätä sähköpostiosoitetta käytetään kun lähdetetään ilmoituksia jonojen "
 "tiketeistä."
 
-#: data.php:29
+#: data.php:24
 msgid "This is not a search results template."
 msgstr "Tämä ei ole malli hakutuloksille."
 
-#: lib/Query.php:435 lib/Query.php:668
+#: lib/Query.php:440 lib/Query.php:673
 msgid "This query element cannot be edited."
 msgstr "Tämän kyselyelementtiä ei voi muokata."
 
-#: ticket/queue.php:81 lib/Forms/CreateTicket.php:88
+#: lib/Forms/CreateTicket.php:91 lib/Forms/EditTicket.php:69
+#: ticket/queue.php:77
 msgid ""
 "This queue requires that you specify a version, but there are no versions "
 "associated with it. Until versions are created for this queue, you will not "
@@ -2112,30 +2083,30 @@ msgstr ""
 "versiotietoja. Tähän jonoon voi luoda tikettejä vasta kun siihen on liitetty "
 "versiotiedot."
 
-#: lib/Ticket.php:638 lib/Ticket.php:820
+#: lib/Ticket.php:648 lib/Ticket.php:827
 msgid "Ticket"
 msgstr "Tiketti"
 
-#: ticket/delete.php:71
+#: ticket/delete.php:68
 #, php-format
 msgid "Ticket %d has been deleted."
 msgstr "Tiketti %d on poistettu."
 
-#: lib/api.php:850
+#: lib/Api.php:641
 #, php-format
 msgid "Ticket %s - %s"
 msgstr "Tiketti %s - %s"
 
-#: lib/Driver/sql.php:1081
+#: lib/Driver/sql.php:1068
 #, php-format
 msgid "Ticket %s was not found."
 msgstr "Tikettiä %s ei löytynyt."
 
-#: search.php:170
+#: search.php:169
 msgid "Ticket Search"
 msgstr "Tikettien haku"
 
-#: lib/Forms/CreateTicket.php:142
+#: lib/Forms/CreateTicket.php:148 lib/Forms/CreateTicket.php:151
 msgid "Ticket State"
 msgstr "Tiketin tila"
 
@@ -2143,92 +2114,84 @@ msgstr "Tiketin tila"
 msgid "Ticket Stats"
 msgstr "Tikettien tilastot"
 
-#: lib/Forms/CreateTicket.php:80
+#: lib/Forms/CreateTicket.php:83
 msgid "Ticket Type"
 msgstr "Tiketin tyyppi"
 
-#: lib/Forms/Admin/Queue.php:103
+#: lib/Forms/Admin/Queue.php:101
 msgid "Ticket Types associated with this Queue"
 msgstr "Tähän jonoon assosioidut tikettityypit"
 
-#: lib/Ticket.php:633
+#: lib/Ticket.php:643
 #, php-format
 msgid "Ticket URL: %s"
 msgstr "Tiketti URL: %s"
 
-#: ticket/update.php:94
+#: ticket/update.php:105
 msgid "Ticket Updated"
 msgstr "Tiketti päivitetty"
 
-#: lib/api.php:871
+#: lib/Api.php:662
 msgid "Tickets"
 msgstr "Tiketit"
 
-#: query/rss.php:70
+#: query/rss.php:67
 #, php-format
 msgid "Tickets matching the query \"%s\"."
 msgstr "Kyselyä \"%s\" vastaavat tiketit."
 
-#: templates/prefs/sourceselect.inc:322
-msgid ""
-"To select multiple fields, hold down the Control (PC) or Command (Mac) while "
-"clicking."
-msgstr ""
-"Valitaksesi useita kenttiä, pidä pohjassa Control (PC) tai Command (Mac) kun "
-"valitset napsauttamalla."
-
-#: ticket/queue.php:89 lib/Ticket.php:608 lib/Ticket.php:805
-#: lib/Ticket.php:945 lib/Whups.php:677 lib/Renderer/Query.php:108
-#: lib/Forms/Query.php:174 config/prefs.php.dist:48
+#: config/prefs.php:48 lib/Forms/Query.php:178 lib/Renderer/Query.php:106
+#: lib/Ticket.php:618 lib/Ticket.php:812 lib/Ticket.php:948 lib/Whups.php:681
+#: ticket/queue.php:85
 msgid "Type"
 msgstr "Tyyppi"
 
-#: lib/Renderer/Comment.php:105
+#: lib/Renderer/Comment.php:108
 #, php-format
 msgid "Type &rArr; %s"
 msgstr "Tyyppi &rArr; %s"
 
-#: lib/Forms/Admin/Type.php:23 lib/Forms/Admin/Type.php:70
-#: lib/Forms/Admin/Type.php:160
+#: lib/Forms/Admin/Type.php:21 lib/Forms/Admin/Type.php:68
+#: lib/Forms/Admin/Type.php:158
 msgid "Type Description"
 msgstr "Tyypin kuvaus"
 
-#: lib/Forms/Admin/Type.php:22 lib/Forms/Admin/Type.php:48
-#: lib/Forms/Admin/Type.php:67 lib/Forms/Admin/Type.php:156
+#: lib/Forms/Admin/Type.php:20 lib/Forms/Admin/Type.php:46
+#: lib/Forms/Admin/Type.php:65 lib/Forms/Admin/Type.php:154
 msgid "Type Name"
 msgstr "Tyypin nimi"
 
-#: search/rss.php:39
+#: search/rss.php:37
 #, php-format
 msgid "Type: %s; State: %s"
 msgstr "Tyyppi: %s; Tila: %s"
 
-#: lib/Ticket.php:961
+#: lib/Ticket.php:964
 msgid "Unassigned"
 msgstr "Määrittelemätön"
 
-#: lib/Block/unassigned.php:3 lib/Block/unassigned.php:24
+#: lib/Block/Unassigned.php:13
 msgid "Unassigned Tickets"
 msgstr "Määrittelemättömät tiketit"
 
-#: lib/Forms/Admin.php:42
+#: lib/Forms/Admin.php:40
 msgid "Unassigned tickets"
 msgstr "Määrittelemättömät tiketit"
 
-#: lib/Driver.php:196
+#: lib/Driver.php:211
 msgid "Unconfirmed"
 msgstr "Varmistamaton"
 
-#: lib/Renderer/Query.php:167 lib/Renderer/Query.php:207
+#: lib/Renderer/Query.php:165 lib/Renderer/Query.php:205
 #, php-format
 msgid "Unknown node type %s"
 msgstr "Tuntematon node tyyppi %s"
 
-#: lib/api.php:790
+#: lib/Application.php:84
 msgid "Update"
 msgstr "Päivitä"
 
-#: ticket/update.php:108
+#: ticket/update.php:119
 #, php-format
 msgid "Update %s"
 msgstr "Päivitä %s"
@@ -2237,114 +2200,130 @@ msgstr "Päivitä %s"
 msgid "Update Associations"
 msgstr "Päivitä assosiaatiot"
 
-#: lib/Ticket.php:981 lib/Whups.php:683 lib/Renderer/Query.php:146
+#: lib/Renderer/Query.php:144 lib/Ticket.php:984 lib/Whups.php:687
 msgid "Updated"
 msgstr "Päivitetty"
 
-#: lib/Ticket.php:615 lib/Ticket.php:640
+#: lib/Ticket.php:625 lib/Ticket.php:650
 msgid "Updated By"
 msgstr "Päivittäjä"
 
-#: lib/Forms/Query.php:327 lib/Forms/Search.php:58
+#: lib/Forms/Query.php:331 lib/Forms/Search.php:56
 msgid "Updated from"
 msgstr "Päivitetty alkaen"
 
-#: lib/Forms/Query.php:328
+#: lib/Forms/Query.php:332
 msgid "Updated to"
 msgstr "Päivitetty viimeistään"
 
-#: lib/Forms/Admin/User.php:34 lib/Forms/Admin/User.php:44
-#: lib/Forms/Admin/User.php:47
+#: lib/Forms/Admin/User.php:32 lib/Forms/Admin/User.php:42
+#: lib/Forms/Admin/User.php:45
 msgid "User"
 msgstr "Käyttäjä"
 
-#: lib/Forms/Query.php:44
+#: lib/Forms/Query.php:42
 msgid "User ID"
 msgstr "Käyttäjä ID"
 
-#: lib/Forms/Admin/Queue.php:131
+#: lib/Forms/Admin/Queue.php:129
 msgid "Users responsible for this Queue"
 msgstr "Tämän jonon vastuukäyttäjät"
 
-#: lib/Forms/Admin/User.php:79
+#: lib/Forms/Admin/User.php:77
 msgid "Users responsible for this queue"
 msgstr "Tämän jonon vastuukäyttäjät"
 
-#: lib/Ticket.php:607 lib/Ticket.php:804 lib/Renderer/Query.php:102
-#: lib/Forms/Query.php:185 config/prefs.php.dist:51
+#: config/prefs.php:51 lib/Forms/Query.php:189 lib/Renderer/Query.php:100
+#: lib/Ticket.php:617 lib/Ticket.php:811
 msgid "Version"
 msgstr "Versio"
 
-#: lib/Forms/Admin/Version.php:24 lib/Forms/Admin/Version.php:70
-#: lib/Forms/Admin/Version.php:93
+#: lib/Renderer/Comment.php:103
+#, php-format
+msgid "Version &rArr; %s"
+msgstr "Versio &rArr; %s"
+
+#: lib/Forms/Admin/Version.php:23 lib/Forms/Admin/Version.php:72
+msgid "Version Active?"
+msgstr "Versio aktiivinen?"
+
+#: lib/Forms/Admin/Version.php:22 lib/Forms/Admin/Version.php:70
+#: lib/Forms/Admin/Version.php:95
 msgid "Version Description"
 msgstr "Version kuvaus"
 
-#: lib/Forms/Admin/Version.php:23 lib/Forms/Admin/Version.php:48
-#: lib/Forms/Admin/Version.php:67 lib/Forms/Admin/Version.php:90
+#: lib/Forms/Admin/Version.php:21 lib/Forms/Admin/Version.php:48
+#: lib/Forms/Admin/Version.php:67 lib/Forms/Admin/Version.php:92
 msgid "Version Name"
 msgstr "Version nimi"
 
-#: ticket/queue.php:50 ticket/type.php:43
+#: ticket/queue.php:45 ticket/type.php:39
 msgid "Viewable only by members of"
 msgstr "Näytetään vain jäsenille"
 
-#: lib/Forms/AddComment.php:25
+#: lib/Forms/AddComment.php:23
 msgid "Watch this ticket"
 msgstr "Tarkkaile tätä tikettiä"
 
-#: ticket/watch.php:78
+#: ticket/watch.php:75
 #, php-format
 msgid "Watchers for %s"
 msgstr "Tarkkailijat %s:lle"
 
-#: config/prefs.php.dist:104
+#: config/prefs.php:101
 msgid "Weekday Day Month"
 msgstr "Viikonpäivä Päivä Kuukausi"
 
-#: config/prefs.php.dist:105
+#: config/prefs.php:102
 msgid "Weekday Day Month HH:MM:SS TZ"
 msgstr "Viikonpäivä Päivä Kuukausi TT:MM:SS TZ"
 
-#: ticket/delete.php:33 lib/Forms/Query.php:449
-#: lib/Forms/Admin/Attribute.php:149 lib/Forms/Admin/Priority.php:121
-#: lib/Forms/Admin/Queue.php:174 lib/Forms/Admin/Reply.php:110
-#: lib/Forms/Admin/State.php:121 lib/Forms/Admin/Type.php:176
-#: lib/Forms/Admin/Version.php:96
+#: config/prefs.php:107
+msgid "YY/MM/DD"
+msgstr "VV/KK/PP"
+
+#: config/prefs.php:108
+msgid "YY/MM/DD HH:MM:SS"
+msgstr "VV/KK/PP TT:MM:SS"
+
+#: lib/Forms/Admin/Attribute.php:147 lib/Forms/Admin/Priority.php:119
+#: lib/Forms/Admin/Queue.php:172 lib/Forms/Admin/Reply.php:108
+#: lib/Forms/Admin/State.php:119 lib/Forms/Admin/Type.php:174
+#: lib/Forms/Admin/Version.php:98 lib/Forms/Query.php:453 ticket/delete.php:29
 msgid "Yes"
 msgstr "Kyllä"
 
-#: view.php:54
+#: view.php:37
 #, php-format
 msgid "You are not allowed to view ticket %d."
 msgstr "Sinulla ei ole oikeuksia nähdä tätä tikettiä %d."
 
-#: lib/Driver/sql.php:1090
+#: lib/Driver/sql.php:1077
 #, php-format
 msgid "You do not have permission to access this ticket (%s)."
 msgstr "Sinulla ei ole oikeuksia tähän tikettiin (%s)"
 
-#: lib/api.php:375
+#: lib/Api.php:226
 msgid "You do not have permission to update this ticket."
 msgstr "Sinulla ei ole oikeuksia päivittää tätä tikettiä."
 
-#: lib/Block/myrequests.php:46
+#: lib/Block/Myrequests.php:33
 msgid "You have no open requests."
 msgstr "Sinulla ei ole avoimia pyyntöjä."
 
-#: lib/Forms/Query.php:419 lib/Block/query.php:28
+#: lib/Block/Query.php:28 lib/Forms/Query.php:423
 msgid "You have no saved queries."
-msgstr "Sinulla ei ole talletettuja kyselyitä."
+msgstr "Sinulla ei ole tallennettuja kyselyitä."
 
-#: lib/Whups.php:710
+#: lib/Whups.php:714
 msgid "You must select at least one queue to send reminders for."
 msgstr "Sinun pitää valita ainakin yksi jono johon lähetetän muistutukset."
 
-#: lib/Forms/CreateTicket.php:132 lib/Forms/AddComment.php:18
+#: lib/Forms/AddComment.php:16 lib/Forms/CreateTicket.php:135
 msgid "Your Email Address"
 msgstr "Sähköpostiosoitteesi"
 
-#: ticket/create.php:60
+#: ticket/create.php:57
 #, php-format
 msgid ""
 "Your ticket ID is %s. An appropriate person has been notified of this "
@@ -2353,35 +2332,39 @@ msgstr ""
 "Tikettisi ID on %s. Ilmoitus uudesta tiketistä on lähetetty "
 "vastuuhenkilöille."
 
-#: lib/Mail.php:244
+#: lib/Mail.php:81
 msgid "[ Could not render body of message. ]"
 msgstr "[ Ei voitu renderöidä viestin leipätekstiä ]"
 
-#: lib/Whups.php:774
+#: lib/Whups.php:487
+msgid "[Hidden]"
+msgstr "[Piilotettu]"
+
+#: lib/Whups.php:776
 msgid "_Admin"
 msgstr "_Ylläpito"
 
-#: lib/Whups.php:298
+#: lib/Whups.php:301
 msgid "_Comment"
 msgstr "_Kommentti"
 
-#: query/index.php:157
+#: query/index.php:156
 msgid "_Date Criteria"
 msgstr "_Päivämäärän kriteeri"
 
-#: lib/Whups.php:316
+#: lib/Whups.php:319
 msgid "_Delete"
 msgstr "_Poista"
 
-#: lib/Query.php:237
+#: lib/Query.php:242
 msgid "_Delete Query"
 msgstr "_Poista kysely"
 
-#: lib/Query.php:218
+#: lib/Query.php:223
 msgid "_Edit Query"
 msgstr "_Muokkaa kyselyä"
 
-#: admin/index.php:33
+#: admin/index.php:30
 msgid "_Edit Queues"
 msgstr "_Muokkaa jonoja"
 
@@ -2389,96 +2372,96 @@ msgstr "_Muokkaa jonoja"
 msgid "_Go"
 msgstr "_Mene"
 
-#: query/index.php:156
+#: query/index.php:155
 msgid "_Group Criteria"
 msgstr "_Ryhmäkriteeri"
 
-#: lib/Whups.php:292
+#: lib/Whups.php:295
 msgid "_History"
 msgstr "_Historia"
 
-#: lib/Query.php:231
+#: lib/Query.php:236
 msgid "_Load Query"
 msgstr "_Lataa kysely"
 
-#: lib/Whups.php:765
+#: lib/Whups.php:767
 #, php-format
 msgid "_My %s"
 msgstr "_Oma %s"
 
-#: lib/Whups.php:768
+#: lib/Whups.php:770
 msgid "_New Ticket"
 msgstr "_Uusi tiketti"
 
-#: query/index.php:154
+#: query/index.php:153
 msgid "_Property Criteria"
 msgstr "_Ominaisuuden kriteeri"
 
-#: lib/Whups.php:769
+#: lib/Whups.php:771
 msgid "_Query Builder"
 msgstr "_Kyselynrakentaja"
 
-#: lib/Whups.php:770
+#: lib/Whups.php:772
 msgid "_Reports"
 msgstr "_Raportit"
 
-#: lib/Whups.php:767
+#: lib/Whups.php:769
 msgid "_Search"
 msgstr "_Haku"
 
-#: query/index.php:158
+#: query/index.php:157
 msgid "_Text Criteria"
 msgstr "_Tekstin kriteeri"
 
-#: lib/Whups.php:294
+#: lib/Whups.php:297
 msgid "_Update"
 msgstr "_Päivitä"
 
-#: query/index.php:155
+#: query/index.php:154
 msgid "_User Criteria"
 msgstr "_Käyttäjä kriteeri"
 
-#: lib/Whups.php:302
+#: lib/Whups.php:305
 msgid "_Watch"
 msgstr "_Tarkkaile"
 
-#: lib/Renderer/Query.php:187
+#: lib/Renderer/Query.php:185
 msgid "contains (case insensitive) substring"
 msgstr "sisältää (kirjainkokoriippumattoman) osamerkkijonon"
 
-#: lib/Renderer/Query.php:191
+#: lib/Renderer/Query.php:189
 msgid "contains (case sensitive) substring"
 msgstr "sisältää (kirjainkokoriippuvan) osamerkkijonon"
 
-#: lib/Renderer/Query.php:195
+#: lib/Renderer/Query.php:193
 msgid "contains the word"
 msgstr "sisältää sanan"
 
-#: lib/Mail.php:94 lib/Mail.php:118 lib/Mail.php:146
+#: lib/Mail.php:117 lib/Mail.php:141 lib/Mail.php:166
 msgid "current user:"
 msgstr "nykyinen käyttäjä:"
 
-#: lib/api.php:859
+#: lib/Api.php:650
 msgid "estimated time"
 msgstr "arvioitu aika"
 
-#: lib/Renderer/Query.php:183
+#: lib/Renderer/Query.php:181
 msgid "is"
 msgstr "on"
 
-#: lib/Renderer/Query.php:175
+#: lib/Renderer/Query.php:173
 msgid "is greater than"
 msgstr "on suurempi kuin"
 
-#: lib/Renderer/Query.php:179
+#: lib/Renderer/Query.php:177
 msgid "is less than"
 msgstr "on pienempi kuin"
 
-#: lib/Renderer/Query.php:199
+#: lib/Renderer/Query.php:197
 msgid "matches the pattern"
 msgstr "täsmää malliin"
 
-#: lib/Forms/Search.php:57 lib/Forms/Search.php:59 lib/Forms/Search.php:61
-#: lib/Forms/Search.php:63 lib/Forms/Search.php:65
+#: lib/Forms/Search.php:55 lib/Forms/Search.php:57 lib/Forms/Search.php:59
+#: lib/Forms/Search.php:61 lib/Forms/Search.php:63
 msgid "to"
 msgstr " - "

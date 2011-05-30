@@ -33,7 +33,7 @@ if ($conf['vfs']['src'] == 'sendfile') {
         $filename = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->readFile(
             Ansel_Faces::getVFSPath($face['image_id']) . 'faces',
             $face_id . Ansel_Faces::getExtension());
-    } catch (VFS_Exception $e) {
+    } catch (Horde_Vfs_Exception $e) {
         Horde::logMessage($e, 'ERR');
         exit;
     }

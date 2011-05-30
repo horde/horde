@@ -10,7 +10,7 @@
  * @author  Rita Selsky <ritaselsky@gmail.com>
  * @package Horde_Data
  */
-class Turba_Data_Ldif extends Horde_Data
+class Turba_Data_Ldif extends Horde_Data_Base
 {
     protected $_extension = 'ldif';
 

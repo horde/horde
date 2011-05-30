@@ -3,51 +3,52 @@
  * TimeObjects driver for exposing weather.com data via the listTimeObjects
  * API.
  *
- * @TODO: Inject any config items needed (proxy, partner ids etc...) instead
- *        of globaling the $conf array.
- *
- *        Use Horde_Controller, Routes etc... for endpoints?
- *
  * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @category Horde
  * @package TimeObjects
  */
-class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
+class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver_Base
 {
     protected $_params = array('units' => 'standard',
                                'days' => 5);
 
-    public function __construct($params)
+    public function __construct(array $params)
     {
-        global $registry;
+        global $registry, $prefs;
 
         $country = substr($GLOBALS['language'], -2);
         if (empty($params['location'])) {
-            // Try to get a good location string from Turba's "own" contact
-            if ($registry->hasInterface('contacts')) {
-                $contact = $GLOBALS['registry']->contacts->ownContact();
-                if (!is_a($contact, 'PEAR_Error')) {
-                    if (!empty($contact['homeCountry'])) {
-                        $country = $contact['homeCountry'];
-                    } elseif (!empty($contact['workCountry'])) {
-                        $country = $contact['workCountry'];
-                    }
-                    if (!empty($contact['homeCity'])) {
-                        $params['location'] = $contact['homeCity']
-                            . (!empty($contact['homeProvince']) ? ', ' . $contact['homeProvince'] : '')
-                            . (!empty($contact['homeCountry']) ? ', ' . $contact['homeCountry'] : '');
-                    } else {
-                        $params['location'] = $contact['workCity']
-                            . (!empty($contact['workProvince']) ? ', ' . $contact['workProvince'] : '')
-                            . (!empty($contact['workCountry']) ? ', ' . $contact['workCountry'] : '');
-                    }
+            // First use the location pref, then turba's "own" contact, followed
+            // by perhaps a general IP location?
+            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
+            if ($location = $identity->getValue('location')) {
+                $params['location'] = $location;
+            } elseif ($registry->hasInterface('contacts')) {
+                try {
+                    $contact = $GLOBALS['registry']->contacts->ownContact();
+                } catch (Exception $e) {
+                    throw new TimeObjects_Exception($e);
+                }
+                if (!empty($contact['homeCountry'])) {
+                    $country = $contact['homeCountry'];
+                } elseif (!empty($contact['workCountry'])) {
+                    $country = $contact['workCountry'];
+                }
+                if (!empty($contact['homeCity'])) {
+                    $params['location'] = $contact['homeCity']
+                        . (!empty($contact['homeProvince']) ? ', ' . $contact['homeProvince'] : '')
+                        . (!empty($contact['homeCountry']) ? ', ' . $contact['homeCountry'] : '');
+                } else {
+                    $params['location'] = $contact['workCity']
+                        . (!empty($contact['workProvince']) ? ', ' . $contact['workProvince'] : '')
+                        . (!empty($contact['workCountry']) ? ', ' . $contact['workCountry'] : '');
                 }
             }
-            // TODO: Try some other way, maybe a hook or a new preference in
-            //       Horde to set your current location, maybe with a google
-            //       map?
         }
+
         if ($country != 'US') {
             $params['units'] = 'metric';
         }
@@ -71,12 +72,12 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
 
     /**
      *
-     * @param mixed $start  The start time of the period
-     * @param mixed $end   The end time of the period
+     * @param Horde_Date $start  The start time of the period
+     * @param Horde_Date $end   The end time of the period
      *
      * @return array of listTimeObjects arrays.
      */
-    public function listTimeObjects($start = null, $end = null)
+    public function listTimeObjects(Horde_Date $start = null, Horde_Date $end = null)
     {
         global $conf, $prefs;
 

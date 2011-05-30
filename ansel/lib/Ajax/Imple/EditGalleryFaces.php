@@ -27,13 +27,13 @@ class Ansel_Ajax_Imple_EditGalleryFaces extends Horde_Ajax_Imple_Base
         $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
         $name = '';
         $autocreate = true;
-        $result = $faces->getImageFacesData($image_id);
-        if (empty($result)) {
+        $results = $faces->getImageFacesData($image_id);
+        if (empty($results)) {
             $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($this->_params['image_id']);
             $image->createView('screen');
-            $result = $faces->getFromPicture($this->_params['image_id'], $autocreate);
+            $results = $faces->getFromPicture($this->_params['image_id'], $autocreate);
         }
-        if (!empty($result)) {
+        if (!empty($results)) {
             $customurl = Horde::url('faces/custom.php');
             $url = (!empty($args['url']) ? urldecode($args['url']) : '');
             Horde::startBuffer();

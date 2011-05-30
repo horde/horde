@@ -1,16 +1,17 @@
 # Finnish translations for Horde_Itip module.
 # Copyright (C) 2010 Horde Project
 # This file is distributed under the same license as the Horde_Itip module.
-# Automatically generated, 2010.
+# Leena Heino <liinu@uta.fi>, 2010-2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Itip\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: i18n@lists.horde.org\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"PO-Revision-Date: 2011-04-03 10:12:31+0300\n"
+"Last-Translator: Leena Heino <liinu@uta.fi>\n"
+"Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,41 +19,40 @@ msgstr ""
 
 #: lib/Horde/Itip/Response/Type/Accept.php:49
 msgid "Accepted"
-msgstr ""
+msgstr "Hyväksyi"
 
 #: lib/Horde/Itip/Response/Type/Decline.php:49
 msgid "Declined"
-msgstr ""
+msgstr "Kieltäytyi"
 
-#: lib/Horde/Itip/Event/Vevent.php:106
-#, fuzzy
+#: lib/Horde/Itip/Event/Vevent.php:92
 msgid "No summary available"
-msgstr "palvelu ei ole käytettävissä"
+msgstr "Yhteenvetoa ei ole saatavissa"
 
 #: lib/Horde/Itip/Response/Type/Tentative.php:49
 msgid "Tentative"
-msgstr ""
+msgstr "Alustava"
 
 #: lib/Horde/Itip/Response/Type/Accept.php:63
 msgid "has accepted the invitation to the following event"
-msgstr ""
+msgstr "on hyväksynyt kutsusi seuraavaan tapahtumaan"
 
 #: lib/Horde/Itip/Response/Type/Accept.php:62
 msgid "has accepted the update to the following event"
-msgstr ""
+msgstr "on hyväksynyt päivityksen seuraavaan tapahtumaan"
 
 #: lib/Horde/Itip/Response/Type/Decline.php:63
 msgid "has declined the invitation to the following event"
-msgstr ""
+msgstr "on kieltäytynyt kutsusta seuraavaan tapahtumaan"
 
 #: lib/Horde/Itip/Response/Type/Decline.php:62
 msgid "has declined the update to the following event"
-msgstr ""
+msgstr "on kieltäytynyt päivityksestä seuraavaan tapahtumaan"
 
 #: lib/Horde/Itip/Response/Type/Tentative.php:63
 msgid "has tentatively accepted the invitation to the following event"
-msgstr ""
+msgstr "on alustavasti hyväksynyt kutsun seuraavaan tapahtumaan"
 
 #: lib/Horde/Itip/Response/Type/Tentative.php:62
 msgid "has tentatively accepted the update to the following event"
-msgstr ""
+msgstr "on alustavasti hyväksynyt päivityksen seuraavaan tapahtumaan"

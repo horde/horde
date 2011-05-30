@@ -12,6 +12,6 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Group
  */
-class Horde_Group_Exception extends Horde_Exception_Prior
+class Horde_Group_Exception extends Horde_Exception_Wrapped
 {
 }

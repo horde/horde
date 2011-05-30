@@ -7,31 +7,32 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_LoginTasks\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"PO-Revision-Date: 2011-05-18 17:15+0100\n"
+"Last-Translator: Martin Matuška <martin@matuska.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: lib/Horde/LoginTasks.php:266
+#: lib/Horde/LoginTasks.php:271
 msgid "Daily"
 msgstr "Denne"
 
-#: lib/Horde/LoginTasks.php:267
+#: lib/Horde/LoginTasks.php:272
 msgid "Every Login"
 msgstr "Pri každom prihlásení"
 
-#: lib/Horde/LoginTasks.php:264
+#: lib/Horde/LoginTasks.php:269
 msgid "Monthly"
 msgstr "Mesačne"
 
-#: lib/Horde/LoginTasks.php:265
+#: lib/Horde/LoginTasks.php:270
 msgid "Weekly"
 msgstr "Týždenne"
 
-#: lib/Horde/LoginTasks.php:263
+#: lib/Horde/LoginTasks.php:268
 msgid "Yearly"
 msgstr "Ročne"

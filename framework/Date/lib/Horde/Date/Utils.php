@@ -63,23 +63,28 @@ class Horde_Date_Utils
 
     /**
      * Returns a relative, natural language representation of a timestamp
-     * TODO: Wider range of values ... maybe future time as well?
      *
-     * @param integer $timestamp       The timestamp.
-     * @param string $date_format      Format to display date if timestamp is
-     *                                 more then 1 day old.
-     * @param string $time_format      Format to display time if timestamp is 1
-     *                                 day old.
+     * @todo Wider range of values ... maybe future time as well?
+     * @todo Support minimum resolution parameter.
+     *
+     * @param mixed $time          The time. Any format accepted by Horde_Date.
+     * @param string $date_format  Format to display date if timestamp is
+     *                             more then 1 day old.
+     * @param string $time_format  Format to display time if timestamp is 1
+     *                             day old.
      *
      * @return string  The relative time (i.e. 2 minutes ago)
      */
-    public static function relativeDateTime($timestamp, $date_format = '%x',
+    public static function relativeDateTime($time, $date_format = '%x',
                                             $time_format = '%X')
     {
-        $delta = time() - $timestamp;
+        $date = new Horde_Date($time);
+
+        $delta = time() - $date->timestamp();
         if ($delta < 60) {
             return sprintf(Horde_Date_Translation::ngettext("%d second ago", "%d seconds ago", $delta), $delta);
         }
+
         $delta = round($delta / 60);
         if ($delta < 60) {
             return sprintf(Horde_Date_Translation::ngettext("%d minute ago", "%d minutes ago", $delta), $delta);
@@ -91,7 +96,7 @@ class Horde_Date_Utils
         }
 
         if ($delta > 24 && $delta < 48) {
-            $date = new Horde_Date($timestamp);
+            $date = new Horde_Date($time);
             return sprintf(Horde_Date_Translation::t("yesterday at %s"), $date->strftime($time_format));
         }
 
@@ -106,7 +111,6 @@ class Horde_Date_Utils
         }
 
         // Default to the user specified date format.
-        $date = new Horde_Date($timestamp);
         return $date->strftime($date_format);
     }
 

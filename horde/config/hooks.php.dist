@@ -16,6 +16,7 @@
  * All critical/fatal errors should be reported by throwing a Horde_Exception
  * object.
  *
+ *
  * Preferences Hooks
  * =================
  * Two types of preferences hooks are available.
@@ -24,14 +25,19 @@
  * ----------------------
  * If the 'hook' parameter is non-empty for a preference (config/prefs.php),
  * the prefs_init hook will be run on login to allow alteration of the value.
- * This hook receives the preference name, preference value, and the username
- * as parameters and uses the return value from the hook as the new preference
- * value.
+ * This hook receives the preference name, preference value, username, and
+ * the master scope object (Horde_Prefs_Scope) as parameters and uses the
+ * return value from the hook as the new preference value.
  *
  * Username will be null if the user is not authenticated.
  *
  * This hook is ONLY executed on login and preferences are cached during a
  * users' session.
+ *
+ * NOTE: Because the prefs_init hook is called BEFORE the application is
+ *       initialized, application data will not be available in this hook.
+ *       If you want to alter preferences values based on application data,
+ *       you should use the authinitialized hook instead.
  *
  * On change
  * ---------
@@ -39,10 +45,12 @@
  * It is passed the preference name that has changed and does not expect a
  * return value.
  *
+ *
  * Authentication/Login Hooks
  * ==========================
- * There are three special hooks called during the initial authentication
+ * There are four special hooks called during the initial authentication
  * of every Horde application. These hooks are avilable in ALL applications.
+ * These hooks are only called ONCE per session.
  *
  * preauthenticate
  * ---------------
@@ -101,10 +109,33 @@
  *   [throw Horde_Auth_Exception] - Fatal error.
  *   (string) - The converted username.
  *
+ * appinitialized
+ * --------------
+ * This hook is called after an application is authenticated to and the
+ * initial application initialization is complete.
+ *
+ * This hook takes no parameters and expects no return value. An Exception
+ * thrown from this hook will cause a fatal error.
+ *
+ *
+ * Application Switching Hooks
+ * ===========================
+ * These hooks are called every time an application is switched to.
+ * They may be called MULTIPLE times per page access.
+ * Actions that only need to be done once per login should use the
+ * appinitialized hook instead.
+ *
  * pushapp
  * -------
- * This hook is used to do any local processing necessary to initialize an
- * application. It is passed no parameters and expects no return value.
+ * This hook is called before an application is switched to.
+ * It is passed no parameters and expects no return value.
+ * Any Exception thrown in this hook will cause a fatal error.
+
+ * pushapp_post
+ * ------------
+ * This hook is called after an application is successfully switched to.
+ * It is passed no parameters and expects no return value.
+ * Any Exception thrown in this hook is ignored.
  *
  *
  * AJAX Hooks
@@ -151,7 +182,7 @@
 class Horde_Hooks
 {
 //    // PREFERENCES INIT: See above for documentation.
-//    public function prefs_init($pref, $value, $username)
+//    public function prefs_init($pref, $value, $username, $scope_ob)
 //    {
 //        switch ($pref) {
 //        case 'from_addr':
@@ -268,26 +299,6 @@ class Horde_Hooks
 //            return empty($user)
 //                ? $username
 //                : $user;
-//
-//
-//        case 'theme':
-//            // Example theme init.
-//            if ($username != 'foo') {
-//                return 'mozilla';
-//            }
-//
-//            switch ($GLOBALS['registry']->getApp()) {
-//            case 'imp':
-//                return 'brown';
-//
-//            case 'kronolith':
-//                return 'green';
-//
-//            case 'turba':
-//                return 'orange';
-//            }
-//
-//            return '';
 //        }
 //    }
 
@@ -324,36 +335,43 @@ class Horde_Hooks
 //
 //        // Example #4: Create credentials needed by the LDAP Horde_Auth
 //        // driver for adding/deleting/updating users.
-//        $entry['dn'] = 'uid=' . $userId . ',ou=People,dc=example.com';
-//        $entry['cn'] = isset($credentials['user_fullname'])
-//             ? $credentials['user_fullname']
-//             : $userId;
-//        $entry['sn'] = $userId;
-//        $entry['objectclass'][0] = 'top';
-//        $   $y['objectclass'][1] = 'person';
-//        $entry['objectclass'][2] = 'qmailuser';
-//        $entry['objectclass'][3] = 'CourierMailACcount';
-//        $entry['mailhost'] = 'mail.example.com';
-//        $entry['mailMessageStore'] = '/home/mail/' . $userId;
-//        $entry['homeDirectory'] = '/home/mail/' . $userId;
-//        $entry['mailbox'] = $entry['homeDirectory'] . '/Maildir';
-//        $entry['uid'] = $userId;
-//        $entry['accountStatus'] = 'active';
-//        $entry['mailQuota'] = '104857600S';
-//        $entry['mail'] = $userId;
-//        $entry['uidNumber'] = 501;
-//        $entry['gidNumber'] = 501;
+//        $entry = array(
+//            'dn' => 'uid=' . $userId . ',ou=People,dc=example.com',
+//            'cn' => isset($credentials['user_fullname']) ? $credentials['user_fullname'] : $userId,
+//            'sn' => $userId,
+//            'objectclass' => array(
+//                'top',
+//                'person',
+//                'qmailuser',
+//                'CourierMailAccount',
+//            ),
+//            'mailhost' => 'mail.example.com',
+//            'mailMessageStore' => '/home/mail/' . $userId,
+//            'homeDirectory' => '/home/mail/' . $userId,
+//            'mailbox' => '/Maildir',
+//            'homeDirectory' => '/Maildir',
+//            'uid' => $userId,
+//            'accountStatus' => 'active',
+//            'mailQuota' => '104857600S',
+//            'mail' => $userId,
+//            'uidNumber' => 501,
+//            'gidNumber' => 501,
+//            'deliveryMode' => 'nolocal'
+//        );
 //
 //        // Need to check for new users (password) and edited users
 //        // (user_pass_2)
 //        if (isset($credentials['password'])) {
-//            $entry['userPassword'] =  '{MD5}' . base64_encode(pack('H*', md5($credentials['password'])));
+//            $entry['userPassword'] = '{MD5}' . base64_encode(pack('H*', md5($credentials['password'])));
 //        } elseif (isset($credentials['user_pass_2'])) {
-//            $entry['userPassword'] =  '{MD5}' . base64_encode(pack('H*', md5($credentials['user_pass_2'])));
+//            $entry['userPassword'] = '{MD5}' . base64_encode(pack('H*', md5($credentials['user_pass_2'])));
 //        }
 //        $entry['deliveryMode'] = 'nolocal';
 //
-//        return array($userId, $entry);
+//        return array(
+//            'userId' => $userId,
+//            'credentials' => $entry
+//        );
 //     }
 
 
@@ -439,10 +457,25 @@ class Horde_Hooks
 //    }
 
 
-//    // POST-PUSH HOOK: See above for format.
+//    // APPLICATION INITIALIZATION HOOK: See above for format.
+//    public function appinitialized()
+//    {
+//        // Code to run when an application is first initialized
+//    }
+
+
+//    // PRE-PUSH HOOK: See above for format.
 //    public function pushapp()
 //    {
-//        // Code to run when the app is switched to horde
+//        // Code to run immediately before the app is switched to horde
+//    }
+
+
+//    // POST-PUSH HOOK: See above for format.
+//    public function pushapp_post()
+//    {
+//        // Code to run immediately after the app is successfully switched to
+//        // horde
 //    }
 
 
@@ -595,7 +628,7 @@ class Horde_Hooks
 //        $result = $db->query($query);
 //
 //        if ($result instanceof PEAR_Error) {
-//            throw new Horde_Exception_Prior($result);
+//            throw new Horde_Exception_Wrapped($result);
 //        }
 //    }
 

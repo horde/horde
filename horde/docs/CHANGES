@@ -1,8 +1,133 @@
 ----------
+v4.0.4-git
+----------
+
+[gwr] Added support for the Kolab IMAP based preferences backend.
+
+
+------
+v4.0.3
+------
+
+[mjr] Fix usage of countOwners() and listOwners() in the Sqlng driver.
+[mms] Fix return link after reporting problem (Bug #10069).
+[jan] Add button to update all configurations with default values at once.
+[jan] Update DataTree conversion scripts for Horde 4.
+[jan] Fix rendering of DataTree browse tree.
+[mjr] Fix issue with deleting identities (Bug #9997).
+[mjr] Fix issue causing credentials to be lost when accessing the API during
+      ActiveSync requests (Bug #9733).
+[jan] Store preferences for guests in the session.
+
+
+------
+v4.0.2
+------
+
+[jan] SECURITY: Fix permission checks of guest users on system shares.
+[mms] SECURITY: Fix deletion of unwanted HTML nodes in XSS filter.
+[mms] Fix authentication failure when TOS is not accepted.
+[jan] Don't show IMP compose link if user doesn't have permissions to IMP (Bug
+      #10016).
+[mms] Fix issue causing slow syncs only in SyncML (Bug #10008).
+[jan] Fix adding categories.
+[jan] Fix listing users in Customsql driver (Bug #9963).
+[jan] Fix calculation of last password change in LDAP account portal block (Bug
+      #9770).
+[jan] Don't check for outdated DB schemas if database support is disabled (Bug
+      #9986).
+[mjr] Fix editing settings of fixed portal blocks (Bug #9910).
+
+
+------
+v4.0.1
+------
+
+[mjr] Fix the blockTitle and blockContent API methods.
+[jan] Fix creating folders with SQL VFS driver (Bug #9894).
+[jan] Fix LDAP parameters of account portal block (Klaus Steinberger, Bug
+      #9770).
+[jan] Fix migration detection on Windows.
+[mjr] Correctly sanitize DSN when using custom cyrus auth driver (Bug #9879).
+[mjr] Fix some display issues when geocoding with HordeMap (Bug #9883).
+[mms] Don't load sidebar content if not expanded.
+[jan] Fix deleting groups.
+
+[jan] Fix adding new groups (Bug #9881).
+[jan] Fix displaying the Facebook preference group.
+[mms] Add appinitialized hook.
+[cjh] Fix cyrsql configuration, rename cyrus host and port parameters to not
+      clash with Horde_Db parameters (Bug #9864).
+[cjh] Fix signups, and update style on signup and reset password pages to
+      match the login page (Bug #9856, partially from Ian Roth
+      <iron_hat@hotmail.com>).
+[cjh] Show an unknown app icon rather than a broken image if an application
+      doesn't have an icon (Bug #9867).
+[jan] Fix setting incorrect database charset in PDO drivers.
+
+----
+v4.0
+----
+
+[mms] Add pushapp_post hook.
+[jan] Fix application-specific permission checks (Bug #9786).
+[jan] Fix resetting passwords (Vilius Sumskas <vilius@lnk.lt>, Bug #9800).
+[jan] Fix Cyrsql authentication driver (Vilius Sumskas <vilius@lnk.lt>, Bug
+      #9781).
+[mjr] Fix ActiveSync provisioning.
+[mjr] Fix for broken Nokia MfE clients (Bug #9757).
+[jan] Delete object mappings too when deleting SyncML anchors (Request #9377).
+[jan] Delay sidebar creation if the sidebar is generated through JavaScript.
+
+
+--------
+v4.0-RC2
+--------
+
+[jan] Fix incorrect lowercasing of objectClasses in LDAP groups driver.
+[jan] Fix fatal error in desktop notifications (Bug #9727).
+[jan] Rename all scripts in bin/ to be prefixed with horde- and installed in
+      PEAR's bin_dir (Request #9647).
+[jan] Don't throw exception when setting port number while using localhost in
+      MySQL configuration (Bug #9738).
+[jan] Fix building LDAP filter for groups from configuration (Bug #9739).
+[jan] Fix loading of Horde's vhost conf.php file (Bug #9704).
+[jan] Fix OpenOffice MIME viewer.
+[jan] Fire access keys on hidden elements in Internet Explorer (Bug #8057).
+[jan] Don't fire access keys twice in Chrome browsers.
+[jan] Fix JavaScript date calculations across DST boundaries.
+[jan] Sort applications in preference menu by name.
+[jan] Add translations for file upload error messages.
+[mms] Fix identities pref UI when default_identity is locked (Bug #9701).
+[mms] Added Horde::debug().
+
+
+--------
+v4.0-RC1
+--------
+
+[jan] Update installation and upgrade instructions.
+[jan] Fix converting identities with non-ascii characters to new format.
+[jan] Fix passing arguments to sendmail binary (Gonçalo Queirós, Bug #9693).
+[mjr] Service_Facebook refactored for OAuth2 authentication (Bug #9122).
+[mjr] IMSP drivers refactored for Horde 4.
+[gwr] Allow disabling applications for administrators.
+[jan] Don't show sub-permissions for adding that exist already.
+[jan] Fix listing more than one sub-permission (Bug #9671).
+[jan] Fix calendar synchronization with certain Nokia phones (Bug #9646).
+
+
+----------
 v4.0-BETA1
 ----------
 
+[jan] Catch fatal errors about missing tables during initial configuration.
+[mms] Fix client-side IMAP sorting using envelope data.
+[mms] Workaround PHP < 5.2.6 (broken stream handling) (Bug #9644).
+[mjr] Fix updating schema for individual libraries.
+[mjr] Improved control over which application view to load.
 [jan] Find translateable strings in configuration files.
+[mms] Fix clearing expanded state for javascript trees (Bug #9659).
 [jan] Only show advanced preferences link if there are some.
 [mms] Fix updates for refreshing Blocks (Bug #9655).
 [mjr] Fix viewing applications with no mobile view from mobile devices.

@@ -118,7 +118,7 @@ class IMP_Mailbox_List_Track extends IMP_Mailbox_List
         if ($data instanceof IMP_Indices) {
             list($mailbox, $uid) = $data->getSingle();
             $this->_index = $this->getArrayIndex($uid, $mailbox);
-            if (empty($this->_index)) {
+            if (is_null($this->_index)) {
                 $this->_rebuild(true);
                 $this->_index = $this->getArrayIndex($uid, $mailbox);
             }

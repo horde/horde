@@ -1,7 +1,7 @@
 <?php
 /**
  * @category   Horde
- * @copyright  2010 The Horde Project (http://www.horde.org/)
+ * @copyright  2010-2011 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php BSD
  * @package    Support
  */
@@ -11,16 +11,12 @@
  * characters in the class [-_0-9a-zA-Z].
  *
  * <code>
- *  <?php
- *
- *  $id = (string)new Horde_Support_Randomid();
- *
- *  ?>
+ * $id = (string)new Horde_Support_Randomid();
  * </code>
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @copyright  2010 The Horde Project (http://www.horde.org/)
+ * @copyright  2010-2011 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php BSD
  * @package    Support
  */
@@ -46,10 +42,18 @@ class Horde_Support_Randomid
      */
     public function generate()
     {
-        // Base64 can have /, +, and = characters. Restrict to URL-safe characters.
-        return str_replace(array('/', '+', '='), array('-', '_', ''), base64_encode(
-            pack('II', mt_rand(), crc32(php_uname('n'))) . pack('H*', uniqid() . sprintf('%04s', dechex(getmypid())))
-        ));
+        $pid = function_exists('zend_thread_id')
+            ? zend_thread_id()
+            : getmypid();
+
+        /* Base64 can have /, +, and = characters. Restrict to URL-safe
+         * characters. */
+        return str_replace(
+            array('/', '+', '='),
+            array('-', '_', ''),
+            base64_encode(
+                pack('II', mt_rand(), crc32(php_uname('n')))
+                . pack('H*', uniqid() . sprintf('%04s', dechex($pid)))));
     }
 
     /**

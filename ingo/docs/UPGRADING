@@ -4,20 +4,52 @@
 
 :Contact: ingo@lists.horde.org
 
+.. contents:: Contents
+.. section-numbering::
 
-These are instructions to upgrade from earlier Ingo versions. Please
-backup your existing data before running any of the steps described below.
+
+These are instructions to upgrade from earlier Ingo versions. Please backup
+your existing data before running any of the steps described below. You can't
+use the updated data with your old Ingo version anymore.
+
+Upgrading Ingo is as easy as running::
+
+   pear upgrade -a -B horde/ingo
+
+If you want to upgrade from an Ingo version prior to 2.0, please
+follow the instructions in INSTALL_ to install the most recent Ingo
+version using the PEAR installer.
+
+After updating to a newer Ingo version, you **always** need to update
+configurations and database schemes. Log in as an administrator, go to
+Administration => Configuration and update anything that's highlighted as
+outdated.
 
 
 Upgrading Ingo From 1.x To 2.x
 ==============================
+
+
+Sieve Backend
+-------------
+
+The port number for the timesieved daemon has been changed to the official
+Sieve port 4190 in the default configuration. If your timesieved daemon is
+still running on the former default port 2000, or any other port than 4190, you
+need to create a ``config/backends.local.php`` file with the following
+content::
+
+   <?php
+   $backends['sieve']['params']['port'] = 2000;
+   $backends['sivtest']['params']['port'] = 2000;
+
 
 Configuration Options
 ---------------------
 
 The following configuration options have been removed:
 
-    usefolderapi
+   usefolderapi
 
 
 Upgrading Ingo From 1.2.1 To 1.2.2
@@ -62,7 +94,7 @@ Execute the provided SQL script to add the table to your database, e.g.::
 You also have to execute the provided PHP script to migrate the existing rules
 from the preferences backend to the new database table::
 
-   php scripts/upgrades/convert_prefs_to_sql.php < filename
+   ingo-convert-prefs-to-sql < filename
 
 ``filename`` is a file that contains a list of users, one username per line.
 The username should be the same as how the preferences are stored in the
@@ -76,13 +108,13 @@ command::
 New Beta SQL Share Driver Support
 ---------------------------------
 
-A new beta-level SQL Horde_Share driver has been added in Horde 3.2. This driver
-offers significant performance improvements over the existing Datatree driver,
-but it has not received the same level of testing, thus the beta designation.
-In order to make use of this driver, you must be using Horde 3.2-RC3 or
-later. To migrate your existing share data, run
-``convert_datatree_shares_to_sql.php``.  Be sure to read the entry above and create
-the new SQL tables before running the migration script.
+A new beta-level SQL Horde_Share driver has been added in Horde 3.2. This
+driver offers significant performance improvements over the existing Datatree
+driver, but it has not received the same level of testing, thus the beta
+designation.  In order to make use of this driver, you must be using Horde
+3.2-RC3 or later. To migrate your existing share data, run
+``ingo-convert-datatree-shares-to-sql``.  Be sure to read the entry above and
+create the new SQL tables before running the migration script.
 
 
 Upgrading Ingo From 1.0.x To 1.1.x
@@ -98,3 +130,6 @@ Backends parameter changes - procmail driver
 In ``config/backends.php``, the ``procmailrc`` parameter in the procmail
 entry has been deprecated.  It has been replaced by the ``filename``
 parameter.
+
+
+.. _INSTALL: INSTALL

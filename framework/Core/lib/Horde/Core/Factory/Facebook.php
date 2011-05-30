@@ -9,19 +9,27 @@ class Horde_Core_Factory_Facebook extends Horde_Core_Factory_Injector
     {
         global $conf;
 
-        if (empty($conf['facebook']['key']) || empty($conf['facebook']['secret'])) {
+        if (empty($conf['facebook']['id']) || empty($conf['facebook']['secret'])) {
             throw new Horde_Exception('Unable to find required Facebook configuration.');
         }
 
         /* Facebook key and secret */
-        $apikey = $conf['facebook']['key'];
+        $appId = $conf['facebook']['id'];
         $secret = $conf['facebook']['secret'];
 
         /* Create required objects */
         $context = array('http_client' => $injector->getInstance('Horde_Core_Factory_HttpClient')->create(),
                          'http_request' => $injector->getInstance('Horde_Controller_Request_Http'));
 
-        return new Horde_Service_Facebook($apikey, $secret, $context);
+        $fb = new Horde_Service_Facebook($appId, $secret, $context);
+
+        /* Check for facebook session */
+        $fbp = unserialize($GLOBALS['prefs']->getValue('facebook'));
+        if (!empty($fbp['sid'])) {
+            $fb->auth->setSession($fbp['sid']);
+        }
+
+        return $fb;
     }
 
 }

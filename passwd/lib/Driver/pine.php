@@ -98,7 +98,7 @@ class Passwd_Driver_pine extends Passwd_Driver {
                 'port' => $this->_params['port'],
             );
 
-            $res = $this->_ftp = &VFS::singleton('ftp', $params);
+            $res = $this->_ftp = Horde_Vfs::factory('ftp', $params);
             if (is_a($res, 'PEAR_Error')) {
                 return $res;
             }

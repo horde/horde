@@ -1103,7 +1103,7 @@ class Turba_Api extends Horde_Registry_Api
 
         // ...and ensure the default source is used as a default.
         if (!count($sources)) {
-            $sources = array(Turba::getDefaultAddressBook());
+            $sources = array(Turba::getDefaultAddressbook());
         }
 
         // Read the columns to display from the preferences.
@@ -1347,7 +1347,7 @@ class Turba_Api extends Horde_Registry_Api
         }
 
         if (!count($sources)) {
-            $sources = array(Turba::getDefaultAddressBook());
+            $sources = array(Turba::getDefaultAddressbook());
         }
 
         $results = array();
@@ -1534,19 +1534,36 @@ class Turba_Api extends Horde_Registry_Api
     /**
      * Sets the value of the specified attribute of a contact
      *
-     * @param string $address  Contact email address
-     * @param string $name     Contact name
-     * @param string $field    Field to update
-     * @param string $value    Field value to set
-     * @param string $source   Contact source
+     * @param string|array $address  Contact email address(es).
+     * @param string $name           Contact name.
+     * @param string $field          Field to update.
+     * @param string $value          Field value to set.
+     * @param string $source         Contact source.
      *
-     * @return string  The new __key value on success.
      * @throws Turba_Exception
      */
     public function addField($address = '', $name = '', $field = '',
-                             $value = '',
-        $source = '')
+                             $value = '', $source = '')
     {
+        if (is_array($address)) {
+            $exception = null;
+            $success = 0;
+            foreach ($address as $tmp) {
+                try {
+                    $this->addField($tmp, $name, $field, $value, $source);
+                    $success++;
+                } catch (Exception $exception) {
+                }
+            }
+            if ($exception) {
+                if ($success) {
+                    throw new Turba_Exception(sprintf(ngettext("Added or updated %d contact, but at least one contact failed:", "Added or updated %d contacts, but at least one contact failed:", $success), $success) . ' ' . $exception->getMessage());
+                } else {
+                    throw $exception;
+                }
+            }
+        }
+
         global $cfgSources;
 
         if (empty($source) || !isset($cfgSources[$source])) {
@@ -1616,7 +1633,7 @@ class Turba_Api extends Horde_Registry_Api
             $ob->setValue($field, $value);
             $ob->store();
         } else {
-            return $driver->add(array('email' => $address, 'name' => $name, $field => $value, '__owner' => $GLOBALS['registry']->getAuth()));
+            $driver->add(array('email' => $address, 'name' => $name, $field => $value, '__owner' => $GLOBALS['registry']->getAuth()));
         }
     }
 
@@ -1838,7 +1855,7 @@ class Turba_Api extends Horde_Registry_Api
                 $results = $db[$key]->selectAssoc($sql);
             } catch (Horde_Db_Exception $e) {
                 Horde::logMessage($e);
-                throw new Horde_Exception_Prior($e);
+                throw new Horde_Exception_Wrapped($e);
             }
             foreach ($results as $id => $name) {
                 $groups[$key . ':' . $id] = $name;
@@ -1878,7 +1895,7 @@ class Turba_Api extends Horde_Registry_Api
                 $results = $db[$key]->selectAll($sql);
             } catch (Horde_Db_Exception $e) {
                 Horde::logMessage($e);
-                throw new Horde_Exception_Prior($e);
+                throw new Horde_Exception_Wrapped($e);
             }
 
             foreach ($results as $row) {
@@ -1945,7 +1962,7 @@ class Turba_Api extends Horde_Registry_Api
             return $db->selectOne($sql);
         } catch (Horde_Db_Exception $e) {
             Horde::logMessage($e);
-            throw new Horde_Exception_Prior($e);
+            throw new Horde_Exception_Wrapped($e);
         }
     }
 
@@ -2010,7 +2027,7 @@ class Turba_Api extends Horde_Registry_Api
                 $results = $db[$newSource]->selectOne($sql);
             } catch (Horde_Db_Exception $e) {
                 Horde::logMessage($e);
-                throw new Horde_Exception_Prior($e);
+                throw new Horde_Exception_Wrapped($e);
             }
 
             // Sub-Lists are treated as sub groups the best that we can...

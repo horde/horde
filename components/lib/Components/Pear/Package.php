@@ -70,13 +70,6 @@ class Components_Pear_Package
     private $_package_file;
 
     /**
-     * The writeable package representation.
-     *
-     * @param PEAR_PackageFileManager2
-     */
-    private $_package_rw_file;
-
-    /**
      * Constructor.
      *
      * @param Component_Output $output The output handler.
@@ -149,6 +142,16 @@ class Components_Pear_Package
     }
 
     /**
+     * Return the base directory of the component.
+     *
+     * @return string
+     */
+    public function getComponentDirectory()
+    {
+        return dirname($this->getPackageXml());
+    }
+
+    /**
      * Define the package to work on.
      *
      * @param string $package_tgz_path Path to the *.tgz file.
@@ -194,23 +197,6 @@ class Components_Pear_Package
             }
         }
         return $this->_package_file;
-    }
-
-    /**
-     * Return a writeable PEAR Package representation.
-     *
-     * @return PEAR_PackageFileManager2
-     */
-    private function _getPackageRwFile()
-    {
-        $this->_checkSetup();
-        if ($this->_package_rw_file === null) {
-            $this->_package_rw_file = $this->_factory->getPackageRwFile(
-                $this->_package_xml_path,
-                $this->getEnvironment()
-            );
-        }
-        return $this->_package_rw_file;
     }
 
     /**
@@ -331,50 +317,22 @@ class Components_Pear_Package
     }
 
     /**
-     * Return an updated package description.
-     *
-     * @return PEAR_PackageFileManager2 The updated package.
-     */
-    private function _getUpdatedPackageFile()
-    {
-        $package = $this->_getPackageRwFile();
-        $contents = $this->_factory->createContents($package);
-        $contents->update();
-        return $package;
-    }
-
-    /**
-     * Return the updated package.xml file.
-     *
-     * @return NULL
-     */
-    public function _printUpdatedPackageFile()
-    {
-        ob_start();
-        $this->_getUpdatedPackageFile()->debugPackageFile();
-        $new = ob_get_contents();
-        ob_end_clean();
-        return $new;
-    }    
-
-    /**
      * Update the package.xml file.
      *
      * @param string $action The action to perform. Either "update", "diff", or "print".
      *
      * @return NULL
      */
-    public function updatePackageFile($action = 'update')
+    public function updatePackageFile($action = 'update', $options = array())
     {
+        $package_xml = $this->_getPackageXml();
+        $package_xml->updateContents(null, $options);
         switch($action) {
         case 'print':
-            print $this->_printUpdatedPackageFile();
+            print (string) $package_xml;
             break;
         case 'diff':
-            if (!class_exists('Horde_Text_Diff')) {
-                throw new Components_Exception('The "Horde_Text_Diff" package is missing!');
-            }
-            $new = $this->_printUpdatedPackageFile();
+            $new = (string) $package_xml;
             $old = file_get_contents($this->_package_xml_path);
             $renderer = new Horde_Text_Diff_Renderer_Unified();
             print $renderer->render(
@@ -384,7 +342,7 @@ class Components_Pear_Package
             );
             break;
         default:
-            $this->_getUpdatedPackageFile()->writePackageFile();
+            file_put_contents($this->_package_xml_path, (string) $package_xml);
             $this->_output->ok('Successfully updated ' . $this->_package_xml_path);
             break;
         }
@@ -455,18 +413,73 @@ class Components_Pear_Package
     }
 
     /**
-     * Generate a package package release.
+     * Add a new note to the package.xml
      *
-     * @param boolean $manual Avoid touching the package.xml.
+     * @param string $note The note text.
+     *
+     * @return NULL
+     */
+    public function addNote($note)
+    {
+        $package = $this->_getPackageXml();
+        $package->addNote($note);
+        file_put_contents($this->_package_xml_path, (string) $package);
+        $this->_output->ok(
+            'Added new note to ' . $this->_package_xml_path . '.'
+        );
+    }
+
+    /**
+     * Timestamp the package.xml file with the current time.
+     *
+     * @return NULL
+     */
+    public function timestampAndSync()
+    {
+        $package = $this->_getPackageXml();
+        $package->timestamp();
+        $package->syncCurrentVersion();
+        file_put_contents($this->_package_xml_path, (string) $package);
+        $this->_output->ok(
+            'Marked package.xml ' . $this->_package_xml_path
+            . ' with current timestamp and synchronized the change log.'
+        );
+    }
+
+    /**
+     * Add the next version to the package.xml.
+     *
+     * @param string $version           The new version number.
+     * @param string $initial_note      The text for the initial note.
+     * @param string $stability_api     The API stability for the next release.
+     * @param string $stability_release The stability for the next release.
+     *
+     * @return NULL
+     */
+    public function nextVersion(
+        $version,
+        $initial_note,
+        $stability_api = null,
+        $stability_release = null
+    ) {
+        $package = $this->_getPackageXml();
+        $package->addNextVersion(
+            $version, $initial_note, $stability_api, $stability_release
+        );
+        file_put_contents($this->_package_xml_path, (string) $package);
+        $this->_output->ok(
+            'Added next version "' . $version . '" to package.xml '
+            . $this->_package_xml_path . '.'
+        );
+    }
+
+    /**
+     * Generate a package package release.
      *
      * @return string The path to the release package.
      */
-    public function generateRelease($manual = false)
+    public function generateRelease()
     {
-        if (!$manual) {
-            $pkg = $this->updatePackageFile();
-        }
-
         $pkg = $this->_getPackageFile();
         $pkg->setLogger($this->_output);
         $errors = array();

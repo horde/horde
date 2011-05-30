@@ -68,21 +68,78 @@ class Horde_Service_Twitter
      protected $_httpClient;
 
     /**
-     * Const'r
+     * Constructor.
      *
-     * @param array $config  Configuration parameters:
-     *   <pre>
-     *     'oauth'    - Horde_Oauth object if using Oauth
-     *     'username' - if using Basic auth
-     *     'password' - if using Basic auth
-     *   </pre>
+     * @param Horde_Service_Twitter_Auth $auth        An authentication object
+     * @param Horde_Service_Twitter_Request $request  A request object.
      */
-    public function __construct(Horde_Service_Twitter_Auth $auth, Horde_Service_Twitter_Request $request)
+    public function __construct(Horde_Service_Twitter_Auth $auth,
+                                Horde_Service_Twitter_Request $request)
     {
         $this->_auth = $auth;
         $this->_auth->setTwitter($this);
         $this->_request = $request;
         $this->_request->setTwitter($this);
+    }
+
+    /**
+     * Factory method to easily build a working Twitter client object.
+     *
+     * @param array $params  Configuration parameters, with the following keys:
+     *                       - 'oauth' (required):
+     *                         - 'consumer_key' (required): The application's
+     *                           consumer key
+     *                         - 'consumer_secret' (required): The application's
+     *                           consumer secret
+     *                         - 'access_token' (optional): The user's access
+     *                           token
+     *                         - 'access_token_secret' (optional): The user's
+     *                           access token secret.
+     *                       - 'http' (optional): any configuration parameters
+     *                         for Horde_Http_Client, e.g. proxy settings.
+     *
+     * @return Horde_Service_Twitter  A twitter object that can be used
+     *                                immediately to update and receive
+     *                                statuses etc.
+     */
+    static public function create($params)
+    {
+        if (!isset($params['oauth'])) {
+            throw new Horde_Service_Twitter_Exception('Only OAuth authentication is supported.');
+        }
+
+        /* Parameters required for the Horde_Oauth_Consumer */
+        $consumer_params = array(
+            'key' => $params['oauth']['consumer_key'],
+            'secret' => $params['oauth']['consumer_secret'],
+            'requestTokenUrl' => Horde_Service_Twitter::REQUEST_TOKEN_URL,
+            'authorizeTokenUrl' => Horde_Service_Twitter::USER_AUTHORIZE_URL,
+            'accessTokenUrl' => Horde_Service_Twitter::ACCESS_TOKEN_URL,
+            'signatureMethod' => new Horde_Oauth_SignatureMethod_HmacSha1());
+
+        /* Create the Consumer */
+        $oauth = new Horde_Oauth_Consumer($consumer_params);
+
+        /* Create the Twitter client */
+        $twitter = new Horde_Service_Twitter(
+            new Horde_Service_Twitter_Auth_Oauth($oauth),
+            new Horde_Service_Twitter_Request_Oauth(
+                new Horde_Controller_Request_Http()));
+
+        /* Create HTTP client. */
+        $http_params = isset($params['http']) ? $params['http'] : array();
+        $twitter->setHttpClient(new Horde_Http_Client($http_params));
+
+        /* Check for an existing token */
+        if (!empty($params['oauth']['access_token']) &&
+            !empty($params['oauth']['access_token_secret'])) {
+            $auth_token = new Horde_Oauth_Token(
+                $params['oauth']['access_token'],
+                $params['oauth']['access_token_secret']);
+            $twitter->auth->setToken($auth_token);
+        }
+
+        return $twitter;
     }
 
     public function setCache(Horde_Cache $cache)

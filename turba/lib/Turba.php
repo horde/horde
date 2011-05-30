@@ -161,7 +161,7 @@ class Turba
      *
      * @return string  The default address book name.
      */
-    static public function getDefaultAddressBook()
+    static public function getDefaultAddressbook()
     {
         $lines = json_decode($GLOBALS['prefs']->getValue('addressbooks'));
         if (!empty($lines)) {
@@ -359,7 +359,7 @@ class Turba
             return true;
         }
 
-        $allowed = $perms->getPermissions('turba:sources:' . $key);
+        $allowed = $perms->getPermissions('turba:sources:' . $key, $GLOBALS['registry']->getAuth());
         if (is_array($allowed)) {
             switch ($permission) {
             case 'max_contacts':
@@ -410,8 +410,7 @@ class Turba
      *
      * This will only sync shares that are unique to Horde (such as a SQL
      * source).  Any backend that supports ACLs or similar mechanism should be
-     * configured from within backends.php or
-     * _horde_hook_share_* calls.
+     * configured from within backends.php or via Horde's share_* hooks.
      *
      * @param array $sources  The default $cfgSources array.
      *
@@ -476,7 +475,7 @@ class Turba
                 try {
                     $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
                 } catch (Turba_Exception $e) {
-                    $GLOBALS['notification']->push($driver, 'horde.error');
+                    $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
                     continue;
                 }
 

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>kolab_webmail</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Kolab Edition</summary>
+ <description>Horde Kolab Edition is a free, enterprise ready, browser based communication suite for the Kolab server. Users can read, send and organize email messages with three different webmail interfaces and manage and share calendars, contacts, tasks and notes with the standards compliant components from the Horde Project.</description>
+ <lead>
+  <name>Gunnar Wrobel</name>
+  <user>wrobel</user>
+  <email>wrobel@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-05-12</date>
+ <time>14:25:54</time>
+ <version>
+  <release>4.0.0alpha1</release>
+  <api>4.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GPLv2</license>
+ <notes>
+* First release candidate of Horde Kolab Edition 4.0.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="config">
+    <dir name="conf.d">
+     <file name="20-kolab.php" role="horde" />
+     <file name="30-kolab-server.php" role="horde" />
+    </dir> <!-- /config/conf.d -->
+    <dir name="registry.d">
+     <file name="20-kolab.php" role="horde" />
+    </dir> <!-- /config/registry.d -->
+   </dir> <!-- /config -->
+   <dir name="imp">
+    <dir name="config">
+     <dir name="backends.d">
+      <file name="20-kolab.php" role="horde" />
+     </dir> <!-- /imp/config/backends.d -->
+     <dir name="conf.d">
+      <file name="20-kolab.php" role="horde" />
+     </dir> <!-- /imp/config/conf.d -->
+    </dir> <!-- /imp/config -->
+   </dir> <!-- /imp -->
+   <dir name="ingo">
+    <dir name="config">
+     <dir name="backends.d">
+      <file name="20-kolab.php" role="horde" />
+     </dir> <!-- /ingo/config/backends.d -->
+    </dir> <!-- /ingo/config -->
+   </dir> <!-- /ingo -->
+   <dir name="kronolith">
+    <dir name="config">
+     <dir name="conf.d">
+      <file name="20-kolab.php" role="horde" />
+     </dir> <!-- /kronolith/config/conf.d -->
+    </dir> <!-- /kronolith/config -->
+   </dir> <!-- /kronolith -->
+   <dir name="lib">
+    <file name="Bundle.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="mnemo">
+    <dir name="config">
+     <dir name="conf.d">
+      <file name="20-kolab.php" role="horde" />
+     </dir> <!-- /mnemo/config/conf.d -->
+    </dir> <!-- /mnemo/config -->
+   </dir> <!-- /mnemo -->
+   <dir name="nag">
+    <dir name="config">
+     <dir name="conf.d">
+      <file name="20-kolab.php" role="horde" />
+     </dir> <!-- /nag/config/conf.d -->
+    </dir> <!-- /nag/config -->
+   </dir> <!-- /nag -->
+   <dir name="turba">
+    <dir name="config">
+     <dir name="backends.d">
+      <file name="20-kolab.php" role="horde" />
+     </dir> <!-- /turba/config/backends.d -->
+     <dir name="conf.d">
+      <file name="20-kolab.php" role="horde" />
+     </dir> <!-- /turba/config/conf.d -->
+    </dir> <!-- /turba/config -->
+   </dir> <!-- /turba -->
+   <file name="COPYING" role="data" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>webmail</name>
+    <channel>pear.horde.org</channel>
+    <min>4.0.0dev1</min>
+    <max>5.0.0</max>
+    <exclude>5.0.0</exclude>
+   </package>
+  </required>
+ </dependencies>
+ <usesrole>
+  <role>horde</role>
+  <package>Role</package>
+  <channel>pear.horde.org</channel>
+ </usesrole>
+ <phprelease>
+  <filelist>
+   <install as="config/conf.d/20-kolab.php" name="config/conf.d/20-kolab.php" />
+   <install as="config/conf.d/30-kolab-server.php" name="config/conf.d/30-kolab-server.php" />
+   <install as="config/registry.d/20-kolab.php" name="config/registry.d/20-kolab.php" />
+   <install as="imp/config/backends.d/20-kolab.php" name="imp/config/backends.d/20-kolab.php" />
+   <install as="imp/config/conf.d/20-kolab.php" name="imp/config/conf.d/20-kolab.php" />
+   <install as="ingo/config/backends.d/20-kolab.php" name="ingo/config/backends.d/20-kolab.php" />
+   <install as="kronolith/config/conf.d/20-kolab.php" name="kronolith/config/conf.d/20-kolab.php" />
+   <install as="lib/Bundle.php" name="lib/Bundle.php" />
+   <install as="mnemo/config/conf.d/20-kolab.php" name="mnemo/config/conf.d/20-kolab.php" />
+   <install as="nag/config/conf.d/20-kolab.php" name="nag/config/conf.d/20-kolab.php" />
+   <install as="turba/config/backends.d/20-kolab.php" name="turba/config/backends.d/20-kolab.php" />
+   <install as="turba/config/conf.d/20-kolab.php" name="turba/config/conf.d/20-kolab.php" />
+   <install as="COPYING" name="COPYING" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+     <release>4.0.0alpha1</release>
+     <api>4.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-05-12</date>
+   <license uri="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GPLv2</license>
+   <notes>
+* First release candidate of Horde Kolab Edition 4.0.
+   </notes>
+  </release>
+ </changelog>
+</package>

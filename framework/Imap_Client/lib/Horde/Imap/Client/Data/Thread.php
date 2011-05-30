@@ -99,15 +99,11 @@ class Horde_Imap_Client_Data_Thread implements Countable
     /**
      * Return the sorted list of messages indices.
      *
-     * @param boolean $new  True for newest first, false for oldest first.
-     *
      * @return array  The sorted list of messages.
      */
-    public function messageList($new)
+    public function messageList()
     {
-        return $new
-            ? array_reverse(array_keys($this->_thread))
-            : array_keys($this->_thread);
+        return array_keys($this->_thread);
     }
 
     /**

@@ -171,7 +171,7 @@ class Horde_Db_Adapter_Postgresql_Column extends Horde_Db_Adapter_Base_Column
             fclose($value);
             return $string;
         } else {
-            return preg_replace_callback("/[\\\'|\\\\\\\\|\\\\\d{3}]/", array($this, 'binaryToStringCallback'), $value);
+            return preg_replace_callback("/(?:\\\'|\\\\\\\\|\\\\\d{3})/", array($this, 'binaryToStringCallback'), $value);
         }
     }
 
@@ -184,9 +184,9 @@ class Horde_Db_Adapter_Postgresql_Column extends Horde_Db_Adapter_Base_Column
             return "'";
         } elseif ($matches[0] == '\\\\\\\\') {
             return '\\';
-        } else {
-            return chr(octdec(substr($matches[0], -3)));
         }
+
+        return chr(octdec(substr($matches[0], -3)));
     }
 
 

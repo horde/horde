@@ -1,6 +1,6 @@
-==================
- Installing Chora
-==================
+======================
+ Installing Chora 3.0
+======================
 
 :Contact: chora@lists.horde.org
 
@@ -15,20 +15,6 @@ For information on the capabilities and features of Chora, see the file
 README_ in the top-level directory of the Chora distribution.
 
 
-Obtaining Chora
-===============
-
-Chora can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/chora/
-
-   ftp://ftp.horde.org/pub/chora/
-
-Bleeding-edge development versions of Chora are available via CVS; see the
-file `docs/HACKING`_ in the Horde distribution for information on accessing
-the Horde CVS repository.
-
-
 Prerequisites
 =============
 
@@ -37,21 +23,19 @@ To function properly, Chora requires the following:
 1. A working Horde installation.
 
    Chora runs within the `Horde Application Framework`_, a set of common tools
-   for Web applications written in PHP.  You must install Horde before
+   for web applications written in PHP.  You must install Horde before
    installing Chora.
 
-   .. _`Horde Application Framework`: http://www.horde.org/horde/
+   .. Important:: Chora 3.0 requires version 4.0+ of the Horde Framework -
+                  earlier versions of Horde will **not** work.
 
-   The Horde Framework can be obtained from the Horde website and FTP server,
-   at
+   .. Important:: Be sure to have completed all of the steps in the
+                  `horde/docs/INSTALL`_ file for the Horde Framework before
+                  installing Chora. Many of Chora's prerequisites are also
+                  Horde prerequisites. Additionally, many of Chora's optional
+                  features are configured via the Horde install.
 
-      http://www.horde.org/horde/
-
-      ftp://ftp.horde.org/pub/horde/
-
-   Many of Chora's prerequisites are also Horde prerequisites.  Be sure to
-   have completed all of the steps in the INSTALL_ file for the Horde
-   Framework before installing Chora.
+   .. _`Horde Application Framework`: http://www.horde.org/apps/horde
 
 2. A VCS repository to view.
 
@@ -70,6 +54,54 @@ To function properly, Chora requires the following:
 
 Installing Chora
 ================
+
+There are several ways to install Chora. The recommended way to install Chora
+is using the PEAR installer. Alternatively it can be installed from
+tarballs. Finally, if you want to run the latest development code, or get the
+latest, not yet released, fixes, you can install Chora from Git.
+
+
+Installing with PEAR
+~~~~~~~~~~~~~~~~~~~~
+
+First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
+environment for Horde and install the Horde Framework.
+
+When installing Chora through PEAR now, the installer will automatically
+install any dependencies of Chora too. If you want to install Chora with all
+optional dependencies, but without the binary PECL packages that need to be
+compiled, specify both the ``-a`` and the ``-B`` flag::
+
+   pear install -a -B horde/chora
+
+By default, only the required dependencies will be installed::
+
+   pear install horde/chora
+
+If you want to install Chora even with all binary dependencies, you need to
+remove the ``-B`` flag. Please note that this might also try to install PHP
+extensions through PECL that might need further configuration or activation in
+your PHP configuration::
+
+   pear install -a horde/chora
+
+
+Installing from Release Tarballs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. Important:: As of today, there are no tarballs released for Chora 3
+               yet. Please use the `Installing with PEAR`_ method to install
+               Chora 3.
+
+Chora can be obtained from the Horde website and FTP server, at
+
+   http://www.horde.org/apps/chora
+
+   ftp://ftp.horde.org/pub/chora/
+
+Or use the mirror closest to you:
+
+   http://www.horde.org/mirrors.php
 
 Chora is written in PHP, and must be installed in a web-accessible directory.
 The precise location of this directory will differ from system to system.
@@ -94,27 +126,7 @@ and would then find Chora at the URL::
 Configuring Chora
 =================
 
-1. Configuring Horde for Chora
-
-   a. Register the application
-
-      In ``horde/config/registry.php``, find the ``applications['chora']``
-      stanza.  The default settings here should be okay, but you can change
-      them if desired.  If you have changed the location of Chora relative to
-      Horde, either in the URL, in the filesystem or both, you must update the
-      ``fileroot`` and ``webroot`` settings to their correct values.
-
-2. Configuring Chora
-
-   To configure Chora, change to the ``config/`` directory of the installed
-   distribution, and copy the ``backends.php.dist`` configuration file to
-   ``backends.php`` and edit it to your needs. You must be sure to list your
-   repository names and configuration information in ``backends.php``.
-
-   Documentation on the format and purpose of the configuration files in the
-   ``config/`` directory can be found in each file.  You may edit these files
-   if you wish to customize Chora's appearance and behavior.  The defaults
-   will be correct for most sites.
+1. Configuring Chora
 
    You must login to Horde as a Horde Administrator to finish the
    configuration of Chora.  Use the Horde ``Administration`` menu item to get
@@ -128,14 +140,18 @@ Configuring Chora
    choose one of the other methods to create the configuration file
    ``chora/config/conf.php``.
 
-   Note for international users: Chora uses GNU gettext to provide local
-   translations of text displayed by applications; the translations are found
-   in the po/ directory.  If a translation is not yet available for your
-   locale (and you wish to create one), see the ``horde/po/README`` file, or
-   if you're having trouble using a provided translation, please see the
-   `horde/docs/TRANSLATIONS`_ file for instructions.
+   To configure Chora, change to the ``config/`` directory of the installed
+   distribution, and copy the ``backends.php.dist`` configuration file to
+   ``backends.php`` and edit it to your needs. You must be sure to list your
+   repository names and configuration information in ``backends.php``.
 
-3. Testing Chora
+   Documentation on the format and purpose of the other configuration files in
+   the ``config/`` directory can be found in each file. You may create
+   ``*.local.php`` versions of these files if you wish to customize Chora's
+   appearance and behavior. See the header of the configuration files for
+   details and examples. The defaults will be correct for most sites.
+
+2. Testing Chora
 
    Go to the Chora URL, and test out all the functionality to ensure it is
    working.
@@ -153,13 +169,13 @@ If you encounter problems with Chora, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
 The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole.  Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users may also be found on IRC,
 on the channel #horde on the Freenode Network (irc.freenode.net).
@@ -167,7 +183,7 @@ on the channel #horde on the Freenode Network (irc.freenode.net).
 Please keep in mind that Chora is free software written by volunteers.  For
 information on reasonable support expectations, please read
 
-  http://www.horde.org/support.php
+  http://www.horde.org/community/support
 
 Thanks for using Chora!
 
@@ -175,7 +191,6 @@ The Horde team
 
 
 .. _README: ?f=README.html
-.. _`docs/HACKING`: ../../horde/docs/?f=HACKING.html
 .. _INSTALL:
 .. _`horde/docs/INSTALL`: ../../horde/docs/?f=INSTALL.html
 .. _`horde/docs/TRANSLATIONS`: ../../horde/docs/?f=TRANSLATIONS.html

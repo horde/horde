@@ -20,8 +20,10 @@ class IMP_Tree_Flist extends Horde_Tree_Select
      * @var array
      */
     protected $_allowed = array(
+        'container',
         'orig_label',
-        'selected'
+        'selected',
+        'vfolder'
     );
 
     /**
@@ -37,23 +39,25 @@ class IMP_Tree_Flist extends Horde_Tree_Select
      * @param string $name   The name of this tree instance.
      * @param array $params  Additional parameters.
      * <pre>
-     * 'abbrev' - (integer) Abbreviate long mailbox names by replacing the
-     *            middle of the name with '...'? Value is the total length
-     *            of the string.
-     *            DEFAULT: 30
-     * 'filter' - (array) An array of mailboxes to ignore.
-     *            DEFAULT: Display all
-     * 'heading' - (string) The label for an empty-value option at the top of
-     *             the list.
-     *             DEFAULT: ''
-     * 'inc_notepads' - (boolean) Include user's editable notepads in list?
-     *                   DEFAULT: No
-     * 'inc_tasklists' - (boolean) Include user's editable tasklists in list?
-     *                   DEFAULT: No
-     * 'inc_vfolder' - (boolean) Include user's virtual folders in list?
-     *                   DEFAULT: No
-     * 'new_folder' - (boolean) Display an option to create a new folder?
-     *                DEFAULT: No
+     * abbrev - (integer) Abbreviate long mailbox names by replacing the
+     *          middle of the name with '...'? Value is the total length
+     *          of the string.
+     *          DEFAULT: 30
+     * container_select - (boolean) Allow containers to be selected?
+     *                    DEFAULT: false
+     * filter - (array) An array of mailboxes to ignore.
+     *          DEFAULT: Display all
+     * heading - (string) The label for an empty-value option at the top of
+     *           the list.
+     *           DEFAULT: ''
+     * inc_notepads - (boolean) Include user's editable notepads in list?
+     *                 DEFAULT: No
+     * inc_tasklists - (boolean) Include user's editable tasklists in list?
+     *                 DEFAULT: No
+     * inc_vfolder - (boolean) Include user's virtual folders in list?
+     *               DEFAULT: No
+     * new_folder - (boolean) Display an option to create a new folder?
+     *              DEFAULT: No
      * </pre>
      */
     public function __construct($name, array $params = array())
@@ -86,8 +90,8 @@ class IMP_Tree_Flist extends Horde_Tree_Select
 
         /* New folder entry. */
         if ($this->getOption('new_folder') &&
-            ($injector->getInstance('Horde_Perms')->hasAppPermission('create_folders') &&
-             $injector->getInstance('Horde_Perms')->hasAppPermission('max_folders'))) {
+            ($injector->getInstance('Horde_Core_Perms')->hasAppPermission('create_folders') &&
+             $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_folders'))) {
             $t->set('new_mbox', true);
         }
 
@@ -98,10 +102,11 @@ class IMP_Tree_Flist extends Horde_Tree_Select
 
             $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER);
             foreach ($imp_search as $val) {
+                $form_to = IMP_Mailbox::formTo($val);
                 $vfolder_list[] = array(
                     'l' => $filter->filter($val->label, 'space2html', array('encode' => true)),
-                    'sel' => (IMP::$mailbox == $val),
-                    'v' => $val->form_to
+                    'sel' => !empty($this->_nodes[$form_to]['selected']),
+                    'v' => $form_to
                 );
             }
 
@@ -136,7 +141,6 @@ class IMP_Tree_Flist extends Horde_Tree_Select
                 $notepads = $registry->call('notes/listNotepads', array(false, Horde_Perms::EDIT));
 
                 if (count($notepads)) {
-                    $notepad_list[] = array();
                     foreach ($notepads as $id => $notepad) {
                         $notepad_list[] = array(
                             'l' => $filter->filter($notepad->get('name'), 'space2html', array('encode' => true)),
@@ -170,12 +174,23 @@ class IMP_Tree_Flist extends Horde_Tree_Select
             return '';
         }
 
+        $node = &$this->_nodes[$node_id];
+
         if ($abbrev = $this->getOption('abbrev')) {
-            $node = &$this->_nodes[$node_id];
             $orig_label = $node['label'];
             $node['label'] = Horde_String::abbreviate($node['orig_label'], $abbrev - ($node['indent'] * 2));
         } else {
             $orig_label = null;
+        }
+
+        /* Ignore container elements. */
+        if (!$this->getOption('container_select') &&
+            !empty($node['container'])) {
+            if (!empty($node['vfolder'])) {
+                return '';
+            }
+            $node_id = '';
+            $this->_nodes[$node_id] = $node;
         }
 
         $out = parent::_buildTree($node_id);

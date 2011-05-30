@@ -1,7 +1,6 @@
 <?php
 /**
- * The IMP_Compose:: class contains functions related to generating
- * outgoing mail messages.
+ * The IMP_Compose:: class represents an outgoing mail message.
  *
  * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
  *
@@ -23,6 +22,20 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
     /* The virtual path to save drafts. */
     const VFS_DRAFTS_PATH = '.horde/imp/drafts';
+
+    /* Compose types. */
+    const COMPOSE = 0;
+    const REPLY = 1;
+    const REPLY_ALL = 2;
+    const REPLY_AUTO = 3;
+    const REPLY_LIST = 4;
+    const REPLY_SENDER = 5;
+    const FORWARD = 6;
+    const FORWARD_ATTACH = 7;
+    const FORWARD_AUTO = 8;
+    const FORWARD_BODY = 9;
+    const FORWARD_BOTH = 10;
+    const REDIRECT = 11;
 
     /**
      * Mark as changed for purposes of storing in the session.
@@ -67,6 +80,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @var boolean
      */
     protected $_pgpAttachPubkey = false;
+
+    /**
+     * The reply type.
+     *
+     * @var integer
+     */
+    protected $_replytype = self::COMPOSE;
 
     /**
      * Whether the user's vCard should be attached to outgoing messages.
@@ -218,11 +238,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         /* Add information necessary to log replies/forwards when finally
          * sent. */
-        if ($this->getMetadata('reply_type')) {
+        if ($this->_replytype) {
             $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
             try {
                 $imap_url = $imp_imap->getUtils()->createUrl(array(
-                    'type' => $GLOBALS['session']->get('imp', 'protocol'),
+                    'type' => $imp_imap->pop3 ? 'pop' : 'imap',
                     'username' => $imp_imap->getParam('username'),
                     'hostspec' => $imp_imap->getParam('hostspec'),
                     'mailbox' => $this->getMetadata('mailbox'),
@@ -230,18 +250,19 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                     'uidvalidity' => $this->getMetadata('mailbox')->uidvalid
                 ));
 
-                switch ($this->getMetadata('reply_type')) {
-                case 'forward':
+                switch ($this->replyType(true)) {
+                case self::FORWARD:
                     $draft_headers->addHeader('X-IMP-Draft-Forward', '<' . $imap_url . '>');
                     break;
 
-                // 'reply', 'reply_all', 'reply_list'
-                default:
+                case self::REPLY:
                     $draft_headers->addHeader('X-IMP-Draft-Reply', '<' . $imap_url . '>');
-                    $draft_headers->addHeader('X-IMP-Draft-Reply-Type', $this->getMetadata('reply_type'));
+                    $draft_headers->addHeader('X-IMP-Draft-Reply-Type', $this->_replytype);
                     break;
                 }
             } catch (Horde_Exception $e) {}
+        } else {
+            $draft_headers->addHeader('X-IMP-Draft', 'Yes');
         }
 
         return $base->toString(array(
@@ -288,10 +309,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 $GLOBALS['injector']->getInstance('IMP_Message')->delete($old_uid, array('nuke' => true));
             }
 
-            $this->_metadata['draft_uid'] = new IMP_Indices($drafts_mbox, $ids);
+            $this->_metadata['draft_uid'] = $drafts_mbox->getIndicesOb($ids);
             $this->changed = 'changed';
             return sprintf(_("The draft has been saved to the \"%s\" folder."), $drafts_mbox->display);
-        } catch (Horde_Imap_Client_Exception $e) {
+        } catch (IMP_Imap_Exception $e) {
             return _("The draft was not successfully saved.");
         }
     }
@@ -323,27 +344,36 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         $headers = $contents->getHeaderOb();
+        $imp_draft = false;
         $reply_type = null;
 
-        if ($val = $headers->getValue('x-imp-draft-reply')) {
+        if ($draft_url = $headers->getValue('x-imp-draft-reply')) {
             if (!($reply_type = $headers->getValue('x-imp-draft-reply-type'))) {
-                $reply_type = 'reply';
+                $reply_type = self::REPLY;
             }
-        } elseif ($val = $headers->getValue('x-imp-draft-forward')) {
-            $reply_type = 'forward';
+            $imp_draft = self::REPLY;
+        } elseif ($draft_url = $headers->getValue('x-imp-draft-forward')) {
+            $imp_draft = $reply_type = self::FORWARD;
+        } elseif ($headers->getValue('x-imp-draft')) {
+            $imp_draft = self::COMPOSE;
         }
 
-        if ($GLOBALS['session']->get('imp', 'view') == 'mimp') {
+        if (IMP::getViewMode() == 'mimp') {
             $compose_html = false;
         } elseif ($prefs->getValue('compose_html')) {
             $compose_html = true;
         } else {
             switch ($reply_type) {
-            case 'forward':
+            case self::FORWARD:
+            case self::FORWARD_BODY:
+            case self::FORWARD_BOTH:
                 $compose_html = $prefs->getValue('forward_format');
                 break;
 
-            case 'reply':
+            case self::REPLY:
+            case self::REPLY_ALL:
+            case self::REPLY_LIST:
+            case self::REPLY_SENDER:
                 $compose_html = $prefs->getValue('reply_format');
                 break;
 
@@ -355,6 +385,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         $msg_text = $this->_getMessageText($contents, array(
             'html' => $compose_html,
+            'imp_msg' => $imp_draft,
             'toflowed' => false
         ));
 
@@ -413,21 +444,22 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
         }
 
-        if ($val) {
+        if ($draft_url) {
             $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-            $imap_url = $imp_imap->getUtils()->parseUrl(rtrim(ltrim($val, '<'), '>'));
+            $imap_url = $imp_imap->getUtils()->parseUrl(rtrim(ltrim($draft_url, '<'), '>'));
+            $protocol = $imp_imap->pop3 ? 'pop' : 'imap';
 
             try {
-                if (($imap_url['type'] == $GLOBALS['session']->get('imp', 'protocol')) &&
+                if (($imap_url['type'] == $protocol) &&
                     ($imap_url['username'] == $imp_imap->getParam('username')) &&
                     // Ignore hostspec and port, since these can change
                     // even though the server is the same. UIDVALIDITY should
                     // catch any true server/backend changes.
-                    ($imp_imap->checkUidvalidity($imap_url['mailbox']) == $imap_url['uidvalidity']) &&
+                    (IMP_Mailbox::get($imap_url['mailbox'])->uidvalid == $imap_url['uidvalidity']) &&
                     $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imap_url['mailbox'], $imap_url['uid']))) {
                     $this->_metadata['mailbox'] = IMP_Mailbox::get($imap_url['mailbox']);
-                    $this->_metadata['reply_type'] = $reply_type;
                     $this->_metadata['uid'] = $imap_url['uid'];
+                    $this->_replytype = $reply_type;
                 }
             } catch (Exception $e) {}
         }
@@ -569,47 +601,68 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $headers->addUserAgentHeader();
 
         /* Send the messages out now. */
-        if (!($reply_type = $this->getMetadata('reply_type'))) {
-            $reply_type = 'new';
-        }
-
         $sentmail = $injector->getInstance('IMP_Sentmail');
 
         foreach ($send_msgs as $val) {
+            switch ($this->_replytype) {
+            case self::COMPOSE:
+                $senttype = IMP_Sentmail::NEWMSG;
+                break;
+
+            case self::REPLY:
+            case self::REPLY_ALL:
+            case self::REPLY_LIST:
+            case self::REPLY_SENDER:
+                $senttype = IMP_Sentmail::REPLY;
+                break;
+
+            case self::FORWARD:
+            case self::FORWARD_ATTACH:
+            case self::FORWARD_BODY:
+            case self::FORWARD_BOTH:
+                $senttype = IMP_Sentmail::FORWARD;
+                break;
+
+            case self::REDIRECT:
+                $senttype = IMP_Sentmail::REDIRECT;
+                break;
+            }
+
             try {
                 $this->sendMessage($val['to'], $headers, $val['msg']);
+
+                /* Store history information. */
+                $sentmail->log($senttype, $headers->getValue('message-id'), $val['recipients'], true);
             } catch (IMP_Compose_Exception $e) {
                 /* Unsuccessful send. */
-                Horde::logMessage($e, 'ERR');
-                $sentmail->log($reply_type, $headers->getValue('message-id'), $val['recipients'], false);
+                if ($e->log()) {
+                    $sentmail->log($senttype, $headers->getValue('message-id'), $val['recipients'], false);
+                }
                 throw new IMP_Compose_Exception(sprintf(_("There was an error sending your message: %s"), $e->getMessage()));
             }
 
-            /* Store history information. */
-            $sentmail->log($reply_type, $headers->getValue('message-id'), $val['recipients'], true);
         }
 
         $sent_saved = true;
 
-        if ($reply_type != 'new') {
+        if ($this->_replytype) {
             /* Log the reply. */
             if ($this->getMetadata('in_reply_to') &&
                 !empty($conf['maillog']['use_maillog'])) {
-                IMP_Maillog::log($reply_type, $this->getMetadata('in_reply_to'), $recipients);
+                IMP_Maillog::log($this->_replytype, $this->getMetadata('in_reply_to'), $recipients);
             }
 
             $imp_message = $injector->getInstance('IMP_Message');
             $reply_uid = new IMP_Indices($this);
 
-            switch ($reply_type) {
-            case 'forward':
+            switch ($this->replyType(true)) {
+            case self::FORWARD:
                 /* Set the Forwarded flag, if possible, in the mailbox.
                  * See RFC 5550 [5.9] */
                 $imp_message->flag(array(Horde_Imap_Client::FLAG_FORWARDED), $reply_uid);
                 break;
 
-            // 'reply', 'reply_all', 'reply_list'
-            default:
+            case self::REPLY:
                 /* Make sure to set the IMAP reply flag and unset any
                  * 'flagged' flag. */
                 $imp_message->flag(array(Horde_Imap_Client::FLAG_ANSWERED), $reply_uid);
@@ -672,8 +725,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
             try {
                 $injector->getInstance('IMP_Factory_Imap')->create()->append($sent_folder, array(array('data' => $fcc, 'flags' => $flags)));
-            } catch (Horde_Imap_Client_Exception $e) {
-                $notification->push(sprintf(_("Message sent successfully, but not saved to %s"), $sent_folder->display));
+            } catch (IMP_Imap_Exception $e) {
+                $notification->push(sprintf(_("Message sent successfully, but not saved to %s."), $sent_folder->display));
                 $sent_saved = false;
             }
         }
@@ -731,7 +784,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $ob->addHeader('Subject', $headers['subject']);
         }
 
-        if (strpos($this->getMetadata('reply_type'), 'reply') === 0) {
+        if ($this->replyType(true) == self::REPLY) {
             if ($this->getMetadata('references')) {
                 $ob->addHeader('References', implode(' ', preg_split('|\s+|', trim($this->getMetadata('references')))));
             }
@@ -810,11 +863,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 : 1;
         }
 
-        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
-
-        if (!$perms->hasAppPermission('max_timelimit', array('opts' => array('value' => $recipients)))) {
+        if (!$GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_timelimit', array('opts' => array('value' => $recipients)))) {
             Horde::permissionDeniedError('imp', 'max_timelimit');
-            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $perms->getPermissions('imp:max_timelimit'), $GLOBALS['conf']['sentmail']['params']['limit_period']));
+            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('imp:max_timelimit', $GLOBALS['registry']->getAuth()), $GLOBALS['conf']['sentmail']['params']['limit_period']));
         }
 
         /* Pass to hook to allow alteration of message details. */
@@ -933,7 +984,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             if (empty($name)) {
                 $name = $recipient['mailbox'];
             }
-            $name = Horde_Mime::decode($name);
+            $name = Horde_Mime::decode($name, 'UTF-8');
 
             try {
                 $registry->call('contacts/import', array(array('name' => $name, 'email' => $recipient['mailbox'] . '@' . $recipient['host']), 'array', $abook));
@@ -1020,11 +1071,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 $recipients += count(explode(',', $recipient));
             }
 
-            $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
-
-            if (!$perms->hasAppPermission('max_recipients', array('opts' => array('value' => $recipients)))) {
+            if (!$GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_recipients', array('opts' => array('value' => $recipients)))) {
                 Horde::permissionDeniedError('imp', 'max_recipients');
-                throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients."), $perms->getPermissions('imp:max_recipients')));
+                throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients."), $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('imp:max_recipients', $GLOBALS['registry']->getAuth())));
             }
         }
 
@@ -1309,21 +1358,20 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     /**
      * Determines the reply text and headers for a message.
      *
-     * @param string $type            The reply type (reply, reply_all,
-     *                                reply_auto, or reply_list).
+     * @param integer $type           The reply type (self::REPLY* constant).
      * @param IMP_Contents $contents  An IMP_Contents object.
      * @param string $to              The recipient of the reply. Overrides
      *                                the automatically determined value.
      *
      * @return array  An array with the following keys:
      * <pre>
-     * 'body'     - The text of the body part
-     * 'format'   - The format of the body message
-     * 'headers'  - The headers of the message to use for the reply
-     * 'identity' - The identity to use for the reply based on the original
-     *              message's addresses.
-     * 'type'     - The reply type used (either 'reply', 'reply_all', or
-     *              'reply_list').
+     * body - The text of the body part
+     * format - The format of the body message
+     * headers - The headers of the message to use for the reply
+     * identity - The identity to use for the reply based on the original
+     *            message's addresses.
+     * type - The reply type used (either self::REPLY_ALL, self::REPLY_LIST,
+     *        or self::REPLY_SENDER).
      * </pre>
      */
     public function replyMessage($type, $contents, $to = null)
@@ -1340,9 +1388,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         $h = $contents->getHeaderOb();
         $match_identity = $this->_getMatchingIdentity($h);
-        $reply_type = 'reply';
+        $reply_type = self::REPLY_SENDER;
 
-        if (!$this->getMetadata('reply_type')) {
+        if (!$this->_replytype) {
             $this->_metadata['mailbox'] = $contents->getMailbox();
             $this->_metadata['uid'] = $contents->getUid();
             $this->changed = 'changed';
@@ -1366,7 +1414,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             : 'Re: ' . $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->getBaseSubject($subject, array('keepblob' => true));
 
         $force = false;
-        if (in_array($type, array('reply', 'reply_auto'))) {
+        if (in_array($type, array(self::REPLY_AUTO, self::REPLY_SENDER))) {
             if (($header['to'] = $to) ||
                 ($header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('reply-to')))) {
                 $force = true;
@@ -1376,7 +1424,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         /* We might need $list_info in the reply_all section. */
-        if (in_array($type, array('reply_auto', 'reply_list'))) {
+        if (in_array($type, array(self::REPLY_AUTO, self::REPLY_LIST))) {
             $imp_ui = new IMP_Ui_Message();
             $list_info = $imp_ui->getListInformation($h);
         } else {
@@ -1388,11 +1436,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
              * to handle these address separately. */
             if (Horde_Mime_Address::bareAddress($list_info['reply_list']) != Horde_Mime_Address::bareAddress($header['to'])) {
                 $header['to'] = $list_info['reply_list'];
-                $reply_type = 'reply_list';
+                $reply_type = self::REPLY_LIST;
             }
-        } elseif (in_array($type, array('reply_all', 'reply_auto'))) {
+        } elseif (in_array($type, array(self::REPLY_ALL, self::REPLY_AUTO))) {
             /* Clear the To field if we are auto-determining addresses. */
-            if ($type == 'reply_auto') {
+            if ($type == self::REPLY_AUTO) {
                 $header['to'] = '';
             }
 
@@ -1466,7 +1514,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
 
             if (empty($header['to']) && (count($hdr_cc) > 1)) {
-                $reply_type = 'reply_all';
+                $reply_type = self::REPLY_ALL;
             }
             $header[empty($header['to']) ? 'to' : 'cc'] = rtrim(implode('', $hdr_cc), ' ,');
 
@@ -1474,9 +1522,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $header['bcc'] = Horde_Mime_Address::addrArray2String($h->getOb('bcc') + $identity->getBccAddresses(), array('filter' => $all_addrs));
         }
 
-        if (!isset($this->_metadata['reply_type']) ||
-            ($reply_type != $this->_metadata['reply_type'])) {
-            $this->_metadata['reply_type'] = $reply_type;
+        if (!$this->_replytype || ($reply_type != $this->_replytype)) {
+            $this->_replytype = $reply_type;
             $this->changed = 'changed';
         }
 
@@ -1582,7 +1629,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      */
     protected function _msgTextFormat($opts, $pref_name)
     {
-        if ($GLOBALS['session']->get('imp', 'view') == 'mimp') {
+        if (IMP::getViewMode() == 'mimp') {
             $compose_html = $force_html = false;
         } elseif (!empty($opts['format'])) {
             $compose_html = $force_html = ($opts['format'] == 'html');
@@ -1599,21 +1646,20 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     /**
      * Determine the text and headers for a forwarded message.
      *
-     * @param string $type            The forward type (forward_attach,
-     *                                forward_body, forward_both,
-     *                                forward_auto).
+     * @param integer $type           The forward type (self::FORWARD*
+     *                                constant).
      * @param IMP_Contents $contents  An IMP_Contents object.
      * @param boolean $attach         Attach the forwarded message?
      *
      * @return array  An array with the following keys:
      * <pre>
-     * 'body'     - The text of the body part
-     * 'format'   - The format of the body message
-     * 'headers'  - The headers of the message to use for the reply
-     * 'identity' - The identity to use for the reply based on the original
+     * body - The text of the body part
+     * format - The format of the body message
+     * headers - The headers of the message to use for the reply
+     * identity - The identity to use for the reply based on the original
      *              message's addresses.
-     * 'type'     - The forward type used (either 'forward_attach',
-     *              'forward_body', or 'forward_both').
+     * type - The forward type used (either self::FORWARD_ATTACH,
+     *        self::FORWARD_BODY, or self::FORWARD_BOTH).
      * </pre>
      */
     public function forwardMessage($type, $contents, $attach = true)
@@ -1626,11 +1672,21 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             'subject' => ''
         );
 
-        if ($type == 'forward_auto') {
-            if (!($type = $GLOBALS['prefs']->getValue('forward_default'))) {
-                $type = 'attach';
+        if ($type == self::FORWARD_AUTO) {
+            switch ($GLOBALS['prefs']->getValue('forward_default')) {
+            case 'body':
+                $type = self::FORWARD_BODY;
+                break;
+
+            case 'both':
+                $type = self::FORWARD_BOTH;
+                break;
+
+            case 'attach':
+            default:
+                $type = self::FORWARD_ATTACH;
+                break;
             }
-            $type = 'forward_' . $type;
         }
 
         $h = $contents->getHeaderOb();
@@ -1643,8 +1699,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         /* We need the Message-Id so we can log this event. This header is not
          * added to the outgoing messages. */
         $this->_metadata['in_reply_to'] = trim($h->getValue('message-id'));
-        $this->_metadata['reply_type'] = 'forward';
-        $this->_metadata['forward_type'] = $type;
+        $this->_replytype = $type;
         $this->changed = 'changed';
 
         $header['subject'] = $h->getValue('subject');
@@ -1658,13 +1713,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         if ($attach &&
-            in_array($type, array('forward_attach', 'forward_both'))) {
+            in_array($type, array(self::FORWARD_ATTACH, self::FORWARD_BOTH))) {
             try {
                 $this->attachImapMessage(new IMP_Indices($contents));
             } catch (IMP_Exception $e) {}
         }
 
-        if (in_array($type, array('forward_body', 'forward_both'))) {
+        if (in_array($type, array(self::FORWARD_BODY, self::FORWARD_BOTH))) {
             $ret = $this->forwardMessageText($contents);
             $this->charset = $ret['charset'];
             unset($ret['charset']);
@@ -1744,8 +1799,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     public function redirectMessage($contents)
     {
         $this->_metadata['mailbox'] = $contents->getMailbox();
-        $this->_metadata['reply_type'] = 'redirect';
         $this->_metadata['uid'] = $contents->getUid();
+        $this->_replytype = self::REDIRECT;
         $this->changed = 'changed';
     }
 
@@ -1791,12 +1846,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         /* Store history information. */
         if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
-            IMP_Maillog::log('redirect', $headers->getValue('message-id'), $recipients);
+            IMP_Maillog::log(self::REDIRECT, $headers->getValue('message-id'), $recipients);
         }
 
-        if ($GLOBALS['conf']['sentmail']['driver'] != 'none') {
-            $GLOBALS['injector']->getInstance('IMP_Sentmail')>log('redirect', $headers->getValue('message-id'), $recipients);
-        }
+        $GLOBALS['injector']->getInstance('IMP_Sentmail')->log(IMP_Sentmail::REDIRECT, $headers->getValue('message-id'), $recipients);
     }
 
     /**
@@ -1912,9 +1965,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
     /**
      * Adds an attachment to a Horde_Mime_Part from an uploaded file.
-     * The actual attachment data is stored in a separate file - the
-     * Horde_Mime_Part information entries 'temp_filename' and 'temp_filetype'
-     * are set with this information.
      *
      * @param string $name  The input field name from the form.
      *
@@ -1954,7 +2004,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $part->setType($type);
         if ($part->getPrimaryType() == 'text') {
             if ($analyzetype = Horde_Mime_Magic::analyzeFile($tempfile, empty($conf['mime']['magic_db']) ? null : $conf['mime']['magic_db'], array('nostrip' => true))) {
-                $analyzetype = Horde_Mime::decodeParam('Content-Type', $analyzetype);
+                $analyzetype = Horde_Mime::decodeParam('Content-Type', $analyzetype, 'UTF-8');
                 $part->setCharset(isset($analyzetype['params']['charset']) ? $analyzetype['params']['charset'] : 'UTF-8');
             } else {
                 $part->setCharset('UTF-8');
@@ -2028,7 +2078,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         /* Set the size of the part explicitly since the part will not
          * contain the data until send time. */
-        $part->setBytes($part->getBytes());
+        $bytes = $part->getBytes();
+        $part->setBytes($bytes);
 
         /* We don't want the contents stored in the serialized object, so
          * remove. We store the data in VFS in binary format so indicate that
@@ -2070,7 +2121,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 } else {
                     $vfs->writeData(self::VFS_ATTACH_PATH, $cacheID, $data, true);
                 }
-            } catch (VFS_Exception $e) {
+            } catch (Horde_Vfs_Exception $e) {
                 throw new IMP_Compose_Exception($e);
             }
 
@@ -2136,7 +2187,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             try {
                 $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
                 $atc['part']->setContents($vfs->read(self::VFS_ATTACH_PATH, $atc['filename']));
-            } catch (VFS_Exception $e) {}
+            } catch (Horde_Vfs_Exception $e) {}
             break;
         }
 
@@ -2373,8 +2424,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $baseurl = Horde::url('attachment.php', true)->setRaw(true);
 
         try {
-            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-        } catch (VFS_Exception $e) {
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
+        } catch (Horde_Vfs_Exception $e) {
             throw new IMP_Compose_Exception($e);
         }
 
@@ -2393,7 +2444,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         foreach ($this as $att) {
-            $trailer .= "\n" . $baseurl->copy()->add(array('u' => $auth, 't' => $ts, 'f' => $att['part']->getName()));
+            $trailer .= "\n" . $baseurl->copy()->add(array(
+                'f' => $att['part']->getName(),
+                't' => $ts,
+                'u' => $auth
+            ));
 
             try {
                 if ($att['filetype'] == 'vfs') {
@@ -2402,7 +2457,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                     $data = file_get_contents($att['filename']);
                     $vfs->writeData($fullpath, escapeshellcmd($att['part']->getName()), $data, true);
                 }
-            } catch (VFS_Exception $e) {
+            } catch (Horde_Vfs_Exception $e) {
                 Horde::logMessage($e, 'ERR');
                 return IMP_Compose_Exception($e);
             }
@@ -2438,9 +2493,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @param IMP_Contents $contents  An IMP_Contents object.
      * @param array $options          Additional options:
      * <pre>
-     * 'html' - (boolean) Return text/html part, if available.
-     * 'replylimit' - (boolean) Enforce length limits?
-     * 'toflowed' - (boolean) Do flowed conversion?
+     * html - (boolean) Return text/html part, if available.
+     * imp_msg - (integer) If non-empty, the message data was created by IMP.
+     *           Either self::COMPOSE, self::FORWARD, or self::REPLY.
+     * replylimit - (boolean) Enforce length limits?
+     * toflowed - (boolean) Do flowed conversion?
      * </pre>
      *
      * @return mixed  Null if bodypart not found, or array with the following
@@ -2452,16 +2509,36 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * 'text' - (string) The body text.
      * </pre>
      */
-    protected function _getMessageText($contents, $options = array())
+    protected function _getMessageText($contents, array $options = array())
     {
         $body_id = null;
         $mode = 'text';
+        $options = array_merge(array(
+            'imp_msg' => self::COMPOSE
+        ), $options);
 
         if (!empty($options['html']) &&
             $GLOBALS['session']->get('imp', 'rteavail')) {
             $body_id = $contents->findBody('html');
             if (!is_null($body_id)) {
-                $mode = 'html';
+                switch ($options['imp_msg']) {
+                case self::REPLY:
+                    $check_id = '2';
+                    break;
+
+                case self::COMPOSE:
+                case self::FORWARD:
+                default:
+                    $check_id = '1';
+                    break;
+                }
+
+                if ((strval($body_id) == $check_id) ||
+                    Horde_Mime::isChild($check_id, $body_id)) {
+                    $mode = 'html';
+                } else {
+                    $body_id = null;
+                }
             }
         }
 
@@ -2689,7 +2766,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $vfs->writeData(self::VFS_DRAFTS_PATH, hash('md5', $vars->user), $body, true);
 
             $GLOBALS['notification']->push(_("The message you were composing has been saved as a draft. The next time you login, you may resume composing your message."));
-        } catch (VFS_Exception $e) {}
+        } catch (Horde_Vfs_Exception $e) {}
     }
 
     /**
@@ -2705,7 +2782,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         try {
             $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             return;
         }
 
@@ -2713,7 +2790,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             try {
                 $data = $vfs->read(self::VFS_DRAFTS_PATH, $filename);
                 $vfs->deleteFile(self::VFS_DRAFTS_PATH, $filename);
-            } catch (VFS_Exception $e) {
+            } catch (Horde_Vfs_Exception $e) {
                 return;
             }
 
@@ -2732,9 +2809,43 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      */
     public function getContentsOb()
     {
-        return $this->getMetadata('reply_type')
+        return $this->_replytype
             ? $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($this->getMetadata('mailbox'), $this->getMetadata('uid')))
             : null;
+    }
+
+    /**
+     * Return the reply type.
+     *
+     * @param boolean $base  Return the base reply type?
+     *
+     * @return string  The reply type, or null if not a reply.
+     */
+    public function replyType($base = false)
+    {
+        switch ($this->_replytype) {
+        case self::FORWARD:
+        case self::FORWARD_ATTACH:
+        case self::FORWARD_BODY:
+        case self::FORWARD_BOTH:
+            return $base
+                ? self::FORWARD
+                : $this->_replytype;
+
+        case self::REPLY:
+        case self::REPLY_ALL:
+        case self::REPLY_LIST:
+        case self::REPLY_SENDER:
+            return $base
+                ? self::REPLY
+                : $this->_replytype;
+
+        case self::REDIRECT:
+            return $this->_replytype;
+
+        default:
+            return null;
+        }
     }
 
     /* Static utility functions. */
@@ -2873,7 +2984,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             try {
                 $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
                 $vfs->deleteFile(self::VFS_ATTACH_PATH, $atc['filename']);
-            } catch (VFS_Exception $e) {}
+            } catch (Horde_Vfs_Exception $e) {}
             break;
         }
 

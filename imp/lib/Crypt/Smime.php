@@ -121,11 +121,11 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      *
      * @param string $cert  A public certificate to add.
      *
-     * @throws Horde_Crypt_Exception
+     * @throws Horde_Exception
      */
     public function addPublicKey($cert)
     {
-        list($name, $mail) = $this->publicKeyInfo($cert);
+        list($name, $email) = $this->publicKeyInfo($cert);
 
         $GLOBALS['registry']->call('contacts/addField', array($email, $name, self::PUBKEY_FIELD, $cert, $GLOBALS['prefs']->getValue('add_source')));
     }
@@ -161,7 +161,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
             throw new Horde_Crypt_Exception(_("No email information located in the public key."));
         }
 
-        return array($name, $mail);
+        return array($name, $email);
     }
 
     /**

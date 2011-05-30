@@ -3,31 +3,34 @@
  <name>Horde_Memcache</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Memcache API</summary>
- <description>The Horde_Memcache library provides an API to access a memcache installation in Horde code.</description>
+ <description>Provides an API to access a memcache installation.</description>
  <lead>
   <name>Michael Slusarz</name>
   <user>slusarz</user>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:48:13</time>
+ <date>2011-05-26</date>
+ <time>18:19:20</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* Use memcache flags to keep track of large objects (Request #10123; goncalo.queiros@portugalmail.net).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
+     <dir name="Memcache">
+      <file name="Exception.php" role="php" />
+     </dir> <!-- /lib/Horde/Memcache -->
      <file name="Memcache.php" role="php" />
     </dir> <!-- //lib/Horde -->
    </dir> <!-- //lib -->
@@ -44,18 +47,23 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
-   <extension>
+   <package>
     <name>memcache</name>
+    <channel>pecl.php.net</channel>
+   </package>
+   <extension>
+    <name>hash</name>
    </extension>
   </required>
  </dependencies>
  <phprelease>
   <filelist>
    <install as="Horde/Memcache.php" name="lib/Horde/Memcache.php" />
+   <install as="Horde/Memcache/Exception.php" name="lib/Horde/Memcache/Exception.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -73,6 +81,92 @@
    <notes>
 * First alpha release for Horde 4.
 * Remove Horde_Core dependency.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-16</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First beta release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-22</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Second release candidate for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First stable release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Fix dependency.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-26</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Use memcache flags to keep track of large objects (Request #10123; goncalo.queiros@portugalmail.net).
    </notes>
   </release>
  </changelog>

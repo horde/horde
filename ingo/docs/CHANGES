@@ -1,4 +1,50 @@
 ----------
+v2.0.2-git
+----------
+
+
+
+------
+v2.0.1
+------
+
+[mms] Fix folder selection (Bug #9907).
+[mms] Fix filtering using the IMAP driver (Bug #9859).
+
+
+----
+v2.0
+----
+
+[jan] Fix application-specific permission checks (Bug #9786).
+[jan] Correctly escape vacation subjects with quote characters in Maildrop
+      driver (Bug #9156).
+[jan] Catch all PEAR errors in Sieve driver.
+[jan] Allow script drivers to provide additional scripts to upload (Bug #8110).
+[jan] Change default Sieve port to 4190 (Request #9791).
+[jan] Fix reading default forward rule from preferences.
+[jan] Fix removing flags with Sieve driver (Vilius Sumskas <vilius@lnk.lt>,
+      Bug #9785).
+[mjr] Datatree share to SQL upgrade script refactored for Horde 4.
+
+
+--------
+v2.0-RC2
+--------
+
+[jan] Fix updating forward rules in SQL driver (Bug #9699).
+
+
+--------
+v2.0-RC1
+--------
+
+[jan] Update installation and upgrade instructions.
+[jan] Fix instantiation of VFS transport driver (Bug #9605).
+[jan] Fix moving rules with the SQL driver (Bug #9672).
+
+
+----------
 v2.0-BETA1
 ----------
 

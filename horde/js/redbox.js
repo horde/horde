@@ -1,6 +1,8 @@
 /**
  * RedBox - display a non-modal dialog box.
  *
+ * Requires prototypejs 1.6+ and scriptaculous 1.8+ (effects.js only).
+ *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */

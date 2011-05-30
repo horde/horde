@@ -20,8 +20,9 @@ class IMP_Views_Compose
      * @param array $args  Configuration parameters:
      * <pre>
      * 'composeCache' - (string) The cache ID of the IMP_Compose object.
-     * 'redirect' - (string) Display the redirect interface?
      * 'qreply' - (boolean) Is this a quickreply view?
+     * 'redirect' - (string) Display the redirect interface?
+     * 'show_editor' - (boolean) Show the HTML editor?
      * </pre>
      *
      * @return array  Array with the following keys:
@@ -33,7 +34,7 @@ class IMP_Views_Compose
      */
     static public function showCompose($args)
     {
-        global $conf, $injector, $prefs, $registry;
+        global $conf, $injector, $prefs, $registry, $session;
 
         $result = array(
             'html' => '',
@@ -74,39 +75,46 @@ class IMP_Views_Compose
                 $result['js'][] = 'DIMP.conf_compose.qreply = 1';
             }
 
-            if ($GLOBALS['session']->get('imp', 'rteavail')) {
-                $t->set('compose_html', $prefs->getValue('compose_html'));
+            if ($session->get('imp', 'rteavail')) {
+                $t->set('compose_html', !empty($args['show_editor']));
                 $t->set('rte', true);
 
                 IMP_Ui_Editor::init(!$t->get('compose_html'));
             }
 
             /* Create list for sent-mail selection. */
-            if (!empty($conf['user']['select_sentmail_folder']) &&
-                !$prefs->isLocked('sent_mail_folder')) {
-                /* Check to make sure the sent-mail folders are created - they
-                 * need to exist to show up in drop-down list. */
-                foreach (array_keys($identity->getAll('id')) as $ident) {
-                    $identity->getValue('sent_mail_folder', $ident)->create();
-                }
+            if ($injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
+                $t->set('save_sent_mail', !$prefs->isLocked('save_sent_mail'));
 
-                $flist = array();
-                $imaptree = $injector->getInstance('IMP_Imap_Tree');
-
-                foreach ($imaptree as $val) {
-                    $tmp = array(
-                        'f' => $val->display,
-                        'l' => Horde_String::abbreviate(str_repeat(' ', 2 * $val->level) . $val->basename, 30),
-                        'v' => $val->container ? '' : $val->value
-                    );
-                    if ($tmp['f'] == $tmp['v']) {
-                        unset($tmp['f']);
+                if (!empty($conf['user']['select_sentmail_folder']) &&
+                    !$prefs->isLocked('sent_mail_folder')) {
+                    /* Check to make sure the sent-mail folders are created -
+                     * they need to exist to show up in drop-down list. */
+                    foreach (array_keys($identity->getAll('id')) as $ident) {
+                        $folder = $identity->getValue('sent_mail_folder', $ident);
+                        if ($folder instanceof IMP_Mailbox) {
+                            $folder->create();
+                        }
                     }
-                    $flist[] = $tmp;
+
+                    $flist = array();
+                    $imaptree = $injector->getInstance('IMP_Imap_Tree');
+
+                    foreach ($imaptree as $val) {
+                        $tmp = array(
+                            'f' => $val->display,
+                            'l' => Horde_String::abbreviate(str_repeat(' ', 2 * $val->level) . $val->basename, 30),
+                            'v' => $val->container ? '' : $val->value
+                        );
+                        if ($tmp['f'] == $tmp['v']) {
+                            unset($tmp['f']);
+                        }
+                        $flist[] = $tmp;
+                    }
+                    $result['js'] = array_merge($result['js'], Horde::addInlineJsVars(array(
+                        'DIMP.conf_compose.flist' => $flist
+                    ), array('ret_vars' => true)));
                 }
-                $result['js'] = array_merge($result['js'], Horde::addInlineJsVars(array(
-                    'DIMP.conf_compose.flist' => $flist
-                ), array('ret_vars' => true)));
             }
 
             $compose_link = Horde::getServiceLink('ajax', 'imp');
@@ -135,15 +143,11 @@ class IMP_Views_Compose
                 $t->set('read_receipt_set', ($d_read != 'ask'));
             }
 
-            $t->set('save_sent_mail', ($injector->getInstance('IMP_Factory_Imap')->create()->allowFolders() && !$prefs->isLocked('save_sent_mail')));
             $t->set('priority', $prefs->getValue('set_priority'));
             if (!$prefs->isLocked('default_encrypt') &&
                 ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {
-                $t->set('encrypt', IMP::ENCRYPT_NONE);
+                $t->set('encrypt', $prefs->getValue('default_encrypt'));
             }
-
-            $stationery = $GLOBALS['injector']->getInstance('IMP_Compose_Stationery');
-            $t->set('stationery', count($stationery));
 
             $select_list = array();
             foreach ($identity->getSelectList() as $id => $from) {

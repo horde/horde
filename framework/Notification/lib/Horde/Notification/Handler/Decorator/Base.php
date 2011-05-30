@@ -30,13 +30,14 @@ class Horde_Notification_Handler_Decorator_Base
     /**
      * Listeners are handling their messages.
      *
-     * @param array $options  An array containing display options for the
-     *                        listeners (see Horde_Notification_Handler for
-     *                        details).
+     * @param Horde_Notification_Handler $handler    The base handler object.
+     * @param Horde_Notification_Listener $listener  The Listener object that
+     *                                               is handling its messages.
      *
      * @throws Horde_Notification_Exception
      */
-    public function notify($options)
+    public function notify(Horde_Notification_Handler $handler,
+                           Horde_Notification_Listener $listener)
     {
     }
 

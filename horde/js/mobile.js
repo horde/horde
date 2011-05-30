@@ -53,6 +53,7 @@
 
     doActionComplete: function(d, callback)
     {
+        HordeMobile.inAjaxCallback = true;
         var r = d.response;
         if (r && $.isFunction(callback)) {
             try {
@@ -99,7 +100,7 @@
             }
         });
         if (list.html()) {
-            $.mobile.changePage('notification');
+            $.mobile.changePage('notification', 'pop');
             list.listview('refresh');
         }
     },

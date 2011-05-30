@@ -76,7 +76,7 @@ class Folks_Driver {
             $img = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Image')->create(array('type' => $conf['images']['image_type']));
             $result = $img->loadFile($file);
         } catch (Horde_Exception $e) {
-            throw new Horde_Exception_Prior($e);
+            throw new Horde_Exception_Wrapped($e);
         }
         $dimensions = $img->getDimensions();
         if ($dimensions instanceof PEAR_Error) {
@@ -88,7 +88,7 @@ class Folks_Driver {
         // Store big image
         try {
             $vfs->writeData($vfspath . '/big/', $vfs_name, $img->raw(), true);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             return PEAR::raiseError($result->getMessage());
         }
 
@@ -116,7 +116,7 @@ class Folks_Driver {
         try {
             $vfs->deleteFile($vfspath . '/big/', $vfs_name);
             $vfs->deleteFile($vfspath . '/small/', $vfs_name);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             return $e->getMessage();
         }
 

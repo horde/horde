@@ -11,6 +11,6 @@
  * @category Horde
  * @package  Alarm
  */
-class Horde_Alarm_Exception extends Horde_Exception_Prior
+class Horde_Alarm_Exception extends Horde_Exception_Wrapped
 {
 }

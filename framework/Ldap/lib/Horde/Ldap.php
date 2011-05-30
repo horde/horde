@@ -493,7 +493,7 @@ class Horde_Ldap
         try {
             $rootDSE = $this->rootDSE();
         } catch (Exception $e) {
-            throw new Horde_Ldap_Exception('Unable to fetch rootDSE entry to see if TLS is supoported: ' . $e->getMessage(), $e->getCode());
+            throw new Horde_Ldap_Exception('Unable to fetch rootDSE entry to see if TLS is supported: ' . $e->getMessage(), $e->getCode());
         }
 
         try {

@@ -29,7 +29,7 @@ case 'save_file':
     try {
         $gollem_vfs->writeData($vars->filedir, $vars->filename, $vars->content);
         $message = sprintf(_("%s successfully saved."), $vars->filename);
-    } catch (VFS_Exception $e) {
+    } catch (Horde_Vfs_Exception $e) {
         $message = sprintf(_("Access denied to %s"), $vars->filename);
     }
     echo Horde::wrapInlineScript(array(
@@ -40,7 +40,7 @@ case 'save_file':
 case 'edit_file':
     try {
         $data = $gollem_vfs->read($vars->filedir, $vars->filename);
-    } catch (VFS_Exception $e) {
+    } catch (Horde_Vfs_Exception $e) {
         echo Horde::wrapInlineScript(array(
             'alert("' . addslashes(sprintf(_("Access denied to %s"), $vars->filename)) . '")'
         ));

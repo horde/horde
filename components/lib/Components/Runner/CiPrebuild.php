@@ -97,8 +97,10 @@ class Components_Runner_CiPrebuild
         );
         $phpunit_template->write(
             array(
-                'testclass' => basename($arguments[0]),
-                'testpath' => strtr(basename($arguments[0]), '_', '/')
+                'testclass' => basename($this->_config->getComponentDirectory()),
+                'testpath' => strtr(
+                    basename($this->_config->getComponentDirectory()), '_', '/'
+                )
             )
         );
     }

@@ -17,19 +17,19 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-08</date>
- <time>23:52:22</time>
+ <date>2011-05-03</date>
+ <time>13:45:16</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -79,6 +79,7 @@
       <file name="ArrayTest.php" role="test" />
       <file name="Autoload.php" role="test" />
       <file name="CsvTest.php" role="test" />
+      <file name="DomhtmlTest.php" role="test" />
       <file name="StringTest.php" role="test" />
       <file name="UtilTest.php" role="test" />
       <file name="VariablesTest.php" role="test" />
@@ -98,7 +99,7 @@
    <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -110,10 +111,16 @@
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <extension>
+    <name>ctype</name>
+   </extension>
+   <extension>
+    <name>filter</name>
+   </extension>
    <extension>
     <name>iconv</name>
    </extension>
@@ -137,6 +144,7 @@
    <install as="Horde/Util/ArrayTest.php" name="test/Horde/Util/ArrayTest.php" />
    <install as="Horde/Util/Autoload.php" name="test/Horde/Util/Autoload.php" />
    <install as="Horde/Util/CsvTest.php" name="test/Horde/Util/CsvTest.php" />
+   <install as="Horde/Util/DomhtmlTest.php" name="test/Horde/Util/DomhtmlTest.php" />
    <install as="Horde/Util/StringTest.php" name="test/Horde/Util/StringTest.php" />
    <install as="Horde/Util/UtilTest.php" name="test/Horde/Util/UtilTest.php" />
    <install as="Horde/Util/VariablesTest.php" name="test/Horde/Util/VariablesTest.php" />
@@ -201,11 +209,11 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>0.1.0</release>
     <api>0.1.0</api>
    </version>
-   <date>2008-09-25</date>
    <stability>
     <release>beta</release>
     <api>beta</api>
    </stability>
+   <date>2008-09-25</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Added magic PHP5 methods to the Variables class.
@@ -257,6 +265,110 @@ Converted to package.xml 2.0 for pear.horde.org
 * Added Horde_String::convertToUtf8().
 * Added Horde_Util::abbreviate().
 * Removed Horde_Array::combine() and Horde_Util::hmac().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-16</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First beta release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-22</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First release candidate for Horde 4.
+* [mms] Tweak loading HTML documents (encodings) in Horde_Domhtml.
+* [mms] Added Horde_Domhtml#returnBody().
+* [mms] Added Domhtml unit tests.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Second release candidate for Horde 4.
+* Fix parsing ISO-8859-15 data with Horde_Domhtml (Bug #9714).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First stable release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-20</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Fix wrapping of several follow-up lines with existing line breaks.
+* [jan] Fix creating temporary files with open_basedir restrictions.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [mms] In Horde_Variables, operate on a copy of the $_REQUEST variable.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

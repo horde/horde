@@ -116,7 +116,7 @@ class Folks_Application extends Horde_Registry_Application
 
         $result = $GLOBALS['folks_driver']->addUser($userId, $credentials);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception_Prior($result);
+            throw new Horde_Exception_Wrapped($result);
         }
     }
 

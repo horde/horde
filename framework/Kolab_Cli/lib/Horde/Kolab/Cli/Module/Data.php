@@ -141,6 +141,11 @@ implements Horde_Kolab_Cli_Module
                 (string) $world['storage']->getData($folder_name)->getStamp()
             );
             break;
+        case 'complete':
+            $data = $world['storage']->getData($folder_name);
+            $complete = $data->fetchComplete($arguments[3]);
+            $cli->writeln($complete[1]->toString(array('headers' => $complete[0])));
+            break;
         case 'part':
             $data = $world['storage']->getData($folder_name);
             $part = $data->fetchPart($arguments[3], $arguments[4]);
@@ -196,6 +201,21 @@ implements Horde_Kolab_Cli_Module
                 }
             }
             $data->create($object);
+            break;
+        case 'move':
+            $data = $world['storage']->getData($folder_name, $arguments[3]);
+            $objects = $data->move($arguments[4], $arguments[5]);
+            break;
+        case 'delete':
+            $data = $world['storage']->getData($folder_name, $arguments[3]);
+            $objects = $data->delete(explode(',', $arguments[4]));
+            break;
+        case 'deleteall':
+            $world['storage']->getData($folder_name, $arguments[3])->deleteAll();
+            break;
+        case 'deleteuids':
+            $data = $world['storage']->getData($folder_name, $arguments[3]);
+            $objects = $data->deleteBackendIds(explode(',', $arguments[4]));
             break;
         case 'backendid':
             $data = $world['storage']->getData($folder_name, $arguments[3]);

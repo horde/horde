@@ -22,7 +22,7 @@ class NagBaseTables extends Horde_Db_Migration_Base
         $tableList = $this->tables();
 
         if (!in_array('nag_tasks', $tableList)) {
-            $t = $this->createTable('nag_tasks', array('primaryKey' => false));
+            $t = $this->createTable('nag_tasks', array('autoincrementKey' => false));
             $t->column('task_id', 'string', array('limit' => 32, 'null' => false));
             $t->column('task_owner', 'string', array('null' => false));
             $t->column('task_creator', 'string', array('null' => false));
@@ -50,7 +50,7 @@ class NagBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('nag_shares', $tableList)) {
-            $t = $this->createTable('nag_shares', array('primaryKey' => 'share_id'));
+            $t = $this->createTable('nag_shares', array('autoincrementKey' => 'share_id'));
             $t->column('share_id', 'integer', array('null' => false));
             $t->column('share_name', 'string', array('null' => false));
             $t->column('share_owner', 'string');
@@ -72,7 +72,7 @@ class NagBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('nag_shares_groups', $tableList)) {
-            $t = $this->createTable('nag_shares_groups', array('primaryKey' => false));
+            $t = $this->createTable('nag_shares_groups', array('autoincrementKey' => false));
             $t->column('share_id', 'integer', array('null' => false));
             $t->column('group_uid', 'string', array('null' => false));
             $t->column('perm', 'integer', array('limit' => 2, 'null' => false));
@@ -84,7 +84,7 @@ class NagBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('nag_shares_users', $tableList)) {
-            $t = $this->createTable('nag_shares_users', array('primaryKey' => false));
+            $t = $this->createTable('nag_shares_users', array('autoincrementKey' => false));
             $t->column('share_id', 'integer', array('null' => false));
             $t->column('user_uid', 'string', array('limit' => 255, 'null' => false));
             $t->column('perm', 'integer', array('limit' => 2, 'null' => false));

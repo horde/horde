@@ -15,6 +15,7 @@ class Horde_Argv_CallbackMeddleArgsTest extends Horde_Argv_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $options = array();
         for ($i = -1; $i > -6; $i--) {
             $options[] = $this->makeOption((string)$i, array('action' => 'callback',

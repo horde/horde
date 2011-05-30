@@ -15,9 +15,9 @@ class Horde_View_Json extends Horde_View_Base
     /**
      * Processes a template and returns the output.
      *
-     * @param string $name The template to process.
+     * @param string $name  The template to process.
      *
-     * @return string The template output.
+     * @return string  The template output.
      */
     public function render($name = '', $locals = array())
     {

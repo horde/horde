@@ -175,4 +175,18 @@ class Horde_Prefs_Storage_File extends Horde_Prefs_Storage_Base
         $this->_fileCache = $new_vers;
     }
 
+    /**
+     * Lists all available scopes.
+     *
+     * @since Horde_Prefs 1.1.0
+     *
+     * @return array The list of scopes stored in the backend.
+     */
+    public function listScopes()
+    {
+        $this->_loadFileCache();
+        return array_diff(
+            array_keys($this->_fileCache), array('__file_version')
+        );
+    }
 }

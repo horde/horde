@@ -25,7 +25,7 @@ $(function() {
   <fieldset>
 <?php
 foreach ($loginparams as $key => $val) {
-    if ($key == 'imp_select_view' || $key == 'new_lang') {
+    if ($key == 'new_lang') {
         continue;
     }
     switch ($val['type']) {

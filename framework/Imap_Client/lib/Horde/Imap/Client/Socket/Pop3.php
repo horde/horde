@@ -1,21 +1,16 @@
 <?php
 /**
- * Horde_Imap_Client_Socket_Pop3 provides an interface to a POP3 server using
- * PHP functions.
- * This driver is an abstraction layer allowing POP3 commands to be used based
- * on the IMAP equivalents.
- *
- * Caching is not supported in this driver.
+ * This driver provides an interface to a POP3 server using PHP functions.
+ * It is an abstraction layer allowing POP3 commands to be used based on
+ * IMAP equivalents.
  *
  * This driver implements the following POP3-related RFCs:
- * STD 53/RFC 1939 - POP3 specification
- * RFC 2195 - CRAM-MD5 authentication
- * RFC 2449 - POP3 extension mechanism
- * RFC 2595/4616 - PLAIN authentication
- * RFC 1734/5034 - POP3 SASL
- *
- * TODO (or not necessary?):
- * RFC 3206 - AUTH/SYS response codes
+ *   - STD 53/RFC 1939: POP3 specification
+ *   - RFC 2195: CRAM-MD5 authentication
+ *   - RFC 2449: POP3 extension mechanism
+ *   - RFC 2595/4616: PLAIN authentication
+ *   - RFC 3206: AUTH/SYS response codes
+ *   - RFC 1734/5034: POP3 SASL
  *
  * ---------------------------------------------------------------------------
  *
@@ -73,6 +68,13 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     protected $_deleted = array();
 
     /**
+     * This object returns POP3 Fetch data objects.
+     *
+     * @var string
+     */
+    protected $_fetchDataClass = 'Horde_Imap_Client_Data_Fetch_Pop3';
+
+    /**
      * The socket connection to the POP3 server.
      *
      * @var resource
@@ -90,9 +92,14 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         }
 
         parent::__construct($params);
+    }
 
-        // Disable caching.
-        $this->_params['cache'] = array('fields' => array());
+    /**
+     */
+    protected function _initCache($current = false)
+    {
+        return parent::_initCache($current) &&
+               $this->queryCapability('UIDL');
     }
 
     /**
@@ -213,7 +220,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             }
         }
 
-        $this->_exception('POP3 server denied authentication.');
+        $this->_exception('POP3 server denied authentication.', $e->getCode() ? $e->getCode() : 'LOGIN_AUTHENTICATIONFAILED');
     }
 
     /**
@@ -313,23 +320,29 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             // RFC 5034
             $this->_sendLine('AUTH LOGIN');
             $this->_sendLine(base64_encode($this->_params['username']));
-            $this->_sendLine(base64_encode($this->getParam('password')));
+            $this->_sendLine(base64_encode($this->getParam('password')), array(
+                'debug' => '[AUTH LOGIN Command - password]'
+            ));
             break;
 
         case 'PLAIN':
             // RFC 5034
-            $this->_sendLine('AUTH PLAIN ' . base64_encode(chr(0) . $this->_params['username'] . chr(0) . $this->getParam('password')));
+            $this->_sendLine('AUTH PLAIN ' . base64_encode(chr(0) . $this->_params['username'] . chr(0) . $this->getParam('password')), array(
+                'debug' => sprintf('[AUTH PLAIN Command - username: %s]', $this->_params['username'])
+            ));
             break;
 
         case 'APOP':
             // RFC 1939 [7]
-            $this->_sendLine('APOP ' . $this->_params['username'] . ' ' . hash('md5', $this->_timestamp . $pass));
+            $this->_sendLine('APOP ' . $this->_params['username'] . ' ' . hash('md5', $this->_temp['pop3timestamp'] . $this->_params['password']));
             break;
 
         case 'USER':
             // RFC 1939 [7]
             $this->_sendLine('USER ' . $this->_params['username']);
-            $this->_sendLine('PASS ' . $this->getParam('password'));
+            $this->_sendLine('PASS ' . $this->getParam('password'), array(
+                'debug' => '[USER Command - password]'
+            ));
             break;
         }
     }
@@ -470,7 +483,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         }
 
         if ($flags & Horde_Imap_Client::STATUS_UIDVALIDITY) {
-            $ret['uidvalidity'] = microtime(true);
+            $ret['uidvalidity'] = $this->queryCapability('UIDL')
+                ? 1
+                : microtime(true);
         }
 
         if ($flags & Horde_Imap_Client::STATUS_UNSEEN) {
@@ -547,19 +562,19 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         $ret = array();
         foreach ($options['results'] as $val) {
             switch ($val) {
-            case Horde_Imap_Client::SORT_RESULTS_COUNT:
+            case Horde_Imap_Client::SEARCH_RESULTS_COUNT:
                 $ret['count'] = count($res);
                 break;
 
-            case Horde_Imap_Client::SORT_RESULTS_MATCH:
+            case Horde_Imap_Client::SEARCH_RESULTS_MATCH:
                 $ret['match'] = new Horde_Imap_Client_Ids($res);
                 break;
 
-            case Horde_Imap_Client::SORT_RESULTS_MAX:
+            case Horde_Imap_Client::SEARCH_RESULTS_MAX:
                 $ret['max'] = empty($res) ? null : max($res);
                 break;
 
-            case Horde_Imap_Client::SORT_RESULTS_MIN:
+            case Horde_Imap_Client::SEARCH_RESULTS_MIN:
                 $ret['min'] = empty($res) ? null : min($res);
                 break;
             }
@@ -752,6 +767,10 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 break;
             }
         }
+
+        $this->_updateCache($results, array(
+            'seq' => $options['ids']->sequence
+        ));
 
         return $results;
     }
@@ -959,6 +978,14 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         $this->_exception('IMAP metadata not supported on POP3 servers.', 'POP3_NOTSUPPORTED');
     }
 
+    /**
+     */
+    protected function _getSearchCache($type, $mailbox, $options)
+    {
+        /* POP3 does not support search caching. */
+        return null;
+    }
+
     /* Internal functions. */
 
     /**
@@ -988,10 +1015,8 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      * Gets a line from the stream and parses it.
      *
      * @return array  An array with the following keys:
-     * <pre>
-     * 'line' - (string) The server response text.
-     * 'response' - (string) Either 'OK', 'END', '+', or ''.
-     * </pre>
+     *   - line: (string) The server response text.
+     *   - response: (string) Either 'OK', 'END', '+', or ''.
      * @throws Horde_Imap_Client_Exception
      */
     protected function _getLine()
@@ -1012,18 +1037,52 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             fwrite($this->_debug, 'S (' . microtime(true) . '): ' . $read . "\n");
         }
 
-        $prefix = explode(' ', $read, 2);
+        $read = explode(' ', $read, 2);
 
-        switch ($prefix[0]) {
+        switch ($read[0]) {
         case '+OK':
             $ob['response'] = 'OK';
-            if (isset($prefix[1])) {
-                $ob['line'] = $prefix[1];
+            if (isset($read[1])) {
+                $response = $this->_getResponseText($read[1]);
+                $ob['line'] = $response->text;
             }
             break;
 
         case '-ERR':
-            $this->_exception('POP3 Error: ' . isset($prefix[1]) ? $prefix[1] : 'no error message');
+            $errcode = 0;
+            if (isset($read[1])) {
+                $response = $this->_getResponseText($read[1]);
+                $errtext = $response->text;
+                if (isset($response->code)) {
+                    switch ($response->code) {
+                    // RFC 2449 [8.1.1]
+                    case 'IN-USE':
+                    // RFC 2449 [8.1.2]
+                    case 'LOGIN-DELAY':
+                        $errcode = 'LOGIN_UNAVAILABLE';
+                        break;
+
+                    // RFC 3206 [4]
+                    case 'SYS/TEMP':
+                        $errcode = 'POP3_TEMP_ERROR';
+                        break;
+
+                    // RFC 3206 [4]
+                    case 'SYS/PERM':
+                        $errcode = 'POP3_PERM_ERROR';
+                        break;
+
+                    // RFC 3206 [5]
+                    case 'AUTH':
+                        $errcode = 'LOGIN_AUTHENTICATIONFAILED';
+                        break;
+                    }
+                }
+            } else {
+                $errtext = '[No error message provided by server]';
+            }
+
+            $this->_exception('POP3 Error: ' . $errtext, $errcode);
 
         case '.':
             $ob['response'] = 'END';

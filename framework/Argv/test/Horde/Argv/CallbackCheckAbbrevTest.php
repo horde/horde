@@ -15,6 +15,7 @@ class Horde_Argv_CallbackCheckAbbrevTest extends Horde_Argv_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $this->parser = new Horde_Argv_Parser();
         $this->parser->addOption('--foo-bar', array('action' => 'callback',
                                                     'callback' => array($this, 'checkAbbrev')));

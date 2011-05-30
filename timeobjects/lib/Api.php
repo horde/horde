@@ -1,6 +1,11 @@
 <?php
 /**
  * API methods for exposing various bits of data via the listTimeObjects API
+ *
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @category Horde
+ * @package TimeObjects
  */
 class Timeobjects_Api extends Horde_Registry_Api
 {
@@ -19,9 +24,7 @@ class Timeobjects_Api extends Horde_Registry_Api
     /**
      * Returns the available categories we provide.
      *
-     * Right now, only providing weather data.
-     *
-     * @return array
+     * @return array  An array of available TimeObject categories.
      */
     public function listTimeObjectCategories()
     {
@@ -30,12 +33,12 @@ class Timeobjects_Api extends Horde_Registry_Api
         //        a $conf[] setting to explicitly disable certain drivers?
         $drivers = array();
 
-        $drv = TimeObjects_Driver::factory('Weatherdotcom');
+        $drv = $GLOBALS['injector']->getInstance('TimeObjects_Factory_Driver')->create('Weatherdotcom');
         if ($drv->ensure()) {
             $drivers['Weatherdotcom'] = _("Weather");
         }
 
-        $drv = TimeObjects_Driver::factory('FacebookEvents');
+        $drv = $GLOBALS['injector']->getInstance('TimeObjects_Factory_Driver')->create('FacebookEvents');
         if ($drv->ensure()) {
             $drivers['FacebookEvents'] = _("Facebook Events");
         }
@@ -56,12 +59,10 @@ class Timeobjects_Api extends Horde_Registry_Api
     {
         $return = array();
         foreach ($time_categories as $category) {
-            $drv = TimeObjects_Driver::factory($category);
-
+            $drv = $GLOBALS['injector']->getInstance('TimeObjects_Factory_Driver')->create($category);
             try {
                 $new = $drv->listTimeObjects($start, $end);
             } catch (TimeObjects_Exception $e) {
-                //@TODO: Log the error,  but return an empty array.
                 $new = array();
             }
             $return = array_merge($return, $new);

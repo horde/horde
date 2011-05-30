@@ -10,18 +10,6 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
-  <name>Jan Schneider</name>
-  <user>jan</user>
-  <email>jan@horde.org</email>
-  <active>yes</active>
- </lead>
  <date>2011-03-07</date>
  <time>01:01:52</time>
  <version>

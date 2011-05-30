@@ -101,7 +101,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         $text = IMP::filterText($text);
 
         /* Done processing if in mimp mode. */
-        if ($GLOBALS['session']->get('imp', 'view') == 'mimp') {
+        if (IMP::getViewMode() == 'mimp') {
             return array(
                 $mime_id => array(
                     'data' => $text,
@@ -132,7 +132,17 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
                 $list_info = $imp_ui->getListInformation($header);
                 $hideBlocks = $list_info['exists'];
             }
-            $filters['highlightquotes'] = array('hideBlocks' => $hideBlocks, 'noJS' => !$inline, 'outputJS' => false);
+
+            if ($inline) {
+                $filters['highlightquotes'] = array(
+                    'hideBlocks' => $hideBlocks,
+                    'noJS' => (IMP::getViewMode() == 'dimp')
+                );
+            } else {
+                $filters['Horde_Text_Filter_Highlightquotes'] = array(
+                    'hideBlocks' => $hideBlocks
+                );
+            }
         }
 
         // Highlight simple markup of an email.

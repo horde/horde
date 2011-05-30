@@ -30,9 +30,10 @@ class Horde_View_Helper_Form_InstanceTag_Form extends Horde_View_Helper_Form_Ins
 
     public function toInputFieldTag($fieldType, $options = array())
     {
-        if (! isset($options['size'])) {
-            $options['size'] = isset($options['maxlength']) ? $options['maxlength']
-                                                            : $this->_defaultFieldOptions['size'];
+        if (!isset($options['size'])) {
+            $options['size'] = isset($options['maxlength'])
+                ? $options['maxlength']
+                : $this->_defaultFieldOptions['size'];
         }
         $options = array_merge($this->_defaultFieldOptions, $options);
 
@@ -42,11 +43,12 @@ class Horde_View_Helper_Form_InstanceTag_Form extends Horde_View_Helper_Form_Ins
         $options['type'] = $fieldType;
 
         if ($fieldType != 'file') {
-            if (! isset($options['value'])) {
+            if (!isset($options['value'])) {
                 $options['value'] = $this->valueBeforeTypeCast($this->object());
             }
         }
         $options = $this->addDefaultNameAndId($options);
+
         return $this->tag('input', $options);
     }
 
@@ -78,6 +80,7 @@ class Horde_View_Helper_Form_InstanceTag_Form extends Horde_View_Helper_Form_Ins
         }
 
         $options = $this->addDefaultNameAndId($options);
+
         return $this->tag('input', $options);
     }
 
@@ -103,7 +106,8 @@ class Horde_View_Helper_Form_InstanceTag_Form extends Horde_View_Helper_Form_Ins
         return $this->contentTag('textarea', htmlentities($value), $options);
     }
 
-    public function toCheckBoxTag($options = array(), $checkedValue = '1', $uncheckedValue = '0')
+    public function toCheckBoxTag($options = array(), $checkedValue = '1',
+                                  $uncheckedValue = '0')
     {
         $options['type'] = 'checkbox';
         $options['value'] = $checkedValue;
@@ -117,11 +121,12 @@ class Horde_View_Helper_Form_InstanceTag_Form extends Horde_View_Helper_Form_Ins
         $options['checked'] = (boolean)$checked;
         $options = $this->addDefaultNameAndId($options);
 
-        // hidden must output first in PHP to not overwrite checkbox value
+        // Hidden must output first in PHP to not overwrite checkbox value.
         $tags = $this->tag('input', array('name'  => $options['name'],
                                           'type'  => 'hidden',
-                                          'value' => $uncheckedValue)).
-                $this->tag('input', $options);
+                                          'value' => $uncheckedValue))
+            . $this->tag('input', $options);
+
         return $tags;
     }
 
@@ -145,5 +150,4 @@ class Horde_View_Helper_Form_InstanceTag_Form extends Horde_View_Helper_Form_Ins
     {
         return (strval($value) == strval($checkedValue));
     }
-
 }

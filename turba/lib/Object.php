@@ -112,7 +112,7 @@ class Turba_Object
                 : array(
                       'load' => array(
                           'data' => $this->attributes[$attribute],
-                          'file' => basename(tempnam(Horde::getTempDir(), 'horde_form_'))
+                          'file' => basename(Horde::getTempFile('horde_form_', false))
                       )
                   );
         }
@@ -316,6 +316,9 @@ class Turba_Object
      */
     public function addFile(array $info)
     {
+        if (!$this->getValue('__uid')) {
+            throw new Turba_Exception('VFS not supported for this object.');
+        }
         $this->_vfsInit();
         $dir = Turba::VFS_PATH . '/' . $this->getValue('__uid');
         $file = $info['name'];
@@ -333,7 +336,7 @@ class Turba_Object
         }
         try {
             $this->_vfs->write($dir, $file, $info['tmp_name'], true);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             throw new Turba_Exception($e);
         }
     }
@@ -346,10 +349,13 @@ class Turba_Object
      */
     public function deleteFile($file)
     {
+        if (!$this->getValue('__uid')) {
+            throw new Turba_Exception('VFS not supported for this object.');
+        }
         $this->_vfsInit();
         try {
             $this->_vfs->deleteFile(Turba::VFS_PATH . '/' . $this->getValue('__uid'), $file);
-        } catch (VFS_Exception $e) {
+        } catch (Horde_Vfs_Exception $e) {
             throw new Turba_Exception($e);
         }
     }
@@ -361,11 +367,14 @@ class Turba_Object
      */
     public function deleteFiles()
     {
+        if (!$this->getValue('__uid')) {
+            throw new Turba_Exception('VFS not supported for this object.');
+        }
         $this->_vfsInit();
         if ($this->_vfs->exists(Turba::VFS_PATH, $this->getValue('__uid'))) {
             try {
                 $this->_vfs->deleteFolder(Turba::VFS_PATH, $this->getValue('__uid'), true);
-            } catch (VFS_Exception $e) {
+            } catch (Horde_Vfs_Exception $e) {
                 throw new Turba_Exception($e);
             }
         }
@@ -378,6 +387,9 @@ class Turba_Object
      */
     public function listFiles()
     {
+        if (!$this->getValue('__uid')) {
+            return array();
+        }
         try {
             $this->_vfsInit();
             if ($this->_vfs->exists(Turba::VFS_PATH, $this->getValue('__uid'))) {
@@ -414,7 +426,9 @@ class Turba_Object
 
         // Let's see if we can view this one, too.
         if ($viewer && !($viewer instanceof Horde_Mime_Viewer_Default)) {
-            $url = Horde::url('view.php')->add('actionID', 'view_file');
+            $url = Horde::url('view.php')
+                ->add($url_params)
+                ->add('actionID', 'view_file');
             $link = Horde::link($url, $file['name'], null, '_blank') . $file['name'] . '</a>';
         } else {
             $link = $file['name'];

@@ -4,8 +4,26 @@
 
 :Contact: imp@lists.horde.org
 
+.. contents:: Contents
+.. section-numbering::
 
-These are instructions to upgrade from earlier IMP versions.
+
+These are instructions to upgrade from earlier IMP versions. Please backup your
+existing data before running any of the steps described below. You can't use
+the updated data with your old IMP version anymore.
+
+Upgrading IMP is as easy as running::
+
+   pear upgrade -a -B horde/imp
+
+If you want to upgrade from an IMP version prior to 5.0, please follow
+the instructions in INSTALL_ to install the most recent IMP version
+using the PEAR installer.
+
+After updating to a newer IMP version, you **always** need to update
+configurations and database schemes. Log in as an administrator, go to
+Administration => Configuration and update anything that's highlighted as
+outdated.
 
 
 Upgrading IMP From 4.x To 5.x
@@ -24,26 +42,27 @@ longer supported.
 Button configuration is now stored in the prefs value 'ckeditor_buttons'.
 
 
-Server Options
---------------
+Server Options (backends.php; OLD servers.php)
+----------------------------------------------
+
+The format of servers.php has changed and has been renamed to backends.php.
 
 The 'realm' option has been removed.  Altering usernames at runtime should
 instead by accomplished by using Horde's 'authusername' and/or IMP's
 'preauthenticate' hooks.
 
 
-Configuration Options
----------------------
+Configuration Options (conf.php)
+--------------------------------
 
-Configuration relating to displaying the terms of agreement, GnuPg, OpenSSL,
+Configuration relating to displaying the terms of agreement, GnuPG, OpenSSL,
 spellchecking, and login redirection have been moved to Horde.
 
 The 'show_preview' option has been removed; enabling previews is now handled
 by the 'show_preview' preference.
 
 The 'allow_resume_all_in_drafts' option has been removed; all messages that
-appear in the configured Drafts mailbox always are now always allowed to be
-resumed.
+appear in the configured Drafts mailbox are now always allowed to be resumed.
 
 The 'css_files' configuration option for the dynamic (dimp) display has been
 removed.  Equivalent behavior can now be found in the Horde-wide 'cssfiles'
@@ -52,7 +71,7 @@ hook.
 The 'max_from_chars' and 'max_subj_chars' configuration options for the
 minimal (mimp) display have been removed.
 
-The following configuration options have been removed:
+The following configuration options have been removed::
 
    allow_receipts
    append_trailer
@@ -64,19 +83,20 @@ The following configuration options have been removed:
    sort_limit
 
 
-Preferences
------------
+Preferences (prefs.php)
+-----------------------
 
 The 'sending_charset' and 'time_format' preferences have been moved to Horde.
 
 The following preferences are no longer used and may be safely removed from
-your ``config/prefs.php`` file::
+your preference backend::
 
    alternative_display
    attachment_display
    auto_delete_drafts
    delete_attachments_monthly
    delete_sentmail_monthly
+   dimp_login_view
    disposition_request_read
    disposition_send_mdn
    fckeditor_buttons
@@ -86,7 +106,9 @@ your ``config/prefs.php`` file::
    forward_bodytext
    image_addrbook
    image_replacement
+   nav_audio
    nav_expanded_sidebar
+   nav_popup
    purge_sentmail
    purge_spam
    purge_trash
@@ -96,41 +118,39 @@ your ``config/prefs.php`` file::
    vtrash_id
 
 
-Hooks
------
+Hooks (hooks.php)
+-----------------
 
-* hooks.php has changed
+The format of hooks.php has changed.  See horde/docs/UPGRADING for more
+information.
 
-The following hooks have been renamed:
-  OLD: spam_bounce -> NEW: spam_email
-  OLD: postsent -> NEW: post_sent
+The 'vinfo' hook has been removed.  Use Horde's 'authusername' and/or IMP's
+'preauthenticate' hooks instead.
 
-* imp_hook_vinfo has been removed - use preauth hook instead
-* msglist_format hook has been removed - instead:
-*  x-priority now handled in the core code
-*  old attachment icon handling see atc_flag pref
-*  msglist_flags hook now used to dynamically set flags on messages
-* The headers.php configuration file has been removed; setting custom headers
-  is now done via the 'pre_sent' hook.
-* Setting message trailers is now done entirely within the 'trailer' hook.
+The 'msglist_format' hook has been removed.  X-Priority header handling is now
+handled in the core IMP code.  Attachment icon display is now handled by the
+'atc_flag' preference.  The 'msglist_flags' hook is now used to dynamically
+set flags on messages.
+
+
+Custom Message Headers (OLD header.php)
+---------------------------------------
+
+The header.php configuration file has been removed.  Setting custom headers
+is now done in the 'pre_sent' hook.
+
+
+Custom Message Trailers (OLD trailer.txt)
+-----------------------------------------
+
+The trailer.txt file has been removed.  Setting message trailers is now done
+in the 'trailer' hook.
 
 
 Fetchmail
 ---------
 
 All code relating to fetchmail has been removed.
-
-
-Server configuration
---------------------
-
-The format of servers.php has changed and has been renamed to backends.php.
-
-
-Maintenance Tasks
------------------
-
-TODO
 
 
 Flags
@@ -144,17 +164,18 @@ by default - these flags have special meanings and are automatically handled
 by the various message action functions instead.
 
 
-CSS
----
-
-TODO
-
-
 Menu
 ----
 
 The dynamic view (DIMP) no longer supports the 'action' parameter located
 in config/menu.php.
+
+
+Portal
+------
+
+Portal rendering has been moved to Horde - config/portal.php is no longer
+needed or used.
 
 
 
@@ -249,7 +270,7 @@ HTML messages.  If using pspell, you must upgrade to aspell version 0.60+.
 Javascript HTML Editor
 ----------------------
 
-Support has been added for FCKeditor_ as an option for the javascript HTML
+Support has been added for FCKeditor as an option for the javascript HTML
 editor available on the compose page.  You must have Horde 3.2 or later
 installed to use this editor.
 
@@ -302,3 +323,6 @@ Virtual Folders
 The format for saved Virtual Folders has changed.  To convert to the new
 format you must run the script located at
 ``scripts/upgrades/convert_vfolders.php``.
+
+
+.. _INSTALL: INSTALL

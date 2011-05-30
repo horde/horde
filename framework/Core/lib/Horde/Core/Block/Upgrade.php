@@ -34,7 +34,7 @@ class Horde_Core_Block_Upgrade
         foreach (array_keys($layout) as $key) {
             foreach (array_keys($layout[$key]) as $key2) {
                 if (isset($layout[$key][$key2]['params']['type'])) {
-                    $layout[$key][$key2]['params']['type2'] = Horde_String::ucfirst($layout[$key][$key2]['app']) . '_Block_' . Horde_String::ucfirst($layout[$key][$key2]['params']['type']);
+                    $layout[$key][$key2]['params']['type2'] = $layout[$key][$key2]['app'] . '_Block_' . Horde_String::ucfirst($layout[$key][$key2]['params']['type']);
                     unset($layout[$key][$key2]['params']['type']);
 
                     $upgrade = true;

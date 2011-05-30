@@ -15,6 +15,7 @@ class Horde_Argv_ChoiceTest extends Horde_Argv_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $this->parser = new Horde_Argv_InterceptingParser(array('usage' => Horde_Argv_Option::SUPPRESS_USAGE));
         $this->parser->addOption('-c', array('action' => 'store', 'type' => 'choice',
                                  'dest' => 'choice', 'choices' => array('one', 'two', 'three')));

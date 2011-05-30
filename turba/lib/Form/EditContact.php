@@ -20,7 +20,7 @@ class Turba_Form_EditContact extends Turba_Form_ContactBase
     {
         global $conf;
 
-        parent::__construct($vars, $contact, 'Turba_View_EditContact');
+        parent::__construct($vars, '', 'Turba_View_EditContact');
         $this->_contact = $contact;
 
         $this->setButtons(_("Save"));

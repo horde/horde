@@ -138,6 +138,19 @@ class Horde_Config
     }
 
     /**
+     * @since Horde_Core 1.1.0
+     */
+    public function configFile()
+    {
+        $path = $GLOBALS['registry']->get('fileroot', $this->_app) . '/config';
+        $configFile = $path . '/conf.php';
+        if (is_link($configFile)) {
+            $configFile = readlink($configFile);
+        }
+        return $configFile;
+    }
+
+    /**
      * Reads the application's conf.xml file and builds an associative array
      * from its XML tree.
      *
@@ -241,6 +254,46 @@ class Horde_Config
         }
 
         return $this->_oldConfig;
+    }
+
+    /**
+     * Generates and writes the content of the application's configuration
+     * file.
+     *
+     * @since Horde_Core 1.1.0
+     *
+     * @param Horde_Variables $formvars  The processed configuration form
+     *                                   data.
+     * @param string $php                The content of the generated
+     *                                   configuration file.
+     *
+     * @return boolean  True if the configuration file could be written
+     *                  immediately to the file system.
+     */
+    public function writePHPConfig($formvars, &$php)
+    {
+        $php = $this->generatePHPConfig($formvars);
+        $path = $GLOBALS['registry']->get('fileroot', $this->_app) . '/config';
+        $configFile = $this->configFile();
+        if (file_exists($configFile)) {
+            if (@copy($configFile, $path . '/conf.bak.php')) {
+                $GLOBALS['notification']->push(sprintf(_("Successfully saved the backup configuration file %s."), Horde_Util::realPath($path . '/conf.bak.php')), 'horde.success');
+            } else {
+                $GLOBALS['notification']->push(sprintf(_("Could not save the backup configuration file %s."), Horde_Util::realPath($path . '/conf.bak.php')), 'horde.warning');
+            }
+        }
+        if ($fp = @fopen($configFile, 'w')) {
+            /* Can write, so output to file. */
+            fwrite($fp, $php);
+            fclose($fp);
+            $GLOBALS['registry']->rebuild();
+            return true;
+        }
+
+        /* Cannot write. Save to session. */
+        $GLOBALS['session']->set('horde', 'config/' . $this->_app, $php);
+
+        return false;
     }
 
     /**
@@ -979,28 +1032,6 @@ class Horde_Config
             'default' => $this->_default($ctx . '|ca', '')
         );
 
-        $oci8_fields = array(
-            'persistent' => $persistent,
-            'username' => $username,
-            'password' => $password
-        );
-        if (function_exists('oci_connect')) {
-            $oci8_fields['database'] = array(
-                '_type' => 'text',
-                'required' => true,
-                'desc' => 'Database name or Easy Connect parameter',
-                'default' => $this->_default($ctx . '|database', 'horde')
-            );
-        } else {
-            $oci8_fields['hostspec'] = array(
-                '_type' => 'text',
-                'required' => true,
-                'desc' => 'Database name or Easy Connect parameter',
-                'default' => $this->_default($ctx . '|hostspec', 'horde')
-            );
-        }
-        $oci8_fields['charset'] = $charset;
-
         $read_hostspec = array(
             '_type' => 'text',
             'required' => true,
@@ -1051,7 +1082,7 @@ class Horde_Config
                     'fields' => array()
                 ),
                 'mysql' => array(
-                    'desc' => 'MySQL',
+                    'desc' => 'MySQL / PDO',
                     'fields' => array(
                         'persistent' => $persistent,
                         'username' => $username,
@@ -1160,11 +1191,7 @@ class Horde_Config
             'default' => $default,
             'is_default' => $isDefault,
             'switch' => array(
-                'none' => array(
-                    'desc' => 'None',
-                    'fields' => array()
-                ),
-                'file' => array(
+                'File' => array(
                     'desc' => 'Files on the local system',
                     'fields' => array(
                         'params' => array(
@@ -1176,7 +1203,7 @@ class Horde_Config
                         )
                     )
                 ),
-                'sql' => array(
+                'Sql' => array(
                     'desc' => 'SQL database',
                     'fields' => array(
                         'params' => array(
@@ -1184,7 +1211,7 @@ class Horde_Config
                         )
                     )
                 ),
-                'ssh2' => array(
+                'Ssh2' => array(
                     'desc' => 'SSH2 (SFTP)',
                     'fields' => array(
                         'params' => array(

@@ -22,7 +22,7 @@ class WickedBaseTables extends Horde_Db_Migration_Base
         $tableList = $this->tables();
 
         if (!in_array('wicked_pages', $tableList)) {
-            $t = $this->createTable('wicked_pages', array('primaryKey' => false));
+            $t = $this->createTable('wicked_pages', array('autoincrementKey' => false));
             $t->column('page_id', 'integer', array('null' => false));
             $t->column('page_name', 'string', array('limit' => 100, 'null' => false));
             $t->column('page_text', 'text');
@@ -39,7 +39,7 @@ class WickedBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('wicked_history', $tableList)) {
-            $t = $this->createTable('wicked_history', array('primaryKey' => false));
+            $t = $this->createTable('wicked_history', array('autoincrementKey' => false));
             $t->column('page_id', 'integer', array('null' => false));
             $t->column('page_name', 'string', array('limit' => 100, 'null' => false));
             $t->column('page_text', 'text');
@@ -55,7 +55,7 @@ class WickedBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('wicked_attachments', $tableList)) {
-            $t = $this->createTable('wicked_attachments', array('primaryKey' => false));
+            $t = $this->createTable('wicked_attachments', array('autoincrementKey' => false));
             $t->column('page_id', 'integer', array('null' => false));
             $t->column('attachment_name', 'string', array('limit' => 100, 'null' => false));
             $t->column('attachment_hits', 'integer', array('default' => 0));
@@ -69,7 +69,7 @@ class WickedBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('wicked_attachment_history', $tableList)) {
-            $t = $this->createTable('wicked_attachment_history', array('primaryKey' => false));
+            $t = $this->createTable('wicked_attachment_history', array('autoincrementKey' => false));
             $t->column('page_id', 'integer', array('null' => false));
             $t->column('attachment_name', 'string', array('limit' => 100, 'null' => false));
             $t->column('attachment_majorversion', 'integer', array('null' => false));

@@ -1,6 +1,6 @@
 <?php
 /**
- * View a message (standard mode).
+ * View a message in Traditional (imp) mode.
  *
  * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
  *
@@ -31,12 +31,13 @@ $registry->setTimeZone();
 /* We know we are going to be exclusively dealing with this mailbox, so
  * select it on the IMAP server (saves some STATUS calls). Open R/W to clear
  * the RECENT flag. */
-if (!($search_mbox = $injector->getInstance('IMP_Search')->isSearchMbox(IMP::$mailbox))) {
-    $injector->getInstance('IMP_Factory_Imap')->create()->openMailbox(IMP::$mailbox, Horde_Imap_Client::OPEN_READWRITE);
+$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+if (!IMP::$mailbox->search) {
+    $imp_imap->openMailbox(IMP::$mailbox, Horde_Imap_Client::OPEN_READWRITE);
 }
 
 /* Make sure we have a valid index. */
-$imp_mailbox = IMP::$mailbox->getListOb(new IMP_Indices(IMP::$thismailbox, IMP::$uid));
+$imp_mailbox = IMP::$mailbox->getListOb(IMP::$thismailbox->getIndicesOb(IMP::$uid));
 if (!$imp_mailbox->isValidIndex()) {
     _returnToMailbox(null, 'message_missing');
     require IMP_BASE . '/mailbox.php';
@@ -84,28 +85,22 @@ case 'whitelist':
     break;
 
 case 'delete_message':
-    if (!$readonly) {
-        $imp_message->delete(
-            $indices,
-            array(
-                'mailboxob' => $imp_mailbox
-            )
-        );
-        if ($prefs->getValue('mailbox_return')) {
-            _returnToMailbox($imp_mailbox->getMessageIndex());
-            require IMP_BASE . '/mailbox.php';
-            exit;
-        }
-        if ($imp_ui->moveAfterAction()) {
-            $imp_mailbox->setIndex(1);
-        }
+    $imp_message->delete(
+        $indices,
+        array('mailboxob' => $imp_mailbox)
+    );
+    if ($prefs->getValue('mailbox_return')) {
+        _returnToMailbox($imp_mailbox->getMessageIndex());
+        require IMP_BASE . '/mailbox.php';
+        exit;
+    }
+    if ($imp_ui->moveAfterAction()) {
+        $imp_mailbox->setIndex(1);
     }
     break;
 
 case 'undelete_message':
-    if (!$readonly) {
-        $imp_message->undelete($indices);
-    }
+    $imp_message->undelete($indices);
     break;
 
 case 'move_message':
@@ -225,7 +220,7 @@ try {
      * before we can grab it. */
     $query = new Horde_Imap_Client_Fetch_Query();
     $query->flags();
-    $flags_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox, $query, array(
+    $flags_ret = $imp_imap->fetch($mailbox, $query, array(
         'ids' => new Horde_Imap_Client_Ids($uid)
     ));
 
@@ -234,10 +229,10 @@ try {
     $query->headerText(array(
         'peek' => $peek
     ));
-    $fetch_ret = $injector->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox, $query, array(
+    $fetch_ret = $imp_imap->fetch($mailbox, $query, array(
         'ids' => new Horde_Imap_Client_Ids($uid)
     ));
-} catch (Horde_Imap_Client_Exception $e) {
+} catch (IMP_Imap_Exception $e) {
     _returnToMailbox(null, 'message_missing');
     require IMP_BASE . '/mailbox.php';
     exit;
@@ -246,7 +241,6 @@ try {
 $envelope = $fetch_ret[$uid]->getEnvelope();
 $flags = $flags_ret[$uid]->getFlags();
 $mime_headers = $fetch_ret[$uid]->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_PARSE);
-$use_pop = ($session->get('imp', 'protocol') == 'pop');
 
 /* Get the title/mailbox label of the mailbox page. */
 $page_label = IMP::$mailbox->label;
@@ -255,7 +249,7 @@ $page_label = IMP::$mailbox->label;
 $msgindex = $imp_mailbox->getMessageIndex();
 $message_url = Horde::url('message.php');
 $message_token = $injector->getInstance('Horde_Token')->get('imp.message');
-$self_link = IMP::generateIMPUrl('message.php', IMP::$mailbox, $uid, $mailbox)->add(array('start' => $msgindex, 'message_token' => $message_token));
+$self_link = IMP::$mailbox->url('message.php', $uid, $mailbox)->add(array('start' => $msgindex, 'message_token' => $message_token));
 
 /* Develop the list of headers to display. */
 $basic_headers = $imp_ui->basicHeaders();
@@ -293,7 +287,7 @@ if (!empty($from_img)) {
 
 /* Look for Face: information. */
 if ($mime_headers->getValue('face')) {
-    $view_url = IMP::generateIMPUrl('view.php', IMP::$mailbox, $uid, $mailbox);
+    $view_url = IMP::$mailbox->url('view.php', $uid, $mailbox);
     // TODO: Use Data URL
     $view_url->add('actionID', 'view_face');
     $display_headers['from'] .= '&nbsp;<img src="' . $view_url . '">';
@@ -385,21 +379,21 @@ ksort($full_headers);
  * may have changed if we deleted/copied/moved messages. We may need other
  * stuff in the query string, so we need to do an add/remove of 'uid'. */
 $selfURL = Horde::selfUrl(true);
-IMP::$newUrl = $selfURL = IMP::generateIMPUrl($selfURL->remove(array('actionID', 'mailbox', 'thismailbox', 'uid')), IMP::$mailbox, $uid, $mailbox)->add('message_token', $message_token);
+IMP::$newUrl = $selfURL = IMP::$mailbox->url($selfURL->remove(array('actionID', 'mailbox', 'thismailbox', 'uid')), $uid, $mailbox)->add('message_token', $message_token);
 $headersURL = $selfURL->copy()->remove(array('show_all_headers', 'show_list_headers'));
 
 /* Generate previous/next links. */
 $prev_msg = $imp_mailbox->getIMAPIndex(-1);
 if ($prev_msg) {
-    $prev_url = IMP::generateIMPUrl('message.php', IMP::$mailbox, $prev_msg['uid'], $prev_msg['mailbox']);
+    $prev_url = IMP::$mailbox->url('message.php', $prev_msg['uid'], $prev_msg['mailbox']);
 }
 $next_msg = $imp_mailbox->getIMAPIndex(1);
 if ($next_msg) {
-    $next_url = IMP::generateIMPUrl('message.php', IMP::$mailbox, $next_msg['uid'], $next_msg['mailbox']);
+    $next_url = IMP::$mailbox->url('message.php', $next_msg['uid'], $next_msg['mailbox']);
 }
 
 /* Generate the mailbox link. */
-$mailbox_url = IMP::generateIMPUrl('mailbox.php', IMP::$mailbox)->add('start', $msgindex);
+$mailbox_url = IMP::$mailbox->url('mailbox.php')->add('start', $msgindex);
 
 /* Everything below here is related to preparing the output. */
 
@@ -420,7 +414,7 @@ foreach ($flag_parse as $val) {
     if ($val instanceof IMP_Flag_User) {
         $status .= '<span class="' . $val->css . '" style="' . ($val->bgdefault ? '' : 'background:' . htmlspecialchars($val->bgcolor) . ';') . 'color:' . htmlspecialchars($val->fgcolor) . '">' . htmlspecialchars($val->label) . '</span>';
     } else {
-        $status .= $val->div;
+        $status .= $val->span;
     }
 }
 
@@ -428,7 +422,7 @@ foreach ($flag_parse as $val) {
  * message in the header. */
 $h_page_label = htmlspecialchars($page_label);
 $header_label = $h_page_label;
-if ($search_mbox) {
+if (IMP::$mailbox->search) {
     $header_label .= ' [' . Horde::link(Horde::url('mailbox.php')->add('mailbox', $mailbox)) . $mailbox->display . '</a>]';
 }
 
@@ -437,7 +431,7 @@ $t_template = $injector->createInstance('Horde_Template');
 $t_template->set('message_url', $message_url);
 $t_template->set('form_input', Horde_Util::formInput());
 $t_template->set('mailbox', IMP::$mailbox->form_to);
-$t_template->set('thismailbox', htmlspecialchars($mailbox));
+$t_template->set('thismailbox', IMP::$thismailbox->form_to);
 $t_template->set('start', htmlspecialchars($msgindex));
 $t_template->set('uid', htmlspecialchars($uid));
 $t_template->set('label', sprintf(_("%s: %s"), $header_label, $shortsub));
@@ -449,10 +443,9 @@ $t_template->set('message_token', $message_token);
 $n_template = $injector->createInstance('Horde_Template');
 $n_template->setOption('gettext', true);
 $n_template->set('readonly', $readonly);
-$n_template->set('usepop', $use_pop);
 $n_template->set('id', 1);
 
-if (!$use_pop) {
+if ($imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
     $n_template->set('mailbox', IMP::$mailbox->form_to);
 
     $tmp = $imp_flags->getList(array(
@@ -474,17 +467,17 @@ if (!$use_pop) {
 
     $n_template->set('flaglist_set', $form_set);
     $n_template->set('flaglist_unset', $form_unset);
+}
 
-    if ($injector->getInstance('IMP_Factory_Imap')->create()->allowFolders()) {
-        $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget moveAction', '', '', _("Move"), true));
-        $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget copyAction', '', '', _("Copy"), true));
-        $n_template->set('options', IMP::flistSelect(array(
-            'heading' => _("This message to"),
-            'inc_tasklists' => true,
-            'inc_notepads' => true,
-            'new_folder' => true
-        )));
-    }
+if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
+    $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget moveAction', '', '', _("Move"), true));
+    $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget copyAction', '', '', _("Copy"), true));
+    $n_template->set('options', IMP::flistSelect(array(
+        'heading' => _("This message to"),
+        'inc_tasklists' => true,
+        'inc_notepads' => true,
+        'new_folder' => true
+    )));
 }
 
 $n_template->set('back_to', Horde::widget($mailbox_url, sprintf(_("Back to %s"), $h_page_label), 'widget', '', '', sprintf(_("Bac_k to %s"), $h_page_label), true));
@@ -512,12 +505,12 @@ if (!$prefs->getValue('compose_popup')) {
     $compose_params += array('start' => $msgindex, 'mailbox' => IMP::$mailbox);
 }
 
-if (!$readonly) {
+if (IMP::$mailbox->access_deletemsgs) {
     if (in_array(Horde_Imap_Client::FLAG_DELETED, $flags)) {
         $a_template->set('delete', Horde::widget($self_link->copy()->add('actionID', 'undelete_message'), _("Undelete"), 'widget', '', '', _("Undelete"), true));
     } else {
         $a_template->set('delete', Horde::widget($self_link->copy()->add('actionID', 'delete_message'), _("Delete"), 'widget', '', '', _("_Delete"), true));
-        if ($use_pop) {
+        if ($imp_imap->pop3) {
             Horde::addInlineJsVars(array(
                 'ImpMessage.pop3delete' => _("Are you sure you want to PERMANENTLY delete these messages?")
             ));
@@ -550,8 +543,8 @@ if (!$disable_compose) {
     $a_template->set('redirect', Horde::widget(IMP::composeLink(array(), array('actionID' => 'redirect_compose') + $compose_params), _("Redirect"), 'widget', '', '', _("Redirec_t"), true));
 }
 
-if (IMP::$mailbox->threadsort) {
-    $a_template->set('show_thread', Horde::widget(IMP::generateIMPUrl('thread.php', IMP::$mailbox, $uid, $mailbox)->add(array('start' => $msgindex)), _("View Thread"), 'widget', '', '', _("_View Thread"), true));
+if (IMP::$mailbox->access_sortthread) {
+    $a_template->set('show_thread', Horde::widget(IMP::$mailbox->url('thread.php', $uid, $mailbox)->add(array('start' => $msgindex)), _("View Thread"), 'widget', '', '', _("_View Thread"), true));
 }
 
 if (!$readonly && $registry->hasMethod('mail/blacklistFrom')) {
@@ -566,14 +559,13 @@ if (!empty($conf['user']['allow_view_source'])) {
     $a_template->set('view_source', $imp_contents->linkViewJS($imp_contents->getMIMEMessage(), 'view_source', _("_Message Source"), array('jstext' => _("Message Source"), 'css' => 'widget', 'widget' => true)));
 }
 
-if (!$disable_compose) {
-    $imp_ui_mailbox = new IMP_Ui_Mailbox($mailbox);
-    if ($imp_ui_mailbox->isDraft($flags)) {
-        $a_template->set('resume', Horde::widget(IMP::composeLink(array(), array('actionID' => 'draft') + $compose_params), _("Resume"), 'widget', '', '', _("Resume"), true));
-    }
+if (!$disable_compose &&
+    (in_array(Horde_Imap_Client::FLAG_DRAFT, $flags) ||
+     $mailbox->drafts)) {
+    $a_template->set('resume', Horde::widget(IMP::composeLink(array(), array('actionID' => 'draft') + $compose_params), _("Resume"), 'widget', '', '', _("Resume"), true));
 }
 
-$imp_params = IMP::getIMPMboxParameters(IMP::$mailbox, $uid, $mailbox);
+$imp_params = IMP::$mailbox->urlParams($uid, $mailbox);
 $a_template->set('save_as', Horde::widget(Horde::downloadUrl($subject, array_merge(array('actionID' => 'save_message'), $imp_params)), _("Save as"), 'widget', '', '', _("Sa_ve as"), 2));
 
 if ($conf['spam']['reporting'] &&
@@ -646,12 +638,16 @@ if (!$readonly && $strip_atc) {
 /* Do MDN processing now. */
 $mdntext = '';
 if ($imp_ui->MDNCheck(IMP::$mailbox, $uid, $mime_headers, $vars->mdn_confirm)) {
-    $mdntext .= $imp_ui->formatStatusMsg(array(array('text' => array(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link(htmlspecialchars($selfURL->copy()->add('mdn_confirm', 1))) . _("HERE") . '</a>')))));
+    $mdntext .= $imp_contents->formatStatusMsg(array(array(
+        'text' => array(
+            _("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link(htmlspecialchars($selfURL->copy()->add('mdn_confirm', 1))) . _("HERE") . '</a>')
+        )
+    )));
 }
 
 /* Build body text. This needs to be done before we build the attachment list
  * that lives in the header. */
-$inlineout = $imp_ui->getInlineOutput($imp_contents, array(
+$inlineout = $imp_contents->getInlineOutput(array(
     'mask' => $contents_mask,
     'part_info_display' => $part_info_display,
     'show_parts' => $show_parts

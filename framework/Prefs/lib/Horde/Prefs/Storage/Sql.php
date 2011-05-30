@@ -51,6 +51,16 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
     }
 
     /**
+     * Returns the charset of the DB backend.
+     *
+     * @return string  The connection's charset.
+     */
+    public function getCharset()
+    {
+        return $this->_db->getOption('charset');
+    }
+
+    /**
      */
     public function get($scope_ob)
     {
@@ -129,7 +139,7 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
                     try {
                         $this->_db->insert($query, $values);
                     } catch (Horde_Db_Exception $e) {
-                        throw Horde_Prefs_Exception($e);
+                        throw new Horde_Prefs_Exception($e);
                     }
                 } else {
                     // Update the existing row.
@@ -148,7 +158,7 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
                     try {
                         $this->_db->update($query, $values);
                     } catch (Horde_Db_Exception $e) {
-                        throw Horde_Prefs_Exception($e);
+                        throw new Horde_Prefs_Exception($e);
                     }
                 }
             }
@@ -176,7 +186,25 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
         try {
             $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {
-            throw Horde_Prefs_Exception($e);
+            throw new Horde_Prefs_Exception($e);
+        }
+    }
+
+    /**
+     * Lists all available scopes.
+     *
+     * @since Horde_Prefs 1.1.0
+     *
+     * @return array The list of scopes stored in the backend.
+     */
+    public function listScopes()
+    {
+        $query = 'SELECT ' . $this->_db->distinct('pref_scope') . ' FROM '
+            . $this->_params['table'];
+        try {
+            return $this->_db->selectValues($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Prefs_Exception($e);
         }
     }
 

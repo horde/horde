@@ -70,13 +70,14 @@ var ImpMessage = {
     _transfer: function(actID)
     {
         var newFolder,
-            target = $F('target1'),
+            elt = $('target1'),
+            target = $F(elt),
             tmbox = $('targetMbox');
 
         tmbox.setValue(target);
 
         // Check for a mailbox actually being selected.
-        if (target == "\0create") {
+        if ($(elt[elt.selectedIndex]).hasClassName('flistCreate')) {
             newFolder = window.prompt(IMP.text.newfolder, '');
             if (newFolder != null && newFolder != '') {
                 $('newMbox').setValue(1);
@@ -85,8 +86,8 @@ var ImpMessage = {
             }
         } else if (target.empty()) {
             window.alert(IMP.text.target_mbox);
-        } else if (target.startsWith("\0notepad_") ||
-                   target.startsWith("\0tasklist_")) {
+        } else if (target.startsWith("notepad\0") ||
+                   target.startsWith("tasklist\0")) {
             this.actIDconfirm = actID;
             IMPDialog.display({
                 cancel_text: IMP.text.no,
@@ -147,11 +148,22 @@ var ImpMessage = {
     {
         // Set up left and right arrows to go to the previous/next page.
         document.observe('keydown', this._arrowHandler.bindAsEventListener(this));
-        document.observe('change', this._changeHandler.bindAsEventListener(this));
         document.observe('click', this._clickHandler.bindAsEventListener(this));
 
         if (Prototype.Browser.IE) {
+            $('flag1', 'target1', 'flag2', 'target2').compact().invoke('observe', 'change', this._changeHandler.bindAsEventListener(this));
             this._messageActionsHover();
+        } else {
+            document.observe('change', this._changeHandler.bindAsEventListener(this));
+        }
+    },
+
+    onDialogClick: function(e)
+    {
+        switch (e.element().identify()) {
+        case 'RB_ImpMessageConfirm':
+            this.submit(this.actIDconfirm);
+            break;
         }
     },
 
@@ -201,13 +213,7 @@ var ImpMessage = {
                     }
                 }
             } else if (elt.hasClassName('unblockImageLink')) {
-                IMP.unblockImages(e);
-            } else if (elt.match('SPAN.toggleQuoteShow')) {
-                [ elt, elt.next() ].invoke('toggle');
-                elt.next(1).blindDown({ duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
-            } else if (elt.match('SPAN.toggleQuoteHide')) {
-                [ elt, elt.previous() ].invoke('toggle');
-                elt.next().blindUp({ duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
+                IMP_JS.unblockImages(e);
             }
 
             elt = elt.up();
@@ -217,11 +223,4 @@ var ImpMessage = {
 };
 
 document.observe('dom:loaded', ImpMessage.onDomLoad.bind(ImpMessage));
-
-document.observe('IMPDialog:onClick', function(e) {
-    switch (e.element().identify()) {
-    case 'RB_ImpMessageConfirm':
-        this.submit(this.actIDconfirm);
-        break;
-    }
-}.bindAsEventListener(ImpMessage));
+document.observe('IMPDialog:onClick', ImpMessage.onDialogClick.bind(ImpMessage));

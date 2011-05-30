@@ -91,6 +91,7 @@ var ImpMailbox = {
             }
         } else {
             this.selectRow(tr, checked);
+            this.cursor = tr;
         }
 
         this.startrange = tr;
@@ -102,26 +103,24 @@ var ImpMailbox = {
             tm2 = $('targetMailbox2');
 
         if (tm2) {
-            if ((form == 1 && $F(tm1) != "") ||
-                (form == 2 && $F(tm2) != "")) {
-                tm1.selectedIndex = tm2.selectedIndex = (form == 1)
-                    ? tm1.selectedIndex
-                    : tm2.selectedIndex;
-            }
+            tm1.selectedIndex = tm2.selectedIndex = (form == 1)
+                ? tm1.selectedIndex
+                : tm2.selectedIndex;
         }
     },
 
     _transfer: function(actID)
     {
-        var newFolder, target, tmbox;
+        var elt, newFolder, target, tmbox;
 
         if (this.anySelected()) {
-            target = $F('targetMailbox1');
+            elt = $('targetMailbox1');
+            target = $F(elt);
             tmbox = $('targetMbox');
             tmbox.setValue(target);
 
             // Check for a mailbox actually being selected.
-            if (target == "\0create") {
+            if ($(elt[elt.selectedIndex]).hasClassName('flistCreate')) {
                 newFolder = prompt(IMP.text.newfolder, '');
                 if (newFolder != null && newFolder != '') {
                     $('newMbox').setValue(1);
@@ -130,8 +129,8 @@ var ImpMailbox = {
                 }
             } else if (target.empty()) {
                 alert(IMP.text.target_mbox);
-            } else if (target.startsWith("\0notepad_") ||
-                       target.startsWith("\0tasklist_")) {
+            } else if (target.startsWith("notepad\0") ||
+                       target.startsWith("tasklist\0")) {
                 this.actIDconfirm = actID;
                 IMPDialog.display({
                     cancel_text: IMP.text.no,
@@ -335,23 +334,31 @@ var ImpMailbox = {
             }
 
             if (this.cursor) {
-                if (e.altKey) {
-                    this.selectRow(this.cursor, !$F(this.cursor.down('INPUT.checkbox')));
-                }
-
                 switch (key) {
                 case Event.KEY_UP:
-                    this.cursor = this.cursor.previous();
-                    if (!this.cursor.readAttribute('id')) {
-                        search = 'last';
+                    tmp = this.cursor.previous();
+                    if (!tmp.readAttribute('id')) {
+                        tmp = this.cursor.up('TABLE.messageList').previous('TABLE.messageList');
+                        if (tmp) {
+                            tmp = tmp.select('TR[id]').last();
+                        } else {
+                            search = 'last';
+                        }
                     }
+                    this.cursor = tmp;
                     break;
 
                 case Event.KEY_DOWN:
-                    this.cursor = this.cursor.next();
-                    if (!this.cursor) {
-                        search = 'first';
+                    tmp = this.cursor.next();
+                    if (!tmp) {
+                        tmp = this.cursor.up('TABLE.messageList').next('TABLE.messageList');
+                        if (tmp) {
+                            tmp = tmp.select('TR[id]').first();
+                        } else {
+                            search = 'first';
+                        }
                     }
+                    this.cursor = tmp;
                     break;
                 }
             } else {
@@ -364,6 +371,9 @@ var ImpMailbox = {
             }
 
             this.cursor.down('TD A.mboxSubject').focus();
+            if (e.altKey) {
+                this.selectRow(this.cursor, !$F(this.cursor.down('INPUT.checkbox')));
+            }
         } else if (key == 32 && this.cursor) {
             this.selectRow(this.cursor, !$F(this.cursor.down('INPUT.checkbox')));
         } else if (!e.shiftKey) {
@@ -396,10 +406,15 @@ var ImpMailbox = {
 document.observe('dom:loaded', function() {
     var im = ImpMailbox;
 
-    document.observe('change', im.changeHandler.bindAsEventListener(im));
     document.observe('click', im.clickHandler.bindAsEventListener(im));
     document.observe('keydown', im.keyDownHandler.bindAsEventListener(im));
     document.observe('submit', im.submitHandler.bindAsEventListener(im));
+
+    if (Prototype.Browser.IE) {
+        $('flag1', 'filter1', 'targetMailbox1', 'flag2', 'filter2', 'targetMailbox2').compact().invoke('observe', 'change', im.changeHandler.bindAsEventListener(im));
+    } else {
+        document.observe('change', im.changeHandler.bindAsEventListener(im));
+    }
 
     if (window.fluid) {
         try {

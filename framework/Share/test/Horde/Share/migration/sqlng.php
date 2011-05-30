@@ -12,7 +12,7 @@ function migrate_sqlng($db)
     } catch (Horde_Db_Exception $e) {
     }
 
-    $t = $migration->createTable('test_shares', array('primaryKey' => 'share_id'));
+    $t = $migration->createTable('test_shares', array('autoincrementKey' => 'share_id'));
     $t->column('share_name', 'string', array('limit' => 255, 'null' => false));
     $t->column('share_owner', 'string', array('limit' => 255));
     $t->column('share_parents', 'text');

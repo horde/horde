@@ -87,7 +87,7 @@ class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
     {
         require_once dirname(__FILE__) . '/Stub/PearError.php';
         $p = new Horde_Exception_Stub_PearError('pear');
-        $e = new Horde_Exception_Prior($p);
+        $e = new Horde_Exception_Wrapped($p);
         $this->assertSame('pear', $e->getMessage());
     }
 
@@ -95,7 +95,7 @@ class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
     {
         require_once dirname(__FILE__) . '/Stub/PearError.php';
         $p = new Horde_Exception_Stub_PearError('pear', 666);
-        $e = new Horde_Exception_Prior($p);
+        $e = new Horde_Exception_Wrapped($p);
         $this->assertSame(666, $e->getCode());
     }
 

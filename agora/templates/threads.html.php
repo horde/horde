@@ -10,9 +10,11 @@
  <?php endif; ?>
  <?php echo $this->forum_name; ?>
 </div>
+<?php if (!empty($this->forum_description)): ?>
 <div class="control">
  <?php echo $this->forum_description; ?>
 </div>
+<?php endif; ?>
 
 <?php if (!empty($this->threads)): ?>
 <table style="width:100%; border-collapse:collapse;" class="linedRow">

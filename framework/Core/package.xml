@@ -22,19 +22,20 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-03-08</date>
- <time>23:44:00</time>
+ <date>2011-05-25</date>
+ <time>00:56:13</time>
  <version>
-  <release>1.0.0beta1</release>
-  <api>1.0.0</api>
+  <release>1.1.2</release>
+  <api>1.1.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Only show advanced preferences link if there are some.
+* [mms] Fix running Horde login tasks (Bug #9767).
+* [gwr] Added support for the Kolab IMAP based preferences backend.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -51,6 +52,7 @@
     <file name="prettyautocomplete.js" role="horde" />
     <file name="sourceselect.js" role="horde" />
     <file name="spellchecker.js" role="horde" />
+    <file name="toggle_quotes.js" role="horde" />
     <file name="tooltips.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
@@ -83,6 +85,8 @@
         <file name="SqlObject.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Auth/Signup -->
        <file name="Application.php" role="php" />
+       <file name="Composite.php" role="php" />
+       <file name="Imsp.php" role="php" />
        <file name="Ldap.php" role="php" />
        <file name="Msad.php" role="php" />
        <file name="Shibboleth.php" role="php" />
@@ -137,6 +141,8 @@
        <file name="Identity.php" role="php" />
        <file name="Image.php" role="php" />
        <file name="Imple.php" role="php" />
+       <file name="Imsp.php" role="php" />
+       <file name="ImspAuth.php" role="php" />
        <file name="Injector.php" role="php" />
        <file name="KolabServer.php" role="php" />
        <file name="KolabSession.php" role="php" />
@@ -151,6 +157,7 @@
        <file name="MimeViewer.php" role="php" />
        <file name="Notification.php" role="php" />
        <file name="Perms.php" role="php" />
+       <file name="PermsCore.php" role="php" />
        <file name="Prefs.php" role="php" />
        <file name="Request.php" role="php" />
        <file name="Secret.php" role="php" />
@@ -169,6 +176,9 @@
       <dir name="Group">
        <file name="Ldap.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Group -->
+      <dir name="Imsp">
+       <file name="Utils.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/Imsp -->
       <dir name="Log">
        <file name="Logger.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Log -->
@@ -176,6 +186,9 @@
        <dir name="Backend">
         <file name="Horde.php" role="php" />
        </dir> <!-- /lib/Horde/Core/LoginTasks/Backend -->
+       <dir name="SystemTask">
+        <file name="Upgrade.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/LoginTasks/SystemTask -->
       </dir> <!-- /lib/Horde/Core/LoginTasks -->
       <dir name="Mime">
        <dir name="Viewer">
@@ -184,11 +197,18 @@
        </dir> <!-- /lib/Horde/Core/Mime/Viewer -->
       </dir> <!-- /lib/Horde/Core/Mime -->
       <dir name="Notification">
+       <dir name="Event">
+        <file name="Status.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/Notification/Event -->
+       <dir name="Handler">
+        <dir name="Decorator">
+         <file name="Base.php" role="php" />
+         <file name="Hordelog.php" role="php" />
+        </dir> <!-- /lib/Horde/Core/Notification/Handler/Decorator -->
+       </dir> <!-- /lib/Horde/Core/Notification/Handler -->
        <dir name="Storage">
         <file name="Session.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Notification/Storage -->
-       <file name="Hordelog.php" role="php" />
-       <file name="Status.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Notification -->
       <dir name="Perms">
        <file name="Ui.php" role="php" />
@@ -234,6 +254,7 @@
        <file name="JsCalendar.php" role="php" />
        <file name="Language.php" role="php" />
        <file name="Layout.php" role="php" />
+       <file name="ModalFormRenderer.php" role="php" />
        <file name="Pager.php" role="php" />
        <file name="Tabs.php" role="php" />
        <file name="TagCloud.php" role="php" />
@@ -242,6 +263,8 @@
       </dir> <!-- /lib/Horde/Core/Ui -->
       <file name="Block.php" role="php" />
       <file name="Browser.php" role="php" />
+      <file name="LoginTasks.php" role="php" />
+      <file name="Perms.php" role="php" />
       <file name="Sidebar.php" role="php" />
       <file name="Translation.php" role="php">
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
@@ -559,301 +582,426 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Alarm</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Autoloader</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Browser</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Cache</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Cli</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>DB</name>
-    <channel>pear.php.net</channel>
+    <name>Horde_Compress</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Controller</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Data</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Date</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Group</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_History</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Injector</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Lock</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Log</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_LoginTasks</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Mime_Viewer</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Notification</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Prefs</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Secret</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Serialize</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_SessionHandler</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Share</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>Horde_Translation</name>
+    <name>Horde_Template</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>Horde_Url</name>
+    <name>Horde_Token</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Util</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-  </required>
-  <optional>
-   <package>
-    <name>Horde_Browser</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Crypt</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Db</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Editor</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Form</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Http</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Icalendar</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Kolab_Server</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Kolab_Session</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Kolab_Storage</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Nls</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Service_Twitter</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Text_Filter</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Text_Filter_Csstidy</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Translation</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Url</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_View</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>Horde_Crypt</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Db</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Editor</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Form</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Http</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Icalendar</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Image</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Imap_Client</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Kolab_Server</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Kolab_Session</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Kolab_Storage</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Ldap</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mail</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Nls</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Oauth</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Routes</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Service_Twitter</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_SpellChecker</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Tree</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Vfs</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Net_DNS2</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Text_CAPTCHA</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Text_Figlet</name>
+    <channel>pear.php.net</channel>
    </package>
    <package>
     <name>lzf</name>
     <channel>pecl.php.net</channel>
     <recommended>1.5.2</recommended>
    </package>
+   <extension>
+    <name>dom</name>
+   </extension>
+   <extension>
+    <name>hash</name>
+   </extension>
+   <extension>
+    <name>SimpleXML</name>
+   </extension>
+   <extension>
+    <name>sockets</name>
+   </extension>
   </optional>
  </dependencies>
  <usesrole>
@@ -875,6 +1023,7 @@
    <install as="js/prettyautocomplete.js" name="js/prettyautocomplete.js" />
    <install as="js/sourceselect.js" name="js/sourceselect.js" />
    <install as="js/spellchecker.js" name="js/spellchecker.js" />
+   <install as="js/toggle_quotes.js" name="js/toggle_quotes.js" />
    <install as="js/tooltips.js" name="js/tooltips.js" />
    <install as="Horde.php" name="lib/Horde.php" />
    <install as="Horde/Config.php" name="lib/Horde/Config.php" />
@@ -887,6 +1036,8 @@
    <install as="Horde/Config/Form.php" name="lib/Horde/Config/Form.php" />
    <install as="Horde/Core/Block.php" name="lib/Horde/Core/Block.php" />
    <install as="Horde/Core/Browser.php" name="lib/Horde/Core/Browser.php" />
+   <install as="Horde/Core/LoginTasks.php" name="lib/Horde/Core/LoginTasks.php" />
+   <install as="Horde/Core/Perms.php" name="lib/Horde/Core/Perms.php" />
    <install as="Horde/Core/Sidebar.php" name="lib/Horde/Core/Sidebar.php" />
    <install as="Horde/Core/Translation.php" name="lib/Horde/Core/Translation.php" />
    <install as="Horde/Core/ActiveSync/Connector.php" name="lib/Horde/Core/ActiveSync/Connector.php" />
@@ -897,6 +1048,8 @@
    <install as="Horde/Core/Ajax/Imple/SpellChecker.php" name="lib/Horde/Core/Ajax/Imple/SpellChecker.php" />
    <install as="Horde/Core/Ajax/Imple/Geocoder/Geonames.php" name="lib/Horde/Core/Ajax/Imple/Geocoder/Geonames.php" />
    <install as="Horde/Core/Auth/Application.php" name="lib/Horde/Core/Auth/Application.php" />
+   <install as="Horde/Core/Auth/Composite.php" name="lib/Horde/Core/Auth/Composite.php" />
+   <install as="Horde/Core/Auth/Imsp.php" name="lib/Horde/Core/Auth/Imsp.php" />
    <install as="Horde/Core/Auth/Ldap.php" name="lib/Horde/Core/Auth/Ldap.php" />
    <install as="Horde/Core/Auth/Msad.php" name="lib/Horde/Core/Auth/Msad.php" />
    <install as="Horde/Core/Auth/Shibboleth.php" name="lib/Horde/Core/Auth/Shibboleth.php" />
@@ -942,6 +1095,8 @@
    <install as="Horde/Core/Factory/Identity.php" name="lib/Horde/Core/Factory/Identity.php" />
    <install as="Horde/Core/Factory/Image.php" name="lib/Horde/Core/Factory/Image.php" />
    <install as="Horde/Core/Factory/Imple.php" name="lib/Horde/Core/Factory/Imple.php" />
+   <install as="Horde/Core/Factory/Imsp.php" name="lib/Horde/Core/Factory/Imsp.php" />
+   <install as="Horde/Core/Factory/ImspAuth.php" name="lib/Horde/Core/Factory/ImspAuth.php" />
    <install as="Horde/Core/Factory/Injector.php" name="lib/Horde/Core/Factory/Injector.php" />
    <install as="Horde/Core/Factory/KolabServer.php" name="lib/Horde/Core/Factory/KolabServer.php" />
    <install as="Horde/Core/Factory/KolabSession.php" name="lib/Horde/Core/Factory/KolabSession.php" />
@@ -956,6 +1111,7 @@
    <install as="Horde/Core/Factory/MimeViewer.php" name="lib/Horde/Core/Factory/MimeViewer.php" />
    <install as="Horde/Core/Factory/Notification.php" name="lib/Horde/Core/Factory/Notification.php" />
    <install as="Horde/Core/Factory/Perms.php" name="lib/Horde/Core/Factory/Perms.php" />
+   <install as="Horde/Core/Factory/PermsCore.php" name="lib/Horde/Core/Factory/PermsCore.php" />
    <install as="Horde/Core/Factory/Prefs.php" name="lib/Horde/Core/Factory/Prefs.php" />
    <install as="Horde/Core/Factory/Request.php" name="lib/Horde/Core/Factory/Request.php" />
    <install as="Horde/Core/Factory/Secret.php" name="lib/Horde/Core/Factory/Secret.php" />
@@ -971,12 +1127,15 @@
    <install as="Horde/Core/Factory/Vfs.php" name="lib/Horde/Core/Factory/Vfs.php" />
    <install as="Horde/Core/Factory/View.php" name="lib/Horde/Core/Factory/View.php" />
    <install as="Horde/Core/Group/Ldap.php" name="lib/Horde/Core/Group/Ldap.php" />
+   <install as="Horde/Core/Imsp/Utils.php" name="lib/Horde/Core/Imsp/Utils.php" />
    <install as="Horde/Core/Log/Logger.php" name="lib/Horde/Core/Log/Logger.php" />
    <install as="Horde/Core/LoginTasks/Backend/Horde.php" name="lib/Horde/Core/LoginTasks/Backend/Horde.php" />
+   <install as="Horde/Core/LoginTasks/SystemTask/Upgrade.php" name="lib/Horde/Core/LoginTasks/SystemTask/Upgrade.php" />
    <install as="Horde/Core/Mime/Viewer/Syntaxhighlighter.php" name="lib/Horde/Core/Mime/Viewer/Syntaxhighlighter.php" />
    <install as="Horde/Core/Mime/Viewer/Vcard.php" name="lib/Horde/Core/Mime/Viewer/Vcard.php" />
-   <install as="Horde/Core/Notification/Hordelog.php" name="lib/Horde/Core/Notification/Hordelog.php" />
-   <install as="Horde/Core/Notification/Status.php" name="lib/Horde/Core/Notification/Status.php" />
+   <install as="Horde/Core/Notification/Event/Status.php" name="lib/Horde/Core/Notification/Event/Status.php" />
+   <install as="Horde/Core/Notification/Handler/Decorator/Base.php" name="lib/Horde/Core/Notification/Handler/Decorator/Base.php" />
+   <install as="Horde/Core/Notification/Handler/Decorator/Hordelog.php" name="lib/Horde/Core/Notification/Handler/Decorator/Hordelog.php" />
    <install as="Horde/Core/Notification/Storage/Session.php" name="lib/Horde/Core/Notification/Storage/Session.php" />
    <install as="Horde/Core/Perms/Ui.php" name="lib/Horde/Core/Perms/Ui.php" />
    <install as="Horde/Core/Prefs/Identity.php" name="lib/Horde/Core/Prefs/Identity.php" />
@@ -999,6 +1158,7 @@
    <install as="Horde/Core/Ui/JsCalendar.php" name="lib/Horde/Core/Ui/JsCalendar.php" />
    <install as="Horde/Core/Ui/Language.php" name="lib/Horde/Core/Ui/Language.php" />
    <install as="Horde/Core/Ui/Layout.php" name="lib/Horde/Core/Ui/Layout.php" />
+   <install as="Horde/Core/Ui/ModalFormRenderer.php" name="lib/Horde/Core/Ui/ModalFormRenderer.php" />
    <install as="Horde/Core/Ui/Pager.php" name="lib/Horde/Core/Ui/Pager.php" />
    <install as="Horde/Core/Ui/Tabs.php" name="lib/Horde/Core/Ui/Tabs.php" />
    <install as="Horde/Core/Ui/TagCloud.php" name="lib/Horde/Core/Ui/TagCloud.php" />
@@ -1136,6 +1296,160 @@
 * Renamed Help:: as Horde_Help::.
 * Removed Text::/Horde_Text::.
 * Converted Horde to Horde 4 coding conventions.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-16</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Catch fatal errors about missing tables during initial configuration.
+* Added LoginTasks upgrade framework.
+* Added Horde_Core_Perms class.
+* Fix clearing expanded state for javascript trees (Bug #9659).
+* Only show advanced preferences link if there are some.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-22</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First release candidate for Horde 4.
+* [jan] Fix converting identities with non-ascii characters to new format.
+* [mjr] Fix IMSP Auth driver.
+* [jan] Don&apos;t show sub-permissions for adding that exist already.
+* [jan] Fix listing more than one sub-permission (Bug #9671).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-03-29</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Second release candidate for Horde 4.
+* [jan] Fix loading of Horde&apos;s vhost conf.php file (Bug #9704).
+* [jan] Sort applications in preference menu by name.
+* [mms] Fix identities pref UI when default_identity is locked (Bug #9701).
+* [mms] Added Horde::debug().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-04-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* First stable release for Horde 4.
+* [mms] Add Horde_Core_Notification_Handler_Decorator_Base.
+* [mms] Add listAlarms() to methods provided by Horde_Core_Registry_Application.
+* [jan] Delay sidebar creation if the sidebar is generated through JavaScript.
+* [jan] Use localized application names when sorting the preference menu tree.
+* [mms] Fix adding port to certain urls passed to Horde::url() (Bug #9712).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-20</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [mms] Fix loading correct identities driver for the Horde application (Bug #9936).
+* [mms] Don&apos;t setup notification handlers in applications that are not yet authenticated (Bug #9733).
+* [mms] Allow Horde_Menu to accept string url values (Bug #9917).
+* [mjr] Correctly sanitize DSN when using custom cyrus auth driver (Bug #9879).
+* [mms] Reinitialize language after loading prefs before authentication (Bug #9822).
+* [cjh] Fix cyrsql configuration, rename cyrus host and port parameters to not clash with Horde_Db parameters (Bug #9864).
+* [cjh] Fix signups, and update style on signup and reset password pages to match the login page (Bug #9856, partially from Ian Roth &lt;iron_hat@hotmail.com&gt;).
+* [cjh] Show an unknown app icon rather than a broken image if an application doesn&apos;t have an icon (Bug #9867).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Don&apos;t show IMP compose link if user doesn&apos;t have permissions to IMP (Bug #10016).
+* [mjr] Fix editing settings of fixed portal blocks (Bug #9910).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-14</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Add Horde_Config#configFile() and Horde_Config#writePHPConfiguration().
+* [mjr] Fix issue with deleting identities (Bug #9997).
+* [jan] Store preferences for guests in the session.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-18</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Updated German translation.
+* [mms] Optimize session storage.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-25</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [mms] Fix running Horde login tasks (Bug #9767).
+* [gwr] Added support for the Kolab IMAP based preferences backend.
    </notes>
   </release>
  </changelog>
