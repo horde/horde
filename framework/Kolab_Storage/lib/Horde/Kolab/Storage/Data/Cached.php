@@ -36,6 +36,13 @@ extends Horde_Kolab_Storage_Data_Base
     private $_data_cache;
 
     /**
+     * Has the cache already been loaded and validated?
+     *
+     * @var boolean
+     */
+    private $_init = false;
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Folder  $folder   The folder to retrieve the
@@ -59,6 +66,28 @@ extends Horde_Kolab_Storage_Data_Base
     ) {
         parent::__construct($folder, $driver, $factory, $type, $version);
         $this->_data_cache = $cache->getDataCache($this->getIdParameters());
+    }
+
+    /**
+     * Check if the cache has been initialized.
+     *
+     * @return NULL
+     */
+    private function _isInitialized()
+    {
+        return ($this->_init || $this->_data_cache->isInitialized());
+    }
+
+    /**
+     * Check if the cache has been initialized at all and synchronize it if not.
+     *
+     * @return NULL
+     */
+    private function _init()
+    {
+        if (!$this->_isInitialized()) {
+            $this->synchronize();
+        }
     }
 
     /**
@@ -149,6 +178,7 @@ extends Horde_Kolab_Storage_Data_Base
      */
     public function getBackendId($object_id)
     {
+        $this->_init();
         $mapping = $this->_data_cache->getObjectToBackend();
         if (isset($mapping[$object_id])) {
             return $mapping[$object_id];
@@ -168,6 +198,7 @@ extends Horde_Kolab_Storage_Data_Base
      */
     public function objectIdExists($object_id)
     {
+        $this->_init();
         return array_key_exists(
             $object_id, $this->_data_cache->getObjects()
         );
@@ -182,6 +213,7 @@ extends Horde_Kolab_Storage_Data_Base
      */
     public function getObject($object_id)
     {
+        $this->_init();
         $objects = $this->_data_cache->getObjects();
         if (isset($objects[$object_id])) {
             return $objects[$object_id];
@@ -211,6 +243,7 @@ extends Horde_Kolab_Storage_Data_Base
      */
     public function getObjectIds()
     {
+        $this->_init();
         return array_keys($this->_data_cache->getObjects());
     }
 
@@ -221,6 +254,7 @@ extends Horde_Kolab_Storage_Data_Base
      */
     public function getObjects()
     {
+        $this->_init();
         return $this->_data_cache->getObjects();
     }
 
@@ -254,6 +288,7 @@ extends Horde_Kolab_Storage_Data_Base
             parent::synchronize();
             $this->_data_cache->save();
         }
+        $this->_init = true;
     }
 
     /**
