@@ -83,7 +83,7 @@ if ($vars->action == 'config') {
              $xml_ver == $php_ver)) {
             continue;
         }
-        $vars = Horde_Variables::getDefaultVariables();
+        $vars = new Horde_Variables();
         $form = new Horde_Config_Form($vars, $app, true);
         $form->setSubmitted(true);
         if ($form->validate($vars)) {
