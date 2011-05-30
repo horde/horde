@@ -1011,7 +1011,7 @@ HTML;
             !preg_match($schemeRegexp, $webroot) ) {
             /* Store connection parameters in local variables. */
             $server_name = $GLOBALS['conf']['server']['name'];
-            $server_port = $GLOBALS['conf']['server']['port'];
+            $server_port = isset($GLOBALS['conf']['server']['port']) ? $GLOBALS['conf']['server']['port'] : '';
 
             $protocol = 'http';
             switch ($GLOBALS['conf']['use_ssl']) {
