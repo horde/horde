@@ -112,6 +112,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
                 }
                 $params['kolab'] = $this->_injector
                     ->getInstance('Horde_Kolab_Storage');
+                $params['logger'] = $opts['logger'];
                 break;
             case 'Horde_Prefs_Storage_Imsp':
                 $imspParams = $GLOBALS['conf']['imsp'];
