@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-05-20</date>
- <time>05:28:34</time>
+ <date>2011-05-30</date>
+ <time>21:31:36</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -27,6 +27,7 @@
 * [gwr] Added support for storing data query results in the cache.
 * [gwr] Added support for deleting messages by backend UID.
 * [jan] Updated Spanish translation.
+* [gwr] Added logging for data handlers.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -58,6 +59,9 @@
         <file name="List.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/Cache -->
        <dir name="Data">
+        <dir name="Decorator">
+         <file name="Log.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Storage/Data/Decorator -->
         <dir name="Format">
          <file name="Mime.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Storage/Data/Format -->
@@ -660,6 +664,7 @@
    <install as="Horde/Kolab/Storage/Data/Old.php" name="lib/Horde/Kolab/Storage/Data/Old.php" />
    <install as="Horde/Kolab/Storage/Data/Parser.php" name="lib/Horde/Kolab/Storage/Data/Parser.php" />
    <install as="Horde/Kolab/Storage/Data/Query.php" name="lib/Horde/Kolab/Storage/Data/Query.php" />
+   <install as="Horde/Kolab/Storage/Data/Decorator/Log.php" name="lib/Horde/Kolab/Storage/Data/Decorator/Log.php" />
    <install as="Horde/Kolab/Storage/Data/Format/Mime.php" name="lib/Horde/Kolab/Storage/Data/Format/Mime.php" />
    <install as="Horde/Kolab/Storage/Data/Parser/Structure.php" name="lib/Horde/Kolab/Storage/Data/Parser/Structure.php" />
    <install as="Horde/Kolab/Storage/Data/Query/Preferences.php" name="lib/Horde/Kolab/Storage/Data/Query/Preferences.php" />
@@ -1015,11 +1020,14 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-20</date>
+   <date>2011-05-30</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [gwr] Added preference data query.
 * [gwr] Added support for storing data query results in the cache.
 * [gwr] Added support for deleting messages by backend UID.
+* [jan] Updated Spanish translation.
+* [gwr] Added logging for data handlers.
    </notes>
   </release>
  </changelog>

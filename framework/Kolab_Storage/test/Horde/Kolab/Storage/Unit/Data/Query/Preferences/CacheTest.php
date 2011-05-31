@@ -41,15 +41,6 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertEquals(2, count($data->getObjects()));
     }
 
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testMissingSync()
-    {
-        $_SESSION['kolab_storage']['synchronization']['data']["c5ddad7b838c0133313a7988a60f83cd"] = true;
-        $this->_getDataQuery()->getApplicationPreferences('horde');
-    }
-
     public function testHordeApplication()
     {
         $prefs = $this->_getDataQuery()->getApplicationPreferences('horde');

@@ -33,6 +33,15 @@ extends Horde_Kolab_Storage_Queriable
     const QUERY_PREFS  = 'Preferences';
 
     /**
+     * Return the folder path for this data handler.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return string The folder path.
+     */
+    public function getPath();
+
+    /**
      * Return the ID of this data handler.
      *
      * @return string The ID.

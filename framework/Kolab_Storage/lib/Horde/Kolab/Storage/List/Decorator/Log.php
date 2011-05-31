@@ -47,7 +47,8 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      *
      * @param Horde_Kolab_Storage_List $list   The original list handler.
      * @param mixed                    $logger The log handler. This instance
-     *                                         must provide the info() method.
+     *                                         must provide the debug()
+     *                                         and info() methods.
      */
     public function __construct(
         Horde_Kolab_Storage_List $list,
@@ -168,14 +169,14 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      */
     public function listFolders()
     {
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 'Listing folders for %s.',
                 $this->getId()
             )
         );
         $result = $this->_list->listFolders();
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 'List for %s contained %s folders.',
                 $this->getId(),
@@ -193,14 +194,14 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      */
     public function listFolderTypes()
     {
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 'Listing folder type annotations for %s.',
                 $this->getId()
             )
         );
         $result = $this->_list->listFolderTypes();
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 'List for %s contained %s folders and annotations.',
                 $this->getId(),
@@ -238,7 +239,7 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
     public function synchronize()
     {
         $this->_list->synchronize();
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 'Synchronized folder list for %s.',
                 $this->getId()

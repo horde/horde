@@ -96,6 +96,9 @@ class Horde_Kolab_Storage_Factory
         } else {
             $sparams = array();
         }
+        if (!empty($this->_params['logger'])) {
+            $sparams['logger'] = $this->_params['logger'];
+        }
         if (!empty($this->_params['cache'])) {
             $cache = $this->createCache();
             $storage = new Horde_Kolab_Storage_Cached(
@@ -111,11 +114,6 @@ class Horde_Kolab_Storage_Factory
                 new Horde_Kolab_Storage_QuerySet_Uncached($this, $queryset),
                 $this,
                 $sparams
-            );
-        }
-        if (!empty($this->_params['logger'])) {
-            $storage = new Horde_Kolab_Storage_Decorator_Log(
-                $storage, $this->_params['logger']
             );
         }
         $storage = new Horde_Kolab_Storage_Decorator_Synchronization(

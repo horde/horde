@@ -141,6 +141,11 @@ implements Horde_Kolab_Storage
         }
         if (!isset($this->_lists[$driver->getId()])) {
             $list = $this->_createList($driver, $this->_factory);
+            if (isset($this->_params['logger'])) {
+                $list = new Horde_Kolab_Storage_List_Decorator_Log(
+                    $list, $this->_params['logger']
+                );
+            }
             $this->_query_set->addListQuerySet($list);
             $this->_lists[$driver->getId()] = $list;
         }
@@ -211,6 +216,11 @@ implements Horde_Kolab_Storage
                 $object_type,
                 $data_version
             );
+            if (isset($this->_params['logger'])) {
+                $this->_data[$key] = new Horde_Kolab_Storage_Data_Decorator_Log(
+                    $this->_data[$key], $this->_params['logger']
+                );
+            }
             $this->_query_set->addDataQuerySet($this->_data[$key]);
         }
         return $this->_data[$key];

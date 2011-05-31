@@ -307,11 +307,7 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
             }
         case 'homeserver':
         default:
-            $server = $this->get(self::ATTRIBUTE_HOMESERVER);
-            if (empty($server)) {
-                $server = $_SERVER['SERVER_NAME'];
-            }
-            return $server;
+            return $this->get(self::ATTRIBUTE_HOMESERVER);
         }
     }
 }
