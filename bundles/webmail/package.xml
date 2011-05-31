@@ -78,6 +78,11 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>groupware</name>
+    <channel>pear.horde.org</channel>
+    <conflicts/>
+   </package>
+   <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
     <min>4.0.3</min>
