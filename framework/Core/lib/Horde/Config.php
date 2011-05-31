@@ -200,6 +200,17 @@ class Horde_Config
             $this->_parseLevel($this->_xmlConfigTree, $root->childNodes, '');
         }
 
+        /* Parse additional config files. */
+        foreach (glob($path . '/conf.d/*.xml') as $additional) {
+            $dom->load($additional);
+            $root = $dom->documentElement;
+            if ($root->hasChildNodes()) {
+                $tree = array();
+                $this->_parseLevel($tree, $root->childNodes, '');
+                $this->_xmlConfigTree = Horde_Array::replaceRecursive($this->_xmlConfigTree, $tree);
+            }
+        }
+
         return $this->_xmlConfigTree;
     }
 
