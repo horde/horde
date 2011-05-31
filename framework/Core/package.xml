@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-05-25</date>
- <time>19:36:12</time>
+ <date>2011-05-31</date>
+ <time>18:13:38</time>
  <version>
   <release>1.2.0</release>
   <api>1.2.0</api>
@@ -35,7 +35,7 @@
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
 * [jan] Add Horde_Config::configSQL() method.
-* [jan] Add Horde_Core_Cli class.
+* [jan] Add Horde_Core_Cli and Horde_Core_Bundle classes.
 * [mms] Fix running Horde login tasks (Bug #9767).
 * [gwr] Added support for the Kolab IMAP based preferences backend.
  </notes>
@@ -265,6 +265,7 @@
       </dir> <!-- /lib/Horde/Core/Ui -->
       <file name="Block.php" role="php" />
       <file name="Browser.php" role="php" />
+      <file name="Bundle.php" role="php" />
       <file name="Cli.php" role="php" />
       <file name="LoginTasks.php" role="php" />
       <file name="Perms.php" role="php" />
@@ -1039,6 +1040,7 @@
    <install as="Horde/Config/Form.php" name="lib/Horde/Config/Form.php" />
    <install as="Horde/Core/Block.php" name="lib/Horde/Core/Block.php" />
    <install as="Horde/Core/Browser.php" name="lib/Horde/Core/Browser.php" />
+   <install as="Horde/Core/Bundle.php" name="lib/Horde/Core/Bundle.php" />
    <install as="Horde/Core/Cli.php" name="lib/Horde/Core/Cli.php" />
    <install as="Horde/Core/LoginTasks.php" name="lib/Horde/Core/LoginTasks.php" />
    <install as="Horde/Core/Perms.php" name="lib/Horde/Core/Perms.php" />
@@ -1449,9 +1451,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-25</date>
+   <date>2011-05-31</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Add Horde_Config::configSQL() method.
+* [jan] Add Horde_Core_Cli class.
 * [mms] Fix running Horde login tasks (Bug #9767).
 * [gwr] Added support for the Kolab IMAP based preferences backend.
    </notes>
