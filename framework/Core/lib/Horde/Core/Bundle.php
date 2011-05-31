@@ -43,20 +43,15 @@ abstract class Horde_Core_Bundle
         }
 
         // We need a valid conf.php to instantiate the registry.
-        $conf_created = false;
         if (!file_exists(HORDE_BASE . '/config/conf.php')) {
             copy(HORDE_BASE . '/config/conf.php.dist', HORDE_BASE . '/config/conf.php');
-            $conf_created = true;
         }
 
         // Initialization
+        $umask = umask();
         Horde_Registry::appInit('horde', array('nocompress' => true, 'authentication' => 'none'));
         $this->_config = new Horde_Config();
-
-        // Is this a first time run?
-        if ($conf_created) {
-            unlink(HORDE_BASE . '/config/conf.php');
-        }
+        umask($umask);
     }
 
     /**
