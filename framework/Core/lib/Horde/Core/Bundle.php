@@ -64,12 +64,15 @@ abstract class Horde_Core_Bundle
         $this->_cli->writeln();
 
         $sql_config = $this->_config->configSQL('');
+        $vars = new Horde_Variables();
+        new Horde_Config_Form($vars, 'horde', true);
         $this->_cli->question(
-            $GLOBALS['conf']['sql'],
+            $vars,
+            'sql',
             'phptype',
             $sql_config['switch']['custom']['fields']['phptype']);
 
-        $this->writeConfig(new Horde_Variables());
+        $this->writeConfig($vars);
     }
 
     /**

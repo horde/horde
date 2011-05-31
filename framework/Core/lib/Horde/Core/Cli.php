@@ -41,19 +41,19 @@ class Horde_Core_Cli
     /**
      * Shows a prompt for a single configuration setting.
      *
-     * @param array $config  The array that should contain the configuration
-     *                       array in the end.
-     * @param string $name   The name of the configuration setting.
-     * @param array $field   A part of the parsed configuration tree as
-     *                       returned from Horde_Config.
+     * @param Horde_Variables $vars  This is going to be populated with the
+     *                               answers.
+     * @param string $prefix         The current prefix for $name.
+     * @param string $name           The name of the configuration setting.
+     * @param array $field           A part of the parsed configuration tree as
+     *                               returned from Horde_Config.
      */
-    public function question(&$config, $name, $field)
+    public function question($vars, $prefix, $name, $field)
     {
         if (!isset($field['desc'])) {
             // This is a <configsection>.
-            $config[$name] = array();
             foreach ($field as $sub => $sub_field) {
-                $this->question($config[$name], $sub, $sub_field);
+                $this->question($vars, $prefix . '__' . $name, $sub, $sub_field);
             }
             return;
         }
@@ -83,11 +83,11 @@ class Horde_Core_Cli
 
         while (true) {
             if ($name == 'password') {
-                $config[$name] = $this->passwordPrompt($question);
+                $value = $this->passwordPrompt($question);
             } else {
-                $config[$name] = $this->prompt($question, $values, $default);
+                $value = $this->prompt($question, $values, $default);
             }
-            if (empty($field['required']) || $config[$name] !== '') {
+            if (empty($field['required']) || $value !== '') {
                 break;
             } else {
                 $this->writeln($this->red('This field is required.'));
@@ -95,10 +95,12 @@ class Horde_Core_Cli
         }
 
         if (isset($field['switch']) &&
-            !empty($field['switch'][$config[$name]]['fields'])) {
-            foreach ($field['switch'][$config[$name]]['fields'] as $sub => $sub_field) {
-                $this->question($config, $sub, $sub_field);
+            !empty($field['switch'][$value]['fields'])) {
+            foreach ($field['switch'][$value]['fields'] as $sub => $sub_field) {
+                $this->question($vars, $prefix, $sub, $sub_field);
             }
         }
+
+        $vars->set($prefix . '__' . $name, $value);
     }
 }
