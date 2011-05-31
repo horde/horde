@@ -10,7 +10,7 @@
  *
  * @todo Extend Horde_Cli when we can use LSB of PHP 5.3 in Horde_Cli::init().
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Core
  */
 class Horde_Core_Cli
