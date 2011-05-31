@@ -5,6 +5,7 @@
 class Turba_Block_Minisearch extends Horde_Core_Block
 {
     /**
+     * The available options for address book selection
      */
     protected $_options = array();
 
@@ -41,12 +42,12 @@ class Turba_Block_Minisearch extends Horde_Core_Block
         );
     }
     /**
+     * return the content
      */
     protected function _content()
     {
         if ($GLOBALS['browser']->hasFeature('iframes')) {
             $imploded_calendars = '';
-            //<?php echo implode(';',$this->_params['addressbooks']);
             if (count($this->_params['addressbooks'])) {
                 $imploded_calendars = implode(';', $this->_params['addressbooks']);
             } else 
