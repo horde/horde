@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-23</date>
- <time>14:40:25</time>
+ <date>2011-05-25</date>
+ <time>19:36:39</time>
  <version>
   <release>4.0.0RC2</release>
   <api>4.0.0</api>
@@ -26,6 +26,9 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="webmail-install" role="script" />
+   </dir> <!-- /bin -->
    <dir name="config">
     <dir name="prefs.d">
      <file name="10-webmail.php" role="horde" />
@@ -41,7 +44,7 @@
    <dir name="imp">
     <dir name="config">
      <dir name="conf.d">
-      <file name="10-webmail.php" role="horde" />
+      <file name="10-webmail.xml" role="horde" />
      </dir> <!-- /imp/config/conf.d -->
      <dir name="prefs.d">
       <file name="10-webmail.php" role="horde" />
@@ -52,7 +55,7 @@
    <dir name="kronolith">
     <dir name="config">
      <dir name="conf.d">
-      <file name="10-webmail.php" role="horde" />
+      <file name="10-webmail.xml" role="horde" />
      </dir> <!-- /kronolith/config/conf.d -->
     </dir> <!-- /kronolith/config -->
    </dir> <!-- /kronolith -->
@@ -62,7 +65,7 @@
    <dir name="turba">
     <dir name="config">
      <dir name="conf.d">
-      <file name="10-webmail.php" role="horde" />
+      <file name="10-webmail.xml" role="horde" />
      </dir> <!-- /turba/config/conf.d -->
     </dir> <!-- /turba/config -->
    </dir> <!-- /turba -->
@@ -77,6 +80,11 @@
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>groupware</name>
+    <channel>pear.horde.org</channel>
+    <conflicts/>
+   </package>
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
@@ -129,7 +137,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.1.0</min>
+    <min>1.2.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -138,6 +146,7 @@
  <phprelease>
   <filelist>
    <install as="README" name="README" />
+   <install as="webmail-install" name="bin/webmail-install" />
    <install as="config/prefs.d/10-webmail.php" name="config/prefs.d/10-webmail.php" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="INSTALL" name="docs/INSTALL" />
@@ -145,11 +154,11 @@
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="imp/config/hooks.php" name="imp/config/hooks.php" />
-   <install as="imp/config/conf.d/10-webmail.php" name="imp/config/conf.d/10-webmail.php" />
+   <install as="imp/config/conf.d/10-webmail.xml" name="imp/config/conf.d/10-webmail.xml" />
    <install as="imp/config/prefs.d/10-webmail.php" name="imp/config/prefs.d/10-webmail.php" />
-   <install as="kronolith/config/conf.d/10-webmail.php" name="kronolith/config/conf.d/10-webmail.php" />
+   <install as="kronolith/config/conf.d/10-webmail.xml" name="kronolith/config/conf.d/10-webmail.xml" />
    <install as="lib/Bundle.php" name="lib/Bundle.php" />
-   <install as="turba/config/conf.d/10-webmail.php" name="turba/config/conf.d/10-webmail.php" />
+   <install as="turba/config/conf.d/10-webmail.xml" name="turba/config/conf.d/10-webmail.xml" />
   </filelist>
  </phprelease>
  <changelog>
@@ -176,7 +185,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2011-05-23</date>
+   <date>2011-05-25</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 * 

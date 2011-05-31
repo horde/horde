@@ -35,6 +35,13 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 class Horde_Kolab_Storage_Unit_Driver_CclientTest
 extends PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        if (!function_exists('imap_open')) {
+            $this->markTestSkipped('Missing PHP IMAP extension.');
+        }
+    }
+
     public function testGetNamespaceReturnsNamespaceHandler()
     {
         $driver = new Horde_Kolab_Storage_Driver_Cclient(

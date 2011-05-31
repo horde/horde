@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!-- $Id$ -->
+<configuration>
+ <configsection name="menu">
+  <configmultienum name="apps" desc="Select any applications that should be
+  linked in IMP's menu" required="false">turba,ingo,kronolith,nag,mnemo
+   <values>
+    <configspecial application="horde" name="apps" />
+   </values>
+  </configmultienum>
+ </configsection>
+</configuration>
