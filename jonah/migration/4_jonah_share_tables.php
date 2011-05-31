@@ -107,7 +107,7 @@ class JonahShareTables extends Horde_Db_Migration_Base
             $this->dropTable('jonah_channels');
         }
 
-        $this->changeColumn('jonah_stories', 'channel_id', 'text');
+        $this->changeColumn('jonah_stories', 'channel_id', 'string', array('limit' => 255, 'null' => false));
     }
 
     /**
