@@ -79,6 +79,9 @@ abstract class Horde_Core_Bundle
      */
     public function migrateDb()
     {
+        $this->_cli->writeln();
+        echo 'Creating database tables...';
+
         $migration = new Horde_Core_Db_Migration();
 
         // Try twice to work around unresolved migration dependencies.
@@ -91,7 +94,7 @@ abstract class Horde_Core_Bundle
                 }
                 try {
                     $migrator->up();
-                } catch (Horde_Db_Exception $error) {
+                } catch (Exception $error) {
                     if ($i) {
                         throw $error;
                     }
@@ -101,6 +104,8 @@ abstract class Horde_Core_Bundle
                 break;
             }
         }
+
+        $this->_cli->writeln($this->_cli->green(' done.'));
     }
 
     /**
