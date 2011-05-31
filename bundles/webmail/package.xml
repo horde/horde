@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* 
+* [jan] Add installation script.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -188,7 +188,7 @@
    <date>2011-05-25</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
-* 
+* [jan] Add installation script.
    </notes>
   </release>
  </changelog>
