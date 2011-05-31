@@ -13,20 +13,8 @@ class Trean_Bookmarks
     /**
      * Constructor.
      */
-    function Trean_Bookmarks()
+    public function __construct()
     {
-        global $conf, $registry;
-
-        if (empty($conf['datatree']['driver'])) {
-            throw new Horde_Exception('You must configure a Horde_DataTree backend to use Trean.');
-        }
-
-        $driver = $conf['datatree']['driver'];
-        $this->_datatree = Horde_DataTree::singleton(
-            $driver,
-            array_merge(Horde::getDriverConfig('datatree', $driver), array('group' => 'horde.shares.trean'))
-        );
-
         try {
             Horde::callHook('share_init', array($this, 'trean'));
         } catch (Horde_Exception_HookNotSet $e) {}
@@ -49,7 +37,7 @@ class Trean_Bookmarks
         }
 
         $clauses = array();
-        $values = array();
+        $values = array($GLOBALS['registry']->getAuth());
         foreach ($search_criteria as $criterion) {
             $clause = $GLOBALS['trean_db']->buildClause(
                 'bookmark_' . $criterion[0],
@@ -63,45 +51,14 @@ class Trean_Bookmarks
             $values = array_merge($values, $clause[1]);
         }
 
-        $sql = 'SELECT bookmark_id, folder_id, bookmark_url, bookmark_title, bookmark_description,
-                       bookmark_clicks, bookmark_rating
+        $sql = 'SELECT bookmark_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_rating
                 FROM trean_bookmarks
                 WHERE user_uid = ?
                       AND (' . implode(' ' . $search_operator . ' ', $clauses) . ')
                 ORDER BY bookmark_' . $sortby . ($sortdir ? ' DESC' : '');
         $sql = $GLOBALS['trean_db']->addLimitOffset($sql, array('limit' => $count, 'offset' => $from));
 
-        return Trean_Bookmarks::resultSet($GLOBALS['trean_db']->selectAll($sql, array($GLOBALS['registry']->getAuth())));
-    }
-
-    /**
-     * Sort bookmarks from all folders the user can access by a
-     * specific criteria.
-     */
-    function sortBookmarks($sortby = 'title', $sortdir = 0, $from = 0, $count = 10)
-    {
-        // Make sure $sortby is a valid field.
-        switch ($sortby) {
-        case 'rating':
-        case 'clicks':
-            break;
-
-        default:
-            $sortby = 'title';
-        }
-
-        if ($count > 100) {
-            return PEAR::raiseError('Max of 100 results');
-        }
-
-        $sql = '
-            SELECT bookmark_id, folder_id, bookmark_url, bookmark_title, bookmark_description,
-                   bookmark_clicks, bookmark_rating
-            FROM trean_bookmarks
-            WHERE folder_id IN (' . implode(',', $folderIds) . ')
-            ORDER BY bookmark_' . $sortby . ($sortdir ? ' DESC' : '');
-        $sql = $GLOBALS['trean_db']->addLimitOffset($sql, array('limit' => $count, 'offset' => $from));
-        return Trean_Bookmarks::resultSet($GLOBALS['trean_db']->selectAll($sql));
+        return Trean_Bookmarks::resultSet($GLOBALS['trean_db']->selectAll($sql, $values));
     }
 
     /**
@@ -124,7 +81,6 @@ class Trean_Bookmarks
         case 'status':
             $sql = 'SELECT bookmark_http_status AS status, COUNT(*) AS count
                     FROM trean_bookmarks
-                    WHERE folder_id IN (' . implode(',', $folderIds) . ')
                     GROUP BY bookmark_http_status';
             break;
 
