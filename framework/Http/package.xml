@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-06-01</date>
- <time>15:40:45</time>
+ <time>15:41:12</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [cjh] Consistently implement configurable following of redirects (Bug #9898).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -230,6 +230,19 @@
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * [cjh] Consistently implement configurable following of redirects (Bug #9898).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
