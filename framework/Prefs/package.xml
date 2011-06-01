@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-06-01</date>
- <time>15:37:51</time>
+ <time>15:38:23</time>
  <version>
-  <release>1.1.0</release>
+  <release>1.1.1</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -34,9 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [gwr] Added a script for exporting/importing preferences from/to a backend.
-* [gwr] Added support for listing the scopes in some storage backends.
-* [gwr] Fixed the driver for the Kolab IMAP backend.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -690,6 +688,19 @@ Initial release as a PEAR package
 * [gwr] Added a script for exporting/importing preferences from/to a backend.
 * [gwr] Added support for listing the scopes in some storage backends.
 * [gwr] Fixed the driver for the Kolab IMAP backend.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
