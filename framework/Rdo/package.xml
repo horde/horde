@@ -11,8 +11,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:17:28</time>
+ <date>2011-06-01</date>
+ <time>15:37:33</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -184,10 +184,10 @@ Major improvements including inflection, eager or lazy loading of relationships 
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-06-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Add missing dependency on Horde_Db.
    </notes>
   </release>
  </changelog>
