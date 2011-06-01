@@ -1,6 +1,6 @@
-----------
-v5.0.5-git
-----------
+------
+v5.0.5
+------
 
 [jan] Fix loading message previews from search results (Bug #10152).
 [mms] Fix sending messages with linked attachments (Bug #10125).

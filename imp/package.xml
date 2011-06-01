@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-26</date>
- <time>10:16:00</time>
+ <date>2011-06-01</date>
+ <time>18:14:34</time>
  <version>
   <release>5.0.5</release>
   <api>5.0.0</api>
@@ -2256,7 +2256,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-26</date>
+   <date>2011-06-01</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [jan] Fix loading message previews from search results (Bug #10152).
