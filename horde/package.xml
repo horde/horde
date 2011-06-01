@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-06-01</date>
- <time>18:52:15</time>
+ <time>18:53:52</time>
  <version>
-  <release>4.0.5</release>
+  <release>4.0.6</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Remove debug code.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4120,6 +4120,19 @@
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Remove debug code.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.6</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
