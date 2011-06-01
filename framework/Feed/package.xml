@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-06-01</date>
- <time>15:34:59</time>
+ <time>15:35:48</time>
  <version>
-  <release>1.1.0</release>
+  <release>1.1.1</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [gwr] Added an example on how to post to blogger.com.
-* [gwr] Support additional request headers when updating Atom entries.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -621,6 +620,19 @@
    <notes>
 * [gwr] Added an example on how to post to blogger.com.
 * [gwr] Support additional request headers when updating Atom entries.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
