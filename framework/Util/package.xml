@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-03</date>
- <time>13:45:16</time>
+ <date>2011-06-01</date>
+ <time>15:36:10</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Don't try to use dl() in PHP 5.3+.
+* [mms] Don&apos;t try to use dl() in PHP 5.3+.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -365,10 +365,10 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-03</date>
+   <date>2011-06-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] Don&apos;t try to use dl() in PHP 5.3+.
    </notes>
   </release>
  </changelog>
