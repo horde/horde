@@ -2,6 +2,7 @@
 v3.0.3-git
 ----------
 
+[rl] #8786 Turba Minisearch works over multiple address books
 [mjr] Fix importing LDIF files (Bug: 10139).
 [mjr] Fix issue introduced in 3.0.1 that caused contact images to not display
       (Bug #10050).
