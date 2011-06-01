@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-06-01</date>
- <time>15:36:10</time>
+ <time>15:36:47</time>
  <version>
-  <release>1.0.3</release>
+  <release>1.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Don&apos;t try to use dl() in PHP 5.3+.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -369,6 +369,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [mms] Don&apos;t try to use dl() in PHP 5.3+.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
