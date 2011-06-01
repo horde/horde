@@ -40,6 +40,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mms] Fix colorpicker on categories preferences screen (Bug #10118).
+* [mjr] Fix Metar portal block.
 * [gwr] Added support for the Kolab IMAP based preferences backend.
  </notes>
  <contents>

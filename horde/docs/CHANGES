@@ -2,7 +2,18 @@
 v4.0.4-git
 ----------
 
-[gwr] Added support for the Kolab IMAP based preferences backend.
+[gwr] Added a script for exporting/importing preferences from/to a backend.
+[mms] Fix regression with UTF7-IMAP encoding of non-ascii folder names (Bug
+      #10093).
+[mms] Allow numbers to be zero in certain preferences (Bug #10120).
+[mms] Fix running Horde login tasks (Bug #9767).
+[mms] Fix authenticating as several users in the same request (Bug #10027).
+[mms] Fix colorpicker on categories preferences screen (Bug #10118).
+[jan] Update Spanish translation.
+[jan] Update Slovak translation.
+[mjr] Fix Metar portal block.
+[gwr] Add support for the Kolab IMAP based preferences backend.
+[mms] Complete fix for issue causing slow syncs only (Bug #10008).
 
 
 ------
