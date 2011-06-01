@@ -12,9 +12,9 @@
   <active>yes</active>
  </lead>
  <date>2011-06-01</date>
- <time>15:37:33</time>
+ <time>15:37:51</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Add missing dependency on Horde_Db.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -188,6 +188,19 @@ Major improvements including inflection, eager or lazy loading of relationships 
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Add missing dependency on Horde_Db.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
