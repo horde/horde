@@ -22,8 +22,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-17</date>
- <time>07:05:38</time>
+ <date>2011-06-01</date>
+ <time>15:37:51</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -684,7 +684,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-17</date>
+   <date>2011-06-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [gwr] Added a script for exporting/importing preferences from/to a backend.
