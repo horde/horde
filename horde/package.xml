@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-06-01</date>
- <time>18:12:15</time>
+ <time>18:13:50</time>
  <version>
-  <release>4.0.4</release>
+  <release>4.0.5</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,9 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Fix colorpicker on categories preferences screen (Bug #10118).
-* [mjr] Fix Metar portal block.
-* [gwr] Added support for the Kolab IMAP based preferences backend.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4109,6 +4107,19 @@
 * [mms] Fix colorpicker on categories preferences screen (Bug #10118).
 * [mjr] Fix Metar portal block.
 * [gwr] Added support for the Kolab IMAP based preferences backend.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.5</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
