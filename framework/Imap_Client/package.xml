@@ -25,6 +25,7 @@
 * [mms] Support response code for POP3 servers (RFC 2449/3206).
 * [mms] Enable cache support for POP3 Socket driver (FETCH data only).
 * [mms] Fix APOP authentication for POP3 Socket driver.
+* [mms] Fix regression with UTF7-IMAP encoding of non-ascii folder names (Bug #10093).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
