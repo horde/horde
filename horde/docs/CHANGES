@@ -1,6 +1,6 @@
-----------
-v4.0.4-git
-----------
+------
+v4.0.4
+------
 
 [gwr] Added a script for exporting/importing preferences from/to a backend.
 [mms] Fix regression with UTF7-IMAP encoding of non-ascii folder names (Bug
