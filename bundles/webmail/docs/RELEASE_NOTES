@@ -28,8 +28,8 @@ changed to use the PEAR installer. Please follow the instructions on
 https://github.com/horde/horde/blob/master/bundles/webmail/docs/INSTALL
 to install Horde Groupware Webmail Edition.
 
-The major changes compared to the Horde Groupware Webmail Edition version 1
-are:
+The major changes compared to the Horde Groupware Webmail Edition version
+4.0-RC1 are:
 
 Global changes:
     * Added an installation script.
