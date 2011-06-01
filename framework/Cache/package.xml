@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-06-01</date>
- <time>15:45:21</time>
+ <time>15:45:54</time>
  <version>
-  <release>1.0.4</release>
+  <release>1.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Fix memcache duplicate keys (Bug #10072; goncalo.queiros@portugalmail.net).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -297,6 +297,19 @@ Initial packaging.
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [mms] Fix memcache duplicate keys (Bug #10072; goncalo.queiros@portugalmail.net).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
