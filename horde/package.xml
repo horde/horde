@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Remove debug code.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
