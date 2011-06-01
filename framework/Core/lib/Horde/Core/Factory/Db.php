@@ -83,7 +83,8 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
                   $config['show_encryption'],
                   $config['username_field'],
                   $config['password_field'],
-                  $config['table']);
+                  $config['table'],
+                  $config['utc']);
         }
         unset($config['umask']);
 
