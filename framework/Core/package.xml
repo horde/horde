@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-05-31</date>
- <time>18:13:38</time>
+ <date>2011-06-01</date>
+ <time>15:43:20</time>
  <version>
   <release>1.2.0</release>
   <api>1.2.0</api>
@@ -1455,13 +1455,17 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-31</date>
+   <date>2011-06-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Add Horde_Config::configSQL() method.
-* [jan] Add Horde_Core_Cli class.
+* [jan] Add Horde_Core_Cli and Horde_Core_Bundle classes.
+* [jan] Updated Slovak translation.
+* [mms] Allow numbers to be zero in certain preferences (Bug #10120).
 * [mms] Fix running Horde login tasks (Bug #9767).
+* [mms] Fix authenticating as several users in the same request (Bug #10027).
 * [gwr] Added support for the Kolab IMAP based preferences backend.
+* [jan] Updated Spanish translation.
    </notes>
   </release>
  </changelog>
