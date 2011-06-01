@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-06-01</date>
- <time>15:38:52</time>
+ <time>15:39:09</time>
  <version>
-  <release>1.0.2</release>
+  <release>1.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Use memcache flags to keep track of large objects (goncalo.queiros@portugalmail.net, Request #10123).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -167,6 +167,19 @@
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [mms] Use memcache flags to keep track of large objects (goncalo.queiros@portugalmail.net, Request #10123).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
