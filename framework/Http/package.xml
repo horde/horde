@@ -18,7 +18,7 @@
   <active>yes</active>
  </lead>
  <date>2011-06-01</date>
- <time>10:00:12</time>
+ <time>15:40:45</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -229,7 +229,7 @@
    <date>2011-06-01</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-* 
+* [cjh] Consistently implement configurable following of redirects (Bug #9898).
    </notes>
   </release>
  </changelog>
