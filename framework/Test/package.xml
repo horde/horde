@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-06-01</date>
- <time>15:35:48</time>
+ <time>15:36:10</time>
  <version>
-  <release>1.1.0</release>
+  <release>1.1.1</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [gwr] Added test case for log output.
-* [gwr] Added stub for application testing.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -204,6 +203,19 @@
    <notes>
 * [gwr] Added test case for log output.
 * [gwr] Added stub for application testing.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
