@@ -2,6 +2,7 @@
 v5.0.5-git
 ----------
 
+[jan] Fix loading message previews from search results (Bug #10152).
 [mms] Fix sending messages with linked attachments (Bug #10125).
 [mms] Handle response codes/errors returned from POP3 servers.
 [mms] Fix POP3 regressions.

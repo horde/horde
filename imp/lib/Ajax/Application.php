@@ -1131,7 +1131,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             /* Add changed flag information. */
             $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
             if ($imp_imap->imap) {
-                $status = $imp_imap->status($this->_vars->view, Horde_Imap_Client::STATUS_PERMFLAGS);
+                $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_PERMFLAGS);
                 if (in_array(Horde_Imap_Client::FLAG_SEEN, $status['permflags'])) {
                     $this->_queue->flag(array(Horde_Imap_Client::FLAG_SEEN), true, $indices);
                 }
