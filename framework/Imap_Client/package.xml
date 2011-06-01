@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-06-01</date>
- <time>15:44:52</time>
+ <time>15:45:21</time>
  <version>
-  <release>1.0.7</release>
+  <release>1.0.8</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,10 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Support response code for POP3 servers (RFC 2449/3206).
-* [mms] Enable cache support for POP3 Socket driver (FETCH data only).
-* [mms] Fix APOP authentication for POP3 Socket driver.
-* [mms] Fix regression with UTF7-IMAP encoding of non-ascii folder names (Bug #10093).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -421,6 +418,19 @@
 * [mms] Enable cache support for POP3 Socket driver (FETCH data only).
 * [mms] Fix APOP authentication for POP3 Socket driver.
 * [mms] Fix regression with UTF7-IMAP encoding of non-ascii folder names (Bug #10093).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.8</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
