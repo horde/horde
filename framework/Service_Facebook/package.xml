@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-06-01</date>
- <time>15:37:14</time>
+ <time>15:37:32</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [jan] Updated Slovak translation.
-* [jan] Updated Spanish translation.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -561,6 +560,19 @@
    <notes>
 * [jan] Updated Slovak translation.
 * [jan] Updated Spanish translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
