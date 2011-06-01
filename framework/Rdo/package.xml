@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Add missing dependency on Horde_Db.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

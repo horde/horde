@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Use memcache flags to keep track of large objects (Request #10123; goncalo.queiros@portugalmail.net).
+* [mms] Use memcache flags to keep track of large objects (goncalo.queiros@portugalmail.net, Request #10123).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

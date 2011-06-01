@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Updated Slovak translation.
+* [jan] Updated Spanish translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

@@ -29,6 +29,7 @@
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
 * [gwr] Added test case for log output.
+* [gwr] Added stub for application testing.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
