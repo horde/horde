@@ -5,8 +5,8 @@
  * @subpackage UnitTests
  */
 
-/** Horde_Feed_TestCase */
-require_once dirname(__FILE__) . '/TestCase.php';
+/** Setup testing */
+require_once dirname(__FILE__) . '/Autoload.php';
 
 class Horde_Feed_ReadTest extends PHPUnit_Framework_TestCase
 {
