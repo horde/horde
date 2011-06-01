@@ -1,6 +1,6 @@
-----------
-v3.0.3-git
-----------
+------
+v3.0.3
+------
 
 [rla] Support multiple address books in search portal block (Request #8786).
 [mjr] Fix importing LDIF files (Bug #10139).
