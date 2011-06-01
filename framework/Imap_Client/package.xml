@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-25</date>
- <time>14:53:31</time>
+ <date>2011-06-01</date>
+ <time>15:44:52</time>
  <version>
   <release>1.0.7</release>
   <api>1.0.0</api>
@@ -414,11 +414,13 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-25</date>
+   <date>2011-06-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Enable cache support for POP3 Socket driver (FETCH data only).
-* Fix APOP authentication for POP3 Socket driver.
+* [mms] Support response code for POP3 servers (RFC 2449/3206).
+* [mms] Enable cache support for POP3 Socket driver (FETCH data only).
+* [mms] Fix APOP authentication for POP3 Socket driver.
+* [mms] Fix regression with UTF7-IMAP encoding of non-ascii folder names (Bug #10093).
    </notes>
   </release>
  </changelog>
