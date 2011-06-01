@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-18</date>
- <time>14:44:43</time>
+ <date>2011-06-01</date>
+ <time>15:42:18</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -600,10 +600,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-18</date>
+   <date>2011-06-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Updated Slovak translation.
    </notes>
   </release>
  </changelog>
