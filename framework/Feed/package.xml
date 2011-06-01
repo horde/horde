@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* 
+* [gwr] Support additional request headers when updating Atom entries.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -616,7 +616,7 @@
    <date>2011-06-01</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-* 
+* [gwr] Support additional request headers when updating Atom entries.
    </notes>
   </release>
  </changelog>
