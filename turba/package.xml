@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-06-01</date>
- <time>18:17:19</time>
+ <time>18:18:21</time>
  <version>
-  <release>3.0.3</release>
+  <release>3.0.4</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -40,11 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [rla] Support multiple address books in search portal block (Request #8786).
-* [mjr] Fix importing LDIF files (Bug #10139).
-* [mjr] Fix issue introduced in 3.0.1 that caused contact images to not display (Bug #10050).
-* [jan] Fix editing of multiple contacts at once (Bug #10085).
-* [jan] Enable homeAdress and workAdress composite fields by default.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1187,6 +1183,19 @@
 * [mjr] Fix issue introduced in 3.0.1 that caused contact images to not display (Bug #10050).
 * [jan] Fix editing of multiple contacts at once (Bug #10085).
 * [jan] Enable homeAdress and workAdress composite fields by default.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.4</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
