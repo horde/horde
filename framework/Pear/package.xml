@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-04-12</date>
- <time>20:51:55</time>
+ <date>2011-06-02</date>
+ <time>08:31:57</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -96,10 +96,12 @@
          <file name="Old.php" role="test" />
          <file name="Stays.php" role="test" />
         </dir> <!-- /test/Horde/Pear/fixture/directory/lib -->
+        <file name="package.xml" role="test" />
         <file name="test.php" role="test" />
        </dir> <!-- /test/Horde/Pear/fixture/directory -->
        <dir name="empty">
         <file name="File.php" role="test" />
+        <file name="package.xml" role="test" />
        </dir> <!-- /test/Horde/Pear/fixture/empty -->
        <dir name="horde">
         <dir name="framework">
@@ -108,12 +110,20 @@
            <file name="Old.php" role="test" />
            <file name="Stays.php" role="test" />
           </dir> <!-- /test/Horde/Pear/fixture/horde/framework/simple/lib -->
+          <file name="package.xml" role="test" />
          </dir> <!-- /test/Horde/Pear/fixture/horde/framework/simple -->
         </dir> <!-- /test/Horde/Pear/fixture/horde/framework -->
+        <dir name="horde">
+         <file name="package.xml" role="test" />
+        </dir> <!-- /test/Horde/Pear/fixture/horde/horde -->
         <file name=".gitignore" role="test" />
        </dir> <!-- /test/Horde/Pear/fixture/horde -->
+       <dir name="notes">
+        <file name="package.xml" role="test" />
+       </dir> <!-- /test/Horde/Pear/fixture/notes -->
        <dir name="one">
         <file name="File.php" role="test" />
+        <file name="package.xml" role="test" />
        </dir> <!-- /test/Horde/Pear/fixture/one -->
        <dir name="order">
         <dir name="lib">
@@ -131,6 +141,7 @@
          <file name="Stays.php" role="test" />
          <file name="Z.php" role="test" />
         </dir> <!-- /test/Horde/Pear/fixture/order/lib -->
+        <file name="package.xml" role="test" />
        </dir> <!-- /test/Horde/Pear/fixture/order -->
        <dir name="remove">
         <dir name="lib">
@@ -139,18 +150,21 @@
          </dir> <!-- /test/Horde/Pear/fixture/remove/lib/b -->
          <file name="Stays.php" role="test" />
         </dir> <!-- /test/Horde/Pear/fixture/remove/lib -->
+        <file name="package.xml" role="test" />
        </dir> <!-- /test/Horde/Pear/fixture/remove -->
        <dir name="simple">
         <dir name="lib">
          <file name="Old.php" role="test" />
          <file name="Stays.php" role="test" />
         </dir> <!-- /test/Horde/Pear/fixture/simple/lib -->
+        <file name="package.xml" role="test" />
        </dir> <!-- /test/Horde/Pear/fixture/simple -->
        <dir name="simple-empty">
         <dir name="lib">
          <file name="Old.php" role="test" />
          <file name="Stays.php" role="test" />
         </dir> <!-- /test/Horde/Pear/fixture/simple-empty/lib -->
+        <file name="package.xml" role="test" />
        </dir> <!-- /test/Horde/Pear/fixture/simple-empty -->
        <dir name="tree">
         <dir name="lib">
@@ -166,6 +180,7 @@
          </dir> <!-- /test/Horde/Pear/fixture/tree/test/Horde -->
          <file name="b.php" role="test" />
         </dir> <!-- /test/Horde/Pear/fixture/tree/test -->
+        <file name="package.xml" role="test" />
        </dir> <!-- /test/Horde/Pear/fixture/tree -->
       </dir> <!-- /test/Horde/Pear/fixture -->
       <dir name="Server">
@@ -266,14 +281,21 @@
    <install as="Horde/Pear/Autoload.php" name="test/Horde/Pear/Autoload.php" />
    <install as="Horde/Pear/phpunit.xml" name="test/Horde/Pear/phpunit.xml" />
    <install as="Horde/Pear/TestCase.php" name="test/Horde/Pear/TestCase.php" />
+   <install as="Horde/Pear/fixture/directory/package.xml" name="test/Horde/Pear/fixture/directory/package.xml" />
    <install as="Horde/Pear/fixture/directory/test.php" name="test/Horde/Pear/fixture/directory/test.php" />
    <install as="Horde/Pear/fixture/directory/lib/Old.php" name="test/Horde/Pear/fixture/directory/lib/Old.php" />
    <install as="Horde/Pear/fixture/directory/lib/Stays.php" name="test/Horde/Pear/fixture/directory/lib/Stays.php" />
    <install as="Horde/Pear/fixture/empty/File.php" name="test/Horde/Pear/fixture/empty/File.php" />
+   <install as="Horde/Pear/fixture/empty/package.xml" name="test/Horde/Pear/fixture/empty/package.xml" />
    <install as="Horde/Pear/fixture/horde/.gitignore" name="test/Horde/Pear/fixture/horde/.gitignore" />
+   <install as="Horde/Pear/fixture/horde/framework/simple/package.xml" name="test/Horde/Pear/fixture/horde/framework/simple/package.xml" />
    <install as="Horde/Pear/fixture/horde/framework/simple/lib/Old.php" name="test/Horde/Pear/fixture/horde/framework/simple/lib/Old.php" />
    <install as="Horde/Pear/fixture/horde/framework/simple/lib/Stays.php" name="test/Horde/Pear/fixture/horde/framework/simple/lib/Stays.php" />
+   <install as="Horde/Pear/fixture/horde/horde/package.xml" name="test/Horde/Pear/fixture/horde/horde/package.xml" />
+   <install as="Horde/Pear/fixture/notes/package.xml" name="test/Horde/Pear/fixture/notes/package.xml" />
    <install as="Horde/Pear/fixture/one/File.php" name="test/Horde/Pear/fixture/one/File.php" />
+   <install as="Horde/Pear/fixture/one/package.xml" name="test/Horde/Pear/fixture/one/package.xml" />
+   <install as="Horde/Pear/fixture/order/package.xml" name="test/Horde/Pear/fixture/order/package.xml" />
    <install as="Horde/Pear/fixture/order/lib/A.php" name="test/Horde/Pear/fixture/order/lib/A.php" />
    <install as="Horde/Pear/fixture/order/lib/R.php" name="test/Horde/Pear/fixture/order/lib/R.php" />
    <install as="Horde/Pear/fixture/order/lib/Stays.php" name="test/Horde/Pear/fixture/order/lib/Stays.php" />
@@ -281,12 +303,16 @@
    <install as="Horde/Pear/fixture/order/lib/A/a.php" name="test/Horde/Pear/fixture/order/lib/A/a.php" />
    <install as="Horde/Pear/fixture/order/lib/b/a.php" name="test/Horde/Pear/fixture/order/lib/b/a.php" />
    <install as="Horde/Pear/fixture/order/lib/z/a.php" name="test/Horde/Pear/fixture/order/lib/z/a.php" />
+   <install as="Horde/Pear/fixture/remove/package.xml" name="test/Horde/Pear/fixture/remove/package.xml" />
    <install as="Horde/Pear/fixture/remove/lib/Stays.php" name="test/Horde/Pear/fixture/remove/lib/Stays.php" />
    <install as="Horde/Pear/fixture/remove/lib/b/a.php" name="test/Horde/Pear/fixture/remove/lib/b/a.php" />
+   <install as="Horde/Pear/fixture/simple/package.xml" name="test/Horde/Pear/fixture/simple/package.xml" />
    <install as="Horde/Pear/fixture/simple/lib/Old.php" name="test/Horde/Pear/fixture/simple/lib/Old.php" />
    <install as="Horde/Pear/fixture/simple/lib/Stays.php" name="test/Horde/Pear/fixture/simple/lib/Stays.php" />
+   <install as="Horde/Pear/fixture/simple-empty/package.xml" name="test/Horde/Pear/fixture/simple-empty/package.xml" />
    <install as="Horde/Pear/fixture/simple-empty/lib/Old.php" name="test/Horde/Pear/fixture/simple-empty/lib/Old.php" />
    <install as="Horde/Pear/fixture/simple-empty/lib/Stays.php" name="test/Horde/Pear/fixture/simple-empty/lib/Stays.php" />
+   <install as="Horde/Pear/fixture/tree/package.xml" name="test/Horde/Pear/fixture/tree/package.xml" />
    <install as="Horde/Pear/fixture/tree/lib/Old.php" name="test/Horde/Pear/fixture/tree/lib/Old.php" />
    <install as="Horde/Pear/fixture/tree/lib/Stays.php" name="test/Horde/Pear/fixture/tree/lib/Stays.php" />
    <install as="Horde/Pear/fixture/tree/lib/Horde/a.php" name="test/Horde/Pear/fixture/tree/lib/Horde/a.php" />
@@ -319,7 +345,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-04-12</date>
+   <date>2011-06-02</date>
    <license uri="REPLACE">REPLACE</license>
    <notes>
 * [jan] Update changelog when updating content (Bug #9935).
