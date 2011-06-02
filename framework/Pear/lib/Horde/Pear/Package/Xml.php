@@ -248,7 +248,8 @@ class Horde_Pear_Package_Xml
         $initial_note,
         $stability_api = null,
         $stability_release = null
-    ) {
+    )
+    {
         $notes = "\n* " . $initial_note . "\n ";
         $license = $this->getLicense();
         $api = $this->getNodeText('/p:package/p:version/p:api');
@@ -366,7 +367,7 @@ class Horde_Pear_Package_Xml
     private function _fetchCurrentRelease()
     {
         $version = $this->getNodeText('/p:package/p:version/p:release');
-        foreach($this->findNodes('/p:package/p:changelog/p:release') as $release) {
+        foreach ($this->findNodes('/p:package/p:changelog/p:release') as $release) {
             if ($this->getNodeTextRelativeTo('./p:version/p:release', $release) == $version) {
                 return $release;
             }
@@ -527,7 +528,8 @@ class Horde_Pear_Package_Xml
         DOMNode $context,
         $value,
         $attributes = array()
-    ) {
+    )
+    {
         if ($node = $this->findNodeRelativeTo($path, $context)) {
             $new_node = $this->_replacementNode($node, $value);
             foreach ($attributes as $name => $value) {
