@@ -122,12 +122,15 @@ extends Horde_Pear_TestCase
     public function testGetLicense()
     {
         $xml = $this->_getFixture();
+        $this->assertEquals('LGPLv2.1', $xml->getLicense());
+    }
+
+    public function testGetLicenseLocation()
+    {
+        $xml = $this->_getFixture();
         $this->assertEquals(
-            array(
-                'name' => 'LGPLv2.1',
-                'uri' => 'http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html'
-            ),
-            $xml->getLicense()
+            'http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html',
+            $xml->getLicenseLocation()
         );
     }
 
