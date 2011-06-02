@@ -65,6 +65,17 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testPackageList()
+    {
+        $pl = new Horde_Pear_Rest_PackageList(
+            $this->_getRest()->fetchPackageList()
+        );
+        $this->assertContains(
+            'Horde_Core',
+            $pl->listPackages()
+        );
+    }
+
     private function _getRest()
     {
         return new Horde_Pear_Rest(

@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-06-02</date>
- <time>09:50:24</time>
+ <time>11:48:45</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -80,6 +80,9 @@
        <file name="Type.php" role="php" />
        <file name="Xml.php" role="php" />
       </dir> <!-- /lib/Horde/Pear/Package -->
+      <dir name="Rest">
+       <file name="PackageList.php" role="php" />
+      </dir> <!-- /lib/Horde/Pear/Rest -->
       <file name="Exception.php" role="php" />
       <file name="Registry.php" role="php" />
       <file name="Remote.php" role="php" />
@@ -208,6 +211,9 @@
         </dir> <!-- /test/Horde/Pear/Unit/Package/Xml -->
         <file name="XmlTest.php" role="test" />
        </dir> <!-- /test/Horde/Pear/Unit/Package -->
+       <dir name="Rest">
+        <file name="PackageListTest.php" role="test" />
+       </dir> <!-- /test/Horde/Pear/Unit/Rest -->
        <file name="RegistryTest.php" role="test" />
        <file name="RemoteTest.php" role="test" />
        <file name="RestTest.php" role="test" />
@@ -230,6 +236,13 @@
    <pearinstaller>
     <min>1.9.0</min>
    </pearinstaller>
+   <package>
+    <name>Horde_Xml_Element</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
   </required>
   <optional>
    <package>
@@ -277,6 +290,7 @@
    <install as="Horde/Pear/Package/Xml/Factory.php" name="lib/Horde/Pear/Package/Xml/Factory.php" />
    <install as="Horde/Pear/Package/Xml/Element/Directory.php" name="lib/Horde/Pear/Package/Xml/Element/Directory.php" />
    <install as="Horde/Pear/Package/Xml/Element/File.php" name="lib/Horde/Pear/Package/Xml/Element/File.php" />
+   <install as="Horde/Pear/Rest/PackageList.php" name="lib/Horde/Pear/Rest/PackageList.php" />
    <install as="Horde/Pear/AllTests.php" name="test/Horde/Pear/AllTests.php" />
    <install as="Horde/Pear/Autoload.php" name="test/Horde/Pear/Autoload.php" />
    <install as="Horde/Pear/phpunit.xml" name="test/Horde/Pear/phpunit.xml" />
@@ -333,6 +347,7 @@
    <install as="Horde/Pear/Unit/Package/Contents/InstallAs/HordeTest.php" name="test/Horde/Pear/Unit/Package/Contents/InstallAs/HordeTest.php" />
    <install as="Horde/Pear/Unit/Package/Type/HordeTest.php" name="test/Horde/Pear/Unit/Package/Type/HordeTest.php" />
    <install as="Horde/Pear/Unit/Package/Xml/DirectoryTest.php" name="test/Horde/Pear/Unit/Package/Xml/DirectoryTest.php" />
+   <install as="Horde/Pear/Unit/Rest/PackageListTest.php" name="test/Horde/Pear/Unit/Rest/PackageListTest.php" />
   </filelist>
  </phprelease>
  <changelog>
