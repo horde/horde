@@ -2,6 +2,7 @@
 v2.0.2-git
 ----------
 
+[jan] Fix moving rules to an explicit position (Bug #10172).
 
 
 ------
