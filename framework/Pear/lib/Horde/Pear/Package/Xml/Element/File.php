@@ -115,7 +115,7 @@ class Horde_Pear_Package_Xml_Element_File
     /**
      * Insert the file entry into the XML at the given point.
      *
-     * @params DOMNode $point Insertion point.
+     * @param DOMNode $point Insertion point.
      *
      * @return NULL
      */
