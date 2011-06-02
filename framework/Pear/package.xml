@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-06-02</date>
- <time>09:29:23</time>
+ <time>09:50:24</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -173,6 +173,9 @@
         <dir name="horde">
          <file name="package.xml" role="test" />
         </dir> <!-- /test/Horde/Pear/fixture/horde/horde -->
+        <dir name="imp">
+         <file name="package.xml" role="test" />
+        </dir> <!-- /test/Horde/Pear/fixture/horde/imp -->
         <file name=".gitignore" role="test" />
        </dir> <!-- /test/Horde/Pear/fixture/horde -->
        </dir> <!-- /test/Horde/Pear/fixture -->
@@ -191,6 +194,10 @@
           <file name="HiddenTest.php" role="test" />
           <file name="PatternsTest.php" role="test" />
          </dir> <!-- /test/Horde/Pear/Unit/Package/Contents/Ignore -->
+         <dir name="InstallAs">
+          <file name="HordeApplicationTest.php" role="test" />
+          <file name="HordeTest.php" role="test" />
+         </dir> <!-- /test/Horde/Pear/Unit/Package/Contents/InstallAs -->
          <file name="ListTest.php" role="test" />
         </dir> <!-- /test/Horde/Pear/Unit/Package/Contents -->
         <dir name="Type">
@@ -308,6 +315,7 @@
    <install as="Horde/Pear/fixture/horde/framework/tree/test/b.php" name="test/Horde/Pear/fixture/horde/framework/tree/test/b.php" />
    <install as="Horde/Pear/fixture/horde/framework/tree/test/Horde/a.php" name="test/Horde/Pear/fixture/horde/framework/tree/test/Horde/a.php" />
    <install as="Horde/Pear/fixture/horde/horde/package.xml" name="test/Horde/Pear/fixture/horde/horde/package.xml" />
+   <install as="Horde/Pear/fixture/horde/imp/package.xml" name="test/Horde/Pear/fixture/horde/imp/package.xml" />
    <install as="Horde/Pear/Server/conf.php.dist" name="test/Horde/Pear/Server/conf.php.dist" />
    <install as="Horde/Pear/Server/RegistryTest.php" name="test/Horde/Pear/Server/RegistryTest.php" />
    <install as="Horde/Pear/Server/RestTest.php" name="test/Horde/Pear/Server/RestTest.php" />
@@ -321,6 +329,8 @@
    <install as="Horde/Pear/Unit/Package/Contents/Ignore/GitTest.php" name="test/Horde/Pear/Unit/Package/Contents/Ignore/GitTest.php" />
    <install as="Horde/Pear/Unit/Package/Contents/Ignore/HiddenTest.php" name="test/Horde/Pear/Unit/Package/Contents/Ignore/HiddenTest.php" />
    <install as="Horde/Pear/Unit/Package/Contents/Ignore/PatternsTest.php" name="test/Horde/Pear/Unit/Package/Contents/Ignore/PatternsTest.php" />
+   <install as="Horde/Pear/Unit/Package/Contents/InstallAs/HordeApplicationTest.php" name="test/Horde/Pear/Unit/Package/Contents/InstallAs/HordeApplicationTest.php" />
+   <install as="Horde/Pear/Unit/Package/Contents/InstallAs/HordeTest.php" name="test/Horde/Pear/Unit/Package/Contents/InstallAs/HordeTest.php" />
    <install as="Horde/Pear/Unit/Package/Type/HordeTest.php" name="test/Horde/Pear/Unit/Package/Type/HordeTest.php" />
    <install as="Horde/Pear/Unit/Package/Xml/DirectoryTest.php" name="test/Horde/Pear/Unit/Package/Xml/DirectoryTest.php" />
   </filelist>
