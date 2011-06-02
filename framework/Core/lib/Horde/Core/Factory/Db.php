@@ -68,7 +68,10 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
             return $this->_instances[$sig];
         }
 
-        // Prevent DSN from getting polluted
+        // Prevent DSN from getting polluted (this only applies to
+        // non-custom auth type connections. All other custom sql
+        // configurations MUST be cleansed prior to passing to the
+        // factory (at least until Horde 5).
         if (!is_array($type) && $type == 'auth') {
             unset($config['driverconfig'],
                   $config['query_auth'],
@@ -83,8 +86,7 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
                   $config['show_encryption'],
                   $config['username_field'],
                   $config['password_field'],
-                  $config['table'],
-                  $config['utc']);
+                  $config['table']);
         }
         unset($config['umask']);
 

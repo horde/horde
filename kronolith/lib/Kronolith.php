@@ -2790,9 +2790,10 @@ class Kronolith
             case 'Resource':
                 $params = Horde::getDriverConfig('calendar', 'sql');
                 if ($params['driverconfig'] != 'Horde') {
-                    // Custom
-                    $params['db'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('kronolith', $params);
-                } else {
+                    $customParams = $params;
+                    unset($customParams['driverconfig'], $customParams['table'], $customParams['utc']);
+                    $params['db'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('kronolith', $customParams);
+               } else {
                     $params['db'] = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
                 }
                 break;
