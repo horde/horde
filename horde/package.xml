@@ -2364,6 +2364,18 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>Console_Getopt</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Console_Table</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>File_Find</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
     <name>Services_Weather</name>
     <channel>pear.php.net</channel>
    </package>
