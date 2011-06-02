@@ -9,10 +9,14 @@
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Pear
+ * @link     http://pear.php.net/manual/en/core.rest.php
  */
 
 /**
  * REST access to a PEAR server.
+ *
+ * This implements a subset of the REST methods detailed in
+ * http://pear.php.net/manual/en/core.rest.php
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -24,6 +28,7 @@
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Pear
+ * @link     http://pear.php.net/manual/en/core.rest.php
  */
 class Horde_Pear_Rest
 {
@@ -53,8 +58,14 @@ class Horde_Pear_Rest
         $this->_url = $url;
     }
 
+    /**
+     * Return the complete list of packages on the server.
+     *
+     * @return resource A stream with the package list.
+     */
     public function fetchPackageList()
     {
-        return $this->_client->get($this->_url . '/rest/c/Default/packages.xml')->getStream();
+        return $this->_client->get($this->_url . '/rest/p/packages.xml')
+            ->getStream();
     }
 }

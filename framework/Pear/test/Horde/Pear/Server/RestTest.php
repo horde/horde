@@ -60,7 +60,7 @@ extends Horde_Pear_TestCase
         $response = $this->_getRest()->fetchPackageList();
         rewind($response);
         $this->assertContains(
-            'rest.categorypackages',
+            'Horde_Core',
             stream_get_contents($response)
         );
     }
