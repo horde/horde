@@ -56,7 +56,8 @@ class Horde_Kolab_Session_Imap extends Horde_Kolab_Session_Abstract
     public function __construct(
         Horde_Kolab_Session_Factory_Imap $imap,
         array $params
-    ) {
+    )
+    {
         $this->_imap   = $imap;
         $this->_params = $params;
     }

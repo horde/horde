@@ -56,7 +56,8 @@ class Horde_Kolab_Session_Base extends Horde_Kolab_Session_Abstract
     public function __construct(
         Horde_Kolab_Server_Composite $server,
         array $params
-    ) {
+    )
+    {
         $this->_server  = $server;
         $this->_params  = $params;
     }
@@ -104,9 +105,8 @@ class Horde_Kolab_Session_Base extends Horde_Kolab_Session_Abstract
      *
      * @return NULL
      */
-    private function _initMail(
-        Horde_Kolab_Server_Object_Hash $user
-    ) {
+    private function _initMail(Horde_Kolab_Server_Object_Hash $user)
+    {
         try {
             $this->_data['user']['mail'] = $user->getSingle('mail');;
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
@@ -121,9 +121,8 @@ class Horde_Kolab_Session_Base extends Horde_Kolab_Session_Abstract
      *
      * @return NULL
      */
-    private function _initUid(
-        Horde_Kolab_Server_Object_Hash $user
-    ) {
+    private function _initUid(Horde_Kolab_Server_Object_Hash $user)
+    {
         try {
             $this->_data['user']['uid'] = $user->getSingle('uid');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
@@ -138,9 +137,8 @@ class Horde_Kolab_Session_Base extends Horde_Kolab_Session_Abstract
      *
      * @return NULL
      */
-    private function _initName(
-        Horde_Kolab_Server_Object_Hash $user
-    ) {
+    private function _initName(Horde_Kolab_Server_Object_Hash $user)
+    {
         try {
             $this->_data['user']['name'] = $user->getSingle('Firstnamelastname');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
@@ -155,9 +153,8 @@ class Horde_Kolab_Session_Base extends Horde_Kolab_Session_Abstract
      *
      * @return NULL
      */
-    private function _initImapServer(
-        Horde_Kolab_Server_Object_Hash $user
-    ) {
+    private function _initImapServer(Horde_Kolab_Server_Object_Hash $user)
+    {
         try {
             $this->_data['imap']['server'] = $user->getSingle('kolabHomeServer');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
@@ -176,9 +173,8 @@ class Horde_Kolab_Session_Base extends Horde_Kolab_Session_Abstract
      *
      * @return NULL
      */
-    private function _initFreebusyServer(
-        Horde_Kolab_Server_Object_Hash $user
-    ) {
+    private function _initFreebusyServer(Horde_Kolab_Server_Object_Hash $user)
+    {
         try {
             $fb_server = $user->getSingle('kolabFreebusyHost');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {

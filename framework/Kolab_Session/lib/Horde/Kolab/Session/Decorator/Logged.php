@@ -44,12 +44,10 @@ extends Horde_Kolab_Session_Decorator_Base
      * @param Horde_Kolab_Session $session The session handler.
      * @param mixed               $logger  The logger instance.
      */
-    public function __construct(
-        Horde_Kolab_Session $session,
-        $logger
-    ) {
+    public function __construct(Horde_Kolab_Session $session, $logger)
+    {
         parent::__construct($session);
-        $this->_logger  = $logger;
+        $this->_logger = $logger;
     }
 
     /**
