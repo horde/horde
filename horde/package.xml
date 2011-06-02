@@ -40,7 +40,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Don&apos;t strip domain from user name in account block.
+* [jan] Fix account block with empty configuration parameters.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4132,7 +4133,8 @@
    <date>2011-06-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Don&apos;t strip domain from user name in account block.
+* [jan] Fix account block with empty configuration parameters.
    </notes>
   </release>
  </changelog>

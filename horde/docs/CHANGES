@@ -2,6 +2,8 @@
 v4.0.6-git
 ----------
 
+[jan] Don't strip domain from user name in account block.
+[jan] Fix account block with empty configuration parameters.
 
 
 ------
