@@ -67,7 +67,7 @@ extends Horde_Pear_TestCase
     private function _getList($root = null)
     {
         if ($root === null) {
-            $root = dirname(__FILE__) . '/../../../fixture/simple';
+            $root = dirname(__FILE__) . '/../../../fixture/horde/framework/simple';
         }
         return new Horde_Pear_Package_Contents_List(
             new Horde_Pear_Package_Type_Horde($root)
