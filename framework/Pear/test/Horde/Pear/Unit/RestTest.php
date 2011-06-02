@@ -53,6 +53,16 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testPackageInformationResponse()
+    {
+        $response = $this->_getRest()->fetchPackageInformation('TEST');
+        rewind($response);
+        $this->assertEquals(
+            'RESPONSE',
+            stream_get_contents($response)
+        );
+    }
+
     private function _getRest()
     {
         if (!class_exists('Horde_Http_Client')) {

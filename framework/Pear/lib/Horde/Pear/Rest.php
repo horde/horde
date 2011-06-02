@@ -68,4 +68,18 @@ class Horde_Pear_Rest
         return $this->_client->get($this->_url . '/rest/p/packages.xml')
             ->getStream();
     }
+
+    /**
+     * Return the information on a specific package from the server.
+     *
+     * @param string $package The name of the package to retrieve information
+     *                        for.
+     *
+     * @return resource A stream with the package information.
+     */
+    public function fetchPackageInformation($package)
+    {
+        $url = $this->_url . '/rest/p/' . strtolower($package) . '/info.xml';
+        return $this->_client->get($url)->getStream();
+    }
 }
