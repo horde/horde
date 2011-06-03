@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [rla] Show specific admin privileges a user has permission to (Enhancement #9350)
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1471,7 +1471,7 @@
    <date>2011-06-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [rla] Show specific admin privileges a user has permission to (Enhancement #9350)
    </notes>
   </release>
  </changelog>
