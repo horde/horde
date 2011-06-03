@@ -39,6 +39,9 @@ extends Horde_Pear_TestCase
 
     public function setUp()
     {
+        if (!class_exists('Horde_Http_Client')) {
+            $this->markTestSkipped('Horde_Http is missing!');
+        }
         $config = self::getConfig('PEAR_TEST_CONFIG');
         if ($config && !empty($config['pear']['server'])) {
             $this->_server = $config['pear']['server'];

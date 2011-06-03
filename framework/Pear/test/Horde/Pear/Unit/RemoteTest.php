@@ -43,8 +43,39 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testListPackagesContainsComponents()
+    {
+        $this->assertEquals(
+            array('A', 'B'),
+            $this->_getRemoteList()->listPackages()
+        );
+    }
+
     private function _getRemote()
     {
         return new Horde_Pear_Remote();
+    }
+
+    private function _getRemoteList()
+    {
+        if (!class_exists('Horde_Http_Client')) {
+            $this->markTestSkipped('Horde_Http is missing!');
+        }
+        $string = '<?xml version="1.0" encoding="UTF-8" ?>
+<l><p xlink:href="/rest/p/a">A</p><p xlink:href="/rest/p/b">B</p></l>';
+        $body = new Horde_Support_StringStream($string);
+        $response = new Horde_Http_Response_Mock('', $body->fopen());
+        $response->code = 200;
+        $request = new Horde_Http_Request_Mock();
+        $request->setResponse($response);
+        $access = new Horde_Pear_Rest_Access();
+        $access->setRest(
+            'test',
+            new Horde_Pear_Rest(
+                new Horde_Http_Client(array('request' => $request)),
+                'test'
+            )
+        );
+        return new Horde_Pear_Remote('test', $access);
     }
 }
