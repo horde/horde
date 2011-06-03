@@ -28,13 +28,6 @@
 class Horde_Pear_Rest_PackageList extends Horde_Xml_Element_List
 {
     /**
-     * The XML document received from the server.
-     *
-     * @var string
-     */
-    private $_xml;
-
-    /**
      * The list of packages.
      *
      * @var array
@@ -80,7 +73,7 @@ class Horde_Pear_Rest_PackageList extends Horde_Xml_Element_List
     {
         $packages = array();
         foreach ($this->p as $p) {
-            $packages[(string) $p] = $p['xlink:href'];
+            $packages[(string)$p] = $p['xlink:href'];
         }
         return $packages;
     }
@@ -107,6 +100,8 @@ class Horde_Pear_Rest_PackageList extends Horde_Xml_Element_List
 
     /**
      * Return the link for additional information on the specified package.
+     *
+     * @param string $package The package name.
      *
      * @return string The URL for additional information.
      */
