@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [jan] Fix editing saved searches in traditional view (Bug #10184).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2272,7 +2272,7 @@
    <date>2011-06-01</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [jan] Fix editing saved searches in traditional view (Bug #10184).
    </notes>
   </release>
  </changelog>
