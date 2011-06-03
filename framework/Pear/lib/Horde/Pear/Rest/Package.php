@@ -28,13 +28,6 @@
 class Horde_Pear_Rest_Package extends Horde_Xml_Element
 {
     /**
-     * The XML document received from the server.
-     *
-     * @var string
-     */
-    private $_xml;
-
-    /**
      * Constructor.
      *
      * @param resource|string $xml The XML document received from the server.
@@ -56,7 +49,7 @@ class Horde_Pear_Rest_Package extends Horde_Xml_Element
      */
     public function getName()
     {
-        return (string) $this->n;
+        return (string)$this->n;
     }
 
     /**
@@ -66,7 +59,7 @@ class Horde_Pear_Rest_Package extends Horde_Xml_Element
      */
     public function getChannel()
     {
-        return (string) $this->c;
+        return (string)$this->c;
     }
 
     /**
@@ -76,7 +69,7 @@ class Horde_Pear_Rest_Package extends Horde_Xml_Element
      */
     public function getLicense()
     {
-        return (string) $this->l;
+        return (string)$this->l;
     }
 
     /**
@@ -86,7 +79,7 @@ class Horde_Pear_Rest_Package extends Horde_Xml_Element
      */
     public function getSummary()
     {
-        return (string) $this->s;
+        return (string)$this->s;
     }
 
     /**
@@ -96,6 +89,6 @@ class Horde_Pear_Rest_Package extends Horde_Xml_Element
      */
     public function getDescription()
     {
-        return (string) $this->d;
+        return (string)$this->d;
     }
 }
