@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [jan] Complete fix for importing LDIF files (Bug #10139).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
