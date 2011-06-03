@@ -98,6 +98,7 @@ extends Horde_Pear_TestCase
         $string = 'RESPONSE';
         $body = new Horde_Support_StringStream($string);
         $response = new Horde_Http_Response_Mock('', $body->fopen());
+        $response->code = 200;
         $request = new Horde_Http_Request_Mock();
         $request->setResponse($response);
         return new Horde_Pear_Rest(
