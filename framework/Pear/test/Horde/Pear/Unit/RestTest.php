@@ -63,6 +63,33 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testPackageReleasesResponse()
+    {
+        $response = $this->_getRest()->fetchPackageReleases('TEST');
+        rewind($response);
+        $this->assertEquals(
+            'RESPONSE',
+            stream_get_contents($response)
+        );
+    }
+
+    public function testPackageLatest()
+    {
+        $this->assertType(
+            'array',
+            $this->_getRest()->fetchLatestPackageReleases('TEST')
+        );
+    }
+
+    public function testPackageLatestArray()
+    {
+        $result = $this->_getRest()->fetchLatestPackageReleases('TEST');
+        $this->assertEquals(
+            'RESPONSE',
+            $result['stable']
+        );
+    }
+
     private function _getRest()
     {
         if (!class_exists('Horde_Http_Client')) {

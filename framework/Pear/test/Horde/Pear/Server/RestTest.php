@@ -94,6 +94,41 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testFetchPackageReleases()
+    {
+        $this->assertType(
+            'resource',
+            $this->_getRest()->fetchPackageReleases('Horde_Core')
+        );
+    }
+
+    public function testPackageReleasesResponse()
+    {
+        $response = $this->_getRest()->fetchPackageReleases('Horde_Core');
+        rewind($response);
+        $this->assertContains(
+            '1.1.0',
+            stream_get_contents($response)
+        );
+    }
+
+    public function testFetchLatestPackageReleases()
+    {
+        $this->assertType(
+            'array',
+            $this->_getRest()->fetchLatestPackageReleases('Horde_Core')
+        );
+    }
+
+    public function testPackageLatestReleasesResponse()
+    {
+        $result = $this->_getRest()->fetchLatestPackageReleases('Horde_Core');
+        $this->assertEquals(
+            array('stable', 'alpha', 'beta', 'devel'),
+            array_keys($result)
+        );
+    }
+
     private function _getRest()
     {
         return new Horde_Pear_Rest(

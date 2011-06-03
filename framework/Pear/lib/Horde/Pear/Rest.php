@@ -65,8 +65,7 @@ class Horde_Pear_Rest
      */
     public function fetchPackageList()
     {
-        return $this->_client->get($this->_url . '/rest/p/packages.xml')
-            ->getStream();
+        return $this->_get($this->_url . '/rest/p/packages.xml');
     }
 
     /**
@@ -79,7 +78,71 @@ class Horde_Pear_Rest
      */
     public function fetchPackageInformation($package)
     {
-        $url = $this->_url . '/rest/p/' . strtolower($package) . '/info.xml';
+        return $this->_get(
+            $this->_url . '/rest/p/' . strtolower($package) . '/info.xml'
+        );
+    }
+
+    /**
+     * Return the release list for a specific package from the server.
+     *
+     * @param string $package The name of the package to retrieve the releases
+     *                        for.
+     *
+     * @return resource A stream with the package release information.
+     */
+    public function fetchPackageReleases($package)
+    {
+        return $this->_get(
+            $this->_url . '/rest/r/' . strtolower($package) . '/allreleases.xml'
+        );
+    }
+
+    /**
+     * Return the latest releases for a specific package.
+     *
+     * @param string $package The name of the package to retrieve the latest
+     *                        releases for.
+     *
+     * @return array A list of latest releases per level of stability.
+     */
+    public function fetchLatestPackageReleases($package)
+    {
+        $base = $this->_url . '/rest/r/' . strtolower($package);
+        return array(
+            'stable' => $this->_read($base . '/stable.txt'),
+            'alpha'  => $this->_read($base . '/alpha.txt'),
+            'beta'   => $this->_read($base . '/beta.txt'),
+            'devel'  => $this->_read($base . '/devel.txt'),
+        );
+    }
+
+    /**
+     * Fetch the provided URL as stream.
+     *
+     * @param string $url The URL.
+     *
+     * @return resource The response as stream.
+     */
+    private function _get($url)
+    {
         return $this->_client->get($url)->getStream();
+    }
+
+    /**
+     * Fetch the provided URL as string.
+     *
+     * @param string $url The URL.
+     *
+     * @return string The response as string.
+     */
+    private function _read($url)
+    {
+        $response = $this->_client->get($url);
+        if ($response->code === 200) { 
+            return $this->_client->get($url)->getBody();
+        } else {
+            return false;
+        }
     }
 }
