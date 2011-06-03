@@ -493,12 +493,17 @@ class Horde_Util
 
         ini_set('auto_detect_line_endings', $old);
 
-        if ($row && !empty($params['length'])) {
-            $length = count($row);
-            if ($length < $params['length']) {
-                $row += array_fill($length, $params['length'] - $length, '');
-            } elseif ($length > $params['length']) {
-                array_splice($row, $params['length']);
+        if ($row) {
+            if (strlen($params['quote']) && strlen($params['escape'])) {
+                $row = array_map(create_function('$a', 'return str_replace(\'' . str_replace('\'', '\\\'', $params['escape'] . $params['quote']) . '\', \'' . str_replace('\'', '\\\'', $params['quote']) . '\', $a);'), $row);
+            }
+            if (!empty($params['length'])) {
+                $length = count($row);
+                if ($length < $params['length']) {
+                    $row += array_fill($length, $params['length'] - $length, '');
+                } elseif ($length > $params['length']) {
+                    array_splice($row, $params['length']);
+                }
             }
         }
 
