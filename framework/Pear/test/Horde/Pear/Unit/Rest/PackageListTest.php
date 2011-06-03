@@ -44,7 +44,7 @@ extends Horde_Pear_TestCase
     public function testPackageName()
     {
         $pl = $this->_getPackageList();
-        $this->assertEquals('Horde_ActiveSync', (string) $pl->p[0]);
+        $this->assertEquals('Horde_ActiveSync', (string)$pl->p[0]);
     }
 
     public function testPackageLink()
@@ -94,6 +94,7 @@ extends Horde_Pear_TestCase
             $this->_getList()
         );
     }
+
     private function _getList()
     {
         return '<?xml version="1.0" encoding="UTF-8" ?>
