@@ -90,6 +90,16 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testReleaseInformationResponse()
+    {
+        $response = $this->_getRest()->fetchReleaseInformation('TEST', '1');
+        rewind($response);
+        $this->assertEquals(
+            'RESPONSE',
+            stream_get_contents($response)
+        );
+    }
+
     private function _getRest()
     {
         if (!class_exists('Horde_Http_Client')) {

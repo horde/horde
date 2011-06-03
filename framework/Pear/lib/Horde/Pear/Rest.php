@@ -118,6 +118,22 @@ class Horde_Pear_Rest
     }
 
     /**
+     * Return the release information for a specific package version from the
+     * server.
+     *
+     * @param string $package The name of the package.
+     * @param string $version The version of the release.
+     *
+     * @return resource A stream with the package release information.
+     */
+    public function fetchReleaseInformation($package, $version)
+    {
+        return $this->_get(
+            $this->_url . '/rest/r/' . strtolower($package) . '/' . $version . '.xml'
+        );
+    }
+
+    /**
      * Fetch the provided URL as stream.
      *
      * @param string $url The URL.
