@@ -281,7 +281,7 @@ class Horde_Config
      * @return boolean  True if the configuration file could be written
      *                  immediately to the file system.
      */
-    public function writePHPConfig($formvars, &$php)
+    public function writePHPConfig($formvars, &$php = null)
     {
         $php = $this->generatePHPConfig($formvars);
         $path = $GLOBALS['registry']->get('fileroot', $this->_app) . '/config';
