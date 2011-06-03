@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-06-03</date>
- <time>11:58:15</time>
+ <time>11:58:54</time>
  <version>
-  <release>1.1.1</release>
+  <release>1.1.2</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [gwr] Revert dependency on Kolab_Storage-1.1.*
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -701,6 +701,19 @@ Initial release as a PEAR package
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [gwr] Revert dependency on Kolab_Storage-1.1.*
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-03</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
