@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [gwr] Revert dependency on Kolab_Storage-1.1.*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -423,7 +423,7 @@
    <package>
     <name>Horde_Kolab_Storage</name>
     <channel>pear.horde.org</channel>
-    <min>1.1.0</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -700,7 +700,7 @@ Initial release as a PEAR package
    <date>2011-06-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [gwr] Revert dependency on Kolab_Storage-1.1.*
    </notes>
   </release>
  </changelog>
