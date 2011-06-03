@@ -147,6 +147,24 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testFetchReleasePackageXml()
+    {
+        $this->assertType(
+            'resource',
+            $this->_getRest()->fetchReleasePackageXml('Horde_Core', '1.0.0')
+        );
+    }
+
+    public function testReleasePackageXmlResponse()
+    {
+        $response = $this->_getRest()->fetchReleasePackageXml('Horde_Core', '1.0.0');
+        rewind($response);
+        $this->assertContains(
+            'Horde Core Framework libraries',
+            stream_get_contents($response)
+        );
+    }
+
     private function _getRest()
     {
         return new Horde_Pear_Rest(
