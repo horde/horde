@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-06-02</date>
- <time>12:29:49</time>
+ <date>2011-06-03</date>
+ <time>06:39:51</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -83,6 +83,7 @@
       <dir name="Rest">
        <file name="Package.php" role="php" />
        <file name="PackageList.php" role="php" />
+       <file name="Releases.php" role="php" />
       </dir> <!-- /lib/Horde/Pear/Rest -->
       <file name="Exception.php" role="php" />
       <file name="Registry.php" role="php" />
@@ -215,6 +216,7 @@
        <dir name="Rest">
         <file name="PackageListTest.php" role="test" />
         <file name="PackageTest.php" role="test" />
+        <file name="ReleasesTest.php" role="test" />
        </dir> <!-- /test/Horde/Pear/Unit/Rest -->
        <file name="RegistryTest.php" role="test" />
        <file name="RemoteTest.php" role="test" />
@@ -294,6 +296,7 @@
    <install as="Horde/Pear/Package/Xml/Element/File.php" name="lib/Horde/Pear/Package/Xml/Element/File.php" />
    <install as="Horde/Pear/Rest/Package.php" name="lib/Horde/Pear/Rest/Package.php" />
    <install as="Horde/Pear/Rest/PackageList.php" name="lib/Horde/Pear/Rest/PackageList.php" />
+   <install as="Horde/Pear/Rest/Releases.php" name="lib/Horde/Pear/Rest/Releases.php" />
    <install as="Horde/Pear/AllTests.php" name="test/Horde/Pear/AllTests.php" />
    <install as="Horde/Pear/Autoload.php" name="test/Horde/Pear/Autoload.php" />
    <install as="Horde/Pear/phpunit.xml" name="test/Horde/Pear/phpunit.xml" />
@@ -352,6 +355,7 @@
    <install as="Horde/Pear/Unit/Package/Xml/DirectoryTest.php" name="test/Horde/Pear/Unit/Package/Xml/DirectoryTest.php" />
    <install as="Horde/Pear/Unit/Rest/PackageListTest.php" name="test/Horde/Pear/Unit/Rest/PackageListTest.php" />
    <install as="Horde/Pear/Unit/Rest/PackageTest.php" name="test/Horde/Pear/Unit/Rest/PackageTest.php" />
+   <install as="Horde/Pear/Unit/Rest/ReleasesTest.php" name="test/Horde/Pear/Unit/Rest/ReleasesTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -364,7 +368,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-06-02</date>
+   <date>2011-06-03</date>
    <license uri="REPLACE">REPLACE</license>
    <notes>
 * [jan] Update changelog when updating content (Bug #9935).
