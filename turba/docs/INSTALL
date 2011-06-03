@@ -190,9 +190,9 @@ Thanks for using Turba!
 The Horde team
 
 
-.. _README: ?f=README.html
+.. _README: README
 .. _INSTALL:
-.. _`horde/docs/INSTALL`: ../../horde/docs/?f=INSTALL.html
-.. _`horde/docs/PERFORMANCE`: ../../horde/docs/?f=PERFORMANCE.html
-.. _`horde/docs/SECURITY`: ../../horde/docs/?f=SECURITY.html
-.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/?f=TRANSLATIONS.html
+.. _`horde/docs/INSTALL`: ../../horde/docs/INSTALL
+.. _`horde/docs/PERFORMANCE`: ../../horde/docs/PERFORMANCE
+.. _`horde/docs/SECURITY`: ../../horde/docs/SECURITY
+.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/TRANSLATIONS
