@@ -159,7 +159,7 @@ class IMP
             'render_type' => 'IMP_Tree_Flist'
         ));
         if (!empty($options['selected'])) {
-            $tree->addNodeParams($options['selected'], array('selected' => true));
+            $tree->addNodeParams(IMP_Mailbox::formTo($options['selected']), array('selected' => true));
         }
         $tree->setOption($options);
 
