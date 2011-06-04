@@ -245,7 +245,7 @@ case 'folders_empty_mailbox_confirm':
                 'class' => 'item' . (++$rowct % 2),
                 'name' => htmlspecialchars($val->display),
                 'msgs' => $elt_info ? $elt_info['messages'] : 0,
-                'val' => htmlspecialchars($val)
+                'val' => $val->form_to
             );
             $loop[] = $data;
         }
