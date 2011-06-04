@@ -42,6 +42,10 @@ class IMP_LoginTasks_Task_Autocreate extends Horde_LoginTasks_Task
     public function execute()
     {
         foreach (IMP_Mailbox::getSpecialMailboxes() as $key => $val) {
+            if (is_null($val)) {
+                continue;
+            }
+
             switch ($key) {
             case IMP_Mailbox::SPECIAL_DRAFTS:
                 $val->create(array(
