@@ -53,6 +53,63 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testPackageInformationResponse()
+    {
+        $response = $this->_getRest()->fetchPackageInformation('TEST');
+        rewind($response);
+        $this->assertEquals(
+            'RESPONSE',
+            stream_get_contents($response)
+        );
+    }
+
+    public function testPackageReleasesResponse()
+    {
+        $response = $this->_getRest()->fetchPackageReleases('TEST');
+        rewind($response);
+        $this->assertEquals(
+            'RESPONSE',
+            stream_get_contents($response)
+        );
+    }
+
+    public function testPackageLatest()
+    {
+        $this->assertType(
+            'array',
+            $this->_getRest()->fetchLatestPackageReleases('TEST')
+        );
+    }
+
+    public function testPackageLatestArray()
+    {
+        $result = $this->_getRest()->fetchLatestPackageReleases('TEST');
+        $this->assertEquals(
+            'RESPONSE',
+            $result['stable']
+        );
+    }
+
+    public function testReleaseInformationResponse()
+    {
+        $response = $this->_getRest()->fetchReleaseInformation('TEST', '1');
+        rewind($response);
+        $this->assertEquals(
+            'RESPONSE',
+            stream_get_contents($response)
+        );
+    }
+
+    public function testReleasePackageXmlResponse()
+    {
+        $response = $this->_getRest()->fetchReleasePackageXml('TEST', '1');
+        rewind($response);
+        $this->assertEquals(
+            'RESPONSE',
+            stream_get_contents($response)
+        );
+    }
+
     private function _getRest()
     {
         if (!class_exists('Horde_Http_Client')) {
@@ -61,6 +118,7 @@ extends Horde_Pear_TestCase
         $string = 'RESPONSE';
         $body = new Horde_Support_StringStream($string);
         $response = new Horde_Http_Response_Mock('', $body->fopen());
+        $response->code = 200;
         $request = new Horde_Http_Request_Mock();
         $request->setResponse($response);
         return new Horde_Pear_Rest(

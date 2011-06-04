@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* 
+* [jan] Keep using the write backend in the same request after writing once with the split read/write driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -438,7 +438,7 @@
    <date>2011-04-20</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-* 
+* [jan] Keep using the write backend in the same request after writing once with the split read/write driver.
    </notes>
   </release>
  </changelog>

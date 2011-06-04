@@ -22,10 +22,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-17</date>
- <time>07:05:38</time>
+ <date>2011-06-03</date>
+ <time>11:58:54</time>
  <version>
-  <release>1.1.0</release>
+  <release>1.1.2</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -34,9 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [gwr] Added a script for exporting/importing preferences from/to a backend.
-* [gwr] Added support for listing the scopes in some storage backends.
-* [gwr] Fixed the driver for the Kolab IMAP backend.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -425,7 +423,7 @@
    <package>
     <name>Horde_Kolab_Storage</name>
     <channel>pear.horde.org</channel>
-    <min>1.1.0</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -684,12 +682,38 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-17</date>
+   <date>2011-06-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [gwr] Added a script for exporting/importing preferences from/to a backend.
 * [gwr] Added support for listing the scopes in some storage backends.
 * [gwr] Fixed the driver for the Kolab IMAP backend.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-03</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [gwr] Revert dependency on Kolab_Storage-1.1.*
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-03</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

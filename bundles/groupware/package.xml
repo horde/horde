@@ -57,23 +57,30 @@
     <conflicts/>
    </package>
    <package>
+    <name>content</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.3</min>
+    <min>4.0.4</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
    </package>
    <package>
     <name>kronolith</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.2</min>
+    <min>3.0.3</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
    <package>
     <name>mnemo</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.0</min>
+    <min>3.0.1</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
@@ -85,9 +92,16 @@
     <exclude>4.0.0</exclude>
    </package>
    <package>
+    <name>timeobjects</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>turba</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.2</min>
+    <min>3.0.3</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>

@@ -822,9 +822,9 @@ Thanks for using Horde!
 The Horde Team
 
 
-.. _README: ?f=README.html
-.. _docs/SECURITY: ?f=SECURITY.html
-.. _`horde/docs/TRANSLATIONS`: ?f=TRANSLATIONS.html
+.. _README: README
+.. _docs/SECURITY: SECURITY
+.. _`horde/docs/TRANSLATIONS`: TRANSLATIONS
 .. _`File Uploads`: http://wiki.horde.org/FAQ/Admin/FileUploads
 .. _`Firebug`: http://www.getfirebug.com/
 .. _`session.gc_probability`: http://www.php.net/manual/en/session.configuration.php#ini.session.gc-probability

@@ -64,6 +64,7 @@ $scripts = array(
     array('toggle_quotes.js', 'horde'),
     array('message-dimp.js', 'imp'),
     array('imp.js', 'imp'),
+    array('base64url.js', 'imp'),
 );
 
 foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mailbox') as $val) {

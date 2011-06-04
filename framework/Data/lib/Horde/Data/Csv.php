@@ -159,7 +159,7 @@ class Horde_Data_Csv extends Horde_Data_Base
                     if (isset($export_mapping[$key])) {
                         $key = $export_mapping[$key];
                     }
-                    $export .= '"' . $key . '"';
+                    $export .= '"' . str_replace('"', '\\"', $key) . '"';
                 }
                 $export .= ',';
             }
@@ -170,7 +170,7 @@ class Horde_Data_Csv extends Horde_Data_Base
             foreach ($head as $key) {
                 $cell = $row[$key];
                 if (!empty($cell) || $cell === 0) {
-                    $export .= '"' . $cell . '"';
+                    $export .= '"' . str_replace('"', '\\"', $cell) . '"';
                 }
                 $export .= ',';
             }

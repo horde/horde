@@ -245,12 +245,16 @@ class IMP_Views_ShowMessage
             IMP_Contents::SUMMARY_DESCRIP_LINK |
             IMP_Contents::SUMMARY_DOWNLOAD |
             IMP_Contents::SUMMARY_DOWNLOAD_ZIP |
-            IMP_Contents::SUMMARY_PRINT_STUB |
-            IMP_Contents::SUMMARY_STRIP_STUB;
+            IMP_Contents::SUMMARY_PRINT_STUB;
 
         $part_info = $part_info_display = array('icon', 'description', 'size', 'download', 'download_zip');
         $part_info_display[] = 'print';
-        $part_info_display[] = 'strip';
+
+        /* Allow stripping of attachments? */
+        if ($GLOBALS['prefs']->getValue('strip_attachments')) {
+            $contents_mask |= IMP_Contents::SUMMARY_STRIP_STUB;
+            $part_info_display[] = 'strip';
+        }
 
         /* Do MDN processing now. */
         if ($imp_ui->MDNCheck($mailbox, $uid, $mime_headers)) {

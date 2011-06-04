@@ -94,12 +94,13 @@ implements Horde_Pear_Package_Type
                 new Horde_Pear_Package_Contents_Ignore_Dot(),
                 new Horde_Pear_Package_Contents_Ignore_Patterns(
                     array(
-                        'package.xml',
+                        '/package.xml',
                         '*~',
                         'conf.php',
                         'CVS/*',
                         'bin/.htaccess',
-                    )
+                    ),
+                    $this->getRootPath()
                 ),
                 new Horde_Pear_Package_Contents_Ignore_Git(
                     $this->getGitIgnore(),

@@ -342,10 +342,10 @@ $cfgSources['localsql'] = array(
  * (shared) address book.
  *
  * To store distribution lists in the LDAP directory, you'll need to include
- * horde/scripts/ldap/horde.schema in your LDAP configuration.
+ * horde.schema from Horde in your LDAP configuration.
  *
  * To store freebusy information in the LDAP directory, you'll need to include
- * turba/scripts/ldap/rfc2739.schema in your LDAP configuration.
+ * rfc2739.schema from Horde in your LDAP configuration.
  */
 $cfgSources['localldap'] = array(
     // Disabled by default
@@ -457,10 +457,10 @@ $cfgSources['localldap'] = array(
  * distribution.
  *
  * To store distribution lists in the LDAP directory, you'll need to include
- * horde/scripts/ldap/horde.schema in your LDAP configuration.
+ * horde.schema from Horde in your LDAP configuration.
  *
  * To store freebusy information in the LDAP directory, you'll need to include
- * turba/scripts/ldap/rfc2739.schema in your LDAP configuration.
+ * rfc2739.schema from Horde in your LDAP configuration.
  */
 /* First we need to get the uid. */
 $_ldap_uid = $GLOBALS['registry']->getAuth('bare');

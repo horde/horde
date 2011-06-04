@@ -10,10 +10,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-25</date>
- <time>19:36:39</time>
+ <date>2011-06-01</date>
+ <time>18:38:23</time>
  <version>
-  <release>4.0.0RC2</release>
+  <release>4.0.0RC3</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -86,16 +86,23 @@
     <conflicts/>
    </package>
    <package>
+    <name>content</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.3</min>
+    <min>4.0.4</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
    </package>
    <package>
     <name>imp</name>
     <channel>pear.horde.org</channel>
-    <min>5.0.3</min>
+    <min>5.0.5</min>
     <max>6.0.0</max>
     <exclude>6.0.0</exclude>
    </package>
@@ -109,14 +116,14 @@
    <package>
     <name>kronolith</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.2</min>
+    <min>3.0.3</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
    <package>
     <name>mnemo</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.0</min>
+    <min>3.0.1</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
@@ -128,9 +135,16 @@
     <exclude>4.0.0</exclude>
    </package>
    <package>
+    <name>timeobjects</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>turba</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.2</min>
+    <min>3.0.3</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
@@ -185,7 +199,21 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2011-05-25</date>
+   <date>2011-06-01</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* [jan] Allow to overwrite default configurations.
+* [jan] Add installation script.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0RC3</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-06-01</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 * 

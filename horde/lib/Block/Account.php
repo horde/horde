@@ -33,8 +33,8 @@ class Horde_Block_Account extends Horde_Core_Block
         global $registry, $conf;
 
         $params = array_merge(
-            $conf['accounts']['params'],
-            array('user' => $registry->getAuth('bare')));
+            (array)$conf['accounts']['params'],
+            array('user' => $registry->getAuth()));
 
         switch ($conf['accounts']['driver']) {
         case 'null':

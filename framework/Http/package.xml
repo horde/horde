@@ -17,10 +17,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:11:26</time>
+ <date>2011-06-01</date>
+ <time>18:10:36</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -68,7 +68,11 @@
     <dir name="Horde">
      <dir name="Http">
       <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
+      <file name="conf.php.dist" role="test" />
+      <file name="CurlTest.php" role="test" />
       <file name="FopenTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Http -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -98,6 +102,13 @@
    </package>
   </required>
   <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
    <extension>
     <name>curl</name>
    </extension>
@@ -124,7 +135,11 @@
    <install as="Horde/Http/Response/Mock.php" name="lib/Horde/Http/Response/Mock.php" />
    <install as="Horde/Http/Response/Peclhttp.php" name="lib/Horde/Http/Response/Peclhttp.php" />
    <install as="Horde/Http/AllTests.php" name="test/Horde/Http/AllTests.php" />
+   <install as="Horde/Http/Autoload.php" name="test/Horde/Http/Autoload.php" />
+   <install as="Horde/Http/conf.php.dist" name="test/Horde/Http/conf.php.dist" />
+   <install as="Horde/Http/CurlTest.php" name="test/Horde/Http/CurlTest.php" />
    <install as="Horde/Http/FopenTest.php" name="test/Horde/Http/FopenTest.php" />
+   <install as="Horde/Http/phpunit.xml" name="test/Horde/Http/phpunit.xml" />
   </filelist>
  </phprelease>
  <changelog>
@@ -211,7 +226,33 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-06-01</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* [cjh] Consistently implement configurable following of redirects (Bug #9898).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* [jan] Fix regression with HTTP authentication.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * 

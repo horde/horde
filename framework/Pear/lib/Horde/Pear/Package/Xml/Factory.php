@@ -56,7 +56,7 @@ class Horde_Pear_Package_Xml_Factory
             );
         }
         $reflectionObj = new ReflectionClass($class);
-        return $reflectionObj->newInstanceArgs($arguments); 
+        return $reflectionObj->newInstanceArgs($arguments);
     }
 
     /**
@@ -72,7 +72,7 @@ class Horde_Pear_Package_Xml_Factory
         $class = 'Horde_Pear_Package_Task_' . ucfirst($type);
         if (class_exists($class)) {
             $reflectionObj = new ReflectionClass($class);
-            return $reflectionObj->newInstanceArgs($arguments); 
+            return $reflectionObj->newInstanceArgs($arguments);
         } else {
             throw new InvalidArgumentException(sprintf('No task %s!', $type));
         }

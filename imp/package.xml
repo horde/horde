@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-26</date>
- <time>10:16:00</time>
+ <date>2011-06-01</date>
+ <time>18:16:30</time>
  <version>
-  <release>5.0.5</release>
+  <release>5.0.6</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,10 +34,10 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [mms] Fix sending messages with linked attachments (Bug #10125).
-* [mms] Handle response codes/errors returned from POP3 servers.
-* [mms] Fix POP3 regressions.
-* [mms] Workaround broken suhosin extension to allow search mailboxes (Request #9842).
+* [jan] Don&apos;t show button to strip attachments if turned off in the preferences (Bug #10154).
+* [jan] Fix printing from message popup (Bug #10188).
+* [jan] Fix viewing messages source from message popup (Bug #10190).
+* [jan] Fix editing saved searches in traditional view (Bug #10184).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2255,13 +2255,30 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-26</date>
+   <date>2011-06-01</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [jan] Fix loading message previews from search results (Bug #10152).
 * [mms] Fix sending messages with linked attachments (Bug #10125).
 * [mms] Handle response codes/errors returned from POP3 servers.
 * [mms] Fix POP3 regressions.
 * [mms] Workaround broken suhosin extension to allow search mailboxes (Request #9842).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.6</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [jan] Don&apos;t show button to strip attachments if turned off in the preferences (Bug #10154).
+* [jan] Fix printing from message popup (Bug #10188).
+* [jan] Fix viewing messages source from message popup (Bug #10190).
+* [jan] Fix editing saved searches in traditional view (Bug #10184).
    </notes>
   </release>
  </changelog>

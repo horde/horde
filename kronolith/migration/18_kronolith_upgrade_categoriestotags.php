@@ -39,7 +39,7 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
         foreach ($rows as $row) {
             $this->_tagger->tag(
                 $row['event_creator_id'],
-                array('object' => $row['event_uid'], 'type' => $this->_type_ids['event']),
+                array('object' => (string)$row['event_uid'], 'type' => $this->_type_ids['event']),
                 Horde_String::convertCharset($row['event_category'], $this->getOption('charset'), 'UTF-8')
             );
 
@@ -49,7 +49,7 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
                 if ($cal->get('owner') != $row['event_creator_id']) {
                     $this->_tagger->tag(
                         $cal->get('owner'),
-                        array('object' => $row['event_uid'], 'type' => $this->_type_ids['event']),
+                        array('object' => (string)$row['event_uid'], 'type' => $this->_type_ids['event']),
                         Horde_String::convertCharset($row['event_category'], $this->getOption('charset'), 'UTF-8')
                     );
                 }
@@ -72,8 +72,8 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
             if (!count($tags) || !count($tags[$row['event_uid']])) {
                 continue;
             }
-            $this->update($sql, array(reset($tags[$row['event_uid']]), $row['event_uid']));
-       }
+            $this->update($sql, array(reset($tags[$row['event_uid']]), (string)$row['event_uid']));
+        }
         $this->announce('Event tags successfully migrated.');
     }
 }

@@ -43,7 +43,7 @@ extends Horde_Pear_TestCase
                 '/lib/Stays.php',
                 '/test.php'
             ),
-            $this->_getList(dirname(__FILE__) . '/../../../fixture/directory')->getFiles()
+            $this->_getList(dirname(__FILE__) . '/../../../fixture/horde/framework/directory')->getFiles()
         );
     }
 

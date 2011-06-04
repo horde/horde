@@ -25,6 +25,16 @@
 * Fixed bug #1
 * Initial release
  </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="lib">
+    <file name="Old.php" role="php" />
+    <file name="Stays.php" role="php">
+      <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+    </file>
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
  <dependencies>
   <required>
    <php>

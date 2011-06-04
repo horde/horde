@@ -199,9 +199,9 @@ class Horde_Pear_Package_Xml_Element_Directory
      * Insert a new file entry into the XML at the given point with the
      * specified name and file role.
      *
-     * @params string  $name   The name.
-     * @params string  $role   The role.
-     * @params DOMNode $point  Insertion point.
+     * @param string  $name   The name.
+     * @param string  $role   The role.
+     * @param DOMNode $point  Insertion point.
      *
      * @return Horde_Pear_Package_Xml_Element_File The inserted element.
      */
@@ -216,8 +216,8 @@ class Horde_Pear_Package_Xml_Element_Directory
      * Insert a new directory entry into the XML at the given point with the
      * specified name
      *
-     * @params string  $name   The name.
-     * @params DOMNode $point  Insertion point.
+     * @param string  $name   The name.
+     * @param DOMNode $point  Insertion point.
      *
      * @return Horde_Pear_Package_Xml_Element_Directory The inserted element.
      */
@@ -231,15 +231,16 @@ class Horde_Pear_Package_Xml_Element_Directory
     /**
      * Insert the directory entry into the XML at the given point.
      *
-     * @params Horde_Pear_Package_Xml_Element_Directory $parent The parent.
-     * @params DOMNode                                  $point  Insertion point.
+     * @param Horde_Pear_Package_Xml_Element_Directory $parent The parent.
+     * @param DOMNode                                  $point  Insertion point.
      *
      * @return NULL
      */
     private function _insert(
         Horde_Pear_Package_Xml_Element_Directory $parent,
         DOMNode $point = null
-    ) {
+    )
+    {
         if ($point === null) {
             $point = $parent->getDirectoryNode()->lastChild;
         } else {

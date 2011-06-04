@@ -13,7 +13,7 @@ var HordeCategoryPrefs = {
     {
         var p = $('prefs');
         $(p.cAction).setValue('remove');
-        $(p.category).setValue(e.element().readAttribute('category'));
+        $(p.category).setValue(e.element().up().readAttribute('category'));
         p.submit();
     },
 

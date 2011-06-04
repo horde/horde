@@ -326,6 +326,11 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
         // Can't assume this will always be a read action, use _write.
         $result = $this->_write->execute($sql, $arg1, $arg2);
         $this->_lastQuery = $this->_write->getLastQuery();
+
+        // Once doing writes, keep using the write backend even for reads
+        // at least during the same request, to help against stale data.
+        $this->_read = $this->_write;
+
         return $result;
     }
 
@@ -349,6 +354,11 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     {
         $result = $this->_write->insert($sql, $arg1, $arg2, $pk, $idValue, $sequenceName);
         $this->_lastQuery = $this->_write->getLastQuery();
+
+        // Once doing writes, keep using the write backend even for reads
+        // at least during the same request, to help against stale data.
+        $this->_read = $this->_write;
+
         return $result;
     }
 
@@ -368,6 +378,11 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     {
         $result = $this->_write->update($sql, $arg1, $arg2);
         $this->_lastQuery = $this->_write->getLastQuery();
+
+        // Once doing writes, keep using the write backend even for reads
+        // at least during the same request, to help against stale data.
+        $this->_read = $this->_write;
+
         return $result;
     }
 
@@ -387,6 +402,11 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     {
         $result = $this->_write->delete($sql, $arg1, $arg2);
         $this->_lastQuery = $this->_write->getLastQuery();
+
+        // Once doing writes, keep using the write backend even for reads
+        // at least during the same request, to help against stale data.
+        $this->_read = $this->_write;
+
         return $result;
     }
 

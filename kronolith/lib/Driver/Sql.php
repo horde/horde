@@ -464,7 +464,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             ' event_exceptions, event_creator_id, event_resources, event_baseid,' .
             ' event_exceptionoriginaldate FROM ' . $this->_params['table'] .
             ' WHERE event_uid = ?';
-        $values = array($uid);
+        $values = array((string)$uid);
 
         /* Optionally filter by calendar */
         if (!is_null($calendars)) {
