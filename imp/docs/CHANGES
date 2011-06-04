@@ -2,6 +2,7 @@
 v5.0.6-git
 ----------
 
+[jan] Fix viewing messages source from message popup (Bug #10190).
 [jan] Fix editing saved searches in traditional view (Bug #10184).
 
 
