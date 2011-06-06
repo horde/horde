@@ -72,6 +72,14 @@ class Whups_Driver_Sql extends Whups_Driver
      */
      private $_slugs = null;
 
+     public function setStorage($storage)
+     {
+        if (!($storage instanceof Horde_Db_Adapter_Base)) {
+            throw new InvalidArgumentException("Missing Horde_Db_Adapter_Base");
+        }
+        $this->_db = $storage;
+     }
+
     /**
      * Adds a new queue to the backend.
      *
@@ -3073,25 +3081,6 @@ class Whups_Driver_Sql extends Whups_Driver
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
-    }
-
-    // /**
-    //  * Return the db object we're using.
-    //  *
-    //  * return DB Database object.
-    //  */
-    // public function getDb()
-    // {
-    //     return $this->_db;
-    // }
-
-    /**
-     * @TODO: get rid of this method, use injector factory.
-     */
-    function initialise()
-    {
-        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
-        return true;
     }
 
     protected function _generateWhere($table, $fields, &$info, $type)

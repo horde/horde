@@ -525,34 +525,4 @@ class Whups_Driver
         return $text;
     }
 
-    /**
-     * Attempts to return a concrete Whups_Driver instance based on $driver.
-     *
-     * @param string $driver The type of concrete Driver subclass to return.
-     * @param array $params  A hash containing any additional configuration or
-     *                       connection parameters a subclass might need.
-     *
-     * @return Whups_Driver  The newly created concrete Whups_Driver instance.
-     */
-    function factory($driver = null, $params = null)
-    {
-        if (is_null($driver)) {
-            $driver = $GLOBALS['conf']['tickets']['driver'];
-        }
-
-        $driver = basename($driver);
-        $class = 'Whups_Driver_' . $driver;
-        if (!class_exists($class)) {
-            include dirname(__FILE__) . '/Driver/' . $driver . '.php';
-        }
-        if (class_exists($class)) {
-            if (is_null($params)) {
-                $params = Horde::getDriverConfig('tickets', $driver);
-            }
-            return new $class($params);
-        } else {
-            throw new Whups_Exception(sprintf('No such backend "%s" found', $driver));
-        }
-    }
-
 }

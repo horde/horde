@@ -41,8 +41,7 @@ $conf = &$GLOBALS['conf'];
 require_once WHUPS_BASE . '/lib/Whups.php';
 require_once WHUPS_BASE . '/lib/Driver.php';
 
-$GLOBALS['whups_driver'] = Whups_Driver::factory();
-$GLOBALS['whups_driver']->initialise();
+$GLOBALS['whups_driver'] = $injector->getInstance('Whups_Factory_Driver')->create();
 
 $cli->writeln($cli->bold('Obliterating queues'));
 $queues = $whups_driver->getQueues();
