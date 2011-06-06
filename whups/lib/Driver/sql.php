@@ -106,9 +106,8 @@ class Whups_Driver_Sql extends Whups_Driver
             $slug,
             $email);
         try {
-            $result = $this->__db->insert($query, $values);
+            $result = $this->_db->insert($query, $values);
         } catch (Horde_Db_Exception $e) {
-            Horde::logMessage($e, 'ERR');
             throw new Whups_Exception($e);
         }
 
@@ -135,7 +134,6 @@ class Whups_Driver_Sql extends Whups_Driver
         try {
             $result = $this->_db->insert($query, $values);
         } catch (Horde_Db_Exception $e) {
-            Horde::logMessage($e, 'ERR');
             throw new Whups_Exception($e);
         }
 
@@ -168,7 +166,6 @@ class Whups_Driver_Sql extends Whups_Driver
         try {
             $result = $this->_db->insert($query, $values);
         } catch (Horde_Db_Exception $e) {
-            Horde::logMessage($e, 'ERR');
             throw new Whups_Exception($e);
         }
 
@@ -197,7 +194,6 @@ class Whups_Driver_Sql extends Whups_Driver
         try {
             $result = $this->_db->insert($query, $values);
         } catch (Horde_Db_Exception $e) {
-            Horde::logMessage($e, 'ERR');
             throw new Whups_Exception($e);
         }
 
@@ -228,7 +224,6 @@ class Whups_Driver_Sql extends Whups_Driver
         try {
             $result = $this->_db->insert($query, $values);
         } catch (Horde_Db_Exception $e) {
-            Horde::logMessage($e, 'ERR');
             throw Whups_Exception($e);
         }
 
@@ -257,7 +252,6 @@ class Whups_Driver_Sql extends Whups_Driver
         try {
             $result = $this->_db->query($query, $values);
         } catch (Horde_Db_Exception $e) {
-            Horde::logMessage($e, 'ERR');
             throw new Whups_Exception($e);
         }
 
@@ -329,7 +323,6 @@ class Whups_Driver_Sql extends Whups_Driver
             try {
                 $this->_db->insert($query, $values);
             } catch (Horde_Db_Exception $e) {
-                Horde::logMessage($e, 'ERR');
                 throw new Whups_Exception($e);
             }
         }
@@ -416,7 +409,6 @@ class Whups_Driver_Sql extends Whups_Driver
             try {
                 $this->_db->insert($query, $values);
             } catch (Horde_Db_Exception $e) {
-                Horde::logMessage($e, 'ERR');
                 throw new Whups_Exception($e);
             }
         }
@@ -607,7 +599,6 @@ class Whups_Driver_Sql extends Whups_Driver
         try {
             $ids = $this->_db->selectValues($sql);
         } catch (Horde_Db_Exception $e) {
-            Horde::logMessage($e, 'ERR');
             $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
             return array();
         }
