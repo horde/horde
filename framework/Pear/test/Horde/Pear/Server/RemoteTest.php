@@ -58,6 +58,17 @@ extends Horde_Pear_TestCase
         );
     }
 
+    /**
+     * CAUTION: Will fail with each new Horde_Autoloader release!
+     */
+    public function testLatestUri()
+    {
+        $this->assertEquals(
+            'http://pear.horde.org/get/Horde_Autoloader-1.0.0.tgz',
+            $this->_getRemote()->getLatestDownloadUri('Horde_Autoloader')
+        );
+    }
+
     private function _getRemote()
     {
         return new Horde_Pear_Remote($this->_server);

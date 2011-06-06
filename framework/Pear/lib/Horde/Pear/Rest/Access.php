@@ -50,7 +50,7 @@ class Horde_Pear_Rest_Access
      */
     public function setServer($server)
     {
-        $this->_server = $server;
+        $this->_server = 'http://' . $server;
     }
 
     /**
@@ -91,6 +91,36 @@ class Horde_Pear_Rest_Access
     {
         return new Horde_Pear_Rest_PackageList(
             $this->_getRest()->fetchPackageList()
+        );
+    }
+
+    /**
+     * Return the latest release for a specific package and stability.
+     *
+     * @param string $package The name of the package.
+     * @param string $stability The stability of the release.
+     *
+     * @return array A list of latest releases per level of stability.
+     */
+    public function getLatestRelease($package, $stability)
+    {
+        $result = $this->_getRest()->fetchLatestPackageReleases($package);
+        return isset($result[$stability]) ? $result[$stability] : false;
+    }
+
+    /**
+     * Return the release information wrapper for a specific package version
+     * from the server.
+     *
+     * @param string $package The name of the package.
+     * @param string $version The version of the release.
+     *
+     * @return Horde_Pear_Rest_Release The wrapper.
+     */
+    public function getRelease($package, $version)
+    {
+        return new Horde_Pear_Rest_Release(
+            $this->_getRest()->fetchReleaseInformation($package, $version)
         );
     }
 }

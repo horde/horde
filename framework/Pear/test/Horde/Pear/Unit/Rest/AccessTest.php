@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the remote server handler.
+ * Test the rest access helper.
  *
  * PHP version 5
  *
@@ -15,10 +15,10 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once dirname(__FILE__) . '/../../Autoload.php';
 
 /**
- * Test the package contents.
+ * Test the rest access helper.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -32,62 +32,36 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Pear
  */
-class Horde_Pear_Unit_RemoteTest
+class Horde_Pear_Unit_Rest_AccessTest
 extends Horde_Pear_TestCase
 {
-    public function testListPackages()
-    {
-        $this->assertType(
-            'array',
-            $this->_getRemote()->listPackages()
-        );
-    }
-
-    public function testListPackagesContainsComponents()
+    public function testLatestRelease()
     {
         $this->assertEquals(
-            array('A', 'B'),
-            $this->_getRemoteList()->listPackages()
+            '1.0.0',
+            $this->_getAccess()->getLatestRelease('A', 'stable')
         );
     }
 
-    public function testLatestUri()
+    public function testGetRelease()
+    {
+        $this->assertInstanceOf(
+            'Horde_Pear_Rest_Release',
+            $this->_getReleaseAccess()->getRelease('A', '1.0.0')
+        );
+    }
+
+    public function testDownloadUri()
     {
         $this->assertEquals(
             'http://pear.horde.org/get/A-1.0.0.tgz',
-            $this->_getLatestRemote()->getLatestDownloadUri('A')
+            $this->_getReleaseAccess()
+            ->getRelease('A', '1.0.0')
+            ->getDownloadUri()
         );
     }
 
-    /**
-     * @expectedException Horde_Pear_Exception
-     */
-    public function testLatestUriExceptionForNoRelease()
-    {
-        $this->_getLatestRemote()->getLatestDownloadUri('A', 'dev');
-    }
-
-    private function _getRemote()
-    {
-        return new Horde_Pear_Remote();
-    }
-
-    private function _getRemoteList()
-    {
-        if (!class_exists('Horde_Http_Client')) {
-            $this->markTestSkipped('Horde_Http is missing!');
-        }
-        $string = '<?xml version="1.0" encoding="UTF-8" ?>
-<l><p xlink:href="/rest/p/a">A</p><p xlink:href="/rest/p/b">B</p></l>';
-        $body = new Horde_Support_StringStream($string);
-        $response = new Horde_Http_Response_Mock('', $body->fopen());
-        $response->code = 200;
-        $request = new Horde_Http_Request_Mock();
-        $request->setResponse($response);
-        return $this->_createRemote($request);
-    }
-
-    private function _getLatestRemote()
+    private function _getAccess()
     {
         if (!class_exists('Horde_Http_Client')) {
             $this->markTestSkipped('Horde_Http is missing!');
@@ -111,18 +85,29 @@ extends Horde_Pear_TestCase
                     'body' => '',
                     'code' => 404,
                 ),
-                array(
-                    'body' => $this->_getRelease(),
-                    'code' => 200,
-                ),
             )
         );
-        return $this->_createRemote($request);
+        return $this->_createAccess($request);
     }
 
-    private function _createRemote($request)
+    private function _getReleaseAccess()
+    {
+        if (!class_exists('Horde_Http_Client')) {
+            $this->markTestSkipped('Horde_Http is missing!');
+        }
+        $string = $this->_getRelease();
+        $body = new Horde_Support_StringStream($string);
+        $response = new Horde_Http_Response_Mock('', $body->fopen());
+        $response->code = 200;
+        $request = new Horde_Http_Request_Mock();
+        $request->setResponse($response);
+        return $this->_createAccess($request);
+    }
+
+    private function _createAccess($request)
     {
         $access = new Horde_Pear_Rest_Access();
+        $access->setServer('test');
         $access->setRest(
             'http://test',
             new Horde_Pear_Rest(
@@ -130,6 +115,6 @@ extends Horde_Pear_TestCase
                 'http://test'
             )
         );
-        return new Horde_Pear_Remote('test', $access);
+        return $access;
     }
 }
