@@ -2655,7 +2655,7 @@ class Whups_Driver_Sql extends Whups_Driver
             (int)($required == 'on'));
 
         try {
-            return $this->_db->query($query, $values);
+            return $this->_db->insert($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
