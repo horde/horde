@@ -59,10 +59,9 @@ extends Components_Module_Base
     {
         return array(
             new Horde_Argv_Option(
-                '-D',
                 '--distribute',
                 array(
-                    'action' => 'store',
+                    'action' => 'store_true',
                     'help'   => 'Prepare the package definition for the component in the specified DISTRIBUTE location'
                 )
             ),
@@ -110,7 +109,7 @@ extends Components_Module_Base
     public function getContextOptionHelp()
     {
         return array(
-            '--distribute' => '',
+            '--destination' => '',
         );
     }
 

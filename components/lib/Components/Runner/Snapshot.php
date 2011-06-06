@@ -82,8 +82,8 @@ class Components_Runner_Snapshot
             );
         }
 
-        if ($options['archivedir']) {
-            $archivedir = $options['archivedir'];
+        if ($options['destination']) {
+            $archivedir = $options['destination'];
         } else {
             $archivedir = getcwd();
         }
