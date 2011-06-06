@@ -114,13 +114,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
-     * <pre>
-     * mailbox: (object) Mailboxes that were altered. Contains the
-     *          following properties:
-     *   a: (array) Mailboxes that were added.
-     *   c: (array) Mailboxes that were changed.
-     *   d: (array) Mailboxes that were deleted.
-     * </pre>
+     *   - mailbox: (object) Mailboxes that were altered. Contains the
+     *              following properties:
+     *       a: (array) Mailboxes that were added.
+     *       c: (array) Mailboxes that were changed.
+     *       d: (array) Mailboxes that were deleted.
      */
     public function createMailbox()
     {
@@ -156,7 +154,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - mbox: (string) The name of the mailbox to check.
      *   - type: (string) Either 'delete' or 'rename'.
      *
-     * @return boolean  True if sub mailboxes can be created
+     * @return boolean  True if sub mailboxes can be created.
      */
     public function deleteMailboxPrepare()
     {
@@ -189,13 +187,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
-     * <pre>
-     * 'mailbox' - (object) Mailboxes that were altered. Contains the
-     *             following properties:
-     *   'a' - (array) Mailboxes that were added.
-     *   'c' - (array) Mailboxes that were changed.
-     *   'd' - (array) Mailboxes that were deleted.
-     * </pre>
+     *   - mailbox: (object) Mailboxes that were altered. Contains the
+     *              following properties:
+     *     a: (array) Mailboxes that were added.
+     *     c: (array) Mailboxes that were changed.
+     *     d: (array) Mailboxes that were deleted.
      */
     public function deleteMailbox()
     {
@@ -236,13 +232,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
-     * <pre>
-     * mailbox: (object) Mailboxes that were altered. Contains the
-     *          following properties:
-     *   a: (array) Mailboxes that were added.
-     *   c: (array) Mailboxes that were changed.
-     *   d: (array) Mailboxes that were deleted.
-     * </pre>
+     *   - mailbox: (object) Mailboxes that were altered. Contains the
+     *              following properties:
+     *     a: (array) Mailboxes that were added.
+     *     c: (array) Mailboxes that were changed.
+     *     d: (array) Mailboxes that were deleted.
      */
     public function renameMailbox()
     {
@@ -312,9 +306,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
-     * <pre>
-     * 'mbox' - (string) The mailbox that was emptied.
-     * </pre>
+     *   - mbox: (string) The mailbox that was emptied.
      */
     public function emptyMailbox()
     {
@@ -363,26 +355,22 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: List mailboxes.
      *
      * Variables used:
-     * <pre>
-     * 'all' - (integer) 1 to show all mailboxes.
-     * 'initial' - (string) 1 to indicate the initial request for mailbox
-     *             list.
-     * 'mboxes' - (string) The list of mailboxes to process (JSON encoded
-     *            array).
-     * 'reload' - (integer) 1 to force reload of mailboxes.
-     * 'unsub' - (integer) 1 to show unsubscribed mailboxes.
-     * </pre>
+     *   - all: (integer) 1 to show all mailboxes.
+     *   - initial: (string) 1 to indicate the initial request for mailbox
+     *              list.
+     *   - mboxes: (string) The list of mailboxes to process (JSON encoded
+     *             array).
+     *   - reload: (integer) 1 to force reload of mailboxes.
+     *   - unsub: (integer) 1 to show unsubscribed mailboxes.
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
-     * <pre>
-     * 'expand' - (integer) Expand subfolders on load.
-     * 'mailbox' - (object) Mailboxes that were altered. Contains the
-     *             following properties:
-     *   'a' - (array) Mailboxes that were added.
-     *   'c' - (array) Mailboxes that were changed.
-     *   'd' - (array) Mailboxes that were deleted.
-     * </pre>
+     *   - expand: (integer) Expand subfolders on load.
+     *   - mailbox: (object) Mailboxes that were altered. Contains the
+     *              following properties:
+     *     a: (array) Mailboxes that were added.
+     *     c: (array) Mailboxes that were changed.
+     *     d: (array) Mailboxes that were deleted.
      */
     public function listMailboxes()
     {
@@ -475,11 +463,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Expand mailboxes (saves expanded state in prefs).
      *
      * Variables used:
-     * <pre>
-     * 'encoded' - (integer) 1 if mboxes is URL encoded.
-     * 'mboxes' - (string) The list of mailboxes to process (JSON encoded
-     *            array) if 'all' is 0.
-     * </pre>
+     *   - encoded: (integer) 1 if mboxes is URL encoded.
+     *   - mboxes: (string) The list of mailboxes to process (JSON encoded
+     *             array) if 'all' is 0.
      *
      * @return boolean  True.
      */
@@ -503,12 +489,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Collapse mailboxes.
      *
      * Variables used:
-     * <pre>
-     * 'all' - (integer) 1 to show all mailboxes.
-     * 'encoded' - (integer) 1 if mboxes is URL encoded.
-     * 'mboxes' - (string) The list of mailboxes to process (JSON encoded
-     *            array) if 'all' is 0.
-     * </pre>
+     *   - all: (integer) 1 to show all mailboxes.
+     *   - encoded: (integer) 1 if mboxes is URL encoded.
+     *   - mboxes: (string) The list of mailboxes to process (JSON encoded
+     *             array) if 'all' is 0.
      *
      * @return boolean  True.
      */
@@ -535,15 +519,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * See the list of variables needed for _changed() and _viewPortData().
      * Additional variables used:
-     * <pre>
-     * 'view' - (string) The current view (mailbox).
-     * </pre>
+     *   - view: (string) The current view (mailbox).
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
-     * <pre>
-     * 'ViewPort' - (object) See _viewPortData().
-     * </pre>
+     *   - ViewPort: (object) See _viewPortData().
      */
     public function poll()
     {
@@ -563,17 +543,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Modify list of polled mailboxes.
      *
      * Variables used:
-     * <pre>
-     * 'add' - (integer) 1 to add to the poll list, 0 to remove.
-     * 'mbox' - (string) The full mailbox name to modify.
-     * </pre>
+     *   - add: (integer) 1 to add to the poll list, 0 to remove.
+     *   - mbox: (string) The full mailbox name to modify.
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
-     * <pre>
-     * 'add' - (integer) 1 if added to the poll list, 0 if removed.
-     * 'mbox' - (string) The full mailbox name modified.
-     * </pre>
+     *   - add: (integer) 1 if added to the poll list, 0 if removed.
+     *   - mbox: (string) The full mailbox name modified.
      */
     public function modifyPoll()
     {
@@ -605,10 +581,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: [un]Subscribe to a mailbox.
      *
      * Variables used:
-     * <pre>
-     * 'mbox' - (string) The full mailbox name to [un]subscribe to.
-     * 'sub' - (integer) 1 to subscribe, empty to unsubscribe.
-     * </pre>
+     *   - mbox: (string) The full mailbox name to [un]subscribe to.
+     *   - sub: (integer) 1 to subscribe, empty to unsubscribe.
      *
      * @return boolean  True on success, false on failure.
      */
@@ -628,16 +602,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Import a mailbox.
      *
      * Variables used:
-     * <pre>
-     * 'import_mbox' - (string) The mailbox to import into.
-     * </pre>
+     *   - import_mbox: (string) The mailbox to import into.
      *
      * @return object  False on failure, or an object with the following
      *                 properties:
-     * <pre>
-     * 'action' - (string) The action name (importMailbox).
-     * 'mbox' - (string) The mailbox the messages were imported to.
-     * </pre>
+     *   - action: (string) The action name (importMailbox).
+     *   - mbox: (string) The mailbox the messages were imported to.
      */
     public function importMailbox()
     {
@@ -664,21 +634,17 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * See the list of variables needed for _changed() and _viewPortData().
      * Additional variables used:
-     * <pre>
-     * 'checkcache' - (integer) If 1, only send data if cache has been
-     *                invalidated.
-     * 'rangeslice' - (string) Range slice. See js/viewport.js.
-     * 'requestid' - (string) Request ID. See js/viewport.js.
-     * 'sortby' - (integer) The Horde_Imap_Client sort constant.
-     * 'sortdir' - (integer) 0 for ascending, 1 for descending.
-     * 'view' - (string) The current full mailbox name.
-     * </pre>
+     *   - checkcache: (integer) If 1, only send data if cache has been
+     *                 invalidated.
+     *   - rangeslice: (string) Range slice. See js/viewport.js.
+     *   - requestid: (string) Request ID. See js/viewport.js.
+     *   - sortby: (integer) The Horde_Imap_Client sort constant.
+     *   - sortdir: (integer) 0 for ascending, 1 for descending.
+     *   - view: (string) The current full mailbox name.
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
-     * <pre>
-     * 'ViewPort' - (object) See _viewPortData().
-     * </pre>
+     *   - ViewPort: (object) See _viewPortData().
      */
     public function viewPort()
     {
@@ -736,11 +702,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * See the list of variables needed for _changed(),
      * _generateDeleteResult(), and _checkUidvalidity(). Additional variables
      * used:
-     * <pre>
-     * 'mboxto' - (string) Mailbox to move the message to.
-     * 'uid' - (string) Indices of the messages to move (IMAP sequence
-     *         string).
-     * </pre>
+     *   - mboxto: (string) Mailbox to move the message to.
+     *   - uid: (string) Indices of the messages to move (IMAP sequence
+     *          string).
      *
      * @return mixed  False on failure, or an object (see
      *                _generateDeleteResult() for format).
@@ -780,17 +744,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * See the list of variables needed for _checkUidvalidity(). Additional
      * variables used:
-     * <pre>
-     * 'mboxto' - (string) Mailbox to move the message to.
-     * 'uid' - (string) Indices of the messages to copy (IMAP sequence
-     *         string).
-     * </pre>
+     *   - mboxto: (string) Mailbox to move the message to.
+     *   - uid: (string) Indices of the messages to copy (IMAP sequence
+     *          string).
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
-     * <pre>
-     * 'ViewPort' - (object) See _viewPortData().
-     * </pre>
+     *   - ViewPort: (object) See _viewPortData().
      */
     public function copyMessages()
     {
@@ -813,12 +773,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * See the list of variables needed for _changed() and
      * _checkUidvalidity().  Additional variables used:
-     * <pre>
-     * 'add' - (integer) Set the flag?
-     * 'flags' - (string) The flags to set (JSON serialized array).
-     * 'uid' - (string) Indices of the messages to flag (IMAP sequence
-     *         string).
-     * </pre>
+     *   - add: (integer) Set the flag?
+     *   - flags: (string) The flags to set (JSON serialized array).
+     *   - uid: (string) Indices of the messages to flag (IMAP sequence
+     *          string).
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
@@ -866,10 +824,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * See the list of variables needed for _changed(),
      * _generateDeleteResult(), and _checkUidvalidity(). Additional variables
      * used:
-     * <pre>
-     * 'uid' - (string) Indices of the messages to delete (IMAP sequence
-     *         string).
-     * </pre>
+     *   - uid: (string) Indices of the messages to delete (IMAP sequence
+     *          string).
      *
      * @return mixed  False on failure, or an object (see
      *                _generateDeleteResult() for format).
@@ -896,10 +852,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Add contact.
      *
      * Variables used:
-     * <pre>
-     * 'email' - (string) The email address to name.
-     * 'name' - (string) The name associated with the email address.
-     * </pre>
+     *   - email: (string) The email address to name.
+     *   - name: (string) The name associated with the email address.
      *
      * @return boolean  True on success, false on failure.
      */
@@ -926,11 +880,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * See the list of variables needed for _changed(),
      * _generateDeleteResult(), and _checkUidvalidity(). Additional variables
      * used:
-     * <pre>
-     * 'spam' - (integer) 1 to mark as spam, 0 to mark as innocent.
-     * 'uid' - (string) Indices of the messages to report (IMAP sequence
-     *         string).
-     * </pre>
+     *   - spam: (integer) 1 to mark as spam, 0 to mark as innocent.
+     *   - uid: (string) Indices of the messages to report (IMAP sequence
+     *          string).
      *
      * @return mixed  If messages were deleted, data as returned by
      *                _generateDeleteResult(). Else, true.
@@ -959,11 +911,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * See the list of variables needed for _changed(),
      * _generateDeleteResult(), and _checkUidvalidity(). Additional variables
      * used:
-     * <pre>
-     * 'blacklist' - (integer) 1 to blacklist, 0 to whitelist.
-     * 'uid' - (string) Indices of the messages to report (IMAP sequence
-     *         string).
-     * </pre>
+     *   - blacklist: (integer) 1 to blacklist, 0 to whitelist.
+     *   - uid: (string) Indices of the messages to report (IMAP sequence
+     *          string).
      *
      * @return mixed  False on failure, or an object (see
      *                _generateDeleteResult() for format).
@@ -1004,16 +954,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * See the list of variables needed for _changed() and
      * _checkUidvalidity().  Additional variables used:
-     * <pre>
-     * 'uid' - (string) Index of the messages to preview (IMAP sequence
-     *         string) - must be single index.
-     * </pre>
+     *   - uid: (string) Index of the messages to preview (IMAP sequence
+     *          string) - must be single index.
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
-     * <pre>
-     * 'message' - (object) Return from IMP_View_ShowMessage::showMessage().
-     * </pre>
+     *   - message: (object) Return from IMP_View_ShowMessage::showMessage().
      */
     public function showMessage()
     {
@@ -1056,10 +1002,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * See the list of variables needed for _changed() and
      * _checkUidvalidity().  Additional variables used:
-     * <pre>
-     * 'uid' - (string) Index of the messages to preview (IMAP sequence
-     *         string) - must be single index.
-     * </pre>
+     *   - uid: (string) Index of the messages to preview (IMAP sequence
+     *          string) - must be single index.
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
@@ -1123,17 +1067,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Convert HTML to text (compose data).
      *
      * Variables used:
-     * <pre>
-     * 'changed' - (integer) Has the text changed from the original?
-     * 'identity' - (integer) The current identity.
-     * 'imp_compose' - (string) The IMP_Compose cache identifier.
-     * 'text' - (string) The text to convert.
-     * </pre>
+     *   - changed: (integer) Has the text changed from the original?
+     *   - identity: (integer) The current identity.
+     *   - imp_compose: (string) The IMP_Compose cache identifier.
+     *   - text: (string) The text to convert.
      *
      * @return object  An object with the following entries:
-     * <pre>
-     * 'text' - (string) The converted text.
-     * </pre>
+     *   - text: (string) The converted text.
      */
     public function html2Text()
     {
@@ -1171,17 +1111,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Convert text to HTML (compose data).
      *
      * Variables used:
-     * <pre>
-     * 'changed' - (integer) Has the text changed from the original?
-     * 'identity' - (integer) The current identity.
-     * 'imp_compose' - (string) The IMP_Compose cache identifier.
-     * 'text' - (string) The text to convert.
-     * </pre>
+     *   - changed: (integer) Has the text changed from the original?
+     *   - identity: (integer) The current identity.
+     *   - imp_compose: (string) The IMP_Compose cache identifier.
+     *   - text: (string) The text to convert.
      *
      * @return object  An object with the following entries:
-     * <pre>
-     * 'text' - (string) The converted text.
-     * </pre>
+     *   - text: (string) The converted text.
      */
     public function text2Html()
     {
@@ -1220,27 +1156,23 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * See the list of variables needed for _checkUidvalidity(). Additional
      * variables used:
-     * <pre>
-     * dataonly - (boolean) Only return data information (DEFAULT: false).
-     * imp_compose - (string) The IMP_Compose cache identifier.
-     * type - (string) Forward type.
-     * uid - (string) Indices of the messages to forward (IMAP sequence
-     *       string).
-     * </pre>
+     *   - dataonly: (boolean) Only return data information (DEFAULT: false).
+     *   - imp_compose: (string) The IMP_Compose cache identifier.
+     *   - type: (string) Forward type.
+     *   - uid: (string) Indices of the messages to forward (IMAP sequence
+     *          string).
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
-     * <pre>
-     * body - (string) The body text of the message.
-     * format - (string) Either 'text' or 'html'.
-     * fwd_list - (array) See IMP_Dimp::getAttachmentInfo().
-     * header - (array) The headers of the message.
-     * identity - (integer) The identity ID to use for this message.
-     * imp_compose - (string) The IMP_Compose cache identifier.
-     * opts - (array) Additional options needed for DimpCompose.fillForm().
-     * type - (string) The input 'type' value.
-     * ViewPort - (object) See _viewPortData().
-     * </pre>
+     *   - body: (string) The body text of the message.
+     *   - format: (string) Either 'text' or 'html'.
+     *   - fwd_list: (array) See IMP_Dimp::getAttachmentInfo().
+     *   - header: (array) The headers of the message.
+     *   - identity: (integer) The identity ID to use for this message.
+     *   - imp_compose: (string) The IMP_Compose cache identifier.
+     *   - opts: (array) Additional options needed for DimpCompose.fillForm().
+     *   - type: (string) The input 'type' value.
+     *   - ViewPort: (object) See _viewPortData().
      */
     public function getForwardData()
     {
@@ -1285,27 +1217,23 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * See the list of variables needed for _checkUidvalidity(). Additional
      * variables used:
-     * <pre>
-     * 'headeronly' - (boolean) Only return header information (DEFAULT:
-     *                false).
-     * 'imp_compose' - (string) The IMP_Compose cache identifier.
-     * 'type' - (string) See IMP_Compose::replyMessage().
-     * 'uid' - (string) Indices of the messages to reply to (IMAP sequence
-     *         string).
-     * </pre>
+     *   - headeronly: (boolean) Only return header information (DEFAULT:
+     *                 false).
+     *   - imp_compose: (string) The IMP_Compose cache identifier.
+     *   - type: (string) See IMP_Compose::replyMessage().
+     *   - uid: (string) Indices of the messages to reply to (IMAP sequence
+     *          string).
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
-     * <pre>
-     * 'body' - (string) The body text of the message.
-     * 'format' - (string) Either 'text' or 'html'.
-     * 'header' - (array) The headers of the message.
-     * 'identity' - (integer) The identity ID to use for this message.
-     * 'imp_compose' - (string) The IMP_Compose cache identifier.
-     * 'opts' - (array) Additional options needed for DimpCompose.fillForm().
-     * 'type' - (string) The input 'type' value.
-     * 'ViewPort' - (object) See _viewPortData().
-     * </pre>
+     *   - body: (string) The body text of the message.
+     *   - format: (string) Either 'text' or 'html'.
+     *   - header: (array) The headers of the message.
+     *   - identity: (integer) The identity ID to use for this message.
+     *   - imp_compose: (string) The IMP_Compose cache identifier.
+     *   - opts: (array) Additional options needed for DimpCompose.fillForm().
+     *   - type: (string) The input 'type' value.
+     *   - ViewPort: (object) See _viewPortData().
      */
     public function getReplyData()
     {
@@ -1347,17 +1275,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Get compose redirect data.
      *
      * Variables used:
-     * <pre>
-     * 'uid' - (string) Index of the message to redirect (IMAP sequence
-     *         string).
-     * </pre>
+     *   - uid: (string) Index of the message to redirect (IMAP sequence
+     *          string).
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
-     * <pre>
-     * 'imp_compose' - (string) The IMP_Compose cache identifier.
-     * 'type' - (string) The input 'type' value.
-     * </pre>
+     *   - imp_compose: (string) The IMP_Compose cache identifier.
+     *   - type: (string) The input 'type' value.
      */
     public function getRedirectData()
     {
@@ -1376,9 +1300,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Cancel compose.
      *
      * Variables used:
-     * <pre>
-     * 'imp_compose' - (string) The IMP_Compose cache identifier.
-     * </pre>
+     *   - imp_compose: (string) The IMP_Compose cache identifier.
      *
      * @return boolean  True.
      */
@@ -1394,9 +1316,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Delete a draft.
      *
      * Variables used:
-     * <pre>
-     * 'imp_compose' - (string) The IMP_Compose cache identifier.
-     * </pre>
+     *   - imp_compose: (string) The IMP_Compose cache identifier.
      *
      * @return boolean  True.
      */
@@ -1410,10 +1330,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Delete an attachment from compose data.
      *
      * Variables used:
-     * <pre>
-     * atc_indices - (string) [JSON array] Attachment IDs to delete.
-     * imp_compose - (string) The IMP_Compose cache identifier.
-     * </pre>
+     *   - atc_indices: (string) [JSON array] Attachment IDs to delete.
+     *   - imp_compose: (string) The IMP_Compose cache identifier.
      *
      * @return boolean  True.
      */
@@ -1435,11 +1353,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * See the list of variables needed for _changed(), and
      * _generateDeleteResult().  Additional variables used:
-     * <pre>
-     * 'uid' - (string) Indices of the messages to purge (IMAP sequence
-     *         string).
-     * 'view' - (string) The current full mailbox.
-     * </pre>
+     *   - uid: (string) Indices of the messages to purge (IMAP sequence
+     *          string).
+     *   - view: (string) The current full mailbox.
      *
      * @return mixed  False on failure, or an object (see
      *                _generateDeleteResult() for format).
@@ -1484,16 +1400,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Send a Message Disposition Notification (MDN).
      *
      * Variables used:
-     * <pre>
-     * 'uid' - (string) Index of the messages to preview (IMAP sequence
-     *         string) - must be single index.
-     * </pre>
+     *   - uid: (string) Index of the messages to preview (IMAP sequence
+     *          string) - must be single index.
      *
      * @return mixed  False on failure, or an object with these properties:
-     * <pre>
-     * 'mbox' - (string) Mailbox of message.
-     * 'uid' - (integer) UID of message.
-     * </pre>
+     *   - mbox: (string) Mailbox of message.
+     *   - uid: (integer) UID of message.
      */
     public function sendMDN()
     {
@@ -1535,19 +1447,15 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * See the list of variables needed for _changed() and
      * _checkUidvalidity().  Additional variables used:
-     * <pre>
-     * 'uid' - (string) Index of the messages to preview (IMAP sequence
-     *         string) - must be single index.
-     * </pre>
+     *   - uid: (string) Index of the messages to preview (IMAP sequence
+     *          string) - must be single index.
      *
      * @return mixed  False on failure, the return from showPreview() on
      *                success along with these properties:
-     * <pre>
-     * 'newuid' - (integer) UID of new message.
-     * 'oldmbox' - (string) Mailbox of old message.
-     * 'olduid' - (integer) UID of old message.
-     * 'ViewPort' - (object) See _viewPortData().
-     * </pre>
+     *   - newuid: (integer) UID of new message.
+     *   - oldmbox: (string) Mailbox of old message.
+     *   - olduid: (integer) UID of old message.
+     *   - ViewPort: (object) See _viewPortData().
      */
     public function stripAttachment()
     {
@@ -1587,17 +1495,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Add an attachment to a compose message.
      *
      * Variables used:
-     * <pre>
-     * 'composeCache' - (string) The IMP_Compose cache identifier.
-     * </pre>
+     *   - composeCache: (string) The IMP_Compose cache identifier.
      *
      * @return object  An object with the following entries:
-     * <pre>
-     * 'atc' - TODO
-     * 'error' - (string) An error message.
-     * 'imp_compose' - TODO
-     * 'success' - (integer) 1 on success, 0 on failure.
-     * </pre>
+     *   - atc: TODO
+     *   - error: (string) An error message.
+     *   - imp_compose: TODO
+     *   - success: (integer) 1 on success, 0 on failure.
      */
     public function addAttachment()
     {
@@ -1771,18 +1675,14 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * Redirect the message.
      *
      * Variables used:
-     * <pre>
-     * 'composeCache' - (string) The IMP_Compose cache identifier.
-     * 'redirect_to' - (string) The address(es) to redirect to.
-     * </pre>
+     *   - composeCache: (string) The IMP_Compose cache identifier.
+     *   - redirect_to: (string) The address(es) to redirect to.
      *
      * @return object  An object with the following entries:
-     * <pre>
-     * 'log' - (array) TODO
-     * 'mbox' - (array) TODO
-     * 'success' - (integer) 1 on success, 0 on failure.
-     * 'uid' - (integer) TODO
-     * </pre>
+     *   - log: (array) TODO
+     *   - mbox: (array) TODO
+     *   - success: (integer) 1 on success, 0 on failure.
+     *   - uid: (integer) TODO
      */
     public function redirectMessage()
     {
@@ -1819,11 +1719,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * Setup environment for dimp compose actions.
      *
      * Variables used:
-     * <pre>
-     * 'composeCache' - (string) The IMP_Compose cache identifier.
-     * 'from' - (string) TODO
-     * 'identity' - (integer) The identity to use
-     * </pre>
+     *   - composeCache: (string) The IMP_Compose cache identifier.
+     *   - from: (string) TODO
+     *   - identity: (integer) The identity to use
      *
      * @return array  An array with the following values:
      * <pre>
@@ -1894,18 +1792,14 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * See the list of variables needed for _dimpComposeSetup(). Additional
      * variables used:
-     * <pre>
-     * 'html' - (integer) In HTML compose mode?
-     * 'message' - (string) The message text.
-     * 'priority' - (string) The priority of the message.
-     * 'request_read_receipt' - (boolean) Add request read receipt header?
-     * </pre>
+     *   - html: (integer) In HTML compose mode?
+     *   - message: (string) The message text.
+     *   - priority: (string) The priority of the message.
+     *   - request_read_receipt: (boolean) Add request read receipt header?
      *
      * @return object  An object with the following entries:
-     * <pre>
-     * 'action' - (string) The AJAX action string
-     * 'success' - (integer) 1 on success, 0 on failure.
-     * </pre>
+     *   - action: (string) The AJAX action string
+     *   - success: (integer) 1 on success, 0 on failure.
      */
     protected function _dimpDraftAction()
     {
@@ -1969,14 +1863,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *                              messages.
      *
      * @return object  An object with the following entries:
-     * <pre>
-     * 'deleted' - (object) Contains the following properties:
-     *   mbox - (string) The current mailbox.
-     *   remove - (integer) True if messages should be removed from the
-     *            viewport.
-     *   uids - (string) The list of messages to delete.
-     * 'ViewPort' - (object) See _viewPortData().
-     * </pre>
+     *   - deleted: (object) Contains the following properties:
+     *     mbox: (string) The current mailbox.
+     *     remove: (integer) True if messages should be removed from the
+     *             viewport.
+     *     uids: (string) The list of messages to delete.
+     *   - ViewPort: (object) See _viewPortData().
      */
     protected function _generateDeleteResult($indices, $change,
                                              $nothread = false)
@@ -2017,11 +1909,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * Determine if the cache information has changed.
      *
      * Variables used:
-     * <pre>
-     * 'cacheid' - (string) The browser (ViewPort) cache identifier.
-     * 'forceUpdate' - (integer) If 1, forces an update,
-     * 'view' - (string) The current ViewPort view (mailbox).
-     * </pre>
+     *   - cacheid: (string) The browser (ViewPort) cache identifier.
+     *   - forceUpdate: (integer) If 1, forces an update.
+     *   - view: (string) The current ViewPort view (mailbox).
      *
      * @param boolean $rw  Open mailbox as READ+WRITE?
      *
