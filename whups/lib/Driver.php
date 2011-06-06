@@ -65,10 +65,6 @@ class Whups_Driver
     public function getHistory($ticket_id)
     {
         $rows = $this->_getHistory($ticket_id);
-        if (is_a($rows, 'PEAR_Error')) {
-            return $rows;
-        }
-
         $attributes = array();
         foreach ($rows as $row) {
             if ($row['log_type'] == 'attribute' &&
@@ -182,10 +178,6 @@ class Whups_Driver
         }
 
         $versioninfo = $this->getVersionInfo($queue);
-        if (is_a($versioninfo, 'PEAR_Error')) {
-            return $versioninfo;
-        }
-
         $versions = array();
         $old_versions = false;
         foreach ($versioninfo as $vinfo) {
@@ -240,10 +232,6 @@ class Whups_Driver
     function getAttributesForType($type = null)
     {
         $attributes = $this->_getAttributesForType($type);
-        if (is_a($attributes, 'PEAR_Error')) {
-            return $attributes;
-        }
-
         foreach ($attributes as $id => $attribute) {
             $attributes[$id] = array(
                 'human_name' => $attribute['attribute_name'],
@@ -269,9 +257,6 @@ class Whups_Driver
     function getAllTicketAttributesWithNames($ticket_id)
     {
         $ta = $this->_getAllTicketAttributesWithNames($ticket_id);
-        if (is_a($ta, 'PEAR_Error')) {
-            return $ta;
-        }
 
         $attributes = array();
         foreach ($ta as $id => $attribute) {
@@ -381,11 +366,11 @@ class Whups_Driver
         if (!$reminder && !empty($conf['mail']['always_copy'])) {
             $mail_always = $conf['mail']['always_copy'];
             if (strpos($mail_always, '<@>') !== false) {
-                $ticket = Whups_Ticket::makeTicket($ticket_id);
-                if (!is_a($ticket, 'PEAR_Error')) {
+                try {
+                    $ticket = Whups_Ticket::makeTicket($ticket_id);
                     $mail_always = str_replace('<@>', $ticket->get('queue_name'), $mail_always);
-                } else {
-                    $mail_always = null;
+                } catch (Whups_Exception $e) {
+                      $mail_always = null;
                 }
             }
             if ($mail_always) {

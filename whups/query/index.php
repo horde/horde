@@ -77,9 +77,10 @@ if ($vars->get('qaction1') || $vars->get('qaction2')) {
         break;
 
     case 'edit':
-        $qf = $whups_query->pathToForm($vars);
-        if (is_a($qf, 'PEAR_Error')) {
-            $notification->push($qf);
+        try {
+            $qf = $whups_query->pathToForm($vars);
+        } catch (Whups_Exception $e) {
+            $notification->push($e->getMessage());
             $qf = 'props';
         }
         $session->set('whups', 'query_form', 'props');

@@ -72,12 +72,12 @@ if ($vars->get('formname') == 'addcommentform' && $commentForm->validate($vars))
         $ticket->change('comment-perms', $info['group']);
     }
 
-    $result = $ticket->commit();
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result, 'horde.error');
-    } else {
+    try {
+        $result = $ticket->commit();
         $notification->push(_("Comment added"), 'horde.success');
         $ticket->show();
+    } catch (Whups_Exception $e) {
+        $notification->push($e->getMessage(), 'horde.error');
     }
 }
 

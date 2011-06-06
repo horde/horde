@@ -29,14 +29,13 @@ if ($slug) {
 }
 
 if (!isset($whups_query) ||
-    is_a($whups_query, 'PEAR_Error') ||
     $whups_query->parameters ||
     !$whups_query->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
     exit;
 }
 
 $tickets = $whups_driver->executeQuery($whups_query, $vars);
-if (is_a($tickets, 'PEAR_Error') || !count($tickets)) {
+if (!count($tickets)) {
     exit;
 }
 

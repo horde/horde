@@ -21,11 +21,11 @@ if (!Whups::hasPermission($ticket->get('queue'), 'queue', Horde_Perms::DELETE)) 
 
 $file = basename(Horde_Util::getFormData('file'));
 $ticket->change('delete-attachment', $file);
-$result = $ticket->commit();
-if (is_a($result, 'PEAR_Error')) {
-    $notification->push($result, 'horde.error');
-} else {
+try {
+    $ticket->commit();
     $notification->push(sprintf(_("Attachment %s deleted."), $file), 'horde.success');
+} catch (Whups_Exception $e) {
+    $notification->push($e, 'horde.error');
 }
 
 if ($url = Horde_Util::getFormData('url')) {

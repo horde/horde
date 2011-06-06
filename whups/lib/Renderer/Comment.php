@@ -215,8 +215,7 @@ class Horde_Form_Renderer_Comment extends Horde_Form_Renderer {
         $link = '<strong>' . Horde::link($url, 'View ' . $matches[0])
             . $matches[0] . '</a></strong>';
         $state = $GLOBALS['whups_driver']->getTicketState($matches[2]);
-        if (!is_a($state, 'PEAR_Error') &&
-            $state['state_category'] == 'resolved') {
+        if ($state['state_category'] == 'resolved') {
             $link = '<del>' . $link . '</del>';
         }
         return $link;

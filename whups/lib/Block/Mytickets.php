@@ -24,10 +24,6 @@ class Whups_Block_Mytickets extends Horde_Core_Block
                       'nores' => true,
                       'queue' => $queue_ids);
         $assigned = $whups_driver->getTicketsByProperties($info);
-        if ($assigned instanceof PEAR_Error) {
-            return $assigned;
-        }
-
         if (!$assigned) {
             return '<p><em>' . _("No tickets are assigned to you.") . '</em></p>';
         }

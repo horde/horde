@@ -30,7 +30,7 @@ class Whups_Mail {
      *                           the message's From: header. We do NOT default
      *                           to $GLOBALS['registry']->getAuth().
      *
-     * @return Whups_Ticket | PEAR_Error  Ticket or Error object.
+     * @return Whups_Ticket  Ticket.
      */
     static public function processMail($text, $info, $auth_user = null)
     {
@@ -129,16 +129,13 @@ class Whups_Mail {
         if ($ticket = self::_findTicket($info)) {
             $ticket->change('comment', $info['comment']);
             $ticket->change('comment-email', $from);
-            $result = $ticket->commit($author);
-            if (is_a($result, 'PEAR_Error')) {
-                $result->addUserInfo(_("current user:") . ' ' . $auth_user);
-                return $result;
-            }
+            $ticket->commit($author);
         } elseif (!empty($info['ticket'])) {
             // Didn't match an existing ticket though a ticket number had been
             // specified.
-            return PEAR::raiseError(sprintf(_("Could not find ticket \"%s\"."),
-                                            $info['ticket']));
+            throw new Whups_Exception(
+                sprintf(_("Could not find ticket \"%s\"."),
+                $info['ticket']));
         } else {
             if (!empty($info['guess-queue'])) {
                 // Try to guess the queue name for the new ticket from the
@@ -154,10 +151,6 @@ class Whups_Mail {
             }
             // Create a new ticket.
             $ticket = Whups_Ticket::newTicket($info, $author);
-            if (is_a($ticket, 'PEAR_Error')) {
-                $ticket->addUserInfo(_("current user:") . ' ' . $auth_user);
-                return $ticket;
-            }
         }
 
         // Extract attachments.
@@ -188,13 +181,12 @@ class Whups_Mail {
                     }
                     $part_name .= '.' . Horde_Mime_Magic::mimeToExt($part->getType());
                 }
-                $ticket->change('attachment', array('name' => $part_name,
-                                                    'tmp_name' => $tmp_name));
+                $ticket->change(
+                    'attachment',
+                     array(
+                         'name' => $part_name,
+                         'tmp_name' => $tmp_name));
                 $result = $ticket->commit();
-                if (is_a($result, 'PEAR_Error')) {
-                    $result->addUserInfo(_("current user:") . ' ' . $auth_user);
-                    return $result;
-                }
             }
         }
     }
@@ -217,12 +209,11 @@ class Whups_Mail {
             return false;
         }
 
-        $ticket = Whups_Ticket::makeTicket($ticketnum);
-        if (is_a($ticket, 'PEAR_Error')) {
+        try {
+            return Whups_Ticket::makeTicket($ticketnum);
+        } catch (Whups_Exception $e) {
             return false;
         }
-
-        return $ticket;
     }
 
     /**

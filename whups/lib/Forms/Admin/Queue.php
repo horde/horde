@@ -70,10 +70,12 @@ class EditQueueStep2Form extends Horde_Form {
         parent::Horde_Form($vars);
 
         $queue = $vars->get('queue');
-        $info = $whups_driver->getQueue($queue);
-        if (is_a($info, 'PEAR_Error')) {
-            $this->addVariable(_("Invalid Queue"), 'invalid', 'invalid', true,
-                               false, null, array(_("Invalid Queue")));
+        try {
+            $info = $whups_driver->getQueue($queue);
+        } catch (Whups_Exception $e) {
+            $this->addVariable(
+                _("Invalid Queue"), 'invalid', 'invalid', true,
+                false, null, array(_("Invalid Queue")));
             return;
         }
 

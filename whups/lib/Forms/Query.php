@@ -271,10 +271,12 @@ class AttributeCriterionForm extends Horde_Form {
 
         $this->addHidden('', 'edit', 'boolean', false);
 
-        $this->attribs = $whups_driver->getAttributesForType();
-        if (is_a($this->attribs, 'PEAR_Error')) {
-            $this->addVariable(_("Search Attribute"), 'attribute', 'invalid', true, false, null, array($this->attribs->getMessage()));
-        } elseif ($this->attribs) {
+        try {
+            $this->attribs = $whups_driver->getAttributesForType();
+        } catch (Whups_Exception $e) {
+            $this->addVariable(_("Search Attribute"), 'attribute', 'invalid', true, false, null, array($e->getMessage()));
+        }
+        if ($this->attribs) {
             $this->addVariable(_("Match"), 'text', 'text', true);
             $this->addVariable(_("Match Operator"), 'operator', 'enum', true, false, null, array(Whups_Query::textOperators()));
 
@@ -429,13 +431,12 @@ class ChooseQueryNameForLoadForm extends Horde_Form {
     function execute(&$vars)
     {
         $qManager = new Whups_QueryManager();
-        $query = $qManager->getQuery($vars->get('name'));
-        if (is_a($query, 'PEAR_Error')) {
-            $GLOBALS['notification']->push(sprintf(_("The query couldn't be loaded:"), $query->getMessage()), 'horde.error');
-        } else {
+        try {
+            $query = $qManager->getQuery($vars->get('name'));
             $GLOBALS['whups_query'] = $query;
+        } catch (Whups_Exception $e) {
+            $GLOBALS['notification']->push(sprintf(_("The query couldn't be loaded:"), $e->getMessage()), 'horde.error');
         }
-
         $this->unsetVars($vars);
     }
 
@@ -462,14 +463,15 @@ class DeleteQueryForm extends Horde_Form {
             if (!$GLOBALS['whups_query']->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
                 $notifications->push(sprintf(_("Permission denied.")), 'horde.error');
             } else {
-                $result = $GLOBALS['whups_query']->delete();
-                if (is_a($result, 'PEAR_Error')) {
-                    $notification->push(sprintf(_("The query \"%s\" couldn't be deleted: %s"), $GLOBALS['whups_query']->name, $result->getMessage()), 'horde.error');
-                } else {
+                try {
+                    $result = $GLOBALS['whups_query']->delete();
+
                     $notification->push(sprintf(_("The query \"%s\" has been deleted."), $GLOBALS['whups_query']->name), 'horde.success');
                     $qManager = new Whups_QueryManager();
                     unset($GLOBALS['whups_query']);
                     $GLOBALS['whups_query'] = $qManager->newQuery();
+                } catch (Whups_Exception $e) {
+                    $notification->push(sprintf(_("The query \"%s\" couldn't be deleted: %s"), $GLOBALS['whups_query']->name, $result->getMessage()), 'horde.error');
                 }
             }
         }

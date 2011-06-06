@@ -108,12 +108,12 @@ if ($form == 'settypestep2form') {
             $ticket->change('comment-perms', $info['group']);
         }
 
-        $result = $ticket->commit();
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result, 'horde.error');
-        } else {
+        try {
+            $ticket->commit();
             $notification->push(_("Successfully changed ticket type."), 'horde.success');
             $ticket->show();
+        } catch (Whups_Exception $e) {
+            $notification->push($e, 'horde.error');
         }
     } else {
         $notification->push(var_export($settypeform->getErrors(), true), 'horde.error');

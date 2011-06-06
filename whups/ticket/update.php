@@ -47,11 +47,11 @@ if ($tid = $vars->get('transaction')) {
         // the reply.
         foreach ($history[$tid]['changes'] as $change) {
             if (!empty($change['private'])) {
-                $permission = $GLOBALS['injector']->getInstance('Horde_Perms')->getPermission('whups:comments:' . $change['value']);
-                if (!is_a($permission, 'PEAR_Error')) {
-                    $group_id = array_shift(array_keys($permission->getGroupPermissions()));
-                    $vars->set('group', $group_id);
-                }
+                $permission = $GLOBALS['injector']
+                    ->getInstance('Horde_Perms')
+                    ->getPermission('whups:comments:' . $change['value']);
+                $group_id = array_shift(array_keys($permission->getGroupPermissions()));
+                $vars->set('group', $group_id);
                 break;
             }
         }
@@ -98,13 +98,12 @@ if ($vars->get('formname') == 'editticketform') {
         if (!empty($info['group'])) {
             $ticket->change('comment-perms', $info['group']);
         }
-
-        $result = $ticket->commit();
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result, 'horde.error');
-        } else {
+        try {
+            $ticket->commit();
             $notification->push(_("Ticket Updated"), 'horde.success');
             $ticket->show();
+        } catch (Whups_Exception $e) {
+            $notification->push($e, 'horde.error');
         }
     }
 }

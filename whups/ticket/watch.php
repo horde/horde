@@ -49,27 +49,30 @@ if ($vars->get('formname') == 'addlistenerform') {
     if ($addform->validate($vars)) {
         $addform->getInfo($vars, $info);
 
-        $result = $whups_driver->addListener($id, '**' . $info['add_listener']);
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result, 'horde.error');
-        } else {
-            $ticket->notify($info['add_listener'], false, array('**' . $info['add_listener']));
-            $notification->push(sprintf(_("%s will be notified when this ticket is updated."), $info['add_listener']), 'horde.success');
+        try {
+            $whups_driver->addListener($id, '**' . $info['add_listener']);
+            $ticket->notify(
+                $info['add_listener'], false, array('**' . $info['add_listener']));
+            $notification->push(
+                sprintf(_("%s will be notified when this ticket is updated."), $info['add_listener']),
+                'horde.success');
             $ticket->show();
+        } catch (Whups_Exception $e) {
+            $notification->push($e, 'horde.error');
         }
     }
 } elseif ($vars->get('formname') == 'deletelistenerform') {
     if ($delform->validate($vars)) {
         $delform->getInfo($vars, $info);
-
-        $result = $whups_driver->deleteListener($id, '**' . $info['del_listener']);
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result, 'horde.error');
-        } else {
-            $notification->push(sprintf(_("%s will no longer receive updates for this ticket."), $info['del_listener']), 'horde.success');
+        try {
+            $whups_driver->deleteListener($id, '**' . $info['del_listener']);
+            $notification->push(
+                sprintf(_("%s will no longer receive updates for this ticket."), $info['del_listener']),
+                'horde.success');
             $ticket->show();
+        } catch (Whups_Exception $e) {
+            $notification->push($e, 'horde.error');
         }
-    }
 }
 
 $title = sprintf(_("Watchers for %s"), '[#' . $id . '] ' . $ticket->get('summary'));

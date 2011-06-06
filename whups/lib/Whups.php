@@ -266,19 +266,18 @@ class Whups
                 ->redirect();
         }
 
-        $ticket = Whups_Ticket::makeTicket($id);
-        if (is_a($ticket, 'PEAR_Error')) {
+        try {
+            return Whups_Ticket::makeTicket($id);
+        } catch (Whups_Exception $e) {
             if ($ticket->code === 0) {
                 // No permissions to this ticket.
-                $GLOBALS['notification']->push($ticket->getMessage(), 'horde.warning');
+                $GLOBALS['notification']->push($e->getMessage(), 'horde.warning');
             } else {
-                $GLOBALS['notification']->push($ticket->getMessage(), 'horde.error');
+                $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
             }
             Horde::url($GLOBALS['prefs']->getValue('whups_default_view') . '.php', true)
                 ->redirect();
         }
-
-        return $ticket;
     }
 
     /**
@@ -857,10 +856,6 @@ class Whups
         if (is_null($owners)) {
             global $whups_driver;
             $owners = $whups_driver->getOwners($ticket);
-            if (is_a($owners, 'PEAR_Error')) {
-                Horde::logMessage($owners, 'ERR');
-                return $owners->getMessage();
-            }
         }
 
         $results = array();

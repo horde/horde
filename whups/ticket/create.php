@@ -46,12 +46,13 @@ if ($valid1 && $valid2 && $valid3 &&
         $form4->getInfo($vars, $info);
     }
 
-    $ticket = Whups_Ticket::newTicket($info, $GLOBALS['registry']->getAuth());
-    if (is_a($ticket, 'PEAR_Error')) {
-        Horde::logMessage($ticket, 'ERR');
-        $notification->push(sprintf(_("Adding your ticket failed: %s."),
-                                    $ticket->getMessage()),
-                            'horde.error');
+    try {
+        $ticket = Whups_Ticket::newTicket($info, $GLOBALS['registry']->getAuth());
+    } catch (Whups_Exception $e) {
+        Horde::logMessage($e, 'ERR');
+        $notification->push(
+            sprintf(_("Adding your ticket failed: %s."), $e->getMessage()),
+            'horde.error');
         Horde::url('ticket/create.php', true)->redirect();
     }
     $notification->push(sprintf(_("Your ticket ID is %s. An appropriate person has been notified of this request."), $ticket->getId()), 'horde.success');

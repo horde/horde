@@ -46,10 +46,10 @@ $criteria = array();
 // See if we are requesting a specific type_id (for bug, feature etc...)
 $typeId = Horde_Util::getFormData('type_id');
 if (is_numeric($typeId)) {
-    $type = $whups_driver->getType($typeId);
-    if (!is_a($type, 'PEAR_Error')) {
+    try {
+        $type = $whups_driver->getType($typeId);
         $criteria['type'] = array($typeId);
-    } else {
+    } catch (Whups_Exception $e) {
         unset($type);
     }
 }
@@ -64,7 +64,7 @@ if ($id) {
 }
 
 $tickets = $whups_driver->getTicketsByProperties($criteria);
-if (is_a($tickets, 'PEAR_Error') || !count($tickets)) {
+if (!count($tickets)) {
     exit;
 }
 

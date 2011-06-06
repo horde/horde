@@ -27,11 +27,8 @@ class AddUserForm extends Horde_Form {
             $queue = $vars->get('queue');
             $current = $whups_driver->getQueueUsers($queue);
 
-            $list = $auth->listUsers();
-            if (is_a($list, 'PEAR_Error')) {
-                $this->addVariable(_("User"), 'user', 'invalid', true, false, null,
-                                   array(sprintf(_("There was an error listing users: %s; %s"), $list->getMessage(), $list->getUserInfo())));
-            } else {
+            try {
+                $list = $auth->listUsers();
                 sort($list);
                 $users = array();
                 foreach ($list as $user) {
@@ -40,6 +37,10 @@ class AddUserForm extends Horde_Form {
                     }
                 }
                 $this->addVariable(_("User"), 'user', 'multienum', true, false, null, array($users));
+            } catch (Horde_Auth_Exception $e) {
+                $this->addVariable(
+                    _("User"), 'user', 'invalid', true, false, null,
+                    array(sprintf(_("There was an error listing users: %s; %s"), $list->getMessage(), $list->getUserInfo())));
             }
         } else {
             $this->addVariable(_("User"), 'user', 'text', true);

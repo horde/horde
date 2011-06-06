@@ -63,10 +63,6 @@ class Whups_Block_Query extends Horde_Core_Block
 
         $vars = Horde_Variables::getDefaultVariables();
         $tickets = $whups_driver->executeQuery($query, $vars);
-        if ($tickets instanceof PEAR_Error) {
-            return $tickets;
-        }
-
         $html = '<thead><tr>';
         $sortby = $prefs->getValue('sortby');
         $sortdirclass = ' class="' . ($prefs->getValue('sortdir') ? 'sortup' : 'sortdown') . '"';
@@ -100,8 +96,9 @@ class Whups_Block_Query extends Horde_Core_Block
         require_once WHUPS_BASE . '/lib/Query.php';
 
         $qManager = new Whups_QueryManager();
-        $query = $qManager->getQuery($this->_params['query']);
-        if ($query instanceof PEAR_Error) {
+        try {
+            $query = $qManager->getQuery($this->_params['query']);
+        } catch (Whups_Exception $e) {
             return false;
         }
         if (!$query->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {

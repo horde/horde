@@ -178,21 +178,19 @@ class Whups_Query
      * Saves any changes to this object to the backend
      * permanently. New objects are added instead.
      *
-     * @return boolean|PEAR_Error  PEAR_Error on failure.
      */
     function save()
     {
-        return $this->_qManager->save($this);
+        $this->_qManager->save($this);
     }
 
     /**
      * Delete this object from the backend permanently.
      *
-     * @return boolean|PEAR_Error  PEAR_Error on failure.
      */
     function delete()
     {
-        return $this->_qManager->delete($this);
+        $this->_qManager->delete($this);
     }
 
     /**
@@ -940,10 +938,6 @@ class Whups_QueryManager {
     function _getQuery($share)
     {
         $queryDetails = $GLOBALS['whups_driver']->getQuery($share->getId());
-        if ($queryDetails instanceof PEAR_Error) {
-            return $queryDetails;
-        }
-
         $queryDetails['query_id'] = $share->getId();
         $queryDetails['query_name'] = $share->get('name');
         $queryDetails['query_slug'] = $share->get('slug');
@@ -1055,12 +1049,7 @@ class Whups_QueryManager {
         } catch (Exception $e) {
             throw new Whups_Exception($e);
         }
-        $result = $GLOBALS['whups_driver']->deleteQuery($query->id);
-        if ($result instanceof PEAR_Error) {
-            return $result;
-        }
-
-        return true;
+        $GLOBALS['whups_driver']->deleteQuery($query->id);
     }
 
 }

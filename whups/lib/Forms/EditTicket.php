@@ -27,9 +27,9 @@ class EditTicketForm extends Horde_Form {
         }
 
         $fields = array_merge($fields, array('state', 'priority', 'due'));
-
-        $attributes = $ticket->addAttributes();
-        if (is_a($attributes, 'PEAR_Error')) {
+        try {
+            $attributes = $ticket->addAttributes();
+        } catch (Whups_Exception $e) {
             $attributes = array();
         }
         foreach ($attributes as $attribute) {
@@ -145,9 +145,13 @@ class EditTicketForm extends Horde_Form {
                                                 'longtext', false);
 
                     /* Form replies. */
-                    $replies = Whups::permissionsFilter(
-                        $whups_driver->getReplies($type), 'reply');
-                    if (count($replies) && !is_a($replies, 'PEAR_Error')) {
+                    try {
+                        $replies = Whups::permissionsFilter(
+                            $whups_driver->getReplies($type), 'reply');
+                    } catch (Whups_Exception $e) {
+                        $replies = array();
+                    }
+                    if (count($replies)) {
                         require_once 'Horde/Form/Action.php';
                         $params = array();
                         foreach ($replies as $key => $reply) {

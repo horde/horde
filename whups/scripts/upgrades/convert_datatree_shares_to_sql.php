@@ -5,6 +5,8 @@
  * Horde_Share driver to the new SQL Horde_Share driver. You should
  * run the 2008-04-29_add_sql_share_tables.sql upgrade script before
  * executing this script.
+ *
+ * @TODO: Hore_Db
  */
 
 @define('AUTH_HANDLER', true);

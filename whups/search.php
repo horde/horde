@@ -134,12 +134,9 @@ if (($vars->get('formname') || $vars->get('summary') || $vars->get('states') ||
             ->add('action', 'save')
             ->redirect();
     }
-    $tickets = $whups_driver->getTicketsByProperties($info);
-    if (is_a($tickets, 'PEAR_Error')) {
-        $notification->push(sprintf(_("There was an error performing your search: %s"), $tickets->getMessage()), 'horde.error');
-    } else {
+    try {
+        $tickets = $whups_driver->getTicketsByProperties($info);
         Whups::sortTickets($tickets);
-
         $session->set('whups', 'last_search', Horde::url('search.php?' . _getSearchUrl($vars)));
         $results = Whups_View::factory(
             'Results',
@@ -148,6 +145,8 @@ if (($vars->get('formname') || $vars->get('summary') || $vars->get('states') ||
                   'values' => Whups::getSearchResultColumns(),
                   'url' => $session->get('whups', 'last_search')));
         $beendone = true;
+    } catch (Whups_Exception $e) {
+        $notification->push(sprintf(_("There was an error performing your search: %s"), $tickets->getMessage()), 'horde.error');
     }
 }
 
