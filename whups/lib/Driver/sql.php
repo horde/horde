@@ -306,14 +306,13 @@ class Whups_Driver_Sql extends Whups_Driver
         try {
             $ticket_id = $this->_db->insert($query, $values);
         } catch (Horde_Db_Exception $e) {
-            Horde::logMessage($e, 'ERR');
             throw new Whups_Exception($e);
         }
 
         // Is there a more effecient way to do this? Need the ticketId before
         // we can insert this.
         if (!empty($info['user_email'])) {
-            $requester = $ticketId * -1;
+            $requester = $ticket_id * -1;
             $sql = 'UPDATE whups_tickets SET user_id_requester = ? WHERE '
                 . 'ticket_id = ?';
             try {
@@ -336,10 +335,10 @@ class Whups_Driver_Sql extends Whups_Driver
         }
 
         $commentId = $this->addComment(
-            $ticketId, $comment, $requester,
+            $ticket_id, $comment, $requester,
             isset($info['user_email']) ? $info['user_email'] : null);
 
-        $transaction = $this->updateLog($ticketId,
+        $transaction = $this->updateLog($ticket_id,
                                         $requester,
                                         array('state' => $state,
                                               'priority' => $priority,
@@ -358,8 +357,8 @@ class Whups_Driver_Sql extends Whups_Driver
             isset($info['owners']) ? $info['owners'] : array(),
             isset($info['group_owners']) ? $info['group_owners'] : array());
         foreach ($owners as $owner) {
-            $this->addTicketOwner($ticketId, $owner);
-            $this->updateLog($ticketId, $requester,
+            $this->addTicketOwner($ticket_id, $owner);
+            $this->updateLog($ticket_id, $requester,
                              array('assign' => $owner),
                              $transaction);
         }
@@ -367,16 +366,16 @@ class Whups_Driver_Sql extends Whups_Driver
         // Add any supplied attributes for this ticket.
         foreach ($attributes as $attribute_id => $attribute_value) {
             $this->_setAttributeValue(
-                $ticketId, $attribute_id, $attribute_value);
+                $ticket_id, $attribute_id, $attribute_value);
 
             $this->updateLog(
-                $ticketId, $requester,
+                $ticket_id, $requester,
                 array('attribute' => $attribute_id . ':' . $attribute_value,
                       'attribute_' . $attribute_id => $attribute_value),
                 $transaction);
         }
 
-        return $ticketId;
+        return $ticket_id;
     }
 
     /**
@@ -3014,13 +3013,21 @@ class Whups_Driver_Sql extends Whups_Driver
         }
     }
 
-    public function updateLog($ticket_id, $user, $changes = array(),
-                       $transactionId = null)
+    /**
+     * Add a new log entry
+     *
+     * @param integer $ticket_id      The ticket_id this log entry is for.
+     * @param string $user            The user updating the ticket.
+     * @param array $changes          An array of changes to make.
+     * @param integer $transactionId  The transactionId to use.
+     * @return type
+     */
+    public function updateLog(
+        $ticket_id, $user, array $changes = array(), $transactionId = null)
     {
         if (is_null($transactionId)) {
             $transactionId = $this->newTransaction($user);
         }
-
         foreach ($changes as $type => $value) {
             $query = 'INSERT INTO whups_logs (transaction_id, '
                 . 'ticket_id, log_type, log_value, '
