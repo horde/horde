@@ -2,6 +2,7 @@
 v5.0.6-git
 ----------
 
+[mms] Fix editing saved searches in dynamic mode (Bug #10189).
 [mms] Fix regression in saving sent mail in traditional view (Bug #10193).
 [mms] Fix regression of deleting mailboxes in traditional view (Bug #10170).
 [jan] Don't show button to strip attachments if turned off in the preferences

@@ -917,7 +917,7 @@ class IMP_Mailbox implements Serializable
         if ($page instanceof Horde_Url) {
             $url = clone $page;
         } else {
-            if (IMP::getViewMode() == 'dimp') {
+            if (($page != 'search.php') && (IMP::getViewMode() == 'dimp')) {
                 $anchor = is_null($uid)
                     ? ('mbox:' . $this->_mbox)
                     : ('msg:' . strval($this->getIndicesOb($uid)));

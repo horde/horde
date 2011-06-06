@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-06-06</date>
- <time>01:01:51</time>
+ <time>01:13:20</time>
  <version>
   <release>5.0.6</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix editing saved searches in dynamic mode (Bug #10189).
 * [mms] Fix regression in saving sent mail in traditional view (Bug #10193).
 * [mms] Fix regression of deleting mailboxes in traditional view (Bug #10170).
 * [jan] Don&apos;t show button to strip attachments if turned off in the preferences (Bug #10154).
@@ -2277,6 +2278,7 @@
    <date>2011-06-06</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Fix editing saved searches in dynamic mode (Bug #10189).
 * [mms] Fix regression in saving sent mail in traditional view (Bug #10193).
 * [mms] Fix regression of deleting mailboxes in traditional view (Bug #10170).
 * [jan] Don&apos;t show button to strip attachments if turned off in the preferences (Bug #10154).
