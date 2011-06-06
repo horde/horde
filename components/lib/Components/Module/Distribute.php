@@ -70,6 +70,51 @@ extends Components_Module_Base
     }
 
     /**
+     * Get the usage description for this module.
+     *
+     * @return string The description.
+     */
+    public function getUsage()
+    {
+        return '  distribute  - Generate a distributable package.
+';
+    }
+
+    /**
+     * Return the action arguments supported by this module.
+     *
+     * @return array A list of supported action arguments.
+     */
+    public function getActions()
+    {
+        return array('distribute');
+    }
+
+    /**
+     * Return the help text for the specified action.
+     *
+     * @param string $action The action.
+     *
+     * @return string The help text.
+     */
+    public function getHelp($action)
+    {
+        return 'This module prepares a distribution package (e.g. RPM, APT, Ebuild, ...) for the selected component.';
+    }
+
+    /**
+     * Return the options that should be explained in the context help.
+     *
+     * @return array A list of option help texts.
+     */
+    public function getContextOptionHelp()
+    {
+        return array(
+            '--distribute' => '',
+        );
+    }
+
+    /**
      * Determine if this module should act. Run all required actions if it has
      * been instructed to do so.
      *
