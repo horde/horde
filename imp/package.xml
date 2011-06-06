@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-06-06</date>
- <time>11:15:19</time>
+ <time>14:24:59</time>
  <version>
   <release>5.0.6</release>
   <api>5.0.0</api>
@@ -38,6 +38,7 @@
 * [mms] Fix editing saved searches in dynamic mode (Bug #10189).
 * [mms] Fix regression in saving sent mail in traditional view (Bug #10193).
 * [mms] Fix regression of deleting mailboxes in traditional view (Bug #10170).
+* [mms] Fix currently selected mailbox in folder folder lists (Bug #10163).
 * [jan] Don&apos;t show button to strip attachments if turned off in the preferences (Bug #10154).
 * [jan] Fix printing from message popup (Bug #10188).
 * [jan] Fix viewing messages source from message popup (Bug #10190).
@@ -2283,6 +2284,7 @@
 * [mms] Fix editing saved searches in dynamic mode (Bug #10189).
 * [mms] Fix regression in saving sent mail in traditional view (Bug #10193).
 * [mms] Fix regression of deleting mailboxes in traditional view (Bug #10170).
+* [mms] Fix currently selected mailbox in folder folder lists (Bug #10163).
 * [jan] Don&apos;t show button to strip attachments if turned off in the preferences (Bug #10154).
 * [jan] Fix printing from message popup (Bug #10188).
 * [jan] Fix viewing messages source from message popup (Bug #10190).
