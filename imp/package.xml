@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-04</date>
- <time>13:59:07</time>
+ <date>2011-06-06</date>
+ <time>01:01:51</time>
  <version>
   <release>5.0.6</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix regression in saving sent mail in traditional view (Bug #10193).
 * [mms] Fix regression of deleting mailboxes in traditional view (Bug #10170).
 * [jan] Don&apos;t show button to strip attachments if turned off in the preferences (Bug #10154).
 * [jan] Fix printing from message popup (Bug #10188).
@@ -2273,9 +2274,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-04</date>
+   <date>2011-06-06</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Fix regression in saving sent mail in traditional view (Bug #10193).
 * [mms] Fix regression of deleting mailboxes in traditional view (Bug #10170).
 * [jan] Don&apos;t show button to strip attachments if turned off in the preferences (Bug #10154).
 * [jan] Fix printing from message popup (Bug #10188).

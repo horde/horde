@@ -418,7 +418,7 @@ case 'send_message':
     $header['replyto'] = $identity->getValue('replyto_addr');
 
     if ($vars->sent_mail_folder) {
-        $sent_mail_folder = $vars->sent_mail_folder;
+        $sent_mail_folder = IMP_Mailbox::formFrom($vars->sent_mail_folder);
     }
 
     $options = array(
@@ -879,12 +879,12 @@ if ($redirect) {
     $t->set('ssm', ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) && !$prefs->isLocked('save_sent_mail')));
     if ($t->get('ssm')) {
         if ($readonly_sentmail) {
-            $notification->push(sprintf(_("Cannot save sent-mail message to \"%s\" as that mailbox is read-only.", IMP_Mailbox::get($sent_mail_folder)->display), 'horde.warning'));
+            $notification->push(sprintf(_("Cannot save sent-mail message to \"%s\" as that mailbox is read-only.", $sent_mail_folder->display), 'horde.warning'));
         }
         $t->set('ssm_selected', $vars->compose_formToken ? ($save_sent_mail == 'on') : $sent_mail_folder && $identity->saveSentmail());
         $t->set('ssm_label', Horde::label('ssm', _("Sa_ve a copy in ")));
         if ($vars->sent_mail_folder) {
-            $sent_mail_folder = $vars->sent_mail_folder;
+            $sent_mail_folder = IMP_Mailbox::formFrom($vars->sent_mail_folder);
         }
         if (!empty($conf['user']['select_sentmail_folder']) &&
             !$prefs->isLocked('sent_mail_folder')) {
@@ -899,7 +899,7 @@ if ($redirect) {
             /* Check to make sure the sent-mail folder is created - it needs
              * to exist to show up in drop-down list. */
             if ($sent_mail_folder) {
-                IMP_Mailbox::get($sent_mail_folder)->create();
+                $sent_mail_folder->create();
             }
 
             $t->set('ssm_folders', IMP::flistSelect($ssm_folder_options));
