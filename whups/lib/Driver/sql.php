@@ -1331,7 +1331,7 @@ class Whups_Driver_Sql extends Whups_Driver
         $delete_transaction = 'DELETE FROM whups_transactions WHERE transaction_id = ?';
         try {
             $this->_db->delete($query, array($transaction));
-            $this->_db->delete($transaction, array($transaction));
+            $this->_db->delete($delete_transaction, array($transaction));
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
@@ -1794,6 +1794,13 @@ class Whups_Driver_Sql extends Whups_Driver
             'description' => isset($type[$typeId]['type_description']) ? $type[$typeId]['type_description'] : '');
     }
 
+    /**
+     *
+     * @param integer $queueId  The queue id
+     *
+     * @return array  An array of type_id => type_name
+     * @throws Whups_Exception
+     */
     public function getTypes($queueId)
     {
         $query = 'SELECT t.type_id, t.type_name '
@@ -1811,18 +1818,32 @@ class Whups_Driver_Sql extends Whups_Driver
             $types, $this->_params['charset'], 'UTF-8');
     }
 
+    /**
+     * Get list of available type ids.
+     *
+     * @param integer $queueId  The queue id to obtain type ids for.
+     *
+     * @return array  An array of available typeIds for the specified queue.
+     * @throws Whups_Exception
+     */
     public function getTypeIds($queueId)
     {
         $query = 'SELECT type_id FROM whups_types_queues '
             . 'WHERE queue_id = ? ORDER BY type_id';
         $values = array($queueId);
         try {
-            return $this->_db->selectAll($query, $values);
+            return $this->_db->selectValues($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
     }
 
+    /**
+     * Get list of ALL available types.
+     *
+     * @return array  A hash of type_id => type_name
+     * @throws Whups_Exception
+     */
     public function getAllTypes()
     {
         $query = 'SELECT type_id, type_name FROM whups_types ORDER BY type_name';
@@ -1836,6 +1857,11 @@ class Whups_Driver_Sql extends Whups_Driver
             $types, $this->_params['charset'], 'UTF-8');
     }
 
+    /**
+     *
+     * @return array
+     * @throws Whups_Exception
+     */
     public function getAllTypeInfo()
     {
         $query = 'SELECT type_id, type_name, type_description '
@@ -1850,6 +1876,13 @@ class Whups_Driver_Sql extends Whups_Driver
             $info, $this->_params['charset'], 'UTF-8');
     }
 
+    /**
+     *
+     * @param integer $type  The type_id
+     *
+     * @return string
+     * @throws Whups_Exception
+     */
     public function getTypeName($type)
     {
         $query = 'SELECT type_name FROM whups_types WHERE type_id = ?';
@@ -1864,6 +1897,15 @@ class Whups_Driver_Sql extends Whups_Driver
             $name, $this->_params['charset'], 'UTF-8');
     }
 
+    /**
+     * Updates a type
+     *
+     * @param integer $typeId
+     * @param string $name
+     * @param string $description
+     *
+     * @throws Whups_Exception
+     */
     public function updateType($typeId, $name, $description)
     {
         $query = 'UPDATE whups_types' .
@@ -1874,29 +1916,36 @@ class Whups_Driver_Sql extends Whups_Driver
                                                      $this->_params['charset']),
                         $typeId);
         try {
-            return $this->_db->update($query, $values);
+            $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
     }
 
+    /**
+     * Delete a type from storage
+     *
+     * @param integer $typeId  The type_id to delete
+     *
+     * @throws Whups_Exception
+     */
     public function deleteType($typeId)
     {
         $values = array((int)$typeId);
         try {
-            $this->_db->query(
+            $this->_db->delete(
                 'DELETE FROM whups_states WHERE type_id = ?',
                 $values);
 
-            $this->_db->query(
+            $this->_db->delete(
                 'DELETE FROM whups_priorities WHERE type_id = ?',
                  $values);
 
-            $this->_db->query(
+            $this->_db->delete(
                 'DELETE FROM whups_attributes_desc WHERE type_id = ?',
                 $values);
 
-            return $this->_db->query(
+            $this->_db->delete(
                 'DELETE FROM whups_types WHERE type_id = ?',
                 $values);
         } catch (Horde_Db_Exception $e) {
@@ -1912,6 +1961,7 @@ class Whups_Driver_Sql extends Whups_Driver
      * @param string $notcategory
      *
      * @return array An array of states.
+     * @throws Whups_Exception
      */
     public function getStates($type = null, $category = '', $notcategory = '')
     {
@@ -1975,16 +2025,22 @@ class Whups_Driver_Sql extends Whups_Driver
             $return, $this->_params['charset'], 'UTF-8');
     }
 
+    /**
+     *
+     * @param integer $stateId
+     *
+     * @return array  A state definition array.
+     */
     public function getState($stateId)
     {
         if (empty($stateId)) {
             return false;
         }
-        $query = 'SELECT state_id, state_name, state_description, '
+        $query = 'SELECT state_name, state_description, '
             . 'state_category, type_id FROM whups_states WHERE state_id = ?';
         $values = array($stateId);
         try {
-            $state[$stateId] = $this->_db->selectAll($query, $values);
+            $state[$stateId] = $this->_db->selectOne($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
@@ -1993,12 +2049,19 @@ class Whups_Driver_Sql extends Whups_Driver
             $state, $this->_params['charset'], 'UTF-8');
         return array(
             'id' => $stateId,
-            'name' => isset($state[$stateId][0]) ? $state[$stateId][0] : '',
-            'description' => isset($state[$stateId][1]) ? $state[$stateId][1] : '',
-            'category' => isset($state[$stateId][2]) ? $state[$stateId][2] : '',
-            'type' => isset($state[$stateId][3]) ? $state[$stateId][3] : '');
+            'name' => isset($state[$stateId]['state_name']) ? $state[$stateId]['state_name'] : '',
+            'description' => isset($state[$stateId]['state_description']) ? $state[$stateId]['state_description'] : '',
+            'category' => isset($state[$stateId]['state_category']) ? $state[$stateId]['state_category'] : '',
+            'type' => isset($state[$stateId]['type_id']) ? $state[$stateId]['type_id'] : '');
     }
 
+    /**
+     *
+     * @param integer $type  The type_id
+     *
+     * @return array
+     * @throws Whups_Exception
+     */
     public function getAllStateInfo($type)
     {
         $query = 'SELECT state_id, state_name, state_description, '
@@ -2015,6 +2078,15 @@ class Whups_Driver_Sql extends Whups_Driver
             $info, $this->_params['charset'], 'UTF-8');
     }
 
+    /**
+     *
+     * @param integer $stateId     The state_id
+     * @param string $name         The name
+     * @param string $description  The description
+     * @param string $category     The category
+     *
+     * @throws Whups_Exception
+     */
     public function updateState($stateId, $name, $description, $category)
     {
         $query = 'UPDATE whups_states SET state_name = ?, '
@@ -2027,12 +2099,20 @@ class Whups_Driver_Sql extends Whups_Driver
                                                      $this->_params['charset']),
                         $stateId);
         try {
-            return $this->_db->update($query, $values);
+            $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
     }
 
+    /**
+     * Get the default state for the specified ticket type.
+     *
+     * @param integer $type  The type_id
+     *
+     * @return integer  The default state_id for the specified type.
+     * @throws Whups_Exception
+     */
     public function getDefaultState($type)
     {
         $query = 'SELECT state_id FROM whups_states '
@@ -2045,6 +2125,13 @@ class Whups_Driver_Sql extends Whups_Driver
         }
     }
 
+    /**
+     *
+     * @param integer $type   The type_id
+     * @param integer $state  The state to set as default
+     *
+     * @throws Whups_Exception
+     */
     public function setDefaultState($type, $state)
     {
         $query = 'UPDATE whups_states SET state_default = 0 WHERE type_id = ?';
@@ -2057,17 +2144,24 @@ class Whups_Driver_Sql extends Whups_Driver
         $query = 'UPDATE whups_states SET state_default = 1 WHERE state_id = ?';
         $values = array($state);
         try {
-            return $this->_db->query($query, $values);
+            $this->_db->query($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
     }
 
+    /**
+     * Deletes a state from storage.
+     *
+     * @param integer $state_id  The state id to delete
+     *
+     * @throws Whups_Exception
+     */
     public function deleteState($state_id)
     {
         $query = 'DELETE FROM whups_states WHERE state_id = ?';
         try {
-            return $this->_db->delete($query, $values);
+            $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
