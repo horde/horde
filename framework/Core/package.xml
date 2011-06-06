@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-06-01</date>
- <time>15:43:54</time>
+ <date>2011-06-06</date>
+ <time>00:48:46</time>
  <version>
   <release>1.2.1</release>
   <api>1.2.0</api>
@@ -34,7 +34,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [rla] Show specific admin privileges a user has permission to (Enhancement #9350)
+* [mms] Fix duplicate node IDs in javascript tree rendering code (Bug #10173).
+* [rla] Show specific admin privileges a user has permission to (Enhancement #9350).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1468,10 +1469,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-01</date>
+   <date>2011-06-06</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* [rla] Show specific admin privileges a user has permission to (Enhancement #9350)
+* [mms] Fix duplicate node IDs in javascript tree rendering code (Bug #10173).
+* [rla] Show specific admin privileges a user has permission to (Enhancement #9350).
    </notes>
   </release>
  </changelog>
