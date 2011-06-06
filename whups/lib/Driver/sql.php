@@ -1107,11 +1107,11 @@ class Whups_Driver_Sql extends Whups_Driver
         }
 
         $owners = $this->getOwners(array_keys($tickets));
-        foreach ($owners as $row) {
-            if (empty($tickets[$row['id']]['owners'])) {
-                $tickets[$row['id']]['owners'] = array();
+        foreach ($owners as $id => $row) {
+            if (empty($tickets[$id]['owners'])) {
+                $tickets[$id]['owners'] = array();
             }
-            $tickets[$row['id']]['owners'][] = $row['owner'];
+            $tickets[$id]['owners'][] = $row;
         }
 
         $attributes = $this->getTicketAttributesWithNames(array_keys($tickets));
@@ -2983,11 +2983,16 @@ class Whups_Driver_Sql extends Whups_Driver
         return $attributes;
     }
 
+    /**
+     * Get all owners for the specified ticket.
+     *
+     * @param integer $ticketId  The ticket_id
+     *
+     * @return array  A id => owner hash
+     */
     public function getOwners($ticketId)
     {
         if (is_array($ticketId)) {
-            // No need to run a query for an empty array, and it would
-            // result in an invalid SQL query anyway.
             if (!count($ticketId)) {
                 return array();
             }
@@ -3002,7 +3007,7 @@ class Whups_Driver_Sql extends Whups_Driver
                 throw new Whups_Exception($e);
             }
         } else {
-            $query = 'SELECT ticket_owner, ticket_owner '
+            $query = 'SELECT ticket_id as id, ticket_owner as owner '
                 . 'FROM whups_ticket_owners WHERE ticket_id = ?';
             $values = array((int)$ticketId);
             try {
