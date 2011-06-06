@@ -91,10 +91,6 @@ case 'addtypestep1form':
         // First, add the type
         $tid = $whups_driver->addType($vars->get('name'),
                                       $vars->get('description'));
-        if ($tid instanceof PEAR_Error) {
-            throw new Horde_Exception($tid);
-        }
-
         _open();
         $vars->add('type', $tid);
         $form2 = new EditTypeStep2Form($vars);
@@ -206,21 +202,23 @@ case 'edittypeform':
 case 'edittypestep2form':
     require_once WHUPS_BASE . '/lib/Forms/Admin/Type.php';
     $form = new EditTypeStep2Form($vars);
-    if ($vars->get('formname') == 'edittypestep2form' &&
-        $form->validate($vars)) {
-        $result = $whups_driver->updateType($vars->get('type'),
-                                            $vars->get('name'),
-                                            $vars->get('description'));
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push(_("There was an error modifying the type:")
-                                . ' ' . $result->getMessage(),
-                                'horde.error');
-        } else {
+    if ($vars->get('formname') == 'edittypestep2form' && $form->validate($vars)) {
+
+        try {
+            $whups_driver->updateType(
+                $vars->get('type'),
+                $vars->get('name'),
+                $vars->get('description'));
+
             $notification->push(sprintf(_("The type \"%s\" has been modified."),
                                         $vars->get('name')),
                                 'horde.success');
             _open();
             $form->renderActive($renderer, $vars, $adminurl, 'post');
+        } catch (Whups_Exception $e) {
+            $notification->push(
+                _("There was an error modifying the type:") . ' ' . $e->getMessage(),
+                'horde.error');
         }
     } else {
         _open();
@@ -263,14 +261,14 @@ case 'deletetypeform':
     $form = new DeleteTypeForm($vars);
     if ($form->validate($vars)) {
         if ($vars->get('yesno') == 1) {
-            $result = $whups_driver->deleteType($vars->get('type'));
-            if (!is_a($result, 'PEAR_Error')) {
-                $notification->push(_("The type has been deleted."),
-                                    'horde.success');
-            } else {
-                $notification->push(_("There was an error deleting the type:")
-                                    . ' ' . $result->getMessage(),
-                                    'horde.error');
+            try {
+                $whups_driver->deleteType($vars->get('type'));
+                $notification->push(
+                    _("The type has been deleted."), 'horde.success');
+            } catch (Whups_Exception $e) {
+                $notification->push(
+                    _("There was an error deleting the type:") . ' ' . $e->getMessage(),
+                    'horde.error');
             }
         } else {
             $notification->push(_("The type was not deleted."),
@@ -287,11 +285,13 @@ case 'addqueueform':
     require_once WHUPS_BASE . '/lib/Forms/Admin/Queue.php';
     $form = new AddQueueForm($vars);
     if ($form->validate($vars)) {
-        $result = $whups_driver->addQueue($vars->get('name'),
-                                          $vars->get('description'),
-                                          $vars->get('slug'),
-                                          $vars->get('email'));
-        if (!is_a($result, 'PEAR_Error')) {
+        try {
+            $result = $whups_driver->addQueue(
+                $vars->get('name'),
+                $vars->get('description'),
+                $vars->get('slug'),
+                $vars->get('email'));
+
             $notification->push(
                 sprintf(_("The queue \"%s\" has been created."),
                         $vars->get('name')),
@@ -301,10 +301,10 @@ case 'addqueueform':
             $vars->set('queue', $result);
             $form2 = new EditQueueStep2Form($vars);
             $form2->renderActive($renderer, $vars, $adminurl, 'post');
-        } else {
-            $notification->push(_("There was an error creating the queue:")
-                                . ' ' . $result->getMessage(),
-                                'horde.error');
+        } catch (Whups_Exception $e) {
+            $notification->push(
+                _("There was an error creating the queue:") . ' ' . $e->getMessage(),
+                'horde.error');
             _open();
             $form->renderActive($renderer, $vars, $adminurl, 'post');
         }
@@ -344,36 +344,36 @@ case 'editqueuestep2form':
 
     if ($vars->get('formname') == 'editqueuestep2form' &&
         $form->validate($vars)) {
-        $result = $whups_driver->updateQueue($vars->get('queue'),
-                                             $vars->get('name'),
-                                             $vars->get('description'),
-                                             $vars->get('types'),
-                                             $vars->get('versioned'),
-                                             $vars->get('slug'),
-                                             $vars->get('email'),
-                                             $vars->get('default'));
-        if (!is_a($result, 'PEAR_Error')) {
-            $notification->push(_("The queue has been modified."),
-                                'horde.success');
+        try {
+            $whups_driver->updateQueue(
+                $vars->get('queue'),
+                $vars->get('name'),
+                $vars->get('description'),
+                $vars->get('types'),
+                $vars->get('versioned'),
+                $vars->get('slug'),
+                $vars->get('email'),
+                $vars->get('default'));
+            $notification->push(
+                _("The queue has been modified."), 'horde.success');
             $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
             $corePerms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
             if (!$perms->exists('whups:queues:' . $vars->get('queue') . ':update')) {
                 $p = $corePerms->newPermission('whups:queues:'
-                                            . $vars->get('queue') . ':update');
+                    . $vars->get('queue') . ':update');
                 $perms->addPermission($p);
             }
             if (!$perms->exists('whups:queues:' . $vars->get('queue') . ':assign')) {
                 $p = $corePerms->newPermission('whups:queues:'
-                                            . $vars->get('queue') . ':assign');
+                    . $vars->get('queue') . ':assign');
                 $perms->addPermission($p);
             }
-
             _open();
             $form->renderInactive($renderer, $vars);
-        } else {
-            $notification->push(_("There was an error editing the queue:")
-                                . ' ' . $result->getMessage(),
-                                'horde.error');
+        } catch (Whups_Exception $e) {
+            $notification->push(
+                _("There was an error editing the queue:") . ' ' . $e->getMessage(),
+                'horde.error');
         }
     } else {
         _open();
@@ -387,17 +387,19 @@ case 'deletequeueform':
     if ($form->validate($vars)) {
         if ($vars->get('yesno') == 1) {
             try {
-                $result = $whups_driver->deleteQueue($vars->get('queue'));
-                $notification->push( _("The queue has been deleted."),
-                                     'horde.success');
+                $whups_driver->deleteQueue($vars->get('queue'));
+                $notification->push(
+                    _("The queue has been deleted."),
+                    'horde.success');
             } catch (Horde_Exception $e) {
-                $notification->push(_("There was an error deleting the queue:")
-                                    . ' ' . $result->getMessage(),
-                                    'horde.error');
+                $notification->push(
+                    _("There was an error deleting the queue:") . ' ' . $e->getMessage(),
+                    'horde.error');
             }
         } else {
-            $notification->push(_("The queue was not deleted."),
-                                'horde.message');
+            $notification->push(
+                _("The queue was not deleted."),
+                'horde.message');
         }
     } else {
         _open();
@@ -410,23 +412,24 @@ case 'addstateform':
     $vars->set('action', 'type');
     $form = new AddStateForm($vars);
     if ($form->validate($vars)) {
-        $result = $whups_driver->addState($vars->get('type'),
-                                          $vars->get('name'),
-                                          $vars->get('description'),
-                                          $vars->get('category'));
-        if (!is_a($result, 'PEAR_Error')) {
+        try {
+            $whups_driver->addState(
+                $vars->get('type'),
+                $vars->get('name'),
+                $vars->get('description'),
+                $vars->get('category'));
+
             $typename = $whups_driver->getType($vars->get('type'));
             $typename = $typename['name'];
             $notification->push(
                 sprintf(_("The state \"%s\" has been added to %s."),
                         $vars->get('name'), $typename),
                 'horde.success');
-        } else {
-            $notification->push(_("There was an error creating the state:")
-                                . ' ' . $result->getMessage(),
-                                'horde.error');
+        } catch (Whups_Exception $e) {
+            $notification->push(
+                _("There was an error creating the state:") . ' ' . $e->getMessage(),
+                'horde.error');
         }
-
         $vars = new Horde_Variables(array('type' => $vars->get('type')));
         _editStateForms();
     } else {
@@ -466,21 +469,23 @@ case 'editstatestep2form':
     $vars->set('action', 'type');
     $form = new EditStateStep2Form($vars);
     if ($form->validate($vars)) {
-        $result = $whups_driver->updateState($vars->get('state'),
-                                             $vars->get('name'),
-                                             $vars->get('description'),
-                                             $vars->get('category'));
-        if (!is_a($result, 'PEAR_Error')) {
-            $notification->push(_("The state has been modified."),
-                                'horde.success');
+        try {
+            $whups_driver->updateState(
+                $vars->get('state'),
+                $vars->get('name'),
+                $vars->get('description'),
+                $vars->get('category'));
+
+            $notification->push(
+                _("The state has been modified."),
+                'horde.success');
             _open();
             $form->renderInactive($renderer, $vars);
-        } else {
-            $notification->push(_("There was an error editing the state:")
-                                . ' ' . $result->getMessage(),
-                                'horde.error');
+        } catch (Whups_Exception $e) {
+            $notification->push(
+                _("There was an error editing the state:") . ' ' . $e->getMessage(),
+                'horde.error');
         }
-
         $vars = new Horde_Variables(array('type' => $vars->get('type')));
         _editStateForms();
     } else {
@@ -494,18 +499,17 @@ case 'defaultstateform':
     $vars->set('action', 'type');
     $form = new DefaultStateForm($vars);
     if ($form->validate($vars)) {
-        $result = $whups_driver->setDefaultState($vars->get('type'),
-                                                 $vars->get('state'));
-        if (is_a($result, 'PEAR_Error')) {
+        try {
+            $whups_driver->setDefaultState(
+                $vars->get('type'), $vars->get('state'));
             $notification->push(
-                _("There was an error setting the default state:") . ' '
-                . $result->getMessage(),
+                _("The default state has been set."),
+                'horde.success');
+        } catch (Whups_Exception $e) {
+            $notification->push(
+                _("There was an error setting the default state:") . ' ' . $e->getMessage(),
                 'horde.error');
-        } else {
-            $notification->push(_("The default state has been set."),
-                                'horde.success');
         }
-
         _editStateForms();
     } else {
         _open();
@@ -519,14 +523,15 @@ case 'deletestateform':
     $form = new DeleteStateForm($vars);
     if ($form->validate($vars)) {
         if ($vars->get('yesno') == 1) {
-            $result = $whups_driver->deleteState($vars->get('state'));
-            if (!is_a($result, 'PEAR_Error')) {
-                $notification->push(_("The state has been deleted."),
-                                    'horde.success');
-            } else {
-                $notification->push(_("There was an error deleting the state:")
-                                    . ' ' . $result->getMessage(),
-                                    'horde.error');
+            try {
+                $whups_driver->deleteState($vars->get('state'));
+                $notification->push(
+                    _("The state has been deleted."),
+                    'horde.success');
+            } catch (Whups_Exception $e) {
+                $notification->push(
+                    _("There was an error deleting the state:") . ' ' . $e->getMessage(),
+                    'horde.error');
             }
         } else {
             $notification->push(_("The state was not deleted."),
@@ -545,23 +550,23 @@ case 'addpriorityform':
     $vars->set('action', 'type');
     $form = new AddPriorityForm($vars);
     if ($form->validate($vars)) {
-        $result = $whups_driver->addPriority($vars->get('type'),
-                                             $vars->get('name'),
-                                             $vars->get('description'));
-        if (!is_a($result, 'PEAR_Error')) {
+        try {
+            $whups_driver->addPriority(
+                $vars->get('type'),
+                $vars->get('name'),
+                $vars->get('description'));
+
             $typename = $whups_driver->getType($vars->get('type'));
             $typename = $typename['name'];
             $notification->push(
                 sprintf(_("The priority \"%s\" has been added to %s."),
                         $vars->get('name'), $typename),
                 'horde.success');
-        } else {
+            } catch (Whups_Exception $e) {
             $notification->push(
-                _("There was an error creating the priority:") . ' '
-                . $result->getMessage(),
+                _("There was an error creating the priority:") . ' ' . $e->getMessage(),
                 'horde.error');
-        }
-
+            }
         $vars = new Horde_Variables(array('type' => $vars->get('type')));
         _editPriorityForms();
     } else {
@@ -601,23 +606,25 @@ case 'editprioritystep2form':
     $vars->set('action', 'type');
     $form = new EditPriorityStep2Form($vars);
     if ($form->validate($vars)) {
-        $result = $whups_driver->updatePriority($vars->get('priority'),
-                                                $vars->get('name'),
-                                                $vars->get('description'));
-        if (!is_a($result, 'PEAR_Error')) {
-            $notification->push(_("The priority has been modified."),
-                                'horde.success');
+        try {
+            $whups_driver->updatePriority(
+                $vars->get('priority'),
+                $vars->get('name'),
+                $vars->get('description'));
+
+            $notification->push(
+                _("The priority has been modified."),
+                'horde.success');
 
             _open();
             $form->renderInactive($renderer, $vars);
-        } else {
-            $notification->push(_("There was an error editing the priority:")
-                                . ' ' . $result->getMessage(),
-                                'horde.error');
+        } catch (Whups_Exception $e) {
+            $notification->push(
+                _("There was an error editing the priority:") . ' ' . $e->getMessage(),
+                'horde.error');
         }
 
         $vars = new Horde_Variables(array('type' => $vars->get('type')));
-
         _editPriorityForms();
     } else {
         _open();
@@ -630,18 +637,17 @@ case 'defaultpriorityform':
     $vars->set('action', 'type');
     $form = new DefaultPriorityForm($vars);
     if ($form->validate($vars)) {
-        $result = $whups_driver->setDefaultPriority($vars->get('type'),
-                                                    $vars->get('priority'));
-        if (is_a($result, 'PEAR_Error')) {
+        try {
+            $whups_driver->setDefaultPriority(
+                $vars->get('type'), $vars->get('priority'));
             $notification->push(
-                _("There was an error setting the default priority:") . ' '
-                . $result->getMessage(),
+                _("The default priority has been set."),
+                'horde.success');
+        } catch (Whups_Exception $e) {
+            $notification->push(
+                _("There was an error setting the default priority:") . ' ' . $e->getMessage(),
                 'horde.error');
-        } else {
-            $notification->push(_("The default priority has been set."),
-                                'horde.success');
         }
-
         _editPriorityForms();
     } else {
         _open();
@@ -655,21 +661,22 @@ case 'deletepriorityform':
     $form = new DeletePriorityForm($vars);
     if ($form->validate($vars)) {
         if ($vars->get('yesno') == 1) {
-            $result = $whups_driver->deletePriority($vars->get('priority'));
-            if (!is_a($result, 'PEAR_Error')) {
-                $notification->push(_("The priority has been deleted."),
-                                    'horde.success');
-            } else {
+            try {
+                $whups_driver->deletePriority($vars->get('priority'));
+                $notification->push(
+                    _("The priority has been deleted."),
+                    'horde.success');
+            } catch (Whups_Exception $e) {
                 $notification->push(
                     _("There was an error deleting the priority:") . ' '
-                    . $result->getMessage(),
+                    . $e->getMessage(),
                     'horde.error');
             }
         } else {
-            $notification->push(_("The priority was not deleted."),
-                                'horde.message');
+            $notification->push(
+                _("The priority was not deleted."),
+                'horde.message');
         }
-
         _editPriorityForms();
     } else {
         _open();
@@ -682,9 +689,10 @@ case 'adduserform':
     $form = new AddUserForm($vars);
     if ($form->validate($vars)) {
         $info = $whups_driver->getQueue($vars->get('queue'));
-        $result = $whups_driver->addQueueUser($vars->get('queue'),
-                                              $vars->get('user'));
-        if (!is_a($result, 'PEAR_Error')) {
+        try {
+            $whups_driver->addQueueUser(
+                $vars->get('queue'), $vars->get('user'));
+
             $user = $vars->get('user');
             if (is_array($user)) {
                 $userinfo = array();
@@ -699,12 +707,12 @@ case 'adduserform':
                 sprintf(_("%s added to those responsible for \"%s\""),
                         $userinfo, $info['name']),
                 'horde.success');
-        } else {
+        } catch (Whups_Exception $e) {
             $notification->push(
                 sprintf(_("There was an error adding \"%s\" to the responsible list for \"%s\":"),
                         Whups::formatUser($vars->get('user')),
                         $info['name'])
-                . ' ' . $result->getMessage(),
+                . ' ' . $e->getMessage(),
                 'horde.error');
         }
     }
@@ -737,19 +745,19 @@ case 'edituserstep1form':
     $form = new EditUserStep1Form($vars);
     if ($form->validate($vars)) {
         $info = $whups_driver->getQueue($vars->get('queue'));
-        $result = $whups_driver->removeQueueUser($vars->get('queue'),
-                                                 $vars->get('user'));
-        if (!is_a($result, 'PEAR_Error')) {
+        try {
+            $whups_driver->removeQueueUser($vars->get('queue'), $vars->get('user'));
+
             $notification->push(
                 sprintf(_("\"%s\" is no longer among those responsible for \"%s\""),
                         Whups::formatUser($vars->get('user')), $info['name']),
                 'horde.success');
-        } else {
-            $notification->push(
-                sprintf(_("There was an error removing \"%s\" from the responsible list for \"%s\":"),
-                        Whups::formatUser($vars->get('user')), $info['name'])
-                . ' ' . $result->getMessage(),
-                'horde.error');
+        } catch (Whups_Exception $e) {
+                $notification->push(
+                    sprintf(_("There was an error removing \"%s\" from the responsible list for \"%s\":"),
+                            Whups::formatUser($vars->get('user')), $info['name'])
+                    . ' ' . $e->getMessage(),
+                    'horde.error');
         }
     }
 
@@ -765,21 +773,23 @@ case 'addversionform':
     require_once WHUPS_BASE . '/lib/Forms/Admin/Version.php';
     $form = new AddVersionForm($vars);
     if ($form->validate($vars)) {
-        $result = $whups_driver->addVersion($vars->get('queue'),
-                                            $vars->get('name'),
-                                            $vars->get('description'),
-                                            $vars->get('active') == 'on');
-        if (!is_a($result, 'PEAR_Error')) {
+        try {
+            $whups_driver->addVersion(
+                $vars->get('queue'),
+                $vars->get('name'),
+                $vars->get('description'),
+                $vars->get('active') == 'on');
+
             $queuename = $whups_driver->getQueue($vars->get('queue'));
             $queuename = $queuename['name'];
             $notification->push(
                 sprintf(_("The version \"%s\" has been added to %s."),
                         $vars->get('name'), $queuename),
                 'horde.success');
-        } else {
-            $notification->push(_("There was an error creating the version:")
-                                . ' ' . $result->getMessage(),
-                                'horde.error');
+        } catch (Whups_Exception $e) {
+            $notification->push(
+                _("There was an error creating the version:") . ' ' . $e->getMessage(),
+                'horde.error');
         }
 
         _open();
@@ -828,20 +838,23 @@ case 'editversionstep2form':
     require_once WHUPS_BASE . '/lib/Forms/Admin/Version.php';
     $form = new EditVersionStep2Form($vars);
     if ($form->validate($vars)) {
-        $result = $whups_driver->updateVersion($vars->get('version'),
-                                               $vars->get('name'),
-                                               $vars->get('description'),
-                                               $vars->get('active') == 'on');
-        if (!is_a($result, 'PEAR_Error')) {
-            $notification->push(_("The version has been modified."),
-                                'horde.success');
+        try {
+            $whups_driver->updateVersion(
+                $vars->get('version'),
+                $vars->get('name'),
+                $vars->get('description'),
+                $vars->get('active') == 'on');
+
+            $notification->push(
+                _("The version has been modified."),
+                'horde.success');
 
             _open();
             $form->renderInactive($renderer, $vars);
-        } else {
-            $notification->push(_("There was an error editing the version:")
-                                . ' ' . $result->getMessage(),
-                                'horde.error');
+        } catch (Whups_Exception $e) {
+            $notification->push(
+                _("There was an error editing the version:") . ' ' . $e->getMessage(),
+                'horde.error');
         }
 
         _open();
@@ -861,14 +874,15 @@ case 'deleteversionform':
     $form = new DeleteVersionForm($vars);
     if ($form->validate($vars)) {
         if ($vars->get('yesno') == 1) {
-            $result = $whups_driver->deleteVersion($vars->get('version'));
-            if (!is_a($result, 'PEAR_Error')) {
-                $notification->push(_("The version has been deleted."),
-                                    'horde.success');
-            } else {
-                $notification->push(_("There was an error deleting the version:")
-                                    . ' ' . $result->getMessage(),
-                                    'horde.error');
+            try {
+                $whups_driver->deleteVersion($vars->get('version'));
+                $notification->push(
+                    _("The version has been deleted."),
+                    'horde.success');
+            } catch (Whups_Exception $e) {
+                $notification->push(
+                    _("There was an error deleting the version:") . ' ' . $e->getMessage(),
+                    'horde.error');
             }
         } else {
             $notification->push(_("The version was not deleted."),
@@ -891,16 +905,16 @@ case 'addattributedescform_reload':
     require_once WHUPS_BASE . '/lib/Forms/Admin/Attribute.php';
     $form = new AddAttributeDescForm($vars);
     $vars->set('action', 'type');
-    if ($vars->get('formname') == 'addattributedescform' &&
-        $form->validate($vars)) {
-        $result = $whups_driver->addAttributeDesc(
-            $vars->get('type'),
-            $vars->get('attribute_name'),
-            $vars->get('attribute_description'),
-            $vars->get('attribute_type'),
-            $vars->get('attribute_params', array()),
-            $vars->get('attribute_required'));
-        if (!is_a($result, 'PEAR_Error')) {
+    if ($vars->get('formname') == 'addattributedescform' && $form->validate($vars)) {
+        try {
+            $whups_driver->addAttributeDesc(
+                $vars->get('type'),
+                $vars->get('attribute_name'),
+                $vars->get('attribute_description'),
+                $vars->get('attribute_type'),
+                $vars->get('attribute_params', array()),
+                $vars->get('attribute_required'));
+
             $typename = $whups_driver->getType($vars->get('type'));
             $typename = $typename['name'];
             $notification->push(
@@ -908,9 +922,9 @@ case 'addattributedescform_reload':
                         $vars->get('attribute_name'), $typename),
                 'horde.success');
             $vars = new Horde_Variables(array('type' => $vars->get('type')));
-        } else {
+        } catch (Whups_Exception $e) {
             $notification->push(_("There was an error creating the attribute:")
-                                . ' ' . $result->getMessage(),
+                                . ' ' . $e->getMessage(),
                                 'horde.error');
         }
 
@@ -964,25 +978,27 @@ case 'editattributedescstep2form_reload':
     if ($vars->get('formname') == 'editattributedescstep2form' &&
         $form->validate($vars)) {
         $form->getInfo($vars, $info);
-        $result = $whups_driver->updateAttributeDesc(
-            $info['attribute'],
-            $info['attribute_name'],
-            $info['attribute_description'],
-            $info['attribute_type'],
-            !empty($info['attribute_params']) ? $info['attribute_params'] : array(),
-            $info['attribute_required']);
-        if (!is_a($result, 'PEAR_Error')) {
-            $notification->push( _("The attribute has been modified."),
-                                 'horde.success');
+        try {
+            $whups_driver->updateAttributeDesc(
+                $info['attribute'],
+                $info['attribute_name'],
+                $info['attribute_description'],
+                $info['attribute_type'],
+                !empty($info['attribute_params']) ? $info['attribute_params'] : array(),
+                $info['attribute_required']);
+
+            $notification->push(
+                _("The attribute has been modified."),
+                'horde.success');
 
             _open();
             $form->renderInactive($renderer, $vars);
             echo '<br />';
             $vars = new Horde_Variables(array('type' => $vars->get('type')));
-        } else {
-            $notification->push(_("There was an error editing the attribute:")
-                                . ' ' . $result->getMessage(),
-                                'horde.error');
+        } catch (Whups_Exception $e) {
+            $notification->push(
+                _("There was an error editing the attribute:") . ' ' . $e->getMessage(),
+                'horde.error');
         }
 
         _open();
@@ -1002,19 +1018,22 @@ case 'deleteattributedescform':
     $form = new DeleteAttributeDescForm($vars);
     if ($form->validate($vars)) {
         if ($vars->get('yesno') == 1) {
-            $result = $whups_driver->deleteAttributeDesc($vars->get('attribute'));
-            if (!is_a($result, 'PEAR_Error')) {
-                $notification->push(_("The attribute has been deleted."),
-                                    'horde.success');
-            } else {
+            try {
+                $whups_driver->deleteAttributeDesc($vars->get('attribute'));
+
+                $notification->push(
+                    _("The attribute has been deleted."),
+                    'horde.success');
+            } catch (Whups_Exception $e) {
                 $notification->push(
                     _("There was an error deleting the attribute:")
-                    . ' ' . $result->getMessage(),
+                    . ' ' . $e->getMessage(),
                     'horde.error');
             }
         } else {
-            $notification->push(_("The attribute was not deleted."),
-                                'horde.message');
+            $notification->push(
+                _("The attribute was not deleted."),
+                'horde.message');
         }
 
         _open();
@@ -1033,11 +1052,12 @@ case 'addreplyform':
     $form = new AddReplyForm($vars);
     $vars->set('action', 'type');
     if ($form->validate($vars)) {
-        $result = $whups_driver->addReply(
-            $vars->get('type'),
-            $vars->get('reply_name'),
-            $vars->get('reply_text'));
-        if (!is_a($result, 'PEAR_Error')) {
+        try {
+            $result = $whups_driver->addReply(
+                $vars->get('type'),
+                $vars->get('reply_name'),
+                $vars->get('reply_text'));
+
             $typename = $whups_driver->getType($vars->get('type'));
             $typename = $typename['name'];
             $notification->push(
@@ -1048,10 +1068,10 @@ case 'addreplyform':
             $vars->set('reply', $result);
             $form = new EditReplyStep2Form($vars);
             $form->renderInactive($renderer, $vars);
-        } else {
-            $notification->push(_("There was an error creating the form reply:")
-                                . ' ' . $result->getMessage(),
-                                'horde.error');
+        } catch (Whups_Exception $e) {
+            $notification->push(
+                _("There was an error creating the form reply:") . ' ' . $e->getMessage(),
+                'horde.error');
             _open();
             $form->renderActive($renderer, $vars, $adminurl, 'post');
         }
@@ -1097,21 +1117,22 @@ case 'editreplystep2form':
     $vars->set('action', 'type');
     if ($vars->get('formname') == 'editreplystep2form' &&
         $form->validate($vars)) {
-        $result = $whups_driver->updateReply(
-            $vars->get('reply'),
-            $vars->get('reply_name'),
-            $vars->get('reply_text'));
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push(_("There was an error editing the form reply:")
-                                . ' ' . $result->getMessage(),
-                                'horde.error');
-        } else {
-            $notification->push( _("The form reply has been modified."),
-                                 'horde.success');
+        try {
+            $whups_driver->updateReply(
+                $vars->get('reply'),
+                $vars->get('reply_name'),
+                $vars->get('reply_text'));
+            $notification->push(
+                    _("The form reply has been modified."),
+                    'horde.success');
             _open();
             $form->renderInactive($renderer, $vars);
             echo '<br />';
             $vars = new Horde_Variables(array('type' => $vars->get('type')));
+        } catch (Whups_Exception $e) {
+            $notification->push(
+                _("There was an error editing the form reply:") . ' ' . $e->getMessage(),
+                'horde.error');
         }
 
         _open();
@@ -1131,19 +1152,20 @@ case 'deletereplyform':
     $form = new DeleteReplyForm($vars);
     if ($form->validate($vars)) {
         if ($vars->get('yesno') == 1) {
-            $result = $whups_driver->deleteReply($vars->get('reply'));
-            if (!is_a($result, 'PEAR_Error')) {
-                $notification->push(_("The form reply has been deleted."),
-                                    'horde.success');
-            } else {
+            try {
+                $whups_driver->deleteReply($vars->get('reply'));
                 $notification->push(
-                    _("There was an error deleting the form reply:")
-                    . ' ' . $result->getMessage(),
+                    _("The form reply has been deleted."),
+                    'horde.success');
+            } catch (Whups_Exception $e) {
+                $notification->push(
+                    _("There was an error deleting the form reply:") . ' ' . $e->getMessage(),
                     'horde.error');
             }
         } else {
-            $notification->push(_("The form reply was not deleted."),
-                                'horde.message');
+            $notification->push(
+                _("The form reply was not deleted."),
+                'horde.message');
         }
 
         _open();
@@ -1162,13 +1184,13 @@ case 'sendreminderform':
     require_once WHUPS_BASE . '/lib/Forms/Admin.php';
     $form = new SendReminderForm($vars);
     if ($form->validate($vars)) {
-        $result = Whups::sendReminders($vars);
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result, 'horde.error');
+        try {
+            Whups::sendReminders($vars);
+            $notification->push(_("Reminders were sent."), 'horde.success');
+        } catch (Whups_Exception $e) {
+            $notification->push($e, 'horde.error');
             _open();
             $form->renderActive($renderer, $vars, $adminurl, 'post');
-        } else {
-            $notification->push(_("Reminders were sent."), 'horde.success');
         }
     } else {
         _open();
@@ -1196,12 +1218,13 @@ case 'mtmatrix':
         }
     }
 
-    $result = $whups_driver->updateTypesQueues($pairs);
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result, 'horde.error');
-    } else {
-        $notification->push(_("Associations updated successfully."),
-                            'horde.success');
+    try {
+        $whups_driver->updateTypesQueues($pairs);
+        $notification->push(
+            _("Associations updated successfully."),
+            'horde.success');
+    } catch (Whups_Exception $e) {
+        $notification->push($e, 'horde.error');
     }
     break;
 }
