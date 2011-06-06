@@ -1,8 +1,4 @@
 <?php
-
-/** Horde_Form_Action */
-require_once 'Horde/Form/Action.php';
-
 /**
  * Horde_Form_Action_whups_reload is a Horde_Form Action that reloads the
  * form with the current (not the original) value after the form element

@@ -15,8 +15,6 @@ class AddReplyForm extends Horde_Form {
 
     function AddReplyForm(&$vars)
     {
-        require_once dirname(__FILE__) . '/../Action.php';
-
         parent::Horde_Form($vars, _("Add Form Reply"));
 
         $this->addHidden('', 'type', 'int', true, true);
@@ -57,8 +55,6 @@ class EditReplyStep2Form extends Horde_Form {
 
     function EditReplyStep2Form(&$vars)
     {
-        require_once dirname(__FILE__) . '/../Action.php';
-
         parent::Horde_Form($vars, _("Edit Form Reply"));
 
         $reply = $vars->get('reply');

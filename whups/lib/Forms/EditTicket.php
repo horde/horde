@@ -152,7 +152,6 @@ class EditTicketForm extends Horde_Form {
                         $replies = array();
                     }
                     if (count($replies)) {
-                        require_once 'Horde/Form/Action.php';
                         $params = array();
                         foreach ($replies as $key => $reply) {
                             $params[$key] = $reply['reply_name'];

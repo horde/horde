@@ -44,7 +44,6 @@ class CreateStep1Form extends Horde_Form {
                 $vars->set('queue', array_pop(array_keys($queues)));
             }
 
-            require_once 'Horde/Form/Action.php';
             $queues = &$this->addVariable(_("Queue Name"), 'queue', 'enum',
                                           true, false, null,
                                           array($queues, _("Choose:")));
@@ -96,7 +95,6 @@ class CreateStep2Form extends Horde_Form {
             $this->addVariable(_("Queue Version"), 'version', $vtype, true,
                                false, null, $v_params);
         } else {
-            require_once 'Horde/Form/Action.php';
             $types->setAction(Horde_Form_Action::factory('submit'));
         }
     }

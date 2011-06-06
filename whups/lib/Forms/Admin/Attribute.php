@@ -15,8 +15,6 @@ class AddAttributeDescForm extends Horde_Form {
 
     function AddAttributeDescForm(&$vars)
     {
-        require_once dirname(__FILE__) . '/../Action.php';
-
         parent::Horde_Form($vars, _("Add Attribute"));
 
         $this->addHidden('', 'type', 'int', true, true);
@@ -31,7 +29,7 @@ class AddAttributeDescForm extends Horde_Form {
                                  array(Whups::fieldTypeNames()));
         $v->setDefault('text');
         $v->setAction(Horde_Form_Action::factory(
-                          'whups_reload',
+                          array('whups', 'whups_reload'),
                           array('formname' => 'addattributedescform_reload')));
 
         $type = $vars->get('attribute_type');
@@ -79,8 +77,6 @@ class EditAttributeDescStep2Form extends Horde_Form {
 
     function EditAttributeDescStep2Form(&$vars)
     {
-        require_once dirname(__FILE__) . '/../Action.php';
-
         parent::Horde_Form($vars, _("Edit Attribute"));
 
         $attribute = $vars->get('attribute');
@@ -103,7 +99,7 @@ class EditAttributeDescStep2Form extends Horde_Form {
                                      array(Whups::fieldTypeNames()));
         $ptype->setAction(
             Horde_Form_Action::factory(
-                'whups_reload',
+                array('whups', 'whups_reload'),
                 array('formname' => 'editattributedescstep2form_reload')));
         $ptype->setDefault($info['attribute_type']);
 
