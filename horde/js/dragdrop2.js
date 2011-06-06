@@ -85,7 +85,7 @@
  *     hoverclass: 'dragdrop',
  *
  *     // If true, will re-render caption if a keypress is detected while a
- *     // drop is active (useful forCTRL/SHIFT combo actions).
+ *     // drop is active (useful for CTRL/SHIFT combo actions).
  *     keypress: false
  * });
  *
@@ -514,7 +514,7 @@ Drag = Class.create({
             }
 
             if (d_update) {
-                this._updateCaption(d, div, e);
+                this._updateCaption(d, div, e, e.pointerX(), e.pointerY());
             }
         }
 
@@ -523,7 +523,7 @@ Drag = Class.create({
         }
     },
 
-    _updateCaption: function(d, div, e)
+    _updateCaption: function(d, div, e, x, y)
     {
         var caption, cname, c_opt, vo;
 
@@ -556,7 +556,7 @@ Drag = Class.create({
                     className: cname || this.options.classname
                 });
 
-                this.caption = this._prepareHover(div, e.pointerX(), e.pointerY(), 'caption');
+                this.caption = this._prepareHover(div, x, y, 'caption');
             }
         }
     },
@@ -594,7 +594,7 @@ Drag = Class.create({
     {
         if (DragDrop.Drops.drop &&
             DragDrop.Drops.drop.options.keypress) {
-            this._updateCaption(DragDrop.Drops.drop, DragDrop.Drags.div, e);
+            this._updateCaption(DragDrop.Drops.drop, DragDrop.Drags.div, e, this.lastCoord[0], this.lastCoord[1]);
         }
     },
 
