@@ -84,8 +84,7 @@
    <package>
     <name>Net_SMTP</name>
     <channel>pear.php.net</channel>
-    <min>1.4.0</min>
-    <recommended>1.6.0</recommended>
+    <min>1.6.0</min>
    </package>
   </optional>
  </dependencies>
