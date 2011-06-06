@@ -2,6 +2,7 @@
 v5.0.6-git
 ----------
 
+[mms] Update all flag changes in dynamic mode (Bug #10146).
 [mms] Fix editing saved searches in dynamic mode (Bug #10189).
 [mms] Fix regression in saving sent mail in traditional view (Bug #10193).
 [mms] Fix regression of deleting mailboxes in traditional view (Bug #10170).

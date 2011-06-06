@@ -114,7 +114,8 @@ class IMP_Views_ShowMessage
                 'peek' => false
             ));
 
-            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox, $query, array('ids' => new Horde_Imap_Client_Ids($uid)));
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+            $fetch_ret = $imp_imap->fetch($mailbox, $query, array('ids' => new Horde_Imap_Client_Ids($uid)));
 
             /* Parse MIME info and create the body of the message. */
             $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($mailbox->getIndicesOb($uid));
@@ -335,6 +336,15 @@ class IMP_Views_ShowMessage
             unset($result['js']);
         }
 
+        /* Add changed flag information. */
+        if ($imp_imap->imap) {
+            $status = $imp_imap->status($mailbox, Horde_Imap_Client::STATUS_PERMFLAGS);
+            if (in_array(Horde_Imap_Client::FLAG_SEEN, $status['permflags'])) {
+                $GLOBALS['injector']->getInstance('IMP_Ajax_Queue')->flag(array(Horde_Imap_Client::FLAG_SEEN), true, $mailbox->getIndicesOb($uid));
+            }
+        }
+
         return $result;
     }
+
 }

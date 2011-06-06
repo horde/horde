@@ -600,6 +600,7 @@ class IMP_Message
         $action_array = $action
             ? array('add' => $flags)
             : array('remove' => $flags);
+        $ajax_queue = $GLOBALS['injector']->getInstance('IMP_Ajax_Queue');
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         $ret = true;
 
@@ -615,6 +616,8 @@ class IMP_Message
                 $imp_imap->store($ob->mbox, array_merge($action_array, array(
                     'ids' => new Horde_Imap_Client_Ids($ob->uids)
                 )));
+
+                $ajax_queue->flag(reset($action_array), $action, $ob->mbox->getIndicesOb($ob->uids));
             } catch (Exception $e) {
                 $GLOBALS['notification']->push(sprintf(_("There was an error flagging messages in the folder \"%s\": %s."), $ob->mbox->display, $e->getMessage()), 'horde.error');
                 $ret = false;
@@ -644,11 +647,22 @@ class IMP_Message
         $action_array = $action
             ? array('add' => $flags)
             : array('remove' => $flags);
+        $ajax_queue = $GLOBALS['injector']->getInstance('IMP_Ajax_Queue');
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+
+        if (!$GLOBALS['injector']->getInstance('IMP_Message')->flagAllInMailbox($flags, array($this->_vars->mbox), $this->_vars->add)) {
+            return false;
+        }
+
+        $this->_queue->poll($this->_vars->mbox);
 
         foreach ($mboxes as $val) {
             try {
+                /* Grab list of UIDs before flagging, to make sure we
+                 * determine the exact subset that has been flagged. */
+                $mailbox_list = IMP_Mailbox::get($val)->getListOb()->getIndicesOb();
                 $imp_imap->store($val, $action_array);
+                $this->_queue->flag(reset($action_array), $action, $mailbox_list);
             } catch (IMP_Imap_Exception $e) {
                 return false;
             }

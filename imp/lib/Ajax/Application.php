@@ -65,6 +65,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
+     * May add the following entries to the output object:
+     *   - flag: (array) See IMP_Ajax_Queue::generate().
+     *   - poll: (array) See IMP_Ajax_Queue::generate().
+     *   - quota: (array) See IMP_Ajax_Queue::generate().
      */
     public function doAction()
     {
@@ -238,7 +242,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   a: (array) Mailboxes that were added.
      *   c: (array) Mailboxes that were changed.
      *   d: (array) Mailboxes that were deleted.
-     * poll: (array) See IMP_Ajax_Queue::generate().
      * </pre>
      */
     public function renameMailbox()
@@ -311,7 +314,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *                entries:
      * <pre>
      * 'mbox' - (string) The mailbox that was emptied.
-     * 'poll' - (array) See IMP_Ajax_Queue::generate().
      * </pre>
      */
     public function emptyMailbox()
@@ -339,10 +341,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *            array).
      *   - mbox: (string) The full mailbox name.
      *
-     * @return mixed  False on failure, or an object with the following
-     *                entries:
-     *   - flag: (array) See IMP_Ajax_Queue::generate().
-     *   - poll: (array) See IMP_Ajax_Queue::generate().
+     * @return mixed  False on failure, or an object on success.
      */
     public function flagAll()
     {
@@ -351,14 +350,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return false;
         }
 
-        /* Grab list of UIDs before flagging, to make sure we correctly
-         * determine the exact subset that has been flagged. */
-        $mailbox_list = IMP_Mailbox::get($this->_vars->mbox)->getListOb()->getIndicesOb();
         if (!$GLOBALS['injector']->getInstance('IMP_Message')->flagAllInMailbox($flags, array($this->_vars->mbox), $this->_vars->add)) {
             return false;
         }
 
-        $this->_queue->flag($flags, $this->_vars->add, $mailbox_list);
         $this->_queue->poll($this->_vars->mbox);
 
         return new stdClass;
@@ -387,7 +382,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   'a' - (array) Mailboxes that were added.
      *   'c' - (array) Mailboxes that were changed.
      *   'd' - (array) Mailboxes that were deleted.
-     * 'quota' - (array) See IMP_Ajax_Queue::generate().
      * </pre>
      */
     public function listMailboxes()
@@ -548,8 +542,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * @return mixed  False on failure, or an object with the following
      *                entries:
      * <pre>
-     * 'poll' - (array) See IMP_Ajax_Queue::generate().
-     * 'quota' - (array) See IMP_Ajax_Queue::generate().
      * 'ViewPort' - (object) See _viewPortData().
      * </pre>
      */
@@ -581,7 +573,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * <pre>
      * 'add' - (integer) 1 if added to the poll list, 0 if removed.
      * 'mbox' - (string) The full mailbox name modified.
-     * 'poll' - (array) See IMP_Ajax_Queue::generate().
      * </pre>
      */
     public function modifyPoll()
@@ -646,7 +637,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * <pre>
      * 'action' - (string) The action name (importMailbox).
      * 'mbox' - (string) The mailbox the messages were imported to.
-     * 'poll' - (array) See IMP_Ajax_Queue::generate().
      * </pre>
      */
     public function importMailbox()
@@ -687,7 +677,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * @return mixed  False on failure, or an object with the following
      *                entries:
      * <pre>
-     * 'poll' - (array) See IMP_Ajax_Queue::generate().
      * 'ViewPort' - (object) See _viewPortData().
      * </pre>
      */
@@ -800,7 +789,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * @return mixed  False on failure, or an object with the following
      *                entries:
      * <pre>
-     * 'poll' - (array) See IMP_Ajax_Queue::generate().
      * 'ViewPort' - (object) See _viewPortData().
      * </pre>
      */
@@ -834,8 +822,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
-     *   - flag: (array) See IMP_Ajax_Queue::generate().
-     *   - poll: (array) See IMP_Ajax_Queue::generate().
      *   - ViewPort: (object) See _viewPortData().
      */
     public function flagMessages()
@@ -856,8 +842,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         if (!$GLOBALS['injector']->getInstance('IMP_Message')->flag($flags, $indices, $this->_vars->add)) {
             return $this->_checkUidvalidity();
         }
-
-        $this->_queue->flag($flags, $this->_vars->add, $indices);
 
         list($mbox,) = $indices->getSingle();
         if (in_array(Horde_Imap_Client::FLAG_SEEN, $flags)) {
@@ -1079,8 +1063,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
-     *   - flag: (array) See IMP_Ajax_Queue::generate().
-     *   - poll: (array) See IMP_Ajax_Queue::generate().
      *   - preview: (object) Return from IMP_View_ShowMessage::showMessage().
      *   - ViewPort: (object) See _viewPortData(). (Only returns updatecacheid
      *                        entry - don't do mailbox poll here).
@@ -1126,15 +1108,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 }
 
                 $this->_queue->poll($mbox);
-            }
-
-            /* Add changed flag information. */
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-            if ($imp_imap->imap) {
-                $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_PERMFLAGS);
-                if (in_array(Horde_Imap_Client::FLAG_SEEN, $status['permflags'])) {
-                    $this->_queue->flag(array(Horde_Imap_Client::FLAG_SEEN), true, $indices);
-                }
             }
         } catch (IMP_Imap_Exception $e) {
             $result->preview->error = $e->getMessage();
@@ -1787,16 +1760,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result->mbox = strval($imp_compose->getMetadata('mailbox'));
         $result->uid = $imp_compose->getMetadata('uid');
 
-        switch ($imp_compose->replyType(true)) {
-        case IMP_Compose::FORWARD:
-            $this->_queue->flag(array(Horde_Imap_Client::FLAG_FORWARDED), true, new IMP_Indices($result->mbox, $result->uid));
-            break;
-
-        case IMP_Compose::REPLY:
-            $this->_queue->flag(array(Horde_Imap_Client::FLAG_ANSWERED), true, new IMP_Indices($result->mbox, $result->uid));
-            break;
-        }
-
         $imp_compose->destroy('send');
 
         $result->mailbox = $this->_getMailboxResponse($imptree);
@@ -2012,8 +1975,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   remove - (integer) True if messages should be removed from the
      *            viewport.
      *   uids - (string) The list of messages to delete.
-     * 'flag' - (array) See IMP_Ajax_Queue::generate().
-     * 'poll' - (array) See IMP_Ajax_Queue::generate().
      * 'ViewPort' - (object) See _viewPortData().
      * </pre>
      */
@@ -2045,10 +2006,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->ViewPort = new stdClass;
             $result->ViewPort->updatecacheid = $mbox->cacheid;
             $result->ViewPort->view = $this->_vars->view;
-        }
-
-        if (!isset($del->remove)) {
-            $this->_queue->flag(array(Horde_Imap_Client::FLAG_DELETED), true, $indices);
         }
 
         $this->_queue->poll(array_keys($indices->indices()));
