@@ -496,7 +496,7 @@ class Vilma_Driver_Sql extends Vilma_Driver
         try {
             $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'vilma', 'storage');
         } catch (Exception $e) {
-            throw Vilma_Exception($e);
+            throw new Vilma_Exception($e);
         }
 
         /* Use default table names if these are not set. */
