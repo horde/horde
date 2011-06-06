@@ -155,7 +155,7 @@ extends Components_Module_Base
      */
     public function getHelp($action)
     {
-        return 'Releases the component. This handles a number of automated steps usually required when releasing a package to pear.horde.org. In the most simple situation it will be sufficient to move to the directory of the component you with to release and run
+        return 'Releases the component. This handles a number of automated steps usually required when releasing a package to pear.horde.org. In the most simple situation it will be sufficient to move to the directory of the component you wish to release and run
 
   horde-components release
 
