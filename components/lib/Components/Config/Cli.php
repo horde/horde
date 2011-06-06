@@ -98,6 +98,16 @@ extends Components_Config_Base
         );
         $parser->addOption(
             new Horde_Argv_Option(
+                '-D',
+                '--destination',
+                array(
+                    'action' => 'store',
+                    'help'   => 'Path to an (existing) destination directory where any output files will be placed.'
+                )
+            )
+        );
+        $parser->addOption(
+            new Horde_Argv_Option(
                 '-R',
                 '--pearrc',
                 array(
