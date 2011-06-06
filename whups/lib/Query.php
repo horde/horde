@@ -11,59 +11,57 @@
  * @package Whups
  */
 
-/** Horde_Form_Action */
-require_once 'Horde/Form/Action.php';
-
-/** Mode types. */
-define('QUERY_TYPE_AND',       1);
-define('QUERY_TYPE_OR',        2);
-define('QUERY_TYPE_NOT',       3);
-define('QUERY_TYPE_CRITERION', 4);
-
-/** Criterion types. */
-define('CRITERION_ID',             1);
-define('CRITERION_QUEUE',          2);
-define('CRITERION_TYPE',           3);
-define('CRITERION_STATE',          4);
-define('CRITERION_PRIORITY',       5);
-define('CRITERION_OWNERS',         7);
-define('CRITERION_REQUESTER',      8);
-define('CRITERION_GROUPS',         9);
-define('CRITERION_ADDED_COMMENT', 11);
-define('CRITERION_COMMENT',       12);
-define('CRITERION_SUMMARY',       13);
-define('CRITERION_ATTRIBUTE',     14);
-define('CRITERION_VERSION',       15);
-define('CRITERION_TIMESTAMP',     16);
-define('CRITERION_UPDATED',       17);
-define('CRITERION_RESOLVED',      18);
-define('CRITERION_ASSIGNED',      19);
-define('CRITERION_DUE',           20);
-
-/** Operators for integer fields. */
-define('OPERATOR_GREATER', 1);
-define('OPERATOR_LESS',    2);
-define('OPERATOR_EQUAL',   3);
-
-/** Operators for text fields. */
-define('OPERATOR_CI_SUBSTRING',  4);
-define('OPERATOR_CS_SUBSTRING',  5);
-define('OPERATOR_WORD',          6);
-define('OPERATOR_PATTERN',       7);
-
 /**
  * array(
- *     'type'      => QUERY_TYPE_...
- *     'children'  => array(...) unless type == QUERY_TYPE_CRITERION
- *     'criterion' => CRITERION_... if  type == QUERY_TYPE_CRITERION
- *     'operator'  => OPERATOR_...  if  type == QUERY_TYPE_CRITERION
+ *     'type'      => Whups_Query::TYPE_...
+ *     'children'  => array(...) unless type == Whups_Query::TYPE_CRITERION
+ *     'criterion' => Whups_Query::CRITERION_... if  type == Whups_Query::TYPE_CRITERION
+ *     'operator'  => Whups_Query::OPERATOR_...  if  type == Whups_Query::TYPE_CRITERION
  *     'value'     => other argument to operator of criterion
  */
 
 /**
  * @package Whups
  */
-class Whups_Query {
+class Whups_Query
+{
+
+    /** Mode types. */
+    const TYPE_AND = 1;
+    const TYPE_OR = 2;
+    const TYPE_NOT = 3;
+    const TYPE_CRITERION = 4;
+
+    /** Criterion types. */
+    const CRITERION_ID = 1;
+    const CRITERION_QUEUE = 2;
+    const CRITERION_TYPE = 3;
+    const CRITERION_STATE = 4;
+    const CRITERION_PRIORITY = 5;
+    const CRITERION_OWNERS = 7;
+    const CRITERION_REQUESTER = 8;
+    const CRITERION_GROUPS = 9;
+    const CRITERION_ADDED_COMMENT = 11;
+    const CRITERION_COMMENT = 12;
+    const CRITERION_SUMMARY = 13;
+    const CRITERION_ATTRIBUTE = 14;
+    const CRITERION_VERSION = 15;
+    const CRITERION_TIMESTAMP = 16;
+    const CRITERION_UPDATED = 17;
+    const CRITERION_RESOLVED = 18;
+    const CRITERION_ASSIGNED = 19;
+    const CRITERION_DUE = 20;
+
+    /** Operators for integer fields. */
+    const OPERATOR_GREATER = 1;
+    const OPERATOR_LESS = 2;
+    const OPERATOR_EQUAL = 3;
+
+    /** Operators for text fields. */
+    const OPERATOR_CI_SUBSTRING = 4;
+    const OPERATOR_CS_SUBSTRING = 5;
+    const OPERATOR_WORD =  6;
+    const OPERATOR_PATTERN = 7;
 
     /**
      * @var Whups_QueryManager
@@ -94,7 +92,7 @@ class Whups_Query {
     /**
      * @var array
      */
-    var $query = array('type' => QUERY_TYPE_AND,
+    var $query = array('type' => Whups_Query::TYPE_AND,
                        'children' => array());
 
     /**
@@ -155,11 +153,11 @@ class Whups_Query {
     function textOperators()
     {
         return array(
-            OPERATOR_EQUAL        => _("Exact Match"),
-            OPERATOR_CI_SUBSTRING => _("Case Insensitive Substring"),
-            // OPERATOR_CS_SUBSTRING => _("Case Sensitive Substring"),
-            OPERATOR_WORD         => _("Match Word"),
-            OPERATOR_PATTERN      => _("Match Pattern"));
+            Whups_Query::OPERATOR_EQUAL        => _("Exact Match"),
+            Whups_Query::OPERATOR_CI_SUBSTRING => _("Case Insensitive Substring"),
+            Whups_Query::OPERATOR_CS_SUBSTRING => _("Case Sensitive Substring"),
+            Whups_Query::OPERATOR_WORD         => _("Match Word"),
+            Whups_Query::OPERATOR_PATTERN      => _("Match Pattern"));
     }
 
     /**
@@ -260,16 +258,16 @@ class Whups_Query {
             $qobj = $qobj['children'][$path[$i]];
         }
 
-        if ($qobj['type'] != QUERY_TYPE_CRITERION) {
+        if ($qobj['type'] != Whups_Query::TYPE_CRITERION) {
             // Search for any criteria that have been combined automatically
             // with an AND or OR.
             switch ($qobj['type']) {
-            case QUERY_TYPE_OR:
+            case Whups_Query::TYPE_OR:
                 // Search for multiple ids.
                 $criteria = array();
                 foreach ($qobj['children'] as $child) {
-                    if ($child['type'] != QUERY_TYPE_CRITERION ||
-                        $child['criterion'] != CRITERION_ID) {
+                    if ($child['type'] != Whups_Query::TYPE_CRITERION ||
+                        $child['criterion'] != Whups_Query::CRITERION_ID) {
                         $criteria = false;
                         break;
                     }
@@ -284,10 +282,10 @@ class Whups_Query {
                 $criteria = array();
                 $operator = $value = null;
                 foreach ($qobj['children'] as $child) {
-                    if ($child['type'] != QUERY_TYPE_CRITERION ||
-                        ($child['criterion'] != CRITERION_OWNERS &&
-                         $child['criterion'] != CRITERION_REQUESTER &&
-                         $child['criterion'] != CRITERION_ADDED_COMMENT) ||
+                    if ($child['type'] != Whups_Query::TYPE_CRITERION ||
+                        ($child['criterion'] != Whups_Query::CRITERION_OWNERS &&
+                         $child['criterion'] != Whups_Query::CRITERION_REQUESTER &&
+                         $child['criterion'] != Whups_Query::CRITERION_ADDED_COMMENT) ||
                         (isset($operator) && $operator != $child['operator']) ||
                         (isset($value) && $value != $child['value'])) {
                         $criteria = false;
@@ -302,13 +300,13 @@ class Whups_Query {
                     $vars->set('operator', $operator);
                     foreach ($criteria as $criterion) {
                         switch ($criterion) {
-                        case CRITERION_OWNERS:
+                        case Whups_Query::CRITERION_OWNERS:
                             $vars->set('owners', true);
                             break;
-                        case CRITERION_REQUESTER:
+                        case Whups_Query::CRITERION_REQUESTER:
                             $vars->set('requester', true);
                             break;
-                        case CRITERION_ADDED_COMMENT:
+                        case Whups_Query::CRITERION_ADDED_COMMENT:
                             $vars->set('comments', true);
                             break;
                         }
@@ -320,9 +318,9 @@ class Whups_Query {
                 $criteria = array();
                 $operator = $value = null;
                 foreach ($qobj['children'] as $child) {
-                    if ($child['type'] != QUERY_TYPE_CRITERION ||
-                        ($child['criterion'] != CRITERION_COMMENT &&
-                         $child['criterion'] != CRITERION_SUMMARY) ||
+                    if ($child['type'] != Whups_Query::TYPE_CRITERION ||
+                        ($child['criterion'] != Whups_Query::CRITERION_COMMENT &&
+                         $child['criterion'] != Whups_Query::CRITERION_SUMMARY) ||
                         (isset($operator) && $operator != $child['operator']) ||
                         (isset($value) && $value != $child['value'])) {
                         $criteria = false;
@@ -336,9 +334,9 @@ class Whups_Query {
                     $vars->set('text', $value);
                     $vars->set('operator', $operator);
                     foreach ($criteria as $criterion) {
-                        if ($criterion == CRITERION_COMMENT) {
+                        if ($criterion == Whups_Query::CRITERION_COMMENT) {
                             $vars->set('comments', true);
-                        } elseif ($criterion == CRITERION_SUMMARY) {
+                        } elseif ($criterion == Whups_Query::CRITERION_SUMMARY) {
                             $vars->set('summary', true);
                         }
                     }
@@ -350,8 +348,8 @@ class Whups_Query {
                 $criteria = array();
                 $operator = $value = null;
                 foreach ($qobj['children'] as $child) {
-                    if ($child['type'] != QUERY_TYPE_CRITERION ||
-                        $child['criterion'] != CRITERION_ATTRIBUTE ||
+                    if ($child['type'] != Whups_Query::TYPE_CRITERION ||
+                        $child['criterion'] != Whups_Query::CRITERION_ATTRIBUTE ||
                         (isset($operator) && $operator != $child['operator']) ||
                         (isset($value) && $value != $child['value']) ||
                         !in_array($child['cvalue'], $attribs)) {
@@ -372,16 +370,16 @@ class Whups_Query {
                 }
                 break;
 
-            case QUERY_TYPE_AND:
+            case Whups_Query::TYPE_AND:
                 // Search for date criteria.
                 $criteria = false;
                 foreach ($qobj['children'] as $child) {
-                    if ($child['type'] != QUERY_TYPE_CRITERION ||
-                        ($child['criterion'] != CRITERION_TIMESTAMP &&
-                         $child['criterion'] != CRITERION_UPDATED &&
-                         $child['criterion'] != CRITERION_RESOLVED &&
-                         $child['criterion'] != CRITERION_ASSIGNED &&
-                         $child['criterion'] != CRITERION_DUE)) {
+                    if ($child['type'] != Whups_Query::TYPE_CRITERION ||
+                        ($child['criterion'] != Whups_Query::CRITERION_TIMESTAMP &&
+                         $child['criterion'] != Whups_Query::CRITERION_UPDATED &&
+                         $child['criterion'] != Whups_Query::CRITERION_RESOLVED &&
+                         $child['criterion'] != Whups_Query::CRITERION_ASSIGNED &&
+                         $child['criterion'] != Whups_Query::CRITERION_DUE)) {
                         $criteria = false;
                         break;
                     }
@@ -390,34 +388,34 @@ class Whups_Query {
                 if ($criteria) {
                     foreach ($qobj['children'] as $child) {
                         switch ($child['criterion'] . $child['operator']) {
-                        case CRITERION_TIMESTAMP . OPERATOR_GREATER:
+                        case Whups_Query::CRITERION_TIMESTAMP . Whups_Query::OPERATOR_GREATER:
                             $vars->set('ticket_timestamp[from]', $child['value']);
                             break;
-                        case CRITERION_TIMESTAMP . OPERATOR_LESS:
+                        case Whups_Query::CRITERION_TIMESTAMP . Whups_Query::OPERATOR_LESS:
                             $vars->set('ticket_timestamp[to]', $child['value']);
                             break;
-                        case CRITERION_UPDATED . OPERATOR_GREATER:
+                        case Whups_Query::CRITERION_UPDATED . Whups_Query::OPERATOR_GREATER:
                             $vars->set('date_updated[from]', $child['value']);
                             break;
-                        case CRITERION_UPDATED . OPERATOR_LESS:
+                        case Whups_Query::CRITERION_UPDATED . Whups_Query::OPERATOR_LESS:
                             $vars->set('date_updated[to]', $child['value']);
                             break;
-                        case CRITERION_RESOLVED . OPERATOR_GREATER:
+                        case Whups_Query::CRITERION_RESOLVED . Whups_Query::OPERATOR_GREATER:
                             $vars->set('date_resolved[from]', $child['value']);
                             break;
-                        case CRITERION_RESOLVED . OPERATOR_LESS:
+                        case Whups_Query::CRITERION_RESOLVED . Whups_Query::OPERATOR_LESS:
                             $vars->set('date_resolved[to]', $child['value']);
                             break;
-                        case CRITERION_ASSIGNED . OPERATOR_GREATER:
+                        case Whups_Query::CRITERION_ASSIGNED . Whups_Query::OPERATOR_GREATER:
                             $vars->set('date_assigned[from]', $child['value']);
                             break;
-                        case CRITERION_ASSIGNED . OPERATOR_LESS:
+                        case Whups_Query::CRITERION_ASSIGNED . Whups_Query::OPERATOR_LESS:
                             $vars->set('date_assigned[to]', $child['value']);
                             break;
-                        case CRITERION_DUE . OPERATOR_GREATER:
+                        case Whups_Query::CRITERION_DUE . Whups_Query::OPERATOR_GREATER:
                             $vars->set('ticket_due[from]', $child['value']);
                             break;
-                        case CRITERION_DUE . OPERATOR_LESS:
+                        case Whups_Query::CRITERION_DUE . Whups_Query::OPERATOR_LESS:
                             $vars->set('ticket_due[to]', $child['value']);
                             break;
                         }
@@ -427,10 +425,10 @@ class Whups_Query {
 
                 // Search for version criterion.
                 if (count($qobj['children']) == 2 &&
-                    $qobj['children'][0]['type'] == QUERY_TYPE_CRITERION &&
-                    $qobj['children'][0]['criterion'] == CRITERION_QUEUE &&
-                    $qobj['children'][1]['type'] == QUERY_TYPE_CRITERION &&
-                    $qobj['children'][1]['criterion'] == CRITERION_VERSION) {
+                    $qobj['children'][0]['type'] == Whups_Query::TYPE_CRITERION &&
+                    $qobj['children'][0]['criterion'] == Whups_Query::CRITERION_QUEUE &&
+                    $qobj['children'][1]['type'] == Whups_Query::TYPE_CRITERION &&
+                    $qobj['children'][1]['criterion'] == Whups_Query::CRITERION_VERSION) {
                     $vars->set('queue', $qobj['children'][0]['value']);
                     $vars->set('version', $qobj['children'][1]['value']);
                     return 'props';
@@ -441,13 +439,13 @@ class Whups_Query {
         }
 
         switch ($qobj['criterion']) {
-        case CRITERION_ID:
+        case Whups_Query::CRITERION_ID:
             $multiple = false;
-            if ($parent && $parent['type'] == QUERY_TYPE_OR) {
+            if ($parent && $parent['type'] == Whups_Query::TYPE_OR) {
                 $multiple = array();
                 foreach ($parent['children'] as $child) {
-                    if ($child['type'] != QUERY_TYPE_CRITERION ||
-                        $child['criterion'] != CRITERION_ID) {
+                    if ($child['type'] != Whups_Query::TYPE_CRITERION ||
+                        $child['criterion'] != Whups_Query::CRITERION_ID) {
                         $multiple = false;
                         break;
                     }
@@ -463,11 +461,11 @@ class Whups_Query {
             }
             return 'props';
 
-        case CRITERION_QUEUE:
-            if ($parent && $parent['type'] == QUERY_TYPE_AND &&
+        case Whups_Query::CRITERION_QUEUE:
+            if ($parent && $parent['type'] == Whups_Query::TYPE_AND &&
                 count($parent['children']) == 2 &&
-                $parent['children'][1]['type'] == QUERY_TYPE_CRITERION &&
-                $parent['children'][1]['criterion'] == CRITERION_VERSION) {
+                $parent['children'][1]['type'] == Whups_Query::TYPE_CRITERION &&
+                $parent['children'][1]['criterion'] == Whups_Query::CRITERION_VERSION) {
                 array_pop($path);
                 $vars->set('path', Whups_Query::pathToString($path));
                 $vars->set('version', $parent['children'][1]['value']);
@@ -475,39 +473,39 @@ class Whups_Query {
             $vars->set('queue', $qobj['value']);
             return 'props';
 
-        case CRITERION_VERSION:
+        case Whups_Query::CRITERION_VERSION:
             array_pop($path);
             $vars->set('path', Whups_Query::pathToString($path));
             $vars->set('queue', $parent['children'][0]['value']);
             $vars->set('version', $qobj['value']);
             return 'props';
 
-        case CRITERION_TYPE:
+        case Whups_Query::CRITERION_TYPE:
             $vars->set('ttype', $qobj['value']);
             return 'props';
 
-        case CRITERION_STATE:
+        case Whups_Query::CRITERION_STATE:
             $vars->set('state', $qobj['value']);
             return 'props';
 
-        case CRITERION_PRIORITY:
+        case Whups_Query::CRITERION_PRIORITY:
             $vars->set('priority', $qobj['value']);
             return 'props';
 
-        case CRITERION_TIMESTAMP:
-        case CRITERION_UPDATED:
-        case CRITERION_RESOLVED:
-        case CRITERION_ASSIGNED:
-        case CRITERION_DUE:
+        case Whups_Query::CRITERION_TIMESTAMP:
+        case Whups_Query::CRITERION_UPDATED:
+        case Whups_Query::CRITERION_RESOLVED:
+        case Whups_Query::CRITERION_ASSIGNED:
+        case Whups_Query::CRITERION_DUE:
             $criteria = false;
-            if ($parent && $parent['type'] == QUERY_TYPE_AND) {
+            if ($parent && $parent['type'] == Whups_Query::TYPE_AND) {
                 foreach ($parent['children'] as $child) {
-                    if ($child['type'] != QUERY_TYPE_CRITERION ||
-                        ($child['criterion'] != CRITERION_TIMESTAMP &&
-                         $child['criterion'] != CRITERION_UPDATED &&
-                         $child['criterion'] != CRITERION_RESOLVED &&
-                         $child['criterion'] != CRITERION_ASSIGNED &&
-                         $child['criterion'] != CRITERION_DUE)) {
+                    if ($child['type'] != Whups_Query::TYPE_CRITERION ||
+                        ($child['criterion'] != Whups_Query::CRITERION_TIMESTAMP &&
+                         $child['criterion'] != Whups_Query::CRITERION_UPDATED &&
+                         $child['criterion'] != Whups_Query::CRITERION_RESOLVED &&
+                         $child['criterion'] != Whups_Query::CRITERION_ASSIGNED &&
+                         $child['criterion'] != Whups_Query::CRITERION_DUE)) {
                         $criteria = false;
                         break;
                     }
@@ -519,34 +517,34 @@ class Whups_Query {
                 $vars->set('path', Whups_Query::pathToString($path));
                 foreach ($parent['children'] as $child) {
                     switch ($child['criterion'] . $child['operator']) {
-                    case CRITERION_TIMESTAMP . OPERATOR_GREATER:
+                    case Whups_Query::CRITERION_TIMESTAMP . Whups_Query::OPERATOR_GREATER:
                         $vars->set('ticket_timestamp[from]', $child['value']);
                         break;
-                    case CRITERION_TIMESTAMP . OPERATOR_LESS:
+                    case Whups_Query::CRITERION_TIMESTAMP . Whups_Query::OPERATOR_LESS:
                         $vars->set('ticket_timestamp[to]', $child['value']);
                         break;
-                    case CRITERION_UPDATED . OPERATOR_GREATER:
+                    case Whups_Query::CRITERION_UPDATED . Whups_Query::OPERATOR_GREATER:
                         $vars->set('date_updated[from]', $child['value']);
                         break;
-                    case CRITERION_UPDATED . OPERATOR_LESS:
+                    case Whups_Query::CRITERION_UPDATED . Whups_Query::OPERATOR_LESS:
                         $vars->set('date_updated[to]', $child['value']);
                         break;
-                    case CRITERION_RESOLVED . OPERATOR_GREATER:
+                    case Whups_Query::CRITERION_RESOLVED . Whups_Query::OPERATOR_GREATER:
                         $vars->set('date_resolved[from]', $child['value']);
                         break;
-                    case CRITERION_RESOLVED . OPERATOR_LESS:
+                    case Whups_Query::CRITERION_RESOLVED . Whups_Query::OPERATOR_LESS:
                         $vars->set('date_resolved[to]', $child['value']);
                         break;
-                    case CRITERION_ASSIGNED . OPERATOR_GREATER:
+                    case Whups_Query::CRITERION_ASSIGNED . Whups_Query::OPERATOR_GREATER:
                         $vars->set('date_assigned[from]', $child['value']);
                         break;
-                    case CRITERION_ASSIGNED . OPERATOR_LESS:
+                    case Whups_Query::CRITERION_ASSIGNED . Whups_Query::OPERATOR_LESS:
                         $vars->set('date_assigned[to]', $child['value']);
                         break;
-                    case CRITERION_DUE . OPERATOR_GREATER:
+                    case Whups_Query::CRITERION_DUE . Whups_Query::OPERATOR_GREATER:
                         $vars->set('ticket_due[from]', $child['value']);
                         break;
-                    case CRITERION_DUE . OPERATOR_LESS:
+                    case Whups_Query::CRITERION_DUE . Whups_Query::OPERATOR_LESS:
                         $vars->set('ticket_due[to]', $child['value']);
                         break;
                     }
@@ -554,15 +552,15 @@ class Whups_Query {
             }
             return 'date';
 
-        case CRITERION_OWNERS:
-        case CRITERION_REQUESTER:
-        case CRITERION_ADDED_COMMENT:
+        case Whups_Query::CRITERION_OWNERS:
+        case Whups_Query::CRITERION_REQUESTER:
+        case Whups_Query::CRITERION_ADDED_COMMENT:
             $criteria = false;
-            if ($parent && $parent['type'] == QUERY_TYPE_OR) {
+            if ($parent && $parent['type'] == Whups_Query::TYPE_OR) {
                 $criteria = array();
                 foreach ($parent['children'] as $child) {
-                    if ($child['type'] != QUERY_TYPE_CRITERION ||
-                        !in_array($child['criterion'], array(CRITERION_OWNERS, CRITERION_REQUESTER, CRITERION_ADDED_COMMENT))) {
+                    if ($child['type'] != Whups_Query::TYPE_CRITERION ||
+                        !in_array($child['criterion'], array(Whups_Query::CRITERION_OWNERS, Whups_Query::CRITERION_REQUESTER, Whups_Query::CRITERION_ADDED_COMMENT))) {
                         $criteria = false;
                         break;
                     }
@@ -580,33 +578,33 @@ class Whups_Query {
             $vars->set('operator', $qobj['operator']);
             foreach ($criteria as $criterion) {
                 switch ($criterion) {
-                case CRITERION_OWNERS:
+                case Whups_Query::CRITERION_OWNERS:
                     $vars->set('owners', true);
                     break;
-                case CRITERION_REQUESTER:
+                case Whups_Query::CRITERION_REQUESTER:
                     $vars->set('requester', true);
                     break;
-                case CRITERION_ADDED_COMMENT:
+                case Whups_Query::CRITERION_ADDED_COMMENT:
                     $vars->set('comments', true);
                     break;
                 }
             }
             return 'user';
 
-        case CRITERION_GROUPS:
+        case Whups_Query::CRITERION_GROUPS:
             $vars->set('groups', $qobj['value']);
             return 'group';
 
-        case CRITERION_COMMENT:
-        case CRITERION_SUMMARY:
+        case Whups_Query::CRITERION_COMMENT:
+        case Whups_Query::CRITERION_SUMMARY:
             $criteria = false;
-            if ($parent && $parent['type'] == QUERY_TYPE_OR) {
+            if ($parent && $parent['type'] == Whups_Query::TYPE_OR) {
                 $criteria = array();
                 $operator = $value = null;
                 foreach ($parent['children'] as $child) {
-                    if ($child['type'] != QUERY_TYPE_CRITERION ||
-                        ($child['criterion'] != CRITERION_COMMENT &&
-                         $child['criterion'] != CRITERION_SUMMARY) ||
+                    if ($child['type'] != Whups_Query::TYPE_CRITERION ||
+                        ($child['criterion'] != Whups_Query::CRITERION_COMMENT &&
+                         $child['criterion'] != Whups_Query::CRITERION_SUMMARY) ||
                         (isset($operator) && $operator != $child['operator']) ||
                         (isset($value) && $value != $child['value'])) {
                         $criteria = false;
@@ -627,23 +625,23 @@ class Whups_Query {
             $vars->set('text', $value);
             $vars->set('operator', $operator);
             foreach ($criteria as $criterion) {
-                if ($criterion == CRITERION_COMMENT) {
+                if ($criterion == Whups_Query::CRITERION_COMMENT) {
                     $vars->set('comments', true);
-                } elseif ($criterion == CRITERION_SUMMARY) {
+                } elseif ($criterion == Whups_Query::CRITERION_SUMMARY) {
                     $vars->set('summary', true);
                 }
             }
             return 'text';
 
-        case CRITERION_ATTRIBUTE:
+        case Whups_Query::CRITERION_ATTRIBUTE:
             $attribs = array_keys($GLOBALS['whups_driver']->getAttributesForType());
             $criteria = false;
-            if ($parent && $parent['type'] == QUERY_TYPE_OR) {
+            if ($parent && $parent['type'] == Whups_Query::TYPE_OR) {
                 $criteria = array();
                 $operator = $value = null;
                 foreach ($parent['children'] as $child) {
-                    if ($child['type'] != QUERY_TYPE_CRITERION ||
-                        $child['criterion'] != CRITERION_ATTRIBUTE ||
+                    if ($child['type'] != Whups_Query::TYPE_CRITERION ||
+                        $child['criterion'] != Whups_Query::CRITERION_ATTRIBUTE ||
                         (isset($operator) && $operator != $child['operator']) ||
                         (isset($value) && $value != $child['value']) ||
                         !in_array($child['cvalue'], $attribs)) {
@@ -762,7 +760,7 @@ class Whups_Query {
         }
 
         $newbranch = array(
-            'type'      => QUERY_TYPE_CRITERION,
+            'type'      => Whups_Query::TYPE_CRITERION,
             'criterion' => $criterion,
             'cvalue'    => $cvalue,
             'operator'  => $operator,
@@ -791,8 +789,8 @@ class Whups_Query {
      */
     function _walk(&$node, &$more, &$path, &$obj, $method)
     {
-        if ($node['type'] == QUERY_TYPE_CRITERION) {
-            $obj->$method($more, $path, QUERY_TYPE_CRITERION, $node['criterion'],
+        if ($node['type'] == Whups_Query::TYPE_CRITERION) {
+            $obj->$method($more, $path, Whups_Query::TYPE_CRITERION, $node['criterion'],
                           $node['cvalue'], $node['operator'], $node['value']);
         } else {
             $obj->$method($more, $path, $node['type'], null, null, null, null);
@@ -835,7 +833,7 @@ class Whups_Query {
             }
         }
 
-        if ($node['type'] == QUERY_TYPE_CRITERION) {
+        if ($node['type'] == Whups_Query::TYPE_CRITERION) {
             $value = $node['value'];
 
             $pn = $this->_getParameterName($value);
@@ -843,7 +841,7 @@ class Whups_Query {
                 $value = $vars->get($pn);
             }
 
-            $result = $obj->$method($args, QUERY_TYPE_CRITERION, $node['criterion'],
+            $result = $obj->$method($args, Whups_Query::TYPE_CRITERION, $node['criterion'],
                                     $node['cvalue'], $node['operator'], $value);
         } else {
             $result = $obj->$method($args, $node['type'], null, null, null, null);

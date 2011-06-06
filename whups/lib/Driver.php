@@ -15,23 +15,32 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Whups
  */
-class Whups_Driver {
-
+class Whups_Driver
+{
     /**
      * @var array
      */
-    var $_params;
+    protected $_params;
 
     /**
+     * Constructor
+     *
+     * @param array $params  Parameter array.
+     *
+     * @return Whups_Driver_Base
      */
-    function Whups_Driver($params)
+    public function __construct(array $params)
     {
         $this->_params = $params;
     }
 
     /**
+     * Set ticket attributes
+     *
+     * @param array $info           Attributes to set
+     * @param Whups_Ticket $ticket  The ticket which attributes to set.
      */
-    function setAttributes($info, &$ticket)
+    public function setAttributes(array $info, Whups_Ticket &$ticket)
     {
         $ticket_id = $ticket->getId();
 
@@ -47,9 +56,13 @@ class Whups_Driver {
     }
 
     /**
-     * @param integer $ticket_id
+     * Fetch ticket history
+     *
+     * @param integer $ticket_id  The ticket to fetch history for.
+     *
+     * @return array
      */
-    function getHistory($ticket_id)
+    public function getHistory($ticket_id)
     {
         $rows = $this->_getHistory($ticket_id);
         if (is_a($rows, 'PEAR_Error')) {

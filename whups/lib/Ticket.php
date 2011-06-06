@@ -50,12 +50,8 @@ class Whups_Ticket {
         global $whups_driver;
 
         $details = $whups_driver->getTicketDetails($id);
-        if (is_a($details, 'PEAR_Error')) {
-            return $details;
-        } else {
-            $ticket = new Whups_Ticket($id, $details);
-            return $ticket;
-        }
+        $ticket = new Whups_Ticket($id, $details);
+        return $ticket;
     }
 
     /**
@@ -440,7 +436,7 @@ class Whups_Ticket {
         // Get existing attachment names.
         $used_names = $this->listAllAttachments();
 
-        $dir = WHUPS_VFS_ATTACH_PATH . '/' . $this->_id;
+        $dir = Whups::VFS_ATTACH_PATH . '/' . $this->_id;
         while ((array_search($attachment_name, $used_names) !== false) ||
                $vfs->exists($dir, $attachment_name)) {
             if (preg_match('/(.*)\[(\d+)\](\.[^.]*)?$/', $attachment_name,
@@ -487,7 +483,7 @@ class Whups_Ticket {
             return PEAR::raiseError($e->getMessage());
         }
 
-        $dir = WHUPS_VFS_ATTACH_PATH . '/' . $this->_id;
+        $dir = Whups::VFS_ATTACH_PATH . '/' . $this->_id;
         if (!$vfs->exists($dir, $attachment_name)) {
             return PEAR::raiseError(sprintf(_("Attachment %s not found."),
                                             $attachment_name),

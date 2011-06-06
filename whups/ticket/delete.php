@@ -62,7 +62,7 @@ if ($vars->get('formname') == 'deleteticketform') {
     if ($deleteform->validate($vars)) {
         if ($vars->get('yesno') == 1) {
             $deleteform->getInfo($vars, $info);
-            $result = $whups_driver->deleteTicket($info);
+            $result = $whups_driver->deleteTicket($info['id']);
 
             if (!is_a($result, 'PEAR_Error')) {
                 $notification->push(sprintf(_("Ticket %d has been deleted."), $info['id']), 'horde.success');

@@ -69,64 +69,64 @@ if (($vars->get('formname') || $vars->get('summary') || $vars->get('states') ||
         $qManager = new Whups_QueryManager();
         $whups_query = $qManager->newQuery();
         if (strlen($info['summary'])) {
-            $whups_query->insertCriterion('', CRITERION_SUMMARY, null,
-                                          OPERATOR_CI_SUBSTRING, $info['summary']);
+            $whups_query->insertCriterion('', Whups_Query::CRITERION_SUMMARY, null,
+                                          Whups_Query::OPERATOR_CI_SUBSTRING, $info['summary']);
         }
         if ($vars->get('queue')) {
-            $whups_query->insertCriterion('', CRITERION_QUEUE, null,
-                                          OPERATOR_EQUAL, $info['queue']);
+            $whups_query->insertCriterion('', Whups_Query::CRITERION_QUEUE, null,
+                                          Whups_Query::OPERATOR_EQUAL, $info['queue']);
         }
         foreach (array('ticket_timestamp', 'date_updated', 'date_resolved', 'date_assigned', 'date_due') as $date_field) {
             if (!empty($info[$date_field]['from']) || !empty($info[$date_field]['to'])) {
-                $path = $whups_query->insertBranch('', QUERY_TYPE_AND);
+                $path = $whups_query->insertBranch('', Whups_Query::TYPE_AND);
                 break;
             }
         }
         if (!empty($info['ticket_timestamp']['from'])) {
-            $whups_query->insertCriterion($path, CRITERION_TIMESTAMP, null,
-                                          OPERATOR_GREATER, $info['ticket_timestamp']['from']);
+            $whups_query->insertCriterion($path, Whups_Query::CRITERION_TIMESTAMP, null,
+                                          Whups_Query::OPERATOR_GREATER, $info['ticket_timestamp']['from']);
         }
         if (!empty($info['ticket_timestamp']['to'])) {
-            $whups_query->insertCriterion($path, CRITERION_TIMESTAMP, null,
-                                          OPERATOR_LESS, $info['ticket_timestamp']['to']);
+            $whups_query->insertCriterion($path, Whups_Query::CRITERION_TIMESTAMP, null,
+                                          Whups_Query::OPERATOR_LESS, $info['ticket_timestamp']['to']);
         }
         if (!empty($info['date_updated']['from'])) {
-            $whups_query->insertCriterion($path, CRITERION_UPDATED, null,
-                                          OPERATOR_GREATER, $info['date_updated']['from']);
+            $whups_query->insertCriterion($path, Whups_Query::CRITERION_UPDATED, null,
+                                          Whups_Query::OPERATOR_GREATER, $info['date_updated']['from']);
         }
         if (!empty($info['date_updated']['to'])) {
-            $whups_query->insertCriterion($path, CRITERION_UPDATED, null,
-                                          OPERATOR_LESS, $info['date_updated']['to']);
+            $whups_query->insertCriterion($path, Whups_Query::CRITERION_UPDATED, null,
+                                          Whups_Query::OPERATOR_LESS, $info['date_updated']['to']);
         }
         if (!empty($info['date_resolved']['from'])) {
-            $whups_query->insertCriterion($path, CRITERION_RESOLVED, null,
-                                          OPERATOR_GREATER, $info['date_resolved']['from']);
+            $whups_query->insertCriterion($path, Whups_Query::CRITERION_RESOLVED, null,
+                                          Whups_Query::OPERATOR_GREATER, $info['date_resolved']['from']);
         }
         if (!empty($info['date_resolved']['to'])) {
-            $whups_query->insertCriterion($path, CRITERION_RESOLVED, null,
-                                          OPERATOR_LESS, $info['date_resolved']['to']);
+            $whups_query->insertCriterion($path, Whups_Query::CRITERION_RESOLVED, null,
+                                          Whups_Query::OPERATOR_LESS, $info['date_resolved']['to']);
         }
         if (!empty($info['date_assigned']['from'])) {
-            $whups_query->insertCriterion($path, CRITERION_ASSIGNED, null,
-                                          OPERATOR_GREATER, $info['date_assigned']['from']);
+            $whups_query->insertCriterion($path, Whups_Query::CRITERION_ASSIGNED, null,
+                                          Whups_Query::OPERATOR_GREATER, $info['date_assigned']['from']);
         }
         if (!empty($info['date_assigned']['to'])) {
-            $whups_query->insertCriterion($path, CRITERION_ASSIGNED, null,
-                                          OPERATOR_LESS, $info['date_assigned']['to']);
+            $whups_query->insertCriterion($path, Whups_Query::CRITERION_ASSIGNED, null,
+                                          Whups_Query::OPERATOR_LESS, $info['date_assigned']['to']);
         }
         if (!empty($info['date_due']['from'])) {
-            $whups_query->insertCriterion($path, CRITERION_DUE, null,
-                                          OPERATOR_GREATER, $info['date_due']['from']);
+            $whups_query->insertCriterion($path, Whups_Query::CRITERION_DUE, null,
+                                          Whups_Query::OPERATOR_GREATER, $info['date_due']['from']);
         }
         if (!empty($info['date_due']['to'])) {
-            $whups_query->insertCriterion($path, CRITERION_DUE, null,
-                                          OPERATOR_LESS, $info['date_due']['to']);
+            $whups_query->insertCriterion($path, Whups_Query::CRITERION_DUE, null,
+                                          Whups_Query::OPERATOR_LESS, $info['date_due']['to']);
         }
         if ($info['state_id']) {
-            $path = $whups_query->insertBranch('', QUERY_TYPE_OR);
+            $path = $whups_query->insertBranch('', Whups_Query::TYPE_OR);
             foreach ($info['state_id'] as $state) {
-                $whups_query->insertCriterion($path, CRITERION_STATE, null,
-                                              OPERATOR_EQUAL, $state);
+                $whups_query->insertCriterion($path, Whups_Query::CRITERION_STATE, null,
+                                              Whups_Query::OPERATOR_EQUAL, $state);
             }
         }
         $session->set('whups', 'query', $whups_query);

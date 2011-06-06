@@ -10,18 +10,15 @@
  */
 
 /**
- * The virtual path to use for VFS data.
- */
-define('WHUPS_VFS_ATTACH_PATH', '.horde/whups/attachments');
-
-/**
  * The Whups:: class provides functionality that all of Whups needs,
  * or that should be encapsulated from other parts of the Whups
  * system.
  *
  * @package Whups
  */
-class Whups {
+class Whups
+{
+    const VFS_ATTACH_PATH = '.horde/whups/attachments';
 
     function urlFor($controller, $data, $full = false, $append_session = 0)
     {
@@ -794,9 +791,9 @@ class Whups {
             return PEAR::raiseError($vfs->getMessage());
         }
 
-        if ($vfs->isFolder(WHUPS_VFS_ATTACH_PATH, $ticket)) {
+        if ($vfs->isFolder(Whups::VFS_ATTACH_PATH, $ticket)) {
             try {
-                $files = $vfs->listFolder(WHUPS_VFS_ATTACH_PATH . '/' . $ticket);
+                $files = $vfs->listFolder(Whups::VFS_ATTACH_PATH . '/' . $ticket);
             } catch (Horde_Vfs_Exception $e) {
                 $files = array();
             }

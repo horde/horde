@@ -63,8 +63,7 @@ $cli->writeln();
 $cli->writeln($cli->bold('Obliterating tickets'));
 $tickets = $whups_driver->_getAll('select ticket_id from whups_tickets');
 foreach ($tickets as $ticket) {
-    $info = array('id' => $ticket['ticket_id']);
-    $cli->message('Deleting ticket: ' . $info['id']);
-    $whups_driver->deleteTicket($info);
+    $cli->message('Deleting ticket: ' . $ticket['ticket_id']);
+    $whups_driver->deleteTicket($ticket['ticket_id']);
 }
 $cli->writeln();

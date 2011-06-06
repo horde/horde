@@ -44,7 +44,7 @@ try {
 }
 
 try {
-    $data = $vfs->read(WHUPS_VFS_ATTACH_PATH . '/' . $id, $filename);
+    $data = $vfs->read(Whups::VFS_ATTACH_PATH . '/' . $id, $filename);
 } catch (Horde_Vfs_Exception $e) {
     throw Horde_Exception(sprintf(_("Access denied to %s"), $filename));
 }

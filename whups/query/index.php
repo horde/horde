@@ -62,17 +62,17 @@ if ($vars->get('qaction1') || $vars->get('qaction2')) {
         break;
 
     case 'not':
-        $path = $whups_query->insertBranch($vars->get('path'), QUERY_TYPE_NOT);
+        $path = $whups_query->insertBranch($vars->get('path'), Whups_Query::TYPE_NOT);
         $vars->set('path', $path);
         break;
 
     case 'and':
-        $path = $whups_query->insertBranch($vars->get('path'), QUERY_TYPE_AND);
+        $path = $whups_query->insertBranch($vars->get('path'), Whups_Query::TYPE_AND);
         $vars->set('path', $path);
         break;
 
     case 'or':
-        $path = $whups_query->insertBranch($vars->get('path'), QUERY_TYPE_OR);
+        $path = $whups_query->insertBranch($vars->get('path'), Whups_Query::TYPE_OR);
         $vars->set('path', $path);
         break;
 

@@ -72,21 +72,21 @@ class Horde_Form_Renderer_Query extends Horde_Form_Renderer {
         $class = "item" . ($this->currentRow % 2);
 
         switch ($type) {
-        case QUERY_TYPE_AND: $text = _("And"); break;
-        case QUERY_TYPE_OR:  $text = _("Or");  break;
-        case QUERY_TYPE_NOT: $text = _("Not"); break;
-        case QUERY_TYPE_CRITERION:
+        case Whups_Query::TYPE_AND: $text = _("And"); break;
+        case Whups_Query::TYPE_OR:  $text = _("Or");  break;
+        case Whups_Query::TYPE_NOT: $text = _("Not"); break;
+        case Whups_Query::TYPE_CRITERION:
 
             switch ($criterion) {
-            case CRITERION_ID:             $text = _("Id"); break;
-            case CRITERION_OWNERS:         $text = _("Owners"); break;
-            case CRITERION_GROUPS:         $text = _("Groups"); break;
-            case CRITERION_REQUESTER:      $text = _("Requester"); break;
-            case CRITERION_ADDED_COMMENT:  $text = _("Commentor"); break;
-            case CRITERION_COMMENT:        $text = _("Comment"); break;
-            case CRITERION_SUMMARY:        $text = _("Summary"); break;
+            case Whups_Query::CRITERION_ID:             $text = _("Id"); break;
+            case Whups_Query::CRITERION_OWNERS:         $text = _("Owners"); break;
+            case Whups_Query::CRITERION_GROUPS:         $text = _("Groups"); break;
+            case Whups_Query::CRITERION_REQUESTER:      $text = _("Requester"); break;
+            case Whups_Query::CRITERION_ADDED_COMMENT:  $text = _("Commentor"); break;
+            case Whups_Query::CRITERION_COMMENT:        $text = _("Comment"); break;
+            case Whups_Query::CRITERION_SUMMARY:        $text = _("Summary"); break;
 
-            case CRITERION_QUEUE:
+            case Whups_Query::CRITERION_QUEUE:
                 $queue = $whups_driver->getQueue($value);
                 if ($queue) {
                     $text = _("Queue");
@@ -94,7 +94,7 @@ class Horde_Form_Renderer_Query extends Horde_Form_Renderer {
                 }
                 break;
 
-            case CRITERION_VERSION:
+            case Whups_Query::CRITERION_VERSION:
                 $version = $whups_driver->getVersion($value);
                 if ($version) {
                     $text = _("Version");
@@ -102,12 +102,12 @@ class Horde_Form_Renderer_Query extends Horde_Form_Renderer {
                 }
                 break;
 
-            case CRITERION_TYPE:
+            case Whups_Query::CRITERION_TYPE:
                 $text = _("Type");
                 $value = $whups_driver->getTypeName($value);
                 break;
 
-            case CRITERION_STATE:
+            case Whups_Query::CRITERION_STATE:
                 // The value of the following depends on the type.
                 $state = $whups_driver->getState($value);
                 if ($state && isset($this->ticketTypes[$state['type']])) {
@@ -117,14 +117,14 @@ class Horde_Form_Renderer_Query extends Horde_Form_Renderer {
                 }
                 break;
 
-            case CRITERION_PRIORITY:
+            case Whups_Query::CRITERION_PRIORITY:
                 $state = $whups_driver->getPriority($value);
                 $text = '[' . $this->ticketTypes[$state['type']] . '] ' .
                     _("Priority");
                 $value = $state['name'];
                 break;
 
-            case CRITERION_ATTRIBUTE:
+            case Whups_Query::CRITERION_ATTRIBUTE:
                 // The value of the following depends on the type.
                 $aname = $whups_driver->getAttributeName($cvalue);
                 $type = $this->attributes[$cvalue]['type_id'];
@@ -135,27 +135,27 @@ class Horde_Form_Renderer_Query extends Horde_Form_Renderer {
                 $text .= sprintf("Attribute \"%s\"", $aname);
                 break;
 
-            case CRITERION_TIMESTAMP:
+            case Whups_Query::CRITERION_TIMESTAMP:
                 $text = _("Created");
                 $value = strftime($GLOBALS['prefs']->getValue('report_time_format'), $value);
                 break;
 
-            case CRITERION_UPDATED:
+            case Whups_Query::CRITERION_UPDATED:
                 $text = _("Updated");
                 $value = strftime($GLOBALS['prefs']->getValue('report_time_format'), $value);
                 break;
 
-            case CRITERION_RESOLVED:
+            case Whups_Query::CRITERION_RESOLVED:
                 $text = _("Resolved");
                 $value = strftime($GLOBALS['prefs']->getValue('report_time_format'), $value);
                 break;
 
-            case CRITERION_ASSIGNED:
+            case Whups_Query::CRITERION_ASSIGNED:
                 $text = _("Assigned");
                 $value = strftime($GLOBALS['prefs']->getValue('report_time_format'), $value);
                 break;
 
-            case CRITERION_DUE:
+            case Whups_Query::CRITERION_DUE:
                 $text = _("Due");
                 $value = strftime($GLOBALS['prefs']->getValue('report_time_format'), $value);
                 break;
@@ -169,31 +169,31 @@ class Horde_Form_Renderer_Query extends Horde_Form_Renderer {
             $text .= ' ';
 
             switch ($operator) {
-            case OPERATOR_GREATER:
+            case Whups_Query::OPERATOR_GREATER:
                 $text .= _("is greater than");
                 break;
 
-            case OPERATOR_LESS:
+            case Whups_Query::OPERATOR_LESS:
                 $text .= _("is less than");
                 break;
 
-            case OPERATOR_EQUAL:
+            case Whups_Query::OPERATOR_EQUAL:
                 $text .= _("is");
                 break;
 
-            case OPERATOR_CI_SUBSTRING:
+            case Whups_Query::OPERATOR_CI_SUBSTRING:
                 $text .= _("contains (case insensitive) substring");
                 break;
 
-            case OPERATOR_CS_SUBSTRING:
+            case Whups_Query::OPERATOR_CS_SUBSTRING:
                 $text .= _("contains (case sensitive) substring");
                 break;
 
-            case OPERATOR_WORD:
+            case Whups_Query::OPERATOR_WORD:
                 $text .= _("contains the word");
                 break;
 
-            case OPERATOR_PATTERN:
+            case Whups_Query::OPERATOR_PATTERN:
                 $text .= _("matches the pattern");
                 break;
             }
