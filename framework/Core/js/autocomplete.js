@@ -78,7 +78,10 @@ Autocompleter.Base = Class.create({
             return;
         }
 
-        this.changed = true;
+        if (!this.changed) {
+            this.oldval = $F(this.elt);
+            this.changed = true;
+        }
 
         if (this.observer) {
             clearTimeout(this.observer);
@@ -252,8 +255,6 @@ Autocompleter.Base = Class.create({
             }
             newval += entry + v.substr(bounds[1]);
         }
-
-        this.oldval = newval;
 
         return newval;
     }

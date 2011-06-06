@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mms] Fix autocomplete javascript when contents of DOM element is dynamically altered.
 * [mms] Fix duplicate node IDs in javascript tree rendering code (Bug #10173).
 * [rla] Show specific admin privileges a user has permission to (Enhancement #9350).
  </notes>
