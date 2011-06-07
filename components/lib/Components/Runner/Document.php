@@ -70,17 +70,7 @@ class Components_Runner_Document
     public function run()
     {
         $options = $this->_config->getOptions();
-        $arguments = $this->_config->getArguments();
-
-        if (!isset($options['pearrc'])) {
-            $package = $this->_factory->createPackageForDefaultLocation(
-                $this->_config->getComponentPackageXml()
-            );
-        } else {
-            $package = $this->_factory->createPackageForInstallLocation(
-                $this->_config->getComponentPackageXml(), $options['pearrc']
-            );
-        }
+        $package = $this->_config->getComponent()->getPackage();
 
         $build_template = new Components_Helper_Templates_Directory(
             $this->_config_application->getTemplateDirectory(),
