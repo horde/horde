@@ -82,14 +82,14 @@ class Components_Runner_Installer
         $arguments = $this->_config->getArguments();
         $tree = $this->_factory
             ->createTreeHelper(
-                $environment, $this->_config->getComponentDirectory(), $options
+                $environment, $this->_config->getComponent()->getPath(), $options
             );
         $tree->getEnvironment()->provideChannel('pear.horde.org');
         $tree->getEnvironment()->getPearConfig()->setChannels(array('pear.horde.org', true));
         $tree->getEnvironment()->getPearConfig()->set('horde_dir', $options['horde_dir'], 'user', 'pear.horde.org');
         Components_Exception_Pear::catchError($tree->getEnvironment()->getPearConfig()->store());
         $tree->installTreeInEnvironment(
-            $this->_config->getComponentPackageXml(),
+            $this->_config->getComponent()->getPackageXml(),
             $this->_output,
             $options
         );
