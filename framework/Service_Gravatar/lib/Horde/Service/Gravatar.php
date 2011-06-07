@@ -61,4 +61,19 @@ class Horde_Service_Gravatar
     {
         return 'http://www.gravatar.com/avatar/' . $this->getId($mail);
     }
+
+    /**
+     * Return the Gravatar profile URL providing the profile data in JSON
+     * format.
+     *
+     * @param string $mail The mail address.
+     *
+     * @return string The profile URL.
+     *
+     * @throws InvalidArgumentException In case the mail address is no string.
+     */
+    public function getProfileUrl($mail)
+    {
+        return 'http://www.gravatar.com/' . $this->getId($mail) . '.json';
+    }
 }
