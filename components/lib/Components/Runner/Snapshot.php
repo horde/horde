@@ -70,17 +70,7 @@ class Components_Runner_Snapshot
     public function run()
     {
         $options = $this->_config->getOptions();
-        $arguments = $this->_config->getArguments();
-
-        if (!isset($options['pearrc'])) {
-            $package = $this->_factory->createPackageForDefaultLocation(
-                $this->_config->getComponentPackageXml()
-            );
-        } else {
-            $package = $this->_factory->createPackageForInstallLocation(
-                $this->_config->getComponentPackageXml(), $options['pearrc']
-            );
-        }
+        $package = $this->_config->getComponent()->getPackage();
 
         if ($options['destination']) {
             $archivedir = $options['destination'];

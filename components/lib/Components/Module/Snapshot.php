@@ -121,7 +121,8 @@ extends Components_Module_Base
         $arguments = $config->getArguments();
         if (!empty($options['snapshot'])
             || (isset($arguments[0]) && $arguments[0] == 'snapshot')) {
-            $this->requirePackageXml($config->getComponentDirectory());
+            $config->getComponent()->requireLocal();
+            $config->getComponent()->requirePackageXml();
             $this->_dependencies->getRunnerSnapshot()->run();
             return true;
         }
