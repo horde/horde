@@ -64,4 +64,13 @@ extends PHPUnit_Framework_TestCase
             array('test@example.com', '55502f40dc8b7c769880b10874abc9d0'),
         );
     }
+
+    public function testIgnoreCase()
+    {
+        $g = new Horde_Service_Gravatar();
+        $this->assertEquals(
+            '0c17bf66e649070167701d2d3cd71711',
+            $g->getId('Test@EXAMPLE.orG')
+        );
+    }
 }
