@@ -119,7 +119,7 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
                     'icon' => Horde::img('alerts/success.png', _("Success")),
                     'text' => array(
                         _("Your message was successfully delivered."),
-                        sprintf(_("Technical message details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Technical details"), 'params' => array('mode' => IMP_Contents::RENDER_INLINE))))
+                        sprintf(_("Technical message details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Technical details"), 'params' => array('ctype' => 'text/x-simple', 'mode' => IMP_Contents::RENDER_FULL))))
                     )
                 )
             );
