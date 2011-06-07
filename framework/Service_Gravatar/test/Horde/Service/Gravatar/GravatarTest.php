@@ -12,6 +12,8 @@
  * @link     http://pear.horde.org/index.php?package=Service_Gravatar
  */
 
+require_once 'Horde/Service/Gravatar.php';
+
 /**
  * Horde_Service_Gravatar abstracts communication with Services supporting the
  * Gravatar API (http://www.gravatar.com/site/implement/).
