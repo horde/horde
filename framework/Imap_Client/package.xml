@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-01</date>
- <time>15:45:21</time>
+ <date>2011-06-07</date>
+ <time>10:14:40</time>
  <version>
   <release>1.0.8</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* Fix base subject generation under RFC 5256 [2.1].
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -427,10 +427,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-01</date>
+   <date>2011-06-07</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* Fix base subject generation under RFC 5256 [2.1].
    </notes>
   </release>
  </changelog>

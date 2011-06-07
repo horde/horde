@@ -53,7 +53,7 @@ class Horde_Imap_Client_SubjectParseTest extends PHPUnit_Framework_TestCase
         $imap_utils = new Horde_Imap_Client_Utils();
 
         $this->assertEquals(
-            "\t  Test",
+            "Test",
             $imap_utils->getBaseSubject("Re: re:re: fwd:[fwd: \t  Test]  (fwd)  (fwd)(fwd) ")
         );
     }
