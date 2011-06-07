@@ -110,4 +110,13 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testFlexibleBase()
+    {
+        $g = new Horde_Service_Gravatar(Horde_Service_Gravatar::SECURE);
+        $this->assertEquals(
+            'https://secure.gravatar.com/0c17bf66e649070167701d2d3cd71711.json',
+            $g->getProfileUrl(' Test@Example.orG ')
+        );
+    }
+
 }
