@@ -125,7 +125,7 @@ extends Components_TestCase
     public function testWithoutValidComponent()
     {
         $this->_initIdentify(
-            array(dirname(__FILE__) . '/../../../fixture')
+            array(dirname(__FILE__) . '/../../../fixture/DOESNOTEXIST')
         );
     }
 
