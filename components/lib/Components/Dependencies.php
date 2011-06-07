@@ -146,4 +146,11 @@ interface Components_Dependencies
      * @return Components_Output The output handler.
      */
     public function getOutput();
+
+    /**
+     * Returns the handler for remote PEAR servers.
+     *
+     * @return Horde_Pear_Remote The handler.
+     */
+    public function getRemote();
 }

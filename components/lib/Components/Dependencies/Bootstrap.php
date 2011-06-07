@@ -272,6 +272,16 @@ implements Components_Dependencies
     }
 
     /**
+     * Returns the handler for remote PEAR servers.
+     *
+     * @return Horde_Pear_Remote The handler.
+     */
+    public function getRemote()
+    {
+        return $this->getInstance('Horde_Pear_Remote');
+    }
+
+    /**
      * Create the CLI handler.
      *
      * @return Horde_Cli The CLI handler.
