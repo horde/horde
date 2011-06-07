@@ -37,4 +37,13 @@ extends PHPUnit_Framework_TestCase
         $g = new Horde_Service_Gravatar();
         $this->assertType('string', $g->getId('test'));
     }
+
+    public function testAddress()
+    {
+        $g = new Horde_Service_Gravatar();
+        $this->assertEquals(
+            '0c17bf66e649070167701d2d3cd71711',
+            $g->getId('test@example.org')
+        );
+    }
 }
