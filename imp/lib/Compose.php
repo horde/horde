@@ -1473,11 +1473,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                                   is_null($list_info) ||
                                   !$force ||
                                   empty($list_info['exists'])) {
-                            /* Don't add To address if this is a list that
+                            /* Don't add as To address if this is a list that
                              * doesn't have a post address but does have a
                              * reply-to address. */
-                            if ($val == 'reply-to') {
-                                /* If reply-to doesn't have personal
+                            if (in_array($val, array('from', 'reply-to'))) {
+                                /* If from/reply-to doesn't have personal
                                  * information, check from address. */
                                 if (!$addr_obs[0]['personal'] &&
                                     ($to_ob = $h->getOb('from')) &&
