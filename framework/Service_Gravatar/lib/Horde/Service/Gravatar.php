@@ -29,4 +29,15 @@
  */
 class Horde_Service_Gravatar
 {
+    /**
+     * Return the Gravatar ID for the specified mail address.
+     *
+     * @param string $mail The mail address.
+     *
+     * @return string The Gravatar ID.
+     */
+    public function getId($mail)
+    {
+        return '';
+    }
 }
