@@ -96,4 +96,18 @@ abstract class Components_Component_Base implements Components_Component
     {
         return $this->_shift;
     }
+
+    /**
+     * Create the specified directory.
+     *
+     * @param string $destination The destination path.
+     *
+     * @return NULL
+     */
+    protected function createDestination($destination)
+    {
+        if (!file_exists($destination)) {
+            mkdir($destination, 0700, true);
+        }
+    }
 }
