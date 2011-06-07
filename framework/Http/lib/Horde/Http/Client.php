@@ -75,13 +75,7 @@ class Horde_Http_Client
         }
 
         foreach ($args as $key => $val) {
-            list($object, $objectkey) = explode('.', $key, 2);
-            if ($object == 'request') {
-                $this->$object->$objectkey = $val;
-            } elseif ($object == 'client') {
-                $objectKey = '_' . $objectKey;
-                $this->$objectKey = $val;
-            }
+            $this->$key = $val;
         }
     }
 
@@ -204,6 +198,16 @@ class Horde_Http_Client
      */
     public function __set($name, $value)
     {
-        $this->{'_' . $name} = $value;
+        if (strpos($name, '.') === false) {
+            $this->{'_' . $name} = $value;
+        } else {
+            list($object, $objectkey) = explode('.', $name, 2);
+            if ($object == 'request') {
+                $this->$object->$objectkey = $value;
+            } elseif ($object == 'client') {
+                $objectKey = '_' . $objectKey;
+                $this->$objectKey = $value;
+            }
+        }
     }
 }

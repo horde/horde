@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-01</date>
- <time>18:10:36</time>
+ <date>2011-06-07</date>
+ <time>10:47:23</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* 
+* [gwr] Allow setting request parameters on the existing client instance.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -69,6 +69,7 @@
      <dir name="Http">
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
+      <file name="ClientTest.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="CurlTest.php" role="test" />
       <file name="FopenTest.php" role="test" />
@@ -136,6 +137,7 @@
    <install as="Horde/Http/Response/Peclhttp.php" name="lib/Horde/Http/Response/Peclhttp.php" />
    <install as="Horde/Http/AllTests.php" name="test/Horde/Http/AllTests.php" />
    <install as="Horde/Http/Autoload.php" name="test/Horde/Http/Autoload.php" />
+   <install as="Horde/Http/ClientTest.php" name="test/Horde/Http/ClientTest.php" />
    <install as="Horde/Http/conf.php.dist" name="test/Horde/Http/conf.php.dist" />
    <install as="Horde/Http/CurlTest.php" name="test/Horde/Http/CurlTest.php" />
    <install as="Horde/Http/FopenTest.php" name="test/Horde/Http/FopenTest.php" />
@@ -252,10 +254,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-01</date>
+   <date>2011-06-07</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-* 
+* [gwr] Allow setting request parameters on the existing client instance.
    </notes>
   </release>
  </changelog>
