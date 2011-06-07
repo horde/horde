@@ -91,4 +91,14 @@ extends PHPUnit_Framework_TestCase
         $g = new Horde_Service_Gravatar();
         $g->getId(0.0);
     }
+
+    public function testAvatarUrl()
+    {
+        $g = new Horde_Service_Gravatar();
+        $this->assertEquals(
+            'http://www.gravatar.com/avatar/0c17bf66e649070167701d2d3cd71711',
+            $g->getAvatarUrl(' Test@Example.orG ')
+        );
+    }
+
 }
