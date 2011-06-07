@@ -158,6 +158,7 @@ extends Components_TestCase
             $dependencies = new Components_Dependencies_Injector();
         }
         $this->config = new Components_Stub_Config($arguments, $options);
+        $dependencies->initConfig($this->config);
         $identify = new Components_Component_Identify(
             $this->config,
             array(

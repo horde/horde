@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Components
  */
-class Components_Component_Source implements Components_Component
+class Components_Component_Source extends Components_Component_Base
 {
     /**
      * Path to the source directory.
@@ -37,11 +37,20 @@ class Components_Component_Source implements Components_Component
     /**
      * Constructor.
      *
-     * @param string $directory Path to the source directory.
+     * @param string                  $directory Path to the source directory.
+     * @param Components_Config       $config    The configuration for the
+     *                                           current job.
+     * @param Components_Pear_Factory $factory   Generator for all
+     *                                           required PEAR components.
      */
-    public function __construct($directory)
+    public function __construct(
+        $directory,
+        Components_Config $config,
+        Components_Pear_Factory $factory
+    )
     {
         $this->_directory = $directory;
+        parent::__construct($config, $factory);
     }
 
     /**
@@ -64,4 +73,24 @@ class Components_Component_Source implements Components_Component
         return $this->_directory . '/package.xml';
     }
 
+    /**
+     * Validate that there is a package.xml file in the source directory.
+     *
+     * @return NULL
+     */
+    public function requirePackageXml()
+    {
+        if (!file_exists($this->_directory . '/package.xml')) {
+            throw new Components_Exception(sprintf('There is no package.xml at %s!', $this->_directory));
+        }
+    }
+
+    /**
+     * Bail out if this is no local source.
+     *
+     * @return NULL
+     */
+    public function requireLocal()
+    {
+    }
 }

@@ -48,4 +48,18 @@ interface Components_Component
     public function getPackageXml();
 
     //public function getArchive();
+
+    /**
+     * Validate that there is a package.xml file in the source directory.
+     *
+     * @return NULL
+     */
+    public function requirePackageXml();
+
+    /**
+     * Bail out if this is no local source.
+     *
+     * @return NULL
+     */
+    public function requireLocal();
 }

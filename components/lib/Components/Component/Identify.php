@@ -97,22 +97,28 @@ class Components_Component_Identify
             }
 
             if ($this->_isPackageXml($arguments[0])) {
-                return $this->_createSource(dirname($arguments[0]));
+                return $this->_dependencies
+                    ->getComponentFactory()
+                    ->createSource(dirname($arguments[0]));
             }
 
             if (!in_array($arguments[0], $this->_actions['list'])) {
                 if ($this->_containsPackageXml($arguments[0])) {
-                    return $this->_createSource($arguments[0]);
+                    return $this->_dependencies
+                        ->getComponentFactory()
+                        ->createSource($arguments[0]);
                 }
 
                 $options = $this->_config->getOptions();
                 if (!empty($options['allow_remote'])) {
-                    return $this->_createRemote(
-                        $this->_dependencies->getRemote()
-                        ->getLatestDownloadUri($arguments[0])
-                    );
+                    return $this->_dependencies
+                        ->getComponentFactory()
+                        ->createRemote(
+                            $this->_dependencies->getRemote()
+                            ->getLatestDownloadUri($arguments[0])
+                        );
                 }
-
+                
                 throw new Components_Exception(
                     sprintf(Components::ERROR_NO_ACTION_OR_COMPONENT, $arguments[0])
                 );
@@ -121,7 +127,9 @@ class Components_Component_Identify
 
         $cwd = getcwd();
         if ($this->_isDirectory($cwd) && $this->_containsPackageXml($cwd)) {
-            return $this->_createSource($cwd);
+            return $this->_dependencies
+                ->getComponentFactory()
+                ->createSource($cwd);
         }
 
         throw new Components_Exception(Components::ERROR_NO_COMPONENT);
@@ -165,29 +173,5 @@ class Components_Component_Identify
             return true;
         }
         return false;
-    }
-
-    /**
-     * Create a representation for a source component.
-     *
-     * @param string $directory The directory of the component.
-     *
-     * @return Components_Component_Source The source component.
-     */
-    private function _createSource($directory)
-    {
-        return new Components_Component_Source($directory);
-    }
-
-    /**
-     * Create a representation for a remote component.
-     *
-     * @param string $uri The download URI of the component.
-     *
-     * @return Components_Component_Remote The remote component.
-     */
-    private function _createRemote($uri)
-    {
-        return new Components_Component_Remote($uri);
     }
 }
