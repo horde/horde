@@ -148,6 +148,13 @@ interface Components_Dependencies
     public function getOutput();
 
     /**
+     * Returns a component instance factory.
+     *
+     * @return Components_Component_Factory The component factory.
+     */
+    public function getComponentFactory();
+
+    /**
      * Returns the handler for remote PEAR servers.
      *
      * @return Horde_Pear_Remote The handler.

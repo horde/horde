@@ -45,9 +45,9 @@ implements Components_Config
     protected $_arguments = array();
 
     /**
-     * Path to the selected component.
+     * The selected component.
      *
-     * @var string
+     * @var Components_Component
      */
     private $_component;
 
@@ -109,26 +109,30 @@ implements Components_Config
     /**
      * Set the path to the component directory.
      *
-     * @param string  $path  The path to the component directory.
-     * @param boolean $shift Was the first argument used to indicate the
-     *                       component path and should be shifted away?
+     * @param Components_Component $component The path to the component directory.
+     * @param boolean              $shift     Was the first argument used to
+     *                                        indicate the component path and
+     *                                        should be shifted away?
      *
      * @return NULL
      */
-    public function setComponentDirectory($path, $shift = false)
+    public function setComponent(
+        Components_Component $component,
+        $shift = false
+    )
     {
-        $this->_component = realpath($path);
+        $this->_component = $component;
         if ($shift) {
             $this->shiftArgument();
         }
     }
 
     /**
-     * Return the path to the selected component directory.
+     * Return the selected component.
      *
-     * @return string The component directory.
+     * @return Components_Component The selected component.
      */
-    public function getComponentDirectory()
+    public function getComponent()
     {
         if ($this->_component === null) {
             throw new Components_Exception(
@@ -136,15 +140,5 @@ implements Components_Config
             );
         }
         return $this->_component;
-    }
-
-    /**
-     * Return the path to the package.xml of the selected component directory.
-     *
-     * @return string The path to the package.xml.
-     */
-    public function getComponentPackageXml()
-    {
-        return $this->getComponentDirectory() . '/package.xml';
     }
 }
