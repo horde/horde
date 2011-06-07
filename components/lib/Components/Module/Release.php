@@ -196,7 +196,8 @@ The following example would generate the package and add the release tag to git 
         $arguments = $config->getArguments();
         if (!empty($options['release'])
             || (isset($arguments[0]) && $arguments[0] == 'release')) {
-            $this->requirePackageXml($config->getComponentDirectory());
+            $config->getComponent()->requireLocal();
+            $config->getComponent()->requirePackageXml();
             $this->_dependencies->getRunnerRelease()->run();
             return true;
         }
