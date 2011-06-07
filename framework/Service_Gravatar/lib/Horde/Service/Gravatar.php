@@ -45,4 +45,20 @@ class Horde_Service_Gravatar
         }
         return md5(strtolower(trim($mail)));
     }
+
+    /**
+     * Return the Gravatar image URL for the specified mail address. The
+     * returned URL can be directly used with an <img/> tag e.g. <img
+     * src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" />
+     *
+     * @param string $mail The mail address.
+     *
+     * @return string The image URL.
+     *
+     * @throws InvalidArgumentException In case the mail address is no string.
+     */
+    public function getAvatarUrl($mail)
+    {
+        return 'http://www.gravatar.com/avatar/' . $this->getId($mail);
+    }
 }
