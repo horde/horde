@@ -154,7 +154,19 @@ class Horde_Config_Form extends Horde_Form
                 if (isset($configitem['default'])) {
                     $v->setDefault($configitem['default']);
                     if ($this->_fillvars) {
-                        $this->_vars->set($varname, $configitem['default']);
+                        switch ($type) {
+                        case 'boolean':
+                            if ($configitem['default']) {
+                                $this->_vars->set($varname, 'on');
+                            }
+                            break;
+                        case 'int':
+                            $this->_vars->set($varname, (string)$configitem['default']);
+                            break;
+                        default:
+                            $this->_vars->set($varname, $configitem['default']);
+                            break;
+                        }
                     }
                 }
                 if (!empty($configitem['is_default'])) {
