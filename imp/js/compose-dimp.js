@@ -324,6 +324,7 @@ var DimpCompose = {
                 $('identity').setValue(d.identity);
                 this.changeIdentity();
                 $('noticerow', 'identitychecknotice').invoke('show');
+                this.resizeMsgArea();
             }
 
             if (!Object.isUndefined(d.encryptjs)) {
