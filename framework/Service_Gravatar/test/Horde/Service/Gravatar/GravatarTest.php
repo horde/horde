@@ -82,4 +82,13 @@ extends PHPUnit_Framework_TestCase
             $g->getId(' Test@Example.orG ')
         );
     }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testInvalidMail()
+    {
+        $g = new Horde_Service_Gravatar();
+        $g->getId(0.0);
+    }
 }
