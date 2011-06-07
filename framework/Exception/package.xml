@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [gwr] Display &apos;userinfo&apos; when catching PEAR errors.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -561,7 +561,7 @@
    <date>2011-06-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [gwr] Display &apos;userinfo&apos; when catching PEAR errors.
    </notes>
   </release>
  </changelog>
