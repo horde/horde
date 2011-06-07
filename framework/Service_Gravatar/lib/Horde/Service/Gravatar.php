@@ -38,6 +38,6 @@ class Horde_Service_Gravatar
      */
     public function getId($mail)
     {
-        return md5($mail);
+        return md5(strtolower($mail));
     }
 }
