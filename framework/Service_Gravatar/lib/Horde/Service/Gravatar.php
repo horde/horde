@@ -35,9 +35,14 @@ class Horde_Service_Gravatar
      * @param string $mail The mail address.
      *
      * @return string The Gravatar ID.
+     *
+     * @throws InvalidArgumentException In case the mail address is no string.
      */
     public function getId($mail)
     {
+        if (!is_string($mail)) {
+            throw new InvalidArgumentException('The mail address must be a string!');
+        }
         return md5(strtolower(trim($mail)));
     }
 }
