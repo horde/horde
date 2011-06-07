@@ -124,6 +124,7 @@ extends Components_Module_Base
     public function handle(Components_Config $config)
     {
         $options = $config->getOptions();
+        $arguments = $config->getArguments();
         if (!empty($options['distribute'])
             || (isset($arguments[0]) && $arguments[0] == 'distribute')) {
             $this->_dependencies->getRunnerDistribute()->run();
