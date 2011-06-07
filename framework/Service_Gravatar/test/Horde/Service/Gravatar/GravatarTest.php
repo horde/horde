@@ -73,4 +73,13 @@ extends PHPUnit_Framework_TestCase
             $g->getId('Test@EXAMPLE.orG')
         );
     }
+
+    public function testTrimming()
+    {
+        $g = new Horde_Service_Gravatar();
+        $this->assertEquals(
+            '0c17bf66e649070167701d2d3cd71711',
+            $g->getId(' Test@Example.orG ')
+        );
+    }
 }
