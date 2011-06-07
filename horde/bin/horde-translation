@@ -340,8 +340,10 @@ class Horde_Translation_Script
      */
     public function search_modules()
     {
-        if (is_dir(HORDE_BASE . '/locale')) {
-            $this->dirs[] = HORDE_BASE;
+        if (is_dir(BASE . '/horde/locale')) {
+            $this->dirs[] = BASE . '/horde';
+        } elseif (is_dir(BASE . '/locale')) {
+            $this->dirs[] = BASE;
         }
         $dh = opendir(BASE);
         if (!$dh) {
