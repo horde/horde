@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-04-20</date>
- <time>16:08:26</time>
+ <date>2011-06-06</date>
+ <time>23:12:35</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -39,6 +39,15 @@
    </dir> <!-- /bin -->
    <dir name="data">
     <dir name="distribute">
+     <dir name="debian">
+      <dir name="templates">
+       <file name="changelog" role="horde" />
+       <file name="compat" role="horde" />
+       <file name="control" role="horde" />
+       <file name="rules" role="horde" />
+      </dir> <!-- /data/distribute/debian/templates -->
+      <file name="components.php" role="horde" />
+     </dir> <!-- /data/distribute/debian -->
      <dir name="openpkg">
       <file name="package.spec" role="data" />
      </dir> <!-- /data/distribute/openpkg -->
@@ -53,6 +62,11 @@
    </dir> <!-- /data -->
    <dir name="lib">
     <dir name="Components">
+     <dir name="Component">
+      <file name="Identify.php" role="horde" />
+      <file name="Remote.php" role="horde" />
+      <file name="Source.php" role="horde" />
+     </dir> <!-- /lib/Components/Component -->
      <dir name="Config">
       <file name="Application.php" role="php" />
       <file name="Base.php" role="php" />
@@ -130,6 +144,7 @@
       <file name="Snapshot.php" role="php" />
       <file name="Update.php" role="php" />
      </dir> <!-- /lib/Components/Runner -->
+     <file name="Component.php" role="horde" />
      <file name="Config.php" role="php" />
      <file name="Configs.php" role="php" />
      <file name="Constants.php" role="php">
@@ -149,32 +164,40 @@
        <dir name="lib">
         <file name="Some.php" role="test" />
        </dir> <!-- /test/Components/fixture/changelog/lib -->
+       <file name="package.xml" role="test" />
       </dir> <!-- /test/Components/fixture/changelog -->
       <dir name="channels">
        <file name="pear.horde.org.channel.xml" role="test" />
        <file name="pear.php.net.channel.xml" role="test" />
        <file name="pear.phpunit.de.channel.xml" role="test" />
       </dir> <!-- /test/Components/fixture/channels -->
+      <dir name="empty">
+       <file name="package.xml" role="test" />
+      </dir> <!-- /test/Components/fixture/empty -->
       <dir name="framework">
        <dir name="Dependency">
         <dir name="lib">
          <file name="Dependency.php" role="test" />
         </dir> <!-- /test/Components/fixture/framework/Dependency/lib -->
+        <file name="package.xml" role="test" />
        </dir> <!-- /test/Components/fixture/framework/Dependency -->
        <dir name="Install">
         <dir name="lib">
          <file name="Install.php" role="test" />
         </dir> <!-- /test/Components/fixture/framework/Install/lib -->
+        <file name="package.xml" role="test" />
        </dir> <!-- /test/Components/fixture/framework/Install -->
        <dir name="Old">
         <dir name="lib">
          <file name="Old.php" role="test" />
         </dir> <!-- /test/Components/fixture/framework/Old/lib -->
+        <file name="package.xml" role="test" />
        </dir> <!-- /test/Components/fixture/framework/Old -->
        <dir name="Optional">
         <dir name="lib">
          <file name="Optional.php" role="test" />
         </dir> <!-- /test/Components/fixture/framework/Optional/lib -->
+        <file name="package.xml" role="test" />
        </dir> <!-- /test/Components/fixture/framework/Optional -->
        <dir name="simple">
         <dir name="bin">
@@ -182,6 +205,10 @@
          <file name="script.php" role="test" />
          <file name="shell_script.sh" role="test" />
         </dir> <!-- /test/Components/fixture/framework/simple/bin -->
+        <dir name="ignore">
+         <file name="test1" role="test" />
+         <file name="test2" role="test" />
+        </dir> <!-- /test/Components/fixture/framework/simple/ignore -->
         <dir name="js">
          <file name="test.js" role="test" />
         </dir> <!-- /test/Components/fixture/framework/simple/js -->
@@ -193,6 +220,8 @@
         <dir name="migration">
          <file name="test.sql" role="test" />
         </dir> <!-- /test/Components/fixture/framework/simple/migration -->
+        <file name="IGNORE.txt" role="test" />
+        <file name="package.xml" role="test" />
        </dir> <!-- /test/Components/fixture/framework/simple -->
       </dir> <!-- /test/Components/fixture/framework -->
       <dir name="horde">
@@ -207,11 +236,13 @@
         <dir name="lib">
          <file name="Console.php" role="test" />
         </dir> <!-- /test/Components/fixture/pear/Console_Getopt/lib -->
+        <file name="package.xml" role="test" />
        </dir> <!-- /test/Components/fixture/pear/Console_Getopt -->
        <dir name="PEAR">
         <dir name="lib">
          <file name="PEAR.php" role="test" />
         </dir> <!-- /test/Components/fixture/pear/PEAR/lib -->
+        <file name="package.xml" role="test" />
        </dir> <!-- /test/Components/fixture/pear/PEAR -->
       </dir> <!-- /test/Components/fixture/pear -->
       <dir name="simple">
@@ -236,6 +267,7 @@
         <file name="test.sql" role="test" />
        </dir> <!-- /test/Components/fixture/simple/migration -->
        <file name="IGNORE.txt" role="test" />
+       <file name="package.xml" role="test" />
       </dir> <!-- /test/Components/fixture/simple -->
       <dir name="templates">
        <dir name="dir">
@@ -376,10 +408,16 @@
    <install as="hudson-component-build.xml.template" name="data/hudson-component-build.xml.template" />
    <install as="hudson-component-config.xml.template" name="data/hudson-component-config.xml.template" />
    <install as="hudson-component-phpunit.xml.template" name="data/hudson-component-phpunit.xml.template" />
+   <install as="distribute/debian/components.php" name="data/distribute/debian/components.php" />
+   <install as="distribute/debian/templates/changelog" name="data/distribute/debian/templates/changelog" />
+   <install as="distribute/debian/templates/compat" name="data/distribute/debian/templates/compat" />
+   <install as="distribute/debian/templates/control" name="data/distribute/debian/templates/control" />
+   <install as="distribute/debian/templates/rules" name="data/distribute/debian/templates/rules" />
    <install as="distribute/openpkg/package.spec" name="data/distribute/openpkg/package.spec" />
    <install as="html/index.html" name="data/html/index.html" />
    <install as="html/install.html" name="data/html/install.html" />
    <install as="Components.php" name="lib/Components.php" />
+   <install as="Components/Component.php" name="lib/Components/Component.php" />
    <install as="Components/Config.php" name="lib/Components/Config.php" />
    <install as="Components/Configs.php" name="lib/Components/Configs.php" />
    <install as="Components/Constants.php" name="lib/Components/Constants.php" />
@@ -388,6 +426,9 @@
    <install as="Components/Module.php" name="lib/Components/Module.php" />
    <install as="Components/Module/Update.php" name="lib/Components/Module/Update.php" />
    <install as="Components/Output.php" name="lib/Components/Output.php" />
+   <install as="Components/Component/Identify.php" name="lib/Components/Component/Identify.php" />
+   <install as="Components/Component/Remote.php" name="lib/Components/Component/Remote.php" />
+   <install as="Components/Component/Source.php" name="lib/Components/Component/Source.php" />
    <install as="Components/Config/Application.php" name="lib/Components/Config/Application.php" />
    <install as="Components/Config/Base.php" name="lib/Components/Config/Base.php" />
    <install as="Components/Config/Bootstrap.php" name="lib/Components/Config/Bootstrap.php" />
@@ -450,17 +491,27 @@
    <install as="Components/StoryTestCase.php" name="test/Components/StoryTestCase.php" />
    <install as="Components/TestCase.php" name="test/Components/TestCase.php" />
    <install as="Components/fixture/.gitignore" name="test/Components/fixture/.gitignore" />
+   <install as="Components/fixture/changelog/package.xml" name="test/Components/fixture/changelog/package.xml" />
    <install as="Components/fixture/changelog/lib/Some.php" name="test/Components/fixture/changelog/lib/Some.php" />
    <install as="Components/fixture/channels/pear.horde.org.channel.xml" name="test/Components/fixture/channels/pear.horde.org.channel.xml" />
    <install as="Components/fixture/channels/pear.php.net.channel.xml" name="test/Components/fixture/channels/pear.php.net.channel.xml" />
    <install as="Components/fixture/channels/pear.phpunit.de.channel.xml" name="test/Components/fixture/channels/pear.phpunit.de.channel.xml" />
+   <install as="Components/fixture/empty/package.xml" name="test/Components/fixture/empty/package.xml" />
+   <install as="Components/fixture/framework/Dependency/package.xml" name="test/Components/fixture/framework/Dependency/package.xml" />
    <install as="Components/fixture/framework/Dependency/lib/Dependency.php" name="test/Components/fixture/framework/Dependency/lib/Dependency.php" />
+   <install as="Components/fixture/framework/Install/package.xml" name="test/Components/fixture/framework/Install/package.xml" />
    <install as="Components/fixture/framework/Install/lib/Install.php" name="test/Components/fixture/framework/Install/lib/Install.php" />
+   <install as="Components/fixture/framework/Old/package.xml" name="test/Components/fixture/framework/Old/package.xml" />
    <install as="Components/fixture/framework/Old/lib/Old.php" name="test/Components/fixture/framework/Old/lib/Old.php" />
+   <install as="Components/fixture/framework/Optional/package.xml" name="test/Components/fixture/framework/Optional/package.xml" />
    <install as="Components/fixture/framework/Optional/lib/Optional.php" name="test/Components/fixture/framework/Optional/lib/Optional.php" />
+   <install as="Components/fixture/framework/simple/IGNORE.txt" name="test/Components/fixture/framework/simple/IGNORE.txt" />
+   <install as="Components/fixture/framework/simple/package.xml" name="test/Components/fixture/framework/simple/package.xml" />
    <install as="Components/fixture/framework/simple/bin/other_script" name="test/Components/fixture/framework/simple/bin/other_script" />
    <install as="Components/fixture/framework/simple/bin/script.php" name="test/Components/fixture/framework/simple/bin/script.php" />
    <install as="Components/fixture/framework/simple/bin/shell_script.sh" name="test/Components/fixture/framework/simple/bin/shell_script.sh" />
+   <install as="Components/fixture/framework/simple/ignore/test1" name="test/Components/fixture/framework/simple/ignore/test1" />
+   <install as="Components/fixture/framework/simple/ignore/test2" name="test/Components/fixture/framework/simple/ignore/test2" />
    <install as="Components/fixture/framework/simple/js/test.js" name="test/Components/fixture/framework/simple/js/test.js" />
    <install as="Components/fixture/framework/simple/lib/New.php" name="test/Components/fixture/framework/simple/lib/New.php" />
    <install as="Components/fixture/framework/simple/lib/Second.php" name="test/Components/fixture/framework/simple/lib/Second.php" />
@@ -469,9 +520,12 @@
    <install as="Components/fixture/horde/.keep" name="test/Components/fixture/horde/.keep" />
    <install as="Components/fixture/packages/Console_Getopt-1.9.1.tgz" name="test/Components/fixture/packages/Console_Getopt-1.9.1.tgz" />
    <install as="Components/fixture/packages/PEAR-1.9.1.tgz" name="test/Components/fixture/packages/PEAR-1.9.1.tgz" />
+   <install as="Components/fixture/pear/Console_Getopt/package.xml" name="test/Components/fixture/pear/Console_Getopt/package.xml" />
    <install as="Components/fixture/pear/Console_Getopt/lib/Console.php" name="test/Components/fixture/pear/Console_Getopt/lib/Console.php" />
+   <install as="Components/fixture/pear/PEAR/package.xml" name="test/Components/fixture/pear/PEAR/package.xml" />
    <install as="Components/fixture/pear/PEAR/lib/PEAR.php" name="test/Components/fixture/pear/PEAR/lib/PEAR.php" />
    <install as="Components/fixture/simple/IGNORE.txt" name="test/Components/fixture/simple/IGNORE.txt" />
+   <install as="Components/fixture/simple/package.xml" name="test/Components/fixture/simple/package.xml" />
    <install as="Components/fixture/simple/bin/other_script" name="test/Components/fixture/simple/bin/other_script" />
    <install as="Components/fixture/simple/bin/script.php" name="test/Components/fixture/simple/bin/script.php" />
    <install as="Components/fixture/simple/bin/shell_script.sh" name="test/Components/fixture/simple/bin/shell_script.sh" />
@@ -542,7 +596,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-04-20</date>
+   <date>2011-06-06</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * [gwr] Replaced use of PEAR_PackageFileManager for updating package.xml with Horde_Pear.
