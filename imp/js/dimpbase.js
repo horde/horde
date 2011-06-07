@@ -2713,9 +2713,9 @@ var DimpBase = {
         }
     },
 
-    _toggleSubFolder: function(base, mode, noeffect)
+    _toggleSubFolder: function(base, mode, noeffect, noexpand)
     {
-        var collapse = [], need = [], subs = [];
+        var collapse = [], expand = [], need = [], subs = [];
 
         if (mode == 'expall' || mode == 'colall') {
             if (base.hasClassName('subfolders')) {
@@ -2749,7 +2749,7 @@ var DimpBase = {
                 }
                 this._listFolders({
                     all: Number(mode == 'expall'),
-                    callback: this._toggleSubFolder.bind(this, base, mode, noeffect),
+                    callback: this._toggleSubFolder.bind(this, base, mode, noeffect, true),
                     mboxes: need
                 });
                 return;
@@ -2769,6 +2769,10 @@ var DimpBase = {
                 if (mode == 'col' ||
                     ((mode == 'tog') && s.visible())) {
                     collapse.push(s.previous().retrieve('mbox'));
+                } else if (!noexpand &&
+                           (mode == 'exp' ||
+                            ((mode == 'tog') && !s.visible()))) {
+                    expand.push(s.previous().retrieve('mbox'));
                 }
 
                 if (noeffect) {
@@ -2790,6 +2794,8 @@ var DimpBase = {
                 DimpCore.doAction('collapseMailboxes', { mboxes: Object.toJSON(collapse) });
             } else if (mode == 'colall') {
                 DimpCore.doAction('collapseMailboxes', { all: 1 });
+            } else if (expand.size()) {
+                DimpCore.doAction('expandMailboxes', { mboxes: Object.toJSON(expand) });
             }
         }
     },
