@@ -29,6 +29,35 @@
  */
 class Horde_Service_Gravatar
 {
+    /** The default Gravatar base URL */
+    const STANDARD = 'http://www.gravatar.com';
+
+    /** The Gravatar base URL in SSL context */
+    const SECURE  = 'https://secure.gravatar.com';
+
+    /**
+     * The base Gravatar URL.
+     *
+     * @var string
+     */
+    private $_base;
+
+    /**
+     * Constructor.
+     *
+     * The default Gravatar base URL is Horde_Service_Gravatar::STANDARD. If you
+     * need URLs in an HTTPS context you should provide the base URL parameter
+     * as Horde_Service_Gravatar::SECURE. In case you wish to access another URL
+     * offering the Gravatar API you can specify the base URL of this service as
+     * $base.
+     *
+     * @param string $base The base Gravatar URL.
+     */
+    public function __construct($base = self::STANDARD)
+    {
+        $this->_base = $base;
+    }
+
     /**
      * Return the Gravatar ID for the specified mail address.
      *
@@ -59,7 +88,7 @@ class Horde_Service_Gravatar
      */
     public function getAvatarUrl($mail)
     {
-        return 'http://www.gravatar.com/avatar/' . $this->getId($mail);
+        return $this->_base . '/avatar/' . $this->getId($mail);
     }
 
     /**
@@ -74,6 +103,6 @@ class Horde_Service_Gravatar
      */
     public function getProfileUrl($mail)
     {
-        return 'http://www.gravatar.com/' . $this->getId($mail) . '.json';
+        return $this->_base . '/' . $this->getId($mail) . '.json';
     }
 }
