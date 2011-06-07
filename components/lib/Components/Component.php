@@ -27,9 +27,19 @@
  */
 interface Components_Component
 {
-    //public function getName();
+    /**
+     * Return the name of the component.
+     *
+     * @return string The component name.
+     */
+    public function getName();
 
-    //public function getUri();
+    /**
+     * Return the version of the component.
+     *
+     * @return string The component version.
+     */
+    public function getVersion();
 
     /**
      * Return the path to the local source directory.
@@ -38,7 +48,12 @@ interface Components_Component
      */
     public function getPath();
 
-    //public function getType();
+    /**
+     * Return the (base) name of the component archive.
+     *
+     * @return string The name of the component archive.
+     */
+    public function getArchiveName();
 
     /**
      * Return the path to the package.xml file of the component.
@@ -47,7 +62,28 @@ interface Components_Component
      */
     public function getPackageXml();
 
-    //public function getArchive();
+    /**
+     * Place the component source archive at the specified location.
+     *
+     * @param string $destination The path to write the archive to.
+     *
+     * @return NULL
+     */
+    public function placeArchive($destination);
+
+    /**
+     * Return a PEAR package representation for the component.
+     *
+     * @return PEAR_PackageFile The package representation.
+     */
+    public function getPackage();
+
+    /**
+     * Did identification of the component consume an argument?
+     *
+     * @return boolean True if an argument was consumed.
+     */
+    public function didConsumeArgument();
 
     /**
      * Validate that there is a package.xml file in the source directory.

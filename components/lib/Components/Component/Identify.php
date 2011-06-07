@@ -103,7 +103,7 @@ class Components_Component_Identify
             }
 
             if (!in_array($arguments[0], $this->_actions['list'])) {
-                if ($this->_containsPackageXml($arguments[0])) {
+                if ($this->_isDirectory($arguments[0])) {
                     return $this->_dependencies
                         ->getComponentFactory()
                         ->createSource($arguments[0]);
@@ -114,8 +114,8 @@ class Components_Component_Identify
                     return $this->_dependencies
                         ->getComponentFactory()
                         ->createRemote(
+                            $arguments[0],
                             $this->_dependencies->getRemote()
-                            ->getLatestDownloadUri($arguments[0])
                         );
                 }
                 

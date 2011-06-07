@@ -28,6 +28,20 @@
 class Components_Component_Remote extends Components_Component_Base
 {
     /**
+     * Component name.
+     *
+     * @var string
+     */
+    private $_name;
+
+    /**
+     * Component version.
+     *
+     * @var string
+     */
+    private $_version;
+
+    /**
      * Download location for the component.
      *
      * @var string
@@ -35,9 +49,20 @@ class Components_Component_Remote extends Components_Component_Base
     private $_uri;
 
     /**
+     * The HTTP client for remote access.
+     *
+     * @var Horde_Http_Client
+     */
+    private $_client;
+
+    /**
      * Constructor.
      *
+     * @param string                  $name      Component name.
+     * @param string                  $version   Component version.
      * @param string                  $uri       Download location.
+     * @param Horde_Http_Client       $client    The HTTP client for remote
+     *                                           access.
      * @param boolean                 $shift     Did identification of the
      *                                           component consume an argument?
      * @param Components_Config       $config    The configuration for the
@@ -46,14 +71,40 @@ class Components_Component_Remote extends Components_Component_Base
      *                                           required PEAR components.
      */
     public function __construct(
+        $name,
+        $version,
         $uri,
+        Horde_Http_Client $client,
         $shift,
         Components_Config $config,
         Components_Pear_Factory $factory
     )
     {
+        $this->_name = $name;
+        $this->_version = $version;
         $this->_uri = $uri;
+        $this->_client  = $client;
         parent::__construct($shift, $config, $factory);
+    }
+
+    /**
+     * Return the name of the component.
+     *
+     * @return string The component name.
+     */
+    public function getName()
+    {
+        return $this->_name;
+    }
+
+    /**
+     * Return the version of the component.
+     *
+     * @return string The component version.
+     */
+    public function getVersion()
+    {
+        return $this->_version;
     }
 
     /**
@@ -63,6 +114,16 @@ class Components_Component_Remote extends Components_Component_Base
      */
     public function getPath()
     {
+    }
+
+    /**
+     * Return the (base) name of the component archive.
+     *
+     * @return string The name of the component archive.
+     */
+    public function getArchiveName()
+    {
+        return basename($this->_uri);
     }
 
     /**
@@ -81,6 +142,23 @@ class Components_Component_Remote extends Components_Component_Base
      */
     public function requirePackageXml()
     {
+    }
+
+    /**
+     * Place the component source archive at the specified location.
+     *
+     * @param string $destination The path to write the archive to.
+     *
+     * @return NULL
+     */
+    public function placeArchive($destination)
+    {
+        $this->createDestination($destination);
+        $this->_client->{'request.timeout'} = 60;
+        file_put_contents(
+            $destination . '/' . basename($this->_uri),
+            $this->_client->get($this->_uri)->getStream()
+        );
     }
 
     /**

@@ -42,19 +42,29 @@ class Components_Component_Factory
     private $_factory;
 
     /**
+     * The HTTP client for remote access.
+     *
+     * @var Horde_Http_Client
+     */
+    private $_client;
+
+    /**
      * Constructor.
      *
      * @param Components_Config       $config  The configuration for the current job.
      * @param Components_Pear_Factory $factory Generator for all
      *                                         required PEAR components.
+     * @param Horde_Http_Client       $client  The HTTP client for remote access.
      */
     public function __construct(
         Components_Config $config,
-        Components_Pear_Factory $factory
+        Components_Pear_Factory $factory,
+        Horde_Http_Client $client
     )
     {
         $this->_config  = $config;
         $this->_factory = $factory;
+        $this->_client  = $client;
     }
 
     /**
@@ -79,14 +89,23 @@ class Components_Component_Factory
     /**
      * Create a representation for a remote component.
      *
-     * @param string $uri The download URI of the component.
+     * @param string            $name   The name of the component.
+     * @param Horde_Pear_Remote $remote The remote server handler.
      *
      * @return Components_Component_Remote The remote component.
      */
-    public function createRemote($uri)
+    public function createRemote($name, Horde_Pear_Remote $remote)
     {
+        foreach (array('stable', 'beta', 'devel') as $stability) {
+            if ($remote->getLatestRelease($name, $stability)) {
+                break;
+            }
+        }
         return new Components_Component_Remote(
-            $uri,
+            $name,
+            $remote->getLatestRelease($name, $stability),
+            $remote->getLatestDownloadUri($name, $stability),
+            $this->_client,
             true,
             $this->_config,
             $this->_factory

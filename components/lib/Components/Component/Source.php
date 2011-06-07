@@ -57,6 +57,26 @@ class Components_Component_Source extends Components_Component_Base
     }
 
     /**
+     * Return the name of the component.
+     *
+     * @return string The component name.
+     */
+    public function getName()
+    {
+        return $this->getPackage()->getName();
+    }
+
+    /**
+     * Return the version of the component.
+     *
+     * @return string The component version.
+     */
+    public function getVersion()
+    {
+        return $this->getPackage()->getVersion();
+    }
+
+    /**
      * Return the path to the local source directory.
      *
      * @return string The directory that contains the source code.
@@ -67,6 +87,15 @@ class Components_Component_Source extends Components_Component_Base
     }
 
     /**
+     * Return the (base) name of the component archive.
+     *
+     * @return string The name of the component archive.
+     */
+    public function getArchiveName()
+    {
+    }
+
+    /**
      * Return the path to the package.xml file of the component.
      *
      * @return string The path to the package.xml file.
@@ -74,6 +103,18 @@ class Components_Component_Source extends Components_Component_Base
     public function getPackageXml()
     {
         return $this->_directory . '/package.xml';
+    }
+
+    /**
+     * Place the component source archive at the specified location.
+     *
+     * @param string $destination The path to write the archive to.
+     *
+     * @return NULL
+     */
+    public function placeArchive($destination)
+    {
+        $this->createDestination($destination);
     }
 
     /**
