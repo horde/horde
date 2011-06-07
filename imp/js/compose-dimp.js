@@ -529,24 +529,24 @@ var DimpCompose = {
 
         $('to').setValue(header.to);
         if (DIMP.conf_compose.cc && header.cc) {
-            $('cc').setValue(header.cc);
             this.toggleCC('cc');
+            $('cc').setValue(header.cc);
         }
         this.setPopdownLabel('sm', identity.id.smf_name, identity.id.smf_display);
         this.setSaveSentMail(identity.id.smf_save);
         if (DIMP.conf_compose.bcc) {
-            if (header.bcc) {
-                $('bcc').setValue(header.bcc);
-            }
+            bcc_add = header.bcc
+                ? header.bcc
+                : $F('bcc');
             if (identity.id.bcc) {
-                bcc_add = $F('bcc');
-                if (bcc_add) {
+                if (!bcc_add.empty()) {
                     bcc_add += ', ';
                 }
-                $('bcc').setValue(bcc_add + identity.id.bcc);
+                bcc_add += identity.id.bcc;
             }
-            if ($F('bcc')) {
+            if (!bcc_add.empty()) {
                 this.toggleCC('bcc');
+                $('bcc').setValue(bcc_add);
             }
         }
         $('subject').setValue(header.subject);
