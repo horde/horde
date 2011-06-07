@@ -63,21 +63,13 @@ class Components_Runner_Update
         $arguments = $this->_config->getArguments();
         $options = $this->_config->getOptions();
 
-        if (!file_exists($this->_config->getComponentPackageXml())) {
+        if (!file_exists($this->_config->getComponent()->getPackageXml())) {
             $this->_factory->createPackageFile(
-                $this->_config->getComponentDirectory()
+                $this->_config->getComponent()->getPath()
             );
         }
 
-        if (isset($options['pearrc'])) {
-            $package = $this->_factory->createPackageForInstallLocation(
-                $this->_config->getComponentPackageXml(), $options['pearrc']
-            );
-        } else {
-            $package = $this->_factory->createPackageForDefaultLocation(
-                $this->_config->getComponentPackageXml()
-            );
-        }
+        $package = $this->_config->getComponent()->getPackage();
 
         if (!empty($options['updatexml'])
             || (isset($arguments[0]) && $arguments[0] == 'update')) {

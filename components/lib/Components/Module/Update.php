@@ -132,6 +132,7 @@ extends Components_Module_Base
         $arguments = $config->getArguments();
         if (!empty($options['updatexml'])
             || (isset($arguments[0]) && $arguments[0] == 'update')) {
+            $config->getComponent()->requireLocal();
             $this->_dependencies->getRunnerUpdate()->run();
             return true;
         }
