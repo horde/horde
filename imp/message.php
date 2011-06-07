@@ -448,21 +448,23 @@ $n_template->set('id', 1);
 if ($imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
     $n_template->set('mailbox', IMP::$mailbox->form_to);
 
-    $tmp = $imp_flags->getList(array(
+    $args = array(
         'imap' => true,
         'mailbox' => IMP::$mailbox
-    ));
+    );
 
     $form_set = $form_unset = array();
-    foreach ($tmp as $val) {
-        $form_set[] = array(
-            'f' => $val->form_set,
-            'l' => $val->label
-        );
-        $form_unset[] = array(
-            'f' => $val->form_unset,
-            'l' => $val->label
-        );
+    foreach ($imp_flags->getList($args) as $val) {
+        if ($val->canset) {
+            $form_set[] = array(
+                'f' => $val->form_set,
+                'l' => $val->label
+            );
+            $form_unset[] = array(
+                'f' => $val->form_unset,
+                'l' => $val->label
+            );
+        }
     }
 
     $n_template->set('flaglist_set', $form_set);

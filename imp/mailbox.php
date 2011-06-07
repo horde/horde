@@ -489,14 +489,16 @@ if ($pageOb['msgcount']) {
 
         $form_set = $form_unset = array();
         foreach ($imp_flags->getList($args) as $val) {
-            $form_set[] = array(
-                'f' => $val->form_set,
-                'l' => $val->label
-            );
-            $form_unset[] = array(
-                'f' => $val->form_unset,
-                'l' => $val->label
-            );
+            if ($val->canset) {
+                $form_set[] = array(
+                    'f' => $val->form_set,
+                    'l' => $val->label
+                );
+                $form_unset[] = array(
+                    'f' => $val->form_unset,
+                    'l' => $val->label
+                );
+            }
         }
 
         $n_template->set('flaglist_set', $form_set);
