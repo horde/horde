@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix saving expand/collapse state in traditional folders view.
 * [mms] Update all flag changes in dynamic mode (Bug #10146).
 * [mms] Fix editing saved searches in dynamic mode (Bug #10189).
 * [mms] Fix regression in saving sent mail in traditional view (Bug #10193).

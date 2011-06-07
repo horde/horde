@@ -154,7 +154,7 @@ var ImpFolders = {
 
     toggleSubfolder: function(e, type)
     {
-        new Ajax.Request(this.ajax + type + 'Mailboxes', { parameters: { encoded: 1, mboxes: Object.toJSON([ e.memo ]) } });
+        new Ajax.Request(this.ajax + type + 'Mailboxes', { parameters: { mboxes: Object.toJSON([ e.memo ]) } });
     },
 
     changeHandler: function(e)
