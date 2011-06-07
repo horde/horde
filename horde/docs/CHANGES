@@ -2,6 +2,7 @@
 v4.0.6-git
 ----------
 
+[jan] Fix extracting of translation strings in a release.
 [rla] Enable giving users specific admin permissions (Enhancement #9350)
 [jan] Don't strip domain from user name in account block.
 [jan] Fix account block with empty configuration parameters.
