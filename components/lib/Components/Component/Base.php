@@ -42,17 +42,28 @@ abstract class Components_Component_Base implements Components_Component
     private $_factory;
 
     /**
+     * Did identification of the component consume an argument?
+     *
+     * @var Components_Factory
+     */
+    private $_shift;
+
+    /**
      * Constructor.
      *
+     * @param boolean                 $shift   Did identification of the
+     *                                         component consume an argument?
      * @param Components_Config       $config  The configuration for the current job.
      * @param Components_Pear_Factory $factory Generator for all
      *                                         required PEAR components.
      */
     public function __construct(
+        $shift,
         Components_Config $config,
         Components_Pear_Factory $factory
     )
     {
+        $this->_shift   = $shift;
         $this->_config  = $config;
         $this->_factory = $factory;
     }
@@ -74,5 +85,15 @@ abstract class Components_Component_Base implements Components_Component
                 $this->getPackageXml()
             );
         }
+    }
+
+    /**
+     * Did identification of the component consume an argument?
+     *
+     * @return boolean True if an argument was consumed.
+     */
+    public function didConsumeArgument()
+    {
+        return $this->_shift;
     }
 }

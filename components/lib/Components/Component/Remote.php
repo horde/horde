@@ -38,6 +38,8 @@ class Components_Component_Remote extends Components_Component_Base
      * Constructor.
      *
      * @param string                  $uri       Download location.
+     * @param boolean                 $shift     Did identification of the
+     *                                           component consume an argument?
      * @param Components_Config       $config    The configuration for the
      *                                           current job.
      * @param Components_Pear_Factory $factory   Generator for all
@@ -45,12 +47,13 @@ class Components_Component_Remote extends Components_Component_Base
      */
     public function __construct(
         $uri,
+        $shift,
         Components_Config $config,
         Components_Pear_Factory $factory
     )
     {
         $this->_uri = $uri;
-        parent::__construct($config, $factory);
+        parent::__construct($shift, $config, $factory);
     }
 
     /**

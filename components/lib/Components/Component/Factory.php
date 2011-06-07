@@ -60,14 +60,17 @@ class Components_Component_Factory
     /**
      * Create a representation for a source component.
      *
-     * @param string $directory The directory of the component.
+     * @param string  $directory The directory of the component.
+     * @param boolean $shift     Did identification of the component
+     *                           consume an argument?
      *
      * @return Components_Component_Source The source component.
      */
-    public function createSource($directory)
+    public function createSource($directory, $shift = true)
     {
         return new Components_Component_Source(
             $directory,
+            $shift,
             $this->_config,
             $this->_factory
         );
@@ -84,6 +87,7 @@ class Components_Component_Factory
     {
         return new Components_Component_Remote(
             $uri,
+            true,
             $this->_config,
             $this->_factory
         );

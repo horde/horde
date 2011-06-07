@@ -110,19 +110,12 @@ implements Components_Config
      * Set the path to the component directory.
      *
      * @param Components_Component $component The path to the component directory.
-     * @param boolean              $shift     Was the first argument used to
-     *                                        indicate the component path and
-     *                                        should be shifted away?
-     *
      * @return NULL
      */
-    public function setComponent(
-        Components_Component $component,
-        $shift = false
-    )
+    public function setComponent(Components_Component $component)
     {
         $this->_component = $component;
-        if ($shift) {
+        if ($component->didConsumeArgument()) {
             $this->shiftArgument();
         }
     }

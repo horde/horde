@@ -38,6 +38,8 @@ class Components_Component_Source extends Components_Component_Base
      * Constructor.
      *
      * @param string                  $directory Path to the source directory.
+     * @param boolean                 $shift     Did identification of the
+     *                                           component consume an argument?
      * @param Components_Config       $config    The configuration for the
      *                                           current job.
      * @param Components_Pear_Factory $factory   Generator for all
@@ -45,12 +47,13 @@ class Components_Component_Source extends Components_Component_Base
      */
     public function __construct(
         $directory,
+        $shift,
         Components_Config $config,
         Components_Pear_Factory $factory
     )
     {
         $this->_directory = $directory;
-        parent::__construct($config, $factory);
+        parent::__construct($shift, $config, $factory);
     }
 
     /**

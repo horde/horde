@@ -78,7 +78,7 @@ class Components_Component_Identify
     {
         $arguments = $this->_config->getArguments();
         if ($component = $this->_determineComponent($arguments)) {
-            $this->_config->setComponent($component, isset($arguments[0]));
+            $this->_config->setComponent($component);
         }
     }
 
@@ -129,7 +129,7 @@ class Components_Component_Identify
         if ($this->_isDirectory($cwd) && $this->_containsPackageXml($cwd)) {
             return $this->_dependencies
                 ->getComponentFactory()
-                ->createSource($cwd);
+                ->createSource($cwd, false);
         }
 
         throw new Components_Exception(Components::ERROR_NO_COMPONENT);
