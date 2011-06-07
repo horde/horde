@@ -1311,7 +1311,7 @@ class IMP_Prefs_Ui
 
         $js = array();
         foreach (array_keys($identity->getAll('id')) as $key) {
-            $js[$key] = strval($identity->getValue('sent_mail_folder', $key));
+            $js[$key] = $identity->getValue('sent_mail_folder', $key)->form_to;
         };
 
         Horde::addInlineJsVars(array(
