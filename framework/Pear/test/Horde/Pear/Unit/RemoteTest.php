@@ -51,6 +51,14 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testLatest()
+    {
+        $this->assertEquals(
+            '1.0.0',
+            $this->_getLatestRemote()->getLatestRelease('A')
+        );
+    }
+
     public function testLatestUri()
     {
         $this->assertEquals(

@@ -76,9 +76,26 @@ class Horde_Pear_Remote
      *                              this package with the specified
      *                              stability level.
      */
+    public function getLatestRelease($package, $stability = 'stable')
+    {
+        return $this->_access->getLatestRelease($package, $stability);
+    }
+
+    /**
+     * Retrieve the dowlnload location for the latest package release.
+     *
+     * @param string $package   The package name.
+     * @param string $stability The stability the release should have.
+     *
+     * @return string The URI for downloading the release.
+     *
+     * @throws Horde_Pear_Exception In case there is no release for
+     *                              this package with the specified
+     *                              stability level.
+     */
     public function getLatestDownloadUri($package, $stability = 'stable')
     {
-        if ($latest = $this->_access->getLatestRelease($package, $stability)) {
+        if ($latest = $this->getLatestRelease($package, $stability)) {
             return $this->_access->getRelease($package, $latest)->getDownloadUri();
         } else {
             throw new Horde_Pear_Exception(
