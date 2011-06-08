@@ -3204,7 +3204,8 @@ var DimpBase = {
 
     isDraft: function(vs)
     {
-        return this.viewport.getMetaData('drafts') ||
+        return DIMP.conf.resume_all ||
+               this.viewport.getMetaData('drafts') ||
                vs.get('dataob').first().flag.include(DIMP.conf.FLAG_DRAFT);
     },
 
