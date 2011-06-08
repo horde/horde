@@ -924,25 +924,41 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $old = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($old);
         $new = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($new);
 
-        /* Check if old mailbox was subscribed to. */
-        $subscribed = $this->listMailboxes($old, Horde_Imap_Client::MBOX_SUBSCRIBED, array('flat' => true));
+        /* Check if old mailbox(es) were subscribed to. */
+        $base = $this->listMailboxes($old, Horde_Imap_Client::MBOX_SUBSCRIBED, array('delimiter' => true));
+        if (empty($base)) {
+            $base = $this->listMailboxes($old, Horde_Imap_Client::MBOX_ALL, array('delimiter' => true));
+            $base = reset($base);
+            $subscribed = array();
+        } else {
+            $base = reset($base);
+            $subscribed = array($base['mailbox']);
+        }
+
+        $all_mboxes = array($base['mailbox']);
+        if (strlen($base['delimiter'])) {
+            $all_mboxes = array_merge($all_mboxes, $this->listMailboxes($old . $base['delimiter'] . '*', Horde_Imap_Client::MBOX_ALL, array('flat' => true)));
+            $subscribed = array_merge($subscribed, $this->listMailboxes($old . $base['delimiter'] . '*', Horde_Imap_Client::MBOX_SUBSCRIBED, array('flat' => true)));
+        }
 
         $this->_renameMailbox($old, $new);
 
         /* Delete mailbox caches. */
-        if ($this->_initCache()) {
-            $this->cache->deleteMailbox($old);
-        }
-        unset($this->_temp['statuscache'][$old]);
-
-        /* Clean up subscription information. */
-        try {
-            $this->subscribeMailbox($old, false);
-            if (count($subscribed)) {
-                $this->subscribeMailbox($new, true);
+        foreach ($all_mboxes as $val) {
+            if ($this->_initCache()) {
+                $this->cache->deleteMailbox($val);
             }
-        } catch (Horde_Imap_Client_Exception $e) {
-            // Ignore failed unsubscribe request
+            unset($this->_temp['statuscache'][$val]);
+        }
+
+        foreach ($subscribed as $val) {
+            /* Clean up subscription information. */
+            try {
+                $this->subscribeMailbox($val, false);
+                $this->subscribeMailbox(substr_replace($val, $new, 0, strlen($old)));
+            } catch (Horde_Imap_Client_Exception $e) {
+                // Ignore failed unsubscribe request
+            }
         }
     }
 
