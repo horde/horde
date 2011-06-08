@@ -18,6 +18,12 @@ require_once 'Horde/Http/Request/Factory.php';
 require_once 'Horde/Http/Request/Base.php';
 require_once 'Horde/Http/Request/Curl.php';
 require_once 'Horde/Http/Request/Fopen.php';
+require_once 'Horde/Http/Request/Mock.php';
+require_once 'Horde/Http/Response/Base.php';
+require_once 'Horde/Http/Response/Mock.php';
+require_once 'Horde/Stream/Wrapper/String.php';
+require_once 'Horde/Stream/Wrapper/StringStream.php';
+require_once 'Horde/Support/StringStream.php';
 require_once 'Horde/Service/Gravatar.php';
 
 /**
@@ -158,6 +164,27 @@ extends PHPUnit_Framework_TestCase
         return new Horde_Service_Gravatar(
             Horde_Service_Gravatar::STANDARD,
             $mock
+        );
+    }
+
+    public function testFetchImage()
+    {
+        $g = $this->_getStubbedGravatar('RESPONSE');
+        $this->assertEquals(
+            'RESPONSE',
+            stream_get_contents($g->fetchAvatar('test@example.org'))
+        );
+    }
+
+    private function _getStubbedGravatar($response_string)
+    {
+        $body = new Horde_Support_StringStream($response_string);
+        $response = new Horde_Http_Response_Mock('', $body->fopen());
+        $request = new Horde_Http_Request_Mock();
+        $request->setResponse($response);
+        return new Horde_Service_Gravatar(
+            Horde_Service_Gravatar::STANDARD,
+            new Horde_Http_Client(array('request' => $request))
         );
     }
 }
