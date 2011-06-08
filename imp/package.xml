@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-06-08</date>
- <time>09:50:48</time>
+ <time>18:51:15</time>
  <version>
   <release>5.0.6</release>
   <api>5.0.0</api>
@@ -2282,7 +2282,6 @@
    <date>2011-06-08</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* [mms] Fix regression in renaming mailboxes in dynamic view (Bug #10207).
 * [mms] Fix selecting sent-mail mailbox for not empty namespaces (Bug #10090).
 * [mms] Fix saving expand/collapse state in traditional folders view.
 * [mms] Update all flag changes in dynamic mode (Bug #10146).
