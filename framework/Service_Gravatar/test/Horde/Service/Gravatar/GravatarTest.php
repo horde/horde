@@ -127,19 +127,28 @@ extends PHPUnit_Framework_TestCase
 
     public function testFetchProfile()
     {
-        $g = $this->_getMockedGravatar();
+        $g = $this->_getMockedGravatar('RESPONSE');
         $this->assertEquals(
             'RESPONSE',
             $g->fetchProfile('test@example.org')
         );
     }
 
-    private function _getMockedGravatar()
+    public function testGetProfile()
+    {
+        $g = $this->_getMockedGravatar('{"test":"example"}');
+        $this->assertEquals(
+            array('test' => 'example'),
+            $g->getProfile('test@example.org')
+        );
+    }
+
+    private function _getMockedGravatar($response_string)
     {
         $response = $this->getMock('Horde_Http_Response', array('getBody'));
         $response->expects($this->once())
             ->method('getBody')
-            ->will($this->returnValue('RESPONSE'));
+            ->will($this->returnValue($response_string));
 
         $mock = $this->getMock('Horde_Http_Client', array('get'));
         $mock->expects($this->once())
