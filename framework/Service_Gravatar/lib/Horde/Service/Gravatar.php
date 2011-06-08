@@ -148,4 +148,19 @@ class Horde_Service_Gravatar
     {
         return json_decode($this->fetchProfile($mail), true);
     }
+
+    /**
+     * Fetch the avatar image.
+     *
+     * @param string $mail The mail address.
+     *
+     * @return resource The image as stream resource.
+     *
+     * @throws InvalidArgumentException In case the mail address is no string.
+     */
+    public function fetchAvatar($mail)
+    {
+        return $this->_client->get($this->getAvatarUrl($mail))->getStream();
+    }
+
 }
