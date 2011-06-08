@@ -47,7 +47,9 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      */
     protected function _authenticate($userId, $credentials)
     {
-        return $this->_params['auth_driver']->authenticate($userId, $credentials);
+        if (!$this->_params['auth_driver']->authenticate($userId, $credentials)) {
+            throw new Horde_Auth_Exception($this->_params['auth_driver']->getError(true), $this->_params['auth_driver']->getError());
+        }
     }
 
     /**

@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
-* 
+* [jan] SECURITY: Fix propagating failed login in composite driver (Bug #10211).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
