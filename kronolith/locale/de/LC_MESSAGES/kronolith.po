@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kronolith 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2011-05-18 12:29+0200\n"
+"POT-Creation-Date: 2011-06-08 19:53+0200\n"
+"PO-Revision-Date: 2011-06-08 19:53+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
 "Language: de\n"
@@ -228,21 +228,21 @@ msgstr "1 Tag"
 msgid "1 event"
 msgstr "1 Termin"
 
-#: config/prefs.php:154 lib/Kronolith.php:177
+#: config/prefs.php:155 lib/Kronolith.php:177
 #: templates/mobile/javascript_defs.php:51
 msgid "1 hour"
 msgstr "1 Stunde"
 
-#: config/prefs.php:151 lib/Kronolith.php:176
+#: config/prefs.php:152 lib/Kronolith.php:176
 #: templates/mobile/javascript_defs.php:50
 msgid "15 minutes"
 msgstr "15 Minuten"
 
-#: config/prefs.php:152
+#: config/prefs.php:153
 msgid "20 minutes"
 msgstr "20 Minuten"
 
-#: config/prefs.php:153
+#: config/prefs.php:154
 msgid "30 minutes"
 msgstr "30 Minuten"
 
@@ -441,7 +441,7 @@ msgid "All Visible"
 msgstr "Alle sichtbaren"
 
 #: lib/Block/Month.php:181 lib/Block/Summary.php:179 lib/Event.php:2747
-#: lib/Kronolith.php:259 lib/View/Day.php:107 lib/View/Day.php:112
+#: lib/Kronolith.php:259 lib/View/Day.php:97 lib/View/Day.php:102
 #: lib/View/Week.php:123 lib/View/Week.php:128 lib/View/Year.php:139
 #: templates/agenda/notification.html.php:24
 #: templates/agenda/notification.plain.php:6
@@ -512,7 +512,7 @@ msgstr ""
 "diesem Termin. Wenn Ihr E-Mail-Programm iTip-Anfragen beherrscht, können Sie "
 "diese Datei dazu benutzen, Ihre lokale Version des Termins zu aktualisieren."
 
-#: perms.php:79
+#: perms.php:83
 msgid "Attempt to edit a non-existent share."
 msgstr "Es wurde versucht, ein nicht existierendes Recht zu bearbeiten."
 
@@ -681,7 +681,7 @@ msgstr ""
 "Legen Sie fest, wie Sie über Termine mit Alarmen benachrichtigt werden "
 "möchten:"
 
-#: config/prefs.php:258
+#: config/prefs.php:259
 msgid ""
 "Choose if you want to be notified of new, edited, and deleted events by "
 "email:"
@@ -689,30 +689,30 @@ msgstr ""
 "Legen Sie fest, ob Sie per E-Mail über neue, geänderte oder gelöschte "
 "Termine benachrichtigt werden möchten:"
 
-#: config/prefs.php:271
+#: config/prefs.php:272
 msgid "Choose if you want to receive daily agenda email reminders:"
 msgstr ""
 "Legen Sie fest, ob Sie täglich per E-Mail über die Termine des Tages "
 "informiert werden möchten:"
 
-#: config/prefs.php:290
+#: config/prefs.php:291
 msgid "Choose if you want to receive reminders for events with alarms:"
 msgstr ""
 "Legen Sie fest, ob Sie Benachrichtigungen über Termine mit Alarm erhalten "
 "möchten:"
 
-#: config/prefs.php:354
+#: config/prefs.php:355
 msgid "Choose the calendars to include in the above Free/Busy URL:"
 msgstr ""
 "Wählen Sie die Kalender aus, die einbezogen werden sollen, wenn die obige "
 "Frei/Gebucht-Adresse erzeugt wird:"
 
-#: config/prefs.php:184
+#: config/prefs.php:185
 msgid "Choose the views to show event locations in:"
 msgstr ""
 "Wählen Sie die Ansichten, in denen die Terminorte angezeigt werden sollen:"
 
-#: config/prefs.php:173
+#: config/prefs.php:174
 msgid "Choose the views to show event start and end times in:"
 msgstr ""
 "Wählen Sie die Ansichten, in denen Terminbeginn und -ende angezeigt werden "
@@ -778,7 +778,7 @@ msgstr "Bestätigt"
 msgid "Continue"
 msgstr "Weiter"
 
-#: config/prefs.php:346
+#: config/prefs.php:347
 msgid "Copy this URL for use wherever you need your Free/Busy URL:"
 msgstr ""
 "Benutzen Sie die folgende Adresse, wann immer Sie Ihre Frei/Gebucht-Adresse "
@@ -802,7 +802,7 @@ msgstr "Kalender erstellen"
 msgid "Create Resource"
 msgstr "Ressource anlegen"
 
-#: lib/View/Day.php:105 lib/View/Day.php:272 lib/View/Month.php:189
+#: lib/View/Day.php:95 lib/View/Day.php:262 lib/View/Month.php:189
 #: templates/week/head.inc:27
 msgid "Create a New Event"
 msgstr "Neuen Termin erstellen"
@@ -970,7 +970,7 @@ msgstr "Anzeige-Adresse"
 msgid "Does not recur"
 msgstr "Keine Wiederholung"
 
-#: config/prefs.php:277
+#: config/prefs.php:278
 msgid ""
 "Don't send me a notification if I've added, changed or deleted the event?"
 msgstr ""
@@ -1032,11 +1032,11 @@ msgstr "%s bearbeiten"
 msgid "Edit Attendees and Resources"
 msgstr "Teilnehmer und Ressourcen bearbeiten"
 
-#: perms.php:86
+#: perms.php:90
 msgid "Edit Permissions"
 msgstr "Rechte bearbeiten"
 
-#: perms.php:88
+#: perms.php:92
 #, php-format
 msgid "Edit Permissions for %s"
 msgstr "Rechte für '%s' bearbeiten"
@@ -1320,11 +1320,11 @@ msgstr "Höchste"
 msgid "Holidays"
 msgstr "Feiertage"
 
-#: lib/Kronolith.php:2814
+#: lib/Kronolith.php:2815
 msgid "Holidays are disabled"
 msgstr "Feiertage sind deaktiviert"
 
-#: search.php:97 templates/panel.inc:157
+#: search.php:96 templates/panel.inc:157
 msgid "Holidays:"
 msgstr "Feiertage:"
 
@@ -1333,16 +1333,16 @@ msgstr "Feiertage:"
 msgid "Hour(s)"
 msgstr "Stunde(n)"
 
-#: config/prefs.php:149
+#: config/prefs.php:150
 msgid "How long should the time slots on the day and week views be?"
 msgstr ""
 "Wie lang sollen die Zeitabschnitte in der Tages- und Wochenansicht sein?"
 
-#: config/prefs.php:306
+#: config/prefs.php:307
 msgid "How many days of Free/Busy information should be generated?"
 msgstr "Für wieviele Tage sollen Frei/Gebucht-Informationen angezeigt werden?"
 
-#: config/prefs.php:101
+#: config/prefs.php:102
 msgid ""
 "How many events should be displayed per day in the month view? Set to 0 to "
 "always show all events."
@@ -1352,7 +1352,7 @@ msgstr ""
 
 #: templates/index/index.inc:190
 msgid "I.e. Dinner with John tomorrow 8pm"
-msgstr "Z.B. Essen mit Peter morgen abend"
+msgstr "z.B. Essen mit Peter morgen abend"
 
 #: templates/itip/notification.plain.php:25
 msgid ""
@@ -1444,7 +1444,7 @@ msgstr "Mehr Informationen über das Einbetten von Kalendern."
 msgid "Limit the time span to export:"
 msgstr "Wählen Sie die Zeitspanne, die exportiert werden soll:"
 
-#: config/prefs.php:315
+#: config/prefs.php:316
 msgid ""
 "List all contacts when loading the contacts screen? (if disabled, you will "
 "only see contacts that you search for explicitly)"
@@ -1554,7 +1554,7 @@ msgstr "Minute(n)"
 msgid "Mo"
 msgstr "Mo"
 
-#: config/prefs.php:118 templates/index/edit.inc:134
+#: config/prefs.php:119 templates/index/edit.inc:134
 #: templates/month/head.inc:17 templates/view/view.inc:103
 msgid "Monday"
 msgstr "Montag"
@@ -1566,7 +1566,7 @@ msgstr "Montag"
 msgid "Month"
 msgstr "Monat"
 
-#: config/prefs.php:170 config/prefs.php:181
+#: config/prefs.php:171 config/prefs.php:182
 msgid "Month, Week, and Day Views"
 msgstr "Monats-, Wochen und Tagesansichten"
 
@@ -1596,11 +1596,11 @@ msgstr "Mein Kalender"
 msgid "My Calendars"
 msgstr "Meine Kalender"
 
-#: search.php:76 templates/panel.inc:72
+#: search.php:75 templates/panel.inc:72
 msgid "My Calendars:"
 msgstr "Meine Kalender:"
 
-#: config/prefs.php:346
+#: config/prefs.php:347
 msgid "My Free/Busy URL"
 msgstr "Meine Frei/Gebucht-URL"
 
@@ -1679,7 +1679,7 @@ msgstr "Nächster Monat"
 msgid "Next week"
 msgstr "Nächste Woche"
 
-#: config/prefs.php:253 config/prefs.php:266 config/prefs.php:285
+#: config/prefs.php:254 config/prefs.php:267 config/prefs.php:286
 msgid "No"
 msgstr "Nein"
 
@@ -1806,15 +1806,15 @@ msgstr "Am"
 msgid "On %s"
 msgstr "Am %s"
 
-#: config/prefs.php:256 config/prefs.php:269 config/prefs.php:288
+#: config/prefs.php:257 config/prefs.php:270 config/prefs.php:289
 msgid "On all calendars I have read access to"
 msgstr "Bei allen Kalendern, für die ich Leserechte habe"
 
-#: config/prefs.php:255 config/prefs.php:268 config/prefs.php:287
+#: config/prefs.php:256 config/prefs.php:269 config/prefs.php:288
 msgid "On all shown calendars"
 msgstr "Bei allen angezeigten Kalendern"
 
-#: config/prefs.php:254 config/prefs.php:267 config/prefs.php:286
+#: config/prefs.php:255 config/prefs.php:268 config/prefs.php:287
 msgid "On my calendars only"
 msgstr "Nur bei meinen Kalendern"
 
@@ -1894,8 +1894,8 @@ msgstr "Diesen Termin unwiederbringlich löschen?"
 
 #: lib/Ajax/Application.php:882 lib/Block/Month.php:74
 #: lib/Block/Monthlist.php:83 lib/Block/Prevmonthlist.php:82
-#: lib/Block/Summary.php:100 lib/Kronolith.php:2905 lib/Kronolith.php:2913
-#: lib/Kronolith.php:2919 lib/Kronolith.php:2925
+#: lib/Block/Summary.php:100 lib/Kronolith.php:2906 lib/Kronolith.php:2914
+#: lib/Kronolith.php:2920 lib/Kronolith.php:2926
 msgid "Permission Denied"
 msgstr "Zugriff verweigert"
 
@@ -1966,7 +1966,7 @@ msgstr "Bisher verwendete Tags"
 msgid "Print"
 msgstr "Drucken"
 
-#: config/prefs.php:171 config/prefs.php:182
+#: config/prefs.php:172 config/prefs.php:183
 msgid "Print Views"
 msgstr "Druckansichten"
 
@@ -1986,15 +1986,15 @@ msgstr "Privater Termin"
 msgid "Private?"
 msgstr "Privat?"
 
-#: config/prefs.php:362
+#: config/prefs.php:363
 msgid "Purge old events from your calendar?"
 msgstr "Alte Termine aus Ihrem Kalender löschen?"
 
-#: config/prefs.php:369
+#: config/prefs.php:370
 msgid "Purge old events how often:"
 msgstr "Wie oft sollen alte Termine gelöscht werden:"
 
-#: config/prefs.php:375
+#: config/prefs.php:376
 msgid "Purge old events older than this amount of days."
 msgstr "Alte Termine nach so vielen Tagen endgültig löschen."
 
@@ -2153,7 +2153,7 @@ msgstr "Externer Kalender von: "
 msgid "Remote Calendars"
 msgstr "Externe Kalender"
 
-#: search.php:94 templates/panel.inc:148
+#: search.php:93 templates/panel.inc:148
 msgid "Remote Calendars:"
 msgstr "Externe Kalender:"
 
@@ -2274,7 +2274,7 @@ msgstr "Antwort"
 msgid "Response type"
 msgstr "Antwort"
 
-#: config/prefs.php:142
+#: config/prefs.php:143
 msgid ""
 "Restrict day and week views to these time slots, even if there <strong>are</"
 "strong> earlier or later events?"
@@ -2330,7 +2330,7 @@ msgstr "Termin speichern"
 msgid "Save and Finish"
 msgstr "Speichern und Beenden"
 
-#: lib/Application.php:507 search.php:114 templates/contacts/contacts.inc:156
+#: lib/Application.php:507 search.php:113 templates/contacts/contacts.inc:156
 #: templates/index/index.inc:92 templates/search/search.inc:65
 #: templates/search/search_advanced.inc:87
 msgid "Search"
@@ -2410,7 +2410,7 @@ msgstr "Wählen Sie das Exportformat:"
 msgid "Select the file to import:"
 msgstr "Wählen Sie die Datei, die importiert werden soll:"
 
-#: config/prefs.php:115
+#: config/prefs.php:116
 msgid "Select the first weekday:"
 msgstr "Wählen Sie den ersten Wochentag"
 
@@ -2487,7 +2487,7 @@ msgstr "Gemeinsam"
 msgid "Shared Calendars"
 msgstr "Gemeinsame Kalender"
 
-#: search.php:82 templates/panel.inc:125
+#: search.php:81 templates/panel.inc:125
 msgid "Shared Calendars:"
 msgstr "Gemeinsame Kalender:"
 
@@ -2512,11 +2512,11 @@ msgstr "Teilen"
 msgid "Show"
 msgstr "Zeigen"
 
-#: config/prefs.php:198
+#: config/prefs.php:199
 msgid "Show Free/Busy legend?"
 msgstr "Frei/Gebucht-Legende anzeigen?"
 
-#: config/prefs.php:162
+#: config/prefs.php:163
 msgid "Show delete, alarm, and recurrence icons in calendar views?"
 msgstr ""
 "Löschen-, Alarm- und Wiederholungssymbole in der Kalenderansicht anzeigen?"
@@ -2526,7 +2526,7 @@ msgstr ""
 msgid "Show only events that have an alarm set?"
 msgstr "Nur Termine mit Alarm anzeigen?"
 
-#: config/prefs.php:205
+#: config/prefs.php:206
 msgid "Show shared calendars side-by-side?"
 msgstr "Gemeinsame Kalender nebeneinander anzeigen?"
 
@@ -2536,7 +2536,7 @@ msgstr ""
 "Standardmäßig die dynamische Ansicht anzeigen, falls der Browser dies "
 "unterstützt?"
 
-#: config/prefs.php:108
+#: config/prefs.php:109
 msgid "Show time of day between each day in week views?"
 msgstr "Uhrzeiten zwischen allen Tagen in den Wochenansichten anzeigen?"
 
@@ -2637,7 +2637,7 @@ msgstr "Abonnement-Adresse"
 msgid "Summary"
 msgstr "Zusammenfassung"
 
-#: config/prefs.php:117 templates/index/edit.inc:140
+#: config/prefs.php:118 templates/index/edit.inc:140
 #: templates/month/head.inc:15 templates/month/head.inc:24
 #: templates/view/view.inc:109
 msgid "Sunday"
@@ -3221,7 +3221,7 @@ msgstr "Kommende Termine"
 msgid "Update"
 msgstr "Aktualisierung"
 
-#: perms.php:73
+#: perms.php:77
 #, php-format
 msgid "Updated \"%s\"."
 msgstr "\"%s\" wurde aktualisiert."
@@ -3297,14 +3297,14 @@ msgstr "Woche(n)"
 msgid "Weekly: Recurs every"
 msgstr "Wöchentlich: Wiederholung alle"
 
-#: config/prefs.php:135
+#: config/prefs.php:136
 msgid ""
 "What time should day and week views end, when there are no later events?"
 msgstr ""
 "Wann sollen die Tages- und Wochenansichten enden, wenn keine späteren "
 "Termine vorliegen?"
 
-#: config/prefs.php:127
+#: config/prefs.php:128
 msgid ""
 "What time should day and week views start, when there are no earlier events?"
 msgstr ""
@@ -3550,7 +3550,7 @@ msgstr "Ihr Tagesprogramm"
 msgid "Your daily agenda for %s"
 msgstr "Ihr Tagesprogramm für den %s"
 
-#: config/prefs.php:213
+#: config/prefs.php:214
 msgid "Your default calendar:"
 msgstr "Ihr Standard-Kalender:"
 
