@@ -12,19 +12,7 @@
  * @link     http://pear.horde.org/index.php?package=Service_Gravatar
  */
 
-require_once 'Horde/Http.php';
-require_once 'Horde/Http/Client.php';
-require_once 'Horde/Http/Request/Factory.php';
-require_once 'Horde/Http/Request/Base.php';
-require_once 'Horde/Http/Request/Curl.php';
-require_once 'Horde/Http/Request/Fopen.php';
-require_once 'Horde/Http/Request/Mock.php';
-require_once 'Horde/Http/Response/Base.php';
-require_once 'Horde/Http/Response/Mock.php';
-require_once 'Horde/Stream/Wrapper/String.php';
-require_once 'Horde/Stream/Wrapper/StringStream.php';
-require_once 'Horde/Support/StringStream.php';
-require_once 'Horde/Service/Gravatar.php';
+require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
  * Horde_Service_Gravatar abstracts communication with Services supporting the
