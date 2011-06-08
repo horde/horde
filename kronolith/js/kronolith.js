@@ -3328,9 +3328,10 @@ KronolithCore = {
     {
         this.groupLoading = true;
         params.each(function(param) {
-            var options = $(param[0]).childElements();
+            var elm = $(param[0]), options = elm.childElements();
             options.shift();
             options.invoke('remove');
+            elm.up('form').disable();
         });
         this.doAction('listGroups', null, function(r) {
             var groups;
@@ -3344,6 +3345,7 @@ KronolithCore = {
                 });
             }
             params.each(function(param) {
+                $(param[0]).up('form').enable();
                 if (param[1]) {
                     param[1](groups);
                 }
