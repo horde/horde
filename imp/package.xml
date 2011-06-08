@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-07</date>
- <time>02:13:04</time>
+ <date>2011-06-08</date>
+ <time>09:50:48</time>
  <version>
   <release>5.0.6</release>
   <api>5.0.0</api>
@@ -34,13 +34,14 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix regression in renaming mailboxes in dynamic view (Bug #10207).
 * [mms] Fix selecting sent-mail mailbox for not empty namespaces (Bug #10090).
 * [mms] Fix saving expand/collapse state in traditional folders view.
 * [mms] Update all flag changes in dynamic mode (Bug #10146).
 * [mms] Fix editing saved searches in dynamic mode (Bug #10189).
 * [mms] Fix regression in saving sent mail in traditional view (Bug #10193).
-* [mms] Fix regression of deleting mailboxes in traditional view (Bug #10170).
-* [mms] Fix currently selected mailbox in folder folder lists (Bug #10163).
+* [mms] Fix regression in deleting mailboxes in traditional view (Bug #10170).
+* [mms] Fix currently selected mailbox in folder lists (Bug #10163).
 * [jan] Don&apos;t show button to strip attachments if turned off in the preferences (Bug #10154).
 * [jan] Fix printing from message popup (Bug #10188).
 * [jan] Fix viewing messages source from message popup (Bug #10190).
@@ -2279,16 +2280,17 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-07</date>
+   <date>2011-06-08</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Fix regression in renaming mailboxes in dynamic view (Bug #10207).
 * [mms] Fix selecting sent-mail mailbox for not empty namespaces (Bug #10090).
 * [mms] Fix saving expand/collapse state in traditional folders view.
 * [mms] Update all flag changes in dynamic mode (Bug #10146).
 * [mms] Fix editing saved searches in dynamic mode (Bug #10189).
 * [mms] Fix regression in saving sent mail in traditional view (Bug #10193).
-* [mms] Fix regression of deleting mailboxes in traditional view (Bug #10170).
-* [mms] Fix currently selected mailbox in folder folder lists (Bug #10163).
+* [mms] Fix regression in deleting mailboxes in traditional view (Bug #10170).
+* [mms] Fix currently selected mailbox in folder lists (Bug #10163).
 * [jan] Don&apos;t show button to strip attachments if turned off in the preferences (Bug #10154).
 * [jan] Fix printing from message popup (Bug #10188).
 * [jan] Fix viewing messages source from message popup (Bug #10190).
