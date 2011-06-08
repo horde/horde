@@ -43,6 +43,13 @@ class Horde_Service_Gravatar
     private $_base;
 
     /**
+     * The HTTP client to access the server.
+     *
+     * @var Horde_Http_Client
+     */
+    private $_client;
+
+    /**
      * Constructor.
      *
      * The default Gravatar base URL is Horde_Service_Gravatar::STANDARD. If you
@@ -51,11 +58,19 @@ class Horde_Service_Gravatar
      * offering the Gravatar API you can specify the base URL of this service as
      * $base.
      *
-     * @param string $base The base Gravatar URL.
+     * @param string            $base   The base Gravatar URL.
+     * @param Horde_Http_Client $client The HTTP client to access the server.
      */
-    public function __construct($base = self::STANDARD)
+    public function __construct(
+        $base = self::STANDARD,
+        Horde_Http_Client $client = null
+    )
     {
-        $this->_base = $base;
+        $this->_base   = $base;
+        if ($client === null) {
+            $client = new Horde_Http_Client();
+        }
+        $this->_client = $client;
     }
 
     /**
@@ -103,5 +118,20 @@ class Horde_Service_Gravatar
     public function getProfileUrl($mail)
     {
         return $this->_base . '/' . $this->getId($mail);
+    }
+
+    /**
+     * Fetch the Gravatar profile information.
+     *
+     * @param string $mail The mail address.
+     *
+     * @return string The profile information.
+     *
+     * @throws InvalidArgumentException In case the mail address is no string.
+     */
+    public function fetchProfile($mail)
+    {
+        return $this->_client->get($this->getProfileUrl($mail) . '.json')
+            ->getBody();
     }
 }
