@@ -2649,6 +2649,7 @@ KronolithCore = {
         }
         if (task.dt) {
             $('kronolithTaskDueTime').setValue(task.dt);
+            this.knl.kronolithTaskDueTime.setSelected(task.dt);
         }
         $('kronolithTaskDescription').setValue(task.de);
         $('kronolithTaskPriority').setValue(task.pr);
@@ -5223,8 +5224,10 @@ KronolithCore = {
         this.toggleAllDay(ev.al);
         $('kronolithEventStartDate').setValue(ev.sd);
         $('kronolithEventStartTime').setValue(ev.st);
+        this.knl.kronolithEventStartTime.setSelected(ev.st);
         $('kronolithEventEndDate').setValue(ev.ed);
         $('kronolithEventEndTime').setValue(ev.et);
+        this.knl.kronolithEventEndTime.setSelected(ev.et);
         this.duration = Math.abs(Date.parse(ev.e).getTime() - Date.parse(ev.s).getTime()) / 60000;
         $('kronolithEventStatus').setValue(ev.x);
         $('kronolithEventDescription').setValue(ev.d);
