@@ -397,6 +397,9 @@ tr.flagLowpriority {
 .msgflags.flagJunk, span.iconImg.flagJunk {
     background-image: url("graphics/spam.png");
 }
+.msgflags.flagNotJunk, span.iconImg.flagNotJunk {
+    background-image: url("graphics/ham.png");
+}
 tr.flagUnseen {
     font-weight: bold;
 }
