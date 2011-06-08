@@ -781,9 +781,17 @@ class Horde_Registry
 
         $apps = array();
         foreach ($this->applications as $app => $params) {
-            if (in_array($params['status'], $filter) &&
-                (is_null($perms) || $this->hasPermission($app, $perms))) {
-                $apps[$app] = $params;
+            if (in_array($params['status'], $filter)) {
+                /* Sidebar apps can only be displayed if the parent app is
+                 * active. */
+                if (($params['status'] == 'sidebar') &&
+                    $this->isInactive($params['app'])) {
+                        continue;
+                }
+
+                if ((is_null($perms) || $this->hasPermission($app, $perms))) {
+                    $apps[$app] = $params;
+                }
             }
         }
 

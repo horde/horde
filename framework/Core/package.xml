@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-06-06</date>
- <time>00:48:46</time>
+ <date>2011-06-07</date>
+ <time>23:04:43</time>
  <version>
   <release>1.2.1</release>
   <api>1.2.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mms] Only list sidebar apps in listApps() if parent app is active (Bug #10017).
 * [mms] Fix autocomplete javascript when contents of DOM element is dynamically altered.
 * [mms] Fix duplicate node IDs in javascript tree rendering code (Bug #10173).
 * [rla] Show specific admin privileges a user has permission to (Enhancement #9350).
@@ -1470,9 +1471,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-06</date>
+   <date>2011-06-07</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [mms] Only list sidebar apps in listApps() if parent app is active (Bug #10017).
+* [mms] Fix autocomplete javascript when contents of DOM element is dynamically altered.
 * [mms] Fix duplicate node IDs in javascript tree rendering code (Bug #10173).
 * [rla] Show specific admin privileges a user has permission to (Enhancement #9350).
    </notes>
