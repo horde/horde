@@ -1,0 +1,2 @@
+<?php
+$conf['service']['gravatar']['server'] = 'http://www.gravatar.com';
