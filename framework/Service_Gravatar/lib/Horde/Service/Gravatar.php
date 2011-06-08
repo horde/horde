@@ -134,4 +134,18 @@ class Horde_Service_Gravatar
         return $this->_client->get($this->getProfileUrl($mail) . '.json')
             ->getBody();
     }
+
+    /**
+     * Return the Gravatar profile information as an array.
+     *
+     * @param string $mail The mail address.
+     *
+     * @return array The profile information.
+     *
+     * @throws InvalidArgumentException In case the mail address is no string.
+     */
+    public function getProfile($mail)
+    {
+        return json_decode($this->fetchProfile($mail), true);
+    }
 }
