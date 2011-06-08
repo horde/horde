@@ -12,6 +12,12 @@
  * @link     http://pear.horde.org/index.php?package=Service_Gravatar
  */
 
+require_once 'Horde/Http.php';
+require_once 'Horde/Http/Client.php';
+require_once 'Horde/Http/Request/Factory.php';
+require_once 'Horde/Http/Request/Base.php';
+require_once 'Horde/Http/Request/Curl.php';
+require_once 'Horde/Http/Request/Fopen.php';
 require_once 'Horde/Service/Gravatar.php';
 
 /**
