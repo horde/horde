@@ -3032,8 +3032,10 @@ KronolithCore = {
             form.down('.kronolithCalendarSave').hide();
             if (type == 'internal' || type == 'tasklists') {
                 $('kronolithCalendar' + type + 'UrlSub').enable();
-                $('kronolithCalendar' + type + 'UrlFeed').enable();
-                $('kronolithCalendar' + type + 'EmbedUrl').enable();
+                if (type == 'internal') {
+                    $('kronolithCalendar' + type + 'UrlFeed').enable();
+                    $('kronolithCalendar' + type + 'EmbedUrl').enable();
+                }
                 this.calendarTagAc.disable();
                 if (Kronolith.conf.calendars[type][calendar].show) {
                     form.down('.kronolithCalendarSubscribe').hide();
