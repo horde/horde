@@ -92,8 +92,7 @@ class Horde_Service_Gravatar
     }
 
     /**
-     * Return the Gravatar profile URL providing the profile data in JSON
-     * format.
+     * Return the Gravatar profile URL.
      *
      * @param string $mail The mail address.
      *
@@ -103,6 +102,6 @@ class Horde_Service_Gravatar
      */
     public function getProfileUrl($mail)
     {
-        return $this->_base . '/' . $this->getId($mail) . '.json';
+        return $this->_base . '/' . $this->getId($mail);
     }
 }
