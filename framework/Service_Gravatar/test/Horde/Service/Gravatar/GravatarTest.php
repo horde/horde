@@ -119,4 +119,30 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testFetchProfile()
+    {
+        $g = $this->_getMockedGravatar();
+        $this->assertEquals(
+            'RESPONSE',
+            $g->fetchProfile('test@example.org')
+        );
+    }
+
+    private function _getMockedGravatar()
+    {
+        $response = $this->getMock('Horde_Http_Response', array('getBody'));
+        $response->expects($this->once())
+            ->method('getBody')
+            ->will($this->returnValue('RESPONSE'));
+
+        $mock = $this->getMock('Horde_Http_Client', array('get'));
+        $mock->expects($this->once())
+            ->method('get')
+            ->will($this->returnValue($response));
+
+        return new Horde_Service_Gravatar(
+            Horde_Service_Gravatar::STANDARD,
+            $mock
+        );
+    }
 }
