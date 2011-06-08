@@ -102,7 +102,7 @@ class Components_Component_Source extends Components_Component_Base
      */
     public function getPackageXml()
     {
-        return $this->_directory . '/package.xml';
+        return realpath($this->_directory . '/package.xml');
     }
 
     /**
