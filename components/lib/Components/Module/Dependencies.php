@@ -81,7 +81,7 @@ extends Components_Module_Base
     {
         $options = $config->getOptions();
         if (!empty($options['list_deps'])) {
-            $config->getComponent()->requirePackageXml();
+            $this->requirePackageXml($config->getComponentDirectory());
             $this->_dependencies->getRunnerDependencies()->run();
             return true;
         }

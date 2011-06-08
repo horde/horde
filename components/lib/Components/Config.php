@@ -72,15 +72,18 @@ interface Components_Config
     /**
      * Set the path to the component directory.
      *
-     * @param Components_Component $component The path to the component directory.
+     * @param string  $path  The path to the component directory.
+     * @param boolean $shift Was the first argument used to indicate the
+     *                       component path and should be shifted away?
+     *
      * @return NULL
      */
-    public function setComponent(Components_Component $component);
+    public function setComponentDirectory($path, $shift = false);
 
     /**
-     * Return the selected component.
+     * Return the path to the selected component directory.
      *
-     * @return Components_Component The selected component.
+     * @return string The component directory.
      */
-    public function getComponent();
+    public function getComponentDirectory();
 }

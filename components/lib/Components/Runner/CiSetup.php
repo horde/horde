@@ -73,6 +73,7 @@ class Components_Runner_CiSetup
     public function run()
     {
         $options = $this->_config->getOptions();
+        $arguments = $this->_config->getArguments();
 
         if (!isset($options['toolsdir'])) {
             throw new Components_Exception(
@@ -85,11 +86,10 @@ class Components_Runner_CiSetup
             );
         }
 
-        $directory = $this->_config->getComponent()->getPath();
-        if (basename(dirname($directory)) == 'framework') {
-            $origin = 'framework/' . basename($directory);
+        if (basename(dirname($this->_config->getComponentDirectory())) == 'framework') {
+            $origin = 'framework/' . basename($this->_config->getComponentDirectory());
         } else {
-            $origin = basename($directory);
+            $origin = basename($this->_config->getComponentDirectory());
         }
 
         $config_template = new Components_Helper_Templates_Single(
@@ -104,7 +104,7 @@ class Components_Runner_CiSetup
                 'sourcejob' => 'horde',
                 'toolsdir' => $options['toolsdir'],
                 'description' => $this->_factory->createPackageForInstallLocation(
-                    $this->_config->getComponent()->getPackageXml(),
+                    $this->_config->getComponentPackageXml(),
                     $options['pearrc']
                 )->getDescription()
             )

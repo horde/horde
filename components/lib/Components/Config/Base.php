@@ -45,9 +45,9 @@ implements Components_Config
     protected $_arguments = array();
 
     /**
-     * The selected component.
+     * Path to the selected component.
      *
-     * @var Components_Component
+     * @var string
      */
     private $_component;
 
@@ -109,23 +109,26 @@ implements Components_Config
     /**
      * Set the path to the component directory.
      *
-     * @param Components_Component $component The path to the component directory.
+     * @param string  $path  The path to the component directory.
+     * @param boolean $shift Was the first argument used to indicate the
+     *                       component path and should be shifted away?
+     *
      * @return NULL
      */
-    public function setComponent(Components_Component $component)
+    public function setComponentDirectory($path, $shift = false)
     {
-        $this->_component = $component;
-        if ($component->didConsumeArgument()) {
+        $this->_component = realpath($path);
+        if ($shift) {
             $this->shiftArgument();
         }
     }
 
     /**
-     * Return the selected component.
+     * Return the path to the selected component directory.
      *
-     * @return Components_Component The selected component.
+     * @return string The component directory.
      */
-    public function getComponent()
+    public function getComponentDirectory()
     {
         if ($this->_component === null) {
             throw new Components_Exception(
@@ -133,5 +136,15 @@ implements Components_Config
             );
         }
         return $this->_component;
+    }
+
+    /**
+     * Return the path to the package.xml of the selected component directory.
+     *
+     * @return string The path to the package.xml.
+     */
+    public function getComponentPackageXml()
+    {
+        return $this->getComponentDirectory() . '/package.xml';
     }
 }

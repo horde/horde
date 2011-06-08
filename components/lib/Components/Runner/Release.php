@@ -81,7 +81,17 @@ class Components_Runner_Release
     {
         $options = $this->_config->getOptions();
 
-        $package = $this->_config->getComponent()->getPackage();
+        $package_xml = $this->_config->getComponentPackageXml();
+        if (!isset($options['pearrc'])) {
+            $package = $this->_factory->createPackageForDefaultLocation(
+                $package_xml
+            );
+        } else {
+            $package = $this->_factory->createPackageForInstallLocation(
+                $package_xml,
+                $options['pearrc']
+            );
+        }
 
         $sequence = array();
 

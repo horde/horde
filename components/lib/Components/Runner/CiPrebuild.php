@@ -73,6 +73,7 @@ class Components_Runner_CiPrebuild
     public function run()
     {
         $options = $this->_config->getOptions();
+        $arguments = $this->_config->getArguments();
 
         if (!isset($options['toolsdir'])) {
             throw new Components_Exception(
@@ -94,11 +95,12 @@ class Components_Runner_CiPrebuild
             'hudson-component-phpunit.xml',
             'phpunit.xml'
         );
-        $directory = $this->_config->getComponent()->getPath();
         $phpunit_template->write(
             array(
-                'testclass' => basename($directory),
-                'testpath' => strtr(basename($directory), '_', '/')
+                'testclass' => basename($this->_config->getComponentDirectory()),
+                'testpath' => strtr(
+                    basename($this->_config->getComponentDirectory()), '_', '/'
+                )
             )
         );
     }

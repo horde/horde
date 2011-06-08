@@ -133,7 +133,7 @@ extends Components_Module_Base
     {
         $options = $config->getOptions();
         if (!empty($options['install'])) {
-            $config->getComponent()->requirePackageXml();
+            $this->requirePackageXml($config->getComponentDirectory());
             $this->_dependencies->getRunnerInstaller()->run();
             return true;
         }

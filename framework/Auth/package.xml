@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-18</date>
- <time>14:41:21</time>
+ <date>2011-06-08</date>
+ <time>16:22:41</time>
  <version>
   <release>1.0.4</release>
   <api>1.0.0</api>
@@ -411,10 +411,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-18</date>
+   <date>2011-06-08</date>
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
-* 
+* [jan] SECURITY: Fix propagating failed login in composite driver (Bug #10211).
    </notes>
   </release>
  </changelog>
