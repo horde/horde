@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-06-08</date>
- <time>18:51:15</time>
+ <time>18:53:21</time>
  <version>
-  <release>5.0.6</release>
+  <release>5.0.7</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,17 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [mms] Fix selecting sent-mail mailbox for not empty namespaces (Bug #10090).
-* [mms] Fix saving expand/collapse state in traditional folders view.
-* [mms] Update all flag changes in dynamic mode (Bug #10146).
-* [mms] Fix editing saved searches in dynamic mode (Bug #10189).
-* [mms] Fix regression in saving sent mail in traditional view (Bug #10193).
-* [mms] Fix regression in deleting mailboxes in traditional view (Bug #10170).
-* [mms] Fix currently selected mailbox in folder lists (Bug #10163).
-* [jan] Don&apos;t show button to strip attachments if turned off in the preferences (Bug #10154).
-* [jan] Fix printing from message popup (Bug #10188).
-* [jan] Fix viewing messages source from message popup (Bug #10190).
-* [jan] Fix editing saved searches in traditional view (Bug #10184).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2293,6 +2283,19 @@
 * [jan] Fix printing from message popup (Bug #10188).
 * [jan] Fix viewing messages source from message popup (Bug #10190).
 * [jan] Fix editing saved searches in traditional view (Bug #10184).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.7</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-08</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
