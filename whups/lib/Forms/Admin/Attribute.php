@@ -52,8 +52,7 @@ class EditAttributeDescStep1Form extends Horde_Form {
         parent::Horde_Form($vars, _("Edit or Delete Attributes"));
         $this->setButtons(array(_("Edit Attribute"), _("Delete Attribute")));
 
-        $attributes = $GLOBALS['whups_driver']->getAttributesForType(
-            $vars->get('type'));
+        $attributes = $GLOBALS['whups_driver']->getAttributesForType($vars->get('type'));
         if ($attributes) {
             $params = array();
             foreach ($attributes as $key => $attribute) {
@@ -80,6 +79,7 @@ class EditAttributeDescStep2Form extends Horde_Form {
         parent::Horde_Form($vars, _("Edit Attribute"));
 
         $attribute = $vars->get('attribute');
+
         $info = $GLOBALS['whups_driver']->getAttributeDesc($attribute);
 
         $this->addHidden('', 'type', 'int', true, true);
