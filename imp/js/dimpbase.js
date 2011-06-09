@@ -288,9 +288,7 @@ var DimpBase = {
         var vs = this.viewport.getSelection(),
             view = vs.getBuffer().getView();
 
-        if (this.isSearch(view)) {
-            this.setHash();
-        } else if (vs.size()) {
+        if (vs.size()) {
             this.setHash('msg', DimpCore.toRangeString(DimpCore.selectionToRange(vs)));
         } else {
             this.setHash('mbox', view);
