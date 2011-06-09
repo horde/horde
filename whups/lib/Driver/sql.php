@@ -2736,7 +2736,7 @@ class Whups_Driver_Sql extends Whups_Driver
             . 'FROM whups_attributes_desc WHERE attribute_id = ?';
         $values = array($attribute_id);
         try {
-            $attribute = $this->_db->selectValues($query, $values);
+            $attribute = $this->_db->selectOne($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
@@ -2787,31 +2787,34 @@ class Whups_Driver_Sql extends Whups_Driver
 
         $query = "SELECT $fields FROM $from$where ORDER BY $order";
         try {
-            $attributes = $this->_db->selectAssoc($query);
+            $attributes = $this->_db->selectAll($query);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
-        foreach ($attributes as $id => $attribute) {
+        $results = array();
+        foreach ($attributes as $attribute) {
+            $id = $attribute['attribute_id'];
+            $results[$id] = $attribute;
             if (empty($type) && !$raw) {
-                $attributes[$id]['attribute_name'] =
+                $results[$id]['attribute_name'] =
                     $attribute['attribute_name']
                     . ' (' . $attribute['type_name'] . ')';
             }
-            $attributes[$id]['attribute_name'] = Horde_String::convertCharset(
+            $results[$id]['attribute_name'] = Horde_String::convertCharset(
                 $attribute['attribute_name'], $this->_params['charset'], 'UTF-8');
-            $attributes[$id]['attribute_description'] = Horde_String::convertCharset(
+            $results[$id]['attribute_description'] = Horde_String::convertCharset(
                 $attribute['attribute_description'], $this->_params['charset'], 'UTF-8');
-            $attributes[$id]['attribute_type'] =
+            $results[$id]['attribute_type'] =
                 empty($attribute['attribute_type'])
                 ? 'text' : $attribute['attribute_type'];
-            $attributes[$id]['attribute_params'] = Horde_String::convertCharset(
+            $results[$id]['attribute_params'] = Horde_String::convertCharset(
                 @unserialize($attribute['attribute_params']),
                 $this->_params['charset'], 'UTF-8');
-            $attributes[$id]['attribute_required'] =
+            $results[$id]['attribute_required'] =
                 (bool)$attribute['attribute_required'];
         }
 
-        return $attributes;
+        return $results;
     }
 
     public function getAttributeNamesForType($type_id)
