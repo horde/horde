@@ -5,6 +5,21 @@
  *
  * Copyright 2009-2011 The Horde Project (http://www.horde.org)
  *
+ * @property-read Horde_Service_Twitter_Account $account
+ *                The twitter account object for calling account methods.
+ * @property-read Horde_Service_Twitter_Statuses $statuses
+ *                The twitter status object for updating and retrieving user
+ *                statuses.
+ * @property-read Horde_Service_Twitter_Auth $auth
+ *                The twitter authentication object.
+ * @property-read Horde_Service_Twitter_Request $request
+ *                The twitter request object that wraps sending requests to
+ *                Twitter's REST API.
+ * @property-read Horde_Cache $responseCache
+ *                The cache object.
+ * @property-read integer $cacheLifetime
+ *                The default cache lifetime.
+ *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
@@ -25,7 +40,7 @@ class Horde_Service_Twitter
     protected $_objCache = array();
 
     /**
-     * (Optional) Cache object
+     * (Optional) Cache object.
      *
      * @var Horde_Cache
      */
