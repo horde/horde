@@ -195,7 +195,7 @@ case 'filter_messages':
         }
 
         if ($q_ob) {
-            Horde::url('mailbox.php', true)->add('mailbox', strval($q_ob))->redirect();
+            IMP_Mailbox::get($q_ob)->url('mailbox.php')->redirect();
             exit;
         }
     }
@@ -492,11 +492,13 @@ if ($pageOb['msgcount']) {
             if ($val->canset) {
                 $form_set[] = array(
                     'f' => $val->form_set,
-                    'l' => $val->label
+                    'l' => $val->label,
+                    'v' => IMP_Mailbox::formTo($flag_filter_prefix . $val->form_set)
                 );
                 $form_unset[] = array(
                     'f' => $val->form_unset,
-                    'l' => $val->label
+                    'l' => $val->label,
+                    'v' => IMP_Mailbox::formTo($flag_filter_prefix . $val->form_set)
                 );
             }
         }
@@ -506,7 +508,7 @@ if ($pageOb['msgcount']) {
 
         if (!$search_mbox && $imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
             $filtermsg = true;
-            $n_template->set('flag_filter', IMP_Mailbox::formTo($flag_filter_prefix));
+            $n_template->set('flag_filter', true);
         }
     }
 

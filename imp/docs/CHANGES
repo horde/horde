@@ -2,6 +2,7 @@
 v5.0.7-git
 ----------
 
+[mms] Fix regression in filtering mailbox in traditional view (Bug #10213).
 
 
 ------

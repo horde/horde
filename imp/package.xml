@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-08</date>
- <time>18:53:21</time>
+ <date>2011-06-09</date>
+ <time>10:45:14</time>
  <version>
   <release>5.0.7</release>
   <api>5.0.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [mms] Fix regression in filtering mailbox in traditional view (Bug #10213).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2293,10 +2293,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-08</date>
+   <date>2011-06-09</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [mms] Fix regression in filtering mailbox in traditional view (Bug #10213).
    </notes>
   </release>
  </changelog>
