@@ -39,11 +39,6 @@ class IMP_Block_Summary extends Horde_Core_Block
     protected function _params()
     {
         return array(
-            'show_total' => array(
-                'type' => 'boolean',
-                'name' => _("Show total number of messages in folder?"),
-                'default' => 0
-            ),
             'show_unread' => array(
                 'type' => 'boolean',
                 'name' => _("Only display folders with unread messages in them?"),
@@ -68,7 +63,7 @@ class IMP_Block_Summary extends Horde_Core_Block
         $status = $imp_imap->statusMultiple($poll, Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT);
 
         $anyUnseen = false;
-        $mboxes = array();
+        $out = '';
 
         foreach ($poll as $mbox) {
             $mbox_str = strval($mbox);
@@ -84,30 +79,19 @@ class IMP_Block_Summary extends Horde_Core_Block
                     $label = '<strong>' . $label . '</strong>';
                     $anyUnseen = true;
                 }
+                $out .= '<tr><td>' . $label . '</td>';
 
-                $unseen = array();
-                if (!empty($mbox_status['unseen'])) {
-                   $unseen[] =  '<strong>' . $mbox->url('mailbox.php')->link() . $mbox_status['unseen'] . ' ' . _("Unseen") . '</a></strong>';
-                }
-                if (!empty($mbox_status['recent'])) {
-                   $unseen[] = '<span style="color:red">(' . sprintf(ngettext("%d new", "%d new", $mbox_status['recent']), $mbox_status['recent']) . ')</span>';
-                }
-                if (!empty($this->_params['show_total'])) {
-                    if (count($unseen)) {
-                        $unseen[] = '|';
+                if (empty($mbox_status['unseen'])) {
+                    $out .= '<td>-</td>';
+                } else {
+                    $out .= '<td><strong>' . intval($mbox_status['unseen']) . '</strong>';
+                    if (!empty($mbox_status['recent'])) {
+                        $out .= ' (<span style="color:red">' . $mbox_status['recent'] . ' ' . _("new") . '</span>)';
                     }
-                    if ($mbox_status['messages']) {
-                        $unseen[] = $mbox_status['messages'] . ' ' . _("Total");
-                    } else {
-                        $unseen[] = _("No Messages");
-                    }
+                    $out .='</td>';
                 }
 
-                if (empty($unseen)) {
-                    $unseen[] = '&nbsp;';
-                }
-
-                $mboxes[$label] = $unseen;
+                $out .= '<td>' . intval($mbox_status['messages']) . '</td></tr>';
             }
         }
 
@@ -115,16 +99,9 @@ class IMP_Block_Summary extends Horde_Core_Block
             return '<em>' . _("No folders with unseen messages") . '</em>';
         }
 
-        $out = '<div style="float:left;padding-right:30px;">';
-        foreach (array_keys($mboxes) as $val) {
-            $out .= '<div>' . $val . '</div>';
-        }
-        $out .= '</div><div>';
-        foreach (array_values($mboxes) as $val) {
-            $out .= '<div>' . implode(' ', $val) . '</div>';
-        }
-
-        return $out . '</div>';
+        return '<table class="impBlockSummary"><thead><tr><th>' . _("Folder") . '</th><th>' . _("Unseen") . '</th><th>' . _("Total") . '</th></tr></thead><tbody>' .
+            $out .
+            '</tbody></table>';
     }
 
 }
