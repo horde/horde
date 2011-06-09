@@ -445,7 +445,8 @@ class IMP_Mailbox implements Serializable
             return $ns_info;
 
         case 'nonimap':
-            return $injector->getInstance('IMP_Imap_Tree')->isNonImapElt($this->_mbox);
+            return ($this->search ||
+                    $injector->getInstance('IMP_Imap_Tree')->isNonImapElt($this->_mbox));
 
         case 'parent':
             $elt = $injector->getInstance('IMP_Imap_Tree')->getElement($this->_mbox);
