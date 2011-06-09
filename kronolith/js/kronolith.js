@@ -2988,22 +2988,22 @@ KronolithCore = {
         }
 
         if (newCalendar || info.owner) {
-            this.updateGroupDropDown([['kronolithC' + type + 'PGList', this.updateGroupPerms.bind(this, type)],
-                                      ['kronolithC' + type + 'PGNew']]);
-            $('kronolithC' + type + 'PBasic').show();
-            $('kronolithC' + type + 'PAdvanced').hide();
-            $('kronolithC' + type + 'PNone').setValue(1);
-            $('kronolithC' + type + 'PAllShow').disable();
-            $('kronolithC' + type + 'PGList').disable();
-            $('kronolithC' + type + 'PGPerms').disable();
-            $('kronolithC' + type + 'PUList').disable();
-            $('kronolithC' + type + 'PUPerms').disable();
-            $('kronolithC' + type + 'PAdvanced').select('tr').findAll(function(tr) {
-                return tr.retrieve('remove');
-            }).invoke('remove');
-            $('kronolithCalendar' + type + 'LinkUrls').up().hide();
-            form.down('.kronolithColorPicker').show();
             if (type == 'internal' || type == 'tasklists') {
+                this.updateGroupDropDown([['kronolithC' + type + 'PGList', this.updateGroupPerms.bind(this, type)],
+                                      ['kronolithC' + type + 'PGNew']]);
+                $('kronolithC' + type + 'PBasic').show();
+                $('kronolithC' + type + 'PAdvanced').hide();
+                $('kronolithC' + type + 'PNone').setValue(1);
+                $('kronolithC' + type + 'PAllShow').disable();
+                $('kronolithC' + type + 'PGList').disable();
+                $('kronolithC' + type + 'PGPerms').disable();
+                $('kronolithC' + type + 'PUList').disable();
+                $('kronolithC' + type + 'PUPerms').disable();
+                $('kronolithC' + type + 'PAdvanced').select('tr').findAll(function(tr) {
+                    return tr.retrieve('remove');
+                }).invoke('remove');
+                $('kronolithCalendar' + type + 'LinkUrls').up().show();
+                form.down('.kronolithColorPicker').show();
                 if (type == 'internal') {
                     this.doAction('listTopTags', null, this.topTagsCallback.curry('kronolithCalendarinternalTopTags', 'kronolithCalendarTag'));
                 }
