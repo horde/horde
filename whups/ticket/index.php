@@ -14,7 +14,13 @@ Horde_Registry::appInit('whups');
 
 require_once WHUPS_BASE . '/lib/Renderer/Comment.php';
 
-$ticket = Whups::getCurrentTicket();
+try {
+    $ticket = Whups::getCurrentTicket();
+} catch (Exception $e) {
+    $notification->push($e->getMessage(), 'horde.err');
+    Horde::url($prefs->getValue('whups_default_view') . '.php', true)
+        ->redirect();
+}
 $vars = Horde_Variables::getDefaultVariables();
 $ticket->setDetails($vars);
 $linkTags[] = $ticket->feedLink();
