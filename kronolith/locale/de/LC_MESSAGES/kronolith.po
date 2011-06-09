@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kronolith 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-06-08 19:53+0200\n"
-"PO-Revision-Date: 2011-06-08 19:53+0200\n"
+"PO-Revision-Date: 2011-06-09 18:04+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
 "Language: de\n"
@@ -751,7 +751,7 @@ msgstr "Fenster schließen"
 #: templates/chunks/calendar.php:39 templates/chunks/calendar.php:148
 #: templates/chunks/calendar.php:223
 msgid "Color"
-msgstr "Farbig"
+msgstr "Farbe"
 
 #: templates/chunks/calendar.php:41 templates/chunks/calendar.php:150
 #: templates/chunks/calendar.php:225
