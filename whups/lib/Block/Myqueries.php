@@ -17,9 +17,7 @@ class Whups_Block_Myqueries extends Horde_Core_Block
      */
     protected function _content()
     {
-        require_once WHUPS_BASE . '/lib/Query.php';
-
-        $qManager = new Whups_QueryManager();
+        $qManager = new Whups_Query_Manager();
         $queries = $qManager->listQueries($GLOBALS['registry']->getAuth(), true);
         $myqueries = Whups_View::factory(
             'SavedQueries',

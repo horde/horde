@@ -12,12 +12,8 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-require_once WHUPS_BASE . '/lib/Query.php';
-require_once WHUPS_BASE . '/lib/Forms/Query.php';
-require_once WHUPS_BASE . '/lib/Renderer/Query.php';
-
 $vars = Horde_Variables::getDefaultVariables();
-$qManager = new Whups_QueryManager();
+$qManager = new Whups_Query_Manager();
 
 // Set up the page config vars.
 $showEditQuery = true;
@@ -58,7 +54,7 @@ if ($vars->get('qaction1') || $vars->get('qaction2')) {
         break;
 
     case 'branch':
-        $form = new InsertBranchForm($vars);
+        $form = new Whups_Form_InsertBranch($vars);
         break;
 
     case 'not':
@@ -127,17 +123,17 @@ if ($vars->get('qaction1') || $vars->get('qaction2')) {
         break;
 
     case 'delete':
-        $showExtraForm = 'DeleteQueryForm';
+        $showExtraForm = 'Whups_Form_DeleteQuery';
         $showEditQuery = false;
         break;
 
     case 'save':
-        $showExtraForm = 'ChooseQueryNameForSaveForm';
+        $showExtraForm = 'Whups_Form_ChooseQueryNameForSave';
         $showEditQuery = false;
         break;
 
     case 'load':
-        $showExtraForm = 'ChooseQueryNameForLoadForm';
+        $showExtraForm = 'Whups_Form_ChooseQueryNameForLoad';
         $showEditQuery = false;
         break;
     }
@@ -185,7 +181,7 @@ if ($showExtraForm !== null) {
 }
 
 /* Get the general query renderer object. */
-$queryRenderer = new Horde_Form_Renderer_Query();
+$queryRenderer = new Whups_Form_Renderer_Query();
 
 if ($showEditQuery) {
     // Get our current form.
@@ -196,27 +192,27 @@ if ($showEditQuery) {
         // Fall through.
 
     case 'props':
-        $form = new PropertyCriterionForm($vars);
+        $form = new Whups_Form_PropertyCriterion($vars);
         break;
 
     case 'user':
-        $form = new UserCriterionForm($vars);
+        $form = new Whups_Form_UserCriterion($vars);
         break;
 
     case 'group':
-        $form = new GroupCriterionForm($vars);
+        $form = new Whups_Form_GroupCriterion($vars);
         break;
 
     case 'text':
-        $form = new TextCriterionForm($vars);
+        $form = new Whups_Form_TextCriterion($vars);
         break;
 
     case 'attribs':
-        $form = new AttributeCriterionForm($vars);
+        $form = new Whups_Form_AttributeCriterion($vars);
         break;
 
     case 'date':
-        $form = new DateCriterionForm($vars);
+        $form = new Whups_Form_DateCriterion($vars);
         break;
     }
 

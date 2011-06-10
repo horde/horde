@@ -11,14 +11,10 @@
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
-
-require_once WHUPS_BASE . '/lib/Query.php';
-require_once WHUPS_BASE . '/lib/Forms/QueryParameterForm.php';
-require WHUPS_BASE . '/lib/Renderer/Query.php';
 require_once WHUPS_BASE . '/lib/View.php';
 
 $vars = Horde_Variables::getDefaultVariables();
-$qManager = new Whups_QueryManager();
+$qManager = new Whups_Query_Manager();
 
 // Load the current query. If we have a 'slug' or 'query' parameter, that
 // overrides and we load in that from the query store. Slug is tried
@@ -65,7 +61,7 @@ $isvalid = false;
 if (!$whups_query->parameters) {
     $isvalid = true;
 } else {
-    $form = new QueryParameterForm($whups_query, $vars);
+    $form = new Whups_Form_QueryParameter($whups_query, $vars);
     if ($vars->get('formname') == 'queryparameters') {
         $isvalid = $form->validate($vars);
     }

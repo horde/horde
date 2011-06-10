@@ -43,7 +43,6 @@ function _getSearchUrl($vars)
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('whups');
 
-require_once WHUPS_BASE . '/lib/Query.php';
 require_once WHUPS_BASE . '/lib/Forms/Search.php';
 
 $renderer = new Horde_Form_Renderer();
@@ -65,8 +64,7 @@ if (($vars->get('formname') || $vars->get('summary') || $vars->get('states') ||
 
     $form->getInfo($vars, $info);
     if ($vars->get('submitbutton') == _("Save as Query")) {
-        require_once WHUPS_BASE . '/lib/Query.php';
-        $qManager = new Whups_QueryManager();
+        $qManager = new Whups_Query_Manager();
         $whups_query = $qManager->newQuery();
         if (strlen($info['summary'])) {
             $whups_query->insertCriterion('', Whups_Query::CRITERION_SUMMARY, null,
@@ -170,7 +168,7 @@ if (!$beendone) {
     echo '<br class="spacer" />';
 }
 
-$qManager = new Whups_QueryManager();
+$qManager = new Whups_Query_Manager();
 $myqueries = Whups_View::factory(
     'SavedQueries',
     array('title' => $GLOBALS['registry']->getAuth() ? _("My Queries") : _("Public Queries"),

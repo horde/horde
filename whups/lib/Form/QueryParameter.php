@@ -9,13 +9,13 @@
  *
  * @package Whups
  */
-class QueryParameterForm extends Horde_Form {
+class Whups_Form_QueryParameter extends Horde_Form
+{
+    protected $_useFormToken = false;
 
-    var $_useFormToken = false;
-
-    function QueryParameterForm($query, $vars)
+    public function __construct($query, $vars)
     {
-        parent::Horde_Form($vars, _("Query Parameters"), 'queryparameters');
+        parent::__construct($vars, _("Query Parameters"), 'queryparameters');
         foreach ($query->parameters as $name) {
             $this->addVariable($name, $name, 'text', true);
         }

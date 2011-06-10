@@ -64,46 +64,50 @@ class Whups_Query
     const OPERATOR_PATTERN = 7;
 
     /**
-     * @var Whups_QueryManager
+     * @var Whups_Query_Manager
      */
-    var $_qManager;
+    protected $_qManager;
 
     /**
      * Query id.
      *
      * @var integer
      */
-    var $id;
+    public $id;
 
     /**
      * The full name of the query.
      *
      * @var string
      */
-    var $name;
+    public $name;
 
     /**
      * The query slug (short name).
      *
      * @var string
      */
-    var $slug;
+    public $slug;
 
     /**
      * @var array
      */
-    var $query = array('type' => Whups_Query::TYPE_AND,
-                       'children' => array());
+    public $query = array(
+        'type' => Whups_Query::TYPE_AND,
+        'children' => array());
 
     /**
      * @var array
      */
-    var $parameters = array();
+    public $parameters = array();
 
     /**
      * Constructor
+     *
+     * @param Whups_Query_Manager $qManager
+     * @param array $qDetails
      */
-    function Whups_Query(&$qManager, $qDetails = array())
+    function __construct(Whups_Query_Manager &$qManager, array $qDetails = array())
     {
         $this->_qManager = &$qManager;
         if (isset($qDetails['query_id'])) {
@@ -126,7 +130,7 @@ class Whups_Query
     /**
      * @static
      */
-    function pathToString(&$path)
+    public static function pathToString(&$path)
     {
         return implode(',', $path);
     }
@@ -134,7 +138,7 @@ class Whups_Query
     /**
      * @static
      */
-    function stringToPath($pathstring)
+    public static function stringToPath($pathstring)
     {
         if (!strlen($pathstring)) {
             return array();
@@ -150,7 +154,7 @@ class Whups_Query
      *
      * @return array  Hash with operator types and descriptions.
      */
-    function textOperators()
+    public static function textOperators()
     {
         return array(
             Whups_Query::OPERATOR_EQUAL        => _("Exact Match"),
@@ -169,7 +173,7 @@ class Whups_Query
      *
      * @return boolean  Whether or not $userid has $permission.
      */
-    function hasPermission($userid, $permission, $creator = null)
+    public function hasPermission($userid, $permission, $creator = null)
     {
         return $this->_qManager->hasPermission($this->id, $userid, $permission, $creator);
     }
@@ -179,7 +183,7 @@ class Whups_Query
      * permanently. New objects are added instead.
      *
      */
-    function save()
+    public function save()
     {
         $this->_qManager->save($this);
     }
@@ -188,7 +192,7 @@ class Whups_Query
      * Delete this object from the backend permanently.
      *
      */
-    function delete()
+    public function delete()
     {
         $this->_qManager->delete($this);
     }
@@ -198,15 +202,17 @@ class Whups_Query
      *
      * @return string  A full <link> tag.
      */
-    function feedLink()
+    public function feedLink()
     {
         return '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($this->name) . '" href="' . Whups::urlFor('query_rss', empty($this->slug) ? array('id' => $this->id) : array('slug' => $this->slug), true, -1) . '" />';
     }
 
     /**
      * Tab operations for this query.
+     *
+     * @params Horde_Variables
      */
-    function getTabs($vars)
+    public function getTabs(Horde_Variables $vars)
     {
         // Create a few variables that are reused.
         $queryurl = Horde::url('query/index.php');
@@ -222,11 +228,18 @@ class Whups_Query
             Horde::addScriptFile('popup.js', 'horde', true);
 
             $permsurl = $GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php';
-            $permsurl = Horde_Util::addParameter($permsurl, array('app' => 'whups',
-                                                            'cid' => $this->id));
-            $tabs->addTab(_("Edit _Permissions"), $permsurl, array('tabname' => 'perms',
-                                                                   'onclick' => 'popup(\'' . $permsurl . '\'); return false;',
-                                                                   'target' => '_blank'));
+            $permsurl = Horde_Util::addParameter(
+                $permsurl,
+                array(
+                    'app' => 'whups',
+                    'cid' => $this->id));
+            $tabs->addTab(
+                _("Edit _Permissions"),
+                $permsurl,
+                array(
+                    'tabname' => 'perms',
+                    'onclick' => 'popup(\'' . $permsurl . '\'); return false;',
+                    'target' => '_blank'));
         }
         $tabs->addTab(_("E_xecute Query"), Horde::url('query/run.php'), 'run');
         $tabs->addTab(_("_Load Query"), $queryurl, 'load');
@@ -242,10 +255,14 @@ class Whups_Query
     }
 
     /**
-     * Operations.
+     * Path to form
+     *
+     * @param Horde_Variables $vars
+     *
+     * @return string
+     * @throws Whups_Exception
      */
-
-    function pathToForm(&$vars)
+    public function pathToForm(&$vars)
     {
         $path = Whups_Query::stringToPath($vars->get('path'));
         $parent = null;
@@ -666,10 +683,10 @@ class Whups_Query
             return 'attribs';
         }
 
-        return PEAR::raiseError(_("This query element cannot be edited."));
+        throw new Whups_Exception(_("This query element cannot be edited."));
     }
 
-    function deleteNode($pathstring)
+    public function deleteNode($pathstring)
     {
         $path = Whups_Query::stringToPath($pathstring);
         $qobj = &$this->query;
@@ -693,7 +710,7 @@ class Whups_Query
         }
     }
 
-    function hoist($pathstring)
+    public function hoist($pathstring)
     {
         $path = Whups_Query::stringToPath($pathstring);
         $qobj = &$this->query;
@@ -715,7 +732,7 @@ class Whups_Query
         }
     }
 
-    function insertBranch($pathstring, $type)
+    public function insertBranch($pathstring, $type)
     {
         $path = Whups_Query::stringToPath($pathstring);
         $qobj = &$this->query;
@@ -741,7 +758,7 @@ class Whups_Query
         return Whups_Query::pathToString($path);
     }
 
-    function insertCriterion($pathstring, $criterion, $cvalue, $operator, $value)
+    public function insertCriterion($pathstring, $criterion, $cvalue, $operator, $value)
     {
         $path = Whups_Query::stringToPath($pathstring);
         $qobj = &$this->query;
@@ -775,7 +792,7 @@ class Whups_Query
     /**
      * Top down traversal.
      */
-    function walk(&$obj, $method)
+    public function walk(&$obj, $method)
     {
         $path = array();
         $more = array();
@@ -785,7 +802,7 @@ class Whups_Query
     /**
      * @access private
      */
-    function _walk(&$node, &$more, &$path, &$obj, $method)
+    protected function _walk(&$node, &$more, &$path, &$obj, $method)
     {
         if ($node['type'] == Whups_Query::TYPE_CRITERION) {
             $obj->$method($more, $path, Whups_Query::TYPE_CRITERION, $node['criterion'],
@@ -810,7 +827,7 @@ class Whups_Query
     /**
      * Bottom up traversal.
      */
-    function reduce(&$obj, $method, &$vars)
+    public function reduce(&$obj, $method, &$vars)
     {
         return $this->_reduce($this->query, $obj, $method, $vars);
     }
@@ -818,7 +835,7 @@ class Whups_Query
     /**
      * @access private
      */
-    function _reduce(&$node, &$obj, $method, &$vars)
+    protected function _reduce(&$node, &$obj, $method, &$vars)
     {
         $args = array();
 
@@ -839,8 +856,9 @@ class Whups_Query
                 $value = $vars->get($pn);
             }
 
-            $result = $obj->$method($args, Whups_Query::TYPE_CRITERION, $node['criterion'],
-                                    $node['cvalue'], $node['operator'], $value);
+            $result = $obj->$method(
+                $args, Whups_Query::TYPE_CRITERION, $node['criterion'],
+                $node['cvalue'], $node['operator'], $value);
         } else {
             $result = $obj->$method($args, $node['type'], null, null, null, null);
         }
@@ -851,7 +869,7 @@ class Whups_Query
     /**
      * @access private
      */
-    function _getParameterName($value)
+    protected function _getParameterName($value)
     {
         if (strcmp(substr($value, 0, 2), '${'))
             return null;
@@ -861,195 +879,6 @@ class Whups_Query
             $pn = null;
 
         return $pn;
-    }
-
-}
-
-/**
- * @package Whups
- */
-class Whups_QueryManager {
-
-    /**
-     * Horde_Share instance for managing shares.
-     *
-     * @var Horde_Share
-     */
-    var $_shareManager;
-
-    /**
-     * Constructor.
-     */
-    function Whups_QueryManager()
-    {
-        $this->_shareManager = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
-    }
-
-    /**
-     * Returns a specific query identified by its id.
-     *
-     * @param integer $queryId  A query id.
-     *
-     * @return Whups_Query  The matching query or null if not found.
-     * @throws Whups_Exception
-     */
-    function getQuery($queryId)
-    {
-        try {
-            $share = $this->_shareManager->getShareById($queryId);
-        } catch (Horde_Exception_NotFound $e) {
-            throw new Whups_Exception($e);
-        }
-        return $this->_getQuery($share);
-    }
-
-    /**
-     * Returns a specific query identified by its slug name.
-     *
-     * @param string $slug  A query slug.
-     *
-     * @return Whups_Query  The matching query or null if not found.
-     * @throws Whups_Exception
-     */
-    function getQueryBySlug($slug)
-    {
-        try {
-            $shares = $this->_shareManager->listShares(
-                $GLOBALS['registry']->getAuth(),
-                array('perm' => Horde_Perms::READ,
-                      'attributes' => array('slug' => $slug)));
-        } catch (Horde_Share_Exception $e) {
-            throw new Whups_Exception($e);
-        }
-        if (!count($shares)) {
-            return;
-        }
-
-        return $this->_getQuery(reset($shares));
-    }
-
-    /**
-     * Builds a query object from a share object.
-     *
-     * @param Horde_Share_Object $share  A share object representing a query.
-     *
-     * @return Whups_Query  The query object built from the share.
-     */
-    function _getQuery($share)
-    {
-        $queryDetails = $GLOBALS['whups_driver']->getQuery($share->getId());
-        $queryDetails['query_id'] = $share->getId();
-        $queryDetails['query_name'] = $share->get('name');
-        $queryDetails['query_slug'] = $share->get('slug');
-
-        return new Whups_Query($this, $queryDetails);
-    }
-
-    /**
-     * Checks to see if a user has a given permission to $queryId.
-     *
-     * @param integer $queryId     The query to check.
-     * @param string $userid       The userid of the user.
-     * @param integer $permission  A Horde_Perms::* constant to test for.
-     * @param string $creator      The creator of the event.
-     *
-     * @return boolean  Whether or not $userid has $permission.
-     */
-    function hasPermission($queryId, $userid, $permission, $creator = null)
-    {
-        try {
-            $share = $this->_shareManager->getShareById($queryId);
-        } catch (Horde_Exception_NotFound $e) {
-            // If the share doesn't exist yet, then it has open perms.
-            return true;
-        }
-        return $share->hasPermission($userid, $permission, $creator);
-    }
-
-    /**
-     * List queries.
-     */
-    function listQueries($user, $return_slugs = false)
-    {
-        try {
-            $shares = $this->_shareManager->listShares($user);
-        } catch (Horde_Share_Exception $e) {
-            throw new Whups_Exception($e);
-        }
-
-        $queries = array();
-        foreach ($shares as $share) {
-            $queries[$share->getId()] = $return_slugs
-                ? array('name' => $share->get('name'),
-                        'slug' => $share->get('slug'))
-                : $share->get('name');
-        }
-
-        return $queries;
-    }
-
-    /**
-     */
-    function newQuery()
-    {
-        return new Whups_Query($this);
-    }
-
-    /**
-     * @param Whups_Query $query The query to save.
-     * @throws Whups_Exception
-     */
-    function save($query)
-    {
-        if ($query->id) {
-            // Query already exists; get its share and update the name
-            // if necessary.
-            try {
-                $share = $this->_shareManager->getShareById($query->id);
-            } catch (Horde_Exception_NotFound $e) {
-                // Share has an id but doesn't exist; just throw an
-                // error.
-                throw new Whups_Exception($e);
-            }
-            if ($share->get('name') != $query->name ||
-                $share->get('slug') != $query->slug) {
-                $share->set('name', $query->name);
-                $share->set('slug', $query->slug);
-                $share->save();
-            }
-        } else {
-            // Create a new share for the query.
-            $share = $this->_shareManager->newShare($GLOBALS['registry']->getAuth(), (string)new Horde_Support_Uuid(), $query->name);
-            $share->set('slug', $query->slug);
-            try {
-                $this->_shareManager->addShare($share);
-            } catch (Horde_Share_Exception $e) {
-                throw new Whups_Exception($e);
-            }
-            $query->id = $share->getId();
-        }
-
-        // Update the queries table.
-        $GLOBALS['whups_driver']->saveQuery($query);
-    }
-
-    /**
-     * @param Whups_Query $query The query to delete.
-     */
-    function delete($query)
-    {
-        if (!$query->id) {
-            // Queries that aren't saved yet shouldn't be able to be deleted.
-            return;
-        }
-
-        try {
-            $share = $this->_shareManager->getShareById($query->id);
-            $this->_shareManager->removeShare($share);
-        } catch (Exception $e) {
-            throw new Whups_Exception($e);
-        }
-        $GLOBALS['whups_driver']->deleteQuery($query->id);
     }
 
 }

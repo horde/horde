@@ -17,9 +17,7 @@ class Whups_Block_Query extends Horde_Core_Block
      */
     protected function _params()
     {
-        require_once WHUPS_BASE . '/lib/Query.php';
-
-        $qManager = new Whups_QueryManager();
+        $qManager = new Whups_Query_Manager();
         $qDefault = null;
         $qParams = $qManager->listQueries($GLOBALS['registry']->getAuth());
         if (count($qParams)) {
@@ -93,9 +91,7 @@ class Whups_Block_Query extends Horde_Core_Block
             return false;
         }
 
-        require_once WHUPS_BASE . '/lib/Query.php';
-
-        $qManager = new Whups_QueryManager();
+        $qManager = new Whups_Query_Manager();
         try {
             $query = $qManager->getQuery($this->_params['query']);
         } catch (Whups_Exception $e) {

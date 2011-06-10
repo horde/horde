@@ -20,7 +20,7 @@ class Whups_Factory_Driver extends Horde_Core_Factory_Base
      * @return Kronolith_Driver
      * @throws Kronolith_Exception
      */
-    public function create($driver, $params = array())
+    public function create($driver = null, $params = array())
     {
         if (is_null($driver)) {
             $driver = $GLOBALS['conf']['tickets']['driver'];

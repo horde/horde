@@ -27,24 +27,27 @@
     }
 }*/
 
-class Horde_Form_Renderer_Query extends Horde_Form_Renderer {
+class Whups_Form_Renderer_Query extends Horde_Form_Renderer
+{
+    public $ticketTypes = null;
 
-    var $ticketTypes = null;
+    public $attributes = null;
 
-    var $attributes = null;
-
-    function Horde_Form_Renderer_Query()
+    function __construct()
     {
         $this->ticketTypes = $GLOBALS['whups_driver']->getAllTypes();
         $this->attributes = $GLOBALS['whups_driver']->getAllAttributes();
     }
 
-    function _renderBegin()
+    protected function _renderBegin()
     {
         echo '<table class="item">';
     }
 
-    function _renderForm(&$query, &$vars, $active)
+    /**
+     * @TODO: this is public becuase the parent:: method is public
+     */
+    public function _renderForm(&$query, &$vars, $active)
     {
         $this->currentRow = 1;
         $this->isActive = $active;
@@ -55,12 +58,15 @@ class Horde_Form_Renderer_Query extends Horde_Form_Renderer {
         $this->_renderEnd();
     }
 
-    function edit(&$operations, $formname, $id)
+    public function edit(&$operations, $formname, $id)
     {
         include WHUPS_TEMPLATES . '/renderer/query/edit.inc';
     }
 
-    function _renderRow(&$more, &$path, $type, $criterion, $cvalue, $operator, $value)
+    /**
+     * @TODO: This must be public, but method name has underscore.
+     */
+    public function _renderRow(&$more, &$path, $type, $criterion, $cvalue, $operator, $value)
     {
         global $whups_driver, $registry;
 
@@ -241,7 +247,11 @@ class Horde_Form_Renderer_Query extends Horde_Form_Renderer {
         include WHUPS_TEMPLATES . '/renderer/query/render.inc';
     }
 
-    function _renderEnd()
+    /**
+     * @TODO: This needs to stay public for now since Horde_Form_Renderer::
+     *        has it as public.
+     */
+    public function _renderEnd()
     {
         echo '</table>';
     }

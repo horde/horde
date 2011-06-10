@@ -14,9 +14,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-require_once WHUPS_BASE . '/lib/Query.php';
-
-$qManager = new Whups_QueryManager();
+$qManager = new Whups_Query_Manager();
 $vars = new Horde_Variables();
 
 // See if we were passed a slug or id. Slug is tried first.
