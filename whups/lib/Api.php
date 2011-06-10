@@ -132,8 +132,6 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function addTicket($ticket_info)
     {
-        require_once dirname(__FILE__) . '/Forms/CreateTicket.php';
-        require_once dirname(__FILE__) . '/Ticket.php';
         global $whups_driver;
 
         if (!is_array($ticket_info)) {
@@ -142,9 +140,9 @@ class Whups_Api extends Horde_Registry_Api
 
         $vars = new Horde_Variables($ticket_info);
 
-        $form1 = new CreateStep1Form($vars);
-        $form2 = new CreateStep2Form($vars);
-        $form3 = new CreateStep3Form($vars);
+        $form1 = new Whups_Form_CreateStepOne($vars);
+        $form2 = new Whups_Form_CreateStepTwo($vars);
+        $form3 = new Whups_Form_CreateStepThree($vars);
 
         // FIXME: This is an almighty hack, but we can't have form
         // tokens in rpc calls.

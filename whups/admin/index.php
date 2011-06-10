@@ -1181,7 +1181,6 @@ case 'deletereplyform':
     break;
 
 case 'sendreminderform':
-    require_once WHUPS_BASE . '/lib/Forms/Admin.php';
     $form = new Whups_Form_SendReminder($vars);
     if ($form->validate($vars)) {
         try {
@@ -1241,8 +1240,7 @@ if (!_open(true)) {
         break;
 
     case 'reminders':
-        require_once WHUPS_BASE . '/lib/Forms/Admin.php';
-        $main1 = new SendReminderForm($vars);
+        $main1 = new Whups_Form_SendReminder($vars);
         break;
 
     case 'mtmatrix':

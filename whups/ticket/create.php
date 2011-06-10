@@ -10,8 +10,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-require_once WHUPS_BASE . '/lib/Forms/CreateTicket.php';
-require_once WHUPS_BASE . '/lib/Forms/VarRenderer.php';
+//require_once WHUPS_BASE . '/lib/Forms/VarRenderer.php';
 
 $empty = '';
 $beendone = 0;
@@ -20,12 +19,12 @@ $wereerrors = 0;
 $vars = Horde_Variables::getDefaultVariables($empty);
 $formname = $vars->get('formname');
 
-$form1 = new CreateStep1Form($vars);
-$form2 = new CreateStep2Form($vars);
-$form3 = new CreateStep3Form($vars);
-$form4 = new CreateStep4Form($vars);
+$form1 = new Whups_Form_CreateStepOne($vars);
+$form2 = new Whups_Form_CreateStepTwo($vars);
+$form3 = new Whups_Form_CreateStepThree($vars);
+$form4 = new Whups_Form_CreateStepFour($vars);
 $r = new Horde_Form_Renderer(
-    array('varrenderer_driver' => 'whups'));
+    array('varrenderer_driver' => array('whups', 'whups')));
 
 $valid4 = $form4->validate($vars) &&
      $formname == 'createstep4form';
