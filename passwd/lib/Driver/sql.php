@@ -43,7 +43,7 @@ class Passwd_Driver_sql extends Passwd_Driver {
      * 'query_modify'    - (string)  Should we use a custom query for changing?
      * </pre>
      */
-    function Passwd_Driver_sql($params = array())
+    function __construct($params = array())
     {
         if (isset($params['db'])) {
             $this->_db = $params['db'];
