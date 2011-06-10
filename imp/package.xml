@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Show translated name for special mailboxes in sent mail lists (Bug #10220).
 * [mms] Fix regression in filtering mailbox in traditional view (Bug #10213).
  </notes>
  <contents>
