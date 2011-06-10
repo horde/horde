@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-06-07</date>
- <time>23:04:43</time>
+ <date>2011-06-09</date>
+ <time>23:02:47</time>
  <version>
   <release>1.2.1</release>
   <api>1.2.0</api>
@@ -1471,7 +1471,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-07</date>
+   <date>2011-06-09</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [mms] Only list sidebar apps in listApps() if parent app is active (Bug #10017).
