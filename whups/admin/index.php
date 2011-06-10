@@ -1182,7 +1182,7 @@ case 'deletereplyform':
 
 case 'sendreminderform':
     require_once WHUPS_BASE . '/lib/Forms/Admin.php';
-    $form = new SendReminderForm($vars);
+    $form = new Whups_Form_SendReminder($vars);
     if ($form->validate($vars)) {
         try {
             Whups::sendReminders($vars);
