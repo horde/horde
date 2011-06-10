@@ -111,7 +111,12 @@ class GroupCriterionForm extends Horde_Form {
         $groups = $vars->get('groups');
 
         if ($groups) {
-            $GLOBALS['whups_query']->insertCriterion($path, Whups_Query::CRITERION_GROUPS, null, Whups_Query::Whups_Query::OPERATOR_EQUAL, $groups);
+            $GLOBALS['whups_query']->insertCriterion(
+                $path,
+                Whups_Query::CRITERION_GROUPS,
+                null,
+                Whups_Query::OPERATOR_EQUAL,
+                $groups);
         }
 
         $this->unsetVars($vars);
@@ -217,7 +222,7 @@ class PropertyCriterionForm extends Horde_Form {
             }
 
             foreach ($ids as $id) {
-                $GLOBALS['whups_query']->insertCriterion($newpath, Whups_Query::CRITERION_ID, null, Whups_Query::Whups_Query::OPERATOR_EQUAL, $id);
+                $GLOBALS['whups_query']->insertCriterion($newpath, Whups_Query::CRITERION_ID, null, Whups_Query::OPERATOR_EQUAL, $id);
             }
         }
 
@@ -227,25 +232,25 @@ class PropertyCriterionForm extends Horde_Form {
             if ($version) {
                 $path = $GLOBALS['whups_query']->insertBranch($path, Whups_Query::TYPE_AND);
             }
-            $GLOBALS['whups_query']->insertCriterion($path, Whups_Query::CRITERION_QUEUE, null, Whups_Query::Whups_Query::OPERATOR_EQUAL, $queue);
+            $GLOBALS['whups_query']->insertCriterion($path, Whups_Query::CRITERION_QUEUE, null, Whups_Query::OPERATOR_EQUAL, $queue);
             if ($version) {
-                $GLOBALS['whups_query']->insertCriterion($path, Whups_Query::CRITERION_VERSION, null, Whups_Query::Whups_Query::OPERATOR_EQUAL, $version);
+                $GLOBALS['whups_query']->insertCriterion($path, Whups_Query::CRITERION_VERSION, null, Whups_Query::OPERATOR_EQUAL, $version);
             }
         }
 
         $type = $vars->get('ttype');
         if ($type) {
-            $GLOBALS['whups_query']->insertCriterion($path, Whups_Query::CRITERION_TYPE, null, Whups_Query::Whups_Query::OPERATOR_EQUAL, $type);
+            $GLOBALS['whups_query']->insertCriterion($path, Whups_Query::CRITERION_TYPE, null, Whups_Query::OPERATOR_EQUAL, $type);
         }
 
         $state = $vars->get('state');
         if ($state) {
-            $GLOBALS['whups_query']->insertCriterion($path, Whups_Query::CRITERION_STATE, null, Whups_Query::Whups_Query::OPERATOR_EQUAL, $state);
+            $GLOBALS['whups_query']->insertCriterion($path, Whups_Query::CRITERION_STATE, null, Whups_Query::OPERATOR_EQUAL, $state);
         }
 
         $priority = $vars->get('priority');
         if ($priority) {
-            $GLOBALS['whups_query']->insertCriterion($path, Whups_Query::CRITERION_PRIORITY, null, Whups_Query::Whups_Query::OPERATOR_EQUAL, $priority);
+            $GLOBALS['whups_query']->insertCriterion($path, Whups_Query::CRITERION_PRIORITY, null, Whups_Query::OPERATOR_EQUAL, $priority);
         }
 
         $this->unsetVars($vars);
@@ -362,7 +367,7 @@ class DateCriterionForm extends Horde_Form {
                     $parent = true;
                 }
                 $date = mktime(0, 0, 0, $date['month'], $date['day'], $date['year']);
-                $GLOBALS['whups_query']->insertCriterion($path, $key_id, null, Whups_Query::Whups_Query::OPERATOR_GREATER, $date);
+                $GLOBALS['whups_query']->insertCriterion($path, $key_id, null, Whups_Query::OPERATOR_GREATER, $date);
             }
             $date = $vars->get($key_name . '[to]');
             if (!empty($date['month'])) {
@@ -371,7 +376,7 @@ class DateCriterionForm extends Horde_Form {
                     $parent = true;
                 }
                 $date = mktime(0, 0, 0, $date['month'], $date['day'], $date['year']);
-                $GLOBALS['whups_query']->insertCriterion($path, $key_id, null, Whups_Query::Whups_Query::OPERATOR_LESS, $date);
+                $GLOBALS['whups_query']->insertCriterion($path, $key_id, null, Whups_Query::OPERATOR_LESS, $date);
             }
         }
 
