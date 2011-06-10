@@ -10,8 +10,6 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-//require_once WHUPS_BASE . '/lib/Forms/VarRenderer.php';
-
 $empty = '';
 $beendone = 0;
 $wereerrors = 0;
