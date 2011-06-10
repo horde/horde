@@ -650,11 +650,11 @@ class IMP_Message
         $ajax_queue = $GLOBALS['injector']->getInstance('IMP_Ajax_Queue');
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 
-        if (!$GLOBALS['injector']->getInstance('IMP_Message')->flagAllInMailbox($flags, array($this->_vars->mbox), $this->_vars->add)) {
+        if (!$GLOBALS['injector']->getInstance('IMP_Message')->flagAllInMailbox($flags, $mboxes, $action)) {
             return false;
         }
 
-        $this->_queue->poll($this->_vars->mbox);
+        $this->_queue->poll($mboxes);
 
         foreach ($mboxes as $val) {
             try {

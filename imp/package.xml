@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-09</date>
- <time>10:45:14</time>
+ <date>2011-06-10</date>
+ <time>11:25:12</time>
  <version>
   <release>5.0.7</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix regression when flagging all messages in a mailbox (Bug #10224).
 * [jan] Fix folder links in virtual folders (Bug #10221).
 * [mms] Show translated name for special mailboxes in sent mail lists (Bug #10220).
 * [mms] Fix regression in filtering mailbox in traditional view (Bug #10213).
@@ -2295,9 +2296,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-09</date>
+   <date>2011-06-10</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Fix regression when flagging all messages in a mailbox (Bug #10224).
 * [jan] Fix folder links in virtual folders (Bug #10221).
 * [mms] Show translated name for special mailboxes in sent mail lists (Bug #10220).
 * [mms] Fix regression in filtering mailbox in traditional view (Bug #10213).
