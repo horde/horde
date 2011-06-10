@@ -3,42 +3,49 @@
  * The LDAP class attempts to change a user's password stored in an LDAP
  * directory service.
  *
- * $Horde: passwd/lib/Driver/ldap.php,v 1.41.2.13 2009/11/09 13:31:12 jan Exp $
+ * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
  *
- * Copyright 2000-2009 The Horde Project (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.php.
+ * See http://www.horde.org/licenses/gpl.php for license information (GPL).
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @author  Tjeerd van der Zee <admin@xar.nl>
  * @author  Mattias Webjörn Eriksson <mattias@webjorn.org>
  * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
+ * @author  Ralf Lang <lang@b1-systems.de>
  * @package Passwd
  */
 class Passwd_Driver_ldap extends Passwd_Driver {
 
     /**
-     * LDAP connection handle.
+     * LDAP object.
      *
      * @var resource
      */
-    var $_ds = false;
+    protected  $_ldap = false;
 
     /**
      * The user's DN.
      *
      * @var string
      */
-    var $_userdn;
+    protected  $_userdn;
 
     /**
      * Constructs a new Passwd_Driver_ldap object.
      *
      * @param array $params  A hash containing connection parameters.
      */
-    function Passwd_Driver_ldap($params = array())
+    function __construct($params = array())
     {
+        foreach (array('basedn', 'ldap', 'uid') as $val) {
+            if (!isset($params[$val])) {
+                throw new InvalidArgumentException(__CLASS__ . ': Missing ' . $val . ' parameter.');
+            }
+        }
+
+        $this->_ldap = $params['ldap'];
+        unset($params['ldap']);
+
         $this->_params = array_merge(
             array('host' => 'localhost',
                   'port' => 389,
@@ -62,71 +69,7 @@ class Passwd_Driver_ldap extends Passwd_Driver {
         }
     }
 
-    /**
-     * Does an LDAP connect and binds as the guest user or as the optional
-     * userdn.
-     *
-     * @param string $userdn       The dn to use when binding non-anonymously.
-     * @param string $oldpassword  The password for $userdn.
-     *
-     * @return boolean  True or False based on success of connect and bind.
-     */
-    function _connect()
-    {
-        // See if we already have an open connection
-        if ($this->_ds) {
-            return true;
-        }
 
-        if (!empty($this->_params['sslhost']) && empty($this->_params['tls'])) {
-            $this->_ds = ldap_connect('ldaps://' . $this->_params['sslhost']);
-        } else {
-            $this->_ds = ldap_connect($this->_params['host'], $this->_params['port']);
-        }
-        if (!$this->_ds) {
-            return PEAR::raiseError(_("Could not connect to LDAP server"));
-        }
-
-        if (ldap_set_option($this->_ds, LDAP_OPT_PROTOCOL_VERSION, 3) &&
-            $this->_params['tls']) {
-            if (!ldap_start_tls($this->_ds)) {
-                return PEAR::raiseError(_("Could not start TLS connection to LDAP server"));
-            }
-        }
-
-        if (!empty($this->_params['referrals'])) {
-            if (!ldap_set_option($this->_ds, LDAP_OPT_REFERRALS, $this->_params['referrals'])) {
-                return PEAR::raiseError(_("Unable to disable directory referrals"));
-            }
-        }
-
-        return true;
-    }
-
-
-    /**
-     * Bind (or re-bind) to an LDAP server with the given credentials.
-     *
-     * @param string $userdn    Bind DN
-     * @param string $password  Bind password
-     *
-     * @return mixed            True on success; PEAR_Error on error
-     */
-    function _bind($userdn = '', $password = '')
-    {
-        $result = false;
-        // Try to bind as the current userdn with password.
-         if (!empty($userdn)) {
-            $result = @ldap_bind($this->_ds, $userdn, $password);
-        } else {
-            $result = @ldap_bind($this->_ds);
-        }
-
-        // If none of the bind attempts succeed, return error.
-        if (!$result) {
-            return PEAR::raiseError(_("Could not bind to LDAP server"));
-        }
-    }
 
     /**
      * Changes the user's password.
@@ -219,9 +162,6 @@ class Passwd_Driver_ldap extends Passwd_Driver {
         if (!@ldap_mod_replace($this->_ds, $this->_userdn, $new_details)) {
             return PEAR::raiseError(ldap_error($this->_ds));
         }
-
-        // Update the stored credential within the session
-        $GLOBALS['registry']->setAuthCredential('password', $new_password);
 
         return true;
     }
