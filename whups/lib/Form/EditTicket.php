@@ -5,13 +5,13 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Whups
  */
-class EditTicketForm extends Horde_Form {
-
-    function EditTicketForm(&$vars, &$ticket, $title = '')
+class Whups_Form_EditTicket extends Horde_Form
+{
+    public function __construct(&$vars, &$ticket, $title = '')
     {
         global $whups_driver;
 
-        parent::Horde_Form($vars, $title);
+        parent::__construct($vars, $title);
         $type = $vars->get('type');
 
         $start_year = date('Y');
@@ -40,9 +40,10 @@ class EditTicketForm extends Horde_Form {
         $grouped_fields = array($fields);
         $grouped_hook = false;
         try {
-            $grouped_fields = Horde::callHook('group_fields',
-                                              array($ticket->get('type'), $fields),
-                                              'whups');
+            $grouped_fields = Horde::callHook(
+                'group_fields',
+                array($ticket->get('type'), $fields),
+                'whups');
             $grouped_hook = true;
         } catch (Horde_Exception_HookNotSet $e) {
         } catch (Horde_Exception $e) {
@@ -75,26 +76,25 @@ class EditTicketForm extends Horde_Form {
                     break;
 
                 case 'state':
-                    $this->addVariable(_("State"), 'state', 'enum', true,
-                                       false, null,
-                                       array($whups_driver->getStates($type)));
+                    $this->addVariable(
+                        _("State"), 'state', 'enum', true, false, null,
+                        array($whups_driver->getStates($type)));
                     break;
 
                 case 'priority':
-                    $this->addVariable(_("Priority"), 'priority', 'enum', true,
-                                       false, null,
-                                       array($whups_driver->getPriorities($type)));
+                    $this->addVariable(
+                        _("Priority"), 'priority', 'enum', true, false, null,
+                        array($whups_driver->getPriorities($type)));
                     break;
 
                 case 'due':
-                    $this->addVariable(_("Due Date"), 'due', 'datetime', false,
-                                       false, null,
-                                       array($start_year));
+                    $this->addVariable(
+                        _("Due Date"), 'due', 'datetime', false, false, null,
+                        array($start_year));
                     break;
 
                 case 'owner':
-                    if (Whups::hasPermission($vars->get('queue'), 'queue',
-                                             'assign')) {
+                    if (Whups::hasPermission($vars->get('queue'), 'queue', 'assign')) {
                         $groups = $GLOBALS['injector']->getInstance('Horde_Group');
                         $mygroups = $groups->listAll($GLOBALS['conf']['prefs']['assign_all_groups'] ? null : $GLOBALS['registry']->getAuth());
                         asort($mygroups);
@@ -136,13 +136,13 @@ class EditTicketForm extends Horde_Form {
                     break;
 
                 case 'attachments':
-                    $this->addVariable(_("Attachment"), 'newattachment',
-                                       'file', false);
+                    $this->addVariable(
+                        _("Attachment"), 'newattachment', 'file', false);
                     break;
 
                 case 'comment':
-                    $cvar = &$this->addVariable(_("Comment"), 'newcomment',
-                                                'longtext', false);
+                    $cvar = &$this->addVariable(
+                        _("Comment"), 'newcomment', 'longtext', false);
 
                     /* Form replies. */
                     try {
@@ -156,9 +156,9 @@ class EditTicketForm extends Horde_Form {
                         foreach ($replies as $key => $reply) {
                             $params[$key] = $reply['reply_name'];
                         }
-                        $rvar = &$this->addVariable(_("Form Reply:"), 'reply',
-                                                    'enum', false, false, null,
-                                                    array($params, true));
+                        $rvar = &$this->addVariable(
+                            _("Form Reply:"), 'reply', 'enum', false, false,
+                             null, array($params, true));
                         $rvar->setAction(Horde_Form_Action::factory('reload'));
                         if ($vars->get('reply')) {
                             $reply = $vars->get('newcomment');
@@ -180,9 +180,9 @@ class EditTicketForm extends Horde_Form {
                         }
                         asort($grouplist);
                         $grouplist = array(0 => _("This comment is visible to everyone")) + $grouplist;
-                        $this->addVariable(_("Make this comment visible only to members of a group?"), 'group',
-                                           'enum', false, false, null,
-                                           array($grouplist));
+                        $this->addVariable(
+                            _("Make this comment visible only to members of a group?"), 'group',
+                            'enum', false, false, null, array($grouplist));
                     }
                     break;
 
@@ -207,7 +207,7 @@ class EditTicketForm extends Horde_Form {
         }
     }
 
-    function validate(&$vars)
+    public function validate(&$vars)
     {
         if (!$GLOBALS['registry']->getAuth()) {
             $this->setError('_auth', _("Permission Denied."));
