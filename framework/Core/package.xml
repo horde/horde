@@ -23,9 +23,9 @@
   <active>yes</active>
  </developer>
  <date>2011-06-09</date>
- <time>23:02:47</time>
+ <time>23:03:10</time>
  <version>
-  <release>1.2.1</release>
+  <release>1.2.2</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -34,10 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Only list sidebar apps in listApps() if parent app is active (Bug #10017).
-* [mms] Fix autocomplete javascript when contents of DOM element is dynamically altered.
-* [mms] Fix duplicate node IDs in javascript tree rendering code (Bug #10173).
-* [rla] Show specific admin privileges a user has permission to (Enhancement #9350).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1478,6 +1475,19 @@
 * [mms] Fix autocomplete javascript when contents of DOM element is dynamically altered.
 * [mms] Fix duplicate node IDs in javascript tree rendering code (Bug #10173).
 * [rla] Show specific admin privileges a user has permission to (Enhancement #9350).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.2</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-09</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
