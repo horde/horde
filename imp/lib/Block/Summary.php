@@ -86,7 +86,7 @@ class IMP_Block_Summary extends Horde_Core_Block
                 } else {
                     $out .= '<td><strong>' . intval($mbox_status['unseen']) . '</strong>';
                     if (!empty($mbox_status['recent'])) {
-                        $out .= ' (<span style="color:red">' . $mbox_status['recent'] . ' ' . _("new") . '</span>)';
+                        $out .= ' (<span style="color:red">' . sprintf(ngettext("%d new", "%d new", $mbox_status['recent']), $mbox_status['recent']) . '</span>)';
                     }
                     $out .='</td>';
                 }
