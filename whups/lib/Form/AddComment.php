@@ -2,20 +2,29 @@
 /**
  * @package Whups
  */
-class AddCommentForm extends Horde_Form {
+class Whups_Form_AddComment extends Horde_Form
+{
 
-    function AddCommentForm(&$vars, $title = '')
+    public function __construct(&$vars, $title = '')
     {
         global $conf;
 
-        parent::Horde_Form($vars, $title);
+        parent::__construct($vars, $title);
 
         $this->addHidden('', 'id', 'int', true, true);
 
         if (!$GLOBALS['registry']->getAuth()) {
             $this->addVariable(_("Your Email Address"), 'user_email', 'email', true);
             if (!empty($conf['guests']['captcha'])) {
-                $this->addVariable(_("Spam protection"), 'captcha', 'figlet', true, null, null, array(Whups::getCAPTCHA(!$this->isSubmitted()), $conf['guests']['figlet_font']));
+                $this->addVariable(
+                    _("Spam protection"),
+                    'captcha',
+                    'figlet',
+                    true,
+                    null,
+                    null,
+                    array(Whups::getCAPTCHA(!$this->isSubmitted()),
+                    $conf['guests']['figlet_font']));
             }
         }
         $this->addVariable(_("Comment"), 'newcomment', 'longtext', false);
@@ -38,7 +47,7 @@ class AddCommentForm extends Horde_Form {
         }
     }
 
-    function validate(&$vars, $canAutoFill = false)
+    public function validate(&$vars, $canAutoFill = false)
     {
         global $conf;
 
