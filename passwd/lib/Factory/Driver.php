@@ -50,6 +50,13 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
             }
 
             switch ($class) {
+            case 'Passwd_Driver_ldap':
+                try {
+                    $backend['params']['ldap'] = new Horde_Ldap($backend['params']);
+                } catch (Horde_Ldap_Exception $e) {
+                    throw new Passwd_Exception($e);
+                }
+                break;
             case 'Passwd_Driver_sql':
                 try {
                     $backend['params']['db'] = empty($backend['params'])
