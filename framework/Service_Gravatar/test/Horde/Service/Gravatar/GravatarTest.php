@@ -35,7 +35,7 @@ extends PHPUnit_Framework_TestCase
     public function testReturn()
     {
         $g = new Horde_Service_Gravatar();
-        $this->assertType('string', $g->getId('test'));
+        $this->assertInternalType('string', $g->getId('test'));
     }
 
     public function testAddress()
