@@ -43,8 +43,6 @@ function _getSearchUrl($vars)
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('whups');
 
-require_once WHUPS_BASE . '/lib/Forms/Search.php';
-
 $renderer = new Horde_Form_Renderer();
 $beendone = false;
 $vars = Horde_Variables::getDefaultVariables();
@@ -57,7 +55,7 @@ if (Horde_Util::getFormData('sortdir') !== null) {
     $prefs->setValue('sortdir', Horde_Util::getFormData('sortdir'));
 }
 
-$form = new SearchForm($vars);
+$form = new Whups_Form_Search($vars);
 $results = null;
 if (($vars->get('formname') || $vars->get('summary') || $vars->get('states') ||
      Horde_Util::getFormData('haveSearch', false)) && $form->validate($vars, true)) {

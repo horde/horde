@@ -15,7 +15,7 @@
 /**
  * @package Whups
  */
-class Whups_Form_CreateStepOne extends Horde_Form
+class Whups_Form_Ticket_CreateStepOne extends Horde_Form
 {
     protected $_useFormToken = false;
 

@@ -5,7 +5,7 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Whups
  */
-class Whups_Form_EditTicket extends Horde_Form
+class Whups_Form_Ticket_Edit extends Horde_Form
 {
     public function __construct(&$vars, &$ticket, $title = '')
     {

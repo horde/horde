@@ -21,7 +21,7 @@
  */
 class Horde_Core_Ui_VarRenderer_whups extends Horde_Core_Ui_VarRenderer_Html {
 
-    function _renderVarInput_whupsemail($form, &$var, &$vars)
+    function _renderVarInput_whups_form_type_whupsemail($form, &$var, &$vars)
     {
         $name = $var->getVarName();
 

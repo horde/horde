@@ -14,7 +14,7 @@
 /**
  * @package Whups
  */
-class Whups_Form_CreateStepThree extends Horde_Form
+class Whups_Form_Ticket_CreateStepThree extends Horde_Form
 {
     public function __construct(&$vars)
     {
@@ -37,7 +37,7 @@ class Whups_Form_CreateStepThree extends Horde_Form
         }
 
         if (Whups::hasPermission($queue, 'queue', 'requester')) {
-            $this->addVariable(
+            $test = $this->addVariable(
                 _("The Requester's Email Address"), 'user_email',
                 'whups:whupsemail', false);
         } elseif (!$GLOBALS['registry']->getAuth()) {

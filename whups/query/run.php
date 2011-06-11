@@ -61,7 +61,7 @@ $isvalid = false;
 if (!$whups_query->parameters) {
     $isvalid = true;
 } else {
-    $form = new Whups_Form_QueryParameter($whups_query, $vars);
+    $form = new Whups_Form_Query_Parameter($whups_query, $vars);
     if ($vars->get('formname') == 'queryparameters') {
         $isvalid = $form->validate($vars);
     }

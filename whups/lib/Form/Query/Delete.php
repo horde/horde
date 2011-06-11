@@ -2,7 +2,7 @@
 /**
  * @package Whups
  */
-class Whups_DeleteQuery extends Horde_Form
+class Whups_Query_Delete extends Horde_Form
 {
     public function __construct(&$vars)
     {

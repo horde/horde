@@ -2,7 +2,7 @@
 /**
  * @package Whups
  */
-class Whups_Form_ChooseQueryNameForSave extends Horde_Form
+class Whups_Form_Query_ChooseNameForSave extends Horde_Form
 {
     public function __construct(&$vars)
     {

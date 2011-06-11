@@ -15,7 +15,7 @@
 /**
  * @package Whups
  */
-class Whups_Form_CreateStepFour extends Horde_Form
+class Whups_Form_Ticket_CreateStepFour extends Horde_Form
 {
     public function __construct(&$vars)
     {

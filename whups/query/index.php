@@ -123,17 +123,17 @@ if ($vars->get('qaction1') || $vars->get('qaction2')) {
         break;
 
     case 'delete':
-        $showExtraForm = 'Whups_Form_DeleteQuery';
+        $showExtraForm = 'Whups_Form_Query_Delete';
         $showEditQuery = false;
         break;
 
     case 'save':
-        $showExtraForm = 'Whups_Form_ChooseQueryNameForSave';
+        $showExtraForm = 'Whups_Form_Query_ChooseNameForSave';
         $showEditQuery = false;
         break;
 
     case 'load':
-        $showExtraForm = 'Whups_Form_ChooseQueryNameForLoad';
+        $showExtraForm = 'Whups_Form_Query_ChooseNameForLoad';
         $showEditQuery = false;
         break;
     }
@@ -192,27 +192,27 @@ if ($showEditQuery) {
         // Fall through.
 
     case 'props':
-        $form = new Whups_Form_PropertyCriterion($vars);
+        $form = new Whups_Form_Query_PropertyCriterion($vars);
         break;
 
     case 'user':
-        $form = new Whups_Form_UserCriterion($vars);
+        $form = new Whups_Form_Query_UserCriterion($vars);
         break;
 
     case 'group':
-        $form = new Whups_Form_GroupCriterion($vars);
+        $form = new Whups_Form_Query_GroupCriterion($vars);
         break;
 
     case 'text':
-        $form = new Whups_Form_TextCriterion($vars);
+        $form = new Whups_Form_Query_TextCriterion($vars);
         break;
 
     case 'attribs':
-        $form = new Whups_Form_AttributeCriterion($vars);
+        $form = new Whups_Form_Query_AttributeCriterion($vars);
         break;
 
     case 'date':
-        $form = new Whups_Form_DateCriterion($vars);
+        $form = new Whups_Form_Query_DateCriterion($vars);
         break;
     }
 

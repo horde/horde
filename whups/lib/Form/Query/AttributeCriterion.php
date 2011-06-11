@@ -2,7 +2,7 @@
 /**
  * @package Whups
  */
-class Whups_Form_AttributeCriterion extends Horde_Form
+class Whups_Form_Query_AttributeCriterion extends Horde_Form
 {
     /**
      * List of all available attributes.

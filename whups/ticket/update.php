@@ -10,8 +10,6 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-require_once WHUPS_BASE . '/lib/Forms/EditTicket.php';
-
 $ticket = Whups::getCurrentTicket();
 $linkTags[] = $ticket->feedLink();
 
@@ -62,8 +60,8 @@ if ($tid = $vars->get('transaction')) {
 }
 
 // Edit action.
-if ($vars->get('formname') == 'editticketform') {
-    $editform = new EditTicketForm($vars, $ticket);
+if ($vars->get('formname') == 'whups_form_ticket_edit') {
+    $editform = new Whups_Form_Ticket_Edit($vars, $ticket);
     if ($editform->validate($vars)) {
         $editform->getInfo($vars, $info);
 
@@ -116,7 +114,7 @@ require WHUPS_TEMPLATES . '/prevnext.inc';
 $tabs = Whups::getTicketTabs($vars, $id);
 echo $tabs->render('update');
 
-$form = new EditTicketForm($vars, $ticket, sprintf(_("Update %s"), $title));
+$form = new Whups_Form_Ticket_Edit($vars, $ticket, sprintf(_("Update %s"), $title));
 $form->renderActive($form->getRenderer(), $vars, 'update.php', 'post');
 echo '<br class="spacer" />';
 

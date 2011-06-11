@@ -9,7 +9,7 @@
  *
  * @package Whups
  */
-class Whups_Form_QueryParameter extends Horde_Form
+class Whups_Form_Query_Parameter extends Horde_Form
 {
     protected $_useFormToken = false;
 

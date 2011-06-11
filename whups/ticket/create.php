@@ -17,15 +17,15 @@ $wereerrors = 0;
 $vars = Horde_Variables::getDefaultVariables($empty);
 $formname = $vars->get('formname');
 
-$form1 = new Whups_Form_CreateStepOne($vars);
-$form2 = new Whups_Form_CreateStepTwo($vars);
-$form3 = new Whups_Form_CreateStepThree($vars);
-$form4 = new Whups_Form_CreateStepFour($vars);
+$form1 = new Whups_Form_Ticket_CreateStepOne($vars);
+$form2 = new Whups_Form_Ticket_CreateStepTwo($vars);
+$form3 = new Whups_Form_Ticket_CreateStepThree($vars);
+$form4 = new Whups_Form_Ticket_CreateStepFour($vars);
 $r = new Horde_Form_Renderer(
     array('varrenderer_driver' => array('whups', 'whups')));
 
 $valid4 = $form4->validate($vars) &&
-     $formname == 'createstep4form';
+     $formname == 'whups_form_ticket_createstepfour';
 $valid3 = $form3->validate($vars, true);
 $valid2 = $form2->validate($vars, !$form1->isSubmitted());
 $valid1 = $form1->validate($vars, true);
@@ -102,7 +102,7 @@ if ($valid3 && $valid2 && $valid1) {
     }
 
     // Render the 4th stage form.
-    if ($formname != 'createstep4form') {
+    if ($formname != 'whups_form_ticket_createstepfour') {
         $form4->clearValidation();
     }
     $r->_name = $form4->getName();
@@ -131,7 +131,7 @@ if ($valid3 && $valid2 && $valid1) {
     echo '<br />';
 
     // Render the third stage form.
-    if ($formname != 'createstep3form') {
+    if ($formname != 'whups_form_ticket_createstepthree') {
         $form3->clearValidation();
     }
     $r->beginActive($form3->getTitle());
@@ -154,7 +154,7 @@ if ($valid3 && $valid2 && $valid1) {
         echo '<br />';
 
         // Render the second stage form.
-        if ($formname != 'createstep2form') {
+        if ($formname != 'whups_form_ticket_createsteptwo') {
             $form2->clearValidation();
         }
         $r->beginActive($form2->getTitle());
@@ -166,7 +166,7 @@ if ($valid3 && $valid2 && $valid1) {
 
         $beendone = 1;
     } else {
-        if ($formname != 'createstep1form') {
+        if ($formname != 'whups_form_ticket_createstepone') {
             $form1->clearValidation();
         }
         $form1->open($r, $vars, 'create.php', 'post');

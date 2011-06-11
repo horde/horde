@@ -140,9 +140,9 @@ class Whups_Api extends Horde_Registry_Api
 
         $vars = new Horde_Variables($ticket_info);
 
-        $form1 = new Whups_Form_CreateStepOne($vars);
-        $form2 = new Whups_Form_CreateStepTwo($vars);
-        $form3 = new Whups_Form_CreateStepThree($vars);
+        $form1 = new Whups_Form_Ticket_CreateStepOne($vars);
+        $form2 = new Whups_Form_Ticket_CreateStepTwo($vars);
+        $form3 = new Whups_Form_Ticket_CreateStepThree($vars);
 
         // FIXME: This is an almighty hack, but we can't have form
         // tokens in rpc calls.
@@ -170,10 +170,10 @@ class Whups_Api extends Horde_Registry_Api
 
         // More checks if we're assigning the ticket at create-time.
         if ($GLOBALS['registry']->getAuth() && $whups_driver->isCategory('assigned', $vars->get('state'))) {
-            $form4 = new CreateStep4Form($vars);
+            $form4 = new Whups_Form_Ticket_CreateStep4Form($vars);
         }
         if (Auth::getAuth() && $whups_driver->isCategory('assigned', $vars->get('state'))) {
-            $form4 = new CreateStep4Form($vars);
+            $form4 = new Whups_Form_Ticket_CreateStep4Form($vars);
             $form4->useToken(false);
             if (!$form4->validate($vars, true)) {
                 return PEAR::raiseError('Invalid arguments (' . var_export($form4->_errors, true) . ')');
