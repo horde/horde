@@ -95,15 +95,20 @@ class Horde_Service_Gravatar
      * returned URL can be directly used with an <img/> tag e.g. <img
      * src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" />
      *
-     * @param string $mail The mail address.
+     * @param string $mail   The mail address.
+     * @param integer $size  An optinoal size parameter. Valid values are
+     *                       between 1 and 512.
      *
      * @return string The image URL.
      *
      * @throws InvalidArgumentException In case the mail address is no string.
      */
-    public function getAvatarUrl($mail)
+    public function getAvatarUrl($mail, $size = null)
     {
-        return $this->_base . '/avatar/' . $this->getId($mail);
+        if (!empty($size) && ($size < 1 || $size > 512)) {
+            throw InvalidArgumentException('The size parameter is out of bounds');
+        }
+        return $this->_base . '/avatar/' . $this->getId($mail) . (!empty($size) ? '?s=' . $size : '');
     }
 
     /**
@@ -152,15 +157,16 @@ class Horde_Service_Gravatar
     /**
      * Fetch the avatar image.
      *
-     * @param string $mail The mail address.
+     * @param string $mail   The mail address.
+     * @param integer $size  An optional size parameter.
      *
      * @return resource The image as stream resource.
      *
      * @throws InvalidArgumentException In case the mail address is no string.
      */
-    public function fetchAvatar($mail)
+    public function fetchAvatar($mail, $size = null)
     {
-        return $this->_client->get($this->getAvatarUrl($mail))->getStream();
+        return $this->_client->get($this->getAvatarUrl($mail, $size))->getStream();
     }
 
 }

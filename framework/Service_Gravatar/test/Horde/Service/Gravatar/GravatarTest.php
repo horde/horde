@@ -101,6 +101,14 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testAvatarUrlWithSize()
+    {
+        $g = new Horde_Service_Gravatar();
+        $this->assertEquals(
+            'http://www.gravatar.com/avatar/0c17bf66e649070167701d2d3cd71711?s=50',
+            $g->getAvatarUrl('test@example.org', 50));
+    }
+
     public function testProfileUrl()
     {
         $g = new Horde_Service_Gravatar();
