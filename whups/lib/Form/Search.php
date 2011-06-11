@@ -1,23 +1,24 @@
 <?php
 /**
- * SearchForm Class.
+ * Whups_Form_Search Class.
  *
  * @author  Robert E. Coyle <robertecoyle@hotmail.com>
  * @package Whups
  */
-class SearchForm extends Horde_Form {
+class Whups_Form_Search extends Horde_Form
+{
+    protected $_useFormToken = false;
 
-    var $_useFormToken = false;
-
-    function SearchForm(&$vars)
+    public function __construct(&$vars)
     {
-        parent::Horde_Form($vars);
+        parent::__construct($vars);
 
         $this->setButtons(true);
         $this->appendButtons(_("Save as Query"));
         $this->setSection('attributes', _("Attributes"));
 
-        $queues = Whups::permissionsFilter($GLOBALS['whups_driver']->getQueues(), 'queue', Horde_Perms::READ);
+        $queues = Whups::permissionsFilter(
+            $GLOBALS['whups_driver']->getQueues(), 'queue', Horde_Perms::READ);
         $queue_count = count($queues);
         $types = array();
         if ($queue_count == 1) {
@@ -35,7 +36,8 @@ class SearchForm extends Horde_Form {
                 $modtype = 'invalid';
                 $queue_params = array(_("There are no queues which you can search."));
             }
-            $this->addVariable(_("Queue"), 'queue', $modtype, false, false, null, $queue_params);
+            $this->addVariable(
+                _("Queue"), 'queue', $modtype, false, false, null, $queue_params);
         }
 
         $this->addVariable(_("Summary like"), 'summary', 'text', false);
@@ -50,21 +52,43 @@ class SearchForm extends Horde_Form {
                     $default[] = $state['state_id'];
                 }
             }
-            $v = $this->addVariable($typeName, "states[$typeID]", 'multienum', false, false, null, array ($list, 4));
+            $v = $this->addVariable(
+                $typeName, "states[$typeID]", 'multienum', false, false, null,
+                array ($list, 4));
             $v->setDefault($default);
         }
 
         $this->setSection('dates', _("Dates"));
-        $this->addVariable(_("Created from"), 'ticket_timestamp[from]', 'monthdayyear', false, false, null, array(date('Y') - 10));
-        $this->addVariable(_("to"), 'ticket_timestamp[to]', 'monthdayyear', false, false, null, array(date('Y') - 10));
-        $this->addVariable(_("Updated from"), 'date_updated[from]', 'monthdayyear', false, false, null, array(date('Y') - 10));
-        $this->addVariable(_("to"), 'date_updated[to]', 'monthdayyear', false, false, null, array(date('Y') - 10));
-        $this->addVariable(_("Resolved from"), 'date_resolved[from]', 'monthdayyear', false, false, null, array(date('Y') - 10));
-        $this->addVariable(_("to"), 'date_resolved[to]', 'monthdayyear', false, false, null, array(date('Y') - 10));
-        $this->addVariable(_("Assigned from"), 'date_assigned[from]', 'monthdayyear', false, false, null, array(date('Y') - 10));
-        $this->addVariable(_("to"), 'date_assigned[to]', 'monthdayyear', false, false, null, array(date('Y') - 10));
-        $this->addVariable(_("Due from"), 'ticket_due[from]', 'monthdayyear', false, false, null, array(date('Y') - 10));
-        $this->addVariable(_("to"), 'ticket_due[to]', 'monthdayyear', false, false, null, array(date('Y') - 10));
+        $this->addVariable(
+            _("Created from"), 'ticket_timestamp[from]', 'monthdayyear', false,
+            false, null, array(date('Y') - 10));
+        $this->addVariable(
+            _("to"), 'ticket_timestamp[to]', 'monthdayyear', false, false, null,
+            array(date('Y') - 10));
+        $this->addVariable(
+            _("Updated from"), 'date_updated[from]', 'monthdayyear', false,
+             false, null, array(date('Y') - 10));
+        $this->addVariable(
+            _("to"), 'date_updated[to]', 'monthdayyear', false, false, null,
+            array(date('Y') - 10));
+        $this->addVariable(
+            _("Resolved from"), 'date_resolved[from]', 'monthdayyear', false,
+            false, null, array(date('Y') - 10));
+        $this->addVariable(
+            _("to"), 'date_resolved[to]', 'monthdayyear', false, false, null,
+            array(date('Y') - 10));
+        $this->addVariable(
+            _("Assigned from"), 'date_assigned[from]', 'monthdayyear', false,
+            false, null, array(date('Y') - 10));
+        $this->addVariable(
+            _("to"), 'date_assigned[to]', 'monthdayyear', false, false, null,
+            array(date('Y') - 10));
+        $this->addVariable(
+            _("Due from"), 'ticket_due[from]', 'monthdayyear', false, false,
+            null, array(date('Y') - 10));
+        $this->addVariable(
+            _("to"), 'ticket_due[to]', 'monthdayyear', false, false, null,
+            array(date('Y') - 10));
     }
 
     /**
@@ -74,12 +98,18 @@ class SearchForm extends Horde_Form {
      * @param array           $info  Array to be filled with the submitted field
      *                               values.
      */
-    function getInfo($vars, &$info)
+    public function getInfo($vars, &$info)
     {
         parent::getInfo($vars, $info);
 
         if (empty($info['queue'])) {
-            $info['queue'] = array_keys(Whups::permissionsFilter($GLOBALS['whups_driver']->getQueues(), 'queue', Horde_Perms::READ, $GLOBALS['registry']->getAuth(), $GLOBALS['registry']->getAuth()));
+            $info['queue'] = array_keys(
+                Whups::permissionsFilter(
+                    $GLOBALS['whups_driver']->getQueues(),
+                    'queue',
+                    Horde_Perms::READ,
+                    $GLOBALS['registry']->getAuth(),
+                    $GLOBALS['registry']->getAuth()));
         }
 
         if (empty($info['states'])) {

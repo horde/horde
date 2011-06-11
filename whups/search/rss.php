@@ -11,11 +11,9 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-require_once WHUPS_BASE . '/lib/Forms/Search.php';
-
 $vars = Horde_Variables::getDefaultVariables();
 $limit = (int)$vars->get('limit');
-$form = new SearchForm($vars);
+$form = new Whups_Form_Search($vars);
 
 if ($form->validate($vars, true)) {
     $form->getInfo($vars, $info);
