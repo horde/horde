@@ -37,7 +37,7 @@ case 'hermes_form_time_entry':
     }
     try {
         $form = new Hermes_Form_Time_Entry($vars);
-    } catch (Whups_Exception $e) {
+    } catch (Hermes_Exception $e) {
             $notification->push(sprintf(_("There was an error storing your timesheet: %s"), $e->getMessage()), 'horde.error');
             header('Location: ' . $url);
             exit;
