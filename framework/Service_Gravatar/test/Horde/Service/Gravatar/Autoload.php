@@ -10,6 +10,7 @@ require_once 'Horde/Http/Request/Base.php';
 require_once 'Horde/Http/Request/Curl.php';
 require_once 'Horde/Http/Request/Fopen.php';
 require_once 'Horde/Http/Request/Mock.php';
+require_once 'Horde/Http/Request/Peclhttp.php';
 require_once 'Horde/Http/Response/Base.php';
 require_once 'Horde/Http/Response/Curl.php';
 require_once 'Horde/Http/Response/Fopen.php';
