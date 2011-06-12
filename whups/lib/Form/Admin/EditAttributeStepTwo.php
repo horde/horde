@@ -39,7 +39,7 @@ class Whups_Form_Admin_EditAttributeStepTwo extends Horde_Form
         $ptype->setAction(
             Horde_Form_Action::factory(
                 array('whups', 'whups_reload'),
-                array('formname' => 'editattributedescstep2form_reload')));
+                array('formname' => 'whups_form_admin_editattributesteptwo_reload')));
         $ptype->setDefault($info['attribute_type']);
 
         $type = $vars->get('attribute_type');
