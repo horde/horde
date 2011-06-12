@@ -73,6 +73,7 @@ if ($vars->get('formname') == 'addlistenerform') {
         } catch (Whups_Exception $e) {
             $notification->push($e, 'horde.error');
         }
+    }
 }
 
 $title = sprintf(_("Watchers for %s"), '[#' . $id . '] ' . $ticket->get('summary'));
