@@ -23,12 +23,12 @@ class WhupsUpgradeTransactions extends Horde_Db_Migration_Base
         $t->column('transaction_id', 'integer', array('null' => false));
         $t->column('transaction_timestamp', 'integer', array('null' => false));
         $t->column('transaction_user_id', 'string', array('limit' => 255, 'null' => false));
+        $t->primaryKey(array('transaction_id'));
         $t->end();
 
         $this->_normalize();
-
         $this->changeColumn('whups_transactions', 'transaction_id', 'autoincrementKey');
-        $this->makeIndex('whups_transactions', 'whups_transactions_primary_idx', true, true, 'transaction_id');
+
         try {
             $this->dropTable('whups_logs_seq');
         } catch (Horde_Db_Exception $e) {}
@@ -57,6 +57,13 @@ class WhupsUpgradeTransactions extends Horde_Db_Migration_Base
 
         try {
             foreach ($rows as $row) {
+                // It's possible the same transaction id could have multiple
+                // timestamps, so the above query won't filter out *all* the
+                // duplicate transaction_ids, need to check to avoid
+                // constraint violations.
+                if ($this->selectValue('SELECT count(*) FROM whups_transactions WHERE transaction_id = ?', array($row['transaction_id'])) > 0) {
+                    continue;
+                }
                 $this->insert($insert,
                     array(
                         $row['transaction_id'],
