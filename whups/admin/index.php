@@ -634,9 +634,9 @@ case 'whups_form_admin_defaultpriority':
     }
     break;
 
-case 'deletepriorityform':
+case 'whups_form_admin_deletepriority':
     $vars->set('action', 'type');
-    $form = new DeletePriorityForm($vars);
+    $form = new Whups_Form_Admin_DeletePriority($vars);
     if ($form->validate($vars)) {
         if ($vars->get('yesno') == 1) {
             try {
@@ -873,7 +873,7 @@ case 'whups_form_admin_deleteversion':
 
 case 'whups_form_admin_addattribute':
 case 'whups_form_admin_addattribute_reload':
-    $form = new Whups_Form_Admin_AddAttributeDesc($vars);
+    $form = new Whups_Form_Admin_AddAttribute($vars);
     $vars->set('action', 'type');
     if ($vars->get('formname') == 'whups_form_admin_addattribute' && $form->validate($vars)) {
         try {
@@ -973,7 +973,7 @@ case 'whups_form_admin_editattributesteptwo_reload':
         $form1 = new Whups_Form_Admin_EditAttributeStepOne($vars);
         $form1->renderActive($renderer, $vars, $adminurl, 'post');
         echo '<br />';
-        $form2 = new Whups_Form_Admin_AddAttributeDesc($vars);
+        $form2 = new Whups_Form_Admin_AddAttribute($vars);
         $form2->renderActive($renderer, $vars, $adminurl, 'post');
     } else {
         _open();
@@ -1006,7 +1006,7 @@ case 'deleteattributedescform':
         _open();
         $form1 = new Whups_Form_Admin_EditAttributeStepOne($vars);
         $form1->renderActive($renderer, $vars, $adminurl, 'post');
-        $form2 = new Whups_From_Admin_AddAttributeDesc($vars);
+        $form2 = new Whups_From_Admin_AddAttribute($vars);
         $form2->renderActive($renderer, $vars, $adminurl, 'post');
     } else {
         _open();
