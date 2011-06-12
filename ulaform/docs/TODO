@@ -4,11 +4,6 @@
 
 :Contact: horde@lists.horde.org
 
-- Add support for actions other than sending mail, for example sending
-data to a SQL backend.
-
-- Add permissions for sharing a form (both editing and using).
-
 - Allow for users embedding the form to specify the action.
 
 - Create a separate jsdisplay.php for displaying a form through
