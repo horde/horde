@@ -2413,6 +2413,14 @@ class Whups_Driver_Sql extends Whups_Driver
             $info, $this->_params['charset'], 'UTF-8');
     }
 
+    /**
+     * Obtain version information from storage.
+     *
+     * @param integer $versionId  The version id.
+     *
+     * @return array  A hash of version information.
+     * @throws Whups_Exception
+     */
     public function getVersionInternal($versionId)
     {
         if (empty($versionId)) {
@@ -2422,19 +2430,24 @@ class Whups_Driver_Sql extends Whups_Driver
             . 'version_active FROM whups_versions WHERE version_id = ?';
         $values = array($versionId);
         try {
-            $version = $this->_db->selectAssoc($query, $values);
+            $rows = $this->_db->selectAll($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
-
+        $version = array();
+        foreach ($rows as $row) {
+            $version[$row['version_id']] = $row;
+        }
         $version = Horde_String::convertCharset(
             $version, $this->_params['charset'], 'UTF-8');
-        return array('id' => $versionId,
-                     'name' => isset($version[$versionId][0])
-                         ? $version[$versionId][0] : '',
-                     'description' => isset($version[$versionId][1])
-                         ? $version[$versionId][1] : '',
-                     'active' => !empty($version[$versionId][2]));
+
+        return array(
+            'id' => $versionId,
+            'name' => isset($version[$versionId]['version_name'])
+                ? $version[$versionId]['version_name'] : '',
+            'description' => isset($version[$versionId]['version_description'])
+                ? $version[$versionId]['version_description'] : '',
+            'active' => !empty($version[$versionId]['version_active']));
     }
 
     public function updateVersion($versionId, $name, $description, $active)
