@@ -56,7 +56,7 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
     public function saveForm(&$info)
     {
         $values = array();
-        if (!empty($form['form_id'])) {
+        if (!empty($info['form_id'])) {
             $values[] = (int)$info['form_id'];
         }
 
