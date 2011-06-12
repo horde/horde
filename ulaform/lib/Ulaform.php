@@ -17,6 +17,7 @@ class Ulaform {
     function getActionInfo($action)
     {
         static $info = array();
+        $action = Horde_String::ucfirst($action);
         if (isset($info[$action])) {
             return $info[$action];
         }
@@ -31,6 +32,7 @@ class Ulaform {
     function getActionParams($action)
     {
         static $params = array();
+        $action = Horde_String::ucfirst($action);
         if (isset($params[$action])) {
             return $params[$action];
         }
