@@ -374,8 +374,10 @@ class Horde_Registry
         /* Initial Horde-wide settings. */
 
         /* Set the maximum execution time in accordance with the config
-         * settings. */
-        set_time_limit($conf['max_exec_time']);
+         * settings, but only if not running from the CLI */
+        if (!Horde_Cli::runningFromCLI()) {
+            set_time_limit($conf['max_exec_time']);
+        }
 
         /* Set the error reporting level in accordance with the config
          * settings. */
