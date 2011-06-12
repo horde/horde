@@ -981,7 +981,7 @@ case 'whups_form_admin_editattributesteptwo_reload':
     }
     break;
 
-case 'deleteattributedescform':
+case 'whups_form_admin_deleteattribute':
     $form = new DeleteAttributeDescForm($vars);
     if ($form->validate($vars)) {
         if ($vars->get('yesno') == 1) {
@@ -1061,7 +1061,7 @@ case 'whups_form_admin_editreplystepone':
         if ($form1->validate($vars)) {
             switch ($vars->get('submitbutton')) {
             case _("Edit Form Reply"):
-                  $form2 = new Whups_Form_Admin_EditReplyStepTwo($vars);
+                $form2 = new Whups_Form_Admin_EditReplyStepTwo($vars);
                 $form2->renderActive($renderer, $vars, $adminurl, 'post');
                 break;
 
