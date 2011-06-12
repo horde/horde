@@ -36,7 +36,7 @@ class Whups_Factory_Driver extends Horde_Core_Factory_Base
             }
             $this->_instances[$driver] = new $class($params);
             switch ($driver) {
-            case 'sql':
+            case 'Sql':
                 $this->_instances[$driver]
                     ->setStorage($GLOBALS['injector']->getInstance('Horde_Db_Adapter'));
             }
