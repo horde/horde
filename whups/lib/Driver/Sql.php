@@ -1442,11 +1442,11 @@ class Whups_Driver_Sql extends Whups_Driver
             $queue, $this->_params['charset'], 'UTF-8');
         $queue = $queue[0];
         return array(
-            'id' => $queue[0],
-            'name' => $queue[1],
-            'description' => $queue[2],
-            'versioned' => $queue[3],
-            'slug' => $queue[4],
+            'id' => $queue['queue_id'],
+            'name' => $queue['queue_name'],
+            'description' => $queue['queue_description'],
+            'versioned' => $queue['queue_versioned'],
+            'slug' => $queue['queue_slug'],
             'readonly' => false);
     }
 
