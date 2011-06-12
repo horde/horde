@@ -77,7 +77,7 @@ class Whups_Form_Admin_EditTypeStepTwo extends Horde_Form
         $tattributes->setDefault(array_keys($attributes));
         $attributelink = array(
             'text' => _("Edit Attributes"),
-            'url' => Horde::url('admin/?formname=editattributedescstep1form&type=' . $type));
+            'url' => Horde::url('admin/?formname=whups_form_admin_editattributestepone&type=' . $type));
         $this->addVariable('', 'link', 'link', false, true, null,
                            array($attributelink));
 

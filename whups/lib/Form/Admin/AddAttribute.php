@@ -11,7 +11,7 @@
  * @package Whups
  */
 
-class Whups_Form_Admin_AddAttributeDesc extends Horde_Form
+class Whups_Form_Admin_AddAttribute extends Horde_Form
 {
     public function __construct(&$vars)
     {
