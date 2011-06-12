@@ -1,6 +1,6 @@
 <?php
 /**
- * Create ulaform base tables
+ * Create Ulaform base tables
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *

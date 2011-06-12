@@ -1,8 +1,8 @@
-==========================================
-|| Ulaform Version 1.0 Development Team ||
-==========================================
+==========================
+ Ulaform Development Team
+==========================
 
-===============
+
 Core Developers
 ===============
 
@@ -18,16 +18,13 @@ Marko Djukic <marko@oblo.com>
 - Horde_Template:: support.
 
 
-============
 Localization
 ============
 
+=====================   =============================================
 Chinese (Traditional)   David Chang <david@tmv.gov.tw>
 Finnish                 Petteri Karttunen <pkarttun@siba.fi>
 German                  Jan Schneider <jan@horde.org>
 Italian                 Marko Djukic <marko@oblo.com>
 Lithuanian              Vilius Šumskas <vilius@lnk.lt>
 Spanish                 Manuel Perez Ayala <mperaya@alcazaba.unex.es>
-
-
-$Horde: ulaform/docs/CREDITS,v 1.8 2008-03-22 14:41:52 jan Exp $

@@ -1,59 +1,49 @@
-==============================
-||  INSTALLING Ulaform 0.1  ||
-==============================
+==========================
+ Ininstalling Ulaform 1.0
+==========================
 
-* PLEASE SEE IMPORTANT NOTE in the README file about Ulaform's status
-before you try to install it and are disappointed.
+:Contact: horde@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
 
 This document contains instructions for installing the Ulaform form
 wizard.
 
 For information on the capabilities and features of Ulaform, see the
-file README in the top-level directory of the Ulaform distribution.
+file README_ in the top-level directory of the Ulaform distribution.
 
 
-OBTAINING ULAFORM
------------------
-
-Ulaform can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/ulaform/
-   ftp://ftp.horde.org/pub/ulaform/
-
-Bleeding-edge development versions of Ulaform are available via CVS; see
-the file docs/HACKING in the Horde distribution for information on
-accessing the Horde CVS repository.
-
-
-PREREQUISITES
--------------
+Prerequisites
+=============
 
 To function properly, Ulaform requires the following:
 
-  1. A working Horde installation.
+1. A working Horde installation.
 
-     Ulaform runs within the Horde Application Framework, a set of
-     common tools for Web applications written in PHP. You must
-     install Horde before installing Ulaform.
+   Ulaform runs within the `Horde Application Framework`_, a set of common tools
+   for web applications written in PHP.  You must install Horde before
+   installing Ulaform.
 
-     The Horde Framework can be obtained from the Horde website and
-     FTP server, at
+   .. Important:: Ulaform 1.0 requires version 4.0+ of the Horde Framework -
+                  earlier versions of Horde will **not** work.
 
-        http://www.horde.org/horde/
-        ftp://ftp.horde.org/pub/horde/
+   .. Important:: Be sure to have completed all of the steps in the
+                  `horde/docs/INSTALL`_ file for the Horde Framework before
+                  installing Ulaform. Many of Ulaform's prerequisites are also
+                  Horde prerequisites. Additionally, many of Ulaform's optional
+                  features are configured via the Horde install.
 
-     Many of Ulaform's prerequisites are also Horde prerequisites.
-     Be sure to have completed all of the steps in the INSTALL
-     file for the Horde Framework before installing Ulaform.
+   .. _`Horde Application Framework`: http://www.horde.org/apps/horde
 
-  2. SQL support in PHP.
+2. SQL support in PHP.
 
-     Ulaform store its data in an SQL database. Build PHP with whichever
-     SQL driver you require; see the Horde INSTALL file for details.
+   Ulaform store its data in an SQL database. Build PHP with whichever
+   SQL driver you require; see the Horde INSTALL_ file for details.
 
 
-INSTALLING ULAFORM
-------------------
+Installing Ulaform
+==================
 
 Ulaform is written in PHP, and must be installed in a web-accessible
 directory. The precise location of this directory will differ from
@@ -75,8 +65,8 @@ and would then find Ulaform at the URL
    http://your-server/horde/ulaform/
 
 
-CONFIGURING ULAFORM
--------------------
+Configuring Ulaform
+===================
 
 1. Configuring Horde for Ulaform
 
@@ -150,8 +140,8 @@ CONFIGURING ULAFORM
      - Deleting a form
 
 
-SAMPLE USAGE
-------------
+Sample Usage
+============
 
 Ulaform can be embedded internally within Horde in any application which
 supports the Horde Blocks API.
@@ -160,26 +150,25 @@ Otherwise Ulaform can be called from any web page with the following simple
 php code:
 
    <?php
-   $form_id = 2;
-   include <pathtoulaform> . '/display.php';
+   include <pathtoulaform> . '/display.php?form_id=2';
    ?>
 
 
-OBTAINING SUPPORT
------------------
+Obtaining Support
+=================
 
 If you encounter problems with Ulaform, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web
 at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
 The Horde Project runs a number of mailing lists, for individual
 applications and for issues relating to the project as a whole.
 Information, archives, and subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users may also be found on IRC,
 on the channel #horde on the Freenode Network (irc.freenode.net).
@@ -187,10 +176,16 @@ on the channel #horde on the Freenode Network (irc.freenode.net).
 Please keep in mind that Ulaform is free software written by volunteers.
 For information on reasonable support expectations, please read
 
-  http://www.horde.org/support.php
+  http://www.horde.org/community/support
 
 Thanks for using Ulaform!
 
 The Ulaform team
 
-$Horde: ulaform/docs/INSTALL,v 1.9 2007-08-30 05:10:05 chuck Exp $
+
+.. _README: README
+.. _INSTALL:
+.. _`horde/docs/INSTALL`: ../../horde/docs/INSTALL
+.. _`horde/docs/PERFORMANCE`: ../../horde/docs/PERFORMANCE
+.. _`horde/docs/SECURITY`: ../../horde/docs/SECURITY
+.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/TRANSLATIONS

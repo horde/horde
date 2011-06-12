@@ -7,9 +7,6 @@
  * can delete it or comment it out in this file.
  *
  * Generally it is best to leave these as they are.
- *
- * $Horde: ulaform/config/fields.php.dist,v 1.3 2005/07/07 20:00:15 jan Exp $
- *
  */
 
 /* A header field. */

@@ -1,5 +1,4 @@
-<?xml version="1.0"?>
-<!-- $Horde: ulaform/locale/fi_FI/help.xml,v 1.1 2005-03-16 15:30:28 jan Exp $ -->
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="form-action" md5="2602c213308d7a2e2e2dd526bd4f5b9c" state="uptodate">
     <title>Lomakkeen luonto: Toiminto</title>
