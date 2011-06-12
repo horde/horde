@@ -11,35 +11,32 @@
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
-
-require_once WHUPS_BASE . '/lib/Query.php';
-require_once WHUPS_BASE . '/lib/Forms/QueryParameterForm.php';
-require WHUPS_BASE . '/lib/Renderer/Query.php';
 require_once WHUPS_BASE . '/lib/View.php';
 
 $vars = Horde_Variables::getDefaultVariables();
-$qManager = new Whups_QueryManager();
+$qManager = new Whups_Query_Manager();
 
 // Load the current query. If we have a 'slug' or 'query' parameter, that
 // overrides and we load in that from the query store. Slug is tried
 // first. Otherwise we use the query that is currently in our session.
 $whups_query = null;
-if ($vars->exists('slug')) {
-    $whups_query = $qManager->getQueryBySlug($vars->get('slug'));
-} elseif ($vars->exists('query')) {
-    $whups_query = $qManager->getQuery($vars->get('query'));
-} else {
-    $whups_query = $session->get('whups', 'query');
+try {
+    if ($vars->exists('slug')) {
+        $whups_query = $qManager->getQueryBySlug($vars->get('slug'));
+    } elseif ($vars->exists('query')) {
+        $whups_query = $qManager->getQuery($vars->get('query'));
+    } else {
+        $whups_query = $session->get('whups', 'query');
+    }
+} catch (Whups_Exception $e) {
+    $notification->push($e->getMessage());
 }
 
 // If we have an error, or if we still don't have a query, or if we don't have
 // read permissions on the requested query, go to the initial Whups page.
 if (!isset($whups_query) ||
-    is_a($whups_query, 'PEAR_Error') ||
     !$whups_query->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-    if (is_a($whups_query, 'PEAR_Error')) {
-        $notification->push($whups_query);
-    } elseif (isset($whups_query)) {
+    if (isset($whups_query)) {
         $notification->push(_("Permission denied."), 'horde.error');
     }
     Horde::url($prefs->getValue('whups_default_view') . '.php', true)
@@ -64,7 +61,7 @@ $isvalid = false;
 if (!$whups_query->parameters) {
     $isvalid = true;
 } else {
-    $form = new QueryParameterForm($whups_query, $vars);
+    $form = new Whups_Form_Query_Parameter($whups_query, $vars);
     if ($vars->get('formname') == 'queryparameters') {
         $isvalid = $form->validate($vars);
     }

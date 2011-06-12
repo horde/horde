@@ -41,8 +41,7 @@ $conf = &$GLOBALS['conf'];
 require_once WHUPS_BASE . '/lib/Whups.php';
 require_once WHUPS_BASE . '/lib/Driver.php';
 
-$GLOBALS['whups_driver'] = Whups_Driver::factory();
-$GLOBALS['whups_driver']->initialise();
+$GLOBALS['whups_driver'] = $injector->getInstance('Whups_Factory_Driver')->create();
 
 $cli->writeln($cli->bold('Obliterating queues'));
 $queues = $whups_driver->getQueues();
@@ -63,8 +62,7 @@ $cli->writeln();
 $cli->writeln($cli->bold('Obliterating tickets'));
 $tickets = $whups_driver->_getAll('select ticket_id from whups_tickets');
 foreach ($tickets as $ticket) {
-    $info = array('id' => $ticket['ticket_id']);
-    $cli->message('Deleting ticket: ' . $info['id']);
-    $whups_driver->deleteTicket($info);
+    $cli->message('Deleting ticket: ' . $ticket['ticket_id']);
+    $whups_driver->deleteTicket($ticket['ticket_id']);
 }
 $cli->writeln();

@@ -13,42 +13,72 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Whups
  */
-class Whups_Driver_sql extends Whups_Driver {
+class Whups_Driver_Sql extends Whups_Driver
+{
 
     /**
      * The database connection object.
      *
-     * @var DB
+     * @var Horde_Db_Adapter_Base
      */
-    var $_db;
-
-    /**
-     * Handle for the current database connection, used for writing. Defaults
-     * to the same handle as $_db if a separate write database is not required.
-     *
-     * @var DB
-     */
-    var $_write_db;
+    protected $_db;
 
     /**
      * A mapping of attributes from generic Whups names to DB backend fields.
      *
      * @var array
      */
-    var $_map = array('id' => 'ticket_id',
-                      'summary' => 'ticket_summary',
-                      'requester' => 'user_id_requester',
-                      'queue' => 'queue_id',
-                      'version' => 'version_id',
-                      'type' => 'type_id',
-                      'state' => 'state_id',
-                      'priority' => 'priority_id',
-                      'timestamp' => 'ticket_timestamp',
-                      'due' => 'ticket_due',
-                      'date_updated' => 'date_updated',
-                      'date_assigned' => 'date_assigned',
-                      'date_resolved' => 'date_resolved',
-                      );
+    protected $_map = array(
+        'id' => 'ticket_id',
+        'summary' => 'ticket_summary',
+        'requester' => 'user_id_requester',
+        'queue' => 'queue_id',
+        'version' => 'version_id',
+        'type' => 'type_id',
+        'state' => 'state_id',
+        'priority' => 'priority_id',
+        'timestamp' => 'ticket_timestamp',
+        'due' => 'ticket_due',
+        'date_updated' => 'date_updated',
+        'date_assigned' => 'date_assigned',
+        'date_resolved' => 'date_resolved'
+    );
+
+    /**
+     * Local cache for guest email addresses.
+     *
+     * @var array
+     */
+    private $_guestEmailCache = array();
+
+    /**
+     * Local cache of internal queue hashes
+     *
+     * @var array
+     */
+    private $_internalQueueCache = array();
+
+    /**
+     * Local queues internal cache
+     *
+     * @var array
+     */
+     private $_queues = null;
+
+    /**
+     * Local slug cache
+     *
+     * @var array
+     */
+     private $_slugs = null;
+
+     public function setStorage($storage)
+     {
+        if (!($storage instanceof Horde_Db_Adapter_Base)) {
+            throw new InvalidArgumentException("Missing Horde_Db_Adapter_Base");
+        }
+        $this->_db = $storage;
+     }
 
     /**
      * Adds a new queue to the backend.
@@ -58,135 +88,124 @@ class Whups_Driver_sql extends Whups_Driver {
      * @params string $slug         The queue slug.
      * @params string $email        The queue email address.
      *
-     * @return mixed  The new queue_id || PEAR_Error
+     * @return integer  The new queue_id
+     * @throws Whups_Exception
      */
-    function addQueue($name, $description, $slug = '', $email = '')
+    public function addQueue($name, $description, $slug = '', $email = '')
     {
-        // Get a new unique id.
-        $new_id = $this->_write_db->nextId('whups_queues');
-        if (is_a($new_id, 'PEAR_Error')) {
-            Horde::logMessage($new_id, 'ERR');
-            return $new_id;
-        }
-
         // Check for slug uniqueness
         if (!empty($slug)) {
             $query = 'SELECT count(queue_slug) FROM whups_queues '
                 . 'WHERE queue_slug = ?';
-            $result = $this->_db->getOne($query, $slug);
+            $result = $this->_db->selectValue($query, array($slug));
             if ($result > 0) {
-                return PEAR::raiseError(_("That queue slug is already taken. Please select another."));
+                throw new Whups_Exception(
+                  _("That queue slug is already taken. Please select another."));
             }
         }
         $query = 'INSERT INTO whups_queues '
-            . '(queue_id, queue_name, queue_description, queue_slug, queue_email) '
-            . 'VALUES (?, ?, ?, ?, ?)';
+            . '(queue_name, queue_description, queue_slug, queue_email) '
+            . 'VALUES (?, ?, ?, ?)';
         $values = array(
-            $new_id,
             Horde_String::convertCharset($name, 'UTF-8',
                                          $this->_params['charset']),
             Horde_String::convertCharset($description, 'UTF-8',
                                          $this->_params['charset']),
             $slug,
             $email);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::addQueue(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $result = $this->_db->insert($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        return $new_id;
+        return $result;
     }
 
-    function addType($name, $description)
+    /**
+     * Add a new type
+     *
+     * @param string $name         The type name
+     * @param string $description  The description
+     *
+     * @return integer  The new type_id
+     * @throws Whups_Exception
+     */
+    public function addType($name, $description)
     {
-        // Get a new unique id.
-        $new_id = $this->_write_db->nextId('whups_types');
-        if (is_a($new_id, 'PEAR_Error')) {
-            Horde::logMessage($new_id, 'ERR');
-            return $new_id;
-        }
-
         $query = 'INSERT INTO whups_types' .
-                 ' (type_id, type_name, type_description) VALUES (?, ?, ?)';
-        $values = array($new_id,
-                        Horde_String::convertCharset($name, 'UTF-8',
+                 ' (type_name, type_description) VALUES (?, ?)';
+        $values = array(Horde_String::convertCharset($name, 'UTF-8',
                                                      $this->_params['charset']),
                         Horde_String::convertCharset($description, 'UTF-8',
                                                      $this->_params['charset']));
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::addType(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $result = $this->_db->insert($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        return $new_id;
+        return $result;
     }
 
-    function addState($typeId, $name, $description, $category)
+    /**
+     * Add a new state
+     *
+     * @param integer $typeId     The typeId of the type this state is
+     *                            associated with.
+     * @param string $name        The name of the new state.
+     * @param string $description The state's description.
+     * @param string $category    The state's state category.
+     *
+     * @return integer  The new state's state_id.
+     * @throws Whups_Exception
+     */
+    public function addState($typeId, $name, $description, $category)
     {
-        // Get a new state id.
-        $new_id = $this->_write_db->nextId('whups_states');
-        if (is_a($new_id, 'PEAR_Error')) {
-            Horde::logMessage($new_id, 'ERR');
-            return $new_id;
-        }
-
-        $query = 'INSERT INTO whups_states (state_id, type_id, state_name, '
-            . 'state_description, state_category) VALUES (?, ?, ?, ?, ?)';
-        $values = array($new_id,
-                        $typeId,
+        $query = 'INSERT INTO whups_states (type_id, state_name, '
+            . 'state_description, state_category) VALUES (?, ?, ?, ?)';
+        $values = array($typeId,
                         Horde_String::convertCharset($name, 'UTF-8',
                                                      $this->_params['charset']),
                         Horde_String::convertCharset($description, 'UTF-8',
                                                      $this->_params['charset']),
                         Horde_String::convertCharset($category, 'UTF-8',
                                                      $this->_params['charset']));
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::addState(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $result = $this->_db->insert($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        return $new_id;
+        return $result;
     }
 
-    function addPriority($typeId, $name, $description)
+    /**
+     * Add a new priority
+     *
+     * @param integer $typeId      The typeId to associate priority with.
+     * @param string $name         The priority name
+     * @param string $description  The priorty description.
+     *
+     * @return integer  The new priority's priority_id
+     * @throws Whups_Exception
+     */
+    public function addPriority($typeId, $name, $description)
     {
-        // Get a new priority id.
-        $new_id = $this->_write_db->nextId('whups_priorities');
-        if (is_a($new_id, 'PEAR_Error')) {
-            Horde::logMessage($new_id, 'ERR');
-            return $new_id;
-        }
-
-        $query = 'INSERT INTO whups_priorities (priority_id, type_id, '
-            . 'priority_name, priority_description) VALUES (?, ?, ?, ?)';
-        $values = array($new_id,
-                        $typeId,
+        $query = 'INSERT INTO whups_priorities (type_id, '
+            . 'priority_name, priority_description) VALUES (?, ?, ?)';
+        $values = array($typeId,
                         Horde_String::convertCharset($name, 'UTF-8',
                                                      $this->_params['charset']),
                         Horde_String::convertCharset($description, 'UTF-8',
                                                      $this->_params['charset']));
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::addPriority(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $result = $this->_db->insert($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        return $new_id;
+        return $result;
     }
 
     /**
@@ -197,36 +216,26 @@ class Whups_Driver_sql extends Whups_Driver {
      * @param string $description  The descriptive text for the new version.
      * @param boolean $active      Whether the version is still active.
      *
-     * @return mixed  The new version id || PEAR_Error
+     * @return integer  The new version id
+     * @throws Whups_Exception
      */
-    function addVersion($queueId, $name, $description, $active)
+    public function addVersion($queueId, $name, $description, $active)
     {
-        // Get a new version id.
-        $new_id = $this->_write_db->nextId('whups_versions');
-        if (is_a($new_id, 'PEAR_Error')) {
-            Horde::logMessage($new_id, 'ERR');
-            return $new_id;
-        }
-
-        $query = 'INSERT INTO whups_versions (version_id, queue_id, '
-            . 'version_name, version_description, version_active) VALUES (?, ?, ?, ?, ?)';
-        $values = array((int)$new_id,
-                        (int)$queueId,
+        $query = 'INSERT INTO whups_versions (queue_id, '
+            . 'version_name, version_description, version_active) VALUES (?, ?, ?, ?)';
+        $values = array((int)$queueId,
                         Horde_String::convertCharset($name, 'UTF-8',
                                                      $this->_params['charset']),
                         Horde_String::convertCharset($description, 'UTF-8',
                                                      $this->_params['charset']),
                         (int)$active);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::addVersion(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $result = $this->_db->insert($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw Whups_Exception($e);
         }
 
-        return $new_id;
+        return $result;
     }
 
     /**
@@ -237,37 +246,37 @@ class Whups_Driver_sql extends Whups_Driver {
      * @param string $text   The reply text.
      *
      * @return integer  The id of the new form reply.
+     * @throws Whups_Exception
      */
-    function addReply($type, $name, $text)
+    public function addReply($type, $name, $text)
     {
-        // Get a new reply id.
-        $new_id = $this->_write_db->nextId('whups_replies');
-        if (is_a($new_id, 'PEAR_Error')) {
-            Horde::logMessage($new_id, 'ERR');
-            return $new_id;
-        }
-
-        $query = 'INSERT INTO whups_replies (type_id, reply_id, '
-            . 'reply_name, reply_text) VALUES (?, ?, ?, ?)';
+        $query = 'INSERT INTO whups_replies (type_id, '
+            . 'reply_name, reply_text) VALUES (?, ?, ?)';
         $values = array($type,
-                        $new_id,
                         Horde_String::convertCharset($name, 'UTF-8',
                                                $this->_params['charset']),
                         Horde_String::convertCharset($text, 'UTF-8',
                                                $this->_params['charset']));
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::addReply(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $result = $this->_db->insert($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        return $new_id;
+        return $result;
     }
 
-    function addTicket(&$info, $requester)
+
+    /**
+     * Add a new ticket
+     *
+     * @param array $info  A ticket info array.
+     * @param string $requester  The ticket requester.
+     *
+     * @return integer  The new ticket's id.
+     * @throws Whups_Exception
+     */
+    public function addTicket(array &$info, $requester)
     {
         $type = $info['type'];
         $state = $info['state'];
@@ -279,25 +288,14 @@ class Whups_Driver_sql extends Whups_Driver {
         $comment = $info['comment'];
         $attributes = isset($info['attributes']) ? $info['attributes'] : array();
 
-        // Get the new unique ids for this ticket and the initial comment.
-        $ticketId = $this->_write_db->nextId('whups_tickets');
-        if (is_a($ticketId, 'PEAR_Error')) {
-            Horde::logMessage($ticketId, 'ERR');
-            return $ticketId;
-        }
-
-        if (!empty($info['user_email'])) {
-            $requester = $ticketId * -1;
-        }
-
         // Create the ticket.
-        $query = 'INSERT INTO whups_tickets (ticket_id, ticket_summary, '
+        $query = 'INSERT INTO whups_tickets (ticket_summary, '
             . 'user_id_requester, type_id, state_id, priority_id, queue_id, '
             . 'ticket_timestamp, ticket_due, version_id)'
-            . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $values = array($ticketId,
-                        Horde_String::convertCharset($summary, 'UTF-8',
-                                                     $this->_params['charset']),
+            . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $values = array(Horde_String::convertCharset(
+                            $summary, 'UTF-8',
+                            $this->_params['charset']),
                         $requester,
                         $type,
                         $state,
@@ -306,38 +304,42 @@ class Whups_Driver_sql extends Whups_Driver {
                         time(),
                         $due,
                         $version);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::addTicket(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+
+        try {
+            $ticket_id = $this->_db->insert($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
+
+        // Is there a more effecient way to do this? Need the ticketId before
+        // we can insert this.
+        if (!empty($info['user_email'])) {
+            $requester = $ticket_id * -1;
+            $sql = 'UPDATE whups_tickets SET user_id_requester = ? WHERE '
+                . 'ticket_id = ?';
+            try {
+                $this->_db->update($sql, array($requester, $ticket_id));
+            } catch (Horde_Db_Exception $e) {
+                throw new Whups_Exception($e);
+            }
         }
 
         if ($requester < 0) {
             $query = 'INSERT INTO whups_guests (guest_id, guest_email) '
                 . 'VALUES (?, ?)';
             $values = array((string)$requester, $info['user_email']);
-            Horde::logMessage(
-                sprintf('Whups_Driver_sql::addTicket(): query="%s"; values="%s"',
-                        $query, implode(',', $values)), 'DEBUG');
-            $result = $this->_write_db->query($query, $values);
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, 'ERR');
-                return $result;
+            try {
+                $this->_db->insert($query, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Whups_Exception($e);
             }
         }
 
         $commentId = $this->addComment(
-            $ticketId, $comment, $requester,
+            $ticket_id, $comment, $requester,
             isset($info['user_email']) ? $info['user_email'] : null);
-        if (is_a($commentId, 'PEAR_Error')) {
-            Horde::logMessage($commentId, 'ERR');
-            return $commentId;
-        }
 
-        $transaction = $this->updateLog($ticketId,
+        $transaction = $this->updateLog($ticket_id,
                                         $requester,
                                         array('state' => $state,
                                               'priority' => $priority,
@@ -346,10 +348,6 @@ class Whups_Driver_sql extends Whups_Driver {
                                               'due' => $due,
                                               'comment' => $commentId,
                                               'queue' => $queue));
-        if (is_a($transaction, 'PEAR_Error')) {
-            Horde::logMessage($transaction, 'ERR');
-            return $transaction;
-        }
 
         // Store the last-transaction id in the ticket's info for later use if
         // needed.
@@ -360,71 +358,66 @@ class Whups_Driver_sql extends Whups_Driver {
             isset($info['owners']) ? $info['owners'] : array(),
             isset($info['group_owners']) ? $info['group_owners'] : array());
         foreach ($owners as $owner) {
-            $this->addTicketOwner($ticketId, $owner);
-            $result = $this->updateLog($ticketId, $requester,
-                                       array('assign' => $owner),
-                                       $transaction);
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, 'ERR');
-                return $result;
-            }
+            $this->addTicketOwner($ticket_id, $owner);
+            $this->updateLog($ticket_id, $requester,
+                             array('assign' => $owner),
+                             $transaction);
         }
 
         // Add any supplied attributes for this ticket.
         foreach ($attributes as $attribute_id => $attribute_value) {
-            $result = $this->_setAttributeValue($ticketId,
-                                                $attribute_id,
-                                                $attribute_value);
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, 'ERR');
-                return $result;
-            }
+            $this->_setAttributeValue(
+                $ticket_id, $attribute_id, $attribute_value);
+
             $this->updateLog(
-                $ticketId, $requester,
+                $ticket_id, $requester,
                 array('attribute' => $attribute_id . ':' . $attribute_value,
                       'attribute_' . $attribute_id => $attribute_value),
                 $transaction);
         }
 
-        return $ticketId;
+        return $ticket_id;
     }
 
-    function addComment($ticket_id, $comment, $creator, $creator_email = null)
+    /**
+     * Add a new comment to a ticket.
+     *
+     * @param integer $ticket_id     The ticket to add comment to.
+     * @param string $comment        The comment text.
+     * @param string $creator        The creator of the comment
+     * @param string $creator_email  The (optional) creator's email.
+     *
+     * @return integer  The new comment's comment_id.
+     * @throws Whups_Exception
+     */
+    public function addComment($ticket_id, $comment, $creator, $creator_email = null)
     {
-        $id = $this->_write_db->nextId('whups_comments');
-        if (is_a($id, 'PEAR_Error')) {
-            Horde::logMessage($id, 'ERR');
-            return $id;
-        }
-
         if (empty($creator) || $creator < 0) {
             $creator = '-' . $id . '_comment';
         }
 
         // Add the row.
-        $result = $this->_write_db->query('INSERT INTO whups_comments (comment_id, ticket_id, user_id_creator, comment_text, comment_timestamp)' .
-                                    ' VALUES (?, ?, ?, ?, ?)',
-                                    array((int)$id,
-                                          (int)$ticket_id,
-                                          $creator,
-                                          Horde_String::convertCharset($comment, 'UTF-8', $this->_params['charset']),
-                                          time()));
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $id = $this->_db->insert(
+                'INSERT INTO whups_comments (ticket_id, user_id_creator, '
+                    . ' comment_text, comment_timestamp) VALUES (?, ?, ?, ?)',
+                array(
+                    (int)$ticket_id,
+                    $creator,
+                    Horde_String::convertCharset($comment, 'UTF-8', $this->_params['charset']),
+                    time()));
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
         if ($creator < 0 && !empty($creator_email)) {
             $query = 'INSERT INTO whups_guests (guest_id, guest_email)'
                 . ' VALUES (?, ?)';
             $values = array((string)$creator, $creator_email);
-            Horde::logMessage(
-                sprintf('Whups_Driver_sql::addComment(): query="%s"; values="%s"',
-                        $query, implode(',', $values)), 'DEBUG');
-            $result = $this->_write_db->query($query, $values);
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, 'ERR');
-                return $result;
+            try {
+                $this->_db->insert($query, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Whups_Exception($e);
             }
         }
 
@@ -441,13 +434,12 @@ class Whups_Driver_sql extends Whups_Driver {
      * @param integer $ticketId    The id of the ticket to update.
      * @param array   $attributes  The array of attributes (key => value) to
      *                             change.
-     *
-     * @return boolean|PEAR_Error  True or an error object.
+     * @throws Whups_Exception
      */
-    function updateTicket($ticketId, $attributes)
+    public function updateTicket($ticketId, $attributes)
     {
         if (!count($attributes)) {
-            return true;
+            return;
         }
 
         $query = '';
@@ -458,80 +450,141 @@ class Whups_Driver_sql extends Whups_Driver {
             }
 
             $query .= $this->_map[$field] . ' = ?, ';
-            $values[] = Horde_String::convertCharset($value, 'UTF-8', $this->_params['charset']);
+            $values[] = Horde_String::convertCharset(
+                $value, 'UTF-8', $this->_params['charset']);
         }
 
-        /* Don't try to execute an empty query (if we didn't find any updates
-         * to make). */
+        // Don't try to execute an empty query (if we didn't find any updates
+        // to make).
         if (empty($query)) {
             return;
         }
 
-        $query = 'UPDATE whups_tickets SET ' . substr($query, 0, -2) . ' WHERE ticket_id = ?';
+        $query = 'UPDATE whups_tickets SET ' . substr($query, 0, -2)
+            . ' WHERE ticket_id = ?';
         $values[] = (int)$ticketId;
 
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::updateTicket(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        return $this->_write_db->query($query, $values);
+        try {
+            $this->_db->update($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
-    function addTicketOwner($ticketId, $owner)
+    /**
+     * Add a owner to the specified ticket.
+     *
+     * @param integer $ticketId  The ticket to add owner to.
+     * @param string $owner      The owner id to add.
+     *
+     * @throws Whups_Exception
+     */
+    public function addTicketOwner($ticketId, $owner)
     {
-        return $this->_write_db->query('INSERT INTO whups_ticket_owners (ticket_id, ticket_owner) VALUES (?, ?)',
-                                 array($ticketId, $owner));
+        try {
+            $this->_db->insert(
+                'INSERT INTO whups_ticket_owners (ticket_id, ticket_owner) VALUES (?, ?)',
+                array($ticketId, $owner));
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
-    function deleteTicketOwner($ticketId, $owner)
+    /**
+     * Remove a ticket owner from the specified ticket.
+     *
+     * @param integer $ticketId  The ticket id.
+     * @param string $owner      The owner to remove.
+     *
+     * @throws Whups_Exception
+     */
+    public function deleteTicketOwner($ticketId, $owner)
     {
-        return $this->_write_db->query('DELETE FROM whups_ticket_owners WHERE ticket_owner = ? AND ticket_id = ?',
-                                 array($owner, $ticketId));
+        try {
+            $this->_db->delete(
+                'DELETE FROM whups_ticket_owners WHERE ticket_owner = ? AND ticket_id = ?',
+                array($owner, $ticketId));
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
-    function deleteTicket($info)
+    /**
+     * Remove a ticket from storage.
+     *
+     * @param integer $id  The ticket id.
+     *
+     * @throws Whups_Exception
+     */
+    public function deleteTicket($id)
     {
-        $id = (int)$info['id'];
+        $id = (int)$id;
 
-        $tables = array('whups_ticket_listeners',
-                        'whups_logs',
-                        'whups_comments',
-                        'whups_tickets',
-                        'whups_attributes');
+        $tables = array(
+            'whups_ticket_listeners',
+            'whups_logs',
+            'whups_comments',
+            'whups_tickets',
+            'whups_attributes');
 
         if (!empty($GLOBALS['conf']['vfs']['type'])) {
             try {
-                $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
+                $vfs = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Vfs')
+                    ->create();
             } catch (Horde_Vfs_Exception $e) {
-                return PEAR::raiseError($e->getMessage());
+                throw new Whups_Exception($e);
             }
 
-            if ($vfs->isFolder(WHUPS_VFS_ATTACH_PATH, $id)) {
+            if ($vfs->isFolder(Whups::VFS_ATTACH_PATH, $id)) {
                 try {
-                    $vfs->deleteFolder(WHUPS_VFS_ATTACH_PATH, $id, true);
+                    $vfs->deleteFolder(Whups::VFS_ATTACH_PATH, $id, true);
                 } catch (Horde_Vfs_Exception $e) {
-                    return PEAR::raiseError($e->getMessage());
+                    throw new Whups_Exception($e);
                 }
             }
         }
 
         // Attempt to clean up everything.
+        $sql = 'SELECT DISTINCT transaction_id FROM whups_logs WHERE ticket_id = ?';
+        try {
+            $txs = $this->_db->selectValues($sql, array($id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
         foreach ($tables as $table) {
             $query = 'DELETE FROM ' . $table . ' WHERE ticket_id = ?';
             $values = array($id);
-            Horde::logMessage(
-                sprintf('Whups_Driver_sql::deleteTicket(): query="%s"; values="%s"',
-                        $query, implode(',', $values)), 'DEBUG');
-            $result = $this->_write_db->query($query, $values);
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, 'ERR');
-                return $result;
+            try {
+                $this->_db->delete($query, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Whups_Exception($e);
             }
         }
 
-        return true;
+        try {
+            $sql = 'DELETE FROM whups_transactions WHERE transaction_id IN '
+                . '(' . str_repeat('?,', count($txs) - 1) . '?)';
+            $this->_db->delete($sql, $txs);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
-    function executeQuery($query, $vars, $get_details = true, $munge = true)
+    /**
+     * Execute a Whups query
+     *
+     * @param Whups_Query $query     The query object to execute.
+     * @param Horde_Variables $vars  The variables
+     * @param boolean $get_details   Get all details
+     * @param boolean $munge         @TODO (?)
+     *
+     * @return array  An array of ticket_ids that match the query criteria.
+     * @throws Whups_Exception
+     */
+    public function executeQuery(
+        Whups_Query $query, Horde_Variables $vars, $get_details = true,
+        $munge = true)
     {
         $this->jtables = array();
         $this->joins   = array();
@@ -548,18 +601,15 @@ class Whups_Driver_sql extends Whups_Driver {
             $joins = '';
         }
 
-        $sql = "SELECT whups_tickets.ticket_id, 1 FROM whups_tickets $joins "
+        $sql = "SELECT whups_tickets.ticket_id FROM whups_tickets $joins "
             . "WHERE $where";
 
-        Horde::logMessage(
-                sprintf('Whups_Driver_sql::executeQuery(): query="%s"', $sql), 'DEBUG');
-        $ids = $this->_db->getAssoc($sql);
-        if (is_a($ids, 'PEAR_Error')) {
-            Horde::logMessage($ids, 'ERR');
-            $GLOBALS['notification']->push($ids, 'horde.error');
+        try {
+            $ids = $this->_db->selectValues($sql);
+        } catch (Horde_Db_Exception $e) {
+            $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
             return array();
         }
-        $ids = array_keys($this->_db->getAssoc($sql));
 
         if (!count($ids)) {
             return array();
@@ -572,24 +622,25 @@ class Whups_Driver_sql extends Whups_Driver {
         return $ids;
     }
 
-    function _clauseFromQuery($args, $type, $criterion, $cvalue, $operator, $value)
+    public function _clauseFromQuery(
+        $args, $type, $criterion, $cvalue, $operator, $value)
     {
         switch ($type) {
-        case QUERY_TYPE_AND:
+        case Whups_Query::TYPE_AND:
             return $this->_concatClauses($args, 'AND');
 
-        case QUERY_TYPE_OR:
+        case Whups_Query::TYPE_OR:
             return $this->_concatClauses($args, 'OR');
 
-        case QUERY_TYPE_NOT:
+        case Whups_Query::TYPE_NOT:
             return $this->_notClause($args);
 
-        case QUERY_TYPE_CRITERION:
+        case Whups_Query::TYPE_CRITERION:
             return $this->_criterionClause($criterion, $cvalue, $operator, $value);
         }
     }
 
-    function _concatClauses($args, $conjunction)
+    protected function _concatClauses($args, $conjunction)
     {
         $count = count($args);
 
@@ -610,29 +661,37 @@ class Whups_Driver_sql extends Whups_Driver {
         return $result;
     }
 
-    function _notClause($args)
+    protected function _notClause($args)
     {
         if (count($args) == 0) {
             return '';
         }
 
-        // TODO: put in a sanity check: count($args) should be 1
-        // always.
+        if (count($args) !== 1) {
+            throw InvalidArgumentException();
+        }
+
         return 'NOT (' . $args[0] . ')';
     }
 
-    function _criterionClause($criterion, $cvalue, $operator, $value)
+    /**
+     * @TODO: The rdbms specific clauses should be refactored to use
+     * Horde_Db_Adapter_Base_Schema#buildClause
+     *
+     * @return string
+     */
+    protected function _criterionClause($criterion, $cvalue, $operator, $value)
     {
         $func    = '';
         $funcend = '';
 
         switch ($operator) {
-        case OPERATOR_GREATER: $op = '>'; break;
-        case OPERATOR_LESS:    $op = '<'; break;
-        case OPERATOR_EQUAL:   $op = '='; break;
-        case OPERATOR_PATTERN: $op = 'LIKE'; break;
+        case Whups_Query::OPERATOR_GREATER: $op = '>'; break;
+        case Whups_Query::OPERATOR_LESS:    $op = '<'; break;
+        case Whups_Query::OPERATOR_EQUAL:   $op = '='; break;
+        case Whups_Query::OPERATOR_PATTERN: $op = 'LIKE'; break;
 
-        case OPERATOR_CI_SUBSTRING:
+        case Whups_Query::OPERATOR_CI_SUBSTRING:
             $value = '%' . str_replace(array('%', '_'), array('\%', '\_'), $value) . '%';
             if ($this->_db->phptype == 'pgsql') {
                 $op = 'ILIKE';
@@ -643,15 +702,15 @@ class Whups_Driver_sql extends Whups_Driver {
             }
             break;
 
-        case OPERATOR_CS_SUBSTRING:
+        case Whups_Query::OPERATOR_CS_SUBSTRING:
             // FIXME: Does not work in Postgres.
-            $func    = 'LOCATE(' . $this->_write_db->quote($value) . ', ';
+            $func    = 'LOCATE(' . $this->_db->quoteString($value) . ', ';
             $funcend = ')';
             $op      = '>';
             $value   = 0;
             break;
 
-        case OPERATOR_WORD:
+        case Whups_Query::OPERATOR_WORD:
             // TODO: There might be a better way to avoid missing
             // words at the start and end of the text field.
             if ($this->_db->phptype == 'pgsql') {
@@ -666,60 +725,60 @@ class Whups_Driver_sql extends Whups_Driver {
             break;
         }
 
-        $qvalue = $this->_write_db->quote($value);
+        $qvalue = $this->_db->quoteString($value);
         $done = false;
         $text = '';
 
         switch ($criterion) {
-        case CRITERION_ID:
+        case Whups_Query::CRITERION_ID:
             $text = "{$func}whups_tickets.ticket_id{$funcend}";
             break;
 
-        case CRITERION_QUEUE:
+        case Whups_Query::CRITERION_QUEUE:
             $text = "{$func}whups_tickets.queue_id{$funcend}";
             break;
 
-        case CRITERION_VERSION:
+        case Whups_Query::CRITERION_VERSION:
             $text = "{$func}whups_tickets.version_id{$funcend}";
             break;
 
-        case CRITERION_TYPE:
+        case Whups_Query::CRITERION_TYPE:
             $text = "{$func}whups_tickets.type_id{$funcend}";
             break;
 
-        case CRITERION_STATE:
+        case Whups_Query::CRITERION_STATE:
             $text = "{$func}whups_tickets.state_id{$funcend}";
             break;
 
-        case CRITERION_PRIORITY:
+        case Whups_Query::CRITERION_PRIORITY:
             $text = "{$func}whups_tickets.priority_id{$funcend}";
             break;
 
-        case CRITERION_SUMMARY:
+        case Whups_Query::CRITERION_SUMMARY:
             $text = "{$func}whups_tickets.ticket_summary{$funcend}";
             break;
 
-        case CRITERION_TIMESTAMP:
+        case Whups_Query::CRITERION_TIMESTAMP:
             $text = "{$func}whups_tickets.ticket_timestamp{$funcend}";
             break;
 
-        case CRITERION_UPDATED:
+        case Whups_Query::CRITERION_UPDATED:
             $text = "{$func}whups_tickets.date_updated{$funcend}";
             break;
 
-        case CRITERION_RESOLVED:
+        case Whups_Query::CRITERION_RESOLVED:
             $text = "{$func}whups_tickets.date_resolved{$funcend}";
             break;
 
-        case CRITERION_ASSIGNED:
+        case Whups_Query::CRITERION_ASSIGNED:
             $text = "{$func}whups_tickets.date_assigned{$funcend}";
             break;
 
-        case CRITERION_DUE:
+        case Whups_Query::CRITERION_DUE:
             $text = "{$func}whups_tickets.ticket_due{$funcend}";
             break;
 
-        case CRITERION_ATTRIBUTE:
+        case Whups_Query::CRITERION_ATTRIBUTE:
             $cvalue = (int)$cvalue;
 
             if (!isset($this->jtables['whups_attributes'])) {
@@ -732,19 +791,19 @@ class Whups_Driver_sql extends Whups_Driver {
             $done = true;
             break;
 
-        case CRITERION_OWNERS:
+        case Whups_Query::CRITERION_OWNERS:
             if (!isset($this->jtables['whups_ticket_owners'])) {
                 $this->jtables['whups_ticket_owners'] = 1;
             }
             $v = $this->jtables['whups_ticket_owners']++;
 
             $this->joins[] = "LEFT JOIN whups_ticket_owners wto$v ON whups_tickets.ticket_id = wto$v.ticket_id";
-            $qvalue = $this->_write_db->quote('user:' . $value);
+            $qvalue = $this->_db->quotestring('user:' . $value);
             $text = "{$func}wto$v.ticket_owner{$funcend} $op $qvalue";
             $done = true;
             break;
 
-        case CRITERION_REQUESTER:
+        case Whups_Query::CRITERION_REQUESTER:
             if (!isset($this->jtables['whups_guests'])) {
                 $this->jtables['whups_guests'] = 1;
             }
@@ -755,19 +814,19 @@ class Whups_Driver_sql extends Whups_Driver {
             $done = true;
             break;
 
-        case CRITERION_GROUPS:
+        case Whups_Query::CRITERION_GROUPS:
             if (!isset($this->jtables['whups_ticket_owners'])) {
                 $this->jtables['whups_ticket_owners'] = 1;
             }
             $v = $this->jtables['whups_ticket_owners']++;
 
             $this->joins[] = "LEFT JOIN whups_ticket_owners wto$v ON whups_tickets.ticket_id = wto$v.ticket_id";
-            $qvalue = $this->_write_db->quote('group:' . $value);
+            $qvalue = $this->_db->quoteString('group:' . $value);
             $text = "{$func}wto$v.ticket_owner{$funcend} $op $qvalue";
             $done = true;
             break;
 
-        case CRITERION_ADDED_COMMENT:
+        case Whups_Query::CRITERION_ADDED_COMMENT:
             if (!isset($this->jtables['whups_comments'])) {
                 $this->jtables['whups_comments'] = 1;
             }
@@ -778,7 +837,7 @@ class Whups_Driver_sql extends Whups_Driver {
             $done = true;
             break;
 
-        case CRITERION_COMMENT:
+        case Whups_Query::CRITERION_COMMENT:
             if (!isset($this->jtables['whups_comments'])) {
                 $this->jtables['whups_comments'] = 1;
             }
@@ -797,7 +856,17 @@ class Whups_Driver_sql extends Whups_Driver {
         return $text;
     }
 
-    function getTicketsByProperties($info, $munge = true, $perowner = false)
+    /**
+     * Get tickets by searching for it's properties
+     *
+     * @param array $info        An array of properties to search for.
+     * @param boolean $munge     Munge the query (?)
+     * @param boolean $perowner  Group the results per owner?
+     *
+     * @return array  An array of ticket information hashes.
+     * @throws Whups_Exception
+     */
+    public function getTicketsByProperties(array $info, $munge = true, $perowner = false)
     {
         // Search conditions.
         $where = $this->_generateWhere(
@@ -819,7 +888,7 @@ class Whups_Driver_sql extends Whups_Driver {
             $where = $this->_addWhere(
                 $where, 1,
                 'LOWER(whups_tickets.ticket_summary) LIKE '
-                . $this->_write_db->quote('%' . Horde_String::lower($info['summary']) . '%'));
+                . $this->_db->quotestring('%' . Horde_String::lower($info['summary']) . '%'));
         }
 
         // Add date fields.
@@ -839,17 +908,18 @@ class Whups_Driver_sql extends Whups_Driver {
             $where = $this->_addDateWhere($where, $info['ticket_due'], 'ticket_due');
         }
 
-        $fields = array('ticket_id AS id',
-                        'ticket_summary AS summary',
-                        'user_id_requester',
-                        'state_id AS state',
-                        'type_id AS type',
-                        'priority_id AS priority',
-                        'queue_id AS queue',
-                        'date_updated',
-                        'date_assigned',
-                        'date_resolved',
-                        'version_id AS version');
+        $fields = array(
+            'ticket_id AS id',
+            'ticket_summary AS summary',
+            'user_id_requester',
+            'state_id AS state',
+            'type_id AS type',
+            'priority_id AS priority',
+            'queue_id AS queue',
+            'date_updated',
+            'date_assigned',
+            'date_resolved',
+            'version_id AS version');
 
         $fields = $this->_prefixTableToColumns('whups_tickets', $fields)
             . ', whups_tickets.ticket_timestamp AS timestamp, whups_tickets.ticket_due AS due';
@@ -866,13 +936,13 @@ class Whups_Driver_sql extends Whups_Driver {
                         $cat .= ' OR ';
                     }
                     $cat .= 'whups_states.state_category = '
-                        . $this->_write_db->quote($category);
+                        . $this->_db->quotestring($category);
                 }
                 $cat = ' AND (' . $cat . ')';
             } else {
                 $cat = isset($info['category'])
                     ? ' AND whups_states.state_category = '
-                        . $this->_write_db->quote($info['category'])
+                        . $this->_db->quotestring($info['category'])
                     : '';
             }
         } else {
@@ -885,13 +955,13 @@ class Whups_Driver_sql extends Whups_Driver {
                 $t = array();
                 foreach ($info['type_id'] as $type) {
                     $t[] = 'whups_tickets.type_id = '
-                        . $this->_write_db->quote($type);
+                        . $this->_db->quotestring($type);
                 }
                 $t = ' AND (' . implode(' OR ', $t) . ')';
             } else {
                 $t = isset($info['type_id'])
                     ? ' AND whups_tickets.type_id = '
-                        . $this->_write_db->quote($info['type_id'])
+                        . $this->_db->quotestring($info['type_id'])
                     : '';
             }
 
@@ -932,12 +1002,12 @@ class Whups_Driver_sql extends Whups_Driver {
                 $clauses = array();
                 foreach ($info['owner'] as $owner) {
                     $clauses[] = 'whups_ticket_owners.ticket_owner = '
-                        . $this->_write_db->quote($owner);
+                        . $this->_db->quotestring($owner);
                 }
                 $join .= '(' . implode(' OR ', $clauses) . ')';
             } else {
                 $join .= 'whups_ticket_owners.ticket_owner = '
-                    . $this->_write_db->quote($info['owner']);
+                    . $this->_db->quotestring($info['owner']);
             }
         }
         if (isset($info['notowner'])) {
@@ -945,7 +1015,7 @@ class Whups_Driver_sql extends Whups_Driver {
                 // Filter for tickets with no owner.
                 $join .= ' LEFT JOIN whups_ticket_owners ON whups_tickets.ticket_id = whups_ticket_owners.ticket_id AND whups_ticket_owners.ticket_owner IS NOT NULL';
             } else {
-                $join .= ' LEFT JOIN whups_ticket_owners ON whups_tickets.ticket_id = whups_ticket_owners.ticket_id AND whups_ticket_owners.ticket_owner = ' . $this->_write_db->quote($info['notowner']);
+                $join .= ' LEFT JOIN whups_ticket_owners ON whups_tickets.ticket_id = whups_ticket_owners.ticket_id AND whups_ticket_owners.ticket_owner = ' . $this->_db->quotestring($info['notowner']);
             }
             $where = $this->_addWhere($where, 1,
                                       'whups_ticket_owners.ticket_id IS NULL');
@@ -993,14 +1063,11 @@ class Whups_Driver_sql extends Whups_Driver {
         $query = "SELECT $fields FROM $tables$join "
             . (!empty($where) ? "WHERE $where " : '')
             . 'GROUP BY ' . $groupby;
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getTicketsByProperties(): query="%s"',
-                    $query), 'DEBUG');
 
-        $info = $this->_db->getAll($query, null, DB_FETCHMODE_ASSOC);
-        if (is_a($info, 'PEAR_Error')) {
-            Horde::logMessage($info, 'ERR');
-            return $info;
+        try {
+            $info = $this->_db->selectAll($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
         if (!count($info)) {
@@ -1039,14 +1106,11 @@ class Whups_Driver_sql extends Whups_Driver {
         }
 
         $owners = $this->getOwners(array_keys($tickets));
-        if (is_a($owners, 'PEAR_Error')) {
-            return $owners;
-        }
-        foreach ($owners as $row) {
-            if (empty($tickets[$row['id']]['owners'])) {
-                $tickets[$row['id']]['owners'] = array();
+        foreach ($owners as $id => $row) {
+            if (empty($tickets[$id]['owners'])) {
+                $tickets[$id]['owners'] = array();
             }
-            $tickets[$row['id']]['owners'][] = $row['owner'];
+            $tickets[$id]['owners'][] = $row;
         }
 
         $attributes = $this->getTicketAttributesWithNames(array_keys($tickets));
@@ -1055,72 +1119,99 @@ class Whups_Driver_sql extends Whups_Driver {
             $tickets[$row['id']][$attribute_id] = $row['attribute_value'];
             $tickets[$row['id']][$attribute_id . '_name'] = $row['attribute_name'];
         }
+
         return array_values($tickets);
     }
 
-    function getTicketDetails($ticket, $checkPerms = true)
+    /**
+     * Get a ticket's details from storage.
+     *
+     * @param integer $ticket      The ticket id.
+     * @param boolean $checkPerms  Enforce permissions?
+     *
+     * @return array  A ticket information hash.
+     * @throws Horde_Exception_NotFound, Horde_Exception_PermissionDenied
+     */
+    public function getTicketDetails($ticket, $checkPerms = true)
     {
         $result = $this->getTicketsByProperties(array('id' => $ticket));
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
-        } elseif (!isset($result[0])) {
-            return PEAR::raiseError(sprintf(_("Ticket %s was not found."),
-                                            $ticket));
+        if (!isset($result[0])) {
+            throw new Horde_Exception_NotFound(
+                sprintf(_("Ticket %s was not found."), $ticket));
         } else {
             $queues = Whups::permissionsFilter(
-                $this->getQueues(), 'queue', Horde_Perms::READ, $GLOBALS['registry']->getAuth(),
-                $result[0]['user_id_requester']);
+                $this->getQueues(), 'queue', Horde_Perms::READ,
+                $GLOBALS['registry']->getAuth(), $result[0]['user_id_requester']);
             if ($checkPerms &&
-                  !in_array($result[0]['queue'], array_flip($queues))) {
-                return PEAR::raiseError(
-                    sprintf(_("You do not have permission to access this ticket (%s)."),
-                            $ticket),
-                    0);
+                !in_array($result[0]['queue'], array_flip($queues))) {
+
+                throw new Horde_Exception_PermissionDenied(
+                    sprintf(_("You do not have permission to access this ticket (%s)."), $ticket));
             }
         }
 
         return $result[0];
     }
 
-    function getTicketState($ticket_id)
+    /**
+     * Obtain the current state of the specified ticket.
+     *
+     * @param integer $ticket_id  The ticket id.
+     *
+     * @return integer  The state id
+     * @throws Whups_Exception
+     */
+    public function getTicketState($ticket_id)
     {
         $query = 'SELECT whups_tickets.state_id, whups_states.state_category '
             . 'FROM whups_tickets INNER JOIN whups_states '
             . 'ON whups_tickets.state_id = whups_states.state_id '
             . 'WHERE ticket_id = ?';
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getTicketState(): query="%s"; values="%s"',
-                    $query, $ticket_id), 'DEBUG');
-        $state = $this->_db->getRow($query, array($ticket_id),
-                                    DB_FETCHMODE_ASSOC);
-        if (is_a($state, 'PEAR_Error')) {
-            Horde::logMessage($state, 'ERR');
+
+        try {
+            $state = $this->_db->SelectOne($query, array($ticket_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
+
         return $state;
     }
 
-    function getGuestEmail($guest_id)
+    /**
+     * Get a guest's email address
+     *
+     * @param integer $guest_id  The guest id.
+     *
+     * @return string  The guest's email address.
+     * @throws Whups_Exception
+     */
+    public function getGuestEmail($guest_id)
     {
-        static $guestCache;
-
-        if (!isset($guestCache[$guest_id])) {
+        if (!isset($this->_guestEmailCache[$guest_id])) {
             $query = 'SELECT guest_email FROM whups_guests WHERE guest_id = ?';
             $values = array($guest_id);
-            Horde::logMessage(
-                sprintf('Whups_Driver_sql::getGuestEmail(): query="%s"; values="%s"',
-                        $query, implode(',', $values)), 'DEBUG');
-            $result = $this->_db->getOne($query, $values);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
+            try {
+                $result = $this->_db->selectValue($query, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Whups_Exception($e);
             }
-            $guestCache[$guest_id] = Horde_String::convertCharset(
+            $this->_guestEmailCache[$guest_id] = Horde_String::convertCharset(
                 $result, $this->_params['charset'], 'UTF-8');
         }
-        return $guestCache[$guest_id];
+
+        return $this->_guestEmailCache[$guest_id];
     }
 
-    function _getHistory($ticket_id)
+
+    /**
+     * Fetch ticket's history from storage
+     *
+     * @param integer $ticket_id  The ticket's id.
+     *
+     * @return array The ticket's history.
+     * @throws Whups_Exception
+     */
+    protected function _getHistory($ticket_id)
     {
         $where = 'whups_logs.ticket_id = ' . (int)$ticket_id;
         $join  = 'LEFT JOIN whups_comments
@@ -1140,29 +1231,30 @@ class Whups_Driver_sql extends Whups_Driver {
                     AND whups_logs.log_value_num = whups_types.type_id
                   LEFT JOIN whups_attributes_desc
                     ON whups_logs.log_type = \'attribute\'
-                    AND whups_logs.log_value_num = whups_attributes_desc.attribute_id';
+                    AND whups_logs.log_value_num = whups_attributes_desc.attribute_id
+                  LEFT JOIN whups_transactions
+                    ON whups_logs.transaction_id = whups_transactions.transaction_id';
 
         $fields = $this->_prefixTableToColumns('whups_comments',
                                                array('comment_text'))
-            . ', whups_logs.log_timestamp AS timestamp, whups_logs.ticket_id'
+            . ', whups_transactions.transaction_timestamp AS timestamp, whups_logs.ticket_id'
             . ', whups_logs.log_type, whups_logs.log_value'
             . ', whups_logs.log_value_num, whups_logs.log_id'
-            . ', whups_logs.transaction_id, whups_logs.user_id'
+            . ', whups_logs.transaction_id, whups_transactions.transaction_user_id user_id'
             . ', whups_priorities.priority_name, whups_states.state_name, whups_versions.version_name'
             . ', whups_types.type_name, whups_attributes_desc.attribute_name';
 
         $query = "SELECT $fields FROM whups_logs $join WHERE $where "
             . "ORDER BY whups_logs.transaction_id";
-        Horde::logMessage(sprintf('Whups_Driver_sql::_getHistory(): query="%s"',
-                                  $query), 'DEBUG');
 
-        $history = $this->_db->getAll($query, null, DB_FETCHMODE_ASSOC);
-        if (is_a($history, 'PEAR_Error')) {
-            Horde::logMessage($history, 'ERR');
-            return $history;
+        try {
+            $history = $this->_db->selectAll($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        $history = Horde_String::convertCharset($history, $this->_params['charset'], 'UTF-8');
+        $history = Horde_String::convertCharset(
+            $history, $this->_params['charset'], 'UTF-8');
         for ($i = 0, $iMax = count($history); $i < $iMax; ++$i) {
             if ($history[$i]['log_type'] == 'queue') {
                 $queue = $this->getQueue($history[$i]['log_value_num']);
@@ -1177,32 +1269,30 @@ class Whups_Driver_sql extends Whups_Driver {
      * Deletes all changes of a transaction.
      *
      * @param integer $transaction  A transaction id.
+     * @throws Whups_Exception
      */
-    function deleteHistory($transaction)
+    public function deleteHistory($transaction)
     {
         $transaction = (int)$transaction;
 
         /* Deleting comments. */
         $query = 'SELECT log_value FROM whups_logs WHERE log_type = ? AND transaction_id = ?';
         $values = array('comment', $transaction);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::deleteTransaction(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $comments = $this->_db->getCol($query, 'log_value', $values);
-        if (is_a($comments, 'PEAR_Error')) {
-            Horde::logMessage($comments, 'ERR');
-            return $comments;
+
+        try {
+            $comments = $this->_db->selectValues($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
         if ($comments) {
-            $query = sprintf('DELETE FROM whups_comments WHERE comment_id IN (%s)',
-                             implode(',', $comments));
-            Horde::logMessage(
-                sprintf('Whups_Driver_sql::deleteTransaction(): query="%s"', $query), 'DEBUG');
-            $result = $this->_write_db->query($query);
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, 'ERR');
-                return $result;
+            $query = sprintf(
+                'DELETE FROM whups_comments WHERE comment_id IN (%s)',
+                implode(',', $comments));
+            try {
+                $this->_db->delete($query);
+            } catch (Horde_Db_Exception $e) {
+                throw new Whups_Exception($e);
             }
         }
 
@@ -1210,23 +1300,22 @@ class Whups_Driver_sql extends Whups_Driver {
         if (isset($GLOBALS['conf']['vfs']['type'])) {
             $query = 'SELECT ticket_id, log_value FROM whups_logs WHERE log_type = ? AND transaction_id = ?';
             $values = array('attachment', $transaction);
-            Horde::logMessage(
-                sprintf('Whups_Driver_sql::deleteTransaction(): query="%s"; values="%s"',
-                        $query, implode(',', $values)), 'DEBUG');
-            $attachments = $this->_db->query($query, $values);
-            if (is_a($attachments, 'PEAR_Error')) {
-                Horde::logMessage($attachments, 'ERR');
-                return $attachments;
+            try {
+                $attachments = $this->_db->selectAll($query, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Whups_Exception($e);
             }
 
-            $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-            while ($attachment = $attachments->fetchRow(DB_FETCHMODE_ASSOC)) {
-                $dir = WHUPS_VFS_ATTACH_PATH . '/' . $attachment['ticket_id'];
+            $vfs = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Vfs')
+                ->create();
+            foreach ($attachments as $attachment) {
+                $dir = Whups::VFS_ATTACH_PATH . '/' . $attachment['ticket_id'];
                 if ($vfs->exists($dir, $attachment['log_value'])) {
                     try {
                         $result = $vfs->deleteFile($dir, $attachment['log_value']);
                     } catch (Horde_Vfs_Exception $e) {
-                        return PEAR::raiseError($e->getMessage());
+                        throw new Whups_Exception($e);
                     }
                 } else {
                     Horde::logMessage(sprintf(_("Attachment %s not found."),
@@ -1237,15 +1326,13 @@ class Whups_Driver_sql extends Whups_Driver {
         }
 
         $query = 'DELETE FROM whups_logs WHERE transaction_id = ?';
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::deleteTransaction(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-           'DEBUG');
-        $result = $this->_write_db->query($query, array($transaction));
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
+        $delete_transaction = 'DELETE FROM whups_transactions WHERE transaction_id = ?';
+        try {
+            $this->_db->delete($query, array($transaction));
+            $this->_db->delete($delete_transaction, array($transaction));
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
-        return $result;
     }
 
     /**
@@ -1253,8 +1340,11 @@ class Whups_Driver_sql extends Whups_Driver {
      * open tickets in each.
      *
      * @param array $queues Array of queue ids to summarize.
+     *
+     * @return array  An array containing a hash of the queues' summaries.
+     * @throws Whups_Exception
      */
-    function getQueueSummary($queue_ids)
+    public function getQueueSummary($queue_ids)
     {
         $qstring = (int)array_shift($queue_ids);
         while ($queue_ids) {
@@ -1272,172 +1362,215 @@ class Whups_Driver_sql extends Whups_Driver {
             . 'WHERE q.queue_id IN (' . $qstring . ') '
             . 'GROUP BY q.queue_id, q.queue_slug, q.queue_name, '
             . 'q.queue_description, ty.type_name ORDER BY q.queue_name';
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getQueueSummary(): query="%s"', $sql), 'DEBUG');
-        $queues = $this->_db->getAll($sql, null, DB_FETCHMODE_ASSOC);
-        if (is_a($queues, 'PEAR_Error')) {
-            Horde::logMessage($queues, 'ERR');
-            return $queues;
+
+        try {
+            $queues = $this->_db->selectAll($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        return Horde_String::convertCharset($queues, $this->_params['charset'], 'UTF-8');
+        return Horde_String::convertCharset(
+            $queues, $this->_params['charset'], 'UTF-8');
     }
 
-    function getQueueInternal($queueId)
+    /**
+     * Get an internal representation of the queue (?).
+     *
+     * @param integer $queueId  The queue Id.
+     *
+     * @return array  A queue hash.
+     * @throws Whups_Exception
+     */
+    public function getQueueInternal($queueId)
     {
-        static $queues;
-
-        if (isset($queues[$queueId])) {
-            return $queues[$queueId];
+        if (isset($this->_internalQueueCache[$queueId])) {
+            return $this->_internalQueueCache[$queueId];
         }
 
         $query = 'SELECT queue_id, queue_name, queue_description, '
             . 'queue_versioned, queue_slug, queue_email '
             . 'FROM whups_queues WHERE queue_id = ?';
         $values = array((int)$queueId);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getQueueInternal(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $queue = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
-        if (is_a($queue, 'PEAR_Error')) {
-            Horde::logMessage($queue, 'ERR');
-            return $queue;
-        } elseif (!$queue) {
-            return false;
+        try {
+            $queue = $this->_db->selectOne($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
+
+        if (!$queue) {
+            return array();
         }
 
         $queue = Horde_String::convertCharset($queue, $this->_params['charset'], 'UTF-8');
-        $queues[$queueId] = array('id' => (int)$queue['queue_id'],
-                                  'name' => $queue['queue_name'],
-                                  'description' => $queue['queue_description'],
-                                  'versioned' => (bool)$queue['queue_versioned'],
-                                  'slug' => $queue['queue_slug'],
-                                  'email' => $queue['queue_email'],
-                                  'readonly' => false);
+        $this->_internalQueueCache[$queueId] = array(
+            'id' => (int)$queue['queue_id'],
+            'name' => $queue['queue_name'],
+            'description' => $queue['queue_description'],
+            'versioned' => (bool)$queue['queue_versioned'],
+            'slug' => $queue['queue_slug'],
+            'email' => $queue['queue_email'],
+            'readonly' => false);
 
-        return $queues[$queueId];
+        return $this->_internalQueueCache[$queueId];
     }
 
-    function getQueueBySlugInternal($slug)
+
+    /**
+     * Obtain internal queue hash by slug.
+     *
+     * @param string $slug  The queue slug.
+     *
+     * @return array An internal queue hash.
+     * @throws Whups_Exception
+     */
+    public function getQueueBySlugInternal($slug)
     {
         $query = 'SELECT queue_id, queue_name, queue_description, '
             . 'queue_versioned, queue_slug FROM whups_queues WHERE '
             . 'queue_slug = ?';
         $values = array((string)$slug);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getQueueInternal(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $queue = $this->_db->getAll($query, $values);
-        if (is_a($queue, 'PEAR_Error')) {
-            Horde::logMessage($queue, 'ERR');
-            return $queue;
-        } elseif (!count($queue)) {
+        try {
+            $queue = $this->_db->selectAll($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
+        if (!count($queue)) {
             return $queue;
         }
 
-        $queue = Horde_String::convertCharset($queue, $this->_params['charset'], 'UTF-8');
+        $queue = Horde_String::convertCharset(
+            $queue, $this->_params['charset'], 'UTF-8');
         $queue = $queue[0];
-        return array('id' => $queue[0],
-                     'name' => $queue[1],
-                     'description' => $queue[2],
-                     'versioned' => $queue[3],
-                     'slug' => $queue[4],
-                     'readonly' => false);
+        return array(
+            'id' => $queue[0],
+            'name' => $queue[1],
+            'description' => $queue[2],
+            'versioned' => $queue[3],
+            'slug' => $queue[4],
+            'readonly' => false);
     }
 
-    function getQueuesInternal()
+    /**
+     * Get list of available queues.
+     *
+     * @return array  An hash of queue_id => queue_name
+     * @throws Whups_Exception
+     */
+    public function getQueuesInternal()
     {
-        static $internals;
-
-        if ($internals) {
-            return $internals;
+        if (!is_null($this->_queues)) {
+            return $this->_queues;
         }
 
         $query = 'SELECT queue_id, queue_name FROM whups_queues '
             . 'ORDER BY queue_name';
-        Horde::logMessage(sprintf('Whups_Driver_sql::getQueues(): query="%s"',
-                                  $query), 'DEBUG');
-        $queues = $this->_db->getAssoc($query);
-        if (is_a($queues, 'PEAR_Error')) {
-            Horde::logMessage($queues, 'ERR');
-            return array();
+        try {
+            $this->_queues = $this->_db->selectAssoc($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        $internals = Horde_String::convertCharset($queues, $this->_params['charset'], 'UTF-8');
-        return $internals;
+        $this->_queues = Horde_String::convertCharset(
+            $this->_queues, $this->_params['charset'], 'UTF-8');
+
+        return $this->_queues;
     }
 
-    function getSlugs()
+    /**
+     * Get list of all availabel slugs.
+     *
+     * @return array  A hash of queue_id => queue_slugs
+     * @throws Whups_Exception
+     */
+    public function getSlugs()
     {
-        static $slugs;
-
-        if ($slugs) {
-            return $slugs;
+        if (!is_null($this->_slugs)) {
+            return $this->_slugs;
         }
 
         $query = 'SELECT queue_id, queue_slug FROM whups_queues '
             . 'WHERE queue_slug IS NOT NULL AND queue_slug <> \'\' '
             . 'ORDER BY queue_slug';
-        Horde::logMessage(sprintf('Whups_Driver_sql::getSlugs(): query="%s"',
-                                  $query), 'DEBUG');
-        $queues = $this->_db->getAssoc($query);
-        if (is_a($queues, 'PEAR_Error')) {
-            Horde::logMessage($queues, 'ERR');
-            return array();
+
+        try {
+            $queues = $this->_db->selectAssoc($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        $slugs = Horde_String::convertCharset($queues, $this->_params['charset'], 'UTF-8');
+        $this->_slugs = Horde_String::convertCharset(
+            $queues, $this->_params['charset'], 'UTF-8');
 
-        return $slugs;
+        return $this->_slugs;
     }
 
-    function updateQueue($queueId, $name, $description, $types, $versioned,
-                         $slug = '', $email = '', $default = null)
+    /**
+     * Update a queue
+     *
+     * @param integer $queueId     Queue Id.
+     * @param string $name         Queue name.
+     * @param string $description  The queue description.
+     * @param array $types         An array of type ids for this queue.
+     * @param integer $versioned   Is this queue versioned? (1 = true, 0 = false)
+     * @param string $slug         The queue slug.
+     * @param string $email        Email address for queue.
+     * @param integer $default  The default type of ticket for this queue.
+     *
+     * @throws Whups_Exception
+     */
+    public function updateQueue(
+        $queueId, $name, $description, array $types = array(), $versioned = 0,
+        $slug = '', $email = '', $default = null)
     {
         global $registry;
 
         if ($registry->hasMethod('tickets/listQueues') == $registry->getApp()) {
             // Is slug unique?
-            $query = 'SELECT count(queue_slug) FROM whups_queues WHERE queue_slug = ? AND queue_id <> ?';
-            $result = $this->_db->getOne($query, array($slug, $queueId));
-            if ($result > 0) {
-                return PEAR::raiseError(_("That queue slug is already taken. Please select another."));
-            }
-
+            if (!empty($slug)) {
+                try {
+                    $result = $this->_db->selectValue(
+                        'SELECT count(queue_slug) FROM whups_queues WHERE queue_slug = ? AND queue_id <> ?',
+                         array($slug, $queueId));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Whups_Exception($e);
+                }
+                if ($result > 0) {
+                    throw new Whups_Exception(
+                        _("That queue slug is already taken. Please select another."));
+                }
+        }
             // First update the queue entry itself.
             $query = 'UPDATE whups_queues SET queue_name = ?, '
                      . 'queue_description = ?, queue_versioned = ?, '
                      . 'queue_slug = ?, queue_email = ? WHERE queue_id = ?';
-            $values = array(Horde_String::convertCharset($name,
-                                                   'UTF-8',
-                                                   $this->_params['charset']),
-                            Horde_String::convertCharset($description,
-                                                   'UTF-8',
-                                                   $this->_params['charset']),
-                            (empty($versioned) ? 0 : 1),
-                            $slug,
-                            $email,
-                            $queueId);
-            Horde::logMessage(
-                sprintf('Whups_Driver_sql::updateQueue(): query="%s"; values="%s"',
-                        $query, implode(',', $values)), 'DEBUG');
-            $result = $this->_write_db->query($query, $values);
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, 'ERR');
-                return $result;
+            $values = array(
+                Horde_String::convertCharset(
+                    $name,
+                    'UTF-8',
+                    $this->_params['charset']),
+                Horde_String::convertCharset(
+                    $description,
+                    'UTF-8',
+                    $this->_params['charset']),
+                (empty($versioned) ? 0 : 1),
+                    $slug,
+                    $email,
+                    $queueId);
+
+            try {
+                $this->_db->update($query, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Whups_Exception($e);
             }
         }
 
         // Clear all previous type-queue associations.
         $query = 'DELETE FROM whups_types_queues WHERE queue_id = ?';
         $values = array($queueId);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::updateQueue(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $this->_db->delete($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
         // Add the new associations.
@@ -1446,72 +1579,74 @@ class Whups_Driver_sql extends Whups_Driver {
                 $query = 'INSERT INTO whups_types_queues '
                     . '(queue_id, type_id, type_default) VALUES (?, ?, ?)';
                 $values = array($queueId, $typeId, $default == $typeId ? 1 : 0);
-                Horde::logMessage(
-                    sprintf('Whups_Driver_sql::updateQueue(): query="%s"; values="%s"',
-                            $query, implode(',', $values)), 'DEBUG');
-                $result = $this->_write_db->query($query, $values);
-                if (is_a($result, 'PEAR_Error')) {
-                    Horde::logMessage($result, 'ERR');
-                    return $result;
+
+                try {
+                    $this->_db->insert($query, $values);
+                } catch (Horde_Db_Exception $e) {
+                    throw new Whups_Exception($e);
                 }
             }
         }
-
-        return true;
     }
 
-    function getDefaultType($queue)
+    /**
+     * Obtain the specified queue's default type.
+     *
+     * @param integer $queue  The queue id.
+     *
+     * @return integer  The default type's type_id
+     */
+    public function getDefaultType($queue)
     {
-        $query = 'SELECT type_id FROM whups_types_queues '
-            . 'WHERE type_default = 1 AND queue_id = ?';
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::setDefaultType(): query="%s"', $query), 'DEBUG');
-        $type = $this->_db->getOne($query, array($queue));
-        if (is_a($type, 'PEAR_Error')) {
-            Horde::logMessage($type, 'ERR');
+        try {
+            $type = $this->_db->selectValue(
+                'SELECT type_id FROM whups_types_queues WHERE type_default = 1 AND queue_id = ?',
+                array($queue));
+        } catch (Horde_Db_Exception $e) {
             return null;
         }
+
         return $type;
     }
 
     /**
+     * Deletes an entire queue, and all references to it.
+     *
+     * @param integer $queueId  The queue id to delete.
+     *
+     * @throws Whups_Exception
      */
-    function deleteQueue($queueId)
+    public function deleteQueue($queueId)
     {
         // Clean up the tickets associated with the queue.
         $query = 'SELECT ticket_id FROM whups_tickets WHERE queue_id = ?';
         $values = array($queueId);
-        Horde::logMessage(sprintf('Whups_Driver_sql::deleteQueue: query="%s"; values=%s"', $query, implode(',', $values)), 'DEBUG');
-
-        $result = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $result = $this->_db->selectAll($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
         foreach ($result as $ticket) {
-          $info['id'] = $ticket['ticket_id'];
-          $this->deleteTicket($info);
+          $this->deleteTicket($ticket['ticket_id']);
         }
 
         // Now remove all references to the queue itself
         // Note that whups_tickets could be in this list below, but there
         // should never be tickets left for the queue at this point
         // because they were all deleted above.
-        $tables = array('whups_queues_users',
-                        'whups_types_queues',
-                        'whups_versions',
-                        'whups_queues');
+        $tables = array(
+            'whups_queues_users',
+            'whups_types_queues',
+            'whups_versions',
+            'whups_queues');
         foreach ($tables as $table) {
             $query = 'DELETE FROM ' . $table . ' WHERE queue_id = ?';
             $values = array($queueId);
-            Horde::logMessage(
-                sprintf('Whups_Driver_sql::deleteQueue(): query="%s"; values="%s"',
-                        $query, implode(',', $values)), 'DEBUG');
-            $result = $this->_write_db->query($query, $values);
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, 'ERR');
-                return $result;
+            try {
+                $this->_db->delete($query, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Whups_Exception($e);
             }
         }
 
@@ -1519,22 +1654,24 @@ class Whups_Driver_sql extends Whups_Driver {
     }
 
     /**
+     * Update type/queue associations(?)
+     *
+     * @param array  An array of mappings(?)
+     *
+     * @throws Whups_Exception
      */
-    function updateTypesQueues($tmPairs)
+    public function updateTypesQueues(array $tmPairs)
     {
         // Do this as a transaction.
-        $this->_write_db->autoCommit(false);
+        $this->_db->beginDbTransaction();
 
         // Delete existing associations.
         $query = 'DELETE FROM whups_types_queues';
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::updateTypesQueues(): query="%s"', $query), 'DEBUG');
-        $result = $this->_write_db->query($query);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            $this->_write_db->rollback();
-            $this->_write_db->autoCommit(true);
-            return $result;
+        try {
+            $this->_db->delete($query);
+        } catch (Horde_Db_Exception $e) {
+            $this->_db->rollbackDbTransaction();
+            throw new Whups_Exception($e);
         }
 
         // Insert new associations.
@@ -1542,47 +1679,53 @@ class Whups_Driver_sql extends Whups_Driver {
             $query = 'INSERT INTO whups_types_queues (queue_id, type_id) '
                 . 'VALUES (?, ?)';
             $values = array((int)$pair[0], (int)$pair[1]);
-            Horde::logMessage(
-                sprintf('Whups_Driver_sql::updateTypesQueues(): query="%s"; values="%s"',
-                        $query, implode(',', $values)), 'DEBUG');
-            $result = $this->_write_db->query($query, $values);
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, 'ERR');
-                $this->_write_db->rollback();
-                $this->_write_db->autoCommit(true);
-                return $result;
+            try {
+                $this->_db->insert($query, $values);
+            } catch (Horde_Db_Exception $e) {
+                $this->_db->rollbackDbTransaction();
+                throw new Whups_Exception($e);
             }
         }
 
-        $result = $this->_write_db->commit();
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            $this->_write_db->rollback();
-            $this->_write_db->autoCommit(true);
-            return $result;
+        try {
+            $this->_db->commitDbTransaction();
+        } catch (Horde_Db_Exception $e) {
+            $this->_db->rollbackDbTransaction();
+            throw new Whups_Exception($e);
         }
-
-        $this->_write_db->autoCommit(true);
     }
 
-    function getQueueUsers($queueId)
+    /**
+     * Get list of queue's users
+     *
+     * @param integer $queueId  The queue id to list users for.
+     *
+     * @return array  An array of queue users.
+     * @throws Whups_Execption
+     */
+    public function getQueueUsers($queueId)
     {
         $query = 'SELECT user_uid AS u1, user_uid AS u2 FROM whups_queues_users'
             . ' WHERE queue_id = ? ORDER BY u1';
         $values = array($queueId);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getQueueUsers(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $users = $this->_db->getAssoc($query, false, $values);
-        if (is_a($users, 'PEAR_Error')) {
-            Horde::logMessage($users, 'ERR');
-            return array();
+        try {
+            $users = $this->_db->selectAssoc($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
         return $users;
     }
 
-    function addQueueUser($queueId, $userId)
+    /**
+     * Add a new queue user.
+     *
+     * @param integer $queueId  The queue id.
+     * @param string  $userId   The user id to add.
+     *
+     * @throws Whups_Exception
+     */
+    public function addQueueUser($queueId, $userId)
     {
         if (!is_array($userId)) {
             $userId = array($userId);
@@ -1591,30 +1734,44 @@ class Whups_Driver_sql extends Whups_Driver {
             $query = 'INSERT INTO whups_queues_users (queue_id, user_uid) '
                 . 'VALUES (?, ?)';
             $values = array($queueId, $user);
-            Horde::logMessage(
-            sprintf('Whups_Driver_sql::addQueueUser(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-            $result = $this->_write_db->query($query, $values);
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, 'ERR');
-                return $result;
+            try {
+                $this->_db->insert($query, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Whups_Exception($e);
             }
         }
-        return true;
     }
 
-    function removeQueueUser($queueId, $userId)
+    /**
+     * Remove a user from a queue.
+     *
+     * @param integer $queueId  The queue id.
+     * @param string $userId    The user id to remove.
+     *
+     * @throws Whups_Exception
+     */
+    public function removeQueueUser($queueId, $userId)
     {
         $query = 'DELETE FROM whups_queues_users' .
                  ' WHERE queue_id = ? AND user_uid = ?';
         $values = array($queueId, $userId);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::removeQueueUser(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        return $this->_write_db->query($query, $values);
+
+        try {
+            $this->_db->delete($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
-    function getType($typeId)
+    /**
+     * Get a type from storage
+     *
+     * @param integer $typeId  The type id to retrieve.
+     *
+     * @return array  The type information
+     * @throws Whups_Exception
+     */
+    public function getType($typeId)
     {
         if (empty($typeId)) {
             return false;
@@ -1622,100 +1779,134 @@ class Whups_Driver_sql extends Whups_Driver {
         $query = 'SELECT type_id, type_name, type_description '
             . 'FROM whups_types WHERE type_id = ?';
         $values = array($typeId);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getType(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-
-        $type = $this->_db->getAssoc($query, false, $values);
-        if (is_a($type, 'PEAR_Error')) {
-            Horde::logMessage($type, 'ERR');
-            return $type;
+        try {
+            $type[$typeId] = $this->_db->selectOne($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        $type = Horde_String::convertCharset($type, $this->_params['charset'], 'UTF-8');
-        return array('id' => $typeId,
-                     'name' => isset($type[$typeId][0]) ? $type[$typeId][0] : '',
-                     'description' => isset($type[$typeId][1]) ? $type[$typeId][1] : '');
+        $type = Horde_String::convertCharset(
+            $type, $this->_params['charset'], 'UTF-8');
+        return array(
+            'id' => $typeId,
+            'name' => isset($type[$typeId]['type_name']) ? $type[$typeId]['type_name'] : '',
+            'description' => isset($type[$typeId]['type_description']) ? $type[$typeId]['type_description'] : '');
     }
 
-    function getTypes($queueId)
+    /**
+     * Get list of types associated with the specified queue.
+     *
+     * @param integer $queueId  The queue id
+     *
+     * @return array  An array of type_id => type_name
+     * @throws Whups_Exception
+     */
+    public function getTypes($queueId)
     {
         $query = 'SELECT t.type_id, t.type_name '
             . 'FROM whups_types t, whups_types_queues tm '
             . 'WHERE tm.queue_id = ? AND tm.type_id = t.type_id '
             . 'ORDER BY t.type_name';
         $values = array($queueId);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getTypes(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $types = $this->_db->getAssoc($query, false, $values);
-        if (is_a($types, 'PEAR_Error')) {
-            Horde::logMessage($types, 'ERR');
-            return array();
+        try {
+            $types = $this->_db->selectAssoc($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        return Horde_String::convertCharset($types, $this->_params['charset'], 'UTF-8');
+        return Horde_String::convertCharset(
+            $types, $this->_params['charset'], 'UTF-8');
     }
 
-    function getTypeIds($queueId)
+    /**
+     * Get list of available type ids.
+     *
+     * @param integer $queueId  The queue id to obtain type ids for.
+     *
+     * @return array  An array of available typeIds for the specified queue.
+     * @throws Whups_Exception
+     */
+    public function getTypeIds($queueId)
     {
         $query = 'SELECT type_id FROM whups_types_queues '
             . 'WHERE queue_id = ? ORDER BY type_id';
         $values = array($queueId);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getTypeIds(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        return $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
+        try {
+            return $this->_db->selectValues($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
-    function getAllTypes()
+    /**
+     * Get list of ALL available types.
+     *
+     * @return array  A hash of type_id => type_name
+     * @throws Whups_Exception
+     */
+    public function getAllTypes()
     {
         $query = 'SELECT type_id, type_name FROM whups_types ORDER BY type_name';
-        Horde::logMessage(sprintf('Whups_Driver_sql::getAllTypes(): query="%s"',
-                                  $query), 'DEBUG');
-        $types = $this->_db->getAssoc($query);
-        if (is_a($types, 'PEAR_Error')) {
-            Horde::logMessage($types, 'ERR');
-            return array();
+        try {
+            $types = $this->_db->selectAssoc($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        return Horde_String::convertCharset($types, $this->_params['charset'], 'UTF-8');
+        return Horde_String::convertCharset(
+            $types, $this->_params['charset'], 'UTF-8');
     }
 
-    function getAllTypeInfo()
+    /**
+     *
+     * @return array
+     * @throws Whups_Exception
+     */
+    public function getAllTypeInfo()
     {
         $query = 'SELECT type_id, type_name, type_description '
             . 'FROM whups_types ORDER BY type_id';
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getAllTypeInfo(): query="%s"', $query), 'DEBUG');
-
-        $info = $this->_db->getAll($query, null, DB_FETCHMODE_ASSOC);
-        if (is_a($info, 'PEAR_Error')) {
-            Horde::logMessage($info, 'ERR');
-            return $info;
+        try {
+            $info = $this->_db->selectAll($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        return Horde_String::convertCharset($info, $this->_params['charset'], 'UTF-8');
+        return Horde_String::convertCharset(
+            $info, $this->_params['charset'], 'UTF-8');
     }
 
-    function getTypeName($type)
+    /**
+     *
+     * @param integer $type  The type_id
+     *
+     * @return string
+     * @throws Whups_Exception
+     */
+    public function getTypeName($type)
     {
         $query = 'SELECT type_name FROM whups_types WHERE type_id = ?';
         $values = array($type);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getTypeName(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-
-        $name = $this->_db->getOne($query, $values);
-        if (is_a($name, 'PEAR_Error')) {
-            Horde::logMessage($name, 'ERR');
-            return $name;
+        try {
+            $name = $this->_db->selectValue($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        return Horde_String::convertCharset($name, $this->_params['charset'], 'UTF-8');
+        return Horde_String::convertCharset(
+            $name, $this->_params['charset'], 'UTF-8');
     }
 
-    function updateType($typeId, $name, $description)
+    /**
+     * Updates a type
+     *
+     * @param integer $typeId
+     * @param string $name
+     * @param string $description
+     *
+     * @throws Whups_Exception
+     */
+    public function updateType($typeId, $name, $description)
     {
         $query = 'UPDATE whups_types' .
                  ' SET type_name = ?, type_description = ? WHERE type_id = ?';
@@ -1724,42 +1915,55 @@ class Whups_Driver_sql extends Whups_Driver {
                         Horde_String::convertCharset($description, 'UTF-8',
                                                      $this->_params['charset']),
                         $typeId);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::updateType(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        return $this->_write_db->query($query, $values);
+        try {
+            $this->_db->update($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
-    function deleteType($typeId)
+    /**
+     * Delete a type from storage
+     *
+     * @param integer $typeId  The type_id to delete
+     *
+     * @throws Whups_Exception
+     */
+    public function deleteType($typeId)
     {
         $values = array((int)$typeId);
+        try {
+            $this->_db->delete(
+                'DELETE FROM whups_states WHERE type_id = ?',
+                $values);
 
-        $query = 'DELETE FROM whups_states WHERE type_id = ?';
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::deleteType(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $this->_write_db->query($query, $values);
+            $this->_db->delete(
+                'DELETE FROM whups_priorities WHERE type_id = ?',
+                 $values);
 
-        $query = 'DELETE FROM whups_priorities WHERE type_id = ?';
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::deleteType(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $this->_write_db->query($query, $values);
+            $this->_db->delete(
+                'DELETE FROM whups_attributes_desc WHERE type_id = ?',
+                $values);
 
-        $query = 'DELETE FROM whups_attributes_desc WHERE type_id = ?';
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::deleteType(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $this->_write_db->query($query, $values);
-
-        $query = 'DELETE FROM whups_types WHERE type_id = ?';
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::deleteType(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        return $this->_write_db->query($query, $values);
+            $this->_db->delete(
+                'DELETE FROM whups_types WHERE type_id = ?',
+                $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
-    function getStates($type = null, $category = '', $notcategory = '')
+    /**
+     * Fetch available states for given type/category
+     *
+     * @param string $type
+     * @param string $category
+     * @param string $notcategory
+     *
+     * @return array An array of states.
+     * @throws Whups_Exception
+     */
+    public function getStates($type = null, $category = '', $notcategory = '')
     {
         $fields = 'state_id, state_name';
         $from = 'whups_states';
@@ -1774,22 +1978,22 @@ class Whups_Driver_sql extends Whups_Driver {
         }
 
         if (!is_array($category)) {
-            $where = $this->_addWhere($where, $category, 'state_category = ' . $this->_write_db->quote($category));
+            $where = $this->_addWhere($where, $category, 'state_category = ' . $this->_db->quoteString($category));
         } else {
             $clauses = array();
             foreach ($category as $cat) {
-                $clauses[] = 'state_category = ' . $this->_write_db->quote($cat);
+                $clauses[] = 'state_category = ' . $this->_db->quoteString($cat);
             }
             if (count($clauses))
                 $where = $this->_addWhere($where, $cat, implode(' OR ', $clauses));
         }
 
         if (!is_array($notcategory)) {
-            $where = $this->_addWhere($where, $notcategory, 'state_category <> ' . $this->_write_db->quote($notcategory));
+            $where = $this->_addWhere($where, $notcategory, 'state_category <> ' . $this->_db->quoteString($notcategory));
         } else {
             $clauses = array();
             foreach ($notcategory as $notcat) {
-                $clauses[] = 'state_category <> ' . $this->_write_db->quote($notcat);
+                $clauses[] = 'state_category <> ' . $this->_db->quoteString($notcat);
             }
             if (count($clauses)) {
                 $where = $this->_addWhere($where, $notcat, implode(' OR ', $clauses));
@@ -1800,70 +2004,90 @@ class Whups_Driver_sql extends Whups_Driver {
         }
 
         $query = "SELECT $fields FROM $from$where ORDER BY $order";
-        Horde::logMessage(sprintf('Whups_Driver_sql::getStates(): query="%s"',
-                                  $query), 'DEBUG');
-
-        $states = $this->_db->getAssoc($query);
-        if (is_a($states, 'PEAR_Error')) {
-            Horde::logMessage($states, 'ERR');
-            return $states;
+        try {
+            $states = $this->_db->selectAll($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
+        $return = array();
         if (empty($type)) {
-            foreach ($states as $id => $state) {
-                $states[$id] = $state[0] . ' (' . $state[2] . ')';
+            foreach ($states as $state) {
+                $return[$state['state_id']] = $state['state_name'] . ' (' . $state['type_name'] . ')';
+            }
+        } else {
+            foreach ($states as $state) {
+                $return[$state['state_id']] = $state['state_name'];
             }
         }
 
-        return Horde_String::convertCharset($states, $this->_params['charset'], 'UTF-8');
+        return Horde_String::convertCharset(
+            $return, $this->_params['charset'], 'UTF-8');
     }
 
-    function getState($stateId)
+    /**
+     *
+     * @param integer $stateId
+     *
+     * @return array  A state definition array.
+     */
+    public function getState($stateId)
     {
         if (empty($stateId)) {
             return false;
         }
-        $query = 'SELECT state_id, state_name, state_description, '
+        $query = 'SELECT state_name, state_description, '
             . 'state_category, type_id FROM whups_states WHERE state_id = ?';
         $values = array($stateId);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getState(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $state = $this->_db->getAssoc($query, false, $values);
-        if (is_a($state, 'PEAR_Error')) {
-            Horde::logMessage($state, 'ERR');
-            return $state;
+        try {
+            $state[$stateId] = $this->_db->selectOne($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        $state = Horde_String::convertCharset($state, $this->_params['charset'], 'UTF-8');
+        $state = Horde_String::convertCharset(
+            $state, $this->_params['charset'], 'UTF-8');
         return array(
             'id' => $stateId,
-            'name' => isset($state[$stateId][0]) ? $state[$stateId][0] : '',
-            'description' => isset($state[$stateId][1]) ? $state[$stateId][1] : '',
-            'category' => isset($state[$stateId][2]) ? $state[$stateId][2] : '',
-            'type' => isset($state[$stateId][3]) ? $state[$stateId][3] : '');
+            'name' => isset($state[$stateId]['state_name']) ? $state[$stateId]['state_name'] : '',
+            'description' => isset($state[$stateId]['state_description']) ? $state[$stateId]['state_description'] : '',
+            'category' => isset($state[$stateId]['state_category']) ? $state[$stateId]['state_category'] : '',
+            'type' => isset($state[$stateId]['type_id']) ? $state[$stateId]['type_id'] : '');
     }
 
-    function getAllStateInfo($type)
+    /**
+     *
+     * @param integer $type  The type_id
+     *
+     * @return array
+     * @throws Whups_Exception
+     */
+    public function getAllStateInfo($type)
     {
         $query = 'SELECT state_id, state_name, state_description, '
             . 'state_category FROM whups_states WHERE type_id = ? '
             . 'ORDER BY state_id';
         $values = array($type);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getAllStateInfo(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-
-        $info = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
-        if (is_a($info, 'PEAR_Error')) {
-            Horde::logMessage($info, 'ERR');
-            return $info;
+        try {
+            $info = $this->_db->selectAll($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        return Horde_String::convertCharset($info, $this->_params['charset'], 'UTF-8');
+        return Horde_String::convertCharset(
+            $info, $this->_params['charset'], 'UTF-8');
     }
 
-    function updateState($stateId, $name, $description, $category)
+    /**
+     *
+     * @param integer $stateId     The state_id
+     * @param string $name         The name
+     * @param string $description  The description
+     * @param string $category     The category
+     *
+     * @throws Whups_Exception
+     */
+    public function updateState($stateId, $name, $description, $category)
     {
         $query = 'UPDATE whups_states SET state_name = ?, '
             . 'state_description = ?, state_category = ? WHERE state_id = ?';
@@ -1874,51 +2098,73 @@ class Whups_Driver_sql extends Whups_Driver {
                         Horde_String::convertCharset($category, 'UTF-8',
                                                      $this->_params['charset']),
                         $stateId);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::updateState(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        return $this->_write_db->query($query, $values);
+        try {
+            $this->_db->update($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
-    function getDefaultState($type)
+    /**
+     * Get the default state for the specified ticket type.
+     *
+     * @param integer $type  The type_id
+     *
+     * @return integer  The default state_id for the specified type.
+     * @throws Whups_Exception
+     */
+    public function getDefaultState($type)
     {
         $query = 'SELECT state_id FROM whups_states '
             . 'WHERE state_default = 1 AND type_id = ?';
         $values = array($type);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getDefaultState(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        return $this->_db->getOne($query, $values);
+        try {
+            return $this->_db->selectValue($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
-    function setDefaultState($type, $state)
+    /**
+     *
+     * @param integer $type   The type_id
+     * @param integer $state  The state to set as default
+     *
+     * @throws Whups_Exception
+     */
+    public function setDefaultState($type, $state)
     {
         $query = 'UPDATE whups_states SET state_default = 0 WHERE type_id = ?';
         $values = array($type);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::setDefaultState(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $this->_db->update($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
         $query = 'UPDATE whups_states SET state_default = 1 WHERE state_id = ?';
         $values = array($state);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::setDefaultState(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        return $this->_write_db->query($query, $values);
+        try {
+            $this->_db->update($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
-    function deleteState($state_id)
+    /**
+     * Deletes a state from storage.
+     *
+     * @param integer $state_id  The state id to delete
+     *
+     * @throws Whups_Exception
+     */
+    public function deleteState($state_id)
     {
         $query = 'DELETE FROM whups_states WHERE state_id = ?';
-        $values = array((int)$state_id);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::deleteState(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        return $this->_write_db->query($query, $values);
+        try {
+            $this->_db->delete($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
     /**
@@ -1927,8 +2173,9 @@ class Whups_Driver_sql extends Whups_Driver {
      * @param integer $queryId
      *
      * @return array
+     * @throws Whups_Exception
      */
-    function getQuery($queryId)
+    public function getQuery($queryId)
     {
         if (empty($queryId)) {
             return false;
@@ -1936,16 +2183,14 @@ class Whups_Driver_sql extends Whups_Driver {
         $query = 'SELECT query_parameters, query_object FROM whups_queries '
             . 'WHERE query_id = ?';
         $values = array((int)$queryId);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getQuery(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $query = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
-        if (is_a($query, 'PEAR_Error')) {
-            Horde::logMessage($query, 'ERR');
-            return $query;
+        try {
+            $query = $this->_db->selectOne($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        return Horde_String::convertCharset($query, $this->_params['charset'], 'UTF-8');
+        return Horde_String::convertCharset(
+            $query, $this->_params['charset'], 'UTF-8');
     }
 
     /**
@@ -1953,33 +2198,39 @@ class Whups_Driver_sql extends Whups_Driver {
      *
      * @param Whups_Query $query
      */
-    function saveQuery($query)
+    public function saveQuery($query)
     {
-        $exists = $this->_db->getOne('SELECT 1 FROM whups_queries '
-                                     . 'WHERE query_id = ' . (int)$query->id);
-        if (is_a($exists, 'PEAR_Error')) {
-            return $exists;
+        try {
+            $exists = $this->_db->selectValue(
+                'SELECT 1 FROM whups_queries WHERE query_id = ?',
+                array((int)$query->id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
         if ($exists) {
             $q = 'UPDATE whups_queries SET query_parameters = ?, '
                 . 'query_object = ? WHERE query_id = ?';
-            $values = array(serialize($query->parameters),
-                            serialize($query->query),
-                            $query->id);
+            $values = array(
+                serialize($query->parameters),
+                serialize($query->query),
+                $query->id);
         } else {
-
             $q = 'INSERT INTO whups_queries (query_id, query_parameters, '
                 . 'query_object) VALUES (?, ?, ?)';
-            $values = array($query->id, serialize($query->parameters),
-                            serialize($query->query));
+            $values = array(
+                $query->id,
+                serialize($query->parameters),
+                serialize($query->query));
         }
-        $values = Horde_String::convertCharset($values, 'UTF-8',
-                                               $this->_params['charset']);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::saveQuery(): query="%s"; values="%s"',
-                    $q, implode(',', $values)), 'DEBUG');
-        return $this->_write_db->query($q, $values);
+        $values = Horde_String::convertCharset(
+            $values, 'UTF-8', $this->_params['charset']);
+
+        try {
+            $this->_db->execute($q, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
     /**
@@ -1987,46 +2238,45 @@ class Whups_Driver_sql extends Whups_Driver {
      *
      * @param integer $queryId
      */
-    function deleteQuery($queryId)
+    public function deleteQuery($queryId)
     {
         $query = 'DELETE FROM whups_queries WHERE query_id = ?';
         $values = array((int)$queryId);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::deleteQuery(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        return $this->_write_db->query($query, $values);
+        try {
+            return $this->_db->delete($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
-    function isCategory($category, $state_id)
+    public function isCategory($category, $state_id)
     {
         $query = 'SELECT 1 FROM whups_states '
             . 'WHERE state_id = ? AND state_category = ?';
         $values = array((int)$state_id, $category);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::isCategory(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        return $this->_db->getOne($query, $values);
+        try {
+            return $this->_db->selectValue($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
-    function getAllPriorityInfo($type)
+    public function getAllPriorityInfo($type)
     {
         $query = 'SELECT priority_id, priority_name, priority_description '
             . 'FROM whups_priorities WHERE type_id = ? ORDER BY priority_id';
         $values = array((int)$type);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getAllPriorityInfo(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-
-        $info = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
-        if (is_a($info, 'PEAR_Error')) {
-            Horde::logMessage($info, 'ERR');
-            return $info;
+        try {
+            $info = $this->_db->selectAll($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        return Horde_String::convertCharset($info, $this->_params['charset'], 'UTF-8');
+        return Horde_String::convertCharset(
+            $info, $this->_params['charset'], 'UTF-8');
     }
 
-    function getPriorities($type = null)
+    public function getPriorities($type = null)
     {
         $fields = 'priority_id, priority_name';
         $from = 'whups_priorities';
@@ -2041,53 +2291,56 @@ class Whups_Driver_sql extends Whups_Driver {
         }
 
         $query = "SELECT $fields FROM $from$where ORDER BY $order";
-        Horde::logMessage(
-            sprintf('SQL Query by Whups_Driver_sql::getPriorities(): query="%s"',
-                    $query), 'DEBUG');
-
-        $priorities = $this->_db->getAssoc($query);
-        if (is_a($priorities, 'PEAR_Error')) {
-            Horde::logMessage($priorities, 'ERR');
-            return $priorities;
+        try {
+            $priorities = $this->_db->selectAll($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
+        $return = array();
         if (empty($type)) {
-            foreach ($priorities as $id => $priority) {
-                $priorities[$id] = $priority[0] . ' (' . $priority[2] . ')';
+            foreach ($priorities as $priority) {
+                $return[$priority['priority_id']] = $priority['priority_name'] . ' (' . $priority['type_name'] . ')';
+            }
+        } else {
+            foreach ($priorities as $priority) {
+                $return[$priority['priority_id']] = $priority['priority_name'];
             }
         }
 
-        return Horde_String::convertCharset($priorities, $this->_params['charset'], 'UTF-8');
+        return Horde_String::convertCharset(
+            $return, $this->_params['charset'], 'UTF-8');
     }
 
-    function getPriority($priorityId)
+    public function getPriority($priorityId)
     {
         if (empty($priorityId)) {
             return false;
         }
-        $query = 'SELECT priority_id, priority_name, priority_description, '
+        $query = 'SELECT priority_name, priority_description, '
             . 'type_id FROM whups_priorities WHERE priority_id = ?';
         $values = array((int)$priorityId);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getPriority(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $priority = $this->_db->getAssoc($query, false, $values);
-        if (is_a($priority, 'PEAR_Error')) {
-            Horde::logMessage($priority, 'ERR');
-            return $priority;
+        try {
+            $row = $this->_db->selectOne($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
+        foreach ($row as $key => $value) {
+            $priority[$priorityId][$key] = $value;
+        }
+        $priority = Horde_String::convertCharset(
+            $priority, $this->_params['charset'], 'UTF-8');
 
-        $priority = Horde_String::convertCharset($priority, $this->_params['charset'], 'UTF-8');
         return array('id' => $priorityId,
-                     'name' => isset($priority[$priorityId][0])
-                         ? $priority[$priorityId][0] : '',
-                     'description' => isset($priority[$priorityId][1])
-                         ? $priority[$priorityId][1] : '',
-                     'type' => isset($priority[$priorityId][2])
-                         ? $priority[$priorityId][2] : '');
+                     'name' => isset($priority[$priorityId]['priority_name'])
+                         ? $priority[$priorityId]['priority_name'] : '',
+                     'description' => isset($priority[$priorityId]['priority_description'])
+                         ? $priority[$priorityId]['priority_description'] : '',
+                     'type' => isset($priority[$priorityId]['type_id'])
+                         ? $priority[$priorityId]['type_id'] : '');
     }
 
-    function updatePriority($priorityId, $name, $description)
+    public function updatePriority($priorityId, $name, $description)
     {
         $query = 'UPDATE whups_priorities' .
                  ' SET priority_name = ?, priority_description = ?' .
@@ -2097,101 +2350,109 @@ class Whups_Driver_sql extends Whups_Driver {
                         Horde_String::convertCharset($description, 'UTF-8',
                                                      $this->_params['charset']),
                         $priorityId);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::updatePriority(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        return $this->_write_db->query($query, $values);
+        try {
+            $this->_db->update($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
-    function getDefaultPriority($type)
+    public function getDefaultPriority($type)
     {
         $query = 'SELECT priority_id FROM whups_priorities '
             . 'WHERE priority_default = 1 AND type_id = ?';
         $values = array($type);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getDefaultPriority(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        return $this->_db->getOne($query, $values);
+        try {
+            return $this->_db->selectValue($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
-    function setDefaultPriority($type, $priority)
+    public function setDefaultPriority($type, $priority)
     {
         $query = 'UPDATE whups_priorities SET priority_default = 0 '
             . 'WHERE type_id = ?';
         $values = array($type);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::setDefaultPriority(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $this->_db->update($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
         $query = 'UPDATE whups_priorities SET priority_default = 1 '
             . 'WHERE priority_id = ?';
         $values = array($priority);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::setDefaultPriority(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        return $this->_write_db->query($query, $values);
+        try {
+           $this->_db->update($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
-    function deletePriority($priorityId)
+    public function deletePriority($priorityId)
     {
         $query = 'DELETE FROM whups_priorities WHERE priority_id = ?';
         $values = array($priorityId);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::deletePriority(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        return $this->_write_db->query($query, $values);
+        try {
+            $this->_db->delete($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
-    function getVersionInfoInternal($queue)
+    public function getVersionInfoInternal($queue)
     {
         $query = 'SELECT version_id, version_name, version_description, version_active '
             . 'FROM whups_versions WHERE queue_id = ?'
             . ' ORDER BY version_id';
         $values = array($queue);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getVersionInfoInternal(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-
-        $info = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
-        if (is_a($info, 'PEAR_Error')) {
-            Horde::logMessage($info, 'ERR');
-            return $info;
+        try {
+            $info = $this->_db->selectAll($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
-
-        return Horde_String::convertCharset($info, $this->_params['charset'], 'UTF-8');
+        return Horde_String::convertCharset(
+            $info, $this->_params['charset'], 'UTF-8');
     }
 
-    function getVersionInternal($versionId)
+    /**
+     * Obtain version information from storage.
+     *
+     * @param integer $versionId  The version id.
+     *
+     * @return array  A hash of version information.
+     * @throws Whups_Exception
+     */
+    public function getVersionInternal($versionId)
     {
         if (empty($versionId)) {
             return false;
         }
-        $query = 'SELECT version_id, version_name, version_description, version_active'.
-                 ' FROM whups_versions WHERE version_id = ?';
+        $query = 'SELECT version_id, version_name, version_description, '
+            . 'version_active FROM whups_versions WHERE version_id = ?';
         $values = array($versionId);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getVersionInternal(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $version = $this->_db->getAssoc($query, false, $values);
-        if (is_a($version, 'PEAR_Error')) {
-            Horde::logMessage($version, 'ERR');
-            return $version;
+        try {
+            $rows = $this->_db->selectAll($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
+        $version = array();
+        foreach ($rows as $row) {
+            $version[$row['version_id']] = $row;
+        }
+        $version = Horde_String::convertCharset(
+            $version, $this->_params['charset'], 'UTF-8');
 
-        $version = Horde_String::convertCharset($version, $this->_params['charset'], 'UTF-8');
-        return array('id' => $versionId,
-                     'name' => isset($version[$versionId][0])
-                         ? $version[$versionId][0] : '',
-                     'description' => isset($version[$versionId][1])
-                         ? $version[$versionId][1] : '',
-                     'active' => !empty($version[$versionId][2]));
+        return array(
+            'id' => $versionId,
+            'name' => isset($version[$versionId]['version_name'])
+                ? $version[$versionId]['version_name'] : '',
+            'description' => isset($version[$versionId]['version_description'])
+                ? $version[$versionId]['version_description'] : '',
+            'active' => !empty($version[$versionId]['version_active']));
     }
 
-    function updateVersion($versionId, $name, $description, $active)
+    public function updateVersion($versionId, $name, $description, $active)
     {
         $query = 'UPDATE whups_versions SET version_name = ?, '
             . 'version_description = ?, version_active = ? '
@@ -2202,20 +2463,22 @@ class Whups_Driver_sql extends Whups_Driver {
                                                      $this->_params['charset']),
                         (int)$active,
                         (int)$versionId);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::updateVersion(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        return $this->_write_db->query($query, $values);
+        try {
+            $this->_db->update($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
-    function deleteVersion($versionId)
+    public function deleteVersion($versionId)
     {
         $query = 'DELETE FROM whups_versions WHERE version_id = ?';
         $values = array($versionId);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::deleteVersion(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        return $this->_write_db->query($query, $values);
+        try {
+            $this->_db->delete($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
     /**
@@ -2225,22 +2488,22 @@ class Whups_Driver_sql extends Whups_Driver {
      *
      * @return array  A hash with reply ids as keys and reply hashes as values.
      */
-    function getReplies($type)
+    public function getReplies($type)
     {
         $query = 'SELECT reply_id, reply_name, reply_text '
             . 'FROM whups_replies WHERE type_id = ? ORDER BY reply_name';
         $values = array((int)$type);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getReplies(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-
-        $info = $this->_db->getAssoc($query, false, $values, DB_FETCHMODE_ASSOC);
-        if (is_a($info, 'PEAR_Error')) {
-            Horde::logMessage($info, 'ERR');
-            return $info;
+        try {
+            $rows = $this->_db->selectAll($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
-
-        return Horde_String::convertCharset($info, $this->_params['charset'], 'UTF-8');
+        $info = array();
+        foreach ($rows as $row) {
+            $info[$row['reply_id']] = $row;
+        }
+        return Horde_String::convertCharset(
+            $info, $this->_params['charset'], 'UTF-8');
     }
 
     /**
@@ -2250,21 +2513,19 @@ class Whups_Driver_sql extends Whups_Driver {
      *
      * @return array  A hash with all form reply information.
      */
-    function getReply($reply_id)
+    public function getReply($reply_id)
     {
         $query = 'SELECT reply_name, reply_text, type_id '
             . 'FROM whups_replies WHERE reply_id = ?';
         $values = array((int)$reply_id);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getReply(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $reply = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
-        if (is_a($reply, 'PEAR_Error')) {
-            Horde::logMessage($reply, 'ERR');
-            return $reply;
+        try {
+            $reply = $this->_db->selectOne($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        return Horde_String::convertCharset($reply, $this->_params['charset'], 'UTF-8');
+        return Horde_String::convertCharset(
+            $reply, $this->_params['charset'], 'UTF-8');
     }
 
     /**
@@ -2273,8 +2534,10 @@ class Whups_Driver_sql extends Whups_Driver {
      * @param integer $reply  A reply id.
      * @param string $name    The new reply name.
      * @param string $text    The new reply text.
+     *
+     * @throws Whups_Exception
      */
-    function updateReply($reply, $name, $text)
+    public function updateReply($reply, $name, $text)
     {
         $query = 'UPDATE whups_replies SET reply_name = ?, '
             . 'reply_text = ? WHERE reply_id = ?';
@@ -2283,14 +2546,11 @@ class Whups_Driver_sql extends Whups_Driver {
                         Horde_String::convertCharset($text, 'UTF-8',
                                                      $this->_params['charset']),
                         $reply);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::updateReply(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
+        try {
+            $this->_db->update($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
-        return $result;
     }
 
     /**
@@ -2298,77 +2558,59 @@ class Whups_Driver_sql extends Whups_Driver {
      *
      * @param integer $reply  A reply id.
      */
-    function deleteReply($reply)
+    public function deleteReply($reply)
     {
         $query = 'DELETE FROM whups_replies WHERE reply_id = ?';
         $values = array((int)$reply);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::deleteReply(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+
+        try {
+            $this->_db->delete($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
-        return parent::deleteReply($reply);
+
+        parent::deleteReply($reply);
     }
 
-    function addListener($ticket, $user)
+    public function addListener($ticket, $user)
     {
         $query = 'INSERT INTO whups_ticket_listeners (ticket_id, user_uid)' .
             ' VALUES (?, ?)';
         $values = array($ticket, $user);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::addListener(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $this->_db->insert($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
-
-        return true;
     }
 
-    function deleteListener($ticket, $user)
+    public function deleteListener($ticket, $user)
     {
         $query = 'DELETE FROM whups_ticket_listeners WHERE ticket_id = ?' .
             ' AND user_uid = ?';
         $values = array($ticket, $user);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::deleteListener(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $this->_db->delete($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
-
-        return true;
     }
 
-    function getListeners($ticket, $withowners = true, $withrequester = true,
-                          $withresponsible = false)
+    public function getListeners(
+        $ticket, $withowners = true, $withrequester = true,
+        $withresponsible = false)
     {
         $query = 'SELECT DISTINCT l.user_uid' .
                  ' FROM whups_ticket_listeners l, whups_tickets t' .
                  ' WHERE (l.ticket_id = ?)';
         $values = array($ticket);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getListeners(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $users = $this->_db->getCol($query, 0, $values);
-        if (is_a($users, 'PEAR_Error')) {
-            Horde::logMessage($users, 'ERR');
-            return array();
+        try {
+            $users = $this->_db->selectValues($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
+
         $tinfo = $this->getTicketDetails($ticket);
-        if (is_a($tinfo, 'PEAR_Error')) {
-            Horde::logMessage($tinfo, 'ERR');
-            return array();
-        }
         $requester = $tinfo['user_id_requester'];
         if ($withresponsible) {
             $users = array_merge($users, $this->getQueueUsers($tinfo['queue']));
@@ -2403,111 +2645,105 @@ class Whups_Driver_sql extends Whups_Driver {
         return $users;
     }
 
-    function addAttributeDesc($type_id, $name, $desc, $type, $params, $required)
+    /**
+     *
+     * @return the new attribute id
+     * @throws Whups_Exception
+     */
+    public function addAttributeDesc($type_id, $name, $desc, $type, $params, $required)
     {
         // TODO: Make sure we're not adding a duplicate here (can be
         // done in the db schema).
 
         // FIXME: This assumes that $type_id is a valid type id.
-        $new_id = $this->_write_db->nextId('whups_attributes_desc');
-        if (is_a($new_id, 'PEAR_Error')) {
-            Horde::logMessage($new_id, 'ERR');
-            return $new_id;
-        }
-
         $query = 'INSERT INTO whups_attributes_desc '
-            . '(attribute_id, type_id, attribute_name, attribute_description, '
+            . '(type_id, attribute_name, attribute_description, '
             . 'attribute_type, attribute_params, attribute_required)'
-            . ' VALUES (?, ?, ?, ?, ?, ?, ?)';
-        $values = array($new_id,
-                        $type_id,
-                        Horde_String::convertCharset($name, 'UTF-8',
-                                                     $this->_params['charset']),
-                        Horde_String::convertCharset($desc, 'UTF-8',
-                                                     $this->_params['charset']),
-                        $type,
-                        serialize(
-                            Horde_String::convertCharset($params, 'UTF-8',
-                                                         $this->_params['charset'])),
-                        (int)($required == 'on'));
+            . ' VALUES (?, ?, ?, ?, ?, ?)';
+        $values = array(
+            $type_id,
+            Horde_String::convertCharset($name, 'UTF-8',
+                                         $this->_params['charset']),
+            Horde_String::convertCharset($desc, 'UTF-8',
+                                         $this->_params['charset']),
+            $type,
+            serialize(
+                Horde_String::convertCharset($params, 'UTF-8',
+                                             $this->_params['charset'])),
+            (int)($required == 'on'));
 
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::addAttributeDesc(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            return $this->_db->insert($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
-
-        return $new_id;
     }
 
-    function updateAttributeDesc($attribute_id, $newname, $newdesc, $newtype,
-                                 $newparams, $newrequired)
+    public function updateAttributeDesc(
+        $attribute_id, $newname, $newdesc, $newtype, $newparams, $newrequired)
     {
         $query = 'UPDATE whups_attributes_desc '
             . 'SET attribute_name = ?, attribute_description = ?, '
             . 'attribute_type = ?, attribute_params = ?, '
             . 'attribute_required = ? WHERE attribute_id = ?';
-        $values = array(Horde_String::convertCharset($newname, 'UTF-8',
-                                                     $this->_params['charset']),
-                        Horde_String::convertCharset($newdesc, 'UTF-8',
-                                                     $this->_params['charset']),
-                        $newtype,
-                        serialize(
-                            Horde_String::convertCharset($newparams,
-                                                         'UTF-8',
-                                                         $this->_params['charset'])),
-                        (int)($newrequired == 'on'),
-                        $attribute_id);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::updateAttributeDesc(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        return $this->_write_db->query($query, $values);
+        $values = array(
+            Horde_String::convertCharset(
+                $newname,
+                'UTF-8',
+                $this->_params['charset']),
+            Horde_String::convertCharset(
+                $newdesc,
+                'UTF-8',
+                $this->_params['charset']),
+            $newtype,
+            serialize(
+                Horde_String::convertCharset(
+                    $newparams,
+                    'UTF-8',
+                    $this->_params['charset'])),
+            (int)($newrequired == 'on'),
+            $attribute_id);
+
+        try {
+            $this->_db->update($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
-    function deleteAttributeDesc($attribute_id)
+    public function deleteAttributeDesc($attribute_id)
     {
-        // FIXME: Which one of these returns the error, or do we have to check
-        // all of them for errors?
-        $this->_write_db->autoCommit(false);
-        $query = 'DELETE FROM whups_attributes_desc WHERE attribute_id = ?';
-        $values = array($attribute_id);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::deleteAttributeDesc(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $this->_write_db->query($query, $values);
-        $query = 'DELETE FROM whups_attributes WHERE attribute_id = ?';
-        $values = array($attribute_id);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::deleteAttributeDesc(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $this->_write_db->query($query, $values);
-        $this->_write_db->commit();
-        $this->_write_db->autoCommit(true);
+        $this->_db->beginDbTransaction();
+        try {
+            $this->_db->delete(
+                'DELETE FROM whups_attributes_desc WHERE attribute_id = ?',
+                 array($attribute_id));
 
-        return true;
+            $this->_db->delete(
+                'DELETE FROM whups_attributes WHERE attribute_id = ?',
+                 array($attribute_id));
+            $this->_db->commitDbTransaction();
+        } catch (Horde_Db_Exception $e) {
+            $this->_db->rollbackDbTransaction();
+            throw new Whups_Exception($e);
+        }
     }
 
-    function getAllAttributes()
+    public function getAllAttributes()
     {
         $query = 'SELECT attribute_id, attribute_name, attribute_description, '
             . 'type_id FROM whups_attributes_desc';
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getAllAttributes(): query="%s"', $query), 'DEBUG');
 
-        $attributes = $this->_db->getAssoc($query, false, array(),
-                                           DB_FETCHMODE_ASSOC);
-        if (is_a($attributes, 'PEAR_Error')) {
-            Horde::logMessage($attributes, 'ERR');
-            return $attributes;
+        try {
+            $attributes = $this->_db->selectAll($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
-
-        return Horde_String::convertCharset($attributes, $this->_params['charset'], 'UTF-8');
+        return Horde_String::convertCharset(
+            $attributes, $this->_params['charset'], 'UTF-8');
     }
 
-    function getAttributeDesc($attribute_id)
+    public function getAttributeDesc($attribute_id)
     {
         if (empty($attribute_id)) {
             return false;
@@ -2517,13 +2753,10 @@ class Whups_Driver_sql extends Whups_Driver {
             . 'attribute_type, attribute_params, attribute_required '
             . 'FROM whups_attributes_desc WHERE attribute_id = ?';
         $values = array($attribute_id);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getAttributeDesc(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $attribute = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
-        if (is_a($attribute, 'PEAR_Error')) {
-            Horde::logMessage($attribute, 'ERR');
-            return $attribute;
+        try {
+            $attribute = $this->_db->selectOne($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
         return array(
@@ -2540,25 +2773,21 @@ class Whups_Driver_sql extends Whups_Driver {
             'attribute_required' => (bool)$attribute['attribute_required']);
     }
 
-    function getAttributeName($attribute_id)
+    public function getAttributeName($attribute_id)
     {
         $query = 'SELECT attribute_name FROM whups_attributes_desc '
             . 'WHERE attribute_id = ?';
         $values = array($attribute_id);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getAttributeName(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-
-        $name = $this->_db->getOne($query, $values);
-        if (is_a($name, 'PEAR_Error')) {
-            Horde::logMessage($name, 'ERR');
-            return $name;
+        try {
+            $name = $this->_db->selectValue($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
-
-        return Horde_String::convertCharset($name, $this->_params['charset'], 'UTF-8');
+        return Horde_String::convertCharset(
+            $name, $this->_params['charset'], 'UTF-8');
     }
 
-    function _getAttributesForType($type = null, $raw = false)
+    protected function _getAttributesForType($type = null, $raw = false)
     {
         $fields = 'attribute_id, attribute_name, attribute_description, '
             . 'attribute_type, attribute_params, attribute_required';
@@ -2575,41 +2804,38 @@ class Whups_Driver_sql extends Whups_Driver {
         }
 
         $query = "SELECT $fields FROM $from$where ORDER BY $order";
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getAttributesForType(): query="%s"',
-                    $query), 'DEBUG');
-
-        $attributes = $this->_db->getAssoc($query, false, null,
-                                           DB_FETCHMODE_ASSOC);
-        if (is_a($attributes, 'PEAR_Error')) {
-            Horde::logMessage($attributes, 'ERR');
-            return $attributes;
+        try {
+            $attributes = $this->_db->selectAll($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
-
-        foreach ($attributes as $id => $attribute) {
+        $results = array();
+        foreach ($attributes as $attribute) {
+            $id = $attribute['attribute_id'];
+            $results[$id] = $attribute;
             if (empty($type) && !$raw) {
-                $attributes[$id]['attribute_name'] =
+                $results[$id]['attribute_name'] =
                     $attribute['attribute_name']
                     . ' (' . $attribute['type_name'] . ')';
             }
-            $attributes[$id]['attribute_name'] = Horde_String::convertCharset(
+            $results[$id]['attribute_name'] = Horde_String::convertCharset(
                 $attribute['attribute_name'], $this->_params['charset'], 'UTF-8');
-            $attributes[$id]['attribute_description'] = Horde_String::convertCharset(
+            $results[$id]['attribute_description'] = Horde_String::convertCharset(
                 $attribute['attribute_description'], $this->_params['charset'], 'UTF-8');
-            $attributes[$id]['attribute_type'] =
+            $results[$id]['attribute_type'] =
                 empty($attribute['attribute_type'])
                 ? 'text' : $attribute['attribute_type'];
-            $attributes[$id]['attribute_params'] = Horde_String::convertCharset(
+            $results[$id]['attribute_params'] = Horde_String::convertCharset(
                 @unserialize($attribute['attribute_params']),
                 $this->_params['charset'], 'UTF-8');
-            $attributes[$id]['attribute_required'] =
+            $results[$id]['attribute_required'] =
                 (bool)$attribute['attribute_required'];
         }
 
-        return $attributes;
+        return $results;
     }
 
-    function getAttributeNamesForType($type_id)
+    public function getAttributeNamesForType($type_id)
     {
         if (empty($type_id)) {
             return array();
@@ -2617,75 +2843,61 @@ class Whups_Driver_sql extends Whups_Driver {
         $query = 'SELECT attribute_name FROM whups_attributes_desc '
             .'WHERE type_id = ? ORDER BY attribute_name';
         $values = array((int)$type_id);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getAttributeNamesForType(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-
-        $names = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
-        if (is_a($names, 'PEAR_Error')) {
-            Horde::logMessage($names, 'ERR');
-            return $names;
+        try {
+            $names = $this->_db->selectAll($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        return Horde_String::convertCharset($names, $this->_params['charset'], 'UTF-8');
+        return Horde_String::convertCharset(
+            $names, $this->_params['charset'], 'UTF-8');
     }
 
-    function getAttributeInfoForType($type_id)
+    public function getAttributeInfoForType($type_id)
     {
         $query = 'SELECT attribute_id, attribute_name, attribute_description '
             . 'FROM whups_attributes_desc WHERE type_id = ? '
             . 'ORDER BY attribute_id';
         $values = array((int)$type_id);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getAttributeNamesForType(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-
-        $info = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
-        if (is_a($info, 'PEAR_Error')) {
-            Horde::logMessage($info, 'ERR');
-            return $info;
+        try {
+            $info = $this->_db->selectAll($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
-        return Horde_String::convertCharset($info, $this->_params['charset'], 'UTF-8');
+        return Horde_String::convertCharset(
+            $info, $this->_params['charset'], 'UTF-8');
     }
 
-    function _setAttributeValue($ticket_id, $attribute_id, $attribute_value)
+    protected function _setAttributeValue(
+        $ticket_id, $attribute_id, $attribute_value)
     {
-        $db_attribute_value = Horde_String::convertCharset((string)$attribute_value,
-                                                           'UTF-8',
-                                                           $this->_params['charset']);
+        $db_attribute_value = Horde_String::convertCharset(
+            (string)$attribute_value, 'UTF-8', $this->_params['charset']);
 
-        $this->_write_db->autoCommit(false);
-        $query = 'DELETE FROM whups_attributes '
-            . 'WHERE ticket_id = ? AND attribute_id = ?';
-        $values = array($ticket_id, $attribute_id);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::_setAttributeValue(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-        $this->_write_db->query($query, $values);
+        $this->_db->beginDbTransaction();
+        try {
+            $this->_db->delete(
+                'DELETE FROM whups_attributes WHERE ticket_id = ? AND attribute_id = ?',
+                 array($ticket_id, $attribute_id));
 
-        if (!empty($attribute_value)) {
-            $query = 'INSERT INTO whups_attributes'
-                . '(ticket_id, attribute_id, attribute_value)'
-                . ' VALUES (?, ?, ?)';
-            $values = array($ticket_id, $attribute_id, $db_attribute_value);
-            Horde::logMessage(
-                sprintf('Whups_Driver_sql::_setAttributeValue(): query="%s"; values="%s"',
-                        $query, implode(',', $values)), 'DEBUG');
-            $inserted = $this->_write_db->query($query, $values);
-            if (is_a($inserted, 'PEAR_Error')) {
-                Horde::logMessage($inserted, 'ERR');
-                $this->_write_db->rollback();
-                $this->_write_db->autoCommit(true);
-                return $inserted;
+            if (!empty($attribute_value)) {
+                $query = 'INSERT INTO whups_attributes'
+                    . '(ticket_id, attribute_id, attribute_value)'
+                    . ' VALUES (?, ?, ?)';
+                $values = array($ticket_id, $attribute_id, $db_attribute_value);
+                $inserted = $this->_db->insert(
+                    'INSERT INTO whups_attributes (ticket_id, attribute_id, attribute_value) VALUES (?, ?, ?)',
+                    $values);
             }
+            $this->_db->commitDbTransaction();
+        } catch (Horde_Db_Exception $e) {
+            $this->_db->rollbackDbTransaction();
+            throw new Whups_Exception($e);
         }
-
-        $this->_write_db->commit();
-        $this->_write_db->autoCommit(true);
     }
 
-    function getTicketAttributes($ticket_id)
+    public function getTicketAttributes($ticket_id)
     {
         if (is_array($ticket_id)) {
             // No need to run a query for an empty array, and it would result
@@ -2697,30 +2909,28 @@ class Whups_Driver_sql extends Whups_Driver {
             $query = 'SELECT ticket_id AS id, attribute_id, attribute_value '
                 . 'FROM whups_attributes WHERE ticket_id IN ('
                 . str_repeat('?, ', count($ticket_id) - 1) . '?)';
-            Horde::logMessage(
-                sprintf('Whups_Driver_sql::getAttributes(): query="%s"', $query), 'DEBUG');
-            $attributes = $this->_db->getAll($query, $ticket_id,
-                                             DB_FETCHMODE_ASSOC);
+
+            try {
+                $attributes = $this->_db->selectAll($query, $ticket_id);
+            } catch (Horde_Db_Exception $e) {
+                throw new Whups_Exception($e);
+            }
         } else {
             $query = 'SELECT attribute_id, attribute_value' .
                 ' FROM whups_attributes WHERE ticket_id = ?';
             $values = array((int)$ticket_id);
-            Horde::logMessage(
-                sprintf('Whups_Driver_sql::getTicketAttributes(): query="%s"; values="%s"',
-                        $query, implode(',', $values)), 'DEBUG');
-
-            $attributes = $this->_db->getAssoc($query, false, $values);
+            try {
+                $attributes = $this->_db->selectAssoc($query, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Whups_Exception($e);
+            }
         }
 
-        if (is_a($attributes, 'PEAR_Error')) {
-            Horde::logMessage($attributes, 'ERR');
-            return $attributes;
-        }
-
-        return Horde_String::convertCharset($attributes, $this->_params['charset'], 'UTF-8');
+        return Horde_String::convertCharset(
+            $attributes, $this->_params['charset'], 'UTF-8');
     }
 
-    function getTicketAttributesWithNames($ticket_id)
+    public function getTicketAttributesWithNames($ticket_id)
     {
         if (is_array($ticket_id)) {
             // No need to run a query for an empty array, and it would result
@@ -2735,32 +2945,30 @@ class Whups_Driver_sql extends Whups_Driver {
                 . 'ON (d.attribute_id = a.attribute_id)'
                 . 'WHERE a.ticket_id IN ('
                 . str_repeat('?, ', count($ticket_id) - 1) . '?)';
-            Horde::logMessage(
-                sprintf('SQL Query by Whups_Driver_sql::getAttributes(): query="%s"',
-                        $query), 'DEBUG');
-            $attributes = $this->_db->getAll($query, $ticket_id,
-                                             DB_FETCHMODE_ASSOC);
+
+            try {
+                $attributes = $this->_db->selectAll($query, $ticket_id);
+            } catch (Horde_Db_Exception $e) {
+                throw new Whups_Exception($e);
+            }
         } else {
             $query = 'SELECT d.attribute_name, a.attribute_value '
                 . 'FROM whups_attributes a INNER JOIN whups_attributes_desc d '
                 . 'ON (d.attribute_id = a.attribute_id)'
                 . 'WHERE a.ticket_id = ? ORDER BY d.attribute_name';
             $values = array((int)$ticket_id);
-            Horde::logMessage(
-                sprintf('Whups_Driver_sql::getTicketAttributesWithNames(): query="%s"; values="%s"',
-                        $query, implode(',', $values)), 'DEBUG');
-
-            $attributes = $this->_db->getAssoc($query, false, $values);
-        }
-        if (is_a($attributes, 'PEAR_Error')) {
-            Horde::logMessage($attributes, 'ERR');
-            return $attributes;
+            try {
+                $attributes = $this->_db->selectAssoc($query, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Whups_Exception($e);
+            }
         }
 
-        return Horde_String::convertCharset($attributes, $this->_params['charset'], 'UTF-8');
+        return Horde_String::convertCharset(
+            $attributes, $this->_params['charset'], 'UTF-8');
     }
 
-    function _getAllTicketAttributesWithNames($ticket_id)
+    protected function _getAllTicketAttributesWithNames($ticket_id)
     {
         $query = 'SELECT d.attribute_id, d.attribute_name, '
             . 'd.attribute_description, d.attribute_type, d.attribute_params, '
@@ -2771,14 +2979,10 @@ class Whups_Driver_sql extends Whups_Driver {
             . 'ON (d.attribute_id = a.attribute_id AND a.ticket_id = ?) '
             . 'WHERE d.type_id = t.type_id ORDER BY d.attribute_name';
         $values = array($ticket_id, $ticket_id);
-        Horde::logMessage(
-            sprintf('Whups_Driver_sql::getAllTicketAttributesWithNames(): query="%s"; values="%s"',
-                    $query, implode(',', $values)), 'DEBUG');
-
-        $attributes = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
-        if (is_a($attributes, 'PEAR_Error')) {
-            Horde::logMessage($attributes, 'ERR');
-            return $attributes;
+        try {
+            $attributes = $this->_db->selectAll($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
         foreach ($attributes as $id => $attribute) {
@@ -2799,11 +3003,16 @@ class Whups_Driver_sql extends Whups_Driver {
         return $attributes;
     }
 
-    function getOwners($ticketId)
+    /**
+     * Get all owners for the specified ticket.
+     *
+     * @param integer $ticketId  The ticket_id
+     *
+     * @return array  A id => owner hash
+     */
+    public function getOwners($ticketId)
     {
         if (is_array($ticketId)) {
-            // No need to run a query for an empty array, and it would
-            // result in an invalid SQL query anyway.
             if (!count($ticketId)) {
                 return array();
             }
@@ -2812,57 +3021,53 @@ class Whups_Driver_sql extends Whups_Driver {
                 . 'FROM whups_ticket_owners WHERE ticket_id '
                 . 'IN (' . str_repeat('?, ', count($ticketId) - 1) . '?)';
             $values = $ticketId;
-            Horde::logMessage(
-                sprintf('Whups_Driver_sql::getOwners(): query="%s"; values="%s"',
-                        $query, implode(',', $values)), 'DEBUG');
-            return $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
+            try {
+                return $this->_db->selectAssoc($query, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Whups_Exception($e);
+            }
         } else {
-            $query = 'SELECT ticket_owner, ticket_owner '
+            $query = 'SELECT ticket_id as id, ticket_owner as owner '
                 . 'FROM whups_ticket_owners WHERE ticket_id = ?';
             $values = array((int)$ticketId);
-            Horde::logMessage(
-                sprintf('Whups_Driver_sql::getOwners(): query="%s"; values="%s"',
-                        $query, implode(',', $values)), 'DEBUG');
-            return $this->_db->getAssoc($query, false, $values);
+            try {
+                return $this->_db->selectAssoc($query, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Whups_Exception($e);
+            }
         }
     }
 
-    function updateLog($ticket_id, $user, $changes = array(),
-                       $transactionId = null)
+    /**
+     * Add a new log entry
+     *
+     * @param integer $ticket_id      The ticket_id this log entry is for.
+     * @param string $user            The user updating the ticket.
+     * @param array $changes          An array of changes to make.
+     * @param integer $transactionId  The transactionId to use.
+     * @return type
+     */
+    public function updateLog(
+        $ticket_id, $user, array $changes = array(), $transactionId = null)
     {
         if (is_null($transactionId)) {
             $transactionId = $this->newTransaction($user);
-            if (is_a($transactionId, 'PEAR_Error')) {
-                return $transactionId;
-            }
         }
-
         foreach ($changes as $type => $value) {
-            $log_id = $this->_write_db->nextId('whups_logs');
-            if (is_a($log_id, 'PEAR_Error')) {
-                return $log_id;
-            }
-
-            $query = 'INSERT INTO whups_logs (log_id, transaction_id, '
-                . 'ticket_id, log_timestamp, user_id, log_type, log_value, '
-                . 'log_value_num) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+            $query = 'INSERT INTO whups_logs (transaction_id, '
+                . 'ticket_id, log_type, log_value, '
+                . 'log_value_num) VALUES (?, ?, ?, ?, ?)';
             $values = array(
-                (int)$log_id,
                 (int)$transactionId,
                 (int)$ticket_id,
-                time(),
-                (string)$user,
                 $type,
                 Horde_String::convertCharset((string)$value, 'UTF-8',
                                              $this->_params['charset']),
                 (int)$value);
-            Horde::logMessage(
-                sprintf('Whups_Driver_sql::updateLog(): query="%s"; values="%s"',
-                        $query, implode(',', $values)), 'DEBUG');
-            $result = $this->_write_db->query($query, $values);
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, 'ERR');
-                return $result;
+            try {
+                $this->_db->insert($query, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Whups_Exception($e);
             }
         }
 
@@ -2871,56 +3076,35 @@ class Whups_Driver_sql extends Whups_Driver {
 
     /**
      * Create a new transaction id for associating related entries in
-     * the whups_logs table.
+     * the whups_transaction table.
      *
      * @return integer New transaction id.
      */
-    function newTransaction($creator, $creator_email = null)
+    public function newTransaction($creator, $creator_email = null)
     {
-        $transactionId = $this->_write_db->nextId('whups_transactions');
-        if (is_a($transactionId, 'PEAR_Error')) {
-            return $transactionId;
-        }
+        $insert = 'INSERT INTO whups_transactions (transaction_timestamp, transaction_user_id)'
+            . ' VALUES(?, ?)';
 
         if ((empty($creator) || $creator < 0) && !empty($creator_email)) {
             $creator = '-' . $transactionId . '_transaction';
             $query = 'INSERT INTO whups_guests (guest_id, guest_email)'
                 . ' VALUES (?, ?)';
             $values = array((string)$creator, $creator_email);
-            Horde::logMessage(
-                sprintf('Whups_Driver_sql::newTransaction(): query="%s"; values="%s"',
-                        $query, implode(',', $values)), 'DEBUG');
-            $result = $this->_write_db->query($query, $values);
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, 'ERR');
-                return $result;
+            try {
+                $result = $this->_db->insert($query, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Whups_Exception($e);
             }
         }
 
-        return $transactionId;
+        try {
+            return $this->_db->insert($insert, array(time(), $creator));
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
     }
 
-    /**
-     * Return the db object we're using.
-     *
-     * return DB Database object.
-     */
-    function getDb()
-    {
-        return $this->_db;
-    }
-
-    /**
-     */
-    function initialise()
-    {
-        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'whups', 'tickets');
-        $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'whups', 'tickets');
-
-        return true;
-    }
-
-    function _generateWhere($table, $fields, &$info, $type)
+    protected function _generateWhere($table, $fields, &$info, $type)
     {
         $where = '';
         $this->_mapFields($info);
@@ -2932,7 +3116,7 @@ class Whups_Driver_sql extends Whups_Driver {
                     $clauses = array();
                     foreach ($prop as $pprop) {
                         if (@settype($pprop, $type)) {
-                            $clauses[] = "$table.$field = " . $this->_write_db->quote($pprop);
+                            $clauses[] = "$table.$field = " . $this->_db->quoteString($pprop);
                         }
                     }
                     if (count($clauses)) {
@@ -2940,7 +3124,7 @@ class Whups_Driver_sql extends Whups_Driver {
                     }
                 } else {
                     $success = @settype($prop, $type);
-                    $where = $this->_addWhere($where, !is_null($prop) && $success, "$table.$field = " . $this->_write_db->quote($prop));
+                    $where = $this->_addWhere($where, !is_null($prop) && $success, "$table.$field = " . $this->_db->quoteString($prop));
                 }
             }
         }
@@ -2951,13 +3135,13 @@ class Whups_Driver_sql extends Whups_Driver {
 
                 if (strpos($prop, ',') === false) {
                     $success = @settype($prop, $type);
-                    $where = $this->_addWhere($where, $prop && $success, "$table.$field <> " . $this->_write_db->quote($prop));
+                    $where = $this->_addWhere($where, $prop && $success, "$table.$field <> " . $this->_db->quoteString($prop));
                 } else {
                     $set = explode(',', $prop);
 
                     foreach ($set as $prop) {
                         $success = @settype($prop, $type);
-                        $where = $this->_addWhere($where, $prop && $success, "$table.$field <> " . $this->_write_db->quote($prop));
+                        $where = $this->_addWhere($where, $prop && $success, "$table.$field <> " . $this->_db->quoteString($prop));
                     }
                 }
             }
@@ -2966,7 +3150,7 @@ class Whups_Driver_sql extends Whups_Driver {
         return $where;
     }
 
-    function _mapFields(&$info)
+    protected function _mapFields(&$info)
     {
         foreach ($info as $key => $val) {
             if ($key === 'id') {
@@ -2985,7 +3169,7 @@ class Whups_Driver_sql extends Whups_Driver {
         }
     }
 
-    function _addWhere($where, $condition, $clause, $conjunction = 'AND')
+    protected function _addWhere($where, $condition, $clause, $conjunction = 'AND')
     {
         if (!empty($condition)) {
             if (!empty($where)) {
@@ -2998,7 +3182,7 @@ class Whups_Driver_sql extends Whups_Driver {
         return $where;
     }
 
-    function _addDateWhere($where, $data, $type)
+    protected function _addDateWhere($where, $data, $type)
     {
         if (is_array($data)) {
             if (!empty($data['from'])) {
@@ -3015,7 +3199,7 @@ class Whups_Driver_sql extends Whups_Driver {
         return $this->_addWhere($where, true, $type . ' = ' . (int)$data);
     }
 
-    function _prefixTableToColumns($table, $columns)
+    protected function _prefixTableToColumns($table, $columns)
     {
         $join = "";
 

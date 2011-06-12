@@ -10,18 +10,15 @@
  */
 
 /**
- * The virtual path to use for VFS data.
- */
-define('WHUPS_VFS_ATTACH_PATH', '.horde/whups/attachments');
-
-/**
  * The Whups:: class provides functionality that all of Whups needs,
  * or that should be encapsulated from other parts of the Whups
  * system.
  *
  * @package Whups
  */
-class Whups {
+class Whups
+{
+    const VFS_ATTACH_PATH = '.horde/whups/attachments';
 
     function urlFor($controller, $data, $full = false, $append_session = 0)
     {
@@ -269,19 +266,18 @@ class Whups {
                 ->redirect();
         }
 
-        $ticket = Whups_Ticket::makeTicket($id);
-        if (is_a($ticket, 'PEAR_Error')) {
+        try {
+            return Whups_Ticket::makeTicket($id);
+        } catch (Whups_Exception $e) {
             if ($ticket->code === 0) {
                 // No permissions to this ticket.
-                $GLOBALS['notification']->push($ticket->getMessage(), 'horde.warning');
+                $GLOBALS['notification']->push($e->getMessage(), 'horde.warning');
             } else {
-                $GLOBALS['notification']->push($ticket->getMessage(), 'horde.error');
+                $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
             }
             Horde::url($GLOBALS['prefs']->getValue('whups_default_view') . '.php', true)
                 ->redirect();
         }
-
-        return $ticket;
     }
 
     /**
@@ -794,9 +790,9 @@ class Whups {
             return PEAR::raiseError($vfs->getMessage());
         }
 
-        if ($vfs->isFolder(WHUPS_VFS_ATTACH_PATH, $ticket)) {
+        if ($vfs->isFolder(Whups::VFS_ATTACH_PATH, $ticket)) {
             try {
-                $files = $vfs->listFolder(WHUPS_VFS_ATTACH_PATH . '/' . $ticket);
+                $files = $vfs->listFolder(Whups::VFS_ATTACH_PATH . '/' . $ticket);
             } catch (Horde_Vfs_Exception $e) {
                 $files = array();
             }
@@ -860,10 +856,6 @@ class Whups {
         if (is_null($owners)) {
             global $whups_driver;
             $owners = $whups_driver->getOwners($ticket);
-            if (is_a($owners, 'PEAR_Error')) {
-                Horde::logMessage($owners, 'ERR');
-                return $owners->getMessage();
-            }
         }
 
         $results = array();

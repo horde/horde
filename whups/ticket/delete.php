@@ -62,14 +62,14 @@ if ($vars->get('formname') == 'deleteticketform') {
     if ($deleteform->validate($vars)) {
         if ($vars->get('yesno') == 1) {
             $deleteform->getInfo($vars, $info);
-            $result = $whups_driver->deleteTicket($info);
-
-            if (!is_a($result, 'PEAR_Error')) {
+            try {
+                $whups_driver->deleteTicket($info['id']);
                 $notification->push(sprintf(_("Ticket %d has been deleted."), $info['id']), 'horde.success');
                 Horde::url($prefs->getValue('whups_default_view') . '.php', true)
                     ->redirect();
+            } catch (Whups_Exception $e) {
+                    $notification->push(_("There was an error deleting the ticket:") . ' ' . $e->getMessage(), 'horde.error');
             }
-            $notification->push(_("There was an error deleting the ticket:") . ' ' . $result->getMessage(), 'horde.error');
         } else {
             $notification->push(_("The ticket was not deleted."), 'horde.message');
         }

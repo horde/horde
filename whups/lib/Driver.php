@@ -15,23 +15,32 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Whups
  */
-class Whups_Driver {
-
+class Whups_Driver
+{
     /**
      * @var array
      */
-    var $_params;
+    protected $_params;
 
     /**
+     * Constructor
+     *
+     * @param array $params  Parameter array.
+     *
+     * @return Whups_Driver_Base
      */
-    function Whups_Driver($params)
+    public function __construct(array $params)
     {
         $this->_params = $params;
     }
 
     /**
+     * Set ticket attributes
+     *
+     * @param array $info           Attributes to set
+     * @param Whups_Ticket $ticket  The ticket which attributes to set.
      */
-    function setAttributes($info, &$ticket)
+    public function setAttributes(array $info, Whups_Ticket &$ticket)
     {
         $ticket_id = $ticket->getId();
 
@@ -47,15 +56,15 @@ class Whups_Driver {
     }
 
     /**
-     * @param integer $ticket_id
+     * Fetch ticket history
+     *
+     * @param integer $ticket_id  The ticket to fetch history for.
+     *
+     * @return array
      */
-    function getHistory($ticket_id)
+    public function getHistory($ticket_id)
     {
         $rows = $this->_getHistory($ticket_id);
-        if (is_a($rows, 'PEAR_Error')) {
-            return $rows;
-        }
-
         $attributes = array();
         foreach ($rows as $row) {
             if ($row['log_type'] == 'attribute' &&
@@ -169,10 +178,6 @@ class Whups_Driver {
         }
 
         $versioninfo = $this->getVersionInfo($queue);
-        if (is_a($versioninfo, 'PEAR_Error')) {
-            return $versioninfo;
-        }
-
         $versions = array();
         $old_versions = false;
         foreach ($versioninfo as $vinfo) {
@@ -227,10 +232,6 @@ class Whups_Driver {
     function getAttributesForType($type = null)
     {
         $attributes = $this->_getAttributesForType($type);
-        if (is_a($attributes, 'PEAR_Error')) {
-            return $attributes;
-        }
-
         foreach ($attributes as $id => $attribute) {
             $attributes[$id] = array(
                 'human_name' => $attribute['attribute_name'],
@@ -256,9 +257,6 @@ class Whups_Driver {
     function getAllTicketAttributesWithNames($ticket_id)
     {
         $ta = $this->_getAllTicketAttributesWithNames($ticket_id);
-        if (is_a($ta, 'PEAR_Error')) {
-            return $ta;
-        }
 
         $attributes = array();
         foreach ($ta as $id => $attribute) {
@@ -368,11 +366,11 @@ class Whups_Driver {
         if (!$reminder && !empty($conf['mail']['always_copy'])) {
             $mail_always = $conf['mail']['always_copy'];
             if (strpos($mail_always, '<@>') !== false) {
-                $ticket = Whups_Ticket::makeTicket($ticket_id);
-                if (!is_a($ticket, 'PEAR_Error')) {
+                try {
+                    $ticket = Whups_Ticket::makeTicket($ticket_id);
                     $mail_always = str_replace('<@>', $ticket->get('queue_name'), $mail_always);
-                } else {
-                    $mail_always = null;
+                } catch (Whups_Exception $e) {
+                      $mail_always = null;
                 }
             }
             if ($mail_always) {
@@ -525,36 +523,6 @@ class Whups_Driver {
         }
 
         return $text;
-    }
-
-    /**
-     * Attempts to return a concrete Whups_Driver instance based on $driver.
-     *
-     * @param string $driver The type of concrete Driver subclass to return.
-     * @param array $params  A hash containing any additional configuration or
-     *                       connection parameters a subclass might need.
-     *
-     * @return Whups_Driver  The newly created concrete Whups_Driver instance.
-     */
-    function factory($driver = null, $params = null)
-    {
-        if (is_null($driver)) {
-            $driver = $GLOBALS['conf']['tickets']['driver'];
-        }
-
-        $driver = basename($driver);
-        $class = 'Whups_Driver_' . $driver;
-        if (!class_exists($class)) {
-            include dirname(__FILE__) . '/Driver/' . $driver . '.php';
-        }
-        if (class_exists($class)) {
-            if (is_null($params)) {
-                $params = Horde::getDriverConfig('tickets', $driver);
-            }
-            return new $class($params);
-        } else {
-            throw new Whups_Exception(sprintf('No such backend "%s" found', $driver));
-        }
     }
 
 }

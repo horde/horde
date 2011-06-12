@@ -177,12 +177,14 @@ if ($form == 'setqueuestep3form') {
             $ticket->change('comment-perms', $info['group']);
         }
 
-        $result = $ticket->commit();
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result, 'horde.error');
-        } else {
-            $notification->push(sprintf(_("Moved ticket %d to \"%s\""), $id, $ticket->get('queue_name')), 'horde.success');
+        try {
+            $ticket->commit();
+            $notification->push(
+                sprintf(_("Moved ticket %d to \"%s\""), $id, $ticket->get('queue_name')),
+                'horde.success');
             $ticket->show();
+        } catch (Whups_Exception $e) {
+                $notification->push($e, 'horde.error');
         }
     } else {
         $action = 'sq3';

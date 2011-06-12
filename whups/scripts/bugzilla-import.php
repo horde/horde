@@ -35,9 +35,6 @@ function error($text, $error = null)
 {
     global $cli;
 
-    if (is_a($error, 'PEAR_Error')) {
-        $text .= ' (' . $error->getMessage() . ')';
-    }
     $cli->message($text, 'cli.error');
 }
 
@@ -59,9 +56,10 @@ function info($text)
 $bugzilla = $injector->getInstance('Horde_Db')->createDb($BUGZILLA_DSN);
 
 sectionHeader('Creating Types');
-$type = $whups_driver->addType($BUGZILLA_BUG_TYPE[0], $BUGZILLA_BUG_TYPE[1]);
-if (is_a($type, 'PEAR_Error')) {
-    error("Failed to add '" . $BUGZILLA_BUG_TYPE[0] . "' type", $type);
+try {
+    $type = $whups_driver->addType($BUGZILLA_BUG_TYPE[0], $BUGZILLA_BUG_TYPE[1]);
+} catch (Whups_Exception $e) {
+    error("Failed to add '" . $BUGZILLA_BUG_TYPE[0] . "' type", $e->getMessage());
     exit;
 }
 info("Created '" . $BUGZILLA_BUG_TYPE[0] . "' type");
@@ -70,9 +68,10 @@ $cli->writeln();
 sectionHeader('Creating States');
 $states = array();
 foreach ($BUGZILLA_STATES as $state) {
-    $result = $whups_driver->addState($type, $state, "Bugzilla - $state", $state);
-    if (is_a($result, 'PEAR_Error')) {
-        error("Failed to add '$state' state", $result);
+    try {
+        $result = $whups_driver->addState($type, $state, "Bugzilla - $state", $state);
+    } catch (Whups_Exception $e) {
+        error("Failed to add '$state' state", $e->getMessage());
         continue;
     }
     $states[$state] = $result;
@@ -83,9 +82,10 @@ $cli->writeln();
 sectionHeader('Creating Priorities');
 $priorities = array();
 foreach ($BUGZILLA_PRIORITIES as $priority) {
-    $result = $whups_driver->addPriority($type, $priority, "Bugzilla - $priority");
-    if (is_a($result, 'PEAR_Error')) {
-        error("Failed to add '$priority' priority", $result);
+    try {
+        $result = $whups_driver->addPriority($type, $priority, "Bugzilla - $priority");
+    } catch (Whups_Exception $e) {
+        error("Failed to add '$priority' priority", $e->getMessage());
         continue;
     }
     $priorities[$priority] = $result;
@@ -99,18 +99,20 @@ $components = array();
 sectionHeader('Importing Components');
 $res = $bugzilla->select('SELECT value, program, description FROM components');
 foreach ($res as $row) {
-    $result = $whups_driver->addQueue($row['value'], $row['description']);
-    if (is_a($result, 'PEAR_Error')) {
-        error('Failed to add queue: ' . $row['value'], $result);
+    try {
+        $result = $whups_driver->addQueue($row['value'], $row['description']);
+    } catch (Whups_Exception $e) {
+        error('Failed to add queue: ' . $row['value'], $e->getMessage());
         continue;
     }
 
     /* Set the queue's parameters. */
-    $whups_driver->updateQueue($result,
-                        $row['value'],
-                        $row['description'],
-                        array($type),
-                        false);
+    $whups_driver->updateQueue(
+        $result,
+        $row['value'],
+        $row['description'],
+        array($type),
+        false);
 
     /* Add this component to the map. */
     $components[($row['program'])][] = $row['value'];
@@ -139,12 +141,12 @@ foreach ($res as $row) {
             continue;
         }
 
-        $result = $whups_driver->addVersion($queueID, $row['value'], '', true, 0);
-        if (is_a($result, 'PEAR_Error')) {
-            error('Failed to add version: ' . $row['value'], $result);
+        try {
+            $result = $whups_driver->addVersion($queueID, $row['value'], '', true, 0);
+        } catch (Whups_Exception $e) {
+            error('Failed to add version: ' . $row['value'], $e->getMessage());
             continue;
         }
-
         $versions[$queueID][($row['value'])] = $result;
         success('Added version: ' . $row['value'] . " ($component)");
     }
@@ -199,9 +201,10 @@ foreach ($res as $row) {
     $info['summary'] = htmlspecialchars($row['short_desc']);
     $info['comment'] = $row['long_desc'];
 
-    $result = $whups_driver->addTicket($info);
-    if (is_a($result, 'PEAR_Error')) {
-        error('Failed to add ticket', $result);
+    try {
+        $result = $whups_driver->addTicket($info);
+    } catch (Whups_Exception $e) {
+        error('Failed to add ticket', $e->getMessage());
         continue;
     }
 

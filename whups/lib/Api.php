@@ -96,9 +96,6 @@ class Whups_Api extends Horde_Registry_Api
 
         $info = array('owner' => 'user:' . $GLOBALS['registry']->getAuth(), 'nores' => true);
         $tickets = $whups_driver->getTicketsByProperties($info);
-        if (is_a($tickets, 'PEAR_Error')) {
-            return $tickets;
-        }
         $result = array();
         foreach ($tickets as $ticket) {
             $result[] = $ticket['id'];
@@ -117,9 +114,6 @@ class Whups_Api extends Horde_Registry_Api
 
         $info = array('requester' => $GLOBALS['registry']->getAuth(), 'nores' => true);
         $tickets = $whups_driver->getTicketsByProperties($info);
-        if (is_a($tickets, 'PEAR_Error')) {
-            return $tickets;
-        }
         $result = array();
         foreach ($tickets as $ticket) {
             $result[] = (int) $ticket['id'];
@@ -138,8 +132,6 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function addTicket($ticket_info)
     {
-        require_once dirname(__FILE__) . '/Forms/CreateTicket.php';
-        require_once dirname(__FILE__) . '/Ticket.php';
         global $whups_driver;
 
         if (!is_array($ticket_info)) {
@@ -148,9 +140,9 @@ class Whups_Api extends Horde_Registry_Api
 
         $vars = new Horde_Variables($ticket_info);
 
-        $form1 = new CreateStep1Form($vars);
-        $form2 = new CreateStep2Form($vars);
-        $form3 = new CreateStep3Form($vars);
+        $form1 = new Whups_Form_Ticket_CreateStepOne($vars);
+        $form2 = new Whups_Form_Ticket_CreateStepTwo($vars);
+        $form3 = new Whups_Form_Ticket_CreateStepThree($vars);
 
         // FIXME: This is an almighty hack, but we can't have form
         // tokens in rpc calls.
@@ -178,10 +170,10 @@ class Whups_Api extends Horde_Registry_Api
 
         // More checks if we're assigning the ticket at create-time.
         if ($GLOBALS['registry']->getAuth() && $whups_driver->isCategory('assigned', $vars->get('state'))) {
-            $form4 = new CreateStep4Form($vars);
+            $form4 = new Whups_Form_Ticket_CreateStep4Form($vars);
         }
         if (Auth::getAuth() && $whups_driver->isCategory('assigned', $vars->get('state'))) {
-            $form4 = new CreateStep4Form($vars);
+            $form4 = new Whups_Form_Ticket_CreateStep4Form($vars);
             $form4->useToken(false);
             if (!$form4->validate($vars, true)) {
                 return PEAR::raiseError('Invalid arguments (' . var_export($form4->_errors, true) . ')');
@@ -191,11 +183,8 @@ class Whups_Api extends Horde_Registry_Api
         }
 
         $ticket = Whups_Ticket::newTicket($info, $GLOBALS['registry']->getAuth());
-        if (is_a($ticket, 'PEAR_Error')) {
-            return $ticket;
-        } else {
-            return $ticket->getId();
-        }
+
+        return $ticket->getId();
     }
 
     /**
@@ -214,11 +203,6 @@ class Whups_Api extends Horde_Registry_Api
 
         // Cast as an int for safety.
         $ticket = Whups_Ticket::makeTicket((int)$ticket_id);
-        if (is_a($ticket, 'PEAR_Error')) {
-            // The ticket is either invalid or we don't have permission to
-            // read it.
-            return $ticket;
-        }
 
         // Check that we have permission to update the ticket
         if (!$GLOBALS['registry']->getAuth() ||
@@ -272,11 +256,7 @@ class Whups_Api extends Horde_Registry_Api
         if (!empty($info['group'])) {
             $ticket->change('comment-perms', $info['group']);
         }
-
-        $result = $ticket->commit();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $ticket->commit();
 
         // Ticket updated successfully
         return true;
@@ -299,12 +279,8 @@ class Whups_Api extends Horde_Registry_Api
         }
 
         $ticket = Whups_Ticket::makeTicket($ticket_id);
-        if (is_a($ticket, 'PEAR_Error')) {
-            return $ticket;
-        }
-
         if (empty($comment)) {
-            return PEAR::raiseError('Empty comments are not allowed');
+            throw new Whups_Exception('Empty comments are not allowed');
         }
 
         // Add comment.
@@ -315,11 +291,7 @@ class Whups_Api extends Horde_Registry_Api
         if (!empty($group)) {
             $ticket->change('comment-perms', $group);
         }
-
-        $result = $ticket->commit();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $ticket->commit();
 
         return true;
     }
@@ -331,7 +303,7 @@ class Whups_Api extends Horde_Registry_Api
      * @param string $name        The name of the attachment.
      * @param string $data        The attachment data.
      *
-     * @return mixed  True on success or PEAR_Error on failure.
+     * @throws Whups_Exception
      */
     public function addAttachment($ticket_id, $name, $data)
     {
@@ -341,12 +313,8 @@ class Whups_Api extends Horde_Registry_Api
         }
 
         $ticket = Whups_Ticket::makeTicket($ticket_id);
-        if (is_a($ticket, 'PEAR_Error')) {
-            return $ticket;
-        }
-
         if (!strlen($name) || !strlen($data)) {
-            return PEAR::raiseError(_("Empty attachment"));
+            throw new Whups_Exception(_("Empty attachment"));
         }
 
         $tmp_name = Horde_Util::getTempFile('whups', true, $GLOBALS['conf']['tmpdir']);
@@ -354,14 +322,8 @@ class Whups_Api extends Horde_Registry_Api
         fwrite($fp, $data);
         fclose($fp);
 
-        $ticket->change('attachment',
-                        array('name' => $name, 'tmp_name' => $tmp_name));
-        $result = $ticket->commit();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        return true;
+        $ticket->change('attachment', array('name' => $name, 'tmp_name' => $tmp_name));
+        $ticket->commit();
     }
 
     /**
@@ -378,23 +340,16 @@ class Whups_Api extends Horde_Registry_Api
         }
 
         $ticket = $whups_driver->getTicketDetails($info['ticket_id']);
-        if (is_a($ticket, "PEAR_Error")) {
-            // Either the ticket doesn't exist or the caller didn't have
-            // permission.
-            return $ticket;
-        }
 
         // Convert the RPC parameters into what we'd expect if we were
         // posting the EditAttributes form.
         $ainfo = array();
         foreach ($info['attributes'] as $attrib) {
             if (!isset($attrib['id']) || !isset($attrib['value'])) {
-                return PEAR::raiseError(_("Invalid argument: Missing attribute name or value."));
+                throw new InvalidArgumentException(_("Invalid argument: Missing attribute name or value."));
             }
-
             $ainfo['a' . $attrib['id']] = $attrib['value'];
         }
-
         $ainfo['id'] = $info['ticket_id'];
 
         return $whups_driver->setAttributes($ainfo);
@@ -422,12 +377,10 @@ class Whups_Api extends Horde_Registry_Api
         switch ($type) {
         case 'taskHash':
             global $whups_driver;
-            $info = array('owner' => 'user:' . $GLOBALS['registry']->getAuth(),
-                          'nores' => true);
+            $info = array(
+              'owner' => 'user:' . $GLOBALS['registry']->getAuth(),
+              'nores' => true);
             $tickets = $whups_driver->getTicketsByProperties($info);
-            if (is_a($tickets, 'PEAR_Error')) {
-                return $tickets;
-            }
             $result = array();
             foreach ($tickets as $ticket) {
                 $view_link = Whups::urlFor('ticket', $ticket['id'], true);
@@ -641,26 +594,21 @@ class Whups_Api extends Horde_Registry_Api
         }
 
         $tickets = $whups_driver->getTicketsByProperties($info);
-        if (is_a($tickets, 'PEAR_Error')) {
-            return $tickets;
-        }
         $result = array();
         foreach ($tickets as $ticket) {
-            $result[$ticket['id']] = array('id'     => $ticket['id'],
-                                           'active' => ($ticket['state_category'] != 'resolved'),
-                                           'name'   => sprintf(_("Ticket %s - %s"),
-                                                               $ticket['id'],
-                                                               $ticket['summary']));
+            $result[$ticket['id']] = array(
+              'id'     => $ticket['id'],
+              'active' => ($ticket['state_category'] != 'resolved'),
+              'name'   => sprintf(
+                _("Ticket %s - %s"), $ticket['id'], $ticket['summary']));
 
             /* If the user has an estimate attribute, use that for cost object
              * hour estimates. */
             $attributes = $whups_driver->getTicketAttributesWithNames($ticket['id']);
-            if (!is_a($attributes, 'PEAR_Error')) {
-                foreach ($attributes as $k => $v) {
-                    if (strtolower($k) == _("estimated time")) {
-                        if (!empty($v)) {
-                            $result[$ticket['id']]['estimate'] = (double) $v;
-                        }
+            foreach ($attributes as $k => $v) {
+                if (strtolower($k) == _("estimated time")) {
+                    if (!empty($v)) {
+                        $result[$ticket['id']]['estimate'] = (double) $v;
                     }
                 }
             }
@@ -669,8 +617,10 @@ class Whups_Api extends Horde_Registry_Api
         if (count($result) == 0) {
             return array();
         } else {
-            return array(array('category' => _("Tickets"),
-                               'objects'  => array_values($result)));
+            return array(
+              array(
+                'category' => _("Tickets"),
+                'objects'  => array_values($result)));
         }
     }
 
@@ -728,11 +678,11 @@ class Whups_Api extends Horde_Registry_Api
             break;
         }
 
-        $tickets = $whups_driver->getTicketsByProperties($criteria);
-        if (is_a($tickets, 'PEAR_Error')) {
-            return array();
+        try {
+            $tickets = $whups_driver->getTicketsByProperties($criteria);
+        } catch (Whups_Exception $e) {
+          return array();
         }
-
         $objects = array();
         foreach ($tickets as $ticket) {
             switch ($category) {

@@ -18,9 +18,6 @@ if (!$ticket) {
 
 // Get the ticket details first.
 $details = $whups_driver->getTicketDetails($ticket);
-if (is_a($details, 'PEAR_Error')) {
-    exit;
-}
 
 // Check permissions on this ticket.
 if (!count(Whups::permissionsFilter(array($details['queue'] => ''), 'queue', Horde_Perms::READ))) {

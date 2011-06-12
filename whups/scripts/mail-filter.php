@@ -71,6 +71,8 @@ $mail = array('host' => 'localhost',
               'protocol' => 'imap/notls',
               'folder' => 'INBOX');
 $from_mail = false;
+
+// @TODO: Horde_Argv
 $options = Console_Getopt::getopt(Console_Getopt::readPHPArgv(),
                                   'ha:q:Q:gk:',
                                   array('help',
@@ -156,9 +158,10 @@ if (empty($info['ticket'])) {
 
 // Read and parse the message.
 if (empty($mail['user'])) {
-    $result = Whups_Mail::processMail($cli->readStdin(), $info);
-    if (is_a($result, 'PEAR_Error')) {
-        $cli->fatal(_("Error processing message:") . ' ' . $result->getMessage() . ' ' . $result->getUserInfo());
+    try {
+        Whups_Mail::processMail($cli->readStdin(), $info);
+    } catch (Whups_Exception $e) {
+        $cli->fatal(_("Error processing message:") . ' ' . $result->getMessage());
     }
 } else {
     $messages = array();
@@ -176,11 +179,12 @@ if (empty($mail['user'])) {
         foreach ($mailbox as $uid) {
             $message = imap_fetchheader($imap, $uid, FT_UID)
                 . imap_body($imap, $uid, FT_UID);
-            $result = Whups_Mail::processMail($message, $info);
-            if (is_a($result, 'PEAR_Error')) {
-                $cli->message(_("Error processing message:") . ' ' . $result->getMessage() . ' ' . $result->getUserInfo(), 'cli.error');
-            } else {
+
+            try {
+                Whups_Mail::processMail($message, $info);
                 imap_delete($imap, $uid, FT_UID);
+            } catch (Whups_Exception $e) {
+                $cli->message(_("Error processing message:") . ' ' . $result->getMessage() . ' ' . $result->getUserInfo(), 'cli.error');
             }
         }
     }
