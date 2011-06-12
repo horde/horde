@@ -370,7 +370,7 @@ case 'whups_form_admin_editqueuesteptwo':
     }
     break;
 
-case 'horde_form_admin_deletequeue':
+case 'whups_form_admin_deletequeue':
     $form = new Whups_Form_Admin_DeleteQueue($vars);
     if ($form->validate($vars)) {
         if ($vars->get('yesno') == 1) {
