@@ -1526,18 +1526,19 @@ class Whups_Driver_Sql extends Whups_Driver
 
         if ($registry->hasMethod('tickets/listQueues') == $registry->getApp()) {
             // Is slug unique?
-            try {
-                $result = $this->_db->selectValue(
-                    'SELECT count(queue_slug) FROM whups_queues WHERE queue_slug = ? AND queue_id <> ?',
-                     array($slug, $queueId));
-            } catch (Horde_Db_Exception $e) {
-                throw new Whups_Exception($e);
+            if (!empty($slug)) {
+                try {
+                    $result = $this->_db->selectValue(
+                        'SELECT count(queue_slug) FROM whups_queues WHERE queue_slug = ? AND queue_id <> ?',
+                         array($slug, $queueId));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Whups_Exception($e);
+                }
+                if ($result > 0) {
+                    throw new Whups_Exception(
+                        _("That queue slug is already taken. Please select another."));
+                }
             }
-            if ($result > 0) {
-                throw new Whups_Exception(
-                    _("That queue slug is already taken. Please select another."));
-            }
-
             // First update the queue entry itself.
             $query = 'UPDATE whups_queues SET queue_name = ?, '
                      . 'queue_description = ?, queue_versioned = ?, '
@@ -1793,6 +1794,7 @@ class Whups_Driver_Sql extends Whups_Driver
     }
 
     /**
+     * Get list of types associated with the specified queue.
      *
      * @param integer $queueId  The queue id
      *
