@@ -2144,7 +2144,7 @@ class Whups_Driver_Sql extends Whups_Driver
         $query = 'UPDATE whups_states SET state_default = 1 WHERE state_id = ?';
         $values = array($state);
         try {
-            $this->_db->query($query, $values);
+            $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
@@ -2564,7 +2564,7 @@ class Whups_Driver_Sql extends Whups_Driver
         $values = array((int)$reply);
 
         try {
-            $this->_db->query($query, $values);
+            $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
