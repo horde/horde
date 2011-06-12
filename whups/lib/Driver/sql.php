@@ -258,7 +258,7 @@ class Whups_Driver_Sql extends Whups_Driver
                         Horde_String::convertCharset($text, 'UTF-8',
                                                $this->_params['charset']));
         try {
-            $result = $this->_db->query($query, $values);
+            $result = $this->_db->insert($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
@@ -1538,7 +1538,7 @@ class Whups_Driver_Sql extends Whups_Driver
                     throw new Whups_Exception(
                         _("That queue slug is already taken. Please select another."));
                 }
-            }
+        }
             // First update the queue entry itself.
             $query = 'UPDATE whups_queues SET queue_name = ?, '
                      . 'queue_description = ?, queue_versioned = ?, '
@@ -2494,11 +2494,14 @@ class Whups_Driver_Sql extends Whups_Driver
             . 'FROM whups_replies WHERE type_id = ? ORDER BY reply_name';
         $values = array((int)$type);
         try {
-            $info = $this->_db->selectAll($query, $values);
+            $rows = $this->_db->selectAll($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
-
+        $info = array();
+        foreach ($rows as $row) {
+            $info[$row['reply_id']] = $row;
+        }
         return Horde_String::convertCharset(
             $info, $this->_params['charset'], 'UTF-8');
     }
