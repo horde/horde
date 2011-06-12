@@ -39,9 +39,12 @@ class WhupsUpgradeTransactions extends Horde_Db_Migration_Base
      */
     public function down()
     {
-        $this->dropTable('whups_transactions');
-        // @TODO
-
+        $this->_denormalize();
+        try {
+            $this->dropTable('whups_transactions');
+        } catch (Horde_Db_Exception $e) {
+            Horde::fatal($e->getMessage());
+        }
     }
 
     /**
@@ -75,8 +78,8 @@ class WhupsUpgradeTransactions extends Horde_Db_Migration_Base
             Horde::fatal($e->getMessage());
         }
 
-        //$this->removeColumn('whups_logs', 'user_id');
-        //$this->removeColumn('whups_logs', 'transaction_timestamp');
+        $this->removeColumn('whups_logs', 'user_id');
+        $this->removeColumn('whups_logs', 'log_timestamp');
 
         $this->commitDbTransaction();
     }
@@ -86,6 +89,27 @@ class WhupsUpgradeTransactions extends Horde_Db_Migration_Base
      */
     protected function _denormalize()
     {
+        $this->addColumn('whups_logs', 'user_id', 'string', array('limit' => 255, 'null' => false));
+        $this->addColumn('whups_logs', 'log_timestamp', 'integer', array('null' => false));
 
+        $sql = 'SELECT * FROM whups_transactions';
+        $rows = $this->selectAll($sql);
+        $sql = 'UPDATE whups_logs SET user_id = ?, log_timestamp = ? WHERE transaction_id = ?';
+        $this->beginDbTransaction();
+        try {
+            foreach ($rows as $row) {
+                $this->update(
+                    $sql,
+                    array(
+                        $row['transaction_user_id'],
+                        $row['transaction_timestamp'],
+                        $row['transaction_id']));
+            }
+        } catch (Horde_Db_Exception $e) {
+            $this->rollbackDbTransaction();
+            Horde::fatal($e->getMessage());
+        }
+
+        $this->commitDbTransaction();
     }
 }

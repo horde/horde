@@ -85,7 +85,6 @@ class WhupsUpgradeAutoIncrement extends Horde_Db_Migration_Base
             $this->dropTable('whups_queries_seq');
         } catch (Horde_Db_Exception $e) {
         }
-
     }
 
     /**
@@ -94,7 +93,7 @@ class WhupsUpgradeAutoIncrement extends Horde_Db_Migration_Base
     public function down()
     {
         $this->changeColumn('whups_tickets', 'ticket_id', 'integer', array('null' => false));
-        $this->changeColumn('whups_queues', 'queues_id', 'integer', array('null' => false));
+        $this->changeColumn('whups_queues', 'queue_id', 'integer', array('null' => false));
         $this->changeColumn('whups_types', 'type_id', 'integer', array('null' => false));
         $this->changeColumn('whups_states', 'state_id', 'integer', array('null' => false));
         $this->changeColumn('whups_replies', 'reply_id', 'integer', array('null' => false));
@@ -104,5 +103,5 @@ class WhupsUpgradeAutoIncrement extends Horde_Db_Migration_Base
         $this->changeColumn('whups_priorities', 'priority_id', 'integer', array('null' => false));
         $this->changeColumn('whups_versions', 'version_id', 'integer', array('null' => false));
         $this->changeColumn('whups_queries', 'query_id', 'integer', array('null' => false));
-}
+    }
 }
