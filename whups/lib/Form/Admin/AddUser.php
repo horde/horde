@@ -12,9 +12,10 @@
  * @package Whups
  */
 
-class AddUserForm extends Horde_Form {
+class Whups_Form_Admin_AddUser extends Horde_Form
+{
 
-    function AddUserForm(&$vars)
+    public function __construct(&$vars)
     {
         parent::Horde_Form($vars, _("Add Users"));
 
@@ -45,37 +46,6 @@ class AddUserForm extends Horde_Form {
         } else {
             $this->addVariable(_("User"), 'user', 'text', true);
         }
-    }
-
-}
-
-class EditUserStep1Form extends Horde_Form {
-
-    function EditUserStep1Form(&$vars)
-    {
-        global $whups_driver;
-
-        $this->appendButtons(_("Remove User"));
-
-        parent::Horde_Form($vars, _("Responsible Users"));
-
-        $queue = $vars->get('queue');
-        $users = $whups_driver->getQueueUsers($queue);
-        $f_users = array();
-        foreach ($users as $user) {
-            $f_users[$user] = Whups::formatUser($user);
-        }
-        if ($f_users) {
-            asort($f_users);
-            $usertype = 'enum';
-            $type_params = array($f_users);
-        } else {
-            $usertype = 'invalid';
-            $type_params = array(_("There are no users responsible for this queue."));
-        }
-
-        $this->addHidden('', 'queue', 'int', true, true);
-        $this->addVariable(_("Users responsible for this queue"), 'user', $usertype, true, false, null, $type_params);
     }
 
 }

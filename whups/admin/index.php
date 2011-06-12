@@ -59,13 +59,13 @@ function _editStateForms()
 {
     global $vars, $renderer, $adminurl;
     _open();
-    $form1 = new EditStateStep1Form($vars);
+    $form1 = new Whups_Form_Admin_EditStateStepOne($vars);
     $form1->renderActive($renderer, $vars, $adminurl, 'post');
     echo '<br />';
-    $form2 = new DefaultStateForm($vars);
+    $form2 = new Whups_Form_Admin_DefaultState($vars);
     $form2->renderActive($renderer, $vars, $adminurl, 'post');
     echo '<br />';
-    $form3 = new AddStateForm($vars);
+    $form3 = new Whups_Form_Admin_AddState($vars);
     $form3->renderActive($renderer, $vars, $adminurl, 'post');
 }
 
@@ -73,27 +73,26 @@ function _editPriorityForms()
 {
     global $vars, $renderer, $adminurl;
     _open();
-    $form1 = new EditPriorityStep1Form($vars);
+    $form1 = new Whups_Form_Admin_EditPriorityStepOne($vars);
     $form1->renderActive($renderer, $vars, $adminurl, 'post');
     echo '<br />';
-    $form2 = new DefaultPriorityForm($vars);
+    $form2 = new Whups_Form_Admin_DefaultPriority($vars);
     $form2->renderActive($renderer, $vars, $adminurl, 'post');
     echo '<br />';
-    $form3 = new AddPriorityForm($vars);
+    $form3 = new Whups_Form_Admin_AddPriority($vars);
     $form3->renderActive($renderer, $vars, $adminurl, 'post');
 }
 
 switch ($vars->get('formname')) {
-case 'addtypestep1form':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Type.php';
-    $form1 = new AddTypeStep1Form($vars);
+case 'whups_form_admin_addtype':
+    $form1 = new Whups_Form_Admin_AddType($vars);
     if ($form1->validate($vars)) {
         // First, add the type
         $tid = $whups_driver->addType($vars->get('name'),
                                       $vars->get('description'));
         _open();
         $vars->add('type', $tid);
-        $form2 = new EditTypeStep2Form($vars);
+        $form2 = new Whups_Form_Admin_EditTypeStepTwo($vars);
         $form2->title = 'addtypestep2form';
         $form2->open($renderer, $vars, $adminurl, 'post');
 
@@ -117,33 +116,31 @@ case 'addtypestep1form':
     break;
 
 case 'addtypestep2form':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Type.php';
-    $form1 = new AddTypeStep1Form($vars);
-    $form2 = new EditTypeStep2Form($vars);
+    $form1 = new Whups_Form_Admin_AddType($vars);
+    $form2 = new Whups_Form_Admin_EditTypeStepTwo($vars);
     $form2->_name = 'addtypestep2form';
     break;
 
-case 'edittypestep1form':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Type.php';
-    $form1 = new EditTypeStep1Form($vars);
+case 'whups_form_admin_edittypestepone':
+    $form1 = new Whups_Form_Admin_EditTypeStepOne($vars);
     $vars->set('action', 'type');
     if ($form1->validate($vars)) {
         switch ($vars->get('submitbutton')) {
         case _("Edit Type"):
             _open();
-            $form2 = new EditTypeStep2Form($vars);
+            $form2 = new Whups_Form_Admin_EditTypeStepTwo($vars);
             $form2->renderActive($renderer, $vars, $adminurl, 'post');
             break;
 
         case _("Delete Type"):
             _open();
-            $form2 = new DeleteTypeForm($vars);
+            $form2 = new Whups_Form_Admin_DeleteType($vars);
             $form2->renderActive($renderer, $vars, $adminurl, 'post');
             break;
 
         case _("Clone Type"):
             _open();
-            $form2 = new CloneTypeForm($vars);
+            $form2 = new Whups_Form_Admin_CloneType($vars);
             $form2->renderActive($renderer, $vars, $adminurl, 'post');
             break;
         }
@@ -153,9 +150,8 @@ case 'edittypestep1form':
     }
     break;
 
-case 'clonetypeform':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Type.php';
-    $form = new CloneTypeForm($vars);
+case 'whups_form_admin_clonetype':
+    $form = new Whups_Form_Admin_CloneType($vars);
     if ($form->validate($vars)) {
         // Create a new type and copy all attributes of the clone master to
         // the new type.
@@ -198,11 +194,10 @@ case 'clonetypeform':
     }
     break;
 
-case 'edittypeform':
-case 'edittypestep2form':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Type.php';
-    $form = new EditTypeStep2Form($vars);
-    if ($vars->get('formname') == 'edittypestep2form' && $form->validate($vars)) {
+case 'whups_form_admin_edittypestepone':
+case 'whups_form_admin_edittypesteptwo':
+    $form = new Whups_Form_Admin_EditTypeStepTwo($vars);
+    if ($vars->get('formname') == 'whups_form_admin_edittypesteptwo' && $form->validate($vars)) {
 
         try {
             $whups_driver->updateType(
@@ -227,7 +222,6 @@ case 'edittypestep2form':
     break;
 
 case 'createdefaultstates':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Type.php';
     $type = $vars->get('type');
     foreach ($conf['states'] as $state) {
         if ($state['active'] == 'active') {
@@ -237,12 +231,11 @@ case 'createdefaultstates':
     }
 
     _open();
-    $form = new EditTypeStep2Form($vars);
+    $form = new Whups_Form_Admin_EditTypeStepTwo($vars);
     $form->renderActive($renderer, $vars, $adminurl, 'post');
     break;
 
 case 'createdefaultpriorities':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Type.php';
     $type = $vars->get('type');
     foreach ($conf['priorities'] as $priority) {
         if ($priority['active'] == 'active') {
@@ -252,13 +245,12 @@ case 'createdefaultpriorities':
     }
 
     _open();
-    $form = new EditTypeStep2Form($vars);
+    $form = new Whups_Form_Admin_EditTypeStepTwo($vars);
     $form->renderActive($renderer, $vars, $adminurl, 'post');
     break;
 
-case 'deletetypeform':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Type.php';
-    $form = new DeleteTypeForm($vars);
+case 'whups_form_admin_deletetype':
+    $form = new Whups_Form_Admin_DeleteType($vars);
     if ($form->validate($vars)) {
         if ($vars->get('yesno') == 1) {
             try {
@@ -281,9 +273,8 @@ case 'deletetypeform':
     }
     break;
 
-case 'addqueueform':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Queue.php';
-    $form = new AddQueueForm($vars);
+case 'whups_form_admin_addqueue':
+    $form = new Whups_Form_Admin_AddQueue($vars);
     if ($form->validate($vars)) {
         try {
             $result = $whups_driver->addQueue(
@@ -299,7 +290,7 @@ case 'addqueueform':
 
             _open();
             $vars->set('queue', $result);
-            $form2 = new EditQueueStep2Form($vars);
+            $form2 = new Whups_Form_Admin_EditQueueStepTwo($vars);
             $form2->renderActive($renderer, $vars, $adminurl, 'post');
         } catch (Whups_Exception $e) {
             $notification->push(
@@ -314,20 +305,19 @@ case 'addqueueform':
     }
     break;
 
-case 'editqueuestep1form':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Queue.php';
-    $form1 = new EditQueueStep1Form($vars);
+case 'whups_form_admin_editqueuestepone':
+    $form1 = new Whups_Form_Admin_EditQueueStepOne($vars);
     if ($form1->validate($vars)) {
         switch ($vars->get('submitbutton')) {
         case _("Edit Queue"):
             _open();
-            $form2 = new EditQueueStep2Form($vars);
+            $form2 = new Whups_Form_Admin_EditQueueStepTwo($vars);
             $form2->renderActive($renderer, $vars, $adminurl, 'post');
             break;
 
         case _("Delete Queue"):
             _open();
-            $form2 = new DeleteQueueForm($vars);
+            $form2 = new Whups_Form_Admin_DeleteQueue($vars);
             $form2->renderActive($renderer, $vars, $adminurl, 'post');
             break;
         }
@@ -337,12 +327,11 @@ case 'editqueuestep1form':
     }
     break;
 
-case 'editqueueform':
-case 'editqueuestep2form':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Queue.php';
-    $form = new EditQueueStep2Form($vars);
+case 'whups_form_admin_editqueuestepone':
+case 'whups_form_admin_editqueuesteptwo':
+    $form = new Whups_Form_Admin_EditQueueStepTwo($vars);
 
-    if ($vars->get('formname') == 'editqueuestep2form' &&
+    if ($vars->get('formname') == 'whups_form_admin_editqueuesteptwo' &&
         $form->validate($vars)) {
         try {
             $whups_driver->updateQueue(
@@ -381,9 +370,8 @@ case 'editqueuestep2form':
     }
     break;
 
-case 'deletequeueform':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Queue.php';
-    $form = new DeleteQueueForm($vars);
+case 'horde_form_admin_deletequeue':
+    $form = new Whups_Form_Admin_DeleteQueue($vars);
     if ($form->validate($vars)) {
         if ($vars->get('yesno') == 1) {
             try {
@@ -407,10 +395,9 @@ case 'deletequeueform':
     }
     break;
 
-case 'addstateform':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/State.php';
+case 'whups_form_admin_addstate':
     $vars->set('action', 'type');
-    $form = new AddStateForm($vars);
+    $form = new Whups_Form_Admin_AddState($vars);
     if ($form->validate($vars)) {
         try {
             $whups_driver->addState(
@@ -438,23 +425,22 @@ case 'addstateform':
     }
     break;
 
-case 'editstatestep1form':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/State.php';
+case 'whups_form_admin_editstatestepone':
     $vars->set('action', 'type');
     if (!$vars->get('submitbutton')) {
         _editStateForms();
     } else {
         _open();
-        $form1 = new EditStateStep1Form($vars);
+        $form1 = new Whups_Form_Admin_EditStateStepOne($vars);
         if ($form1->validate($vars)) {
             switch ($vars->get('submitbutton')) {
             case _("Edit State"):
-                $form2 = new EditStateStep2Form($vars);
+                $form2 = new Whups_Form_Admin_EditStateStepTwo($vars);
                 $form2->renderActive($renderer, $vars, $adminurl, 'post');
                 break;
 
             case _("Delete State"):
-                $form2 = new DeleteStateForm($vars);
+                $form2 = new Whups_Form_Admin_DeleteState($vars);
                 $form2->renderActive($renderer, $vars, $adminurl, 'post');
                 break;
             }
@@ -464,10 +450,9 @@ case 'editstatestep1form':
     }
     break;
 
-case 'editstatestep2form':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/State.php';
+case 'whups_form_admin_editstatesteptwo':
     $vars->set('action', 'type');
-    $form = new EditStateStep2Form($vars);
+    $form = new Whups_Form_Admin_EditStateStepTwo($vars);
     if ($form->validate($vars)) {
         try {
             $whups_driver->updateState(
@@ -494,10 +479,9 @@ case 'editstatestep2form':
     }
     break;
 
-case 'defaultstateform':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/State.php';
+case 'whups_form_admin_defaultstate':
     $vars->set('action', 'type');
-    $form = new DefaultStateForm($vars);
+    $form = new Whups_Form_Admin_DefaultState($vars);
     if ($form->validate($vars)) {
         try {
             $whups_driver->setDefaultState(
@@ -517,10 +501,9 @@ case 'defaultstateform':
     }
     break;
 
-case 'deletestateform':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/State.php';
+case 'whups_form_admindeletestate':
     $vars->set('action', 'type');
-    $form = new DeleteStateForm($vars);
+    $form = new Whups_Form_Admin_DeleteState($vars);
     if ($form->validate($vars)) {
         if ($vars->get('yesno') == 1) {
             try {
@@ -545,10 +528,9 @@ case 'deletestateform':
     }
     break;
 
-case 'addpriorityform':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Priority.php';
+case 'whups_form_admin_addpriority':
     $vars->set('action', 'type');
-    $form = new AddPriorityForm($vars);
+    $form = new Whups_Form_Admin_AddPriority($vars);
     if ($form->validate($vars)) {
         try {
             $whups_driver->addPriority(
@@ -575,23 +557,22 @@ case 'addpriorityform':
     }
     break;
 
-case 'editprioritystep1form':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Priority.php';
+case 'whups_form_admin_editprioritystepone':
     $vars->set('action', 'type');
     if (!$vars->get('submitbutton')) {
         _editPriorityForms();
     } else {
         _open();
-        $form1 = new EditPriorityStep1Form($vars);
+        $form1 = new Whups_Form_Admin_EditPriorityStepOne($vars);
         if ($form1->validate($vars)) {
             switch ($vars->get('submitbutton')) {
             case _("Edit Priority"):
-                $form2 = new EditPriorityStep2Form($vars);
+                $form2 = new Whups_Form_Admin_EditPriorityStepTwo($vars);
                 $form2->renderActive($renderer, $vars, $adminurl, 'post');
                 break;
 
             case _("Delete Priority"):
-                $form2 = new DeletePriorityForm($vars);
+                $form2 = new Whups_Form_Admin_DeletePriority($vars);
                 $form2->renderActive($renderer, $vars, $adminurl, 'post');
                 break;
             }
@@ -601,10 +582,9 @@ case 'editprioritystep1form':
     }
     break;
 
-case 'editprioritystep2form':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Priority.php';
+case 'whups_form_admin_editprioritysteptwo':
     $vars->set('action', 'type');
-    $form = new EditPriorityStep2Form($vars);
+    $form = new Whups_Form_Admin_EditPriorityStepTwo($vars);
     if ($form->validate($vars)) {
         try {
             $whups_driver->updatePriority(
@@ -632,10 +612,9 @@ case 'editprioritystep2form':
     }
     break;
 
-case 'defaultpriorityform':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Priority.php';
+case 'whups_form_admin_defaultpriority':
     $vars->set('action', 'type');
-    $form = new DefaultPriorityForm($vars);
+    $form = new Whups_Form_Admin_DefaultPriority($vars);
     if ($form->validate($vars)) {
         try {
             $whups_driver->setDefaultPriority(
@@ -656,7 +635,6 @@ case 'defaultpriorityform':
     break;
 
 case 'deletepriorityform':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Priority.php';
     $vars->set('action', 'type');
     $form = new DeletePriorityForm($vars);
     if ($form->validate($vars)) {
@@ -684,9 +662,8 @@ case 'deletepriorityform':
     }
     break;
 
-case 'adduserform':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/User.php';
-    $form = new AddUserForm($vars);
+case 'whups_form_admin_adduser':
+    $form = new Whups_Form_Admin_AddUser($vars);
     if ($form->validate($vars)) {
         $info = $whups_driver->getQueue($vars->get('queue'));
         try {
@@ -718,7 +695,7 @@ case 'adduserform':
     }
 
     _open();
-    $form1 = new EditUserStep1Form($vars);
+    $form1 = new Whups_Form_Admin_EditUser($vars);
     $form1->renderActive($renderer, $vars, $adminurl, 'post');
     echo '<br />';
     $vars = new Horde_Variables(array('queue' => $vars->get('queue')));
@@ -726,9 +703,8 @@ case 'adduserform':
     break;
 
 case 'edituserform':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/User.php';
-    $form1 = new EditUserStep1Form($vars);
-    $form2 = new AddUserForm($vars);
+    $form1 = new Whups_Form_Admin_EditUser($vars);
+    $form2 = new Whups_Form_Admin_AddUser($vars);
 
     _open();
 
@@ -736,13 +712,12 @@ case 'edituserform':
     echo '<br />';
 
     $vars = new Horde_Variables(array('queue' => $vars->get('queue')));
-    $form2 = new AddUserForm($vars);
+    $form2 = new Whups_Form_Admin_AddUser($vars);
     $form2->renderActive($renderer, $vars, $adminurl, 'post');
     break;
 
-case 'edituserstep1form':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/User.php';
-    $form = new EditUserStep1Form($vars);
+case 'whups_form_admin_edituser':
+    $form = new Whups_Form_Admin_EditUser($vars);
     if ($form->validate($vars)) {
         $info = $whups_driver->getQueue($vars->get('queue'));
         try {
@@ -763,15 +738,14 @@ case 'edituserstep1form':
 
     _open();
     $vars = new Horde_Variables(array('queue' => $vars->get('queue')));
-    $form = new EditUserStep1Form($vars);
+    $form = new Whups_Form_Admin_EditUser($vars);
     $form->renderActive($renderer, $vars, $adminurl, 'get');
-    $form1 = new AddUserForm($vars);
+    $form1 = new Whups_Form_Admin_AddUser($vars);
     $form1->renderActive($renderer, $vars, $adminurl, 'get');
     break;
 
-case 'addversionform':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Version.php';
-    $form = new AddVersionForm($vars);
+case 'whups_form_admin_addversion':
+    $form = new Whups_Form_Admin_AddVersion($vars);
     if ($form->validate($vars)) {
         try {
             $whups_driver->addVersion(
@@ -794,9 +768,9 @@ case 'addversionform':
 
         _open();
         $vars = new Horde_Variables(array('queue' => $vars->get('queue')));
-        $form1 = new EditVersionStep1Form($vars);
+        $form1 = new Whups_Form_Admin_EditVersionStepOne($vars);
         $form1->renderActive($renderer, $vars, $adminurl, 'post');
-        $form2 = new AddVersionForm($vars);
+        $form2 = new Whups_Form_Admin_AddVersion($vars);
         $form2->renderActive($renderer, $vars, $adminurl, 'post');
     } else {
         _open();
@@ -804,27 +778,26 @@ case 'addversionform':
     }
     break;
 
-case 'editversionstep1form':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Version.php';
-    $form1 = new EditVersionStep1Form($vars);
+case 'whups_form_admin_editversionstepone':
+    $form1 = new Whups_Form_Admin_EditVersionStepOne($vars);
 
     _open();
 
     if (!$vars->get('submitbutton')) {
         $form1->renderActive($renderer, $vars, $adminurl, 'post');
 
-        $form2 = new AddVersionForm($vars);
+        $form2 = new Whups_Form_Admin_AddVersion($vars);
         $form2->renderActive($renderer, $vars, $adminurl, 'post');
     } else {
         if ($form1->validate($vars)) {
             switch ($vars->get('submitbutton')) {
             case _("Edit Version"):
-                $form2 = new EditVersionStep2Form($vars);
+                $form2 = new Whups_Form_Admin_EditVersionStepTwo($vars);
                 $form2->renderActive($renderer, $vars, $adminurl, 'post');
                 break;
 
             case _("Delete Version"):
-                $form2 = new DeleteVersionForm($vars);
+                $form2 = new Whups_Form_Admin_DeleteVersion($vars);
                 $form2->renderActive($renderer, $vars, $adminurl, 'post');
                 break;
             }
@@ -834,9 +807,8 @@ case 'editversionstep1form':
     }
     break;
 
-case 'editversionstep2form':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Version.php';
-    $form = new EditVersionStep2Form($vars);
+case 'whups_form_admin_editversionsteptwo':
+    $form = new Whups_Form_Admin_EditVersionStepTwo($vars);
     if ($form->validate($vars)) {
         try {
             $whups_driver->updateVersion(
@@ -859,9 +831,9 @@ case 'editversionstep2form':
 
         _open();
         $vars = new Horde_Variables(array('queue' => $vars->get('queue')));
-        $form1 = new EditVersionStep1Form($vars);
+        $form1 = new Whups_Form_Admin_EditVersionStepOne($vars);
         $form1->renderActive($renderer, $vars, $adminurl, 'post');
-        $form2 = new AddVersionForm($vars);
+        $form2 = new Whups_Form_Admin_AddVersion($vars);
         $form2->renderActive($renderer, $vars, $adminurl, 'post');
     } else {
         _open();
@@ -869,9 +841,8 @@ case 'editversionstep2form':
     }
     break;
 
-case 'deleteversionform':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Version.php';
-    $form = new DeleteVersionForm($vars);
+case 'whups_form_admin_deleteversion':
+    $form = new Whups_Form_Admin_DeleteVersion($vars);
     if ($form->validate($vars)) {
         if ($vars->get('yesno') == 1) {
             try {
@@ -890,9 +861,9 @@ case 'deleteversionform':
         }
 
         _open();
-        $form1 = new EditVersionStep1Form($vars);
+        $form1 = new Whups_Form_Admin_EditVersionStepOne($vars);
         $form1->renderActive($renderer, $vars, $adminurl, 'post');
-        $form2 = new AddVersionForm($vars);
+        $form2 = new Whups_Form_Admin_AddVersion($vars);
         $form2->renderActive($renderer, $vars, $adminurl, 'post');
     } else {
         _open();
@@ -900,12 +871,11 @@ case 'deleteversionform':
     }
     break;
 
-case 'addattributedescform':
-case 'addattributedescform_reload':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Attribute.php';
-    $form = new AddAttributeDescForm($vars);
+case 'whups_form_admin_addattribute':
+case 'whups_form_admin_addattribute_reload':
+    $form = new Whups_Form_Admin_AddAttributeDesc($vars);
     $vars->set('action', 'type');
-    if ($vars->get('formname') == 'addattributedescform' && $form->validate($vars)) {
+    if ($vars->get('formname') == 'whups_form_admin_addattribute' && $form->validate($vars)) {
         try {
             $whups_driver->addAttributeDesc(
                 $vars->get('type'),
@@ -929,10 +899,10 @@ case 'addattributedescform_reload':
         }
 
         _open();
-        $form1 = new EditAttributeDescStep1Form($vars);
+        $form1 = new Whups_Form_Admin_EditAttributeStepOne($vars);
         $form1->renderActive($renderer, $vars, $adminurl, 'post');
         echo '<br />';
-        $form2 = new AddAttributeDescForm($vars);
+        $form2 = new Whups_Form_Admin_AddAttribute($vars);
         $form2->renderActive($renderer, $vars, $adminurl, 'post');
     } else {
         _open();
@@ -940,22 +910,21 @@ case 'addattributedescform_reload':
     }
     break;
 
-case 'editattributedescstep1form':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Attribute.php';
-    $form1 = new EditAttributeDescStep1Form($vars);
+case 'whups_form_admin_editattributestepone':
+    $form1 = new Whups_Form_Admin_EditAttributeStepOne($vars);
     $vars->set('action', 'type');
     _open();
     if (!$vars->get('submitbutton')) {
         $form1->renderActive($renderer, $vars, $adminurl, 'post');
         echo '<br />';
 
-        $form2 = new AddAttributeDescForm($vars);
+        $form2 = new Whups_Form_Admin_AddAttribute($vars);
         $form2->renderActive($renderer, $vars, $adminurl, 'post');
     } else {
         if ($form1->validate($vars)) {
             switch ($vars->get('submitbutton')) {
             case _("Edit Attribute"):
-                $form2 = new EditAttributeDescStep2Form($vars);
+                $form2 = new Whups_Form_Admin_EditAttributeStepTwo($vars);
                 $form2->renderActive($renderer, $vars, $adminurl, 'post');
                 break;
 
@@ -970,12 +939,11 @@ case 'editattributedescstep1form':
     }
     break;
 
-case 'editattributedescstep2form':
-case 'editattributedescstep2form_reload':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Attribute.php';
-    $form = new EditAttributeDescStep2Form($vars);
+case 'whups_form_admin_editattributesteptwo':
+case 'whups_form_admin_editattributesteptwo_reload':
+    $form = new Whups_Form_Admin_EditAttributeStepTwo($vars);
     $vars->set('action', 'type');
-    if ($vars->get('formname') == 'editattributedescstep2form' &&
+    if ($vars->get('formname') == 'whups_form_admin_editattributesteptwo' &&
         $form->validate($vars)) {
         $form->getInfo($vars, $info);
         try {
@@ -1002,10 +970,10 @@ case 'editattributedescstep2form_reload':
         }
 
         _open();
-        $form1 = new EditAttributeDescStep1Form($vars);
+        $form1 = new Whups_Form_Admin_EditAttributeStepOne($vars);
         $form1->renderActive($renderer, $vars, $adminurl, 'post');
         echo '<br />';
-        $form2 = new AddAttributeDescForm($vars);
+        $form2 = new Whups_Form_Admin_AddAttributeDesc($vars);
         $form2->renderActive($renderer, $vars, $adminurl, 'post');
     } else {
         _open();
@@ -1014,7 +982,6 @@ case 'editattributedescstep2form_reload':
     break;
 
 case 'deleteattributedescform':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Attribute.php';
     $form = new DeleteAttributeDescForm($vars);
     if ($form->validate($vars)) {
         if ($vars->get('yesno') == 1) {
@@ -1037,9 +1004,9 @@ case 'deleteattributedescform':
         }
 
         _open();
-        $form1 = new EditAttributeDescStep1Form($vars);
+        $form1 = new Whups_Form_Admin_EditAttributeStepOne($vars);
         $form1->renderActive($renderer, $vars, $adminurl, 'post');
-        $form2 = new AddAttributeDescForm($vars);
+        $form2 = new Whups_From_Admin_AddAttributeDesc($vars);
         $form2->renderActive($renderer, $vars, $adminurl, 'post');
     } else {
         _open();
@@ -1047,9 +1014,8 @@ case 'deleteattributedescform':
     }
     break;
 
-case 'addreplyform':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Reply.php';
-    $form = new AddReplyForm($vars);
+case 'whups_form_admin_addreply':
+    $form = new Whups_Form_Admin_AddReply($vars);
     $vars->set('action', 'type');
     if ($form->validate($vars)) {
         try {
@@ -1066,7 +1032,7 @@ case 'addreplyform':
                 'horde.success');
             _open();
             $vars->set('reply', $result);
-            $form = new EditReplyStep2Form($vars);
+            $form = new Whups_Form_Admin_EditReplyStepTwo($vars);
             $form->renderInactive($renderer, $vars);
         } catch (Whups_Exception $e) {
             $notification->push(
@@ -1081,27 +1047,26 @@ case 'addreplyform':
     }
     break;
 
-case 'editreplystep1form':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Reply.php';
-    $form1 = new EditReplyStep1Form($vars);
+case 'whups_form_admin_editreplystepone':
+    $form1 = new Whups_Form_Admin_EditReplyStepOne($vars);
     $vars->set('action', 'type');
     _open();
     if (!$vars->get('submitbutton')) {
         $form1->renderActive($renderer, $vars, $adminurl, 'post');
         echo '<br />';
 
-        $form2 = new AddReplyForm($vars);
+        $form2 = new Whups_Form_Admin_AddReply($vars);
         $form2->renderActive($renderer, $vars, $adminurl, 'post');
     } else {
         if ($form1->validate($vars)) {
             switch ($vars->get('submitbutton')) {
             case _("Edit Form Reply"):
-                  $form2 = new EditReplyStep2Form($vars);
+                  $form2 = new Whups_Form_Admin_EditReplyStepTwo($vars);
                 $form2->renderActive($renderer, $vars, $adminurl, 'post');
                 break;
 
             case _("Delete Form Reply"):
-                $form2 = new DeleteReplyForm($vars);
+                $form2 = new Whups_Form_Admin_DeleteReply($vars);
                 $form2->renderActive($renderer, $vars, $adminurl, 'post');
                 break;
             }
@@ -1111,11 +1076,10 @@ case 'editreplystep1form':
     }
     break;
 
-case 'editreplystep2form':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Reply.php';
-    $form = new EditReplyStep2Form($vars);
+case 'whups_form_admin_editreplysteptwo':
+    $form = new Whups_Form_Admin_EditReplyStepTwo($vars);
     $vars->set('action', 'type');
-    if ($vars->get('formname') == 'editreplystep2form' &&
+    if ($vars->get('formname') == 'whups_form_admin_editreplysteptwo' &&
         $form->validate($vars)) {
         try {
             $whups_driver->updateReply(
@@ -1136,10 +1100,10 @@ case 'editreplystep2form':
         }
 
         _open();
-        $form1 = new EditReplyStep1Form($vars);
+        $form1 = new Whups_Form_Admin_EditReplyStepOne($vars);
         $form1->renderActive($renderer, $vars, $adminurl, 'post');
         echo '<br />';
-        $form2 = new AddReplyForm($vars);
+        $form2 = new Whups_Form_Admin_AddReply($vars);
         $form2->renderActive($renderer, $vars, $adminurl, 'post');
     } else {
         _open();
@@ -1147,9 +1111,8 @@ case 'editreplystep2form':
     }
     break;
 
-case 'deletereplyform':
-    require_once WHUPS_BASE . '/lib/Forms/Admin/Reply.php';
-    $form = new DeleteReplyForm($vars);
+case 'whups_form_admin_deletereply':
+    $form = new Whups_Form_Admin_DeleteReply($vars);
     if ($form->validate($vars)) {
         if ($vars->get('yesno') == 1) {
             try {
@@ -1169,10 +1132,10 @@ case 'deletereplyform':
         }
 
         _open();
-        $form1 = new EditReplyStep1Form($vars);
+        $form1 = new Whups_Form_Admin_EditReplyStepOne($vars);
         $form1->renderActive($renderer, $vars, $adminurl, 'post');
         echo '<br />';
-        $form2 = new AddReplyForm($vars);
+        $form2 = new Whups_Form_Admin_AddReply($vars);
         $form2->renderActive($renderer, $vars, $adminurl, 'post');
     } else {
         _open();
@@ -1232,11 +1195,10 @@ if (!_open(true)) {
     // Check for actions.
     switch ($vars->get('action')) {
     case 'type':
-        require_once WHUPS_BASE . '/lib/Forms/Admin/Type.php';
         if (count($whups_driver->getAllTypes())) {
-            $main1 = new EditTypeStep1Form($vars);
+            $main1 = new Whups_Form_Admin_EditTypeStepOne($vars);
         }
-        $main2 = new AddTypeStep1Form($vars);
+        $main2 = new Whups_Form_Admin_AddType($vars);
         break;
 
     case 'reminders':
@@ -1247,18 +1209,17 @@ if (!_open(true)) {
         _open();
         $queues = $whups_driver->getQueues();
         $types = $whups_driver->getAllTypes();
-        $tlink = Horde::url('admin/?formname=edittypeform');
-        $mlink = Horde::url('admin/?formname=editqueueform');
+        $tlink = Horde::url('admin/?formname=whups_form_admin_edittypestepone');
+        $mlink = Horde::url('admin/?formname=whups_form_admin_editqueuestepone');
         require WHUPS_TEMPLATES . '/admin/mtmatrix.inc';
         break;
 
     case 'queue':
-        require_once WHUPS_BASE . '/lib/Forms/Admin/Queue.php';
         if (count($whups_driver->getQueues())) {
-            $main1 = new EditQueueStep1Form($vars);
+            $main1 = new Whups_Form_Admin_EditQueueStepOne($vars);
         }
         if ($registry->hasMethod('tickets/listQueues') == $registry->getApp()) {
-            $main2 = new AddQueueForm($vars);
+            $main2 = new Whups_Form_Admin_AddQueue($vars);
         }
         break;
     }
