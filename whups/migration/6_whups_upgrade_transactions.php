@@ -23,7 +23,6 @@ class WhupsUpgradeTransactions extends Horde_Db_Migration_Base
         $t->column('transaction_id', 'integer', array('null' => false));
         $t->column('transaction_timestamp', 'integer', array('null' => false));
         $t->column('transaction_user_id', 'string', array('limit' => 255, 'null' => false));
-        $t->primaryKey(array('transaction_id'));
         $t->end();
 
         $this->_normalize();
