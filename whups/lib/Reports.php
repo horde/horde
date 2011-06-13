@@ -46,16 +46,8 @@ class Whups_Reports {
         foreach ($tickets as $info) {
             switch ($state) {
             case 'open':
-                require_once 'Date/Calc.php';
-
-                $date1 = getdate($info['date_resolved']);
-                $date2 = getdate($info['timestamp']);
-                $newdata = Date_Calc::dateDiff($date1['mday'],
-                                               $date1['mon'],
-                                               $date1['year'],
-                                               $date2['mday'],
-                                               $date2['mon'],
-                                               $date2['year']);
+                $date1 = new Horde_Date($info['date_resolved']);
+                $newdata = $date1->diff(new Horde_Date($info['timestamp']));
                 break;
 
             default:
@@ -153,16 +145,8 @@ class Whups_Reports {
 
             switch ($state) {
             case 'open':
-                require_once 'Date/Calc.php';
-
-                $date1 = getdate($info['date_resolved']);
-                $date2 = getdate($info['timestamp']);
-                $diff = Date_Calc::dateDiff($date1['mday'],
-                                            $date1['mon'],
-                                            $date1['year'],
-                                            $date2['mday'],
-                                            $date2['mon'],
-                                            $date2['year']);
+                $date1 = new Horde_Date($info['date_resolved']);
+                $diff = $date1->diff(new Horde_Date($info['timestamp']));
                 if (empty($group_by)) {
                     $dataset[0][] = $diff;
                 } else {
