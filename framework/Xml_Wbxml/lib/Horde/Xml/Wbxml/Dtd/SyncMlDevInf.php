@@ -71,14 +71,12 @@ class Horde_Xml_Wbxml_Dtd_SyncMlDevInf extends Horde_Xml_Wbxml_Dtd
         $this->setTag(0x34, "SupportHierarchicalSync"); // 0x00
 
         if ($this->version == 1) {
-            $this->setCodePage(0, Horde_Xml_Wbxml_Dtd::DEVINF_1_1, 'syncml:devinf1.1');
-            $this->setURI('syncml:devinf1.1');
+            $this->setCodePage(0, Horde_Xml_Wbxml_Dtd::DEVINF_1_1, 'syncml:devinf');
         } elseif ($this->version == 2) {
-            $this->setCodePage(0, Horde_Xml_Wbxml_Dtd::DEVINF_1_2, 'syncml:devinf1.2');
-            $this->setURI('syncml:devinf1.2');
+            $this->setCodePage(0, Horde_Xml_Wbxml_Dtd::DEVINF_1_2, 'syncml:devinf');
         } else {
-            $this->setCodePage(0, Horde_Xml_Wbxml_Dtd::DEVINF_1_0, 'syncml:devinf1.0');
-            $this->setURI('syncml:devinf1.0');
+            $this->setCodePage(0, Horde_Xml_Wbxml_Dtd::DEVINF_1_0, 'syncml:devinf');
         }
+        $this->setURI('syncml:devinf');
     }
 }
