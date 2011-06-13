@@ -37,7 +37,7 @@ class Horde_Auth_Pam extends Horde_Auth_Base
      */
     public function __construct(array $params = array())
     {
-        if (!Horde_Util::extensionExists('pam')) {
+        if (!Horde_Util::extensionExists('pam_auth')) {
             throw new Horde_Auth_Exception('PAM authentication is not available.');
         }
 
