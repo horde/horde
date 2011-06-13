@@ -93,8 +93,7 @@ if (!is_null($tickets)) {
             . Horde::img('feed.png', _("Subscribe to this query"))
             . '</a>';
     }
-    $results = Whups_View::factory(
-        'Results',
+    $results = new Whups_View_Results(
         array('title' => $title,
               'results' => $tickets,
               'extra' => $subscription,

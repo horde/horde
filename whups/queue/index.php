@@ -52,10 +52,10 @@ try {
 Whups::sortTickets($tickets);
 $values = Whups::getSearchResultColumns();
 $self = Whups::urlFor('queue', $queue);
-$results = Whups_View::factory('Results', array('title' => sprintf(_("Open tickets in %s"), $queue['name']),
-                                                'results' => $tickets,
-                                                'values' => $values,
-                                                'url' => $self));
+$results = new Whups_View_Results(array('title' => sprintf(_("Open tickets in %s"), $queue['name']),
+                                        'results' => $tickets,
+                                        'values' => $values,
+                                        'url' => $self));
 $session->set('whups', 'last_search', $self);
 $results->html();
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -19,8 +19,7 @@ class Whups_Block_Myqueries extends Horde_Core_Block
     {
         $qManager = new Whups_Query_Manager();
         $queries = $qManager->listQueries($GLOBALS['registry']->getAuth(), true);
-        $myqueries = Whups_View::factory(
-            'SavedQueries',
+        $myqueries = new Whups_View_SavedQueries(
             array('results' => $queries));
         Horde::startBuffer();
         $myqueries->html(false);

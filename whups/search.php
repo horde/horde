@@ -134,8 +134,7 @@ if (($vars->get('formname') || $vars->get('summary') || $vars->get('states') ||
         $tickets = $whups_driver->getTicketsByProperties($info);
         Whups::sortTickets($tickets);
         $session->set('whups', 'last_search', Horde::url('search.php?' . _getSearchUrl($vars)));
-        $results = Whups_View::factory(
-            'Results',
+        $results = new Whups_View_Results(
             array('title' => _("Search Results"),
                   'results' => $tickets,
                   'values' => Whups::getSearchResultColumns(),
@@ -167,8 +166,7 @@ if (!$beendone) {
 }
 
 $qManager = new Whups_Query_Manager();
-$myqueries = Whups_View::factory(
-    'SavedQueries',
+$myqueries = new Whups_View_SavedQueries(
     array('title' => $GLOBALS['registry']->getAuth() ? _("My Queries") : _("Public Queries"),
           'results' => $qManager->listQueries($GLOBALS['registry']->getAuth(), true)));
 $myqueries->html();
