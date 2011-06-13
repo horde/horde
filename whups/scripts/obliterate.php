@@ -1,5 +1,6 @@
 #!/usr/bin/env php
 <?php
+die('Needs to be converted to H4');
 /**
  * Obliterate Whups Data.
  *

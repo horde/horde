@@ -1,5 +1,6 @@
 #!/usr/bin/env php
 <?php
+die('Needs to be converted to H4');
 /**
  * commit-update-tickets.php: scan commit logs for ticket numbers
  * (denoted by a flexible regular expression and post the log message
