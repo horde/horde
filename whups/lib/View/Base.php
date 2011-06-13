@@ -5,12 +5,11 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Whups
  */
+abstract class Whups_View_Base
+{
+    protected $_params;
 
-class Whups_View {
-
-    var $_params;
-
-    function Whups_View($params)
+    public function __construct($params)
     {
         $this->_params = $params;
         if (!isset($this->_params['title'])) {
@@ -18,18 +17,5 @@ class Whups_View {
         }
     }
 
-    function factory($view, $params)
-    {
-        $view = basename($view);
-        $class = 'Whups_View_' . $view;
-        if (!class_exists($class)) {
-            include dirname(__FILE__) . '/View/' . $view . '.php';
-        }
-        if (class_exists($class)) {
-            return new $class($params);
-        } else {
-            return PEAR::raiseError(sprintf(_("No such view \"%s\" found"), $view));
-        }
-    }
-
+    abstract public function html();
 }
