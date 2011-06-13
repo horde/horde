@@ -51,7 +51,9 @@ class Horde_Test
      *        error: (string) Error message
      *        fatal: (boolean) Is missing module fatal?
      *        function: (string) Reference to function to run. If function
-     *                  returns non-empty value, error message will be output.
+     *                  returns boolean true, error message will be output.
+     *                  If function returns a string, this error message
+     *                  will be used.
      *        phpver: (string) The PHP version above which to do the test
      * </pre>
      *
@@ -143,6 +145,11 @@ class Horde_Test
         'openssl' => array(
             'descrip' => 'OpenSSL Support',
             'error' => 'The OpenSSL extension is required for any kind of S/MIME support.'
+        ),
+        'pam' => array(
+            'descrip' => 'PAM Support',
+            'error' => 'The PAM extension is required to allow PAM authentication to be used.',
+            'function' => '_checkPam'
         ),
         'pcre' => array(
             'descrip' => 'PCRE Support',
@@ -447,9 +454,15 @@ class Horde_Test
             }
 
             if (is_null($status_out)) {
-                $mod_test = is_null($test_function)
-                    ? extension_loaded($key)
-                    : call_user_func(array($this, $test_function));
+                if (is_null($test_function)) {
+                    $mod_test = extension_loaded($key);
+                } else {
+                    $mod_test = call_user_func(array($this, $test_function));
+                    if (is_string($mod_test)) {
+                        $error_msg = $mod_test;
+                        $mod_test = false;
+                    }
+                }
                 $status_out = $this->_status($mod_test, $fatal);
             }
 
@@ -496,6 +509,21 @@ class Horde_Test
             ($res = @finfo_open())) {
             finfo_close($res);
             return true;
+        }
+
+        return false;
+    }
+
+    /**
+     */
+    protected function _checkPam()
+    {
+        if (extension_loaded('pam')) {
+            return true;
+        }
+
+        if (extension_loaded('pam_auth')) {
+            return 'The PAM extension is required to allow PAM authentication to be used. You have an improper PAM extension loaded. Some installations (e.g. Debian, Ubuntu) ship with an altered version of the PAM extension. You must uninstall this extension and reinstall from PECL.';
         }
 
         return false;
