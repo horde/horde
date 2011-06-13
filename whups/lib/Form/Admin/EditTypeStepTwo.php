@@ -43,7 +43,7 @@ class Whups_Form_Admin_EditTypeStepTwo extends Horde_Form
         if (!count($states)) {
             $statelink[] = array(
                 'text' => _("Create Default States"),
-                'url' => Horde::url('admin/?formname=createdefaultstates&type=' . $type));
+                'url' => Horde::url('admin/?formname=whups_form_admin_defaultstates&type=' . $type));
         }
         $this->addVariable('', 'link', 'link', false, true, null,
                            array($statelink));
@@ -60,7 +60,7 @@ class Whups_Form_Admin_EditTypeStepTwo extends Horde_Form
         if (!count($priorities)) {
             $prioritylink[] = array(
                 'text' => _("Create Default Priorities"),
-                'url' => Horde::url('admin/?formname=createdefaultpriorities&type=' . $type));
+                'url' => Horde::url('admin/?formname=whups_form_admin_defaultpriority&type=' . $type));
         }
         $this->addVariable('', 'link', 'link', false, true, null,
                            array($prioritylink));

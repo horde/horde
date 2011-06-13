@@ -93,7 +93,6 @@ case 'whups_form_admin_addtype':
         _open();
         $vars->add('type', $tid);
         $form2 = new Whups_Form_Admin_EditTypeStepTwo($vars);
-        $form2->title = 'addtypestep2form';
         $form2->open($renderer, $vars, $adminurl, 'post');
 
         // render the stage 1 form readonly
@@ -115,10 +114,9 @@ case 'whups_form_admin_addtype':
     }
     break;
 
-case 'addtypestep2form':
+case 'whups_form_admin_edittypesteptwo':
     $form1 = new Whups_Form_Admin_AddType($vars);
     $form2 = new Whups_Form_Admin_EditTypeStepTwo($vars);
-    $form2->_name = 'addtypestep2form';
     break;
 
 case 'whups_form_admin_edittypestepone':
@@ -221,7 +219,7 @@ case 'whups_form_admin_edittypesteptwo':
     }
     break;
 
-case 'createdefaultstates':
+case 'whups_form_admin_defaultstate':
     $type = $vars->get('type');
     foreach ($conf['states'] as $state) {
         if ($state['active'] == 'active') {
@@ -235,7 +233,7 @@ case 'createdefaultstates':
     $form->renderActive($renderer, $vars, $adminurl, 'post');
     break;
 
-case 'createdefaultpriorities':
+case 'whups_form_admin_defaultpriority':
     $type = $vars->get('type');
     foreach ($conf['priorities'] as $priority) {
         if ($priority['active'] == 'active') {
@@ -1143,7 +1141,7 @@ case 'whups_form_admin_deletereply':
     }
     break;
 
-case 'sendreminderform':
+case 'whups_form_sendreminder':
     $form = new Whups_Form_SendReminder($vars);
     if ($form->validate($vars)) {
         try {

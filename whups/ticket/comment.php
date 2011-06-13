@@ -41,7 +41,8 @@ if ($tid = $vars->get('transaction')) {
 
 $title = sprintf(_("Comment on %s"), '[#' . $id . '] ' . $ticket->get('summary'));
 $commentForm = new Whups_Form_AddComment($vars, $title);
-if ($vars->get('formname') == 'addcommentform' && $commentForm->validate($vars)) {
+if ($vars->get('formname') == 'whups_form_addcomment' &&
+    $commentForm->validate($vars)) {
     $commentForm->getInfo($vars, $info);
 
     // Add comment.
