@@ -11,7 +11,6 @@
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
-require_once WHUPS_BASE . '/lib/View.php';
 
 $vars = Horde_Variables::getDefaultVariables();
 $qManager = new Whups_Query_Manager();

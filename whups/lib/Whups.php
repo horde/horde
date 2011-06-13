@@ -930,7 +930,6 @@ class Whups
         }
 
         /* Fetch all declared classes. */
-        require_once 'Horde/Form.php';
         $classes = get_declared_classes();
 
         /* Filter for the Horde_Form_Type classes. */

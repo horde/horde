@@ -197,8 +197,6 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function updateTicket($ticket_id, $ticket_info)
     {
-        require_once dirname(__FILE__) . '/Ticket.php';
-        require_once dirname(__FILE__) . '/Forms/EditTicket.php';
         global $whups_driver;
 
         // Cast as an int for safety.
