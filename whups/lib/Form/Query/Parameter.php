@@ -15,7 +15,7 @@ class Whups_Form_Query_Parameter extends Horde_Form
 
     public function __construct($query, $vars)
     {
-        parent::__construct($vars, _("Query Parameters"), 'queryparameters');
+        parent::__construct($vars, _("Query Parameters"), 'Whups_Form_Query_Parameter');
         foreach ($query->parameters as $name) {
             $this->addVariable($name, $name, 'text', true);
         }

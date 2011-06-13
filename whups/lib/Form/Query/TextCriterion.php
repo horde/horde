@@ -8,9 +8,8 @@ class Whups_Form_Query_TextCriterion extends Horde_Form
     {
         parent::__construct(
             $vars,
-            $vars->get('edit') ?
-                _("Edit Text Criterion") :
-                _("Add Text Criterion"));
+            $vars->get('edit') ? _("Edit Text Criterion") : _("Add Text Criterion"),
+            'Whups_Form_Query_TextCriterion');
 
         $this->addHidden('', 'edit', 'boolean', false);
         $this->addVariable(_("Text"), 'text', 'text', true);

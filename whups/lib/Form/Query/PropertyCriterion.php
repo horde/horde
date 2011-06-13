@@ -10,9 +10,8 @@ class Whups_Form_Query_PropertyCriterion extends Horde_Form
 
         parent::__construct(
             $vars,
-            $vars->get('edit') ?
-                _("Edit Property Criterion") :
-                _("Add Property Criterion"));
+            $vars->get('edit') ? _("Edit Property Criterion") : _("Add Property Criterion"),
+            'Whups_Form_Query_PropertyCriterion');
 
         $this->addHidden('', 'edit', 'boolean', false);
         $this->addVariable(_("Id"), 'id', 'intlist', false);

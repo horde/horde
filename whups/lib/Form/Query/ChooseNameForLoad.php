@@ -7,7 +7,7 @@ class Whups_Form_Query_ChooseNameForLoad extends Horde_Form
 
     public function __construct(&$vars)
     {
-        parent::__construct($vars, _("Load Query"));
+        parent::__construct($vars, _("Load Query"), 'Whups_Form_Query_ChooseNameForLoad');
 
         $qManager = new Whups_Query_Manager();
         $qParams = $qManager->listQueries($GLOBALS['registry']->getAuth());

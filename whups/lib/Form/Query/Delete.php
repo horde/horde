@@ -6,7 +6,7 @@ class Whups_Query_Delete extends Horde_Form
 {
     public function __construct(&$vars)
     {
-        parent::__construct($vars, _("Delete Query?"));
+        parent::__construct($vars, _("Delete Query?"), 'Whups_Query_Delete');
 
         $yesno = array(array(0 => _("No"), 1 => _("Yes")));
         $this->addVariable(

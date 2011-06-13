@@ -6,7 +6,7 @@ class Whups_Form_Query_ChooseNameForSave extends Horde_Form
 {
     public function __construct(&$vars)
     {
-        parent::__construct($vars, _("Save Query"));
+        parent::__construct($vars, _("Save Query"), 'Whups_Form_Query_ChooseNameForSave');
         $this->setButtons(_("Save"));
 
         $v = &$this->addVariable(_("Query Name"), 'name', 'text', true);

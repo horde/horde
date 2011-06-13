@@ -21,7 +21,9 @@ class Whups_Form_Query_UserCriterion extends Horde_Form
     public function __construct(&$vars)
     {
         parent::Horde_Form(
-            $vars, $vars->get('edit') ? _("Edit User Criterion") : _("Add User Criterion"));
+            $vars,
+            $vars->get('edit') ? _("Edit User Criterion") : _("Add User Criterion"),
+            'Whups_Form_Query_UserCriterion');
 
         $this->addHidden('', 'edit', 'boolean', false);
         $this->addVariable(_("User ID"), 'user', 'text', true);

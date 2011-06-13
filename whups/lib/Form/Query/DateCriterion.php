@@ -8,9 +8,8 @@ class Whups_Form_Query_DateCriterion extends Horde_Form
     {
         parent::__construct(
             $vars,
-            $vars->get('edit') ?
-                _("Edit Date Criterion") :
-                _("Add Date Criterion"));
+            $vars->get('edit') ? _("Edit Date Criterion") : _("Add Date Criterion"),
+            'Whups_Form_Query_DateCriterion');
 
         $this->addHidden('', 'edit', 'boolean', false);
 

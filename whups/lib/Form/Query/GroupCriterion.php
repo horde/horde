@@ -7,9 +7,9 @@ class Whups_Form_Query_GroupCriterion extends Horde_Form
     public function __construct(&$vars)
     {
         parent::__construct(
-            $vars, $vars->get('edit') ?
-                _("Edit Group Criterion") :
-                _("Add Group Criterion"));
+            $vars,
+            $vars->get('edit') ? _("Edit Group Criterion") : _("Add Group Criterion"),
+            'Whups_Form_Query_GroupCriterion');
 
         $this->addHidden('', 'edit', 'boolean', false);
 

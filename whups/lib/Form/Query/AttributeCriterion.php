@@ -15,9 +15,10 @@ class Whups_Form_Query_AttributeCriterion extends Horde_Form
 
         parent::__construct(
             $vars,
-            $vars->get('edit') ?
-                _("Edit Attribute Criterion") :
-                _("Add Attribute Criterion"));
+            $vars->get('edit')
+                ? _("Edit Attribute Criterion")
+                : _("Add Attribute Criterion"),
+            'Whups_Form_Query_AttributeCriterion');
 
         $this->addHidden('', 'edit', 'boolean', false);
 
