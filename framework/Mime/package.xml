@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Fix error when determining part size if contents is empty (Bug #10223; rick@havokmon.com).
+* [mms] Fix error when determining part size if contents is empty (rick@havokmon.com, Bug #10223).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
