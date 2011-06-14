@@ -107,11 +107,11 @@ case 'move_message':
 case 'copy_message':
     if (isset($vars->targetMbox) &&
         (!$readonly || ($vars->actionID == 'copy_message'))) {
-        $targetMbox = IMP_Mailbox::formFrom($vars->targetMbox);
         if ($vars->newMbox) {
-            $vars->targetMbox = IMP_Mailbox::prefFrom($targetMbox);
+            $targetMbox = IMP_Mailbox::prefFrom($vars->targetMbox);
             $newMbox = true;
         } else {
+            $targetMbox = IMP_Mailbox::formFrom($vars->targetMbox);
             $newMbox = false;
         }
         $imp_message->copy(

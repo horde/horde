@@ -147,12 +147,11 @@ case 'copy_messages':
     if (isset($vars->targetMbox) &&
         count($indices) &&
         (!$readonly || $actionID == 'copy_messages')) {
-        $targetMbox = IMP_Mailbox::formFrom($vars->targetMbox);
         if (!empty($vars->newMbox) && ($vars->newMbox == 1)) {
-            $targetMbox = IMP_Mailbox::prefFrom($targetMbox);
+            $targetMbox = IMP_Mailbox::prefFrom($vars->targetMbox);
             $newMbox = true;
         } else {
-            $targetMbox = $targetMbox;
+            $targetMbox = IMP_Mailbox::formFrom($vars->targetMbox);
             $newMbox = false;
         }
         $injector->getInstance('IMP_Message')->copy($targetMbox, ($actionID == 'move_messages') ? 'move' : 'copy', $indices, array('create' => $newMbox));
