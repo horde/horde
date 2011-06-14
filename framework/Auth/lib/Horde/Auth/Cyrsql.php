@@ -253,7 +253,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
 
         try {
             $this->_imap->createMailbox($mailbox);
-            $this->_imap->setACL($mailbox, $this->_params['cyradm'], 'lrswipcda');
+            $this->_imap->setACL($mailbox, $this->_params['cyradmin'], 'lrswipcda');
             if (isset($this->_params['quota']) &&
                 ($this->_params['quota'] >= 0)) {
                 $this->_imap->setQuota($mailbox, array('storage' => $this->_params['quota']));
@@ -265,7 +265,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
         foreach ($this->_params['folders'] as $val) {
             try {
                 $this->_imap->createMailbox($val);
-                $this->_imap->setACL($val, $this->_params['cyradm'], 'lrswipcda');
+                $this->_imap->setACL($val, $this->_params['cyradmin'], 'lrswipcda');
             } catch (Horde_Imap_Client_Exception $e) {}
         }
     }

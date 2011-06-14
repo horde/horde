@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-08</date>
- <time>16:23:18</time>
+ <date>2011-06-14</date>
+ <time>11:35:46</time>
  <version>
   <release>1.0.5</release>
   <api>1.0.0</api>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
-* 
+* Fixed addUser() for Cyrsql driver (Bug #10239; vilius@lnk.lt).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -424,10 +424,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-08</date>
+   <date>2011-06-14</date>
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
-* 
+* Fixed addUser() for Cyrsql driver (Bug #10239; vilius@lnk.lt).
    </notes>
   </release>
  </changelog>
