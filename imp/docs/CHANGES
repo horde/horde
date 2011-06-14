@@ -2,6 +2,7 @@
 v5.0.8-git
 ----------
 
+[mms] Fix "Don't Show" filtering in traditional mailbox view (Bug #10244).
 
 
 ------

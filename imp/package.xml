@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-06-14</date>
- <time>15:45:43</time>
+ <time>11:53:24</time>
  <version>
   <release>5.0.8</release>
   <api>5.0.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [mms] Fix "Don&apos;t Show" filtering in traditional mailbox view (Bug #10244).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2314,7 +2314,7 @@
    <date>2011-06-14</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [mms] Fix "Don&apos;t Show" filtering in traditional mailbox view (Bug #10244).
    </notes>
   </release>
  </changelog>

@@ -497,7 +497,7 @@ if ($pageOb['msgcount']) {
                 $form_unset[] = array(
                     'f' => $val->form_unset,
                     'l' => $val->label,
-                    'v' => IMP_Mailbox::formTo($flag_filter_prefix . $val->form_set)
+                    'v' => IMP_Mailbox::formTo($flag_filter_prefix . $val->form_unset)
                 );
             }
         }
