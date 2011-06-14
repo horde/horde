@@ -1518,7 +1518,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 }
             }
 
-            if (empty($header['to']) && (count($hdr_cc) > 1)) {
+            if (count($hdr_cc)) {
                 $reply_type = self::REPLY_ALL;
             }
             $header[empty($header['to']) ? 'to' : 'cc'] = rtrim(implode('', $hdr_cc), ' ,');

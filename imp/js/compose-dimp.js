@@ -681,6 +681,14 @@ var DimpCompose = {
     {
         if (r.response.header) {
             $('to').setValue(r.response.header.to);
+            [ 'cc', 'bcc' ].each(function(t) {
+                if (r.response.header[t] || $(t).visible()) {
+                    if (!$(t).visible()) {
+                        this.toggleCC(t);
+                    }
+                    $(t).setValue(r.response.header.cc);
+                }
+            }, this);
         }
         $('to_loading_img').hide();
     },
