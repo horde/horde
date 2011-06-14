@@ -35,6 +35,7 @@
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
 * [jan] Fix moving rules to an explicit position (Bug #10172).
+* [mms] Fix storage backend conversion script.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
