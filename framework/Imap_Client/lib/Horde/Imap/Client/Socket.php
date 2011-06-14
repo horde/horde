@@ -4262,7 +4262,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (!isset($this->_temp['alerts'])) {
                 $this->_temp['alerts'] = array();
             }
-            $this->_temp['alerts'][] = $response->data;
+            $this->_temp['alerts'][] = $response->text;
             break;
 
         case 'BADCHARSET':
