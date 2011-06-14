@@ -22,8 +22,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-03</date>
- <time>11:58:54</time>
+ <date>2011-06-14</date>
+ <time>11:47:15</time>
  <version>
   <release>1.1.2</release>
   <api>1.1.0</api>
@@ -34,10 +34,13 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* Null argument to Horde_Prefs#remove() will remove all prefs (Bug #10241).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="horde-prefs" role="script" />
+   </dir> <!-- /bin -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Prefs">
@@ -337,9 +340,16 @@
    <dir name="test">
     <dir name="Horde">
      <dir name="Prefs">
+      <dir name="fixtures">
+       <file name="preferences.1" role="test" />
+      </dir> <!-- /test/Horde/Prefs/fixtures -->
+      <dir name="Stub">
+       <file name="Storage.php" role="test" />
+      </dir> <!-- /test/Horde/Prefs/Stub -->
       <dir name="Unit">
        <dir name="Storage">
         <file name="FileTest.php" role="test" />
+        <file name="KolabImapLogTest.php" role="test" />
         <file name="KolabImapTest.php" role="test" />
        </dir> <!-- /test/Horde/Prefs/Unit/Storage -->
       </dir> <!-- /test/Horde/Prefs/Unit -->
@@ -431,6 +441,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="horde-prefs" name="bin/horde-prefs" />
    <install as="Horde/Prefs.php" name="lib/Horde/Prefs.php" />
    <install as="Horde/Prefs/CategoryManager.php" name="lib/Horde/Prefs/CategoryManager.php" />
    <install as="Horde/Prefs/Exception.php" name="lib/Horde/Prefs/Exception.php" />
@@ -538,7 +549,10 @@
    <install as="Horde/Prefs/AllTests.php" name="test/Horde/Prefs/AllTests.php" />
    <install as="Horde/Prefs/Autoload.php" name="test/Horde/Prefs/Autoload.php" />
    <install as="Horde/Prefs/phpunit.xml" name="test/Horde/Prefs/phpunit.xml" />
+   <install as="Horde/Prefs/fixtures/preferences.1" name="test/Horde/Prefs/fixtures/preferences.1" />
+   <install as="Horde/Prefs/Stub/Storage.php" name="test/Horde/Prefs/Stub/Storage.php" />
    <install as="Horde/Prefs/Unit/Storage/FileTest.php" name="test/Horde/Prefs/Unit/Storage/FileTest.php" />
+   <install as="Horde/Prefs/Unit/Storage/KolabImapLogTest.php" name="test/Horde/Prefs/Unit/Storage/KolabImapLogTest.php" />
    <install as="Horde/Prefs/Unit/Storage/KolabImapTest.php" name="test/Horde/Prefs/Unit/Storage/KolabImapTest.php" />
   </filelist>
  </phprelease>
@@ -710,10 +724,10 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-03</date>
+   <date>2011-06-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* Null argument to Horde_Prefs#remove() will remove all prefs (Bug #10241).
    </notes>
   </release>
  </changelog>

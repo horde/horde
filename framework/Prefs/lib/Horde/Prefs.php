@@ -141,11 +141,18 @@ class Horde_Prefs implements ArrayAccess
     /**
      * Removes a preference entry from the $prefs hash.
      *
-     * @param string $pref  The name of the preference to remove.
+     * @param string $pref  The name of the preference to remove.  If null,
+     *                      removes all prefs.
      */
-    public function remove($pref)
+    public function remove($pref = null)
     {
-        if ($scope = $this->_getScope($pref)) {
+        if (is_null($pref)) {
+            foreach ($this->_scopes as $val) {
+                foreach (array_keys($val) as $prefname) {
+                    $val->remove($prefname);
+                }
+            }
+        } elseif ($scope = $this->_getScope($pref)) {
             $this->_scopes[$scope]->remove($pref);
         }
     }
