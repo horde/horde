@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-06-14</date>
- <time>14:49:39</time>
+ <time>14:50:03</time>
  <version>
-  <release>1.0.3</release>
+  <release>1.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [gwr] Allow setting request parameters on the existing client instance.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -258,6 +258,19 @@
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * [gwr] Allow setting request parameters on the existing client instance.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-14</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
