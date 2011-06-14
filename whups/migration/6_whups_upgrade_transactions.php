@@ -28,10 +28,6 @@ class WhupsUpgradeTransactions extends Horde_Db_Migration_Base
 
         $this->_normalize();
         $this->changeColumn('whups_transactions', 'transaction_id', 'autoincrementKey');
-
-        try {
-            $this->dropTable('whups_logs_seq');
-        } catch (Horde_Db_Exception $e) {}
     }
 
     /**
