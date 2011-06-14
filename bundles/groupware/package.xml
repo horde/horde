@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-06-14</date>
- <time>20:39:19</time>
+ <time>20:39:47</time>
  <version>
-  <release>4.0.0</release>
+  <release>4.0.1</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* First stable release of Horde Groupware 4.0.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -158,6 +158,19 @@
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 * First stable release of Horde Groupware 4.0.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.1</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-06-14</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
