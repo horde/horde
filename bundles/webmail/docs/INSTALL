@@ -456,9 +456,8 @@ answer all questions::
    webmail-install
 
 If you installed Horde Groupware Webmail Edition into the global PEAR system,
-this script should be in your command path. If you installed into a local PEAR
-installation or if the script cannot be found in your path, you need to specify
-the full path to the script, e.g.::
+this script should be in your command path. If the script cannot be found in
+your path, you need to specify the full path to the script, e.g.::
 
    /var/www/webmail/pear/webmail-install
 
@@ -466,6 +465,11 @@ You can use the ``pear`` command to find the place where the script has been
 installed::
 
    pear config-get bin_dir
+
+If you installed into a local PEAR installation, you need to tell PHP and PEAR
+where to find the installation and the script, e.g.::
+
+   PHP_PEAR_SYSCONF_DIR=/var/www/webmail php -d include_path=/var/www/webmail/pear/php /var/www/webmail/pear/webmail-install
 
 
 Configuring Horde Groupware Webmail Edition
