@@ -1,59 +1,44 @@
 <?php
+/**
+ * All tests for the Service_Gravatar:: package.
+ *
+ * PHP version 5
+ *
+ * @category   Horde
+ * @package    Service_Gravatar
+ * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link       http://pear.horde.org/index.php?package=Service_Gravatar
+ */
+
+/**
+ * Define the main method
+ */
 if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'Horde_Service_Gravatar_AllTests::main');
 }
 
-require_once 'PHPUnit/Autoload.php';
+/**
+ * Prepare the test setup.
+ */
+require_once 'Horde/Test/AllTests.php';
 
-class Horde_Service_Gravatar_AllTests
+/**
+ * All tests for the Service_Gravatar:: package.
+ *
+ * @category   Horde
+ * @package    Service_Gravatar
+ * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link       http://pear.horde.org/index.php?package=Service_Gravatar
+ */
+class Horde_Service_Gravatar_AllTests extends Horde_Test_AllTests
 {
-    public static function main()
-    {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
-    }
-
-    /**
-     * Collect the unit tests of this directory into a new suite.
-     *
-     * @return PHPUnit_Framework_TestSuite The test suite.
-     */
-    public static function suite()
-    {
-        // Catch strict standards
-        error_reporting(E_ALL | E_STRICT);
-
-        // Set up autoload
-        $basedir = dirname(__FILE__);
-        set_include_path($basedir . '/../../../../lib' . PATH_SEPARATOR . get_include_path());
-
-        $suite = new PHPUnit_Framework_TestSuite('Horde Framework - Service_Gravatar');
-        $baseregexp = preg_quote($basedir . DIRECTORY_SEPARATOR, '/');
-
-        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) {
-            if ($file->isFile() && preg_match('/Test.php$/', $file->getFilename())) {
-                $pathname = $file->getPathname();
-                if (require $pathname) {
-                    $class = str_replace(DIRECTORY_SEPARATOR, '_',
-                                         preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
-                    try {
-                        $suite->addTestSuite('Horde_Service_Gravatar_' . $class);
-                    } catch (InvalidArgumentException $e) {
-                        throw new Exception(
-                            sprintf(
-                                'Failed adding test suite "%s" from file "%s": %s',
-                                'Horde_Service_Gravatar_' . $class,
-                                $pathname,
-                                $e->getMessage()
-                            )
-                        );
-                    }
-                }
-            }
-        }
-
-        return $suite;
-    }
 }
+
+Horde_Service_Gravatar_AllTests::init('Horde_Service_Gravatar', __FILE__);
 
 if (PHPUnit_MAIN_METHOD == 'Horde_Service_Gravatar_AllTests::main') {
     Horde_Service_Gravatar_AllTests::main();
