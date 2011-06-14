@@ -2502,10 +2502,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 ? $options['rights']
                 : new Horde_Imap_Client_Data_Acl(strval($options['rights']));
 
-            $options['rights'] = empty($options['remove'])
-                ? '+'
-                : '-';
-            $options['rights'] .= $acl->getString($this->queryCapability('RIGHTS') ? Horde_Imap_Client_Data_AclCommon::RFC_4314 : Horde_Imap_Client_Data_AclCommon::RFC_2086);
+            $options['rights'] =
+                (empty($options['remove']) ? '+' : '-') .
+                $acl->getString($this->queryCapability('RIGHTS') ? Horde_Imap_Client_Data_AclCommon::RFC_4314 : Horde_Imap_Client_Data_AclCommon::RFC_2086);
         }
 
         if (empty($options['rights']) && empty($options['remove'])) {
