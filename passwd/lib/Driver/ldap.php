@@ -122,7 +122,7 @@ class Passwd_Driver_ldap extends Passwd_Driver {
         if ($lookupshadow['shadowlastchange'] &&
             $lookupshadow['shadowmin'] &&
             ($lookupshadow['shadowlastchange'] + $lookupshadow['shadowmin'] > (time() / 86400))) {
-            return throw new Passwd_Exception(_("Minimum password age has not yet expired"));
+            throw new Passwd_Exception(_("Minimum password age has not yet expired"));
         }
 
         // Change the user's password and update lastchange
@@ -132,7 +132,7 @@ class Passwd_Driver_ldap extends Passwd_Driver {
 
             if (!empty($this->_params['shadowlastchange']) &&
                 $lookupshadow['shadowlastchange']) {
-                $Entry->replace(array($this->_params['shadowlastchange']] = floor(time() / 86400)));
+                $Entry->replace(array($this->_params['shadowlastchange'] = floor(time() / 86400)));
             }
 
             $Entry->update();

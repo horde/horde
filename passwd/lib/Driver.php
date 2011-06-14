@@ -69,7 +69,11 @@ class Passwd_Driver {
             $hashed = preg_replace('/^({.*?})/e', "String::upper('\\1')", $hashed);
         }
 
-        return ($encrypted == $hashed) ? true : throw new Passwd_Exception(_("Incorrect old password."));
+        if  ($encrypted == $hashed) {
+            return true;
+        } else {
+            throw new Passwd_Exception(_("Incorrect old password."));
+        }    
     }
 
     /**
