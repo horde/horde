@@ -148,7 +148,7 @@ class Horde_Prefs implements ArrayAccess
     {
         if (is_null($pref)) {
             foreach ($this->_scopes as $val) {
-                foreach (array_keys($val) as $prefname) {
+                foreach (array_keys(iterator_to_array($val)) as $prefname) {
                     $val->remove($prefname);
                 }
             }
