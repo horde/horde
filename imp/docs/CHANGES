@@ -1,6 +1,6 @@
-----------
-v5.0.7-git
-----------
+------
+v5.0.7
+------
 
 [mms] Don't strip HTML part of compose message when stripping attachments
       from saved sent-mail message (Bug #10234).

@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-13</date>
- <time>22:46:29</time>
+ <date>2011-06-14</date>
+ <time>15:43:46</time>
  <version>
   <release>5.0.7</release>
   <api>5.0.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [mms] Don't strip HTML part of compose message when stripping attachments from saved sent-mail message (Bug #10234).
+* [mms] Don&apos;t strip HTML part of compose message when stripping attachments from saved sent-mail message (Bug #10234).
 * [mms] Fix regression when copying/moving messages into a new mailbox in traditional view (Bug #10232).
 * [mms] Fix regression when flagging all messages in a mailbox (Bug #10224).
 * [jan] Fix folder links in virtual folders (Bug #10221).
@@ -2298,9 +2298,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-13</date>
+   <date>2011-06-14</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Don&apos;t strip HTML part of compose message when stripping attachments from saved sent-mail message (Bug #10234).
 * [mms] Fix regression when copying/moving messages into a new mailbox in traditional view (Bug #10232).
 * [mms] Fix regression when flagging all messages in a mailbox (Bug #10224).
 * [jan] Fix folder links in virtual folders (Bug #10221).
