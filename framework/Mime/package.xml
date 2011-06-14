@@ -17,8 +17,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-10</date>
- <time>11:17:08</time>
+ <date>2011-06-14</date>
+ <time>14:53:42</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -673,10 +673,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-10</date>
+   <date>2011-06-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Fix error when determining part size if contents is empty (Bug #10223; rick@havokmon.com).
+* [mms] Fix error when determining part size if contents is empty (rick@havokmon.com, Bug #10223).
    </notes>
   </release>
  </changelog>
