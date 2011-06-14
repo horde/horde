@@ -226,7 +226,7 @@ do {
     catch (Exception $e) {
         $notification->push(sprintf(_("Failure in changing password for %s: %s"),
                                     $backends[$backend_key]['name'],
-                                    $res->getMessage()), 'horde.error');
+                                    $e->getMessage()), 'horde.error');
         break;
     }
 } while (false);
