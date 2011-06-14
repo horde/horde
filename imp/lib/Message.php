@@ -650,19 +650,15 @@ class IMP_Message
         $ajax_queue = $GLOBALS['injector']->getInstance('IMP_Ajax_Queue');
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 
-        if (!$GLOBALS['injector']->getInstance('IMP_Message')->flagAllInMailbox($flags, $mboxes, $action)) {
-            return false;
-        }
+        $ajax_queue->poll($mboxes);
 
-        $this->_queue->poll($mboxes);
-
-        foreach ($mboxes as $val) {
+        foreach (IMP_Mailbox::get($mboxes) as $val) {
             try {
                 /* Grab list of UIDs before flagging, to make sure we
                  * determine the exact subset that has been flagged. */
-                $mailbox_list = IMP_Mailbox::get($val)->getListOb()->getIndicesOb();
+                $mailbox_list = $val->getListOb()->getIndicesOb();
                 $imp_imap->store($val, $action_array);
-                $this->_queue->flag(reset($action_array), $action, $mailbox_list);
+                $ajax_queue->flag(reset($action_array), $action, $mailbox_list);
             } catch (IMP_Imap_Exception $e) {
                 return false;
             }
