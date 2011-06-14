@@ -3085,20 +3085,21 @@ class Whups_Driver_Sql extends Whups_Driver
         $insert = 'INSERT INTO whups_transactions (transaction_timestamp, transaction_user_id)'
             . ' VALUES(?, ?)';
 
-        if ((empty($creator) || $creator < 0) && !empty($creator_email)) {
-            $creator = '-' . $transactionId . '_transaction';
-            $query = 'INSERT INTO whups_guests (guest_id, guest_email)'
-                . ' VALUES (?, ?)';
-            $values = array((string)$creator, $creator_email);
-            try {
-                $result = $this->_db->insert($query, $values);
-            } catch (Horde_Db_Exception $e) {
-                throw new Whups_Exception($e);
-            }
-        }
-
         try {
-            return $this->_db->insert($insert, array(time(), $creator));
+            if ((empty($creator) || $creator < 0) && !empty($creator_email)) {
+                // Need to insert dummy value first so we can get the transaction id
+                $transactionId = $this->_db->insert($insert, array(time(), 'x'));
+                $creator = '-' . $transactionId . '_transaction';
+                $query = 'INSERT INTO whups_guests (guest_id, guest_email) VALUES (?, ?)';
+                $values = array((string)$creator, $creator_email);
+                $this->_db->insert($query, $values);
+                $this->_db->update(
+                    'UPDATE whups_transactions SET transaction_user_id = ? WHERE transaction_id = ?',
+                    array($creator, $transactionId));
+            } else {
+                $id = $this->_db->insert($insert, array(time(), $creator));
+                return $id;
+            }
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
