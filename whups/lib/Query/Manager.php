@@ -1,7 +1,18 @@
 <?php
 /**
+ * The whups query manager.
+ *
+ * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
+ * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
+ *
+ * @author  Robert E. Coyle <robertecoyle@hotmail.com>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Whups
  */
+
 class Whups_Query_Manager
 {
     /**
@@ -16,7 +27,7 @@ class Whups_Query_Manager
      *
      * @TODO: inject the share driver
      */
-    function __construct()
+    public function __construct()
     {
         $this->_shareManager =
             $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
