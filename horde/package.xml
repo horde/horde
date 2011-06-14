@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-06-14</date>
- <time>15:40:55</time>
+ <time>15:42:43</time>
  <version>
-  <release>4.0.6</release>
+  <release>4.0.7</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,10 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Fix extracting of translation strings in a release.
-* [rla] Enable giving users specific admin permissions (Enhancement #9350)
-* [jan] Don&apos;t strip domain from user name in account block.
-* [jan] Fix account block with empty configuration parameters.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4151,6 +4148,19 @@
 * [rla] Enable giving users specific admin permissions (Enhancement #9350)
 * [jan] Don&apos;t strip domain from user name in account block.
 * [jan] Fix account block with empty configuration parameters.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.7</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-14</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
