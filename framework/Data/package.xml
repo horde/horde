@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-04-06</date>
- <time>01:08:15</time>
+ <date>2011-06-14</date>
+ <time>14:47:40</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -652,7 +652,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-06-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Escape quotes when exporting CSV data (Bug #10116).
