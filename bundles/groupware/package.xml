@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-06-14</date>
- <time>20:39:47</time>
+ <time>21:00:36</time>
  <version>
   <release>4.0.1</release>
   <api>4.0.0</api>
@@ -58,6 +58,7 @@
      </dir> <!-- /turba/config/conf.d -->
     </dir> <!-- /turba/config -->
    </dir> <!-- /turba -->
+   <file name="README" role="data" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -133,6 +134,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="README" name="README" />
    <install as="groupware-install" name="bin/groupware-install" />
    <install as="config/prefs.d/10-groupware.php" name="config/prefs.d/10-groupware.php" />
    <install as="CHANGES" name="docs/CHANGES" />
