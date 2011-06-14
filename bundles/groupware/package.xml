@@ -10,10 +10,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-31</date>
- <time>19:27:17</time>
+ <date>2011-06-14</date>
+ <time>20:35:14</time>
  <version>
-  <release>4.0.0RC1</release>
+  <release>4.0.0</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -22,15 +22,32 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* First release candidate of Horde Groupware Webmail Edition 4.0.
+* First stable release of Horde Groupware 4.0.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="groupware-install" role="script" />
+   </dir> <!-- /bin -->
    <dir name="config">
     <dir name="prefs.d">
      <file name="10-groupware.php" role="horde" />
     </dir> <!-- /config/prefs.d -->
    </dir> <!-- /config -->
+   <dir name="docs">
+    <file name="CHANGES" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="PERFORMANCE" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
+    <file name="UPGRADING" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="kronolith">
+    <dir name="config">
+     <dir name="conf.d">
+      <file name="10-groupware.xml" role="horde" />
+     </dir> <!-- /kronolith/config/conf.d -->
+    </dir> <!-- /kronolith/config -->
+   </dir> <!-- /kronolith -->
    <dir name="lib">
     <file name="Bundle.php" role="horde" />
    </dir> <!-- /lib -->
@@ -66,14 +83,14 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.4</min>
+    <min>4.0.6</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
    </package>
    <package>
     <name>kronolith</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.3</min>
+    <min>3.0.4</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
@@ -116,7 +133,14 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="groupware-install" name="bin/groupware-install" />
    <install as="config/prefs.d/10-groupware.php" name="config/prefs.d/10-groupware.php" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="PERFORMANCE" name="docs/PERFORMANCE" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="UPGRADING" name="docs/UPGRADING" />
+   <install as="kronolith/config/conf.d/10-groupware.xml" name="kronolith/config/conf.d/10-groupware.xml" />
    <install as="lib/Bundle.php" name="lib/Bundle.php" />
    <install as="turba/config/conf.d/10-groupware.xml" name="turba/config/conf.d/10-groupware.xml" />
   </filelist>
@@ -124,7 +148,7 @@
  <changelog>
   <release>
    <version>
-    <release>4.0.0RC1</release>
+    <release>4.0.0</release>
     <api>4.0.0</api>
    </version>
    <stability>
@@ -133,7 +157,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
-* First release candidate of Horde Groupware Webmail Edition 4.0.
+* First stable release of Horde Groupware 4.0.
    </notes>
   </release>
  </changelog>
