@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-18</date>
- <time>15:10:33</time>
+ <date>2011-06-14</date>
+ <time>15:49:16</time>
  <version>
   <release>3.0.4</release>
   <api>3.0.0</api>
@@ -1746,7 +1746,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-18</date>
+   <date>2011-06-14</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [jan] Only highlight days in the mini calendar that are currently displayed (Bug #10048).
