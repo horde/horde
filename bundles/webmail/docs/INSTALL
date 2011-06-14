@@ -47,7 +47,7 @@ detailed instructions, start reading below at Prerequisites_.
 
 5. Install Horde Groupware Webmail Edition::
 
-     pear install -a -B horde/webmail-beta
+     pear install -a -B horde/webmail
 
 6. Run installation script::
 
@@ -74,11 +74,10 @@ Edition to function properly.
 
 2. A web server with PATH_INFO support.
 
-   The dynamic webmail interface of Horde Groupware Webmail Edition requires a
-   web server that correctly sets the PATH_INFO environment variable for all
-   PHP scripts. Every modern web server supports this, but you might have to
-   enable this feature in the web server configuration.  e.g. Apache servers
-   require::
+   The dynamic interfaces of Horde Groupware Webmail Edition requires a web
+   server that correctly sets the PATH_INFO environment variable for all PHP
+   scripts. Every modern web server supports this, but you might have to enable
+   this feature in the web server configuration.  e.g. Apache servers require::
 
       AcceptPathInfo On
 
@@ -407,18 +406,18 @@ too. If you want to install Horde Groupware Webmail Edition with all optional
 dependencies, but without the binary PECL packages that have to be compiled,
 specify both the ``-a`` and the ``-B`` flag::
 
-   pear install -a -B horde/webmail-beta
+   pear install -a -B horde/webmail
 
 By default, only the required dependencies will be installed::
 
-   pear install horde/webmail-beta
+   pear install horde/webmail
 
 If you want to install Horde Groupware Webmail Edition even with all binary
 dependencies, you need to remove the ``-B`` flag. Please note that this might
 also try to install PHP extensions through PECL that might need further
 configuration or activation in your PHP configuration::
 
-   pear install -a horde/webmail-beta
+   pear install -a horde/webmail
 
 
 Installing into separate PEAR
