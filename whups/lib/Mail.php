@@ -52,7 +52,8 @@ class Whups_Mail {
 
         // Try to avoid bounces
         if (strpos($headers->getValue('Content-Type'), 'multipart/report') !== false ||
-            strpos($headers->getValue('from'), 'MAILER-DAEMON') !== false) {
+            strpos(Horde_String::lower($headers->getValue('from')), 'mailer-daemon') !== false ||
+            !is_null($headers->getValue('X-Failed-Recipients'))) {
             return true;
         }
 
