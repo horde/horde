@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-20</date>
- <time>22:28:19</time>
+ <date>2011-06-14</date>
+ <time>15:46:43</time>
  <version>
   <release>2.0.2</release>
   <api>2.0.0</api>
@@ -933,10 +933,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-06-14</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * [jan] Fix moving rules to an explicit position (Bug #10172).
+* [mms] Fix storage backend conversion script.
    </notes>
   </release>
  </changelog>
