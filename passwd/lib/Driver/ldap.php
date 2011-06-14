@@ -82,66 +82,51 @@ class Passwd_Driver_ldap extends Passwd_Driver {
      */
     function changePassword($username, $old_password, $new_password)
     {
-        // See if the old password matches before allowing the change
+
+/* This is wrong. We want to check against the stored value, not against hordeauth.
+   These drivers are supposed to work against any backends, even if they are not related to
+   any active horde authentication scheme.*/
+
+/*        // See if the old password matches before allowing the change
         if ($old_password !== Auth::getCredential('password')) {
             return PEAR::raiseError(_("Incorrect old password."));
         }
+*/
 
-        // Bind as current user. _connect will try as guest if no user realm
-        // is found or auth error.
-        $result = $this->_connect();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         // Append realm as username@realm if 'realm' parameter is set.
         if (!empty($this->_params['realm'])) {
             $username .= '@' . $this->_params['realm'];
         }
 
-        // Get the user's dn.
+        // Get the user's dn from hook or fall back to Horde_Ldap::findUserDN.
         try {
             $this->_userdn = Horde::callHook('userdn', array($username), 'passwd');
         } catch (Horde_Exception_HookNotSet $e) {
-            $this->_userdn = $this->_lookupdn($username, $old_password);
-            if ($this->_userdn instanceof PEAR_Error) {
-                return $this->_userdn;
-            }
+            $this->_userdn = $this->_ldap->findUserDN($username);
         }
 
-        // Connect as the admin DN if configured; otherwise as the user
-        if (!empty($this->_params['admindn'])) {
-            $result = $this->_bind($this->_params['admindn'],
-                                   $this->_params['adminpw']);
-        } else {
-            $result = $this->_bind($this->_userdn, $old_password);
-        }
-
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        // check the old password by binding as the userdn
+        $this->_ldap->bind($this->_userdn, $old_password);
+        // rebind with admin credentials
+        $this->_ldap->bind();
 
         // Get existing user information
-        $result = ldap_read($this->_ds, $this->_userdn, 'objectClass=*');
-        $entry = ldap_first_entry($this->_ds, $result);
-        if ($entry === false) {
-            return PEAR::raiseError(_("User not found."));
-        }
+        $Entry = $this->_ldap->search($this->_userdn, $this->_params['filter'])->shiftEntry();
+
+         if (!$Entry) {
+             return PEAR::raiseError(_("User not found."));
+         }
 
         // Init the shadow policy array
         $lookupshadow = array('shadowlastchange' => false,
                               'shadowmin' => false);
 
-        $information = @ldap_get_values($this->_ds, $entry,
-                                        $this->_params['shadowlastchange']);
-        if ($information) {
-            $lookupshadow['shadowlastchange'] = $information[0];
+        if (!empty($this->_params['shadowlastchange']) && $Entry->exists($this->_params['shadowlastchange'])) {
+            $lookupshadow['shadowlastchange'] = $Entry->getValue($this->_params['shadowlastchange']);            
         }
-
-        $information = @ldap_get_values($this->_ds, $entry,
-                                        $this->_params['shadowmin']);
-        if ($information) {
-            $lookupshadow['shadowmin'] = $information[0];
+        if (!empty($this->_params['shadowmin']) && $Entry->exists($this->_params['shadowmin'])) {
+            $lookupshadow['shadowmin'] = $Entry->getValue($this->_params['shadowmin']);            
         }
 
         // Check if we may change the password
@@ -152,62 +137,21 @@ class Passwd_Driver_ldap extends Passwd_Driver {
         }
 
         // Change the user's password and update lastchange
-        $new_details[$this->_params['attribute']] = $this->encryptPassword($new_password);
 
-        if (!empty($this->_params['shadowlastchange']) &&
-            $lookupshadow['shadowlastchange']) {
-            $new_details[$this->_params['shadowlastchange']] = floor(time() / 86400);
-        }
+        try {
+            $Entry->replace(array($this->params['attribute'] => $this->encryptPassword($new_password)));
 
-        if (!@ldap_mod_replace($this->_ds, $this->_userdn, $new_details)) {
-            return PEAR::raiseError(ldap_error($this->_ds));
+            if (!empty($this->_params['shadowlastchange']) &&
+                $lookupshadow['shadowlastchange']) {
+                $Entry->replace(array($this->_params['shadowlastchange']] = floor(time() / 86400)));
+            }
+
+            $Entry->update();
+        } catch (Horde_Ldap_Exception $e) {
+                throw new Horde_Passwd_Exception($e);
         }
 
         return true;
-    }
-
-    /**
-     * Looks up and returns the user's dn.
-     *
-     * @param string $user    The username of the user.
-     * @param string $passw   The password of the user.
-     *
-     * @return string  The ldap dn for the user.
-     */
-    function _lookupdn($user, $passw)
-    {
-        // Search as an admin if so configured
-        if (!empty($this->_params['admindn'])) {
-            $this->_bind($this->_params['admindn'], $this->_params['adminpw']);
-        } else {
-            $this->_bind();
-        }
-
-        // Construct search.
-        $search = '(' . $this->_params['uid'] . '=' . $user . ')';
-
-        if (!empty($this->_params['filter'])) {
-            $search = '(&' . $search . '(' .  $this->_params['filter'] . '))';
-        }
-
-        // Get userdn.
-        $result = ldap_search($this->_ds, $this->_params['basedn'], $search);
-        $entry = ldap_first_entry($this->_ds, $result);
-        if ($entry === false) {
-            return PEAR::raiseError(_("User not found."));
-        }
-
-        // If we used admin bindings, we have to check the password here.
-        if (!empty($this->_params['admindn'])) {
-            $ldappasswd = ldap_get_values($this->_ds, $entry,
-                                          $this->_params['attribute']);
-            $result = $this->comparePasswords($ldappasswd[0], $passw);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-        }
-
-        return ldap_get_dn($this->_ds, $entry);
     }
 
 }
