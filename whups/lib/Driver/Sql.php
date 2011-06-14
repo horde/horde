@@ -3097,12 +3097,13 @@ class Whups_Driver_Sql extends Whups_Driver
                     'UPDATE whups_transactions SET transaction_user_id = ? WHERE transaction_id = ?',
                     array($creator, $transactionId));
             } else {
-                $id = $this->_db->insert($insert, array(time(), $creator));
-                return $id;
+                $transactionId = $this->_db->insert($insert, array(time(), $creator));
             }
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
+
+        return $transactionId;
     }
 
     protected function _generateWhere($table, $fields, &$info, $type)
