@@ -187,9 +187,10 @@ do {
 
     // Create a Password_Driver instance.
     require_once PASSWD_BASE . '/lib/Driver.php';
-    $daemon = $GLOBALS['injector']->getInstance('Passwd_Factory_Driver')->create($backend_key);
-
-    if (is_a($daemon, 'PEAR_Error')) {
+    try {
+        $daemon = $GLOBALS['injector']->getInstance('Passwd_Factory_Driver')->create($backend_key);
+    }
+    catch (Passwd_Error $e) {
         $notification->push(_("Password module is not properly configured"),
                             'horde.error');
         break;
@@ -201,10 +202,9 @@ do {
         $backend_userid = $userid;
     }
 
+    try {
     $res = $daemon->changePassword($backend_userid, $old_password,
                                    $new_password0);
-
-    if (!is_a($res, 'PEAR_Error')) {
         if (!isset($backends[$backend_key]['no_reset']) ||
             !$backends[$backend_key]['no_reset']) {
             Passwd::resetCredentials($old_password, $new_password0);
@@ -222,10 +222,12 @@ do {
             header('Location: ' . $return_to);
             exit;
         }
-    } else {
+    }
+    catch (Exception $e) {
         $notification->push(sprintf(_("Failure in changing password for %s: %s"),
                                     $backends[$backend_key]['name'],
                                     $res->getMessage()), 'horde.error');
+        break;
     }
 } while (false);
 

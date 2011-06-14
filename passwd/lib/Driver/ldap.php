@@ -78,21 +78,10 @@ class Passwd_Driver_ldap extends Passwd_Driver {
      * @param string $old_password  The old (current) user password.
      * @param string $new_password  The new user password to set.
      *
-     * @return boolean  True or PEAR_Error based on success of the change.
+     * @return boolean  True on success of the change.
      */
     function changePassword($username, $old_password, $new_password)
     {
-
-/* This is wrong. We want to check against the stored value, not against hordeauth.
-   These drivers are supposed to work against any backends, even if they are not related to
-   any active horde authentication scheme.*/
-
-/*        // See if the old password matches before allowing the change
-        if ($old_password !== Auth::getCredential('password')) {
-            return PEAR::raiseError(_("Incorrect old password."));
-        }
-*/
-
 
         // Append realm as username@realm if 'realm' parameter is set.
         if (!empty($this->_params['realm'])) {
@@ -115,7 +104,7 @@ class Passwd_Driver_ldap extends Passwd_Driver {
         $Entry = $this->_ldap->search($this->_userdn, $this->_params['filter'])->shiftEntry();
 
          if (!$Entry) {
-             return PEAR::raiseError(_("User not found."));
+             throw new Passwd_Exception(_("User not found."));
          }
 
         // Init the shadow policy array
@@ -133,7 +122,7 @@ class Passwd_Driver_ldap extends Passwd_Driver {
         if ($lookupshadow['shadowlastchange'] &&
             $lookupshadow['shadowmin'] &&
             ($lookupshadow['shadowlastchange'] + $lookupshadow['shadowmin'] > (time() / 86400))) {
-            return PEAR::raiseError(_("Minimum password age has not yet expired"));
+            return throw new Passwd_Exception(_("Minimum password age has not yet expired"));
         }
 
         // Change the user's password and update lastchange
@@ -148,7 +137,7 @@ class Passwd_Driver_ldap extends Passwd_Driver {
 
             $Entry->update();
         } catch (Horde_Ldap_Exception $e) {
-                throw new Horde_Passwd_Exception($e);
+                throw new Passwd_Exception($e);
         }
 
         return true;
