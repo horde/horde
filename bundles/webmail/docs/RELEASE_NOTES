@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the second release candidate of
-the Horde Groupware Webmail Edition version 4.0.
+The Horde Team is pleased to announce the final release of the Horde Groupware
+Webmail Edition version 4.0.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with
@@ -23,41 +23,104 @@ four different webmail interfaces and manage and share calendars, contacts,
 tasks and notes with the standards compliant components from the Horde
 Project.
 
-The installation method for Horde Groupware Webmail Edition 4 has been
-changed to use the PEAR installer. Please follow the instructions on
-https://github.com/horde/horde/blob/master/bundles/webmail/docs/INSTALL
-to install Horde Groupware Webmail Edition.
+The installation method for Horde Groupware Webmail Edition 4 has been changed
+to use the PEAR installer. Please follow the instructions on
+http://www.horde.org/apps/webmail/docs/INSTALL to install Horde Groupware
+Webmail Edition.
 
 The major changes compared to the Horde Groupware Webmail Edition version
-4.0-RC1 are:
+4.0-RC2 are:
 
 Global changes:
-    * Added an installation script.
-    * Allow to overwrite default configurations.
-    * Added a script for exporting/importing preferences from/to a backend.
+    * Improved installation script.
+    * Added user-specific administration permissions.
     * Small bugfixes and improvements.
 
 Mail changes:
-    * Improved POP3 support.
-    * Workaround Suhosin extension breaking valid requests.
-    * Fixed loading message previews from search results.
+    * Fixed regressions from last version's Suhosin extension workaround.
+
+Filters changes:
+    * Fixed rule positioning.
+    * Fixed storage backend conversion script.
+    * Updated French and Slovak translations.
+
+The major changes compared to the Horde Groupware Webmail Edition version 1
+are:
+
+Global changes:
+    * Completely refactored for PHP 5.
+    * New installation process through PEAR installer.
+    * Simplified configuration process.
+    * ActiveSync support.
+    * Frameless layout.
+    * Grouping into advanced and simple user preferences.
+    * Improved caching and reduced session sizes.
+    * Much faster Share library.
+    * Reduced dependency on external libraries.
+    * Lots of improvements in all library components.
+
+Mail changes:
+    * New mobile frontend.
+    * Much improved AJAX frontend including a vertical pane layout.
+    * New IMAP library written from scratch with broad RFC support and huge
+      performance improvements.
+    * More powerful search and filter functionality.
+    * Smart-reply feature.
+    * Improved new mail notifications.
+    * Localized special folders.
+    * Better display of HTML messages.
+    * HTML signatures.
+    * Draft auto-saving.
+    * Support for custom IMAP flags.
+    * Reduced memory usage.
 
 Address book changes:
-    * Support multiple address books in search portal block.
-    * Enable composite adress fields by default.
+    * Duplicates searching and merging.
+
+Filter changes:
+    * Changed default Sieve port to 4190.
+
+Calendar changes:
+    * New AJAX frontend with integrated tasks support.
+    * New mobile frontend.
+    * Resource scheduling.
+    * System calendars.
+    * Calendar coloring.
+    * Calendar and event tagging.
+    * Cross-timezone support.
+    * CalDAV client support.
+    * Improved recurring event exceptions.
+    * Improved notification and invitation messages.
+
+Tasks changes:
+    * New Ajax frontend (in calendar).
+    * System task lists.
+    * Task list coloring.
+    * Quick task adding.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Added an installation script.
-Allow to overwrite default configurations.
-Added a script for exporting/importing preferences from/to a backend.
-Improved POP3 support.
-Workaround Suhosin extension breaking valid requests.
-Fixed loading message previews from search results.
-Support multiple address books in search portal block.
-Enable composite adress fields by default.
-Small bugfixes and improvements.
+ActiveSync support.
+Frameless layout.
+Advanced and simple user preferences.
+Improved caching, session sizes and memory usage.
+Faster Share library.
+New mobile frontends.
+Improved AJAX webmail frontend.
+Improved mail search and filter functionality.
+Smart-reply feature.
+Localized special folders.
+Better display of HTML messages.
+HTML signatures.
+Contact duplicates searching and merging.
+New AJAX calendar frontend with tasks support.
+Resource scheduling.
+System calendars and task lists.
+Calendar and task list coloring.
+Calendar and event tagging.
+Cross-timezone support.
+CalDAV client support.
 FM;
 
 $this->notes['name'] = 'Horde Groupware Webmail Edition';
