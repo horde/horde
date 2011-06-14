@@ -692,17 +692,22 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 ((strpos($save_attach, 'prompt') === 0) &&
                  empty($opts['save_attachments']))) {
                 $mime_message->buildMimeIds();
-                for ($i = 2;; ++$i) {
-                    if (!($oldPart = $mime_message->getPart($i))) {
-                        break;
-                    }
 
-                    $replace_part = new Horde_Mime_Part();
-                    $replace_part->setType('text/plain');
-                    $replace_part->setCharset($this->charset);
-                    $replace_part->setLanguage($GLOBALS['language']);
-                    $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true) . '"]');
-                    $mime_message->alterPart($i, $replace_part);
+                /* Don't strip any part if this is a text message with both
+                 * plaintext and HTML representation. */
+                if ($mime_message->getType() != 'multipart/alternative') {
+                    for ($i = 2;; ++$i) {
+                        if (!($oldPart = $mime_message->getPart($i))) {
+                            break;
+                        }
+
+                        $replace_part = new Horde_Mime_Part();
+                        $replace_part->setType('text/plain');
+                        $replace_part->setCharset($this->charset);
+                        $replace_part->setLanguage($GLOBALS['language']);
+                        $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true) . '"]');
+                        $mime_message->alterPart($i, $replace_part);
+                    }
                 }
             }
 

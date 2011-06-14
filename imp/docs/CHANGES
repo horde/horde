@@ -2,6 +2,8 @@
 v5.0.7-git
 ----------
 
+[mms] Don't strip HTML part of compose message when stripping attachments
+      from saved sent-mail message (Bug #10234).
 [mms] Fix regression when copying/moving messages into a new mailbox in
       traditional view (Bug #10232).
 [mms] Fix regression when flagging all messages in a mailbox (Bug #10224).
