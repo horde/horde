@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-01</date>
- <time>18:38:23</time>
+ <date>2011-06-14</date>
+ <time>20:40:37</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -23,7 +23,7 @@
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
 * First stable release of Horde Groupware Webmail Edition 4.0.
-* 
+* [jan] Fix installation script when not using a custom PEAR install.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -214,10 +214,11 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2011-06-01</date>
+   <date>2011-06-14</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
-* 
+* First stable release of Horde Groupware Webmail Edition 4.0.
+* [jan] Fix installation script when not using a custom PEAR install.
    </notes>
   </release>
  </changelog>
