@@ -2,7 +2,7 @@
  Horde Groupware Webmail Edition Performance Guide
 ===================================================
 
-:Contact:       horde@lists.horde.org
+:Contact: horde@lists.horde.org
 
 .. contents:: Contents
 
@@ -35,9 +35,6 @@ Webserver/PHP tuning
   the need to recompile the code for every single page load. **This is
   probably the easiest way to improve the performance of Horde Groupware
   Webmail Edition**.
-
-* Compile PHP with the ``--enable-inline-optimization`` option to generate the
-  fastest possible PHP executable.
 
 * Enable PHP output compression in the Horde configuration. Do not enable
   compression in the PHP configuration (i.e. in ``php.ini``), because certain
@@ -122,11 +119,20 @@ Webserver/PHP tuning
 * Enable caching in Horde Groupware. Several applications make heavy use of
   caching and, if enabled, you will see a significant increase in performance.
 
-* For applications that support it (this includes IMP as of version 4.2 and
-  DIMP), enable compression of javascript and CSS. See `Yahoo's Analysis`_
+* Enable caching/compression of javascript and CSS. See `Yahoo's Analysis`_
   which concludes that "[r]educing the number of HTTP requests has the biggest
-  impact on reducing response time". NOTE: Horde caching is required to enable
-  this feature.
+  impact on reducing response time". Caching via filesystem is HIGHLY
+  RECOMMENDED: it is also the only way of caching that reliably works on all
+  browsers. Caching can also be done via horde caching, but the
+  cache-busters used to generate unique URLs when the cached content changes
+  do not work 100% reliably across all browsers.
+
+* It is highly recommended to install the lzf PECL module to activate
+  compression for certain Horde data (especially in IMP).  lzf is a tiny
+  module that does real-time compression.  The lzf documentation states that on
+  modern CPUs, compression is as fast as an (unoptimized) memcpy action, making
+  the compression essentially 'free' when compared to uncompressed data.
+  lzf can be installed via PECL (see INSTALL).
 
 .. _`The Zend Performance Suite`: http://www.zend.com/horde.php
 .. _`Alternative PHP Cache`: http://www.php.net/apc
