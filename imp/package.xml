@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-06-14</date>
- <time>15:43:46</time>
+ <time>15:45:43</time>
  <version>
-  <release>5.0.7</release>
+  <release>5.0.8</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,12 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [mms] Don&apos;t strip HTML part of compose message when stripping attachments from saved sent-mail message (Bug #10234).
-* [mms] Fix regression when copying/moving messages into a new mailbox in traditional view (Bug #10232).
-* [mms] Fix regression when flagging all messages in a mailbox (Bug #10224).
-* [jan] Fix folder links in virtual folders (Bug #10221).
-* [mms] Show translated name for special mailboxes in sent mail lists (Bug #10220).
-* [mms] Fix regression in filtering mailbox in traditional view (Bug #10213).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2307,6 +2302,19 @@
 * [jan] Fix folder links in virtual folders (Bug #10221).
 * [mms] Show translated name for special mailboxes in sent mail lists (Bug #10220).
 * [mms] Fix regression in filtering mailbox in traditional view (Bug #10213).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.8</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-14</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
