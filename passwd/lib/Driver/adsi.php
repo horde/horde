@@ -11,6 +11,11 @@
  *
  * - The host server must be Win32 with ADSI support.
  *
+ * WARNING: This driver has only formally been converted to Horde 4. 
+ * No testing has been done. If this doesn't work, please file bugs at
+ * bugs.horde.org
+ * If you really need this to work reliably, think about sponsoring development
+ *
  * Sample backend configuration:
  * <code>
  * $backends['adsi'] = array(
@@ -30,9 +35,7 @@
  * Backend parameters:
  * target = Target Windows machine/domain name (Required)
  *
- * $Horde: passwd/lib/Driver/adsi.php,v 1.4.2.5 2009/01/06 15:25:23 jan Exp $
- *
- * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
@@ -48,21 +51,20 @@ class Passwd_Driver_adsi extends Passwd_Driver {
         $target = isset($this->_params['target']) ? $this->_params['target'] : '';
 
         if (empty($target)) {
-            return PEAR::raiseError(_("Password module is missing target parameter."));
+            throw new Passwd_Exception(_("Password module is missing target parameter."));
         }
 
-        $root = &new COM('WinNT:');
+        $root = new COM('WinNT:');
 
         if ($adsi = $root->OpenDSObject('WinNT://' . $target . '/' . $user_name . ',user', $target . '\\' . $user_name, $old_password, 1)) {
             $result = $adsi->ChangePassword($old_password, $new_password);
             if ($result == 0) {
                 return true;
             } else {
-                return PEAR::raiseError(sprintf(_("ADSI error %s."), $result));
+                throw new Passwd_Exception(sprintf(_("ADSI error %s."), $result));
             }
         } else {
-            return PEAR::raiseError(_("Access Denied."));
+            throw new Passwd_Exception(_("Access Denied."));
         }
     }
-
 }
