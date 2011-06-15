@@ -45,7 +45,7 @@ class Passwd_Driver_composite extends Passwd_Driver {
     /**
      * Instantiate configured drivers.
      *
-     * @return  boolean   True on success or PEAR_Error on failure.
+     * @return  boolean   True
      */
     function _loadDrivers()
     {
@@ -59,11 +59,11 @@ class Passwd_Driver_composite extends Passwd_Driver {
                 try {
                     $res = $GLOBALS['injector']->getInstance('Passwd_Factory_Driver')->create($key, $settings);
                 }
-                catch (Passwd_Error $e) {
+                catch (Passwd_Exception $e) {
                     $notification->push(_("Password module is not properly configured"),
                             'horde.error');
                             break;
-                    throw new Passwd_Error(sprintf(_("%s: unable to load sub driver: %s"),
+                    throw new Passwd_Exception(sprintf(_("%s: unable to load sub driver: %s"),
                                                      $key, $e->getMessage()));
                 }
 
