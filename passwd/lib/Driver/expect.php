@@ -6,6 +6,13 @@
  * $Horde: passwd/lib/Driver/expect.php,v 1.20.2.5 2009/01/06 15:25:23 jan Exp $
  *
  * Copyright 2000-2009 The Horde Project (http://www.horde.org/)
+ * Horde 4 framework conversion Copyright 2011 The Horde Project
+ *
+ * WARNING: This driver has only formally been converted to Horde 4. 
+ * No testing has been done. If this doesn't work, please file bugs at
+ * bugs.horde.org
+ * If you really need this to work reliably, think about sponsoring development
+ * Please send a mail to lang -at- b1-systems.de if you can verify this driver to work
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
@@ -31,7 +38,7 @@ class Passwd_Driver_expect extends Passwd_Driver {
 
         // Sanity checks.
         if (!@is_executable($this->_params['program'])) {
-            return PEAR::raiseError(sprintf(_("%s does not exist or is not executable."), $this->_params['program']));
+            throw new Passwd_Exception(sprintf(_("%s does not exist or is not executable."), $this->_params['program']));
         }
 
         // Temporary logfile for error messages.
@@ -47,8 +54,11 @@ class Passwd_Driver_expect extends Passwd_Driver {
         @fwrite($exp, "$new_password\n");
         if (@pclose($exp)) {
             $errormsg = implode(' ', @file($log));
-            @unlink($log);
-            return $errormsg ? PEAR::raiseError($errormsg) : false;
+            if ($error_msg) {
+                @unlink($log);
+            } else {
+                throw new Passwd_Error($errormsg);
+            }
         }
 
         return true;
