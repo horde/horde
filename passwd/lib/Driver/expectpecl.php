@@ -3,9 +3,13 @@
  * The Passwd_expectpecl class provides an PECL expect implementation of the
  * Passwd system.
  *
- * $Horde: passwd/lib/Driver/expectpecl.php,v 1.5.2.1 2008/10/09 17:12:04 jan Exp $
- *
  * Copyright 2006-2007 Duck <duck@obala.net>
+ * Horde 4 framework conversion 2011 rlang <lang@b1-systems.de>
+ *
+ * WARNING: This driver has only formally been converted to Horde 4. 
+ * No testing has been done. If this doesn't work, please file bugs at
+ * bugs.horde.org
+ * If you really need this to work reliably, think about sponsoring development
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
@@ -21,7 +25,7 @@ class Passwd_Driver_expectpecl extends Passwd_Driver {
      *
      * @var resource
      */
-    var $_stream;
+    protected $_stream;
 
     /**
      * Handles expect communication.
@@ -41,19 +45,19 @@ class Passwd_Driver_expectpecl extends Passwd_Driver {
 
         switch ($result) {
         case EXP_EOF:
-            return PEAR::raiseError(_("End of file."));
+            throw new Passwd_Exception(_("End of file."));
             break;
         case EXP_TIMEOUT:
-            return PEAR::raiseError(_("Time out."));    
+            throw new Passwd_Exception(_("Time out."));    
             break;
         case EXP_FULLBUFFER:
-            return PEAR::raiseError(_("Full buffer."));
+            throw new Passwd_Exception(_("Full buffer."));
             break;
         case 'ok':
             return true;
             break;
         default:
-            return PEAR::raiseError($error);
+            throw new Passwd_Exception($error);
             break;
         }
     }
@@ -70,7 +74,7 @@ class Passwd_Driver_expectpecl extends Passwd_Driver {
     function changePassword($user, $old_password, $new_password)
     {
         if (!Util::loadExtension('expect')) {
-            return PEAR::raiseError(sprintf(_("%s extension cannot be loaded!"), 'expect'));
+            throw new Passwd_Error(sprintf(_("%s extension cannot be loaded!"), 'expect'));
         }
 
         // Set up parameters
@@ -90,7 +94,7 @@ class Passwd_Driver_expectpecl extends Passwd_Driver {
                         $this->_params['host'],
                         $this->_params['program']);
         if (!($this->_stream = expect_popen($call))) {
-            return PEAR::raiseError(_("Unable to open expect stream!"));
+            return throw new Passwd_Error(_("Unable to open expect stream!"));
         }
 
         // Log in
@@ -106,9 +110,6 @@ class Passwd_Driver_expectpecl extends Passwd_Driver {
         // Expect old password prompt
         $result = $this->ctl('((O|o)ld|login|current).* (P|p)assword.*',
                              _("Could not start passwd program (no old password prompt)"));
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         // Send old password
         fwrite($this->_stream, "$old_password\n");
@@ -116,9 +117,6 @@ class Passwd_Driver_expectpecl extends Passwd_Driver {
         // Expect new password prompt
         $result = $this->ctl('(N|n)ew.* (P|p)assword.*',
                              _("Could not change password (bad old password?)"));
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         // Send new password
         fwrite($this->_stream, "$new_password\n");
@@ -126,9 +124,6 @@ class Passwd_Driver_expectpecl extends Passwd_Driver {
         // Expect reenter password prompt
         $result = $this->ctl("((R|r)e-*enter.*(P|p)assword|Retype new( UNIX)? password|(V|v)erification|(V|v)erify|(A|a)gain).*",
                            _("New password not valid (too short, bad password, too similar, ...)"));
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         // Send new password
         fwrite($this->_stream, "$new_password\n");
@@ -136,10 +131,6 @@ class Passwd_Driver_expectpecl extends Passwd_Driver {
         // Expect successfully message
         $result = $this->ctl('((P|p)assword.* changed|successfully)',
                              _("Could not change password."));
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
         return $result;
     }
 }
