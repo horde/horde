@@ -11,8 +11,8 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Whups
  */
-class Whups_Mail {
-
+class Whups_Mail
+{
     /**
      * Parse a MIME message and create a new ticket.
      *
@@ -32,7 +32,7 @@ class Whups_Mail {
      *
      * @return Whups_Ticket  Ticket.
      */
-    static public function processMail($text, $info, $auth_user = null)
+    static public function processMail($text, array $info, $auth_user = null)
     {
         global $conf;
 
@@ -83,13 +83,15 @@ class Whups_Mail {
         $body_id = $message->findBody();
         if ($body_id) {
             $part = $message->getPart($body_id);
-            $content = Horde_String::convertCharset($part->getContents(), $part->getCharset(), 'UTF-8');
+            $content = Horde_String::convertCharset(
+                $part->getContents(), $part->getCharset(), 'UTF-8');
             switch ($part->getType()) {
             case 'text/plain':
                 $comment .= $content;
                 break;
             case 'text/html':
-                $comment .= Horde_Text_Filter::filter($content, array('Html2text'), array(array('width' => 0)));;
+                $comment .= Horde_Text_Filter::filter(
+                    $content, array('Html2text'), array(array('width' => 0)));;
                 break;
             default:
                 $comment .= _("[ Could not render body of message. ]");
@@ -200,7 +202,7 @@ class Whups_Mail {
      * @return integer  The ticket number if has been passed in the subject,
      *                  false otherwise.
      */
-    static protected function _findTicket($info)
+    static protected function _findTicket(array $info)
     {
         if (!empty($info['ticket'])) {
             $ticketnum = $info['ticket'];
@@ -233,7 +235,9 @@ class Whups_Mail {
 
         if ($auth->hasCapability('list')) {
             foreach ($auth->listUsers() as $user) {
-                $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
+                $identity = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Identity')
+                    ->create($user);
                 $addrs = $identity->getAll('from_addr');
                 foreach ($addrs as $addr) {
                     if (strcasecmp($from, $addr) == 0) {
