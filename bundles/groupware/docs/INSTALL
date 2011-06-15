@@ -46,7 +46,7 @@ reading below at Prerequisites_.
 
 5. Install Horde Groupware::
 
-     pear install -a -B horde/groupware
+     pear install -a -B horde/groupware-beta
 
 6. Run installation script::
 
@@ -400,18 +400,18 @@ install Horde Groupware with all optional dependencies, but without the binary
 PECL packages that have to be compiled, specify both the ``-a`` and the ``-B``
 flag::
 
-   pear install -a -B horde/groupware
+   pear install -a -B horde/groupware-beta
 
 By default, only the required dependencies will be installed::
 
-   pear install horde/groupware
+   pear install horde/groupware-beta
 
 If you want to install Horde Groupware even with all binary dependencies, you
 need to remove the ``-B`` flag. Please note that this might also try to install
 PHP extensions through PECL that might need further configuration or activation
 in your PHP configuration::
 
-   pear install -a horde/groupware
+   pear install -a horde/groupware-beta
 
 
 Installing into separate PEAR
