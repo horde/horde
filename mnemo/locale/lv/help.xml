@@ -1,52 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Horde: mnemo/locale/lv_LV/help.xml,v 1.2 2004/11/24 15:28:29 jan Exp $ -->
+<!-- $Horde: mnemo/locale/lv/help.xml, 2011/06/03 Janis Eisaks Exp $ -->
 <help>
 
-<entry id="Overview" md5="16d3b188ccff84364f6f1514de6655b0" state="uptodate">
-    <title>Pârskats</title>
-    <heading>Ievads</heading>
+<entry id="Overview" md5="50ee76138fb08b04b029006053bbadbc" state="uptodate">
     <para>
-    [Piezîmes] ir aplikâcija, kas ïauj radît lîmlapiòu datorizçtu ekvivalentu. Piezîmes var ierakstît, labot, dzçst un drukât. Bez tam ir iespçjams meklçt piezîmçs nepiecieðamo informâciju un klasificçt tâs.
+  <i>Piezīmes</i> ir aplikācija, kas ļauj radīt līmlapiņu datorizētu ekvivalentu. Piezīmes var
+    rakstīt, labot, dzēst, drukāt un eksportēt kā PDF vai CSV datni. Bez tam ir iespējams meklēt
+    piezīmēs nepieciešamo informāciju un klasificēt tās.
+    </para>
+    <para>
+    Atšķirībā no parastajām līmlapiņām, piezīmes var koplietot ar citiem lietotājiem visā
+    plašā pasaulē. Piezīmes var grupēt atsevišķās piezīmju grāmatās un klasificēt pēc pazīmēm.
     </para>
 </entry>
 
-<entry id="list-actions" md5="c2a38907c08e1f9794a6e3c92b5a03f1" state="uptodate">
-    <title>Piezîmju saraksts: Darbîbas</title>
-    <heading>Darbîbas</heading>
+<entry id="list-actions" md5="6d592f153bfb5c296de5dfebb428e1ba" state="uptodate">
+    <title>Piezīmju saraksts: Darbības</title>
+    <heading>Darbības</heading>
     <para>
-    [Dzçst] ïauj izdzçst izvçlçto piezîmi.
+      <i>Dzēst</i> ļauj izdzēst izvēlēto piezīmi.
     </para>
     <para>
-    [Labot] ïauj labot izvçlçto piezîmi.
+      <i>Labot</i> ļauj labot izvēlēto piezīmi.
     </para>
     <para>
-    [Atgriezties Grâmatâ] ïauj atgriezties no piezîmes apskates Piezîmju grâmatâ.
+    <i>Atgriezties Grāmatā</i> ļauj atgriezties no piezīmes apskates Piezīmju grāmatā.
     </para>
 </entry>
 
-<entry id="menu-actions" md5="b8b85dd42f833ae172805eddf237dd12" state="uptodate">
-    <title>Rîku josla</title>
-    <heading>Rîku josla</heading>
+<entry id="menu-actions" md5="715a853d93cd3330e4d730b9112c8a82" state="uptodate">
+    <title>Rīkjosla</title>
+    <heading>Rīkjosla</heading>
     <para>
-    [Parâdît] parâda visas piezîmes piezîmju grâmatâ.
+      <i>Piezīmju saraksts</i> parāda visas piezīmes atvērtajā piezīmju grāmatā.
     </para>
     <para>
-    [Rakstît] ïauj ierakstît jaunas piezîmes piezîmju grâmatâ.
+      <i>Jauna piezīme</i> ļauj ierakstīt jaunu piezīmi atvērtajā piezīmju grāmatā.
     </para>
     <para>
-    [Meklçt] ïauj meklçt tekstu piezîmçs. Ir iespçjams meklçt tikai apraksta laukâ vai arî izdarît pilno meklçðanu piezîmju tekstâ.
+      <i>Meklēt</i> ļauj meklēt tekstu piezīmēs. Ir iespējams meklēt tikai apraksta (nosaukuma)
+      laukā vai arī izdarīt pilno meklēšanu piezīmju tekstā.
     </para>
     <para>
-    [Drukât] ïauj izdrukât piezîmi. [Drukât] ikona ir redzama rîku joslâ tikai piezîmes apskates laikâ.
+    <i>Imports/Eksports</i> ļauj importēt un eksportēt Jūsu piezīmes. Pašlaik importam tiek atbastīti CSV un vNote formāti, eksportam - tikai CSV.
+    </para>
+    <para>
+      <i>Drukāt</i> ļauj izdrukāt piezīmi. Ikona <i>Drukāt</i> ir redzama rīku joslā tikai piezīmes apskates laikā.
     </para>
 </entry>
 
 
 <entry id="sorting" md5="cca3b1d1c9ed0ec5ab385f82469ddc8f" state="uptodate">
-    <title>Ierakstu ðíiroðana</title>
-    <heading>Ierakstu ðíiroðana</heading>
+    <title>Ierakstu šķirošana</title>
+    <heading>Ierakstu šķirošana</heading>
     <para>
-    Apskatot ierakstu uzskaitîjumu ir iespçjams ðíirot ierakstus pçc jebkuras kolonnas, uzklikðíinot atbilstoðâ stabiòa nosaukumam. Lai pârslçgtos no augoðâs uz dilstoðo ðíiroðanas kârtîbu, uzklikðíiniet bultas ikonai blakus atbilstoðâ stabiòa nosaukumam.
+    Apskatot piezīmju sarakstu ir iespējams tās šķirot pēc jebkuras slejas, uzklikšķinot atbilstošās sleja nosaukumam. Lai pārslēgtos no augošas uz dilstošu šķirošanas kārtību, uzklikšķiniet bultas ikonai blakus atbilstošš slejas nosaukumam.
     </para>
 </entry>
 </help>
