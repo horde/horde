@@ -3,9 +3,13 @@
  * The http driver attempts to change a user's password via a web based
  * interface and implements the Passwd_Driver API.
  *
- * $Horde: passwd/lib/Driver/http.php,v 1.8.2.3 2009/01/06 15:25:23 jan Exp $
+ * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
  *
- * Copyright 2000-2009 The Horde Project (http://www.horde.org/)
+ * WARNING: This driver has only formally been converted to Horde 4. 
+ * No testing has been done. If this doesn't work, please file bugs at
+ * bugs.horde.org
+ * If you really need this to work reliably, think about sponsoring development
+ * Please send a mail to lang -at- b1-systems.de if you can verify this driver to work
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
@@ -33,11 +37,13 @@ class Passwd_Driver_http extends Passwd_Driver {
      * @param string $old_password  The old (current) user password.
      * @param string $new_password  The new user password to set.
      *
-     * @return mixed  True on success or PEAR_Error on failure.
+     * @return mixed  True on success or throw Passwd_Exception on failure.
      */
     function changePassword($username,  $old_password, $new_password)
     {
         require_once 'HTTP/Request.php';
+        // TODO: Can we make the Autoloader handle this?
+        // TODO: Could this be converted to Horde_Http?
 
         $req = new HTTP_Request($this->_params['url']);
         $req->setMethod(HTTP_REQUEST_METHOD_POST);
@@ -56,24 +62,24 @@ class Passwd_Driver_http extends Passwd_Driver {
         // Send the request
         $result = $req->sendRequest();
         if (is_a($result, 'PEAR_Error')) {
-            return $result;
+            throw new Passwd_Exception($result->getMessage());
         }
 
         // Make sure we have a good response code
         $responseCode = $req->getResponseCode();
         if ($responseCode != 200) {
-            return PEAR::raiseError(_("The requested website for changing user passwords could not be reached."));
+            throw new Passwd_Exception(_("The requested website for changing user passwords could not be reached."));
         }
 
         // We got *some* response from the server, so get the content and
         // let's see if we can't figure out if  it was a success or not.
         $responseBody = $req->getResponseBody();
         if (strpos($responseBody, $this->_params['eval_results']['badPass'])) {
-            return PEAR::raiseError(_("Incorrect old password."));
+            throw new Passwd_Exception(_("Incorrect old password."));
         } elseif (strpos($responseBody, $this->_params['eval_results']['badUser'])) {
-            return PEAR::raiseError(_("The username could not be found."));
+            throw new Passwd_Exception(_("The username could not be found."));
         } elseif (!strpos($responseBody, $this->_params['eval_results']['success'])) {
-            return PEAR::raiseError(_("Your password could not be changed."));
+            throw new Passwd_Exception(_("Your password could not be changed."));
         }
         return true;
     }
