@@ -3,9 +3,13 @@
  * The poppassd class attempts to change a user's password via a poppassd
  * server.
  *
- * $Horde: passwd/lib/Driver/poppassd.php,v 1.24.2.7 2009/01/06 15:25:23 jan Exp $
+ * Copyright 2000-2011 The Horde Project (http://www.horde.org/
  *
- * Copyright 2000-2009 The Horde Project (http://www.horde.org/)
+ * WARNING: This driver has only formally been converted to Horde 4. 
+ * No testing has been done. If this doesn't work, please file bugs at
+ * bugs.horde.org
+ * If you really need this to work reliably, think about sponsoring development
+ * Please send a mail to lang -at- b1-systems.de if you can verify this driver to work
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
@@ -16,18 +20,11 @@
 class Passwd_Driver_poppassd extends Passwd_Driver {
 
     /**
-     * Socket connection.
-     *
-     * @var resource
-     */
-    var $_fp;
-
-    /**
      * Constructs a new poppassd Passwd_Driver object.
      *
      * @param array  $params    A hash containing connection parameters.
      */
-    function Passwd_Driver_poppassd($params = array())
+    function __construct($params = array())
     {
         $this->_params['host'] = array_key_exists('host', $params) ? $params['host'] : 'localhost';
         $this->_params['port'] = array_key_exists('port', $params) ? $params['port'] : 106;
@@ -40,7 +37,7 @@ class Passwd_Driver_poppassd extends Passwd_Driver {
     {
         $this->_fp = fsockopen($this->_params['host'], $this->_params['port'], $errno, $errstr, 30);
         if (!$this->_fp) {
-            return PEAR::raiseError($errstr);
+            throw new Passwd_Exception($errstr);
         } else {
             return $this->_getPrompt();
         }
@@ -64,7 +61,7 @@ class Passwd_Driver_poppassd extends Passwd_Driver {
     {
         $prompt = fgets($this->_fp, 4096);
         if (!$prompt) {
-            return PEAR::raiseError(_("No prompt returned from server."));
+            return throw new Passwd_Exception(_("No prompt returned from server."));
         }
         if (preg_match('/^[1-5][0-9][0-9]/', $prompt)) {
             $rc = substr($prompt, 0, 3);
@@ -72,7 +69,7 @@ class Passwd_Driver_poppassd extends Passwd_Driver {
             if ($rc == '200' || $rc == '220' || $rc == '250' || $rc == '300' ) {
                 return true;
             } else {
-                return PEAR::raiseError($prompt);
+                throw new Passwd_Exception($prompt);
             }
         } else {
             return true;
@@ -87,7 +84,7 @@ class Passwd_Driver_poppassd extends Passwd_Driver {
         $line = $cmd . ' ' . $arg . "\n";
         $res_fputs = fputs($this->_fp, $line);
         if (!$res_fputs) {
-            return PEAR::raiseError(_("Cannot send command to server."));
+            throw new Passwd_Exception(_("Cannot send command to server."));
         }
         return $this->_getPrompt();
     }
@@ -104,26 +101,27 @@ class Passwd_Driver_poppassd extends Passwd_Driver {
     function changePassword($username, $old_password, $new_password)
     {
         $res = $this->_connect();
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
 
-        $res = $this->_sendCommand('user', $username);
-        if (is_a($res, 'PEAR_Error')) {
+        try {
+            $res = $this->_sendCommand('user', $username);
+        }
+        catch (Passwd_Exception $e) {
             $this->_disconnect();
-            return PEAR::raiseError(_("User not found"));
+            throw new Passwd_Exception(_('User not found') . ' ' . $e->getMessage());
         }
 
-        $res = $this->_sendCommand('pass', $old_password);
-        if (is_a($res, 'PEAR_Error')) {
+        try {
+            $res = $this->_sendCommand('pass', $old_password);
+        }
+        catch (Passwd_Exception $e) {
             $this->_disconnect();
-            return PEAR::raiseError(_("Incorrect old password."));
+            throw new Passwd_Exception($e->getMessage() . _("Incorrect old password."));
         }
-
-        $res = $this->_sendCommand('newpass', $new_password);
-        $this->_disconnect();
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
+        try {
+            $res = $this->_sendCommand('newpass', $new_password);
+        } catch (Passwd_Exception $e) {
+            $this->_disconnect();
+            throw $e;
         }
 
         return true;
