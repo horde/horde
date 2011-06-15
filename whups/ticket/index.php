@@ -12,8 +12,6 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-require_once WHUPS_BASE . '/lib/Renderer/Comment.php';
-
 try {
     $ticket = Whups::getCurrentTicket();
 } catch (Exception $e) {
