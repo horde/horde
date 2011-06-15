@@ -118,7 +118,7 @@ $form = new Whups_Form_Ticket_Edit($vars, $ticket, sprintf(_("Update %s"), $titl
 $form->renderActive($form->getRenderer(), $vars, 'update.php', 'post');
 echo '<br class="spacer" />';
 
-$form = new TicketDetailsForm($vars, $ticket, $title);
+$form = new Whups_Form_TicketDetails($vars, $ticket, $title);
 $ticket->setDetails($vars);
 $form->renderInactive($form->getRenderer(), $vars);
 

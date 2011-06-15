@@ -86,7 +86,7 @@ echo $tabs->render('delete');
 $deleteform->renderActive($deleteform->getRenderer(), $vars, 'delete.php', 'post');
 echo '<br />';
 
-$form = new TicketDetailsForm($vars, $ticket);
+$form = new Whups_Form_TicketDetails($vars, $ticket);
 $ticket->setDetails($vars);
 
 $r = $form->getRenderer();

@@ -31,7 +31,7 @@ require WHUPS_TEMPLATES . '/prevnext.inc';
 $tabs = Whups::getTicketTabs($vars, $ticket->getId());
 echo $tabs->render('history');
 
-$form = new TicketDetailsForm($vars, $ticket);
+$form = new Whups_Form_TicketDetails($vars, $ticket);
 
 $renderer = $form->getRenderer();
 $renderer->_name = $form->getName();

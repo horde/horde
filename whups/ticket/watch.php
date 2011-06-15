@@ -94,7 +94,7 @@ echo '<br class="spacer" />';
 $delform->renderActive($r, $vars, 'watch.php', 'post');
 echo '<br class="spacer" />';
 
-$form = new TicketDetailsForm($vars, $ticket, '[#' . $id . '] ' . $ticket->get('summary'));
+$form = new Whups_Form_TicketDetails($vars, $ticket, '[#' . $id . '] ' . $ticket->get('summary'));
 $ticket->setDetails($vars);
 $form->renderInactive($form->getRenderer(), $vars);
 
