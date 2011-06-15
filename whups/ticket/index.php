@@ -43,7 +43,7 @@ $renderer->end();
 
 echo '<br class="spacer" />';
 
-$comment = new Horde_Form_Renderer_Comment();
+$comment = new Whups_Form_Renderer_Comment();
 $comment->begin(_("History"));
 $history = Whups::permissionsFilter($whups_driver->getHistory($ticket->getId()),
                                     'comment', Horde_Perms::READ);
