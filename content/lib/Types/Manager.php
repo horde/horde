@@ -41,10 +41,11 @@ class Content_Types_Manager
      * Ensure that an array of types exist in storage. Create any that don't,
      * return type_ids for all.
      *
-     * @param array $types  An array of types. Values typed as an integer
-     *                        are assumed to already be an type_id.
+     * @param mixed $types  An array of types or single type value. Values typed
+     *                      as an integer are assumed to already be an type_id.
      *
      * @return array  An array of type_ids.
+     * @throws Content_Exception
      */
     public function ensureTypes($types)
     {

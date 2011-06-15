@@ -37,12 +37,18 @@ class Content_Objects_Manager
 
     /**
      * Type manager
+     *
      * @var Content_Types_Manager
      */
     protected $_typeManager;
 
     /**
      * Constructor
+     *
+     * @param Horde_Db_Adapter $db                The db adapter
+     * @param Content_Types_Manager $typeManager  A content type manager
+     *
+     * @return Content_Objects_Manager
      */
     public function __construct(Horde_Db_Adapter $db, Content_Types_Manager $typeManager)
     {
@@ -54,6 +60,14 @@ class Content_Objects_Manager
      * Check for object existence without causing the objects to be created.
      * Helps save queries for things like tags when we already know the object
      * doesn't yet exist in rampage tables.
+     *
+     * @param mixed $objects  Either an object identifier or an array of them.
+     * @param mixed $type     A type identifier. Either a string type name or
+     *                        the integer type_id.
+     *
+     * @return mixed  Either a hash of object_id => object_names or false if
+     *                the object(s) do not exist.
+     * @throws InvalidArgumentException, Content_Exception
      */
     public function exists($objects, $type)
     {
@@ -68,7 +82,11 @@ class Content_Objects_Manager
         $params[] = $type;
 
         try {
-            $ids = $this->_db->selectAssoc('SELECT object_id, object_name FROM ' . $this->_t('objects') . ' WHERE object_name IN (' . str_repeat('?,', count($objects) - 1) . '?)' . ' AND type_id = ?', $params);
+            $ids = $this->_db->selectAssoc(
+                'SELECT object_id, object_name FROM ' . $this->_t('objects')
+                    . ' WHERE object_name IN ('
+                    . str_repeat('?,', count($objects) - 1) . '?)'
+                    . ' AND type_id = ?', $params);
             if ($ids) {
                 return $ids;
             }
@@ -84,8 +102,9 @@ class Content_Objects_Manager
      * return object_ids for all. All objects in the $objects array must be
      * of the same content type.
      *
-     * @param array $objects  An array of objects. Values typed as an integer
-     *                        are assumed to already be an object_id.
+     * @param mixed $objects  An array of objects (or single obejct value).
+     *                        Values typed as an integer are assumed to already
+     *                        be an object_id.
      * @param mixed $type     Either a string type_name or integer type_id
      *
      * @return array  An array of object_ids.
