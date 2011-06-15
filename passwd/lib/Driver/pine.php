@@ -19,9 +19,13 @@ define('TABSZ', LASTCH - FIRSTCH + 1);
  * The pine class attempts to change a user's password on a in a pine password
  * file.
  *
- * $Horde: passwd/lib/Driver/pine.php,v 1.9.2.5 2009/01/06 15:25:23 jan Exp $
+ * WARNING: This driver has only formally been converted to Horde 4. 
+ * No testing has been done. If this doesn't work, please file bugs at
+ * bugs.horde.org
+ * If you really need this to work reliably, think about sponsoring development
+ * Please send a mail to lang -at- b1-systems.de if you can verify this driver to work
  *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
@@ -37,21 +41,21 @@ class Passwd_Driver_pine extends Passwd_Driver {
      *
      * @var VFS
      */
-    var $_ftp;
+    protected $_ftp;
 
     /**
      * Boolean which contains state of the ftp connection.
      *
      * @var boolean
      */
-    var $_connected = false;
+    protected $_connected = false;
 
     /**
      * Contents array of the pine password file.
      *
      * @var array
      */
-    var $_contents = array();
+    protected $_contents = array();
 
     /**
      * Constructs a new pine Passwd_Driver object.
@@ -90,7 +94,7 @@ class Passwd_Driver_pine extends Passwd_Driver {
             /* Connect to the FTP server using the supplied
              * parameters. */
             require_once 'VFS.php';
-
+            // TODO: Do we need Horde_Vfs instead and can we use autoloader?
             $params = array(
                 'username' => $user,
                 'password' => $password,
@@ -98,14 +102,13 @@ class Passwd_Driver_pine extends Passwd_Driver {
                 'port' => $this->_params['port'],
             );
 
-            $res = $this->_ftp = Horde_Vfs::factory('ftp', $params);
-            if (is_a($res, 'PEAR_Error')) {
-                return $res;
+            try {
+                // Horde_Vfs::factory is still there but does it work that way?
+                $this->_ftp = Horde_Vfs::factory('ftp', $params);
+            } catch (Horde_Vfs_Exception $e) {
+                throw new Passwd_Exception($e) {
             }
-            $res = $this->_ftp->checkCredentials();
-            if (is_a($res, 'PEAR_Error')) {
-                return $res;
-            }
+            return $this->_ftp->checkCredentials();
         }
 
         return true;
@@ -228,7 +231,7 @@ class Passwd_Driver_pine extends Passwd_Driver {
             }
         }
 
-        return PEAR::raiseError(_("User not found."));
+        throw new Passwd_Exception(_("User not found."));
     }
 
     /**
