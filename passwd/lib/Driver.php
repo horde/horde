@@ -32,11 +32,11 @@ class Passwd_Driver {
     public $_errorstr;
 
     /**
-     * Constructs a new expect Passwd_Driver object.
+     * Constructs a new Passwd_Driver object.
      *
      * @param $params   A hash containing connection parameters.
      */
-    function Passwd_Driver($params = array())
+    function __construct($params = array())
     {
         $this->_params = $params;
     }
