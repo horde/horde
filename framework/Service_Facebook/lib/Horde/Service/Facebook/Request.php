@@ -65,7 +65,15 @@ class Horde_Service_Facebook_Request
         case Horde_Service_Facebook::DATA_FORMAT_JSON:
             return $data;
         case Horde_Service_Facebook::DATA_FORMAT_ARRAY:
-            $result = json_decode($data, true);
+            if (@constant('JSON_BIGINT_AS_STRING')) {
+                $result = json_decode($data, true, JSON_BIGINT_AS_STRING);
+            } else {
+                if (is_numeric($data)) {
+                    $result = $data;
+                } else {
+                    $result = json_decode($data, true);
+                }
+            }
         }
         if (is_array($result) && isset($result['error_code'])) {
             throw new Horde_Service_Facebook_Exception($result['error_msg'], $result['error_code']);
