@@ -20,7 +20,7 @@ class Whups
 {
     const VFS_ATTACH_PATH = '.horde/whups/attachments';
 
-    function urlFor($controller, $data, $full = false, $append_session = 0)
+    static public function urlFor($controller, $data, $full = false, $append_session = 0)
     {
         $rewrite = isset($GLOBALS['conf']['urls']['pretty']) &&
             $GLOBALS['conf']['urls']['pretty'] == 'rewrite';
@@ -109,7 +109,7 @@ class Whups
         }
     }
 
-    function sortTickets(&$tickets, $by = null, $dir = null)
+    static public function sortTickets(&$tickets, $by = null, $dir = null)
     {
         if (is_null($by)) {
             $by = $GLOBALS['prefs']->getValue('sortby');
@@ -124,7 +124,7 @@ class Whups
         usort($tickets, array('Whups', '_sort'));
     }
 
-    function sortBy($b = null)
+    static public function sortBy($b = null)
     {
         static $by;
 
@@ -135,7 +135,7 @@ class Whups
         }
     }
 
-    function sortDir($d = null)
+    static public function sortDir($d = null)
     {
         static $dir;
 
@@ -146,7 +146,7 @@ class Whups
         }
     }
 
-    function _sort($a, $b, $sortby = null, $sortdir = null)
+    protected function _sort($a, $b, $sortby = null, $sortdir = null)
     {
         static $by, $dir;
         if (is_null($by)) {
@@ -216,7 +216,7 @@ class Whups
      *
      * @return string  A CAPTCHA string.
      */
-    function getCAPTCHA($new = false)
+    static public function getCAPTCHA($new = false)
     {
         global $session;
 
@@ -238,7 +238,7 @@ class Whups
      *
      * @return array  All templates of the requested type.
      */
-    function listTemplates($type)
+    static public function listTemplates($type)
     {
         $templates = array();
 
@@ -257,7 +257,7 @@ class Whups
      * determine what to look for. Will redirect to the default view
      * if the ticket isn't found or if permissions checks fail.
      */
-    function getCurrentTicket()
+   static public  function getCurrentTicket()
     {
         $id = preg_replace('|\D|', '', Horde_Util::getFormData('id'));
         if (!$id) {
@@ -283,7 +283,7 @@ class Whups
     /**
      * Get the tabs for navigating between ticket actions.
      */
-    function getTicketTabs(&$vars, $id)
+   static public  function getTicketTabs(&$vars, $id)
     {
         $tabs = new Horde_Core_Ui_Tabs(null, $vars);
         $queue = $vars->get('queue');
@@ -333,7 +333,7 @@ class Whups
      *
      * @return boolean  True if the user has the specified permission.
      */
-    function hasPermission($in, $filter, $permission, $user = null)
+    static public function hasPermission($in, $filter, $permission, $user = null)
     {
         if (is_null($user)) {
             $user = $GLOBALS['registry']->getAuth();
@@ -408,7 +408,7 @@ class Whups
      *
      * @return array  The list of resources matching the permission criteria.
      */
-    function permissionsFilter($in, $filter, $permission = Horde_Perms::READ,
+   static public  function permissionsFilter($in, $filter, $permission = Horde_Perms::READ,
                                $user = null, $creator = null)
     {
         if (is_null($user)) {
@@ -512,7 +512,7 @@ class Whups
 
     /**
      */
-    function getUserAttributes($user = null)
+    static public function getUserAttributes($user = null)
     {
         static $results;
 
@@ -605,7 +605,7 @@ class Whups
      *                            escaped for HTML output, and a group icon
      *                            might be added.
      */
-    function formatUser($user = null, $showemail = true, $showname = true,
+    static public function formatUser($user = null, $showemail = true, $showname = true,
                         $html = false)
     {
         if (!is_null($user) && empty($user)) {
@@ -660,7 +660,7 @@ class Whups
      *                              be one of the WHUPS_SEARCH_ constants
      *                              defined above.
      */
-    function getSearchResultColumns($search_type = null)
+    static public function getSearchResultColumns($search_type = null)
     {
         if ($search_type == 'block') {
             return array(
@@ -691,7 +691,7 @@ class Whups
      *
      * @param Horde_Variables &$vars  The selection criteria.
      */
-    function sendReminders(&$vars)
+    static public  function sendReminders(&$vars)
     {
         global $whups_driver;
 
@@ -755,7 +755,7 @@ class Whups
     /**
      * Build Whups' list of menu items.
      */
-    function getMenu($returnType = 'object')
+    static public function getMenu($returnType = 'object')
     {
         $menu = new Horde_Menu();
         $menu->add(Horde::url('mybugs.php'), sprintf(_("_My %s"), $GLOBALS['registry']->get('name')), 'whups.png', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'mybugs' && strpos($_SERVER['PHP_SELF'], $GLOBALS['registry']->get('webroot') . '/index.php') !== false ? 'current' : null);
@@ -778,7 +778,7 @@ class Whups
 
     /**
      */
-    function getAttachments($ticket, $name = null)
+    static public function getAttachments($ticket, $name = null)
     {
         if (empty($GLOBALS['conf']['vfs']['type'])) {
             return false;
@@ -812,7 +812,7 @@ class Whups
 
     /**
      */
-    function attachmentUrl($ticket, $file, $queue)
+    static public function attachmentUrl($ticket, $file, $queue)
     {
         $link = '';
 
@@ -851,7 +851,7 @@ class Whups
         return $link;
     }
 
-    function getOwners($ticket, $showemail = true, $showname = true, $owners = null)
+    static public function getOwners($ticket, $showemail = true, $showname = true, $owners = null)
     {
         if (is_null($owners)) {
             global $whups_driver;
@@ -875,7 +875,7 @@ class Whups
      * @return string  The javascript text to output, or empty if the page
      *                 headers have not yet been sent.
      */
-    function addInlineScript($script)
+    static public function addInlineScript($script)
     {
         if (is_array($script)) {
             $script = implode(';', $script);
@@ -903,7 +903,7 @@ class Whups
      *
      * @return string  The javascript text to output.
      */
-    function outputInlineScript()
+   static public  function outputInlineScript()
     {
         if (!empty($GLOBALS['__whups_inline_script'])) {
             echo '<script type="text/javascript">//<![CDATA[' . "\n";
@@ -922,7 +922,7 @@ class Whups
      *
      * @return array  The full field types array.
      */
-    function fieldTypes()
+   static public  function fieldTypes()
     {
         static $fields_array = array();
         if (!empty($fields_array)) {
@@ -957,7 +957,7 @@ class Whups
      *
      * @return array  A hash The with available field types and names.
      */
-    function fieldTypeNames()
+    static public function fieldTypeNames()
     {
         /* Fetch the field type information from the Horde_Form classes. */
         $fields = Whups::fieldTypes();
@@ -981,7 +981,7 @@ class Whups
      *
      * @return array  A list of field type parameters.
      */
-    function fieldTypeParams($field_type)
+    static public function fieldTypeParams($field_type)
     {
         $fields = Whups::fieldTypes();
 
