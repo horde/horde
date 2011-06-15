@@ -74,7 +74,7 @@ class Passwd_Driver_expectpecl extends Passwd_Driver {
     function changePassword($user, $old_password, $new_password)
     {
         if (!Util::loadExtension('expect')) {
-            throw new Passwd_Error(sprintf(_("%s extension cannot be loaded!"), 'expect'));
+            throw new Passwd_Exception(sprintf(_("%s extension cannot be loaded!"), 'expect'));
         }
 
         // Set up parameters
@@ -94,7 +94,7 @@ class Passwd_Driver_expectpecl extends Passwd_Driver {
                         $this->_params['host'],
                         $this->_params['program']);
         if (!($this->_stream = expect_popen($call))) {
-            return throw new Passwd_Error(_("Unable to open expect stream!"));
+            return throw new Passwd_Exception(_("Unable to open expect stream!"));
         }
 
         // Log in

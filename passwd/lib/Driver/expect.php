@@ -57,7 +57,7 @@ class Passwd_Driver_expect extends Passwd_Driver {
             if ($error_msg) {
                 @unlink($log);
             } else {
-                throw new Passwd_Error($errormsg);
+                throw new Passwd_Exception($errormsg);
             }
         }
 
