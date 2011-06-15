@@ -68,7 +68,11 @@ class Content_Types_Manager
         try {
             // Get the ids for any types that already exist.
             if (count($typeName)) {
-                foreach ($this->_db->selectAssoc('SELECT type_id, type_name FROM ' . $this->_t('types') . ' WHERE type_name IN ('.implode(',', array_map(array($this->_db, 'quote'), array_keys($typeName))).')') as $id => $type) {
+                $rows = $this->_db->selectAssoc('SELECT type_id, type_name FROM '
+                    . $this->_t('types') . ' WHERE type_name IN ('
+                    . implode(',', array_map(array($this->_db, 'quoteString'), array_keys($typeName)))
+                    . ')');
+                foreach ($rows as $id => $type) {
                     $typeIndex = $typeName[$type];
                     unset($typeName[$type]);
                     $typeIds[$typeIndex] = (int)$id;
@@ -77,7 +81,10 @@ class Content_Types_Manager
 
             // Create any types that didn't already exist
             foreach ($typeName as $type => $typeIndex) {
-                $typeIds[$typeIndex] = $this->_db->insert('INSERT INTO ' . $this->_t('types') . ' (type_name) VALUES (' . $this->_db->quote($type) . ')');
+                $typeIds[$typeIndex] = $this->_db->insert(
+                    'INSERT INTO ' . $this->_t('types')
+                        . ' (type_name) VALUES ('
+                        . $this->_db->quoteString($type) . ')');
             }
         } catch (Horde_Db_Exception $e) {
             throw new Content_Exception($e);
