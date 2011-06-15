@@ -7,50 +7,262 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Storage\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2011-06-08 22:11-0300\n"
+"PO-Revision-Date: 2011-06-12 19:38-0300\n"
+"Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: lib/Horde/Kolab/Storage/Folder/Base.php:993
-#: lib/Horde/Kolab/Storage/Folder/Base.php:999
-#, fuzzy, php-format
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:103
+#, php-format
+msgid "Connecting to server %s failed. Error: %s"
+msgstr "Conexão com o servidor %s falhou. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:113
+#, php-format
+msgid "Creating folder %s failed. Error: %s"
+msgstr "Ciração da pasta %s falhou. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:218
+#, php-format
+msgid "Creating folder %s%s failed. Error: %s"
+msgstr "Criação da pasta %s%s falhou. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:136
+#, php-format
+msgid "Deleting folder %s failed. Error: %s"
+msgstr "Remoção da pasta %s falhou. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:245
+#, php-format
+msgid "Deleting folder %s%s failed. Error: %s"
+msgstr "Remoção de pasta %s%s falhou. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:691
+#, php-format
+msgid "Failed appending new message to folder %s%s. Error: %s"
+msgstr "Falha ao adicionar nova mensagem à pasta %s%s. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:602
+#, php-format
+msgid "Failed appending new message to folder %s. Error: %s"
+msgstr "Falha ao adicionar nova mensagem à pasta %s. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:277
+#, php-format
+msgid "Failed deleting ACL on folder %s for user %s. Error: %s"
+msgstr "Falha ao apagar ACL na pasta %s para usuário %s. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:724
+#, php-format
+msgid "Failed deleting message %s in folder %s. Error: %s"
+msgstr "Falha ao apagar mensagem %s na pasta %s. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:629
+#, php-format
+msgid "Failed deleting messages from folder %s. Error: %s"
+msgstr "Falha ao apagar mensagens da pasta %s. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:785
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:682
+#, php-format
+msgid "Failed expunging folder %s. Error: %s"
+msgstr "Falha ao expurgar pasta %s. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:657
+#, php-format
+msgid "Failed fetching body part %s for message %s in folder %s%s. Error: %s"
+msgstr ""
+"Falha ao obter parte de corpo %s da mensagem %s na pasta %s%s. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:590
+#, php-format
+msgid "Failed fetching message %s in folder %s%s. Error: %s"
+msgstr "Falha ao obter mensagem %s na pasta %s%s. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:625
+#, php-format
+msgid ""
+"Failed fetching structure information for messages %s in folder %s%s. Error: "
+"%s"
+msgstr ""
+"Falha ao obter informação de estrutura para mensagens %s na pasta %s%s. "
+"Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:758
+#, php-format
+msgid "Failed message %s from folder %s to folder %s. Error: %s"
+msgstr "Falha mensagem %s da pasta %s para pasta %s. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:658
+#, php-format
+msgid "Failed moving message %s from folder %s to folder %s. Error: %s"
+msgstr "Falha ao mover mensagem %s da pasta %s para pasta %s. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:502
+#, php-format
+msgid "Failed opening folder %s%s. Error: %s"
+msgstr "Falha ao abrir pasta %s%s. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:318
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:197
+#, php-format
+msgid "Failed reading ACL on folder %s. Error: %s"
+msgstr "Falha ao ler ACL na pasta %s. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:346
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:225
+#, php-format
+msgid "Failed reading user rights on folder %s. Error: %s"
+msgstr "Falha ao ler direitos do usuário na pasta %s. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:467
+#, php-format
+msgid "Failed retrieving UIDs for folder %s. Error: %s"
+msgstr "Falha ao obter UIDs para pasta %s. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:498
+#, php-format
+msgid "Failed retrieving message %s in folder %s. Error: %s"
+msgstr "Falha ao obter mensagem %s na pasta %s. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:571
+#, php-format
+msgid "Failed retrieving mime part %s of message %s in folder %s. Error: %s"
+msgstr "Falha ao obter parte mime %s da mensagem %s na pasta %s. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:532
+#, php-format
+msgid "Failed retrieving status information for folder %s%s. Error: %s"
+msgstr "Falha ao obter informação de status para a pasta %s%s. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:537
+#, php-format
+msgid "Failed retrieving structure of message %s in folder %s. Error: %s"
+msgstr "Falha ao obter estrutura da mensagem %s na pasta %s. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Folder/Base.php:831
+#: lib/Horde/Kolab/Storage/Folder/Base.php:837
+#, php-format
 msgid "Failed retrieving the message with ID %s. Original error: %s."
-msgstr "Falhou ao buscar a mensagem IMAP %s. Erro foi %s"
+msgstr "Falha ao obter a mensagem com ID %s. Erro original: %s."
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:372
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:251
+#, php-format
+msgid "Failed setting ACL on folder %s for user %s to %s. Error: %s"
+msgstr "Falha ao definir ACL na pasta %s para o usuário %s para %s. Erro: %s"
 
 #: lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:228
-#, fuzzy, php-format
-msgid "Failed triggering folder %s. Error was: %s"
-msgstr "Falhou ao buscar a mensagem IMAP %s. Erro foi %s"
-
-#: lib/Horde/Kolab/Storage/Data.php:630
 #, php-format
-msgid "Kolab cache: Object uid %s does not exist in the cache!"
-msgstr "Kolab cache: Objeto uid %s não existe no cache!"
+msgid "Failed triggering folder %s. Error was: %s"
+msgstr "Falha ao acionar pasta %s. Erro foi: %s"
 
-#: lib/Horde/Kolab/Storage/Data.php:315
+#: lib/Horde/Kolab/Storage/Factory.php:182
+#, php-format
+msgid ""
+"Invalid \"driver\" parameter \"%s\". Please use one of \"mock\", \"php\", "
+"\"pear\", \"horde\", \"horde-php\", and \"roundcube\"!"
+msgstr ""
+"Parâmetro de \"driver\" inválido \"%s\". Por favor use um desses \"mock\", "
+"\"php\", \"pear\", \"horde\", \"horde-php\", e \"roundcube\"!"
+
+#: lib/Horde/Kolab/Storage/Factory.php:244
+#, php-format
+msgid "Invalid \"namespace\" type \"%s\"!"
+msgstr "Tipo de \"namespace\" inválido \"%s\"!"
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:182
+#, php-format
+msgid "Listing folders for %s failed. Error: %s"
+msgstr "Listagem de pastas para %s falhou. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Factory.php:139
+msgid "Missing \"driver\" parameter!"
+msgstr "Parâmetro de \"driver\" faltando!"
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:146
+msgid "Missing \"host\" parameter!"
+msgstr "Parâmetro de \"host\" faltando!"
+
+#: lib/Horde/Kolab/Storage/Data/Old.php:241
 #, php-format
 msgid "Old object %s does not exist."
 msgstr "Objeto %s anterior não existe."
 
-#: lib/Horde/Kolab/Storage/Data.php:322
+#: lib/Horde/Kolab/Storage/Data/Old.php:248
 #, php-format
 msgid "Old object %s does not map to a uid."
 msgstr "Objeto %s anterior não aponta para uma uid."
 
-#: lib/Horde/Kolab/Storage/Folder/Base.php:832
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:163
+#, php-format
+msgid "Renaming folder %s to %s failed. Error: %s"
+msgstr "Renomeando pasta %s para %s falhou. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:274
+#, php-format
+msgid "Renaming folder %s%s to %s%s failed. Error: %s"
+msgstr "Renomeando pasta %s%s para %s%s falhou. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:441
+#, php-format
+msgid "Retrieving annotation %s[%s] on folder %s%s failed. Error: %s"
+msgstr "Obtendo anotação %s[%s] na pasta %s%s falhou. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:436
+#, php-format
+msgid "Retrieving the status for folder %s failed. Error: %s"
+msgstr "Obtenção do status para a pasta %s falhou. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:410
+#, php-format
+msgid "Selecting folder %s failed. Error: %s"
+msgstr "Seleção da pasta %s falhou. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:329
+#, php-format
+msgid "Setting annotation %s[%s] on folder %s failed. Error: %s"
+msgstr "Definindo anotação %s[%s] na pasta %s falhou. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:360
+#, php-format
+msgid "Setting annotation %s[%s] on folder %s to %s failed. Error: %s"
+msgstr "Definindo anotação %s[%s] na pasta %s para %s falhou. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:473
+#, php-format
+msgid "Setting annotation %s[%s] on folder %s%s to %s failed. Error: %s"
+msgstr "Definindo anotação %s[%s] na pasta %s%s para %s falhou. Erro: %s"
+
+#: lib/Horde/Kolab/Storage/Data/Base.php:232
+#: lib/Horde/Kolab/Storage/Data/Cached.php:149
+#, php-format
+msgid ""
+"The message with ID %s does not exist. This probably means that the Kolab "
+"object has been modified by somebody else since you retrieved the object "
+"from the backend. Original error: %s"
+msgstr ""
+"A mensagem com o ID %s não existe. Isso provavelmente significa que o objeto "
+"Kolan foi modificado por alguém desde que você obteve o objeto da estrutura. "
+"Erro original: %s"
+
+#: lib/Horde/Kolab/Storage/Folder/Base.php:670
 #, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
 "object has been modified by somebody else while you were editing it. Your "
 "edits have been lost."
 msgstr ""
+"A mensagem com o ID %s não existe. Isso provavelmente signifca que o objeto "
+"Kolab foi modificado por alguém enquanto você o editava. Suas edições foram "
+"perdidas."
 
-#: lib/Horde/Kolab/Storage/Folder/Base.php:1054
+#: lib/Horde/Kolab/Storage/Data/Format/Mime.php:216
 #, php-format
 msgid ""
 "This is a Kolab Groupware object. To view this object you will need an email "
@@ -61,7 +273,7 @@ msgstr ""
 "de um cliente de correio que entenda o formato Kolab Groupware. Para uma "
 "lista de clientes de correio com estas funções por favor visite %s"
 
-#: lib/Horde/Kolab/Storage/Folder/Base.php:391
+#: lib/Horde/Kolab/Storage/Folder/Base.php:353
 #, php-format
 msgid "Unable to rename %s to %s: destination folder already exists"
 msgstr "Impossível renomear %s para %s: a pasta de destino já existe"
@@ -69,4 +281,4 @@ msgstr "Impossível renomear %s para %s: a pasta de destino já existe"
 #: lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:261
 #, php-format
 msgid "Unable to trigger URL %s. Response: %s"
-msgstr ""
+msgstr "Impossível acionar a URL %s. Resposta: %s"
