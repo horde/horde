@@ -151,9 +151,11 @@ class Horde_Service_Facebook_Auth extends Horde_Service_Facebook_Base
                 Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
         }
 
-        return (string)$this->_facebook->callMethod(
+        $user = (string)$this->_facebook->callMethod(
             'facebook.users.getLoggedInUser',
             array('session_key' => $this->_sessionKey));
+
+        return $user;
     }
 
 }
