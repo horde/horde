@@ -106,7 +106,7 @@ class Passwd_Driver_pine extends Passwd_Driver {
                 // Horde_Vfs::factory is still there but does it work that way?
                 $this->_ftp = Horde_Vfs::factory('ftp', $params);
             } catch (Horde_Vfs_Exception $e) {
-                throw new Passwd_Exception($e) {
+                throw new Passwd_Exception($e); 
             }
             return $this->_ftp->checkCredentials();
         }

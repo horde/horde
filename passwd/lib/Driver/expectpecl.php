@@ -94,7 +94,7 @@ class Passwd_Driver_expectpecl extends Passwd_Driver {
                         $this->_params['host'],
                         $this->_params['program']);
         if (!($this->_stream = expect_popen($call))) {
-            return throw new Passwd_Exception(_("Unable to open expect stream!"));
+            throw new Passwd_Exception(_("Unable to open expect stream!"));
         }
 
         // Log in
