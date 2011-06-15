@@ -12,35 +12,6 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-class DeleteTicketForm extends Horde_Form {
-
-    var $_queue;
-
-    function DeleteTicketForm(&$vars, $title = '')
-    {
-        parent::Horde_Form($vars, $title, 'deleteticketform');
-
-        $info = $GLOBALS['whups_driver']->getTicketDetails($vars->get('id'));
-        $this->_queue = $info['queue'];
-        $this->addHidden('', 'id', 'int', true, true);
-        $summary = &$this->addVariable(_("Summary"), 'summary', 'text', false,
-                                       true);
-        $summary->setDefault($info['summary']);
-        $yesno = array(0 => _("No"), 1 => _("Yes"));
-        $this->addVariable(_("Really delete this ticket? It will NOT be archived, and will be gone forever."), 'yesno', 'enum', true, false, null, array($yesno));
-    }
-
-    function validate(&$vars)
-    {
-        if (!Whups::hasPermission($this->_queue, 'queue', Horde_Perms::DELETE)) {
-            $this->setError('yesno', _("Permission Denied."));
-        }
-
-        return parent::validate($vars);
-    }
-
-}
-
 $ticket = Whups::getCurrentTicket();
 $linkTags[] = $ticket->feedLink();
 $details = $ticket->getDetails();
@@ -56,9 +27,9 @@ foreach ($details as $varname => $value) {
     $vars->add($varname, $value);
 }
 $title = sprintf(_("Delete %s?"), '[#' . $id . '] ' . $ticket->get('summary'));
-$deleteform = new DeleteTicketForm($vars, $title);
+$deleteform = new Whups_Form_Ticket_Delete($vars, $title);
 
-if ($vars->get('formname') == 'deleteticketform') {
+if ($vars->get('formname') == 'whups_form_ticket_delete') {
     if ($deleteform->validate($vars)) {
         if ($vars->get('yesno') == 1) {
             $deleteform->getInfo($vars, $info);
