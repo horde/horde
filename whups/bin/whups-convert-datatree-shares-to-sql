@@ -2,31 +2,19 @@
 <?php
 /**
  * This script migrates Whups' share data from the datatree
- * Horde_Share driver to the new SQL Horde_Share driver. You should
- * run the 2008-04-29_add_sql_share_tables.sql upgrade script before
- * executing this script.
- *
- * @TODO: Hore_Db
+ * Horde_Share driver to the SQL Horde_Share driver.
  */
 
-@define('AUTH_HANDLER', true);
-@define('HORDE_BASE', dirname(__FILE__) . '/../../..');
-
-/* Set up the CLI environment */
-require_once HORDE_BASE . '/lib/core.php';
-if (!Horde_Cli::runningFromCli()) {
-    exit("Must be run from the command line\n");
+if (file_exists(dirname(__FILE__) . '/../../whups/lib/Application.php')) {
+    $baseDir = dirname(__FILE__) . '/../';
+} else {
+    require_once 'PEAR/Config.php';
+    $baseDir = PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/whups/';
 }
-$cli = Horde_Cli::init();
-
-/* Grab what we need to steal the DB config */
-require_once HORDE_BASE . '/config/conf.php';
-require_once 'MDB2.php';
-
-$config = $GLOBALS['conf']['sql'];
-unset($config['charset']);
-$db = MDB2::factory($config);
-$db->setOption('seqcol_name', 'id');
+require_once $baseDir . 'lib/Application.php';
+Horde_Registry::appInit('whups', array('cli' => true));
+$db = $injector->getInstance('Horde_Db_Adapter');
 
 $error_cnt = 0;
 $delete_dt_data = false;
@@ -40,24 +28,29 @@ if ($answer != 'y') {
 }
 
 /* Get the share entries */
-$shares_result = $db->query('SELECT datatree_id, datatree_name FROM horde_datatree WHERE group_uid = \'horde.shares.whups\'');
-if (is_a($shares_result, 'PEAR_Error')) {
-    die($shares_result->toString());
+try {
+    $shares_result = $db->selectAll('SELECT datatree_id, datatree_name FROM horde_datatree WHERE group_uid = \'horde.shares.whups\'');
+} catch (Horde_Db_Exception $e) {
+    die($e->getMessage());
 }
 
-$query = $db->prepare('SELECT attribute_name, attribute_key, attribute_value FROM horde_datatree_attributes WHERE datatree_id = ?');
+$query = 'SELECT attribute_name, attribute_key, attribute_value FROM horde_datatree_attributes WHERE datatree_id = ?';
 $maxId = 0;
-while ($row = $shares_result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
+foreach ($shares_result as $row) {
     $share_id = $row['datatree_id'];
     $share_name = $row['datatree_name'];
     $maxId = max($maxId, $share_id);
 
     /* Build an array to hold the new row data */
-    $data = array('share_id' => $share_id,
-                  'share_name' => $share_name);
+    $data = array(
+        'share_id' => $share_id,
+        'share_name' => $share_name);
 
-    $query_result = $query->execute($share_id);
-    $rows = $query_result->fetchAll(MDB2_FETCHMODE_ASSOC);
+    try {
+        $rows = $db->selectAll($query, array($share_id));
+    } catch (Horde_Db_Exception $e) {
+        die($e->getMessage());
+    }
     if (!count($rows)) {
         continue;
     }
@@ -67,14 +60,16 @@ while ($row = $shares_result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
     foreach ($rows as $row) {
         if ($row['attribute_name'] == 'perm_groups') {
             /* Group table entry */
-            $groups[] = array('share_id' => $data['share_id'],
-                              'group_uid' => $row['attribute_key'],
-                              'perm' => $row['attribute_value']);
+            $groups[] = array(
+                'share_id' => $data['share_id'],
+                'group_uid' => $row['attribute_key'],
+                'perm' => $row['attribute_value']);
         } elseif ($row['attribute_name'] == 'perm_users') {
             /* User table entry */
-            $users[] = array('share_id' => $data['share_id'],
-                             'user_uid' => $row['attribute_key'],
-                             'perm' => $row['attribute_value']);
+            $users[] = array(
+                'share_id' => $data['share_id'],
+                'user_uid' => $row['attribute_key'],
+                'perm' => $row['attribute_value']);
         } else {
             /* Everything else goes in the main share table */
             switch ($row['attribute_name']) {
@@ -114,48 +109,52 @@ while ($row = $shares_result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
 
     /* Insert the new data */
     $cli->message('Migrating share data for share_id: ' . $share_id, 'cli.message');
-    $result = insertData('whups_shares', $data);
-    if (is_a($result, 'PEAR_Error')) {
-        ++$error_cnt;
-        $cli->message($result->toString(), 'cli.error');
+    $db->beginDbTransaction();
+    $error = false;
+    try {
+        insertData('whups_shares', $data);
+    } catch (Horde_Db_Exception $e) {
+        $error = true;
+        $cli->message($e->getMessage(), 'cli.error');
     }
     if (count($groups)) {
         foreach ($groups as $group) {
-            $result = insertData('whups_shares_groups', $group);
-            if (is_a($result, 'PEAR_Error')) {
-                ++$error_cnt;
-                $cli->message($result->getMessage(), 'cli.error');
+            try {
+                insertData('whups_shares_groups', $group);
+            } catch (Horde_Db_Exception $e) {
+                $error = true;
+                $cli->message($e->getMessage(), 'cli.error');
             }
         }
     }
     if (count($users)) {
         foreach ($users as $user) {
-            $result = insertData('whups_shares_users', $user);
-            if (is_a($result, 'PEAR_Error')) {
-                ++$error_cnt;
-                $cli->message($result->getMessage(), 'cli.error');
+            try {
+                insertData('whups_shares_users', $user);
+            } catch (Horde_Db_Exception $e) {
+                $error = true;
+                $cli->message($e->getMessage(), 'cli.error');
             }
         }
     }
 
     /* Delete the datatree data, but ONLY if it was requested */
-    if ($delete_dt_data && !$error_cnt) {
+    if ($delete_dt_data && !$error) {
         $cli->message('DELETING datatree data for share_id: ' . $share_id, 'cli.message');
-        $delete = $db->prepare('DELETE FROM horde_datatree_attributes WHERE datatree_id = ?', null, MDB2_PREPARE_MANIP);
-        $delete->execute(array($share_id));
-        $delete->free();
-
-        $delete = $db->prepare('DELETE FROM horde_datatree WHERE datatree_id = ?', null, MDB2_PREPARE_MANIP);
-        $delete->execute(array($share_id));
-        $delete->free();
+        $db->delete('DELETE FROM horde_datatree_attributes WHERE datatree_id = ?', array($share_id));
+        $db->delete('DELETE FROM horde_datatree WHERE datatree_id = ?', array($share_id));
     }
 
     /* Cleanup */
-    $query_result->free();
     unset($row, $rows, $data, $groups, $users);
-}
-
-while ($nextId = $db->nextId('whups_shares') < $maxId) {
+    if ($error) {
+        $db->rollbackDbTransaction();
+        $cli->message('Rollback for share data for share_id: ' . $share_id, 'cli.message');
+        ++$error_cnt;
+    } else {
+        $db->commitDbTransaction();
+        $cli->message('Commit for share data for share_id: ' . $share_id, 'cli.message');
+    }
 }
 
 if ($error_cnt) {
@@ -171,5 +170,5 @@ function insertData($table, $data)
     $fields = array_keys($data);
     $values = array_map(array($GLOBALS['db'], 'quote'), array_values($data));
 
-    return $GLOBALS['db']->exec('INSERT INTO ' . $table . ' (' . implode(', ', $fields) . ') VALUES (' . implode(', ', $values) . ')');
+    $GLOBALS['db']->insert('INSERT INTO ' . $table . ' (' . implode(', ', $fields) . ') VALUES (' . implode(', ', $values) . ')');
 }
