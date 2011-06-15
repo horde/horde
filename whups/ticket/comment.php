@@ -72,7 +72,7 @@ if ($vars->get('formname') == 'whups_form_addcomment' &&
     }
 
     try {
-        $result = $ticket->commit();
+        $ticket->commit();
         $notification->push(_("Comment added"), 'horde.success');
         $ticket->show();
     } catch (Whups_Exception $e) {
