@@ -867,56 +867,6 @@ class Whups
     }
 
     /**
-     * Add inline javascript to the output buffer.
-     *
-     * @param mixed $script  The script text to add (can be stored in an
-     *                       array also).
-     *
-     * @return string  The javascript text to output, or empty if the page
-     *                 headers have not yet been sent.
-     */
-    static public function addInlineScript($script)
-    {
-        if (is_array($script)) {
-            $script = implode(';', $script);
-        }
-
-        $script = trim($script);
-        if (empty($script)) {
-            return;
-        }
-
-        if (!isset($GLOBALS['__whups_inline_script'])) {
-            $GLOBALS['__whups_inline_script'] = array();
-        }
-        $GLOBALS['__whups_inline_script'][] = $script;
-
-        // If headers have already been sent, we need to output a
-        // <script> tag directly.
-        if (ob_get_length() || headers_sent()) {
-            Whups::outputInlineScript();
-        }
-    }
-
-    /**
-     * Print inline javascript to the output buffer.
-     *
-     * @return string  The javascript text to output.
-     */
-   static public  function outputInlineScript()
-    {
-        if (!empty($GLOBALS['__whups_inline_script'])) {
-            echo '<script type="text/javascript">//<![CDATA[' . "\n";
-            foreach ($GLOBALS['__whups_inline_script'] as $val) {
-                echo $val . "\n";
-            }
-            echo "//]]></script>\n";
-        }
-
-        $GLOBALS['__whups_inline_script'] = array();
-    }
-
-    /**
      * Retruns the available field types including all type information from
      * the Horde_Form classes.
      *
