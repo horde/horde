@@ -17,12 +17,12 @@
   <api>4.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* 
+* Set release level to stable.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
