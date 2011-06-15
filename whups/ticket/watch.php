@@ -10,30 +10,6 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-class AddListenerForm extends Horde_Form {
-
-    function AddListenerForm(&$vars, $title = '')
-    {
-        parent::Horde_Form($vars, $title);
-
-        $this->addHidden('', 'id', 'int', true, true);
-        $this->addVariable(_("Email address to notify"), 'add_listener', 'email', true);
-    }
-
-}
-
-class DeleteListenerForm extends Horde_Form {
-
-    function DeleteListenerForm(&$vars, $title = '')
-    {
-        parent::Horde_Form($vars, $title);
-
-        $this->addHidden('', 'id', 'int', true, true);
-        $this->addVariable(_("Email address to remove"), 'del_listener', 'email', true);
-    }
-
-}
-
 $ticket = Whups::getCurrentTicket();
 $linkTags[] = $ticket->feedLink();
 $vars = Horde_Variables::getDefaultVariables();
@@ -42,10 +18,10 @@ foreach ($ticket->getDetails() as $varname => $value) {
     $vars->add($varname, $value);
 }
 
-$addform = new AddListenerForm($vars, _("Add Watcher"));
-$delform = new DeleteListenerForm($vars, _("Remove Watcher"));
+$addform = new Whups_Form_AddListener($vars, _("Add Watcher"));
+$delform = new Whups_Form_DeleteListener($vars, _("Remove Watcher"));
 
-if ($vars->get('formname') == 'addlistenerform') {
+if ($vars->get('formname') == 'whups_form_addlistener') {
     if ($addform->validate($vars)) {
         $addform->getInfo($vars, $info);
 
@@ -61,7 +37,7 @@ if ($vars->get('formname') == 'addlistenerform') {
             $notification->push($e, 'horde.error');
         }
     }
-} elseif ($vars->get('formname') == 'deletelistenerform') {
+} elseif ($vars->get('formname') == 'whups_form_deletelistener') {
     if ($delform->validate($vars)) {
         $delform->getInfo($vars, $info);
         try {
