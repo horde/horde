@@ -70,7 +70,7 @@ class Passwd_Driver_procopen extends Passwd_Driver {
 
         if ($return_value != 0) {
             if ($output) {
-                throw new Passwd_Exception($output) 
+                throw new Passwd_Exception($output);
             } else {
                 return false;
             }

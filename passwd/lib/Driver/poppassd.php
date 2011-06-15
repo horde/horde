@@ -61,7 +61,7 @@ class Passwd_Driver_poppassd extends Passwd_Driver {
     {
         $prompt = fgets($this->_fp, 4096);
         if (!$prompt) {
-            return throw new Passwd_Exception(_("No prompt returned from server."));
+            throw new Passwd_Exception(_("No prompt returned from server."));
         }
         if (preg_match('/^[1-5][0-9][0-9]/', $prompt)) {
             $rc = substr($prompt, 0, 3);
