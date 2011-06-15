@@ -27,10 +27,17 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
      * @return Passwd_Driver  The singleton instance.
      * @throws Passwd_Exception
      */
-    public function create($name)
+    public function create($name, $params = array() )
     {
-        $backends = Passwd::getBackends();
+        if ($params['is_subdriver']){
+            $backends = array($name => $params);
+        }
+        else {
+            $backends = Passwd::getBackends();
+        }
+
         $key = $name;
+
         if (empty($backends[$name])) {
             throw new Passwd_Exception(sprintf(_("The password backend \"%s\" does not exist."), $name));
         }
@@ -47,6 +54,9 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
             }
             if (empty($backend['password policy'])) {
                 $backend['password policy'] = array();
+            }
+            if (!empty($params)){
+                $backend['params'] = array_merge($backend['params'], $params);
             }
 
             switch ($class) {
@@ -73,12 +83,16 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
             }
 
             $driver = new $class($backend['params']);
-            $this->_instances[$key] = $driver;
+
             /* shouldn't we fetch policy from backend and inject some handler class here ? */
+
+            if (!$backend['params']['is_subdriver']) {
+                $this->_instances[$key] = $driver;
+            }
 
         }
 
-        return $this->_instances[$key];
+        return $driver;
     }
 
 }
