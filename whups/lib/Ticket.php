@@ -12,44 +12,43 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Whups
  */
-class Whups_Ticket {
-
+class Whups_Ticket
+{
     /**
      * The id of the ticket this object wraps.
      *
      * @var integer
      */
-    var $_id;
+    protected $_id;
 
     /**
      * The current values of the ticket.
      *
      * @var array
      */
-    var $_details;
+    protected $_details;
 
     /**
      * Array of changes to make to the ticket.
      *
      * @var array
      */
-    var $_changes = array();
+    protected $_changes = array();
 
     /**
      * Returns a ticket object for an id.
-     *
-     * @static
      *
      * @param integer $id  The ticket id.
      *
      * @return Whups_Ticket Whups_Ticket object
      */
-    function makeTicket($id)
+    static public function makeTicket($id)
     {
         global $whups_driver;
 
         $details = $whups_driver->getTicketDetails($id);
         $ticket = new Whups_Ticket($id, $details);
+
         return $ticket;
     }
 
@@ -64,7 +63,7 @@ class Whups_Ticket {
      *
      * @return Whups_Ticket  Whups_Ticket object.
      */
-    function newTicket($info, $requester)
+    static public function newTicket($info, $requester)
     {
         global $whups_driver;
 
@@ -73,24 +72,27 @@ class Whups_Ticket {
             if (is_null($info['type'])) {
                 $queue = $whups_driver->getQueue($info['queue']);
                 throw new Whups_Exception(
-                    sprintf(_("No type for this ticket and no default type for queue \"%s\" specified."),
-                            $queue['name']));
+                    sprintf(
+                        _("No type for this ticket and no default type for queue \"%s\" specified."),
+                        $queue['name']));
             }
         }
         if (!isset($info['state'])) {
             $info['state'] = $whups_driver->getDefaultState($info['type']);
             if (is_null($info['state'])) {
                 throw new Whups_Exception(
-                    sprintf(_("No state for this ticket and no default state for ticket type \"%s\" specified."),
-                            $whups_driver->getTypeName($info['type'])));
+                    sprintf(
+                        _("No state for this ticket and no default state for ticket type \"%s\" specified."),
+                        $whups_driver->getTypeName($info['type'])));
             }
         }
         if (!isset($info['priority'])) {
             $info['priority'] = $whups_driver->getDefaultPriority($info['type']);
             if (is_null($info['priority'])) {
                 throw new Whups_Exception(
-                    sprintf(_("No priority for this ticket and no default priority for ticket type \"%s\" specified."),
-                            $whups_driver->getTypeName($info['type'])));
+                    sprintf(
+                        _("No priority for this ticket and no default priority for ticket type \"%s\" specified."),
+                        $whups_driver->getTypeName($info['type'])));
             }
         }
 
@@ -102,8 +104,9 @@ class Whups_Ticket {
         if (!empty($info['newattachment']['name'])) {
             $ticket->change(
                 'attachment',
-                array('name' => $info['newattachment']['name'],
-                      'tmp_name' => $info['newattachment']['tmp_name']));
+                array(
+                    'name' => $info['newattachment']['name'],
+                    'tmp_name' => $info['newattachment']['tmp_name']));
         }
 
         // Check for a deferred attachment upload.
@@ -111,8 +114,9 @@ class Whups_Ticket {
             ($a_name = $GLOBALS['session']->get('whups', 'deferred_attachment/' . $info['deferred_attachment']))) {
             $ticket->change(
                 'attachment',
-                array('name' => $info['deferred_attachment'],
-                      'tmp_name' => $a_name));
+                array(
+                    'name' => $info['deferred_attachment'],
+                    'tmp_name' => $a_name));
 
             unlink($a_name);
         }
@@ -121,8 +125,10 @@ class Whups_Ticket {
         $ticket->notify($ticket->get('user_id_requester'), true);
 
         // Commit any changes (new attachments, etc.)
-        $ticket->commit($ticket->get('user_id_requester'),
-                        $info['last-transaction'], false);
+        $ticket->commit(
+            $ticket->get('user_id_requester'),
+            $info['last-transaction'],
+            false);
 
         return $ticket;
     }
@@ -132,8 +138,10 @@ class Whups_Ticket {
      *
      * @param integer $id     The ticket id.
      * @param array $details  The hash of ticket information.
+     *
+     * @return Whups_Ticket
      */
-    function Whups_Ticket($id, $details)
+    public function __construct($id, array $details)
     {
         $this->_id = $id;
         $this->_details = $details;
@@ -144,7 +152,7 @@ class Whups_Ticket {
      *
      * @return array  The ticket information.
      */
-    function getDetails()
+    public function getDetails()
     {
         return $this->_details;
     }
@@ -154,7 +162,7 @@ class Whups_Ticket {
      *
      * @return integer  The ticket id.
      */
-    function getId()
+    public function getId()
     {
         return $this->_id;
     }
@@ -166,7 +174,7 @@ class Whups_Ticket {
      *
      * @return mixed  The detail value.
      */
-    function get($detail)
+    public function get($detail)
     {
         return isset($this->_details[$detail])
             ? $this->_details[$detail]
@@ -182,7 +190,7 @@ class Whups_Ticket {
      * @param string $detail  The detail to change.
      * @param string $value   The new detail value.
      */
-    function set($detail, $value)
+    public function set($detail, $value)
     {
         $this->_details[$detail] = $value;
     }
@@ -196,7 +204,7 @@ class Whups_Ticket {
      * @param string $detail  The detail to change.
      * @param string $value   The new detail value.
      */
-    function change($detail, $value)
+    public function change($detail, $value)
     {
         $previous_value = isset($this->_details[$detail])
             ? $this->_details[$detail]
@@ -223,7 +231,7 @@ class Whups_Ticket {
      *                              Defaults to a new transaction.
      * @param boolean $notify       Send ticket notifications?
      */
-    function commit($user = null, $transaction = null, $notify = true)
+    public function commit($user = null, $transaction = null, $notify = true)
     {
         global $whups_driver;
 
@@ -370,8 +378,6 @@ class Whups_Ticket {
 
         // Reset the changes array.
         $this->_changes = array();
-
-        return true;
     }
 
     /**
@@ -380,15 +386,21 @@ class Whups_Ticket {
      * @param string $attachment_name  The name of the attachment.
      * @param string $attachment_file  The temporary file containing the data
      *                                 to be stored.
+     *
+     * @throws Whups_Exception
      */
-    function addAttachment(&$attachment_name, $attachment_file)
+    public function addAttachment(&$attachment_name, $attachment_file)
     {
         if (!isset($GLOBALS['conf']['vfs']['type'])) {
-            throw new Whups_Exception(_("The VFS backend needs to be configured to enable attachment uploads."), 'horde.error');
+            throw new Whups_Exception(
+                _("The VFS backend needs to be configured to enable attachment uploads."),
+                'horde.error');
         }
 
         try {
-            $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
+            $vfs = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Vfs')
+                ->create();
         } catch (Horde_Vfs_Exception $e) {
             throw new Whups_Exception($e);
         }
@@ -427,8 +439,10 @@ class Whups_Ticket {
      * Removes an attachment from this ticket.
      *
      * @param string $attachment_name  The name of the attachment.
+     *
+     * @throws Whups_Exception
      */
-    function deleteAttachment($attachment_name)
+    public function deleteAttachment($attachment_name)
     {
         if (!isset($GLOBALS['conf']['vfs']['type'])) {
             throw new Whups_Exception(
@@ -437,7 +451,9 @@ class Whups_Ticket {
         }
 
         try {
-            $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
+            $vfs = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Vfs')
+                ->create();
         } catch (Horde_Vfs_Exception $e) {
             throw Whups_Exception($e);
         }
@@ -460,8 +476,11 @@ class Whups_Ticket {
     /**
      * Returns a list of all files that have been attached to this ticket,
      * whether they still exist or not.
+     *
+     * @return array  The list of file attachments
+     * @throws Whups_Exception
      */
-    function listAllAttachments()
+    public function listAllAttachments()
     {
         $files = array();
         $history = $GLOBALS['whups_driver']->getHistory($this->_id);
@@ -482,7 +501,7 @@ class Whups_Ticket {
     /**
      * Redirects the browser to this ticket's view.
      */
-    function show()
+    public function show()
     {
         Whups::urlFor('ticket', $this->_id, true)->redirect();
     }
@@ -492,9 +511,12 @@ class Whups_Ticket {
      *
      * @return string  A full <link> tag.
      */
-    function feedLink()
+    public function feedLink()
     {
-        return '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars('[#' . $this->getId() . '] ' . $this->get('summary')) . '" href="' . Whups::urlFor('ticket_rss', $this->getId(), true, -1) . '" />';
+        return '<link rel="alternate" type="application/rss+xml" title="'
+            . htmlspecialchars('[#' . $this->getId() . '] ' . $this->get('summary'))
+            . '" href="' . Whups::urlFor('ticket_rss', $this->getId(), true, -1)
+            . '" />';
     }
 
     /**
@@ -502,8 +524,10 @@ class Whups_Ticket {
      *
      * @param integer $commentId  The id of the comment to restrict.
      * @param string  $group      The group name to limit access by.
+     *
+     * @return integer  The permission id.
      */
-    function addCommentPerms($commentId, $group)
+    public function addCommentPerms($commentId, $group)
     {
         if (!empty($group)) {
             $perm = $GLOBALS['injector']
@@ -522,7 +546,7 @@ class Whups_Ticket {
      *
      * @param Horde_Variables $vars  The form variables object to set info in.
      */
-    function setDetails(&$vars)
+    public function setDetails(Horde_Variables &$vars)
     {
         $vars->set('id', $this->getId());
         foreach ($this->getDetails() as $varname => $value) {
@@ -560,7 +584,7 @@ class Whups_Ticket {
      *                          notification. If empty, the list will be
      *                          created automatically.
      */
-    function notify($author, $isNew, $listeners = array())
+    public function notify($author, $isNew, $listeners = array())
     {
         global $conf, $whups_driver;
 
@@ -760,7 +784,7 @@ class Whups_Ticket {
      * @param boolean $isNew   Is this a new ticket or a change to an existing
      *                         one?
      */
-    function toString()
+    public function toString()
     {
         $fields = array('queue' => _("Queue"),
                         'version' => _("Version"),
@@ -800,7 +824,7 @@ class Whups_Ticket {
         return $message;
     }
 
-    function __toString()
+    public function __toString()
     {
         return $this->toString();
     }
@@ -811,7 +835,7 @@ class Whups_Ticket {
      *
      * @return array  List of ticket attribute hashes.
      */
-    function addAttributes()
+    public function addAttributes()
     {
         $attributes = $GLOBALS['whups_driver']
             ->getAllTicketAttributesWithNames($this->getId());
