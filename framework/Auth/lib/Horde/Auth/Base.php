@@ -123,6 +123,26 @@ abstract class Horde_Auth_Base
     }
 
     /**
+     * Basic sort implementation.
+     *
+     * If the backend has listUsers and doesn't have a native sorting option,
+     * fall back to this method.
+     *
+     * @param array   $users  An array of usernames.
+     * @param boolean $sort   Whether to sort or not.
+     *
+     * @return array the users, sorted or not
+     *
+     */
+    protected function _sort($users, $sort) {
+        
+        if ($sort) {
+            sort($users);
+        }
+        return $users;
+    }
+
+    /**
      * Authentication stub.
      *
      * On failure, Horde_Auth_Exception should pass a message string (if any)
