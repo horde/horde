@@ -1161,27 +1161,59 @@ class Ansel_Image Implements Iterator
     }
 
     /**
-     * Set/replace this image's tags.
+     * Either add or replace this image's tags.
      *
-     * @param array $tags  An array of tag names to associate with this image.
+     * @param array $tags       An array of tag names
+     * @param boolean $replace  Replace all tags with those provided.
      *
      * @throws Horde_Exception_PermissionDenied
      */
-    public function setTags(array $tags)
+    public function setTags(array $tags, $replace = true)
     {
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')
+        $gallery = $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
             ->getGallery(abs($this->gallery));
         if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $this->_tags = array();
-            $GLOBALS['injector']
-                ->getInstance('Ansel_Tagger')
-                ->tag(
-                    (string)$this->id,
-                    $tags,
-                    $gallery->get('owner'),
-                    'image');
+
+            if ($replace) {
+                $GLOBALS['injector']
+                    ->getInstance('Ansel_Tagger')
+                    ->replaceTags(
+                        (string)$this->id,
+                        $tags,
+                        $gallery->get('owner'),
+                        'image');
+            } else {
+                $GLOBALS['injector']
+                    ->getInstance('Ansel_Tagger')
+                    ->tag(
+                        (string)$this->id,
+                        $tags,
+                        $gallery->get('owner'),
+                        'image');
+            }
         } else {
             throw new Horde_Exception_PermissionDenied(_("Access denied adding tags to this photo."));
+        }
+    }
+
+    /**
+     * Remove a single tag from this image's tag collection
+     *
+     * @param string $tag  The tag name to remove.
+     */
+    public function removeTag($tag)
+    {
+        $gallery = $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
+            ->getGallery(abs($this->gallery));
+        if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+            $GLOBALS['injector']
+                ->getInstance('Ansel_Tagger')
+                ->untag(
+                    (string)$this->id,
+                    $tag);
         }
     }
 

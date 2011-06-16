@@ -822,13 +822,46 @@ class Ansel_Gallery implements Serializable
      *
      * @throws Horde_Exception_PermissionDenied
      */
-    public function setTags(array $tags)
+    public function setTags(array $tags, $replace = true)
     {
         if ($this->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            $GLOBALS['injector']->getInstance('Ansel_Tagger')
-                ->replaceTags($this->id, $tags, $this->get('owner'), 'gallery');
+
+            if ($replace) {
+                $GLOBALS['injector']
+                    ->getInstance('Ansel_Tagger')
+                    ->replaceTags(
+                        $this->id,
+                        $tags,
+                        $this->get('owner'),
+                        'gallery');
+            } else {
+                $GLOBALS['injector']
+                    ->getInstance('Ansel_Tagger')
+                    ->tag(
+                        $this->id,
+                        $tags,
+                        $this->get('owner'),
+                        'gallery');
+            }
         } else {
             throw new Horde_PermissionDenied(_("Access denied adding tags to this gallery."));
+        }
+    }
+
+    /**
+     * Remove a single tag from this gallery's tag collection
+     *
+     * @param string $tag  The tag name to remove.
+     */
+    public function removeTag($tag)
+    {
+        if ($this->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+            $GLOBALS['injector']
+                ->getInstance('Ansel_Tagger')
+                ->untag(
+                    (string)$this->id,
+                    $tag,
+                    'gallery');
         }
     }
 
