@@ -10,18 +10,25 @@
  */
 class Trean_Bookmarks
 {
+    protected $_userManager;
+
+    protected $_userId;
+
     /**
      * Constructor.
      */
-    public function __construct()
+    public function __construct(Content_Users_Manager $userManager)
     {
+        $this->_userManager = $userManager;
         try {
             Horde::callHook('share_init', array($this, 'trean'));
         } catch (Horde_Exception_HookNotSet $e) {}
+
+        $this->_userId = current($this->_userManager->ensureUsers($GLOBALS['registry']->getAuth()));
     }
 
     /**
-     * Search all folders that the user has permissions to.
+     * Search bookmarks.
      */
     function searchBookmarks($search_criteria, $search_operator = 'OR',
                              $sortby = 'title', $sortdir = 0, $from = 0, $count = 0)
@@ -37,7 +44,7 @@ class Trean_Bookmarks
         }
 
         $clauses = array();
-        $values = array($GLOBALS['registry']->getAuth());
+        $values = array($this->_userId);
         foreach ($search_criteria as $criterion) {
             $clause = $GLOBALS['trean_db']->buildClause(
                 'bookmark_' . $criterion[0],
@@ -53,7 +60,7 @@ class Trean_Bookmarks
 
         $sql = 'SELECT bookmark_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_rating
                 FROM trean_bookmarks
-                WHERE user_uid = ?
+                WHERE user_id = ?
                       AND (' . implode(' ' . $search_operator . ' ', $clauses) . ')
                 ORDER BY bookmark_' . $sortby . ($sortdir ? ' DESC' : '');
         $sql = $GLOBALS['trean_db']->addLimitOffset($sql, array('limit' => $count, 'offset' => $from));
@@ -62,14 +69,14 @@ class Trean_Bookmarks
     }
 
     /**
-     * Returns the number of bookmarks in all folders.
+     * Returns the number of bookmarks.
      *
      * @return integer  The number of all bookmarks.
      */
     function countBookmarks()
     {
-        $sql = 'SELECT COUNT(*) FROM trean_bookmarks WHERE user_uid = ?';
-        return $GLOBALS['trean_db']->selectValue($sql, array($GLOBALS['registry']->getAuth()));
+        $sql = 'SELECT COUNT(*) FROM trean_bookmarks WHERE user_id = ?';
+        return $GLOBALS['trean_db']->selectValue($sql, array($this->_userId));
     }
 
     /**
@@ -101,7 +108,7 @@ class Trean_Bookmarks
     function getBookmark($id)
     {
         $bookmark = $GLOBALS['trean_db']->selectOne('
-            SELECT bookmark_id, folder_id, bookmark_url, bookmark_title, bookmark_description,
+            SELECT bookmark_id, bookmark_url, bookmark_title, bookmark_description,
                    bookmark_clicks, bookmark_rating
             FROM trean_bookmarks
             WHERE bookmark_id = ' . (int)$id);
@@ -131,10 +138,6 @@ class Trean_Bookmarks
         }
 
         /* Check permissions. */
-        $folder = $this->getFolder($bookmark->folder);
-        if (!$folder->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
-            return PEAR::raiseError('permission denied');
-        }
 
         /* TODO: Decrement favicon refcount. */
 
@@ -166,95 +169,5 @@ class Trean_Bookmarks
             $objects[] = new Trean_Bookmark($cvBookmarks);
         }
         return $objects;
-    }
-}
-
-/**
- * @author  Ben Chavet <ben@horde.org>
- * @package Trean
- */
-class Trean_Bookmark {
-
-    var $id = null;
-    var $url = null;
-    var $title = '';
-    var $description = '';
-    var $clicks = 0;
-    var $rating = 0;
-    var $http_status = null;
-    var $folder;
-    var $favicon;
-
-    function Trean_Bookmark($bookmark = array())
-    {
-        if ($bookmark) {
-            $this->url = $bookmark['bookmark_url'];
-            $this->title = $bookmark['bookmark_title'];
-            $this->description = $bookmark['bookmark_description'];
-            $this->folder = $bookmark['folder_id'];
-
-            if (!empty($bookmark['bookmark_id'])) {
-                $this->id = (int)$bookmark['bookmark_id'];
-            }
-            if (!empty($bookmark['bookmark_clicks'])) {
-                $this->clicks = (int)$bookmark['bookmark_clicks'];
-            }
-            if (!empty($bookmark['bookmark_rating'])) {
-                $this->rating = (int)$bookmark['bookmark_rating'];
-            }
-            if (!empty($bookmark['bookmark_http_status'])) {
-                $this->http_status = $bookmark['bookmark_http_status'];
-            }
-        }
-    }
-
-    /**
-     * Save bookmark.
-     */
-    function save()
-    {
-        if ($this->id) {
-            // Update an existing bookmark.
-            return $GLOBALS['trean_db']->update('
-                UPDATE trean_bookmarks
-                SET folder_id = ?,
-                    bookmark_url = ?,
-                    bookmark_title = ?,
-                    bookmark_description = ?,
-                    bookmark_clicks = ?,
-                    bookmark_rating = ?
-                WHERE bookmark_id = ?',
-                array(
-                    $this->folder,
-                    Horde_String::convertCharset($this->url, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
-                    Horde_String::convertCharset($this->title, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
-                    Horde_String::convertCharset($this->description, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
-                    $this->clicks,
-                    $this->rating,
-                    $this->id,
-            ));
-        }
-
-        if (!$this->folder || !strlen($this->url)) {
-            return PEAR::raiseError('Incomplete bookmark');
-        }
-
-        // Saving a new bookmark.
-        $bookmark_id = $GLOBALS['trean_db']->insert('
-            INSERT INTO trean_bookmarks
-                (folder_id, bookmark_url, bookmark_title, bookmark_description,
-                 bookmark_clicks, bookmark_rating)
-            VALUES (?, ?, ?, ?, ?, ?)',
-            array(
-                $this->folder,
-                Horde_String::convertCharset($this->url, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
-                Horde_String::convertCharset($this->title, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
-                Horde_String::convertCharset($this->description, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
-                $this->clicks,
-                $this->rating,
-        ));
-
-        $this->id = (int)$bookmark_id;
-        return $this->id;
     }
 }

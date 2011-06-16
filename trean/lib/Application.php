@@ -44,21 +44,30 @@ class Trean_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
+        /* For now, autoloading the Content_* classes depend on there being a
+         * registry entry for the 'content' application that contains at least
+         * the fileroot entry. */
+        $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
+        if (!class_exists('Content_Tagger')) {
+            throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the Content application is installed.');
+        }
+
         // Set the timezone variable.
         $GLOBALS['registry']->setTimeZone();
 
-        // Create db and share instances.
+        // Create db and gateway instances.
         $GLOBALS['trean_db'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('trean');
-        $GLOBALS['trean_shares'] = new Trean_Bookmarks();
+        try {
+        $GLOBALS['trean_gateway'] = $GLOBALS['injector']->getInstance('Trean_Bookmarks');
+        } catch (Exception $e) {
+            var_dump($e);
+        }
 
         $rss = Horde::url('rss.php', true, -1);
         if (Horde_Util::getFormData('f')) {
             $rss->add('f', Horde_Util::getFormData('f'));
         }
         $GLOBALS['linkTags'] = array('<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars(_("Bookmarks Feed")) . '" href="' . $rss . '" />');
-        if ($GLOBALS['prefs']->getValue('show_folder_actions')) {
-            $GLOBALS['bodyClass'] = 'folderActions';
-        }
     }
 
     /**
@@ -70,10 +79,6 @@ class Trean_Application extends Horde_Registry_Application
                 'title' => _("Maximum Number of Bookmarks"),
                 'type' => 'int'
             ),
-            'max_folders' => array(
-                'title' => _("Maximum Number of Folders"),
-                'type' => 'int'
-            )
         );
     }
 

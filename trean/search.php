@@ -52,7 +52,7 @@ if ($form->validate($vars)) {
 
     if ($criteria) {
         // Get the bookmarks.
-        $bookmarks = $trean_shares->searchBookmarks($criteria, $combine);
+        $bookmarks = $trean_gateway->searchBookmarks($criteria, $combine);
         $search_title = sprintf(_("Search Results (%s)"), count($bookmarks));
 
         // Display the results.

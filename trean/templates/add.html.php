@@ -1,21 +1,3 @@
-<script type="text/javascript">
-function addBookmark() {
-    if (document.bookmark.f.value == '*new*') {
-        var newFolder = window.prompt('<?php echo addslashes(_("Please enter a name for the new folder:")) ?>\n', '');
-        if (newFolder != null && newFolder != '') {
-            document.bookmark.newFolder.value = newFolder;
-            document.bookmark.submit();
-        }
-    } else {
-        if (document.bookmark.f.value == '') {
-            window.alert('<?php echo addslashes(_("You must select a target folder first")) ?>');
-        } else {
-            document.bookmark.submit();
-        }
-    }
-}
-</script>
-
 <form name="bookmark" action="add.php" method="post">
 <?php echo Horde_Util::formInput() ?>
 <input type="hidden" name="newFolder" value="" />
@@ -44,11 +26,13 @@ function addBookmark() {
 </tr>
 
 <tr>
-  <td class="light rightAlign"><strong><?php echo _("Folder") ?></strong></td>
+  <td></td>
   <td>
-   <select name="f">
-    <?php echo Trean::folderSelect(Horde_Util::getFormData('f'), Horde_Perms::EDIT, true) ?>
-   </select>
+  <div class="kronolithDialogInfo"><?php echo _("To make it easier to find, you can enter comma separated tags related to the event subject.") ?></div>
+  <input id="kronolithEventTags" name="tags" />
+  <label for="kronolithEventTopTags"><?php echo _("Previously used tags") ?>:</label><br />
+  <span id="kronolithEventTags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
+  <div class="kronolithTopTags" id="kronolithEventTopTags"></div>
   </td>
 </tr>
 
@@ -56,7 +40,7 @@ function addBookmark() {
   <td>
   </td>
   <td>
-   <input type="submit" class="button" value="<?php echo _("Add") ?>" onclick="addBookmark(); return false;" />
+   <input type="submit" class="button" value="<?php echo _("Add") ?>">
    <input type="button" class="button" value="<?php echo _("Cancel") ?>" onclick="<?php echo !Horde_Util::getFormData('popup') ? 'window.history.go(-1);' : 'window.close();'; ?>" />
   </td>
 </tr>
