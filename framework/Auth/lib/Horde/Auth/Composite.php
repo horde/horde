@@ -143,9 +143,13 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      * @return array  The array of userIds.
      * @throws Horde_Auth_Exception
      */
-    public function listUsers()
+    public function listUsers($sort = false)
     {
-        return $this->_params['admin_driver']->listUsers();
+        $users = $this->_params['admin_driver']->listUsers();
+        if ($sort) {
+            sort($users);
+        }
+        return $users;
     }
 
     /**

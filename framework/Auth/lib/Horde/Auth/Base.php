@@ -192,7 +192,7 @@ abstract class Horde_Auth_Base
      * @return mixed  The array of userIds.
      * @throws Horde_Auth_Exception
      */
-    public function listUsers()
+    public function listUsers($sort = false)
     {
         throw new Horde_Auth_Exception('Unsupported.');
     }

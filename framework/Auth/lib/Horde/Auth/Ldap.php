@@ -373,7 +373,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      * @return array  List of Users
      * @throws Horde_Auth_Exception
      */
-    public function listUsers()
+    public function listUsers($sort = false)
     {
         $params = array(
             'attributes' => array($this->_params['uid']),
@@ -394,7 +394,9 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
                 $userlist[] = $val->getValue($uid, 'single');
             }
         } catch (Horde_Ldap_Exception $e) {}
-
+        if ($sort) {
+            sort($userlist);
+        }
         return $userlist;
     }
 }

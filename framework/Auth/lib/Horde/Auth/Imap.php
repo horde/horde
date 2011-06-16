@@ -137,7 +137,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
      * @return array  The array of userIds.
      * @throws Horde_Auth_Exception
      */
-    public function listUsers()
+    public function listUsers($sort = false)
     {
         try {
             $ob = $this->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
@@ -146,9 +146,13 @@ class Horde_Auth_Imap extends Horde_Auth_Base
             throw new Horde_Auth_Exception($e);
         }
 
-        return empty($list)
+        $users = empty($list)
             ? array()
             : preg_replace('/.*' . preg_quote($this->_params['userhierarchy'], '/') . '(.*)/', '\\1', $list);
+        if ($sort) {
+            sort($users);
+        }
+        return $users;
     }
 
     /**

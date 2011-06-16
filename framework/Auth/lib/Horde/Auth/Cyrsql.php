@@ -322,7 +322,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
      * @return mixed  The array of userIds.
      * @throws Horde_Auth_Exception
      */
-    public function listUsers()
+    public function listUsers($sort = true)
     {
         if (!empty($this->_params['domain_field']) &&
             ($this->_params['domain_field'] != 'none')) {
@@ -362,7 +362,6 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
                 }
             }
         }
-
         return $users;
     }
 

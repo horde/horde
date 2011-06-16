@@ -99,8 +99,9 @@ class Horde_Auth_Http extends Horde_Auth_Base
      *
      * @return array  The array of userIds.
      */
-    public function listUsers()
+    public function listUsers(sort = true)
     {
+        // this driver sorts by default
         return array_keys($this->_users);
     }
 
