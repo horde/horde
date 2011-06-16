@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [jan] Fetch events immediately after saving remote calendar.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1762,7 +1762,7 @@
    <date>2011-06-14</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [jan] Fetch events immediately after saving remote calendar.
    </notes>
   </release>
  </changelog>

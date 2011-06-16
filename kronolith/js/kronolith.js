@@ -3528,14 +3528,15 @@ KronolithCore = {
                 form.target = name;
                 form.submit();
             }
+            var cal = r.response.calendar, id;
             if (data.calendar) {
-                var cal = r.response.calendar,
-                    color = {
-                        backgroundColor: cal.bg,
-                        color: cal.fg
-                    };
+                var color = {
+                    backgroundColor: cal.bg,
+                    color: cal.fg
+                };
+                id = data.calendar;
                 this.getCalendarList(type, cal.owner).select('div').each(function(element) {
-                    if (element.retrieve('calendar') == data.calendar) {
+                    if (element.retrieve('calendar') == id) {
                         element
                             .setStyle(color)
                             .update(cal.name.escapeHTML());
@@ -3544,21 +3545,25 @@ KronolithCore = {
                     }
                 }, this);
                 this.kronolithBody.select('div').each(function(el) {
-                    if (el.retrieve('calendar') == type + '|' + data.calendar) {
+                    if (el.retrieve('calendar') == type + '|' + id) {
                         el.setStyle(color);
                     }
                 });
-                Kronolith.conf.calendars[type][data.calendar] = cal;
+                Kronolith.conf.calendars[type][id] = cal;
             } else {
+                id = r.response.id;
                 if (!Kronolith.conf.calendars[type]) {
                     Kronolith.conf.calendars[type] = [];
                 }
-                Kronolith.conf.calendars[type][r.response.id] = r.response.calendar;
-                this.insertCalendarInList(type, r.response.id, r.response.calendar);
-                this.storeCache($H(), [type, r.response.id], this.viewDates(this.date, this.view), true);
+                Kronolith.conf.calendars[type][id] = cal;
+                this.insertCalendarInList(type, id, cal);
+                this.storeCache($H(), [type, id], this.viewDates(this.date, this.view), true);
                 if (type == 'tasklists') {
-                    this.storeTasksCache($H(), this.tasktype, r.response.id.replace(/^tasks\//, ''), true);
+                    this.storeTasksCache($H(), this.tasktype, id.replace(/^tasks\//, ''), true);
                 }
+            }
+            if (type == 'remote') {
+                this.loadCalendar(type, id);
             }
         }
         form.down('.kronolithCalendarSave').enable();
