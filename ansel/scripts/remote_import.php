@@ -160,7 +160,8 @@ function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null
     if (!empty($language)) {
         $rpc_params['request.headers'] = array('Accept-Language' => $language);
     }
-    $http = $GLOBALS['injector']->createInstance('Horde_Core_Factory_Http_Client')->create($rpc_params);
+    $rpc_params['request.timeout'] = 0;
+    $http = $GLOBALS['injector']->getInstance('Horde_Core_Factory_HttpClient')->create($rpc_params);
     /* Create a gallery or use an existing one? */
     if (!empty($gallery_id) || !empty($slug)) {
         /* Start with an existing gallery */
@@ -189,7 +190,7 @@ function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null
         $name = basename($dir);
         $cli->message(sprintf(_("Creating gallery: \"%s\""), $name), 'cli.message');
         $method = 'images.createGallery';
-        $params = array(null, array('name' => $name), null, $parent);
+        $params = array(array('name' => $name), array('parent' => $parent));
         $result = Horde_Rpc::request('jsonrpc', $rpc_endpoint, $method, $http, $params);
         $gallery_id = $result->result;
         $cli->message(sprintf(_("The gallery \"%s\" was created successfully."), $name), 'cli.success');
@@ -227,10 +228,16 @@ function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null
             $image = getImageFromFile($dir . '/' . $file, $compress);
             $cli->message(sprintf(_("Storing photo \"%s\"..."), $file), 'cli.message');
             $method = 'images.saveImage';
-            $params = array(null, $gallery_id, $image, false, null, 'binhex', $slug, $compress);
-            $result = Horde_Rpc::request('jsonrpc', $rpc_endpoint, $method, $http, $params);
-            if (!($result instanceof stdClass)) {
-                $cli->fatal(sprintf(_("There was an unspecified error. The server returned: %s"), print_r($result, true)));
+            $params = array(
+                $gallery_id,
+                $image,
+                array(
+                    'encoding' => 'binhex',
+                    'compression' => $compress));
+            try {
+                $result = Horde_Rpc::request('jsonrpc', $rpc_endpoint, $method, $http, $params);
+            } catch (Horde_Rpc_Exception $e) {
+                $cli->fatal(sprintf(_("There was an unspecified error. The server returned: %s"), $e->getMessage()));
             }
             $image_id = $result->result;
             $added_images[] = $file;
