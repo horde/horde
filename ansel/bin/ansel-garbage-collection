@@ -56,16 +56,20 @@ $vfspath = '.horde/ansel/';
 $garbagepath = $vfspath . 'garbage/';
 $hash = $vfs->listFolder($vfspath, null, false, true);
 sort($hash);
-
+$styles = $injector->getInstance('Ansel_Storage')->getHashes();
 $count = 0;
 foreach ($hash as $dir) {
     if ($dir['name'] == 'garbage') {
         continue;
     }
-    $images = $vfs->listFolder($vfspath . $dir['name'] . '/full/');
+    try {
+        $images = $vfs->listFolder($vfspath . $dir['name'] . '/full/');
+    } catch (Horde_Vfs_Exception $e) {
+        continue;
+    }
     foreach ($images as $image) {
         $image_id = strpos($image['name'], '.') ? substr($image['name'], 0, strpos($image['name'], '.')) : $image['name'];
-        $result = $ansel_db->queryOne('SELECT 1 FROM ansel_images WHERE image_id = ' . (int)$image_id);
+        $result = $ansel_db->selectValue('SELECT 1 FROM ansel_images WHERE image_id = ' . (int)$image_id);
         if (!$result) {
             if (!$count && !$vfs->isFolder($vfspath, 'garbage')) {
                 $vfs->createFolder($vfspath, 'garbage');
@@ -74,33 +78,52 @@ foreach ($hash as $dir) {
             $count++;
 
             if ($opts['verbose']) {
-                echo $vfspath . $image['name'] . ' -> ' . $garbagepath . $image['name'] . "\n";
+                $cli->message($vfspath . $image['name'] . ' -> ' . $garbagepath . $image['name'], 'cli.info');
             }
 
             if ($opts['move']) {
-                $vfs->move($vfspath . $dir['name'] . '/full/', $image['name'], $garbagepath);
-                $vfs->deleteFile($vfspath . $dir['name'] . '/screen/', $image['name']);
-                $vfs->deleteFile($vfspath . $dir['name'] . '/thumb/', $image['name']);
-                $vfs->deleteFile($vfspath . $dir['name'] . '/mini/', $image['name']);
+                try {
+                    $vfs->move($vfspath . $dir['name'] . '/full/', $image['name'], $garbagepath);
+                } catch (Horde_Vfs_Exception $e) {
+                    $cli->fatal($e->getMessage());
+                }
+                // These may fail, and it's ok if they do. Might not exist.
+                try {
+                    $vfs->deleteFile($vfspath . $dir['name'] . '/screen/', $image['name']);
+                    $vfs->deleteFile($vfspath . $dir['name'] . '/thumb/', $image['name']);
+                    $vfs->deleteFile($vfspath . $dir['name'] . '/mini/', $image['name']);
+                    foreach ($styles as $style) {
+                        $vfs->deleteFile($vfspath . $dir['name'] . '/' . $style . '/', $image['name']);
+                    }
+                } catch (Horde_Vfs_Exception $e) {
+                }
 
-                // Try to clean directories too.
-                $vfs->deleteFolder($vfspath . $dir['name'], 'full');
-                $vfs->deleteFolder($vfspath . $dir['name'], 'screen');
-                $vfs->deleteFolder($vfspath . $dir['name'], 'thumb');
-                $vfs->deleteFolder($vfspath . $dir['name'], 'mini');
-                $vfs->deleteFolder($vfspath, $dir['name']);
+                // Might also fail if directories are not empty...and that's
+                // to be expected.
+                try {
+                    $vfs->deleteFolder($vfspath . $dir['name'], 'full');
+                    $vfs->deleteFolder($vfspath . $dir['name'], 'screen');
+                    $vfs->deleteFolder($vfspath . $dir['name'], 'thumb');
+                    $vfs->deleteFolder($vfspath . $dir['name'], 'mini');
+                    foreach ($styles as $style) {
+                        $vfs->deleteFolder($vfspath . $dir['name'], $style);
+                    }
+                    $vfs->deleteFolder($vfspath, $dir['name']);
+                } catch (Horde_Vfs_Exception $e) {
+                }
             }
         }
     }
 }
 
 if ($count) {
-    echo "\nFound dangling images";
+    $msg = 'Found dangling images';
     if ($opts['move']) {
-        echo " and moved $count to $garbagepath.\n";
+        $msg .= ' and moved $count to ' . $garbagepath . '.';
     } else {
-        echo ", run this script with --move to clean them up.\n";
+        $msg .= ', run this script with --move to clean them up.';
     }
+    $cli->message($msg, 'cli.success');
 } else {
-    echo "No cleanup necessary.\n";
+    $cli->message('No cleanup necessary.', 'cli.success');
 }
