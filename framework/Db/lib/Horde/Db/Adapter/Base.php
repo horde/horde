@@ -256,7 +256,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
         }
 
         $support = new Horde_Support_Backtrace();
-        $context = $support->getContext(2);
+        $context = $support->getContext(1);
         $caller = $context['function'];
         if (isset($context['class'])) {
             $caller = $context['class'] . '::' . $caller;
