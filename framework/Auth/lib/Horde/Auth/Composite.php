@@ -145,11 +145,7 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      */
     public function listUsers($sort = false)
     {
-        $users = $this->_params['admin_driver']->listUsers();
-        if ($sort) {
-            sort($users);
-        }
-        return $users;
+        return $this->_params['admin_driver']->listUsers($sort);
     }
 
     /**
