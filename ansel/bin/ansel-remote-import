@@ -2,110 +2,110 @@
 <?php
 /**
 * This script allows for adding images to an Ansel install using an RPC
-* interface. This script requires Horde's CLI and RPC libraries along with
-* PEAR's Console_Getopt library.  You will need to make sure that those
-* libraries reside somewhere in PHP's include path.
+* interface. This script requires Horde's Cli, Rpc, and Argv libraries.
+* You will need to make sure that those libraries reside somewhere in
+* PHP's include path.
 *
 * See the enclosed file COPYING for license information (GPL). If you
 * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
 *
 * @author Michael J. Rubinsky <mrubinsk@horde.org>
 */
-
-require_once dirname(__FILE__) . '/../lib/Application.php';
+if (file_exists(dirname(__FILE__) . '/../../ansel/lib/Application.php')) {
+    $baseDir = dirname(__FILE__) . '/../';
+} else {
+    require_once 'PEAR/Config.php';
+    $baseDir = PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/ansel/';
+}
+require_once $baseDir . 'lib/Application.php';
 Horde_Registry::appInit('ansel', array('cli' => true));
 
-/* Command line options */
-$ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'hu:p:g:s:d:kr:zl',
-                              array('help', 'username=', 'password=', 'gallery=', 'slug=', 'dir=', 'keep', 'remotehost=', 'gzip', 'lzf'));
-
-if ($ret instanceof PEAR_Error) {
-    $cli->fatal($ret->getMessage());
-}
+$parser = new Horde_Argv_Parser(
+    array(
+        'usage' => '%prog [--options] remotehost local_directory',
+        'optionList' => array(
+            new Horde_Argv_Option(
+                '-u',
+                '--username',
+                array(
+                    'help' => 'Horde username'
+                )
+            ),
+            new Horde_Argv_Option(
+                '-p',
+                '--password',
+                array(
+                    'help' => 'Horde password'
+                )
+            ),
+            new Horde_Argv_Option(
+                '-g',
+                '--gallery',
+                array(
+                    'help' => 'The gallery id'
+                )
+            ),
+            new Horde_Argv_Option(
+                '-s',
+                '--slug',
+                array(
+                    'help' => 'The gallery slug'
+                )
+            ),
+            new Horde_Argv_Option(
+                '-k',
+                '--keep',
+                array(
+                    'default' => false,
+                    'action' => 'store_true',
+                    'help' => 'Do not delete empty galleries on remote server after export is complete.'
+                )
+            ),
+            new Horde_Argv_Option(
+                '-z',
+                '--gzip',
+                array(
+                    'default' => false,
+                    'action' => 'store_true',
+                    'help' => 'Use gzip compression'
+                )
+            ),
+            new Horde_Argv_Option(
+                '-l',
+                '--lzf',
+                array(
+                    'default' => false,
+                    'action' => 'store_true',
+                    'help' => 'Use lzf compression'
+                )
+            ),
+        )
+    )
+);
 
 /* Show help and exit if no arguments were set. */
-list($opts, $args) = $ret;
-if (!$opts) {
-    showHelp();
-    exit;
+list($opts, $args) = $parser->parseArgs();
+if (empty($opts['username']) && empty($opts['password'])) {
+    // @TODO: just show usage, not fatal.
+    $parser->parserError('Missing Horde credentials.');
 }
 
-/* Delete empty galleries by default */
-$keepEmpties = false;
-
-/* Assume we are creating a new gallery */
-$gallery_id = null;
-$gallery_slug = null;
-$useCompression = 'none';
-
-foreach ($opts as $opt) {
-    list($optName, $optValue) = $opt;
-    switch ($optName) {
-    case 'u':
-    case '--username':
-        $username = $optValue;
-        break;
-
-    case 'p':
-    case '--password':
-        $password = $optValue;
-        break;
-
-    case 'd':
-    case '--dir':
-        $dir = $optValue;
-        break;
-
-    case 'h':
-    case '--help':
-        showHelp();
-        exit;
-
-    case 'k':
-    case '--keep':
-        $keepEmpties = true;
-        break;
-    case 'r':
-    case '--remotehost':
-        $rpc_endpoint = $optValue;
-        break;
-    case 'g':
-    case '--gallery':
-        $gallery_id = $optValue;
-        break;
-    case 's':
-    case '--slug':
-        $gallery_slug = $optValue;
-        break;
-    case 'z':
-    case '--gzip':
-        $useCompression = 'gzip';
-        break;
-    case 'l':
-    case 'lzf':
-        $useCompression = 'lzf';
-        break;
-    }
+if (count($args) != 2) {
+    $parser->parserError('Need to show usage here.');
 }
+$rpc_endpoint = $args[0];
+$dir = $args[1];
+// @TODO: Figure out how to use Horde_Argv to set a single option with this value.
+$useCompression = !empty($opts['gzip']) ? 'gzip' : (!empty($opts['lzf']) ? 'lzf' : false);
 
-/* Sanity checks */
-if (!empty($username) && !empty($password)) {
-    $rpc_auth = array(
-        'request.username' => $username,
-        'request.password' => $password);
-} else {
-    $cli->fatal(_("You must specify a valid username and password."));
-}
 
-if (empty($rpc_endpoint)) {
-    $cli->fatal(_("You must specify the url for the remote Horde RPC server."));
-}
+$rpc_auth = array(
+    'request.username' => $opts['username'],
+    'request.password' => $opts['password']
+);
 
-if (empty($dir)) {
-    $cli->fatal(_("You must specify a valid directory."));
-}
-
-processDirectory($dir, null, $gallery_id, $gallery_slug, $useCompression);
+processDirectory($dir, null, $opts['gallery'], $opts['slug'], $useCompression);
 
 /**
  * Check for, and remove any empty galleries that may have been created during
