@@ -1,7 +1,7 @@
 <?php
 /**
  * Save an image to a registry-defined application.
-
+ *
  * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
