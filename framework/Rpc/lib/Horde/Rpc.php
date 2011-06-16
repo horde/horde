@@ -119,7 +119,7 @@ class Horde_Rpc
         if (!empty($serverVars['PHP_AUTH_USER'])) {
             $user = $serverVars['PHP_AUTH_USER'];
             $pass = $serverVars['PHP_AUTH_PW'];
-        } elseif ($serverVars['Authorization']) {
+        } elseif (!empty($serverVars['Authorization'])) {
             $hash = str_replace('Basic ', '', $serverVars['Authorization']);
             $hash = base64_decode($hash);
             if (strpos($hash, ':') !== false) {
