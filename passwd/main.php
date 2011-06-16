@@ -190,7 +190,7 @@ do {
     try {
         $daemon = $GLOBALS['injector']->getInstance('Passwd_Factory_Driver')->create($backend_key);
     }
-    catch (Passwd_Error $e) {
+    catch (Passwd_Exception $e) {
         $notification->push(_("Password module is not properly configured"),
                             'horde.error');
         break;
