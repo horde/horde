@@ -56,7 +56,7 @@ class Passwd_Driver_ldap extends Passwd_Driver {
                   'admindn' => '',
                   'adminpw' => '',
                   'realm' => '',
-                  'filter' => '',
+                  'filter' => null,
                   'tls' => false,
                   'attribute' => 'userPassword',
                   'shadowlastchange' => 'shadowLastChange',
@@ -92,21 +92,23 @@ class Passwd_Driver_ldap extends Passwd_Driver {
         try {
             $this->_userdn = Horde::callHook('userdn', array($username), 'passwd');
         } catch (Horde_Exception_HookNotSet $e) {
-            $this->_userdn = $this->_ldap->findUserDN($username);
+//            $this->_userdn = $this->_ldap->findUserDN($username);
+              // workaround
+              $this->_userdn = $this->_params['uid'] . '=' . $username . ',' . $this->_params['basedn'];
         }
 
         // check the old password by binding as the userdn
         $this->_ldap->bind($this->_userdn, $old_password);
-        // rebind with admin credentials
-        $this->_ldap->bind();
 
+        // rebind with admin credentials
+        if (!($this->_params['writeAsUserDN']) ) {
+            $this->_ldap->bind();
+        }
         // Get existing user information
         $Entry = $this->_ldap->search($this->_userdn, $this->_params['filter'])->shiftEntry();
-
-         if (!$Entry) {
+        if (!$Entry) {
              throw new Passwd_Exception(_("User not found."));
-         }
-
+        }
         // Init the shadow policy array
         $lookupshadow = array('shadowlastchange' => false,
                               'shadowmin' => false);
@@ -126,9 +128,8 @@ class Passwd_Driver_ldap extends Passwd_Driver {
         }
 
         // Change the user's password and update lastchange
-
         try {
-            $Entry->replace(array($this->params['attribute'] => $this->encryptPassword($new_password)));
+            $Entry->replace(array($this->_params['attribute'] => $this->encryptPassword($new_password)));
 
             if (!empty($this->_params['shadowlastchange']) &&
                 $lookupshadow['shadowlastchange']) {
