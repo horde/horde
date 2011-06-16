@@ -144,4 +144,40 @@ class Horde_Util_UtilTest extends PHPUnit_Framework_TestCase
         $_SERVER['QUERY_STRING'] = 'id=42&id=42';
         $this->assertEquals('/42', Horde_Util::getPathInfo());
     }
+
+    public function testDispelMagicQuotes()
+    {
+        Horde_Util_Test::setMagicQuotes(false);
+        $vars = $expected = array('foobar', 'foo\bar', 'foo\\bar', 'foo\"bar');
+        foreach ($vars as $key => $var) {
+            $this->assertEquals($expected[$key], Horde_Util_Test::dispelMagicQuotes($var));
+            $this->assertEquals($expected[$key], Horde_Util_Test::dispelMagicQuotes($var));
+        }
+        foreach ($vars as $key => $var) {
+            $var = array($var);
+            $this->assertEquals(array($expected[$key]), Horde_Util_Test::dispelMagicQuotes($var));
+            $this->assertEquals(array($expected[$key]), Horde_Util_Test::dispelMagicQuotes($var));
+        }
+
+        Horde_Util_Test::setMagicQuotes(true);
+        $vars = array('foobar', 'foo\bar', 'foo\\\\bar', 'foo\"bar');
+        $expected = array('foobar', 'foobar', 'foo\bar', 'foo"bar');
+        foreach ($vars as $key => $var) {
+            $this->assertEquals($expected[$key], Horde_Util_Test::dispelMagicQuotes($var));
+            $this->assertEquals($expected[$key], Horde_Util_Test::dispelMagicQuotes($var));
+        }
+        foreach ($vars as $key => $var) {
+            $var = array($var);
+            $this->assertEquals(array($expected[$key]), Horde_Util_Test::dispelMagicQuotes($var));
+            $this->assertEquals(array($expected[$key]), Horde_Util_Test::dispelMagicQuotes($var));
+        }
+    }
+}
+
+class Horde_Util_Test extends Horde_Util
+{
+    static public function setMagicQuotes($set)
+    {
+        self::$_magicquotes = $set;
+    }
 }

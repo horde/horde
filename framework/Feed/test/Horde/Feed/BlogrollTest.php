@@ -23,21 +23,21 @@ class Horde_Feed_BlogrollTest extends PHPUnit_Framework_TestCase
     public function testValidBlogrolls($file)
     {
         $feed = Horde_Feed::readFile($this->_feedDir . $file);
-        $this->assertType('Horde_Feed_Blogroll', $feed);
+        $this->assertInstanceOf('Horde_Feed_Blogroll', $feed);
         $this->assertTrue(count($feed) > 0);
         foreach ($feed as $entry) {
             break;
         }
 
-        $this->assertType('Horde_Feed_Entry_Blogroll', $entry);
+        $this->assertInstanceOf('Horde_Feed_Entry_Blogroll', $entry);
         $this->assertGreaterThan(0, strlen($entry->text));
-        $this->assertGreaterThan(0, strlen($entry->xmlUrl));
+        $this->assertGreaterThan(0, strlen($entry->xmlurl));
 
         $this->assertEquals($entry->text, $entry['text']);
         $this->assertEquals($entry->description, $entry['description']);
         $this->assertEquals($entry->title, $entry['title']);
-        $this->assertEquals($entry->htmlUrl, $entry['htmlUrl']);
-        $this->assertEquals($entry->xmlUrl, $entry['xmlUrl']);
+        $this->assertEquals($entry->htmlurl, $entry['htmlurl']);
+        $this->assertEquals($entry->xmlurl, $entry['xmlurl']);
     }
 
     public function testGroupedBlogrolls()
@@ -55,5 +55,4 @@ class Horde_Feed_BlogrollTest extends PHPUnit_Framework_TestCase
             array('MySubscriptionsGrouped.opml'),
         );
     }
-
 }

@@ -19,6 +19,12 @@
 class Horde_Memcache implements Serializable
 {
     /**
+     * The number of bits reserved by PHP's memcache layer for internal flag
+     * use.
+     */
+    const FLAGS_RESERVED = 16;
+
+    /**
      * The max storage size of the memcache server.  This should be slightly
      * smaller than the actual value due to overhead.  By default, the max
      * slab size of memcached (as of 1.1.2) is 1 MB.
@@ -185,7 +191,7 @@ class Horde_Memcache implements Serializable
         /* Check to see if we have any oversize items we need to get. */
         if (!empty($this->_params['large_items'])) {
             foreach ($key_map as $key => $val) {
-                $part_count = ($flags[$val] >> 8) - 1;
+                $part_count = ($flags[$val] >> self::FLAGS_RESERVED) - 1;
 
                 switch ($part_count) {
                 case -1:
@@ -407,7 +413,7 @@ class Horde_Memcache implements Serializable
         $flags = empty($this->_params['compression'])
             ? 0
             : MEMCACHE_COMPRESSED;
-        return ($flags | $count << 8);
+        return ($flags | $count << self::FLAGS_RESERVED);
     }
 
     /* Serializable methods. */

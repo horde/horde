@@ -692,17 +692,22 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 ((strpos($save_attach, 'prompt') === 0) &&
                  empty($opts['save_attachments']))) {
                 $mime_message->buildMimeIds();
-                for ($i = 2;; ++$i) {
-                    if (!($oldPart = $mime_message->getPart($i))) {
-                        break;
-                    }
 
-                    $replace_part = new Horde_Mime_Part();
-                    $replace_part->setType('text/plain');
-                    $replace_part->setCharset($this->charset);
-                    $replace_part->setLanguage($GLOBALS['language']);
-                    $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true) . '"]');
-                    $mime_message->alterPart($i, $replace_part);
+                /* Don't strip any part if this is a text message with both
+                 * plaintext and HTML representation. */
+                if ($mime_message->getType() != 'multipart/alternative') {
+                    for ($i = 2;; ++$i) {
+                        if (!($oldPart = $mime_message->getPart($i))) {
+                            break;
+                        }
+
+                        $replace_part = new Horde_Mime_Part();
+                        $replace_part->setType('text/plain');
+                        $replace_part->setCharset($this->charset);
+                        $replace_part->setLanguage($GLOBALS['language']);
+                        $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true) . '"]');
+                        $mime_message->alterPart($i, $replace_part);
+                    }
                 }
             }
 
@@ -1473,11 +1478,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                                   is_null($list_info) ||
                                   !$force ||
                                   empty($list_info['exists'])) {
-                            /* Don't add To address if this is a list that
+                            /* Don't add as To address if this is a list that
                              * doesn't have a post address but does have a
                              * reply-to address. */
-                            if ($val == 'reply-to') {
-                                /* If reply-to doesn't have personal
+                            if (in_array($val, array('from', 'reply-to'))) {
+                                /* If from/reply-to doesn't have personal
                                  * information, check from address. */
                                 if (!$addr_obs[0]['personal'] &&
                                     ($to_ob = $h->getOb('from')) &&
@@ -1513,7 +1518,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 }
             }
 
-            if (empty($header['to']) && (count($hdr_cc) > 1)) {
+            if (count($hdr_cc)) {
                 $reply_type = self::REPLY_ALL;
             }
             $header[empty($header['to']) ? 'to' : 'cc'] = rtrim(implode('', $hdr_cc), ' ,');

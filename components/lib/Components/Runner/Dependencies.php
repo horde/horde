@@ -72,9 +72,9 @@ class Components_Runner_Dependencies
         $options = $this->_config->getOptions();
         $arguments = $this->_config->getArguments();
         $this->_factory
-            ->createSimpleTreeHelper($this->_config->getComponentDirectory())
+            ->createSimpleTreeHelper($this->_config->getComponent()->getPath())
             ->listDependencyTree(
-                $this->_config->getComponentPackageXml(),
+                $this->_config->getComponent()->getPackageXml(),
                 $this->_output
             );
     }

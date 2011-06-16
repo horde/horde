@@ -95,23 +95,31 @@ extends Components_Module_Base
             foreach ($modules->getModules() as $module) {
                 $element = $modules->getProvider()->getModule($module);
                 if (in_array($action, $element->getActions())) {
-                    $help = "\nACTION \"" . $action . "\"\n\n";
+                    $title = "ACTION \"" . $action . "\"";
+                    $sub = str_repeat('-', strlen($title));
+                    $help = "\n" . $title . "\n" . $sub . "\n\n";
                     $help .= Horde_String::wordwrap(
                         $element->getHelp($action), 75, "\n", true
                     );
-                    $formatter = new Horde_Argv_IndentedHelpFormatter();
-                    $parser = $this->_dependencies->getParser();
-                    foreach ($element->getContextOptionHelp() as $option => $help_text) {
-                        $argv_option = $parser->getOption($option);
-                        $help .= "\n\n    " . $formatter->formatOptionStrings($argv_option) . "\n\n      ";
-                        if (empty($help_text)) {
-                            $help .= Horde_String::wordwrap(
-                                $argv_option->help, 75, "\n      ", true
-                            );
-                        } else {
-                            $help .= Horde_String::wordwrap(
-                                $help_text, 75, "\n      ", true
-                            );
+                    $options = $element->getContextOptionHelp();
+                    if (!empty($options)) {
+                        $formatter = new Horde_Argv_IndentedHelpFormatter();
+                        $parser = $this->_dependencies->getParser();
+                        foreach ($options as $option => $help_text) {
+                            $title = "OPTIONS for \"" . $action . "\"";
+                            $sub = str_repeat('-', strlen($title));
+                            $help .= "\n\n\n" . $title . "\n" . $sub . "";
+                            $argv_option = $parser->getOption($option);
+                            $help .= "\n\n    " . $formatter->formatOptionStrings($argv_option) . "\n\n      ";
+                            if (empty($help_text)) {
+                                $help .= Horde_String::wordwrap(
+                                    $argv_option->help, 75, "\n      ", true
+                                );
+                            } else {
+                                $help .= Horde_String::wordwrap(
+                                    $help_text, 75, "\n      ", true
+                                );
+                            }
                         }
                     }
                     $help .= "\n";

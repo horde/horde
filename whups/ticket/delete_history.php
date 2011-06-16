@@ -19,11 +19,11 @@ if (!Whups::hasPermission($ticket->get('queue'), 'queue', Horde_Perms::DELETE)) 
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$result = $whups_driver->deleteHistory($vars->get('transaction'));
-if (is_a($result, 'PEAR_Error')) {
-    $notification->push($result, 'horde.error');
-} else {
+try {
+    $whups_driver->deleteHistory($vars->get('transaction'));
     $notification->push(_("Entry deleted."), 'horde.success');
+} catch (Whups_Exception $e) {
+    $notification->push($e, 'horde.error');
 }
 
 if ($url = Horde_Util::getFormData('url')) {

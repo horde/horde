@@ -107,11 +107,11 @@ case 'move_message':
 case 'copy_message':
     if (isset($vars->targetMbox) &&
         (!$readonly || ($vars->actionID == 'copy_message'))) {
-        $targetMbox = IMP_Mailbox::formFrom($vars->targetMbox);
         if ($vars->newMbox) {
-            $vars->targetMbox = IMP_Mailbox::prefFrom($targetMbox);
+            $targetMbox = IMP_Mailbox::prefFrom($vars->targetMbox);
             $newMbox = true;
         } else {
+            $targetMbox = IMP_Mailbox::formFrom($vars->targetMbox);
             $newMbox = false;
         }
         $imp_message->copy(
@@ -423,7 +423,7 @@ foreach ($flag_parse as $val) {
 $h_page_label = htmlspecialchars($page_label);
 $header_label = $h_page_label;
 if (IMP::$mailbox->search) {
-    $header_label .= ' [' . Horde::link(Horde::url('mailbox.php')->add('mailbox', $mailbox)) . $mailbox->display . '</a>]';
+    $header_label .= ' [' . Horde::link(Horde::url('mailbox.php')->add('mailbox', IMP::base64urlEncode($mailbox))) . $mailbox->display . '</a>]';
 }
 
 /* Prepare the navbar top template. */
@@ -448,21 +448,23 @@ $n_template->set('id', 1);
 if ($imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
     $n_template->set('mailbox', IMP::$mailbox->form_to);
 
-    $tmp = $imp_flags->getList(array(
+    $args = array(
         'imap' => true,
         'mailbox' => IMP::$mailbox
-    ));
+    );
 
     $form_set = $form_unset = array();
-    foreach ($tmp as $val) {
-        $form_set[] = array(
-            'f' => $val->form_set,
-            'l' => $val->label
-        );
-        $form_unset[] = array(
-            'f' => $val->form_unset,
-            'l' => $val->label
-        );
+    foreach ($imp_flags->getList($args) as $val) {
+        if ($val->canset) {
+            $form_set[] = array(
+                'f' => $val->form_set,
+                'l' => $val->label
+            );
+            $form_unset[] = array(
+                'f' => $val->form_unset,
+                'l' => $val->label
+            );
+        }
     }
 
     $n_template->set('flaglist_set', $form_set);

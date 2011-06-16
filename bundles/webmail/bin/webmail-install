@@ -13,7 +13,7 @@ ini_set('error_reporting', $error_level);
 ini_set('display_errors', 1);
 
 require_once 'PEAR/Config.php';
-require_once PEAR_Config::singleton(uniqid())
+require_once PEAR_Config::singleton()
     ->get('horde_dir', null, 'pear.horde.org') . '/lib/Application.php';
 
 // Load the CLI environment.

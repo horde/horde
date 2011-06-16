@@ -98,11 +98,30 @@ extends Components_Config_Base
         );
         $parser->addOption(
             new Horde_Argv_Option(
+                '-D',
+                '--destination',
+                array(
+                    'action' => 'store',
+                    'help'   => 'Path to an (existing) destination directory where any output files will be placed.'
+                )
+            )
+        );
+        $parser->addOption(
+            new Horde_Argv_Option(
                 '-R',
                 '--pearrc',
                 array(
                     'action' => 'store',
                     'help'   => 'the path to the configuration of the PEAR installation you want to use for all PEAR based actions (leave empty to use your system default PEAR environment).'
+                )
+            )
+        );
+        $parser->addOption(
+            new Horde_Argv_Option(
+                '--allow-remote',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'allow horde-components to access the remote http://pear.horde.org for dealing with stable releases. This option is not required in case you work locally in your git checkout and will only work for some actions that are able to operate on stable release packages.'
                 )
             )
         );

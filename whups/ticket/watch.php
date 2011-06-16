@@ -10,30 +10,6 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-class AddListenerForm extends Horde_Form {
-
-    function AddListenerForm(&$vars, $title = '')
-    {
-        parent::Horde_Form($vars, $title);
-
-        $this->addHidden('', 'id', 'int', true, true);
-        $this->addVariable(_("Email address to notify"), 'add_listener', 'email', true);
-    }
-
-}
-
-class DeleteListenerForm extends Horde_Form {
-
-    function DeleteListenerForm(&$vars, $title = '')
-    {
-        parent::Horde_Form($vars, $title);
-
-        $this->addHidden('', 'id', 'int', true, true);
-        $this->addVariable(_("Email address to remove"), 'del_listener', 'email', true);
-    }
-
-}
-
 $ticket = Whups::getCurrentTicket();
 $linkTags[] = $ticket->feedLink();
 $vars = Horde_Variables::getDefaultVariables();
@@ -42,32 +18,36 @@ foreach ($ticket->getDetails() as $varname => $value) {
     $vars->add($varname, $value);
 }
 
-$addform = new AddListenerForm($vars, _("Add Watcher"));
-$delform = new DeleteListenerForm($vars, _("Remove Watcher"));
+$addform = new Whups_Form_AddListener($vars, _("Add Watcher"));
+$delform = new Whups_Form_DeleteListener($vars, _("Remove Watcher"));
 
-if ($vars->get('formname') == 'addlistenerform') {
+if ($vars->get('formname') == 'whups_form_addlistener') {
     if ($addform->validate($vars)) {
         $addform->getInfo($vars, $info);
 
-        $result = $whups_driver->addListener($id, '**' . $info['add_listener']);
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result, 'horde.error');
-        } else {
-            $ticket->notify($info['add_listener'], false, array('**' . $info['add_listener']));
-            $notification->push(sprintf(_("%s will be notified when this ticket is updated."), $info['add_listener']), 'horde.success');
+        try {
+            $whups_driver->addListener($id, '**' . $info['add_listener']);
+            $ticket->notify(
+                $info['add_listener'], false, array('**' . $info['add_listener']));
+            $notification->push(
+                sprintf(_("%s will be notified when this ticket is updated."), $info['add_listener']),
+                'horde.success');
             $ticket->show();
+        } catch (Whups_Exception $e) {
+            $notification->push($e, 'horde.error');
         }
     }
-} elseif ($vars->get('formname') == 'deletelistenerform') {
+} elseif ($vars->get('formname') == 'whups_form_deletelistener') {
     if ($delform->validate($vars)) {
         $delform->getInfo($vars, $info);
-
-        $result = $whups_driver->deleteListener($id, '**' . $info['del_listener']);
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result, 'horde.error');
-        } else {
-            $notification->push(sprintf(_("%s will no longer receive updates for this ticket."), $info['del_listener']), 'horde.success');
+        try {
+            $whups_driver->deleteListener($id, '**' . $info['del_listener']);
+            $notification->push(
+                sprintf(_("%s will no longer receive updates for this ticket."), $info['del_listener']),
+                'horde.success');
             $ticket->show();
+        } catch (Whups_Exception $e) {
+            $notification->push($e, 'horde.error');
         }
     }
 }
@@ -90,7 +70,7 @@ echo '<br class="spacer" />';
 $delform->renderActive($r, $vars, 'watch.php', 'post');
 echo '<br class="spacer" />';
 
-$form = new TicketDetailsForm($vars, $ticket, '[#' . $id . '] ' . $ticket->get('summary'));
+$form = new Whups_Form_TicketDetails($vars, $ticket, '[#' . $id . '] ' . $ticket->get('summary'));
 $ticket->setDetails($vars);
 $form->renderInactive($form->getRenderer(), $vars);
 

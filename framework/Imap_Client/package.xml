@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-01</date>
- <time>15:45:21</time>
+ <date>2011-06-14</date>
+ <time>14:50:49</time>
  <version>
-  <release>1.0.8</release>
+  <release>1.0.9</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -427,7 +427,21 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-01</date>
+   <date>2011-06-14</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [mms] Fix re-subscribing to child mailboxes of a renamed mailbox (Bug #10212).
+* [mms] Fix base subject generation under RFC 5256 [2.1].
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.9</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * 

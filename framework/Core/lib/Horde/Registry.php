@@ -374,8 +374,10 @@ class Horde_Registry
         /* Initial Horde-wide settings. */
 
         /* Set the maximum execution time in accordance with the config
-         * settings. */
-        set_time_limit($conf['max_exec_time']);
+         * settings, but only if not running from the CLI */
+        if (!Horde_Cli::runningFromCLI()) {
+            set_time_limit($conf['max_exec_time']);
+        }
 
         /* Set the error reporting level in accordance with the config
          * settings. */
@@ -781,9 +783,17 @@ class Horde_Registry
 
         $apps = array();
         foreach ($this->applications as $app => $params) {
-            if (in_array($params['status'], $filter) &&
-                (is_null($perms) || $this->hasPermission($app, $perms))) {
-                $apps[$app] = $params;
+            if (in_array($params['status'], $filter)) {
+                /* Sidebar apps can only be displayed if the parent app is
+                 * active. */
+                if (($params['status'] == 'sidebar') &&
+                    $this->isInactive($params['app'])) {
+                        continue;
+                }
+
+                if ((is_null($perms) || $this->hasPermission($app, $perms))) {
+                    $apps[$app] = $params;
+                }
             }
         }
 

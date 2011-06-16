@@ -43,7 +43,7 @@ class Passwd_Driver_sql extends Passwd_Driver {
      * 'query_modify'    - (string)  Should we use a custom query for changing?
      * </pre>
      */
-    function Passwd_Driver_sql($params = array())
+    function __construct($params = array())
     {
         if (isset($params['db'])) {
             $this->_db = $params['db'];
@@ -67,7 +67,7 @@ class Passwd_Driver_sql extends Passwd_Driver {
      * @param string $userID        The userID to check.
      * @param string $old_password  An old password to check.
      *
-     * @return boolean  True on valid or PEAR_Error on invalid.
+     * @return boolean  True on valid
      */
     function _lookup($user, $old_password)
     {
@@ -84,16 +84,14 @@ class Passwd_Driver_sql extends Passwd_Driver {
         try {
             $result = $this->_db->selectOne($sql, $values);
         } catch (Horde_Db_Exception $e) {
-            return PEAR::raiseError($e->__toString());
-            // throw new Passwd_Exception($e);
+             throw new Passwd_Exception($e);
         }
         Horde::logMessage('SQL Query by Passwd_Driver_sql::_lookup(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         if (is_array($result)) {
             $current_password = $result[$this->_params['pass_col']];
         } else {
-            // throw new Passwd_Exception(_("User not found"));
-            return PEAR::raiseError(_("User not found"));
+            throw new Passwd_Exception(_("User not found"));
         }
         /* Check the passwords match. */
         return $this->comparePasswords($current_password, $old_password);
@@ -128,14 +126,7 @@ class Passwd_Driver_sql extends Passwd_Driver {
         try {
             $this->_db->update($sql, $values);
         } catch (Horde_Db_Exception $e) {
-            return PEAR::raiseError($e->__toString());
-            // throw new Passwd_Exception($e);
-        }
-
-        $result = $this->_db->update($sql, $values);
-
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+            throw new Passwd_Exception($e);
         }
 
         return true;
@@ -214,9 +205,6 @@ class Passwd_Driver_sql extends Passwd_Driver {
     {
         /* Check the current password. */
         $res = $this->_lookup($username, $old_password);
-        if (is_a($res, 'PEAR_Error'))  {
-            return $res;
-        }
 
         return $this->_modify($username, $new_password);
     }

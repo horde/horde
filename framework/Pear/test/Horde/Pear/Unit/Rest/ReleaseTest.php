@@ -37,29 +37,29 @@ extends Horde_Pear_TestCase
 {
     public function testName()
     {
-        $this->assertEquals('Horde_Core', $this->_getRelease()->getName());
+        $this->assertEquals('Horde_Core', $this->_getReleaseWrapper()->getName());
     }
 
     public function testChannel()
     {
-        $this->assertEquals('pear.horde.org', $this->_getRelease()->getChannel());
+        $this->assertEquals('pear.horde.org', $this->_getReleaseWrapper()->getChannel());
     }
 
     public function testVersion()
     {
-        $this->assertEquals('1.0.0', $this->_getRelease()->getVersion());
+        $this->assertEquals('1.0.0', $this->_getReleaseWrapper()->getVersion());
     }
 
     public function testLicense()
     {
-        $this->assertEquals('LGPL', $this->_getRelease()->getLicense());
+        $this->assertEquals('LGPL', $this->_getReleaseWrapper()->getLicense());
     }
 
     public function testSummary()
     {
         $this->assertEquals(
             'Horde Core Framework libraries',
-            $this->_getRelease()->getSummary()
+            $this->_getReleaseWrapper()->getSummary()
         );
     }
 
@@ -67,7 +67,7 @@ extends Horde_Pear_TestCase
     {
         $this->assertEquals(
             'These classes provide the core functionality of the Horde Application Framework.',
-            $this->_getRelease()->getDescription()
+            $this->_getReleaseWrapper()->getDescription()
         );
     }
 
@@ -82,7 +82,7 @@ extends Horde_Pear_TestCase
 * [jan] Use localized application names when sorting the preference menu tree.
 * [mms] Fix adding port to certain urls passed to Horde::url() (Bug #9712).
  ',
-            $this->_getRelease()->getNotes()
+            $this->_getReleaseWrapper()->getNotes()
         );
     }
 
@@ -90,11 +90,11 @@ extends Horde_Pear_TestCase
     {
         $this->assertEquals(
             'http://pear.horde.org/get/Horde_Core-1.0.0.tgz',
-            $this->_getRelease()->getDownloadUri()
+            $this->_getReleaseWrapper()->getDownloadUri()
         );
     }
 
-    private function _getRelease()
+    private function _getReleaseWrapper()
     {
         return new Horde_Pear_Rest_Release(
             $this->_getInformation()

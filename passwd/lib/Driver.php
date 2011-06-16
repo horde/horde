@@ -32,11 +32,11 @@ class Passwd_Driver {
     public $_errorstr;
 
     /**
-     * Constructs a new expect Passwd_Driver object.
+     * Constructs a new Passwd_Driver object.
      *
      * @param $params   A hash containing connection parameters.
      */
-    function Passwd_Driver($params = array())
+    function __construct($params = array())
     {
         $this->_params = $params;
     }
@@ -44,7 +44,7 @@ class Passwd_Driver {
     /**
      * Compare a plaintext password with an encrypted password.
      *
-     * @return mixed  True if they match, PEAR_Error if they differe.
+     * @return mixed  True if they match
      */
     function comparePasswords($encrypted, $plaintext)
     {
@@ -69,7 +69,11 @@ class Passwd_Driver {
             $hashed = preg_replace('/^({.*?})/e', "String::upper('\\1')", $hashed);
         }
 
-        return ($encrypted == $hashed) ? true : PEAR::raiseError(_("Incorrect old password."));
+        if  ($encrypted == $hashed) {
+            return true;
+        } else {
+            throw new Passwd_Exception(_("Incorrect old password."));
+        }    
     }
 
     /**
@@ -98,7 +102,7 @@ class Passwd_Driver {
      */
     function changePassword($username, $oldpassword, $new_password)
     {
-        return PEAR::raiseError(_("Backend not correctly implemented."));
+        throw new Passwd_Exception(_("Backend not correctly implemented."));
     }
 
     /**

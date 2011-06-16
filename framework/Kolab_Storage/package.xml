@@ -23,6 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [gwr] Added support for retrieving objects by backend id.
 * [gwr] Added a handler for active sync settings.
 * [gwr] Added preference data query.
 * [gwr] Added support for storing data query results in the cache.
@@ -1038,6 +1039,7 @@
    <date>2011-05-31</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [gwr] Added support for retrieving objects by backend id.
 * [gwr] Added a handler for active sync settings.
 * [gwr] Added preference data query.
 * [gwr] Added support for storing data query results in the cache.

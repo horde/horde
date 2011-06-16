@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-01</date>
- <time>18:53:52</time>
+ <date>2011-06-14</date>
+ <time>15:42:43</time>
  <version>
-  <release>4.0.6</release>
+  <release>4.0.7</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,9 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [rla] Enable giving users specific admin permissions (Enhancement #9350)
-* [jan] Don&apos;t strip domain from user name in account block.
-* [jan] Fix account block with empty configuration parameters.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2107,7 +2105,7 @@
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.4</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -4143,12 +4141,26 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-01</date>
+   <date>2011-06-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Fix extracting of translation strings in a release.
 * [rla] Enable giving users specific admin permissions (Enhancement #9350)
 * [jan] Don&apos;t strip domain from user name in account block.
 * [jan] Fix account block with empty configuration parameters.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.7</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-14</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

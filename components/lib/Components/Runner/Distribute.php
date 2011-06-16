@@ -71,29 +71,16 @@ class Components_Runner_Distribute
 
     public function run()
     {
-        $options = $this->_config->getOptions();
-        $arguments = $this->_config->getArguments();
-
-        if (!isset($options['pearrc'])) {
-            $package = $this->_factory->createPackageForDefaultLocation(
-                $this->_config->getComponentPackageXml()
-            );
+        $script = $this->_config_application->getTemplateDirectory() . '/components.php';
+        if (file_exists($script)) {
+            include $script;
         } else {
-            $package = $this->_factory->createPackageForInstallLocation(
-                $this->_config->getComponentPackageXml(), $options['pearrc']
+            throw new Components_Exception(
+                sprintf(
+                    'The distribution specific helper script at "%s" is missing!',
+                    $script
+                )
             );
         }
-
-        $version = $package->getVersion() . 'dev' . strftime('%Y%m%d%H%M');
-        $package->generateSnapshot($version, $options['distribute']);
-
-        $build_template = new Components_Helper_Templates_Directory(
-            $this->_config_application->getTemplateDirectory(),
-            $options['distribute']
-        );
-        $build_template->write(
-            array('package' => $package, 'version' => $version)
-        );
-
     }
 }

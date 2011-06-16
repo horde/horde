@@ -159,7 +159,7 @@ class IMP
             'render_type' => 'IMP_Tree_Flist'
         ));
         if (!empty($options['selected'])) {
-            $tree->addNodeParams($options['selected'], array('selected' => true));
+            $tree->addNodeParams(IMP_Mailbox::formTo($options['selected']), array('selected' => true));
         }
         $tree->setOption($options);
 
@@ -243,6 +243,9 @@ class IMP
 
         $args = array_merge(self::_decodeMailto($args), $extra);
         $callback = $raw = false;
+        $uid = isset($args['uid'])
+            ? $args['uid']
+            : null;
         $view = self::getViewMode();
 
         if ($simplejs || ($view == 'dimp')) {
@@ -265,14 +268,14 @@ class IMP
         }
 
         if (isset($args['thismailbox'])) {
-            $url = IMP_Mailbox::get($args['thismailbox'])->url($url, $args['uid']);
-            unset($args['thismailbox'], $args['uid']);
+            $url = IMP_Mailbox::get($args['thismailbox'])->url($url, $uid);
         } elseif (isset($args['mailbox'])) {
-            $url = IMP_Mailbox::get($args['mailbox'])->url($url, $args['uid']);
-            unset($args['mailbox'], $args['uid']);
+            $url = IMP_Mailbox::get($args['mailbox'])->url($url, $uid);
         } else {
             $url = Horde::url($url);
         }
+
+        unset($args['mailbox'], $args['thismailbox'], $args['uid']);
 
         $url->setRaw($raw)->add($args);
         if ($callback) {

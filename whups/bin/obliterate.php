@@ -1,0 +1,61 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Obliterate Whups Data.
+ *
+ * This script deletes all queues, types, and tickets from the current Whups
+ * database.
+ *
+ * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ *
+ * @author Jon Parise <jon@horde.org>
+ */
+if (file_exists(dirname(__FILE__) . '/../../whups/lib/Application.php')) {
+    $baseDir = dirname(__FILE__) . '/../';
+} else {
+    require_once 'PEAR/Config.php';
+    $baseDir = PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/whups/';
+}
+require_once $baseDir . 'lib/Application.php';
+Horde_Registry::appInit('whups', array('cli' => true, 'user_admin' => true));
+
+$confirm = $cli->prompt(
+    'Are you sure you want to obliterate all Whups data?',
+    array(
+        'n' => 'No',
+        'y' => 'Yes'));
+$cli->writeln();
+if ($confirm !== 'y') {
+    exit;
+}
+
+$GLOBALS['whups_driver'] = $injector->getInstance('Whups_Factory_Driver')->create();
+
+$cli->writeln($cli->bold('Obliterating queues'));
+$queues = $whups_driver->getQueues();
+foreach ($queues as $queue_id => $queue_name) {
+    $cli->message("Deleting queue: $queue_name");
+    $whups_driver->deleteQueue($queue_id);
+}
+$cli->writeln();
+
+$cli->writeln($cli->bold('Obliterating types'));
+$types = $whups_driver->getAllTypes();
+foreach ($types as $type_id => $type_name) {
+    $cli->message("Deleting type: $type_name");
+    $whups_driver->deleteType($type_id);
+}
+$cli->writeln();
+
+$queues = $registry->tickets->listQueues();
+$cli->writeln($cli->bold('Obliterating tickets'));
+$cli->writeln();
+foreach (array_keys($queues) as $queue) {
+    $info['queue_id'] = $queue;
+    $tickets = $whups_driver->getTicketsByProperties($info);
+    foreach ($tickets as $ticket) {
+        $cli->message('Deleting ticket: ' . $ticket['id']);
+        $whups_driver->deleteTicket($ticket['id']);
+    }
+}

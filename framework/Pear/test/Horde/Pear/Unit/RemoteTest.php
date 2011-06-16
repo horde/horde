@@ -51,6 +51,30 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testLatest()
+    {
+        $this->assertEquals(
+            '1.0.0',
+            $this->_getLatestRemote()->getLatestRelease('A')
+        );
+    }
+
+    public function testLatestUri()
+    {
+        $this->assertEquals(
+            'http://pear.horde.org/get/A-1.0.0.tgz',
+            $this->_getLatestRemote()->getLatestDownloadUri('A')
+        );
+    }
+
+    /**
+     * @expectedException Horde_Pear_Exception
+     */
+    public function testLatestUriExceptionForNoRelease()
+    {
+        $this->_getLatestRemote()->getLatestDownloadUri('A', 'dev');
+    }
+
     private function _getRemote()
     {
         return new Horde_Pear_Remote();
@@ -68,12 +92,50 @@ extends Horde_Pear_TestCase
         $response->code = 200;
         $request = new Horde_Http_Request_Mock();
         $request->setResponse($response);
+        return $this->_createRemote($request);
+    }
+
+    private function _getLatestRemote()
+    {
+        if (!class_exists('Horde_Http_Client')) {
+            $this->markTestSkipped('Horde_Http is missing!');
+        }
+        $request = new Horde_Pear_Stub_Request();
+        $request->setResponses(
+            array(
+                array(
+                    'body' => '1.0.0',
+                    'code' => 200,
+                ),
+                array(
+                    'body' => '',
+                    'code' => 404,
+                ),
+                array(
+                    'body' => '',
+                    'code' => 404,
+                ),
+                array(
+                    'body' => '',
+                    'code' => 404,
+                ),
+                array(
+                    'body' => $this->_getRelease(),
+                    'code' => 200,
+                ),
+            )
+        );
+        return $this->_createRemote($request);
+    }
+
+    private function _createRemote($request)
+    {
         $access = new Horde_Pear_Rest_Access();
         $access->setRest(
-            'test',
+            'http://test',
             new Horde_Pear_Rest(
                 new Horde_Http_Client(array('request' => $request)),
-                'test'
+                'http://test'
             )
         );
         return new Horde_Pear_Remote('test', $access);

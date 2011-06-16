@@ -74,7 +74,7 @@ class Components_Runner_Change
     {
         $options = $this->_config->getOptions();
 
-        $package_xml = $this->_config->getComponentPackageXml();
+        $package_xml = $this->_config->getComponent()->getPackageXml();
         $exists = file_exists($package_xml);
 
         if (!isset($options['pearrc'])) {

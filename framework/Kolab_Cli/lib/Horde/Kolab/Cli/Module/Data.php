@@ -156,11 +156,7 @@ implements Horde_Kolab_Cli_Module
             $data = $world['storage']->getData($folder_name, $arguments[3]);
             $objects = $data->fetch(explode(',', $arguments[4]));
             foreach ($objects as $uid => $message) {
-                if (class_exists('Horde_Yaml')) {
-                    $this->_messageOutput($cli, $uid, Horde_Yaml::dump($message));
-                } else {
-                    $this->_messageOutput($cli, $uid, print_r($message, true));
-                }
+                $this->_yamlOutput($cli, $uid, $message);
             }
             break;
         case 'ids':
@@ -172,21 +168,24 @@ implements Horde_Kolab_Cli_Module
         case 'objects':
             $data = $world['storage']->getData($folder_name, $arguments[3]);
             foreach ($data->getObjects() as $id => $object) {
-                if (class_exists('Horde_Yaml')) {
-                    $this->_messageOutput($cli, $id, Horde_Yaml::dump($object));
-                } else {
-                    $this->_messageOutput($cli, $id, print_r($object, true));
-                }
+                $this->_yamlOutput($cli, $id, $object);
+            }
+            break;
+        case 'backendobjects':
+            $data = $world['storage']->getData($folder_name, $arguments[3]);
+            foreach ($data->getObjectsByBackendId() as $id => $object) {
+                $this->_yamlOutput($cli, $id, $object);
             }
             break;
         case 'object':
             $data = $world['storage']->getData($folder_name, $arguments[3]);
             $object = $data->getObject($arguments[4]);
-            if (class_exists('Horde_Yaml')) {
-                $this->_messageOutput($cli, $arguments[4], Horde_Yaml::dump($object));
-            } else {
-                $this->_messageOutput($cli, $arguments[4], print_r($object, true));
-            }
+            $this->_yamlOutput($cli, $arguments[4], $object);
+            break;
+        case 'backendobject':
+            $data = $world['storage']->getData($folder_name, $arguments[3]);
+            $object = $data->getObjectByBackendId($arguments[4]);
+            $this->_yamlOutput($cli, $arguments[4], $object);
             break;
         case 'create':
             $data = $world['storage']->getData($folder_name, $arguments[3]);
@@ -233,14 +232,23 @@ implements Horde_Kolab_Cli_Module
         }
     }
 
-    private function _messageOutput($cli, $uid, $output)
+    private function _messageOutput($cli, $id, $output)
     {
-        $cli->writeln('Message UID [' . $uid . ']');
+        $cli->writeln('Message UID [' . $id . ']');
         $cli->writeln('================================================================================');
         $cli->writeln();
         $cli->writeln($output);
         $cli->writeln();
         $cli->writeln('================================================================================');
         $cli->writeln();
+    }
+
+    private function _yamlOutput($cli, $uid, $output)
+    {
+        if (class_exists('Horde_Yaml')) {
+            $this->_messageOutput($cli, $id, Horde_Yaml::dump($output));
+        } else {
+            $this->_messageOutput($cli, $id, print_r($output, true));
+        }
     }
 }

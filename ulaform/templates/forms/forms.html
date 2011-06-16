@@ -1,0 +1,32 @@
+<if:forms>
+<h1 class="header">
+ <tag:header />
+</h1>
+
+<table width="100%" class="linedRow" cellspacing="0">
+  <tr>
+    <th class="item nowrap" width="1%">&nbsp;</th>
+    <loop:listheaders>
+    <th class="item leftAlign">
+      <tag:listheaders />
+    </th>
+    </loop:listheaders>
+  </tr>
+  <loop:forms>
+  <tr>
+    <td class="nowrap">
+      <a href="<tag:forms.edit_url />"><tag:images.edit /></a>
+      <a href="<tag:forms.del_url />"><tag:images.delete /></a>
+      <a href="<tag:forms.preview_url />" target="_blank"><tag:images.preview /></a>
+      <a href="<tag:forms.html_url />"><tag:images.html /></a>
+    </td>
+    <td>
+      <a href="<tag:forms.view_url />"><tag:forms.name /></a>
+    </td>
+    <td>
+      <tag:forms.action />
+    </td>
+  </tr>
+  </loop:forms>
+</table>
+</if:forms>

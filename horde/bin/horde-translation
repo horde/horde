@@ -340,8 +340,10 @@ class Horde_Translation_Script
      */
     public function search_modules()
     {
-        if (is_dir(HORDE_BASE . '/locale')) {
-            $this->dirs[] = HORDE_BASE;
+        if (is_dir(BASE . '/horde/locale')) {
+            $this->dirs[] = BASE . '/horde';
+        } elseif (is_dir(BASE . '/locale')) {
+            $this->dirs[] = BASE;
         }
         $dh = opendir(BASE);
         if (!$dh) {
@@ -428,7 +430,15 @@ class Horde_Translation_Script
             /* Match all *.php and *.inc files in the current directory and
              * sub-directories, unless they match *.local.php or have a
              * directory name *.d/ in the path. */
-            $files = $this->ff->search(';(?<!\.d)/[^.][^/]*?\.((?<!\.local\.)php|inc)$;', '.', 'perl', true);
+            $regexp = ';(?<!\.d)/[^.][^/]*?\.((?<!\.local\.)php|inc)$;';
+            if ($this->apps[$i] == 'horde') {
+                $files = glob('*.php');
+                foreach (array('admin', 'bin', 'config', 'lib', 'rpc', 'scripts', 'services', 'templates', 'themes', 'util') as $dir) {
+                    $files = array_merge($files, $this->ff->search($regexp, $dir, 'perl', true));
+                }
+            } else {
+                $files = $this->ff->search($regexp, '.', 'perl', true);
+            }
             $file = 'locale' . DS . $this->apps[$i] . '.pot';
             /* Store the file list because it gets too long to be passed on the
              * command line. */

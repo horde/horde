@@ -10,10 +10,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-01</date>
- <time>18:38:23</time>
+ <date>2011-06-14</date>
+ <time>20:41:06</time>
  <version>
-  <release>4.0.0RC3</release>
+  <release>4.0.1</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -95,28 +95,28 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.4</min>
+    <min>4.0.6</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
    </package>
    <package>
     <name>imp</name>
     <channel>pear.horde.org</channel>
-    <min>5.0.5</min>
+    <min>5.0.7</min>
     <max>6.0.0</max>
     <exclude>6.0.0</exclude>
    </package>
    <package>
     <name>ingo</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.1</min>
+    <min>2.0.2</min>
     <max>3.0.0</max>
     <exclude>3.0.0</exclude>
    </package>
    <package>
     <name>kronolith</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.3</min>
+    <min>3.0.4</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
@@ -208,12 +208,26 @@
   </release>
   <release>
    <version>
-    <release>4.0.0RC3</release>
+    <release>4.0.0</release>
     <api>4.0.0</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2011-06-01</date>
+   <date>2011-06-14</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* First stable release of Horde Groupware Webmail Edition 4.0.
+* [jan] Fix installation script when not using a custom PEAR install.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.1</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-06-14</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 * 

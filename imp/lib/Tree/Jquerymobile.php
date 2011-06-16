@@ -37,6 +37,7 @@ class IMP_Tree_Jquerymobile extends Horde_Tree_Jquerymobile
     protected function _buildTree($node_id, $special)
     {
         $node = &$this->_nodes[$node_id];
+        $output = '';
 
         if (empty($node['container'])) {
             $output = parent::_buildTree($node_id, $special);

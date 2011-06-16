@@ -176,7 +176,7 @@ class IMP_Folder
             return false;
         }
 
-        if ((!$force && $old->fixed) || !$old->deletembox) {
+        if ((!$force && $old->fixed) || !$old->access_deletembox) {
             $GLOBALS['notification']->push(sprintf(_("The folder \"%s\" may not be renamed."), $old->display), 'horde.error');
             return false;
         }

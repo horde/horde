@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!-- $Id$ -->
+<configuration>
+ <configsection name="forms" desc="Forms settings">
+  <configheader>
+    Forms Settings
+  </configheader>
+  <configstring name="sender" required="true" desc="What is the email address which would appear as the sender of email submitted forms?"></configstring>
+ </configsection>
+ <configsection name="menu" desc="Menu settings">
+  <configheader>
+    Menu Settings
+  </configheader>
+  <configmultienum name="apps" desc="Select any applications that should be linked in Ulaform's menu">
+   <values>
+    <configspecial name="list-horde-apps" />
+   </values>
+  </configmultienum>
+ </configsection>
+</configuration>

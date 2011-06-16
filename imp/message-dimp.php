@@ -74,7 +74,6 @@ foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mailbox') as
 }
 
 $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
-$ajax_queue->flag(array(Horde_Imap_Client::FLAG_SEEN), true, IMP::$mailbox->getIndicesOb($uid));
 $ajax_queue->poll(IMP::$mailbox);
 
 foreach ($ajax_queue->generate() as $key => $val) {

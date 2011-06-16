@@ -171,7 +171,7 @@ class Horde_Pear_Rest
     {
         $response = $this->_client->get($url);
         if ($response->code === 200) { 
-            return $this->_client->get($url)->getBody();
+            return $response->getBody();
         } else {
             return false;
         }

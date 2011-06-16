@@ -12,9 +12,13 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-require_once WHUPS_BASE . '/lib/Renderer/Comment.php';
-
-$ticket = Whups::getCurrentTicket();
+try {
+    $ticket = Whups::getCurrentTicket();
+} catch (Exception $e) {
+    $notification->push($e->getMessage(), 'horde.err');
+    Horde::url($prefs->getValue('whups_default_view') . '.php', true)
+        ->redirect();
+}
 $vars = Horde_Variables::getDefaultVariables();
 $ticket->setDetails($vars);
 $linkTags[] = $ticket->feedLink();
@@ -27,7 +31,7 @@ require WHUPS_TEMPLATES . '/prevnext.inc';
 $tabs = Whups::getTicketTabs($vars, $ticket->getId());
 echo $tabs->render('history');
 
-$form = new TicketDetailsForm($vars, $ticket);
+$form = new Whups_Form_TicketDetails($vars, $ticket);
 
 $renderer = $form->getRenderer();
 $renderer->_name = $form->getName();
@@ -37,7 +41,7 @@ $renderer->end();
 
 echo '<br class="spacer" />';
 
-$comment = new Horde_Form_Renderer_Comment();
+$comment = new Whups_Form_Renderer_Comment();
 $comment->begin(_("History"));
 $history = Whups::permissionsFilter($whups_driver->getHistory($ticket->getId()),
                                     'comment', Horde_Perms::READ);

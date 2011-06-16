@@ -81,7 +81,7 @@ extends Components_Module_Base
     {
         $options = $config->getOptions();
         if (!empty($options['document'])) {
-            $this->requirePackageXml($config->getComponentDirectory());
+            $config->getComponent()->requirePackageXml();
             $this->_dependencies->getRunnerDocument()->run();
             return true;
         }

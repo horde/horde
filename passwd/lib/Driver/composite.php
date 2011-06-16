@@ -3,9 +3,7 @@
  * The composite class chains other drivers together to change and a user's
  * password stored on various backends.
  *
- * $Horde: passwd/lib/Driver/composite.php,v 1.7.2.7 2009/01/06 15:25:23 jan Exp $
- *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
@@ -21,33 +19,33 @@ class Passwd_Driver_composite extends Passwd_Driver {
      *
      * @var array
      */
-    var $_drivers = array();
+    protected $_drivers = array();
 
     /**
      * State of the loaded drivers.
      *
      * @var boolean
      */
-    var $_loaded = false;
+    protected $_loaded = false;
 
     /**
      * Constructs a new Passwd_Driver_composite object.
      *
      * @param array $params  A hash containing chained drivers and their parameters.
      */
-    function Passwd_Driver_composite($params = array())
+    function __construct($params = array())
     {
         if (!isset($params['drivers']) || !is_array($params['drivers'])) {
-            return PEAR::raiseError(_("Required 'drivers' is misconfigured in Composite configuration."));
+            throw new Passwd_Exception(_("Required 'drivers' is misconfigured in Composite configuration."));
         }
 
-        parent::Passwd_Driver($params);
+        parent::__construct($params);
     }
 
     /**
      * Instantiate configured drivers.
      *
-     * @return  boolean   True on success or PEAR_Error on failure.
+     * @return  boolean   True
      */
     function _loadDrivers()
     {
@@ -57,11 +55,16 @@ class Passwd_Driver_composite extends Passwd_Driver {
 
         foreach ($this->_params['drivers'] as $key => $settings) {
             if (!array_key_exists($key, $this->_drivers)) {
-                $res = Passwd_Driver::factory($settings['driver'],
-                                              $settings['params']);
-                if (is_a($res, 'PEAR_Error')) {
-                    return PEAR::raiseError(sprintf(_("%s: unable to load driver: %s"),
-                                                    $key, $res->getMessage()));
+                $settings['is_subdriver'] = true;
+                try {
+                    $res = $GLOBALS['injector']->getInstance('Passwd_Factory_Driver')->create($key, $settings);
+                }
+                catch (Passwd_Exception $e) {
+                    $notification->push(_("Password module is not properly configured"),
+                            'horde.error');
+                            break;
+                    throw new Passwd_Exception(sprintf(_("%s: unable to load sub driver: %s"),
+                                                     $key, $e->getMessage()));
                 }
 
                 $this->_drivers[$key] = $res;
@@ -86,9 +89,6 @@ class Passwd_Driver_composite extends Passwd_Driver {
         global $notification;
 
         $res = $this->_loadDrivers();
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
 
         foreach ($this->_drivers as $key => $driver) {
             if (isset($driver->_params['be_username'])) {
@@ -96,17 +96,13 @@ class Passwd_Driver_composite extends Passwd_Driver {
             } else {
                 $user = $username;
             }
-            $res = $driver->changePassword($user, $old_password,
-                                           $new_password);
-            if (is_a($res, 'PEAR_Error')) {
-                $res = PEAR::raiseError(sprintf(_("Failure in changing password for %s: %s"),
+            try {
+                return $driver->changePassword($user, $old_password,  $new_password);
+            } catch (Passwd_Exception $e) {
+                $notification->push($e->getMessage(), 'horde.warning');
+                throw new Passwd_Exception(sprintf(_("Failure in changing password for %s: %s"),
                                                 $this->_params['drivers'][$key]['name'],
-                                                $res->getMessage()), 'horde.error');
-                if (!empty($this->_params['drivers'][$key]['required'])) {
-                    return $res;
-                } else {
-                    $notification->push($res, 'horde.warning');
-                }
+                                                $e->getMessage()), 'horde.error');
             }
         }
 

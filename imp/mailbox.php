@@ -147,12 +147,11 @@ case 'copy_messages':
     if (isset($vars->targetMbox) &&
         count($indices) &&
         (!$readonly || $actionID == 'copy_messages')) {
-        $targetMbox = IMP_Mailbox::formFrom($vars->targetMbox);
         if (!empty($vars->newMbox) && ($vars->newMbox == 1)) {
-            $targetMbox = IMP_Mailbox::prefFrom($targetMbox);
+            $targetMbox = IMP_Mailbox::prefFrom($vars->targetMbox);
             $newMbox = true;
         } else {
-            $targetMbox = $targetMbox;
+            $targetMbox = IMP_Mailbox::formFrom($vars->targetMbox);
             $newMbox = false;
         }
         $injector->getInstance('IMP_Message')->copy($targetMbox, ($actionID == 'move_messages') ? 'move' : 'copy', $indices, array('create' => $newMbox));
@@ -195,7 +194,7 @@ case 'filter_messages':
         }
 
         if ($q_ob) {
-            Horde::url('mailbox.php', true)->add('mailbox', strval($q_ob))->redirect();
+            IMP_Mailbox::get($q_ob)->url('mailbox.php')->redirect();
             exit;
         }
     }
@@ -489,14 +488,18 @@ if ($pageOb['msgcount']) {
 
         $form_set = $form_unset = array();
         foreach ($imp_flags->getList($args) as $val) {
-            $form_set[] = array(
-                'f' => $val->form_set,
-                'l' => $val->label
-            );
-            $form_unset[] = array(
-                'f' => $val->form_unset,
-                'l' => $val->label
-            );
+            if ($val->canset) {
+                $form_set[] = array(
+                    'f' => $val->form_set,
+                    'l' => $val->label,
+                    'v' => IMP_Mailbox::formTo($flag_filter_prefix . $val->form_set)
+                );
+                $form_unset[] = array(
+                    'f' => $val->form_unset,
+                    'l' => $val->label,
+                    'v' => IMP_Mailbox::formTo($flag_filter_prefix . $val->form_unset)
+                );
+            }
         }
 
         $n_template->set('flaglist_set', $form_set);
@@ -504,7 +507,7 @@ if ($pageOb['msgcount']) {
 
         if (!$search_mbox && $imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
             $filtermsg = true;
-            $n_template->set('flag_filter', IMP_Mailbox::formTo($flag_filter_prefix));
+            $n_template->set('flag_filter', true);
         }
     }
 
@@ -739,7 +742,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
 
             $mbox = IMP_Mailbox::get($ob['mailbox']);
 
-            $folder_link = $mailbox_url->copy()->add('mailbox', $ob['mailbox']);
+            $folder_link = $mailbox_url->copy()->add('mailbox', IMP::base64urlEncode($ob['mailbox']));
             $folder_link = Horde::link($folder_link, sprintf(_("View messages in %s"), $mbox->display), 'smallheader') . $mbox->display . '</a>';
             if (is_null($search_template)) {
                 $search_template = $injector->createInstance('Horde_Template');

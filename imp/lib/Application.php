@@ -57,7 +57,7 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H4 (5.0.6-git)';
+    public $version = 'H4 (5.0.8-git)';
 
     /**
      * Cached values to add to the session after authentication.
@@ -300,7 +300,7 @@ class IMP_Application extends Horde_Registry_Application
             $menu->addArray(array(
                 'icon' => 'compose.png',
                 'text' => _("_New Message"),
-                'url' => IMP::composeLink(array('mailbox' => IMP::$mailbox))
+                'url' => IMP::composeLink()
             ));
         }
 

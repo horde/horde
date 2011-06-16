@@ -9,9 +9,13 @@
  * process are read and combined with the exit status value and returned to
  * the caller if the status code is not 0.
  *
- * $Horde: passwd/lib/Driver/procopen.php,v 1.4.2.6 2009/02/23 20:01:48 chuck Exp $
+ * WARNING: This driver has only formally been converted to Horde 4. 
+ * No testing has been done. If this doesn't work, please file bugs at
+ * bugs.horde.org
+ * If you really need this to work reliably, think about sponsoring development
+ * Please send a mail to lang -at- b1-systems.de if you can verify this driver to work
  *
- * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
@@ -29,7 +33,7 @@ class Passwd_Driver_procopen extends Passwd_Driver {
      * @param string $oldpass  Old password.
      * @param string $newpass  New password.
      *
-     * @return boolean  True on success, false or error message on error.
+     * @return boolean  True on success, false or throw Passwd_Error message on error.
      */
     function changePassword($user, $oldpass, $newpass)
     {
@@ -65,7 +69,11 @@ class Passwd_Driver_procopen extends Passwd_Driver {
         $output .= " (Exit Status: $return_value)";
 
         if ($return_value != 0) {
-            return $output ? PEAR::raiseError($output) : false;
+            if ($output) {
+                throw new Passwd_Exception($output);
+            } else {
+                return false;
+            }
         } else {
             return true;
         }

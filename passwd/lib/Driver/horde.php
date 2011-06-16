@@ -29,7 +29,7 @@ class Passwd_Driver_horde extends Passwd_Driver {
         $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
 
         if (!$auth->hasCapability('update')) {
-            return PEAR::raiseError(_("The current horde configuration does not allow changing passwords."));
+            throw new Passwd_Exception(_("The current horde configuration does not allow changing passwords."));
         }
 
         /* Check the provided old password. */
@@ -38,7 +38,7 @@ class Passwd_Driver_horde extends Passwd_Driver {
             /* actually modify the password */
             return $auth->updateUser($username, $username, array('password' => $new_password) );
         } else {
-            return PEAR::raiseError(_("Incorrect old password."));        
+            throw new Passwd_Exception(_("Incorrect old password."));        
         }
 
     }

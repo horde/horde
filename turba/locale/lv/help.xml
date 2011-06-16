@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+
+<entry id="Overview" md5="290506ade4e6f749246f77bbe5d48835" state="uptodate">
+  <title>Apskats</title>
+    <heading>Ievads</heading>
+    <para>
+    Adrešu grāmata nodrošina ērtu iespēju adrešu uzglabāšanai un vēlākai izmantošanai. Atkarībā no sistēmas iestatījumiem, tā nodrošina iespēju izmantot kā privātu adrešu grāmatu, tā arī publiska tīkla kataloga informāciju. Modulis uztur arī "apziņošanas sarakstus", kas ļauj veidot privātas vēstkopas.
+    </para>
+</entry>
+
+<entry id="menu-add" md5="3c1f92eb1a82839404d11d9b0a20b3ce" state="uptodate">
+<title>Izvēlne: Jauns kontakts</title>
+<heading>Jauns kontakts</heading>
+  <para>
+Pievieno lietotāju adrešu grāmatai. Jūs varat pievienot lietotāju tikai adrešu grāmatai, kurai jums ir rakstīšanas tiesības. Koplietotās vai publiskās adrešu grāmatas pasti ir pieejamas tikai lasīšanai un Jums nebūs tiesību tās papildināt.
+  </para>
+</entry>
+
+
+<entry id="menu-search" md5="8daf81ab28602d772358a174571f9ad2" state="uptodate">
+    <title>Izvēlne: Meklēt</title>
+    <heading>Meklēt</heading>
+      <para>
+    Meklēt informāciju adrešu grāmatā. Tas ir iecerēts kā ātrā mneklēšana un šajā režīmā ir tā tiek veikta tikai dažos pamatlaukos, piemēram vārds un e-pasta adrese, taču tas ir atkarīgs no veida, kā ir Adrešu grāmatas sistēmas iestatījumiem.
+    </para>
+    <para>
+    Paplašinātai meklēšanai varat izmantot "<ref module="turba" entry="menu-advanced-search">Paplašinātā meklēšana</ref>", kas ļauj meklēt arī citos laukos.
+    </para>
+</entry>
+
+<entry id="menu-advanced-search" md5="6be703ffeba614f6ada151749fa44ab5" state="uptodate">
+    <title>Izvēlne: Paplašinātā meklēšana</title>
+    <heading>Paplašinātā meklēšana</heading>
+    <para>
+    Meklēt informāciju adrešu grāmatā. Šajā režīmā iespējama meklēšana vairākos laukos. Meklēšanai pieejamie lauki ir atkarīgi no konkrētās adrešu grāmatas.
+    </para>
+</entry>
+
+<entry id="menu-import" state="uptodate" md5="3c6c40f2a6213e9fc1f9a77827bfb5d4">
+    <title>Menu: Import/Export</title>
+    <heading>Import/Export</heading>
+
+    <para>
+    Šī izvēlne ļauj importēt un eksportēt datus no Jūsu privātās adrešu grāmatas. Atbalstītie datu formāti: CSV (Comma Separated Variable jeb ar komatu atdalīti mainīgie), Outlook un vCard, kā arī daži citi populāri formāti.
+    </para>
+
+    <heading>Imports</heading>
+    <para>
+      Lai importētu adrešu grāmatu, atbilstošajai informācijai ir jāatrodas uz datora, no kura tiks veikts datu imports (kur ir atvērta pārlūka programma). Lai to paveiktu, Jums vispirms nepieciešams eksportēt datus no Jūsu pašreizējā e-pasta klienta.
+    </para>
+
+    <para>
+Ja izmantojat Outlook Express:
+    </para>
+    <para>
+    1) Noklikšķiniet File &gt; Export &gt; Address Book
+    </para>
+    <para>
+    2) Logā "Address Book Export Tool" izvēlieties "Text File" (Comma Separated Values). Noklikšķiniet  "Export".
+    </para>
+    <para>
+    3) Laukā "Save exported files as" ierakstiet adrešu grāmatas nosaukumu. Noklikšķiniet "Next".
+    </para>
+    <para>
+    4) Atzīmējiet visus laukus, ko vēlaties eksportēt, ieķeksējot pa kreisi no lauka nosaukuma esošās rūtiņas. Noklikšķiniet "Finish".
+    </para>
+    <para>
+    5) Jums būtu jāsaņem paziņojums 'Address book export process has completed'. Noklikšķiniet 'OK'.
+    </para>
+    <para>
+    6) Noklikšķiniet 'Close' logā 'Address Book Export Tool' un aizveriet Outlook Express.
+    </para>
+
+    <tip>
+  Ja eksportētais fails ar adresēm neatrodas uz darbvirsmas un izmantojat MS Windows, uzklikšķiniet  Start &gt; Find vai Search &gt; Files or Folders un meklējiet failu ar nosaukumu, kuru piešķīrāt 3. solī. Piezīmējiet faila atrašanās vietu.
+    </tip>
+
+    <para>
+Lai importētu datus, atveriet adrešu grāmatu, kurā vēlaties to pievienot. Uzklikšķiniet "Imports/Eksports" ikonai. Izvēlēties importējamās datnes formātu no atbilstošās izkrītošās izvēlnes. Uzklikšķiniet "browse" un sameklējiet importējamo datni uz Jūsu datora diska, izvēlieties datni un uzklikšķiniet "Importēt". Informācija no Jūsu norādītās datnes tiks importēta adrešu grāmatā.
+   </para>
+    <tip>
+    Dažos kopleksu importējamo ierakstu gadījumos vai gadījumos, kad ierakstu lauki neatbilst adrešu grāmatas laukiem, dati var tikt importēti nekorekti. Tāpēc pēc datu importēšanas jāpārliecinās par to pareizību.
+    </tip>
+</entry>
+
+<entry id="searching-search_results" md5="ffed8d72fa3b710df8e902c2493b254f" state="uptodate">
+    <title>Meklēt: Meklēšanas rezultāti</title>
+    <heading>Meklēšanas rezultāti</heading>
+    <para>
+    Ja meklēšana būs bijusi veiksmīga, tā rezultāti tiks paradīti logā Search Results,.
+    </para>
+    <para>
+    Uzklikšķinot "E-pasts" laukam, tiks atvērts e-pasta rakstīšanas logs, automātiski ievitojot adresi saņēmāja laukā. Uzklikšķinot "Vārds" laukam, tiks atvērts attiecīgā kontakta ieraksts, kuru varēsiet aplūkot, labot vai izdzēst to.
+    </para>
+
+    <tip>
+        Apskatot adrešu sarakstu ir iespējams tās šķirot pēc jebkuras redzamās slejas, uzklikšķinot atbilstošās sleja nosaukumam. Lai pārslēgtos no augošas uz dilstošu šķirošanas kārtību, uzklikšķiniet bultas ikonai blakus atbilstošš slejas nosaukumam.
+    </tip>
+</entry>
+
+</help>

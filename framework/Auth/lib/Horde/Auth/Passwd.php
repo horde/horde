@@ -287,21 +287,20 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
      * @return array  The array of userIds.
      * @throws Horde_Auth_Exception
      */
-    public function listUsers()
+    public function listUsers($sort = false)
     {
         $this->_read();
 
         $users = array_keys($this->_users);
         if (empty($this->_params['required_groups'])) {
-            return $users;
+            return $this->_sort($users, $sort);
         }
 
         $groupUsers = array();
         foreach ($this->_params['required_groups'] as $group) {
             $groupUsers = array_merge($groupUsers, array_intersect($users, array_keys($this->_groups[$group])));
         }
-
-        return $groupUsers;
+        return $this->_sort($groupUsers, $sort);
     }
 
     /**

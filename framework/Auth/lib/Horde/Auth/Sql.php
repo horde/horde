@@ -285,12 +285,16 @@ class Horde_Auth_Sql extends Horde_Auth_Base
      * @return array  The array of userIds.
      * @throws Horde_Auth_Exception
      */
-    public function listUsers()
+    public function listUsers($sort = false)
     {
         /* Build the SQL query. */
         $query = sprintf('SELECT %s FROM %s',
                          $this->_params['username_field'],
                          $this->_params['table']);
+        if ($sort) {
+            $query .= sprintf('ORDER BY %s ASC', 
+                               $this->_params['username_field']);
+        }
 
         try {
             return $this->_db->selectValues($query);

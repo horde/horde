@@ -109,7 +109,7 @@ class Horde_Core_Sidebar
                 }
             }
         } catch (Horde_Exception $e) {}
- 
+
        if ($admin_item_count) {
             $menu['administration'] = array(
                 'name' => Horde_Core_Translation::t("Administration"),

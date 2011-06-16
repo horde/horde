@@ -57,7 +57,7 @@ class Components
 
         try {
             self::_identifyComponent(
-                $config, self::_getActionArguments($modular)
+                $config, self::_getActionArguments($modular), $dependencies
             );
         } catch (Components_Exception $e) {
             $parser->parserError($e->getMessage());
@@ -158,7 +158,7 @@ This is a list of available actions (use "help ACTION" to get additional informa
                 $modular->getProvider()->getModule($module)->getActions()
             );
         }
-        return $actions;
+        return array('list' => $actions, 'missing_argument' => array('help'));
     }
 
     /**
@@ -171,78 +171,12 @@ This is a list of available actions (use "help ACTION" to get additional informa
      */
     static private function _identifyComponent(
         Components_Config $config,
-        $actions
+        $actions,
+        Components_Dependencies $dependencies
     ) {
-        $arguments = $config->getArguments();
-
-        if (isset($arguments[0]) && $arguments[0] == 'help') {
-            return;
-        }
-
-        if (isset($arguments[0]) && self::_isPackageXml($arguments[0])) {
-            $config->setComponentDirectory(dirname($arguments[0]), true);
-            return;
-        }
-
-        if (isset($arguments[0]) && !in_array($arguments[0], $actions)) {
-            self::_requireDirectory($arguments[0]);
-            $config->setComponentDirectory($arguments[0], true);
-            return;
-        }
-
-        $cwd = getcwd();
-        try {
-            self::_requireDirectory($cwd);
-            self::_requirePackageXml($cwd);
-        } catch (Components_Exception $e) {
-            throw new Components_Exception(self::ERROR_NO_COMPONENT);
-        }
-        $config->setComponentDirectory($cwd);
-    }
-
-    /**
-     * Checks that the provided directory is a directory.
-     *
-     * @param string $path The path to the directory.
-     *
-     * @return NULL
-     */
-    static private function _requireDirectory($path)
-    {
-        if (empty($path) || !is_dir($path)) {
-            throw new Components_Exception(
-                sprintf(self::ERROR_NO_ACTION_OR_COMPONENT, $path)
-            );
-        }
-    }
-
-    /**
-     * Checks that the provided directory is a directory.
-     *
-     * @param string $path The path to the directory.
-     *
-     * @return NULL
-     */
-    static private function _requirePackageXml($path)
-    {
-        if (!file_exists($path . '/package.xml')) {
-            throw new Components_Exception(sprintf('%s contains no package.xml file!', $path));
-        }
-    }
-
-    /**
-     * Checks if the file name is a package.xml file.
-     *
-     * @param string $path The path.
-     *
-     * @return boolean True if the provided file name points to a package.xml
-     *                 file.
-     */
-    static private function _isPackageXml($path)
-    {
-        if (basename($path) == 'package.xml' && file_exists($path)) {
-            return true;
-        }
-        return false;
+        $identify = new Components_Component_Identify(
+            $config, $actions, $dependencies
+        );
+        $identify->setComponentInConfiguration();
     }
 }

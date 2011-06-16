@@ -5,7 +5,14 @@
  *
  * $Horde: passwd/lib/Driver/servuftp.php,v 1.14.2.5 2009/01/06 15:25:23 jan Exp $
  *
- * Copyright 2000-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
+ *
+ * WARNING: This driver has only formally been converted to Horde 4. 
+ * No testing has been done. If this doesn't work, please file bugs at
+ * bugs.horde.org
+ * If you really need this to work reliably, think about sponsoring development
+ * Please send a mail to lang -at- b1-systems.de if you can verify this driver to work
+ *
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
@@ -13,14 +20,17 @@
  * @author  Lucas Nelan (screen@brainkrash.com)
  * @package Passwd
  */
+
+//TODO: This never throws exceptions or a PEAR_Error: Is this sane?
+
 class Passwd_Driver_servuftp extends Passwd_Driver {
 
-    var $fp;
-    var $ftpd_connected   = '220';
-    var $ftpd_goodbye     = '221';
-    var $ftpd_passwordok  = '230';
-    var $ftpd_usernameok  = '331';
-    var $ftpd_passwordbad = '530';
+    protected $fp;
+    protected $ftpd_connected   = '220';
+    protected $ftpd_goodbye     = '221';
+    protected $ftpd_passwordok  = '230';
+    protected $ftpd_usernameok  = '331';
+    protected $ftpd_passwordbad = '530';
 
     function connect($server, $port, $timeout = 30)
     {
@@ -34,8 +44,7 @@ class Passwd_Driver_servuftp extends Passwd_Driver {
         }
     }
 
-    function _disconnect()
-    {
+    function _disconnect()    {
         if ($this->fp) {
             fputs($this->fp, "quit\n");
             fclose($this->fp);

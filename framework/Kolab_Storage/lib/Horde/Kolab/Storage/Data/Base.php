@@ -417,6 +417,32 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     }
 
     /**
+     * Retrieve all objects in the current folder by backend id.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array An array of all objects.
+     */
+    public function getObjectsByBackendId()
+    {
+        return $this->fetch($this->getStamp()->ids());
+    }
+
+    /**
+     * Retrieve an object in the current folder by backend id.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @param string $uid Backend id of the object to be returned.
+     *
+     * @return array An array of all objects.
+     */
+    public function getObjectByBackendId($uid)
+    {
+        return $this->fetch($this->getStamp()->ids());
+    }
+
+    /**
      * Move the specified message from the current folder into a new
      * folder.
      *

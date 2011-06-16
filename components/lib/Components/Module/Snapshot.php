@@ -52,14 +52,6 @@ extends Components_Module_Base
                 )
             ),
             new Horde_Argv_Option(
-                '-Z',
-                '--archivedir',
-                array(
-                    'action' => 'store',
-                    'help'   => 'The path to the directory where any resulting source archives will be placed.'
-                )
-            ),
-            new Horde_Argv_Option(
                 '--keep-version',
                 array(
                     'action' => 'store_true',
@@ -110,7 +102,7 @@ extends Components_Module_Base
     public function getContextOptionHelp()
     {
         return array(
-            '--archivedir' => '',
+            '--destination' => '',
             '--keep-version' => ''
         );
     }
@@ -129,7 +121,8 @@ extends Components_Module_Base
         $arguments = $config->getArguments();
         if (!empty($options['snapshot'])
             || (isset($arguments[0]) && $arguments[0] == 'snapshot')) {
-            $this->requirePackageXml($config->getComponentDirectory());
+            $config->getComponent()->requireLocal();
+            $config->getComponent()->requirePackageXml();
             $this->_dependencies->getRunnerSnapshot()->run();
             return true;
         }

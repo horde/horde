@@ -23,10 +23,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-18</date>
- <time>14:41:21</time>
+ <date>2011-06-14</date>
+ <time>11:35:46</time>
  <version>
-  <release>1.0.4</release>
+  <release>1.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
-* 
+* Fixed addUser() for Cyrsql driver (Bug #10239; vilius@lnk.lt).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -411,10 +411,23 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-18</date>
+   <date>2011-06-08</date>
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
-* 
+* [jan] SECURITY: Fix propagating failed login in composite driver (Bug #10211).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-14</date>
+   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <notes>
+* Fixed addUser() for Cyrsql driver (Bug #10239; vilius@lnk.lt).
    </notes>
   </release>
  </changelog>

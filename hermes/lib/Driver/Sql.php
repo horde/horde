@@ -582,11 +582,19 @@ class Hermes_Driver_Sql extends Hermes_Driver
         }
     }
 
+    /**
+     * Fetch client settings from storage.
+     *
+     * @param integer the client id
+     *
+     * @return array  A hash of client settings.
+     * @throws Hermes_Exception
+     */
     public function getClientSettings($clientID)
     {
         $clients = Hermes::listClients();
         if (empty($clientID) || !isset($clients[$clientID])) {
-            throw new Hermes_Exception('Does not exist');
+            throw new Horde_Exception_NotFound('Does not exist');
         }
 
         $sql = 'SELECT clientjob_id, clientjob_enterdescription,' .

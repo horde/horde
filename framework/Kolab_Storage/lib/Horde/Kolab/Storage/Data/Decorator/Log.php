@@ -327,6 +327,76 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     }
 
     /**
+     * Retrieve all objects in the current folder by backend id.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array An array of all objects.
+     */
+    public function getObjectsByBackendId()
+    {
+        $result = $this->_data->getObjectsByBackendId();
+        if (count($result < 20)) {
+            $ids = '[backend ids: ' . join(', ', array_keys($result)) . ']';
+        } else {
+            $ids = '[too many to list]';
+        }
+        $this->_logger->debug(
+            sprintf(
+                '%s has %s objects %s.',
+                $this->_data->getPath(),
+                count($result),
+                $ids
+            )
+        );
+        return $result;
+    }
+
+    /**
+     * Retrieve an object in the current folder by backend id.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @param string $uid Backend id of the object to be returned.
+     *
+     * @return array An array of all objects.
+     */
+    public function getObjectByBackendId($uid)
+    {
+        return $this->_data->getObjectByBackendId($uid);
+    }
+
+    /**
+     * Move the specified message from the current folder into a new
+     * folder.
+     *
+     * @param string $object_id  ID of the message to be moved.
+     * @param string $new_folder Target folder.
+     *
+     * @return NULL
+     */
+    public function move($object_id, $new_folder)
+    {
+        $this->_logger->info(
+            sprintf(
+                'Moving data object %s in %s to %s.',
+                $object_id,
+                $this->_data->getPath(),
+                $new_folder
+            )
+        );
+        $this->_data->move($object_ids, $new_folder);
+        $this->_logger->info(
+            sprintf(
+                'Moved data object %s in %s to %s.',
+                $object_id,
+                $this->_data->getPath(),
+                $new_folder
+            )
+        );
+    }
+
+    /**
      * Delete the specified objects from this data set.
      *
      * @param array|string $object_ids Id(s) of the object to be deleted.

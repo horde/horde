@@ -308,8 +308,8 @@ class Kronolith_Event_Horde extends Kronolith_Event
         $json = parent::toJson($allDay, $full, $time_format);
         if ($this->_ajaxLink) {
             $json->aj = $this->_ajaxLink;
-        } else {
-            $json->ln = (string)$this->getViewUrl(array(), true, false);
+        } elseif ($link = (string)$this->getViewUrl(array(), true, false)) {
+            $json->ln = $link;
         }
         if (isset($this->_variableLength)) {
             $json->vl = $this->_variableLength;

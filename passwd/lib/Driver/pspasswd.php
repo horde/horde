@@ -48,9 +48,13 @@
  * Special thanks to Mark Russinovich (mark@sysinternals.com) for the
  * tool and helping me solve some questions about it.
  *
- * $Horde: passwd/lib/Driver/pspasswd.php,v 1.2.2.5 2009/01/06 15:25:23 jan Exp $
+ * WARNING: This driver has only formally been converted to Horde 4. 
+ * No testing has been done. If this doesn't work, please file bugs at
+ * bugs.horde.org
+ * If you really need this to work reliably, think about sponsoring development
+ * Please send a mail to lang -at- b1-systems.de if you can verify this driver to work
  *
- * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
@@ -70,9 +74,9 @@ class Passwd_Driver_pspasswd extends Passwd_Driver {
         $domain = isset($this->_params['domain']) ? $this->_params['domain'] : '';
 
         if ($server == '' || $bin == '' || $admusr == '' || $admpwd == '') {
-            return PEAR::raiseError(_("Password module is missing required parameters."));
+            throw new Passwd_Exception(_("Password module is missing required parameters."));
         } elseif (file_exists($bin) == false) {
-            return PEAR::raiseError(_("Password module can't find the supplied bin."));
+            throw new Passwd_Exception(_("Password module can't find the supplied bin."));
         }
 
         if ($domain != '') {
@@ -90,7 +94,7 @@ class Passwd_Driver_pspasswd extends Passwd_Driver {
         exec($cmdline, $cmdreply, $retval);
 
         if (strpos(implode(' ', $cmdreply), 'The command completed successfully.') === false) {
-            return PEAR::raiseError(_("Failed to verify old password."));
+            throw new Passwd_Exception(_("Failed to verify old password."));
         }
 
         exec('NET USE \\\\' . $server . '\\IPC$ /D >NUL 2>NUL');
@@ -102,7 +106,7 @@ class Passwd_Driver_pspasswd extends Passwd_Driver {
         exec('NET USE \\\\' . $server . '\\IPC$ /D >NUL 2>NUL');
 
         if (strpos(implode(' ', $cmdreply), 'Password for ' . $server . '\\' . $user_name . ' successfully changed.') === false) {
-            return PEAR::raiseError(_("Access Denied."));
+            throw new Passwd_Exception(_("Access Denied."));
         }
 
         return true;

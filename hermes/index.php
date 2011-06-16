@@ -10,6 +10,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('hermes');
 
 /* Traditional? */
+$mode = $session->get('horde', 'mode');
 if (!Hermes::showAjaxView()) {
     if ($mode == 'dynamic' || ($mode == 'auto' && $prefs->getValue('dynamic_view'))) {
         $notification->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');

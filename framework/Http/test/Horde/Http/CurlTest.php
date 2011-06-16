@@ -58,7 +58,8 @@ class Horde_Http_CurlTest extends Horde_Test_Case
         $this->_skipMissingConfig();
         $client = new Horde_Http_Client(array('request' => new Horde_Http_Request_Curl()));
         $response = $client->get('http://' . $this->_server . '/doesntexist');
-        $this->assertEquals('', $response->getBody());
+        $content = $response->getBody();
+        $this->assertTrue(!empty($content));
     }
 
     private function _skipMissingConfig()

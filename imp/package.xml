@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-01</date>
- <time>18:16:30</time>
+ <date>2011-06-14</date>
+ <time>11:57:30</time>
  <version>
-  <release>5.0.6</release>
+  <release>5.0.8</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,10 +34,8 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [jan] Don&apos;t show button to strip attachments if turned off in the preferences (Bug #10154).
-* [jan] Fix printing from message popup (Bug #10188).
-* [jan] Fix viewing messages source from message popup (Bug #10190).
-* [jan] Fix editing saved searches in traditional view (Bug #10184).
+* [mms] Fix additional regression when flagging all messages in a mailbox (Bug #10243).
+* [mms] Fix "Don&apos;t Show" filtering in traditional mailbox view (Bug #10244).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1124,7 +1122,7 @@
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.4</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -2272,13 +2270,53 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-01</date>
+   <date>2011-06-08</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Fix regression in renaming mailboxes in dynamic view (Bug #10207).
+* [mms] Fix selecting sent-mail mailbox for not empty namespaces (Bug #10090).
+* [mms] Fix saving expand/collapse state in traditional folders view.
+* [mms] Update all flag changes in dynamic mode (Bug #10146).
+* [mms] Fix editing saved searches in dynamic mode (Bug #10189).
+* [mms] Fix regression in saving sent mail in traditional view (Bug #10193).
+* [mms] Fix regression in deleting mailboxes in traditional view (Bug #10170).
+* [mms] Fix currently selected mailbox in folder lists (Bug #10163).
 * [jan] Don&apos;t show button to strip attachments if turned off in the preferences (Bug #10154).
 * [jan] Fix printing from message popup (Bug #10188).
 * [jan] Fix viewing messages source from message popup (Bug #10190).
 * [jan] Fix editing saved searches in traditional view (Bug #10184).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.7</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-14</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [mms] Don&apos;t strip HTML part of compose message when stripping attachments from saved sent-mail message (Bug #10234).
+* [mms] Fix regression when copying/moving messages into a new mailbox in traditional view (Bug #10232).
+* [mms] Fix regression when flagging all messages in a mailbox (Bug #10224).
+* [jan] Fix folder links in virtual folders (Bug #10221).
+* [mms] Show translated name for special mailboxes in sent mail lists (Bug #10220).
+* [mms] Fix regression in filtering mailbox in traditional view (Bug #10213).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.8</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-14</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [mms] Fix additional regression when flagging all messages in a mailbox (Bug #10243).
+* [mms] Fix "Don&apos;t Show" filtering in traditional mailbox view (Bug #10244).
    </notes>
   </release>
  </changelog>

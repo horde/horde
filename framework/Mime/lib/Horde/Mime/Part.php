@@ -1351,15 +1351,16 @@ class Horde_Mime_Part implements ArrayAccess, Countable
      */
     public function getBytes()
     {
+        $bytes = 0;
+
         if (isset($this->_bytes)) {
             $bytes = $this->_bytes;
         } elseif ($this->getPrimaryType() == 'multipart') {
-            $bytes = 0;
             reset($this->_parts);
             while (list(,$part) = each($this->_parts)) {
                 $bytes += $part->getBytes();
             }
-        } else {
+        } elseif ($this->_contents) {
             fseek($this->_contents, 0, SEEK_END);
             $bytes = ftell($this->_contents);
         }

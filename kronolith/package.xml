@@ -22,10 +22,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-18</date>
- <time>15:10:33</time>
+ <date>2011-06-14</date>
+ <time>15:50:30</time>
  <version>
-  <release>3.0.4</release>
+  <release>3.0.5</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [jan] Only highlight days in the mini calendar that are currently displayed (Bug #10048).
-* [jan] Fix advanced search with empty search criteria (Bug #10038).
+* [jan] Fetch events immediately after saving remote calendar.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -852,7 +851,7 @@
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.4</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -1746,11 +1745,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-18</date>
+   <date>2011-06-14</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [jan] Only highlight days in the mini calendar that are currently displayed (Bug #10048).
 * [jan] Fix advanced search with empty search criteria (Bug #10038).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.5</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-14</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [jan] Fetch events immediately after saving remote calendar.
    </notes>
   </release>
  </changelog>

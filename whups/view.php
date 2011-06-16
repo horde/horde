@@ -20,16 +20,13 @@ $type = Horde_Util::getFormData('type');
 if (empty($id)) {
     exit;
 }
-$details = $whups_driver->getTicketDetails($id);
-if ($details instanceof PEAR_Error) {
-    if ($details->code === 0) {
-        // No permissions to this ticket.
-        Horde::url($registry->get('webroot', 'horde') . '/login.php', true)
-            ->add('url', Horde::selfUrl(true))
-            ->redirect();
-    } else {
-        throw new Horde_Exception($details);
-    }
+try {
+    $details = $whups_driver->getTicketDetails($id);
+} catch (Horde_Exception_PermissionDenied $e) {
+    // No permissions to this ticket.
+    Horde::url($registry->get('webroot', 'horde') . '/login.php', true)
+        ->add('url', Horde::selfUrl(true))
+        ->redirect();
 }
 
 // Check permissions on this ticket.
@@ -44,7 +41,7 @@ try {
 }
 
 try {
-    $data = $vfs->read(WHUPS_VFS_ATTACH_PATH . '/' . $id, $filename);
+    $data = $vfs->read(Whups::VFS_ATTACH_PATH . '/' . $id, $filename);
 } catch (Horde_Vfs_Exception $e) {
     throw Horde_Exception(sprintf(_("Access denied to %s"), $filename));
 }

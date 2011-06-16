@@ -23,7 +23,7 @@ if ($slug) {
     $queue = $whups_driver->getQueue($id);
 }
 
-if (!$id || is_a($queue, 'PEAR_Error')) {
+if (!$id) {
     $notification->push(_("Invalid queue"), 'horde.error');
     Horde::url($prefs->getValue('whups_default_view') . '.php', true)
         ->redirect();
@@ -44,20 +44,18 @@ require WHUPS_TEMPLATES . '/menu.inc';
 $criteria = array('queue' => $id,
                   'category' => array('unconfirmed', 'new', 'assigned'));
 
-$tickets = $whups_driver->getTicketsByProperties($criteria);
-if (is_a($tickets, 'PEAR_Error')) {
-    $notification->push(sprintf(_("There was an error locating tickets in this queue: "), $tickets->getMessage()), 'horde.error');
-} else {
-    Whups::sortTickets($tickets);
-    $values = Whups::getSearchResultColumns();
-    $self = Whups::urlFor('queue', $queue);
-    $results = Whups_View::factory('Results', array('title' => sprintf(_("Open tickets in %s"), $queue['name']),
-                                                    'results' => $tickets,
-                                                    'values' => $values,
-                                                    'url' => $self));
-    $session->set('whups', 'last_search', $self);
-    $results->html();
-
+try {
+    $tickets = $whups_driver->getTicketsByProperties($criteria);
+} catch (Whups_Exception $e) {
+    $notification->push(sprintf(_("There was an error locating tickets in this queue: "), $e->getMessage()), 'horde.error');
 }
-
+Whups::sortTickets($tickets);
+$values = Whups::getSearchResultColumns();
+$self = Whups::urlFor('queue', $queue);
+$results = new Whups_View_Results(array('title' => sprintf(_("Open tickets in %s"), $queue['name']),
+                                        'results' => $tickets,
+                                        'values' => $values,
+                                        'url' => $self));
+$session->set('whups', 'last_search', $self);
+$results->html();
 require $registry->get('templates', 'horde') . '/common-footer.inc';

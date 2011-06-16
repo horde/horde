@@ -1,6 +1,13 @@
 ----------
-v3.0.4-git
+v3.0.5-git
 ----------
+
+[jan] Fetch events immediately after saving remote calendar.
+
+
+------
+v3.0.4
+------
 
 [jan] Fix holidays being off with certain system timezones (Bug #9989).
 [jan] Only highlight days in the mini calendar that are currently displayed

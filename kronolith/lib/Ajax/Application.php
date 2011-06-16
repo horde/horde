@@ -484,6 +484,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                 $end->min = $end->sec = 59;
                 $start = clone $due;
                 $start->hour = $start->min = $start->sec = 0;
+                $events = array();
                 Kronolith::addEvents($events, $event, $start, $end, true, true);
                 if (count($events)) {
                     $result->events = $events;
@@ -927,6 +928,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $end = new Horde_Date($this->_vars->view_end);
             $end->hour = 23;
             $end->min = $end->sec = 59;
+            $events = array();
             Kronolith::addEvents($events, $event,
                                  new Horde_Date($this->_vars->view_start),
                                  $end, true, true);

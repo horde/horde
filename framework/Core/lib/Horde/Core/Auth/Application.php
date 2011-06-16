@@ -560,11 +560,11 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
 
         /* Destroy any existing session on login and make sure to use a
          * new session ID, to avoid session fixation issues. */
-        if (!$registry->getAuth()) {
+        if (($userId = $registry->getAuth()) === false) {
             $registry->getCleanSession();
+            $userId = $this->getCredential('userId');
         }
 
-        $userId = $this->getCredential('userId');
         $credentials = $this->getCredential('credentials');
 
         try {

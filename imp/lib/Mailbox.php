@@ -286,7 +286,7 @@ class IMP_Mailbox implements Serializable
             return $acl;
 
         case 'basename':
-            if ($this->nonimap) {
+            if ($this->nonimap || $this->special) {
                 return $this->label;
             }
 
@@ -445,7 +445,8 @@ class IMP_Mailbox implements Serializable
             return $ns_info;
 
         case 'nonimap':
-            return $injector->getInstance('IMP_Imap_Tree')->isNonImapElt($this->_mbox);
+            return ($this->search ||
+                    $injector->getInstance('IMP_Imap_Tree')->isNonImapElt($this->_mbox));
 
         case 'parent':
             $elt = $injector->getInstance('IMP_Imap_Tree')->getElement($this->_mbox);
@@ -917,7 +918,7 @@ class IMP_Mailbox implements Serializable
         if ($page instanceof Horde_Url) {
             $url = clone $page;
         } else {
-            if (IMP::getViewMode() == 'dimp') {
+            if (($page != 'search.php') && (IMP::getViewMode() == 'dimp')) {
                 $anchor = is_null($uid)
                     ? ('mbox:' . $this->_mbox)
                     : ('msg:' . strval($this->getIndicesOb($uid)));

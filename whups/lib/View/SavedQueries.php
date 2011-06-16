@@ -10,17 +10,15 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Whups
  */
-class Whups_View_SavedQueries extends Whups_View {
-
+class Whups_View_SavedQueries extends Whups_View_Base
+{
     // Need title, results in params.
-    function html($header = true)
+    public function html($header = true)
     {
         if (!count($this->_params['results'])) {
             return;
         }
 
         include WHUPS_TEMPLATES . '/view/savedqueries.inc';
-
     }
-
 }

@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-06-03</date>
- <time>09:21:04</time>
+ <date>2011-06-06</date>
+ <time>06:56:42</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -192,6 +192,9 @@
        <file name="RemoteTest.php" role="test" />
        <file name="RestTest.php" role="test" />
       </dir> <!-- /test/Horde/Pear/Server -->
+      <dir name="Stub">
+       <file name="Request.php" role="test" />
+      </dir> <!-- /test/Horde/Pear/Stub -->
       <dir name="Unit">
        <dir name="Package">
         <dir name="Contents">
@@ -217,6 +220,7 @@
         <file name="XmlTest.php" role="test" />
        </dir> <!-- /test/Horde/Pear/Unit/Package -->
        <dir name="Rest">
+        <file name="AccessTest.php" role="test" />
         <file name="PackageListTest.php" role="test" />
         <file name="PackageTest.php" role="test" />
         <file name="ReleasesTest.php" role="test" />
@@ -346,6 +350,7 @@
    <install as="Horde/Pear/Server/RegistryTest.php" name="test/Horde/Pear/Server/RegistryTest.php" />
    <install as="Horde/Pear/Server/RemoteTest.php" name="test/Horde/Pear/Server/RemoteTest.php" />
    <install as="Horde/Pear/Server/RestTest.php" name="test/Horde/Pear/Server/RestTest.php" />
+   <install as="Horde/Pear/Stub/Request.php" name="test/Horde/Pear/Stub/Request.php" />
    <install as="Horde/Pear/Unit/RegistryTest.php" name="test/Horde/Pear/Unit/RegistryTest.php" />
    <install as="Horde/Pear/Unit/RemoteTest.php" name="test/Horde/Pear/Unit/RemoteTest.php" />
    <install as="Horde/Pear/Unit/RestTest.php" name="test/Horde/Pear/Unit/RestTest.php" />
@@ -360,6 +365,7 @@
    <install as="Horde/Pear/Unit/Package/Contents/InstallAs/HordeTest.php" name="test/Horde/Pear/Unit/Package/Contents/InstallAs/HordeTest.php" />
    <install as="Horde/Pear/Unit/Package/Type/HordeTest.php" name="test/Horde/Pear/Unit/Package/Type/HordeTest.php" />
    <install as="Horde/Pear/Unit/Package/Xml/DirectoryTest.php" name="test/Horde/Pear/Unit/Package/Xml/DirectoryTest.php" />
+   <install as="Horde/Pear/Unit/Rest/AccessTest.php" name="test/Horde/Pear/Unit/Rest/AccessTest.php" />
    <install as="Horde/Pear/Unit/Rest/PackageListTest.php" name="test/Horde/Pear/Unit/Rest/PackageListTest.php" />
    <install as="Horde/Pear/Unit/Rest/PackageTest.php" name="test/Horde/Pear/Unit/Rest/PackageTest.php" />
    <install as="Horde/Pear/Unit/Rest/ReleasesTest.php" name="test/Horde/Pear/Unit/Rest/ReleasesTest.php" />
@@ -376,7 +382,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-06-03</date>
+   <date>2011-06-06</date>
    <license uri="REPLACE">REPLACE</license>
    <notes>
 * [jan] Update changelog when updating content (Bug #9935).
