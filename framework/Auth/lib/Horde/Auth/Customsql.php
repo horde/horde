@@ -233,8 +233,7 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
         try {
             $users = $this->_db->selectValues($query);
             // Find a way to sort in database with portable SQL
-            $this->_sort($users, $sort);
-            return $users;
+            return $this->_sort($users, $sort);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }

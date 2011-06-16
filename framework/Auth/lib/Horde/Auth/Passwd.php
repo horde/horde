@@ -293,20 +293,14 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
 
         $users = array_keys($this->_users);
         if (empty($this->_params['required_groups'])) {
-            if ($sort) {
-                sort($users);
-            }
-            return $users;
+            return $this->_sort($users, $sort);
         }
 
         $groupUsers = array();
         foreach ($this->_params['required_groups'] as $group) {
             $groupUsers = array_merge($groupUsers, array_intersect($users, array_keys($this->_groups[$group])));
         }
-        if ($sort) {
-            sort($groupUsers);
-        }
-        return $groupUsers;
+        return $this->_sort($groupUsers, $sort);
     }
 
     /**

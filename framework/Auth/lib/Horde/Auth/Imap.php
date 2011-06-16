@@ -149,10 +149,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
         $users = empty($list)
             ? array()
             : preg_replace('/.*' . preg_quote($this->_params['userhierarchy'], '/') . '(.*)/', '\\1', $list);
-        if ($sort) {
-            sort($users);
-        }
-        return $users;
+        return $this->_sort($users, $sort);
     }
 
     /**

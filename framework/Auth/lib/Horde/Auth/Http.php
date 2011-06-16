@@ -59,9 +59,6 @@ class Horde_Auth_Http extends Horde_Auth_Base
                 // Enable the list users capability.
                 $this->_capabilities['list'] = true;
 
-                // Put users into alphabetical order.
-                sort($users);
-
                 foreach ($users as $line) {
                     list($user, $pass) = explode(':', $line, 2);
                     $this->_users[trim($user)] = trim($pass);
@@ -99,10 +96,11 @@ class Horde_Auth_Http extends Horde_Auth_Base
      *
      * @return array  The array of userIds.
      */
-    public function listUsers($sort = true)
+    public function listUsers($sort = false)
     {
         // this driver sorts by default
-        return array_keys($this->_users);
+        $users = array_keys($this->_users);
+        return $this->_sort($users, $sort);
     }
 
     /**

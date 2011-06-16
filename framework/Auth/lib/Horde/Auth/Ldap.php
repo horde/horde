@@ -394,9 +394,6 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
                 $userlist[] = $val->getValue($uid, 'single');
             }
         } catch (Horde_Ldap_Exception $e) {}
-        if ($sort) {
-            sort($userlist);
-        }
-        return $userlist;
+        return $this->_sort($userlist, $sort);
     }
 }
