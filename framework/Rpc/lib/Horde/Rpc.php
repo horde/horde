@@ -85,7 +85,7 @@ class Horde_Rpc
 
         $this->_params = $params;
         $this->_request = $request;
-        
+
         if (isset($params['requireAuthorization'])) {
             $this->_requireAuthorization = $params['requireAuthorization'];
         }
@@ -116,7 +116,7 @@ class Horde_Rpc
         // @TODO: inject this
         $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
         $serverVars = $this->_request->getServerVars();
-        if ($serverVars['PHP_AUTH_USER']) {
+        if (!empty($serverVars['PHP_AUTH_USER'])) {
             $user = $serverVars['PHP_AUTH_USER'];
             $pass = $serverVars['PHP_AUTH_PW'];
         } elseif ($serverVars['Authorization']) {
