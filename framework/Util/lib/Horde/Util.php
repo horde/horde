@@ -202,11 +202,11 @@ class Horde_Util
     /**
      * If magic_quotes_gpc is in use, run stripslashes() on $var.
      *
-     * @param string &$var  The string to un-quote, if necessary.
+     * @param string $var  The string to un-quote, if necessary.
      *
      * @return string  $var, minus any magic quotes.
      */
-    static public function dispelMagicQuotes(&$var)
+    static public function dispelMagicQuotes($var)
     {
         if (is_null(self::$_magicquotes)) {
             self::$_magicquotes = get_magic_quotes_gpc();
@@ -216,7 +216,7 @@ class Horde_Util
             if (!is_array($var)) {
                 $var = stripslashes($var);
             } else {
-                array_walk($var, array(__CLASS__, 'dispelMagicQuotes'));
+                $var = array_map(array(__CLASS__, 'dispelMagicQuotes'), $var);
             }
         }
 
