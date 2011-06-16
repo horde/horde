@@ -322,22 +322,23 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
      * @return mixed  The array of userIds.
      * @throws Horde_Auth_Exception
      */
-    public function listUsers($sort = true)
+    public function listUsers($sort = false)
     {
         if (!empty($this->_params['domain_field']) &&
             ($this->_params['domain_field'] != 'none')) {
             /* Build the SQL query with domain. */
-            $query = sprintf('SELECT %s, %s FROM %s ORDER BY %s',
+            $query = sprintf('SELECT %s, %s FROM %s',
                              $this->_params['username_field'],
                              $this->_params['domain_field'],
-                             $this->_params['table'],
-                             $this->_params['username_field']);
+                             $this->_params['table']);
         } else {
             /* Build the SQL query without domain. */
-            $query = sprintf('SELECT %s FROM %s ORDER BY %s',
+            $query = sprintf('SELECT %s FROM %s',
                              $this->_params['username_field'],
-                             $this->_params['table'],
-                             $this->_params['username_field']);
+                             $this->_params['table']);
+        }
+        if ($sort) {
+            $query .= sprintf(" ORDER BY %s", $this->_params['username_field']);
         }
 
         try {
