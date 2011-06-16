@@ -61,6 +61,15 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
 
             switch ($class) {
             case 'Passwd_Driver_ldap':
+		if ($backend['params']['admindn']) {
+		    $backend['params']['binddn'] = $backend['params']['admindn'];
+		}
+		if ($backend['params']['adminpw']) {
+		    $backend['params']['bindpw'] = $backend['params']['adminpw'];
+		}
+		if ($backend['params']['host']) {
+		    $backend['params']['hostspec'] = $backend['params']['host'];
+		}
                 try {
                     $backend['params']['ldap'] = new Horde_Ldap($backend['params']);
                 } catch (Horde_Ldap_Exception $e) {
