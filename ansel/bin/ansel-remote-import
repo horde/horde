@@ -23,7 +23,7 @@ Horde_Registry::appInit('ansel', array('cli' => true));
 
 $parser = new Horde_Argv_Parser(
     array(
-        'usage' => '%prog [--options] remotehost local_directory',
+        'usage' => '%prog [--options] [remotehost] local_directory',
         'optionList' => array(
             new Horde_Argv_Option(
                 '-u',
@@ -80,6 +80,21 @@ $parser = new Horde_Argv_Parser(
                     'help' => 'Use lzf compression'
                 )
             ),
+            new Horde_Argv_Option(
+                '-r',
+                '--remote',
+                array(
+                    'help' => 'Connect to remote Ansel server. This should be the path to rpc.php'
+                )
+            ),
+
+            new Horde_Argv_Option(
+                '-d',
+                '--directory',
+                array(
+                    'help' => 'Recursively import any images in this local directory.'
+                )
+            ),
         )
     )
 );
@@ -87,238 +102,444 @@ $parser = new Horde_Argv_Parser(
 /* Show help and exit if no arguments were set. */
 list($opts, $args) = $parser->parseArgs();
 if (empty($opts['username']) && empty($opts['password'])) {
-    // @TODO: just show usage, not fatal.
     $parser->parserError('Missing Horde credentials.');
 }
 
-if (count($args) != 2) {
-    $parser->parserError('Need to show usage here.');
-}
-$rpc_endpoint = $args[0];
-$dir = $args[1];
-// @TODO: Figure out how to use Horde_Argv to set a single option with this value.
-$useCompression = !empty($opts['gzip']) ? 'gzip' : (!empty($opts['lzf']) ? 'lzf' : false);
-
-
-$rpc_auth = array(
-    'request.username' => $opts['username'],
-    'request.password' => $opts['password']
-);
-
-processDirectory($dir, null, $opts['gallery'], $opts['slug'], $useCompression);
-
-/**
- * Check for, and remove any empty galleries that may have been created during
- * import.
- */
-function emptyGalleryCheck($gallery)
-{
-    if ($gallery->hasSubGalleries()) {
-        $children = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->listGalleries(array('parent' => $gallery->id));
-        foreach ($children as $child) {
-            // First check all children to see if they are empty...
-            emptyGalleryCheck($child);
-            if (!$child->countImages() && !$child->hasSubGalleries()) {
-                $result = $GLOBALS['injector']->getInstance('Ansel_Storage')->removeGallery($child);
-                $GLOBALS['cli']->message(sprintf(_("Deleting empty gallery, \"%s\""), $child->get('name')), 'cli.success');
-            }
-
-            // Refresh the gallery values since we mucked around a bit with it
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery->id);
-            // Now that any empty children are removed, see if we are empty
-            if (!$gallery->countImages() && !$gallery->hasSubGalleries()) {
-                $result = $GLOBALS['injector']->getInstance('Ansel_Storage')->removeGallery($gallery);
-                $GLOBALS['cli']->message(sprintf(_("Deleting empty gallery, \"%s\""), $gallery->get('name')), 'cli.success');
-            }
-        }
-    }
+// Determine if we are local or remote.
+if (empty($opts['remote'])) {
+    $runner = new Ansel_Cli_Helper_Local(
+        $cli,
+        array(
+            'username' => $opts['username'],
+            'password' => $opts['password']
+        ));
+} else {
+    $runner = new Ansel_Cli_Helper_Remote(
+        $cli,
+        array(
+            'remote' => $opts['remote'],
+            'compression' => !empty($opts['gzip']) ? 'gzip' : (!empty($opts['lzf']) ? 'lzf' : false),
+            'auth' => array(
+                'request.username' => $opts['username'],
+                'request.password' => $opts['password'])));
 }
 
+// What are we here for?
+if (!empty($opts['directory'])) {
+    // Import directory of images
+    $runner->processDirectory($opts['directory'], null, $opt['gallery'], $opts['slug']);
+}
+
+exit(0);
+
 /**
- * Read all images from a directory into the currently selected gallery.
+ * Abstract class for communication with Ansel via the CLI
  *
- * @param string $dir          The directory to create a gallery for and import.
- * @param integer $parent      Parent gallery id to attach the new gallery to.
- * @param integer $gallery_id  Start at this gallery_id.
- * @param string  $slug        Same as $gallery_id, except use this slug
- *
- * @return mixed  The gallery_id of the newly created gallery || PEAR_Error
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Ansel
  */
-function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null, $compress = 'none')
+abstract class Ansel_Cli_Helper_Base
 {
-    global $cli, $rpc_auth, $rpc_endpoint;
+    protected $_params = array();
+    protected $_cli;
+    protected $_compress = 'none';
 
-    $dir = Horde_Util::realPath($dir);
-    if (!is_dir($dir)) {
-        $cli->fatal(sprintf(_("\"%s\" is not a directory."), $dir));
-    }
-    $rpc_params = $rpc_auth;
-    $language = isset($GLOBALS['language']) ? $GLOBALS['language'] :
-            (isset($_SERVER['LANG']) ? $_SERVER['LANG'] : '');
-    if (!empty($language)) {
-        $rpc_params['request.headers'] = array('Accept-Language' => $language);
-    }
-    $rpc_params['request.timeout'] = 0;
-    $http = $GLOBALS['injector']->getInstance('Horde_Core_Factory_HttpClient')->create($rpc_params);
-    /* Create a gallery or use an existing one? */
-    if (!empty($gallery_id) || !empty($slug)) {
-        /* Start with an existing gallery */
-        $method = 'images.getGalleries';
-        $params = array(
-            is_null($gallery_id) ? null : array($gallery_id),
-            null,
-            is_null($slug) ? null : array($slug),
-        );
-        $result = Horde_Rpc::request('jsonrpc', $rpc_endpoint, $method, $http, $params);
-        $result = $result->result;
-        if (empty($result)) {
-            $cli->fatal(sprintf(_("Gallery %s not found."), (empty($slug) ? $gallery_id : $slug)));
-        }
-
-        /* Should have only one here, but jsonrpc returns an object, not array */
-        foreach ($result as $gallery_info) {
-           $name = $gallery_info->attribute_name;
-           $gallery_id = $gallery_info->share_id;
-        }
-        if (empty($name)) {
-            $cli->fatal(sprintf(_("Gallery %s not found."), (empty($slug) ? $gallery_id : $slug)));
-        }
-    } else {
-        /* Creating a new gallery */
-        $name = basename($dir);
-        $cli->message(sprintf(_("Creating gallery: \"%s\""), $name), 'cli.message');
-        $method = 'images.createGallery';
-        $params = array(array('name' => $name), array('parent' => $parent));
-        $result = Horde_Rpc::request('jsonrpc', $rpc_endpoint, $method, $http, $params);
-        $gallery_id = $result->result;
-        $cli->message(sprintf(_("The gallery \"%s\" was created successfully."), $name), 'cli.success');
+    public function __construct(Horde_Cli $cli, array $params = array())
+    {
+        $this->_cli = $cli;
+        $this->_params = array();
     }
 
-    /* Get the files and directories */
-    $files = array();
-    $directories = array();
-    $h = opendir($dir);
-    while (false !== ($entry = readdir($h))) {
-        if ($entry == '.' ||
-            $entry == '..' ||
-            $entry == 'Thumbs.db' ||
-            $entry == '.DS_Store' ||
-            $entry == '.localized' ||
-            $entry == '__MACOSX' ||
-            strpos($entry, '.') === 1) {
-            continue;
+    /**
+     * Check for, and remove any empty galleries that may have been created
+     * during  import.
+     *
+     * @param Ansel_Gallery $gallery  An ansel gallery object to check.
+     *
+     * @throws Exception
+     */
+    public function emptyGalleryCheck(Ansel_Gallery $gallery)
+    {
+        if ($gallery->hasSubGalleries()) {
+            $children = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->listGalleries(array('parent' => $gallery->id));
+            foreach ($children as $child) {
+                // First check all children to see if they are empty...
+                $this->emptyGalleryCheck($child);
+                if (!$child->countImages() && !$child->hasSubGalleries()) {
+                    try {
+                        $GLOBALS['injector']
+                            ->getInstance('Ansel_Storage')
+                            ->removeGallery($child);
+                    } catch (Ansel_Exception $e) {
+                        throw new Exception($e->getMessage());
+                    }
+                    $GLOBALS['cli']->message(
+                        sprintf(
+                            _("Deleted empty gallery, \"%s\""), $child->get('name')),
+                        'cli.success');
+                }
+
+                // Refresh the gallery values since we mucked around a bit with it
+                $gallery = $GLOBALS['injector']
+                    ->getInstance('Ansel_Storage')
+                    ->getGallery($gallery->id);
+
+                // Now that any empty children are removed, see if we are empty
+                if (!$gallery->countImages() && !$gallery->hasSubGalleries()) {
+                    try {
+                        $GLOBALS['injector']
+                            ->getInstance('Ansel_Storage')
+                            ->removeGallery($gallery);
+                    } catch (Ansel_Exception $e) {
+                        throw new Exception($e->getMessage());
+                    }
+                    $GLOBALS['cli']->message(
+                        sprintf(_("Deleting empty gallery, \"%s\""), $gallery->get('name')),
+                        'cli.success');
+                }
+            }
+        }
+    }
+
+    /**
+     * Read an image from the filesystem.
+     *
+     * @param string $file  The filename of the image.
+     *
+     * @return array  The image data of the file as an array
+     * @throws Exception
+     */
+    protected function _getImageFromFile($file)
+    {
+        if (!file_exists($file)) {
+            throw new Exception(sprintf(_("The file \"%s\" doesn't exist."), $file));
         }
 
-        if (is_dir($dir . '/' . $entry)) {
-            $directories[] = $entry;
+        // Get the mime type of the file (and make sure it's an image).
+        $mime_type = Horde_Mime_Magic::analyzeFile(
+            $file,
+            isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null);
+
+        if (strpos($mime_type, 'image') === false) {
+            throw new Exception(sprintf(_("Can't get unknown file type \"%s\"."), $file));
+        }
+
+        if ($this->_compress == 'gzip' && Horde_Util::loadExtension('zlib')) {
+            $data = gzcompress(file_get_contents($file));
+        } elseif ($this->_compress == 'gzip') {
+            $this->_cli->fatal(_("Could not load the gzip extension"));
+        } elseif ($this->_compress == 'lzf' && Horde_Util::loadExtension('lzf')) {
+            $data = lzf_compress(file_get_contents($file));
+        } elseif ($this->_compress == 'lzf') {
+            $this->_cli->fatal(_("Could not load the lzf extension"));
         } else {
-            $files[] = $entry;
+            $data = file_get_contents($file);
         }
+
+        return array(
+            'filename' => basename($file),
+            'description' => '',
+            'type' => $mime_type,
+            'data' => bin2hex($data));
     }
-    closedir($h);
 
-    if ($files) {
-        chdir($dir);
+    abstract public function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null);
 
-        // Process each file and upload to the gallery.
-        $added_images = array();
-        foreach ($files as $file) {
-            $image = getImageFromFile($dir . '/' . $file, $compress);
-            $cli->message(sprintf(_("Storing photo \"%s\"..."), $file), 'cli.message');
-            $method = 'images.saveImage';
+}
+
+/**
+ * Class for communication with a remote ansel install via the CLI.
+ *
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Ansel
+ */
+class Ansel_Cli_Helper_Remote extends Ansel_Cli_Helper_Base
+{
+    public function __construct($cli, $params = array())
+    {
+        $this->_auth = $params['auth'];
+        $this->_remote = $params['remote'];
+        $this->_compression = $params['compression'];
+        unset ($params['auth'], $params['remote'], $params['compression']);
+        parent::__construct($cli, $params);
+    }
+
+    /**
+     * Read all images from a directory into the currently selected gallery.
+     *
+     * @param string $dir          The directory to create a gallery for and import.
+     * @param integer $parent      Parent gallery id to attach the new gallery to.
+     * @param integer $gallery_id  Start at this gallery_id.
+     * @param string  $slug        Same as $gallery_id, except use this slug
+     *
+     * @return integer The gallery_id of the newly created gallery
+     * @throws Exception
+     */
+    public function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null)
+    {
+        $dir = Horde_Util::realPath($dir);
+        if (!is_dir($dir)) {
+            $this->_cli->fatal(sprintf(_("\"%s\" is not a directory."), $dir));
+        }
+
+        $rpc_params = $this->_auth;
+
+        // Set language header
+        $language = isset($GLOBALS['language']) ?
+             $GLOBALS['language'] :
+             (isset($_SERVER['LANG']) ?
+                 $_SERVER['LANG'] : '');
+        if (!empty($language)) {
+            $rpc_params['request.headers'] = array('Accept-Language' => $language);
+        }
+
+        // Don't timeout.
+        $rpc_params['request.timeout'] = 0;
+
+        // Create the http client
+        $http = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_HttpClient')
+            ->create($rpc_params);
+
+        // Create a gallery or use an existing one?
+        if (!empty($gallery_id) || !empty($slug)) {
+            $method = 'images.getGalleries';
             $params = array(
-                $gallery_id,
-                $image,
-                array(
-                    'encoding' => 'binhex',
-                    'compression' => $compress));
-            try {
-                $result = Horde_Rpc::request('jsonrpc', $rpc_endpoint, $method, $http, $params);
-            } catch (Horde_Rpc_Exception $e) {
-                $cli->fatal(sprintf(_("There was an unspecified error. The server returned: %s"), $e->getMessage()));
+                is_null($gallery_id) ? null : array($gallery_id),
+                null,
+                is_null($slug) ? null : array($slug),
+            );
+            $result = Horde_Rpc::request(
+                'jsonrpc',
+                $this->_remote,
+                $method,
+                $http,
+                $params);
+            $result = $result->result;
+            if (empty($result)) {
+                $this->_cli->fatal(
+                    sprintf(_("Gallery %s not found."), (empty($slug) ? $gallery_id : $slug)));
             }
-            $image_id = $result->result;
-            $added_images[] = $file;
+
+            // Should have only one here, but jsonrpc returns an object, not array
+            foreach ($result as $gallery_info) {
+               $name = $gallery_info->attribute_name;
+               $gallery_id = $gallery_info->share_id;
+            }
+            if (empty($name)) {
+                $this->_cli->fatal(sprintf(_("Gallery %s not found."), (empty($slug) ? $gallery_id : $slug)));
+            }
+        } else {
+            $name = basename($dir);
+            $this->_cli->message(sprintf(_("Creating gallery: \"%s\""), $name), 'cli.message');
+            $method = 'images.createGallery';
+            $params = array(array('name' => $name), array('parent' => $parent));
+            $result = Horde_Rpc::request('jsonrpc', $this->_remote, $method, $http, $params);
+            $gallery_id = $result->result;
+            $this->_cli->message(sprintf(_("The gallery \"%s\" was created successfully."), $name), 'cli.success');
         }
 
-        $cli->message(sprintf(ngettext("Successfully added %d photo (%s) to gallery \"%s\" from \"%s\".", "Successfully added %d photos (%s) to gallery \"%s\" from \"%s\".", count($added_images)),
-                              count($added_images), join(', ', $added_images), $name, $dir), 'cli.success');
-    }
+        // Get the files and directories
+        $files = array();
+        $directories = array();
+        $h = opendir($dir);
+        while (false !== ($entry = readdir($h))) {
+            if ($entry == '.' ||
+                $entry == '..' ||
+                $entry == 'Thumbs.db' ||
+                $entry == '.DS_Store' ||
+                $entry == '.localized' ||
+                $entry == '__MACOSX' ||
+                strpos($entry, '.') === 1) {
+                continue;
+            }
 
-    if ($directories) {
-        $cli->message(_("Adding subdirectories:"), 'cli.message');
-        foreach ($directories as $directory) {
-            processDirectory($dir . '/' . $directory, $gallery_id);
+            if (is_dir($dir . '/' . $entry)) {
+                $directories[] = $entry;
+            } else {
+                $files[] = $entry;
+            }
         }
+        closedir($h);
+        if (!empty($this->_params['order'])) {
+            usort($files, $this->_params['order'].'Cmp');
+            usort($directories, $this->_params['order'].'Cmp');
+        }
+
+        if ($files) {
+            chdir($dir);
+            $added_images = array();
+            foreach ($files as $file) {
+                try {
+                    $image = $this->_getImageFromFile($dir . '/' . $file);
+                } catch (Exception $e) {
+                    // Not an image file.
+                    continue;
+                }
+                $this->_cli->message(
+                    sprintf(_("Storing photo \"%s\"..."), $file),
+                    'cli.message');
+                $method = 'images.saveImage';
+                $params = array(
+                    $gallery_id,
+                    $image,
+                    array(
+                        'encoding' => 'binhex',
+                        'compression' => $this->_compression));
+                try {
+                    $result = Horde_Rpc::request(
+                        'jsonrpc',
+                        $this->_remote,
+                        $method,
+                        $http,
+                        $params);
+                } catch (Horde_Rpc_Exception $e) {
+                    $this->_cli->fatal(
+                        sprintf(
+                            _("There was an unspecified error. The server returned: %s"),
+                            $e->getMessage()));
+                }
+
+                $image_id = $result->result;
+                $added_images[] = $file;
+            }
+
+            $this->_cli->message(
+                sprintf(
+                    ngettext("Successfully added %d photo (%s) to gallery \"%s\" from \"%s\".", "Successfully added %d photos (%s) to gallery \"%s\" from \"%s\".", count($added_images)),
+                    count($added_images),
+                    join(', ', $added_images),
+                    $name,
+                    $dir),
+                'cli.success');
+        }
+
+        if ($directories) {
+            $this->_cli->message(_("Adding subdirectories:"), 'cli.message');
+            foreach ($directories as $directory) {
+               $this->processDirectory($dir . '/' . $directory, $gallery_id);
+            }
+        }
+
+        return $gallery_id;
     }
 
-    return $gallery_id;
 }
 
 /**
- * Read an image from the filesystem.
+ * Class for communicating with a local Ansel install
  *
- * @param string $file     The filename of the image.
- *
- * @return array  The image data of the file as an array or PEAR_Error
+ * @package Ansel
  */
-function getImageFromFile($file, $compress = 'none')
+class Ansel_Cli_Helper_Local extends Ansel_Cli_Helper_Base
 {
-    if (!file_exists($file)) {
-        return PEAR::raiseError(sprintf(_("The file \"%s\" doesn't exist."),
-                                $file));
+    public function __construct(Horde_Cli $cli, array $params = array())
+    {
+        parent::__construct($cli, $params);
+        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
+        if (!$auth->authenticate($params['username'], array('password' => $params['password']))) {
+            $this->_cli->fatal(_("Username or password is incorrect."));
+        } else {
+            $this->_cli->message(sprintf(_("Logged in successfully as \"%s\"."), $username), 'cli.success');
+        }
     }
 
-    global $conf, $cli;
+    /**
+     * Read all images from a directory into the currently selected
+     * gallery.
+     *
+     * @param string $dir  The directory to create a gallery for and import.
+     * @param integer $parent  Parent gallery id to attach the new gallery to.
+     *
+     * @return mixed  The gallery_id of the newly created gallery || PEAR_Error
+     */
+    public function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null)
+    {
+        $dir = Horde_Util::realPath($dir);
+        if (!is_dir($dir)) {
+            $this->_cli->fatal(sprintf(_("\"%s\" is not a directory."), $dir));
+        }
 
-    // Get the mime type of the file (and make sure it's an image).
-    $mime_type = Horde_Mime_Magic::analyzeFile($file, isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null);
-    if (strpos($mime_type, 'image') === false) {
-        return PEAR::raiseError(sprintf(_("Can't get unknown file type \"%s\"."), $file));
+        // Create a gallery or use an existing one?
+        if (!empty($gallery_id)) {
+            $gallery = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getGallery($gallery_id);
+        } elseif (!empty($slug)) {
+            $gallery = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getGalleryBySlug($slug);
+        } else {
+            $name = basename($dir);
+            $this->_cli->message(sprintf(_("Creating gallery: \"%s\""), $name), 'cli.message');
+            $gallery = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->createGallery(
+                    array('name' => $name),
+                    null,
+                    $parent);
+            $this->_cli->message(
+                sprintf(_("The gallery \"%s\" was created successfully."), $name),
+                'cli.success');
+        }
+
+        // Read all the files into an array.
+        $files = array();
+        $directories = array();
+        $h = opendir($dir);
+        while (false !== ($entry = readdir($h))) {
+            if ($entry == '.' ||
+                $entry == '..' ||
+                $entry == 'Thumbs.db' ||
+                $entry == '.DS_Store' ||
+                $entry == '.localized' ||
+                $entry == '__MACOSX' ||
+                strpos($entry, '.') === 1) {
+                continue;
+            }
+            if (is_dir($dir . '/' . $entry)) {
+                $directories[] = $dir . '/' . $entry;
+            } else {
+                $files[] = $dir . '/' . $entry;
+            }
+        }
+        closedir($h);
+
+        if (!empty($this->_params['order'])) {
+            usort($files, $this->_params['order'].'Cmp');
+            usort($directories, $this->_params['order'].'Cmp');
+        }
+
+        if ($files) {
+            // Process each file and upload to the gallery.
+            $added_images = array();
+            foreach ($files as $file) {
+                $image = Ansel::getImageFromFile($file);
+                $this->_cli->message(sprintf(_("Storing photo \"%s\"..."), $file), 'cli.message');
+                $image_id = $gallery->addImage($image);
+                $added_images[] = $file;
+            }
+
+            $this->_cli->message(
+                sprintf(
+                    ngettext("Successfully added %d photo (%s) to gallery \"%s\" from \"%s\".", "Successfully added %d photos (%s) to gallery \"%s\" from \"%s\".", count($added_images)),
+                    count($added_images),
+                    join(', ', $added_images),
+                    $gallery->get('name'),
+                    $dir),
+                'cli.success');
+        }
+
+        if ($directories) {
+            $this->_cli->message(_("Adding subdirectories:"), 'cli.message');
+            foreach ($directories as $directory) {
+                $this->processDirectory($directory, $gallery->id);
+            }
+        }
+
+        return $gallery->id;
     }
 
-    if ($compress == 'gzip' && Horde_Util::loadExtension('zlib')) {
-        $data = gzcompress(file_get_contents($file));
-    } elseif ($compress == 'gzip') {
-        $cli->fatal(_("Could not load the gzip extension"));
-    } elseif ($compress == 'lzf' && Horde_Util::loadExtension('lzf')) {
-        $data = lzf_compress(file_get_contents($file));
-    } elseif ($compress == 'lzf') {
-        $cli->fatal(_("Could not load the lzf extension"));
-    } else {
-        $data = file_get_contents($file);
-    }
-
-    $image = array('filename' => basename($file),
-                   'description' => '',
-                   'type' => $mime_type,
-                   'data' => bin2hex($data),
-                   );
-
-    return $image;
-}
-
-
-
-/**
- * Show the command line arguments that the script accepts.
- */
-function showHelp()
-{
-    global $cli;
-
-    $cli->writeln(sprintf(_("Usage: %s [OPTIONS]..."), basename(__FILE__)));
-    $cli->writeln();
-    $cli->writeln(_("Mandatory arguments to long options are mandatory for short options too."));
-    $cli->writeln();
-    $cli->writeln(_("-h, --help                   Show this help"));
-    $cli->writeln(_("-d, --dir[=directory]        Recursively add all files from the directory, creating\n                             a gallery for each directory"));
-    $cli->writeln(_("-u, --username[=username]    Horde login username"));
-    $cli->writeln(_("-p, --password[=password]    Horde login password"));
-    $cli->writeln(_("-g, --gallery[=gallery_id]   The gallery id to add directory contents to"));
-    $cli->writeln(_("-s, --slug[=gallery_slug]    The gallery slug to add directory contents to"));
-    //$cli->writeln(_("-k, --keep                   Do not delete empty galleries after import is complete."));
-    $cli->writeln(_("-r, --remotehost[=url]       The url of the remote rpc server."));
 }
