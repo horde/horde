@@ -9,6 +9,8 @@ var IMP_JS = {
 
     imgs: {},
 
+    keydownhandler: null,
+
     menuFolderSubmit: function(clear)
     {
         var mf = $('menuform');
@@ -88,6 +90,18 @@ var IMP_JS = {
         d.open();
         d.write(data);
         d.close();
+
+        if (this.keydownhandler) {
+            var responder = function(e) {
+                return this.keydownhandler(e);
+            }.bindAsEventListener(this)
+
+            if (d.addEventListener) {
+                d.addEventListener('keydown', responder, false);
+            } else {
+                d.attachEvent('onkeydown', responder);
+            }
+        }
 
         id.show().previous().remove();
 

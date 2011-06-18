@@ -2,6 +2,7 @@
 v5.0.8-git
 ----------
 
+[jan] Keep key navigation active after clicking into a HTML message.
 [mms] Fix additional regression when flagging all messages in a mailbox
       (Bug #10243).
 [mms] Fix "Don't Show" filtering in traditional mailbox view (Bug #10244).
