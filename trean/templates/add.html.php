@@ -28,11 +28,11 @@
 <tr>
   <td></td>
   <td>
-  <div class="kronolithDialogInfo"><?php echo _("To make it easier to find, you can enter comma separated tags related to the event subject.") ?></div>
-  <input id="kronolithEventTags" name="tags" />
-  <label for="kronolithEventTopTags"><?php echo _("Previously used tags") ?>:</label><br />
-  <span id="kronolithEventTags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
-  <div class="kronolithTopTags" id="kronolithEventTopTags"></div>
+  <div class="horde-DialogInfo"><?php echo _("Categorize your bookmark with comma separated tags.") ?></div>
+  <input id="treanBookmarkTags" name="tags" />
+  <label for="treanBookmarkTopTags"><?php echo _("Previously used tags") ?>:</label><br />
+  <span id="treanBookmarkTags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
+  <div class="treanTopTags" id="treanBookmarkTopTags"></div>
   </td>
 </tr>
 
