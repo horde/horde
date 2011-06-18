@@ -2,6 +2,8 @@
 v5.0.8-git
 ----------
 
+[jan] Tick sent-mail checkbox off when selecting sent-mail folder in dynamic
+      view.
 [jan] Keep key navigation active after clicking into a HTML message.
 [mms] Fix additional regression when flagging all messages in a mailbox
       (Bug #10243).
