@@ -681,9 +681,7 @@ if (!empty($GLOBALS['conf']['facebook']['id'])) {
 //    'browse' => true,
 //);
 
-//$_group_driver = &Group::singleton();
-//$_group_list = $_group_driver->getGroupMemberships($GLOBALS['registry']->getAuth());
-//foreach ($_group_list as $_group_id => $_group_name) {
+//foreach ($GLOBALS['injector']->getInstance('Horde_Group')->listGroups($GLOBALS['registry']->getAuth()) as $_group_id => $_group_name) {
 //    $cfgSources['group_' . $_group_id] = $grpSource;
 //    $cfgSources['group_' . $_group_id]['params'] = array('gid' => $_group_id);
 //    $cfgSources['group_' . $_group_id]['title'] = $_group_name;

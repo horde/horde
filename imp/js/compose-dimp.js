@@ -151,6 +151,7 @@ var DimpCompose = {
 
         if (id == 'sm') {
             k.knl.setSelected(s);
+            this.setSaveSentMail(true);
         }
     },
 

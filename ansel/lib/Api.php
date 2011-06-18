@@ -476,7 +476,10 @@ class Ansel_Api extends Horde_Registry_Api
         // Create the gallery
         $gallery = $GLOBALS['injector']
             ->getInstance('Ansel_Storage')
-            ->createGallery($attributes, $permobj, $parent);
+            ->createGallery(
+                $attributes,
+                $permobj,
+                (!empty($params['parent']) ? $params['parent'] : null));
 
         return $gallery->id;
     }
