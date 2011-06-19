@@ -165,7 +165,7 @@ case 'rule_delete':
             exit;
         }
         if (isset($vars->conditionnumber)) {
-            unset($rule['conditions'][intval($vars->conditionnumner)]);
+            unset($rule['conditions'][intval($vars->conditionnumber)]);
             $rule['conditions'] = array_values($rule['conditions']);
         }
     }
