@@ -2,9 +2,7 @@
 /**
  * Passwd Base Class.
  *
- * $Horde: passwd/lib/Passwd.php,v 1.12.2.5 2009/01/06 15:25:21 jan Exp $
- *
- * Copyright 2000-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.

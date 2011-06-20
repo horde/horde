@@ -3,9 +3,7 @@
  * Passwd_Driver:: defines an API for implementing password change systems for
  * Passwd.
  *
- * $Horde: passwd/lib/Driver.php,v 1.44.2.10 2009/01/06 15:25:15 jan Exp $
- *
- * Copyright 2000-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
