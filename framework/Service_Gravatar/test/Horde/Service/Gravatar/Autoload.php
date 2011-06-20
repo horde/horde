@@ -1,21 +1,18 @@
 <?php
+/**
+ * Setup autoloading for the tests.
+ *
+ * PHP version 5
+ *
+ * @category   Horde
+ * @package    Service_Gravatar
+ * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link       http://pear.horde.org/index.php?package=Service_Gravatar
+ */
 
-require_once 'Horde/Http.php';
-require_once 'Horde/Http/Client.php';
-require_once 'Horde/Exception.php';
-require_once 'Horde/Exception/LastError.php';
-require_once 'Horde/Http/Exception.php';
-require_once 'Horde/Http/Request/Factory.php';
-require_once 'Horde/Http/Request/Base.php';
-require_once 'Horde/Http/Request/Curl.php';
-require_once 'Horde/Http/Request/Fopen.php';
-require_once 'Horde/Http/Request/Mock.php';
-require_once 'Horde/Http/Request/Peclhttp.php';
-require_once 'Horde/Http/Response/Base.php';
-require_once 'Horde/Http/Response/Curl.php';
-require_once 'Horde/Http/Response/Fopen.php';
-require_once 'Horde/Http/Response/Mock.php';
-require_once 'Horde/Stream/Wrapper/String.php';
-require_once 'Horde/Stream/Wrapper/StringStream.php';
-require_once 'Horde/Support/StringStream.php';
-require_once 'Horde/Service/Gravatar.php';
+require_once 'Horde/Test/Autoload.php';
+
+/** Catch strict standards */
+error_reporting(E_ALL | E_STRICT);
