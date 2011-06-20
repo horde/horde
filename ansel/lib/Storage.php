@@ -920,6 +920,16 @@ class Ansel_Storage
     }
 
     /**
+     * Returns a list of ALL galleries, regardless of permissions.
+     *
+     * @return array
+     */
+    public function listAllGalleries()
+    {
+        return $this->buildGalleries($this->_shares->listAllShares());
+    }
+
+    /**
      * Retrieve json data for an arbitrary list of image ids, not necessarily
      * from the same gallery.
      *
