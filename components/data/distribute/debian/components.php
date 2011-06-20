@@ -9,7 +9,20 @@ if (isset($options['destination'])) {
     $destination = getcwd();
 }
 
-if (in_array($component->getName(), array('content', 'horde', 'imp', 'ingo', 'kronolith', 'mnemo', 'nag', 'timeobjects', 'turba', 'webmail'))) {
+$applications = array(
+    'content',
+    'horde',
+    'imp',
+    'ingo',
+    'kronolith',
+    'mnemo',
+    'nag',
+    'timeobjects',
+    'turba',
+    'webmail'
+);
+
+if (in_array($component->getName(), $applications)) {
     $package_name = 'horde-' . $component->getName();
 } else {
     $package_name = $component->getName();
@@ -29,8 +42,8 @@ $build_template = new Components_Helper_Templates_Directory(
 $build_template->write(
     array(
         'name' => $package_name,
-        'horde_name' => $component->getName(),
-        'version' => $component->getVersion()
+        'component' => $component,
+        'applications' => $applications
     )
 );
 
