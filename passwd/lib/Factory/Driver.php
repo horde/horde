@@ -44,7 +44,7 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
         $backend = $backends[$name];
 
         if (!isset($this->_instances[$key])) {
-            $class = 'Passwd_Driver_' . strtolower(basename($backend['driver']));
+            $class = 'Passwd_Driver_' . Horde_String::ucfirst(basename($backend['driver']));
             if (!class_exists($class)) {
                 throw new Passwd_Exception(sprintf(_("Unable to load the definition of %s."), $class));
             }
