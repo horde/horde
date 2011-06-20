@@ -2,8 +2,8 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>passwd</name>
  <channel>pear.horde.org</channel>
- <summary>TODO</summary>
- <description>TODO</description>
+ <summary>Horde 4 Passwords Application</summary>
+ <description>An application to change any user passwords stored in various backends like SQL, LDAP, Kolab, passwd files etc...</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -52,25 +52,25 @@
    </dir> <!-- /docs -->
    <dir name="lib">
     <dir name="Driver">
-     <file name="adsi.php" role="horde" />
-     <file name="composite.php" role="horde" />
-     <file name="expect.php" role="horde" />
-     <file name="expectpecl.php" role="horde" />
-     <file name="horde.php" role="horde" />
-     <file name="http.php" role="horde" />
-     <file name="kolab.php" role="horde" />
-     <file name="ldap.php" role="horde" />
-     <file name="pine.php" role="horde" />
-     <file name="poppassd.php" role="horde" />
-     <file name="procopen.php" role="horde" />
-     <file name="pspasswd.php" role="horde" />
-     <file name="servuftp.php" role="horde" />
-     <file name="smbldap.php" role="horde" />
-     <file name="smbpasswd.php" role="horde" />
-     <file name="soap.php" role="horde" />
-     <file name="sql.php" role="horde" />
-     <file name="vmailmgr.php" role="horde" />
-     <file name="vpopmail.php" role="horde" />
+     <file name="Adsi.php" role="horde" />
+     <file name="Composite.php" role="horde" />
+     <file name="Expect.php" role="horde" />
+     <file name="Expectpecl.php" role="horde" />
+     <file name="Horde.php" role="horde" />
+     <file name="Http.php" role="horde" />
+     <file name="Kolab.php" role="horde" />
+     <file name="Ldap.php" role="horde" />
+     <file name="Pine.php" role="horde" />
+     <file name="Poppassd.php" role="horde" />
+     <file name="Procopen.php" role="horde" />
+     <file name="Pspasswd.php" role="horde" />
+     <file name="Servuftp.php" role="horde" />
+     <file name="Smbldap.php" role="horde" />
+     <file name="Smbpasswd.php" role="horde" />
+     <file name="Soap.php" role="horde" />
+     <file name="Sql.php" role="horde" />
+     <file name="Vmailmgr.php" role="horde" />
+     <file name="Vpopmail.php" role="horde" />
     </dir> <!-- /lib/Driver -->
     <dir name="Factory">
      <file name="Driver.php" role="horde" />
