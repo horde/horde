@@ -60,15 +60,11 @@ class Horde_Test_AllTests
      */
     public static function suite()
     {
-        // Catch strict standards
-        error_reporting(E_ALL | E_STRICT);
-
-        // Set up autoload
-        $basedir = dirname(self::$_file);
-        set_include_path($basedir . '/../../../lib' . PATH_SEPARATOR . get_include_path());
-        require_once 'Horde/Test/Autoload.php';
+        self::setup();
 
         $suite = new PHPUnit_Framework_TestSuite('Horde Framework - ' . self::$_package);
+
+        $basedir = dirname(self::$_file);
         $baseregexp = preg_quote($basedir . DIRECTORY_SEPARATOR, '/');
 
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) {
@@ -96,4 +92,29 @@ class Horde_Test_AllTests
         return $suite;
     }
 
+    /**
+     * Basic test suite setup. This includes error checking and autoloading.
+     *
+     * In the default situation this will set the error reporting to E_ALL |
+     * E_STRICT and pull in Horde/Test/Autoload.php as autoloading
+     * definition. If there is an Autoload.php alongside the AllTests.php
+     * represented by self::$_file, then only this file will be used.
+     *
+     * @return NULL
+     */
+    public static function setup()
+    {
+        $autoload = dirname(self::$_file) . '/Autoload.php';
+        if (!file_exists($autoload)) {
+            // Catch strict standards
+            error_reporting(E_ALL | E_STRICT);
+
+            // @todo Do we really need this?
+            set_include_path(dirname(self::$_file) . '/../../../lib' . PATH_SEPARATOR . get_include_path());
+            // Set up autoload
+            require_once 'Horde/Test/Autoload.php';
+        } else {
+            require_once $autoload;
+        }
+    }
 }
