@@ -3,7 +3,7 @@
 /**
  * Database migration script.
  *
- * Usage: horde-db-migrate --adapter=pdo_mysql [--host=db.example.com] [--username=user] [--password=secret] [--database=db] [...] directory module [(up|down|version) [debug]]
+ * Usage: horde-db-migrate-component --adapter=pdo_mysql [--host=db.example.com] [--username=user] [--password=secret] [--database=db] [...] directory module [(up|down|version) [debug]]
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
@@ -32,7 +32,7 @@ foreach ($_SERVER['argv'] as $arg) {
     }
 }
 if (empty($args[1])) {
-    die("horde-db-migrate [--parameter=value ...] directory module [(up|down|version) [debug]]\n");
+    die("horde-db-migrate-component [--parameter=value ...] directory module [(up|down|version) [debug]]\n");
 }
 if (!isset($params['adapter'])) {
     die("The --adapter parameter is required. Other parameters may be required depending on the adapter.\n");
