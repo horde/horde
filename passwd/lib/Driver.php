@@ -105,33 +105,4 @@ class Passwd_Driver {
         throw new Passwd_Exception(_("Backend not correctly implemented."));
     }
 
-    /**
-     * Attempts to return a concrete Passwd_Driver instance based on
-     * $driver.
-     *
-     * @param string $driver  The type of concrete passwd_Driver subclass
-     *                        to return. The is based on the passwd
-     *                        driver ($driver). The code is dynamically
-     *                        included.
-     *
-     * @param array  $params  (optional) A hash containing any additional
-     *                        configuration or connection parameters a
-     *                        subclass might need.
-     *
-     * @return mixed  The newly created concrete Passwd_Driver
-     *                instance, or false on an error.
-     * @throws Passwd_Exception
-     */
-    function factory($driver, $params = array())
-    {
-        $driver = basename($driver);
-        require_once dirname(__FILE__) . '/Driver/' . $driver . '.php';
-        $class = 'Passwd_Driver_' . $driver;
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new Passwd_Exception(sprintf(_("No such backend \"%s\" found."), $driver));
-    }
-
 }
