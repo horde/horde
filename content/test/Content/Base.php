@@ -1,6 +1,6 @@
 <?php
 
- require_once dirname(__FILE__) . '/Autoload.php';
+require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
  * Copyright 2008-2011 The Horde Project (http://www.horde.org/)

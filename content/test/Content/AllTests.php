@@ -7,7 +7,7 @@
 if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'Content_AllTests::main');
 }
-$GLOBALS['mappings'] = array('Content' => dirname(__FILE__) . '/../../lib');
+
 /**
  * Prepare the test setup.
  */
