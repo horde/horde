@@ -13,6 +13,11 @@
  */
 
 /**
+ * Prepare the test setup.
+ */
+require_once dirname(__FILE__) . '/../../../Autoload.php';
+
+/**
  * Test the IMP HTML Mime Viewer driver.
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
