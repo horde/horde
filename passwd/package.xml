@@ -52,7 +52,6 @@
    </dir> <!-- /docs -->
    <dir name="lib">
     <dir name="Driver">
-     <file name=".swp.kolab.php" role="horde" />
      <file name="adsi.php" role="horde" />
      <file name="composite.php" role="horde" />
      <file name="expect.php" role="horde" />
