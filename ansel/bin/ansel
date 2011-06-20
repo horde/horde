@@ -25,6 +25,7 @@ $parser = new Horde_Argv_Parser(
     array(
         'usage' => "%prog [--options] [command]\n
 Available commands are:\n
+  import: Recursively import images from folder specified with -d
   list:   List all galleries or (if used with -g) all images in specified gallery
   create: Create a new gallery. Optionally used with -n to set name and --description
           to set description
