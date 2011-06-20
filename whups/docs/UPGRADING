@@ -26,6 +26,13 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+Upgrading Whups from 1.0.x to 2.0.x
+===================================
+
+All command line scripts have been renamed, the new versions all have whups-
+prefixes.
+
+
 Upgrading Whups from 1.0 to 1.0.1
 =================================
 
