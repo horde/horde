@@ -4,12 +4,16 @@
  * servers.  It is very similar to the more generic sql driver, and the two
  * should probably be merged into one driver if possible.
  *
- * $Horde: passwd/lib/Driver/vpopmail.php,v 1.17.2.6 2009/01/06 15:25:23 jan Exp $
- *
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
+ *
+ * WARNING: This driver has only formally been converted to Horde 4. 
+ * No testing has been done. If this doesn't work, please file bugs at
+ * bugs.horde.org
+ * If you really need this to work reliably, think about sponsoring development
+ * Please send a mail to lang -at- b1-systems.de if you can verify this driver to work
  *
  * @author  Anton Nekhoroshikh <anton@valuehost.ru>
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
@@ -17,36 +21,37 @@
  * @author  Tjeerd van der Zee <admin@xar.nl>
  * @author  Mattias Webjörn Eriksson <mattias@webjorn.org>
  * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
+ * @author  Ralf Lang <lang@b1-systems.de>
  * @since   Passwd 2.2
  * @package Passwd
  */
 class Passwd_Driver_vpopmail extends Passwd_Driver {
 
     /**
-     * SQL connection object.
-     *
-     * @var DB
+     * The Horde_Db object
+     * @var Horde_Db_Adapter
      */
-    var $_db;
+    protected  $_db;
 
     /**
      * State of SQL connection.
      *
      * @var boolean
      */
-    var $_connected = false;
+    protected  $_connected = false;
 
     /**
      * Constructs a new Passwd_Driver_vpopmail object.
      *
      * @param array $params  A hash containing connection parameters.
      */
-    function Passwd_Driver_vpopmail($params = array())
+    function __construct($params = array())
     {
-        if (isset($params['phptype'])) {
-            $this->_params['phptype'] = $params['phptype'];
+        if (isset($params['db'])) {
+            $this->_db = $params['db'];
+            unset($params['db']);
         } else {
-            return PEAR::raiseError(_("Required 'phptype' not specified in SQL configuration."));
+            throw new Passwd_Exception('Missing required Horde_Db_Adapter object');
         }
 
         /* Use defaults from Horde. */
@@ -68,35 +73,6 @@ class Passwd_Driver_vpopmail extends Passwd_Driver {
         $this->_params['show_encryption'] = isset($params['show_encryption']) ? $params['show_encryption'] : false;
     }
 
-    /**
-     * Connect to the database.
-     *
-     * @return boolean  True on success or PEAR_Error on failure.
-     */
-    function _connect()
-    {
-        if (!$this->_connected) {
-            /* Connect to the SQL server using the supplied parameters. */
-            include_once 'DB.php';
-            $this->_db = &DB::connect($this->_params, true);
-            if (is_a($this->_db, 'PEAR_Error')) {
-                return PEAR::raiseError(_("Unable to connect to SQL server."));
-            }
-
-            // Set DB portability options.
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-
-            $this->_connected = true;
-        }
-
-        return true;
-    }
 
     /**
      * Find out if a username and password is valid.
@@ -104,15 +80,10 @@ class Passwd_Driver_vpopmail extends Passwd_Driver {
      * @param string $username      The username to check.
      * @param string $old_password  An old password to check.
      *
-     * @return boolean              True on valid or PEAR_Error on invalid.
+     * @return boolean              True on valid or throw Passwd_Exception on invalid.
      */
     function _lookup($username, $old_password)
     {
-        /* Connect to the database. */
-        $res = $this->_connect();
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
 
         /* Only split up username if domain is set in backend
          * configuration. */
@@ -134,20 +105,22 @@ class Passwd_Driver_vpopmail extends Passwd_Driver {
         Horde::logMessage('SQL Query by Passwd_Driver_vpopmail::_lookup(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
-        $result = $this->_db->query($sql, $values);
-        if (!is_a($result, 'PEAR_Error')) {
-            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-            $result->free();
-            if (is_array($row)) {
-                /* Get the password from the database. */
-                $current_password = $row[$this->_params['passwd']];
 
-                /* See if the passwords match. */
-                return $this->comparePasswords($current_password, $old_password);
-            }
+        // This part is directly taken from Passwd_Driver_sql. Maybe vpopmail should be based on it?
+        try {
+            $result = $this->_db->selectOne($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+             throw new Passwd_Exception($e);
         }
 
-        return PEAR::raiseError(_("User not found"));
+        if (is_array($result)) {
+            $current_password = $result[$this->_params['passwd']];
+        } else {
+            throw new Passwd_Exception(_("User not found"));
+        }
+        /* Check the passwords match. */
+        return $this->comparePasswords($current_password, $old_password);
+
     }
 
     /**
@@ -160,12 +133,6 @@ class Passwd_Driver_vpopmail extends Passwd_Driver {
      */
     function _modify($username, $new_password)
     {
-        /* Connect to the database. */
-        $res = $this->_connect();
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
         /* Only split up username if domain is set in backend. */
         if ($this->_params['domain']) {
             list($name, $domain) = explode('@', $username);
@@ -194,9 +161,10 @@ class Passwd_Driver_vpopmail extends Passwd_Driver {
         Horde::logMessage('SQL Query by Passwd_Driver_vpopmail::_modify(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
-        $result = $this->_db->query($sql, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        try {
+            $this->_db->update($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Passwd_Exception($e);
         }
 
         return true;
@@ -214,11 +182,7 @@ class Passwd_Driver_vpopmail extends Passwd_Driver {
     function changePassword($username, $old_password, $new_password)
     {
         /* Check the current password. */
-        $result = $this->_lookup($username, $old_password);
-        if (is_a($result, 'PEAR_Error'))  {
-            return $result;
-        }
-
+        $this->_lookup($username, $old_password);
         return $this->_modify($username, $new_password);
     }
 

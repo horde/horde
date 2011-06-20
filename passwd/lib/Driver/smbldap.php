@@ -2,7 +2,6 @@
 /**
  * @package Passwd
  *
- * $Horde: passwd/lib/Driver/smbldap.php,v 1.7.2.7 2009/11/09 13:31:12 jan Exp $
  */
 
 /** Passwd_Driver_ldap */
@@ -12,7 +11,7 @@ require_once dirname(__FILE__) . '/ldap.php';
  * The LDAP class attempts to change a user's LDAP password and Samba password
  * stored in an LDAP directory service.
  *
- * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
@@ -41,7 +40,7 @@ class Passwd_Driver_smbldap extends Passwd_Driver_ldap {
                                     'pw_expire_time' => null,
                                     'smb_objectclass' => 'sambaSamAccount'),
                               $params);
-        parent::Passwd_Driver_ldap($params);
+        parent::__construct($params);
     }
 
     /**
@@ -55,10 +54,8 @@ class Passwd_Driver_smbldap extends Passwd_Driver_ldap {
      */
     function changePassword($username, $old_password, $new_password)
     {
+        // don't catch any errors of Passwd_Driver_ldap but pass them to the caller.
         $result = parent::changePassword($username, $old_password, $new_password);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         // Return success if the user is not a Samba user
         if (!@ldap_compare($this->_ds, $this->_userdn, 'objectClass', $this->_params['smb_objectclass'])) {
@@ -99,7 +96,7 @@ class Passwd_Driver_smbldap extends Passwd_Driver_ldap {
 
         if (count($changes) > 0) {
             if (!ldap_mod_replace($this->_ds, $this->_userdn, $changes)) {
-                return PEAR::raiseError(ldap_error($this->_ds));
+                throw new Passwd_Exception(ldap_error($this->_ds));
             }
         }
 

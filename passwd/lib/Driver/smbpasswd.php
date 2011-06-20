@@ -2,9 +2,7 @@
 /**
  * The smbpassd class attempts to change a user's password on a samba server.
  *
- * $Horde: passwd/lib/Driver/smbpasswd.php,v 1.22.2.5 2009/01/06 15:25:23 jan Exp $
- *
- * Copyright 2000-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
@@ -39,12 +37,12 @@ class Passwd_Driver_smbpasswd extends Passwd_Driver {
      * @param string $user     The user to change the password for
      * @param string $tmpfile  The name of a temporary file in which to write
      *                         output.
-     * @return mixed  True on success, PEAR_Error on failure
+     * @return mixed  True on success, throws a Passwd_Exception on failure
      */
     function _connect($user, $tmpfile)
     {
         if (!is_executable($this->_params['program'])) {
-            return PEAR::raiseError(_("Passwd is not properly configured."));
+            throw new Passwd_Exception(_("Passwd is not properly configured."));
         }
 
         $cmd = sprintf('%s -r %s -s -U "%s" > %s 2>&1',
@@ -54,7 +52,7 @@ class Passwd_Driver_smbpasswd extends Passwd_Driver {
                        $tmpfile);
         $this->_fp = @popen($cmd, 'w');
         if (!$this->_fp) {
-            return PEAR::raiseError(_("Could not open pipe to smbpasswd."));
+            throw new Passwd_Exception(_("Could not open pipe to smbpasswd."));
         }
 
         return true;
@@ -76,9 +74,9 @@ class Passwd_Driver_smbpasswd extends Passwd_Driver {
     function _sendCommand($cmd)
     {
         if (fputs($this->_fp, $cmd . "\n") == -1) {
-            return PEAR::raiseError(_("Error sending data to smbpasswd."));
+            throw new Passwd_Exception(_("Error sending data to smbpasswd."));
         }
-        sleep(1);
+        sleep(1); // why?
         return true;
     }
 
@@ -89,7 +87,7 @@ class Passwd_Driver_smbpasswd extends Passwd_Driver {
      * @param string $old_password  The old (current) user password.
      * @param string $new_password  The new user password to set.
      *
-     * @return mixed  True or PEAR_Error based on success of the change.
+     * @return mixed  True or throws Passwd_Exception based on success of the change.
      */
     function changePassword($username, $old_password, $new_password)
     {
@@ -99,35 +97,18 @@ class Passwd_Driver_smbpasswd extends Passwd_Driver {
         $user = escapeshellcmd($username);
 
         $tmpfile = Horde::getTempFile('smbpasswd');
-        if (is_a($tmpfile, 'PEAR_Error')) {
-            return $tmpfile;
-        }
 
-        $res = $this->_connect($user, $tmpfile);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
-        $res = $this->_sendCommand($old_password);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
-        $res = $this->_sendCommand($new_password);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
-        $res = $this->_sendCommand($new_password);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
+        // we only expect Passwd_exception here. 
+        // These can be dealt with at application level.
+        $this->_connect($user, $tmpfile);
+        $this->_sendCommand($old_password);
+        $this->_sendCommand($new_password);
+        $this->_sendCommand($new_password);
         $this->_disconnect();
 
         $res = file($tmpfile);
         if (strstr($res[count($res) - 1], 'Password changed for user') === false) {
-            return PEAR::raiseError(strrchr(trim($res[count($res) - 2]), ':'));
+            throw new Passwd_Exception(strrchr(trim($res[count($res) - 2]), ':'));
         }
 
         return true;

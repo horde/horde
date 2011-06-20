@@ -3,12 +3,15 @@
  * The vmailmgr class attempts to change a user's password on a local vmailmgr
  * daemon
  *
- * $Horde: passwd/lib/Driver/vmailmgr.php,v 1.11.2.7 2009/01/06 15:25:23 jan Exp $
- *
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
+ *
+ * WARNING: This driver has only formally been converted to Horde 4. 
+ * No testing has been done. If this doesn't work, please file bugs at
+ * bugs.horde.org
+ * If you really need this to work reliably, think about sponsoring development
  *
  * @author  Marco Kaiser <bate@php.net>
  * @since   Passwd 2.2
@@ -30,7 +33,7 @@
         if (is_readable($this->_params['vmailinc']) && isset($this->_params['vmailinc'])) {
             @include($this->_params['vmailinc']);
         } else {
-            return PEAR::raiseError('vmail.inc not found ! (' . $this->_params['vmailinc'] . ')');
+            throw new Passwd_Exception('vmail.inc not found ! (' . $this->_params['vmailinc'] . ')');
         }
 
         $_splitted = explode('@', $username);
@@ -39,7 +42,7 @@
         $_returnChange = vchpass($_domain, $old_password, $_username, $new_password);
 
         if ($_returnChange[0]) {
-            return PEAR::raiseError(_("Incorrect old password."));
+            throw new Passwd_Exception(_("Incorrect old password."));
         }
 
         return true;

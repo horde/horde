@@ -3,7 +3,7 @@
  * The Passwd_expectpecl class provides an PECL expect implementation of the
  * Passwd system.
  *
- * Copyright 2006-2007 Duck <duck@obala.net>
+ * Copyright 2006-2011 Duck <duck@obala.net>
  * Horde 4 framework conversion 2011 rlang <lang@b1-systems.de>
  *
  * WARNING: This driver has only formally been converted to Horde 4. 
@@ -33,7 +33,7 @@ class Passwd_Driver_expectpecl extends Passwd_Driver {
      * @param string $expect  String to expect
      * @param string $error   Error message
      *
-     * @return boolean|PEAR_Error  True on success, PEAR_Error on failure
+     * @return boolean True on success, throw Passwd_Exception on failure
      */
     function ctl($expect, $error)
     {
@@ -100,9 +100,6 @@ class Passwd_Driver_expectpecl extends Passwd_Driver {
         // Log in
         $result = $this->ctl('(P|p)assword.*',
                              _("Could not login to system (no password prompt)"));
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         // Send login password
         fwrite($this->_stream, "$old_password\n");

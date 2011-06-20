@@ -3,12 +3,15 @@
  * The SOAP driver attempts to change a user's password through a SOAP
  * request.
  *
- * $Horde: passwd/lib/Driver/soap.php,v 1.1.2.1 2009/06/10 08:20:39 jan Exp $
- *
- * Copyright 2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
+ *
+ * WARNING: This driver has only formally been converted to Horde 4. 
+ * No testing has been done. If this doesn't work, please file bugs at
+ * bugs.horde.org
+ * If you really need this to work reliably, think about sponsoring development
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Passwd
@@ -20,7 +23,7 @@ class Passwd_Driver_soap extends Passwd_Driver {
      *
      * @param array $params  A hash containing connection parameters.
      */
-    function Passwd_Driver_soap($params = array())
+    function __construct ($params = array())
     {
         if (isset($params['wsdl'])) {
             unset($params['soap_params']['location']);
@@ -34,7 +37,7 @@ class Passwd_Driver_soap extends Passwd_Driver {
         }
         $params['soap_params']['encoding'] = NLS::getCharset();
         $params['soap_params']['exceptions'] = false;
-        parent::Passwd_Driver($params);
+        parent::__construct($params);
     }
 
     /**
@@ -44,17 +47,17 @@ class Passwd_Driver_soap extends Passwd_Driver {
      * @param string $old_password  The old (current) user password.
      * @param string $new_password  The new user password to set.
      *
-     * @return mixed  True on success, PEAR_Error on failure.
+     * @return mixed  True on success, throws Passwd_Exception on failure.
      */
     function changePassword($username,  $old_password, $new_password)
     {
         if (!class_exists('SoapClient')) {
-            return PEAR::raiseError('You need the soap PHP extension to use this driver.');
+            throw new Passwd_Exception('You need the soap PHP extension to use this driver.');
         }
         if (empty($this->_params['wsdl']) &&
             (empty($this->_params['soap_params']['location']) ||
              empty($this->_params['soap_params']['uri']))) {
-            return PEAR::raiseError('Either the "wsdl" or the "location" and "uri" parameter must be provided.');
+            throw new Passwd_Exception('Either the "wsdl" or the "location" and "uri" parameter must be provided.');
         }
 
         $args = array();
@@ -72,7 +75,7 @@ class Passwd_Driver_soap extends Passwd_Driver {
                                  $this->_params['soap_params']);
         $result = $client->__soapCall($this->_params['method'], $args);
         if (is_a($result, 'SoapFault')) {
-            return PEAR::raiseError($result->getMessage(), $result->getCode());
+            throw new Passwd_Exception($result->getMessage(), $result->getCode());
         }
 
         return true;

@@ -61,6 +61,7 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
 
             switch ($class) {
             case 'Passwd_Driver_ldap':
+            case 'Passwd_Driver_smbldap':
 		if ($backend['params']['admindn']) {
 		    $backend['params']['binddn'] = $backend['params']['admindn'];
 		}
@@ -77,6 +78,7 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
                 }
                 break;
             case 'Passwd_Driver_sql':
+            case 'Passwd_Driver_vpopmail':
                 try {
                     $backend['params']['db'] = empty($backend['params'])
                         ? $this->_injector->getInstance('Horde_Db_Adapter')

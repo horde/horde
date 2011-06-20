@@ -37,7 +37,7 @@ define('TABSZ', LASTCH - FIRSTCH + 1);
 class Passwd_Driver_pine extends Passwd_Driver {
 
     /**
-     * FTP connection handle.
+     * Horde_Vfs instance.
      *
      * @var VFS
      */
@@ -86,7 +86,7 @@ class Passwd_Driver_pine extends Passwd_Driver {
     /**
      * Connect to the FTP server.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @return mixed  True on success or throw a Passwd_Exception object on failure.
      */
     function _connect($user, $password)
     {
@@ -117,7 +117,7 @@ class Passwd_Driver_pine extends Passwd_Driver {
     /**
      * Disconnect from the FTP server and clean up the connection.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @return mixed  True on success or a throw a Passwd_Exception object on failure.
      */
     function _disconnect()
     {
@@ -213,14 +213,11 @@ class Passwd_Driver_pine extends Passwd_Driver {
      * @param string $user         The userID to check.
      * @param string $oldPassword  An old password to check.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @return mixed  True on success or throw a Passwd_Exceptionon failure.
      */
     function _lookup($user, $oldPassword)
     {
         $contents = $this->_ftp->read($this->_params['path'], $this->_params['file']);
-        if (is_a($contents, 'PEAR_Error')) {
-            return $contents;
-        }
 
         $this->_contents = $this->_decode($contents);
         foreach ($this->_contents as $line) {
@@ -240,7 +237,7 @@ class Passwd_Driver_pine extends Passwd_Driver {
      * @param string $user         The user whose record we will udpate.
      * @param string $newPassword  The new password value to set.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @return mixed  True on success or throw a Horde_Vfs_Error on failure.
      */
     function _modify($user, $newPassword)
     {
@@ -264,25 +261,23 @@ class Passwd_Driver_pine extends Passwd_Driver {
      * @param string $oldPassword  The old (current) user password.
      * @param string $newPassword  The new user password to set.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @return mixed  True on success or throws a Passwd_Exception on failure.
      */
     function changePassword($username,  $oldPassword, $newPassword)
     {
-        /* Connect to the ftp server. */
-        $res = $this->_connect($username, $this->_params['use_new_passwd'] ? $newPassword : $oldPassword);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
+        try {
+            /* Connect to the ftp server. */
+            $this->_connect($username, $this->_params['use_new_passwd'] ? $newPassword : $oldPassword);
+
+            /* Check the current password. */
+            $this->_lookup($username, $oldPassword);
+
+            $res = $this->_modify($username, $newPassword);
+
+            $this->_disconnect();
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Passwd_Exception($e);
         }
-
-        /* Check the current password. */
-        $res = $this->_lookup($username, $oldPassword);
-        if (is_a($res, 'PEAR_Error'))  {
-            return $res;
-        }
-
-        $res = $this->_modify($username, $newPassword);
-
-        $this->_disconnect();
 
         return $res;
     }
