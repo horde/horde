@@ -9,6 +9,8 @@
 *.orig
 *.rej
 *.swp
+*.kdev4
+.kdev4/*
 
 # Ignore testing files
 run-tests.log
