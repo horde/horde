@@ -23,7 +23,15 @@ Horde_Registry::appInit('ansel', array('cli' => true));
 
 $parser = new Horde_Argv_Parser(
     array(
-        'usage' => '%prog [--options] [command]',
+        'usage' => "%prog [--options] [command]\n
+Available commands are:\n
+  list:   List all galleries or (if used with -g) all images in specified gallery
+  create: Create a new gallery. Optionally used with -n to set name and --description
+          to set description
+  add:    Add a new image specified with the -f option to a gallery specified with
+          either -g or -s
+  reset [thumbs|stacks]:  Reset all generated images, optionally restricting to
+                          either thumbnails or gallery stacks.",
         'optionList' => array(
             new Horde_Argv_Option(
                 '-u',
@@ -44,6 +52,20 @@ $parser = new Horde_Argv_Parser(
                 '--gallery',
                 array(
                     'help' => 'The gallery id'
+                )
+            ),
+            new Horde_Argv_Option(
+                '-n',
+                '--name',
+                array(
+                    'help' => 'Name to use for creating new gallery'
+                )
+            ),
+            new Horde_Argv_Option(
+                '',
+                '--description',
+                array(
+                    'help' => 'Description to use when creating new gallery.'
                 )
             ),
             new Horde_Argv_Option(
@@ -87,12 +109,18 @@ $parser = new Horde_Argv_Parser(
                     'help' => 'Connect to remote Ansel server. This should be the path to rpc.php'
                 )
             ),
-
             new Horde_Argv_Option(
                 '-d',
                 '--directory',
                 array(
                     'help' => 'Recursively import any images in this local directory.'
+                )
+            ),
+            new Horde_Argv_Option(
+                '-f',
+                '--file',
+                array(
+                    'help' => 'Add this single image file to the gallery specified with either -g or -s'
                 )
             ),
         )
@@ -135,8 +163,25 @@ case 'import':
     }
     break;
 case 'list':
-        $runner->listObjects($opts['gallery'], $opts['slug']);
-        break;
+    $runner->listObjects($opts['gallery'], $opts['slug']);
+    break;
+case 'create':
+    $runner->create(
+        empty($opts['name']) ? 'Untitled' : $opts['name'],
+        empty($opts['description']) ? '' : $opts['description'],
+        empty($opts['gallery']) ? null : $opts['gallery'],
+        empty($opts['slug']) ? null : $opts['slug']);
+    break;
+case 'add':
+    $runner->add(
+        empty($opts['gallery']) ? null : $opts['gallery'],
+        empty($opts['slug']) ? null : $opts['slug'],
+        $opts['file'],
+        empty($opts['description']) ? null : $opts['description']);
+    break;
+case 'reset':
+    $runner->reset(empty($args[1]) ? null : $args[1]);
+    break;
 }
 exit(0);
 
@@ -255,6 +300,10 @@ abstract class Ansel_Cli_Helper_Base
 
     abstract public function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null);
     abstract public function listObjects($gallery = null, $slug = null);
+    abstract public function create($name, $desc, $parent_id = null);
+    abstract public function reset($type = null);
+    abstract public function add($gallery, $slug, $file, $caption);
+
 }
 
 /**
@@ -434,9 +483,40 @@ class Ansel_Cli_Helper_Remote extends Ansel_Cli_Helper_Base
         return $gallery_id;
     }
 
-    public function listObjects($gallery = null, $slug = null)
+    public function listObjects($gallery_id = null, $slug = null)
     {
 
+    }
+
+    /**
+     * Create a new gallery.
+     *
+     * @param string $name  The new gallery name.
+     * @param string $desc  The gallery's description.
+     *
+     * @throws Exception
+     */
+    public function create($name, $desc, $parent_id = null)
+    {
+        $this->_cli->fatal('reset command unavailable for remote servers at this time.');
+    }
+
+    /**
+     *
+     */
+    public function add($gallery, $slug, $file, $caption)
+    {
+        $this->_cli->fatal('add command unavailable for remote servers at this time.');
+    }
+
+    /**
+     * Reset images
+     *
+     * @param string $type  Restrict to this type
+     */
+    public function reset($type = null)
+    {
+        $this->_cli->fatal('reset command unavailable for remote servers at this time.');
     }
 
 }
@@ -576,6 +656,100 @@ class Ansel_Cli_Helper_Local extends Ansel_Cli_Helper_Base
         }
     }
 
+    /**
+     * Create a new gallery.
+     *
+     * @param string $name  The new gallery name.
+     * @param string $desc  The gallery's description.
+     *
+     * @throws Exception
+     */
+    public function create($name, $desc, $parent_id = null)
+    {
+        $attributes = array(
+            'name' => $name,
+            'desc' => $desc,
+            'owner' => $GLOBALS['registry']->getAuth());
+        try {
+            $gallery = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->createGallery($attributes, null, $parent_id);
+            $msg = sprintf(
+                _("The gallery \"%s\" was created successfully."),
+                $name);
+            $this->_cli->message($msg, 'cli.success');
+        } catch (Ansel_Exception $e) {
+            $galleryId = null;
+            $error = sprintf(
+                _("The gallery \"%s\" couldn't be created: %s"),
+                $gallery_name,
+                $e->getMessage());
+            Horde::logMessage($error, 'ERR');
+            $this->_cli->message($error, 'cli.error');
+        }
+    }
+
+    /**
+     *
+     */
+    public function add($gallery, $slug, $file, $caption)
+    {
+        try {
+            $image = Ansel::getImageFromFile($file, array('caption' => $caption));
+            $this->_cli->message(sprintf('Storing photo \"%s\" ...', $file), 'cli.message');
+            $g = $this->_getGallery($gallery, $slug);
+            $image_id = $g->addImage($image);
+            $this->_cli->message(sprintf('Successfully added photo \"%s\" to gallery \"%s\".'), $file, $gallery);
+        } catch (Ansel_Exception $e) {
+            $this->_cli->message($e->getMessage(), 'cli.error');
+        }
+    }
+
+    /**
+     * Reset images
+     *
+     * @param string $type  Restrict to this type
+     */
+    public function reset($type = null)
+    {
+        if ($type && $type != 'thumbs' && $type != 'stacks') {
+            $this->_cli->message('Invalid image type. Must be either \"stacks\" or \"thumbs\"', 'cli.error');
+            return;
+        }
+
+        if (!$GLOBALS['registry']->isAdmin()) {
+            $this->_cli->message('Requires Admin access');
+            return;
+        }
+        $this->_cli->message('Resetting thumbnails: ', 'cli.info');
+        try {
+            $galleries = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->listAllGalleries();
+        } catch (Ansel_Exception $e) {
+            $this->_cli->fatal($e->getMessage());
+        }
+        foreach ($galleries as $gallery) {
+            try {
+                if (empty($resetType) || $resetType == 'stacks') {
+                    $gallery->clearStacks();
+                    $this->_cli->message(sprintf('Successfully reset stack cache for gallery: %d', $gallery->id), 'cli.success');
+                }
+                if (empty($resetType) || $resetType == 'thumbs') {
+                    $gallery->clearViews();
+                    $this->_cli->message(sprintf('Successfully reset image cache for gallery: %d', $gallery->id), 'cli.success');
+                }
+            } catch (Ansel_Exception $e) {
+                $this->_cli->message($e->getMessage(), 'cli.error');
+            }
+        }
+
+        $this->_cli->message(_("Done."), 'cli.success');
+    }
+
+    /**
+     *
+     */
     protected function _getGallery($gallery_id = null, $slug = null)
     {
         $gallery = false;
