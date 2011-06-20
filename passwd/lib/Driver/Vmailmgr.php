@@ -17,7 +17,7 @@
  * @since   Passwd 2.2
  * @package Passwd
  */
- class Passwd_Driver_vmailmgr extends Passwd_Driver {
+ class Passwd_Driver_Vmailmgr extends Passwd_Driver {
 
     /**
      * Change the user's password.

@@ -1,6 +1,6 @@
 <?php
 /**
- * The http driver attempts to change a user's password via a web based
+ * The Http driver attempts to change a user's password via a web based
  * interface and implements the Passwd_Driver API.
  *
  * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
@@ -18,14 +18,14 @@
  * @package Passwd
  * @since   Passwd 3.1
  */
-class Passwd_Driver_http extends Passwd_Driver {
+class Passwd_Driver_Http extends Passwd_Driver {
 
     /**
      * Constructs a new Passwd_Driver_http object.
      *
      * @param array $params  A hash containing connection parameters.
      */
-    function Passwd_Driver_http($params = array())
+    function __construct($params = array())
     {
         $this->_params = $params;
     }

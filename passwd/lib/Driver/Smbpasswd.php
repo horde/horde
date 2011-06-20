@@ -10,21 +10,21 @@
  * @author  Rene Lund Jensen <Rene@lundjensen.net>
  * @package Passwd
  */
-class Passwd_Driver_smbpasswd extends Passwd_Driver {
+class Passwd_Driver_Smbpasswd extends Passwd_Driver {
 
     /**
      * Socket connection resource.
      *
      * @var resource
      */
-    var $_fp;
+    protected $_fp;
 
     /**
-     * Constructs a new smbpasswd Passwd_Driver object.
+     * Constructs a new Passwd_Driver_Smbpasswd object.
      *
      * @param array $params  A hash containing connection parameters.
      */
-    function Passwd_Driver_smbpasswd($params = array())
+    function __construct($params = array())
     {
         $this->_params = array_merge(array('host' => 'localhost',
                                            'program' => '/usr/bin/smbpasswd'),

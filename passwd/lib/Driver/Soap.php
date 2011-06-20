@@ -16,7 +16,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Passwd
  */
-class Passwd_Driver_soap extends Passwd_Driver {
+class Passwd_Driver_Soap extends Passwd_Driver {
 
     /**
      * Constructor.

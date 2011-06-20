@@ -44,7 +44,7 @@
  * @since   Passwd 3.0
  * @package Passwd
  */
-class Passwd_Driver_adsi extends Passwd_Driver {
+class Passwd_Driver_Adsi extends Passwd_Driver {
 
     function changePassword($user_name, $old_password, $new_password)
     {

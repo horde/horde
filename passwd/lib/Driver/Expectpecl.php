@@ -18,7 +18,7 @@
  * @since   Passwd 3.1
  * @package Passwd
  */
-class Passwd_Driver_expectpecl extends Passwd_Driver {
+class Passwd_Driver_Expectpecl extends Passwd_Driver {
 
     /**
      * Expect connection handle.

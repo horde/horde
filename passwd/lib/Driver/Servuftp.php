@@ -21,7 +21,7 @@
 
 //TODO: This never throws exceptions or a PEAR_Error: Is this sane?
 
-class Passwd_Driver_servuftp extends Passwd_Driver {
+class Passwd_Driver_Servuftp extends Passwd_Driver {
 
     protected $fp;
     protected $ftpd_connected   = '220';

@@ -1,6 +1,6 @@
 <?php
 /**
- * The horde driver attempts to change a user's password without
+ * The Horde driver attempts to change a user's password without
  * caring about the actual implementation. It relies on the current horde
  * authentication mechanism's ability to update the user
  *
@@ -12,7 +12,7 @@
  * @author  Ralf Lang <lang@b1-systems.de>
  * @package Passwd
  */
-class Passwd_Driver_horde extends Passwd_Driver {
+class Passwd_Driver_Horde extends Passwd_Driver {
 
     /**
      * Change the user's password.

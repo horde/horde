@@ -18,14 +18,14 @@
  * @since   Passwd 3.0
  * @package Passwd
  */
-class Passwd_Driver_kolab extends Passwd_Driver {
+class Passwd_Driver_Kolab extends Passwd_Driver {
 
     /**
      * Constructs a new Passwd_Driver_kolab object.
      *
      * @param array $params  A hash containing connection parameters.
      */
-    function Passwd_Driver_kolab($params = array())
+    function __construct($params = array())
     {
         // We don't need any backends.php-configurable parameters
     }

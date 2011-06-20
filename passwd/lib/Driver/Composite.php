@@ -12,7 +12,7 @@
  * @since   Passwd 3.0
  * @package Passwd
  */
-class Passwd_Driver_composite extends Passwd_Driver {
+class Passwd_Driver_Composite extends Passwd_Driver {
 
     /**
      * Hash of instantiated drivers.
@@ -29,7 +29,7 @@ class Passwd_Driver_composite extends Passwd_Driver {
     protected $_loaded = false;
 
     /**
-     * Constructs a new Passwd_Driver_composite object.
+     * Constructs a new Passwd_Driver_Composite object.
      *
      * @param array $params  A hash containing chained drivers and their parameters.
      */

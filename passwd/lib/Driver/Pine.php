@@ -16,7 +16,7 @@ define('LASTCH', 0x7e);
 define('TABSZ', LASTCH - FIRSTCH + 1);
 
 /**
- * The pine class attempts to change a user's password on a in a pine password
+ * The Pine class attempts to change a user's password on a in a pine password
  * file.
  *
  * WARNING: This driver has only formally been converted to Horde 4. 
@@ -34,7 +34,7 @@ define('TABSZ', LASTCH - FIRSTCH + 1);
  * @since   Passwd 3.0
  * @package Passwd
  */
-class Passwd_Driver_pine extends Passwd_Driver {
+class Passwd_Driver_Pine extends Passwd_Driver {
 
     /**
      * Horde_Vfs instance.
@@ -58,11 +58,11 @@ class Passwd_Driver_pine extends Passwd_Driver {
     protected $_contents = array();
 
     /**
-     * Constructs a new pine Passwd_Driver object.
+     * Constructs a new Passwd_Driver_Pine object.
      *
      * @param array  $params    A hash containing connection parameters.
      */
-    function Passwd_Driver_pine($params = array())
+    function __construct($params = array())
     {
         /* We self-encrypt here, so plaintext is needed. */
         $this->_params['encryption'] = 'plain';

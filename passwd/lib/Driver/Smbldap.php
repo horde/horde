@@ -8,7 +8,7 @@
 require_once dirname(__FILE__) . '/ldap.php';
 
 /**
- * The LDAP class attempts to change a user's LDAP password and Samba password
+ * The Smbldap class attempts to change a user's LDAP password and Samba password
  * stored in an LDAP directory service.
  *
  * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
@@ -24,14 +24,14 @@ require_once dirname(__FILE__) . '/ldap.php';
  * @since   Passwd 3.0
  * @package Passwd
  */
-class Passwd_Driver_smbldap extends Passwd_Driver_ldap {
+class Passwd_Driver_Smbldap extends Passwd_Driver_Ldap {
 
     /**
      * Constructs a new Passwd_Driver_smbldap object.
      *
      * @param array $params  A hash containing connection parameters.
      */
-    function Passwd_Driver_smbldap($params = array())
+    function __construct($params = array())
     {
         $params = array_merge(array('lm_attribute' => null,
                                     'nt_attribute' => null,
@@ -54,7 +54,7 @@ class Passwd_Driver_smbldap extends Passwd_Driver_ldap {
      */
     function changePassword($username, $old_password, $new_password)
     {
-        // don't catch any errors of Passwd_Driver_ldap but pass them to the caller.
+        // don't catch any errors of Passwd_Driver_Ldap but pass them to the caller.
         $result = parent::changePassword($username, $old_password, $new_password);
 
         // Return success if the user is not a Samba user

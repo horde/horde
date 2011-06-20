@@ -16,7 +16,7 @@
  * @author  Ralf Lang <lang@b1-systems.de> (H4 conversion)
  * @package Passwd
  */
-class Passwd_Driver_sql extends Passwd_Driver {
+class Passwd_Driver_Sql extends Passwd_Driver {
 
     /**
      * Handle for the current database connection.
@@ -27,7 +27,7 @@ class Passwd_Driver_sql extends Passwd_Driver {
     protected $_db;
 
     /**
-     * Constructs a new Passwd_Driver_sql object.
+     * Constructs a new Passwd_Driver_Sql object.
      *
      * @param string $name   The source name
      * @param array $params  Additional parameters needed:
@@ -86,7 +86,7 @@ class Passwd_Driver_sql extends Passwd_Driver {
         } catch (Horde_Db_Exception $e) {
              throw new Passwd_Exception($e);
         }
-        Horde::logMessage('SQL Query by Passwd_Driver_sql::_lookup(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Passwd_Driver_Sql::_lookup(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         if (is_array($result)) {
             $current_password = $result[$this->_params['pass_col']];
@@ -119,7 +119,7 @@ class Passwd_Driver_sql extends Passwd_Driver {
                    ' WHERE ' . $this->_params['user_col'] . ' = ?';
             $values = array($new_password, $user);
         }
-        Horde::logMessage('SQL Query by Passwd_Driver_sql::_modify(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Passwd_Driver_Sql::_modify(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
 

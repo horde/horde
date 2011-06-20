@@ -14,7 +14,7 @@
  * @author  Ralf Lang <lang@b1-systems.de>
  * @package Passwd
  */
-class Passwd_Driver_ldap extends Passwd_Driver {
+class Passwd_Driver_Ldap extends Passwd_Driver {
 
     /**
      * LDAP object.
@@ -31,7 +31,7 @@ class Passwd_Driver_ldap extends Passwd_Driver {
     protected  $_userdn;
 
     /**
-     * Constructs a new Passwd_Driver_ldap object.
+     * Constructs a new Passwd_Driver_Ldap object.
      *
      * @param array $params  A hash containing connection parameters.
      */

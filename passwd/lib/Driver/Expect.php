@@ -21,7 +21,7 @@
  * @since   Passwd 2.2
  * @package Passwd
  */
-class Passwd_Driver_expect extends Passwd_Driver {
+class Passwd_Driver_Expect extends Passwd_Driver {
 
     /**
      * Change the users password by executing an expect script.

@@ -1,7 +1,7 @@
 <?php
 /**
- * The Passwd_procopen class provides a procopen implementation of the passwd
- * system.
+ * The Passwd_Driver_Procopen class provides a procopen implementation of
+ * the passwd system.
  *
  * Any script or program can be supplied as the 'program' attribute value of
  * the params argument.  The username, old password and new password are
@@ -24,7 +24,7 @@
  * @since   Passwd 3.0
  * @package Passwd
  */
-class Passwd_Driver_procopen extends Passwd_Driver {
+class Passwd_Driver_Procopen extends Passwd_Driver {
 
     /**
      * Change the user's password by executing a user supplied command.

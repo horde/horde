@@ -1,6 +1,6 @@
 <?php
 /**
- * The poppassd class attempts to change a user's password via a poppassd
+ * The Poppassd class attempts to change a user's password via a poppassd
  * server.
  *
  * Copyright 2000-2011 The Horde Project (http://www.horde.org/
@@ -17,7 +17,7 @@
  * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
  * @package Passwd
  */
-class Passwd_Driver_poppassd extends Passwd_Driver {
+class Passwd_Driver_Poppassd extends Passwd_Driver {
 
     /**
      * Constructs a new poppassd Passwd_Driver object.

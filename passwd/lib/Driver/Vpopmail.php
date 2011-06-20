@@ -25,7 +25,7 @@
  * @since   Passwd 2.2
  * @package Passwd
  */
-class Passwd_Driver_vpopmail extends Passwd_Driver {
+class Passwd_Driver_Vpopmail extends Passwd_Driver {
 
     /**
      * The Horde_Db object
@@ -41,7 +41,7 @@ class Passwd_Driver_vpopmail extends Passwd_Driver {
     protected  $_connected = false;
 
     /**
-     * Constructs a new Passwd_Driver_vpopmail object.
+     * Constructs a new Passwd_Driver_Vpopmail object.
      *
      * @param array $params  A hash containing connection parameters.
      */
@@ -102,11 +102,11 @@ class Passwd_Driver_vpopmail extends Passwd_Driver {
             $sql .= ' AND ' . $this->_params['domain'] . ' = ?';
             $values[] = $domain;
         }
-        Horde::logMessage('SQL Query by Passwd_Driver_vpopmail::_lookup(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Passwd_Driver_Vpopmail::_lookup(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
 
-        // This part is directly taken from Passwd_Driver_sql. Maybe vpopmail should be based on it?
+        // This part is directly taken from Passwd_Driver_Sql. Maybe vpopmail should be based on it?
         try {
             $result = $this->_db->selectOne($sql, $values);
         } catch (Horde_Db_Exception $e) {
@@ -158,7 +158,7 @@ class Passwd_Driver_vpopmail extends Passwd_Driver {
             $sql .= ' AND ' . $this->_params['domain'] . ' = ?';
             $values[] = $domain;
         }
-        Horde::logMessage('SQL Query by Passwd_Driver_vpopmail::_modify(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Passwd_Driver_Vpopmail::_modify(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
         try {
