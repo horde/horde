@@ -58,6 +58,17 @@ class Nag_Unit_Driver_KolabTest extends Nag_TestCase
         $this->assertEquals(1, $driver->tasks->count());
     }
 
+    public function testListSubTasks()
+    {
+        $driver = $this->getKolabDriver();
+        $id = $driver->add('TEST', 'Some test task.');
+        $driver->add(
+            'SUB', 'Some sub task.', 0, 0, 0, 0.0, 0, '', 0, null, null, $id[0]
+        );
+        $driver->retrieve();
+        $this->assertEquals(2, $driver->tasks->count());
+    }
+
     /* public function testDelete() */
     /* { */
     /*     $driver = $this->getKolabDriver(); */
