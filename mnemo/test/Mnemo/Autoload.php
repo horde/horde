@@ -12,7 +12,7 @@
  * @link       http://pear.horde.org/index.php?package=Mnemo
  */
 
-$mappings = array('Mnemo' => dirname(__FILE__) . '/../../');
+$mappings = array('Mnemo' => dirname(__FILE__) . '/../../lib/');
 require_once 'Horde/Test/Autoload.php';
 
 /** Catch strict standards */
