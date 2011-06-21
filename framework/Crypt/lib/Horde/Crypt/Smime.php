@@ -320,10 +320,20 @@ class Horde_Crypt_Smime extends Horde_Crypt
         unset($text);
 
         /* Encrypt the document. */
-        if (openssl_pkcs7_encrypt($input, $output, $params['pubkey'], array())) {
-            $result = file_get_contents($output);
-            if (!empty($result)) {
-                return $this->_fixContentType($result, 'encrypt');
+        $ciphers = array(
+            OPENSSL_CIPHER_3DES,
+            OPENSSL_CIPHER_DES,
+            OPENSSL_CIPHER_RC2_128,
+            OPENSSL_CIPHER_RC2_64,
+            OPENSSL_CIPHER_RC2_40
+        );
+
+        foreach ($ciphers as $val) {
+            if (openssl_pkcs7_encrypt($input, $output, $params['pubkey'], array(), 0, $val)) {
+                $result = file_get_contents($output);
+                if (!empty($result)) {
+                    return $this->_fixContentType($result, 'encrypt');
+                }
             }
         }
 
