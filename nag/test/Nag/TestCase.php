@@ -8,8 +8,8 @@
  * @package    Nag
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Nag
+ * @link       http://www.horde.org/apps/nag
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  */
 
 /**
@@ -17,15 +17,15 @@
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license instorageion (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * See the enclosed file COPYING for license information (GPLv2). If you did not
+ * receive this file, see http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  *
  * @category   Horde
  * @package    Nag
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Nag
+ * @link       http://www.horde.org/apps/nag
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  */
 class Nag_TestCase
 extends PHPUnit_Framework_TestCase
@@ -58,6 +58,8 @@ extends PHPUnit_Framework_TestCase
         $storage = $kolab_factory->create();
         $GLOBALS['injector']->setInstance('Horde_Kolab_Storage', $storage);
         $GLOBALS['injector']->setInstance('Horde_History', new Horde_History_Mock('test@example.com'));
+        $GLOBALS['injector']->setInstance('Horde_Group', new Horde_Group_Mock());
+        $GLOBALS['conf']['prefs']['driver'] = 'Null';
         $GLOBALS['conf']['storage']['driver'] = 'kolab';
         $GLOBALS['nag_shares'] = new Horde_Share_Kolab(
             'nag', 'test@example.com', new Horde_Perms_Null(), new Horde_Group_Mock()

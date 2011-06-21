@@ -11,4 +11,9 @@ class Nag_Stub_Registry
     {
         return '';
     }
+
+    public function getApp()
+    {
+        return 'nag';
+    }
 }

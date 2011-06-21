@@ -8,11 +8,11 @@
  * @package    Nag
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Nag
+ * @link       http://www.horde.org/apps/nag
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  */
 
-$mappings = array('Nag' => dirname(__FILE__) . '/../../');
+$mappings = array('Nag' => dirname(__FILE__) . '/../../lib/');
 require_once 'Horde/Test/Autoload.php';
 
 /** Catch strict standards */
