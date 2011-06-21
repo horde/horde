@@ -70,7 +70,7 @@ class Horde_Test_AllTests
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) {
             if ($file->isFile() && preg_match('/Test.php$/', $file->getFilename())) {
                 $pathname = $file->getPathname();
-                if (require $pathname) {
+                if (include $pathname) {
                     $class = str_replace(DIRECTORY_SEPARATOR, '_',
                                          preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
                     try {
