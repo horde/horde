@@ -104,13 +104,13 @@ class Horde_Test_AllTests
      */
     public static function setup()
     {
+        set_include_path(dirname(self::$_file) . '/../../../lib' . PATH_SEPARATOR . get_include_path());
+
         $autoload = dirname(self::$_file) . '/Autoload.php';
         if (!file_exists($autoload)) {
             // Catch strict standards
             error_reporting(E_ALL | E_STRICT);
 
-            // @todo Do we really need this?
-            set_include_path(dirname(self::$_file) . '/../../../lib' . PATH_SEPARATOR . get_include_path());
             // Set up autoload
             require_once 'Horde/Test/Autoload.php';
         } else {
