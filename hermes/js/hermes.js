@@ -664,7 +664,7 @@ HermesCore = {
     buildTimeRow: function(slice)
     {
         var row, cell, d;
-console.log(slice);
+
         // Save the cn info for possible later use
         if (!HermesCore.clientIdMap[slice.c]) {
             HermesCore.clientIdMap[slice.c] = slice.cn;
