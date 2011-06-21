@@ -664,7 +664,7 @@ HermesCore = {
     buildTimeRow: function(slice)
     {
         var row, cell, d;
-
+console.log(slice);
         // Save the cn info for possible later use
         if (!HermesCore.clientIdMap[slice.c]) {
             HermesCore.clientIdMap[slice.c] = slice.cn;
@@ -676,7 +676,11 @@ HermesCore = {
         d = this.parseDate(slice.d);
         cell = row.down().update(' ');
         cell = cell.next().update(d.toString(Hermes.conf.date_format));
-        cell = cell.next().update(slice.cn[Hermes.conf.client_name_field]);
+        if (!slice.cn) {
+            cell = cell.next().update(' ');
+        } else {
+            cell = cell.next().update(slice.cn[Hermes.conf.client_name_field]);
+        }
         cell = cell.next().update((slice.con) ? slice.con : ' ');
         cell = cell.next().update((slice.tn) ? slice.tn : ' ');
         cell = cell.next().update((slice.desc) ? slice.desc : ' ');
