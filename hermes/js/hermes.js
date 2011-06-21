@@ -14,6 +14,7 @@ HermesCore = {
     sortDir: 'up',
     selectedSlices: [],
     today: null,
+    redBoxLoading: false,
 
     doActionOpts: {
         onException: function(parentfunc, r, e)
@@ -23,7 +24,7 @@ HermesCore = {
             if (!this.loading) {
                 $('hermesLoading').hide();
             }
-
+            this.closeRedBox();
             this.showNotifications([ {type: 'horde.error', message: Hermes.text.ajax_error} ]);
             this.debug('onException', e);
         }.bind(this),
@@ -297,6 +298,10 @@ HermesCore = {
                 }
                 e.stop();
                 return;
+            case 'hermesTimerSave':
+                this.newTimer();
+                e.stop();
+                return;
             }
 
             switch (elt.className) {
@@ -305,12 +310,19 @@ HermesCore = {
                 Horde_Calendar.open(id, Date.parseExact($F(id.replace(/Picker$/, 'Date')), Hermes.conf.date_format));
                 e.stop();
                 return;
-            case 'hermesFormCancel':
+            case 'hermesTimeFormCancel':
                 if ($('hermesTimeSaveAsNew').visible()) {
                     $('hermesTimeSaveAsNew').toggle();
                 }
                 $('hermesTimeForm').reset();
+                // fallthrough
+            case 'hermesFormCancel':
+                this.closeRedBox();
                 e.stop();
+                return;
+            case 'hermesAdd':
+                this.redBoxLoading = true;
+                RedBox.showHtml($('hermesTimerDialog').show());
                 return;
             }
             if (elt.hasClassName('hermesTimeListSelect')) {
@@ -525,6 +537,38 @@ HermesCore = {
         $('hermesTimeForm').reset();
         $('hermesTimeFormId').value = null;
         $('hermesTimeSaveAsNew').hide();
+    },
+
+    newTimer: function()
+    {
+        this.doAction('addTimer', {'desc': $F('hermesTimerTitle')}, this.newTimerCallback.bind(this));
+    },
+
+    newTimerCallback: function(r)
+    {
+        if (!r.response.id) {
+           this.closeRedBox();
+        }
+
+        this.insertTimer(r.response.id, $F('hermesTimerTitle'));
+    },
+
+    insertTimer: function(t, d)
+    {
+        var timer = new Element('div', {'class': 'hermesMenuItem hermesTimerOn rounded'});
+        timer.update(d);
+        $('hermesMenuTimers').insert({ 'top': timer });
+        var stop = new Element('span', { 'class': 'hermesTimerStop' }).update('x').store(t);
+        $('hermesMenuTimers').insert({ 'top': stop });
+        this.closeRedBox();
+    },
+
+    listTimersCallback: function(r)
+    {
+        var timers = r.response;
+        for (t in timers) {
+            this.insertTimer(timers[t]['time'], timers[t].name);
+        };
     },
 
     submitSlices: function()
@@ -1055,6 +1099,21 @@ HermesCore = {
     },
 
     /**
+     * Closes a RedBox overlay, after saving its content to the body.
+     */
+    closeRedBox: function()
+    {
+        if (!RedBox.getWindow()) {
+            return;
+        }
+        var content = RedBox.getWindowContents();
+        if (content) {
+            document.body.insert(content.hide());
+        }
+        RedBox.close();
+    },
+
+    /**
      * Calculates first and last days being displayed.
      *
      * @var Date date    The date of the view.
@@ -1090,11 +1149,17 @@ HermesCore = {
 
         return [start, end];
     },
+
     /* Onload function. */
     onDomLoad: function()
     {
         document.observe('click', HermesCore.clickHandler.bindAsEventListener(HermesCore));
         $('hermesTimeFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
+
+        RedBox.onDisplay = function() {
+            this.redBoxLoading = false;
+        }.bind(this);
+        RedBox.duration = this.effectDur;
 
         // @TODO: Minical that have dates with hours highlighted?
         //this.updateMinical(this.date);
@@ -1134,6 +1199,8 @@ HermesCore = {
             Horde_ToolTips.detach(button);
             Horde_ToolTips.attach(button);
         }.bindAsEventListener(this));
+
+        this.doAction('listTimers', [], this.listTimersCallback.bind(this));
 
         /* Start polling. */
         new PeriodicalExecuter(this.doAction.bind(this, 'poll'), 60);

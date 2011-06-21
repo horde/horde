@@ -88,32 +88,26 @@
           <div id="hermesSummaryTotalNonBillable" class="hermesSummaryItem"><span class="hermesHours"></span> <?php echo _("Non-Billable")?></div>
         </div>
     </div>
+      <span>Timers</span>
       <a href="#" class="hermesAdd">+</a>
-      <h3>Timers</h3>
-      <span class="hermesTimerStop">x</span>
-      <div class="hermesMenuItem hermesTimerOn rounded">
-         Big Project Timer
-         <div class="hermesTimerTime">2:32</div>
+      <div id="hermesMenuTimers">
       </div>
-      <span class="hermesTimerStop">x</span>
-      <div class="hermesMenuItem hermesTimerOn rounded">
-         Big Project Timer
-         <div class="hermesTimerTime">2:32</div>
-      </div>
-        <div id="hermesMenuRecent">
-          <h3>Recent Projects</h3>
-          <div class="hermesMenuRecent rounded">
-             Big Project:
-             <div class="hermesTimerTime">20 Hours (30%)</div>
-          </div>
-          <div class="hermesMenuRecent rounded">
-             Big Project Timer
-             <div class="hermesTimerTime">30 HOurs (20%)</div>
-          </div>
+      <div id="hermesMenuRecent">
+        <h3>Recent Projects</h3>
+        <div class="hermesMenuRecent rounded">
+           Big Project:
+           <div class="hermesTimerTime">20 Hours (30%)</div>
         </div>
+        <div class="hermesMenuRecent rounded">
+           Big Project Timer
+           <div class="hermesTimerTime">30 HOurs (20%)</div>
+        </div>
+      </div>
     </div>
 </div>
 <!-- end left menu -->
+
+<?php require dirname(__FILE__) . '/timer.inc'; ?>
 
 <!-- begin body -->
 <div id="hermesBody">

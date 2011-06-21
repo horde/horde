@@ -46,7 +46,7 @@
          <div class="hermesFormActions">
           <input id="hermesTimeSave" type="button" value="<?php echo _("Save") ?>" class="button ok" />
           <input id="hermesTimeSaveAsNew" type="button" value="<?php echo _("Save As New") ?>" class="button ok" style="display: none;" />
-          <span class="hermesSeparator"><?php echo _("or") ?></span> <a class="hermesFormCancel"><?php echo _("Cancel") ?></a>
+          <span class="hermesSeparator"><?php echo _("or") ?></span> <a class="hermesTimeFormCancel"><?php echo _("Cancel") ?></a>
         </div>
     </form>
    </div>
