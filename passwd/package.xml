@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-20</date>
- <time>14:58:49</time>
+ <date>2011-06-21</date>
+ <time>07:25:05</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -347,26 +347,25 @@
    <install as="passwd/lib/Exception.php" name="lib/Exception.php" />
    <install as="passwd/lib/Passwd.php" name="lib/Passwd.php" />
    <install as="passwd/lib/Test.php" name="lib/Test.php" />
-   <install as="passwd/lib/Driver/.swp.kolab.php" name="lib/Driver/.swp.kolab.php" />
-   <install as="passwd/lib/Driver/adsi.php" name="lib/Driver/adsi.php" />
-   <install as="passwd/lib/Driver/composite.php" name="lib/Driver/composite.php" />
-   <install as="passwd/lib/Driver/expect.php" name="lib/Driver/expect.php" />
-   <install as="passwd/lib/Driver/expectpecl.php" name="lib/Driver/expectpecl.php" />
-   <install as="passwd/lib/Driver/horde.php" name="lib/Driver/horde.php" />
-   <install as="passwd/lib/Driver/http.php" name="lib/Driver/http.php" />
-   <install as="passwd/lib/Driver/kolab.php" name="lib/Driver/kolab.php" />
-   <install as="passwd/lib/Driver/ldap.php" name="lib/Driver/ldap.php" />
-   <install as="passwd/lib/Driver/pine.php" name="lib/Driver/pine.php" />
-   <install as="passwd/lib/Driver/poppassd.php" name="lib/Driver/poppassd.php" />
-   <install as="passwd/lib/Driver/procopen.php" name="lib/Driver/procopen.php" />
-   <install as="passwd/lib/Driver/pspasswd.php" name="lib/Driver/pspasswd.php" />
-   <install as="passwd/lib/Driver/servuftp.php" name="lib/Driver/servuftp.php" />
-   <install as="passwd/lib/Driver/smbldap.php" name="lib/Driver/smbldap.php" />
-   <install as="passwd/lib/Driver/smbpasswd.php" name="lib/Driver/smbpasswd.php" />
-   <install as="passwd/lib/Driver/soap.php" name="lib/Driver/soap.php" />
-   <install as="passwd/lib/Driver/sql.php" name="lib/Driver/sql.php" />
-   <install as="passwd/lib/Driver/vmailmgr.php" name="lib/Driver/vmailmgr.php" />
-   <install as="passwd/lib/Driver/vpopmail.php" name="lib/Driver/vpopmail.php" />
+   <install as="passwd/lib/Driver/Adsi.php" name="lib/Driver/Adsi.php" />
+   <install as="passwd/lib/Driver/Composite.php" name="lib/Driver/Composite.php" />
+   <install as="passwd/lib/Driver/Expect.php" name="lib/Driver/Expect.php" />
+   <install as="passwd/lib/Driver/Expectpecl.php" name="lib/Driver/Expectpecl.php" />
+   <install as="passwd/lib/Driver/Horde.php" name="lib/Driver/Horde.php" />
+   <install as="passwd/lib/Driver/Http.php" name="lib/Driver/Http.php" />
+   <install as="passwd/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
+   <install as="passwd/lib/Driver/Ldap.php" name="lib/Driver/Ldap.php" />
+   <install as="passwd/lib/Driver/Pine.php" name="lib/Driver/Pine.php" />
+   <install as="passwd/lib/Driver/Poppassd.php" name="lib/Driver/Poppassd.php" />
+   <install as="passwd/lib/Driver/Procopen.php" name="lib/Driver/Procopen.php" />
+   <install as="passwd/lib/Driver/Pspasswd.php" name="lib/Driver/Pspasswd.php" />
+   <install as="passwd/lib/Driver/Servuftp.php" name="lib/Driver/Servuftp.php" />
+   <install as="passwd/lib/Driver/Smbldap.php" name="lib/Driver/Smbldap.php" />
+   <install as="passwd/lib/Driver/Smbpasswd.php" name="lib/Driver/Smbpasswd.php" />
+   <install as="passwd/lib/Driver/Soap.php" name="lib/Driver/Soap.php" />
+   <install as="passwd/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
+   <install as="passwd/lib/Driver/Vmailmgr.php" name="lib/Driver/Vmailmgr.php" />
+   <install as="passwd/lib/Driver/Vpopmail.php" name="lib/Driver/Vpopmail.php" />
    <install as="passwd/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="passwd/locale/.htaccess" name="locale/.htaccess" />
    <install as="passwd/locale/passwd.pot" name="locale/passwd.pot" />
@@ -463,7 +462,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-06-20</date>
+   <date>2011-06-21</date>
    <license uri="TODO">TODO</license>
    <notes>
 * [jan] Provide default configuration files instead of .dist versions.
