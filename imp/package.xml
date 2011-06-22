@@ -35,7 +35,6 @@
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
 * [mms] Fix regression in parsing list reply address (Bug #10258).
-* [jan] List attachments when printing messages (Request #10235).
 * [jan] Tick sent-mail checkbox off when selecting sent-mail folder in dynamic view.
 * [jan] Keep key navigation active after clicking into a HTML message.
 * [mms] Fix additional regression when flagging all messages in a mailbox (Bug #10243).
@@ -2319,7 +2318,6 @@
    <date>2011-06-14</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* [jan] List attachments when printing messages (Request #10235).
 * [jan] Tick sent-mail checkbox off when selecting sent-mail folder in dynamic view.
 * [jan] Keep key navigation active after clicking into a HTML message.
 * [mms] Fix additional regression when flagging all messages in a mailbox (Bug #10243).
