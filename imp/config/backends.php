@@ -8,6 +8,14 @@
  * If the 'vhosts' setting has been enabled in Horde's configuration, you can
  * use backends-servername.php.
  *
+ * Example configuration file that sets a different server name than localhost
+ * for the IMAP server:
+ *
+ * <code>
+ * <?php
+ * $servers['imap']['hostspec'] = 'imap.example.com';
+ * </code>
+ *
  * Example configuration file that enables the advanced IMAP server in favor of
  * the simple server and enables 'hordeauth':
  *
