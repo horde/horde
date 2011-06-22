@@ -29,7 +29,7 @@
   <active>yes</active>
  </lead>
  <date>2011-06-22</date>
- <time>11:40:18</time>
+ <time>11:46:08</time>
  <version>
   <release>3.0.4</release>
   <api>3.0.0</api>
@@ -135,7 +135,6 @@
      <file name="Group.php" role="horde" />
     </dir> <!-- /lib/Object -->
     <dir name="tests">
-     <file name="ApiTest.php" role="horde" />
      <file name="az.png" role="data" />
      <file name="BrowsePageTest.php" role="horde" />
      <file name="bug_6518.phpt" role="data" />
@@ -486,6 +485,9 @@
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Turba">
+     <dir name="Integration">
+      <file name="ApiTest.php" role="test" />
+     </dir> <!-- /test/Turba/Integration -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
      <file name="phpunit.xml" role="test" />
@@ -851,7 +853,6 @@
    <install as="turba/lib/Form/EditContactGroup.php" name="lib/Form/EditContactGroup.php" />
    <install as="turba/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="turba/lib/Object/Group.php" name="lib/Object/Group.php" />
-   <install as="turba/lib/tests/ApiTest.php" name="lib/tests/ApiTest.php" />
    <install as="tests/az.png" name="lib/tests/az.png" />
    <install as="turba/lib/tests/BrowsePageTest.php" name="lib/tests/BrowsePageTest.php" />
    <install as="tests/bug_6518.phpt" name="lib/tests/bug_6518.phpt" />
@@ -1009,6 +1010,7 @@
    <install as="Turba/Autoload.php" name="test/Turba/Autoload.php" />
    <install as="Turba/phpunit.xml" name="test/Turba/phpunit.xml" />
    <install as="Turba/TestCase.php" name="test/Turba/TestCase.php" />
+   <install as="Turba/Integration/ApiTest.php" name="test/Turba/Integration/ApiTest.php" />
    <install as="turba/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="turba/themes/default/ie6_or_less.css" name="themes/default/ie6_or_less.css" />
    <install as="turba/themes/default/ie7.css" name="themes/default/ie7.css" />
