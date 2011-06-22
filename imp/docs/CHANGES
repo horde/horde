@@ -2,6 +2,7 @@
 v5.0.8-git
 ----------
 
+[mms] Fix regression in parsing list reply address (Bug #10258).
 [jan] List attachments when printing messages (Request #10235).
 [jan] Tick sent-mail checkbox off when selecting sent-mail folder in dynamic
       view.
