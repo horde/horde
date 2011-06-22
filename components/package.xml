@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-06-07</date>
- <time>06:04:36</time>
+ <date>2011-06-22</date>
+ <time>07:31:58</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -37,24 +37,28 @@
      <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
     </file>
    </dir> <!-- /bin -->
+   <dir name="config">
+    <file name="conf.php.dist" role="cfg" />
+   </dir> <!-- /config -->
    <dir name="data">
     <dir name="distribute">
      <dir name="debian">
       <dir name="templates">
-       <file name="changelog" role="horde" />
-       <file name="compat" role="horde" />
-       <file name="control" role="horde" />
-       <file name="rules" role="horde" />
+       <file name="changelog" role="data" />
+       <file name="compat" role="data" />
+       <file name="control" role="data" />
+       <file name="pearrc" role="data" />
+       <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates -->
-      <file name="components.php" role="horde" />
+      <file name="components.php" role="data" />
      </dir> <!-- /data/distribute/debian -->
      <dir name="openpkg">
       <file name="package.spec" role="data" />
      </dir> <!-- /data/distribute/openpkg -->
     </dir> <!-- /data/distribute -->
     <dir name="html">
-     <file name="index.html" role="doc" />
-     <file name="install.html" role="doc" />
+     <file name="index.html" role="data" />
+     <file name="install.html" role="data" />
     </dir> <!-- /data/html -->
     <file name="hudson-component-build.xml.template" role="data" />
     <file name="hudson-component-config.xml.template" role="data" />
@@ -63,17 +67,18 @@
    <dir name="lib">
     <dir name="Components">
      <dir name="Component">
-      <file name="Base.php" role="horde" />
-      <file name="Factory.php" role="horde" />
-      <file name="Identify.php" role="horde" />
-      <file name="Remote.php" role="horde" />
-      <file name="Source.php" role="horde" />
+      <file name="Base.php" role="php" />
+      <file name="Factory.php" role="php" />
+      <file name="Identify.php" role="php" />
+      <file name="Remote.php" role="php" />
+      <file name="Source.php" role="php" />
      </dir> <!-- /lib/Components/Component -->
      <dir name="Config">
       <file name="Application.php" role="php" />
       <file name="Base.php" role="php" />
       <file name="Bootstrap.php" role="php" />
       <file name="Cli.php" role="php" />
+      <file name="File.php" role="php" />
      </dir> <!-- /lib/Components/Config -->
      <dir name="Dependencies">
       <file name="Bootstrap.php" role="php" />
@@ -146,11 +151,12 @@
       <file name="Snapshot.php" role="php" />
       <file name="Update.php" role="php" />
      </dir> <!-- /lib/Components/Runner -->
-     <file name="Component.php" role="horde" />
+     <file name="Component.php" role="php" />
      <file name="Config.php" role="php" />
      <file name="Configs.php" role="php" />
      <file name="Constants.php" role="php">
       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      <tasks:replace from="@cfg_dir@" to="cfg_dir" type="pear-config" />
      </file>
      <file name="Dependencies.php" role="php" />
      <file name="Exception.php" role="php" />
@@ -319,6 +325,10 @@
        <dir name="Component">
         <file name="IdentifyTest.php" role="test" />
        </dir> <!-- /test/Components/Unit/Components/Component -->
+       <dir name="Config">
+        <file name="#FileTest.php#" role="test" />
+        <file name="FileTest.php" role="test" />
+       </dir> <!-- /test/Components/Unit/Components/Config -->
        <dir name="Helper">
         <file name="TemplatesTest.php" role="test" />
         <file name="VersionDescriptionTest.php" role="test" />
@@ -411,6 +421,7 @@
   <filelist>
    <install as="horde-bootstrap" name="bin/horde-bootstrap" />
    <install as="horde-components" name="bin/horde-components" />
+   <install as="conf.php.dist" name="config/conf.php.dist" />
    <install as="hudson-component-build.xml.template" name="data/hudson-component-build.xml.template" />
    <install as="hudson-component-config.xml.template" name="data/hudson-component-config.xml.template" />
    <install as="hudson-component-phpunit.xml.template" name="data/hudson-component-phpunit.xml.template" />
@@ -418,6 +429,7 @@
    <install as="distribute/debian/templates/changelog" name="data/distribute/debian/templates/changelog" />
    <install as="distribute/debian/templates/compat" name="data/distribute/debian/templates/compat" />
    <install as="distribute/debian/templates/control" name="data/distribute/debian/templates/control" />
+   <install as="distribute/debian/templates/pearrc" name="data/distribute/debian/templates/pearrc" />
    <install as="distribute/debian/templates/rules" name="data/distribute/debian/templates/rules" />
    <install as="distribute/openpkg/package.spec" name="data/distribute/openpkg/package.spec" />
    <install as="html/index.html" name="data/html/index.html" />
@@ -441,6 +453,7 @@
    <install as="Components/Config/Base.php" name="lib/Components/Config/Base.php" />
    <install as="Components/Config/Bootstrap.php" name="lib/Components/Config/Bootstrap.php" />
    <install as="Components/Config/Cli.php" name="lib/Components/Config/Cli.php" />
+   <install as="Components/Config/File.php" name="lib/Components/Config/File.php" />
    <install as="Components/Dependencies/Bootstrap.php" name="lib/Components/Dependencies/Bootstrap.php" />
    <install as="Components/Dependencies/Injector.php" name="lib/Components/Dependencies/Injector.php" />
    <install as="Components/Exception/Pear.php" name="lib/Components/Exception/Pear.php" />
@@ -568,6 +581,8 @@
    <install as="Components/Unit/ComponentsTest.php" name="test/Components/Unit/ComponentsTest.php" />
    <install as="Components/Unit/Components/ConfigsTest.php" name="test/Components/Unit/Components/ConfigsTest.php" />
    <install as="Components/Unit/Components/Component/IdentifyTest.php" name="test/Components/Unit/Components/Component/IdentifyTest.php" />
+   <install as="Components/Unit/Components/Config/#FileTest.php#" name="test/Components/Unit/Components/Config/#FileTest.php#" />
+   <install as="Components/Unit/Components/Config/FileTest.php" name="test/Components/Unit/Components/Config/FileTest.php" />
    <install as="Components/Unit/Components/Helper/TemplatesTest.php" name="test/Components/Unit/Components/Helper/TemplatesTest.php" />
    <install as="Components/Unit/Components/Helper/VersionDescriptionTest.php" name="test/Components/Unit/Components/Helper/VersionDescriptionTest.php" />
    <install as="Components/Unit/Components/Helper/VersionTest.php" name="test/Components/Unit/Components/Helper/VersionTest.php" />
@@ -606,7 +621,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-06-07</date>
+   <date>2011-06-22</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * [gwr] Replaced use of PEAR_PackageFileManager for updating package.xml with Horde_Pear.
