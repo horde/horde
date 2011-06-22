@@ -65,13 +65,28 @@ implements Components_Config
     }
 
     /**
-     * Return the options parsed from the command line.
+     * Return all options.
      *
      * @return Horde_Argv_Values The option values.
      */
     public function getOptions()
     {
         return $this->_options;
+    }
+
+    /**
+     * Return the specified option.
+     *
+     * @param string $option The name of the option.
+     *
+     * @return mixed The option value or NULL if it is not defined.
+     */
+    public function getOption($option)
+    {
+        $options = $this->getOptions();
+        if (isset($options[$option])) {
+            return $options[$option];
+        }
     }
 
     /**
