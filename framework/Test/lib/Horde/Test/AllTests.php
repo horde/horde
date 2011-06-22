@@ -112,7 +112,11 @@ class Horde_Test_AllTests
     {
         // Detect component root and add "lib" to the include path.
         $dirname = self::$_file;
-        while (($dirname = dirname($dirname)) != '/') {
+        for ($i = 0; $i < 5; $i++) {
+            $dirname = dirname($dirname);
+            if ($dirname == '/') {
+                break;
+            }
             if (basename($dirname) == 'test'
                 && file_exists(dirname($dirname) . '/lib')) {
                 set_include_path(
