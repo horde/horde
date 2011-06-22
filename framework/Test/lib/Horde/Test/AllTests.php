@@ -70,7 +70,7 @@ class Horde_Test_AllTests
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) {
             if ($file->isFile() && preg_match('/Test.php$/', $file->getFilename())) {
                 $pathname = $file->getPathname();
-                if (require $pathname) {
+                if (include $pathname) {
                     $class = str_replace(DIRECTORY_SEPARATOR, '_',
                                          preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
                     try {
@@ -104,13 +104,13 @@ class Horde_Test_AllTests
      */
     public static function setup()
     {
+        set_include_path(dirname(self::$_file) . '/../../../lib' . PATH_SEPARATOR . get_include_path());
+
         $autoload = dirname(self::$_file) . '/Autoload.php';
         if (!file_exists($autoload)) {
             // Catch strict standards
             error_reporting(E_ALL | E_STRICT);
 
-            // @todo Do we really need this?
-            set_include_path(dirname(self::$_file) . '/../../../lib' . PATH_SEPARATOR . get_include_path());
             // Set up autoload
             require_once 'Horde/Test/Autoload.php';
         } else {

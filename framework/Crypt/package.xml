@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-01</date>
- <time>15:43:20</time>
+ <date>2011-06-21</date>
+ <time>11:28:58</time>
  <version>
   <release>1.0.4</release>
   <api>1.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* Use strongest cipher possible when encrypting S/MIME data (Request #10246).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -654,10 +654,10 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-01</date>
+   <date>2011-06-21</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* Use strongest cipher possible when encrypting S/MIME data (Request #10246).
    </notes>
   </release>
  </changelog>

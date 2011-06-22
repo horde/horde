@@ -137,7 +137,7 @@ abstract class Horde_Token_Base
             return false;
         }
         if ($unique) {
-            return $this->verify($nonce);
+            return $this->verify($token);
         }
         return true;
     }
@@ -182,8 +182,7 @@ abstract class Horde_Token_Base
             throw new Horde_Token_Exception_Used(Horde_Token_Translation::t('This token is invalid!'));
         }
 
-        list($nonce,) = $this->_decode($token);
-        if (!$this->verify($nonce)) {
+        if (!$this->verify($token)) {
             throw new Horde_Token_Exception_Used(Horde_Token_Translation::t('This token has been used before!'));
         }
     }
@@ -250,6 +249,4 @@ abstract class Horde_Token_Base
             ? base64_encode($_SERVER['REMOTE_ADDR'])
             : '';
     }
-
-
 }
