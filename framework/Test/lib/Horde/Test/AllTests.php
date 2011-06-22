@@ -100,11 +100,27 @@ class Horde_Test_AllTests
      * definition. If there is an Autoload.php alongside the AllTests.php
      * represented by self::$_file, then only this file will be used.
      *
+     * In addition the setup() call will attempt to detect the "lib" directory
+     * of the component currently under test and add it to the
+     * include_path. This ensures that the component code from the checkout is
+     * preferred over whatever else might be available in the default
+     * include_path.
+     *
      * @return NULL
      */
     public static function setup()
     {
-        set_include_path(dirname(self::$_file) . '/../../../lib' . PATH_SEPARATOR . get_include_path());
+        // Detect component root and add "lib" to the include path.
+        $dirname = self::$_file;
+        while (($dirname = dirname($dirname)) != '/') {
+            if (basename($dirname) == 'test'
+                && file_exists(dirname($dirname) . '/lib')) {
+                set_include_path(
+                    dirname($dirname) . '/lib' . PATH_SEPARATOR . get_include_path()
+                );
+                break;
+            }
+        }
 
         $autoload = dirname(self::$_file) . '/Autoload.php';
         if (!file_exists($autoload)) {
