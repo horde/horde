@@ -42,7 +42,7 @@ extends Components_StoryTestCase
     {
         $this->given('the default Components setup')
             ->when('calling the package with the help option')
-            ->then('the help will contain the option', '-c\s*CISETUP,\s*--cisetup=CISETUP');
+            ->then('the help will contain the option', '--cisetup=CISETUP');
     }
 
     /**
@@ -52,7 +52,7 @@ extends Components_StoryTestCase
     {
         $this->given('the default Components setup')
             ->when('calling the package with the help option')
-            ->then('the help will contain the option', '-C\s*CIPREBUILD,\s*--ciprebuild=CIPREBUILD');
+            ->then('the help will contain the option', '--ciprebuild=CIPREBUILD');
     }
 
     /**
