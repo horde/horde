@@ -139,6 +139,11 @@ This is a list of available actions (use "help ACTION" to get additional informa
                 $parser
             )
         );
+        $config->unshiftConfigurationType(
+            new Components_Config_File(
+                $config->getOption('config')
+            )
+        );
         return $config;
     }
 
