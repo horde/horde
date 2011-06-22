@@ -48,6 +48,20 @@ extends Components_Config_Base
 
         $parser->addOption(
             new Horde_Argv_Option(
+                '-c',
+                '--config',
+                array(
+                    'action' => 'store',
+                    'help'   => sprintf(
+                        'the path to the configuration file for the components script (default : %s).',
+                        Components_Constants::getConfigFile()
+                    ),
+                    'default' => Components_Constants::getConfigFile()
+                )
+            )
+        );
+        $parser->addOption(
+            new Horde_Argv_Option(
                 '-q',
                 '--quiet',
                 array(
