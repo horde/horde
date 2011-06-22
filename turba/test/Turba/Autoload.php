@@ -8,8 +8,8 @@
  * @package    Turba
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Turba
+ * @link       http://www.horde.org/apps/turba
+ * @license    http://www.horde.org/licenses/apache Apache-like
  */
 
 $mappings = array('Turba' => dirname(__FILE__) . '/../../lib/');
