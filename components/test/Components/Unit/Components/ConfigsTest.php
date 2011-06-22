@@ -56,4 +56,61 @@ extends Components_TestCase
             $arguments[0]
         );
     }
+
+    public function testBOverridesA()
+    {
+        $configs = new Components_Configs();
+        $configs->addConfigurationType($this->_getAConfig());
+        $configs->addConfigurationType($this->_getBConfig());
+        $config = $configs->getOptions();
+        $this->assertEquals('B', $config['a']);
+    }
+
+    public function testAOverridesB()
+    {
+        $configs = new Components_Configs();
+        $configs->addConfigurationType($this->_getBConfig());
+        $configs->addConfigurationType($this->_getAConfig());
+        $config = $configs->getOptions();
+        $this->assertEquals('A', $config['a']);
+    }
+
+    public function testPushConfig()
+    {
+        $configs = new Components_Configs();
+        $configs->addConfigurationType($this->_getAConfig());
+        $configs->unshiftConfigurationType($this->_getBConfig());
+        $config = $configs->getOptions();
+        $this->assertEquals('A', $config['a']);
+    }
+
+    public function testNoNullOverride()
+    {
+        $configs = new Components_Configs();
+        $configs->addConfigurationType($this->_getAConfig());
+        $configs->addConfigurationType($this->_getNullConfig());
+        $config = $configs->getOptions();
+        $this->assertEquals('A', $config['a']);
+    }
+
+    private function _getAConfig()
+    {
+        return new Components_Config_File(
+            dirname(__FILE__) . '/../../fixture/config/a.php'
+        );
+    }
+
+    private function _getBConfig()
+    {
+        return new Components_Config_File(
+            dirname(__FILE__) . '/../../fixture/config/b.php'
+        );
+    }
+
+    private function _getNullConfig()
+    {
+        return new Components_Config_File(
+            dirname(__FILE__) . '/../../fixture/config/null.php'
+        );
+    }
 }

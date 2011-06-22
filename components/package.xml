@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-06-22</date>
- <time>07:31:58</time>
+ <time>08:05:52</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -179,6 +179,11 @@
        <file name="pear.php.net.channel.xml" role="test" />
        <file name="pear.phpunit.de.channel.xml" role="test" />
       </dir> <!-- /test/Components/fixture/channels -->
+      <dir name="config">
+       <file name="a.php" role="test" />
+       <file name="b.php" role="test" />
+       <file name="null.php" role="test" />
+      </dir> <!-- /test/Components/fixture/config -->
       <dir name="empty">
        <file name="package.xml" role="test" />
       </dir> <!-- /test/Components/fixture/empty -->
@@ -326,7 +331,6 @@
         <file name="IdentifyTest.php" role="test" />
        </dir> <!-- /test/Components/Unit/Components/Component -->
        <dir name="Config">
-        <file name="#FileTest.php#" role="test" />
         <file name="FileTest.php" role="test" />
        </dir> <!-- /test/Components/Unit/Components/Config -->
        <dir name="Helper">
@@ -517,6 +521,9 @@
    <install as="Components/fixture/channels/pear.horde.org.channel.xml" name="test/Components/fixture/channels/pear.horde.org.channel.xml" />
    <install as="Components/fixture/channels/pear.php.net.channel.xml" name="test/Components/fixture/channels/pear.php.net.channel.xml" />
    <install as="Components/fixture/channels/pear.phpunit.de.channel.xml" name="test/Components/fixture/channels/pear.phpunit.de.channel.xml" />
+   <install as="Components/fixture/config/a.php" name="test/Components/fixture/config/a.php" />
+   <install as="Components/fixture/config/b.php" name="test/Components/fixture/config/b.php" />
+   <install as="Components/fixture/config/null.php" name="test/Components/fixture/config/null.php" />
    <install as="Components/fixture/empty/package.xml" name="test/Components/fixture/empty/package.xml" />
    <install as="Components/fixture/framework/Dependency/package.xml" name="test/Components/fixture/framework/Dependency/package.xml" />
    <install as="Components/fixture/framework/Dependency/lib/Dependency.php" name="test/Components/fixture/framework/Dependency/lib/Dependency.php" />
@@ -581,7 +588,6 @@
    <install as="Components/Unit/ComponentsTest.php" name="test/Components/Unit/ComponentsTest.php" />
    <install as="Components/Unit/Components/ConfigsTest.php" name="test/Components/Unit/Components/ConfigsTest.php" />
    <install as="Components/Unit/Components/Component/IdentifyTest.php" name="test/Components/Unit/Components/Component/IdentifyTest.php" />
-   <install as="Components/Unit/Components/Config/#FileTest.php#" name="test/Components/Unit/Components/Config/#FileTest.php#" />
    <install as="Components/Unit/Components/Config/FileTest.php" name="test/Components/Unit/Components/Config/FileTest.php" />
    <install as="Components/Unit/Components/Helper/TemplatesTest.php" name="test/Components/Unit/Components/Helper/TemplatesTest.php" />
    <install as="Components/Unit/Components/Helper/VersionDescriptionTest.php" name="test/Components/Unit/Components/Helper/VersionDescriptionTest.php" />

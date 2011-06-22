@@ -65,6 +65,20 @@ extends Components_Config_Base
     }
 
     /**
+     * Store a configuration type at the start of the configuration stack. Any
+     * options provided by the new configuration can/will be overridden by
+     * configurations already present.
+     *
+     * @param Components_Config $type The configuration type.
+     *
+     * @return NULL
+     */
+    public function unshiftConfigurationType(Components_Config $type)
+    {
+        array_unshift($this->_configs, $type);
+    }
+
+    /**
      * Provide each configuration handler with the list of supported modules.
      *
      * @param Components_Modules $modules A list of modules.
@@ -89,7 +103,9 @@ extends Components_Config_Base
             if (count($config->getOptions()) !== 0) {
                 $config_options = array();
                 foreach ($config->getOptions() as $name => $option) {
-                    $config_options[$name] = $option;
+                    if ($option !== null) {
+                        $config_options[$name] = $option;
+                    }
                 }
                 $options = array_merge($options, $config_options);
             }
