@@ -1,25 +1,42 @@
 <?php
-
-require_once dirname(__FILE__) . '/TestBase.php';
+/**
+ * Test the Turba API.
+ *
+ * PHP version 5
+ *
+ * @category   Horde
+ * @package    Turba
+ * @subpackage UnitTests
+ * @author     Jason M. Felice <jason.m.felice@gmail.com>
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @link       http://www.horde.org/apps/turba
+ * @license    http://www.horde.org/licenses/apache Apache-like
+ */
 
 /**
- * @author  Jason M. Felice <jason.m.felice@gmail.com>
- * @package Turba
- * @subpackage UnitTests
+ * Prepare the test setup.
  */
-class Turba_ApiTest extends Turba_TestBase {
+require_once dirname(__FILE__) . '/../Autoload.php';
 
-    function setUp()
-    {
-        parent::setUp();
-        require_once TURBA_BASE . '/lib/api.php';
-        $this->setUpDatabase();
-    }
-    function testSomething()
-    {
-     echo 'fail';
-    }
-    function test_search_api_should_return_results()
+/**
+ * Test the Turba API.
+ *
+ * Copyright 2011 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @category   Horde
+ * @package    Turba
+ * @subpackage UnitTests
+ * @author     Jason M. Felice <jason.m.felice@gmail.com>
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @link       http://www.horde.org/apps/turba
+ * @license    http://www.horde.org/licenses/apache Apache-like
+ */
+class Turba_Integration_ApiTest extends Turba_TestCase
+{
+    public function testSearchApi()
     {
         global $registry;
 
