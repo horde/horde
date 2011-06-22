@@ -17,8 +17,8 @@
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license instorageion (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * See the enclosed file LICENSE for license information (ASL).  If you did
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category   Horde
  * @package    Turba
