@@ -28,15 +28,31 @@
 class Components_Constants
 {
     const DATA_DIR = '@data_dir@';
+    const CFG_DIR  = '@cfg_dir@';
 
+    /**
+     * Return the position of the package data directory.
+     *
+     * @return string Path to the directory holding data files.
+     */
     static public function getDataDirectory()
     {
         if (strpos(self::DATA_DIR, '@data_dir') === 0) {
-            return join(
-                DIRECTORY_SEPARATOR,
-                array(dirname(__FILE__), '..', '..', 'data')
-            );
+            return dirname(__FILE__) . '/../../data';
         }
-        return self::DATA_DIR . DIRECTORY_SEPARATOR . 'Components';
+        return self::DATA_DIR . '/Components';
+    }
+
+    /**
+     * Return the position of the package configuration file.
+     *
+     * @return string Path to the default configuration file.
+     */
+    static public function getConfigFile()
+    {
+        if (strpos(self::CFG_DIR, '@cfg_dir') === 0) {
+            return dirname(__FILE__) . '/../../config/conf.php';
+        }
+        return self::CFG_DIR . '/conf.php';
     }
 }
