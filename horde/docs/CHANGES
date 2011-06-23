@@ -2,6 +2,7 @@
 v4.0.7-git
 ----------
 
+[gwr] Disabled the timeout on the logout token.
 [mjr] Fix integer overflow issue (Bug: 9889).
 
 
