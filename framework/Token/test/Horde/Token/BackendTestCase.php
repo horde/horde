@@ -132,6 +132,22 @@ abstract class Horde_Token_BackendTestCase extends PHPUnit_Framework_TestCase
         $t->validate($token, 'a');
     }
 
+    public function testOverrideTimeoutException()
+    {
+        $t = $this->_getBackend(array('token_lifetime' => 1));
+        $token = $t->get('a');
+        sleep(1);
+        $this->assertInternalType('array', $t->validate($token, 'a', 2));
+    }
+
+    public function testDisableTimeoutException()
+    {
+        $t = $this->_getBackend(array('token_lifetime' => 1));
+        $token = $t->get('a');
+        sleep(1);
+        $this->assertInternalType('array', $t->validate($token, 'a', -1));
+    }
+
     public function testIsValidUnique()
     {
         $t = $this->_getBackend();

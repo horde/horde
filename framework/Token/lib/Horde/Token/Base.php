@@ -145,21 +145,26 @@ abstract class Horde_Token_Base
     /**
      * Is the given token still valid? Throws an exception in case it is not.
      *
-     * @param string  $token  The signed token.
-     * @param string  $seed   The unique ID of the token.
+     * @param string  $token    The signed token.
+     * @param string  $seed     The unique ID of the token.
+     * @param int     $timeout  Timout of the token in seconds.
+     *                          Values below zero represent no timeout.
      *
      * @return array An array of two elements: The nonce and the hash.
      *
      * @throws Horde_Token_Exception If the token was invalid.
      */
-    public function validate($token, $seed = '')
+    public function validate($token, $seed = '', $timeout = null)
     {
         list($nonce, $hash) = $this->_decode($token);
         if ($hash != $this->_hash($nonce . $seed)) {
             throw new Horde_Token_Exception_Invalid(Horde_Token_Translation::t('We cannot verify that this request was really sent by you. It could be a malicious request. If you intended to perform this action, you can retry it now.'));
         }
-        if ($this->_isExpired($nonce, $this->_params['token_lifetime'])) {
-            throw new Horde_Token_Exception_Expired(Horde_Token_Translation::t(sprintf("This request cannot be completed because the link you followed or the form you submitted was only valid for %s minutes. Please try again now.", floor($this->_params['token_lifetime'] / 60))));
+        if ($timeout === null) {
+            $timeout = $this->_params['token_lifetime'];
+        }
+        if ($this->_isExpired($nonce, $timeout)) {
+            throw new Horde_Token_Exception_Expired(Horde_Token_Translation::t(sprintf("This request cannot be completed because the link you followed or the form you submitted was only valid for %s minutes. Please try again now.", floor($timeout / 60))));
         }
         return array($nonce, $hash);
     }
