@@ -114,7 +114,7 @@ $backends['hordeauth'] = array (
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'horde',
+    'driver' => 'Horde',
 );
 
 $backends['hordesql'] = array (
@@ -125,7 +125,7 @@ $backends['hordesql'] = array (
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'sql',
+    'driver' => 'Sql',
     'params' => array_merge($GLOBALS['conf']['sql'],
                             array('table' => 'horde_users',
                                   'user_col' => 'user_uid',
@@ -143,7 +143,7 @@ $backends['poppassd'] = array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'poppassd',
+    'driver' => 'Poppassd',
     'params' => array(
         'host' => 'localhost',
         'port' => 106
@@ -158,7 +158,7 @@ $backends['servuftp'] = array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'servuftp',
+    'driver' => 'Servuftp',
     'params' => array(
         'host' => 'localhost',
         'port' => 106,
@@ -174,7 +174,7 @@ $backends['expect'] = array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'expect',
+    'driver' => 'Expect',
     'params' => array(
         'program' => '/usr/bin/expect',
         'script' => dirname(__FILE__) . '/../scripts/passwd_expect',
@@ -190,7 +190,7 @@ $backends['sudo_expect'] = array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'procopen',
+    'driver' => 'Procopen',
     'params' => array(
         'program' => '/usr/bin/expect ' . dirname(__FILE__) . '/../scripts/passwd_expect -sudo'
     )
@@ -204,7 +204,7 @@ $backends['smbpasswd'] = array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'smbpasswd',
+    'driver' => 'Smbpasswd',
     'params' => array(
         'program' => '/usr/bin/smbpasswd',
         'host' => 'localhost'
@@ -220,7 +220,7 @@ $backends['ldap'] = array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'ldap',
+    'driver' => 'Ldap',
     'params' => array(
         'host' => 'localhost',
         'port' => 389,
@@ -246,7 +246,7 @@ $backends['ldapadmin'] = array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'ldap',
+    'driver' => 'Ldap',
     'params' => array(
         'host' => 'localhost',
         'port' => 389,
@@ -289,7 +289,7 @@ $backends['smbldap'] = array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'smbldap',
+    'driver' => 'Smbldap',
     'params' => array(
         'host' => 'localhost',
         'port' => 389,
@@ -320,7 +320,7 @@ $backends['sql'] = array (
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'sql',
+    'driver' => 'Sql',
     'params' => array(
         'phptype'    => 'mysql',
         'hostspec'   => 'localhost',
@@ -347,12 +347,12 @@ $backends['sql'] = array (
     )
 );
 
-$backends['vmailmgr'] = array(
+$backends['mailmgr'] = array(
     'disabled' => true,
     'name' => 'VMailMgr Server',
     'preferred' => '',
     'password policy' => array(),
-    'driver' => 'vmailmgr',
+    'driver' => 'Vmailmgr',
     'params' => array(
         'vmailinc' => '/your/path/to/the/vmail.inc'
     )
@@ -366,7 +366,7 @@ $backends['vpopmail'] = array (
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'vpopmail',
+    'driver' => 'Vpopmail',
     'params' => array(
         'phptype'    => 'mysql',
         'hostspec'   => 'localhost',
@@ -392,7 +392,7 @@ $backends['pine'] = array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'pine',
+    'driver' => 'Pine',
     'no_reset' => true,
     'params' => array(
         // FTP server information.
@@ -415,7 +415,7 @@ $backends['kolab'] = array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'kolab',
+    'driver' => 'Kolab',
     'params' => array()
 );
 
@@ -427,7 +427,7 @@ $backends['myscript'] = array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'procopen',
+    'driver' => 'Procopen',
     'params' => array(
         'program' => '/path/to/my/script + myargs'
     )
@@ -449,7 +449,7 @@ $backends['http'] = array (
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'http',
+    'driver' => 'Http',
     'params' => array(
         'url' => 'http://www.example.com/psoft/servlet/psoft.hsphere.CP',
         'username' => 'mbox',
@@ -476,7 +476,7 @@ $backends['soap'] = array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'soap',
+    'driver' => 'Soap',
     'params' => array(
         // If this service doesn't have a WSDL, the 'location' and 'uri'
         // parameters below must be specified instead.
@@ -507,7 +507,7 @@ $backends['postfixadmin'] = array (
         'maxLength' => 20,
         'minNumeric' => 1,
     ),
-    'driver' => 'sql',
+    'driver' => 'Sql',
     'params' => array(
         'phptype'    => 'mysql',
         'hostspec'   => 'localhost',
@@ -549,11 +549,11 @@ $backends['composite'] = array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-   'driver' => 'composite',
+   'driver' => 'Composite',
    'params' => array('drivers' => array(
        'sql' => array(
            'name' => 'Horde Authentication',
-           'driver' => 'sql',
+           'driver' => 'Sql',
            'required' => true,
            'params' => array(
                'phptype'    => 'mysql',
@@ -572,7 +572,7 @@ $backends['composite'] = array(
        ),
        'smbpasswd' => array(
            'name' => 'Samba Server',
-           'driver' => 'smbpasswd',
+           'driver' => 'Smbpasswd',
            'params' => array(
                'program' => '/usr/bin/smbpasswd',
                'host' => 'localhost',

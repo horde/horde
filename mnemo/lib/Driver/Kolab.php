@@ -148,14 +148,13 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
             Mnemo::storePassphrase($uid, $passphrase);
         }
 
-        $this->_getData()->create(
-            array(
-                'uid' => $uid,
-                'summary' => $desc,
-                'body' => $body,
-                'categories' => $category,
-            )
+        $object = array(
+            'uid' => $uid,
+            'summary' => $desc,
+            'body' => $body,
+            'categories' => $category,
         );
+        $this->_getData()->create($object);
 
         // Log the creation of this item in the history log.
         // @TODO: Inject the history driver

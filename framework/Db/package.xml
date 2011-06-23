@@ -23,8 +23,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-20</date>
- <time>15:34:58</time>
+ <date>2011-06-20</date>
+ <time>11:22:37</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -35,12 +35,13 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* [gwr] Renamed migration helper to avoid namespace clash with a similar tool from the horde base package.
 * [jan] Keep using the write backend in the same request after writing once with the split read/write driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="horde-db-migrate" role="script" />
+    <file name="horde-db-migrate-component" role="script" />
    </dir> <!-- /bin -->
    <dir name="doc">
     <file name="README.TESTING.txt" role="doc" />
@@ -240,7 +241,7 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="horde-db-migrate" name="bin/horde-db-migrate" />
+   <install as="horde-db-migrate-component" name="bin/horde-db-migrate-component" />
    <install as="README.TESTING.txt" name="doc/README.TESTING.txt" />
    <install as="TODO.txt" name="doc/TODO.txt" />
    <install as="Horde/Db.php" name="lib/Horde/Db.php" />
@@ -435,9 +436,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-06-20</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
+* [gwr] Renamed migration helper to avoid namespace clash with a similar tool from the horde base package.
 * [jan] Keep using the write backend in the same request after writing once with the split read/write driver.
    </notes>
   </release>

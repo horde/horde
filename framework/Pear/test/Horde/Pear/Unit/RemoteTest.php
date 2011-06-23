@@ -39,7 +39,7 @@ extends Horde_Pear_TestCase
     {
         $this->assertType(
             'array',
-            $this->_getRemote()->listPackages()
+            $this->_getRemoteList()->listPackages()
         );
     }
 
@@ -73,11 +73,6 @@ extends Horde_Pear_TestCase
     public function testLatestUriExceptionForNoRelease()
     {
         $this->_getLatestRemote()->getLatestDownloadUri('A', 'dev');
-    }
-
-    private function _getRemote()
-    {
-        return new Horde_Pear_Remote();
     }
 
     private function _getRemoteList()

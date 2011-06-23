@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>passwd</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde 4 Passwords Application</summary>
+ <description>An application to change any user passwords stored in various backends like SQL, LDAP, Kolab, passwd files etc...</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-06-21</date>
+ <time>07:25:05</time>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="TODO">TODO</license>
+ <notes>
+* [jan] Provide default configuration files instead of .dist versions.
+* [jan] Fix creating temporary files with open_basedir restrictions.
+* [rla] Added new driver &apos;horde&apos; which uses the update() function of horde&apos;s current auth driver
+* [rla] Formal conversion of all drivers to Horde 4 Exceptions. Some may need more changes to actually work
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="config">
+    <file name=".htaccess" role="horde" />
+    <file name="backends.php" role="horde" />
+    <file name="conf.xml" role="horde" />
+    <file name="hooks.php.dist" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="docs">
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
+    <file name="TODO" role="doc" />
+    <file name="UPGRADING" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="lib">
+    <dir name="Driver">
+     <file name="Adsi.php" role="horde" />
+     <file name="Composite.php" role="horde" />
+     <file name="Expect.php" role="horde" />
+     <file name="Expectpecl.php" role="horde" />
+     <file name="Horde.php" role="horde" />
+     <file name="Http.php" role="horde" />
+     <file name="Kolab.php" role="horde" />
+     <file name="Ldap.php" role="horde" />
+     <file name="Pine.php" role="horde" />
+     <file name="Poppassd.php" role="horde" />
+     <file name="Procopen.php" role="horde" />
+     <file name="Pspasswd.php" role="horde" />
+     <file name="Servuftp.php" role="horde" />
+     <file name="Smbldap.php" role="horde" />
+     <file name="Smbpasswd.php" role="horde" />
+     <file name="Soap.php" role="horde" />
+     <file name="Sql.php" role="horde" />
+     <file name="Vmailmgr.php" role="horde" />
+     <file name="Vpopmail.php" role="horde" />
+    </dir> <!-- /lib/Driver -->
+    <dir name="Factory">
+     <file name="Driver.php" role="horde" />
+    </dir> <!-- /lib/Factory -->
+    <file name=".htaccess" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Driver.php" role="horde" />
+    <file name="Exception.php" role="horde" />
+    <file name="Passwd.php" role="horde" />
+    <file name="Test.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="ar">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/ar/LC_MESSAGES -->
+    </dir> <!-- /locale/ar -->
+    <dir name="bg">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/bg/LC_MESSAGES -->
+    </dir> <!-- /locale/bg -->
+    <dir name="ca">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/ca/LC_MESSAGES -->
+    </dir> <!-- /locale/ca -->
+    <dir name="cs">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/cs/LC_MESSAGES -->
+    </dir> <!-- /locale/cs -->
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/de -->
+    <dir name="en">
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/es -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+    </dir> <!-- /locale/et -->
+    <dir name="fa">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/fa/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/fa -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
+    <dir name="gl">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/gl/LC_MESSAGES -->
+    </dir> <!-- /locale/gl -->
+    <dir name="hr">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/hr/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/hr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/hu -->
+    <dir name="id">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/id/LC_MESSAGES -->
+    </dir> <!-- /locale/id -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+    </dir> <!-- /locale/it -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
+    <dir name="lt">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/lt/LC_MESSAGES -->
+    </dir> <!-- /locale/lt -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/nl -->
+    <dir name="nn">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/nn/LC_MESSAGES -->
+    </dir> <!-- /locale/nn -->
+    <dir name="pl">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/pl/LC_MESSAGES -->
+    </dir> <!-- /locale/pl -->
+    <dir name="pt">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/pt/LC_MESSAGES -->
+    </dir> <!-- /locale/pt -->
+    <dir name="pt_BR">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
+    </dir> <!-- /locale/pt_BR -->
+    <dir name="ro">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/ro/LC_MESSAGES -->
+    </dir> <!-- /locale/ro -->
+    <dir name="ru">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/ru/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/ru -->
+    <dir name="sk">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/sk/LC_MESSAGES -->
+    </dir> <!-- /locale/sk -->
+    <dir name="sl">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/sl/LC_MESSAGES -->
+    </dir> <!-- /locale/sl -->
+    <dir name="sv">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/sv/LC_MESSAGES -->
+    </dir> <!-- /locale/sv -->
+    <dir name="tr">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/tr/LC_MESSAGES -->
+    </dir> <!-- /locale/tr -->
+    <dir name="zh_CN">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/zh_CN/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_CN -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_TW -->
+    <file name=".htaccess" role="horde" />
+    <file name="passwd.pot" role="horde" />
+   </dir> <!-- /locale -->
+   <dir name="scripts">
+    <file name=".htaccess" role="horde" />
+    <file name="kpasswd_expect" role="horde" />
+    <file name="passwd_expect" role="horde" />
+   </dir> <!-- /scripts -->
+   <dir name="templates">
+    <dir name="main">
+     <file name="main.inc" role="horde" />
+    </dir> <!-- /templates/main -->
+    <file name=".htaccess" role="horde" />
+   </dir> <!-- /templates -->
+   <dir name="themes">
+    <dir name="default">
+     <dir name="graphics">
+      <file name="favicon.ico" role="horde" />
+      <file name="passwd.png" role="horde" />
+     </dir> <!-- /themes/default/graphics -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/default -->
+    <dir name="silver">
+     <dir name="graphics">
+      <file name="favicon.ico" role="horde" />
+      <file name="passwd.png" role="horde" />
+     </dir> <!-- /themes/silver/graphics -->
+    </dir> <!-- /themes/silver -->
+   </dir> <!-- /themes -->
+   <file name="COPYING" role="data" />
+   <file name="index.php" role="horde" />
+   <file name="main.php" role="horde" />
+   <file name="README" role="data" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="COPYING" name="COPYING" />
+   <install as="passwd/index.php" name="index.php" />
+   <install as="passwd/main.php" name="main.php" />
+   <install as="README" name="README" />
+   <install as="passwd/config/.htaccess" name="config/.htaccess" />
+   <install as="passwd/config/backends.php" name="config/backends.php" />
+   <install as="passwd/config/conf.xml" name="config/conf.xml" />
+   <install as="passwd/config/hooks.php.dist" name="config/hooks.php.dist" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="TODO" name="docs/TODO" />
+   <install as="UPGRADING" name="docs/UPGRADING" />
+   <install as="passwd/lib/.htaccess" name="lib/.htaccess" />
+   <install as="passwd/lib/Application.php" name="lib/Application.php" />
+   <install as="passwd/lib/Driver.php" name="lib/Driver.php" />
+   <install as="passwd/lib/Exception.php" name="lib/Exception.php" />
+   <install as="passwd/lib/Passwd.php" name="lib/Passwd.php" />
+   <install as="passwd/lib/Test.php" name="lib/Test.php" />
+   <install as="passwd/lib/Driver/Adsi.php" name="lib/Driver/Adsi.php" />
+   <install as="passwd/lib/Driver/Composite.php" name="lib/Driver/Composite.php" />
+   <install as="passwd/lib/Driver/Expect.php" name="lib/Driver/Expect.php" />
+   <install as="passwd/lib/Driver/Expectpecl.php" name="lib/Driver/Expectpecl.php" />
+   <install as="passwd/lib/Driver/Horde.php" name="lib/Driver/Horde.php" />
+   <install as="passwd/lib/Driver/Http.php" name="lib/Driver/Http.php" />
+   <install as="passwd/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
+   <install as="passwd/lib/Driver/Ldap.php" name="lib/Driver/Ldap.php" />
+   <install as="passwd/lib/Driver/Pine.php" name="lib/Driver/Pine.php" />
+   <install as="passwd/lib/Driver/Poppassd.php" name="lib/Driver/Poppassd.php" />
+   <install as="passwd/lib/Driver/Procopen.php" name="lib/Driver/Procopen.php" />
+   <install as="passwd/lib/Driver/Pspasswd.php" name="lib/Driver/Pspasswd.php" />
+   <install as="passwd/lib/Driver/Servuftp.php" name="lib/Driver/Servuftp.php" />
+   <install as="passwd/lib/Driver/Smbldap.php" name="lib/Driver/Smbldap.php" />
+   <install as="passwd/lib/Driver/Smbpasswd.php" name="lib/Driver/Smbpasswd.php" />
+   <install as="passwd/lib/Driver/Soap.php" name="lib/Driver/Soap.php" />
+   <install as="passwd/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
+   <install as="passwd/lib/Driver/Vmailmgr.php" name="lib/Driver/Vmailmgr.php" />
+   <install as="passwd/lib/Driver/Vpopmail.php" name="lib/Driver/Vpopmail.php" />
+   <install as="passwd/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
+   <install as="passwd/locale/.htaccess" name="locale/.htaccess" />
+   <install as="passwd/locale/passwd.pot" name="locale/passwd.pot" />
+   <install as="passwd/locale/ar/LC_MESSAGES/passwd.mo" name="locale/ar/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/ar/LC_MESSAGES/passwd.po" name="locale/ar/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/bg/LC_MESSAGES/passwd.mo" name="locale/bg/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/bg/LC_MESSAGES/passwd.po" name="locale/bg/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/ca/LC_MESSAGES/passwd.mo" name="locale/ca/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/ca/LC_MESSAGES/passwd.po" name="locale/ca/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/cs/LC_MESSAGES/passwd.mo" name="locale/cs/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/cs/LC_MESSAGES/passwd.po" name="locale/cs/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/da/LC_MESSAGES/passwd.mo" name="locale/da/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/da/LC_MESSAGES/passwd.po" name="locale/da/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/de/help.xml" name="locale/de/help.xml" />
+   <install as="passwd/locale/de/LC_MESSAGES/passwd.mo" name="locale/de/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/de/LC_MESSAGES/passwd.po" name="locale/de/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/en/help.xml" name="locale/en/help.xml" />
+   <install as="passwd/locale/es/help.xml" name="locale/es/help.xml" />
+   <install as="passwd/locale/es/LC_MESSAGES/passwd.mo" name="locale/es/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/es/LC_MESSAGES/passwd.po" name="locale/es/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/et/LC_MESSAGES/passwd.mo" name="locale/et/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/et/LC_MESSAGES/passwd.po" name="locale/et/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/fa/help.xml" name="locale/fa/help.xml" />
+   <install as="passwd/locale/fa/LC_MESSAGES/passwd.mo" name="locale/fa/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/fa/LC_MESSAGES/passwd.po" name="locale/fa/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/fi/help.xml" name="locale/fi/help.xml" />
+   <install as="passwd/locale/fi/LC_MESSAGES/passwd.mo" name="locale/fi/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/fi/LC_MESSAGES/passwd.po" name="locale/fi/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/fr/LC_MESSAGES/passwd.mo" name="locale/fr/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/fr/LC_MESSAGES/passwd.po" name="locale/fr/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/gl/LC_MESSAGES/passwd.mo" name="locale/gl/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/gl/LC_MESSAGES/passwd.po" name="locale/gl/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/hr/help.xml" name="locale/hr/help.xml" />
+   <install as="passwd/locale/hr/LC_MESSAGES/passwd.mo" name="locale/hr/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/hr/LC_MESSAGES/passwd.po" name="locale/hr/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/hu/help.xml" name="locale/hu/help.xml" />
+   <install as="passwd/locale/hu/LC_MESSAGES/passwd.mo" name="locale/hu/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/hu/LC_MESSAGES/passwd.po" name="locale/hu/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/id/LC_MESSAGES/passwd.mo" name="locale/id/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/id/LC_MESSAGES/passwd.po" name="locale/id/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/it/LC_MESSAGES/passwd.mo" name="locale/it/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/it/LC_MESSAGES/passwd.po" name="locale/it/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/ja/LC_MESSAGES/passwd.mo" name="locale/ja/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/ja/LC_MESSAGES/passwd.po" name="locale/ja/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/lt/LC_MESSAGES/passwd.mo" name="locale/lt/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/lt/LC_MESSAGES/passwd.po" name="locale/lt/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/nl/help.xml" name="locale/nl/help.xml" />
+   <install as="passwd/locale/nl/LC_MESSAGES/passwd.mo" name="locale/nl/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/nl/LC_MESSAGES/passwd.po" name="locale/nl/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/nn/LC_MESSAGES/passwd.mo" name="locale/nn/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/nn/LC_MESSAGES/passwd.po" name="locale/nn/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/pl/LC_MESSAGES/passwd.mo" name="locale/pl/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/pl/LC_MESSAGES/passwd.po" name="locale/pl/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/pt/LC_MESSAGES/passwd.mo" name="locale/pt/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/pt/LC_MESSAGES/passwd.po" name="locale/pt/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/pt_BR/LC_MESSAGES/passwd.mo" name="locale/pt_BR/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/pt_BR/LC_MESSAGES/passwd.po" name="locale/pt_BR/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/ro/LC_MESSAGES/passwd.mo" name="locale/ro/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/ro/LC_MESSAGES/passwd.po" name="locale/ro/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/ru/help.xml" name="locale/ru/help.xml" />
+   <install as="passwd/locale/ru/LC_MESSAGES/passwd.mo" name="locale/ru/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/ru/LC_MESSAGES/passwd.po" name="locale/ru/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/sk/LC_MESSAGES/passwd.mo" name="locale/sk/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/sk/LC_MESSAGES/passwd.po" name="locale/sk/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/sl/LC_MESSAGES/passwd.mo" name="locale/sl/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/sl/LC_MESSAGES/passwd.po" name="locale/sl/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/sv/LC_MESSAGES/passwd.mo" name="locale/sv/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/sv/LC_MESSAGES/passwd.po" name="locale/sv/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/tr/LC_MESSAGES/passwd.mo" name="locale/tr/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/tr/LC_MESSAGES/passwd.po" name="locale/tr/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/zh_CN/LC_MESSAGES/passwd.mo" name="locale/zh_CN/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/zh_CN/LC_MESSAGES/passwd.po" name="locale/zh_CN/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/zh_TW/LC_MESSAGES/passwd.mo" name="locale/zh_TW/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/zh_TW/LC_MESSAGES/passwd.po" name="locale/zh_TW/LC_MESSAGES/passwd.po" />
+   <install as="passwd/scripts/.htaccess" name="scripts/.htaccess" />
+   <install as="passwd/scripts/kpasswd_expect" name="scripts/kpasswd_expect" />
+   <install as="passwd/scripts/passwd_expect" name="scripts/passwd_expect" />
+   <install as="passwd/templates/.htaccess" name="templates/.htaccess" />
+   <install as="passwd/templates/main/main.inc" name="templates/main/main.inc" />
+   <install as="passwd/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="passwd/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="passwd/themes/default/graphics/passwd.png" name="themes/default/graphics/passwd.png" />
+   <install as="passwd/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
+   <install as="passwd/themes/silver/graphics/passwd.png" name="themes/silver/graphics/passwd.png" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-06-21</date>
+   <license uri="TODO">TODO</license>
+   <notes>
+* [jan] Provide default configuration files instead of .dist versions.
+* [jan] Fix creating temporary files with open_basedir restrictions.
+* [rla] Added new driver &apos;horde&apos; which uses the update() function of horde&apos;s current auth driver
+* [rla] Formal conversion of all drivers to Horde 4 Exceptions. Some may need more changes to actually work
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>

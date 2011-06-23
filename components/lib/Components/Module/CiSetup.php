@@ -44,7 +44,6 @@ extends Components_Module_Base
     {
         return array(
             new Horde_Argv_Option(
-                '-c',
                 '--cisetup',
                 array(
                     'action' => 'store',
@@ -52,7 +51,6 @@ extends Components_Module_Base
                 )
             ),
             new Horde_Argv_Option(
-                '-C',
                 '--ciprebuild',
                 array(
                     'action' => 'store',

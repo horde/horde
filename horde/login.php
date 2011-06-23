@@ -102,7 +102,7 @@ if (!$is_auth && !$prefs->isLocked('language') && $vars->new_lang) {
 if ($logout_reason) {
     if ($is_auth) {
         try {
-            $injector->getInstance('Horde_Token')->validate($vars->horde_logout_token, 'horde.logout');
+            $injector->getInstance('Horde_Token')->validate($vars->horde_logout_token, 'horde.logout', -1);
         } catch (Horde_Exception $e) {
             $notification->push($e, 'horde.error');
             require HORDE_BASE . '/index.php';

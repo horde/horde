@@ -40,11 +40,17 @@ abstract class IMP_Flag_Imap extends IMP_Flag_Base
     }
 
     /**
-     * @param array $input  List of IMAP flags.
+     * @param array $data  List of IMAP flags.
      */
     public function match($data)
     {
-        return in_array($this->imapflag, $data);
+        foreach ($data as $val) {
+            if (strcasecmp($this->imapflag, $val) === 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

@@ -1,8 +1,6 @@
 <?php
 /**
- * $Horde: passwd/main.php,v 1.67.2.10 2009/07/05 17:13:32 chuck Exp $
- *
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/gpl.php.

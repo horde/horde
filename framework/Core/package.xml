@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-06-09</date>
- <time>23:03:10</time>
+ <date>2011-06-22</date>
+ <time>00:05:12</time>
  <version>
   <release>1.2.2</release>
   <api>1.2.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mms] Make sure appinitialized hook gets full application environment.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1484,10 +1484,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-09</date>
+   <date>2011-06-22</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] Make sure appinitialized hook gets full application environment.
    </notes>
   </release>
  </changelog>

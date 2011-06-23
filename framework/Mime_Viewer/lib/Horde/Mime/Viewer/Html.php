@@ -131,6 +131,9 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
     protected function _cleanHTML($data, $options = array())
     {
         $browser = $this->getConfigParam('browser');
+        if (($tidy_limit = $this->getConfigParam('tidy_size_limit')) === null) {
+            $tidy_limit = false;
+        }
         $charset = isset($options['charset'])
             ? $options['charset']
             : $this->_mimepart->getCharset();
@@ -142,7 +145,8 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
 
         $data = $this->_textFilter($data, array('cleanhtml', 'xss'), array(
             array(
-                'charset' => $charset
+                'charset' => $charset,
+                'size' => $tidy_limit
             ),
             array(
                 'charset' => $charset,

@@ -74,7 +74,7 @@ class Components_Runner_Update
         if (!empty($options['updatexml'])
             || (isset($arguments[0]) && $arguments[0] == 'update')) {
             $action = !empty($options['action']) ? $options['action'] : 'update';
-            if ($options['pretend'] && $action == 'update') {
+            if (!empty($options['pretend']) && $action == 'update') {
                 $action = 'diff';
             }
             $package->updatePackageFile($action, $options);

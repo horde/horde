@@ -131,6 +131,45 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
         return true;
     }
 
+    /**
+     * Add a new timer
+     *
+     */
+    public function addTimer()
+    {
+        $timers = $GLOBALS['prefs']->getValue('running_timers');
+        if (empty($timers)) {
+            $timers = array();
+        } else {
+            $timers = @unserialize($timers);
+            if (!$timers) {
+                $timers = array();
+            }
+        }
+        $now = time();
+        $timers[$now] = array(
+            'name' => $this->_vars->desc,
+            'time' => $now);
+        $GLOBALS['prefs']->setValue('running_timers', serialize($timers));
+
+        return array('id' => $now);
+    }
+
+    /**
+     * Retrieve timers
+     */
+    public function listTimers()
+    {
+        $timers = $GLOBALS['prefs']->getValue('running_timers');
+        if (!empty($timers)) {
+            $timers = @unserialize($timers);
+        } else {
+            $timers = array();
+        }
+
+        return $timers;
+    }
+
     public function poll()
     {
         // keepalive

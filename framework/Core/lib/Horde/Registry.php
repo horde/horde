@@ -72,6 +72,13 @@ class Horde_Registry
     protected $_apiList = array();
 
     /**
+     * The list of applications initialized during this access.
+     *
+     * @var array
+     */
+    protected $_appsinit = array();
+
+    /**
      * The arguments that have been passed when instantiating the registry.
      *
      * @var array
@@ -1320,6 +1327,14 @@ class Horde_Registry
             $this->setLanguageEnvironment(null, $app);
         }
 
+        /* Call first initialization hook. */
+        if (isset($this->_appsinit[$app])) {
+            unset($this->_appsinit[$app]);
+            try {
+                Horde::callHook('appinitialized', array(), $app);
+            } catch (Horde_Exception_HookNotSet $e) {}
+        }
+
         /* Call pre-push hook. */
         try {
             Horde::callHook('pushapp', array(), $app);
@@ -2172,36 +2187,40 @@ class Horde_Registry
             ? 'horde'
             : $options['app'];
 
+        $this->_appsinit[$app] = true;
+
         if ($this->getAuth() == $authId) {
-            /* Store app credentials. */
+            /* Store app credentials - base Horde session already exists. */
             $this->setAuthCredential($credentials, null, $app);
-        } else {
-            /* Initial authentication to Horde. */
-            $session->set('horde', 'auth/authId', $authId);
-            $session->set('horde', 'auth/browser', $browser->getAgentString());
-            if (!empty($options['change'])) {
-                $session->set('horde', 'auth/change', 1);
-            }
-            $session->set('horde', 'auth/credentials', $app);
-            if (isset($_SERVER['REMOTE_ADDR'])) {
-                $session->set('horde', 'auth/remoteAddr', $_SERVER['REMOTE_ADDR']);
-            }
-            $session->set('horde', 'auth/timestamp', time());
-            $session->set('horde', 'auth/userId', $this->convertUsername(trim($authId), true));
-
-            $this->setAuthCredential($credentials, null, $app);
-
-            /* Reload preferences for the new user. */
-            unset($GLOBALS['prefs']);
-            $injector->getInstance('Horde_Core_Factory_Prefs')->clearCache();
-            $this->loadPrefs();
-
-            $this->setLanguageEnvironment(isset($options['language']) ? $this->preferredLang($options['language']) : null, $app);
+            return;
         }
 
+        /* Initial authentication to Horde. */
+        $session->set('horde', 'auth/authId', $authId);
+        $session->set('horde', 'auth/browser', $browser->getAgentString());
+        if (!empty($options['change'])) {
+            $session->set('horde', 'auth/change', 1);
+        }
+        $session->set('horde', 'auth/credentials', $app);
+        if (isset($_SERVER['REMOTE_ADDR'])) {
+            $session->set('horde', 'auth/remoteAddr', $_SERVER['REMOTE_ADDR']);
+        }
+        $session->set('horde', 'auth/timestamp', time());
+        $session->set('horde', 'auth/userId', $this->convertUsername(trim($authId), true));
+
+        $this->setAuthCredential($credentials, null, $app);
+
+        /* Reload preferences for the new user. */
+        unset($GLOBALS['prefs']);
+        $injector->getInstance('Horde_Core_Factory_Prefs')->clearCache();
+        $this->loadPrefs();
+
+        unset($this->_appsinit['horde']);
         try {
-            Horde::callHook('appinitialized', array(), $app);
+            Horde::callHook('appinitialized', array(), 'horde');
         } catch (Horde_Exception_HookNotSet $e) {}
+
+        $this->setLanguageEnvironment(isset($options['language']) ? $this->preferredLang($options['language']) : null, $app);
     }
 
     /**

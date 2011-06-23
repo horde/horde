@@ -245,6 +245,10 @@ class IMP_Ui_Message
 
                 return $output;
             } elseif ($url = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($match, 'linkurls')) {
+                if (!empty($opts['email'])) {
+                    continue;
+                }
+
                 if (!empty($opts['raw'])) {
                     return $match;
                 }

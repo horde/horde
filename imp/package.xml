@@ -34,8 +34,9 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix regression in parsing list reply address (Bug #10258).
 * [jan] Tick sent-mail checkbox off when selecting sent-mail folder in dynamic view.
-* [jan] Keep key navigation active after clicking into a HTML message.
+* [jan] Keep key navigation active after clicking into a HTML message (Request #9720).
 * [mms] Fix additional regression when flagging all messages in a mailbox (Bug #10243).
 * [mms] Fix "Don&apos;t Show" filtering in traditional mailbox view (Bug #10244).
  </notes>

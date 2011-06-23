@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [gwr] Support restricting the HTML tidy post processing by the message size (Request #10266).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -769,7 +769,7 @@
    <date>2011-06-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [gwr] Support restricting the HTML tidy post processing by the message size (Request #10266).
    </notes>
   </release>
  </changelog>

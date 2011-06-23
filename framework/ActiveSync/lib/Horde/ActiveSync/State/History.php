@@ -199,7 +199,8 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      */
     public function save()
     {
-        $this->_logger->debug(sprintf('[%s] Saving state for synckey %s', $this->_devId, $this->_syncKey));
+        $this->_logger->debug(
+            sprintf('[%s] Saving state for synckey %s', $this->_devId, $this->_syncKey));
 
         /*  Update state table to remember this last synctime and key */
         $sql = 'INSERT INTO ' . $this->_syncStateTable
@@ -214,12 +215,13 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $data = '';
         }
 
-        $params = array($this->_syncKey,
-                        $data,
-                        $this->_devId,
-                        $this->_thisSyncTS,
-                        !empty($this->_collection['id']) ? $this->_collection['id'] : 'foldersync',
-                        $this->_deviceInfo->user);
+        $params = array(
+            $this->_syncKey,
+            $data,
+            $this->_devId,
+            $this->_thisSyncTS,
+            !empty($this->_collection['id']) ? $this->_collection['id'] : 'foldersync',
+            $this->_deviceInfo->user);
         try {
             $this->_db->insert($sql, $params);
         } catch (Horde_Db_Exception $e) {

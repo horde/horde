@@ -94,7 +94,11 @@ $mime_drivers = array(
         ),
 
         // Check for phishing exploits?
-        'phishing_check' => true
+        'phishing_check' => true,
+
+        /* Size limit for the post-processing tidy operation (default: no
+         * limit). Must be specified in bytes. */
+        'tidy_size_limit' => false
     ),
 
     /* Enriched text display. */

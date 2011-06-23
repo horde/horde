@@ -47,11 +47,9 @@ class Turba_Block_Minisearch extends Horde_Core_Block
     protected function _content()
     {
         if ($GLOBALS['browser']->hasFeature('iframes')) {
-            $imploded_calendars = '';
-            if (count($this->_params['addressbooks'])) {
+            if (!empty($this->_params['addressbooks'])) {
                 $imploded_calendars = implode(';', $this->_params['addressbooks']);
-            } else 
-            {
+            } else {
                 $imploded_calendars = implode(';', array_keys($this->_options));
             }
             Horde::startBuffer();

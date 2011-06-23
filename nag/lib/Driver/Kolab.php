@@ -404,7 +404,7 @@ class Nag_Driver_Kolab extends Nag_Driver
 
         /* Build a tree from the subtasks. */
         foreach (array_keys($dict) as $key) {
-            $task = $tasks->get($dict[$key]->parent_id);
+            $task = $this->tasks->get($dict[$key]->parent_id);
             if ($task) {
                 $task->add($dict[$key]);
             } elseif (isset($dict[$dict[$key]->parent_id])) {

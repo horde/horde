@@ -637,6 +637,46 @@ a.rounded {
     margin: 6px;
     float: left;
 }
+
+/* Dialogs */
+.hermesDialog {
+    width: 700px;
+    padding: 10px 20px;
+    background: #efefef;
+    border: 1px #999 solid;
+}
+.hermesDialog div {
+    margin-bottom: 5px;
+}
+.hermesDialog td {
+    padding-right: 10px;
+    vertical-align: top;
+}
+.hermesDialog label {
+    font-weight: bold;
+}
+.hermesDialog .tabset {
+    float: none;
+    width: auto;
+    background: none;
+    margin: 15px 0;
+}
+.hermesDialog .tabset ul {
+    float: left;
+    padding-left: 0;
+    margin: 0;
+}
+.hermesDialog .tabset .hermesSeparator {
+    float: left;
+}
+.hermesDialog hr {
+   margin: 5px 0;
+   height: 0;
+   line-height: 0;
+   border-width: 1px 0;
+   border-color: #ccc transparent #fff;
+   border-style: solid none;
+}
  /* Mini calendar */
 .hermesMinical {
     position: relative;

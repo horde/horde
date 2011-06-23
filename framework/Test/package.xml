@@ -28,7 +28,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [gwr] Improve detection of the lib directory.
+* [gwr] Extract the setup pieces we do in the AllTests helper and heed the Autoload.php file of a test suite.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -228,7 +229,8 @@
    <date>2011-06-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [gwr] Improve detection of the lib directory.
+* [gwr] Extract the setup pieces we do in the AllTests helper and heed the Autoload.php file of a test suite.
    </notes>
   </release>
  </changelog>

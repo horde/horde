@@ -2,6 +2,9 @@
 v4.0.7-git
 ----------
 
+[gwr] Support restricting the HTML tidy post processing by the message size
+      (Request #10266).
+[gwr] Disabled the timeout on the logout token.
 [mjr] Fix integer overflow issue (Bug: 9889).
 
 
