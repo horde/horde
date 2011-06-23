@@ -72,7 +72,7 @@ class Components_Runner_Snapshot
         $options = $this->_config->getOptions();
         $package = $this->_config->getComponent()->getPackage();
 
-        if ($options['destination']) {
+        if (!empty($options['destination'])) {
             $archivedir = $options['destination'];
         } else {
             $archivedir = getcwd();
