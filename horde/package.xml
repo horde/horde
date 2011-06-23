@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [gwr] Support restricting the HTML tidy post processing by the message size (Request #10266).
 * [gwr] Disabled the timeout on the logout token.
  </notes>
  <contents>
@@ -4160,6 +4161,7 @@
    <date>2011-06-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [gwr] Support restricting the HTML tidy post processing by the message size (Request #10266).
 * [gwr] Disabled the timeout on the logout token.
    </notes>
   </release>
