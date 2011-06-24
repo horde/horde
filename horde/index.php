@@ -55,23 +55,27 @@ if ($main_page) {
     if (!$registry->getAuth()) {
         $main_page = Horde::url('login.php', true);
     } else {
-        // Search for a user-specified initial application.
-        // Force mobile agents to the mobile portal, at least until we have
-        // a default mobile app pref.
-        if ($session->get('horde', 'mode') == 'smartmobile' && Horde::ajaxAvailable()) {
-            Horde::getServiceLink('portal')->redirect();
-        }
-
         $initial_app = $prefs->getValue('initial_application');
         if (!empty($initial_app) &&
-            ($initial_app != 'horde') &&
+            $initial_app != 'horde' &&
             $registry->hasPermission($initial_app)) {
-            $main_page = Horde::url($initial_app, true);
+
+            if ($session->get('horde', 'mode') == 'smartmobile' && Horde::ajaxAvailable()) {
+                if ($registry->getApiInstance($initial_app, 'application')->mobileView) {
+                    $main_page = Horde::url($initial_app, true);
+                } else {
+                    $main_page = Horde::getServiceLink('portal');
+                }
+            } else {
+                $main_page = Horde::url($initial_app, true);
+            }
         } else {
             /* Next, try the initial horde page if it is something other than
              * index.php or login.php, since that would lead to inifinite
              * loops. */
-            if (!empty($registry->applications['horde']['initial_page']) &&
+            if ($session->get('horde', 'mode') == 'smartmobile' && Horde::ajaxAvailable()) {
+                $main_page = Horde::getServiceLink('portal');
+            } elseif (!empty($registry->applications['horde']['initial_page']) &&
                 !in_array($registry->applications['horde']['initial_page'], array('index.php', 'login.php'))) {
                 $main_page = Horde::url($registry->applications['horde']['initial_page'], true);
             } else {
