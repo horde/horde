@@ -23,3 +23,4 @@ require_once dirname(__FILE__) . '/TestCase.php';
 
 /** Load stub definitions */
 require_once dirname(__FILE__) . '/Stub/Driver.php';
+require_once dirname(__FILE__) . '/Stub/Registry.php';
