@@ -9,7 +9,7 @@
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @link       http://www.horde.org/apps/kronolith
- * @license    http://www.horde.org/licenses/apache Apache-like
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  */
 
 /**
@@ -32,7 +32,7 @@ require_once 'Horde/Test/AllTests.php';
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @link       http://www.horde.org/apps/kronolith
- * @license    http://www.horde.org/licenses/apache Apache-like
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  */
 class Kronolith_AllTests extends Horde_Test_AllTests
 {
