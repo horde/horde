@@ -36,24 +36,26 @@ class Kronolith_Integration_FromIcalendarTest extends Kronolith_TestCase
 {
     public function testStart()
     {
-        $event = $this->_getFixture();
+        $event = $this->_getFixture('fromicalendar.ics');
         $this->assertEquals('2010-11-01 10:00:00', (string)$event->start);
     }
 
     public function testEnd()
     {
-        $event = $this->_getFixture();
+        $event = $this->_getFixture('fromicalendar.ics');
         $this->assertEquals('2010-11-01 11:00:00', (string)$event->end);
     }
 
     public function testAllDay()
     {
-        $this->assertFalse($this->_getFixture()->isAllDay());
+        $this->assertFalse(
+            $this->_getFixture('fromicalendar.ics')->isAllDay()
+        );
     }
 
     public function testRrule20()
     {
-        $event = $this->_getFixture();
+        $event = $this->_getFixture('fromicalendar.ics');
         $this->assertEquals(
             'FREQ=WEEKLY;INTERVAL=1;BYDAY=MO;UNTIL=20101129T230000Z',
             $event->recurrence->toRrule20(new Horde_Icalendar())
@@ -62,26 +64,42 @@ class Kronolith_Integration_FromIcalendarTest extends Kronolith_TestCase
 
     public function testExceptions()
     {
-        $event = $this->_getFixture();
+        $event = $this->_getFixture('fromicalendar.ics');
         $this->assertEquals(
             array('20101108', '20101122'),
             $event->recurrence->exceptions
         );
     }
 
-    private function _getFixture()
+    public function testExceptionsTwo()
+    {
+        $this->markTestIncomplete('Too much boilerplate necessary.');
+        $event = $this->_getFixture('bug7068.ics');
+        $this->assertEquals(
+            array('20080729'),
+            $event->recurrence->exceptions
+        );
+    }
+
+    public function testExceptionsThree()
+    {
+        $this->markTestIncomplete('Too much boilerplate necessary.');
+        $event = $this->_getFixture('bug7068.ics', 1);
+        $this->assertEquals(
+            array ('20080722', '20080729'),
+            $event->recurrence->exceptions
+        );
+    }
+
+    private function _getFixture($name, $item = 0)
     {
         $iCal = new Horde_Icalendar();
         $iCal->parsevCalendar(
-            file_get_contents(dirname(__FILE__) . '/../fixtures/fromicalendar.ics')
+            file_get_contents(dirname(__FILE__) . '/../fixtures/' . $name)
         );
         $components = $iCal->getComponents();
-        foreach ($components as $content) {
-            if (is_a($content, 'Horde_Icalendar_Vevent')) {
-                $event = new Kronolith_Event_Sql(new Kronolith_Stub_Driver());
-                $event->fromiCalendar($content);
-                return $event;
-            }
-        }
+        $event = new Kronolith_Event_Sql(new Kronolith_Stub_Driver());
+        $event->fromiCalendar($components[$item]);
+        return $event;
     }
 }
