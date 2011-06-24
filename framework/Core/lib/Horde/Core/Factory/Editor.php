@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Core
  */
-class Horde_Core_Factory_Editor extends Horde_Core_Factory_Base
+class Horde_Core_Factory_Editor extends Horde_Core_Factory_Injector
 {
     /**
      * Return the Horde_Editor:: instance.
@@ -37,8 +37,8 @@ class Horde_Core_Factory_Editor extends Horde_Core_Factory_Base
      * @return Horde_Editor  The singleton editor instance.
      * @throws Horde_Editor_Exception
      */
-    public function create()
+    public function create(Horde_Injector $injector)
     {
-        return $this->_injector->getInstance('Horde_Editor_Ckeditor');
+        return $injector->getInstance('Horde_Editor_Ckeditor');
     }
 }

@@ -47,11 +47,4 @@ class Horde_Core_Factory_Base
         $this->_injector = $injector;
     }
 
-    /**
-     * @throws Horde_Exception
-     */
-    public function create()
-    {
-    }
-
 }
