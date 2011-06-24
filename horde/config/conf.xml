@@ -1747,10 +1747,8 @@
   <configsection name="twitter">
    <configheader>Twitter Integration Settings</configheader>
    <configdescription>If you want to allow your users to interact with their
-   Twitter account, enable this section. If you've obtained an OAuth secret and
-   key from Twitter, Horde can use OAuth to authenticate to Twitter, otherwise,
-   users can still access Twitter services, but must use the (insecure) Http
-   Basic Authentication method.</configdescription>
+   Twitter account, enable this section. You must setup an application on
+   Twitter and obtain the OAuth secret and key from Twitter.</configdescription>
    <configswitch name="enabled">false
     <case name="false" desc="Disabled" />
     <case name="true" desc="Enabled">
