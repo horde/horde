@@ -1,0 +1,87 @@
+<?php
+/**
+ * Test importing iCalendar events.
+ *
+ * PHP version 5
+ *
+ * @category   Horde
+ * @package    Kronolith
+ * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @link       http://www.horde.org/apps/kronolith
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ */
+
+/**
+ * Prepare the test setup.
+ */
+require_once dirname(__FILE__) . '/../Autoload.php';
+
+/**
+ * Test importing iCalendar events.
+ *
+ * Copyright 2011 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPLv2). If you did not
+ * receive this file, see http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ *
+ * @category   Horde
+ * @package    Kronolith
+ * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @link       http://www.horde.org/apps/kronolith
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ */
+class Kronolith_Integration_FromIcalendarTest extends Kronolith_TestCase
+{
+    public function testStart()
+    {
+        $event = $this->_getFixture();
+        $this->assertEquals('2010-11-01 10:00:00', (string)$event->start);
+    }
+
+    public function testEnd()
+    {
+        $event = $this->_getFixture();
+        $this->assertEquals('2010-11-01 11:00:00', (string)$event->end);
+    }
+
+    public function testAllDay()
+    {
+        $this->assertFalse($this->_getFixture()->isAllDay());
+    }
+
+    public function testRrule20()
+    {
+        $event = $this->_getFixture();
+        $this->assertEquals(
+            'FREQ=WEEKLY;INTERVAL=1;BYDAY=MO;UNTIL=20101129T230000Z',
+            $event->recurrence->toRrule20(new Horde_Icalendar())
+        );
+    }
+
+    public function testExceptions()
+    {
+        $event = $this->_getFixture();
+        $this->assertEquals(
+            array('20101108', '20101122'),
+            $event->recurrence->exceptions
+        );
+    }
+
+    private function _getFixture()
+    {
+        $iCal = new Horde_Icalendar();
+        $iCal->parsevCalendar(
+            file_get_contents(dirname(__FILE__) . '/../fixtures/fromicalendar.ics')
+        );
+        $components = $iCal->getComponents();
+        foreach ($components as $content) {
+            if (is_a($content, 'Horde_Icalendar_Vevent')) {
+                $event = new Kronolith_Event_Sql(new Kronolith_Stub_Driver());
+                $event->fromiCalendar($content);
+                return $event;
+            }
+        }
+    }
+}
