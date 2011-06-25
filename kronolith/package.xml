@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-14</date>
- <time>15:50:30</time>
+ <date>2011-06-25</date>
+ <time>23:59:45</time>
  <version>
   <release>3.0.5</release>
   <api>3.0.0</api>
@@ -184,16 +184,6 @@
      <file name="Kolab.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Storage -->
-    <dir name="tests">
-     <file name="allday.ics" role="data" />
-     <file name="allday.phpt" role="data" />
-     <file name="bug6031.phpt" role="data" />
-     <file name="bug7068.ics" role="data" />
-     <file name="bug7068.phpt" role="data" />
-     <file name="fromicalendar.ics" role="data" />
-     <file name="fromicalendar.phpt" role="data" />
-     <file name="toicalendar.phpt" role="data" />
-    </dir> <!-- /lib/tests -->
     <dir name="View">
      <file name="Day.php" role="horde" />
      <file name="DeleteEvent.php" role="horde" />
@@ -345,6 +335,7 @@
       <file name="kronolith.mo" role="horde" />
       <file name="kronolith.po" role="horde" />
      </dir> <!-- /locale/lv/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/lv -->
     <dir name="nb">
      <dir name="LC_MESSAGES">
@@ -591,6 +582,24 @@
     <file name="javascript_defs.php" role="horde" />
     <file name="panel.inc" role="horde" />
    </dir> <!-- /templates -->
+   <dir name="test">
+    <dir name="Kronolith">
+     <dir name="ToDo">
+      <file name="allday.ics" role="test" />
+      <file name="allday.phpt" role="test" />
+      <file name="bug6031.phpt" role="test" />
+      <file name="bug7068.ics" role="test" />
+      <file name="bug7068.phpt" role="test" />
+      <file name="fromicalendar.ics" role="test" />
+      <file name="fromicalendar.phpt" role="test" />
+      <file name="toicalendar.phpt" role="test" />
+     </dir> <!-- /test/Kronolith/ToDo -->
+     <file name="AllTests.php" role="test" />
+     <file name="Autoload.php" role="test" />
+     <file name="phpunit.xml" role="test" />
+     <file name="TestCase.php" role="test" />
+    </dir> <!-- /test/Kronolith -->
+   </dir> <!-- /test -->
    <dir name="themes">
     <dir name="bluewhite">
      <file name="screen.css" role="horde" />
@@ -1199,14 +1208,6 @@
    <install as="kronolith/lib/Resource/Single.php" name="lib/Resource/Single.php" />
    <install as="kronolith/lib/Storage/Kolab.php" name="lib/Storage/Kolab.php" />
    <install as="kronolith/lib/Storage/Sql.php" name="lib/Storage/Sql.php" />
-   <install as="tests/allday.ics" name="lib/tests/allday.ics" />
-   <install as="tests/allday.phpt" name="lib/tests/allday.phpt" />
-   <install as="tests/bug6031.phpt" name="lib/tests/bug6031.phpt" />
-   <install as="tests/bug7068.ics" name="lib/tests/bug7068.ics" />
-   <install as="tests/bug7068.phpt" name="lib/tests/bug7068.phpt" />
-   <install as="tests/fromicalendar.ics" name="lib/tests/fromicalendar.ics" />
-   <install as="tests/fromicalendar.phpt" name="lib/tests/fromicalendar.phpt" />
-   <install as="tests/toicalendar.phpt" name="lib/tests/toicalendar.phpt" />
    <install as="kronolith/lib/View/Day.php" name="lib/View/Day.php" />
    <install as="kronolith/lib/View/DeleteEvent.php" name="lib/View/DeleteEvent.php" />
    <install as="kronolith/lib/View/EditEvent.php" name="lib/View/EditEvent.php" />
@@ -1263,6 +1264,7 @@
    <install as="kronolith/locale/ko/LC_MESSAGES/kronolith.po" name="locale/ko/LC_MESSAGES/kronolith.po" />
    <install as="kronolith/locale/lt/LC_MESSAGES/kronolith.mo" name="locale/lt/LC_MESSAGES/kronolith.mo" />
    <install as="kronolith/locale/lt/LC_MESSAGES/kronolith.po" name="locale/lt/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/lv/help.xml" name="locale/lv/help.xml" />
    <install as="kronolith/locale/lv/LC_MESSAGES/kronolith.mo" name="locale/lv/LC_MESSAGES/kronolith.mo" />
    <install as="kronolith/locale/lv/LC_MESSAGES/kronolith.po" name="locale/lv/LC_MESSAGES/kronolith.po" />
    <install as="kronolith/locale/nb/LC_MESSAGES/kronolith.mo" name="locale/nb/LC_MESSAGES/kronolith.mo" />
@@ -1393,6 +1395,18 @@
    <install as="kronolith/templates/week/head.inc" name="templates/week/head.inc" />
    <install as="kronolith/templates/week/head_side_by_side.inc" name="templates/week/head_side_by_side.inc" />
    <install as="kronolith/templates/year/head.inc" name="templates/year/head.inc" />
+   <install as="Kronolith/AllTests.php" name="test/Kronolith/AllTests.php" />
+   <install as="Kronolith/Autoload.php" name="test/Kronolith/Autoload.php" />
+   <install as="Kronolith/phpunit.xml" name="test/Kronolith/phpunit.xml" />
+   <install as="Kronolith/TestCase.php" name="test/Kronolith/TestCase.php" />
+   <install as="Kronolith/ToDo/allday.ics" name="test/Kronolith/ToDo/allday.ics" />
+   <install as="Kronolith/ToDo/allday.phpt" name="test/Kronolith/ToDo/allday.phpt" />
+   <install as="Kronolith/ToDo/bug6031.phpt" name="test/Kronolith/ToDo/bug6031.phpt" />
+   <install as="Kronolith/ToDo/bug7068.ics" name="test/Kronolith/ToDo/bug7068.ics" />
+   <install as="Kronolith/ToDo/bug7068.phpt" name="test/Kronolith/ToDo/bug7068.phpt" />
+   <install as="Kronolith/ToDo/fromicalendar.ics" name="test/Kronolith/ToDo/fromicalendar.ics" />
+   <install as="Kronolith/ToDo/fromicalendar.phpt" name="test/Kronolith/ToDo/fromicalendar.phpt" />
+   <install as="Kronolith/ToDo/toicalendar.phpt" name="test/Kronolith/ToDo/toicalendar.phpt" />
    <install as="kronolith/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="kronolith/themes/burntorange/screen.css" name="themes/burntorange/screen.css" />
    <install as="kronolith/themes/default/embed.css" name="themes/default/embed.css" />
@@ -1759,7 +1773,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-14</date>
+   <date>2011-06-25</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [jan] Fetch events immediately after saving remote calendar.
