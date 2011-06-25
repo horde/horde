@@ -825,4 +825,22 @@ class Ansel
         return $results;
     }
 
+    /**
+     * Simple helper to output initial Ansel JS.
+     */
+    static public function initJSVariables()
+    {
+        if (!$GLOBALS['browser']->isMobile()) {
+            $config = array(
+                'BASE_URI' => (string)Horde::url(
+                    '',
+                    true,
+                    array(
+                        'app' => 'ansel',
+                        'append_session' => -1)));
+            Horde::addInlineJsVars(
+                array('var Ansel' => array('ajax' => new stdClass, 'widgets' => new stdClass, 'conf' => $config)));
+        }
+    }
+
 }
