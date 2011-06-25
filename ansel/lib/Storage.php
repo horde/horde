@@ -1114,14 +1114,37 @@ class Ansel_Storage
      */
     public function getRecentImagesGeodata($user = null, $start = 0, $count = 8)
     {
-        $galleries = $this->listGalleries(array('perm' => Horde_Perms::EDIT,
-                                                'attributes' => $user));
-        if (empty($galleries)) {
+        $galleries = $this->listGalleries(
+            array(
+                'perm' => Horde_Perms::EDIT,
+                'attributes' => $user
+            )
+        );
+        $ids = array();
+        foreach ($galleries as $gallery) {
+            $ids[] = $gallery->id;
+        }
+        if (empty($ids)) {
             return array();
         }
 
-        $where = 'gallery_id IN(' . implode(',', array_keys($galleries)) . ') AND LENGTH(image_latitude) > 0 GROUP BY image_latitude, image_longitude';
-        return $this->listImages(0, $start, $count, array('image_id as id', 'image_id', 'gallery_id', 'image_latitude', 'image_longitude', 'image_location'), $where, 'image_geotag_date DESC');
+        $where = 'gallery_id IN(' . implode(',', $ids)
+            . ') AND LENGTH(image_latitude) > 0 '
+            . 'GROUP BY image_latitude, image_longitude';
+
+        return $this->listImages(
+            null,
+            $start,
+            $count,
+            array(
+                'image_id as id',
+                'image_id',
+                'gallery_id',
+                'image_latitude',
+                'image_longitude',
+                'image_location'),
+            $where,
+            'image_geotag_date DESC');
     }
 
     /**
