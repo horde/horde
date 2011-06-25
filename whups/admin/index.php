@@ -157,7 +157,7 @@ case 'whups_form_admin_clonetype':
         $type = $whups_driver->getType($tid);
         $states = $whups_driver->getAllStateInfo($tid);
         $priorities = $whups_driver->getAllPriorityInfo($tid);
-        $attributes = $whups_driver->getAttributeInfoFortype($tid);
+        $attributes = $whups_driver->getAttributeInfoForType($tid);
 
         // Create the new type.
         $nid = $ntype = $whups_driver->addType($vars->get('name'),
