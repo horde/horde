@@ -1800,7 +1800,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     protected function _scanStream($fp, $type, $data = null)
     {
         rewind($fp);
-        while (!feof($fp)) {
+        while (is_resource($fp) && !feof($fp)) {
             $line = fread($fp, 8192);
             switch ($type) {
             case '8bit':
