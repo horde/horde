@@ -48,8 +48,10 @@ class Whups_Form_Admin_EditAttributeStepTwo extends Horde_Form
         }
         foreach (Whups::fieldTypeParams($type) as $param => $param_info) {
             $pparam = &$this->addVariable(
-                $param_info['label'], 'attribute_params[' . $param . ']',
-                $param_info['type'], false);
+                $param_info['label'],
+                'attribute_params[' . $param . ']',
+                $param_info['type'],
+                false);
             if (isset($info['attribute_params'][$param])) {
                 $pparam->setDefault($info['attribute_params'][$param]);
             }

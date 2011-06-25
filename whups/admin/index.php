@@ -160,31 +160,30 @@ case 'whups_form_admin_clonetype':
         $attributes = $whups_driver->getAttributeInfoForType($tid);
 
         // Create the new type.
-        $nid = $ntype = $whups_driver->addType($vars->get('name'),
-                                               $vars->get('description'));
+        $nid = $ntype = $whups_driver->addType(
+            $vars->get('name'), $vars->get('description'));
 
         // Add the states.
         foreach ($states as $s) {
-            $whups_driver->addState($nid, $s['state_name'],
-                                    $s['state_description'],
-                                    $s['state_category']);
+            $whups_driver->addState(
+                $nid, $s['state_name'], $s['state_description'], $s['state_category']);
         }
 
         // Add the priorities.
         foreach ($priorities as $p) {
-            $whups_driver->addPriority($nid, $p['priority_name'],
-                                       $p['priority_description']);
+            $whups_driver->addPriority(
+                $nid, $p['priority_name'], $p['priority_description']);
         }
 
         // Add attributes.
         foreach ($attributes as $a) {
-            $whups_driver->addAttributeDesc($nid, $a['attribute_name'],
-                                            $a['attribute_description']);
+            $whups_driver->addAttributeDesc(
+                $nid, $a['attribute_name'], $a['attribute_description']);
         }
 
-        $notification->push(sprintf(_("Successfully Cloned %s to %s."),
-                                    $type['name'], $vars->get('name')),
-                            'horde.success');
+        $notification->push(
+            sprintf(_("Successfully Cloned %s to %s."), $type['name'], $vars->get('name')),
+                    'horde.success');
         Horde::url('admin/?action=type', true)->redirect();
     } else {
         _open();
@@ -873,7 +872,9 @@ case 'whups_form_admin_addattribute':
 case 'whups_form_admin_addattribute_reload':
     $form = new Whups_Form_Admin_AddAttribute($vars);
     $vars->set('action', 'type');
-    if ($vars->get('formname') == 'whups_form_admin_addattribute' && $form->validate($vars)) {
+    if ($vars->get('formname') == 'whups_form_admin_addattribute' &&
+        $form->validate($vars)) {
+
         try {
             $whups_driver->addAttributeDesc(
                 $vars->get('type'),
@@ -891,9 +892,9 @@ case 'whups_form_admin_addattribute_reload':
                 'horde.success');
             $vars = new Horde_Variables(array('type' => $vars->get('type')));
         } catch (Whups_Exception $e) {
-            $notification->push(_("There was an error creating the attribute:")
-                                . ' ' . $e->getMessage(),
-                                'horde.error');
+            $notification->push(
+                _("There was an error creating the attribute:") . ' ' . $e->getMessage(),
+                'horde.error');
         }
 
         _open();
