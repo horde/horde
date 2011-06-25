@@ -224,7 +224,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
             $images= $ansel_storage->listImages(
                 array(
                     'fields' => array('image_id', 'image_original_date'),
-                    $where)
+                    'where' => $where)
             );
             $dates = array();
             foreach ($images as $key => $image) {
@@ -264,7 +264,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
             $images= $ansel_storage->listImages(
                 array(
                     'fields' => array('image_id', 'image_original_date'),
-                    $where)
+                    'where' => $where)
             );
             $dates = array();
             foreach ($images as $key => $image) {
