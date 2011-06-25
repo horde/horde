@@ -73,11 +73,6 @@ class Ansel_Application extends Horde_Registry_Application
 
         /* Set up a default config */
         $GLOBALS['injector']->bindImplementation('Ansel_Config', 'Ansel_Config');
-
-        /* Build initial Ansel javascript object. */
-        if (!$GLOBALS['browser']->isMobile()) {
-            Horde::addInlineJsVars(array('var Ansel' => array('ajax' => new stdClass, 'widgets' => new stdClass)));
-        }
     }
 
     /**

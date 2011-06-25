@@ -47,6 +47,12 @@ try {
     exit;
 }
 
+// Build initial Ansel javascript object.
+if (!$GLOBALS['browser']->isMobile()) {
+    Horde::addInlineJsVars(
+        array('var Ansel' => array('ajax' => new stdClass, 'widgets' => new stdClass)));
+}
+
 $title = $view->getTitle();
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
