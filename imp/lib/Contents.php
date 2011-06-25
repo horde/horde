@@ -1000,6 +1000,51 @@ class IMP_Contents
     }
 
     /**
+     * Returns the MIME part tree of the message.
+     *
+     * @param string $renderer  Either the tree renderer driver or a full
+     *                          class name to use.
+     *
+     * @return Horde_Tree  A tree instance representing the MIME part tree.
+     * @throws Horde_Tree_Exception
+     */
+    public function getTree($renderer = 'Horde_Core_Tree_Html')
+    {
+        $tree = Horde_Tree::factory('mime-' . $this->_uid, $renderer);
+        $this->_addTreeNodes($tree, $this->_message);
+        return $tree;
+    }
+
+    /**
+     * Adds MIME parts to the tree instance.
+     *
+     * @param Horde_Tree tree        A tree instance.
+     * @param Horde_Mime_Part $part  The MIME part to add to the tree,
+     *                               including its sub-parts.
+     * @param string $parent         The parent part's MIME id.
+     */
+    protected function _addTreeNodes($tree, $part, $parent = null)
+    {
+        $viewer = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_MimeViewer');
+        $mimeid = $part->getMimeId();
+
+        $line = $mimeid;
+        if ($description = $part->getDescription(true)) {
+            $line .= ' ' . $description;
+        }
+        $line .= ' [' . $part->getType(true) . ']';
+        $tree->addNode($mimeid, $parent, $line);
+        $tree->addNodeParams(
+            $mimeid,
+            array('icon' => $viewer->getIcon($part->getType())));
+
+        foreach ($part->getParts() as $part) {
+            $this->_addTreeNodes($tree, $part, $mimeid);
+        }
+    }
+
+    /**
      * Get download all list.
      *
      * @return array  An array of downloadable parts.
