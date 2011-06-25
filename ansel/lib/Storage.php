@@ -618,7 +618,9 @@ class Ansel_Storage
     public function setImageSortOrder($imageId, $pos)
     {
          try {
-            $GLOBALS['ansel_db']->update('UPDATE ansel_images SET image_sort = ' . (int)$pos . ' WHERE image_id = ' . (int)$imageId);
+           $this->_db->update(
+               'UPDATE ansel_images SET image_sort = '
+               . (int)$pos . ' WHERE image_id = ' . (int)$imageId);
         } catch (Horde_Db_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
             throw new Horde_Exception($e);
