@@ -723,7 +723,8 @@ class Ansel_Storage
     }
 
     /**
-     * Return a list of image ids of the most recently added images.
+     * Return a list of image ids of the most recently added images for the
+     * current user.
      *
      * @param array $galleries  An array of gallery ids to search in. If
      *                          left empty, will search all galleries
@@ -900,9 +901,13 @@ class Ansel_Storage
                 } else {
                     $user = null;
                 }
-                $tagged = $GLOBALS['injector']->getInstance('Ansel_Tagger')
-                    ->search($params['tags'],
-                             array('type' => 'gallery', 'user' => $user));
+                $tagged = $GLOBALS['injector']
+                    ->getInstance('Ansel_Tagger')
+                    ->search(
+                        $params['tags'],
+                        array(
+                            'type' => 'gallery',
+                            'user' => $user));
 
                 foreach ($shares as $share) {
                     if (in_array($share->getId(), $tagged['galleries'])) {
