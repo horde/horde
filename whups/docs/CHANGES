@@ -2,6 +2,7 @@
 v2.0-cvs
 --------
 
+[mjr] Correctly set ticket version when changing queues (Bug #9645).
 [jan] Add listSlugs API method.
 [jan] Convert HTML messages to plain text when processing mail messages.
 [jan] Fix creating temporary files with open_basedir restrictions.
