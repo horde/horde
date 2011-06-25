@@ -137,8 +137,12 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
      */
     public function listImages($from = 0, $count = 0)
     {
-        return $GLOBALS['injector']->getInstance('Ansel_Storage')
-            ->listImages($this->_gallery->id, $from, $count);
+        return $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
+            ->listImages(array(
+                'gallery_id' => $this->_gallery->id,
+                'offset' => $from,
+                'limit' => $count));
     }
 
     /**

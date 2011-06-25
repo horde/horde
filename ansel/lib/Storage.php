@@ -1034,6 +1034,15 @@ class Ansel_Storage
     /**
      * Lists a slice of the image ids in the given gallery.
      *
+     * @param array $params  Filter parameters.
+     *<pre>
+     *  integer 'gallery_id'  - A gallery id to list images from
+     *  integer 'offset'      - The image to start listing from
+     *  integer 'limit'       - How many images to return
+     *  array|string 'fields' - The fields to return
+     *  string 'where'        - A SQL WHERE clause (will ignore any gallery_id).
+     *  string 'sort'         - The field to sort by.
+     *</pre>
      * @param integer $gallery_id  The gallery to list from.
      * @param integer $from        The image to start listing.
      * @param integer $count       The numer of images to list.
@@ -1045,33 +1054,41 @@ class Ansel_Storage
      *
      * @return array  An array of images. Either an array of ids, or an array
      *                of field values, keyed by id.
-     * @throws Ansel_Exception
+     * @throws Ansel_Exception, InvalidArgumentException
      */
-    public function listImages($gallery_id, $from = 0, $count = 0,
-                               $fields = 'image_id', $where = '',
-                               $sort = 'image_sort')
+    public function listImages(array $params = array())
     {
-        if (is_array($fields)) {
-            $field_count = count($fields);
-            $fields = implode(', ', $fields);
-        } elseif ($fields == '*') {
+        $params = new Horde_Support_Array($params);
+        if (is_array($params['fields'])) {
+            $field_count = count($params['fields']);
+            $params['fields'] = implode(', ', $params['fields']);
+        } elseif ($params['fields'] == '*') {
             // The count is not important, as long as it's > 1
             $field_count = 2;
         } else {
-            $field_count = substr_count($fields, ',') + 1;
+            $field_count = substr_count($params->get('fields', 'image_id'), ',') + 1;
         }
 
-        if (is_array($sort)) {
-            $sort = implode(', ', $sort);
+        if (is_array($params['sort'])) {
+            $params['sort'] = implode(', ', $params['sort']);
         }
 
-        if (!empty($where)) {
-            $query_where = 'WHERE ' . $where;
+        if ($params['where']) {
+            $query_where = 'WHERE ' . $params['where'];
         } else {
-            $query_where = 'WHERE gallery_id = ' . $gallery_id;
+            if (!$params->get('gallery_id')) {
+                throw new InvalidArgumentException('Missing gallery id in Ansel_Storage::listImages()');
+            }
+            $query_where = 'WHERE gallery_id = ' . $params['gallery_id'];
         }
-        $sql = 'SELECT ' . $fields . ' FROM ansel_images ' . $query_where . ' ORDER BY ' . $sort;
-        $sql = $this->_db->addLimitOffset($sql, array('limit' => $count, 'offset' => $from));
+        $sql = 'SELECT ' . $params->get('fields', 'image_id')
+            . ' FROM ansel_images ' . $query_where
+            . ' ORDER BY ' . $params->get('sort', 'image_sort');
+        $sql = $this->_db->addLimitOffset(
+            $sql,
+            array(
+                'limit' => $params->get('limit', 0),
+                'offset' => $params->get('offset', 0)));
         try {
             if ($field_count > 1) {
                 $results = $this->_db->selectAll($sql);
@@ -1112,7 +1129,14 @@ class Ansel_Storage
             return array();
         }
 
-        return $this->listImages(0, 0, 0, array('image_id as id', 'image_id', 'image_latitude', 'image_longitude', 'image_location'), $where);
+        return $this->listImages(array(
+            'fields' => array(
+                'image_id as id',
+                'image_id',
+                'image_latitude',
+                'image_longitude',
+                'image_location'),
+            'where' => $where));
     }
 
     /**
@@ -1147,19 +1171,18 @@ class Ansel_Storage
             . ') AND LENGTH(image_latitude) > 0 '
             . 'GROUP BY image_latitude, image_longitude';
 
-        return $this->listImages(
-            null,
-            $start,
-            $count,
-            array(
+        return $this->listImages(array(
+            'offset' => $start,
+            'limit' => $count,
+            'fields' => array(
                 'image_id as id',
                 'image_id',
                 'gallery_id',
                 'image_latitude',
                 'image_longitude',
                 'image_location'),
-            $where,
-            'image_geotag_date DESC');
+            'where' => $where,
+            'sort' => 'image_geotag_date DESC'));
     }
 
     /**
