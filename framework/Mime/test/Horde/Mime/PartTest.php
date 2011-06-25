@@ -176,6 +176,11 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
             'resource',
             $part1->getContents(array('stream' => true))
         );
+
+        $this->assertEquals(
+            'Test',
+            $part->getContents()
+        );
     }
 
     protected function _getTestPart()
