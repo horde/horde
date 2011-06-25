@@ -406,7 +406,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable
                 ? $this->_writeStream($contents)
                 : $contents;
 
-            $this->_writeStream((empty($options['encoding']) || ($options['encoding'] == $this->_transferEncoding)) ? $fp : $this->_transferDecode($fp, $options['encoding']), array('fp' => $this->_assureStream($this->_contents)));
+            $this->_writeStream((empty($options['encoding']) || ($options['encoding'] == $this->_transferEncoding)) ? $fp : $this->_transferDecode($fp, $options['encoding']), array('fp' => $this->_contents));
             unset($this->_temp['sendTransferEncoding']);
         }
     }
@@ -417,9 +417,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     public function clearContents()
     {
         if (!empty($this->_contents)) {
-            if (is_resource($this->_contents)) {
-                fclose($this->_contents);
-            }
+            fclose($this->_contents);
             $this->_contents = null;
             unset($this->_temp['sendTransferEncoding']);
         }
@@ -443,7 +441,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable
      */
     public function getContents($options = array())
     {
-        $this->_contents = $this->_assureStream($this->_contents);
         return empty($options['canonical'])
             ? (empty($options['stream']) ? $this->_readStream($this->_contents) : $this->_contents)
             : $this->replaceEOL($this->_contents, self::RFC_EOL, !empty($options['stream']));
@@ -1140,7 +1137,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable
              * directly and return. */
             $ptype = $this->getPrimaryType();
             if ($ptype == 'message') {
-                $parts[] = $this->_assureStream($this->_contents);
+                $parts[] = $this->_contents;
             } else {
                 if (!empty($this->_contents)) {
                     $encoding = $this->_getTransferEncoding($options['encode']);
@@ -1156,7 +1153,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable
                         break;
                     }
 
-                    $parts[] = $this->_transferEncode($this->_assureStream($this->_contents), $encoding);
+                    $parts[] = $this->_transferEncode($this->_contents, $encoding);
 
                     /* If not using $this->_contents, we can close the stream
                      * when finished. */
@@ -1271,11 +1268,11 @@ class Horde_Mime_Part implements ArrayAccess, Countable
             case 'text':
                 $eol = $this->getEOL();
 
-                if ($this->_scanStream($this->_assureStream($this->_contents), '8bit')) {
+                if ($this->_scanStream($this->_contents, '8bit')) {
                     $encoding = ($encode & self::ENCODE_8BIT || $encode & self::ENCODE_BINARY)
                         ? '8bit'
                         : 'quoted-printable';
-                } elseif ($this->_scanStream($this->_assureStream($this->_contents), 'preg', "/(?:" . $eol . "|^)[^" . $eol . "]{999,}(?:" . $eol . "|$)/")) {
+                } elseif ($this->_scanStream($this->_contents, 'preg', "/(?:" . $eol . "|^)[^" . $eol . "]{999,}(?:" . $eol . "|$)/")) {
                     /* If the text is longer than 998 characters between
                      * linebreaks, use quoted-printable encoding to ensure the
                      * text will not be chopped (i.e. by sendmail if being
@@ -1306,7 +1303,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable
              * those encodings. */
             if (!$nobinary &&
                 in_array($encoding, array('8bit', '7bit')) &&
-                $this->_scanStream($this->_assureStream($this->_contents), 'binary')) {
+                $this->_scanStream($this->_contents, 'binary')) {
                 $encoding = ($encode & self::ENCODE_BINARY)
                     ? 'binary'
                     : 'base64';
@@ -1364,7 +1361,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable
                 $bytes += $part->getBytes();
             }
         } elseif ($this->_contents) {
-            $this->_contents = $this->_assureStream($this->_contents);
             fseek($this->_contents, 0, SEEK_END);
             $bytes = ftell($this->_contents);
         }
@@ -1669,24 +1665,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable
         }
 
         return null;
-    }
-
-    /**
-     * Converts some data to a stream if necessary.
-     *
-     * @param resource|string  Some data.
-     *
-     * @return resource  The orginal resource, or a new resource with the
-     *                   passed data.
-     *
-     * @throws ErrorException
-     */
-    protected function _assureStream($data)
-    {
-        if (!is_resource($data)) {
-            $data = $this->_writeStream($data);
-        }
-        return $data;
     }
 
     /**

@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Fix accessing the MIME part content after serialization (Bug #10252).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -689,7 +689,7 @@
    <date>2011-06-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* [jan] Fix accessing the MIME part content after serialization (Bug #10252).
+* 
    </notes>
   </release>
  </changelog>
