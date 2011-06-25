@@ -514,7 +514,8 @@ class Ansel_Api extends Horde_Registry_Api
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
             throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied deleting gallery \"%s\"."), $gallery->get('name')));
         } else {
-            return $GLOBALS['injector']->getInstance('Ansel_Storage')
+            $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
                 ->removeGallery($gallery);
         }
     }

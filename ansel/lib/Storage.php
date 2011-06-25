@@ -392,7 +392,6 @@ class Ansel_Storage
      *
      * @param Ansel_Gallery $gallery  The gallery to delete
      *
-     * @return boolean
      * @throws Ansel_Exception
      */
     public function removeGallery(Ansel_Gallery $gallery)
@@ -436,8 +435,6 @@ class Ansel_Storage
                 }
             }
         }
-
-        return true;
     }
 
     /**
