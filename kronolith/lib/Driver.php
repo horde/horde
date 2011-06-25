@@ -149,7 +149,9 @@ class Kronolith_Driver
          * ability. */
         $results = array();
 
-        $events = $this->listEvents($query->start, $query->end);
+        $events = $this->listEvents(
+            (!empty($query->start) ? $query->start : null),
+            (!empty($query->end) ? $query->end : null));
         foreach ($events as $day => $day_events) {
             foreach ($day_events as $event) {
                 if ((((!isset($query->start) ||
