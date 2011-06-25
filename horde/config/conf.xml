@@ -1748,7 +1748,9 @@
    <configheader>Twitter Integration Settings</configheader>
    <configdescription>If you want to allow your users to interact with their
    Twitter account, enable this section. You must setup an application on
-   Twitter and obtain the OAuth secret and key from Twitter.</configdescription>
+   Twitter and obtain the OAuth secret and key from Twitter. See
+   http://wiki.horde.org/Doc/Admin/Config/Horde/Twitter for details.
+  </configdescription>
    <configswitch name="enabled">false
     <case name="false" desc="Disabled" />
     <case name="true" desc="Enabled">
