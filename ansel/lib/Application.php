@@ -12,7 +12,7 @@
  *
  * @author  Jan Schneider <jan@horde.org>
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
 
@@ -21,17 +21,12 @@ if (!defined('ANSEL_BASE')) {
 }
 
 if (!defined('HORDE_BASE')) {
-    /* If horde does not live directly under the app directory, the HORDE_BASE
-     * constant should be defined in config/horde.local.php. */
     if (file_exists(ANSEL_BASE . '/config/horde.local.php')) {
         include ANSEL_BASE . '/config/horde.local.php';
     } else {
         define('HORDE_BASE', ANSEL_BASE . '/..');
     }
 }
-
-/* Load the Horde Framework core (needed to autoload
- * Horde_Registry_Application::). */
 require_once HORDE_BASE . '/lib/core.php';
 
 class Ansel_Application extends Horde_Registry_Application
@@ -42,7 +37,8 @@ class Ansel_Application extends Horde_Registry_Application
 
     /**
      * Global variables defined:
-     *   $ansel_db - TODO
+     *   $ansel_db - TODO  remove this global. Only place left that uses it
+     *               are the face objects.
      */
     protected function _init()
     {
@@ -50,10 +46,15 @@ class Ansel_Application extends Horde_Registry_Application
             throw new Horde_Exception('You must configure a Horde_Image driver to use Ansel');
         }
 
-        /* For now, autoloading the Content_* classes depend on there being a
-         * registry entry for the 'content' application that contains at least
-         * the fileroot entry. */
-        $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
+        // For now, autoloading the Content_* classes depend on there being a
+        // registry entry for the 'content' application that contains at least
+        // the fileroot entry
+        $GLOBALS['injector']
+          ->getInstance('Horde_Autoloader')
+          ->addClassPathMapper(
+            new Horde_Autoloader_ClassPathMapper_Prefix(
+              '/^Content_/',
+              $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
         if (!class_exists('Content_Tagger')) {
             throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the registry entry for the Content system is present.');
         }
