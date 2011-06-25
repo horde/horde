@@ -517,8 +517,7 @@ class Whups_Driver
             $text .= "\n"
                 . sprintf(_("%s (%s) wrote:"),
                           Whups::formatUser($comment['user_id']),
-                          Horde_Form_Type_date::getFormattedTime(
-                              $comment['timestamp'], '%Y-%m-%d %H:%M', false))
+                          strftime('%Y-%m-%d %H:%M', $comment['timestamp']))
                 . "\n\n" . $comment['comment_text'] . "\n\n\n";
         }
 
