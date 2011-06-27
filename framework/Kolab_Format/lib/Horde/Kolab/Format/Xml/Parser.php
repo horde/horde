@@ -49,6 +49,18 @@ class Horde_Kolab_Format_Xml_Parser
     }
 
     /**
+     * Simply return the DOMDocument without parsing any data.
+     *
+     * @since Horde_Kolab_Format 1.1.0
+     *
+     * @return DOMDocument The DOM document.
+     */
+    public function getDocument()
+    {
+        return $this->_document;
+    }
+
+    /**
      * Load an object based on the given XML string.
      *
      * @param string $input   The XML of the message as string.
@@ -57,7 +69,7 @@ class Horde_Kolab_Format_Xml_Parser
      * - relaxed: Relaxed error checking (default: false)
      * </pre>
      *
-     * @return array The data array representing the object.
+     * @return DOMDocument The DOM document.
      *
      * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
      */
@@ -92,7 +104,7 @@ class Horde_Kolab_Format_Xml_Parser
      * @param string $input   The XML of the message as string.
      * @param array  $options Additional options when parsing the XML.
      *
-     * @return NULL
+     * @return DOMDocument The DOM document.
      *
      * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
      *
