@@ -145,6 +145,10 @@ class Horde_Kolab_Format_Factory
             return new Horde_Kolab_Format_Xml_Type_XmlAppend(
                 $xmldoc
             );
+        case Horde_Kolab_Format_Xml::TYPE_ROOT:
+            return new Horde_Kolab_Format_Xml_Type_Root(
+                $xmldoc, $params
+            );
         default:
             throw new Horde_Kolab_Format_Exception(
                 sprintf('XML type %s not supported!')
