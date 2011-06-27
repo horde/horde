@@ -40,13 +40,60 @@ extends PHPUnit_Framework_TestCase
         $parser = new Horde_Kolab_Format_Xml_Parser(
             new DOMDocument('1.0', 'UTF-8')
         );
-        $parser->parse("<?xml version=\"1.0\"?>\n<kolab><test/></kolab>");
+        $this->assertInstanceOf(
+            'DOMDocument', 
+            $parser->parse("<?xml version=\"1.0\"?>\n<kolab><test/></kolab>")
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Format_Exception_ParseError
+     */
+    public function testParseMissingChild()
+    {
+        $parser = new Horde_Kolab_Format_Xml_Parser(
+            new DOMDocument('1.0', 'UTF-8')
+        );
+        $parser->parse("<?xml version=\"1.0\"?>\n<kolab></kolab>");
     }
 
     public function testParseResource()
     {
         $data = fopen('php://temp', 'r+');
         fwrite($data, "<?xml version=\"1.0\"?>\n<kolab><test/></kolab>");
+        $parser = new Horde_Kolab_Format_Xml_Parser(
+            new DOMDocument('1.0', 'UTF-8')
+        );
+        $this->assertInstanceOf('DOMDocument', $parser->parse($data));
+    }
+
+    public function testParseUmlaut()
+    {
+        $data = fopen('php://temp', 'r+');
+        fwrite($data, "<?xml version=\"1.0\"?>\n<kolab><ä/></kolab>");
+        $parser = new Horde_Kolab_Format_Xml_Parser(
+            new DOMDocument('1.0', 'UTF-8')
+        );
+        $this->assertInstanceOf('DOMDocument', $parser->parse($data));
+    }
+
+    public function testParseUmlautWithUtf8Encoding()
+    {
+        $data = fopen('php://temp', 'r+');
+        fwrite($data, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<kolab><ä/></kolab>");
+        $parser = new Horde_Kolab_Format_Xml_Parser(
+            new DOMDocument('1.0', 'UTF-8')
+        );
+        $this->assertInstanceOf('DOMDocument', $parser->parse($data));
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Format_Exception_ParseError
+     */
+    public function testParseUmlautWrongEncoding()
+    {
+        $data = fopen('php://temp', 'r+');
+        fwrite($data, "<?xml version=\"1.0\" encoding=\"windows-1252\"?>\n<kolab><ä/></kolab>");
         $parser = new Horde_Kolab_Format_Xml_Parser(
             new DOMDocument('1.0', 'UTF-8')
         );
@@ -77,6 +124,17 @@ extends PHPUnit_Framework_TestCase
   <foreground-color>#ffff00</foreground-color>
 </note>
 ');
+    }
+
+    public function testParseEmpty()
+    {
+        $parser = new Horde_Kolab_Format_Xml_Parser(
+            new DOMDocument('1.0', 'UTF-8')
+        );
+        $this->assertInstanceOf(
+            'DOMDocument', 
+            $parser->parse('', array('relaxed' => true))
+        );
     }
 
 }
