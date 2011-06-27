@@ -43,7 +43,7 @@ extends PHPUnit_Framework_TestCase
     public function testBasic()
     {
         $xml = $this->_getPlain();
-        $xml->_prepareSave();
+        $xml->save(array());
         $base = $xml->_xmldoc->saveXML();
         $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\"/>\n",
                             $base);
@@ -56,9 +56,9 @@ extends PHPUnit_Framework_TestCase
      */
     public function testReadable()
     {
-        $this->markTestIncomplete('Roundtrip makes sense, but how to handle empty document?');
+        //$this->markTestIncomplete('Roundtrip makes sense, but how to handle empty document?');
         $xml = $this->_getPlain();
-        $xml->_prepareSave();
+        $xml->save(array());
         $base = $xml->_xmldoc->saveXML();
         $xml->load($base);
         $this->assertEquals($base, $xml->_xmldoc->saveXML());
@@ -73,7 +73,7 @@ extends PHPUnit_Framework_TestCase
     public function testAdd()
     {
         $xml = $this->_getPlain();
-        $root = $xml->_prepareSave();
+        $root = $xml->save(array());
         $base = $xml->_xmldoc->saveXML();
 
         // A missing attribute should cause no change if it
@@ -125,7 +125,7 @@ extends PHPUnit_Framework_TestCase
     public function testNodeOps()
     {
         $dxml = $this->_getDummy();
-        $droot = $dxml->_prepareSave();
+        $droot = $dxml->save(array());
 
         // Test calculated nodes
         $dxml->_updateNode($droot,
@@ -142,7 +142,7 @@ extends PHPUnit_Framework_TestCase
                             $dxml->_xmldoc->saveXML());
 
         $xml  = $this->_getPlain();
-        $root = $xml->_prepareSave();
+        $root = $xml->save(array());
         $xml->_updateNode($root,
                           array(),
                           'empty1',
@@ -262,7 +262,7 @@ extends PHPUnit_Framework_TestCase
     {
         // Continue with complex values
         $xml = $this->_getPlain();
-        $root = $xml->_prepareSave();
+        $root = $xml->save(array());
 
         // Test saving a composite value
         $xml->_updateNode($root,

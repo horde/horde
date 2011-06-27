@@ -111,6 +111,11 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     const TYPE_XML = 9;
 
     /**
+     * Represents the Kolab format root node
+     */
+    const TYPE_ROOT = 10;
+
+    /**
      * The parser dealing with the input.
      *
      * @var Horde_Kolab_Format_Xml_Parser
@@ -153,6 +158,13 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
      * @var string
      */
     protected $_root_version = '1.0';
+
+    /**
+     * Kolab format root element.
+     *
+     * @var Horde_Kolab_Format_Xml_Type_Root
+     */
+    protected $_root;
 
     /**
      * Basic fields in any Kolab object
@@ -377,7 +389,11 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
      * Load an object based on the given XML stream. The stream may only contain
      * UTF-8 data.
      *
-     * @param resource $xml The XML stream of the message.
+     * @param resource $xml     The XML stream of the message.
+     * @param array    $options Additional options when parsing the XML.
+     * <pre>
+     * - relaxed: Relaxed error checking (default: false)
+     * </pre>
      *
      * @return array The data array representing the object.
      *
@@ -386,18 +402,29 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
      * @todo Check encoding of the returned array. It seems to be ISO-8859-1 at
      * the moment and UTF-8 would seem more appropriate.
      */
-    public function load($xml)
+    public function load($xml, $options = array())
     {
-        $this->_xmldoc = $this->_parser->parse($xml);
+        $this->_xmldoc = $this->_parser->parse($xml, $options);
+        $params = array_merge(
+            $options,
+            array(
+                'type' => $this->_root_name,
+                'version' => $this->_root_version
+            )
+        );
+        $this->_root = $this->_factory->createXmlType(
+            self::TYPE_ROOT, $this->_xmldoc, $params
+        );
+        $rootNode = $this->_root->load();
 
         // fresh object data
         $object = array();
 
-        $result = $this->_loadArray($this->_xmldoc->documentElement->childNodes, $this->_fields_basic);
+        $result = $this->_loadArray($rootNode->childNodes, $this->_fields_basic);
         $object = array_merge($object, $result);
         $this->_loadMultipleCategories($object);
 
-        $result = $this->_load($this->_xmldoc->documentElement->childNodes);
+        $result = $this->_load($rootNode->childNodes);
         $object = array_merge($object, $result);
 
         // uid is vital
@@ -525,19 +552,43 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
      * Convert the data to a XML stream. Strings contained in the data array may
      * only be provided as UTF-8 data.
      *
-     * @param array $object The data array representing the object.
+     * @param array $object  The data array representing the object.
+     * @param array $options Additional options when parsing the XML.
+     * <pre>
+     * - previos: The previous XML text (default: empty string)
+     * - relaxed: Relaxed error checking (default: false)
+     * </pre>
      *
      * @return resource The data as XML stream.
      *
      * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
-    public function save($object)
+    public function save($object, $options = array())
     {
-        $root = $this->_prepareSave();
+        if (!isset($options['previous'])) {
+            $this->_xmldoc = $this->_parser->getDocument();
+        } else {
+            $parse_options = $options;
+            unset($parse_options['previous']);
+            $this->_xmldoc = $this->_parser->parse(
+                $options['previous'], $parse_options
+            );
+        }
+        $params = array_merge(
+            $options,
+            array(
+                'type' => $this->_root_name,
+                'version' => $this->_root_version
+            )
+        );
+        $this->_root = $this->_factory->createXmlType(
+            self::TYPE_ROOT, $this->_xmldoc, $params
+        );
+        $rootNode = $this->_root->save();
 
         $this->_saveMultipleCategories($object);
-        $this->_saveArray($root, $object, $this->_fields_basic);
-        $this->_save($root, $object);
+        $this->_saveArray($rootNode, $object, $this->_fields_basic);
+        $this->_save($rootNode, $object);
 
         return $this->_xmldoc->saveXML();
     }
@@ -558,26 +609,6 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
             $this->_saveArray($root, $object, $this->_fields_specific);
         }
         return true;
-    }
-
-    /**
-     * Creates a new XML document if necessary.
-     *
-     * @return DOMNode The root node of the document.
-     *
-     * @todo Make protected (fix the XmlTest for that)
-     */
-    public function &_prepareSave()
-    {
-        $this->_xmldoc = new DOMDocument();
-
-        $this->_xmldoc->preserveWhiteSpace = false;
-        $this->_xmldoc->formatOutput       = true;
-
-        $root = $this->_xmldoc->createElement($this->_root_name);
-        $this->_xmldoc->appendChild($root);
-        $root->setAttribute('version', $this->_root_version);
-        return $root;
     }
 
     /**
