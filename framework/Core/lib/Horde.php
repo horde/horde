@@ -1458,7 +1458,7 @@ HTML;
      *                 the image data if the browser supports, or the URI
      *                 if not.
      */
-    public function base64ImgData($in, $limit = null)
+    static public function base64ImgData($in, $limit = null)
     {
         $dataurl = $GLOBALS['browser']->hasFeature('dataurl');
         if (!$dataurl) {
