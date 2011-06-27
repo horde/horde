@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-06-27</date>
- <time>07:51:33</time>
+ <time>09:24:31</time>
  <version>
   <release>3.0.5</release>
   <api>3.0.0</api>
@@ -603,9 +603,9 @@
       <file name="Driver.php" role="test" />
       <file name="Registry.php" role="test" />
      </dir> <!-- /test/Kronolith/Stub -->
-     <dir name="ToDo">
-      <file name="bug6031.phpt" role="test" />
-     </dir> <!-- /test/Kronolith/ToDo -->
+     <dir name="Unit">
+      <file name="KolabTest.php" role="test" />
+     </dir> <!-- /test/Kronolith/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
      <file name="phpunit.xml" role="test" />
@@ -1424,7 +1424,7 @@
    <install as="Kronolith/Integration/ToIcalendarTest.php" name="test/Kronolith/Integration/ToIcalendarTest.php" />
    <install as="Kronolith/Stub/Driver.php" name="test/Kronolith/Stub/Driver.php" />
    <install as="Kronolith/Stub/Registry.php" name="test/Kronolith/Stub/Registry.php" />
-   <install as="Kronolith/ToDo/bug6031.phpt" name="test/Kronolith/ToDo/bug6031.phpt" />
+   <install as="Kronolith/Unit/KolabTest.php" name="test/Kronolith/Unit/KolabTest.php" />
    <install as="kronolith/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="kronolith/themes/burntorange/screen.css" name="themes/burntorange/screen.css" />
    <install as="kronolith/themes/default/embed.css" name="themes/default/embed.css" />
