@@ -116,15 +116,37 @@ $server = Horde_Rpc::factory($serverType, $request, $params);
 /* Let the backend check authentication. By default, we look for HTTP
  * basic authentication against Horde, but backends can override this
  * as needed. */
-$server->authorize();
-
+try {
+    $server->authorize();
+} catch (Horde_Rpc_Exception $e) {
+    Horde::logMessage($e, 'ERR');
+    header('HTTP/1.0 500 Internal Server Error');
+    echo $e->getMessage();
+    exit;
+}
 /* Get the server's response. We call $server->getInput() to allow
  * backends to handle input processing differently. */
 if (is_null($input)) {
-    $input = $server->getInput();
+    try {
+        $input = $server->getInput();
+    } catch (Horde_Rpc_Exception $e) {
+        Horde::logMessage($e, 'ERR');
+        header('HTTP/1.0 500 Internal Server Error');
+        echo $e->getMessage();
+        exit;
+    }
 }
 
-$out = $server->getResponse($input);
+try {
+    $out = $server->getResponse($input);
+} catch (Horde_Rpc_Exception $e) {
+    Horde::logMessage($e, 'ERR');
+    header('HTTP/1.0 500 Internal Server Error');
+    echo $e->getMessage();
+    exit;
+}
+
+
 if ($out instanceof PEAR_Error) {
     header('HTTP/1.0 500 Internal Server Error');
     echo $out->getMessage();

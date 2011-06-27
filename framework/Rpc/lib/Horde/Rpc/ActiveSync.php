@@ -116,20 +116,25 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         switch ($serverVars['REQUEST_METHOD']) {
         case 'OPTIONS':
             $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for OPTIONS');
-            $this->_server->handleRequest('Options', null, null);
+            try {
+                $this->_server->handleRequest('Options', null, null);
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_handleError($e);
+            }
             break;
 
         case 'POST':
             Horde_ActiveSync::activeSyncHeader();
-
-            // Do the actual request
             $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for ' . $this->_get['Cmd']);
-            $this->_server->handleRequest($this->_get['Cmd'], $this->_get['DeviceId']);
-
+            try {
+                $this->_server->handleRequest($this->_get['Cmd'], $this->_get['DeviceId']);
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_handleError($e);
+            }
             break;
 
         case 'GET':
-            /* Someone trying to access the activesync url from a browser */
+            // Someone trying to access the activesync url from a browser
             throw new Horde_Rpc_Exception('Trying to access the ActiveSync endpoint from a browser. Not Supported.');
             break;
         }
@@ -215,6 +220,25 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         $this->_logger->debug('Horde_Rpc_ActiveSync::authorize() exiting');
 
         return true;
+    }
+
+    /**
+     * Output exception information to the logger.
+     *
+     * @param Exception $e  The exception
+     *
+     * @throws Horde_Rpc_Exception $e
+     */
+    protected function _handleError($e)
+    {
+        $trace = $e->getTraceAsString();
+        $m = $e->getMessage();
+        $buffer = ob_get_clean();
+
+        $this->_logger->err('Error in communicating with ActiveSync server: ' . $m);
+        $this->_logger->err($trace);
+        $this->_logger->err('Buffer contents: ' . $buffer);
+        throw new Horde_Rpc_Exception($e);
     }
 
 }
