@@ -23,7 +23,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [gwr] Removed stray kolab-format script which was moved to Horde_Kolab_Cli.
+* [gwr] Added improved root node handler (version checking, avoids overwriting other data).
+* [gwr] Fixed detecting parse errors in subsequent parse attempts.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -348,6 +350,7 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Removed stray kolab-format script which was moved to Horde_Kolab_Cli.
+* [gwr] Added improved root node handler (version checking, avoids overwriting other data).
 * [gwr] Fixed detecting parse errors in subsequent parse attempts.
    </notes>
   </release>

@@ -1,0 +1,8 @@
+------
+v1.1.0
+------
+
+[gwr] Added improved root node handler (version checking, avoids overwriting
+      other data).
+[gwr] Fixed detecting parse errors in subsequent parse attempts.
+
