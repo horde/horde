@@ -73,22 +73,30 @@ class Kronolith_Integration_FromIcalendarTest extends Kronolith_TestCase
 
     public function testExceptionsTwo()
     {
-        $this->markTestIncomplete('Too much boilerplate necessary.');
+        $GLOBALS['conf']['calendar']['driver'] = 'Mock';
+        $GLOBALS['injector'] = new Horde_Injector(new Horde_Injector_TopLevel());
         $event = $this->_getFixture('bug7068.ics');
         $this->assertEquals(
             array('20080729'),
             $event->recurrence->exceptions
         );
+
+        unset($GLOBALS['injector']);
+        unset($GLOBALS['conf']);
     }
 
     public function testExceptionsThree()
     {
-        $this->markTestIncomplete('Too much boilerplate necessary.');
+        $GLOBALS['conf']['calendar']['driver'] = 'Mock';
+        $GLOBALS['injector'] = new Horde_Injector(new Horde_Injector_TopLevel());
         $event = $this->_getFixture('bug7068.ics', 1);
         $this->assertEquals(
             array ('20080722', '20080729'),
             $event->recurrence->exceptions
         );
+
+        unset($GLOBALS['injector']);
+        unset($GLOBALS['conf']);
     }
 
     private function _getFixture($name, $item = 0)

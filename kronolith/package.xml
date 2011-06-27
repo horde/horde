@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-06-27</date>
- <time>06:53:02</time>
+ <time>07:51:33</time>
  <version>
   <release>3.0.5</release>
   <api>3.0.0</api>
@@ -605,8 +605,6 @@
      </dir> <!-- /test/Kronolith/Stub -->
      <dir name="ToDo">
       <file name="bug6031.phpt" role="test" />
-      <file name="bug7068.phpt" role="test" />
-      <file name="toicalendar.phpt" role="test" />
      </dir> <!-- /test/Kronolith/ToDo -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
@@ -1427,8 +1425,6 @@
    <install as="Kronolith/Stub/Driver.php" name="test/Kronolith/Stub/Driver.php" />
    <install as="Kronolith/Stub/Registry.php" name="test/Kronolith/Stub/Registry.php" />
    <install as="Kronolith/ToDo/bug6031.phpt" name="test/Kronolith/ToDo/bug6031.phpt" />
-   <install as="Kronolith/ToDo/bug7068.phpt" name="test/Kronolith/ToDo/bug7068.phpt" />
-   <install as="Kronolith/ToDo/toicalendar.phpt" name="test/Kronolith/ToDo/toicalendar.phpt" />
    <install as="kronolith/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="kronolith/themes/burntorange/screen.css" name="themes/burntorange/screen.css" />
    <install as="kronolith/themes/default/embed.css" name="themes/default/embed.css" />
