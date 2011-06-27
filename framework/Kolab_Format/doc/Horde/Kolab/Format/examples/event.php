@@ -14,10 +14,13 @@
 /**
  * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Autoloader.php';
+require_once 'Horde/Autoloader/Default.php';
+
+/** Create the factory */
+$factory = new Horde_Kolab_Format_Factory();
 
 /** Generate the format handler */
-$format = Horde_Kolab_Format::factory('Xml', 'Event');
+$format = $factory->create('Xml', 'Event');
 
 /** Prepare a test object */
 $object = array(
