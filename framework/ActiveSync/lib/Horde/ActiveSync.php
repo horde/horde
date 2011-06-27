@@ -356,7 +356,7 @@ class Horde_ActiveSync
             $device->user = $this->_driver->getUser();
             $device->id = $devId;
             $state->setDeviceInfo($device);
-        } elseif (!empty($devId)) {
+        } else {
             $device = $state->loadDeviceInfo($devId, $this->_driver->getUser());
         }
 
