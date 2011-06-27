@@ -53,12 +53,14 @@
         <file name="Timed.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Format/Decorator -->
        <dir name="Exception">
+        <file name="InvalidRoot.php" role="php" />
         <file name="MissingUid.php" role="php" />
         <file name="MissingValue.php" role="php" />
         <file name="ParseError.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Format/Exception -->
        <dir name="Xml">
         <dir name="Type">
+         <file name="Root.php" role="php" />
          <file name="XmlAppend.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type -->
         <file name="Annotation.php" role="php" />
@@ -126,6 +128,9 @@
          <file name="ParseErrorTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Format/Unit/Exception -->
         <dir name="Xml">
+         <dir name="Type">
+          <file name="RootTest.php" role="test" />
+         </dir> <!-- /test/Horde/Kolab/Format/Unit/Xml/Type -->
          <file name="EnvelopeTest.php" role="test" />
          <file name="ParserTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Format/Unit/Xml -->
@@ -203,6 +208,7 @@
    <install as="Horde/Kolab/Format/Decorator/Base.php" name="lib/Horde/Kolab/Format/Decorator/Base.php" />
    <install as="Horde/Kolab/Format/Decorator/Memory.php" name="lib/Horde/Kolab/Format/Decorator/Memory.php" />
    <install as="Horde/Kolab/Format/Decorator/Timed.php" name="lib/Horde/Kolab/Format/Decorator/Timed.php" />
+   <install as="Horde/Kolab/Format/Exception/InvalidRoot.php" name="lib/Horde/Kolab/Format/Exception/InvalidRoot.php" />
    <install as="Horde/Kolab/Format/Exception/MissingUid.php" name="lib/Horde/Kolab/Format/Exception/MissingUid.php" />
    <install as="Horde/Kolab/Format/Exception/MissingValue.php" name="lib/Horde/Kolab/Format/Exception/MissingValue.php" />
    <install as="Horde/Kolab/Format/Exception/ParseError.php" name="lib/Horde/Kolab/Format/Exception/ParseError.php" />
@@ -215,6 +221,7 @@
    <install as="Horde/Kolab/Format/Xml/Note.php" name="lib/Horde/Kolab/Format/Xml/Note.php" />
    <install as="Horde/Kolab/Format/Xml/Parser.php" name="lib/Horde/Kolab/Format/Xml/Parser.php" />
    <install as="Horde/Kolab/Format/Xml/Task.php" name="lib/Horde/Kolab/Format/Xml/Task.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/Root.php" name="lib/Horde/Kolab/Format/Xml/Type/Root.php" />
    <install as="Horde/Kolab/Format/Xml/Type/XmlAppend.php" name="lib/Horde/Kolab/Format/Xml/Type/XmlAppend.php" />
    <install as="Horde/Kolab/Format/AllTests.php" name="test/Horde/Kolab/Format/AllTests.php" />
    <install as="Horde/Kolab/Format/Autoload.php" name="test/Horde/Kolab/Format/Autoload.php" />
