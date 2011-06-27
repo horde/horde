@@ -13,3 +13,11 @@
  - Check how we deal with malformed XML data
 
  - KEP2
+
+ - Allow extending format types with additional attributes on the fly.
+
+ - AllDay events
+
+ - Recurrence start handling
+
+ - kolab/issue4672 (Kolab_Format has encoding problems)
