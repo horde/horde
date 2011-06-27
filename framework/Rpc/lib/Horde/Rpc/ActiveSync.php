@@ -44,11 +44,11 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
      * @param array $config  A hash containing any additional configuration or
      *                       connection parameters this class might need.
      */
-    public function __construct(Horde_Controller_Request_Http $request, $params = array())
+    public function __construct(Horde_Controller_Request_Http $request, array $params = array())
     {
         parent::__construct($request, $params);
 
-        /* Check for requirements */
+        // Check for requirements
         $this->_get = $request->getGetVars();
         if ($request->getMethod() == 'POST' &&
             (empty($this->_get['Cmd']) || empty($this->_get['DeviceId']) || empty($this->_get['DeviceType']))) {
@@ -75,10 +75,8 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
             }
         }
 
-        /* Set our server and backend objects */
         $this->_backend = $params['backend'];
         $this->_server = $params['server'];
-        /* provisioning can be false, true, or 'loose' */
         $this->_server->setProvisioning(empty($params['provisioning']) ? false : $params['provisioning']);
     }
 
