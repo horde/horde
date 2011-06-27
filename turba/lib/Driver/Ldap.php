@@ -116,7 +116,7 @@ class Turba_Driver_Ldap extends Turba_Driver
                                 ? $hash[$mapfield]
                                 : '';
                         }
-                        $hash[$turbaname] = trim(vsprintf($this->map[$turbaname]['format'], $fieldarray), " \t\n\r\0\x0B,");
+                        $hash[$turbaname] = Turba::formatCompositeField($this->map[$turbaname]['format'], $fieldarray);
                     }
                 }
             }

@@ -102,7 +102,7 @@ class Turba_Object
             foreach ($this->driver->map[$attribute]['fields'] as $field) {
                 $args[] = $this->getValue($field);
             }
-            return trim(vsprintf($this->driver->map[$attribute]['format'], $args), " \t\n\r\0\x0B,");
+            return Turba::formatCompositeField($this->driver->map[$attribute]['format'], $args);
         } elseif (!isset($this->attributes[$attribute])) {
             return null;
         } elseif (isset($GLOBALS['attributes'][$attribute]) &&

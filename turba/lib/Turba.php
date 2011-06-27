@@ -144,6 +144,19 @@ class Turba
     }
 
     /**
+     * Builds and cleans up a composite field.
+     *
+     * @param string $format  The sprintf field format.
+     * @param array $fields   The fields that compose the composite field.
+     *
+     * @return string  The formatted composite field.
+     */
+    static public function formatCompositeField($format, $fields)
+    {
+        return preg_replace('/ +/', ' ', trim(vsprintf($format, $fields), " \t\n\r\0\x0B,"));
+    }
+
+    /**
      * Returns a best guess at the lastname in a string.
      *
      * @param string $name  String contain the full name.

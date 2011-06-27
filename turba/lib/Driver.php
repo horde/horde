@@ -229,7 +229,7 @@ class Turba_Driver implements Countable
                             ? $hash[$mapfields]
                             : '';
                     }
-                    $fields[$this->map[$key]['attribute']] = preg_replace('/\s+/', ' ', trim(vsprintf($this->map[$key]['format'], $fieldarray), " \t\n\r\0\x0B,"));
+                    $fields[$this->map[$key]['attribute']] = Turba::formatCompositeField($this->map[$key]['format'], $fieldarray);
                 } else {
                     // If 'parse' is not specified, use 'format' and 'fields'.
                     if (!isset($this->map[$key]['parse'])) {
@@ -2261,8 +2261,7 @@ class Turba_Driver implements Countable
                     $fieldarray[] = isset($hash[$mapfields]) ?
                         $hash[$mapfields] : '';
                 }
-                $hash['name'] = trim(vsprintf($this->map['name']['format'], $fieldarray),
-                                     " \t\n\r\0\x0B,");
+                $hash['name'] = Turba::formatCompositeField($this->map['name']['format'], $fieldarray);
             } else {
                 $hash['name'] = isset($hash['firstname']) ? $hash['firstname'] : '';
                 if (!empty($hash['lastname'])) {
