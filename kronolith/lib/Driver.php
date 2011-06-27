@@ -307,7 +307,7 @@ class Kronolith_Driver
      *
      * @throws Kronolith_Exception
      */
-    public function exists()
+    public function exists($uid, $calendar_id = null)
     {
         throw new Kronolith_Exception('Not supported');
     }
