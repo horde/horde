@@ -2,6 +2,8 @@
 v4.0.7-git
 ----------
 
+[jan] Allow configuration of split read databases for PostgreSQL (Request
+      #7025).
 [mjr] Honor initial_application setting for mobile view (Bug #10264).
 [mjr] Fix issue with initial Android ActiveSync pairing.
 [gwr] Support restricting the HTML tidy post processing by the message size

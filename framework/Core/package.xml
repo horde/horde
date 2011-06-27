@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Allow configuration of split read databases for PostgreSQL (Request #7025).
 * [mms] Make sure appinitialized hook gets full application environment.
  </notes>
  <contents>
@@ -1487,6 +1488,7 @@
    <date>2011-06-22</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Allow configuration of split read databases for PostgreSQL (Request #7025).
 * [mms] Make sure appinitialized hook gets full application environment.
    </notes>
   </release>
