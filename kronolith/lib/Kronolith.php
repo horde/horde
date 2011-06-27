@@ -2803,6 +2803,7 @@ class Kronolith
                 break;
 
             case 'Ical':
+            case 'Mock':
                 $params = array();
                 break;
 
