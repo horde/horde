@@ -428,14 +428,19 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         }
 
         $this->_devId = $devId;
-        $query = 'SELECT device_type, device_agent, device_ping, device_policykey, device_rwstatus, device_supported FROM '
-            . $this->_syncDeviceTable . ' d INNER JOIN ' . $this->_syncUsersTable . ' u ON d.device_id = u.device_id WHERE u.device_id = ? AND u.device_user = ?';
+        $query = 'SELECT device_type, device_agent, device_ping, '
+            . 'device_policykey, device_rwstatus, device_supported FROM '
+            . $this->_syncDeviceTable . ' d INNER JOIN '
+            . $this->_syncUsersTable
+            . ' u ON d.device_id = u.device_id WHERE u.device_id = ? AND u.device_user = ?';
+
         try {
             $this->_logger->debug('SQL QUERY: ' . $query . ' VALUES: ' . $devId . ' ' . $user);
             $result = $this->_db->selectOne($query, array($devId, $user));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
+
         $this->_deviceInfo = new StdClass();
         if ($result) {
             $this->_deviceInfo->policykey = $result['device_policykey'];

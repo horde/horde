@@ -364,15 +364,15 @@ class Horde_ActiveSync
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
         $version = $this->getProtocolVersion();
         if (class_exists($class)) {
-            $request = new $class($this->_driver,
-                                  $this->_decoder,
-                                  $this->_encoder,
-                                  $this->_request,
-                                  $this,
-                                  $device,
-                                  $this->_provisioning);
+            $request = new $class(
+                $this->_driver,
+                $this->_decoder,
+                $this->_encoder,
+                $this->_request,
+                $this,
+                $device,
+                $this->_provisioning);
             $request->setLogger($this->_logger);
-
             $result = $request->handle();
             $this->_driver->logOff();
 
