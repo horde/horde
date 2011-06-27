@@ -76,7 +76,7 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
         /* BC for older Net_Sieve versions that don't allow specify the debug
          * handler in the constructor. */
         if (!empty($this->_params['debug'])) {
-            Ingo_Exception_Pear::catchError($this->_sieve->setDebug(true, array($this, '_debug')));
+            Ingo_Exception_Pear::catchError($this->_sieve->setDebug(true, array($this, 'debug')));
         }
     }
 
@@ -86,7 +86,7 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
      * @param Net_Sieve $sieve  A Net_Sieve object.
      * @param string $message   The tracked Sieve communication.
      */
-    protected function _debug($sieve, $message)
+    public function debug($sieve, $message)
     {
         Horde::logMessage($message, 'DEBUG');
     }
