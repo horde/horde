@@ -374,7 +374,8 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     }
 
     /**
-     * Load an object based on the given XML stream.
+     * Load an object based on the given XML stream. The stream may only contain
+     * UTF-8 data.
      *
      * @param resource $xml The XML stream of the message.
      *
@@ -521,7 +522,8 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     }
 
     /**
-     * Convert the data to a XML stream.
+     * Convert the data to a XML stream. Strings contained in the data array may
+     * only be provided as UTF-8 data.
      *
      * @param array $object The data array representing the object.
      *

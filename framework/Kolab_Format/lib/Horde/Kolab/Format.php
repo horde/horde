@@ -34,7 +34,8 @@ interface Horde_Kolab_Format
     const VERSION = '@version@';
 
     /**
-     * Load an object based on the given XML stream.
+     * Load an object based on the given XML stream. The stream may only contain
+     * UTF-8 data.
      *
      * @param resource $xml The XML stream of the message.
      *
@@ -45,7 +46,8 @@ interface Horde_Kolab_Format
     public function load($xml);
 
     /**
-     * Convert the data to a XML stream.
+     * Convert the data to a XML stream. Strings contained in the data array may
+     * only be provided as UTF-8 data.
      *
      * @param array $object The data array representing the object.
      *
