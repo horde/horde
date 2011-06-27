@@ -267,10 +267,10 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             * changes. Need to track which ones are sent since we might not
             * send all of them.
             */
-            $this->_logger->debug('Updating state during ' . $this->_type);
+            $this->_logger->debug('Updating state during ' . $type);
             foreach ($this->_changes as $key => $value) {
                if ($value['id'] == $change['id']) {
-                   if ($this->_type == 'foldersync') {
+                   if ($type == 'foldersync') {
                        foreach ($this->_state as $fi => $state) {
                            if ($state['id'] == $value['id']) {
                                unset($this->_state[$fi]);
