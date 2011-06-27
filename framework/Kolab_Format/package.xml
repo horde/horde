@@ -41,6 +41,7 @@
       </dir> <!-- /doc/Horde/Kolab/Format -->
      </dir> <!-- /doc/Horde/Kolab -->
     </dir> <!-- /doc/Horde -->
+    <file name="TODO" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
