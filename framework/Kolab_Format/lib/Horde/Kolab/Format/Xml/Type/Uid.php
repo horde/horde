@@ -47,10 +47,11 @@ extends Horde_Kolab_Format_Xml_Type_Base
      */
     public function load($name, &$attributes, $parent_node)
     {
-        if (!$this->loadNodeValue($name, $attributes, $parent_node)
-            && !$this->isRelaxed()) {
+        $result = parent::load($name, $attributes, $parent_node);
+        if (!$result && !$this->isRelaxed()) {
             throw new Horde_Kolab_Format_Exception_MissingUid();
         }
+        return $result;
     }
 
     /**

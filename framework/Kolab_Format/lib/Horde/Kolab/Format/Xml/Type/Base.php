@@ -95,30 +95,31 @@ class Horde_Kolab_Format_Xml_Type_Base
      *                             attribute values.
      * @param DOMNode $parent_node The parent node of the node to be loaded.
      *
-     * @return NULL
+     * @return DOMNode|boolean The named DOMNode or false if no node value was
+     *                         found.
      */
     public function load($name, &$attributes, $parent_node)
     {
-        $this->loadNodeValue($name, $attributes, $parent_node);
-    }
-
-    /**
-     * Load the value of a node.
-     *
-     * @param string $query The query.
-     *
-     * @return DOMNode|false The named DOMNode or empty if no node value was
-     *                       found.
-     */
-    protected function loadNodeValue($name, &$attributes, $parent_node)
-    {
         if ($node = $this->findNodeRelativeTo('./' . $name, $parent_node)) {
-            if (($value = $this->fetchNodeValue($node)) !== false) {
+            if (($value = $this->loadNodeValue($node)) !== false) {
                 $attributes[$name] = $value;
                 return $node;
             }
         }
         return false;
+    }
+
+    /**
+     * Load the value of a node.
+     *
+     * @param DOMNode $node Retrieve value for this node.
+     *
+     * @return DOMNode|false The named DOMNode or empty if no node value was
+     *                       found.
+     */
+    protected function loadNodeValue($node)
+    {
+        return $this->fetchNodeValue($node);
     }
 
     /**
