@@ -1263,14 +1263,14 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $cmdline[] = $input;
 
         /* Decrypt the document now. */
-        $language = setlocale(LC_MESSAGE, 0);
-        setlocale(LC_MESSAGE, 'C');
+        $language = setlocale(LC_MESSAGES, 0);
+        setlocale(LC_MESSAGES, 'C');
         if (empty($params['no_passphrase'])) {
             $result = $this->_callGpg($cmdline, 'w', $params['passphrase'], true, true);
         } else {
             $result = $this->_callGpg($cmdline, 'r', null, true, true);
         }
-        setlocale(LC_MESSAGE, $language);
+        setlocale(LC_MESSAGES, $language);
         if (empty($result->output)) {
             $error = preg_replace('/\n.*/', '', $result->stderr);
             throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Could not decrypt PGP data: ") . $error);
@@ -1341,10 +1341,10 @@ class Horde_Crypt_Pgp extends Horde_Crypt
 
         /* Verify the signature.  We need to catch standard error output,
          * since this is where the signature information is sent. */
-        $language = setlocale(LC_MESSAGE, 0);
-        setlocale(LC_MESSAGE, 'C');
+        $language = setlocale(LC_MESSAGES, 0);
+        setlocale(LC_MESSAGES, 'C');
         $result = $this->_callGpg($cmdline, 'r', null, true, true);
-        setlocale(LC_MESSAGE, $language);
+        setlocale(LC_MESSAGES, $language);
         return $this->_checkSignatureResult($result->stderr, $result->stderr);
     }
 
