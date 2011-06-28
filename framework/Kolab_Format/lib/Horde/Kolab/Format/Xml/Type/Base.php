@@ -101,7 +101,7 @@ class Horde_Kolab_Format_Xml_Type_Base
     public function load($name, &$attributes, $parent_node)
     {
         if ($node = $this->findNodeRelativeTo('./' . $name, $parent_node)) {
-            if (($value = $this->loadNodeValue($node)) !== false) {
+            if (($value = $this->loadNodeValue($node)) !== null) {
                 $attributes[$name] = $value;
                 return $node;
             }
@@ -114,10 +114,9 @@ class Horde_Kolab_Format_Xml_Type_Base
      *
      * @param DOMNode $node Retrieve value for this node.
      *
-     * @return DOMNode|false The named DOMNode or empty if no node value was
-     *                       found.
+     * @return mixed|null The value or null if no value was found.
      */
-    protected function loadNodeValue($node)
+    public function loadNodeValue($node)
     {
         return $this->fetchNodeValue($node);
     }
@@ -127,14 +126,14 @@ class Horde_Kolab_Format_Xml_Type_Base
      *
      * @param DOMNode $node Retrieve the text value for this node.
      *
-     * @return string|false The text value or false if no value was identified.
+     * @return string|null The text value or null if no value was identified.
      */
     protected function fetchNodeValue($node)
     {
         if (($child = $this->_fetchFirstTextNode($node)) !== false) {
             return $child->nodeValue;
         }
-        return false;
+        return null;
     }
 
     /**
