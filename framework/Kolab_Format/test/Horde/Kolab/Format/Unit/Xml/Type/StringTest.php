@@ -166,7 +166,6 @@ extends PHPUnit_Framework_TestCase
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"/>'
         );
-        $attributes = array();
         $result->save('string', array(), $rootNode);
     }
 
@@ -179,7 +178,6 @@ extends PHPUnit_Framework_TestCase
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><string type="strange"><b/>STRANGE<a/></string>c</kolab>'
         );
-        $attributes = array();
         $this->assertInstanceOf(
             'DOMNode', 
             $result->save('string', array(), $rootNode)
@@ -196,7 +194,6 @@ extends PHPUnit_Framework_TestCase
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"/>'
         );
-        $attributes = array();
         $this->assertFalse($result->save('string', array(), $rootNode));
     }
 
