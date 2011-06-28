@@ -38,7 +38,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     /**
      * Defines a XML value that should get a default value if missing
      */
-    const PRODUCT_ID = 'Horde::Kolab';
+    const PRODUCT_ID = __CLASS__;
 
     /**
      * Defines a XML value that should get a default value if missing
@@ -131,6 +131,11 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     const TYPE_MODIFICATION_DATE = 13;
 
     /**
+     * Represents the product id
+     */
+    const TYPE_PRODUCT_ID = 14;
+
+    /**
      * The parser dealing with the input.
      *
      * @var Horde_Kolab_Format_Xml_Parser
@@ -149,7 +154,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
      *
      * @var int
      */
-    protected $_version = 1;
+    protected $_version = 2;
 
     /**
      * The XML document this driver works with.
@@ -187,13 +192,6 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
      * @var array
      */
     protected $_fields_basic;
-
-    /**
-     * Automatically create categories if they are missing?
-     *
-     * @var boolean
-     */
-    protected $_create_categories = true;
 
     /**
      * Fields for a simple person
@@ -339,7 +337,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
         if (is_array($params) && isset($params['version'])) {
             $this->_version = $params['version'];
         } else {
-            $this->_version = 1;
+            $this->_version = 2;
         }
 
         /* Generic fields, in kolab format specification order */
@@ -378,12 +376,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
                     'value' => self::VALUE_MAYBE_MISSING,
                 ),
             ),
-            'product-id' => array(
-                'type'    => self::TYPE_STRING,
-                'value'   => self::VALUE_CALCULATED,
-                'load'    => 'ProductId',
-                'save'    => 'ProductId',
-            ),
+            'product-id' => self::TYPE_PRODUCT_ID,
         );
     }
 
@@ -467,8 +460,16 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
         // basic fields below the root node
         foreach ($fields as $field => $params) {
             if (!is_array($params)) {
+                $type_options = array_merge(
+                    $options,
+                    array(
+                        'type' => $this->_root_name,
+                        'version' => $this->_root_version,
+                        'api_version' => $this->_version
+                    )
+                );
                 $node = $this->_factory->createXmlType(
-                    $params, $this->_xmldoc, $options
+                    $params, $this->_xmldoc, $type_options
                 );
                 $node->load($field, $object, $parent_node);
                 continue;
@@ -659,8 +660,16 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
                                 $append = false)
     {
         if (!is_array($params)) {
+            $type_options = array_merge(
+                $options,
+                array(
+                    'type' => $this->_root_name,
+                    'version' => $this->_root_version,
+                    'api_version' => $this->_version
+                )
+            );
             $node = $this->_factory->createXmlType(
-                $params, $this->_xmldoc, $options
+                $params, $this->_xmldoc, $type_options
             );
             $node->save($name, $attributes, $parent_node);
             return;
@@ -1015,43 +1024,6 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
         if ($object['_categories_primary'] == $object['categories']) {
             $object['categories'] = $object['_categories_all'];
         }
-    }
-
-    /**
-     * Load the name of the last client that modified this object
-     *
-     * @param DOMNode $node    The original node if set.
-     * @param boolean $missing Has the node been missing?
-     *
-     * @return string The last modification date.
-     */
-    protected function _loadProductId($node, $missing)
-    {
-        if ($missing) {
-            // Be gentle and accept a missing product id
-            return '';
-        }
-        return $this->_getNodeContent($node);
-    }
-
-    /**
-     * Save the name of the last client that modified this object.
-     *
-     * @param DOMNode $parent_node The parent node to attach
-     *                             the child to.
-     * @param string  $name        The name of the node.
-     * @param mixed   $value       The value to store.
-     * @param boolean $missing     Has the value been missing?
-     *
-     * @return DOMNode The new child node.
-     */
-    protected function _saveProductId($parent_node, $name, $value, $missing)
-    {
-        // Always store now as modification date
-        return $this->_saveDefault($parent_node,
-                                   $name,
-                                   self::PRODUCT_ID,
-                                   array('type' => self::TYPE_STRING));
     }
 
     /**

@@ -3,10 +3,10 @@
   <uid>1</uid>
   <creation-date>1970-01-01T00:00:00Z</creation-date>
   
+  <product-id>Horde_Kolab_Format_Xml-@version@ (type: h-prefs, format version: 1.0, api version: 2)</product-id>
   <body></body>
   <categories></categories>
   <sensitivity>public</sensitivity>
-  <product-id>Horde::Kolab</product-id>
   <application>Test</application>
   <pref>test</pref>
 </h-prefs>

@@ -161,6 +161,10 @@ class Horde_Kolab_Format_Factory
             return new Horde_Kolab_Format_Xml_Type_ModificationDate(
                 $xmldoc, $params
             );
+        case Horde_Kolab_Format_Xml::TYPE_PRODUCT_ID:
+            return new Horde_Kolab_Format_Xml_Type_ProductId(
+                $xmldoc, $params
+            );
         default:
             if (class_exists($type)) {
                 return new $type(

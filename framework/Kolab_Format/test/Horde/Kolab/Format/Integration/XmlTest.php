@@ -97,7 +97,10 @@ extends PHPUnit_Framework_TestCase
         $this->assertTrue(
             $object['last-modification-date']->format('U') <= $now->format('U')
         );
-        $this->assertEquals('Horde::Kolab', $object['product-id']);
+        $this->assertEquals(
+            'Horde_Kolab_Format_Xml-@version@ (type: kolab, format version: 1.0, api version: 2)',
+            $object['product-id']
+        );
     }
 
     private function _getPlain()

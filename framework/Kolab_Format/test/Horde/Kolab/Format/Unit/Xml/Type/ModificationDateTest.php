@@ -117,7 +117,7 @@ extends PHPUnit_Framework_TestCase
     public function testSaveOverwritesOldValue()
     {
         list($doc, $rootNode, $mdate) = $this->_getDefaultMdate(
-            array('relaxed' => true),
+            array(),
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><modification-date type="strange"><b/>1970-01-01T00:00:00Z<a/></modification-date>c</kolab>'
         );
