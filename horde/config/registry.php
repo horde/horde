@@ -316,6 +316,11 @@ $this->applications = array(
         'menu_parent' => 'website'
     ),
 
+    'ulaform' => array(
+        'name' => _("Forms"),
+        'menu_parent' => 'website'
+    ),
+
     'ansel' => array(
         'name' => _("Photos"),
         'provides' => 'images',
