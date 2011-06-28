@@ -82,7 +82,7 @@ extends Horde_Kolab_Format_Xml_Type_String
             if (!in_array($attributes[$name], array('true', 'false'))
                 && !$this->isRelaxed()) {
                 throw new Horde_Kolab_Format_Exception(
-                    sprintf('Invalid boolean input %s!', $attributes[$name])
+                    sprintf('Invalid boolean input "%s"!', $attributes[$name])
                 );
             }
         }
