@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Fix duplication of objects during synchronization (joniw@t-online.de, Bug #10081).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1138,7 +1138,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <date>2011-05-25</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Fix duplication of objects during synchronization (joniw@t-online.de, Bug #10081).
    </notes>
   </release>
  </changelog>
