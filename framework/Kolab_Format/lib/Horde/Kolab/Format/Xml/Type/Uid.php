@@ -42,20 +42,13 @@ extends Horde_Kolab_Format_Xml_Type_Base
      *
      * @return NULL
      *
-     * @throws Horde_Kolab_Format_Exception_MissingValue In case the uid node is
+     * @throws Horde_Kolab_Format_Exception_MissingUid In case the uid node is
      * missing.
      */
     public function load($name, &$attributes, $parent_node)
     {
-        if ($uid = $this->findNodeRelativeTo('./uid', $parent_node)) {
-            foreach ($uid->childNodes as $child) {
-                if ($child->nodeType === XML_TEXT_NODE) {
-                    $attributes['uid'] = $child->nodeValue;
-                    return;
-                }
-            }
-        }
-        if (!$this->isRelaxed()) {
+        if (!$this->loadNodeValue($name, $attributes, $parent_node)
+            && !$this->isRelaxed()) {
             throw new Horde_Kolab_Format_Exception_MissingUid();
         }
     }
@@ -77,7 +70,7 @@ extends Horde_Kolab_Format_Xml_Type_Base
      */
     public function save($name, $attributes, $parent_node)
     {
-        if (!($uid = $this->findNodeRelativeTo('./uid', $parent_node))) {
+        if (!($node = $this->findNodeRelativeTo('./' . $name, $parent_node))) {
             if (!isset($attributes['uid'])) {
                 if ($this->isRelaxed()) {
                     return false;
@@ -85,36 +78,26 @@ extends Horde_Kolab_Format_Xml_Type_Base
                     throw new Horde_Kolab_Format_Exception_MissingUid();
                 }
             }
-            $uid = $this->_xmldoc->createElement('uid');
-            $parent_node->appendChild($uid);
-            $uid->appendChild(
-                $this->_xmldoc->createTextNode($attributes['uid'])
+            return $this->storeNewNodeValue(
+                $parent_node, $name, $attributes['uid']
             );
-            return $uid;
         }
-        if (isset($attributes['uid'])) {
-            foreach ($uid->childNodes as $child) {
-                if ($child->nodeType === XML_TEXT_NODE) {
-                    if (!$this->isRelaxed() && $child->nodeValue != $attributes['uid']) {
-                        throw new Horde_Kolab_Format_Exception(
-                            sprintf(
-                                'Not attempting to overwrite old uid %s with new uid %s!',
-                        $child->nodeValue,
-                        $attributes['uid']
-                    )
-                        );
-                    }
-                    $uid->removeChild($child);
-                    break;
+        if (isset($attributes[$name])) {
+            if (($old = $this->fetchNodeValue($node)) != $attributes[$name]) {
+                if (!$this->isRelaxed()) {
+                    throw new Horde_Kolab_Format_Exception(
+                        sprintf(
+                            'Not attempting to overwrite old %s %s with new value %s!',
+                            $name,
+                            $old,
+                            $attributes['uid']
+                        )
+                    );
+                } else {
+                    $this->replaceFirstNodeTextValue($node, $attributes[$name]);
                 }
             }
-            $new_node = $this->_xmldoc->createTextNode($attributes['uid']);
-            if (empty($uid->childNodes)) {
-                $uid->appendChild($new_node);
-            } else {
-                $uid->insertBefore($new_node, $uid->childNodes->item(0));
-            }
         }
-        return $uid;
+        return $node;
     }
 }
