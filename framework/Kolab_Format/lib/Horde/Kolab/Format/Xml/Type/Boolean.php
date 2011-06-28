@@ -48,7 +48,7 @@ extends Horde_Kolab_Format_Xml_Type_String
             } else if ($attributes[$name] == 'true') {
                 $attributes[$name] = true;
             } else {
-                $attributes[$name] = (bool) $attributes[$name];
+                $attributes[$name] = (bool)$attributes[$name];
             }
         }
         return $result;
