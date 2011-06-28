@@ -87,6 +87,114 @@ class Horde_Kolab_Format_Xml_Type_Base
     }
 
     /**
+     * Load the node value from the Kolab object.
+     *
+     * @param string  $name        The name of the the attribute
+     *                             to be fetched.
+     * @param array   &$attributes The data array that holds all
+     *                             attribute values.
+     * @param DOMNode $parent_node The parent node of the node to be loaded.
+     *
+     * @return NULL
+     */
+    public function load($name, &$attributes, $parent_node)
+    {
+        $this->loadNodeValue($name, $attributes, $parent_node);
+    }
+
+    /**
+     * Load the value of a node.
+     *
+     * @param string $query The query.
+     *
+     * @return DOMNode|false The named DOMNode or empty if no node value was
+     *                       found.
+     */
+    protected function loadNodeValue($name, &$attributes, $parent_node)
+    {
+        if ($node = $this->findNodeRelativeTo('./' . $name, $parent_node)) {
+            if (($value = $this->fetchNodeValue($node)) !== false) {
+                $attributes[$name] = $value;
+                return $node;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Fetch the value of a node.
+     *
+     * @param DOMNode $node Retrieve the text value for this node.
+     *
+     * @return string|false The text value or false if no value was identified.
+     */
+    protected function fetchNodeValue($node)
+    {
+        if (($child = $this->_fetchFirstTextNode($node)) !== false) {
+            return $child->nodeValue;
+        }
+        return false;
+    }
+
+    /**
+     * Fetch the the first text node.
+     *
+     * @param DOMNode $node Retrieve the text value for this node.
+     *
+     * @return DOMNode|false The first text node or false if no such node was
+     *                       found.
+     */
+    private function _fetchFirstTextNode($node)
+    {
+        foreach ($node->childNodes as $child) {
+            if ($child->nodeType === XML_TEXT_NODE) {
+                return $child;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Store a value as a new text node.
+     *
+     * @param DOMNode $parent_node Attach the new node to this parent.
+     * @param string  $name        Name of the new child node.
+     * @param string  $value       Text value of the new child node.
+     *
+     * @return DOMNode The new child node.
+     */
+    protected function storeNewNodeValue($parent_node, $name, $value)
+    {
+        $node = $this->_xmldoc->createElement($name);
+        $parent_node->appendChild($node);
+        $node->appendChild(
+            $this->_xmldoc->createTextNode($value)
+        );
+        return $node;
+    }
+
+    /**
+     * Store a value as a new text node.
+     *
+     * @param DOMNode $node  Replace the text value of this node.
+     * @param string  $value Text value of the new child node.
+     *
+     * @return NULL
+     */
+    protected function replaceFirstNodeTextValue($node, $value)
+    {
+        if (($child = $this->_fetchFirstTextNode($node)) !== false) {
+            $node->removeChild($child);
+        }
+        $new_node = $this->_xmldoc->createTextNode($value);
+        if (empty($node->childNodes)) {
+            $node->appendChild($new_node);
+        } else {
+            $node->insertBefore($new_node, $node->childNodes->item(0));
+        }
+    }
+
+    /**
      * Return a single named node matching the given XPath query.
      *
      * @param string $query The query.
