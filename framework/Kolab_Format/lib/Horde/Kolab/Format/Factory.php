@@ -154,6 +154,11 @@ class Horde_Kolab_Format_Factory
                 $xmldoc, $params
             );
         default:
+            if (class_exists($type)) {
+                return new $type(
+                    $xmldoc, $params
+                );
+            }
             throw new Horde_Kolab_Format_Exception(
                 sprintf('XML type %s not supported!')
             );
