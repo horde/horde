@@ -153,6 +153,10 @@ class Horde_Kolab_Format_Factory
             return new Horde_Kolab_Format_Xml_Type_Uid(
                 $xmldoc, $params
             );
+        case Horde_Kolab_Format_Xml::TYPE_CREATION_DATE:
+            return new Horde_Kolab_Format_Xml_Type_CreationDate(
+                $xmldoc, $params
+            );
         default:
             if (class_exists($type)) {
                 return new $type(
@@ -160,7 +164,7 @@ class Horde_Kolab_Format_Factory
                 );
             }
             throw new Horde_Kolab_Format_Exception(
-                sprintf('XML type %s not supported!')
+                sprintf('XML type %s not supported!', $type)
             );
         }
     }

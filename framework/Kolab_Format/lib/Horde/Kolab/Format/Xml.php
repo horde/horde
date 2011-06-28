@@ -121,6 +121,11 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     const TYPE_UID = 11;
 
     /**
+     * Represents the creation date
+     */
+    const TYPE_CREATION_DATE = 12;
+
+    /**
      * The parser dealing with the input.
      *
      * @var Horde_Kolab_Format_Xml_Parser
@@ -345,12 +350,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
                 'value'   => self::VALUE_DEFAULT,
                 'default' => '',
             ),
-            'creation-date' => array(
-                'type'    => self::TYPE_DATETIME,
-                'value'   => self::VALUE_CALCULATED,
-                'load'    => 'CreationDate',
-                'save'    => 'CreationDate',
-            ),
+            'creation-date' => self::TYPE_CREATION_DATE,
             'last-modification-date' => array(
                 'type'    => self::TYPE_DATETIME,
                 'value'   => self::VALUE_CALCULATED,

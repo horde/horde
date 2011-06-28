@@ -78,17 +78,22 @@ extends PHPUnit_Framework_TestCase
     {
         // Save an object and reload it
         $xml = $this->_getPlain();
-        $result = $xml->save(array('uid'=>'test',
-                                   'body' => 'body',
-                                   'dummy' => 'hello',
-                                   'creation-date' => 1175080008,
-                                   'last-modification-date' => 1175080008,
-                             ));
+        $cdate = new DateTime('1970-01-01T00:00:00Z');
+        $cdate->setTimezone(new DateTimeZone('UTC'));
+        $result = $xml->save(
+            array(
+                'uid'=>'test',
+                'body' => 'body',
+                'dummy' => 'hello',
+                'creation-date' => $cdate,
+                'last-modification-date' => 1175080008,
+            )
+        );
         $object = $xml->load($result);
         $this->assertEquals('body', $object['body']);
         $this->assertTrue(empty($object['dummy']));
         $this->assertEquals('public', $object['sensitivity']);
-        $this->assertEquals(1175080008, $object['creation-date']);
+        $this->assertEquals($cdate, $object['creation-date']);
         $this->assertTrue($object['last-modification-date'] != 1175080008);
         $this->assertEquals('Horde::Kolab', $object['product-id']);
     }

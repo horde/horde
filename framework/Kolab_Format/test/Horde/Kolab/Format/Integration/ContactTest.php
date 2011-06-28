@@ -43,9 +43,12 @@ extends PHPUnit_Framework_TestCase
     public function testSingleEmail()
     {
         $contact = $this->_getContactDummy();
-        $object  = array('uid' => '1',
-                         'full-name' => 'User Name',
-                         'email' => 'user@example.org');
+        $object  = array(
+            'uid' => '1',
+            'full-name' => 'User Name',
+            'email' => 'user@example.org',
+            'creation-date' => new DateTime('1970-01-01T00:00:00Z')
+        );
         $xml     = $contact->save($object);
         $expect  = file_get_contents(dirname(__FILE__)
                                      . '/fixtures/contact_mail.xml');
@@ -60,10 +63,13 @@ extends PHPUnit_Framework_TestCase
     public function testPGP()
     {
         $contact = $this->_getContactDummy();
-        $object  = array('uid' => '1',
-                         'full-name' => 'User Name',
-                         'pgp-publickey' => 'PGP Test Key',
-                         'email' => 'user@example.org');
+        $object  = array(
+            'uid' => '1',
+            'full-name' => 'User Name',
+            'pgp-publickey' => 'PGP Test Key',
+            'email' => 'user@example.org',
+            'creation-date' => new DateTime('1970-01-01T00:00:00Z')
+        );
         $xml     = $contact->save($object);
         $expect  = file_get_contents(dirname(__FILE__)
                                      . '/fixtures/contact_pgp.xml');

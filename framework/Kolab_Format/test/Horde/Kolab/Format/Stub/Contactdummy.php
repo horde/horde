@@ -32,28 +32,6 @@
 class Horde_Kolab_Format_Xml_Contactdummy
 extends Horde_Kolab_Format_Xml_Contact
 {
-    /**
-     * Save the object creation date.
-     *
-     * @param DOMNode $parent_node The parent node to attach the child
-     *                             to.
-     * @param string  $name        The name of the node.
-     * @param mixed   $value       The value to store.
-     * @param boolean $missing     Has the value been missing?
-     *
-     * @return DOMNode The new child node.
-     */
-    function _saveCreationDate($parent_node, $name, $value, $missing)
-    {
-        // Only create the creation date if it has not been set before
-        if ($missing) {
-            $value = 0;
-        }
-        return $this->_saveDefault($parent_node,
-                                   $name,
-                                   $value,
-                                   array('type' => self::TYPE_DATETIME));
-    }
 
     /**
      * Save the object modification date.
