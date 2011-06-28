@@ -417,7 +417,6 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
 
         $result = $this->_loadArray($rootNode, $this->_fields_basic, $options);
         $object = array_merge($object, $result);
-        $this->_loadMultipleCategories($object);
 
         $result = $this->_load($rootNode, $options);
         $object = array_merge($object, $result);
@@ -592,7 +591,6 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
         );
         $rootNode = $this->_root->save();
 
-        $this->_saveMultipleCategories($object);
         $this->_saveArray($rootNode, $object, $this->_fields_basic, $options);
         $this->_save($rootNode, $object, $options);
 
@@ -962,68 +960,6 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
 
         // create the node
         return $this->_createTextNode($parent_node, $name, $value);
-    }
-
-    /**
-     * Handle loading of categories. Preserve multiple categories in a hidden
-     * object field. Optionally creates categories unknown to the Horde user.
-     *
-     * @param array &$object Array of strings, containing the 'categories' field.
-     *
-     * @return NULL
-     */
-    protected function _loadMultipleCategories(&$object)
-    {
-        global $prefs;
-
-        if (empty($object['categories'])) {
-            return;
-        }
-
-        $kolab_categories = explode(',', $object['categories']);
-
-        $primary_category = '';
-        foreach ($kolab_categories as $kolab_category) {
-            $kolab_category = trim($kolab_category);
-
-            $valid_category = true;
-
-            // First valid category becomes primary category
-            if ($valid_category && empty($primary_category)) {
-                $primary_category = $kolab_category;
-            }
-        }
-
-        // Backup multiple categories
-        if (count($kolab_categories) > 1) {
-            $object['_categories_all']     = $object['categories'];
-            $object['_categories_primary'] = $primary_category;
-        }
-        // Make default category visible to Horde
-        $object['categories'] = $primary_category;
-    }
-
-    /**
-     * Preserve multiple categories on save if "categories" didn't change.
-     * The name "categories" currently refers to one primary category.
-     *
-     * @param array &$object Array of strings, containing the 'categories' field.
-     *
-     * @return NULL
-     */
-    protected function _saveMultipleCategories(&$object)
-    {
-        // Check for multiple categories.
-        if (!isset($object['_categories_all'])
-            || !isset($object['_categories_primary'])
-            || !isset($object['categories'])) {
-            return;
-        }
-
-        // Preserve multiple categories if "categories" didn't change
-        if ($object['_categories_primary'] == $object['categories']) {
-            $object['categories'] = $object['_categories_all'];
-        }
     }
 
     /**
