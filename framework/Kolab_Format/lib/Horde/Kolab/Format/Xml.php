@@ -351,12 +351,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
                 'default' => '',
             ),
             'creation-date' => self::TYPE_CREATION_DATE,
-            'last-modification-date' => array(
-                'type'    => self::TYPE_DATETIME,
-                'value'   => self::VALUE_CALCULATED,
-                'load'    => 'ModificationDate',
-                'save'    => 'ModificationDate',
-            ),
+            'last-modification-date' => self::TYPE_MODIFICATION_DATE,
             'sensitivity' => array(
                 'type'    => self::TYPE_STRING,
                 'value'   => self::VALUE_DEFAULT,
