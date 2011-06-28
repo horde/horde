@@ -65,6 +65,7 @@
         <dir name="Type">
          <file name="Base.php" role="php" />
          <file name="Boolean.php" role="php" />
+         <file name="Color.php" role="php" />
          <file name="CreationDate.php" role="php" />
          <file name="Integer.php" role="php" />
          <file name="ModificationDate.php" role="php" />
@@ -84,6 +85,7 @@
         <file name="Parser.php" role="php" />
         <file name="Task.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Format/Xml -->
+       <file name="#Factory.php#" role="php" />
        <file name="Date.php" role="php" />
        <file name="Exception.php" role="php" />
        <file name="Factory.php" role="php" />
@@ -138,8 +140,8 @@
         </dir> <!-- /test/Horde/Kolab/Format/Unit/Exception -->
         <dir name="Xml">
          <dir name="Type">
-          <file name="#IntegerTest.php#" role="test" />
           <file name="BooleanTest.php" role="test" />
+          <file name="ColorTest.php" role="test" />
           <file name="CreationDateTest.php" role="test" />
           <file name="IntegerTest.php" role="test" />
           <file name="ModificationDateTest.php" role="test" />
@@ -219,6 +221,7 @@
    <install as="examples/event.php" name="doc/Horde/Kolab/Format/examples/event.php" />
    <install as="examples/new_type.php" name="doc/Horde/Kolab/Format/examples/new_type.php" />
    <install as="Horde/Kolab/Format.php" name="lib/Horde/Kolab/Format.php" />
+   <install as="Horde/Kolab/Format/#Factory.php#" name="lib/Horde/Kolab/Format/#Factory.php#" />
    <install as="Horde/Kolab/Format/Date.php" name="lib/Horde/Kolab/Format/Date.php" />
    <install as="Horde/Kolab/Format/Exception.php" name="lib/Horde/Kolab/Format/Exception.php" />
    <install as="Horde/Kolab/Format/Factory.php" name="lib/Horde/Kolab/Format/Factory.php" />
@@ -241,6 +244,7 @@
    <install as="Horde/Kolab/Format/Xml/Task.php" name="lib/Horde/Kolab/Format/Xml/Task.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Base.php" name="lib/Horde/Kolab/Format/Xml/Type/Base.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Boolean.php" name="lib/Horde/Kolab/Format/Xml/Type/Boolean.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/Color.php" name="lib/Horde/Kolab/Format/Xml/Type/Color.php" />
    <install as="Horde/Kolab/Format/Xml/Type/CreationDate.php" name="lib/Horde/Kolab/Format/Xml/Type/CreationDate.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Integer.php" name="lib/Horde/Kolab/Format/Xml/Type/Integer.php" />
    <install as="Horde/Kolab/Format/Xml/Type/ModificationDate.php" name="lib/Horde/Kolab/Format/Xml/Type/ModificationDate.php" />
@@ -282,8 +286,8 @@
    <install as="Horde/Kolab/Format/Unit/Exception/ParseErrorTest.php" name="test/Horde/Kolab/Format/Unit/Exception/ParseErrorTest.php" />
    <install as="Horde/Kolab/Format/Unit/Xml/EnvelopeTest.php" name="test/Horde/Kolab/Format/Unit/Xml/EnvelopeTest.php" />
    <install as="Horde/Kolab/Format/Unit/Xml/ParserTest.php" name="test/Horde/Kolab/Format/Unit/Xml/ParserTest.php" />
-   <install as="Horde/Kolab/Format/Unit/Xml/Type/#IntegerTest.php#" name="test/Horde/Kolab/Format/Unit/Xml/Type/#IntegerTest.php#" />
    <install as="Horde/Kolab/Format/Unit/Xml/Type/BooleanTest.php" name="test/Horde/Kolab/Format/Unit/Xml/Type/BooleanTest.php" />
+   <install as="Horde/Kolab/Format/Unit/Xml/Type/ColorTest.php" name="test/Horde/Kolab/Format/Unit/Xml/Type/ColorTest.php" />
    <install as="Horde/Kolab/Format/Unit/Xml/Type/CreationDateTest.php" name="test/Horde/Kolab/Format/Unit/Xml/Type/CreationDateTest.php" />
    <install as="Horde/Kolab/Format/Unit/Xml/Type/IntegerTest.php" name="test/Horde/Kolab/Format/Unit/Xml/Type/IntegerTest.php" />
    <install as="Horde/Kolab/Format/Unit/Xml/Type/ModificationDateTest.php" name="test/Horde/Kolab/Format/Unit/Xml/Type/ModificationDateTest.php" />
