@@ -93,7 +93,7 @@ class Turba_Object
         if (isset($this->attributes[$attribute]) &&
             Horde::hookExists('decode_attribute', 'turba')) {
             try {
-                return Horde::callHook('decode_attribute', array($attribute, $this->attributes[$attribute]), 'turba');
+                return Horde::callHook('decode_attribute', array($attribute, $this->attributes[$attribute], $this), 'turba');
             } catch (Turba_Exception $e) {}
         }
         if (isset($this->driver->map[$attribute]) &&
