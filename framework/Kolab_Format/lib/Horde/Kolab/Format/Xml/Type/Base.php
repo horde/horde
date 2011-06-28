@@ -130,7 +130,7 @@ class Horde_Kolab_Format_Xml_Type_Base
      */
     protected function fetchNodeValue($node)
     {
-        if (($child = $this->_fetchFirstTextNode($node)) !== false) {
+        if (($child = $this->_fetchFirstTextNode($node)) !== null) {
             return $child->nodeValue;
         }
         return null;
@@ -141,8 +141,8 @@ class Horde_Kolab_Format_Xml_Type_Base
      *
      * @param DOMNode $node Retrieve the text value for this node.
      *
-     * @return DOMNode|false The first text node or false if no such node was
-     *                       found.
+     * @return DOMNode|null The first text node or null if no such node was
+     *                      found.
      */
     private function _fetchFirstTextNode($node)
     {
@@ -151,7 +151,6 @@ class Horde_Kolab_Format_Xml_Type_Base
                 return $child;
             }
         }
-        return false;
     }
 
     /**
@@ -183,7 +182,7 @@ class Horde_Kolab_Format_Xml_Type_Base
      */
     protected function replaceFirstNodeTextValue($node, $value)
     {
-        if (($child = $this->_fetchFirstTextNode($node)) !== false) {
+        if (($child = $this->_fetchFirstTextNode($node)) !== null) {
             $node->removeChild($child);
         }
         $new_node = $this->_xmldoc->createTextNode($value);
