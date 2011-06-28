@@ -141,39 +141,38 @@ class Horde_Kolab_Format_Factory
     public function createXmlType($type, $xmldoc, array $params = array())
     {
         switch ($type) {
+        case Horde_Kolab_Format_Xml::TYPE_STRING:
+            $class = 'Horde_Kolab_Format_Xml_Type_String';
+            break;
         case Horde_Kolab_Format_Xml::TYPE_XML:
-            return new Horde_Kolab_Format_Xml_Type_XmlAppend(
-                $xmldoc
-            );
+            $class = 'Horde_Kolab_Format_Xml_Type_XmlAppend';
+            break;
         case Horde_Kolab_Format_Xml::TYPE_ROOT:
-            return new Horde_Kolab_Format_Xml_Type_Root(
-                $xmldoc, $params
-            );
+            $class = 'Horde_Kolab_Format_Xml_Type_Root';
+            break;
         case Horde_Kolab_Format_Xml::TYPE_UID:
-            return new Horde_Kolab_Format_Xml_Type_Uid(
-                $xmldoc, $params
-            );
+            $class = 'Horde_Kolab_Format_Xml_Type_Uid';
+            break;
         case Horde_Kolab_Format_Xml::TYPE_CREATION_DATE:
-            return new Horde_Kolab_Format_Xml_Type_CreationDate(
-                $xmldoc, $params
-            );
+            $class = 'Horde_Kolab_Format_Xml_Type_CreationDate';
+            break;
         case Horde_Kolab_Format_Xml::TYPE_MODIFICATION_DATE:
-            return new Horde_Kolab_Format_Xml_Type_ModificationDate(
-                $xmldoc, $params
-            );
+            $class = 'Horde_Kolab_Format_Xml_Type_ModificationDate';
+            break;
         case Horde_Kolab_Format_Xml::TYPE_PRODUCT_ID:
-            return new Horde_Kolab_Format_Xml_Type_ProductId(
-                $xmldoc, $params
-            );
+            $class = 'Horde_Kolab_Format_Xml_Type_ProductId';
+            break;
         default:
             if (class_exists($type)) {
-                return new $type(
-                    $xmldoc, $params
+                $class = $type;
+            } else {
+                throw new Horde_Kolab_Format_Exception(
+                    sprintf('XML type %s not supported!', $type)
                 );
             }
-            throw new Horde_Kolab_Format_Exception(
-                sprintf('XML type %s not supported!', $type)
-            );
         }
+        return new $class(
+            $xmldoc, $params
+        );
     }
 }

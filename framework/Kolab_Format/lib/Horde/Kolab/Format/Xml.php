@@ -472,6 +472,21 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
                 );
                 $node->load($field, $object, $parent_node);
                 continue;
+            } else if (in_array($params['type'], array(self::TYPE_STRING))) {
+                $type_options = array_merge(
+                    $options,
+                    $params,
+                    array(
+                        'type' => $this->_root_name,
+                        'version' => $this->_root_version,
+                        'api_version' => $this->_version
+                    )
+                );
+                $node = $this->_factory->createXmlType(
+                    $params['type'], $this->_xmldoc, $type_options
+                );
+                $node->load($field, $object, $parent_node);
+                continue;
             }
 
             $result = $this->_getXmlData($parent_node->childNodes, $field, $params);
