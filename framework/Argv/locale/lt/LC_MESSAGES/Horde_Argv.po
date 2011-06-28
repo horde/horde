@@ -1,80 +1,77 @@
 # Lithuanian translations for Horde_Argv module.
-# Copyright (C) 2010 Horde Project
+# Copyright 2010-2011 The Horde Project
 # This file is distributed under the same license as the Horde_Argv module.
-# Automatically generated, 2010.
+# Vilius Šumskas <vilius@lnk.lt>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Argv\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: i18n@lists.horde.org\n"
+"POT-Creation-Date: 2011-05-28 01:09+0300\n"
+"PO-Revision-Date: 2011-06-27 22:26+0300\n"
+"Last-Translator: Vilius Šumskas <vilius@lnk.lt>\n"
+"Language-Team: Lithuanian <vilius@lnk.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: lib/Horde/Argv/Parser.php:507
+#: lib/Horde/Argv/Parser.php:495
 #, php-format
 msgid "%s option does not take a value"
-msgstr ""
+msgstr "%s parametrui nereikia reikšmės"
 
-#: lib/Horde/Argv/Parser.php:497 lib/Horde/Argv/Parser.php:549
+#: lib/Horde/Argv/Parser.php:485 lib/Horde/Argv/Parser.php:537
 #, php-format
 msgid "%s option requires %d arguments"
-msgstr ""
+msgstr "%s parametrui reikia %d argumentų"
 
-#: lib/Horde/Argv/Parser.php:495 lib/Horde/Argv/Parser.php:547
+#: lib/Horde/Argv/Parser.php:483 lib/Horde/Argv/Parser.php:535
 #, php-format
 msgid "%s option requires an argument"
-msgstr ""
+msgstr "%s parametrui reikia argumento"
 
-#: lib/Horde/Argv/Parser.php:672
+#: lib/Horde/Argv/Parser.php:660
 msgid "Options"
 msgstr "Nustatymai"
 
 #: lib/Horde/Argv/TitledHelpFormatter.php:29
-#, fuzzy
 msgid "Usage"
-msgstr "Rakto panaudojimas"
+msgstr "Naudojimas"
 
 #: lib/Horde/Argv/IndentedHelpFormatter.php:29
-#, fuzzy
 msgid "Usage:"
-msgstr "Rakto panaudojimas"
+msgstr "Naudojimas:"
 
-#: lib/Horde/Argv/Parser.php:199
-#, fuzzy
+#: lib/Horde/Argv/Parser.php:186
 msgid "[options]"
-msgstr "Nustatymai"
+msgstr "[parametrai]"
 
-#: lib/Horde/Argv/Option.php:129
+#: lib/Horde/Argv/Option.php:122
 #, php-format
 msgid "option %s: invalid choice: '%s' (choose from %s)"
-msgstr ""
+msgstr "parametras %s: neteisingas pasirinkimas: '%s' (pasirinkite iš %s)"
 
-#: lib/Horde/Argv/Option.php:111
+#: lib/Horde/Argv/Option.php:104
 #, php-format
 msgid "option %s: invalid floating-point value: '%s'"
-msgstr ""
+msgstr "parametras %s: neteisinga reikšmė su kableliu: '%s'"
 
-#: lib/Horde/Argv/Option.php:101
+#: lib/Horde/Argv/Option.php:94
 #, php-format
 msgid "option %s: invalid integer value: '%s'"
-msgstr ""
+msgstr "parametras %s: neteisinga skaičiaus reikšmė: '%s'"
 
-#: lib/Horde/Argv/Option.php:102
+#: lib/Horde/Argv/Option.php:95
 #, php-format
 msgid "option %s: invalid long integer value: '%s'"
-msgstr ""
+msgstr "parametras %s: neteisinga didelio skaičiaus reikšmė: '%s'"
 
-#: lib/Horde/Argv/Parser.php:171
+#: lib/Horde/Argv/Parser.php:158
 msgid "show program's version number and exit"
-msgstr ""
+msgstr "parodyti programos versiją ir išeiti"
 
-#: lib/Horde/Argv/Parser.php:165
+#: lib/Horde/Argv/Parser.php:152
 msgid "show this help message and exit"
-msgstr ""
+msgstr "parodyti šią pagalbos žinutę ir išeiti"
