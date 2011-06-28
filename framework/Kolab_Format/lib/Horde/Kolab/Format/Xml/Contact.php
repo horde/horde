@@ -310,9 +310,9 @@ class Horde_Kolab_Format_Xml_Contact extends Horde_Kolab_Format_Xml
      *
      * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
      */
-    protected function _load(&$children)
+    protected function _load($parent_node, $options = array())
     {
-        $object = $this->_loadArray($children, $this->_fields_specific);
+        $object = $this->_loadArray($parent_node, $this->_fields_specific, $options);
 
         // Handle name fields
         if (isset($object['name'])) {
@@ -392,7 +392,7 @@ class Horde_Kolab_Format_Xml_Contact extends Horde_Kolab_Format_Xml
      *
      * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
-    protected function _save(&$root, $object)
+    protected function _save(&$root, $object, $options)
     {
         // Handle name fields
         $name = array();

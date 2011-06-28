@@ -56,7 +56,7 @@ extends Horde_Kolab_Format_Xml_Type_Base
             }
         }
         if (!$this->isRelaxed()) {
-            throw new Horde_Kolab_Format_Exception_MissingValue('uid');
+            throw new Horde_Kolab_Format_Exception_MissingUid();
         }
     }
 
@@ -82,7 +82,7 @@ extends Horde_Kolab_Format_Xml_Type_Base
                 if ($this->isRelaxed()) {
                     return false;
                 } else {
-                    throw new Horde_Kolab_Format_Exception_MissingValue('uid');
+                    throw new Horde_Kolab_Format_Exception_MissingUid();
                 }
             }
             $uid = $this->_xmldoc->createElement('uid');
@@ -95,7 +95,7 @@ extends Horde_Kolab_Format_Xml_Type_Base
         if (isset($attributes['uid'])) {
             foreach ($uid->childNodes as $child) {
                 if ($child->nodeType === XML_TEXT_NODE) {
-                    if (!$this->isRelaxed() && $child->nodeValue !== $attributes['uid']) {
+                    if (!$this->isRelaxed() && $child->nodeValue != $attributes['uid']) {
                         throw new Horde_Kolab_Format_Exception(
                             sprintf(
                                 'Not attempting to overwrite old uid %s with new uid %s!',

@@ -43,10 +43,15 @@ extends PHPUnit_Framework_TestCase
     public function testBasic()
     {
         $xml = $this->_getPlain();
-        $xml->save(array());
+        $xml->save(array(), array('relaxed' => true));
         $base = $xml->_xmldoc->saveXML();
-        $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\"/>\n",
-                            $base);
+        $this->assertContains(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0">
+  <body></body>
+  <categories></categories>',
+            $base
+        );
     }
 
     /**
@@ -56,178 +61,13 @@ extends PHPUnit_Framework_TestCase
      */
     public function testReadable()
     {
-        //$this->markTestIncomplete('Roundtrip makes sense, but how to handle empty document?');
         $xml = $this->_getPlain();
-        $xml->save(array());
+        $xml->save(array(), array('relaxed' => true));
         $base = $xml->_xmldoc->saveXML();
-        $xml->load($base);
+        $xml->load($base, array('relaxed' => true));
         $this->assertEquals($base, $xml->_xmldoc->saveXML());
 
     }
-
-    /**
-     * Test adding nodes.
-     *
-     * @return NULL
-     */
-    public function testAdd()
-    {
-        $xml = $this->_getPlain();
-        $root = $xml->save(array());
-        $base = $xml->_xmldoc->saveXML();
-
-        // A missing attribute should cause no change if it
-        // is allowed to be empty
-        $xml->_updateNode($root,
-                          array(),
-                          'empty1',
-                          array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING));
-        $this->assertEquals($base, $xml->_xmldoc->saveXML());
-
-        // A missing attribute should cause an error if it
-        // is not allowed to be empty
-        try {
-            $xml->_updateNode($root,
-                              array(),
-                              'empty1',
-                              array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY));
-            $this->assertTrue(false);
-        } catch (Exception $e) {
-            $this->assertTrue($e instanceOf Horde_Kolab_Format_Exception);
-        }
-
-        $xml->_updateNode($root,
-                         array(),
-                         'empty1',
-                         array('value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                               'default' => 'empty1', 'type' => 0));
-        $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\">\n  <empty1>empty1</empty1>\n</kolab>\n",
-                            $xml->_xmldoc->saveXML());
-
-        try {
-            $xml->_updateNode($root,
-                              array(),
-                              'empty1',
-                              array('value' => Horde_Kolab_Format_Xml::VALUE_CALCULATED,
-                                    'save' => '_unknown'));
-            $this->assertTrue(false);
-        } catch (Exception $e) {
-            $this->assertTrue($e instanceOf Horde_Kolab_Format_Exception);
-        }
-    }
-
-
-    /**
-     * Test node operations
-     *
-     * @return NULL
-     */
-    public function testNodeOps()
-    {
-        $dxml = $this->_getDummy();
-        $droot = $dxml->save(array());
-
-        // Test calculated nodes
-        $dxml->_updateNode($droot,
-                           array(),
-                           'empty2',
-                           array('value' => Horde_Kolab_Format_Xml::VALUE_CALCULATED,
-                                 'save' => 'Value', 'type' => 0));
-        $dxml->_updateNode($droot,
-                           array('present1' => 'present1'),
-                           'present1',
-                           array('value' => Horde_Kolab_Format_Xml::VALUE_CALCULATED,
-                                 'save' => 'Value', 'type' => 0));
-        $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\">\n  <empty2>empty2: , missing</empty2>\n  <present1>present1: present1</present1>\n</kolab>\n",
-                            $dxml->_xmldoc->saveXML());
-
-        $xml  = $this->_getPlain();
-        $root = $xml->save(array());
-        $xml->_updateNode($root,
-                          array(),
-                          'empty1',
-                          array('value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                                'default' => 'empty1', 'type' => 0));
-
-        // Back to the original object: Test saving a normal value
-        $xml->_updateNode($root,
-                          array('present1' => 'present1'),
-                          'present1',
-                          array('value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                                'default' => 'empty1', 'type' => 0));
-        $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\">\n  <empty1>empty1</empty1>\n  <present1>present1</present1>\n</kolab>\n",
-                            $xml->_xmldoc->saveXML());
-
-        // Test overwriting a value
-        $xml->_updateNode($root,
-                          array('present1' => 'new1'),
-                          'present1',
-                          array('value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                                'default' => 'empty1', 'type' => 0));
-        $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\">\n  <empty1>empty1</empty1>\n  <present1>new1</present1>\n</kolab>\n",
-                            $xml->_xmldoc->saveXML());
-
-        // Test saving a date
-        $xml->_updateNode($root,
-                          array('date1' => 1175080008),
-                          'date1',
-                          array('value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                                'default' => 'empty1', 
-                                'type' => Horde_Kolab_Format_Xml::TYPE_DATETIME));
-        $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\">\n  <empty1>empty1</empty1>\n  <present1>new1</present1>\n  <date1>2007-03-28T11:06:48Z</date1>\n</kolab>\n",
-                            $xml->_xmldoc->saveXML());
-
-        // Now load the data back in
-        $children = $root->childNodes;
-
-        // Test loading a value that may be empty
-        $this->assertEquals(null, $xml->_getXmlData($children,
-                                                    'empty2',
-                                                    array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-                                                          'default' => '', 
-                                                          'type' => Horde_Kolab_Format_Xml::TYPE_STRING)));
-
-        // Test loading a value that may not be empty
-        try {
-            $xml->_getXmlData($children,
-                              'empty2',
-                              array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-                                    'default' => '', 
-                                    'type' => Horde_Kolab_Format_Xml::TYPE_STRING));
-            $this->assertTrue(false);
-        } catch (Exception $e) {
-            $this->assertTrue($e instanceOf Horde_Kolab_Format_Exception);
-        }
-
-        // Test loading a missing value with a default
-        $this->assertEquals(0, $xml->_getXmlData($children,
-                                                 'date2',
-                                                 array('value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                                                       'default' => 0, 
-                                                       'type' => Horde_Kolab_Format_Xml::TYPE_DATETIME)));
-
-        // Test loading a calculated value
-        $this->assertEquals('new1', $dxml->_getXmlData($children,
-                                                       'present1',
-                                                       array('value' => Horde_Kolab_Format_Xml::VALUE_CALCULATED,
-                                                             'func' => '_calculate',
-                                                             'type' => Horde_Kolab_Format_Xml::TYPE_STRING)));
-
-        // Test loading a normal value
-        $this->assertEquals('new1', $xml->_getXmlData($children,
-                                                      'present1',
-                                                      array('value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                                                            'default' => 'empty',
-                                                            'type' => Horde_Kolab_Format_Xml::TYPE_STRING)));
-
-        // Test loading a date value
-        $this->assertEquals(1175080008, $xml->_getXmlData($children,
-                                                          'date1',
-                                                          array('value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                                                                'default' => 0,
-                                                                'type' => Horde_Kolab_Format_Xml::TYPE_DATETIME)));
-    }
-
 
     /**
      * Test load/save
@@ -251,59 +91,6 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals(1175080008, $object['creation-date']);
         $this->assertTrue($object['last-modification-date'] != 1175080008);
         $this->assertEquals('Horde::Kolab', $object['product-id']);
-    }
-
-    /**
-     * Test complex values
-     *
-     * @return NULL
-     */
-    public function testComplex()
-    {
-        // Continue with complex values
-        $xml = $this->_getPlain();
-        $root = $xml->save(array());
-
-        // Test saving a composite value
-        $xml->_updateNode($root,
-                          array('composite1' => array('display-name' => 'test',
-                                                      'smtp-address' => 'test@example.com')),
-                          'composite1', $xml->_fields_simple_person);
-        $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\">\n  <composite1>\n    <display-name>test</display-name>\n    <smtp-address>test@example.com</smtp-address>\n    <uid></uid>\n  </composite1>\n</kolab>\n",
-                            $xml->_xmldoc->saveXML());
-
-        // Test saving multiple values
-        $xml->_updateNode($root,
-                          array('attendee1' => array(array('display-name' => 'test'),
-                                                     array('smtp-address' => 'test@example.com'))),
-                          'attendee1', $xml->_fields_attendee);
-        $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\">\n  <composite1>\n    <display-name>test</display-name>\n    <smtp-address>test@example.com</smtp-address>\n    <uid></uid>\n  </composite1>\n  <attendee1>\n    <display-name>test</display-name>\n    <smtp-address></smtp-address>\n    <status>none</status>\n    <request-response>true</request-response>\n    <role>required</role>\n  </attendee1>\n  <attendee1>\n    <display-name></display-name>\n    <smtp-address>test@example.com</smtp-address>\n    <status>none</status>\n    <request-response>true</request-response>\n    <role>required</role>\n  </attendee1>\n</kolab>\n",
-                            $xml->_xmldoc->saveXML());
-
-        $children = $root->childNodes;
-
-        // Load a composite value
-        $data = $xml->_getXmlData($children,
-                                  'composite1', 
-                                  $xml->_fields_simple_person);
-
-        $this->assertEquals(3, count($data));
-        $this->assertEquals('test@example.com', $data['smtp-address']);
-
-        // Load multiple values
-        $data = $xml->_getXmlData($children,
-                                  'attendee1', 
-                                  $xml->_fields_attendee);
-        $this->assertEquals(2, count($data));
-        $this->assertEquals(5, count($data[0]));
-        $this->assertEquals('', $data[0]['smtp-address']);
-        $this->assertEquals('test@example.com', $data[1]['smtp-address']);
-    }
-
-    private function _getDummy()
-    {
-        $factory = new Horde_Kolab_Format_Factory();
-        return $factory->create('Xml', 'Dummy');
     }
 
     private function _getPlain()

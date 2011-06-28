@@ -116,6 +116,11 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     const TYPE_ROOT = 10;
 
     /**
+     * Represents the Kolab object UID value
+     */
+    const TYPE_UID = 11;
+
+    /**
      * The parser dealing with the input.
      *
      * @var Horde_Kolab_Format_Xml_Parser
@@ -329,10 +334,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
 
         /* Generic fields, in kolab format specification order */
         $this->_fields_basic = array(
-            'uid' => array(
-                'type'    => self::TYPE_STRING,
-                'value'   => self::VALUE_NOT_EMPTY,
-            ),
+            'uid' => self::TYPE_UID,
             'body' => array(
                 'type'    => self::TYPE_STRING,
                 'value'   => self::VALUE_DEFAULT,
@@ -420,17 +422,12 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
         // fresh object data
         $object = array();
 
-        $result = $this->_loadArray($rootNode->childNodes, $this->_fields_basic);
+        $result = $this->_loadArray($rootNode, $this->_fields_basic, $options);
         $object = array_merge($object, $result);
         $this->_loadMultipleCategories($object);
 
-        $result = $this->_load($rootNode->childNodes);
+        $result = $this->_load($rootNode, $options);
         $object = array_merge($object, $result);
-
-        // uid is vital
-        if (!isset($object['uid'])) {
-            throw new Horde_Kolab_Format_Exception_MissingUid();
-        }
 
         return $object;
     }
@@ -444,10 +441,10 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
      *
      * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
      */
-    protected function _load(&$children)
+    protected function _load($node, $options = array())
     {
         if (!empty($this->_fields_specific)) {
-            return $this->_loadArray($children, $this->_fields_specific);
+            return $this->_loadArray($node, $this->_fields_specific, $options);
         } else {
             return array();
         }
@@ -463,13 +460,21 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
      *
      * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
      */
-    protected function _loadArray(&$children, $fields)
+    protected function _loadArray($parent_node, $fields, $options = array())
     {
         $object = array();
 
         // basic fields below the root node
         foreach ($fields as $field => $params) {
-            $result = $this->_getXmlData($children, $field, $params);
+            if (!is_array($params)) {
+                $node = $this->_factory->createXmlType(
+                    $params, $this->_xmldoc, $options
+                );
+                $node->load($field, &$object, $parent_node);
+                continue;
+            }
+
+            $result = $this->_getXmlData($parent_node->childNodes, $field, $params);
             if (isset($result)) {
                 $object[$field] = $result;
             }
@@ -539,7 +544,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
                                                                $params['load']));
             }
         } elseif ($params['type'] == self::TYPE_COMPOSITE) {
-            return $this->_loadArray($child->childNodes, $params['array']);
+            return $this->_loadArray($child, $params['array']);
         } else {
             return $this->_loadDefault($child, $params);
         }
@@ -587,8 +592,8 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
         $rootNode = $this->_root->save();
 
         $this->_saveMultipleCategories($object);
-        $this->_saveArray($rootNode, $object, $this->_fields_basic);
-        $this->_save($rootNode, $object);
+        $this->_saveArray($rootNode, $object, $this->_fields_basic, $options);
+        $this->_save($rootNode, $object, $options);
 
         return $this->_xmldoc->saveXML();
     }
@@ -603,10 +608,10 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
      *
      * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
-    protected function _save(&$root, $object)
+    protected function _save(&$root, $object, $options)
     {
         if (!empty($this->_fields_specific)) {
-            $this->_saveArray($root, $object, $this->_fields_specific);
+            $this->_saveArray($root, $object, $this->_fields_specific, $options);
         }
         return true;
     }
@@ -623,11 +628,11 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
      *
      * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
-    protected function _saveArray($root, $object, $fields, $append = false)
+    protected function _saveArray($root, $object, $fields, $options = array(), $append = false)
     {
         // basic fields below the root node
         foreach ($fields as $field => $params) {
-            $this->_updateNode($root, $object, $field, $params, $append);
+            $this->_updateNode($root, $object, $field, $params, $options, $append);
         }
         return true;
     }
@@ -650,9 +655,17 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
      *
      * @todo Make protected (fix the XmlTest for that)
      */
-    public function _updateNode($parent_node, $attributes, $name, $params,
+    public function _updateNode($parent_node, $attributes, $name, $params, $options,
                                 $append = false)
     {
+        if (!is_array($params)) {
+            $node = $this->_factory->createXmlType(
+                $params, $this->_xmldoc, $options
+            );
+            $node->save($name, $attributes, $parent_node);
+            return;
+        }
+
         $value   = null;
         $missing = false;
 
@@ -697,7 +710,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
             // Create a new complex node
             $composite_node = $this->_xmldoc->createElement($name);
             $composite_node = $parent_node->appendChild($composite_node);
-            return $this->_saveArray($composite_node, $value, $params['array']);
+            return $this->_saveArray($composite_node, $value, $params['array'], $options);
         } elseif ($params['type'] == self::TYPE_MULTIPLE) {
             // Remove the old nodes first
             $this->_removeNodes($parent_node, $name);
@@ -707,6 +720,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
                 $this->_saveArray($parent_node,
                                   array($name => $add_node),
                                   array($name => $params['array']),
+                                  $options,
                                   true);
             }
             return true;
@@ -1140,7 +1154,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
         // Collect all child nodes
         $children = $node->childNodes;
 
-        $recurrence = $this->_loadArray($children, $this->_fields_recurrence);
+        $recurrence = $this->_loadArray($node, $this->_fields_recurrence);
 
         // Get the cycle type (must be present)
         $recurrence['cycle'] = $node->getAttribute('cycle');

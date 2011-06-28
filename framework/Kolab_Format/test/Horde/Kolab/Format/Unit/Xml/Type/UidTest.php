@@ -57,7 +57,7 @@ extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Horde_Kolab_Format_Exception_MissingValue
+     * @expectedException Horde_Kolab_Format_Exception_MissingUid
      */
     public function testSaveMissingData()
     {
@@ -201,7 +201,7 @@ extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Horde_Kolab_Format_Exception_MissingValue
+     * @expectedException Horde_Kolab_Format_Exception_MissingUid
      */
     public function testLoadMissingUidText()
     {
@@ -215,7 +215,7 @@ extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Horde_Kolab_Format_Exception_MissingValue
+     * @expectedException Horde_Kolab_Format_Exception_MissingUid
      */
     public function testLoadMissingUid()
     {

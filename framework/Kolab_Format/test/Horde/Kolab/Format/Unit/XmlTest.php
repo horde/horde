@@ -36,7 +36,7 @@ class Horde_Kolab_Format_Unit_XmlTest
 extends PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException Horde_Kolab_Format_Exception_MissingValue
+     * @expectedException Horde_Kolab_Format_Exception_MissingUid
      */
     public function testMissingUid()
     {
