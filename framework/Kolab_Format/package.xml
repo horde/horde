@@ -68,6 +68,7 @@
          <file name="ModificationDate.php" role="php" />
          <file name="ProductId.php" role="php" />
          <file name="Root.php" role="php" />
+         <file name="String.php" role="php" />
          <file name="Uid.php" role="php" />
          <file name="XmlAppend.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type -->
@@ -139,6 +140,7 @@
           <file name="ModificationDateTest.php" role="test" />
           <file name="ProductIdTest.php" role="test" />
           <file name="RootTest.php" role="test" />
+          <file name="StringTest.php" role="test" />
           <file name="UidTest.php" role="test" />
          </dir> <!-- /test/Horde/Kolab/Format/Unit/Xml/Type -->
          <file name="EnvelopeTest.php" role="test" />
@@ -237,6 +239,7 @@
    <install as="Horde/Kolab/Format/Xml/Type/ModificationDate.php" name="lib/Horde/Kolab/Format/Xml/Type/ModificationDate.php" />
    <install as="Horde/Kolab/Format/Xml/Type/ProductId.php" name="lib/Horde/Kolab/Format/Xml/Type/ProductId.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Root.php" name="lib/Horde/Kolab/Format/Xml/Type/Root.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/String.php" name="lib/Horde/Kolab/Format/Xml/Type/String.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Uid.php" name="lib/Horde/Kolab/Format/Xml/Type/Uid.php" />
    <install as="Horde/Kolab/Format/Xml/Type/XmlAppend.php" name="lib/Horde/Kolab/Format/Xml/Type/XmlAppend.php" />
    <install as="Horde/Kolab/Format/AllTests.php" name="test/Horde/Kolab/Format/AllTests.php" />
