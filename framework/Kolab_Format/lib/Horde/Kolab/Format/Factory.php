@@ -149,6 +149,10 @@ class Horde_Kolab_Format_Factory
             return new Horde_Kolab_Format_Xml_Type_Root(
                 $xmldoc, $params
             );
+        case Horde_Kolab_Format_Xml::TYPE_UID:
+            return new Horde_Kolab_Format_Xml_Type_Uid(
+                $xmldoc, $params
+            );
         default:
             throw new Horde_Kolab_Format_Exception(
                 sprintf('XML type %s not supported!')
