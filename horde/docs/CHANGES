@@ -2,6 +2,7 @@
 v4.0.7-git
 ----------
 
+[jan] Don't allow to click disabled login button (Bug #10267).
 [jan] Allow configuration of split read databases for PostgreSQL (Request
       #7025).
 [mjr] Honor initial_application setting for mobile view (Bug #10264).
