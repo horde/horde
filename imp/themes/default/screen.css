@@ -187,6 +187,9 @@ div.msgActions, #fmanager div.folderActions {
 #msgheaders table {
     border-collapse: collapse;
 }
+#msgheaders td {
+    vertical-align: top;
+}
 
 /* Message body styling. */
 .messageBody {
