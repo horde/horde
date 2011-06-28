@@ -47,6 +47,9 @@ extends PHPUnit_Framework_TestCase
         $this->assertSame(1, $attributes['integer']);
     }
 
+    /**
+     * @expectedException Horde_Kolab_Format_Exception
+     */
     public function testLoadStrangeInteger()
     {
         list($doc, $rootNode, $result) = $this->_getDefaultInteger(

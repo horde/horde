@@ -43,6 +43,7 @@ extends Horde_Kolab_Format_Xml_Type_String
     {
         $result = parent::loadNodeValue($name, $attributes, $parent_node);
         if (isset($attributes[$name]) && !is_int($attributes[$name])) {
+            $this->_checkInteger($attributes[$name]);
             $attributes[$name] = (int)$attributes[$name];
         }
         return $result;
@@ -69,13 +70,28 @@ extends Horde_Kolab_Format_Xml_Type_String
             if (!is_string($attributes[$name])) {
                 $attributes[$name] = (string)$attributes[$name];
             }
-            if (((string)((int)$attributes[$name]) !== $attributes[$name])
-                && !$this->isRelaxed()) {
-                throw new Horde_Kolab_Format_Exception(
-                    sprintf('Invalid integer input %s!', $attributes[$name])
-                );
-            }
+            $this->_checkInteger($attributes[$name]);
         }
         return parent::save($name, $attributes, $parent_node);
     }
+
+    /**
+     * Test if the input seems to be a real integer.
+     *
+     * @param string $integer The string to check.
+     *
+     * @return NULL
+     *
+     * @throws Horde_Kolab_Format_Exception If the input is no integer.
+     */
+    private function _checkInteger($integer)
+    {
+        if (((string)((int)$integer) !== $integer)
+            && !$this->isRelaxed()) {
+            throw new Horde_Kolab_Format_Exception(
+                sprintf('Invalid integer input "%s"!', $integer)
+            );
+        }
+    }
+
 }
