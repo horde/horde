@@ -600,8 +600,10 @@ $i = 1;
 
 /* Prepare the main message template. */
 $m_template = $injector->createInstance('Horde_Template');
-foreach ($display_headers as $head => $val) {
-    $hdrs[] = array('name' => $basic_headers[$head], 'val' => $val, 'i' => (++$i % 2));
+if (!$all_headers) {
+    foreach ($display_headers as $head => $val) {
+        $hdrs[] = array('name' => $basic_headers[$head], 'val' => $val, 'i' => (++$i % 2));
+    }
 }
 foreach ($full_headers as $head => $val) {
     if (is_array($val)) {
