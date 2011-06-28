@@ -121,4 +121,49 @@ class Horde_Kolab_Format_Date
 
         return gmstrftime('%Y-%m-%dT%H:%M:%SZ', $datetime);
     }
+
+    /**
+     * Parse the provided string into a PHP DateTime object.
+     *
+     * @param string $date_time The Kolab date-time value.
+     *
+     * @since Horde_Kolab_Format 1.1.0
+     *
+     * @return DateTime The date-time value represented as PHP DateTime object.
+     */
+    static public function readUtcDateTime($date_time)
+    {
+        if ($date = DateTime::createFromFormat(
+                'Y-m-d\TH:i:s\Z', $date_time, new DateTimeZone('UTC')
+            )) {
+            return $date;
+        }
+        /**
+         * No need to support fractions of a second yet. So lets just try to
+         * remove a potential microseconds part and attempt parsing again.
+         */
+        $date_time = preg_replace(
+            '/(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}).\d+Z/', 
+            '\1Z',
+            $date_time
+        );
+        return DateTime::createFromFormat(
+            'Y-m-d\TH:i:s\Z', $date_time, new DateTimeZone('UTC')
+        );
+    }
+
+    /**
+     * Write the provided PHP DateTime object into a Kolab format UTC date-time
+     * representation.
+     *
+     * @param DateTime $date_time The PHP DateTime object.
+     *
+     * @since Horde_Kolab_Format 1.1.0
+     *
+     * @return string The Kolab format UTC date-time string.
+     */
+    static public function writeUtcDateTime(DateTime $date_time)
+    {
+        return $date_time->format('Y-m-d\TH:i:s\Z');
+    }
 }
