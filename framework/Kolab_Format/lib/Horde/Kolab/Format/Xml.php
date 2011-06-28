@@ -1018,49 +1018,6 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     }
 
     /**
-     * Load the object creation date.
-     *
-     * @param DOMNode $node    The original node if set.
-     * @param boolean $missing Has the node been missing?
-     *
-     * @return string The creation date.
-     *
-     * @throws Horde_Kolab_Format_Exception If converting the data from XML failed.
-     */
-    protected function _loadCreationDate($node, $missing)
-    {
-        if ($missing) {
-            // Be gentle and accept a missing creation date.
-            return time();
-        }
-        return $this->_loadDefault($node,
-                                   array('type' => self::TYPE_DATETIME));
-    }
-
-    /**
-     * Save the object creation date.
-     *
-     * @param DOMNode $parent_node The parent node to attach the child
-     *                             to.
-     * @param string  $name        The name of the node.
-     * @param mixed   $value       The value to store.
-     * @param boolean $missing     Has the value been missing?
-     *
-     * @return DOMNode The new child node.
-     */
-    protected function _saveCreationDate($parent_node, $name, $value, $missing)
-    {
-        // Only create the creation date if it has not been set before
-        if ($missing) {
-            $value = time();
-        }
-        return $this->_saveDefault($parent_node,
-                                   $name,
-                                   $value,
-                                   array('type' => self::TYPE_DATETIME));
-    }
-
-    /**
      * Load the object modification date.
      *
      * @param DOMNode $node    The original node if set.
