@@ -39,4 +39,13 @@ extends PHPUnit_Framework_TestCase
         }
         return $this->_factory;
     }
+
+    protected function removeLastModification($text)
+    {
+        return preg_replace(
+            '#<last-modification-date>.*</last-modification-date>#',
+            '',
+            $text
+        );
+    }
 }

@@ -126,6 +126,11 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     const TYPE_CREATION_DATE = 12;
 
     /**
+     * Represents the modification date
+     */
+    const TYPE_MODIFICATION_DATE = 13;
+
+    /**
      * The parser dealing with the input.
      *
      * @var Horde_Kolab_Format_Xml_Parser
@@ -465,7 +470,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
                 $node = $this->_factory->createXmlType(
                     $params, $this->_xmldoc, $options
                 );
-                $node->load($field, &$object, $parent_node);
+                $node->load($field, $object, $parent_node);
                 continue;
             }
 
@@ -1010,44 +1015,6 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
         if ($object['_categories_primary'] == $object['categories']) {
             $object['categories'] = $object['_categories_all'];
         }
-    }
-
-    /**
-     * Load the object modification date.
-     *
-     * @param DOMNode $node    The original node if set.
-     * @param boolean $missing Has the node been missing?
-     *
-     * @return string The last modification date.
-     */
-    protected function _loadModificationDate($node, $missing)
-    {
-        if ($missing) {
-            // Be gentle and accept a missing modification date.
-            return time();
-        }
-        return $this->_loadDefault($node,
-                                   array('type' => self::TYPE_DATETIME));
-    }
-
-    /**
-     * Save the object modification date.
-     *
-     * @param DOMNode $parent_node The parent node to attach
-     *                             the child to.
-     * @param string  $name        The name of the node.
-     * @param mixed   $value       The value to store.
-     * @param boolean $missing     Has the value been missing?
-     *
-     * @return DOMNode The new child node.
-     */
-    protected function _saveModificationDate($parent_node, $name, $value, $missing)
-    {
-        // Always store now as modification date
-        return $this->_saveDefault($parent_node,
-                                   $name,
-                                   time(),
-                                   array('type' => self::TYPE_DATETIME));
     }
 
     /**

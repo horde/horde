@@ -33,7 +33,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @link       http://pear.horde.org/index.php?package=Kolab_Format
  */
 class Horde_Kolab_Format_Integration_PreferencesTest
-extends PHPUnit_Framework_TestCase
+extends Horde_Kolab_Format_TestCase
 {
     /**
      * Test preferences format conversion.
@@ -42,7 +42,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testConversionFromOld()
     {
-        $preferences = $this->_getHprefsDummy();
+        $preferences = $this->_getHprefs();
 
         $xml    = file_get_contents(dirname(__FILE__)
                                     . '/fixtures/preferences_read_old.xml');
@@ -56,7 +56,10 @@ extends PHPUnit_Framework_TestCase
         $xml    = $preferences->save($object);
         $expect = file_get_contents(dirname(__FILE__)
                                     . '/fixtures/preferences_write_old.xml');
-        $this->assertEquals($expect, $xml);
+        $this->assertEquals(
+            $this->removeLastModification($expect),
+            $this->removeLastModification($xml)
+        );
 
         $object = array('uid' => 1,
                         'pref' => array('test'),
@@ -64,13 +67,16 @@ extends PHPUnit_Framework_TestCase
         $xml    = $preferences->save($object);
         $expect = file_get_contents(dirname(__FILE__)
                                     . '/fixtures/preferences_write_old.xml');
-        $this->assertEquals($expect, $xml);
+        $this->assertEquals(
+            $this->removeLastModification($expect),
+            $this->removeLastModification($xml)
+        );
     }
 
-    private function _getHprefsDummy()
+    private function _getHprefs()
     {
         $factory = new Horde_Kolab_Format_Factory();
-        return $factory->create('Xml', 'HprefsDummy');
+        return $factory->create('Xml', 'Hprefs');
     }
 }
 

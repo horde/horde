@@ -85,8 +85,7 @@ extends PHPUnit_Framework_TestCase
                 'uid'=>'test',
                 'body' => 'body',
                 'dummy' => 'hello',
-                'creation-date' => $cdate,
-                'last-modification-date' => 1175080008,
+                'creation-date' => $cdate
             )
         );
         $object = $xml->load($result);
@@ -94,7 +93,10 @@ extends PHPUnit_Framework_TestCase
         $this->assertTrue(empty($object['dummy']));
         $this->assertEquals('public', $object['sensitivity']);
         $this->assertEquals($cdate, $object['creation-date']);
-        $this->assertTrue($object['last-modification-date'] != 1175080008);
+        $now = new DateTime('now', new DateTimeZone('UTC'));
+        $this->assertTrue(
+            $object['last-modification-date']->format('U') <= $now->format('U')
+        );
         $this->assertEquals('Horde::Kolab', $object['product-id']);
     }
 

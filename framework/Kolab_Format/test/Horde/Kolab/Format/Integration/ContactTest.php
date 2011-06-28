@@ -33,7 +33,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @link       http://pear.horde.org/index.php?package=Kolab_Format
  */
 class Horde_Kolab_Format_Integration_ContactTest
-extends PHPUnit_Framework_TestCase
+extends Horde_Kolab_Format_TestCase
 {
     /**
      * Test storing single mail addresses.
@@ -42,7 +42,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testSingleEmail()
     {
-        $contact = $this->_getContactDummy();
+        $contact = $this->_getContact();
         $object  = array(
             'uid' => '1',
             'full-name' => 'User Name',
@@ -52,7 +52,10 @@ extends PHPUnit_Framework_TestCase
         $xml     = $contact->save($object);
         $expect  = file_get_contents(dirname(__FILE__)
                                      . '/fixtures/contact_mail.xml');
-        $this->assertEquals($expect, $xml);
+        $this->assertEquals(
+            $this->removeLastModification($expect),
+            $this->removeLastModification($xml)
+        );
     }
 
     /**
@@ -62,7 +65,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testPGP()
     {
-        $contact = $this->_getContactDummy();
+        $contact = $this->_getContact();
         $object  = array(
             'uid' => '1',
             'full-name' => 'User Name',
@@ -73,7 +76,10 @@ extends PHPUnit_Framework_TestCase
         $xml     = $contact->save($object);
         $expect  = file_get_contents(dirname(__FILE__)
                                      . '/fixtures/contact_pgp.xml');
-        $this->assertEquals($expect, $xml);
+        $this->assertEquals(
+            $this->removeLastModification($expect),
+            $this->removeLastModification($xml)
+        );
     }
 
     /**
@@ -83,7 +89,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testCategories()
     {
-        $contact = $this->_getContactDummy();
+        $contact = $this->_getContact();
         $xml     = file_get_contents(dirname(__FILE__)
                                      . '/fixtures/contact_category.xml');
         $object  = $contact->load($xml);
@@ -95,7 +101,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testUtf8()
     {
-        $contact = $this->_getContactDummy();
+        $contact = $this->_getContact();
         $xml = file_get_contents(dirname(__FILE__) . '/fixtures/contact-kyr.xml');
 
         $object = $contact->load($xml);
@@ -125,9 +131,9 @@ extends PHPUnit_Framework_TestCase
     /*     } */
     /* } */
 
-    private function _getContactDummy()
+    private function _getContact()
     {
         $factory = new Horde_Kolab_Format_Factory();
-        return $factory->create('Xml', 'ContactDummy');
+        return $factory->create('Xml', 'Contact');
     }
 }
