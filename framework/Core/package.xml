@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Add Horde_Menu#setMask() (Vilius Sumskas, Request #10078).
 * [jan] Allow configuration of split read databases for PostgreSQL (Request #7025).
 * [mms] Make sure appinitialized hook gets full application environment.
  </notes>

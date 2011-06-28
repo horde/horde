@@ -42,11 +42,23 @@ class Horde_Menu
     protected $_menu = array();
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param integer $mask  Display mask.
      */
     public function __construct($mask = self::MASK_ALL)
+    {
+        $this->setMask($mask);
+    }
+
+    /**
+     * Sets the display mask.
+     *
+     * @since Horde_Core 1.3.0
+     *
+     * @param integer $mask  Display mask.
+     */
+    public function setMask($mask)
     {
         $this->_mask = $mask;
     }
@@ -130,16 +142,6 @@ class Horde_Menu
         ), $item);
 
         return $pos;
-    }
-
-    /**
-     * Set menu mask.
-     *
-     * @param integer $mask  Display mask.
-     */
-    public function setMask($mask = self::MASK_ALL)
-    {
-        $this->_mask = $mask;
     }
 
     /**
