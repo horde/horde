@@ -684,7 +684,7 @@ class Horde_Mime_Headers implements Serializable
         if (!is_array($data) ||
             !isset($data[0]) ||
             ($data[0] != self::VERSION)) {
-            throw new Exception('Cache version change');
+            throw new Horde_Mime_Exception('Cache version change');
         }
 
         $this->_headers = $data[1];

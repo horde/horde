@@ -14,8 +14,11 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime
  */
-class Horde_Mime_Part implements ArrayAccess, Countable
+class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 {
+    /* Serialized version. */
+    const VERSION = 1;
+
     /* The character(s) used internally for EOLs. */
     const EOL = "\n";
 
@@ -215,30 +218,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable
      * @var string
      */
     protected $_hdrCharset = null;
-
-    /**
-     * Function to run on serialize().
-     */
-    public function __sleep()
-    {
-        if (!empty($this->_contents)) {
-            $this->_contents = $this->_readStream($this->_contents, true);
-        }
-
-        return array_diff(array_keys(get_class_vars(__CLASS__)), array('defaultCharset', 'memoryLimit', 'encodingTypes', 'mimeTypes'));
-    }
-
-    /**
-     * Function to run on unserialize().
-     */
-    public function __wakeup()
-    {
-        if (!empty($this->_contents)) {
-            $contents = $this->_contents;
-            $this->_contents = null;
-            $this->setContents($contents);
-        }
-    }
 
     /**
      * Function to run on clone.
@@ -2121,4 +2100,83 @@ class Horde_Mime_Part implements ArrayAccess, Countable
         return count($this->_parts);
     }
 
+    /* Serializable methods. */
+
+    /**
+     * Serialization.
+     *
+     * @return string  Serialized data.
+     */
+    public function serialize()
+    {
+        $data = array(
+            // Serialized data ID.
+            self::VERSION,
+            $this->_type,
+            $this->_subtype,
+            $this->_transferEncoding,
+            $this->_language,
+            $this->_description,
+            $this->_disposition,
+            $this->_dispParams,
+            $this->_contentTypeParams,
+            $this->_parts,
+            $this->_mimeid,
+            $this->_eol,
+            $this->_metadata,
+            $this->_boundary,
+            $this->_bytes,
+            $this->_contentid,
+            $this->_reindex,
+            $this->_basepart,
+            $this->_hdrCharset,
+        );
+
+        if (!empty($this->_contents)) {
+            $data[] = $this->_readStream($this->_contents);
+        }
+
+        return serialize($data);
+    }
+
+    /**
+     * Unserialization.
+     *
+     * @param string $data  Serialized data.
+     *
+     * @throws Exception
+     */
+    public function unserialize($data)
+    {
+        $data = @unserialize($data);
+        if (!is_array($data) ||
+            !isset($data[0]) ||
+            (array_shift($data) != self::VERSION)) {
+            throw new Horde_Mime_Exception('Cache version change');
+        }
+
+        if (isset($data[18])) {
+            $this->setContents(array_pop($data));
+        }
+
+        list($this->_type,
+             $this->_subtype,
+             $this->_transferEncoding,
+             $this->_language,
+             $this->_description,
+             $this->_disposition,
+             $this->_dispParams,
+             $this->_contentTypeParams,
+             $this->_parts,
+             $this->_mimeid,
+             $this->_eol,
+             $this->_metadata,
+             $this->_boundary,
+             $this->_bytes,
+             $this->_contentid,
+             $this->_reindex,
+             $this->_basepart,
+             $this->_hdrCharset
+        ) = $data;
+    }
 }
