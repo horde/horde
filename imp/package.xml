@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [jan] Don&apos;t attempt to delete linked attachments monthly if they have been disabled (Bug #10166).
 * [jan] Don&apos;t show basic headers twice when showing all headers (Bug #10276).
 * [jan] Add IMP_Contents#getTree() to return a tree representation of a message&apos;s MIME parts.
 * [mms] Fix regression in parsing list reply address (Bug #10258).
@@ -2320,6 +2321,7 @@
    <date>2011-06-14</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [jan] Don&apos;t attempt to delete linked attachments monthly if they have been disabled (Bug #10166).
 * [jan] Don&apos;t show basic headers twice when showing all headers (Bug #10276).
 * [jan] Add IMP_Contents#getTree() to return a tree representation of a message&apos;s MIME parts.
 * [mms] Fix regression in parsing list reply address (Bug #10258).

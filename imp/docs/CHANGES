@@ -2,6 +2,8 @@
 v5.0.8-git
 ----------
 
+[jan] Don't attempt to delete linked attachments monthly if they have been
+      disabled (Bug #10166).
 [jan] Don't show basic headers twice when showing all headers (Bug #10276).
 [jan] Add IMP_Contents#getTree() to return a tree representation of a message's
       MIME parts.
