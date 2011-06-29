@@ -2,6 +2,7 @@
 v3.0.5-git
 ----------
 
+[jan] Don't change event creator when saving events.
 [jan] Fetch events immediately after saving remote calendar.
 
 
