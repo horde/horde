@@ -78,13 +78,7 @@ class Horde_Kolab_Format_Factory
         if (class_exists($class)) {
             switch ($parser) {
             case 'Xml':
-                $instance = new $class(
-                    new Horde_Kolab_Format_Xml_Parser(
-                        new DOMDocument('1.0', 'UTF-8')
-                    ),
-                    $this,
-                    $params
-                );
+                $instance = new $class($this->createXmlParser(), $this, $params);
                 break;
             default:
                 throw new Horde_Kolab_Format_Exception(
@@ -126,6 +120,20 @@ class Horde_Kolab_Format_Factory
     }
 
     /**
+     * Generates a XML parser.
+     *
+     * @since Horde_Kolab_Format 1.1.0
+     *
+     * @return Horde_Kolab_Format_Xml_Parser The parser.
+     */
+    public function createXmlParser()
+    {
+        return new Horde_Kolab_Format_Xml_Parser(
+            new DOMDocument('1.0', 'UTF-8')
+        );
+    }
+
+    /**
      * Generates a XML type that deals with XML data modifications.
      *
      * @param string      $type   The value type.
@@ -149,6 +157,11 @@ class Horde_Kolab_Format_Factory
             break;
         case Horde_Kolab_Format_Xml::TYPE_BOOLEAN:
             $class = 'Horde_Kolab_Format_Xml_Type_Boolean';
+            break;
+        case Horde_Kolab_Format_Xml::TYPE_DATE:
+        case Horde_Kolab_Format_Xml::TYPE_DATETIME:
+        case Horde_Kolab_Format_Xml::TYPE_DATE_OR_DATETIME:
+            $class = 'Horde_Kolab_Format_Xml_Type_DateTime';
             break;
         case Horde_Kolab_Format_Xml::TYPE_COLOR:
             $class = 'Horde_Kolab_Format_Xml_Type_Color';
