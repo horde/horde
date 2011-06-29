@@ -194,19 +194,16 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     /**
      * Save the current state to storage
      *
-     * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
     public function save()
     {
-        $this->_logger->debug(
-            sprintf('[%s] Saving state for synckey %s', $this->_devId, $this->_syncKey));
-
-        /*  Update state table to remember this last synctime and key */
+        // Update state table to remember this last synctime and key
         $sql = 'INSERT INTO ' . $this->_syncStateTable
-            . ' (sync_key, sync_data, sync_devid, sync_time, sync_folderid, sync_user) VALUES (?, ?, ?, ?, ?, ?)';
+            . ' (sync_key, sync_data, sync_devid, sync_time, sync_folderid, sync_user)'
+            . ' VALUES (?, ?, ?, ?, ?, ?)';
 
-        /* Remember any left over changes */
+        // Remember any left over changes
         if ($this->_type == 'foldersync') {
             $data = (isset($this->_state) ? serialize($this->_state) : '');
         } elseif ($this->_type == 'sync') {
@@ -222,6 +219,8 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_thisSyncTS,
             !empty($this->_collection['id']) ? $this->_collection['id'] : 'foldersync',
             $this->_deviceInfo->user);
+        $this->_logger->debug(
+            sprintf('[%s] Saving state: %s', $this->_devId, print_r($params, true)));
         try {
             $this->_db->insert($sql, $params);
         } catch (Horde_Db_Exception $e) {
@@ -390,22 +389,20 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Perform any initialization needed to deal with pingStates
-     * For this driver
+     * Perform any initialization needed to deal with pingStates for this driver
      *
-     * @param string $devId  The device id of the PIM to load PING state for
+     * @param string $devId  The device id to load pingState for
      *
      * @return The $collection array
      */
     public function initPingState($device)
     {
-        /* This would normally already be loaded by loadDeviceInfo() but we
-         * should verify we have the correct device loaded etc... */
+        // This would normally already be loaded by loadDeviceInfo() but we
+        // should verify we have the correct device loaded etc...
          if (!isset($this->_pingState) || $this->_devId !== $device->id) {
              throw new Horde_ActiveSync_Exception('Device not loaded');
          }
 
-         /* Need to get the last sync time for this collection */
          return $this->_pingState['collections'];
     }
 
@@ -416,13 +413,12 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      * @param string $devId   The device id to obtain
      * @param string $user    The user to retrieve user-specific device info for
      *
-     * @return object  The device obejct
+     * @return StdClass The device obejct
      * @throws Horde_ActiveSync_Exception
      */
     public function loadDeviceInfo($devId, $user)
     {
-        //@TODO - combine _devId and _deviceInfo
-        /* See if we have it already */
+        // See if we have it already
         if ($this->_devId == $devId && !empty($this->_deviceInfo)) {
             return $this->_deviceInfo;
         }
@@ -451,7 +447,9 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_deviceInfo->user = $user;
             $this->_deviceInfo->supported = unserialize($result['device_supported']);
             if ($result['device_ping']) {
-                $this->_pingState = empty($result['device_ping']) ? array() : unserialize($result['device_ping']);
+                $this->_pingState = empty($result['device_ping']) ?
+                    array() :
+                    unserialize($result['device_ping']);
             } else {
                 $this->resetPingState();
             }
@@ -598,8 +596,8 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      *
      * @param array $pingCollection  The collection array from the PIM request
      *
-     * @return void
-     * @throws Horde_ActiveSync_Exception
+     * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_StateGone,
+     *         Horde_ActiveSync_Exception_InvalidRequest
      */
     public function loadPingCollectionState($pingCollection)
     {
@@ -608,10 +606,11 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         }
         $haveState = false;
 
-        /* Load any existing state */
+        // Load any existing state
         // @TODO: I'm almost positive we need to key these by 'id', not 'class'
         // but this is what z-push did so...
         $this->_logger->debug('[' . $this->_devId . '] Attempting to load PING state for: ' . $pingCollection['class']);
+
         if (!empty($this->_pingState['collections'][$pingCollection['class']])) {
             $this->_collection = $this->_pingState['collections'][$pingCollection['class']];
             $this->_collection['synckey'] = $this->_devId;
@@ -622,8 +621,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         } else {
             // Initialize the collection's state.
             $this->_logger->info('[' . $this->_devId . '] Empty state for '. $pingCollection['class']);
-
-            /* Init members for the getChanges call */
+            // Init members for the getChanges call
             $this->_collection = $pingCollection;
             $this->_collection['synckey'] = $this->_devId;
 
@@ -631,7 +629,8 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             if (!$this->_lastSyncTS = $this->_getLastSyncTS()) {
                 throw new Horde_ActiveSync_Exception_InvalidRequest('No previous SYNC found for collection ' . $pingCollection['class']);
             }
-            /* If we are here, then the pingstate was empty, prime it */
+
+            // If we are here, then the pingstate was empty so prime it..
             $this->_pingState['collections'][$this->_collection['class']] = $this->_collection;
             $this->savePingState();
         }
