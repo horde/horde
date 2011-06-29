@@ -130,24 +130,11 @@ class Horde_Log_Logger implements Serializable
     public function __call($method, $params)
     {
         $levelName = strtoupper($method);
-        if (($level = $this->_levelToInt($levelName)) !== false) {
+        if (($level = array_search($levelName, $this->_levels)) !== false) {
             $this->log(array_shift($params), $level);
         } else {
             throw new Horde_Log_Exception('Bad log level ' . $levelName);
         }
-    }
-
-    /**
-     * Try to convert a log level name to an integer priority level.
-     *
-     * @param string $levelName The name of the log level.
-     *
-     * @return int|boolean The integer priority or false if the level name is
-     *                     not defined.
-     */
-    private function _levelToInt($levelName)
-    {
-        return array_search($levelName, $this->_levels);
     }
 
     /**
@@ -161,13 +148,6 @@ class Horde_Log_Logger implements Serializable
     {
         if (empty($this->_handlers)) {
             throw new Horde_Log_Exception('No handlers were added');
-        }
-
-        if (is_string($level)) {
-            $priority = $this->_levelToInt($level);
-            if ($priority !== false) {
-                $level = $priority;
-            }
         }
 
         // Create an event array from the given arguments.
