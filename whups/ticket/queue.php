@@ -20,6 +20,7 @@ $form = $vars->get('formname');
 if ($form != 'whups_form_queue_stepone') {
     $q = $vars->get('queue');
     $v = $vars->get('version');
+    $t = $vars->get('type');
 }
 
 // Get all ticket details from storage, then override any values that are
@@ -32,6 +33,9 @@ if (!empty($q)) {
 }
 if (!empty($v)) {
     $vars->set('version', $v);
+}
+if (!empty($t)) {
+    $vars->set('type', $t);
 }
 
 // Check permissions on this ticket.
