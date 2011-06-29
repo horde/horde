@@ -32,27 +32,22 @@ class Horde_Kolab_Format_Xml_Type_Boolean
 extends Horde_Kolab_Format_Xml_Type_String
 {
     /**
-     * Load the node value from the Kolab object.
+     * Load the value of a node.
      *
-     * @param string  $name        The name of the the attribute
-     *                             to be fetched.
-     * @param array   &$attributes The data array that holds all
-     *                             attribute values.
-     * @param DOMNode $parent_node The parent node of the node to be loaded.
+     * @param DOMNode $node Retrieve value for this node.
      *
-     * @return DOMNode|boolean The named DOMNode or false if no node value was
-     *                         found.
+     * @return mixed|null The value or null if no value was found.
      */
-    public function load($name, &$attributes, $parent_node)
+    public function loadNodeValue($node)
     {
-        $result = parent::load($name, $attributes, $parent_node);
-        if (isset($attributes[$name]) && !is_bool($attributes[$name])) {
-            if ($attributes[$name] == 'false') {
-                $attributes[$name] = false;
-            } else if ($attributes[$name] == 'true') {
-                $attributes[$name] = true;
+        $result = $this->fetchNodeValue($node);
+        if ($result !== null) {
+            if ($result == 'false') {
+                $result = false;
+            } else if ($result == 'true') {
+                $result = true;
             } else {
-                $attributes[$name] = (bool)$attributes[$name];
+                $result = (bool)$result;
             }
         }
         return $result;

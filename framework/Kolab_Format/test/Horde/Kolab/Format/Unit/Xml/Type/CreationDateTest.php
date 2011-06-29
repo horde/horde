@@ -65,6 +65,32 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @expectedException Horde_Kolab_Format_Exception
+     */
+    public function testLoadInvalidCreationDateValue()
+    {
+        list($doc, $rootNode, $cdate) = $this->_getDefaultCDate(
+            array(),
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><creation-date>2011A-06-28T08:42:11Z</creation-date>c</kolab>'
+        );
+        $attributes = array();
+        $cdate->load('creation-date', $attributes, $rootNode);
+    }
+
+    public function testLoadInvalidCreationDateValueRelaxed()
+    {
+        list($doc, $rootNode, $cdate) = $this->_getDefaultCDate(
+            array('relaxed' => true),
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><creation-date>2011A-06-28T08:42:11Z</creation-date>c</kolab>'
+        );
+        $attributes = array();
+        $cdate->load('creation-date', $attributes, $rootNode);
+        $this->assertFalse($attributes['creation-date']);
+    }
+
     public function testLoadStrangeCreationDate()
     {
         list($doc, $rootNode, $cdate) = $this->_getDefaultCDate(

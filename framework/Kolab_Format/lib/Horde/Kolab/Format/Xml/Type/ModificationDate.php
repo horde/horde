@@ -54,17 +54,23 @@ extends Horde_Kolab_Format_Xml_Type_Base
     }
 
     /**
-     * Fetch the value of a node.
+     * Load the value of a node.
      *
-     * @param DOMNode $node Retrieve the text value for this node.
+     * @param DOMNode $node Retrieve value for this node.
      *
-     * @return string|false The text value or false if no value was identified.
+     * @return mixed|null The value or null if no value was found.
      */
-    protected function fetchNodeValue($node)
+    public function loadNodeValue($node)
     {
-        $result = parent::fetchNodeValue($node);
-        if ($result !== false) {
-            return Horde_Kolab_Format_Date::readUtcDateTime($result);
+        $result = $this->fetchNodeValue($node);
+        if ($result !== null) {
+            $date = Horde_Kolab_Format_Date::readUtcDateTime($result);
+            if ($date === false && !$this->isRelaxed()) {
+                throw new Horde_Kolab_Format_Exception(
+                    sprintf('Invalid date input "%s"!', $result)
+                );
+            }
+            return $date;
         } else {
             return $result;
         }
