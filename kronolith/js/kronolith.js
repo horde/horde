@@ -5045,6 +5045,8 @@ KronolithCore = {
         $('kronolithEventSave').show().enable();
         $('kronolithEventSaveAsNew').show().enable();
         $('kronolithEventDelete').show().enable();
+        $('kronolithEventTarget').show();
+        $('kronolithEventTargetRO').hide();
         $('kronolithEventForm').down('.kronolithFormActions .kronolithSeparator').show();
         if (id) {
             RedBox.loading();
@@ -5226,6 +5228,7 @@ KronolithCore = {
         $('kronolithEventId').setValue(ev.id);
         $('kronolithEventCalendar').setValue(ev.ty + '|' + ev.c);
         $('kronolithEventTarget').setValue(ev.ty + '|' + ev.c);
+        $('kronolithEventTargetRO').update(Kronolith.conf.calendars[ev.ty][ev.c].name);
         $('kronolithEventTitle').setValue(ev.t);
         $('kronolithEventLocation').setValue(ev.l);
         if (ev.l && Kronolith.conf.maps.driver) {
@@ -5355,6 +5358,8 @@ KronolithCore = {
         }
         if (!ev.pd) {
             $('kronolithEventDelete').hide();
+            $('kronolithEventTarget').hide();
+            $('kronolithEventTargetRO').show();
         }
 
         this.setTitle(ev.t);
