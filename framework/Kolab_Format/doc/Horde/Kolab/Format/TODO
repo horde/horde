@@ -2,6 +2,30 @@
  Kolab_Format Development TODO List
 ====================================
 
+ - Type handlers left to do:
+
+   - Dates
+
+   - Recurrences
+
+   - pure XML
+
+ - Type handler _params should be splitted to instance parameters and
+   options changing per-run.
+
+ - cleanup Xml.php
+
+ - Provide the Root.php with the means to do all further processing.
+
+ - Allow the Root.php handler to be extended with application specific
+   attributes on the fly
+
+ - create handler instances just once
+
+ - better internal api version support
+
+ - cleanup handlers.
+
  - Remove the use of the Horde_Date class from testing. It should be
    no problem to get the same code coverage without using the external
    class.
@@ -14,10 +38,8 @@
 
  - KEP2
 
- - Allow extending format types with additional attributes on the fly.
-
  - AllDay events
 
  - Recurrence start handling
 
- - kolab/issue4672 (Kolab_Format has encoding problems)
+ - Check kolab/issue4672 (Kolab_Format has encoding problems)
