@@ -163,8 +163,29 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     $sync = $this->_driver->getSyncObject();
                     try {
                         $this->_state->loadPingCollectionState($collection);
+                    } catch (Horde_ActiveSync_Exception_InvalidRequest $e) {
+                        // @TODO: I *love* standards that nobody follows. This
+                        // really should throw an exception and return a HTTP 400
+                        // response since this is explicitly forbidden by the
+                        // specification. Some clients, e.g., TouchDown, send
+                        // a PING in place of the initial SYNC. But sending the
+                        // 400 causes TD to disable push entirely. Instead,
+                        // cause the PING to terminate early and hope we have
+                        // a SYNC next time it's pinged. We also use continue
+                        // here instead of break to make sure we give all
+                        // collections a change to report changes before we fail
+                        $this->_logger->err('PING terminating: ' . $e->getMessage());
+                        $expire = time();
+                        continue;
+                    } catch (Horde_ActiveSync_Exception_StateGone $e) {
+                        // Force a SYNC operation, the previous state was
+                        // removed.
+                        $this->_statusCode = self::STATUS_NEEDSYNC;
+                        $dataavailable = true;
+                        break;
                     } catch (Horde_ActiveSync_Exception $e) {
                         $this->_logger->err('PING terminating: ' . $e->getMessage());
+                        $this->_statusCode = self::STATUS_SERVERERROR;
                         break;
                     }
                     try {

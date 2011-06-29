@@ -615,24 +615,21 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         if (!empty($this->_pingState['collections'][$pingCollection['class']])) {
             $this->_collection = $this->_pingState['collections'][$pingCollection['class']];
             $this->_collection['synckey'] = $this->_devId;
-            $this->_lastSyncTS = $this->_getLastSyncTS();
-            $this->_logger->debug('[' . $this->_devId . '] Obtained lasst sync time for ' . $pingCollection['class'] . ' - ' . $this->_lastSyncTS);
-            if ($this->_lastSyncTS === false) {
-                throw new Horde_ActiveSync_Exception('Previous syncstate has been removed.');
+            if (!$this->_lastSyncTS = $this->_getLastSyncTS()) {
+                throw new Horde_ActiveSync_Exception_StateGone('Previous syncstate has been removed.');
             }
-            $haveState = true;
-        }
-
-        /* Initialize state for this collection */
-        if (!$haveState) {
+            $this->_logger->debug('[' . $this->_devId . '] Obtained last sync time for ' . $pingCollection['class'] . ' - ' . $this->_lastSyncTS);
+        } else {
+            // Initialize the collection's state.
             $this->_logger->info('[' . $this->_devId . '] Empty state for '. $pingCollection['class']);
 
             /* Init members for the getChanges call */
             $this->_collection = $pingCollection;
             $this->_collection['synckey'] = $this->_devId;
-            $this->_lastSyncTS = $this->_getLastSyncTS();
-            if ($this->_lastSyncTS === false) {
-                throw new Horde_ActiveSync_Exception('No previous SYNC command?');
+
+            // We MUST have a previous successful SYNC before PING.
+            if (!$this->_lastSyncTS = $this->_getLastSyncTS()) {
+                throw new Horde_ActiveSync_Exception_InvalidRequest('No previous SYNC found for collection ' . $pingCollection['class']);
             }
             /* If we are here, then the pingstate was empty, prime it */
             $this->_pingState['collections'][$this->_collection['class']] = $this->_collection;

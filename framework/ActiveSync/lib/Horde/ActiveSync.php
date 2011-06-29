@@ -373,14 +373,23 @@ class Horde_ActiveSync
                 $device,
                 $this->_provisioning);
             $request->setLogger($this->_logger);
-            $result = $request->handle();
+            // @TODO: The headers really should be output in the Rpc layer.
+            // Can't due that until Horde 5 because the InvalidRequest Exception
+            // was introduced after release i.e., this is a BC break.
+            try {
+                $result = $request->handle();
+            } catch (Horde_ActiveSync_Exception_InvalidRequest $e) {
+                header('HTTP/1.1 400 Invalid Request ' . $e->getMessage());
+            } catch (Horde_ActiveSync_Exception $e) {
+                header('HTTP/1.1 500');
+            }
             $this->_driver->logOff();
 
             return $result;
         }
 
         /* No idea what the client is talking about */
-        throw new Horde_ActiveSync_Exception('Invalid request or not supported: ' . $class);
+        header('HTTP/1.1 400 Invalid Request ' . basename($cmd) . ' not supported.');
     }
 
     /**
