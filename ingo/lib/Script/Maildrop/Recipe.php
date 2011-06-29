@@ -100,10 +100,14 @@ class Ingo_Script_Maildrop_Recipe
         case Ingo_Storage::ACTION_VACATION:
             $from = reset($params['action-value']['addresses']);
 
-            /* @TODO Exclusion and listfilter */
-            $exclude = '';
-            foreach ($params['action-value']['excludes'] as $address) {
-                $exclude .= $address . ' ';
+            /* Exclusion of addresses from vacation */
+            if ($params['action-value']['excludes']) {
+                $exclude = implode('|', $params['action-value']['excludes']);
+                // Disable wildcard until officially supported.
+                // $exclude = str_replace('*', '(.*)', $exclude);
+                $this->addCondition(array('match' => 'filter',
+                                          'field' => '',
+                                          'value' => '! /^From:.*(' . $exclude . ')/'));
             }
 
             $start = strftime($params['action-value']['start']);
