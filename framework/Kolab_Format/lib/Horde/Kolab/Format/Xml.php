@@ -464,34 +464,29 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
                     array(
                         'type' => $this->_root_name,
                         'version' => $this->_root_version,
-                        'api_version' => $this->_version
+                        'api_version' => $this->_version,
+                        'factory' => $this->_factory,
                     )
                 );
                 $node = $this->_factory->createXmlType(
                     $params, $this->_xmldoc, $type_options
                 );
                 $node->load($field, $object, $parent_node);
-                continue;
-            } else if (in_array($params['type'], array(self::TYPE_STRING))) {
+            } else {
                 $type_options = array_merge(
                     $options,
                     $params,
                     array(
                         'type' => $this->_root_name,
                         'version' => $this->_root_version,
-                        'api_version' => $this->_version
+                        'api_version' => $this->_version,
+                        'factory' => $this->_factory,
                     )
                 );
                 $node = $this->_factory->createXmlType(
                     $params['type'], $this->_xmldoc, $type_options
                 );
                 $node->load($field, $object, $parent_node);
-                continue;
-            }
-
-            $result = $this->_getXmlData($parent_node->childNodes, $field, $params);
-            if (isset($result)) {
-                $object[$field] = $result;
             }
         }
         return $object;
@@ -678,15 +673,31 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
                 array(
                     'type' => $this->_root_name,
                     'version' => $this->_root_version,
-                    'api_version' => $this->_version
+                    'api_version' => $this->_version,
+                    'factory' => $this->_factory,
                 )
             );
             $node = $this->_factory->createXmlType(
                 $params, $this->_xmldoc, $type_options
             );
             $node->save($name, $attributes, $parent_node);
-            return;
+        } else {
+            $type_options = array_merge(
+                $options,
+                $params,
+                array(
+                    'type' => $this->_root_name,
+                    'version' => $this->_root_version,
+                    'api_version' => $this->_version,
+                    'factory' => $this->_factory,
+                )
+            );
+            $node = $this->_factory->createXmlType(
+                $params['type'], $this->_xmldoc, $type_options
+            );
+            $node->save($name, $attributes, $parent_node);
         }
+        return;
 
         $value   = null;
         $missing = false;

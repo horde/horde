@@ -144,6 +144,21 @@ class Horde_Kolab_Format_Factory
         case Horde_Kolab_Format_Xml::TYPE_STRING:
             $class = 'Horde_Kolab_Format_Xml_Type_String';
             break;
+        case Horde_Kolab_Format_Xml::TYPE_INTEGER:
+            $class = 'Horde_Kolab_Format_Xml_Type_Integer';
+            break;
+        case Horde_Kolab_Format_Xml::TYPE_BOOLEAN:
+            $class = 'Horde_Kolab_Format_Xml_Type_Boolean';
+            break;
+        case Horde_Kolab_Format_Xml::TYPE_COLOR:
+            $class = 'Horde_Kolab_Format_Xml_Type_Color';
+            break;
+        case Horde_Kolab_Format_Xml::TYPE_MULTIPLE:
+            $class = 'Horde_Kolab_Format_Xml_Type_Multiple';
+            break;
+        case Horde_Kolab_Format_Xml::TYPE_COMPOSITE:
+            $class = 'Horde_Kolab_Format_Xml_Type_Composite';
+            break;
         case Horde_Kolab_Format_Xml::TYPE_XML:
             $class = 'Horde_Kolab_Format_Xml_Type_XmlAppend';
             break;
