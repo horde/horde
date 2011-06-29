@@ -172,11 +172,25 @@ class Horde_Kolab_Format_Xml_Type_Base
      */
     public function storeNewNodeValue($parent_node, $name, $value)
     {
-        $node = $this->_xmldoc->createElement($name);
-        $parent_node->appendChild($node);
+        $node = $this->createNewNode($parent_node, $name);
         $node->appendChild(
             $this->_xmldoc->createTextNode($value)
         );
+        return $node;
+    }
+
+    /**
+     * Create a new node.
+     *
+     * @param DOMNode $parent_node Attach the new node to this parent.
+     * @param string  $name        Name of the new child node.
+     *
+     * @return DOMNode The new child node.
+     */
+    protected function createNewNode($parent_node, $name)
+    {
+        $node = $this->_xmldoc->createElement($name);
+        $parent_node->appendChild($node);
         return $node;
     }
 
