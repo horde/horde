@@ -80,8 +80,8 @@ class Hermes_Driver_Sql extends Hermes_Driver
                         $info['hours'],
                         isset($info['billable']) ? (int)$info['billable'] : 0,
                         $dt->timestamp() + 1,
-                        $info['description'],
-                        $info['note'],
+                        $this->_convertToDriver($info['description']),
+                        $this->_convertToDriver($info['note']),
                         (float)$job_rate,
                         (empty($info['costobject']) ? null :
                          $info['costobject']));
@@ -146,8 +146,8 @@ class Hermes_Driver_Sql extends Hermes_Driver
                                 $info['hours'],
                                 (isset($info['billable']) ? (int)$info['billable'] : 0),
                                 $dt->timestamp(),
-                                $info['description'],
-                                $info['note'],
+                                $this->_convertToDriver($info['description']),
+                                $this->_convertToDriver($info['note']),
                                 (empty($info['costobject']) ? null : $info['costobject']),
                                 (int)$info['id']);
                 try {
@@ -267,12 +267,13 @@ class Hermes_Driver_Sql extends Hermes_Driver
         }
         $slices = array();
         // Do per-record processing
+        $addcostobject = empty($fields) || in_array('costobject', $fields);
         foreach (array_keys($hours) as $hkey) {
             // Convert timestamps to Horde_Date objects
             $hours[$hkey]['date'] = new Horde_Date($hours[$hkey]['date']);
-
-            // Add cost object names to the results.
-            if (empty($fields) || in_array('costobject', $fields)) {
+            $hours[$hkey]['description'] = $this->_convertFromDriver($hours[$hkey]['description']);
+            $hours[$hkey]['note'] = $this->_convertFromDriver($hours[$hkey]['note']);
+            if ($addcostobject) {
                 if (empty($hours[$hkey]['costobject'])) {
                     $hours[$hkey]['_costobject_name'] = '';
                 } else {
@@ -372,10 +373,10 @@ class Hermes_Driver_Sql extends Hermes_Driver
             $values[] = ($criteria['enabled'] ? 1 : 0);
         }
 
-        $sql = 'SELECT jobtype_id, jobtype_name, jobtype_enabled' .
-               ', jobtype_rate, jobtype_billable FROM hermes_jobtypes' .
-               (empty($where) ? '' : (' WHERE ' . join(' AND ', $where))) .
-               ' ORDER BY jobtype_name';
+        $sql = 'SELECT jobtype_id, jobtype_name, jobtype_enabled'
+            . ', jobtype_rate, jobtype_billable FROM hermes_jobtypes'
+            . (empty($where) ? '' : (' WHERE ' . join(' AND ', $where)))
+            . ' ORDER BY jobtype_name';
 
         try {
             $rows = $this->_db->selectAll($sql, $values);
@@ -386,11 +387,12 @@ class Hermes_Driver_Sql extends Hermes_Driver
         $results = array();
         foreach ($rows as $row) {
             $id = $row['jobtype_id'];
-            $results[$id] = array('id'       => $id,
-                                  'name'     => $row['jobtype_name'],
-                                  'rate'     => (float)$row['jobtype_rate'],
-                                  'billable' => (int)$row['jobtype_billable'],
-                                  'enabled'  => !empty($row['jobtype_enabled']));
+            $results[$id] = array(
+                'id'       => $id,
+                'name'     => $this->_convertFromDriver($row['jobtype_name']),
+                'rate'     => (float)$row['jobtype_rate'],
+                'billable' => (int)$row['jobtype_billable'],
+                'enabled'  => !empty($row['jobtype_enabled']));
         }
 
         return $results;
@@ -407,10 +409,11 @@ class Hermes_Driver_Sql extends Hermes_Driver
         if (empty($jobtype['id'])) {
             $sql = 'INSERT INTO hermes_jobtypes (jobtype_name, jobtype_enabled, '
                 . 'jobtype_rate, jobtype_billable) VALUES (?, ?, ?, ?)';
-            $values = array($jobtype['name'],
-                            (int)$jobtype['enabled'],
-                            (float)$jobtype['rate'],
-                            (int)$jobtype['billable']);
+            $values = array(
+                $this->_convertToDriver($jobtype['name']),
+                (int)$jobtype['enabled'],
+                (float)$jobtype['rate'],
+                (int)$jobtype['billable']);
 
             try {
                 return $this->_db->insert($sql, $values);
@@ -452,19 +455,22 @@ class Hermes_Driver_Sql extends Hermes_Driver
     public function updateDeliverable($deliverable)
     {
         if (empty($deliverable['id'])) {
-            $sql = 'INSERT INTO hermes_deliverables (' .
-                   ' client_id, deliverable_name, deliverable_parent,' .
-                   ' deliverable_estimate, deliverable_active,' .
-                   ' deliverable_description) VALUES (?, ?, ?, ?, ?, ?)';
-            $values = array($deliverable['client_id'],
-                            $deliverable['name'],
-                            (empty($deliverable['parent']) ? null :
-                             (int)$deliverable['parent']),
-                            (empty($deliverable['estimate']) ? null :
-                             $deliverable['estimate']),
-                            ($deliverable['active'] ? 1 : 0),
-                            (empty($deliverable['description']) ? null :
-                             $deliverable['description']));
+            $sql = 'INSERT INTO hermes_deliverables ('
+                . ' client_id, deliverable_name, deliverable_parent,'
+                . ' deliverable_estimate, deliverable_active,'
+                . ' deliverable_description) VALUES (?, ?, ?, ?, ?, ?)';
+
+            $values = array(
+                $deliverable['client_id'],
+                $this->_convertToDriver($deliverable['name']),
+                (empty($deliverable['parent']) ? null :
+                 (int)$deliverable['parent']),
+                (empty($deliverable['estimate']) ? null :
+                 $deliverable['estimate']),
+                ($deliverable['active'] ? 1 : 0),
+                (empty($deliverable['description']) ?
+                 null :
+                 $this->_convertToDriver($deliverable['description'])));
 
             try {
                 return $this->_db->insert($sql, $values);
@@ -472,20 +478,23 @@ class Hermes_Driver_Sql extends Hermes_Driver
                 throw new Hermes_Exception($e);
             }
         } else {
-            $sql = 'UPDATE hermes_deliverables SET client_id = ?,' .
-                   ' deliverable_name = ?, deliverable_parent = ?,' .
-                   ' deliverable_estimate = ?, deliverable_active = ?,' .
-                   ' deliverable_description = ? WHERE deliverable_id = ?';
-            $values = array($deliverable['client_id'],
-                            $deliverable['name'],
-                            (empty($deliverable['parent']) ? null :
-                             (int)$deliverable['parent']),
-                            (empty($deliverable['estimate']) ? null :
-                             $deliverable['estimate']),
-                            ($deliverable['active'] ? 1 : 0),
-                            (empty($deliverable['description']) ? null :
-                             $deliverable['description']),
-                            $deliverable['id']);
+            $sql = 'UPDATE hermes_deliverables SET client_id = ?,'
+                . ' deliverable_name = ?, deliverable_parent = ?,'
+                . ' deliverable_estimate = ?, deliverable_active = ?,'
+                . ' deliverable_description = ? WHERE deliverable_id = ?';
+
+            $values = array(
+                $deliverable['client_id'],
+                $this->_convertToDriver($deliverable['name']),
+                (empty($deliverable['parent']) ? null :
+                 (int)$deliverable['parent']),
+                (empty($deliverable['estimate']) ? null :
+                 $deliverable['estimate']),
+                ($deliverable['active'] ? 1 : 0),
+                (empty($deliverable['description']) ?
+                 null :
+                 $this->_convertToDriver($deliverable['description'])),
+                $deliverable['id']);
             try {
                 $this->_db->update($sql, $values);
                 return $deliverable['id'];
@@ -519,8 +528,8 @@ class Hermes_Driver_Sql extends Hermes_Driver
             $values[] = 0;
         }
 
-        $sql = 'SELECT * FROM hermes_deliverables' .
-               (count($where) ? ' WHERE ' . join(' AND ', $where) : '');
+        $sql = 'SELECT * FROM hermes_deliverables'
+            . (count($where) ? ' WHERE ' . join(' AND ', $where) : '');
 
         try {
             $rows = $this->_db->selectAll($sql, $values);
@@ -530,13 +539,14 @@ class Hermes_Driver_Sql extends Hermes_Driver
 
         $deliverables = array();
         foreach ($rows as $row) {
-            $deliverable = array('id'          => $row['deliverable_id'],
-                                 'client_id'   => $row['client_id'],
-                                 'name'        => $row['deliverable_name'],
-                                 'parent'      => $row['deliverable_parent'],
-                                 'estimate'    => $row['deliverable_estimate'],
-                                 'active'      => !empty($row['deliverable_active']),
-                                 'description' => $row['deliverable_description']);
+            $deliverable = array(
+                'id'          => $row['deliverable_id'],
+                'client_id'   => $row['client_id'],
+                'name'        => $this->_convertFromDriver($row['deliverable_name']),
+                'parent'      => $row['deliverable_parent'],
+                'estimate'    => $row['deliverable_estimate'],
+                'active'      => !empty($row['deliverable_active']),
+                'description' => $this->_convertFromDriver($row['deliverable_description']));
             $deliverables[$row['deliverable_id']] = $deliverable;
         }
 
@@ -597,9 +607,9 @@ class Hermes_Driver_Sql extends Hermes_Driver
             throw new Horde_Exception_NotFound('Does not exist');
         }
 
-        $sql = 'SELECT clientjob_id, clientjob_enterdescription,' .
-               ' clientjob_exportid FROM hermes_clientjobs' .
-               ' WHERE clientjob_id = ?';
+        $sql = 'SELECT clientjob_id, clientjob_enterdescription,'
+            . ' clientjob_exportid FROM hermes_clientjobs'
+            . ' WHERE clientjob_id = ?';
         $values = array($clientID);
 
         try {
@@ -607,22 +617,27 @@ class Hermes_Driver_Sql extends Hermes_Driver
         } catch (Horde_Db_Exception $e) {
             throw new Hermes_Exception($e);
         }
+
         $clientJob = array();
         foreach ($rows as $row) {
-            $clientJob[$row['clientjob_id']] = array($row['clientjob_enterdescription'], $row['clientjob_exportid']);
+            $clientJob[$row['clientjob_id']] = array(
+                $row['clientjob_enterdescription'],
+                $row['clientjob_exportid']);
         }
 
         if (isset($clientJob[$clientID])) {
-            $settings = array('id' => $clientID,
-                              'enterdescription' => $clientJob[$clientID][0],
-                              'exportid' => $clientJob[$clientID][1]);
+            $settings = array(
+                'id' => $clientID,
+                'enterdescription' => $clientJob[$clientID][0],
+                'exportid' => $this->_convertFromDriver($clientJob[$clientID][1]));
         } else {
-            $settings = array('id' => $clientID,
-                              'enterdescription' => 1,
-                              'exportid' => null);
+            $settings = array(
+                'id' => $clientID,
+                'enterdescription' => 1,
+                'exportid' => null);
         }
-
         $settings['name'] = $clients[$clientID];
+
         return $settings;
     }
 
@@ -644,10 +659,13 @@ class Hermes_Driver_Sql extends Hermes_Driver
         $values = array($clientID);
 
         if ($this->_db->selectValue($sql, $values) !== $clientID) {
-            $sql = 'INSERT INTO hermes_clientjobs (clientjob_id,' .
-                   ' clientjob_enterdescription, clientjob_exportid)' .
-                   ' VALUES (?, ?, ?)';
-            $values = array($clientID, (int)$enterDescription, $exportID);
+            $sql = 'INSERT INTO hermes_clientjobs (clientjob_id,'
+                . ' clientjob_enterdescription, clientjob_exportid)'
+                . ' VALUES (?, ?, ?)';
+            $values = array(
+                $clientID,
+                (int)$enterDescription,
+                $this->_convertToDriver($exportID));
 
             try {
                 return $this->_db->insert($sql, $values);
@@ -655,10 +673,13 @@ class Hermes_Driver_Sql extends Hermes_Driver
                 throw new Hermes_Exception($e);
             }
         } else {
-            $sql = 'UPDATE hermes_clientjobs SET' .
-                   ' clientjob_exportid = ?, clientjob_enterdescription = ?' .
-                   ' WHERE clientjob_id = ?';
-            $values = array($exportID, (int)$enterDescription, $clientID);
+            $sql = 'UPDATE hermes_clientjobs SET'
+                . ' clientjob_exportid = ?, clientjob_enterdescription = ?'
+                . ' WHERE clientjob_id = ?';
+            $values = array(
+                $this->_convertToDriver($exportID),
+                (int)$enterDescription,
+                $clientID);
 
             try {
                 return $this->_db->update($sql, $values);
@@ -677,10 +698,40 @@ class Hermes_Driver_Sql extends Hermes_Driver
     {
         global $conf;
 
-        $query = 'DELETE FROM hermes_timeslices' .
-                 ' WHERE timeslice_exported = ? AND timeslice_date < ?';
-        $values = array(1, mktime(0, 0, 0, date('n'),
-                                  date('j') - $conf['time']['days_to_keep']));
+        $query = 'DELETE FROM hermes_timeslices'
+            . ' WHERE timeslice_exported = ? AND timeslice_date < ?';
+        $values = array(
+            1,
+            mktime(0, 0, 0, date('n'), date('j') - $conf['time']['days_to_keep']));
+
         return $this->_db->delete($query, $values);
     }
+
+    /**
+     * Converts a value from the driver's charset to the default
+     * charset.
+     *
+     * @param mixed $value  A value to convert.
+     *
+     * @return mixed  The converted value.
+     */
+    protected function _convertFromDriver($value)
+    {
+        return Horde_String::convertCharset($value, $this->_db->getOption('charset'), 'UTF-8');
+    }
+
+    /**
+     * Converts a value from the default charset to the driver's
+     * charset.
+     *
+     * @param mixed $value  A value to convert.
+     *
+     * @return mixed  The converted value.
+     */
+    protected function _convertToDriver($value)
+    {
+        return Horde_String::convertCharset($value, 'UTF-8', $this->_db->getOption('charset'));
+
+    }
+
 }
