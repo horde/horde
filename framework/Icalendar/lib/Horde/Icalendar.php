@@ -1090,7 +1090,7 @@ class Horde_Icalendar
             } else {
                 $attr_string = $name . $params_str . ':' . $value;
                 if (!$this->oldFormat) {
-                    if ($params['ENCODING'] == 'b') {
+                    if (isset($params['ENCODING']) && $params['ENCODING'] == 'b') {
                         $attr_string = chunk_split($attr_string, 75, $this->_newline . ' ');
                     } else {
                         $attr_string = Horde_String::wordwrap($attr_string, 75, $this->_newline . ' ', true, true);
