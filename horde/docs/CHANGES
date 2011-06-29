@@ -2,6 +2,8 @@
 v4.0.7-git
 ----------
 
+[mjr] Fix race conditions caused by broken clients sending an inappropriate PING
+      request.
 [jan] Don't allow to click disabled login button (Bug #10267).
 [jan] Allow configuration of split read databases for PostgreSQL (Request
       #7025).

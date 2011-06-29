@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
  <notes>
+* [mjr] Fix race conditions caused by broken clients sending an inappropriate PING request.
 * [mjr] Fix issue with initial Android pairing
  </notes>
  <contents>
@@ -303,6 +304,7 @@
    <date>2011-06-29</date>
    <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
    <notes>
+* [mjr] Fix race conditions caused by broken clients sending an inappropriate PING request.
 * [mjr] Fix issue with initial Android pairing
    </notes>
   </release>
