@@ -57,7 +57,7 @@ class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
             ),
             'organizer' => $this->_fields_simple_person,
             'start-date' => array(
-                'type'    => self::TYPE_STRING,
+                'type'    => self::TYPE_DATE_OR_DATETIME,
                 'value'   => self::VALUE_NOT_EMPTY,
             ),
             'alarm' => array(
@@ -80,7 +80,7 @@ class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
                 'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'end-date' => array(
-                'type'    => self::TYPE_STRING,
+                'type'    => self::TYPE_DATE_OR_DATETIME,
                 'value'   => self::VALUE_NOT_EMPTY,
             ),
         );
