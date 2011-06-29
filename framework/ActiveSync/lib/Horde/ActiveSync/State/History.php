@@ -429,7 +429,6 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             . ' u ON d.device_id = u.device_id WHERE u.device_id = ? AND u.device_user = ?';
 
         try {
-            $this->_logger->debug('SQL QUERY: ' . $query . ' VALUES: ' . $devId . ' ' . $user);
             $result = $this->_db->selectOne($query, array($devId, $user));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
