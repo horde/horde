@@ -3006,9 +3006,9 @@ class Whups_Driver_Sql extends Whups_Driver
     /**
      * Get all owners for the specified ticket.
      *
-     * @param integer $ticketId  The ticket_id
+     * @param mixed integer|array $ticketId  The ticket_id, or an arary of ids
      *
-     * @return array  A id => owner hash
+     * @return array  An array of 'id' => array('owner') hashes.
      */
     public function getOwners($ticketId)
     {

@@ -851,7 +851,22 @@ class Whups
         return $link;
     }
 
-    static public function getOwners($ticket, $showemail = true, $showname = true, $owners = null)
+    /**
+     * Obtain formatted owner string
+     *
+     * @param integer $ticket    The ticket id. Only used if $owners is null.
+     * @param boolean $showmail  Should we include the email address in the
+     *                           output?
+     * @param boolean $showname  Should we include the name in the output?
+     * @param array $owners      An array of owners as returned from
+     *                           Whups_Driver::getOwners() to be formatted. If
+     *                           this is provided, they are used in place of
+     *                           fetcing owners from $ticket.
+     *
+     * @return string  The formatted owner string.
+     */
+    static public function getOwners(
+        $ticket, $showemail = true, $showname = true, $owners = null)
     {
         if (is_null($owners)) {
             global $whups_driver;
