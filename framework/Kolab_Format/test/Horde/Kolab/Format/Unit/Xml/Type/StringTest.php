@@ -59,6 +59,18 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals('STRANGE', $attributes['string']);
     }
 
+    public function testLoadEmptyString()
+    {
+        list($doc, $rootNode, $result) = $this->_getDefaultString(
+            array(),
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0"><string></string></kolab>'
+        );
+        $attributes = array();
+        $result->load('string', $attributes, $rootNode);
+        $this->assertSame('', $attributes['string']);
+    }
+
     public function testLoadMissingString()
     {
         list($doc, $rootNode, $result) = $this->_getDefaultString(

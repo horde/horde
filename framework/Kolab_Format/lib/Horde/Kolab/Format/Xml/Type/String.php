@@ -61,6 +61,22 @@ extends Horde_Kolab_Format_Xml_Type_Base
     }
 
     /**
+     * Load the value of a node.
+     *
+     * @param DOMNode $node Retrieve value for this node.
+     *
+     * @return mixed|null The value or null if no value was found.
+     */
+    public function loadNodeValue($node)
+    {
+        $result = $this->fetchNodeValue($node);
+        if ($result === null) {
+            $result = '';
+        }
+        return $result;
+    }
+
+    /**
      * Update the specified attribute.
      *
      * @param string  $name        The name of the the attribute
