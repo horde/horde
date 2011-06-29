@@ -50,24 +50,29 @@ extends Horde_Kolab_Format_Xml_Type_String
     /**
      * Update the specified attribute.
      *
-     * @param string  $name        The name of the the attribute
-     *                             to be updated.
-     * @param array   $attributes  The data array that holds all
-     *                             attribute values.
-     * @param DOMNode $parent_node The parent node of the node that
-     *                             should be updated.
+     * @param string       $name        The name of the the attribute
+     *                                  to be updated.
+     * @param mixed        $value       The value to store.
+     * @param DOMNode      $parent_node The parent node of the node that
+     *                                  should be updated.
+     * @param DOMNode|NULL $old_node    The previous value (or null if
+     *                                  there is none).
      *
      * @return DOMNode|boolean The new/updated child node or false if this
      *                         failed.
      *
      * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
-    public function save($name, $attributes, $parent_node)
-    {
-        if (isset($attributes[$name])) {
-            $this->_checkColor($attributes[$name]);
+    public function saveNodeValue(
+        $name,
+        $value,
+        $parent_node,
+        $old_node = null
+    ) {
+        if (isset($value)) {
+            $this->_checkColor($value);
         }
-        return parent::save($name, $attributes, $parent_node);
+        return parent::saveNodeValue($name, $value, $parent_node, $old_node);
     }
 
     /**

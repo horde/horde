@@ -107,10 +107,10 @@ extends Horde_Kolab_Format_Xml_Type_Base
             } else {
                 $value = $attributes[$name];
             }
-            return $this->storeNewNodeValue($parent_node, $name, $value);
+            return $this->saveNodeValue($name, $value, $parent_node);
         }
         if (isset($attributes[$name])) {
-            $this->replaceFirstNodeTextValue($node, $attributes[$name]);
+            $this->saveNodeValue($name, $attributes[$name], $parent_node, $node);
         } else if ($this->getParam('value') == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING) {
             /** Client indicates that the value should get removed */
             $this->removeNodes($parent_node, $name);

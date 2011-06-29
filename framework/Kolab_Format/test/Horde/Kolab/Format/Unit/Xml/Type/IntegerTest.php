@@ -125,7 +125,7 @@ extends PHPUnit_Framework_TestCase
         list($doc, $rootNode, $result) = $this->_getDefaultInteger();
         $this->assertInstanceOf(
             'DOMNode',
-            $result->save('integer', array(), $rootNode)
+            $result->save('integer', array('integer' => 1), $rootNode)
         );
     }
 

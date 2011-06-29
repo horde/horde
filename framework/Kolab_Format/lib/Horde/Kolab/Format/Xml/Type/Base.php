@@ -65,28 +65,6 @@ class Horde_Kolab_Format_Xml_Type_Base
     }
 
     /**
-     * Return a parameter value.
-     *
-     * @param string $name The parameter name.
-     *
-     * @return mixed The parameter value.
-     */
-    public function getParam($name)
-    {
-        return isset($this->_params[$name]) ? $this->_params[$name] : null;
-    }
-
-    /**
-     * Returns if the XML handling should be relaxed.
-     *
-     * @return boolean True if the XML should not be strict.
-     */
-    protected function isRelaxed()
-    {
-        return !empty($this->_params['relaxed']);
-    }
-
-    /**
      * Load the node value from the Kolab object.
      *
      * @param string  $name        The name of the the attribute
@@ -137,6 +115,36 @@ class Horde_Kolab_Format_Xml_Type_Base
     }
 
     /**
+     * Update the specified attribute.
+     *
+     * @param string       $name        The name of the the attribute
+     *                                  to be updated.
+     * @param mixed        $value       The value to store.
+     * @param DOMNode      $parent_node The parent node of the node that
+     *                                  should be updated.
+     * @param DOMNode|NULL $old_node    The previous value (or null if
+     *                                  there is none).
+     *
+     * @return DOMNode|boolean The new/updated child node or false if this
+     *                         failed.
+     *
+     * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
+     */
+    public function saveNodeValue(
+        $name,
+        $value,
+        $parent_node,
+        $old_node = null
+    ) {
+        if ($old_node === null) {
+            return $this->storeNewNodeValue($parent_node, $name, $value);
+        } else {
+            $this->replaceFirstNodeTextValue($old_node, $value);
+            return $old_node;
+        }
+    }
+
+    /**
      * Fetch the the first text node.
      *
      * @param DOMNode $node Retrieve the text value for this node.
@@ -162,7 +170,7 @@ class Horde_Kolab_Format_Xml_Type_Base
      *
      * @return DOMNode The new child node.
      */
-    protected function storeNewNodeValue($parent_node, $name, $value)
+    public function storeNewNodeValue($parent_node, $name, $value)
     {
         $node = $this->_xmldoc->createElement($name);
         $parent_node->appendChild($node);
@@ -200,7 +208,7 @@ class Horde_Kolab_Format_Xml_Type_Base
      *
      * @return DOMNode|false The named DOMNode or empty if no node was found.
      */
-    public function findNode($query)
+    protected function findNode($query)
     {
         return $this->_findSingleNode($this->findNodes($query));
     }
@@ -214,7 +222,7 @@ class Horde_Kolab_Format_Xml_Type_Base
      *
      * @return DOMNode|false The named DOMNode or empty if no node was found.
      */
-    public function findNodeRelativeTo($query, DOMNode $context)
+    protected function findNodeRelativeTo($query, DOMNode $context)
     {
         return $this->_findSingleNode(
             $this->findNodesRelativeTo($query, $context)
@@ -243,7 +251,7 @@ class Horde_Kolab_Format_Xml_Type_Base
      *
      * @return DOMNodeList The list of DOMNodes.
      */
-    public function findNodes($query)
+    protected function findNodes($query)
     {
         return $this->_xpath->query($query);
     }
@@ -256,8 +264,63 @@ class Horde_Kolab_Format_Xml_Type_Base
      *
      * @return DOMNodeList The list of DOMNodes.
      */
-    public function findNodesRelativeTo($query, DOMNode $context)
+    protected function findNodesRelativeTo($query, DOMNode $context)
     {
         return $this->_xpath->query($query, $context);
+    }
+
+    /**
+     * Remove named nodes from a parent node.
+     *
+     * @param DOMNode $parent_node The parent node.
+     * @param string  $name        The name of the children to be removed.
+     *
+     * @return NULL
+     */
+    protected function removeNodes($parent_node, $name)
+    {
+        foreach ($this->findNodesRelativeTo('./' . $name, $parent_node) as $child) {
+            $parent_node->removeChild($child);
+        }
+    }
+
+    /**
+     * Return a parameter value.
+     *
+     * @param string $name The parameter name.
+     *
+     * @return mixed The parameter value.
+     */
+    public function getParam($name)
+    {
+        return isset($this->_params[$name]) ? $this->_params[$name] : null;
+    }
+
+    /**
+     * Returns if the XML handling should be relaxed.
+     *
+     * @return boolean True if the XML should not be strict.
+     */
+    protected function isRelaxed()
+    {
+        return !empty($this->_params['relaxed']);
+    }
+
+    /**
+     * Create a handler for the sub type of this attribute.
+     *
+     * @param array $parameters The parameters for creating the sub type handler.
+     *
+     * @return Horde_Kolab_Format_Xml_Type The sub type handler.
+     */
+    protected function createSubType($parameters)
+    {
+        $original_params = $this->_params;
+        unset($original_params['array']);
+        $type = $parameters['type'];
+        unset($parameters['type']);
+        $params = array_merge($original_params, $parameters);
+        return $this->getParam('factory')
+            ->createXmlType($type, $this->_xmldoc, $params);
     }
 }
