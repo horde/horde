@@ -723,7 +723,7 @@ class Whups
             $owners = $whups_driver->getOwners($info['id']);
             if (count($owners)) {
                 foreach ($owners as $owner) {
-                    $remind[$owner][] = $info;
+                    $remind[$owner['owner']][] = $info;
                 }
             } elseif (!empty($unassigned)) {
                 $remind['**' . $unassigned][] = $info;
@@ -874,6 +874,7 @@ class Whups
         }
 
         $results = array();
+        $owners = current($owners);
         foreach ($owners as $owner) {
             $results[] = Whups::formatUser($owner, $showemail, $showname);
         }

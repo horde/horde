@@ -1106,13 +1106,12 @@ class Whups_Driver_Sql extends Whups_Driver
         }
 
         $owners = $this->getOwners(array_keys($tickets));
-        foreach ($owners as $id => $row) {
+        foreach ($owners as $id => $owners) {
             if (empty($tickets[$id]['owners'])) {
                 $tickets[$id]['owners'] = array();
             }
-            $tickets[$id]['owners'][] = $row;
+            $tickets[$id]['owners'] = $owners;
         }
-
         $attributes = $this->getTicketAttributesWithNames(array_keys($tickets));
         foreach ($attributes as $row) {
             $attribute_id = 'attribute_' . $row['attribute_id'];
@@ -3022,7 +3021,7 @@ class Whups_Driver_Sql extends Whups_Driver
                 . 'IN (' . str_repeat('?, ', count($ticketId) - 1) . '?)';
             $values = $ticketId;
             try {
-                return $this->_db->selectAssoc($query, $values);
+                $owners = $this->_db->selectAll($query, $values);
             } catch (Horde_Db_Exception $e) {
                 throw new Whups_Exception($e);
             }
@@ -3031,11 +3030,17 @@ class Whups_Driver_Sql extends Whups_Driver
                 . 'FROM whups_ticket_owners WHERE ticket_id = ?';
             $values = array((int)$ticketId);
             try {
-                return $this->_db->selectAssoc($query, $values);
+                $owners = $this->_db->selectAll($query, $values);
             } catch (Horde_Db_Exception $e) {
                 throw new Whups_Exception($e);
             }
         }
+        $results = array();
+        foreach ($owners as $owner) {
+           $results[$owner['id']][] = $owner['owner'];
+        }
+
+        return $results;
     }
 
     /**
