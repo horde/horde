@@ -20,7 +20,8 @@ $horde_css->addStylesheet(
 );
 $horde_css->addThemeStylesheet('mobile.css');
 Horde::includeStylesheetFiles(array(
-    'nobase' => true
+    'nobase' => true,
+    'nocache' => true,
 ));
 
 /* JS Files. */

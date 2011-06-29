@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Don&apos;t use CSS cache in mobile interfaces because it breaks jQuery Mobile CSS.
 * [jan] Allow configuration of split read databases for PostgreSQL (Request #7025).
 * [mjr] Honor initial_application setting for mobile view (Bug #10264).
 * [gwr] Support restricting the HTML tidy post processing by the message size (Request #10266).
@@ -4163,6 +4164,7 @@
    <date>2011-06-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Don&apos;t use CSS cache in mobile interfaces because it breaks jQuery Mobile CSS.
 * [jan] Allow configuration of split read databases for PostgreSQL (Request #7025).
 * [mjr] Honor initial_application setting for mobile view (Bug #10264).
 * [gwr] Support restricting the HTML tidy post processing by the message size (Request #10266).
