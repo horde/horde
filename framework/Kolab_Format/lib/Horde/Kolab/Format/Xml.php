@@ -34,7 +34,6 @@
  */
 class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
 {
-
     /**
      * Defines a XML value that should get a default value if missing
      */
@@ -381,6 +380,29 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     }
 
     /**
+     * Throw the parser instance away.
+     *
+     * @return NULL
+     */
+    private function _refreshParser()
+    {
+        $this->_parser = null;
+    }
+
+    /**
+     * Fetch the XML parser.
+     *
+     * @return Horde_Kolab_Format_Xml_Parser The parser.
+     */
+    private function _getParser()
+    {
+        if ($this->_parser === null) {
+            $this->_parser = $this->_factory->createXmlParser();
+        }
+        return $this->_parser;
+    }
+
+    /**
      * Load an object based on the given XML stream. The stream may only contain
      * UTF-8 data.
      *
@@ -399,7 +421,9 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
      */
     public function load($xml, $options = array())
     {
-        $this->_xmldoc = $this->_parser->parse($xml, $options);
+        $this->_xmldoc = $this->_getParser()->parse($xml, $options);
+        $this->_refreshParser();
+
         $params = array_merge(
             $options,
             array(
@@ -581,14 +605,15 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     public function save($object, $options = array())
     {
         if (!isset($options['previous'])) {
-            $this->_xmldoc = $this->_parser->getDocument();
+            $this->_xmldoc = $this->_getParser()->getDocument();
         } else {
             $parse_options = $options;
             unset($parse_options['previous']);
-            $this->_xmldoc = $this->_parser->parse(
+            $this->_xmldoc = $this->_getParser()->parse(
                 $options['previous'], $parse_options
             );
         }
+        $this->_refreshParser();
         $params = array_merge(
             $options,
             array(
