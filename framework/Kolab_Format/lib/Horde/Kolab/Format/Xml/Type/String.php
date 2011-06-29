@@ -111,6 +111,9 @@ extends Horde_Kolab_Format_Xml_Type_Base
         }
         if (isset($attributes[$name])) {
             $this->replaceFirstNodeTextValue($node, $attributes[$name]);
+        } else if ($this->getParam('value') == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING) {
+            /** Client indicates that the value should get removed */
+            $this->removeNodes($parent_node, $name);
         }
         return $node;
     }

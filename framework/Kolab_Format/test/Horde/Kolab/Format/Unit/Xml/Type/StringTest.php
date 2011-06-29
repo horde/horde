@@ -196,6 +196,24 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testDeleteNode()
+    {
+        list($doc, $rootNode, $result) = $this->_getDefaultString(
+            array(
+                'value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
+            ),
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><string type="strange"><b/>STRANGE<a/></string>c</kolab>'
+        );
+        $result->save('string', array(), $rootNode);
+        $this->assertEquals(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b">c</kolab>
+',
+            $doc->saveXML()
+        );
+    }
+
     public function testSaveNotEmptyRelaxed()
     {
         list($doc, $rootNode, $result) = $this->_getDefaultString(
