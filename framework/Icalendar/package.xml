@@ -30,7 +30,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Speed up exporting of objects with binary content (Bug #9405).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -746,7 +746,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <date>2011-04-06</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Speed up exporting of objects with binary content (Bug #9405).
    </notes>
   </release>
  </changelog>
