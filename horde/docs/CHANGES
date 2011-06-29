@@ -2,6 +2,7 @@
 v4.0.7-git
 ----------
 
+[mjr] Fix incorrect method name in Pop3 Socket driver.
 [jan] Don't use CSS cache in mobile interfaces because it breaks jQuery Mobile
       CSS.
 [mjr] Fix race conditions caused by broken clients sending an inappropriate PING
