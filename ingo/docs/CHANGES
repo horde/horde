@@ -2,6 +2,7 @@
 v2.0.3-git
 ----------
 
+[jan] Fix notice when using numeric comparisons for spam headers (Bug #10222).
 [jan] Respect excluded mail addresses in Maildrop vacation driver (Request
       #10077).
 [jan] Fix access to debug handler in Timsieved driver.
