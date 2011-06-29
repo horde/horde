@@ -229,8 +229,6 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_db->delete('DELETE FROM ' . $this->_syncStateTable . ' WHERE sync_key = ?', array($this->_syncKey));
             $this->_db->insert($sql, $params);
         }
-
-        return true;
     }
 
     /**
