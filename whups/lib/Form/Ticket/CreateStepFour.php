@@ -51,7 +51,6 @@ class Whups_Form_Ticket_CreateStepFour extends Horde_Form
             asort($f_users);
             $owners = &$this->addVariable(_("Owners"), 'owners', 'multienum',
                                           false, false, null, array($f_users));
-            $owners->setDefault($whups_driver->getOwners($vars->get('id')));
         }
 
         if (count($f_groups)) {
@@ -60,8 +59,6 @@ class Whups_Form_Ticket_CreateStepFour extends Horde_Form
                                                 'group_owners', 'multienum',
                                                 false, false, null,
                                                 array($f_groups));
-            $group_owners->setDefault(
-                $whups_driver->getOwners($vars->get('id')));
         }
 
         if (!count($f_users) && !count($f_groups)) {
