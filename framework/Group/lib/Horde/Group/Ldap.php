@@ -65,8 +65,8 @@ class Horde_Group_Ldap extends Horde_Group_Base
         unset($params['ldap']);
 
         /* Lowercase attribute names. */
-        $params['gid']                  = Horde_String::lower($params['gid']);
-        $params['memberuid']            = Horde_String::lower($params['memberuid']);
+        $params['gid']       = Horde_String::lower($params['gid']);
+        $params['memberuid'] = Horde_String::lower($params['memberuid']);
         if (!is_array($params['newgroup_objectclass'])) {
             $params['newgroup_objectclass'] = array($params['newgroup_objectclass']);
         }
@@ -338,9 +338,28 @@ class Horde_Group_Ldap extends Horde_Group_Base
         $attr = $this->_params['memberuid'];
         try {
             $entry = $this->_ldap->getEntry($gid, array($attr));
-            return $entry->exists($attr)
-                ? $entry->getValue($attr, 'all')
-                : array();
+            if (!$entry->exists($attr)) {
+                return array();
+            }
+
+            if (empty($this->_params['attrisdn'])) {
+                return $entry->getValue($attr, 'all');
+            }
+
+            $users = array();
+            foreach ($entry->getValue($attr, 'all') as $user) {
+                $dn = Horde_Ldap_Utils::explodeDN($user,
+                                                  array('onlyvalues' => true));
+                // Very simplified approach: assume the first element of the DN
+                // contains the user ID.
+                $user = $dn[0];
+                // Check for multi-value RDNs.
+                if (is_array($element)) {
+                    $user = $element[0];
+                }
+                $users[] = $user;
+            }
+            return $users;
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Group_Exception($e);
         }
@@ -358,6 +377,9 @@ class Horde_Group_Ldap extends Horde_Group_Base
     {
         $attr = $this->_params['gid'];
         try {
+            if (!empty($this->_params['attrisdn'])) {
+                $user =  $this->_ldap->findUserDN($user);
+            }
             $filter = Horde_Ldap_Filter::create($this->_params['memberuid'],
                                                 'equals', $user);
             $search = $this->_ldap->search($this->_params['basedn'], $filter,
@@ -389,6 +411,9 @@ class Horde_Group_Ldap extends Horde_Group_Base
 
         $attr = $this->_params['memberuid'];
         try {
+            if (!empty($this->_params['attrisdn'])) {
+                $user =  $this->_ldap->findUserDN($user);
+            }
             $entry = $this->_ldap->getEntry($gid, array($attr));
             $entry->add(array($attr => $user));
             $this->_rebind(true);
@@ -412,6 +437,9 @@ class Horde_Group_Ldap extends Horde_Group_Base
     {
         $attr = $this->_params['memberuid'];
         try {
+            if (!empty($this->_params['attrisdn'])) {
+                $user =  $this->_ldap->findUserDN($user);
+            }
             $entry = $this->_ldap->getEntry($gid, array($attr));
             $entry->delete(array($attr => $user));
             $this->_rebind(true);
