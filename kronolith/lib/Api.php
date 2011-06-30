@@ -508,14 +508,17 @@ class Kronolith_Api extends Horde_Registry_Api
     public function listBy($action, $timestamp, $calendar = null, $end = null)
     {
         if (empty($calendar)) {
-            $calendar = Kronolith::getDefaultCalendar();
-        }
+            $cs = unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
+            $results = array();
+            foreach ($cs as $c) {
+                if (!array_key_exists($calendar, Kronolith::listInternalCalendars(false, Horde_Perms::READ))) {
+                    throw new Horde_Exception_PermissionDenied();
+                }
+                $results = array_merge($results, $this->listBy($action, $timestamp, $c, $end));
+            }
 
-        if ($calendar === false ||
-            !array_key_exists($calendar, Kronolith::listInternalCalendars(false, Horde_Perms::READ))) {
-            throw new Horde_Exception_PermissionDenied();
+            return $results;
         }
-
         $filter = array(array('op' => '=', 'field' => 'action', 'value' => $action));
         if (!empty($end)) {
             $filter[] = array('op' => '<', 'field' => 'ts', 'value' => $end);
