@@ -2,6 +2,7 @@
 v2.0.3-git
 ----------
 
+[jan] Add -N parameter to mailbot calls by default (Request #10147).
 [jan] Fix notice when using numeric comparisons for spam headers (Bug #10222).
 [jan] Respect excluded mail addresses in Maildrop vacation driver (Request
       #10077).

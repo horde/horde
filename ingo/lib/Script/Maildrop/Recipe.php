@@ -154,7 +154,8 @@ class Ingo_Script_Maildrop_Recipe
                 $this->_action[] = '      {';
             }
             $this->_action[] = '  cc "' . str_replace('"', '\\"', sprintf(
-                '| mailbot -D %d -c \'UTF-8\' -t $HOME/vacation.msg -d $HOME/vacation -A %s -s %s /usr/sbin/sendmail -t',
+                '| mailbot %s -D %d -c \'UTF-8\' -t $HOME/vacation.msg -d $HOME/vacation -A %s -s %s /usr/sbin/sendmail -t',
+                $this->_params['mailbotargs'],
                 $params['action-value']['days'],
                 escapeshellarg('From: ' . $from),
                 escapeshellarg(Horde_Mime::encode($params['action-value']['subject'], 'UTF-8'))))

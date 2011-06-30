@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* [jan] Add -N parameter to mailbot calls by default (Request #10147).
 * [jan] Fix notice when using numeric comparisons for spam headers (Bug #10222).
 * [jan] Respect excluded mail addresses in Maildrop vacation driver (Request #10077).
 * [jan] Fix access to debug handler in Timsieved driver.
@@ -952,6 +953,7 @@
    <date>2011-06-14</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
+* [jan] Add -N parameter to mailbot calls by default (Request #10147).
 * [jan] Fix notice when using numeric comparisons for spam headers (Bug #10222).
 * [jan] Respect excluded mail addresses in Maildrop vacation driver (Request #10077).
 * [jan] Fix access to debug handler in Timsieved driver.
