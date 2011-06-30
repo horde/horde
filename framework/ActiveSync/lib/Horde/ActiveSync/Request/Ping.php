@@ -181,7 +181,8 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $this->_logger->err('PING terminating, forcing a SYNC: ' . $e->getMessage());
                         $this->_statusCode = self::STATUS_NEEDSYNC;
                         $dataavailable = true;
-                        break;
+                        $changes[$collection['id']] = 1;
+                        continue;
                     } catch (Horde_ActiveSync_Exception $e) {
                         $this->_logger->err('PING terminating: ' . $e->getMessage());
                         $this->_statusCode = self::STATUS_SERVERERROR;
