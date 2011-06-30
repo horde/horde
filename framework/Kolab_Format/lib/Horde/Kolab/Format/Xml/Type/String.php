@@ -112,6 +112,7 @@ extends Horde_Kolab_Format_Xml_Type_Base
                 if ($params['value'] == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING) {
                     /** Client indicates that the value should get removed */
                     $params['helper']->removeNodes($parent_node, $name);
+                    return false;
                 } else {
                     return $node;
                 }

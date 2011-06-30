@@ -34,43 +34,41 @@ extends Horde_Kolab_Format_Xml_Type_String
     /**
      * Load the value of a node.
      *
-     * @param DOMNode $node Retrieve value for this node.
+     * @param DOMNode $node   Retrieve value for this node.
+     * @param array   $params The parameters for this parse operation.
      *
      * @return mixed|null The value or null if no value was found.
      */
-    public function loadNodeValue($node)
+    public function loadNodeValue($node, $params = array())
     {
-        $result = $this->fetchNodeValue($node);
-        if ($result !== null) {
-            $tz = $node->getAttribute('tz');
-            if (empty($tz)) {
-                /**
-                 * @todo Be more strict once KEP2 has been completely adopted
-                 * if (!$this->isRelaxed()) throw new Horde_Kolab_Format_Exception();
-                 */
-                $tz = 'UTC';
-            }
-            if (strlen($result) == 10) {
-                $date = array(
-                    'date' => Horde_Kolab_Format_Date::readDate($result, $tz),
-                    'date-only' => true
-                );
-            } else {
-                $date = array(
-                    'date' => Horde_Kolab_Format_Date::readDateTime(
-                        $result, $tz
-                    ),
-                    'date-only' => true
-                );
-            }
-            if ($date['date'] === false && !$this->isRelaxed()) {
-                throw new Horde_Kolab_Format_Exception(
-                    sprintf('Invalid date input "%s"!', $result)
-                );
-            }
-            return $date;
+        $result = $params['helper']->fetchNodeValue($node);
+        $tz = $node->getAttribute('tz');
+        if (empty($tz)) {
+            /**
+             * @todo Be more strict once KEP2 has been completely adopted
+             * if (!$this->isRelaxed()) throw new Horde_Kolab_Format_Exception();
+             */
+            $tz = 'UTC';
         }
-        return $result;
+        if (strlen($result) == 10) {
+            $date = array(
+                'date' => Horde_Kolab_Format_Date::readDate($result, $tz),
+                'date-only' => true
+            );
+        } else {
+            $date = array(
+                'date' => Horde_Kolab_Format_Date::readDateTime(
+                    $result, $tz
+                ),
+                'date-only' => true
+            );
+        }
+        if ($date['date'] === false && !$this->isRelaxed($params)) {
+            throw new Horde_Kolab_Format_Exception(
+                sprintf('Invalid date input "%s"!', $result)
+            );
+        }
+        return $date;
     }
 
     /**
@@ -81,6 +79,7 @@ extends Horde_Kolab_Format_Xml_Type_String
      * @param mixed        $value       The value to store.
      * @param DOMNode      $parent_node The parent node of the node that
      *                                  should be updated.
+     * @param array        $params      The parameters for this write operation.
      * @param DOMNode|NULL $old_node    The previous value (or null if
      *                                  there is none).
      *
@@ -93,7 +92,8 @@ extends Horde_Kolab_Format_Xml_Type_String
         $name,
         $value,
         $parent_node,
-        $old_node = null
+        $params,
+        $old_node = false
     ) {
         if (!isset($value['date']) || !$value['date'] instanceOf DateTime) {
             throw new Horde_Kolab_Format_Exception(
@@ -108,7 +108,9 @@ extends Horde_Kolab_Format_Xml_Type_String
         } else {
             $date = Horde_Kolab_Format_Date::writeDate($value['date']);
         }
-        $node = parent::saveNodeValue($name, $date, $parent_node, $old_node);
+        $node = parent::saveNodeValue(
+            $name, $date, $parent_node, $params, $old_node
+        );
         $node->setAttribute('tz', $value['date']->getTimezone()->getName());
         return $node;
     }
