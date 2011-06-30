@@ -71,4 +71,83 @@ extends PHPUnit_Framework_TestCase
         $params = array('helper' => $helper);
         return array($params, $root_node, $type);
     }
+
+    protected function load($previous, $params = array())
+    {
+        list($params, $root_node, $type) = $this->getTestType(
+            $previous, $params
+        );
+        $attributes = array();
+        $type->load(
+            $this->getElement($params), $attributes, $root_node, $params
+        );
+        return $attributes;
+    }
+
+    protected function saveToXml(
+        $previous = null, $attributes = array(), $params = array()
+    )
+    {
+        list($params, $root_node, $type) = $this->getTestType(
+            $previous, $params
+        );
+        $type->save(
+            $this->getElement($params), $attributes, $root_node, $params
+        );
+        return (string)$params['helper'];
+    }
+
+    protected function saveToReturn(
+        $previous = null, $attributes = array(), $params = array()
+    )
+    {
+        list($params, $root_node, $type) = $this->getTestType(
+            $previous, $params
+        );
+        return $type->save(
+            $this->getElement($params), $attributes, $root_node, $params
+        );
+    }
+
+    protected function getTestType($previous, &$params)
+    {
+        if (isset($params['kolab_type'])) {
+            $kolab_type = $params['kolab_type'];
+            unset($params['kolab_type']);
+        } else {
+            $kolab_type = 'kolab';
+        }
+        if (isset($params['version'])) {
+            $version = $params['version'];
+            unset($params['version']);
+        } else {
+            $version = '1.0';
+        }
+        list($type_params, $root_node, $type) = $this->getXmlType(
+            $this->getTypeClass(),
+            $previous,
+            $kolab_type,
+            $version
+        );
+        $params = array_merge($type_params, $params);
+        return array($params, $root_node, $type);
+    }
+
+    protected function getElement(&$params)
+    {
+        if (isset($params['element'])) {
+            $element = $params['element'];
+            unset($params['element']);
+            return $element;
+        } else {
+            $elements = explode('_', $this->getTypeClass());
+            $element = strtolower(array_pop($elements));
+            return $element;
+        }
+    }
+
+    protected function getTypeClass()
+    {
+        throw new Exception('Override!');
+    }
 }

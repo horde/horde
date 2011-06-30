@@ -34,13 +34,14 @@ extends Horde_Kolab_Format_Xml_Type_String
     /**
      * Load the value of a node.
      *
-     * @param DOMNode $node Retrieve value for this node.
+     * @param DOMNode $node   Retrieve value for this node.
+     * @param array   $params The parameters for this parse operation.
      *
      * @return mixed|null The value or null if no value was found.
      */
-    public function loadNodeValue($node)
+    public function loadNodeValue($node, $params = array())
     {
-        $result = $this->fetchNodeValue($node);
+        $result = $params['helper']->fetchNodeValue($node);;
         if ($result !== null) {
             if ($result == 'false') {
                 $result = false;
@@ -61,6 +62,7 @@ extends Horde_Kolab_Format_Xml_Type_String
      * @param mixed        $value       The value to store.
      * @param DOMNode      $parent_node The parent node of the node that
      *                                  should be updated.
+     * @param array        $params      The parameters for this write operation.
      * @param DOMNode|NULL $old_node    The previous value (or null if
      *                                  there is none).
      *
@@ -73,7 +75,8 @@ extends Horde_Kolab_Format_Xml_Type_String
         $name,
         $value,
         $parent_node,
-        $old_node = null
+        $params,
+        $old_node = false
     ) {
         if (!is_string($value)) {
             if ($value) {
@@ -83,11 +86,13 @@ extends Horde_Kolab_Format_Xml_Type_String
             }
         }
         if (!in_array($value, array('true', 'false'))
-            && !$this->isRelaxed()) {
+            && !$this->isRelaxed($params)) {
             throw new Horde_Kolab_Format_Exception(
                 sprintf('Invalid boolean input "%s"!', $value)
             );
         }
-        return parent::saveNodeValue($name, $value, $parent_node, $old_node);
+        return parent::saveNodeValue(
+            $name, $value, $parent_node, $params, $old_node
+        );
     }
 }

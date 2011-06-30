@@ -33,68 +33,58 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  * @link       http://pear.horde.org/index.php?package=Kolab_Format
  */
 class Horde_Kolab_Format_Unit_Xml_Type_BooleanTest
-extends PHPUnit_Framework_TestCase
+extends Horde_Kolab_Format_TestCase
 {
     public function testLoadTrue()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultBoolean(
-            array(),
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><boolean>true</boolean>c</kolab>'
+<kolab version="1.0" a="b"><boolean>true</boolean>c</kolab>',
+            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
         );
-        $attributes = array();
-        $result->load('boolean', $attributes, $rootNode);
         $this->assertTrue($attributes['boolean']);
     }
 
     public function testLoadFalse()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultBoolean(
-            array(),
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><boolean>false</boolean>c</kolab>'
+<kolab version="1.0" a="b"><boolean>false</boolean>c</kolab>',
+            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
         );
-        $attributes = array();
-        $result->load('boolean', $attributes, $rootNode);
         $this->assertFalse($attributes['boolean']);
     }
 
     public function testLoadStrangeBoolean()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultBoolean(
-            array(),
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><boolean type="strange"><b/>false<a/></boolean>c</kolab>'
+<kolab version="1.0" a="b"><boolean type="strange"><b/>false<a/></boolean>c</kolab>',
+            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
         );
-        $attributes = array();
-        $result->load('boolean', $attributes, $rootNode);
         $this->assertFalse($attributes['boolean']);
     }
 
     public function testLoadMissingBoolean()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultBoolean(
-            array(),
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+<kolab version="1.0"/>',
+            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
         );
-        $attributes = array();
-        $result->load('boolean', $attributes, $rootNode);
         $this->assertFalse(isset($attributes['boolean']));
     }
 
     public function testLoadDefault()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultBoolean(
+        $attributes = $this->load(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0"/>',
             array(
                 'value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
                 'default' => true
-            ),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+            )
         );
-        $attributes = array();
-        $result->load('boolean', $attributes, $rootNode);
         $this->assertTrue($attributes['boolean']);
     }
 
@@ -103,78 +93,78 @@ extends PHPUnit_Framework_TestCase
      */
     public function testLoadNotEmpty()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultBoolean(
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-            ),
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+<kolab version="1.0"/>',
+            array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,)
         );
-        $attributes = array();
-        $result->load('boolean', $attributes, $rootNode);
     }
 
     public function testLoadNotEmptyRelaxed()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultBoolean(
+        $attributes = $this->load(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0"/>',
             array(
                 'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
                 'relaxed' => true,
-            ),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+            )
         );
-        $attributes = array();
-        $result->load('boolean', $attributes, $rootNode);
         $this->assertFalse(isset($attributes['boolean']));
     }
 
     public function testSave()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultBoolean();
         $this->assertInstanceOf(
             'DOMNode',
-            $result->save('boolean', array(), $rootNode)
+            $this->saveToReturn(
+                null,
+                array('boolean' => true),
+                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+            )
         );
     }
 
     public function testSaveTrue()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultBoolean();
-        $result->save('boolean', array('boolean' => true), $rootNode);
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"><boolean>true</boolean></kolab>
 ',
-            $doc->saveXML()
+            $this->saveToXml(
+                null,
+                array('boolean' => true),
+                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+            )
         );
     }
 
     public function testSaveFalse()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultBoolean();
-        $result->save('boolean', array('boolean' => false), $rootNode);
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"><boolean>false</boolean></kolab>
 ',
-            $doc->saveXML()
+            $this->saveToXml(
+                null,
+                array('boolean' => false),
+                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+            )
         );
     }
 
     public function testSaveOverwritesOldValue()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultBoolean(
-            array(),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><boolean type="strange"><b/>STRANGE<a/></boolean>c</kolab>'
-        );
-        $result->save('boolean', array('boolean' => false), $rootNode);
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><boolean type="strange">false<b/><a/></boolean>c</kolab>
 ',
-            $doc->saveXML()
+            $this->saveToXml(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><boolean type="strange"><b/>STRANGE<a/></boolean>c</kolab>',
+                array('boolean' => false),
+                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+            )
         );
     }
 
@@ -183,14 +173,11 @@ extends PHPUnit_Framework_TestCase
      */
     public function testSaveNotEmpty()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultBoolean(
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-            ),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+        $this->saveToXml(
+            null,
+            array(),
+            array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY)
         );
-        $result->save('boolean', array(), $rootNode);
     }
 
     /**
@@ -198,55 +185,43 @@ extends PHPUnit_Framework_TestCase
      */
     public function testSaveInvalidBoolean()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultBoolean(
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-            ),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+        $this->saveToXml(
+            null,
+            array('boolean' => 'INVALID'),
+            array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY)
         );
-        $result->save('boolean', array('boolean' => 'INVALID'), $rootNode);
     }
 
     public function testSaveNotEmptyWithOldValue()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultBoolean(
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-            ),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><boolean type="strange"><b/>STRANGE<a/></boolean>c</kolab>'
-        );
         $this->assertInstanceOf(
-            'DOMNode', 
-            $result->save('boolean', array(), $rootNode)
+            'DOMNode',
+            $this->saveToReturn(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><boolean type="strange"><b/>STRANGE<a/></boolean>c</kolab>',
+                array(),
+                array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY)
+            )
         );
     }
 
     public function testSaveNotEmptyRelaxed()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultBoolean(
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-                'relaxed' => true,
-            ),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+        $this->assertFalse(
+            $this->saveToReturn(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0"/>',
+                array(),
+                array(
+                    'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
+                    'relaxed' => true,
+                )
+            )
         );
-        $this->assertFalse($result->save('boolean', array(), $rootNode));
     }
 
-    private function _getDefaultBoolean($params = array(), $previous = null)
+    protected function getTypeClass()
     {
-        $doc = new DOMDocument('1.0', 'UTF-8');
-        if ($previous !== null) {
-            $doc->loadXML($previous);
-        }
-        $root = new Horde_Kolab_Format_Xml_Type_Root(
-            $doc, array('type' => 'kolab', 'version' => '1.0')
-        );
-        $rootNode = $root->save();
-        $result = new Horde_Kolab_Format_Xml_Type_Boolean($doc, $params);
-        return array($doc, $rootNode, $result);
+        return 'Horde_Kolab_Format_Xml_Type_Boolean';
     }
 }
