@@ -180,7 +180,8 @@ class Horde_Test
         'xml' => array(
             'descrip' => 'XML Parser support',
             'error' => 'Horde will not run without the xml extension. Don\'t compile PHP with <code>--disable-all/--without-xml</code>, or enable the xml extension individually before continuing.',
-            'fatal' => true
+            'fatal' => true,
+            'function' => '_checkLibxmlVersion'
         ),
         'zlib' => array(
             'descrip' => 'Zlib Support',
@@ -496,6 +497,22 @@ class Horde_Test
     {
         return extension_loaded('iconv') &&
                in_array(ICONV_IMPL, array('libiconv', 'glibc'));
+    }
+
+    /**
+     * Additional check for libxml version.
+     *
+     * @return boolean  False on error.
+     */
+    protected function _checkLibxmlVersion()
+    {
+        if (!extension_loaded('xml')) {
+            return false;
+        }
+        if (LIBXML_VERSION < 20700) {
+            return 'The libxml version is too old. libxml 2.7 or later is required.';
+        }
+        return true;
     }
 
     /**
