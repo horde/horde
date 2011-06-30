@@ -94,17 +94,45 @@ extends Horde_Kolab_Format_Xml_Type_Base
             } else {
                 $value = $attributes[$name];
             }
-            $node = $this->createNewNode($parent_node, $name);
-            return $this->_writeComposite($node, $name, $value);
+            return $this->saveNodeValue($name, $value, $parent_node);
         }
         if (isset($attributes[$name])) {
-            return $this->_writeComposite($node, $name, $attributes[$name]);
-
+            $this->saveNodeValue($name, $attributes[$name], $parent_node, $node);
         } else if ($this->getParam('value') == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING) {
             /** Client indicates that the value should get removed */
             $this->removeNodes($parent_node, $name);
         }
         return $node;
+    }
+
+    /**
+     * Update the specified attribute.
+     *
+     * @param string       $name        The name of the the attribute
+     *                                  to be updated.
+     * @param mixed        $value       The value to store.
+     * @param DOMNode      $parent_node The parent node of the node that
+     *                                  should be updated.
+     * @param DOMNode|NULL $old_node    The previous value (or null if
+     *                                  there is none).
+     *
+     * @return DOMNode|boolean The new/updated child node or false if this
+     *                         failed.
+     *
+     * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
+     */
+    public function saveNodeValue(
+        $name,
+        $value,
+        $parent_node,
+        $old_node = null
+    ) {
+        if ($old_node === null) {
+            $node = $this->createNewNode($parent_node, $name);
+            return $this->_writeComposite($node, $name, $value);
+        } else {
+            return $this->_writeComposite($old_node, $name, $value);
+        }
     }
 
     /**
