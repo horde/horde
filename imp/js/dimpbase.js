@@ -259,7 +259,7 @@ var DimpBase = {
             break;
 
         case 'portal':
-            this.highlightSidebar('appportal');
+            this.highlightSidebar('portallink');
             this.setHash(type);
             this.setTitle(DIMP.text.portal);
             this.iframeContent(type, DIMP.conf.URI_PORTAL);
