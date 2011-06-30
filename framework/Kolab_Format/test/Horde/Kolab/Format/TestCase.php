@@ -48,4 +48,27 @@ extends PHPUnit_Framework_TestCase
             $text
         );
     }
+
+    protected function getXmlType(
+        $type,
+        $previous = null,
+        $kolab_type = 'kolab',
+        $version = '1.0'
+    )
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $doc = new DOMDocument('1.0', 'UTF-8');
+        if ($previous !== null) {
+            $doc->loadXML($previous);
+            $helper = $factory->createXmlHelper($doc);
+            $root_node = $helper->findNode('/' . $kolab_type);
+        } else {
+            $helper = $factory->createXmlHelper($doc);
+            $root_node = $helper->createNewNode($doc, $kolab_type);
+            $root_node->setAttribute('version', $version);
+        }
+        $type = $factory->createXmlType($type);
+        $params = array('helper' => $helper);
+        return array($params, $root_node, $type);
+    }
 }
