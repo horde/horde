@@ -64,40 +64,32 @@ extends Horde_Kolab_Format_TestCase
 
     public function testSave()
     {
-        list($params, $root_node, $pid) = $this->_getProductId();
-        $params['api-version'] = 2;
         $this->assertInstanceOf(
             'DOMNode', 
-            $pid->save('product-id', array(), $root_node, $params)
+            $this->_saveToReturn()
         );
     }
 
     public function testSaveXml()
     {
-        list($params, $root_node, $pid) = $this->_getProductId();
-        $params['api-version'] = 2;
-        $pid->save('product-id', array(), $root_node, $params);
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"><product-id>Horde_Kolab_Format_Xml-@version@ (api version: 2)</product-id></kolab>
 ',
-            (string)$params['helper']
+            $this->_saveToXml()
         );
     }
 
     public function testSaveOverwritesOldValue()
     {
-        list($params, $root_node, $pid) = $this->_getProductId(
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><product-id type="strange"><b/>STRANGE<a/></product-id>c</kolab>'
-        );
-        $params['api-version'] = 2;
-        $pid->save('product-id', array(), $root_node, $params);
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><product-id type="strange">Horde_Kolab_Format_Xml-@version@ (api version: 2)<b/><a/></product-id>c</kolab>
 ',
-            (string)$params['helper']
+            $this->_saveToXml(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><product-id type="strange"><b/>STRANGE<a/></product-id>c</kolab>'
+            )
         );
     }
 
@@ -108,6 +100,23 @@ extends Horde_Kolab_Format_TestCase
         $params['api-version'] = 2;
         $pid->load('product-id', $attributes, $root_node, $params);
         return $attributes;
+    }
+
+    private function _saveToXml($previous = null)
+    {
+        list($params, $root_node, $pid) = $this->_getProductId($previous);
+        $params['api-version'] = 2;
+        $attributes = array();
+        $pid->save('product-id', $attributes, $root_node, $params);
+        return (string)$params['helper'];
+    }
+
+    private function _saveToReturn($previous = null)
+    {
+        list($params, $root_node, $pid) = $this->_getProductId($previous);
+        $params['api-version'] = 2;
+        $attributes = array();
+        return $pid->save('product-id', $attributes, $root_node, $params);
     }
 
     private function _getProductId(
