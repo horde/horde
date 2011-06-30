@@ -87,7 +87,13 @@ class Horde_Db_Adapter_Pdo_Mysql extends Horde_Db_Adapter_Pdo_Base
     protected function _parseConfig()
     {
         $this->_config['adapter'] = 'mysql';
-        $this->_checkRequiredConfig();
+
+        $this->_checkRequiredConfig(array('adapter', 'username'));
+
+        // try an empty password if it's not set.
+        if (!isset($this->_config['password'])) {
+            $this->_config['password'] = '';
+        }
 
         // collect options to build PDO Data Source Name (DSN) string
         $dsnOpts = $this->_config;

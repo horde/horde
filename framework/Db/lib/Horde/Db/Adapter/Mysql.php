@@ -343,13 +343,7 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
      */
     protected function _parseConfig()
     {
-        // check required config keys are present
-        $required = array('username');
-        $diff = array_diff_key(array_flip($required), $this->_config);
-        if (! empty($diff)) {
-            $msg = 'Required config missing: ' . implode(', ', array_keys($diff));
-            throw new Horde_Db_Exception($msg);
-        }
+        $this->_checkRequiredConfig(array('username'));
 
         $rails2mysqli = array('database' => 'dbname');
         foreach ($rails2mysqli as $from => $to) {
