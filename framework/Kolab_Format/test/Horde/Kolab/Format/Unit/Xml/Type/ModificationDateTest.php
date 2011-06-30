@@ -103,25 +103,25 @@ extends Horde_Kolab_Format_TestCase
 
     private function _load($previous)
     {
-        list($params, $root_node, $pid) = $this->_getModificationDate($previous);
+        list($params, $root_node, $type) = $this->_getModificationDate($previous);
         $attributes = array();
-        $pid->load('modification-date', $attributes, $root_node, $params);
+        $type->load('modification-date', $attributes, $root_node, $params);
         return $attributes;
     }
 
     private function _saveToXml($previous = null)
     {
-        list($params, $root_node, $pid) = $this->_getModificationDate($previous);
+        list($params, $root_node, $type) = $this->_getModificationDate($previous);
         $attributes = array();
-        $pid->save('modification-date', $attributes, $root_node, $params);
+        $type->save('modification-date', $attributes, $root_node, $params);
         return (string)$params['helper'];
     }
 
     private function _saveToReturn($previous = null)
     {
-        list($params, $root_node, $pid) = $this->_getModificationDate($previous);
+        list($params, $root_node, $type) = $this->_getModificationDate($previous);
         $attributes = array();
-        return $pid->save('modification-date', $attributes, $root_node, $params);
+        return $type->save('modification-date', $attributes, $root_node, $params);
     }
 
     private function _getModificationDate(
