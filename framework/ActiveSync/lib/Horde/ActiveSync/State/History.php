@@ -764,6 +764,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     public function setPolicyKey($devId, $key)
     {
         if (empty($this->_deviceInfo) || $devId != $this->_deviceInfo->id) {
+            $this->_logger->err('Device not loaded');
             throw new Horde_ActiveSync_Exception('Device not loaded');
         }
 

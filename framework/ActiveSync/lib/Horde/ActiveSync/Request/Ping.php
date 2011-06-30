@@ -178,8 +178,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $expire = time();
                         continue;
                     } catch (Horde_ActiveSync_Exception_StateGone $e) {
-                        // Force a SYNC operation, the previous state was
-                        // removed.
+                        $this->_logger->err('PING terminating, forcing a SYNC: ' . $e->getMessage());
                         $this->_statusCode = self::STATUS_NEEDSYNC;
                         $dataavailable = true;
                         break;
