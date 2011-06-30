@@ -212,6 +212,23 @@ extends Horde_Kolab_Format_TestCase
         );
     }
 
+    public function testSaveDefaultRelaxed()
+    {
+        $this->assertInstanceOf(
+            'DOMNode',
+            $this->_saveToReturn(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0"/>',
+                array(),
+                array(
+                    'value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
+                    'default' => 'STRING',
+                    'relaxed' => true,
+                )
+            )
+        );
+    }
+
     private function _load($previous, $params = array())
     {
         list($type_params, $root_node, $type) = $this->_getString(

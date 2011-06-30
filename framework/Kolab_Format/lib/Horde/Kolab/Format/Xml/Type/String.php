@@ -105,7 +105,8 @@ extends Horde_Kolab_Format_Xml_Type_Base
         if (!isset($attributes[$name])) {
             if ($node === false) {
                 if ($params['value'] == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING
-                    || $this->isRelaxed($params)) {
+                    || ($params['value'] == Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY
+                        && $this->isRelaxed($params))) {
                     return false;
                 }
             } else {
@@ -119,14 +120,13 @@ extends Horde_Kolab_Format_Xml_Type_Base
             }
         }
 
-        $result = $this->saveNodeValue(
+        return $this->saveNodeValue(
             $name,
             $this->generateWriteValue($name, $attributes, $params),
             $parent_node,
             $params,
             $node
         );
-        return ($node !== false) ? $node : $result;
     }
 
     /**
