@@ -32,6 +32,11 @@ class Horde_Kolab_Format_Xml_Type_Multiple
 extends Horde_Kolab_Format_Xml_Type_Base
 {
     /**
+     * The parameters required for the parsing operation.
+     */
+    protected $_required_parameters = array('helper', 'array', 'value');
+
+    /**
      * Load the node value from the Kolab object.
      *
      * @param string  $name        The name of the the attribute
@@ -39,27 +44,28 @@ extends Horde_Kolab_Format_Xml_Type_Base
      * @param array   &$attributes The data array that holds all
      *                             attribute values.
      * @param DOMNode $parent_node The parent node of the node to be loaded.
+     * @param array   $params      The parameters for this parse operation.
      *
-     * @return NULL
+     * @return DOMNode|boolean The named DOMNode or false if no node value was
+     *                         found.
      */
-    public function load($name, &$attributes, $parent_node)
+    public function load($name, &$attributes, $parent_node, $params = array())
     {
-        $children = $this->findNodesRelativeTo('./' . $name, $parent_node);
+        $this->checkParams($params, $name);
+        $children = $params['helper']->findNodesRelativeTo('./' . $name, $parent_node);
         if ($children->length > 0) {
-            $sub_type = $this->createSubType($this->getParam('array'));
+            list($sub_type, $type_params) = $this->createTypeAndParams(
+                $params, $params['array']
+            );
             $result = array();
             foreach ($children as $child) {
-                $result[] = $sub_type->loadNodeValue($child);
+                $result[] = $sub_type->loadNodeValue(
+                    $child, $type_params
+                );
             }
             $attributes[$name] = $result;
         } else {
-            if ($this->getParam('value') == Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY
-                && !$this->isRelaxed()) {
-                throw new Horde_Kolab_Format_Exception_MissingValue($name);
-            }
-            if ($this->getParam('value') == Horde_Kolab_Format_Xml::VALUE_DEFAULT) {
-                $attributes[$name] = $this->getParam('default');
-            }
+            $attributes[$name] = $this->loadMissing($name, $params);
         }
         return false;
     }
@@ -73,39 +79,66 @@ extends Horde_Kolab_Format_Xml_Type_Base
      *                             attribute values.
      * @param DOMNode $parent_node The parent node of the node that
      *                             should be updated.
+     * @param array   $params      The parameters for this write operation.
      *
-     * @return DOMNodeList|array|boolean The new/updated child nodes or false
-     *                                   if the operation failed.
+     * @return DOMNode|boolean The new/updated child node or false if this
+     *                         failed.
      *
      * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
-    public function save($name, $attributes, $parent_node)
+    public function save($name, $attributes, $parent_node, $params = array())
     {
-        $children = $this->findNodesRelativeTo('./' . $name, $parent_node);
-        if ($children->length == 0) {
-            if (!isset($attributes[$name])) {
-                if ($this->getParam('value') == Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY
-                    && !$this->isRelaxed()) {
-                    throw new Horde_Kolab_Format_Exception_MissingValue($name);
-                }
-                if ($this->getParam('value') == Horde_Kolab_Format_Xml::VALUE_DEFAULT) {
-                    $value = $this->getParam('default');
-                } else {
+        $this->checkParams($params, $name);
+        $children = $params['helper']->findNodesRelativeTo(
+            './' . $name, $parent_node
+        );
+
+        if (!isset($attributes[$name])) {
+            if ($children->length == 0) {
+                if ($params['value'] == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING
+                    || ($params['value'] == Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY
+                        && $this->isRelaxed($params))) {
                     return false;
                 }
             } else {
-                $value = $attributes[$name];
+                if ($params['value'] == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING) {
+                    /** Client indicates that the value should get removed */
+                    $params['helper']->removeNodes($parent_node, $name);
+                    return false;
+                } else {
+                    return $children;
+                }
             }
-            return $this->_writeMultiple($parent_node, $name, $value);
         }
+        
+        $params['helper']->removeNodes($parent_node, $name);
+        return $this->_writeMultiple(
+            $parent_node,
+            $name,
+            $this->generateWriteValue($name, $attributes, $params),
+            $params
+        );
+    }
+
+    /**
+     * Generate the value that should be written to the node. Override in the
+     * extending classes.
+     *
+     * @param string  $name        The name of the the attribute
+     *                             to be updated.
+     * @param array   $attributes  The data array that holds all
+     *                             attribute values.
+     * @param array   $params      The parameters for this write operation.
+     *
+     * @return mixed The value to be written.
+     */
+    protected function generateWriteValue($name, $attributes, $params)
+    {
         if (isset($attributes[$name])) {
-            $this->removeNodes($parent_node, $name);
-            return $this->_writeMultiple($parent_node, $name, $attributes[$name]);
-        } else if ($this->getParam('value') == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING) {
-            /** Client indicates that the value should get removed */
-            $this->removeNodes($parent_node, $name);
+            return $attributes[$name];
+        } else {
+            return $this->loadMissing($name, $params);
         }
-        return $children;
     }
 
     /**
@@ -116,17 +149,22 @@ extends Horde_Kolab_Format_Xml_Type_Base
      * @param string  $name        The name of the the attribute
      *                             to be updated.
      * @param array   $values      The values to write.
+     * @param array   $params      The parameters for this write operation.
      *
      * @return array The list of new/updated child nodes.
      *
      * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
-    private function _writeMultiple($parent_node, $name, $values)
+    private function _writeMultiple($parent_node, $name, $values, $params)
     {
-        $sub_type = $this->createSubType($this->getParam('array'));
+        list($sub_type, $type_params) = $this->createTypeAndParams(
+            $params, $params['array']
+        );
         $result = array();
         foreach ($values as $value) {
-            $result[] = $sub_type->saveNodeValue($name, $value, $parent_node);
+            $result[] = $sub_type->saveNodeValue(
+                $name, $value, $parent_node, $type_params
+            );
         }
         return $result;
     }
