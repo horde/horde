@@ -25,7 +25,7 @@ $prefGroups['share'] = array(
     'column' => _("Calendars"),
     'label' => _("Default Calendar"),
     'desc' => _("Choose your default calendar."),
-    'members' => array('default_share'),
+    'members' => array('default_share', 'sync_calendars'),
 );
 
 $prefGroups['event_options'] = array(
@@ -212,6 +212,12 @@ $_prefs['default_share'] = array(
     'value' => $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : 0,
     'type' => 'enum',
     'desc' => _("Your default calendar:")
+);
+// Address books use for synchronization
+$_prefs['sync_calendars'] = array(
+    'value' => 'a:0:{}',
+    'type' => 'multienum',
+    'desc' => _("Select the calendars that should be used for synchronization with external devices:"),
 );
 
 // Which drivers are we supposed to use to examine holidays?

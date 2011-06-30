@@ -184,7 +184,17 @@ class Kronolith_Application extends Horde_Registry_Application
                     $ui->override['default_share'][$id] = $calendar->get('name');
                 }
                 break;
-
+            case 'sync_calendars':
+                $out = array();
+                foreach (Kronolith::listInternalCalendars(true) as $key => $cal) {
+                    $out[$key] = $cal->get('name');
+                    $sync = @unserialize($prefs->getValue('sync_calendars'));
+                    if (empty($sync)) {
+                        $prefs->setValue('sync_calendars', serialize(array(Kronolith::getDefaultCalendar())));
+                    }
+                }
+                $ui->override['sync_calendars'] = $out;
+                break;
             case 'event_alarms_select':
                 if (empty($conf['alarms']['driver']) ||
                     $prefs->isLocked('event_alarms_select')) {

@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mjr] Allow syncing of multiple owner-owned calendars.
 * [jan] Don&apos;t show calendar drop down in event form without delete permissions (Bug #10201).
 * [jan] Don&apos;t change event creator when saving events.
 * [jan] Fetch events immediately after saving remote calendar.
@@ -1796,6 +1797,7 @@
    <date>2011-06-27</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mjr] Allow syncing of multiple owner-owned calendars.
 * [jan] Don&apos;t show calendar drop down in event form without delete permissions (Bug #10201).
 * [jan] Don&apos;t change event creator when saving events.
 * [jan] Fetch events immediately after saving remote calendar.
