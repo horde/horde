@@ -95,28 +95,28 @@ extends Horde_Kolab_Format_TestCase
 
     private function _load($previous)
     {
-        list($params, $root_node, $pid) = $this->_getProductId($previous);
+        list($params, $root_node, $type) = $this->_getProductId($previous);
         $attributes = array();
         $params['api-version'] = 2;
-        $pid->load('product-id', $attributes, $root_node, $params);
+        $type->load('product-id', $attributes, $root_node, $params);
         return $attributes;
     }
 
     private function _saveToXml($previous = null)
     {
-        list($params, $root_node, $pid) = $this->_getProductId($previous);
+        list($params, $root_node, $type) = $this->_getProductId($previous);
         $params['api-version'] = 2;
         $attributes = array();
-        $pid->save('product-id', $attributes, $root_node, $params);
+        $type->save('product-id', $attributes, $root_node, $params);
         return (string)$params['helper'];
     }
 
     private function _saveToReturn($previous = null)
     {
-        list($params, $root_node, $pid) = $this->_getProductId($previous);
+        list($params, $root_node, $type) = $this->_getProductId($previous);
         $params['api-version'] = 2;
         $attributes = array();
-        return $pid->save('product-id', $attributes, $root_node, $params);
+        return $type->save('product-id', $attributes, $root_node, $params);
     }
 
     private function _getProductId(
