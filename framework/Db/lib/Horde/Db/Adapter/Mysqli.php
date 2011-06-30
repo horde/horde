@@ -385,21 +385,26 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
                 unset($this->_config[$from]);
             }
         }
+
+        if (!empty($this->_config['host']) &&
+            $this->_config['host'] == 'localhost') {
+            $this->_config['host'] = '127.0.0.1';
+        }
+
         if (isset($this->_config['port'])) {
             if (empty($this->_config['host'])) {
-                $msg = 'host is required if port is specified';
-                throw new Horde_Db_Exception($msg);
+                throw new Horde_Db_Exception('Host is required if port is specified');
             }
         }
 
         $config = $this->_config;
 
-        if (!isset($config['host']))      $config['host'] = null;
-        if (!isset($config['username']))  $config['username'] = null;
-        if (!isset($config['password']))  $config['password'] = null;
-        if (!isset($config['dbname']))    $config['dbname'] = null;
-        if (!isset($config['port']))      $config['port'] = null;
-        if (!isset($config['socket']))    $config['socket'] = null;
+        if (!isset($config['host']))     $config['host'] = null;
+        if (!isset($config['username'])) $config['username'] = null;
+        if (!isset($config['password'])) $config['password'] = null;
+        if (!isset($config['dbname']))   $config['dbname'] = null;
+        if (!isset($config['port']))     $config['port'] = null;
+        if (!isset($config['socket']))   $config['socket'] = null;
 
         return $config;
     }

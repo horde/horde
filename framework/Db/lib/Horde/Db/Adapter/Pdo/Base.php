@@ -172,8 +172,11 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
 
     protected function _normalizeConfig($params)
     {
-        // normalize config parameters to what PDO expects
-        $normalize = array('database' => 'dbname', 'socket' => 'unix_socket', 'hostspec' => 'host');
+        // Normalize config parameters to what PDO expects.
+        $normalize = array('database' => 'dbname',
+                           'socket' => 'unix_socket',
+                           'hostspec' => 'host');
+
         foreach ($normalize as $from => $to) {
             if (isset($params[$from])) {
                 $params[$to] = $params[$from];

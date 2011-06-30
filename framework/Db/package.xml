@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* [jan] Convert host parameter from "localhost" to "127.0.0.1" in MySQL drivers (Request #9738).
 * [gwr] Renamed migration helper to avoid namespace clash with a similar tool from the horde base package.
 * [jan] Keep using the write backend in the same request after writing once with the split read/write driver.
  </notes>
@@ -439,6 +440,7 @@
    <date>2011-06-20</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
+* [jan] Convert host parameter from "localhost" to "127.0.0.1" in MySQL drivers (Request #9738).
 * [gwr] Renamed migration helper to avoid namespace clash with a similar tool from the horde base package.
 * [jan] Keep using the write backend in the same request after writing once with the split read/write driver.
    </notes>
