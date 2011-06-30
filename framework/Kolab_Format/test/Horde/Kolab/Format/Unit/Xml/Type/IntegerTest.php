@@ -33,17 +33,15 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  * @link       http://pear.horde.org/index.php?package=Kolab_Format
  */
 class Horde_Kolab_Format_Unit_Xml_Type_IntegerTest
-extends PHPUnit_Framework_TestCase
+extends Horde_Kolab_Format_TestCase
 {
     public function testLoadInteger()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultInteger(
-            array(),
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><integer>1</integer>c</kolab>'
+<kolab version="1.0" a="b"><integer>1</integer>c</kolab>',
+            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
         );
-        $attributes = array();
-        $result->load('integer', $attributes, $rootNode);
         $this->assertSame(1, $attributes['integer']);
     }
 
@@ -52,40 +50,33 @@ extends PHPUnit_Framework_TestCase
      */
     public function testLoadStrangeInteger()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultInteger(
-            array(),
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><integer type="strange"><b/>false<a/></integer>c</kolab>'
+<kolab version="1.0" a="b"><integer type="strange"><b/>false<a/></integer>c</kolab>',
+            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
         );
-        $attributes = array();
-        $result->load('integer', $attributes, $rootNode);
-        $this->assertSame(0, $attributes['integer']);
     }
 
     public function testLoadMissingInteger()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultInteger(
-            array(),
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+<kolab version="1.0"/>',
+            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
         );
-        $attributes = array();
-        $result->load('integer', $attributes, $rootNode);
         $this->assertFalse(isset($attributes['integer']));
     }
 
     public function testLoadDefault()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultInteger(
+        $attributes = $this->load(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0"/>',
             array(
                 'value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
                 'default' => 5
-            ),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+            )
         );
-        $attributes = array();
-        $result->load('integer', $attributes, $rootNode);
         $this->assertSame(5, $attributes['integer']);
     }
 
@@ -94,66 +85,64 @@ extends PHPUnit_Framework_TestCase
      */
     public function testLoadNotEmpty()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultInteger(
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-            ),
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+<kolab version="1.0"/>',
+            array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,)
         );
-        $attributes = array();
-        $result->load('integer', $attributes, $rootNode);
     }
 
     public function testLoadNotEmptyRelaxed()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultInteger(
+        $attributes = $this->load(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0"/>',
             array(
                 'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
                 'relaxed' => true,
-            ),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+            )
         );
-        $attributes = array();
-        $result->load('integer', $attributes, $rootNode);
         $this->assertFalse(isset($attributes['integer']));
     }
 
     public function testSave()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultInteger();
         $this->assertInstanceOf(
             'DOMNode',
-            $result->save('integer', array('integer' => 1), $rootNode)
+            $this->saveToReturn(
+                null,
+                array('integer' => 1),
+                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+            )
         );
     }
 
     public function testSaveInteger()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultInteger();
-        $result->save('integer', array('integer' => 7), $rootNode);
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"><integer>7</integer></kolab>
 ',
-            $doc->saveXML()
+            $this->saveToXml(
+                null,
+                array('integer' => 7),
+                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+            )
         );
     }
 
     public function testSaveOverwritesOldValue()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultInteger(
-            array(),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><integer type="strange"><b/>STRANGE<a/></integer>c</kolab>'
-        );
-        $result->save('integer', array('integer' => 7), $rootNode);
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><integer type="strange">7<b/><a/></integer>c</kolab>
 ',
-            $doc->saveXML()
+            $this->saveToXml(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><integer type="strange"><b/>STRANGE<a/></integer>c</kolab>',
+                array('integer' => 7),
+                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+            )
         );
     }
 
@@ -162,14 +151,12 @@ extends PHPUnit_Framework_TestCase
      */
     public function testSaveNotEmpty()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultInteger(
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-            ),
+        $this->saveToXml(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+<kolab version="1.0"/>',
+            array(),
+            array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY)
         );
-        $result->save('integer', array(), $rootNode);
     }
 
     /**
@@ -177,55 +164,44 @@ extends PHPUnit_Framework_TestCase
      */
     public function testSaveInvalidInteger()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultInteger(
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-            ),
+        $this->saveToXml(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+<kolab version="1.0"/>',
+            array('integer' => 'INVALID'),
+            array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY)
         );
-        $result->save('integer', array('integer' => 'INVALID'), $rootNode);
     }
 
     public function testSaveNotEmptyWithOldValue()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultInteger(
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-            ),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><integer type="strange"><b/>STRANGE<a/></integer>c</kolab>'
-        );
         $this->assertInstanceOf(
             'DOMNode', 
-            $result->save('integer', array(), $rootNode)
+            $this->saveToReturn(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><integer type="strange"><b/>STRANGE<a/></integer>c</kolab>',
+                array(),
+                array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY)
+            )
         );
     }
 
     public function testSaveNotEmptyRelaxed()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultInteger(
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-                'relaxed' => true,
-            ),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+        $this->assertFalse(
+            $this->saveToReturn(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0"/>',
+                array(),
+                array(
+                    'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
+                    'relaxed' => true,
+                )
+            )
         );
-        $this->assertFalse($result->save('integer', array(), $rootNode));
     }
 
-    private function _getDefaultInteger($params = array(), $previous = null)
+    protected function getTypeClass()
     {
-        $doc = new DOMDocument('1.0', 'UTF-8');
-        if ($previous !== null) {
-            $doc->loadXML($previous);
-        }
-        $root = new Horde_Kolab_Format_Xml_Type_Root(
-            $doc, array('type' => 'kolab', 'version' => '1.0')
-        );
-        $rootNode = $root->save();
-        $result = new Horde_Kolab_Format_Xml_Type_Integer($doc, $params);
-        return array($doc, $rootNode, $result);
+        return 'Horde_Kolab_Format_Xml_Type_Integer';
     }
 }
