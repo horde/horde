@@ -191,7 +191,9 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
     {
         $dsn = $this->_config['adapter'] . ':';
         foreach ($params as $k => $v) {
-            $dsn .= "$k=$v;";
+            if (strlen($v)) {
+                $dsn .= "$k=$v;";
+            }
         }
         return rtrim($dsn, ';');
     }
