@@ -33,56 +33,48 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  * @link       http://pear.horde.org/index.php?package=Kolab_Format
  */
 class Horde_Kolab_Format_Unit_Xml_Type_ColorTest
-extends PHPUnit_Framework_TestCase
+extends Horde_Kolab_Format_TestCase
 {
     public function testLoadColor()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultColor(
-            array(),
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"><color>#09aFAf</color>c</kolab>'
+<kolab version="1.0"><color>#09aFAf</color>c</kolab>',
+            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
         );
-        $attributes = array();
-        $result->load('color', $attributes, $rootNode);
         $this->assertEquals('#09aFAf', $attributes['color']);
     }
 
     public function testLoadStrangeColor()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultColor(
-            array(),
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><color type="strange"><b/>#012345<a/></color>c</kolab>'
+<kolab version="1.0" a="b"><color type="strange"><b/>#012345<a/></color>c</kolab>',
+            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
         );
-        $attributes = array();
-        $result->load('color', $attributes, $rootNode);
         $this->assertEquals('#012345', $attributes['color']);
     }
 
     public function testLoadMissingColor()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultColor(
-            array(),
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+<kolab version="1.0"/>',
+            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
         );
-        $attributes = array();
-        $result->load('color', $attributes, $rootNode);
         $this->assertFalse(isset($attributes['color']));
     }
 
     public function testLoadDefault()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultColor(
+        $attributes = $this->load(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0"/>',
             array(
                 'value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
                 'default' => '#abcdef'
-            ),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+            )
         );
-        $attributes = array();
-        $result->load('color', $attributes, $rootNode);
         $this->assertEquals('#abcdef', $attributes['color']);
     }
 
@@ -91,66 +83,64 @@ extends PHPUnit_Framework_TestCase
      */
     public function testLoadInvalid()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultColor(
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-            ),
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"><color>#09aFAfD</color>c</kolab>'
+<kolab version="1.0"><color>#09aFAfD</color>c</kolab>',
+            array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,)
         );
-        $attributes = array();
-        $result->load('color', $attributes, $rootNode);
     }
 
     public function testLoadInvalidRelaxed()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultColor(
+        $attributes = $this->load(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0"><color>#09aFAfD</color>c</kolab>',
             array(
                 'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
                 'relaxed' => true,
-            ),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"><color>#09aFAfD</color>c</kolab>'
+            )
         );
-        $attributes = array();
-        $result->load('color', $attributes, $rootNode);
         $this->assertEquals('#09aFAfD', $attributes['color']);
     }
 
     public function testSave()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultColor();
         $this->assertInstanceOf(
             'DOMNode',
-            $result->save('color', array(), $rootNode)
+            $this->saveToReturn(
+                null,
+                array('color' => '#affcce'),
+                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+            )
         );
     }
 
     public function testSaveColor()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultColor();
-        $result->save('color', array('color' => '#FFFFFF'), $rootNode);
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"><color>#FFFFFF</color></kolab>
 ',
-            $doc->saveXML()
+            $this->saveToXml(
+                null,
+                array('color' => '#FFFFFF'),
+                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+            )
         );
     }
 
     public function testSaveOverwritesOldValue()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultColor(
-            array(),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><color type="strange"><b/>STRANGE<a/></color>c</kolab>'
-        );
-        $result->save('color', array('color' => '#000000'), $rootNode);
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><color type="strange">#000000<b/><a/></color>c</kolab>
 ',
-            $doc->saveXML()
+            $this->saveToXml(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><color type="strange"><b/>STRANGE<a/></color>c</kolab>',
+                array('color' => '#000000'),
+                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+            )
         );
     }
 
@@ -159,14 +149,12 @@ extends PHPUnit_Framework_TestCase
      */
     public function testSaveNotEmpty()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultColor(
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-            ),
+        $this->saveToXml(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+<kolab version="1.0"/>',
+                array(),
+            array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY)
         );
-        $result->save('color', array(), $rootNode);
     }
 
     /**
@@ -174,74 +162,62 @@ extends PHPUnit_Framework_TestCase
      */
     public function testSaveInvalidColor()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultColor(
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-            ),
+        $this->saveToXml(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+<kolab version="1.0"/>',
+            array('color' => 'INVALID'),
+            array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,)
         );
-        $result->save('color', array('color' => 'INVALID'), $rootNode);
     }
 
     public function testSaveInvalidColorRelaxed()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultColor(
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-                'relaxed' => true
-            ),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
-        );
-        $result->save('color', array('color' => 'INVALID'), $rootNode);
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"><color>INVALID</color></kolab>
 ',
-            $doc->saveXML()
+            $this->saveToXml(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0"/>',
+                array('color' => 'INVALID'),
+                array(
+                    'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
+                    'relaxed' => true
+                )
+            )
         );
     }
 
     public function testSaveNotEmptyWithOldValue()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultColor(
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-            ),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><color type="strange"><b/>STRANGE<a/></color>c</kolab>'
-        );
         $this->assertInstanceOf(
             'DOMNode', 
-            $result->save('color', array(), $rootNode)
+            $this->saveToReturn(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><color type="strange"><b/>STRANGE<a/></color>c</kolab>',
+                array(),
+                array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,)
+            )
         );
     }
 
     public function testSaveNotEmptyRelaxed()
     {
-        list($doc, $rootNode, $result) = $this->_getDefaultColor(
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-                'relaxed' => true,
-            ),
+        $this->assertFalse(
+            $this->saveToReturn(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+<kolab version="1.0"/>',
+                array(),
+                array(
+                    'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
+                    'relaxed' => true,
+                )
+            )
         );
-        $this->assertFalse($result->save('color', array(), $rootNode));
     }
 
-    private function _getDefaultColor($params = array(), $previous = null)
+    protected function getTypeClass()
     {
-        $doc = new DOMDocument('1.0', 'UTF-8');
-        if ($previous !== null) {
-            $doc->loadXML($previous);
-        }
-        $root = new Horde_Kolab_Format_Xml_Type_Root(
-            $doc, array('type' => 'kolab', 'version' => '1.0')
-        );
-        $rootNode = $root->save();
-        $result = new Horde_Kolab_Format_Xml_Type_Color($doc, $params);
-        return array($doc, $rootNode, $result);
+        return 'Horde_Kolab_Format_Xml_Type_Color';
     }
 }

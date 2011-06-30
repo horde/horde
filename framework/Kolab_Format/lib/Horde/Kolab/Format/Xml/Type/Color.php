@@ -34,15 +34,16 @@ extends Horde_Kolab_Format_Xml_Type_String
     /**
      * Load the value of a node.
      *
-     * @param DOMNode $node Retrieve value for this node.
+     * @param DOMNode $node   Retrieve value for this node.
+     * @param array   $params The parameters for this parse operation.
      *
      * @return mixed|null The value or null if no value was found.
      */
-    public function loadNodeValue($node)
+    public function loadNodeValue($node, $params = array())
     {
-        $result = $this->fetchNodeValue($node);
+        $result = $params['helper']->fetchNodeValue($node);;
         if ($result !== null) {
-            $this->_checkColor($result);
+            $this->_checkColor($result, $params);
         }
         return $result;
     }
@@ -55,6 +56,7 @@ extends Horde_Kolab_Format_Xml_Type_String
      * @param mixed        $value       The value to store.
      * @param DOMNode      $parent_node The parent node of the node that
      *                                  should be updated.
+     * @param array        $params      The parameters for this write operation.
      * @param DOMNode|NULL $old_node    The previous value (or null if
      *                                  there is none).
      *
@@ -67,27 +69,31 @@ extends Horde_Kolab_Format_Xml_Type_String
         $name,
         $value,
         $parent_node,
-        $old_node = null
+        $params,
+        $old_node = false
     ) {
         if (isset($value)) {
-            $this->_checkColor($value);
+            $this->_checkColor($value, $params);
         }
-        return parent::saveNodeValue($name, $value, $parent_node, $old_node);
+        return parent::saveNodeValue(
+            $name, $value, $parent_node, $params, $old_node
+        );
     }
 
     /**
      * Test if the input seems to be a real color.
      *
-     * @param string $color The string to check.
+     * @param string $color  The string to check.
+     * @param array  $params The parameters for this operation.
      *
      * @return NULL
      *
      * @throws Horde_Kolab_Format_Exception If the input is no color.
      */
-    private function _checkColor($color)
+    private function _checkColor($color, $params)
     {
         if (!preg_match('/^#[0-9a-fA-F]{6}$/', $color)
-            && !$this->isRelaxed()) {
+            && !$this->isRelaxed($params)) {
             throw new Horde_Kolab_Format_Exception(
                 sprintf('Invalid color input "%s"!', $color)
             );
