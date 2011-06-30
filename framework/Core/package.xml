@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Fix generating database DSN for VFS if the global VFS configuration doesn&apos;t use SQL (Bug #10199).
 * [jan] Add option to Horde_Themes_Css#getStylesheetUrls() to never use CSS cache.
 * [jan] Add Horde_Menu#setMask() (Vilius Sumskas, Request #10078).
 * [jan] Allow configuration of split read databases for PostgreSQL (Request #7025).
@@ -1490,6 +1491,7 @@
    <date>2011-06-22</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Fix generating database DSN for VFS if the global VFS configuration doesn&apos;t use SQL (Bug #10199).
 * [jan] Add option to Horde_Themes_Css#getStylesheetUrls() to never use CSS cache.
 * [jan] Add Horde_Menu#setMask() (Vilius Sumskas, Request #10078).
 * [jan] Allow configuration of split read databases for PostgreSQL (Request #7025).
