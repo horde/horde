@@ -477,7 +477,7 @@ class Kronolith_Api extends Horde_Registry_Api
                     false); // No tags
                 Kronolith::mergeEvents($results, $events);
             } catch (Kronolith_Exception $e) {
-                $GLOBALS['notification']->push($e);
+                Horde::logMessage($e);
             }
         }
         $uids = array();
