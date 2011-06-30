@@ -93,6 +93,23 @@ class Horde_Kolab_Format_Xml_Helper
      * @param DOMNode $parent_node Attach the new node to this parent.
      * @param string  $name        Name of the new child node.
      * @param string  $value       Text value of the new child node.
+     * @param array   $params      The parameters for this write operation.
+     *
+     * @return DOMNode The new child node.
+     */
+    public function storeNewNodeValue($parent_node, $name, $value, $params)
+    {
+        $node = $this->createNewNode($parent_node, $name);
+        $this->createNodeValue($node, $name, $value);
+        return $node;
+    }
+
+    /**
+     * Store a value as a new text node.
+     *
+     * @param DOMNode $parent_node Attach the new node to this parent.
+     * @param string  $name        Name of the new child node.
+     * @param string  $value       Text value of the new child node.
      *
      * @return DOMNode The new child node.
      */
