@@ -37,7 +37,7 @@ extends Horde_Kolab_Format_TestCase
 {
     public function testLoadString()
     {
-        $attributes = $this->_load(
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><string>SOMETHING</string>c</kolab>',
             array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,)
@@ -47,7 +47,7 @@ extends Horde_Kolab_Format_TestCase
 
     public function testLoadStrangeString()
     {
-        $attributes = $this->_load(
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><string type="strange"><b/>STRANGE<a/></string>c</kolab>',
             array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,)
@@ -57,7 +57,7 @@ extends Horde_Kolab_Format_TestCase
 
     public function testLoadEmptyString()
     {
-        $attributes = $this->_load(
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"><string></string></kolab>',
             array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,)
@@ -67,7 +67,7 @@ extends Horde_Kolab_Format_TestCase
 
     public function testLoadMissingString()
     {
-        $attributes = $this->_load(
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"/>',
             array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,)
@@ -77,7 +77,7 @@ extends Horde_Kolab_Format_TestCase
 
     public function testLoadDefault()
     {
-        $attributes = $this->_load(
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"/>',
             array(
@@ -93,7 +93,7 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testLoadNotEmpty()
     {
-        $attributes = $this->_load(
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"/>',
             array(
@@ -104,7 +104,7 @@ extends Horde_Kolab_Format_TestCase
 
     public function testLoadNotEmptyRelaxed()
     {
-        $attributes = $this->_load(
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"/>',
             array(
@@ -119,7 +119,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $this->assertInstanceOf(
             'DOMNode',
-            $this->_saveToReturn(
+            $this->saveToReturn(
                 null,
                 array('string' => 'TEST'),
                 array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
@@ -133,7 +133,7 @@ extends Horde_Kolab_Format_TestCase
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"><string>STRING</string></kolab>
 ',
-            $this->_saveToXml(
+            $this->saveToXml(
                 null,
                 array('string' => 'STRING'),
                 array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
@@ -147,7 +147,7 @@ extends Horde_Kolab_Format_TestCase
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><string type="strange">NEW<b/><a/></string>c</kolab>
 ',
-            $this->_saveToXml(
+            $this->saveToXml(
                 '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><string type="strange"><b/>STRANGE<a/></string>c</kolab>',
                 array('string' => 'NEW'),
@@ -161,7 +161,7 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testSaveNotEmpty()
     {
-        $this->_saveToXml(
+        $this->saveToXml(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"/>',
             array(),
@@ -173,7 +173,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $this->assertInstanceOf(
             'DOMNode',
-            $this->_saveToReturn(
+            $this->saveToReturn(
                 '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><string type="strange"><b/>STRANGE<a/></string>c</kolab>',
                 array(),
@@ -188,7 +188,7 @@ extends Horde_Kolab_Format_TestCase
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b">c</kolab>
 ',
-            $this->_saveToXml(
+            $this->saveToXml(
                 '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><string type="strange"><b/>STRANGE<a/></string>c</kolab>',
                 array(),
@@ -200,7 +200,7 @@ extends Horde_Kolab_Format_TestCase
     public function testSaveNotEmptyRelaxed()
     {
         $this->assertFalse(
-            $this->_saveToReturn(
+            $this->saveToReturn(
                 '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"/>',
                 array(),
@@ -216,7 +216,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $this->assertInstanceOf(
             'DOMNode',
-            $this->_saveToReturn(
+            $this->saveToReturn(
                 '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"/>',
                 array(),
@@ -229,47 +229,8 @@ extends Horde_Kolab_Format_TestCase
         );
     }
 
-    private function _load($previous, $params = array())
+    protected function getTypeClass()
     {
-        list($type_params, $root_node, $type) = $this->_getString(
-            $previous
-        );
-        $params = array_merge($type_params, $params);
-        $attributes = array();
-        $type->load('string', $attributes, $root_node, $params);
-        return $attributes;
-    }
-
-    private function _saveToXml(
-        $previous = null, $attributes = array(), $params = array()
-    )
-    {
-        list($type_params, $root_node, $type) = $this->_getString($previous);
-        $params = array_merge($type_params, $params);
-        $type->save('string', $attributes, $root_node, $params);
-        return (string)$params['helper'];
-    }
-
-    private function _saveToReturn(
-        $previous = null, $attributes = array(), $params = array()
-    )
-    {
-        list($type_params, $root_node, $type) = $this->_getString($previous);
-        $params = array_merge($type_params, $params);
-        return $type->save('string', $attributes, $root_node, $params);
-    }
-
-    private function _getString(
-        $previous = null,
-        $kolab_type = 'kolab',
-        $version = '1.0'
-    )
-    {
-        return $this->getXmlType(
-            'Horde_Kolab_Format_Xml_Type_String',
-            $previous,
-            $kolab_type,
-            $version
-        );
+        return 'Horde_Kolab_Format_Xml_Type_String';
     }
 }
