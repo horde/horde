@@ -32,6 +32,11 @@ class Horde_Kolab_Format_Xml_Type_Composite
 extends Horde_Kolab_Format_Xml_Type_Base
 {
     /**
+     * The parameters required for the parsing operation.
+     */
+    protected $_required_parameters = array('helper', 'array', 'value');
+
+    /**
      * Load the node value from the Kolab object.
      *
      * @param string  $name        The name of the the attribute
@@ -39,26 +44,25 @@ extends Horde_Kolab_Format_Xml_Type_Base
      * @param array   &$attributes The data array that holds all
      *                             attribute values.
      * @param DOMNode $parent_node The parent node of the node to be loaded.
+     * @param array   $params      The parameters for this parse operation.
      *
-     * @return NULL
+     * @return DOMNode|boolean The named DOMNode or false if no node value was
+     *                         found.
      */
-    public function load($name, &$attributes, $parent_node)
+    public function load($name, &$attributes, $parent_node, $params = array())
     {
-        if ($node = $this->findNodeRelativeTo('./' . $name, $parent_node)) {
+        $this->checkParams($params, $name);
+        if ($node = $params['helper']->findNodeRelativeTo('./' . $name, $parent_node)) {
             $result = array();
-            foreach ($this->getParam('array') as $sub_name => $sub_params) {
-                $sub_type = $this->createSubType($sub_params);
-                $sub_type->load($sub_name, $result, $node);
+            foreach ($params['array'] as $sub_name => $sub_params) {
+                list($sub_type, $type_params) = $this->createTypeAndParams(
+                    $params, $sub_params
+                );
+                $sub_type->load($sub_name, $result, $node, $type_params);
             }
             $attributes[$name] = $result;
         } else {
-            if ($this->getParam('value') == Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY
-                && !$this->isRelaxed()) {
-                throw new Horde_Kolab_Format_Exception_MissingValue($name);
-            }
-            if ($this->getParam('value') == Horde_Kolab_Format_Xml::VALUE_DEFAULT) {
-                $attributes[$name] = $this->getParam('default');
-            }
+            $attributes[$name] = $this->loadMissing($name, $params);
         }
         return false;
     }
@@ -72,37 +76,45 @@ extends Horde_Kolab_Format_Xml_Type_Base
      *                             attribute values.
      * @param DOMNode $parent_node The parent node of the node that
      *                             should be updated.
+     * @param array   $params      The parameters for this write operation.
      *
-     * @return DOMNodeList|array|boolean The new/updated child nodes or false
-     *                                   if the operation failed.
+     * @return DOMNode|boolean The new/updated child node or false if this
+     *                         failed.
      *
      * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
-    public function save($name, $attributes, $parent_node)
+    public function save($name, $attributes, $parent_node, $params = array())
     {
-        if (!($node = $this->findNodeRelativeTo('./' . $name, $parent_node))) {
-            if (!isset($attributes[$name])) {
-                if ($this->getParam('value') == Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY
-                    && !$this->isRelaxed()) {
-                    throw new Horde_Kolab_Format_Exception_MissingValue($name);
-                }
-                if ($this->getParam('value') == Horde_Kolab_Format_Xml::VALUE_DEFAULT) {
-                    $value = $this->getParam('default');
-                } else {
+        $this->checkParams($params, $name);
+        $node = $params['helper']->findNodeRelativeTo(
+            './' . $name, $parent_node
+        );
+
+        if (!isset($attributes[$name])) {
+            if ($node === false) {
+                if ($params['value'] == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING
+                    || ($params['value'] == Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY
+                        && $this->isRelaxed($params))) {
                     return false;
                 }
             } else {
-                $value = $attributes[$name];
+                if ($params['value'] == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING) {
+                    /** Client indicates that the value should get removed */
+                    $params['helper']->removeNodes($parent_node, $name);
+                    return false;
+                } else {
+                    return $node;
+                }
             }
-            return $this->saveNodeValue($name, $value, $parent_node);
         }
-        if (isset($attributes[$name])) {
-            $this->saveNodeValue($name, $attributes[$name], $parent_node, $node);
-        } else if ($this->getParam('value') == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING) {
-            /** Client indicates that the value should get removed */
-            $this->removeNodes($parent_node, $name);
-        }
-        return $node;
+
+        return $this->saveNodeValue(
+            $name,
+            $this->generateWriteValue($name, $attributes, $params),
+            $parent_node,
+            $params,
+            $node
+        );
     }
 
     /**
@@ -113,6 +125,7 @@ extends Horde_Kolab_Format_Xml_Type_Base
      * @param mixed        $value       The value to store.
      * @param DOMNode      $parent_node The parent node of the node that
      *                                  should be updated.
+     * @param array        $params      The parameters for this write operation.
      * @param DOMNode|NULL $old_node    The previous value (or null if
      *                                  there is none).
      *
@@ -125,13 +138,14 @@ extends Horde_Kolab_Format_Xml_Type_Base
         $name,
         $value,
         $parent_node,
-        $old_node = null
+        $params,
+        $old_node = false
     ) {
-        if ($old_node === null) {
-            $node = $this->createNewNode($parent_node, $name);
-            return $this->_writeComposite($node, $name, $value);
+        if ($old_node === false) {
+            $node = $params['helper']->createNewNode($parent_node, $name);
+            return $this->_writeComposite($node, $name, $value, $params);
         } else {
-            return $this->_writeComposite($old_node, $name, $value);
+            return $this->_writeComposite($old_node, $name, $value, $params);
         }
     }
 
@@ -143,6 +157,7 @@ extends Horde_Kolab_Format_Xml_Type_Base
      * @param string  $name        The name of the the attribute
      *                             to be updated.
      * @param array   $values      The values to write.
+     * @param array   $params      The parameters for this write operation.
      *
      * @return array The list of new/updated child nodes.
      *
@@ -151,12 +166,36 @@ extends Horde_Kolab_Format_Xml_Type_Base
     private function _writeComposite(
         $parent_node,
         $name,
-        $values
+        $values,
+        $params
     ) {
         
-        foreach ($this->getParam('array') as $name => $sub_params) {
-            $sub_type = $this->createSubType($sub_params);
-            $sub_type->save($name, $values, $parent_node);
+        foreach ($params['array'] as $name => $sub_params) {
+            list($sub_type, $type_params) = $this->createTypeAndParams(
+                $params, $sub_params
+            );
+            $sub_type->save($name, $values, $parent_node, $type_params);
+        }
+    }
+
+    /**
+     * Generate the value that should be written to the node. Override in the
+     * extending classes.
+     *
+     * @param string  $name        The name of the the attribute
+     *                             to be updated.
+     * @param array   $attributes  The data array that holds all
+     *                             attribute values.
+     * @param array   $params      The parameters for this write operation.
+     *
+     * @return mixed The value to be written.
+     */
+    protected function generateWriteValue($name, $attributes, $params)
+    {
+        if (isset($attributes[$name])) {
+            return $attributes[$name];
+        } else {
+            return $this->loadMissing($name, $params);
         }
     }
 }
