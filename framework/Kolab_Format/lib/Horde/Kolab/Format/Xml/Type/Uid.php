@@ -32,23 +32,22 @@ class Horde_Kolab_Format_Xml_Type_Uid
 extends Horde_Kolab_Format_Xml_Type_Base
 {
     /**
-     * Load the uid of the Kolab object.
+     * Load the node value from the Kolab object.
      *
      * @param string  $name        The name of the the attribute
      *                             to be fetched.
      * @param array   &$attributes The data array that holds all
      *                             attribute values.
      * @param DOMNode $parent_node The parent node of the node to be loaded.
+     * @param array   $params      The parameters for this parse operation.
      *
-     * @return NULL
-     *
-     * @throws Horde_Kolab_Format_Exception_MissingUid In case the uid node is
-     * missing.
+     * @return DOMNode|boolean The named DOMNode or false if no node value was
+     *                         found.
      */
-    public function load($name, &$attributes, $parent_node)
+    public function load($name, &$attributes, $parent_node, $params = array())
     {
-        $result = parent::load($name, $attributes, $parent_node);
-        if (!$result && !$this->isRelaxed()) {
+        $result = parent::load($name, $attributes, $parent_node, $params);
+        if (!$result && !$this->isRelaxed($params)) {
             throw new Horde_Kolab_Format_Exception_MissingUid();
         }
         return $result;
@@ -63,42 +62,54 @@ extends Horde_Kolab_Format_Xml_Type_Base
      *                             attribute values.
      * @param DOMNode $parent_node The parent node of the node that
      *                             should be updated.
+     * @param array   $params      The parameters for this write operation.
      *
      * @return DOMNode|boolean The new/updated child node or false if this
      *                         failed.
      *
      * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
-    public function save($name, $attributes, $parent_node)
+    public function save($name, $attributes, $parent_node, $params = array())
     {
-        if (!($node = $this->findNodeRelativeTo('./' . $name, $parent_node))) {
-            if (!isset($attributes['uid'])) {
-                if ($this->isRelaxed()) {
+        $this->checkParams($params, $name);
+        $node = $params['helper']->findNodeRelativeTo(
+            './' . $name, $parent_node
+        );
+
+        if ($node === false) {
+            if (!isset($attributes[$name])) {
+                if ($this->isRelaxed($params)) {
                     return false;
                 } else {
                     throw new Horde_Kolab_Format_Exception_MissingUid();
                 }
             }
-            return $this->storeNewNodeValue(
-                $parent_node, $name, $attributes['uid']
-            );
-        }
-        if (isset($attributes[$name])) {
-            if (($old = $this->fetchNodeValue($node)) != $attributes[$name]) {
-                if (!$this->isRelaxed()) {
-                    throw new Horde_Kolab_Format_Exception(
-                        sprintf(
-                            'Not attempting to overwrite old %s %s with new value %s!',
-                            $name,
-                            $old,
-                            $attributes['uid']
-                        )
-                    );
+        } else {
+            if (isset($attributes[$name])) {
+                if (($old = $this->loadNodeValue($node, $params)) != $attributes[$name]) {
+                    if (!$this->isRelaxed($params)) {
+                        throw new Horde_Kolab_Format_Exception(
+                            sprintf(
+                                'Not attempting to overwrite old %s %s with new value %s!',
+                                $name,
+                                $old,
+                                $attributes['uid']
+                            )
+                        );
+                    }
                 } else {
-                    $this->replaceFirstNodeTextValue($node, $attributes[$name]);
+                    return $node;
                 }
             }
         }
-        return $node;
+
+        $result = $this->saveNodeValue(
+            $name,
+            $this->generateWriteValue($name, $attributes, $params),
+            $parent_node,
+            $params,
+            $node
+        );
+        return ($node !== false) ? $node : $result;
     }
 }

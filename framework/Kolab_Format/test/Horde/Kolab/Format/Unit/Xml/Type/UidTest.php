@@ -33,26 +33,80 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  * @link       http://pear.horde.org/index.php?package=Kolab_Format
  */
 class Horde_Kolab_Format_Unit_Xml_Type_UidTest
-extends PHPUnit_Framework_TestCase
+extends Horde_Kolab_Format_TestCase
 {
+
+    public function testLoadUid()
+    {
+        $attributes = $this->load(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><uid>TEST</uid>c</kolab>'
+        );
+        $this->assertEquals('TEST', $attributes['uid']);
+    }
+
+    public function testLoadStrangeUid()
+    {
+        $attributes = $this->load(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><uid type="strange"><b/>STRANGE<a/></uid>c</kolab>'
+        );
+        $this->assertEquals('STRANGE', $attributes['uid']);
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Format_Exception_MissingUid
+     */
+    public function testLoadMissingUidText()
+    {
+        $attributes = $this->load(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><uid></uid>c</kolab>'
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Format_Exception_MissingUid
+     */
+    public function testLoadMissingUid()
+    {
+        $attributes = $this->load(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b">c</kolab>'
+        );
+    }
+
+    public function testLoadMissingUidRelaxed()
+    {
+        $attributes = $this->load(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b">c</kolab>',
+            array('relaxed' => true)
+        );
+        $this->assertTrue(!isset($attributes['uid']));
+    }
+
     public function testSave()
     {
-        list($doc, $rootNode, $uid) = $this->_getDefaultUid();
         $this->assertInstanceOf(
-            'DOMNode', 
-            $uid->save('uid', array('uid' => 1), $rootNode)
+            'DOMNode',
+            $this->saveToReturn(
+                null,
+                array('uid' => 1)
+            )
         );
     }
 
     public function testSaveXml()
     {
-        list($doc, $rootNode, $uid) = $this->_getDefaultUid();
-        $uid->save('uid', array('uid' => 1), $rootNode);
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"><uid>1</uid></kolab>
-', 
-            $doc->saveXML()
+',
+            $this->saveToXml(
+                null,
+                array('uid' => 1)
+            )
         );
     }
 
@@ -61,51 +115,48 @@ extends PHPUnit_Framework_TestCase
      */
     public function testSaveMissingData()
     {
-        list($doc, $rootNode, $uid) = $this->_getDefaultUid();
-        $uid->save('uid', array(), $rootNode);
+        $this->saveToXml();
     }
 
     public function testInvalidXml()
     {
-        list($doc, $rootNode, $uid) = $this->_getDefaultUid(array('relaxed' => true));
-        $uid->save('uid', array(), $rootNode);
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"/>
-', 
-            $doc->saveXML()
+',
+            $this->saveToXml(
+                null,
+                array(),
+                array('relaxed' => true)
+            )
         );
     }
 
     public function testNewUid()
     {
-        list($doc, $rootNode, $uid) = $this->_getDefaultUid(
-            array(),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b">c</kolab>'
-        );
-        $uid->save('uid', array('uid' => 'TEST'), $rootNode);
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b">c<uid>TEST</uid></kolab>
-', 
-            $doc->saveXML()
+',
+            $this->saveToXml(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b">c</kolab>',
+                array('uid' => 'TEST')
+            )
         );
     }
 
     public function testOldUid()
     {
-        list($doc, $rootNode, $uid) = $this->_getDefaultUid(
-            array(),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><uid>TEST</uid>c</kolab>'
-        );
-        $uid->save('uid', array('uid' => 'TEST'), $rootNode);
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><uid>TEST</uid>c</kolab>
-', 
-            $doc->saveXML()
+',
+            $this->saveToXml(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><uid>TEST</uid>c</kolab>',
+                array('uid' => 'TEST')
+            )
         );
     }
 
@@ -114,144 +165,60 @@ extends PHPUnit_Framework_TestCase
      */
     public function testOverwriteOldUid()
     {
-        list($doc, $rootNode, $uid) = $this->_getDefaultUid(
-            array(),
+        $this->saveToXml(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><uid>OLD</uid>c</kolab>'
+<kolab version="1.0" a="b"><uid>OLD</uid>c</kolab>',
+            array('uid' => 'TEST')
         );
-        $uid->save('uid', array('uid' => 'TEST'), $rootNode);
     }
 
     public function testOverwriteOldUidRelaxed()
     {
-        list($doc, $rootNode, $uid) = $this->_getDefaultUid(
-            array('relaxed' => true),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><uid>OLD</uid>c</kolab>'
-        );
-        $uid->save('uid', array('uid' => 'TEST'), $rootNode);
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><uid>TEST</uid>c</kolab>
-', 
-            $doc->saveXML()
+',
+            $this->saveToXml(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><uid>OLD</uid>c</kolab>',
+                array('uid' => 'TEST'),
+                array('relaxed' => true)
+            )
         );
     }
 
     public function testOverwriteStrangeUidRelaxed()
     {
-        list($doc, $rootNode, $uid) = $this->_getDefaultUid(
-            array('relaxed' => true),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><uid type="strange"><b/>OLD<a/></uid>c</kolab>'
-        );
-        $uid->save('uid', array('uid' => 'TEST'), $rootNode);
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><uid type="strange">TEST<b/><a/></uid>c</kolab>
-', 
-            $doc->saveXML()
+',
+            $this->saveToXml(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><uid type="strange"><b/>OLD<a/></uid>c</kolab>',
+                array('uid' => 'TEST'),
+                array('relaxed' => true)
+            )
         );
     }
 
     public function testOverwriteStrangeUidRelaxedTwo()
     {
-        list($doc, $rootNode, $uid) = $this->_getDefaultUid(
-            array('relaxed' => true),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><uid type="strange"><b/><a/></uid>c</kolab>'
-        );
-        $uid->save('uid', array('uid' => 'TEST'), $rootNode);
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><uid type="strange">TEST<b/><a/></uid>c</kolab>
-', 
-            $doc->saveXML()
+',
+            $this->saveToXml(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><uid type="strange"><b/><a/></uid>c</kolab>',
+                array('uid' => 'TEST'),
+                array('relaxed' => true)
+            )
         );
     }
 
-    public function testLoadUid()
+    protected function getTypeClass()
     {
-        list($doc, $rootNode, $uid) = $this->_getDefaultUid(
-            array(),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><uid>TEST</uid>c</kolab>'
-        );
-        $attributes = array();
-        $uid->load('uid', $attributes, $rootNode);
-        $this->assertEquals(
-            'TEST', 
-            $attributes['uid']
-        );
-    }
-
-    public function testLoadStrangeUid()
-    {
-        list($doc, $rootNode, $uid) = $this->_getDefaultUid(
-            array(),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><uid type="strange"><b/>STRANGE<a/></uid>c</kolab>'
-        );
-        $attributes = array();
-        $uid->load('uid', $attributes, $rootNode);
-        $this->assertEquals(
-            'STRANGE', 
-            $attributes['uid']
-        );
-    }
-
-    /**
-     * @expectedException Horde_Kolab_Format_Exception_MissingUid
-     */
-    public function testLoadMissingUidText()
-    {
-        list($doc, $rootNode, $uid) = $this->_getDefaultUid(
-            array(),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><uid></uid>c</kolab>'
-        );
-        $attributes = array();
-        $uid->load('uid', $attributes, $rootNode);
-    }
-
-    /**
-     * @expectedException Horde_Kolab_Format_Exception_MissingUid
-     */
-    public function testLoadMissingUid()
-    {
-        list($doc, $rootNode, $uid) = $this->_getDefaultUid(
-            array(),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b">c</kolab>'
-        );
-        $attributes = array();
-        $uid->load('uid', $attributes, $rootNode);
-    }
-
-    public function testLoadMissingUidRelaxed()
-    {
-        list($doc, $rootNode, $uid) = $this->_getDefaultUid(
-            array('relaxed' => true),
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b">c</kolab>'
-        );
-        $attributes = array();
-        $uid->load('uid', $attributes, $rootNode);
-        $this->assertTrue(!isset($attributes['uid']));
-    }
-
-
-    private function _getDefaultUid($params = array(), $previous = null)
-    {
-        $doc = new DOMDocument('1.0', 'UTF-8');
-        if ($previous !== null) {
-            $doc->loadXML($previous);
-        }
-        $root = new Horde_Kolab_Format_Xml_Type_Root(
-            $doc, array('type' => 'kolab', 'version' => '1.0')
-        );
-        $rootNode = $root->save();
-        $uid = new Horde_Kolab_Format_Xml_Type_Uid($doc, $params);
-        return array($doc, $rootNode, $uid);
+        return 'Horde_Kolab_Format_Xml_Type_Uid';
     }
 }
