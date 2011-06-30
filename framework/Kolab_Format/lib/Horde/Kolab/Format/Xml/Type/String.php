@@ -65,7 +65,8 @@ extends Horde_Kolab_Format_Xml_Type_Base
     /**
      * Load the value of a node.
      *
-     * @param DOMNode $node Retrieve value for this node.
+     * @param DOMNode $node   Retrieve value for this node.
+     * @param array   $params The parameters for this parse operation.
      *
      * @return mixed|null The value or null if no value was found.
      */
