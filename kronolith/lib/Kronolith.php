@@ -504,12 +504,7 @@ class Kronolith
         }
 
         /* Sort events. */
-        foreach ($results as $day => $devents) {
-            if (count($devents)) {
-                uasort($devents, array('Kronolith', '_sortEventStartTime'));
-                $results[$day] = $devents;
-            }
-        }
+        $results = Kronolith::sortEvents($results);
 
         return $results;
     }
@@ -3013,9 +3008,29 @@ class Kronolith
     }
 
     /**
+     * Sorts an event list.
+     *
+     * @since Kronolith 3.0.5
+     *
+     * @param array $days  A list of days with events.
+     *
+     * @return array  The sorted day list.
+     */
+    public static function sortEvents($days)
+    {
+        foreach ($days as $day => $devents) {
+            if (count($devents)) {
+                uasort($devents, array('Kronolith', '_sortEventStartTime'));
+                $days[$day] = $devents;
+            }
+        }
+        return $days;
+    }
+
+    /**
      * Used with usort() to sort events based on their start times.
      */
-    public static function _sortEventStartTime($a, $b)
+    protected static function _sortEventStartTime($a, $b)
     {
         $diff = $a->start->compareDateTime($b->start);
         if ($diff == 0) {
