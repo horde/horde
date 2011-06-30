@@ -31,37 +31,26 @@
 class Horde_Kolab_Format_Xml_Type_Base
 {
     /**
-     * The XML document this object works with.
-     *
-     * @var DOMDocument
+     * The parameters required for the parsing operation.
      */
-    protected $_xmldoc;
+    protected $_required_parameters = array('helper');
 
     /**
-     * The XPath query handler.
+     * The factory for any additional objects required.
      *
-     * @var DOMXpath
+     * @var Horde_Kolab_Format_Factory
      */
-    private $_xpath;
-
-    /**
-     * The parameters for this handler.
-     *
-     * @var array
-     */
-    private $_params;
+    private $_factory;
 
     /**
      * Constructor
      *
-     * @param DOMDocument $xmldoc The XML document this object works with.
-     * @param array       $params Additional parameters for this handler.
+     * @param Horde_Kolab_Format_Factory $factory The factory for any additional
+     *                                            objects required.
      */
-    public function __construct($xmldoc, $params = array())
+    public function __construct($factory)
     {
-        $this->_xmldoc = $xmldoc;
-        $this->_xpath = new DOMXpath($this->_xmldoc);
-        $this->_params = $params;
+        $this->_factory = $factory;
     }
 
     /**
@@ -72,14 +61,16 @@ class Horde_Kolab_Format_Xml_Type_Base
      * @param array   &$attributes The data array that holds all
      *                             attribute values.
      * @param DOMNode $parent_node The parent node of the node to be loaded.
+     * @param array   $params      The parameters for this parse operation.
      *
      * @return DOMNode|boolean The named DOMNode or false if no node value was
      *                         found.
      */
-    public function load($name, &$attributes, $parent_node)
+    public function load($name, &$attributes, $parent_node, $params = array())
     {
-        if ($node = $this->findNodeRelativeTo('./' . $name, $parent_node)) {
-            if (($value = $this->loadNodeValue($node)) !== null) {
+        $this->checkParams($params, $name);
+        if ($node = $params['helper']->findNodeRelativeTo('./' . $name, $parent_node)) {
+            if (($value = $this->loadNodeValue($node, $params)) !== null) {
                 $attributes[$name] = $value;
                 return $node;
             }
@@ -90,28 +81,91 @@ class Horde_Kolab_Format_Xml_Type_Base
     /**
      * Load the value of a node.
      *
-     * @param DOMNode $node Retrieve value for this node.
+     * @param DOMNode $node   Retrieve value for this node.
+     * @param array   $params The parameters for this parse operation.
      *
      * @return mixed|null The value or null if no value was found.
      */
-    public function loadNodeValue($node)
+    public function loadNodeValue($node, $params = array())
     {
-        return $this->fetchNodeValue($node);
+        return $params['helper']->fetchNodeValue($node);
     }
 
     /**
-     * Fetch the value of a node.
+     * Load a default value for a node.
      *
-     * @param DOMNode $node Retrieve the text value for this node.
+     * @param string $name   The attribute name.
+     * @param array  $params The parameters for the current operation.
      *
-     * @return string|null The text value or null if no value was identified.
+     * @return mixed The default value.
+     *
+     * @throws Horde_Kolab_Format_Exception In case the attribute may not be
+     *                                      missing or the default value was
+     *                                      left undefined.
      */
-    protected function fetchNodeValue($node)
+    protected function loadMissing($name, $params)
     {
-        if (($child = $this->_fetchFirstTextNode($node)) !== null) {
-            return $child->nodeValue;
+        if ($params['value'] == Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY
+            && !$this->isRelaxed($params)) {
+            throw new Horde_Kolab_Format_Exception_MissingValue($name);
         }
-        return null;
+        if ($params['value'] == Horde_Kolab_Format_Xml::VALUE_DEFAULT) {
+            $this->checkMissing('default', $params, $name);
+            return $params['default'];
+        }
+    }
+
+    /**
+     * Update the specified attribute.
+     *
+     * @param string  $name        The name of the the attribute
+     *                             to be updated.
+     * @param array   $attributes  The data array that holds all
+     *                             attribute values.
+     * @param DOMNode $parent_node The parent node of the node that
+     *                             should be updated.
+     * @param array   $params      The parameters for this write operation.
+     *
+     * @return DOMNode|boolean The new/updated child node or false if this
+     *                         failed.
+     *
+     * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
+     */
+    public function save($name, $attributes, $parent_node, $params = array())
+    {
+        $this->checkParams($params, $name);
+        $node = $params['helper']->findNodeRelativeTo(
+            './' . $name, $parent_node
+        );
+        $result = $this->saveNodeValue(
+            $name,
+            $this->generateWriteValue($name, $attributes, $params),
+            $parent_node,
+            $params,
+            $node
+        );
+        return ($node !== false) ? $node : $result;
+    }
+
+    /**
+     * Generate the value that should be written to the node. Override in the
+     * extending classes.
+     *
+     * @param string  $name        The name of the the attribute
+     *                             to be updated.
+     * @param array   $attributes  The data array that holds all
+     *                             attribute values.
+     * @param array   $params      The parameters for this write operation.
+     *
+     * @return mixed The value to be written.
+     */
+    protected function generateWriteValue($name, $attributes, $params)
+    {
+        if (isset($attributes[$name])) {
+            return $attributes[$name];
+        } else {
+            return '';
+        }
     }
 
     /**
@@ -122,6 +176,7 @@ class Horde_Kolab_Format_Xml_Type_Base
      * @param mixed        $value       The value to store.
      * @param DOMNode      $parent_node The parent node of the node that
      *                                  should be updated.
+     * @param array        $params      The parameters for this write operation.
      * @param DOMNode|NULL $old_node    The previous value (or null if
      *                                  there is none).
      *
@@ -134,167 +189,59 @@ class Horde_Kolab_Format_Xml_Type_Base
         $name,
         $value,
         $parent_node,
-        $old_node = null
+        $params,
+        $old_node = false
     ) {
-        if ($old_node === null) {
-            return $this->storeNewNodeValue($parent_node, $name, $value);
+        if ($old_node === false) {
+            return $params['helper']->storeNewNodeValue(
+                $parent_node, $name, $value, $params
+            );
         } else {
-            $this->replaceFirstNodeTextValue($old_node, $value);
+            $params['helper']->replaceFirstNodeTextValue($old_node, $value);
             return $old_node;
         }
     }
 
     /**
-     * Fetch the the first text node.
+     * Validate that the parameter array contains all required parameters.
      *
-     * @param DOMNode $node Retrieve the text value for this node.
+     * @param array  $params    The parameters.
+     * @param string $attribute The attribute name.
+
+     * @return NULL
      *
-     * @return DOMNode|null The first text node or null if no such node was
-     *                      found.
+     * @throws Horde_Kolab_Format_Exception In case required parameters are
+     *                                      missing.
      */
-    private function _fetchFirstTextNode($node)
+    protected function checkParams($params, $attribute)
     {
-        foreach ($node->childNodes as $child) {
-            if ($child->nodeType === XML_TEXT_NODE) {
-                return $child;
+        if (!empty($this->_required_parameters)) {
+            foreach ($this->_required_parameters as $required) {
+                $this->checkMissing($required, $params, $attribute);
             }
         }
     }
 
     /**
-     * Store a value as a new text node.
+     * Validate that the parameter array contains all required parameters.
      *
-     * @param DOMNode $parent_node Attach the new node to this parent.
-     * @param string  $name        Name of the new child node.
-     * @param string  $value       Text value of the new child node.
+     * @param string $key       The parameter name.
+     * @param array  $params    The parameters.
+     * @param string $attribute The attribute name.
      *
-     * @return DOMNode The new child node.
+     * @throws Horde_Kolab_Format_Exception In case required parameters are
+     *                                      missing.
      */
-    public function storeNewNodeValue($parent_node, $name, $value)
+    protected function checkMissing($key, $params, $attribute)
     {
-        $node = $this->createNewNode($parent_node, $name);
-        $node->appendChild(
-            $this->_xmldoc->createTextNode($value)
-        );
-        return $node;
-    }
-
-    /**
-     * Create a new node.
-     *
-     * @param DOMNode $parent_node Attach the new node to this parent.
-     * @param string  $name        Name of the new child node.
-     *
-     * @return DOMNode The new child node.
-     */
-    protected function createNewNode($parent_node, $name)
-    {
-        $node = $this->_xmldoc->createElement($name);
-        $parent_node->appendChild($node);
-        return $node;
-    }
-
-    /**
-     * Store a value as a new text node.
-     *
-     * @param DOMNode $node  Replace the text value of this node.
-     * @param string  $value Text value of the new child node.
-     *
-     * @return NULL
-     */
-    protected function replaceFirstNodeTextValue($node, $value)
-    {
-        if (($child = $this->_fetchFirstTextNode($node)) !== null) {
-            $node->removeChild($child);
-        }
-        $new_node = $this->_xmldoc->createTextNode($value);
-        if (empty($node->childNodes)) {
-            $node->appendChild($new_node);
-        } else {
-            $node->insertBefore($new_node, $node->childNodes->item(0));
-        }
-    }
-
-    /**
-     * Return a single named node matching the given XPath query.
-     *
-     * @param string $query The query.
-     *
-     * @return DOMNode|false The named DOMNode or empty if no node was found.
-     */
-    protected function findNode($query)
-    {
-        return $this->_findSingleNode($this->findNodes($query));
-    }
-
-    /**
-     * Return a single named node below the given context matching the given
-     * XPath query.
-     *
-     * @param string  $query   The query.
-     * @param DOMNode $context Search below this node.
-     *
-     * @return DOMNode|false The named DOMNode or empty if no node was found.
-     */
-    protected function findNodeRelativeTo($query, DOMNode $context)
-    {
-        return $this->_findSingleNode(
-            $this->findNodesRelativeTo($query, $context)
-        );
-    }
-
-    /**
-     * Return a single node for the result set.
-     *
-     * @param DOMNodeList $result The query result.
-     *
-     * @return DOMNode|false The DOMNode or empty if no node was found.
-     */
-    private function _findSingleNode($result)
-    {
-        if ($result->length) {
-            return $result->item(0);
-        }
-        return false;
-    }
-
-    /**
-     * Return all nodes matching the given XPath query.
-     *
-     * @param string $query The query.
-     *
-     * @return DOMNodeList The list of DOMNodes.
-     */
-    protected function findNodes($query)
-    {
-        return $this->_xpath->query($query);
-    }
-
-    /**
-     * Return all nodes matching the given XPath query.
-     *
-     * @param string  $query   The query.
-     * @param DOMNode $context Search below this node.
-     *
-     * @return DOMNodeList The list of DOMNodes.
-     */
-    protected function findNodesRelativeTo($query, DOMNode $context)
-    {
-        return $this->_xpath->query($query, $context);
-    }
-
-    /**
-     * Remove named nodes from a parent node.
-     *
-     * @param DOMNode $parent_node The parent node.
-     * @param string  $name        The name of the children to be removed.
-     *
-     * @return NULL
-     */
-    protected function removeNodes($parent_node, $name)
-    {
-        foreach ($this->findNodesRelativeTo('./' . $name, $parent_node) as $child) {
-            $parent_node->removeChild($child);
+        if (!isset($params[$key])) {
+            throw new Horde_Kolab_Format_Exception(
+                sprintf(
+                    'Required parameter %s missing (attribute: %s)!',
+                    $key,
+                    $attribute
+                )
+            );
         }
     }
 
@@ -315,26 +262,56 @@ class Horde_Kolab_Format_Xml_Type_Base
      *
      * @return boolean True if the XML should not be strict.
      */
-    protected function isRelaxed()
+    protected function isRelaxed($params)
     {
-        return !empty($this->_params['relaxed']);
+        return !empty($params['relaxed']);
+    }
+
+    /**
+     * Create a handler and the parameters for the sub type of this attribute.
+     *
+     * @param array $params     The parent parameters.
+     * @param array $sub_params The parameters for creating the sub type handler.
+     *
+     * @return array An array with the sub type handler and the sub type
+     *               parameters.
+     */
+    protected function createTypeAndParams($params, $sub_params)
+    {
+        $type_params = $params;
+        unset($type_params['array']);
+        unset($type_params['value']);
+        if (is_array($sub_params)) {
+            $sub_type = $this->createSubType($sub_params['type']);
+            unset($sub_params['type']);
+            $type_params = array_merge($type_params, $sub_params);
+        } else {
+            $sub_type = $this->createSubType($sub_params);
+        }
+        return array($sub_type, $type_params);
     }
 
     /**
      * Create a handler for the sub type of this attribute.
      *
-     * @param array $parameters The parameters for creating the sub type handler.
+     * @param string $type The sub type.
      *
      * @return Horde_Kolab_Format_Xml_Type The sub type handler.
      */
-    protected function createSubType($parameters)
+    protected function createSubType($type)
     {
-        $original_params = $this->_params;
-        unset($original_params['array']);
-        $type = $parameters['type'];
-        unset($parameters['type']);
-        $params = array_merge($original_params, $parameters);
-        return $this->getParam('factory')
-            ->createXmlType($type, $this->_xmldoc, $params);
+        return $this->_factory->createXmlType($type);
+    }
+
+    /**
+     * Create the XML helper instance.
+     *
+     * @param DOMDocument $xmldoc The XML document the helper works with.
+     *
+     * @return Horde_Kolab_Format_Xml_Helper The helper utility.
+     */
+    protected function createHelper($xmldoc)
+    {
+        return $this->_factory->createXmlHelper($xmldoc);
     }
 }

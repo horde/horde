@@ -134,10 +134,23 @@ class Horde_Kolab_Format_Factory
     }
 
     /**
+     * Generates a XML helper instance.
+     *
+     * @since Horde_Kolab_Format 1.1.0
+     *
+     * @param DOMDocument $xmldoc The XML document the helper works with.
+     *
+     * @return Horde_Kolab_Format_Xml_Helper The helper utility.
+     */
+    public function createXmlHelper(DOMDocument $xmldoc)
+    {
+        return new Horde_Kolab_Format_Xml_Helper($xmldoc);
+    }
+
+    /**
      * Generates a XML type that deals with XML data modifications.
      *
      * @param string      $type   The value type.
-     * @param DOMDocument $xmldoc The XML document the type should operate on.
      * @param array       $params Additional parameters. See each time for
      *                            available options.
      *
@@ -146,7 +159,7 @@ class Horde_Kolab_Format_Factory
      * @throws Horde_Kolab_Format_Exception If the specified type does not
      *                                      exist.
      */
-    public function createXmlType($type, $xmldoc, array $params = array())
+    public function createXmlType($type)
     {
         switch ($type) {
         case Horde_Kolab_Format_Xml::TYPE_STRING:
@@ -178,18 +191,6 @@ class Horde_Kolab_Format_Factory
         case Horde_Kolab_Format_Xml::TYPE_ROOT:
             $class = 'Horde_Kolab_Format_Xml_Type_Root';
             break;
-        case Horde_Kolab_Format_Xml::TYPE_UID:
-            $class = 'Horde_Kolab_Format_Xml_Type_Uid';
-            break;
-        case Horde_Kolab_Format_Xml::TYPE_CREATION_DATE:
-            $class = 'Horde_Kolab_Format_Xml_Type_CreationDate';
-            break;
-        case Horde_Kolab_Format_Xml::TYPE_MODIFICATION_DATE:
-            $class = 'Horde_Kolab_Format_Xml_Type_ModificationDate';
-            break;
-        case Horde_Kolab_Format_Xml::TYPE_PRODUCT_ID:
-            $class = 'Horde_Kolab_Format_Xml_Type_ProductId';
-            break;
         default:
             if (class_exists($type)) {
                 $class = $type;
@@ -199,8 +200,6 @@ class Horde_Kolab_Format_Factory
                 );
             }
         }
-        return new $class(
-            $xmldoc, $params
-        );
+        return new $class($this);
     }
 }
