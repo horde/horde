@@ -6,7 +6,7 @@
   <creation-date>1970-01-01T00:00:00Z</creation-date>
   <last-modification-date>1970-01-01T00:00:00Z</last-modification-date>
   <sensitivity>public</sensitivity>
-  <product-id>Horde_Kolab_Format_Xml-@version@ (type: contact, format version: 1.0, api version: 2)</product-id>
+  <product-id>Horde_Kolab_Format_Xml-@version@ (api version: 2)</product-id>
   <name>
     <full-name>User Name</full-name>
   </name>
