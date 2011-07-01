@@ -2438,14 +2438,13 @@ KronolithCore = {
         row.store('taskid', task.key);
         col.addClassName('kronolithTask' + (!!task.value.cp ? 'Completed' : ''));
         col.insert(task.value.n.escapeHTML());
-        if (!Object.isUndefined(task.value.du)) {
-            var date = Date.parse(task.value.du),
-                now = new Date();
-            if (!now.isBefore(date)) {
+        if (!Object.isUndefined(task.value.due)) {
+            var now = new Date();
+            if (!now.isBefore(task.value.due)) {
                 col.addClassName('kronolithTaskDue');
             }
             col.insert(new Element('span', { className: 'kronolithSeparator' }).update(' &middot; '));
-            col.insert(new Element('span', { className: 'kronolithDate' }).update(date.toString(Kronolith.conf.date_format)));
+            col.insert(new Element('span', { className: 'kronolithDate' }).update(task.value.due.toString(Kronolith.conf.date_format)));
         }
 
         if (!Object.isUndefined(task.value.sd)) {
@@ -4822,21 +4821,38 @@ KronolithCore = {
                           att: Object.toJSON(attributes)
                       },
                       function(r) {
-                          // Check if this is the still the result of the most
-                          // current request.
-                          if (r.response.events &&
-                              r.response.sig == this.eventsLoading[r.response.cal]) {
-                              var days;
-                              if ((this.view == 'month' &&
-                                   Kronolith.conf.max_events) ||
-                                  this.view == 'week' ||
-                                  this.view == 'day') {
-                                  days = this.findEventDays(cal, eventid);
+                          if (r.response.events) {
+                              // Check if this is the still the result of the
+                              // most current request.
+                              if (r.response.sig == this.eventsLoading[r.response.cal]) {
+                                  var days;
+                                  if ((this.view == 'month' &&
+                                       Kronolith.conf.max_events) ||
+                                      this.view == 'week' ||
+                                      this.view == 'day') {
+                                      days = this.findEventDays(cal, eventid);
+                                  }
+                                  this.removeEvent(cal, eventid);
+                                  if (days && days.length) {
+                                      this.reRender(days);
+                                  }
                               }
-                              this.removeEvent(cal, eventid);
-                              if (days && days.length) {
-                                  this.reRender(days);
-                              }
+                              $H(r.response.events).each(function(days) {
+                                  $H(days.value).each(function(event) {
+                                      if (event.value.c.startsWith('tasks/')) {
+                                          var tasklist = event.value.c.substr(6),
+                                              task = event.key.substr(6),
+                                              taskObject;
+                                          if (this.tcache.get('incomplete') &&
+                                              this.tcache.get('incomplete').get(tasklist) &&
+                                              this.tcache.get('incomplete').get(tasklist).get(task)) {
+                                              taskObject = this.tcache.get('incomplete').get(tasklist).get(task);
+                                              taskObject.due = Date.parse(event.value.s);
+                                              this.tcache.get('incomplete').get(tasklist).set(task, taskObject);
+                                          }
+                                      }
+                                  }, this);
+                              }, this);
                           }
                           this.loadEventsCallback(r, false);
                       }.bind(this));

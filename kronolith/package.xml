@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [jan] Update task due date in interface after dragging a task (Bug #10001).
 * [jan] Correctly sort events in portal block or widget if only displaying a single calendar (Bug #10099).
 * [mjr] Allow syncing of multiple owner-owned calendars.
 * [jan] Don&apos;t show calendar drop down in event form without delete permissions (Bug #10201).
@@ -1798,6 +1799,7 @@
    <date>2011-06-27</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [jan] Update task due date in interface after dragging a task (Bug #10001).
 * [jan] Correctly sort events in portal block or widget if only displaying a single calendar (Bug #10099).
 * [mjr] Allow syncing of multiple owner-owned calendars.
 * [jan] Don&apos;t show calendar drop down in event form without delete permissions (Bug #10201).
