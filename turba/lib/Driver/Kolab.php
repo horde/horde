@@ -83,18 +83,20 @@ class Turba_Driver_Kolab extends Turba_Driver
      */
     private function _getData()
     {
-        if (!empty($this->_share)) {
-            $this->_data = $this->_kolab->getData(
-                $this->_share->get('folder'),
-                'contact'
-            );
-        } else if (empty($this->_name)) {
-            throw new Turba_Exception(
-                'The addressbook has been left undefined but is required!'
-            );
-        }
         if ($this->_data === null) {
-            $this->_data = $this->_getDataForAddressbook($this->_name);
+            if (!empty($this->_share)) {
+                $this->_data = $this->_kolab->getData(
+                    $this->_share->get('folder'),
+                    'contact'
+                );
+                $this->setContactOwner($this->_share->get('owner'));
+            } else if (empty($this->_name)) {
+                throw new Turba_Exception(
+                    'The addressbook has been left undefined but is required!'
+                );
+            } else {
+                $this->_data = $this->_getDataForAddressbook($this->_name);
+            }
         }
         return $this->_data;
     }
@@ -108,10 +110,9 @@ class Turba_Driver_Kolab extends Turba_Driver
      */
     private function _getDataForAddressbook($addressbook)
     {
-        return $this->_kolab->getData(
-            $GLOBALS['turba_shares']->getShare($addressbook)->get('folder'),
-            'contact'
-        );
+        $share = $GLOBALS['turba_shares']->getShare($addressbook);
+        $this->setContactOwner($share->get('owner'));
+        return $this->_kolab->getData($share->get('folder'), 'contact');
     }
 
     /**
@@ -600,7 +601,17 @@ class Turba_Driver_Kolab extends Turba_Driver
     {
         return isset($attributes['uid'])
             ? $attributes['uid']
-            : $this->generateUID();
+            : $this->_generateUid();
+    }
+
+    /**
+     * Creates an object UID for a new object.
+     *
+     * @return string  A unique ID for the new object.
+     */
+    protected function _makeUid()
+    {
+        return $this->_generateUid();
     }
 
     /**
@@ -608,7 +619,7 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @return string  A unique ID for the new object.
      */
-    public function generateUID()
+    private function _generateUid()
     {
         return $this->_getData()->generateUID();
     }
