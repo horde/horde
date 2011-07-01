@@ -116,6 +116,16 @@ extends Horde_Kolab_Storage_Queriable
     public function fetch($uids);
 
     /**
+     * Retrieves the complete message for the given UID.
+     *
+     * @param string $uid The message UID.
+     *
+     * @return array The message encapsuled as an array that contains a
+     *               Horde_Mime_Headers and a Horde_Mime_Part object.
+     */
+    public function fetchComplete($uid);
+
+    /**
      * Return the backend ID for the given object ID.
      *
      * @param string $object_uid The object ID.

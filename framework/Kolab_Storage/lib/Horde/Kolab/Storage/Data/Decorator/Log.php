@@ -204,6 +204,26 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     }
 
     /**
+     * Retrieves the complete message for the given UID.
+     *
+     * @param string $uid The message UID.
+     *
+     * @return array The message encapsuled as an array that contains a
+     *               Horde_Mime_Headers and a Horde_Mime_Part object.
+     */
+    public function fetchComplete($uid)
+    {
+        $this->_logger->debug(
+            sprintf(
+                'Fetching complete message id %s in %s.',
+                $uid,
+                $this->_data->getPath()
+            )
+        );
+        return $this->_data->fetchComplete($uid);
+    }
+
+    /**
      * Return the backend ID for the given object ID.
      *
      * @param string $object_uid The object ID.
