@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
  <notes>
-* 
+* [jan] Always use negative lookbehind assertions to work around bug in PCRE 6.6 (Steve Teti, Bug #10294).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -251,7 +251,7 @@
    <date>2011-05-03</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
    <notes>
-* 
+* [jan] Always use negative lookbehind assertions to work around bug in PCRE 6.6 (Steve Teti, Bug #10294).
    </notes>
   </release>
  </changelog>

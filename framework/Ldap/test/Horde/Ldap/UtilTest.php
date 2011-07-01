@@ -1,13 +1,17 @@
 <?php
 /**
+ * Prepare the test setup.
+ */
+require_once dirname(__FILE__) . '/Autoload.php';
+
+/**
  * @package    Ldap
  * @subpackage UnitTests
  * @author     Jan Schneider <jan@horde.org>
  * @copyright  2010 The Horde Project
  * @license    http://www.gnu.org/copyleft/lesser.html LGPL
  */
-
-class Horde_Ldap_UtilTest extends PHPUnit_Framework_TestCase
+class Horde_Ldap_UtilTest extends Horde_Test_Case
 {
     /**
      * Test escapeDNValue()
@@ -240,7 +244,7 @@ class Horde_Ldap_UtilTest extends PHPUnit_Framework_TestCase
             'dc=net'
         );
         $expected_onlyvalues = array(
-            array( 'J. Smith', 'Sales'),
+            array('J. Smith', 'Sales'),
             'example',
             'net'
         );
@@ -261,6 +265,10 @@ class Horde_Ldap_UtilTest extends PHPUnit_Framework_TestCase
 
         $dn_exploded_reverse = Horde_Ldap_Util::explodeDN($dn, array('reverse' => true));
         $this->assertEquals($expected_reverse, $dn_exploded_reverse, 'Option reverse failed');
+
+        $this->assertEquals(
+            array('CN=J\\, Smith', 'DC=example', 'DC=net'),
+            Horde_Ldap_Util::explodeDN('cn=J\\, Smith,dc=example,dc=net'));
     }
 
     /**
@@ -315,6 +323,13 @@ class Horde_Ldap_UtilTest extends PHPUnit_Framework_TestCase
         $testdn   = 'cn=  beni  ,DC=php,c=net';
         $expected = 'CN=\20\20beni\20\20,DC=php,C=net';
         $this->assertEquals($expected, Horde_Ldap_Util::canonicalDN($testdn));
+
+        // Test with escaped commas. Doesn't work at the moment because
+        // canonicalDN() escapes attribute values, which break if they are
+        // already escaped.
+        $testdn   = 'cn=beni\\,hi\=ll,DC=php,c=net';
+        $expected = 'CN=beni\\,hi\=ll,DC=php,C=net';
+        // $this->assertEquals($expected, Horde_Ldap_Util::canonicalDN($testdn));
 
         // Test with to-be escaped characters in attribute value.
         $specialchars = array(

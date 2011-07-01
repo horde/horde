@@ -296,9 +296,9 @@ class Horde_Hooks
 //
 //            ldap_close($ds);
 //
-//            return empty($user)
+//            return empty($name)
 //                ? $username
-//                : $user;
+//                : $name;
 //        }
 //    }
 
