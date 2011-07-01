@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-06-30</date>
- <time>09:48:05</time>
+ <date>2011-07-01</date>
+ <time>06:52:05</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -110,14 +110,14 @@
         <file name="contact_category.xml" role="test" />
         <file name="contact_mail.xml" role="test" />
         <file name="contact_pgp.xml" role="test" />
+        <file name="preferences_read_old.xml" role="test" />
+        <file name="preferences_write_old.xml" role="test" />
         <file name="task.xml" role="test" />
        </dir> <!-- /test/Horde/Kolab/Format/fixtures -->
        <dir name="Integration">
         <dir name="fixtures">
          <file name="event_umlaut.xml" role="test" />
          <file name="event_umlaut_broken.xml" role="test" />
-         <file name="preferences_read_old.xml" role="test" />
-         <file name="preferences_write_old.xml" role="test" />
          <file name="recur.xml" role="test" />
          <file name="recur_fail.xml" role="test" />
         </dir> <!-- /test/Horde/Kolab/Format/Integration/fixtures -->
@@ -272,6 +272,8 @@
    <install as="Horde/Kolab/Format/fixtures/contact_category.xml" name="test/Horde/Kolab/Format/fixtures/contact_category.xml" />
    <install as="Horde/Kolab/Format/fixtures/contact_mail.xml" name="test/Horde/Kolab/Format/fixtures/contact_mail.xml" />
    <install as="Horde/Kolab/Format/fixtures/contact_pgp.xml" name="test/Horde/Kolab/Format/fixtures/contact_pgp.xml" />
+   <install as="Horde/Kolab/Format/fixtures/preferences_read_old.xml" name="test/Horde/Kolab/Format/fixtures/preferences_read_old.xml" />
+   <install as="Horde/Kolab/Format/fixtures/preferences_write_old.xml" name="test/Horde/Kolab/Format/fixtures/preferences_write_old.xml" />
    <install as="Horde/Kolab/Format/fixtures/task.xml" name="test/Horde/Kolab/Format/fixtures/task.xml" />
    <install as="Horde/Kolab/Format/Integration/ContactTest.php" name="test/Horde/Kolab/Format/Integration/ContactTest.php" />
    <install as="Horde/Kolab/Format/Integration/EventTest.php" name="test/Horde/Kolab/Format/Integration/EventTest.php" />
@@ -281,8 +283,6 @@
    <install as="Horde/Kolab/Format/Integration/XmlTest.php" name="test/Horde/Kolab/Format/Integration/XmlTest.php" />
    <install as="Horde/Kolab/Format/Integration/fixtures/event_umlaut.xml" name="test/Horde/Kolab/Format/Integration/fixtures/event_umlaut.xml" />
    <install as="Horde/Kolab/Format/Integration/fixtures/event_umlaut_broken.xml" name="test/Horde/Kolab/Format/Integration/fixtures/event_umlaut_broken.xml" />
-   <install as="Horde/Kolab/Format/Integration/fixtures/preferences_read_old.xml" name="test/Horde/Kolab/Format/Integration/fixtures/preferences_read_old.xml" />
-   <install as="Horde/Kolab/Format/Integration/fixtures/preferences_write_old.xml" name="test/Horde/Kolab/Format/Integration/fixtures/preferences_write_old.xml" />
    <install as="Horde/Kolab/Format/Integration/fixtures/recur.xml" name="test/Horde/Kolab/Format/Integration/fixtures/recur.xml" />
    <install as="Horde/Kolab/Format/Integration/fixtures/recur_fail.xml" name="test/Horde/Kolab/Format/Integration/fixtures/recur_fail.xml" />
    <install as="Horde/Kolab/Format/Stub/Dummy.php" name="test/Horde/Kolab/Format/Stub/Dummy.php" />

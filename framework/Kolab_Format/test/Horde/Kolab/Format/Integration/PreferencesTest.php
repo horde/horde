@@ -44,29 +44,36 @@ extends Horde_Kolab_Format_TestCase
     {
         $preferences = $this->_getHprefs();
 
-        $xml    = file_get_contents(dirname(__FILE__)
-                                    . '/fixtures/preferences_read_old.xml');
+        $xml    = file_get_contents(
+            dirname(__FILE__) . '/../fixtures/preferences_read_old.xml'
+        );
         $object = $preferences->load($xml);
         $this->assertContains('test', $object['pref']);
         $this->assertEquals('Test', $object['application']);
 
-        $object = array('uid' => 1,
-                        'pref' => array('test'),
-                        'categories' => 'Test');
+        $object = array(
+            'uid' => 1,
+            'pref' => array('test'),
+            'categories' => 'Test'
+        );
         $xml    = $preferences->save($object);
-        $expect = file_get_contents(dirname(__FILE__)
-                                    . '/fixtures/preferences_write_old.xml');
+        $expect = file_get_contents(
+            dirname(__FILE__) . '/../fixtures/preferences_write_old.xml'
+        );
         $this->assertEquals(
             $this->removeLastModification($expect),
             $this->removeLastModification($xml)
         );
 
-        $object = array('uid' => 1,
-                        'pref' => array('test'),
-                        'application' => 'Test');
+        $object = array(
+            'uid' => 1,
+            'pref' => array('test'),
+            'application' => 'Test'
+        );
         $xml    = $preferences->save($object);
-        $expect = file_get_contents(dirname(__FILE__)
-                                    . '/fixtures/preferences_write_old.xml');
+        $expect = file_get_contents(
+            dirname(__FILE__) . '/../fixtures/preferences_write_old.xml'
+        );
         $this->assertEquals(
             $this->removeLastModification($expect),
             $this->removeLastModification($xml)
