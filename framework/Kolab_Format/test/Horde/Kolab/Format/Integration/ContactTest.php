@@ -104,6 +104,35 @@ extends Horde_Kolab_Format_TestCase
         $this->assertEquals('леле  Какакака', $object['name']['full-name']);
     }
 
+    public function testAddresses()
+    {
+        $contact = $this->_getContact();
+        $xml = file_get_contents(dirname(__FILE__) . '/../fixtures/contact_address.xml');
+
+        $object = $contact->load($xml);
+        $this->assertEquals(
+            array(
+                array(
+                    'type' => 'business',
+                    'street' => 'Blumenlandstr. 1',
+                    'locality' => 'Güldenburg',
+                    'region' => 'Nordrhein-Westfalen',
+                    'postal-code' => '12345',
+                    'country' => 'DE',
+                ),
+                array(
+                    'type' => 'home',
+                    'street' => 'WölkchenКакакака 1',
+                    'locality' => '&',
+                    'region' => 'SOMEWHERE',
+                    'postal-code' => '12345',
+                    'country' => 'US',
+                )
+            ),
+            $object['address']
+        );
+    }
+
     private function _getContact()
     {
         $factory = new Horde_Kolab_Format_Factory();
