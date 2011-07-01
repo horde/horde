@@ -53,10 +53,12 @@ extends Horde_Kolab_Format_Xml_Type_Base
     {
         $this->checkParams($params, $name);
         if ($node = $params['helper']->findNodeRelativeTo('./' . $name, $parent_node)) {
+            $new_params = $params;
+            unset($new_params['merge']);
             $result = array();
             foreach ($params['array'] as $sub_name => $sub_params) {
                 list($sub_type, $type_params) = $this->createTypeAndParams(
-                    $params, $sub_params
+                    $new_params, $sub_params
                 );
                 $sub_type->load($sub_name, $result, $node, $type_params);
             }
@@ -174,6 +176,7 @@ extends Horde_Kolab_Format_Xml_Type_Base
         $params
     ) {
         foreach ($params['array'] as $name => $sub_params) {
+            unset($params['merge']);
             list($sub_type, $type_params) = $this->createTypeAndParams(
                 $params, $sub_params
             );
