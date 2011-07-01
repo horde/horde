@@ -2709,9 +2709,9 @@ class Turba_Driver implements Countable
     }
 
     /**
-     * Adds the specified contact to the SQL database.
+     * Adds the specified contact to the addressbook.
      *
-     * @param array $attributes  TODO
+     * @param array $attributes The attribute values of the contact.
      *
      * @throws Turba_Exception
      */
@@ -2721,7 +2721,7 @@ class Turba_Driver implements Countable
     }
 
     /**
-     * Deletes the specified contact from the SQL database.
+     * Deletes the specified contact from the addressbook.
      *
      * @param string $object_key TODO
      * @param string $object_id  TODO

@@ -109,7 +109,7 @@ class Turba_Driver_Kolab extends Turba_Driver
     private function _getDataForAddressbook($addressbook)
     {
         return $this->_kolab->getData(
-            $GLOBALS['nag_shares']->getShare($addressbook)->get('folder'),
+            $GLOBALS['turba_shares']->getShare($addressbook)->get('folder'),
             'contact'
         );
     }
@@ -156,16 +156,18 @@ class Turba_Driver_Kolab extends Turba_Driver
     }
 
     /**
-     * Searches the Kolab message store with the given criteria and returns a
-     * filtered list of results. If the criteria parameter is an empty
-     * array, all records will be returned.
+     * Searches the address book with the given criteria and returns a
+     * filtered list of results. If the criteria parameter is an empty array,
+     * all records will be returned.
      *
-     * @param $criteria      Array containing the search criteria.
-     * @param $fields        List of fields to return.
+     * @param array $criteria    Array containing the search criteria.
+     * @param array $fields      List of fields to return.
+     * @param array $blobFields  Array of fields containing binary data.
      *
-     * @return               Hash containing the search results.
+     * @return array  Hash containing the search results.
+     * @throws Turba_Exception
      */
-    protected function _search($criteria, $fields, $blobFields = array())
+    protected function _search(array $criteria, array $fields, array $blobFields = array())
     {
         $this->connect();
 
@@ -337,17 +339,18 @@ class Turba_Driver_Kolab extends Turba_Driver
     }
 
     /**
-     * Read the given data from the Kolab message store and returns the
-     * results.
+     * Reads the given data from the address book and returns the results.
      *
      * @param string $key    The primary key field to use.
      * @param mixed $ids     The ids of the contacts to load.
      * @param string $owner  Only return contacts owned by this user.
      * @param array $fields  List of fields to return.
+     * @param array $blobFields  Array of fields containing binary data.
      *
      * @return array  Hash containing the search results.
+     * @throws Turba_Exception
      */
-    protected function _read($key, $ids, $owner, $fields)
+    protected function _read($key, $ids, $owner, array $fields, array $blobFields = array())
     {
         $this->connect();
 
@@ -421,9 +424,13 @@ class Turba_Driver_Kolab extends Turba_Driver
     }
 
     /**
-     * Adds the specified object to the Kolab message store.
+     * Adds the specified contact to the addressbook.
+     *
+     * @param array $attributes  TODO
+     *
+     * @throws Turba_Exception
      */
-    protected function _add($attributes)
+    protected function _add(array $attributes)
     {
         $this->connect();
 
@@ -490,11 +497,14 @@ class Turba_Driver_Kolab extends Turba_Driver
     }
 
     /**
-     * Updates an existing object in the Kolab message store.
+     * Saves the specified object in the SQL database.
+     *
+     * @param Turba_Object $object  The object to save
      *
      * @return string  The object id, possibly updated.
+     * @throws Turba_Exception
      */
-    protected function _save($object)
+    protected function _save(Turba_Object $object)
     {
         $this->connect();
 
@@ -583,7 +593,7 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @return string  A unique ID for the new object.
      */
-    protected function _makeKey($attributes)
+    protected function _makeKey(array $attributes)
     {
         return isset($attributes['uid'])
             ? $attributes['uid']
@@ -601,25 +611,32 @@ class Turba_Driver_Kolab extends Turba_Driver
     }
 
     /**
-     * Creates a new Horde_Share.
+     * Creates a new Horde_Share for this source type.
      *
-     * @param array  The params for the share.
+     * @param string $share_name  The share name
+     * @param array  $params      The params for the share.
      *
      * @return Horde_Share  The share object.
      */
-    public function createShare($share_id, $params)
+    public function createShare($share_name, array $params)
     {
         if (isset($params['params']['default']) &&
             ($params['params']['default'] === true)) {
-            $share_id = $GLOBALS['registry']->getAuth();
+            $share_name = $GLOBALS['registry']->getAuth();
         }
 
-        return Turba::createShare($share_id, $params);
+        return Turba::createShare($share_name, $params);
     }
 
     /**
+     * Check if the passed in share is the default share for this source.
+     *
+     * @param Horde_Share_Object $share  The share object.
+     * @param array $srcconfig           The cfgSource entry for the share.
+     *
+     * @return boolean TODO
      */
-    public function checkDefaultShare($share, $srcConfig)
+    public function checkDefaultShare(Horde_Share_Object $share, array $srcconfig)
     {
         $params = @unserialize($share->get('params'));
         return isset($params['default'])
