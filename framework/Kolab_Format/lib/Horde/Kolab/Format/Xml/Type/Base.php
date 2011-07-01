@@ -237,7 +237,7 @@ class Horde_Kolab_Format_Xml_Type_Base
         if (!isset($params[$key])) {
             throw new Horde_Kolab_Format_Exception(
                 sprintf(
-                    'Required parameter %s missing (attribute: %s)!',
+                    'Required parameter "%s" missing (attribute: %s)!',
                     $key,
                     $attribute
                 )
