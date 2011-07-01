@@ -36,6 +36,13 @@ class Horde_Kolab_Format_Factory
     private $_params;
 
     /**
+     * Collect xml type instances already created.
+     *
+     * @var array
+     */
+    private $_xml_type_instances;
+
+    /**
      * Constructor.
      *
      * @param array $params Additional parameters for the creation of parsers.
@@ -161,12 +168,15 @@ class Horde_Kolab_Format_Factory
      */
     public function createXmlType($type)
     {
-        if (class_exists($type)) {
-            return new $type($this);
-        } else {
-            throw new Horde_Kolab_Format_Exception(
-                sprintf('XML type %s not supported!', $type)
-            );
+        if (!isset($this->_xml_type_instances[$type])) {
+            if (class_exists($type)) {
+                $this->_xml_type_instances[$type] = new $type($this);
+            } else {
+                throw new Horde_Kolab_Format_Exception(
+                    sprintf('XML type %s not supported!', $type)
+                );
+            }
         }
+        return $this->_xml_type_instances[$type];
     }
 }
