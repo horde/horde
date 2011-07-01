@@ -793,7 +793,7 @@ class Turba_Driver implements Countable
         }
 
         if (!isset($attributes['__uid'])) {
-            $attributes['__uid'] = strval(new Horde_Support_Guid());
+            $attributes['__uid'] = $this->_makeUid();
         }
 
         $key = $attributes['__key'] = $this->_makeKey($this->toDriverKeys($attributes));
@@ -2663,6 +2663,16 @@ class Turba_Driver implements Countable
     protected function _makeKey(array $attributes)
     {
         return hash('md5', mt_rand());
+    }
+
+    /**
+     * Creates an object UID for a new object.
+     *
+     * @return string  A unique ID for the new object.
+     */
+    protected function _makeUid()
+    {
+        return strval(new Horde_Support_Guid());
     }
 
     /**
