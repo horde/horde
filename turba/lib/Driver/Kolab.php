@@ -426,15 +426,18 @@ class Turba_Driver_Kolab extends Turba_Driver
     /**
      * Adds the specified contact to the addressbook.
      *
-     * @param array $attributes  TODO
+     * @param array $attributes  The attribute values of the contact.
+     * @param array $blob_fields TODO
      *
      * @throws Turba_Exception
      */
-    protected function _add(array $attributes)
+    protected function _add(array $attributes, array $blob_fields = array())
     {
         $this->connect();
 
-        $attributes['full-name'] = $attributes['last-name'];
+        if (isset($attributes['last-name'])) {
+            $attributes['full-name'] = $attributes['last-name'];
+        }
         if (isset($attributes['middle-names'])) {
             $attributes['full-name'] = $attributes['middle-names'] . ' ' . $attributes['full-name'];
         }

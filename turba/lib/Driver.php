@@ -2711,11 +2711,12 @@ class Turba_Driver implements Countable
     /**
      * Adds the specified contact to the addressbook.
      *
-     * @param array $attributes The attribute values of the contact.
+     * @param array $attributes  The attribute values of the contact.
+     * @param array $blob_fields TODO
      *
      * @throws Turba_Exception
      */
-    protected function _add(array $attributes)
+    protected function _add(array $attributes, array $blob_fields = array())
     {
         throw new Turba_Exception(_("Adding contacts is not available."));
     }
