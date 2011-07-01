@@ -12,7 +12,7 @@
   <active>yes</active>
  </lead>
  <date>2011-07-01</date>
- <time>06:52:05</time>
+ <time>08:24:08</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -23,8 +23,14 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [gwr] Removed stray kolab-format script which was moved to Horde_Kolab_Cli.
+* [gwr] Moved Horde specific functionality out of the events parser.
+* [gwr] Moved Horde specific functionality out of the contacts parser.
+* [gwr] Improved data validation.
+* [gwr] KEP2 support.
+* [gwr] Allow adding XML attributes on the fly.
+* [gwr] Avoid overwriting data from other Kolab clients.
 * [gwr] Added improved root node handler (version checking, avoids overwriting other data).
+* [gwr] Removed stray kolab-format script which was moved to Horde_Kolab_Cli.
 * [gwr] Fixed detecting parse errors in subsequent parse attempts.
  </notes>
  <contents>
@@ -63,6 +69,14 @@
        </dir> <!-- /lib/Horde/Kolab/Format/Exception -->
        <dir name="Xml">
         <dir name="Type">
+         <dir name="Composite">
+          <file name="Address.php" role="php" />
+          <file name="Attendee.php" role="php" />
+          <file name="Name.php" role="php" />
+          <file name="Phone.php" role="php" />
+          <file name="Predefined.php" role="php" />
+          <file name="SimplePerson.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type/Composite -->
          <file name="AutomaticDate.php" role="php" />
          <file name="Base.php" role="php" />
          <file name="Boolean.php" role="php" />
@@ -107,6 +121,7 @@
       <dir name="Format">
        <dir name="fixtures">
         <file name="contact-kyr.xml" role="test" />
+        <file name="contact_address.xml" role="test" />
         <file name="contact_category.xml" role="test" />
         <file name="contact_mail.xml" role="test" />
         <file name="contact_pgp.xml" role="test" />
@@ -264,11 +279,18 @@
    <install as="Horde/Kolab/Format/Xml/Type/String.php" name="lib/Horde/Kolab/Format/Xml/Type/String.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Uid.php" name="lib/Horde/Kolab/Format/Xml/Type/Uid.php" />
    <install as="Horde/Kolab/Format/Xml/Type/XmlAppend.php" name="lib/Horde/Kolab/Format/Xml/Type/XmlAppend.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/Composite/Address.php" name="lib/Horde/Kolab/Format/Xml/Type/Composite/Address.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/Composite/Attendee.php" name="lib/Horde/Kolab/Format/Xml/Type/Composite/Attendee.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/Composite/Name.php" name="lib/Horde/Kolab/Format/Xml/Type/Composite/Name.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/Composite/Phone.php" name="lib/Horde/Kolab/Format/Xml/Type/Composite/Phone.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/Composite/Predefined.php" name="lib/Horde/Kolab/Format/Xml/Type/Composite/Predefined.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/Composite/SimplePerson.php" name="lib/Horde/Kolab/Format/Xml/Type/Composite/SimplePerson.php" />
    <install as="Horde/Kolab/Format/AllTests.php" name="test/Horde/Kolab/Format/AllTests.php" />
    <install as="Horde/Kolab/Format/Autoload.php" name="test/Horde/Kolab/Format/Autoload.php" />
    <install as="Horde/Kolab/Format/phpunit.xml" name="test/Horde/Kolab/Format/phpunit.xml" />
    <install as="Horde/Kolab/Format/TestCase.php" name="test/Horde/Kolab/Format/TestCase.php" />
    <install as="Horde/Kolab/Format/fixtures/contact-kyr.xml" name="test/Horde/Kolab/Format/fixtures/contact-kyr.xml" />
+   <install as="Horde/Kolab/Format/fixtures/contact_address.xml" name="test/Horde/Kolab/Format/fixtures/contact_address.xml" />
    <install as="Horde/Kolab/Format/fixtures/contact_category.xml" name="test/Horde/Kolab/Format/fixtures/contact_category.xml" />
    <install as="Horde/Kolab/Format/fixtures/contact_mail.xml" name="test/Horde/Kolab/Format/fixtures/contact_mail.xml" />
    <install as="Horde/Kolab/Format/fixtures/contact_pgp.xml" name="test/Horde/Kolab/Format/fixtures/contact_pgp.xml" />
@@ -399,6 +421,12 @@
    <date>2011-06-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [gwr] Moved Horde specific functionality out of the events parser.
+* [gwr] Moved Horde specific functionality out of the contacts parser.
+* [gwr] Improved data validation.
+* [gwr] KEP2 support.
+* [gwr] Allow adding XML attributes on the fly.
+* [gwr] Avoid overwriting data from other Kolab clients.
 * [gwr] Removed stray kolab-format script which was moved to Horde_Kolab_Cli.
 * [gwr] Added improved root node handler (version checking, avoids overwriting other data).
 * [gwr] Fixed detecting parse errors in subsequent parse attempts.
