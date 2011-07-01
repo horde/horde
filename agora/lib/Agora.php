@@ -371,11 +371,8 @@ class Agora {
         $body->setCharset('UTF-8');
         $body->setContents($message['body']);
 
-        $class = 'Horde_Mail_Transport_' . ucfirst($conf['mailer']['type']);
-        if (class_exists($class)) {
-            $mailer = new $class($conf['mailer']['params']);
-        }
-
-        $body->send($forum['forum_distribution_address'], $msg_headers, $mailer);
+        $body->send($forum['forum_distribution_address'],
+                    $msg_headers,
+                    $GLOBALS['injector']->getInstance('Horde_Mail'));
     }
 }
