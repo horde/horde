@@ -440,6 +440,16 @@ class Turba
             return $sources;
         }
 
+        /* See if any of our sources are configured to handle all otherwise
+         * unassigned Horde_Share objects. */
+        $all_shares = null;
+        foreach ($sources as $key => $cfg) {
+            if (!empty($cfg['all_shares'])) {
+                // Indicate the source handler that catches unassigned shares.
+                $all_shares = $key;
+            }
+        }
+
         $sortedSources = $defaults = $vbooks = array();
         $personal = false;
         foreach ($shares as $name => &$share) {
@@ -450,6 +460,9 @@ class Turba
             $personal |= $share->get('owner') == $GLOBALS['registry']->getAuth();
 
             $params = @unserialize($share->get('params'));
+            if (empty($params['source']) && !empty($all_shares)) {
+                $params['source'] = $all_shares;
+            }
             if (isset($params['type']) && $params['type'] == 'vbook') {
                 // We load vbooks last in case they're based on other shares.
                 $params['share'] = $share;
