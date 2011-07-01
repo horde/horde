@@ -161,45 +161,12 @@ class Horde_Kolab_Format_Factory
      */
     public function createXmlType($type)
     {
-        switch ($type) {
-        case Horde_Kolab_Format_Xml::TYPE_STRING:
-            $class = 'Horde_Kolab_Format_Xml_Type_String';
-            break;
-        case Horde_Kolab_Format_Xml::TYPE_INTEGER:
-            $class = 'Horde_Kolab_Format_Xml_Type_Integer';
-            break;
-        case Horde_Kolab_Format_Xml::TYPE_BOOLEAN:
-            $class = 'Horde_Kolab_Format_Xml_Type_Boolean';
-            break;
-        case Horde_Kolab_Format_Xml::TYPE_DATE:
-        case Horde_Kolab_Format_Xml::TYPE_DATETIME:
-        case Horde_Kolab_Format_Xml::TYPE_DATE_OR_DATETIME:
-            $class = 'Horde_Kolab_Format_Xml_Type_DateTime';
-            break;
-        case Horde_Kolab_Format_Xml::TYPE_COLOR:
-            $class = 'Horde_Kolab_Format_Xml_Type_Color';
-            break;
-        case Horde_Kolab_Format_Xml::TYPE_MULTIPLE:
-            $class = 'Horde_Kolab_Format_Xml_Type_Multiple';
-            break;
-        case Horde_Kolab_Format_Xml::TYPE_COMPOSITE:
-            $class = 'Horde_Kolab_Format_Xml_Type_Composite';
-            break;
-        case Horde_Kolab_Format_Xml::TYPE_XML:
-            $class = 'Horde_Kolab_Format_Xml_Type_XmlAppend';
-            break;
-        case Horde_Kolab_Format_Xml::TYPE_ROOT:
-            $class = 'Horde_Kolab_Format_Xml_Type_Root';
-            break;
-        default:
-            if (class_exists($type)) {
-                $class = $type;
-            } else {
-                throw new Horde_Kolab_Format_Exception(
-                    sprintf('XML type %s not supported!', $type)
-                );
-            }
+        if (class_exists($type)) {
+            return new $type($this);
+        } else {
+            throw new Horde_Kolab_Format_Exception(
+                sprintf('XML type %s not supported!', $type)
+            );
         }
-        return new $class($this);
     }
 }
