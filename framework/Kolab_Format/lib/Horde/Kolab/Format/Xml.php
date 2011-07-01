@@ -157,77 +157,11 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     protected $_root_version = '1.0';
 
     /**
-     * Fields for a simple person
+     * Specific data fields for the contact object
      *
      * @var array
-     *
-     * @todo Make protected (fix the XmlTest for that)
      */
-    public $_fields_simple_person = array(
-        'type'    => self::TYPE_COMPOSITE,
-        'value'   => self::VALUE_MAYBE_MISSING,
-        'array'   => array(
-            'display-name' => array(
-                'type'    => self::TYPE_STRING,
-                'value'   => self::VALUE_DEFAULT,
-                'default' => '',
-            ),
-            'smtp-address' => array(
-                'type'    => self::TYPE_STRING,
-                'value'   => self::VALUE_DEFAULT,
-                'default' => '',
-            ),
-            'uid' => array(
-                'type'    => self::TYPE_STRING,
-                'value'   => self::VALUE_DEFAULT,
-                'default' => '',
-            ),
-        ),
-    );
-
-    /**
-     * Fields for an attendee
-     *
-     * @var array
-     *
-     * @todo Make protected (fix the XmlTest for that)
-     */
-    public $_fields_attendee = array(
-        'type'    => self::TYPE_MULTIPLE,
-        'value'   => self::VALUE_DEFAULT,
-        'default' => array(),
-        'array'   => array(
-            'type'    => self::TYPE_COMPOSITE,
-            'value'   => self::VALUE_MAYBE_MISSING,
-            'array'   => array(
-                'display-name' => array(
-                    'type'    => self::TYPE_STRING,
-                    'value'   => self::VALUE_DEFAULT,
-                    'default' => '',
-                ),
-                'smtp-address' => array(
-                    'type'    => self::TYPE_STRING,
-                    'value'   => self::VALUE_DEFAULT,
-                    'default' => '',
-                ),
-                'status' => array(
-                    'type'    => self::TYPE_STRING,
-                    'value'   => self::VALUE_DEFAULT,
-                    'default' => 'none',
-                ),
-                'request-response' => array(
-                    'type'    => self::TYPE_BOOLEAN,
-                    'value'   => self::VALUE_DEFAULT,
-                    'default' => true,
-                ),
-                'role' => array(
-                    'type'    => self::TYPE_STRING,
-                    'value'   => self::VALUE_DEFAULT,
-                    'default' => 'required',
-                ),
-            ),
-        ),
-    );
+    protected $_fields_specific;
 
     /**
      * Fields for a recurrence

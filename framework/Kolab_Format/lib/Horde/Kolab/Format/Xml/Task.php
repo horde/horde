@@ -58,7 +58,8 @@ class Horde_Kolab_Format_Xml_Task extends Horde_Kolab_Format_Xml
                 'value'   => self::VALUE_DEFAULT,
                 'default' => '',
             ),
-            'organizer' => $this->_fields_simple_person,
+            'organizer' => array (
+                'type' => 'Horde_Kolab_Format_Xml_Type_Composite_SimplePerson'           ),
             'start-date' => array(
                 'type'    => self::TYPE_DATE_OR_DATETIME,
                 'value'   => self::VALUE_MAYBE_MISSING,
@@ -73,7 +74,13 @@ class Horde_Kolab_Format_Xml_Task extends Horde_Kolab_Format_Xml
                 'load'    => 'Recurrence',
                 'save'    => 'Recurrence',
             ),
-            'attendee' => $this->_fields_attendee,
+            'attendee' => array(
+                'type'    => self::TYPE_MULTIPLE,
+                'value'   => self::VALUE_MAYBE_MISSING,
+                'array'   => array(
+                    'type'    => 'Horde_Kolab_Format_Xml_Type_Composite_Attendee'
+                ),
+            ),
             'priority' => array(
                 'type'    => self::TYPE_INTEGER,
                 'value'   => self::VALUE_DEFAULT,
@@ -99,7 +106,8 @@ class Horde_Kolab_Format_Xml_Task extends Horde_Kolab_Format_Xml
             ),
             // These are not part of the Kolab specification but it is
             // ok if the client supports additional entries
-            'creator'   => $this->_fields_simple_person,
+            'creator'   => array (
+                'type' => 'Horde_Kolab_Format_Xml_Type_Composite_SimplePerson'           ),
             'percentage' => array(
                 'type'    => self::TYPE_INTEGER,
                 'value'   => self::VALUE_MAYBE_MISSING,

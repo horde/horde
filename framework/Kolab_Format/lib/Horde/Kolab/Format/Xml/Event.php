@@ -31,13 +31,6 @@
 class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
 {
     /**
-     * Specific data fields for the contact object
-     *
-     * @var array
-     */
-    protected $_fields_specific;
-
-    /**
      * Constructor
      */
     public function __construct($parser, $params = array())
@@ -55,7 +48,9 @@ class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
                 'type'    => self::TYPE_STRING,
                 'value'   => self::VALUE_MAYBE_MISSING,
             ),
-            'organizer' => $this->_fields_simple_person,
+            'organizer' => array (
+                'type' => 'Horde_Kolab_Format_Xml_Type_Composite_SimplePerson'
+            ),
             'start-date' => array(
                 'type'    => self::TYPE_DATE_OR_DATETIME,
                 'value'   => self::VALUE_NOT_EMPTY,
@@ -70,7 +65,13 @@ class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
                 'load'    => 'Recurrence',
                 'save'    => 'Recurrence',
             ),
-            'attendee' => $this->_fields_attendee,
+            'attendee' => array(
+                'type'    => self::TYPE_MULTIPLE,
+                'value'   => self::VALUE_MAYBE_MISSING,
+                'array'   => array(
+                    'type'    => 'Horde_Kolab_Format_Xml_Type_Composite_Attendee'
+                ),
+            ),
             'show-time-as' => array (
                 'type'    => self::TYPE_STRING,
                 'value'   => self::VALUE_MAYBE_MISSING,
@@ -86,54 +87,5 @@ class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
         );
 
         parent::__construct($parser, $params);
-    }
-
-    /**
-     * Load event XML values and translate start/end date.
-     *
-     * @param array &$children An array of XML nodes.
-     *
-     * @return array Array with the object data.
-     *
-     * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
-     */
-    protected function _load($parent_node, $options = array())
-    {
-        $object = parent::_load($parent_node);
-
-        // Translate start/end date including full day events
-        if (strlen($object['start-date']) == 10) {
-            $object['start-date'] = Horde_Kolab_Format_Date::decodeDate($object['start-date']);
-            $object['end-date']   = Horde_Kolab_Format_Date::decodeDate($object['end-date']) + 24*60*60;
-        } else {
-            $object['start-date'] = Horde_Kolab_Format_Date::decodeDateTime($object['start-date']);
-            $object['end-date']   = Horde_Kolab_Format_Date::decodeDateTime($object['end-date']);
-        }
-
-        return $object;
-    }
-
-    /**
-     * Save event XML values and translate start/end date.
-     *
-     * @param array $root   The XML document root.
-     * @param array $object The resulting data array.
-     *
-     * @return boolean True on success.
-     *
-     * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
-     */
-    protected function _save(&$root, $object, $options)
-    {
-        // Translate start/end date including full day events
-        if (!empty($object['_is_all_day'])) {
-            $object['start-date'] = Horde_Kolab_Format_Date::encodeDate($object['start-date']);
-            $object['end-date']   = Horde_Kolab_Format_Date::encodeDate($object['end-date'] - 24*60*60);
-        } else {
-            $object['start-date'] = Horde_Kolab_Format_Date::encodeDateTime($object['start-date']);
-            $object['end-date']   = Horde_Kolab_Format_Date::encodeDateTime($object['end-date']);
-        }
-
-        return parent::_save($root, $object, $options);
     }
 }
