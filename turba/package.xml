@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-25</date>
- <time>23:59:49</time>
+ <date>2011-07-01</date>
+ <time>21:37:31</time>
  <version>
   <release>3.0.4</release>
   <api>3.0.0</api>
@@ -489,6 +489,11 @@
       <file name="ViewBrowseTest.php" role="test" />
       <file name="ViewListTest.php" role="test" />
      </dir> <!-- /test/Turba/ToDo -->
+     <dir name="Unit">
+      <dir name="Driver">
+       <file name="KolabTest.php" role="test" />
+      </dir> <!-- /test/Turba/Unit/Driver -->
+     </dir> <!-- /test/Turba/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
      <file name="phpunit.xml" role="test" />
@@ -1012,6 +1017,7 @@
    <install as="Turba/ToDo/tovcard.phpt" name="test/Turba/ToDo/tovcard.phpt" />
    <install as="Turba/ToDo/ViewBrowseTest.php" name="test/Turba/ToDo/ViewBrowseTest.php" />
    <install as="Turba/ToDo/ViewListTest.php" name="test/Turba/ToDo/ViewListTest.php" />
+   <install as="Turba/Unit/Driver/KolabTest.php" name="test/Turba/Unit/Driver/KolabTest.php" />
    <install as="turba/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="turba/themes/default/ie6_or_less.css" name="themes/default/ie6_or_less.css" />
    <install as="turba/themes/default/ie7.css" name="themes/default/ie7.css" />
@@ -1209,7 +1215,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-25</date>
+   <date>2011-07-01</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [jan] Pass contact object to decode_attribute hook (kd@tu-cottbus.de, Bug #10287).
