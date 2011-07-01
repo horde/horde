@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-12</date>
- <time>21:55:41</time>
+ <date>2011-07-01</date>
+ <time>16:25:31</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -259,6 +259,17 @@
  </usesrole>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="COPYING" />
+   <install as="ulaform/delete.php" name="delete.php" />
+   <install as="ulaform/deletefield.php" name="deletefield.php" />
+   <install as="ulaform/display.php" name="display.php" />
+   <install as="ulaform/edit.php" name="edit.php" />
+   <install as="ulaform/fields.php" name="fields.php" />
+   <install as="ulaform/forms.php" name="forms.php" />
+   <install as="ulaform/genhtml.php" name="genhtml.php" />
+   <install as="ulaform/index.php" name="index.php" />
+   <install as="README" name="README" />
+   <install as="ulaform/sortfields.php" name="sortfields.php" />
    <install as="ulaform/config/.htaccess" name="config/.htaccess" />
    <install as="ulaform/config/conf.xml" name="config/conf.xml" />
    <install as="ulaform/config/fields.php" name="config/fields.php" />
@@ -266,26 +277,21 @@
    <install as="CREDITS" name="docs/CREDITS" />
    <install as="INSTALL" name="docs/INSTALL" />
    <install as="TODO" name="docs/TODO" />
+   <install as="ulaform/lib/.htaccess" name="lib/.htaccess" />
+   <install as="ulaform/lib/Action.php" name="lib/Action.php" />
    <install as="ulaform/lib/Api.php" name="lib/Api.php" />
    <install as="ulaform/lib/Application.php" name="lib/Application.php" />
    <install as="ulaform/lib/Driver.php" name="lib/Driver.php" />
    <install as="ulaform/lib/Exception.php" name="lib/Exception.php" />
+   <install as="ulaform/lib/Test.php" name="lib/Test.php" />
    <install as="ulaform/lib/Ulaform.php" name="lib/Ulaform.php" />
-   <install as="ulaform/lib/Action/Sql.php" name="lib/Ajax/Imple/EditNote.php" />
-   <install as="ulaform/lib/Block/Note.php" name="lib/Block/Note.php" />
-   <install as="ulaform/lib/Block/Summary.php" name="lib/Block/Summary.php" />
-   <install as="ulaform/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
+   <install as="ulaform/lib/Action/Mailto.php" name="lib/Action/Mailto.php" />
+   <install as="ulaform/lib/Action/Sql.php" name="lib/Action/Sql.php" />
+   <install as="ulaform/lib/Action/Template.php" name="lib/Action/Template.php" />
+   <install as="ulaform/lib/Block/Form.php" name="lib/Block/Form.php" />
    <install as="ulaform/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
+   <install as="ulaform/lib/Factory/Action.php" name="lib/Factory/Action.php" />
    <install as="ulaform/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
-   <install as="ulaform/lib/Form/CreateNotepad.php" name="lib/Form/CreateNotepad.php" />
-   <install as="ulaform/lib/Form/DeleteNotepad.php" name="lib/Form/DeleteNotepad.php" />
-   <install as="ulaform/lib/Form/EditNotepad.php" name="lib/Form/EditNotepad.php" />
-   <install as="ulaform/lib/tests/ulaform/AllTests.php" name="lib/tests/ulaform/AllTests.php" />
-   <install as="ulaform/lib/tests/ulaform/Autoload.php" name="lib/tests/ulaform/Autoload.php" />
-   <install as="tests/ulaform/phpunit.xml" name="lib/tests/ulaform/phpunit.xml" />
-   <install as="ulaform/lib/tests/ulaform/TestCase.php" name="lib/tests/ulaform/TestCase.php" />
-   <install as="ulaform/lib/tests/ulaform/Unit/Driver/KolabTest.php" name="lib/tests/ulaform/Unit/Driver/KolabTest.php" />
-   <install as="ulaform/lib/tests/ulaform/Unit/Factory/DriverTest.php" name="lib/tests/ulaform/Unit/Factory/DriverTest.php" />
    <install as="ulaform/locale/.htaccess" name="locale/.htaccess" />
    <install as="ulaform/locale/ulaform.pot" name="locale/ulaform.pot" />
    <install as="ulaform/locale/de/LC_MESSAGES/ulaform.mo" name="locale/de/LC_MESSAGES/ulaform.mo" />
@@ -305,12 +311,12 @@
    <install as="ulaform/locale/zh_TW/LC_MESSAGES/ulaform.po" name="locale/zh_TW/LC_MESSAGES/ulaform.po" />
    <install as="ulaform/migration/1_ulaform_base_tables.php" name="migration/1_ulaform_base_tables.php" />
    <install as="ulaform/migration/2_ulaform_upgrade_autoincrement.php" name="migration/2_ulaform_upgrade_autoincrement.php" />
+   <install as="ulaform/templates/.htaccess" name="templates/.htaccess" />
    <install as="ulaform/templates/display/display.html" name="templates/display/display.html" />
    <install as="ulaform/templates/fields/fields.html" name="templates/fields/fields.html" />
    <install as="ulaform/templates/forms/forms.html" name="templates/forms/forms.html" />
-   <install as="ulaform/templates/genhtml/genthml.html" name="templates/genhtml/genhtml.html" />
+   <install as="ulaform/templates/genhtml/genhtml.html" name="templates/genhtml/genhtml.html" />
    <install as="ulaform/templates/main/main.html" name="templates/main/main.html" />
-   <install as="ulaform/templates/.htaccess" name="templates/.htaccess" />
    <install as="ulaform/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="ulaform/themes/default/graphics/display.png" name="themes/default/graphics/display.png" />
    <install as="ulaform/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
@@ -318,16 +324,6 @@
    <install as="ulaform/themes/default/graphics/new.png" name="themes/default/graphics/new.png" />
    <install as="ulaform/themes/default/graphics/sort.png" name="themes/default/graphics/sort.png" />
    <install as="ulaform/themes/default/graphics/ulaform.png" name="themes/default/graphics/ulaform.png" />
-   <install as="COPYING" name="COPYING" />
-   <install as="ulaform/delete.php" name="delete.php" />
-   <install as="ulaform/deletefield.php" name="deletefield.php" />
-   <install as="ulaform/edit.php" name="edit.php" />
-   <install as="ulaform/fields.php" name="fields.php" />
-   <install as="ulaform/forms.php" name="forms.php" />
-   <install as="ulaform/genhtml.php" name="genhtml.php" />
-   <install as="ulaform/index.php" name="index.php" />
-   <install as="README" name="README" />
-   <install as="ulaform/sortfields.php" name="sortfields.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -340,7 +336,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-06-12</date>
+   <date>2011-07-01</date>
    <license uri="http://www.horde.org/licenses/gpl.php">GPL</license>
    <notes>
 * First alpha release for Horde 4.
