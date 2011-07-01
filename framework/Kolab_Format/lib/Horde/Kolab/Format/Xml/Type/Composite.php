@@ -60,9 +60,13 @@ extends Horde_Kolab_Format_Xml_Type_Base
                 );
                 $sub_type->load($sub_name, $result, $node, $type_params);
             }
+        } else {
+            $result = $this->loadMissing($name, $params);
+        }
+        if (empty($params['merge'])) {
             $attributes[$name] = $result;
         } else {
-            $attributes[$name] = $this->loadMissing($name, $params);
+            $attributes = array_merge($attributes, $result);
         }
         return false;
     }
@@ -90,7 +94,7 @@ extends Horde_Kolab_Format_Xml_Type_Base
             './' . $name, $parent_node
         );
 
-        if (!isset($attributes[$name])) {
+        if (empty($params['merge']) && !isset($attributes[$name])) {
             if ($node === false) {
                 if ($params['value'] == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING
                     || ($params['value'] == Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY
@@ -169,7 +173,6 @@ extends Horde_Kolab_Format_Xml_Type_Base
         $values,
         $params
     ) {
-        
         foreach ($params['array'] as $name => $sub_params) {
             list($sub_type, $type_params) = $this->createTypeAndParams(
                 $params, $sub_params
@@ -192,6 +195,9 @@ extends Horde_Kolab_Format_Xml_Type_Base
      */
     protected function generateWriteValue($name, $attributes, $params)
     {
+        if (!empty($params['merge'])) {
+            return $attributes;
+        }
         if (isset($attributes[$name])) {
             return $attributes[$name];
         } else {
