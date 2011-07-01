@@ -200,14 +200,14 @@ extends Horde_Kolab_Format_Xml_Type_Composite
         $params['format-version'] = $version;
 
         $params['array'] = $this->_attributes_basic;
-        if (isset($params['attributes_specific'])) {
+        if (isset($params['attributes-specific'])) {
             $params['array'] = array_merge(
-                $params['array'], $params['attributes_specific']
+                $params['array'], $params['attributes-specific']
             );
         }
-        if (isset($params['attributes_application'])) {
+        if (isset($params['attributes-application'])) {
             $params['array'] = array_merge(
-                $params['array'], $params['attributes_application']
+                $params['array'], $params['attributes-application']
             );
         }
         $params['value'] = Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY;
