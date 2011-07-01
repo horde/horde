@@ -35,48 +35,38 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 class Horde_Kolab_Format_Integration_XmlTest
 extends PHPUnit_Framework_TestCase
 {
-    /**
-     * Check the preparation of the basic XML structure
-     *
-     * @return NULL
-     */
     public function testBasic()
     {
-        $xml = $this->_getPlain();
-        $xml->save(array(), array('relaxed' => true));
-        $base = $xml->_xmldoc->saveXML();
         $this->assertContains(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0">
   <body></body>
   <categories></categories>',
-            $base
+            $this->_getPlain()->save(array(), array('relaxed' => true))
         );
     }
 
-    /**
-     * The resulting XML string should be readable.
-     *
-     * @return NULL
-     */
     public function testReadable()
     {
         $xml = $this->_getPlain();
-        $xml->save(array(), array('relaxed' => true));
-        $base = $xml->_xmldoc->saveXML();
-        $xml->load($base, array('relaxed' => true));
-        $this->assertEquals($base, $xml->_xmldoc->saveXML());
-
+        $first = $xml->save(array(), array('relaxed' => true));
+        $object = $xml->load($first, array('relaxed' => true));
+        $this->assertEquals('1.0', $object['_format-version']);
     }
 
-    /**
-     * Test load/save
-     *
-     * @return NULL
-     */
+    public function testRoundtrip()
+    {
+        $xml = $this->_getPlain();
+        $first = $xml->save(array(), array('relaxed' => true));
+        $second = $xml->save(
+            $xml->load($first, array('relaxed' => true)),
+            array('relaxed' => true)
+        );
+        $this->assertEquals($first, $second);
+    }
+
     public function testReleod()
     {
-        // Save an object and reload it
         $xml = $this->_getPlain();
         $cdate = new DateTime('1970-01-01T00:00:00Z');
         $cdate->setTimezone(new DateTimeZone('UTC'));
@@ -90,7 +80,7 @@ extends PHPUnit_Framework_TestCase
         );
         $object = $xml->load($result);
         $this->assertEquals('body', $object['body']);
-        $this->assertTrue(empty($object['dummy']));
+        $this->assertTrue(!isset($object['dummy']));
         $this->assertEquals('public', $object['sensitivity']);
         $this->assertEquals($cdate, $object['creation-date']);
         $now = new DateTime('now', new DateTimeZone('UTC'));
@@ -98,7 +88,7 @@ extends PHPUnit_Framework_TestCase
             $object['last-modification-date']->format('U') <= $now->format('U')
         );
         $this->assertEquals(
-            'Horde_Kolab_Format_Xml-@version@ (type: kolab, format version: 1.0, api version: 2)',
+            'Horde_Kolab_Format_Xml-@version@ (api version: 2)',
             $object['product-id']
         );
     }

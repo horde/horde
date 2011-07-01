@@ -139,10 +139,8 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
      * The XML document this driver works with.
      *
      * @var DOMDocument
-     *
-     * @todo Make protected (fix the XmlTest for that)
      */
-    public $_xmldoc = null;
+    protected $_xmldoc = null;
 
     /**
      * The name of the root element.
