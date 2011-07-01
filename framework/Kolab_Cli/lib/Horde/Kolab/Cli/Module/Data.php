@@ -250,10 +250,27 @@ implements Horde_Kolab_Cli_Module
 
     private function _yamlOutput($cli, $id, $output)
     {
+        $output = $this->_convertDates($output);
         if (class_exists('Horde_Yaml')) {
             $this->_messageOutput($cli, $id, Horde_Yaml::dump($output));
         } else {
             $this->_messageOutput($cli, $id, print_r($output, true));
         }
+    }
+
+
+    private function _convertDates($output)
+    {
+        $result = array();
+        foreach ($output as $name => $element) {
+            if (is_array($element)) {
+                $result[$name] = $this->_convertDates($element);
+            } else if ($element instanceOf DateTime) {
+                $result[$name] = $element->format('c');
+            } else {
+                $result[$name] = $element;
+            }
+        }
+        return $result;
     }
 }
