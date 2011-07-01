@@ -53,15 +53,7 @@ extends Horde_Kolab_Format_Xml_Type_Base
     {
         $this->checkParams($params, $name);
         if ($node = $params['helper']->findNodeRelativeTo('./' . $name, $parent_node)) {
-            $new_params = $params;
-            unset($new_params['merge']);
-            $result = array();
-            foreach ($params['array'] as $sub_name => $sub_params) {
-                list($sub_type, $type_params) = $this->createTypeAndParams(
-                    $new_params, $sub_params
-                );
-                $sub_type->load($sub_name, $result, $node, $type_params);
-            }
+            $result = $this->loadNodeValue($node, $params);
         } else {
             $result = $this->loadMissing($name, $params);
         }
@@ -71,6 +63,28 @@ extends Horde_Kolab_Format_Xml_Type_Base
             $attributes = array_merge($attributes, $result);
         }
         return false;
+    }
+
+    /**
+     * Load the value of a node.
+     *
+     * @param DOMNode $node   Retrieve value for this node.
+     * @param array   $params The parameters for this parse operation.
+     *
+     * @return mixed|null The value or null if no value was found.
+     */
+    public function loadNodeValue($node, $params = array())
+    {
+        $new_params = $params;
+        unset($new_params['merge']);
+        $result = array();
+        foreach ($params['array'] as $sub_name => $sub_params) {
+            list($sub_type, $type_params) = $this->createTypeAndParams(
+                $new_params, $sub_params
+            );
+            $sub_type->load($sub_name, $result, $node, $type_params);
+        }
+        return $result;
     }
 
     /**
