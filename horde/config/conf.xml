@@ -1975,11 +1975,11 @@
      </configsection>
      <configsection name="securitypolicies">
      <configheader>Security Policies</configheader>
-      <configswitch name="provisioning" quote="false" desc="How should device
-      provisioning be handled? Set to DISABLE to ignore provisioning. Set to
-      ALLOW to force devices that CAN be provisioned to use provisioning, but
-      allow older devices with no support for provisioning to still be used. Set
-      to FORCE to only allow devices that are provisioned to connect to your
+      <configswitch name="provisioning" desc="How should device provisioning be
+      handled? Set to DISABLE to ignore provisioning. Set to ALLOW to force
+      devices that CAN be provisioned to use provisioning, but allow older
+      devices with no support for provisioning to still be used. Set to FORCE
+      to only allow devices that are provisioned to connect to your
       server.">false
        <case name="false" desc="Disable" />
        <case name="loose" desc="Allow">
