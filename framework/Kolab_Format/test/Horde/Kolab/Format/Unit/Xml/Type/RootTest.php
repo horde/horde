@@ -33,67 +33,95 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  * @link       http://pear.horde.org/index.php?package=Kolab_Format
  */
 class Horde_Kolab_Format_Unit_Xml_Type_RootTest
-extends PHPUnit_Framework_TestCase
+extends Horde_Kolab_Format_TestCase
 {
+    public function testLoadRoot()
+    {
+        $attributes = $this->load(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><uid>A</uid></kolab>'
+        );
+        $this->assertEquals('A', $attributes['uid']);
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Format_Exception_InvalidRoot
+     */
+    public function testMissingRootNode()
+    {
+        $attributes = $this->load(
+            '<?xml version="1.0" encoding="UTF-8"?><test/>'
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Format_Exception_InvalidRoot
+     */
+    public function testLoadHigherVersion()
+    {
+        $attributes = $this->load(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="2.0" a="b">c</kolab>'
+        );
+    }
+
+    public function testLoadHigherVersionRelaxed()
+    {
+        $attributes = $this->load(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="2.0" a="b">c</kolab>',
+            array('relaxed' => true)
+        );
+        $this->assertEquals('2.0', $attributes['_format-version']);
+    }
+
+    public function testLoadVersion()
+    {
+        $attributes = $this->load(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><uid>A</uid>c</kolab>'
+        );
+        $this->assertEquals('1.0', $attributes['_format-version']);
+    }
+
     public function testSave()
     {
-        $doc = new DOMDocument('1.0', 'UTF-8');
-        $root = new Horde_Kolab_Format_Xml_Type_Root(
-            $doc, array('type' => 'kolab', 'version' => '1.0')
-        );
         $this->assertInstanceOf(
-            'DOMNode', 
-            $root->save()
+            'DOMNode',
+            $this->saveToReturn(null, array('uid' => 'A'))
         );
     }
 
     public function testSaveCreatesNewNode()
     {
-        $doc = new DOMDocument('1.0', 'UTF-8');
-        $root = new Horde_Kolab_Format_Xml_Type_Root(
-            $doc, array('type' => 'kolab', 'version' => '1.0')
-        );
-        $root->save();
-        $this->assertEquals(
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>
-', 
-            $doc->saveXML()
+        $this->assertRegexp(
+            '#<kolab version="1.0"><uid>A</uid><body></body><categories></categories>#',
+            $this->saveToXml(null, array('uid' => 'A'))
         );
     }
 
     public function testSaveDoesNotTouchExistingNode()
     {
-        $doc = new DOMDocument('1.0', 'UTF-8');
-        $doc->loadXML('<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b">c</kolab>');
-        $root = new Horde_Kolab_Format_Xml_Type_Root(
-            $doc, array('type' => 'kolab', 'version' => '1.0')
-        );
-        $root->save();
-        $this->assertEquals(
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b">c</kolab>
-', 
-            $doc->saveXML()
+        $this->assertRegexp(
+            '#<kolab version="1.0" a="b">#',
+            $this->saveToXml(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b">c</kolab>',
+                array('uid' => 'A')
+            )
         );
     }
 
     public function testAddNewType()
     {
-        $doc = new DOMDocument('1.0', 'UTF-8');
-        $doc->loadXML('<?xml version="1.0" encoding="UTF-8"?>
-<old version="1.0" a="b">c</old>');
-        $root = new Horde_Kolab_Format_Xml_Type_Root(
-            $doc, array('type' => 'kolab', 'version' => '1.0')
-        );
-        $root->save();
-        $this->assertEquals(
-            '<?xml version="1.0" encoding="UTF-8"?>
-<old version="1.0" a="b">c</old>
-<kolab version="1.0"/>
-', 
-            $doc->saveXML()
+        $this->assertRegexp(
+            '#<old version="1.0" a="b">c</old>
+<kolab version="1.0"#',
+            $this->saveToXml(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<old version="1.0" a="b">c</old>',
+                array('uid' => 'A')
+            )
         );
     }
 
@@ -102,128 +130,76 @@ extends PHPUnit_Framework_TestCase
      */
     public function testOverwriteHigherVersion()
     {
-        $doc = new DOMDocument('1.0', 'UTF-8');
-        $doc->loadXML('<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="2.0" a="b">c</kolab>');
-        $root = new Horde_Kolab_Format_Xml_Type_Root(
-            $doc, array('type' => 'kolab', 'version' => '1.0')
+        $this->saveToXml(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="2.0" a="b">c</kolab>',
+            array()
         );
-        $root->save();
     }
 
     public function testOverwriteHigherVersionRelaxed()
     {
-        $doc = new DOMDocument('1.0', 'UTF-8');
-        $doc->loadXML('<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="2.0" a="b">c</kolab>');
-        $root = new Horde_Kolab_Format_Xml_Type_Root(
-            $doc, array('type' => 'kolab', 'version' => '1.0', 'relaxed' => true)
-        );
-        $root->save();
-        $this->assertEquals(
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b">c</kolab>
-', 
-            $doc->saveXML()
+        $this->assertRegexp(
+            '#<kolab version="1.0"#',
+            $this->saveToXml(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="2.0" a="b">c</kolab>',
+                array('uid' => 'A'),
+                array('relaxed' => true)
+            )
         );
     }
 
     public function testSetHigherVersion()
     {
-        $doc = new DOMDocument('1.0', 'UTF-8');
-        $doc->loadXML('<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b">c</kolab>');
-        $root = new Horde_Kolab_Format_Xml_Type_Root(
-            $doc, array('type' => 'kolab', 'version' => '2.0')
+        $this->assertRegexp(
+            '#<kolab version="2.0" a="b"#',
+            $this->saveToXml(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b">c</kolab>',
+                array('uid' => 'A'),
+                array('expected-version' => '2.0')
+            )
         );
-        $root->save();
-        $this->assertEquals(
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="2.0" a="b">c</kolab>
-', 
-            $doc->saveXML()
-        );
-    }
-
-    /**
-     * @expectedException Horde_Kolab_Format_Exception_InvalidRoot
-     */
-    public function testMissingRootNode()
-    {
-        $doc = new DOMDocument('1.0', 'UTF-8');
-        $doc->loadXML('<?xml version="1.0" encoding="UTF-8"?><test/>');
-        $root = new Horde_Kolab_Format_Xml_Type_Root(
-            $doc, array('type' => 'kolab', 'version' => '1.0')
-        );
-        $root->load();
-    }
-
-    /**
-     * @expectedException Horde_Kolab_Format_Exception_InvalidRoot
-     */
-    public function testLoadHigherVersion()
-    {
-        $doc = new DOMDocument('1.0', 'UTF-8');
-        $doc->loadXML('<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="2.0" a="b">c</kolab>');
-        $root = new Horde_Kolab_Format_Xml_Type_Root(
-            $doc, array('type' => 'kolab', 'version' => '1.0')
-        );
-        $root->load();
-    }
-
-    public function testLoadHigherVersionRelaxed()
-    {
-        $doc = new DOMDocument('1.0', 'UTF-8');
-        $doc->loadXML('<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="2.0" a="b">c</kolab>');
-        $root = new Horde_Kolab_Format_Xml_Type_Root(
-            $doc, array('type' => 'kolab', 'version' => '1.0', 'relaxed' => true)
-        );
-        $root->load();
-        $this->assertEquals('2.0', $root->getVersion());
-    }
-
-    public function testInitialVersion()
-    {
-        $doc = new DOMDocument('1.0', 'UTF-8');
-        $root = new Horde_Kolab_Format_Xml_Type_Root(
-            $doc, array('type' => 'kolab', 'version' => '1.0')
-        );
-        $this->assertNull($root->getVersion());
-    }
-
-    public function testLoadVersion()
-    {
-        $doc = new DOMDocument('1.0', 'UTF-8');
-        $doc->loadXML('<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b">c</kolab>');
-        $root = new Horde_Kolab_Format_Xml_Type_Root(
-            $doc, array('type' => 'kolab', 'version' => '1.0')
-        );
-        $root->load();
-        $this->assertEquals('1.0', $root->getVersion());
     }
 
     public function testSaveNewVersion()
     {
-        $doc = new DOMDocument('1.0', 'UTF-8');
-        $root = new Horde_Kolab_Format_Xml_Type_Root(
-            $doc, array('type' => 'kolab', 'version' => '2.0')
+        $this->assertRegexp(
+            '#<kolab version="2.0"#',
+            $this->saveToXml(
+                null,
+                array('uid' => 'A'),
+                array('expected-version' => '2.0')
+            )
         );
-        $root->save();
-        $this->assertEquals('2.0', $root->getVersion());
     }
 
-    public function testUpdateVersion()
+    protected function getXmlType(
+        $type,
+        $previous = null,
+        $kolab_type = 'kolab',
+        $version = '1.0'
+    )
     {
+        $factory = new Horde_Kolab_Format_Factory();
         $doc = new DOMDocument('1.0', 'UTF-8');
-        $doc->loadXML('<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b">c</kolab>');
-        $root = new Horde_Kolab_Format_Xml_Type_Root(
-            $doc, array('type' => 'kolab', 'version' => '2.0')
+        if ($previous !== null) {
+            $doc->loadXML($previous);
+        }
+        $type = $factory->createXmlType($type);
+        $helper = $factory->createXmlHelper($doc);
+        $params = array(
+            'helper' => $helper,
+            'expected-version' => '1.0',
+            'api-version' => 2,
+            'element' => 'kolab'
         );
-        $root->save();
-        $this->assertEquals('2.0', $root->getVersion());
+        return array($params, $doc, $type);
+    }
+
+    protected function getTypeClass()
+    {
+        return 'Horde_Kolab_Format_Xml_Type_Root';
     }
 }

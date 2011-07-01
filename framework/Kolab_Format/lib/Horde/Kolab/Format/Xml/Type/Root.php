@@ -29,170 +29,188 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Format
  */
 class Horde_Kolab_Format_Xml_Type_Root
+extends Horde_Kolab_Format_Xml_Type_Composite
 {
     /**
-     * The XML document this object works with.
-     *
-     * @var DOMDocument
+     * The parameters required for the parsing operation.
      */
-    private $_xmldoc;
+    protected $_required_parameters = array('expected-version');
 
     /**
-     * The XPath query handler.
-     *
-     * @var DOMXpath
-     */
-    private $_xpath;
-
-    /**
-     * The parameters for this handler.
+     * Basic attributes in any Kolab object
      *
      * @var array
      */
-    private $_params;
+    private $_attributes_basic = array(
+        'uid' => 'Horde_Kolab_Format_Xml_Type_Uid',
+        'body' => array(
+            'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
+            'value'   => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
+            'default' => '',
+        ),
+        'categories' => array(
+            'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
+            'value'   => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
+            'default' => '',
+        ),
+        'creation-date' => 'Horde_Kolab_Format_Xml_Type_CreationDate',
+        'last-modification-date' => 'Horde_Kolab_Format_Xml_Type_ModificationDate',
+        'sensitivity' => array(
+            'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
+            'value'   => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
+            'default' => 'public',
+        ),
+        'inline-attachment' => array(
+            'type'    => Horde_Kolab_Format_Xml::TYPE_MULTIPLE,
+            'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
+            'array'   => array(
+                'type'  => Horde_Kolab_Format_Xml::TYPE_STRING,
+                'value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
+            ),
+        ),
+        'link-attachment' => array(
+            'type'    => Horde_Kolab_Format_Xml::TYPE_MULTIPLE,
+            'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
+            'array'   => array(
+                'type'  => Horde_Kolab_Format_Xml::TYPE_STRING,
+                'value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
+            ),
+        ),
+        'product-id' => 'Horde_Kolab_Format_Xml_Type_ProductId',
+    );
 
     /**
-     * Get the version of the root node.
+     * Load the node value from the Kolab object.
      *
-     * @var string
-     */
-    private $_version;
-
-    /**
-     * Constructor
+     * @param string  $name        The name of the the attribute
+     *                             to be fetched.
+     * @param array   &$attributes The data array that holds all
+     *                             attribute values.
+     * @param DOMNode $parent_node The parent node of the node to be loaded.
+     * @param array   $params      The parameters for this parse operation.
      *
-     * @param DOMDocument $xmldoc The XML document this object works with.
-     * @param array       $params Additional parameters for this handler.
+     * @return DOMNode|boolean The named DOMNode or false if no node value was
+     *                         found.
      */
-    public function __construct($xmldoc, $params = array())
+    public function load($name, &$attributes, $parent_node, $params = array())
     {
-        $this->_xmldoc = $xmldoc;
-        $this->_xpath = new DOMXpath($this->_xmldoc);
-        $this->_params = $params;
-    }
-
-    /**
-     * Return the root node of the Kolab format object.
-     *
-     * @return DOMNode The root node.
-     *
-     * @throws Horde_Kolab_Format_Exception_InvalidRoot In case the root node
-     * is missing.
-     */
-    public function load()
-    {
-        if (!($root = $this->findNode('/' . $this->_params['type']))) {
+        $this->checkParams($params, $name);
+        $this->_getHelper($parent_node, $params);
+        if (!($root = $params['helper']->findNode('/' . $name))) {
             throw new Horde_Kolab_Format_Exception_InvalidRoot(
-                sprintf('Missing root node "%s"!', $this->_params['type'])
+                sprintf('Missing root node "%s"!', $name)
             );
         }
-        $this->_version = $root->getAttribute('version');
-        if (!$this->_isRelaxed()) {
-            if (version_compare($this->_params['version'], $this->_version) < 0) {
+        $attributes['_format-version'] = $root->getAttribute('version');
+        if (!$this->isRelaxed($params)) {
+            if (version_compare($params['expected-version'], $attributes['_format-version']) < 0) {
                 throw new Horde_Kolab_Format_Exception_InvalidRoot(
                     sprintf(
                         'Not attempting to read higher root version of %s with our version %s!',
-                        $this->_version,
-                        $this->_params['version']
+                        $attributes['_format-version'],
+                        $params['expected-version']
                     )
                 );
             }
         }
+        $this->_prepareCompositeParameters(
+            $params, $attributes['_format-version']
+        );
+        parent::load($name, $attributes, $parent_node, $params);
         return $root;
     }
 
     /**
-     * Create the root node expected for the Kolab format if it is missing.
+     * Update the specified attribute.
      *
-     * @return DOMNode The (new) root node.
+     * @param string  $name        The name of the the attribute
+     *                             to be updated.
+     * @param array   $attributes  The data array that holds all
+     *                             attribute values.
+     * @param DOMNode $parent_node The parent node of the node that
+     *                             should be updated.
+     * @param array   $params      The parameters for this write operation.
      *
-     * @throws Horde_Kolab_Format_Exception_InvalidRoot In case the old root
-     * node has a higher format version.
+     * @return DOMNode|boolean The new/updated child node or false if this
+     *                         failed.
+     *
+     * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
-    public function save()
+    public function save($name, $attributes, $parent_node, $params = array())
     {
-        if (!($root = $this->findNode('/' . $this->_params['type']))) {
-            $root = $this->_xmldoc->createElement($this->_params['type']);
-            $root->setAttribute('version', $this->_params['version']);
-            $this->_version = $this->_params['version'];
-            $this->_xmldoc->appendChild($root);
-            return $root;
-        }
-        if (!$this->_isRelaxed()) {
-            if (version_compare($this->_params['version'], $root->getAttribute('version')) < 0) {
-                throw new Horde_Kolab_Format_Exception_InvalidRoot(
-                    sprintf(
-                        'Not attempting to overwrite higher root version of %s with our version %s!',
-                        $root->getAttribute('version'),
-                        $this->_params['version']
-                    )
-                );
+        $this->checkParams($params, $name);
+        $this->_getHelper($parent_node, $params);
+
+        if (!($root = $params['helper']->findNode('/' . $name, $parent_node))) {
+            $root = $params['helper']->createNewNode($parent_node, $name);
+            $root->setAttribute('version', $params['expected-version']);
+        } else {
+            if (!$this->isRelaxed($params)) {
+                if (version_compare($params['expected-version'], $root->getAttribute('version')) < 0) {
+                    throw new Horde_Kolab_Format_Exception_InvalidRoot(
+                        sprintf(
+                            'Not attempting to overwrite higher root version of %s with our version %s!',
+                            $root->getAttribute('version'),
+                            $params['expected-version']
+                        )
+                    );
+                }
+            }
+            if ($params['expected-version'] != $root->getAttribute('version')) {
+                $root->setAttribute('version', $params['expected-version']);
             }
         }
-        if ($this->_params['version'] != $root->getAttribute('version')) {
-            $root->setAttribute('version', $this->_params['version']);
-        }
-        $this->_version = $this->_params['version'];
+        $this->_prepareCompositeParameters(
+            $params, $params['expected-version']
+        );
+        parent::save($name, $attributes, $parent_node, $params);
         return $root;
     }
 
     /**
-     * Return the root node version.
+     * Check the parent_node parameter and provide the XML helper in the
+     * parameters.
      *
-     * @return string The version number.
+     * @param DOMDocument $parent_node The Document root
+     * @param array       &$params     The parameters for this operation.
+     *
+     * @return NULL
      */
-    public function getVersion()
+    private function _getHelper($parent_node, &$params)
     {
-        return $this->_version;
-    }
-
-    /**
-     * Returns if the XML handling should be relaxed.
-     *
-     * @return boolean True if the XML should not be strict.
-     */
-    private function _isRelaxed()
-    {
-        return !empty($this->_params['relaxed']);
-    }
-
-    /**
-     * Return a single named node matching the given XPath query.
-     *
-     * @param string $query The query.
-     *
-     * @return DOMNode|false The named DOMNode or empty if no node was found.
-     */
-    public function findNode($query)
-    {
-        return $this->_findSingleNode($this->findNodes($query));
-    }
-
-    /**
-     * Return a single node for the result set.
-     *
-     * @param DOMNodeList $result The query result.
-     *
-     * @return DOMNode|false The DOMNode or empty if no node was found.
-     */
-    private function _findSingleNode($result)
-    {
-        if ($result->length) {
-            return $result->item(0);
+        if ($parent_node instanceOf DOMDocument) {
+            $params['helper'] = $this->createHelper($parent_node);
+        } else {
+            throw new Horde_Kolab_Format_Exception(
+                'The root handler expected a DOMDocument!'
+            );
         }
-        return false;
     }
 
     /**
-     * Return all nodes matching the given XPath query.
+     * Prepare the parameters for the parent composite handler.
      *
-     * @param string $query The query.
+     * @param array  &$params The parameters for this operation.
+     * @param string $version The format version of the document.
      *
-     * @return DOMNodeList The list of DOMNodes.
+     * @return NULL
      */
-    public function findNodes($query)
+    private function _prepareCompositeParameters(&$params, $version)
     {
-        return $this->_xpath->query($query);
-    }
+        $params['format-version'] = $version;
 
+        $params['array'] = $this->_attributes_basic;
+        if (isset($params['attributes_specific'])) {
+            $params['array'] = array_merge(
+                $params['array'], $params['attributes_specific']
+            );
+        }
+        if (isset($params['attributes_application'])) {
+            $params['array'] = array_merge(
+                $params['array'], $params['attributes_application']
+            );
+        }
+        $params['value'] = Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY;
+        $params['merge'] = true;
+    }
 }
