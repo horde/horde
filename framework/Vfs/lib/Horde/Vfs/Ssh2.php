@@ -412,7 +412,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
                 $dotfiles = true;
             }
 
-            $stream = @ssh2_exec($this->_stream, 'LC_TIME=C ls -' . $ls_args . ' ' . escapeshellarg($path));
+            $stream = @ssh2_exec($this->_stream, 'ls -' . $ls_args . ' ' . escapeshellarg($path), '', array('LC_TIME' => 'C'));
         } else {
             $stream = @ssh2_exec($this->_stream, '');
         }
