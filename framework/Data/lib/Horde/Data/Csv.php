@@ -237,12 +237,14 @@ class Horde_Data_Csv extends Horde_Data_Base
             /* Read the file's first two lines to show them to the user. */
             $first_lines = '';
             if ($fp = @fopen($file_name, 'r')) {
-                $line_no = 1;
-                while ($line_no < 3 && $line = fgets($fp)) {
+                for ($line_no = 1, $line = fgets($fp);
+                     $line_no <= 3 && $line;
+                     $line_no++, $line = fgets($fp)) {
                     $line = Horde_String::convertCharset($line, $this->_vars->charset, $this->_charset);
-                    $newline = Horde_String::length($line) > 100 ? "\n" : '';
-                    $first_lines .= substr($line, 0, 100) . $newline;
-                    ++$line_no;
+                    $first_lines .= Horde_String::truncate($line);
+                    if (Horde_String::length($line) > 100) {
+                        $first_lines .= "\n";
+                    }
                 }
             }
             $session->set('horde', 'import_data/first_lines', $first_lines);
