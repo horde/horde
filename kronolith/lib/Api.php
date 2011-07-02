@@ -904,6 +904,7 @@ class Kronolith_Api extends Horde_Registry_Api
             $ownerCalendars = Kronolith::listInternalCalendars(true, Horde_Perms::DELETE);
             foreach ($events as $ev) {
                 if ($GLOBALS['registry']->isAdmin() || isset($ownerCalendars[$ev->calendar])) {
+                    $kronolith_driver->open($ev->calendar);
                     $event = $ev;
                     break;
                 }
