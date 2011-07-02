@@ -316,7 +316,7 @@ class Horde_Imap_Client_Utils
 
         /* Check for username/auth information. */
         if (isset($data['user'])) {
-            if (($pos = stripos($url, ';AUTH=')) !== false) {
+            if (($pos = stripos($data['user'], ';AUTH=')) !== false) {
                 $auth = substr($data['user'], $pos + 6);
                 if ($auth != '*') {
                     $ret_array['auth'] = $auth;
@@ -324,7 +324,9 @@ class Horde_Imap_Client_Utils
                 $data['user'] = substr($data['user'], 0, $pos);
             }
 
-            $ret_array['username'] = $data['user'];
+            if (strlen($data['user'])) {
+                $ret_array['username'] = $data['user'];
+            }
         }
 
         /* IMAP-only information. */
