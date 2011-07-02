@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Fix stripping attachments from mailboxes with non-ascii names.
 * [mjr] Fix incorrect method name in Pop3 Socket driver.
  </notes>
  <contents>
@@ -444,6 +445,7 @@
    <date>2011-06-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Fix stripping attachments from mailboxes with non-ascii names.
 * [mjr] Fix incorrect method name in Pop3 Socket driver.
    </notes>
   </release>

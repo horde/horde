@@ -39,44 +39,61 @@ class Horde_Imap_Client_UrlParseTest extends Horde_Test_Case
         ';AUTH=PLAIN@test.example.com:143/',
         ';AUTH=*@test.example.com:143/',
         'testuser;AUTH=*@test.example.com:143/',
-        'testuser;AUTH=PLAIN@test.example.com:143/'
+        'testuser;AUTH=PLAIN@test.example.com:143/',
+        'test.example.com/INBOX.Quarant%26AOQ-ne;UIDVALIDITY=1240054819/;UID=39193/;SECTION=HEADER',
     );
 
     private $_expected = array(
         array('hostspec' => 'test.example.com',
               'port' => 143,
-              'relative' => false),
-        array('hostspec' => 'test.example.com',
-              'port' => 143,
-              'relative' => false),
+              'relative' => false,
+              'mailbox' => ''),
         array('hostspec' => 'test.example.com',
               'port' => 143,
               'relative' => false,
-              'username' => 'testuser'),
-        array('hostspec' => 'test.example.com',
-              'port' => 143,
-              'relative' => false,
-              'username' => 'testuser'),
-        array('hostspec' => 'test.example.com',
-              'port' => 143,
-              'relative' => false,
-              'auth' => 'PLAIN'),
-        array('hostspec' => 'test.example.com',
-              'port' => 143,
-              'relative' => false,
-              'auth' => 'PLAIN'),
-        array('hostspec' => 'test.example.com',
-              'port' => 143,
-              'relative' => false),
-        array('hostspec' => 'test.example.com',
-              'port' => 143,
-              'username' => 'testuser',
-              'relative' => false),
+              'mailbox' => ''),
         array('hostspec' => 'test.example.com',
               'port' => 143,
               'relative' => false,
               'username' => 'testuser',
-              'auth' => 'PLAIN'),
+              'mailbox' => ''),
+        array('hostspec' => 'test.example.com',
+              'port' => 143,
+              'relative' => false,
+              'username' => 'testuser',
+              'mailbox' => ''),
+        array('hostspec' => 'test.example.com',
+              'port' => 143,
+              'relative' => false,
+              'auth' => 'PLAIN',
+              'mailbox' => ''),
+        array('hostspec' => 'test.example.com',
+              'port' => 143,
+              'relative' => false,
+              'auth' => 'PLAIN',
+              'mailbox' => ''),
+        array('hostspec' => 'test.example.com',
+              'port' => 143,
+              'relative' => false,
+              'mailbox' => ''),
+        array('hostspec' => 'test.example.com',
+              'port' => 143,
+              'username' => 'testuser',
+              'relative' => false,
+              'mailbox' => ''),
+        array('hostspec' => 'test.example.com',
+              'port' => 143,
+              'relative' => false,
+              'username' => 'testuser',
+              'auth' => 'PLAIN',
+              'mailbox' => ''),
+        array('hostspec' => 'test.example.com',
+              'port' => 143,
+              'relative' => false,
+              'section' => 'HEADER',
+              'uid' => 39193,
+              'uidvalidity' => 1240054819,
+              'mailbox' => 'INBOX.Quarant&AOQ-ne'),
     );
 
     public function testBadUrl()
@@ -103,6 +120,10 @@ class Horde_Imap_Client_UrlParseTest extends Horde_Test_Case
             $this->assertNotEmpty($result);
             $expected = $this->_expected[$key];
             $expected['type'] = 'pop';
+            unset($expected['mailbox'],
+                  $expected['section'],
+                  $expected['uid'],
+                  $expected['uidvalidity']);
             $this->assertEquals($expected, $result);
         }
     }
@@ -117,7 +138,6 @@ class Horde_Imap_Client_UrlParseTest extends Horde_Test_Case
             $this->assertNotEmpty($result);
             $expected = $this->_expected[$key];
             $expected['type'] = 'imap';
-            $expected['mailbox'] = '';
             $this->assertEquals($expected, $result);
         }
     }

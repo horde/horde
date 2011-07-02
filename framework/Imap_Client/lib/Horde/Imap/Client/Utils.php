@@ -340,7 +340,7 @@ class Horde_Imap_Client_Utils
                     $ret_array['uidvalidity'] = substr($mbox, $pos + 13);
                     $mbox = substr($mbox, 0, $pos);
                 }
-                $ret_array['mailbox'] = $mbox;
+                $ret_array['mailbox'] = urldecode($mbox);
 
             }
 
