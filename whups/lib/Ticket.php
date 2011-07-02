@@ -288,7 +288,8 @@ class Whups_Ticket
                 $oldOwners = current($whups_driver->getOwners($this->_id));
                 $this->_changes['oldowners'] = $oldOwners;
                 foreach ($value as $owner) {
-                    if (array_search($owner, $oldOwners) === false) {
+                    if (!$oldOwners ||
+                        array_search($owner, $oldOwners) === false) {
                         $whups_driver->addTicketOwner($this->_id, $owner);
                         $whups_driver->updateLog(
                             $this->_id, $user,
