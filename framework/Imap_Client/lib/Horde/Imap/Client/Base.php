@@ -3423,7 +3423,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 break;
 
             case 'url':
-                $part = null;
+                $part = $exception = null;
                 $url = $this->utils->parseUrl($data[$key2]['v']);
 
                 if (isset($url['mailbox']) &&
@@ -3437,11 +3437,16 @@ abstract class Horde_Imap_Client_Base implements Serializable
                             ($status_res['uidvalidity'] == $url['uidvalidity'])) {
                             $part = $this->fetchFromSectionString($url['mailbox'], $url['uid'], isset($url['section']) ? $url['section'] : null);
                         }
-                    } catch (Horde_Imap_Client_Exception $e) {}
+                    } catch (Horde_Imap_Client_Exception $exception) {
+                    }
                 }
 
                 if (is_null($part)) {
-                    $this->_exception('Bad IMAP URL given in CATENATE data.', 'CATENATE_BADURL');
+                    $message = 'Bad IMAP URL given in CATENATE data: ' . json_encode($url);
+                    if ($exception) {
+                        $message .= ' ' . $exception->getMessage();
+                    }
+                    $this->_exception($message, 'CATENATE_BADURL');
                 } else {
                     $this->_prepareAppendData($part, $stream);
                 }
