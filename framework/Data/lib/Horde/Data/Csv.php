@@ -248,6 +248,16 @@ class Horde_Data_Csv extends Horde_Data_Base
                 }
             }
             $session->set('horde', 'import_data/first_lines', $first_lines);
+
+            /* Import the first line to guess the number of fields. */
+            if ($first_lines) {
+                rewind($fp);
+                $line = Horde_Util::getCsv($fp);
+                if ($line) {
+                    $session->set('horde', 'import_data/fields', count($line));
+                }
+            }
+
             return Horde_Data::IMPORT_CSV;
 
         case Horde_Data::IMPORT_CSV:

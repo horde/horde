@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Try to detect number of fields again when importing CSV data (Bug #9397).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -668,7 +668,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2011-06-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Try to detect number of fields again when importing CSV data (Bug #9397).
    </notes>
   </release>
  </changelog>
