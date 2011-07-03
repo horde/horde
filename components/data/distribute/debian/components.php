@@ -47,7 +47,8 @@ $build_template->write(
     array(
         'name' => $package_name,
         'component' => $component,
-        'applications' => $applications
+        'applications' => $applications,
+        'pear_name' => $component->getName(),
     )
 );
 
