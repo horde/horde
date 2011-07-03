@@ -51,4 +51,7 @@ $build_template->write(
     )
 );
 
+// Properly name tarball to avoid building a native debian package
+system('cd ' . $destination . ' && mv ../' . $component->getArchiveName() . ' ../php-' . $package_name . '_' . $component->getVersion() . '.orig.tar.gz');
+
 system('cd ' . $destination . ' && dpkg-buildpackage');
