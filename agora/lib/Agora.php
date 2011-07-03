@@ -356,23 +356,13 @@ class Agora {
             return;
         }
 
-        $msg_headers = new Horde_Mime_Headers();
-        $msg_headers->addMessageIdHeader();
-        $msg_headers->addUserAgentHeader();
-        $msg_headers->addHeader('Date', date('r'));
-        $msg_headers->addHeader('X-Horde-Agora-Post', $message_id);
+        $mail = new Horde_Mime_Mail();
+        $mail->addHeader('X-Horde-Agora-Post', $message_id);
+        $mail->addHeader('From', strpos($message['message_author'], '@') ? $message['message_author'] : $forum['forum_distribution_address']);
+        $mail->addHeader('Subject', '[' . $forum['forum_name'] . '] ' . $message['message_subject']);
+        $mail->addHeader('To', $forum['forum_distribution_address']);
+        $mail->setBody($message['body']);
 
-        $msg_headers->addHeader('To', $forum['forum_distribution_address']);
-        $msg_headers->addHeader('From', strpos($message['message_author'], '@') ? $message['message_author'] : $forum['forum_distribution_address']);
-        $msg_headers->addHeader('Subject', '[' . $forum['forum_name'] . '] ' . $message['message_subject']);
-
-        $body = new Horde_Mime_Part();
-        $body->setType('text/plain');
-        $body->setCharset('UTF-8');
-        $body->setContents($message['body']);
-
-        $body->send($forum['forum_distribution_address'],
-                    $msg_headers,
-                    $GLOBALS['injector']->getInstance('Horde_Mail'));
+        $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
     }
 }
