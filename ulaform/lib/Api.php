@@ -5,7 +5,10 @@
  * This file defines Ulaform's external API interface. Other applications can
  * interact with Ulaform through this API.
  *
- * $Horde: ulaform/lib/Api.php,v 1.3 2010-02-03 10:06:46 jan Exp $
+ * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @package Ulaform
  */
@@ -16,8 +19,7 @@ class Ulaform_Api extends Horde_Registry_Api
      */
     public function getForms()
     {
-        require_once dirname(__FILE__) . '/base.php';
-        return $GLOBALS['ulaform_driver']->getForms();
+        return $GLOBALS['injector']->getInstance('Ulaform_Factory_Driver')->create()->getForms();
     }
 
     /**
@@ -27,9 +29,7 @@ class Ulaform_Api extends Horde_Registry_Api
      */
     public function getFormFields($form_id)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
-        $fields = $GLOBALS['ulaform_driver']->getFields($form_id);
+        $fields = $GLOBALS['injector']->getInstance('Ulaform_Factory_Driver')->create()->getFields($form_id);
         if (!is_a($fields, 'PEAR_Error')) {
             return $fields;
         }
@@ -57,10 +57,8 @@ class Ulaform_Api extends Horde_Registry_Api
      */
     public function display($form_id, $target_url = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         /* Get the stored form information from the backend. */
-        $form_info = $GLOBALS['ulaform_driver']->getForm($form_id, Horde_Perms::READ);
+        $form_info = $GLOBALS['injector']->getInstance('Ulaform_Factory_Driver')->create()->getForm($form_id, Horde_Perms::READ);
         if (is_a($form_info, 'PEAR_Error')) {
             return $form_info;
         }
@@ -76,10 +74,10 @@ class Ulaform_Api extends Horde_Registry_Api
         $form->addHidden('', 'form_id', 'int', false);
         $form->addHidden('', 'user_uid', 'text', false);
         $form->addHidden('', 'email', 'email', false);
-        $vars->set('user_uid', Horde_Auth::getAuth());
+        $vars->set('user_uid', $GLOBALS['registry']->getAuth());
         $vars->set('email', $GLOBALS['prefs']->getValue('from_addr'));
 
-        $fields = $GLOBALS['ulaform_driver']->getFields($form_id);
+        $fields = $GLOBALS['injector']->getInstance('Ulaform_Factory_Driver')->create()->getFields($form_id);
         if (is_a($fields, 'PEAR_Error')) {
             return $fields;
         }
@@ -116,8 +114,10 @@ class Ulaform_Api extends Horde_Registry_Api
             $target_url = Horde::selfUrl(true);
         }
 
+        Horde::startBuffer();
+        $form->renderActive(null, null, $target_url, 'post', 'multipart/form-data');
         return array('title' => $form_info['form_name'],
-                    'form' => Horde_Util::bufferOutput(array($form, 'renderActive'), null, null, $target_url, 'post', 'multipart/form-data'));
+                    'form' => Horde::endBuffer());
     }
 
 }
