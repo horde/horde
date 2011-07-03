@@ -29,11 +29,15 @@ if (in_array($component->getName(), $applications)) {
 }
 $package_name = strtr(strtolower($package_name), '_', '-');
 
-$destination .= '/php-' . $package_name . '-' . $component->getVersion();
-
 $component->placeArchive($destination);
 
-system('cd ' . $destination . ' && tar zxpf ' . $component->getArchiveName());
+$destination .= '/php-' . $package_name . '-' . $component->getVersion();
+
+if (!file_exists($destination)) {
+    mkdir($destination, 0700, true);
+}
+
+system('cd ' . $destination . ' && tar xzpf ../' . $component->getArchiveName());
 
 $build_template = new Components_Helper_Templates_Directory(
     $this->_config_application->getTemplateDirectory() . '/templates',
