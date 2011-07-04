@@ -69,6 +69,21 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testDependencies()
+    {
+        $deps = $this->_getRemote()->getDependencies('Horde_Translation', '1.0.0');
+        $this->assertEquals(
+            array(
+                'name' => 'Horde_Exception',
+                'channel' => 'pear.horde.org',
+                'min' => '1.0.0',
+                'max' => '2.0.0',
+                'exclude' => '2.0.0'
+            ),
+            $deps['required']['package']
+        );
+    }
+
     private function _getRemote()
     {
         return new Horde_Pear_Remote($this->_server);

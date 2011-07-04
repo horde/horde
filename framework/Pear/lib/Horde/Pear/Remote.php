@@ -82,6 +82,20 @@ class Horde_Pear_Remote
     }
 
     /**
+     * Retrieve the dependencies for the specified package release.
+     *
+     * @param string $package  The package name.
+     * @param string $version  The package version.
+     *
+     * @return array The package dependencies.
+     */
+    public function getDependencies($package, $version)
+    {
+        return $this->_access->getDependencies($package, $version)
+            ->getDependencies();
+    }
+
+    /**
      * Retrieve the dowlnload location for the latest package release.
      *
      * @param string $package   The package name.

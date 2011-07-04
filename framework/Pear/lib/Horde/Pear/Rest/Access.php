@@ -123,4 +123,20 @@ class Horde_Pear_Rest_Access
             $this->_getRest()->fetchReleaseInformation($package, $version)
         );
     }
+
+    /**
+     * Return the dependency wrapper for a specific package version
+     * from the server.
+     *
+     * @param string $package The name of the package.
+     * @param string $version The version of the release.
+     *
+     * @return Horde_Pear_Rest_Dependencies The wrapper.
+     */
+    public function getDependencies($package, $version)
+    {
+        return new Horde_Pear_Rest_Dependencies(
+            $this->_getRest()->fetchPackageDependencies($package, $version)
+        );
+    }
 }

@@ -75,6 +75,14 @@ extends Horde_Pear_TestCase
         $this->_getLatestRemote()->getLatestDownloadUri('A', 'dev');
     }
 
+    public function testDependencies()
+    {
+        $this->assertEquals(
+            array('B'),
+            $this->_getRemoteDependencies()->getDependencies('A', '1.0.0')
+        );
+    }
+
     private function _getRemoteList()
     {
         if (!class_exists('Horde_Http_Client')) {
@@ -82,6 +90,20 @@ extends Horde_Pear_TestCase
         }
         $string = '<?xml version="1.0" encoding="UTF-8" ?>
 <l><p xlink:href="/rest/p/a">A</p><p xlink:href="/rest/p/b">B</p></l>';
+        $body = new Horde_Support_StringStream($string);
+        $response = new Horde_Http_Response_Mock('', $body->fopen());
+        $response->code = 200;
+        $request = new Horde_Http_Request_Mock();
+        $request->setResponse($response);
+        return $this->_createRemote($request);
+    }
+
+    private function _getRemoteDependencies()
+    {
+        if (!class_exists('Horde_Http_Client')) {
+            $this->markTestSkipped('Horde_Http is missing!');
+        }
+        $string = serialize(array('B'));;
         $body = new Horde_Support_StringStream($string);
         $response = new Horde_Http_Response_Mock('', $body->fopen());
         $response->code = 200;

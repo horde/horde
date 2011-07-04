@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-06-06</date>
- <time>06:56:42</time>
+ <date>2011-07-04</date>
+ <time>14:39:54</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="REPLACE">REPLACE</license>
  <notes>
+* [gwr] Added support for fetching package dependencies from the remote server.
 * [jan] Update changelog when updating content (Bug #9935).
 * [gwr] Imported the .gitignore handling for content lists from the components tool.
 * [gwr] Consume empty notes.
@@ -82,6 +83,7 @@
       </dir> <!-- /lib/Horde/Pear/Package -->
       <dir name="Rest">
        <file name="Access.php" role="php" />
+       <file name="Dependencies.php" role="php" />
        <file name="Package.php" role="php" />
        <file name="PackageList.php" role="php" />
        <file name="Release.php" role="php" />
@@ -303,6 +305,7 @@
    <install as="Horde/Pear/Package/Xml/Element/Directory.php" name="lib/Horde/Pear/Package/Xml/Element/Directory.php" />
    <install as="Horde/Pear/Package/Xml/Element/File.php" name="lib/Horde/Pear/Package/Xml/Element/File.php" />
    <install as="Horde/Pear/Rest/Access.php" name="lib/Horde/Pear/Rest/Access.php" />
+   <install as="Horde/Pear/Rest/Dependencies.php" name="lib/Horde/Pear/Rest/Dependencies.php" />
    <install as="Horde/Pear/Rest/Package.php" name="lib/Horde/Pear/Rest/Package.php" />
    <install as="Horde/Pear/Rest/PackageList.php" name="lib/Horde/Pear/Rest/PackageList.php" />
    <install as="Horde/Pear/Rest/Release.php" name="lib/Horde/Pear/Rest/Release.php" />
@@ -382,9 +385,10 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-06-06</date>
+   <date>2011-07-04</date>
    <license uri="REPLACE">REPLACE</license>
    <notes>
+* [gwr] Added support for fetching package dependencies from the remote server.
 * [jan] Update changelog when updating content (Bug #9935).
 * [gwr] Imported the .gitignore handling for content lists from the components tool.
 * [gwr] Consume empty notes.
