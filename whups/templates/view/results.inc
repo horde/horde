@@ -66,7 +66,7 @@ function doResort(column, sortDown)
                  require_once 'Horde/Form/Type.php';
                  $thevalue = Horde_Form_Type_date::getFormattedTime($thevalue, $prefs->getValue('report_time_format'), false);
              } elseif ($value == 'user_id_requester') {
-                 $thevalue = Whups::formatUser($thevalue, false, true, true);
+                 $thevalue = $info['requester_formatted'];
              } elseif ($value == 'id' || $value == 'summary') {
                  $sortval = '';
                  $thevalue = Horde::link($url) . '<strong>' . htmlspecialchars($thevalue) . '</strong></a>';

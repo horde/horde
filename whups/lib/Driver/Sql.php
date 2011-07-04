@@ -1101,6 +1101,7 @@ class Whups_Driver_Sql extends Whups_Driver
                         $ticket['version_link'] = $versions[$ticket['version']]['link'];
                     }
                 }
+                $ticket['requester_formatted'] = Whups::formatUser($ticket['user_id_requester'], false, true, true);
             }
             $tickets[$ticket['id']] = $ticket;
         }
