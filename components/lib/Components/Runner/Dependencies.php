@@ -70,7 +70,6 @@ class Components_Runner_Dependencies
     public function run()
     {
         $options = $this->_config->getOptions();
-        $arguments = $this->_config->getArguments();
         $this->_factory
             ->createSimpleTreeHelper($this->_config->getComponent()->getPath())
             ->listDependencyTree(
