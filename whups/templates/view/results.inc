@@ -75,12 +75,8 @@ function doResort(column, sortDown)
                  $thevalue = Horde::link($url) . '<strong>' . htmlspecialchars($thevalue) . '</strong></a>';
              } elseif ($value == 'owners') {
                  $sortval = '';
-                 if (!empty($info['owners'])) {
-                     $owners = array();
-                     foreach ($thevalue as $owner) {
-                         $owners[] = Whups::formatUser($owner, false, true, true);
-                     }
-                     $thevalue = implode(', ', $owners);
+                 if (!empty($info['owners_formatted'])) {
+                     $thevalue = implode(', ', $info['owners_formatted']);
                  }
              }
 
