@@ -112,17 +112,6 @@ class Components_Helper_Root
     }
 
     /**
-     * Return the relative position of the path originally used to determine the
-     * root position of the repository.
-     *
-     * @return string The relative path.
-     */
-    public function getBase()
-    {
-        return $this->_base;
-    }
-
-    /**
      * Return the root position of the repository.
      *
      * @return string The root path.
