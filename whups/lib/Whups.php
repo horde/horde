@@ -118,8 +118,8 @@ class Whups
             $dir = $GLOBALS['prefs']->getValue('sortdir');
         }
 
-        Whups::sortBy($by);
-        Whups::sortDir($dir);
+        self::sortBy($by);
+        self::sortDir($dir);
 
         usort($tickets, array('Whups', '_sort'));
     }
@@ -146,12 +146,12 @@ class Whups
         }
     }
 
-    protected function _sort($a, $b, $sortby = null, $sortdir = null)
+    static protected function _sort($a, $b, $sortby = null, $sortdir = null)
     {
         static $by, $dir;
         if (is_null($by)) {
-            $by = Whups::sortBy();
-            $dir = Whups::sortDir();
+            $by = self::sortBy();
+            $dir = self::sortDir();
         }
 
         if (is_null($sortby)) {
@@ -176,7 +176,7 @@ class Whups
             } elseif ($a[$sortby[0]] === $b[$sortby[0]]) {
                 array_shift($sortby);
                 array_shift($sortdir);
-                return Whups::_sort($a, $b, $sortby, $sortdir);
+                return self::_sort($a, $b, $sortby, $sortdir);
             } else {
                 return $sortdir[0] ? 1 : -1;
             }
@@ -288,32 +288,32 @@ class Whups
         $tabs = new Horde_Core_Ui_Tabs(null, $vars);
         $queue = $vars->get('queue');
 
-        $tabs->addTab(_("_History"), Whups::urlFor('ticket', $id), 'history');
-        if (Whups::hasPermission($queue, 'queue', 'update')) {
+        $tabs->addTab(_("_History"), self::urlFor('ticket', $id), 'history');
+        if (self::hasPermission($queue, 'queue', 'update')) {
             $tabs->addTab(_("_Update"),
-                          Whups::urlFor('ticket_action', array('update', $id)),
+                          self::urlFor('ticket_action', array('update', $id)),
                           'update');
         } else {
             $tabs->addTab(_("_Comment"),
-                          Whups::urlFor('ticket_action', array('comment', $id)),
+                          self::urlFor('ticket_action', array('comment', $id)),
                           'comment');
         }
         $tabs->addTab(_("_Watch"),
-                      Whups::urlFor('ticket_action', array('watch', $id)),
+                      self::urlFor('ticket_action', array('watch', $id)),
                       'watch');
-        if (Whups::hasPermission($queue, 'queue', Horde_Perms::DELETE)) {
+        if (self::hasPermission($queue, 'queue', Horde_Perms::DELETE)) {
             $tabs->addTab(_("S_et Queue"),
-                          Whups::urlFor('ticket_action', array('queue', $id)),
+                          self::urlFor('ticket_action', array('queue', $id)),
                           'queue');
         }
-        if (Whups::hasPermission($queue, 'queue', 'update')) {
+        if (self::hasPermission($queue, 'queue', 'update')) {
             $tabs->addTab(_("Set _Type"),
-                          Whups::urlFor('ticket_action', array('type', $id)),
+                          self::urlFor('ticket_action', array('type', $id)),
                           'type');
         }
-        if (Whups::hasPermission($queue, 'queue', Horde_Perms::DELETE)) {
+        if (self::hasPermission($queue, 'queue', Horde_Perms::DELETE)) {
             $tabs->addTab(_("_Delete"),
-                          Whups::urlFor('ticket_action', array('delete', $id)),
+                          self::urlFor('ticket_action', array('delete', $id)),
                           'delete');
         }
 
@@ -597,7 +597,7 @@ class Whups
      * Returns a user string from the user's name and email address.
      *
      * @param string|array $user  A user name or a hash as returned from
-     *                            {@link Whups::getUserAttributes()}.
+     *                            {@link self::getUserAttributes()}.
      * @param boolean $showemail  Whether to include the email address.
      * @param boolean $showname   Whether to include the full name.
      * @param boolean $html       Whether to "prettify" the result. If true,
@@ -615,7 +615,7 @@ class Whups
         if (is_array($user)) {
             $details = $user;
         } else {
-            $details = Whups::getUserAttributes($user);
+            $details = self::getUserAttributes($user);
         }
         if (!empty($details['name'])) {
             $name = $details['name'];
@@ -711,7 +711,7 @@ class Whups
         }
 
         $tickets = $whups_driver->getTicketsByProperties($info);
-        Whups::sortTickets($tickets);
+        self::sortTickets($tickets);
         if (!count($tickets)) {
             return PEAR::raiseError(_("No tickets matched your search criteria."));
         }
@@ -719,7 +719,7 @@ class Whups
         $unassigned = $vars->get('unassigned');
         $remind = array();
         foreach ($tickets as $info) {
-            $info['link'] = Whups::urlFor('ticket', $info['id'], true, -1);
+            $info['link'] = self::urlFor('ticket', $info['id'], true, -1);
             $owners = current($whups_driver->getOwners($info['id']));
             if (count($owners)) {
                 foreach ($owners as $owner) {
@@ -790,9 +790,9 @@ class Whups
             return PEAR::raiseError($vfs->getMessage());
         }
 
-        if ($vfs->isFolder(Whups::VFS_ATTACH_PATH, $ticket)) {
+        if ($vfs->isFolder(self::VFS_ATTACH_PATH, $ticket)) {
             try {
-                $files = $vfs->listFolder(Whups::VFS_ATTACH_PATH . '/' . $ticket);
+                $files = $vfs->listFolder(self::VFS_ATTACH_PATH . '/' . $ticket);
             } catch (Horde_Vfs_Exception $e) {
                 $files = array();
             }
@@ -838,7 +838,7 @@ class Whups
         $link .= ' ' . Horde::link(Horde::downloadUrl($file['name'], $url_params), $file['name']) . Horde::img('download.png', _("Download")) . '</a>';
 
         // Admins can delete attachments.
-        if (Whups::hasPermission($queue, 'queue', Horde_Perms::DELETE)) {
+        if (self::hasPermission($queue, 'queue', Horde_Perms::DELETE)) {
             $url = Horde_Util::addParameter(
                 Horde::url('ticket/delete_attachment.php'),
                 array('file' => $file['name'],
@@ -876,7 +876,7 @@ class Whups
         $results = array();
         $owners = current($owners);
         foreach ($owners as $owner) {
-            $results[] = Whups::formatUser($owner, $showemail, $showname);
+            $results[] = self::formatUser($owner, $showemail, $showname);
         }
 
         return implode(', ', $results);
@@ -926,7 +926,7 @@ class Whups
     static public function fieldTypeNames()
     {
         /* Fetch the field type information from the Horde_Form classes. */
-        $fields = Whups::fieldTypes();
+        $fields = self::fieldTypes();
 
         /* Strip out the name element from the array. */
         $available_fields = array();
@@ -949,7 +949,7 @@ class Whups
      */
     static public function fieldTypeParams($field_type)
     {
-        $fields = Whups::fieldTypes();
+        $fields = self::fieldTypes();
 
         return isset($fields[$field_type]['params'])
             ? $fields[$field_type]['params']
