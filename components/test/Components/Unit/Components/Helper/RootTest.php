@@ -74,14 +74,14 @@ extends Components_TestCase
     public function testDetermineRootInTestFixture()
     {
         $path = dirname(__FILE__) . '/../../../fixture';
-        $root = new Components_Helper_Root($path);
+        $root = new Components_Helper_Root(null, null, $path);
         $this->assertEquals($path, $root->getRoot());
     }
 
     public function testDetermineRootInSubdirectory()
     {
         $path = dirname(__FILE__) . '/../../../fixture';
-        $root = new Components_Helper_Root($path . '/horde');
+        $root = new Components_Helper_Root(null, null, $path . '/horde');
         $this->assertEquals($path, $root->getRoot());
     }
 
@@ -92,7 +92,7 @@ extends Components_TestCase
     {
         $this->changeDirectory('/');
         $root = new Components_Helper_Root(
-            null, null, array('horde_root' => '/')
+            array('horde_root' => '/')
         );
         $root->getRoot();
     }
@@ -101,7 +101,7 @@ extends Components_TestCase
     {
         $path = dirname(__FILE__) . '/../../../fixture';
         $root = new Components_Helper_Root(
-            null, null, array('horde_root' => $path)
+            array('horde_root' => $path)
         );
         $this->assertEquals($path, $root->getRoot());
     }
@@ -114,7 +114,7 @@ extends Components_TestCase
         $this->changeDirectory('/');
         $path = dirname(__FILE__) . '/../../../fixture';
         $root = new Components_Helper_Root(
-            null, null, array('horde_root' => $path . '/horde')
+            array('horde_root' => $path . '/horde')
         );
         $root->getRoot();
     }

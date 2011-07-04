@@ -78,9 +78,9 @@ class Components_Helper_Root
      *                                   repository based on these options.
      */
     public function __construct(
-        $path = null,
+        $opts = array(),
         Components_Component $comp = null,
-        $opts = array()
+        $path = null
     )
     {
         $this->_path = $path;

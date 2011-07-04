@@ -144,13 +144,18 @@ class Components_Pear_Factory
     /**
      * Create a tree helper for a specific PEAR environment..
      *
-     * @param string $config_file The path to the configuration file.
-     * @param string $root_path   The basic root path for Horde packages.
-     * @param array  $options The application options
+     * @param string               $environment The path to the PEAR environment.
+     * @param array                $options     The application options.
+     * @param Components_Component $component   The component to work with. This
+     *                                          is optional and only used to
+     *                                          determine the root of the
+     *                                          Horde repository.
      *
      * @return Components_Helper_Tree The tree helper.
      */
-    public function createTreeHelper($environment, $root_path, array $options)
+    public function createTreeHelper(
+        $environment, array $options, Components_Component $component = null
+    )
     {
         $instance = $this->_dependencies->createInstance('Components_Pear_Environment');
         $instance->setFactory($this);
@@ -160,25 +165,29 @@ class Components_Pear_Factory
         );
         $instance->setResourceDirectories($options);
         return new Components_Helper_Tree(
-            $this, $instance, new Components_Helper_Root($root_path)
+            $this, $instance, new Components_Helper_Root($options, $component)
         );
     }
 
     /**
-     * Create a tree helper for a specific PEAR environment.
+     * Create a tree helper for the default PEAR environment.
      *
-     * @param string $config_file The path to the configuration file.
-     * @param string $root_path   The basic root path for Horde packages.
-     * @param array  $options The application options
+     * @param array                $options     The application options
+     * @param Components_Component $component   The component to work with. This
+     *                                          is optional and only used to
+     *                                          determine the root of the
+     *                                          Horde repository.
      *
      * @return Components_Helper_Tree The tree helper.
      */
-    public function createSimpleTreeHelper($root_path)
+    public function createSimpleTreeHelper(
+        array $options = array(), Components_Component $component
+    )
     {
         return new Components_Helper_Tree(
             $this,
             $this->_dependencies->createInstance('Components_Pear_Environment'),
-            new Components_Helper_Root($root_path)
+            new Components_Helper_Root($options, $component)
         );
     }
 
