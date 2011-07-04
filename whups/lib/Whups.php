@@ -109,6 +109,17 @@ class Whups
         }
     }
 
+    /**
+     * Sort tickets by requested direction and fields
+     *
+     * @param array $tickets  The array of tickets to sort
+     * @param string $by      The field to sort by. If omitted, obtain from
+     *                        prefs
+     * @param string $dir     The direction to sort. If omitted, obtain from
+     *                        prefs
+     *
+     * @return array  The sorted array of tickets.
+     */
     static public function sortTickets(&$tickets, $by = null, $dir = null)
     {
         if (is_null($by)) {
@@ -121,9 +132,19 @@ class Whups
         self::sortBy($by);
         self::sortDir($dir);
 
+        // Do some prep for sorting.
+        $tickets = array_map(array('Whups', '_prepareSort'), $tickets);
+
         usort($tickets, array('Whups', '_sort'));
     }
 
+    /**
+     * Set or obtain the current sortBy value.
+     *
+     * @param string $b  The field to sort by.
+     *
+     * @return  If $b is null, returns the previously set value, null otherwise.
+     */
     static public function sortBy($b = null)
     {
         static $by;
@@ -135,6 +156,13 @@ class Whups
         }
     }
 
+    /**
+     * Set or obtain the current sortdir value.
+     *
+     * @param string $d  The direction to sort by.
+     *
+     * @return  If $d is null, returns the previously set value, null otherwise.
+     */
     static public function sortDir($d = null)
     {
         static $dir;
@@ -146,6 +174,45 @@ class Whups
         }
     }
 
+    /**
+     * Helper method to prepare an array of tickets for sorting. Adds a sort_by
+     * key to each ticket array, with values lowercased. Used a new key in order
+     * to avoid altering the raw value. Used as a callback to array_map()
+     *
+     * @param array $ticket  The ticket array to prepare.
+     *
+     * @return array  The altered $ticket array
+     */
+    static protected function _prepareSort(array $ticket) {
+        $by = self::sortBy();
+        $ticket['sort_by'] = array();
+        if (is_array($by)) {
+            foreach ($by as $field) {
+                $ticket['sort_by'][$field] = Horde_String::lower($ticket[$field], true, 'UTF-8');
+            }
+        } else {
+            if (is_array($ticket[$by])) {
+                natcasesort($ticket[$by]);
+                $ticket['sort_by'][$by] = implode('', $ticket[$by]);
+            } else {
+                $ticket['sort_by'][$by] = Horde_String::lower($ticket[$by], true, 'UTF-8');
+            }
+        }
+        return $ticket;
+    }
+
+    /**
+     * Helper method to sort an array of tickets. Used as callback to usort().
+     *
+     * @param array $a         The first ticket to compare
+     * @param array $b         The secon ticket to compare
+     * @param string $sortby   The field to sortby. If null, uses the field from
+     *                         self::sortBy()
+     * @param string $sortdir  The direction to sort. If null, uses the value
+     *                         from self::sortDir().
+     *
+     * @return integer
+     */
     static protected function _sort($a, $b, $sortby = null, $sortdir = null)
     {
         static $by, $dir;
@@ -171,9 +238,9 @@ class Whups
 
             if (!count($sortby)) {
                 return 0;
-            } elseif ($a[$sortby[0]] > $b[$sortby[0]]) {
+            } elseif ($a['sort_by'][$sortby[0]] > $b['sort_by'][$sortby[0]]) {
                 return $sortdir[0] ? -1 : 1;
-            } elseif ($a[$sortby[0]] === $b[$sortby[0]]) {
+            } elseif ($a['sort_by'][$sortby[0]] === $b['sort_by'][$sortby[0]]) {
                 array_shift($sortby);
                 array_shift($sortdir);
                 return self::_sort($a, $b, $sortby, $sortdir);
@@ -181,8 +248,8 @@ class Whups
                 return $sortdir[0] ? 1 : -1;
             }
         } else {
-            $a_val = isset($a[$sortby]) ? $a[$sortby] : null;
-            $b_val = isset($b[$sortby]) ? $b[$sortby] : null;
+            $a_val = isset($a['sort_by'][$sortby]) ? $a['sort_by'][$sortby] : null;
+            $b_val = isset($b['sort_by'][$sortby]) ? $b['sort_by'][$sortby] : null;
 
             // Take care of the simplest case first
             if ($a_val === $b_val) {
@@ -198,6 +265,7 @@ class Whups
                     return (int)($a_val > $b_val);
                 }
             } else {
+                // Some special case sorting
                 if (is_array($a_val) || is_array($b_val)) {
                     $a_val = implode('', $a_val);
                     $b_val = implode('', $b_val);
