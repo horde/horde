@@ -172,8 +172,7 @@ class Horde_String
      * @param boolean $locale  If true the string will be converted based on
      *                         a given charset, locale independent else.
      * @param string $charset  If $locale is true, the charset to use when
-     *                         converting. If not provided the current
-     *                         charset.
+     *                         converting.
      *
      * @return string  The string with lowercase characters.
      */
