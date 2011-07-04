@@ -39,6 +39,9 @@ function doResort(column, sortDown)
 <?php
      echo '<thead><tr class="item nowrap leftAlign">';
      foreach ($this->_params['values'] as $name => $value) {
+         if ($value == 'user_id_requester') {
+             $value = 'requester_formatted';
+         }
          if ($sortby == $value) {
              $class = ' class="' . $sortdirclass . '"';
              $revurl = Horde_Util::addParameter($this->_params['url'], 'sortdir', ($sortdir ? 0 : 1));
