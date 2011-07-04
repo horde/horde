@@ -30,6 +30,21 @@
 class Components_TestCase
 extends PHPUnit_Framework_TestCase
 {
+    protected function getComponent(
+        $directory, $arguments = array(), $options = array()
+    )
+    {
+        $dependencies = new Components_Dependencies_Injector();
+        $config = new Components_Stub_Config($arguments, $options);
+        $dependencies->initConfig($config);
+        $factory = new Components_Pear_Factory(
+            $dependencies
+        );
+        return new Components_Component_Source(
+            $directory, false, $config, $factory
+        );
+    }
+
     protected function getReleaseTask($name, $package)
     {
         $dependencies = new Components_Dependencies_Injector();
@@ -126,4 +141,16 @@ extends PHPUnit_Framework_TestCase
         $GLOBALS['_PEAR_ERRORSTACK_OVERRIDE_CALLBACK'] = array();
     }
 
+    protected function changeDirectory($path)
+    {
+        $this->cwd = getcwd();
+        chdir($path);
+    }
+
+    public function tearDown()
+    {
+        if (!empty($this->cwd)) {
+            chdir($this->cwd);
+        }
+    }
 }
