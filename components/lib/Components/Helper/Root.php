@@ -37,40 +37,55 @@ class Components_Helper_Root
     private $_root_path;
 
     /**
-     * Relative position of the path that has been used to determine the root position.
+     * Path used to determine the root of the Horde repository.
      *
      * @var string
      */
-    private $_base = '';
+    private $_path;
+
+    /**
+     * Component used to determine the root of the Horde repository.
+     *
+     * @var Components_Component
+     */
+    private $_component;
+
+    /**
+     * Options used to determine the root of the Horde repository.
+     *
+     * @var array
+     */
+    private $_options;
+
+    /**
+     * Errors that occured while trying to determine the root path.
+     *
+     * @var array
+     */
+    private $_errors = array();
 
     /**
      * Constructor.
      *
-     * @param string $path The helper will try to determine the root of the
-     * Horde repository based on this path.
+     * @param string               $path If given the helper will try to
+     *                                   determine the root of the Horde
+     *                                   repository based on this path.
+     * @param Components_Component $comp If given the helper will try to
+     *                                   determine the root of the Horde
+     *                                   repository based on this component.
+     * @param array                $opts If given the helper will try to
+     *                                   determine the root of the Horde
+     *                                   repository based on these options.
      */
-    public function __construct($path)
+    public function __construct(
+        $path = null,
+        Components_Component $comp = null,
+        $opts = array()
+    )
     {
-        $i = 0;
-        $root = 0;
-        $current = $path;
-        while ($current != '/' || $i < 10) {
-            if (is_dir($current)) {
-                $objects = scandir($current);
-                if (in_array('framework', $objects)
-                    && in_array('horde', $objects)
-                    && in_array('.gitignore', $objects)) {
-                    $this->_root_path = $current;
-                    break;
-                }
-            }
-            $this->_base = basename($current) . DIRECTORY_SEPARATOR . $this->_base;
-            $current = dirname($current);
-            $i++;
-        }
-        if ($i >= 10) {
-            throw new Components_Exception(sprintf('Unable to determine Horde root from path %s!', $path));
-        }
+        $this->_path = $path;
+        $this->_component = $comp;
+        $this->_options   = $opts;
     }
 
     /**
@@ -80,18 +95,21 @@ class Components_Helper_Root
      * @param string $name The name of the package.
      *
      * @return string The path to the package.xml of the requested package.
+     *
+     * @throws Components_Exception If the Horde repository root could not be
+     *                              determined.
      */
     public function getPackageXml($name)
     {
-        $package_file = $this->_root_path . DIRECTORY_SEPARATOR
+        $package_file = $this->getRoot() . DIRECTORY_SEPARATOR
             . $name . DIRECTORY_SEPARATOR . 'package.xml';
         if (!file_exists($package_file)) {
-            $package_file = $this->_root_path . DIRECTORY_SEPARATOR
+            $package_file = $this->getRoot() . DIRECTORY_SEPARATOR
                 . 'framework' . DIRECTORY_SEPARATOR . $name
                 . DIRECTORY_SEPARATOR . 'package.xml';
         }
         if (!file_exists($package_file) && substr($name, 0, 6) == 'Horde_') {
-            $package_file = $this->_root_path . DIRECTORY_SEPARATOR
+            $package_file = $this->getRoot() . DIRECTORY_SEPARATOR
                 . 'framework' . DIRECTORY_SEPARATOR . substr($name, 6)
                 . DIRECTORY_SEPARATOR . 'package.xml';
         }
@@ -105,19 +123,189 @@ class Components_Helper_Root
      * Return the contents of the gitignore file.
      *
      * @return string The information from the gitignore file.
+     *
+     * @throws Components_Exception If the Horde repository root could not be
+     *                              determined.
      */
     public function getGitIgnore()
     {
-        return file_get_contents($this->_root_path . DIRECTORY_SEPARATOR . '.gitignore');
+        return file_get_contents($this->getRoot() . DIRECTORY_SEPARATOR . '.gitignore');
     }
 
     /**
      * Return the root position of the repository.
      *
      * @return string The root path.
+     *
+     * @throws Components_Exception If the Horde repository root could not be
+     *                              determined.
      */
     public function getRoot()
     {
+        if (empty($this->_root_path)) {
+            $this->_root_path = $this->_determineRoot();
+        }
         return $this->_root_path;
+    }
+
+    /**
+     * Try to determine the root path.
+     *
+     * @return string The root path.
+     *
+     * @throws Components_Exception If the Horde repository root could not be
+     *                              determined.
+     */
+    private function _determineRoot()
+    {
+        if (($result = $this->_determineRootFromOptions()) !== false) {
+            return $result;
+        }
+        if (($result = $this->_determineRootFromComponent()) !== false) {
+            return $result;
+        }
+        if (($result = $this->_determineRootFromPath()) !== false) {
+            return $result;
+        }
+        if (($result = $this->_determineRootFromCwd()) !== false) {
+            return $result;
+        }
+        throw new Components_Exception(
+            sprintf(
+                'Unable to determine Horde root (%s)',
+                join(', ', $this->_errors)
+            )
+        );
+    }
+
+    /**
+     * Try to determine the root path based on a fixed path.
+     *
+     * @return string|boolean The root path or false if it could not be
+     *                        determined.
+     */
+    private function _determineRootFromPath()
+    {
+        if (!empty($this->_path)) {
+            if (($result = $this->_traverseHierarchy($this->_path)) === false) {
+                $this->_errors[] = sprintf(
+                    'Unable to determine Horde repository root from path "%s"!',
+                    $this->_path
+                );
+            }
+            return $result;
+        }
+        return false;
+    }
+
+    /**
+     * Try to determine the root path based on a component.
+     *
+     * @return string|boolean The root path or false if it could not be
+     *                        determined.
+     */
+    private function _determineRootFromComponent()
+    {
+        if (!empty($this->_component)) {
+            try {
+                $this->_component->requireLocal();
+            } catch (Components_Exception $e) {
+                $this->_errors[] = sprintf(
+                    'Component %s is not local!',
+                    $this->_component->getName()
+                );
+                return false;
+            }
+            if (($result = $this->_traverseHierarchy($this->_component->getPath())) === false) {
+                $this->_errors[] = sprintf(
+                    'Unable to determine Horde repository root from component path "%s"!',
+                    $this->_component->getPath()
+                );
+            }
+            return $result;
+        }
+        return false;
+    }
+
+    /**
+     * Try to determine the root path based on the options.
+     *
+     * @return string|boolean The root path or false if it could not be
+     *                        determined.
+     */
+    private function _determineRootFromOptions()
+    {
+        if (isset($this->_options['horde_root'])) {
+            if ($this->_isValidRoot($this->_options['horde_root'])) {
+                return $this->_options['horde_root'];
+            }
+            $this->_errors[] = sprintf(
+                'The path "%s" does not seem to represent the root of the Horde repository!',
+                $this->_options['horde_root']
+            );
+        }
+        return false;
+    }
+
+    /**
+     * Try to determine the root path based on the current working directory.
+     *
+     * @return string|boolean The root path or false if it could not be
+     *                        determined.
+     */
+    private function _determineRootFromCwd()
+    {
+        if (($result = $this->_traverseHierarchy(getcwd())) === false) {
+            $this->_errors[] = sprintf(
+                'Unable to determine Horde repository root from the current working directory "%s"!',
+                getcwd()
+            );
+            return false;
+        }
+        return $result;
+    }
+
+    /**
+     * Traverse the folder tree upwards to determine if a parent folder of the
+     * provided file path might be the Horde repository root.
+     *
+     * @param string $start Path to the file to start from.
+     *
+     * @return string|boolean The root path or false if it could not be
+     *                        determined.
+     */
+    private function _traverseHierarchy($start)
+    {
+        $i = 0;
+        $origin = $start;
+        while ($start != '/' || $i < 10) {
+            if ($this->_isValidRoot($start) !== false) {
+                return $start;
+            }
+            $start = dirname($start);
+            $i++;
+        }
+        return false;
+    }
+
+    /**
+     * Test if the directory path could be the Horde repository root.
+     *
+     * @param string $directory Path to the directory to test.
+     *
+     * @return string|boolean The root path or false if it could not be
+     *                        determined.
+     */
+    private function _isValidRoot($directory)
+    {
+        if (is_dir($directory)) {
+            $objects = scandir($directory);
+            if (in_array('framework', $objects)
+                && in_array('horde', $objects)
+                && in_array('.gitignore', $objects)) {
+                return $directory;
+            }
+        }
+        return false;
     }
 }
