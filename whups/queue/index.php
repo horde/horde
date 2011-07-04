@@ -46,16 +46,19 @@ $criteria = array('queue' => $id,
 
 try {
     $tickets = $whups_driver->getTicketsByProperties($criteria);
+    Whups::sortTickets($tickets);
+    $values = Whups::getSearchResultColumns();
+    $self = Whups::urlFor('queue', $queue);
+    $results = new Whups_View_Results(array('title' => sprintf(_("Open tickets in %s"), $queue['name']),
+                                            'results' => $tickets,
+                                            'values' => $values,
+                                            'url' => $self));
+    $session->set('whups', 'last_search', $self);
+    $results->html();
 } catch (Whups_Exception $e) {
-    $notification->push(sprintf(_("There was an error locating tickets in this queue: "), $e->getMessage()), 'horde.error');
+    $notification->push(
+        sprintf(_("There was an error locating tickets in this queue: %s"), $e->getMessage()),
+        'horde.error');
 }
-Whups::sortTickets($tickets);
-$values = Whups::getSearchResultColumns();
-$self = Whups::urlFor('queue', $queue);
-$results = new Whups_View_Results(array('title' => sprintf(_("Open tickets in %s"), $queue['name']),
-                                        'results' => $tickets,
-                                        'values' => $values,
-                                        'url' => $self));
-$session->set('whups', 'last_search', $self);
-$results->html();
+
 require $registry->get('templates', 'horde') . '/common-footer.inc';
