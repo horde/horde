@@ -32,7 +32,7 @@ class Components_Helper_InstallationRun
     /**
      * The environment we establish the tree for.
      *
-     * @var Components_Pear_InstallLocation
+     * @var Components_Pear_Environment
      */
     private $_environment;
 
@@ -74,14 +74,14 @@ class Components_Helper_InstallationRun
     /**
      * Constructor.
      *
-     * @param Components_Pear_InstallLocation $environment The environment we
+     * @param Components_Pear_Environment $environment The environment we
      *                                                     establish the tree for.
      * @param Components_Helper_Tree          $tree        The tree for this run.
      * @param Component_Output                $output      The output handler.
      * @param array                           $options     Options for this installation.
      */
     public function __construct(
-        Components_Pear_InstallLocation $environment,
+        Components_Pear_Environment $environment,
         Components_Helper_Tree $tree,
         Components_Output $output,
         array $options

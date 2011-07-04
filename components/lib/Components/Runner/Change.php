@@ -82,7 +82,7 @@ class Components_Runner_Change
                 $package_xml
             );
         } else {
-            $package = $this->_factory->createPackageForInstallLocation(
+            $package = $this->_factory->createPackageForPearConfig(
                 $package_xml,
                 $options['pearrc']
             );

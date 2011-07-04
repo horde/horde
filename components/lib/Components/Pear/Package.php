@@ -37,7 +37,7 @@ class Components_Pear_Package
     /**
      * The PEAR environment for the package.
      *
-     * @param Components_Pear_InstallLocation
+     * @param Components_Pear_Environment
      */
     private $_environment;
 
@@ -82,11 +82,11 @@ class Components_Pear_Package
     /**
      * Define the surrounding PEAR environment for the package.
      *
-     * @param Components_Pear_InstallLocation
+     * @param Components_Pear_Environment
      *
      * @return NULL
      */
-    public function setEnvironment(Components_Pear_InstallLocation $environment)
+    public function setEnvironment(Components_Pear_Environment $environment)
     {
         $this->_environment = $environment;
     }
@@ -106,7 +106,7 @@ class Components_Pear_Package
     /**
      * Return the PEAR environment for this package.
      *
-     * @return Components_Pear_InstallLocation
+     * @return Components_Pear_Environment
      */
     public function getEnvironment()
     {

@@ -1,7 +1,6 @@
 <?php
 /**
- * Components_Pear_InstallLocation:: handles a specific PEAR installation
- * location / configuration.
+ * Components_Pear_Environment:: handles a specific PEAR environment.
  *
  * PHP version 5
  *
@@ -13,8 +12,7 @@
  */
 
 /**
- * Components_Pear_InstallLocation:: handles a specific PEAR installation
- * location / configuration.
+ * Components_Pear_Environment:: handles a specific PEAR environment.
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
@@ -27,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Components
  */
-class Components_Pear_InstallLocation
+class Components_Pear_Environment
 {
     /**
      * The output handler.
@@ -111,7 +109,7 @@ class Components_Pear_InstallLocation
                 )
             );
         }
-        $this->_config_file = $base_directory . DIRECTORY_SEPARATOR . $config_file;
+        $this->_config_file = $config_file;
     }
 
     /**
@@ -549,7 +547,7 @@ class Components_Pear_InstallLocation
         if ($local = $this->_identifyMatchingLocalPackage($dependency->name())) {
             $this->_checkSetup();
             return $this->_factory
-                ->createTgzPackageForInstallLocation($local, $this)
+                ->createTgzPackageForEnvironment($local, $this)
                 ->getDependencyHelper();
         }
         return false;

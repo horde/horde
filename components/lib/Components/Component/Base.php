@@ -77,7 +77,7 @@ abstract class Components_Component_Base implements Components_Component
     {
         $options = $this->_config->getOptions();
         if (isset($options['pearrc'])) {
-            return $this->_factory->createPackageForInstallLocation(
+            return $this->_factory->createPackageForPearConfig(
                 $this->getPackageXml(), $options['pearrc']
             );
         } else {

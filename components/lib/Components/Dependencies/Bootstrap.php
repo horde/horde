@@ -91,7 +91,7 @@ implements Components_Dependencies
     public function createInstance($interface)
     {
         switch ($interface) {
-        case 'Components_Pear_InstallLocation':
+        case 'Components_Pear_Environment':
             return new $interface($this->getInstance('Components_Output'));
         case 'Components_Pear_Package':
             return new $interface($this->getInstance('Components_Output'));

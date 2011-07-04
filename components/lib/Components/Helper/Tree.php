@@ -37,7 +37,7 @@ class Components_Helper_Tree
     /**
      * The environment we establish the tree for.
      *
-     * @var Components_Pear_InstallLocation
+     * @var Components_Pear_Environment
      */
     private $_environment;
 
@@ -53,14 +53,14 @@ class Components_Helper_Tree
      *
      * @param Components_Pear_Factory         $factory     The factory for PEAR
      *                                                     dependencies.
-     * @param Components_Pear_InstallLocation $environment The PEAR environment.
+     * @param Components_Pear_Environment $environment The PEAR environment.
      * @param Components_Helper_Root          $root        The root handler for
      *                                                     Horde packages.
      *
      */
     public function __construct(
         Components_Pear_Factory $factory,
-        Components_Pear_InstallLocation $environment,
+        Components_Pear_Environment $environment,
         Components_Helper_Root $root
     ) {
         $this->_factory = $factory;
@@ -142,7 +142,7 @@ class Components_Helper_Tree
     /**
      * Return the environment for this tree.
      *
-     * @return Components_Pear_InstallLocation The installation environment.
+     * @return Components_Pear_Environment The installation environment.
      */
     public function getEnvironment()
     {

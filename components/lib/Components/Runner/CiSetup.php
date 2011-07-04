@@ -103,7 +103,7 @@ class Components_Runner_CiSetup
                 'sourcepath' => $origin,
                 'sourcejob' => 'horde',
                 'toolsdir' => $options['toolsdir'],
-                'description' => $this->_factory->createPackageForInstallLocation(
+                'description' => $this->_factory->createPackageForPearConfig(
                     $this->_config->getComponent()->getPackageXml(),
                     $options['pearrc']
                 )->getDescription()

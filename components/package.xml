@@ -117,7 +117,7 @@
       <file name="Dependencies.php" role="php" />
       <file name="Dependency.php" role="php" />
       <file name="Factory.php" role="php" />
-      <file name="InstallLocation.php" role="php" />
+      <file name="Environment.php" role="php" />
       <file name="Package.php" role="php" />
      </dir> <!-- /lib/Components/Pear -->
      <dir name="Release">
@@ -483,7 +483,7 @@
    <install as="Components/Pear/Dependencies.php" name="lib/Components/Pear/Dependencies.php" />
    <install as="Components/Pear/Dependency.php" name="lib/Components/Pear/Dependency.php" />
    <install as="Components/Pear/Factory.php" name="lib/Components/Pear/Factory.php" />
-   <install as="Components/Pear/InstallLocation.php" name="lib/Components/Pear/InstallLocation.php" />
+   <install as="Components/Pear/Environment.php" name="lib/Components/Pear/Environment.php" />
    <install as="Components/Pear/Package.php" name="lib/Components/Pear/Package.php" />
    <install as="Components/Release/Notes.php" name="lib/Components/Release/Notes.php" />
    <install as="Components/Release/Tasks.php" name="lib/Components/Release/Tasks.php" />
