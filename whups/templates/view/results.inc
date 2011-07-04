@@ -14,7 +14,15 @@ function doResort(column, sortDown)
 {
     baseurl = '<?php echo addslashes(html_entity_decode($GLOBALS['session']->get('whups', 'last_search'))) ?>';
     try {
-        new Ajax.Request(baseurl, { parameters: { 'sortby': encodeURIComponent(column), sortdir: encodeURIComponent(sortDown) } });
+        new Ajax.Request(
+            baseurl,
+            {
+                parameters: {
+                    'sortby': encodeURIComponent(column),
+                    'sortdir': encodeURIComponent(sortDown),
+                    'isajax': true
+                }
+            });
     } catch (e) {}
 }
 </script>

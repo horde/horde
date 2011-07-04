@@ -36,6 +36,9 @@ if (Horde_Util::getFormData('sortby') !== null) {
 if (Horde_Util::getFormData('sortdir') !== null) {
     $prefs->setValue('sortdir', Horde_Util::getFormData('sortdir'));
 }
+if (Horde_Util::getFormData('isajax') !== null) {
+    exit;
+}
 
 $title = sprintf(_("Open tickets in %s"), $queue['name']);
 require $registry->get('templates', 'horde') . '/common-header.inc';
