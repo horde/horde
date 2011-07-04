@@ -30,16 +30,31 @@
 class Components_Module_Snapshot
 extends Components_Module_Base
 {
+    /**
+     * Return the title for the option group representing this module.
+     *
+     * @return string The group title.
+     */
     public function getOptionGroupTitle()
     {
         return 'Package snapshot';
     }
 
+    /**
+     * Return the description for the option group representing this module.
+     *
+     * @return string The group description.
+     */
     public function getOptionGroupDescription()
     {
         return 'This module generates a development snapshot for the specified package';
     }
 
+    /**
+     * Return the options for this module.
+     *
+     * @return array The group options.
+     */
     public function getOptionGroupOptions()
     {
         return array(
