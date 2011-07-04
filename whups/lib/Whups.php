@@ -198,11 +198,16 @@ class Whups
                     return (int)($a_val > $b_val);
                 }
             } else {
+                if (is_array($a_val) || is_array($b_val)) {
+                    $a_val = implode('', $a_val);
+                    $b_val = implode('', $b_val);
+                }
+
                 // String comparison
                 if ($sortdir) {
-                    return strcoll($b[$sortby], $a[$sortby]);
+                    return strcoll($b_val, $a_val);
                 } else {
-                    return strcoll($a[$sortby], $b[$sortby]);
+                    return strcoll($a_val, $b_val);
                 }
             }
         }
