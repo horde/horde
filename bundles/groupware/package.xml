@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-14</date>
- <time>21:00:36</time>
+ <date>2011-07-05</date>
+ <time>18:14:13</time>
  <version>
   <release>4.0.1</release>
   <api>4.0.0</api>
@@ -168,12 +168,13 @@
     <release>4.0.1</release>
     <api>4.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-06-14</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
-* 
+* [jan] Update Horde, Turba, Kronolith, and Nag.
+* [jan] Set release level to stable.
    </notes>
   </release>
  </changelog>
