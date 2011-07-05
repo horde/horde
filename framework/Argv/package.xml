@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-07-05</date>
- <time>13:16:16</time>
+ <time>13:16:35</time>
  <version>
-  <release>1.0.3</release>
+  <release>1.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [jan] Update Lithuanian translation.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -653,6 +653,19 @@
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * [jan] Update Lithuanian translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
