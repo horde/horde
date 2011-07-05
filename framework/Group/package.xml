@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-07-05</date>
- <time>14:38:40</time>
+ <time>14:39:03</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Add support for the attrisdn configuration setting (Bug #9762).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -298,6 +298,19 @@ Initial release as a PEAR package
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Add support for the attrisdn configuration setting (Bug #9762).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
