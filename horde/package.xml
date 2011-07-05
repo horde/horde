@@ -2073,7 +2073,7 @@
     <file name="barcode.php" role="horde" />
     <file name="icon_browser.php" role="horde" />
    </dir> <!-- /util -->
-   <file name=".htaccess" role="data" />
+   <file name=".htaccess" role="horde" />
    <file name="COPYING" role="doc" />
    <file name="index.php" role="horde" />
    <file name="login.php" role="horde" />
