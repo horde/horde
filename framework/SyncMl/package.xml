@@ -11,8 +11,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-25</date>
- <time>16:17:09</time>
+ <date>2011-07-05</date>
+ <time>14:56:41</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -23,6 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Update Lithuanian translation.
 * [jan] Fix duplication of objects during synchronization (joniw@t-online.de, Bug #10081).
  </notes>
  <contents>
@@ -1135,9 +1136,10 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-25</date>
+   <date>2011-07-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Update Lithuanian translation.
 * [jan] Fix duplication of objects during synchronization (joniw@t-online.de, Bug #10081).
    </notes>
   </release>
