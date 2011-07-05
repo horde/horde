@@ -135,7 +135,7 @@ abstract class Horde_Auth_Base
      *
      */
     protected function _sort($users, $sort) {
-        
+
         if ($sort) {
             sort($users);
         }
