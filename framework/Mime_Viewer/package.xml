@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-07-05</date>
- <time>14:45:26</time>
+ <time>14:45:50</time>
  <version>
-  <release>1.0.4</release>
+  <release>1.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,9 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Update Lithuanian translation.
-* [jan] Update Brazilian Portuguese translation.
-* [gwr] Support restricting the HTML tidy post processing by the message size (Request #10266).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -774,6 +772,19 @@
 * [jan] Update Lithuanian translation.
 * [jan] Update Brazilian Portuguese translation.
 * [gwr] Support restricting the HTML tidy post processing by the message size (Request #10266).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
