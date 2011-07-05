@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-01</date>
- <time>15:38:52</time>
+ <date>2011-07-05</date>
+ <time>14:45:26</time>
  <version>
   <release>1.0.4</release>
   <api>1.0.0</api>
@@ -22,6 +22,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Update Lithuanian translation.
+* [jan] Update Brazilian Portuguese translation.
 * [gwr] Support restricting the HTML tidy post processing by the message size (Request #10266).
  </notes>
  <contents>
@@ -766,9 +768,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-01</date>
+   <date>2011-07-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Update Lithuanian translation.
+* [jan] Update Brazilian Portuguese translation.
 * [gwr] Support restricting the HTML tidy post processing by the message size (Request #10266).
    </notes>
   </release>
