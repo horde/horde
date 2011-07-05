@@ -11,8 +11,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-01</date>
- <time>15:40:04</time>
+ <date>2011-07-05</date>
+ <time>14:41:41</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -23,7 +23,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Update Lithuanian translation.
+* [jan] Update Brazilian Portuguese translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -634,10 +635,11 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-01</date>
+   <date>2011-07-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Update Lithuanian translation.
+* [jan] Update Brazilian Portuguese translation.
    </notes>
   </release>
  </changelog>
