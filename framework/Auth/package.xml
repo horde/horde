@@ -35,7 +35,6 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
-* [rla] implemented optional sorting in auth drivers
 * [mms] Fix addUser() for Cyrsql driver (vilius@lnk.lt, Bug #10239).
  </notes>
  <contents>
@@ -428,8 +427,7 @@
    <date>2011-06-14</date>
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
-* [rla] implemented optional sorting in auth drivers
-* [mms] Fix addUser() for Cyrsql driver (vilius@lnk.lt, Bug #10239).
+* Fixed addUser() for Cyrsql driver (Bug #10239; vilius@lnk.lt).
    </notes>
   </release>
  </changelog>
