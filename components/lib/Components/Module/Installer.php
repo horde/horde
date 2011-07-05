@@ -62,8 +62,8 @@ extends Components_Module_Base
                 '-i',
                 '--install',
                 array(
-                    'action' => 'store',
-                    'help'   => 'Install the element into the PEAR environment represented by this PEAR configuration file'
+                    'action' => 'store_true',
+                    'help'   => 'Install the selected element into the PEAR environment indicated with the --destination option.'
                 )
             ),
             new Horde_Argv_Option(
@@ -115,9 +115,60 @@ extends Components_Module_Base
                 '--horde-dir',
                 array(
                     'action' => 'store',
-                    'help'   => 'The location of the horde installation directory. The default will be the INSTALL/horde directory',
+                    'help'   => 'The location of the horde installation directory. The default will be the DESTINATION/horde directory',
                 )
             ),
+        );
+    }
+
+    /**
+     * Get the usage description for this module.
+     *
+     * @return string The description.
+     */
+    public function getUsage()
+    {
+        return '  install     - Install a component.
+';
+    }
+
+    /**
+     * Return the action arguments supported by this module.
+     *
+     * @return array A list of supported action arguments.
+     */
+    public function getActions()
+    {
+        return array('install');
+    }
+
+    /**
+     * Return the help text for the specified action.
+     *
+     * @param string $action The action.
+     *
+     * @return string The help text.
+     */
+    public function getHelp($action)
+    {
+        return 'This module installs the selected component (including its dependencies) into a target environment.';
+    }
+
+    /**
+     * Return the options that should be explained in the context help.
+     *
+     * @return array A list of option help texts.
+     */
+    public function getContextOptionHelp()
+    {
+        return array(
+            '--destination' => 'The path to the target for the installation.',
+            '--sourcepath' => '',
+            '--channelxmlpath' => '',
+            '--exclude' => '',
+            '--include' => '',
+            '--horde-dir' => '',
+            '--symlink' => '',
         );
     }
 
@@ -132,7 +183,9 @@ extends Components_Module_Base
     public function handle(Components_Config $config)
     {
         $options = $config->getOptions();
-        if (!empty($options['install'])) {
+        $arguments = $config->getArguments();
+        if (!empty($options['install'])
+            || (isset($arguments[0]) && $arguments[0] == 'install')) {
             $config->getComponent()->requirePackageXml();
             $this->_dependencies->getRunnerInstaller()->run();
             return true;
