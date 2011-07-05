@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-07-05</date>
- <time>17:33:40</time>
+ <time>17:34:53</time>
  <version>
-  <release>3.0.4</release>
+  <release>3.0.5</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -40,8 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [jan] Pass contact object to decode_attribute hook (kd@tu-cottbus.de, Bug #10287).
-* [jan] Complete fix for importing LDIF files (Bug #10139).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1220,6 +1219,19 @@
    <notes>
 * [jan] Pass contact object to decode_attribute hook (kd@tu-cottbus.de, Bug #10287).
 * [jan] Complete fix for importing LDIF files (Bug #10139).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.5</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
