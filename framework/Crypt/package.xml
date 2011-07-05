@@ -28,7 +28,9 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Use strongest cipher possible when encrypting S/MIME data (Request #10246).
+* [jan] Update Lithuanian translation.
+* [jan] Update Brazilian Portuguese translation.
+* [mms] Use strongest cipher possible when encrypting S/MIME data (Request #10246).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
