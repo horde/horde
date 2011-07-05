@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-07-05</date>
- <time>18:14:13</time>
+ <time>18:14:57</time>
  <version>
-  <release>4.0.1</release>
+  <release>4.0.2</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* [jan] Update Horde, Turba, Kronolith, and Nag.
-* [jan] Set release level to stable.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -175,6 +174,19 @@
    <notes>
 * [jan] Update Horde, Turba, Kronolith, and Nag.
 * [jan] Set release level to stable.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
