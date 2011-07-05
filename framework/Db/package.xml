@@ -23,8 +23,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-20</date>
- <time>11:22:37</time>
+ <date>2011-07-05</date>
+ <time>14:35:58</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -437,7 +437,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-20</date>
+   <date>2011-07-05</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * [jan] Convert host parameter from "localhost" to "127.0.0.1" in MySQL drivers (Request #9738).
