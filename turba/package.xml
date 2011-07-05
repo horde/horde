@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-01</date>
- <time>21:37:31</time>
+ <date>2011-07-05</date>
+ <time>17:33:40</time>
  <version>
   <release>3.0.4</release>
   <api>3.0.0</api>
@@ -1215,7 +1215,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-01</date>
+   <date>2011-07-05</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [jan] Pass contact object to decode_attribute hook (kd@tu-cottbus.de, Bug #10287).
