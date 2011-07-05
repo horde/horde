@@ -205,7 +205,7 @@ class IMP_Hooks
 //            /* List of words to search for. */
 //            $word_list = array(
 //                'attachment', 'attached'
-//            )
+//            );
 //
 //            if (preg_match('/\b(' . implode('|', array_map('preg_quote', $word_list)) . ')\b/i', $message->getContents(), $matches)) {
 //                // Set flag in the session to indicate we should not check
