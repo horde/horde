@@ -117,7 +117,7 @@ extends Horde_Pear_TestCase
         if (!class_exists('Horde_Http_Client')) {
             $this->markTestSkipped('Horde_Http is missing!');
         }
-        $string = '';
+        $string = 'b:1;';
         $body = new Horde_Support_StringStream($string);
         $response = new Horde_Http_Response_Mock('', $body->fopen());
         $response->code = 200;

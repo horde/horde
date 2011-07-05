@@ -159,7 +159,7 @@ class Horde_Pear_Rest
      */
     public function fetchPackageDependencies($package, $version)
     {
-        return $this->_get(
+        return $this->_read(
             $this->_url . '/rest/r/' . strtolower($package) . '/deps.' . $version . '.txt'
         );
     }

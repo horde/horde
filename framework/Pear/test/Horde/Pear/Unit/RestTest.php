@@ -113,10 +113,9 @@ extends Horde_Pear_TestCase
     public function testPackageDependenciesResponse()
     {
         $response = $this->_getRest()->fetchPackageDependencies('TEST', '1');
-        rewind($response);
         $this->assertEquals(
             'RESPONSE',
-            stream_get_contents($response)
+            $response
         );
     }
 

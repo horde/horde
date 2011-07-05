@@ -171,10 +171,9 @@ extends Horde_Pear_TestCase
     public function testPackageDependencies()
     {
         $response = $this->_getRest()->fetchPackageDependencies('Horde_Translation', '1.0.0');
-        rewind($response);
         $this->assertContains(
             'Horde_Exception',
-            stream_get_contents($response)
+            $response
         );
     }
 
