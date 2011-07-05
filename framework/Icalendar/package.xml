@@ -18,8 +18,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:11:39</time>
+ <date>2011-07-05</date>
+ <time>14:39:08</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -743,7 +743,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-07-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Speed up exporting of objects with binary content (Bug #9405).
