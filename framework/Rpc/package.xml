@@ -625,7 +625,9 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2011-07-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Update Lithuanian translation.
+* [jan] Update Brazilian Portuguese translation.
+* [jan] Update Spanish translation.
    </notes>
   </release>
   <release>
