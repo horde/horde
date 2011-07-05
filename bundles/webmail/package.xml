@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* 
+* [jan] Update Horde, IMP, Ingo, Turba, Kronolith, and Nag.
+* [jan] Set release level to stable.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
