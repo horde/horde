@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Turba 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-18 12:23+0200\n"
+"POT-Creation-Date: 2011-07-05 15:39+0200\n"
 "PO-Revision-Date: 2011-04-05 13:55+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -81,7 +81,7 @@ msgstr "%s bis %s von %s"
 msgid "<< Merge this into the first contact"
 msgstr "<< Diesen Kontakt in den ersten einfügen"
 
-#: lib/Block/Minisearch.php:34
+#: lib/Block/Minisearch.php:59
 msgid "A browser that supports iframes is required"
 msgstr "Ein Browser, der Iframes unterstützt, wird benötigt"
 
@@ -113,7 +113,7 @@ msgstr[1] ""
 "%d Kontakte hinzugefügt oder aktualisiert, aber mindestens ein Kontakt ist "
 "fehlgeschlagen:"
 
-#: lib/Driver.php:2721
+#: lib/Driver.php:2731
 msgid "Adding contacts is not available."
 msgstr "Hinzufügen von Kontakten nicht unterstützt."
 
@@ -129,11 +129,11 @@ msgstr "Adressbuchübersicht"
 msgid "Address Book Listing"
 msgstr "Adressbuchliste"
 
-#: config/prefs.php:13
+#: config/prefs.php:13 lib/Block/Minisearch.php:39
 msgid "Address Books"
 msgstr "Adressbücher"
 
-#: lib/Turba.php:597
+#: lib/Turba.php:623
 #, php-format
 msgid "Address book of %s"
 msgstr "Adressbuch von %s"
@@ -170,12 +170,12 @@ msgstr "Jahrestage"
 msgid "Anniversary"
 msgstr "Jahrestag"
 
-#: lib/Turba.php:643
+#: lib/Turba.php:669
 #, php-format
 msgid "Are you sure that you want to delete %s?"
 msgstr "Sind Sie sicher, dass Sie %s löschen möchten?"
 
-#: lib/Turba.php:648
+#: lib/Turba.php:674
 msgid "Are you sure that you want to delete the selected contacts?"
 msgstr "Sind Sie sicher, dass Sie die ausgewählten Kontakte löschen möchten?"
 
@@ -277,7 +277,7 @@ msgstr ""
 "die Spalten mit der Maus, um die Reihenfolge zu ändern. Markieren Sie eine "
 "Spalte, um sie einzublenden."
 
-#: templates/block/minisearch.inc:20
+#: templates/block/minisearch.inc:21
 msgid "Close"
 msgstr "Schließen"
 
@@ -333,7 +333,7 @@ msgstr "Straße allgemein"
 msgid "Common Video Call"
 msgstr "Bildtelefon allgemein"
 
-#: config/backends.php:318
+#: config/backends.php:324
 msgid "Communications"
 msgstr "Kommunikation"
 
@@ -349,7 +349,7 @@ msgstr "Firmenadresse"
 msgid "Connection failure"
 msgstr "Verbindung fehlgeschlagen"
 
-#: lib/Block/Minisearch.php:13
+#: lib/Block/Minisearch.php:18
 msgid "Contact Search"
 msgstr "Kontaktsuche"
 
@@ -410,12 +410,12 @@ msgstr "%s löschen"
 msgid "Delete denied."
 msgstr "Löschen nicht erlaubt."
 
-#: lib/Driver/Ldap.php:326
+#: lib/Driver/Ldap.php:327
 #, php-format
 msgid "Delete failed: (%s) %s"
 msgstr "Löschen fehlgeschlagen: (%s) %s"
 
-#: lib/Driver.php:2734
+#: lib/Driver.php:2744
 msgid "Deleting contacts is not available."
 msgstr "Löschen von Kontakten nicht unterstützt."
 
@@ -538,7 +538,7 @@ msgstr "Nur die ausgewählten Kontakte exportieren."
 msgid "Export the following address book completely."
 msgstr "Das folgende Adressbuch komplett exportieren."
 
-#: config/backends.php:629
+#: config/backends.php:635
 msgid "Facebook Friends"
 msgstr "Facebook-Freunde"
 
@@ -551,7 +551,7 @@ msgstr "%s konnte nicht zu %s hinzugefügt werden: %s"
 msgid "Failed to browse list"
 msgstr "Die Liste konnte nicht angezeigt werden"
 
-#: lib/Driver/Ldap.php:367
+#: lib/Driver/Ldap.php:368
 #, php-format
 msgid "Failed to change name: (%s) %s; Old DN = %s, New DN = %s, Root = %s"
 msgstr ""
@@ -573,7 +573,7 @@ msgstr "Das Adressbuch konnte nicht durchsucht werden"
 msgid "Failed to search the directory: %s"
 msgstr "Das Verzeichnis %s konnte nicht durchsucht werden."
 
-#: config/backends.php:598
+#: config/backends.php:604
 msgid "Favourite Recipients"
 msgstr "Häufigste Empfänger"
 
@@ -589,7 +589,9 @@ msgstr "Dateien"
 msgid "Find"
 msgstr "Durchsuchen von "
 
-#: lib/Form/EditContactGroup.php:30 lib/Form/EditContactGroup.php:64
+#: lib/Form/EditContactGroup.php:21 lib/Form/EditContactGroup.php:25
+#: lib/Form/EditContactGroup.php:29 lib/Form/EditContactGroup.php:34
+#: lib/Form/EditContactGroup.php:69
 msgid "Finish"
 msgstr "Beenden"
 
@@ -677,7 +679,7 @@ msgstr "Bildtelefon privat"
 msgid "Home Website URL"
 msgstr "Website-URL privat"
 
-#: config/backends.php:753
+#: config/backends.php:757
 msgid "IMSP"
 msgstr "IMSP"
 
@@ -721,7 +723,7 @@ msgstr "Ungültige E-Mail-Adresse"
 msgid "Invalid entry"
 msgstr "Ungültiger Eintrag"
 
-#: lib/Driver/Ldap.php:322
+#: lib/Driver/Ldap.php:323
 msgid "Invalid key specified."
 msgstr "Ungültiger Schlüssel angegeben."
 
@@ -772,7 +774,7 @@ msgstr "Breitengrad"
 msgid "List"
 msgstr "Liste"
 
-#: config/backends.php:313
+#: config/backends.php:319
 msgid "Location"
 msgstr "Ort"
 
@@ -820,7 +822,7 @@ msgstr "Maximale Seitenzahl"
 msgid "Middle Names"
 msgstr "Weitere Namen"
 
-#: lib/Driver/Ldap.php:360
+#: lib/Driver/Ldap.php:361
 msgid "Missing DN in LDAP source configuration."
 msgstr "DN fehlt in der LDAP-Konfiguration."
 
@@ -828,7 +830,7 @@ msgstr "DN fehlt in der LDAP-Konfiguration."
 msgid "Mobile Phone"
 msgstr "Telefon mobil"
 
-#: lib/Driver/Ldap.php:388 lib/Driver/Ldap.php:404
+#: lib/Driver/Ldap.php:389 lib/Driver/Ldap.php:405
 #, php-format
 msgid "Modify failed: (%s) %s"
 msgstr "Änderung fehlgeschlagen: (%s) %s"
@@ -861,7 +863,7 @@ msgstr ""
 "Mehrere Personen mit der Adresse [%s], aber keine mit dem Namen [%s] im "
 "Adressbuch"
 
-#: config/backends.php:471
+#: config/backends.php:477
 msgid "My Address Book"
 msgstr "Mein Adressbuch"
 
@@ -890,8 +892,8 @@ msgstr "Name:"
 msgid "New Contact"
 msgstr "Neuer Kontakt"
 
-#: lib/Form/EditContactGroup.php:21 lib/Form/EditContactGroup.php:28
-#: lib/Form/EditContactGroup.php:78 templates/data/import.inc:46
+#: lib/Form/EditContactGroup.php:24 lib/Form/EditContactGroup.php:33
+#: lib/Form/EditContactGroup.php:83 templates/data/import.inc:46
 msgid "Next"
 msgstr "Weiter"
 
@@ -922,7 +924,7 @@ msgstr ""
 msgid "No address book specified"
 msgstr "Kein Adressbuch angegeben"
 
-#: minisearch.php:77
+#: minisearch.php:75
 msgid "No contacts found"
 msgstr "Keine Kontakte gefunden."
 
@@ -967,7 +969,7 @@ msgstr "Anzahl der Einträge pro Seite"
 msgid "Object not found"
 msgstr "Objekt nicht gefunden"
 
-#: lib/Driver/Kolab.php:458
+#: lib/Driver/Kolab.php:469
 #, php-format
 msgid "Object with UID %s does not exist!"
 msgstr "Objekt mit der UID %s existiert nicht!"
@@ -984,11 +986,11 @@ msgstr "Büro"
 msgid "Only one vcard supported."
 msgstr "Nur einzelne vCards werden unterstützt."
 
-#: config/backends.php:320
+#: config/backends.php:326
 msgid "Organization"
 msgstr "Firma"
 
-#: config/backends.php:321
+#: config/backends.php:327
 msgid "Other"
 msgstr "Sonstige"
 
@@ -1013,7 +1015,7 @@ msgstr "Diesen Kontakt unwiederbringlich löschen?"
 msgid "Permission denied"
 msgstr "Zugriff verweigert"
 
-#: config/backends.php:310
+#: config/backends.php:316
 msgid "Personal"
 msgstr "Persönlich"
 
@@ -1029,16 +1031,16 @@ msgstr "Foto-Dateityp"
 msgid "Pine Address Book"
 msgstr "Pine-Adressbuch"
 
-#: lib/Turba.php:646
+#: lib/Turba.php:672
 msgid "Please name the new contact list:"
 msgstr "Bitte einen Namen für die neue Kontakliste angeben:"
 
-#: lib/Form/EditContactGroup.php:24 lib/Form/EditContactGroup.php:27
-#: lib/Form/EditContactGroup.php:71
+#: lib/Form/EditContactGroup.php:28 lib/Form/EditContactGroup.php:32
+#: lib/Form/EditContactGroup.php:76
 msgid "Previous"
 msgstr "Zurück"
 
-#: config/backends.php:560
+#: config/backends.php:566
 msgid "Private Address Book"
 msgstr "Privates Adressbuch"
 
@@ -1047,12 +1049,12 @@ msgstr "Privates Adressbuch"
 msgid "Query failed: (%s) %s"
 msgstr "Abfrage fehlgeschlagen: (%s) %s"
 
-#: lib/Driver/Ldap.php:235 lib/Driver/Ldap.php:244 lib/Driver/Ldap.php:500
+#: lib/Driver/Ldap.php:235 lib/Driver/Ldap.php:244 lib/Driver/Ldap.php:501
 #, php-format
 msgid "Read failed: (%s) %s"
 msgstr "Lesen fehlgeschlagen: (%s) %s"
 
-#: lib/Driver.php:2709
+#: lib/Driver.php:2718
 msgid "Reading contacts is not available."
 msgstr "Anzeigen von Kontakten nicht unterstützt."
 
@@ -1070,7 +1072,7 @@ msgstr ""
 msgid "Remove from this list"
 msgstr "Aus dieser Liste entfernen"
 
-#: lib/Driver.php:2759
+#: lib/Driver.php:2769
 msgid ""
 "Removing user data is not supported in the current address book storage "
 "driver."
@@ -1115,12 +1117,12 @@ msgstr "Speichern"
 msgid "Save search as a virtual address book?"
 msgstr "Suche als Virtuelles Adressbuch speichern?"
 
-#: lib/Driver.php:2747
+#: lib/Driver.php:2757
 msgid "Saving contacts is not available."
 msgstr "Speichern von Kontakten nicht unterstützt."
 
 #: config/prefs.php:102 lib/Application.php:523
-#: templates/block/minisearch.inc:19 templates/browse/header.inc:3
+#: templates/block/minisearch.inc:20 templates/browse/header.inc:3
 #: templates/search/advanced.html.php:5 templates/search/basic.html.php:25
 #: templates/search/duplicate.html.php:12
 msgid "Search"
@@ -1143,7 +1145,7 @@ msgstr "Suche fehlgeschlagen: %s"
 msgid "Search for: "
 msgstr "Suchen nach: "
 
-#: lib/Driver.php:2692
+#: lib/Driver.php:2701
 msgid "Searching is not available."
 msgstr "Suchen von Kontakten nicht unterstützt."
 
@@ -1209,11 +1211,11 @@ msgstr "Wählen Sie das Format, in dem die Namen angezeigt werden sollen."
 msgid "Selected address book \"%s\"."
 msgstr "Adressbuch \"%s\" ausgewählt."
 
-#: config/backends.php:220
+#: config/backends.php:226
 msgid "Shared Address Books"
 msgstr "Gemeinsames Adressbuch"
 
-#: config/backends.php:353
+#: config/backends.php:359
 msgid "Shared Directory"
 msgstr "Gemeinsames Verzeichnis"
 
@@ -1512,7 +1514,7 @@ msgstr "Das Adressbuch \"%s\" kann nicht gespeichert werden: %s"
 msgid "Unsupported Content-Type: %s"
 msgstr "Nicht unterstützter Inhaltstyp: %s"
 
-#: minisearch.php:69 minisearch.php:70
+#: minisearch.php:67 minisearch.php:68
 msgid "View Contact"
 msgstr "Kontakt anzeigen"
 
@@ -1613,11 +1615,11 @@ msgstr ""
 "Sie sind nicht mit Facebook verbunden. Sie müssen in den Allgemeinen "
 "Einstellungen eine Facebook-Verknüpfung einrichten."
 
-#: lib/Driver/Vbook.php:109
+#: lib/Driver/Vbook.php:111
 msgid "You cannot add new contacts to a virtual address book"
 msgstr "Sie können keine Kontakte zu Virtuellen Adressbüchern hinzufügen"
 
-#: lib/Driver/Vbook.php:120
+#: lib/Driver/Vbook.php:122
 msgid "You cannot delete contacts from a virtual address book"
 msgstr "Sie können keine Kontakte aus Virtuellen Adressbüchern löschen"
 
@@ -1650,11 +1652,11 @@ msgstr ""
 msgid "You must provide a name for virtual address books."
 msgstr "Sie müssen einen Namen für das Virtuelle Adressbuch angeben."
 
-#: lib/Turba.php:647
+#: lib/Turba.php:673
 msgid "You must select a target address book."
 msgstr "Sie müssen erst ein Zieladressbuch auswählen."
 
-#: edit.php:28 lib/Turba.php:644
+#: edit.php:28 lib/Turba.php:670
 msgid "You must select at least one contact first."
 msgstr "Sie müssen erst mindestens einen Kontakt auswählen."
 

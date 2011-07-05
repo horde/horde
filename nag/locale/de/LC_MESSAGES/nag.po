@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nag H4 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-18 12:23+0200\n"
+"POT-Creation-Date: 2011-07-05 15:39+0200\n"
 "PO-Revision-Date: 2011-03-10 13:14+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -148,7 +148,7 @@ msgstr[1] "%d Aufgaben hinzugefügt"
 msgid "Alarm"
 msgstr "Alarm"
 
-#: config/prefs.php:191 templates/data/export.inc:34
+#: config/prefs.php:192 templates/data/export.inc:34
 msgid "All tasks"
 msgstr "Alle Aufgaben"
 
@@ -279,7 +279,7 @@ msgstr ""
 "Legen Sie fest, wie Sie über Aufgaben mit Alarmen benachrichtigt werden "
 "möchten:"
 
-#: config/prefs.php:160
+#: config/prefs.php:161
 msgid ""
 "Choose if you want to be notified of new, edited, and deleted tasks by email:"
 msgstr ""
@@ -328,7 +328,7 @@ msgstr "\"%s\" erledigen"
 msgid "Complete Task"
 msgstr "Aufgabe erledigen"
 
-#: config/prefs.php:193
+#: config/prefs.php:194
 msgid "Complete tasks"
 msgstr "Erledigte Aufgaben"
 
@@ -471,7 +471,7 @@ msgstr "Anzeige-Adresse"
 msgid "Do you want to confirm deleting entries?"
 msgstr "Möchten Sie das Löschen von Einträgen bestätigen?"
 
-#: config/prefs.php:167
+#: config/prefs.php:168
 msgid ""
 "Don't send me a notification if I've added, changed or deleted the task?"
 msgstr ""
@@ -551,7 +551,7 @@ msgstr "Aufgaben exportieren"
 msgid "External Data"
 msgstr "Externe Daten"
 
-#: config/prefs.php:194 templates/data/export.inc:36
+#: config/prefs.php:195 templates/data/export.inc:36
 msgid "Future tasks"
 msgstr "Zukünftige Aufgaben"
 
@@ -588,7 +588,7 @@ msgstr "Unerledigte Aufgaben"
 msgid "Incomplete sub tasks, complete them first"
 msgstr "Unerledigte Unteraufgaben, erledigen Sie diese erst"
 
-#: config/prefs.php:192 templates/data/export.inc:35
+#: config/prefs.php:193 templates/data/export.inc:35
 msgid "Incomplete tasks"
 msgstr "Unerledigte Aufgaben"
 
@@ -686,7 +686,7 @@ msgstr "Neue Aufgabe"
 msgid "Next"
 msgstr "Weiter"
 
-#: config/prefs.php:155
+#: config/prefs.php:156
 msgid "No"
 msgstr "Nein"
 
@@ -754,15 +754,15 @@ msgstr "Benachrichtigung"
 msgid "Notifications"
 msgstr "Benachrichtigungen"
 
-#: config/prefs.php:157
+#: config/prefs.php:158
 msgid "On all shown task lists"
 msgstr "Bei allen angezeigten Aufgabenlisten"
 
-#: config/prefs.php:158
+#: config/prefs.php:159
 msgid "On all task lists I have read access to"
 msgstr "Bei allen Aufgabenlisten, für die ich Leserechte habe"
 
-#: config/prefs.php:156
+#: config/prefs.php:157
 msgid "On my task lists only"
 msgstr "Nur bei meinen Aufgabenlisten"
 
@@ -890,12 +890,12 @@ msgstr "Gemeinsame Aufgabenlisten:"
 msgid "Show action buttons?"
 msgstr "Aktionsknöpfe anzeigen?"
 
-#: config/prefs.php:196
+#: config/prefs.php:197
 msgid "Show complete, incomplete, or all tasks in the task list?"
 msgstr ""
 "Erledigte, unerledigte oder alle Aufgaben in der Aufgabenliste anzeigen?"
 
-#: config/prefs.php:183
+#: config/prefs.php:184
 msgid "Show data from any of these other applications in your task list?"
 msgstr "Daten von einer dieser Anwendungen in Ihren Aufgabenlisten anzeigen?"
 
@@ -1297,11 +1297,11 @@ msgstr "Wir möchten Sie an diese fällige Aufgabe erinnern."
 msgid "Week(s)"
 msgstr "Woche(n)"
 
-#: config/prefs.php:147
+#: config/prefs.php:148
 msgid "What do you want to be the default due time for tasks?"
 msgstr "Zur welcher Zeit sollen Aufgaben standardmäßig fällig sein?"
 
-#: config/prefs.php:140
+#: config/prefs.php:141
 msgid ""
 "When creating a new task, how many days in the future should the default due "
 "date be (0 means today)?"
@@ -1369,7 +1369,7 @@ msgstr ""
 "Sie wollten benachrichtigt werden, wenn Aufgaben in Ihren Aufgabenlisten "
 "geändert werden."
 
-#: config/prefs.php:209
+#: config/prefs.php:210
 msgid "Your default task list:"
 msgstr "Ihre Standard-Aufgabenliste:"
 
