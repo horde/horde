@@ -75,9 +75,7 @@ if (count($groups) > 1) {
 <?php if ($auth->hasCapability('list') && ($GLOBALS['conf']['auth']['list_users'] == 'list' || $GLOBALS['conf']['auth']['list_users'] == 'both')): ?>
           <select name="owner_select">
            <option value=""><?php echo _("Select a new owner:") ?></option>
-<?php $users = $auth->listUsers(); 
-      sort($users); 
-      foreach ($users as $user): ?>
+<?php foreach ($auth->listUsers() as $user): ?>
            <option value="<?php echo htmlspecialchars($user) ?>"<?php if ($user == $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false)) echo ' selected="selected"' ?>><?php echo htmlspecialchars($user) ?></option>
 <?php endforeach; ?>
           </select>
@@ -201,7 +199,7 @@ if (count($groups) > 1) {
           <?php if ($auth->hasCapability('list') && ($GLOBALS['conf']['auth']['list_users'] == 'list' || $GLOBALS['conf']['auth']['list_users'] == 'both')): ?>
           <select id="kronolithC<?php echo $type ?>PUNew" name="u_names[||new]">
             <option value=""><?php echo _("Select a user") ?></option>
-            <?php foreach ($users as $user): ?>
+            <?php foreach ($auth->listUsers() as $user): ?>
             <?php if ($user != $GLOBALS['registry']->getAuth()): ?>
             <option value="<?php echo htmlspecialchars($user) ?>"><?php echo htmlspecialchars($user) ?></option>
             <?php endif; ?>
