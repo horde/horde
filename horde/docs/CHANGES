@@ -2,6 +2,8 @@
 v4.0.7-git
 ----------
 
+[mjr] Fix returning shares in the proper order when fetching multiple shares
+      by id.
 [mjr] Fix incorrect method name in Pop3 Socket driver.
 [jan] Don't use CSS cache in mobile interfaces because it breaks jQuery Mobile
       CSS.
