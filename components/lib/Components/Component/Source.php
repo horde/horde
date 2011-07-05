@@ -42,18 +42,17 @@ class Components_Component_Source extends Components_Component_Base
      *                                           component consume an argument?
      * @param Components_Config       $config    The configuration for the
      *                                           current job.
-     * @param Components_Pear_Factory $factory   Generator for all
-     *                                           required PEAR components.
+     * @param Components_Component_Factory $factory Generator for additional
+     *                                              helpers.
      */
     public function __construct(
         $directory,
-        $shift,
         Components_Config $config,
-        Components_Pear_Factory $factory
+        Components_Component_Factory $factory
     )
     {
         $this->_directory = $directory;
-        parent::__construct($shift, $config, $factory);
+        parent::__construct($config, $factory);
     }
 
     /**
@@ -74,6 +73,26 @@ class Components_Component_Source extends Components_Component_Base
     public function getVersion()
     {
         return $this->getPackage()->getVersion();
+    }
+
+    /**
+     * Return the channel of the component.
+     *
+     * @return string The component channel.
+     */
+    public function getChannel()
+    {
+        return $this->getPackage()->getChannel();
+    }
+
+    /**
+     * Return the dependencies for the component.
+     *
+     * @return array The component dependencies.
+     */
+    public function getDependencies()
+    {
+        return $this->getPackage()->getDependencies();
     }
 
     /**

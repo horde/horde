@@ -97,6 +97,7 @@ class Components_Component_Identify
             }
 
             if ($this->_isPackageXml($arguments[0])) {
+                $this->_config->shiftArgument();
                 return $this->_dependencies
                     ->getComponentFactory()
                     ->createSource(dirname($arguments[0]));
@@ -104,6 +105,7 @@ class Components_Component_Identify
 
             if (!in_array($arguments[0], $this->_actions['list'])) {
                 if ($this->_isDirectory($arguments[0])) {
+                    $this->_config->shiftArgument();
                     return $this->_dependencies
                         ->getComponentFactory()
                         ->createSource($arguments[0]);
@@ -111,11 +113,14 @@ class Components_Component_Identify
 
                 $options = $this->_config->getOptions();
                 if (!empty($options['allow_remote'])) {
+                    $this->_config->shiftArgument();
                     return $this->_dependencies
                         ->getComponentFactory()
-                        ->createRemote(
+                        ->getResolver()
+                        ->resolveName(
                             $arguments[0],
-                            $this->_dependencies->getRemote()
+                            'pear.horde.org',
+                            $options
                         );
                 }
                 
@@ -129,7 +134,7 @@ class Components_Component_Identify
         if ($this->_isDirectory($cwd) && $this->_containsPackageXml($cwd)) {
             return $this->_dependencies
                 ->getComponentFactory()
-                ->createSource($cwd, false);
+                ->createSource($cwd);
         }
 
         throw new Components_Exception(Components::ERROR_NO_COMPONENT);

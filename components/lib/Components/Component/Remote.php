@@ -28,11 +28,32 @@
 class Components_Component_Remote extends Components_Component_Base
 {
     /**
+     * The remote handler.
+     *
+     * @var Horde_Pear_Remote
+     */
+    private $_remote;
+
+    /**
      * Component name.
      *
      * @var string
      */
     private $_name;
+
+    /**
+     * Component channel.
+     *
+     * @var string
+     */
+    private $_channel;
+
+    /**
+     * Component stability.
+     *
+     * @var string
+     */
+    private $_stability;
 
     /**
      * Component version.
@@ -59,32 +80,32 @@ class Components_Component_Remote extends Components_Component_Base
      * Constructor.
      *
      * @param string                  $name      Component name.
-     * @param string                  $version   Component version.
-     * @param string                  $uri       Download location.
+     * @param string                  $stability Component stability.
+     * @param string                  $channel   Component channel.
+     * @param Horde_Pear_Remote       $remote    Remote channel handler.
      * @param Horde_Http_Client       $client    The HTTP client for remote
      *                                           access.
-     * @param boolean                 $shift     Did identification of the
-     *                                           component consume an argument?
      * @param Components_Config       $config    The configuration for the
      *                                           current job.
-     * @param Components_Pear_Factory $factory   Generator for all
-     *                                           required PEAR components.
+     * @param Components_Component_Factory $factory Generator for additional
+     *                                              helpers.
      */
     public function __construct(
         $name,
-        $version,
-        $uri,
+        $stability,
+        $channel,
+        Horde_Pear_Remote $remote,
         Horde_Http_Client $client,
-        $shift,
         Components_Config $config,
-        Components_Pear_Factory $factory
+        Components_Component_Factory $factory
     )
     {
         $this->_name = $name;
-        $this->_version = $version;
-        $this->_uri = $uri;
+        $this->_stability = $stability;
+        $this->_channel = $channel;
+        $this->_remote = $remote;
         $this->_client  = $client;
-        parent::__construct($shift, $config, $factory);
+        parent::__construct($config, $factory);
     }
 
     /**
@@ -104,7 +125,35 @@ class Components_Component_Remote extends Components_Component_Base
      */
     public function getVersion()
     {
+        if (!isset($this->_version)) {
+            $this->_version = $this->_remote->getLatestRelease($this->_name, $this->_stability);
+        }
         return $this->_version;
+    }
+
+    /**
+     * Return the channel of the component.
+     *
+     * @return string The component channel.
+     */
+    public function getChannel()
+    {
+        return $this->_channel;
+    }
+
+    /**
+     * Return the download URI of the component.
+     *
+     * @return string The download URI.
+     */
+    public function getDownloadUri()
+    {
+        if (!isset($this->_uri)) {
+            $this->_uri = $this->_remote->getLatestDownloadUri(
+                $this->_name, $this->_stability
+            );
+        }
+        return $this->_uri;
     }
 
     /**
@@ -123,7 +172,7 @@ class Components_Component_Remote extends Components_Component_Base
      */
     public function getArchiveName()
     {
-        return basename($this->_uri);
+        return basename($this->getDownloadUri());
     }
 
     /**
@@ -133,6 +182,18 @@ class Components_Component_Remote extends Components_Component_Base
      */
     public function getPackageXml()
     {
+    }
+
+    /**
+     * Return the dependencies for the component.
+     *
+     * @return array The component dependencies.
+     */
+    public function getDependencies()
+    {
+        return $this->_remote->getDependencies(
+            $this->getName(), $this->getVersion()
+        );
     }
 
     /**
@@ -156,8 +217,8 @@ class Components_Component_Remote extends Components_Component_Base
         $this->createDestination($destination);
         $this->_client->{'request.timeout'} = 60;
         file_put_contents(
-            $destination . '/' . basename($this->_uri),
-            $this->_client->get($this->_uri)->getStream()
+            $destination . '/' . basename($this->getDownloadUri()),
+            $this->_client->get($this->getDownloadUri())->getStream()
         );
     }
 

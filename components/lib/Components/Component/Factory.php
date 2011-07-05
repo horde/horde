@@ -49,6 +49,27 @@ class Components_Component_Factory
     private $_client;
 
     /**
+     * The first source component generated
+     *
+     * @var Components_Component
+     */
+    private $_first_source;
+
+    /**
+     * The git root path.
+     *
+     * @var Components_Helper_Root
+     */
+    private $_git_root;
+
+    /**
+     * The resolver instance.
+     *
+     * @var Components_Component_Resolver
+     */
+    private $_resolver;
+
+    /**
      * Constructor.
      *
      * @param Components_Config       $config  The configuration for the current job.
@@ -71,44 +92,151 @@ class Components_Component_Factory
      * Create a representation for a source component.
      *
      * @param string  $directory The directory of the component.
-     * @param boolean $shift     Did identification of the component
-     *                           consume an argument?
      *
      * @return Components_Component_Source The source component.
      */
-    public function createSource($directory, $shift = true)
+    public function createSource($directory)
     {
-        return new Components_Component_Source(
+        $component = new Components_Component_Source(
             $directory,
-            $shift,
             $this->_config,
-            $this->_factory
+            $this
         );
+        if ($this->_first_source === null) {
+            $this->_first_source = $component;
+        }
+        return $component;
     }
 
     /**
      * Create a representation for a remote component.
      *
-     * @param string            $name   The name of the component.
-     * @param Horde_Pear_Remote $remote The remote server handler.
+     * @param string            $name      The name of the component.
+     * @param string            $stability The stability of the component.
+     * @param string            $channel   The component channel.
+     * @param Horde_Pear_Remote $remote    The remote server handler.
      *
      * @return Components_Component_Remote The remote component.
      */
-    public function createRemote($name, Horde_Pear_Remote $remote)
+    public function createRemote(
+        $name, $stability, $channel, Horde_Pear_Remote $remote
+    )
     {
-        foreach (array('stable', 'beta', 'devel') as $stability) {
-            if ($remote->getLatestRelease($name, $stability)) {
-                break;
-            }
-        }
         return new Components_Component_Remote(
             $name,
-            $remote->getLatestRelease($name, $stability),
-            $remote->getLatestDownloadUri($name, $stability),
+            $stability,
+            $channel,
+            $remote,
             $this->_client,
-            true,
             $this->_config,
-            $this->_factory
+            $this
         );
     }
+
+    /**
+     * Provide access to the PEAR helper factory.
+     *
+     * @return Components_Pear_Factory The PEAR factory.
+     */
+    public function pear()
+    {
+        return $this->_factory;
+    }
+
+    /**
+     * Create a component dependency list.
+     *
+     * @param Components_Component $component The component.
+     *
+     * @return Components_Component_DependencyList The dependency list.
+     */
+    public function createDependencyList(Components_Component $component)
+    {
+        return new Components_Component_DependencyList($component, $this);
+    }
+
+    /**
+     * Create a component dependency representation.
+     *
+     * @param array                $dependencies The dependency information.
+     * @param Components_Component $parent       The parent component.
+     *
+     * @return Components_Component_Dependency The dependency.
+     */
+    public function createDependency($dependencies)
+    {
+        return new Components_Component_Dependency(
+            $dependencies, $this
+        );
+    }
+
+    /**
+     * Get the component resolver.
+     *
+     * @return Components_Component_Resolver The component resolver.
+     */
+    public function getResolver()
+    {
+        if (!isset($this->_resolver)) {
+            $this->_resolver = $this->createResolver();
+        }
+    }
+
+    /**
+     * Create a component resolver.
+     *
+     * @return Components_Component_Resolver The component resolver.
+     */
+    public function createResolver()
+    {
+        return new Components_Component_Resolver(
+            $this->getGitRoot(),
+            $this
+        );
+    }
+
+    /**
+     * Create a remote PEAR server handler for a specific channel.
+     *
+     * @param string $channel The channel name.
+     *
+     * @return Horde_Pear_Remote The remote handler.
+     */
+    public function createRemoteChannel($channel)
+    {
+        return new Horde_Pear_Remote($channel);
+    }
+
+    /**
+     * Return the repository root helper.
+     *
+     * @return Components_Helper_Root The helper.
+     */
+    public function getGitRoot()
+    {
+        if (!isset($this->_git_root)) {
+            $this->_git_root = $this->createGitRoot();
+        }
+        return $this->_git_root;
+    }
+
+    /**
+     * Create the repository root helper.
+     *
+     * @return Components_Helper_Root The helper.
+     */
+    public function createGitRoot()
+    {
+        if (isset($this->_first_source)) {
+            return new Components_Helper_Root(
+                $this->_config->getOptions(),
+                $this->_first_source
+            );
+        } else {
+            return new Components_Helper_Root(
+                $this->_config->getOptions()
+            );
+        }
+    }
+
 }

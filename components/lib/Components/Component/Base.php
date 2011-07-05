@@ -35,35 +35,32 @@ abstract class Components_Component_Base implements Components_Component
     private $_config;
 
     /**
-     * The factory for PEAR handlers.
+     * The factory for additional helpers.
      *
-     * @var Components_Factory
+     * @var Components_Component_Factory
      */
     private $_factory;
 
     /**
-     * Did identification of the component consume an argument?
+     * The PEAR package file representing the component.
      *
-     * @var Components_Factory
+     * @var PEAR_PackageFile
      */
-    private $_shift;
+    private $_package;
 
     /**
      * Constructor.
      *
-     * @param boolean                 $shift   Did identification of the
-     *                                         component consume an argument?
-     * @param Components_Config       $config  The configuration for the current job.
-     * @param Components_Pear_Factory $factory Generator for all
-     *                                         required PEAR components.
+     * @param Components_Config            $config  The configuration for the
+                                                    current job.
+     * @param Components_Component_Factory $factory Generator for additional
+     *                                              helpers.
      */
     public function __construct(
-        $shift,
         Components_Config $config,
-        Components_Pear_Factory $factory
+        Components_Component_Factory $factory
     )
     {
-        $this->_shift   = $shift;
         $this->_config  = $config;
         $this->_factory = $factory;
     }
@@ -75,26 +72,19 @@ abstract class Components_Component_Base implements Components_Component
      */
     public function getPackage()
     {
-        $options = $this->_config->getOptions();
-        if (isset($options['pearrc'])) {
-            return $this->_factory->createPackageForPearConfig(
-                $this->getPackageXml(), $options['pearrc']
-            );
-        } else {
-            return $this->_factory->createPackageForDefaultLocation(
-                $this->getPackageXml()
-            );
+        if (!isset($this->_package)) {
+            $options = $this->_config->getOptions();
+            if (isset($options['pearrc'])) {
+                $this->_package = $this->_factory->pear()->createPackageForPearConfig(
+                    $this->getPackageXml(), $options['pearrc']
+                );
+            } else {
+                $this->_package = $this->_factory->pear()->createPackageForDefaultLocation(
+                    $this->getPackageXml()
+                );
+            }
         }
-    }
-
-    /**
-     * Did identification of the component consume an argument?
-     *
-     * @return boolean True if an argument was consumed.
-     */
-    public function didConsumeArgument()
-    {
-        return $this->_shift;
+        return $this->_package;
     }
 
     /**
@@ -109,5 +99,15 @@ abstract class Components_Component_Base implements Components_Component
         if (!file_exists($destination)) {
             mkdir($destination, 0700, true);
         }
+    }
+
+    /**
+     * Return the dependency list for the component.
+     *
+     * @return Components_Component_DependencyList The dependency list.
+     */
+    public function getDependencyList()
+    {
+        return $this->_factory->createDependencyList($this);
     }
 }

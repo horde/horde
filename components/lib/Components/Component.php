@@ -42,6 +42,13 @@ interface Components_Component
     public function getVersion();
 
     /**
+     * Return the channel of the component.
+     *
+     * @return string The component channel.
+     */
+    public function getChannel();
+
+    /**
      * Return the path to the local source directory.
      *
      * @return string The directory that contains the source code.
@@ -79,11 +86,11 @@ interface Components_Component
     public function getPackage();
 
     /**
-     * Did identification of the component consume an argument?
+     * Return the dependencies for the component.
      *
-     * @return boolean True if an argument was consumed.
+     * @return array The component dependencies.
      */
-    public function didConsumeArgument();
+    public function getDependencies();
 
     /**
      * Validate that there is a package.xml file in the source directory.
