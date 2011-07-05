@@ -84,14 +84,14 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.6</min>
+    <min>4.0.7</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
    </package>
    <package>
     <name>kronolith</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.4</min>
+    <min>3.0.5</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
@@ -105,7 +105,7 @@
    <package>
     <name>nag</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.1</min>
+    <min>3.0.2</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
@@ -119,7 +119,7 @@
    <package>
     <name>turba</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.3</min>
+    <min>3.0.4</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
