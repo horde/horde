@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-21</date>
- <time>07:19:34</time>
+ <date>2011-07-05</date>
+ <time>17:41:28</time>
  <version>
   <release>3.0.2</release>
   <api>3.0.0</api>
@@ -963,7 +963,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-21</date>
+   <date>2011-07-05</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [jan] Add Ukrainian translation (Andriy Kopystyansky &lt;anri@polynet.lviv.ua&gt;).
