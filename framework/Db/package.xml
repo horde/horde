@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2011-07-05</date>
- <time>14:35:58</time>
+ <time>14:36:24</time>
  <version>
-  <release>1.0.2</release>
+  <release>1.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -35,9 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [jan] Convert host parameter from "localhost" to "127.0.0.1" in MySQL drivers (Request #9738).
-* [gwr] Renamed migration helper to avoid namespace clash with a similar tool from the horde base package.
-* [jan] Keep using the write backend in the same request after writing once with the split read/write driver.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -443,6 +441,19 @@
 * [jan] Convert host parameter from "localhost" to "127.0.0.1" in MySQL drivers (Request #9738).
 * [gwr] Renamed migration helper to avoid namespace clash with a similar tool from the horde base package.
 * [jan] Keep using the write backend in the same request after writing once with the split read/write driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
