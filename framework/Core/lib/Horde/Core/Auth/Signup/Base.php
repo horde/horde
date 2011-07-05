@@ -33,6 +33,13 @@ abstract class Horde_Core_Auth_Signup_Base
         // Attempt to add the user to the system.
         $GLOBALS['auth']->addUser($info['user_name'], array('password' => $info['password']));
 
+        // Attempt to add email to default identity
+        if ((bool)filter_var($info['user_name'], FILTER_VALIDATE_EMAIL)) {
+            $GLOBALS['prefs']->setValue('alternate_email',$info['user_name']);
+        } elseif ((bool)filter_var($info['email'], FILTER_VALIDATE_EMAIL)) {
+            $GLOBALS['prefs']->setValue('alternate_email',$info['email']);
+        }
+
         // Attempt to add/update any extra data handed in.
         if (!empty($info['extra'])) {
             try {
