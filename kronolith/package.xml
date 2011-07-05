@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-07-05</date>
- <time>17:37:58</time>
+ <time>17:39:19</time>
  <version>
-  <release>3.0.5</release>
+  <release>3.0.6</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,12 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [jan] Update task due date in interface after dragging a task (Bug #10001).
-* [jan] Correctly sort events in portal block or widget if only displaying a single calendar (Bug #10099).
-* [mjr] Allow syncing of multiple owner-owned calendars (Request #8734).
-* [jan] Don&apos;t show calendar drop down in event form without delete permissions (Bug #10201).
-* [jan] Don&apos;t change event creator when saving events.
-* [jan] Fetch events immediately after saving remote calendar.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1805,6 +1800,19 @@
 * [jan] Don&apos;t show calendar drop down in event form without delete permissions (Bug #10201).
 * [jan] Don&apos;t change event creator when saving events.
 * [jan] Fetch events immediately after saving remote calendar.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.6</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
