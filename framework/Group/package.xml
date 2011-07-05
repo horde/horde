@@ -17,8 +17,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:11:01</time>
+ <date>2011-07-05</date>
+ <time>14:38:40</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -294,7 +294,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-07-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Add support for the attrisdn configuration setting (Bug #9762).
