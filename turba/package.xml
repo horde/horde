@@ -570,10 +570,10 @@
    <file name="deletefile.php" role="horde" />
    <file name="edit.php" role="horde" />
    <file name="index.php" role="horde" />
-   <file name="LICENSE" role="data" />
+   <file name="LICENSE" role="doc" />
    <file name="merge.php" role="horde" />
    <file name="minisearch.php" role="horde" />
-   <file name="README" role="data" />
+   <file name="README" role="doc" />
    <file name="search.php" role="horde" />
    <file name="vcard.php" role="horde" />
    <file name="view.php" role="horde" />

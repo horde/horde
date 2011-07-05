@@ -309,9 +309,9 @@
      </dir> <!-- /themes/silver/graphics -->
     </dir> <!-- /themes/silver -->
    </dir> <!-- /themes -->
-   <file name="COPYING" role="data" />
+   <file name="COPYING" role="doc" />
    <file name="index.php" role="horde" />
-   <file name="README" role="data" />
+   <file name="README" role="doc" />
   </dir> <!-- / -->
  </contents>
  <dependencies>

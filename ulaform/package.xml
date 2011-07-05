@@ -142,7 +142,7 @@
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
    </dir> <!-- /themes -->
-   <file name="COPYING" role="data" />
+   <file name="COPYING" role="doc" />
    <file name="delete.php" role="horde" />
    <file name="deletefield.php" role="horde" />
    <file name="display.php" role="horde" />
@@ -151,7 +151,7 @@
    <file name="forms.php" role="horde" />
    <file name="genhtml.php" role="horde" />
    <file name="index.php" role="horde" />
-   <file name="README" role="data" />
+   <file name="README" role="doc" />
    <file name="sortfields.php" role="horde" />
   </dir> <!-- / -->
  </contents>

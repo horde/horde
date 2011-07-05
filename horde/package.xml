@@ -2074,11 +2074,11 @@
     <file name="icon_browser.php" role="horde" />
    </dir> <!-- /util -->
    <file name=".htaccess" role="data" />
-   <file name="COPYING" role="data" />
+   <file name="COPYING" role="doc" />
    <file name="index.php" role="horde" />
    <file name="login.php" role="horde" />
    <file name="rampage.php" role="horde" />
-   <file name="README" role="data" />
+   <file name="README" role="doc" />
    <file name="rpc.php" role="horde" />
    <file name="signup.php" role="horde" />
    <file name="test.php" role="horde" />

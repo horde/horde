@@ -454,13 +454,13 @@
      </dir> <!-- /themes/tango-blue/graphics -->
     </dir> <!-- /themes/tango-blue -->
    </dir> <!-- /themes -->
-   <file name="COPYING" role="data" />
+   <file name="COPYING" role="doc" />
    <file name="data.php" role="horde" />
    <file name="index.php" role="horde" />
    <file name="list.php" role="horde" />
    <file name="mobile.php" role="horde" />
    <file name="quick.php" role="horde" />
-   <file name="README" role="data" />
+   <file name="README" role="doc" />
    <file name="search.php" role="horde" />
    <file name="task.php" role="horde" />
    <file name="view.php" role="horde" />

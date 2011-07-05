@@ -832,7 +832,7 @@
    <file name="attend.php" role="horde" />
    <file name="attendees.php" role="horde" />
    <file name="contacts.php" role="horde" />
-   <file name="COPYING" role="data" />
+   <file name="COPYING" role="doc" />
    <file name="data.php" role="horde" />
    <file name="day.php" role="horde" />
    <file name="delete.php" role="horde" />
@@ -844,7 +844,7 @@
    <file name="month.php" role="horde" />
    <file name="new.php" role="horde" />
    <file name="perms.php" role="horde" />
-   <file name="README" role="data" />
+   <file name="README" role="doc" />
    <file name="search.php" role="horde" />
    <file name="view.php" role="horde" />
    <file name="week.php" role="horde" />

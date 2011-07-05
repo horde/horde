@@ -1088,7 +1088,7 @@
    <file name="compose-mimp.php" role="horde" />
    <file name="compose.php" role="horde" />
    <file name="contacts.php" role="horde" />
-   <file name="COPYING" role="horde" />
+   <file name="COPYING" role="doc" />
    <file name="folders-mimp.php" role="horde" />
    <file name="folders.php" role="horde" />
    <file name="index-dimp.php" role="horde" />
@@ -1100,7 +1100,7 @@
    <file name="message.php" role="horde" />
    <file name="mobile.php" role="horde" />
    <file name="pgp.php" role="horde" />
-   <file name="README" role="horde" />
+   <file name="README" role="doc" />
    <file name="rss.php" role="horde" />
    <file name="saveimage.php" role="horde" />
    <file name="search-basic.php" role="horde" />

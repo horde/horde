@@ -362,7 +362,7 @@
     </dir> <!-- /test/Components -->
    </dir> <!-- /test -->
    <file name="COPYING" role="doc" />
-   <file name="TODO" role="data" />
+   <file name="TODO" role="doc" />
   </dir> <!-- / -->
  </contents>
  <dependencies>

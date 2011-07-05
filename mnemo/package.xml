@@ -382,10 +382,10 @@
    </dir> <!-- /themes -->
    <file name="data.php" role="horde" />
    <file name="index.php" role="horde" />
-   <file name="LICENSE" role="data" />
+   <file name="LICENSE" role="doc" />
    <file name="list.php" role="horde" />
    <file name="memo.php" role="horde" />
-   <file name="README" role="data" />
+   <file name="README" role="doc" />
    <file name="search.php" role="horde" />
    <file name="stickies.php" role="horde" />
    <file name="view.php" role="horde" />

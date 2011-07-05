@@ -467,8 +467,8 @@
    <file name="filters.php" role="horde" />
    <file name="forward.php" role="horde" />
    <file name="index.php" role="horde" />
-   <file name="LICENSE" role="data" />
-   <file name="README" role="data" />
+   <file name="LICENSE" role="doc" />
+   <file name="README" role="doc" />
    <file name="rule.php" role="horde" />
    <file name="script.php" role="horde" />
    <file name="spam.php" role="horde" />
