@@ -17,8 +17,8 @@ owns or has access to.</description>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-18</date>
- <time>14:51:32</time>
+ <date>2011-07-05</date>
+ <time>15:10:55</time>
  <version>
   <release>1.1.1</release>
   <api>1.1.0</api>
@@ -29,8 +29,7 @@ owns or has access to.</description>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mjr] Fix returning shares in the proper order when fetching multiple shares
-        by id.
+* [mjr] Fix returning shares in the proper order when fetching multiple shares by id.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -743,11 +742,10 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-18</date>
+   <date>2011-07-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* [mjr] Fix returning shares in the proper order when fetching multiple shares
-        by id.
+* [mjr] Fix returning shares in the proper order when fetching multiple shares by id.
    </notes>
   </release>
  </changelog>
