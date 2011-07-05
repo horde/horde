@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-07-05</date>
- <time>17:41:28</time>
+ <time>17:42:30</time>
  <version>
-  <release>3.0.2</release>
+  <release>3.0.3</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [jan] Add Ukrainian translation (Andriy Kopystyansky &lt;anri@polynet.lviv.ua&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -967,6 +967,19 @@
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [jan] Add Ukrainian translation (Andriy Kopystyansky &lt;anri@polynet.lviv.ua&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.3</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
