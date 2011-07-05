@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-07-05</date>
- <time>14:27:45</time>
+ <time>14:28:04</time>
  <version>
-  <release>1.0.3</release>
+  <release>1.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Update Lithuanian translation.
-* [jan] Update Brazilian Portuguese translation.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -624,6 +623,19 @@ Initial release as a PEAR package
    <notes>
 * [jan] Update Lithuanian translation.
 * [jan] Update Brazilian Portuguese translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
