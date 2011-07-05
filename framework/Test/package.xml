@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-14</date>
- <time>14:56:14</time>
+ <date>2011-07-05</date>
+ <time>14:57:19</time>
  <version>
   <release>1.1.2</release>
   <api>1.1.0</api>
@@ -226,7 +226,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-14</date>
+   <date>2011-07-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [gwr] Improve detection of the lib directory.
