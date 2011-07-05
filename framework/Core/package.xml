@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-06-22</date>
- <time>00:05:12</time>
+ <date>2011-07-05</date>
+ <time>14:29:53</time>
  <version>
   <release>1.3.0</release>
   <api>1.3.0</api>
@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Update Lithuanian translation.
+* [jan] Update Brazilian Portuguese translation.
 * [jan] Fix generating database DSN for VFS if the global VFS configuration doesn&apos;t use SQL (Bug #10199).
 * [jan] Add option to Horde_Themes_Css#getStylesheetUrls() to never use CSS cache.
 * [jan] Add Horde_Menu#setMask() (Vilius Sumskas, Request #10078).
@@ -1488,9 +1490,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-22</date>
+   <date>2011-07-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Update Lithuanian translation.
+* [jan] Update Brazilian Portuguese translation.
 * [jan] Fix generating database DSN for VFS if the global VFS configuration doesn&apos;t use SQL (Bug #10199).
 * [jan] Add option to Horde_Themes_Css#getStylesheetUrls() to never use CSS cache.
 * [jan] Add Horde_Menu#setMask() (Vilius Sumskas, Request #10078).
