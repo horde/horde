@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-14</date>
- <time>11:35:46</time>
+ <date>2011-07-05</date>
+ <time>14:24:55</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -425,10 +425,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-14</date>
+   <date>2011-07-05</date>
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
-* Fixed addUser() for Cyrsql driver (Bug #10239; vilius@lnk.lt).
+* [rla] Add sort parameter to listUsers() method.
+* [mms] Fix addUser() for Cyrsql driver (vilius@lnk.lt, Bug #10239).
    </notes>
   </release>
  </changelog>
