@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
-* Fixed addUser() for Cyrsql driver (Bug #10239; vilius@lnk.lt).
+* [mms] Fix addUser() for Cyrsql driver (vilius@lnk.lt, Bug #10239).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
