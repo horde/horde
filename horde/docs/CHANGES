@@ -7,9 +7,11 @@ v4.0.7-git
 [mjr] Fix incorrect method name in Pop3 Socket driver.
 [jan] Don't use CSS cache in mobile interfaces because it breaks jQuery Mobile
       CSS.
-[mjr] Fix race conditions caused by broken clients sending an inappropriate PING
-      request.
-[jan] Don't allow to click disabled login button (Bug #10267).
+[mjr] Fix race conditions caused by broken clients sending an inappropriate
+      PING request.
+[jan] Fix duplication of objects during synchronization (joniw@t-online.de, Bug
+      #10081).
+[Jan] Don't allow to click disabled login button (Bug #10267).
 [jan] Allow configuration of split read databases for PostgreSQL (Request
       #7025).
 [mjr] Honor initial_application setting for mobile view (Bug #10264).
@@ -17,7 +19,8 @@ v4.0.7-git
 [gwr] Support restricting the HTML tidy post processing by the message size
       (Request #10266).
 [gwr] Disabled the timeout on the logout token.
-[mjr] Fix integer overflow issue (Bug: 9889).
+[mjr] Fix integer overflow issue in Facebook code (Bug #9889).
+[mms] Fix adding users with Cyrsql driver (vilius@lnk.lt, Bug #10239).
 
 
 ------
