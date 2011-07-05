@@ -630,7 +630,7 @@ $cfgSources['favourites'] = array(
  */
 if (!empty($GLOBALS['conf']['facebook']['id'])) {
     $cfgSources['facebook'] = array(
-        // Disabled by default
+        // Disabled if no provisioning with the Facebook API.
         'disabled' => !$GLOBALS['injector']->getInstance('Horde_Service_Facebook')->auth->getSessionKey(),
         'title' => _("Facebook Friends"),
         'type' => 'facebook',
