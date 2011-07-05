@@ -1,6 +1,6 @@
-----------
-v2.0.3-git
-----------
+------
+v2.0.3
+------
 
 [jan] Add -N parameter to mailbot calls by default (Request #10147).
 [jan] Fix notice when using numeric comparisons for spam headers (Bug #10222).
