@@ -26,8 +26,8 @@
  <date>2011-06-14</date>
  <time>11:35:46</time>
  <version>
-  <release>1.0.5</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
+* [rla] Add sort parameter to listUsers() method.
 * [mms] Fix addUser() for Cyrsql driver (vilius@lnk.lt, Bug #10239).
  </notes>
  <contents>
@@ -419,8 +420,8 @@
   </release>
   <release>
    <version>
-    <release>1.0.5</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
