@@ -71,8 +71,6 @@
 
  - WWW frontend
 
- - Fix dependency listing with the --optional=yes/no flag
-
  - Allow absolute/relative paths as arguments
 
  - Allow preparing a PHAR install package

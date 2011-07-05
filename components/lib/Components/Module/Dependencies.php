@@ -66,6 +66,20 @@ extends Components_Module_Base
                     'help'   => 'generate a dependency listing'
                 )
             ),
+            new Horde_Argv_Option(
+                '--short',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Generate a brief dependency list.'
+                )
+            ),
+            new Horde_Argv_Option(
+                '--alldeps',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Include all optional dependencies into the dependency list.'
+                )
+            ),
         );
     }
 
@@ -76,7 +90,7 @@ extends Components_Module_Base
      */
     public function getUsage()
     {
-        return '  deps      - Generate a dependency list.
+        return '  deps        - Generate a dependency list.
 ';
     }
 
@@ -99,7 +113,7 @@ extends Components_Module_Base
      */
     public function getHelp($action)
     {
-        return 'This module generates dependency tree for a component.';
+        return 'This module generates a dependency tree for a component.';
     }
 
     /**
@@ -110,6 +124,9 @@ extends Components_Module_Base
     public function getContextOptionHelp()
     {
         return array(
+            '--short' => '',
+            '--alldeps' => '',
+            '--allow-remote' => 'The dependency list should also resolve the dependency tree of components from remote channels.',
         );
     }
 

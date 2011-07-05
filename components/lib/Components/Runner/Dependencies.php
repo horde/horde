@@ -37,44 +37,31 @@ class Components_Runner_Dependencies
     /**
      * The factory for PEAR dependencies.
      *
-     * @var Components_Pear_Factory
+     * @var Components_Helper_Dependencies
      */
-    private $_factory;
-
-    /**
-     * The output handler.
-     *
-     * @param Component_Output
-     */
-    private $_output;
+    private $_dependencies;
 
     /**
      * Constructor.
      *
-     * @param Components_Config       $config  The configuration for the current
-     *                                         job.
-     * @param Components_Pear_Factory $factory The factory for PEAR
-     *                                         dependencies.
-     * @param Component_Output        $output  The output handler.
+     * @param Components_Config            $config  The configuration for the
+     *                                              current job.
+     * @param Components_Component_Factory $factory The factory for components.
+     * @param Component_Output             $output  The output handler.
      */
     public function __construct(
         Components_Config $config,
-        Components_Pear_Factory $factory,
-        Components_Output $output
+        Components_Helper_Dependencies $dependencies
     ) {
-        $this->_config = $config;
-        $this->_factory = $factory;
-        $this->_output = $output;
+        $this->_config       = $config;
+        $this->_dependencies = $dependencies;
     }
 
     public function run()
     {
-        $options = $this->_config->getOptions();
-        $this->_factory
-            ->createSimpleTreeHelper($options, $this->_config->getComponent())
-            ->listDependencyTree(
-                $this->_config->getComponent()->getPackageXml(),
-                $this->_output
-            );
+        $this->_dependencies->listTree(
+            $this->_config->getComponent(),
+            $this->_config->getOptions()
+        );
     }
 }
