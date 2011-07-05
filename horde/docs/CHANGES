@@ -1,6 +1,6 @@
-----------
-v4.0.7-git
-----------
+------
+v4.0.7
+------
 
 [mjr] Fix returning shares in the proper order when fetching multiple shares
       by id.
