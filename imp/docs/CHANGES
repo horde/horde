@@ -1,6 +1,6 @@
-----------
-v5.0.8-git
-----------
+------
+v5.0.8
+------
 
 [jan] Don't attempt to delete linked attachments monthly if they have been
       disabled (Bug #10166).

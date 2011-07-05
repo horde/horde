@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-14</date>
- <time>11:57:30</time>
+ <date>2011-07-05</date>
+ <time>17:30:50</time>
  <version>
   <release>5.0.8</release>
   <api>5.0.0</api>
@@ -2318,7 +2318,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-14</date>
+   <date>2011-07-05</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [jan] Don&apos;t attempt to delete linked attachments monthly if they have been disabled (Bug #10166).
