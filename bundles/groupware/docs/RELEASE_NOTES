@@ -10,73 +10,48 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-version 4.0.
+version 4.0.1.
 
 Horde Groupware is a free, enterprise ready, browser based collaboration
 suite. Users can manage and share calendars, contacts, tasks and notes with the
 standards compliant components from the Horde Project.
 
-The installation method for Horde Groupware 4 has been changed
-to use the PEAR installer. Please follow the instructions on
-http://www.horde.org/apps/groupware/docs/INSTALL to install Horde Groupware.
+For upgrading instructions, please see
+http://www.horde.org/apps/groupware/docs/UPGRADING
 
-The major changes compared to the Horde Groupware version 1 are:
+For detailed installation and configuration instructions, please see
+http://www.horde.org/apps/groupware/docs/INSTALL
 
-Global changes:
-    * Completely refactored for PHP 5.
-    * New installation process through PEAR installer.
-    * Simplified configuration process.
-    * ActiveSync support.
-    * Frameless layout.
-    * Grouping into advanced and simple user preferences.
-    * Improved caching and reduced session sizes.
-    * Much faster Share library.
-    * Reduced dependency on external libraries.
-    * Lots of improvements in all library components.
+The major changes compared to the Horde Groupware version 4.0 are:
 
-Address book changes:
-    * Duplicates searching and merging.
+General changes:
+    * Added support for split read/write databases in PostgreSQL.
+    * Bug fixes in synchronization code.
+    * Small bugfixes and improvements.
+    * Updated Brazilian Portuguese, Latvian, Lithuanian, and Ukrainian
+      translations.
 
 Calendar changes:
-    * New AJAX frontend with integrated tasks support.
-    * New mobile frontend.
-    * Resource scheduling.
-    * System calendars.
-    * Calendar coloring.
-    * Calendar and event tagging.
-    * Cross-timezone support.
-    * CalDAV client support.
-    * Improved recurring event exceptions.
-    * Improved notification and invitation messages.
+    * Added support for synchronizing multiple calendars.
 
 Tasks changes:
-    * New Ajax frontend (in calendar).
-    * System task lists.
-    * Task list coloring.
-    * Quick task adding.
+    * Added Ukrainian translation.
+    * Updated French, Slovak, and Spanish translations.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-ActiveSync support.
-Frameless layout.
-Advanced and simple user preferences.
-Improved caching, session sizes and memory usage.
-Faster Share library.
-New mobile frontends.
-Contact duplicates searching and merging.
-New AJAX calendar frontend with tasks support.
-Resource scheduling.
-System calendars and task lists.
-Calendar and task list coloring.
-Calendar and event tagging.
-Cross-timezone support.
-CalDAV client support.
+Added support for split read/write databases in PostgreSQL.
+Bug fixes in synchronization code.
+Added support for synchronizing multiple calendars.
+Small bugfixes and improvements.
+Added Ukrainian translation.
+Updated Brazilian Portuguese, French, Latvian, Lithuanian, Slovak, Spanish, and Ukrainian translations.
 FM;
 
 $this->notes['name'] = 'Horde Groupware';

@@ -2,6 +2,48 @@
 v4.0.1-git
 ----------
 
+Horde Changes
+-------------
+[mjr] Fix returning shares in the proper order when fetching multiple shares
+      by id.
+[mjr] Fix incorrect method name in Pop3 Socket driver.
+[jan] Don't use CSS cache in mobile interfaces because it breaks jQuery Mobile
+      CSS.
+[mjr] Fix race conditions caused by broken clients sending an inappropriate
+      PING request.
+[jan] Fix duplication of objects during synchronization (joniw@t-online.de, Bug
+      #10081).
+[Jan] Don't allow to click disabled login button (Bug #10267).
+[jan] Allow configuration of split read databases for PostgreSQL (Request
+      #7025).
+[mjr] Honor initial_application setting for mobile view (Bug #10264).
+[mjr] Fix issue with initial Android ActiveSync pairing.
+[gwr] Support restricting the HTML tidy post processing by the message size
+      (Request #10266).
+[gwr] Disabled the timeout on the logout token.
+[mjr] Fix integer overflow issue in Facebook code (Bug #9889).
+[mms] Fix adding users with Cyrsql driver (vilius@lnk.lt, Bug #10239).
+
+Address Book Changes
+--------------------
+[jan] Pass contact object to decode_attribute hook (kd@tu-cottbus.de, Bug
+      #10287).
+[jan] Complete fix for importing LDIF files (Bug #10139).
+
+Calendar Changes
+----------------
+[jan] Update task due date in interface after dragging a task (Bug #10001).
+[jan] Correctly sort events in portal block or widget if only displaying a
+      single calendar (Bug #10099).
+[mjr] Allow syncing of multiple owner-owned calendars (Request #8734).
+[jan] Don't show calendar drop down in event form without delete permissions
+      (Bug #10201).
+[jan] Don't change event creator when saving events.
+[jan] Fetch events immediately after saving remote calendar.
+
+Tasks Changes
+-------------
+[jan] Add Ukrainian translation (Andriy Kopystyansky <anri@polynet.lviv.ua>).
 
 
 ----
