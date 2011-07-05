@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-07-05</date>
- <time>17:27:14</time>
+ <time>17:28:56</time>
  <version>
-  <release>4.0.7</release>
+  <release>4.0.8</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,11 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Don&apos;t use CSS cache in mobile interfaces because it breaks jQuery Mobile CSS.
-* [jan] Allow configuration of split read databases for PostgreSQL (Request #7025).
-* [mjr] Honor initial_application setting for mobile view (Bug #10264).
-* [gwr] Support restricting the HTML tidy post processing by the message size (Request #10266).
-* [gwr] Disabled the timeout on the logout token.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4169,6 +4165,19 @@
 * [mjr] Honor initial_application setting for mobile view (Bug #10264).
 * [gwr] Support restricting the HTML tidy post processing by the message size (Request #10266).
 * [gwr] Disabled the timeout on the logout token.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.8</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
