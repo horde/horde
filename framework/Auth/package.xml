@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2011-07-05</date>
- <time>14:24:55</time>
+ <time>14:25:17</time>
  <version>
-  <release>1.1.0</release>
+  <release>1.1.1</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -35,8 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
-* [rla] Add sort parameter to listUsers() method.
-* [mms] Fix addUser() for Cyrsql driver (vilius@lnk.lt, Bug #10239).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -430,6 +429,19 @@
    <notes>
 * [rla] Add sort parameter to listUsers() method.
 * [mms] Fix addUser() for Cyrsql driver (vilius@lnk.lt, Bug #10239).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
