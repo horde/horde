@@ -24,9 +24,8 @@ developing modern web applications. It is the basis for a large number of
 production-level web applications, notably the Horde Groupware suites. For more
 information on Horde or the Horde Groupware suites, visit http://www.horde.org.
 
-To upgrade from earlier releases, you only have to run:
-
-  pear upgrade -c horde
+For upgrading instructions, please see
+http://www.horde.org/apps/horde/docs/UPGRADING
 
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
