@@ -19,9 +19,9 @@
   <active>yes</active>
  </lead>
  <date>2011-07-05</date>
- <time>14:39:08</time>
+ <time>14:39:41</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -30,7 +30,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Speed up exporting of objects with binary content (Bug #9405).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -747,6 +747,19 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Speed up exporting of objects with binary content (Bug #9405).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
