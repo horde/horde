@@ -1,6 +1,6 @@
-----------
-v3.0.5-git
-----------
+------
+v3.0.5
+------
 
 [jan] Update task due date in interface after dragging a task (Bug #10001).
 [jan] Correctly sort events in portal block or widget if only displaying a
