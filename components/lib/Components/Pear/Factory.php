@@ -210,18 +210,6 @@ class Components_Pear_Factory
     }
 
     /**
-     * Return the package.xml handler.
-     *
-     * @param string                          $package_xml_path Path to the package.xml file.
-     *
-     * @return Horde_Pear_Package_Xml
-     */
-    public function getPackageXml($package_xml_path)
-    {
-        return new Horde_Pear_Package_Xml($package_xml_path);
-    }
-
-    /**
      * Return the PEAR Package representation based on a local *.tgz archive.
      *
      * @param string                          $package_tgz_path Path to the *.tgz file.
@@ -237,34 +225,5 @@ class Components_Pear_Factory
         return Components_Exception_Pear::catchError(
             $pkg->fromTgzFile($package_tgz_path, PEAR_VALIDATE_NORMAL)
         );
-    }
-
-    /**
-     * Create a new PEAR Package representation.
-     *
-     * @param string                          $package_xml_dir Path to the parent directory of the package.xml file.
-     * @param Components_Pear_Environment $environment      The PEAR environment.
-     *
-     * @return PEAR_PackageFile
-     */
-    public function createPackageFile(
-        $package_xml_dir
-    ) {
-        $type = new Horde_Pear_Package_Type_Horde($package_xml_dir);
-        $type->writePackageXmlDraft();
-    }
-
-    /**
-     * Create a package dependency helper.
-     *
-     * @param Components_Pear_Package $package The package.
-     *
-     * @return Components_Pear_Dependencies The dependency helper.
-     */
-    public function createDependencies(Components_Pear_Package $package)
-    {
-        $dependencies = $this->_dependencies->createInstance('Components_Pear_Dependencies');
-        $dependencies->setPackage($package);
-        return $dependencies;
     }
 }

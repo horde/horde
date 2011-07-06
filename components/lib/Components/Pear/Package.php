@@ -327,17 +327,6 @@ class Components_Pear_Package
     }
 
     /**
-     * Return the dependency helper for the package.
-     *
-     * @return Components_Pear_Dependencies The dependency helper.
-     */
-    public function getDependencyHelper()
-    {
-        $this->_checkSetup();
-        return $this->_factory->createDependencies($this);
-    }
-
-    /**
      * Timestamp the package.xml file with the current time.
      *
      * @return NULL
