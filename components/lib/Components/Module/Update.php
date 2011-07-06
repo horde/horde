@@ -103,7 +103,6 @@ extends Components_Module_Base
         return array(
             '--pretend' => 'Display a textual diff of the current package.xml and the updated package.xml. The package.xml file does not get modified.',
             '--regenerate' => 'Purge the old file listings and replace them with a completely fresh list.',
-            '--action' => ''
         );
     }
 
