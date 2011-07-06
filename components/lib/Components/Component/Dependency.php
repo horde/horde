@@ -206,48 +206,11 @@ class Components_Component_Dependency
     }
 
     /**
-     * Does the dependency match the given selector?
-     *
-     * @param string $selector The selector.
-     *
-     * @return boolen True if the dependency matches.
-     */
-    public function matches($selector)
-    {
-        $selectors = split(',', $selector);
-        if (in_array('ALL', $selectors)) {
-            return true;
-        }
-        foreach ($selectors as $selector) {
-            if (empty($selector)) {
-                continue;
-            }
-            if (strpos($selector, '/') !== false) {
-                list($channel, $name) = split('/', $selector, 2);
-                if ($this->_channel == $channel && $this->_name == $name) {
-                    return true;
-                }
-                continue;
-            }
-            if (substr($selector, 0, 8) == 'channel:') {
-                if ($this->_channel == substr($selector, 8)) {
-                    return true;
-                }
-                continue;
-            }
-            if ($this->_name == $selector) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Return the package name for the dependency
      *
      * @return string The package name.
      */
-    public function name()
+    public function getName()
     {
         return $this->_name;
     }
@@ -257,7 +220,7 @@ class Components_Component_Dependency
      *
      * @return string The package channel.
      */
-    public function channel()
+    public function getChannel()
     {
         return $this->_channel;
     }
