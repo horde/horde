@@ -32,7 +32,7 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Components
  */
-class Components_Unit_Components_Component_DependencyListTest
+class Components_Unit_Components_Component_DependencyTest
 extends Components_TestCase
 {
     public function testRequiredTrue()
@@ -150,7 +150,7 @@ extends Components_TestCase
         $this->assertEquals(
             'PEAR',
             $this->_getDependency(array('type' => 'pkg', 'name' => 'PEAR'))
-            ->name()
+            ->getName()
         );
     }
 
@@ -161,7 +161,7 @@ extends Components_TestCase
             $this->_getDependency(
                 array('type' => 'pkg', 'channel' => 'pear.php.net')
             )
-            ->channel()
+            ->getChannel()
         );
     }
 
