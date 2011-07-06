@@ -82,7 +82,7 @@ class Components_Component_Resolver
     )
     {
         return $this->resolveName(
-            $dependency->name(), $dependency->channel(), $options
+            $dependency->getName(), $dependency->getChannel(), $options
         );
     }
 
@@ -105,13 +105,19 @@ class Components_Component_Resolver
                     return $this->_factory->createSource(dirname($path));
                 } catch (Components_Exception $e) {
                 }
-            } else {
-                $remote = $this->_getRemote($channel);
-                if ($remote->getLatestRelease($name, $attempt)) {
-                    return $this->_factory->createRemote(
-                        $name, $attempt, $channel, $remote
+            }
+            if ($attempt == 'snapshot') {
+                if ($local = $this->_identifyMatchingLocalPackage($name, $channel, $options)) {
+                    return $this->_factory->createArchive(
+                        $local
                     );
                 }
+            }
+            $remote = $this->_getRemote($channel);
+            if ($remote->getLatestRelease($name, $attempt)) {
+                return $this->_factory->createRemote(
+                    $name, $attempt, $channel, $remote
+                );
             }
         }
         return false;
@@ -126,14 +132,35 @@ class Components_Component_Resolver
      */
     private function _getAttempts($options)
     {
-        if (empty($options['allow_remote'])) {
-            return array('git');
-        }
         if (isset($options['order'])) {
             return $options['order'];
-        } else {
-            return array('git', 'stable', 'beta', 'alpha', 'devel');
         }
+        $order = array('git', 'snapshot', 'stable', 'beta', 'alpha', 'devel');
+        if (!empty($options['snapshot'])) {
+            $order = array('snapshot', 'stable', 'beta', 'alpha', 'devel', 'git');
+        }
+        if (!empty($options['stable'])) {
+            $order = array('stable', 'beta', 'alpha', 'devel', 'snapshot', 'git');
+        }
+        if (!empty($options['beta'])) {
+            $order = array('beta', 'stable', 'alpha', 'devel', 'snapshot', 'git');
+        }
+        if (!empty($options['alpha'])) {
+            $order = array('alpha', 'beta', 'stable', 'devel', 'snapshot', 'git');
+        }
+        if (!empty($options['devel'])) {
+            $order = array('devel', 'alpha', 'beta', 'stable', 'snapshot', 'git');
+        }
+        if (empty($options['allow_remote'])) {
+            $result = array();
+            foreach ($order as $element) {
+                if (in_array($element, array('git', 'snapshot'))) {
+                    $result[] = $element;
+                }
+            }
+            return $result;
+        }
+        return $order;
     }
 
     /**
@@ -152,4 +179,31 @@ class Components_Component_Resolver
         }
         return $this->_remotes[$channel];
     }
+
+    /**
+     * Identify a dependency that is available via a downloaded *.tgz archive.
+     *
+     * @param string $name    The component name.
+     * @param string $channel The component channel.
+     * @param array  $options Resolve options.
+     *
+     * @return string A path to the local archive if it was found.
+     */
+    public function _identifyMatchingLocalPackage($name, $channel, $options)
+    {
+        if (empty($options['sourcepath'])) {
+            return false;
+        }
+        $source = $options['sourcepath'] . '/' . $channel;
+        if (!file_exists($source)) {
+            return false;
+        }
+        foreach (new DirectoryIterator($source) as $file) {
+            if (preg_match('/' . $name . '-[0-9]+(\.[0-9]+)+([a-z0-9]+)?/', $file->getBasename('.tgz'), $matches)) {
+                return $file->getPathname();
+            }
+        }
+        return false;
+    }
+
 }
