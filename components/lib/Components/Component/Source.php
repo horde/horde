@@ -243,6 +243,24 @@ class Components_Component_Source extends Components_Component_Base
     }
 
     /**
+     * Identify the repository root.
+     *
+     * @param Components_Helper_Root $helper The root helper.
+     *
+     * @return NULL
+     */
+    public function repositoryRoot(Components_Helper_Root $helper)
+    {
+        if (($result = $this->traverseHierarchy($this->_directory)) === false) {
+            $this->_errors[] = sprintf(
+                'Unable to determine Horde repository root from component path "%s"!',
+                $this->_directory
+            );
+        }
+        return $result;
+    }
+
+    /**
      * Return a PEAR package representation for the component.
      *
      * @return Horde_Pear_Package_Xml The package representation.

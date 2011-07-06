@@ -188,7 +188,7 @@ class Components_Helper_Root
     private function _determineRootFromPath()
     {
         if (!empty($this->_path)) {
-            if (($result = $this->_traverseHierarchy($this->_path)) === false) {
+            if (($result = $this->traverseHierarchy($this->_path)) === false) {
                 $this->_errors[] = sprintf(
                     'Unable to determine Horde repository root from path "%s"!',
                     $this->_path
@@ -209,21 +209,14 @@ class Components_Helper_Root
     {
         if (!empty($this->_component)) {
             try {
-                $this->_component->requireLocal();
+                $result = $this->_component->repositoryRoot($this);
             } catch (Components_Exception $e) {
                 $this->_errors[] = sprintf(
-                    'Component %s is not local!',
+                    'Component %s has no repository root!',
                     $this->_component->getName()
                 );
                 return false;
             }
-            if (($result = $this->_traverseHierarchy($this->_component->getPath())) === false) {
-                $this->_errors[] = sprintf(
-                    'Unable to determine Horde repository root from component path "%s"!',
-                    $this->_component->getPath()
-                );
-            }
-            return $result;
         }
         return false;
     }
@@ -256,7 +249,7 @@ class Components_Helper_Root
      */
     private function _determineRootFromCwd()
     {
-        if (($result = $this->_traverseHierarchy(getcwd())) === false) {
+        if (($result = $this->traverseHierarchy(getcwd())) === false) {
             $this->_errors[] = sprintf(
                 'Unable to determine Horde repository root from the current working directory "%s"!',
                 getcwd()
@@ -275,7 +268,7 @@ class Components_Helper_Root
      * @return string|boolean The root path or false if it could not be
      *                        determined.
      */
-    private function _traverseHierarchy($start)
+    public function traverseHierarchy($start)
     {
         $i = 0;
         $origin = $start;

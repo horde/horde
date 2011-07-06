@@ -56,6 +56,13 @@ interface Components_Component
     public function getDependencies();
 
     /**
+     * Return the dependency list for the component.
+     *
+     * @return Components_Component_DependencyList The dependency list.
+     */
+    public function getDependencyList();
+
+    /**
      * Update the package.xml file for this component.
      *
      * @param string $action  The action to perform. Either "update", "diff",
@@ -90,6 +97,15 @@ interface Components_Component
      *               PEAR output.
      */
     public function placeArchive($destination, $options);
+
+    /**
+     * Identify the repository root.
+     *
+     * @param Components_Helper_Root $helper The root helper.
+     *
+     * @return NULL
+     */
+    public function repositoryRoot(Components_Helper_Root $helper);
 
 
 

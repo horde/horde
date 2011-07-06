@@ -59,23 +59,13 @@ abstract class Components_Component_Base implements Components_Component
     }
 
     /**
-     * Return the application options.
+     * Return the dependency list for the component.
      *
-     * @return array The options.
+     * @return Components_Component_DependencyList The dependency list.
      */
-    protected function getOptions()
+    public function getDependencyList()
     {
-        return $this->_config->getOptions();
-    }
-
-    /**
-     * Return the factory.
-     *
-     * @return Components_Component_Factory The factory.
-     */
-    protected function getFactory()
-    {
-        return $this->_factory;
+        return $this->_factory->createDependencyList($this);
     }
 
     /**
@@ -113,6 +103,40 @@ abstract class Components_Component_Base implements Components_Component
     }
 
     /**
+     * Identify the repository root.
+     *
+     * @param Components_Helper_Root $helper The root helper.
+     *
+     * @return NULL
+     */
+    public function repositoryRoot(Components_Helper_Root $helper)
+    {
+        throw new Components_Exception(
+            'Identifying the repository root is not supported!'
+        );
+    }
+
+    /**
+     * Return the application options.
+     *
+     * @return array The options.
+     */
+    protected function getOptions()
+    {
+        return $this->_config->getOptions();
+    }
+
+    /**
+     * Return the factory.
+     *
+     * @return Components_Component_Factory The factory.
+     */
+    protected function getFactory()
+    {
+        return $this->_factory;
+    }
+
+    /**
      * Create the specified directory.
      *
      * @param string $destination The destination path.
@@ -125,15 +149,4 @@ abstract class Components_Component_Base implements Components_Component
             mkdir($destination, 0700, true);
         }
     }
-
-    /**
-     * Return the dependency list for the component.
-     *
-     * @return Components_Component_DependencyList The dependency list.
-     */
-    public function getDependencyList()
-    {
-        return $this->_factory->createDependencyList($this);
-    }
-
 }
