@@ -57,7 +57,7 @@ class Ulaform {
         }
 
         /* Fetch the field type information from the Horde_Form classes. */
-        $fields = Ulaform::getFieldTypesArray();
+        $fields = self::getFieldTypesArray();
 
         /* Strip out the name element from the array. */
         foreach ($fields as $field_type => $info) {
@@ -103,7 +103,7 @@ class Ulaform {
 
     function getFieldParams($field_type)
     {
-        $fields = Ulaform::getFieldTypesArray();
+        $fields = self::getFieldTypesArray();
 
         /* Return null if there are no params for this field type. */
         if (!isset($fields[$field_type]['params'])) {
