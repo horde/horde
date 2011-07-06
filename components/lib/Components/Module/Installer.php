@@ -83,31 +83,37 @@ extends Components_Module_Base
                 )
             ),
             new Horde_Argv_Option(
-                '-I',
-                '--include',
-                array(
-                    'action' => 'store',
-                    'help'   => 'The list of optional dependencies that should be included in the installation. You can either specify packages by name (e.g. PEAR), by a combination of channel and name (e.g. pear.php.net/PEAR), a channel name (e.g. channel:pear.php.net), or all packages by the special keyword ALL. Several entries need to be separated by ",". The default for this option is "ALL".',
-                    'default' => 'ALL',
-                    'dest' => 'include',
-                )
-            ),
-            new Horde_Argv_Option(
-                '-E',
-                '--exclude',
-                array(
-                    'action' => 'store',
-                    'help'   => 'The list of optional dependencies that should be excluded during the installation. You can either specify packages by name (e.g. PEAR), by a combination of channel and name (e.g. pear.php.net/PEAR), a channel name (e.g. channel:pear.php.net), or all packages by the special keyword ALL. Several entries need to be separated by ",". The default for this option is "channel:pecl.php.net".',
-                    'default' => 'channel:pecl.php.net',
-                    'dest' => 'exclude',
-                )
-            ),
-            new Horde_Argv_Option(
-                '-s',
-                '--symlink',
+                '--build-distribution',
                 array(
                     'action' => 'store_true',
-                    'help'   => 'Symlink the files from the source repository rather than copying them to the install location. This is intended for the development mode where you want to have your edits to have a direct effect on your installation while still retaining the possibility of commiting to your repository.',
+                    'help'   => 'Download all elements required for installation to SOURCEPATH and CHANNELXMLPATH. If those paths have been left undefined they will be created automatically at DESTINATION/distribution if you activate this flag.',
+                )
+            ),
+            new Horde_Argv_Option(
+                '--instructions',
+                array(
+                    'action' => 'store',
+                    'help'   => 'Points to a file that contains per-package installation instructions. This is a plain text file that holds a package identifier per line. You can either specify packages by name (e.g. PEAR), by a combination of channel and name (e.g. pear.php.net/PEAR), a channel name (e.g. channel:pear.php.net), or all packages by the special keyword ALL. The package identifier is followed by a set of options that can be any keyword of the following: include,exclude,symlink,git,snapshot,stable,beta,alpha,devel,force,nodeps.
+
+      These have the following meaning:
+
+       - include:  Include optional package(s) into the installation.
+       - exclude:  Exclude optional package(s) from installation.
+       - git:      Prefer installing from a source component.
+       - snapshot: Prefer installing from a snapshot in the SOURCEPATH.
+       - stable:   Prefer a remote package of stability "stable".
+       - beta:     Prefer a remote package of stability "beta".
+       - alpha:    Prefer a remote package of stability "alpha".
+       - devel:    Prefer a remote package of stability "devel".
+       - symlink:  Symlink a source component rather than copying it.
+       - force:    Force the PEAR installer to install the package.
+       - nodeps:   Instruct the PEAR installer to ignore dependencies.
+
+      The INSTRUCTIONS file could look like this (ensure the identifiers move from less specific to more specific as the latter options will overwrite previous instructions in case both identifier match a compnent):
+
+       ALL: symlink
+       Horde_Test: exclude
+',
                 )
             ),
             new Horde_Argv_Option(
@@ -165,10 +171,10 @@ extends Components_Module_Base
             '--destination' => 'The path to the target for the installation.',
             '--sourcepath' => '',
             '--channelxmlpath' => '',
-            '--exclude' => '',
-            '--include' => '',
+            '--instructions' => '',
             '--horde-dir' => '',
-            '--symlink' => '',
+            '--build-distribution' => '',
+            '--pretend' => '',
         );
     }
 
@@ -186,7 +192,6 @@ extends Components_Module_Base
         $arguments = $config->getArguments();
         if (!empty($options['install'])
             || (isset($arguments[0]) && $arguments[0] == 'install')) {
-            $config->getComponent()->requirePackageXml();
             $this->_dependencies->getRunnerInstaller()->run();
             return true;
         }
