@@ -1,6 +1,6 @@
 <?php
 /**
- * Ulaform_Action_mailto Class provides a Ulaform action driver to mail the
+ * Ulaform_Action_Mailto Class provides a Ulaform action driver to mail the
  * results of a form to one or more recipients.
  *
  * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
@@ -20,45 +20,24 @@ class Ulaform_Action_Mailto extends Ulaform_Action {
     {
         global $conf;
 
-        /* Get the required libs. */
-        require_once 'Horde/MIME.php';
-        require_once 'Horde/MIME/Message.php';
-
-        $recipients = array();
-
-        $message = &new MIME_Message();
-
-        $headers['From'] = MIME::encodeAddress($form_params['from']);
-        $headers['To'] = MIME::encodeAddress($form_params['to']);
-        $recipients[] = $headers['To'];
-        $headers['Subject'] = MIME::encode($form_params['subject'], Horde_Nls::getCharset());
+        $mail = new Horde_Mime_Mail();
+        $mail->addHeader('From', $form_params['from']);
+        $mail->addHeader('Subject', $form_params['subject']);
+        $mail->addHeader('To', $form_params['to']);
         if (!empty($form_params['cc'])) {
-            $headers['Cc'] = MIME::encodeAddress($form_params['cc']);
-            $recipients[] = $headers['Cc'];
+            $mail->addHeader('Cc', $form_params['cc']);
         }
         if (!empty($form_params['bcc'])) {
-            $headers['Bcc'] = MIME::encodeAddress($form_params['bcc']);
-            $recipients[] = $headers['Bcc'];
+            $mail->addHeader('Bcc', $form_params['bcc']);
         }
 
         $body = '';
-        $have_parts = false;
         foreach ($fields as $field) {
             $value = array_shift($form_data);
             switch ($field['field_type']) {
             case 'file':
             case 'image':
-                $have_parts = true;
-                $part = &new MIME_Part();
-                $part->setType($value['type']);
-
-                $data = file_get_contents($value['file']);
-
-                $part->setContents($data);
-                $part->setDisposition('attachment');
-                $part->setDispositionParameter('filename', $value['name']);
-                $part->setContentTypeParameter('name', $value['name']);
-                $message->addPart($part);
+                $mail->addAttachment($value['file'], $value['name'], $value['type']);
                 break;
 
             default:
@@ -68,22 +47,8 @@ class Ulaform_Action_Mailto extends Ulaform_Action {
             }
         }
 
-        if ($have_parts) {
-            $message->setType('multipart/mixed');
-            $part = &new MIME_Part();
-            $part->setType('text/plain');
-            $part->setCharset(Horde_Nls::getCharset());
-            $part->setDisposition('inline');
-            $part->setContents($body);
-            $message->addPart($part);
-        } else {
-            $message->setContents($body);
-            $message->setType('text/plain');
-            $message->setCharset(Horde_Nls::getCharset());
-        }
-
-        $headers = $message->header($headers);
-        return $message->send(join(', ', $recipients), $headers);
+        $mail->setBody($body);
+        return $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
     }
 
     /**
