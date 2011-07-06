@@ -866,7 +866,7 @@ class Horde_Ldap
             $filter,
             array('attributes' => array($this->_config['user']['uid'])));
         if (!$search->count()) {
-            throw new Horde_Exception_NotFound();
+            throw new Horde_Exception_NotFound('DN for user ' . $user . ' not found');
         }
         $entry = $search->shiftEntry();
         return $entry->currentDN();
