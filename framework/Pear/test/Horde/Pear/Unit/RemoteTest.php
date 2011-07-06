@@ -78,8 +78,16 @@ extends Horde_Pear_TestCase
     public function testDependencies()
     {
         $this->assertEquals(
-            array(array('name' => 'test', 'type' => 'pkg')),
+            array(array('name' => 'test', 'type' => 'pkg', 'optional' => 'no')),
             $this->_getRemoteDependencies()->getDependencies('A', '1.0.0')
+        );
+    }
+
+    public function testChannel()
+    {
+        $this->assertEquals(
+            'a:1:{s:8:"required";a:1:{s:7:"package";a:1:{s:4:"name";s:4:"test";}}}',
+            $this->_getRemoteDependencies()->getChannel()
         );
     }
 

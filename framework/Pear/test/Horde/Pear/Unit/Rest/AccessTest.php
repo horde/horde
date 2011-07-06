@@ -69,6 +69,14 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testChannelXml()
+    {
+        $this->assertEquals(
+            'b:1;',
+            $this->_getDependencyAccess()->getChannel()
+        );
+    }
+
     private function _getAccess()
     {
         if (!class_exists('Horde_Http_Client')) {

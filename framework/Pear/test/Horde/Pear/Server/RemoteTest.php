@@ -69,6 +69,14 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testChannel()
+    {
+        $this->assertContains(
+            '<name>pear.horde.org</name>',
+            $this->_getRemote()->getChannel()
+        );
+    }
+
     public function testDependencies()
     {
         $deps = $this->_getRemote()->getDependencies('Horde_Translation', '1.0.0');

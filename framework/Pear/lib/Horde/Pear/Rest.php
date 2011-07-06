@@ -155,13 +155,23 @@ class Horde_Pear_Rest
      * @param string $package The name of the package.
      * @param string $version The version of the release.
      *
-     * @return resource A stream with the serialized dependencies.
+     * @return string The serialized dependencies.
      */
     public function fetchPackageDependencies($package, $version)
     {
         return $this->_read(
             $this->_url . '/rest/r/' . strtolower($package) . '/deps.' . $version . '.txt'
         );
+    }
+
+    /**
+     * Return the channel.xml from the server.
+     *
+     * @return string The content of the channel.xml file.
+     */
+    public function fetchChannelXml()
+    {
+        return $this->_read($this->_url . '/channel.xml');
     }
 
     /**

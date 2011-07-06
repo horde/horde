@@ -119,6 +119,15 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testChannelResponse()
+    {
+        $response = $this->_getRest()->fetchChannelXml();
+        $this->assertEquals(
+            'RESPONSE',
+            $response
+        );
+    }
+
     private function _getRest()
     {
         if (!class_exists('Horde_Http_Client')) {

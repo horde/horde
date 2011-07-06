@@ -139,4 +139,14 @@ class Horde_Pear_Rest_Access
             $this->_getRest()->fetchPackageDependencies($package, $version)
         );
     }
+
+    /**
+     * Return the channel.xml from the server.
+     *
+     * @return string The content of the channel.xml file.
+     */
+    public function getChannel()
+    {
+        return $this->_getRest()->fetchChannelXml();
+    }
 }

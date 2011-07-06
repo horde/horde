@@ -96,6 +96,16 @@ class Horde_Pear_Remote
     }
 
     /**
+     * Return the channel.xml from the server.
+     *
+     * @return string The content of the channel.xml file.
+     */
+    public function getChannel()
+    {
+        return $this->_access->getChannel();
+    }
+
+    /**
      * Retrieve the dowlnload location for the latest package release.
      *
      * @param string $package   The package name.
