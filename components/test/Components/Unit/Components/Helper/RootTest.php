@@ -138,4 +138,43 @@ extends Components_TestCase
         $this->assertEquals($path, $root->getRoot());
     }
 
+    public function testFrameworkComponent()
+    {
+        $path = dirname(__FILE__) . '/../../../fixture';
+        $root = new Components_Helper_Root(array('horde_root' => $path));
+        $this->assertEquals(
+            $path . '/framework/Old/package.xml',
+            $root->getPackageXml('Old')
+        );
+    }
+
+    public function testFrameworkComponentTwo()
+    {
+        $path = dirname(__FILE__) . '/../../../fixture';
+        $root = new Components_Helper_Root(array('horde_root' => $path));
+        $this->assertEquals(
+            $path . '/framework/Old/package.xml',
+            $root->getPackageXml('Horde_Old')
+        );
+    }
+
+    public function testBundleComponent()
+    {
+        $path = dirname(__FILE__) . '/../../../fixture';
+        $root = new Components_Helper_Root(array('horde_root' => $path));
+        $this->assertEquals(
+            $path . '/bundles/Bundle/package.xml',
+            $root->getPackageXml('Bundle')
+        );
+    }
+
+    public function testApplicationComponent()
+    {
+        $path = dirname(__FILE__) . '/../../../fixture';
+        $root = new Components_Helper_Root(array('horde_root' => $path));
+        $this->assertEquals(
+            $path . '/horde/package.xml',
+            $root->getPackageXml('horde')
+        );
+    }
 }

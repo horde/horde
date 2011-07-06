@@ -111,6 +111,10 @@ class Components_Helper_Root
                 . substr($name, 6) . '/package.xml';
         }
         if (!file_exists($package_file)) {
+            $package_file = $this->getRoot() . '/bundles/' . $name
+                . '/package.xml';
+        }
+        if (!file_exists($package_file)) {
             throw new Components_Exception(sprintf('Unknown package %s.', $name));
         }
         return $package_file;

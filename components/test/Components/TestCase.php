@@ -49,7 +49,7 @@ extends PHPUnit_Framework_TestCase
         $dependencies->initConfig($config);
         $factory = $dependencies->getComponentFactory();
         return new Components_Component_Source(
-            $directory, false, $config, $factory
+            $directory, $config, $factory
         );
     }
 
