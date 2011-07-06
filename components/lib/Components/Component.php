@@ -35,6 +35,20 @@ interface Components_Component
     public function getName();
 
     /**
+     * Return the component summary.
+     *
+     * @return string The summary of the component.
+     */
+    public function getSummary();
+
+    /**
+     * Return the component description.
+     *
+     * @return string The description of the component.
+     */
+    public function getDescription();
+
+    /**
      * Return the version of the component.
      *
      * @return string The component version.
@@ -54,6 +68,27 @@ interface Components_Component
      * @return array The component dependencies.
      */
     public function getDependencies();
+
+    /**
+     * Return the component lead developers.
+     *
+     * @return string The component lead developers.
+     */
+    public function getLeads();
+
+    /**
+     * Return the component license.
+     *
+     * @return string The component license.
+     */
+    public function getLicense();
+
+    /**
+     * Return the component license URI.
+     *
+     * @return string The component license URI.
+     */
+    public function getLicenseLocation();
 
     /**
      * Return the dependency list for the component.

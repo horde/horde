@@ -77,6 +77,13 @@ class Components_Component_Remote extends Components_Component_Base
     private $_client;
 
     /**
+     * The package file representing the component.
+     *
+     * @var Horde_Pear_Package_Xml
+     */
+    private $_package;
+
+    /**
      * Constructor.
      *
      * @param string                  $name      Component name.
@@ -188,4 +195,20 @@ class Components_Component_Remote extends Components_Component_Base
         }
         return $this->_uri;
     }
+
+    /**
+     * Return a PEAR package representation for the component.
+     *
+     * @return Horde_Pear_Package_Xml The package representation.
+     */
+    protected function getPackageXml()
+    {
+        if (!isset($this->_package)) {
+            $this->_package = $this->_remote->getPackageXml(
+                $this->getName(), $this->getVersion()
+            );
+        }
+        return $this->_package;
+    }
+
 }

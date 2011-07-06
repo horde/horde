@@ -70,46 +70,6 @@ class Components_Component_Source extends Components_Component_Base
     }
 
     /**
-     * Return the name of the component.
-     *
-     * @return string The component name.
-     */
-    public function getName()
-    {
-        return $this->_getPackageXml()->getName();
-    }
-
-    /**
-     * Return the version of the component.
-     *
-     * @return string The component version.
-     */
-    public function getVersion()
-    {
-        return $this->_getPackageXml()->getVersion();
-    }
-
-    /**
-     * Return the channel of the component.
-     *
-     * @return string The component channel.
-     */
-    public function getChannel()
-    {
-        return $this->_getPackageXml()->getChannel();
-    }
-
-    /**
-     * Return the dependencies for the component.
-     *
-     * @return array The component dependencies.
-     */
-    public function getDependencies()
-    {
-        return $this->_getPackageXml()->getDependencies();
-    }
-
-    /**
      * Update the package.xml file for this component.
      *
      * @param string $action  The action to perform. Either "update", "diff",
@@ -124,7 +84,7 @@ class Components_Component_Source extends Components_Component_Base
             $this->getFactory()->createPackageFile($this->_directory);
         }
 
-        $package_xml = $this->_getPackageXml();
+        $package_xml = $this->getPackageXml();
         $package_xml->updateContents(null, $options);
         switch($action) {
         case 'print':
@@ -163,7 +123,7 @@ class Components_Component_Source extends Components_Component_Base
             $options,
             $helper->packageXml(
                 $log,
-                $this->_getPackageXml(),
+                $this->getPackageXml(),
                 $this->_getPackageXmlPath(),
                 $options
             ),
@@ -265,7 +225,7 @@ class Components_Component_Source extends Components_Component_Base
      *
      * @return Horde_Pear_Package_Xml The package representation.
      */
-    public function _getPackageXml()
+    protected function getPackageXml()
     {
         if (!isset($this->_package)) {
             $this->_package = $this->getFactory()->createPackageXml(

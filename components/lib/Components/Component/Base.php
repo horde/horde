@@ -59,6 +59,96 @@ abstract class Components_Component_Base implements Components_Component
     }
 
     /**
+     * Return the name of the component.
+     *
+     * @return string The component name.
+     */
+    public function getName()
+    {
+        return $this->getPackageXml()->getName();
+    }
+
+    /**
+     * Return the component summary.
+     *
+     * @return string The summary of the component.
+     */
+    public function getSummary()
+    {
+        return $this->getPackageXml()->getSummary();
+    }
+
+    /**
+     * Return the component description.
+     *
+     * @return string The description of the component.
+     */
+    public function getDescription()
+    {
+        return $this->getPackageXml()->getDescription();
+    }
+
+    /**
+     * Return the version of the component.
+     *
+     * @return string The component version.
+     */
+    public function getVersion()
+    {
+        return $this->getPackageXml()->getVersion();
+    }
+
+    /**
+     * Return the channel of the component.
+     *
+     * @return string The component channel.
+     */
+    public function getChannel()
+    {
+        return $this->getPackageXml()->getChannel();
+    }
+
+    /**
+     * Return the dependencies for the component.
+     *
+     * @return array The component dependencies.
+     */
+    public function getDependencies()
+    {
+        return $this->getPackageXml()->getDependencies();
+    }
+
+    /**
+     * Return the package lead developers.
+     *
+     * @return string The package lead developers.
+     */
+    public function getLeads()
+    {
+        return $this->getPackageXml()->getLeads();
+    }
+
+    /**
+     * Return the component license.
+     *
+     * @return string The component license.
+     */
+    public function getLicense()
+    {
+        return $this->getPackageXml()->getLicense();
+    }
+
+    /**
+     * Return the component license URI.
+     *
+     * @return string The component license URI.
+     */
+    public function getLicenseLocation()
+    {
+        return $this->getPackageXml()->getLicenseLocation();
+    }
+
+    /**
      * Return the dependency list for the component.
      *
      * @return Components_Component_DependencyList The dependency list.
@@ -149,4 +239,15 @@ abstract class Components_Component_Base implements Components_Component
             mkdir($destination, 0700, true);
         }
     }
+
+    /**
+     * Return a PEAR package representation for the component.
+     *
+     * @return Horde_Pear_Package_Xml The package representation.
+     */
+    protected function getPackageXml()
+    {
+        throw new Component_Exception('Not supported!');
+    }
+
 }
