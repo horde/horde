@@ -15,8 +15,6 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ulaform', array('admin' => true));
 
-require_once 'Horde/Form/Action.php';
-
 /* Get some variables. */
 $vars = Horde_Variables::getDefaultVariables();
 $formname = $vars->get('formname');

@@ -61,7 +61,6 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
         }
 
         /* Serialize the form params. */
-        require_once 'Horde/Serialize.php';
         $info['form_params'] = Horde_Serialize::serialize($info['form_params'], Horde_Serialize::UTF7_BASIC);
 
         array_unshift($values,
@@ -315,7 +314,6 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
         }
 
         /* Unserialize the form params. */
-        require_once 'Horde/Serialize.php';
         $form['form_params'] = Horde_Serialize::unserialize($form['form_params'], Horde_Serialize::UTF7_BASIC);
 
         return $form;
