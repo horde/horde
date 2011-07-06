@@ -44,29 +44,18 @@ class Components_Runner_Distribute
     private $_config_application;
 
     /**
-     * The factory for PEAR dependencies.
-     *
-     * @var Components_Pear_Factory
-     */
-    private $_factory;
-
-    /**
      * Constructor.
      *
      * @param Components_Config             $config  The configuration for the current job.
      * @param Components_Config_Application $cfgapp  The application
      *                                               configuration.
-     * @param Components_Pear_Factory       $factory The factory for PEAR
-     *                                               dependencies.
      */
     public function __construct(
         Components_Config $config,
-        Components_Config_Application $cfgapp,
-        Components_Pear_Factory $factory
+        Components_Config_Application $cfgapp
     ) {
         $this->_config  = $config;
         $this->_config_application = $cfgapp;
-        $this->_factory = $factory;
     }
 
     public function run()
