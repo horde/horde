@@ -144,7 +144,6 @@ extends Components_Module_Base
         $arguments = $config->getArguments();
         if (!empty($options['list_deps'])
             || (isset($arguments[0]) && $arguments[0] == 'deps')) {
-            $config->getComponent()->requirePackageXml();
             $this->_dependencies->getRunnerDependencies()->run();
             return true;
         }
