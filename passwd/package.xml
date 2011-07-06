@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-21</date>
- <time>07:25:05</time>
+ <date>2011-06-28</date>
+ <time>17:33:07</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -309,10 +309,9 @@
      </dir> <!-- /themes/silver/graphics -->
     </dir> <!-- /themes/silver -->
    </dir> <!-- /themes -->
-   <file name="COPYING" role="data" />
+   <file name="COPYING" role="doc" />
    <file name="index.php" role="horde" />
-   <file name="main.php" role="horde" />
-   <file name="README" role="data" />
+   <file name="README" role="doc" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -329,7 +328,6 @@
   <filelist>
    <install as="COPYING" name="COPYING" />
    <install as="passwd/index.php" name="index.php" />
-   <install as="passwd/main.php" name="main.php" />
    <install as="README" name="README" />
    <install as="passwd/config/.htaccess" name="config/.htaccess" />
    <install as="passwd/config/backends.php" name="config/backends.php" />
@@ -462,7 +460,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-06-21</date>
+   <date>2011-06-28</date>
    <license uri="TODO">TODO</license>
    <notes>
 * [jan] Provide default configuration files instead of .dist versions.

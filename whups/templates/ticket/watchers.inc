@@ -2,6 +2,6 @@
 <div class="rowOdd">
  <?php printf(_("%d people watching, %d people responsible"),
               count($whups_driver->getListeners($id, false, false, false)),
-              count($whups_driver->getOwners($id))) ?>
+              count(current($whups_driver->getOwners($id)))) ?>
 </div>
 <br class="spacer" />

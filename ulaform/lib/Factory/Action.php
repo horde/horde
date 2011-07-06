@@ -70,7 +70,6 @@ class Ulaform_Factory_Action
             );
             break;
         case 'Ulaform_Action_Mailto':
-        case 'Ulaform_Action_Template':
         }
 
         $action = new $class($params);

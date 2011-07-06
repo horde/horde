@@ -1,7 +1,18 @@
 ----------
-v2.0.3-git
+v2.0.4-git
 ----------
 
+
+
+------
+v2.0.3
+------
+
+[jan] Add -N parameter to mailbot calls by default (Request #10147).
+[jan] Fix notice when using numeric comparisons for spam headers (Bug #10222).
+[jan] Respect excluded mail addresses in Maildrop vacation driver (Request
+      #10077).
+[jan] Fix access to debug handler in Timsieved driver.
 [jan] Fix deleting single conditions from a rule (Bug #10253).
 
 

@@ -31,3 +31,4 @@ $conf['group']['ldap']['writedn'] = 'cn=admin,dc=example,dc=com';
 $conf['group']['ldap']['writepw'] = '';
 $conf['group']['ldap']['gid'] = 'cn';
 $conf['group']['ldap']['newgroup_objectclass'] = 'posixGroup';
+$conf['group']['ldap']['search']['objectclass'] = 'posixGroup';

@@ -254,6 +254,7 @@ class IMP_Views_ShowMessage
         /* Allow stripping of attachments? */
         if ($GLOBALS['prefs']->getValue('strip_attachments')) {
             $contents_mask |= IMP_Contents::SUMMARY_STRIP_STUB;
+            $part_info[] = 'strip';
             $part_info_display[] = 'strip';
         }
 

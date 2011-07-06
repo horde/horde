@@ -191,7 +191,13 @@
  *              All permission checking will be done against Horde_Share, but
  *              note that any 'extended' permissions (such as max_contacts)
  *              will still be enforced. Also note that the backend driver
- *              must have support for using this. Currently SQL and IMSP.
+ *              must have support for using this. Currently SQL, Kolab, and
+ *              IMSP.
+ *
+ * all_shares:  If this is present and true (in addition to "use_shares") the
+ *              corresponding source will be assumed to handle all shares
+ *              that are not explicitely assigned to another source.
+ *              Currently Kolab only.
  *
  * list_name_field:  If this is present and non-empty, it will be taken as the
  *                   field to store contact list names in.
@@ -624,7 +630,7 @@ $cfgSources['favourites'] = array(
  */
 if (!empty($GLOBALS['conf']['facebook']['id'])) {
     $cfgSources['facebook'] = array(
-        // Disabled by default
+        // Disabled if no provisioning with the Facebook API.
         'disabled' => !$GLOBALS['injector']->getInstance('Horde_Service_Facebook')->auth->getSessionKey(),
         'title' => _("Facebook Friends"),
         'type' => 'facebook',

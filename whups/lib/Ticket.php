@@ -285,11 +285,11 @@ class Whups_Ticket
             case 'owners':
                 // Fetch $oldOwners list; then loop through $value adding and
                 // deleting as needed.
-                $oldOwners = $whups_driver->getOwners($this->_id);
+                $oldOwners = current($whups_driver->getOwners($this->_id));
                 $this->_changes['oldowners'] = $oldOwners;
-
                 foreach ($value as $owner) {
-                    if (empty($oldOwners[$owner])) {
+                    if (!$oldOwners ||
+                        array_search($owner, $oldOwners) === false) {
                         $whups_driver->addTicketOwner($this->_id, $owner);
                         $whups_driver->updateLog(
                             $this->_id, $user,
@@ -298,7 +298,7 @@ class Whups_Ticket
                     } else {
                         // Remove $owner from the old owners list; anyone left
                         // in $oldOwners will be removed.
-                        unset($oldOwners[$owner]);
+                        unset($oldOwners[array_search($owner, $oldOwners)]);
                     }
                 }
 
@@ -752,14 +752,14 @@ class Whups_Ticket
 
         if (empty($listeners)) {
             if ($conf['mail']['incl_resp'] ||
-                !count($whups_driver->getOwners($this->_id))) {
+                !count(current($whups_driver->getOwners($this->_id)))) {
                 /* Include all responsible.  */
-                $listeners = $whups_driver->getListeners($this->_id, true,
-                                                         true, true);
+                $listeners = $whups_driver->getListeners(
+                    $this->_id, true, true, true);
             } else {
                 /* Don't include all responsible unless ticket is assigned. */
-                $listeners = $whups_driver->getListeners($this->_id, true,
-                                                         true, false);
+                $listeners = $whups_driver->getListeners(
+                    $this->_id, true, true, false);
             }
 
             /* Notify both old and new queue users if the queue has changed. */

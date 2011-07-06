@@ -1,8 +1,8 @@
 --------
-v0.1-cvs
+v1.0-git
 --------
 
-[jan] Store "set" fields results as comma separated list (Vilius Sumskas
+[jan] Store "set" fields results as comma separated list (Vilius Šumskas
       <vilius@lnk.lt>, Request #5739).
 [jan] Create TEXT columns for form fields with long data (Request #5510).
 [cjh] Add API methods and per-form permissions (duck@obala.net, Request #5331).
@@ -15,7 +15,7 @@ v0.1-cvs
 [jan] Show form name in a title above the form (Ben Chavet <ben@chavet.net>).
 [jan] Add Traditional Chinese translation (David Chang <david@tmv.gov.tw>).
 [jan] Add Spanish translation (Manuel Perez Ayala <mperaya@alcazaba.unex.es>).
-[jan] Add Lithuanian translation (Vilius Sumskas <vilius@lnk.lt>).
+[jan] Add Lithuanian translation (Vilius Šumskas <vilius@lnk.lt>).
 [jan] Add German translation.
 [jan] Add Finnish translation (Petteri Karttunen <pkarttun@siba.fi>).
 [mdj] Create a driver structure for actions, new actions for forms can be

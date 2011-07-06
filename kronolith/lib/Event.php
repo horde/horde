@@ -2019,7 +2019,7 @@ abstract class Kronolith_Event
         $targetcalendar = Horde_Util::getFormData('targetcalendar');
         if (strpos($targetcalendar, '\\')) {
             list(, $this->creator) = explode('\\', $targetcalendar, 2);
-        } elseif (!isset($this->id)) {
+        } elseif (!isset($this->_id)) {
             $this->creator = $GLOBALS['registry']->getAuth();
         }
 

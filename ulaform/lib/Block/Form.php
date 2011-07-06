@@ -1,15 +1,12 @@
 <?php
-
 /**
  * Ulaform Form Block Class
  *
- * This file provides an api to include a Ulaform created form into
+ * This file provides an API to include a Ulaform created form into
  * any other Horde app through the Horde_Blocks, by extending the
  * Horde_Blocks class.
  *
- * $Horde: ulaform/lib/Block/form.php,v 1.32 2009-06-10 17:33:44 slusarz Exp $
- *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -33,7 +30,7 @@ class Ulaform_Block_Form extends Horde_Core_Block {
                                    'type' => 'enum',
                                    'values' => array());
 
-        $forms = $GLOBALS['ulaform_driver']->getAvailableForms();
+        $forms = $GLOBALS['injector']->getInstance('Ulaform_Factory_Driver')->create()->getAvailableForms();
         if (!is_a($forms, 'PEAR_Error')) {
             foreach ($forms as $form) {
                 $params['form_id']['values'][$form['form_id']] = $form['form_name'];
@@ -57,7 +54,7 @@ class Ulaform_Block_Form extends Horde_Core_Block {
         $done = false;
 
         $form = new Horde_Form($vars);
-        $fields = $GLOBALS['ulaform_driver']->getFields($this->_params['form_id']);
+        $fields = $GLOBALS['injector']->getInstance('Ulaform_Factory_Driver')->create()->getFields($this->_params['form_id']);
         foreach ($fields as $field) {
             /* In case of these types get array from stringlist. */
             if ($field['field_type'] == 'link' ||
@@ -98,7 +95,9 @@ class Ulaform_Block_Form extends Horde_Core_Block {
         /* Render the form. */
         $renderer = new Horde_Form_Renderer();
         $renderer->showHeader(false);
-        return Horde_Util::bufferOutput(array($form, $render_type), $renderer, $vars, Horde::selfUrl(true), 'post');
+        Horde::startBuffer();
+        $form->$render_type($renderer, $vars, Horde::selfUrl(true), 'post');
+        return Horde::endBuffer();
     }
 
 }

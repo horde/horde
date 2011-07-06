@@ -1043,7 +1043,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         case '+OK':
             $ob['response'] = 'OK';
             if (isset($read[1])) {
-                $response = $this->_getResponseText($read[1]);
+                $response = $this->_parseResponseText($read[1]);
                 $ob['line'] = $response->text;
             }
             break;
@@ -1051,7 +1051,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         case '-ERR':
             $errcode = 0;
             if (isset($read[1])) {
-                $response = $this->_getResponseText($read[1]);
+                $response = $this->_parseResponseText($read[1]);
                 $errtext = $response->text;
                 if (isset($response->code)) {
                     switch ($response->code) {

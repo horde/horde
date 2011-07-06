@@ -37,9 +37,14 @@ implements Horde_Kolab_Cli_Module
     {
         return Horde_Kolab_Cli_Translation::t("  data - Handle Kolab data (the default action is \"info\"). PATH refers to the path of the folder that holds the data and the optional TYPE argument indicates which data type should be read. This is usually already defined by the folder setting.
 
-  - info      PATH  : Display general information.
-  - stamp     PATH  : Display the folder status information.
-
+  - info      PATH              : Display general information.
+  - stamp     PATH              : Display the folder status information.
+  - ids       PATH TYPE         : Display all object ids in the folder PATH of
+                                  type TYPE.
+  - complete  PATH BACKENDID    : Return the complete message from folder PATH
+                                  for the given BACKENDID.
+  - backendid PATH TYPE OBJECTID: Return the backend ID for the object with ID
+                                  OBJECTID.
 
 ");
     }
@@ -243,12 +248,29 @@ implements Horde_Kolab_Cli_Module
         $cli->writeln();
     }
 
-    private function _yamlOutput($cli, $uid, $output)
+    private function _yamlOutput($cli, $id, $output)
     {
+        $output = $this->_convertDates($output);
         if (class_exists('Horde_Yaml')) {
             $this->_messageOutput($cli, $id, Horde_Yaml::dump($output));
         } else {
             $this->_messageOutput($cli, $id, print_r($output, true));
         }
+    }
+
+
+    private function _convertDates($output)
+    {
+        $result = array();
+        foreach ($output as $name => $element) {
+            if (is_array($element)) {
+                $result[$name] = $this->_convertDates($element);
+            } else if ($element instanceOf DateTime) {
+                $result[$name] = $element->format('c');
+            } else {
+                $result[$name] = $element;
+            }
+        }
+        return $result;
     }
 }

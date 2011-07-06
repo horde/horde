@@ -1101,18 +1101,18 @@ class Whups_Driver_Sql extends Whups_Driver
                         $ticket['version_link'] = $versions[$ticket['version']]['link'];
                     }
                 }
+                $ticket['requester_formatted'] = Whups::formatUser($ticket['user_id_requester'], false, true, true);
             }
             $tickets[$ticket['id']] = $ticket;
         }
 
         $owners = $this->getOwners(array_keys($tickets));
-        foreach ($owners as $id => $row) {
-            if (empty($tickets[$id]['owners'])) {
-                $tickets[$id]['owners'] = array();
+        foreach ($owners as $id => $owners) {
+            $tickets[$id]['owners'] = $owners;
+            foreach($owners as $owner) {
+                $tickets[$id]['owners_formatted'][] = Whups::formatUser($owner, false, true, true);
             }
-            $tickets[$id]['owners'][] = $row;
         }
-
         $attributes = $this->getTicketAttributesWithNames(array_keys($tickets));
         foreach ($attributes as $row) {
             $attribute_id = 'attribute_' . $row['attribute_id'];
@@ -3006,9 +3006,9 @@ class Whups_Driver_Sql extends Whups_Driver
     /**
      * Get all owners for the specified ticket.
      *
-     * @param integer $ticketId  The ticket_id
+     * @param mixed integer|array $ticketId  The ticket_id, or an arary of ids
      *
-     * @return array  A id => owner hash
+     * @return array  An array of 'id' => array('owner') hashes.
      */
     public function getOwners($ticketId)
     {
@@ -3022,7 +3022,7 @@ class Whups_Driver_Sql extends Whups_Driver
                 . 'IN (' . str_repeat('?, ', count($ticketId) - 1) . '?)';
             $values = $ticketId;
             try {
-                return $this->_db->selectAssoc($query, $values);
+                $owners = $this->_db->selectAll($query, $values);
             } catch (Horde_Db_Exception $e) {
                 throw new Whups_Exception($e);
             }
@@ -3031,11 +3031,17 @@ class Whups_Driver_Sql extends Whups_Driver
                 . 'FROM whups_ticket_owners WHERE ticket_id = ?';
             $values = array((int)$ticketId);
             try {
-                return $this->_db->selectAssoc($query, $values);
+                $owners = $this->_db->selectAll($query, $values);
             } catch (Horde_Db_Exception $e) {
                 throw new Whups_Exception($e);
             }
         }
+        $results = array();
+        foreach ($owners as $owner) {
+           $results[$owner['id']][] = $owner['owner'];
+        }
+
+        return $results;
     }
 
     /**

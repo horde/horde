@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-14</date>
- <time>15:42:43</time>
+ <date>2011-07-05</date>
+ <time>17:28:56</time>
  <version>
-  <release>4.0.7</release>
+  <release>4.0.8</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,8 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [gwr] Support restricting the HTML tidy post processing by the message size (Request #10266).
-* [gwr] Disabled the timeout on the logout token.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2070,12 +2069,12 @@
     <file name="barcode.php" role="horde" />
     <file name="icon_browser.php" role="horde" />
    </dir> <!-- /util -->
-   <file name=".htaccess" role="data" />
-   <file name="COPYING" role="data" />
+   <file name=".htaccess" role="horde" />
+   <file name="COPYING" role="doc" />
    <file name="index.php" role="horde" />
    <file name="login.php" role="horde" />
    <file name="rampage.php" role="horde" />
-   <file name="README" role="data" />
+   <file name="README" role="doc" />
    <file name="rpc.php" role="horde" />
    <file name="signup.php" role="horde" />
    <file name="test.php" role="horde" />
@@ -4158,11 +4157,27 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-14</date>
+   <date>2011-07-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Don&apos;t use CSS cache in mobile interfaces because it breaks jQuery Mobile CSS.
+* [jan] Allow configuration of split read databases for PostgreSQL (Request #7025).
+* [mjr] Honor initial_application setting for mobile view (Bug #10264).
 * [gwr] Support restricting the HTML tidy post processing by the message size (Request #10266).
 * [gwr] Disabled the timeout on the logout token.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.8</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

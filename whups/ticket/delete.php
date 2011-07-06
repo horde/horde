@@ -39,7 +39,9 @@ if ($vars->get('formname') == 'whups_form_ticket_delete') {
                 Horde::url($prefs->getValue('whups_default_view') . '.php', true)
                     ->redirect();
             } catch (Whups_Exception $e) {
-                    $notification->push(_("There was an error deleting the ticket:") . ' ' . $e->getMessage(), 'horde.error');
+                $notification->push(_("There was an error deleting the ticket:") . ' ' . $e->getMessage(), 'horde.error');
+            } catch (Horde_Exception_NotFound $e) {
+                $notification->push(sprintf(_("Ticket %d not found."), $info['id']));
             }
         } else {
             $notification->push(_("The ticket was not deleted."), 'horde.message');

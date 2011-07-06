@@ -9,7 +9,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  Ansel
  */
-class Ansel_Factory_Storage extends Horde_Core_Factory_Base
+class Ansel_Factory_Storage extends Horde_Core_Factory_Injector
 {
     /**
      * Array of already instantiated instances
@@ -24,12 +24,12 @@ class Ansel_Factory_Storage extends Horde_Core_Factory_Base
      *
      * @return Ansel_Storage
      */
-    public function create()
+    public function create(Horde_Injector $injector)
     {
-        $scope = $this->_injector->getInstance('Ansel_Config')->get('scope');
+        $scope = $injector->getInstance('Ansel_Config')->get('scope');
         if (empty($this->_instances[$scope])) {
-            $this->_instances[$scope] = new Ansel_Storage($this->_injector->getInstance('Horde_Core_Factory_Share')->create($scope));
-            $this->_instances[$scope]->setStorage($this->_injector->getInstance('Horde_Db_Adapter'));
+            $this->_instances[$scope] = new Ansel_Storage($injector->getInstance('Horde_Core_Factory_Share')->create($scope));
+            $this->_instances[$scope]->setStorage($injector->getInstance('Horde_Db_Adapter'));
         }
 
         return $this->_instances[$scope];

@@ -87,27 +87,35 @@ class Horde_Db_Adapter_Pdo_Mysql extends Horde_Db_Adapter_Pdo_Base
     protected function _parseConfig()
     {
         $this->_config['adapter'] = 'mysql';
-        $this->_checkRequiredConfig();
 
-        // collect options to build PDO Data Source Name (DSN) string
+        $this->_checkRequiredConfig(array('adapter', 'username'));
+
+        if (!empty($this->_config['host']) &&
+            $this->_config['host'] == 'localhost') {
+            $this->_config['host'] = '127.0.0.1';
+        }
+
+        // Try an empty password if it's not set.
+        if (!isset($this->_config['password'])) {
+            $this->_config['password'] = '';
+        }
+
+        // Collect options to build PDO Data Source Name (DSN) string.
         $dsnOpts = $this->_config;
-        unset(
-            $dsnOpts['adapter'],
-            $dsnOpts['username'],
-            $dsnOpts['password'],
-            $dsnOpts['charset'],
-            $dsnOpts['phptype']
-        );
+        unset($dsnOpts['adapter'],
+              $dsnOpts['username'],
+              $dsnOpts['password'],
+              $dsnOpts['charset'],
+              $dsnOpts['phptype']);
         $dsnOpts = $this->_normalizeConfig($dsnOpts);
 
         if (isset($dsnOpts['port'])) {
             if (empty($dsnOpts['host'])) {
-                $msg = 'host is required if port is specified';
-                throw new Horde_Db_Exception($msg);
+                throw new Horde_Db_Exception('Host is required if port is specified');
             }
         }
 
-        // return DSN and user/pass for connection
+        // Return DSN and user/pass for connection.
         return array(
             $this->_buildDsnString($dsnOpts),
             $this->_config['username'],

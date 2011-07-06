@@ -86,9 +86,11 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
             if ($name == 'horde' || $conf[$name]['type'] == 'horde') {
                 $vfs['params']['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
             } else {
+                $config = Horde::getDriverConfig('vfs', 'sql');
+                unset($config['umask'], $config['vfsroot']);
                 $vfs['params']['db'] = $this->_injector
                     ->getInstance('Horde_Core_Factory_Db')
-                    ->create('horde', 'vfs');
+                    ->create('horde', $config);
             }
             break;
         }

@@ -22,10 +22,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-14</date>
- <time>15:50:30</time>
+ <date>2011-07-05</date>
+ <time>17:39:19</time>
  <version>
-  <release>3.0.5</release>
+  <release>3.0.6</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [jan] Fetch events immediately after saving remote calendar.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -118,6 +118,7 @@
      <file name="Horde.php" role="horde" />
      <file name="Ical.php" role="horde" />
      <file name="Kolab.php" role="horde" />
+     <file name="Mock.php" role="horde" />
      <file name="Resource.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Driver -->
@@ -184,16 +185,6 @@
      <file name="Kolab.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Storage -->
-    <dir name="tests">
-     <file name="allday.ics" role="data" />
-     <file name="allday.phpt" role="data" />
-     <file name="bug6031.phpt" role="data" />
-     <file name="bug7068.ics" role="data" />
-     <file name="bug7068.phpt" role="data" />
-     <file name="fromicalendar.ics" role="data" />
-     <file name="fromicalendar.phpt" role="data" />
-     <file name="toicalendar.phpt" role="data" />
-    </dir> <!-- /lib/tests -->
     <dir name="View">
      <file name="Day.php" role="horde" />
      <file name="DeleteEvent.php" role="horde" />
@@ -345,6 +336,7 @@
       <file name="kronolith.mo" role="horde" />
       <file name="kronolith.po" role="horde" />
      </dir> <!-- /locale/lv/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/lv -->
     <dir name="nb">
      <dir name="LC_MESSAGES">
@@ -591,6 +583,35 @@
     <file name="javascript_defs.php" role="horde" />
     <file name="panel.inc" role="horde" />
    </dir> <!-- /templates -->
+   <dir name="test">
+    <dir name="Kronolith">
+     <dir name="fixtures">
+      <file name="allday.ics" role="test" />
+      <file name="bug7068.ics" role="test" />
+      <file name="export1.ics" role="test" />
+      <file name="export2.ics" role="test" />
+      <file name="export3.ics" role="test" />
+      <file name="export4.ics" role="test" />
+      <file name="fromicalendar.ics" role="test" />
+     </dir> <!-- /test/Kronolith/fixtures -->
+     <dir name="Integration">
+      <file name="AllDayTest.php" role="test" />
+      <file name="FromIcalendarTest.php" role="test" />
+      <file name="ToIcalendarTest.php" role="test" />
+     </dir> <!-- /test/Kronolith/Integration -->
+     <dir name="Stub">
+      <file name="Driver.php" role="test" />
+      <file name="Registry.php" role="test" />
+     </dir> <!-- /test/Kronolith/Stub -->
+     <dir name="Unit">
+      <file name="KolabTest.php" role="test" />
+     </dir> <!-- /test/Kronolith/Unit -->
+     <file name="AllTests.php" role="test" />
+     <file name="Autoload.php" role="test" />
+     <file name="phpunit.xml" role="test" />
+     <file name="TestCase.php" role="test" />
+    </dir> <!-- /test/Kronolith -->
+   </dir> <!-- /test -->
    <dir name="themes">
     <dir name="bluewhite">
      <file name="screen.css" role="horde" />
@@ -806,7 +827,7 @@
    <file name="attend.php" role="horde" />
    <file name="attendees.php" role="horde" />
    <file name="contacts.php" role="horde" />
-   <file name="COPYING" role="data" />
+   <file name="COPYING" role="doc" />
    <file name="data.php" role="horde" />
    <file name="day.php" role="horde" />
    <file name="delete.php" role="horde" />
@@ -818,7 +839,7 @@
    <file name="month.php" role="horde" />
    <file name="new.php" role="horde" />
    <file name="perms.php" role="horde" />
-   <file name="README" role="data" />
+   <file name="README" role="doc" />
    <file name="search.php" role="horde" />
    <file name="view.php" role="horde" />
    <file name="week.php" role="horde" />
@@ -1160,6 +1181,7 @@
    <install as="kronolith/lib/Driver/Horde.php" name="lib/Driver/Horde.php" />
    <install as="kronolith/lib/Driver/Ical.php" name="lib/Driver/Ical.php" />
    <install as="kronolith/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
+   <install as="kronolith/lib/Driver/Mock.php" name="lib/Driver/Mock.php" />
    <install as="kronolith/lib/Driver/Resource.php" name="lib/Driver/Resource.php" />
    <install as="kronolith/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
    <install as="kronolith/lib/Event/Holidays.php" name="lib/Event/Holidays.php" />
@@ -1199,14 +1221,6 @@
    <install as="kronolith/lib/Resource/Single.php" name="lib/Resource/Single.php" />
    <install as="kronolith/lib/Storage/Kolab.php" name="lib/Storage/Kolab.php" />
    <install as="kronolith/lib/Storage/Sql.php" name="lib/Storage/Sql.php" />
-   <install as="tests/allday.ics" name="lib/tests/allday.ics" />
-   <install as="tests/allday.phpt" name="lib/tests/allday.phpt" />
-   <install as="tests/bug6031.phpt" name="lib/tests/bug6031.phpt" />
-   <install as="tests/bug7068.ics" name="lib/tests/bug7068.ics" />
-   <install as="tests/bug7068.phpt" name="lib/tests/bug7068.phpt" />
-   <install as="tests/fromicalendar.ics" name="lib/tests/fromicalendar.ics" />
-   <install as="tests/fromicalendar.phpt" name="lib/tests/fromicalendar.phpt" />
-   <install as="tests/toicalendar.phpt" name="lib/tests/toicalendar.phpt" />
    <install as="kronolith/lib/View/Day.php" name="lib/View/Day.php" />
    <install as="kronolith/lib/View/DeleteEvent.php" name="lib/View/DeleteEvent.php" />
    <install as="kronolith/lib/View/EditEvent.php" name="lib/View/EditEvent.php" />
@@ -1263,6 +1277,7 @@
    <install as="kronolith/locale/ko/LC_MESSAGES/kronolith.po" name="locale/ko/LC_MESSAGES/kronolith.po" />
    <install as="kronolith/locale/lt/LC_MESSAGES/kronolith.mo" name="locale/lt/LC_MESSAGES/kronolith.mo" />
    <install as="kronolith/locale/lt/LC_MESSAGES/kronolith.po" name="locale/lt/LC_MESSAGES/kronolith.po" />
+   <install as="kronolith/locale/lv/help.xml" name="locale/lv/help.xml" />
    <install as="kronolith/locale/lv/LC_MESSAGES/kronolith.mo" name="locale/lv/LC_MESSAGES/kronolith.mo" />
    <install as="kronolith/locale/lv/LC_MESSAGES/kronolith.po" name="locale/lv/LC_MESSAGES/kronolith.po" />
    <install as="kronolith/locale/nb/LC_MESSAGES/kronolith.mo" name="locale/nb/LC_MESSAGES/kronolith.mo" />
@@ -1393,6 +1408,23 @@
    <install as="kronolith/templates/week/head.inc" name="templates/week/head.inc" />
    <install as="kronolith/templates/week/head_side_by_side.inc" name="templates/week/head_side_by_side.inc" />
    <install as="kronolith/templates/year/head.inc" name="templates/year/head.inc" />
+   <install as="Kronolith/AllTests.php" name="test/Kronolith/AllTests.php" />
+   <install as="Kronolith/Autoload.php" name="test/Kronolith/Autoload.php" />
+   <install as="Kronolith/phpunit.xml" name="test/Kronolith/phpunit.xml" />
+   <install as="Kronolith/TestCase.php" name="test/Kronolith/TestCase.php" />
+   <install as="Kronolith/fixtures/allday.ics" name="test/Kronolith/fixtures/allday.ics" />
+   <install as="Kronolith/fixtures/bug7068.ics" name="test/Kronolith/fixtures/bug7068.ics" />
+   <install as="Kronolith/fixtures/export1.ics" name="test/Kronolith/fixtures/export1.ics" />
+   <install as="Kronolith/fixtures/export2.ics" name="test/Kronolith/fixtures/export2.ics" />
+   <install as="Kronolith/fixtures/export3.ics" name="test/Kronolith/fixtures/export3.ics" />
+   <install as="Kronolith/fixtures/export4.ics" name="test/Kronolith/fixtures/export4.ics" />
+   <install as="Kronolith/fixtures/fromicalendar.ics" name="test/Kronolith/fixtures/fromicalendar.ics" />
+   <install as="Kronolith/Integration/AllDayTest.php" name="test/Kronolith/Integration/AllDayTest.php" />
+   <install as="Kronolith/Integration/FromIcalendarTest.php" name="test/Kronolith/Integration/FromIcalendarTest.php" />
+   <install as="Kronolith/Integration/ToIcalendarTest.php" name="test/Kronolith/Integration/ToIcalendarTest.php" />
+   <install as="Kronolith/Stub/Driver.php" name="test/Kronolith/Stub/Driver.php" />
+   <install as="Kronolith/Stub/Registry.php" name="test/Kronolith/Stub/Registry.php" />
+   <install as="Kronolith/Unit/KolabTest.php" name="test/Kronolith/Unit/KolabTest.php" />
    <install as="kronolith/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="kronolith/themes/burntorange/screen.css" name="themes/burntorange/screen.css" />
    <install as="kronolith/themes/default/embed.css" name="themes/default/embed.css" />
@@ -1759,10 +1791,28 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-14</date>
+   <date>2011-07-05</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [jan] Update task due date in interface after dragging a task (Bug #10001).
+* [jan] Correctly sort events in portal block or widget if only displaying a single calendar (Bug #10099).
+* [mjr] Allow syncing of multiple owner-owned calendars (Request #8734).
+* [jan] Don&apos;t show calendar drop down in event form without delete permissions (Bug #10201).
+* [jan] Don&apos;t change event creator when saving events.
 * [jan] Fetch events immediately after saving remote calendar.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.6</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

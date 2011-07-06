@@ -768,7 +768,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
             . 'WHERE syncml_syncpartner = ? AND syncml_db = ? AND '
             . 'syncml_uid = ? AND syncml_suid = ?';
         $values = array($this->_syncDeviceID, $database, $this->_user, $suid);
-        $this->_db->selectValue($query, $values);
+        return $this->_db->selectValue($query, $values);
     }
 
     /**

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>ulaform</name>
+ <channel>pear.horde.org</channel>
+ <summary>An HTML form generation/processing tool</summary>
+ <description>Ulaform is a PHP-based dynamic HTML form creation and generation system. Ulaform allows users to create sophisticated forms using a web browser, and then render the forms within other web pages by a simple PHP include, or in other Horde applications through the Horde Block API.</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-07-01</date>
+ <time>16:25:31</time>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/gpl.php">GPL</license>
+ <notes>
+* First alpha release for Horde 4.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="config">
+    <file name=".htaccess" role="horde" />
+    <file name="conf.xml" role="horde" />
+    <file name="fields.php" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="docs">
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="TODO" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="lib">
+    <dir name="Action">
+     <file name="Mailto.php" role="horde" />
+     <file name="Sql.php" role="horde" />
+     <file name="Template.php" role="horde" />
+    </dir> <!-- /lib/Action -->
+    <dir name="Block">
+     <file name="Form.php" role="horde" />
+    </dir> <!-- /lib/Block -->
+    <dir name="Driver">
+     <file name="Sql.php" role="horde" />
+    </dir> <!-- /lib/Driver -->
+    <dir name="Factory">
+     <file name="Action.php" role="horde" />
+     <file name="Driver.php" role="horde" />
+    </dir> <!-- /lib/Factory -->
+    <file name=".htaccess" role="horde" />
+    <file name="Action.php" role="horde" />
+    <file name="Api.php" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Driver.php" role="horde" />
+    <file name="Exception.php" role="horde" />
+    <file name="Test.php" role="horde" />
+    <file name="Ulaform.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="ulaform.mo" role="horde" />
+      <file name="ulaform.po" role="horde" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <dir name="en">
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="ulaform.mo" role="horde" />
+      <file name="ulaform.po" role="horde" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/es -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="ulaform.mo" role="horde" />
+      <file name="ulaform.po" role="horde" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/fi -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file name="ulaform.mo" role="horde" />
+      <file name="ulaform.po" role="horde" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+    </dir> <!-- /locale/it -->
+    <dir name="lt">
+     <dir name="LC_MESSAGES">
+      <file name="ulaform.mo" role="horde" />
+      <file name="ulaform.po" role="horde" />
+     </dir> <!-- /locale/lt/LC_MESSAGES -->
+    </dir> <!-- /locale/lt -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file name="ulaform.mo" role="horde" />
+      <file name="ulaform.po" role="horde" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_TW -->
+    <file name=".htaccess" role="horde" />
+    <file name="ulaform.pot" role="horde" />
+   </dir> <!-- /locale -->
+   <dir name="migration">
+    <file name="1_ulaform_base_tables.php" role="horde" />
+    <file name="2_ulaform_upgrade_autoincrement.php" role="horde" />
+   </dir> <!-- /migration -->
+   <dir name="templates">
+    <dir name="display">
+     <file name="display.html" role="horde" />
+    </dir> <!-- /templates/display -->
+    <dir name="fields">
+     <file name="fields.html" role="horde" />
+    </dir> <!-- /templates/fields -->
+    <dir name="forms">
+     <file name="forms.html" role="horde" />
+    </dir> <!-- /templates/forms -->
+    <dir name="genhtml">
+     <file name="genhtml.html" role="horde" />
+    </dir> <!-- /templates/genhtml -->
+    <dir name="main">
+     <file name="main.html" role="horde" />
+    </dir> <!-- /templates/main -->
+    <file name=".htaccess" role="horde" />
+   </dir> <!-- /templates -->
+   <dir name="themes">
+    <dir name="default">
+     <dir name="graphics">
+      <file name="display.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="html.png" role="horde" />
+      <file name="new.png" role="horde" />
+      <file name="sort.png" role="horde" />
+      <file name="ulaform.png" role="horde" />
+     </dir> <!-- /themes/default/graphics -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/default -->
+   </dir> <!-- /themes -->
+   <file name="COPYING" role="doc" />
+   <file name="delete.php" role="horde" />
+   <file name="deletefield.php" role="horde" />
+   <file name="display.php" role="horde" />
+   <file name="edit.php" role="horde" />
+   <file name="fields.php" role="horde" />
+   <file name="forms.php" role="horde" />
+   <file name="genhtml.php" role="horde" />
+   <file name="index.php" role="horde" />
+   <file name="README" role="doc" />
+   <file name="sortfields.php" role="horde" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>horde</name>
+    <channel>pear.horde.org</channel>
+    <min>4.0.7</min>
+    <max>5.0.0</max>
+    <exclude>5.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Array</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Core</name>
+    <channel>pear.horde.org</channel>
+    <min>1.3.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Db</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+  </required>
+ </dependencies>
+ <usesrole>
+  <role>horde</role>
+  <package>Horde_Role</package>
+  <channel>pear.horde.org</channel>
+ </usesrole>
+ <phprelease>
+  <filelist>
+   <install as="COPYING" name="COPYING" />
+   <install as="ulaform/delete.php" name="delete.php" />
+   <install as="ulaform/deletefield.php" name="deletefield.php" />
+   <install as="ulaform/display.php" name="display.php" />
+   <install as="ulaform/edit.php" name="edit.php" />
+   <install as="ulaform/fields.php" name="fields.php" />
+   <install as="ulaform/forms.php" name="forms.php" />
+   <install as="ulaform/genhtml.php" name="genhtml.php" />
+   <install as="ulaform/index.php" name="index.php" />
+   <install as="README" name="README" />
+   <install as="ulaform/sortfields.php" name="sortfields.php" />
+   <install as="ulaform/config/.htaccess" name="config/.htaccess" />
+   <install as="ulaform/config/conf.xml" name="config/conf.xml" />
+   <install as="ulaform/config/fields.php" name="config/fields.php" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="TODO" name="docs/TODO" />
+   <install as="ulaform/lib/.htaccess" name="lib/.htaccess" />
+   <install as="ulaform/lib/Action.php" name="lib/Action.php" />
+   <install as="ulaform/lib/Api.php" name="lib/Api.php" />
+   <install as="ulaform/lib/Application.php" name="lib/Application.php" />
+   <install as="ulaform/lib/Driver.php" name="lib/Driver.php" />
+   <install as="ulaform/lib/Exception.php" name="lib/Exception.php" />
+   <install as="ulaform/lib/Test.php" name="lib/Test.php" />
+   <install as="ulaform/lib/Ulaform.php" name="lib/Ulaform.php" />
+   <install as="ulaform/lib/Action/Mailto.php" name="lib/Action/Mailto.php" />
+   <install as="ulaform/lib/Action/Sql.php" name="lib/Action/Sql.php" />
+   <install as="ulaform/lib/Action/Template.php" name="lib/Action/Template.php" />
+   <install as="ulaform/lib/Block/Form.php" name="lib/Block/Form.php" />
+   <install as="ulaform/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
+   <install as="ulaform/lib/Factory/Action.php" name="lib/Factory/Action.php" />
+   <install as="ulaform/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
+   <install as="ulaform/locale/.htaccess" name="locale/.htaccess" />
+   <install as="ulaform/locale/ulaform.pot" name="locale/ulaform.pot" />
+   <install as="ulaform/locale/de/LC_MESSAGES/ulaform.mo" name="locale/de/LC_MESSAGES/ulaform.mo" />
+   <install as="ulaform/locale/de/LC_MESSAGES/ulaform.po" name="locale/de/LC_MESSAGES/ulaform.po" />
+   <install as="ulaform/locale/en/help.xml" name="locale/en/help.xml" />
+   <install as="ulaform/locale/es/help.xml" name="locale/es/help.xml" />
+   <install as="ulaform/locale/es/LC_MESSAGES/ulaform.mo" name="locale/es/LC_MESSAGES/ulaform.mo" />
+   <install as="ulaform/locale/es/LC_MESSAGES/ulaform.po" name="locale/es/LC_MESSAGES/ulaform.po" />
+   <install as="ulaform/locale/fi/help.xml" name="locale/fi/help.xml" />
+   <install as="ulaform/locale/fi/LC_MESSAGES/ulaform.mo" name="locale/fi/LC_MESSAGES/ulaform.mo" />
+   <install as="ulaform/locale/fi/LC_MESSAGES/ulaform.po" name="locale/fi/LC_MESSAGES/ulaform.po" />
+   <install as="ulaform/locale/it/LC_MESSAGES/ulaform.mo" name="locale/it/LC_MESSAGES/ulaform.mo" />
+   <install as="ulaform/locale/it/LC_MESSAGES/ulaform.po" name="locale/it/LC_MESSAGES/ulaform.po" />
+   <install as="ulaform/locale/lt/LC_MESSAGES/ulaform.mo" name="locale/lt/LC_MESSAGES/ulaform.mo" />
+   <install as="ulaform/locale/lt/LC_MESSAGES/ulaform.po" name="locale/lt/LC_MESSAGES/ulaform.po" />
+   <install as="ulaform/locale/zh_TW/LC_MESSAGES/ulaform.mo" name="locale/zh_TW/LC_MESSAGES/ulaform.mo" />
+   <install as="ulaform/locale/zh_TW/LC_MESSAGES/ulaform.po" name="locale/zh_TW/LC_MESSAGES/ulaform.po" />
+   <install as="ulaform/migration/1_ulaform_base_tables.php" name="migration/1_ulaform_base_tables.php" />
+   <install as="ulaform/migration/2_ulaform_upgrade_autoincrement.php" name="migration/2_ulaform_upgrade_autoincrement.php" />
+   <install as="ulaform/templates/.htaccess" name="templates/.htaccess" />
+   <install as="ulaform/templates/display/display.html" name="templates/display/display.html" />
+   <install as="ulaform/templates/fields/fields.html" name="templates/fields/fields.html" />
+   <install as="ulaform/templates/forms/forms.html" name="templates/forms/forms.html" />
+   <install as="ulaform/templates/genhtml/genhtml.html" name="templates/genhtml/genhtml.html" />
+   <install as="ulaform/templates/main/main.html" name="templates/main/main.html" />
+   <install as="ulaform/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="ulaform/themes/default/graphics/display.png" name="themes/default/graphics/display.png" />
+   <install as="ulaform/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="ulaform/themes/default/graphics/html.png" name="themes/default/graphics/html.png" />
+   <install as="ulaform/themes/default/graphics/new.png" name="themes/default/graphics/new.png" />
+   <install as="ulaform/themes/default/graphics/sort.png" name="themes/default/graphics/sort.png" />
+   <install as="ulaform/themes/default/graphics/ulaform.png" name="themes/default/graphics/ulaform.png" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-07-01</date>
+   <license uri="http://www.horde.org/licenses/gpl.php">GPL</license>
+   <notes>
+* First alpha release for Horde 4.
+   </notes>
+  </release>
+ </changelog>
+</package>

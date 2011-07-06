@@ -48,6 +48,7 @@ class Ansel_Storage
     /**
      * Property accessor
      *
+     * @param string $property  The property to access.
      */
     public function __get($property)
     {
@@ -382,7 +383,8 @@ class Ansel_Storage
 
         // Clear the OtherGalleries widget cache
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-            $GLOBALS['injector']->getInstance('Horde_Cache')
+            $GLOBALS['injector']
+                ->getInstance('Horde_Cache')
                 ->expire('Ansel_OtherGalleries' . $gallery->get('owner'));
         }
     }
@@ -392,7 +394,6 @@ class Ansel_Storage
      *
      * @param Ansel_Gallery $gallery  The gallery to delete
      *
-     * @return boolean
      * @throws Ansel_Exception
      */
     public function removeGallery(Ansel_Gallery $gallery)
@@ -432,12 +433,12 @@ class Ansel_Storage
             if (!$parent->countChildren($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, false)) {
                 $parent->set('has_subgalleries', 0, true);
                 if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-                    $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $parent->id);
+                    $GLOBALS['injector']
+                        ->getInstance('Horde_Cache')
+                        ->expire('Ansel_Gallery' . $parent->id);
                 }
             }
         }
-
-        return true;
     }
 
     /**
@@ -454,11 +455,11 @@ class Ansel_Storage
             return $this->_images[$id];
         }
 
-        $q = 'SELECT ' . $this->_getImageFields() . ' FROM ansel_images WHERE image_id = ?';
+        $q = 'SELECT ' . $this->_getImageFields()
+            . ' FROM ansel_images WHERE image_id = ?';
         try {
             $image = $this->_db->selectOne($q, array((int)$id));
         } catch (Horde_Db_Exception $e) {
-            Horde::logMessage($e, 'ERR');
             throw new Ansel_Exception($e);
         }
 
@@ -491,7 +492,11 @@ class Ansel_Storage
     {
         // If we have an id, then it's an existing image.
         if ($image->id) {
-            $update = 'UPDATE ansel_images SET image_filename = ?, image_type = ?, image_caption = ?, image_sort = ?, image_original_date = ?, image_latitude = ?, image_longitude = ?, image_location = ?, image_geotag_date = ? WHERE image_id = ?';
+            $update = 'UPDATE ansel_images SET image_filename = ?, '
+                . 'image_type = ?, image_caption = ?, image_sort = ?, '
+                . 'image_original_date = ?, image_latitude = ?, '
+                . 'image_longitude = ?, image_location = ?, '
+                . 'image_geotag_date = ? WHERE image_id = ?';
             try {
                return $this->_db->update(
                    $update,
@@ -506,7 +511,6 @@ class Ansel_Storage
                          $image->geotag_timestamp,
                          $image->id));
             } catch (Horde_Db_Exception $e) {
-                Horde::logMessage($e, 'ERR');
                 throw new Ansel_Exception($e);
             }
         }
@@ -517,9 +521,12 @@ class Ansel_Storage
         }
 
         // Prepare the SQL statement
-        $insert = 'INSERT INTO ansel_images (gallery_id, image_filename, image_type, image_caption, image_uploaded_date, image_sort, image_original_date, image_latitude, image_longitude, image_location, image_geotag_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $insert = 'INSERT INTO ansel_images (gallery_id, image_filename, '
+            . 'image_type, image_caption, image_uploaded_date, image_sort, '
+            . 'image_original_date, image_latitude, image_longitude, '
+            . 'image_location, image_geotag_date) VALUES '
+            . '(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
-        // Perform the INSERT
         try {
             $image->id = $this->_db->insert(
                 $insert,
@@ -541,7 +548,6 @@ class Ansel_Storage
                       $image->location,
                      (empty($image->lat) ? 0 : $image->uploaded)));
         } catch (Horde_Db_Exception $e) {
-            Horde::logMessage($e, 'ERR');
             throw new Ansel_Exception($e);
         }
 
@@ -561,7 +567,8 @@ class Ansel_Storage
     {
         try {
             $this->_db->insert(
-                'INSERT INTO ansel_image_attributes (image_id, attr_name, attr_value) VALUES (?, ?, ?)',
+                'INSERT INTO ansel_image_attributes '
+                . '(image_id, attr_name, attr_value) VALUES (?, ?, ?)',
                 array(
                     $image_id,
                     $attribute,
@@ -599,7 +606,8 @@ class Ansel_Storage
     {
         try {
             return $this->_db->selectAssoc(
-                'SELECT attr_name, attr_value FROM ansel_image_attributes WHERE image_id = ' . (int)$image_id);
+                'SELECT attr_name, attr_value FROM ansel_image_attributes WHERE '
+                . ' image_id = ' . (int)$image_id);
         } catch (Horde_Db_Exception $e) {
             throw new Ansel_Exception($e);
         }
@@ -618,7 +626,9 @@ class Ansel_Storage
     public function setImageSortOrder($imageId, $pos)
     {
          try {
-            $GLOBALS['ansel_db']->update('UPDATE ansel_images SET image_sort = ' . (int)$pos . ' WHERE image_id = ' . (int)$imageId);
+           $this->_db->update(
+               'UPDATE ansel_images SET image_sort = '
+               . (int)$pos . ' WHERE image_id = ' . (int)$imageId);
         } catch (Horde_Db_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
             throw new Horde_Exception($e);
@@ -638,13 +648,15 @@ class Ansel_Storage
      *  </pre>
      *
      * @return array An array of Ansel_Image objects.
-     * @throws Ansel_Exception, Horde_Exception_NotFound
+     * @throws Ansel_Exception, Horde_Exception_NotFound, InvalidArgumentException
      */
     public function getImages(array $params = array())
     {
         // First check if we want a specific gallery or a list of images
         if (!empty($params['gallery_id'])) {
-            $sql = 'SELECT ' . $this->_getImageFields() . ' FROM ansel_images WHERE gallery_id = ' . $params['gallery_id'] . ' ORDER BY image_sort';
+            $sql = 'SELECT ' . $this->_getImageFields()
+                . ' FROM ansel_images WHERE gallery_id = '
+                . $params['gallery_id'] . ' ORDER BY image_sort';
         } elseif (!empty($params['ids']) && is_array($params['ids']) && count($params['ids']) > 0) {
             $sql = 'SELECT ' . $this->_getImageFields() . ' FROM ansel_images WHERE image_id IN (';
             $i = 1;
@@ -653,7 +665,7 @@ class Ansel_Storage
                 $sql .= (int)$id . (($i++ < $cnt) ? ',' : ');');
             }
         } else {
-            throw new Ansel_Exception('Ansel_Storage::getImages requires either a gallery_id or an array of image ids');
+            throw new InvalidArgumentException('Ansel_Storage::getImages requires either a gallery_id or an array of image ids');
         }
 
         // Limit the query?
@@ -721,7 +733,8 @@ class Ansel_Storage
     }
 
     /**
-     * Return a list of image ids of the most recently added images.
+     * Return a list of image ids of the most recently added images for the
+     * current user.
      *
      * @param array $galleries  An array of gallery ids to search in. If
      *                          left empty, will search all galleries
@@ -898,9 +911,13 @@ class Ansel_Storage
                 } else {
                     $user = null;
                 }
-                $tagged = $GLOBALS['injector']->getInstance('Ansel_Tagger')
-                    ->search($params['tags'],
-                             array('type' => 'gallery', 'user' => $user));
+                $tagged = $GLOBALS['injector']
+                    ->getInstance('Ansel_Tagger')
+                    ->search(
+                        $params['tags'],
+                        array(
+                            'type' => 'gallery',
+                            'user' => $user));
 
                 foreach ($shares as $share) {
                     if (in_array($share->getId(), $tagged['galleries'])) {
@@ -1017,6 +1034,15 @@ class Ansel_Storage
     /**
      * Lists a slice of the image ids in the given gallery.
      *
+     * @param array $params  Filter parameters.
+     *<pre>
+     *  integer 'gallery_id'  - A gallery id to list images from
+     *  integer 'offset'      - The image to start listing from
+     *  integer 'limit'       - How many images to return
+     *  array|string 'fields' - The fields to return
+     *  string 'where'        - A SQL WHERE clause (will ignore any gallery_id).
+     *  string 'sort'         - The field to sort by.
+     *</pre>
      * @param integer $gallery_id  The gallery to list from.
      * @param integer $from        The image to start listing.
      * @param integer $count       The numer of images to list.
@@ -1028,33 +1054,41 @@ class Ansel_Storage
      *
      * @return array  An array of images. Either an array of ids, or an array
      *                of field values, keyed by id.
-     * @throws Ansel_Exception
+     * @throws Ansel_Exception, InvalidArgumentException
      */
-    public function listImages($gallery_id, $from = 0, $count = 0,
-                               $fields = 'image_id', $where = '',
-                               $sort = 'image_sort')
+    public function listImages(array $params = array())
     {
-        if (is_array($fields)) {
-            $field_count = count($fields);
-            $fields = implode(', ', $fields);
-        } elseif ($fields == '*') {
+        $params = new Horde_Support_Array($params);
+        if (is_array($params['fields'])) {
+            $field_count = count($params['fields']);
+            $params['fields'] = implode(', ', $params['fields']);
+        } elseif ($params['fields'] == '*') {
             // The count is not important, as long as it's > 1
             $field_count = 2;
         } else {
-            $field_count = substr_count($fields, ',') + 1;
+            $field_count = substr_count($params->get('fields', 'image_id'), ',') + 1;
         }
 
-        if (is_array($sort)) {
-            $sort = implode(', ', $sort);
+        if (is_array($params['sort'])) {
+            $params['sort'] = implode(', ', $params['sort']);
         }
 
-        if (!empty($where)) {
-            $query_where = 'WHERE ' . $where;
+        if ($params['where']) {
+            $query_where = 'WHERE ' . $params['where'];
         } else {
-            $query_where = 'WHERE gallery_id = ' . $gallery_id;
+            if (!$params->get('gallery_id')) {
+                throw new InvalidArgumentException('Missing gallery id in Ansel_Storage::listImages()');
+            }
+            $query_where = 'WHERE gallery_id = ' . $params['gallery_id'];
         }
-        $sql = 'SELECT ' . $fields . ' FROM ansel_images ' . $query_where . ' ORDER BY ' . $sort;
-        $sql = $this->_db->addLimitOffset($sql, array('limit' => $count, 'offset' => $from));
+        $sql = 'SELECT ' . $params->get('fields', 'image_id')
+            . ' FROM ansel_images ' . $query_where
+            . ' ORDER BY ' . $params->get('sort', 'image_sort');
+        $sql = $this->_db->addLimitOffset(
+            $sql,
+            array(
+                'limit' => $params->get('limit', 0),
+                'offset' => $params->get('offset', 0)));
         try {
             if ($field_count > 1) {
                 $results = $this->_db->selectAll($sql);
@@ -1095,7 +1129,14 @@ class Ansel_Storage
             return array();
         }
 
-        return $this->listImages(0, 0, 0, array('image_id as id', 'image_id', 'image_latitude', 'image_longitude', 'image_location'), $where);
+        return $this->listImages(array(
+            'fields' => array(
+                'image_id as id',
+                'image_id',
+                'image_latitude',
+                'image_longitude',
+                'image_location'),
+            'where' => $where));
     }
 
     /**
@@ -1112,14 +1153,36 @@ class Ansel_Storage
      */
     public function getRecentImagesGeodata($user = null, $start = 0, $count = 8)
     {
-        $galleries = $this->listGalleries(array('perm' => Horde_Perms::EDIT,
-                                                'attributes' => $user));
-        if (empty($galleries)) {
+        $galleries = $this->listGalleries(
+            array(
+                'perm' => Horde_Perms::EDIT,
+                'attributes' => $user
+            )
+        );
+        $ids = array();
+        foreach ($galleries as $gallery) {
+            $ids[] = $gallery->id;
+        }
+        if (empty($ids)) {
             return array();
         }
 
-        $where = 'gallery_id IN(' . implode(',', array_keys($galleries)) . ') AND LENGTH(image_latitude) > 0 GROUP BY image_latitude, image_longitude';
-        return $this->listImages(0, $start, $count, array('image_id as id', 'image_id', 'gallery_id', 'image_latitude', 'image_longitude', 'image_location'), $where, 'image_geotag_date DESC');
+        $where = 'gallery_id IN(' . implode(',', $ids)
+            . ') AND LENGTH(image_latitude) > 0 '
+            . 'GROUP BY image_latitude, image_longitude';
+
+        return $this->listImages(array(
+            'offset' => $start,
+            'limit' => $count,
+            'fields' => array(
+                'image_id as id',
+                'image_id',
+                'gallery_id',
+                'image_latitude',
+                'image_longitude',
+                'image_location'),
+            'where' => $where,
+            'sort' => 'image_geotag_date DESC'));
     }
 
     /**
@@ -1171,9 +1234,12 @@ class Ansel_Storage
      * @throws Ansel_Exception
      */
     public function removeImage($image_id)
-    {
-        $this->_db->delete('DELETE FROM ansel_images WHERE image_id = ' . (int)$image_id);
-        $this->_db->delete('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$image_id);
+    {   try {
+            $this->_db->delete('DELETE FROM ansel_images WHERE image_id = ' . (int)$image_id);
+            $this->_db->delete('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$image_id);
+        } catch (Horde_Db_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
     }
 
     /**
@@ -1183,10 +1249,11 @@ class Ansel_Storage
      */
     protected function _getImageFields($alias = '')
     {
-        $fields = array('image_id', 'gallery_id', 'image_filename', 'image_type',
-                        'image_caption', 'image_uploaded_date', 'image_sort',
-                        'image_faces', 'image_original_date', 'image_latitude',
-                        'image_longitude', 'image_location', 'image_geotag_date');
+        $fields = array(
+            'image_id', 'gallery_id', 'image_filename', 'image_type',
+            'image_caption', 'image_uploaded_date', 'image_sort',
+            'image_faces', 'image_original_date', 'image_latitude',
+            'image_longitude', 'image_location', 'image_geotag_date');
         if (!empty($alias)) {
             foreach ($fields as $field) {
                 $new[] = $alias . '.' . $field;

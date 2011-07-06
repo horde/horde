@@ -149,7 +149,6 @@ class Ulaform_Driver {
         $form = $this->_driver->getForm($form_data['form_id']);
         $fields = $this->_driver->getFields($form_data['form_id']);
 
-        require_once ULAFORM_BASE . '/lib/Action.php';
         $action = $GLOBALS['injector']->getInstance('Ulaform_Factory_Action')->create($form['form_action']);
 
         return $action->doAction($form['form_params'], $form_data, $fields);

@@ -541,7 +541,7 @@ class Mnemo
 
     /**
      */
-    public function getCssStyle($category, $stickies = false)
+    static public function getCssStyle($category, $stickies = false)
     {
         $cManager = new Horde_Prefs_CategoryManager();
         $colors = $cManager->colors();

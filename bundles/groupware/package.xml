@@ -10,10 +10,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-14</date>
- <time>21:00:36</time>
+ <date>2011-07-05</date>
+ <time>18:14:57</time>
  <version>
-  <release>4.0.1</release>
+  <release>4.0.2</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* Set release level to stable.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -58,7 +58,7 @@
      </dir> <!-- /turba/config/conf.d -->
     </dir> <!-- /turba/config -->
    </dir> <!-- /turba -->
-   <file name="README" role="data" />
+   <file name="README" role="doc" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -84,14 +84,14 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.6</min>
+    <min>4.0.7</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
    </package>
    <package>
     <name>kronolith</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.4</min>
+    <min>3.0.5</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
@@ -105,7 +105,7 @@
    <package>
     <name>nag</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.1</min>
+    <min>3.0.2</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
@@ -119,7 +119,7 @@
    <package>
     <name>turba</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.3</min>
+    <min>3.0.4</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
@@ -167,9 +167,23 @@
     <release>4.0.1</release>
     <api>4.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-06-14</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* [jan] Update Horde, Turba, Kronolith, and Nag.
+* [jan] Set release level to stable.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 * 

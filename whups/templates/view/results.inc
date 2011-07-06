@@ -14,7 +14,15 @@ function doResort(column, sortDown)
 {
     baseurl = '<?php echo addslashes(html_entity_decode($GLOBALS['session']->get('whups', 'last_search'))) ?>';
     try {
-        new Ajax.Request(baseurl, { parameters: { 'sortby': encodeURIComponent(column), sortdir: encodeURIComponent(sortDown) } });
+        new Ajax.Request(
+            baseurl,
+            {
+                parameters: {
+                    'sortby': encodeURIComponent(column),
+                    'sortdir': encodeURIComponent(sortDown),
+                    'isajax': true
+                }
+            });
     } catch (e) {}
 }
 </script>
@@ -31,6 +39,9 @@ function doResort(column, sortDown)
 <?php
      echo '<thead><tr class="item nowrap leftAlign">';
      foreach ($this->_params['values'] as $name => $value) {
+         if ($value == 'user_id_requester') {
+             $value = 'requester_formatted';
+         }
          if ($sortby == $value) {
              $class = ' class="' . $sortdirclass . '"';
              $revurl = Horde_Util::addParameter($this->_params['url'], 'sortdir', ($sortdir ? 0 : 1));
@@ -58,18 +69,14 @@ function doResort(column, sortDown)
                  require_once 'Horde/Form/Type.php';
                  $thevalue = Horde_Form_Type_date::getFormattedTime($thevalue, $prefs->getValue('report_time_format'), false);
              } elseif ($value == 'user_id_requester') {
-                 $thevalue = Whups::formatUser($thevalue, false, true, true);
+                 $thevalue = $info['requester_formatted'];
              } elseif ($value == 'id' || $value == 'summary') {
                  $sortval = '';
                  $thevalue = Horde::link($url) . '<strong>' . htmlspecialchars($thevalue) . '</strong></a>';
              } elseif ($value == 'owners') {
                  $sortval = '';
-                 if (!empty($info['owners'])) {
-                     $owners = array();
-                     foreach ($thevalue as $owner) {
-                         $owners[] = Whups::formatUser($owner, false, true, true);
-                     }
-                     $thevalue = implode(', ', $owners);
+                 if (!empty($info['owners_formatted'])) {
+                     $thevalue = implode(', ', $info['owners_formatted']);
                  }
              }
 

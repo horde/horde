@@ -53,7 +53,7 @@ class Ingo_Storage_Mock extends Ingo_Storage
 
     /**
      */
-    protected function _store(&$ob)
+    protected function _store($ob)
     {
         $this->_data[$ob->obType()] = $ob;
     }

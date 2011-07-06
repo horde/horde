@@ -95,7 +95,9 @@ var HordeLogin = {
         while (Object.isElement(elt)) {
             switch (elt.readAttribute('id')) {
             case 'login-button':
-                this.submit();
+                if (!elt.readAttribute('disabled')) {
+                    this.submit();
+                }
                 e.stop();
                 break;
             }

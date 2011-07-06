@@ -1073,7 +1073,7 @@ class Horde_Config
                             'persistent' => $persistent,
                             'username' => $username,
                             'password' => $password,
-                            'protocol' => $mysql_protocol,
+                            'protocol' => $protocol,
                             'database' => $database,
                             'charset' => $charset
                         )
@@ -1102,7 +1102,20 @@ class Horde_Config
                         'charset' => $charset,
                         'ssl' => $ssl,
                         'ca' => $ca,
-                        'splitread' => $splitread
+                        'splitread' => Horde_Array::replaceRecursive(
+                            $splitread,
+                            array(
+                                'switch' => array(
+                                    'true' => array(
+                                        'fields' => array(
+                                            'read' => array(
+                                                'protocol' => $mysql_protocol,
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
                     )
                 ),
                 'mysqli' => array(
@@ -1113,9 +1126,22 @@ class Horde_Config
                         'protocol' => $mysql_protocol,
                         'database' => $database,
                         'charset' => $charset,
-                        'splitread' => $splitread,
                         'ssl' => $ssl,
-                        'ca' => $ca
+                        'ca' => $ca,
+                        'splitread' => Horde_Array::replaceRecursive(
+                            $splitread,
+                            array(
+                                'switch' => array(
+                                    'true' => array(
+                                        'fields' => array(
+                                            'read' => array(
+                                                'protocol' => $mysql_protocol,
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
                     )
                 ),
                 'pgsql' => array(
@@ -1126,7 +1152,8 @@ class Horde_Config
                         'password' => $password,
                         'protocol' => $protocol,
                         'database' => $database,
-                        'charset' => $charset
+                        'charset' => $charset,
+                        'splitread' => $splitread,
                     )
                 ),
                 'sqlite' => array(

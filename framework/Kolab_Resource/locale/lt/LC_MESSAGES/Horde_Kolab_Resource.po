@@ -1,42 +1,42 @@
 # Lithuanian translations for Horde_Kolab_Resource module.
-# Copyright (C) 2010 Horde Project
+# Copyright 2010-2011 The Horde Project
 # This file is distributed under the same license as the Horde_Kolab_Resource module.
-# Automatically generated, 2010.
+# Vilius Šumskas <vilius@lnk.lt>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Resource\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: i18n@lists.horde.org\n"
+"POT-Creation-Date: 2011-05-28 01:09+0300\n"
+"PO-Revision-Date: 2011-06-28 00:12+0300\n"
+"Last-Translator: Vilius Šumskas <vilius@lnk.lt>\n"
+"Language-Team: Lithuanian <vilius@lnk.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: lib/Horde/Kolab/Resource.php:576
+#: lib/Horde/Kolab/Resource.php:557
 #, php-format
 msgid "%s has been cancelled"
-msgstr ""
+msgstr "%s buvo nutrauktas"
 
-#: lib/Horde/Kolab/Resource.php:555 lib/Horde/Kolab/Resource.php:560
-#, fuzzy, php-format
+#: lib/Horde/Kolab/Resource.php:536 lib/Horde/Kolab/Resource.php:541
+#, php-format
 msgid "Error processing \"%s\""
-msgstr "Klaida rašant \"%s\"."
+msgstr "Klaida apdorojant \"%s\""
 
-#: lib/Horde/Kolab/Resource.php:575
+#: lib/Horde/Kolab/Resource.php:556
 msgid "The following event has been successfully removed:"
-msgstr ""
+msgstr "Įvykis buvo sėkmingai ištrintas:"
 
-#: lib/Horde/Kolab/Resource.php:559
+#: lib/Horde/Kolab/Resource.php:540
 #, php-format
 msgid "The following event that was canceled is not present in %s's calendar:"
-msgstr ""
+msgstr "Įvykio, kuris buvo nutrauktas, nėra %s kalendoriuje:"
 
-#: lib/Horde/Kolab/Resource.php:554
-#, fuzzy, php-format
+#: lib/Horde/Kolab/Resource.php:535
+#, php-format
 msgid "Unable to access %s's calendar:"
-msgstr "Nepavyko perskaityti VFS katalogo."
+msgstr "Nepavyko prisijungti prie %s kalendoriaus:"

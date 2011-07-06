@@ -445,9 +445,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      *
      * @param string $uid       The UID to match
      * @param array $calendars  A restricted array of calendar ids to search
-     * @param boolean $getAll   Return all matching events? If this is false,
-     *                          an error will be returned if more than one event
-     *                          is found.
+     * @param boolean $getAll   Return all matching events?
      *
      * @return Kronolith_Event
      * @throws Kronolith_Exception

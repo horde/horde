@@ -1,11 +1,8 @@
-===================================
-|| Ulaform Development TODO List ||
-===================================
+===============================
+ Ulaform Development TODO List
+===============================
 
-- Add support for actions other than sending mail, for example sending
-data to a SQL backend.
-
-- Add permissions for sharing a form (both editing and using).
+:Contact: horde@lists.horde.org
 
 - Allow for users embedding the form to specify the action.
 
@@ -15,6 +12,3 @@ javascript inside <div> tags.
 - Allow XML definitions of forms as well as database.
 
 - Documentation
-
-
-$Horde: ulaform/docs/TODO,v 1.9 2004-11-20 03:53:15 eraserhd Exp $

@@ -8,7 +8,7 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Vilius Sumskas <vilius@lnk.lt>
+ * @author  Vilius Šumskas <vilius@lnk.lt>
  * @package Ulaform
  */
 class Ulaform_Action_Sql extends Ulaform_Action {

@@ -1,22 +1,22 @@
 # Lithuanian translations for Passwd package.
-# Copyright 2007-2009 The Horde Project
+# Copyright 2007-2011 The Horde Project
 # This file is distributed under the same license as the Passwd package.
 # Darius Matuliauskas <darius@lnk.lt>, 2003.
-# Vilius Sumskas <vilius@lnk.lt>, 2004, 2007.
+# Vilius Šumskas <vilius@lnk.lt>, 2004, 2007, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Passwd 3.1-cvs\n"
+"Project-Id-Version: Passwd 3.1.4-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2007-11-23 16:25+0200\n"
-"PO-Revision-Date: 2007-11-23 16:26+0200\n"
-"Last-Translator: Vilius Sumskas <vilius@lnk.lt>\n"
+"POT-Creation-Date: 2011-05-28 01:09+0300\n"
+"PO-Revision-Date: 2011-06-26 23:37+0300\n"
+"Last-Translator: Vilius Šumskas <vilius@lnk.lt>\n"
 "Language-Team: Lithuanian <vilius@lnk.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: lib/Driver/expect.php:34
 #, php-format
@@ -38,7 +38,7 @@ msgstr "%s: nepavyko užkrauti tvarkyklės: %s"
 msgid "ADSI error %s."
 msgstr "ADSI klaida %s."
 
-#: lib/Driver/pspasswd.php:105 lib/Driver/adsi.php:64
+#: lib/Driver/adsi.php:64 lib/Driver/pspasswd.php:105
 msgid "Access Denied."
 msgstr "Neužtenka teisių."
 
@@ -50,7 +50,7 @@ msgstr "Slaptažodžio keitimo posistemė neteisingai realizuota."
 msgid "Cannot send command to server."
 msgstr "Nepavyko nusiųsti komandos į serverį."
 
-#: main.php:263 templates/main/main.inc:141
+#: main.php:267 templates/main/main.inc:141
 msgid "Change Password"
 msgstr "Slaptažodžio keitimas"
 
@@ -71,7 +71,7 @@ msgstr "Slaptažodžio keitimas serveryje %s"
 msgid "Confirm new password:"
 msgstr "Pakartokite naują slaptažodį:"
 
-#: lib/Driver/kolab.php:60 lib/Driver/ldap.php:99 lib/Driver/ldap.php:190
+#: lib/Driver/kolab.php:60 lib/Driver/ldap.php:127
 msgid "Could not bind to LDAP server"
 msgstr "Nepavyko autentifikuotis į LDAP serverį."
 
@@ -83,7 +83,7 @@ msgstr "Nepavyko pakeisti slaptažodžio (blogas senas slaptažodis?)"
 msgid "Could not change password."
 msgstr "Nepavyko pakeisti slaptažodžio"
 
-#: lib/Driver/kolab.php:46 lib/Driver/ldap.php:74
+#: lib/Driver/kolab.php:46 lib/Driver/ldap.php:87
 msgid "Could not connect to LDAP server"
 msgstr "Nepavyko prisijungti prie LDAP serverio"
 
@@ -95,7 +95,7 @@ msgstr "Nepavyko prisijungti prie sistemos (sistema neužklausė slaptažodžio)
 msgid "Could not open pipe to smbpasswd."
 msgstr "Klaida jungiantis prie smbpasswd."
 
-#: lib/Driver/ldap.php:80
+#: lib/Driver/ldap.php:93
 msgid "Could not start TLS connection to LDAP server"
 msgstr "Nepavyko prisijungti prie LDAP serverio per TLS"
 
@@ -116,7 +116,7 @@ msgstr "Klaida siunčiant duomenis smbpasswd komandai."
 msgid "Failed to verify old password."
 msgstr "Nepavyko patikrinti seno slaptažodžio."
 
-#: main.php:217 lib/Driver/composite.php:102
+#: lib/Driver/composite.php:102 main.php:226
 #, php-format
 msgid "Failure in changing password for %s: %s"
 msgstr "Klaida keičiant slaptažodį serveryje %s: %s"
@@ -125,12 +125,13 @@ msgstr "Klaida keičiant slaptažodį serveryje %s: %s"
 msgid "Full buffer."
 msgstr "Buferis pilnas."
 
-#: lib/Driver.php:72 lib/Driver/poppassd.php:120 lib/Driver/kolab.php:84
-#: lib/Driver/vmailmgr.php:42 lib/Driver/ldap.php:191
-msgid "Incorrect Password"
-msgstr "Slaptažodis neteisingas"
+#: lib/Driver.php:72 lib/Driver/horde.php:41 lib/Driver/http.php:72
+#: lib/Driver/kolab.php:84 lib/Driver/ldap.php:144 lib/Driver/poppassd.php:120
+#: lib/Driver/vmailmgr.php:42
+msgid "Incorrect old password."
+msgstr "Neteisingas senas slaptažodis."
 
-#: lib/Driver/ldap.php:166
+#: lib/Driver/ldap.php:208
 msgid "Minimum password age has not yet expired"
 msgstr "Minimalus slaptažodžio galiojimo laikas dar nepasibaigė"
 
@@ -143,18 +144,22 @@ msgstr ""
 msgid "New password:"
 msgstr "Naujas slaptažodis:"
 
+#: lib/Passwd.php:48
+msgid "No backend configured for this host"
+msgstr "Šiame serveryje nesukonfigūruota posistemė"
+
+#: lib/Passwd.php:21
+msgid "No backends configured in backends.php"
+msgstr "Posistemė nesukonfigūruota backends.php faile"
+
 #: lib/Driver/poppassd.php:67
 msgid "No prompt returned from server."
 msgstr "Serveris nepaklausė slaptažodžio."
 
-#: lib/Driver.php:128
+#: lib/Driver.php:130
 #, php-format
 msgid "No such backend \"%s\" found."
 msgstr "\"%s\" posistemės nėra."
-
-#: lib/Driver/http.php:72
-msgid "Old password is incorrect."
-msgstr "Neteisingas senas slaptažodis."
 
 #: templates/main/main.inc:89
 msgid "Old password:"
@@ -164,15 +169,10 @@ msgstr "Senas slaptažodis:"
 msgid "Passwd is not properly configured."
 msgstr "Slaptažodžio keitimo modulis nesukonfigūruotas."
 
-#: main.php:209
+#: main.php:213
 #, php-format
 msgid "Password changed on %s."
 msgstr "Slaptažodis serveryje %s pakeistas."
-
-#: lib/Driver/sql.php:127
-#, php-format
-msgid "Password column \"%s\" not found in password table."
-msgstr "Slaptažodžių lentelėje nėra slaptažodžio stulpelio \"%s\"."
 
 #: lib/Driver/pspasswd.php:75
 msgid "Password module can't find the supplied bin."
@@ -186,7 +186,7 @@ msgstr "Slaptažodžio keitimo modulis neranda reikalingų parametrų."
 msgid "Password module is missing target parameter."
 msgstr "Slaptažodžio keitimo modulis neranda nustatytų parametrų."
 
-#: main.php:183 lib/Driver/servuftp.php:71
+#: lib/Driver/servuftp.php:71 main.php:193
 msgid "Password module is not properly configured"
 msgstr "Slaptažodžio keitimo modulis nesukonfigūruotas"
 
@@ -210,10 +210,6 @@ msgstr "Pakartokite savo naują slaptažodį"
 msgid "Required 'drivers' is misconfigured in Composite configuration."
 msgstr "Parametras 'drivers' neteisingai sukonfigūruotas nustatymuose."
 
-#: lib/Driver/sql.php:46
-msgid "Required 'phptype' not specified in Passwd SQL configuration."
-msgstr "Parametras 'phptype' nenurodytas Passwd SQL konfigūracijoje."
-
 #: lib/Driver/vpopmail.php:49
 msgid "Required 'phptype' not specified in SQL configuration."
 msgstr "Parametras 'phptype' nenurodytas SQL konfigūracijoje."
@@ -221,6 +217,15 @@ msgstr "Parametras 'phptype' nenurodytas SQL konfigūracijoje."
 #: templates/main/main.inc:142
 msgid "Reset"
 msgstr "Išvalyti"
+
+#: lib/Driver/horde.php:32
+msgid "The current horde configuration does not allow changing passwords."
+msgstr "Dabartinė horde konfigūracija neleidžia keisti slaptažodžių."
+
+#: lib/Factory/Driver.php:35
+#, php-format
+msgid "The password backend \"%s\" does not exist."
+msgstr "Slaptažodžių posistemė \"%s\" neegzistuoja."
 
 #: lib/Driver/http.php:65
 msgid "The requested website for changing user passwords could not be reached."
@@ -234,21 +239,30 @@ msgstr "Tokio vartotojo vardo nėra."
 msgid "Time out."
 msgstr "Baigėsi slaptažodžio keitimo laikas."
 
-#: lib/Driver/sql.php:75 lib/Driver/vpopmail.php:83
+#: lib/Driver/vpopmail.php:83
 msgid "Unable to connect to SQL server."
 msgstr "Nepavyko prisijungti prie SQL serverio."
+
+#: lib/Driver/ldap.php:99
+msgid "Unable to disable directory referrals"
+msgstr "Nepavyko išjungti direktorijų referalų"
+
+#: lib/Factory/Driver.php:42
+#, php-format
+msgid "Unable to load the definition of %s."
+msgstr "Nepavyko užkrauti %s aprašymo."
 
 #: lib/Driver/expectpecl.php:93
 msgid "Unable to open expect stream!"
 msgstr "Nepavyko atidaryti expect srauto!"
 
-#: lib/Driver/sql.php:135 lib/Driver/poppassd.php:114
+#: lib/Driver/poppassd.php:114 lib/Driver/sql.php:96
 #: lib/Driver/vpopmail.php:150
 msgid "User not found"
 msgstr "Vartotojas nerastas"
 
-#: lib/Driver/smbldap.php:141 lib/Driver/pine.php:231 lib/Driver/kolab.php:76
-#: lib/Driver/ldap.php:133
+#: lib/Driver/kolab.php:76 lib/Driver/ldap.php:185 lib/Driver/ldap.php:257
+#: lib/Driver/pine.php:231
 msgid "User not found."
 msgstr "Vartotojas nerastas."
 
@@ -256,24 +270,24 @@ msgstr "Vartotojas nerastas."
 msgid "Username:"
 msgstr "Vartotojo vardas:"
 
-#: main.php:52
+#: main.php:57
 #, php-format
 msgid "You can't change password for user %s"
 msgstr "Jūs negalite pakeisti vartotojo %s slaptažodžio"
 
-#: main.php:60
+#: main.php:65
 msgid "You must give your current password"
 msgstr "Privalote nurodyti dabartinį slaptažodį"
 
-#: main.php:69
+#: main.php:74
 msgid "You must give your new password"
 msgstr "Įveskite naują slaptažodį"
 
-#: main.php:73
+#: main.php:78
 msgid "You must verify your new password"
 msgstr "Pakartokite naują slaptažodį"
 
-#: main.php:93
+#: main.php:98
 #, php-format
 msgid ""
 "Your new password is too long; passwords may not be more than %d characters "
@@ -282,34 +296,42 @@ msgstr ""
 "Jūsų naujasis slaptažodis per ilgas; jame gali būti nedaugiau nei %d "
 "simboliai"
 
-#: main.php:172
+#: main.php:182
 msgid "Your new password is too simple to guess!  Not changed!"
 msgstr "Slaptažodis per paprastas - įveskite sudėtingesnį!"
 
-#: main.php:163
+#: main.php:173
 msgid "Your new password is too simple to guess. Not changed!"
 msgstr "Slaptažodis per paprastas - įveskite sudėtingesnį."
 
-#: main.php:88
+#: main.php:93
 #, php-format
 msgid "Your new password must be at least %d characters long!"
 msgstr "Slaptažodis turi būti bent %d simbolių ilgio!"
 
-#: main.php:81
+#: main.php:86
 msgid "Your new password must be different from your current password"
 msgstr "Naujasis slaptažodis turi skirtis nuo dabartinio"
 
-#: main.php:133
-#, php-format
-msgid "Your new password must contain at least %d alphabetic characters."
-msgstr "Slaptažodyje privalo būti bent %d raidės."
-
 #: main.php:138
 #, php-format
-msgid "Your new password must contain at least %d alphanumeric characters."
-msgstr "Slaptažodyje privalo būti bent %d simboliai."
+msgid "Your new password must contain at least %d alphabetic character."
+msgid_plural ""
+"Your new password must contain at least %d alphabetic characters."
+msgstr[0] "Slaptažodyje privalo būti bent %d raidė."
+msgstr[1] "Slaptažodyje privalo būti bent %d raidės."
+msgstr[2] "Slaptažodyje privalo būti bent %d raidžių."
 
 #: main.php:143
+#, php-format
+msgid "Your new password must contain at least %d alphanumeric character."
+msgid_plural ""
+"Your new password must contain at least %d alphanumeric characters."
+msgstr[0] "Slaptažodyje privalo būti bent %d raidė arba skaičius."
+msgstr[1] "Slaptažodyje privalo būti bent %d raidės ir/arba skaičiai."
+msgstr[2] "Slaptažodyje privalo būti bent %d raidžių ir/arba skaičių."
+
+#: main.php:148
 #, php-format
 msgid ""
 "Your new password must contain at least %d different types of characters. "
@@ -318,31 +340,48 @@ msgstr ""
 "Jūsų naująjį slaptažodį turi sudaryti bent %d skirtingi simbolių tipai. "
 "Tipai: didžiosios raidės, mažosios raidės, skaičiai ir kiti simboliai."
 
-#: main.php:123
-#, php-format
-msgid "Your new password must contain at least %d lowercase characters."
-msgstr "Slaptažodyje privalo būti bent %d mažosios raidės."
-
 #: main.php:128
 #, php-format
-msgid "Your new password must contain at least %d numeric characters."
-msgstr "Slaptažodyte privalo būti bent %d skaičiai."
+msgid "Your new password must contain at least %d lowercase character."
+msgid_plural "Your new password must contain at least %d lowercase characters."
+msgstr[0] "Slaptažodyje privalo būti bent %d mažoji raidė."
+msgstr[1] "Slaptažodyje privalo būti bent %d mažosios raidės."
+msgstr[2] "Slaptažodyje privalo būti bent %d mažųjų raidžių."
 
-#: main.php:118
+#: main.php:133
 #, php-format
-msgid "Your new password must contain at least %d uppercase characters."
-msgstr "Slaptažodyje privalo būti bent %d didžiosios raidės."
+msgid "Your new password must contain at least %d numeric character."
+msgid_plural "Your new password must contain at least %d numeric characters."
+msgstr[0] "Slaptažodyje privalo būti bent %d skaičius."
+msgstr[1] "Slaptažodyje privalo būti bent %d skaičiai."
+msgstr[2] "Slaptažodyje privalo būti bent %d skaičių."
 
-#: main.php:149
+#: main.php:162
+#, php-format
+msgid "Your new password must contain at least %d symbol character."
+msgid_plural "Your new password must contain at least %d symbol characters."
+msgstr[0] "Slaptažodyje privalo būti bent %d simbolis."
+msgstr[1] "Slaptažodyje privalo būti bent %d simboliai."
+msgstr[2] "Slaptažodyje privalo būti bent %d simbolių."
+
+#: main.php:123
+#, php-format
+msgid "Your new password must contain at least %d uppercase character."
+msgid_plural "Your new password must contain at least %d uppercase characters."
+msgstr[0] "Slaptažodyje privalo būti bent %d didžioji raidė."
+msgstr[1] "Slaptažodyje privalo būti bent %d didžiosios raidės."
+msgstr[2] "Slaptažodyje privalo būti bent %d didžiųjų raidžių."
+
+#: main.php:154
 #, php-format
 msgid "Your new password must contain less than %d whitespace characters."
 msgstr "Naujajame slaptažodyje gali būti nedaugiau nei %d tarpų."
 
-#: main.php:151
+#: main.php:156
 msgid "Your new password must not contain whitespace characters."
 msgstr "Naujajame slaptažodyje negali būti tarpų."
 
-#: main.php:77
+#: main.php:82
 msgid "Your new passwords didn't match"
 msgstr "Nauji slaptažodžiai nesutampa"
 

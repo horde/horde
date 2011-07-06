@@ -242,5 +242,6 @@ $cfgSources['kolab'] = array(
     'export' => true,
     'browse' => true,
     'use_shares' => true,
+    'all_shares' => true,
     'shares_only' => true,
 );

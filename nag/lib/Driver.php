@@ -160,7 +160,7 @@ class Nag_Driver
 
         $signature = serialize(array($tasklist, $driver, $params));
         if (!isset($instances[$signature])) {
-            $instances[$signature] =& Nag_Driver::factory($tasklist, $driver, $params);
+            $instances[$signature] = Nag_Driver::factory($tasklist, $driver, $params);
         }
 
         return $instances[$signature];

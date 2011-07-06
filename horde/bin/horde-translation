@@ -572,7 +572,7 @@ class Horde_Translation_Script
                 if (file_exists($file)) {
                     $diff = array_merge(array_diff(file($tmp_file), file($file)),
                                         array_diff(file($file), file($tmp_file)));
-                    $diff = preg_grep('/^"POT-Creation-Date:/', $diff, PREG_GREP_INVERT);
+                    $diff = preg_grep('/^("POT-Creation-Date:|"Project-Id-Version:)/', $diff, PREG_GREP_INVERT);
                 }
             }
             if (!file_exists($file) || count($diff)) {

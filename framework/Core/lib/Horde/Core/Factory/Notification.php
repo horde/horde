@@ -3,11 +3,11 @@
  * @category Horde
  * @package  Core
  */
-class Horde_Core_Factory_Notification extends Horde_Core_Factory_Base
+class Horde_Core_Factory_Notification extends Horde_Core_Factory_Injector
 {
     protected $_notify;
 
-    public function create()
+    public function create(Horde_Injector $injector)
     {
         if (isset($this->_notify)) {
             return $this->_notify;
@@ -20,7 +20,7 @@ class Horde_Core_Factory_Notification extends Horde_Core_Factory_Base
         $this->_notify->addType('default', '*', 'Horde_Core_Notification_Event_Status');
         $this->_notify->addType('status', 'horde.*', 'Horde_Core_Notification_Event_Status');
 
-        $this->_notify->addDecorator(new Horde_Notification_Handler_Decorator_Alarm($this->_injector->getInstance('Horde_Core_Factory_Alarm'), $GLOBALS['registry']->getAuth()));
+        $this->_notify->addDecorator(new Horde_Notification_Handler_Decorator_Alarm($injector->getInstance('Horde_Core_Factory_Alarm'), $GLOBALS['registry']->getAuth()));
         $this->_notify->addDecorator(new Horde_Core_Notification_Handler_Decorator_Hordelog());
 
         try {

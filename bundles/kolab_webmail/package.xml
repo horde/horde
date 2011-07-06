@@ -86,7 +86,7 @@
      </dir> <!-- /turba/config/conf.d -->
     </dir> <!-- /turba/config -->
    </dir> <!-- /turba -->
-   <file name="COPYING" role="data" />
+   <file name="COPYING" role="doc" />
   </dir> <!-- / -->
  </contents>
  <dependencies>

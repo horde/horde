@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-14</date>
- <time>11:57:30</time>
+ <date>2011-07-05</date>
+ <time>17:33:07</time>
  <version>
-  <release>5.0.8</release>
+  <release>5.0.9</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,11 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [mms] Fix regression in parsing list reply address (Bug #10258).
-* [jan] Tick sent-mail checkbox off when selecting sent-mail folder in dynamic view.
-* [jan] Keep key navigation active after clicking into a HTML message (Request #9720).
-* [mms] Fix additional regression when flagging all messages in a mailbox (Bug #10243).
-* [mms] Fix "Don&apos;t Show" filtering in traditional mailbox view (Bug #10244).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1085,7 +1081,7 @@
    <file name="compose-mimp.php" role="horde" />
    <file name="compose.php" role="horde" />
    <file name="contacts.php" role="horde" />
-   <file name="COPYING" role="horde" />
+   <file name="COPYING" role="doc" />
    <file name="folders-mimp.php" role="horde" />
    <file name="folders.php" role="horde" />
    <file name="index-dimp.php" role="horde" />
@@ -1097,7 +1093,7 @@
    <file name="message.php" role="horde" />
    <file name="mobile.php" role="horde" />
    <file name="pgp.php" role="horde" />
-   <file name="README" role="horde" />
+   <file name="README" role="doc" />
    <file name="rss.php" role="horde" />
    <file name="saveimage.php" role="horde" />
    <file name="search-basic.php" role="horde" />
@@ -2315,13 +2311,30 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-14</date>
+   <date>2011-07-05</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [jan] Don&apos;t attempt to delete linked attachments monthly if they have been disabled (Bug #10166).
+* [jan] Don&apos;t show basic headers twice when showing all headers (Bug #10276).
+* [jan] Add IMP_Contents#getTree() to return a tree representation of a message&apos;s MIME parts.
+* [mms] Fix regression in parsing list reply address (Bug #10258).
 * [jan] Tick sent-mail checkbox off when selecting sent-mail folder in dynamic view.
-* [jan] Keep key navigation active after clicking into a HTML message.
+* [jan] Keep key navigation active after clicking into a HTML message (Request #9720).
 * [mms] Fix additional regression when flagging all messages in a mailbox (Bug #10243).
 * [mms] Fix "Don&apos;t Show" filtering in traditional mailbox view (Bug #10244).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.9</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

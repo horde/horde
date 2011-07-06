@@ -5,6 +5,9 @@
 :Contact: horde@lists.horde.org
 
 
+Introduction
+============
+
 These are instructions to upgrade from earlier Horde Groupware Webmail Edition
 versions.  Please backup your existing data before running any of the steps
 described below, you need the backups in case anything goes wrong with the

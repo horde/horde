@@ -113,6 +113,10 @@ $backends['maildrop'] = array(
     ),
     'script' => 'maildrop',
     'scriptparams' => array(
+        // Any arguments passed to the mailbot command. The -N flag (to not
+        // include the original, quoted message content has been added with
+        // Maildrop 2.5.1/Courier 0.65.1.
+        'mailbotargs' => '-N',
         // What path style does the IMAP server use ['mbox'|'maildir']?
         'path_style' => 'mbox',
         // Strip 'INBOX.' from the beginning of folder names in generated

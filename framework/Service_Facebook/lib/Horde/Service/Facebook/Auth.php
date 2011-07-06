@@ -85,6 +85,7 @@ class Horde_Service_Facebook_Auth extends Horde_Service_Facebook_Base
      *                          during the final steps in the OAuth2 process.
      *
      * @return string  The access_token
+     * @throws Horde_Service_Facebook_Exception
      */
     public function getSessionKey($code = null, $callback = '')
     {
@@ -93,7 +94,7 @@ class Horde_Service_Facebook_Auth extends Horde_Service_Facebook_Base
                 $result = $this->_http->request(
                     'GET', $this->getAuthTokenUrl($code, $callback));
             } catch (Horde_Http_Exception $e) {
-                throw Horde_Service_Facebook_Exception($e);
+                throw new Horde_Service_Facebook_Exception($e);
             }
 
             if ($result->code !== 200) {

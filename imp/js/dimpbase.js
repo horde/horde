@@ -259,7 +259,7 @@ var DimpBase = {
             break;
 
         case 'portal':
-            this.highlightSidebar('appprefs');
+            this.highlightSidebar('portallink');
             this.setHash(type);
             this.setTitle(DIMP.text.portal);
             this.iframeContent(type, DIMP.conf.URI_PORTAL);
@@ -1474,7 +1474,7 @@ var DimpBase = {
         if (r.atc_label) {
             $('msgAtc').show();
             tmp = $('partlist');
-            tmp.hide().previous().update(new Element('SPAN', { className: 'atcLabel' }).insert(r.atc_label)).insert(r.atc_download);
+            tmp.previous().update(new Element('SPAN', { className: 'atcLabel' }).insert(r.atc_label)).insert(r.atc_download);
             if (r.atc_list) {
                 $('partlist_col').show();
                 $('partlist_exp').hide();

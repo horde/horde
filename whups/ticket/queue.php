@@ -17,14 +17,25 @@ $linkTags[] = $ticket->feedLink();
 $vars = Horde_Variables::getDefaultVariables();
 $vars->set('id', $id = $ticket->getId());
 $form = $vars->get('formname');
-if ($form != 'whups_form_queuestepone') {
+if ($form != 'whups_form_queue_stepone') {
     $q = $vars->get('queue');
+    $v = $vars->get('version');
+    $t = $vars->get('type');
 }
+
+// Get all ticket details from storage, then override any values that are
+// in the process of being edited.
 foreach ($ticket->getDetails() as $varname => $value) {
     $vars->add($varname, $value);
 }
 if (!empty($q)) {
     $vars->set('queue', $q);
+}
+if (!empty($v)) {
+    $vars->set('version', $v);
+}
+if (!empty($t)) {
+    $vars->set('type', $t);
 }
 
 // Check permissions on this ticket.

@@ -1,5 +1,10 @@
 What is Ulaform?
-----------------
+================
+
+:Contact: horde@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
 
 Ulaform is a PHP-based dynamic HTML form creation and generation system. Ulaform
 allows users to create sophisticated forms using a web browser, and then render
@@ -14,13 +19,18 @@ some useful capabilities: the ability to automatically validate data, using
 JavaScript if available (or re-rendering of the form if not); the ability to use
 GET or POST transparently; and others.
 
+This software is OSI Certified Open Source Software.  OSI Certified is a
+certification mark of the `Open Source Initiative`_.
+
+.. _`Open Source Initiative`: http://www.opensource.org/
+
 
 Obtaining Ulaform
 -----------------
 
 Further information on Ulaform and the latest version can be obtained at:
 
-  http://www.horde.org/ulaform/
+  http://www.horde.org/apps/ulaform
 
 
 Documentation
@@ -28,18 +38,18 @@ Documentation
 
 The following documentation is available in the Ulaform distribution:
 
-README        - This file
-COPYING       - Copyright and license information
-docs/CHANGES  - List of changes by release
-docs/CREDITS  - Who developed this
-docs/INSTALL  - Installation instructions
+:README_:          - This file
+:COPYING_:         - Copyright and license information
+:`docs/CHANGES`_:  - List of changes by release
+:`docs/CREDITS`_:  - Who developed this
+:`docs/INSTALL`_:  - Installation instructions
 
 
 Installation
 ------------
 
-Instructions for installing Ulaform can be found in the file INSTALL in the
-docs/ directory of the Ulaform distribution.
+Instructions for installing Ulaform can be found in the file INSTALL_ in the
+``docs/`` directory of the Ulaform distribution.
 
 
 Assistance
@@ -49,13 +59,13 @@ If you encounter problems with Ulaform, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at:
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
 The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole. Information, archives, and
 subscription information can be found at:
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users also make occasional
 appearances on IRC, on the channel #horde on the Freenode Network
@@ -65,11 +75,16 @@ appearances on IRC, on the channel #horde on the Freenode Network
 Licensing
 ---------
 
-For licensing and copyright information, please see the file COPYING in the
+For licensing and copyright information, please see the file COPYING_ in the
 Ulaform distribution.
 
 Thanks,
 
 The Ulaform team
 
-$Horde: ulaform/README,v 1.9 2007-04-22 04:51:54 chuck Exp $
+
+.. _README: README
+.. _COPYING: http://www.horde.org/licenses/gpl
+.. _docs/CHANGES: CHANGES
+.. _docs/CREDITS: CREDITS
+.. _docs/INSTALL: INSTALL

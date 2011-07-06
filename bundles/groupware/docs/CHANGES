@@ -1,7 +1,55 @@
 ----------
-v4.0.1-git
+v4.0.2-git
 ----------
 
+
+
+------
+v4.0.1
+------
+
+Horde Changes
+-------------
+[mjr] Fix returning shares in the proper order when fetching multiple shares
+      by id.
+[mjr] Fix incorrect method name in Pop3 Socket driver.
+[jan] Don't use CSS cache in mobile interfaces because it breaks jQuery Mobile
+      CSS.
+[mjr] Fix race conditions caused by broken clients sending an inappropriate
+      PING request.
+[jan] Fix duplication of objects during synchronization (joniw@t-online.de, Bug
+      #10081).
+[Jan] Don't allow to click disabled login button (Bug #10267).
+[jan] Allow configuration of split read databases for PostgreSQL (Request
+      #7025).
+[mjr] Honor initial_application setting for mobile view (Bug #10264).
+[mjr] Fix issue with initial Android ActiveSync pairing.
+[gwr] Support restricting the HTML tidy post processing by the message size
+      (Request #10266).
+[gwr] Disabled the timeout on the logout token.
+[mjr] Fix integer overflow issue in Facebook code (Bug #9889).
+[mms] Fix adding users with Cyrsql driver (vilius@lnk.lt, Bug #10239).
+
+Address Book Changes
+--------------------
+[jan] Pass contact object to decode_attribute hook (kd@tu-cottbus.de, Bug
+      #10287).
+[jan] Complete fix for importing LDIF files (Bug #10139).
+
+Calendar Changes
+----------------
+[jan] Update task due date in interface after dragging a task (Bug #10001).
+[jan] Correctly sort events in portal block or widget if only displaying a
+      single calendar (Bug #10099).
+[mjr] Allow syncing of multiple owner-owned calendars (Request #8734).
+[jan] Don't show calendar drop down in event form without delete permissions
+      (Bug #10201).
+[jan] Don't change event creator when saving events.
+[jan] Fetch events immediately after saving remote calendar.
+
+Tasks Changes
+-------------
+[jan] Add Ukrainian translation (Andriy Kopystyansky <anri@polynet.lviv.ua>).
 
 
 ----
@@ -165,325 +213,6 @@ Horde Changes
 [mjr] Fix a possible infinite loop with certain recurring events in Horde_Date.
 [jan] Use DateTime internally in Horde_Date.
 
-Mail Changes
-------------
-[mms] Don't strip HTML part of compose message when stripping attachments
-      from saved sent-mail message (Bug #10234).
-[mms] Fix regression when copying/moving messages into a new mailbox in
-      traditional view (Bug #10232).
-[mms] Fix regression when flagging all messages in a mailbox (Bug #10224).
-[jan] Fix folder links in virtual folders (Bug #10221).
-[mms] Show translated name for special mailboxes in sent mail lists (Bug
-      #10220).
-[mms] Fix regression in filtering mailbox in traditional view (Bug #10213).
-[mms] Fix regression in renaming mailboxes in dynamic view (Bug #10207).
-[mms] Fix selecting sent-mail mailbox for not empty namespaces (Bug #10090).
-[mms] Fix saving expand/collapse state in traditional folders view.
-[mms] Update all flag changes in dynamic mode (Bug #10146).
-[mms] Fix editing saved searches in dynamic mode (Bug #10189).
-[mms] Fix regression in saving sent mail in traditional view (Bug #10193).
-[mms] Fix regression in deleting mailboxes in traditional view (Bug #10170).
-[mms] Fix currently selected mailbox in folder lists (Bug #10163).
-[jan] Don't show button to strip attachments if turned off in the preferences
-      (Bug #10154).
-[jan] Fix printing from message popup (Bug #10188).
-[jan] Fix viewing messages source from message popup (Bug #10190).
-[jan] Fix editing saved searches in traditional view (Bug #10184).
-[jan] Fix loading message previews from search results (Bug #10152).
-[mms] Fix sending messages with linked attachments (Bug #10125).
-[mms] Handle response codes/errors returned from POP3 servers.
-[mms] Fix POP3 regressions.
-[mms] Workaround broken suhosin extension to allow search mailboxes (Request
-      #9842).
-[jan] Add missing files to package.
-[mms] Add quick flag filtering to traditional view.
-[mms] Fix viewing linked attachments (Bug #9972).
-[mms] Add support for the content-id access type of message/external-body.
-[mms] Consolidate IMAP error handling code in IMP_Imap_Exception.
-[mms] Use translated namespace name if available.
-[mms] Fix resuming reply drafts in HTML mode (Bug #9928).
-[mms] Fix updating flags/logs on original messages after resuming from draft.
-[mms] Fix flagging messages in search mailboxes in dynamic view.
-[mms] Don't attempt to poll non-IMAP mailboxes (Bug #9896).
-[mms] Fix deleting attachments from compose message in dynamic view (Bug
-      #9899).
-[mms] Newmail portal block can now be configured to auto-update.
-[mms] Fix deleteMessages and flagMessages API calls (Bug #9888).
-[mms] More intelligent polling in dynamic view (Request #9808).
-[mms] Fix spurious viewport loading in rare situations (Bug #9768).
-[mms] Show human readable message in multipart/report parts in the richest
-      format possible (Bug #9873).
-[mms] Fix unneeded body part downloads in alternative parts (Bug #9862).
-[mms] Fix importing PGP private keys.
-[mms] More intelligent part naming if name is not specified in the message
-      (Request #9853).
-[jan] Avoid double escaping of folder names in sent-mail drop down list.
-[jan] Fix translation of special folders on certain IMAP servers.
-[jan] Fix display of status icons in traditional view (Bug #9844).
-[mms] Fix displaying all message parts in standard view (Bug #9827).
-[mms] Allow .eml files to be imported into a mailbox (Request #9827).
-[mms] Fix vertical layout resize in dynamic view (Bug #9834).
-[mms] Fix link for filters menu item (Bug #9831).
-[mms] Fix composing messages in mobile view.
-[mms] IMP will refuse to work with POP3 servers that don't support UIDL.
-[mms] Many POP3 fixes.
-[jan] Notify about new mails in any Horde application.
-[mms] New mail notifications now handled by the Horde Notification system
-      (Request #9751).
-[mms] Fix resuming messages with attachments (Bug #9780).
-[mms] Fix javascript actions in standard view in IE 7/8 (Bugs #9801, 9809).
-[jan] Fix application-specific permission checks (Bug #9786).
-[mms] Fix printing of message parts in IE, regardless of local user settings
-      (Bug #9756).
-[mms] Fix IMP_Maillog regression from RC2 (Bug #9763).
-[mms] Fix honoring default encryption option in dynamic view.
-[jan] Show full alarm notifications in dynamic view (Request #9748).
-[jan] Fix saving S/MIME certs to address book.
-[mms] Support importing of compressed mailbox files if the zip extension is
-      not available.
-[mms] Fix max_folders permission (Bug #9741).
-[jan] Rename all scripts in bin/ to be prefixed with imp- (Request #9647).
-[jan] Correctly render notifications with embedded HTML in dynamic view
-      (Bug #9729).
-[mms] Fix moving to new mailbox, tasklist, and notepad in traditional view
-      (Bug #9732).
-[jan] Add left and right keys as aliases for up and down keys in dynamic view.
-[mms] Add mailbox sorting and select all messages to vertical layout in the
-      dynamic view (Request #9708).
-[jan] Fix expansion of quoted sections in thread view.
-[jan] Fix message previews in traditional view (Bug #9695).
-[jan] Support importing of compressed mailbox files.
-[jan] Fix upgrading of search_fields preference.
-[jan] Fix key navigation in traditional mailbox view.
-[mms] Don't cache FETCH data for the Spam and Trash mailboxes.
-[mms] All views now honor 'initial_page' preference.
-[mms] Fix loading virtual folder as initial page in standard view (Bug #9696).
-[jan] Update installation and upgrade instructions.
-[mms] Fix upgrading virtual folders from IMP 4 (Bug #9692).
-[mms] Fix editing the size search criteria.
-[mms] Optimize importing messages from mbox file.
-[mms] Fix deletion from Virtual Inbox in standard view (Bug #9686).
-[mms] Fix loading virtual folders from drop-down folder list (Bug #9687).
-[mms] Fix thread sort by newest messages first (Bug #9685).
-[mms] Add import/download mailbox ability to dynamic view.
-[jan] Remove application tabs from AJAX interface (Bug #9679).
-[mms] Move all portal rendering code to Horde.
-[mms] Fix flag display in message list in traditional view (Bug #9673).
-[mms] Fix purging deleted messages in dynamic view (Bug #9627).
-[mms] Fix display of non-IMAP mailbox elements in folder lists (Bug #9650).
-[mms] Fix print part display.
-[jan] Fix listing users through IMP API.
-[jan] Add configuration whether to load other applications in an IFRAME.
-[mms] Indicate negative rights in ACL display (Request #4488).
-[jan] Provide default configuration files instead of .dist versions.
-[mms] Add priority and request read receipt information to saved drafts
-      (Request #9457).
-[mms] Added example in pre_sent hook to do forgotten attachment checking at
-      send time (Request #9028).
-[mms] Add subfolder searching (subfolders dynamically determined at time of
-      search).
-[mms] Refactor inline message image blocking to operate on all messages, not
-      just HTML messages.
-[mms] Add attachment message filter.
-[mms] Add post_spam hook called after reporting spam/ham (Request #6455).
-[mms] Implement stationery support in DIMP.
-[mms] Add preference to control displayed content for multipart/alternative
-      parts (Request #6711).
-[mms] Allow multiple messages to be forwarded in a single outgoing message
-      (DIMP) (Request #9132).
-[mms] Add personal recipient message filter (Request #8659).
-[mms] Add mailing list message filter (Request #8659).
-[mms] Add ability to define search criteria to be applied to any mailbox
-      (Request #8659).
-[mms] Use recipient search (To/Cc/Bcc) by default instead of To search.
-[mms] Virtual folders now editable via a preferences group.
-[mms] Search code has been entirely rewritten.
-[jan] Rename servers.php to backends.php.
-[mms] Use alternate text part to generate reply/forward text when switching
-      compose modes if user has not altered message text (DIMP).
-[mms] Improved login error reporting/logging in IMP (Request #9211).
-[mms] Add hook to skip MDN prompt based on content of message headers.
-[mms] Allow expand/collapse of folders in MIMP.
-[mms] Use single, unified mailbox cache.
-[mms] Add support for setting/retrieving special-use mailboxes from IMAP
-      server.
-[mms] Add preference to control if we check for recipient PGP public keys
-      when replying (Request #7962).
-[mms] Automatically determine view based on browser and 'dynamic_view'
-      preference (Request #9159).
-[mms] Add preference to define default font family/size for the HTML compose
-      editor.
-[mms] Honor nav_expanded preference (DIMP).
-[mms] Allow admin to define list of safe e-mail addresses that will not
-      experience HTML image blocking (Request #9129).
-[mms] HTML compose editor uses Horde language for UI (Request #9084;
-      leandro.damascena@gmail.com).
-[mms] Add config option to disable multipart/related conversions
-      (Request #9099).
-[mms] Sentmail SQL driver now supports split read/write operation.
-[mms] Pass compose message data to mailer backend via stream; much more
-      efficient, especially with larger messages (Request #8909).
-[mms] Add strip attachments support in DIMP.
-[mms] Add PGP & S/MIME compose support to DIMP.
-[mms] Check for incorrect identity on compose if a single recipient address
-      is tied to a different identity than the sending identity.
-[mms] Use CATENATE (RFC 4469), if available, to strip MIME parts (Request
-      #8092).
-[mms] Add preference to show flags created by other MUAs (Request #8882).
-[mms] Added HTML signature support (Request #1406).
-[mms] Simplified date sorting display (Request #8936).
-[mms] Properly redirect messages pursuant to RFC 5322 [3.6.6].
-[mms] Add redirect message capability to DIMP.
-[mms] Add ability to add attachments to composed messages for advanced mobile
-      browsers - disabled by default (MIMP).
-[mms] Add checkbox interface to mailbox page for advanced mobile browsers -
-      disabled by default (MIMP).
-[mms] Add preference to allow viewing of all inline parts by default (MIMP).
-[mms] Add hook to alter composed message details before sending.
-[mms] DIMP now honors the 'allow_resume_all' configuration option.
-[mms] Remove 'sort_limit' configuration option.
-[mms] Mobile view no longer supports WML output.
-[jan] Implement iTip viewer actions in DIMP (Request #8061).
-[mms] Display alarm notifications in DIMP (Request #6232).
-[mms] Auto-determine charset for text attachments (Bug #8858).
-[mms] Remove IE 6 (and below) and Safari 2 (and below) support for DIMP.
-[mms] Add chance to switch between forward options on compose page when using
-      auto-forward (DIMP).
-[mms] Add chance to switch reply type to single recipient on compose page when
-      using auto-reply (DIMP).
-[mms] Fix printing multipage HTML messages in Mozilla browsers (Bug #8708).
-[mms] Provide command line script to obtain IMAP caching statistics.
-[mms] Catch flag changes from other IMAP clients when refreshing if CONDSTORE
-      is available on the IMAP server (DIMP).
-[mms] Improved forwarding options.
-[mms] Add support for LIST-STATUS IMAP extension; provides more efficient
-      mailbox polling.
-[mms] Add hook to allow determination of compose attachments MIME type.
-[mms] Move AJAX processing framework to Horde (Request #4561).
-[mms] If selected message(s) disappear from mailbox, gracefully handle in the
-      user interface (DIMP).
-[mms] Only update search mailbox on explicit user action (Request #7297)
-      (DIMP).
-[mms] Add auto-save draft to IMP (Request #7656).
-[mms] Add keyboard shortcut to move to next unseen message (Request #8223).
-[mms] Add hook to dynamically change mailbox label (Request #6734).
-[mms] Improved address expansion in MIMP.
-[mms] Load folders on-demand in sidebar (DIMP).
-[mms] Add priority setting to DIMP.
-[mms] Simplify and improve priority header generation/display.
-[mms] Add Face: header support to IMP.
-[mms] Add splitbar to resize sidebar in DIMP.
-[mms] Use LIST-EXTENDED IMAP extension (RFC 5258), if available, to get
-      subscribed mailbox information.
-[mms] Split ham/spam reporting actions into two separate preferences (Request
-      #8221).
-[mms] When clicking on base reply button, auto-determine the best way to
-      reply to a message based on the header information.
-[mms] Add vertical-pane preview layout to DIMP.
-[mms] Wrap content-related MIME parts in a border when viewing inline to
-      indicate their relationship.
-[mms] For drafts, save the original message index for forwards/replies so when
-      eventually sent, log information can be updated (Request #8663).
-[mms] Upgrade RTE to CKEditor v3.
-[mms] Sort by display name for to/from fields if supported on IMAP server.
-[mms] Add ability to quickly filter by flags in DIMP.
-[mms] Add ability to select sent-mail mailbox when composing in DIMP.
-[mms] Add ability to save drafts in MIMP.
-[mms] Add spam reporting in MIMP.
-[mms] Added contextmenu support in DIMP for Opera.
-[mms] Display HTML parts inline by using IFRAMEs (based on code by
-      rui.carneiro@portugalmail.net; Request #8592).
-[mms] Add ability to search by relative date intervals (Request #3438).
-[mms] Add advanced search query interface to DIMP (Request #6875).
-[mms] Add ability to search by a custom defined header (Request #6875).
-[mms] Improved advanced search query interface (Request #6875).
-[mms] More intelligent ordering of autocomplete search results.
-[mms] Add a mini search query interface to IMP (Request #6875).
-[mms] Make DIMP quicksearch field selection persist across sessions.
-[mms] Move JS/CSS caching to Horde framework.
-[mms] Add simple search function to MIMP.
-[mms] DIMP now honors the 'mailbox_start' preference.
-[mms] Logins now handled by Horde login handler.
-[mms] When generating and sending compressed ZIP data, use server-side temp
-      streams to minimize memory usage.
-[mms] Decode bodypart data on server if possible (RFC 3516).
-[mms] Use PHP temporary streams when working with message body data to reduce
-      memory usage (Request #3359).
-[mms] Add ability to expand/collapse all folders in DIMP.
-[mms] Add Folder Options menu to DIMP.
-[mms] Add save link to full message display in DIMP.
-[mms] Allow on-demand filter application (if filter backend supports) in DIMP.
-[mms] Add full IMAP subscription support to DIMP (Request #8059).
-[mms] Add message information to preview screen (DIMP).
-[mms] Add Alt + PGUP/PGDN shortcut to scroll through preview message (DIMP).
-[jan] Show possible event conflicts in iTip viewer (Request #3991, Gonçalo
-      Queirós <goncalo.queiros@portugalmail.net>).
-[mms] Move subfolders of special folders to lower folder display tree in
-      DIMP (Bug #8127).
-[mms] Simplify quicksearch UI in DIMP.
-[mms] Improve notification display (DIMP).
-[mms] Use mailbox names in folder confirmation actions (DIMP) (Request #8162).
-[mms] Optimize viewport row insertion/updating (DIMP).
-[mms] Add support for defining and displaying custom IMAP flags and for
-      configuring the highlighting of system flags (Request #937).
-[mms] Move attachment display on mailbox page from hook to preference.
-[mms] Always process priority/precedence headers.
-[mms] Support $MDNSent keyword (RFC 3503) on IMAP server.
-[mms] Link URLs/e-mails in subjects in message views (Request #7487).
-[mms] Implement spellcheck on send in DIMP.
-[mms] Sanity check - don't do message operations reliant on UID list if
-      UIDVALIDITY of mailbox has changed.
-[mms] Remember splitbar position on login/refresh (DIMP).
-[mms] Disable advanced functions if using POP3 driver (caching, on-demand
-      filtering, searching, sorting) because it is too resource intensive.
-[mms] Use native PHP code for POP3 driver (c-client no longer required).
-[mms] IMP code now uses Exceptions instead of PEAR_Errors.
-[mms] Fix wrong charset on filenames when stripping attachments (Bug #7220).
-[mms] Use effects queue to prevent issues with users clicking on effects
-      elements too quickly.
-[mms] Trim leading/trailing whitespace from reply/forwarded text.
-[mms] Add full IMAP message flagging capabilities to DIMP.
-[mms] Decode IDN (RFC 3490) names in addresses (Request #5836).
-[mms] Add ability to download attachments in MIMP (Request #2925).
-[mms] Revamp JS event handling model.
-[mms] ESC in DIMP search box now clears the search (Request #7196).
-[mms] Enhancements to status icon view (Request #7519) (DIMP).
-[mms] If the browser supports it, embed image data in cached CSS files via
-      data URLs (Request #7174).
-[mms] Translate special folder names (Request #7545).
-[mms] Make autocompletion threshold parameters configurable (Request #7322).
-[mms] Add compose attachment preview to DIMP.
-[mms] Add 'unit' parameter for quota display (Carlos Pires <acmpires@sapo.pt>,
-      Request #7044).
-[mms] Add support for '$Forwarded' IMAP keyword (Request #3402).
-[mms] Attachments in a signed message now can be downloaded via the
-      download all attachments link (Bug #2939).
-[mms] Remember preview toggle header preference (Request #7264) (DIMP).
-[mms] Fix stripping attachments when saving to sent-mail folder when attaching
-      the PGP public key (Bug #4221).
-[mms] Removed Special Characters menu.
-[mms] Add 'undelete' to Other Actions menu (Bug #7496) (DIMP).
-[mms] All PGP & S/MIME functions now work in DIMP (Bug #5388).
-[mms] Encrypted bodytext now appears when replying/forwarding a message
-      (Request #1345).
-[mms] When deleting/emptying a folder, display message count (Request #7424).
-[mms] No longer need HTTP_Request - use Horde_Http_Client instead.
-[mms] Use Horde_Imap_Client as the IMAP library in IMP.
-[mms] DIMP and MIMP have been moved into IMP.
-[mms] Allow all parts in a message to be displayed (Bug #1866).
-[jan] Re-add access keys (DIMP).
-[mms] Quota template has been moved inside of base include file (DIMP).
-[mms] Added an alerts log (Request #7173) (DIMP).
-[mms] Added support to access IMP's Virtual Folders (DIMP).
-[mms] Shift-drag for messages will copy instead of move (DIMP).
-[mms] Remove support for Xinha as GUI HTML editor.
-[mms] Strip extra 'Fwd' and 'Re' cruft from subject line when replying to or
-      forwarding a message.
-[mms] Don't send server requests when autocompleting addresses when possible.
-[mms] Added readonly mailbox and disable compose hooks.
-[mms] Saving draft on session expiration now handled via VFS.
-[mms] Add preference to delete draft on resume & send.
-
 Address Book Changes
 --------------------
 [rla] Support multiple address books in search portal block (Request #8786).
@@ -524,33 +253,6 @@ Address Book Changes
 [mjr] The listTimeObjects API now returns categories for each source
       individually instead of returning only the categories available
       (Request #8504).
-
-Filters Changes
----------------
-[jan] Fix moving rules to an explicit position (Bug #10172).
-[mms] Fix storage backend conversion script.
-[mms] Fix folder selection (Bug #9907).
-[mms] Fix filtering using the IMAP driver (Bug #9859).
-[jan] Fix application-specific permission checks (Bug #9786).
-[jan] Correctly escape vacation subjects with quote characters in Maildrop
-      driver (Bug #9156).
-[jan] Catch all PEAR errors in Sieve driver.
-[jan] Allow script drivers to provide additional scripts to upload (Bug #8110).
-[jan] Change default Sieve port to 4190 (Request #9791).
-[jan] Fix reading default forward rule from preferences.
-[jan] Fix removing flags with Sieve driver (Vilius Sumskas <vilius@lnk.lt>,
-      Bug #9785).
-[mjr] Datatree share to SQL upgrade script refactored for Horde 4.
-[jan] Fix updating forward rules in SQL driver (Bug #9699).
-[jan] Update installation and upgrade instructions.
-[jan] Fix instantiation of VFS transport driver (Bug #9605).
-[jan] Fix moving rules with the SQL driver (Bug #9672).
-[jan] Fix creating new rules with PostgreSQL (Bug #9638).
-[jan] Provide default configuration files instead of .dist versions.
-[jan] Rename 'driver' configuration and classes to 'transport' to avoid
-      confusion with script and storage drivers.
-[mms] Use IMP API for IMAP actions.
-[mms] Convert to Horde 4 standards.
 
 Calendar Changes
 ----------------

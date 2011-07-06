@@ -11,6 +11,9 @@
  * @link     http://pear.horde.org/index.php?package=Imap_Client
  */
 
+/* Prepare the test setup. */
+require_once dirname(__FILE__) . '/Autoload.php';
+
 /**
  * Tests for IMAP URL parsing.
  *
@@ -25,7 +28,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Imap_Client
  */
-class Horde_Imap_Client_UrlParseTest extends PHPUnit_Framework_TestCase
+class Horde_Imap_Client_UrlParseTest extends Horde_Test_Case
 {
     private $_testurls = array(
         'test.example.com/',
@@ -36,7 +39,61 @@ class Horde_Imap_Client_UrlParseTest extends PHPUnit_Framework_TestCase
         ';AUTH=PLAIN@test.example.com:143/',
         ';AUTH=*@test.example.com:143/',
         'testuser;AUTH=*@test.example.com:143/',
-        'testuser;AUTH=PLAIN@test.example.com:143/'
+        'testuser;AUTH=PLAIN@test.example.com:143/',
+        'test.example.com/INBOX.Quarant%26AOQ-ne;UIDVALIDITY=1240054819/;UID=39193/;SECTION=HEADER',
+    );
+
+    private $_expected = array(
+        array('hostspec' => 'test.example.com',
+              'port' => 143,
+              'relative' => false,
+              'mailbox' => ''),
+        array('hostspec' => 'test.example.com',
+              'port' => 143,
+              'relative' => false,
+              'mailbox' => ''),
+        array('hostspec' => 'test.example.com',
+              'port' => 143,
+              'relative' => false,
+              'username' => 'testuser',
+              'mailbox' => ''),
+        array('hostspec' => 'test.example.com',
+              'port' => 143,
+              'relative' => false,
+              'username' => 'testuser',
+              'mailbox' => ''),
+        array('hostspec' => 'test.example.com',
+              'port' => 143,
+              'relative' => false,
+              'auth' => 'PLAIN',
+              'mailbox' => ''),
+        array('hostspec' => 'test.example.com',
+              'port' => 143,
+              'relative' => false,
+              'auth' => 'PLAIN',
+              'mailbox' => ''),
+        array('hostspec' => 'test.example.com',
+              'port' => 143,
+              'relative' => false,
+              'mailbox' => ''),
+        array('hostspec' => 'test.example.com',
+              'port' => 143,
+              'username' => 'testuser',
+              'relative' => false,
+              'mailbox' => ''),
+        array('hostspec' => 'test.example.com',
+              'port' => 143,
+              'relative' => false,
+              'username' => 'testuser',
+              'auth' => 'PLAIN',
+              'mailbox' => ''),
+        array('hostspec' => 'test.example.com',
+              'port' => 143,
+              'relative' => false,
+              'section' => 'HEADER',
+              'uid' => 39193,
+              'uidvalidity' => 1240054819,
+              'mailbox' => 'INBOX.Quarant&AOQ-ne'),
     );
 
     public function testBadUrl()
@@ -58,8 +115,16 @@ class Horde_Imap_Client_UrlParseTest extends PHPUnit_Framework_TestCase
     {
         $imap_utils = new Horde_Imap_Client_Utils();
 
-        foreach ($this->_testurls as $val) {
-            $this->assertNotEmpty($imap_utils->parseUrl('pop://' . $val));
+        foreach ($this->_testurls as $key => $val) {
+            $result = $imap_utils->parseUrl('pop://' . $val);
+            $this->assertNotEmpty($result);
+            $expected = $this->_expected[$key];
+            $expected['type'] = 'pop';
+            unset($expected['mailbox'],
+                  $expected['section'],
+                  $expected['uid'],
+                  $expected['uidvalidity']);
+            $this->assertEquals($expected, $result);
         }
     }
 
@@ -68,8 +133,12 @@ class Horde_Imap_Client_UrlParseTest extends PHPUnit_Framework_TestCase
     {
         $imap_utils = new Horde_Imap_Client_Utils();
 
-        foreach ($this->_testurls as $val) {
-            $this->assertNotEmpty($imap_utils->parseUrl('imap://' . $val));
+        foreach ($this->_testurls as $key => $val) {
+            $result = $imap_utils->parseUrl('imap://' . $val);
+            $this->assertNotEmpty($result);
+            $expected = $this->_expected[$key];
+            $expected['type'] = 'imap';
+            $this->assertEquals($expected, $result);
         }
     }
 

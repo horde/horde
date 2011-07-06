@@ -292,7 +292,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
                          $this->_params['username_field'],
                          $this->_params['table']);
         if ($sort) {
-            $query .= sprintf('ORDER BY %s ASC', 
+            $query .= sprintf('ORDER BY %s ASC',
                                $this->_params['username_field']);
         }
 

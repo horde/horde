@@ -1,37 +1,37 @@
 # Lithuanian translations for Horde_Crypt module.
-# Copyright (C) 2010 Horde Project
+# Copyright 2010-2011 The Horde Project
 # This file is distributed under the same license as the Horde_Crypt module.
-# Automatically generated, 2010.
+# Vilius Šumskas <vilius@lnk.lt>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Crypt\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: i18n@lists.horde.org\n"
+"POT-Creation-Date: 2011-05-28 01:09+0300\n"
+"PO-Revision-Date: 2011-06-27 22:57+0300\n"
+"Last-Translator: Vilius Šumskas <vilius@lnk.lt>\n"
+"Language-Team: Lithuanian <vilius@lnk.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: lib/Horde/Crypt/Smime.php:614
+#: lib/Horde/Crypt/Smime.php:621
 #, php-format
 msgid "%s Fingerprint"
 msgstr "%s antspaudas"
 
-#: lib/Horde/Crypt/Pgp.php:1240
+#: lib/Horde/Crypt/Pgp.php:1237
 msgid "A passphrase is required to decrypt a message."
 msgstr "Norėdami atkoduoti laišką privalote žinoti slaptąją frazę."
 
-#: lib/Horde/Crypt/Pgp.php:1307
+#: lib/Horde/Crypt/Pgp.php:1304
 msgid "A public PGP key is required to verify a signed message."
 msgstr ""
 "Norėdami patikrinti pasirašytą laišką privalote turėti viešąjį PGP raktą."
 
-#: lib/Horde/Crypt/Pgp.php:1164
+#: lib/Horde/Crypt/Pgp.php:1168
 msgid ""
 "A public PGP key, private PGP key, and passphrase are required to sign a "
 "message."
@@ -43,7 +43,7 @@ msgstr ""
 msgid "A public S/MIME key is required to encrypt a message."
 msgstr "Norėdami užkoduoti laišką privalote turėti viešąjį S/MIME raktą."
 
-#: lib/Horde/Crypt/Smime.php:422
+#: lib/Horde/Crypt/Smime.php:429
 msgid ""
 "A public S/MIME key, private S/MIME key, and passphrase are required to "
 "decrypt a message."
@@ -59,19 +59,19 @@ msgstr ""
 "Norėdami pasirašyti laišką privalote turėti viešąjį ir slaptąjį S/MIME "
 "raktus, bei žinoti slaptąją frazę."
 
-#: lib/Horde/Crypt/Smime.php:506
+#: lib/Horde/Crypt/Smime.php:513
 msgid "CRL Distribution Points"
 msgstr "CRL paskirstymo punktai"
 
-#: lib/Horde/Crypt/Smime.php:609
+#: lib/Horde/Crypt/Smime.php:616
 msgid "Certificate Details"
 msgstr "Sertifikato detalės"
 
-#: lib/Horde/Crypt/Smime.php:520
+#: lib/Horde/Crypt/Smime.php:527
 msgid "Certificate Owner"
 msgstr "Sertifikato savininkas"
 
-#: lib/Horde/Crypt/Smime.php:505
+#: lib/Horde/Crypt/Smime.php:512
 msgid "Certificate Policies"
 msgstr "Sertifikato teisės"
 
@@ -79,24 +79,24 @@ msgstr "Sertifikato teisės"
 msgid "Comment"
 msgstr "Komentaras"
 
-#: lib/Horde/Crypt/Smime.php:475
+#: lib/Horde/Crypt/Smime.php:482
 msgid "Common Name"
 msgstr "Vardas/pavardė"
 
-#: lib/Horde/Crypt/Pgp.php:939
+#: lib/Horde/Crypt/Pgp.php:943
 msgid "Connection refused to the public keyserver."
 msgstr "Prisijungti prie viešųjų raktų serverio nepavyko."
 
-#: lib/Horde/Crypt/Pgp.php:950
+#: lib/Horde/Crypt/Pgp.php:954
 #, php-format
 msgid "Connection refused to the public keyserver. Reason: %s (%s)"
 msgstr "Prisijungti prie viešųjų raktų serverio nepavyko, nes: %s (%s)"
 
-#: lib/Horde/Crypt/Pgp.php:1132
+#: lib/Horde/Crypt/Pgp.php:1136
 msgid "Could not PGP encrypt message: "
 msgstr "Nepavyko užkoduoti PGP laiško: "
 
-#: lib/Horde/Crypt/Pgp.php:1201
+#: lib/Horde/Crypt/Pgp.php:1205
 msgid "Could not PGP sign message: "
 msgstr "Nepavyko pasirašyti PGP laiško: "
 
@@ -108,23 +108,23 @@ msgstr "Nepavyko užkoduoti S/MIME laiško."
 msgid "Could not S/MIME sign message."
 msgstr "Nepavyko pasirašyti S/MIME laiško."
 
-#: lib/Horde/Crypt/Pgp.php:1276
+#: lib/Horde/Crypt/Pgp.php:1273
 msgid "Could not decrypt PGP data: "
 msgstr "Nepavyko atkoduoti PGP duomenų: "
 
-#: lib/Horde/Crypt/Smime.php:440
+#: lib/Horde/Crypt/Smime.php:447
 msgid "Could not decrypt S/MIME data."
 msgstr "Nepavyko atkoduoti S/MIME duomenų."
 
-#: lib/Horde/Crypt/Pgp.php:659
+#: lib/Horde/Crypt/Pgp.php:657
 msgid "Could not determine the recipient's e-mail address."
 msgstr "Nepavyko nustatyti gavėjo el. pašto adreso."
 
-#: lib/Horde/Crypt/Pgp.php:759 lib/Horde/Crypt/Pgp.php:848
+#: lib/Horde/Crypt/Pgp.php:758 lib/Horde/Crypt/Pgp.php:851
 msgid "Could not obtain public key from the keyserver."
 msgstr "Nepavyko gauti viešojo rakto iš raktų serverio."
 
-#: lib/Horde/Crypt/Smime.php:478
+#: lib/Horde/Crypt/Smime.php:485
 msgid "Country"
 msgstr "Valstybė"
 
@@ -132,28 +132,28 @@ msgstr "Valstybė"
 msgid "E-Mail"
 msgstr "El. pašto adresas"
 
-#: lib/Horde/Crypt/Smime.php:474
+#: lib/Horde/Crypt/Smime.php:481
 msgid "Email Address"
 msgstr "El. pašto adresas"
 
-#: lib/Horde/Crypt/Pgp.php:1584 lib/Horde/Crypt/Pgp.php:1592
+#: lib/Horde/Crypt/Pgp.php:1579 lib/Horde/Crypt/Pgp.php:1587
 msgid "Error while talking to pgp binary."
-msgstr ""
+msgstr "Klaida paleidžiant pgp programa."
 
-#: lib/Horde/Crypt/Smime.php:1251 lib/Horde/Crypt/Smime.php:1269
-#: lib/Horde/Crypt/Smime.php:1284
+#: lib/Horde/Crypt/Smime.php:1245 lib/Horde/Crypt/Smime.php:1263
+#: lib/Horde/Crypt/Smime.php:1278
 msgid "Error while talking to smime binary."
-msgstr ""
+msgstr "Klaida paleidžiant smime programą."
 
 #: lib/Horde/Crypt/Pgp.php:425
 msgid "Expiration Date"
 msgstr "Galiojimo data"
 
-#: lib/Horde/Crypt/Smime.php:586
+#: lib/Horde/Crypt/Smime.php:593
 msgid "Exponent"
 msgstr "Eksponentė"
 
-#: lib/Horde/Crypt/Smime.php:484
+#: lib/Horde/Crypt/Smime.php:491
 msgid "Given Name"
 msgstr "Vardas"
 
@@ -161,7 +161,7 @@ msgstr "Vardas"
 msgid "Hash-Algorithm"
 msgstr "Hash-Algoritmas"
 
-#: lib/Horde/Crypt/Smime.php:534
+#: lib/Horde/Crypt/Smime.php:541
 msgid "Issuer"
 msgstr "Išdavėjas"
 
@@ -175,7 +175,7 @@ msgstr "Rakto atspaudas"
 
 #: lib/Horde/Crypt/Pgp.php:427
 msgid "Key ID"
-msgstr ""
+msgstr "Rakto ID"
 
 #: lib/Horde/Crypt/Pgp.php:425
 msgid "Key Length"
@@ -185,26 +185,30 @@ msgstr "Rakto ilgis"
 msgid "Key Type"
 msgstr "Rakto tipas"
 
-#: lib/Horde/Crypt/Smime.php:507
+#: lib/Horde/Crypt/Smime.php:514
 msgid "Key Usage"
 msgstr "Rakto panaudojimas"
 
-#: lib/Horde/Crypt/Pgp.php:782
+#: lib/Horde/Crypt/Pgp.php:781
 msgid "Key already exists on the public keyserver."
 msgstr "Raktas jau yra viešųjų raktų serveryje."
 
-#: lib/Horde/Crypt/Smime.php:480
+#: lib/Horde/Crypt/Smime.php:487
 msgid "Location"
 msgstr "Vieta"
 
-#: lib/Horde/Crypt/Smime.php:189
+#: lib/Horde/Crypt/Smime.php:192
 msgid ""
-"Message Verified Successfully but the signer's certificate could not be "
+"Message verified successfully but the signer's certificate could not be "
 "verified."
 msgstr ""
 "Laiškas pavirtintas, tačiau nepatvirtintas pasirašiusio asmens sertifikatas."
 
-#: lib/Horde/Crypt/Smime.php:583
+#: lib/Horde/Crypt/Smime.php:180
+msgid "Message verified successfully."
+msgstr "Laiškas patvirtintas sėkmingai."
+
+#: lib/Horde/Crypt/Smime.php:590
 msgid "Modulus"
 msgstr "Modulis"
 
@@ -212,35 +216,35 @@ msgstr "Modulis"
 msgid "Name"
 msgstr "Vardas"
 
-#: lib/Horde/Crypt/Smime.php:490
+#: lib/Horde/Crypt/Smime.php:497
 msgid "Netscape Base URL"
 msgstr "Netscpape bazinis URL"
 
-#: lib/Horde/Crypt/Smime.php:492
+#: lib/Horde/Crypt/Smime.php:499
 msgid "Netscape CA Revocation URL"
 msgstr "Netscpae serifikato atšaukimo URL"
 
-#: lib/Horde/Crypt/Smime.php:494
+#: lib/Horde/Crypt/Smime.php:501
 msgid "Netscape CA policy URL"
 msgstr "Netscpae sertifikato teisių URL"
 
-#: lib/Horde/Crypt/Smime.php:493
+#: lib/Horde/Crypt/Smime.php:500
 msgid "Netscape Renewal URL"
 msgstr "Netscape atnaujinomo URL"
 
-#: lib/Horde/Crypt/Smime.php:491
+#: lib/Horde/Crypt/Smime.php:498
 msgid "Netscape Revocation URL"
 msgstr "Netscape atšaukimo URL"
 
-#: lib/Horde/Crypt/Smime.php:495
+#: lib/Horde/Crypt/Smime.php:502
 msgid "Netscape SSL server name"
 msgstr "Netscape SSL serverio vardas"
 
-#: lib/Horde/Crypt/Smime.php:496
+#: lib/Horde/Crypt/Smime.php:503
 msgid "Netscape certificate comment"
 msgstr "Netscape sertifikato aprašymas"
 
-#: lib/Horde/Crypt/Smime.php:489
+#: lib/Horde/Crypt/Smime.php:496
 msgid "Netscape certificate type"
 msgstr "Netscape sertifikato tipas"
 
@@ -248,7 +252,7 @@ msgstr "Netscape sertifikato tipas"
 msgid "Never"
 msgstr "Niekada"
 
-#: lib/Horde/Crypt/Smime.php:1217
+#: lib/Horde/Crypt/Smime.php:1211
 msgid ""
 "No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
 "work with PKCS 12 data."
@@ -260,11 +264,11 @@ msgstr ""
 msgid "None"
 msgstr "Nenurodyta"
 
-#: lib/Horde/Crypt/Smime.php:549
+#: lib/Horde/Crypt/Smime.php:556
 msgid "Not After"
 msgstr "Ne po to"
 
-#: lib/Horde/Crypt/Smime.php:548
+#: lib/Horde/Crypt/Smime.php:555
 msgid "Not Before"
 msgstr "Ne prieš tai"
 
@@ -272,31 +276,31 @@ msgstr "Ne prieš tai"
 msgid "OpenSSL error: Could not extract data from signed S/MIME part."
 msgstr "OpenSSL klaida: nepavyko gauti duomenų iš pasirašytos S/MIME dalies."
 
-#: lib/Horde/Crypt/Smime.php:476
+#: lib/Horde/Crypt/Smime.php:483
 msgid "Organisation"
 msgstr "Organizacija"
 
-#: lib/Horde/Crypt/Smime.php:477
+#: lib/Horde/Crypt/Smime.php:484
 msgid "Organisational Unit"
 msgstr "Padalinys"
 
-#: lib/Horde/Crypt/Pgp.php:1406
+#: lib/Horde/Crypt/Pgp.php:1401
 msgid "PGP Digital Signature"
 msgstr "PGP skaitmeninis parašas"
 
-#: lib/Horde/Crypt/Pgp.php:1450
+#: lib/Horde/Crypt/Pgp.php:1445
 msgid "PGP Encrypted Data"
 msgstr "PGP užkoduota informacija"
 
-#: lib/Horde/Crypt/Pgp.php:1511
+#: lib/Horde/Crypt/Pgp.php:1506
 msgid "PGP Public Key"
 msgstr "PGP viešasis raktas"
 
-#: lib/Horde/Crypt/Pgp.php:1493
+#: lib/Horde/Crypt/Pgp.php:1488
 msgid "PGP Signed/Encrypted Data"
 msgstr "PGP pasirašyti/užkoduoti duomenys"
 
-#: lib/Horde/Crypt/Smime.php:1256
+#: lib/Horde/Crypt/Smime.php:1250
 msgid "Password incorrect"
 msgstr "Slaptažodis neteisingas"
 
@@ -308,11 +312,11 @@ msgstr "Slaptasis raktas"
 msgid "Public Key"
 msgstr "Viešasis raktas"
 
-#: lib/Horde/Crypt/Smime.php:554
+#: lib/Horde/Crypt/Smime.php:561
 msgid "Public Key Algorithm"
 msgstr "Viešojo rakto algoritmas"
 
-#: lib/Horde/Crypt/Smime.php:553
+#: lib/Horde/Crypt/Smime.php:560
 msgid "Public Key Info"
 msgstr "Informacija apie viešąjį raktą"
 
@@ -320,20 +324,18 @@ msgstr "Informacija apie viešąjį raktą"
 msgid "Public/Private keypair not generated successfully."
 msgstr "Viešojo/slaptojo raktų pora nesugeneruota."
 
-#: lib/Horde/Crypt/Smime.php:572
+#: lib/Horde/Crypt/Smime.php:579
 #, php-format
 msgid "RSA Public Key (%d bit)"
 msgstr "RSA viešasis raktas (%d bitai)"
 
 #: lib/Horde/Crypt/Pgp.php:227
-#, fuzzy
 msgid "Returned error message:"
-msgstr "Skaityti laiškus"
+msgstr "Klaidos pranešimas:"
 
-#: lib/Horde/Crypt/Pgp.php:1644
-#, fuzzy
+#: lib/Horde/Crypt/Pgp.php:1639
 msgid "Revocation key not generated successfully."
-msgstr "Viešojo/slaptojo raktų pora nesugeneruota."
+msgstr "Atšaukimo raktas nesugeneruotas."
 
 #: lib/Horde/Crypt/Smime.php:252
 msgid "S/MIME Cryptographic Signature"
@@ -343,45 +345,44 @@ msgstr "S/MIME parašas"
 msgid "S/MIME Encrypted Message"
 msgstr "S/MIME užkoduotas laiškas"
 
-#: lib/Horde/Crypt/Smime.php:611
+#: lib/Horde/Crypt/Smime.php:618
 msgid "Serial Number"
 msgstr "Serijos numeris"
 
-#: lib/Horde/Crypt/Smime.php:622
+#: lib/Horde/Crypt/Smime.php:625
 msgid "Signature"
 msgstr "Parašas"
 
-#: lib/Horde/Crypt/Smime.php:621
+#: lib/Horde/Crypt/Smime.php:624
 msgid "Signature Algorithm"
 msgstr "Parašo algoritmas"
 
-#: lib/Horde/Crypt/Smime.php:479
+#: lib/Horde/Crypt/Smime.php:486
 msgid "State or Province"
 msgstr "Rajonas arba provincija"
 
-#: lib/Horde/Crypt/Smime.php:481
+#: lib/Horde/Crypt/Smime.php:488
 msgid "Street Address"
 msgstr "Gatvės adresas"
 
-#: lib/Horde/Crypt/Smime.php:483
+#: lib/Horde/Crypt/Smime.php:490
 msgid "Surname"
 msgstr "Pavardė"
 
-#: lib/Horde/Crypt/Smime.php:482
+#: lib/Horde/Crypt/Smime.php:489
 msgid "Telephone Number"
 msgstr "Telefono numeris"
 
-#: lib/Horde/Crypt/Pgp.php:1311
+#: lib/Horde/Crypt/Pgp.php:1308
 msgid ""
 "The detached PGP signature block is required to verify the signed message."
 msgstr "Norėdami patikrinti laišką privalote turėti atskirą PGP parašo bloką."
 
-#: lib/Horde/Crypt/Smime.php:1146
-#, fuzzy
+#: lib/Horde/Crypt/Smime.php:1140
 msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
-msgstr "Horde_Crypt_smime:: klasei reikalingas OpenSSL modulis."
+msgstr "Horde_Crypt_Smime:: klasei reikalingas openssl modulis."
 
-#: lib/Horde/Crypt/Smime.php:512
+#: lib/Horde/Crypt/Smime.php:519
 msgid "Unable to extract certificate details"
 msgstr "Nepavyko gauti sertifikato aprašymo"
 
@@ -390,48 +391,47 @@ msgstr "Nepavyko gauti sertifikato aprašymo"
 msgid "Unknown"
 msgstr "Nežinomas"
 
-#: lib/Horde/Crypt/Smime.php:596 lib/Horde/Crypt/Smime.php:844
-#: lib/Horde/Crypt/Smime.php:850
+#: lib/Horde/Crypt/Smime.php:603 lib/Horde/Crypt/Smime.php:847
+#: lib/Horde/Crypt/Smime.php:853
 msgid "Unsupported Extension"
 msgstr "Plėtinys nepalaikomas"
 
-#: lib/Horde/Crypt/Smime.php:547
+#: lib/Horde/Crypt/Smime.php:554
 msgid "Validity"
 msgstr "Galiojimas"
 
-#: lib/Horde/Crypt/Smime.php:191
-#, fuzzy
+#: lib/Horde/Crypt/Smime.php:187
 msgid "Verification failed - an unknown error has occurred."
-msgstr "Įvyko nežinoma klaida"
+msgstr "Patvirtinimas nebaigtas - įvyko nežinoma klaida."
 
-#: lib/Horde/Crypt/Smime.php:193
+#: lib/Horde/Crypt/Smime.php:189
 msgid "Verification failed - this message may have been tampered with."
 msgstr "Patvirtinimas nebaigtas - šis laiškas sugadintas."
 
-#: lib/Horde/Crypt/Smime.php:610
+#: lib/Horde/Crypt/Smime.php:617
 msgid "Version"
 msgstr "Versija"
 
-#: lib/Horde/Crypt/Smime.php:502
+#: lib/Horde/Crypt/Smime.php:509
 msgid "X509v3 Basic Constraints"
 msgstr "X509v3 pagrindiniai nustatymai"
 
-#: lib/Horde/Crypt/Smime.php:501
+#: lib/Horde/Crypt/Smime.php:508
 msgid "X509v3 Extended Key Usage"
 msgstr "X509v3 išplėsto rakto panaudojimas"
 
-#: lib/Horde/Crypt/Smime.php:503
+#: lib/Horde/Crypt/Smime.php:510
 msgid "X509v3 Subject Alternative Name"
 msgstr "X509v3 alternatyvus vardas"
 
-#: lib/Horde/Crypt/Smime.php:504
+#: lib/Horde/Crypt/Smime.php:511
 msgid "X509v3 Subject Key Identifier"
 msgstr "X509v3 rakto identifikatorius"
 
-#: lib/Horde/Crypt/Smime.php:592
+#: lib/Horde/Crypt/Smime.php:599
 msgid "X509v3 extensions"
 msgstr "X509v3 moduliai"
 
-#: lib/Horde/Crypt/Smime.php:1135
+#: lib/Horde/Crypt/Smime.php:1129
 msgid "not yet implemented"
 msgstr "dar nerealizuota"

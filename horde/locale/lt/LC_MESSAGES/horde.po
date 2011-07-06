@@ -2,76 +2,76 @@
 # Copyright 2007-2011 The Horde Project (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Darius Matuliauskas <darius@lnk.lt>, 2002.
-# Vilius Sumskas <vilius@lnk.lt>, 2003, 2004, 2007.
+# Vilius Šumskas <vilius@lnk.lt>, 2003, 2004, 2007, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde 3.2-cvs\n"
+"Project-Id-Version: Horde 4.0.4-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 02:42+0200\n"
-"PO-Revision-Date: 2007-11-23 14:07+0200\n"
-"Last-Translator: Vilius Sumskas <vilius@lnk.lt>\n"
+"POT-Creation-Date: 2011-05-28 01:09+0300\n"
+"PO-Revision-Date: 2011-05-29 14:23+0300\n"
+"Last-Translator: Vilius Šumskas <vilius@lnk.lt>\n"
 "Language-Team: Lithuanian <vilius@lnk.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: lib/Block/weatherdotcom.php:260 lib/Block/weatherdotcom.php:363
-#: lib/Block/weatherdotcom.php:409
+#: lib/Block/Weatherdotcom.php:240 lib/Block/Weatherdotcom.php:343
+#: lib/Block/Weatherdotcom.php:389
 msgid " at "
 msgstr " "
 
-#: admin/groups.php:50
+#: admin/groups.php:28
 #, php-format
 msgid "\"%s\" was added to the groups system."
 msgstr "Grupė \"%s\" sukurta."
 
-#: admin/perms/addchild.php:43
+#: admin/perms/addchild.php:44
 #, php-format
 msgid "\"%s\" was added to the permissions system."
 msgstr "Teisė \"%s\" sukurta."
 
-#: admin/groups.php:56 admin/perms/addchild.php:47
+#: admin/perms/addchild.php:48
 #, php-format
 msgid "\"%s\" was not created: %s."
 msgstr "\"%s\" nebuvo sukurta: %s."
 
-#: lib/Block/account.php:83
+#: lib/Block/Account.php:80
 #, php-format
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "Užimta %.2fMB iš galimų %.2fMB (%.2f%%)"
 
-#: lib/Block/weatherdotcom.php:241
+#: lib/Block/Weatherdotcom.php:221
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s ir %s"
 
-#: lib/Block/account.php:708 lib/Block/account.php:720
+#: lib/Block/Account/Ldap.php:228 lib/Block/Account/Ldap.php:243
 #, php-format
 msgid "%d days until your password expires."
 msgstr "Iki jūsų slaptažodžio galiojimo pabaigos liko %d dienų(os)"
 
-#: lib/Block/metar.php:281
+#: lib/Block/Metar.php:259
 #, php-format
 msgid "%d minutes"
 msgstr "%d min."
 
-#: services/facebook.php:114
+#: services/facebook/index.php:122
 #, php-format
 msgid "%d person likes this"
 msgid_plural "%d persons like this"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d žmogus mėgsta tai"
+msgstr[1] "%d žmonės mėgsta tai"
+msgstr[2] "%d žmonių mėgsta tai"
 
 #: templates/admin/user/list.inc:4
 #, php-format
 msgid "%d to %d of %d"
 msgstr "nuo %d iki %d iš %d"
 
-#: lib/Block/weatherdotcom.php:288
+#: lib/Block/Weatherdotcom.php:268
 #, php-format
 msgid "%d-day forecast"
 msgstr "%d-dienų prognozė"
@@ -81,29 +81,29 @@ msgstr "%d-dienų prognozė"
 msgid "%s - Notice"
 msgstr "%s - pastaba"
 
-#: admin/config/config.php:21 admin/config/index.php:226
-#, fuzzy, php-format
+#: admin/config/config.php:21 admin/config/index.php:350
+#, php-format
 msgid "%s Configuration"
-msgstr "Nustatymai"
+msgstr "%s nustatymai"
 
 #: services/logintasks.php:64
-#, fuzzy, php-format
+#, php-format
 msgid "%s Tasks - Confirmation"
-msgstr "Slaptažodis su patvirtinimu"
+msgstr "%s profilaktikos veiksmų patvirtinimas"
 
 #: services/logintasks.php:74
 #, php-format
 msgid "%s Terms of Agreement"
 msgstr "%s nuostatos"
 
-#: lib/Block/metar.php:154 lib/Block/metar.php:160 lib/Block/metar.php:234
-#: lib/Block/metar.php:340 lib/Block/metar.php:346
+#: lib/Block/Metar.php:132 lib/Block/Metar.php:138 lib/Block/Metar.php:212
+#: lib/Block/Metar.php:318 lib/Block/Metar.php:324
 #, php-format
 msgid "%s at %s %s"
 msgstr "%s %s %s"
 
 #: services/logintasks.php:63
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s is ready to perform the tasks checked below. Check the box for any "
 "operation(s) you want to perform at this time."
@@ -111,30 +111,25 @@ msgstr ""
 "%s pasirengęs atlikti profilaktikos veiksmus. Pažymėkite, kurias operacijas "
 "norite atlikti."
 
-#: lib/Block/vatid.php:58
-#, php-format
-msgid "%s not found."
-msgstr "%s nerastas."
-
-#: lib/Block/weatherdotcom.php:367 lib/Block/weatherdotcom.php:412
+#: lib/Block/Weatherdotcom.php:347 lib/Block/Weatherdotcom.php:392
 msgid ", gusting "
 msgstr ", gūsiai "
 
-#: lib/Block/metar.php:183 lib/Block/metar.php:188
+#: lib/Block/Metar.php:161 lib/Block/Metar.php:166
 #, php-format
 msgid ", gusting %s %s"
 msgstr ", gūsiai %s %s"
 
-#: lib/Block/metar.php:196
+#: lib/Block/Metar.php:174
 #, php-format
 msgid ", variable from %s to %s"
 msgstr ", kinta nuo %s iki %s"
 
-#: lib/Block/time.php:26
+#: lib/Block/Time.php:31
 msgid "12 Hour Format"
 msgstr "12 valandų formatas"
 
-#: lib/Block/time.php:25
+#: lib/Block/Time.php:30
 msgid "24 Hour Format"
 msgstr "24 valandų formatas"
 
@@ -142,99 +137,111 @@ msgstr "24 valandų formatas"
 msgid "24 hours"
 msgstr "24 valandos"
 
-#: templates/prefs/facebook.html:15
+#: config/prefs.php:439 config/prefs.php:441
+msgid "24-hour format"
+msgstr "24 valandų formatas"
+
+#: templates/prefs/facebook.html:14
 msgid ""
 "<tag:app_name /> can interact with your Facebook account, but you must login "
 "to Facebook manually each time."
 msgstr ""
+"<tag:app_name /> gali sąveikauti su jūsų Facebook sąskaita, bet kiekvieną "
+"kartą turėsite prisijungti prie Facebook patys."
 
-#: templates/prefs/facebook.html:38
-msgid "<tag:app_name /> cannot read your stream messages."
-msgstr ""
+#: templates/prefs/facebook.html:49
+msgid "<tag:app_name /> cannot read information about your Facebook friends."
+msgstr "<tag:app_name /> negali gauti informacijos apie jūsų Facebook draugus."
 
-#: templates/prefs/facebook.html:26
+#: templates/prefs/facebook.html:37
+msgid ""
+"<tag:app_name /> cannot read your stream messages and various other Facebook "
+"data items."
+msgstr "<tag:app_name /> negali gauti žinučių ir kitų objektų iš Facebook."
+
+#: templates/prefs/facebook.html:25
 msgid ""
 "<tag:app_name /> cannot set your status messages or publish other content to "
 "Facebook."
 msgstr ""
+"<tag:app_name /> negali pakeisti jūsų būsenos ir publikuoti kito turinio į "
+"Facebook."
 
 #: templates/prefs/twitter.html:9
 msgid "<tag:appname /> can interact with your Twitter account"
-msgstr ""
+msgstr "<tag:appname /> gali sąveikauti su jūsų Twitter sąskaita"
 
 #: services/keyboard.php:46
 msgid "A characters"
 msgstr "A simboliai"
 
-#: lib/Block/metar.php:117
-msgid "A database backend is required for this block."
-msgstr "Šiam blokui reikalinga vieta duomenų bazėje."
-
-#: admin/activesync.php:35
+#: admin/activesync.php:31
 msgid ""
 "A device wipe has been requested. Device will be wiped on next "
 "syncronization attempt."
 msgstr ""
+"Įrenginio išvalymas nustatytas. Įrenginys bus išvalytas kitą kartą, kai tik "
+"pabandys sinchronizuoti duomenis."
 
-#: admin/config/index.php:92 admin/config/index.php:124
+#: admin/config/index.php:142 admin/config/index.php:180
 #, php-format
 msgid "A newer version (%s) exists."
 msgstr "Yra nauja versija (%s)."
 
-#: lib/Prefs/Ui.php:743
+#: lib/Prefs/Ui.php:712
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
 "during the next synchronisation."
 msgstr ""
+"Nuotolinis išvalymas įrenginiui, kurio id %s, nustatytas. Įrenginys bus "
+"išvalytas kitą kartą, kai tik pabandys sinchronizuoti duomenis."
 
-#: lib/Block/weatherdotcom_strings.php:7
+#: lib/Block/WeatherdotcomStrings.php:7
 msgid "AM Clouds"
 msgstr "Naktį debesuota"
 
-#: lib/Block/weatherdotcom_strings.php:8
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:8
 msgid "AM Drizzle"
 msgstr "Naktį smulkus lietus"
 
-#: lib/Block/weatherdotcom_strings.php:9
+#: lib/Block/WeatherdotcomStrings.php:9
 msgid "AM Fog"
 msgstr "Naktį rūkas"
 
-#: lib/Block/weatherdotcom_strings.php:10
+#: lib/Block/WeatherdotcomStrings.php:10
 msgid "AM Light Rain"
 msgstr "Naktį lengvas lietus"
 
-#: lib/Block/weatherdotcom_strings.php:11
+#: lib/Block/WeatherdotcomStrings.php:11
 msgid "AM Light Snow"
 msgstr "Naktį nedidelis sniegas"
 
-#: lib/Block/weatherdotcom_strings.php:12
+#: lib/Block/WeatherdotcomStrings.php:12
 msgid "AM Rain"
 msgstr "Naktį lietus"
 
-#: lib/Block/weatherdotcom_strings.php:13
+#: lib/Block/WeatherdotcomStrings.php:13
 msgid "AM Showers"
 msgstr "Naktį liūtis"
 
-#: lib/Block/weatherdotcom_strings.php:14
+#: lib/Block/WeatherdotcomStrings.php:14
 msgid "AM Snow"
 msgstr "Naktį sniegas"
 
-#: lib/Block/weatherdotcom_strings.php:15
+#: lib/Block/WeatherdotcomStrings.php:15
 msgid "AM Snow Showers"
 msgstr "Naktį pūga"
 
-#: lib/Block/weatherdotcom_strings.php:16
+#: lib/Block/WeatherdotcomStrings.php:16
 msgid "AM Sun"
 msgstr "Ryte saulėta"
 
-#: lib/Block/weatherdotcom_strings.php:17
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:17
 msgid "AM T-Showers"
 msgstr "Naktį liūtis"
 
-#: lib/Block/weatherdotcom_strings.php:18
+#: lib/Block/WeatherdotcomStrings.php:18
 msgid "AM T-Storms"
 msgstr "Naktį audra"
 
@@ -242,41 +249,39 @@ msgstr "Naktį audra"
 msgid "AM/PM"
 msgstr "AM/PM"
 
-#: lib/Block/account.php:3
+#: lib/Block/Account.php:19
 msgid "Account Information"
 msgstr "Informacija apie jus"
 
-#: config/prefs.php.dist:276
+#: config/prefs.php:297
 msgid "Account Password"
 msgstr "Slaptažodis"
 
-#: admin/activesync.php:126
-#, fuzzy
+#: admin/activesync.php:122
 msgid "Actions"
-msgstr "Nustatymai"
+msgstr "Veiksmai"
 
-#: config/prefs.php.dist:676
+#: config/prefs.php:695
 msgid "ActiveSync"
-msgstr ""
+msgstr "ActiveSync"
 
-#: admin/activesync.php:71
-#, fuzzy
+#: admin/activesync.php:67
 msgid "ActiveSync Device Administration"
-msgstr "Vartotojų administravimas"
+msgstr "ActiveSync įrenginių administravimas"
 
-#: admin/activesync.php:199 lib/Api.php:80
+#: admin/activesync.php:195 lib/Api.php:80
 msgid "ActiveSync Devices"
-msgstr ""
+msgstr "ActiveSync įrenginiai"
 
-#: admin/activesync.php:20 lib/Prefs/Ui.php:376
+#: admin/activesync.php:20 lib/Prefs/Ui.php:351
 msgid "ActiveSync not activated."
-msgstr ""
+msgstr "ActiveSync neektyvuota."
 
-#: templates/admin/groups/addchild.inc:12 templates/portal/add.inc:14
+#: templates/admin/groups/add.inc:11 templates/portal/add.inc:14
 msgid "Add"
 msgstr "Sukurti"
 
-#: services/portal/index.php:68
+#: services/portal/index.php:49
 msgid "Add Content"
 msgstr "Pridėti turinį"
 
@@ -284,18 +289,13 @@ msgstr "Pridėti turinį"
 msgid "Add Here:"
 msgstr "Bloko įterpimas:"
 
-#: templates/admin/groups/edit.inc:49
+#: templates/admin/groups/edit.inc:56
 msgid "Add Members"
 msgstr "Narių įtraukimas"
 
-#: admin/groups.php:253 templates/admin/groups/addchild.inc:7
-#, php-format
-msgid "Add a child group to \"%s\""
-msgstr "Pogrupio grupei \"%s\" sukūrimas"
-
-#: admin/groups.php:238
-msgid "Add a new group"
-msgstr "Sukurti naują grupę"
+#: templates/admin/groups/add.inc:6
+msgid "Add a group"
+msgstr "Grupės sukūrimas"
 
 #: admin/user.php:21
 msgid "Add a new user:"
@@ -303,9 +303,9 @@ msgstr "Naujo vartotojo sukūrimas:"
 
 #: admin/alarms.php:22
 msgid "Add new alarm"
-msgstr "Sukurti naują perspėjimą"
+msgstr "Naujo perspėjimo sukūrimas"
 
-#: templates/data/csvmap.inc:92
+#: templates/data/csvmap.inc:93
 msgid "Add pair"
 msgstr "Pridėti porą"
 
@@ -331,11 +331,11 @@ msgstr "Vartotojas \"%s\" sukurtas. Galite prisijungti."
 msgid "Adding users is disabled."
 msgstr "Vartotojų kūrimas išjungtas."
 
-#: lib/Block/vatid.php:101
+#: lib/Block/Vatid.php:117
 msgid "Address"
 msgstr "Adresas"
 
-#: config/registry.php.dist:142
+#: config/registry.php:114
 msgid "Address Book"
 msgstr "Adresai"
 
@@ -363,7 +363,7 @@ msgstr "Perspėjimo pavadinimas"
 msgid "Alarms"
 msgstr "Perspėjimai"
 
-#: lib/Block/fortune.php:94
+#: lib/Block/Fortune.php:93
 msgid "All"
 msgstr "Visos"
 
@@ -371,33 +371,31 @@ msgstr "Visos"
 msgid "All Authenticated Users"
 msgstr "Visi prisijungę vartotojai"
 
-#: admin/groups.php:26 admin/groups.php:244
-msgid "All Groups"
-msgstr "Visos grupės"
-
-#: admin/activesync.php:50
+#: admin/activesync.php:46
 msgid "All policy keys successfully reset."
-msgstr ""
+msgstr "Visi politikos raktai sėkmingai atnaujinti."
 
-#: lib/Prefs/Ui.php:753
+#: lib/Prefs/Ui.php:722
 msgid ""
 "All state removed for your devices. They will resynchronize next time they "
 "connect to the server."
 msgstr ""
+"Viso jūsų renginio būsenos ištrintos. Jos atsinaujins sekantį kartą, kai "
+"įrenginys prisijungs prie serverio."
 
-#: lib/Prefs/Ui.php:724
+#: lib/Prefs/Ui.php:693
 msgid "All synchronization sessions deleted."
-msgstr ""
+msgstr "Visos sinchronizavimo sesijos ištrintos."
 
-#: config/prefs.php.dist:644
+#: config/prefs.php:661
 msgid "Alternate IMSP Login"
 msgstr "Alternatyvus IMSP prisijungimas"
 
-#: config/prefs.php.dist:658
+#: config/prefs.php:675
 msgid "Alternate IMSP Password"
 msgstr "Alternatyvus IMSP slaptažodis"
 
-#: config/prefs.php.dist:652
+#: config/prefs.php:669
 msgid "Alternate IMSP Username"
 msgstr "Alternatyvus IMSP vartotojo vardas"
 
@@ -405,7 +403,7 @@ msgstr "Alternatyvus IMSP vartotojo vardas"
 msgid "Alternate email address"
 msgstr "Alternatyvus el. pašto adresas"
 
-#: lib/Block/weatherdotcom.php:170
+#: lib/Block/Weatherdotcom.php:150
 msgid "An unknown error has occured."
 msgstr "Įvyko nežinoma klaida"
 
@@ -413,7 +411,7 @@ msgstr "Įvyko nežinoma klaida"
 msgid "Answer"
 msgstr "Atsakymas"
 
-#: templates/data/csvmap.inc:112 templates/admin/config/index.html:11
+#: templates/data/csvmap.inc:113 templates/admin/config/index.html:27
 msgid "Application"
 msgstr "Modulis"
 
@@ -425,11 +423,11 @@ msgstr "Modulio kontekstas: "
 msgid "Application List"
 msgstr "Modulių sąrašas"
 
-#: admin/config/index.php:160
+#: admin/config/index.php:220
 msgid "Application is ready."
 msgstr "Modulis veikia gerai."
 
-#: admin/config/index.php:95 admin/config/index.php:127
+#: admin/config/index.php:145 admin/config/index.php:183
 msgid "Application is up-to-date."
 msgstr "Naudojamas naujausias modulis."
 
@@ -437,7 +435,7 @@ msgstr "Naudojamas naujausias modulis."
 msgid "Approve"
 msgstr "Patvirtinti"
 
-#: config/nls.php:167
+#: config/nls.php:168
 msgid "Arabic (Windows-1256)"
 msgstr "Arabiška (Windows-1256)"
 
@@ -453,34 +451,38 @@ msgstr "Ar tikrai norite ištrinti \"%s\" registracijos prašymą?"
 
 #: templates/admin/groups/delete.inc:7
 #, php-format
-msgid "Are you sure you wish to delete \"%s\" and any sub-groups?"
-msgstr "Ar tikrai norite ištrinti \"%s\" ir visus pogrupius?"
+msgid "Are you sure you wish to delete \"%s\"?"
+msgstr "Ar tikrai norite ištrinti \"%s\"?"
 
-#: config/nls.php:168
+#: config/nls.php:169
 msgid "Armenian (ARMSCII-8)"
 msgstr "Armėniška (ARMSCII-8)"
 
-#: lib/Block/fortune.php:35
+#: lib/Block/Fortune.php:35
 msgid "Art"
 msgstr "Menas"
 
-#: lib/Block/fortune.php:36
+#: lib/Block/Fortune.php:36
 msgid "Ascii Art"
 msgstr "Acsii menas"
 
+#: lib/LoginTasks/Task/AdminCheck.php:51
+msgid "At least one database schema is outdated."
+msgstr "Mažiausiai viena duomenų bazės schema pasenusi."
+
 #: templates/problem/problem.inc:43
 msgid "Attachment"
-msgstr ""
+msgstr "Failas"
 
-#: admin/groups.php:72
+#: admin/groups.php:53
 msgid "Attempt to delete a non-existent group."
 msgstr "Bandote ištrinti neegzistuojančią grupę."
 
-#: admin/perms/delete.php:24
+#: admin/perms/delete.php:25
 msgid "Attempt to delete a non-existent permission."
 msgstr "Bandote ištrinti neegzistuojančias teises."
 
-#: admin/perms/edit.php:92
+#: admin/perms/edit.php:93
 msgid "Attempt to edit a non-existent permission."
 msgstr "Bandote redaguoti neegzistuojančias teises."
 
@@ -488,24 +490,31 @@ msgstr "Bandote redaguoti neegzistuojančias teises."
 msgid "Attempt to edit a non-existent share."
 msgstr "Bandote redaguoti neegzistuojantį elementą."
 
-#: admin/sessions.php:40
-#, fuzzy
+#: admin/sessions.php:39
 msgid "Authenticated to:"
-msgstr "Visi prisijungę vartotojai"
+msgstr "Prisijungė prie:"
 
-#: templates/prefs/facebook.html:27
+#: templates/prefs/facebook.html:50
+msgid "Authorize Access to Friends Data:"
+msgstr "Leisti naudotis draugų duomenimis:"
+
+#: templates/prefs/facebook.html:26
 msgid "Authorize Publish"
-msgstr ""
+msgstr "Leisti publikuoti"
 
-#: templates/prefs/facebook.html:39
+#: templates/prefs/facebook.html:38
 msgid "Authorize Read:"
-msgstr ""
+msgstr "Leisti skaityti:"
 
-#: templates/prefs/facebook.html:16
+#: templates/prefs/facebook.html:15
 msgid "Authorize an infinite session:"
-msgstr ""
+msgstr "Leisti sesijai nesibaigti:"
 
-#: templates/data/csvmap.inc:70
+#: login.php:219
+msgid "Automatic"
+msgstr "Automatinis"
+
+#: templates/data/csvmap.inc:71
 msgid "Available fields:"
 msgstr "Galimi laukai:"
 
@@ -513,11 +522,11 @@ msgstr "Galimi laukai:"
 msgid "Azur"
 msgstr "Žydras"
 
-#: lib/Block/fortune.php:37
+#: lib/Block/Fortune.php:37
 msgid "BOFH Excuses"
 msgstr "BOFH atsiprašymai"
 
-#: config/nls.php:169
+#: config/nls.php:170
 msgid "Baltic (ISO-8859-13)"
 msgstr "Baltiška (ISO-8859-13)"
 
@@ -546,11 +555,11 @@ msgstr "Mėlynas mėnulis"
 msgid "Blue and White"
 msgstr "Mėlynas ir baltas"
 
-#: config/registry.php.dist:226
+#: config/registry.php:196
 msgid "Bookmarks"
 msgstr "Atžymos"
 
-#: lib/Block/fortune.php:103
+#: lib/Block/Fortune.php:103
 msgid "Both"
 msgstr "Visos"
 
@@ -558,7 +567,7 @@ msgstr "Visos"
 msgid "Brown"
 msgstr "Rudas"
 
-#: admin/sessions.php:38
+#: admin/sessions.php:37
 msgid "Browser:"
 msgstr "Naršyklė:"
 
@@ -566,15 +575,15 @@ msgstr "Naršyklė:"
 msgid "Burnt Orange"
 msgstr "Prinokęs apelsinas"
 
-#: lib/Block/weatherdotcom.php:166
+#: lib/Block/Weatherdotcom.php:146
 msgid "Cache init was not completed."
 msgstr "Nebaigtas kešo iniciavimas."
 
-#: config/registry.php.dist:157
+#: config/registry.php:136
 msgid "Calendar"
 msgstr "Kalendorius"
 
-#: lib/Block/weatherdotcom.php:250
+#: lib/Block/Weatherdotcom.php:230
 msgid "Calm"
 msgstr "Ramu"
 
@@ -591,10 +600,9 @@ msgstr "Atšaukti"
 msgid "Cancel Problem Report"
 msgstr "Atšaukti problemos pranešimą"
 
-#: admin/activesync.php:183 templates/prefs/activesync.html:31
-#, fuzzy
+#: admin/activesync.php:179 templates/prefs/activesync.html:31
 msgid "Cancel Wipe"
-msgstr "Atšaukti"
+msgstr "Atšaukti išvalymą"
 
 #: services/resetpassword.php:17
 msgid "Cannot reset password automatically, contact your administrator."
@@ -602,15 +610,15 @@ msgstr ""
 "Automatinis slaptažodžio pakeitimas neveikia, susisiekite su "
 "administratoriumi."
 
-#: config/prefs.php.dist:440
+#: config/prefs.php:464
 msgid "Categories and Labels"
 msgstr "Kategorijos"
 
-#: config/nls.php:170
+#: config/nls.php:171
 msgid "Celtic (ISO-8859-14)"
 msgstr "Keltų (ISO-8859-14)"
 
-#: config/nls.php:171
+#: config/nls.php:172
 msgid "Central European (ISO-8859-2)"
 msgstr "Centrinės Europos (ISO-8859-2)"
 
@@ -622,13 +630,9 @@ msgstr "Pakeisti"
 msgid "Change Your Password"
 msgstr "Slaptažodžio keitimas"
 
-#: config/prefs.php.dist:214
-msgid ""
-"Change the name and address that people see when they read and reply to your "
-"emails."
-msgstr ""
-"Jūsų vardo ir adreso, kuriuos matys žmonės, skaitantys ir atsakinėjantys į "
-"Jūsų laiškus, keitimas."
+#: config/prefs.php:234
+msgid "Change your personal information."
+msgstr "Asmeninės informacijos keitimas."
 
 #: services/changepassword.php:17
 msgid ""
@@ -638,7 +642,7 @@ msgstr ""
 "Dabartinė konfigūracija neleidžia keisti slaptažodžių. Susisiekite su savo "
 "administratoriumi."
 
-#: lib/Block/vatid.php:45
+#: lib/Block/Vatid.php:41
 msgid "Check"
 msgstr "Patikrinti"
 
@@ -646,47 +650,40 @@ msgstr "Patikrinti"
 msgid "Check for newer versions"
 msgstr "Patikrinti ar nėra naujų versijų"
 
-#: lib/Block/vatid.php:47
+#: lib/Block/Vatid.php:43
 msgid "Checking"
 msgstr "Tikrinama"
 
-#: templates/admin/groups/addchild.inc:10
-msgid "Child"
-msgstr "Pogrupis"
-
-#: config/nls.php:172
+#: config/nls.php:173
 msgid "Chinese Simplified (GB2312)"
 msgstr "Kinietiška paprasta (GB2312)"
 
-#: config/nls.php:173
+#: config/nls.php:174
 msgid "Chinese Traditional (Big5)"
 msgstr "Kinietiška tradicinė (Big5)"
 
 #: services/obrowser/index.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Choose %s"
-msgstr "Kursai"
+msgstr "Pasirinkite %s"
 
-#: config/prefs.php.dist:403
-#, fuzzy
+#: config/prefs.php:430
 msgid "Choose how to display dates (abbreviated format):"
-msgstr "Pasirinkite kaip vaizduoti datas:"
+msgstr "Pasirinkite kaip vaizduoti datas (trumpasis formatas):"
 
-#: config/prefs.php.dist:377
-#, fuzzy
+#: config/prefs.php:405
 msgid "Choose how to display dates (full format):"
-msgstr "Pasirinkite kaip vaizduoti datas:"
+msgstr "Pasirinkite kaip vaizduoti datas (ilgasis formatas):"
 
-#: config/prefs.php.dist:419
-#, fuzzy
+#: config/prefs.php:444
 msgid "Choose how to display times:"
-msgstr "Pasirinkite kaip vaizduoti datas:"
+msgstr "Pasirinkite kaip vaizduoti laikus:"
 
-#: lib/Block/weatherdotcom_strings.php:19
+#: lib/Block/WeatherdotcomStrings.php:19
 msgid "Clear"
 msgstr "Giedra"
 
-#: admin/sqlshell.php:109
+#: admin/sqlshell.php:117
 msgid "Clear Query"
 msgstr "Išvalyti užklausą"
 
@@ -703,12 +700,11 @@ msgstr "Išvalyti vartotojo duomenis"
 msgid "Clear user data"
 msgstr "Išvalyti vartotojo duomenis"
 
-#: lib/Block/weatherdotcom_strings.php:20
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:20
 msgid "Clearing Early"
-msgstr "Lietus ryte"
+msgstr "Giedra ryte"
 
-#: lib/Block/weatherdotcom_strings.php:21
+#: lib/Block/WeatherdotcomStrings.php:21
 msgid "Clearing Late"
 msgstr "Giedra vakare"
 
@@ -717,37 +713,38 @@ msgid ""
 "Click on one of your selected address books and then select all fields to "
 "search."
 msgstr ""
+"Pele pažymėkite vieną iš Jūsų adresų knygelių, o po to pasirinkite laukus "
+"paieškai."
 
-#: templates/logintasks/logintasks.html:38
+#: templates/logintasks/logintasks.html:28
 msgid "Click to Continue"
 msgstr "Tęsti"
 
 #: templates/prefs/syncml.html:13
 msgid "Client Anchor"
-msgstr ""
+msgstr "Kliento inkaras"
 
 #: services/keyboard.php:154 templates/shares/edit.inc:12
 msgid "Close Window"
 msgstr "Uždaryti langą"
 
-#: lib/Block/metar.php:239
+#: lib/Block/Metar.php:217
 msgid "Clouds"
 msgstr "Debesuota"
 
-#: lib/Block/weatherdotcom_strings.php:22
+#: lib/Block/WeatherdotcomStrings.php:22
 msgid "Clouds Early"
 msgstr "Debesuota ryte"
 
-#: lib/Block/weatherdotcom_strings.php:23
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:23
 msgid "Clouds Late"
-msgstr "Debesuota"
+msgstr "Debesuota vakare"
 
-#: lib/Block/weatherdotcom_strings.php:24
+#: lib/Block/WeatherdotcomStrings.php:24
 msgid "Cloudy"
 msgstr "Debesuota"
 
-#: admin/sessions.php:31
+#: admin/sessions.php:30
 msgid "Collapse"
 msgstr "Suskleisti"
 
@@ -755,7 +752,7 @@ msgstr "Suskleisti"
 msgid "Collapse Sidebar"
 msgstr "Suskleisti įrankių juostą"
 
-#: lib/Prefs/Ui.php:237
+#: lib/Prefs/Ui.php:213
 msgid "Color Picker"
 msgstr "Spalvų paletė"
 
@@ -767,24 +764,24 @@ msgstr "Komanda"
 msgid "Command Shell"
 msgstr "Komandinė eilutė"
 
-#: services/facebook.php:101
-#, fuzzy, php-format
+#: services/facebook/index.php:109
+#, php-format
 msgid "Comments: %d"
-msgstr "Komentaras"
+msgstr "Komentarai: %d"
 
-#: lib/Block/fortune.php:38
+#: lib/Block/Fortune.php:38
 msgid "Computers"
 msgstr "Kompiuteriai"
 
-#: lib/Block/weatherdotcom.php:300
+#: lib/Block/Weatherdotcom.php:280
 msgid "Condition"
 msgstr "Sąlyga"
 
-#: lib/Block/metar.php:244
+#: lib/Block/Metar.php:222
 msgid "Conditions"
 msgstr "Sąlygos"
 
-#: admin/config/config.php:65 templates/admin/config/config.html:9
+#: admin/config/config.php:69 templates/admin/config/config.html:9
 msgid "Configuration"
 msgstr "Nustatymai"
 
@@ -792,21 +789,20 @@ msgstr "Nustatymai"
 msgid "Configuration Differences"
 msgstr "Nustatymų pasikeitimai"
 
-#: config/prefs.php.dist:665
+#: config/prefs.php:684
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr ""
 "Sinchronizavimo su PDA, mobiliaisiais telefonais ir Outlook nustatymai."
 
-#: admin/config/index.php:155
+#: admin/config/index.php:215
 msgid "Configuration is out of date."
 msgstr "Reikia atnaujinti konfigūracinį failą."
 
-#: templates/admin/config/index.html:61
-#, fuzzy
+#: templates/admin/config/index.html:89
 msgid "Configuration upgrade scripts available"
-msgstr "Rastas atnaujinimo skriptas"
+msgstr "Yra nustatymų atnaujinimo skriptų"
 
-#: admin/config/index.php:111
+#: admin/config/index.php:160
 #, php-format
 msgid "Configure %s"
 msgstr "Konfigūruoti %s"
@@ -819,7 +815,7 @@ msgstr "Slaptažodis dar kartą"
 msgid "Continue"
 msgstr "Tęsti"
 
-#: lib/Block/fortune.php:39
+#: lib/Block/Fortune.php:39
 msgid "Cookie"
 msgstr "Laimės žinutės"
 
@@ -827,34 +823,27 @@ msgstr "Laimės žinutės"
 msgid "Cornflower"
 msgstr "Rugiagėlė"
 
-#: lib/Block/account.php:484
-msgid "Could not bind to LDAP server."
-msgstr "Nepavyko autentifikuotis į LDAP serverį."
-
-#: lib/Block/account.php:463
-msgid "Could not connect to LDAP server."
-msgstr "Nepavyko prisijungti prie LDAP serverio."
-
 #: admin/config/index.php:27
 #, php-format
 msgid "Could not connect to server \"%s\" using FTP: %s"
 msgstr "Nepavyko prisijungti prie \"%s\" serverio per FTP: %s"
 
-#: admin/config/index.php:66
-#, fuzzy
+#: admin/config/index.php:71
 msgid "Could not contact server. Try again later."
-msgstr "Netikėtas serverio atsakymas, pabandykite vėliau."
+msgstr "Nepavyko prisijungti prie serverio. Pabandykite vėliau."
 
 #: admin/config/scripts.php:35
-#, fuzzy, php-format
+#, php-format
 msgid "Could not delete configuration upgrade script \"%s\"."
-msgstr "Nepavyko ištrinti atnaujinimo skripto \"%s\"."
+msgstr "Nepavyko ištrinti nustatymų atnaujinimo skripto \"%s\"."
 
 #: templates/prefs/twitter.html:14
 msgid ""
 "Could not find authorization for <tag:appname /> to interact with your "
 "Twitter account"
 msgstr ""
+"Nepavyko rasti prisijungimo duomenų <tag:appname /> ir Twitter sąskaitos "
+"susijungimui"
 
 #: services/resetpassword.php:92
 msgid ""
@@ -866,7 +855,7 @@ msgstr ""
 "informacija yra netiksli. Pabandykite dar kartą arba susisiekite su savo "
 "administratoriumi jeigu reikalinga pagalba."
 
-#: admin/config/config.php:43
+#: admin/config/config.php:47
 msgid "Could not revert configuration."
 msgstr "Nepavyko atkeisti nustatymų."
 
@@ -875,17 +864,26 @@ msgstr "Nepavyko atkeisti nustatymų."
 msgid "Could not save a backup configuation: %s"
 msgstr "Nepavyko padaryti atsarginės nustatymų kopijos: %s"
 
-#: admin/config/scripts.php:94
-#, fuzzy, php-format
+#: admin/config/scripts.php:96
+#, php-format
 msgid "Could not save configuration upgrade script to: \"%s\"."
-msgstr "Nepavyko išsaugoti atnaujinimo skript į: \"%s\"."
+msgstr "Nepavyko išsaugoti nustatymų atnaujinimo skripto į: \"%s\"."
 
-#: admin/config/config.php:53
+#: admin/config/config.php:57
 #, php-format
 msgid "Could not save the backup configuration file %s."
 msgstr "Nepavyko padaryti atsarginės %s nustatymų failo kopijos."
 
-#: admin/config/config.php:65
+#: admin/config/index.php:95
+#, php-format
+msgid ""
+"Could not save the configuration file %s. Use one of the options below to "
+"save the code."
+msgstr ""
+"Nepavyko išsaugoti %s nustatymų failo. Norėdami išsaugoti kodą pasinaudokite "
+"vienu iš būdų apačioje."
+
+#: admin/config/config.php:69
 #, php-format
 msgid ""
 "Could not save the configuration file %s. You can either use one of the "
@@ -899,7 +897,7 @@ msgstr ""
 msgid "Could not write configuration for \"%s\": %s"
 msgstr "Nepavyko užrašyti \"%s\" nustatymų: %s"
 
-#: lib/Block/vatid.php:91
+#: lib/Block/Vatid.php:105
 msgid "Country"
 msgstr "Valstybė"
 
@@ -908,11 +906,10 @@ msgid "Create"
 msgstr "Sukurti"
 
 #: templates/prefs/identityselect.html:22
-#, fuzzy
 msgid "Create New Identity"
-msgstr "Standartinis aprašas"
+msgstr "Sukurti naują aprašą"
 
-#: lib/Block/moon.php:24
+#: lib/Block/Moon.php:25
 msgid "Current 4 Phases"
 msgstr "Dabartinės 4 fazės"
 
@@ -920,33 +917,45 @@ msgstr "Dabartinės 4 fazės"
 msgid "Current Alarms"
 msgstr "Esami perspėjimai"
 
-#: admin/sessions.php:23
+#: admin/sessions.php:22
 msgid "Current Sessions"
 msgstr "Esamos sesijos"
 
-#: lib/Block/time.php:3 lib/Block/time.php:36
+#: lib/Block/Time.php:17
 msgid "Current Time"
 msgstr "Dabartinis laikas"
 
-#: lib/Block/metar.php:31
+#: lib/Block/Metar.php:29
 msgid "Current Weather"
 msgstr "Dabartinės oro sąlygos"
 
-#: lib/Block/weatherdotcom.php:279
+#: lib/Block/Weatherdotcom.php:259
 msgid "Current condition: "
 msgstr "Dabartinės sąlygos: "
 
-#: config/nls.php:174
+#: config/nls.php:175
 msgid "Cyrillic (KOI8-R)"
 msgstr "Kirilica (KOI8-R)"
 
-#: config/nls.php:175
+#: config/nls.php:176
 msgid "Cyrillic (Windows-1251)"
 msgstr "Kirilica (Windows-1251)"
 
-#: config/nls.php:176
+#: config/nls.php:177
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr "Kirilica/Ukrainietiška (KOI8-U)"
+
+#: admin/config/index.php:233 admin/config/index.php:271
+msgid "DB access is not configured."
+msgstr "Duomenų bazės priėjimas nesukonfigūruotas."
+
+#: admin/config/index.php:239 admin/config/index.php:278
+msgid "DB schema is out of date."
+msgstr "Duomenų bazės schema pasenusi."
+
+#: admin/config/index.php:244 admin/config/index.php:283
+msgid "DB schema is ready."
+msgstr "Duomenų bazės schema veikia gerai."
 
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
@@ -955,24 +964,23 @@ msgstr "Kirilica/Ukrainietiška (KOI8-U)"
 msgid "DD"
 msgstr "DD"
 
-#: templates/data/csvmap.inc:101
+#: templates/data/csvmap.inc:102
 msgid "Data"
 msgstr "Duomenys"
 
-#: admin/datatree.php:62
+#: admin/datatree.php:60
 msgid "DataTree"
 msgstr "Duomenų medis"
 
-#: admin/datatree.php:59
+#: admin/datatree.php:57
 msgid "DataTree Browser"
 msgstr "Duomenų medžio naršyklė"
 
-#: templates/prefs/syncml.html:11
-#, fuzzy
+#: templates/admin/config/index.html:33 templates/prefs/syncml.html:11
 msgid "Database"
-msgstr "Rodyti duomenų bazių sąrašą"
+msgstr "Duomenų bazė"
 
-#: lib/Block/vatid.php:94
+#: lib/Block/Vatid.php:108
 msgid "Date"
 msgstr "Data"
 
@@ -985,27 +993,36 @@ msgstr "Gauta"
 msgid "Date: %s; time: %s"
 msgstr "Data: %s; laikas: %s"
 
-#: lib/Block/weatherdotcom.php:295 lib/Block/weatherdotcom.php:324
+#: lib/Block/Weatherdotcom.php:275 lib/Block/Weatherdotcom.php:304
 msgid "Day"
 msgstr "Diena"
 
-#: lib/Prefs/Ui.php:69 lib/Prefs/Ui.php:74
+#: config/prefs.php:355 config/prefs.php:438 lib/Prefs/Ui.php:80
+#: lib/Prefs/Ui.php:94
 msgid "Default"
 msgstr "Standartinė reikšmė"
 
-#: lib/Prefs/Ui.php:252 lib/Prefs/Ui.php:282
+#: lib/Prefs/Ui.php:228 lib/Prefs/Ui.php:258
 msgid "Default Color"
 msgstr "Standartinė spalva"
 
-#: lib/Block/account.php:78
+#: lib/Block/Account.php:76
 msgid "Default Shell"
 msgstr "Pagrindinė komandinė eilutė"
 
-#: lib/Block/fortune.php:40
+#: config/prefs.php:358
+msgid "Default charset for sending e-mail messages:"
+msgstr "Standartinė koduotė siunčiamiems laiškais:"
+
+#: config/prefs.php:270
+msgid "Default location to use for location-aware features."
+msgstr "Standartinė vieta, kuri bus naudojama jūsų lokacijai apibūdinti."
+
+#: lib/Block/Fortune.php:40
 msgid "Definitions"
 msgstr "Apibrėžimai"
 
-#: admin/groups.php:68 templates/admin/groups/delete.inc:10
+#: admin/groups.php:49 templates/admin/groups/delete.inc:10
 #: templates/admin/user/list.inc:34 templates/shares/edit.inc:63
 #: templates/shares/edit.inc:83 templates/shares/edit.inc:98
 #: templates/shares/edit.inc:118 templates/shares/edit.inc:134
@@ -1018,154 +1035,134 @@ msgstr "Apibrėžimai"
 msgid "Delete"
 msgstr "Ištrinti"
 
-#: admin/alarms.php:122 admin/groups.php:254
+#: admin/alarms.php:122 admin/groups.php:205
 #, php-format
 msgid "Delete \"%s\""
 msgstr "Ištrinti \"%s\""
 
 #: templates/prefs/syncml.html:30
 msgid "Delete All SyncML Data"
-msgstr ""
+msgstr "Ištinri visus SyncML duomenis"
 
-#: admin/groups.php:215
+#: admin/groups.php:179
 msgid "Delete Group"
 msgstr "Ištrinti grupę"
 
 #: admin/config/scripts.php:33
-#, fuzzy, php-format
+#, php-format
 msgid "Deleted configuration upgrade script \"%s\"."
-msgstr "Atnaujinimo skriptas \"%s\" ištrintas."
+msgstr "Nustatymų atnaujinimo skriptas \"%s\" ištrintas."
 
-#: lib/Prefs/Ui.php:717
+#: lib/Prefs/Ui.php:685
 #, php-format
 msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
 msgstr ""
+"Sinchronizacijos sesija su įrenginiu \"%s\" ir duomenų baze \"%s\" ištrinta."
 
 #: templates/problem/problem.inc:27
 msgid "Describe the Problem"
 msgstr "Problemos aprašymas"
 
-#: config/registry.php.dist:239
+#: config/registry.php:208
 msgid "Development"
 msgstr "Vystymas"
 
 #: templates/prefs/activesync.html:20 templates/prefs/syncml.html:10
-#, fuzzy
 msgid "Device"
-msgstr "Peržiūra"
+msgstr "Įrenginys"
 
-#: admin/activesync.php:119
+#: admin/activesync.php:115
 msgid "Device ID"
-msgstr ""
+msgstr "Įrenginio ID"
 
 #: templates/prefs/activesync.html:11
-#, fuzzy
 msgid "Device Management"
-msgstr "Failų tvarkymas"
+msgstr "Įrenginių valdymas"
 
-#: lib/Prefs/Ui.php:432
+#: lib/Prefs/Ui.php:404
 msgid "Device id:"
-msgstr ""
+msgstr "Įrenginio id:"
 
-#: admin/activesync.php:167 lib/Prefs/Ui.php:420
+#: admin/activesync.php:163 lib/Prefs/Ui.php:392
 msgid "Device is wiped"
-msgstr ""
+msgstr "Įrenginys išvalytas"
 
-#: admin/activesync.php:45
-#, fuzzy
+#: admin/activesync.php:41
 msgid "Device successfully removed."
-msgstr "%s sėkmingai užrašytas."
+msgstr "Įrenginys sėkmingai ištrintas."
 
-#: admin/activesync.php:40
+#: admin/activesync.php:36
 msgid "Device wipe successfully canceled."
-msgstr ""
+msgstr "Įrenginio išvalymas sėkmingai atšauktas."
 
-#: lib/Block/metar.php:212
+#: lib/Block/Metar.php:190
 msgid "Dew Point"
-msgstr "Drėgnumas"
+msgstr "Rasos taškas"
 
-#: lib/Block/metar.php:289
+#: lib/Block/Metar.php:267
 msgid "Dew Point for last hour: "
-msgstr "Drėgnumas paskutinę valandą: "
+msgstr "Rasos taškas paskutinę valandą: "
 
-#: lib/Block/weatherdotcom.php:231
+#: lib/Block/Weatherdotcom.php:211
 msgid "Dew point: "
-msgstr "Drėgnumas: "
+msgstr "Rasos taškas: "
 
-#: templates/prefs/facebook.html:11 templates/prefs/facebook.html:22
-#: templates/prefs/facebook.html:34 templates/prefs/twitter.html:10
-#, fuzzy
+#: templates/prefs/facebook.html:10 templates/prefs/facebook.html:21
+#: templates/prefs/facebook.html:33 templates/prefs/facebook.html:45
+#: templates/prefs/twitter.html:10
 msgid "Disable"
-msgstr "Rodyti lentelių sąrašą"
+msgstr "Išjungti"
 
-#: config/prefs.php.dist:345
+#: config/prefs.php:374
 msgid "Display 24-hour times?"
 msgstr "Rodyti 24-ių val. formatą?"
 
-#: config/prefs.php.dist:468
-#, fuzzy
+#: config/prefs.php:490
 msgid "Display Preferences"
-msgstr "Rodyti detalią progronę"
+msgstr "Vaizdavimo nustatymai"
 
-#: lib/Block/weatherdotcom.php:86
+#: lib/Block/Weatherdotcom.php:79
 msgid "Display detailed forecast"
 msgstr "Rodyti detalią progronę"
 
-#: lib/Block/metar.php:84
+#: lib/Block/Metar.php:71
 msgid "Display forecast (TAF)"
 msgstr "Rodyti progronę (TAF)"
-
-#: scripts/import_squirrelmail_prefs.php:77
-#, fuzzy
-msgid "Do not use Drafts"
-msgstr "Netrinti"
-
-#: scripts/import_squirrelmail_prefs.php:44
-#: scripts/import_squirrelmail_prefs.php:145
-#, fuzzy
-msgid "Do not use Sent"
-msgstr "Netrinti"
-
-#: scripts/import_squirrelmail_prefs.php:183
-msgid "Do not use Trash"
-msgstr ""
 
 #: templates/data/csvinfo.inc:12 templates/data/tsvinfo.inc:12
 msgid "Does the first row contain the field names? If yes, check this box:"
 msgstr "Ar pirmas įrašas yra lauko vardai?"
 
-#: templates/login/login.inc:72
+#: templates/login/login.inc:54
 msgid "Don't have an account? Sign up."
 msgstr "Neturite vartotojo vardo? Užsiregistruokite."
 
-#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:61
-#, fuzzy
-msgid "Done"
-msgstr "Nenurodyta"
-
-#: admin/config/index.php:92 admin/config/index.php:124
+#: admin/config/index.php:142 admin/config/index.php:180
 #, php-format
 msgid "Download %s"
 msgstr "Atsisiųsti %s"
 
-#: admin/config/index.php:179
+#: admin/config/index.php:301
 msgid "Download generated configuration as PHP script."
 msgstr "Atsisiųsti sugeneruotus nustatymus kaip PHP skriptą."
 
-#: lib/Block/weatherdotcom_strings.php:25
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:25
 msgid "Drizzle"
-msgstr "Naktį smulkus lietus"
+msgstr "Smulkus lietus"
 
-#: lib/Block/fortune.php:41
+#: lib/Block/Fortune.php:41
 msgid "Drugs"
 msgstr "Vaistai"
+
+#: login.php:227
+msgid "Dynamic"
+msgstr "Dinaminis"
 
 #: services/keyboard.php:64
 msgid "E characters"
 msgstr "E simboliai"
 
-#: lib/Block/vatid.php:3
+#: lib/Block/Vatid.php:14
 msgid "EU VAT identification"
 msgstr "EU VAT identifikacija"
 
@@ -1184,13 +1181,9 @@ msgstr "Keisti"
 msgid "Edit \"%s\""
 msgstr "Redaguoti \"%s\""
 
-#: admin/groups.php:214
-msgid "Edit Group"
-msgstr "Redaguoti grupę"
-
 #: templates/prefs/app.html:7
 msgid "Edit Preferences for"
-msgstr ""
+msgstr "Keisti nustatymus"
 
 #: services/shares/edit.php:259
 msgid "Edit permissions"
@@ -1201,20 +1194,19 @@ msgstr "Redaguoti teises"
 msgid "Edit permissions for \"%s\""
 msgstr "\"%s\" teisių redagavimas"
 
-#: lib/Block/fortune.php:42
+#: lib/Block/Fortune.php:42
 msgid "Education"
 msgstr "Ugdymas"
 
-#: templates/admin/groups/edit.inc:11 templates/admin/user/update.inc:45
+#: templates/admin/groups/edit.inc:12 templates/admin/user/update.inc:45
 msgid "Email Address"
 msgstr "El. pašto adresas"
 
-#: lib/Prefs/Ui.php:225
-#, fuzzy
+#: lib/Prefs/Ui.php:201
 msgid "Enter a name for the new category:"
 msgstr "Įveskite naujos kategorijos pavadinimą:"
 
-#: config/prefs.php.dist:288
+#: config/prefs.php:308
 msgid ""
 "Enter a security question which you will be asked if you need to reset your "
 "password, e.g. 'what is the name of your pet?':"
@@ -1222,59 +1214,54 @@ msgstr ""
 "Įrašykite klausimą, kuris jums bus užduotas jeigu pamiršite savo slaptažodį, "
 "pvz.: 'koks yra Jūsų gyvūno vardas?':"
 
-#: lib/Block/metar.php:41 lib/Block/weatherdotcom.php:50
-msgid "Error"
-msgstr "Klaida"
-
-#: lib/Prefs/Ui.php:577 services/twitter.php:128 services/twitter.php:151
-#, fuzzy, php-format
+#: lib/Prefs/Ui.php:546 services/twitter/index.php:132
+#: services/twitter/index.php:155
+#, php-format
 msgid ""
 "Error connecting to Twitter: %s Details have been logged for the "
 "administrator."
-msgstr "Administratoriui išsiųstas detalus aprašymas."
+msgstr ""
+"Klaida jungiantis prie Twitter: %s Administratoriui išsiųstas detalus "
+"aprašymas."
 
-#: lib/Prefs/Ui.php:715
-#, fuzzy
+#: lib/Prefs/Ui.php:687
 msgid "Error deleting synchronization session:"
-msgstr "Klaida trinant sinchronizavimo informaciją: %s"
+msgstr "Klaida trinant sinchronizavimo sesiją:"
 
-#: lib/Prefs/Ui.php:722
-#, fuzzy
+#: lib/Prefs/Ui.php:695
 msgid "Error deleting synchronization sessions:"
-msgstr "Klaida trinant sinchronizavimo informaciją: %s"
+msgstr "Klaida trinant sinchronizavimo sesijas:"
 
 #: services/changepassword.php:61
 #, php-format
 msgid "Error updating password: %s"
 msgstr "Klaida atnaujinant slaptažodį: %s"
 
-#: lib/Block/fortune.php:43
+#: lib/Block/Fortune.php:43
 msgid "Ethnic"
 msgstr "Etninės"
 
-#: services/facebook.php:69
+#: services/facebook/index.php:77
 msgid "Event Invites:"
-msgstr ""
+msgstr "Pakvietimai:"
 
-#: templates/portal/layout.inc:101 config/prefs.php.dist:520
+#: config/prefs.php:540 templates/portal/layout.inc:101
 msgid "Every 15 minutes"
 msgstr "Kas 15 minučių"
 
-#: config/prefs.php.dist:559
+#: config/prefs.php:576
 msgid "Every 2 minutes"
 msgstr "Kas 2 minutes"
 
-#: templates/portal/layout.inc:98 config/prefs.php.dist:517
-#: config/prefs.php.dist:557
+#: config/prefs.php:537 config/prefs.php:574 templates/portal/layout.inc:98
 msgid "Every 30 seconds"
 msgstr "Kas 30 sekundžių"
 
-#: templates/portal/layout.inc:100 config/prefs.php.dist:519
-#: config/prefs.php.dist:560
+#: config/prefs.php:539 config/prefs.php:577 templates/portal/layout.inc:100
 msgid "Every 5 minutes"
 msgstr "Kas 5 minutes"
 
-#: templates/portal/layout.inc:102 config/prefs.php.dist:521
+#: config/prefs.php:541 templates/portal/layout.inc:102
 msgid "Every half hour"
 msgstr "Kas pusvalandį"
 
@@ -1282,120 +1269,115 @@ msgstr "Kas pusvalandį"
 msgid "Every hour"
 msgstr "Kas valandą"
 
-#: templates/portal/layout.inc:99 config/prefs.php.dist:518
-#: config/prefs.php.dist:558
+#: config/prefs.php:538 config/prefs.php:575 templates/portal/layout.inc:99
 msgid "Every minute"
 msgstr "Kas minutę"
 
-#: templates/data/datemap.inc:24
+#: templates/data/datemap.inc:26
 msgid "Example values:"
 msgstr "Pavyzdžiui:"
 
-#: admin/cmdshell.php:48 admin/phpshell.php:55 admin/sqlshell.php:108
+#: admin/cmdshell.php:48 admin/phpshell.php:55 admin/sqlshell.php:116
 msgid "Execute"
 msgstr "Vykdyti"
 
-#: admin/sessions.php:30
+#: admin/sessions.php:29
 msgid "Expand"
 msgstr "Išskleisti"
 
-#: lib/Block/iframe.php:29
+#: lib/Block/Iframe.php:38
 msgid "Extra Large"
 msgstr "Labai didelis"
 
-#: templates/admin/config/index.html:74
-#, fuzzy
+#: templates/admin/config/index.html:102
 msgid "FTP upload of configuration"
-msgstr "%s nustatymai išsaugoti."
+msgstr "Nustatymų siuntimas per FTP"
 
-#: config/prefs.php.dist:604
+#: config/prefs.php:622
 msgid "Facebook Integration"
-msgstr ""
+msgstr "Facebook integracija"
 
 #: themes/fadetogreen/info.php:9
 msgid "Fade to Green"
 msgstr "Pereinantis į žalią"
 
-#: lib/Block/weatherdotcom_strings.php:26
+#: lib/Block/WeatherdotcomStrings.php:26
 msgid "Fair"
 msgstr "Švelnus"
 
-#: lib/Block/feed.php:41
+#: lib/Block/Feed.php:56
 msgid "Feed"
-msgstr ""
+msgstr "Srautas"
 
-#: lib/Block/feed.php:17
-#, fuzzy
+#: lib/Block/Feed.php:28
 msgid "Feed Address"
-msgstr "Gatvės adresas"
+msgstr "Srauto adresas"
 
-#: lib/Block/metar.php:215
+#: lib/Block/Metar.php:193
 msgid "Feels Like"
 msgstr "Atrodo lyg"
 
-#: lib/Block/weatherdotcom.php:235
+#: lib/Block/Weatherdotcom.php:215
 msgid "Feels like: "
 msgstr "Atrodo lyg: "
 
-#: lib/Block/weatherdotcom_strings.php:27
+#: lib/Block/WeatherdotcomStrings.php:27
 msgid "Few Showers"
 msgstr "Trumpalaikis lietus"
 
-#: lib/Block/weatherdotcom_strings.php:28
+#: lib/Block/WeatherdotcomStrings.php:28
 msgid "Few Snow Showers"
 msgstr "Trumpalaikė pūga"
 
 #: templates/prefs/addressbooks.html:17
 msgid "Fields to search"
-msgstr ""
+msgstr "Ieškoti laukuose"
 
-#: config/registry.php.dist:340
+#: config/registry.php:292
 msgid "File Manager"
 msgstr "Failų tvarkymas"
 
-#: lib/Block/fb_stream.php:82
-#, fuzzy
+#: lib/Block/FbStream.php:54
 msgid "Filter"
-msgstr "Filtrai"
+msgstr "Filtruoti"
 
-#: config/registry.php.dist:93
+#: config/registry.php:88
 msgid "Filters"
 msgstr "Filtrai"
 
-#: lib/Block/moon.php:164
+#: lib/Block/Moon.php:167
 msgid "First Half"
 msgstr "Pirmoji pusė"
 
-#: lib/Block/moon.php:72 lib/Block/moon.php:74
+#: lib/Block/Moon.php:75 lib/Block/Moon.php:77
 msgid "First Quarter"
 msgstr "Pirmasis ketvirtis"
 
-#: lib/Block/weatherdotcom_strings.php:29
+#: lib/Block/WeatherdotcomStrings.php:29
 msgid "Fog"
 msgstr "Rūkas"
 
-#: lib/Block/weatherdotcom_strings.php:30
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:30
 msgid "Fog Early"
-msgstr "Debesuota ryte"
+msgstr "Rūkas ryte"
 
-#: lib/Block/weatherdotcom_strings.php:31
+#: lib/Block/WeatherdotcomStrings.php:31
 msgid "Fog Late"
 msgstr "Rūkas vakare"
 
-#: lib/Block/weatherdotcom_strings.php:32
+#: lib/Block/WeatherdotcomStrings.php:32
 msgid "Foggy"
 msgstr "Rūkanota"
 
-#: lib/Block/fortune.php:44
+#: lib/Block/Fortune.php:44
 msgid "Food"
 msgstr "Maistas"
 
-#: lib/Block/metar.php:329
+#: lib/Block/Metar.php:307
 msgid "Forecast (TAF)"
 msgstr "Orų prognozė (TAF)"
 
-#: lib/Block/weatherdotcom.php:74
+#: lib/Block/Weatherdotcom.php:67
 msgid ""
 "Forecast Days (note that the returned forecast returns both day and night; a "
 "large number here could result in a wide block)"
@@ -1403,44 +1385,44 @@ msgstr ""
 "Orų prognozės apimtis (įsidėmėkite, kad ši funkcija gražina ir dienos ir "
 "nakties prognozę; per didelis skaičius gali sudarkyti dizainą)"
 
-#: templates/login/login.inc:81
+#: templates/login/login.inc:58
 msgid "Forgot your password?"
 msgstr "Pamiršote savo slaptažodį?"
 
-#: lib/Block/fortune.php:28
+#: lib/Block/Fortune.php:25
 msgid "Fortune"
 msgstr "Frazė"
 
-#: lib/Block/fortune.php:106
+#: lib/Block/Fortune.php:108
 msgid "Fortune type"
 msgstr "Frazių tipas"
 
-#: lib/Block/fortune.php:45
+#: lib/Block/Fortune.php:45
 msgid "Fortunes"
 msgstr "Frazės"
 
-#: lib/Block/fortune.php:46
+#: lib/Block/Fortune.php:46
 msgid "Fortunes 2"
 msgstr "Frazės 2"
 
-#: config/registry.php.dist:376
+#: config/registry.php:314
 msgid "Forums"
 msgstr "Diskusijos"
 
-#: config/registry.php.dist:113
-msgid "Forwards"
-msgstr "Persiuntimai"
-
-#: lib/Block/weatherdotcom_strings.php:33
+#: lib/Block/WeatherdotcomStrings.php:33
 msgid "Freezing Drizzle"
 msgstr "Lijundra"
 
-#: services/facebook.php:68
+#: services/facebook/index.php:76
 msgid "Friend Requests:"
-msgstr ""
+msgstr "Draugų prašymai:"
 
-#: lib/Block/weatherdotcom.php:252 lib/Block/weatherdotcom.php:362
-#: lib/Block/weatherdotcom.php:408
+#: templates/prefs/facebook.html:44
+msgid "Friends enabled"
+msgstr "Draugai įjungti"
+
+#: lib/Block/Weatherdotcom.php:232 lib/Block/Weatherdotcom.php:342
+#: lib/Block/Weatherdotcom.php:388
 msgid "From the "
 msgstr "Nuo "
 
@@ -1448,11 +1430,11 @@ msgstr "Nuo "
 msgid "Full Description"
 msgstr "Pilnas aprašymas"
 
-#: lib/Block/moon.php:79 lib/Block/moon.php:174
+#: lib/Block/Moon.php:82 lib/Block/Moon.php:177
 msgid "Full Moon"
 msgstr "Pilnatis"
 
-#: lib/Block/account.php:68 templates/admin/user/update.inc:37
+#: lib/Block/Account.php:70 templates/admin/user/update.inc:37
 msgid "Full Name"
 msgstr "Pilnas vardas"
 
@@ -1465,31 +1447,27 @@ msgstr "Generuoti %s nustatymus"
 msgid "Generated Code"
 msgstr "Sugeneruotas kodas"
 
-#: lib/Block/fb_stream.php:192 lib/Block/twitter_timeline.php:171
+#: lib/Block/FbStream.php:170 templates/block/twitter-layout.html.php:34
 msgid "Get More"
-msgstr ""
+msgstr "Rodyti daugiau"
 
 #: templates/prefs/app.html:10
 msgid "Global Preferences"
-msgstr ""
+msgstr "Bendri nustatymai"
 
 #: templates/prefs/app.html:17
 msgid "Go"
 msgstr "Rodyti"
 
-#: lib/Block/fortune.php:47
+#: lib/Block/Fortune.php:47
 msgid "Goedel"
 msgstr "Gadelis"
 
-#: lib/Block/google.php:3 lib/Block/google.php:19
+#: lib/Block/Google.php:14
 msgid "Google Search"
 msgstr "Google paieška"
 
-#: lib/Block/google.php:30
-msgid "Google search is not enabled."
-msgstr "Google paieška yra išjungta."
-
-#: config/nls.php:177
+#: config/nls.php:178
 msgid "Greek (ISO-8859-7)"
 msgstr "Graikiška (ISO-8859-7)"
 
@@ -1501,16 +1479,20 @@ msgstr "Žalias"
 msgid "Grey"
 msgstr "Pilkas"
 
-#: admin/groups.php:195
+#: admin/groups.php:160
 msgid "Group Administration"
 msgstr "Grupių administravimas"
 
-#: admin/groups.php:44
+#: templates/admin/groups/add.inc:9
+msgid "Group name"
+msgstr "Grupės pavadinimas"
+
+#: admin/groups.php:31
 #, php-format
 msgid "Group was not created: %s."
 msgstr "Grupė nebuvo sukurta: %s."
 
-#: admin/groups.php:268 templates/shares/edit.inc:266
+#: admin/groups.php:219 templates/shares/edit.inc:266
 msgid "Groups"
 msgstr "Grupės"
 
@@ -1518,29 +1500,29 @@ msgstr "Grupės"
 msgid "Guest Permissions"
 msgstr "Svečių teisės"
 
-#: lib/Block/weatherdotcom_strings.php:34
+#: lib/Block/WeatherdotcomStrings.php:34
 msgid "Haze"
 msgstr "Migla"
 
-#: lib/Block/weatherdotcom_strings.php:35
+#: lib/Block/WeatherdotcomStrings.php:35
 msgid "Heavy Rain"
 msgstr "Stiprus lietus"
 
-#: lib/Block/weatherdotcom_strings.php:36
+#: lib/Block/WeatherdotcomStrings.php:36
 msgid "Heavy T-Storm"
 msgstr "Stipri audra"
 
-#: config/nls.php:178
+#: config/nls.php:179
 msgid "Hebrew (ISO-8859-8-I)"
 msgstr "Hebrajiška (ISO-8859-8-I)"
 
-#: lib/Block/iframe.php:24
+#: lib/Block/Iframe.php:32
 msgid "Height"
 msgstr "Aukštis"
 
-#: lib/Block/fb_stream.php:92 lib/Block/twitter_timeline.php:87
-msgid "Height of map (width automatically adjusts to block)"
-msgstr ""
+#: lib/Block/FbStream.php:69 lib/Block/TwitterTimeline.php:70
+msgid "Height of stream content (width automatically adjusts to block)"
+msgstr "Srauto turinio aukštis (plotis nustatomas automatiškai pagal bloką)"
 
 #: services/help/index.php:17 templates/help/index.inc:4
 msgid "Help"
@@ -1548,9 +1530,9 @@ msgstr "Pagalba"
 
 #: services/help/index.php:70
 msgid "Help _Topics"
-msgstr "Rodyti pagalbos temas"
+msgstr "Pagalbos temos"
 
-#: lib/Block/moon.php:27
+#: lib/Block/Moon.php:28
 msgid "Hemisphere"
 msgstr "Hemisfera"
 
@@ -1562,47 +1544,47 @@ msgstr "Štai čia yra failo pradžia:"
 msgid "Hi-Contrast"
 msgstr "Didelio kontrasto"
 
-#: templates/prefs/app.html:23
+#: templates/prefs/app.html:24
 msgid "Hide Advanced Preferences"
-msgstr ""
+msgstr "Paslėpti išplėstinius nustatymus"
 
 #: services/portal/cloud_search.php:33
 msgid "Hide Results"
 msgstr "Paslėpti rezultatus"
 
-#: lib/Block/weatherdotcom_strings.php:100
+#: lib/Block/WeatherdotcomStrings.php:100
 msgid "High"
 msgstr "Svarbu"
 
-#: lib/Block/account.php:73
+#: lib/Block/Account.php:73
 msgid "Home Directory"
 msgstr "Namų katalogas"
 
-#: config/registry.php.dist:76
+#: config/registry.php:75
 msgid "Horde"
 msgstr "Portalas"
 
 #: themes/hordeweb/info.php:2
 msgid "Horde Website"
-msgstr ""
+msgstr "Horde puslapis"
 
-#: templates/data/csvinfo.inc:21
+#: templates/data/csvinfo.inc:20
 msgid "How many fields (columns) are there?"
 msgstr "Kiek laukų (stulpelių) ten yra?"
 
-#: lib/Block/feed.php:21
+#: lib/Block/Feed.php:36
 msgid "How many seconds before we check for new articles?"
-msgstr ""
+msgstr "Kas kiek sekundžių tikrinti ar yra naujų straipsnių?"
 
-#: lib/Block/metar.php:225 lib/Block/weatherdotcom.php:303
+#: lib/Block/Metar.php:203 lib/Block/Weatherdotcom.php:283
 msgid "Humidity"
 msgstr "Drėgnumas"
 
-#: lib/Block/weatherdotcom.php:263
+#: lib/Block/Weatherdotcom.php:243
 msgid "Humidity: "
 msgstr "Drėgnumas: "
 
-#: lib/Block/fortune.php:48
+#: lib/Block/Fortune.php:48
 msgid "Humorists"
 msgstr "Jumoreskos"
 
@@ -1610,7 +1592,7 @@ msgstr "Jumoreskos"
 msgid "I characters"
 msgstr "I simboliai"
 
-#: config/prefs.php.dist:545
+#: config/prefs.php:563
 msgid "Icons Only"
 msgstr "Tik piktogramos"
 
@@ -1619,7 +1601,7 @@ msgstr "Tik piktogramos"
 msgid "Icons for %s"
 msgstr "%s piktogramos"
 
-#: config/prefs.php.dist:546
+#: config/prefs.php:564
 msgid "Icons with text"
 msgstr "Piktogramos su tekstu"
 
@@ -1627,7 +1609,7 @@ msgstr "Piktogramos su tekstu"
 msgid "Ideas"
 msgstr "Idėjos"
 
-#: config/prefs.php.dist:226
+#: config/prefs.php:245
 msgid "Identity's name:"
 msgstr "Aprašo pavadinimas:"
 
@@ -1637,7 +1619,7 @@ msgstr "Aprašo pavadinimas:"
 msgid "Import, Step %d"
 msgstr "Įkėlimas, %d žingsnis"
 
-#: templates/data/datemap.inc:15
+#: templates/data/datemap.inc:17
 #, php-format
 msgid "Imported field: %s"
 msgstr "Laukas įkeltas: %s"
@@ -1646,9 +1628,9 @@ msgstr "Laukas įkeltas: %s"
 msgid "Imported fields:"
 msgstr "Įkelti laukai:"
 
-#: lib/Block/twitter_timeline.php:136
+#: lib/Block/TwitterTimeline.php:118
 msgid "In reply to:"
-msgstr ""
+msgstr "Atsakymas į:"
 
 #: templates/data/csvmap.inc:57
 msgid ""
@@ -1674,89 +1656,88 @@ msgstr ""
 msgid "Individual Users"
 msgstr "Individualūs vartotojai"
 
-#: templates/prefs/facebook.html:10
+#: templates/prefs/facebook.html:9
 msgid "Infinite sessions enabled."
-msgstr ""
+msgstr "Nesibaigiančios sesijos įjungtos."
 
-#: config/registry.php.dist:281
+#: config/registry.php:241
 msgid "Information"
 msgstr "Informacija"
 
-#: lib/Block/weatherdotcom.php:332
+#: lib/Block/Weatherdotcom.php:312
 msgid "Information no longer available."
 msgstr "Informacija nebepasiekiama."
 
-#: templates/admin/groups/edit.inc:36
+#: templates/admin/groups/edit.inc:42
 msgid "Inherited Members"
 msgstr "Paveldimi nariai"
 
-#: config/prefs.php.dist:304
+#: config/prefs.php:322
 msgid "Insert an email address to which you can receive the new password:"
 msgstr "Įrašykite el. pašto adresą, į kurį norite gauti naują slaptažodį:"
 
-#: config/prefs.php.dist:296
+#: config/prefs.php:315
 msgid "Insert the required answer to the security question:"
 msgstr "Įrašykite reikiamą atsakymą į klausimą viršuje:"
 
-#: lib/Block/vatid.php:52
+#: lib/Block/Vatid.php:57
 msgid "Invalid VAT identification number format."
 msgstr "Neteisingas VAT identifikacijos skaičiaus formatas."
 
 #: admin/signup_confirm.php:43
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid action %s"
-msgstr "Neteisingas modulis."
+msgstr "Neteisingas veiksmas %s"
 
 #: admin/config/config.php:24
 msgid "Invalid application."
 msgstr "Neteisingas modulis."
 
 #: admin/signup_confirm.php:33
-#, fuzzy
 msgid "Invalid hash."
-msgstr "Neteisingas ID."
+msgstr "Neteisinga maiša."
 
-#: lib/Block/weatherdotcom.php:180
+#: lib/Block/Weatherdotcom.php:160
 msgid "Invalid license key."
 msgstr "Neteisingas licenzijos raktas."
 
-#: lib/Block/weatherdotcom.php:174
+#: lib/Block/Weatherdotcom.php:154
 msgid "Invalid location provided."
 msgstr "Nurodyta neleistina vietovė."
 
-#: admin/perms/addchild.php:23
+#: admin/perms/addchild.php:24
 msgid "Invalid parent permission."
 msgstr "Neteisingos paveldimos teisės."
 
-#: lib/Block/weatherdotcom.php:176
+#: lib/Block/Weatherdotcom.php:156
 msgid "Invalid partner id."
 msgstr "Neteisingas pertnerio id."
 
-#: lib/Block/weatherdotcom.php:178
+#: lib/Block/Weatherdotcom.php:158
 msgid "Invalid product code."
 msgstr "Neteisingas produkto kodas."
 
-#: lib/Block/weatherdotcom_strings.php:37
+#: lib/Block/WeatherdotcomStrings.php:37
 msgid "Isolated T-Storms"
 msgstr "Izoliuotos T-audros"
 
-#: config/nls.php:179
+#: config/nls.php:180
 msgid "Japanese (ISO-2022-JP)"
 msgstr "Japoniška (ISO-2022-JP)"
 
-#: lib/Block/twitter_timeline.php:138
+#: lib/Block/TwitterTimeline.php:120
 msgid "Just now..."
-msgstr ""
+msgstr "Ką tik..."
 
-#: lib/Block/fortune.php:49
+#: lib/Block/Fortune.php:49
 msgid "Kernel Newbies"
 msgstr "Branduolio naujokai"
 
-#: services/help/index.php:138
+#: services/help/index.php:134
 msgid "Keyword"
 msgstr "Raktinis žodis"
 
-#: lib/Block/fortune.php:50
+#: lib/Block/Fortune.php:50
 msgid "Kids"
 msgstr "Vaikai"
 
@@ -1764,36 +1745,35 @@ msgstr "Vaikai"
 msgid "Kolab"
 msgstr "Kolab"
 
-#: config/nls.php:180
+#: config/nls.php:181
 msgid "Korean (EUC-KR)"
 msgstr "Korėjietiška (EUC-KR)"
 
-#: login.php:314 templates/login/login.inc:49
+#: login.php:356 templates/login/login.inc:34
 msgid "Language"
 msgstr "Kalba"
 
-#: lib/Block/iframe.php:28
+#: lib/Block/Iframe.php:37
 msgid "Large"
 msgstr "Didelis"
 
-#: lib/Block/moon.php:167
+#: lib/Block/Moon.php:170
 msgid "Last Half"
 msgstr "Antra pusė"
 
-#: lib/Block/account.php:91
+#: lib/Block/Account.php:86
 msgid "Last Password Change"
 msgstr "Paskutinį kartą slaptažodis buvo pakeistas."
 
-#: lib/Block/moon.php:84 lib/Block/moon.php:86
+#: lib/Block/Moon.php:87 lib/Block/Moon.php:89
 msgid "Last Quarter"
 msgstr "Paskutinis ketvirtis"
 
-#: admin/activesync.php:98 templates/prefs/activesync.html:21
-#, fuzzy
+#: admin/activesync.php:94 templates/prefs/activesync.html:21
 msgid "Last Sync Time"
-msgstr "Lokalė ir laikas"
+msgstr "Paskutinis susijungimo laikas"
 
-#: lib/Block/metar.php:146
+#: lib/Block/Metar.php:124
 msgid "Last Updated:"
 msgstr "Atnaujinta:"
 
@@ -1811,16 +1791,15 @@ msgstr "Paskutinis prisijungimas: %s iš adreso %s"
 msgid "Last login: Never"
 msgstr "Prisijungėte pirmą kartą"
 
-#: lib/Block/twitter_timeline.php:168
-#, fuzzy
+#: templates/block/twitter-layout.html.php:19
 msgid "Latest"
-msgstr "Lesotas"
+msgstr "Naujausia"
 
 #: themes/lavander/info.php:2
 msgid "Lavender"
 msgstr "Levandra"
 
-#: lib/Block/fortune.php:51
+#: lib/Block/Fortune.php:51
 msgid "Law"
 msgstr "Teisė"
 
@@ -1828,62 +1807,59 @@ msgstr "Teisė"
 msgid "Light Blue"
 msgstr "Šviesiai mėlynas"
 
-#: lib/Block/weatherdotcom_strings.php:38
+#: lib/Block/WeatherdotcomStrings.php:38
 msgid "Light Drizzle"
 msgstr "Smulkus lietus"
 
-#: lib/Block/weatherdotcom_strings.php:39
+#: lib/Block/WeatherdotcomStrings.php:39
 msgid "Light Rain"
 msgstr "Nedidelis lietus"
 
-#: lib/Block/weatherdotcom_strings.php:40
+#: lib/Block/WeatherdotcomStrings.php:40
 msgid "Light Rain Early"
 msgstr "Nedidelis lietus ryte"
 
-#: lib/Block/weatherdotcom_strings.php:41
+#: lib/Block/WeatherdotcomStrings.php:41
 msgid "Light Rain Late"
 msgstr "Nedidelis lietus vakare"
 
-#: lib/Block/weatherdotcom_strings.php:42
+#: lib/Block/WeatherdotcomStrings.php:42
 msgid "Light Rain Shower"
 msgstr "Nedidelė liūtis"
 
-#: lib/Block/weatherdotcom_strings.php:43
+#: lib/Block/WeatherdotcomStrings.php:43
 msgid "Light Rain with Thunder"
 msgstr "Nedidelis lietus su perkūnija"
 
-#: lib/Block/weatherdotcom_strings.php:44
+#: lib/Block/WeatherdotcomStrings.php:44
 msgid "Light Snow"
 msgstr "Nedidelis sniegas"
 
-#: lib/Block/weatherdotcom_strings.php:45
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:45
 msgid "Light Snow Early"
-msgstr "Nedidelis lietus ryte"
+msgstr "Nedidelis sniegas ryte"
 
-#: lib/Block/weatherdotcom_strings.php:46
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:46
 msgid "Light Snow Late"
-msgstr "Nedidelis lietus vakare"
+msgstr "Nedidelis sniegas vakare"
 
-#: lib/Block/weatherdotcom_strings.php:47
+#: lib/Block/WeatherdotcomStrings.php:47
 msgid "Light Snow Shower"
 msgstr "Nedidelė šlapdriba"
 
-#: services/facebook.php:105
-#, fuzzy
+#: services/facebook/index.php:113
 msgid "Like"
-msgstr "Nuoroda"
+msgstr "Patinka"
 
-#: lib/Block/fortune.php:52
+#: lib/Block/Fortune.php:52
 msgid "Limerick"
 msgstr "Limerikas"
 
-#: lib/Block/fortune.php:53
+#: lib/Block/Fortune.php:53
 msgid "Linux Cookie"
 msgstr "Linux laimės žinutės"
 
-#: admin/sqlshell.php:113
+#: admin/sqlshell.php:121
 msgid "List Tables"
 msgstr "Rodyti lentelių sąrašą"
 
@@ -1892,63 +1868,67 @@ msgstr "Rodyti lentelių sąrašą"
 msgid "Listing alarms failed: %s"
 msgstr "Parodyti perspėjimų sąrašo nepavyko: %s"
 
-#: admin/sessions.php:62
-#, fuzzy, php-format
+#: admin/sessions.php:66
+#, php-format
 msgid "Listing sessions failed: %s"
-msgstr "Parodyti vartotojų sąrašo nepavyko: %s"
+msgstr "Parodyti sesijų nepavyko: %s"
 
 #: templates/admin/user/nolist.inc:2
 msgid "Listing users is disabled."
 msgstr "Vartotojų sąrašas uždraustas."
 
-#: lib/Block/fortune.php:54
+#: lib/Block/Fortune.php:54
 msgid "Literature"
 msgstr "Literatūra"
 
-#: lib/Block/weatherdotcom.php:215
+#: templates/sidebar/sidebar.inc:5
+msgid "Loading..."
+msgstr "Krauna..."
+
+#: lib/Block/Weatherdotcom.php:195
 msgid "Local time: "
 msgstr "Vietinis laikas: "
 
-#: config/prefs.php.dist:313
+#: config/prefs.php:331
 msgid "Locale and Time"
 msgstr "Lokalė ir laikas"
 
-#: lib/Block/metar.php:64 lib/Block/sunrise.php:20
-#: lib/Block/weatherdotcom.php:59
+#: lib/Block/Metar.php:51 lib/Block/Sunrise.php:23
+#: lib/Block/Weatherdotcom.php:52
 msgid "Location"
 msgstr "Vieta"
 
-#: login.php:261 templates/login/login.inc:64
+#: login.php:303 templates/login/login.inc:43
 msgid "Log in"
 msgstr "Prisijungti"
 
-#: lib/Block/account.php:64
-msgid "Login"
-msgstr "Prisijungti"
+#: templates/portal/mobile.inc:7
+msgid "Log out"
+msgstr "Atsijungti"
 
-#: login.php:286
+#: login.php:328
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
 "Prisijungti nepavyko. Neteisingas Jūsų nurodytas vartotojo vardas ir/ar "
 "slaptažodis."
 
-#: login.php:282
+#: login.php:324
 msgid "Login failed."
 msgstr "Prisijungti nepavyko."
 
-#: templates/prefs/facebook.html:46
+#: templates/prefs/facebook.html:57
 msgid "Login to Facebook and authorize <tag:app_name />"
-msgstr ""
+msgstr "Prisijunkite prie Facebook ir suteikite teises <tag:app_name />"
 
 #: templates/prefs/twitter.html:21
 msgid "Login to Twitter and authorize the <tag:appname /> application"
-msgstr ""
+msgstr "Prisijunkite prie Twitter ir suteikite teises <tag:appname />"
 
-#: lib/Block/fortune.php:55
+#: lib/Block/Fortune.php:55
 msgid "Love"
 msgstr "Meilė"
 
-#: lib/Block/weatherdotcom_strings.php:98
+#: lib/Block/WeatherdotcomStrings.php:98
 msgid "Low"
 msgstr "Nesvarbu"
 
@@ -1967,19 +1947,19 @@ msgstr "Mėlyna lojola"
 msgid "MM"
 msgstr "MM"
 
-#: lib/Block/fortune.php:56
+#: lib/Block/Fortune.php:56
 msgid "Magic"
 msgstr "Magija"
 
-#: config/registry.php.dist:85
+#: config/registry.php:80
 msgid "Mail"
 msgstr "Paštas"
 
-#: config/registry.php.dist:403
+#: config/registry.php:332
 msgid "Mail Admin"
 msgstr "Pašto valdymas"
 
-#: config/prefs.php.dist:441
+#: config/prefs.php:465
 msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
@@ -1987,121 +1967,119 @@ msgstr ""
 "Kategorijų sąrašo, kurioms priskiriami objektai, ir su jomis susijusių "
 "spalvų keitimas."
 
-#: config/prefs.php.dist:677
+#: config/prefs.php:696
 msgid "Manage your ActiveSync devices."
-msgstr ""
+msgstr "Jūsų ActiveSync įrenginių valdymas."
 
-#: templates/data/csvmap.inc:96
+#: templates/data/csvmap.inc:97
 msgid "Matching fields:"
 msgstr "Sujungti laukai:"
 
-#: lib/Block/metar.php:301
+#: lib/Block/Metar.php:279
 msgid "Max temp last 24 hours: "
 msgstr "Maks. temp. pask. 24 val: "
 
-#: lib/Block/metar.php:293
+#: lib/Block/Metar.php:271
 msgid "Max temp last 6 hours: "
 msgstr "Maks. temp. pask. 6 val: "
 
-#: lib/Application.php:38
+#: lib/Application.php:32
 msgid "Maximum Number of Portal Blocks"
 msgstr "Maksimalus portalo blokų skaičius"
 
-#: lib/Block/fb_stream.php:86
-#, fuzzy
+#: lib/Block/FbStream.php:60
 msgid "Maximum number of entries to display"
-msgstr "Maksimalus portalo blokų skaičius"
+msgstr "Maksimalus įrašų skaičius"
 
-#: lib/Block/fortune.php:57
+#: lib/Block/Fortune.php:57
 msgid "Medicine"
 msgstr "Medicina"
 
-#: lib/Block/iframe.php:27
+#: lib/Block/Iframe.php:36
 msgid "Medium"
 msgstr "Vidutinis"
 
-#: templates/admin/groups/edit.inc:17
+#: templates/admin/groups/edit.inc:19
 msgid "Members"
 msgstr "Nariai"
 
-#: config/prefs.php.dist:548
+#: templates/block/twitter-layout.html.php:25
+msgid "Mentions"
+msgstr "Mini"
+
+#: config/prefs.php:566
 msgid "Menu mode:"
 msgstr "Meniu režimas:"
 
-#: lib/Block/metar.php:5
+#: lib/Block/Metar.php:22
 msgid "Metar Weather"
 msgstr "Oro salygos"
 
-#: lib/Block/metar.php:42
-msgid "Metar block not available."
-msgstr "Oro sąlygų bloko nėra."
-
-#: lib/Block/metar.php:110
-msgid ""
-"Metar block not available. Details have been logged for the administrator."
-msgstr "Oro sąlygų bloko nėra. Administratoriui išsiųstas detalus aprašymas."
-
-#: lib/Block/weatherdotcom.php:168
+#: lib/Block/Weatherdotcom.php:148
 msgid "MetarDB is not connected."
 msgstr "Neįdiegta Metar duomenų bazė."
 
-#: lib/Block/metar.php:74 lib/Block/weatherdotcom.php:69
+#: lib/Block/Metar.php:61 lib/Block/Weatherdotcom.php:62
 msgid "Metric"
 msgstr "Matai"
 
-#: lib/Block/metar.php:305
+#: lib/Block/Metar.php:283
 msgid "Min temp last 24 hours: "
 msgstr "Min. temp. pask. 24 val: "
 
-#: lib/Block/metar.php:297
+#: lib/Block/Metar.php:275
 msgid "Min temp last 6 hours: "
 msgstr "Min. temp. pask. 6 hours: "
 
-#: lib/Block/fortune.php:58
+#: lib/Block/Fortune.php:58
 msgid "Miscellaneous"
 msgstr "Kitos"
 
-#: admin/config/index.php:135
-msgid ""
-"Missing configuration. You must generate it before using this application."
-msgstr ""
-"Nustatymų nėra. Jeigu norite naudoti šį modulį, turite jį sukonfigūruoti."
+#: admin/config/index.php:192
+msgid "Missing configuration."
+msgstr "Nėra nustatymų."
 
-#: lib/Block/weatherdotcom_strings.php:48
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:48
 msgid "Mist"
-msgstr "Sąrašas"
+msgstr "Migla"
 
-#: lib/Block/weatherdotcom_strings.php:99
+#: login.php:235
+msgid "Mobile"
+msgstr "Mobilus"
+
+#: login.php:231
+msgid "Mobile (Smartphone)"
+msgstr "Mobilus (Išm. tel.)"
+
+#: login.php:215
+msgid "Mode"
+msgstr "Režimas"
+
+#: lib/Block/WeatherdotcomStrings.php:99
 msgid "Moderate"
 msgstr "Vidutinis"
 
-#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:57
-#, php-format
-msgid "Modified sequence for %s"
-msgstr ""
-
-#: config/prefs.php.dist:430
+#: config/prefs.php:453
 msgid "Monday"
 msgstr "Pirmadienis"
 
-#: lib/Block/moon.php:3 lib/Block/moon.php:14
+#: lib/Block/Moon.php:13
 msgid "Moon Phases"
 msgstr "Mėnulio fazės"
 
-#: lib/Block/weatherdotcom_strings.php:49
+#: lib/Block/WeatherdotcomStrings.php:49
 msgid "Mostly Clear"
 msgstr "Daugiausia giedra"
 
-#: lib/Block/weatherdotcom_strings.php:50
+#: lib/Block/WeatherdotcomStrings.php:50
 msgid "Mostly Cloudy"
 msgstr "Daugiausia apsinaukę"
 
-#: lib/Block/weatherdotcom_strings.php:51
+#: lib/Block/WeatherdotcomStrings.php:51
 msgid "Mostly Cloudy and Windy"
 msgstr "Daugiausia apsinaukę ir vėjuota"
 
-#: lib/Block/weatherdotcom_strings.php:52
+#: lib/Block/WeatherdotcomStrings.php:52
 msgid "Mostly Sunny"
 msgstr "Daugiausia saulėta"
 
@@ -2109,31 +2087,39 @@ msgstr "Daugiausia saulėta"
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: config/registry.php.dist:333
+#: config/registry.php:287
 msgid "My Account"
 msgstr "Mano sąskaita"
 
-#: lib/Block/account.php:27
+#: lib/Block/Account.php:26
 msgid "My Account Information"
 msgstr "Informacija apie mane"
 
-#: lib/Block/fb_stream.php:3 lib/Block/fb_stream.php:105
+#: lib/Block/FbStream.php:30
 msgid "My Facebook Stream"
-msgstr ""
+msgstr "Mano Facebook srautas"
 
-#: services/portal/index.php:62
+#: services/portal/index.php:43
 msgid "My Portal"
 msgstr "Mano portalas"
 
-#: services/portal/edit.php:36
+#: services/portal/edit.php:32
 msgid "My Portal Layout"
 msgstr "Mano portalo išdėstymas"
 
-#: templates/logintasks/logintasks.html:35
+#: templates/logintasks/logintasks.html:25
 msgid "NO, I Do NOT Agree"
 msgstr "NE, NESUTINKU"
 
-#: lib/Block/vatid.php:98
+#: templates/prefs/activesync.html:48
+msgid ""
+"NOTE: WIPING A DEVICE MAY RESET IT TO FACTORY DEFAULTS. PLEASE MAKE SURE YOU "
+"REALLY WANT TO DO THIS BEFORE REQUESTING A WIPE"
+msgstr ""
+"DĖMESIO: IŠVALYMAS ATSTATYS ĮRENGINIO GAMYKLINIUS NUSTATYMUS. PRIEŠ IŠVALANT "
+"ĮRENGINĮ ĮSITIKINKITE, KAD TIKRAI TO NORITE"
+
+#: lib/Block/Vatid.php:113
 msgid "Name"
 msgstr "Vardas"
 
@@ -2141,8 +2127,7 @@ msgstr "Vardas"
 msgid "NeXT"
 msgstr "NeXT"
 
-#: templates/portal/layout.inc:97 config/prefs.php.dist:516
-#: config/prefs.php.dist:556
+#: config/prefs.php:536 config/prefs.php:573 templates/portal/layout.inc:97
 msgid "Never"
 msgstr "Niekada"
 
@@ -2150,12 +2135,11 @@ msgstr "Niekada"
 msgid "New Category"
 msgstr "Nauja kategorija"
 
-#: services/facebook.php:65
-#, fuzzy
+#: services/facebook/index.php:73
 msgid "New Messages:"
-msgstr "Žinutė"
+msgstr "Naujos žinutės:"
 
-#: lib/Block/moon.php:44 lib/Block/moon.php:66 lib/Block/moon.php:172
+#: lib/Block/Moon.php:47 lib/Block/Moon.php:69 lib/Block/Moon.php:175
 msgid "New Moon"
 msgstr "Naujas mėnulis"
 
@@ -2171,20 +2155,20 @@ msgstr "Naujas slaptažodis"
 msgid "New passwords don't match."
 msgstr "Nauji slaptažodžiai nesutampa."
 
-#: lib/Block/fortune.php:59 config/registry.php.dist:288
+#: config/registry.php:246 lib/Block/Fortune.php:59
 msgid "News"
 msgstr "Naujienos"
 
-#: templates/data/csvinfo.inc:25 templates/data/csvmap.inc:119
-#: templates/data/datemap.inc:41 templates/data/tsvinfo.inc:15
+#: templates/data/csvinfo.inc:23 templates/data/csvmap.inc:120
+#: templates/data/datemap.inc:43 templates/data/tsvinfo.inc:15
 msgid "Next"
 msgstr "Toliau"
 
-#: lib/Block/moon.php:25
+#: lib/Block/Moon.php:26
 msgid "Next 4 Phases"
 msgstr "Tolesnės 4 fazės"
 
-#: lib/Block/weatherdotcom.php:382
+#: lib/Block/Weatherdotcom.php:362
 msgid "Night"
 msgstr "Naktis"
 
@@ -2204,16 +2188,16 @@ msgstr "Skirtumų nėra."
 msgid "No icons found."
 msgstr "Piktogramų nėra."
 
-#: lib/Block/metar.php:121 lib/Block/sunrise.php:38
-#: lib/Block/weatherdotcom.php:133
+#: lib/Block/Metar.php:99 lib/Block/Sunrise.php:45
+#: lib/Block/Weatherdotcom.php:113
 msgid "No location is set."
 msgstr "Nenustatyta vietovė."
 
-#: lib/Block/weatherdotcom.php:172
+#: lib/Block/Weatherdotcom.php:152
 msgid "No location provided."
 msgstr "Nenurodyta vietovė."
 
-#: lib/Block/fortune.php:101
+#: lib/Block/Fortune.php:101
 msgid "No offensive fortunes"
 msgstr "Nerodyti įžeidžiančių frazių"
 
@@ -2221,46 +2205,44 @@ msgstr "Nerodyti įžeidžiančių frazių"
 msgid "No pending signups."
 msgstr "Nepatvirtintų registracijų nėra."
 
-#: admin/config/index.php:89 admin/config/index.php:121
+#: admin/config/index.php:139 admin/config/index.php:177
 msgid "No stable version exists yet."
 msgstr "Stabili versija dar neegzistuoja."
 
-#: lib/Block/weatherdotcom.php:143
+#: lib/Block/Weatherdotcom.php:123
 msgid "No temporary directory available for cache."
 msgstr "Spartinimui nėra laikinojo katalogo."
 
 #: admin/signup_confirm.php:57
-#, fuzzy
 msgid "No username specified."
-msgstr "Neįrašėte vardo."
+msgstr "Neįrašėte vartotojo vardo."
 
-#: admin/config/index.php:140
+#: admin/config/index.php:198
 msgid "No version found in original configuration. Regenerate configuration."
 msgstr "Konfigūraciniame faile nėra versijos. Pergeneruokite nustatymus."
 
-#: admin/config/index.php:148
+#: admin/config/index.php:207
 msgid "No version found in your configuration. Regenerate configuration."
 msgstr "Konfigūraciniame faile nėra versijos. Pergeneruokite nustatymus."
 
-#: lib/Prefs/Ui.php:411 templates/prefs/activesync.html:43
+#: lib/Prefs/Ui.php:383 templates/prefs/activesync.html:43
 #: templates/prefs/identityselect.html:20 templates/prefs/syncml.html:34
 msgid "None"
 msgstr "Nenurodyta"
 
-#: config/nls.php:181
+#: config/nls.php:182
 msgid "Nordic (ISO-8859-10)"
 msgstr "Šiaurės (ISO-8859-10)"
 
-#: lib/Block/moon.php:30 lib/Block/moon.php:58
+#: lib/Block/Moon.php:31 lib/Block/Moon.php:61
 msgid "Northern Hemisphere"
 msgstr "Šiaurinė hemisfera"
 
-#: admin/activesync.php:171 lib/Prefs/Ui.php:426
-#, fuzzy
+#: admin/activesync.php:167 lib/Prefs/Ui.php:398
 msgid "Not Provisioned"
-msgstr "Redaguoti teises"
+msgstr "Nestebimas"
 
-#: config/registry.php.dist:211
+#: config/registry.php:184
 msgid "Notes"
 msgstr "Užrašai"
 
@@ -2268,14 +2250,13 @@ msgstr "Užrašai"
 msgid "Nothing to browse, go back."
 msgstr "Nėra ką peržiūrėti, eikite atgal."
 
-#: lib/Block/feed.php:18
-#, fuzzy
+#: lib/Block/Feed.php:31
 msgid "Number of articles to display"
-msgstr "Simbolių skaičius"
+msgstr "Kiek straipsnių rodyti"
 
-#: lib/Block/twitter_timeline.php:91
+#: lib/Block/TwitterTimeline.php:75
 msgid "Number of seconds to wait to refresh"
-msgstr ""
+msgstr "Kas kiek sekundžių atnaujinti turinį"
 
 #: services/keyboard.php:92
 msgid "O characters"
@@ -2285,11 +2266,11 @@ msgstr "0 simboliai"
 msgid "Object Creator"
 msgstr "Objekto savininkas"
 
-#: lib/Block/fortune.php:99
+#: lib/Block/Fortune.php:98
 msgid "Offense filter"
 msgstr "Žiaurumo filtras"
 
-#: config/registry.php.dist:301
+#: config/registry.php:258
 msgid "Office"
 msgstr "Ofisas"
 
@@ -2305,7 +2286,7 @@ msgstr "Senas slaptažodis"
 msgid "Old password is not correct."
 msgstr "Senas slaptažodis neteisingas."
 
-#: lib/Block/fortune.php:102
+#: lib/Block/Fortune.php:102
 msgid "Only offensive fortunes"
 msgstr "Tik įžeidžiančios frazės"
 
@@ -2317,16 +2298,15 @@ msgstr ""
 "Elemento savininko teises gali keisti tik jo savininkas arba sistemos "
 "administratorius"
 
-#: lib/Block/fortune.php:60
+#: lib/Block/Fortune.php:60
 msgid "Operating System"
 msgstr "Opracinės sistemos"
 
 #: templates/shares/edit.inc:236
-#, fuzzy
 msgid "Or enter a user name:"
-msgstr "Įrašykite pref_name reikšmę:"
+msgstr "Arba įrašykite vartotojo vardą:"
 
-#: config/registry.php.dist:135
+#: config/registry.php:109
 msgid "Organizing"
 msgstr "Sisteminimas"
 
@@ -2334,10 +2314,9 @@ msgstr "Sisteminimas"
 msgid "Other"
 msgstr "Kita"
 
-#: config/prefs.php.dist:467 config/prefs.php.dist:582
-#: config/prefs.php.dist:603 config/prefs.php.dist:624
-#: config/prefs.php.dist:643 config/prefs.php.dist:663
-#: config/prefs.php.dist:675
+#: config/prefs.php:489 config/prefs.php:600 config/prefs.php:621
+#: config/prefs.php:641 config/prefs.php:660 config/prefs.php:682
+#: config/prefs.php:694
 msgid "Other Information"
 msgstr "Kita informacija"
 
@@ -2346,9 +2325,8 @@ msgid "Other characters"
 msgstr "Kiti simboliai"
 
 #: templates/shares/edit.inc:30
-#, fuzzy
 msgid "Owner"
-msgstr "Savininkas:"
+msgstr "Savininkas"
 
 #: templates/shares/edit.inc:36 templates/shares/edit.inc:45
 msgid "Owner:"
@@ -2366,57 +2344,55 @@ msgstr "PHP kodas"
 msgid "PHP Shell"
 msgstr "PHP CLI"
 
-#: lib/Block/weatherdotcom_strings.php:54
+#: lib/Block/WeatherdotcomStrings.php:54
 msgid "PM Clouds"
 msgstr "Dieną debesuota"
 
-#: lib/Block/weatherdotcom_strings.php:55
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:55
 msgid "PM Drizzle"
 msgstr "Dieną smulkus lietus"
 
-#: lib/Block/weatherdotcom_strings.php:56
+#: lib/Block/WeatherdotcomStrings.php:56
 msgid "PM Fog"
 msgstr "Dieną rūkas"
 
-#: lib/Block/weatherdotcom_strings.php:57
+#: lib/Block/WeatherdotcomStrings.php:57
 msgid "PM Light Rain"
 msgstr "Dieną lengvas lietus"
 
-#: lib/Block/weatherdotcom_strings.php:58
+#: lib/Block/WeatherdotcomStrings.php:58
 msgid "PM Light Snow"
 msgstr "Dieną nedidelis sniegas"
 
-#: lib/Block/weatherdotcom_strings.php:59
+#: lib/Block/WeatherdotcomStrings.php:59
 msgid "PM Rain"
 msgstr "Dieną lietus"
 
-#: lib/Block/weatherdotcom_strings.php:60
+#: lib/Block/WeatherdotcomStrings.php:60
 msgid "PM Showers"
 msgstr "Dieną liūtis"
 
-#: lib/Block/weatherdotcom_strings.php:61
+#: lib/Block/WeatherdotcomStrings.php:61
 msgid "PM Snow"
 msgstr "Dieną sniegas"
 
-#: lib/Block/weatherdotcom_strings.php:62
+#: lib/Block/WeatherdotcomStrings.php:62
 msgid "PM Snow Showers"
 msgstr "Dieną pūga"
 
-#: lib/Block/weatherdotcom_strings.php:63
+#: lib/Block/WeatherdotcomStrings.php:63
 msgid "PM Sun"
 msgstr "Dieną saulėta"
 
-#: lib/Block/weatherdotcom_strings.php:64
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:64
 msgid "PM T-Showers"
 msgstr "Dieną liūtis"
 
-#: lib/Block/weatherdotcom_strings.php:65
+#: lib/Block/WeatherdotcomStrings.php:65
 msgid "PM T-Storms"
 msgstr "Dieną audra"
 
-#: lib/Block/account.php:287
+#: lib/Block/Account/Localhost.php:53
 msgid "POSIX extension is missing"
 msgstr "Nerastas POSIX modulis"
 
@@ -2424,12 +2400,12 @@ msgstr "Nerastas POSIX modulis"
 msgid "P_HP Shell"
 msgstr "P_HP CLI"
 
-#: lib/Block/weatherdotcom_strings.php:53
+#: lib/Block/WeatherdotcomStrings.php:53
 msgid "Partly Cloudy"
 msgstr "Dalinai debesuota"
 
-#: admin/config/index.php:192 admin/user.php:35 admin/user.php:49 login.php:81
-#: templates/admin/user/update.inc:20 config/registry.php.dist:355
+#: admin/config/index.php:314 admin/user.php:35 admin/user.php:49
+#: config/registry.php:304 login.php:194 templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Slaptažodis"
 
@@ -2437,7 +2413,7 @@ msgstr "Slaptažodis"
 msgid "Password changed successfully."
 msgstr "Slaptažodis sėkmingai pakeistas."
 
-#: lib/Prefs/Ui.php:326
+#: lib/Prefs/Ui.php:302
 msgid "Password:"
 msgstr "Slaptažodis:"
 
@@ -2445,7 +2421,7 @@ msgstr "Slaptažodis:"
 msgid "Passwords must match."
 msgstr "Slaptažodžiai turi sutapti."
 
-#: admin/sqlshell.php:100
+#: admin/sqlshell.php:105
 msgid "Paste"
 msgstr "Įkelti"
 
@@ -2453,16 +2429,15 @@ msgstr "Įkelti"
 msgid "Pending Signups:"
 msgstr "Nepatvirtintos registracijos:"
 
-#: lib/Block/fortune.php:61
+#: lib/Block/Fortune.php:61
 msgid "People"
 msgstr "Žmonės"
 
-#: templates/logintasks/logintasks.html:30
-#, fuzzy
+#: templates/logintasks/logintasks.html:20
 msgid "Perform Login Tasks"
-msgstr "Prisijungimo darbai"
+msgstr "Atlikti prisijungimo darbus"
 
-#: admin/perms/delete.php:42
+#: admin/perms/delete.php:43
 #, php-format
 msgid "Permission \"%s\" not deleted."
 msgstr "Teisė \"%s\" neištrinta."
@@ -2471,36 +2446,34 @@ msgstr "Teisė \"%s\" neištrinta."
 msgid "Permissions"
 msgstr "Teisės"
 
-#: admin/perms/addchild.php:51 admin/perms/delete.php:46
-#: admin/perms/edit.php:110 admin/perms/index.php:17
+#: admin/perms/addchild.php:52 admin/perms/delete.php:47
+#: admin/perms/edit.php:111 admin/perms/index.php:17
 msgid "Permissions Administration"
 msgstr "Teisių administravimas"
 
-#: config/prefs.php.dist:213
+#: config/prefs.php:233
 msgid "Personal Information"
 msgstr "Asmeninė informacija"
 
-#: lib/Block/fortune.php:62
+#: lib/Block/Fortune.php:62
 msgid "Pets"
 msgstr "Gyvūnai"
 
-#: config/registry.php.dist:385
+#: config/registry.php:320
 msgid "Photos"
 msgstr "Nuotraukos"
 
-#: lib/Block/fortune.php:63
+#: lib/Block/Fortune.php:63
 msgid "Platitudes"
 msgstr "Banalybės"
 
-#: login.php:87
-#, fuzzy
+#: login.php:200
 msgid "Please enter a password."
-msgstr "Įveskite teisingą laiką."
+msgstr "Įveskite slaptažodį."
 
-#: login.php:86
-#, fuzzy
+#: login.php:199
 msgid "Please enter a username."
-msgstr "Įveskite teisingą laiką."
+msgstr "Įveskite vartotojo vardą."
 
 #: templates/problem/problem.inc:7
 msgid "Please provide a summary of the problem."
@@ -2514,40 +2487,37 @@ msgstr ""
 "Prašome perskaityti šį tekstą. Jūs PRIVALOTE sutikti su sąlygomis, jei "
 "norite naudotis sistema."
 
-#: services/facebook.php:67
-#, fuzzy
+#: services/facebook/index.php:75
 msgid "Pokes:"
-msgstr "Gyvūnai"
+msgstr "Paraginimai:"
 
-#: admin/activesync.php:105
-#, fuzzy
+#: admin/activesync.php:101
 msgid "Policy Key"
-msgstr "Viešasis raktas"
+msgstr "Politikos raktas"
 
-#: lib/Prefs/Ui.php:432
-#, fuzzy
+#: lib/Prefs/Ui.php:404
 msgid "Policy Key:"
-msgstr "Viešasis raktas"
+msgstr "Politikos raktas:"
 
-#: lib/Block/fortune.php:64
+#: lib/Block/Fortune.php:64
 msgid "Politics"
 msgstr "Politikai"
 
-#: services/facebook.php:101
-#, fuzzy, php-format
+#: services/facebook/index.php:109
+#, php-format
 msgid "Posted %s"
-msgstr "Įrašyti"
+msgstr "Parašyta %s"
 
 #: templates/block/twitter_tweet.html.php:26
-#, fuzzy, php-format
+#, php-format
 msgid "Posted %s via %s"
-msgstr "%d %s ir %s"
+msgstr "Parašyta %s per %s"
 
 #: themes/postnuke/info.php:2
 msgid "Postnuke"
 msgstr "Postnuke"
 
-#: lib/Block/metar.php:261 lib/Block/metar.php:266
+#: lib/Block/Metar.php:239 lib/Block/Metar.php:244
 #, php-format
 msgid "Precipitation for last %d hour: "
 msgid_plural "Precipitation for last %d hours: "
@@ -2555,19 +2525,19 @@ msgstr[0] "Krituliai pask. %d valandą: "
 msgstr[1] "Krituliai pask. %d valandas: "
 msgstr[2] "Krituliai pask. %d valandų: "
 
-#: lib/Block/weatherdotcom.php:301
+#: lib/Block/Weatherdotcom.php:281
 msgid "Precipitation<br />chance"
 msgstr "Kritulių<br />galimybė"
 
-#: lib/Block/metar.php:220
+#: lib/Block/Metar.php:198
 msgid "Pressure"
 msgstr "Slėgis"
 
-#: lib/Block/metar.php:254
+#: lib/Block/Metar.php:232
 msgid "Pressure at sea level: "
 msgstr "Slėgis jūros lygyje: "
 
-#: lib/Block/weatherdotcom.php:239
+#: lib/Block/Weatherdotcom.php:219
 msgid "Pressure: "
 msgstr "Slėgis: "
 
@@ -2575,52 +2545,51 @@ msgstr "Slėgis: "
 msgid "Problem Description"
 msgstr "Problemos aprašymas"
 
-#: admin/activesync.php:171 lib/Prefs/Ui.php:425
-#, fuzzy
+#: admin/activesync.php:167 lib/Prefs/Ui.php:397
 msgid "Provisioned"
-msgstr "Teisės"
+msgstr "Stebimas"
 
-#: templates/prefs/facebook.html:21
+#: templates/prefs/facebook.html:20
 msgid "Publish enabled."
-msgstr ""
+msgstr "Publikavimas įjungtas."
 
 #: themes/purple/info.php:2
 msgid "Purple Horde"
 msgstr "Horde purpurinis"
 
-#: admin/sqlshell.php:50
+#: admin/sqlshell.php:54
 msgid "Query"
 msgstr "Užklausa"
 
-#: lib/Block/account.php:83
+#: lib/Block/Account.php:79
 msgid "Quota"
 msgstr "Kvota"
 
-#: lib/Block/weatherdotcom_strings.php:66
+#: lib/Block/WeatherdotcomStrings.php:66
 msgid "Rain"
 msgstr "Lietus"
 
-#: lib/Block/weatherdotcom_strings.php:67
+#: lib/Block/WeatherdotcomStrings.php:67
 msgid "Rain Early"
 msgstr "Lietus ryte"
 
-#: lib/Block/weatherdotcom_strings.php:68
+#: lib/Block/WeatherdotcomStrings.php:68
 msgid "Rain Late"
 msgstr "Lietus vakare"
 
-#: lib/Block/weatherdotcom_strings.php:69
+#: lib/Block/WeatherdotcomStrings.php:69
 msgid "Rain Shower"
 msgstr "Liūtis"
 
-#: lib/Block/weatherdotcom_strings.php:70
+#: lib/Block/WeatherdotcomStrings.php:70
 msgid "Rain and Snow"
 msgstr "Lietus ir sniegas"
 
-#: lib/Block/weatherdotcom_strings.php:71
+#: lib/Block/WeatherdotcomStrings.php:71
 msgid "Rain to Snow"
 msgstr "Lietus pereinantis į sniegą"
 
-#: lib/Block/fortune.php:6
+#: lib/Block/Fortune.php:18
 msgid "Random Fortune"
 msgstr "Atsitiktinė frazė"
 
@@ -2634,10 +2603,9 @@ msgstr "Atsitiktinė frazė"
 msgid "Read"
 msgstr "Skaityti"
 
-#: templates/prefs/facebook.html:33
-#, fuzzy
+#: templates/prefs/facebook.html:32
 msgid "Read enabled"
-msgstr "Skaityti laiškus"
+msgstr "Skaitymas įjungtas"
 
 #: templates/admin/user/remove.inc:8
 #, php-format
@@ -2651,11 +2619,11 @@ msgid ""
 msgstr ""
 "Tikrai ištrinti vartotojo \"%s\" duomenis? Gražinti atgal nebegalėsite."
 
-#: config/prefs.php.dist:562
+#: config/prefs.php:579
 msgid "Refresh Dynamic Menu Elements:"
 msgstr "Atnaujinti kairiojo meniu elementus:"
 
-#: config/prefs.php.dist:523
+#: config/prefs.php:543
 msgid "Refresh Portal View:"
 msgstr "Atnaujinti portalo vaizdą:"
 
@@ -2663,37 +2631,37 @@ msgstr "Atnaujinti portalo vaizdą:"
 msgid "Refresh rate:"
 msgstr "Atnaujinimo dažnumas:"
 
-#: admin/activesync.php:134
+#: admin/activesync.php:130
 msgid "Registered User Devices"
-msgstr ""
+msgstr "Užregistruoti vartotojų įrenginiai"
 
-#: lib/Block/metar.php:321
+#: lib/Block/Metar.php:299
 msgid "Remarks"
 msgstr "Pastabos"
 
-#: admin/sessions.php:39 admin/sessions.php:50
+#: admin/sessions.php:38 admin/sessions.php:54
 msgid "Remote Host:"
 msgstr "IP adresas:"
 
-#: config/prefs.php.dist:583
+#: config/prefs.php:601
 msgid "Remote Servers"
 msgstr "Nutolę serveriai"
 
-#: lib/Prefs/Ui.php:324
+#: lib/Prefs/Ui.php:300
 msgid "Remote URL (http://www.example.com/horde):"
 msgstr "Nutolęs URL (http://www.pavyzdys.com/horde):"
 
-#: admin/activesync.php:185 templates/admin/groups/edit.inc:23
+#: admin/activesync.php:181 templates/admin/groups/edit.inc:26
 #: templates/admin/user/approve.inc:40
 #: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
 msgid "Remove"
 msgstr "Ištrinti"
 
-#: templates/data/csvmap.inc:118
+#: templates/data/csvmap.inc:119
 msgid "Remove pair"
 msgstr "Ištrinti porą"
 
-#: admin/config/index.php:211
+#: admin/config/index.php:333
 msgid "Remove saved script from server's temporary directory."
 msgstr "Ištrinti atnaujinimo skriptą iš serverio laikinojo katalogo."
 
@@ -2707,16 +2675,14 @@ msgid "Remove user: %s"
 msgstr "Vartotojo trynimas: %s"
 
 #: templates/block/twitter_tweet.html.php:34
-#, fuzzy
 msgid "Reply"
-msgstr "Nepalas"
+msgstr "Atsakyti"
 
-#: admin/activesync.php:138
-#, fuzzy
+#: admin/activesync.php:134
 msgid "Reprovision All Devices"
-msgstr "Neužtenka teisių"
+msgstr "Pertvarkyti visus įrenginius"
 
-#: lib/Block/weatherdotcom.php:160
+#: lib/Block/Weatherdotcom.php:140
 msgid "Requested service could not be found."
 msgstr "Nepavyko rasti reikalingo serviso."
 
@@ -2729,21 +2695,23 @@ msgstr "Iš naujo"
 msgid "Reset Password"
 msgstr "Pakeisti slaptažodį"
 
-#: services/resetpassword.php:23
-msgid "Reset Your Password"
-msgstr "Slaptažodžio keitimas"
-
 #: templates/prefs/activesync.html:6
 msgid ""
 "Reset all device state. This will cause your devices to resyncronize all "
 "items."
 msgstr ""
+"Ištrinti visas įrenginio būsenas. Tai sinchronizuos visus jūsų įrenginio "
+"duomenis iš naujo."
 
-#: admin/sqlshell.php:111
+#: services/resetpassword.php:23
+msgid "Reset your password"
+msgstr "Slaptažodžio keitimas"
+
+#: admin/sqlshell.php:119
 msgid "Restore Last Query"
 msgstr "Atnaujinti paskutinę užklausą"
 
-#: admin/cmdshell.php:23 admin/phpshell.php:74 admin/sqlshell.php:53
+#: admin/cmdshell.php:23 admin/phpshell.php:74 admin/sqlshell.php:57
 msgid "Results"
 msgstr "Rezultatai"
 
@@ -2753,43 +2721,37 @@ msgid "Results for %s"
 msgstr "%s rezultatai"
 
 #: templates/prefs/end.html:7
-#, fuzzy
 msgid "Return to Main Screen"
 msgstr "Grįžti į nustatymus"
 
 #: templates/block/twitter_tweet.html.php:35
-#, fuzzy
 msgid "Retweet"
-msgstr "Iš naujo"
+msgstr "Įrašyti dar kartą"
 
 #: templates/block/twitter_tweet.html.php:30
 #, php-format
 msgid "Retweeted by %s"
-msgstr ""
+msgstr "Parašė %s"
 
 #: services/changepassword.php:30
 msgid "Retype new password"
 msgstr "Pakartokite naują slaptažodį"
 
-#: admin/config/config.php:33 admin/config/config.php:37
+#: admin/config/config.php:33 admin/config/config.php:42
 msgid "Revert Configuration"
 msgstr "Atstatyti konfigūraciją"
 
-#: lib/Block/fortune.php:65
+#: lib/Block/Fortune.php:65
 msgid "Riddles"
 msgstr "Mįslės"
 
-#: admin/sqlshell.php:101
+#: admin/sqlshell.php:106
 msgid "Run"
 msgstr "Vykdyti"
 
-#: admin/sqlshell.php:14
+#: admin/sqlshell.php:38
 msgid "SQL Shell"
 msgstr "SQL CLI"
-
-#: config/registry.php.dist:363
-msgid "SSH"
-msgstr "SSH"
 
 #: lib/Api.php:67
 msgid "S_QL Shell"
@@ -2799,7 +2761,7 @@ msgstr "S_QL CLI"
 msgid "Save"
 msgstr "Išsaugoti"
 
-#: templates/admin/groups/edit.inc:63 templates/shares/edit.inc:330
+#: templates/admin/groups/edit.inc:70 templates/shares/edit.inc:330
 #, php-format
 msgid "Save \"%s\""
 msgstr "Išsaugoti \"%s\""
@@ -2808,7 +2770,7 @@ msgstr "Išsaugoti \"%s\""
 msgid "Save and Finish"
 msgstr "Išsaugoti ir baigti"
 
-#: admin/config/index.php:183
+#: admin/config/index.php:305
 msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
@@ -2816,20 +2778,20 @@ msgstr ""
 "Išsaugoti sugeneruotus nustatymus kaip PHP skriptą jūsų serverio laikinajame "
 "kataloge."
 
-#: admin/config/scripts.php:92
-#, fuzzy, php-format
+#: admin/config/scripts.php:94
+#, php-format
 msgid "Saved configuration upgrade script to: \"%s\"."
-msgstr "Atnaujinimo skriptas išsaugotas į: \"%s\"."
+msgstr "Nustatymų atnaujinimo skriptas išsaugotas į: \"%s\"."
 
-#: lib/Block/weatherdotcom_strings.php:72
+#: lib/Block/WeatherdotcomStrings.php:72
 msgid "Scattered Showers"
 msgstr "Trumpalaikės liūtys"
 
-#: lib/Block/weatherdotcom_strings.php:73
+#: lib/Block/WeatherdotcomStrings.php:73
 msgid "Scattered T-Storms"
 msgstr "Trumpalaikės audros"
 
-#: lib/Block/fortune.php:66
+#: lib/Block/Fortune.php:66
 msgid "Science"
 msgstr "Mokslas"
 
@@ -2837,7 +2799,7 @@ msgstr "Mokslas"
 msgid "Sea_rch"
 msgstr "Ieškoti"
 
-#: services/help/index.php:134 templates/admin/user/list.inc:16
+#: services/help/index.php:130 templates/admin/user/list.inc:16
 msgid "Search"
 msgstr "Ieškoti"
 
@@ -2863,7 +2825,7 @@ msgstr "Pasirinkite vartotoją:"
 
 #: templates/prefs/addressbooks.html:5
 msgid "Select all fields to search when expanding addresses."
-msgstr ""
+msgstr "Pasirinkite laukelius, kuriuos naudosite adresų išskleidimui."
 
 #: services/keyboard.php:38
 msgid ""
@@ -2897,11 +2859,11 @@ msgstr "Pasirinkite laiko skirtuką:"
 msgid "Select the time format:"
 msgstr "Pasirinkite laiko formatą:"
 
-#: config/prefs.php.dist:509
+#: config/prefs.php:529
 msgid "Select your color scheme."
 msgstr "Pasirinkite spalvų derinį."
 
-#: config/prefs.php.dist:328
+#: config/prefs.php:346
 msgid "Select your preferred language:"
 msgstr "Pasirinkite norimą kalbą:"
 
@@ -2909,16 +2871,15 @@ msgstr "Pasirinkite norimą kalbą:"
 msgid "Send Problem Report"
 msgstr "Siųsti problemos pranešimą"
 
-#: lib/Block/metar.php:311
+#: lib/Block/Metar.php:289
 msgid "Sensor: "
 msgstr "Sensorius: "
 
 #: templates/prefs/syncml.html:12
-#, fuzzy
 msgid "Server Time"
-msgstr "Pristatymo laikas"
+msgstr "Serverio laikas"
 
-#: lib/Block/weatherdotcom.php:164
+#: lib/Block/Weatherdotcom.php:144
 msgid "Server data wrong or not available."
 msgstr "Neteisingi arba neegzistuoja serverio duomenys."
 
@@ -2926,7 +2887,7 @@ msgstr "Neteisingi arba neegzistuoja serverio duomenys."
 msgid "Session Admin"
 msgstr "Sesijų valdymas"
 
-#: admin/sessions.php:37
+#: admin/sessions.php:36
 msgid "Session Timestamp:"
 msgstr "Sesijos laikas:"
 
@@ -2934,41 +2895,38 @@ msgstr "Sesijos laikas:"
 msgid "Sessions"
 msgstr "_Sesijos"
 
-#: config/prefs.php.dist:277
-#, fuzzy
+#: config/prefs.php:298
 msgid ""
 "Set preferences to allow you to reset your password if you ever forget it."
 msgstr ""
-"Nustatymai leidžiantys Jums pasikeisti slaptažodį, jeigu jį kada nors "
+"Nustatymai leidžiantys jums pasikeisti slaptažodį, jeigu jį kada nors "
 "pamiršite."
 
-#: config/prefs.php.dist:605
+#: config/prefs.php:623
 msgid "Set up integration with your Facebook account."
-msgstr ""
+msgstr "Facebook integracijos nustatymai."
 
-#: config/prefs.php.dist:626
+#: config/prefs.php:643
 msgid "Set up integration with your Twitter account."
-msgstr ""
+msgstr "Twitter integracijos nustatymai."
 
-#: config/prefs.php.dist:584
+#: config/prefs.php:602
 msgid "Set up remote servers that you want to access from your portal."
 msgstr "Nutolusių serverių, kuriuos norite matyti iš portalo, nustatymai."
 
-#: config/prefs.php.dist:314
-#, fuzzy
+#: config/prefs.php:332
 msgid "Set your preferred language, timezone and date preferences."
 msgstr "Kalbos, laiko zonos ir datos nustatymai."
 
-#: config/prefs.php.dist:469
-#, fuzzy
+#: config/prefs.php:491
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display preferences."
 msgstr ""
-"Puslapio spalvų, atsinaujinimo dažnumo ir kitų vaizdavimo parametrų "
-"nustatymai."
+"Pagrindinio modulio, puslapio spalvų, atsinaujinimo dažnumo ir kitų "
+"vaizdavimo parametrų nustatymai."
 
-#: lib/Block/weatherdotcom.php:190
+#: lib/Block/Weatherdotcom.php:170
 msgid "Several locations possible with the parameter: "
 msgstr "Su šiuo parametru galimos kelios vietovės: "
 
@@ -2976,7 +2934,7 @@ msgstr "Su šiuo parametru galimos kelios vietovės: "
 msgid "Short Summary"
 msgstr "Trumpas aprašymas"
 
-#: config/prefs.php.dist:570
+#: config/prefs.php:586
 msgid "Should access keys be defined for most links?"
 msgstr "Ar naudoti klaviatūros mygtukus valdymui?"
 
@@ -2990,49 +2948,47 @@ msgstr "Ar naudoti klaviatūros mygtukus valdymui?"
 msgid "Show"
 msgstr "Rodyti"
 
-#: templates/prefs/app.html:21
-#, fuzzy
+#: templates/prefs/app.html:22
 msgid "Show Advanced Preferences"
-msgstr "rodyti skirtumus"
+msgstr "Rodyti išplėstinius nustatymus"
 
-#: admin/config/index.php:173
+#: admin/config/index.php:295
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
 msgstr ""
 "Parodyti skirtumus tarp išsaugoto ir ką tik sugeneruoto konfigūracinio failo."
 
-#: lib/Block/feed.php:24
+#: lib/Block/Feed.php:41
 msgid "Show extra detail?"
-msgstr ""
+msgstr "Rodyti papildomas detales?"
 
-#: config/prefs.php.dist:491
+#: config/prefs.php:512
 msgid "Show last login time when logging in?"
 msgstr "Rodyti paskutinio prisijungimo laiką?"
 
-#: lib/Block/fb_stream.php:89
-#, fuzzy
+#: lib/Block/FbStream.php:65
 msgid "Show notifications"
-msgstr "Perspėjimas iššokančiame lange"
+msgstr "Rodyti perspėjimus"
 
-#: config/prefs.php.dist:530
+#: config/prefs.php:549
 #, php-format
 msgid "Show the %s Menu on the left?"
 msgstr "Rodyti %s meniu kairėje?"
 
-#: lib/Block/weatherdotcom_strings.php:74
+#: lib/Block/WeatherdotcomStrings.php:74
 msgid "Showers"
 msgstr "Liūtis"
 
-#: lib/Block/weatherdotcom_strings.php:75
+#: lib/Block/WeatherdotcomStrings.php:75
 msgid "Showers Early"
 msgstr "Liūtis ryte"
 
-#: lib/Block/weatherdotcom_strings.php:76
+#: lib/Block/WeatherdotcomStrings.php:76
 msgid "Showers Late"
 msgstr "Liūtis vakare"
 
-#: lib/Block/weatherdotcom_strings.php:77
+#: lib/Block/WeatherdotcomStrings.php:77
 msgid "Showers in the Vicinity"
 msgstr "Liūtis kaimynystinėse apylinkėse"
 
@@ -3040,97 +2996,94 @@ msgstr "Liūtis kaimynystinėse apylinkėse"
 msgid "Simplex"
 msgstr "Simplex"
 
-#: templates/logintasks/logintasks.html:31
-#, fuzzy
+#: templates/logintasks/logintasks.html:21
 msgid "Skip Login Tasks"
-msgstr "Prisijungimo darbai"
+msgstr "Praleisti prisijungimo darbus"
 
-#: lib/Block/iframe.php:26
+#: lib/Block/Iframe.php:35
 msgid "Small"
 msgstr "Mažas"
 
-#: lib/Block/weatherdotcom_strings.php:78
+#: lib/Block/WeatherdotcomStrings.php:78
 msgid "Snow"
 msgstr "Sniegas"
 
-#: lib/Block/weatherdotcom_strings.php:79
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:79
 msgid "Snow Early"
-msgstr "Liūtis ryte"
+msgstr "Sniegas ryte"
 
-#: lib/Block/weatherdotcom_strings.php:80
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:80
 msgid "Snow Late"
-msgstr "Liūtis vakare"
+msgstr "Sniegas vakare"
 
-#: lib/Block/weatherdotcom_strings.php:81
+#: lib/Block/WeatherdotcomStrings.php:81
 msgid "Snow Shower"
 msgstr "Pūga"
 
-#: lib/Block/weatherdotcom_strings.php:82
+#: lib/Block/WeatherdotcomStrings.php:82
 msgid "Snow Showers"
 msgstr "Pūgos"
 
-#: lib/Block/weatherdotcom_strings.php:83
+#: lib/Block/WeatherdotcomStrings.php:83
 msgid "Snow Showers Early"
 msgstr "Pūgos ryte"
 
-#: lib/Block/weatherdotcom_strings.php:84
+#: lib/Block/WeatherdotcomStrings.php:84
 msgid "Snow Showers Late"
 msgstr "Pūgos vakare"
 
-#: lib/Block/metar.php:273
+#: lib/Block/Metar.php:251
 msgid "Snow depth: "
 msgstr "Sniego gylis: "
 
-#: lib/Block/metar.php:277
+#: lib/Block/Metar.php:255
 msgid "Snow equivalent in water: "
 msgstr "Sniego kiekis vandeniu: "
 
-#: lib/Block/fortune.php:67
+#: lib/Block/Fortune.php:67
 msgid "Songs & Poems"
 msgstr "Dainos ir Eilėraščiai"
 
-#: config/nls.php:182
+#: config/nls.php:183
 msgid "South European (ISO-8859-3)"
 msgstr "Pietų Europos (ISO-8859-3)"
 
-#: lib/Block/moon.php:31 lib/Block/moon.php:60
+#: lib/Block/Moon.php:32 lib/Block/Moon.php:63
 msgid "Southern Hemisphere"
 msgstr "Pietinė hemisfera"
-
-#: config/registry.php.dist:102
-msgid "Spam"
-msgstr "Spamas"
 
 #: services/keyboard.php:14
 msgid "Special Character Input"
 msgstr "Specifinių simbolių įterpimas"
 
-#: lib/Block/fortune.php:68
+#: lib/Block/Fortune.php:68
 msgid "Sports"
 msgstr "Sportas"
 
-#: lib/Block/metar.php:73 lib/Block/weatherdotcom.php:68
+#: lib/Block/Metar.php:60 lib/Block/Weatherdotcom.php:61
 msgid "Standard"
 msgstr "Standartas"
 
-#: lib/Block/fortune.php:69
+#: lib/Block/Fortune.php:69
 msgid "Star Trek"
 msgstr "Star Trek'as"
 
 #: templates/prefs/activesync.html:2
 msgid "State Management"
-msgstr ""
+msgstr "Būsenos valdymas"
 
-#: admin/activesync.php:112 templates/admin/config/index.html:17
+#: admin/activesync.php:108 templates/admin/config/index.html:39
 #: templates/prefs/activesync.html:22
 msgid "Status"
 msgstr "Būsena"
 
-#: services/facebook.php:144
+#: services/facebook/index.php:147
 msgid "Status unable to be set."
-msgstr ""
+msgstr "Nepavyko nustatyti būsenos."
+
+#: templates/block/twitter-layout.html.php:24
+msgid "Stream"
+msgstr "Srautas"
 
 #: util/icon_browser.php:40
 #, php-format
@@ -3146,11 +3099,11 @@ msgstr ""
 "Vartotojas \"%s\" sukurtas sistemoje. Kol jis nepatvirtintas, prisijungti "
 "negalėsite."
 
-#: services/facebook.php:38
-msgid "Succesfully connected your Facebook account."
-msgstr ""
+#: services/facebook/index.php:35
+msgid "Succesfully connected your Facebook account or updated permissions."
+msgstr "Sėkmingai prisijungta prie Facebook sąskaitos arba pakeistos teisės."
 
-#: admin/sqlshell.php:88
+#: admin/sqlshell.php:92
 msgid "Success"
 msgstr "Sėkminga"
 
@@ -3164,7 +3117,7 @@ msgstr "\"%s\" sėkmingai sukurtas sistemoje."
 msgid "Successfully cleared data for user \"%s\" from the system."
 msgstr "Vartotojo \"%s\" duomenys sėkmingai ištrinti iš sistemos."
 
-#: admin/groups.php:78 admin/perms/delete.php:36
+#: admin/groups.php:60 admin/perms/delete.php:37
 #, php-format
 msgid "Successfully deleted \"%s\"."
 msgstr "\"%s\" sėkmingai ištrinta."
@@ -3174,7 +3127,7 @@ msgstr "\"%s\" sėkmingai ištrinta."
 msgid "Successfully removed \"%s\" from the system."
 msgstr "\"%s\" sėkmingai ištrintas iš sistemos."
 
-#: admin/config/config.php:40
+#: admin/config/config.php:44
 msgid "Successfully reverted configuration. Reload to see changes."
 msgstr ""
 "Konfigūracija atstatyta sėkmingai. Perkraukite puslapį, kad pamatytumėte "
@@ -3184,7 +3137,7 @@ msgstr ""
 msgid "Successfully saved backup configuration."
 msgstr "Atsarginė konfigūracijos kopija sėkmingai išsaugota."
 
-#: admin/config/config.php:51
+#: admin/config/config.php:55
 #, php-format
 msgid "Successfully saved the backup configuration file %s."
 msgstr "Atsarginė konfigūracijos kopija sėkmingai išsaugota į failą %s."
@@ -3194,92 +3147,89 @@ msgstr "Atsarginė konfigūracijos kopija sėkmingai išsaugota į failą %s."
 msgid "Successfully updated \"%s\""
 msgstr "\"%s\" sėkmingai atnaujintas."
 
-#: admin/config/config.php:60 admin/config/index.php:47
+#: admin/config/config.php:64 admin/config/index.php:47
+#: admin/config/index.php:93
 #, php-format
 msgid "Successfully wrote %s"
 msgstr "%s sėkmingai užrašytas."
 
-#: lib/Block/sunrise.php:63
+#: lib/Block/Sunrise.php:70
 msgid "Sun Rise"
 msgstr "Saulėtekis"
 
-#: lib/Block/sunrise.php:66
+#: lib/Block/Sunrise.php:73
 msgid "Sun Set"
 msgstr "Saulėlygis"
 
-#: config/prefs.php.dist:429
+#: config/prefs.php:452
 msgid "Sunday"
 msgstr "Sekmadienis"
 
-#: lib/Block/weatherdotcom_strings.php:85
+#: lib/Block/WeatherdotcomStrings.php:85
 msgid "Sunny"
 msgstr "Saulėta"
 
-#: lib/Block/weatherdotcom.php:220
+#: lib/Block/Weatherdotcom.php:200
 msgid "Sunrise"
 msgstr "Saulėtekis"
 
-#: lib/Block/sunrise.php:3 lib/Block/sunrise.php:14
+#: lib/Block/Sunrise.php:13
 msgid "Sunrise/Sunset"
 msgstr "Saulėtekis/Saulėlydis"
 
-#: lib/Block/weatherdotcom.php:219
+#: lib/Block/Weatherdotcom.php:199
 msgid "Sunrise: "
 msgstr "Saulėtekis: "
 
-#: lib/Block/weatherdotcom.php:223
+#: lib/Block/Weatherdotcom.php:203
 msgid "Sunset"
 msgstr "Saulėlygis"
 
-#: lib/Block/weatherdotcom.php:222
+#: lib/Block/Weatherdotcom.php:202
 msgid "Sunset: "
 msgstr "Saulėlygis: "
 
-#: config/prefs.php.dist:664
+#: config/prefs.php:683
 msgid "SyncML"
 msgstr "SyncML"
 
-#: lib/Block/feed.php:3
+#: lib/Block/Feed.php:18
 msgid "Syndicated Feed"
-msgstr ""
+msgstr "Susietas srautas"
 
-#: lib/Block/weatherdotcom_strings.php:86
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:86
 msgid "T-Showers"
 msgstr "Liūtis"
 
-#: lib/Block/weatherdotcom_strings.php:87
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:87
 msgid "T-Showers Early"
 msgstr "Liūtis ryte"
 
-#: lib/Block/weatherdotcom_strings.php:88
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:88
 msgid "T-Showers Late"
 msgstr "Liūtis vakare"
 
-#: lib/Block/weatherdotcom_strings.php:89
+#: lib/Block/WeatherdotcomStrings.php:89
 msgid "T-Storm"
 msgstr "Audra"
 
-#: lib/Block/weatherdotcom_strings.php:90
+#: lib/Block/WeatherdotcomStrings.php:90
 msgid "T-Storm and Windy"
 msgstr "Audra ir vėjuota"
 
-#: lib/Block/weatherdotcom_strings.php:91
+#: lib/Block/WeatherdotcomStrings.php:91
 msgid "T-Storms"
 msgstr "Audros"
 
-#: lib/Block/weatherdotcom_strings.php:92
+#: lib/Block/WeatherdotcomStrings.php:92
 msgid "T-Storms Early"
 msgstr "Audros ryte"
 
-#: lib/Block/weatherdotcom_strings.php:93
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:93
 msgid "T-Storms Late"
-msgstr "Audros"
+msgstr "Audros vakare"
 
-#: lib/Block/cloud.php:3 lib/Block/cloud.php:23
+#: lib/Block/Cloud.php:14
 msgid "Tag Cloud"
 msgstr "Raktiniai žodžiai"
 
@@ -3287,7 +3237,7 @@ msgstr "Raktiniai žodžiai"
 msgid "Tango Blue"
 msgstr "Mėlynas Tango"
 
-#: config/registry.php.dist:184
+#: config/registry.php:160
 msgid "Tasks"
 msgstr "Darbai"
 
@@ -3295,48 +3245,47 @@ msgstr "Darbai"
 msgid "Teal"
 msgstr "Žalsvas"
 
-#: lib/Block/metar.php:285
+#: lib/Block/Metar.php:263
 msgid "Temp for last hour: "
 msgstr "Temp. pask. valandą: "
 
-#: lib/Block/metar.php:209
+#: lib/Block/Metar.php:187
 msgid "Temperature"
 msgstr "Temperatūra"
 
-#: lib/Block/weatherdotcom.php:227
+#: lib/Block/Weatherdotcom.php:207
 msgid "Temperature: "
 msgstr "Temperatūra: "
 
-#: lib/Block/weatherdotcom.php:296
+#: lib/Block/Weatherdotcom.php:276
 #, php-format
 msgid "Temperature<br />(%sHi%s/%sLo%s) &deg;%s"
 msgstr "Temperatūra<br />(%sHi%s/%sLo%s) &deg;%s"
 
-#: lib/Prefs/Ui.php:518 services/facebook.php:31
+#: lib/Prefs/Ui.php:478 services/facebook/index.php:40
 msgid "Temporarily unable to connect with Facebook, Please try again."
-msgstr ""
+msgstr "Laikinai nepavyko prisijungti prie Facebook, pabandykite vėliau."
 
-#: lib/Block/twitter_timeline.php:122
-#, fuzzy
+#: lib/Block/TwitterTimeline.php:104
 msgid "Temporarily unable to contact Twitter. Please try again later."
-msgstr "Klaida atnaujinant kontaktinius duomenis. Pabandykite vėliau."
+msgstr "Laikinai nepavyko prisijungti prie Twitter. Pabandykite vėliau."
 
 #: services/keyboard.php:148
 msgid "Text Area"
 msgstr "Teksto laukas"
 
-#: config/prefs.php.dist:544
+#: config/prefs.php:562
 msgid "Text Only"
 msgstr "Tik tekstas"
 
-#: config/nls.php:183
+#: config/nls.php:184
 msgid "Thai (TIS-620)"
 msgstr "Tailandietiška (TIS-620)"
 
-#: lib/Prefs/Ui.php:747
-#, fuzzy, php-format
+#: lib/Prefs/Ui.php:716
+#, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
-msgstr "Serveris \"%s\" ištrintas."
+msgstr "Nuotolinis išvalymas įrenginiui, kurio id %s, atšauktas."
 
 #: admin/alarms.php:81
 msgid "The alarm has been deleted."
@@ -3346,11 +3295,20 @@ msgstr "Perspėjimas ištrintas."
 msgid "The alarm has been saved."
 msgstr "Perspėjimas išsaugotas."
 
-#: config/prefs.php.dist:246
-msgid "The default e-mail address to use with this identity:"
+#: admin/config/index.php:98
+#, php-format
+msgid ""
+"The configuration for %s cannot be updated automatically. Please update the "
+"configuration manually."
 msgstr ""
+"%s nustatymai negali būti atnaujinti automatiškai. Atnaujinkite nustatymus "
+"rankiniu būdu."
 
-#: lib/Block/vatid.php:76
+#: config/prefs.php:263
+msgid "The default e-mail address to use with this identity:"
+msgstr "Pagrindinis el. pašto adresas susietas su šiuo aprašu:"
+
+#: lib/Block/Vatid.php:87
 msgid ""
 "The member state service could not be reached in time. Try again later or "
 "with a different member state."
@@ -3358,7 +3316,7 @@ msgstr ""
 "Nepavyko laiku pasiekti šalies serviso. Pabandykite vėliau arba pasirinkite "
 "kitą šalį."
 
-#: lib/Block/vatid.php:73
+#: lib/Block/Vatid.php:83
 msgid ""
 "The member state service is currently not available. Try again later or with "
 "a different member state."
@@ -3366,25 +3324,25 @@ msgstr ""
 "Šalies servisas šiuo metu neprieinamas. Pabandykite vėliau arba pasirinkite "
 "kitą šalį."
 
-#: lib/Block/vatid.php:67
+#: lib/Block/Vatid.php:75
 msgid "The provided country code is invalid."
 msgstr "Nurodytas šalies kodas yra neteisingas."
 
-#: lib/Prefs/Ui.php:681
+#: lib/Prefs/Ui.php:650
 #, php-format
 msgid "The server \"%s\" has been deleted."
 msgstr "Serveris \"%s\" ištrintas."
 
-#: lib/Prefs/Ui.php:676
+#: lib/Prefs/Ui.php:645
 #, php-format
 msgid "The server \"%s\" has been saved."
 msgstr "Serveris \"%s\" išsaugotas."
 
-#: lib/Block/vatid.php:70
+#: lib/Block/Vatid.php:79
 msgid "The service is currently not available. Try again later."
 msgstr "Servisas šiuo metu neprieinamas. Pabandykite vėliau."
 
-#: lib/Block/vatid.php:79
+#: lib/Block/Vatid.php:91
 msgid "The service is currently too busy. Try again later."
 msgstr "Servisas šiuo metu užimtas. Pabandykite vėliau."
 
@@ -3394,34 +3352,27 @@ msgid "The signup request for \"%s\" has been removed."
 msgstr "\"%s\" registracijos prašymas ištrintas."
 
 #: admin/signup_confirm.php:39
-#, fuzzy, php-format
+#, php-format
 msgid "The signup request for user \"%s\" has been removed."
-msgstr "\"%s\" registracijos prašymas ištrintas."
+msgstr "Vartotojo \"%s\" registracijos prašymas ištrintas."
 
-#: lib/LoginTasks/Task/TestScriptActive.php:38
+#: lib/LoginTasks/Task/AdminCheck.php:60
 msgid ""
 "The test script is currently enabled. For security reasons, disable test "
 "scripts when you are done testing (see horde/docs/INSTALL)."
 msgstr ""
+"Skriptas skirtas diegimo testavimui yra įjungtas. Kai tik baigsite testavimą "
+"saugumo sumetimais jį išjunkite (daugiau horde/docs/INSTALL)."
 
 #: admin/signup_confirm.php:60 admin/user.php:72
 #, php-format
 msgid "The user \"%s\" already exists."
-msgstr "Vartotojas \"%s\" jau egzistuoja"
+msgstr "Vartotojas \"%s\" jau egzistuoja."
 
 #: services/shares/edit.php:85 services/shares/edit.php:177
-#, fuzzy, php-format
+#, php-format
 msgid "The user \"%s\" does not exist."
-msgstr "\"%s\" neegzistuoja"
-
-#: lib/Block/weatherdotcom.php:51 lib/Block/weatherdotcom.php:106
-msgid "The weather.com block is not available."
-msgstr "Weather.com blokas neprieinamas."
-
-#: lib/Prefs/Ui.php:46
-#, fuzzy
-msgid "Theme directory can't be opened"
-msgstr "Nėra temų katalogo \"%s\"."
+msgstr "Vartotojas \"%s\" neegzistuoja."
 
 #: util/icon_browser.php:28
 #, php-format
@@ -3448,51 +3399,60 @@ msgstr "Ištrinti \"%s\" nepavyko: "
 msgid "There was a problem updating \"%s\": %s"
 msgstr "Atnaujinti \"%s\" nepavyko: %s"
 
-#: lib/Block/twitter_timeline.php:110 lib/Block/twitter_timeline.php:126
-#, fuzzy, php-format
+#: lib/Block/TwitterTimeline.php:92 lib/Block/TwitterTimeline.php:108
+#, php-format
 msgid "There was an error contacting Twitter: %s"
-msgstr "Klaida įkeliant iCalendar duomenis."
+msgstr "Klaida jungiantis prie Twitter: %s"
 
-#: admin/config/config.php:70
+#: admin/config/config.php:75
 msgid ""
 "There was an error in the configuration form. Perhaps you left out a "
 "required field."
 msgstr ""
 "Klaida konfigūracijos formoje. Greičiausiai neužpildėte reikiamų laukų."
 
-#: lib/Block/fb_stream.php:158 lib/Block/fb_stream.php:183
-#: services/facebook.php:54 services/facebook.php:71
-#, fuzzy, php-format
+#: lib/Block/FbStream.php:135 lib/Block/FbStream.php:161
+#: services/facebook/index.php:62 services/facebook/index.php:79
+#, php-format
 msgid "There was an error making the request: %s"
-msgstr "Klaida įkeliant kontaktinius duomenis."
+msgstr "Klaida siunčiant užklausą: %s"
 
-#: lib/Api.php:284
+#: services/facebook/index.php:37
+msgid ""
+"There was an error obtaining your Facebook session. Please try again later."
+msgstr "Klaida kuriant jūsų Facebook sesiją. Pabandykite vėliau."
+
+#: lib/Api.php:279
 #, php-format
 msgid ""
 "There was an error removing global data for %s. Details have been logged."
-msgstr ""
+msgstr "Klaida trinant %s duomenis. Detalesnė informacija išsaugota registre."
 
-#: lib/Block/vatid.php:89
+#: services/facebook/index.php:49
+msgid "There was an error with the requested permissions"
+msgstr "Klaida dėl nurodytų teisių"
+
+#: lib/Block/Vatid.php:102
 msgid "This VAT identification number is invalid."
 msgstr "Šis VAT identifikacijos numeris yra neteisingas."
 
-#: lib/Block/vatid.php:86
+#: lib/Block/Vatid.php:99
 msgid "This VAT identification number is valid."
 msgstr "Šis VAT identifikacijos numeris yra teisingas."
 
-#: lib/Block/weatherdotcom_strings.php:94
+#: lib/Block/WeatherdotcomStrings.php:94
 msgid "Thunder"
 msgstr "Perkūnija"
 
-#: config/registry.php.dist:260
+#: config/registry.php:224
 msgid "Tickets"
 msgstr "Bilietai"
 
-#: config/registry.php.dist:308
+#: config/registry.php:263
 msgid "Time Tracking"
 msgstr "Laiko apskaita"
 
-#: lib/Block/time.php:23
+#: lib/Block/Time.php:27
 msgid "Time format"
 msgstr "Laiko formatas"
 
@@ -3502,13 +3462,13 @@ msgstr "Laikas nežinomas"
 
 #: templates/prefs/syncml.html:2
 msgid "Timestamps of successful synchronization sessions"
-msgstr ""
+msgstr "Sėkmingų sinchronizavimo sesijų laikai"
 
-#: lib/Block/iframe.php:22
+#: lib/Block/Iframe.php:28
 msgid "Title"
 msgstr "Pareigos"
 
-#: templates/data/csvmap.inc:95
+#: templates/data/csvmap.inc:96
 msgid ""
 "To exclude a particular field form the import or to correct a wrong match "
 "select a field in the lists below and hit \"Remove pair\"."
@@ -3517,135 +3477,145 @@ msgstr ""
 "pasirinkite lauką iš sąrašo apačioje ir paspauskite \"Pašalinti porą\"."
 
 #: templates/prefs/addressbooks.html:10
-#, fuzzy
 msgid ""
 "To select multiple fields, hold down the Control (PC) or Command (Mac) while "
 "clicking."
 msgstr ""
-"Norėdami pasirinkti keletą elementų, laikykite Control (PC) arba Commnad "
+"Norėdami pasirinkti keletą elementų, laikykite Control (PC) arba Command "
 "(Mac) klavišą, ir pasirinkite pele."
 
-#: lib/Block/weatherdotcom.php:313
+#: lib/Block/Weatherdotcom.php:293
 msgid "Today"
 msgstr "Šiandien"
 
-#: lib/Block/weatherdotcom.php:315
+#: lib/Block/Weatherdotcom.php:295
 msgid "Tomorrow"
 msgstr "Rytoj"
 
-#: lib/Block/fortune.php:70
+#: login.php:223
+msgid "Traditional"
+msgstr "Paprastas"
+
+#: lib/Block/Fortune.php:70
 msgid "Translations"
 msgstr "Vertimai"
 
-#: config/nls.php:184
+#: config/nls.php:185
 msgid "Turkish (ISO-8859-9)"
 msgstr "Turkiška (ISO-8859-9)"
 
-#: lib/Block/twitter_timeline.php:166
-#, fuzzy
+#: templates/block/twitter-layout.html.php:15
 msgid "Tweet"
-msgstr "Tekstas"
+msgstr "Įrašas"
 
-#: config/prefs.php.dist:625
-#, fuzzy
+#: config/prefs.php:642
 msgid "Twitter Integration"
-msgstr "Kita informacija"
+msgstr "Twitter integracija"
 
-#: lib/Block/twitter_timeline.php:23 lib/Block/twitter_timeline.php:64
-#: lib/Block/twitter_timeline.php:74 lib/Block/twitter_timeline.php:78
-#, php-format
+#: lib/Block/TwitterTimeline.php:41
 msgid "Twitter Timeline"
-msgstr ""
+msgstr "Twitter laiko juosta"
 
-#: lib/Block/twitter_timeline.php:70
+#: lib/Block/TwitterTimeline.php:57
 #, php-format
 msgid "Twitter Timeline for %s"
-msgstr ""
+msgstr "%s Twitter laiko juosta"
 
 #: services/keyboard.php:108
 msgid "U characters"
 msgstr "U simboliai"
 
-#: lib/Block/weatherdotcom.php:273
+#: lib/Block/Weatherdotcom.php:253
 msgid "U.V. index: "
 msgstr "U.V. indeksas: "
 
-#: lib/Block/iframe.php:19
+#: lib/Block/Iframe.php:23
 msgid "URL"
 msgstr "URL"
 
-#: services/twitter.php:64
+#: services/twitter/index.php:68
 #, php-format
 msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
-msgstr ""
+msgstr "Nepavyko prisijungti prie Twitter. Pabandykite vėliau. Klaida: %s"
 
-#: admin/groups.php:82 admin/perms/delete.php:39
+#: admin/groups.php:63 admin/perms/delete.php:40
 #, php-format
 msgid "Unable to delete \"%s\": %s."
 msgstr "Nepavyko ištrinti \"%s\": %s."
 
-#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:55
-#, fuzzy, php-format
-msgid "Unable to modify the sequence for %s: %s"
-msgstr "Nepavyko ištrinti \"%s\": %s."
-
-#: services/facebook.php:175
-#, fuzzy
+#: services/facebook/index.php:172
 msgid "Unable to set like."
-msgstr "Nepavyko paleisti smbclient."
+msgstr "Veiksmas nepavyko."
 
 #: templates/prefs/end.html:4
 msgid "Undo Changes"
 msgstr "Atšaukti pakeitimus"
 
-#: lib/Prefs/Ui.php:266
+#: lib/Prefs/Ui.php:242
 msgid "Unfiled"
 msgstr "Nenurodyta"
 
-#: config/nls.php:185
+#: config/nls.php:186
 msgid "Unicode (UTF-8)"
 msgstr "Unikodas (UTF-8)"
 
-#: lib/Block/metar.php:70 lib/Block/weatherdotcom.php:64
+#: lib/Block/Metar.php:57 lib/Block/Weatherdotcom.php:57
 msgid "Units"
 msgstr "Vienetai"
 
-#: lib/Block/weatherdotcom.php:162
+#: lib/Block/Weatherdotcom.php:142
 msgid "Unknown location provided."
 msgstr "Nurodyta nežinoma vietovė."
 
-#: lib/Block/fb_stream.php:179 templates/admin/user/list.inc:36
+#: lib/Block/FbStream.php:157 templates/admin/user/list.inc:36
 msgid "Update"
 msgstr "Atnaujinti"
 
 #: templates/admin/user/update.inc:6
 #, php-format
 msgid "Update %s"
-msgstr "Atnaujinti %s"
+msgstr "%s keitimas"
+
+#: admin/config/index.php:163 admin/config/index.php:258
+#, php-format
+msgid "Update %s schema"
+msgstr "Atnaujinti %s schemą"
+
+#: templates/admin/config/index.html:19
+msgid "Update all DB schemas"
+msgstr "Atnaujinti visas duomenų bazių schemas"
+
+#: templates/admin/config/index.html:11
+msgid "Update all configurations"
+msgstr "Atnaujinti visus nustatymus"
 
 #: templates/admin/user/update.inc:53
 msgid "Update user"
-msgstr "Atnaujinti vartotoją"
+msgstr "Keisti vartotoją"
 
-#: admin/groups.php:144 admin/perms/edit.php:104 services/shares/edit.php:249
+#: admin/groups.php:103 admin/perms/edit.php:105 services/shares/edit.php:249
 #, php-format
 msgid "Updated \"%s\"."
-msgstr "\"%s\" atnaujinta."
+msgstr "\"%s\" pakeista."
 
-#: admin/config/index.php:190
+#: admin/config/index.php:113
+#, php-format
+msgid "Updated schema for %s."
+msgstr "%s schema atnaujinta."
+
+#: admin/config/index.php:312
 msgid "Upload"
 msgstr "Nusiųsti"
 
-#: admin/config/index.php:198
-#, fuzzy
+#: admin/config/index.php:320
 msgid "Uploaded all application configuration files to the server."
-msgstr "Visi modulių atnaujinimo failai įkelti į serverį."
+msgstr "Visi modulių nustatymų failai įkelti į serverį."
 
-#: config/prefs.php.dist:645
+#: config/prefs.php:662
 msgid "Use if name/password is different for IMSP server."
 msgstr "Naudoti jeigu vartotojo vardas/slaptažodis IMSP serveriui yra kitoks."
 
-#: templates/admin/groups/edit.inc:22 templates/admin/groups/edit.inc:60
+#: templates/admin/groups/edit.inc:24 templates/admin/groups/edit.inc:67
 msgid "User"
 msgstr "Vartotojas"
 
@@ -3653,10 +3623,13 @@ msgstr "Vartotojas"
 msgid "User Administration"
 msgstr "Vartotojų administravimas"
 
-#: lib/Prefs/Ui.php:432
-#, fuzzy
+#: lib/Prefs/Ui.php:404
 msgid "User Agent:"
-msgstr "Naudoti dabartinę: %s"
+msgstr "Vartotojo naršyklė:"
+
+#: lib/Block/Account.php:68
+msgid "User Name"
+msgstr "Vartotojo vardas"
 
 #: signup.php:67
 msgid "User Registration"
@@ -3667,11 +3640,10 @@ msgid "User Registration has been disabled for this site."
 msgstr "Vartotojų registracija išjungta."
 
 #: admin/signup_confirm.php:25 signup.php:27
-#, fuzzy
 msgid "User Registration is not properly configured for this site."
-msgstr "Vartotojų registracija išjungta."
+msgstr "Vartotojų registracija šiame puslapyje sukonfigūruota neteisingai."
 
-#: lib/Block/account.php:561
+#: lib/Block/Account/Ldap.php:101
 msgid "User account not found"
 msgstr "Tokios vartotojo sąskaitos nėra"
 
@@ -3679,16 +3651,17 @@ msgstr "Tokios vartotojo sąskaitos nėra"
 msgid "User to add:"
 msgstr "Pasirinkite vartotoją:"
 
-#: admin/config/index.php:191 admin/user.php:32 admin/user.php:48 login.php:76
-#: services/resetpassword.php:29 templates/admin/user/approve.inc:22
+#: admin/config/index.php:313 admin/user.php:32 admin/user.php:48
+#: login.php:189 services/resetpassword.php:29
+#: templates/admin/user/approve.inc:22
 msgid "Username"
 msgstr "Vartotojo vardas"
 
-#: lib/Prefs/Ui.php:325
+#: lib/Prefs/Ui.php:301
 msgid "Username:"
 msgstr "Vartotojo vardas:"
 
-#: templates/admin/groups/edit.inc:53
+#: templates/admin/groups/edit.inc:60
 msgid "Users"
 msgstr "Vartotojai"
 
@@ -3696,63 +3669,63 @@ msgstr "Vartotojai"
 msgid "Users in the system:"
 msgstr "Vartotojai šioje sistemoje:"
 
-#: lib/Block/vatid.php:19
+#: lib/Block/Vatid.php:21
 msgid "VAT id number verification"
 msgstr "VAT id numerio patvirtinimas"
 
-#: lib/Block/vatid.php:42
+#: lib/Block/Vatid.php:39
 msgid "VAT identification number:"
 msgstr "VAT identifikacijos numeris:"
 
-#: lib/Block/vatid.php:93
+#: lib/Block/Vatid.php:107
 msgid "VAT number"
 msgstr "VAT numeris"
 
-#: config/registry.php.dist:122
-msgid "Vacation"
-msgstr "Atostogos"
-
-#: lib/Block/weatherdotcom.php:248
+#: lib/Block/Weatherdotcom.php:228
 msgid "Variable"
 msgstr "Kintantis"
 
-#: config/registry.php.dist:246
+#: templates/admin/config/index.html:46
+msgid "Version Check"
+msgstr "Versijos patikrinimas"
+
+#: config/registry.php:213
 msgid "Version Control"
 msgstr "Versijų kontrolė"
 
-#: lib/Block/weatherdotcom_strings.php:101
+#: lib/Block/WeatherdotcomStrings.php:101
 msgid "Very High"
 msgstr "Labai didelis"
 
-#: config/nls.php:186
+#: config/nls.php:187
 msgid "Vietnamese (VISCII)"
 msgstr "Vietnamietiška (VISCII)"
 
-#: lib/Block/iframe.php:3
+#: lib/Block/Iframe.php:13
 msgid "View an external web page"
 msgstr "Rodyti išorinį puslapį"
 
-#: lib/Block/metar.php:204
+#: lib/Block/Metar.php:182
 msgid "Visibility"
 msgstr "Matomumas"
 
-#: lib/Block/weatherdotcom.php:267
+#: lib/Block/Weatherdotcom.php:247
 msgid "Visibility: "
 msgstr "Matomumas: "
 
-#: lib/Block/account.php:98
+#: lib/Block/Account.php:96
 msgid "Warning"
 msgstr "Dėmesio"
 
-#: lib/Block/weatherdotcom.php:32
+#: lib/Block/Weatherdotcom.php:41
 msgid "Weather Forecast"
 msgstr "Orų prognozė"
 
-#: lib/Block/weatherdotcom.php:429
+#: lib/Block/Weatherdotcom.php:409
 msgid "Weather data provided by"
 msgstr "Orų prognozė pagal"
 
-#: config/registry.php.dist:369
+#: config/registry.php:309
 msgid "Web Site"
 msgstr "WWW puslapis"
 
@@ -3760,32 +3733,27 @@ msgstr "WWW puslapis"
 msgid "Welcome"
 msgstr "Sveiki"
 
-#: templates/login/login.inc:5 templates/login/mobile.inc:1
-#, php-format
-msgid "Welcome to %s"
-msgstr "Sveiki atvykę į %s"
-
-#: templates/portal/mobile.inc:1
+#: templates/portal/mobile.inc:5
 #, php-format
 msgid "Welcome, %s"
 msgstr "Labas, %s"
 
-#: config/nls.php:187
+#: config/nls.php:188
 msgid "Western (ISO-8859-1)"
 msgstr "Vakarų (ISO-8859-1)"
 
-#: config/nls.php:188
+#: config/nls.php:189
 msgid "Western (ISO-8859-15)"
 msgstr "Vakarų (ISO-8859-15)"
 
-#: config/prefs.php.dist:483
+#: config/prefs.php:505
 #, php-format
 msgid "What application should %s display after login?"
 msgstr "Kokį modulį %s turi rodyti po prisijungimo?"
 
-#: lib/Block/twitter_timeline.php:131
+#: lib/Block/TwitterTimeline.php:113
 msgid "What are you working on now?"
-msgstr ""
+msgstr "Ką šiuo metu dirbate?"
 
 #: templates/data/csvinfo.inc:14
 msgid "What is the delimiter character?"
@@ -3795,74 +3763,68 @@ msgstr "Koks skirtuko simbolis?"
 msgid "What is the quote character?"
 msgstr "Koks kabučių simbolis?"
 
-#: lib/Block/fb_stream.php:165
+#: lib/Block/FbStream.php:143
 msgid "What's on your mind?"
-msgstr ""
+msgstr "Apie ką galvojate?"
 
-#: config/prefs.php.dist:427
+#: config/prefs.php:455
 msgid "Which day would you like to be displayed as the first day of the week?"
 msgstr "Kuri diena yra pirmoji savaitės diena?"
 
-#: lib/Block/moon.php:21
+#: lib/Block/Moon.php:22
 msgid "Which phases"
 msgstr "Kurios fazės"
 
-#: config/prefs.php.dist:536
-#, fuzzy, php-format
+#: config/prefs.php:555
+#, php-format
 msgid "Width of the %s menu on the left:"
-msgstr "Rodyti %s meniu kairėje?"
+msgstr "%s meniu plotis kairėje:"
 
-#: config/registry.php.dist:394
+#: config/registry.php:326
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/weatherdotcom.php:303 lib/Block/weatherdotcom_strings.php:95
+#: lib/Block/Weatherdotcom.php:283 lib/Block/WeatherdotcomStrings.php:95
 msgid "Wind"
 msgstr "Vėjas"
 
-#: lib/Block/weatherdotcom_strings.php:96
+#: lib/Block/WeatherdotcomStrings.php:96
 msgid "Wind Early"
 msgstr "Vėjas ryte"
 
-#: lib/Block/weatherdotcom_strings.php:97
-#, fuzzy
+#: lib/Block/WeatherdotcomStrings.php:97
 msgid "Wind Late"
-msgstr "Lietus vakare"
+msgstr "Vėjas vakare"
 
-#: lib/Block/metar.php:79
+#: lib/Block/Metar.php:66
 msgid "Wind speed in knots"
 msgstr "Vėjo greitis mazgais"
 
-#: lib/Block/metar.php:151
+#: lib/Block/Metar.php:129
 msgid "Wind:"
 msgstr "Vėjas:"
 
-#: lib/Block/weatherdotcom.php:246
+#: lib/Block/Weatherdotcom.php:226
 msgid "Wind: "
 msgstr "Vėjas: "
 
-#: lib/Block/account.php:634
-msgid "Windows"
-msgstr "Langai"
-
-#: admin/activesync.php:181 templates/prefs/activesync.html:28
-#, fuzzy
+#: admin/activesync.php:177 templates/prefs/activesync.html:28
 msgid "Wipe"
-msgstr "Treč."
+msgstr "Išvalyti"
 
-#: admin/activesync.php:162 lib/Prefs/Ui.php:415
+#: admin/activesync.php:158 lib/Prefs/Ui.php:387
 msgid "Wipe is pending"
-msgstr ""
+msgstr "Laukiama išvalymo"
 
-#: lib/Block/fortune.php:71
+#: lib/Block/Fortune.php:71
 msgid "Wisdom"
 msgstr "Išmintis"
 
-#: lib/Block/fortune.php:72
+#: lib/Block/Fortune.php:72
 msgid "Work"
 msgstr "Darbas"
 
-#: config/registry.php.dist:275
+#: config/registry.php:236
 msgid "X-Ref"
 msgstr "X-Ref"
 
@@ -3873,118 +3835,114 @@ msgstr "X-Ref"
 msgid "YY"
 msgstr "YY"
 
-#: templates/logintasks/logintasks.html:34
+#: templates/logintasks/logintasks.html:24
 msgid "Yes, I Agree"
 msgstr "Taip, aš sutinku"
 
-#: services/facebook.php:110 services/facebook.php:169
+#: services/facebook/index.php:118 services/facebook/index.php:166
 #, php-format
 msgid "You and %d other person likes this"
 msgid_plural "You and %d other people like this"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Jūs ir %d kitas žmogus tai mėgsta"
+msgstr[1] "Jūs ir %d kiti žmonės tai mėgsta"
+msgstr[2] "Jūs ir %d kitų žmonių tai mėgsta"
 
-#: lib/Api.php:301
-#, fuzzy
+#: lib/Api.php:297
 msgid "You are not allowed to add groups."
-msgstr "Jūs negalite sukurti daugiau nei %d bloko."
+msgstr "Jūs neturite teisių grupių sukūrimui."
 
-#: lib/Api.php:476
-#, fuzzy
+#: lib/Api.php:414
 msgid "You are not allowed to add shares."
-msgstr "Jūs negalite sukurti daugiau nei %d bloko."
+msgstr "Jūs neturite teisių bendrų objektų sukūrimui."
 
-#: lib/Api.php:350 lib/Api.php:373 lib/Api.php:399 lib/Api.php:422
-#, fuzzy
+#: lib/Api.php:340 lib/Api.php:363
 msgid "You are not allowed to change groups."
-msgstr "Jūs negalite sukurti daugiau nei %d bloko."
+msgstr "Jūs neturite teisių grupių pakeitimui."
 
-#: lib/Api.php:561 lib/Api.php:598 lib/Api.php:640 lib/Api.php:667
-#, fuzzy
+#: lib/Api.php:495 lib/Api.php:532 lib/Api.php:566 lib/Api.php:591
 msgid "You are not allowed to change shares."
-msgstr "Jūs negalite sukurti daugiau nei %d bloko."
+msgstr "Jūs neturite teisių bendrų objektų pakeitimui."
 
-#: lib/Api.php:327
-#, fuzzy
+#: lib/Api.php:319
 msgid "You are not allowed to delete groups."
-msgstr "Jūs negalite sukurti daugiau nei %d bloko."
+msgstr "Jūs neturite teisių grupių ištrynimui."
 
-#: lib/Api.php:505
-#, fuzzy
+#: lib/Api.php:439
 msgid "You are not allowed to delete shares."
-msgstr "Jūs negalite sukurti daugiau nei %d bloko."
+msgstr "Jūs neturite teisių bendrų objektų ištrynimui."
 
-#: lib/Api.php:820
-#, fuzzy
+#: lib/Api.php:723
 msgid "You are not allowed to list groups of shares."
-msgstr "Jūs negalite sukurti daugiau nei %d bloko."
+msgstr "Jūs neturite teisių matyti bendrų objektų grupių sąrašo."
 
-#: lib/Api.php:702 lib/Api.php:744
-#, fuzzy
+#: lib/Api.php:617 lib/Api.php:655
 msgid "You are not allowed to list share permissions."
-msgstr "Jūs negalite sukurti daugiau nei %d bloko."
+msgstr "Jūs neturite teisių matyti bendrų objektų teisių sąrašo."
 
-#: lib/Api.php:532
-#, fuzzy
+#: lib/Api.php:464
 msgid "You are not allowed to list shares."
-msgstr "Jūs negalite sukurti daugiau nei %d bloko."
+msgstr "Jūs neturite teisių matyti bendrų objektų sąrašo."
 
-#: lib/Api.php:448
-#, fuzzy
+#: lib/Api.php:386
 msgid "You are not allowed to list users of groups."
-msgstr "Jūs negalite sukurti daugiau nei %d bloko."
+msgstr "Jūs neturite teisių matyti grupių vartotojų sąrašo."
 
-#: lib/Api.php:786
-#, fuzzy
+#: lib/Api.php:693
 msgid "You are not allowed to list users of shares."
-msgstr "Jūs negalite sukurti daugiau nei %d bloko."
+msgstr "Jūs neturite teisių matyti bendrų objektų vartotojų sąrašo."
 
-#: lib/Api.php:216
-#, fuzzy
+#: lib/Api.php:221
 msgid "You are not allowed to remove user data."
-msgstr "Jūs negalite sukurti daugiau nei %d bloko."
+msgstr "Jūs neturite teisių ištrinti vartotojo duomenų."
 
-#: lib/Block/fb_stream.php:159 lib/Block/fb_stream.php:184
-#: services/facebook.php:55 services/facebook.php:72
+#: lib/Block/FbStream.php:136 lib/Block/FbStream.php:162
+#: services/facebook/index.php:63 services/facebook/index.php:80
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
-msgstr ""
+msgstr "Taip pat patikrinkite Facebook nustatymus savo %s."
 
-#: lib/LoginTasks/Task/TosAgreement.php:54
+#: lib/LoginTasks/Task/TosAgreement.php:64
 msgid ""
 "You did not agree to the Terms of Service agreement, so you were not allowed "
 "to login."
-msgstr ""
+msgstr "Jūs nesutikote su registracijos sąlygomis, todėl prisijungti negalite."
 
-#: login.php:278
+#: login.php:320
 msgid "You have been logged out."
 msgstr "Jūs atsijungėte."
 
-#: lib/Block/fb_stream.php:124
+#: services/facebook/index.php:47
+msgid "You have denied the requested permissions."
+msgstr "Jūs nesuteikėte teisių šiai užklausai."
+
+#: lib/Block/FbStream.php:97
 #, php-format
 msgid ""
 "You have not properly connected your Facebook account with Horde. You should "
 "check your Facebook settings in your %s."
 msgstr ""
+"Jūs nesujungėte savo Facebook sąskaitos su Horde. Patikrinkite Facebook "
+"nustatymus savo %s."
 
-#: lib/Block/twitter_timeline.php:182
+#: lib/Block/TwitterTimeline.php:168
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
 "check your Twitter settings in your %s."
 msgstr ""
+"Jūs nesujungėte savo Twitter sąskaitos su Horde. Patikrinkite Twitter "
+"nustatymus savo %s."
 
-#: services/facebook.php:112 services/facebook.php:163
-#: services/facebook.php:171
+#: services/facebook/index.php:120 services/facebook/index.php:160
+#: services/facebook/index.php:168
 msgid "You like this"
-msgstr ""
+msgstr "Jūs tai mėgstate"
 
 #: templates/problem/problem.inc:11
 msgid "You must describe the problem before you can send the problem report."
 msgstr "Prieš siųsdami pranešimą, aprašykite problemą."
 
-#: lib/Prefs/Ui.php:679
+#: lib/Prefs/Ui.php:648
 msgid "You must select an server to be deleted."
 msgstr "Turite pasirinkti serverį, kurį norite ištrinti."
 
@@ -4008,19 +3966,17 @@ msgstr "Nurodykite atnaujinamo vartotojo vardą."
 msgid "Your Email Address"
 msgstr "Jūsų el. pašto adresas:"
 
-#: config/prefs.php.dist:212 config/prefs.php.dist:275
-#: config/prefs.php.dist:312 config/prefs.php.dist:439
+#: config/prefs.php:232 config/prefs.php:296 config/prefs.php:330
+#: config/prefs.php:463
 msgid "Your Information"
 msgstr "Informacija apie Jus"
 
-#: login.php:270
-#, fuzzy
+#: login.php:312
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
 msgstr ""
-"Nuo %s sesijos pradžios jūsų IP adresas pasikeitė. Turite prisijungti iš "
-"naujo."
+"Nuo sesijos pradžios jūsų IP adresas pasikeitė. Turite prisijungti iš naujo."
 
 #: templates/problem/problem.inc:30
 msgid "Your Name"
@@ -4044,28 +4000,27 @@ msgstr ""
 "Jūsų autentifikavimo sistema nepalaiko vartotojų sąrašo, arba ši funkcija "
 "uždrausta dėl tam tikrų priežasčių."
 
-#: login.php:274
-#, fuzzy
+#: login.php:316
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
 msgstr ""
-"Nuo %s sesijos pradžios jūsų naršyklės tipas pasikeitė. Turite prisijungti "
-"iš naujo."
+"Nuo sesijos pradžios jūsų naršyklės tipas pasikeitė. Turite prisijungti iš "
+"naujo."
 
-#: lib/Block/iframe.php:58
+#: lib/Block/Iframe.php:67
 msgid "Your browser does not support this feature."
 msgstr "Jūsų naršyklė nepalaiko šios galimybės."
 
-#: config/prefs.php.dist:337
+#: config/prefs.php:367
 msgid "Your current time zone:"
 msgstr "Jūsų laiko juosta:"
 
-#: config/prefs.php.dist:236
+#: config/prefs.php:254
 msgid "Your full name:"
 msgstr "Jūsų vardas/pavardė:"
 
-#: login.php:290
+#: login.php:332
 msgid "Your login has expired."
 msgstr "Jūsų vartotojo vardas nebegalioja."
 
@@ -4079,13 +4034,12 @@ msgid "Your password has been reset"
 msgstr "Jūsų slaptažodis pakeistas"
 
 #: services/resetpassword.php:87
-#, fuzzy
 msgid ""
 "Your password has been reset, but couldn't be sent to you. Please contact "
 "the administrator."
 msgstr ""
-"Jūsų slaptažodis pakeistas. Pasitikrinkite savo paštą ir prisijunkite su "
-"nauju slaptažodžiu."
+"Jūsų slaptažodis pakeistas, tačiau nepavyko jo jums išsiųsti. Kreipkitės į "
+"sistemos administratorių."
 
 #: services/resetpassword.php:82
 msgid ""
@@ -4095,32 +4049,31 @@ msgstr ""
 "Jūsų slaptažodis pakeistas. Pasitikrinkite savo paštą ir prisijunkite su "
 "nauju slaptažodžiu."
 
-#: lib/Block/account.php:689 lib/Block/account.php:704
+#: lib/Block/Account/Ldap.php:212 lib/Block/Account/Ldap.php:224
 msgid "Your password has expired"
 msgstr "Jūsų slaptažodis nebegalioja"
 
-#: login.php:178
+#: login.php:163
 msgid "Your password has expired."
 msgstr "Jūsų slaptažodis nebegalioja."
 
-#: lib/Prefs/Ui.php:322
+#: lib/Prefs/Ui.php:298
 msgid "Your remote servers:"
 msgstr "Jūsų nutolę serveriai:"
 
-#: login.php:266
-#, fuzzy
+#: login.php:308
 msgid "Your session has expired. Please login again."
-msgstr "%s sesija baigėsi. Prašome prisijungti iš naujo."
+msgstr "Jūsų sesija baigėsi. Prašome prisijungti iš naujo."
 
-#: lib/Block/fortune.php:73
+#: lib/Block/Fortune.php:73
 msgid "Zippy"
 msgstr "Energingos"
 
-#: services/problem.php:107
+#: services/problem.php:109
 msgid "[Problem Report]"
 msgstr "[Problemos pranešimas]"
 
-#: admin/sessions.php:39
+#: admin/sessions.php:38
 msgid "[Unknown]"
 msgstr "[Nežinomas]"
 
@@ -4133,9 +4086,8 @@ msgid "_CLI"
 msgstr "_CLI"
 
 #: lib/Api.php:27
-#, fuzzy
 msgid "_Configuration"
-msgstr "Nustatymai"
+msgstr "_Nustatymai"
 
 #: lib/Api.php:52
 msgid "_DataTree"
@@ -4144,6 +4096,10 @@ msgstr "_Duomenų medis"
 #: lib/Api.php:37
 msgid "_Groups"
 msgstr "G_rupės"
+
+#: lib/Application.php:56
+msgid "_Home"
+msgstr "N_amai"
 
 #: lib/Api.php:42
 msgid "_Permissions"
@@ -4154,25 +4110,24 @@ msgid "_Users"
 msgstr "V_artotojai"
 
 #: services/problem.php:56
-#, fuzzy
 msgid "attachment"
-msgstr "Departamentas"
+msgstr "prikabintas failas"
 
-#: lib/Block/metar.php:167 lib/Block/metar.php:353
+#: lib/Block/Metar.php:145 lib/Block/Metar.php:331
 #, php-format
 msgid "calm"
 msgstr "ramus"
 
-#: lib/Block/weatherdotcom_strings.php:102
+#: lib/Block/WeatherdotcomStrings.php:102
 msgid "falling"
 msgstr "krenta"
 
-#: lib/Block/metar.php:169 lib/Block/metar.php:355 lib/Block/metar.php:381
+#: lib/Block/Metar.php:147 lib/Block/Metar.php:333 lib/Block/Metar.php:359
 #, php-format
 msgid "from the %s (%s) at %s %s"
 msgstr "nuo %s (%s) %s %s"
 
-#: lib/Block/weatherdotcom.php:254
+#: lib/Block/Weatherdotcom.php:234
 msgid "gusting"
 msgstr "gūsiai"
 
@@ -4180,21 +4135,21 @@ msgstr "gūsiai"
 msgid "inline"
 msgstr "paprasti"
 
-#: lib/Block/fb_stream.php:124 lib/Block/fb_stream.php:159
-#: lib/Block/fb_stream.php:184 lib/Block/twitter_timeline.php:182
-#: services/facebook.php:55 services/facebook.php:72
+#: lib/Block/FbStream.php:97 lib/Block/FbStream.php:136
+#: lib/Block/FbStream.php:162 lib/Block/TwitterTimeline.php:168
+#: services/facebook/index.php:63 services/facebook/index.php:80
 msgid "preferences"
-msgstr ""
+msgstr "nustatymai"
 
-#: lib/Block/weatherdotcom_strings.php:104
+#: lib/Block/WeatherdotcomStrings.php:104
 msgid "rising"
 msgstr "kyla"
 
-#: admin/config/config.php:80
+#: admin/config/config.php:85
 msgid "show differences"
 msgstr "rodyti skirtumus"
 
-#: lib/Block/weatherdotcom_strings.php:103
+#: lib/Block/WeatherdotcomStrings.php:103
 msgid "steady"
 msgstr "stabili"
 
@@ -4206,6 +4161,6 @@ msgstr "slaptažodį turite įrašyti du kartus"
 msgid "unified"
 msgstr "unifikuoti"
 
-#: lib/Block/weatherdotcom.php:6
+#: lib/Block/Weatherdotcom.php:34
 msgid "weather.com"
 msgstr "weather.com"

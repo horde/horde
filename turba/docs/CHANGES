@@ -1,7 +1,15 @@
 ----------
-v3.0.4-git
+v3.0.5-git
 ----------
 
+
+
+------
+v3.0.4
+------
+
+[jan] Pass contact object to decode_attribute hook (kd@tu-cottbus.de, Bug
+      #10287).
 [jan] Complete fix for importing LDIF files (Bug #10139).
 
 

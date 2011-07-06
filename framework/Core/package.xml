@@ -22,11 +22,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-06-22</date>
- <time>00:05:12</time>
+ <date>2011-07-05</date>
+ <time>14:30:25</time>
  <version>
-  <release>1.2.2</release>
-  <api>1.2.0</api>
+  <release>1.3.1</release>
+  <api>1.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Make sure appinitialized hook gets full application environment.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1479,15 +1479,34 @@
   </release>
   <release>
    <version>
-    <release>1.2.2</release>
-    <api>1.2.0</api></version>
+    <release>1.3.0</release>
+    <api>1.3.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-22</date>
+   <date>2011-07-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Update Lithuanian translation.
+* [jan] Update Brazilian Portuguese translation.
+* [jan] Fix generating database DSN for VFS if the global VFS configuration doesn&apos;t use SQL (Bug #10199).
+* [jan] Add option to Horde_Themes_Css#getStylesheetUrls() to never use CSS cache.
+* [jan] Add Horde_Menu#setMask() (Vilius Sumskas, Request #10078).
+* [jan] Allow configuration of split read databases for PostgreSQL (Request #7025).
 * [mms] Make sure appinitialized hook gets full application environment.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.1</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
