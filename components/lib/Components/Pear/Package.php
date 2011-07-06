@@ -338,49 +338,6 @@ class Components_Pear_Package
     }
 
     /**
-     * Generate a snapshot of the package using the provided version number.
-     *
-     * @param string $version     The snapshot version.
-     * @param string $archive_dir The path where the snapshot should be placed.
-     *
-     * @return string The path to the snapshot.
-     */
-    public function generateSnapshot($version, $archive_dir)
-    {
-        $pkg = $this->_getPackageFile();
-        $pkg->_packageInfo['version']['release'] = $version;
-        $pkg->setDate(date('Y-m-d'));
-        $pkg->setTime(date('H:i:s'));
-        $pkg->setLogger($this->_output);
-        $errors = array();
-        ob_start();
-        $old_dir = getcwd();
-        chdir($archive_dir);
-        try {
-            $result = Components_Exception_Pear::catchError(
-                $pkg->getDefaultGenerator()->toTgz(new PEAR_Common())
-            );
-        } catch (Components_Exception_Pear $e) {
-            $errors[] = $e->getMessage();
-            $errors[] = '';
-            $result = false;
-            foreach ($pkg->getValidationWarnings() as $error) {
-                $errors[] = isset($error['message']) ? $error['message'] : 'Unknown Error';
-            }
-        }
-        chdir($old_dir);
-        $this->_output->pear(ob_get_clean());
-        if ($result) {
-            $this->_output->ok('Generated snapshot ' . $result);
-        } else {
-            $this->_output->fail(
-                'Generating snapshot failed with:'. "\n\n" . join("\n", $errors)
-            );
-        }
-        return $result;
-    }
-
-    /**
      * Timestamp the package.xml file with the current time.
      *
      * @return NULL

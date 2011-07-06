@@ -142,49 +142,6 @@ class Components_Component_Remote extends Components_Component_Base
     }
 
     /**
-     * Return the download URI of the component.
-     *
-     * @return string The download URI.
-     */
-    public function getDownloadUri()
-    {
-        if (!isset($this->_uri)) {
-            $this->_uri = $this->_remote->getLatestDownloadUri(
-                $this->_name, $this->_stability
-            );
-        }
-        return $this->_uri;
-    }
-
-    /**
-     * Return the path to the local source directory.
-     *
-     * @return string The directory that contains the source code.
-     */
-    public function getPath()
-    {
-    }
-
-    /**
-     * Return the (base) name of the component archive.
-     *
-     * @return string The name of the component archive.
-     */
-    public function getArchiveName()
-    {
-        return basename($this->getDownloadUri());
-    }
-
-    /**
-     * Return the path to the package.xml file of the component.
-     *
-     * @return string The path to the package.xml file.
-     */
-    public function getPackageXml()
-    {
-    }
-
-    /**
      * Return the dependencies for the component.
      *
      * @return array The component dependencies.
@@ -197,40 +154,48 @@ class Components_Component_Remote extends Components_Component_Base
     }
 
     /**
-     * Validate that there is a package.xml file in the source directory.
+     * Return the (base) name of the component archive.
      *
-     * @return NULL
+     * @return string The name of the component archive.
      */
-    public function requirePackageXml()
+    public function getArchiveName()
     {
+        return basename($this->_getDownloadUri());
     }
 
     /**
      * Place the component source archive at the specified location.
      *
      * @param string $destination The path to write the archive to.
+     * @param array  $options     Options for the operation.
      *
-     * @return NULL
+     * @return array An array with at least [0] the path to the resulting
+     *               archive, optionally [1] an array of error strings, and [2]
+     *               PEAR output.
      */
-    public function placeArchive($destination)
+    public function placeArchive($destination, $options)
     {
         $this->createDestination($destination);
         $this->_client->{'request.timeout'} = 60;
         file_put_contents(
-            $destination . '/' . basename($this->getDownloadUri()),
-            $this->_client->get($this->getDownloadUri())->getStream()
+            $destination . '/' . basename($this->_getDownloadUri()),
+            $this->_client->get($this->_getDownloadUri())->getStream()
         );
+        return array($destination . '/' . basename($this->_getDownloadUri()));
     }
 
     /**
-     * Bail out if this is no local source.
+     * Return the download URI of the component.
      *
-     * @return NULL
+     * @return string The download URI.
      */
-    public function requireLocal()
+    private function _getDownloadUri()
     {
-        throw new Components_Exception(
-            'This operation is not possible with a remote component!'
-        );
+        if (!isset($this->_uri)) {
+            $this->_uri = $this->_remote->getLatestDownloadUri(
+                $this->_name, $this->_stability
+            );
+        }
+        return $this->_uri;
     }
 }

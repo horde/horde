@@ -176,6 +176,73 @@ class Components_Component_Source extends Components_Component_Base
     }
 
     /**
+     * Place the component source archive at the specified location.
+     *
+     * @param string $destination The path to write the archive to.
+     * @param array  $options     Options for the operation.
+     *
+     * @return array An array with at least [0] the path to the resulting
+     *               archive, optionally [1] an array of error strings, and [2]
+     *               PEAR output.
+     */
+    public function placeArchive($destination, $options)
+    {
+        if (!file_exists($this->_getPackageXmlPath())) {
+            throw new Components_Exception(
+                sprintf(
+                    'The component "%s" still lacks a package.xml file at "%s"!',
+                    $this->getName(),
+                    $this->_getPackageXmlPath()
+                )
+            );
+        }
+
+        if (empty($options['keep_version'])) {
+            $version = preg_replace(
+                '/([.0-9]+).*/',
+                '\1dev' . strftime('%Y%m%d%H%M'),
+                $this->getVersion()
+            );
+        } else {
+            $version = $this->getVersion();
+        }
+
+        $this->createDestination($destination);
+
+        $package = $this->_getPackageFile();
+        $pkg = $this->getFactory()->pear()->getPackageFile(
+            $this->_getPackageXmlPath(),
+            $package->getEnvironment()
+        );
+        $pkg->_packageInfo['version']['release'] = $version;
+        $pkg->setDate(date('Y-m-d'));
+        $pkg->setTime(date('H:i:s'));
+        if (isset($options['logger'])) {
+            $pkg->setLogger($options['logger']);
+        }
+        $errors = array();
+        ob_start();
+        $old_dir = getcwd();
+        chdir($destination);
+        try {
+            $result = Components_Exception_Pear::catchError(
+                $pkg->getDefaultGenerator()->toTgz(new PEAR_Common())
+            );
+        } catch (Components_Exception_Pear $e) {
+            $errors[] = $e->getMessage();
+            $errors[] = '';
+            $result = false;
+            foreach ($pkg->getValidationWarnings() as $error) {
+                $errors[] = isset($error['message']) ? $error['message'] : 'Unknown Error';
+            }
+        }
+        chdir($old_dir);
+        $output = array($result, $errors);
+        $output[] = ob_get_clean();
+        return $output;
+    }
+
+    /**
      * Return a PEAR package representation for the component.
      *
      * @return Horde_Pear_Package_Xml The package representation.
@@ -245,25 +312,6 @@ class Components_Component_Source extends Components_Component_Base
      */
     public function getArchiveName()
     {
-    }
-
-    /**
-     * Place the component source archive at the specified location.
-     *
-     * @param string $destination The path to write the archive to.
-     *
-     * @return NULL
-     */
-    public function placeArchive($destination)
-    {
-        $this->createDestination($destination);
-        $version = preg_replace(
-            '/([.0-9]+).*/',
-            '\1dev' . strftime('%Y%m%d%H%M'),
-            $this->getVersion()
-        );
-        $package = $this->getPackageFile();
-        $package->generateSnapshot($version, $destination);
     }
 
     /**

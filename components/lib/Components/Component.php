@@ -56,15 +56,6 @@ interface Components_Component
     public function getDependencies();
 
     /**
-     * Place the component source archive at the specified location.
-     *
-     * @param string $destination The path to write the archive to.
-     *
-     * @return NULL
-     */
-    public function placeArchive($destination);
-
-    /**
      * Update the package.xml file for this component.
      *
      * @param string $action  The action to perform. Either "update", "diff",
@@ -88,21 +79,27 @@ interface Components_Component
         $log, Components_Helper_ChangeLog $helper, $options
     );
 
-
-
-
-
-
-
-
-
-
     /**
-     * Return the path to the local source directory.
+     * Place the component source archive at the specified location.
      *
-     * @return string The directory that contains the source code.
+     * @param string $destination The path to write the archive to.
+     * @param array  $options     Options for the operation.
+     *
+     * @return array An array with at least [0] the path to the resulting
+     *               archive, optionally [1] an array of error strings, and [2]
+     *               PEAR output.
      */
-    public function getPath();
+    public function placeArchive($destination, $options);
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Return the (base) name of the component archive.
@@ -111,17 +108,4 @@ interface Components_Component
      */
     public function getArchiveName();
 
-    /**
-     * Validate that there is a package.xml file in the source directory.
-     *
-     * @return NULL
-     */
-    public function requirePackageXml();
-
-    /**
-     * Bail out if this is no local source.
-     *
-     * @return NULL
-     */
-    public function requireLocal();
 }
