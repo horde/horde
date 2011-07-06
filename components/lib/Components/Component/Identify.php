@@ -113,8 +113,7 @@ class Components_Component_Identify
 
                 $options = $this->_config->getOptions();
                 if (!empty($options['allow_remote'])) {
-                    $this->_config->shiftArgument();
-                    return $this->_dependencies
+                    $result = $this->_dependencies
                         ->getComponentFactory()
                         ->getResolver()
                         ->resolveName(
@@ -122,6 +121,10 @@ class Components_Component_Identify
                             'pear.horde.org',
                             $options
                         );
+                    if ($result !== false) {
+                        $this->_config->shiftArgument();
+                        return $result;
+                    }
                 }
                 
                 throw new Components_Exception(
