@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-07-04</date>
- <time>14:39:54</time>
+ <date>2011-07-06</date>
+ <time>05:59:35</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -77,6 +77,7 @@
         <file name="Factory.php" role="php" />
        </dir> <!-- /lib/Horde/Pear/Package/Xml -->
        <file name="Contents.php" role="php" />
+       <file name="Dependencies.php" role="php" />
        <file name="Task.php" role="php" />
        <file name="Type.php" role="php" />
        <file name="Xml.php" role="php" />
@@ -219,6 +220,7 @@
         <dir name="Xml">
          <file name="DirectoryTest.php" role="test" />
         </dir> <!-- /test/Horde/Pear/Unit/Package/Xml -->
+        <file name="DependenciesTest.php" role="test" />
         <file name="XmlTest.php" role="test" />
        </dir> <!-- /test/Horde/Pear/Unit/Package -->
        <dir name="Rest">
@@ -276,6 +278,7 @@
    <install as="Horde/Pear/Remote.php" name="lib/Horde/Pear/Remote.php" />
    <install as="Horde/Pear/Rest.php" name="lib/Horde/Pear/Rest.php" />
    <install as="Horde/Pear/Package/Contents.php" name="lib/Horde/Pear/Package/Contents.php" />
+   <install as="Horde/Pear/Package/Dependencies.php" name="lib/Horde/Pear/Package/Dependencies.php" />
    <install as="Horde/Pear/Package/Task.php" name="lib/Horde/Pear/Package/Task.php" />
    <install as="Horde/Pear/Package/Type.php" name="lib/Horde/Pear/Package/Type.php" />
    <install as="Horde/Pear/Package/Xml.php" name="lib/Horde/Pear/Package/Xml.php" />
@@ -357,6 +360,7 @@
    <install as="Horde/Pear/Unit/RegistryTest.php" name="test/Horde/Pear/Unit/RegistryTest.php" />
    <install as="Horde/Pear/Unit/RemoteTest.php" name="test/Horde/Pear/Unit/RemoteTest.php" />
    <install as="Horde/Pear/Unit/RestTest.php" name="test/Horde/Pear/Unit/RestTest.php" />
+   <install as="Horde/Pear/Unit/Package/DependenciesTest.php" name="test/Horde/Pear/Unit/Package/DependenciesTest.php" />
    <install as="Horde/Pear/Unit/Package/XmlTest.php" name="test/Horde/Pear/Unit/Package/XmlTest.php" />
    <install as="Horde/Pear/Unit/Package/Contents/ListTest.php" name="test/Horde/Pear/Unit/Package/Contents/ListTest.php" />
    <install as="Horde/Pear/Unit/Package/Contents/Ignore/CompositeTest.php" name="test/Horde/Pear/Unit/Package/Contents/Ignore/CompositeTest.php" />
@@ -385,7 +389,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-07-04</date>
+   <date>2011-07-06</date>
    <license uri="REPLACE">REPLACE</license>
    <notes>
 * [gwr] Added support for fetching package dependencies from the remote server.
