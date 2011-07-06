@@ -135,7 +135,7 @@ extends Components_TestCase
         $root = new Components_Helper_Root(
             null, $this->getComponent($path . '/framework/Install')
         );
-        $this->assertEquals($path, $root->getRoot());
+        $this->assertEquals(realpath($path), realpath($root->getRoot()));
     }
 
     public function testFrameworkComponent()

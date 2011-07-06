@@ -209,7 +209,7 @@ class Components_Helper_Root
     {
         if (!empty($this->_component)) {
             try {
-                $result = $this->_component->repositoryRoot($this);
+                return $this->_component->repositoryRoot($this);
             } catch (Components_Exception $e) {
                 $this->_errors[] = sprintf(
                     'Component %s has no repository root!',
