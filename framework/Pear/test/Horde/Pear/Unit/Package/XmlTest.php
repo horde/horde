@@ -41,6 +41,42 @@ extends Horde_Pear_TestCase
         $this->assertEquals('Fixture', $xml->getName());
     }
 
+    public function testGetChannel()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals('pear.php.net', $xml->getChannel());
+    }
+
+    public function testGetVersion()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals('0.0.1', $xml->getVersion());
+    }
+
+    public function testGetDependencies()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals(
+            array(
+                array(
+                    'type' => 'php',
+                    'optional' => 'no',
+                    'rel' => 'ge',
+                    'version' => '5.0.0',
+                ),
+                array(
+                    'type' => 'pkg',
+                    'name' => 'PEAR',
+                    'channel' => 'pear.php.net',
+                    'optional' => 'no',
+                    'rel' => 'ge',
+                    'version' => '1.7.0',
+                )
+            ),
+            $xml->getDependencies()
+        );
+    }
+
     public function testTimestamp()
     {
         $xml = $this->_getFixture();

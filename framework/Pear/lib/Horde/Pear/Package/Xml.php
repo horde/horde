@@ -115,6 +115,95 @@ class Horde_Pear_Package_Xml
     }
 
     /**
+     * Return the package channel.
+     *
+     * @return string The channel of the package.
+     */
+    public function getChannel()
+    {
+        return $this->getNodeText('/p:package/p:channel');
+    }
+
+    /**
+     * Return the package version.
+     *
+     * @return string The version of the package.
+     */
+    public function getVersion()
+    {
+        return $this->getNodeText('/p:package/p:version/p:release');
+    }
+
+    /**
+     * Return the package dependencies.
+     *
+     * @return string The package dependencies.
+     */
+    public function getDependencies()
+    {
+        $result = array();
+        $this->_completeDependencies(
+            $this->findNode('/p:package/p:dependencies/p:required'),
+            $result,
+            'no'
+        );
+        $this->_completeDependencies(
+            $this->findNode('/p:package/p:dependencies/p:optional'),
+            $result,
+            'yes'
+        );
+        return $result;
+    }
+
+    /**
+     * Complete the dependency information.
+     *
+     * @param DOMNode $parent   The parent node ("required" or "optional").
+     * @param array   &$result  The result array.
+     * @param string  $optional Optional dependency or not?
+     *
+     * @return NULL
+     */
+    private function _completeDependencies($parent, &$result, $optional)
+    {
+        if ($parent === false) {
+            return;
+        }
+        foreach ($parent->childNodes as $dep) {
+            if ($dep->nodeType == XML_TEXT_NODE) {
+                continue;
+            }
+            $input = array();
+            $this->_dependencyInputValue($input, 'min', $dep);
+            $this->_dependencyInputValue($input, 'max', $dep);
+            $this->_dependencyInputValue($input, 'name', $dep);
+            $this->_dependencyInputValue($input, 'channel', $dep);
+            Horde_Pear_Package_Dependencies::addDependency(
+                $input, $dep->nodeName, $optional, $result
+            );
+        }
+    }
+
+    /**
+     * Generate one element of the input data.
+     *
+     * @param array   &$input The input array.
+     * @param string  $name   Value name.
+     * @param DOMNode $node   The dependency node.
+     *
+     * @return NULL
+     */
+    private function _dependencyInputValue(&$input, $name, $node)
+    {
+        try {
+            $input[$name] = $this->getNodeTextRelativeTo(
+                './p:' . $name, $node
+            );
+        } catch (Horde_Pear_Exception $e) {
+        }
+    }
+
+    /**
      * Return the license name.
      *
      * @return string The name of the license.
