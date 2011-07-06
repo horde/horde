@@ -157,6 +157,22 @@ class Components_Component_Source extends Components_Component_Base
         $log, Components_Helper_ChangeLog $helper, $options
     )
     {
+        $helper->commit(
+            $log,
+            $this->_directory,
+            $options,
+            $helper->packageXml(
+                $log,
+                $this->_getPackageXml(),
+                $this->_getPackageXmlPath(),
+                $options
+            ),
+            $helper->changes(
+                $log,
+                $this->_directory,
+                $options
+            )
+        );
     }
 
     /**

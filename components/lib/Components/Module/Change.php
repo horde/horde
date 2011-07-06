@@ -134,7 +134,6 @@ commit message by using "git add ..." before.';
         $arguments = $config->getArguments();
         if (!empty($options['changed'])
             || (isset($arguments[0]) && $arguments[0] == 'changed')) {
-            $config->getComponent()->requireLocal();
             $this->_dependencies->getRunnerChange()->run();
             return true;
         }

@@ -95,6 +95,24 @@ abstract class Components_Component_Base implements Components_Component
     }
 
     /**
+     * Update the component changelog.
+     *
+     * @param string                      $log     The log entry.
+     * @param Components_Helper_ChangeLog $helper  The change log helper.
+     * @param array                       $options Options for the operation.
+     *
+     * @return NULL
+     */
+    public function changed(
+        $log, Components_Helper_ChangeLog $helper, $options
+    )
+    {
+        throw new Components_Exception(
+            'Updating the change log is not supported!'
+        );
+    }
+
+    /**
      * Create the specified directory.
      *
      * @param string $destination The destination path.

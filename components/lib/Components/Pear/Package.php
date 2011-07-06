@@ -317,38 +317,6 @@ class Components_Pear_Package
     }
 
     /**
-     * Update the package.xml file.
-     *
-     * @param string $action The action to perform. Either "update", "diff", or "print".
-     *
-     * @return NULL
-     */
-    public function updatePackageFile($action = 'update', $options = array())
-    {
-        $package_xml = $this->_getPackageXml();
-        $package_xml->updateContents(null, $options);
-        switch($action) {
-        case 'print':
-            print (string) $package_xml;
-            break;
-        case 'diff':
-            $new = (string) $package_xml;
-            $old = file_get_contents($this->_package_xml_path);
-            $renderer = new Horde_Text_Diff_Renderer_Unified();
-            print $renderer->render(
-                new Horde_Text_Diff(
-                    'auto', array(explode("\n", $old), explode("\n", $new))
-                )
-            );
-            break;
-        default:
-            file_put_contents($this->_package_xml_path, (string) $package_xml);
-            $this->_output->ok('Successfully updated ' . $this->_package_xml_path);
-            break;
-        }
-    }    
-
-    /**
      * Return the dependencies for the package.
      *
      * @return array The list of dependencies.
@@ -410,23 +378,6 @@ class Components_Pear_Package
             );
         }
         return $result;
-    }
-
-    /**
-     * Add a new note to the package.xml
-     *
-     * @param string $note The note text.
-     *
-     * @return NULL
-     */
-    public function addNote($note)
-    {
-        $package = $this->_getPackageXml();
-        $package->addNote($note);
-        file_put_contents($this->_package_xml_path, (string) $package);
-        $this->_output->ok(
-            'Added new note to ' . $this->_package_xml_path . '.'
-        );
     }
 
     /**

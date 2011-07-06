@@ -75,6 +75,18 @@ interface Components_Component
      */
     public function updatePackageXml($action, $options);
 
+    /**
+     * Update the component changelog.
+     *
+     * @param string                      $log     The log entry.
+     * @param Components_Helper_ChangeLog $helper  The change log helper.
+     * @param array                       $options Options for the operation.
+     *
+     * @return NULL
+     */
+    public function changed(
+        $log, Components_Helper_ChangeLog $helper, $options
+    );
 
 
 
@@ -98,13 +110,6 @@ interface Components_Component
      * @return string The name of the component archive.
      */
     public function getArchiveName();
-
-    /**
-     * Return the path to the package.xml file of the component.
-     *
-     * @return string The path to the package.xml file.
-     */
-    public function getPackageXml();
 
     /**
      * Validate that there is a package.xml file in the source directory.
