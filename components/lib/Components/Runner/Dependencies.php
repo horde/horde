@@ -35,7 +35,7 @@ class Components_Runner_Dependencies
     private $_config;
 
     /**
-     * The factory for PEAR dependencies.
+     * The list helper.
      *
      * @var Components_Helper_Dependencies
      */
@@ -44,10 +44,9 @@ class Components_Runner_Dependencies
     /**
      * Constructor.
      *
-     * @param Components_Config            $config  The configuration for the
-     *                                              current job.
-     * @param Components_Component_Factory $factory The factory for components.
-     * @param Component_Output             $output  The output handler.
+     * @param Components_Config              $config       The configuration
+     *                                                     for the current job.
+     * @param Components_Helper_Dependencies $dependencies The list helper.
      */
     public function __construct(
         Components_Config $config,
