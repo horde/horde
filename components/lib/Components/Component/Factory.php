@@ -109,6 +109,23 @@ class Components_Component_Factory
     }
 
     /**
+     * Create a representation for a component archive.
+     *
+     * @param string $archive The path to the component archive.
+     *
+     * @return Components_Component_Archive The archive component.
+     */
+    public function createArchive($archive)
+    {
+        $component = new Components_Component_Archive(
+            $archive,
+            $this->_config,
+            $this
+        );
+        return $component;
+    }
+
+    /**
      * Create a representation for a remote component.
      *
      * @param string            $name      The name of the component.
@@ -180,6 +197,7 @@ class Components_Component_Factory
         if (!isset($this->_resolver)) {
             $this->_resolver = $this->createResolver();
         }
+        return $this->_resolver;
     }
 
     /**
@@ -239,4 +257,29 @@ class Components_Component_Factory
         }
     }
 
+    /**
+     * Return the package.xml handler.
+     *
+     * @param string $package_xml_path Path to the package.xml file.
+     *
+     * @return Horde_Pear_Package_Xml
+     */
+    public function createPackageXml($package_xml_path)
+    {
+        return new Horde_Pear_Package_Xml($package_xml_path);
+    }
+
+    /**
+     * Create a new PEAR Package representation.
+     *
+     * @param string $package_xml_dir Path to the parent directory of the
+     *                                new package.xml file.
+     *
+     * @return PEAR_PackageFile
+     */
+    public function createPackageFile($package_xml_dir)
+    {
+        $type = new Horde_Pear_Package_Type_Horde($package_xml_dir);
+        $type->writePackageXmlDraft();
+    }
 }
