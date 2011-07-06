@@ -251,7 +251,7 @@ class Components_Component_Source extends Components_Component_Base
      */
     public function repositoryRoot(Components_Helper_Root $helper)
     {
-        if (($result = $this->traverseHierarchy($this->_directory)) === false) {
+        if (($result = $helper->traverseHierarchy($this->_directory)) === false) {
             $this->_errors[] = sprintf(
                 'Unable to determine Horde repository root from component path "%s"!',
                 $this->_directory
