@@ -125,6 +125,26 @@ class Horde_Pear_Package_Xml
     }
 
     /**
+     * Return the package summary.
+     *
+     * @return string The summary of the package.
+     */
+    public function getSummary()
+    {
+        return $this->getNodeText('/p:package/p:summary');
+    }
+
+    /**
+     * Return the package description.
+     *
+     * @return string The description of the package.
+     */
+    public function getDescription()
+    {
+        return $this->getNodeText('/p:package/p:description');
+    }
+
+    /**
      * Return the package version.
      *
      * @return string The version of the package.
@@ -195,11 +215,8 @@ class Horde_Pear_Package_Xml
      */
     private function _dependencyInputValue(&$input, $name, $node)
     {
-        try {
-            $input[$name] = $this->getNodeTextRelativeTo(
-                './p:' . $name, $node
-            );
-        } catch (Horde_Pear_Exception $e) {
+        if (($result = $this->getNodeTextRelativeTo('./p:' . $name, $node)) !== false) {
+            $input[$name] = $result;
         }
     }
 
@@ -224,6 +241,25 @@ class Horde_Pear_Package_Xml
             ->getElementsByTagNameNS(self::XMLNAMESPACE, 'license')
             ->item(0)
             ->getAttribute('uri');
+    }
+
+    /**
+     * Return the package lead developers.
+     *
+     * @return string The package lead developers.
+     */
+    public function getLeads()
+    {
+        $result = array();
+        foreach($this->findNodes('/p:package/p:lead') as $lead) {
+            $result[] = array(
+                'name' => $this->getNodeTextRelativeTo('./p:name', $lead),
+                'user' => $this->getNodeTextRelativeTo('./p:user', $lead),
+                'email' => $this->getNodeTextRelativeTo('./p:email', $lead),
+                'active' => $this->getNodeTextRelativeTo('./p:active', $lead),
+            );
+        }
+        return $result;
     }
 
     /**
@@ -572,9 +608,7 @@ class Horde_Pear_Package_Xml
         if ($node = $this->findNode($path)) {
             return $node->textContent;
         }
-        throw new Horde_Pear_Exception(
-            sprintf('"%s" element is missing!', $path)
-        );
+        return false;
     }
 
     /**
@@ -592,9 +626,7 @@ class Horde_Pear_Package_Xml
         if ($node = $this->findNodeRelativeTo($path, $context)) {
             return $node->textContent;
         }
-        throw new Horde_Pear_Exception(
-            sprintf('"%s" element is missing!', $path)
-        );
+        return false;
     }
 
     /**

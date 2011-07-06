@@ -53,6 +53,37 @@ extends Horde_Pear_TestCase
         $this->assertEquals('0.0.1', $xml->getVersion());
     }
 
+    public function testGetSummary()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals('Test fixture.', $xml->getSummary());
+    }
+
+    public function testGetDescription()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals(
+            'A dummy package.xml used for testing the Components package.',
+            $xml->getDescription()
+        );
+    }
+
+    public function testGetLeads()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals(
+            array(
+                array(
+                    'name' => 'Gunnar Wrobel',
+                    'user' => 'wrobel',
+                    'email' => 'p@rdus.de',
+                    'active' => 'yes',
+                )
+            ),
+            $xml->getLeads()
+        );
+    }
+
     public function testGetDependencies()
     {
         $xml = $this->_getFixture();
