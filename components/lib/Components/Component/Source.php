@@ -120,6 +120,10 @@ class Components_Component_Source extends Components_Component_Base
      */
     public function updatePackageXml($action, $options)
     {
+        if (!file_exists($this->_getPackageXmlPath())) {
+            $this->getFactory()->createPackageFile($this->_directory);
+        }
+
         $package_xml = $this->_getPackageXml();
         $package_xml->updateContents(null, $options);
         switch($action) {
@@ -127,7 +131,7 @@ class Components_Component_Source extends Components_Component_Base
             return (string) $package_xml;
         case 'diff':
             $new = (string) $package_xml;
-            $old = file_get_contents($this->getPackageXml());
+            $old = file_get_contents($this->_getPackageXmlPath());
             $renderer = new Horde_Text_Diff_Renderer_Unified();
             return $renderer->render(
                 new Horde_Text_Diff(
@@ -135,9 +139,24 @@ class Components_Component_Source extends Components_Component_Base
                 )
             );
         default:
-            file_put_contents($this->getPackageXml(), (string) $package_xml);
+            file_put_contents($this->_getPackageXmlPath(), (string) $package_xml);
             return true;
         }
+    }
+
+    /**
+     * Update the component changelog.
+     *
+     * @param string                      $log     The log entry.
+     * @param Components_Helper_ChangeLog $helper  The change log helper.
+     * @param array                       $options Options for the operation.
+     *
+     * @return NULL
+     */
+    public function changed(
+        $log, Components_Helper_ChangeLog $helper, $options
+    )
+    {
     }
 
     /**
@@ -149,7 +168,7 @@ class Components_Component_Source extends Components_Component_Base
     {
         if (!isset($this->_package)) {
             $this->_package = $this->getFactory()->createPackageXml(
-                $this->getPackageXml()
+                $this->_getPackageXmlPath()
             );
         }
         return $this->_package;
@@ -167,16 +186,26 @@ class Components_Component_Source extends Components_Component_Base
             if (isset($options['pearrc'])) {
                 $this->_package_file = $this->getFactory()->pear()
                     ->createPackageForPearConfig(
-                        $this->getPackageXml(), $options['pearrc']
+                        $this->_getPackageXmlPath(), $options['pearrc']
                     );
             } else {
                 $this->_package_file = $this->getFactory()->pear()
                     ->createPackageForDefaultLocation(
-                        $this->getPackageXml()
+                        $this->_getPackageXmlPath()
                     );
             }
         }
         return $this->_package_file;
+    }
+
+    /**
+     * Return the path to the package.xml file of the component.
+     *
+     * @return string The path to the package.xml file.
+     */
+    private function _getPackageXmlPath()
+    {
+        return realpath($this->_directory . '/package.xml');
     }
 
 
@@ -200,16 +229,6 @@ class Components_Component_Source extends Components_Component_Base
      */
     public function getArchiveName()
     {
-    }
-
-    /**
-     * Return the path to the package.xml file of the component.
-     *
-     * @return string The path to the package.xml file.
-     */
-    public function getPackageXml()
-    {
-        return realpath($this->_directory . '/package.xml');
     }
 
     /**

@@ -37,13 +37,6 @@ class Components_Runner_Update
     private $_config;
 
     /**
-     * The factory for PEAR handlers.
-     *
-     * @var Components_Factory
-     */
-    private $_factory;
-
-    /**
      * The output handler.
      *
      * @param Component_Output
@@ -54,17 +47,13 @@ class Components_Runner_Update
      * Constructor.
      *
      * @param Components_Config       $config  The configuration for the current job.
-     * @param Components_Pear_Factory $factory Generator for all
-     *                                         required PEAR components.
      * @param Component_Output        $output  The output handler.
      */
     public function __construct(
         Components_Config $config,
-        Components_Pear_Factory $factory,
         Components_Output $output
     ) {
         $this->_config  = $config;
-        $this->_factory = $factory;
         $this->_output = $output;
     }
 
@@ -72,12 +61,6 @@ class Components_Runner_Update
     {
         $arguments = $this->_config->getArguments();
         $options = $this->_config->getOptions();
-
-        if (!file_exists($this->_config->getComponent()->getPackageXml())) {
-            $this->_factory->createPackageFile(
-                $this->_config->getComponent()->getPath()
-            );
-        }
 
         if (!empty($options['updatexml'])
             || (isset($arguments[0]) && $arguments[0] == 'update')) {
