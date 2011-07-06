@@ -149,4 +149,19 @@ class Horde_Pear_Rest_Access
     {
         return $this->_getRest()->fetchChannelXml();
     }
+
+    /**
+     * Return the package.xml for the specified release from the server.
+     *
+     * @param string $package The name of the package.
+     * @param string $version The version of the release.
+     *
+     * @return Horde_Pear_Package_Xml The package.xml handler.
+     */
+    public function getPackageXml($package, $version)
+    {
+        return new Horde_Pear_Rest_Dependencies(
+            $this->_getRest()->fetchReleasePackageXml($package, $version)
+        );
+    }
 }

@@ -96,6 +96,19 @@ class Horde_Pear_Remote
     }
 
     /**
+     * Return the package.xml for the specified release from the server.
+     *
+     * @param string $package The name of the package.
+     * @param string $version The version of the release.
+     *
+     * @return Horde_Pear_Package_Xml The package.xml handler.
+     */
+    public function getPackageXml($package, $version)
+    {
+        return $this->_access->getPackageXml($package, $version);
+    }
+
+    /**
      * Return the channel.xml from the server.
      *
      * @return string The content of the channel.xml file.
