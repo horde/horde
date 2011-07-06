@@ -62,7 +62,7 @@ class Horde_Pear_Rest_Dependencies
             }
             if (isset($deps['optional'])) {
                 foreach ($deps['optional'] as $type => $optional) {
-                    $this->_convert($type, $optional, 'no', $result);
+                    $this->_convert($type, $optional, 'yes', $result);
                 }
             }
             $this->_deps = $result;
@@ -82,108 +82,17 @@ class Horde_Pear_Rest_Dependencies
      */
     private function _convert($type, $input, $optional, &$result)
     {
-        if ($type == 'php') {
-            $element = array(
-                'type' => $type,
-                'optional' => 'no',
-            );
-            $this->_completeVersions($input, $element, $result);
-        } else if ($type == 'pearinstaller') {
-            $element = array(
-                'type' => 'pkg',
-                'name' => 'PEAR',
-                'channel' => 'pear.php.net',
-                'optional' => 'no',
-            );
-            $this->_completeVersions($input, $element, $result);
-        } else if ($type == 'package') {
-            if (isset($input['name'])) {
-                $element = $input;
-                $element['type'] = 'pkg';
-                $this->_completeVersions($input, $element, $result);
-            } else {
-                foreach ($input as $pkg) {
-                    $element = $pkg;
-                    $element['type'] = 'pkg';
-                    $this->_completeVersions($pkg, $element, $result);
-                }
-            }
-        } else if ($type == 'extension') {
-            if (isset($input['name'])) {
-                $element = $input;
-                $element['type'] = 'ext';
-                $this->_completeVersions($input, $element, $result);
-            } else {
-                foreach ($input as $ext) {
-                    $element = $ext;
-                    $element['type'] = 'ext';
-                    $this->_completeVersions($ext, $element, $result);
-                }
+        if (in_array($type, array('package', 'extension'))
+            && !isset($input['name'])) {
+            foreach ($input as $element) {
+                $this->_convert($type, $element, $optional, $result);
             }
         } else {
-            throw new Horde_Pear_Exception(
-                sprintf('Unsupported dependency type "%s"!', $type)
+            Horde_Pear_Package_Dependencies::addDependency(
+                $input, $type, $optional, $result
             );
         }
-    }
 
-    /**
-     * Parse version information.
-     *
-     * @param array  $input    The input array.
-     * @param array  &$element The basic element information.
-     * @param array  &$result  The result array.
-     *
-     * @return NULL
-     */
-    private function _completeVersions($input, &$element, &$result)
-    {
-        $added = false;
-        if ($added |= $this->_completeMin($input, $element)) {
-            $result[] = $element;
-        }
-        if ($added |= $this->_completeMax($input, $element)) {
-            $result[] = $element;
-        }
-        if (!$added) {
-            $result[] = $element;
-        }
-    }
-
-    /**
-     * Complete "min" version information.
-     *
-     * @param array  $input    The input array.
-     * @param array  &$element The basic element information.
-     *
-     * @return boolean True if the was "min" information available.
-     */
-    private function _completeMin($input, &$element)
-    {
-        if (isset($input['min'])) {
-            $element['rel'] = 'ge';
-            $element['version'] = $input['min'];
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Complete "max" version information.
-     *
-     * @param array  $input    The input array.
-     * @param array  &$element The basic element information.
-     *
-     * @return boolean True if the was "max" information available.
-     */
-    private function _completeMax($input, &$element)
-    {
-        if (isset($input['max'])) {
-            $element['rel'] = 'le';
-            $element['version'] = $input['max'];
-            return true;
-        }
-        return false;
     }
 
     /**
