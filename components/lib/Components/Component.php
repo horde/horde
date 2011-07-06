@@ -49,6 +49,43 @@ interface Components_Component
     public function getChannel();
 
     /**
+     * Return the dependencies for the component.
+     *
+     * @return array The component dependencies.
+     */
+    public function getDependencies();
+
+    /**
+     * Place the component source archive at the specified location.
+     *
+     * @param string $destination The path to write the archive to.
+     *
+     * @return NULL
+     */
+    public function placeArchive($destination);
+
+    /**
+     * Update the package.xml file for this component.
+     *
+     * @param string $action  The action to perform. Either "update", "diff",
+     *                        or "print".
+     * @param array  $options Options for this operation.
+     *
+     * @return NULL
+     */
+    public function updatePackageXml($action, $options);
+
+
+
+
+
+
+
+
+
+
+
+    /**
      * Return the path to the local source directory.
      *
      * @return string The directory that contains the source code.
@@ -68,29 +105,6 @@ interface Components_Component
      * @return string The path to the package.xml file.
      */
     public function getPackageXml();
-
-    /**
-     * Place the component source archive at the specified location.
-     *
-     * @param string $destination The path to write the archive to.
-     *
-     * @return NULL
-     */
-    public function placeArchive($destination);
-
-    /**
-     * Return a PEAR package representation for the component.
-     *
-     * @return PEAR_PackageFile The package representation.
-     */
-    public function getPackage();
-
-    /**
-     * Return the dependencies for the component.
-     *
-     * @return array The component dependencies.
-     */
-    public function getDependencies();
 
     /**
      * Validate that there is a package.xml file in the source directory.

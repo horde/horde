@@ -35,6 +35,20 @@ class Components_Component_Source extends Components_Component_Base
     private $_directory;
 
     /**
+     * The package file representing the component.
+     *
+     * @var Horde_Pear_Package_Xml
+     */
+    private $_package;
+
+    /**
+     * The PEAR package file representing the component.
+     *
+     * @var PEAR_PackageFile
+     */
+    private $_package_file;
+
+    /**
      * Constructor.
      *
      * @param string                  $directory Path to the source directory.
@@ -62,7 +76,7 @@ class Components_Component_Source extends Components_Component_Base
      */
     public function getName()
     {
-        return $this->getPackage()->getName();
+        return $this->_getPackageXml()->getName();
     }
 
     /**
@@ -72,7 +86,7 @@ class Components_Component_Source extends Components_Component_Base
      */
     public function getVersion()
     {
-        return $this->getPackage()->getVersion();
+        return $this->_getPackageXml()->getVersion();
     }
 
     /**
@@ -82,7 +96,7 @@ class Components_Component_Source extends Components_Component_Base
      */
     public function getChannel()
     {
-        return $this->getPackage()->getChannel();
+        return $this->_getPackageXml()->getChannel();
     }
 
     /**
@@ -92,8 +106,82 @@ class Components_Component_Source extends Components_Component_Base
      */
     public function getDependencies()
     {
-        return $this->getPackage()->getDependencies();
+        return $this->_getPackageXml()->getDependencies();
     }
+
+    /**
+     * Update the package.xml file for this component.
+     *
+     * @param string $action  The action to perform. Either "update", "diff",
+     *                        or "print".
+     * @param array  $options Options for this operation.
+     *
+     * @return NULL
+     */
+    public function updatePackageXml($action, $options)
+    {
+        $package_xml = $this->_getPackageXml();
+        $package_xml->updateContents(null, $options);
+        switch($action) {
+        case 'print':
+            return (string) $package_xml;
+        case 'diff':
+            $new = (string) $package_xml;
+            $old = file_get_contents($this->getPackageXml());
+            $renderer = new Horde_Text_Diff_Renderer_Unified();
+            return $renderer->render(
+                new Horde_Text_Diff(
+                    'auto', array(explode("\n", $old), explode("\n", $new))
+                )
+            );
+        default:
+            file_put_contents($this->getPackageXml(), (string) $package_xml);
+            return true;
+        }
+    }
+
+    /**
+     * Return a PEAR package representation for the component.
+     *
+     * @return Horde_Pear_Package_Xml The package representation.
+     */
+    public function _getPackageXml()
+    {
+        if (!isset($this->_package)) {
+            $this->_package = $this->getFactory()->createPackageXml(
+                $this->getPackageXml()
+            );
+        }
+        return $this->_package;
+    }
+
+    /**
+     * Return a PEAR PackageFile representation for the component.
+     *
+     * @return PEAR_PackageFile The package representation.
+     */
+    private function _getPackageFile()
+    {
+        if (!isset($this->_package_file)) {
+            $options = $this->getOptions();
+            if (isset($options['pearrc'])) {
+                $this->_package_file = $this->getFactory()->pear()
+                    ->createPackageForPearConfig(
+                        $this->getPackageXml(), $options['pearrc']
+                    );
+            } else {
+                $this->_package_file = $this->getFactory()->pear()
+                    ->createPackageForDefaultLocation(
+                        $this->getPackageXml()
+                    );
+            }
+        }
+        return $this->_package_file;
+    }
+
+
+
+
 
     /**
      * Return the path to the local source directory.
@@ -134,6 +222,13 @@ class Components_Component_Source extends Components_Component_Base
     public function placeArchive($destination)
     {
         $this->createDestination($destination);
+        $version = preg_replace(
+            '/([.0-9]+).*/',
+            '\1dev' . strftime('%Y%m%d%H%M'),
+            $this->getVersion()
+        );
+        $package = $this->getPackageFile();
+        $package->generateSnapshot($version, $destination);
     }
 
     /**

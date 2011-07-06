@@ -42,13 +42,6 @@ abstract class Components_Component_Base implements Components_Component
     private $_factory;
 
     /**
-     * The PEAR package file representing the component.
-     *
-     * @var PEAR_PackageFile
-     */
-    private $_package;
-
-    /**
      * Constructor.
      *
      * @param Components_Config            $config  The configuration for the
@@ -66,25 +59,39 @@ abstract class Components_Component_Base implements Components_Component
     }
 
     /**
-     * Return a PEAR package representation for the component.
+     * Return the application options.
      *
-     * @return PEAR_PackageFile The package representation.
+     * @return array The options.
      */
-    public function getPackage()
+    protected function getOptions()
     {
-        if (!isset($this->_package)) {
-            $options = $this->_config->getOptions();
-            if (isset($options['pearrc'])) {
-                $this->_package = $this->_factory->pear()->createPackageForPearConfig(
-                    $this->getPackageXml(), $options['pearrc']
-                );
-            } else {
-                $this->_package = $this->_factory->pear()->createPackageForDefaultLocation(
-                    $this->getPackageXml()
-                );
-            }
-        }
-        return $this->_package;
+        return $this->_config->getOptions();
+    }
+
+    /**
+     * Return the factory.
+     *
+     * @return Components_Component_Factory The factory.
+     */
+    protected function getFactory()
+    {
+        return $this->_factory;
+    }
+
+    /**
+     * Update the package.xml file for this component.
+     *
+     * @param string $action  The action to perform. Either "update", "diff",
+     *                        or "print".
+     * @param array  $options Options for this operation.
+     *
+     * @return NULL
+     */
+    public function updatePackageXml($action, $options)
+    {
+        throw new Components_Exception(
+            'Updating the package.xml is not supported!'
+        );
     }
 
     /**
@@ -110,4 +117,5 @@ abstract class Components_Component_Base implements Components_Component
     {
         return $this->_factory->createDependencyList($this);
     }
+
 }

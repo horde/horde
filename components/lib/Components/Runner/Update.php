@@ -44,18 +44,28 @@ class Components_Runner_Update
     private $_factory;
 
     /**
+     * The output handler.
+     *
+     * @param Component_Output
+     */
+    private $_output;
+
+    /**
      * Constructor.
      *
      * @param Components_Config       $config  The configuration for the current job.
      * @param Components_Pear_Factory $factory Generator for all
      *                                         required PEAR components.
+     * @param Component_Output        $output  The output handler.
      */
     public function __construct(
         Components_Config $config,
-        Components_Pear_Factory $factory
+        Components_Pear_Factory $factory,
+        Components_Output $output
     ) {
         $this->_config  = $config;
         $this->_factory = $factory;
+        $this->_output = $output;
     }
 
     public function run()
@@ -69,15 +79,20 @@ class Components_Runner_Update
             );
         }
 
-        $package = $this->_config->getComponent()->getPackage();
-
         if (!empty($options['updatexml'])
             || (isset($arguments[0]) && $arguments[0] == 'update')) {
             $action = !empty($options['action']) ? $options['action'] : 'update';
             if (!empty($options['pretend']) && $action == 'update') {
                 $action = 'diff';
             }
-            $package->updatePackageFile($action, $options);
+            $result = $this->_config->getComponent()->updatePackageXml(
+                $action, $options
+            );
+            if ($result === true) {
+                $this->_output->ok('Successfully updated package.xml of ' . $this->_config->getComponent()->getName() . '.');
+            } else {
+                print $result;
+            }
         }
 
     }

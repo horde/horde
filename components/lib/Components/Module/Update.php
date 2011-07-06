@@ -59,7 +59,7 @@ extends Components_Module_Base
                     'type'    => 'choice',
                     'choices' => array('update', 'diff', 'print'),
                     'default' => 'update',
-                    'help'    => 'An optional argument to "--updatexml" that allows choosing the action that should be performed. The default is "update" which will rewrite the package.xml. "diff" allows you to produce a diffed output of the changes that would be applied with "update" - the "Horde_Text_Diff" package needs to be installed for that. "print" will output the new package.xml to the screen rather than rewriting it.'
+                    'help'    => 'An optional argument that allows choosing the action that should be performed. The default is "update" which will rewrite the package.xml. "diff" allows you to produce a diffed output of the changes that would be applied with "update" - the "Horde_Text_Diff" package needs to be installed for that. "print" will output the new package.xml to the screen rather than rewriting it.'
                 )
             ),
             new Horde_Argv_Option(
@@ -103,6 +103,7 @@ extends Components_Module_Base
         return array(
             '--pretend' => 'Display a textual diff of the current package.xml and the updated package.xml. The package.xml file does not get modified.',
             '--regenerate' => 'Purge the old file listings and replace them with a completely fresh list.',
+            '--action' => ''
         );
     }
 
@@ -132,7 +133,6 @@ extends Components_Module_Base
         $arguments = $config->getArguments();
         if (!empty($options['updatexml'])
             || (isset($arguments[0]) && $arguments[0] == 'update')) {
-            $config->getComponent()->requireLocal();
             $this->_dependencies->getRunnerUpdate()->run();
             return true;
         }
