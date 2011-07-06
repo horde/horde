@@ -106,22 +106,4 @@ interface Components_Component
      * @return NULL
      */
     public function repositoryRoot(Components_Helper_Root $helper);
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * Return the (base) name of the component archive.
-     *
-     * @return string The name of the component archive.
-     */
-    public function getArchiveName();
-
 }

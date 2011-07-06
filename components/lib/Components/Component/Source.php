@@ -308,48 +308,4 @@ class Components_Component_Source extends Components_Component_Base
     {
         return realpath($this->_directory . '/package.xml');
     }
-
-
-
-
-
-    /**
-     * Return the path to the local source directory.
-     *
-     * @return string The directory that contains the source code.
-     */
-    public function getPath()
-    {
-        return $this->_directory;
-    }
-
-    /**
-     * Return the (base) name of the component archive.
-     *
-     * @return string The name of the component archive.
-     */
-    public function getArchiveName()
-    {
-    }
-
-    /**
-     * Validate that there is a package.xml file in the source directory.
-     *
-     * @return NULL
-     */
-    public function requirePackageXml()
-    {
-        if (!file_exists($this->_directory . '/package.xml')) {
-            throw new Components_Exception(sprintf('There is no package.xml at %s!', $this->_directory));
-        }
-    }
-
-    /**
-     * Bail out if this is no local source.
-     *
-     * @return NULL
-     */
-    public function requireLocal()
-    {
-    }
 }

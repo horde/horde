@@ -154,16 +154,6 @@ class Components_Component_Remote extends Components_Component_Base
     }
 
     /**
-     * Return the (base) name of the component archive.
-     *
-     * @return string The name of the component archive.
-     */
-    public function getArchiveName()
-    {
-        return basename($this->_getDownloadUri());
-    }
-
-    /**
      * Place the component source archive at the specified location.
      *
      * @param string $destination The path to write the archive to.
