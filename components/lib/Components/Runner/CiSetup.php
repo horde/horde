@@ -85,12 +85,14 @@ class Components_Runner_CiSetup
             );
         }
 
-        $directory = $this->_config->getComponent()->getPath();
-        if (basename(dirname($directory)) == 'framework') {
-            $origin = 'framework/' . basename($directory);
-        } else {
-            $origin = basename($directory);
-        }
+        //@todo FIXME
+        /* $directory = $this->_config->getComponent()->getPath(); */
+        /* if (basename(dirname($directory)) == 'framework') { */
+        /*     $origin = 'framework/' . basename($directory); */
+        /* } else { */
+        /*     $origin = basename($directory); */
+        /* } */
+        $origin = '';
 
         $config_template = new Components_Helper_Templates_Single(
             $this->_config_application->getTemplateDirectory(),
