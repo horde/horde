@@ -188,7 +188,7 @@ class Components_Helper_Dependencies
             'yellow',
             $level,
             $dependency->key(),
-            $dependency->name(),
+            $dependency->getName(),
             $dependency->channelOrType(),
             '(NOT RESOLVED) ***STOP***',
             $options
