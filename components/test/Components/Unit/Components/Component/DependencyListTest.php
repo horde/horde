@@ -67,7 +67,7 @@ extends Components_TestCase
         $list = $comp->getDependencyList();
         $names = array();
         foreach ($list as $element) {
-            $names[] = $element->name();
+            $names[] = $element->getName();
         }
         $this->assertEquals(array('', 'PEAR', 'Dependency'), $names);
     }
