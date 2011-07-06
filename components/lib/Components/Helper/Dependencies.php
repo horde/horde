@@ -54,7 +54,6 @@ class Components_Helper_Dependencies
      * Constructor.
      *
      * @param Component_Output       $output The output handler.
-     * @param Components_Helper_Tree $tree   The tree for this run.
      */
     public function __construct(Components_Output $output)
     {

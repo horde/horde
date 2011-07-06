@@ -142,56 +142,6 @@ class Components_Pear_Factory
     }
 
     /**
-     * Create a tree helper for a specific PEAR environment..
-     *
-     * @param string               $environment The path to the PEAR environment.
-     * @param array                $options     The application options.
-     * @param Components_Component $component   The component to work with. This
-     *                                          is optional and only used to
-     *                                          determine the root of the
-     *                                          Horde repository.
-     *
-     * @return Components_Helper_Tree The tree helper.
-     */
-    public function createTreeHelper(
-        $environment, array $options, Components_Component $component = null
-    )
-    {
-        $instance = $this->_dependencies->createInstance('Components_Pear_Environment');
-        $instance->setFactory($this);
-        $instance->setLocation(
-            $environment,
-            $options['pearrc']
-        );
-        $instance->setResourceDirectories($options);
-        return new Components_Helper_Tree(
-            $this, $instance, new Components_Helper_Root($options, $component)
-        );
-    }
-
-    /**
-     * Create a tree helper for the default PEAR environment.
-     *
-     * @param array                $options     The application options
-     * @param Components_Component $component   The component to work with. This
-     *                                          is optional and only used to
-     *                                          determine the root of the
-     *                                          Horde repository.
-     *
-     * @return Components_Helper_Tree The tree helper.
-     */
-    public function createSimpleTreeHelper(
-        array $options = array(), Components_Component $component
-    )
-    {
-        return new Components_Helper_Tree(
-            $this,
-            $this->_dependencies->createInstance('Components_Pear_Environment'),
-            new Components_Helper_Root($options, $component)
-        );
-    }
-
-    /**
      * Return the PEAR Package representation.
      *
      * @param string                          $package_xml_path Path to the package.xml file.
