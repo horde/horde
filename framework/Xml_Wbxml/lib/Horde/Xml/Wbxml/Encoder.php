@@ -404,6 +404,10 @@ class Horde_Xml_Wbxml_Encoder extends Horde_Xml_Wbxml_ContentHandler
         $cp = $this->_dtd->toCodePageURI($uri);
         if (strlen($cp)) {
             $this->_dtd = $this->_dtdManager->getInstanceURI($uri);
+           if (!$this->_dtd) {
+                // TODO: proper error handling
+                die('Unable to find dtd for ' . $uri);
+            }
             $this->_output .= chr(Horde_Xml_Wbxml::GLOBAL_TOKEN_SWITCH_PAGE);
             $this->_output .= chr($cp);
         } else {
