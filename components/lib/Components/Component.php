@@ -70,6 +70,15 @@ interface Components_Component
     public function getDependencies();
 
     /**
+     * Return the stability of the release or api.
+     *
+     * @param string $key "release" or "api"
+     *
+     * @return string The stability.
+     */
+    public function getState($key = 'release');
+
+    /**
      * Return the component lead developers.
      *
      * @return string The component lead developers.
