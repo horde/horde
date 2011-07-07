@@ -157,6 +157,8 @@ class Horde_Pear_Package_Xml
     /**
      * Return the stability of the release or api.
      *
+     * @param string $key "release" or "api"
+     *
      * @return string The stability.
      */
     public function getState($key = 'release')
