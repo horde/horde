@@ -2,6 +2,12 @@
  Components TODO List
 ======================
 
+ - Fix the continuous integation modules to work with the new
+   component classes.
+
+ - Fix bootstrapping to work with the new
+   component classes.
+
  - Add a release helper module.
    - Make sure only the required modules get validation calls (e.g. freshmeat only when really trying to contact freshmeat)
    - Allow to configure the mail transport for sending announcements.
