@@ -53,8 +53,6 @@ class Components_Helper_Version
      * @param string $version   A version string.
      * @param string $stability Release stability information.
      *
-     * @return NULLx
-     *
      * @throws Components_Exception on invalid version string.
      */
     static public function validateReleaseStability($version, $stability)
@@ -80,8 +78,8 @@ class Components_Helper_Version
                 throw new Components_Exception(
                     sprintf(
                         '%s version "%s" marked with invalid release stability "%s"!',
-                        ucfirst($s),
-                    $version,
+                        $s,
+                        $version,
                         $stability
                     )
                 );
@@ -94,8 +92,6 @@ class Components_Helper_Version
      *
      * @param string $version   A version string.
      * @param string $stability Api stability information.
-     *
-     * @return NULLx
      *
      * @throws Components_Exception on invalid version string.
      */
@@ -122,8 +118,8 @@ class Components_Helper_Version
                 throw new Components_Exception(
                     sprintf(
                         '%s version "%s" marked with invalid api stability "%s"!',
-                        ucfirst($s),
-                    $version,
+                        $s,
+                        $version,
                         $stability
                     )
                 );
