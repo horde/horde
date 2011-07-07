@@ -366,6 +366,39 @@ class Horde_Pear_Package_Xml
     }
 
     /**
+     * Set the version in the package.xml
+     *
+     * @param string $rel_version The new release version number.
+     * @param string $api_version The new api version number.
+     *
+     * @return NULL
+     */
+    public function setVersion($rel_version = null, $api_version = null)
+    {
+        $release = $this->findNodeRelativeTo(
+            './p:version',
+            $this->_requireCurrentRelease()
+        );
+        $version = $this->findNode('/p:package/p:version');
+        if ($rel_version !== null) {
+            $this->replaceTextNodeRelativeTo(
+                './p:release', $version, $rel_version
+            );
+            $this->replaceTextNodeRelativeTo(
+                './p:release', $release, $rel_version
+            );
+        }
+        if ($api_version !== null) {
+            $this->replaceTextNodeRelativeTo(
+                './p:api', $version, $api_version
+            );
+            $this->replaceTextNodeRelativeTo(
+                './p:api', $release, $api_version
+            );
+        }
+    }
+
+    /**
      * Add the next version to the package.xml
      *
      * @param string $version           The new version number.

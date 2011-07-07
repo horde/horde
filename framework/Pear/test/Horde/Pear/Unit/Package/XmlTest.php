@@ -186,6 +186,26 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testSetReleaseVersion()
+    {
+        $xml = $this->_getFixture();
+        $xml->setVersion('6.0.0');
+        $this->assertEquals(
+            '6.0.0',
+            $xml->findNode('/p:package/p:version/p:release')->textContent
+        );
+    }
+
+    public function testSetApiVersion()
+    {
+        $xml = $this->_getFixture();
+        $xml->setVersion(null, '6.0.0');
+        $this->assertEquals(
+            '6.0.0',
+            $xml->findNode('/p:package/p:version/p:api')->textContent
+        );
+    }
+
     public function testGetLicense()
     {
         $xml = $this->_getFixture();
