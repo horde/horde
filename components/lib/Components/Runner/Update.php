@@ -77,7 +77,7 @@ class Components_Runner_Update
                 $action, $options
             );
             if (!empty($options['new_version']) || !empty($options['new_api'])) {
-                $this->_config->getComponent()->updatePackageXml(
+                $this->_config->getComponent()->setVersion(
                     $options['new_version'], $options['new_api'], $options
                 );
             }
