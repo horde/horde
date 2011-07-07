@@ -29,7 +29,7 @@ if (in_array($component->getName(), $applications)) {
 }
 $package_name = strtr(strtolower($package_name), '_', '-');
 
-$component->placeArchive($destination);
+$archive = $component->placeArchive($destination);
 
 $destination .= '/php-' . $package_name . '-' . $component->getVersion();
 
@@ -37,7 +37,7 @@ if (!file_exists($destination)) {
     mkdir($destination, 0700, true);
 }
 
-system('cd ' . $destination . ' && tar xzpf ../' . $component->getArchiveName());
+system('cd ' . $destination . ' && tar xzpf ' . $archive);
 
 $build_template = new Components_Helper_Templates_Directory(
     $this->_config_application->getTemplateDirectory() . '/templates',
@@ -53,6 +53,6 @@ $build_template->write(
 );
 
 // Properly name tarball to avoid building a native debian package
-system('cd ' . $destination . ' && mv ../' . $component->getArchiveName() . ' ../php-' . $package_name . '_' . $component->getVersion() . '.orig.tar.gz');
+system('cd ' . $destination . ' && mv ' . $archive . ' ../php-' . $package_name . '_' . $component->getVersion() . '.orig.tar.gz');
 
 system('cd ' . $destination . ' && dpkg-buildpackage');
