@@ -9,7 +9,6 @@
    component classes.
 
  - Add a release helper module.
-   - Make sure only the required modules get validation calls (e.g. freshmeat only when really trying to contact freshmeat)
    - Allow to configure the mail transport for sending announcements.
    - Validate that the release does not exist before releasing.
    - Error handling.
@@ -25,17 +24,11 @@
  - Allow channel dependency detection with external/local package
    dependencies.
 
- - Better install support (allow installing/updating both git and
-   released components)
-
  - Add validations (+ before release)
    - COPYING
    - Tests
    - phpDocumentor
    - Code style
-
- - Allow specifying no pear.conf file when using the installer (+
-   allow to use the "install" argument)
 
  - Document usage
 
