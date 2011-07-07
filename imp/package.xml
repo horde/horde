@@ -291,7 +291,7 @@
      <file name="ListMessages.php" role="horde" />
      <file name="ShowMessage.php" role="horde" />
     </dir> <!-- /lib/Views -->
-    <file name=".htaccess" role="data" />
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Auth.php" role="horde" />
