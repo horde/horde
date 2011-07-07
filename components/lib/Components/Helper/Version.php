@@ -48,6 +48,90 @@ class Components_Helper_Version
     }
 
     /**
+     * Validates the version and release stability tuple.
+     *
+     * @param string $version   A version string.
+     * @param string $stability Release stability information.
+     *
+     * @return NULLx
+     *
+     * @throws Components_Exception on invalid version string.
+     */
+    static public function validateReleaseStability($version, $stability)
+    {
+        preg_match('/^(\d+\.\d+\.\d+)(alpha|beta|RC|dev)?\d*$/', $version, $match);
+        if (!isset($match[2]) && $stability != 'stable') {
+            throw new Components_Exception(
+                sprintf(
+                    'Stable version "%s" marked with invalid release stability "%s"!',
+                    $version,
+                    $stability
+                )
+            );
+        }
+        $requires = array(
+            'alpha' => 'alpha',
+            'beta' => 'beta',
+            'RC' => 'beta',
+            'dev' => 'devel'
+        );
+        foreach ($requires as $m => $s) {
+            if (isset($match[2]) && $match[2] == $m && $stability != $s) {
+                throw new Components_Exception(
+                    sprintf(
+                        '%s version "%s" marked with invalid release stability "%s"!',
+                        ucfirst($s),
+                    $version,
+                        $stability
+                    )
+                );
+            }
+        }
+    }
+
+    /**
+     * Validates the version and api stability tuple.
+     *
+     * @param string $version   A version string.
+     * @param string $stability Api stability information.
+     *
+     * @return NULLx
+     *
+     * @throws Components_Exception on invalid version string.
+     */
+    static public function validateApiStability($version, $stability)
+    {
+        preg_match('/^(\d+\.\d+\.\d+)(alpha|beta|RC|dev)?\d*$/', $version, $match);
+        if (!isset($match[2]) && $stability != 'stable') {
+            throw new Components_Exception(
+                sprintf(
+                    'Stable version "%s" marked with invalid api stability "%s"!',
+                    $version,
+                    $stability
+                )
+            );
+        }
+        $requires = array(
+            'alpha' => 'alpha',
+            'beta' => 'beta',
+            'RC' => 'stable',
+            'dev' => 'devel'
+        );
+        foreach ($requires as $m => $s) {
+            if (isset($match[2]) && $match[2] == $m && $stability != $s) {
+                throw new Components_Exception(
+                    sprintf(
+                        '%s version "%s" marked with invalid api stability "%s"!',
+                        ucfirst($s),
+                    $version,
+                        $stability
+                    )
+                );
+            }
+        }
+    }
+
+    /**
      * Convert the Horde package version number to PEAR style.
      *
      * @param string $version The Horde package version.
