@@ -91,6 +91,29 @@ interface Components_Component
     public function getLicenseLocation();
 
     /**
+     * Indicate if the component has a local package.xml.
+     *
+     * @return boolean True if a package.xml exists.
+     */
+    public function hasLocalPackageXml();
+
+    /**
+     * Returns the link to the change log.
+     *
+     * @param Components_Helper_ChangeLog $helper  The change log helper.
+     *
+     * @return string|null The link to the change log.
+     */
+    public function getChangelog($helper);
+
+    /**
+     * Return the path to the release notes.
+     *
+     * @return string|boolean The path to the release notes or false.
+     */
+    public function getReleaseNotesPath();
+
+    /**
      * Return the dependency list for the component.
      *
      * @return Components_Component_DependencyList The dependency list.
@@ -120,6 +143,67 @@ interface Components_Component
     public function changed(
         $log, Components_Helper_ChangeLog $helper, $options
     );
+
+    /**
+     * Timestamp the package.xml file with the current time.
+     *
+     * @param array $options Options for the operation.
+     *
+     * @return string The success message.
+     */
+    public function timestampAndSync($options);
+
+    /**
+     * Add the next version to the package.xml.
+     *
+     * @param string $version           The new version number.
+     * @param string $initial_note      The text for the initial note.
+     * @param string $stability_api     The API stability for the next release.
+     * @param string $stability_release The stability for the next release.
+     * @param array $options Options for the operation.
+     *
+     * @return NULL
+     */
+    public function nextVersion(
+        $version,
+        $initial_note,
+        $stability_api = null,
+        $stability_release = null,
+        $options = array()
+    );
+
+    /**
+     * Replace the current sentinel.
+     *
+     * @param string $changes New version for the CHANGES file.
+     * @param string $app     New version for the Application.php file.
+     * @param array  $options Options for the operation.
+     *
+     * @return string The success message.
+     */
+    public function currentSentinel($changes, $app, $options);
+
+    /**
+     * Set the next sentinel.
+     *
+     * @param string $changes New version for the CHANGES file.
+     * @param string $app     New version for the Application.php file.
+     * @param array  $options Options for the operation.
+     *
+     * @return string The success message.
+     */
+    public function nextSentinel($changes, $app, $options);
+
+    /**
+     * Tag the component.
+     *
+     * @param string                   $tag     Tag name.
+     * @param string                   $message Tag message.
+     * @param Components_Helper_Commit $commit  The commit helper.
+     *
+     * @return NULL
+     */
+    public function tag($tag, $message, $commit);
 
     /**
      * Place the component source archive at the specified location.

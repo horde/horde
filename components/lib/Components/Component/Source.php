@@ -65,8 +65,52 @@ class Components_Component_Source extends Components_Component_Base
         Components_Component_Factory $factory
     )
     {
-        $this->_directory = $directory;
+        $this->_directory = realpath($directory);
         parent::__construct($config, $factory);
+    }
+
+    /**
+     * Indicate if the component has a local package.xml.
+     *
+     * @return boolean True if a package.xml exists.
+     */
+    public function hasLocalPackageXml()
+    {
+        return file_exists($this->_getPackageXmlPath());
+    }
+
+    /**
+     * Returns the link to the change log.
+     *
+     * @param Components_Helper_ChangeLog $helper  The change log helper.
+     *
+     * @return string|null The link to the change log.
+     */
+    public function getChangelog($helper)
+    {
+        $base = $this->getFactory()->getGitRoot()->getRoot();
+        return $helper->getChangelog(
+            preg_replace(
+                '#^' . $base . '#', '', realpath($this->_directory)
+            ),
+            $this->_directory
+        );
+    }
+
+    /**
+     * Return the path to the release notes.
+     *
+     * @return string|boolean The path to the release notes or false.
+     */
+    public function getReleaseNotesPath()
+    {
+        if (file_exists($this->_directory . '/docs/RELEASE_NOTES')) {
+            return $this->_directory . '/docs/RELEASE_NOTES';
+        }
+        if (file_exists($this->_directory . '/doc/RELEASE_NOTES')) {
+            return $this->_directory . '/doc/RELEASE_NOTES';
+        }
+        return false;
     }
 
     /**
@@ -133,6 +177,193 @@ class Components_Component_Source extends Components_Component_Base
                 $options
             )
         );
+    }
+
+    /**
+     * Timestamp the package.xml file with the current time.
+     *
+     * @param array $options Options for the operation.
+     *
+     * @return string The success message.
+     */
+    public function timestampAndSync($options)
+    {
+        if (empty($options['pretend'])) {
+            $package = $this->getPackageXml();
+            $package->timestamp();
+            $package->syncCurrentVersion();
+            file_put_contents($this->_getPackageXmlPath(), (string) $package);
+            $result = sprintf(
+                'Marked package.xml "%s" with current timestamp and synchronized the change log.',
+                $this->_getPackageXmlPath()
+            );
+        } else {
+            $result = sprintf(
+                'Would timestamp "%s" now and synchronize its change log.',
+                $this->_getPackageXmlPath()
+            );
+        }
+        if (!empty($options['commit'])) {
+            $options['commit']->add(
+                $this->_getPackageXmlPath(), $this->_directory
+            );
+        }
+        return $result;
+    }
+
+    /**
+     * Add the next version to the package.xml.
+     *
+     * @param string $version           The new version number.
+     * @param string $initial_note      The text for the initial note.
+     * @param string $stability_api     The API stability for the next release.
+     * @param string $stability_release The stability for the next release.
+     * @param array $options Options for the operation.
+     *
+     * @return NULL
+     */
+    public function nextVersion(
+        $version,
+        $initial_note,
+        $stability_api = null,
+        $stability_release = null,
+        $options = array()
+    ) {
+        if (empty($options['pretend'])) {
+            $package = $this->getPackageXml();
+            $package->addNextVersion(
+                $version, $initial_note, $stability_api, $stability_release
+            );
+            file_put_contents($this->_getPackageXmlPath(), (string) $package);
+            $result = sprintf(
+                'Added next version "%s" with the initial note "%s" to %s.',
+                $version,
+                $initial_note,
+                $this->_getPackageXmlPath()
+            );
+        } else {
+            $result = sprintf(
+                'Would add next version "%s" with the initial note "%s" to %s now.',
+                $version,
+                $initial_note,
+                $this->_getPackageXmlPath()
+            );
+        }
+        if ($stability_release !== null) {
+            $result .= ' Release stability: "' . $stability_release . '".';
+        }
+        if ($stability_api !== null) {
+            $result .= ' API stability: "' . $stability_api . '".';
+        }
+
+        if (!empty($options['commit'])) {
+            $options['commit']->add(
+                $this->_getPackageXmlPath(), $this->_directory
+            );
+        }
+        return $result;
+    }
+
+    /**
+     * Replace the current sentinel.
+     *
+     * @param string $changes New version for the CHANGES file.
+     * @param string $app     New version for the Application.php file.
+     * @param array  $options Options for the operation.
+     *
+     * @return string The success message.
+     */
+    public function currentSentinel($changes, $app, $options)
+    {
+        $sentinel = $this->getFactory()->createSentinel($this->_directory);
+        if (empty($options['pretend'])) {
+            $sentinel->replaceChanges($changes);
+            $sentinel->updateApplication($app);
+            $action = 'Did';
+        } else {
+            $action = 'Would';
+        }
+        $files = array(
+            'changes' => $sentinel->changesFileExists(),
+            'app'     => $sentinel->applicationFileExists(),
+            'bundle'  => $sentinel->bundleFileExists()
+        );
+        $result = array();
+        foreach ($files as $key => $file) {
+            if (empty($file)) {
+                continue;
+            }
+            if (!empty($options['commit'])) {
+                $options['commit']->add($file, $this->_directory);
+            }
+            $version = ($key == 'changes') ? $changes : $app;
+            $result[] = sprintf(
+                '%s replace sentinel in %s with "%s" now.',
+                $action,
+                $file,
+                $version
+            );
+        }
+        return $result;
+    }
+
+    /**
+     * Set the next sentinel.
+     *
+     * @param string $changes New version for the CHANGES file.
+     * @param string $app     New version for the Application.php file.
+     * @param array  $options Options for the operation.
+     *
+     * @return string The success message.
+     */
+    public function nextSentinel($changes, $app, $options)
+    {
+        $sentinel = $this->getFactory()->createSentinel($this->_directory);
+        if (empty($options['pretend'])) {
+            $sentinel->updateChanges($changes);
+            $sentinel->updateApplication($app);
+            $action = 'Did';
+        } else {
+            $action = 'Would';
+        }
+        $files = array(
+            'changes' => $sentinel->changesFileExists(),
+            'app'     => $sentinel->applicationFileExists(),
+            'bundle'  => $sentinel->bundleFileExists()
+        );
+        $result = array();
+        foreach ($files as $key => $file) {
+            if (empty($file)) {
+                continue;
+            }
+            if (!empty($options['commit'])) {
+                $options['commit']->add($file, $this->_directory);
+            }
+            $version = ($key == 'changes') ? $changes : $app;
+            $task = ($key == 'changes') ? 'extend' : 'replace';
+            $result[] = sprintf(
+                '%s %s sentinel in %s with "%s" now.',
+                $action,
+                $task,
+                $file,
+                $version
+            );
+        }
+        return $result;
+    }
+
+    /**
+     * Tag the component.
+     *
+     * @param string                   $tag     Tag name.
+     * @param string                   $message Tag message.
+     * @param Components_Helper_Commit $commit  The commit helper.
+     *
+     * @return NULL
+     */
+    public function tag($tag, $message, $commit)
+    {
+        $commit->tag($tag, $message, $this->_directory);
     }
 
     /**
@@ -228,6 +459,14 @@ class Components_Component_Source extends Components_Component_Base
     protected function getPackageXml()
     {
         if (!isset($this->_package)) {
+            if (!file_exists($this->_getPackageXmlPath())) {
+                throw new Components_Exception(
+                    sprintf(
+                        'The package.xml of the component at "%s" is missing.',
+                        $this->_getPackageXmlPath()
+                    )
+                );
+            }
             $this->_package = $this->getFactory()->createPackageXml(
                 $this->_getPackageXmlPath()
             );
@@ -266,6 +505,6 @@ class Components_Component_Source extends Components_Component_Base
      */
     private function _getPackageXmlPath()
     {
-        return realpath($this->_directory . '/package.xml');
+        return $this->_directory . '/package.xml';
     }
 }

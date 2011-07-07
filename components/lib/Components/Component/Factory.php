@@ -226,6 +226,18 @@ class Components_Component_Factory
     }
 
     /**
+     * Create the sentinel helper.
+     *
+     * @param string $directory The directory the sentinel should act in.
+     *
+     * @return Horde_Release_Sentinel The sentinel helper.
+     */
+    public function createSentinel($directory)
+    {
+        return new Horde_Release_Sentinel($directory);
+    }
+
+    /**
      * Return the repository root helper.
      *
      * @return Components_Helper_Root The helper.

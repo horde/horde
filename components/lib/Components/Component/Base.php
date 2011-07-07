@@ -149,6 +149,40 @@ abstract class Components_Component_Base implements Components_Component
     }
 
     /**
+     * Indicate if the component has a local package.xml.
+     *
+     * @return boolean True if a package.xml exists.
+     */
+    public function hasLocalPackageXml()
+    {
+        return false;
+    }
+
+    /**
+     * Returns the link to the change log.
+     *
+     * @param Components_Helper_ChangeLog $helper  The change log helper.
+     *
+     * @return string|null The link to the change log.
+     */
+    public function getChangelog($helper)
+    {
+        throw new Components_Exception(
+            'Not supported!'
+        );
+    }
+
+    /**
+     * Return the path to the release notes.
+     *
+     * @return string|boolean The path to the release notes or false.
+     */
+    public function getReleaseNotesPath()
+    {
+        return false;
+    }
+
+    /**
      * Return the dependency list for the component.
      *
      * @return Components_Component_DependencyList The dependency list.
@@ -189,6 +223,92 @@ abstract class Components_Component_Base implements Components_Component
     {
         throw new Components_Exception(
             'Updating the change log is not supported!'
+        );
+    }
+
+    /**
+     * Timestamp the package.xml file with the current time.
+     *
+     * @param array $options Options for the operation.
+     *
+     * @return string The success message.
+     */
+    public function timestampAndSync($options)
+    {
+        throw new Components_Exception(
+            'Timestamping is not supported!'
+        );
+    }
+
+    /**
+     * Add the next version to the package.xml.
+     *
+     * @param string $version           The new version number.
+     * @param string $initial_note      The text for the initial note.
+     * @param string $stability_api     The API stability for the next release.
+     * @param string $stability_release The stability for the next release.
+     * @param array $options Options for the operation.
+     *
+     * @return NULL
+     */
+    public function nextVersion(
+        $version,
+        $initial_note,
+        $stability_api = null,
+        $stability_release = null,
+        $options = array()
+    )
+    {
+        throw new Components_Exception(
+            'Setting the next version is not supported!'
+        );
+    }
+
+    /**
+     * Replace the current sentinel.
+     *
+     * @param string $changes New version for the CHANGES file.
+     * @param string $app     New version for the Application.php file.
+     * @param array  $options Options for the operation.
+     *
+     * @return string The success message.
+     */
+    public function currentSentinel($changes, $app, $options)
+    {
+        throw new Components_Exception(
+            'Modifying the sentinel is not supported!'
+        );
+    }
+
+    /**
+     * Set the next sentinel.
+     *
+     * @param string $changes New version for the CHANGES file.
+     * @param string $app     New version for the Application.php file.
+     * @param array  $options Options for the operation.
+     *
+     * @return string The success message.
+     */
+    public function nextSentinel($changes, $app, $options)
+    {
+        throw new Components_Exception(
+            'Modifying the sentinel is not supported!'
+        );
+    }
+
+    /**
+     * Tag the component.
+     *
+     * @param string                   $tag     Tag name.
+     * @param string                   $message Tag message.
+     * @param Components_Helper_Commit $commit  The commit helper.
+     *
+     * @return NULL
+     */
+    public function tag($tag, $message, $commit)
+    {
+        throw new Components_Exception(
+            'Tagging is not supported!'
         );
     }
 
