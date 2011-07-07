@@ -68,6 +68,18 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testReleaseState()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals('beta', $xml->getState('release'));
+    }
+
+    public function testApiState()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals('beta', $xml->getState('api'));
+    }
+
     public function testGetLeads()
     {
         $xml = $this->_getFixture();

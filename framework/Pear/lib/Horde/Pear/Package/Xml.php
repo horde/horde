@@ -155,6 +155,19 @@ class Horde_Pear_Package_Xml
     }
 
     /**
+     * Return the stability of the release or api.
+     *
+     * @return string The stability.
+     */
+    public function getState($key = 'release')
+    {
+        if (in_array($key, array('release', 'api'))) {
+            return $this->getNodeText('/p:package/p:stability/p:' . $key);
+        }
+        throw new Horde_Pear_Exception(sprintf('Unsupported state "%s"!', $key));
+    }
+
+    /**
      * Return the package dependencies.
      *
      * @return string The package dependencies.
