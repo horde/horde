@@ -146,6 +146,30 @@ class Components_Helper_ChangeLog
     }
 
     /**
+     * Returns the link to the change log.
+     *
+     * @param string $root      The root of the component in the repository.
+     * @param string $directory The working directory.
+     *
+     * @return string|null The link to the change log.
+     */
+    public function getChangelog($root, $directory)
+    {
+        if ($changes = $this->changesFileExists($directory)) {
+            $blob = trim(
+                $this->systemInDirectory(
+                    'git log --format="%H" HEAD^..HEAD',
+                    $directory,
+                    array()
+                )
+            );
+            $changes = preg_replace('#^' . $directory . '#', '', $changes);
+            return 'https://github.com/horde/horde/blob/' . $blob . $root . $changes;
+        }
+        return '';
+    }
+
+    /**
      * Run a system call.
      *
      * @param string $call       The system call to execute.
