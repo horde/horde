@@ -51,6 +51,37 @@ extends Components_Release_Task_Base
     public function validate($options)
     {
         $errors = array();
+        $remote = new Horde_Pear_Remote();
+        if ($remote->releaseExists($this->getComponent()->getName(), $this->getComponent()->getVersion())) {
+            $errors[] = sprintf(
+                'The remote server already has version "%s" for component "%s".',
+                $this->getComponent()->getVersion(),
+                $this->getComponent()->getName()
+            );
+        }
+        if ($this->getComponent()->getState('api') != $this->getComponent()->getState('release')) {
+            $errors[] = sprintf(
+                'The release stability "%s" does not match the api stability "%s".',
+                $this->getComponent()->getState('api'),
+                $this->getComponent()->getState('release')
+            );
+        }
+        try {
+            Components_Helper_Version::validateReleaseStability(
+                $this->getComponent()->getVersion(),
+                $this->getComponent()->getState('release')
+            );
+        } catch (Components_Exception $e) {
+            $errors[] = $e->getMessage();
+        }
+        try {
+            Components_Helper_Version::validateApiStability(
+                $this->getComponent()->getVersion(),
+                $this->getComponent()->getState('api')
+            );
+        } catch (Components_Exception $e) {
+            $errors[] = $e->getMessage();
+        }
         if (empty($options['releaseserver'])) {
             $errors[] = 'The "releaseserver" option has no value. Where should the release be uploaded?';
         }

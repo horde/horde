@@ -10,7 +10,6 @@
 
  - Add a release helper module.
    - Allow to configure the mail transport for sending announcements.
-   - Validate that the release does not exist before releasing.
    - Error handling.
 
  - Bootstrapping script
