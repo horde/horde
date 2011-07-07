@@ -213,7 +213,7 @@ $_prefs['default_share'] = array(
     'type' => 'enum',
     'desc' => _("Your default calendar:")
 );
-// Address books use for synchronization
+// Calendars use for synchronization
 $_prefs['sync_calendars'] = array(
     'value' => 'a:0:{}',
     'type' => 'multienum',
