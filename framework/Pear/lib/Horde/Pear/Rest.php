@@ -134,6 +134,26 @@ class Horde_Pear_Rest
     }
 
     /**
+     * Test if the specified release exists.
+     *
+     * @param string $package The name of the package.
+     * @param string $version The version of the release.
+     *
+     * @return boolean True if the release exists.
+     */
+    public function releaseExists($package, $version)
+    {
+        $response = $this->_client->get(
+            $this->_url . '/rest/r/' . strtolower($package) . '/' . $version . '.xml'
+        );
+        if ($response->code === 200) { 
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Return the package.xml for a specific release from the server.
      *
      * @param string $package The name of the package.

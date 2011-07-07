@@ -119,6 +119,19 @@ class Horde_Pear_Remote
     }
 
     /**
+     * Test if the specified release exists.
+     *
+     * @param string $package The name of the package.
+     * @param string $version The version of the release.
+     *
+     * @return boolean True if the release exists.
+     */
+    public function releaseExists($package, $version)
+    {
+        return $this->_access->releaseExists($package, $version);
+    }
+
+    /**
      * Retrieve the dowlnload location for the latest package release.
      *
      * @param string $package   The package name.

@@ -128,7 +128,17 @@ extends Horde_Pear_TestCase
         );
     }
 
-    private function _getRest()
+    public function testReleaseExists()
+    {
+        $this->assertTrue($this->_getRest()->releaseExists('TEST', '1'));
+    }
+
+    public function testReleaseDoesNotExists()
+    {
+        $this->assertFalse($this->_getRest(404)->releaseExists('TEST', '1'));
+    }
+
+    private function _getRest($code = 200)
     {
         if (!class_exists('Horde_Http_Client')) {
             $this->markTestSkipped('Horde_Http is missing!');
@@ -136,7 +146,7 @@ extends Horde_Pear_TestCase
         $string = 'RESPONSE';
         $body = new Horde_Support_StringStream($string);
         $response = new Horde_Http_Response_Mock('', $body->fopen());
-        $response->code = 200;
+        $response->code = $code;
         $request = new Horde_Http_Request_Mock();
         $request->setResponse($response);
         return new Horde_Pear_Rest(
