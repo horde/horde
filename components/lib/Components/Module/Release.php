@@ -183,6 +183,29 @@ The following example would generate the package and add the release tag to git 
     }
 
     /**
+     * Return the options that should be explained in the context help.
+     *
+     * @return array A list of option help texts.
+     */
+    public function getContextOptionHelp()
+    {
+        return array(
+            '--pretend' => '',
+            '--config' => '',
+            '--releaseserver' => '',
+            '--releasedir' => '',
+            '--next_note' => '',
+            '--next_version' => '',
+            '--next_relstate' => '',
+            '--next_apistate' => '',
+            '--from' => '',
+            '--horde_user' => '',
+            '--horde_pass' => '',
+            '--fm_token' => '',
+        );
+    }
+
+    /**
      * Determine if this module should act. Run all required actions if it has
      * been instructed to do so.
      *
@@ -196,8 +219,6 @@ The following example would generate the package and add the release tag to git 
         $arguments = $config->getArguments();
         if (!empty($options['release'])
             || (isset($arguments[0]) && $arguments[0] == 'release')) {
-            $config->getComponent()->requireLocal();
-            $config->getComponent()->requirePackageXml();
             $this->_dependencies->getRunnerRelease()->run();
             return true;
         }
