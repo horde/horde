@@ -35,13 +35,6 @@ class Components_Runner_Release
     private $_config;
 
     /**
-     * The factory for PEAR dependencies.
-     *
-     * @var Components_Pear_Factory
-     */
-    private $_factory;
-
-    /**
      * The output handler.
      *
      * @param Component_Output
@@ -60,19 +53,15 @@ class Components_Runner_Release
      *
      * @param Components_Config       $config  The configuration for the current
      *                                         job.
-     * @param Components_Pear_Factory $factory The factory for PEAR
-     *                                         dependencies.
      * @param Component_Output        $output  The output handler.
      * @param Component_Release_Tasks $release The tasks handler.
      */
     public function __construct(
         Components_Config $config,
-        Components_Pear_Factory $factory,
         Components_Output $output,
         Components_Release_Tasks $release
     ) {
         $this->_config = $config;
-        $this->_factory = $factory;
         $this->_output = $output;
         $this->_release = $release;
     }
@@ -80,8 +69,6 @@ class Components_Runner_Release
     public function run()
     {
         $options = $this->_config->getOptions();
-
-        $package = $this->_config->getComponent()->getPackage();
 
         $sequence = array();
 
@@ -101,7 +88,12 @@ class Components_Runner_Release
             $sequence[] = 'Package';
             if ($this->_doTask('upload')) {
                 $options['upload'] = true;
+            } else {
+                $this->_output->warn('Are you certain you don\'t want to upload the package? Add the "upload" option in case you want to correct your selection. Waiting 5 seconds ...');
+                sleep(5);
             }
+        } else if ($this->_doTask('upload')) {
+            throw new Components_Exception('Selecting "upload" without "package" is not possible! Please add the "package" task if you want to upload the package!');
         }
 
         if ($this->_doTask('commit') && $pre_commit) {
@@ -135,8 +127,21 @@ class Components_Runner_Release
             $sequence[] = 'CommitPostRelease';
         }
 
+        if (in_array('CommitPreRelease', $sequence) ||
+            in_array('CommitPostRelease', $sequence)) {
+            $options['commit'] = new Components_Helper_Commit(
+                $this->_output, $options
+            );
+        }
+
+        $options['skip_invalid'] = $this->_doTask('release');
+
         if (!empty($sequence)) {
-            $this->_release->run($sequence, $package, $options);
+            $this->_release->run(
+                $sequence,
+                $this->_config->getComponent(),
+                $options
+            );
         } else {
             $this->_output->warn('Huh?! No tasks selected... All done!');
         }
