@@ -37,11 +37,11 @@ class Components_Release_Notes
     private $notes = array();
 
     /**
-     * The package that should be released
+     * The component that should be released
      *
-     * @var Components_Pear_Package
+     * @var Components_Component
      */
-    private $_package;
+    private $_component;
 
     /**
      * The task output.
@@ -61,17 +61,16 @@ class Components_Release_Notes
     }
 
     /**
-     * Set the package this task should act upon.
+     * Set the component this task should act upon.
      *
-     * @param Components_Pear_Package $package The package to be released.
+     * @param Components_Component $component The component to be released.
      *
      * @return NULL
      */
-    public function setPackage(Components_Pear_Package $package)
+    public function setComponent(Components_Component $component)
     {
-        $this->_package = $package;
-        $notes = $package->getComponentDirectory() . '/docs/RELEASE_NOTES';
-        if (file_exists($notes)) {
+        $this->_component = $component;
+        if ($notes = $component->getReleaseNotesPath()) {
             include $notes;
             if (strlen($this->notes['fm']['changes']) > 600) {
                 $this->_output->warn(
@@ -82,7 +81,7 @@ class Components_Release_Notes
     }
 
     /**
-     * The branch information for this package. This is empty for framework
+     * The branch information for this component. This is empty for framework
      * components and the Horde base application and has a value like "H3",
      * "H4", etc. for applications.
      *
@@ -99,29 +98,6 @@ class Components_Release_Notes
     }
 
     /**
-     * Returns the link to the change log.
-     *
-     * @return string|null The link to the change log.
-     */
-    public function getChangelog()
-    {
-        $dir = $this->_package->getComponentDirectory();
-        if (basename(dirname($dir)) == 'framework') {
-            $root = '/framework/' . basename($dir);
-        } else {
-            $root = '/' . basename($dir);
-        }
-        if (file_exists($dir . '/docs/CHANGES')) {
-            $old_dir = getcwd();
-            chdir($dir);
-            $blob = trim(system('git log --format="%H" HEAD^..HEAD'));
-            chdir($old_dir);
-            return 'https://github.com/horde/horde/blob/' . $blob . $root . '/docs/CHANGES';
-        }
-        return '';
-    }
-
-    /**
      * Returns the release name.
      *
      * @return string The release name.
@@ -131,13 +107,13 @@ class Components_Release_Notes
         if (isset($this->notes['name'])) {
             return $this->notes['name'];
         } else {
-            return $this->_package->getName();
+            return $this->_component->getName();
         }
     }
 
     /**
      * Returns the specific mailing list that the release announcement for this
-     * package should be sent to.
+     * component should be sent to.
      *
      * @return string|null The mailing list.
      */

@@ -29,6 +29,18 @@ class Components_Release_Task_Package
 extends Components_Release_Task_Base
 {
     /**
+     * Can the task be skipped?
+     *
+     * @param array $options Additional options.
+     *
+     * @return boolean True if it can be skipped.
+     */
+    public function skip($options)
+    {
+        return false;
+    }
+
+    /**
      * Validate the preconditions required for this release task.
      *
      * @param array $options Additional options.
@@ -58,13 +70,14 @@ extends Components_Release_Task_Base
     public function run($options)
     {
         if (!$this->getTasks()->pretend()) {
-            $path = $this->getPackage()->generateRelease();
+            $options['keep_version'] = true;
+            $path = $this->getComponent()->placeArchive(getcwd(), $options);
         } else {
             $path = '[PATH TO RESULTING]/[PACKAGE.TGZ - PRETEND MODE]';
             $this->getOutput()->info(
                 sprintf(
                     'Would package %s now.',
-                    $this->getPackage()->getName()
+                    $this->getComponent()->getName()
                 )
             );
         }

@@ -37,11 +37,15 @@ extends Components_Release_Task_Base
      */
     public function run($options)
     {
-        $release = $this->getPackage()->getName() 
-            . '-' . $this->getPackage()->getVersion();
-        $this->systemInDirectory(
-            'git tag -f -m "Released ' . $release . '." ' . strtolower($release),
-            $this->getPackage()->getComponentDirectory()
+        $release = $this->getComponent()->getName() 
+            . '-' . $this->getComponent()->getVersion();
+        $this->getComponent()->tag(
+            strtolower($release),
+            'Released ' . $release . '.',
+            new Components_Helper_Commit(
+                $this->getOutput(),
+                $options
+            )
         );
     }
 }

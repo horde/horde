@@ -57,11 +57,14 @@ extends Components_Release_Task_Base
         }
         try {
             $this->_qid = $this->_getBugs($options)
-                ->getQueueId($this->getPackage()->getName());
+                ->getQueueId($this->getComponent()->getName());
         } catch (Horde_Exception $e) {
             $errors[] = sprintf(
                 'Failed accessing bugs.horde.org: %s', $e->getMessage()
             );
+        }
+        if (!$this->_qid) {
+            $errors[] = 'No queue on bugs.horde.org available. The new version will not be added to the bug tracker!';
         }
         return $errors;
     }
@@ -104,11 +107,11 @@ extends Components_Release_Task_Base
         }
 
         $ticket_version = Components_Helper_Version::pearToHorde(
-            $this->getPackage()->getVersion()
+            $this->getComponent()->getVersion()
         );
 
         $ticket_description = Components_Helper_Version::pearToTicketDescription(
-            $this->getPackage()->getVersion()
+            $this->getComponent()->getVersion()
         );
         $branch = $this->getNotes()->getBranch();
         if (!empty($branch)) {
@@ -119,7 +122,7 @@ extends Components_Release_Task_Base
 
         if (!$this->getTasks()->pretend()) {
             $this->_getBugs($options)->addNewVersion(
-                $this->getPackage()->getName(),
+                $this->getComponent()->getName(),
                 $ticket_version,
                 $ticket_description
             );
@@ -129,7 +132,7 @@ extends Components_Release_Task_Base
                     'Would add new version "%s: %s" to queue "%s".',
                     $ticket_version,
                     $ticket_description,
-                    $this->getPackage()->getName()
+                    $this->getComponent()->getName()
                 )
             );
         }

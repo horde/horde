@@ -41,14 +41,14 @@ extends Components_Release_Task_Base
     {
         if (empty($options['next_version'])) {
             $options['next_version'] = Components_Helper_Version::validatePear(
-                Components_Helper_Version::nextVersion($this->getPackage()->getVersion())
+                Components_Helper_Version::nextVersion($this->getComponent()->getVersion())
             );
         }
-
-        $this->systemInDirectory(
-            'git commit -m "Development mode for ' . $this->getPackage()->getName()
-            . '-' . $options['next_version'] . '"',
-            $this->getPackage()->getComponentDirectory()
-        );
+        if (isset($options['commit'])) {
+            $options['commit']->commit(
+                'Development mode for ' . $this->getComponent()->getName()
+                . '-' . $options['next_version']
+            );
+        }
     }
 }

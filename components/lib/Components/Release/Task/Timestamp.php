@@ -40,16 +40,10 @@ extends Components_Release_Task_Base
      */
     public function validate($options)
     {
-        try {
-            if (!file_exists($this->getPackage()->getPackageXml())) {
-                return array(
-                    sprintf(
-                        '%s is missing but required!',
-                        $this->getPackage()->getPackageXml())
-                );
-            }
-        } catch (Components_Exception $e) {
-            return array($e->getMessage());
+        if (!$this->getComponent()->hasLocalPackageXml()) {
+            return array(
+                'The component lacks a local package.xml!',
+            );
         }
         return array();
     }
@@ -63,22 +57,11 @@ extends Components_Release_Task_Base
      */
     public function run($options)
     {
+        $result = $this->getComponent()->timestampAndSync($options);
         if (!$this->getTasks()->pretend()) {
-            $this->getPackage()->timestampAndSync();
+            $this->getOutput()->ok($result);
         } else {
-            $this->getOutput()->info(
-                sprintf(
-                    'Would timestamp %s now and synchronize its change log.',
-                    $this->getPackage()->getPackageXml()
-                )
-            );
-        }
-
-        if ($this->getTasks()->isTaskActive('CommitPreRelease')) {
-            $this->systemInDirectory(
-                'git add ' . $this->getPackage()->getPackageXml(),
-                dirname($this->getPackage()->getPackageXml())
-            );
+            $this->getOutput()->info($result);
         }
     }
 }

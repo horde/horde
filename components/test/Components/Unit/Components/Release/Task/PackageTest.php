@@ -69,7 +69,7 @@ extends Components_TestCase
     {
         $package = $this->_getPackage();
         $package->expects($this->once())
-            ->method('generateRelease');
+            ->method('placeArchive');
         $this->getReleaseTasks()->run(
             array('Package'),
             $package,
@@ -105,7 +105,7 @@ extends Components_TestCase
 
     private function _getPackage()
     {
-        $package = $this->getMock('Components_Pear_Package', array(), array(), '', false, false);
+        $package = $this->getMock('Components_Component', array(), array(), '', false, false);
         return $package;
     }
 }

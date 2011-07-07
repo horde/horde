@@ -39,6 +39,9 @@ extends Components_Release_Task_Base
     public function validate($options)
     {
         $errors = array();
+        if (!$this->getNotes()->hasFreshmeat()) {
+            $errors[] = 'No freshmeat.net information available. The new version will not be added there!';
+        }
         if (empty($options['fm_token'])) {
             $errors[] = 'The "fm_token" option has no value. Who is updating freshmeat.net?';
         }
@@ -83,7 +86,7 @@ extends Components_Release_Task_Base
         }
 
         $version = Components_Helper_Version::pearToHordeWithBranch(
-            $this->getPackage()->getVersion(),
+            $this->getComponent()->getVersion(),
             $this->getNotes()->getBranch()
         );
 
@@ -94,10 +97,13 @@ extends Components_Release_Task_Base
         );
 
         $link_data = array();
-        if ($this->getNotes()->getChangelog() !== '') {
+        $cl = $this->getComponent()->getChangelog(
+            new Components_Helper_ChangeLog($this->getOutput())
+        );
+        if ($cl !== '') {
             $link_data[] = array(
                 'label' => 'Changelog',
-                'location' => $this->getNotes()->getChangelog()
+                'location' => $cl
             );
         }
 

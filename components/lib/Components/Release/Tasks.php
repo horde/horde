@@ -64,32 +64,33 @@ class Components_Release_Tasks
     /**
      * Return the named task.
      *
-     * @param string                  $name    The name of the task.
-     * @param Components_Pear_Package $package The package to be released.
+     * @param string                  $name      The name of the task.
+     * @param Components_Component    $component The component to be released.
      *
      * @return Components_Release_Task The task.
      */
-    public function getTask($name, Components_Pear_Package $package)
+    public function getTask($name, Components_Component $component)
     {
         $task = $this->_dependencies->getInstance(
             'Components_Release_Task_' . ucfirst($name)
         );
-        $task->setPackage($package);
+        $task->setComponent($component);
+        $task->setName($name);
         return $task;
     }
 
     /**
      * Run a sequence of release tasks.
      *
-     * @param array                   $sequence The task sequence.
-     * @param Components_Pear_Package $package  The package to be released.
-     * @param array                   $options  Additional options.
+     * @param array                $sequence The task sequence.
+     * @param Components_Component $component The component to be released.
+     * @param array                $options  Additional options.
      *
      * @return NULL
      */
     public function run(
         array $sequence,
-        Components_Pear_Package $package,
+        Components_Component $component,
         $options = array()
     ) {
         $this->_options = $options;
@@ -97,18 +98,34 @@ class Components_Release_Tasks
 
         $task_sequence = array();
         foreach ($sequence as $name) {
-            $task_sequence[] = $this->getTask($name, $package);
+            $task_sequence[] = $this->getTask($name, $component);
         }
         $errors = array();
+        $selected_tasks = array();
         foreach ($task_sequence as $task) {
-            $errors = array_merge($errors, $task->validate($options));
+            $task_errors = $task->validate($options);
+            if (!empty($task_errors)) {
+                if ($task->skip($options)) {
+                    $this->_dependencies->getOutput()->warn(
+                        sprintf(
+                            "Deactivated task \"%s\":\n\n%s",
+                            $task->getName(),
+                            join("\n", $task_errors)
+                        )
+                    );
+                } else {
+                    $errors = array_merge($errors, $task_errors);
+                }
+            } else {
+                $selected_tasks[] = $task;
+            }
         }
         if (!empty($errors)) {
             throw new Components_Exception(
                 "Unable to release:\n\n" . join("\n", $errors)
             );
         }
-        foreach ($task_sequence as $task) {
+        foreach ($selected_tasks as $task) {
             $task->run($options);
         }
     }
