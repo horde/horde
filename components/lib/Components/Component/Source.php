@@ -144,6 +144,11 @@ class Components_Component_Source extends Components_Component_Base
             );
         default:
             file_put_contents($this->_getPackageXmlPath(), (string) $package_xml);
+            if (!empty($options['commit'])) {
+                $options['commit']->add(
+                    $this->_getPackageXmlPath(), $this->_directory
+                );
+            }
             return true;
         }
     }
@@ -161,22 +166,16 @@ class Components_Component_Source extends Components_Component_Base
         $log, Components_Helper_ChangeLog $helper, $options
     )
     {
-        $helper->commit(
-            $log,
-            $this->_directory,
-            $options,
-            $helper->packageXml(
-                $log,
-                $this->getPackageXml(),
-                $this->_getPackageXmlPath(),
-                $options
-            ),
-            $helper->changes(
-                $log,
-                $this->_directory,
-                $options
-            )
+        $file = $helper->packageXml(
+            $log, $this->getPackageXml(), $this->_getPackageXmlPath(), $options
         );
+        if ($file && !empty($options['commit'])) {
+            $options['commit']->add($file, $this->_directory);
+        }
+        $file = $helper->changes($log, $this->_directory, $options);
+        if ($file && !empty($options['commit'])) {
+            $options['commit']->add($file, $this->_directory);
+        }
     }
 
     /**
@@ -206,6 +205,43 @@ class Components_Component_Source extends Components_Component_Base
         if (!empty($options['commit'])) {
             $options['commit']->add(
                 $this->_getPackageXmlPath(), $this->_directory
+            );
+        }
+        return $result;
+    }
+
+    /**
+     * Set the version in the package.xml
+     *
+     * @param string $rel_version The new release version number.
+     * @param string $api_version The new api version number.
+     * @param array  $options     Options for the operation.
+     *
+     * @return NULL
+     */
+    public function setVersion($rel_version = null, $api_version = null)
+    {
+        if (empty($options['pretend'])) {
+            $package = $this->getPackageXml();
+            $package->setVersion($rel_version, $api_version);
+            file_put_contents($this->_getPackageXmlPath(), (string) $package);
+            if (!empty($options['commit'])) {
+                $options['commit']->add(
+                    $this->_getPackageXmlPath(), $this->_directory
+                );
+            }
+            $result = sprintf(
+                'Set release version "%s" and api version "%s" in %s.',
+                $rel_version,
+                $api_version,
+                $this->_getPackageXmlPath()
+            );
+        } else {
+            $result = sprintf(
+                'Would set release version "%s" and api version "%s" in %s now.',
+                $rel_version,
+                $api_version,
+                $this->_getPackageXmlPath()
             );
         }
         return $result;

@@ -69,6 +69,20 @@ extends Components_Module_Base
                     'help'   => 'Replace the old lists with a fresh listing.'
                 )
             ),
+            new Horde_Argv_Option(
+                '--new-version',
+                array(
+                    'action' => 'store',
+                    'help'   => 'Set a new version number in the package.xml.'
+                )
+            ),
+            new Horde_Argv_Option(
+                '--new-api',
+                array(
+                    'action' => 'store',
+                    'help'   => 'Set a new api number in the package.xml.'
+                )
+            ),
         );
     }
 
@@ -103,6 +117,9 @@ extends Components_Module_Base
         return array(
             '--pretend' => 'Display a textual diff of the current package.xml and the updated package.xml. The package.xml file does not get modified.',
             '--regenerate' => 'Purge the old file listings and replace them with a completely fresh list.',
+            '--new-version' => '',
+            '--new-api' => '',
+            '--commit' => 'Commit the changed package.xml to git.',
         );
     }
 

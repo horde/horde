@@ -68,9 +68,24 @@ class Components_Runner_Update
             if (!empty($options['pretend']) && $action == 'update') {
                 $action = 'diff';
             }
+            if (!empty($options['commit'])) {
+                $options['commit'] = new Components_Helper_Commit(
+                    $this->_output, $options
+                );
+            }
             $result = $this->_config->getComponent()->updatePackageXml(
                 $action, $options
             );
+            if (!empty($options['new_version']) || !empty($options['new_api'])) {
+                $this->_config->getComponent()->updatePackageXml(
+                    $options['new_version'], $options['new_api'], $options
+                );
+            }
+            if (!empty($options['commit'])) {
+                $options['commit']->commit(
+                    'Components updated the package.xml.'
+                );
+            }
             if ($result === true) {
                 $this->_output->ok('Successfully updated package.xml of ' . $this->_config->getComponent()->getName() . '.');
             } else {

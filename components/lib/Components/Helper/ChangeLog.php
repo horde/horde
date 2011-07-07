@@ -66,7 +66,6 @@ class Components_Helper_ChangeLog
                 $this->_output->ok(
                     'Added new note to ' . $file . '.'
                 );
-                return $file;
             } else {
                 $this->_output->info(
                     sprintf(
@@ -75,6 +74,7 @@ class Components_Helper_ChangeLog
                     )
                 );
             }
+            return $file;
         }
     }
 
@@ -99,7 +99,6 @@ class Components_Helper_ChangeLog
                         $changes
                     )
                 );
-                return $changes;
             } else {
                 $this->_output->info(
                     sprintf(
@@ -108,40 +107,7 @@ class Components_Helper_ChangeLog
                     )
                 );
             }
-        }
-    }
-
-    /**
-     * Commit
-     *
-     * @param string $log         The log entry.
-     * @param string $directory   The path to the component directory.
-     * @param array  $options     Additional options.
-     * @param string $package_xml Path to the modified package.xml
-     * @param string $changes     Path to the modified CHANGES file.
-     *
-     * @return NULL
-     */
-    public function commit(
-        $log, $directory, $options, $package_xml = null, $changes = null
-    )
-    {
-        if (!empty($options['commit'])) {
-            if (!empty($package_xml)) {
-                $this->systemInDirectory(
-                    'git add ' . $package_xml, $directory, $options
-                );
-            }
-            if (!empty($changes)) {
-                $this->systemInDirectory(
-                    'git add ' . $changes, $directory, $options
-                );
-            }
-            $this->systemInDirectory(
-                'git commit -m "' . $log . '"',
-                $directory,
-                $options
-            );
+            return $changes;
         }
     }
 

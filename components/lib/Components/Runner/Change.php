@@ -42,6 +42,13 @@ class Components_Runner_Change
     private $_helper;
 
     /**
+     * The output handler.
+     *
+     * @param Component_Output
+     */
+    private $_output;
+
+    /**
      * Constructor.
      *
      * @param Components_Config           $config  The configuration for the current
@@ -50,10 +57,12 @@ class Components_Runner_Change
      */
     public function __construct(
         Components_Config $config,
-        Components_Helper_ChangeLog $helper
+        Components_Helper_ChangeLog $helper,
+        Components_Output $output
     ) {
         $this->_config = $config;
         $this->_helper = $helper;
+        $this->_output = $output;
     }
 
     public function run()
@@ -67,8 +76,16 @@ class Components_Runner_Change
             throw new Components_Exception('Please provide a change log entry as additional argument!');
         }
 
+        if (!empty($options['commit'])) {
+            $options['commit'] = new Components_Helper_Commit(
+                $this->_output, $options
+            );
+        }
         $this->_config->getComponent()->changed(
             $log, $this->_helper, $options
         );
+        if (!empty($options['commit'])) {
+            $options['commit']->commit($log);
+        }
     }
 }

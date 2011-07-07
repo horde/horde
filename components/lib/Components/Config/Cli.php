@@ -139,7 +139,16 @@ extends Components_Config_Base
                 )
             )
         );
-
+        $parser->addOption(
+            new Horde_Argv_Option(
+                '-G',
+                '--commit',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Commit any changes during the selected action to git.'
+                )
+            )
+        );
         list($this->_options, $this->_arguments) = $this->_parser->parseArgs();
     }
 }
