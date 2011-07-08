@@ -488,6 +488,33 @@ class Components_Component_Source extends Components_Component_Base
     }
 
     /**
+     * Install a component.
+     *
+     * @param Components_Pear_Environment $env The environment to install
+     *                                         into.
+     * @param array                 $options   Install options.
+     * @param string                $reason    Optional reason for adding the
+     *                                         package.
+     *
+     * @return NULL
+     */
+    public function install(
+        Components_Pear_Environment $env, $options = array(), $reason = ''
+    )
+    {
+        $this->installChannel($env, $options);
+        if (!empty($options['symlink'])) {
+            $env->linkPackageFromSource(
+                $this->_getPackageXmlPath(), $reason
+            );
+        } else {
+            $env->addComponent(
+                $this, $options, $reason
+            );
+        }
+    }
+
+    /**
      * Return a PEAR package representation for the component.
      *
      * @return Horde_Pear_Package_Xml The package representation.

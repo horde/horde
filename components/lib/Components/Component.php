@@ -234,4 +234,32 @@ interface Components_Component
      * @return NULL
      */
     public function repositoryRoot(Components_Helper_Root $helper);
+
+    /**
+     * Install the channel of this component in the environment.
+     *
+     * @param Components_Pear_Environment $env     The environment to install
+     *                                             into.
+     * @param array                       $options Install options.
+     *
+     * @return NULL
+     */
+    public function installChannel(
+        Components_Pear_Environment $env, $options = array()
+    );
+
+    /**
+     * Install a component.
+     *
+     * @param Components_Pear_Environment $env The environment to install
+     *                                         into.
+     * @param array                 $options   Install options.
+     * @param string                $reason    Optional reason for adding the
+     *                                         package.
+     *
+     * @return NULL
+     */
+    public function install(
+        Components_Pear_Environment $env, $options = array(), $reason = ''
+    );
 }

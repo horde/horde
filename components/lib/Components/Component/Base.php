@@ -339,6 +339,47 @@ abstract class Components_Component_Base implements Components_Component
     }
 
     /**
+     * Install the channel of this component in the environment.
+     *
+     * @param Components_Pear_Environment $env     The environment to install
+     *                                             into.
+     * @param array                       $options Install options.
+     *
+     * @return NULL
+     */
+    public function installChannel(
+        Components_Pear_Environment $env, $options = array()
+    )
+    {
+        $env->provideChannel(
+            $this->getChannel(),
+            $options,
+            sprintf(' [required by %s]', $this->getName())
+        );
+    }
+
+    /**
+     * Install a component.
+     *
+     * @param Components_Pear_Environment $env The environment to install
+     *                                         into.
+     * @param array                 $options   Install options.
+     * @param string                $reason    Optional reason for adding the
+     *                                         package.
+     *
+     * @return NULL
+     */
+    public function install(
+        Components_Pear_Environment $env, $options = array(), $reason = ''
+    )
+    {
+        $this->installChannel($env, $options);
+        $env->addComponent(
+            $this, $options, $reason
+        );
+    }
+
+    /**
      * Return the application options.
      *
      * @return array The options.

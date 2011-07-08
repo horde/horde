@@ -188,8 +188,8 @@ class Components_Helper_Installer
     )
     {
         if (empty($options['pretend'])) {
-            $environment->installComponent(
-                $component,
+            $component->install(
+                $environment,
                 $this->_getPerComponentOptions(
                     $component, $options
                 ),

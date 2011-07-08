@@ -314,40 +314,6 @@ class Components_Pear_Environment
     }
 
     /**
-     * Add a component.
-     *
-     * @param Components_Component  $component The component that should be
-     *                                         installed.
-     * @param array                 $options   Install options.
-     * @param string                $reason    Optional reason for adding the
-     *                                         package.
-     *
-     * @return NULL
-     */
-    public function installComponent(
-        Components_Component $component,
-        $options = array(),
-        $reason = ''
-    )
-    {
-        $this->provideChannel(
-            $component->getChannel(),
-            $options,
-            sprintf(' [required by %s]', $component->getName())
-        );
-        if (!empty($options['symlink']) &&
-            $component instanceOf Components_Component_Source) {
-            $this->linkPackageFromSource(
-                $component->getPackageXml(), $reason
-            );
-        } else {
-            $this->addComponent(
-                $component, $options, $reason
-            );
-        }
-    }
-
-    /**
      * Add a package based on a source directory.
      *
      * @param string $package The path to the package.xml in the source directory.
