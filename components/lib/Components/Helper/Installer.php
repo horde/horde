@@ -87,85 +87,111 @@ class Components_Helper_Installer
         $key = $component->getChannel() . '/' . $component->getName();
         if (!in_array($key, $this->_installed_components)) {
             $this->_installed_components[] = $key;
-            foreach ($component->getDependencyList() as $dependency) {
-                if (!$dependency->isPhp() && $dependency->isPackage()) {
-                    $c_options = $this->_getPerComponentOptions(
-                        $dependency, $options
-                    );
-                    if ($dependency->isRequired() ||
-                        !empty($c_options['include'])) {
-                        $dep = $dependency->getComponent($c_options);
-                        if (!($dep instanceOf Components_Component_Archive) &&
-                            !empty($options['build_distribution'])) {
-                            if (empty($options['allow_remote']) &&
-                                !($component instanceOf Components_Component_Source)) {
-                                throw new Components_Exception(
-                                    sprintf(
-                                        'Cannot add component "%s". Remote access has been disabled (activate with --allow-remote)!',
-                                        $channel
-                                    )
-                                );
-                            }
-                            if (!empty($options['sourcepath'])) {
-                                $source = $options['sourcepath'] . '/'
-                                    . $component->getChannel();
-                                if (!file_exists($source)) {
-                                    @mkdir(dirname($source), 0777, true);
-                                }
-                                if ($dep instanceOf Components_Component_Source) {
-                                    $environment->provideChannel(
-                                        $dep->getChannel(),
-                                        $options,
-                                        sprintf(' [required by %s]', $dep->getName())
-                                    );
-                                }
-                                $dep->placeArchive($source);
-                                if ($dep instanceOf Components_Component_Remote) {
-                                    $this->_output->warn(
-                                        sprintf(
-                                            'Downloaded component %s via network to %s.',
-                                            $dep->getName(),
-                                            $source
-                                        )
-                                    );
-                                } else {
-                                    $this->_output->ok(
-                                        sprintf(
-                                            'Generated archive for component %s in %s.',
-                                            $dep->getName(),
-                                            $source
-                                        )
-                                    );
-                                }
-                                $dep = $dependency->getComponent($c_options);
-                            }
-                        }
-                        if ($dep === false) {
-                            throw new Components_Exception(
-                                sprintf(
-                                    'Failed resolving component %s/%s!',
-                                    $component->getChannel(),
-                                    $component->getName()
-                                )
-                            );
-                        } else {
-                            $this->installTree(
-                                $environment,
-                                $dep,
-                                $options,
-                                sprintf(
-                                    ' [required by %s]',
-                                    $component->getName()
-                                )
-                            );
-                        }
-                    }
-                }
+            if (empty($options['nodeps'])) {
+                $this->_installDependencies(
+                    $environment, $component, $options, $reason
+                );
             }
             $this->_installComponent($environment, $component, $options, $reason);
         }
     }
 
+    /**
+     * Install the dependencies of a component.
+     *
+     * @param Components_Pear_Environment     $environment The environment we
+     *                                                     install into.
+     * @param Components_Component            $component   The component that
+     *                                                     should be installed.
+     * @param array                           $options     Install options.
+     * @param string                          $reason      Optional reason for
+     *                                                     adding the package.
+     *
+     * @return NULL
+     */
+    private function _installDependencies(
+        Components_Pear_Environment $environment,
+        Components_Component $component,
+        $options = array(),
+        $reason = ''
+    )
+    {
+        foreach ($component->getDependencyList() as $dependency) {
+            if (!$dependency->isPhp() && $dependency->isPackage()) {
+                $c_options = $this->_getPerComponentOptions(
+                    $dependency, $options
+                );
+                if ($dependency->isRequired() ||
+                    !empty($c_options['include'])) {
+                    $dep = $dependency->getComponent($c_options);
+                    if (!($dep instanceOf Components_Component_Archive) &&
+                        !empty($options['build_distribution'])) {
+                        if (empty($options['allow_remote']) &&
+                            !($component instanceOf Components_Component_Source)) {
+                            throw new Components_Exception(
+                                sprintf(
+                                    'Cannot add component "%s". Remote access has been disabled (activate with --allow-remote)!',
+                                    $channel
+                                )
+                            );
+                        }
+                        if (!empty($options['sourcepath'])) {
+                            $source = $options['sourcepath'] . '/'
+                                . $component->getChannel();
+                            if (!file_exists($source)) {
+                                @mkdir(dirname($source), 0777, true);
+                            }
+                            if ($dep instanceOf Components_Component_Source) {
+                                $environment->provideChannel(
+                                    $dep->getChannel(),
+                                    $options,
+                                    sprintf(' [required by %s]', $dep->getName())
+                                );
+                            }
+                            $dep->placeArchive($source);
+                            if ($dep instanceOf Components_Component_Remote) {
+                                $this->_output->warn(
+                                    sprintf(
+                                        'Downloaded component %s via network to %s.',
+                                        $dep->getName(),
+                                        $source
+                                    )
+                                );
+                            } else {
+                                $this->_output->ok(
+                                    sprintf(
+                                        'Generated archive for component %s in %s.',
+                                        $dep->getName(),
+                                        $source
+                                    )
+                                );
+                            }
+                            $dep = $dependency->getComponent($c_options);
+                        }
+                    }
+                    if ($dep === false) {
+                        throw new Components_Exception(
+                            sprintf(
+                                'Failed resolving component %s/%s!',
+                                $component->getChannel(),
+                                $component->getName()
+                            )
+                        );
+                    } else {
+                        $this->installTree(
+                            $environment,
+                            $dep,
+                            $options,
+                            sprintf(
+                                ' [required by %s]',
+                                $component->getName()
+                            )
+                        );
+                    }
+                }
+            }
+        }
+    }
     /**
      * Ensure that the component is available within the installation
      * environment.

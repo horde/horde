@@ -67,6 +67,13 @@ extends Components_Module_Base
                 )
             ),
             new Horde_Argv_Option(
+                '--nodeps',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Ignore package dependencies and just install the specified package.'
+                )
+            ),
+            new Horde_Argv_Option(
                 '-S',
                 '--sourcepath',
                 array(
@@ -169,12 +176,13 @@ extends Components_Module_Base
     {
         return array(
             '--destination' => 'The path to the target for the installation.',
-            '--sourcepath' => '',
-            '--channelxmlpath' => '',
             '--instructions' => '',
             '--horde-dir' => '',
-            '--build-distribution' => '',
             '--pretend' => '',
+            '--nodeps' => '',
+            '--build-distribution' => '',
+            '--sourcepath' => '',
+            '--channelxmlpath' => '',
         );
     }
 
