@@ -1597,6 +1597,21 @@ class Kronolith
     }
 
     /**
+     * Returns the calendars that should be used for syncing.
+     *
+     * @return array  An array of calendar ids
+     */
+    static public function getSyncCalendars()
+    {
+       $c = unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
+       if (empty($c)) {
+           $c = array(self::getDefaultCalendar(Horde_Perms::EDIT));
+       }
+
+       return $c;
+    }
+
+    /**
      * Creates a new share.
      *
      * @param array $info  Hash with calendar information.
