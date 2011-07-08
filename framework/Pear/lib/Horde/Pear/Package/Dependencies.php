@@ -105,6 +105,9 @@ class Horde_Pear_Package_Dependencies
      */
     static public function addOther($input, $type, $optional, &$result)
     {
+        if (isset($input['conflicts'])) {
+            return;
+        }
         $element = $input;
         $element['type'] = $type;
         $element['optional'] = $optional;
