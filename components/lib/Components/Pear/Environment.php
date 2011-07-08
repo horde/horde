@@ -331,15 +331,17 @@ class Components_Pear_Environment
             )
         );
 
-        $destDir = array(
-            'horde' => $this->getPearConfig()->get('horde_dir', 'user', 'pear.horde.org'),
-            'php' => $this->getPearConfig()->get('php_dir'),
-            'script' => $this->getPearConfig()->get('bin_dir'),
-        );
-
         ob_start();
         $warnings = array();
         $pkg = $this->_factory->createPackageForEnvironment($package, $this);
+
+        $destDir = array(
+            'horde' => $this->getPearConfig()->get('horde_dir', 'user', 'pear.horde.org'),
+            'php' => $this->getPearConfig()->get('php_dir'),
+            'data' => $this->getPearConfig()->get('data_dir') . '/' . $pkg->getName(),
+            'script' => $this->getPearConfig()->get('bin_dir'),
+        );
+
         $dir = dirname($package);
         foreach ($pkg->getInstallationFilelist() as $file) {
             $orig = realpath($dir . '/' . $file['attribs']['name']);
@@ -351,6 +353,7 @@ class Components_Pear_Environment
             switch ($file['attribs']['role']) {
             case 'horde':
             case 'php':
+            case 'data':
             case 'script':
                 if (isset($file['attribs']['install-as'])) {
                     $dest = $destDir[$file['attribs']['role']] . '/' . $file['attribs']['install-as'];
