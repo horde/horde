@@ -521,7 +521,10 @@ class Components_Pear_Environment
                 )
             );
             $installation_options['channel'] = $component->getChannel();
-            $install = array($component->getName());
+            $install = array(
+                'channel://' . $component->getChannel() . '/' .
+                $component->getName()
+            );
             $info = ' via remote channel ' . $component->getChannel();
         }
         ob_start();
