@@ -213,6 +213,7 @@ class Horde_Pear_Package_Xml
             $this->_dependencyInputValue($input, 'max', $dep);
             $this->_dependencyInputValue($input, 'name', $dep);
             $this->_dependencyInputValue($input, 'channel', $dep);
+            $this->_dependencyInputValue($input, 'conflicts', $dep);
             Horde_Pear_Package_Dependencies::addDependency(
                 $input, $dep->nodeName, $optional, $result
             );
