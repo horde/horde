@@ -57,13 +57,12 @@ foreach ($fields as $field) {
 /* Check if submitted and validate. */
 if ($form->validate($vars)) {
     $form->getInfo($vars, $info);
-    $submit = $ulaform_driver->submitForm($info);
-    if (is_a($submit, 'PEAR_Error')) {
-        Horde::logMessage($submit, 'ERR');
-        $notification->push(sprintf(_("Error submitting form. %s."), $submit->getMessage()), 'horde.error');
-    } else {
+    try {
+        $submit = $ulaform_driver->submitForm($info);
         $notification->push(_("Form submitted successfully."), 'horde.success');
         $done = true;
+    } catch (Horde_Exception $e) {
+        $notification->push(sprintf(_("Error submitting form. %s."), $e->getMessage()), 'horde.error');
     }
 }
 

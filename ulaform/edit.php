@@ -91,15 +91,14 @@ if ($formname && !$changed_action) {
 
     if ($form->isValid()) {
         $form->getInfo($vars, $info);
-        $form_id = $ulaform_driver->saveForm($info);
-        if (is_a($form_id, 'PEAR_Error')) {
-            Horde::logMessage($form_id, 'ERR');
-            $notification->push(sprintf(_("Error saving form. %s."), $form_id->getMessage()), 'horde.error');
-        } else {
+        try {
+            $form_id = $ulaform_driver->saveForm($info);
             $notification->push(_("Form details saved."), 'horde.success');
             $url = Horde::url('forms.php', true);
             header('Location: ' . $url);
             exit;
+        } catch (Ulaform_Exception $e) {
+            $notification->push(sprintf(_("Error saving form. %s."), $e->getMessage()), 'horde.error');
         }
     }
 }

@@ -32,15 +32,14 @@ if ($form_submit == _("Delete")) {
 
     if ($delform->isValid()) {
         $delform->getInfo($delvars, $info);
-        $deleteform = $ulaform_driver->deleteForm($info['form_id']);
-        if (is_a($deleteform, 'PEAR_Error')) {
-            Horde::logMessage($deleteform, 'ERR');
-            $notification->push(sprintf(_("Error deleting form. %s."), $deleteform->getMessage()), 'horde.error');
-        } else {
+        try {
+            $deleteform = $ulaform_driver->deleteForm($info['form_id']);
             $notification->push(_("Form deleted."), 'horde.success');
             $url = Horde::url('forms.php', true);
             header('Location: ' . $url);
             exit;
+        } catch (Ulaform_Exception $e) {
+            $notification->push(sprintf(_("Error deleting form. %s."), $e->getMessage()), 'horde.error');
         }
     }
 } elseif (!empty($form_submit)) {

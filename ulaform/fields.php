@@ -83,21 +83,23 @@ if ($fieldform->validate($vars)) {
         header('Location: ' . $url);
         exit;
     } catch (Horde_Exception $e) {
-        Horde::logMessage($save_field, 'ERR');
         $notification->push(sprintf(_("Error saving field. %s."), $e->getMessage()), 'horde.error');
     }
 }
 
 /* Get a field list. */
-$fields_list = $ulaform_driver->getFieldsList($form_id);
-if (is_a($fields_list, 'PEAR_Error')) {
-    /* Go back to forms if inexistant form_id. */
-    $notification->push($fields_list->getMessage(), 'horde.error');
+try {
+    $fields_list = $ulaform_driver->getFieldsList($form_id);
+    if (empty($fields_list)) {
+        /* Show a warning if no fields present. */
+        $notification->push(_("No available fields."), 'horde.warning');
+    }
+} catch (Horde_Exception $e) {
+    /* Go back to forms if inexistant form_id, permission denied or another
+     * error. */
+    $notification->push($e->getMessage(), 'horde.error');
     header('Location: ' . Horde::url('forms.php'));
     exit;
-} elseif (empty($fields_list)) {
-    /* Show a warning if no fields present. */
-    $notification->push(_("No available fields."), 'horde.warning');
 }
 
 /* Set up the template fields. */

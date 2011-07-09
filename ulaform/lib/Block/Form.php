@@ -30,12 +30,12 @@ class Ulaform_Block_Form extends Horde_Core_Block {
                                    'type' => 'enum',
                                    'values' => array());
 
-        $forms = $GLOBALS['injector']->getInstance('Ulaform_Factory_Driver')->create()->getAvailableForms();
-        if (!is_a($forms, 'PEAR_Error')) {
+        try {
+            $forms = $GLOBALS['injector']->getInstance('Ulaform_Factory_Driver')->create()->getAvailableForms();
             foreach ($forms as $form) {
                 $params['form_id']['values'][$form['form_id']] = $form['form_name'];
             }
-        }
+        } catch (Ulaform_Exception $e) {}
 
         return $params;
     }
@@ -77,13 +77,12 @@ class Ulaform_Block_Form extends Horde_Core_Block {
                 $form->getInfo($vars, $info);
                 $info['form_id'] = $this->_params['form_id'];
 
-                $submit = $GLOBALS['ulaform_driver']->submitForm($info);
-                if (is_a($submit, 'PEAR_Error')) {
-                    Horde::logMessage($submit, __FILE__, __LINE__, PEAR_LOG_ERR);
-                    $GLOBALS['notification']->push(sprintf(_("Error submitting form. %s."), $submit->getMessage()), 'horde.error');
-                } else {
+                try {
+                    $submit = $GLOBALS['ulaform_driver']->submitForm($info);
                     $GLOBALS['notification']->push(_("Form submitted successfully."), 'horde.success');
                     $done = true;
+                } catch (Horde_Exception $e) {
+                    $GLOBALS['notification']->push(sprintf(_("Error submitting form. %s."), $e->getMessage()), 'horde.error');
                 }
             }
         }

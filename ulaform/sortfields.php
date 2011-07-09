@@ -33,15 +33,14 @@ if ($formname) {
 
     if ($sortform->isValid()) {
         $sortform->getInfo($vars, $info);
-        $sort = $injector->getInstance('Ulaform_Factory_Driver')->create()->sortFields($info);
-        if (is_a($sort, 'PEAR_Error')) {
-            Horde::logMessage($sort, 'ERR');
-            $notification->push(sprintf(_("Error saving fields. %s."), $sort->getMessage()), 'horde.error');
-        } else {
+        try {
+            $sort = $injector->getInstance('Ulaform_Factory_Driver')->create()->sortFields($info);
             $notification->push(_("Field sort order saved."), 'horde.success');
             $url = Horde::url('fields.php', true);
             header('Location: ' . Horde_Util::addParameter($url, array('form_id' => $form_id), null, false));
             exit;
+        } catch (Horde_Exception $e) {
+            $notification->push(sprintf(_("Error saving fields. %s."), $e->getMessage()), 'horde.error');
         }
     }
 }

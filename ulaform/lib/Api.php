@@ -29,9 +29,10 @@ class Ulaform_Api extends Horde_Registry_Api
      */
     public function getFormFields($form_id)
     {
-        $fields = $GLOBALS['injector']->getInstance('Ulaform_Factory_Driver')->create()->getFields($form_id);
-        if (!is_a($fields, 'PEAR_Error')) {
-            return $fields;
+        try {
+            $fields = $GLOBALS['injector']->getInstance('Ulaform_Factory_Driver')->create()->getFields($form_id);
+        } catch (Ulaform_Exception $e) {
+            throw new Ulaform_Exception($e->getMessage());
         }
 
         foreach ($fields as $id => $field) {
@@ -58,9 +59,10 @@ class Ulaform_Api extends Horde_Registry_Api
     public function display($form_id, $target_url = null)
     {
         /* Get the stored form information from the backend. */
-        $form_info = $GLOBALS['injector']->getInstance('Ulaform_Factory_Driver')->create()->getForm($form_id, Horde_Perms::READ);
-        if (is_a($form_info, 'PEAR_Error')) {
-            return $form_info;
+        try {
+            $form_info = $GLOBALS['injector']->getInstance('Ulaform_Factory_Driver')->create()->getForm($form_id, Horde_Perms::READ);
+        } catch (Horde_Exception $e) {
+            throw new Ulaform_Exception($e->getMessage());
         }
 
         if (!empty($form_info['form_params']['language'])) {
@@ -77,9 +79,10 @@ class Ulaform_Api extends Horde_Registry_Api
         $vars->set('user_uid', $GLOBALS['registry']->getAuth());
         $vars->set('email', $GLOBALS['prefs']->getValue('from_addr'));
 
-        $fields = $GLOBALS['injector']->getInstance('Ulaform_Factory_Driver')->create()->getFields($form_id);
-        if (is_a($fields, 'PEAR_Error')) {
-            return $fields;
+        try {
+            $fields = $GLOBALS['injector']->getInstance('Ulaform_Factory_Driver')->create()->getFields($form_id);
+        } catch (Ulaform_Exception $e) {
+            throw new Ulaform_Exception($e->getMessage());
         }
 
         foreach ($fields as $field) {
@@ -102,11 +105,11 @@ class Ulaform_Api extends Horde_Registry_Api
         $result = array('title' => $form_info['form_name']);
         if ($form->validate()) {
             $form->getInfo(null, $info);
-            $submit = $GLOBALS['ulaform_driver']->submitForm($info);
-            if (is_a($submit, 'PEAR_Error')) {
-                PEAR::raiseError(sprintf(_("Error submitting form. %s."), $submit->getMessage()));
-            } else {
+            try {
+                $GLOBALS['ulaform_driver']->submitForm($info);
                 return true;
+            } catch (Horde_Exception $e) {
+                throw new Ulaform_Exception(sprintf(_("Error submitting form. %s."), $e->getMessage()));
             }
         }
 

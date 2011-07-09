@@ -44,17 +44,16 @@ if ($vars->get('submitbutton') == _("Delete")) {
 
     if ($fieldform->isValid()) {
         $fieldform->getInfo($vars, $info);
-        $del_field = $injector->getInstance('Ulaform_Factory_Driver')->create()->deleteField($info['field_id']);
-        if (is_a($del_field, 'PEAR_Error')) {
-            Horde::logMessage($del_field, 'ERR');
-            $notification->push(sprintf(_("Error deleting field. %s."), $del_field->getMessage()), 'horde.error');
-        } else {
+        try {
+            $del_field = $injector->getInstance('Ulaform_Factory_Driver')->create()->deleteField($info['field_id']);
             $notification->push(sprintf(_("Field \"%s\" deleted."), $info['field_name']), 'horde.success');
             $url = Horde_Util::addParameter(Horde::url('fields.php'),
                                       array('form_id' => $info['form_id']),
                                       null, false);
             header('Location: ' . $url);
             exit;
+        } catch (Ulaform_Exception $e) {
+            $notification->push(sprintf(_("Error deleting field. %s."), $e->getMessage()), 'horde.error');
         }
     }
 } elseif ($vars->get('submitbutton') == _("Do not delete")) {

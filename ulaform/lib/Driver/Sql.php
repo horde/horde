@@ -221,7 +221,7 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
 
         /* Get the forms. */
         $sql = 'SELECT form_id, user_uid, form_name, form_action, form_params,'
-                . ' form_onsubmit FROM ulaform_forms ' . $wsql;
+                . ' form_onsubmit FROM ulaform_forms' . $wsql;
         try {
             $result = $this->_db->selectAll($sql, $values);
         } catch (Horde_Db_Exception $e) {
@@ -235,6 +235,8 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
      * Fetches the a list of available forms and the basic data.
      *
      * @return array  An array of the available forms.
+     * @throws Horde_Exception_NotFound
+     * @throws Ulaform_Exception
      */
     function formExists($form_id = null)
     {
@@ -256,9 +258,9 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
             throw new Ulaform_Exception($e);
         }
 
-        // Check if the form exists
+        /* Check if the form exists. */
         if (empty($result)) {
-            return PEAR::raiseError(sprintf(_("No such form ID \"%s\"."), $form_id));
+            throw new Horde_Exception_NotFound(sprintf(_("No such form ID \"%s\"."), $form_id));
         }
 
         return Ulaform::checkPermissions($result, 'form', Horde_Perms::SHOW, 'form_id');
@@ -307,9 +309,10 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
         } catch (Horde_Db_Exception $e) {
             throw new Ulaform_Exception($e->getMessage());
         }
+
+        /* Check if the form exists. */
         if (empty($form)) {
-            // Check if the form exists
-            throw new Horde_Exception_NotFound(_("No such form ID"));
+            throw new Horde_Exception_NotFound(sprintf(_("No such form ID \"%s\"."), $form_id));
         }
 
         /* Unserialize the form params. */

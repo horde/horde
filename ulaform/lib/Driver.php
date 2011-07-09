@@ -38,13 +38,11 @@ class Ulaform_Driver {
      * Get a list of forms.
      *
      * @return array  Array of the available forms.
+     * @throws Ulaform_Exception
      */
     function getFormsList()
     {
         $forms = $this->_driver->getForms();
-        if (is_a($forms, 'PEAR_Error')) {
-            return $forms;
-        }
 
         $forms_list = array();
         $i = 0;
@@ -69,18 +67,14 @@ class Ulaform_Driver {
      *
      * @return array  Array of the available fields for a specific
      *                form.
+     * @throws Horde_Exception_PermissionDenied
+     * @throws Horde_Exception_NotFound
+     * @throws Ulaform_Exception
      */
     function getFieldsList($form_id)
     {
         $form = $this->_driver->getForm($form_id);
-        if (is_a($form, 'PEAR_Error')) {
-            return $form;
-        }
-
         $fields = $this->_driver->getFields($form_id);
-        if (is_a($fields, 'PEAR_Error')) {
-            return $fields;
-        }
 
         $fields_list = array();
         $i = 0;
@@ -108,18 +102,14 @@ class Ulaform_Driver {
      *
      * @return array  Array of the available fields for a specific
      *                form.
+     * @throws Horde_Exception_PermissionDenied
+     * @throws Horde_Exception_NotFound
+     * @throws Ulaform_Exception
      */
     function getFieldsArray($form_id)
     {
         $form = $this->_driver->getForm($form_id);
-        if (is_a($form, 'PEAR_Error')) {
-            return $form;
-        }
-
         $fields = $this->_driver->getFields($form_id);
-        if (is_a($fields, 'PEAR_Error')) {
-            return $fields;
-        }
 
         $fields_array = array();
         foreach ($fields as $field) {
@@ -131,9 +121,10 @@ class Ulaform_Driver {
 
     function getField($form_id, $field_id)
     {
-        $field = $this->_driver->getFields($form_id, $field_id);
-        if (is_a($field, 'PEAR_Error')) {
-            return $field;
+        try {
+            $field = $this->_driver->getFields($form_id, $field_id);
+        } catch (Ulaform_Exception $e) {
+            throw new Ulaform_Exception($e->getMessage());
         }
 
         /* If we have a record. */

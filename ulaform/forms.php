@@ -13,12 +13,14 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ulaform', array('admin' => true));
 
-$forms = $ulaform_driver->getFormsList();
-if (is_a($forms, 'PEAR_Error')) {
-    $notification->push(sprintf(_("There was an error listing forms: %s."), $forms->getMessage()), 'horde.error');
+try {
+    $forms = $ulaform_driver->getFormsList();
+    if (empty($forms)) {
+        $notification->push(_("No available forms."), 'horde.warning');
+    }
+} catch (Ulaform_Exception $e) {
+    $notification->push(sprintf(_("There was an error listing forms: %s."), $e->getMessage()), 'horde.error');
     $forms = array();
-} elseif (empty($forms)) {
-    $notification->push(_("No available forms."), 'horde.warning');
 }
 
 $images = array('delete' => Horde::img('delete.png', _("Delete Form"), null),
