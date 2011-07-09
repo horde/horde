@@ -37,7 +37,9 @@ class Ulaform_Action_Mailto extends Ulaform_Action {
             switch ($field['field_type']) {
             case 'file':
             case 'image':
-                $mail->addAttachment($value['file'], $value['name'], $value['type']);
+                if (!empty($value['file'])) {
+                    $mail->addAttachment($value['file'], $value['name'], $value['type']);
+                }
                 break;
 
             default:
