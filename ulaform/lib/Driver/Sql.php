@@ -232,41 +232,6 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
     }
 
     /**
-     * Fetches the a list of available forms and the basic data.
-     *
-     * @return array  An array of the available forms.
-     * @throws Horde_Exception_NotFound
-     * @throws Ulaform_Exception
-     */
-    function formExists($form_id = null)
-    {
-        global $perms;
-
-        $wsql = '';
-        $values = array();
-        if (!is_null($form_id)) {
-            $wsql = ' WHERE form_id = ?';
-            $values[] = (int)$form_id;
-        }
-
-        /* Get the forms. */
-        $sql = 'SELECT form_id, user_uid, form_name, form_action, form_params,'
-                . ' form_onsubmit FROM ulaform_forms ' . $wsql;
-        try {
-            $result = $this->_db->selectAll($sql, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Ulaform_Exception($e);
-        }
-
-        /* Check if the form exists. */
-        if (empty($result)) {
-            throw new Horde_Exception_NotFound(sprintf(_("No such form ID \"%s\"."), $form_id));
-        }
-
-        return Ulaform::checkPermissions($result, 'form', Horde_Perms::SHOW, 'form_id');
-    }
-
-    /**
      * Fetches the a list of available forms to use.
      *
      * @return array  An array of the available forms.
