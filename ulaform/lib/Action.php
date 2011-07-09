@@ -59,16 +59,4 @@ class Ulaform_Action {
         return $drivers;
     }
 
-    /**
-     * Return a list of fields mandatory to operate the Action specified.
-     * This template method is meant to be overridden in the actual
-     * Action class.
-     *
-     * @return array  Array of form elements specified by the form
-     */
-    function getMandatoryFields()
-    {
-        return array();
-    }
-
 }
