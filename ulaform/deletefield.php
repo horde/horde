@@ -23,10 +23,7 @@ if (is_null($formname)) {
         $vars = new Horde_Variables($vars);
     } else {
         $notification->push(_("No field specified."), 'horde.warning');
-        $url = Horde_Util::addParameter(Horde::url('fields.php'),
-                                  array('form_id' => $vars->get('form_id')),
-                                  null, false);
-        header('Location: ' . $url);
+        header('Location: ' . Horde::url('fields.php', true)->add('form_id', $vars->get('form_id')));
         exit;
     }
 }
@@ -47,10 +44,7 @@ if ($vars->get('submitbutton') == _("Delete")) {
         try {
             $del_field = $injector->getInstance('Ulaform_Factory_Driver')->create()->deleteField($info['field_id']);
             $notification->push(sprintf(_("Field \"%s\" deleted."), $info['field_name']), 'horde.success');
-            $url = Horde_Util::addParameter(Horde::url('fields.php'),
-                                      array('form_id' => $info['form_id']),
-                                      null, false);
-            header('Location: ' . $url);
+            header('Location: ' . Horde::url('fields.php', true)->add('form_id', $info['form_id']));
             exit;
         } catch (Ulaform_Exception $e) {
             $notification->push(sprintf(_("Error deleting field. %s."), $e->getMessage()), 'horde.error');
@@ -58,10 +52,7 @@ if ($vars->get('submitbutton') == _("Delete")) {
     }
 } elseif ($vars->get('submitbutton') == _("Do not delete")) {
     $notification->push(_("Field not deleted."), 'horde.message');
-    $url = Horde_Util::addParameter(Horde::url('fields.php'),
-                              array('form_id' => $vars->get('form_id')),
-                              null, false);
-    header('Location: ' . $url);
+    header('Location: ' . Horde::url('fields.php', true)->add('form_id', $vars->get('form_id')));
     exit;
 }
 

@@ -87,7 +87,7 @@ if ($formname && !$changed_type) {
         case 'iframe':
             $html = array(
                         sprintf('&lt;iframe src="%s" name="%s" %s%s hspace="2" vspace="2" scrolling="auto" marginwidth="5" marginheight="5" frameborder="0">&lt;/iframe>',
-                                Horde_Util::addParameter(Horde::url('display.php', true, -1), 'form_id', $info['form_id']),
+                                Horde::url('display.php', true, -1)->add('form_id', $info['form_id']),
                                 $info['params']['name'],
                                 ($info['params']['width'] ? 'width="' . $info['params']['width'] . '" ' : ''),
                                 ($info['params']['height'] ? 'height="' . $info['params']['height'] . '" ' : '')));

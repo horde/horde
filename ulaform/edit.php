@@ -94,8 +94,7 @@ if ($formname && !$changed_action) {
         try {
             $form_id = $ulaform_driver->saveForm($info);
             $notification->push(_("Form details saved."), 'horde.success');
-            $url = Horde::url('forms.php', true);
-            header('Location: ' . $url);
+            header('Location: ' . Horde::url('forms.php', true));
             exit;
         } catch (Ulaform_Exception $e) {
             $notification->push(sprintf(_("Error saving form. %s."), $e->getMessage()), 'horde.error');

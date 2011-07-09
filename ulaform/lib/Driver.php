@@ -48,11 +48,11 @@ class Ulaform_Driver {
         $i = 0;
         foreach ($forms as $form) {
             $forms_list[$i]['id'] = $form['form_id'];
-            $forms_list[$i]['del_url'] = Horde_Util::addParameter(Horde::url('delete.php'), 'form_id', $form['form_id']);
-            $forms_list[$i]['edit_url'] = Horde_Util::addParameter(Horde::url('edit.php'), 'form_id', $form['form_id']);
-            $forms_list[$i]['preview_url'] = Horde_Util::addParameter(Horde::url('display.php'), 'form_id', $form['form_id']);
-            $forms_list[$i]['html_url'] = Horde_Util::addParameter(Horde::url('genhtml.php'), 'form_id', $form['form_id']);
-            $forms_list[$i]['view_url'] = Horde_Util::addParameter(Horde::url('fields.php'), 'form_id', $form['form_id']);
+            $forms_list[$i]['del_url'] = Horde::url('delete.php')->add('form_id', $form['form_id']);
+            $forms_list[$i]['edit_url'] = Horde::url('edit.php')->add('form_id', $form['form_id']);
+            $forms_list[$i]['preview_url'] = Horde::url('display.php')->add('form_id', $form['form_id']);
+            $forms_list[$i]['html_url'] = Horde::url('genhtml.php')->add('form_id', $form['form_id']);
+            $forms_list[$i]['view_url'] = Horde::url('fields.php')->add('form_id', $form['form_id']);
             $forms_list[$i]['name'] = $form['form_name'];
             $forms_list[$i]['action'] = $form['form_action'];
             $forms_list[$i]['onsubmit'] = $form['form_onsubmit'];
@@ -82,8 +82,8 @@ class Ulaform_Driver {
             $url_params = array('form_id' => $form_id,
                                 'field_id' => $field['field_id']);
             $fields_list[$i] = array(
-                'del_url' => Horde_Util::addParameter(Horde::url('deletefield.php'), $url_params),
-                'edit_url' => Horde_Util::addParameter(Horde::url('fields.php'), $url_params),
+                'del_url' => Horde::url('deletefield.php')->add($url_params),
+                'edit_url' => Horde::url('fields.php')->add($url_params),
                 'id' => $field['field_id'],
                 'name' => $field['field_name'],
                 'label' => $field['field_label'],
