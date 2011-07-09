@@ -28,7 +28,7 @@ class Ulaform_Driver {
      *
      * @param array $params  Any parameters needed for this driver.
      */
-    function __construct($params)
+    public function __construct($params)
     {
         $this->_params = $params;
         $this->_driver = $GLOBALS['injector']->getInstance('Ulaform_Factory_Driver')->create();
@@ -40,7 +40,7 @@ class Ulaform_Driver {
      * @return array  Array of the available forms.
      * @throws Ulaform_Exception
      */
-    function getFormsList()
+    public function getFormsList()
     {
         $forms = $this->_driver->getForms();
 
@@ -71,7 +71,7 @@ class Ulaform_Driver {
      * @throws Horde_Exception_NotFound
      * @throws Ulaform_Exception
      */
-    function getFieldsList($form_id)
+    public function getFieldsList($form_id)
     {
         $form = $this->_driver->getForm($form_id);
         $fields = $this->_driver->getFields($form_id);
@@ -106,7 +106,7 @@ class Ulaform_Driver {
      * @throws Horde_Exception_NotFound
      * @throws Ulaform_Exception
      */
-    function getFieldsArray($form_id)
+    public function getFieldsArray($form_id)
     {
         $form = $this->_driver->getForm($form_id);
         $fields = $this->_driver->getFields($form_id);
@@ -119,7 +119,7 @@ class Ulaform_Driver {
         return $fields_array;
     }
 
-    function getField($form_id, $field_id)
+    public function getField($form_id, $field_id)
     {
         try {
             $field = $this->_driver->getFields($form_id, $field_id);
@@ -135,7 +135,7 @@ class Ulaform_Driver {
         return $field;
     }
 
-    function submitForm($form_data)
+    public function submitForm($form_data)
     {
         $form = $this->_driver->getForm($form_data['form_id']);
         $fields = $this->_driver->getFields($form_data['form_id']);

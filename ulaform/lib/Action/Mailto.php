@@ -16,7 +16,7 @@ class Ulaform_Action_Mailto extends Ulaform_Action {
     /**
      * Actually carry out the action.
      */
-    function doAction($form_params, $form_data, $fields)
+    public function doAction($form_params, $form_data, $fields)
     {
         global $conf;
 
@@ -42,7 +42,7 @@ class Ulaform_Action_Mailto extends Ulaform_Action {
 
             default:
                 $body .= $field['field_label'] . ': ' .
-                         $this->formatFormData($value) . "\n";
+                         $this->_formatFormData($value) . "\n";
                 break;
             }
         }
@@ -57,7 +57,7 @@ class Ulaform_Action_Mailto extends Ulaform_Action {
      *
      * @return array  Array of required parameters.
      */
-    function getInfo()
+    static public function getInfo()
     {
         $info['name'] = _("Mailto");
         $info['desc'] = _("This driver allows the sending of form results via email to one or more recipients.");
@@ -71,7 +71,7 @@ class Ulaform_Action_Mailto extends Ulaform_Action {
      *
      * @return array  Array of required parameters.
      */
-    function getParams()
+    static public function getParams()
     {
         $params = array();
         $params['subject'] = array('label' => _("Subject"), 'type' => 'text');
@@ -97,15 +97,15 @@ class Ulaform_Action_Mailto extends Ulaform_Action {
      *
      * @return string
      */
-    function formatFormData($field_data)
+    private function _formatFormData($field_data)
     {
         $body = '';
         if (!is_array($field_data)) {
             $body = $field_data;
         } else {
             foreach ($field_data as $data) {
-                $body .= empty($body) ? $this->formatFormData($data)
-                            : ', ' . $this->formatFormData($data);
+                $body .= empty($body) ? $this->_formatFormData($data)
+                            : ', ' . $this->_formatFormData($data);
             }
         }
         return $body;

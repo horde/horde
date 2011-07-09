@@ -23,7 +23,7 @@ class Ulaform_Block_Form extends Horde_Core_Block {
         $this->_name = _("Show Form");
     }
 
-    function _params()
+    protected function _params()
     {
         /* Available Forms for use in a block. */
         $params['form_id'] = array('name' => _("Form"),
@@ -40,14 +40,14 @@ class Ulaform_Block_Form extends Horde_Core_Block {
         return $params;
     }
 
-    function _title()
+    protected function _title()
     {
         global $registry;
         $html = Horde::link(Horde::url($registry->getInitialPage(), true)) . $registry->get('name') . '</a>';
         return $html;
     }
 
-    function _content()
+    protected function _content()
     {
         $vars = Horde_Variables::getDefaultVariables();
         $formname = $vars->get('formname');
