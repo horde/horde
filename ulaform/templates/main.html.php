@@ -1,7 +1,7 @@
 <table width="100%" cellspacing="0">
  <tr>
   <td>
-   <tag:main />
+   <?php echo $this->main; ?>
   </td>
  </tr>
 </table>

@@ -99,32 +99,31 @@ try {
     exit;
 }
 
-/* Set up the template fields. */
-$template = $injector->getInstance('Horde_Template');
-$template->setOption('gettext', true);
+/* Set up the template. */
+$view = new Horde_View(array('templatePath' => ULAFORM_TEMPLATES));
 
 /* Set up the template action links. */
 $actions = Horde::link(Horde::url('genhtml.php')->add('form_id', $form_id), _("Generate HTML")) . Horde::img('html.png', _("Generate HTML")) . '</a> ' . Horde::link(Horde::url('display.php')->add('form_id', $form_id), _("Preview")) . Horde::img('display.png', _("Preview")) . '</a> ' . Horde::link(Horde::url('sortfields.php')->add('form_id', $form_id), _("Sort fields")) . Horde::img('sort.png', _("Sort fields")) . '</a>';
-$template->set('actions', $actions);
+$view->actions = $actions;
 
 /* Render the form. */
 Horde::startBuffer();
 $fieldform->renderActive(new Horde_Form_Renderer(), $vars, 'fields.php', 'post');
-$template->set('inputform', Horde::endBuffer());
+$view->inputform = Horde::endBuffer();
 
 /* Set up the field list. */
 $fieldproperties = array('name' => _("Name"), 'label' => _("Label"), 'type' => _("Type"), 'required' => _("Required"), 'readonly' => _("Read only"), 'desc' => _("Description"));
-$template->set('fieldproperties', $fieldproperties);
+$view->fieldproperties = $fieldproperties;
 $images = array(
     'delete' => Horde::img('delete.png', _("Delete Field"), null),
     'edit' => Horde::img('edit.png', _("Edit Field"), ''));
-$template->set('images', $images);
-$template->set('fields', $fields_list, true);
+$view->images = $images;
+$view->fields = $fields_list;
 
 /* Render the page. */
 $title = _("Form Fields");
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
-echo $template->fetch(ULAFORM_TEMPLATES . '/fields/fields.html');
+echo $view->render('fields');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

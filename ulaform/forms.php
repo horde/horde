@@ -28,15 +28,15 @@ $images = array('delete' => Horde::img('delete.png', _("Delete Form"), null),
                 'preview' => Horde::img('display.png', _("Preview Form")),
                 'html' => Horde::img('html.png', _("Generate HTML")));
 
-$template = $injector->getInstance('Horde_Template');
-$template->set('header', _("Available Forms"));
-$template->set('listheaders', array(_("Form Name"), _("Action")));
-$template->set('forms', $forms, true);
-$template->set('images', $images);
+$view = new Horde_View(array('templatePath' => ULAFORM_TEMPLATES));
+$view->header = _("Available Forms");
+$view->listheaders = array(_("Form Name"), _("Action"));
+$view->forms = $forms;
+$view->images = $images;
 
 $title = _("Forms List");
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
-echo $template->fetch(ULAFORM_TEMPLATES . '/forms/forms.html');
+echo $view->render('forms');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

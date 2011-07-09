@@ -1,14 +1,14 @@
-<if:noterror>
+<?php if ($this->noterror): ?>
 <table width="100%" cellspacing="0">
  <tr>
   <td class="header">
-   <tag:title />
+   <?php echo $this->title; ?>
   </td>
  </tr>
  <tr>
   <td>
-   <tag:main />
+   <?php echo $this->main; ?>
    </td>
  </tr>
 </table>
-</if:noterror>
+<?php endif; ?>

@@ -57,13 +57,13 @@ if ($vars->get('submitbutton') == _("Delete")) {
 }
 
 /* Render the form. */
-$template = $injector->getInstance('Horde_Template');
+$view = new Horde_View(array('templatePath' => ULAFORM_TEMPLATES));
 Horde::startBuffer();
 $fieldform->renderActive(new Horde_Form_Renderer(), $vars, 'deletefield.php', 'post');
-$template->set('main', Horde::endBuffer());
+$view->main = Horde::endBuffer();
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
-echo $template->fetch(ULAFORM_TEMPLATES . '/main/main.html');
+echo $view->render('main');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

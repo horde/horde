@@ -54,11 +54,11 @@ $delform->renderActive($renderer, $delvars, 'delete.php', 'post');
 $viewform->renderInactive($renderer, $viewvars);
 $main = Horde::endBuffer();
 
-$template = $injector->getInstance('Horde_Template');
-$template->set('main', $main);
+$view = new Horde_View(array('templatePath' => ULAFORM_TEMPLATES));
+$view->main = $main;
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
-echo $template->fetch(ULAFORM_TEMPLATES . '/main/main.html');
+echo $view->render('main');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -97,15 +97,15 @@ if ($formname && !$changed_type) {
 }
 
 /* Render the form. */
-$template = $injector->getInstance('Horde_Template');
+$view = new Horde_View(array('templatePath' => ULAFORM_TEMPLATES));
 Horde::startBuffer();
 $form->renderActive(new Horde_Form_Renderer(), $vars, 'genhtml.php', 'post');
-$template->set('inputform', Horde::endBuffer());
-$template->set('html', $html, true);
+$view->inputform = Horde::endBuffer();
+$view->html = $html;
 
 Horde::addScriptFile('stripe.js', 'horde', true);
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
-echo $template->fetch(ULAFORM_TEMPLATES . '/genhtml/genhtml.html');
+echo $view->render('genhtml');
 require $registry->get('templates', 'horde') . '/common-footer.inc';
