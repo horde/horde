@@ -22,7 +22,6 @@ class Ulaform {
             return $info[$action];
         }
 
-        require_once dirname(__FILE__) . '/Action/' . $action . '.php';
         $class = 'Ulaform_Action_' . $action;
         $info[$action] = call_user_func(array($class, 'getInfo'));
 
@@ -37,7 +36,6 @@ class Ulaform {
             return $params[$action];
         }
 
-        require_once dirname(__FILE__) . '/Action/' . $action . '.php';
         $class = 'Ulaform_Action_' . $action;
         $params[$action] = call_user_func(array($class, 'getParams'));
 

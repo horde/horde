@@ -121,7 +121,6 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
         $info['field_readonly'] = ($info['field_readonly'] ? 1 : 0);
 
         if (!empty($info['field_params'])) {
-            require_once 'Horde/Serialize.php';
             $info['field_params'] = Horde_Serialize::serialize($info['field_params'], Horde_Serialize::UTF7_BASIC);
         } else {
             $info['field_params'] = null;
@@ -355,7 +354,6 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
 
             /* Check if any params and unserialize, otherwise return null. */
             if (!empty($field['field_params'])) {
-                require_once 'Horde/Serialize.php';
                 $field['field_params'] = Horde_Serialize::unserialize($field['field_params'], Horde_Serialize::UTF7_BASIC);
             } else {
                 $field['field_params'] = null;
