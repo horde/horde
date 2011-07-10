@@ -20,7 +20,7 @@ $cache = $injector->getInstance('Horde_Cache');
 $rss = $cache->get($cache_key, $conf['cache']['default_lifetime']);
 
 if (!$rss) {
-    $messages = Agora_Messages::singleton($scope, $forum_id);
+    $messages = Agora_Driver::singleton($scope, $forum_id);
     $message = $messages->getMessage($message_id);
     if ($message instanceof PEAR_Error) {
         exit;

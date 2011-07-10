@@ -20,7 +20,7 @@ if (!$registry->isAdmin()) {
 
 /* Set up the messages object. */
 $scope = Horde_Util::getFormData('scope', 'agora');
-$messages = &Agora_Messages::singleton($scope);
+$messages = &Agora_Driver::singleton($scope);
 if ($messages instanceof PEAR_Error) {
     $notification->push($messages->getMessage(), 'horde.warning');
     Horde::url('forums.php', true)->redirect();

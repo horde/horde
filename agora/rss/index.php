@@ -21,7 +21,7 @@ $cache = $injector->getInstance('Horde_Cache');
 $rss = $cache->get($cache_key, $conf['cache']['default_lifetime']);
 if (!$rss) {
     $title = sprintf(_("Forums in %s"), $registry->get('name', $scope));
-    $forums = Agora_Messages::singleton($scope);
+    $forums = Agora_Driver::singleton($scope);
     $forums_list = $forums->getForums(0, true, 'forum_name', 0);
 
     $rss = '<?xml version="1.0" encoding="UTF-8" ?>

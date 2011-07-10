@@ -1,31 +1,19 @@
 <?php
 /**
- * Agora_Messages_split_sql:: provides the functions to access both threads
- * sotred in a scope dedicated tables
+ * Agora_Driver_Sql:: provides the functions to access both threads and
+ * individual messages in one table for all scopes
  *
  * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
+ * @author  Marko Djukic <marko@oblo.com>
+ * @author  Jan Schneider <jan@horde.org>
  * @author  Duck <duck@obala.net>
  * @package Agora
  */
-class Agora_Messages_split_sql extends Agora_Messages {
-
-    /**
-     * Constructor
-     */
-    public function __construct($scope)
-    {
-        parent::__construct($scope);
-
-        /* trick table name */
-        if ($scope != 'agora') {
-            $this->_threads_table = 'agora_messages_' . $scope;
-            $this->_forums_table = 'agora_forums_' . $scope;
-        }
-    }
+class Agora_Driver_Sql extends Agora_Driver {
 
     /**
      * Returns an ID for a given forum name.
@@ -39,8 +27,9 @@ class Agora_Messages_split_sql extends Agora_Messages {
         static $ids = array();
 
         if (!isset($ids[$forum_name])) {
-            $sql = 'SELECT forum_id FROM ' . $this->_forums_table . ' WHERE forum_name = ?';
-            $ids[$forum_name] = $this->_db->getOne($sql, array('integer'), array($forum_name));
+            $sql = 'SELECT forum_id FROM ' . $this->_forums_table . ' WHERE scope = ? AND forum_name = ? ';
+            $params = array($this->_scope, $forum_name);
+            $ids[$forum_name] = $this->_db->getOne($sql, array('integer'), $params);
         }
 
         return $ids[$forum_name];
@@ -54,12 +43,12 @@ class Agora_Messages_split_sql extends Agora_Messages {
     public function getBareForums()
     {
         if ($this->_scope == 'agora') {
-            $sql = 'SELECT forum_id, forum_name FROM ' . $this->_forums_table;
+            $sql = 'SELECT forum_id, forum_name FROM ' . $this->_forums_table . ' WHERE scope = ?';
         } else {
-            $sql = 'SELECT forum_id, forum_description FROM ' . $this->_forums_table;
+            $sql = 'SELECT forum_id, forum_description FROM ' . $this->_forums_table . ' WHERE scope = ?';
         }
 
-        return $this->_db->getAssoc($sql);
+        return $this->_db->getAssoc($sql, null, array($this->_scope));
     }
 
     /**
@@ -103,6 +92,11 @@ class Agora_Messages_split_sql extends Agora_Messages {
         if ($root_forum != 0) {
             $sql .= ' AND forum_parent_id = ? ';
             $params[] = $root_forum;
+        }
+
+        if ($add_scope) {
+            $sql .= ' AND scope = ? ';
+            $params[] = $this->_scope;
         }
 
         /* Sort by result colomn if possible */
@@ -246,54 +240,58 @@ class Agora_Messages_split_sql extends Agora_Messages {
                          $from = 0,
                          $count = 0)
     {
-        $params = array();
-        $where = '';
-        $sql = 'SELECT m.message_id, m.forum_id, m.message_thread, m.parents, m.message_author, '
-             . 'm.message_subject, m.message_timestamp, m.locked, m.view_count, '
-             . 'm.message_seq, m.attachments';
+        /* Select threads */
+        $sql = 'SELECT m.message_id AS message_id, m.forum_id AS forum_id, m.message_thread AS message_thread, m.parents AS parents, m.message_author AS message_author, '
+             . 'm.message_subject AS message_subject, m.message_timestamp AS message_timestamp, m.locked AS locked, m.view_count AS view_count, '
+             . 'm.message_seq AS message_seq , m.attachments AS attachments';
 
         if ($message_view) {
-            $sql .= ', m.body';
+            $sql .= ', m.body AS body';
         }
 
         if ($thread_root == 0) {
-            $sql .= ', m.last_message_id, m.last_message_author, m.message_modifystamp AS last_message_timestamp';
+            $sql .= ', m.last_message_id AS last_message_id, m.last_message_author AS last_message_author'.
+                    ', m.message_modifystamp AS last_message_timestamp';
         }
 
-        /* Get messages form a specific owner */
+        $sql .= ' FROM ' . $this->_threads_table . ' m, ' . $this->_forums_table  . ' AS f ';
+
+        $params = array();
+        $sql .= ' WHERE f.forum_id = m.forum_id ';
+
+        /* Get messages form a specific forum or owner */
         if ($forum_owner !== null) {
-            $sql .= ', f.forum_name FROM ' . $this->_threads_table . ' m, ' . $this->_forums_table . ' f';
-            $where .= ' AND f.author = ? AND f.forum_id = m.forum_id ';
+            $sql .= ' AND f.author = ? AND f.scope = ?';
             $params[] = $forum_owner;
+            $params[] = $this->_scope;
+        } elseif ($this->_forum_id) {
+            $sql .= ' AND m.forum_id = ?';
+            $params[] = $this->_forum_id;
         } else {
-            $sql .= ' FROM ' . $this->_threads_table . ' m';
-            /* Get messages form a specific forum */
-            if ($this->_forum_id) {
-                $where .= ' AND m.forum_id = ?';
-                $params[] = $this->_forum_id;
-            }
+            $sql .= ' AND f.scope = ?';
+            $params[] = $this->_scope;
         }
 
         /* Get all levels? */
         if (!$all_levels) {
-            $where .= ' AND m.parents = ?';
+            $sql .= ' AND m.parents = ?';
             $params[] = '';
         }
 
         /* Get only approved messages. */
         if ($this->_forum['forum_moderated']) {
-            $where .= ' AND m.approved = ?';
+            $sql .= ' AND m.approved = ?';
             $params[] = 1;
         }
 
         if ($thread_root) {
-            $where .= ' AND (message_id = ? OR message_thread = ?)';
-            $params[] = (int)$thread_root;
-            $params[] = (int)$thread_root;
+            $sql .= ' AND (m.message_id = ? OR m.message_thread = ?)';
+            $params[] = $thread_root;
+            $params[] = $thread_root;
         }
 
         /* Sort by result column. */
-        $sql .= ' WHERE ' . substr($where, 5) . ' ORDER BY ' . $sort_by . ' ' . ($sort_dir ? 'DESC' : 'ASC');
+        $sql .= ' ORDER BY m.' . $sort_by . ' ' . ($sort_dir ? 'DESC' : 'ASC');
 
         return array($sql, $params);
     }

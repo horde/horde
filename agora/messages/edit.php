@@ -22,7 +22,7 @@ $vars->set('scope', $scope);
 $formname = $vars->get('formname');
 
 /* Set up the messages control object. */
-$messages = &Agora_Messages::singleton($scope, $forum_id);
+$messages = &Agora_Driver::singleton($scope, $forum_id);
 if ($messages instanceof PEAR_Error) {
     $notification->push(_("Could not post the message: ") . $messages->getMessage(), 'horde.warning');
     Horde::url('forums.php', true)->redirect();

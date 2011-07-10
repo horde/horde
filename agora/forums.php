@@ -16,7 +16,7 @@ Horde_Registry::appInit('agora');
 
 /* Set up the forums object. */
 $scope = Horde_Util::getGet('scope', 'agora');
-$forums = Agora_Messages::singleton($scope);
+$forums = Agora_Driver::singleton($scope);
 
 /* Set up actions */
 if ($registry->isAdmin()) {

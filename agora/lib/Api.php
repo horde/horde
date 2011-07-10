@@ -28,7 +28,7 @@ class Agora_Api extends Horde_Registry_Api
      */
     public function listForums($forum_id = 0, $scope = null)
     {
-        $forums = &Agora_Messages::singleton($scope);
+        $forums = &Agora_Driver::singleton($scope);
         return $forums->getForums($forum_id, true, 'forum_name', 0, isset($scope));
     }
 
@@ -42,7 +42,7 @@ class Agora_Api extends Horde_Registry_Api
      */
     public function getForumName($scope, $forum_id)
     {
-        $forums = &Agora_Messages::singleton($scope);
+        $forums = &Agora_Driver::singleton($scope);
         $forum = $forums->getForum($forum_id);
         if ($forum instanceof PEAR_Error) {
             return $forum;
@@ -63,7 +63,7 @@ class Agora_Api extends Horde_Registry_Api
      */
     public function saveForum($scope, $parent, $info)
     {
-        $forums = &Agora_Messages::singleton($scope);
+        $forums = &Agora_Driver::singleton($scope);
         $forum_info = $this->prepareFormData($scope, $parent, $info);
         if ($forum_info instanceof PEAR_Error) {
             return $forum_info;
@@ -83,14 +83,14 @@ class Agora_Api extends Horde_Registry_Api
      */
     public function deleteForum($scope, $forum_name)
     {
-        $forums = &Agora_Messages::singleton($scope);
+        $forums = &Agora_Driver::singleton($scope);
         $id = $forums->getForumId($forum_name);
         if ($id instanceof PEAR_Error) {
             Horde::logMessage($id, 'ERR');
             return false;
         }
 
-        $forums = &Agora_Messages::singleton($scope, $id);
+        $forums = &Agora_Driver::singleton($scope, $id);
         $result = $forums->deleteForum($id);
         if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, 'ERR');
@@ -120,7 +120,7 @@ class Agora_Api extends Horde_Registry_Api
     public function getThreads($forum_name, $sort_by = 'message_timestamp', $sort_dir = 0, $bodies = false,
                             $scope = 'agora', $base_url = null, $from = 0, $count = 0)
     {
-        $forums = &Agora_Messages::singleton($scope);
+        $forums = &Agora_Driver::singleton($scope);
         if (empty($forum_name)) {
             return $forums->getThreads(0, false, $sort_by, $sort_dir, true, '', $base_url, $from, $count);
         } elseif (($forum_id = $forums->getForumId($forum_name)) instanceof PEAR_Error) {
@@ -129,7 +129,7 @@ class Agora_Api extends Horde_Registry_Api
             return array();
         }
 
-        $messages = &Agora_Messages::singleton($scope, $forum_id);
+        $messages = &Agora_Driver::singleton($scope, $forum_id);
         if ($messages instanceof PEAR_Error) {
             return $messages;
         }
@@ -159,14 +159,14 @@ class Agora_Api extends Horde_Registry_Api
                             $scope = 'agora', $base_url = null, $from = 0, $count = 0)
     {
         $results = array();
-        $forums = &Agora_Messages::singleton($scope);
+        $forums = &Agora_Driver::singleton($scope);
         $results = array();
         foreach ($forum_names as $forum) {
             $forum_id = $forums->getForumId($forum);
             if ($forum_id instanceof PEAR_Error || empty($forum_id)) {
                 $results[$forum] = array();
             } else {
-                $messages = &Agora_Messages::singleton($scope, $forum_id);
+                $messages = &Agora_Driver::singleton($scope, $forum_id);
                 if ($messages instanceof PEAR_Error) {
                     return $messages;
                 }
@@ -195,7 +195,7 @@ class Agora_Api extends Horde_Registry_Api
     public function getThreadsByForumOwner($owner, $sort_by = 'message_timestamp', $sort_dir = 0, $bodies = false,
                             $scope = 'agora', $from = 0, $count = 0)
     {
-        $forums = &Agora_Messages::singleton($scope);
+        $forums = &Agora_Driver::singleton($scope);
 
         return $forums->getThreadsByForumOwner($owner, 0, true, $sort_by, $sort_dir, true, $from, $count);
     }
@@ -213,7 +213,7 @@ class Agora_Api extends Horde_Registry_Api
      */
     public function numMessages($forum_name, $scope = 'agora', $thread_id = null)
     {
-        $forums = &Agora_Messages::singleton($scope);
+        $forums = &Agora_Driver::singleton($scope);
 
         if (($forum_id = $forums->getForumId($forum_name)) instanceof PEAR_Error) {
             return $forum_id;
@@ -221,7 +221,7 @@ class Agora_Api extends Horde_Registry_Api
             return 0;
         }
 
-        $messages = Agora_Messages::singleton($scope, $forum_id);
+        $messages = Agora_Driver::singleton($scope, $forum_id);
         if (is_a($messages, 'PEAR_Error')) {
             return $messages;
         }
@@ -243,7 +243,7 @@ class Agora_Api extends Horde_Registry_Api
      */
     public function numMessagesBatch($forum_name, $scope = 'agora', $thread_id = null)
     {
-        $forums = &Agora_Messages::singleton($scope);
+        $forums = &Agora_Driver::singleton($scope);
         if ($forums instanceof PEAR_Error) {
             return $forums;
         }
@@ -258,7 +258,7 @@ class Agora_Api extends Horde_Registry_Api
             } elseif (empty($forum_id)) {
                 $results[$forum] = 0;
             } else {
-                $messages = Agora_Messages::singleton($scope, $forum_id);
+                $messages = Agora_Driver::singleton($scope, $forum_id);
                 if ($messages instanceof PEAR_Error) {
                     return $messages;
                 }
@@ -302,10 +302,10 @@ class Agora_Api extends Horde_Registry_Api
             'message_timestamp_class_plain' => 'msgTimestampPlain'
         );
 
-        $forums = &Agora_Messages::singleton($scope);
+        $forums = &Agora_Driver::singleton($scope);
         $forum_id = $forums->getForumId($forum_name);
 
-        $messages = &Agora_Messages::singleton($scope, $forum_id);
+        $messages = &Agora_Driver::singleton($scope, $forum_id);
         if ($messages instanceof PEAR_Error) {
             return $messages;
         }
@@ -352,7 +352,7 @@ class Agora_Api extends Horde_Registry_Api
         }
 
         /* Check if the forum exists and fetch the ID, or create a new one. */
-        $forums = &Agora_Messages::singleton($scope);
+        $forums = &Agora_Driver::singleton($scope);
         if (($params['forum_id'] = $forums->getForumId($forum_name)) instanceof PEAR_Error) {
             return $params['forum_id'];
         } elseif (empty($params['forum_id'])) {
@@ -367,7 +367,7 @@ class Agora_Api extends Horde_Registry_Api
         }
 
         /* Set up the messages control object. */
-        $messages = &Agora_Messages::singleton($scope, $params['forum_id']);
+        $messages = &Agora_Driver::singleton($scope, $params['forum_id']);
         if ($messages instanceof PEAR_Error) {
             return $messages;
         }
@@ -422,7 +422,7 @@ class Agora_Api extends Horde_Registry_Api
         $queue->attach('status');
 
         /* Set up the forums object. */
-        $forums = &Agora_Messages::singleton($scope);
+        $forums = &Agora_Driver::singleton($scope);
 
         /* Set up form variables. */
         $vars = Horde_Variables::getDefaultVariables();
@@ -442,7 +442,7 @@ class Agora_Api extends Horde_Registry_Api
         }
 
         /* Set up the messages control object. */
-        $messages = &Agora_Messages::singleton($scope, $params['forum_id']);
+        $messages = &Agora_Driver::singleton($scope, $params['forum_id']);
         if ($messages instanceof PEAR_Error) {
             $queue->push(_("Could not post the message: ") . $messages->getMessage(), 'horde.error');
 
@@ -488,7 +488,7 @@ class Agora_Api extends Horde_Registry_Api
                     return $forum_info;
                 }
                 $info['forum_id'] = $m_params['forum_id'] = $forums->saveForum($forum_info);
-                $result = &Agora_Messages::singleton($scope, $info['forum_id']);
+                $result = &Agora_Driver::singleton($scope, $info['forum_id']);
                 if ($result instanceof PEAR_Error) {
                     return $result;
                 }
@@ -572,14 +572,14 @@ class Agora_Api extends Horde_Registry_Api
         $queue->attach('status');
 
         /* Set up the forums object. */
-        $forums = &Agora_Messages::singleton($scope);
+        $forums = &Agora_Driver::singleton($scope);
         $params['forum_id'] = $forums->getForumId($forum_name);
         if (empty($params['forum_id'])) {
             return PEAR::raiseError(sprintf(_("Forum %s does not exist."), $forum_name));
         }
 
         /* Set up the messages control object. */
-        $messages = &Agora_Messages::singleton($scope, $params['forum_id']);
+        $messages = &Agora_Driver::singleton($scope, $params['forum_id']);
         if ($messages instanceof PEAR_Error) {
             PEAR::raiseError(sprintf(_("Could not delete the message. %s"), $messages->getMessage()));
         }
@@ -724,7 +724,7 @@ class Agora_Api extends Horde_Registry_Api
      */
     public function prepareFormData($scope, $parent = false, $info = array(), $callback = null)
     {
-        $forums = &Agora_Messages::singleton($scope);
+        $forums = &Agora_Driver::singleton($scope);
 
         if ($parent) {
             $parent_id = $forums->getForumId($parent);

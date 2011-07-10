@@ -348,7 +348,7 @@ class Agora {
     {
         global $conf;
 
-        $storage = Agora_Messages::singleton();
+        $storage = Agora_Driver::singleton();
         $message = $storage->getMessage($message_id);
         $forum = $storage->getForum($message['forum_id']);
 

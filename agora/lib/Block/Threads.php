@@ -35,7 +35,7 @@ class Agora_Block_Threads extends Horde_Core_Block
     {
         $params = array();
 
-        $forums = Agora_Messages::singleton();
+        $forums = Agora_Driver::singleton();
 
         /* Get the list of forums to display. */
         $params['forum_id'] = array(
@@ -64,7 +64,7 @@ class Agora_Block_Threads extends Horde_Core_Block
         }
 
         if (empty($this->_threads)) {
-            $this->_threads = &Agora_Messages::singleton('agora', $this->_params['forum_id']);
+            $this->_threads = &Agora_Driver::singleton('agora', $this->_params['forum_id']);
             if ($this->_threads instanceof PEAR_Error) {
                 return $this->getName();
             }
@@ -89,7 +89,7 @@ class Agora_Block_Threads extends Horde_Core_Block
         }
 
         if (empty($this->_threads)) {
-            $this->_threads = &Agora_Messages::singleton('agora', $this->_params['forum_id']);
+            $this->_threads = &Agora_Driver::singleton('agora', $this->_params['forum_id']);
             if ($this->_threads instanceof PEAR_Error) {
                 throw new Horde_Exception(_("Unable to fetch threads for selected forum."));
             }

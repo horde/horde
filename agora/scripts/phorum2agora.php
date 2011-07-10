@@ -138,7 +138,7 @@ $max = $db_agora->getOne('SELECT MAX(message_id) FROM agora_messages');
 $db_agora->query('UPDATE agora_messages_seq SET ID = ?' , array($max));
 
 /* Clean cache */
-$forums = Agora_Messages::singleton('agora');
+$forums = Agora_Driver::singleton('agora');
 @$forums->cleanCache($agora_id);
 
 echo "done\n";

@@ -15,7 +15,7 @@ Horde_Registry::appInit('agora');
 
 /* Set up the messages object. */
 list($forum_id, $message_id, $scope) = Agora::getAgoraId();
-$messages = &Agora_Messages::singleton($scope, $forum_id);
+$messages = &Agora_Driver::singleton($scope, $forum_id);
 if ($messages instanceof PEAR_Error) {
     $notification->push($messages->getMessage(), 'horde.warning');
     Horde::url('forums.php', true)->redirect();
@@ -86,7 +86,7 @@ if (!$view_bodies) {
         $view->message_author_moderator = 1;
     }
     $view->message_subject = $message['message_subject'];
-    $view->message_body = Agora_Messages::formatBody($message['body']);
+    $view->message_body = Agora_Driver::formatBody($message['body']);
 
     if ($message['attachments']) {
         $view->message_attachment = $messages->getAttachmentLink($message_id);

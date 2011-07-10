@@ -50,12 +50,12 @@ class Agora_Block_Forums extends Horde_Core_Block
         global $registry;
 
         /* Set up the forums object. */
-        $forums = array(Agora_Messages::singleton());
+        $forums = array(Agora_Driver::singleton());
         if ($GLOBALS['registry']->isAdmin()) {
             foreach ($registry->listApps(array('hidden', 'notoolbar', 'active')) as $scope) {
                 if ($registry->hasMethod('hasComments', $scope) &&
                     $registry->callByPackage($scope, 'hasComments') === true) {
-                    $forums[] = &Agora_Messages::singleton($scope);
+                    $forums[] = &Agora_Driver::singleton($scope);
                 }
             }
         }

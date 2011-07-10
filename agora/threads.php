@@ -21,7 +21,7 @@ if (empty($forum_id)) {
 }
 
 /* Check if this is a valid thread, otherwise show the forum list. */
-$threads = &Agora_Messages::singleton($scope, $forum_id);
+$threads = &Agora_Driver::singleton($scope, $forum_id);
 if ($threads instanceof PEAR_Error) {
     $notification->push(sprintf(_("Could not list threads. %s"), $threads->getMessage()), 'horde.warning');
     Horde::url('forums.php', true)->redirect();
@@ -59,7 +59,7 @@ $view = new Agora_View();
 $view->col_headers = $col_headers;
 $view->threads = $threads_list;
 $view->forum_name = sprintf(_("Threads in %s"), $forum_array['forum_name']);
-$view->forum_description =  Agora_Messages::formatBody($forum_array['forum_description']);
+$view->forum_description =  Agora_Driver::formatBody($forum_array['forum_description']);
 $view->actions = $threads->getThreadActions();
 $view->menu = Horde::menu();
 

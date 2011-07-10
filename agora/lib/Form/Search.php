@@ -17,7 +17,7 @@ class Agora_Form_Search extends Horde_Form {
      */
     function getForumsType($scope)
     {
-        $forums = &Agora_Messages::singleton($scope);
+        $forums = &Agora_Driver::singleton($scope);
         $forumlist = $forums->getBareForums();
 
         return array('multienum', array($forumlist));

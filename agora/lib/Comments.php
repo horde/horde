@@ -26,13 +26,13 @@ class Agora_ViewComments {
      */
     static public function render($forum_name, $scope = 'agora', $base_url = null, $template_file = false)
     {
-        $forums = &Agora_Messages::singleton($scope);
+        $forums = &Agora_Driver::singleton($scope);
         $forum_id = $forums->getForumId($forum_name);
         if ($forum_id === null) {
             return '';
         }
 
-        $messages = &Agora_Messages::singleton($scope, $forum_id);
+        $messages = &Agora_Driver::singleton($scope, $forum_id);
         if ($messages instanceof PEAR_Error) {
             return $messages->getMessage();
         }

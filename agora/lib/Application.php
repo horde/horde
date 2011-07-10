@@ -57,7 +57,7 @@ class Agora_Application extends Horde_Registry_Application
                 'title' => $GLOBALS['registry']->get('name', $scope)
             );
 
-            $forums = Agora_Messages::singleton($scope);
+            $forums = Agora_Driver::singleton($scope);
             $forums_list = $forums->getBareForums();
             if (!($forums_list instanceof PEAR_Error)) {
                 foreach ($forums_list as $id => $title) {
@@ -91,11 +91,11 @@ class Agora_Application extends Horde_Registry_Application
         }
 
         if ($scope == 'agora' &&
-            Agora_Messages::hasPermission(Horde_Perms::DELETE, 0, $scope)) {
+            Agora_Driver::hasPermission(Horde_Perms::DELETE, 0, $scope)) {
             $menu->add(Horde::url('editforum.php'), _("_New Forum"), 'newforum.png', null, null, null, Horde_Util::getFormData('agora') ? '__noselection' : null);
         }
 
-        if (Agora_Messages::hasPermission(Horde_Perms::DELETE, 0, $scope)) {
+        if (Agora_Driver::hasPermission(Horde_Perms::DELETE, 0, $scope)) {
             $url = Horde::url('moderate.php')->add('scope', $scope);
             $menu->add($url, _("_Moderate"), 'moderate.png');
         }

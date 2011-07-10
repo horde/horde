@@ -25,7 +25,7 @@ class Agora_Block_Thread extends Horde_Core_Block
      */
     protected function _params()
     {
-        $forumOb = Agora_Messages::singleton();
+        $forumOb = Agora_Driver::singleton();
         $forums_list = $forumOb->getForums(0, true, 'forum_name', 0, true);
 
         $threads = array(
@@ -35,7 +35,7 @@ class Agora_Block_Thread extends Horde_Core_Block
         );
 
         foreach ($forums_list as $forum_id => $forum) {
-            $threadsOb = Agora_Messages::singleton('agora', $forum_id);
+            $threadsOb = Agora_Driver::singleton('agora', $forum_id);
             $threads_list = $threadsOb->getThreads();
             foreach ($threads_list as $thread_id => $thread) {
                 if (!isset($threads['default'])) {
@@ -59,7 +59,7 @@ class Agora_Block_Thread extends Horde_Core_Block
 
         /* Set up the message object. */
         list($forum_id, $message_id) = explode('.', $this->_params['thread_id']);
-        $messages = Agora_Messages::singleton('agora', $forum_id);
+        $messages = Agora_Driver::singleton('agora', $forum_id);
 
         /* Check if valid thread, otherwise show forum list. */
         if ($messages instanceof PEAR_Error || empty($messages)) {

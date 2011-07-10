@@ -16,13 +16,13 @@ $scope = Horde_Util::getGet('scope', 'agora');
 $forum_id = Horde_Util::getGet('forum_id');
 if ($scope != 'agora') {
     if (($forum_name = Horde_Util::getGet('forum_name')) !== null) {
-        $threads = Agora_Messages::singleton($scope);
+        $threads = Agora_Driver::singleton($scope);
         $forum_id = $threads->getForumId($forum_name);
         if (($forum_id instanceof PEAR_Error) || empty($forum_id)) {
             die($forum_id);
         }
     } elseif ($forum_id !== null) {
-        $threads = Agora_Messages::singleton($scope, $forum_id);
+        $threads = Agora_Driver::singleton($scope, $forum_id);
         if ($threads instanceof PEAR_Error) {
             die($threads);
         }
@@ -39,7 +39,7 @@ $rss = $cache->get($cache_key, $conf['cache']['default_lifetime']);
 
 if (!$rss) {
     // Get forum title
-    $threads = Agora_Messages::singleton($scope, $forum_id);
+    $threads = Agora_Driver::singleton($scope, $forum_id);
     if ($threads instanceof PEAR_Error) {
         throw new Horde_Exception($threads);
     }

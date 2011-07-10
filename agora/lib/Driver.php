@@ -1,6 +1,6 @@
 <?php
 /**
- * Agora_Messages:: provides the functions to access both threads and
+ * Agora_Driver:: provides the functions to access both threads and
  * individual messages.
  *
  * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
@@ -13,7 +13,7 @@
  * @author  Duck <duck@obala.net>
  * @package Agora
  */
-class Agora_Messages {
+class Agora_Driver {
 
     /**
      * A hash containing any parameters for the current driver.
@@ -93,24 +93,25 @@ class Agora_Messages {
     }
 
     /**
-     * Attempts to return a reference to a concrete Messages instance. It will
-     * only create a new instance if no Messages instance currently exists.
+     * Attempts to return a reference to a concrete Agora_Driver instance. It
+     * will only create a new instance if no Agora_Driver instance currently
+     * exists.
      *
-     * This method must be invoked as: $var = &Agora_Messages::singleton();
+     * This method must be invoked as: $var = &Agora_Driver::singleton();
      *
      * @param string $scope     Application scope to use
-     * @param int    $forum_id  Form to link to
+     * @param int    $forum_id  Forum to link to
      *
-     * @return Forums  The concrete Messages reference, or false on error.
+     * @return Forums  The concrete Agora_Driver reference, or false on error.
      */
     static public function &singleton($scope = 'agora', $forum_id = 0)
     {
         static $objects = array();
 
         if (!isset($objects[$scope])) {
-            $driver = $GLOBALS['conf']['threads']['split'] ? 'split_sql' : 'sql';
-            require_once AGORA_BASE . '/lib/Messages/' . $driver . '.php';
-            $class_name = 'Agora_Messages_' . $driver;
+            $driver = $GLOBALS['conf']['threads']['split'] ? 'SplitSql' : 'Sql';
+            require_once AGORA_BASE . '/lib/Driver/' . $driver . '.php';
+            $class_name = 'Agora_Driver_' . $driver;
             $objects[$scope] = new $class_name($scope);
         }
 
@@ -121,7 +122,7 @@ class Agora_Messages {
                 return $forum;
             }
 
-            /* Set curernt forum id and forum data */
+            /* Set current forum id and forum data */
             $objects[$scope]->_forum = $forum;
             $objects[$scope]->_forum_id = (int)$forum_id;
         }
@@ -745,7 +746,7 @@ class Agora_Messages {
         }
 
         $sql .= ', message_modifystamp = ' . $_SERVER['REQUEST_TIME'] . '  WHERE message_id = ' . (int)$thread_id;
-        Horde::logMessage('Query by Agora_Messages::_sequence(): ' . $sql, 'DEBUG');
+        Horde::logMessage('Query by Agora_Driver::_sequence(): ' . $sql, 'DEBUG');
         return $this->_write_db->query($sql);
     }
 
@@ -1384,7 +1385,7 @@ class Agora_Messages {
      *
      * @param array $threads         A hash with the thread messages as
      *                               returned by {@link
-     *                               Agora_Messages::getThreads}.
+     *                               Agora_Driver::getThreads}.
      * @param array $col_headers     A hash with the column headers.
      * @param boolean $bodies        Display the message bodies?
      * @param string $template_file  Template to use.

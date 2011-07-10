@@ -13,7 +13,7 @@ Horde_Registry::appInit('agora');
 
 /* Make sure we have a forum id. */
 list($forum_id, , $scope) = Agora::getAgoraId();
-$forums = &Agora_Messages::singleton($scope, $forum_id);
+$forums = &Agora_Driver::singleton($scope, $forum_id);
 if ($forums instanceof PEAR_Error) {
     $notification->push($forums->message, 'horde.error');
     Horde::url('forums.php', true)->redirect();

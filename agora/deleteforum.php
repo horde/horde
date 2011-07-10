@@ -16,7 +16,7 @@ Horde_Registry::appInit('agora');
 
 /* Set up the forums object. */
 $scope = Horde_Util::getFormData('scope', 'agora');
-$forums = &Agora_Messages::singleton($scope);
+$forums = &Agora_Driver::singleton($scope);
 
 /* Check permissions */
 if (!$forums->hasPermission(Horde_Perms::DELETE)) {

@@ -14,7 +14,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('agora');
 
 /* Set up the forums object. */
-$forums = &Agora_Messages::singleton();
+$forums = &Agora_Driver::singleton();
 
 list($forum_id, , $scope) = Agora::getAgoraId();
 $scope = Horde_Util::getGet('scope', 'agora');
