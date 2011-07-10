@@ -40,9 +40,10 @@ class Agora_Factory_Driver
     /**
      * Return the Agora_Driver:: instance.
      *
-     * @param mixed $scope  Instance scope
+     * @param string $scope  Instance scope
+     * @param int $forum_id  Forum to link to
      *
-     * @return Agora_Driver
+     * @return Agora_Driver  The singleton instance.
      * @throws Agora_Exception
      */
     public function create($scope = 'agora', $forum_id = 0)
