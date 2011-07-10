@@ -428,6 +428,13 @@ a.rounded {
     font-weight: bold;
 }
 
+.hermesStopTimer:hover {
+    cursor: pointer;
+}
+.hermesStopTimer {
+    float: right;
+    cursor: pointer;
+}
 /* Timelist submission controls */
 .hermesTimeListControls {
     padding: 7px;
@@ -493,6 +500,9 @@ a.rounded {
   padding: 6px 5px 4px;
   width: 98%;
 
+}
+.hermesLongField {
+    width: 98%;
 }
 #hermesSearchFormClient {
     width: 180px;
@@ -602,9 +612,19 @@ a.rounded {
     margin-left: 7px;
     font-style: italic;
 }
-.hermesTimerStop {
-    float: right;
-    line-height: 16px;
+#hermesTimerDialog {
+    position: absolute;
+    z-index: 110;
+    left: 163px;
+    top: 370px;
+    width: 350px;
+    height: auto;
+    background: transparent url("graphics/back_quick.png") no-repeat left top;
+}
+#hermesTimerDialog form {
+    padding: 10px;
+    margin-left: 10px;
+    background-color: #999;
 }
 #hermesMenu h3 {
   border-bottom: 1px dotted #999999;
@@ -676,6 +696,11 @@ a.rounded {
    border-width: 1px 0;
    border-color: #ccc transparent #fff;
    border-style: solid none;
+}
+.hermesDialogInfo {
+    background: transparent url('graphics/alerts/message.png') 0 0 no-repeat;
+    padding-left: 20px;
+    font-style: italic;
 }
  /* Mini calendar */
 .hermesMinical {
