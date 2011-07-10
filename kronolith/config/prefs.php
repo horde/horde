@@ -24,7 +24,7 @@ $prefGroups['view'] = array(
 $prefGroups['share'] = array(
     'column' => _("Calendars"),
     'label' => _("Default Calendar"),
-    'desc' => _("Choose your default calendar."),
+    'desc' => _("Choose your default calendar and calendars to use for syncing with external devices."),
     'members' => array('default_share', 'sync_calendars'),
 );
 
