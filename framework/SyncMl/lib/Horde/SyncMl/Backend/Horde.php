@@ -322,9 +322,13 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
      */
     public function retrieveEntry($databaseURI, $suid, $contentType, $fields)
     {
-        return $GLOBALS['registry']->call(
-            $this->normalize($databaseURI) . '/export',
-            array('guid' => $suid, 'contentType' => $contentType, 'dummy' => null, 'fields' => $fields));
+        try {
+            return $GLOBALS['registry']->call(
+                $this->normalize($databaseURI) . '/export',
+                array('guid' => $suid, 'contentType' => $contentType, 'dummy' => null, 'fields' => $fields));
+        } catch (Horde_Exception $e) {
+            PEAR::raiseError($e->getMessage());
+        }
     }
 
     /**
