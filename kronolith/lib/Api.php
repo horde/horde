@@ -723,7 +723,7 @@ class Kronolith_Api extends Horde_Registry_Api
         $uid = $event->uid;
         try {
             $existing_event = $driver->getByUID($uid, array($driver->calendar));
-            throw new Kronolith_Exception(_("Already Exists"), 'horde.message', null, null, $uid);
+            throw new Kronolith_Exception(sprintf(_("%s Already Exists"), $uid));
         } catch (Horde_Exception $e) {}
         $result = $driver->search($event);
         // Check if the match really is an exact match:
@@ -734,7 +734,7 @@ class Kronolith_Api extends Horde_Registry_Api
                     $match->title == $event->title &&
                     $match->location == $event->location &&
                     $match->hasPermission(Horde_Perms::EDIT)) {
-                        throw new Kronolith_Exception(_("Already Exists"), 'horde.message', null, null, $match->uid);
+                        throw new Kronolith_Exception(sprintf(_("%s Already Exists"), $match->uid));
                     }
             }
         }
