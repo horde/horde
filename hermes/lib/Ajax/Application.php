@@ -128,6 +128,7 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
             $notification->push(sprintf(_("There was an error submitting your time: %s"), $e->getMessage()), 'horde.error');
         }
         $GLOBALS['notification']->push(_("Your time was successfully submitted."), 'horde.success');
+
         return true;
     }
 
@@ -154,6 +155,41 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
 
         return array('id' => $now);
     }
+
+    /**
+     * Stop a timer
+     */
+     public function stopTimer()
+     {
+        global $prefs;
+
+        $timer_id = $this->_vars->t;
+        $timers = $prefs->getValue('running_timers');
+        if (!empty($timers)) {
+            $timers = @unserialize($timers);
+        } else {
+            $timers = array();
+        }
+
+        if (empty($timers[$timer_id])) {
+            $GLOBALS['notification']->push(_("Invalid timer requested"), 'horde.error');
+            return false;
+        }
+        $results = array();
+        $tname = $timers[$timer_id]['name'];
+        $tformat = $prefs->getValue('twentyFour') ? 'G:i' : 'g:i a';
+        $results['h'] = round((float)(time() - $timer_id) / 3600, 2);
+        if ($prefs->getValue('add_description')) {
+            $results['n'] = sprintf(_("Using the \"%s\" stop watch from %s to %s"), $tname, date($tformat, $timer_id), date($tformat, time()));
+        } else {
+            $results['n'] = '';
+        }
+        $GLOBALS['notification']->push(sprintf(_("The stop watch \"%s\" has been stopped."), $tname), 'horde.success');
+        unset($timers[$timer_id]);
+        $prefs->setValue('running_timers', serialize($timers));
+
+        return $results;
+     }
 
     /**
      * Retrieve timers
