@@ -88,8 +88,10 @@
           <div id="hermesSummaryTotalNonBillable" class="hermesSummaryItem"><span class="hermesHours"></span> <?php echo _("Non-Billable")?></div>
         </div>
     </div>
-      <span>Timers</span>
-      <a href="#" class="hermesAdd">+</a>
+      <h3>
+        <span>Timers</span>
+        <a href="#" class="hermesAdd">+</a>
+      </h3>
       <div id="hermesMenuTimers">
       </div>
       <div id="hermesMenuRecent">
