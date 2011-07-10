@@ -45,11 +45,10 @@ implements Horde_Pear_Package_Contents_Role
         case 'bin':
             return 'script';
         case 'docs':
-            return 'doc';
         case 'COPYING':
         case 'LICENSE':
         case 'README':
-            return 'data';
+            return 'doc';
         case 'test':
             return 'test';
         default:
