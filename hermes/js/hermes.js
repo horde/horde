@@ -321,8 +321,22 @@ HermesCore = {
                 e.stop();
                 return;
             case 'hermesAdd':
-                this.redBoxLoading = true;
-                RedBox.showHtml($('hermesTimerDialog').show());
+                $('hermesTimerDialog').appear({
+                    duration: this.effectDur,
+                    afterFinish: function() {
+                        $('hermesTimerTitle').focus();
+                    }
+                });
+                return;
+            case 'hermesTimerCancel':
+                $('hermesTimerDialog').fade({
+                    duration: this.effectDur
+                });
+                e.stop();
+                return;
+            case 'hermesStopTimer':
+                this.stopTimer(elt);
+                e.stop();
                 return;
             }
             if (elt.hasClassName('hermesTimeListSelect')) {
@@ -541,13 +555,13 @@ HermesCore = {
 
     newTimer: function()
     {
-        this.doAction('addTimer', {'desc': $F('hermesTimerTitle')}, this.newTimerCallback.bind(this));
+        this.doAction('addTimer', { 'desc': $F('hermesTimerTitle') }, this.newTimerCallback.bind(this));
     },
 
     newTimerCallback: function(r)
     {
         if (!r.response.id) {
-           this.closeRedBox();
+            $('hermesTimerDialog').fade({ duration: this.effectDur });
         }
 
         this.insertTimer(r.response.id, $F('hermesTimerTitle'));
@@ -555,12 +569,18 @@ HermesCore = {
 
     insertTimer: function(t, d)
     {
-        var timer = new Element('div', {'class': 'hermesMenuItem hermesTimerOn rounded'});
-        timer.update(d);
+        var timer = new Element('div', { 'class': 'hermesMenuItem hermesTimerOn rounded' }).update(d);
+        var stop = new Element('span', {'class': 'hermesStopTimer'}).update(
+            new Element('img', { 'src': Hermes.conf.images.timerclose })
+        ).store('tid', t);
+        timer.insert(stop);
         $('hermesMenuTimers').insert({ 'top': timer });
-        var stop = new Element('span', { 'class': 'hermesTimerStop' }).update('x').store(t);
-        $('hermesMenuTimers').insert({ 'top': stop });
-        this.closeRedBox();
+        $('hermesTimerDialog').fade({
+            duration: this.effectDur,
+            afterFinish: function() {
+                $('hermesTimerTitle').value = '';
+            }
+        });
     },
 
     listTimersCallback: function(r)
@@ -571,6 +591,24 @@ HermesCore = {
         };
     },
 
+    stopTimer: function(elt)
+    {
+        var t = elt.retrieve('tid');
+        this.doAction('stopTimer', { 't': t }, this.closeTimerCallback.curry(elt).bind(this));
+    },
+
+    closeTimerCallback: function(elt, r)
+    {
+        if (r.response) {
+            $('hermesTimeFormHours').setValue(r.response.h);
+            $('hermesTimeFormNotes').setValue(r.response.n);
+        }
+        elt.up().fade({
+            duration: this.effectDur,
+        });
+    },
+
+    //removeTimer: function(t)
     submitSlices: function()
     {
         $('hermesLoading').show();
@@ -731,11 +769,6 @@ HermesCore = {
         cell = cell.next().update((slice.b == 1) ? 'Y' : 'N');
         cell = cell.next().update(slice.h);
         return row;
-    },
-
-    insertSlice: function(slice)
-    {
-
     },
 
     handleSort: function(e)
