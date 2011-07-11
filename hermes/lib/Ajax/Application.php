@@ -199,7 +199,7 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
         } else {
             $timers = array();
         }
-
+        $timers = array_values($timers);
         foreach ($timers as &$timer) {
             $timer['e'] = round((float)(time() - $timer['time']) / 3600, 2);
         }

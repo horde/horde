@@ -594,9 +594,10 @@ HermesCore = {
 
     listTimersCallback: function(r)
     {
+
         var timers = r.response;
-        for (t in timers) {
-            this.insertTimer(timers[t], timers[t].name);
+        for (var i = 0; i < timers.length; i++) {
+            this.insertTimer(timers[i], timers[i].name);
         };
     },
 
