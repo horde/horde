@@ -564,16 +564,21 @@ HermesCore = {
             $('hermesTimerDialog').fade({ duration: this.effectDur });
         }
 
-        this.insertTimer(r.response.id, $F('hermesTimerTitle'));
+        this.insertTimer({ 'time': r.response.id, 'e': 0 }, $F('hermesTimerTitle'));
     },
 
-    insertTimer: function(t, d)
+    insertTimer: function(r, d)
     {
-        var timer = new Element('div', { 'class': 'hermesMenuItem hermesTimerOn rounded' }).update(d);
-        var stop = new Element('span', {'class': 'hermesStopTimer'}).update(
+        var t = r.time;
+        var title = new Element('div', { 'class': 'hermesTimerLabel' }).update(
+            d + '(' + r.e + ' hours)'
+        );
+        var stop = new Element('span', { 'class': 'hermesStopTimer' }).update(
             new Element('img', { 'src': Hermes.conf.images.timerclose })
         ).store('tid', t);
-        timer.insert(stop);
+
+        var timer = new Element('div', { 'class': 'hermesMenuItem hermesTimer rounded' });
+        timer.insert(stop).insert(title);
         $('hermesMenuTimers').insert({ 'top': timer });
         $('hermesTimerDialog').fade({
             duration: this.effectDur,
@@ -587,12 +592,13 @@ HermesCore = {
     {
         var timers = r.response;
         for (t in timers) {
-            this.insertTimer(timers[t]['time'], timers[t].name);
+            this.insertTimer(timers[t], timers[t].name);
         };
     },
 
     stopTimer: function(elt)
     {
+        console.log(elt);
         var t = elt.retrieve('tid');
         this.doAction('stopTimer', { 't': t }, this.closeTimerCallback.curry(elt).bind(this));
     },

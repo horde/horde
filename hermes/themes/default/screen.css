@@ -432,6 +432,7 @@ a.rounded {
     cursor: pointer;
 }
 .hermesStopTimer {
+    display: block;
     float: right;
     cursor: pointer;
 }
@@ -603,8 +604,6 @@ a.rounded {
   top: 46px;
   width: 100%;
 }
-.hermesTimerOn {
-}
 .hermesMenuRecent {
     margin-bottom: 7px;
 }
@@ -625,6 +624,12 @@ a.rounded {
     padding: 10px;
     margin-left: 10px;
     background-color: #999;
+}
+.hermesTimer {
+    min-height: 24px;
+}
+.hermesTimerLabel {
+    padding: 2px 2px 2px 2px;
 }
 #hermesMenu h3 {
   border-bottom: 1px dotted #999999;
