@@ -96,14 +96,14 @@
       </div>
       <div id="hermesMenuRecent">
         <h3>Recent Projects</h3>
-        <div class="hermesMenuRecent rounded">
+        <!--<div class="hermesMenuRecent rounded">
            Big Project:
            <div class="hermesTimerTime">20 Hours (30%)</div>
         </div>
         <div class="hermesMenuRecent rounded">
            Big Project Timer
            <div class="hermesTimerTime">30 HOurs (20%)</div>
-        </div>
+        </div>-->
       </div>
     </div>
 </div>
