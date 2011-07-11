@@ -690,10 +690,10 @@ HermesCore = {
             }
         }.bind(this));
 
-        $('hermesSummaryTodayBillable').down().update(todayb);
-        $('hermesSummaryTodayNonBillable').down().update(today - todayb);
-        $('hermesSummaryTotalBillable').down().update(totalb);
-        $('hermesSummaryTotalNonBillable').down().update(total - totalb);
+        $('hermesSummaryTodayBillable').down().update(todayb.toFixed(2));
+        $('hermesSummaryTodayNonBillable').down().update((today - todayb).toFixed(2));
+        $('hermesSummaryTotalBillable').down().update(totalb.toFixed(2));
+        $('hermesSummaryTotalNonBillable').down().update((total - totalb).toFixed(2));
     },
 
     buildTimeTable: function()
