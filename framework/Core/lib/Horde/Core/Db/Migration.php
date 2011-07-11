@@ -63,7 +63,8 @@ class Horde_Core_Db_Migration
         }
 
         // Loop through installed PEAR packages.
-        $old_error_reporting = error_reporting(E_ALL & ~E_STRICT);
+        $old_error_reporting = error_reporting();
+        error_reporting($old_error_reporting & ~E_STRICT);
         $pear = new PEAR_Config($pearconf);
         foreach (glob($pear->get('data_dir') . '/*/migration') as $dir) {
             $app = Horde_String::lower(basename(dirname($dir)));;
