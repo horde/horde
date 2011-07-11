@@ -191,9 +191,6 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
         return $results;
      }
 
-    /**
-     * Retrieve timers
-     */
     public function listTimers()
     {
         $timers = $GLOBALS['prefs']->getValue('running_timers');
@@ -201,6 +198,10 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
             $timers = @unserialize($timers);
         } else {
             $timers = array();
+        }
+
+        foreach ($timers as &$timer) {
+            $timer['e'] = round((float)(time() - $timer['time']) / 3600, 2);
         }
 
         return $timers;
