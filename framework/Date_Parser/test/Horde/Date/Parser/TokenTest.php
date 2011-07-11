@@ -22,15 +22,15 @@ class Horde_Date_Parser_TokenTest extends Horde_Test_Case
         $token->tag('foo', 'mytag');
         $this->assertEquals(1, count($token->tags));
         $this->assertTrue($token->tagged());
-        $this->assertType('string', $token->getTag('foo'));
+        $this->assertInternalType('string', $token->getTag('foo'));
 
         $token->tag('bar', 5);
         $this->assertEquals(2, count($token->tags));
-        $this->assertType('int', $token->getTag('bar'));
+        $this->assertInternalType('int', $token->getTag('bar'));
 
         $token->untag('foo');
         $this->assertEquals(1, count($token->tags));
-        $this->assertType('int', $token->getTag('bar'));
+        $this->assertInternalType('int', $token->getTag('bar'));
     }
 
     public function testScanForDayNames()
@@ -40,13 +40,12 @@ class Horde_Date_Parser_TokenTest extends Horde_Test_Case
 
         $token = new Horde_Date_Parser_Token('saturday');
         $repeater = $tokenizer->scanForDayNames($token);
-        $this->assertType('Horde_Date_Repeater_DayName', $repeater);
+        $this->assertInstanceOf('Horde_Date_Repeater_DayName', $repeater);
         $this->assertEquals('saturday', $repeater->type);
 
         $token = new Horde_Date_Parser_Token('sunday');
         $repeater = $tokenizer->scanForDayNames($token);
-        $this->assertType('Horde_Date_Repeater_DayName', $repeater);
+        $this->assertInstanceOf('Horde_Date_Repeater_DayName', $repeater);
         $this->assertEquals('sunday', $repeater->type);
     }
-
 }
