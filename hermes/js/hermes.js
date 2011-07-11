@@ -41,6 +41,10 @@ HermesCore = {
      *  instead of sending the action to the ajax handler. */
     doAction: function(action, params, callback, opts)
     {
+        // poll?
+        if (action == 'poll') {
+            callback = this.pollCallback.bind(this);
+        }
         opts = Object.extend(this.doActionOpts, opts || {});
         params = $H(params);
         action = action.startsWith('*')
@@ -571,7 +575,7 @@ HermesCore = {
     {
         var t = r.time;
         var title = new Element('div', { 'class': 'hermesTimerLabel' }).update(
-            d + '(' + r.e + ' hours)'
+            d + ' (' + r.e + ' hours)'
         );
         var stop = new Element('span', { 'class': 'hermesStopTimer' }).update(
             new Element('img', { 'src': Hermes.conf.images.timerclose })
@@ -1188,6 +1192,21 @@ HermesCore = {
         return [start, end];
     },
 
+    pollCallback: function(r)
+    {
+        // Update timers.
+        if(r.response) {
+            $H(r.response).each(function(pair) {
+                var t = pair.value;
+                $('hermesMenuTimers').select('.hermesMenuItem').each(function(elt) {
+                    if (elt.down('.hermesStopTimer').retrieve('tid') == t['time']) {
+                        elt.down('.hermesTimerLabel').update(t.d + ' (' + t.e + ' hours)');
+                    }
+                });
+            });
+        }
+    },
+
     /* Onload function. */
     onDomLoad: function()
     {
@@ -1241,7 +1260,7 @@ HermesCore = {
         this.doAction('listTimers', [], this.listTimersCallback.bind(this));
 
         /* Start polling. */
-        new PeriodicalExecuter(this.doAction.bind(this, 'poll'), 60);
+        new PeriodicalExecuter(this.doAction.bind(this, 'poll'), 120);
         document.observe('Horde_Calendar:select', HermesCore.datePickerHandler.bindAsEventListener(HermesCore));
         Event.observe(window, 'resize', this.onResize.bind(this));
     }

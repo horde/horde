@@ -209,7 +209,8 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
 
     public function poll()
     {
-        // keepalive
+        // Return any elapsed time for timers
+        return $this->listTimers();
     }
 
 
