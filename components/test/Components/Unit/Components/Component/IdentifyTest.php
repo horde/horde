@@ -129,27 +129,6 @@ extends Components_TestCase
         );
     }
 
-    public function testWithoutValidComponentButRemote()
-    {
-        $dependencies = new Components_Dependencies_Injector();
-        $mock = $this->getMock('Horde_Pear_Remote');
-        $mock->expects($this->once())
-            ->method('getLatestDownloadUri')
-            ->with('Horde_Core')
-            ->will(
-                $this->returnValue(
-                    'http://pear.horde.org/get/Horde_Core-1.0.0.tgz'
-                )
-            );
-        $dependencies->setInstance(
-            'Horde_Pear_Remote',
-            $mock
-        );
-        $this->_initIdentify(
-            array('Horde_Core'), array('allow_remote' => true), $dependencies
-        );
-    }
-
     private function _initIdentify(
         $arguments, $options = array(), $dependencies = null
     )

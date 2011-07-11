@@ -94,7 +94,10 @@ class Components_Runner_CiPrebuild
             'hudson-component-phpunit.xml',
             'phpunit.xml'
         );
-        $directory = $this->_config->getComponent()->getPath();
+        //@todo FIXME
+        //$directory = $this->_config->getComponent()->getPath();
+        $directory = '';
+
         $phpunit_template->write(
             array(
                 'testclass' => basename($directory),

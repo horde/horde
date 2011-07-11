@@ -39,7 +39,7 @@ extends Components_TestCase
     {
         $config = $this->_getFileConfig();
         $options = $config->getOptions();
-        $this->assertTrue($options['test']);
+        $this->assertEquals('pear.horde.org', $options['releaseserver']);
     }
 
     public function testArgumentsEmpty()

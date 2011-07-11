@@ -50,7 +50,7 @@ class Horde_Core_Db_Migration
             $dir = $GLOBALS['registry']->get('fileroot', $app) . '/migration';
             if (is_dir($dir)) {
                 $this->apps[] = $app;
-                $this->dirs[] = $dir;
+                $this->dirs[] = realpath($dir);
             }
         }
 
@@ -58,7 +58,7 @@ class Horde_Core_Db_Migration
         if ($basedir) {
             foreach (glob($basedir . '/framework/*/migration') as $dir) {
                 $this->apps[] = 'horde_' . Horde_String::lower(basename(dirname($dir)));
-                $this->dirs[] = $dir;
+                $this->dirs[] = realpath($dir);
             }
         }
 
@@ -68,7 +68,7 @@ class Horde_Core_Db_Migration
             $app = Horde_String::lower(basename(dirname($dir)));;
             if (!in_array($app, $this->apps)) {
                 $this->apps[] = $app;
-                $this->dirs[] = $dir;
+                $this->dirs[] = realpath($dir);
             }
         }
     }

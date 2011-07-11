@@ -1,0 +1,4 @@
+version=3
+opts="uversionmangle=s/(alpha|beta|rc)/~$1/i" \
+http://pear.horde.org/get/ <?php echo $component->getName(); ?>-(.+)\.tgz
+

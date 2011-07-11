@@ -49,14 +49,6 @@ extends Components_Module_Base
                     'help'   => 'Store CHANGED as change log entry.'
                 )
             ),
-            new Horde_Argv_Option(
-                '-G',
-                '--commit',
-                array(
-                    'action' => 'store_true',
-                    'help'   => 'Commit the change log entries to git (using the change log entry as commit message).'
-                )
-            ),
         );
     }
 
@@ -116,7 +108,8 @@ commit message by using "git add ..." before.';
     public function getContextOptionHelp()
     {
         return array(
-            '--commit' => '',
+            '--commit' => 'Commit the change log entries to git (using the change log entry as commit message).',
+            '--pretend' => ''
         );
     }
 
@@ -134,7 +127,6 @@ commit message by using "git add ..." before.';
         $arguments = $config->getArguments();
         if (!empty($options['changed'])
             || (isset($arguments[0]) && $arguments[0] == 'changed')) {
-            $config->getComponent()->requireLocal();
             $this->_dependencies->getRunnerChange()->run();
             return true;
         }

@@ -130,9 +130,6 @@ implements Components_Config
     public function setComponent(Components_Component $component)
     {
         $this->_component = $component;
-        if ($component->didConsumeArgument()) {
-            $this->shiftArgument();
-        }
     }
 
     /**

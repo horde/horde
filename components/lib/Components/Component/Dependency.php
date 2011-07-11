@@ -1,6 +1,6 @@
 <?php
 /**
- * Components_Pear_Dependency:: wraps PEAR dependency information.
+ * Components_Component_Dependency:: wraps PEAR dependency information.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Components_Pear_Dependency:: wraps PEAR dependency information.
+ * Components_Component_Dependency:: wraps PEAR dependency information.
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Components
  */
-class Components_Pear_Dependency
+class Components_Component_Dependency
 {
     /**
      * The name of the dependency.
@@ -63,12 +63,31 @@ class Components_Pear_Dependency
     private $_package = false;
 
     /**
+     * Original dependency information.
+     *
+     * @var array
+     */
+    private $_dependency;
+    /**
+     * The factory for the component representation of a dependency.
+     *
+     * @var Components_Component_Factory
+     */
+    private $_factory;
+
+    /**
      * Constructor.
      *
-     * @param array $dependency The dependency information.
+     * @param array                        $dependency The dependency
+     *                                                 information.
+     * @param Components_Component_Factory $factory    Helper factory.
      */
-    public function __construct($dependency)
+    public function __construct(
+        $dependency, Components_Component_Factory $factory
+    )
     {
+        $this->_factory = $factory;
+        $this->_dependency = $dependency;
         if (isset($dependency['name'])) {
             $this->_name = $dependency['name'];
         }
@@ -89,20 +108,40 @@ class Components_Pear_Dependency
     }
 
     /**
+     * Return the dependency in its component representation.
+     *
+     * @param array $options The options for resolving the component.
+     *
+     * @return Component_Component The component.
+     */
+    public function getComponent($options = array())
+    {
+        return $this->_factory->createResolver()
+            ->resolveDependency($this, $options);
+    }
+
+    /**
+     * Return the original dependency information.
+     *
+     * @return array The original dependency information.
+     */
+    public function getDependencyInformation()
+    {
+        return $this->_dependency;
+    }
+
+    /**
      * Is the dependency required?
      *
      * @return boolen True if the dependency is required.
      */
     public function isRequired()
     {
-        if (!$this->_package) {
-            return false;
-        }
         return !$this->_optional;
     }
 
     /**
-     * Is this a pacakge dependency?
+     * Is this a package dependency?
      *
      * @return boolen True if the dependency is a package.
      */
@@ -167,48 +206,11 @@ class Components_Pear_Dependency
     }
 
     /**
-     * Does the dependency match the given selector?
-     *
-     * @param string $selector The selector.
-     *
-     * @return boolen True if the dependency matches.
-     */
-    public function matches($selector)
-    {
-        $selectors = split(',', $selector);
-        if (in_array('ALL', $selectors)) {
-            return true;
-        }
-        foreach ($selectors as $selector) {
-            if (empty($selector)) {
-                continue;
-            }
-            if (strpos($selector, '/') !== false) {
-                list($channel, $name) = split('/', $selector, 2);
-                if ($this->_channel == $channel && $this->_name == $name) {
-                    return true;
-                }
-                continue;
-            }
-            if (substr($selector, 0, 8) == 'channel:') {
-                if ($this->_channel == substr($selector, 8)) {
-                    return true;
-                }
-                continue;
-            }
-            if ($this->_name == $selector) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Return the package name for the dependency
      *
      * @return string The package name.
      */
-    public function name()
+    public function getName()
     {
         return $this->_name;
     }
@@ -218,7 +220,7 @@ class Components_Pear_Dependency
      *
      * @return string The package channel.
      */
-    public function channel()
+    public function getChannel()
     {
         return $this->_channel;
     }

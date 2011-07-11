@@ -168,6 +168,15 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testPackageDependencies()
+    {
+        $response = $this->_getRest()->fetchPackageDependencies('Horde_Translation', '1.0.0');
+        $this->assertContains(
+            'Horde_Exception',
+            $response
+        );
+    }
+
     private function _getRest()
     {
         return new Horde_Pear_Rest(

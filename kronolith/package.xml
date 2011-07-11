@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [mjr] Fix issue that prevented synching when no sync_calendar pref was set (Bug #10329).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1812,7 +1812,7 @@
    <date>2011-07-05</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [mjr] Fix issue that prevented synching when no sync_calendar pref was set (Bug #10329).
    </notes>
   </release>
  </changelog>

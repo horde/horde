@@ -37,7 +37,7 @@ class Components_Pear_Package
     /**
      * The PEAR environment for the package.
      *
-     * @param Components_Pear_InstallLocation
+     * @param Components_Pear_Environment
      */
     private $_environment;
 
@@ -82,11 +82,11 @@ class Components_Pear_Package
     /**
      * Define the surrounding PEAR environment for the package.
      *
-     * @param Components_Pear_InstallLocation
+     * @param Components_Pear_Environment
      *
      * @return NULL
      */
-    public function setEnvironment(Components_Pear_InstallLocation $environment)
+    public function setEnvironment(Components_Pear_Environment $environment)
     {
         $this->_environment = $environment;
     }
@@ -106,7 +106,7 @@ class Components_Pear_Package
     /**
      * Return the PEAR environment for this package.
      *
-     * @return Components_Pear_InstallLocation
+     * @return Components_Pear_Environment
      */
     public function getEnvironment()
     {
@@ -317,38 +317,6 @@ class Components_Pear_Package
     }
 
     /**
-     * Update the package.xml file.
-     *
-     * @param string $action The action to perform. Either "update", "diff", or "print".
-     *
-     * @return NULL
-     */
-    public function updatePackageFile($action = 'update', $options = array())
-    {
-        $package_xml = $this->_getPackageXml();
-        $package_xml->updateContents(null, $options);
-        switch($action) {
-        case 'print':
-            print (string) $package_xml;
-            break;
-        case 'diff':
-            $new = (string) $package_xml;
-            $old = file_get_contents($this->_package_xml_path);
-            $renderer = new Horde_Text_Diff_Renderer_Unified();
-            print $renderer->render(
-                new Horde_Text_Diff(
-                    'auto', array(explode("\n", $old), explode("\n", $new))
-                )
-            );
-            break;
-        default:
-            file_put_contents($this->_package_xml_path, (string) $package_xml);
-            $this->_output->ok('Successfully updated ' . $this->_package_xml_path);
-            break;
-        }
-    }    
-
-    /**
      * Return the dependencies for the package.
      *
      * @return array The list of dependencies.
@@ -356,155 +324,6 @@ class Components_Pear_Package
     public function getDependencies()
     {
         return $this->_getPackageFile()->getDeps();
-    }
-
-    /**
-     * Return the dependency helper for the package.
-     *
-     * @return Components_Pear_Dependencies The dependency helper.
-     */
-    public function getDependencyHelper()
-    {
-        $this->_checkSetup();
-        return $this->_factory->createDependencies($this);
-    }
-
-    /**
-     * Generate a snapshot of the package using the provided version number.
-     *
-     * @param string $version     The snapshot version.
-     * @param string $archive_dir The path where the snapshot should be placed.
-     *
-     * @return string The path to the snapshot.
-     */
-    public function generateSnapshot($version, $archive_dir)
-    {
-        $pkg = $this->_getPackageFile();
-        $pkg->_packageInfo['version']['release'] = $version;
-        $pkg->setDate(date('Y-m-d'));
-        $pkg->setTime(date('H:i:s'));
-        $pkg->setLogger($this->_output);
-        $errors = array();
-        ob_start();
-        $old_dir = getcwd();
-        chdir($archive_dir);
-        try {
-            $result = Components_Exception_Pear::catchError(
-                $pkg->getDefaultGenerator()->toTgz(new PEAR_Common())
-            );
-        } catch (Components_Exception_Pear $e) {
-            $errors[] = $e->getMessage();
-            $errors[] = '';
-            $result = false;
-            foreach ($pkg->getValidationWarnings() as $error) {
-                $errors[] = isset($error['message']) ? $error['message'] : 'Unknown Error';
-            }
-        }
-        chdir($old_dir);
-        $this->_output->pear(ob_get_clean());
-        if ($result) {
-            $this->_output->ok('Generated snapshot ' . $result);
-        } else {
-            $this->_output->fail(
-                'Generating snapshot failed with:'. "\n\n" . join("\n", $errors)
-            );
-        }
-        return $result;
-    }
-
-    /**
-     * Add a new note to the package.xml
-     *
-     * @param string $note The note text.
-     *
-     * @return NULL
-     */
-    public function addNote($note)
-    {
-        $package = $this->_getPackageXml();
-        $package->addNote($note);
-        file_put_contents($this->_package_xml_path, (string) $package);
-        $this->_output->ok(
-            'Added new note to ' . $this->_package_xml_path . '.'
-        );
-    }
-
-    /**
-     * Timestamp the package.xml file with the current time.
-     *
-     * @return NULL
-     */
-    public function timestampAndSync()
-    {
-        $package = $this->_getPackageXml();
-        $package->timestamp();
-        $package->syncCurrentVersion();
-        file_put_contents($this->_package_xml_path, (string) $package);
-        $this->_output->ok(
-            'Marked package.xml ' . $this->_package_xml_path
-            . ' with current timestamp and synchronized the change log.'
-        );
-    }
-
-    /**
-     * Add the next version to the package.xml.
-     *
-     * @param string $version           The new version number.
-     * @param string $initial_note      The text for the initial note.
-     * @param string $stability_api     The API stability for the next release.
-     * @param string $stability_release The stability for the next release.
-     *
-     * @return NULL
-     */
-    public function nextVersion(
-        $version,
-        $initial_note,
-        $stability_api = null,
-        $stability_release = null
-    ) {
-        $package = $this->_getPackageXml();
-        $package->addNextVersion(
-            $version, $initial_note, $stability_api, $stability_release
-        );
-        file_put_contents($this->_package_xml_path, (string) $package);
-        $this->_output->ok(
-            'Added next version "' . $version . '" to package.xml '
-            . $this->_package_xml_path . '.'
-        );
-    }
-
-    /**
-     * Generate a package package release.
-     *
-     * @return string The path to the release package.
-     */
-    public function generateRelease()
-    {
-        $pkg = $this->_getPackageFile();
-        $pkg->setLogger($this->_output);
-        $errors = array();
-        ob_start();
-        try {
-            $result = Components_Exception_Pear::catchError(
-                $pkg->getDefaultGenerator()->toTgz(new PEAR_Common())
-            );
-        } catch (Components_Exception_Pear $e) {
-            $errors[] = $e->getMessage();
-            $errors[] = '';
-            $result = false;
-            foreach ($pkg->getValidationWarnings() as $error) {
-                $errors[] = isset($error['message']) ? $error['message'] : 'Unknown Error';
-            }
-        }
-        $this->_output->pear(ob_get_clean());
-        if ($result) {
-            $this->_output->ok('Generated release package ' . $result);
-        } else {
-            $this->_output->fail(
-                'Generating release package failed with:'. "\n\n" . join("\n", $errors)
-            );
-        }
-        return $result;
     }
 
 }

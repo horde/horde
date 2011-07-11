@@ -28,11 +28,32 @@
 class Components_Component_Remote extends Components_Component_Base
 {
     /**
+     * The remote handler.
+     *
+     * @var Horde_Pear_Remote
+     */
+    private $_remote;
+
+    /**
      * Component name.
      *
      * @var string
      */
     private $_name;
+
+    /**
+     * Component channel.
+     *
+     * @var string
+     */
+    private $_channel;
+
+    /**
+     * Component stability.
+     *
+     * @var string
+     */
+    private $_stability;
 
     /**
      * Component version.
@@ -56,35 +77,42 @@ class Components_Component_Remote extends Components_Component_Base
     private $_client;
 
     /**
+     * The package file representing the component.
+     *
+     * @var Horde_Pear_Package_Xml
+     */
+    private $_package;
+
+    /**
      * Constructor.
      *
      * @param string                  $name      Component name.
-     * @param string                  $version   Component version.
-     * @param string                  $uri       Download location.
+     * @param string                  $stability Component stability.
+     * @param string                  $channel   Component channel.
+     * @param Horde_Pear_Remote       $remote    Remote channel handler.
      * @param Horde_Http_Client       $client    The HTTP client for remote
      *                                           access.
-     * @param boolean                 $shift     Did identification of the
-     *                                           component consume an argument?
      * @param Components_Config       $config    The configuration for the
      *                                           current job.
-     * @param Components_Pear_Factory $factory   Generator for all
-     *                                           required PEAR components.
+     * @param Components_Component_Factory $factory Generator for additional
+     *                                              helpers.
      */
     public function __construct(
         $name,
-        $version,
-        $uri,
+        $stability,
+        $channel,
+        Horde_Pear_Remote $remote,
         Horde_Http_Client $client,
-        $shift,
         Components_Config $config,
-        Components_Pear_Factory $factory
+        Components_Component_Factory $factory
     )
     {
         $this->_name = $name;
-        $this->_version = $version;
-        $this->_uri = $uri;
+        $this->_stability = $stability;
+        $this->_channel = $channel;
+        $this->_remote = $remote;
         $this->_client  = $client;
-        parent::__construct($shift, $config, $factory);
+        parent::__construct($config, $factory);
     }
 
     /**
@@ -104,72 +132,83 @@ class Components_Component_Remote extends Components_Component_Base
      */
     public function getVersion()
     {
+        if (!isset($this->_version)) {
+            $this->_version = $this->_remote->getLatestRelease($this->_name, $this->_stability);
+        }
         return $this->_version;
     }
 
     /**
-     * Return the path to the local source directory.
+     * Return the channel of the component.
      *
-     * @return string The directory that contains the source code.
+     * @return string The component channel.
      */
-    public function getPath()
+    public function getChannel()
     {
+        return $this->_channel;
     }
 
     /**
-     * Return the (base) name of the component archive.
+     * Return the dependencies for the component.
      *
-     * @return string The name of the component archive.
+     * @return array The component dependencies.
      */
-    public function getArchiveName()
+    public function getDependencies()
     {
-        return basename($this->_uri);
-    }
-
-    /**
-     * Return the path to the package.xml file of the component.
-     *
-     * @return string The path to the package.xml file.
-     */
-    public function getPackageXml()
-    {
-    }
-
-    /**
-     * Validate that there is a package.xml file in the source directory.
-     *
-     * @return NULL
-     */
-    public function requirePackageXml()
-    {
+        return $this->_remote->getDependencies(
+            $this->getName(), $this->getVersion()
+        );
     }
 
     /**
      * Place the component source archive at the specified location.
      *
      * @param string $destination The path to write the archive to.
+     * @param array  $options     Options for the operation.
      *
-     * @return NULL
+     * @return array An array with at least [0] the path to the resulting
+     *               archive, optionally [1] an array of error strings, and [2]
+     *               PEAR output.
      */
-    public function placeArchive($destination)
+    public function placeArchive($destination, $options)
     {
         $this->createDestination($destination);
         $this->_client->{'request.timeout'} = 60;
         file_put_contents(
-            $destination . '/' . basename($this->_uri),
-            $this->_client->get($this->_uri)->getStream()
+            $destination . '/' . basename($this->_getDownloadUri()),
+            $this->_client->get($this->_getDownloadUri())->getStream()
         );
+        return array($destination . '/' . basename($this->_getDownloadUri()));
     }
 
     /**
-     * Bail out if this is no local source.
+     * Return the download URI of the component.
      *
-     * @return NULL
+     * @return string The download URI.
      */
-    public function requireLocal()
+    private function _getDownloadUri()
     {
-        throw new Components_Exception(
-            'This operation is not possible with a remote component!'
-        );
+        if (!isset($this->_uri)) {
+            $this->_uri = $this->_remote->getLatestDownloadUri(
+                $this->_name, $this->_stability
+            );
+        }
+        return $this->_uri;
     }
+
+    /**
+     * Return a PEAR package representation for the component.
+     *
+     * @return Horde_Pear_Package_Xml The package representation.
+     */
+    protected function getPackageXml()
+    {
+        if (!isset($this->_package)) {
+            $this->_package = $this->_remote->getPackageXml(
+                $this->getName(), $this->getVersion()
+            );
+        }
+        return $this->_package;
+    }
+
 }

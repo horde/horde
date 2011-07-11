@@ -1,7 +1,6 @@
 <?php
 /**
- * Components_Pear_InstallLocation:: handles a specific PEAR installation
- * location / configuration.
+ * Components_Pear_Environment:: handles a specific PEAR environment.
  *
  * PHP version 5
  *
@@ -13,8 +12,7 @@
  */
 
 /**
- * Components_Pear_InstallLocation:: handles a specific PEAR installation
- * location / configuration.
+ * Components_Pear_Environment:: handles a specific PEAR environment.
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
@@ -27,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Components
  */
-class Components_Pear_InstallLocation
+class Components_Pear_Environment
 {
     /**
      * The output handler.
@@ -111,66 +109,90 @@ class Components_Pear_InstallLocation
                 )
             );
         }
-        $this->_config_file = $base_directory . DIRECTORY_SEPARATOR . $config_file;
+        $this->_config_file = $config_file;
     }
 
     /**
      * Set the path to the channel directory.
      *
-     * @param string $channel_directory The directory containing channel definitions.
+     * @param array &$options The application options
      *
      * @return NULL
      */
-    public function setChannelDirectory($channel_directory)
+    public function setChannelDirectory(&$options)
     {
-        $this->_channel_directory = $channel_directory;
-        if (!file_exists($this->_channel_directory)) {
-            throw new Components_Exception(
-                sprintf(
-                    'The path to the channel directory (%s) does not exist!',
-                    $this->_channel_directory
-                )
-            );
+        if (empty($options['channelxmlpath'])) {
+            $options['channelxmlpath'] = $options['destination']
+                . '/distribution/channels';
+            if (!file_exists($options['channelxmlpath'])) {
+                if (!empty($options['build_distribution'])) {
+                    mkdir($options['channelxmlpath'], 0777, true);
+                } else {
+                    unset($options['channelxmlpath']);
+                }
+            }
+        }
+        if (empty($options['channelxmlpath']) &&
+            !empty($this->_source_directory)) {
+            $options['channelxmlpath'] = $this->_source_directory;
+        }
+        if (!empty($options['channelxmlpath'])) {
+            if (!file_exists($options['channelxmlpath'])) {
+                throw new Components_Exception(
+                    sprintf(
+                        'The path to the channel directory (%s) does not exist!',
+                        $options['channelxmlpath']
+                    )
+                );
+            }
+            $this->_channel_directory = $options['channelxmlpath'];
         }
     }
 
     /**
      * Set the path to the source directory.
      *
-     * @param string $source_directory The directory containing PEAR packages.
+     * @param array &$options The application options
      *
      * @return NULL
      */
-    public function setSourceDirectory($source_directory)
+    public function setSourceDirectory(&$options)
     {
-        $this->_source_directory = $source_directory;
-        if (!file_exists($this->_source_directory)) {
-            throw new Components_Exception(
-                sprintf(
-                    'The path to the source directory (%s) does not exist!',
-                    $this->_source_directory
-                )
-            );
+        if (empty($options['sourcepath'])) {
+            $options['sourcepath'] = $options['destination']
+                . '/distribution/source';
+            if (!file_exists($options['sourcepath'])) {
+                if (!empty($options['build_distribution'])) {
+                    mkdir($options['sourcepath'], 0777, true);
+                } else {
+                    unset($options['sourcepath']);
+                }
+            }
+        }
+        if (!empty($options['sourcepath'])) {
+            if (!file_exists($options['sourcepath'])) {
+                throw new Components_Exception(
+                    sprintf(
+                        'The path to the source directory (%s) does not exist!',
+                        $options['sourcepath']
+                    )
+                );
+            }
+            $this->_source_directory = $options['sourcepath'];
         }
     }
 
     /**
      * Set the paths to the resource directories.
      *
-     * @param array $options The application options
+     * @param array &$options The application options
      *
      * @return NULL
      */
-    public function setResourceDirectories(array $options)
+    public function setResourceDirectories(&$options)
     {
-        if (!empty($options['channelxmlpath'])) {
-            $this->setChannelDirectory($options['channelxmlpath']);
-        } else if (!empty($options['sourcepath'])) {
-            $this->setChannelDirectory($options['sourcepath']);
-        }
-        if (!empty($options['sourcepath'])) {
-            $this->setSourceDirectory($options['sourcepath']);
-        }
+        $this->setSourceDirectory($options);
+        $this->setChannelDirectory($options);
     }
 
     public function createPearConfig()
@@ -209,8 +231,9 @@ class Components_Pear_InstallLocation
         $config->_noRegistry = false;
         $config->_registry['default'] = new PEAR_Registry("$root/pear/php");
         $config->_noRegistry = true;
-        mkdir("$root/pear");
-        mkdir("$root/pear/php");
+        if (!file_exists("$root/pear")) {
+            mkdir("$root/pear/php", 0777, true);
+        }
         $this->_output->pear(ob_get_clean());
         $this->_output->ok(
             sprintf(
@@ -261,87 +284,26 @@ class Components_Pear_InstallLocation
     }
 
     /**
-     * Add a channel within the install location.
-     *
-     * @param string $channel The channel name.
-     * @param string $reason  Optional reason for adding the channel.
-     *
-     * @return NULL
-     */
-    public function addChannel($channel, $reason = '')
-    {
-        $channel_handler = new PEAR_Command_Channels(
-            new PEAR_Frontend_CLI(),
-            $this->getPearConfig()
-        );
-
-        $this->_output->ok(
-            sprintf(
-                'About to add channel %s%s',
-                $channel,
-                $reason
-            )
-        );
-        $static = $this->_channel_directory . DIRECTORY_SEPARATOR
-            . $channel . '.channel.xml';
-        if (file_exists($static)) {
-            ob_start();
-            Components_Exception_Pear::catchError(
-                $channel_handler->doAdd('channel-add', array(), array($static))
-            );
-            $this->_output->pear(ob_get_clean());
-        } else {
-            $this->_output->warn(
-                sprintf(
-                    'Adding channel %s via network.',
-                    $channel
-                )
-            );
-            ob_start();
-            Components_Exception_Pear::catchError(
-                $channel_handler->doDiscover('channel-discover', array(), array($channel))
-            );
-            $this->_output->pear(ob_get_clean());
-        }
-        $this->_output->ok(
-            sprintf(
-                'Successfully added channel %s%s',
-                $channel,
-                $reason
-            )
-        );
-    }
-
-    /**
      * Ensure the specified channel exists within the install location.
      *
      * @param string $channel The channel name.
+     * @param array  $options Install options.
      * @param string $reason  Optional reason for adding the channel.
      *
      * @return NULL
      */
-    public function provideChannel($channel, $reason = '')
+    public function provideChannel($channel, $options = array(), $reason = '')
     {
         if (!$this->channelExists($channel)) {
-            $this->addChannel($channel, $reason);
+            $this->addChannel($channel, $options, $reason);
         }
     }
 
     /**
-     * Ensure the specified channels exists within the install location.
+     * Provide the PEAR specific installer.
      *
-     * @param array $channels The list of channels.
-     * @param string $reason  Optional reason for adding the channels.
-     *
-     * @return NULL
+     * @return PEAR_Command_Install
      */
-    public function provideChannels(array $channels, $reason = '')
-    {
-        foreach ($channels as $channel) {
-            $this->provideChannel($channel, $reason);
-        }
-    }
-
     private function getInstallationHandler()
     {
         $installer = new PEAR_Command_Install(
@@ -349,42 +311,6 @@ class Components_Pear_InstallLocation
             $this->getPearConfig()
         );
         return $installer;
-    }
-
-    /**
-     * Add a package based on a source directory.
-     *
-     * @param string $package The path to the package.xml in the source directory.
-     * @param string $reason  Optional reason for adding the package.
-     *
-     * @return NULL
-     */
-    public function addPackageFromSource($package, $reason = '')
-    {
-        $installer = $this->getInstallationHandler();
-        $this->_output->ok(
-            sprintf(
-                'About to add package %s%s',
-                $package,
-                $reason
-            )
-        );
-        ob_start();
-        Components_Exception_Pear::catchError(
-            $installer->doInstall(
-                'install',
-                array('nodeps' => true),
-                array($package)
-            )
-        );
-        $this->_output->pear(ob_get_clean());
-        $this->_output->ok(
-            sprintf(
-                'Successfully added package %s%s',
-                $package,
-                $reason
-            )
-        );
     }
 
     /**
@@ -405,15 +331,17 @@ class Components_Pear_InstallLocation
             )
         );
 
-        $destDir = array(
-            'horde' => $this->getPearConfig()->get('horde_dir', 'user', 'pear.horde.org'),
-            'php' => $this->getPearConfig()->get('php_dir'),
-            'script' => $this->getPearConfig()->get('bin_dir'),
-        );
-
         ob_start();
         $warnings = array();
         $pkg = $this->_factory->createPackageForEnvironment($package, $this);
+
+        $destDir = array(
+            'horde' => $this->getPearConfig()->get('horde_dir', 'user', 'pear.horde.org'),
+            'php' => $this->getPearConfig()->get('php_dir'),
+            'data' => $this->getPearConfig()->get('data_dir') . '/' . $pkg->getName(),
+            'script' => $this->getPearConfig()->get('bin_dir'),
+        );
+
         $dir = dirname($package);
         foreach ($pkg->getInstallationFilelist() as $file) {
             $orig = realpath($dir . '/' . $file['attribs']['name']);
@@ -425,6 +353,7 @@ class Components_Pear_InstallLocation
             switch ($file['attribs']['role']) {
             case 'horde':
             case 'php':
+            case 'data':
             case 'script':
                 if (isset($file['attribs']['install-as'])) {
                     $dest = $destDir[$file['attribs']['role']] . '/' . $file['attribs']['install-as'];
@@ -469,110 +398,151 @@ class Components_Pear_InstallLocation
     }
 
     /**
-     * Add an external dependency based on a package name or package tarball.
+     * Add a channel within the install location.
      *
-     * @param Components_Pear_Dependency $dependency The package dependency.
-     * @param string $reason  Optional reason for adding the package.
-     * @param array  $options Additional options.
-     * <pre>
-     *  - force (boolean): True if the installation should be forced.
-     * </pre>
+     * @param string $channel The channel name.
+     * @param array  $options Install options.
+     * @param string $reason  Optional reason for adding the channel.
      *
      * @return NULL
      */
-    public function addPackageFromPackage(
-        Components_Pear_Dependency $dependency,
-        $reason = '',
-        $options = array()
-    ) {
-        $installer = $this->getInstallationHandler();
+    public function addChannel($channel, $options = array(), $reason = '')
+    {
+        $static = $this->_channel_directory . '/' . $channel . '.channel.xml';
+
+        if (!file_exists($static)) {
+            if (empty($options['allow_remote'])) {
+                throw new Components_Exception(
+                    sprintf(
+                        'Cannot add channel "%s". Remote access has been disabled (activate with --allow-remote)!',
+                        $channel
+                    )
+                );
+            }
+            if (!empty($this->_channel_directory)) {
+                $remote = new Horde_Pear_Remote($channel);
+                file_put_contents($static, $remote->getChannel());
+                $this->_output->warn(
+                    sprintf(
+                        'Downloaded channel %s via network to %s.',
+                        $channel,
+                        $static
+                    )
+                );
+            }
+        }
+
+        $channel_handler = new PEAR_Command_Channels(
+            new PEAR_Frontend_CLI(),
+            $this->getPearConfig()
+        );
+
         $this->_output->ok(
             sprintf(
-                'About to add external package %s%s',
-                $dependency->key(),
+                'About to add channel %s%s',
+                $channel,
                 $reason
             )
         );
-        if ($local = $this->_identifyMatchingLocalPackage($dependency->name())) {
-            $pkg = $this->_factory->getPackageFileFromTgz($local, $this);
 
+        if (file_exists($static)) {
             ob_start();
             Components_Exception_Pear::catchError(
-                $installer->doInstall(
-                    'install',
-                    array(
-                        'offline' => true
-                    ),
-                    array($local)
-                )
+                $channel_handler->doAdd('channel-add', array(), array($static))
             );
             $this->_output->pear(ob_get_clean());
         } else {
             $this->_output->warn(
                 sprintf(
-                    'Adding external package %s via network.',
-                    $dependency->key()
+                    'Adding channel %s via network.',
+                    $channel
                 )
             );
             ob_start();
             Components_Exception_Pear::catchError(
-                $installer->doInstall(
-                    'install',
-                    array(
-                        'channel' => $dependency->channel(),
-                        'force' => !empty($options['force'])
-                    ),
-                    array($dependency->name())
-                )
+                $channel_handler->doDiscover('channel-discover', array(), array($channel))
             );
             $this->_output->pear(ob_get_clean());
         }
         $this->_output->ok(
             sprintf(
-                'Successfully added external package %s%s',
-                $dependency->key(),
+                'Successfully added channel %s%s',
+                $channel,
                 $reason
             )
         );
     }
 
     /**
-     * Identify any dependencies we need when installing via downloaded packages.
+     * Add a component to the environemnt.
      *
-     * @param Components_Pear_Dependency $dependency The package dependency.
+     * @param Components_Component  $component The component that should be
+     *                                         installed.
+     * @param array                 $options   Install options.
+     * @param string                $reason    Optional reason for adding the
+     *                                         package.
      *
-     * @return Components_Pear_Dependencies The dependency helper for the local package.
+     * @return NULL
      */
-    public function identifyRequiredLocalDependencies(
-        Components_Pear_Dependency $dependency
+    public function addComponent(
+        Components_Component $component,
+        $options = array(),
+        $reason = ''
     ) {
-        if ($local = $this->_identifyMatchingLocalPackage($dependency->name())) {
-            $this->_checkSetup();
-            return $this->_factory
-                ->createTgzPackageForInstallLocation($local, $this)
-                ->getDependencyHelper();
-        }
-        return false;
-    }
-
-    /**
-     * Identify a dependency that is available via a downloaded *.tgz archive.
-     *
-     * @param string $package The package name.
-     *
-     * @return string A path to the local archive if it was found.
-     */
-    private function _identifyMatchingLocalPackage($package)
-    {
-        if (empty($this->_source_directory)) {
-            return false;
-        }
-        foreach (new DirectoryIterator($this->_source_directory) as $file) {
-            if (preg_match('/' . $package . '-[0-9]+(\.[0-9]+)+([a-z0-9]+)?/', $file->getBasename('.tgz'), $matches)) {
-                return $file->getPathname();
+        $installer = $this->getInstallationHandler();
+        $this->_output->ok(
+            sprintf(
+                'About to add component %s%s',
+                $component->getName(),
+                $reason
+            )
+        );
+        $installation_options = array();
+        $installation_options['force'] = !empty($options['force']);
+        $installation_options['nodeps'] = !empty($options['nodeps']);
+        if ($component instanceOf Components_Component_Archive) {
+            $installation_options['offline'] = true;
+            $install = array($component->getArchivePath());
+            $info = ' from the archive ' . $component->getArchivePath();
+        } else if ($component instanceOf Components_Component_Source) {
+            $install = array($component->getPackageXml());
+            $info = ' from source in ' . dirname($component->getPackageXml());
+        } else {
+            if (empty($options['allow_remote'])) {
+                throw new Components_Exception(
+                    sprintf(
+                        'Cannot add component "%s". Remote access has been disabled (activate with --allow-remote)!',
+                        $component->getName()
+                    )
+                );
             }
+            $this->_output->warn(
+                sprintf(
+                    'Adding component %s/%s via network.',
+                    $component->getChannel(),
+                    $component->getName()
+                )
+            );
+            $installation_options['channel'] = $component->getChannel();
+            $install = array(
+                'channel://' . $component->getChannel() . '/' .
+                $component->getName()
+            );
+            $info = ' via remote channel ' . $component->getChannel();
         }
-        return false;
+        ob_start();
+        Components_Exception_Pear::catchError(
+            $installer->doInstall('install', $installation_options, $install)
+        );
+        $this->_output->pear(ob_get_clean());
+        $this->_output->ok(
+            sprintf(
+                'Successfully added component %s%s%s',
+                $component->getName(),
+                $info,
+                $reason
+            )
+        );
     }
 
     /**
@@ -585,7 +555,7 @@ class Components_Pear_InstallLocation
     private function _checkSetup()
     {
         if ($this->_factory === null) {
-            throw new Components_Exception('You need to set the factory, the environment and the path to the package file first!');
+            throw new Components_Exception('You need to set the factory first!');
         }
     }
 

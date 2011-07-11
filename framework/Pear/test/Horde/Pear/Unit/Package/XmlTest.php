@@ -41,6 +41,85 @@ extends Horde_Pear_TestCase
         $this->assertEquals('Fixture', $xml->getName());
     }
 
+    public function testGetChannel()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals('pear.php.net', $xml->getChannel());
+    }
+
+    public function testGetVersion()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals('0.0.1', $xml->getVersion());
+    }
+
+    public function testGetSummary()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals('Test fixture.', $xml->getSummary());
+    }
+
+    public function testGetDescription()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals(
+            'A dummy package.xml used for testing the Components package.',
+            $xml->getDescription()
+        );
+    }
+
+    public function testReleaseState()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals('beta', $xml->getState('release'));
+    }
+
+    public function testApiState()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals('beta', $xml->getState('api'));
+    }
+
+    public function testGetLeads()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals(
+            array(
+                array(
+                    'name' => 'Gunnar Wrobel',
+                    'user' => 'wrobel',
+                    'email' => 'p@rdus.de',
+                    'active' => 'yes',
+                )
+            ),
+            $xml->getLeads()
+        );
+    }
+
+    public function testGetDependencies()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals(
+            array(
+                array(
+                    'type' => 'php',
+                    'optional' => 'no',
+                    'rel' => 'ge',
+                    'version' => '5.0.0',
+                ),
+                array(
+                    'type' => 'pkg',
+                    'name' => 'PEAR',
+                    'channel' => 'pear.php.net',
+                    'optional' => 'no',
+                    'rel' => 'ge',
+                    'version' => '1.7.0',
+                )
+            ),
+            $xml->getDependencies()
+        );
+    }
+
     public function testTimestamp()
     {
         $xml = $this->_getFixture();
@@ -116,6 +195,26 @@ extends Horde_Pear_TestCase
         $this->assertEquals(
             '1.0.0',
             $xml->findNode('/p:package/p:version/p:release')->textContent
+        );
+    }
+
+    public function testSetReleaseVersion()
+    {
+        $xml = $this->_getFixture();
+        $xml->setVersion('6.0.0');
+        $this->assertEquals(
+            '6.0.0',
+            $xml->findNode('/p:package/p:version/p:release')->textContent
+        );
+    }
+
+    public function testSetApiVersion()
+    {
+        $xml = $this->_getFixture();
+        $xml->setVersion(null, '6.0.0');
+        $this->assertEquals(
+            '6.0.0',
+            $xml->findNode('/p:package/p:version/p:api')->textContent
         );
     }
 

@@ -27,9 +27,6 @@
  */
 class Components_Runner_Change
 {
-    /** Path to the CHANGES file. */
-    const CHANGES = '/docs/CHANGES';
-
     /**
      * The configuration for the current job.
      *
@@ -38,11 +35,11 @@ class Components_Runner_Change
     private $_config;
 
     /**
-     * The factory for PEAR dependencies.
+     * Change log helper.
      *
-     * @var Components_Pear_Factory
+     * @var Components_Helper_ChangeLog
      */
-    private $_factory;
+    private $_helper;
 
     /**
      * The output handler.
@@ -54,180 +51,41 @@ class Components_Runner_Change
     /**
      * Constructor.
      *
-     * @param Components_Config       $config  The configuration for the current
-     *                                         job.
-     * @param Components_Pear_Factory $factory The factory for PEAR
-     *                                         dependencies.
-     * @param Component_Output        $output  The output handler.
+     * @param Components_Config           $config  The configuration for the current
+     *                                             job.
+     * @param Components_Helper_ChangeLog $helper  Change log helper
      */
     public function __construct(
         Components_Config $config,
-        Components_Pear_Factory $factory,
+        Components_Helper_ChangeLog $helper,
         Components_Output $output
     ) {
         $this->_config = $config;
-        $this->_factory = $factory;
+        $this->_helper = $helper;
         $this->_output = $output;
     }
 
     public function run()
     {
         $options = $this->_config->getOptions();
-
-        $package_xml = $this->_config->getComponent()->getPackageXml();
-        $exists = file_exists($package_xml);
-
-        if (!isset($options['pearrc'])) {
-            $package = $this->_factory->createPackageForDefaultLocation(
-                $package_xml
-            );
-        } else {
-            $package = $this->_factory->createPackageForInstallLocation(
-                $package_xml,
-                $options['pearrc']
-            );
-        }
-
         $arguments = $this->_config->getArguments();
+
         if (count($arguments) > 1 && $arguments[0] == 'changed') {
-            $options['changed'] = $arguments[1];
-        }
-
-        if ($exists) {
-            if (empty($options['pretend'])) {
-                $package->addNote($options['changed']);
-            } else {
-                $this->_output->info(
-                    sprintf(
-                        'Would add change log entry to %s now.',
-                        $package->getPackageXml()
-                    )
-                );
-            }
-        }
-
-        $changes = false;
-        if ($changes = $this->changesFileExists($package->getComponentDirectory())) {
-            if (empty($options['pretend'])) {
-                $this->addChange($options['changed'], $changes);
-                $this->_output->ok(
-                    sprintf(
-                        'Added new note to %s.',
-                        $changes
-                    )
-                );
-            } else {
-                $this->_output->info(
-                    sprintf(
-                        'Would add change log entry to %s now.',
-                        $changes
-                    )
-                );
-            }
+            $log = $arguments[1];
+        } else {
+            throw new Components_Exception('Please provide a change log entry as additional argument!');
         }
 
         if (!empty($options['commit'])) {
-            if ($exists) {
-                $this->systemInDirectory(
-                    'git add ' . $package->getPackageXml(),
-                    $package->getComponentDirectory(),
-                    $options
-                );
-            }
-            if ($changes) {
-                $this->systemInDirectory(
-                    'git add ' . $changes,
-                    $package->getComponentDirectory(),
-                    $options
-                );
-            }
-            $this->systemInDirectory(
-                'git commit -m "' . $options['changed'] . '"',
-                $package->getComponentDirectory(),
-                $options
+            $options['commit'] = new Components_Helper_Commit(
+                $this->_output, $options
             );
         }
-    }
-
-    /**
-     * Run a system call.
-     *
-     * @param string $call       The system call to execute.
-     * @param string $target_dir Run the command in the provided target path.
-     * @param array  $options    Additional options.
-     *
-     * @return string The command output.
-     */
-    protected function systemInDirectory($call, $target_dir, $options)
-    {
-        $old_dir = getcwd();
-        chdir($target_dir);
-        $result = $this->system($call, $options);
-        chdir($old_dir);
-        return $result;
-    }
-
-    /**
-     * Run a system call.
-     *
-     * @param string $call    The system call to execute.
-     * @param array  $options Additional options.
-     *
-     * @return string The command output.
-     */
-    protected function system($call, $options)
-    {
-        if (empty($options['pretend'])) {
-            //@todo Error handling
-            return system($call);
-        } else {
-            $this->_output->info(sprintf('Would run "%s" now.', $call));
+        $this->_config->getComponent()->changed(
+            $log, $this->_helper, $options
+        );
+        if (!empty($options['commit'])) {
+            $options['commit']->commit($log);
         }
     }
-
-    /**
-     * Indicates if there is a CHANGES file for this component.
-     *
-     * @param string $dir The basic component directory.
-     *
-     * @return string|boolean The path to the CHANGES file if it exists, false
-     *                        otherwise.
-     */
-    public function changesFileExists($dir)
-    {
-        $changes = $dir . self::CHANGES;
-        if (file_exists($changes)) {
-            return $changes;
-        }
-        return false;
-    }
-
-    /**
-     * Add a change log entry to CHANGES
-     *
-     * @param string $entry   Change log entry to add.
-     * @param string $changes Path to the CHANGES file.
-     *
-     * @return NULL
-     */
-    public function addChange($entry, $changes)
-    {
-        $tmp = Horde_Util::getTempFile();
-        $entry = Horde_String::wrap($entry, 79, "\n      ");
-
-        $oldfp = fopen($changes, 'r');
-        $newfp = fopen($tmp, 'w');
-        $counter = 0;
-        while ($line = fgets($oldfp)) {
-            if ($counter == 4) {
-                fwrite($newfp, $entry . "\n");
-            }
-            $counter++;
-            fwrite($newfp, $line);
-        }
-        fclose($oldfp);
-        fclose($newfp);
-        system("mv -f $tmp $changes");
-    }
-
 }

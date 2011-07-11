@@ -53,12 +53,12 @@
     <file name="prefs.php" role="horde" />
    </dir> <!-- /config -->
    <dir name="docs">
-    <file name="CHANGES" role="horde" />
-    <file name="CREDITS" role="horde" />
-    <file name="INSTALL" role="horde" />
-    <file name="RELEASE_NOTES" role="horde" />
-    <file name="RFCS" role="horde" />
-    <file name="UPGRADING" role="horde" />
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
+    <file name="RFCS" role="doc" />
+    <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
    <dir name="js">
     <file name="acl.js" role="horde" />
@@ -291,7 +291,7 @@
      <file name="ListMessages.php" role="horde" />
      <file name="ShowMessage.php" role="horde" />
     </dir> <!-- /lib/Views -->
-    <file name=".htaccess" role="data" />
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Auth.php" role="horde" />
@@ -1378,12 +1378,12 @@
    <install as="imp/config/menu.php.dist" name="config/menu.php.dist" />
    <install as="imp/config/mime_drivers.php" name="config/mime_drivers.php" />
    <install as="imp/config/prefs.php" name="config/prefs.php" />
-   <install as="imp/docs/CHANGES" name="docs/CHANGES" />
-   <install as="imp/docs/CREDITS" name="docs/CREDITS" />
-   <install as="imp/docs/INSTALL" name="docs/INSTALL" />
-   <install as="imp/docs/RELEASE_NOTES" name="docs/RELEASE_NOTES" />
-   <install as="imp/docs/RFCS" name="docs/RFCS" />
-   <install as="imp/docs/UPGRADING" name="docs/UPGRADING" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="RFCS" name="docs/RFCS" />
+   <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="imp/js/acl.js" name="js/acl.js" />
    <install as="imp/js/base64url.js" name="js/base64url.js" />
    <install as="imp/js/compose-base.js" name="js/compose-base.js" />
@@ -2013,7 +2013,7 @@
    <install as="imp/compose-mimp.php" name="compose-mimp.php" />
    <install as="imp/compose.php" name="compose.php" />
    <install as="imp/contacts.php" name="contacts.php" />
-   <install as="imp/COPYING" name="COPYING" />
+   <install as="COPYING" name="COPYING" />
    <install as="imp/folders-mimp.php" name="folders-mimp.php" />
    <install as="imp/folders.php" name="folders.php" />
    <install as="imp/index-dimp.php" name="index-dimp.php" />
@@ -2025,7 +2025,7 @@
    <install as="imp/message.php" name="message.php" />
    <install as="imp/mobile.php" name="mobile.php" />
    <install as="imp/pgp.php" name="pgp.php" />
-   <install as="imp/README" name="README" />
+   <install as="README" name="README" />
    <install as="imp/rss.php" name="rss.php" />
    <install as="imp/saveimage.php" name="saveimage.php" />
    <install as="imp/search-basic.php" name="search-basic.php" />

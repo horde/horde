@@ -123,4 +123,58 @@ class Horde_Pear_Rest_Access
             $this->_getRest()->fetchReleaseInformation($package, $version)
         );
     }
+
+    /**
+     * Return the dependency wrapper for a specific package version
+     * from the server.
+     *
+     * @param string $package The name of the package.
+     * @param string $version The version of the release.
+     *
+     * @return Horde_Pear_Rest_Dependencies The wrapper.
+     */
+    public function getDependencies($package, $version)
+    {
+        return new Horde_Pear_Rest_Dependencies(
+            $this->_getRest()->fetchPackageDependencies($package, $version)
+        );
+    }
+
+    /**
+     * Return the channel.xml from the server.
+     *
+     * @return string The content of the channel.xml file.
+     */
+    public function getChannel()
+    {
+        return $this->_getRest()->fetchChannelXml();
+    }
+
+    /**
+     * Return the package.xml for the specified release from the server.
+     *
+     * @param string $package The name of the package.
+     * @param string $version The version of the release.
+     *
+     * @return Horde_Pear_Package_Xml The package.xml handler.
+     */
+    public function getPackageXml($package, $version)
+    {
+        return new Horde_Pear_Rest_Dependencies(
+            $this->_getRest()->fetchReleasePackageXml($package, $version)
+        );
+    }
+
+    /**
+     * Test if the specified release exists.
+     *
+     * @param string $package The name of the package.
+     * @param string $version The version of the release.
+     *
+     * @return boolean True if the release exists.
+     */
+    public function releaseExists($package, $version)
+    {
+        return $this->_getRest()->releaseExists($package, $version);
+    }
 }

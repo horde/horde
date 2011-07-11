@@ -28,7 +28,7 @@ require_once $base . '/Components/Helper/Tree.php';
 require_once $base . '/Components/Helper/InstallationRun.php';
 require_once $base . '/Components/Helper/Tree.php';
 require_once $base . '/Components/Helper/Root.php';
-require_once $base . '/Components/Pear/InstallLocation.php';
+require_once $base . '/Components/Pear/Environment.php';
 require_once $base . '/Components/Pear/Dependencies.php';
 require_once $base . '/Components/Pear/Dependency.php';
 require_once $base . '/Components/Pear/Package.php';
@@ -37,16 +37,16 @@ $path = dirname(__FILE__) . '/../../lib';
 if (!file_exists($path)) {
     mkdir($path, 0777, true);
 }
-$environment = realpath($path) . '/pear.conf';
+$environment = realpath($path);
 
 $dependencies = new Components_Dependencies_Bootstrap();
 $factory = $dependencies->getInstance('Components_Pear_Factory');
+$options = $dependencies->getInstance('Components_Config')->getOptions();
+$options['pearrc'] = $environment . '/pear.conf';
+$component = $dependencies->getInstance('Components_Component_Factory')
+    ->createSource(realpath(dirname($path)));
 
-$tree = $factory->createTreeHelper(
-    $environment,
-    realpath(dirname($path)),
-    $dependencies->getInstance('Components_Config')->getOptions()
-);
+$tree = $factory->createTreeHelper($environment, $options, $component);
 $tree->getEnvironment()->provideChannel('pear.horde.org');
 $tree->getEnvironment()->getPearConfig()->setChannels(array('pear.horde.org', true));
 $tree->getEnvironment()->getPearConfig()->set('horde_dir', $base . '/horde', 'user', 'pear.horde.org');

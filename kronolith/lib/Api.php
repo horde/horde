@@ -452,7 +452,7 @@ class Kronolith_Api extends Horde_Registry_Api
     public function listUids($calendars = null, $startstamp = 0, $endstamp = 0)
     {
         if (empty($calendars)) {
-            $calendars = unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
+            $calendars = Kronolith::getSyncCalendars();
         } elseif (!is_array($calendars)) {
             $calendars = array($calendars);
         }
@@ -508,7 +508,7 @@ class Kronolith_Api extends Horde_Registry_Api
     public function listBy($action, $timestamp, $calendar = null, $end = null)
     {
         if (empty($calendar)) {
-            $cs = unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
+            $cs = Kronolith::getSyncCalendars();
             $results = array();
             foreach ($cs as $c) {
                 if (!array_key_exists($calendar, Kronolith::listInternalCalendars(false, Horde_Perms::READ))) {
@@ -546,7 +546,7 @@ class Kronolith_Api extends Horde_Registry_Api
     public function getChanges($start, $end, $ignoreExceptions = true)
     {
         // Only get the calendar once
-        $cs = unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
+        $cs = Kronolith::getSyncCalendars();
         $changes = array(
             'add' => array(),
             'modify' => array(),
@@ -723,7 +723,7 @@ class Kronolith_Api extends Horde_Registry_Api
         $uid = $event->uid;
         try {
             $existing_event = $driver->getByUID($uid, array($driver->calendar));
-            throw new Kronolith_Exception(_("Already Exists"), 'horde.message', null, null, $uid);
+            throw new Kronolith_Exception(sprintf(_("%s Already Exists"), $uid));
         } catch (Horde_Exception $e) {}
         $result = $driver->search($event);
         // Check if the match really is an exact match:
@@ -734,7 +734,7 @@ class Kronolith_Api extends Horde_Registry_Api
                     $match->title == $event->title &&
                     $match->location == $event->location &&
                     $match->hasPermission(Horde_Perms::EDIT)) {
-                        throw new Kronolith_Exception(_("Already Exists"), 'horde.message', null, null, $match->uid);
+                        throw new Kronolith_Exception(sprintf(_("%s Already Exists"), $match->uid));
                     }
             }
         }

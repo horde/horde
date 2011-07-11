@@ -39,29 +39,23 @@ extends Components_Release_Task_Sentinel
      */
     public function run($options)
     {
-        $sentinel = new Horde_Release_Sentinel(
-            $this->getPackage()->getComponentDirectory()
-        );
         $changes_version = Components_Helper_Version::pearToHorde(
-            $this->getPackage()->getVersion()
+            $this->getComponent()->getVersion()
         );
         $application_version = Components_Helper_Version::pearToHordeWithBranch(
-            $this->getPackage()->getVersion(), $this->getNotes()->getBranch()
+            $this->getComponent()->getVersion(), $this->getNotes()->getBranch()
+        );
+        $result = $this->getComponent()->currentSentinel(
+            $changes_version, $application_version, $options
         );
         if (!$this->getTasks()->pretend()) {
-            $sentinel->replaceChanges($changes_version);
-            $sentinel->updateApplication($application_version);
+            foreach ($result as $message) {
+                $this->getOutput()->ok($message);
+            }
         } else {
-            if ($changes = $sentinel->changesFileExists()) {
-                $this->_updateInfo('replace', $changes, $changes_version);
-            }
-            if ($application = $sentinel->applicationFileExists()) {
-                $this->_updateInfo('replace', $application, $application_version);
-            }
-            if ($bundle = $sentinel->bundleFileExists()) {
-                $this->_updateInfo('replace', $bundle, $application_version);
+            foreach ($result as $message) {
+                $this->getOutput()->info($message);
             }
         }
-        $this->_commit($sentinel, 'CommitPreRelease');
     }
 }

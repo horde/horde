@@ -1175,7 +1175,6 @@ class Kronolith
 
             $GLOBALS['prefs']->setValue('display_cals', serialize($GLOBALS['display_calendars']));
         }
-
     }
 
     /**
@@ -1575,25 +1574,63 @@ class Kronolith
     /**
      * Returns the default calendar for the current user at the specified
      * permissions level.
+     *
+     * @param integer $permission  Horde_Perms constant for permission level required.
+     * @param boolean $owner_only  Only consider owner-owned calendars.
+     *
+     * @return mixed  The calendar id, or false if none found.
      */
-    static public function getDefaultCalendar($permission = Horde_Perms::SHOW)
+    static public function getDefaultCalendar($permission = Horde_Perms::SHOW, $owner_only = false)
     {
         global $prefs;
 
         $default_share = $prefs->getValue('default_share');
-        $calendars = self::listInternalCalendars(false, $permission);
+        $calendars = self::listInternalCalendars($owner_only, $permission);
 
         if (isset($calendars[$default_share]) ||
             $prefs->isLocked('default_share')) {
             return $default_share;
         } elseif (isset($GLOBALS['all_calendars'][$GLOBALS['registry']->getAuth()]) &&
                   $GLOBALS['all_calendars'][$GLOBALS['registry']->getAuth()]->hasPermission($permission)) {
+            // This is for older, existing default shares. New default shares
+            // are not named as the username.
             return $GLOBALS['registry']->getAuth();
         } elseif (count($calendars)) {
             return key($calendars);
         }
 
         return false;
+    }
+
+    /**
+     * Returns the calendars that should be used for syncing.
+     *
+     * @return array  An array of calendar ids
+     */
+    static public function getSyncCalendars()
+    {
+        $cs = unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
+        if (!empty($cs)) {
+            // Have a pref, make sure it's still available
+            $calendars = self::listInternalCalendars(true, Horde_Perms::EDIT);
+            $cscopy = array_flip($cs);
+            foreach ($cs as $c) {
+                if (empty($calendars[$c])) {
+                    unset($cscopy[$c]);
+                }
+            }
+
+            // Have at least one
+            if (count($cscopy)) {
+                return array_flip($cscopy);
+            }
+        }
+
+        if ($cs = self::getDefaultCalendar(Horde_Perms::EDIT, true)) {
+            return $cs;
+        }
+
+        return array();
     }
 
     /**

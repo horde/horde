@@ -82,6 +82,56 @@ class Horde_Pear_Remote
     }
 
     /**
+     * Retrieve the dependencies for the specified package release.
+     *
+     * @param string $package  The package name.
+     * @param string $version  The package version.
+     *
+     * @return array The package dependencies.
+     */
+    public function getDependencies($package, $version)
+    {
+        return $this->_access->getDependencies($package, $version)
+            ->getDependencies();
+    }
+
+    /**
+     * Return the package.xml for the specified release from the server.
+     *
+     * @param string $package The name of the package.
+     * @param string $version The version of the release.
+     *
+     * @return Horde_Pear_Package_Xml The package.xml handler.
+     */
+    public function getPackageXml($package, $version)
+    {
+        return $this->_access->getPackageXml($package, $version);
+    }
+
+    /**
+     * Return the channel.xml from the server.
+     *
+     * @return string The content of the channel.xml file.
+     */
+    public function getChannel()
+    {
+        return $this->_access->getChannel();
+    }
+
+    /**
+     * Test if the specified release exists.
+     *
+     * @param string $package The name of the package.
+     * @param string $version The version of the release.
+     *
+     * @return boolean True if the release exists.
+     */
+    public function releaseExists($package, $version)
+    {
+        return $this->_access->releaseExists($package, $version);
+    }
+
+    /**
      * Retrieve the dowlnload location for the latest package release.
      *
      * @param string $package   The package name.

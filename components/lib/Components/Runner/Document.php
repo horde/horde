@@ -70,14 +70,13 @@ class Components_Runner_Document
     public function run()
     {
         $options = $this->_config->getOptions();
-        $package = $this->_config->getComponent()->getPackage();
 
         $build_template = new Components_Helper_Templates_Directory(
             $this->_config_application->getTemplateDirectory(),
             $options['document']
         );
         $build_template->write(
-            array('package' => $package)
+            array('package' => $this->_config->getComponent())
         );
 
     }

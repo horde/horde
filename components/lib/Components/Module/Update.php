@@ -59,7 +59,7 @@ extends Components_Module_Base
                     'type'    => 'choice',
                     'choices' => array('update', 'diff', 'print'),
                     'default' => 'update',
-                    'help'    => 'An optional argument to "--updatexml" that allows choosing the action that should be performed. The default is "update" which will rewrite the package.xml. "diff" allows you to produce a diffed output of the changes that would be applied with "update" - the "Horde_Text_Diff" package needs to be installed for that. "print" will output the new package.xml to the screen rather than rewriting it.'
+                    'help'    => 'An optional argument that allows choosing the action that should be performed. The default is "update" which will rewrite the package.xml. "diff" allows you to produce a diffed output of the changes that would be applied with "update" - the "Horde_Text_Diff" package needs to be installed for that. "print" will output the new package.xml to the screen rather than rewriting it.'
                 )
             ),
             new Horde_Argv_Option(
@@ -67,6 +67,20 @@ extends Components_Module_Base
                 array(
                     'action' => 'store_true',
                     'help'   => 'Replace the old lists with a fresh listing.'
+                )
+            ),
+            new Horde_Argv_Option(
+                '--new-version',
+                array(
+                    'action' => 'store',
+                    'help'   => 'Set a new version number in the package.xml.'
+                )
+            ),
+            new Horde_Argv_Option(
+                '--new-api',
+                array(
+                    'action' => 'store',
+                    'help'   => 'Set a new api number in the package.xml.'
                 )
             ),
         );
@@ -103,6 +117,9 @@ extends Components_Module_Base
         return array(
             '--pretend' => 'Display a textual diff of the current package.xml and the updated package.xml. The package.xml file does not get modified.',
             '--regenerate' => 'Purge the old file listings and replace them with a completely fresh list.',
+            '--new-version' => '',
+            '--new-api' => '',
+            '--commit' => 'Commit the changed package.xml to git.',
         );
     }
 
@@ -132,7 +149,6 @@ extends Components_Module_Base
         $arguments = $config->getArguments();
         if (!empty($options['updatexml'])
             || (isset($arguments[0]) && $arguments[0] == 'update')) {
-            $config->getComponent()->requireLocal();
             $this->_dependencies->getRunnerUpdate()->run();
             return true;
         }

@@ -2,6 +2,8 @@
 v3.0.6-git
 ----------
 
+[mjr] Fix issue that prevented synching when no sync_calendar pref was set
+      (Bug #10329).
 
 
 ------

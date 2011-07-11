@@ -134,6 +134,26 @@ class Horde_Pear_Rest
     }
 
     /**
+     * Test if the specified release exists.
+     *
+     * @param string $package The name of the package.
+     * @param string $version The version of the release.
+     *
+     * @return boolean True if the release exists.
+     */
+    public function releaseExists($package, $version)
+    {
+        $response = $this->_client->get(
+            $this->_url . '/rest/r/' . strtolower($package) . '/' . $version . '.xml'
+        );
+        if ($response->code === 200) { 
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Return the package.xml for a specific release from the server.
      *
      * @param string $package The name of the package.
@@ -146,6 +166,32 @@ class Horde_Pear_Rest
         return $this->_get(
             $this->_url . '/rest/r/' . strtolower($package) . '/package.' . $version . '.xml'
         );
+    }
+
+    /**
+     * Return the serialized package dependencies for a specific release from
+     * the server.
+     *
+     * @param string $package The name of the package.
+     * @param string $version The version of the release.
+     *
+     * @return string The serialized dependencies.
+     */
+    public function fetchPackageDependencies($package, $version)
+    {
+        return $this->_read(
+            $this->_url . '/rest/r/' . strtolower($package) . '/deps.' . $version . '.txt'
+        );
+    }
+
+    /**
+     * Return the channel.xml from the server.
+     *
+     * @return string The content of the channel.xml file.
+     */
+    public function fetchChannelXml()
+    {
+        return $this->_read($this->_url . '/channel.xml');
     }
 
     /**

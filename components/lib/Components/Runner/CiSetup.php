@@ -85,12 +85,14 @@ class Components_Runner_CiSetup
             );
         }
 
-        $directory = $this->_config->getComponent()->getPath();
-        if (basename(dirname($directory)) == 'framework') {
-            $origin = 'framework/' . basename($directory);
-        } else {
-            $origin = basename($directory);
-        }
+        //@todo FIXME
+        /* $directory = $this->_config->getComponent()->getPath(); */
+        /* if (basename(dirname($directory)) == 'framework') { */
+        /*     $origin = 'framework/' . basename($directory); */
+        /* } else { */
+        /*     $origin = basename($directory); */
+        /* } */
+        $origin = '';
 
         $config_template = new Components_Helper_Templates_Single(
             $this->_config_application->getTemplateDirectory(),
@@ -103,10 +105,8 @@ class Components_Runner_CiSetup
                 'sourcepath' => $origin,
                 'sourcejob' => 'horde',
                 'toolsdir' => $options['toolsdir'],
-                'description' => $this->_factory->createPackageForInstallLocation(
-                    $this->_config->getComponent()->getPackageXml(),
-                    $options['pearrc']
-                )->getDescription()
+                'description' => $this->_config->getComponent()
+                ->getDescription()
             )
         );
     }

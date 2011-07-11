@@ -61,6 +61,22 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testDependencies()
+    {
+        $this->assertInstanceOf(
+            'Horde_Pear_Rest_Dependencies',
+            $this->_getDependencyAccess()->getDependencies('A', '1.0.0')
+        );
+    }
+
+    public function testChannelXml()
+    {
+        $this->assertEquals(
+            'b:1;',
+            $this->_getDependencyAccess()->getChannel()
+        );
+    }
+
     private function _getAccess()
     {
         if (!class_exists('Horde_Http_Client')) {
@@ -96,6 +112,20 @@ extends Horde_Pear_TestCase
             $this->markTestSkipped('Horde_Http is missing!');
         }
         $string = $this->_getRelease();
+        $body = new Horde_Support_StringStream($string);
+        $response = new Horde_Http_Response_Mock('', $body->fopen());
+        $response->code = 200;
+        $request = new Horde_Http_Request_Mock();
+        $request->setResponse($response);
+        return $this->_createAccess($request);
+    }
+
+    private function _getDependencyAccess()
+    {
+        if (!class_exists('Horde_Http_Client')) {
+            $this->markTestSkipped('Horde_Http is missing!');
+        }
+        $string = 'b:1;';
         $body = new Horde_Support_StringStream($string);
         $response = new Horde_Http_Response_Mock('', $body->fopen());
         $response->code = 200;

@@ -78,7 +78,11 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
         $endDate->hour = 23;
         $endDate->min = $endDate->sec = 59;
 
-        $eventsList = $this->_params['registry']->call($this->api . '/listTimeObjects', array(array($category), $startDate, $endDate));
+        try {
+            $eventsList = $this->_params['registry']->call($this->api . '/listTimeObjects', array(array($category), $startDate, $endDate));
+        } catch (Horde_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
 
         $results = array();
         foreach ($eventsList as $eventsListItem) {

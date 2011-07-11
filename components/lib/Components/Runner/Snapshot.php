@@ -70,24 +70,24 @@ class Components_Runner_Snapshot
     public function run()
     {
         $options = $this->_config->getOptions();
-        $package = $this->_config->getComponent()->getPackage();
-
         if (!empty($options['destination'])) {
             $archivedir = $options['destination'];
         } else {
             $archivedir = getcwd();
         }
-
-        if (empty($options['keep_version'])) {
-            $version = preg_replace(
-                '/([.0-9]+).*/',
-                '\1dev' . strftime('%Y%m%d%H%M'),
-                $package->getVersion()
+        $options['logger'] = $this->_output;
+        $result = $this->_config->getComponent()->placeArchive(
+            $archivedir, $options
+        );
+        if (isset($result[2])) {
+            $this->_output->pear($result[2]);
+        }
+        if (!empty($result[1])) {
+            $this->_output->fail(
+                'Generating snapshot failed with:'. "\n\n" . join("\n", $result[1])
             );
         } else {
-            $version = $package->getVersion();
+            $this->_output->ok('Generated snapshot ' . $result[0]);
         }
-
-        $package->generateSnapshot($version, $archivedir);
     }
 }

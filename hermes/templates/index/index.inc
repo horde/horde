@@ -88,20 +88,22 @@
           <div id="hermesSummaryTotalNonBillable" class="hermesSummaryItem"><span class="hermesHours"></span> <?php echo _("Non-Billable")?></div>
         </div>
     </div>
-      <span>Timers</span>
-      <a href="#" class="hermesAdd">+</a>
+      <h3>
+        <span>Timers</span>
+        <a href="#" class="hermesAdd">+</a>
+      </h3>
       <div id="hermesMenuTimers">
       </div>
       <div id="hermesMenuRecent">
         <h3>Recent Projects</h3>
-        <div class="hermesMenuRecent rounded">
+        <!--<div class="hermesMenuRecent rounded">
            Big Project:
            <div class="hermesTimerTime">20 Hours (30%)</div>
         </div>
         <div class="hermesMenuRecent rounded">
            Big Project Timer
            <div class="hermesTimerTime">30 HOurs (20%)</div>
-        </div>
+        </div>-->
       </div>
     </div>
 </div>

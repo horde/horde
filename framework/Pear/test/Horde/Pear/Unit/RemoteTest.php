@@ -75,6 +75,22 @@ extends Horde_Pear_TestCase
         $this->_getLatestRemote()->getLatestDownloadUri('A', 'dev');
     }
 
+    public function testDependencies()
+    {
+        $this->assertEquals(
+            array(array('name' => 'test', 'type' => 'pkg', 'optional' => 'no')),
+            $this->_getRemoteDependencies()->getDependencies('A', '1.0.0')
+        );
+    }
+
+    public function testChannel()
+    {
+        $this->assertEquals(
+            'a:1:{s:8:"required";a:1:{s:7:"package";a:1:{s:4:"name";s:4:"test";}}}',
+            $this->_getRemoteDependencies()->getChannel()
+        );
+    }
+
     private function _getRemoteList()
     {
         if (!class_exists('Horde_Http_Client')) {
@@ -82,6 +98,20 @@ extends Horde_Pear_TestCase
         }
         $string = '<?xml version="1.0" encoding="UTF-8" ?>
 <l><p xlink:href="/rest/p/a">A</p><p xlink:href="/rest/p/b">B</p></l>';
+        $body = new Horde_Support_StringStream($string);
+        $response = new Horde_Http_Response_Mock('', $body->fopen());
+        $response->code = 200;
+        $request = new Horde_Http_Request_Mock();
+        $request->setResponse($response);
+        return $this->_createRemote($request);
+    }
+
+    private function _getRemoteDependencies()
+    {
+        if (!class_exists('Horde_Http_Client')) {
+            $this->markTestSkipped('Horde_Http is missing!');
+        }
+        $string = serialize(array('required' => array('package' => array('name' => 'test'))));
         $body = new Horde_Support_StringStream($string);
         $response = new Horde_Http_Response_Mock('', $body->fopen());
         $response->code = 200;

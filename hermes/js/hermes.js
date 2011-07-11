@@ -41,6 +41,10 @@ HermesCore = {
      *  instead of sending the action to the ajax handler. */
     doAction: function(action, params, callback, opts)
     {
+        // poll?
+        if (action == 'poll') {
+            callback = this.pollCallback.bind(this);
+        }
         opts = Object.extend(this.doActionOpts, opts || {});
         params = $H(params);
         action = action.startsWith('*')
@@ -321,8 +325,22 @@ HermesCore = {
                 e.stop();
                 return;
             case 'hermesAdd':
-                this.redBoxLoading = true;
-                RedBox.showHtml($('hermesTimerDialog').show());
+                $('hermesTimerDialog').appear({
+                    duration: this.effectDur,
+                    afterFinish: function() {
+                        $('hermesTimerTitle').focus();
+                    }
+                });
+                return;
+            case 'hermesTimerCancel':
+                $('hermesTimerDialog').fade({
+                    duration: this.effectDur
+                });
+                e.stop();
+                return;
+            case 'hermesStopTimer':
+                this.stopTimer(elt);
+                e.stop();
                 return;
             }
             if (elt.hasClassName('hermesTimeListSelect')) {
@@ -541,36 +559,65 @@ HermesCore = {
 
     newTimer: function()
     {
-        this.doAction('addTimer', {'desc': $F('hermesTimerTitle')}, this.newTimerCallback.bind(this));
+        this.doAction('addTimer', { 'desc': $F('hermesTimerTitle') }, this.newTimerCallback.bind(this));
     },
 
     newTimerCallback: function(r)
     {
         if (!r.response.id) {
-           this.closeRedBox();
+            $('hermesTimerDialog').fade({ duration: this.effectDur });
         }
 
-        this.insertTimer(r.response.id, $F('hermesTimerTitle'));
+        this.insertTimer({ 'time': r.response.id, 'e': 0 }, $F('hermesTimerTitle'));
     },
 
-    insertTimer: function(t, d)
+    insertTimer: function(r, d)
     {
-        var timer = new Element('div', {'class': 'hermesMenuItem hermesTimerOn rounded'});
-        timer.update(d);
+        var t = r.time;
+        var title = new Element('div', { 'class': 'hermesTimerLabel' }).update(
+            d + ' (' + r.e + ' hours)'
+        );
+        var stop = new Element('span', { 'class': 'hermesStopTimer' }).update(
+            new Element('img', { 'src': Hermes.conf.images.timerclose })
+        ).store('tid', t);
+
+        var timer = new Element('div', { 'class': 'hermesMenuItem hermesTimer rounded' });
+        timer.insert(stop).insert(title);
         $('hermesMenuTimers').insert({ 'top': timer });
-        var stop = new Element('span', { 'class': 'hermesTimerStop' }).update('x').store(t);
-        $('hermesMenuTimers').insert({ 'top': stop });
-        this.closeRedBox();
+        $('hermesTimerDialog').fade({
+            duration: this.effectDur,
+            afterFinish: function() {
+                $('hermesTimerTitle').value = '';
+            }
+        });
     },
 
     listTimersCallback: function(r)
     {
         var timers = r.response;
         for (t in timers) {
-            this.insertTimer(timers[t]['time'], timers[t].name);
+            this.insertTimer(timers[t], timers[t].name);
         };
     },
 
+    stopTimer: function(elt)
+    {
+        var t = elt.retrieve('tid');
+        this.doAction('stopTimer', { 't': t }, this.closeTimerCallback.curry(elt).bind(this));
+    },
+
+    closeTimerCallback: function(elt, r)
+    {
+        if (r.response) {
+            $('hermesTimeFormHours').setValue(r.response.h);
+            $('hermesTimeFormNotes').setValue(r.response.n);
+        }
+        elt.up().fade({
+            duration: this.effectDur,
+        });
+    },
+
+    //removeTimer: function(t)
     submitSlices: function()
     {
         $('hermesLoading').show();
@@ -647,10 +694,10 @@ HermesCore = {
             }
         }.bind(this));
 
-        $('hermesSummaryTodayBillable').down().update(todayb);
-        $('hermesSummaryTodayNonBillable').down().update(today - todayb);
-        $('hermesSummaryTotalBillable').down().update(totalb);
-        $('hermesSummaryTotalNonBillable').down().update(total - totalb);
+        $('hermesSummaryTodayBillable').down().update(todayb.toFixed(2));
+        $('hermesSummaryTodayNonBillable').down().update((today - todayb).toFixed(2));
+        $('hermesSummaryTotalBillable').down().update(totalb.toFixed(2));
+        $('hermesSummaryTotalNonBillable').down().update((total - totalb).toFixed(2));
     },
 
     buildTimeTable: function()
@@ -731,11 +778,6 @@ HermesCore = {
         cell = cell.next().update((slice.b == 1) ? 'Y' : 'N');
         cell = cell.next().update(slice.h);
         return row;
-    },
-
-    insertSlice: function(slice)
-    {
-
     },
 
     handleSort: function(e)
@@ -1150,6 +1192,21 @@ HermesCore = {
         return [start, end];
     },
 
+    pollCallback: function(r)
+    {
+        // Update timers.
+        if(r.response) {
+            $H(r.response).each(function(pair) {
+                var t = pair.value;
+                $('hermesMenuTimers').select('.hermesMenuItem').each(function(elt) {
+                    if (elt.down('.hermesStopTimer').retrieve('tid') == t['time']) {
+                        elt.down('.hermesTimerLabel').update(t.d + ' (' + t.e + ' hours)');
+                    }
+                });
+            });
+        }
+    },
+
     /* Onload function. */
     onDomLoad: function()
     {
@@ -1203,7 +1260,7 @@ HermesCore = {
         this.doAction('listTimers', [], this.listTimersCallback.bind(this));
 
         /* Start polling. */
-        new PeriodicalExecuter(this.doAction.bind(this, 'poll'), 60);
+        new PeriodicalExecuter(this.doAction.bind(this, 'poll'), 120);
         document.observe('Horde_Calendar:select', HermesCore.datePickerHandler.bindAsEventListener(HermesCore));
         Event.observe(window, 'resize', this.onResize.bind(this));
     }

@@ -39,10 +39,11 @@ extends Components_Release_Task_Base
      */
     public function run($options)
     {
-        $this->systemInDirectory(
-            'git commit -m "Released ' . $this->getPackage()->getName()
-            . '-' . $this->getPackage()->getVersion() . '"',
-            $this->getPackage()->getComponentDirectory()
-        );
+        if (isset($options['commit'])) {
+            $options['commit']->commit(
+                'Released ' . $this->getComponent()->getName()
+                . '-' . $this->getComponent()->getVersion()
+            );
+        }
     }
 }

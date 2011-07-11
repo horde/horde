@@ -105,10 +105,10 @@ extends Components_Module_Base
                     if (!empty($options)) {
                         $formatter = new Horde_Argv_IndentedHelpFormatter();
                         $parser = $this->_dependencies->getParser();
+                        $title = "OPTIONS for \"" . $action . "\"";
+                        $sub = str_repeat('-', strlen($title));
+                        $help .= "\n\n\n" . $title . "\n" . $sub . "";
                         foreach ($options as $option => $help_text) {
-                            $title = "OPTIONS for \"" . $action . "\"";
-                            $sub = str_repeat('-', strlen($title));
-                            $help .= "\n\n\n" . $title . "\n" . $sub . "";
                             $argv_option = $parser->getOption($option);
                             $help .= "\n\n    " . $formatter->formatOptionStrings($argv_option) . "\n\n      ";
                             if (empty($help_text)) {

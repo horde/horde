@@ -37,6 +37,13 @@ class Components_Runner_Installer
     private $_config;
 
     /**
+     * The list helper.
+     *
+     * @var Components_Helper_Installer
+     */
+    private $_installer;
+
+    /**
      * The factory for PEAR dependencies.
      *
      * @var Components_Pear_Factory
@@ -53,18 +60,21 @@ class Components_Runner_Installer
     /**
      * Constructor.
      *
-     * @param Components_Config       $config  The configuration for the current
-     *                                         job.
-     * @param Components_Pear_Factory $factory The factory for PEAR
-     *                                         dependencies.
-     * @param Component_Output        $output  The output handler.
+     * @param Components_Config           $config    The configuration
+     *                                               for the current job.
+     * @param Components_Helper_Installer $installer The install helper.
+     * @param Components_Pear_Factory     $factory   The factory for PEAR
+     *                                               dependencies.
+     * @param Component_Output            $output    The output handler.
      */
     public function __construct(
         Components_Config $config,
+        Components_Helper_Installer $installer,
         Components_Pear_Factory $factory,
         Components_Output $output
     ) {
-        $this->_config = $config;
+        $this->_config    = $config;
+        $this->_installer = $installer;
         $this->_factory = $factory;
         $this->_output = $output;
     }
@@ -72,25 +82,68 @@ class Components_Runner_Installer
     public function run()
     {
         $options = $this->_config->getOptions();
-        $environment = realpath($options['install']);
-        if (!$environment) {
-            $environment = $options['install'];
+        if (!empty($options['destination'])) {
+            $environment = realpath($options['destination']);
+            if (!$environment) {
+                $environment = $options['destination'];
+            }
+        } else {
+            throw new Components_Exception('You MUST specify the path to the installation environment with the --destination flag!');
         }
-        if (empty($options['horde_dir'])) {
-            $options['horde_dir'] = dirname($environment) . DIRECTORY_SEPARATOR . 'horde';
-        }
-        $arguments = $this->_config->getArguments();
-        $tree = $this->_factory
-            ->createTreeHelper(
-                $environment, $this->_config->getComponent()->getPath(), $options
+
+        if (empty($options['pearrc'])) {
+            $options['pearrc'] = $environment . '/pear.conf';
+            $this->_output->info(
+                sprintf(
+                    'Undefined path to PEAR configuration file (--pearrc). Assuming %s for this installation.',
+                    $options['pearrc']
+                )
             );
-        $tree->getEnvironment()->provideChannel('pear.horde.org');
-        $tree->getEnvironment()->getPearConfig()->setChannels(array('pear.horde.org', true));
-        $tree->getEnvironment()->getPearConfig()->set('horde_dir', $options['horde_dir'], 'user', 'pear.horde.org');
-        Components_Exception_Pear::catchError($tree->getEnvironment()->getPearConfig()->store());
-        $tree->installTreeInEnvironment(
-            $this->_config->getComponent()->getPackageXml(),
-            $this->_output,
+        }
+
+        if (empty($options['horde_dir'])) {
+            $options['horde_dir'] = $environment;
+            $this->_output->info(
+                sprintf(
+                    'Undefined path to horde web root (--horde-dir). Assuming %s for this installation.',
+                    $options['horde_dir']
+                )
+            );
+        }
+
+        if (!empty($options['instructions'])) {
+            if (!file_exists($options['instructions'])) {
+                throw new Components_Exception(
+                    sprintf(
+                        'Instructions file "%s" is missing!',
+                        $options['instructions']
+                    )
+                );
+            }
+            $lines = explode("\n", file_get_contents($options['instructions']));
+            $result = array();
+            foreach ($lines as $line) {
+                list($id, $c_options) = explode(':', $line);
+                foreach (explode(',', $c_options) as $option) {
+                    $result[trim($id)][trim($option)] = true;
+                }
+            }
+            $options['instructions'] = $result;
+        }
+
+        $target = $this->_factory->createEnvironment(
+                $environment, $options['pearrc']
+        );
+        $target->setResourceDirectories($options);
+
+        //@todo: fix role handling
+        $target->provideChannel('pear.horde.org', $options);
+        $target->getPearConfig()->setChannels(array('pear.horde.org', true));
+        $target->getPearConfig()->set('horde_dir', $options['horde_dir'], 'user', 'pear.horde.org');
+        Components_Exception_Pear::catchError($target->getPearConfig()->store());
+        $this->_installer->installTree(
+            $target,
+            $this->_config->getComponent(),
             $options
         );
     }
