@@ -598,7 +598,6 @@ HermesCore = {
 
     stopTimer: function(elt)
     {
-        console.log(elt);
         var t = elt.retrieve('tid');
         this.doAction('stopTimer', { 't': t }, this.closeTimerCallback.curry(elt).bind(this));
     },
