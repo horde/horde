@@ -129,7 +129,10 @@ class Components_Component_Source extends Components_Component_Base
         }
 
         $package_xml = $this->getPackageXml();
-        $package_xml->updateContents(null, $options);
+        $package_xml->updateContents(
+            $this->getFactory()->createContentList($this->_directory),
+            $options
+        );
         switch($action) {
         case 'print':
             return (string) $package_xml;

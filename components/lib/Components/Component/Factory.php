@@ -294,4 +294,22 @@ class Components_Component_Factory
         $type = new Horde_Pear_Package_Type_Horde($package_xml_dir);
         $type->writePackageXmlDraft();
     }
+
+    /**
+     * Create a new content listing.
+     *
+     * @param string $package_xml_dir Path to the parent directory of the
+     *                                new package.xml file.
+     *
+     * @return Horde_Pear_Package_Contents_List
+     */
+    public function createContentList($package_xml_dir)
+    {
+        return new Horde_Pear_Package_Contents_List(
+            new Horde_Pear_Package_Type_Horde(
+                $package_xml_dir,
+                $this->getGitRoot()->getRoot()
+            )
+        );
+    }
 }
