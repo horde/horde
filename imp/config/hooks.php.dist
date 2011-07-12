@@ -350,8 +350,9 @@ class IMP_Hooks
 //
 //
 //        // Example #2: Kolab defaults.
-//        require_once 'Horde/Kolab.php';
-//        switch (Kolab::getMailboxType($mailbox)) {
+//        $type = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage')
+//            ->getFolder($mailbox)->getType();
+//        switch ($type) {
 //        case 'event':
 //            return Horde::url('', false, array('app' => 'kronolith'));
 //
