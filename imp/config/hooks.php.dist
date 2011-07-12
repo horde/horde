@@ -536,7 +536,7 @@ class IMP_Hooks
     /**
      * Hide specified IMAP mailboxes in folder listings.
      *
-     * @param string $mailbox  The mailbox name.
+     * @param string $mailbox  The mailbox name (UTF7-IMAP).
      *
      * @return boolean  If false, do not display the mailbox.
      */
@@ -547,9 +547,10 @@ class IMP_Hooks
 //
 //
 //        // Example #2: Kolab default
-//        require_once 'Horde/Kolab.php';
-//        $type = Kolab::getMailboxType($mailbox);
-//        return empty($type) || ($type == 'mail');
+//        $types = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage')
+//            ->getList()->listFolderTypes();
+//        $f = Horde_String::convertCharset($mailbox, 'UTF7-IMAP', 'UTF-8');
+//        return empty($types[$f]) || ($types[$f] == 'mail');
 //    }
 
 
