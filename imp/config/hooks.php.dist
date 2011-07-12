@@ -386,99 +386,52 @@ class IMP_Hooks
      */
 //    public function mbox_icons()
 //    {
-//        // Example #1: Redirection scheme for Kolab_Cyrus
-//        static $newmailboxes;
-//
-//        if (!empty($newmailboxes)) {
-//            return $newmailboxes;
-//        }
-//
-//        require_once 'Horde/Kolab.php';
-//        $kc = new Kolab_Cyrus($GLOBALS['conf']['kolab']['server']);
-//        $mailboxes = $kc->listMailBoxes();
-//        $newmailboxes = array();
-//
-//        foreach ($mailboxes as $box) {
-//            $box = preg_replace("/^{[^}]+}/", "", $box);
-//            if ((stripos($box, "INBOX/Calendar") !== false) ||
-//                preg_match("!^user/[^/]+/Calendar!", $box)) {
-//                $newmailboxes[$box] = array(
-//                    'alt' => _("Calendar"),
-//                    'icon' => Horde_Themes::img('kronolith.png', 'kronolith')
-//                );
-//            } elseif ((stripos($box, "INBOX/Tasks") !== false) ||
-//                      preg_match("!^user/[^/]+/Tasks!", $box)) {
-//                $newmailboxes[$box] = array(
-//                    'alt' => _("Tasks")
-//                    'icon' => Horde_Themes::img('nag.png', 'nag'),
-//                );
-//            } elseif ((stripos($box, "INBOX/Notes") !== false) ||
-//                      preg_match("!^user/[^/]+/Notes!", $box)) {
-//                $newmailboxes[$box] = array(
-//                    'alt' => _("Notes"),
-//                    'icon' => Horde_Themes::img('mnemo.png', 'mnemo')
-//                );
-//            } elseif ((stripos($box, "INBOX/Contacts") !== false) ||
-//                      preg_match("!^user/[^/]+/Contacts!", $box)) {
-//                $newmailboxes[$box] = array(
-//                    'alt' => _("Contacts"),
-//                    'icon' => Horde_Themes::img('turba.png', 'turba')
-//                );
-//            }
-//        }
-//
-//        return $newmailboxes;
-//
-//
-//        // Example #2: Default Kolab redirection scheme
-//        if (!empty($icons)) {
-//            return $icons;
-//        }
-//
-//        require_once 'Horde/Kolab.php';
-//        $folders = Kolab::listFolders();
+//        // Example #1: Default Kolab redirection scheme
+//        $types = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage')
+//            ->getList()->listFolderTypes();
+// 
 //        $icons = array();
-//        foreach ($folders as $folder) {
-//            $name = preg_replace('/^{[^}]+}/', '', $folder[0]);
-//
-//            switch ($folder[1]) {
+//        foreach ($types as $folder => $type) {
+//            $t = preg_replace('/\.default$/', '', $type);
+//            $f = Horde_String::convertCharset($folder, 'UTF-8', 'UTF7-IMAP');
+//            switch ($t) {
 //            case 'event':
-//                $icons[$name] = array(
+//                $icons[$f] = array(
 //                    'alt' => _("Calendar"),
 //                    'icon' => Horde_Themes::img('kronolith.png', 'kronolith')
 //                );
 //                break;
-//
+// 
 //            case 'task':
-//                $icons[$name] = array(
+//                $icons[$f] = array(
 //                    'alt' => _("Tasks"),
 //                    'icon' => Horde_Themes::img('nag.png', 'nag')
 //                );
 //                break;
-//
+// 
 //            case 'note':
-//                $icons[$name] = array(
+//                $icons[$f] = array(
 //                    'alt' => _("Notes"),
 //                    'icon' => Horde_Themes::img('mnemo.png', 'mnemo')
 //                );
 //                break;
-//
+// 
 //            case 'contact':
-//                $icons[$name] = array(
+//                $icons[$f] = array(
 //                    'alt' => _("Contacts"),
 //                    'icon' => Horde_Themes::img('turba.png', 'turba')
 //                );
 //                break;
-//
-//            case 'prefs':
-//                $icons[$name] = array(
+// 
+//            case 'h-prefs':
+//                $icons[$f] = array(
 //                    'alt' => _("Preferences"),
 //                    'icon' => Horde_Themes::img('prefs.png', 'horde')
 //                );
 //                break;
 //            }
 //        }
-//
+// 
 //        return $icons;
 //    }
 
