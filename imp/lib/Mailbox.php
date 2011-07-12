@@ -955,6 +955,20 @@ class IMP_Mailbox implements Serializable
         return $params;
     }
 
+    /**
+     * Determines if this mailbox is equal to the given mailbox.
+     * Needed because directly comparing two mailbox objects may fail (the
+     * member variables may be different).
+     *
+     * @param mixed $mbox  The mailbox to compare to.
+     *
+     * @return boolean  True if the mailboxes are the same.
+     */
+    public function equals($mbox)
+    {
+        return ($mbox == $this->_mbox);
+    }
+
     /* Static methods. */
 
     /**

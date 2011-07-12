@@ -572,13 +572,13 @@ $a_template->set('save_as', Horde::widget(Horde::downloadUrl($subject, array_mer
 
 if ($conf['spam']['reporting'] &&
     ($conf['spam']['spamfolder'] ||
-     ($mailbox != IMP_Mailbox::getPref('spam_folder')))) {
+     !IMP_Mailbox::getPref('spam_folder')->equals($mailbox))) {
     $a_template->set('spam', Horde::widget('#', _("Report as Spam"), 'widget spamAction', '', '', _("Report as Spam"), true));
 }
 
 if ($conf['notspam']['reporting'] &&
     (!$conf['notspam']['spamfolder'] ||
-     ($mailbox == IMP_Mailbox::getPref('spam_folder')))) {
+     IMP_Mailbox::getPref('spam_folder')->equals($mailbox))) {
     $a_template->set('notspam', Horde::widget('#', _("Report as Innocent"), 'widget notspamAction', '', '', _("Report as Innocent"), true));
 }
 
