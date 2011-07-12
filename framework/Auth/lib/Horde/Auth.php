@@ -1,8 +1,7 @@
 <?php
 /**
- * The Horde_Auth:: class provides a common abstracted interface for various
- * authentication backends.  It also provides some useful
- * authentication-related utilities.
+ * The Horde_Auth class provides some useful authentication-related utilities
+ * and constants for the Auth package.
  *
  * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
  *
