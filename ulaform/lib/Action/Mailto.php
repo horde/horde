@@ -97,7 +97,7 @@ class Ulaform_Action_Mailto extends Ulaform_Action {
      *
      * @return string
      */
-    private function _formatFormData($field_data)
+    protected function _formatFormData($field_data)
     {
         $body = '';
         if (!is_array($field_data)) {
