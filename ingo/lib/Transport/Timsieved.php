@@ -34,7 +34,8 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
             'port'       => 4190,
             'scriptname' => 'ingo',
             'admin'      => '',
-            'usetls'     => true
+            'usetls'     => true,
+            'debug'      => false
         );
 
         parent::__construct(array_merge($default_params, $params));
@@ -65,7 +66,7 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
                                       false,
                                       $this->_params['usetls'],
                                       null,
-                                      array($this, '_debug'));
+                                      array($this, 'debug'));
 
         $res = $this->_sieve->getError();
         if ($res instanceof PEAR_Error) {
