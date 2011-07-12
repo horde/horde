@@ -121,11 +121,7 @@ class Ulaform_Driver {
 
     public function getField($form_id, $field_id)
     {
-        try {
-            $field = $this->_driver->getFields($form_id, $field_id);
-        } catch (Ulaform_Exception $e) {
-            throw new Ulaform_Exception($e->getMessage());
-        }
+        $field = $this->_driver->getFields($form_id, $field_id);
 
         /* If we have a record. */
         if (isset($field[0])) {
