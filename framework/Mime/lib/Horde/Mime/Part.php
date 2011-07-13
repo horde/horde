@@ -1660,6 +1660,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     public function findBody($subtype = null)
     {
         $initial_id = $this->getMimeId();
+        $this->buildMimeIds();
 
         foreach ($this->contentTypeMap() as $mime_id => $mime_type) {
             if ((strpos($mime_type, 'text/') === 0) &&

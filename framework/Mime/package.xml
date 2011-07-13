@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* Explicitly build MIME IDs when doing a findBody() search.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
