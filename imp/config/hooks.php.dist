@@ -207,7 +207,9 @@ class IMP_Hooks
 //                'attachment', 'attached'
 //            );
 //
-//            if (preg_match('/\b(' . implode('|', array_map('preg_quote', $word_list)) . ')\b/i', $message->getContents(), $matches)) {
+//            /* Check the plaintext version of the message. */
+//            $imp_contents = new IMP_Contents($message);
+//            if (preg_match('/\b(' . implode('|', array_map('preg_quote', $word_list)) . ')\b/i', $imp_contents->getMIMEPart($imp_contents->findBody())->getContents(), $matches)) {
 //                // Set flag in the session to indicate we should not check
 //                // this message for attachments again.
 //                $GLOBALS['session']->set('imp', 'attach_check/' . strval($compose), 1);
