@@ -557,7 +557,7 @@ class Horde_Core_Prefs_Ui
                     break;
 
                 case 'rawhtml':
-                    $t->set('html', $this->prefs[$pref]['value']);
+                    $t->set('html', $prefs->getValue($pref));
                     break;
                 }
 
