@@ -76,13 +76,23 @@ if ($vars->exists('deliverable_id') || $vars->exists('new')) {
 
     foreach ($deliverables as $deliverable) {
         $params = array();
-        $params['url'] = Horde::url('deliverables.php');
-        $params['url'] = Horde_Util::addParameter($params['url'], array('deliverable_id' => $deliverable['id'], 'client_id' => $vars->get('client_id')));
+        $params['url'] = Horde::url('deliverables.php')->add(array('deliverable_id' => $deliverable['id'], 'client_id' => $vars->get('client_id'))));
         $params['title'] = sprintf(_("Edit %s"), $deliverable['name']);
 
-        $newdeliv = '&nbsp;' . Horde::link(Horde_Util::addParameter(Horde::url('deliverables.php'), array('new' => 1, 'parent' => $deliverable['id'], 'client_id' => $vars->get('client_id'))), _("New Sub-deliverable")) . Horde::img('newdeliverable.png', _("New Sub-deliverable")) . '</a>';
-
-        $deldeliv = '&nbsp;' . Horde::link(Horde_Util::addParameter(Horde::url('deliverables.php'), array('formname' => 'deletedeliverable', 'delete' => $deliverable['id'], 'client_id' => $vars->get('client_id'))), _("Delete This Deliverable")) . Horde::img('delete.png', _("Delete This Deliverable"), '') . '</a>';
+        $newdeliv = '&nbsp;' . Horde::link(
+            Horde::url('deliverables.php')
+                ->add(array(
+                    'new' => 1,
+                    'parent' => $deliverable['id'],
+                    'client_id' => $vars->get('client_id'))),
+            _("New Sub-deliverable")) . Horde::img('newdeliverable.png', _("New Sub-deliverable")) . '</a>';
+        $deldeliv = '&nbsp;' . Horde::link(
+            Horde::url('deliverables.php')
+                ->add(array(
+                    'formname' => 'deletedeliverable',
+                    'delete' => $deliverable['id'],
+                    'client_id' => $vars->get('client_id'))),
+            _("Delete This Deliverable")) . Horde::img('delete.png', _("Delete This Deliverable"), '') . '</a>';
 
         /* Calculate the node's depth. */
         $depth = 0;

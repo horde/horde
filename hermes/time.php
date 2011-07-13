@@ -72,7 +72,7 @@ require $registry->get('templates', 'horde') . '/common-header.inc';
 if ($print_view) {
     require $registry->get('templates', 'horde') . '/javascript/print.js';
 } else {
-    $print_link = Horde_Util::addParameter(Horde::url('time.php'), 'print', 'true');
+    $print_link = Horde::url('time.php')->add('print', 'true');
     require HERMES_TEMPLATES . '/menu.inc';
 }
 
