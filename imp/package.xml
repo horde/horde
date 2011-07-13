@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-05</date>
- <time>17:33:07</time>
+ <date>2011-07-13</date>
+ <time>13:58:54</time>
  <version>
   <release>5.0.9</release>
   <api>5.0.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [mms] Correctly quote e-mail names when composing from compose links in the dynamic view (Bug #10292).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2331,10 +2331,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-05</date>
+   <date>2011-07-13</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [mms] Correctly quote e-mail names when composing from compose links in the dynamic view (Bug #10292).
    </notes>
   </release>
  </changelog>

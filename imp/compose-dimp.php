@@ -5,13 +5,15 @@
  * <pre>
  * List of URL parameters:
  * -----------------------
- * 'bcc' - TODO
- * 'cc' - TODO
- * 'identity' - TODO
- * 'subject' - TODO
- * 'type' - TODO
- * 'to' - TODO
- * 'uids' - TODO
+ * bcc: TODO
+ * cc: TODO
+ * identity: TODO
+ * subject: TODO
+ * type: TODO
+ * to: The e-mail address to send to.
+ * toname: If set, will be used as personal part of e-mail address (requires
+ *         'to' parameter also).
+ * uids: TODO
  * </pre>
  *
  * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
@@ -38,6 +40,13 @@ $vars = Horde_Variables::getDefaultVariables();
 $header = array();
 foreach (array('to', 'cc', 'bcc', 'subject') as $v) {
     $header[$v] = strval($vars->$v);
+}
+
+/* Check for personal information for 'to' address. */
+if (isset($header['to']) &&
+    isset($vars->toname) &&
+    ($tmp = Horde_Mime_Address::parseAddressList($header['to']))) {
+    $header['to'] = Horde_Mime_Address::writeAddress($tmp[0]['mailbox'], $tmp[0]['host'], $vars->toname);
 }
 
 $fillform_opts = array('noupdate' => 1);

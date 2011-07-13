@@ -2,6 +2,8 @@
 v5.0.9-git
 ----------
 
+[mms] Correctly quote e-mail names when composing from compose links in the
+      dynamic view (Bug #10292).
 
 
 ------
