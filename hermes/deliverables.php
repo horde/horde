@@ -76,7 +76,7 @@ if ($vars->exists('deliverable_id') || $vars->exists('new')) {
 
     foreach ($deliverables as $deliverable) {
         $params = array();
-        $params['url'] = Horde::url('deliverables.php')->add(array('deliverable_id' => $deliverable['id'], 'client_id' => $vars->get('client_id'))));
+        $params['url'] = Horde::url('deliverables.php')->add(array('deliverable_id' => $deliverable['id'], 'client_id' => $vars->get('client_id')));
         $params['title'] = sprintf(_("Edit %s"), $deliverable['name']);
 
         $newdeliv = '&nbsp;' . Horde::link(
