@@ -2,6 +2,7 @@
 v2.0.4-git
 ----------
 
+[mms] Fix creating new mailboxes (Bug #10282).
 
 
 ------
