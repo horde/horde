@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H3 (1.1.5)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-27 15:32+0300\n"
-"PO-Revision-Date: 2011-05-31 10:17+0300\n"
+"POT-Creation-Date: 2011-07-07 08:56+0300\n"
+"PO-Revision-Date: 2011-07-07 12:04+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -83,7 +83,7 @@ msgstr "Pielietot filtrus"
 msgid "Are you sure you want to delete this rule?"
 msgstr "Vai tiešām vēlaties dzēst šo likumu?"
 
-#: config/prefs.php:26
+#: config/prefs.php:27
 msgid "Automatically activate the script after each change?"
 msgstr "Automātiski aktivēt skriptu pēc katras izmaiņas?"
 
@@ -91,7 +91,7 @@ msgstr "Automātiski aktivēt skriptu pēc katras izmaiņas?"
 msgid "Basic Settings"
 msgstr "Pamatiestatījumi"
 
-#: config/fields.php:51
+#: config/fields.php:52
 msgid "Bcc"
 msgstr "Bcc"
 
@@ -122,7 +122,7 @@ msgstr "Pašreizējais filtrēšanas dzinis neatbalsta Melno sarakstu."
 msgid "Blacklisted Addresses"
 msgstr "Melnā saraksta adreses"
 
-#: config/fields.php:104
+#: config/fields.php:105
 msgid "Body"
 msgstr "Ķermenis"
 
@@ -130,7 +130,7 @@ msgstr "Ķermenis"
 msgid "Case Sensitive"
 msgstr "Reģistrjutīgs"
 
-#: config/fields.php:47
+#: config/fields.php:48
 msgid "Cc"
 msgstr "Cc"
 
@@ -206,7 +206,7 @@ msgstr "Nogādāt INBOX-ā un pāradresēt..."
 msgid "Deliver to folder..."
 msgstr "Nogādāt mapē..."
 
-#: config/fields.php:87
+#: config/fields.php:88
 msgid "Destination (To, Cc, Bcc, etc.)"
 msgstr "Mērķis (To,Cc,Bcc, utt.)"
 
@@ -429,7 +429,7 @@ msgstr "Pārsūtīšanas"
 msgid "Forwards Edit"
 msgstr "Labot Pārsūtīšanu"
 
-#: config/fields.php:43
+#: config/fields.php:44
 msgid "From"
 msgstr "Sūtītājs"
 
@@ -484,7 +484,7 @@ msgstr "Mazāks par"
 msgid "Less than or equal to"
 msgstr "Mazāks vai vienāds ar"
 
-#: config/fields.php:63
+#: config/fields.php:64
 msgid "List-ID"
 msgstr "Saraksta ID"
 
@@ -618,7 +618,7 @@ msgstr "Dienu skaits starp brīvdienu atbildes nosūtīšanu:"
 msgid "Only flag the message"
 msgstr "Tikai atzīmēt vēstuli"
 
-#: config/prefs.php:13
+#: config/prefs.php:14
 msgid "Other Preferences"
 msgstr "Citi iestatījumi"
 
@@ -626,7 +626,7 @@ msgstr "Citi iestatījumi"
 msgid "Overview"
 msgstr "Pārskats"
 
-#: config/fields.php:95
+#: config/fields.php:96
 msgid "Participant (From, To, etc.)"
 msgstr "Dalībnieks (From,To, utt.)"
 
@@ -640,7 +640,7 @@ msgstr "Pieeja liegta"
 msgid "Please enter the name of the new folder:"
 msgstr "Lūdzu ievadiet jaunās mapes nosaukumu:"
 
-#: config/prefs.php:15
+#: config/prefs.php:16
 msgid "Preferences about script updating."
 msgstr "Skriptu atjaunināšanas opcijas"
 
@@ -648,7 +648,7 @@ msgstr "Skriptu atjaunināšanas opcijas"
 msgid "Reason:"
 msgstr "Iemesls:"
 
-#: config/fields.php:67
+#: config/fields.php:68
 msgid "Received"
 msgstr "Saņemta"
 
@@ -671,11 +671,11 @@ msgstr ""
 "Lietotāja datu dzēšana nav iespējama, izmantojot pašreizējo filtra "
 "palīgmoduli."
 
-#: config/fields.php:55
+#: config/fields.php:56
 msgid "Resent-From"
 msgstr "Pārsūtīts no"
 
-#: config/fields.php:59
+#: config/fields.php:60
 msgid "Resent-To"
 msgstr "Pārsūtīts"
 
@@ -762,7 +762,7 @@ msgstr "Saglabāt un iespējot"
 msgid "Script"
 msgstr "Skripts"
 
-#: config/prefs.php:14
+#: config/prefs.php:15
 msgid "Script Updating"
 msgstr "Skripta atjaunināšana"
 
@@ -802,7 +802,7 @@ msgstr "izvēlēties mērķa mapi:"
 msgid "Self-Defined Header"
 msgstr "Pašdefinēta galvene"
 
-#: config/fields.php:39
+#: config/fields.php:40
 msgid "Sender"
 msgstr "Sūtītājs"
 
@@ -823,11 +823,11 @@ msgid "Simple spam filtering is not supported in the current filtering driver."
 msgstr ""
 "Vienkāršā mēstuļu filtrēšana nav iespēja ar izmantoto filtrēšanas dzini."
 
-#: config/fields.php:99
+#: config/fields.php:100
 msgid "Size"
 msgstr "Izmērs"
 
-#: config/fields.php:91
+#: config/fields.php:92
 msgid "Source (From, Reply-to, etc.)"
 msgstr "Avots (From,Reply-to, utt.)"
 
@@ -852,7 +852,7 @@ msgstr "Brīvdienu sākums:"
 msgid "Stop checking if this rule matches?"
 msgstr "Pārtraukt pārbaudi, ja šis likums izpildās?"
 
-#: config/fields.php:35
+#: config/fields.php:36
 msgid "Subject"
 msgstr "Temats"
 
@@ -886,7 +886,7 @@ msgstr "Kļūda aktivējot skriptu."
 msgid "There was an error deactivating the script."
 msgstr "Kļūda deaktivējot skriptu."
 
-#: config/fields.php:31
+#: config/fields.php:32
 msgid "To"
 msgstr "Saņēmējs"
 
@@ -943,19 +943,19 @@ msgstr "Pašreizējais filtrēšanas dzinis neatbalsta Balto sarakstu."
 msgid "Whitelisted Addresses"
 msgstr "Baltā saraksta adreses"
 
-#: config/fields.php:83
+#: config/fields.php:84
 msgid "X-Priority"
 msgstr "X-Priority"
 
-#: config/fields.php:71
+#: config/fields.php:72
 msgid "X-Spam-Level"
 msgstr "X-Spam-Level"
 
-#: config/fields.php:75
+#: config/fields.php:76
 msgid "X-Spam-Score"
 msgstr "X-Spam-Score"
 
-#: config/fields.php:79
+#: config/fields.php:80
 msgid "X-Spam-Status"
 msgstr "X-Spam-Status"
 
@@ -1027,7 +1027,7 @@ msgstr "Brīvdienas"
 
 #: lib/Application.php:112
 msgid "_Whitelist"
-msgstr "Baltais sarksts"
+msgstr "Baltais saraksts"
 
 #: lib/Block/Overview.php:41
 msgid "active"
