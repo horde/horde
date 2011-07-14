@@ -29,10 +29,6 @@ if ($form_id && !$formname) {
 /* Get the form action var, whether from edit or new. */
 $form_action = $vars->get('form_action');
 
-/* Uppercase legacy action so it can be recognized by action selection
- * field in editing form. */
-$vars->set('form_action', Horde_String::ucfirst($form_action));
-
 /* Get details for this action. */
 $actions = Ulaform_Action::getDrivers();
 

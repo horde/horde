@@ -52,10 +52,6 @@ class Ulaform_Factory_Action
             return $this->_instances[$action];
         }
 
-
-        $key = $action;
-        $action = Horde_String::ucfirst($action);
-
         $class = 'Ulaform_Action_' . $action;
         if (!class_exists($class)) {
             throw new Ulaform_Exception(sprintf('Unable to load the definition of %s.', $class));
@@ -74,9 +70,8 @@ class Ulaform_Factory_Action
             break;
         }
 
-        $action = new $class($params);
-        $this->_instances[$key] = $action;
+        $this->_instances[$action] = new $class($params);
 
-        return $this->_instances[$key];
+        return $this->_instances[$action];
     }
 }

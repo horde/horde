@@ -109,6 +109,7 @@
    <dir name="migration">
     <file name="1_ulaform_base_tables.php" role="horde" />
     <file name="2_ulaform_upgrade_autoincrement.php" role="horde" />
+    <file name="3_ulaform_upgrade_actions.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
     <file name=".htaccess" role="horde" />
@@ -233,6 +234,7 @@
    <install as="ulaform/locale/zh_TW/LC_MESSAGES/ulaform.po" name="locale/zh_TW/LC_MESSAGES/ulaform.po" />
    <install as="ulaform/migration/1_ulaform_base_tables.php" name="migration/1_ulaform_base_tables.php" />
    <install as="ulaform/migration/2_ulaform_upgrade_autoincrement.php" name="migration/2_ulaform_upgrade_autoincrement.php" />
+   <install as="ulaform/migration/3_ulaform_upgrade_actions.php" name="migration/3_ulaform_upgrade_actions.php" />
    <install as="ulaform/templates/.htaccess" name="templates/.htaccess" />
    <install as="ulaform/templates/display.html.php" name="templates/display.html.php" />
    <install as="ulaform/templates/fields.html.php" name="templates/fields.html.php" />
