@@ -629,6 +629,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
 
             try {
+                $this->_prepSendMessageAssert($val['to'], $headers, $val['msg']);
                 $this->sendMessage($val['to'], $headers, $val['msg']);
 
                 /* Store history information. */
@@ -836,7 +837,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      */
     public function sendMessage($email, $headers, $message)
     {
-        $email = $this->_prepSendMessage($email, $headers, $message);
+        $email = $this->_prepSendMessage($email, $message);
 
         try {
             $message->send($email, $headers, $GLOBALS['injector']->getInstance('IMP_Mail'));
@@ -848,17 +849,46 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     /**
      * Sanity checking/MIME formatting before sending a message.
      *
+     * @param string $email             The e-mail list to send to.
+     * @param Horde_Mime_Part $message  The Horde_Mime_Part object that
+     *                                  contains the text to send.
+     *
+     * @return string  The encoded $email list.
+     * @throws IMP_Compose_Exception
+     */
+    protected function _prepSendMessage($email, $message = null)
+    {
+        /* Properly encode the addresses we're sending to. Always try
+         * charset of original message as we know that the user can handle
+         * that charset. */
+        try {
+            return $this->_prepSendMessageEncode($email, is_null($message) ? 'UTF-8' : $message->getHeaderCharset());
+        } catch (IMP_Compose_Exception $e) {
+            if (is_null($message)) {
+                throw $e;
+            }
+        }
+
+        /* Fallback to UTF-8 (if replying, original message might be in
+         * US-ASCII, for example, but To/Subject/Etc. may contain 8-bit
+         * characters. */
+        $message->setHeaderCharset('UTF-8');
+        return $this->_prepSendMessageEncode($email, 'UTF-8');
+    }
+
+    /**
+     * Additonal checks to do if this is a user-generated compose message.
+     *
      * @param string $email                The e-mail list to send to.
      * @param Horde_Mime_Headers $headers  The object holding this message's
      *                                     headers.
      * @param Horde_Mime_Part $message     The Horde_Mime_Part object that
      *                                     contains the text to send.
      *
-     * @return string  The encoded $email list.
      * @throws IMP_Compose_Exception
      */
-    protected function _prepSendMessage($email, $headers = null,
-                                        $message = null)
+    protected function _prepSendMessageAssert($email, $headers = null,
+                                              $message = null)
     {
         $recipients = 0;
 
@@ -879,23 +909,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 Horde::callHook('pre_sent', array($message, $headers, $this), 'imp');
             } catch (Horde_Exception_HookNotSet $e) {}
         }
-
-        /* Properly encode the addresses we're sending to. Always try
-         * charset of original message as we know that the user can handle
-         * that charset. */
-        try {
-            return $this->_prepSendMessageEncode($email, is_null($message) ? 'UTF-8' : $message->getHeaderCharset());
-        } catch (IMP_Compose_Exception $e) {
-            if (is_null($message)) {
-                throw $e;
-            }
-        }
-
-        /* Fallback to UTF-8 (if replying, original message might be in
-         * US-ASCII, for example, but To/Subject/Etc. may contain 8-bit
-         * characters. */
-        $message->setHeaderCharset('UTF-8');
-        return $this->_prepSendMessageEncode($email, 'UTF-8');
     }
 
     /**
@@ -1837,6 +1850,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         $header_text = trim($resent_headers->toString(array('encode' => 'UTF-8'))) . "\n" . trim($contents->getHeaderOb(false));
 
+        $this->_prepSendMessageAssert($recipients);
         $to = $this->_prepSendMessage($recipients);
         $hdr_array = $headers->toArray(array('charset' => 'UTF-8'));
         $hdr_array['_raw'] = $header_text;
