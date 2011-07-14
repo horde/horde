@@ -98,6 +98,7 @@ class Horde_Service_Facebook_Request
             $url = new Horde_Url(Horde_Service_Facebook::REST_SERVER_ADDR . $method);
             $result = $this->_http->request('POST', $url->toString(), $this->_createPostString($params));
         } catch (Exception $e) {
+            $this->_facebook->logger->err($e->getMessage());
             throw new Horde_Service_Facebook_Exception(Horde_Service_Facebook_Translation::t("Facebook service is unavailable. Please try again later."));
         }
 
