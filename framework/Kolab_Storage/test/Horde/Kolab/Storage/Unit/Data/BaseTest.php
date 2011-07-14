@@ -76,7 +76,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testId()
     {
         $this->assertEquals(
-            '988166e4fd2a5524aab076dae957fc59',
+            '2758ded05e635994e5dbeba82185feb2',
             $this->getMessageStorage()
             ->getData('INBOX/WithDeleted')
             ->getId()

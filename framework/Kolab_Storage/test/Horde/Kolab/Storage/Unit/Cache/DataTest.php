@@ -418,6 +418,7 @@ extends Horde_Kolab_Storage_TestCase
             array(
                 'host' => 'localhost',
                 'port' => '143',
+                'prefix' => 'INBOX',
                 'folder' => 'test',
                 'type' => 'event',
                 'owner' => 'someuser',

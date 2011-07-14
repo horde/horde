@@ -584,6 +584,7 @@ extends PHPUnit_Framework_TestCase
                 'host' => 'localhost',
                 'port' => '143',
                 'owner' => 'test',
+                'prefix' => 'INBOX',
                 'folder' => 'Calendar',
                 'type' => 'event',
             )
