@@ -136,6 +136,22 @@ extends Horde_Kolab_Storage_TestCase
         $this->_getFolderMock()->getType();
     }
 
+    public function testGetPrefix()
+    {
+        $this->assertEquals(
+            'prefix',
+            $this->_getFolderMock(array('prefix' => 'prefix'))->getPrefix()
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingPrefix()
+    {
+        $this->_getFolderMock()->getPrefix();
+    }
+
     private function _getFolderMock($data = array())
     {
         return new Horde_Kolab_Storage_Folder_Base(
