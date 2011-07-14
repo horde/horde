@@ -33,7 +33,7 @@ var Horde_Tree = Class.create({
 
     initialize: function(opts)
     {
-        var i, randstr;
+        var i, randstr = '';
 
         this.opts = opts;
 
