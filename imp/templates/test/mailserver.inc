@@ -55,7 +55,7 @@
   </td>
   <td>
    <select id="encrypt" name="encrypt">
-    <option value="no">No</option>
+    <option value="">No</option>
     <option value="ssl">SSL</option>
     <option value="tls">TLS</option>
    </select>
