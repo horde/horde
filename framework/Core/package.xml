@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-07-05</date>
- <time>14:30:25</time>
+ <date>2011-07-14</date>
+ <time>00:24:22</time>
  <version>
   <release>1.3.1</release>
   <api>1.3.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* Fix removing user data from applications (Bug #10241).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1503,10 +1503,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-05</date>
+   <date>2011-07-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* Fix removing user data from applications (Bug #10241).
    </notes>
   </release>
  </changelog>

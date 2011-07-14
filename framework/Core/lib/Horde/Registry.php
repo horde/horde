@@ -2277,7 +2277,7 @@ class Horde_Registry
     }
 
     /**
-     * Calls all applications' removeUserData API methods.
+     * Calls all applications' removeUserData method.
      *
      * @param string $userId  The userId to delete.
      *
@@ -2289,7 +2289,7 @@ class Horde_Registry
 
         foreach ($this->listApps(array('notoolbar', 'hidden', 'active', 'admin', 'noadmin')) as $app) {
             try {
-                $this->callByPackage($app, 'removeUserData', array($userId));
+                $this->callAppMethod($app, 'removeUserData', array('args' => $userId));
             } catch (Exception $e) {
                 Horde::logMessage($e);
                 $errApps[] = $app;
