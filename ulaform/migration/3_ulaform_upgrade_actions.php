@@ -21,9 +21,9 @@ class UlaformUpgradeActions extends Horde_Db_Migration_Base
     {
         $sql = 'UPDATE ulaform_forms SET form_action = ? WHERE form_id = ?';
         foreach ($this->select('SELECT form_id, form_action FROM ulaform_forms') as $form) {
-              $values = array(ucfirst($form['form_action']),
-                              $form['form_id']);
-              $this->execute($sql, $values);
+            $values = array(Horde_String::ucfirst($form['form_action']),
+                            $form['form_id']);
+            $this->execute($sql, $values);
         }
     }
 
