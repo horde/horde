@@ -283,10 +283,8 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
     {
         global $registry;
 
-        $is_auth = $registry->getAuth();
-
         if (!($userId = $this->getCredential('userId'))) {
-            $userId = $is_auth;
+            $userId = $registry->getAuth();
         }
         if (!($credentials = $this->getCredential('credentials'))) {
             $credentials = $registry->getAuthCredential();
