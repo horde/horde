@@ -410,7 +410,9 @@ class Hermes
             'URI_AJAX' => (string)Horde::getServiceLink('ajax', 'hermes'),
             'SESSION_ID' => defined('SID') ? SID : '',
             'images' => array(
-                'timerclose' => (string)Horde_Themes::img('close.png', 'horde')
+                'timerlog' => (string)Horde_Themes::img('log.png'),
+                'timerplay' => (string)Horde_Themes::img('play.png'),
+                'timerpause' => (string)Horde_Themes::img('pause.png')
             ),
             'user' => $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false),
             'prefs_url' => (string)Horde::getServiceLink('prefs', 'hermes')->setRaw(true)->add('ajaxui', 1),

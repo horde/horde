@@ -202,7 +202,7 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
         return true;
     }
 
-    public function listTimers()
+    public function listTimers($running_only = false)
     {
         $timers = $GLOBALS['prefs']->getValue('running_timers');
         if (!empty($timers)) {
@@ -210,19 +210,24 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
         } else {
             $timers = array();
         }
-        $timers = array_values($timers);
-        foreach ($timers as &$timer) {
+        $return = array();
+        foreach ($timers as $id => &$timer) {
+            if ($running_only && $timer['paused']) {
+                continue;
+            }
             $elapsed = ((!$timer['paused']) ? time() - $timer['time'] : 0 )+ $timer['elapsed'];
             $timer['e'] = round((float)$elapsed / 3600, 2);
+            $timer['id'] = $id;
+            $return[] = $timer;
         }
 
-        return $timers;
+        return $return;
     }
 
     public function poll()
     {
         // Return any elapsed time for timers
-        return $this->listTimers();
+        return $this->listTimers(true);
     }
 
 

@@ -342,6 +342,14 @@ HermesCore = {
                 this.stopTimer(elt);
                 e.stop();
                 return;
+            case 'hermesPauseTimer':
+                this.pauseTimer(elt);
+                e.stop();
+                return;
+            case 'hermesPlayTimer':
+                this.playTimer(elt);
+                e.stop();
+                return;
             }
             if (elt.hasClassName('hermesTimeListSelect')) {
                 if (elt.up().identify() == 'hermesTimeListHeader') {
@@ -577,9 +585,15 @@ HermesCore = {
         var title = new Element('div', { 'class': 'hermesTimerLabel' }).update(
             d + ' (' + r.e + ' hours)'
         );
-        var stop = new Element('span', { 'class': 'hermesStopTimer' }).update(
-            new Element('img', { 'src': Hermes.conf.images.timerclose })
-        ).store('tid', t);
+        var stop = new Element('span', { 'class': 'hermesTimerControls' }).update(
+            new Element('img', { 'class': 'hermesStopTimer', 'src': Hermes.conf.images.timerlog })
+        ).store('tid', r.id);;
+
+        if (r.paused) {
+            stop.insert(new Element('img', { 'class': 'hermesPlayTimer', 'src' : Hermes.conf.images.timerplay }));
+        } else {
+            stop.insert(new Element('img', { 'class': 'hermesPauseTimer', 'src' : Hermes.conf.images.timerpause }));
+        }
 
         var timer = new Element('div', { 'class': 'hermesMenuItem hermesTimer rounded' });
         timer.insert(stop).insert(title);
@@ -602,8 +616,20 @@ HermesCore = {
 
     stopTimer: function(elt)
     {
-        var t = elt.retrieve('tid');
+        var t = elt.up().retrieve('tid');
         this.doAction('stopTimer', { 't': t }, this.closeTimerCallback.curry(elt).bind(this));
+    },
+
+    pauseTimer: function(elt)
+    {
+        var t = elt.up().retrieve('tid');
+        this.doAction('pauseTimer', { 't': t }, this.pauseTimerCallback.curry(elt).bind(this));
+    },
+
+    playTimer: function(elt)
+    {
+        var t = elt.up().retrieve('tid');
+        this.doAction('startTimer', { 't': t }, this.playTimerCallback.curry(elt).bind(this));
     },
 
     closeTimerCallback: function(elt, r)
@@ -612,9 +638,23 @@ HermesCore = {
             $('hermesTimeFormHours').setValue(r.response.h);
             $('hermesTimeFormNotes').setValue(r.response.n);
         }
-        elt.up().fade({
+        elt.up().up().fade({
             duration: this.effectDur,
         });
+    },
+
+    pauseTimerCallback: function(elt, r)
+    {
+        elt.src = Hermes.conf.images.timerplay;
+        elt.removeClassName('hermesPauseTimer');
+        elt.addClassName('hermesPlayTimer');
+    },
+
+    playTimerCallback: function(elt, r)
+    {
+        elt.src = Hermes.conf.images.timerpause;
+        elt.removeClassName('hermesPlayTimer');
+        elt.addClassName('hermesPauseTimer');
     },
 
     //removeTimer: function(t)
@@ -1199,8 +1239,8 @@ HermesCore = {
             $H(r.response).each(function(pair) {
                 var t = pair.value;
                 $('hermesMenuTimers').select('.hermesMenuItem').each(function(elt) {
-                    if (elt.down('.hermesStopTimer').retrieve('tid') == t['time']) {
-                        elt.down('.hermesTimerLabel').update(t.d + ' (' + t.e + ' hours)');
+                    if (elt.down('.hermesStopTimer').up().retrieve('tid') == t['id']) {
+                        elt.down('.hermesTimerLabel').update(t.name + ' (' + t.e + ' hours)');
                     }
                 });
             });
@@ -1260,7 +1300,7 @@ HermesCore = {
         this.doAction('listTimers', [], this.listTimersCallback.bind(this));
 
         /* Start polling. */
-        new PeriodicalExecuter(this.doAction.bind(this, 'poll'), 120);
+        new PeriodicalExecuter(this.doAction.bind(this, 'poll'), 10);
         document.observe('Horde_Calendar:select', HermesCore.datePickerHandler.bindAsEventListener(HermesCore));
         Event.observe(window, 'resize', this.onResize.bind(this));
     }
