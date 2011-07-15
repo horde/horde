@@ -183,6 +183,23 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
         $timer['elapsed'] += time() - $timer['time'];
         $timer['time'] = 0;
         Hermes::updateTimer($this->_vars->t, $timer);
+
+        return true;
+    }
+
+    public function startTimer()
+    {
+        global $prefs;
+
+        if (!$timer = Hermes::getTimer($this->_vars->t)) {
+            $GLOBALS['notification']->push(_("Invalid timer requested"), 'horde.error');
+            return false;
+        }
+        $timer['paused'] = false;
+        $timer['time'] = time();
+        Hermes::updateTimer($this->_vars->t, $timer);
+
+        return true;
     }
 
     public function listTimers()
