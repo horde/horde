@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Service_Facebook\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
-"PO-Revision-Date: 2011-06-12 03:06-0300\n"
+"POT-Creation-Date: 2011-07-14 01:05-0300\n"
+"PO-Revision-Date: 2011-07-14 21:32-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -17,9 +17,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: lib/Horde/Service/Facebook/Request.php:93
-msgid "Service is unavailable. Please try again later."
-msgstr "Serviço não disponível. Tente novamente mais tarde."
+#: lib/Horde/Service/Facebook/Request.php:101
+msgid "Facebook service is unavailable. Please try again later."
+msgstr ""
+"Serviço Facebook está indisponível. Por favor tente novamente mais tarde."
 
 #: lib/Horde/Service/Facebook/UploadRequest.php:93
 #, php-format

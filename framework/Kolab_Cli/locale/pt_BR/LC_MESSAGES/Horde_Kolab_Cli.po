@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Cli \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-18 12:23+0200\n"
+"POT-Creation-Date: 2011-07-14 01:05-0300\n"
 "PO-Revision-Date: 2011-05-18 12:23+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,6 +17,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: lib/Horde/Kolab/Cli/Module/Account.php:40
+msgid ""
+"  account - Handles operations on an account level (like listing *all* "
+"available groupware objects)\n"
+"\n"
+"  - all [TYPE] : List all groupware objects of the account (optionally "
+"limit \n"
+"                 to TYPE)\n"
+"\n"
+"\n"
+msgstr ""
+
 #: lib/Horde/Kolab/Cli/Module/Data.php:38
 msgid ""
 "  data - Handle Kolab data (the default action is \"info\"). PATH refers to "
@@ -24,9 +36,18 @@ msgid ""
 "indicates which data type should be read. This is usually already defined by "
 "the folder setting.\n"
 "\n"
-"  - info      PATH  : Display general information.\n"
-"  - stamp     PATH  : Display the folder status information.\n"
-"\n"
+"  - info      PATH              : Display general information.\n"
+"  - stamp     PATH              : Display the folder status information.\n"
+"  - ids       PATH TYPE         : Display all object ids in the folder PATH "
+"of\n"
+"                                  type TYPE.\n"
+"  - complete  PATH BACKENDID    : Return the complete message from folder "
+"PATH\n"
+"                                  for the given BACKENDID.\n"
+"  - backendid PATH TYPE OBJECTID: Return the backend ID for the object with "
+"ID\n"
+"                                  OBJECTID.\n"
+"  - delete    PATH TYPE ID,ID,..: Delete the given object id's.\n"
 "\n"
 msgstr ""
 
@@ -104,7 +125,8 @@ msgstr ""
 msgid "%s is no local file!"
 msgstr ""
 
-#: lib/Horde/Kolab/Cli/Module/Data.php:227
+#: lib/Horde/Kolab/Cli/Module/Account.php:153
+#: lib/Horde/Kolab/Cli/Module/Data.php:232
 #: lib/Horde/Kolab/Cli/Module/Folder.php:228
 #: lib/Horde/Kolab/Cli/Module/Format.php:165
 #: lib/Horde/Kolab/Cli/Module/Ledger.php:152

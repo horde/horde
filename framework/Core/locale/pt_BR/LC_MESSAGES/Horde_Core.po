@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-06-08 22:11-0300\n"
+"POT-Creation-Date: 2011-07-14 01:05-0300\n"
 "PO-Revision-Date: 2011-06-13 02:49-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -27,7 +27,7 @@ msgstr " (Tecla de Atalho %s)"
 msgid "\"%s\" group driver not found."
 msgstr "\"%s\" driver de grupo não encontrado."
 
-#: lib/Horde/Registry.php:1184 lib/Horde/Registry.php:1655
+#: lib/Horde/Registry.php:1201 lib/Horde/Registry.php:1680
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr "\"%s\" não está configurado no Registro do Horde."
@@ -52,7 +52,7 @@ msgid_plural "%d days until your password expires."
 msgstr[0] "%d dia até sua senha expirar."
 msgstr[1] "%d dias até sua senha expirar."
 
-#: lib/Horde/Registry.php:1289
+#: lib/Horde/Registry.php:1306
 #, php-format
 msgid "%s is not authorized for %s."
 msgstr "%s não está autorizado para %s."
@@ -407,7 +407,7 @@ msgstr "Grupos"
 msgid "Guest Permissions"
 msgstr "Pesmissões de Convidado"
 
-#: lib/Horde/Help.php:219 lib/Horde/Help.php:220 lib/Horde/Menu.php:189
+#: lib/Horde/Help.php:219 lib/Horde/Help.php:220 lib/Horde/Menu.php:201
 msgid "Help"
 msgstr "Ajuda"
 
@@ -643,7 +643,7 @@ msgstr "Endereços Preferidos"
 msgid "Preview"
 msgstr "Pré-visualização"
 
-#: lib/Horde/Menu.php:181
+#: lib/Horde/Menu.php:193
 msgid "Problem"
 msgstr "Problema"
 
@@ -793,7 +793,7 @@ msgstr "O arquivo %s deveria conter uma configuração de %s."
 msgid "The file %s should contain some %s settings."
 msgstr "O arquivo %s deveria conter algumas configurações de %s."
 
-#: lib/Horde/Registry.php:2271
+#: lib/Horde/Registry.php:2300
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr "A aplicação a seguir encontrou erros ao remover dados do usuários: %s"
@@ -854,7 +854,7 @@ msgstr "Houve um erro ao ler os dados do contato."
 msgid "There were errors encountered while updating your preferences."
 msgstr "Foram encontrados erros ao atualizar suas preferências."
 
-#: lib/Horde/Registry.php:434
+#: lib/Horde/Registry.php:443
 msgid "This system is currently deactivated."
 msgstr "Este sistema está atualmente desativado."
 
@@ -966,7 +966,7 @@ msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] "Você não pode criar mais do que %d bloco."
 msgstr[1] "Você não pode criar mais do que %d blocos."
 
-#: lib/Horde/Registry.php:1861
+#: lib/Horde/Registry.php:1886
 msgid "You are not authenticated."
 msgstr "Você não está autenticado."
 
@@ -1028,15 +1028,15 @@ msgstr "[Sem Nome]"
 msgid "[Show Quoted Text - %d lines]"
 msgstr "[Mostrar Texto Citado - %d linhas]"
 
-#: lib/Horde/Menu.php:210
+#: lib/Horde/Menu.php:222
 msgid "_Log in"
 msgstr "_Conectar"
 
-#: lib/Horde/Menu.php:205
+#: lib/Horde/Menu.php:217
 msgid "_Log out"
 msgstr "_Sair"
 
-#: lib/Horde/Menu.php:174
+#: lib/Horde/Menu.php:186
 msgid "_Preferences"
 msgstr "_Preferências"
 

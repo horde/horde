@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-06-12 23:40-0300\n"
-"PO-Revision-Date: 2011-06-12 23:16-0300\n"
+"POT-Creation-Date: 2011-07-14 00:31-0300\n"
+"PO-Revision-Date: 2011-07-14 00:32-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
 "Language: \n"
@@ -339,7 +339,7 @@ msgstr "Adicionar usuários desativado."
 msgid "Address"
 msgstr "Endereço"
 
-#: config/registry.php:117
+#: config/registry.php:114
 msgid "Address Book"
 msgstr "Contatos"
 
@@ -474,7 +474,7 @@ msgstr "Arte"
 msgid "Ascii Art"
 msgstr "Arte Ascii"
 
-#: lib/LoginTasks/Task/AdminCheck.php:51
+#: lib/LoginTasks/Task/AdminCheck.php:65
 msgid "At least one database schema is outdated."
 msgstr "Pelo menos um esquema de banco de dados estã desatualizado."
 
@@ -563,7 +563,7 @@ msgstr "Lua Azul"
 msgid "Blue and White"
 msgstr "Azul e Branco"
 
-#: config/registry.php:203
+#: config/registry.php:196
 msgid "Bookmarks"
 msgstr "Favoritos"
 
@@ -587,7 +587,7 @@ msgstr "Laranja Queimado"
 msgid "Cache init was not completed."
 msgstr "Cahe de init não foi completado."
 
-#: config/registry.php:140
+#: config/registry.php:136
 msgid "Calendar"
 msgstr "Calendário"
 
@@ -1073,7 +1073,7 @@ msgstr ""
 msgid "Describe the Problem"
 msgstr "Descreva o problema"
 
-#: config/registry.php:215
+#: config/registry.php:208
 msgid "Development"
 msgstr "Desenvolvimento"
 
@@ -1344,7 +1344,7 @@ msgstr "Neve Fraca"
 msgid "Fields to search"
 msgstr "Campos para procurar"
 
-#: config/registry.php:299
+#: config/registry.php:292
 msgid "File Manager"
 msgstr "Gerenciador de Arquivos"
 
@@ -1352,7 +1352,7 @@ msgstr "Gerenciador de Arquivos"
 msgid "Filter"
 msgstr "Filtro"
 
-#: config/registry.php:90
+#: config/registry.php:88
 msgid "Filters"
 msgstr "Filtros"
 
@@ -1400,6 +1400,10 @@ msgstr ""
 msgid "Forgot your password?"
 msgstr "Esqueceu a senha?"
 
+#: config/registry.php:320
+msgid "Forms"
+msgstr "Formulários"
+
 #: lib/Block/Fortune.php:25
 msgid "Fortune"
 msgstr "Sorte"
@@ -1416,7 +1420,7 @@ msgstr "Sortes"
 msgid "Fortunes 2"
 msgstr "Sortes 2"
 
-#: config/registry.php:322
+#: config/registry.php:314
 msgid "Forums"
 msgstr "Fóruns"
 
@@ -1572,7 +1576,7 @@ msgstr "Alta"
 msgid "Home Directory"
 msgstr "Diretório principal"
 
-#: config/registry.php:76
+#: config/registry.php:75
 msgid "Horde"
 msgstr "Horde"
 
@@ -1580,7 +1584,7 @@ msgstr "Horde"
 msgid "Horde Website"
 msgstr "Site do Horde"
 
-#: templates/data/csvinfo.inc:20
+#: templates/data/csvinfo.inc:18
 msgid "How many fields (columns) are there?"
 msgstr "Quantos campos (colunas) existem?"
 
@@ -1672,7 +1676,7 @@ msgstr "Usuários individuais"
 msgid "Infinite sessions enabled."
 msgstr "Sessões infinitas habilitadas."
 
-#: config/registry.php:248
+#: config/registry.php:241
 msgid "Information"
 msgstr "Informação"
 
@@ -1961,11 +1965,11 @@ msgstr "MM"
 msgid "Magic"
 msgstr "Mágico"
 
-#: config/registry.php:81
+#: config/registry.php:80
 msgid "Mail"
 msgstr "Correio"
 
-#: config/registry.php:341
+#: config/registry.php:337
 msgid "Mail Admin"
 msgstr "Administrador do Correio"
 
@@ -2095,7 +2099,7 @@ msgstr "Grande Parte Ensolarado"
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: config/registry.php:294
+#: config/registry.php:287
 msgid "My Account"
 msgstr "Minha Conta"
 
@@ -2164,11 +2168,11 @@ msgstr "Nova senha"
 msgid "New passwords don't match."
 msgstr "As novas senhas não são iguais."
 
-#: config/registry.php:253 lib/Block/Fortune.php:59
+#: config/registry.php:246 lib/Block/Fortune.php:59
 msgid "News"
 msgstr "Notícias"
 
-#: templates/data/csvinfo.inc:23 templates/data/csvmap.inc:120
+#: templates/data/csvinfo.inc:21 templates/data/csvmap.inc:120
 #: templates/data/datemap.inc:43 templates/data/tsvinfo.inc:15
 msgid "Next"
 msgstr "Próxima"
@@ -2254,7 +2258,7 @@ msgstr "Hemisfério Norte"
 msgid "Not Provisioned"
 msgstr "Não Provisionado"
 
-#: config/registry.php:190
+#: config/registry.php:184
 msgid "Notes"
 msgstr "Anotações"
 
@@ -2282,7 +2286,7 @@ msgstr "Criador do Objeto"
 msgid "Offense filter"
 msgstr "Filtrar ofensivos"
 
-#: config/registry.php:265
+#: config/registry.php:258
 msgid "Office"
 msgstr "Escritório"
 
@@ -2318,7 +2322,7 @@ msgstr "Sistema Operacional"
 msgid "Or enter a user name:"
 msgstr "Ou insira um nome de usuário:"
 
-#: config/registry.php:112
+#: config/registry.php:109
 msgid "Organizing"
 msgstr "Organizando"
 
@@ -2416,8 +2420,9 @@ msgstr "P_HP Shell"
 msgid "Partly Cloudy"
 msgstr "Parcialmente Nublado"
 
-#: admin/config/index.php:319 admin/user.php:40 admin/user.php:54
-#: config/registry.php:312 login.php:194 templates/admin/user/update.inc:20
+#: login.php:194 admin/config/index.php:319 admin/user.php:40
+#: admin/user.php:54 config/registry.php:304
+#: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Senha"
 
@@ -2471,7 +2476,7 @@ msgstr "Informações Pessoais"
 msgid "Pets"
 msgstr "Animais de Estimação"
 
-#: config/registry.php:328
+#: config/registry.php:325
 msgid "Photos"
 msgstr "Fotos"
 
@@ -3248,7 +3253,7 @@ msgstr "Dia Nublado"
 msgid "Tango Blue"
 msgstr "Azul Tango"
 
-#: config/registry.php:165
+#: config/registry.php:160
 msgid "Tasks"
 msgstr "Tarefas"
 
@@ -3371,7 +3376,7 @@ msgstr "A solicitação de registro de \"%s\" foi excluída."
 msgid "The signup request for user \"%s\" has been removed."
 msgstr "A solicitação de assinatura para o usuário \"%s\" foi removida."
 
-#: lib/LoginTasks/Task/AdminCheck.php:60
+#: lib/LoginTasks/Task/AdminCheck.php:47
 msgid ""
 "The test script is currently enabled. For security reasons, disable test "
 "scripts when you are done testing (see horde/docs/INSTALL)."
@@ -3394,7 +3399,7 @@ msgstr "O usuário \"%s\" não existe."
 msgid "Themes directory \"%s\" not found."
 msgstr "O diretório de temas \"%s\" não foi encontrado."
 
-#: admin/signup_confirm.php:74 admin/user.php:89 signup.php:38 signup.php:59
+#: signup.php:38 signup.php:59 admin/signup_confirm.php:74 admin/user.php:89
 #, php-format
 msgid "There was a problem adding \"%s\" to the system: %s"
 msgstr "Houve um problema adicionando \"%s\" ao sistema: %s"
@@ -3464,11 +3469,11 @@ msgstr "Este número de identificação VAT é válido."
 msgid "Thunder"
 msgstr "Ráio"
 
-#: config/registry.php:231
+#: config/registry.php:224
 msgid "Tickets"
 msgstr "Bilhetes"
 
-#: config/registry.php:270
+#: config/registry.php:263
 msgid "Time Tracking"
 msgstr "Acompanhamento de Horário"
 
@@ -3659,11 +3664,11 @@ msgstr "Nome do Usuário"
 msgid "User Registration"
 msgstr "Registro de Usuários"
 
-#: admin/signup_confirm.php:18 signup.php:19
+#: signup.php:19 admin/signup_confirm.php:18
 msgid "User Registration has been disabled for this site."
 msgstr "Registro de Usuários está desabilitado neste site."
 
-#: admin/signup_confirm.php:25 signup.php:27
+#: signup.php:27 admin/signup_confirm.php:25
 msgid "User Registration is not properly configured for this site."
 msgstr "Registro de Usuários não está devidamente configurado neste site."
 
@@ -3675,8 +3680,8 @@ msgstr "Conta de usuário não encontrada"
 msgid "User to add:"
 msgstr "Usuário a adicionar:"
 
-#: admin/config/index.php:318 admin/user.php:37 admin/user.php:53
-#: login.php:189 services/resetpassword.php:29
+#: login.php:189 admin/config/index.php:318 admin/user.php:37
+#: admin/user.php:53 services/resetpassword.php:29
 #: templates/admin/user/approve.inc:22
 msgid "Username"
 msgstr "Nome do usuário"
@@ -3713,7 +3718,7 @@ msgstr "Variável"
 msgid "Version Check"
 msgstr "Verificar Versão"
 
-#: config/registry.php:220
+#: config/registry.php:213
 msgid "Version Control"
 msgstr "Controle de Versão"
 
@@ -3749,7 +3754,7 @@ msgstr "Previsão do Tempo"
 msgid "Weather data provided by"
 msgstr "Dados do Clima fornecido por"
 
-#: config/registry.php:317
+#: config/registry.php:309
 msgid "Web Site"
 msgstr "Site da Web"
 
@@ -3783,7 +3788,7 @@ msgstr "No que você está trabalhando agora?"
 msgid "What is the delimiter character?"
 msgstr "Qual o caractere delimitador?"
 
-#: templates/data/csvinfo.inc:17
+#: templates/data/csvinfo.inc:16
 msgid "What is the quote character?"
 msgstr "Qual o caractere de citação?"
 
@@ -3805,7 +3810,7 @@ msgstr "Quais fases"
 msgid "Width of the %s menu on the left:"
 msgstr "Largura do Menu %s à esquerda:"
 
-#: config/registry.php:334
+#: config/registry.php:331
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -3849,7 +3854,7 @@ msgstr "Sabedoria"
 msgid "Work"
 msgstr "Trabalho"
 
-#: config/registry.php:243
+#: config/registry.php:236
 msgid "X-Ref"
 msgstr "X-Ref"
 

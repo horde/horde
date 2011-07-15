@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-06-12 23:42-0300\n"
+"POT-Creation-Date: 2011-07-05 15:39+0200\n"
 "PO-Revision-Date: 2011-06-13 21:15-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
@@ -81,7 +81,7 @@ msgstr "%s a %s de %s"
 msgid "<< Merge this into the first contact"
 msgstr "<< Mesclar este com o primeiro contato"
 
-#: lib/Block/Minisearch.php:61
+#: lib/Block/Minisearch.php:59
 msgid "A browser that supports iframes is required"
 msgstr "É necessário um navegador que suporte iFrames"
 
@@ -111,7 +111,7 @@ msgstr[0] ""
 msgstr[1] ""
 "Adicionados ou atualizados %d contatos, mas pelo menos um contato falhou:"
 
-#: lib/Driver.php:2721
+#: lib/Driver.php:2731
 msgid "Adding contacts is not available."
 msgstr "Adicionar contatos não está disponível."
 
@@ -131,7 +131,7 @@ msgstr "Listagem de Contatos"
 msgid "Address Books"
 msgstr "Contatos"
 
-#: lib/Turba.php:597
+#: lib/Turba.php:623
 #, php-format
 msgid "Address book of %s"
 msgstr "Contatos de %s"
@@ -168,12 +168,12 @@ msgstr "Celebrações"
 msgid "Anniversary"
 msgstr "Celebração"
 
-#: lib/Turba.php:643
+#: lib/Turba.php:669
 #, php-format
 msgid "Are you sure that you want to delete %s?"
 msgstr "Deseja realmente excluir %s?"
 
-#: lib/Turba.php:648
+#: lib/Turba.php:674
 msgid "Are you sure that you want to delete the selected contacts?"
 msgstr "Deseja realmente excluir os contatos selecionados?"
 
@@ -328,7 +328,7 @@ msgstr "Endereço Comum"
 msgid "Common Video Call"
 msgstr "Video Conferência Comum"
 
-#: config/backends.php:318
+#: config/backends.php:324
 msgid "Communications"
 msgstr "Comunicações"
 
@@ -405,12 +405,12 @@ msgstr "Excluir %s"
 msgid "Delete denied."
 msgstr "Exclusão negada."
 
-#: lib/Driver/Ldap.php:326
+#: lib/Driver/Ldap.php:327
 #, php-format
 msgid "Delete failed: (%s) %s"
 msgstr "A exclusão falhou: (%s) %s"
 
-#: lib/Driver.php:2734
+#: lib/Driver.php:2744
 msgid "Deleting contacts is not available."
 msgstr "Exclusão de contatos não está disponível."
 
@@ -533,7 +533,7 @@ msgstr "Exportar somente os contatos selecionados."
 msgid "Export the following address book completely."
 msgstr "Exportar os seguintes contatos completamente."
 
-#: config/backends.php:629
+#: config/backends.php:635
 msgid "Facebook Friends"
 msgstr "Amigos do Facebook"
 
@@ -546,7 +546,7 @@ msgstr "Falha ao adicionar %s em %s: %s"
 msgid "Failed to browse list"
 msgstr "Falha ao exibir a listagem"
 
-#: lib/Driver/Ldap.php:367
+#: lib/Driver/Ldap.php:368
 #, php-format
 msgid "Failed to change name: (%s) %s; Old DN = %s, New DN = %s, Root = %s"
 msgstr ""
@@ -566,7 +566,7 @@ msgstr "Falha ao procurar nos contatos"
 msgid "Failed to search the directory: %s"
 msgstr "Falhou em pesquisar no diretório: %s"
 
-#: config/backends.php:598
+#: config/backends.php:604
 msgid "Favourite Recipients"
 msgstr "Destinatários Favoritos"
 
@@ -672,7 +672,7 @@ msgstr "Video Conferência (Residencial)"
 msgid "Home Website URL"
 msgstr "URL do Website (Residencial)"
 
-#: config/backends.php:753
+#: config/backends.php:757
 msgid "IMSP"
 msgstr "IMSP"
 
@@ -716,7 +716,7 @@ msgstr "E-mail inválido"
 msgid "Invalid entry"
 msgstr "Registro inválido"
 
-#: lib/Driver/Ldap.php:322
+#: lib/Driver/Ldap.php:323
 msgid "Invalid key specified."
 msgstr "Chave especificada inválida."
 
@@ -767,7 +767,7 @@ msgstr "Latitude"
 msgid "List"
 msgstr "Lista"
 
-#: config/backends.php:313
+#: config/backends.php:319
 msgid "Location"
 msgstr "Localização"
 
@@ -815,7 +815,7 @@ msgstr "Número máximo de páginas"
 msgid "Middle Names"
 msgstr "Nomes do Meio"
 
-#: lib/Driver/Ldap.php:360
+#: lib/Driver/Ldap.php:361
 msgid "Missing DN in LDAP source configuration."
 msgstr "DN faltando na fonte de configuração de LDAP."
 
@@ -823,7 +823,7 @@ msgstr "DN faltando na fonte de configuração de LDAP."
 msgid "Mobile Phone"
 msgstr "Telefone Celular"
 
-#: lib/Driver/Ldap.php:388 lib/Driver/Ldap.php:404
+#: lib/Driver/Ldap.php:389 lib/Driver/Ldap.php:405
 #, php-format
 msgid "Modify failed: (%s) %s"
 msgstr "A alteração falhou: (%s) %s"
@@ -855,7 +855,7 @@ msgid ""
 msgstr ""
 "Múltiplas pessoas com o endereço [%s], mas nenhuma com nome [%s] já existe"
 
-#: config/backends.php:471
+#: config/backends.php:477
 msgid "My Address Book"
 msgstr "Meus Contatos"
 
@@ -957,7 +957,7 @@ msgstr "Número de itens por página"
 msgid "Object not found"
 msgstr "Objeto não encontrado"
 
-#: lib/Driver/Kolab.php:458
+#: lib/Driver/Kolab.php:469
 #, php-format
 msgid "Object with UID %s does not exist!"
 msgstr "Objeto com UID %s não existe!"
@@ -974,11 +974,11 @@ msgstr "Escritório"
 msgid "Only one vcard supported."
 msgstr "Somente um vcard é suportado."
 
-#: config/backends.php:320
+#: config/backends.php:326
 msgid "Organization"
 msgstr "Profissional"
 
-#: config/backends.php:321
+#: config/backends.php:327
 msgid "Other"
 msgstr "Outro"
 
@@ -1003,7 +1003,7 @@ msgstr "Excluir este evento permanentemente?"
 msgid "Permission denied"
 msgstr "Permissão negada"
 
-#: config/backends.php:310
+#: config/backends.php:316
 msgid "Personal"
 msgstr "Pessoal"
 
@@ -1019,7 +1019,7 @@ msgstr "Tipo MIME de Foto"
 msgid "Pine Address Book"
 msgstr "Contatos Pine"
 
-#: lib/Turba.php:646
+#: lib/Turba.php:672
 msgid "Please name the new contact list:"
 msgstr "Por favor nomeie a nova lista de contatos:"
 
@@ -1028,7 +1028,7 @@ msgstr "Por favor nomeie a nova lista de contatos:"
 msgid "Previous"
 msgstr "Anterior"
 
-#: config/backends.php:560
+#: config/backends.php:566
 msgid "Private Address Book"
 msgstr "Contatos Particulares"
 
@@ -1037,12 +1037,12 @@ msgstr "Contatos Particulares"
 msgid "Query failed: (%s) %s"
 msgstr "A consulta falhou: (%s) %s"
 
-#: lib/Driver/Ldap.php:235 lib/Driver/Ldap.php:244 lib/Driver/Ldap.php:500
+#: lib/Driver/Ldap.php:235 lib/Driver/Ldap.php:244 lib/Driver/Ldap.php:501
 #, php-format
 msgid "Read failed: (%s) %s"
 msgstr "A leitura falhou: (%s) %s"
 
-#: lib/Driver.php:2709
+#: lib/Driver.php:2718
 msgid "Reading contacts is not available."
 msgstr "Leitura de contatos não está disponível."
 
@@ -1059,7 +1059,7 @@ msgstr ""
 msgid "Remove from this list"
 msgstr "Remover desta lista"
 
-#: lib/Driver.php:2759
+#: lib/Driver.php:2769
 msgid ""
 "Removing user data is not supported in the current address book storage "
 "driver."
@@ -1104,7 +1104,7 @@ msgstr "Gravar"
 msgid "Save search as a virtual address book?"
 msgstr "Gravar procura como contatos virtuais?"
 
-#: lib/Driver.php:2747
+#: lib/Driver.php:2757
 msgid "Saving contacts is not available."
 msgstr "Gravação de contatos não está disponível."
 
@@ -1132,7 +1132,7 @@ msgstr "A pesquisa falhou: %s"
 msgid "Search for: "
 msgstr "Procurar por: "
 
-#: lib/Driver.php:2692
+#: lib/Driver.php:2701
 msgid "Searching is not available."
 msgstr "Pesquisa não está disponível."
 
@@ -1197,11 +1197,11 @@ msgstr "Selecione em qual formato exibir nomes."
 msgid "Selected address book \"%s\"."
 msgstr "Contatos selecionados \"%s\"."
 
-#: config/backends.php:220
+#: config/backends.php:226
 msgid "Shared Address Books"
 msgstr "Contatos Compartilhados"
 
-#: config/backends.php:353
+#: config/backends.php:359
 msgid "Shared Directory"
 msgstr "Diretório Compartilhado"
 
@@ -1595,11 +1595,11 @@ msgstr ""
 "Você não está conectado ao Facebook. Crie uma conexão com o Facebook nas "
 "Preferências Globais."
 
-#: lib/Driver/Vbook.php:109
+#: lib/Driver/Vbook.php:111
 msgid "You cannot add new contacts to a virtual address book"
 msgstr "Você não pode adicionar novos registros em contatos virtuais"
 
-#: lib/Driver/Vbook.php:120
+#: lib/Driver/Vbook.php:122
 msgid "You cannot delete contacts from a virtual address book"
 msgstr "Você não pode apagar registros de contatos virtuais"
 
@@ -1632,11 +1632,11 @@ msgstr ""
 msgid "You must provide a name for virtual address books."
 msgstr "Você deve fornecer um nome para os contatos virtuais."
 
-#: lib/Turba.php:647
+#: lib/Turba.php:673
 msgid "You must select a target address book."
 msgstr "Você deve selecionar os contatos de destino."
 
-#: edit.php:28 lib/Turba.php:644
+#: edit.php:28 lib/Turba.php:670
 msgid "You must select at least one contact first."
 msgstr "Você deve selecionar pelo menos um contato primeiro."
 

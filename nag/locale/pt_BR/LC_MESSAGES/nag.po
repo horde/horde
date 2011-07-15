@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-06-08 22:11-0300\n"
-"PO-Revision-Date: 2011-06-13 02:37-0300\n"
+"POT-Creation-Date: 2011-07-14 00:58-0300\n"
+"PO-Revision-Date: 2011-07-14 00:59-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
 "Language: \n"
@@ -1067,8 +1067,9 @@ msgid "Task Search"
 msgstr "Pesquisa de Tarefa"
 
 #: lib/Driver/Sql.php:89
-msgid "Task UID not found"
-msgstr "UID da tarefa não encontrada"
+#, php-format
+msgid "Task UID %s not found"
+msgstr "Tarefa UID %s não encontrada"
 
 #: lib/Nag.php:887
 msgid "Task added:"
