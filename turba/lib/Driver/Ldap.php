@@ -204,7 +204,7 @@ class Turba_Driver_Ldap extends Turba_Driver
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _read($key, $ids, $owner, array $fields)
+    protected function _read($key, $ids, $owner, array $fields, array $blobFields = array())
     {
         /* Only DN. */
         if ($key != 'dn') {
@@ -336,7 +336,7 @@ class Turba_Driver_Ldap extends Turba_Driver
      * @return string  The object id, possibly updated.
      * @throw Turba_Exception
      */
-    protected function _save($object)
+    protected function _save(Turba_Object $object)
     {
         list($object_key, $object_id) = each($this->toDriverKeys(array('__key' => $object->getValue('__key'))));
         $attributes = $this->toDriverKeys($object->getAttributes());

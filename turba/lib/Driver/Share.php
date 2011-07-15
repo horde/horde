@@ -241,7 +241,7 @@ class Turba_Driver_Share extends Turba_Driver
      *
      * @return array  The list of timeobjects
      */
-    public function getTimeObjectTurbaList($start, $end, $field)
+    public function getTimeObjectTurbaList(Horde_Date $start, Horde_Date $end, $field)
     {
         return $this->_driver->getTimeObjectTurbaList($start, $end, $field);
     }
