@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
  <notes>
+* [mjr] Allow pausing and restarting timers.
 * [mjr] Add ajax view.
 * [jan] Provide default configuration files instead of .dist versions.
  </notes>
@@ -590,8 +591,9 @@
    </stability>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
    <notes>
-    * [mjr] Add ajax view.
-    * [jan] Provide default configuration files instead of .dist versions.
+* [mjr] Allow pausing and restarting timers.
+* [mjr] Add ajax view.
+* [jan] Provide default configuration files instead of .dist versions.
    </notes>
   </release>
   <release>
