@@ -125,7 +125,7 @@ class Turba
 
     /**
      */
-    function getColumns()
+    static public function getColumns()
     {
         $columns = array();
         $lines = explode("\n", $GLOBALS['prefs']->getValue('columns'));
