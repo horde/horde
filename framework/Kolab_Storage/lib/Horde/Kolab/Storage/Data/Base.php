@@ -262,14 +262,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function fetchComplete($uid)
     {
-        if (!method_exists($this->_driver, 'fetchComplete')) {
-            throw new Horde_Kolab_Storage_Exception(
-                'The backend does not support the "fetchComplete" method!'
-            );
-        }
-        return $this->_driver->fetchComplete(
-            $this->_folder->getPath(), $uid
-        );
+        return $this->_driver->fetchComplete($this->_folder->getPath(), $uid);
     }
 
     /**
@@ -282,11 +275,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function fetchPart($uid, $id)
     {
-        if (!method_exists($this->_driver, 'fetchBodypart')) {
-            throw new Horde_Kolab_Storage_Exception(
-                'The backend does not support the "fetchBodypart" method!'
-            );
-        }
         return $this->_driver->fetchBodypart(
             $this->_folder->getPath(), $uid, $id
         );
@@ -442,6 +430,50 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     public function getObjectByBackendId($uid)
     {
         return $this->fetch($this->getStamp()->ids());
+    }
+
+    /**
+     * Retrieve the list of object duplicates.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The list of duplicates.
+     */
+    public function getDuplicates()
+    {
+        $existing = array();
+        $duplicates = array();
+        $by_obid = $this->fetch($this->getStamp()->ids());
+        foreach ($by_obid as $obid => $object) {
+            if (isset($existing[$object['uid']])) {
+                if (!isset($duplicates[$object['uid']])) {
+                    $duplicates[$object['uid']][] = $existing[$object['uid']];
+                }
+                $duplicates[$object['uid']][] = $obid;
+            } else {
+                $existing[$object['uid']] = $obid;
+            }
+        }
+        return $duplicates;
+    }
+
+    /**
+     * Retrieve the list of object errors.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The list of errors.
+     */
+    public function getErrors()
+    {
+        $errors = array();
+        $by_obid = $this->fetch($this->getStamp()->ids());
+        foreach ($by_obid as $obid => $object) {
+            if ($object === false) {
+                $errors[] = $obid;
+            }
+        }
+        return $errors;
     }
 
     /**

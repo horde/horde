@@ -387,6 +387,30 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     }
 
     /**
+     * Retrieve the list of object duplicates.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The list of duplicates.
+     */
+    public function getDuplicates()
+    {
+        return $this->_data->getDuplicates();
+    }
+
+    /**
+     * Retrieve the list of object errors.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The list of errors.
+     */
+    public function getErrors()
+    {
+        return $this->_data->getErrors();
+    }
+
+    /**
      * Move the specified message from the current folder into a new
      * folder.
      *

@@ -259,6 +259,32 @@ extends Horde_Kolab_Storage_Data_Base
     }
 
     /**
+     * Retrieve the list of object duplicates.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The list of duplicates.
+     */
+    public function getDuplicates()
+    {
+        $this->_init();
+        return $this->_data_cache->getDuplicates();
+    }
+
+    /**
+     * Retrieve the list of object errors.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The list of errors.
+     */
+    public function getErrors()
+    {
+        $this->_init();
+        return $this->_data_cache->getErrors();
+    }
+
+    /**
      * Synchronize the query data with the information from the backend.
      *
      * @return NULL
