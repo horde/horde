@@ -77,8 +77,7 @@ if ($fieldform->validate($vars)) {
     try {
         $save_field = $injector->getInstance('Ulaform_Factory_Driver')->create()->saveField($info);
         $notification->push(_("Field saved."), 'horde.success');
-        header('Location: ' . Horde::url('fields.php', true)->add('form_id', $info['form_id']));
-        exit;
+        Horde::url('fields.php', true)->add('form_id', $info['form_id'])->redirect();
     } catch (Horde_Exception $e) {
         $notification->push(sprintf(_("Error saving field. %s."), $e->getMessage()), 'horde.error');
     }
@@ -95,8 +94,7 @@ try {
     /* Go back to forms if inexistant form_id, permission denied or another
      * error. */
     $notification->push($e->getMessage(), 'horde.error');
-    header('Location: ' . Horde::url('forms.php', true));
-    exit;
+    Horde::url('forms.php', true)->redirect();
 }
 
 /* Set up the template. */

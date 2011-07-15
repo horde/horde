@@ -36,8 +36,7 @@ if ($formname) {
         try {
             $sort = $injector->getInstance('Ulaform_Factory_Driver')->create()->sortFields($info);
             $notification->push(_("Field sort order saved."), 'horde.success');
-            header('Location: ' . Horde::url('fields.php', true)->add('form_id', $form_id));
-            exit;
+            Horde::url('fields.php', true)->add('form_id', $form_id)->redirect();
         } catch (Horde_Exception $e) {
             $notification->push(sprintf(_("Error saving fields. %s."), $e->getMessage()), 'horde.error');
         }

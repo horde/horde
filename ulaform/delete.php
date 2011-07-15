@@ -35,16 +35,14 @@ if ($form_submit == _("Delete")) {
         try {
             $deleteform = $ulaform_driver->deleteForm($info['form_id']);
             $notification->push(_("Form deleted."), 'horde.success');
-            header('Location: ' . Horde::url('forms.php', true));
-            exit;
+            Horde::url('forms.php', true)->redirect();
         } catch (Ulaform_Exception $e) {
             $notification->push(sprintf(_("Error deleting form. %s."), $e->getMessage()), 'horde.error');
         }
     }
 } elseif (!empty($form_submit)) {
     $notification->push(_("Form has not been deleted."), 'horde.message');
-    header('Location: ' . Horde::url('forms.php', true));
-    exit;
+    Horde::url('forms.php', true)->redirect();
 }
 
 /* Render the form. */
