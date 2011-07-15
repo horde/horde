@@ -59,7 +59,7 @@ class Turba
      *
      * @return array  An array describing the order to display the address books.
      */
-    function getAddressBookOrder()
+    static public function getAddressBookOrder()
     {
         $lines = json_decode($GLOBALS['prefs']->getValue('addressbooks'));
         $addressbooks = array();
