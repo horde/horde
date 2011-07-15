@@ -10,8 +10,8 @@
   <email>wrobel@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-12</date>
- <time>14:25:54</time>
+ <date>2011-07-12</date>
+ <time>12:01:41</time>
  <version>
   <release>4.0.0alpha1</release>
   <api>4.0.0alpha1</api>
@@ -26,23 +26,38 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="kolab-webmail-install" role="script" />
+   </dir> <!-- /bin -->
    <dir name="config">
     <dir name="conf.d">
-     <file name="20-kolab.php" role="horde" />
-     <file name="30-kolab-server.php" role="horde" />
+     <file name="20-kolab.xml" role="horde" />
     </dir> <!-- /config/conf.d -->
+    <dir name="prefs.d">
+     <file name="10-webmail.php" role="horde" />
+     <file name="20-kolab.php" role="horde" />
+    </dir> <!-- /config/prefs.d -->
     <dir name="registry.d">
      <file name="20-kolab.php" role="horde" />
     </dir> <!-- /config/registry.d -->
+    <file name="hooks.php" role="horde" />
    </dir> <!-- /config -->
+   <dir name="docs">
+    <file name="TODO" role="doc" />
+   </dir> <!-- /docs -->
    <dir name="imp">
     <dir name="config">
      <dir name="backends.d">
       <file name="20-kolab.php" role="horde" />
      </dir> <!-- /imp/config/backends.d -->
      <dir name="conf.d">
+      <file name="10-webmail.xml" role="horde" />
       <file name="20-kolab.php" role="horde" />
      </dir> <!-- /imp/config/conf.d -->
+     <dir name="prefs.d">
+      <file name="10-webmail.php" role="horde" />
+     </dir> <!-- /imp/config/prefs.d -->
+     <file name="hooks.php" role="horde" />
     </dir> <!-- /imp/config -->
    </dir> <!-- /imp -->
    <dir name="ingo">
@@ -82,7 +97,8 @@
       <file name="20-kolab.php" role="horde" />
      </dir> <!-- /turba/config/backends.d -->
      <dir name="conf.d">
-      <file name="20-kolab.php" role="horde" />
+      <file name="10-webmail.xml" role="horde" />
+      <file name="20-kolab.xml" role="horde" />
      </dir> <!-- /turba/config/conf.d -->
     </dir> <!-- /turba/config -->
    </dir> <!-- /turba -->
@@ -98,11 +114,118 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>groupware</name>
+    <channel>pear.horde.org</channel>
+    <conflicts/>
+   </package>
+   <package>
     <name>webmail</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0dev1</min>
+    <conflicts/>
+   </package>
+   <package>
+    <name>content</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>horde</name>
+    <channel>pear.horde.org</channel>
+    <min>4.0.7</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
+   </package>
+   <package>
+    <name>imp</name>
+    <channel>pear.horde.org</channel>
+    <min>5.0.8</min>
+    <max>6.0.0</max>
+    <exclude>6.0.0</exclude>
+   </package>
+   <package>
+    <name>ingo</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.3</min>
+    <max>3.0.0</max>
+    <exclude>3.0.0</exclude>
+   </package>
+   <package>
+    <name>kronolith</name>
+    <channel>pear.horde.org</channel>
+    <min>3.0.5</min>
+    <max>4.0.0</max>
+    <exclude>4.0.0</exclude>
+   </package>
+   <package>
+    <name>mnemo</name>
+    <channel>pear.horde.org</channel>
+    <min>3.0.1</min>
+    <max>4.0.0</max>
+    <exclude>4.0.0</exclude>
+   </package>
+   <package>
+    <name>nag</name>
+    <channel>pear.horde.org</channel>
+    <min>3.0.2</min>
+    <max>4.0.0</max>
+    <exclude>4.0.0</exclude>
+   </package>
+   <package>
+    <name>timeobjects</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>turba</name>
+    <channel>pear.horde.org</channel>
+    <min>3.0.4</min>
+    <max>4.0.0</max>
+    <exclude>4.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Kolab_Server</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Kolab_Session</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Kolab_Storage</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Ldap</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Net_SMTP</name>
+    <channel>pear.php.net</channel>
+    <min>1.6.0</min>
+   </package>
+   <package>
+    <name>Net_Sieve</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Auth_SASL</name>
+    <channel>pear.php.net</channel>
    </package>
   </required>
  </dependencies>
@@ -113,19 +236,27 @@
  </usesrole>
  <phprelease>
   <filelist>
-   <install as="config/conf.d/20-kolab.php" name="config/conf.d/20-kolab.php" />
-   <install as="config/conf.d/30-kolab-server.php" name="config/conf.d/30-kolab-server.php" />
+   <install as="kolab-webmail-install" name="bin/kolab-webmail-install" />
+   <install as="config/hooks.php" name="config/hooks.php" />
+   <install as="config/conf.d/20-kolab.xml" name="config/conf.d/20-kolab.xml" />
+   <install as="config/prefs.d/10-webmail.php" name="config/prefs.d/10-webmail.php" />
+   <install as="config/prefs.d/20-kolab.php" name="config/prefs.d/20-kolab.php" />
    <install as="config/registry.d/20-kolab.php" name="config/registry.d/20-kolab.php" />
+   <install as="TODO" name="docs/TODO" />
+   <install as="imp/config/hooks.php" name="imp/config/hooks.php" />
    <install as="imp/config/backends.d/20-kolab.php" name="imp/config/backends.d/20-kolab.php" />
+   <install as="imp/config/conf.d/10-webmail.xml" name="imp/config/conf.d/10-webmail.xml" />
    <install as="imp/config/conf.d/20-kolab.php" name="imp/config/conf.d/20-kolab.php" />
+   <install as="imp/config/prefs.d/10-webmail.php" name="imp/config/prefs.d/10-webmail.php" />
    <install as="ingo/config/backends.d/20-kolab.php" name="ingo/config/backends.d/20-kolab.php" />
    <install as="kronolith/config/conf.d/20-kolab.php" name="kronolith/config/conf.d/20-kolab.php" />
    <install as="lib/Bundle.php" name="lib/Bundle.php" />
    <install as="mnemo/config/conf.d/20-kolab.php" name="mnemo/config/conf.d/20-kolab.php" />
    <install as="nag/config/conf.d/20-kolab.php" name="nag/config/conf.d/20-kolab.php" />
    <install as="turba/config/backends.d/20-kolab.php" name="turba/config/backends.d/20-kolab.php" />
-   <install as="turba/config/conf.d/20-kolab.php" name="turba/config/conf.d/20-kolab.php" />
+   <install as="turba/config/conf.d/10-webmail.xml" name="turba/config/conf.d/10-webmail.xml" />
    <install as="COPYING" name="COPYING" />
+   <install as="turba/config/conf.d/20-kolab.xml" name="turba/config/conf.d/20-kolab.xml" />
   </filelist>
  </phprelease>
  <changelog>
@@ -138,7 +269,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-05-12</date>
+   <date>2011-07-12</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GPLv2</license>
    <notes>
 * First release candidate of Horde Kolab Edition 4.0.
