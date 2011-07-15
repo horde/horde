@@ -459,4 +459,61 @@ class Hermes
         return ($mode == 'dynamic' || ($prefs->getValue('dynamic_view') && $mode == 'auto')) && Horde::ajaxAvailable();
     }
 
+    /**
+     * Create a new timer and save it to storage.
+     *
+     * @param string $description  The timer description.
+     *
+     * @return integer  The timer id.
+     */
+    public static function newTimer($description)
+    {
+        $now = time();
+        $timer = array(
+            'name' => $description,
+            'time' => $now,
+            'paused' => false,
+            'elapsed' => 0);
+
+        self::updateTimer($now, $timer);
+
+        return $now;
+    }
+
+    public static function getTimer($id)
+    {
+        global $prefs;
+
+        $timers = $prefs->getValue('running_timers');
+        if (!empty($timers)) {
+            $timers = @unserialize($timers);
+        } else {
+            $timers = array();
+        }
+
+        if (empty($timers[$id])) {
+            return false;
+        }
+
+        return $timers[$id];
+    }
+
+    public static function clearTimer($id)
+    {
+        global $prefs;
+
+        $timers = unserialize($prefs->getValue('running_timers'));
+        unset($timers[$id]);
+        $prefs->setValue('running_timers', serialize($timers));
+    }
+
+    public static function updateTimer($id, $timer)
+    {
+         global $prefs;
+
+         $timers = unserialize($prefs->getValue('running_timers'));
+         $timers[$id] = $timer;
+         $prefs->setValue('running_timers', serialize($timers));
+    }
+
 }
