@@ -45,7 +45,7 @@ extends Horde_Kolab_Storage_Folder_Namespace_Element
      *
      * @param string $name The name of the folder.
      *
-     * @return string The owner of the folder.
+     * @return string|boolean The owner of the folder.
      */
     public function getOwner($name)
     {
