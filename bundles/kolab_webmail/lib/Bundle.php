@@ -41,7 +41,6 @@ class Horde_Bundle extends Horde_Core_Bundle
         $vars->problems__email = 'postmaster@' . $maildomain;
         $vars->problems__maildomain = $maildomain;
         $vars->kolab__enabled = 'true';
-        $vars->kolab__primary_domain = $maildomain;
         $vars->kolab__ldap__server = 'ldap://' . $host . ':389';
         $vars->kolab__ldap__hostname = $host;
         $vars->kolab__ldap__port = '389';
