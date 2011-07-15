@@ -1300,7 +1300,7 @@ HermesCore = {
         this.doAction('listTimers', [], this.listTimersCallback.bind(this));
 
         /* Start polling. */
-        new PeriodicalExecuter(this.doAction.bind(this, 'poll'), 10);
+        new PeriodicalExecuter(this.doAction.bind(this, 'poll'), 120);
         document.observe('Horde_Calendar:select', HermesCore.datePickerHandler.bindAsEventListener(HermesCore));
         Event.observe(window, 'resize', this.onResize.bind(this));
     }
