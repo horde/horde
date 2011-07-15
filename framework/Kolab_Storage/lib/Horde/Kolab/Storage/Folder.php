@@ -46,11 +46,20 @@ interface Horde_Kolab_Storage_Folder
     public function getTitle();
 
     /**
-     * Return the namespace of the folder.
+     * Return the namespace type of the folder.
      *
-     * @return string The namespace of the folder.
+     * @return string The namespace type of the folder.
      */
     public function getNamespace();
+
+    /**
+     * Return the namespace prefix of the folder.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return string The namespace prefix of the folder.
+     */
+    public function getPrefix();
 
     /**
      * Returns the owner of the folder.

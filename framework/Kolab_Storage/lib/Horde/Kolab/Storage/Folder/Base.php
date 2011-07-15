@@ -120,9 +120,9 @@ implements Horde_Kolab_Storage_Folder
     }
 
     /**
-     * Return the namespace of the folder.
+     * Return the namespace type of the folder.
      *
-     * @return string The namespace of the folder.
+     * @return string The namespace type of the folder.
      */
     public function getNamespace()
     {
