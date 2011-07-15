@@ -594,7 +594,6 @@ HermesCore = {
 
     listTimersCallback: function(r)
     {
-
         var timers = r.response;
         for (var i = 0; i < timers.length; i++) {
             this.insertTimer(timers[i], timers[i].name);
@@ -749,7 +748,7 @@ HermesCore = {
         t.appear({ duration: this.effectDur, queue: 'end' });
         this.onResize();
         this.updateTimeSummary();
-                // Init the quickfinder now that we have a list of children.
+        // Init the quickfinder now that we have a list of children.
         $$('input').each(QuickFinder.attachBehavior.bind(QuickFinder));
     },
 
