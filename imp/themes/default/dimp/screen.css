@@ -1013,7 +1013,7 @@ span.dimpactionResume {
 #ctx_folder_delete span.iconImg, #ctx_vfolder_delete span.iconImg {
     background-image: url("../graphics/folders/delete.png");
 }
-#ctx_folder_export span.iconImg, #ctx_folder_import span.iconImg {
+#ctx_folder_export span.iconImg, #ctx_folder_import span.iconImg, #msg_save span.iconImg {
     background-image: url("../graphics/download.png");
 }
 #ctx_message_spam span.iconImg {

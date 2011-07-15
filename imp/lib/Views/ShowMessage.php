@@ -71,6 +71,7 @@ class IMP_Views_ShowMessage
      * 'log' - Log information
      * 'mailbox' - The IMAP mailbox
      * 'msgtext' - The text of the message
+     * 'save_as' - The save link
      * 'subject' - The subject
      * 'to' - The To addresses
      * 'uid' - The IMAP UID
@@ -84,7 +85,6 @@ class IMP_Views_ShowMessage
      * 'list_info' - List information.
      * 'priority' - The priority of the message ('low', 'high', 'normal')
      * 'replyTo' - The Reply-to addresses
-     * 'save_as' - The save link
      * 'title' - The title of the page
      * </pre>
      */
@@ -309,6 +309,8 @@ class IMP_Views_ShowMessage
             $result['atc_list'] = $tmp;
         }
 
+        $result['save_as'] = Horde::downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), $mailbox->urlParams($uid)));
+
         if ($preview) {
             try {
                 $res = Horde::callHook('dimp_previewview', array($result), 'imp');
@@ -324,13 +326,14 @@ class IMP_Views_ShowMessage
             if ($js_inline = Horde::endBuffer()) {
                 $result['js'][] = $js_inline;
             }
+
+            $result['save_as'] = strval($result['save_as']->setRaw(true));
         } else {
             try {
                 $result = Horde::callHook('dimp_messageview', array($result), 'imp');
             } catch (Horde_Exception_HookNotSet $e) {}
 
             $result['list_info'] = $imp_ui->getListInformation($mime_headers);
-            $result['save_as'] = Horde::downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), $mailbox->urlParams($uid)));
         }
 
         if (empty($result['js'])) {
