@@ -577,10 +577,29 @@ abstract class Kronolith_Event
         }
 
         $vEvent->setAttribute('SUMMARY', $this->getTitle());
+
+        // Organizer
         $name = Kronolith::getUserName($this->creator);
-        $vEvent->setAttribute('ORGANIZER',
-                              'mailto:' . Kronolith::getUserEmail($this->creator),
-                              array('CN' => $name));
+        $email = Kronolith::getUserEmail($this->creator);
+        $params = array();
+        if ($v1) {
+            if (!empty($name)) {
+                if (!empty($email)) {
+                    $email = ' <' . $email . '>';
+                }
+                $email = $name . $email;
+                $email = Horde_Mime_Address::trimAddress($email);
+            }
+        } else {
+            if (!empty($name)) {
+                $params['CN'] = $name;
+            }
+            if (!empty($email)) {
+                $email = 'mailto:' . $email;
+            }
+        }
+        $vEvent->setAttribute('ORGANIZER', $email, $params);
+
         if (!$this->private || $this->creator == $GLOBALS['registry']->getAuth()) {
             if (!empty($this->description)) {
                 $vEvent->setAttribute('DESCRIPTION', $this->description);

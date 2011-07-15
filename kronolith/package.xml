@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [jan] Fix organizer attribute when exporting to vCalendar 1.0.
 * [mjr] Fix issue that prevented synching when no sync_calendar pref was set (Bug #10329).
  </notes>
  <contents>
@@ -1812,6 +1813,7 @@
    <date>2011-07-05</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [jan] Fix organizer attribute when exporting to vCalendar 1.0.
 * [mjr] Fix issue that prevented synching when no sync_calendar pref was set (Bug #10329).
    </notes>
   </release>
