@@ -2,6 +2,7 @@
 v2.0-cvs
 --------
 
+[mjr] Allow pausing and restarting timers.
 [mjr] Add ajax view.
 [jan] Provide default configuration files instead of .dist versions.
 
@@ -26,7 +27,7 @@ v1.0
 ----
 
 [jan] Go back to search results after editing time slices from there
-      (mail@dunix-data.de, Request #7012).    
+      (mail@dunix-data.de, Request #7012).
 [jan] Check permissions when displaying time slice forms (mail@dunix-data.de,
       Bug #7027).
 [jan] Fix index for table hermes_deliverables (Bug #7001).
