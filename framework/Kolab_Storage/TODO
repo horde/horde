@@ -2,6 +2,9 @@
  Kolab_Storage Development TODO List
 =====================================
 
+ - Change synchronization machinery so that it does not only synchronize one
+   data type but all data types in a folder.
+
  - Handle TLS/SSL accross all drivers (see also the Storage factory in Core).
 
  - Readd history updates
@@ -16,7 +19,11 @@
 
  - Fix the triggering decorator
 
+ - Consider quick triggering (https://bugzilla.kolabsys.com/show_bug.cgi?id=127)
+
  - allow cli config file overriden by cli params
+
+ - Error handling (exception catching/throwing)
 
  - Multi-Host support
 
@@ -41,3 +48,9 @@
  - Do not overwrite the previous XML part (should only be modified)
 
  - Split the "Driver" part into a separate package.
+
+ - Common folder listing UI: http://wiki.kolab.org/UI-Concepts/Folder-Listing
+
+ - Check http://evolution-kolab.git.sourceforge.net/git/gitweb.cgi?p=evolution-kolab/evolution-kolab;a=blob;f=src/libekolab/kolab-mail-synchronizer.c;h=3eea832b3bb82b29f5f391f1b71dd0fa8cb8d2c0;hb=4d49c76e1d2f89ee6c6676b0aabeada9ce076eed
+
+ - Check http://sourceforge.net/apps/mediawiki/evolution-kolab/index.php?title=Conversion_Issues
