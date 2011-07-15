@@ -259,17 +259,28 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testExceptionOnDuplicate()
+    public function testDuplicates()
     {
-        $this->_getSyncedCacheWithMoreData()
-            ->store(
-                array('3' => array('uid' => 'test')),
-                new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
-                '1'
-            );
+        $cache = $this->_getSyncedCacheWithMoreData();
+        $cache->store(
+            array('3' => array('uid' => 'test')),
+            new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
+            '1'
+        );
+        $this->assertEquals(
+            array('test' => array(1, 3)), $cache->getDuplicates()
+        );
+    }
+
+    public function testErrors()
+    {
+        $cache = $this->_getSyncedCacheWithMoreData();
+        $cache->store(
+            array('3' => false),
+            new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
+            '1'
+        );
+        $this->assertEquals(array(3), $cache->getErrors());
     }
 
     /**
