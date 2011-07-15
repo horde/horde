@@ -5,13 +5,6 @@ $cfgSources = array();
 /* Only use LDAP if we have that extension in PHP */
 if (function_exists('ldap_connect')) {
 
-    if (true || !is_callable('Kolab', 'getServer')) {
-        $_kolab_server = $GLOBALS['conf']['kolab']['ldap']['hostname'];
-    } else {
-        //@todo: switch to session handler.
-        //$_kolab_server = Kolab::getServer('ldap');
-    }
-
     /* A global address book for a Kolab Server. This is typically a
      * read-only public directory, stored in the default Kolab LDAP server.
      * The user accessing this should have read permissions to the shared
@@ -22,7 +15,7 @@ if (function_exists('ldap_connect')) {
         'title' => _("Global Address Book"),
         'type' => 'ldap',
         'params' => array(
-            'server' => $_kolab_server,
+            'server' => $GLOBALS['conf']['kolab']['ldap']['server'],
             'port' => $GLOBALS['conf']['kolab']['ldap']['port'],
             'tls' => false,
             'root' => $GLOBALS['conf']['kolab']['ldap']['basedn'],

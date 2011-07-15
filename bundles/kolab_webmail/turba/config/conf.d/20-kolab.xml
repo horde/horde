@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- $Id$ -->
+<configuration>
+ <configsection name="shares">
+  <configstring name="source" desc="Name of source for creating new
+  shares.&lt;br /&gt; Note that leaving this blank will prevent users from
+  being able to create new address books."
+  required="false">Kolab</configstring>
+ </configsection>
+</configuration>
