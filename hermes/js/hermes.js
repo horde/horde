@@ -1236,14 +1236,14 @@ HermesCore = {
     {
         // Update timers.
         if(r.response) {
-            $H(r.response).each(function(pair) {
-                var t = pair.value;
+            for (var i = 0; i < r.response.length; i++) {
+                var t = r.response[i];
                 $('hermesMenuTimers').select('.hermesMenuItem').each(function(elt) {
                     if (elt.down('.hermesStopTimer').up().retrieve('tid') == t['id']) {
                         elt.down('.hermesTimerLabel').update(t.name + ' (' + t.e + ' hours)');
                     }
                 });
-            });
+            }
         }
     },
 
