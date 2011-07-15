@@ -1,0 +1,5 @@
+
+ - No immediate Horde_Ldap connection on class constructions
+ - Ensure a missing "nobody" user does not obstruct login.
+ - 
+ - Free/busy triggering should potentially timeout very early.
