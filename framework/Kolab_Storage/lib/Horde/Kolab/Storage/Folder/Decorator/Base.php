@@ -22,7 +22,7 @@
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Kolab_Storage
  */
-class Horde_Kolab_Storage_Folder_Decorator_Base
+abstract class Horde_Kolab_Storage_Folder_Decorator_Base
 implements Horde_Kolab_Storage_Folder
 {
 
