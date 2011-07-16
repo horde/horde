@@ -22,7 +22,7 @@
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Kolab_Storage
  */
-abstract class Horde_Kolab_Storage_Folder_Decorator_Base
+class Horde_Kolab_Storage_Folder_Decorator_Base
 implements Horde_Kolab_Storage_Folder
 {
 
@@ -71,6 +71,18 @@ implements Horde_Kolab_Storage_Folder
     public function getNamespace()
     {
         return $this->_folder->getNamespace();
+    }
+
+    /**
+     * Return the namespace prefix of the folder.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return string The namespace prefix of the folder.
+     */
+    public function getPrefix()
+    {
+        return $this->_folder->getPrefix();
     }
 
     /**
