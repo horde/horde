@@ -502,7 +502,9 @@ class Horde_Share_Kolab extends Horde_Share_Base
         $result = array();
         foreach ($shares as $share) {
             $object = $this->_getShareById($share);
-            if ($object->get('owner') === null) {
+            //@todo: Remove "null" check as this is only required for BC
+            if ($object->get('owner') === false ||
+                $object->get('owner') === null) {
                 $result[$object->getName()] = $object;
             }
         }
