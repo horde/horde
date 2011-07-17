@@ -47,7 +47,7 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
     /**
      * Enter a time slice
      *
-     * @return the new timeslice
+     * @return @array  The new timeslice
      */
     public function enterTime()
     {
@@ -58,8 +58,8 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
             $id = $GLOBALS['injector']->getInstance('Hermes_Driver')->enterTime($employee, $slice);
             $new = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours(array('id' => $id));
             $GLOBALS['notification']->push(_("Your time was successfully entered."), 'horde.success');
-            return current($new)->toJson();
 
+            return current($new)->toJson();
         } catch (Hermes_Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
         }
@@ -68,7 +68,7 @@ class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
     /**
      * Get a list of client deliverables.
      *
-     *
+     * @return array
      */
     public function listDeliverables()
     {
