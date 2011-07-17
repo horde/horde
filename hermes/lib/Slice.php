@@ -61,7 +61,8 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
         $this->_properties['billable'] = Horde_Util::getPost('billable') ? 1 : 0;
 
         // Optional
-        $this->_properties['client'] = Horde_Util::getPost('client');
+        $client = Horde_Util::getPost('client');
+        $this->_properties['client'] = empty($client) ? '' : $client;
         $this->_properties['type'] = Horde_Util::getPost('type');
         $this->_properties['costobject'] = Horde_Util::getPost('costobject');
         $this->_properties['note'] = Horde_Util::getPost('notes');
@@ -136,7 +137,7 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
      */
     public function offsetGet($offset)
     {
-        return empty($this->_properties[$offset]) ? null : $this->_properties[$offset];
+        return array_key_exists($offset, $this->_properties) ? $this->_properties[$offset] : null;
     }
 
     /**
