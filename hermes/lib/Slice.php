@@ -18,9 +18,9 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
      */
     protected $_properties;
 
-    public function __construct($properties = array())
+    public function __construct(array $properties = array())
     {
-        $this->_properties = $properties; //new Horde_Support_Array($properties);
+        $this->_properties = $properties;
     }
 
     /**
