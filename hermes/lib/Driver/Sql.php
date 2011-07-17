@@ -45,14 +45,16 @@ class Hermes_Driver_Sql extends Hermes_Driver
      *                          hours.
      * @param array $info       The billing information to enter. Must contain
      *                          the following entries:
-     *             'date'         The day the hours were worked (ISO format)
-     *             'client'       The id of the client the work was done for.
-     *             'type'         The type of work done.
-     *             'hours'        The number of hours worked
-     *             'rate'         The hourly rate the work was done at.
-     *             'billable'     (optional) Whether or not the work is
-     *                            billable hours.
-     *             'description'  A short description of the work.
+     *<pre>
+     *  'date'         The day the hours were worked (ISO format)
+     *  'client'       The id of the client the work was done for.
+     *  'type'         The type of work done.
+     *  'hours'        The number of hours worked
+     *  'billable'     (optional) Whether or not the work is billable hours.
+     *  'description'  A short description of the work.
+     *  'note'         Any notes.
+     *  'costobject'   The costobject id
+     *</pre>
      *
      * @return integer  The new timeslice_id of the newly entered slice
      * @throws Hermes_Exception
