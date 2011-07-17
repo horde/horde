@@ -385,49 +385,42 @@ class Hermes_Api extends Horde_Registry_Api
     }
 
     /**
-     * @TODO
+     * Record a time slice
      *
-     * @param <type> $date
-     * @param <type> $client
-     * @param <type> $jobType
-     * @param <type> $costObject
-     * @param <type> $hours
-     * @param <type> $billable
-     * @param <type> $description
-     * @param <type> $notes
+     * @param array $data  Slice attributes
+     *<pre>
+     *  date          - The slice date (required).
+     *  client        - The client id (required).
+     *  type          - The jobType id (required).
+     *  costobject    - The costObject id [none]
+     *  hours         - Number of hours (required).
+     *  billable      - Time billable? [true]
+     *  description   - Description (required)
+     *  note          - Note [blank]
+     *</pre>
+     *
      * @return <type>
      */
-    function recordTime($date, $client, $jobType,
-                                $costObject, $hours, $billable = true,
-                                $description = '', $notes = '')
+    public function recordTime(array $data)
     {
-        require_once HERMES_BASE . '/lib/Forms/Time.php';
+        $data = new Horde_Support_Array($data);
+        // Check for required
+        if (!$data->date || !$data->client || !$data->type || !$data->hours || !$data->description) {
+          throw new Hermes_Exception(_("Missing required values: check data and retry"));
+        }
 
-        $dateobj = new Horde_Date($date);
+        // Parse date
+        $dateobj = new Horde_Date($data->date);
         $date['year'] = $dateobj->year;
         $date['month'] = $dateobj->month;
         $date['day'] = $dateobj->mday;
+        $data->date = $date;
 
-        $vars = Horde_Variables::getDefaultVariables();
-        $vars->set('date', $date);
-        $vars->set('client', $client);
-        $vars->set('jobType', $jobType);
-        $vars->set('costObject', $costObject);
-        $vars->set('hours', $hours);
-        $vars->set('billable', $billable);
-        $vars->set('description', $description);
-        $vars->set('notes', $notes);
-
-        // Validate and submit the data
-        $form = new TimeEntryForm($vars);
-        $form->setSubmitted();
-        $form->useToken(false);
-        if ($form->validate($vars)) {
-            $form->getInfo($vars, $info);
-            return $GLOBALS['injector']->getInstance('Hermes_Driver')->enterTime($GLOBALS['registry']->getAuth(), $info);
-        } else {
-            throw new Hermes_Exception(_("Invalid entry: check data and retry."));
+        if (!$data->billable) {
+          $data->billable = true;
         }
+
+        return $GLOBALS['injector']->getInstance('Hermes_Driver')->enterTime($GLOBALS['registry']->getAuth(), $data);
     }
 
 }
