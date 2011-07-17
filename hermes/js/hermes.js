@@ -524,8 +524,8 @@ HermesCore = {
     saveTime: function()
     {
         if (!$F('hermesTimeFormDesc') ||
-            !$F('hermesTimeFormClient') ||
-            !$F('hermesTimeFormHours')) {
+            !$F('hermesTimeFormHours'),
+            !$F('hermesTimeFormJobtype')) {
 
             alert(Hermes.text.fix_form_values);
             return;
