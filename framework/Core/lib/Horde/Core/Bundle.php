@@ -91,7 +91,7 @@ abstract class Horde_Core_Bundle
     public function migrateDb()
     {
         $this->_cli->writeln();
-        echo 'Creating database tables...';
+        echo 'Creating and updating database tables...';
 
         $migration = new Horde_Core_Db_Migration(null, $this->_pearconf);
 
