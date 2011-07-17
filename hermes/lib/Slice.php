@@ -53,14 +53,18 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
      */
     public function readForm()
     {
-        $this->_properties['client'] = Horde_Util::getPost('client');
-        $this->_properties['type'] = Horde_Util::getPost('type');
-        $this->_properties['costobject'] = Horde_Util::getPost('costobject');
+        // Required
         $this->_properties['date'] = new Horde_Date(Horde_Util::getPost('start_date'));
         $this->_properties['hours'] = Horde_Util::getPost('hours');
         $this->_properties['description'] = Horde_Util::getPost('description');
         $this->_properties['id'] = Horde_Util::getPost('id', 0);
         $this->_properties['billable'] = Horde_Util::getPost('billable') ? 1 : 0;
+
+        // Optional
+        $this->_properties['client'] = Horde_Util::getPost('client');
+        $this->_properties['type'] = Horde_Util::getPost('type');
+        $this->_properties['costobject'] = Horde_Util::getPost('costobject');
+        $this->_properties['note'] = Horde_Util::getPost('notes');
     }
 
     /**
@@ -84,7 +88,7 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
      * b    - billable
      *</pre>
      *
-     * @return string
+     * @return array
      */
     public function toJson()
     {
