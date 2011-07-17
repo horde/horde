@@ -423,4 +423,38 @@ class Hermes_Api extends Horde_Registry_Api
         return $GLOBALS['injector']->getInstance('Hermes_Driver')->enterTime($GLOBALS['registry']->getAuth(), $data);
     }
 
+    /**
+     * Retrieve information about a costobject's hours. Includes number of hours
+     * worked on for each employee, total billed time etc...
+     *
+     * @param string $costobject  The costobject id (e.g., "whups:15").
+     *
+     * @return array  An array of data with the following structure:
+     *</pre>
+     *  employees  - an array of employee ids as keys, number of hours as values.
+     *  total      - total number of hours
+     *  billable   - total number of billable hours.
+     *</pre>
+     */
+    public function getCostObjectInfo($costobject)
+    {
+        $filter = array('costobject' => $costobject);
+        $slices = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours($filter);
+        $billable = $time = 0;
+        $employees = array();
+        foreach ($slices as $slice) {
+          $time += $slice['hours'];
+          if ($slice['billable']) {
+            $billable += $slice['hours'];
+          }
+
+          $employees[$slice['employee']] += $slice['hours'];
+        }
+
+        return array('employees' => $employees,
+                    'total' => $time,
+                    'billable' => $billable);
+
+    }
+
 }
