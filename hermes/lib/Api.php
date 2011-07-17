@@ -294,12 +294,13 @@ class Hermes_Api extends Horde_Registry_Api
     }
 
     /**
-     * @TODO
+     * listCostObjects API
      *
-     * @param <type> $criteria
-     * @return <type>
+     * @param array $criteria  The search criteria
+     *
+     * @return array  A listCostObjects result array.
      */
-    function listCostObjects($criteria)
+    public function listCostObjects($criteria)
     {
         if (!$GLOBALS['conf']['time']['deliverables']) {
             return array();
@@ -369,7 +370,7 @@ class Hermes_Api extends Horde_Registry_Api
      *
      * @return array Associative array of job types
      */
-    function listJobTypes($criteria = array())
+    public function listJobTypes($criteria = array())
     {
         return $GLOBALS['injector']->getInstance('Hermes_Driver')->listJobTypes($criteria);
     }
@@ -378,7 +379,7 @@ class Hermes_Api extends Horde_Registry_Api
      *
      * @see Hermes::listClients
      */
-    function listClients()
+    public function listClients()
     {
         return Hermes::listClients();
     }
