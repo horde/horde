@@ -43,8 +43,8 @@ class Hermes_Driver_Sql extends Hermes_Driver
      *
      * @param string $employee  The Horde ID of the person who worked the
      *                          hours.
-     * @param array $entries    The billing information to enter. Each array
-     *                          row must contain the following entries:
+     * @param array $info       The billing information to enter. Must contain
+     *                          the following entries:
      *             'date'         The day the hours were worked (ISO format)
      *             'client'       The id of the client the work was done for.
      *             'type'         The type of work done.
