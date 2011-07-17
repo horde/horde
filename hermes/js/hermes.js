@@ -576,12 +576,11 @@ HermesCore = {
             $('hermesTimerDialog').fade({ duration: this.effectDur });
         }
 
-        this.insertTimer({ 'time': r.response.id, 'e': 0 }, $F('hermesTimerTitle'));
+        this.insertTimer({ 'id': r.response.id, 'e': 0, 'paused': false }, $F('hermesTimerTitle'));
     },
 
     insertTimer: function(r, d)
     {
-        var t = r.time;
         var title = new Element('div', { 'class': 'hermesTimerLabel' }).update(
             d + ' (' + r.e + ' hours)'
         );
