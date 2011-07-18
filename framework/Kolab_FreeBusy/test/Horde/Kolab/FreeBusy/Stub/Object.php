@@ -13,4 +13,18 @@ class Horde_Kolab_FreeBusy_Stub_Object
     {
         return $this->_data[$name];
     }
+
+    public function getServer($name)
+    {
+        if (isset($this->_data['server'][$name])) {
+            return $this->_data['server'][$name];
+        } else {
+            switch ($name) {
+            case 'freebusy':
+                return 'https://localhost/freebusy';
+            default:
+                return null;
+            }
+        }
+    }
 }

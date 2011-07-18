@@ -33,32 +33,32 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  * @link       http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
 class Horde_Kolab_FreeBusy_Unit_Owner_Freebusy_KolabTest
-extends PHPUnit_Framework_TestCase
+extends Horde_Kolab_FreeBusy_TestCase
 {
     public function testGetPrimaryId()
     {
         $this->assertEquals(
-            'mail@example.org', $this->_getOwner()->getPrimaryId()
+            'mail@example.org', $this->getOwner()->getPrimaryId()
         );
     }
 
     public function testGetMail()
     {
         $this->assertEquals(
-            'mail@example.org', $this->_getOwner()->getMail()
+            'mail@example.org', $this->getOwner()->getMail()
         );
     }
 
     public function testGetName()
     {
-        $this->assertEquals('Test Test', $this->_getOwner()->getName());
+        $this->assertEquals('Test Test', $this->getOwner()->getName());
     }
 
     public function testByUid()
     {
         $this->assertEquals(
             'Test Test',
-            $this->_getDb()->getOwner('foo@example.com')->getName()
+            $this->getDb()->getOwner('foo@example.com')->getName()
         );
     }
 
@@ -66,7 +66,7 @@ extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             'Test Test',
-            $this->_getDb()->getOwner('alias@example.com')->getName()
+            $this->getDb()->getOwner('alias@example.com')->getName()
         );
     }
 
@@ -74,7 +74,7 @@ extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             'Test Test',
-            $this->_getDb()->getOwner('mail', array('domain' => 'example.org'))->getName()
+            $this->getDb()->getOwner('mail', array('domain' => 'example.org'))->getName()
         );
     }
 
@@ -82,7 +82,7 @@ extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             'Test Test',
-            $this->_getDb()->getOwner(
+            $this->getDb()->getOwner(
                 'mail',
                 array('user' => new Horde_Kolab_FreeBusy_Stub_User())
             )->getName()
@@ -96,7 +96,7 @@ extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             'Test Test',
-            $this->_getDb()->getOwner('foo', array('domain' => 'example.com'))->getName()
+            $this->getDb()->getOwner('foo', array('domain' => 'example.com'))->getName()
         );
     }
 
@@ -107,22 +107,10 @@ extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             'Test Test',
-            $this->_getDb()->getOwner('alias', array('domain' => 'example.com'))->getName()
+            $this->getDb()->getOwner('alias', array('domain' => 'example.com'))->getName()
         );
     }
 
 
     //@todo: getFreeBusy*
-
-    private function _getDb()
-    {
-        return new Horde_Kolab_FreeBusy_UserDb_Kolab(
-            new Horde_Kolab_FreeBusy_Stub_Server()
-        );
-    }
-
-    private function _getOwner($params = array())
-    {
-        return $this->_getDb()->getOwner('mail@example.org', $params);
-    }
 }

@@ -8,7 +8,15 @@ class Horde_Kolab_FreeBusy_Stub_Server extends Horde_Kolab_Server_Composite
             'mail' => 'mail@example.org',
             'cn' => 'Test Test',
             'alias' => 'alias@example.com',
-        )
+        ),
+        'dn=remote' => array(
+            'uid' => 'remote@example.com',
+            'mail' => 'remote@example.org',
+            'cn' => 'Remote',
+            'server' => array(
+                'freebusy' => 'example.com/freebusy',
+            ),
+        ),
     );
 
     public function __construct()
@@ -37,6 +45,19 @@ class Horde_Kolab_FreeBusy_Stub_Server extends Horde_Kolab_Server_Composite
                 return $key;
             }
             if (isset($user['alias']) && $user['alias'] == $id) {
+                return $key;
+            }
+        }
+        return false;
+    }
+
+    public function searchGuidForUidOrMail($id)
+    {
+        foreach ($this->_data as $key => $user) {
+            if (isset($user['uid']) && $user['uid'] == $id) {
+                return $key;
+            }
+            if (isset($user['mail']) && $user['mail'] == $id) {
                 return $key;
             }
         }

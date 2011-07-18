@@ -23,4 +23,4 @@ require_once dirname(__FILE__) . '/Stub/Server.php';
 require_once dirname(__FILE__) . '/Stub/User.php';
 
 /** Load the basic test definition */
-//require_once dirname(__FILE__) . '/TestCase.php';
+require_once dirname(__FILE__) . '/TestCase.php';
