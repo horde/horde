@@ -51,7 +51,7 @@ class IMP_Compose_Exception extends IMP_Exception
      */
     static public function createAndLog()
     {
-        $e = new self(func_get_arg(1), func_get_arg(2));
+        $e = new self(func_get_arg(1), func_num_args() == 3 ? func_get_arg(2) : null);
         $e->log(func_get_arg(0));
         return $e;
     }
