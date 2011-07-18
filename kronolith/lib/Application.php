@@ -290,6 +290,20 @@ class Kronolith_Application extends Horde_Registry_Application
                 }
             } catch (Exception $e) {}
         }
+
+        if ($GLOBALS['conf']['activesync']['enabled'] && $GLOBALS['prefs']->isDirty('sync_calendars')) {
+            try {
+                $stateMachine = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
+                $stateMachine->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
+                $devices = $stateMachine->listDevices($GLOBALS['registry']->getAuth());
+                foreach ($devices as $device) {
+                    $stateMachine->removeState(null, $device['device_id'], $GLOBALS['registry']->getAuth());
+                }
+                $GLOBALS['notification']->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
+            } catch (Horde_ActiveSync_Exception $e) {
+                $GLOBALS['notification']->push(_("There was an error communicating with the ActiveSync server: %s"), $e->getMessage(), 'horde.err');
+            }
+        }
     }
 
     /**

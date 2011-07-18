@@ -80,30 +80,5 @@ class Turba_Hooks
 //            json_encode(array_keys(Turba::getConfigFromShares(Turba::availableSources()))),
 //            array('nosave' => true));
 //    }
-     /**
-      * Called when a turba related preference is changed.
-      *
-      * If you are using ActiveSync, you should enable this hook so the user's
-      * devices can pick up changes to selected sources to sync.
-      */
-      // public function prefs_change($pref)
-      // {
-      //     switch ($pref) {
-      //     case 'sync_books':
-      //          if ($GLOBALS['conf']['activesync']['enabled']) {
-      //               try {
-      //                    $stateMachine = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
-      //                    $stateMachine->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
-      //                    $devices = $stateMachine->listDevices($GLOBALS['registry']->getAuth());
-      //                    foreach ($devices as $device) {
-      //                        $stateMachine->removeState(null, $device['device_id'], $GLOBALS['registry']->getAuth());
-      //                    }
-      //                    $GLOBALS['notification']->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
-      //               } catch (Horde_ActiveSync_Exception $e) {
-      //                    $GLOBALS['notification']->push(_("There was an error communicating with the ActiveSync server: %s"), $e->getMessage(), 'horde.err');
-      //               }
-      //          }
-      //     }
-      // }
 
 }
