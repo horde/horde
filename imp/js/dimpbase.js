@@ -1639,7 +1639,14 @@ var DimpBase = {
     getUnseenCount: function(mbox)
     {
         var elt = $(this.getFolderId(mbox));
-        return elt ? Number(elt.retrieve('u')) : 0;
+        if (elt) {
+            elt = elt.retrieve('u');
+            if (!Object.isUndefined(elt)) {
+                return Number(elt);
+            }
+        }
+
+        return elt;
     },
 
     updateUnseenStatus: function(mbox, unseen)
@@ -2123,8 +2130,8 @@ var DimpBase = {
             if (e.shiftKey && !this.isSearch(this.folder)) {
                 cnt = this.getUnseenCount(this.folder);
                 if (Object.isUndefined(cnt) || cnt) {
-                    vsel = this.viewport.getSelection();
-                    row = vsel.search({ flag: { include: DIMP.conf.FLAG_SEEN } }).get('rownum');
+                    vsel = this.viewport.createSelectionBuffer();
+                    row = vsel.search({ flag: { notinclude: DIMP.conf.FLAG_SEEN } }).get('rownum');
                     all = (vsel.size() == this.viewport.getMetaData('total_rows'));
 
                     if (all ||
