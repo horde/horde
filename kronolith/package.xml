@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mjr] Force ActiveSync device reset after sync_calendars pref is changed (Request #10342).
 * [jan] Support updating attendees from vCalendar 1.0 iTip responses.
 * [jan] Fix sending invitations to attendees from traditional view.
 * [jan] Fix organizer attribute when exporting to vCalendar 1.0.
@@ -1815,6 +1816,7 @@
    <date>2011-07-05</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mjr] Force ActiveSync device reset after sync_calendars pref is changed (Request #10342).
 * [jan] Support updating attendees from vCalendar 1.0 iTip responses.
 * [jan] Fix sending invitations to attendees from traditional view.
 * [jan] Fix organizer attribute when exporting to vCalendar 1.0.
