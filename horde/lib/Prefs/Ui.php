@@ -720,7 +720,7 @@ class Horde_Prefs_Ui
                 foreach ($devices as $device) {
                     $stateMachine->removeState(null, $device['device_id'], $GLOBALS['registry']->getAuth());
                 }
-                $GLOBALS['notification']->push(_("All state removed for your devices. They will resynchronize next time they connect to the server."));
+                $GLOBALS['notification']->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
             } elseif ($ui->vars->removedevice) {
                 $stateMachine->removeState(null, $ui->vars->removedevice, $GLOBALS['registry']->getAuth());
                 $GLOBALS['notification']->push(sprintf(_("The state for device id %s has been reset. It will resynchronize next time it connects to the server."), $ui->vars->removedevice));
