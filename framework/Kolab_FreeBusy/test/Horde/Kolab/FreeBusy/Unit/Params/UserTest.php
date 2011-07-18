@@ -35,30 +35,45 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 class Horde_Kolab_FreeBusy_Unit_Params_UserTest
 extends PHPUnit_Framework_TestCase
 {
-    public function testMethodGetidRetrievesUserNameFromServerGlobal()
+    public function testGetId()
     {
-        $_SERVER['PHP_AUTH_USER'] = 'test';
         $param = new Horde_Kolab_FreeBusy_Params_User(
-            new Horde_Controller_Request_Http(
-                array(
-                    'session_control' => 'none'
-                )
-            )
+            array('PHP_AUTH_USER' => 'test')
         );
         $this->assertEquals('test', $param->getId());
     }
 
-    public function testMethodGetcredentialsRetrievesUserCredentialsFromServerGlobal()
+    public function testGetCredentials()
     {
-        $_SERVER['PHP_AUTH_USER'] = 'test';
-        $_SERVER['PHP_AUTH_PW'] = 'pw';
         $param = new Horde_Kolab_FreeBusy_Params_User(
-            new Horde_Controller_Request_Http(
-                array(
-                    'session_control' => 'none'
-                )
+            array(
+                'PHP_AUTH_USER' => 'test',
+                'PHP_AUTH_PW' => 'pw'
             )
         );
         $this->assertEquals(array('test', 'pw'), $param->getCredentials());
     }
+
+    public function testEmpty()
+    {
+        $param = new Horde_Kolab_FreeBusy_Params_User();
+        $this->assertEquals('', $param->getId());
+    }
+
+    public function testCredentials()
+    {
+        $param = new Horde_Kolab_FreeBusy_Params_User();
+        $this->assertEquals(array('', null), $param->getCredentials());
+    }
+
+    public function testCgi()
+    {
+        $param = new Horde_Kolab_FreeBusy_Params_User(
+            array(
+                'REDIRECT_REDIRECT_REMOTE_USER' => '123456' . base64_encode('test:TEST')
+            )
+        );
+        $this->assertEquals(array('test', 'TEST'), $param->getCredentials());
+    }
+
 }

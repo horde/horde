@@ -16,7 +16,7 @@
  * This class provides the folder name requested from the free/busy system.
  *
  * Copyright 2004-2007 Klarälvdalens Datakonsult AB
- * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -30,15 +30,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
 class Horde_Kolab_FreeBusy_Params_Freebusy_Folder
-implements Horde_Kolab_FreeBusy_Params_Owner
 {
-    /**
-     * The request made to the application.
-     *
-     * @var Horde_Controller_Request_Base
-     */
-    private $_request;
-
     /**
      * The owner of the folder.
      *
@@ -56,50 +48,17 @@ implements Horde_Kolab_FreeBusy_Params_Owner
     /**
      * Constructor.
      *
-     * @param Horde_Controller_Request_Base $request The incoming request.
+     * @param string $folder_parameter The folder parameter.
      */
-    public function __construct(Horde_Controller_Request_Base $request)
+    public function __construct($folder_parameter)
     {
-        $this->_request = $request;
-    }
-
-    /**
-     * Extract the folder name from the request.
-     *
-     * @return string The requested folder.
-     */
-    public function getFolder()
-    {
-        if ($this->_folder === null) {
-            $this->_extractOwnerAndFolder();
-        }
-        return $this->_folder;
-    }
-
-    /**
-     * Extract the resource owner from the request.
-     *
-     * @return string The resource owner.
-     */
-    public function getOwner()
-    {
-        if ($this->_owner === null) {
-            $this->_extractOwnerAndFolder();
-        }
-        return $this->_owner;
-    }
-
-    /**
-     * Extract the owner and folder name from the request.
-     *
-     * @return NULL
-     */
-    private function _extractOwnerAndFolder()
-    {
-        $folder = explode('/', $this->_getFolderParameter());
+        $folder = explode('/', $folder_parameter);
         if (count($folder) < 2) {
             throw new Horde_Kolab_FreeBusy_Exception(
-                sprintf('No such folder %s', $this->_getFolderParameter())
+                sprintf(
+                    'No such folder %s. A folder must have at least two components separated by "/".',
+                    $folder_parameter
+                )
             );
         }
 
@@ -110,13 +69,22 @@ implements Horde_Kolab_FreeBusy_Params_Owner
     }
 
     /**
-     * Return the raw folder name from the request.
+     * Extract the folder name from the request.
      *
-     * @return string The folder name.
+     * @return string The requested folder.
      */
-    private function _getFolderParameter()
+    public function getFolder()
     {
-        $parameters = $this->_request->getParameters();
-        return isset($parameters['folder']) ? $parameters['folder'] : '';
+        return $this->_folder;
+    }
+
+    /**
+     * Extract the resource owner from the request.
+     *
+     * @return string The resource owner.
+     */
+    public function getOwner()
+    {
+        return $this->_owner;
     }
 }

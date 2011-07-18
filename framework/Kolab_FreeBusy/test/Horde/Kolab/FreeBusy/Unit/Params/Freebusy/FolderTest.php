@@ -35,16 +35,29 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 class Horde_Kolab_FreeBusy_Unit_Params_Freebusy_FolderTest
 extends PHPUnit_Framework_TestCase
 {
-    public function testMethodGetfolderRetrievesFolderNameFromPost()
+    public function testGetFolder()
     {
-        $_POST['folder'] = 'wrobel/test';
         $param = new Horde_Kolab_FreeBusy_Params_Freebusy_Folder(
-            new Horde_Controller_Request_Http(
-                array(
-                    'session_control' => 'none'
-                )
-            )
+            'wrobel/test'
         );
         $this->assertEquals('test', $param->getFolder());
+    }
+
+    public function testGetOwner()
+    {
+        $param = new Horde_Kolab_FreeBusy_Params_Freebusy_Folder(
+            'wrobel/test'
+        );
+        $this->assertEquals('wrobel', $param->getOwner());
+    }
+
+    /**
+     * @expectedException Horde_Kolab_FreeBusy_Exception
+     */
+    public function testInvalidFolder()
+    {
+        new Horde_Kolab_FreeBusy_Params_Freebusy_Folder(
+            'INVALID'
+        );
     }
 }

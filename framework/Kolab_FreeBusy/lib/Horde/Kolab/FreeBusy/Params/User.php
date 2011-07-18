@@ -16,7 +16,7 @@
  * This class provides the credentials for the user currently accessing
  * the export system.
  *
- * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -31,11 +31,11 @@
 class Horde_Kolab_FreeBusy_Params_User
 {
     /**
-     * The request made to the application.
+     * The request variables.
      *
-     * @var Horde_Controller_Request_Base
+     * @var array
      */
-    private $_request;
+    private $_vars;
 
     /**
      * The user id.
@@ -54,11 +54,12 @@ class Horde_Kolab_FreeBusy_Params_User
     /**
      * Constructor.
      *
-     * @param Horde_Controller_Request_Base $request The incoming request.
+     * @param array $var The request variables.
      */
-    public function __construct(Horde_Controller_Request_Base $request)
+    public function __construct($vars = array())
     {
-        $this->_request = $request;
+        $this->_vars = $vars;
+        $this->_extractUserAndPassword();
     }
 
     /**
@@ -68,9 +69,6 @@ class Horde_Kolab_FreeBusy_Params_User
      */
     public function getCredentials()
     {
-        if ($this->_user === null) {
-            $this->_extractUserAndPassword();
-        }
         return array($this->_user, $this->_pass);
     }
 
@@ -81,9 +79,6 @@ class Horde_Kolab_FreeBusy_Params_User
      */
     public function getId()
     {
-        if ($this->_user === null) {
-            $this->_extractUserAndPassword();
-        }
         return $this->_user;
     }
 
@@ -94,15 +89,16 @@ class Horde_Kolab_FreeBusy_Params_User
      */
     private function _extractUserAndPassword()
     {
-        $this->_user = $this->_request->getServer('PHP_AUTH_USER');
-        $this->_pass = $this->_request->getServer('PHP_AUTH_PW');
+        $this->_user = isset($this->_vars['PHP_AUTH_USER']) ? $this->_vars['PHP_AUTH_USER'] : null;
+        $this->_pass = isset($this->_vars['PHP_AUTH_PW']) ? $this->_vars['PHP_AUTH_PW'] : null;
 
-        //@todo: Fix!
         // This part allows you to use the PHP scripts with CGI rather than as
         // an apache module. This will of course slow down things but on the
         // other hand it allows you to reduce the memory footprint of the 
         // apache server. The default is to use PHP as a module and the CGI 
         // version requires specific Apache configuration.
+        //
+        // http://www.besthostratings.com/articles/http-auth-php-cgi.html
         //
         // The line you need to add to your configuration of the /freebusy 
         // location of your server looks like this:
@@ -124,10 +120,10 @@ class Horde_Kolab_FreeBusy_Params_User
         //    RewriteRule ^(.+)\.pxfb         pfb.php?folder=$1&cache=1&extended=1  [L]
         //  </IfModule>
         if (empty($this->_user)) {
-            $remote_user = $this->_request->getServer('REDIRECT_REDIRECT_REMOTE_USER');
+            $remote_user = isset($this->_vars['REDIRECT_REDIRECT_REMOTE_USER']) ? $this->_vars['REDIRECT_REDIRECT_REMOTE_USER'] : null;
             if (!empty($remote_user)) {
                 $a = base64_decode(substr($remote_user, 6));
-                if ((strlen($a) != 0) && (strcasecmp($a, ':') == 0)) {
+                if (strlen($a) > 0 && strpos($a, ':') !== false) {
                     list($this->_user, $this->_pass) = explode(':', $a, 2);
                 }
             } else {
