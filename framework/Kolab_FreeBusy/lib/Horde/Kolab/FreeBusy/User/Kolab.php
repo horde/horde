@@ -59,7 +59,7 @@ implements Horde_Kolab_FreeBusy_User
      * @param string                       $pass The user password.
      */
     public function __construct(
-        $user, Horde_Kolab_Server_Composite $db, $pass = ''
+        $user, Horde_Kolab_Server_Composite $db, $pass = null
     ) {
         $this->_user = $user;
         $this->_pass = $pass;
@@ -78,6 +78,16 @@ implements Horde_Kolab_FreeBusy_User
             return $this->_user;
         }
         return $id;
+    }
+
+    /**
+     * Return the password of the user accessing the system.
+     *
+     * @return string The password.
+     */
+    public function getPassword()
+    {
+        return $this->_pass;
     }
 
     /**

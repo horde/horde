@@ -36,7 +36,7 @@ interface Horde_Kolab_FreeBusy_UserDb
      *
      * @return Horde_Kolab_FreeBusy_User The user representation.
      */
-    public function getUser($user, $pass = '');
+    public function getUser($user, $pass = null);
 
     /**
      * Fetch an owner representation from the user database.

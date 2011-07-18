@@ -36,6 +36,13 @@ interface Horde_Kolab_FreeBusy_User
     public function getPrimaryId();
 
     /**
+     * Return the password of the user accessing the system.
+     *
+     * @return string The password.
+     */
+    public function getPassword();
+
+    /**
      * Return the primary domain of the user accessing the system.
      *
      * @return string The primary domain.
