@@ -27,27 +27,29 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
 class Horde_Kolab_FreeBusy_User_Kolab
+extends Horde_Kolab_FreeBusy_UserDb_User_Kolab
+implements Horde_Kolab_FreeBusy_User
 {
     /**
-     * The user details.
+     * The user name.
      *
-     * @var Horde_Kolab_FreeBusy_Params_User
+     * @var string
      */
     private $_user;
 
     /**
      * The connection to the user database.
      *
-     * @var Horde_Kolab_FreeBusy_UserDB
+     * @var Horde_Kolab_Server_Composite
      */
-    private $_userdb;
+    private $_db;
 
     /**
-     * The user data retrieved from the user database.
+     * Optional user password. 
      *
-     * @var array
+     * @var string
      */
-    private $_user_data;
+    private $_pass;
 
     /**
      * Has the user authenticated successfully?
@@ -59,15 +61,17 @@ class Horde_Kolab_FreeBusy_User_Kolab
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_FreeBusy_Params_User $user   The user parameters.
-     * @param Horde_Kolab_FreeBusy_UserDb      $userdb The connection to the user database.
+     * @param string                       $user The user name.
+     * @param Horde_Kolab_Server_Composite $db   The connection to the user database.
+     * @param string                       $pass The user password.
      */
     public function __construct(
-        Horde_Kolab_FreeBusy_Params_User $user,
-        Horde_Kolab_FreeBusy_UserDb $userdb
+        $user, Horde_Kolab_Server_Composite $db, $pass = ''
     ) {
-        $this->_user   = $user;
-        $this->_userdb = $userdb;
+        $this->_user = $user;
+        $this->_db   = $db;
+        $this->_pass = $pass;
+        parent::__construct($db);
     }
 
     /**
@@ -77,23 +81,11 @@ class Horde_Kolab_FreeBusy_User_Kolab
      */
     public function getPrimaryId()
     {
-        if ($this->_user_data === null) {
-            $this->_fetchUserData();
+        $id = parent::getPrimaryId();
+        if (empty($id)) {
+            return $this->_user;
         }
-        return $this->_user_data['mail'];
-    }
-
-    /**
-     * Return the primary domain of the user accessing the system.
-     *
-     * @return string The primary domain.
-     */
-    public function getDomain()
-    {
-        if ($this->_user_data === null) {
-            $this->_fetchUserData();
-        }
-        return $this->_user_data['domain'];
+        return $id;
     }
 
     /**
@@ -101,17 +93,9 @@ class Horde_Kolab_FreeBusy_User_Kolab
      *
      * @return NULL
      */
-    private function _fetchUserData()
+    protected function fetchUserDbUser()
     {
-        $this->_user_data = $this->_userdb->fetchUser($this->_user->getId());
-        $idx = strpos($this->_user->getPrimaryId(), '@');
-        if ($idx !== false) {
-            $this->_user_data['domain'] = substr(
-                $this->_user->getPrimaryId(), $idx + 1
-            );
-        } else {
-            $this->_user_data['domain'] = '';
-        }
+        return $this->fetchUser($this->_user);
     }
 
     /**
@@ -122,13 +106,7 @@ class Horde_Kolab_FreeBusy_User_Kolab
     public function isAuthenticated()
     {
         if ($this->_authenticated === null) {
-            list($user, $pass) = $this->_user->getCredentials();
-            try {
-                $this->_userdb->connect($user, $pass);
-                $this->_authenticated = true;
-            } catch (Horde_Kolab_Server_Exception_Bindfailed $e) {
-                $this->_authenticated = false;
-            }
+            $this->_authenticated = parent::authenticate($this->_pass);
         }
         return $this->_authenticated;
     }

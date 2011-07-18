@@ -25,6 +25,6 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-class Horde_Kolab_FreeBusy_Exception extends Horde_Exception
+class Horde_Kolab_FreeBusy_Exception extends Horde_Exception_Wrapped
 {
 }
