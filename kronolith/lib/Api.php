@@ -511,7 +511,7 @@ class Kronolith_Api extends Horde_Registry_Api
             $cs = Kronolith::getSyncCalendars();
             $results = array();
             foreach ($cs as $c) {
-                if (!array_key_exists($calendar, Kronolith::listInternalCalendars(false, Horde_Perms::READ))) {
+                if (!array_key_exists($c, Kronolith::listInternalCalendars(false, Horde_Perms::READ))) {
                     throw new Horde_Exception_PermissionDenied();
                 }
                 $results = array_merge($results, $this->listBy($action, $timestamp, $c, $end));
