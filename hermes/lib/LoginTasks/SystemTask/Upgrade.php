@@ -63,7 +63,7 @@ class Hermes_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemT
             $timer['elapsed'] = 0;
         }
 
-        $GLOBALS['prefs']->setValue('running_timers', serialize($tiemrs));
+        $GLOBALS['prefs']->setValue('running_timers', serialize($timers));
     }
 
 }
