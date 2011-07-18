@@ -66,6 +66,7 @@ abstract class Horde_Kolab_FreeBusy_UserDb_User_Kolab
         $this->_db = $db;
     }
 
+    //@todo
     protected function getServer()
     {
         if ($this->_server === null) {
@@ -89,10 +90,66 @@ abstract class Horde_Kolab_FreeBusy_UserDb_User_Kolab
 
     abstract protected function fetchUserDbUser();
 
+    /**
+     * Fetch the specified user from the user database.
+     *
+     * @param string $user The user ID.
+     *
+     * @return Horde_Kolab_Server_Object_Kolab_User The user object.
+     */
     protected function fetchUser($user)
     {
+        return $this->_fetch(
+            $this->_db->search->searchGuidForUidOrMail($user), $user
+        );
+    }
+
+    /**
+     * Fetch the specified owner from the user database.
+     *
+     * @param string $owner The owner ID.
+     *
+     * @return Horde_Kolab_Server_Object_Kolab_User The user object.
+     */
+    protected function fetchOwner($owner)
+    {
+        return $this->_fetch(
+            $this->_db->search->searchGuidForUidOrMailOrAlias(
+                $owner
+            ),
+            $owner
+        );
+    }
+
+    /**
+     * Fetch the specified primary ID from the user database.
+     *
+     * @param string $mail   The primary mail address.
+     *
+     * @return Horde_Kolab_Server_Object_Kolab_User The user object.
+     */
+    protected function fetchUserByPrimaryId($mail)
+    {
+        return $this->_fetch(
+            $this->_db->search->searchGuidForMail($mail), $mail
+        );
+    }
+
+    /**
+     * Fetch the specified global UID from the user database.
+     *
+     * @param string $guid   The global UID.
+     * @param string $search The search ID.
+     *
+     * @return Horde_Kolab_Server_Object_Kolab_User The user object.
+     */
+    private function _fetch($guid, $search)
+    {
         try {
-            $this->_guid = $this->_db->search->searchGuidForUidOrMail($user);
+            if ($guid === false) {
+                throw new Horde_Kolab_FreeBusy_Exception(sprintf('Unknown user "%s"!', $search));
+            }
+            $this->_guid = $guid;
             return $this->_db->objects->fetch(
                 $this->_guid,
                 'Horde_Kolab_Server_Object_Kolab_User'
@@ -100,19 +157,6 @@ abstract class Horde_Kolab_FreeBusy_UserDb_User_Kolab
         } catch (Horde_Kolab_Server_Exception $e) {
             throw new Horde_Kolab_FreeBusy_Exception($e);
         }
-    }
-
-    protected function fetchOwner($owner)
-    {
-        $this->_guid = $this->_validate(
-            $this->_db->uidForMailOrIdOrAlias($owner)
-        );
-        if ($this->_guid === false) {
-            throw new Horde_Kolab_FreeBusy_Exception(sprintf('Unknown owner "%s"!', $owner));
-        }
-        return $this->_validate(
-            $this->_db->fetch($this->_guid, KOLAB_OBJECT_USER)
-        );
     }
 
     /**
@@ -186,7 +230,7 @@ abstract class Horde_Kolab_FreeBusy_UserDb_User_Kolab
      */
     public function getName()
     {
-        return $this->_validate($this->getUserDbUser()->get(KOLAB_ATTR_CN));
+        return $this->_validate($this->getUserDbUser()->getSingle('cn'));
     }
 
     /**
@@ -194,6 +238,7 @@ abstract class Horde_Kolab_FreeBusy_UserDb_User_Kolab
      *
      * @return string The server name.
      */
+    //@todo
     public function getFreeBusyServer()
     {
         return $this->_validate($this->getUserDbUser()->getServer('freebusy'));
@@ -205,6 +250,7 @@ abstract class Horde_Kolab_FreeBusy_UserDb_User_Kolab
      *
      * @return int The number of days.
      */
+    //@todo
     public function getFreeBusyPast()
     {
         return $this->_validate($this->getServer()->get(KOLAB_ATTR_FBPAST));
@@ -216,6 +262,7 @@ abstract class Horde_Kolab_FreeBusy_UserDb_User_Kolab
      *
      * @return int The number of days.
      */
+    //@todo
     public function getFreeBusyFuture()
     {
         return $this->_validate($this->getUserDbUser()->get(KOLAB_ATTR_FBFUTURE));

@@ -14,7 +14,7 @@
 /**
  * This class represents a Kolab resource owner.
  *
- * Copyright 2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -27,27 +27,22 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
 class Horde_Kolab_FreeBusy_Owner_Kolab
+extends Horde_Kolab_FreeBusy_UserDb_User_Kolab
+implements Horde_Kolab_FreeBusy_Owner
 {
     /**
      * The owner information.
      *
-     * @var Horde_Kolab_FreeBusy_Params_Owner
+     * @var string
      */
     private $_owner;
 
     /**
-     * The user accessing the system.
+     * Additional parameters.
      *
-     * @var Horde_Kolab_FreeBusy_User
+     * @var params
      */
-    private $_user;
-
-    /**
-     * The connection to the user database.
-     *
-     * @var Horde_Kolab_FreeBusy_UserDb
-     */
-    private $_userdb;
+    private $_params;
 
     /**
      * The owner data retrieved from the user database.
@@ -59,63 +54,51 @@ class Horde_Kolab_FreeBusy_Owner_Kolab
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_FreeBusy_Params_Owner $owner  The resource owner.
-     * @param Horde_Kolab_FreeBusy_UserDb       $userdb The connection to the user database.
-     * @param Horde_Kolab_FreeBusy_User         $user   The user accessing the system.
+     * @param string                       $owner  The owner name.
+     * @param Horde_Kolab_Server_Composite $db     The connection to the user
+     *                                             database.
+     * @param array                        $params Additional parameters.
+     * <pre>
+     *  - user (optional):   A Horde_Kolab_FreeBusy_User object, representing
+     *                       the user currently accessing the system. Will
+     *                       be used to determine the domain of domain-less
+     *                       owners.
+     *  - domain (optional): A domain that should be appended to domain-less
+     *                       owners.
+     * </pre>
      */
     public function __construct(
-        Horde_Kolab_FreeBusy_Params_Owner $owner,
-        Horde_Kolab_FreeBusy_UserDb $userdb,
-        Horde_Kolab_FreeBusy_User $user
+        $owner, Horde_Kolab_Server_Composite $db, $params = array()
     ) {
         $this->_owner  = $owner;
-        $this->_userdb = $userdb;
-        $this->_user   = $user;
+        $this->_params = $params;
+        parent::__construct($db);
     }
 
     /**
-     * Return the primary id of the user accessing the system.
-     *
-     * @return string The primary id.
-     */
-    public function getPrimaryId()
-    {
-        if ($this->_user_data === null) {
-            $this->_fetchOwnerData();
-        }
-        return $this->_user_data['mail'];
-    }
-
-    /**
-     * Fetch the owner data from the user db.
+     * Fetch the user data from the user db.
      *
      * @return NULL
      */
-    private function _fetchOwnerData()
+    protected function fetchUserDbUser()
     {
         try {
-            $this->_owner_data = $this->_userdb->fetchUser($this->_owner->getId());
-        } catch (Horde_Kolab_FreeBusy_Exception_UserNotFound $e) {
-            $domain = $this->_user->getDomain();
+            return $this->fetchOwner($this->_owner);
+        } catch (Horde_Kolab_FreeBusy_Exception $e) {
+            if (isset($this->_params['user'])) {
+                $domain = $this->_params['user']->getDomain();
+            } else if (isset($this->_params['domain'])) {
+                $domain = $this->_params['domain'];
+            } else {
+                $domain = false;
+            }
             if (!empty($domain)) {
-                $this->_fetchOwnerDataByAppendingUserDomain();
+                return $this->fetchUserByPrimaryId(
+                    $this->_owner . '@' . $domain
+                );
             } else {
                 throw $e;
             }
         }
-    }
-
-    /**
-     * Fetch the owner data from the user db by appending the owner id with the
-     * domain of the user currently accessing the system. This simply assumes
-     * that they usually live in the same domain.
-     *
-     * @return NULL
-     */
-    private function _fetchOwnerDataByAppendingUserDomain()
-    {
-        $this->_owner_data = $this->_userdb->fetchUser(
-            $this->_owner->getId() . '@' . $this->_user->getDomain()
-        );
     }
 }

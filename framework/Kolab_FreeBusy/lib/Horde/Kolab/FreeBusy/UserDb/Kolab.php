@@ -48,7 +48,7 @@ implements Horde_Kolab_FreeBusy_UserDb
     }
 
     /**
-     * Fetch a user representation from the user database.
+     * Fetch an user representation from the user database.
      *
      * @param string $user The user name.
      * @param string $pass An optional user password.
@@ -58,11 +58,30 @@ implements Horde_Kolab_FreeBusy_UserDb
     public function getUser($user, $pass = '')
     {
         if (!empty($user)) {
-            return new Horde_Kolab_FreeBusy_User_Kolab(
-                $user, $this->_db, $pass
-            );
+            try {
+                return new Horde_Kolab_FreeBusy_User_Kolab(
+                    $user, $this->_db, $pass
+                );
+            } catch (Horde_Kolab_FreeBusy_Exception $e) {
+                return new Horde_Kolab_FreeBusy_User_Anonymous();
+            }
         } else {
             return new Horde_Kolab_FreeBusy_User_Anonymous();
         }
+    }
+
+    /**
+     * Fetch an owner representation from the user database.
+     *
+     * @param string $owner  The owner name.
+     * @param array  $params Additonal parameters.
+     *
+     * @return Horde_Kolab_FreeBusy_Owner The owner representation.
+     */
+    public function getOwner($owner, $params = array())
+    {
+        return new Horde_Kolab_FreeBusy_Owner_Kolab(
+            $owner, $this->_db, $params
+        );
     }
 }

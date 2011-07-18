@@ -14,7 +14,7 @@
 /**
  * This class represents a Kolab accessing the export system.
  *
- * Copyright 2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -36,13 +36,6 @@ implements Horde_Kolab_FreeBusy_User
      * @var string
      */
     private $_user;
-
-    /**
-     * The connection to the user database.
-     *
-     * @var Horde_Kolab_Server_Composite
-     */
-    private $_db;
 
     /**
      * Optional user password. 
@@ -69,7 +62,6 @@ implements Horde_Kolab_FreeBusy_User
         $user, Horde_Kolab_Server_Composite $db, $pass = ''
     ) {
         $this->_user = $user;
-        $this->_db   = $db;
         $this->_pass = $pass;
         parent::__construct($db);
     }
