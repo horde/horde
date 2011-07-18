@@ -108,6 +108,9 @@ span.trashImg {
     background-image: url("graphics/reload.png");
 }
 
+.downloadAtc, .saveAsImg {
+    background-image: url("graphics/download.png");
+}
 .printAtc {
     background-image: url("graphics/print.png");
 }
