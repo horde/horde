@@ -2,6 +2,8 @@
 v3.0.6-git
 ----------
 
+[jan] Try to work with remote servers even if they don't support a recent
+      WebDAV protocol version.
 [jan] Support updating attendees from vCalendar 1.0 iTip responses.
 [jan] Fix sending invitations to attendees from traditional view.
 [jan] Fix organizer attribute when exporting to vCalendar 1.0.
