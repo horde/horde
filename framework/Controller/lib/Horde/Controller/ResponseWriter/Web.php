@@ -14,6 +14,11 @@ class Horde_Controller_ResponseWriter_Web implements Horde_Controller_ResponseWr
         foreach ($response->getHeaders() as $key => $value) {
             header("$key: $value");
         }
-        echo $response->getBody();
+        $body = $response->getBody();
+        if (is_resource($body)) {
+            stream_copy_to_stream($body, fopen('php://output', 'a'));
+        } else {
+            echo $body;
+        }
     }
 }

@@ -20,11 +20,15 @@ class Horde_Controller_ResponseWriter_WebDebug implements Horde_Controller_Respo
             echo '<p>Redirect To: <a href="' . htmlspecialchars($headers['Location']) . '">' . htmlspecialchars($headers['Location']) . '</a></p>';
         }
 
+        $body = $response->getBody();
+        if (is_resource($body)) {
+            $body = stream_get_contents($body);
+        }
         if (isset($headers['Content-Encoding']) && $headers['Content-Encoding'] == 'gzip') {
             // Strip off the header and inflate it
-            echo gzinflate(substr($response->getBody(), 10));
+            echo gzinflate(substr($body, 10));
         } else {
-            echo $response->getBody();
+            echo $body;
         }
     }
 }
