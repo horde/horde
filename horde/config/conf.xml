@@ -1908,9 +1908,7 @@
   <configsection name="activesync">
    <configdescription>To enable ActiveSync support, you must create an alias on
    your webserver to redirect /Microsoft-Servers-ActiveSync to /horde/rpc.php.
-   See http://wiki.horde.org/ActiveSync for more information. You should also
-   enable the pref_change hooks in turba and kronolith, so devices can pick up
-   changes to syncable sources after the initial sync setup.
+   See http://wiki.horde.org/ActiveSync for more information.
    </configdescription>
    <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">true
     <case name="false" desc="Disabled" />
