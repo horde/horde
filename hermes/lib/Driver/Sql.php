@@ -169,7 +169,7 @@ class Hermes_Driver_Sql extends Hermes_Driver
      *
      * @return array  Array of timeslice objects
      */
-    function getHours(array $filters = array(), array $fields = array())
+    public function getHours(array $filters = array(), array $fields = array())
     {
         global $conf;
 
@@ -268,27 +268,28 @@ class Hermes_Driver_Sql extends Hermes_Driver
             throw new Hermes_Exception($e);
         }
         $slices = array();
+
         // Do per-record processing
         $addcostobject = empty($fields) || in_array('costobject', $fields);
-        foreach (array_keys($hours) as $hkey) {
+        foreach ($hours as $hour) {
             // Convert timestamps to Horde_Date objects
-            $hours[$hkey]['date'] = new Horde_Date($hours[$hkey]['date']);
-            $hours[$hkey]['description'] = $this->_convertFromDriver($hours[$hkey]['description']);
-            $hours[$hkey]['note'] = $this->_convertFromDriver($hours[$hkey]['note']);
+            $hour['date'] = new Horde_Date($hour['date']);
+            $hour['description'] = $this->_convertFromDriver($hour['description']);
+            $hour['note'] = $this->_convertFromDriver($hour['note']);
             if ($addcostobject) {
-                if (empty($hours[$hkey]['costobject'])) {
-                    $hours[$hkey]['_costobject_name'] = '';
+                if (empty($hour['costobject'])) {
+                    $hour['_costobject_name'] = '';
                 } else {
                     try {
-                        $costobject = Hermes::getCostObjectByID($hours[$hkey]['costobject']);
+                        $costobject = Hermes::getCostObjectByID($hour['costobject']);
                     } catch (Horde_Exception $e) {
-                        $hours[$hkey]['_costobject_name'] = sprintf(_("Error: %s"), $e->getMessage());
+                        $hour['_costobject_name'] = sprintf(_("Error: %s"), $e->getMessage());
                     }
-                    $hours[$hkey]['_costobject_name'] = $costobject['name'];
+                    $hour['_costobject_name'] = $costobject['name'];
                 }
             }
 
-            $slices[$hkey] = new Hermes_Slice($hours[$hkey]);
+            $slices[$hkey] = new Hermes_Slice($hour);
         }
 
         return $slices;
