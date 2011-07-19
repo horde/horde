@@ -590,14 +590,15 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     /**
      * Add a collection to the PING state. Ping state must already be loaded.
      *
-     *
+     * @param array $collections  An array of collection information to replace
+     *                            any existing cached ping collection state.
      */
     public function addPingCollections($collections)
     {
         if (empty($this->_pingState)) {
             throw new Horde_ActiveSync_Exception('PING state not initialized');
         }
-
+        $this->_pingState['collections'] = array();
         foreach ($collections as $collection) {
             $this->_pingState['collections'][$collection['class']] = $collection;
         }
