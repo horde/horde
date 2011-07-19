@@ -1016,9 +1016,11 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         $this->_logger->debug('[' . $this->_devId . '] Resetting device state.');
         $state_query = 'DELETE FROM ' . $this->_syncStateTable . ' WHERE sync_devid = ? AND sync_folderid = ?';
         $map_query = 'DELETE FROM ' . $this->_syncMapTable . ' WHERE sync_devid = ? AND sync_folderid = ?';
+        $user = 'DELETE FROM ' . $this->_syncUsersTable . ' WHERE device_id = ? AND device_user = ?';
         try {
             $this->_db->delete($state_query, array($this->_devId, $id));
             $this->_db->delete($map_query, array($this->_devId, $id));
+            $this->_db->delete($user, array($this->_devId, $this->_devInfo->user));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
