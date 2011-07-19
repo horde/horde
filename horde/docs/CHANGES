@@ -2,8 +2,8 @@
 v4.0.8-git
 ----------
 
+[mjr] Prevent an ActiveSync sync loop in some fringe cases.
 [jan] Update PGP key server list and add SKS pool.
-
 
 ------
 v4.0.7

@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
  <notes>
-* 
+* [mjr] Prevent a sync loop in some fringe cases.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -317,7 +317,7 @@
    <date>2011-07-05</date>
    <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
    <notes>
-* 
+* [mjr] Prevent a sync loop in some fringe cases.
    </notes>
   </release>
  </changelog>
