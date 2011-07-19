@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Allow to specify body charset when verifying PGP signed messages.
 * [jan] Update Lithuanian translation.
 * [jan] Update Brazilian Portuguese translation.
 * [mms] Use strongest cipher possible when encrypting S/MIME data (Request #10246).
@@ -657,7 +658,10 @@ Initial release as a PEAR package
    <date>2011-06-28</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Use strongest cipher possible when encrypting S/MIME data (Request #10246).
+* [jan] Allow to specify body charset when verifying PGP signed messages.
+* [jan] Update Lithuanian translation.
+* [jan] Update Brazilian Portuguese translation.
+* [mms] Use strongest cipher possible when encrypting S/MIME data (Request #10246).
    </notes>
   </release>
  </changelog>

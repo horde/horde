@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [jan] Fix verifying of inline signed PGP messages (requires Horde_Crypt 1.0.4).
 * [mms] Fix Shift-N shortcut in dynamic view (Bug #10352).
 * [mms] Add save message link to dynamic view preview window.
 * [mms] Correctly quote e-mail names when composing from compose links in the dynamic view (Bug #10292).
@@ -2346,6 +2347,7 @@
    <date>2011-07-18</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [jan] Fix verifying of inline signed PGP messages.
 * [mms] Fix Shift-N shortcut in dynamic view (Bug #10352).
 * [mms] Add save message link to dynamic view preview window.
 * [mms] Correctly quote e-mail names when composing from compose links in the dynamic view (Bug #10292).

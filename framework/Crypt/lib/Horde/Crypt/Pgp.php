@@ -703,7 +703,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                 if (isset($temp['data'])) {
                     $data[] = $temp;
                 }
-                $temp= array();
+                $temp = array();
 
                 if ($matches[1] == 'BEGIN') {
                     $temp['type'] = $this->_armor[$matches[2]];
@@ -1291,6 +1291,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * 'type'       =>  'signature' or 'detached-signature' (REQUIRED)
      * 'pubkey'     =>  PGP public key. (REQUIRED)
      * 'signature'  =>  PGP signature block. (REQUIRED for detached signature)
+     * 'charset'    =>  charset of the message body (OPTIONAL)
      * </pre>
      *
      * @return stdClass  An object with the following properties:
@@ -1325,7 +1326,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             '--armor',
             '--always-trust',
             '--batch',
-            '--charset UTF-8',
+            '--charset ' . (isset($params['charset']) ? $params['charset'] : 'UTF-8'),
             $keyring,
             '--verify'
         );
