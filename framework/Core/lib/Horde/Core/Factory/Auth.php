@@ -97,7 +97,7 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
         } elseif (strcasecmp($driver, 'imsp') === 0) {
             $driver = 'Horde_Core_Auth_Imsp';
         } else {
-            $driver = Horde_String::ucfirst(Horde_String::lower(basename($driver)));
+            $driver = implode('_', array_map('Horde_String::ucwords', explode('_', Horde_String::lower(basename($driver)))));
         }
 
         $params = is_null($orig_params)
