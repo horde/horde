@@ -131,6 +131,9 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 $this->_statusCode = self::STATUS_PROTERROR;
                 return false;
             }
+            $this->_state->addPingCollections($collections);
+        } else {
+            $this->_logger->debug(sprintf('Reusing PING state: %s', print_r($collections, true)));
         }
 
         $changes = array();
