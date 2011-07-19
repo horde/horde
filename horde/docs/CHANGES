@@ -2,6 +2,7 @@
 v4.0.8-git
 ----------
 
+[mjr] Improve calendar PING for iOS devices.
 [mjr] Prevent an ActiveSync sync loop in some fringe cases.
 [jan] Update PGP key server list and add SKS pool.
 
