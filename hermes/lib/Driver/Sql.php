@@ -271,11 +271,17 @@ class Hermes_Driver_Sql extends Hermes_Driver
 
         // Do per-record processing
         $addcostobject = empty($fields) || in_array('costobject', $fields);
-        foreach ($hours as $hour) {
-            // Convert timestamps to Horde_Date objects
-            $hour['date'] = new Horde_Date($hour['date']);
-            $hour['description'] = $this->_convertFromDriver($hour['description']);
-            $hour['note'] = $this->_convertFromDriver($hour['note']);
+        foreach ($hours as $key => $hour) {
+            if (isset($hour['date'])) {
+                // Convert timestamps to Horde_Date objects
+                $hour['date'] = new Horde_Date($hour['date']);
+            }
+            if (isset($hour['description'])) {
+                $hour['description'] = $this->_convertFromDriver($hour['description']);
+            }
+            if (isset($hour['note'])) {
+                $hour['note'] = $this->_convertFromDriver($hour['note']);
+            }
             if ($addcostobject) {
                 if (empty($hour['costobject'])) {
                     $hour['_costobject_name'] = '';
@@ -289,7 +295,7 @@ class Hermes_Driver_Sql extends Hermes_Driver
                 }
             }
 
-            $slices[$hkey] = new Hermes_Slice($hour);
+            $slices[$key] = new Hermes_Slice($hour);
         }
 
         return $slices;
