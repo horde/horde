@@ -379,8 +379,10 @@ class Horde_ActiveSync
             try {
                 $result = $request->handle();
             } catch (Horde_ActiveSync_Exception_InvalidRequest $e) {
+                $this->_logger->err('Returning HTTP 400:' . $e->getMessage());
                 header('HTTP/1.1 400 Invalid Request ' . $e->getMessage());
             } catch (Horde_ActiveSync_Exception $e) {
+                $this->_logger->err('Returning HTTP 500:' . $e->getMessage());
                 header('HTTP/1.1 500');
             }
             $this->_driver->logOff();
