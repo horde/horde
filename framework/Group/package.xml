@@ -17,8 +17,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-05</date>
- <time>14:39:03</time>
+ <date>2011-07-20</date>
+ <time>23:44:05</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -47,11 +47,13 @@
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="migration">
-    <dir name="Horde_Group">
-     <file name="1_horde_group_base_tables.php" role="data" />
-     <file name="2_horde_group_upgrade_autoincrement.php" role="data" />
-    </dir> <!-- /migration/Horde_Group -->
-   </dir> <!-- /migration -->
+    <dir name="Horde">
+     <dir name="Group">
+      <file name="1_horde_group_base_tables.php" role="data" />
+      <file name="2_horde_group_upgrade_autoincrement.php" role="data" />
+     </dir> <!-- /migration/Horde/Group -->
+    </dir> <!-- /migration/Horde -->
+    </dir> <!-- /migration -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Group">
@@ -129,8 +131,8 @@
    <install as="Horde/Group/Ldap.php" name="lib/Horde/Group/Ldap.php" />
    <install as="Horde/Group/Mock.php" name="lib/Horde/Group/Mock.php" />
    <install as="Horde/Group/Sql.php" name="lib/Horde/Group/Sql.php" />
-   <install as="migration/1_horde_group_base_tables.php" name="migration/Horde_Group/1_horde_group_base_tables.php" />
-   <install as="migration/2_horde_group_upgrade_autoincrement.php" name="migration/Horde_Group/2_horde_group_upgrade_autoincrement.php" />
+   <install as="migration/1_horde_group_base_tables.php" name="migration/Horde/Group/1_horde_group_base_tables.php" />
+   <install as="migration/2_horde_group_upgrade_autoincrement.php" name="migration/Horde/Group/2_horde_group_upgrade_autoincrement.php" />
    <install as="Horde/Group/AllTests.php" name="test/Horde/Group/AllTests.php" />
    <install as="Horde/Group/Autoload.php" name="test/Horde/Group/Autoload.php" />
    <install as="Horde/Group/Base.php" name="test/Horde/Group/Base.php" />
@@ -307,7 +309,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-05</date>
+   <date>2011-07-20</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * 

@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:11:13</time>
+ <date>2011-07-20</date>
+ <time>23:44:10</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -38,11 +38,13 @@
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="migration">
-    <dir name="Horde_History">
-     <file name="1_horde_history_base_tables.php" role="data" />
-     <file name="2_horde_history_upgrade_autoincrement.php" role="data" />
-    </dir> <!-- /migration/Horde_History -->
-   </dir> <!-- /migration -->
+    <dir name="Horde">
+     <dir name="History">
+      <file name="1_horde_history_base_tables.php" role="data" />
+      <file name="2_horde_history_upgrade_autoincrement.php" role="data" />
+     </dir> <!-- /migration/Horde/History -->
+    </dir> <!-- /migration/Horde -->
+    </dir> <!-- /migration -->
    <dir name="test">
     <dir name="Horde">
      <dir name="History">
@@ -86,8 +88,8 @@
    <install as="Horde/History/Log.php" name="lib/Horde/History/Log.php" />
    <install as="Horde/History/Mock.php" name="lib/Horde/History/Mock.php" />
    <install as="Horde/History/Sql.php" name="lib/Horde/History/Sql.php" />
-   <install as="migration/1_horde_history_base_tables.php" name="migration/Horde_History/1_horde_history_base_tables.php" />
-   <install as="migration/2_horde_history_upgrade_autoincrement.php" name="migration/Horde_History/2_horde_history_upgrade_autoincrement.php" />
+   <install as="migration/1_horde_history_base_tables.php" name="migration/Horde/History/1_horde_history_base_tables.php" />
+   <install as="migration/2_horde_history_upgrade_autoincrement.php" name="migration/Horde/History/2_horde_history_upgrade_autoincrement.php" />
    <install as="Horde/History/AllTests.php" name="test/Horde/History/AllTests.php" />
    <install as="Horde/History/Autoload.php" name="test/Horde/History/Autoload.php" />
    <install as="Horde/History/InterfaceTest.php" name="test/Horde/History/InterfaceTest.php" />
@@ -208,7 +210,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-07-20</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * 
