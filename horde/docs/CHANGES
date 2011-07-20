@@ -2,6 +2,8 @@
 v4.0.8-git
 ----------
 
+[jan] Don't show mobile login page if users are forced to tradtional or dynamic
+      views (Request #10358).
 [mjr] Improve calendar PING for iOS devices.
 [mjr] Prevent an ActiveSync sync loop in some fringe cases.
 [jan] Update PGP key server list and add SKS pool.
