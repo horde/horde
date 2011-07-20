@@ -26,17 +26,18 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-class StubfreebusyController extends Horde_Controller_Base
+class Horde_Kolab_FreeBusy_Stub_Controller_Freebusy
+extends Horde_Kolab_FreeBusy_Controller_Base
 {
     /**
      * Trigger regeneration of free/busy data in a calender.
      *
      * @return NULL
      */
-    public function trigger()
+    public function trigger(Horde_Controller_Response $response)
     {
         $type = isset($this->params->type) ? ' and retrieved data of type "' . $this->params->type . '"' : '';
-        $this->renderText('triggered folder "' . $this->params->folder . '"' . $type);
+        $response->setBody('triggered folder "' . $this->params->folder . '"' . $type);
     }
 
     /**
@@ -44,9 +45,9 @@ class StubfreebusyController extends Horde_Controller_Base
      *
      * @return NULL
      */
-    public function fetch()
+    public function fetch(Horde_Controller_Response $response)
     {
-        $this->renderText('fetched "' . $this->params->type . '" data for user "' . $this->params->callee . '"');
+        $response->setBody('fetched "' . $this->params->type . '" data for user "' . $this->params->callee . '"');
     }
 
     /**
@@ -54,9 +55,9 @@ class StubfreebusyController extends Horde_Controller_Base
      *
      * @return NULL
      */
-    public function regenerate()
+    public function regenerate(Horde_Controller_Response $response)
     {
-        $this->renderText('regenerated');
+        $response->setBody('regenerated');
     }
 
     /**
@@ -64,8 +65,8 @@ class StubfreebusyController extends Horde_Controller_Base
      *
      * @return NULL
      */
-    public function delete()
+    public function delete(Horde_Controller_Response $response)
     {
-        $this->renderText('deleted data for user "' . $this->params->callee . '"');
+        $response->setBody('deleted data for user "' . $this->params->callee . '"');
     }
 }

@@ -48,11 +48,11 @@ class Horde_Kolab_FreeBusy_Factory_Base
     /**
      * Create the object representing the current request.
      *
-     * @return Horde_Controller_Request_Base The current request.
+     * @return Horde_Controller_Request The current request.
      *
      * @throws Horde_Exception
      */
-    public function getRequest()
+    public function createRequest()
     {
         $configuration = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
         $params = isset($configuration['request']) ? $configuration['request'] : array();
@@ -68,36 +68,20 @@ class Horde_Kolab_FreeBusy_Factory_Base
             $request_params = array();
         }
 
-        /** Set up our request objects */
-        $request = new $request_class($request_params);
-
-        /** The HTTP request object would hide errors. Display them. */
-        if (isset($request->_exception)) {
-            throw $request->_exception;
-        }
-
-        return $request;
+        return new $request_class($request_params);
     }
 
     /**
-     * Create the object representing the current response.
+     * Create the view object.
      *
-     * @return Horde_Controller_Response_Base The current response.
-     *
-     * @throws Horde_Exception
+     * @return Horde_View The view helper.
      */
-    public function getResponse()
+    public function createView()
     {
-        $configuration = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
-        $params = isset($configuration['response']) ? $configuration['response'] : array();
-        if (!empty($params['class'])) {
-            $response_class = $params['class'];
-        } else {
-            $response_class = 'Horde_Controller_Response_Http';
-        }
-
-        /** Set up our response object */
-        return new $response_class();
+        $view = new Horde_View();
+        $view->addHelper('Tag');
+        $view->addHelper('Text');
+        return $view;
     }
 
     /**

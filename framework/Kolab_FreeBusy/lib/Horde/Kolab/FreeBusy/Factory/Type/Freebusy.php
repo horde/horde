@@ -58,7 +58,7 @@ class Horde_Kolab_FreeBusy_Factory_Type_Freebusy
      *
      * @throws Horde_Exception
      */
-    public function getMapper()
+    public function createMapper()
     {
         $configuration = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
         $params = isset($configuration['mapper']) ? $configuration['mapper'] : array();
@@ -129,31 +129,16 @@ class Horde_Kolab_FreeBusy_Factory_Type_Freebusy
      *
      * @return Horde_Controller_Dispatcher The dispatcher.
      */
-    public function getDispatcher()
+    public function createRequestConfiguration()
     {
         $configuration = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
-        $params = isset($configuration['dispatch']) ? $configuration['dispatch'] : array();
-        if (empty($params['controllerDir'])) {
-            $controllerDir = dirname(__FILE__) . '/../../Controller';
-        } else {
-            $controllerDir = $params['controllerDir'];
-        }
+        $params = isset($configuration['request_config']) ? $configuration['request_config'] : array();
 
-        if (empty($params['viewsDir'])) {
-            $viewsDir = dirname(__FILE__) . '/View';
-        } else {
-            $viewsDir = $params['viewsDir'];
-        }
-
-        $context = array(
-            'mapper'        => $this->_injector->getInstance('Horde_Routes_Mapper'),
-            'controllerDir' => $controllerDir,
-            'viewsDir'      => $viewsDir,
-            'logger'        => $this->_injector->getInstance('Horde_Log_Logger'),
+        return new Horde_Kolab_FreeBusy_Controller_RequestConfiguration(
+            $this->_injector->getInstance(
+                'Horde_Kolab_FreeBusy_Controller_MatchDict'
+            ),
+            $params
         );
-
-        $dispatcher = Horde_Controller_Dispatcher::singleton($context);
-
-        return $dispatcher;
     }
 }

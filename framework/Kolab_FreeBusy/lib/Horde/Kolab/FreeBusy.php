@@ -31,13 +31,6 @@
 class Horde_Kolab_FreeBusy
 {
     /**
-     * Singleton value.
-     *
-     * @var Horde_Kolab_FreeBusy
-     */
-    static private $_instance;
-
-    /**
      * The dependency injection container.
      *
      * @var Horde_Injector
@@ -87,10 +80,9 @@ class Horde_Kolab_FreeBusy
      *     'params'   - (array)  Additional parameters to use on mapper
      *                           object construction.
      *
-     * 'dispatch'- (array)  Options for the dispatcher object. [optional]
+     * 'request_config'- (array)  Options for the request configuration. [optional]
      *
-     *     'controllerDir' - (string) The directory holding controllers.
-     *     'viewsDir'      - (string) The directory holding views.
+     *     'prefix' - (string) The class prefix to use for controllers.
      *
      * 'logger'  - (array)  The keys of the array are log handler class names
      *                      (e.g. Horde_Log_Handler_Stream) while the
@@ -130,14 +122,18 @@ class Horde_Kolab_FreeBusy
             $params
         );
         $this->_injector->bindFactory(
-            'Horde_Controller_Request_Base',
+            'Horde_Controller_Request',
             'Horde_Kolab_FreeBusy_Factory_Base',
-            'getRequest'
+            'createRequest'
         );
         $this->_injector->bindFactory(
-            'Horde_Controller_Response_Base',
+            'Horde_View_Base',
             'Horde_Kolab_FreeBusy_Factory_Base',
-            'getResponse'
+            'createView'
+        );
+        $this->_injector->bindImplementation(
+            'Horde_Controller_ResponseWriter',
+            'Horde_Controller_ResponseWriter_Web'
         );
         $this->_injector->bindFactory(
             'Horde_Log_Logger',
@@ -182,12 +178,12 @@ class Horde_Kolab_FreeBusy
         $this->_injector->bindFactory(
             'Horde_Routes_Mapper',
             'Horde_Kolab_FreeBusy_Factory_Type_' . $type,
-            'getMapper'
+            'createMapper'
         );
         $this->_injector->bindFactory(
-            'Horde_Controller_Dispatcher',
+            'Horde_Kolab_FreeBusy_RequestConfiguration',
             'Horde_Kolab_FreeBusy_Factory_Type_' . $type,
-            'getDispatcher'
+            'createRequestConfiguration'
         );
         $this->_injector->bindImplementation(
             'Horde_Kolab_FreeBusy_Export',
@@ -247,42 +243,6 @@ class Horde_Kolab_FreeBusy
     }
 
     /**
-     * Sets the reference to the global Horde_Kolab_FreeBusy object
-     *
-     * @param Horde_Kolab_FreeBusy $instance The Horde_Kolab_FreeBusy instance.
-     *
-     * @return NULL
-     */
-    static public function setInstance($instance)
-    {
-        self::$_instance = $instance;
-    }
-
-    /**
-     * Returns a reference to the global Horde_Kolab_FreeBusy object
-     *
-     * This method should only be used by the Controllers to access
-     * different system components (by using the MVC system we loose connection
-     * to this class within the controllers so we need global state here).
-     *
-     * @return Horde_Kolab_FreeBusy  The Horde_Kolab_FreeBusy instance.
-     */
-    static public function getInstance()
-    {
-        return self::$_instance;
-    }
-
-    /**
-     * Destroy the application context.
-     *
-     * @return NULL
-     */
-    static public function destroy()
-    {
-        self::$_instance = null;
-    }
-
-    /**
      * Handle the current request.
      *
      * @return NULL
@@ -290,9 +250,12 @@ class Horde_Kolab_FreeBusy
     public function dispatch()
     {
         try {
-            $this->get('Horde_Controller_Dispatcher')->dispatch(
-                $this->get('Horde_Controller_Request_Base'),
-                $this->get('Horde_Controller_Response_Base')
+            $this->get('Horde_Controller_ResponseWriter')->writeResponse(
+                $this->get('Horde_Controller_Runner')->execute(
+                    $this->_injector,
+                    $this->get('Horde_Controller_Request'),
+                    $this->get('Horde_Kolab_FreeBusy_RequestConfiguration')
+                )
             );
         } catch (Exception $e) {
             //@todo: Error view
