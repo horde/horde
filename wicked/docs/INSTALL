@@ -66,23 +66,22 @@ First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
 environment for Horde and install the Horde Framework.
 
 When installing Wicked through PEAR now, the installer will automatically
-install any dependencies of Wicked too. By default, only the required
-dependencies will be installed::
+install any dependencies of Wicked too. If you want to install Wicked with all
+optional dependencies, but without the binary PECL packages that need to be
+compiled, specify both the ``-a`` and the ``-B`` flag::
+
+   pear install -a -B horde/wicked
+
+By default, only the required dependencies will be installed::
 
    pear install horde/wicked
 
-If you want to install Wicked even with all optional dependencies, you need to
-specify the ``-a`` flag. Please note that this might also try to install PHP
+If you want to install Wicked even with all binary dependencies, you need to
+remove the ``-B`` flag. Please note that this might also try to install PHP
 extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
    pear install -a horde/wicked
-
-If you want to install Wicked with all optional dependencies, but without the
-binary PECL packages that need to be compiled, specify both the ``-a`` and the
-``-B`` flag::
-
-   pear install -a -B horde/wicked
 
 
 Installing from Release Tarballs
@@ -203,6 +202,6 @@ Thanks for using Wicked!
 The Wicked team
 
 
-.. _README: ?f=README.html
-.. _`horde/docs/INSTALL`: ../../horde/docs/?f=INSTALL.html
-.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/?f=TRANSLATIONS.html
+.. _README: README
+.. _`horde/docs/INSTALL`: ../../horde/docs/INSTALL
+.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/TRANSLATIONS

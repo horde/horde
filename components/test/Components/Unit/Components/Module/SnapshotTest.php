@@ -52,7 +52,7 @@ extends Components_TestCase
             'horde-components',
             '--verbose',
             '--snapshot',
-            '--archivedir=' . $tmp_dir,
+            '--destination=' . $tmp_dir,
             dirname(__FILE__) . '/../../../fixture/framework/Install'
         );
         $this->_callUnstrictComponents();
@@ -68,7 +68,7 @@ extends Components_TestCase
             'horde-components',
             '--keep-version',
             '--snapshot',
-            '--archivedir=' . $tmp_dir,
+            '--destination=' . $tmp_dir,
             dirname(__FILE__) . '/../../../fixture/framework/Install'
         );
         $this->_callUnstrictComponents();
@@ -84,7 +84,7 @@ extends Components_TestCase
             'horde-components',
             '--verbose',
             '--snapshot',
-            '--archivedir=' . $tmp_dir,
+            '--destination=' . $tmp_dir,
             dirname(__FILE__) . '/../../../fixture/simple'
         );
         try {

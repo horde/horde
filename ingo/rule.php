@@ -107,7 +107,7 @@ case 'rule_delete':
 
     switch ($ingo_storage->getActionInfo($vars->action)->type) {
     case 'folder':
-        if ($vars->actionId == 'rule_save') {
+        if ($vars->actionID == 'rule_save') {
             $rule['action-value'] = Ingo::validateFolder($vars, 'actionvalue');
         } else {
             $rule['action-value'] = $vars->actionvalue;
@@ -165,7 +165,7 @@ case 'rule_delete':
             exit;
         }
         if (isset($vars->conditionnumber)) {
-            unset($rule['conditions'][intval($vars->conditionnumner)]);
+            unset($rule['conditions'][intval($vars->conditionnumber)]);
             $rule['conditions'] = array_values($rule['conditions']);
         }
     }

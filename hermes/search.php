@@ -88,8 +88,7 @@ if (!($searchVars = $session->get('hermes', 'search_criteria'))) {
     $searchVars = $vars;
 }
 $form = new Hermes_Form_Search($searchVars);
-
-$print_link = Horde::url(Horde_Util::addParameter('search.php', array('print' => 'true')));
+$print_link = Horde::url('search.php')->add('print', 'true');
 require HERMES_TEMPLATES . '/menu.inc';
 $form->renderActive(new Horde_Form_Renderer(), $searchVars, 'search.php', 'post');
 echo '<br />';

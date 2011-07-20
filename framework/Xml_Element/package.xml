@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:24:14</time>
+ <date>2011-05-09</date>
+ <time>10:54:29</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -46,6 +46,7 @@
         <file name="Sample.xml" role="test" />
        </dir> <!-- /test/Horde/Xml/Element/fixtures -->
        <file name="AllTests.php" role="test" />
+       <file name="Autoload.php" role="test" />
        <file name="CountTest.php" role="test" />
        <file name="ElementTest.php" role="test" />
        <file name="IteratorTest.php" role="test" />
@@ -81,6 +82,7 @@
    <install as="Horde/Xml/Element/Exception.php" name="lib/Horde/Xml/Element/Exception.php" />
    <install as="Horde/Xml/Element/List.php" name="lib/Horde/Xml/Element/List.php" />
    <install as="Horde/Xml/Element/AllTests.php" name="test/Horde/Xml/Element/AllTests.php" />
+   <install as="Horde/Xml/Element/Autoload.php" name="test/Horde/Xml/Element/Autoload.php" />
    <install as="Horde/Xml/Element/CountTest.php" name="test/Horde/Xml/Element/CountTest.php" />
    <install as="Horde/Xml/Element/ElementTest.php" name="test/Horde/Xml/Element/ElementTest.php" />
    <install as="Horde/Xml/Element/IteratorTest.php" name="test/Horde/Xml/Element/IteratorTest.php" />
@@ -186,7 +188,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-05-09</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * 

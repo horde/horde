@@ -17,91 +17,197 @@ class Horde_Prefs_Storage_KolabImap extends Horde_Prefs_Storage_Base
     /**
      * Handle for the current Kolab connection.
      *
-     * @var Kolab
+     * @var Horde_Kolab_Storage
      */
-    protected $_connection;
+    protected $_kolab;
 
     /**
-     * ID of the config default share
+     * Name of the preferences default folder
      *
      * @var string
      */
-    protected $_share;
+    protected $_folder;
 
     /**
+     * Log handler.
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
+     * Constructor.
+     *
+     * @param string $user   The username.
+     * @param array $params  Configuration parameters.
+     * <pre>
+     * 'kolab'  - (Horde_Kolab_Storage) [REQUIRED] The storage backend.
+     * 'folder' - (string) The default name of the preferences folder.
+     *            DEFAULT: _('Preferences')
+     * </pre>
+     *
+     * @throws InvalidArgumentException
+     */
+    public function __construct($user, array $params = array())
+    {
+        if (!isset($params['kolab'])) {
+            throw new InvalidArgumentException('Missing "kolab" parameter.');
+        }
+        $this->_kolab = $params['kolab'];
+        unset($params['kolab']);
+
+        if (isset($params['logger'])) {
+            $this->_logger = $params['logger'];
+        }
+
+        if (isset($params['folder'])) {
+            $this->_folder = $params['folder'];
+        } else {
+            $this->_folder = Horde_Prefs_Translation::t("Preferences");
+        }
+
+        parent::__construct($user, $params);
+    }
+
+    /**
+     * Retrieves the requested preferences scope from the storage backend.
+     *
+     * @param Horde_Prefs_Scope $scope_ob  The scope object.
+     *
+     * @return Horde_Prefs_Scope  The modified scope object.
+     * @throws Horde_Prefs_Exception
      */
     public function get($scope_ob)
     {
-        $this->_connect();
-
-        $pref = $this->_getPref($scope_ob->scope);
-
-        if (is_null($pref)) {
-            /* No preferences saved yet. */
-            return false;
+        try {
+            $data = $this->_getStorage();
+        } catch (Horde_Prefs_Exception $e) {
+            $this->_logMissingStorage($e);
+            return $scope_ob;
         }
 
-        foreach ($pref['pref'] as $prefstr) {
-            // If the string doesn't contain a colon delimiter, skip it.
-            if (strpos($prefstr, ':') !== false) {
-                // Split the string into its name:value components.
-                list($name, $val) = explode(':', $prefstr, 2);
-                $pref_ob->set($name, base64_decode($val));
-            }
+        /** This may not fail (or if it does it is okay to pass the error up */
+        $query = $data->getQuery(Horde_Kolab_Storage_Data::QUERY_PREFS);
+
+        try {
+            $pref = $query->getApplicationPreferences($scope_ob->scope);
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            $this->_logMissingScope($e, $scope_ob->scope);
+            return $scope_ob;
         }
 
-        return $pref_ob;
+        foreach ($this->_prefToArray($pref['pref']) as $key => $value) {
+            $scope_ob->set($key, $value);
+        }
+        return $scope_ob;
     }
 
     /**
+     * Stores changed preferences in the storage backend.
+     *
+     * @param Horde_Prefs_Scope $scope_ob  The scope object.
+     *
+     * @throws Horde_Prefs_Exception
      */
     public function store($scope_ob)
     {
-        $this->_connect();
+        /** This *must* succeed */
+        $data = $this->_getStorage(true);
+        $query = $data->getQuery(Horde_Kolab_Storage_Data::QUERY_PREFS);
 
-        // Build a hash of the preferences and their values that need
-        // to be stored on the IMAP server. Because we have to update
-        // all of the values of a multi-value entry wholesale, we
-        // can't just pick out the dirty preferences; we must update
-        // the entire dirty scope.
-        $new_vals = array();
-
-        /* Driver does not support storing locked status. */
-        foreach ($scope_ob->getDirty() as $name) {
-            $new_vals[] = $name . ':' . base64_encode($scope_ob->get($name));
+        try {
+            $pref = $query->getApplicationPreferences($scope_ob->scope);
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            $pref = array('application' => $scope_ob->scope);
         }
 
-        $pref = $this->_getPref($scope_ob->scope);
-
-        if (is_null($pref)) {
-            $old_uid = null;
-            $prefs_uid = $this->_connection->_storage->generateUID();
+        if (isset($pref['pref'])) {
+            $new = $this->_prefToArray($pref['pref']);
         } else {
-            $old_uid = $pref['uid'];
-            $prefs_uid = $pref['uid'];
+            $new = array();
         }
-
-        $object = array(
-            'application' => $scope_ob->scope,
-            'pref' => $new_vals,
-            'uid' => $prefs_uid
-        );
-
-        $result = $this->_connection->_storage->save($object, $old_uid);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Prefs_Exception($result);
+        foreach ($scope_ob->getDirty() as $name) {
+            $new[$name] = $scope_ob->get($name);
+        }
+        $pref['pref'] = $this->_arrayToPref($new);
+        try {
+            if (!isset($pref['uid'])) {
+                $data->create($pref);
+            } else {
+                $data->modify($pref);
+            }
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Horde_Prefs_Exception($e);
         }
     }
 
     /**
+     * Removes preferences from the backend.
+     *
+     * @param string $scope  The scope of the prefs to clear. If null, clears
+     *                       all scopes.
+     * @param string $pref   The pref to clear. If null, clears the entire
+     *                       scope.
+     *
+     * @throws Horde_Prefs_Exception
      */
     public function remove($scope = null, $pref = null)
     {
-        if (is_null($scope)) {
-            $this->_connection->deleteAll();
-        } else {
-            // TODO
+        try {
+            $data = $this->_getStorage();
+        } catch (Horde_Prefs_Exception $e) {
+            $this->_logMissingStorage($e);
+            return;
         }
+
+        if ($scope === null) {
+            $data->deleteAll();
+            return;
+        }
+
+        $query = $data->getQuery(Horde_Kolab_Storage_Data::QUERY_PREFS);
+
+        try {
+            $pref = $query->getApplicationPreferences($scope);
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            $this->_logMissingScope($e, $scope);
+            return;
+        }
+
+        if ($pref === null) {
+            $data->delete($pref['uid']);
+            return;
+        }
+
+        $new = $this->_prefToArray($pref);
+        unset($new[$pref]);
+        $pref['pref'] = $this->_arrayToPref($new);
+
+        try {
+            $data->modify($pref);
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Horde_Prefs_Exception($e);
+        }
+    }
+
+    /**
+     * Lists all available scopes.
+     *
+     * @since Horde_Prefs 1.1.0
+     *
+     * @return array The list of scopes stored in the backend.
+     */
+    public function listScopes()
+    {
+        try {
+            $data = $this->_getStorage();
+        } catch (Horde_Prefs_Exception $e) {
+            $this->_logMissingStorage($e);
+            return;
+        }
+
+        return $data->getQuery(Horde_Kolab_Storage_Data::QUERY_PREFS)
+            ->getApplications();
     }
 
     /* Helper functions. */
@@ -109,60 +215,120 @@ class Horde_Prefs_Storage_KolabImap extends Horde_Prefs_Storage_Base
     /**
      * Opens a connection to the Kolab server.
      *
+     * @param boolean $create_missing Create a preferences folder if it is
+     *                                missing.
+     *
+     * @return Horde_Kolab_Storage_Data The storage backend.
+     *
      * @throws Horde_Prefs_Exception
      */
-    protected function _connect()
+    protected function _getStorage($create_missing = false)
     {
-        if (isset($this->_connection)) {
-            return;
+        $query = $this->_kolab->getList()->getQuery();
+        if ($folder = $query->getDefault('h-prefs')) {
+            return $this->_kolab->getData($folder);
         }
-
-        $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create('h-prefs');
-        $default = $shares->getDefaultShare();
-        if ($default instanceof PEAR_Error) {
-            throw new Horde_Prefs_Exception($default);
+        $folders = $query->listByType('h-prefs');
+        if (!empty($folders)) {
+            return $this->_kolab->getData($folders[0]);
         }
-        $this->_share = $default->getName();
-
-        require_once 'Horde/Kolab.php';
-        $connection = new Kolab('h-prefs');
-        if ($connection instanceof PEAR_Error) {
-            throw new Horde_Prefs_Exception($connection);
+        if (!$create_missing) {
+            throw new Horde_Prefs_Exception(
+                'No Kolab storage backend available.'
+            );
         }
-
-        $result = $this->_connection->open($this->_share, 1);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Prefs_Exception($result);
+        $params = $this->getParams();
+        $folder = $this->_kolab->getList()
+            ->getNamespace()
+            ->constructFolderName($params['user'], $this->_folder);
+        $this->_kolab->getList()->createFolder($folder, 'h-prefs.default');
+        if ($this->_logger !== null) {
+            $this->_logger->info(
+                sprintf(
+                    __CLASS__ . ': Created default Kolab preferences folder "%s".',
+                    $this->_folder
+                )
+            );
         }
-
-        $this->_connection = $connection;
+        return $this->_kolab->getData($folder);
     }
 
     /**
-     * Retrieves the requested preference from the user's config folder.
+     * Convert Kolab preferences data to an array.
      *
-     * @param string $scope  Scope specifier.
+     * @param array $pref The preferences list.
      *
-     * @return array  The preference value.
-     * @throws Horde_Prefs_Exception
+     * @return array The preferences data as array.
      */
-    protected function _getPref($scope)
+    private function _prefToArray($pref)
     {
-        $this->_connect();
-
-        $prefs = $this->_connection->getObjects();
-        if ($prefs instanceof PEAR_Error) {
-            throw new Horde_Prefs_Exception($prefs);
-        }
-
-        foreach ($prefs as $pref) {
-            if ($pref['application'] == $scope) {
-                return $pref;
+        $result = array();
+        foreach ($pref as $prefstr) {
+            /** If the string doesn't contain a colon delimiter, skip it. */
+            if (strpos($prefstr, ':') !== false) {
+                /** Split the string into its name:value components. */
+                list($name, $val) = explode(':', $prefstr, 2);
+                $result[$name] = base64_decode($val);
             }
         }
-
-        return null;
+        return $result;
     }
 
+    /**
+     * Convert a key => value list of preferences to the Kolab preferences.
+     *
+     * @param array $pref The preferences.
+     *
+     * @return array The preferences data as list.
+     */
+    private function _arrayToPref($pref)
+    {
+        $result = array();
+        foreach ($pref as $name => $value) {
+            if ($value !== null) {
+                $result[] = $name . ':' . base64_encode($value);
+            }
+        }
+        return $result;
+    }
 
+    /**
+     * Log the missing backend.
+     *
+     * @param Exception $e The exception that occurred.
+     *
+     * @return NULL
+     */
+    private function _logMissingStorage(Exception $e)
+    {
+        if ($this->_logger !== null) {
+            $this->_logger->debug(
+                sprintf(
+                    __CLASS__ . ': Failed retrieving Kolab preferences data storage (%s)',
+                    $e->getMessage()
+                )
+            );
+        }
+    }
+
+    /**
+     * Log the missing scope.
+     *
+     * @param Exception $e     The exception that occurred.
+     * @param string    $scope The scope that was attempted to get.
+     *
+     * @return NULL
+     */
+    private function _logMissingScope(Exception $e, $scope)
+    {
+        if ($this->_logger !== null) {
+            $this->_logger->debug(
+                sprintf(
+                    __CLASS__ . ': No preference information available for scope %s (%s).',
+                    $scope,
+                    $e->getMessage()
+                )
+            );
+        }
+    }
 }

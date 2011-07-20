@@ -77,11 +77,11 @@ Thanks,
 The Turba team
 
 
-.. _README: ?f=README.html
+.. _README: README
 .. _LICENSE: http://www.horde.org/licenses/apache
-.. _docs/CHANGES: ?f=CHANGES.html
-.. _docs/CREDITS: ?f=CREDITS.html
+.. _docs/CHANGES: CHANGES
+.. _docs/CREDITS: CREDITS
 .. _INSTALL:
-.. _docs/INSTALL: ?f=INSTALL.html
-.. _docs/LDAP: ?f=LDAP.html
-.. _docs/UPGRADING: ?f=UPGRADING.html
+.. _docs/INSTALL: INSTALL
+.. _docs/LDAP: LDAP
+.. _docs/UPGRADING: UPGRADING

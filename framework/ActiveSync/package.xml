@@ -10,11 +10,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:03:54</time>
+ <date>2011-07-19</date>
+ <time>11:24:30</time>
  <version>
-  <release>1.0.1</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
  <notes>
-* 
+* [mjr] Prevent a sync loop in some fringe cases.
+* [mjr] Improve calendar syncing for iOS devices.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -36,6 +37,10 @@
       <dir name="Driver">
        <file name="Base.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Driver -->
+      <dir name="Exception">
+       <file name="InvalidRequest.php" role="php" />
+       <file name="StateGone.php" role="php" />
+      </dir> <!-- /lib/Horde/ActiveSync/Exception -->
       <dir name="Message">
        <file name="Appointment.php" role="php" />
        <file name="Attendee.php" role="php" />
@@ -170,6 +175,8 @@
    <install as="Horde/ActiveSync/Connector/Exporter.php" name="lib/Horde/ActiveSync/Connector/Exporter.php" />
    <install as="Horde/ActiveSync/Connector/Importer.php" name="lib/Horde/ActiveSync/Connector/Importer.php" />
    <install as="Horde/ActiveSync/Driver/Base.php" name="lib/Horde/ActiveSync/Driver/Base.php" />
+   <install as="Horde/ActiveSync/Exception/InvalidRequest.php" name="lib/Horde/ActiveSync/Exception/InvalidRequest.php" />
+   <install as="Horde/ActiveSync/Exception/StateGone.php" name="lib/Horde/ActiveSync/Exception/StateGone.php" />
    <install as="Horde/ActiveSync/Message/Appointment.php" name="lib/Horde/ActiveSync/Message/Appointment.php" />
    <install as="Horde/ActiveSync/Message/Attendee.php" name="lib/Horde/ActiveSync/Message/Attendee.php" />
    <install as="Horde/ActiveSync/Message/Base.php" name="lib/Horde/ActiveSync/Message/Base.php" />
@@ -294,10 +301,25 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-07-05</date>
    <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
    <notes>
-* 
+* [mjr] Fix race conditions caused by broken clients sending an inappropriate PING request.
+* [mjr] Fix issue with initial Android pairing
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-19</date>
+   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <notes>
+* [mjr] Prevent a sync loop in some fringe cases.
+* [mjr] Improve calendar syncing for iOS devices.
    </notes>
   </release>
  </changelog>

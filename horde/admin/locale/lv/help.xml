@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+
+<entry id="admin-phpshell" md5="d5017591ef4a3f39d9787b581a0abba5" state="uptodate">
+    <title>Admin Tools: PHP Shell</title>
+    <heading>How to use the PHP Shell</heading>
+    <para>The PHP command shell lets you execute arbitrary PHP
+          statements on the server. These commands are executed using
+          the <code>eval()</code> function, and execute in the context
+          of the current session. This shell is intended to try out
+          syntax and execute some simple arbitrary code. Note that to
+          get any output, you must echo or print something in your
+          code fragment.</para>
+</entry>
+
+<entry id="admin-sqlshell" md5="5bd2fcb9c9678e62ca141566ab8f4c4f" state="uptodate">
+    <title>Admin Tools: SQL Shell</title>
+    <heading>How to use the SQL Shell</heading>
+    <para>The SQL query shell lets you execute arbitrary SQL
+          statements on your database. These commands are executed
+          against the database defined in $conf['sql'] using the
+          PEAR::DB classes. You can use this tool to do queries into
+          the database, to do complicated SQL updates, deletes, etc.,
+          or to do simple data collection. It sends SQL queries to the
+          database directly, and will report return codes and complete
+          result sets.</para>
+</entry>
+
+<entry id="admin-cmdshell" md5="9dbbe593735eebbb34de991a57b98b9f" state="uptodate">
+    <title>Admin Tools: Command Shell</title>
+    <heading>How to use the Command Shell</heading>
+    <para>The command shell lets you execute arbitrary shell
+          commands on your server. You can use this to do quick
+          shell operations or when a shell is not otherwise available.
+          </para>
+</entry>
+
+</help>

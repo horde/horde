@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Vilma H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -147,11 +147,11 @@ msgstr ""
 msgid "Disable Delivery Only"
 msgstr ""
 
-#: config/prefs.php:12
+#: config/prefs.php:13
 msgid "Display details"
 msgstr ""
 
-#: config/prefs.php:11
+#: config/prefs.php:12
 msgid "Display listings"
 msgstr ""
 
@@ -369,7 +369,7 @@ msgstr ""
 msgid "Groups"
 msgstr ""
 
-#: config/prefs.php:21
+#: config/prefs.php:22
 msgid "How many domain to display per page."
 msgstr ""
 
@@ -489,7 +489,7 @@ msgstr ""
 msgid "Remote e-mail address"
 msgstr ""
 
-#: config/prefs.php:13
+#: config/prefs.php:14
 msgid "Set default display parameters."
 msgstr ""
 

@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Don&apos;t show mobile login page if users are forced to tradtional or dynamic views (Request #10358).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -58,6 +58,9 @@
      <dir name="en">
       <file name="help.xml" role="horde" />
      </dir> <!-- /admin/locale/en -->
+     <dir name="es">
+      <file name="help.xml" role="horde" />
+     </dir> <!-- /admin/locale/es -->
      <dir name="eu">
       <file name="help.xml" role="horde" />
      </dir> <!-- /admin/locale/eu -->
@@ -70,6 +73,13 @@
      <dir name="hu">
       <file name="help.xml" role="horde" />
      </dir> <!-- /admin/locale/hu -->
+     <dir name="lv">
+      <dir name="LC_MESSAGES">
+       <file name="admin.po" role="horde" />
+      </dir> <!-- /admin/locale/lv/LC_MESSAGES -->
+      <file name="admin.po" role="horde" />
+      <file name="help.xml" role="horde" />
+     </dir> <!-- /admin/locale/lv -->
     </dir> <!-- /admin/locale -->
     <dir name="perms">
      <file name="addchild.php" role="horde" />
@@ -100,7 +110,6 @@
     <file name="horde-db-migrate" role="script" />
     <file name="horde-import-squirrelmail-prefs" role="script" />
     <file name="horde-memcache-stats" role="script" />
-    <file name="horde-migrate-user-categories" role="script" />
     <file name="horde-move-history-out-of-datatree" role="script" />
     <file name="horde-run-task" role="script" />
     <file name="horde-set-perms" role="script" />
@@ -597,6 +606,7 @@
       <file name="horde.mo" role="horde" />
       <file name="horde.po" role="horde" />
      </dir> <!-- /locale/lv/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/lv -->
     <dir name="mk">
      <dir name="LC_MESSAGES">
@@ -2067,12 +2077,12 @@
     <file name="barcode.php" role="horde" />
     <file name="icon_browser.php" role="horde" />
    </dir> <!-- /util -->
-   <file name=".htaccess" role="data" />
-   <file name="COPYING" role="data" />
+   <file name=".htaccess" role="horde" />
+   <file name="COPYING" role="doc" />
    <file name="index.php" role="horde" />
    <file name="login.php" role="horde" />
    <file name="rampage.php" role="horde" />
-   <file name="README" role="data" />
+   <file name="README" role="doc" />
    <file name="rpc.php" role="horde" />
    <file name="signup.php" role="horde" />
    <file name="test.php" role="horde" />
@@ -2103,7 +2113,7 @@
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.4</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -2361,6 +2371,18 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>Console_Getopt</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Console_Table</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>File_Find</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
     <name>Services_Weather</name>
     <channel>pear.php.net</channel>
    </package>
@@ -2397,10 +2419,14 @@
    <install as="admin/config/scripts.php" name="admin/config/scripts.php" />
    <install as="admin/locale/de/help.xml" name="admin/locale/de/help.xml" />
    <install as="admin/locale/en/help.xml" name="admin/locale/en/help.xml" />
+   <install as="admin/locale/es/help.xml" name="admin/locale/es/help.xml" />
    <install as="admin/locale/eu/help.xml" name="admin/locale/eu/help.xml" />
    <install as="admin/locale/fi/help.xml" name="admin/locale/fi/help.xml" />
    <install as="admin/locale/hr/help.xml" name="admin/locale/hr/help.xml" />
    <install as="admin/locale/hu/help.xml" name="admin/locale/hu/help.xml" />
+   <install as="admin/locale/lv/admin.po" name="admin/locale/lv/admin.po" />
+   <install as="admin/locale/lv/help.xml" name="admin/locale/lv/help.xml" />
+   <install as="admin/locale/lv/LC_MESSAGES/admin.po" name="admin/locale/lv/LC_MESSAGES/admin.po" />
    <install as="admin/perms/addchild.php" name="admin/perms/addchild.php" />
    <install as="admin/perms/delete.php" name="admin/perms/delete.php" />
    <install as="admin/perms/edit.php" name="admin/perms/edit.php" />
@@ -2415,7 +2441,6 @@
    <install as="horde-db-migrate" name="bin/horde-db-migrate" />
    <install as="horde-import-squirrelmail-prefs" name="bin/horde-import-squirrelmail-prefs" />
    <install as="horde-memcache-stats" name="bin/horde-memcache-stats" />
-   <install as="horde-migrate-user-categories" name="bin/horde-migrate-user-categories" />
    <install as="horde-move-history-out-of-datatree" name="bin/horde-move-history-out-of-datatree" />
    <install as="horde-run-task" name="bin/horde-run-task" />
    <install as="horde-set-perms" name="bin/horde-set-perms" />
@@ -2757,6 +2782,7 @@
    <install as="locale/lt/help.xml" name="locale/lt/help.xml" />
    <install as="locale/lt/LC_MESSAGES/horde.mo" name="locale/lt/LC_MESSAGES/horde.mo" />
    <install as="locale/lt/LC_MESSAGES/horde.po" name="locale/lt/LC_MESSAGES/horde.po" />
+   <install as="locale/lv/help.xml" name="locale/lv/help.xml" />
    <install as="locale/lv/LC_MESSAGES/horde.mo" name="locale/lv/LC_MESSAGES/horde.mo" />
    <install as="locale/lv/LC_MESSAGES/horde.po" name="locale/lv/LC_MESSAGES/horde.po" />
    <install as="locale/mk/LC_MESSAGES/horde.mo" name="locale/mk/LC_MESSAGES/horde.mo" />
@@ -4067,10 +4093,103 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-05-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] Fix authentication failure when TOS is not accepted.
+* [jan] Fix adding categories.
+* [jan] Don&apos;t check for outdated DB schemas if database support is disabled (Bug #9986).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.3</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-18</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [mms] Fix return link after reporting problem (Bug #10069).
+* [jan] Add button to update all configurations with default values at once.
+* [jan] Update DataTree conversion scripts for Horde 4.
+* [jan] Fix rendering of DataTree browse tree.
+* [mjr] Fix issue causing credentials to be lost when accessing the API during ActiveSync requests (Bug #9733).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.4</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [mms] Fix colorpicker on categories preferences screen (Bug #10118).
+* [mjr] Fix Metar portal block.
+* [gwr] Added support for the Kolab IMAP based preferences backend.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.5</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Remove debug code.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.6</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-14</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Fix extracting of translation strings in a release.
+* [rla] Enable giving users specific admin permissions (Enhancement #9350)
+* [jan] Don&apos;t strip domain from user name in account block.
+* [jan] Fix account block with empty configuration parameters.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.7</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Don&apos;t use CSS cache in mobile interfaces because it breaks jQuery Mobile CSS.
+* [jan] Allow configuration of split read databases for PostgreSQL (Request #7025).
+* [mjr] Honor initial_application setting for mobile view (Bug #10264).
+* [gwr] Support restricting the HTML tidy post processing by the message size (Request #10266).
+* [gwr] Disabled the timeout on the logout token.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.8</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-20</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Don&apos;t show mobile login page if users are forced to tradtional or dynamic views (Request #10358).
    </notes>
   </release>
   <release>

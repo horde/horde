@@ -309,10 +309,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 $GLOBALS['injector']->getInstance('IMP_Message')->delete($old_uid, array('nuke' => true));
             }
 
-            $this->_metadata['draft_uid'] = new IMP_Indices($drafts_mbox, $ids);
+            $this->_metadata['draft_uid'] = $drafts_mbox->getIndicesOb($ids);
             $this->changed = 'changed';
             return sprintf(_("The draft has been saved to the \"%s\" folder."), $drafts_mbox->display);
-        } catch (Horde_Imap_Client_Exception $e) {
+        } catch (IMP_Imap_Exception $e) {
             return _("The draft was not successfully saved.");
         }
     }
@@ -455,7 +455,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                     // Ignore hostspec and port, since these can change
                     // even though the server is the same. UIDVALIDITY should
                     // catch any true server/backend changes.
-                    ($imp_imap->checkUidvalidity($imap_url['mailbox']) == $imap_url['uidvalidity']) &&
+                    (IMP_Mailbox::get($imap_url['mailbox'])->uidvalid == $imap_url['uidvalidity']) &&
                     $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imap_url['mailbox'], $imap_url['uid']))) {
                     $this->_metadata['mailbox'] = IMP_Mailbox::get($imap_url['mailbox']);
                     $this->_metadata['uid'] = $imap_url['uid'];
@@ -629,6 +629,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
 
             try {
+                $this->_prepSendMessageAssert($val['to'], $headers, $val['msg']);
                 $this->sendMessage($val['to'], $headers, $val['msg']);
 
                 /* Store history information. */
@@ -692,17 +693,22 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 ((strpos($save_attach, 'prompt') === 0) &&
                  empty($opts['save_attachments']))) {
                 $mime_message->buildMimeIds();
-                for ($i = 2;; ++$i) {
-                    if (!($oldPart = $mime_message->getPart($i))) {
-                        break;
-                    }
 
-                    $replace_part = new Horde_Mime_Part();
-                    $replace_part->setType('text/plain');
-                    $replace_part->setCharset($this->charset);
-                    $replace_part->setLanguage($GLOBALS['language']);
-                    $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true) . '"]');
-                    $mime_message->alterPart($i, $replace_part);
+                /* Don't strip any part if this is a text message with both
+                 * plaintext and HTML representation. */
+                if ($mime_message->getType() != 'multipart/alternative') {
+                    for ($i = 2;; ++$i) {
+                        if (!($oldPart = $mime_message->getPart($i))) {
+                            break;
+                        }
+
+                        $replace_part = new Horde_Mime_Part();
+                        $replace_part->setType('text/plain');
+                        $replace_part->setCharset($this->charset);
+                        $replace_part->setLanguage($GLOBALS['language']);
+                        $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true) . '"]');
+                        $mime_message->alterPart($i, $replace_part);
+                    }
                 }
             }
 
@@ -725,8 +731,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
             try {
                 $injector->getInstance('IMP_Factory_Imap')->create()->append($sent_folder, array(array('data' => $fcc, 'flags' => $flags)));
-            } catch (Horde_Imap_Client_Exception $e) {
-                $notification->push(sprintf(_("Message sent successfully, but not saved to %s"), $sent_folder->display));
+            } catch (IMP_Imap_Exception $e) {
+                $notification->push(sprintf(_("Message sent successfully, but not saved to %s."), $sent_folder->display));
                 $sent_saved = false;
             }
         }
@@ -831,7 +837,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      */
     public function sendMessage($email, $headers, $message)
     {
-        $email = $this->_prepSendMessage($email, $headers, $message);
+        $email = $this->_prepSendMessage($email, $message);
 
         try {
             $message->send($email, $headers, $GLOBALS['injector']->getInstance('IMP_Mail'));
@@ -843,17 +849,46 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     /**
      * Sanity checking/MIME formatting before sending a message.
      *
+     * @param string $email             The e-mail list to send to.
+     * @param Horde_Mime_Part $message  The Horde_Mime_Part object that
+     *                                  contains the text to send.
+     *
+     * @return string  The encoded $email list.
+     * @throws IMP_Compose_Exception
+     */
+    protected function _prepSendMessage($email, $message = null)
+    {
+        /* Properly encode the addresses we're sending to. Always try
+         * charset of original message as we know that the user can handle
+         * that charset. */
+        try {
+            return $this->_prepSendMessageEncode($email, is_null($message) ? 'UTF-8' : $message->getHeaderCharset());
+        } catch (IMP_Compose_Exception $e) {
+            if (is_null($message)) {
+                throw $e;
+            }
+        }
+
+        /* Fallback to UTF-8 (if replying, original message might be in
+         * US-ASCII, for example, but To/Subject/Etc. may contain 8-bit
+         * characters. */
+        $message->setHeaderCharset('UTF-8');
+        return $this->_prepSendMessageEncode($email, 'UTF-8');
+    }
+
+    /**
+     * Additonal checks to do if this is a user-generated compose message.
+     *
      * @param string $email                The e-mail list to send to.
      * @param Horde_Mime_Headers $headers  The object holding this message's
      *                                     headers.
      * @param Horde_Mime_Part $message     The Horde_Mime_Part object that
      *                                     contains the text to send.
      *
-     * @return string  The encoded $email list.
      * @throws IMP_Compose_Exception
      */
-    protected function _prepSendMessage($email, $headers = null,
-                                        $message = null)
+    protected function _prepSendMessageAssert($email, $headers = null,
+                                              $message = null)
     {
         $recipients = 0;
 
@@ -874,23 +909,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 Horde::callHook('pre_sent', array($message, $headers, $this), 'imp');
             } catch (Horde_Exception_HookNotSet $e) {}
         }
-
-        /* Properly encode the addresses we're sending to. Always try
-         * charset of original message as we know that the user can handle
-         * that charset. */
-        try {
-            return $this->_prepSendMessageEncode($email, is_null($message) ? 'UTF-8' : $message->getHeaderCharset());
-        } catch (IMP_Compose_Exception $e) {
-            if (is_null($message)) {
-                throw $e;
-            }
-        }
-
-        /* Fallback to UTF-8 (if replying, original message might be in
-         * US-ASCII, for example, but To/Subject/Etc. may contain 8-bit
-         * characters. */
-        $message->setHeaderCharset('UTF-8');
-        return $this->_prepSendMessageEncode($email, 'UTF-8');
     }
 
     /**
@@ -1473,11 +1491,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                                   is_null($list_info) ||
                                   !$force ||
                                   empty($list_info['exists'])) {
-                            /* Don't add To address if this is a list that
+                            /* Don't add as To address if this is a list that
                              * doesn't have a post address but does have a
                              * reply-to address. */
-                            if ($val == 'reply-to') {
-                                /* If reply-to doesn't have personal
+                            if (in_array($val, array('from', 'reply-to'))) {
+                                /* If from/reply-to doesn't have personal
                                  * information, check from address. */
                                 if (!$addr_obs[0]['personal'] &&
                                     ($to_ob = $h->getOb('from')) &&
@@ -1513,7 +1531,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 }
             }
 
-            if (empty($header['to']) && (count($hdr_cc) > 1)) {
+            if (count($hdr_cc)) {
                 $reply_type = self::REPLY_ALL;
             }
             $header[empty($header['to']) ? 'to' : 'cc'] = rtrim(implode('', $hdr_cc), ' ,');
@@ -1832,6 +1850,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         $header_text = trim($resent_headers->toString(array('encode' => 'UTF-8'))) . "\n" . trim($contents->getHeaderOb(false));
 
+        $this->_prepSendMessageAssert($recipients);
         $to = $this->_prepSendMessage($recipients);
         $hdr_array = $headers->toArray(array('charset' => 'UTF-8'));
         $hdr_array['_raw'] = $header_text;
@@ -1965,9 +1984,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
     /**
      * Adds an attachment to a Horde_Mime_Part from an uploaded file.
-     * The actual attachment data is stored in a separate file - the
-     * Horde_Mime_Part information entries 'temp_filename' and 'temp_filetype'
-     * are set with this information.
      *
      * @param string $name  The input field name from the form.
      *
@@ -2427,7 +2443,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $baseurl = Horde::url('attachment.php', true)->setRaw(true);
 
         try {
-            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
         } catch (Horde_Vfs_Exception $e) {
             throw new IMP_Compose_Exception($e);
         }
@@ -2447,7 +2463,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         foreach ($this as $att) {
-            $trailer .= "\n" . $baseurl->copy()->add(array('u' => $auth, 't' => $ts, 'f' => $att['part']->getName()));
+            $trailer .= "\n" . $baseurl->copy()->add(array(
+                'f' => $att['part']->getName(),
+                't' => $ts,
+                'u' => $auth
+            ));
 
             try {
                 if ($att['filetype'] == 'vfs') {

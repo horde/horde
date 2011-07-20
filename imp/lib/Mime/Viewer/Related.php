@@ -16,9 +16,6 @@
 class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
 {
     /**
-     * This driver's display capabilities.
-     *
-     * @var array
      */
     protected $_capability = array(
         'full' => true,
@@ -28,9 +25,6 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
     );
 
     /**
-     * Metadata for the current viewer/data.
-     *
-     * @var array
      */
     protected $_metadata = array(
         'compressed' => false,
@@ -39,9 +33,13 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
     );
 
     /**
-     * Return the full rendered version of the Horde_Mime_Part object.
+     * The start MIME ID.
      *
-     * @return array  See parent::render().
+     * @var string
+     */
+    protected $_start;
+
+    /**
      */
     protected function _render()
     {
@@ -49,9 +47,6 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
     }
 
     /**
-     * Return the rendered inline version of the Horde_Mime_Part object.
-     *
-     * @return array  See parent::render().
      */
     protected function _renderInline()
     {
@@ -67,43 +62,11 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
      */
     protected function _IMPrender($inline)
     {
-        $ids = array_keys($this->_mimepart->contentTypeMap());
         $related_id = $this->_mimepart->getMimeId();
 
-        $cids = $ret = array();
-        $id = null;
-
-        /* Build a list of parts -> CIDs. */
-        foreach ($ids as $val) {
-            $ret[$val] = null;
-            if (strcmp($related_id, $val) !== 0) {
-                $part = $this->_mimepart->getPart($val);
-                $cids[$val] = $part->getContentId();
-            }
-        }
-
-        /* Look at the 'start' parameter to determine which part to start
-         * with. If no 'start' parameter, use the first part. RFC 2387
-         * [3.1] */
-        $start = $this->_mimepart->getContentTypeParameter('start');
-        if (!empty($start)) {
-            $id = array_search($id, $cids);
-        }
-
-        if (empty($id)) {
-            reset($ids);
-            $id = next($ids);
-        }
-
-        /* Only display if the start part (normally text/html) can be
-         * displayed inline -OR- we are viewing this part as an attachment. */
-        if ($inline &&
-            !$this->getConfigParam('imp_contents')->canDisplay($id, IMP_Contents::RENDER_INLINE)) {
+        if (!($id = $this->_init($inline))) {
             return array();
         }
-
-        /* Set related information in message metadata. */
-        $this->_mimepart->setMetadata('related_cids', $cids);
 
         $render = $this->getConfigParam('imp_contents')->renderMIMEPart($id, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL);
 
@@ -117,6 +80,8 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
         }
 
         $data_id = null;
+        $ret = array_fill_keys(array_keys($this->_mimepart->contentTypeMap()), null);
+
         foreach (array_keys($render) as $val) {
             $ret[$val] = $render[$val];
             if ($ret[$val]) {
@@ -138,7 +103,92 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
             }
         }
 
+        /* Fix for broken messages that don't refer to a related CID within
+         * the base part. */
+        if ($unused = $this->_mimepart->getMetadata('related_cids_unused')) {
+            foreach ($unused as $val) {
+                $summary = $this->getConfigParam('imp_contents')->getSummary(
+                    $val,
+                    IMP_Contents::SUMMARY_SIZE |
+                    IMP_Contents::SUMMARY_ICON |
+                    IMP_Contents::SUMMARY_DESCRIP_LINK |
+                    IMP_Contents::SUMMARY_DOWNLOAD
+                );
+
+                $ret[$related_id]['status'][] = array(
+                    'icon' => Horde::img('alerts/error.png', _("Error")),
+                    'text' => array(
+                        _("This part contains an attachment that can not be displayed within this part:"),
+                        implode('&nbsp;', array(
+                            $summary['icon'],
+                            $summary['description'],
+                            $summary['size'],
+                            $summary['download']
+                        ))
+                    )
+                );
+            }
+        }
+
         return $ret;
+    }
+
+    /**
+     * Initialization: determine start MIME ID.
+     *
+     * @param boolean $inline  Are we viewing inline?
+     *
+     * @return string  The start MIME ID, or null if the part is not viewable.
+     */
+    protected function _init($inline)
+    {
+        if (!isset($this->_start)) {
+            $ids = array_keys($this->_mimepart->contentTypeMap());
+            $related_id = $this->_mimepart->getMimeId();
+            $cids = array();
+            $id = null;
+
+            /* Build a list of parts -> CIDs. */
+            foreach ($ids as $val) {
+                if (strcmp($related_id, $val) !== 0) {
+                    $part = $this->_mimepart->getPart($val);
+                    $cids[$val] = $part->getContentId();
+                }
+            }
+
+            /* Look at the 'start' parameter to determine which part to start
+             * with. If no 'start' parameter, use the first part. RFC 2387
+             * [3.1] */
+            $start = $this->_mimepart->getContentTypeParameter('start');
+            if (!empty($start)) {
+                $id = array_search($id, $cids);
+            }
+
+            if (empty($id)) {
+                reset($ids);
+                $id = next($ids);
+            }
+
+            /* Set related information in message metadata. */
+            $this->_mimepart->setMetadata('related_cids', $cids);
+
+            $this->_start = $id;
+        }
+
+        /* Only display if the start part (normally text/html) can be
+         * displayed inline -OR- we are viewing this part as an attachment. */
+        return ($inline && !$this->getConfigParam('imp_contents')->canDisplay($this->_start, IMP_Contents::RENDER_INLINE))
+            ? null
+            : $this->_start;
+    }
+
+    /**
+     */
+    public function canRender($mode)
+    {
+        return (($mode == 'inline') && !$this->_init(true))
+            ? false
+            : parent::canRender($mode);
     }
 
 }

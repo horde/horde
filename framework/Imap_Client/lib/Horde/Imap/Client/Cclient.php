@@ -1232,19 +1232,13 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         $this->login();
 
         if (empty($options['rights']) && !empty($options['remove'])) {
-            $acl = $this->listACLRights($mailbox, $identifier);
-            if (empty($acl['rights'])) {
-                return;
-            }
-            $options['rights'] = $acl['rights'];
-            $options['remove'] = true;
-        }
-
-        if (empty($options['rights'])) {
+            $this->setACL($mailbox, $identifier, array_merge($options, array(
+                'rights' => $this->listACLRights($mailbox, $identifier)
+            )));
             return;
         }
 
-        $res = @imap_setacl($this->_stream, $mailbox, $identifier, (empty($options['remove']) ? '+' : '-') . $implode('', $options['rights']));
+        $res = @imap_setacl($this->_stream, $mailbox, $identifier, $options['rights']);
 
         if ($res === false) {
             $this->_exception('Error when setting ACL: ' . imap_last_error());

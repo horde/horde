@@ -90,4 +90,23 @@ public $version = \'1.0.0\';
         clearstatcache();
         $this->assertEquals($mode, fileperms($tmp_dir . '/lib/Application.php'));
     }
+
+    public function testUpdateBundle()
+    {
+        $tmp_dir = $this->getTemporaryDirectory();
+        $sentinel = new Horde_Release_Sentinel($tmp_dir);
+        mkdir($tmp_dir . '/lib');
+        file_put_contents($tmp_dir . '/lib/Bundle.php', "class Horde_Bundle {\nconst VERSION = '0.0.0';\n}\n");
+        $mode = fileperms($tmp_dir . '/lib/Bundle.php');
+        $sentinel->updateApplication('1.0.0');
+        $this->assertEquals(
+            'class Horde_Bundle {
+const VERSION = \'1.0.0\';
+}
+',
+            file_get_contents($tmp_dir . '/lib/Bundle.php')
+        );
+        clearstatcache();
+        $this->assertEquals($mode, fileperms($tmp_dir . '/lib/Bundle.php'));
+    }
 }

@@ -22,12 +22,10 @@ class IMP_Spam
      * @param IMP_Indices $indices  An indices object.
      * @param string $action        Either 'spam' or 'notspam'.
      * @param array $opts           Additional options:
-     * <pre>
-     * 'mailboxob' - (IMP_Mailbox_List) Update this mailbox list object.
-     *               DEFAULT: No update.
-     * 'noaction' - (boolean) Don't perform any action after reporting?
-     *              DEFAULT: false
-     * </pre>
+     *   - mailboxob: (IMP_Mailbox_List) Update this mailbox list object.
+     *                DEFAULT: No update.
+     *   - noaction: (boolean) Don't perform any action after reporting?
+     *               DEFAULT: false
      *
      * @return integer  1 if messages have been deleted, 2 if messages have
      *                  been moved.
@@ -35,7 +33,7 @@ class IMP_Spam
     static public function reportSpam(IMP_Indices $indices, $action,
                                       array $opts = array())
     {
-        global $notification;
+        global $injector, $notification;
 
         /* Abort immediately if spam reporting has not been enabled, or if
          * there are no messages. */
@@ -57,7 +55,7 @@ class IMP_Spam
                 /* Fetch the raw message contents (headers and complete
                  * body). */
                 try {
-                    $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($ob->mbox, $idx));
+                    $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create($ob->mbox->getIndicesOb($idx));
                 } catch (IMP_Exception $e) {
                     continue;
                 }
@@ -119,9 +117,9 @@ class IMP_Spam
                     }
 
                     if (!isset($imp_compose)) {
-                        $imp_compose = $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create();
+                        $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create();
                         try {
-                            $from_line = $GLOBALS['injector']->getInstance('IMP_Identity')->getFromLine();
+                            $from_line = $injector->getInstance('IMP_Identity')->getFromLine();
                         } catch (Horde_Exception $e) {
                             $from_line = null;
                         }
@@ -205,12 +203,19 @@ class IMP_Spam
             Horde::callHook('post_spam', array($action, $indices), 'imp');
         } catch (Horde_Exception_HookNotSet $e) {}
 
+        if (!empty($opts['noaction'])) {
+            return $result;
+        }
+
         /* Delete/move message after report. */
         switch ($action) {
         case 'spam':
-            if (empty($opts['noaction']) &&
-                ($result = $GLOBALS['prefs']->getValue('delete_spam_after_report'))) {
-                $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
+            /* Always flag messages as Junk. */
+            $imp_message = $injector->getInstance('IMP_Message');
+            $imp_message->flag(array('$junk'), $indices, true);
+            $imp_message->flag(array('$notjunk'), $indices, false);
+
+            if ($result = $GLOBALS['prefs']->getValue('delete_spam_after_report')) {
                 switch ($result) {
                 case 1:
                     $msg_count = $imp_message->delete($indices, $mbox_args);
@@ -240,12 +245,14 @@ class IMP_Spam
             break;
 
         case 'notspam':
-            if (empty($opts['noaction']) &&
-                ($result = $GLOBALS['prefs']->getValue('move_ham_after_report'))) {
-                $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
-                if (!$imp_message->copy('INBOX', 'move', $indices, $mbox_args)) {
-                    $result = 0;
-                }
+            /* Always flag messages as NotJunk. */
+            $imp_message = $injector->getInstance('IMP_Message');
+            $imp_message->flag(array('$notjunk'), $indices, true);
+            $imp_message->flag(array('$junk'), $indices, false);
+
+            if (($result = $GLOBALS['prefs']->getValue('move_ham_after_report')) &&
+                !$imp_message->copy('INBOX', 'move', $indices, $mbox_args)) {
+                $result = 0;
             }
             break;
         }

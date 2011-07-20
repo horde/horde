@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+
+<entry id="Overview" md5="1585927d48e4627c792fe0332c41fd39" state="uptodate">
+    <title>Kronolith: Pārskats</title>
+    <heading>Kas ir Kronolith?</heading>
+    <para>
+    Kronolith ir tīmekļa bāzēta kalendāra aplikācija. Bez ierastajām notikumu 
+    ierakstīšanas, labošanas un dzēšanas funkcijām, tā uztur notikumu atkārtošanos 
+    (ar izņēmumiem un dažādām dzēšanas iespējām), brīdinājumus, importa un eksporta 
+    funkcijas, <i>Uzdevumu</i> moduļa Nag notikumu saraksta attēlošanu kopējā sarakstā 
+    (ja modulis ir uzstādīts), kā arī iespēju parādīt notikumus Horde kopsavilkuma skatā.
+    </para>
+</entry>
+
+<entry id="menu-today" md5="841ca455c83d05fc112ddc190f471c98" state="uptodate">
+    <title>Izvēlne: Šodien</title>
+    <para>
+    Izvēlnes elements <i>Šodien</i> parādīs aktuālā datuma noklusēto skatu 
+    (mēneša, nedēļas, dienas utt., kā uzstādīts Opcijās).
+    </para>
+</entry>
+
+<entry id="menu-Goto" md5="566191775ba90b769f2e3f7cdf24cbfa" state="uptodate">
+    <title>Izvēlne: Pāriet uz</title>
+    <para>
+    Izvēlnes elements <i>Pāriet</i> parādīs nelielu uznirstošo logu, kurā Jūs 
+    varat ātri izvēlēties gadu, mēnesi, nedēļu vai mēneša dienu <i>uz kuru</i> 
+    vēlaties pāriet. Tas parasti ir visātrākais ceļš, lai pārvietotos pa kalendāru.
+    </para>
+</entry>
+
+<entry id="menu-Day" md5="3cd62e10116058db52a15fecd7ddbcb0" state="uptodate">
+    <title>Izvēlne: Diena</title>
+    <para>
+    Izvēlnes elements <i>Diena</i> parādīs izvēlētā datuma dienas skatu.
+    </para>
+</entry>
+
+<entry id="menu-work-week" md5="f9a63585c81dca63887e130dbbea91de" state="uptodate">
+    <title>Izvēlne: Darba nedēļa</title>
+    <para>
+    Izvēlnes elements <i>Darba nedēļa</i> parādīs darba nedēļas skatu nedēļai
+    (no pirmdienas līdz piektdienai), kurā ir Jūsu izvēlētais datums.
+    </para>
+</entry>
+
+<entry id="menu-week" md5="3d8a3bfda629bb6e09819b2e660546e5" state="uptodate">
+    <title>Izvēlne: Nedēļa</title>
+    <para>
+    Izvēlnes elements <i>Nedēļa</i> parādīs nedēļas (7 dienu) skatu nedēļai, kurā 
+    ir Jūsu izvēlētais datums.
+    </para>
+</entry>
+
+<entry id="menu-month" md5="4be2056875775ec1f5b0f920a1dab608" state="uptodate">
+    <title>Izvēlne: Mēnesis</title>
+    <para>
+    Izvēlnes elements <i>Mēnesis</i> parādīs mēneša skatu mēnesim, kurā ir 
+    Jūsu izvēlētais datums.
+    </para>
+</entry>
+
+<entry id="menu-new-event" md5="37406cc2ee51040862df1eaa2f645d4e" state="uptodate">
+    <title>Izvēlne: Jauns notikums</title>
+    <para>
+    Izvēlnes elements <i>Jauns notikums</i> ļauj radīt jaunu notikumu un 
+    pievienot to kalendāram. 
+    </para>
+</entry>
+
+<entry id="menu-prefs" state="uptodate" md5="8a623cc08a53407d5eee2fceba0e9de1">
+    <title>Menu: Preferences</title>
+    <para>
+    The <i>Preferences</i> menu item allows you to set <i>Preferences</i> that
+    control the look and feel of Kronolith, Kronolith's interaction with Horde
+    and other Horde applications, and manage multiple and shared calendars.
+    </para>
+</entry>
+
+<entry id="menu-import-export" md5="34bc9dfc4d6302fc1011696a1b8d1ca8" state="uptodate">
+    <title>Izvēlne: Imports/Eksports</title>
+    <para>
+    Izvēlnes elements <i>Imports/Eksports</i> ļauj importēt vai eksportēt 
+    kalendāra datus. Pašreiz Jūs varat importēt CSV (Comma Separated Values vai 
+    ar komatu atdalīti dati), Microsoft Outlook un vCalendar/iCalendar formāta 
+    datus. Datu eksports uztur tikai CSV un iCalendar formātus.
+    </para>
+</entry>
+
+<entry id="alarms" md5="4c1c6f3eb13a416031ffbee4fce99ea1" state="uptodate">
+    <title>Brīdinājumi</title>
+    <para>
+    Kronolith var ģenerēt brīdinājumus atbilstoši uzstādījumiem kalendārā.
+    Pēc noklusēšanas, pirmais brīdinājums tiek izdarīts 15 minūtes pirms notikuma 
+    sākuma, taču katram ierakstam atsevišķi ir iespējams noteikt brīdināšanas laiku 
+    gandrīz jebkuros intervālos pirms notikuma sākuma.
+    </para>
+</entry>
+
+<entry id="recurring-events" md5="8ea7be1fb6cee0b4131c9a548e25d92f" state="uptodate">
+    <title>Atkārtojošies notikumi</title>
+    <para>
+    Notikumu atkārtošanos var organizēt dažādos veidos. Daudzi notikumi atkārtojas 
+    jau iepriekš zināmā veidā. Piemēram, <i>Ikmēneša</i> notikums atkārtojas katru 
+    mēnesi, <i>Iknedēļas</i> -katru nedēļu. Pamatojoties uz šiem ierastajiem 
+    principiem, iespējams organizēt arī sarežģītāku atkārtošanās algoritmu, 
+    piemēram notikums, kas atkārtojas katra mēneša pēdējā piektdienā vai arī 
+    notikums, kurš atkārtojas katru nedēļu pirmdien, trešdien un piektdien.
+    </para>
+    <para>
+    Ir iespējams ierobežot atkārtošanās ilgumu, norādot atkārtošanās <i>Beigu datumu</i>.
+    </para>
+    <para>
+    Parasti, modificējot atkārtojošos notikuma ierakstu, tiek izmainīti arī 
+    visi tā atkārtojumi. Atsevišķu atkārtojumu var izmainīt, labojot šo atkārtojumu, 
+    atceļot tā atkārtošanās informāciju un saglabājot to kā jaunu notikumu, 
+    izvēloties <i>Saglabāt kā jaunu</i> no <i>Atkārtošanās</i> izvēlnes. 
+    Izvēlēto notikumu turpmāk varēs labot neatkarīgi no citiem atkārtojumiem.
+    </para>
+</entry>
+
+<entry id="Printing" md5="2f90d14e34b715a054fb52bb919ac5f8" state="uptodate">
+    <title>Drukāšana</title>
+    <heading>Kalendāru un notikumu drukāšana</heading>
+    <para>
+    Atsevišķi skati ir veidoti tā, lai tie būtu izdrukājami. Ja esat kādā no 
+    šiem skatiem, rīku joslā parādīsies ikona <i>Drukāt</i>. Lietojiet šo izvēlnes 
+    elementu, lai izdrukātu aktuālo skatu.
+    </para>
+</entry>
+
+<entry id="shares" md5="bf3a44d08a824979ba8dd8fd0e661eee" state="uptodate">
+  <title>Kalendāra pieejas tiesības</title>
+  <para>
+    Kādreiz šeit tiks plašāk izklāstīti principi, atbilstoši kuriem var pieķirt 
+    pieejas tiesības dažādiem lietotājiem un lietotāju grupām.
+  </para>
+  <para>
+    Šai vietā kādreiz tiks aprakstīti dažādi pieejas tiesību veidi un to nozīme 
+    Uzdevumos un Kalendārā.
+  </para>
+</entry>
+
+<entry id="embed" md5="795e60a6e3f367b06e3e51181ac1c465" state="uptodate">
+  <title>Iegulšana</title>
+  <para>
+    Ir iespējams iegult Jūsu kalendāra atsevišķus skatus ārējās tīmekļa vietnēs.
+    Iegult ir iespējams tādus pašus skatus, kā Horde portāla lapā. Zemāk redzami 
+    koda piemēri, ar kuriem tas paveicams. Protams, Jums ir jānorāda pareiza servera 
+    adrese un kalendāra nosaukums. Parametrs 'container' nav obligāts, taču tam 
+    jāatbilst gan div elementa DOM id, gan jābūt unikālam visā lapā, kurā vēlaties iegult kalendāra skatu.
+  </para>
+  <para>
+    Lai iegultu šā mēneša mazo Mēneša skatu:
+  </para>
+    <i>&lt;div id="kronocalendar"&gt;&lt;/div&gt;&lt;script
+    src="http://hostname.example.com/horde/kronolith/imple.php?imple=Embed
+    /container=kronocalendar/view=month/calendar=calendar_name"
+    type="text/javascript"&gt;&lt;/script&gt;</i>
+  <para>
+    Lai iegultu tuvojošos notikumu sarakstu (pievērsiet uzmanību 'mēnešu' un 'max.skaits'
+    parametriem):
+  </para>
+    <i>&lt;div id="kronolist"&gt;&lt;/div&gt;&lt;script
+    src="http://hostname.example.com/horde/kronolith/imple.php?imple=Embed
+    /view=monthlist/calendar=calendar_name/container=kronolist/months=2/
+    maxevents=10" type="text/javascript"&gt;&lt;/script&gt;</i>
+  <para>
+    Lai iegultu kopskatu:
+  </para>
+    <i>&lt;div id="kronosummary"&gt;
+    &lt;/div&gt;&lt;script type="text/javascript"
+    src="http://hostname.example.com/horde/kronolith/imple.php?imple=Embed
+    /container=kronosummary/view=summary/calendar=calendar_name
+    "&gt;&lt;/script&gt;</i>
+</entry>
+</help>

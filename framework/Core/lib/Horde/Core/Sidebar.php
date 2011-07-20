@@ -91,26 +91,32 @@ class Horde_Core_Sidebar
                 unset($menu[$key]);
             }
         }
+        /* Add the administration menu if the user is an admin or has any admin permissions. */
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        $admin_item_count = 0;
+        try {
+            foreach ($registry->callByPackage('horde', 'admin_list') as $method => $val) {
+                if($isAdmin ||
+                    $perms->hasPermission('horde:administration:' . $method, $registry->getAuth(), Horde_Perms::SHOW)) {
+                        $admin_item_count++;
+                        $menu['administration_' . $method] = array(
+                            'icon' => $val['icon'],
+                            'menu_parent' => 'administration',
+                            'name' => Horde::stripAccessKey($val['name']),
+                            'status' => 'active',
+                            'url' => Horde::url($registry->applicationWebPath($val['link'], 'horde')),
+                        );
+                }
+            }
+        } catch (Horde_Exception $e) {}
 
-        // Add the administration menu if the user is an admin.
-        if ($isAdmin) {
+       if ($admin_item_count) {
             $menu['administration'] = array(
                 'name' => Horde_Core_Translation::t("Administration"),
                 'icon' => Horde_Themes::img('administration.png'),
                 'status' => 'heading'
             );
 
-            try {
-                foreach ($registry->callByPackage('horde', 'admin_list') as $method => $val) {
-                    $menu['administration_' . $method] = array(
-                        'icon' => $val['icon'],
-                        'menu_parent' => 'administration',
-                        'name' => Horde::stripAccessKey($val['name']),
-                        'status' => 'active',
-                        'url' => Horde::url($registry->applicationWebPath($val['link'], 'horde')),
-                    );
-                }
-            } catch (Horde_Exception $e) {}
         }
 
         if (Horde_Menu::showService('prefs') &&

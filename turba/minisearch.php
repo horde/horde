@@ -14,44 +14,42 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
 $search = Horde_Util::getFormData('search');
+$addressbooks = explode(';', Horde_Util::getFormData('addressbooks'));
 $results = array();
 
-// Make sure we have a source.
-$source = Horde_Util::getFormData('source', Turba::getDefaultAddressbook());
+foreach ($addressbooks as $addressbook) {
+    // Do the search if we have one.
+    if (!is_null($search)) {
+        try {
+            $driver = $injector->getInstance('Turba_Factory_Driver')->create($addressbook);
+            $criteria['name'] = trim($search);
+            $res = $driver->search($criteria);
 
-// Do the search if we have one.
-if (!is_null($search)) {
-    try {
-        $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
-        $criteria['name'] = trim($search);
-        $res = $driver->search($criteria);
+            while ($ob = $res->next()) {
+                if ($ob->isGroup()) {
+                    continue;
+                }
 
-        while ($ob = $res->next()) {
-            if ($ob->isGroup()) {
-                continue;
-            }
-
-            $att = $ob->getAttributes();
-            foreach ($att as $key => $value) {
-                if (!empty($attributes[$key]['type']) &&
-                    ($attributes[$key]['type'] == 'email')) {
-                    $results[] = array(
-                        'name' => $ob->getValue('name'),
-                        'email' => $value,
-                        'url' => $ob->url()
-                    );
-                    break;
+                $att = $ob->getAttributes();
+                foreach ($att as $key => $value) {
+                    if (!empty($attributes[$key]['type']) &&
+                        ($attributes[$key]['type'] == 'email')) {
+                        $results[] = array(
+                            'name' => $ob->getValue('name'),
+                            'email' => $value,
+                            'url' => $ob->url()
+                        );
+                        break;
+                    }
                 }
             }
-        }
-    } catch (Turba_Exception $e) {}
+        } catch (Turba_Exception $e) {}
+    }
 }
 
 $bodyClass = 'summary';
 require $registry->get('templates', 'horde') . '/common-header.inc';
 
-?>
-<?php
 if (count($results)) {
     echo '<ul id="turba_minisearch_results">';
     foreach ($results as $contact) {
@@ -61,7 +59,7 @@ if (count($results)) {
             $mail_link = $registry->call('mail/compose', array(
                 array('to' => addslashes($contact['email']))
             ));
-        } catch (Turba_Exception $e) {
+        } catch (Horde_Exception $e) {
             $mail_link = 'mailto:' . urlencode($contact['email']);
         }
 

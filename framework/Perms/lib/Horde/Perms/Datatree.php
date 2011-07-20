@@ -117,7 +117,7 @@ class Horde_Perms_Datatree extends Horde_Perms_Base
             return $this->newPermission(Horde_Perms::ROOT);
         }
         $perm = $this->_datatree->getObjectById($cid, 'Horde_Perms_Permission_Datatree');
-        $perm->setCacheVersion($this->_cacheVersion);
+        $perm->setCacheOb($this->_cache);
         return $perm;
     }
 

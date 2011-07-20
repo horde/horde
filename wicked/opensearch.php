@@ -9,10 +9,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-
-// Registry.
-$registry = new Horde_Registry();
-$registry->pushApp('wicked');
+Horde_Registry::appInit('wicked');
 
 // Url.
 $url = Horde::url('', true);

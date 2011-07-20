@@ -34,7 +34,10 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [jan] Fix verifying of inline signed PGP messages (requires Horde_Crypt 1.0.4).
+* [mms] Fix Shift-N shortcut in dynamic view (Bug #10352).
+* [mms] Add save message link to dynamic view preview window.
+* [mms] Correctly quote e-mail names when composing from compose links in the dynamic view (Bug #10292).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -53,15 +56,16 @@
     <file name="prefs.php" role="horde" />
    </dir> <!-- /config -->
    <dir name="docs">
-    <file name="CHANGES" role="horde" />
-    <file name="CREDITS" role="horde" />
-    <file name="INSTALL" role="horde" />
-    <file name="RELEASE_NOTES" role="horde" />
-    <file name="RFCS" role="horde" />
-    <file name="UPGRADING" role="horde" />
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
+    <file name="RFCS" role="doc" />
+    <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
    <dir name="js">
     <file name="acl.js" role="horde" />
+    <file name="base64url.js" role="horde" />
     <file name="compose-base.js" role="horde" />
     <file name="compose-dimp.js" role="horde" />
     <file name="compose.js" role="horde" />
@@ -91,6 +95,7 @@
       <file name="PassphraseDialog.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
+     <file name="Queue.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Block">
      <file name="Newmail.php" role="horde" />
@@ -129,6 +134,8 @@
       <file name="Draft.php" role="horde" />
       <file name="Flagged.php" role="horde" />
       <file name="Forwarded.php" role="horde" />
+      <file name="Junk.php" role="horde" />
+      <file name="NotJunk.php" role="horde" />
       <file name="Seen.php" role="horde" />
      </dir> <!-- /lib/Flag/Imap -->
      <dir name="System">
@@ -147,6 +154,8 @@
     </dir> <!-- /lib/Flag -->
     <dir name="Imap">
      <file name="Acl.php" role="horde" />
+     <file name="Exception.php" role="horde" />
+     <file name="PermanentFlags.php" role="horde" />
      <file name="Thread.php" role="horde" />
      <file name="Tree.php" role="horde" />
     </dir> <!-- /lib/Imap -->
@@ -157,6 +166,7 @@
       <file name="UpgradeAuth.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
      <dir name="Task">
+      <file name="Autocreate.php" role="horde" />
       <file name="DeleteAttachmentsMonthly.php" role="horde" />
       <file name="DeleteSentmailMonthly.php" role="horde" />
       <file name="FilterOnLogin.php" role="horde" />
@@ -181,6 +191,7 @@
       <file name="Alternative.php" role="horde" />
       <file name="Appledouble.php" role="horde" />
       <file name="Enriched.php" role="horde" />
+      <file name="Externalbody.php" role="horde" />
       <file name="Html.php" role="horde" />
       <file name="Images.php" role="horde" />
       <file name="Itip.php" role="horde" />
@@ -266,6 +277,7 @@
     </dir> <!-- /lib/Sentmail -->
     <dir name="Tree">
      <file name="Flist.php" role="horde" />
+     <file name="Jquerymobile.php" role="horde" />
     </dir> <!-- /lib/Tree -->
     <dir name="Ui">
      <file name="Compose.php" role="horde" />
@@ -282,7 +294,7 @@
      <file name="ListMessages.php" role="horde" />
      <file name="ShowMessage.php" role="horde" />
     </dir> <!-- /lib/Views -->
-    <file name=".htaccess" role="data" />
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Auth.php" role="horde" />
@@ -485,6 +497,7 @@
       <file name="imp.mo" role="horde" />
       <file name="imp.po" role="horde" />
      </dir> <!-- /locale/lv/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/lv -->
     <dir name="mk">
      <dir name="LC_MESSAGES">
@@ -846,6 +859,7 @@
       <file name="key_down.png" role="horde" />
       <file name="key_up.png" role="horde" />
       <file name="loading.gif" role="horde" />
+      <file name="locked.png" role="horde" />
       <file name="logo.png" role="horde" />
       <file name="logout.png" role="horde" />
       <file name="mail_answered.png" role="horde" />
@@ -878,6 +892,7 @@
       <file name="sbcursor_top.png" role="horde" />
       <file name="scroller.png" role="horde" />
       <file name="scroller_back.png" role="horde" />
+      <file name="search.png" role="horde" />
       <file name="select.png" role="horde" />
       <file name="shared.png" role="horde" />
       <file name="signed.png" role="horde" />
@@ -929,6 +944,12 @@
     <dir name="postnuke">
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/postnuke -->
+    <dir name="purple">
+     <dir name="dimp">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/purple/dimp -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/purple -->
     <dir name="silver">
      <dir name="dimp">
       <file name="screen.css" role="horde" />
@@ -949,6 +970,10 @@
        <file name="spam.png" role="horde" />
        <file name="trash.png" role="horde" />
       </dir> <!-- /themes/silver/graphics/folders -->
+      <dir name="mime">
+       <file name="compressed.png" role="horde" />
+       <file name="itip.php" role="horde" />
+      </dir> <!-- /themes/silver/graphics/mime -->
       <file name="addressbook_add.png" role="horde" />
       <file name="addressbook_browse.png" role="horde" />
       <file name="add_contact.png" role="horde" />
@@ -963,6 +988,7 @@
       <file name="close.png" role="horde" />
       <file name="compose.png" role="horde" />
       <file name="delete.png" role="horde" />
+      <file name="download.png" role="horde" />
       <file name="drafts.png" role="horde" />
       <file name="edit.png" role="horde" />
       <file name="empty_spam.png" role="horde" />
@@ -1064,7 +1090,7 @@
    <file name="compose-mimp.php" role="horde" />
    <file name="compose.php" role="horde" />
    <file name="contacts.php" role="horde" />
-   <file name="COPYING" role="horde" />
+   <file name="COPYING" role="doc" />
    <file name="folders-mimp.php" role="horde" />
    <file name="folders.php" role="horde" />
    <file name="index-dimp.php" role="horde" />
@@ -1076,7 +1102,7 @@
    <file name="message.php" role="horde" />
    <file name="mobile.php" role="horde" />
    <file name="pgp.php" role="horde" />
-   <file name="README" role="horde" />
+   <file name="README" role="doc" />
    <file name="rss.php" role="horde" />
    <file name="saveimage.php" role="horde" />
    <file name="search-basic.php" role="horde" />
@@ -1104,7 +1130,7 @@
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.4</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -1361,13 +1387,14 @@
    <install as="imp/config/menu.php.dist" name="config/menu.php.dist" />
    <install as="imp/config/mime_drivers.php" name="config/mime_drivers.php" />
    <install as="imp/config/prefs.php" name="config/prefs.php" />
-   <install as="imp/docs/CHANGES" name="docs/CHANGES" />
-   <install as="imp/docs/CREDITS" name="docs/CREDITS" />
-   <install as="imp/docs/INSTALL" name="docs/INSTALL" />
-   <install as="imp/docs/RELEASE_NOTES" name="docs/RELEASE_NOTES" />
-   <install as="imp/docs/RFCS" name="docs/RFCS" />
-   <install as="imp/docs/UPGRADING" name="docs/UPGRADING" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="RFCS" name="docs/RFCS" />
+   <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="imp/js/acl.js" name="js/acl.js" />
+   <install as="imp/js/base64url.js" name="js/base64url.js" />
    <install as="imp/js/compose-base.js" name="js/compose-base.js" />
    <install as="imp/js/compose-dimp.js" name="js/compose-dimp.js" />
    <install as="imp/js/compose.js" name="js/compose.js" />
@@ -1412,6 +1439,7 @@
    <install as="imp/lib/Spam.php" name="lib/Spam.php" />
    <install as="imp/lib/Test.php" name="lib/Test.php" />
    <install as="imp/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="imp/lib/Ajax/Queue.php" name="lib/Ajax/Queue.php" />
    <install as="imp/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="imp/lib/Ajax/Imple/PassphraseDialog.php" name="lib/Ajax/Imple/PassphraseDialog.php" />
    <install as="imp/lib/Block/Newmail.php" name="lib/Block/Newmail.php" />
@@ -1445,6 +1473,8 @@
    <install as="imp/lib/Flag/Imap/Draft.php" name="lib/Flag/Imap/Draft.php" />
    <install as="imp/lib/Flag/Imap/Flagged.php" name="lib/Flag/Imap/Flagged.php" />
    <install as="imp/lib/Flag/Imap/Forwarded.php" name="lib/Flag/Imap/Forwarded.php" />
+   <install as="imp/lib/Flag/Imap/Junk.php" name="lib/Flag/Imap/Junk.php" />
+   <install as="imp/lib/Flag/Imap/NotJunk.php" name="lib/Flag/Imap/NotJunk.php" />
    <install as="imp/lib/Flag/Imap/Seen.php" name="lib/Flag/Imap/Seen.php" />
    <install as="imp/lib/Flag/System/Attachment.php" name="lib/Flag/System/Attachment.php" />
    <install as="imp/lib/Flag/System/Encrypted.php" name="lib/Flag/System/Encrypted.php" />
@@ -1454,11 +1484,14 @@
    <install as="imp/lib/Flag/System/Signed.php" name="lib/Flag/System/Signed.php" />
    <install as="imp/lib/Flag/System/Unseen.php" name="lib/Flag/System/Unseen.php" />
    <install as="imp/lib/Imap/Acl.php" name="lib/Imap/Acl.php" />
+   <install as="imp/lib/Imap/Exception.php" name="lib/Imap/Exception.php" />
+   <install as="imp/lib/Imap/PermanentFlags.php" name="lib/Imap/PermanentFlags.php" />
    <install as="imp/lib/Imap/Thread.php" name="lib/Imap/Thread.php" />
    <install as="imp/lib/Imap/Tree.php" name="lib/Imap/Tree.php" />
    <install as="imp/lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
    <install as="imp/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="imp/lib/LoginTasks/SystemTask/UpgradeAuth.php" name="lib/LoginTasks/SystemTask/UpgradeAuth.php" />
+   <install as="imp/lib/LoginTasks/Task/Autocreate.php" name="lib/LoginTasks/Task/Autocreate.php" />
    <install as="imp/lib/LoginTasks/Task/DeleteAttachmentsMonthly.php" name="lib/LoginTasks/Task/DeleteAttachmentsMonthly.php" />
    <install as="imp/lib/LoginTasks/Task/DeleteSentmailMonthly.php" name="lib/LoginTasks/Task/DeleteSentmailMonthly.php" />
    <install as="imp/lib/LoginTasks/Task/FilterOnLogin.php" name="lib/LoginTasks/Task/FilterOnLogin.php" />
@@ -1473,6 +1506,7 @@
    <install as="imp/lib/Mime/Viewer/Alternative.php" name="lib/Mime/Viewer/Alternative.php" />
    <install as="imp/lib/Mime/Viewer/Appledouble.php" name="lib/Mime/Viewer/Appledouble.php" />
    <install as="imp/lib/Mime/Viewer/Enriched.php" name="lib/Mime/Viewer/Enriched.php" />
+   <install as="imp/lib/Mime/Viewer/Externalbody.php" name="lib/Mime/Viewer/Externalbody.php" />
    <install as="imp/lib/Mime/Viewer/Html.php" name="lib/Mime/Viewer/Html.php" />
    <install as="imp/lib/Mime/Viewer/Images.php" name="lib/Mime/Viewer/Images.php" />
    <install as="imp/lib/Mime/Viewer/Itip.php" name="lib/Mime/Viewer/Itip.php" />
@@ -1531,6 +1565,7 @@
    <install as="imp/lib/Sentmail/Null.php" name="lib/Sentmail/Null.php" />
    <install as="imp/lib/Sentmail/Sql.php" name="lib/Sentmail/Sql.php" />
    <install as="imp/lib/Tree/Flist.php" name="lib/Tree/Flist.php" />
+   <install as="imp/lib/Tree/Jquerymobile.php" name="lib/Tree/Jquerymobile.php" />
    <install as="imp/lib/Ui/Compose.php" name="lib/Ui/Compose.php" />
    <install as="imp/lib/Ui/Editor.php" name="lib/Ui/Editor.php" />
    <install as="imp/lib/Ui/Folder.php" name="lib/Ui/Folder.php" />
@@ -1612,6 +1647,7 @@
    <install as="imp/locale/ko/LC_MESSAGES/imp.po" name="locale/ko/LC_MESSAGES/imp.po" />
    <install as="imp/locale/lt/LC_MESSAGES/imp.mo" name="locale/lt/LC_MESSAGES/imp.mo" />
    <install as="imp/locale/lt/LC_MESSAGES/imp.po" name="locale/lt/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/lv/help.xml" name="locale/lv/help.xml" />
    <install as="imp/locale/lv/LC_MESSAGES/imp.mo" name="locale/lv/LC_MESSAGES/imp.mo" />
    <install as="imp/locale/lv/LC_MESSAGES/imp.po" name="locale/lv/LC_MESSAGES/imp.po" />
    <install as="imp/locale/mk/LC_MESSAGES/imp.mo" name="locale/mk/LC_MESSAGES/imp.mo" />
@@ -1798,6 +1834,7 @@
    <install as="imp/themes/default/graphics/key_down.png" name="themes/default/graphics/key_down.png" />
    <install as="imp/themes/default/graphics/key_up.png" name="themes/default/graphics/key_up.png" />
    <install as="imp/themes/default/graphics/loading.gif" name="themes/default/graphics/loading.gif" />
+   <install as="imp/themes/default/graphics/locked.png" name="themes/default/graphics/locked.png" />
    <install as="imp/themes/default/graphics/logo.png" name="themes/default/graphics/logo.png" />
    <install as="imp/themes/default/graphics/logout.png" name="themes/default/graphics/logout.png" />
    <install as="imp/themes/default/graphics/mail_answered.png" name="themes/default/graphics/mail_answered.png" />
@@ -1830,6 +1867,7 @@
    <install as="imp/themes/default/graphics/sbcursor_top.png" name="themes/default/graphics/sbcursor_top.png" />
    <install as="imp/themes/default/graphics/scroller.png" name="themes/default/graphics/scroller.png" />
    <install as="imp/themes/default/graphics/scroller_back.png" name="themes/default/graphics/scroller_back.png" />
+   <install as="imp/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
    <install as="imp/themes/default/graphics/select.png" name="themes/default/graphics/select.png" />
    <install as="imp/themes/default/graphics/shared.png" name="themes/default/graphics/shared.png" />
    <install as="imp/themes/default/graphics/signed.png" name="themes/default/graphics/signed.png" />
@@ -1867,6 +1905,8 @@
    <install as="imp/themes/lucblue/screen.css" name="themes/lucblue/screen.css" />
    <install as="imp/themes/mozilla/screen.css" name="themes/mozilla/screen.css" />
    <install as="imp/themes/postnuke/screen.css" name="themes/postnuke/screen.css" />
+   <install as="imp/themes/purple/screen.css" name="themes/purple/screen.css" />
+   <install as="imp/themes/purple/dimp/screen.css" name="themes/purple/dimp/screen.css" />
    <install as="imp/themes/silver/screen.css" name="themes/silver/screen.css" />
    <install as="imp/themes/silver/dimp/screen.css" name="themes/silver/dimp/screen.css" />
    <install as="imp/themes/silver/graphics/addressbook_add.png" name="themes/silver/graphics/addressbook_add.png" />
@@ -1883,6 +1923,7 @@
    <install as="imp/themes/silver/graphics/close.png" name="themes/silver/graphics/close.png" />
    <install as="imp/themes/silver/graphics/compose.png" name="themes/silver/graphics/compose.png" />
    <install as="imp/themes/silver/graphics/delete.png" name="themes/silver/graphics/delete.png" />
+   <install as="imp/themes/silver/graphics/download.png" name="themes/silver/graphics/download.png" />
    <install as="imp/themes/silver/graphics/drafts.png" name="themes/silver/graphics/drafts.png" />
    <install as="imp/themes/silver/graphics/edit.png" name="themes/silver/graphics/edit.png" />
    <install as="imp/themes/silver/graphics/empty_spam.png" name="themes/silver/graphics/empty_spam.png" />
@@ -1943,6 +1984,8 @@
    <install as="imp/themes/silver/graphics/folders/sent.png" name="themes/silver/graphics/folders/sent.png" />
    <install as="imp/themes/silver/graphics/folders/spam.png" name="themes/silver/graphics/folders/spam.png" />
    <install as="imp/themes/silver/graphics/folders/trash.png" name="themes/silver/graphics/folders/trash.png" />
+   <install as="imp/themes/silver/graphics/mime/compressed.png" name="themes/silver/graphics/mime/compressed.png" />
+   <install as="imp/themes/silver/graphics/mime/itip.php" name="themes/silver/graphics/mime/itip.php" />
    <install as="imp/themes/simplex/screen.css" name="themes/simplex/screen.css" />
    <install as="imp/themes/tango-blue/screen.css" name="themes/tango-blue/screen.css" />
    <install as="imp/themes/tango-blue/dimp/screen.css" name="themes/tango-blue/dimp/screen.css" />
@@ -1983,7 +2026,7 @@
    <install as="imp/compose-mimp.php" name="compose-mimp.php" />
    <install as="imp/compose.php" name="compose.php" />
    <install as="imp/contacts.php" name="contacts.php" />
-   <install as="imp/COPYING" name="COPYING" />
+   <install as="COPYING" name="COPYING" />
    <install as="imp/folders-mimp.php" name="folders-mimp.php" />
    <install as="imp/folders.php" name="folders.php" />
    <install as="imp/index-dimp.php" name="index-dimp.php" />
@@ -1995,7 +2038,7 @@
    <install as="imp/message.php" name="message.php" />
    <install as="imp/mobile.php" name="mobile.php" />
    <install as="imp/pgp.php" name="pgp.php" />
-   <install as="imp/README" name="README" />
+   <install as="README" name="README" />
    <install as="imp/rss.php" name="rss.php" />
    <install as="imp/saveimage.php" name="saveimage.php" />
    <install as="imp/search-basic.php" name="search-basic.php" />
@@ -2165,10 +2208,149 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-05-03</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [mms] Add quick flag filtering to traditional view.
+* [mms] Fix viewing linked attachments (Bug #9972).
+* [mms] Add support for the content-id access type of message/external-body.
+* [mms] Consolidate IMAP error handling code in IMP_Imap_Exception.
+* [mms] Use translated namespace name if available.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.3</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [jan] Add missing files to package.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.4</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-25</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [mms] Fix filter links in the preferences UI (Bug #10117).
+* [mms] Fix print icon for non text/html displayable attachments (Bug #10112).
+* [mms] Support $Junk/$NotJunk keywords when marking spam/ham.
+* [jan] Fix link to send PGP key to keyserver (Bug #10070).
+* [mms] Fix resizing compose window in dynamic view for IE 7/8 (Bug #10075).
+* [mms] Fix setting/unsetting passphrases in preferences (Bug #10096).
+* [mms] Base64url encode breacdrumb hash information in dynamic view.
+* [mms] Add login task to autocreate special mailboxes.
+* [mms] Workaround broken messages by allow viewing multipart/related parts that are not referenced in the base part.
+* [mms] Use ACLs to determine when to hide various UI options (Request #9537).
+* [mms] Cache various calculated mailbox information in the session.
+* [mms] Fix adding flags in advanced search (Bug #10049).
+* [mms] Fix display of subfolders in mobile view (Bug #10043).
+* [mms] Improved determination of available flags in a mailbox.
+* [mms] Fix adding to whitelist from dynamic view (rui.carneiro@portugalmail.net, Bug #10036).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.5</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [jan] Fix loading message previews from search results (Bug #10152).
+* [mms] Fix sending messages with linked attachments (Bug #10125).
+* [mms] Handle response codes/errors returned from POP3 servers.
+* [mms] Fix POP3 regressions.
+* [mms] Workaround broken suhosin extension to allow search mailboxes (Request #9842).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.6</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-08</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [mms] Fix regression in renaming mailboxes in dynamic view (Bug #10207).
+* [mms] Fix selecting sent-mail mailbox for not empty namespaces (Bug #10090).
+* [mms] Fix saving expand/collapse state in traditional folders view.
+* [mms] Update all flag changes in dynamic mode (Bug #10146).
+* [mms] Fix editing saved searches in dynamic mode (Bug #10189).
+* [mms] Fix regression in saving sent mail in traditional view (Bug #10193).
+* [mms] Fix regression in deleting mailboxes in traditional view (Bug #10170).
+* [mms] Fix currently selected mailbox in folder lists (Bug #10163).
+* [jan] Don&apos;t show button to strip attachments if turned off in the preferences (Bug #10154).
+* [jan] Fix printing from message popup (Bug #10188).
+* [jan] Fix viewing messages source from message popup (Bug #10190).
+* [jan] Fix editing saved searches in traditional view (Bug #10184).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.7</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-14</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [mms] Don&apos;t strip HTML part of compose message when stripping attachments from saved sent-mail message (Bug #10234).
+* [mms] Fix regression when copying/moving messages into a new mailbox in traditional view (Bug #10232).
+* [mms] Fix regression when flagging all messages in a mailbox (Bug #10224).
+* [jan] Fix folder links in virtual folders (Bug #10221).
+* [mms] Show translated name for special mailboxes in sent mail lists (Bug #10220).
+* [mms] Fix regression in filtering mailbox in traditional view (Bug #10213).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.8</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [jan] Don&apos;t attempt to delete linked attachments monthly if they have been disabled (Bug #10166).
+* [jan] Don&apos;t show basic headers twice when showing all headers (Bug #10276).
+* [jan] Add IMP_Contents#getTree() to return a tree representation of a message&apos;s MIME parts.
+* [mms] Fix regression in parsing list reply address (Bug #10258).
+* [jan] Tick sent-mail checkbox off when selecting sent-mail folder in dynamic view.
+* [jan] Keep key navigation active after clicking into a HTML message (Request #9720).
+* [mms] Fix additional regression when flagging all messages in a mailbox (Bug #10243).
+* [mms] Fix "Don&apos;t Show" filtering in traditional mailbox view (Bug #10244).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.9</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-18</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [jan] Fix verifying of inline signed PGP messages.
+* [mms] Fix Shift-N shortcut in dynamic view (Bug #10352).
+* [mms] Add save message link to dynamic view preview window.
+* [mms] Correctly quote e-mail names when composing from compose links in the dynamic view (Bug #10292).
    </notes>
   </release>
   <release>

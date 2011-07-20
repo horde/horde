@@ -159,13 +159,9 @@ class IMP_Ui_Compose
     {
         $indices = $ob = null;
 
-        if (is_null($vars)) {
-            /* IMP: compose.php */
-            $indices = new IMP_Indices(IMP::$thismailbox, IMP::$uid);
-        } elseif ($vars->folder && $vars->uid) {
-            /* DIMP: compose-dimp.php */
-            $indices = new IMP_Indices($vars->folder, $vars->uid);
-        } elseif ($vars->uids) {
+        if (is_null($vars) || !isset($vars->uids)) {
+            $indices = IMP::$thismailbox->getIndicesOb(IMP::$uid);
+        } else {
             $indices = new IMP_Indices($vars->uids);
         }
 
@@ -177,7 +173,7 @@ class IMP_Ui_Compose
 
         if (is_null($ob)) {
             if (!is_null($vars)) {
-                $vars->folder = $vars->uid = null;
+                $vars->uid = null;
                 $vars->type = 'new';
             }
 

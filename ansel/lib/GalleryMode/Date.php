@@ -168,7 +168,9 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         /* Get a list of all the subgalleries */
         $this->_getSubGalleries();
         if (count($this->_subGalleries)) {
-            $gallery_where = 'gallery_id IN (' . implode(', ', $this->_subGalleries) . ', ' . $this->_gallery->id . ')';
+            $gallery_where = 'gallery_id IN ('
+                . implode(', ', $this->_subGalleries)
+                . ', ' . $this->_gallery->id . ')';
         } else {
             $gallery_where = 'gallery_id = ' . $this->_gallery->id;
         }
@@ -177,7 +179,11 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         /* First let's see how specific the date is */
         if (!count($this->_date) || empty($this->_date['year'])) {
             /* All available images - grouped by year */
-            $images = $ansel_storage->listImages($this->_gallery->id, 0, 0, array('image_id', 'image_original_date'), $gallery_where);
+            $images = $ansel_storage->listImages(
+                array(
+                    'fields' => array('image_id', 'image_original_date'),
+                     'where' => $gallery_where)
+            );
             $dates = array();
             foreach ($images as $key => $image) {
                 $dates[date('Y', $image['image_original_date'])][] = $key;
@@ -210,11 +216,16 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
             $end->sec = 59;
 
             /* Get the image ids and dates */
-            $where = 'image_original_date <= ' . (int)$end->timestamp() . ' AND image_original_date >= ' . (int)$start->timestamp();
+            $where = 'image_original_date <= ' . (int)$end->timestamp()
+                . ' AND image_original_date >= ' . (int)$start->timestamp();
             if (!empty($gallery_where)) {
                 $where .= ' AND ' . $gallery_where;
             }
-            $images= $ansel_storage->listImages($this->_gallery->id, 0, 0, array('image_id', 'image_original_date'), $where);
+            $images= $ansel_storage->listImages(
+                array(
+                    'fields' => array('image_id', 'image_original_date'),
+                    'where' => $where)
+            );
             $dates = array();
             foreach ($images as $key => $image) {
                 $dates[date('n', $image['image_original_date'])][] = $key;
@@ -245,11 +256,16 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
             $end->min = 59;
             $end->sec = 59;
 
-            $where = 'image_original_date <= ' . (int)$end->timestamp() . ' AND image_original_date >= ' . (int)$start->timestamp();
+            $where = 'image_original_date <= ' . (int)$end->timestamp()
+                . ' AND image_original_date >= ' . (int)$start->timestamp();
             if (!empty($gallery_where)) {
                 $where .= ' AND ' . $gallery_where;
             }
-            $images= $ansel_storage->listImages($this->_gallery->id, 0, 0, array('image_id', 'image_original_date'), $where);
+            $images= $ansel_storage->listImages(
+                array(
+                    'fields' => array('image_id', 'image_original_date'),
+                    'where' => $where)
+            );
             $dates = array();
             foreach ($images as $key => $image) {
                 $dates[date('d', $image['image_original_date'])][] = $key;
@@ -277,11 +293,17 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
             $end->min = 59;
             $end->sec = 59;
 
-            $where = 'image_original_date <= ' . (int)$end->timestamp() . ' AND image_original_date >= ' . (int)$start->timestamp();
+            $where = 'image_original_date <= ' . (int)$end->timestamp()
+                . ' AND image_original_date >= ' . (int)$start->timestamp();
             if (!empty($gallery_where)) {
                 $where .= ' AND ' . $gallery_where;
             }
-            $images = $ansel_storage->listImages($this->_gallery->id, $from, $to, 'image_id', $where, 'image_sort');
+            $images = $ansel_storage->listImages(
+                array(
+                    'offset' => $from,
+                    'limit' => $to,
+                    'where' => $where)
+            );
             if ($images) {
                 $results = $ansel_storage->getImages(array('ids' => $images, 'preserve' => true));
             } else {
@@ -407,7 +429,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         $ids = array();
         foreach ($images as $imageId) {
             $ids[] = (int)$imageId;
-            if ($imageId == $this->_gallery->data['attribute_default']) {
+            if ($imageId == $this->_gallery->get('default')) {
                 $this->_gallery->set('default', null, true);
             }
         }
@@ -482,9 +504,9 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         $image_gallery = $image->gallery;
 
         /* Change gallery info. */
-        if ($this->_gallery->data['attribute_default'] == $image->id) {
-            $this->_gallery->data['attribute_default'] = null;
-            $this->_gallery->data['attribute_default_type'] = 'auto';
+        if ($this->_gallery->get('default') == $image->id) {
+            $this->_gallery->set('default', null);
+            $this->_gallery->set('default_type' , 'auto');
         }
 
         /* Delete cached files from VFS. */
@@ -507,7 +529,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
 
         /* Update the modified flag if we are not a stack image */
         if (!$isStack) {
-            $this->_gallery->data['attribute_last_modified'] = time();
+            $this->_gallery->set('last_modified', time());
         }
 
         /* Save all gallery changes */
@@ -611,9 +633,9 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
             /* Get a list of all the subgalleries */
             $subs = $GLOBALS['injector']
                 ->getInstance('Ansel_Storage')
-                ->listGalleries(array('parent' => $this->_gallery));
+                ->listGalleries(array('parent' => $this->_gallery->id));
             foreach ($subs as $sub) {
-                $this->_subGalleries[] = $sub->getId();
+                $this->_subGalleries[] = $sub->id;
             }
         }
     }

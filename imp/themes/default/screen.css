@@ -35,6 +35,10 @@ table.mboxactions {
     width: 6%;
 }
 
+.actionsSelectSection {
+    font-weight: bold;
+}
+
 /* Message list table styles. */
 .searchfolder a.smallheader {
     display: block;
@@ -182,6 +186,9 @@ div.msgActions, #fmanager div.folderActions {
 /* Message headers styling. */
 #msgheaders table {
     border-collapse: collapse;
+}
+#msgheaders td {
+    vertical-align: top;
 }
 
 /* Message body styling. */
@@ -389,6 +396,12 @@ tr.flagLowpriority {
 }
 .msgflags.flagAttachmsg {
     background-image: url("graphics/attachment.png");
+}
+.msgflags.flagJunk, span.iconImg.flagJunk {
+    background-image: url("graphics/spam.png");
+}
+.msgflags.flagNotJunk, span.iconImg.flagNotJunk {
+    background-image: url("graphics/ham.png");
 }
 tr.flagUnseen {
     font-weight: bold;
@@ -711,7 +724,7 @@ div.mimeStatusMessage, div.mimePartInfo {
     background-color: #ee0;
 }
 
-/* Quota syles. */
+/* Quota styles. */
 #quota {
     border-collapse: collapse;
     width: 100%;
@@ -720,4 +733,14 @@ div.mimeStatusMessage, div.mimePartInfo {
     padding: 3px;
     vertical-align: middle;
     text-align: center;
+}
+
+/* Block styles. */
+table.impBlockSummary th, table.impBlockSummary td {
+    padding: 0 8px;
+    text-align: center;
+}
+table.impBlockSummary tr > th:first-child, table.impBlockSummary tr > td:first-child {
+    padding: 0;
+    text-align: left;
 }

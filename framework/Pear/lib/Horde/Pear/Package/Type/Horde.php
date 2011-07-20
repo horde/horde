@@ -47,9 +47,10 @@ implements Horde_Pear_Package_Type
      *
      * @param string $root The root path for the package.
      */
-    public function __construct($root)
+    public function __construct($root, $repository_root = null)
     {
         $this->_root = $root;
+        $this->_repository_root = $repository_root;
     }
 
     /**
@@ -94,12 +95,13 @@ implements Horde_Pear_Package_Type
                 new Horde_Pear_Package_Contents_Ignore_Dot(),
                 new Horde_Pear_Package_Contents_Ignore_Patterns(
                     array(
-                        'package.xml',
+                        '/package.xml',
                         '*~',
                         'conf.php',
                         'CVS/*',
                         'bin/.htaccess',
-                    )
+                    ),
+                    $this->getRootPath()
                 ),
                 new Horde_Pear_Package_Contents_Ignore_Git(
                     $this->getGitIgnore(),
@@ -129,6 +131,9 @@ implements Horde_Pear_Package_Type
     {
         switch ($this->getName()) {
         case 'horde':
+        case 'groupware':
+        case 'webmail':
+        case 'kolab_webmail':
             $class = 'Horde_Pear_Package_Contents_InstallAs_Horde';
             break;
         case 'Horde_Role':

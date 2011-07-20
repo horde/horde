@@ -47,6 +47,8 @@ try {
     exit;
 }
 
+Ansel::initJSVariables();
+
 $title = $view->getTitle();
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();

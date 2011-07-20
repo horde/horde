@@ -10,7 +10,7 @@
  * @package  Http
  */
 
-require 'Horde/Autoloader.php';
+require 'Horde/Autoloader/Default.php';
 
 $client = new Horde_Http_Client();
 $response = $client->get('http://www.example.com/');

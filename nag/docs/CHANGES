@@ -5,9 +5,26 @@ v3.1-git
 
 
 ----------
-v3.0.1-git
+v3.0.3-git
 ----------
 
+
+
+------
+v3.0.2
+------
+
+[jan] Add Ukrainian translation (Andriy Kopystyansky <anri@polynet.lviv.ua>).
+
+
+------
+v3.0.1
+------
+
+[jan] Fix reversed logic of displaying sub-task tree icons depending on the
+      text direction (Bug #10033).
+[jan] Fix encoding of non-ascii characters in parent task drop-down.
+[mjr] Fix editing tasklists (Bug #9965).
 
 
 ----

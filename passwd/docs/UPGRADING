@@ -8,7 +8,18 @@
 .. section-numbering::
 
 
+General instructions
+====================
+
 These are instructions to upgrade from earlier Passwd versions.
+
+Upgrading Passwd is as easy as running::
+
+   pear upgrade -a -B horde/passwd
+
+If you want to upgrade from a Passwd version prior to 4.0, please
+follow the instructions in INSTALL_ to install the most recent Passwd
+version using the PEAR installer.
 
 After updating to a newer Passwd version, you **always** need to update
 configurations and database schemes. Log in as an administrator, go to
@@ -42,3 +53,6 @@ called 'be_username' in each of it's sub-drivers. If this parameter is
 present, its value overrides any other value of $userid it is passed. If you
 wish to use this functionality of the composite driver, look at the example
 _passwd_hook_username function in horde/config/hooks.php.dist.
+
+
+.. _INSTALL: INSTALL

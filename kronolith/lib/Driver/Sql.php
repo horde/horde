@@ -175,8 +175,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             $cond = substr($cond, 0, strlen($cond) - 5) . '))';
         }
 
-        $eventIds = $this->_listEventsConditional($query->start,
-                                                  $query->end,
+        $eventIds = $this->_listEventsConditional(empty($query->start) ? null : $query->start,
+                                                  empty($query->end) ? null : $query->end,
                                                   $cond,
                                                   $values);
         $events = array();
@@ -214,7 +214,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             throw new Kronolith_Exception($e);
         }
 
-        return !$empty ? $event : false;
+        return !empty($event) ? $event : false;
     }
 
     /**
@@ -445,9 +445,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      *
      * @param string $uid       The UID to match
      * @param array $calendars  A restricted array of calendar ids to search
-     * @param boolean $getAll   Return all matching events? If this is false,
-     *                          an error will be returned if more than one event
-     *                          is found.
+     * @param boolean $getAll   Return all matching events?
      *
      * @return Kronolith_Event
      * @throws Kronolith_Exception
@@ -464,7 +462,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             ' event_exceptions, event_creator_id, event_resources, event_baseid,' .
             ' event_exceptionoriginaldate FROM ' . $this->_params['table'] .
             ' WHERE event_uid = ?';
-        $values = array($uid);
+        $values = array((string)$uid);
 
         /* Optionally filter by calendar */
         if (!is_null($calendars)) {

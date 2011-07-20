@@ -34,7 +34,7 @@ if ($x2 - $x1 < 50 || $y2 - $y1 < 50) {
 /* Create Horde_Image driver. */
 $img = Ansel::getImageObject();
 try {
-    $result = $img->loadFile($path);
+    $img->loadFile($path);
 } catch (Horde_Image_Exception $e) {
     $notification->push($e->getMessage());
     Horde::url('faces/search/image.php')->redirect();
@@ -43,7 +43,7 @@ try {
 
 /* Crop image. */
 try {
-    $result = $img->crop($x1, $y1, $x2, $y2);
+    $img->crop($x1, $y1, $x2, $y2);
 } catch (Horde_Image_Exception $e) {
     $notification->push($e->getMessage());
     Horde::url('faces/search/image.php')->redirect();

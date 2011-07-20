@@ -95,8 +95,8 @@ msgid ""
 "address. The new email address is activated as soon as you confirm this "
 "message."
 msgstr ""
-"Un message de confirmation a été envoyé à « %s ». Cette nouvelle adresse sera "
-"activée dès que vous aurez confirmé ce message."
+"Un message de confirmation a été envoyé à « %s ». Cette nouvelle adresse "
+"sera activée dès que vous aurez confirmé ce message."
 
 #: lib/Horde/Core/Auth/Signup/Base.php:96
 #, php-format
@@ -113,8 +113,8 @@ msgstr ""
 #, fuzzy, php-format
 msgid "Account signup request for \"%s\""
 msgstr ""
-"Êtes-vous certain de vouloir supprimer cette requête d'inscription pour « %"
-"s » ?"
+"Êtes-vous certain de vouloir supprimer cette requête d'inscription pour "
+"« %s » ?"
 
 #: lib/Horde/Core/Perms/Ui.php:192 lib/Horde/Core/Ui/VarRenderer/Html.php:651
 msgid "Add"

@@ -202,11 +202,11 @@ class Horde_Util
     /**
      * If magic_quotes_gpc is in use, run stripslashes() on $var.
      *
-     * @param string &$var  The string to un-quote, if necessary.
+     * @param string $var  The string to un-quote, if necessary.
      *
      * @return string  $var, minus any magic quotes.
      */
-    static public function dispelMagicQuotes(&$var)
+    static public function dispelMagicQuotes($var)
     {
         if (is_null(self::$_magicquotes)) {
             self::$_magicquotes = get_magic_quotes_gpc();
@@ -216,7 +216,7 @@ class Horde_Util
             if (!is_array($var)) {
                 $var = stripslashes($var);
             } else {
-                array_walk($var, array(__CLASS__, 'dispelMagicQuotes'));
+                $var = array_map(array(__CLASS__, 'dispelMagicQuotes'), $var);
             }
         }
 
@@ -486,6 +486,8 @@ class Horde_Util
             }
             if (!strlen($params['quote'])) {
                 $row = fgetcsv($file, 0, $params['separator']);
+            } elseif (version_compare(PHP_VERSION, '5.3.0', '<')) {
+                $row = fgetcsv($file, 0, $params['separator'], $params['quote']);
             } else {
                 $row = fgetcsv($file, 0, $params['separator'], $params['quote'], $params['escape']);
             }
@@ -493,12 +495,17 @@ class Horde_Util
 
         ini_set('auto_detect_line_endings', $old);
 
-        if ($row && !empty($params['length'])) {
-            $length = count($row);
-            if ($length < $params['length']) {
-                $row += array_fill($length, $params['length'] - $length, '');
-            } elseif ($length > $params['length']) {
-                array_splice($row, $params['length']);
+        if ($row) {
+            if (strlen($params['quote']) && strlen($params['escape'])) {
+                $row = array_map(create_function('$a', 'return str_replace(\'' . str_replace('\'', '\\\'', $params['escape'] . $params['quote']) . '\', \'' . str_replace('\'', '\\\'', $params['quote']) . '\', $a);'), $row);
+            }
+            if (!empty($params['length'])) {
+                $length = count($row);
+                if ($length < $params['length']) {
+                    $row += array_fill($length, $params['length'] - $length, '');
+                } elseif ($length > $params['length']) {
+                    array_splice($row, $params['length']);
+                }
             }
         }
 
@@ -679,8 +686,11 @@ class Horde_Util
             return true;
         }
 
-        /* See if we can call dl() at all, by the current ini settings. */
-        if ((ini_get('enable_dl') != 1) || (ini_get('safe_mode') == 1)) {
+        /* See if we can call dl() at all, by the current ini settings.
+         * dl() has been removed in some PHP 5.3 SAPIs. */
+        if ((ini_get('enable_dl') != 1) ||
+            (ini_get('safe_mode') == 1) ||
+            !function_exists('dl')) {
             return false;
         }
 
@@ -705,7 +715,7 @@ class Horde_Util
             }
         }
 
-        return @dl($ext . '.' . $suffix) || @dl('php_' . $ext . '.' . $suffix);
+        return dl($ext . '.' . $suffix) || dl('php_' . $ext . '.' . $suffix);
     }
 
     /**

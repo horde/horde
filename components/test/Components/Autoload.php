@@ -31,4 +31,5 @@ require_once dirname(__FILE__) . '/StoryTestCase.php';
 require_once dirname(__FILE__) . '/TestCase.php';
 
 /** Load stub definitions */
+require_once dirname(__FILE__) . '/Stub/Config.php';
 require_once dirname(__FILE__) . '/Stub/Output.php';

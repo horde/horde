@@ -17,5 +17,5 @@ if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
   <td>
    <?php echo strftime($prefs->getValue('date_format'), $modDate) ?>
   </td>
-  <td class="category<?php echo md5($memo['category']) ?>"><?php echo htmlspecialchars($memo['category'] ? $memo['category'] : _("Unfiled")) ?></td>
+  <td class="base-category" style="<?php echo Mnemo::getCssStyle($memo['category']) ?>"><?php echo htmlspecialchars($memo['category'] ? $memo['category'] : _("Unfiled")) ?></td>
  </tr>

@@ -336,13 +336,18 @@ var DimpCore = {
         if (type.startsWith('forward') || !args || !args.uids) {
             if (type.startsWith('forward')) {
                 params.uids = this.toRangeString(this.selectionToRange(args.uids));
-            } else if (args && args.to) {
-                params.to = args.to;
+            } else if (args) {
+                if (args.to) {
+                    params.to = args.to;
+                }
+                if (args.toname) {
+                    params.toname = args.toname;
+                }
             }
             this.popupWindow(this.addURLParam(DIMP.conf.URI_COMPOSE, params), 'compose' + new Date().getTime());
         } else {
             args.uids.get('dataob').each(function(d) {
-                params.folder = d.view;
+                params.mailbox = d.view.base64urlEncode();
                 params.uid = d.imapuid;
                 this.popupWindow(this.addURLParam(DIMP.conf.URI_COMPOSE, params), 'compose' + new Date().getTime());
             }, this);
@@ -475,7 +480,7 @@ var DimpCore = {
             if (o.raw) {
                 a = o.raw;
             } else {
-                a = new Element('A', { className: 'address' }).store({ personal: o.personal, email: o.inner, address: (o.personal ? (o.personal + ' <' + o.inner + '>') : o.inner) });
+                a = new Element('A', { className: 'address' }).store({ personal: o.personal, email: o.inner });
                 if (o.personal) {
                     a.writeAttribute({ title: o.inner }).insert(o.personal.escapeHTML());
                 } else if (o.inner) {
@@ -606,7 +611,7 @@ var DimpCore = {
 
         switch (e.memo.elt.readAttribute('id')) {
         case 'ctx_contacts_new':
-            this.compose('new', { to: baseelt.retrieve('address') });
+            this.compose('new', { to: baseelt.retrieve('email'), toname: baseelt.retrieve('personal') });
             break;
 
         case 'ctx_contacts_add':

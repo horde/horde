@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: 2011-04-04 10:40+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -78,7 +78,7 @@ msgstr "Aktiv?"
 msgid "Add Job Type"
 msgstr "Arbeitsart hinzufügen"
 
-#: config/prefs.php:29
+#: config/prefs.php:30
 msgid ""
 "Add stop watch name and start and end time to the description of the time "
 "entry?"
@@ -269,7 +269,7 @@ msgstr "Beschreibung"
 msgid "Display Name"
 msgstr "Anzeigename"
 
-#: config/prefs.php:19
+#: config/prefs.php:20
 msgid "Display Preferences"
 msgstr "Anzeige-Einstellungen"
 
@@ -387,7 +387,7 @@ msgstr "Exportzeit"
 msgid "Exported?"
 msgstr "Exportiert?"
 
-#: config/prefs.php:11 config/prefs.php:18
+#: config/prefs.php:12 config/prefs.php:19
 msgid "General Preferences"
 msgstr "Allgemeine Einstellungen"
 
@@ -601,7 +601,7 @@ msgstr "Siehe angehängte Zeitübersicht"
 msgid "Select Client"
 msgstr "Kunde auswählen"
 
-#: config/prefs.php:20
+#: config/prefs.php:21
 msgid ""
 "Select confirmation preferences, how to display the different views and "
 "choose default view."
@@ -622,7 +622,7 @@ msgstr "Wählen Sie das Exportformat"
 msgid "Set date"
 msgstr "Datum festlegen"
 
-#: config/prefs.php:13
+#: config/prefs.php:14
 msgid "Set preferences on the stop watch timer."
 msgstr "Legen Sie Ihre Einstellungen für die Stoppuhr fest."
 
@@ -639,7 +639,7 @@ msgstr ""
 "Müssen die Benutzer Kommentare für Zeitabschnitte bei diesem Kunden angeben? "
 "Wenn nicht, wird automatisch der Kommentar \"%s\" eingefügt."
 
-#: config/prefs.php:43
+#: config/prefs.php:44
 msgid "Show the dynamic view by default, if the browser supports it?"
 msgstr ""
 "Standardmäßig die dynamische Ansicht anzeigen, falls der Browser dies "
@@ -653,7 +653,7 @@ msgstr "Stoppuhr starten"
 msgid "Stop Watch"
 msgstr "Stoppuhr"
 
-#: config/prefs.php:12
+#: config/prefs.php:13
 msgid "Stop watch Preferences"
 msgstr "Stoppuhr-Einstellungen"
 

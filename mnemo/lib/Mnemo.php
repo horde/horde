@@ -85,7 +85,11 @@ class Mnemo
 
         foreach ($display_notepads as $notepad) {
             $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($notepad);
-            $storage->retrieve();
+            try {
+                $storage->retrieve();
+            } catch (Mnemo_Exception $e) {
+                $GLOBALS['notification']->push($e, 'horde.error');
+            }
             $newmemos = $storage->listMemos();
             $memos = array_merge($memos, $newmemos);
         }
@@ -449,6 +453,9 @@ class Mnemo
      */
     public static function getPassphrase($id)
     {
+        if (!$id) {
+            return;
+        }
         if ($passphrase = $GLOBALS['session']->get('mnemo', 'passphrase/' . $id)) {
             $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
             return $secret->read($secret->getKey('mnemo'), $passphrase);
@@ -530,6 +537,36 @@ class Mnemo
         }
 
         $GLOBALS['prefs']->setValue('display_notepads', serialize($GLOBALS['display_notepads']));
+    }
+
+    /**
+     */
+    static public function getCssStyle($category, $stickies = false)
+    {
+        $cManager = new Horde_Prefs_CategoryManager();
+        $colors = $cManager->colors();
+        if (!isset($colors[$category])) {
+            return '';
+        }
+        $fgColors = $cManager->fgColors();
+
+        if (!$stickies) {
+            return 'color:' . (isset($fgColors[$category]) ? $fgColors[$category] : $fgColors['_default_']) . ';' .
+                'background:' . $colors[$category] . ';';
+        }
+
+        $hex = str_replace('#', '', $colors[$category]);
+        if (strlen($hex) == 3) {
+            $r = hexdec(substr($hex, 0, 1));
+            $g = hexdec(substr($hex, 1, 1));
+            $b = hexdec(substr($hex, 2, 1));
+        } else {
+            $r = hexdec(substr($hex, 0, 2));
+            $g = hexdec(substr($hex, 2, 2));
+            $b = hexdec(substr($hex, 4, 2));
+        }
+
+        return "background: rgba($r, $g, $b, 0.5)";
     }
 
 }

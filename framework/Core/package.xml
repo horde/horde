@@ -22,11 +22,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-04-20</date>
- <time>15:34:23</time>
+ <date>2011-07-14</date>
+ <time>00:24:22</time>
  <version>
-  <release>1.0.2</release>
-  <api>1.0.0</api>
+  <release>1.3.1</release>
+  <api>1.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mjr] Fix editing settings of fixed portal blocks (Bug #9910).
+* Fix removing user data from applications (Bug #10241).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -262,6 +262,9 @@
       </dir> <!-- /lib/Horde/Core/Ui -->
       <file name="Block.php" role="php" />
       <file name="Browser.php" role="php" />
+      <file name="Bundle.php" role="php" />
+      <file name="Cli.php" role="php" />
+      <file name="LoginTasks.php" role="php" />
       <file name="Perms.php" role="php" />
       <file name="Sidebar.php" role="php" />
       <file name="Translation.php" role="php">
@@ -594,7 +597,7 @@
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.4</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -774,13 +777,6 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>Horde_Translation</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
     <name>Horde_Template</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
@@ -789,13 +785,6 @@
    </package>
    <package>
     <name>Horde_Token</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Template</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
     <max>2.0.0</max>
@@ -1048,6 +1037,9 @@
    <install as="Horde/Config/Form.php" name="lib/Horde/Config/Form.php" />
    <install as="Horde/Core/Block.php" name="lib/Horde/Core/Block.php" />
    <install as="Horde/Core/Browser.php" name="lib/Horde/Core/Browser.php" />
+   <install as="Horde/Core/Bundle.php" name="lib/Horde/Core/Bundle.php" />
+   <install as="Horde/Core/Cli.php" name="lib/Horde/Core/Cli.php" />
+   <install as="Horde/Core/LoginTasks.php" name="lib/Horde/Core/LoginTasks.php" />
    <install as="Horde/Core/Perms.php" name="lib/Horde/Core/Perms.php" />
    <install as="Horde/Core/Sidebar.php" name="lib/Horde/Core/Sidebar.php" />
    <install as="Horde/Core/Translation.php" name="lib/Horde/Core/Translation.php" />
@@ -1413,10 +1405,108 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-05-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Don&apos;t show IMP compose link if user doesn&apos;t have permissions to IMP (Bug #10016).
 * [mjr] Fix editing settings of fixed portal blocks (Bug #9910).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-14</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Add Horde_Config#configFile() and Horde_Config#writePHPConfiguration().
+* [mjr] Fix issue with deleting identities (Bug #9997).
+* [jan] Store preferences for guests in the session.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-18</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Updated German translation.
+* [mms] Optimize session storage.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.0</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Add Horde_Config::configSQL() method.
+* [jan] Add Horde_Core_Cli and Horde_Core_Bundle classes.
+* [jan] Updated Slovak translation.
+* [mms] Allow numbers to be zero in certain preferences (Bug #10120).
+* [mms] Fix running Horde login tasks (Bug #9767).
+* [mms] Fix authenticating as several users in the same request (Bug #10027).
+* [gwr] Added support for the Kolab IMAP based preferences backend.
+* [jan] Updated Spanish translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-09</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [mms] Only list sidebar apps in listApps() if parent app is active (Bug #10017).
+* [mms] Fix autocomplete javascript when contents of DOM element is dynamically altered.
+* [mms] Fix duplicate node IDs in javascript tree rendering code (Bug #10173).
+* [rla] Show specific admin privileges a user has permission to (Enhancement #9350).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.0</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Update Lithuanian translation.
+* [jan] Update Brazilian Portuguese translation.
+* [jan] Fix generating database DSN for VFS if the global VFS configuration doesn&apos;t use SQL (Bug #10199).
+* [jan] Add option to Horde_Themes_Css#getStylesheetUrls() to never use CSS cache.
+* [jan] Add Horde_Menu#setMask() (Vilius Sumskas, Request #10078).
+* [jan] Allow configuration of split read databases for PostgreSQL (Request #7025).
+* [mms] Make sure appinitialized hook gets full application environment.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.1</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-14</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Fix removing user data from applications (Bug #10241).
    </notes>
   </release>
  </changelog>

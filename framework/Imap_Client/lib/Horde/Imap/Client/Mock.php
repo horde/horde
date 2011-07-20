@@ -118,12 +118,11 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      * @param string $folder  The folder name.
      *
      * @return string  The corrected user name.
-     *
-     * @todo This type of mapping only works for cyrus imap with a specific
-     *       configuration.
      */
     protected function _parseFolder($folder)
     {
+        // TODO: This type of mapping only works for cyrus imap with a
+        // specific.
         if (substr($folder, 0, 5) == 'INBOX') {
             $user = explode('@', $this->_user);
             return 'user/' . $user[0] . substr($folder, 5);

@@ -77,13 +77,13 @@ class Ansel_Widget_GalleryFaces extends Ansel_Widget_Base
 
         // Iterate over all the found faces and build the tiles.
         shuffle($images);
-        foreach ($images as $face_id => $face) {
+        foreach ($images as $face) {
             // Get the tile for this face
             $html .= Ansel_Faces::getFaceTile($face);
         }
 
         // Close up the nodes
-        $html .= '</div></div>';
+        $html .= '</div></div></div></div>';
 
         return $html;
     }

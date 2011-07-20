@@ -287,13 +287,14 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
                     $part2 = new Horde_Mime_Part();
                     $part2->setType('application/pgp-signature');
-                    $part2->setContents(Horde_String::convertCharset(implode("\n", $val['data']) . "\n" . implode("\n", $sig['data']), $charset, 'UTF-8'));
+                    $part2->setContents(implode("\n", $val['data']) . "\n" . implode("\n", $sig['data']));
                     // A true pgp-signature part would only contain the
                     // detached signature. However, we need to carry around
                     // the entire armored text to verify correctly. Use a
                     // IMP-specific content-type parameter to clue the PGP
                     // driver into this fact.
                     $part2->setMetadata('imp-pgp-signature', true);
+                    $part2->setMetadata('imp-pgp-charset', $charset);
 
                     $part->addPart($part1);
                     $part->addPart($part2);

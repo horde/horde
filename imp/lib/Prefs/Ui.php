@@ -37,10 +37,11 @@ class IMP_Prefs_Ui
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         /* Hide appropriate prefGroups. */
-        if ($imp_imap->pop3) {
+        if (!$imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
             $ui->suppressGroups[] = 'flags';
+        }
+        if (!$imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
             $ui->suppressGroups[] = 'searches';
-            $ui->suppressGroups[] = 'server';
         }
 
         try {
@@ -63,7 +64,7 @@ class IMP_Prefs_Ui
             $ui->suppressGroups[] = 'smime';
         }
 
-        if (!$imp_imap->allowFolders()) {
+        if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             $ui->suppressGroups[] = 'searches';
         }
     }
@@ -78,7 +79,7 @@ class IMP_Prefs_Ui
         global $conf, $injector, $prefs, $registry, $session;
 
         $cprefs = $ui->getChangeablePrefs();
-        $pop3 = $injector->getInstance('IMP_Factory_Imap')->create()->pop3;
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         switch ($ui->group) {
         case 'identities':
@@ -153,14 +154,13 @@ class IMP_Prefs_Ui
             case 'purge_spam_keep':
             case 'rename_sentmail_monthly':
             case 'tree_view':
-            case 'use_trash':
-                if ($pop3) {
+                if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
                     $ui->suppress[] = $val;
                 }
                 break;
 
             case 'delete_spam_after_report':
-                if ($pop3) {
+                if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
                     $tmp = $ui->prefs['delete_spam_after_report']['enum'];
                     unset($tmp[2]);
                     $ui->override['delete_spam_after_report'] = $tmp;
@@ -183,7 +183,7 @@ class IMP_Prefs_Ui
             case 'purge_trash_interval':
             case 'purge_trash_keep':
             case 'trashselect':
-                if ($pop3 ||
+                if (!$imp_imap->access(IMP_Imap::ACCESS_TRASH) ||
                     $prefs->isLocked('use_trash') ||
                     !$prefs->getValue('use_trash')) {
                     $ui->suppress[] = $val;
@@ -205,19 +205,25 @@ class IMP_Prefs_Ui
                 break;
 
             case 'filters_blacklist_link':
-                if (!$registry->hasMethod('mail/showBlacklist')) {
+                try {
+                    $ui->prefs[$val]['url'] = $registry->link('mail/showBlacklist');
+                } catch (Horde_Exception $e) {
                     $ui->suppress[] = $val;
                 }
                 break;
 
             case 'filters_link':
-                if (!$registry->hasMethod('mail/showFilters')) {
+                try {
+                    $ui->prefs[$val]['url'] = $registry->link('mail/showFilters');
+                } catch (Horde_Exception $e) {
                     $ui->suppress[] = $val;
                 }
                 break;
 
             case 'filters_whitelist_link':
-                if (!$registry->hasMethod('mail/showWhitelist')) {
+                try {
+                    $ui->prefs[$val]['url'] = $registry->link('mail/showWhitelist');
+                } catch (Horde_Exception $e) {
                     $ui->suppress[] = $val;
                 }
                 break;
@@ -306,6 +312,12 @@ class IMP_Prefs_Ui
 
             case 'trashselect':
                 if ($prefs->isLocked('trash_folder')) {
+                    $ui->suppress[] = $val;
+                }
+                break;
+
+            case 'use_trash':
+                if (!$imp_imap->access(IMP_Imap::ACCESS_TRASH)) {
                     $ui->suppress[] = $val;
                 }
                 break;
@@ -499,6 +511,10 @@ class IMP_Prefs_Ui
     {
         global $browser, $notification, $prefs, $registry, $session;
 
+        if ($prefs->isDirty('use_trash')) {
+            IMP_Mailbox::getPref('trash_folder')->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
+        }
+
         /* Always check to make sure we have a valid trash folder if delete to
          * trash is active. */
         if (($prefs->isDirty('use_trash') || $prefs->isDirty('trash_folder')) &&
@@ -588,7 +604,7 @@ class IMP_Prefs_Ui
                  * permissions; enabled indicates the right has been given to
                  * the user. */
                 $rightsmbox = $acl->getRightsMbox($folder, $index);
-                foreach ($rightslist as $val) {
+                foreach (array_keys($rightslist) as $val) {
                     $entry['rule'][] = array(
                         'disable' => !$canEdit || !$rightsmbox[$val],
                         'on' => $rule[$val],
@@ -623,102 +639,9 @@ class IMP_Prefs_Ui
         }
 
         $rights = array();
-        foreach ($rightslist as $val) {
-            switch ($val) {
-            case Horde_Imap_Client::ACL_LOOKUP:
-               $entry = array(
-                   'desc' => _("User can see the mailbox"),
-                   'title' => _("List")
-               );
-               break;
-
-            case Horde_Imap_Client::ACL_READ:
-               $entry = array(
-                   'desc' => _("Read messages"),
-                   'title' => _("Read")
-               );
-               break;
-
-            case Horde_Imap_Client::ACL_SEEN:
-               $entry = array(
-                   'desc' => _("Mark with Seen/Unseen flags"),
-                   'title' => _("Mark (Seen)")
-               );
-               break;
-
-            case Horde_Imap_Client::ACL_WRITE:
-               $entry = array(
-                   'desc' => _("Mark with other flags (e.g. Important/Answered)"),
-                   'title' => _("Mark (Other)")
-               );
-               break;
-
-            case Horde_Imap_Client::ACL_INSERT:
-                $entry = array(
-                    'desc' => _("Insert messages"),
-                    'title' => _("Insert")
-                );
-                break;
-
-            case Horde_Imap_Client::ACL_POST:
-                $entry = array(
-                    'desc' => _("Post to this mailbox (not enforced by IMAP)"),
-                    'title' => _("Post")
-                );
-                break;
-
-            case Horde_Imap_Client::ACL_ADMINISTER:
-                $entry = array(
-                    'desc' => _("Set permissions for other users"),
-                    'title' => _("Administer")
-                );
-                break;
-
-            case Horde_Imap_Client::ACL_CREATEMBOX:
-                $entry = array(
-                    'desc' => _("Create subfolders"),
-                    'title' => _("Create Folders")
-                );
-                break;
-
-            case Horde_Imap_Client::ACL_DELETEMBOX:
-                $entry = array(
-                    'desc' => _("Delete subfolders"),
-                    'title' => _("Delete Folders")
-                );
-                break;
-
-            case Horde_Imap_Client::ACL_DELETEMSGS:
-                $entry = array(
-                    'desc' => _("Delete messages"),
-                    'title' => _("Delete")
-                );
-                break;
-
-            case Horde_Imap_Client::ACL_EXPUNGE:
-                $entry = array(
-                    'desc' => _("Purge messages"),
-                    'title' => _("Purge")
-                );
-                break;
-
-            case Horde_Imap_Client::ACL_CREATE:
-                $entry = array(
-                    'desc' =>_("Create subfolders"),
-                    'title' => _("Create Folder")
-                );
-                break;
-
-            case Horde_Imap_Client::ACL_DELETE:
-                $entry = array(
-                    'desc' => _("Delete and purge messages"),
-                    'title' => _("Delete/Purge")
-                );
-                break;
-            }
-
-            $entry['val'] = $val;
-            $rights[] = $entry;
+        foreach ($rightslist as $key => $val) {
+            $val['val'] = $key;
+            $rights[] = $val;
         }
         $t->set('rights', $rights);
 
@@ -964,7 +887,7 @@ class IMP_Prefs_Ui
         $t = $injector->createInstance('Horde_Template');
         $t->setOption('gettext', true);
 
-        if (!$injector->getInstance('IMP_Factory_Imap')->create()->allowFolders()) {
+        if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
             $t->set('nofolder', true);
         } else {
             if (!($initial_page = $prefs->getValue('initial_page'))) {
@@ -1069,16 +992,18 @@ class IMP_Prefs_Ui
             if ($t->get('has_key')) {
                 $t->set('viewpublic', Horde::link($pgp_url->copy()->add('actionID', 'view_personal_public_key'), _("View Personal Public Key"), null, 'view_key'));
                 $t->set('infopublic', Horde::link($pgp_url->copy()->add('actionID', 'info_personal_public_key'), _("Information on Personal Public Key"), null, 'info_key'));
-                $t->set('sendkey', Horde::link($ui->selfUrl(array('special' => true))->add('send_pgp_key', 1), _("Send Key to Public Keyserver")));
+                $t->set('sendkey', Horde::link($ui->selfUrl(array('special' => true, 'token' => true))->add('send_pgp_key', 1), _("Send Key to Public Keyserver")));
                 $t->set('personalkey-public-help', Horde_Help::link('imp', 'pgp-personalkey-public'));
 
-                $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'PassphraseDialog'), array(
-                    'type' => 'pgpPersonal'
-                ));
-
-                $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
-                $passphrase = $imp_pgp->getPassphrase('personal');
-                $t->set('passphrase', empty($passphrase) ? Horde::link('#', _("Enter Passphrase"), null, null, null, null, null, array('id' => $imple->getPassphraseId())) . _("Enter Passphrase") : Horde::link($ui->selfUrl(array('special' => true))->add('unset_pgp_passphrase', 1), _("Unload Passphrase")) . _("Unload Passphrase"));
+                if ($passphrase = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp')->getPassphrase('personal')) {
+                    $t->set('passphrase', Horde::link($ui->selfUrl(array('special' => true, 'token' => true))->add('unset_pgp_passphrase', 1), _("Unload Passphrase")) . _("Unload Passphrase"));
+                } else {
+                    $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'PassphraseDialog'), array(
+                        'reloadurl' => $ui->selfUrl()->setRaw(true),
+                        'type' => 'pgpPersonal'
+                    ));
+                    $t->set('passphrase', Horde::link('#', _("Enter Passphrase"), null, null, null, null, null, array('id' => $imple->getPassphraseId())) . _("Enter Passphrase"));
+                }
 
                 $t->set('viewprivate', Horde::link($pgp_url->copy()->add('actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
                 $t->set('infoprivate', Horde::link($pgp_url->copy()->add('actionID', 'info_personal_private_key'), _("Information on Personal Private Key"), null, 'info_key'));
@@ -1262,7 +1187,7 @@ class IMP_Prefs_Ui
 
             $editable = !$vfolder_locked && $imp_search->isVFolder($val, true);
             $m_url = ($val->enabled && ($view_mode == 'imp'))
-                ? IMP::generateIMPUrl('mailbox.php', strval($val))->link(array('class' => 'vfolderenabled'))
+                ? $val->mbox_ob->url('mailbox.php')->link(array('class' => 'vfolderenabled'))
                 : null;
 
             if ($view_mode == 'dimp') {
@@ -1386,7 +1311,7 @@ class IMP_Prefs_Ui
 
         $js = array();
         foreach (array_keys($identity->getAll('id')) as $key) {
-            $js[$key] = $identity->getValue('sent_mail_folder', $key);
+            $js[$key] = $identity->getValue('sent_mail_folder', $key)->form_to;
         };
 
         Horde::addInlineJsVars(array(
@@ -1422,23 +1347,24 @@ class IMP_Prefs_Ui
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
-        if (!$imp_imap->allowFolders() ||
+        if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS) ||
             $prefs->isLocked('sent_mail_folder')) {
             return false;
         }
 
-        $sent_mail_folder = IMP_Mailbox::formFrom($ui->vars->sent_mail_folder);
-        if (empty($sent_mail_folder) && $ui->vars->sent_mail_folder_new) {
-            $sent_mail_folder = Horde_String::convertCharset($ui->vars->sent_mail_folder_new, 'UTF-8', 'UTF7-IMAP');
-        } elseif (strpos($sent_mail_folder, self::PREF_SPECIALUSE) === 0) {
-            $sent_mail_folder = substr($folder, strlen(self::PREF_SPECIALUSE));
-        } elseif (($sent_mail_folder == self::PREF_DEFAULT) &&
-                  ($sm_default = $prefs->getDefault('sent_mail_folder'))) {
-            $sent_mail_folder = $sm_default;
+        if (!$ui->vars->sent_mail_folder && $ui->vars->sent_mail_folder_new) {
+            $sent_mail_folder = IMP_Mailbox::get(Horde_String::convertCharset($ui->vars->sent_mail_folder_new, 'UTF-8', 'UTF7-IMAP'))->namespace_append;
+        } else {
+            $sent_mail_folder = IMP_Mailbox::formFrom($ui->vars->sent_mail_folder);
+            if (strpos($sent_mail_folder, self::PREF_SPECIALUSE) === 0) {
+                $sent_mail_folder = IMP_Mailbox::get(substr($folder, strlen(self::PREF_SPECIALUSE)));
+            } elseif (($sent_mail_folder == self::PREF_DEFAULT) &&
+                      ($sm_default = $prefs->getDefault('sent_mail_folder'))) {
+                $sent_mail_folder = IMP_Mailbox::get($sm_default)->namespace_append;
+            }
         }
 
-        if (($sent_mail_folder = IMP_Mailbox::get($sent_mail_folder)->namespace_append) &&
-            !$sent_mail_folder->create()) {
+        if ($sent_mail_folder && !$sent_mail_folder->create()) {
             return false;
         }
 
@@ -1471,13 +1397,15 @@ class IMP_Prefs_Ui
                 $t->set('viewpublic', Horde::link($smime_url->copy()->add('actionID', 'view_personal_public_key'), _("View Personal Public Certificate"), null, 'view_key'));
                 $t->set('infopublic', Horde::link($smime_url->copy()->add('actionID', 'info_personal_public_key'), _("Information on Personal Public Certificate"), null, 'info_key'));
 
-                $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'PassphraseDialog'), array(
-                    'type' => 'smimePersonal'
-                ));
-
-                $imp_smime = $GLOBALS['injector']->getInstance('IMP_Crypt_Smime');
-                $passphrase = $imp_smime->getPassphrase();
-                $t->set('passphrase', empty($passphrase) ? Horde::link('#', _("Enter Passphrase"), null, null, null, null, null, array('id' => $imple->getPassphraseId())) . _("Enter Passphrase") : Horde::link($ui->selfUrl(array('special' => true))->add('unset_smime_passphrase', 1), _("Unload Passphrase")) . _("Unload Passphrase"));
+                if ($passphrase = $GLOBALS['injector']->getInstance('IMP_Crypt_Smime')->getPassphrase()) {
+                    $t->set('passphrase', Horde::link($ui->selfUrl(array('special' => true))->add('unset_smime_passphrase', 1), _("Unload Passphrase")) . _("Unload Passphrase"));
+                } else {
+                    $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'PassphraseDialog'), array(
+                        'reloadurl' => $ui->selfUrl()->setRaw(true),
+                        'type' => 'smimePersonal'
+                    ));
+                    $t->set('passphrase', Horde::link('#', _("Enter Passphrase"), null, null, null, null, null, array('id' => $imple->getPassphraseId())) . _("Enter Passphrase"));
+                }
 
                 $t->set('viewprivate', Horde::link($smime_url->copy()->add('actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
                 $t->set('personalkey-delete-help', Horde_Help::link('imp', 'smime-delete-personal-certs'));
@@ -1886,9 +1814,12 @@ class IMP_Prefs_Ui
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
-        if (!$imp_imap->allowFolders() || $prefs->isLocked($pref)) {
+        if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS) ||
+            $prefs->isLocked($pref)) {
             return false;
         }
+
+        IMP_Mailbox::getPref($pref)->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
 
         if ($folder == self::PREF_NO_FOLDER) {
             return $prefs->setValue($pref, '');

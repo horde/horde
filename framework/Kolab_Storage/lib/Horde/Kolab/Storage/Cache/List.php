@@ -203,6 +203,22 @@ class Horde_Kolab_Storage_Cache_List
     }
 
     /**
+     * Returns if the folder type annotation is stored in the cache.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return boolean True if the type annotation is available.
+     */
+    public function hasFolderTypes()
+    {
+        $this->_load();
+        if (isset($this->_data[self::TYPES])) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Returns the folder type annotation from the cache.
      *
      * @return array The list folder types with the folder names as key and the
@@ -210,8 +226,7 @@ class Horde_Kolab_Storage_Cache_List
      */
     public function getFolderTypes()
     {
-        $this->_load();
-        if (isset($this->_data[self::TYPES])) {
+        if ($this->hasFolderTypes()) {
             return $this->_data[self::TYPES];
         } else {
             throw new Horde_Kolab_Storage_Exception(
@@ -221,9 +236,9 @@ class Horde_Kolab_Storage_Cache_List
     }
 
     /**
-     * Return namespace information.
+     * Returns if the namespace information is available.
      *
-     * @return mixed The namespace data.
+     * @return boolean True if the information exists in the cache.
      */
     public function hasNamespace()
     {

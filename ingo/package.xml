@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* 
+* [mms] Fix creating new mailboxes (Bug #10282).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -463,8 +463,8 @@
    <file name="filters.php" role="horde" />
    <file name="forward.php" role="horde" />
    <file name="index.php" role="horde" />
-   <file name="LICENSE" role="data" />
-   <file name="README" role="data" />
+   <file name="LICENSE" role="doc" />
+   <file name="README" role="doc" />
    <file name="rule.php" role="horde" />
    <file name="script.php" role="horde" />
    <file name="spam.php" role="horde" />
@@ -490,7 +490,7 @@
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.4</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -932,10 +932,41 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-06-14</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-* 
+* [jan] Fix moving rules to an explicit position (Bug #10172).
+* [mms] Fix storage backend conversion script.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* [jan] Add -N parameter to mailbot calls by default (Request #10147).
+* [jan] Fix notice when using numeric comparisons for spam headers (Bug #10222).
+* [jan] Respect excluded mail addresses in Maildrop vacation driver (Request #10077).
+* [jan] Fix access to debug handler in Timsieved driver.
+* [jan] Fix deleting single conditions from a rule (Bug #10253).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-13</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* [mms] Fix creating new mailboxes (Bug #10282).
    </notes>
   </release>
   <release>

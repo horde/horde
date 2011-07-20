@@ -5,9 +5,39 @@ v3.1-git
 
 
 ----------
-v3.0.2-git
+v3.0.5-git
 ----------
 
+[mjr] Force ActiveSync device reset after sync_books pref is changed
+      (Request #10342).
+
+------
+v3.0.4
+------
+
+[jan] Pass contact object to decode_attribute hook (kd@tu-cottbus.de, Bug
+      #10287).
+[jan] Complete fix for importing LDIF files (Bug #10139).
+
+
+------
+v3.0.3
+------
+
+[rla] Support multiple address books in search portal block (Request #8786).
+[mjr] Fix importing LDIF files (Bug #10139).
+[mjr] Fix issue introduced in 3.0.1 that caused contact images to not display
+      (Bug #10050).
+[jan] Fix editing of multiple contacts at once (Bug #10085).
+[jan] Enable homeAdress and workAdress composite fields by default.
+
+
+------
+v3.0.2
+------
+
+[jan] Fix exporting department attribute over ActiveSync.
+[mjr] Fix adding contacts with a category selected.
 
 
 ------

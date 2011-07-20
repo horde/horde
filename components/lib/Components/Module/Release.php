@@ -155,7 +155,7 @@ extends Components_Module_Base
      */
     public function getHelp($action)
     {
-        return 'Releases the component. This handles a number of automated steps usually required when releasing a package to pear.horde.org. In the most simple situation it will be sufficient to move to the directory of the component you with to release and run
+        return 'Releases the component. This handles a number of automated steps usually required when releasing a package to pear.horde.org. In the most simple situation it will be sufficient to move to the directory of the component you wish to release and run
 
   horde-components release
 
@@ -183,6 +183,29 @@ The following example would generate the package and add the release tag to git 
     }
 
     /**
+     * Return the options that should be explained in the context help.
+     *
+     * @return array A list of option help texts.
+     */
+    public function getContextOptionHelp()
+    {
+        return array(
+            '--pretend' => '',
+            '--config' => '',
+            '--releaseserver' => '',
+            '--releasedir' => '',
+            '--next_note' => '',
+            '--next_version' => '',
+            '--next_relstate' => '',
+            '--next_apistate' => '',
+            '--from' => '',
+            '--horde_user' => '',
+            '--horde_pass' => '',
+            '--fm_token' => '',
+        );
+    }
+
+    /**
      * Determine if this module should act. Run all required actions if it has
      * been instructed to do so.
      *
@@ -196,7 +219,6 @@ The following example would generate the package and add the release tag to git 
         $arguments = $config->getArguments();
         if (!empty($options['release'])
             || (isset($arguments[0]) && $arguments[0] == 'release')) {
-            $this->requirePackageXml($config->getComponentDirectory());
             $this->_dependencies->getRunnerRelease()->run();
             return true;
         }

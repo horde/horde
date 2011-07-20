@@ -1401,7 +1401,7 @@ class Horde_Form_Type_email extends Horde_Form_Type {
      * @param boolean $link_compose  Link the email address to the compose page
      *                               when displaying?
      * @param string $link_name      The name to use when linking to the
-                                     compose page.
+     *                               compose page.
      * @param string $delimiters     Character to split multiple addresses with.
      */
     function init($allow_multi = false, $strip_domain = false,

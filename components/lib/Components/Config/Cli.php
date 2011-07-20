@@ -48,6 +48,20 @@ extends Components_Config_Base
 
         $parser->addOption(
             new Horde_Argv_Option(
+                '-c',
+                '--config',
+                array(
+                    'action' => 'store',
+                    'help'   => sprintf(
+                        'the path to the configuration file for the components script (default : %s).',
+                        Components_Constants::getConfigFile()
+                    ),
+                    'default' => Components_Constants::getConfigFile()
+                )
+            )
+        );
+        $parser->addOption(
+            new Horde_Argv_Option(
                 '-q',
                 '--quiet',
                 array(
@@ -98,6 +112,16 @@ extends Components_Config_Base
         );
         $parser->addOption(
             new Horde_Argv_Option(
+                '-D',
+                '--destination',
+                array(
+                    'action' => 'store',
+                    'help'   => 'Path to an (existing) destination directory where any output files will be placed.'
+                )
+            )
+        );
+        $parser->addOption(
+            new Horde_Argv_Option(
                 '-R',
                 '--pearrc',
                 array(
@@ -106,7 +130,34 @@ extends Components_Config_Base
                 )
             )
         );
-
+        $parser->addOption(
+            new Horde_Argv_Option(
+                '--allow-remote',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'allow horde-components to access the remote http://pear.horde.org for dealing with stable releases. This option is not required in case you work locally in your git checkout and will only work for some actions that are able to operate on stable release packages.'
+                )
+            )
+        );
+        $parser->addOption(
+            new Horde_Argv_Option(
+                '-G',
+                '--commit',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Commit any changes during the selected action to git.'
+                )
+            )
+        );
+        $parser->addOption(
+            new Horde_Argv_Option(
+                '--horde-root',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The root of the Horde git repository.'
+                )
+            )
+        );
         list($this->_options, $this->_arguments) = $this->_parser->parseArgs();
     }
 }

@@ -8,6 +8,7 @@ function toggleTags(domid)
 </script>
 <?php
 Horde::addScriptFile('quickfinder.js', 'horde');
+Horde::addScriptFile('effects.js', 'horde');
 Horde::addScriptFile('redbox.js', 'horde');
 Horde::addScriptFile('calendar-panel.js', 'kronolith');
 

@@ -1,2 +1,3 @@
 <?php
-$conf['pear']['server'] = 'http://localhost/pirum';
+$conf['pear']['server'] = 'pear.horde.org';
+$conf['pear']['config'] = '/etc/pear/pear.conf';

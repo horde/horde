@@ -3,17 +3,17 @@
  <name>Horde_Memcache</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Memcache API</summary>
- <description>The Horde_Memcache library provides an API to access a memcache installation in Horde code.</description>
+ <description>Provides an API to access a memcache installation.</description>
  <lead>
   <name>Michael Slusarz</name>
   <user>slusarz</user>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:15:14</time>
+ <date>2011-06-04</date>
+ <time>13:39:36</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,6 +28,9 @@
   <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
+     <dir name="Memcache">
+      <file name="Exception.php" role="php" />
+     </dir> <!-- /lib/Horde/Memcache -->
      <file name="Memcache.php" role="php" />
     </dir> <!-- //lib/Horde -->
    </dir> <!-- //lib -->
@@ -48,17 +51,19 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>memcache</name>
+    <channel>pecl.php.net</channel>
+   </package>
    <extension>
     <name>hash</name>
-   </extension>
-   <extension>
-    <name>memcache</name>
    </extension>
   </required>
  </dependencies>
  <phprelease>
   <filelist>
    <install as="Horde/Memcache.php" name="lib/Horde/Memcache.php" />
+   <install as="Horde/Memcache/Exception.php" name="lib/Horde/Memcache/Exception.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -145,7 +150,46 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-05-03</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Fix dependency.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [mms] Use memcache flags to keep track of large objects (goncalo.queiros@portugalmail.net, Request #10123).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-04</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [mms] pecl/Memcache version 3.0.3 upwards started to reserve the first 16 bits for internal flag use (Ticket #10123; goncalo.queiros@portugalmail.net).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-04</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * 

@@ -1,50 +1,29 @@
 <?php
 /**
- * The Horde_Memcache:: class provides an API or Horde code to interact with
- * a centrally configured memcache installation.
+ * This class provides an API or Horde code to interact with a centrally
+ * configured memcache installation.
  *
  * memcached website: http://www.danga.com/memcached/
- *
- * Configuration parameters:
- * <pre>
- * 'compression' - Compress data inside memcache?
- *                 DEFAULT: false
- * 'c_threshold' - The minimum value length before attempting to compress.
- *                 DEFAULT: none
- * 'hostspec'    - The memcached host(s) to connect to.
- *                 DEFAULT: 'localhost'
- * 'large_items' - Allow storing large data items (larger than
- *                 Horde_Memcache::MAX_SIZE)?
- *                 DEFAULT: true
- * 'persistent'  - Use persistent DB connections?
- *                 DEFAULT: false
- * 'prefix'      - The prefix to use for the memcache keys.
- *                 DEFAULT: 'horde'
- * 'port'        - The port(s) memcache is listening on. Leave empty or set
- *                 to 0 if using UNIX sockets.
- *                 DEFAULT: 11211
- * 'weight'      - The weight to use for each memcached host.
- *                 DEFAULT: none (equal weight to all servers)
- * </pre>
- *
- * @TODO Support for new pecl memcached extension:
- * http://gravitonic.com/2009/01/new-memcached-extension,
- * http://pecl.php.net/package/memcached
- * http://www.php.net/manual/en/book.memcached.php
- * http://techportal.ibuildings.com/2009/06/22/new-memcached-extension-for-php/
  *
  * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @category Horde
  * @author   Michael Slusarz <slusarz@horde.org>
  * @author   Didi Rieder <adrieder@sbox.tugraz.at>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Memcache
  */
 class Horde_Memcache implements Serializable
 {
+    /**
+     * The number of bits reserved by PHP's memcache layer for internal flag
+     * use.
+     */
+    const FLAGS_RESERVED = 16;
+
     /**
      * The max storage size of the memcache server.  This should be slightly
      * smaller than the actual value due to overhead.  By default, the max
@@ -70,11 +49,12 @@ class Horde_Memcache implements Serializable
      * @var array
      */
     protected $_params = array(
-        'compression' => 0,
-        'hostspec' => 'localhost',
+        'compression' => false,
+        'hostspec' => array('localhost'),
         'large_items' => true,
         'persistent' => false,
-        'port' => 11211,
+        'port' => array(11211),
+        'prefix' => 'horde'
     );
 
     /**
@@ -94,14 +74,32 @@ class Horde_Memcache implements Serializable
     /**
      * Constructor.
      *
-     * @param array $params  TODO
+     * @param array $params  Configuration parameters:
+     *   - compression: (boolean) Compress data inside memcache?
+     *                  DEFAULT: false
+     *   - c_threshold: (integer) The minimum value length before attempting
+     *                  to compress.
+     *                  DEFAULT: none
+     *   - hostspec: (array) The memcached host(s) to connect to.
+     *                  DEFAULT: 'localhost'
+     *   - large_items: (boolean) Allow storing large data items (larger than
+     *                  Horde_Memcache::MAX_SIZE)?
+     *                  DEFAULT: true
+     *   - persistent: (boolean) Use persistent DB connections?
+     *                 DEFAULT: false
+     *   - prefix: (string) The prefix to use for the memcache keys.
+     *             DEFAULT: 'horde'
+     *   - port: (array) The port(s) memcache is listening on. Leave empty
+     *           if using UNIX sockets.
+     *           DEFAULT: 11211
+     *   - weight: (array) The weight(s) to use for each memcached host.
+     *             DEFAULT: none (equal weight to all servers)
      *
-     * @throws Horde_Exception
+     * @throws Horde_Memcache_Exception
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         $this->_params = array_merge($this->_params, $params);
-        $this->_params['prefix'] = (empty($this->_params['prefix'])) ? 'horde' : $this->_params['prefix'];
 
         if (isset($params['logger'])) {
             $this->_logger = $params['logger'];
@@ -111,51 +109,15 @@ class Horde_Memcache implements Serializable
     }
 
     /**
-     * Serialize.
-     *
-     * @return string  Serialized representation of this object.
-     */
-    public function serialize()
-    {
-        return serialize(array(
-            self::VERSION,
-            $this->_params,
-            $this->_logger
-        ));
-    }
-
-    /**
-     * Unserialize.
-     *
-     * @param string $data  Serialized data.
-     *
-     * @throws Exception
-     * @throws Horde_Exception
-     */
-    public function unserialize($data)
-    {
-        $data = @unserialize($data);
-        if (!is_array($data) ||
-            !isset($data[0]) ||
-            ($data[0] != self::VERSION)) {
-            throw new Exception('Cache version change');
-        }
-
-        $this->_params = $data[1];
-        $this->_logger = $data[2];
-
-        $this->_init();
-    }
-
-    /**
      * Do initialization.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Memcache_Exception
      */
     public function _init()
     {
-        $servers = array();
         $this->_memcache = new Memcache();
+
+        $servers = array();
         for ($i = 0, $n = count($this->_params['hostspec']); $i < $n; ++$i) {
             if ($this->_memcache->addServer($this->_params['hostspec'][$i], empty($this->_params['port'][$i]) ? 0 : $this->_params['port'][$i], !empty($this->_params['persistent']), !empty($this->_params['weight'][$i]) ? $this->_params['weight'][$i] : 1)) {
                 $servers[] = $this->_params['hostspec'][$i] . (!empty($this->_params['port'][$i]) ? ':' . $this->_params['port'][$i] : '');
@@ -164,7 +126,7 @@ class Horde_Memcache implements Serializable
 
         /* Check if any of the connections worked. */
         if (empty($servers)) {
-            throw new Horde_Exception('Could not connect to any defined memcache servers.');
+            throw new Horde_Memcache_Exception('Could not connect to any defined memcache servers.');
         }
 
         if (!empty($this->_params['c_threshold'])) {
@@ -191,17 +153,9 @@ class Horde_Memcache implements Serializable
      */
     public function delete($key, $timeout = 0)
     {
-        if (!empty($this->_params['large_items'])) {
-            /* No need to delete the oversized parts - memcache's LRU
-             * algorithm will eventually cause these pieces to be recycled. */
-            if (!isset($this->_noexist[$key . '_os'])) {
-                $this->_memcache->delete($this->_key($key . '_os'), $timeout);
-            }
-        }
-        if (isset($this->_noexist[$key])) {
-            return false;
-        }
-        return $this->_memcache->delete($this->_key($key), $timeout);
+        return isset($this->_noexist[$key])
+            ? false
+            : $this->_memcache->delete($this->_key($key), $timeout);
     }
 
     /**
@@ -216,7 +170,8 @@ class Horde_Memcache implements Serializable
      */
     public function get($keys)
     {
-        $key_map = $os = $os_keys = $out_array = array();
+        $flags = null;
+        $key_map = $missing_parts = $os = $out_array = array();
         $ret_array = true;
 
         if (!is_array($keys)) {
@@ -225,42 +180,40 @@ class Horde_Memcache implements Serializable
         }
         $search_keys = $keys;
 
-        if (!empty($this->_params['large_items'])) {
-            foreach ($keys as $val) {
-                $os_keys[$val] = $search_keys[] = $val . '_os';
-            }
-        }
-
         foreach ($search_keys as $v) {
             $key_map[$v] = $this->_key($v);
         }
 
-        $res = $this->_memcache->get(array_values($key_map));
-        if ($res === false) {
+        if (($res = $this->_memcache->get(array_values($key_map), $flags)) === false) {
             return false;
         }
 
         /* Check to see if we have any oversize items we need to get. */
-        if (!empty($os_keys)) {
-            foreach ($os_keys as $key => $val) {
-                if (!empty($res[$key_map[$val]])) {
-                    /* This is an oversize key entry. */
-                    $os[$key] = $this->_getOSKeyArray($key, $res[$key_map[$val]]);
+        if (!empty($this->_params['large_items'])) {
+            foreach ($key_map as $key => $val) {
+                $part_count = ($flags[$val] >> self::FLAGS_RESERVED) - 1;
+
+                switch ($part_count) {
+                case -1:
+                    /* Ignore. */
+                    unset($res[$val]);
+                    break;
+
+                case 0:
+                    /* Not an oversize part. */
+                    break;
+
+                default:
+                    $os[$key] = $this->_getOSKeyArray($key, $part_count);
+                    foreach ($os[$key] as $val2) {
+                        $missing_parts[] = $key_map[$val2] = $this->_key[$val2];
+                    }
+                    break;
                 }
             }
 
-            if (!empty($os)) {
-                $search_keys = $search_keys2 = array();
-                foreach ($os as $val) {
-                    $search_keys = array_merge($search_keys, $val);
-                }
-
-                foreach ($search_keys as $v) {
-                    $search_keys2[] = $key_map[$v] = $this->_key($v);
-                }
-
-                $res2 = $this->_memcache->get($search_keys2);
-                if ($res2 === false) {
+            if (!empty($missing_parts)) {
+                if (($res2 = $this->_memcache->get($missing_parts)) === false) {
                     return false;
                 }
 
@@ -296,7 +249,9 @@ class Horde_Memcache implements Serializable
             }
         }
 
-        return ($ret_array) ? $out_array : reset($out_array);
+        return $ret_array
+            ? $out_array
+            : reset($out_array);
     }
 
     /**
@@ -337,22 +292,14 @@ class Horde_Memcache implements Serializable
 
         for ($i = 0; ($i * self::MAX_SIZE) < $len; ++$i) {
             $curr_key = $i ? ($key . '_s' . $i) : $key;
-            $res = $this->_memcache->set($this->_key($curr_key), substr($var, $i * self::MAX_SIZE, self::MAX_SIZE), empty($this->_params['compression']) ? 0 : MEMCACHE_COMPRESSED, $expire);
+
+            $flags = $this->_getFlags($i ? 0 : ceil($len / self::MAX_SIZE));
+            $res = $this->_memcache->set($this->_key($curr_key), substr($var, $i * self::MAX_SIZE, self::MAX_SIZE), $flags, $expire);
             if ($res === false) {
                 $this->delete($key);
-                $i = 1;
                 break;
             }
             unset($this->_noexist[$curr_key]);
-        }
-
-        if (($res !== false) && !empty($this->_params['large_items'])) {
-            $os_key = $this->_key($key . '_os');
-            if (--$i) {
-                $this->_memcache->set($os_key, $i, 0, $expire);
-            } elseif (!isset($this->_noexist[$key . '_os'])) {
-                $this->_memcache->delete($os_key);
-            }
         }
 
         return $res;
@@ -375,24 +322,14 @@ class Horde_Memcache implements Serializable
         $len = strlen($var);
 
         if ($len > self::MAX_SIZE) {
-            if (!empty($this->_params['large_items'])) {
-                $res = $this->_memcache->get(array($this->_key($key), $this->_key($key . '_os')));
-                if (!empty($res)) {
-                    return $this->_set($key, $var, $expire, $len);
-                }
+            if (!empty($this->_params['large_items']) &&
+                $this->_memcache->get($this->_key($key))) {
+                return $this->_set($key, $var, $expire, $len);
             }
             return false;
         }
 
-        if ($this->_memcache->replace($this->_key($key), $var, empty($this->_params['compression']) ? 0 : MEMCACHE_COMPRESSED, $expire)) {
-            if (!empty($this->_params['large_items']) &&
-                !isset($this->_noexist[$key . '_os'])) {
-                $this->_memcache->delete($this->_key($key . '_os'));
-            }
-            return true;
-        }
-
-        return false;
+        return $this->_memcache->replace($this->_key($key), $var, $this->_getFlags(1), $expire);
     }
 
     /**
@@ -462,6 +399,60 @@ class Horde_Memcache implements Serializable
             $ret[] = $key . '_s' . ($i + 1);
         }
         return $ret;
+    }
+
+    /**
+     * Get flags for memcache call.
+     *
+     * @param integer $count
+     *
+     * @return integer
+     */
+    protected function _getFlags($count)
+    {
+        $flags = empty($this->_params['compression'])
+            ? 0
+            : MEMCACHE_COMPRESSED;
+        return ($flags | $count << self::FLAGS_RESERVED);
+    }
+
+    /* Serializable methods. */
+
+    /**
+     * Serialize.
+     *
+     * @return string  Serialized representation of this object.
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            self::VERSION,
+            $this->_params,
+            $this->_logger
+        ));
+    }
+
+    /**
+     * Unserialize.
+     *
+     * @param string $data  Serialized data.
+     *
+     * @throws Exception
+     * @throws Horde_Memcache_Exception
+     */
+    public function unserialize($data)
+    {
+        $data = @unserialize($data);
+        if (!is_array($data) ||
+            !isset($data[0]) ||
+            ($data[0] != self::VERSION)) {
+            throw new Exception('Cache version change');
+        }
+
+        $this->_params = $data[1];
+        $this->_logger = $data[2];
+
+        $this->_init();
     }
 
 }

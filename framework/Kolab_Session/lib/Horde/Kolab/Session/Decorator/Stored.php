@@ -51,7 +51,8 @@ extends Horde_Kolab_Session_Decorator_Base
     public function __construct(
         Horde_Kolab_Session $session,
         Horde_Kolab_Session_Storage $storage
-    ) {
+    )
+    {
         parent::__construct($session);
         $this->_storage = $storage;
         $this->_session->import($this->_storage->load());

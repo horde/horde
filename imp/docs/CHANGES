@@ -5,9 +5,120 @@ v5.1-git
 
 
 ----------
-v5.0.2-git
+v5.0.9-git
 ----------
 
+[jan] Fix verifying of inline signed PGP messages (requires Horde_Crypt 1.0.4).
+[mms] Fix Shift-N shortcut in dynamic view (Bug #10352).
+[mms] Add save message link to dynamic view preview window.
+[mms] Correctly quote e-mail names when composing from compose links in the
+      dynamic view (Bug #10292).
+
+
+------
+v5.0.8
+------
+
+[jan] Don't attempt to delete linked attachments monthly if they have been
+      disabled (Bug #10166).
+[jan] Don't show basic headers twice when showing all headers (Bug #10276).
+[jan] Add IMP_Contents#getTree() to return a tree representation of a message's
+      MIME parts.
+[mms] Fix regression in parsing list reply address (Bug #10258).
+[jan] Tick sent-mail checkbox off when selecting sent-mail folder in dynamic
+      view.
+[jan] Keep key navigation active after clicking into a HTML message (Request
+      #9720).
+[mms] Fix additional regression when flagging all messages in a mailbox
+      (Bug #10243).
+[mms] Fix "Don't Show" filtering in traditional mailbox view (Bug #10244).
+
+
+------
+v5.0.7
+------
+
+[mms] Don't strip HTML part of compose message when stripping attachments
+      from saved sent-mail message (Bug #10234).
+[mms] Fix regression when copying/moving messages into a new mailbox in
+      traditional view (Bug #10232).
+[mms] Fix regression when flagging all messages in a mailbox (Bug #10224).
+[jan] Fix folder links in virtual folders (Bug #10221).
+[mms] Show translated name for special mailboxes in sent mail lists (Bug
+      #10220).
+[mms] Fix regression in filtering mailbox in traditional view (Bug #10213).
+
+
+------
+v5.0.6
+------
+
+[mms] Fix regression in renaming mailboxes in dynamic view (Bug #10207).
+[mms] Fix selecting sent-mail mailbox for not empty namespaces (Bug #10090).
+[mms] Fix saving expand/collapse state in traditional folders view.
+[mms] Update all flag changes in dynamic mode (Bug #10146).
+[mms] Fix editing saved searches in dynamic mode (Bug #10189).
+[mms] Fix regression in saving sent mail in traditional view (Bug #10193).
+[mms] Fix regression in deleting mailboxes in traditional view (Bug #10170).
+[mms] Fix currently selected mailbox in folder lists (Bug #10163).
+[jan] Don't show button to strip attachments if turned off in the preferences
+      (Bug #10154).
+[jan] Fix printing from message popup (Bug #10188).
+[jan] Fix viewing messages source from message popup (Bug #10190).
+[jan] Fix editing saved searches in traditional view (Bug #10184).
+
+
+------
+v5.0.5
+------
+
+[jan] Fix loading message previews from search results (Bug #10152).
+[mms] Fix sending messages with linked attachments (Bug #10125).
+[mms] Handle response codes/errors returned from POP3 servers.
+[mms] Fix POP3 regressions.
+[mms] Workaround broken suhosin extension to allow search mailboxes (Request
+      #9842).
+
+
+------
+v5.0.4
+------
+
+[mms] Fix filter links in the preferences UI (Bug #10117).
+[mms] Fix print icon for non text/html displayable attachments (Bug #10112).
+[mms] Support $Junk/$NotJunk keywords when marking spam/ham.
+[jan] Fix link to send PGP key to keyserver (Bug #10070).
+[mms] Fix resizing compose window in dynamic view for IE 7/8 (Bug #10075).
+[mms] Fix setting/unsetting passphrases in preferences (Bug #10096).
+[mms] Base64url encode breacdrumb hash information in dynamic view.
+[mms] Add login task to autocreate special mailboxes.
+[mms] Workaround broken messages by allow viewing multipart/related parts that
+      are not referenced in the base part (Request #9827).
+[mms] Use ACLs to determine when to hide various UI options (Request #9537).
+[mms] Cache various calculated mailbox information in the session.
+[mms] Fix adding flags in advanced search (Bug #10049).
+[mms] Fix display of subfolders in mobile view (Bug #10043).
+[mms] Improved determination of available flags in a mailbox.
+[mms] Fix adding to whitelist from dynamic view (rui.carneiro@portugalmail.net,
+      Bug #10036).
+
+
+------
+v5.0.3
+------
+
+[jan] Add missing files to package.
+
+
+------
+v5.0.2
+------
+
+[mms] Add quick flag filtering to traditional view.
+[mms] Fix viewing linked attachments (Bug #9972).
+[mms] Add support for the content-id access type of message/external-body.
+[mms] Consolidate IMAP error handling code in IMP_Imap_Exception.
+[mms] Use translated namespace name if available.
 
 
 ------

@@ -113,7 +113,7 @@ var ImpSearch = {
 
     getCriteriaLabel: function(id)
     {
-        return $('search_criteria_add').down('[value="' + encodeURIComponent(id) + '"]').getText() + ': ';
+        return $('search_criteria_add').down('[value="' + RegExp.escape(id) + '"]').getText() + ': ';
     },
 
     deleteCriteria: function(div)
@@ -367,7 +367,7 @@ var ImpSearch = {
 
     disableFolder: function(disable, folder)
     {
-        $('search_folders_add').down('[value="' + encodeURIComponent(folder) + '"]').writeAttribute({ disabled: disable });
+        $('search_folders_add').down('[value="' + folder + '"]').writeAttribute({ disabled: disable });
     },
 
     // Miscellaneous actions
@@ -574,7 +574,7 @@ var ImpSearch = {
             break;
 
         case 'search_folders_add':
-            this.insertFolder(decodeURIComponent($F('search_folders_add')));
+            this.insertFolder($F('search_folders_add'));
             break;
         }
 

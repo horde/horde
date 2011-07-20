@@ -8,9 +8,20 @@
 .. section-numbering::
 
 
+General instructions
+====================
+
 These are instructions to upgrade from earlier IMP versions. Please backup your
 existing data before running any of the steps described below. You can't use
 the updated data with your old IMP version anymore.
+
+Upgrading IMP is as easy as running::
+
+   pear upgrade -a -B horde/imp
+
+If you want to upgrade from an IMP version prior to 5.0, please follow
+the instructions in INSTALL_ to install the most recent IMP version
+using the PEAR installer.
 
 After updating to a newer IMP version, you **always** need to update
 configurations and database schemes. Log in as an administrator, go to
@@ -83,7 +94,6 @@ The 'sending_charset' and 'time_format' preferences have been moved to Horde.
 The following preferences are no longer used and may be safely removed from
 your preference backend::
 
-   alternative_display
    attachment_display
    auto_delete_drafts
    delete_attachments_monthly
@@ -315,3 +325,6 @@ Virtual Folders
 The format for saved Virtual Folders has changed.  To convert to the new
 format you must run the script located at
 ``scripts/upgrades/convert_vfolders.php``.
+
+
+.. _INSTALL: INSTALL

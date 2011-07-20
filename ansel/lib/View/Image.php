@@ -236,12 +236,11 @@ class Ansel_View_Image extends Ansel_View_Ansel
                     urldecode($this->_params['comment_url']));
             }
             $url = empty($this->_params['comment_url']) ? null : $this->_params['comment_url'];
-            $comments = $registry->call('forums/doComments',
-                                        array('ansel', $this->resource->id,
-                                              'commentCallback', true, null,
-                                              $url));
-            if ($comments instanceof PEAR_Error) {
-                Horde::logMessage($comments, 'DEBUG');
+            try {
+                $comments = $registry->forums->doComments(
+                  'ansel', $this->resource->id, 'commentCallback', true, null, $url);
+            } catch (Horde_Exception $e) {
+                Horde::logMessage($e, 'DEBUG');
                 $comments = array();
             }
         } else {

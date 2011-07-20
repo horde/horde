@@ -1,0 +1,213 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Bugzilla Import Script.
+ *
+ * This script imports the contents of an existing Bugzilla bug database into
+ * a Whups database.
+ *
+ * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ *
+ * @author Jon Parise <jon@horde.org>
+ */
+
+/* CONFIGURATION */
+$BUGZILLA_DSN = array('adapter' => 'mysql',
+                      'user' => 'root',
+                      'password' => 'password',
+                      'host' => 'localhost',
+                      'database' => 'bugzilla');
+$BUGZILLA_STATES = array('NEW', 'ASSIGNED', 'RESOLVED', 'REOPENED', 'CLOSED');
+$BUGZILLA_BUG_TYPE = array('Bug', 'Imported Bugzilla Bug');
+$BUGZILLA_PRIORITIES = array('P1', 'P2', 'P3', 'P4', 'P5');
+/* END CONFIGURATION */
+
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups', array('cli' => true));
+
+function sectionHeader($text)
+{
+    global $cli;
+    $cli->writeln($cli->bold($text));
+}
+
+function error($text, $error = null)
+{
+    global $cli;
+
+    $cli->message($text, 'cli.error');
+}
+
+function success($text)
+{
+    global $cli;
+
+    $cli->message($text, 'cli.success');
+}
+
+function info($text)
+{
+    global $cli;
+
+    $cli->message($text, 'cli.message');
+}
+
+/* Connect to the Bugzilla database. */
+$bugzilla = $injector->getInstance('Horde_Db')->createDb($BUGZILLA_DSN);
+
+sectionHeader('Creating Types');
+try {
+    $type = $whups_driver->addType($BUGZILLA_BUG_TYPE[0], $BUGZILLA_BUG_TYPE[1]);
+} catch (Whups_Exception $e) {
+    error("Failed to add '" . $BUGZILLA_BUG_TYPE[0] . "' type", $e->getMessage());
+    exit;
+}
+info("Created '" . $BUGZILLA_BUG_TYPE[0] . "' type");
+$cli->writeln();
+
+sectionHeader('Creating States');
+$states = array();
+foreach ($BUGZILLA_STATES as $state) {
+    try {
+        $result = $whups_driver->addState($type, $state, "Bugzilla - $state", $state);
+    } catch (Whups_Exception $e) {
+        error("Failed to add '$state' state", $e->getMessage());
+        continue;
+    }
+    $states[$state] = $result;
+    info("Created '$state' state");
+}
+$cli->writeln();
+
+sectionHeader('Creating Priorities');
+$priorities = array();
+foreach ($BUGZILLA_PRIORITIES as $priority) {
+    try {
+        $result = $whups_driver->addPriority($type, $priority, "Bugzilla - $priority");
+    } catch (Whups_Exception $e) {
+        error("Failed to add '$priority' priority", $e->getMessage());
+        continue;
+    }
+    $priorities[$priority] = $result;
+    info("Created '$priority' priority");
+}
+$cli->writeln();
+
+/* Create a mapping of products and components. */
+$components = array();
+
+sectionHeader('Importing Components');
+$res = $bugzilla->select('SELECT value, program, description FROM components');
+foreach ($res as $row) {
+    try {
+        $result = $whups_driver->addQueue($row['value'], $row['description']);
+    } catch (Whups_Exception $e) {
+        error('Failed to add queue: ' . $row['value'], $e->getMessage());
+        continue;
+    }
+
+    /* Set the queue's parameters. */
+    $whups_driver->updateQueue(
+        $result,
+        $row['value'],
+        $row['description'],
+        array($type),
+        false);
+
+    /* Add this component to the map. */
+    $components[($row['program'])][] = $row['value'];
+
+    success('Created queue: ' . $row['value']);
+}
+$cli->writeln();
+
+/* Get a mapping of queue IDs to queue names. */
+$queues = $whups_driver->getQueues();
+
+/* Maintain a mapping of version names. */
+$versions = array();
+
+sectionHeader('Importing Versions');
+$res = $bugzilla->select('SELECT value, program FROM versions');
+foreach ($res as $row) {
+    /* Bugzilla manages versions on a per-product basis.  Whups manages
+     * versions on a per-queue (i.e., per-component) basis.  Add this
+     * product's versions to each each of its components. */
+    foreach ($components[($row['program'])] as $component) {
+        $queueID = array_search($component, $queues);
+
+        if ($queueID === false) {
+            error('Unknown queue: ' . $component);
+            continue;
+        }
+
+        try {
+            $result = $whups_driver->addVersion($queueID, $row['value'], '', true, 0);
+        } catch (Whups_Exception $e) {
+            error('Failed to add version: ' . $row['value'], $e->getMessage());
+            continue;
+        }
+        $versions[$queueID][($row['value'])] = $result;
+        success('Added version: ' . $row['value'] . " ($component)");
+    }
+}
+$cli->writeln();
+
+/* Maintain a mapping of Bugzilla userid's to email addresses. */
+$profiles = array();
+
+sectionHeader('Loading Profiles');
+$res = $bugzilla->select('SELECT userid, login_name FROM profiles');
+foreach ($res as $row) {
+    $profiles[($row['userid'])] = $row['login_name'];
+}
+info('Loaded ' . count($profiles) . ' profiles');
+$cli->writeln();
+
+sectionHeader('Importing Bugs');
+$res = $bugzilla->select('SELECT * FROM bugs');
+foreach ($res as $row) {
+    $info = array();
+
+    $info['queue'] = array_search($row['component'], $queues);
+    if ($info['queue'] === false) {
+        error('Unknown queue: ' . $row['component']);
+        continue;
+    }
+
+    $info['version'] = null;
+    if (isset($versions[($info['queue'])][($row['version'])])) {
+        $info['version'] = $versions[($info['queue'])][($row['version'])];
+    }
+
+    $info['type'] = $type;
+
+    if (!isset($priorities[($row['priority'])])) {
+        error('Unknown priority: ' . $row['priority']);
+        continue;
+    }
+    $info['priority'] = $priorities[($row['priority'])];
+
+    if (!isset($states[($row['bug_status'])])) {
+        error('Unknown state: ' . $row['bug_status']);
+        continue;
+    }
+    $info['state'] = $states[($row['bug_status'])];
+
+    if (isset($profiles[($row['reporter'])])) {
+        $info['user_email'] = $profiles[($row['reporter'])];
+    }
+
+    $info['summary'] = htmlspecialchars($row['short_desc']);
+    $info['comment'] = $row['long_desc'];
+
+    try {
+        $result = $whups_driver->addTicket($info);
+    } catch (Whups_Exception $e) {
+        error('Failed to add ticket', $e->getMessage());
+        continue;
+    }
+
+    success('Added new ticket ' . $result . ' to ' . $row['component']);
+}
+$cli->writeln();

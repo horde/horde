@@ -14,8 +14,11 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime
  */
-class Horde_Mime_Part implements ArrayAccess, Countable
+class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 {
+    /* Serialized version. */
+    const VERSION = 1;
+
     /* The character(s) used internally for EOLs. */
     const EOL = "\n";
 
@@ -217,28 +220,30 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     protected $_hdrCharset = null;
 
     /**
-     * Function to run on serialize().
+     * The list of member variables to serialize.
+     *
+     * @var array
      */
-    public function __sleep()
-    {
-        if (!empty($this->_contents)) {
-            $this->_contents = $this->_readStream($this->_contents, true);
-        }
-
-        return array_diff(array_keys(get_class_vars(__CLASS__)), array('defaultCharset', 'memoryLimit', 'encodingTypes', 'mimeTypes'));
-    }
-
-    /**
-     * Function to run on unserialize().
-     */
-    public function __wakeup()
-    {
-        if (!empty($this->_contents)) {
-            $contents = $this->_contents;
-            $this->_contents = null;
-            $this->setContents($contents);
-        }
-    }
+    protected $_serializedVars = array(
+        '_type',
+        '_subtype',
+        '_transferEncoding',
+        '_language',
+        '_description',
+        '_disposition',
+        '_dispParams',
+        '_contentTypeParams',
+        '_parts',
+        '_mimeid',
+        '_eol',
+        '_metadata',
+        '_boundary',
+        '_bytes',
+        '_contentid',
+        '_reindex',
+        '_basepart',
+        '_hdrCharset'
+    );
 
     /**
      * Function to run on clone.
@@ -1351,15 +1356,16 @@ class Horde_Mime_Part implements ArrayAccess, Countable
      */
     public function getBytes()
     {
+        $bytes = 0;
+
         if (isset($this->_bytes)) {
             $bytes = $this->_bytes;
         } elseif ($this->getPrimaryType() == 'multipart') {
-            $bytes = 0;
             reset($this->_parts);
             while (list(,$part) = each($this->_parts)) {
                 $bytes += $part->getBytes();
             }
-        } else {
+        } elseif ($this->_contents) {
             fseek($this->_contents, 0, SEEK_END);
             $bytes = ftell($this->_contents);
         }
@@ -1654,6 +1660,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     public function findBody($subtype = null)
     {
         $initial_id = $this->getMimeId();
+        $this->buildMimeIds();
 
         foreach ($this->contentTypeMap() as $mime_id => $mime_type) {
             if ((strpos($mime_type, 'text/') === 0) &&
@@ -1714,7 +1721,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable
             while (list(,$d) = each($data)) {
                 if (is_resource($d)) {
                     rewind($d);
-                    @stream_copy_to_stream($d, $fp);
+                    while (!feof($d)) {
+                        fwrite($fp, fread($d, 8192));
+                    }
                 } else {
                     $len = strlen($d);
                     $i = 0;
@@ -1774,8 +1783,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable
         }
 
         rewind($fp);
-        while ($tmp = fread($fp, 8192)) {
-            $out .= $tmp;
+        while (!feof($fp)) {
+            $out .= fread($fp, 8192);
         }
 
         if ($close) {
@@ -1797,7 +1806,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     protected function _scanStream($fp, $type, $data = null)
     {
         rewind($fp);
-        while ($line = fread($fp, 8192)) {
+        while (is_resource($fp) && !feof($fp)) {
+            $line = fread($fp, 8192);
             switch ($type) {
             case '8bit':
                 if (Horde_Mime::is8bit($line)) {
@@ -2115,6 +2125,57 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     public function count()
     {
         return count($this->_parts);
+    }
+
+    /* Serializable methods. */
+
+    /**
+     * Serialization.
+     *
+     * @return string  Serialized data.
+     */
+    public function serialize()
+    {
+        $data = array(
+            // Serialized data ID.
+            self::VERSION
+        );
+
+        foreach ($this->_serializedVars as $val) {
+            $data[] = $this->$val;
+        }
+
+        if (!empty($this->_contents)) {
+            $data[] = $this->_readStream($this->_contents);
+        }
+
+        return serialize($data);
+    }
+
+    /**
+     * Unserialization.
+     *
+     * @param string $data  Serialized data.
+     *
+     * @throws Exception
+     */
+    public function unserialize($data)
+    {
+        $data = @unserialize($data);
+        if (!is_array($data) ||
+            !isset($data[0]) ||
+            (array_shift($data) != self::VERSION)) {
+            throw new Horde_Mime_Exception('Cache version change');
+        }
+
+        foreach ($this->_serializedVars as $key => $val) {
+            $this->$val = $data[$key];
+        }
+
+        // $key now contains the last index of _serializedVars.
+        if (isset($data[++$key])) {
+            $this->setContents($data[$key]);
+        }
     }
 
 }

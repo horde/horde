@@ -8,9 +8,20 @@
 .. section-numbering::
 
 
+General instructions
+====================
+
 These are instructions to upgrade from earlier Kronolith versions. Please
 backup your existing data before running any of the steps described below. You
 can't use the updated data with your old Kronolith version anymore.
+
+Upgrading Kronolith is as easy as running::
+
+   pear upgrade -a -B horde/kronolith
+
+If you want to upgrade from a Kronolith version prior to 3.0, please
+follow the instructions in INSTALL_ to install the most recent
+Kronolith version using the PEAR installer.
 
 After updating to a newer Kronolith version, you **always** need to update
 configurations and database schemes. Log in as an administrator, go to
@@ -109,3 +120,6 @@ with free/busy urls has changed both the name and the format. The preference
 used to be called "search_abook" and contained a serialized PHP array. The new
 preference is called "search_sources", contains a tab-separated list, and goes
 along with the "search_fields" preference.
+
+
+.. _INSTALL: INSTALL

@@ -43,7 +43,7 @@ extends Horde_Pear_TestCase
                 '/lib/Stays.php',
                 '/test.php'
             ),
-            $this->_getList(dirname(__FILE__) . '/../../../fixture/directory')->getFiles()
+            $this->_getList(dirname(__FILE__) . '/../../../fixture/horde/framework/directory')->getFiles()
         );
     }
 
@@ -57,6 +57,6 @@ extends Horde_Pear_TestCase
         $element->setDirectoryNode(
             $xml->findNode('/p:package/p:contents/p:dir')
         );
-        return new Horde_Pear_Package_Xml_Directory($element);
+        return new Horde_Pear_Package_Xml_Directory($element, $xml);
     }
 }

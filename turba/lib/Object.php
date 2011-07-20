@@ -93,7 +93,7 @@ class Turba_Object
         if (isset($this->attributes[$attribute]) &&
             Horde::hookExists('decode_attribute', 'turba')) {
             try {
-                return Horde::callHook('decode_attribute', array($attribute, $this->attributes[$attribute]), 'turba');
+                return Horde::callHook('decode_attribute', array($attribute, $this->attributes[$attribute], $this), 'turba');
             } catch (Turba_Exception $e) {}
         }
         if (isset($this->driver->map[$attribute]) &&
@@ -102,7 +102,7 @@ class Turba_Object
             foreach ($this->driver->map[$attribute]['fields'] as $field) {
                 $args[] = $this->getValue($field);
             }
-            return trim(vsprintf($this->driver->map[$attribute]['format'], $args), " \t\n\r\0\x0B,");
+            return Turba::formatCompositeField($this->driver->map[$attribute]['format'], $args);
         } elseif (!isset($this->attributes[$attribute])) {
             return null;
         } elseif (isset($GLOBALS['attributes'][$attribute]) &&
@@ -112,7 +112,7 @@ class Turba_Object
                 : array(
                       'load' => array(
                           'data' => $this->attributes[$attribute],
-                          'file' => basename(Horde::getTempFile('horde_form_'))
+                          'file' => basename(Horde::getTempFile('horde_form_', false))
                       )
                   );
         }

@@ -155,6 +155,7 @@ implements Horde_Kolab_Storage_List_Query_List
             'type' => $type->getType(),
             'default' => $type->isDefault(),
             'namespace' => $namespace->matchNamespace($folder)->getType(),
+            'prefix' => $namespace->matchNamespace($folder)->getName(),
             'owner' => $namespace->getOwner($folder),
             'name' => $namespace->getTitle($folder),
             'subpath' => $namespace->getSubpath($folder),

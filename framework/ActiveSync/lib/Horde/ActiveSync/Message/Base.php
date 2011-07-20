@@ -210,7 +210,7 @@ class Horde_ActiveSync_Message_Base
 
                 /* Found start tag */
                 if (!isset($this->_mapping[$entity[Horde_ActiveSync_Wbxml::EN_TAG]])) {
-                    $this->_logDebug('Tag ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG] . ' unexpected in type XML type ' . get_class($this));
+                    $this->_logger->debug('Tag ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG] . ' unexpected in type XML type ' . get_class($this));
                     throw new Horde_ActiveSync_Exception('Unexpected tag');
                 } else {
                     $map = $this->_mapping[$entity[Horde_ActiveSync_Wbxml::EN_TAG]];
@@ -264,7 +264,7 @@ class Horde_ActiveSync_Message_Base
 
                                 $decoded = $subdecoder;
                                 if (!$decoder->getElementEndTag()) {
-                                    $this->_logError('No end tag for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
+                                    $this->_logger->err('No end tag for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
                                     throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
                                 }
                             }
@@ -272,12 +272,12 @@ class Horde_ActiveSync_Message_Base
                             /* Simple type, just get content */
                             $decoded = $decoder->getElementContent();
                             if ($decoded === false) {
-                                $this->_logError('Unable to get content for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
+                                $this->_logger->err('Unable to get content for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
                                 //throw new Horde_ActiveSync_Exception('Unknown parsing error.');
                             }
 
                             if (!$decoder->getElementEndTag()) {
-                                $this->_logError('Unable to get end tag for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
+                                $this->_loger->err('Unable to get end tag for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
                                 throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
                             }
                         }
@@ -289,7 +289,7 @@ class Horde_ActiveSync_Message_Base
                 $decoder->_ungetElement($entity);
                 break;
             } else {
-                $this->_logError('Unexpected content in type');
+                $this->_logger->err('Unexpected content in type');
                 break;
             }
         }
@@ -373,30 +373,6 @@ class Horde_ActiveSync_Message_Base
     protected function _checkSendEmpty($tag)
     {
         return false;
-    }
-
-    /**
-     *
-     * @param $message
-     * @return unknown_type
-     */
-    protected function _logDebug($message)
-    {
-        if (!empty($this->_logger)) {
-            $this->_logger->debug($message);
-        }
-    }
-
-    /**
-     *
-     * @param $message
-     * @return unknown_type
-     */
-    protected function _logError($message)
-    {
-        if (!empty($this->_logger)) {
-            $this->_logger->err($message);
-        }
     }
 
     /**

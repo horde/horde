@@ -59,37 +59,20 @@ extends Components_Release_Task_Base
         $api_state = isset($options['next_apistate']) ? $options['next_apistate'] : null;
         $rel_state = isset($options['next_relstate']) ? $options['next_relstate'] : null;
         if (empty($options['next_version'])) {
-            $options['next_version'] = Components_Helper_Version::nextVersion($this->getPackage()->getVersion());
+            $options['next_version'] = Components_Helper_Version::nextVersion($this->getComponent()->getVersion());
         }
         $options['next_version'] = Components_Helper_Version::validatePear($options['next_version']);
+        $result = $this->getComponent()->nextVersion(
+            $options['next_version'],
+            $options['next_note'],
+            $api_state,
+            $rel_state,
+            $options
+        );
         if (!$this->getTasks()->pretend()) {
-            $this->getPackage()->nextVersion(
-                $options['next_version'],
-                $options['next_note'],
-                $api_state,
-                $rel_state
-            );
+            $this->getOutput()->ok($result);
         } else {
-            $info = sprintf(
-                'Would add next version "%s" with the initial note "%s" to %s.',
-                $options['next_version'],
-                $options['next_note'],
-                $this->getPackage()->getPackageXml()
-            );
-            if ($rel_state !== null) {
-                $info .= ' Release stability: "' . $rel_state . '".';
-            }
-            if ($api_state !== null) {
-                $info .= ' API stability: "' . $api_state . '".';
-            }
-            $this->getOutput()->info($info);
-        }
-
-        if ($this->getTasks()->isTaskActive('CommitPostRelease')) {
-            $this->systemInDirectory(
-                'git add ' . $this->getPackage()->getPackageXml(),
-                dirname($this->getPackage()->getPackageXml())
-            );
+            $this->getOutput()->info($result);
         }
     }
 }

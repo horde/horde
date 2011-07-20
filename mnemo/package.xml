@@ -74,22 +74,6 @@
      <file name="DeleteNotepad.php" role="horde" />
      <file name="EditNotepad.php" role="horde" />
     </dir> <!-- /lib/Form -->
-    <dir name="tests">
-     <dir name="Mnemo">
-      <dir name="Unit">
-       <dir name="Driver">
-        <file name="KolabTest.php" role="horde" />
-       </dir> <!-- /lib/tests/Mnemo/Unit/Driver -->
-       <dir name="Factory">
-        <file name="DriverTest.php" role="horde" />
-       </dir> <!-- /lib/tests/Mnemo/Unit/Factory -->
-      </dir> <!-- /lib/tests/Mnemo/Unit -->
-      <file name="AllTests.php" role="horde" />
-      <file name="Autoload.php" role="horde" />
-      <file name="phpunit.xml" role="data" />
-      <file name="TestCase.php" role="horde" />
-     </dir> <!-- /lib/tests/Mnemo -->
-    </dir> <!-- /lib/tests -->
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Driver.php" role="horde" />
@@ -333,6 +317,22 @@
     <file name="panel.inc" role="horde" />
     <file name="stickies.html.php" role="horde" />
    </dir> <!-- /templates -->
+   <dir name="test">
+    <dir name="Mnemo">
+     <dir name="Unit">
+      <dir name="Driver">
+       <file name="KolabTest.php" role="test" />
+      </dir> <!-- /test/Mnemo/Unit/Driver -->
+      <dir name="Factory">
+       <file name="DriverTest.php" role="test" />
+      </dir> <!-- /test/Mnemo/Unit/Factory -->
+     </dir> <!-- /test/Mnemo/Unit -->
+     <file name="AllTests.php" role="test" />
+     <file name="Autoload.php" role="test" />
+     <file name="phpunit.xml" role="test" />
+     <file name="TestCase.php" role="test" />
+    </dir> <!-- /test/Mnemo -->
+   </dir> <!-- /test -->
    <dir name="themes">
     <dir name="bluewhite">
      <file name="screen.css" role="horde" />
@@ -349,7 +349,6 @@
       <file name="search.png" role="horde" />
       <file name="za.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
-     <file name="categoryCSS.php" role="horde" />
      <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
@@ -383,10 +382,10 @@
    </dir> <!-- /themes -->
    <file name="data.php" role="horde" />
    <file name="index.php" role="horde" />
-   <file name="LICENSE" role="data" />
+   <file name="LICENSE" role="doc" />
    <file name="list.php" role="horde" />
    <file name="memo.php" role="horde" />
-   <file name="README" role="data" />
+   <file name="README" role="doc" />
    <file name="search.php" role="horde" />
    <file name="stickies.php" role="horde" />
    <file name="view.php" role="horde" />
@@ -410,7 +409,7 @@
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.4</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -582,12 +581,6 @@
    <install as="mnemo/lib/Form/CreateNotepad.php" name="lib/Form/CreateNotepad.php" />
    <install as="mnemo/lib/Form/DeleteNotepad.php" name="lib/Form/DeleteNotepad.php" />
    <install as="mnemo/lib/Form/EditNotepad.php" name="lib/Form/EditNotepad.php" />
-   <install as="mnemo/lib/tests/Mnemo/AllTests.php" name="lib/tests/Mnemo/AllTests.php" />
-   <install as="mnemo/lib/tests/Mnemo/Autoload.php" name="lib/tests/Mnemo/Autoload.php" />
-   <install as="tests/Mnemo/phpunit.xml" name="lib/tests/Mnemo/phpunit.xml" />
-   <install as="mnemo/lib/tests/Mnemo/TestCase.php" name="lib/tests/Mnemo/TestCase.php" />
-   <install as="mnemo/lib/tests/Mnemo/Unit/Driver/KolabTest.php" name="lib/tests/Mnemo/Unit/Driver/KolabTest.php" />
-   <install as="mnemo/lib/tests/Mnemo/Unit/Factory/DriverTest.php" name="lib/tests/Mnemo/Unit/Factory/DriverTest.php" />
    <install as="mnemo/locale/.htaccess" name="locale/.htaccess" />
    <install as="mnemo/locale/mnemo.pot" name="locale/mnemo.pot" />
    <install as="mnemo/locale/bg/LC_MESSAGES/mnemo.mo" name="locale/bg/LC_MESSAGES/mnemo.mo" />
@@ -685,8 +678,13 @@
    <install as="mnemo/templates/memo/memo.inc" name="templates/memo/memo.inc" />
    <install as="mnemo/templates/search/search.inc" name="templates/search/search.inc" />
    <install as="mnemo/templates/view/memo.inc" name="templates/view/memo.inc" />
+   <install as="Mnemo/AllTests.php" name="test/Mnemo/AllTests.php" />
+   <install as="Mnemo/Autoload.php" name="test/Mnemo/Autoload.php" />
+   <install as="Mnemo/phpunit.xml" name="test/Mnemo/phpunit.xml" />
+   <install as="Mnemo/TestCase.php" name="test/Mnemo/TestCase.php" />
+   <install as="Mnemo/Unit/Driver/KolabTest.php" name="test/Mnemo/Unit/Driver/KolabTest.php" />
+   <install as="Mnemo/Unit/Factory/DriverTest.php" name="test/Mnemo/Unit/Factory/DriverTest.php" />
    <install as="mnemo/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
-   <install as="mnemo/themes/default/categoryCSS.php" name="themes/default/categoryCSS.php" />
    <install as="mnemo/themes/default/rtl.css" name="themes/default/rtl.css" />
    <install as="mnemo/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="mnemo/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
@@ -816,7 +814,21 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-05-18</date>
+   <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
+   <notes>
+* [jan] Fix accidental encryption of notes (Bug #9981).
+* [jan] Fix color picker for categories in the note list header (Bug #9980).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-21</date>
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
 * 

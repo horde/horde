@@ -66,7 +66,6 @@ do {
             Kronolith::notifyOfResourceRejection($event);
             if (Horde_Util::getFormData('sendupdates', false)) {
                 try {
-                    $event = Kronolith::getDriver()->getEvent($result);
                     Kronolith::sendITipNotifications($event, $notification, Kronolith::ITIP_REQUEST);
                 } catch (Exception $e) {
                     $notification->push($e, 'horde.error');

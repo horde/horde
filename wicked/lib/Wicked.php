@@ -61,7 +61,7 @@ class Wicked
     const REGEXP_WIKIWORD = "(!?[A-Z\xc0-\xde][A-Za-z0-9\xc0-\xfe]*[a-z0-9\xdf-\xfe]+[A-Z\xc0-\xde][A-Za-z0-9\xc0-\xfe]*)((\#[A-Za-z0-9\xc0-\xfe]([-_A-Za-z0-9\xc0-\xfe:.]*[-_A-Za-z0-9\xc0-\xfe])?)?)";
 
     /** Where we store our attachments in VFS. */
-    const WICKED_VFS_ATTACH_PATH = '.horde/wicked/attachments';
+    const VFS_ATTACH_PATH = '.horde/wicked/attachments';
 
     /**
      * Puts together the URL to a Wicked page. Uses mod_rewrite or GET

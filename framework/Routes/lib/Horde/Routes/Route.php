@@ -276,7 +276,7 @@ class Horde_Routes_Route
                    $routeList[] = $current;
                    $current = '';
                 }
-            } else if ($collecting && $justStarted) {
+            } elseif ($collecting && $justStarted) {
                 $justStarted = false;
                 if ($char == '(') {
                     $doneOn = array(')');
@@ -286,9 +286,9 @@ class Horde_Routes_Route
                     // Helps it fall in line with the Python idioms.
                     $doneOn = $this->_splitChars + array('-');
                 }
-            } else if ($collecting && !in_array($char, $doneOn)) {
+            } elseif ($collecting && !in_array($char, $doneOn)) {
                 $current .= $char;
-            } else if ($collecting) {
+            } elseif ($collecting) {
                 $collecting = false;
                 $routeList[] = array('type' => $varType, 'name' => $current);
                 if (in_array($char, $this->_splitChars)) {
@@ -301,7 +301,7 @@ class Horde_Routes_Route
         }
         if ($collecting) {
             $routeList[] = array('type' => $varType, 'name' => $current);
-        } else if (!empty($current)) {
+        } elseif (!empty($current)) {
             $routeList[] = $current;
         }
         return $routeList;
@@ -325,7 +325,7 @@ class Horde_Routes_Route
             if (!is_array($part) && !in_array($part, $this->_splitChars)) {
                 $gaps = true;
                 continue;
-            } else if (!is_array($part)) {
+            } elseif (!is_array($part)) {
                 continue;
             }
             $key = $part['name'];
@@ -467,9 +467,9 @@ class Horde_Routes_Route
             // First we plug in the proper part matcher
             if (array_key_exists($var, $this->reqs)) {
                 $partreg = '(?P<' . $var . '>' . $this->reqs[$var] . ')';
-            } else if ($var == 'controller') {
+            } elseif ($var == 'controller') {
                 $partreg = '(?P<' . $var . '>' . implode('|', array_map('preg_quote', $clist)) . ')';
-            } else if (in_array($this->_prior, array('/', '#'))) {
+            } elseif (in_array($this->_prior, array('/', '#'))) {
                 $partreg = '(?P<' . $var . '>[^' . $this->_prior . ']+?)';
             } else {
                 if (empty($rest)) {
@@ -501,17 +501,17 @@ class Horde_Routes_Route
 
                 // Or we have a regexp match with no default, so now being
                 // completely blank form here on out isn't possible
-                } else if (array_key_exists($var, $this->reqs)) {
+                } elseif (array_key_exists($var, $this->reqs)) {
                     $allblank = false;
                     $reg = $partreg . $rest;
 
                 // If the character before this is a special char, it has to be
                 // followed by this
-                } else if (array_key_exists($var, $this->defaults) && in_array($this->_prior, array(',', ';', '.'))) {
+                } elseif (array_key_exists($var, $this->defaults) && in_array($this->_prior, array(',', ';', '.'))) {
                     $reg = $partreg . $rest;
 
                 // Or we have a default with no regexp, don't touch the allblank
-                } else if (array_key_exists($var, $this->defaults)) {
+                } elseif (array_key_exists($var, $this->defaults)) {
                     $reg = $partreg . '?' . $rest;
 
                 // Or we have a key with no default, and no reqs. Not possible
@@ -537,7 +537,7 @@ class Horde_Routes_Route
                     $reg = $partreg . $rest;
                 }
             }
-        } else if (is_array($part) && $part['type'] == '*') {
+        } elseif (is_array($part) && $part['type'] == '*') {
             $var = $part['name'];
             if ($noreqs) {
                 $reg = '(?P<' . $var . '>.*)' . $rest;
@@ -548,7 +548,7 @@ class Horde_Routes_Route
             } else {
                 if ($allblank && array_key_exists($var, $this->defaults)) {
                     $reg = '(?P<' . $var . '>.*)' . $rest;
-                } else if (array_key_exists($var, $this->defaults)) {
+                } elseif (array_key_exists($var, $this->defaults)) {
                     $reg = '(?P<' . $var . '>.*)' . $rest;
                 } else {
                     $allblank = false;
@@ -556,7 +556,7 @@ class Horde_Routes_Route
                     $reg = '(?P<' . $var . '>.*)' . $rest;
                 }
             }
-        } else if ($part && in_array(substr($part, -1), $this->_splitChars)) {
+        } elseif ($part && in_array(substr($part, -1), $this->_splitChars)) {
             if ($allblank) {
                 $reg = preg_quote(substr($part, 0, -1)) . '(' . preg_quote(substr($part, -1)) . $rest . ')?';
             } else {
@@ -757,9 +757,9 @@ class Horde_Routes_Route
                     continue;
 
                 // Otherwise if we do have an arg, use that
-                } else if ($hasArg) {
+                } elseif ($hasArg) {
                     $val = ($kargs[$arg] === null) ? 'null' : $kargs[$arg];
-                } else if ($hasDefault && $this->defaults[$arg] != null) {
+                } elseif ($hasDefault && $this->defaults[$arg] != null) {
                     $val = $this->defaults[$arg];
 
                 // No arg at all? This won't work
@@ -772,17 +772,17 @@ class Horde_Routes_Route
                     unset($kargs[$arg]);
                 }
                 $gaps = true;
-            } else if (is_array($part) && $part['type'] == '*') {
+            } elseif (is_array($part) && $part['type'] == '*') {
                 $arg = $part['name'];
                 $kar = (isset($kargs[$arg])) ? $kargs[$arg] : null;
                 if ($kar != null) {
                     $urlList[] = Horde_Routes_Utils::urlQuote($kar, $this->encoding);
                     $gaps = true;
                 }
-            } else if (!empty($part) && in_array(substr($part, -1), $this->_splitChars)) {
+            } elseif (!empty($part) && in_array(substr($part, -1), $this->_splitChars)) {
                 if (!$gaps && in_array($part, $this->_splitChars)) {
                     continue;
-                } else if (!$gaps) {
+                } elseif (!$gaps) {
                     $gaps = true;
                     $urlList[] = substr($part, 0, -1);
                 } else {
@@ -819,7 +819,7 @@ class Horde_Routes_Route
                 }
             }
             $url .= http_build_query($newExtras);
-        } else if ($_appendSlash && substr($url, -1) != '/') {
+        } elseif ($_appendSlash && substr($url, -1) != '/') {
             $url .= '/';
         }
         return $url;

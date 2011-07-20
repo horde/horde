@@ -160,9 +160,9 @@ class IMP_Ui_Mailbox
      * @param mixed $date      The date object. Either a DateTime object or a
      *                         date string.
      * @param integer $format  Mask of formatting options:
-     *   - IMP_Mailbox_Ui::DATE_FORCE - Force use of date formatting, instead
+     *   - IMP_Ui_Mailbox::DATE_FORCE - Force use of date formatting, instead
      *                                  of time formatting, for all dates.
-     *   - IMP_Mailbox_Ui::DATE_FULL - Use full representation of date,
+     *   - IMP_Ui_Mailbox::DATE_FULL - Use full representation of date,
      *                                 including time information.
      *
      * @return string  The formatted date header.
@@ -231,19 +231,6 @@ class IMP_Ui_Mailbox
         }
 
         return empty($new_subject) ? $subject : $new_subject;
-    }
-
-    /**
-     * Determines if a message is a draft and can be resumed.
-     *
-     * @param array $flags  The list of IMAP flags.
-     *
-     * @return boolean  True if the message is a draft.
-     */
-    public function isDraft($flags = array())
-    {
-        return (in_array(Horde_Imap_Client::FLAG_DRAFT, $flags) ||
-                $this->_mailbox->drafts);
     }
 
 }

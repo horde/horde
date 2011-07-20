@@ -238,8 +238,8 @@ Framework.</description>
    <file name="dispatcher.php" role="horde" />
    <file name="feed.php" role="horde" />
    <file name="index.php" role="horde" />
-   <file name="LICENSE" role="data" />
-   <file name="README" role="data" />
+   <file name="LICENSE" role="doc" />
+   <file name="README" role="doc" />
   </dir> <!-- / -->
  </contents>
  <dependencies>

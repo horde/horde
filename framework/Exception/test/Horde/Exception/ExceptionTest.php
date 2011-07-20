@@ -139,15 +139,42 @@ class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
 
     public function testCatchingAndConvertingPearErrors()
     {
-        @require_once 'PEAR.php';
-        if (!class_exists('PEAR_Error')) {
-            $this->markTestSkipped('PEAR_Error is missing!');
-        }
+        $this->_loadPear();
         try {
             Horde_Exception_Pear::catchError(new PEAR_Error('An error occurred.'));
         } catch (Horde_Exception_Pear $e) {
             $this->assertContains(
                 'Horde_Exception_ExceptionTest->testCatchingAndConvertingPearErrors unkown:unkown',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function testStringUserinfo()
+    {
+        $this->_loadPear();
+        try {
+            Horde_Exception_Pear::catchError(
+                new PEAR_Error('An error occurred.', null, null, null, 'userinfo')
+            );
+        } catch (Horde_Exception_Pear $e) {
+            $this->assertContains(
+                'userinfo',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function testArrayUserinfo()
+    {
+        $this->_loadPear();
+        try {
+            Horde_Exception_Pear::catchError(
+                new PEAR_Error('An error occurred.', null, null, null, array('userinfo'))
+            );
+        } catch (Horde_Exception_Pear $e) {
+            $this->assertContains(
+                '[0] => userinfo',
                 $e->getMessage()
             );
         }
@@ -161,5 +188,13 @@ class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
             'file'    => '/some/file.php',
             'line'    => 99
         );
+    }
+
+    private function _loadPear()
+    {
+        @require_once 'PEAR.php';
+        if (!class_exists('PEAR_Error')) {
+            $this->markTestSkipped('PEAR_Error is missing!');
+        }
     }
 }

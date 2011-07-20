@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+
+<entry id="summary" md5="68ca33f7f0c9aae4c103eb47492cdc15" state="uptodate">
+<title>Portāla lapa</title>
+ <para>
+  Portāla lapa sniedz Jums ātru visas būtiskās informācijas kopsavilkumu. 
+  Piemēram, Jūs varat uzzināt, cik daudz jaunu vēstuļu Jums ir pienācis INBOX-ā,
+  tuvojošies notikumi Jūsu kalendārā, aktuālo uzdevumu sarakstu, ziņu virsrakstus
+  no Jūsu izvēlētā ziņu avota utt. Daudzi no kopsavilkumiem satur saites uz vispārējām
+  funkcijām, piemēram, jaunas vēstules rakstīšanu, jauna kalendāra ieraksta vai 
+  uzdevuma izveidi utml.
+ </para>
+ <para>
+  Portāla lapas saturs ir maināms, nospiežot pogu [Izkārtojums] rīkjoslā. Jūs varat izvēlēties, kādas aplikācijas iekļaut Portāla lapā un kādā secībā un izkārtojumā tās parādīt.
+ </para>
+</entry>
+
+<entry id="navbar" md5="b8cf0ae19e57dfa0c2b962e516782f47" state="uptodate">
+<title>Aplikāciju rīkjosla</title>
+ <para>
+  Lapas kreisajā malā atrodas aplikāciju rīkjosla. Klikšķiniet uz ikonām, lai ātri un 
+  vienkārši pārslēgtos starp pieejamajām aplikācijām.
+ </para>
+</entry>
+
+</help>

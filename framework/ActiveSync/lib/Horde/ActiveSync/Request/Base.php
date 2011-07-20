@@ -149,6 +149,9 @@ abstract class Horde_ActiveSync_Request_Base
          * header - which is against the specification. Check the user agent
          * for Android (maybe need version sniffing in the future) and set the
          * policykey to null for those devices. */
+         $this->_logger->debug('[' . $this->_device->id . '] Checking policykey for device '
+            . ' Key: ' . $sentKey
+            . ' User: ' . $this->_driver->getUser());
          $this->_device = $this->_state->loadDeviceInfo($this->_device->id, $this->_driver->getUser());
          if (strpos($this->_device->userAgent, 'Android') !== false) {
              $sentKey = null;
@@ -158,6 +161,8 @@ abstract class Horde_ActiveSync_Request_Base
         if ($this->_provisioning !== false) {
             $state = $this->_driver->getStateObject();
             $storedKey = $state->getPolicyKey($this->_device->id);
+            $this->_logger->debug('[' . $this->_device->id . '] Stored key: ' . $storedKey);
+
             /* Loose provsioning should allow a blank key */
             if ((empty($storedKey) || $storedKey != $sentKey) &&
                ($this->_provisioning !== 'loose' ||

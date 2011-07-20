@@ -7,11 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Chora H4 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-14 17:07+0200\n"
+"POT-Creation-Date: 2011-05-17 12:19+0200\n"
 "PO-Revision-Date: 2011-04-14 17:07+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -68,7 +69,7 @@ msgstr "Autor"
 msgid "Back"
 msgstr "Volver"
 
-#: app/views/_logMessage.html.php:15 lib/Chora.php:332 lib/Chora.php:333
+#: app/views/_logMessage.html.php:18 lib/Chora.php:332 lib/Chora.php:333
 #: lib/Chora.php:336 lib/Chora.php:337
 msgid "Branches"
 msgstr "Ramas"
@@ -137,11 +138,12 @@ msgstr "Archivo eliminado"
 msgid "Description"
 msgstr "Descripción"
 
-#: patchsets.php:52 templates/log/header.inc:11
+#: app/views/_logMessage.html.php:9 patchsets.php:52
+#: templates/log/header.inc:11
 msgid "Diff"
 msgstr "Diferencias"
 
-#: diff.php:52
+#: diff.php:65
 #, php-format
 msgid "Diff for %s between version %s and %s"
 msgstr "Diferencias de %s entre la versión %s y la %s"
@@ -218,7 +220,7 @@ msgstr "Ubicación:"
 msgid "Logs"
 msgstr "Registros"
 
-#: diff.php:28
+#: diff.php:41
 msgid "Malformed Query"
 msgstr "Consulta malformada"
 
@@ -334,7 +336,7 @@ msgstr "Estadísticas"
 msgid "Statistics for %s"
 msgstr "Estadísticas de %s"
 
-#: app/views/_logMessage.html.php:24 templates/patchsets/ps.inc:8
+#: app/views/_logMessage.html.php:27 templates/patchsets/ps.inc:8
 msgid "Tags"
 msgstr "Etiquetas"
 

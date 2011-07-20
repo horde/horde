@@ -8,4 +8,3 @@
  */
 class Horde_Image_Exception extends Horde_Exception_Wrapped {
 }
-?>

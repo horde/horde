@@ -12,50 +12,44 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Whups
  */
-class Whups_Ticket {
-
+class Whups_Ticket
+{
     /**
      * The id of the ticket this object wraps.
      *
      * @var integer
      */
-    var $_id;
+    protected $_id;
 
     /**
      * The current values of the ticket.
      *
      * @var array
      */
-    var $_details;
+    protected $_details;
 
     /**
      * Array of changes to make to the ticket.
      *
      * @var array
      */
-    var $_changes = array();
+    protected $_changes = array();
 
     /**
      * Returns a ticket object for an id.
      *
-     * @static
-     *
      * @param integer $id  The ticket id.
      *
-     * @return Whups_Ticket  Either a Whups_Ticket object on success or a
-     *                       PEAR_Error object on failure.
+     * @return Whups_Ticket Whups_Ticket object
      */
-    function makeTicket($id)
+    static public function makeTicket($id)
     {
         global $whups_driver;
 
         $details = $whups_driver->getTicketDetails($id);
-        if (is_a($details, 'PEAR_Error')) {
-            return $details;
-        } else {
-            $ticket = new Whups_Ticket($id, $details);
-            return $ticket;
-        }
+        $ticket = new Whups_Ticket($id, $details);
+
+        return $ticket;
     }
 
     /**
@@ -67,10 +61,9 @@ class Whups_Ticket {
      *
      * @param array $info  A hash with ticket information.
      *
-     * @return Whups_Ticket  Either a Whups_Ticket object on success or a
-     *                       PEAR_Error object on failure.
+     * @return Whups_Ticket  Whups_Ticket object.
      */
-    function newTicket($info, $requester)
+    static public function newTicket($info, $requester)
     {
         global $whups_driver;
 
@@ -78,46 +71,42 @@ class Whups_Ticket {
             $info['type'] = $whups_driver->getDefaultType($info['queue']);
             if (is_null($info['type'])) {
                 $queue = $whups_driver->getQueue($info['queue']);
-                return PEAR::raiseError(
-                    sprintf(_("No type for this ticket and no default type for queue \"%s\" specified."),
-                            $queue['name']));
+                throw new Whups_Exception(
+                    sprintf(
+                        _("No type for this ticket and no default type for queue \"%s\" specified."),
+                        $queue['name']));
             }
         }
         if (!isset($info['state'])) {
             $info['state'] = $whups_driver->getDefaultState($info['type']);
             if (is_null($info['state'])) {
-                return PEAR::raiseError(
-                    sprintf(_("No state for this ticket and no default state for ticket type \"%s\" specified."),
-                            $whups_driver->getTypeName($info['type'])));
+                throw new Whups_Exception(
+                    sprintf(
+                        _("No state for this ticket and no default state for ticket type \"%s\" specified."),
+                        $whups_driver->getTypeName($info['type'])));
             }
         }
         if (!isset($info['priority'])) {
             $info['priority'] = $whups_driver->getDefaultPriority($info['type']);
             if (is_null($info['priority'])) {
-                return PEAR::raiseError(
-                    sprintf(_("No priority for this ticket and no default priority for ticket type \"%s\" specified."),
-                            $whups_driver->getTypeName($info['type'])));
+                throw new Whups_Exception(
+                    sprintf(
+                        _("No priority for this ticket and no default priority for ticket type \"%s\" specified."),
+                        $whups_driver->getTypeName($info['type'])));
             }
         }
 
         $id = $whups_driver->addTicket($info, $requester);
-        if (is_a($id, 'PEAR_Error')) {
-            return $id;
-        }
-
         $details = $whups_driver->getTicketDetails($id, false);
-        if (is_a($details, 'PEAR_Error')) {
-            return $details;
-        }
-
         $ticket = new Whups_Ticket($id, $details);
 
         // Add attachment if one was uploaded.
         if (!empty($info['newattachment']['name'])) {
             $ticket->change(
                 'attachment',
-                array('name' => $info['newattachment']['name'],
-                      'tmp_name' => $info['newattachment']['tmp_name']));
+                array(
+                    'name' => $info['newattachment']['name'],
+                    'tmp_name' => $info['newattachment']['tmp_name']));
         }
 
         // Check for a deferred attachment upload.
@@ -125,8 +114,9 @@ class Whups_Ticket {
             ($a_name = $GLOBALS['session']->get('whups', 'deferred_attachment/' . $info['deferred_attachment']))) {
             $ticket->change(
                 'attachment',
-                array('name' => $info['deferred_attachment'],
-                      'tmp_name' => $a_name));
+                array(
+                    'name' => $info['deferred_attachment'],
+                    'tmp_name' => $a_name));
 
             unlink($a_name);
         }
@@ -135,8 +125,10 @@ class Whups_Ticket {
         $ticket->notify($ticket->get('user_id_requester'), true);
 
         // Commit any changes (new attachments, etc.)
-        $ticket->commit($ticket->get('user_id_requester'),
-                        $info['last-transaction'], false);
+        $ticket->commit(
+            $ticket->get('user_id_requester'),
+            $info['last-transaction'],
+            false);
 
         return $ticket;
     }
@@ -146,8 +138,10 @@ class Whups_Ticket {
      *
      * @param integer $id     The ticket id.
      * @param array $details  The hash of ticket information.
+     *
+     * @return Whups_Ticket
      */
-    function Whups_Ticket($id, $details)
+    public function __construct($id, array $details)
     {
         $this->_id = $id;
         $this->_details = $details;
@@ -158,7 +152,7 @@ class Whups_Ticket {
      *
      * @return array  The ticket information.
      */
-    function getDetails()
+    public function getDetails()
     {
         return $this->_details;
     }
@@ -168,7 +162,7 @@ class Whups_Ticket {
      *
      * @return integer  The ticket id.
      */
-    function getId()
+    public function getId()
     {
         return $this->_id;
     }
@@ -180,7 +174,7 @@ class Whups_Ticket {
      *
      * @return mixed  The detail value.
      */
-    function get($detail)
+    public function get($detail)
     {
         return isset($this->_details[$detail])
             ? $this->_details[$detail]
@@ -196,7 +190,7 @@ class Whups_Ticket {
      * @param string $detail  The detail to change.
      * @param string $value   The new detail value.
      */
-    function set($detail, $value)
+    public function set($detail, $value)
     {
         $this->_details[$detail] = $value;
     }
@@ -210,7 +204,7 @@ class Whups_Ticket {
      * @param string $detail  The detail to change.
      * @param string $value   The new detail value.
      */
-    function change($detail, $value)
+    public function change($detail, $value)
     {
         $previous_value = isset($this->_details[$detail])
             ? $this->_details[$detail]
@@ -236,15 +230,13 @@ class Whups_Ticket {
      * @param integer $transaction  The transaction these changes are part of.
      *                              Defaults to a new transaction.
      * @param boolean $notify       Send ticket notifications?
-     *
-     * @return mixed  True on success, PEAR_Error on failure.
      */
-    function commit($user = null, $transaction = null, $notify = true)
+    public function commit($user = null, $transaction = null, $notify = true)
     {
         global $whups_driver;
 
         if (!count($this->_changes)) {
-            return true;
+            return;
         }
 
         if (is_null($user)) {
@@ -257,9 +249,6 @@ class Whups_Ticket {
         if (is_null($transaction)) {
             // Get a new transaction id from the backend.
             $transaction = $whups_driver->newTransaction($user, $author_email);
-            if (is_a($transaction, 'PEAR_Error')) {
-                return $transaction;
-            }
         }
 
         // If this is a guest update, the comment id is going to map to the
@@ -279,9 +268,6 @@ class Whups_Ticket {
         $this->_changes['date_updated'] = array('to' => $timestamp);
         if (isset($this->_changes['state'])) {
             $state = $whups_driver->getState($this->_changes['state']['to']);
-            if (is_a($state, 'PEAR_Error')) {
-                return $state;
-            }
             if ($state['category'] == 'assigned') {
                 $this->_changes['date_assigned'] = array('to' => $timestamp);
                 $this->_changes['date_resolved'] = array('to' => null);
@@ -299,19 +285,20 @@ class Whups_Ticket {
             case 'owners':
                 // Fetch $oldOwners list; then loop through $value adding and
                 // deleting as needed.
-                $oldOwners = $whups_driver->getOwners($this->_id);
+                $oldOwners = current($whups_driver->getOwners($this->_id));
                 $this->_changes['oldowners'] = $oldOwners;
-
                 foreach ($value as $owner) {
-                    if (empty($oldOwners[$owner])) {
+                    if (!$oldOwners ||
+                        array_search($owner, $oldOwners) === false) {
                         $whups_driver->addTicketOwner($this->_id, $owner);
-                        $whups_driver->updateLog($this->_id, $user,
-                                                 array('assign' => $owner),
-                                                 $transaction);
+                        $whups_driver->updateLog(
+                            $this->_id, $user,
+                            array('assign' => $owner),
+                            $transaction);
                     } else {
                         // Remove $owner from the old owners list; anyone left
                         // in $oldOwners will be removed.
-                        unset($oldOwners[$owner]);
+                        unset($oldOwners[array_search($owner, $oldOwners)]);
                     }
                 }
 
@@ -319,19 +306,17 @@ class Whups_Ticket {
                 if (is_array($oldOwners)) {
                     foreach ($oldOwners as $owner) {
                         $whups_driver->deleteTicketOwner($this->_id, $owner);
-                        $whups_driver->updateLog($this->_id, $user,
-                                                 array('unassign' => $owner),
-                                                 $transaction);
+                        $whups_driver->updateLog(
+                            $this->_id, $user,
+                            array('unassign' => $owner),
+                            $transaction);
                     }
                 }
                 break;
 
             case 'comment':
-                $commentId = $whups_driver->addComment($this->_id, $value,
-                                                       $user, $author_email);
-                if (is_a($commentId, 'PEAR_Error')) {
-                    return $commentId;
-                }
+                $commentId = $whups_driver->addComment(
+                    $this->_id, $value, $user, $author_email);
 
                 // Store the comment id in the updates array for the log.
                 $updates['comment'] = $commentId;
@@ -348,26 +333,18 @@ class Whups_Ticket {
                 break;
 
             case 'attachment':
-                $result = $this->addAttachment($value['name'],
-                                               $value['tmp_name']);
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
-                } else {
-                    // Store the new file name in the updates array for the
-                    // log.
-                    $updates['attachment'] = $value['name'];
-                }
+                $this->addAttachment($value['name'], $value['tmp_name']);
+                // Store the new file name in the updates array for the
+                // log.
+                $updates['attachment'] = $value['name'];
                 break;
 
             case 'delete-attachment':
-                $result = $this->deleteAttachment($value);
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
-                } else {
-                    // Store the deleted file name in the updates array for
-                    // the log.
-                    $updates['delete-attachment'] = $value;
-                }
+                $this->deleteAttachment($value);
+                // Store the deleted file name in the updates array for
+                // the log.
+                $updates['delete-attachment'] = $value;
+
                 break;
 
             case 'queue':
@@ -384,25 +361,14 @@ class Whups_Ticket {
         }
 
         if (count($updates)) {
-            $result = $whups_driver->updateTicket($this->_id, $updates);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-
-            $result = $whups_driver->updateLog($this->_id, $user, $updates,
-                                               $transaction);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $whups_driver->updateTicket($this->_id, $updates);
+            $whups_driver->updateLog($this->_id, $user, $updates, $transaction);
         }
 
         // Reload $this->_details to make sure we have the latest information.
         //
         // @todo Only touch the db if we have to.
         $details = $whups_driver->getTicketDetails($this->_id);
-        if (is_a($details, 'PEAR_Error')) {
-            return $details;
-        }
         $this->_details = array_merge($this->_details, $details);
 
         // Send notification emails to all ticket listeners.
@@ -412,8 +378,6 @@ class Whups_Ticket {
 
         // Reset the changes array.
         $this->_changes = array();
-
-        return true;
     }
 
     /**
@@ -423,24 +387,28 @@ class Whups_Ticket {
      * @param string $attachment_file  The temporary file containing the data
      *                                 to be stored.
      *
-     * @return mixed  True on success or PEAR_Error on failure.
+     * @throws Whups_Exception
      */
-    function addAttachment(&$attachment_name, $attachment_file)
+    public function addAttachment(&$attachment_name, $attachment_file)
     {
         if (!isset($GLOBALS['conf']['vfs']['type'])) {
-            return PEAR::raiseError(_("The VFS backend needs to be configured to enable attachment uploads."), 'horde.error');
+            throw new Whups_Exception(
+                _("The VFS backend needs to be configured to enable attachment uploads."),
+                'horde.error');
         }
 
         try {
-            $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
+            $vfs = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Vfs')
+                ->create();
         } catch (Horde_Vfs_Exception $e) {
-            return PEAR::raiseError($e->getMessage());
+            throw new Whups_Exception($e);
         }
 
         // Get existing attachment names.
         $used_names = $this->listAllAttachments();
 
-        $dir = WHUPS_VFS_ATTACH_PATH . '/' . $this->_id;
+        $dir = Whups::VFS_ATTACH_PATH . '/' . $this->_id;
         while ((array_search($attachment_name, $used_names) !== false) ||
                $vfs->exists($dir, $attachment_name)) {
             if (preg_match('/(.*)\[(\d+)\](\.[^.]*)?$/', $attachment_name,
@@ -462,9 +430,8 @@ class Whups_Ticket {
 
         try {
             $vfs->write($dir, $attachment_name, $attachment_file, true);
-            return true;
         } catch (Horde_Vfs_Exception $e) {
-            return PEAR::raiseError($e->getMessage());
+            throw new Whups_Exception($e);
         }
     }
 
@@ -473,40 +440,47 @@ class Whups_Ticket {
      *
      * @param string $attachment_name  The name of the attachment.
      *
-     * @return mixed  True on success or PEAR_Error on failure.
+     * @throws Whups_Exception
      */
-    function deleteAttachment($attachment_name)
+    public function deleteAttachment($attachment_name)
     {
         if (!isset($GLOBALS['conf']['vfs']['type'])) {
-            return PEAR::raiseError(_("The VFS backend needs to be configured to enable attachment uploads."), 'horde.error');
+            throw new Whups_Exception(
+                _("The VFS backend needs to be configured to enable attachment uploads."),
+                'horde.error');
         }
 
         try {
-            $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
+            $vfs = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Vfs')
+                ->create();
         } catch (Horde_Vfs_Exception $e) {
-            return PEAR::raiseError($e->getMessage());
+            throw Whups_Exception($e);
         }
 
-        $dir = WHUPS_VFS_ATTACH_PATH . '/' . $this->_id;
+        $dir = Whups::VFS_ATTACH_PATH . '/' . $this->_id;
         if (!$vfs->exists($dir, $attachment_name)) {
-            return PEAR::raiseError(sprintf(_("Attachment %s not found."),
-                                            $attachment_name),
-                                    'horde.error');
+            throw new Whups_Exception(
+                sprintf(_("Attachment %s not found."),
+                        $attachment_name),
+                'horde.error');
         }
 
         try {
             $vfs->deleteFile($dir, $attachment_name);
-            return true;
         } catch (Horde_Vfs_Exception $e) {
-            return PEAR::raiseError($e->getMessage());
+            throw new Whups_Exception($e);
         }
     }
 
     /**
      * Returns a list of all files that have been attached to this ticket,
      * whether they still exist or not.
+     *
+     * @return array  The list of file attachments
+     * @throws Whups_Exception
      */
-    function listAllAttachments()
+    public function listAllAttachments()
     {
         $files = array();
         $history = $GLOBALS['whups_driver']->getHistory($this->_id);
@@ -527,7 +501,7 @@ class Whups_Ticket {
     /**
      * Redirects the browser to this ticket's view.
      */
-    function show()
+    public function show()
     {
         Whups::urlFor('ticket', $this->_id, true)->redirect();
     }
@@ -537,9 +511,12 @@ class Whups_Ticket {
      *
      * @return string  A full <link> tag.
      */
-    function feedLink()
+    public function feedLink()
     {
-        return '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars('[#' . $this->getId() . '] ' . $this->get('summary')) . '" href="' . Whups::urlFor('ticket_rss', $this->getId(), true, -1) . '" />';
+        return '<link rel="alternate" type="application/rss+xml" title="'
+            . htmlspecialchars('[#' . $this->getId() . '] ' . $this->get('summary'))
+            . '" href="' . Whups::urlFor('ticket_rss', $this->getId(), true, -1)
+            . '" />';
     }
 
     /**
@@ -547,8 +524,10 @@ class Whups_Ticket {
      *
      * @param integer $commentId  The id of the comment to restrict.
      * @param string  $group      The group name to limit access by.
+     *
+     * @return integer  The permission id.
      */
-    function addCommentPerms($commentId, $group)
+    public function addCommentPerms($commentId, $group)
     {
         if (!empty($group)) {
             $perm = $GLOBALS['injector']
@@ -567,7 +546,7 @@ class Whups_Ticket {
      *
      * @param Horde_Variables $vars  The form variables object to set info in.
      */
-    function setDetails(&$vars)
+    public function setDetails(Horde_Variables &$vars)
     {
         $vars->set('id', $this->getId());
         foreach ($this->getDetails() as $varname => $value) {
@@ -581,15 +560,15 @@ class Whups_Ticket {
 
         /* Attachments. */
         $attachments = array();
-        $files = Whups::getAttachments($this->_id);
+        try {
+            $files = Whups::getAttachments($this->_id);
+        } catch (Whups_Exception $e) {
+            $GLOBALS['notification']->push($e->getMessage());
+        }
         if ($files) {
-            if (is_a($files, 'PEAR_Error')) {
-                $GLOBALS['notification']->push($files);
-            } else {
-                foreach ($files as $file) {
-                    $attachments[] = Whups::attachmentUrl(
-                        $this->_id, $file, $this->_details['queue']);
-                }
+            foreach ($files as $file) {
+                $attachments[] = Whups::attachmentUrl(
+                    $this->_id, $file, $this->_details['queue']);
             }
             $vars->set('attachments', implode("<br />\n", $attachments));
         }
@@ -605,7 +584,7 @@ class Whups_Ticket {
      *                          notification. If empty, the list will be
      *                          created automatically.
      */
-    function notify($author, $isNew, $listeners = array())
+    public function notify($author, $isNew, $listeners = array())
     {
         global $conf, $whups_driver;
 
@@ -773,14 +752,14 @@ class Whups_Ticket {
 
         if (empty($listeners)) {
             if ($conf['mail']['incl_resp'] ||
-                !count($whups_driver->getOwners($this->_id))) {
+                !count(current($whups_driver->getOwners($this->_id)))) {
                 /* Include all responsible.  */
-                $listeners = $whups_driver->getListeners($this->_id, true,
-                                                         true, true);
+                $listeners = $whups_driver->getListeners(
+                    $this->_id, true, true, true);
             } else {
                 /* Don't include all responsible unless ticket is assigned. */
-                $listeners = $whups_driver->getListeners($this->_id, true,
-                                                         true, false);
+                $listeners = $whups_driver->getListeners(
+                    $this->_id, true, true, false);
             }
 
             /* Notify both old and new queue users if the queue has changed. */
@@ -805,7 +784,7 @@ class Whups_Ticket {
      * @param boolean $isNew   Is this a new ticket or a change to an existing
      *                         one?
      */
-    function toString()
+    public function toString()
     {
         $fields = array('queue' => _("Queue"),
                         'version' => _("Version"),
@@ -845,7 +824,7 @@ class Whups_Ticket {
         return $message;
     }
 
-    function __toString()
+    public function __toString()
     {
         return $this->toString();
     }
@@ -856,169 +835,14 @@ class Whups_Ticket {
      *
      * @return array  List of ticket attribute hashes.
      */
-    function addAttributes()
+    public function addAttributes()
     {
-        $attributes = $GLOBALS['whups_driver']->getAllTicketAttributesWithNames($this->getId());
-        if (is_a($attributes, 'PEAR_Error')) {
-            return $attributes;
-        }
-
+        $attributes = $GLOBALS['whups_driver']
+            ->getAllTicketAttributesWithNames($this->getId());
         foreach ($attributes as $attribute_id => $attribute) {
             $this->set('attribute_' . $attribute_id, $attribute['value']);
         }
         return $attributes;
-    }
-
-}
-
-/**
- * @package Whups
- */
-class TicketDetailsForm extends Horde_Form {
-
-    /**
-     */
-    function TicketDetailsForm(&$vars, &$ticket, $title = '')
-    {
-        parent::Horde_Form($vars, $title);
-
-        $date_params = array($GLOBALS['prefs']->getValue('date_format'));
-        $fields = array('summary', 'queue', 'version', 'type', 'state',
-                        'priority', 'owner', 'requester', 'created', 'due',
-                        'updated', 'assigned', 'resolved', 'attachments');
-        $attributes = $ticket->addAttributes();
-        if (is_a($attributes, 'PEAR_Error')) {
-            $attributes = array();
-        }
-
-        foreach ($attributes as $attribute) {
-            $fields[] = 'attribute_' . $attribute['id'];
-        }
-
-        $grouped_fields = array($fields);
-        $grouped_hook = false;
-        try {
-            $grouped_fields = Horde::callHook('group_fields', array($ticket->get('type'), $fields), 'whups');
-            $grouped_hook = true;
-        } catch (Horde_Exception_HookNotSet $e) {
-        } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-        }
-
-        foreach ($grouped_fields as $header => $fields) {
-            if ($grouped_hook) {
-                $this->addVariable($header, null, 'header', false);
-            }
-            foreach ($fields as $field) {
-                switch ($field) {
-                case 'summary':
-                    $this->addVariable(_("Summary"), 'summary', 'text', true);
-                    break;
-
-                case 'queue':
-                    if ($vars->get('queue_link')) {
-                        $this->addVariable(
-                            _("Queue"), 'queue_link', 'link',
-                            true, false, null,
-                            array(array('url' => $vars->get('queue_link'),
-                                        'text' => $vars->get('queue_name'))));
-                    } else {
-                        $this->addVariable(_("Queue"), 'queue_name', 'text',
-                                           true);
-                    }
-                    break;
-
-                case 'version':
-                    if ($vars->get('version_name')) {
-                        if ($vars->get('version_link')) {
-                            $this->addVariable(
-                                _("Queue Version"), 'version_name', 'link',
-                                true, false, null,
-                                array(
-                                    array('url' => $vars->get('version_link'),
-                                          'text' => $vars->get('version_name'))));
-                        } else {
-                            $this->addVariable(_("Queue Version"),
-                                               'version_name', 'text', true);
-                        }
-                    }
-                    break;
-
-                case 'type':
-                    $this->addVariable(_("Type"), 'type_name', 'text', true);
-                    break;
-
-                case 'state':
-                    $this->addVariable(_("State"), 'state_name', 'text', true);
-                    break;
-
-                case 'priority':
-                    $this->addVariable(_("Priority"), 'priority_name', 'text',
-                                       true);
-                    break;
-
-                case 'owner':
-                    $owner = &$this->addVariable(_("Owners"), 'user_id_owner',
-                                                 'email', false, false, null,
-                                                 array(false, true));
-                    $owner->setDefault(_("Unassigned"));
-                    break;
-
-                case 'requester':
-                    $this->addVariable(_("Requester"), 'user_id_requester',
-                                       'email', false, false, null,
-                                       array(false, true));
-                    break;
-
-                case 'created':
-                    $this->addVariable(_("Created"), 'timestamp', 'date',
-                                       false, false, null, $date_params);
-                    break;
-
-                case 'due':
-                    $this->addVariable(_("Due"), 'due', 'datetime', false,
-                                       false, null, $date_params);
-                    break;
-
-                case 'updated':
-                    $this->addVariable(_("Updated"), 'date_updated', 'date',
-                                       false, false, null, $date_params);
-                    break;
-
-                case 'assigned':
-                    $this->addVariable(_("Assigned"), 'date_assigned', 'date',
-                                       false, false, null, $date_params);
-                    break;
-
-                case 'resolved':
-                    $this->addVariable(_("Resolved"), 'date_resolved', 'date',
-                                       false, false, null, $date_params);
-                    break;
-
-                case 'attachments':
-                    $this->addVariable(_("Attachments"), 'attachments', 'html',
-                                       false);
-                    break;
-
-                default:
-                    if (substr($field, 0, 10) == 'attribute_' &&
-                        isset($attributes[substr($field, 10)])) {
-                        $attribute = $attributes[substr($field, 10)];
-                        if (!$attribute['params']) {
-                            $attribute['params'] = array();
-                        }
-                        $var = &$this->addVariable(
-                            $attribute['human_name'],
-                            'attribute_' . $attribute['id'],
-                            $attribute['type'], $attribute['required'],
-                            $attribute['readonly'], $attribute['desc'],
-                            $attribute['params']);
-                        $var->setDefault($attribute['value']);
-                    }
-                    break;
-                }
-            }
-        }
     }
 
 }

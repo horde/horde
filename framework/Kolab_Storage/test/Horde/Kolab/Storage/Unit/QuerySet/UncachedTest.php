@@ -74,10 +74,6 @@ extends Horde_Kolab_Storage_TestCase
      */
     public function testNoSuchSet()
     {
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->getNullMock(),
-            new Horde_Kolab_Storage_Factory()
-        );
         $factory = new Horde_Kolab_Storage_Factory();
         new Horde_Kolab_Storage_QuerySet_Uncached(
             $factory, array('list' => array('queryset' => 'NO_SUCH_SET'))
@@ -183,4 +179,53 @@ extends Horde_Kolab_Storage_TestCase
         $query_set->addListQuerySet($list);
         $list->getQuery('Stub');
     }
+
+    public function testAddDataQuery()
+    {
+        $this->_assertDataQuery(array('data' => array('queryset' => 'horde')));
+    }
+
+    public function testAddMySet()
+    {
+        $this->_assertDataQuery(
+            array('data' => array('myset' => array(Horde_Kolab_Storage_Data::QUERY_PREFS => 'h-prefs')))
+        );
+    }
+
+    private function _assertDataQuery($params)
+    {
+        $driver = $this->getNullMock();
+        $factory = new Horde_Kolab_Storage_Factory();
+        $list = new Horde_Kolab_Storage_List_Base(
+            $driver, $factory
+        );
+        $data = new Horde_Kolab_Storage_Data_Base(
+            new Horde_Kolab_Storage_Folder_Base(
+                $list, 'INBOX/Preferences'
+            ),
+            $driver,
+            $factory,
+            'h-prefs'
+        );
+        $query_set = new Horde_Kolab_Storage_QuerySet_Uncached(
+            $factory, $params
+        );
+        $query_set->addDataQuerySet($data);
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_Data_Query',
+            $data->getQuery(Horde_Kolab_Storage_Data::QUERY_PREFS)
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testNoSuchDataQuerySet()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        new Horde_Kolab_Storage_QuerySet_Uncached(
+            $factory, array('data' => array('queryset' => 'NO_SUCH_SET'))
+        );
+    }
+
 }

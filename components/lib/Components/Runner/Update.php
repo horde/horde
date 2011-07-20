@@ -37,25 +37,24 @@ class Components_Runner_Update
     private $_config;
 
     /**
-     * The factory for PEAR handlers.
+     * The output handler.
      *
-     * @var Components_Factory
+     * @param Component_Output
      */
-    private $_factory;
+    private $_output;
 
     /**
      * Constructor.
      *
      * @param Components_Config       $config  The configuration for the current job.
-     * @param Components_Pear_Factory $factory Generator for all
-     *                                         required PEAR components.
+     * @param Component_Output        $output  The output handler.
      */
     public function __construct(
         Components_Config $config,
-        Components_Pear_Factory $factory
+        Components_Output $output
     ) {
         $this->_config  = $config;
-        $this->_factory = $factory;
+        $this->_output = $output;
     }
 
     public function run()
@@ -63,29 +62,35 @@ class Components_Runner_Update
         $arguments = $this->_config->getArguments();
         $options = $this->_config->getOptions();
 
-        if (!file_exists($this->_config->getComponentPackageXml())) {
-            $this->_factory->createPackageFile(
-                $this->_config->getComponentDirectory()
-            );
-        }
-
-        if (isset($options['pearrc'])) {
-            $package = $this->_factory->createPackageForInstallLocation(
-                $this->_config->getComponentPackageXml(), $options['pearrc']
-            );
-        } else {
-            $package = $this->_factory->createPackageForDefaultLocation(
-                $this->_config->getComponentPackageXml()
-            );
-        }
-
         if (!empty($options['updatexml'])
             || (isset($arguments[0]) && $arguments[0] == 'update')) {
             $action = !empty($options['action']) ? $options['action'] : 'update';
-            if ($options['pretend'] && $action == 'update') {
+            if (!empty($options['pretend']) && $action == 'update') {
                 $action = 'diff';
             }
-            $package->updatePackageFile($action, $options);
+            if (!empty($options['commit'])) {
+                $options['commit'] = new Components_Helper_Commit(
+                    $this->_output, $options
+                );
+            }
+            $result = $this->_config->getComponent()->updatePackageXml(
+                $action, $options
+            );
+            if (!empty($options['new_version']) || !empty($options['new_api'])) {
+                $this->_config->getComponent()->setVersion(
+                    $options['new_version'], $options['new_api'], $options
+                );
+            }
+            if (!empty($options['commit'])) {
+                $options['commit']->commit(
+                    'Components updated the package.xml.'
+                );
+            }
+            if ($result === true) {
+                $this->_output->ok('Successfully updated package.xml of ' . $this->_config->getComponent()->getName() . '.');
+            } else {
+                print $result;
+            }
         }
 
     }

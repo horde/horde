@@ -1,0 +1,438 @@
+# Lithuanian translations for Ulaform package.
+# Copyright 2007-2009 The Horde Project
+# This file is distributed under the same license as the Ulaform package.
+# Vilius Sumskas <vilius@lnk.lt>, 2004, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Ulaform 1.0-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2007-11-02 15:40+0200\n"
+"PO-Revision-Date: 2007-11-11 18:55+0200\n"
+"Last-Translator: Vilius Sumskas <vilius@lnk.lt>\n"
+"Language-Team: Lithuanian <vilius@lnk.lt>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-13\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: edit.php:83
+msgid "-- default configured --"
+msgstr "-- standartiðkai sukonfigûruota --"
+
+#: edit.php:63
+msgid "-- select --"
+msgstr "-- pasirinkite --"
+
+#: delete.php:33 edit.php:63 forms.php:33
+msgid "Action"
+msgstr "Veiksmas"
+
+#: forms.php:32
+msgid "Available Forms"
+msgstr "Esamos formos"
+
+#: lib/Action/mailto.php:123
+msgid "Bcc"
+msgstr "Bcc"
+
+#: lib/Action/mailto.php:119
+msgid "Cc"
+msgstr "Cc"
+
+#: edit.php:46
+msgid "Changed action driver."
+msgstr "Veiksmo tvarkyklë pakeista."
+
+#: genhtml.php:38
+msgid "Changed embed type."
+msgstr "Atvaizdavimo reþimas pakeistas."
+
+#: config/fields.php.dist:49
+msgid "Characters"
+msgstr "Simboliai"
+
+#: config/fields.php.dist:40 config/fields.php.dist:47
+msgid "Columns"
+msgstr "Stulpeliai"
+
+#: display.php:31
+#, php-format
+msgid "Could not fetch form ID \"%s\". %s"
+msgstr "Nepavyko gauti formos ID \"%s\". %s"
+
+#: edit.php:57
+msgid "Create"
+msgstr "Sukurti"
+
+#: edit.php:83
+msgid "Default language"
+msgstr "Pagrindinë kalba"
+
+#: delete.php:34 delete.php:37 deletefield.php:44 deletefield.php:50
+msgid "Delete"
+msgstr "Iðtrinti"
+
+#: fields.php:128 deletefield.php:43
+msgid "Delete Field"
+msgstr "Iðtrinti laukelá"
+
+#: forms.php:27
+msgid "Delete Form"
+msgstr "Iðtrinti formà"
+
+#: deletefield.php:48
+msgid "Delete this field?"
+msgstr "Ar iðtrinti ðá laukelá?"
+
+#: delete.php:31
+msgid "Delete this form?"
+msgstr "Ar iðtrinti ðià formà?"
+
+#: fields.php:58 fields.php:125
+msgid "Description"
+msgstr "Apraðymas"
+
+#: delete.php:34 deletefield.php:44 deletefield.php:68
+msgid "Do not delete"
+msgstr "Netrinti"
+
+#: fields.php:129
+msgid "Edit Field"
+msgstr "Redaguoti laukelá"
+
+#: forms.php:28
+msgid "Edit Form"
+msgstr "Redaguoti formà"
+
+#: edit.php:116
+msgid "Edit Forms"
+msgstr "Formø redagavimas"
+
+#: config/fields.php.dist:121 config/fields.php.dist:129
+msgid "End year"
+msgstr "Galiniai metai"
+
+#: config/fields.php.dist:64 config/fields.php.dist:84
+#: config/fields.php.dist:92 config/fields.php.dist:100
+#: config/fields.php.dist:108 config/fields.php.dist:147
+msgid "Enter a comma separated list of values."
+msgstr "Áveskite kableliais atskirtas reikðmes."
+
+#: deletefield.php:58
+#, php-format
+msgid "Error deleting field. %s."
+msgstr "Klaida trinant laukelá. %s."
+
+#: delete.php:45
+#, php-format
+msgid "Error deleting form. %s."
+msgstr "Klaida trinant formà. %s."
+
+#: fields.php:89
+#, php-format
+msgid "Error saving field. %s."
+msgstr "Klaida iðsaugant laukelá. %s."
+
+#: sortfields.php:47
+#, php-format
+msgid "Error saving fields. %s."
+msgstr "Klaida iðsaukant laukelius. %s."
+
+#: edit.php:101
+#, php-format
+msgid "Error saving form. %s."
+msgstr "Klaida iðsaugant formà. %s."
+
+#: display.php:68 lib/Block/form.php:88
+#, php-format
+msgid "Error submitting form. %s."
+msgstr "Klaida siunèiant formà. %s."
+
+#: deletefield.php:60
+#, php-format
+msgid "Field \"%s\" deleted."
+msgstr "Laukelis \"%s\" iðtrintas."
+
+#: fields.php:41
+msgid "Field Details"
+msgstr "Laukelio aparaðymas"
+
+#: deletefield.php:69
+msgid "Field not deleted."
+msgstr "Laukelis neiðtrintas."
+
+#: fields.php:91
+msgid "Field saved."
+msgstr "Laukelis iðsaugotas."
+
+#: sortfields.php:49
+msgid "Field sort order saved."
+msgstr "Laukeliø iðdëstymo tvarka iðsaugota."
+
+#: templates/fields/fields.html:15
+msgid "Fields"
+msgstr "Laukeliai"
+
+#: lib/api.php:41 lib/Block/form.php:31
+msgid "Form"
+msgstr "Forma"
+
+#: delete.php:30 edit.php:56
+msgid "Form Details"
+msgstr "Formos apraðymas"
+
+#: fields.php:134
+msgid "Form Fields"
+msgstr "Formos laukeliai"
+
+#: forms.php:33
+msgid "Form Name"
+msgstr "Formos pavadinimas"
+
+#: delete.php:47
+msgid "Form deleted."
+msgstr "Forma iðtrinta."
+
+#: edit.php:103
+msgid "Form details saved."
+msgstr "Formos apraðymas iðsaugotas."
+
+#: delete.php:54
+msgid "Form has not been deleted."
+msgstr "Forma neiðtrinta."
+
+#: display.php:70 lib/Block/form.php:90
+msgid "Form submitted successfully."
+msgstr "Forma sëkmingai iðsiøsta."
+
+#: config/fields.php.dist:135
+msgid "Format used to display"
+msgstr "Rodymo formatas"
+
+#: config/fields.php.dist:133
+msgid "Format used to submit"
+msgstr "Siuntimo formatas"
+
+#: forms.php:39
+msgid "Forms List"
+msgstr "Formø sàraðas"
+
+#: lib/Action/mailto.php:115
+msgid "From"
+msgstr "Nuo"
+
+#: fields.php:118 genhtml.php:49 forms.php:30
+msgid "Generate HTML"
+msgstr "Generuoti HTML"
+
+#: genhtml.php:43
+#, php-format
+msgid "HTML Generation for \"%s\""
+msgstr "\"%s\" HTML generavimas"
+
+#: genhtml.php:63
+msgid "Height"
+msgstr "Aukðtis"
+
+#: fields.php:48
+msgid "Internal name"
+msgstr "Vidinis pavadinimas"
+
+#: fields.php:47 fields.php:125
+msgid "Label"
+msgstr "Pavadinimas"
+
+#: lib/Action/mailto.php:99
+msgid "Mailto"
+msgstr "Siøsti paðtu"
+
+#: lib/Driver/sql.php:80 lib/Driver/sql.php:160
+msgid "Missing form"
+msgstr "Formos nëra"
+
+#: edit.php:57
+msgid "Modify"
+msgstr "Keisti"
+
+#: delete.php:32 fields.php:125 edit.php:60 genhtml.php:62
+msgid "Name"
+msgstr "Vardas"
+
+#: lib/Driver.php:121 lib/Driver.php:122
+msgid "No"
+msgstr "Ne"
+
+#: fields.php:109
+msgid "No available fields."
+msgstr "Laukeliø nëra."
+
+#: forms.php:24
+msgid "No available forms."
+msgstr "Formø nëra."
+
+#: deletefield.php:33
+msgid "No field specified."
+msgstr "Nenurodëte laukelio."
+
+#: lib/Action.php:84
+#, php-format
+msgid "No such action \"%s\" found"
+msgstr "Veiksmas \"%s\" nerastas"
+
+#: lib/Driver.php:175
+#, php-format
+msgid "No such backend \"%s\" found"
+msgstr "Posistemë \"%s\" nerasta"
+
+#: display.php:33
+#, php-format
+msgid "No such form ID \"%s\"."
+msgstr "Tokio formos ID \"%s\" nëra."
+
+#: edit.php:87
+msgid "On submit"
+msgstr "Siuntimo metu"
+
+#: genhtml.php:53
+msgid "PHP using PEAR classes"
+msgstr "PHP pasinaudojant PEAR klasëmis"
+
+#: fields.php:118
+msgid "Preview"
+msgstr "Perþiûra"
+
+#: forms.php:29
+msgid "Preview Form"
+msgstr "Perþiûrëti formà"
+
+#: fields.php:57 fields.php:125
+msgid "Read only"
+msgstr "Tik skaitymui"
+
+#: lib/Driver.php:76 lib/Driver.php:101
+msgid "Requested form does not exist."
+msgstr "Nurodyta forma neegzistuoja."
+
+#: fields.php:56 fields.php:125
+msgid "Required"
+msgstr "Privalomas"
+
+#: config/fields.php.dist:38 config/fields.php.dist:45
+msgid "Rows"
+msgstr "Eilutës"
+
+#: lib/Action/sql.php:89
+msgid "SQL"
+msgstr "SQL"
+
+#: sortfields.php:35
+msgid "Save"
+msgstr "Iðsaugoti"
+
+#: fields.php:42
+msgid "Save Field"
+msgstr "Iðsaugoti laukelá"
+
+#: genhtml.php:54
+msgid "Select how you wish to embed the form"
+msgstr "Pasirinkite kaip norite átraukti formà á puslapá"
+
+#: sortfields.php:36
+msgid "Select the sort order of the fields"
+msgstr "Pasirinkite laukeliø rûðiavimo tvarkà"
+
+#: fields.php:48
+msgid ""
+"Set this name if you have a particular reason to override the automatic "
+"internal naming of fields."
+msgstr ""
+"Nurodykite ðá pavadinimà, jeigu norite apeiti vidiná laukeliø þymëjimà."
+
+#: lib/Block/form.php:3
+msgid "Show Form"
+msgstr "Rodyti formà"
+
+#: config/fields.php.dist:131
+msgid "Show the date picker"
+msgstr "Rodyti datos pasirinkimà"
+
+#: sortfields.php:32
+msgid "Sort Fields"
+msgstr "Surûðiuoti laukelius"
+
+#: fields.php:118
+msgid "Sort fields"
+msgstr "Surûðiuoti laukelius"
+
+#: config/fields.php.dist:119 config/fields.php.dist:127
+msgid "Start year"
+msgstr "Startiniai metai"
+
+#: lib/Action/mailto.php:114
+msgid "Subject"
+msgstr "Tema"
+
+#: lib/Action/sql.php:104
+msgid "Table"
+msgstr "Lentelë"
+
+#: forms.php:21
+#, php-format
+msgid "There was an error listing forms: %s."
+msgstr "Klaida parodant formø sàraðà: %s."
+
+#: lib/Action/mailto.php:100
+msgid ""
+"This driver allows the sending of form results via email to one or more "
+"recipients."
+msgstr ""
+"Ði tvarkyklë leidþia nusiøsti formos rezultatus á vienà ar daugiau paðto "
+"adresø."
+
+#: lib/Action/sql.php:90
+msgid "This driver allows to insertion of form results into a database."
+msgstr "Ði tvarkyklë leidþia nusiøsti formos rezultatus á SQL duomenø bazæ."
+
+#: fields.php:66
+msgid "This field type has extra parameters."
+msgstr "Ðis laukelio tipas turi papildomø nustatymø."
+
+#: lib/Action/mailto.php:116
+msgid "To"
+msgstr "Kam"
+
+#: fields.php:52 fields.php:125
+msgid "Type"
+msgstr "Tipas"
+
+#: config/fields.php.dist:61 config/fields.php.dist:81
+#: config/fields.php.dist:89 config/fields.php.dist:97
+#: config/fields.php.dist:105 config/fields.php.dist:144
+msgid "Values"
+msgstr "Reikðmës"
+
+#: genhtml.php:64
+msgid "Width"
+msgstr "Plotis"
+
+#: lib/Driver.php:121 lib/Driver.php:122
+msgid "Yes"
+msgstr "Taip"
+
+#: lib/Driver/sql.php:230
+msgid "You don't have the right permission to access this form."
+msgstr "Neturite teisiø prieiti prie ðios formos."
+
+#: lib/Ulaform.php:198
+msgid "_List Forms"
+msgstr "Formø sàraðas"
+
+#: lib/Ulaform.php:199
+msgid "_New Form"
+msgstr "Nauja forma"
+
+#: genhtml.php:53
+msgid "iframe"
+msgstr "Áterptas kadras (iframe)"

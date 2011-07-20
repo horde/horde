@@ -5,15 +5,15 @@
  * <pre>
  * List of URL parameters:
  * -----------------------
- * 'bcc' - TODO
- * 'cc' - TODO
- * 'folder'
- * 'identity' - TODO
- * 'subject' - TODO
- * 'type' - TODO
- * 'to' - TODO
- * 'uid' - TODO
- * 'uids' - TODO
+ * bcc: TODO
+ * cc: TODO
+ * identity: TODO
+ * subject: TODO
+ * type: TODO
+ * to: The e-mail address to send to.
+ * toname: If set, will be used as personal part of e-mail address (requires
+ *         'to' parameter also).
+ * uids: TODO
  * </pre>
  *
  * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
@@ -36,13 +36,17 @@ Horde_Registry::appInit('imp', array(
 
 $vars = Horde_Variables::getDefaultVariables();
 
-/* Determine if compose mode is disabled. */
-$compose_disable = !IMP::canCompose();
-
 /* The headers of the message. */
 $header = array();
 foreach (array('to', 'cc', 'bcc', 'subject') as $v) {
     $header[$v] = strval($vars->$v);
+}
+
+/* Check for personal information for 'to' address. */
+if (isset($header['to']) &&
+    isset($vars->toname) &&
+    ($tmp = Horde_Mime_Address::parseAddressList($header['to']))) {
+    $header['to'] = Horde_Mime_Address::writeAddress($tmp[0]['mailbox'], $tmp[0]['host'], $vars->toname);
 }
 
 $fillform_opts = array('noupdate' => 1);
@@ -189,7 +193,7 @@ case 'forward_redirect':
 
 case 'resume':
     try {
-        $result = $imp_compose->resumeDraft(new IMP_Indices($vars->folder, $vars->uid));
+        $result = $imp_compose->resumeDraft(IMP::$mailbox->getIndicesOb(IMP::$uid));
 
         if ($result['mode'] == 'html') {
             $show_editor = true;
@@ -261,6 +265,7 @@ if ($vars->type != 'redirect') {
 Horde::addInlineScript($compose_result['jsonload'], 'dom');
 
 $scripts = array(
+    array('base64url.js', 'imp'),
     array('compose-base.js', 'imp'),
     array('compose-dimp.js', 'imp'),
     array('md5.js', 'horde'),
@@ -274,7 +279,10 @@ if (!($prefs->isLocked('default_encrypt')) &&
     $scripts[] = array('redbox.js', 'horde');
 }
 
+Horde::startBuffer();
 IMP::status();
+$t->set('status', Horde::endBuffer());
+
 IMP_Dimp::header($title, $scripts);
 echo $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose-base.html');
 Horde::includeScriptFiles();

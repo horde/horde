@@ -3,8 +3,8 @@
 <configuration>
  <configtab name="tickets" desc="Tickets Driver Settings">
   <configsection name="tickets">
-   <configswitch name="driver" desc="What storage driver should we use?">sql
-    <case name="sql" desc="SQL">
+   <configswitch name="driver" desc="What storage driver should we use?">Sql
+    <case name="Sql" desc="SQL">
      <configsection name="params">
       <configsql switchname="driverconfig"/>
      </configsection>
@@ -87,7 +87,7 @@
   <configsection name="menu">
    <configheader>Menu Settings</configheader>
    <configmultienum name="apps" desc="Select any applications that should be
-   linked in Whups' menu">
+   linked in Whups' menu" required="false">
     <values>
      <configspecial application="horde" name="apps" />
     </values>

@@ -325,7 +325,11 @@ class Horde_Share_Sql extends Horde_Share_Base
         $sharelist = array();
         foreach ($shares as $data) {
             $this->_getSharePerms($data);
-            $sharelist[$data['share_name']] = $this->_createObject($data);
+            if (!empty($data['share_name'])) {
+                $sharelist[$data['share_name']] = $this->_createObject($data);
+            } else {
+                $sharelist[] = $this->_createObject($data);
+            }
         }
 
         return $sharelist;
@@ -723,6 +727,8 @@ class Horde_Share_Sql extends Horde_Share_Base
 
     /**
      * Returns an array of criteria for querying shares.
+     *
+     * @TODO Make this method protected, like all the other drivers.
      *
      * @param string $userid      The userid of the user to check access for.
      * @param integer $perm       The level of permissions required. Set to null

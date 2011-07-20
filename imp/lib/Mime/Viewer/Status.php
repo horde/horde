@@ -57,11 +57,6 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
     {
         $parts = array_keys($this->_mimepart->contentTypeMap());
 
-        reset($parts);
-        $part1_id = next($parts);
-        $part2_id = Horde_Mime::mimeIdArithmetic($part1_id, 'next');
-        $part3_id = Horde_Mime::mimeIdArithmetic($part2_id, 'next');
-
         /* RFC 3464 [2]: There are three parts to a delivery status
          * multipart/report message:
          *   (1) Human readable message
@@ -71,6 +66,15 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
          * Information on the message status is found in the 'Action' field
          * located in part #2 (RFC 3464 [2.3.3]). It can be either 'failed',
          * 'delayed', 'delivered', 'relayed', or 'expanded'. */
+
+        if (count($parts) < 2) {
+            return array();
+        }
+
+        reset($parts);
+        $part1_id = next($parts);
+        $part2_id = Horde_Mime::mimeIdArithmetic($part1_id, 'next');
+        $part3_id = Horde_Mime::mimeIdArithmetic($part2_id, 'next');
 
         /* Get the action first - it appears in the second part. */
         $action = null;
@@ -115,7 +119,7 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
                     'icon' => Horde::img('alerts/success.png', _("Success")),
                     'text' => array(
                         _("Your message was successfully delivered."),
-                        sprintf(_("Technical message details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Technical details"), 'params' => array('mode' => IMP_Contents::RENDER_INLINE))))
+                        sprintf(_("Technical message details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Technical details"), 'params' => array('ctype' => 'text/x-simple', 'mode' => IMP_Contents::RENDER_FULL))))
                     )
                 )
             );
@@ -130,7 +134,7 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
             $status[0]['text'][] = sprintf($msg_link, $this->getConfigParam('imp_contents')->linkViewJS($part3, 'view_attach', _("HERE"), array('jstext' => $msg_link_status, 'params' => array('ctype' => 'message/rfc822'))));
         }
 
-        $ret = array_combine(array($part2_id, $part3_id), array(null, null));
+        $ret = array_fill_keys(array_diff($parts, array($part1_id)), null);
 
         $ret[$this->_mimepart->getMimeId()] = array(
             'data' => '',

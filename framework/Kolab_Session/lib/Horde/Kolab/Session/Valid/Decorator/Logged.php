@@ -51,10 +51,8 @@ implements Horde_Kolab_Session_Valid
      * @param Horde_Kolab_Session_Valid_Interface $valid  The validator.
      * @param mixed                               $logger The logger instance.
      */
-    public function __construct(
-        Horde_Kolab_Session_Valid $valid,
-        $logger
-    ) {
+    public function __construct(Horde_Kolab_Session_Valid $valid, $logger)
+    {
         $this->_valid  = $valid;
         $this->_logger = $logger;
     }
@@ -73,8 +71,7 @@ implements Horde_Kolab_Session_Valid
     {
         $this->_logger->info(
             sprintf(
-                "Validating Kolab session for current user \"%s\", requested"
-                . " user \"%s\", and stored user \"%s\".",
+                "Validating Kolab session for current user \"%s\", requested user \"%s\", and stored user \"%s\".",
                 $this->_valid->getAuth(),
                 $user,
                 $this->_valid->getSession()->getMail()
@@ -84,8 +81,7 @@ implements Horde_Kolab_Session_Valid
         if ($result === false) {
             $this->_logger->info(
                 sprintf(
-                    "Invalid Kolab session for current user \"%s\" and requested"
-                    . " user \"%s\".",
+                    "Invalid Kolab session for current user \"%s\" and requested user \"%s\".",
                     $this->_valid->getAuth(),
                     $user
                 )

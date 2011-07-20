@@ -5,9 +5,30 @@ v2.1-git
 
 
 ----------
-v2.0.2-git
+v2.0.4-git
 ----------
 
+[mms] Fix creating new mailboxes (Bug #10282).
+
+
+------
+v2.0.3
+------
+
+[jan] Add -N parameter to mailbot calls by default (Request #10147).
+[jan] Fix notice when using numeric comparisons for spam headers (Bug #10222).
+[jan] Respect excluded mail addresses in Maildrop vacation driver (Request
+      #10077).
+[jan] Fix access to debug handler in Timsieved driver.
+[jan] Fix deleting single conditions from a rule (Bug #10253).
+
+
+------
+v2.0.2
+------
+
+[jan] Fix moving rules to an explicit position (Bug #10172).
+[mms] Fix storage backend conversion script.
 
 
 ------

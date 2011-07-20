@@ -45,9 +45,9 @@ implements Components_Config
     protected $_arguments = array();
 
     /**
-     * Path to the selected component.
+     * The selected component.
      *
-     * @var string
+     * @var Components_Component
      */
     private $_component;
 
@@ -65,13 +65,28 @@ implements Components_Config
     }
 
     /**
-     * Return the options parsed from the command line.
+     * Return all options.
      *
      * @return Horde_Argv_Values The option values.
      */
     public function getOptions()
     {
         return $this->_options;
+    }
+
+    /**
+     * Return the specified option.
+     *
+     * @param string $option The name of the option.
+     *
+     * @return mixed The option value or NULL if it is not defined.
+     */
+    public function getOption($option)
+    {
+        $options = $this->getOptions();
+        if (isset($options[$option])) {
+            return $options[$option];
+        }
     }
 
     /**
@@ -109,26 +124,20 @@ implements Components_Config
     /**
      * Set the path to the component directory.
      *
-     * @param string  $path  The path to the component directory.
-     * @param boolean $shift Was the first argument used to indicate the
-     *                       component path and should be shifted away?
-     *
+     * @param Components_Component $component The path to the component directory.
      * @return NULL
      */
-    public function setComponentDirectory($path, $shift = false)
+    public function setComponent(Components_Component $component)
     {
-        $this->_component = realpath($path);
-        if ($shift) {
-            $this->shiftArgument();
-        }
+        $this->_component = $component;
     }
 
     /**
-     * Return the path to the selected component directory.
+     * Return the selected component.
      *
-     * @return string The component directory.
+     * @return Components_Component The selected component.
      */
-    public function getComponentDirectory()
+    public function getComponent()
     {
         if ($this->_component === null) {
             throw new Components_Exception(
@@ -136,15 +145,5 @@ implements Components_Config
             );
         }
         return $this->_component;
-    }
-
-    /**
-     * Return the path to the package.xml of the selected component directory.
-     *
-     * @return string The path to the package.xml.
-     */
-    public function getComponentPackageXml()
-    {
-        return $this->getComponentDirectory() . '/package.xml';
     }
 }

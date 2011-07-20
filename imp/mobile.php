@@ -24,10 +24,10 @@ new Horde_View_Helper_Text($view);
 
 /* Initialize the IMP_Imap_Tree object. */
 $imptree = $injector->getInstance('IMP_Imap_Tree');
-$imptree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER);
+$imptree->setIteratorFilter();
 $tree = $imptree->createTree('mobile_folders', array(
     'poll_info' => true,
-    'render_type' => 'Jquerymobile'
+    'render_type' => 'IMP_Tree_Jquerymobile'
 ));
 $view->tree = $tree->getTree(true);
 

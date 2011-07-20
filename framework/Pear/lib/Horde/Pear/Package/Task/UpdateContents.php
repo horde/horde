@@ -61,7 +61,8 @@ implements Horde_Pear_Package_Task
         Horde_Pear_Package_Xml $xml,
         Horde_Pear_Package_Contents $content = null,
         $options = array()
-    ) {
+    )
+    {
         $this->_xml = $xml;
         $this->_options = $options;
         if ($content === null) {

@@ -14,6 +14,7 @@ HermesCore = {
     sortDir: 'up',
     selectedSlices: [],
     today: null,
+    redBoxLoading: false,
 
     doActionOpts: {
         onException: function(parentfunc, r, e)
@@ -23,7 +24,7 @@ HermesCore = {
             if (!this.loading) {
                 $('hermesLoading').hide();
             }
-
+            this.closeRedBox();
             this.showNotifications([ {type: 'horde.error', message: Hermes.text.ajax_error} ]);
             this.debug('onException', e);
         }.bind(this),
@@ -40,6 +41,10 @@ HermesCore = {
      *  instead of sending the action to the ajax handler. */
     doAction: function(action, params, callback, opts)
     {
+        // poll?
+        if (action == 'poll') {
+            callback = this.pollCallback.bind(this);
+        }
         opts = Object.extend(this.doActionOpts, opts || {});
         params = $H(params);
         action = action.startsWith('*')
@@ -297,6 +302,10 @@ HermesCore = {
                 }
                 e.stop();
                 return;
+            case 'hermesTimerSave':
+                this.newTimer();
+                e.stop();
+                return;
             }
 
             switch (elt.className) {
@@ -305,11 +314,40 @@ HermesCore = {
                 Horde_Calendar.open(id, Date.parseExact($F(id.replace(/Picker$/, 'Date')), Hermes.conf.date_format));
                 e.stop();
                 return;
-            case 'hermesFormCancel':
+            case 'hermesTimeFormCancel':
                 if ($('hermesTimeSaveAsNew').visible()) {
                     $('hermesTimeSaveAsNew').toggle();
                 }
                 $('hermesTimeForm').reset();
+                // fallthrough
+            case 'hermesFormCancel':
+                this.closeRedBox();
+                e.stop();
+                return;
+            case 'hermesAdd':
+                $('hermesTimerDialog').appear({
+                    duration: this.effectDur,
+                    afterFinish: function() {
+                        $('hermesTimerTitle').focus();
+                    }
+                });
+                return;
+            case 'hermesTimerCancel':
+                $('hermesTimerDialog').fade({
+                    duration: this.effectDur
+                });
+                e.stop();
+                return;
+            case 'hermesStopTimer':
+                this.stopTimer(elt);
+                e.stop();
+                return;
+            case 'hermesPauseTimer':
+                this.pauseTimer(elt);
+                e.stop();
+                return;
+            case 'hermesPlayTimer':
+                this.playTimer(elt);
                 e.stop();
                 return;
             }
@@ -486,8 +524,8 @@ HermesCore = {
     saveTime: function()
     {
         if (!$F('hermesTimeFormDesc') ||
-            !$F('hermesTimeFormClient') ||
-            !$F('hermesTimeFormHours')) {
+            !$F('hermesTimeFormHours'),
+            !$F('hermesTimeFormJobtype')) {
 
             alert(Hermes.text.fix_form_values);
             return;
@@ -527,6 +565,98 @@ HermesCore = {
         $('hermesTimeSaveAsNew').hide();
     },
 
+    newTimer: function()
+    {
+        this.doAction('addTimer', { 'desc': $F('hermesTimerTitle') }, this.newTimerCallback.bind(this));
+    },
+
+    newTimerCallback: function(r)
+    {
+        if (!r.response.id) {
+            $('hermesTimerDialog').fade({ duration: this.effectDur });
+        }
+
+        this.insertTimer({ 'id': r.response.id, 'e': 0, 'paused': false }, $F('hermesTimerTitle'));
+    },
+
+    insertTimer: function(r, d)
+    {
+        var title = new Element('div', { 'class': 'hermesTimerLabel' }).update(
+            d + ' (' + r.e + ' hours)'
+        );
+        var stop = new Element('span', { 'class': 'hermesTimerControls' }).update(
+            new Element('img', { 'class': 'hermesStopTimer', 'src': Hermes.conf.images.timerlog })
+        ).store('tid', r.id);;
+
+        if (r.paused) {
+            stop.insert(new Element('img', { 'class': 'hermesPlayTimer', 'src' : Hermes.conf.images.timerplay }));
+        } else {
+            stop.insert(new Element('img', { 'class': 'hermesPauseTimer', 'src' : Hermes.conf.images.timerpause }));
+        }
+
+        var timer = new Element('div', { 'class': 'hermesMenuItem hermesTimer rounded' });
+        timer.insert(stop).insert(title);
+        $('hermesMenuTimers').insert({ 'top': timer });
+        $('hermesTimerDialog').fade({
+            duration: this.effectDur,
+            afterFinish: function() {
+                $('hermesTimerTitle').value = '';
+            }
+        });
+    },
+
+    listTimersCallback: function(r)
+    {
+        var timers = r.response;
+        for (var i = 0; i < timers.length; i++) {
+            this.insertTimer(timers[i], timers[i].name);
+        };
+    },
+
+    stopTimer: function(elt)
+    {
+        var t = elt.up().retrieve('tid');
+        this.doAction('stopTimer', { 't': t }, this.closeTimerCallback.curry(elt).bind(this));
+    },
+
+    pauseTimer: function(elt)
+    {
+        var t = elt.up().retrieve('tid');
+        this.doAction('pauseTimer', { 't': t }, this.pauseTimerCallback.curry(elt).bind(this));
+    },
+
+    playTimer: function(elt)
+    {
+        var t = elt.up().retrieve('tid');
+        this.doAction('startTimer', { 't': t }, this.playTimerCallback.curry(elt).bind(this));
+    },
+
+    closeTimerCallback: function(elt, r)
+    {
+        if (r.response) {
+            $('hermesTimeFormHours').setValue(r.response.h);
+            $('hermesTimeFormNotes').setValue(r.response.n);
+        }
+        elt.up().up().fade({
+            duration: this.effectDur,
+        });
+    },
+
+    pauseTimerCallback: function(elt, r)
+    {
+        elt.src = Hermes.conf.images.timerplay;
+        elt.removeClassName('hermesPauseTimer');
+        elt.addClassName('hermesPlayTimer');
+    },
+
+    playTimerCallback: function(elt, r)
+    {
+        elt.src = Hermes.conf.images.timerpause;
+        elt.removeClassName('hermesPlayTimer');
+        elt.addClassName('hermesPauseTimer');
+    },
+
+    //removeTimer: function(t)
     submitSlices: function()
     {
         $('hermesLoading').show();
@@ -603,10 +733,10 @@ HermesCore = {
             }
         }.bind(this));
 
-        $('hermesSummaryTodayBillable').down().update(todayb);
-        $('hermesSummaryTodayNonBillable').down().update(today - todayb);
-        $('hermesSummaryTotalBillable').down().update(totalb);
-        $('hermesSummaryTotalNonBillable').down().update(total - totalb);
+        $('hermesSummaryTodayBillable').down().update(todayb.toFixed(2));
+        $('hermesSummaryTodayNonBillable').down().update((today - todayb).toFixed(2));
+        $('hermesSummaryTotalBillable').down().update(totalb.toFixed(2));
+        $('hermesSummaryTotalNonBillable').down().update((total - totalb).toFixed(2));
     },
 
     buildTimeTable: function()
@@ -657,7 +787,7 @@ HermesCore = {
         t.appear({ duration: this.effectDur, queue: 'end' });
         this.onResize();
         this.updateTimeSummary();
-                // Init the quickfinder now that we have a list of children.
+        // Init the quickfinder now that we have a list of children.
         $$('input').each(QuickFinder.attachBehavior.bind(QuickFinder));
     },
 
@@ -676,18 +806,17 @@ HermesCore = {
         d = this.parseDate(slice.d);
         cell = row.down().update(' ');
         cell = cell.next().update(d.toString(Hermes.conf.date_format));
-        cell = cell.next().update(slice.cn[Hermes.conf.client_name_field]);
+        if (!slice.cn) {
+            cell = cell.next().update(' ');
+        } else {
+            cell = cell.next().update(slice.cn[Hermes.conf.client_name_field]);
+        }
         cell = cell.next().update((slice.con) ? slice.con : ' ');
         cell = cell.next().update((slice.tn) ? slice.tn : ' ');
         cell = cell.next().update((slice.desc) ? slice.desc : ' ');
         cell = cell.next().update((slice.b == 1) ? 'Y' : 'N');
         cell = cell.next().update(slice.h);
         return row;
-    },
-
-    insertSlice: function(slice)
-    {
-
     },
 
     handleSort: function(e)
@@ -1051,6 +1180,21 @@ HermesCore = {
     },
 
     /**
+     * Closes a RedBox overlay, after saving its content to the body.
+     */
+    closeRedBox: function()
+    {
+        if (!RedBox.getWindow()) {
+            return;
+        }
+        var content = RedBox.getWindowContents();
+        if (content) {
+            document.body.insert(content.hide());
+        }
+        RedBox.close();
+    },
+
+    /**
      * Calculates first and last days being displayed.
      *
      * @var Date date    The date of the view.
@@ -1086,11 +1230,32 @@ HermesCore = {
 
         return [start, end];
     },
+
+    pollCallback: function(r)
+    {
+        // Update timers.
+        if(r.response) {
+            for (var i = 0; i < r.response.length; i++) {
+                var t = r.response[i];
+                $('hermesMenuTimers').select('.hermesMenuItem').each(function(elt) {
+                    if (elt.down('.hermesStopTimer').up().retrieve('tid') == t['id']) {
+                        elt.down('.hermesTimerLabel').update(t.name + ' (' + t.e + ' hours)');
+                    }
+                });
+            }
+        }
+    },
+
     /* Onload function. */
     onDomLoad: function()
     {
         document.observe('click', HermesCore.clickHandler.bindAsEventListener(HermesCore));
         $('hermesTimeFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
+
+        RedBox.onDisplay = function() {
+            this.redBoxLoading = false;
+        }.bind(this);
+        RedBox.duration = this.effectDur;
 
         // @TODO: Minical that have dates with hours highlighted?
         //this.updateMinical(this.date);
@@ -1131,8 +1296,10 @@ HermesCore = {
             Horde_ToolTips.attach(button);
         }.bindAsEventListener(this));
 
+        this.doAction('listTimers', [], this.listTimersCallback.bind(this));
+
         /* Start polling. */
-        new PeriodicalExecuter(this.doAction.bind(this, 'poll'), 60);
+        new PeriodicalExecuter(this.doAction.bind(this, 'poll'), 120);
         document.observe('Horde_Calendar:select', HermesCore.datePickerHandler.bindAsEventListener(HermesCore));
         Event.observe(window, 'resize', this.onResize.bind(this));
     }

@@ -348,6 +348,7 @@ extends Horde_Kolab_Storage_TestCase
         return array(
             'host' => 'a',
             'port' => 1,
+            'prefix' => 'P',
             'folder' => 'I',
             'type' => 'e',
             'owner' => 'x',

@@ -7,29 +7,30 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Crypt\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"PO-Revision-Date: 2011-05-18 16:09+0100\n"
+"Last-Translator: Martin Matuška <martin@matuska.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: lib/Horde/Crypt/Smime.php:614
+#: lib/Horde/Crypt/Smime.php:621
 #, php-format
 msgid "%s Fingerprint"
 msgstr "Odtlačok %s"
 
-#: lib/Horde/Crypt/Pgp.php:1240
+#: lib/Horde/Crypt/Pgp.php:1237
 msgid "A passphrase is required to decrypt a message."
 msgstr "Na dešifrovanie správy je potrebné heslo."
 
-#: lib/Horde/Crypt/Pgp.php:1307
+#: lib/Horde/Crypt/Pgp.php:1304
 msgid "A public PGP key is required to verify a signed message."
 msgstr "Na overenie podpísanej správy je potrebný verejný PGP kľúč."
 
-#: lib/Horde/Crypt/Pgp.php:1164
+#: lib/Horde/Crypt/Pgp.php:1168
 msgid ""
 "A public PGP key, private PGP key, and passphrase are required to sign a "
 "message."
@@ -40,7 +41,7 @@ msgstr ""
 msgid "A public S/MIME key is required to encrypt a message."
 msgstr "Na zašifrovanie správy je potrebný verejný SMIME kľúč."
 
-#: lib/Horde/Crypt/Smime.php:422
+#: lib/Horde/Crypt/Smime.php:429
 msgid ""
 "A public S/MIME key, private S/MIME key, and passphrase are required to "
 "decrypt a message."
@@ -56,19 +57,19 @@ msgstr ""
 "Na podpísanie správy sú potrebné: verejný S/MIME kľúč, privátny S/MIME kľúč "
 "a heslo."
 
-#: lib/Horde/Crypt/Smime.php:506
+#: lib/Horde/Crypt/Smime.php:513
 msgid "CRL Distribution Points"
 msgstr "Distribučné body CRL"
 
-#: lib/Horde/Crypt/Smime.php:609
+#: lib/Horde/Crypt/Smime.php:616
 msgid "Certificate Details"
 msgstr "Podrobné informácie o certifikáte"
 
-#: lib/Horde/Crypt/Smime.php:520
+#: lib/Horde/Crypt/Smime.php:527
 msgid "Certificate Owner"
 msgstr "Vlastník certifikátu"
 
-#: lib/Horde/Crypt/Smime.php:505
+#: lib/Horde/Crypt/Smime.php:512
 msgid "Certificate Policies"
 msgstr "Pravidlá pre certifikáty"
 
@@ -76,24 +77,24 @@ msgstr "Pravidlá pre certifikáty"
 msgid "Comment"
 msgstr "Komentár"
 
-#: lib/Horde/Crypt/Smime.php:475
+#: lib/Horde/Crypt/Smime.php:482
 msgid "Common Name"
 msgstr "Bežné meno"
 
-#: lib/Horde/Crypt/Pgp.php:939
+#: lib/Horde/Crypt/Pgp.php:943
 msgid "Connection refused to the public keyserver."
 msgstr "Kľúč bol zamietnutý serverom verejných kľúčov."
 
-#: lib/Horde/Crypt/Pgp.php:950
+#: lib/Horde/Crypt/Pgp.php:954
 #, php-format
 msgid "Connection refused to the public keyserver. Reason: %s (%s)"
 msgstr "Kľúč bol zamietnutý serverom verejných kľúčov. Dôvod: %s (%s)"
 
-#: lib/Horde/Crypt/Pgp.php:1132
+#: lib/Horde/Crypt/Pgp.php:1136
 msgid "Could not PGP encrypt message: "
 msgstr "Nepodarilo sa zašifrovať správu pomocou PGP: "
 
-#: lib/Horde/Crypt/Pgp.php:1201
+#: lib/Horde/Crypt/Pgp.php:1205
 msgid "Could not PGP sign message: "
 msgstr "Nepodarilo sa podpísať správu pomocou PGP: "
 
@@ -105,23 +106,23 @@ msgstr "Nepodarilo sa zašifrovať správu pomocou S/MIME."
 msgid "Could not S/MIME sign message."
 msgstr "Nepodarilo sa podpísať správu pomocou S/MIME."
 
-#: lib/Horde/Crypt/Pgp.php:1276
+#: lib/Horde/Crypt/Pgp.php:1273
 msgid "Could not decrypt PGP data: "
 msgstr "Nepodarilo sa dešifrovať údaje pomocou PGP: "
 
-#: lib/Horde/Crypt/Smime.php:440
+#: lib/Horde/Crypt/Smime.php:447
 msgid "Could not decrypt S/MIME data."
 msgstr "Nepodarilo sa dešifrovať S/MIME údaje."
 
-#: lib/Horde/Crypt/Pgp.php:659
+#: lib/Horde/Crypt/Pgp.php:657
 msgid "Could not determine the recipient's e-mail address."
 msgstr "Nepodarilo sa určiť e-mailovú adresu príjemcu."
 
-#: lib/Horde/Crypt/Pgp.php:759 lib/Horde/Crypt/Pgp.php:848
+#: lib/Horde/Crypt/Pgp.php:758 lib/Horde/Crypt/Pgp.php:851
 msgid "Could not obtain public key from the keyserver."
 msgstr "Nepodarilo sa získať verejný kľúč zo servera kľúčov."
 
-#: lib/Horde/Crypt/Smime.php:478
+#: lib/Horde/Crypt/Smime.php:485
 msgid "Country"
 msgstr "Krajina"
 
@@ -129,28 +130,28 @@ msgstr "Krajina"
 msgid "E-Mail"
 msgstr "E-mail"
 
-#: lib/Horde/Crypt/Smime.php:474
+#: lib/Horde/Crypt/Smime.php:481
 msgid "Email Address"
 msgstr "Emailová adresa:"
 
-#: lib/Horde/Crypt/Pgp.php:1584 lib/Horde/Crypt/Pgp.php:1592
+#: lib/Horde/Crypt/Pgp.php:1579 lib/Horde/Crypt/Pgp.php:1587
 msgid "Error while talking to pgp binary."
-msgstr ""
+msgstr "Chyba pri komunikácii s pgp."
 
-#: lib/Horde/Crypt/Smime.php:1251 lib/Horde/Crypt/Smime.php:1269
-#: lib/Horde/Crypt/Smime.php:1284
+#: lib/Horde/Crypt/Smime.php:1245 lib/Horde/Crypt/Smime.php:1263
+#: lib/Horde/Crypt/Smime.php:1278
 msgid "Error while talking to smime binary."
-msgstr ""
+msgstr "Chyba pri komunikácii s smime."
 
 #: lib/Horde/Crypt/Pgp.php:425
 msgid "Expiration Date"
 msgstr "Dátum expirácie"
 
-#: lib/Horde/Crypt/Smime.php:586
+#: lib/Horde/Crypt/Smime.php:593
 msgid "Exponent"
 msgstr "Exponent"
 
-#: lib/Horde/Crypt/Smime.php:484
+#: lib/Horde/Crypt/Smime.php:491
 msgid "Given Name"
 msgstr "Krstné meno"
 
@@ -158,7 +159,7 @@ msgstr "Krstné meno"
 msgid "Hash-Algorithm"
 msgstr "Algoritmus hashovacej funkcie"
 
-#: lib/Horde/Crypt/Smime.php:534
+#: lib/Horde/Crypt/Smime.php:541
 msgid "Issuer"
 msgstr "Vydavateľ"
 
@@ -182,26 +183,30 @@ msgstr "Dĺžka kľúča"
 msgid "Key Type"
 msgstr "Typ kľúča"
 
-#: lib/Horde/Crypt/Smime.php:507
+#: lib/Horde/Crypt/Smime.php:514
 msgid "Key Usage"
 msgstr "Použitie kľúča"
 
-#: lib/Horde/Crypt/Pgp.php:782
+#: lib/Horde/Crypt/Pgp.php:781
 msgid "Key already exists on the public keyserver."
 msgstr "Kľúč už existuje na serveri verejných kľúčov."
 
-#: lib/Horde/Crypt/Smime.php:480
+#: lib/Horde/Crypt/Smime.php:487
 msgid "Location"
 msgstr "Lokalita"
 
-#: lib/Horde/Crypt/Smime.php:189
+#: lib/Horde/Crypt/Smime.php:192
 msgid ""
-"Message Verified Successfully but the signer's certificate could not be "
+"Message verified successfully but the signer's certificate could not be "
 "verified."
 msgstr ""
 "Správa bola úspešne overená, ale certifikát podpisu sa nepodarilo overiť."
 
-#: lib/Horde/Crypt/Smime.php:583
+#: lib/Horde/Crypt/Smime.php:180
+msgid "Message verified successfully."
+msgstr "Správa bola úspešne overená."
+
+#: lib/Horde/Crypt/Smime.php:590
 msgid "Modulus"
 msgstr "Modulus"
 
@@ -209,35 +214,35 @@ msgstr "Modulus"
 msgid "Name"
 msgstr "Meno"
 
-#: lib/Horde/Crypt/Smime.php:490
+#: lib/Horde/Crypt/Smime.php:497
 msgid "Netscape Base URL"
 msgstr "Základná URL Netscape"
 
-#: lib/Horde/Crypt/Smime.php:492
+#: lib/Horde/Crypt/Smime.php:499
 msgid "Netscape CA Revocation URL"
 msgstr "URL pre zneplatnenie certifikátov CA Netscape"
 
-#: lib/Horde/Crypt/Smime.php:494
+#: lib/Horde/Crypt/Smime.php:501
 msgid "Netscape CA policy URL"
 msgstr "URL pre politiku CA Netscape"
 
-#: lib/Horde/Crypt/Smime.php:493
+#: lib/Horde/Crypt/Smime.php:500
 msgid "Netscape Renewal URL"
 msgstr "URL pre obnovenie platnosti certifikátov Netscape"
 
-#: lib/Horde/Crypt/Smime.php:491
+#: lib/Horde/Crypt/Smime.php:498
 msgid "Netscape Revocation URL"
 msgstr "URL pre zneplatnenie certifikátov Netscape"
 
-#: lib/Horde/Crypt/Smime.php:495
+#: lib/Horde/Crypt/Smime.php:502
 msgid "Netscape SSL server name"
 msgstr "Meno SSL servera Netscape"
 
-#: lib/Horde/Crypt/Smime.php:496
+#: lib/Horde/Crypt/Smime.php:503
 msgid "Netscape certificate comment"
 msgstr "Komentár certifikátu Netscape"
 
-#: lib/Horde/Crypt/Smime.php:489
+#: lib/Horde/Crypt/Smime.php:496
 msgid "Netscape certificate type"
 msgstr "Typ certifikátu Netscape"
 
@@ -245,7 +250,7 @@ msgstr "Typ certifikátu Netscape"
 msgid "Never"
 msgstr "Nikdy"
 
-#: lib/Horde/Crypt/Smime.php:1217
+#: lib/Horde/Crypt/Smime.php:1211
 msgid ""
 "No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
 "work with PKCS 12 data."
@@ -257,11 +262,11 @@ msgstr ""
 msgid "None"
 msgstr "Žiaden"
 
-#: lib/Horde/Crypt/Smime.php:549
+#: lib/Horde/Crypt/Smime.php:556
 msgid "Not After"
 msgstr "Neplatí po"
 
-#: lib/Horde/Crypt/Smime.php:548
+#: lib/Horde/Crypt/Smime.php:555
 msgid "Not Before"
 msgstr "Neplatí pred"
 
@@ -269,31 +274,31 @@ msgstr "Neplatí pred"
 msgid "OpenSSL error: Could not extract data from signed S/MIME part."
 msgstr "Chyba OpenSSL: nepodarilo sa získať údaje z podpísanej časti S/MIME."
 
-#: lib/Horde/Crypt/Smime.php:476
+#: lib/Horde/Crypt/Smime.php:483
 msgid "Organisation"
 msgstr "Organizácia"
 
-#: lib/Horde/Crypt/Smime.php:477
+#: lib/Horde/Crypt/Smime.php:484
 msgid "Organisational Unit"
 msgstr "Organizačná jednotka"
 
-#: lib/Horde/Crypt/Pgp.php:1406
+#: lib/Horde/Crypt/Pgp.php:1401
 msgid "PGP Digital Signature"
 msgstr "Digitálny podpis PGP"
 
-#: lib/Horde/Crypt/Pgp.php:1450
+#: lib/Horde/Crypt/Pgp.php:1445
 msgid "PGP Encrypted Data"
 msgstr "Údaje zašifrované pomocou PGP"
 
-#: lib/Horde/Crypt/Pgp.php:1511
+#: lib/Horde/Crypt/Pgp.php:1506
 msgid "PGP Public Key"
 msgstr "PGP verejný kľúč"
 
-#: lib/Horde/Crypt/Pgp.php:1493
+#: lib/Horde/Crypt/Pgp.php:1488
 msgid "PGP Signed/Encrypted Data"
 msgstr "Údaje podpísané/zašifrované pomocou PGP"
 
-#: lib/Horde/Crypt/Smime.php:1256
+#: lib/Horde/Crypt/Smime.php:1250
 msgid "Password incorrect"
 msgstr "Nesprávne heslo"
 
@@ -305,11 +310,11 @@ msgstr "Privátny kľúč"
 msgid "Public Key"
 msgstr "Verejný kľúč"
 
-#: lib/Horde/Crypt/Smime.php:554
+#: lib/Horde/Crypt/Smime.php:561
 msgid "Public Key Algorithm"
 msgstr "Algoritmus verejného kľúča"
 
-#: lib/Horde/Crypt/Smime.php:553
+#: lib/Horde/Crypt/Smime.php:560
 msgid "Public Key Info"
 msgstr "Informácie o verejnom kľúči"
 
@@ -317,7 +322,7 @@ msgstr "Informácie o verejnom kľúči"
 msgid "Public/Private keypair not generated successfully."
 msgstr "Verejný/privátny kľúčový pár nebol úspešne vygenerovaný."
 
-#: lib/Horde/Crypt/Smime.php:572
+#: lib/Horde/Crypt/Smime.php:579
 #, php-format
 msgid "RSA Public Key (%d bit)"
 msgstr "RSA verejný kľúč (%d bitov)"
@@ -326,7 +331,7 @@ msgstr "RSA verejný kľúč (%d bitov)"
 msgid "Returned error message:"
 msgstr "Navrátené chybové hlásenie:"
 
-#: lib/Horde/Crypt/Pgp.php:1644
+#: lib/Horde/Crypt/Pgp.php:1639
 msgid "Revocation key not generated successfully."
 msgstr "Revokačný kľúč nebol úspešne vytvorený."
 
@@ -338,46 +343,45 @@ msgstr "S/MIME kryptografický podpis"
 msgid "S/MIME Encrypted Message"
 msgstr "Správa zašifrovaná pomocou S/MIME"
 
-#: lib/Horde/Crypt/Smime.php:611
+#: lib/Horde/Crypt/Smime.php:618
 msgid "Serial Number"
 msgstr "Sériové číslo"
 
-#: lib/Horde/Crypt/Smime.php:622
+#: lib/Horde/Crypt/Smime.php:625
 msgid "Signature"
 msgstr "Podpis"
 
-#: lib/Horde/Crypt/Smime.php:621
+#: lib/Horde/Crypt/Smime.php:624
 msgid "Signature Algorithm"
 msgstr "Algoritmus podpisu"
 
-#: lib/Horde/Crypt/Smime.php:479
+#: lib/Horde/Crypt/Smime.php:486
 msgid "State or Province"
 msgstr "Štát alebo provincia"
 
-#: lib/Horde/Crypt/Smime.php:481
+#: lib/Horde/Crypt/Smime.php:488
 msgid "Street Address"
 msgstr "Bydlisko"
 
-#: lib/Horde/Crypt/Smime.php:483
+#: lib/Horde/Crypt/Smime.php:490
 msgid "Surname"
 msgstr "Priezvisko"
 
-#: lib/Horde/Crypt/Smime.php:482
+#: lib/Horde/Crypt/Smime.php:489
 msgid "Telephone Number"
 msgstr "Telefónne číslo"
 
-#: lib/Horde/Crypt/Pgp.php:1311
+#: lib/Horde/Crypt/Pgp.php:1308
 msgid ""
 "The detached PGP signature block is required to verify the signed message."
 msgstr ""
 "Na overenie podpísanej správy je požadovaný oddelený blok s PGP podpisom."
 
-#: lib/Horde/Crypt/Smime.php:1146
-#, fuzzy
+#: lib/Horde/Crypt/Smime.php:1140
 msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
 msgstr "Trieda Horde_Crypt_smime:: vyžaduje modul openssl."
 
-#: lib/Horde/Crypt/Smime.php:512
+#: lib/Horde/Crypt/Smime.php:519
 msgid "Unable to extract certificate details"
 msgstr "Nepodarilo sa zistiť podrobnosti o certifikáte."
 
@@ -386,47 +390,47 @@ msgstr "Nepodarilo sa zistiť podrobnosti o certifikáte."
 msgid "Unknown"
 msgstr "Neznáme"
 
-#: lib/Horde/Crypt/Smime.php:596 lib/Horde/Crypt/Smime.php:844
-#: lib/Horde/Crypt/Smime.php:850
+#: lib/Horde/Crypt/Smime.php:603 lib/Horde/Crypt/Smime.php:847
+#: lib/Horde/Crypt/Smime.php:853
 msgid "Unsupported Extension"
 msgstr "Nepodporované rozšírenie"
 
-#: lib/Horde/Crypt/Smime.php:547
+#: lib/Horde/Crypt/Smime.php:554
 msgid "Validity"
 msgstr "Platnosť"
 
-#: lib/Horde/Crypt/Smime.php:191
+#: lib/Horde/Crypt/Smime.php:187
 msgid "Verification failed - an unknown error has occurred."
 msgstr "Overenie zlyhalo - nastala neznáma chyba."
 
-#: lib/Horde/Crypt/Smime.php:193
+#: lib/Horde/Crypt/Smime.php:189
 msgid "Verification failed - this message may have been tampered with."
 msgstr "Overenie zlyhalo - táto správa mohla byť sfalšovaná."
 
-#: lib/Horde/Crypt/Smime.php:610
+#: lib/Horde/Crypt/Smime.php:617
 msgid "Version"
 msgstr "Verzia"
 
-#: lib/Horde/Crypt/Smime.php:502
+#: lib/Horde/Crypt/Smime.php:509
 msgid "X509v3 Basic Constraints"
 msgstr "Základné obmedzenia X509v3"
 
-#: lib/Horde/Crypt/Smime.php:501
+#: lib/Horde/Crypt/Smime.php:508
 msgid "X509v3 Extended Key Usage"
 msgstr "Použitie rozšíreného kľúča X509v3"
 
-#: lib/Horde/Crypt/Smime.php:503
+#: lib/Horde/Crypt/Smime.php:510
 msgid "X509v3 Subject Alternative Name"
 msgstr "Alternatívne meno subjektu X509v3"
 
-#: lib/Horde/Crypt/Smime.php:504
+#: lib/Horde/Crypt/Smime.php:511
 msgid "X509v3 Subject Key Identifier"
 msgstr "Identifikátor kľúča subjektu X509v3"
 
-#: lib/Horde/Crypt/Smime.php:592
+#: lib/Horde/Crypt/Smime.php:599
 msgid "X509v3 extensions"
 msgstr "X509v3 rozšírenia"
 
-#: lib/Horde/Crypt/Smime.php:1135
+#: lib/Horde/Crypt/Smime.php:1129
 msgid "not yet implemented"
 msgstr "zatiaľ neimplementované"

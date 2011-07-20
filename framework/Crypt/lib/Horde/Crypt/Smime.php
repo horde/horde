@@ -280,7 +280,8 @@ class Horde_Crypt_Smime extends Horde_Crypt
 
         $msg = new Horde_Mime_Part();
         $msg->setCharset($this->_params['email_charset']);
-        $msg->setDescription(Horde_String::convertCharset(Horde_Crypt_Translation::t("S/MIME Encrypted Message"), 'UTF-8', $this->_params['email_charset']));
+        $msg->setHeaderCharset('UTF-8');
+        $msg->setDescription(Horde_Crypt_Translation::t("S/MIME Encrypted Message"));
         $msg->setDisposition('inline');
         $msg->setType('application/pkcs7-mime');
         $msg->setContentTypeParameter('smime-type', 'enveloped-data');
@@ -320,10 +321,20 @@ class Horde_Crypt_Smime extends Horde_Crypt
         unset($text);
 
         /* Encrypt the document. */
-        if (openssl_pkcs7_encrypt($input, $output, $params['pubkey'], array())) {
-            $result = file_get_contents($output);
-            if (!empty($result)) {
-                return $this->_fixContentType($result, 'encrypt');
+        $ciphers = array(
+            OPENSSL_CIPHER_3DES,
+            OPENSSL_CIPHER_DES,
+            OPENSSL_CIPHER_RC2_128,
+            OPENSSL_CIPHER_RC2_64,
+            OPENSSL_CIPHER_RC2_40
+        );
+
+        foreach ($ciphers as $val) {
+            if (openssl_pkcs7_encrypt($input, $output, $params['pubkey'], array(), 0, $val)) {
+                $result = file_get_contents($output);
+                if (!empty($result)) {
+                    return $this->_fixContentType($result, 'encrypt');
+                }
             }
         }
 

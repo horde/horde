@@ -94,7 +94,6 @@ class Ansel_View_Gallery extends Ansel_View_Ansel
         } else {
             $style = $this->gallery->getStyle();
         }
-
         if (!empty($this->_params['gallery_view'])) {
             $renderer = $this->_params['gallery_view'];
         } else {

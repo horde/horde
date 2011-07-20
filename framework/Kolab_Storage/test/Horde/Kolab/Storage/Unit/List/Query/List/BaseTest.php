@@ -322,70 +322,54 @@ extends Horde_Kolab_Storage_TestCase
     public function testFolderDataHasOwner()
     {
         $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
-        $this->assertEquals(
-            'test@example.com',
-            $data['owner']
-        );
+        $this->assertEquals('test@example.com', $data['owner']);
     }
 
     public function testFolderDataHasTitle()
     {
         $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
-        $this->assertEquals(
-            'Calendar',
-            $data['name']
-        );
+        $this->assertEquals('Calendar', $data['name']);
     }
 
     public function testFolderDataHasType()
     {
         $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
-        $this->assertEquals(
-            'event',
-            $data['type']
-        );
+        $this->assertEquals('event', $data['type']);
     }
 
     public function testFolderDataHasDefault()
     {
         $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
-        $this->assertTrue(
-            $data['default']
-        );
+        $this->assertTrue($data['default']);
     }
 
     public function testMailFolderDataType()
     {
         $data = $this->getAnnotatedQuery()->folderData('INBOX');
-        $this->assertEquals(
-            'mail',
-            $data['type']
-        );
+        $this->assertEquals('mail', $data['type']);
     }
 
     public function testMailFolderDataNoDefault()
     {
         $data = $this->getAnnotatedQuery()->folderData('INBOX');
-        $this->assertFalse(
-            $data['default']
-        );
+        $this->assertFalse($data['default']);
     }
 
     public function testFolderDataHasNamespace()
     {
         $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
-        $this->assertEquals(
-            'personal',
-            $data['namespace']
-        );
+        $this->assertEquals('personal', $data['namespace']);
+    }
+
+    public function testFolderDataHasNamespacePrefix()
+    {
+        $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
+        $this->assertEquals('INBOX', $data['prefix']);
     }
 
     public function testFolderDataHasSubpath()
     {
         $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
-        $this->assertEquals(
-            'Calendar',
-            $data['subpath']
-        );
+        $this->assertEquals('Calendar', $data['subpath']);
     }
 }

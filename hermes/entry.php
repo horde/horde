@@ -15,11 +15,12 @@ Horde_Registry::appInit('hermes');
 $vars = Horde_Variables::getDefaultVariables();
 if (!$vars->exists('id') && $vars->exists('timer')) {
     $timer_id = $vars->get('timer');
-    $timers = @unserialize($prefs->getValue('running_timers'));
-    if ($timers && isset($timers[$timer_id])) {
-        $tname = $timers[$timer_id]['name'];
+    $timer = Hermes::getTimer($timer_id);
+    if ($timer) {
+        $tname = $timer['name'];
         $tformat = $prefs->getValue('twentyFour') ? 'G:i' : 'g:i a';
-        $vars->set('hours', round((float)(time() - $timer_id) / 3600, 2));
+        $elapsed = ((!$timer['paused']) ? time() - $timer['time'] : 0 ) + $timer['elapsed'];
+        $vars->set('hours', round((float)$elapsed / 3600, 2));
         if ($prefs->getValue('add_description')) {
             $vars->set('note', sprintf(_("Using the \"%s\" stop watch from %s to %s"), $tname, date($tformat, $timer_id), date($tformat, time())));
         }
@@ -31,31 +32,30 @@ if (!$vars->exists('id') && $vars->exists('timer')) {
 
 switch ($vars->get('formname')) {
 case 'hermes_form_time_entry':
-    $form = new Hermes_Form_Time_Entry($vars);
+    $url = $vars->get('url');
+    if (empty($url)) {
+        $url = Horde::url('time.php');
+    }
+    try {
+        $form = new Hermes_Form_Time_Entry($vars);
+    } catch (Hermes_Exception $e) {
+            $notification->push(sprintf(_("There was an error storing your timesheet: %s"), $e->getMessage()), 'horde.error');
+            header('Location: ' . $url);
+            exit;
+    }
     if ($form->validate($vars)) {
         $form->getInfo($vars, $info);
         try {
             if ($vars->exists('id')) {
-                $msg = _("Your time was successfully updated.");
+                $notification->push(_("Your time was successfully updated."), 'horde.success');
                 $GLOBALS['injector']->getInstance('Hermes_Driver')->updateTime(array($info));
-                $do_redirect = true;
             } else {
-                $msg = _("Your time was successfully entered.");
+                $notification->push(_("Your time was successfully entered."), 'horde.success');
                 $GLOBALS['injector']->getInstance('Hermes_Driver')->enterTime($GLOBALS['registry']->getAuth(), $info);
-                $do_redirect = false;
             }
         } catch (Exception $e) {
             Horde::logMessage($e, 'err');
             $notification->push(sprintf(_("There was an error storing your timesheet: %s"), $e->getMessage()), 'horde.error');
-            $do_redirect = false;
-        }
-
-        $notification->push($msg, 'horde.success');
-        if ($do_redirect) {
-            $url = $vars->get('url');
-            if (empty($url)) {
-                $url = Horde::url('time.php');
-            }
             header('Location: ' . $url);
             exit;
         }

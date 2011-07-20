@@ -22,8 +22,10 @@ ini_set('magic_quotes_sybase', 0);
 ini_set('tidy.clean_output', 0);
 ini_set('zend.ze1_compatibility_mode', 0);
 
-/* Exit immediately if register_globals is active. */
-if (ini_get('register_globals')) {
+/* Exit immediately if register_globals is active.
+ * register_globals may return 'Off' on some systems. See Bug #10062. */
+if (($rg = ini_get('register_globals')) &&
+    (strcasecmp($rg, 'off') !== 0)) {
     exit('Register globals is enabled. Exiting.');
 }
 

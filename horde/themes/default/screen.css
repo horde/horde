@@ -285,7 +285,7 @@ form[action^="https://"] input[type="submit"] {
     background-repeat: no-repeat;
     padding-right: 10%;
 }
-input[disabled], textarea[disabled] {
+input[disabled], input[disabled]:hover, textarea[disabled] {
     background-color: #e9e9e9;
     color: #a8a8a8;
 }
@@ -578,6 +578,19 @@ div.modal-form .extras {
     font-size: 75%;
     border-top: thin dashed #ccc;
     margin: .5em 0;
+}
+
+/* Login tasks */
+div.logintasks-item {
+    margin-bottom: 1em;
+}
+div.logintasks-item label {
+    font-weight: normal;
+    font-size: 90%;
+}
+div.logintasks-item input {
+    width: auto;
+    margin-bottom: 0;
 }
 
 /* Sidebar styles. */

@@ -399,7 +399,7 @@ class Ingo_Script_Procmail_Recipe
         if (isset($this->_params) &&
             ($this->_params['path_style'] == 'maildir')) {
             if (empty($folder) || ($folder == 'INBOX')) {
-                return '$DEFAULT';
+                return '$DEFAULT/';
             }
             if (substr($folder, 0, 6) == 'INBOX.') {
                 $folder = substr($folder, 6);

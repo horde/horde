@@ -30,6 +30,29 @@
 class Components_TestCase
 extends PHPUnit_Framework_TestCase
 {
+    protected function getComponentFactory(
+        $arguments = array(), $options = array()
+    )
+    {
+        $dependencies = new Components_Dependencies_Injector();
+        $config = new Components_Stub_Config($arguments, $options);
+        $dependencies->initConfig($config);
+        return $dependencies->getComponentFactory();
+    }
+
+    protected function getComponent(
+        $directory, $arguments = array(), $options = array()
+    )
+    {
+        $dependencies = new Components_Dependencies_Injector();
+        $config = new Components_Stub_Config($arguments, $options);
+        $dependencies->initConfig($config);
+        $factory = $dependencies->getComponentFactory();
+        return new Components_Component_Source(
+            $directory, $config, $factory
+        );
+    }
+
     protected function getReleaseTask($name, $package)
     {
         $dependencies = new Components_Dependencies_Injector();
@@ -126,4 +149,24 @@ extends PHPUnit_Framework_TestCase
         $GLOBALS['_PEAR_ERRORSTACK_OVERRIDE_CALLBACK'] = array();
     }
 
+    protected function changeDirectory($path)
+    {
+        $this->cwd = getcwd();
+        chdir($path);
+    }
+
+    protected function lessStrict()
+    {
+        $this->old_errorreporting = error_reporting(E_ALL & ~(E_STRICT | E_DEPRECATED));
+    }
+
+    public function tearDown()
+    {
+        if (!empty($this->cwd)) {
+            chdir($this->cwd);
+        }
+        if (!empty($this->old_errorreporting)) {
+            error_reporting($this->old_errorreporting);
+        }
+    }
 }

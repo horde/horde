@@ -59,6 +59,8 @@ class Horde_Imap_Client
     /* SORT_SEQUENCE does a simple numerical sort on the returned
      * UIDs/sequence numbers. */
     const SORT_SEQUENCE = 12;
+    /* Fuzzy sort criteria defined in RFC 6203 */
+    const SORT_RELEVANCY = 13;
 
     /* Search results constants */
     const SEARCH_RESULTS_COUNT = 1;
@@ -66,6 +68,9 @@ class Horde_Imap_Client
     const SEARCH_RESULTS_MAX = 3;
     const SEARCH_RESULTS_MIN = 4;
     const SEARCH_RESULTS_SAVE = 5;
+    /* Fuzzy sort criteria defined in RFC 6203 */
+    const SEARCH_RESULTS_RELEVANCY = 6;
+
     /* DEPRECATED: Use SEARCH_RESULTS_* instead. */
     const SORT_RESULTS_COUNT = 1;
     const SORT_RESULTS_MATCH = 2;
@@ -138,6 +143,10 @@ class Horde_Imap_Client
     const FLAG_MDNSENT = '$mdnsent';
     // RFC 5550 [2.8]
     const FLAG_FORWARDED = '$forwarded';
+    // RFC 5788 registered keywords:
+    // http://www.ietf.org/mail-archive/web/morg/current/msg00441.html
+    const FLAG_JUNK = '$junk';
+    const FLAG_NOTJUNK = '$notjunk';
 
     /* Special-use mailbox attributes (RFC 6154 [2]). */
     const SPECIALUSE_ALL = '\\All';

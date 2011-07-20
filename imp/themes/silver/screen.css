@@ -45,6 +45,12 @@ span.spellcheckPopdownImg {
 .msgflags.flagAttachmsg {
     background-image: url("graphics/attachment.png");
 }
+.msgflags.flagJunk, span.iconImg.flagJunk {
+    background-image: url("graphics/spam.png");
+}
+.msgflags.flagNotJunk, span.iconImg.flagNotJunk {
+    background-image: url("graphics/ham.png");
+}
 span.iconImg.flagSeen {
     background-image: url("graphics/mail_seen.png");
 }
@@ -102,6 +108,12 @@ span.trashImg {
     background-image: url("graphics/reload.png");
 }
 
+.downloadAtc, .saveAsImg {
+    background-image: url("graphics/download.png");
+}
+.downloadZipAtc {
+    background-image: url("graphics/mime/compressed.png");
+}
 .printAtc {
     background-image: url("graphics/print.png");
 }

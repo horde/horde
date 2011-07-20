@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:59:02</time>
+ <date>2011-05-09</date>
+ <time>13:49:16</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -33,43 +33,43 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="docs">
-    <file name="RELEASE_NOTES" role="data" />
+    <file name="RELEASE_NOTES" role="doc" />
    </dir> <!-- /docs -->
    <dir name="lib">
     <dir name="Driver">
-     <file name="Base.php" role="php" />
-     <file name="FacebookEvents.php" role="php" />
-     <file name="Weatherdotcom.php" role="php" />
+     <file name="Base.php" role="horde" />
+     <file name="FacebookEvents.php" role="horde" />
+     <file name="Weatherdotcom.php" role="horde" />
     </dir> <!-- /lib/Driver -->
     <dir name="Factory">
-     <file name="Driver.php" role="php" />
+     <file name="Driver.php" role="horde" />
     </dir> <!-- /lib/Factory -->
-    <file name="Api.php" role="php" />
-    <file name="Application.php" role="php" />
-    <file name="Driver.php" role="php" />
-    <file name="Exception.php" role="php" />
+    <file name="Api.php" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Driver.php" role="horde" />
+    <file name="Exception.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
     <dir name="de">
      <dir name="LC_MESSAGES">
-      <file name="timeobjects.mo" role="data" />
-      <file name="timeobjects.po" role="data" />
+      <file name="timeobjects.mo" role="horde" />
+      <file name="timeobjects.po" role="horde" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
     </dir> <!-- /locale/de -->
     <dir name="fi">
      <dir name="LC_MESSAGES">
-      <file name="timeobjects.mo" role="data" />
-      <file name="timeobjects.po" role="data" />
+      <file name="timeobjects.mo" role="horde" />
+      <file name="timeobjects.po" role="horde" />
      </dir> <!-- /locale/fi/LC_MESSAGES -->
     </dir> <!-- /locale/fi -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
-      <file name="timeobjects.mo" role="data" />
-      <file name="timeobjects.po" role="data" />
+      <file name="timeobjects.mo" role="horde" />
+      <file name="timeobjects.po" role="horde" />
      </dir> <!-- /locale/ja/LC_MESSAGES -->
     </dir> <!-- /locale/ja -->
-    <file name=".htaccess" role="data" />
-    <file name="timeobjects.pot" role="data" />
+    <file name=".htaccess" role="horde" />
+    <file name="timeobjects.pot" role="horde" />
    </dir> <!-- /locale -->
   </dir> <!-- / -->
  </contents>
@@ -84,35 +84,35 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC2</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC2</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC2</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC2</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC2</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -124,7 +124,7 @@
    <package>
     <name>Horde_Service_Facebook</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC2</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -136,23 +136,23 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="docs/RELEASE_NOTES" name="docs/RELEASE_NOTES" />
-   <install as="Api.php" name="lib/Api.php" />
-   <install as="Application.php" name="lib/Application.php" />
-   <install as="Driver.php" name="lib/Driver.php" />
-   <install as="Exception.php" name="lib/Exception.php" />
-   <install as="Driver/Base.php" name="lib/Driver/Base.php" />
-   <install as="Driver/FacebookEvents.php" name="lib/Driver/FacebookEvents.php" />
-   <install as="Driver/Weatherdotcom.php" name="lib/Driver/Weatherdotcom.php" />
-   <install as="Factory/Driver.php" name="lib/Factory/Driver.php" />
-   <install as="locale/.htaccess" name="locale/.htaccess" />
-   <install as="locale/timeobjects.pot" name="locale/timeobjects.pot" />
-   <install as="locale/de/LC_MESSAGES/timeobjects.mo" name="locale/de/LC_MESSAGES/timeobjects.mo" />
-   <install as="locale/de/LC_MESSAGES/timeobjects.po" name="locale/de/LC_MESSAGES/timeobjects.po" />
-   <install as="locale/fi/LC_MESSAGES/timeobjects.mo" name="locale/fi/LC_MESSAGES/timeobjects.mo" />
-   <install as="locale/fi/LC_MESSAGES/timeobjects.po" name="locale/fi/LC_MESSAGES/timeobjects.po" />
-   <install as="locale/ja/LC_MESSAGES/timeobjects.mo" name="locale/ja/LC_MESSAGES/timeobjects.mo" />
-   <install as="locale/ja/LC_MESSAGES/timeobjects.po" name="locale/ja/LC_MESSAGES/timeobjects.po" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="timeobjects/lib/Api.php" name="lib/Api.php" />
+   <install as="timeobjects/lib/Application.php" name="lib/Application.php" />
+   <install as="timeobjects/lib/Driver.php" name="lib/Driver.php" />
+   <install as="timeobjects/lib/Exception.php" name="lib/Exception.php" />
+   <install as="timeobjects/lib/Driver/Base.php" name="lib/Driver/Base.php" />
+   <install as="timeobjects/lib/Driver/FacebookEvents.php" name="lib/Driver/FacebookEvents.php" />
+   <install as="timeobjects/lib/Driver/Weatherdotcom.php" name="lib/Driver/Weatherdotcom.php" />
+   <install as="timeobjects/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
+   <install as="timeobjects/locale/.htaccess" name="locale/.htaccess" />
+   <install as="timeobjects/locale/timeobjects.pot" name="locale/timeobjects.pot" />
+   <install as="timeobjects/locale/de/LC_MESSAGES/timeobjects.mo" name="locale/de/LC_MESSAGES/timeobjects.mo" />
+   <install as="timeobjects/locale/de/LC_MESSAGES/timeobjects.po" name="locale/de/LC_MESSAGES/timeobjects.po" />
+   <install as="timeobjects/locale/fi/LC_MESSAGES/timeobjects.mo" name="locale/fi/LC_MESSAGES/timeobjects.mo" />
+   <install as="timeobjects/locale/fi/LC_MESSAGES/timeobjects.po" name="locale/fi/LC_MESSAGES/timeobjects.po" />
+   <install as="timeobjects/locale/ja/LC_MESSAGES/timeobjects.mo" name="locale/ja/LC_MESSAGES/timeobjects.mo" />
+   <install as="timeobjects/locale/ja/LC_MESSAGES/timeobjects.po" name="locale/ja/LC_MESSAGES/timeobjects.po" />
   </filelist>
  </phprelease>
  <changelog>
@@ -223,7 +223,20 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-05-09</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* [jan] Fix installation paths.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-09</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * 

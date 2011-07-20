@@ -72,10 +72,17 @@ class Horde_Core_Factory_KolabSession extends Horde_Core_Factory_Base
      */
     public function createSession()
     {
-        $session = new Horde_Kolab_Session_Base(
-            $this->_injector->getInstance('Horde_Kolab_Server_Composite'),
-            $GLOBALS['conf']['kolab']
-        );
+        if (!isset($GLOBALS['conf']['kolab']['users'])) {
+            $session = new Horde_Kolab_Session_Base(
+                $this->_injector->getInstance('Horde_Kolab_Server_Composite'),
+                $GLOBALS['conf']['kolab']
+            );
+        } else {
+            $session = new Horde_Kolab_Session_Imap(
+                new Horde_Kolab_Session_Factory_Imap(),
+                $GLOBALS['conf']['kolab']
+            );
+        }
 
         if (isset($GLOBALS['conf']['kolab']['session']['debug'])) {
             $session = new Horde_Kolab_Session_Decorator_Logged(

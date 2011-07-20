@@ -91,6 +91,21 @@
 class Horde_Auth_Cyrsql extends Horde_Auth_Sql
 {
     /**
+     * An array of capabilities, so that the driver can report which
+     * operations it supports and which it doesn't.
+     *
+     * @var array
+     */
+    protected $_capabilities = array(
+        'add'           => true,
+        'list'          => true,
+        'remove'        => true,
+        'resetpassword' => false,
+        'update'        => true,
+        'authenticate'  => true,
+    );
+
+    /**
      * Horde_Imap_Client object.
      *
      * @var Horde_Imap_Client_Base
@@ -238,7 +253,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
 
         try {
             $this->_imap->createMailbox($mailbox);
-            $this->_imap->setACL($mailbox, $this->_params['cyradm'], 'lrswipcda');
+            $this->_imap->setACL($mailbox, $this->_params['cyradmin'], 'lrswipcda');
             if (isset($this->_params['quota']) &&
                 ($this->_params['quota'] >= 0)) {
                 $this->_imap->setQuota($mailbox, array('storage' => $this->_params['quota']));
@@ -250,7 +265,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
         foreach ($this->_params['folders'] as $val) {
             try {
                 $this->_imap->createMailbox($val);
-                $this->_imap->setACL($val, $this->_params['cyradm'], 'lrswipcda');
+                $this->_imap->setACL($val, $this->_params['cyradmin'], 'lrswipcda');
             } catch (Horde_Imap_Client_Exception $e) {}
         }
     }
@@ -307,22 +322,23 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
      * @return mixed  The array of userIds.
      * @throws Horde_Auth_Exception
      */
-    public function listUsers()
+    public function listUsers($sort = false)
     {
         if (!empty($this->_params['domain_field']) &&
             ($this->_params['domain_field'] != 'none')) {
             /* Build the SQL query with domain. */
-            $query = sprintf('SELECT %s, %s FROM %s ORDER BY %s',
+            $query = sprintf('SELECT %s, %s FROM %s',
                              $this->_params['username_field'],
                              $this->_params['domain_field'],
-                             $this->_params['table'],
-                             $this->_params['username_field']);
+                             $this->_params['table']);
         } else {
             /* Build the SQL query without domain. */
-            $query = sprintf('SELECT %s FROM %s ORDER BY %s',
+            $query = sprintf('SELECT %s FROM %s',
                              $this->_params['username_field'],
-                             $this->_params['table'],
-                             $this->_params['username_field']);
+                             $this->_params['table']);
+        }
+        if ($sort) {
+            $query .= sprintf(" ORDER BY %s", $this->_params['username_field']);
         }
 
         try {
@@ -347,7 +363,6 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
                 }
             }
         }
-
         return $users;
     }
 

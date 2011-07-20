@@ -86,6 +86,9 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
         // Headers
         $httpOptions['headers'] = $this->headers;
 
+        // Redirects
+        $httpOptions['redirect'] = (int)$this->redirects;
+
         // Set options
         $httpRequest->setOptions($httpOptions);
 

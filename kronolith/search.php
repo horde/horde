@@ -58,8 +58,7 @@ if ($search_mode == 'basic') {
      * a default end date. */
     $event->initialized = true;
 
-    $q_title = Horde_Util::getFormData('title');
-    if (strlen($q_title)) {
+    if (Horde_Util::getFormData('actionID') == 'search_calendar') {
         $event->readForm();
         if (Horde_Util::getFormData('status') == Kronolith::STATUS_NONE) {
             $event->status = null;
@@ -106,7 +105,7 @@ if ($search_mode == 'basic') {
     Horde::addInlineScript(array(
         '$("title").focus()'
     ), 'dom');
-    Horde_Core_Ui_JsCalendar::init();
+    Horde_Core_Ui_JsCalendar::init(array('full_weekdays' => true));
     Horde::addScriptFile('edit.js', 'kronolith');
 }
 

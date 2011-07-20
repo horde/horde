@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for UTF7-IMAP -> UTF-8 conversions.
+ * Tests for UTF7-IMAP <-> UTF-8 conversions.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Tests for UTF7-IMAP -> UTF-8 conversions.
+ * Tests for UTF7-IMAP <-> UTF-8 conversions.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -34,6 +34,86 @@ class Horde_Imap_Client_Utf7ConvertTest extends PHPUnit_Framework_TestCase
         $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
         $this->assertEquals(
             'Envoy&AOk-',
+            $utf7_imap
+        );
+
+        $utf8 = Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($utf7_imap);
+        $this->assertEquals(
+            $orig,
+            $utf8
+        );
+
+        $orig = 'Töst-';
+
+        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
+        $this->assertEquals(
+            'T&APY-st-',
+            $utf7_imap
+        );
+
+        $utf8 = Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($utf7_imap);
+        $this->assertEquals(
+            $orig,
+            $utf8
+        );
+    }
+
+    public function testAmpersandConversion()
+    {
+        $orig = '&';
+
+        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
+        $this->assertEquals(
+            '&-',
+            $utf7_imap
+        );
+
+        $utf8 = Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($utf7_imap);
+        $this->assertEquals(
+            $orig,
+            $utf8
+        );
+
+        $orig = '&-';
+        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
+        $this->assertEquals(
+            '&-',
+            $utf7_imap
+        );
+
+        $orig = 'Envoy&AOk-';
+        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
+        $this->assertEquals(
+            'Envoy&AOk-',
+            $utf7_imap
+        );
+
+        $orig = 'T&APY-st-';
+        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
+        $this->assertEquals(
+            'T&APY-st-',
+            $utf7_imap
+        );
+
+        // Bug #10133
+        $orig = 'Entw&APw-rfe';
+
+        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
+        $this->assertEquals(
+            $orig,
+            $utf7_imap
+        );
+    }
+
+    public function testBug10093()
+    {
+        $this->markTestSkipped();
+
+        $orig = 'Foo&Bar-2011';
+
+        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
+        $this->assertEquals(
+            'Foo&-Bar-2011',
             $utf7_imap
         );
 

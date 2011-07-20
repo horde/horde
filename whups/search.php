@@ -43,9 +43,6 @@ function _getSearchUrl($vars)
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('whups');
 
-require_once WHUPS_BASE . '/lib/Query.php';
-require_once WHUPS_BASE . '/lib/Forms/Search.php';
-
 $renderer = new Horde_Form_Renderer();
 $beendone = false;
 $vars = Horde_Variables::getDefaultVariables();
@@ -58,75 +55,74 @@ if (Horde_Util::getFormData('sortdir') !== null) {
     $prefs->setValue('sortdir', Horde_Util::getFormData('sortdir'));
 }
 
-$form = new SearchForm($vars);
+$form = new Whups_Form_Search($vars);
 $results = null;
 if (($vars->get('formname') || $vars->get('summary') || $vars->get('states') ||
      Horde_Util::getFormData('haveSearch', false)) && $form->validate($vars, true)) {
 
     $form->getInfo($vars, $info);
     if ($vars->get('submitbutton') == _("Save as Query")) {
-        require_once WHUPS_BASE . '/lib/Query.php';
-        $qManager = new Whups_QueryManager();
+        $qManager = new Whups_Query_Manager();
         $whups_query = $qManager->newQuery();
         if (strlen($info['summary'])) {
-            $whups_query->insertCriterion('', CRITERION_SUMMARY, null,
-                                          OPERATOR_CI_SUBSTRING, $info['summary']);
+            $whups_query->insertCriterion('', Whups_Query::CRITERION_SUMMARY, null,
+                                          Whups_Query::OPERATOR_CI_SUBSTRING, $info['summary']);
         }
         if ($vars->get('queue')) {
-            $whups_query->insertCriterion('', CRITERION_QUEUE, null,
-                                          OPERATOR_EQUAL, $info['queue']);
+            $whups_query->insertCriterion('', Whups_Query::CRITERION_QUEUE, null,
+                                          Whups_Query::OPERATOR_EQUAL, $info['queue']);
         }
         foreach (array('ticket_timestamp', 'date_updated', 'date_resolved', 'date_assigned', 'date_due') as $date_field) {
             if (!empty($info[$date_field]['from']) || !empty($info[$date_field]['to'])) {
-                $path = $whups_query->insertBranch('', QUERY_TYPE_AND);
+                $path = $whups_query->insertBranch('', Whups_Query::TYPE_AND);
                 break;
             }
         }
         if (!empty($info['ticket_timestamp']['from'])) {
-            $whups_query->insertCriterion($path, CRITERION_TIMESTAMP, null,
-                                          OPERATOR_GREATER, $info['ticket_timestamp']['from']);
+            $whups_query->insertCriterion($path, Whups_Query::CRITERION_TIMESTAMP, null,
+                                          Whups_Query::OPERATOR_GREATER, $info['ticket_timestamp']['from']);
         }
         if (!empty($info['ticket_timestamp']['to'])) {
-            $whups_query->insertCriterion($path, CRITERION_TIMESTAMP, null,
-                                          OPERATOR_LESS, $info['ticket_timestamp']['to']);
+            $whups_query->insertCriterion($path, Whups_Query::CRITERION_TIMESTAMP, null,
+                                          Whups_Query::OPERATOR_LESS, $info['ticket_timestamp']['to']);
         }
         if (!empty($info['date_updated']['from'])) {
-            $whups_query->insertCriterion($path, CRITERION_UPDATED, null,
-                                          OPERATOR_GREATER, $info['date_updated']['from']);
+            $whups_query->insertCriterion($path, Whups_Query::CRITERION_UPDATED, null,
+                                          Whups_Query::OPERATOR_GREATER, $info['date_updated']['from']);
         }
         if (!empty($info['date_updated']['to'])) {
-            $whups_query->insertCriterion($path, CRITERION_UPDATED, null,
-                                          OPERATOR_LESS, $info['date_updated']['to']);
+            $whups_query->insertCriterion($path, Whups_Query::CRITERION_UPDATED, null,
+                                          Whups_Query::OPERATOR_LESS, $info['date_updated']['to']);
         }
         if (!empty($info['date_resolved']['from'])) {
-            $whups_query->insertCriterion($path, CRITERION_RESOLVED, null,
-                                          OPERATOR_GREATER, $info['date_resolved']['from']);
+            $whups_query->insertCriterion($path, Whups_Query::CRITERION_RESOLVED, null,
+                                          Whups_Query::OPERATOR_GREATER, $info['date_resolved']['from']);
         }
         if (!empty($info['date_resolved']['to'])) {
-            $whups_query->insertCriterion($path, CRITERION_RESOLVED, null,
-                                          OPERATOR_LESS, $info['date_resolved']['to']);
+            $whups_query->insertCriterion($path, Whups_Query::CRITERION_RESOLVED, null,
+                                          Whups_Query::OPERATOR_LESS, $info['date_resolved']['to']);
         }
         if (!empty($info['date_assigned']['from'])) {
-            $whups_query->insertCriterion($path, CRITERION_ASSIGNED, null,
-                                          OPERATOR_GREATER, $info['date_assigned']['from']);
+            $whups_query->insertCriterion($path, Whups_Query::CRITERION_ASSIGNED, null,
+                                          Whups_Query::OPERATOR_GREATER, $info['date_assigned']['from']);
         }
         if (!empty($info['date_assigned']['to'])) {
-            $whups_query->insertCriterion($path, CRITERION_ASSIGNED, null,
-                                          OPERATOR_LESS, $info['date_assigned']['to']);
+            $whups_query->insertCriterion($path, Whups_Query::CRITERION_ASSIGNED, null,
+                                          Whups_Query::OPERATOR_LESS, $info['date_assigned']['to']);
         }
         if (!empty($info['date_due']['from'])) {
-            $whups_query->insertCriterion($path, CRITERION_DUE, null,
-                                          OPERATOR_GREATER, $info['date_due']['from']);
+            $whups_query->insertCriterion($path, Whups_Query::CRITERION_DUE, null,
+                                          Whups_Query::OPERATOR_GREATER, $info['date_due']['from']);
         }
         if (!empty($info['date_due']['to'])) {
-            $whups_query->insertCriterion($path, CRITERION_DUE, null,
-                                          OPERATOR_LESS, $info['date_due']['to']);
+            $whups_query->insertCriterion($path, Whups_Query::CRITERION_DUE, null,
+                                          Whups_Query::OPERATOR_LESS, $info['date_due']['to']);
         }
         if ($info['state_id']) {
-            $path = $whups_query->insertBranch('', QUERY_TYPE_OR);
+            $path = $whups_query->insertBranch('', Whups_Query::TYPE_OR);
             foreach ($info['state_id'] as $state) {
-                $whups_query->insertCriterion($path, CRITERION_STATE, null,
-                                              OPERATOR_EQUAL, $state);
+                $whups_query->insertCriterion($path, Whups_Query::CRITERION_STATE, null,
+                                              Whups_Query::OPERATOR_EQUAL, $state);
             }
         }
         $session->set('whups', 'query', $whups_query);
@@ -134,20 +130,18 @@ if (($vars->get('formname') || $vars->get('summary') || $vars->get('states') ||
             ->add('action', 'save')
             ->redirect();
     }
-    $tickets = $whups_driver->getTicketsByProperties($info);
-    if (is_a($tickets, 'PEAR_Error')) {
-        $notification->push(sprintf(_("There was an error performing your search: %s"), $tickets->getMessage()), 'horde.error');
-    } else {
+    try {
+        $tickets = $whups_driver->getTicketsByProperties($info);
         Whups::sortTickets($tickets);
-
         $session->set('whups', 'last_search', Horde::url('search.php?' . _getSearchUrl($vars)));
-        $results = Whups_View::factory(
-            'Results',
+        $results = new Whups_View_Results(
             array('title' => _("Search Results"),
                   'results' => $tickets,
                   'values' => Whups::getSearchResultColumns(),
                   'url' => $session->get('whups', 'last_search')));
         $beendone = true;
+    } catch (Whups_Exception $e) {
+        $notification->push(sprintf(_("There was an error performing your search: %s"), $tickets->getMessage()), 'horde.error');
     }
 }
 
@@ -171,9 +165,8 @@ if (!$beendone) {
     echo '<br class="spacer" />';
 }
 
-$qManager = new Whups_QueryManager();
-$myqueries = Whups_View::factory(
-    'SavedQueries',
+$qManager = new Whups_Query_Manager();
+$myqueries = new Whups_View_SavedQueries(
     array('title' => $GLOBALS['registry']->getAuth() ? _("My Queries") : _("Public Queries"),
           'results' => $qManager->listQueries($GLOBALS['registry']->getAuth(), true)));
 $myqueries->html();

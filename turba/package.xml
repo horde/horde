@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [mjr] Force ActiveSync device reset after sync_books pref is changed (Request #10342).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -134,28 +134,6 @@
     <dir name="Object">
      <file name="Group.php" role="horde" />
     </dir> <!-- /lib/Object -->
-    <dir name="tests">
-     <file name="ApiTest.php" role="horde" />
-     <file name="az.png" role="data" />
-     <file name="BrowsePageTest.php" role="horde" />
-     <file name="bug_6518.phpt" role="data" />
-     <file name="DriverTest.php" role="horde" />
-     <file name="GroupTest.php" role="horde" />
-     <file name="import.ldif" role="data" />
-     <file name="importCRLF.ldif" role="data" />
-     <file name="KolabTest.php" role="horde" />
-     <file name="KolabTestBase.php" role="horde" />
-     <file name="ldif_exportFile.phpt" role="data" />
-     <file name="ldif_importFile.phpt" role="data" />
-     <file name="ldif_importFileCRLF.phpt" role="data" />
-     <file name="ListTest.php" role="horde" />
-     <file name="ListViewTest.php" role="horde" />
-     <file name="TestBase.php" role="horde" />
-     <file name="tohash.phpt" role="data" />
-     <file name="tovcard.phpt" role="data" />
-     <file name="ViewBrowseTest.php" role="horde" />
-     <file name="ViewListTest.php" role="horde" />
-    </dir> <!-- /lib/tests -->
     <dir name="View">
      <dir name="List">
       <file name="AlphaFilter.php" role="horde" />
@@ -321,6 +299,7 @@
       <file name="turba.mo" role="horde" />
       <file name="turba.po" role="horde" />
      </dir> <!-- /locale/lv/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/lv -->
     <dir name="mk">
      <dir name="LC_MESSAGES">
@@ -483,6 +462,43 @@
     <file name="addressbook_list.php" role="horde" />
     <file name="menu.inc" role="horde" />
    </dir> <!-- /templates -->
+   <dir name="test">
+    <dir name="Turba">
+     <dir name="Integration">
+      <file name="ApiTest.php" role="test" />
+     </dir> <!-- /test/Turba/Integration -->
+     <dir name="ToDo">
+      <file name="az.png" role="test" />
+      <file name="BrowsePageTest.php" role="test" />
+      <file name="bug_6518.phpt" role="test" />
+      <file name="DriverTest.php" role="test" />
+      <file name="GroupTest.php" role="test" />
+      <file name="import.ldif" role="test" />
+      <file name="importCRLF.ldif" role="test" />
+      <file name="KolabTest.php" role="test" />
+      <file name="KolabTestBase.php" role="test" />
+      <file name="ldif_exportFile.phpt" role="test" />
+      <file name="ldif_importFile.phpt" role="test" />
+      <file name="ldif_importFileCRLF.phpt" role="test" />
+      <file name="ListTest.php" role="test" />
+      <file name="ListViewTest.php" role="test" />
+      <file name="TestBase.php" role="test" />
+      <file name="tohash.phpt" role="test" />
+      <file name="tovcard.phpt" role="test" />
+      <file name="ViewBrowseTest.php" role="test" />
+      <file name="ViewListTest.php" role="test" />
+     </dir> <!-- /test/Turba/ToDo -->
+     <dir name="Unit">
+      <dir name="Driver">
+       <file name="KolabTest.php" role="test" />
+      </dir> <!-- /test/Turba/Unit/Driver -->
+     </dir> <!-- /test/Turba/Unit -->
+     <file name="AllTests.php" role="test" />
+     <file name="Autoload.php" role="test" />
+     <file name="phpunit.xml" role="test" />
+     <file name="TestCase.php" role="test" />
+    </dir> <!-- /test/Turba -->
+   </dir> <!-- /test -->
    <dir name="themes">
     <dir name="bluewhite">
      <file name="screen.css" role="horde" />
@@ -553,10 +569,10 @@
    <file name="deletefile.php" role="horde" />
    <file name="edit.php" role="horde" />
    <file name="index.php" role="horde" />
-   <file name="LICENSE" role="data" />
+   <file name="LICENSE" role="doc" />
    <file name="merge.php" role="horde" />
    <file name="minisearch.php" role="horde" />
-   <file name="README" role="data" />
+   <file name="README" role="doc" />
    <file name="search.php" role="horde" />
    <file name="vcard.php" role="horde" />
    <file name="view.php" role="horde" />
@@ -580,7 +596,7 @@
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.4</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -842,26 +858,6 @@
    <install as="turba/lib/Form/EditContactGroup.php" name="lib/Form/EditContactGroup.php" />
    <install as="turba/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="turba/lib/Object/Group.php" name="lib/Object/Group.php" />
-   <install as="turba/lib/tests/ApiTest.php" name="lib/tests/ApiTest.php" />
-   <install as="tests/az.png" name="lib/tests/az.png" />
-   <install as="turba/lib/tests/BrowsePageTest.php" name="lib/tests/BrowsePageTest.php" />
-   <install as="tests/bug_6518.phpt" name="lib/tests/bug_6518.phpt" />
-   <install as="turba/lib/tests/DriverTest.php" name="lib/tests/DriverTest.php" />
-   <install as="turba/lib/tests/GroupTest.php" name="lib/tests/GroupTest.php" />
-   <install as="tests/import.ldif" name="lib/tests/import.ldif" />
-   <install as="tests/importCRLF.ldif" name="lib/tests/importCRLF.ldif" />
-   <install as="turba/lib/tests/KolabTest.php" name="lib/tests/KolabTest.php" />
-   <install as="turba/lib/tests/KolabTestBase.php" name="lib/tests/KolabTestBase.php" />
-   <install as="tests/ldif_exportFile.phpt" name="lib/tests/ldif_exportFile.phpt" />
-   <install as="tests/ldif_importFile.phpt" name="lib/tests/ldif_importFile.phpt" />
-   <install as="tests/ldif_importFileCRLF.phpt" name="lib/tests/ldif_importFileCRLF.phpt" />
-   <install as="turba/lib/tests/ListTest.php" name="lib/tests/ListTest.php" />
-   <install as="turba/lib/tests/ListViewTest.php" name="lib/tests/ListViewTest.php" />
-   <install as="turba/lib/tests/TestBase.php" name="lib/tests/TestBase.php" />
-   <install as="tests/tohash.phpt" name="lib/tests/tohash.phpt" />
-   <install as="tests/tovcard.phpt" name="lib/tests/tovcard.phpt" />
-   <install as="turba/lib/tests/ViewBrowseTest.php" name="lib/tests/ViewBrowseTest.php" />
-   <install as="turba/lib/tests/ViewListTest.php" name="lib/tests/ViewListTest.php" />
    <install as="turba/lib/View/Browse.php" name="lib/View/Browse.php" />
    <install as="turba/lib/View/Contact.php" name="lib/View/Contact.php" />
    <install as="turba/lib/View/DeleteContact.php" name="lib/View/DeleteContact.php" />
@@ -923,6 +919,7 @@
    <install as="turba/locale/ko/LC_MESSAGES/turba.po" name="locale/ko/LC_MESSAGES/turba.po" />
    <install as="turba/locale/lt/LC_MESSAGES/turba.mo" name="locale/lt/LC_MESSAGES/turba.mo" />
    <install as="turba/locale/lt/LC_MESSAGES/turba.po" name="locale/lt/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/lv/help.xml" name="locale/lv/help.xml" />
    <install as="turba/locale/lv/LC_MESSAGES/turba.mo" name="locale/lv/LC_MESSAGES/turba.mo" />
    <install as="turba/locale/lv/LC_MESSAGES/turba.po" name="locale/lv/LC_MESSAGES/turba.po" />
    <install as="turba/locale/mk/LC_MESSAGES/turba.mo" name="locale/mk/LC_MESSAGES/turba.mo" />
@@ -995,6 +992,31 @@
    <install as="turba/templates/search/duplicate/header.html.php" name="templates/search/duplicate/header.html.php" />
    <install as="turba/templates/search/duplicate/list.html.php" name="templates/search/duplicate/list.html.php" />
    <install as="turba/templates/test/ldapserver.inc" name="templates/test/ldapserver.inc" />
+   <install as="Turba/AllTests.php" name="test/Turba/AllTests.php" />
+   <install as="Turba/Autoload.php" name="test/Turba/Autoload.php" />
+   <install as="Turba/phpunit.xml" name="test/Turba/phpunit.xml" />
+   <install as="Turba/TestCase.php" name="test/Turba/TestCase.php" />
+   <install as="Turba/Integration/ApiTest.php" name="test/Turba/Integration/ApiTest.php" />
+   <install as="Turba/ToDo/az.png" name="test/Turba/ToDo/az.png" />
+   <install as="Turba/ToDo/BrowsePageTest.php" name="test/Turba/ToDo/BrowsePageTest.php" />
+   <install as="Turba/ToDo/bug_6518.phpt" name="test/Turba/ToDo/bug_6518.phpt" />
+   <install as="Turba/ToDo/DriverTest.php" name="test/Turba/ToDo/DriverTest.php" />
+   <install as="Turba/ToDo/GroupTest.php" name="test/Turba/ToDo/GroupTest.php" />
+   <install as="Turba/ToDo/import.ldif" name="test/Turba/ToDo/import.ldif" />
+   <install as="Turba/ToDo/importCRLF.ldif" name="test/Turba/ToDo/importCRLF.ldif" />
+   <install as="Turba/ToDo/KolabTest.php" name="test/Turba/ToDo/KolabTest.php" />
+   <install as="Turba/ToDo/KolabTestBase.php" name="test/Turba/ToDo/KolabTestBase.php" />
+   <install as="Turba/ToDo/ldif_exportFile.phpt" name="test/Turba/ToDo/ldif_exportFile.phpt" />
+   <install as="Turba/ToDo/ldif_importFile.phpt" name="test/Turba/ToDo/ldif_importFile.phpt" />
+   <install as="Turba/ToDo/ldif_importFileCRLF.phpt" name="test/Turba/ToDo/ldif_importFileCRLF.phpt" />
+   <install as="Turba/ToDo/ListTest.php" name="test/Turba/ToDo/ListTest.php" />
+   <install as="Turba/ToDo/ListViewTest.php" name="test/Turba/ToDo/ListViewTest.php" />
+   <install as="Turba/ToDo/TestBase.php" name="test/Turba/ToDo/TestBase.php" />
+   <install as="Turba/ToDo/tohash.phpt" name="test/Turba/ToDo/tohash.phpt" />
+   <install as="Turba/ToDo/tovcard.phpt" name="test/Turba/ToDo/tovcard.phpt" />
+   <install as="Turba/ToDo/ViewBrowseTest.php" name="test/Turba/ToDo/ViewBrowseTest.php" />
+   <install as="Turba/ToDo/ViewListTest.php" name="test/Turba/ToDo/ViewListTest.php" />
+   <install as="Turba/Unit/Driver/KolabTest.php" name="test/Turba/Unit/Driver/KolabTest.php" />
    <install as="turba/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="turba/themes/default/ie6_or_less.css" name="themes/default/ie6_or_less.css" />
    <install as="turba/themes/default/ie7.css" name="themes/default/ie7.css" />
@@ -1161,10 +1183,55 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-05-03</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* [jan] Fix exporting department attribute over ActiveSync.
+* [mjr] Fix adding contacts with a category selected.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.3</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* [rla] Support multiple address books in search portal block (Request #8786).
+* [mjr] Fix importing LDIF files (Bug #10139).
+* [mjr] Fix issue introduced in 3.0.1 that caused contact images to not display (Bug #10050).
+* [jan] Fix editing of multiple contacts at once (Bug #10085).
+* [jan] Enable homeAdress and workAdress composite fields by default.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.4</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* [jan] Pass contact object to decode_attribute hook (kd@tu-cottbus.de, Bug #10287).
+* [jan] Complete fix for importing LDIF files (Bug #10139).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.5</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* [mjr] Force ActiveSync device reset after sync_books pref is changed (Request #10342).
    </notes>
   </release>
   <release>

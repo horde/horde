@@ -68,6 +68,8 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertTrue($share->hasPermission('john', Horde_Perms::READ));
         $this->assertFalse($share->hasPermission('john', Horde_Perms::EDIT));
         $this->assertFalse($share->hasPermission('john', Horde_Perms::DELETE));
+        $this->assertTrue($share->hasPermission(false, Horde_Perms::SHOW));
+        $this->assertFalse($share->hasPermission(false, Horde_Perms::EDIT));
     }
 
     protected function permissionsChildShare()
@@ -604,4 +606,5 @@ class Horde_Share_Test_Base extends Horde_Test_Case
     protected function switchAuth($user)
     {
     }
+
 }

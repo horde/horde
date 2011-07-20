@@ -96,7 +96,7 @@ class Horde_Pear_Package_Xml
             $path = $this->_path;
         }
         if (!is_object($type)) {
-            if (!class_exists($type)) {
+            if ($type == 'horde' || !class_exists($type)) {
                 $type = 'Horde_Pear_Package_Type_' . ucfirst($type);
             }
             $type = new $type(dirname($this->_path));
@@ -115,18 +115,167 @@ class Horde_Pear_Package_Xml
     }
 
     /**
-     * Return the license information.
+     * Return the package channel.
      *
-     * @return array The license information as array with the license name
-     *               having the key "name" and the license URI having the key
-     *               "uri".
+     * @return string The channel of the package.
+     */
+    public function getChannel()
+    {
+        return $this->getNodeText('/p:package/p:channel');
+    }
+
+    /**
+     * Return the package summary.
+     *
+     * @return string The summary of the package.
+     */
+    public function getSummary()
+    {
+        return $this->getNodeText('/p:package/p:summary');
+    }
+
+    /**
+     * Return the package description.
+     *
+     * @return string The description of the package.
+     */
+    public function getDescription()
+    {
+        return $this->getNodeText('/p:package/p:description');
+    }
+
+    /**
+     * Return the package version.
+     *
+     * @return string The version of the package.
+     */
+    public function getVersion()
+    {
+        return $this->getNodeText('/p:package/p:version/p:release');
+    }
+
+    /**
+     * Return the stability of the release or api.
+     *
+     * @param string $key "release" or "api"
+     *
+     * @return string The stability.
+     */
+    public function getState($key = 'release')
+    {
+        if (in_array($key, array('release', 'api'))) {
+            return $this->getNodeText('/p:package/p:stability/p:' . $key);
+        }
+        throw new Horde_Pear_Exception(sprintf('Unsupported state "%s"!', $key));
+    }
+
+    /**
+     * Return the package dependencies.
+     *
+     * @return string The package dependencies.
+     */
+    public function getDependencies()
+    {
+        $result = array();
+        $this->_completeDependencies(
+            $this->findNode('/p:package/p:dependencies/p:required'),
+            $result,
+            'no'
+        );
+        $this->_completeDependencies(
+            $this->findNode('/p:package/p:dependencies/p:optional'),
+            $result,
+            'yes'
+        );
+        return $result;
+    }
+
+    /**
+     * Complete the dependency information.
+     *
+     * @param DOMNode $parent   The parent node ("required" or "optional").
+     * @param array   &$result  The result array.
+     * @param string  $optional Optional dependency or not?
+     *
+     * @return NULL
+     */
+    private function _completeDependencies($parent, &$result, $optional)
+    {
+        if ($parent === false) {
+            return;
+        }
+        foreach ($parent->childNodes as $dep) {
+            if ($dep->nodeType == XML_TEXT_NODE) {
+                continue;
+            }
+            $input = array();
+            $this->_dependencyInputValue($input, 'min', $dep);
+            $this->_dependencyInputValue($input, 'max', $dep);
+            $this->_dependencyInputValue($input, 'name', $dep);
+            $this->_dependencyInputValue($input, 'channel', $dep);
+            $this->_dependencyInputValue($input, 'conflicts', $dep);
+            Horde_Pear_Package_Dependencies::addDependency(
+                $input, $dep->nodeName, $optional, $result
+            );
+        }
+    }
+
+    /**
+     * Generate one element of the input data.
+     *
+     * @param array   &$input The input array.
+     * @param string  $name   Value name.
+     * @param DOMNode $node   The dependency node.
+     *
+     * @return NULL
+     */
+    private function _dependencyInputValue(&$input, $name, $node)
+    {
+        if (($result = $this->getNodeTextRelativeTo('./p:' . $name, $node)) !== false) {
+            $input[$name] = $result;
+        }
+    }
+
+    /**
+     * Return the license name.
+     *
+     * @return string The name of the license.
      */
     public function getLicense()
     {
-        return array(
-            'name' => $this->getNodeText('/p:package/p:license'),
-            'uri' => $this->findNode('/p:package')->getElementsByTagNameNS(self::XMLNAMESPACE, 'license')->item(0)->getAttribute('uri')
-        );
+        return $this->getNodeText('/p:package/p:license');
+    }
+
+    /**
+     * Return the URL to the license information.
+     *
+     * @return string The license URI.
+     */
+    public function getLicenseLocation()
+    {
+        return $this->findNode('/p:package')
+            ->getElementsByTagNameNS(self::XMLNAMESPACE, 'license')
+            ->item(0)
+            ->getAttribute('uri');
+    }
+
+    /**
+     * Return the package lead developers.
+     *
+     * @return string The package lead developers.
+     */
+    public function getLeads()
+    {
+        $result = array();
+        foreach($this->findNodes('/p:package/p:lead') as $lead) {
+            $result[] = array(
+                'name' => $this->getNodeTextRelativeTo('./p:name', $lead),
+                'user' => $this->getNodeTextRelativeTo('./p:user', $lead),
+                'email' => $this->getNodeTextRelativeTo('./p:email', $lead),
+                'active' => $this->getNodeTextRelativeTo('./p:active', $lead),
+            );
+        }
+        return $result;
     }
 
     /**
@@ -171,7 +320,6 @@ class Horde_Pear_Package_Xml
     public function syncCurrentVersion()
     {
         $date = $this->getNodeText('/p:package/p:date');
-        $license = $this->getLicense();
         $notes = $this->getNodeText('/p:package/p:notes');
         $api = $this->getNodeText('/p:package/p:version/p:api');
         $stability_api = $this->getNodeText('/p:package/p:stability/p:api');
@@ -188,8 +336,8 @@ class Horde_Pear_Package_Xml
         $this->replaceTextNodeRelativeTo(
             './p:license',
             $release,
-            $license['name'],
-            array('uri' => $license['uri'])
+            $this->getLicense(),
+            array('uri' => $this->getLicenseLocation())
         );
         $version_node = $this->findNodeRelativeTo(
             './p:version', $release
@@ -219,9 +367,9 @@ class Horde_Pear_Package_Xml
     {
         $notes = trim($this->getNodeText('/p:package/p:notes'));
         if ($notes != '*') {
-            $new_notes = "\n* " . $note . "\n" . $notes . "\n "; 
+            $new_notes = "\n* " . $note . "\n" . $notes . "\n ";
         } else {
-            $new_notes = "\n* " . $note . "\n "; 
+            $new_notes = "\n* " . $note . "\n ";
         }
         $this->replaceTextNode('/p:package/p:notes', $new_notes);
 
@@ -229,6 +377,39 @@ class Horde_Pear_Package_Xml
         if ($release !== null) {
             $this->replaceTextNodeRelativeTo(
                 './p:notes', $release, $new_notes . '  '
+            );
+        }
+    }
+
+    /**
+     * Set the version in the package.xml
+     *
+     * @param string $rel_version The new release version number.
+     * @param string $api_version The new api version number.
+     *
+     * @return NULL
+     */
+    public function setVersion($rel_version = null, $api_version = null)
+    {
+        $release = $this->findNodeRelativeTo(
+            './p:version',
+            $this->_requireCurrentRelease()
+        );
+        $version = $this->findNode('/p:package/p:version');
+        if ($rel_version !== null) {
+            $this->replaceTextNodeRelativeTo(
+                './p:release', $version, $rel_version
+            );
+            $this->replaceTextNodeRelativeTo(
+                './p:release', $release, $rel_version
+            );
+        }
+        if ($api_version !== null) {
+            $this->replaceTextNodeRelativeTo(
+                './p:api', $version, $api_version
+            );
+            $this->replaceTextNodeRelativeTo(
+                './p:api', $release, $api_version
             );
         }
     }
@@ -248,9 +429,9 @@ class Horde_Pear_Package_Xml
         $initial_note,
         $stability_api = null,
         $stability_release = null
-    ) {
+    )
+    {
         $notes = "\n* " . $initial_note . "\n ";
-        $license = $this->getLicense();
         $api = $this->getNodeText('/p:package/p:version/p:api');
         if ($stability_api === null) {
             $stability_api = $this->getNodeText('/p:package/p:stability/p:api');
@@ -275,7 +456,12 @@ class Horde_Pear_Package_Xml
         $this->_appendVersion($release, $version, $api, "\n   ");
         $this->_appendStability($release, $stability_release, $stability_api, "\n   ");
         $this->_appendChild($release, 'date', date('Y-m-d'), "\n   ");
-        $this->_appendLicense($release, $license, "\n   ");
+        $this->_appendLicense(
+            $release,
+            $this->getLicense(), 
+            $this->getLicenseLocation(),
+            "\n   "
+        );
         $this->_appendChild($release, 'notes', $notes . '  ', "\n   ");
         $this->_insertWhiteSpace($release, "\n  ");
         $changelog->appendChild($release);
@@ -324,20 +510,21 @@ class Horde_Pear_Package_Xml
      * Append license information.
      *
      * @param DOMNode $parent  The parent DOMNode.
-     * @param array   $license The license information.
+     * @param string  $license The license name.
+     * @param string  $uri     The license URI.
      * @param string  $ws      Additional white space that should be inserted.
      *
      * @return NULL
      */
-    private function _appendLicense($parent, $license, $ws = null)
+    private function _appendLicense($parent, $license, $uri, $ws = null)
     {
         $this->_insertWhiteSpace($parent, $ws);
         $new_node = $this->_xml->createElementNS(
             self::XMLNAMESPACE, 'license'
         );
-        $text = $this->_xml->createTextNode($license['name']);
+        $text = $this->_xml->createTextNode($license);
         $new_node->appendChild($text);
-        $new_node->setAttribute('uri', $license['uri']);
+        $new_node->setAttribute('uri', $uri);
         $parent->appendChild($new_node);
     }
 
@@ -366,7 +553,7 @@ class Horde_Pear_Package_Xml
     private function _fetchCurrentRelease()
     {
         $version = $this->getNodeText('/p:package/p:version/p:release');
-        foreach($this->findNodes('/p:package/p:changelog/p:release') as $release) {
+        foreach ($this->findNodes('/p:package/p:changelog/p:release') as $release) {
             if ($this->getNodeTextRelativeTo('./p:version/p:release', $release) == $version) {
                 return $release;
             }
@@ -470,9 +657,7 @@ class Horde_Pear_Package_Xml
         if ($node = $this->findNode($path)) {
             return $node->textContent;
         }
-        throw new Horde_Pear_Exception(
-            sprintf('"%s" element is missing!', $path)
-        );
+        return false;
     }
 
     /**
@@ -490,9 +675,7 @@ class Horde_Pear_Package_Xml
         if ($node = $this->findNodeRelativeTo($path, $context)) {
             return $node->textContent;
         }
-        throw new Horde_Pear_Exception(
-            sprintf('"%s" element is missing!', $path)
-        );
+        return false;
     }
 
     /**
@@ -527,7 +710,8 @@ class Horde_Pear_Package_Xml
         DOMNode $context,
         $value,
         $attributes = array()
-    ) {
+    )
+    {
         if ($node = $this->findNodeRelativeTo($path, $context)) {
             $new_node = $this->_replacementNode($node, $value);
             foreach ($attributes as $name => $value) {

@@ -38,13 +38,127 @@ class Components_Helper_Version
      */
     static public function validatePear($version)
     {
-        if (!preg_match('/^(\d+\.\d+\.\d+)(-git|alpha\d*|beta\d*|RC\d+)$/', $version, $match)) {
+        if (!preg_match('/^(\d+\.\d+\.\d+)(-git|alpha\d*|beta\d*|RC\d+)?$/', $version, $match)) {
             throw new Components_Exception('Invalid version number ' . $version);
         }
-        if ($match[2] == '-git') {
+        if (!isset($match[2]) || ($match[2] == '-git')) {
             $match[2] = '';
         }
         return $match[1] . $match[2];
+    }
+
+    /**
+     * Validates the version and release stability tuple.
+     *
+     * @param string $version   A version string.
+     * @param string $stability Release stability information.
+     *
+     * @throws Components_Exception on invalid version string.
+     */
+    static public function validateReleaseStability($version, $stability)
+    {
+        preg_match('/^(\d+\.\d+\.\d+)(alpha|beta|RC|dev)?\d*$/', $version, $match);
+        if (!isset($match[2]) && $stability != 'stable') {
+            throw new Components_Exception(
+                sprintf(
+                    'Stable version "%s" marked with invalid release stability "%s"!',
+                    $version,
+                    $stability
+                )
+            );
+        }
+        $requires = array(
+            'alpha' => 'alpha',
+            'beta' => 'beta',
+            'RC' => 'beta',
+            'dev' => 'devel'
+        );
+        foreach ($requires as $m => $s) {
+            if (isset($match[2]) && $match[2] == $m && $stability != $s) {
+                throw new Components_Exception(
+                    sprintf(
+                        '%s version "%s" marked with invalid release stability "%s"!',
+                        $s,
+                        $version,
+                        $stability
+                    )
+                );
+            }
+        }
+    }
+
+    /**
+     * Validates the version and api stability tuple.
+     *
+     * @param string $version   A version string.
+     * @param string $stability Api stability information.
+     *
+     * @throws Components_Exception on invalid version string.
+     */
+    static public function validateApiStability($version, $stability)
+    {
+        preg_match('/^(\d+\.\d+\.\d+)(alpha|beta|RC|dev)?\d*$/', $version, $match);
+        if (!isset($match[2]) && $stability != 'stable') {
+            throw new Components_Exception(
+                sprintf(
+                    'Stable version "%s" marked with invalid api stability "%s"!',
+                    $version,
+                    $stability
+                )
+            );
+        }
+        $requires = array(
+            'alpha' => 'alpha',
+            'beta' => 'beta',
+            'RC' => 'stable',
+            'dev' => 'devel'
+        );
+        foreach ($requires as $m => $s) {
+            if (isset($match[2]) && $match[2] == $m && $stability != $s) {
+                throw new Components_Exception(
+                    sprintf(
+                        '%s version "%s" marked with invalid api stability "%s"!',
+                        $s,
+                        $version,
+                        $stability
+                    )
+                );
+            }
+        }
+    }
+
+    /**
+     * Convert the Horde package version number to PEAR style.
+     *
+     * @param string $version The Horde package version.
+     *
+     * @return string The PEAR style version.
+     *
+     * @throws Components_Exception on invalid version string.
+     */
+    static public function hordeToPear($version)
+    {
+        if (!preg_match('/(H\d+ \()?([.\d]+)(-.+)?((?(1)\)))/', $version, $matches)) {
+            throw new Components_Exception('Invalid version number ' . $version);
+        }
+        if (!empty($matches[3])) {
+            if (strpos($matches[3], '-RC') === 0) {
+                $post = substr($matches[3], 1);
+            } elseif ($matches[3] == '-git') {
+                $post = 'dev';
+            } else {
+                $post = Horde_String::lower(substr($matches[3], 1));
+            }
+        } else {
+            $post = '';
+        }
+        $vcomp = explode('.', $matches[2]);
+        if (count($vcomp) == 2) {
+            $vcomp[] = 0;
+        } elseif (count($vcomp) != 3) {
+            throw new Components_Exception('A version number must have 2 or 3 parts.');
+        }
+        return implode('.', $vcomp) . $post;
     }
 
     /**
@@ -63,7 +177,7 @@ class Components_Helper_Version
             if ($matches[2] == '-git') {
                 $post = $matches[2];
             } else {
-                $post = '-' . strtoupper($matches[2]);
+                $post = '-' . Horde_String::upper($matches[2]);
             }
         } else {
             $post = '';
@@ -150,6 +264,6 @@ class Components_Helper_Version
         if (!preg_match('/^(\d+\.\d+\.)(\d+).*$/', $version, $match)) {
             throw new Components_Exception('Invalid version number ' . $version);
         }
-        return $match[1] . $match[2]++ . '-git';
+        return $match[1] . ++$match[2] . '-git';
     }
 }

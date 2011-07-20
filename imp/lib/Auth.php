@@ -87,9 +87,11 @@ class IMP_Auth
                 throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
             }
 
-            if (!$imp_imap->createImapObject($credentials['userId'], $credentials['password'], $credentials['server'])) {
+            try {
+                $imp_imap->createImapObject($credentials['userId'], $credentials['password'], $credentials['server']);
+            } catch (IMP_Imap_Exception $e) {
                 self::_logMessage(false, $imp_imap);
-                throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
+                throw $e->authException();
             }
 
             $result = array(
@@ -99,34 +101,9 @@ class IMP_Auth
 
         try {
             $imp_imap->login();
-        } catch (Horde_Imap_Client_Exception $e) {
+        } catch (IMP_Imap_Exception $e) {
             self::_logMessage(false, $imp_imap);
-
-            switch ($e->getCode()) {
-            case Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED:
-            case Horde_Imap_Client_Exception::LOGIN_AUTHORIZATIONFAILED:
-                $code = Horde_Auth::REASON_BADLOGIN;
-                break;
-
-            case Horde_Imap_Client_Exception::LOGIN_EXPIRED:
-                $code = Horde_Auth::REASON_EXPIRED;
-                break;
-
-            case Horde_Imap_Client_Exception::LOGIN_UNAVAILABLE:
-                $code = Horde_Auth::REASON_MESSAGE;
-                $e = _("Remote server is down. Please try again later.");
-                break;
-
-            case Horde_Imap_Client_Exception::LOGIN_NOAUTHMETHOD:
-            case Horde_Imap_Client_Exception::LOGIN_PRIVACYREQUIRED:
-            case Horde_Imap_Client_Exception::LOGIN_TLSFAILURE:
-            case Horde_Imap_Client_Exception::SERVER_CONNECT:
-            default:
-                $code = Horde_Auth::REASON_FAILED;
-                break;
-            }
-
-            throw new Horde_Auth_Exception($e, $code);
+            throw $e->authException();
         }
 
         return $result;
@@ -303,7 +280,7 @@ class IMP_Auth
     {
         $init_url = $GLOBALS['prefs']->getValue('initial_page');
         if (!$init_url ||
-            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3) {
+            !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
             $init_url = 'INBOX';
         }
 
@@ -334,7 +311,7 @@ class IMP_Auth
                 $page = 'folders.php';
             } else {
                 $page = 'mailbox.php';
-                $result->url = IMP::generateIMPUrl($page, $mbox);
+                $result->url = $mbox->url($page);
             }
             break;
 
@@ -343,7 +320,7 @@ class IMP_Auth
                 $page = 'folders-mimp.php';
             } else {
                 $page ='mailbox-mimp.php';
-                $result->url = IMP::generateIMPUrl($page, $mbox);
+                $result->url = $mbox->url($page);
             }
             break;
 

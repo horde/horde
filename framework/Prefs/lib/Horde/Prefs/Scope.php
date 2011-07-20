@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Prefs
  */
-class Horde_Prefs_Scope implements Serializable
+class Horde_Prefs_Scope implements Iterator, Serializable
 {
     /**
      * Is the object being initialized?
@@ -248,6 +248,34 @@ class Horde_Prefs_Scope implements Serializable
             unset($this->_dirty[$pref]);
         }
     }
+
+    /* Iterator methods. */
+
+    public function current()
+    {
+        return current($this->_prefs);
+    }
+
+    public function key()
+    {
+        return key($this->_prefs);
+    }
+
+    public function next()
+    {
+        next($this->_prefs);
+    }
+
+    public function rewind()
+    {
+        reset($this->_prefs);
+    }
+
+    public function valid()
+    {
+        return (key($this->_prefs) !== null);
+    }
+
 
     /* Serializable methods. */
 

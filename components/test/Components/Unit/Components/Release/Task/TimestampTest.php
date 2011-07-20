@@ -37,19 +37,19 @@ extends Components_TestCase
 {
     public function setUp()
     {
-        $this->_fixture = dirname(__FILE__) . '/../../../../fixture/simple/package.xml';
+        $this->_fixture = dirname(__FILE__) . '/../../../../fixture/simple';
     }
 
     public function testValidateSucceeds()
     {
-        $package = $this->_getValidPackage();
+        $package = $this->getComponent($this->_fixture);
         $task = $this->getReleaseTask('timestamp', $package);
         $this->assertEquals(array(), $task->validate(array()));
     }
 
     public function testValidateFails()
     {
-        $package = $this->getMock('Components_Pear_Package', array(), array(), '', false, false);
+        $package = $this->getComponent($this->_fixture . '/NO_SUCH_PACKAGE');
         $task = $this->getReleaseTask('timestamp', $package);
         $this->assertFalse($task->validate(array()) === array());
     }
@@ -66,19 +66,23 @@ extends Components_TestCase
     public function testPretend()
     {
         $tasks = $this->getReleaseTasks();
-        $package = $this->_getValidPackage();
-        $package->expects($this->any())
-            ->method('getName')
-            ->will($this->returnValue('NAME'));
-        $package->expects($this->any())
-            ->method('getVersion')
-            ->will($this->returnValue('1.0.0'));
-        $tasks->run(array('Timestamp', 'CommitPreRelease'), $package, array('pretend' => true));
+        $package = $this->getComponent($this->_fixture);
+        $tasks->run(
+            array('Timestamp', 'CommitPreRelease'),
+            $package,
+            array(
+                'pretend' => true,
+                'commit' => new Components_Helper_Commit(
+                    $this->output,
+                    array('pretend' => true)
+                )
+            )
+        );
         $this->assertEquals(
             array(
-                sprintf('Would timestamp %s now and synchronize its change log.', $this->_fixture),
-                sprintf('Would run "git add %s" now.', $this->_fixture),
-                'Would run "git commit -m "Released NAME-1.0.0"" now.'
+                sprintf('Would timestamp "%s" now and synchronize its change log.', realpath($this->_fixture . '/package.xml')),
+                sprintf('Would run "git add %s" now.', realpath($this->_fixture . '/package.xml')),
+                'Would run "git commit -m "Released Fixture-0.0.1"" now.'
             ),
             $this->output->getOutput()
         );
@@ -86,10 +90,10 @@ extends Components_TestCase
 
     private function _getValidPackage()
     {
-        $package = $this->getMock('Components_Pear_Package', array(), array(), '', false, false);
+        $package = $this->getMock('Components_Component', array(), array(), '', false, false);
         $package->expects($this->any())
-            ->method('getPackageXml')
-            ->will($this->returnValue($this->_fixture));
+            ->method('hasLocalPackageXml')
+            ->will($this->returnValue(true));
         return $package;
     }
 }

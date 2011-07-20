@@ -21,3 +21,6 @@ require_once 'Horde/Test/Autoload.php';
 
 /** Catch strict standards */
 error_reporting(E_ALL | E_STRICT);
+
+/** Load stub definitions */
+require_once dirname(__FILE__) . '/Stub/Storage.php';

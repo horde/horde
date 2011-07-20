@@ -99,7 +99,7 @@ foreach ($memos as $memo_id => $memo) {
     $preview = trim(substr($preview, strlen($memo['desc'])));
 ?>
   <li>
-    <a href="#" class="category<?php echo md5($memo['category']) ?>">
+    <a href="#" class="stickies-category" style="<?php echo Mnemo::getCssStyle($memo['category'], true) ?>">
       <h2><?php echo htmlspecialchars($memo['desc']) ?></h2>
       <p><?php echo htmlspecialchars($preview) ?></p>
     </a>

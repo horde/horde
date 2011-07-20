@@ -7,11 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gollem H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-14 17:07+0200\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: 2011-04-14 17:07+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,7 +29,7 @@ msgid "%.2fMB / %.2fMB  (%.2f%%)"
 msgstr "%.2fMB / %.2fMB  (%.2f%%)"
 
 #: manager.php:581
-#, php-format
+#, fuzzy, php-format
 msgid "%d item"
 msgstr "%d elemento"
 
@@ -78,11 +79,11 @@ msgstr "¿Seguro que desea continuar?"
 msgid "Are you sure?"
 msgstr "¿Está seguro?"
 
-#: config/prefs.php:66
+#: config/prefs.php:67
 msgid "Ascending"
 msgstr "Ascendente"
 
-#: config/prefs.php:96
+#: config/prefs.php:97
 msgid "Ask"
 msgstr "Consultar"
 
@@ -195,11 +196,11 @@ msgstr "Carpeta actual:"
 msgid "Cut"
 msgstr "Cortar"
 
-#: config/prefs.php:58
+#: config/prefs.php:59
 msgid "Default sorting criteria:"
 msgstr "Criterio de clasificación por omisión:"
 
-#: config/prefs.php:69
+#: config/prefs.php:70
 msgid "Default sorting direction:"
 msgstr "Sentido de clasificación por omisión:"
 
@@ -207,11 +208,11 @@ msgstr "Sentido de clasificación por omisión:"
 msgid "Delete"
 msgstr "Eliminar"
 
-#: config/prefs.php:98
+#: config/prefs.php:99
 msgid "Delete folders recursively?"
 msgstr "¿Eliminar carpetas de forma recursiva?"
 
-#: config/prefs.php:67
+#: config/prefs.php:68
 msgid "Descending"
 msgstr "Descendente"
 
@@ -249,31 +250,31 @@ msgstr "Ejecutar"
 msgid "File"
 msgstr "Archivo"
 
-#: config/prefs.php:85
+#: config/prefs.php:86
 msgid "File Actions"
 msgstr "Acciones de archivos"
 
-#: config/prefs.php:14
+#: config/prefs.php:15
 msgid "File Display"
 msgstr "Vista de archivo"
 
-#: config/prefs.php:55
+#: config/prefs.php:56
 msgid "File Modification Time"
 msgstr "Hora de modificación de archivo"
 
-#: config/prefs.php:54
+#: config/prefs.php:55
 msgid "File Name"
 msgstr "Nombre de archivo"
 
-#: config/prefs.php:56
+#: config/prefs.php:57
 msgid "File Size"
 msgstr "Tamaño de archivo"
 
-#: config/prefs.php:53
+#: config/prefs.php:54
 msgid "File Type"
 msgstr "Tipo de archivo"
 
-#: config/prefs.php:86
+#: config/prefs.php:87
 msgid "File action settings."
 msgstr "Opciones de acciones de archivos"
 
@@ -281,7 +282,7 @@ msgstr "Opciones de acciones de archivos"
 msgid "File deleted: "
 msgstr "Archivo eliminado: "
 
-#: config/prefs.php:15
+#: config/prefs.php:16
 msgid "File display preferences."
 msgstr "Opciones de visualización de archivos"
 
@@ -341,7 +342,7 @@ msgstr "Se ha copiado el elemento al portapapeles: %s"
 msgid "Item cut to clipboard: %s"
 msgstr "Se ha cortado el elemento al portapapeles: %s"
 
-#: config/prefs.php:76
+#: config/prefs.php:77
 msgid "Items per page"
 msgstr "Elementos por página"
 
@@ -349,7 +350,7 @@ msgstr "Elementos por página"
 msgid "Language"
 msgstr "Idioma"
 
-#: config/prefs.php:33
+#: config/prefs.php:34
 msgid "List folders first?"
 msgstr "¿Listar primero las carpetas?"
 
@@ -369,7 +370,7 @@ msgstr "Nombre:"
 msgid "New folder created: "
 msgstr "Nueva carpeta creada: "
 
-#: config/prefs.php:94
+#: config/prefs.php:95
 msgid "No"
 msgstr "No"
 
@@ -429,7 +430,7 @@ msgstr "Formato de Quota"
 
 #: templates/manager/manager.html:14
 msgid "Read"
-msgstr "Lectura"
+msgstr "Leer"
 
 #: manager.php:310
 msgid "Refresh"
@@ -467,7 +468,7 @@ msgstr "Seleccione un motor:"
 msgid "Server"
 msgstr "Servidor"
 
-#: config/prefs.php:26
+#: config/prefs.php:27
 msgid "Show dotfiles?"
 msgstr "¿Mostrar archivos cuyo nombre empiece por un punto?"
 
@@ -547,7 +548,7 @@ msgstr "Subir a %s"
 msgid "Upload File(s)"
 msgstr "Cargar archivo(s)"
 
-#: config/prefs.php:13 config/prefs.php:84
+#: config/prefs.php:14 config/prefs.php:85
 msgid "User Interface"
 msgstr "Interfaz de usuario"
 
@@ -559,7 +560,7 @@ msgstr "Ver Portapapeles"
 msgid "Write"
 msgstr "Escritura"
 
-#: config/prefs.php:95
+#: config/prefs.php:96
 msgid "Yes"
 msgstr "Sí"
 

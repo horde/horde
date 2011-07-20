@@ -259,17 +259,28 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testExceptionOnDuplicate()
+    public function testDuplicates()
     {
-        $this->_getSyncedCacheWithMoreData()
-            ->store(
-                array('3' => array('uid' => 'test')),
-                new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
-                '1'
-            );
+        $cache = $this->_getSyncedCacheWithMoreData();
+        $cache->store(
+            array('3' => array('uid' => 'test')),
+            new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
+            '1'
+        );
+        $this->assertEquals(
+            array('test' => array(1, 3)), $cache->getDuplicates()
+        );
+    }
+
+    public function testErrors()
+    {
+        $cache = $this->_getSyncedCacheWithMoreData();
+        $cache->store(
+            array('3' => false),
+            new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
+            '1'
+        );
+        $this->assertEquals(array(3), $cache->getErrors());
     }
 
     /**
@@ -418,6 +429,7 @@ extends Horde_Kolab_Storage_TestCase
             array(
                 'host' => 'localhost',
                 'port' => '143',
+                'prefix' => 'INBOX',
                 'folder' => 'test',
                 'type' => 'event',
                 'owner' => 'someuser',
@@ -504,6 +516,28 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->_getSyncedCacheWithAttachment('Y')
             ->getAttachmentByType('200', 'application/x-vnd.kolab.event');
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingQuery()
+    {
+        $this->getMockDataCache()->getQuery('x');
+    }
+
+    public function testHasQuery()
+    {
+        $cache = $this->getMockDataCache();
+        $cache->setQuery('x', 'something');
+        $this->assertTrue($cache->hasQuery('x'));
+    }
+
+    public function testGetSetQuery()
+    {
+        $cache = $this->getMockDataCache();
+        $cache->setQuery('x', 'something');
+        $this->assertEquals('something', $cache->getQuery('x'));
     }
 
     private function _getSyncedCache()

@@ -73,10 +73,22 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      */
     private function _getDataForNotepad($notepad)
     {
-        return $this->_kolab->getData(
-            $GLOBALS['mnemo_shares']->getShare($notepad)->get('folder'),
-            'note'
-        );
+        try {
+            return $this->_kolab->getData(
+                $GLOBALS['mnemo_shares']->getShare($notepad)->get('folder'),
+                'note'
+            );
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Mnemo_Exception(
+                sprintf(
+                    'Failed retrieving Kolab data for notepad %s: %s',
+                    $notepad,
+                    $e->getMessage()
+                ),
+                0,
+                $e
+            );
+        }
     }
 
     /**
@@ -136,14 +148,13 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
             Mnemo::storePassphrase($uid, $passphrase);
         }
 
-        $this->_getData()->create(
-            array(
-                'uid' => $uid,
-                'summary' => $desc,
-                'body' => $body,
-                'categories' => $category,
-            )
+        $object = array(
+            'uid' => $uid,
+            'summary' => $desc,
+            'body' => $body,
+            'categories' => $category,
         );
+        $this->_getData()->create($object);
 
         // Log the creation of this item in the history log.
         // @TODO: Inject the history driver

@@ -44,7 +44,6 @@ extends Components_Module_Base
     {
         return array(
             new Horde_Argv_Option(
-                '-c',
                 '--cisetup',
                 array(
                     'action' => 'store',
@@ -52,7 +51,6 @@ extends Components_Module_Base
                 )
             ),
             new Horde_Argv_Option(
-                '-C',
                 '--ciprebuild',
                 array(
                     'action' => 'store',
@@ -83,12 +81,10 @@ extends Components_Module_Base
         $options = $config->getOptions();
         //@todo Split into two different runners here
         if (!empty($options['cisetup'])) {
-            $this->requirePackageXml($config->getComponentDirectory());
             $this->_dependencies->getRunnerCiSetup()->run();
             return true;
         }
         if (!empty($options['ciprebuild'])) {
-            $this->requirePackageXml($config->getComponentDirectory());
             $this->_dependencies->getRunnerCiPrebuild()->run();
             return true;
         }

@@ -27,7 +27,10 @@ $link = Ansel::getUrlFor('view', array('groupby' => $groupby,
                                        'view' => 'List'))->link();
 
 $num_galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')
-    ->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, $group, null, false);
+    ->countGalleries(
+      $GLOBALS['registry']->getAuth(),
+      array('attributes' => $group,
+            'all_levels' => false));
 
 if ($num_galleries < 5) {
     $mini_galleries = $GLOBALS['injector']

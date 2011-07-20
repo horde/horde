@@ -39,7 +39,7 @@ if (empty($vtodo)) {
 }
 
 // Set user.
-Horde_Auth::setAuth($user, array());
+$registry->setAuth($user, array());
 
 // Import data.
 try {

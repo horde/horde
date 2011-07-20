@@ -1,117 +1,143 @@
 # Lithuanian translations for Mnemo package.
-# Copyright 2007-2009 The Horde Project
+# Copyright 2007-2011 The Horde Project
 # This file is distributed under the same license as the Mnemo package.
 # Darius Matuliauskas <darius@lnk.lt>, 2002.
-# Vilius Sumskas <vilius@lnk.lt>, 2003, 2004, 2007.
+# Vilius Šumskas <vilius@lnk.lt>, 2003, 2004, 2007, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Mnemo 2.2-cvs\n"
+"Project-Id-Version: Mnemo 3.0.2-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2007-11-23 16:17+0200\n"
-"PO-Revision-Date: 2007-11-23 16:18+0200\n"
-"Last-Translator: Vilius Sumskas <vilius@lnk.lt>\n"
+"POT-Creation-Date: 2011-05-28 01:09+0300\n"
+"PO-Revision-Date: 2011-06-26 16:55+0300\n"
+"Last-Translator: Vilius Šumskas <vilius@lnk.lt>\n"
 "Language-Team: Lithuanian <vilius@lnk.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: templates/memo/memo.inc:53
 #, php-format
 msgid "%s characters"
 msgstr "%s simboliai(ių)"
 
-#: data.php:201
+#: data.php:195
 #, php-format
 msgid "%s file successfully imported"
 msgstr "%s failas sėkmingai įkeltas"
 
-#: notepads.php:102 lib/Mnemo.php:429
-#, php-format
-msgid "%s's Notepad"
-msgstr "%s užrašų knygelė"
-
-#: memo.php:201
+#: memo.php:248
 msgid "Access denied deleting note."
 msgstr "Neturite teisių ištrinti užrašo."
 
-#: memo.php:152 memo.php:155
+#: memo.php:183 memo.php:186
 msgid "Access denied moving the note."
 msgstr "Neturite teisių perkelti užrašo."
 
-#: memo.php:120
+#: memo.php:134
 #, php-format
 msgid "Access denied saving note to %s."
 msgstr "Neturite teisių išsaugoti užrašą į %s."
 
-#: memo.php:118
+#: lib/Block/Note.php:80
 #, php-format
-msgid "Access denied saving note: %s"
-msgstr "Neturite teisių išsaugoti užrašą: %s."
+msgid "An error occurred displaying %s"
+msgstr "Klaida rodant %s"
 
-#: config/prefs.php.dist:71
+#: lib/Block/Note.php:82
+msgid "An error occurred displaying the note"
+msgstr "Klaida rodant užrašą"
+
+#: config/prefs.php:64
 msgid "Ascending"
 msgstr "Didėjimo tvarka"
 
-#: data.php:32 templates/data/import.inc:11
+#: data.php:27 templates/data/import.inc:11
 msgid "CSV"
 msgstr "CSV"
 
-#: data.php:54 templates/view/memo.inc:26
+#: lib/Ajax/Imple/EditNote.php:45 lib/Form/DeleteNotepad.php:34
+#: lib/Form/DeleteNotepad.php:40
+msgid "Cancel"
+msgstr "Atšaukti"
+
+#: data.php:49 templates/view/memo.inc:26
 msgid "Category"
 msgstr "Kategorija"
 
-#: templates/notepads/notepads.inc:22
-msgid "Change"
-msgstr "Keisti"
+#: notepads/index.php:34 templates/notepad_list.php:29
+msgid "Change Permissions"
+msgstr "Keisti teises"
 
-#: config/prefs.php.dist:15
-msgid "Change your note sorting and display options."
+#: config/prefs.php:14
+msgid "Change your note sorting and display preferences."
 msgstr "Užrašų rūšiavimo bei rodymo nustatymų keitimas."
 
-#: config/prefs.php.dist:22
+#: config/prefs.php:21
 msgid "Choose your default Notepad."
 msgstr "Jūsų pagrindinės užrašų knygelės pasirinkimas."
+
+#: lib/Ajax/Imple/EditNote.php:43
+msgid "Click to add text..."
+msgstr "Spauskite norėdami pridėti daugiau teksto..."
 
 #: templates/list/header.inc:8
 msgid "Close Search"
 msgstr "Išvalyti paiešką"
 
-#: templates/notepads/notepads.inc:15 templates/notepads/notepads.inc:64
+#: lib/Form/CreateNotepad.php:25
 msgid "Create"
 msgstr "Sukurti"
+
+#: lib/Form/CreateNotepad.php:20
+msgid "Create Notepad"
+msgstr "Užrašų knygelės kūrimas"
+
+#: templates/notepad_list.php:9
+msgid "Create a new Notepad"
+msgstr "Sukurti naują užrašų knygelę"
 
 #: templates/view/memo.inc:32
 msgid "Created"
 msgstr "Sukurta"
 
-#: templates/view/memo.inc:54 templates/memo/memo.inc:23
+#: templates/list/memo_headers.inc:40
+msgid "Date"
+msgstr "Data"
+
+#: templates/memo/memo.inc:23 templates/view/memo.inc:54
 msgid "Decrypt"
 msgstr "Atkoduoti"
 
-#: config/prefs.php.dist:21
+#: config/prefs.php:20
 msgid "Default Notepad"
 msgstr "Pagrindinė užrašų knygelė"
 
-#: config/prefs.php.dist:62
+#: config/prefs.php:56
 msgid "Default sorting criteria:"
 msgstr "Rūšiuoti pagal:"
 
-#: config/prefs.php.dist:73
+#: config/prefs.php:67
 msgid "Default sorting direction:"
 msgstr "Rūšiuoti:"
 
-#: templates/notepads/notepads.inc:65 templates/view/memo.inc:16
+#: lib/Form/DeleteNotepad.php:34 notepads/index.php:35
+#: templates/notepad_list.php:31 templates/view/memo.inc:16
 msgid "Delete"
 msgstr "Ištrinti"
 
-#: config/prefs.php.dist:28
+#: lib/Form/DeleteNotepad.php:29
+#, php-format
+msgid "Delete %s"
+msgstr "Ištrinti %s"
+
+#: config/prefs.php:27
 msgid "Delete Confirmation"
 msgstr "Trynimo patvirtinimas"
 
-#: config/prefs.php.dist:29
+#: config/prefs.php:28
 msgid "Delete button behaviour"
 msgstr "Trynimo mygtuko elgesys"
 
@@ -119,27 +145,23 @@ msgstr "Trynimo mygtuko elgesys"
 msgid "Delete this note"
 msgstr "Ištrinti šį užrašą"
 
-#: config/prefs.php.dist:72
+#: config/prefs.php:65
 msgid "Descending"
 msgstr "Mažėjimo tvarka"
 
-#: templates/notepads/notepads.inc:60
-msgid "Description:"
-msgstr "Aprašymas:"
+#: lib/Form/CreateNotepad.php:23 lib/Form/EditNotepad.php:30
+msgid "Description"
+msgstr "Aprašymas"
 
-#: lib/Driver/kolab.php:556
-#, php-format
-msgid "Did not find note %s"
-msgstr "Nepavyko rasti užrašo %s"
-
-#: config/prefs.php.dist:14
-msgid "Display Options"
+#: config/prefs.php:13
+msgid "Display Preferences"
 msgstr "Vaizdavimo nustatymai"
 
-#: config/prefs.php.dist:118
+#: config/prefs.php:97
 msgid "Do you want to confirm deleting entries?"
 msgstr "Ar norite, kad prieš kiekvieną įrašų trynimą prašytų patviritimo?"
 
+#: notepads/index.php:33 templates/notepad_list.php:27
 #: templates/view/memo.inc:13
 msgid "Edit"
 msgstr "Redaguoti"
@@ -149,24 +171,30 @@ msgstr "Redaguoti"
 msgid "Edit \"%s\""
 msgstr "Redaguoti \"%s\""
 
-#: lib/Block/summary.php:74 templates/list/memo_headers.inc:30
+#: lib/Form/EditNotepad.php:26
+#, php-format
+msgid "Edit %s"
+msgstr "Redaguoti %s"
+
+#: lib/Block/Summary.php:91 lib/Block/Summary.php:92
+#: templates/list/memo_headers.inc:30
 msgid "Edit Note"
 msgstr "Redaguoti užrašą"
 
-#: templates/list/memo_headers.inc:45
+#: templates/list/memo_headers.inc:48
 msgid "Edit categories and colors"
 msgstr "Redaguoti kategorijas ir spalvas"
 
-#: memo.php:104
+#: memo.php:114 memo.php:146
 #, php-format
 msgid "Edit: %s"
 msgstr "Redaguoti: %s"
 
-#: lib/Block/summary.php:93 templates/list/memo_summaries.inc:15
+#: lib/Block/Summary.php:113 templates/list/memo_summaries.inc:15
 msgid "Empty Note"
 msgstr "Tuščias užrašas"
 
-#: lib/Driver.php:118
+#: lib/Driver.php:85
 msgid ""
 "Encryption support has not been configured, please contact your "
 "administrator."
@@ -181,8 +209,8 @@ msgstr "Iškelti"
 msgid "Export Notes"
 msgstr "Iškelti užrašus"
 
-#: config/prefs.php.dist:13 config/prefs.php.dist:20 config/prefs.php.dist:27
-msgid "General Options"
+#: config/prefs.php:12 config/prefs.php:19 config/prefs.php:26
+msgid "General Preferences"
 msgstr "Pagrindiniai nustatymai"
 
 #: templates/data/import.inc:1
@@ -190,7 +218,7 @@ msgstr "Pagrindiniai nustatymai"
 msgid "Import Notes, Step %d"
 msgstr "Užrašų įkėlimas, %d-as žingsnis"
 
-#: data.php:207
+#: data.php:201
 msgid "Import/Export Notes"
 msgstr "Įkelti/Iškelti užrašus"
 
@@ -202,35 +230,43 @@ msgstr "Kur: "
 msgid "Last Modified"
 msgstr "Paskutinį kartą redaguota"
 
-#: lib/api.php:77
+#: notepads/index.php:39 templates/notepad_list.php:2
+msgid "Manage Notepads"
+msgstr "Užrašų knygelių valdymas"
+
+#: lib/Application.php:56
 msgid "Maximum Number of Notes"
 msgstr "Maksimalus užrašų skaičius"
 
-#: data.php:53
+#: data.php:48
 msgid "Memo Text"
 msgstr "Užrašo tekstas"
 
-#: lib/Block/tree_menu.php:3
-msgid "Menu List"
-msgstr "Meniu sąrašas"
+#: config/prefs.php:54
+msgid "Modification Date"
+msgstr "Keitimo data"
 
 #: templates/list/header.inc:9
 msgid "More Options..."
 msgstr "Daugiau nustatymų..."
 
-#: templates/panel.inc:40
+#: lib/Api.php:378
+msgid "Multiple iCalendar components found; only one vNote is supported."
+msgstr "Rasta keletas iCalendar komponentų; galimas tik vienas vNote objektas."
+
+#: templates/panel.inc:51
 msgid "My Notepads:"
 msgstr "Mano užrašų knygelės:"
 
-#: list.php:31
+#: list.php:29 stickies.php:29
 msgid "My Notes"
 msgstr "Mano užrašai"
 
-#: templates/notepads/notepads.inc:53
-msgid "Name:"
-msgstr "Pavadinimas:"
+#: lib/Form/CreateNotepad.php:22 lib/Form/EditNotepad.php:29
+msgid "Name"
+msgstr "Pavadinimas"
 
-#: memo.php:57 lib/Block/tree_menu.php:24
+#: lib/Application.php:133 memo.php:92 memo.php:138
 msgid "New Note"
 msgstr "Naujas užrašas"
 
@@ -238,9 +274,13 @@ msgstr "Naujas užrašas"
 msgid "Next"
 msgstr "Sekantis"
 
-#: lib/api.php:258
+#: lib/Api.php:222 lib/Api.php:371
 msgid "No iCalendar data was found."
 msgstr "iCalendar duomenų nėra."
+
+#: lib/Block/Note.php:71
+msgid "No note loaded"
+msgstr "Užrašas neužkrautas"
 
 #: templates/list/memo_footers.inc:4
 msgid "No notes match"
@@ -250,7 +290,7 @@ msgstr "Atitinkančių užrašų nėra"
 msgid "No notes match the current criteria."
 msgstr "Jokie užrašai neatitinka paieškos kriterijaus."
 
-#: lib/Block/summary.php:101
+#: lib/Block/Summary.php:121
 msgid "No notes to display"
 msgstr "Užrašų nėra"
 
@@ -258,23 +298,19 @@ msgstr "Užrašų nėra"
 msgid "No_te"
 msgstr "Užr_ašas"
 
-#: lib/Driver/sql.php:175
-msgid "Not found"
+#: lib/Driver/Kolab.php:109 lib/Driver/Sql.php:80
+msgid "Not Found"
 msgstr "Nerasta"
 
-#: config/prefs.php.dist:60
+#: config/prefs.php:52
 msgid "Note Category"
 msgstr "Užrašo kategorija"
 
-#: view.php:108
+#: view.php:115
 msgid "Note Details"
 msgstr "Užrašo aprašymas"
 
-#: notepads.php:113
-msgid "Note Lists"
-msgstr "Užrašų sąrašai"
-
-#: config/prefs.php.dist:59
+#: config/prefs.php:51
 msgid "Note Text"
 msgstr "Užrašo tekstas"
 
@@ -282,48 +318,64 @@ msgstr "Užrašo tekstas"
 msgid "Note _Text"
 msgstr "Užrašo _tekstas"
 
-#: memo.php:67 view.php:56 note/pdf.php:57
+#: memo.php:102 memo.php:143 note/pdf.php:52 view.php:52
 msgid "Note not found."
 msgstr "Tokio užrašo nėra."
 
-#: templates/memo/memo.inc:59
-msgid "Note_pad"
-msgstr "Užrašų kn_ygelė"
+#: templates/memo/memo.inc:63
+msgid "Note_pad:"
+msgstr "Užrašų kn_ygelė:"
 
-#: templates/list/memo_headers.inc:33 config/prefs.php.dist:61
+#: config/prefs.php:53 templates/list/memo_headers.inc:33
+#: templates/notepad_list.php:17
 msgid "Notepad"
 msgstr "Užrašų knygelė"
 
-#: templates/panel.inc:32 templates/panel.inc:33
-#: templates/notepads/notepads.inc:42
+#: templates/notepad_list.php:14
+msgid "Notepad List"
+msgstr "Užrašų knygelių sąrašas"
+
+#: lib/Mnemo.php:533
+#, php-format
+msgid "Notepad of %s"
+msgstr "%s užrašų knygelė"
+
+#: templates/panel.inc:33 templates/panel.inc:34
 msgid "Notepads"
 msgstr "Užrašų knygelės"
 
-#: notepads.php:32
-msgid "Notepads must have a name."
-msgstr "Užrašų knygelei reikia pavadinimo."
-
-#: templates/notepads/notepads.inc:45
-msgid "Notepads:"
-msgstr "Užrašų knygelės:"
-
-#: lib/Block/summary.php:3
+#: lib/Block/Summary.php:12
 msgid "Notes Summary"
 msgstr "Užrašų santrumpa"
 
-#: lib/api.php:235 lib/api.php:323 lib/api.php:382 lib/api.php:411
+#: lib/Ajax/Imple/EditNote.php:46
+msgid "Ok"
+msgstr "Gerai"
+
+#: lib/Api.php:105 lib/Api.php:138 lib/Api.php:170 lib/Api.php:201
+#: lib/Api.php:286 lib/Api.php:331 lib/Api.php:354
 msgid "Permission Denied"
 msgstr "Neužtenka teisių"
 
-#: templates/notepads/notepads.inc:56
-msgid "Permissions"
-msgstr "Teisės"
+#: lib/Form/DeleteNotepad.php:47
+msgid "Permission denied"
+msgstr "Neužtenka teisių"
+
+#: lib/Form/DeleteNotepad.php:32
+#, php-format
+msgid ""
+"Really delete the notepad \"%s\"? This cannot be undone and all data on this "
+"notepad will be permanently removed."
+msgstr ""
+"Tikrai ištrinti užrašų knygelę \"%s\"? Gražinti atgal nebegalėsite ir visi "
+"duomenys šioje užrašų knygelėje bus ištrinti."
 
 #: templates/view/memo.inc:16
 msgid "Really delete this note?"
 msgstr "Tikrai ištrinti šį užrašą?"
 
-#: templates/panel.inc:59 templates/memo/memo.inc:57
+#: lib/Form/EditNotepad.php:32 templates/memo/memo.inc:58
+#: templates/panel.inc:69
 msgid "Save"
 msgstr "Išsaugoti"
 
@@ -331,18 +383,18 @@ msgstr "Išsaugoti"
 msgid "Save as PDF"
 msgstr "Išsaugoti kaip PDF"
 
-#: search.php:17 lib/Block/tree_menu.php:45 templates/list/header.inc:4
+#: lib/Application.php:166 search.php:22 templates/list/header.inc:4
 #: templates/search/search.inc:4 templates/search/search.inc:27
 msgid "Search"
 msgstr "Ieškoti"
 
-#: list.php:54
+#: list.php:52 notes/index.php:38 stickies.php:52
 msgid "Search Results"
 msgstr "Paieškos rezultatai"
 
-#: templates/notepads/notepads.inc:47
-msgid "Select a notepad"
-msgstr "Pasirinkite užrašų knygelę"
+#: templates/panel.inc:39
+msgid "Search for Notepads:"
+msgstr "Ieškoti užrašų knygelės:"
 
 #: templates/data/export.inc:9
 msgid "Select the export format:"
@@ -356,33 +408,37 @@ msgstr "Pasirinkite įkeliamą failą:"
 msgid "Select the format of the source file:"
 msgstr "Pasirinkite įkėliamo failo formatą:"
 
-#: templates/panel.inc:50
+#: templates/panel.inc:60
 msgid "Shared Notepads:"
 msgstr "Bendros užrašų knygelės:"
 
-#: config/prefs.php.dist:40
+#: config/prefs.php:37
 msgid "Should the Notepad be shown in its own column in the List view?"
 msgstr "Ar rodyti užrašų knygelės stulpelį užrašų sąraše?"
 
-#: lib/Block/summary.php:34
+#: lib/Block/Summary.php:42
 msgid "Show action buttons?"
 msgstr "Rodyti mygtukus?"
 
-#: lib/Block/summary.php:37
+#: lib/Block/Summary.php:47
 msgid "Show notepad name?"
 msgstr "Rodyti užrašų knygelės pavadinimą?"
 
-#: config/prefs.php.dist:50
-msgid "Show notepad options panel?"
-msgstr "Rodyti užrašų knygelės nustatymų pultą?"
-
-#: lib/Block/summary.php:40
+#: lib/Block/Summary.php:52
 msgid "Show notes from these categories"
 msgstr "Rodyti užrašus iš šių kategorijų"
 
-#: templates/list/memo_headers.inc:41
+#: lib/Block/Note.php:34
+msgid "Show this note"
+msgstr "Rodyti šį užrašą"
+
+#: templates/list/memo_headers.inc:44
 msgid "Sort by Category"
 msgstr "Rūšiuoti pagal kategoriją"
+
+#: templates/list/memo_headers.inc:40
+msgid "Sort by Modification Date"
+msgstr "Rūšiuoti pagal pakeitimo datą"
 
 #: templates/list/memo_headers.inc:37
 msgid "Sort by Note Text"
@@ -392,152 +448,162 @@ msgstr "Rūšiuoti pagal užrašo tekstą"
 msgid "Sort by Notepad"
 msgstr "Rūšiuoti pagal užrašų knygelę"
 
-#: memo.php:175
+#: memo.php:221
 #, php-format
 msgid "Successfully saved \"%s\"."
 msgstr "\"%s\" sėkmingai išsaugotas."
 
-#: data.php:195
+#: data.php:190
 #, php-format
 msgid "The %s file didn't contain any notes."
 msgstr "Faile %s nėra jokių užrašų."
 
-#: lib/Driver.php:53
-msgid "The Notes backend is not currently available."
-msgstr "Užrašų posistemė šiuo metu nepasiekiama."
-
-#: lib/Driver.php:227
-#, php-format
-msgid "The Notes backend is not currently available: %s"
-msgstr "Užrašų posistemė šiuo metu nepasiekiama: %s"
-
-#: memo.php:198
+#: memo.php:243
 msgid "The note was deleted."
 msgstr "Užrašas ištrintas."
 
-#: notepads.php:45 notepads.php:56
-#, php-format
-msgid "The notepad \"%s\" couldn't be created: %s"
-msgstr "Nepavyko sukurti užrašų knygelės \"%s\": %s"
-
-#: notepads.php:47
+#: notepads/create.php:29
 #, php-format
 msgid "The notepad \"%s\" has been created."
 msgstr "Užrašų knygelė \"%s\" sukurta."
 
-#: notepads.php:88
+#: notepads/delete.php:43
 #, php-format
 msgid "The notepad \"%s\" has been deleted."
 msgstr "Užrašų knygelė \"%s\" ištrinta."
 
-#: notepads.php:58
+#: notepads/edit.php:42
+#, php-format
+msgid "The notepad \"%s\" has been renamed to \"%s\"."
+msgstr "Užrašų knygelė \"%s\" pervadinta į \"%s\"."
+
+#: notepads/edit.php:44
 #, php-format
 msgid "The notepad \"%s\" has been saved."
 msgstr "Užrašų knygelė \"%s\" išsaugota."
 
-#: data.php:198
+#: memo.php:136
+msgid "The passwords don't match."
+msgstr "Slaptažodžiai nesutampa."
+
+#: data.php:193
 #, php-format
 msgid "There was an error importing the data: %s"
 msgstr "Klaida įkeliant duomenis: %s"
 
-#: lib/api.php:252
+#: lib/Api.php:216 lib/Api.php:365
 msgid "There was an error importing the iCalendar data."
 msgstr "Klaida įkeliant iCalendar duomenis."
 
-#: lib/api.php:430
-msgid "There was an error importing the vNote data."
-msgstr "Klaida įkeliant vNote duomenis."
+#: lib/Api.php:53 lib/Api.php:65
+#, php-format
+msgid "There was an error removing notes for %s. Details have been logged."
+msgstr ""
+"Klaida ištrinant %s užrašus. Administratoriui išsiųstas detalus aprašymas."
 
-#: memo.php:196
+#: memo.php:245
 #, php-format
 msgid "There was an error removing the note: %s"
 msgstr "Klaida ištrinant užrašą: %s"
 
-#: memo.php:173
+#: memo.php:219
 #, php-format
 msgid "There was an error saving the note: %s"
 msgstr "Klaida išsaugant užrašą: %s."
 
-#: view.php:45 note/pdf.php:46
+#: note/pdf.php:42 view.php:42
 #, php-format
 msgid "There was an error viewing this notepad: %s"
 msgstr "Klaida peržiūrint šią užrašų knygelę: %s"
 
-#: data.php:79
+#: data.php:74
 msgid "There were no memos to export."
 msgstr "Užrašų iškėlimui nėra."
 
-#: data.php:105
+#: data.php:106
 msgid "This file format is not supported."
 msgstr "Failo formatas nepalaikomas."
 
-#: memo.php:91 view.php:98
+#: memo.php:38 view.php:102
 msgid "This note cannot be decrypted:"
 msgstr "Nepavyko atkoduoti šio užrašo:"
 
-#: memo.php:83 view.php:90
-msgid "This note has been encrypted, please provide the password below."
-msgstr "Šis užrašas yra užkoduotas. Įrašykite slaptažodį."
+#: memo.php:31 memo.php:41 view.php:97 view.php:105
+msgid ""
+"This note has been encrypted, and cannot be decrypted without a secure web "
+"connection"
+msgstr ""
+"Šis užrašas yra užkoduotas ir norint jį atkoduoti reikia saugaus "
+"prisijungimo."
 
-#: memo.php:80 memo.php:88 view.php:87 view.php:95 lib/Driver/sql.php:438
-#: lib/Driver/kolab.php:752
+#: memo.php:28 view.php:94
+msgid "This note has been encrypted, please provide the password below"
+msgstr "Šis užrašas yra užkoduotas, įrašykite slaptažodį"
+
+#: lib/Api.php:280 lib/Driver/Kolab.php:293 lib/Driver/Sql.php:344
 msgid "This note has been encrypted."
 msgstr "Šis užrašas užkoduotas."
 
-#: notepads.php:83
-#, php-format
-msgid "Unable to delete \"%s\": %s"
-msgstr "Negaliu ištrinti \"%s\": %s"
-
-#: lib/Driver.php:230
-#, php-format
-msgid "Unable to load the definition of %s."
-msgstr "Nepavyko užkrauti %s aprašymo."
-
-#: lib/Mnemo.php:245 lib/Mnemo.php:246 lib/Mnemo.php:260 lib/Mnemo.php:261
-#: lib/Block/summary.php:96 templates/view/memo.inc:27
-#: templates/list/memo_summaries.inc:17
+#: lib/Block/Summary.php:116 lib/Mnemo.php:275 lib/Mnemo.php:276
+#: lib/Mnemo.php:290 lib/Mnemo.php:291 templates/list/memo_summaries.inc:20
+#: templates/view/memo.inc:27
 msgid "Unfiled"
 msgstr "Nenurodyta"
 
-#: lib/api.php:288 lib/api.php:345 lib/api.php:438
+#: lib/Api.php:249 lib/Api.php:305 lib/Api.php:388
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Nežinoma Content-Type antraštė: %s"
+
+#: lib/Block/Note.php:16
+msgid "View note"
+msgstr "Rodyti užrašą"
 
 #: templates/data/import.inc:16
 msgid "Which Notepad should the notes be added to?"
 msgstr "Prie kurios užrašų knygelės pridėti darbus?"
 
-#: memo.php:37 data.php:42 data.php:130
+#: notepads/edit.php:31
+msgid "You are not allowed to change this notepad."
+msgstr "Jūs negalite pakeisti šios užrašų knygelės."
+
+#: data.php:40 data.php:127 memo.php:75
 #, php-format
 msgid "You are not allowed to create more than %d notes."
 msgstr "Jūs neturite teisių kurti daugiau kaip %d užrašų."
 
-#: view.php:49 note/pdf.php:50
+#: notepads/delete.php:29
+msgid "You are not allowed to delete this notepad."
+msgstr "Jūs negalite ištrinti šios užrašų knygelės."
+
+#: lib/Ajax/Imple/EditNote.php:74
+msgid "You do not have permission to edit this note."
+msgstr "Jūs neturite teisių redaguoti šio užrašo."
+
+#: note/pdf.php:46 view.php:46
 #, php-format
 msgid "You do not have permission to view the notepad %s."
 msgstr "Neturite teisių peržiūrėti užrašų knygelės %s."
 
-#: notepads.php:68
-msgid "You must select a notepad to be deleted."
-msgstr "Nurodykite užrašų knygelę, kurią norite ištrinti."
-
-#: templates/prefs/notepadselect.inc:10
+#: config/prefs.php:85
 msgid "Your default notepad:"
 msgstr "Jūsų pagrindinė užrašų knygelė:"
 
-#: templates/panel.inc:45
-msgid "[Manage My Notepads]"
-msgstr "[Valdyti mano užrašų knygeles]"
+#: templates/panel.inc:46
+msgid "[Manage Notepads]"
+msgstr "[Valdyti užrašų knygeles]"
 
 #: templates/search/search.inc:21
 msgid "_Body"
 msgstr "Turinyje"
 
-#: templates/list/memo_headers.inc:41 templates/memo/memo.inc:70
+#: templates/list/memo_headers.inc:44
 msgid "_Category"
 msgstr "_Kategorija"
+
+#: templates/memo/memo.inc:78
+msgid "_Category:"
+msgstr "_Kategorija:"
 
 #: templates/view/memo.inc:16
 msgid "_Delete"
@@ -547,7 +613,7 @@ msgstr "_Ištrinti"
 msgid "_Edit"
 msgstr "_Redaguoti"
 
-#: templates/memo/memo.inc:74
+#: templates/memo/memo.inc:84
 msgid "_Encrypt?"
 msgstr "Užkoduoti?"
 
@@ -555,28 +621,35 @@ msgstr "Užkoduoti?"
 msgid "_For: "
 msgstr "Ko: "
 
-#: lib/Mnemo.php:466
+#: lib/Application.php:81
 msgid "_Import/Export"
 msgstr "Įkelti/Iškelti"
 
-#: lib/Mnemo.php:453
+#: lib/Application.php:68
 msgid "_List Notes"
 msgstr "_Užrašų sąrašas"
 
-#: lib/Mnemo.php:458
+#: lib/Application.php:73
 msgid "_New Note"
 msgstr "_Naujas užrašas"
 
-#: templates/view/memo.inc:52 templates/memo/memo.inc:21
-#: templates/memo/memo.inc:79
+#: templates/memo/memo.inc:21 templates/view/memo.inc:52
 msgid "_Password"
 msgstr "Slaptažodis"
 
-#: lib/Mnemo.php:471
+#: templates/memo/memo.inc:89
+msgid "_Password:"
+msgstr "Slaptažodis:"
+
+#: lib/Application.php:86
 msgid "_Print"
 msgstr "_Spausdinti"
 
-#: lib/Mnemo.php:462
+#: templates/memo/memo.inc:93
+msgid "_Repeat:"
+msgstr "Pakartoti:"
+
+#: lib/Application.php:77
 msgid "_Search"
 msgstr "Iešk_oti"
 
@@ -584,15 +657,24 @@ msgstr "Iešk_oti"
 msgid "_Title"
 msgstr "Pavadinime"
 
-#: lib/Block/tree_menu.php:34
+#: view.php:68 view.php:77
+#, php-format
+msgid "by %s"
+msgstr "%s"
+
+#: view.php:70 view.php:79
+msgid "by me"
+msgstr "mano"
+
+#: lib/Application.php:153
 #, php-format
 msgid "in %s"
 msgstr "%s"
 
-#: data.php:91 templates/data/export.inc:4
+#: data.php:85 templates/data/export.inc:4
 msgid "notes.csv"
 msgstr "uzrasai.csv"
 
-#: data.php:33 templates/data/import.inc:12
+#: data.php:28 templates/data/import.inc:12
 msgid "vNote"
 msgstr "vNote"

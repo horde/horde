@@ -26,7 +26,7 @@ if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
     $notification->push(_("You are not allowed to change this task list."), 'horde.error');
     Horde::url('tasklists/', true)->redirect();
 }
-$form = new Nag_EditTaskListForm($vars, $tasklist);
+$form = new Nag_Form_EditTaskList($vars, $tasklist);
 
 // Execute if the form is valid.
 if ($form->validate($vars)) {

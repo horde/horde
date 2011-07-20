@@ -72,6 +72,13 @@ class Horde_Registry
     protected $_apiList = array();
 
     /**
+     * The list of applications initialized during this access.
+     *
+     * @var array
+     */
+    protected $_appsinit = array();
+
+    /**
      * The arguments that have been passed when instantiating the registry.
      *
      * @var array
@@ -374,8 +381,10 @@ class Horde_Registry
         /* Initial Horde-wide settings. */
 
         /* Set the maximum execution time in accordance with the config
-         * settings. */
-        set_time_limit($conf['max_exec_time']);
+         * settings, but only if not running from the CLI */
+        if (!Horde_Cli::runningFromCLI()) {
+            set_time_limit($conf['max_exec_time']);
+        }
 
         /* Set the error reporting level in accordance with the config
          * settings. */
@@ -540,9 +549,10 @@ class Horde_Registry
         }
 
         require HORDE_BASE . '/config/registry.php';
-        $files = glob(HORDE_BASE . '/config/registry.d/*.php');
-        foreach ($files as $r) {
-            include $r;
+        if ($files = glob(HORDE_BASE . '/config/registry.d/*.php')) {
+            foreach ($files as $r) {
+                include $r;
+            }
         }
         if (file_exists(HORDE_BASE . '/config/registry.local.php')) {
             include HORDE_BASE . '/config/registry.local.php';
@@ -780,9 +790,17 @@ class Horde_Registry
 
         $apps = array();
         foreach ($this->applications as $app => $params) {
-            if (in_array($params['status'], $filter) &&
-                (is_null($perms) || $this->hasPermission($app, $perms))) {
-                $apps[$app] = $params;
+            if (in_array($params['status'], $filter)) {
+                /* Sidebar apps can only be displayed if the parent app is
+                 * active. */
+                if (($params['status'] == 'sidebar') &&
+                    $this->isInactive($params['app'])) {
+                        continue;
+                }
+
+                if ((is_null($perms) || $this->hasPermission($app, $perms))) {
+                    $apps[$app] = $params;
+                }
             }
         }
 
@@ -1309,6 +1327,14 @@ class Horde_Registry
             $this->setLanguageEnvironment(null, $app);
         }
 
+        /* Call first initialization hook. */
+        if (isset($this->_appsinit[$app])) {
+            unset($this->_appsinit[$app]);
+            try {
+                Horde::callHook('appinitialized', array(), $app);
+            } catch (Horde_Exception_HookNotSet $e) {}
+        }
+
         /* Call pre-push hook. */
         try {
             Horde::callHook('pushapp', array(), $app);
@@ -1339,9 +1365,7 @@ class Horde_Registry
         if ($checkPerms &&
             ($tasks = $GLOBALS['injector']->getInstance('Horde_Core_Factory_LoginTasks')->create($app)) &&
             !empty($options['logintasks'])) {
-            $tasks->runTasks(array(
-                'url' => Horde::selfUrl(true, true, true)
-            ));
+            $tasks->runTasks();
         }
 
         return true;
@@ -1477,7 +1501,7 @@ class Horde_Registry
             /* If there is no logged in user, return an empty Horde_Prefs
              * object with just default preferences. */
             $opts = array(
-                'driver' => null
+                'driver' => 'Horde_Prefs_Storage_Null'
             );
         }
 
@@ -2163,36 +2187,40 @@ class Horde_Registry
             ? 'horde'
             : $options['app'];
 
-        if ($this->getAuth()) {
-            /* Store app credentials. */
+        $this->_appsinit[$app] = true;
+
+        if ($this->getAuth() == $authId) {
+            /* Store app credentials - base Horde session already exists. */
             $this->setAuthCredential($credentials, null, $app);
-        } else {
-            /* Initial authentication to Horde. */
-            $session->set('horde', 'auth/authId', $authId);
-            $session->set('horde', 'auth/browser', $browser->getAgentString());
-            if (!empty($options['change'])) {
-                $session->set('horde', 'auth/change', 1);
-            }
-            $session->set('horde', 'auth/credentials', $app);
-            if (isset($_SERVER['REMOTE_ADDR'])) {
-                $session->set('horde', 'auth/remoteAddr', $_SERVER['REMOTE_ADDR']);
-            }
-            $session->set('horde', 'auth/timestamp', time());
-            $session->set('horde', 'auth/userId', $this->convertUsername(trim($authId), true));
-
-            $this->setAuthCredential($credentials, null, $app);
-
-            /* Reload preferences for the new user. */
-            unset($GLOBALS['prefs']);
-            $injector->getInstance('Horde_Core_Factory_Prefs')->clearCache();
-            $this->loadPrefs();
-
-            $this->setLanguageEnvironment(isset($options['language']) ? $this->preferredLang($options['language']) : null, $app);
+            return;
         }
 
+        /* Initial authentication to Horde. */
+        $session->set('horde', 'auth/authId', $authId);
+        $session->set('horde', 'auth/browser', $browser->getAgentString());
+        if (!empty($options['change'])) {
+            $session->set('horde', 'auth/change', 1);
+        }
+        $session->set('horde', 'auth/credentials', $app);
+        if (isset($_SERVER['REMOTE_ADDR'])) {
+            $session->set('horde', 'auth/remoteAddr', $_SERVER['REMOTE_ADDR']);
+        }
+        $session->set('horde', 'auth/timestamp', time());
+        $session->set('horde', 'auth/userId', $this->convertUsername(trim($authId), true));
+
+        $this->setAuthCredential($credentials, null, $app);
+
+        /* Reload preferences for the new user. */
+        unset($GLOBALS['prefs']);
+        $injector->getInstance('Horde_Core_Factory_Prefs')->clearCache();
+        $this->loadPrefs();
+
+        unset($this->_appsinit['horde']);
         try {
-            Horde::callHook('appinitialized', array(), $app);
+            Horde::callHook('appinitialized', array(), 'horde');
         } catch (Horde_Exception_HookNotSet $e) {}
+
+        $this->setLanguageEnvironment(isset($options['language']) ? $this->preferredLang($options['language']) : null, $app);
     }
 
     /**
@@ -2249,7 +2277,7 @@ class Horde_Registry
     }
 
     /**
-     * Calls all applications' removeUserData API methods.
+     * Calls all applications' removeUserData method.
      *
      * @param string $userId  The userId to delete.
      *
@@ -2261,7 +2289,7 @@ class Horde_Registry
 
         foreach ($this->listApps(array('notoolbar', 'hidden', 'active', 'admin', 'noadmin')) as $app) {
             try {
-                $this->callByPackage($app, 'removeUserData', array($userId));
+                $this->callAppMethod($app, 'removeUserData', array('args' => $userId));
             } catch (Exception $e) {
                 Horde::logMessage($e);
                 $errApps[] = $app;

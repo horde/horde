@@ -105,7 +105,7 @@ switch ($vars->a) {
 // 'd' = draft
 case 'd':
     try {
-        $result = $imp_compose->resumeDraft(new IMP_Indices(IMP::$thismailbox, IMP::$uid));
+        $result = $imp_compose->resumeDraft(IMP::$thismailbox->getIndicesOb(IMP::$uid));
 
         $msg = $result['msg'];
         $header = array_merge($header, $result['header']);
@@ -331,7 +331,7 @@ if ($vars->a == 'rc') {
 } else {
     $t->set('compose_enable', !$compose_disable);
     $t->set('msg', htmlspecialchars($msg));
-    $t->set('save_draft', $injector->getInstance('IMP_Factory_Imap')->create()->allowFolders() && !$readonly_drafts);
+    $t->set('save_draft', $injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS) && !$readonly_drafts);
     $t->set('subject', htmlspecialchars($header['subject']));
 
     if (!$prefs->isLocked('default_identity')) {

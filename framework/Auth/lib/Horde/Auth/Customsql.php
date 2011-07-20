@@ -221,7 +221,7 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
      * @return array  The array of userIds.
      * @throws Horde_Auth_Exception
      */
-    public function listUsers()
+    public function listUsers($sort = false)
     {
         /* Build a custom query, based on the config file. */
         $query = str_replace(
@@ -231,18 +231,12 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
         );
 
         try {
-            $result = $this->_db->selectAll($query);
+            $users = $this->_db->selectValues($query);
+            // Find a way to sort in database with portable SQL
+            return $this->_sort($users, $sort);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
-
-        /* Loop through and build return array. */
-        $users = array();
-        foreach ($result as $ar) {
-            $users[] = $ar[0];
-        }
-
-        return $users;
     }
 
     /**

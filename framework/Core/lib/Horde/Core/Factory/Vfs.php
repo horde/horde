@@ -46,7 +46,13 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
             if (!$params) {
                 $params = $this->getConfig($scope);
             }
-            $this->_instances[$scope] = Horde_Vfs::factory($params['type'], $params['params']);
+
+            $class = 'Horde_Vfs_' . basename(Horde_String::ucfirst($params['type']));
+            if (!class_exists($class)) {
+                throw new Horde_Exception('Class definition of ' . $class . ' not found.');
+            }
+
+            $this->_instances[$scope] = new $class($params['params']);
         }
 
         return $this->_instances[$scope];
@@ -80,9 +86,11 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
             if ($name == 'horde' || $conf[$name]['type'] == 'horde') {
                 $vfs['params']['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
             } else {
+                $config = Horde::getDriverConfig('vfs', 'sql');
+                unset($config['umask'], $config['vfsroot']);
                 $vfs['params']['db'] = $this->_injector
                     ->getInstance('Horde_Core_Factory_Db')
-                    ->create('horde', 'vfs');
+                    ->create('horde', $config);
             }
             break;
         }

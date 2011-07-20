@@ -9,17 +9,17 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Whups
  */
-class Whups_View_Results extends Whups_View {
+class Whups_View_Results extends Whups_View_Base
+{
+    protected $_id;
 
-    var $_id;
-
-    function Whups_View_Results($params)
+    public function __construct($params)
     {
-        parent::Whups_View($params);
+        parent::__construct($params);
         $this->_id = uniqid(mt_rand());
     }
 
-    function html()
+    public function html()
     {
         Horde::addScriptFile('tables.js', 'horde', true);
 

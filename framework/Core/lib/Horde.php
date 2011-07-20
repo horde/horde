@@ -571,7 +571,7 @@ HTML;
 
         case 'problem':
             return self::url('services/problem.php', false, $opts)
-                ->add('return_url', urlencode(self::selfUrl(true, true, true)));
+                ->add('return_url', self::selfUrl(true, true, true));
 
         case 'sidebar':
             return self::url('services/sidebar.php', false, $opts);
@@ -1011,7 +1011,7 @@ HTML;
             !preg_match($schemeRegexp, $webroot) ) {
             /* Store connection parameters in local variables. */
             $server_name = $GLOBALS['conf']['server']['name'];
-            $server_port = $GLOBALS['conf']['server']['port'];
+            $server_port = isset($GLOBALS['conf']['server']['port']) ? $GLOBALS['conf']['server']['port'] : '';
 
             $protocol = 'http';
             switch ($GLOBALS['conf']['use_ssl']) {
@@ -1458,7 +1458,7 @@ HTML;
      *                 the image data if the browser supports, or the URI
      *                 if not.
      */
-    public function base64ImgData($in, $limit = null)
+    static public function base64ImgData($in, $limit = null)
     {
         $dataurl = $GLOBALS['browser']->hasFeature('dataurl');
         if (!$dataurl) {
@@ -1483,7 +1483,7 @@ HTML;
          * base64 encoded size. */
         return (($dataurl === true) ||
                 (filesize($in->fs) <= (($dataurl * 0.75) - 50)))
-            ? 'data:image/' . substr($in->uri, strrpos($in->uri, '.') + 1) . ';base64,' . base64_encode(file_get_contents($in->fs))
+            ? 'data:' . Horde_Mime_Magic::extToMime(substr($in->uri, strrpos($in->uri, '.') + 1)) . ';base64,' . base64_encode(file_get_contents($in->fs))
             : $in->uri;
     }
 
@@ -2084,7 +2084,8 @@ HTML;
             $params->onload = $options['onload'];
         }
         if (!empty($options['params'])) {
-            $params->params = http_build_query(array_map('rawurlencode', $options['params']));
+            // Bug #9903: 3rd parameter must explicitly be '&'
+            $params->params = http_build_query(array_map('rawurlencode', $options['params']), '', '&');
         }
         if (!empty($options['width'])) {
             $params->width = $options['width'];

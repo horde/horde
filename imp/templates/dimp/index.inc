@@ -65,12 +65,10 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
    <ul id="serviceActions">
 <?php if (($registry->get('status', 'horde') != 'hidden') && ($registry->get('status', 'horde') != 'notoolbar')): ?>
 <?php if (empty($GLOBALS['conf']['menu']['apps_iframe'])): $ak = Horde::getAccessKey(_("_Portal"), true); ?>
-    <li class="servicelink"<?php if (strlen($ak)) echo ' accesskey="' . $ak . '"'?>>
+    <li class="servicelink" id="portallink">
      <span class="iconImgSidebar hordeIcon"></span>
-     <a href="<?php echo Horde::getServiceLink('portal') ?>"><?php echo Horde::highlightAccessKey(_("_Portal"), $ak) ?></a>
+     <a href="<?php echo Horde::getServiceLink('portal') ?>"<?php if (strlen($ak)) echo ' accesskey="' . $ak . '"'?>><?php echo Horde::highlightAccessKey(_("_Portal"), $ak) ?></a>
     </li>
-<?php else: ?>
-    <?php echo _simpleButton('appportal', _("_Portal"), 'hordeIcon') ?>
 <?php endif; ?>
 <?php endif; ?>
 <?php if (Horde_Menu::showService('prefs')): ?>
@@ -90,7 +88,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
      <?php echo $render_sidebar ?>
     </ul>
 <?php endif; ?>
-<?php if ($imp_imap->imap): ?>
+<?php if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)): ?>
     <div class="sepfull"></div>
     <ul class="folderlist" id="normalfolders">
      <li class="folder" id="folderopts">
@@ -119,7 +117,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
      </div>
 
      <div class="dimpActions">
-<?php if ($imp_imap->imap): ?>
+<?php if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)): ?>
       <div id="qsearch">
        <span class="iconImg" id="qsearch_icon"></span>
        <form action="#" method="post">
@@ -185,6 +183,12 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
           </span>
          </div>
 <?php endif; ?>
+         <div>
+          <span id="msg_save">
+           <span class="iconImg"></span>
+           <a><?php echo _("Save") ?></a>
+          </span>
+         </div>
          <div style="display:none">
           <span id="msg_resume_draft">
            <span class="iconImg"></span>
@@ -309,7 +313,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="ctx_container_collapse"><span class="iconImg"></span><?php echo _("Collapse All") ?></a>
 </div>
 
-<?php if ($imp_imap->allowFolders()): ?>
+<?php if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)): ?>
 <div class="context" id="ctx_folderopts" style="display:none">
  <a id="ctx_folderopts_new"><span class="iconImg"></span><?php echo _("New Folder") ?></a>
 <?php if ($use_sub): ?>
@@ -420,9 +424,11 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <?php endif; ?>
 <?php endif; ?>
 <?php if (!$use_trash): ?>
- <div class="sep"></div>
- <a id="oa_purge_deleted"><span class="iconImg"></span><?php echo _("Purge Deleted") ?></a>
- <a id="oa_undeleted"><span class="iconImg"></span><?php echo _("Undelete") ?></a>
+ <div id="oa_purge_options">
+  <div class="sep"></div>
+  <a id="oa_purge_deleted"><span class="iconImg"></span><?php echo _("Purge Deleted") ?></a>
+  <a id="oa_undeleted"><span class="iconImg"></span><?php echo _("Undelete") ?></a>
+ </div>
 <?php endif; ?>
  <div class="sep"></div>
  <a id="oa_help"><span class="iconImg"></span><?php echo _("Help") ?></a>
@@ -454,7 +460,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="ctx_mboxsort_none"><?php echo _("Clear Sort") ?></a>
 </div>
 
-<?php if ($imp_imap->imap): ?>
+<?php if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)): ?>
 <div class="context" id="ctx_qsearchopts" style="display:none">
  <a id="ctx_qsearchopts_by"><?php echo _("Search By") ?></a>
  <div class="sep"></div>

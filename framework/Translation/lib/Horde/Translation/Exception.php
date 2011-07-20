@@ -10,6 +10,6 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Translation
  */
-class Horde_Translation_Exception extends Horde_Exception_Wrapped
+class Horde_Translation_Exception extends Exception
 {
 }

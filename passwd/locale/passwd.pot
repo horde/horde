@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Passwd H4 (3.1.4-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-21 10:58+0200\n"
+"POT-Creation-Date: 2011-05-18 12:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,8 +124,8 @@ msgstr ""
 msgid "Full buffer."
 msgstr ""
 
-#: lib/Driver.php:72 lib/Driver/http.php:72 lib/Driver/kolab.php:84
-#: lib/Driver/ldap.php:144 lib/Driver/poppassd.php:120
+#: lib/Driver.php:72 lib/Driver/horde.php:41 lib/Driver/http.php:72
+#: lib/Driver/kolab.php:84 lib/Driver/ldap.php:144 lib/Driver/poppassd.php:120
 #: lib/Driver/vmailmgr.php:42
 msgid "Incorrect old password."
 msgstr ""
@@ -223,6 +223,10 @@ msgstr ""
 
 #: templates/main/main.inc:142
 msgid "Reset"
+msgstr ""
+
+#: lib/Driver/horde.php:32
+msgid "The current horde configuration does not allow changing passwords."
 msgstr ""
 
 #: lib/Driver/http.php:65

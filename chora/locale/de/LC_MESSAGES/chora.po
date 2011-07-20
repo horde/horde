@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Chora 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: 2011-02-02 18:08+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -66,7 +66,7 @@ msgstr "Autor"
 msgid "Back"
 msgstr "Zurück"
 
-#: app/views/_logMessage.html.php:15 lib/Chora.php:332 lib/Chora.php:333
+#: app/views/_logMessage.html.php:18 lib/Chora.php:332 lib/Chora.php:333
 #: lib/Chora.php:336 lib/Chora.php:337
 msgid "Branches"
 msgstr "Branches"
@@ -135,11 +135,12 @@ msgstr "Gelöschte Dateien"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: patchsets.php:52 templates/log/header.inc:11
+#: app/views/_logMessage.html.php:9 patchsets.php:52
+#: templates/log/header.inc:11
 msgid "Diff"
 msgstr "Unterschiede"
 
-#: diff.php:52
+#: diff.php:65
 #, php-format
 msgid "Diff for %s between version %s and %s"
 msgstr "Unterschied von %s zwischen den Versionen %s und %s"
@@ -216,7 +217,7 @@ msgstr "Position:"
 msgid "Logs"
 msgstr "Änderungen"
 
-#: diff.php:28
+#: diff.php:41
 msgid "Malformed Query"
 msgstr "Ungültige Abfrage"
 
@@ -332,7 +333,7 @@ msgstr "Statistiken"
 msgid "Statistics for %s"
 msgstr "Statistik für %s"
 
-#: app/views/_logMessage.html.php:24 templates/patchsets/ps.inc:8
+#: app/views/_logMessage.html.php:27 templates/patchsets/ps.inc:8
 msgid "Tags"
 msgstr "Tags"
 

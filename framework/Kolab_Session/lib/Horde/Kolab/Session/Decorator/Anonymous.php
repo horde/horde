@@ -52,11 +52,8 @@ extends Horde_Kolab_Session_Decorator_Base
      * @param string              $user    ID of the anonymous user.
      * @param string              $pass    Password of the anonymous user.
      */
-    public function __construct(
-        Horde_Kolab_Session $session,
-        $user,
-        $pass
-    ) {
+    public function __construct(Horde_Kolab_Session $session, $user, $pass)
+    {
         parent::__construct($session);
         $this->_anonymous_id   = $user;
         $this->_anonymous_pass = $pass;

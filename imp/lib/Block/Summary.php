@@ -39,11 +39,6 @@ class IMP_Block_Summary extends Horde_Core_Block
     protected function _params()
     {
         return array(
-            'show_total' => array(
-                'type' => 'boolean',
-                'name' => _("Show total number of mails in folder?"),
-                'default' => 0
-            ),
             'show_unread' => array(
                 'type' => 'boolean',
                 'name' => _("Only display folders with unread messages in them?"),
@@ -56,12 +51,10 @@ class IMP_Block_Summary extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $injector, $notification, $prefs, $session;
+        global $injector;
 
         /* Filter on INBOX display.  INBOX is always polled. */
-        if ($prefs->getValue('filter_on_display')) {
-            $injector->getInstance('IMP_Filter')->filter('INBOX');
-        }
+        IMP_Mailbox::get('INBOX')->filterOnDisplay();
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
@@ -70,7 +63,7 @@ class IMP_Block_Summary extends Horde_Core_Block
         $status = $imp_imap->statusMultiple($poll, Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT);
 
         $anyUnseen = false;
-        $html = $onclick = '';
+        $out = '';
 
         foreach ($poll as $mbox) {
             $mbox_str = strval($mbox);
@@ -79,35 +72,36 @@ class IMP_Block_Summary extends Horde_Core_Block
                 ($mbox->inbox || $imp_imap->imap) &&
                 (empty($this->_params['show_unread']) ||
                  !empty($status[$mbox_str]['unseen']))) {
-                 $mbox_status = $status[$mbox_str];
+                $mbox_status = $status[$mbox_str];
 
-                $html .= '<tr style="cursor:pointer" class="text"' . $onclick . '><td>';
-
+                $label = $mbox->url('mailbox.php')->link() . $mbox->display . '</a>';
                 if (!empty($mbox_status['unseen'])) {
-                    $html .= '<strong>';
+                    $label = '<strong>' . $label . '</strong>';
                     $anyUnseen = true;
                 }
+                $out .= '<tr><td>' . $label . '</td>';
 
-                $html .= IMP::generateIMPUrl('mailbox.php', $mbox_str)->link() . $mbox->display . '</a>';
-
-                if (!empty($mbox_status['unseen'])) {
-                    $html .= '</strong>';
+                if (empty($mbox_status['unseen'])) {
+                    $out .= '<td>-</td>';
+                } else {
+                    $out .= '<td><strong>' . intval($mbox_status['unseen']) . '</strong>';
+                    if (!empty($mbox_status['recent'])) {
+                        $out .= ' (<span style="color:red">' . sprintf(ngettext("%d new", "%d new", $mbox_status['recent']), $mbox_status['recent']) . '</span>)';
+                    }
+                    $out .='</td>';
                 }
-                $html .= '</td><td>' .
-                    (!empty($mbox_status['unseen']) ? '<strong>' . $mbox_status['unseen'] . '</strong>' : '0') .
-                    (!empty($mbox_status['recent']) ? ' <span style="color:red">(' . sprintf(ngettext("%d new", "%d new", $mbox_status['recent']), $mbox_status['recent']) . ')</span>' : '') .
-                    (!empty($this->_params['show_total']) ? '</td><td>(' . $mbox_status['messages'] . ')' : '') .
-                    '</td></tr>';
+
+                $out .= '<td>' . intval($mbox_status['messages']) . '</td></tr>';
             }
         }
 
         if (!empty($this->_params['show_unread']) && !$anyUnseen) {
-            $html = '<em>' . _("No folders with unseen messages") . '</em>';
+            return '<em>' . _("No folders with unseen messages") . '</em>';
         }
 
-        return '<table cellspacing="0" width="100%">' .
-            $html .
-            '</table>';
+        return '<table class="impBlockSummary"><thead><tr><th>' . _("Folder") . '</th><th>' . _("Unseen") . '</th><th>' . _("Total") . '</th></tr></thead><tbody>' .
+            $out .
+            '</tbody></table>';
     }
 
 }

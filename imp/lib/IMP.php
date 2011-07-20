@@ -159,7 +159,7 @@ class IMP
             'render_type' => 'IMP_Tree_Flist'
         ));
         if (!empty($options['selected'])) {
-            $tree->addNodeParams($options['selected'], array('selected' => true));
+            $tree->addNodeParams(IMP_Mailbox::formTo($options['selected']), array('selected' => true));
         }
         $tree->setOption($options);
 
@@ -214,39 +214,6 @@ class IMP
     }
 
     /**
-     * Prepares the arguments to use for composeLink().
-     *
-     * @param mixed $args   List of arguments to pass to compose.php. If this
-     *                      is passed in as a string, it will be parsed as a
-     *                      toaddress?subject=foo&cc=ccaddress (mailto-style)
-     *                      string.
-     * @param array $extra  Hash of extra, non-standard arguments to pass to
-     *                      compose.php.
-     *
-     * @return array  The array of args to use for composeLink().
-     */
-    static public function composeLinkArgs($args = array(), $extra = array())
-    {
-        if (is_string($args)) {
-            $string = $args;
-            $args = array();
-            if (($pos = strpos($string, '?')) !== false) {
-                parse_str(substr($string, $pos + 1), $args);
-                $args['to'] = substr($string, 0, $pos);
-            } else {
-                $args['to'] = $string;
-            }
-        }
-
-        $args = self::_decodeMailto($args);
-
-        /* Merge the two argument arrays. */
-        return (is_array($extra) && !empty($extra))
-            ? array_merge($args, $extra)
-            : $args;
-    }
-
-    /**
      * Returns the appropriate link to call the message composition script.
      *
      * @param mixed $args       List of arguments to pass to compose script.
@@ -263,21 +230,56 @@ class IMP
     static public function composeLink($args = array(), $extra = array(),
                                        $simplejs = false)
     {
-        $args = self::composeLinkArgs($args, $extra);
+        if (is_string($args)) {
+            $string = $args;
+            $args = array();
+            if (($pos = strpos($string, '?')) !== false) {
+                parse_str(substr($string, $pos + 1), $args);
+                $args['to'] = substr($string, 0, $pos);
+            } else {
+                $args['to'] = $string;
+            }
+        }
+
+        $args = array_merge(self::_decodeMailto($args), $extra);
+        $callback = $raw = false;
+        $uid = isset($args['uid'])
+            ? $args['uid']
+            : null;
         $view = self::getViewMode();
 
         if ($simplejs || ($view == 'dimp')) {
             $args['popup'] = 1;
 
-            $url = Horde::url(($view == 'dimp') ? 'compose-dimp.php' : 'compose.php')->setRaw(true)->add($args);
-            $url->toStringCallback = array(__CLASS__, 'composeLinkSimpleCallback');
+            $url = ($view == 'dimp')
+                ? 'compose-dimp.php'
+                : 'compose.php';
+            $raw = true;
+            $callback = array(__CLASS__, 'composeLinkSimpleCallback');
         } elseif (($view != 'mimp') &&
                   $GLOBALS['prefs']->getValue('compose_popup') &&
                   $GLOBALS['browser']->hasFeature('javascript')) {
-            $url = Horde::url('compose.php')->add($args);
-            $url->toStringCallback = array(__CLASS__, 'composeLinkJsCallback');
+            $url = 'compose.php';
+            $callback = array(__CLASS__, 'composeLinkJsCallback');
         } else {
-            $url = Horde::url(($view == 'mimp') ? 'compose-mimp.php' : 'compose.php')->add($args);
+            $url = ($view == 'mimp')
+                ? 'compose-mimp.php'
+                : 'compose.php';
+        }
+
+        if (isset($args['thismailbox'])) {
+            $url = IMP_Mailbox::get($args['thismailbox'])->url($url, $uid);
+        } elseif (isset($args['mailbox'])) {
+            $url = IMP_Mailbox::get($args['mailbox'])->url($url, $uid);
+        } else {
+            $url = Horde::url($url);
+        }
+
+        unset($args['mailbox'], $args['thismailbox'], $args['uid']);
+
+        $url->setRaw($raw)->add($args);
+        if ($callback) {
+            $url->toStringCallback = $callback;
         }
 
         return $url;
@@ -336,7 +338,7 @@ class IMP
     {
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->set('forminput', Horde_Util::formInput());
-        $t->set('use_folders', $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->allowFolders(), true);
+        $t->set('use_folders', $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS), true);
         if ($t->get('use_folders')) {
             Horde::addScriptFile('imp.js', 'imp');
             $menu_view = $GLOBALS['prefs']->getValue('menu_view');
@@ -445,66 +447,6 @@ class IMP
         }
 
         return $ret;
-    }
-
-    /**
-     * Generates a URL with necessary mailbox/UID information.
-     *
-     * @param string|Horde_Url $page  Page name to link to.
-     * @param string $mailbox         The base mailbox to use on the linked
-     *                                page.
-     * @param string $uid             The UID to use on the linked page.
-     * @param string $tmailbox        The mailbox associated with $uid.
-     * @param boolean $encode         Encode the argument separator?
-     *
-     * @return Horde_Url  URL to $page with any necessary mailbox information
-     *                    added to the parameter list of the URL.
-     */
-    static public function generateIMPUrl($page, $mailbox, $uid = null,
-                                          $tmailbox = null, $encode = true)
-    {
-        if ($page instanceof Horde_Url) {
-            $url = clone $page;
-        } else {
-            switch (self::getViewMode()) {
-            case 'dimp':
-                $anchor = is_null($uid)
-                    ? ('mbox:' . $mailbox)
-                    : ('msg:' . strval(new IMP_Indices($mailbox, $uid)));
-                return Horde::url('index.php')->setAnchor($anchor);
-
-            default:
-                $url = Horde::url($page);
-                break;
-            }
-        }
-
-        return $url->add(self::getIMPMboxParameters($mailbox, $uid, $tmailbox))->setRaw(!$encode);
-    }
-
-    /**
-     * Returns a list of parameters necessary to indicate current mailbox
-     * status.
-     *
-     * @param string $mailbox   The mailbox to use on the linked page.
-     * @param string $uid       The UID to use on the linked page.
-     * @param string $tmailbox  The mailbox associated with $uid to use on
-     *                          the linked page.
-     *
-     * @return array  The list of parameters needed to indicate the current
-     *                mailbox status.
-     */
-    static public function getIMPMboxParameters($mailbox, $uid = null,
-                                                $tmailbox = null)
-    {
-        $params = array('mailbox' => $mailbox);
-        if (!is_null($uid)) {
-            $params['uid'] = $uid;
-            if ($mailbox != $tmailbox) {
-                $params['thismailbox'] = $tmailbox;
-            }
-        }
-        return $params;
     }
 
     /**
@@ -629,6 +571,30 @@ class IMP
             'fields' => $fields,
             'sources' => $src
         );
+    }
+
+    /**
+     * Base64url (RFC 4648 [5]) encode a string.
+     *
+     * @param string $in  Unencoded string.
+     *
+     * @return string  Encoded string.
+     */
+    static public function base64urlEncode($in)
+    {
+        return strtr(rtrim(base64_encode($in), '='), '+/', '-_');
+    }
+
+    /**
+     * Base64url (RFC 4648 [5]) decode a string.
+     *
+     * @param string $in  Encoded string.
+     *
+     * @return string  Decoded string.
+     */
+    static public function base64urlDecode($in)
+    {
+        return base64_decode(strtr($in, '-_', '+/'));
     }
 
 }

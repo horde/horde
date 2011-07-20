@@ -75,7 +75,7 @@ if (count($groups) > 1) {
 <?php if ($auth->hasCapability('list') && ($GLOBALS['conf']['auth']['list_users'] == 'list' || $GLOBALS['conf']['auth']['list_users'] == 'both')): ?>
           <select name="owner_select">
            <option value=""><?php echo _("Select a new owner:") ?></option>
-<?php foreach ($auth->listUsers() as $user): ?>
+<?php foreach ($auth->listUsers(true) as $user): ?>
            <option value="<?php echo htmlspecialchars($user) ?>"<?php if ($user == $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false)) echo ' selected="selected"' ?>><?php echo htmlspecialchars($user) ?></option>
 <?php endforeach; ?>
           </select>

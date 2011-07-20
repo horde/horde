@@ -82,11 +82,11 @@ case 'rule_enable':
         break;
 
     case 'rule_up':
-        $filters->ruleUp($vars->rulenumber, $vars->steps || 1);
+        $filters->ruleUp($vars->rulenumber, $vars->get('steps', 1));
         break;
 
     case 'rule_down':
-        $filters->ruleDown($vars->rulenumber, $vars->steps || 1);
+        $filters->ruleDown($vars->rulenumber, $vars->get('steps', 1));
         break;
 
     case 'rule_disable':

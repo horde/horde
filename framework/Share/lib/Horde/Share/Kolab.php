@@ -67,6 +67,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
     {
         switch ($app) {
         case 'mnemo':
+        case 'jonah':
             $this->_type = 'note';
             break;
         case 'kronolith':
@@ -293,7 +294,11 @@ class Horde_Share_Kolab extends Horde_Share_Base
         );
         $data['desc'] = $query->getDescription($this->_idDecode($id));
         if (isset($data['parent'])) {
-            $data['parent'] = $this->_idEncode($data['parent']);
+            try {
+                $data['parent'] = $this->_idEncode($data['parent']);
+            } catch (Horde_Kolab_Storage_Exception $e) {
+                unset($data['parent']);
+            }
         }
         return $this->_createObject($id, $data);
     }
@@ -497,7 +502,9 @@ class Horde_Share_Kolab extends Horde_Share_Base
         $result = array();
         foreach ($shares as $share) {
             $object = $this->_getShareById($share);
-            if ($object->get('owner') === null) {
+            //@todo: Remove "null" check as this is only required for BC
+            if ($object->get('owner') === false ||
+                $object->get('owner') === null) {
                 $result[$object->getName()] = $object;
             }
         }

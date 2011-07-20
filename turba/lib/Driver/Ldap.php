@@ -116,7 +116,7 @@ class Turba_Driver_Ldap extends Turba_Driver
                                 ? $hash[$mapfield]
                                 : '';
                         }
-                        $hash[$turbaname] = trim(vsprintf($this->map[$turbaname]['format'], $fieldarray), " \t\n\r\0\x0B,");
+                        $hash[$turbaname] = Turba::formatCompositeField($this->map[$turbaname]['format'], $fieldarray);
                     }
                 }
             }
@@ -204,7 +204,7 @@ class Turba_Driver_Ldap extends Turba_Driver
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _read($key, $ids, $owner, array $fields)
+    protected function _read($key, $ids, $owner, array $fields, array $blobFields = array())
     {
         /* Only DN. */
         if ($key != 'dn') {
@@ -248,13 +248,14 @@ class Turba_Driver_Ldap extends Turba_Driver
     }
 
     /**
-     * Adds the specified entry to the LDAP directory.
+     * Adds the specified contact to the addressbook.
      *
-     * @param array $attributes  The initial attributes for the new object.
+     * @param array $attributes  The attribute values of the contact.
+     * @param array $blob_fields TODO
      *
      * @throws Turba_Exception
      */
-    protected function _add(array $attributes)
+    protected function _add(array $attributes, array $blob_fields = array())
     {
         if (empty($attributes['dn'])) {
             throw new Turba_Exception('Tried to add an object with no dn: [' . serialize($attributes) . '].');
@@ -335,7 +336,7 @@ class Turba_Driver_Ldap extends Turba_Driver
      * @return string  The object id, possibly updated.
      * @throw Turba_Exception
      */
-    protected function _save($object)
+    protected function _save(Turba_Object $object)
     {
         list($object_key, $object_id) = each($this->toDriverKeys(array('__key' => $object->getValue('__key'))));
         $attributes = $this->toDriverKeys($object->getAttributes());

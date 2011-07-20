@@ -293,6 +293,19 @@ interface Horde_Kolab_Storage_Driver
     public function fetchBodypart($folder, $uid, $id);
 
     /**
+     * Retrieves a complete message.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uid    The message UID.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The message encapsuled as an array that contains a
+     *               Horde_Mime_Headers and a Horde_Mime_Part object.
+     */
+    public function fetchComplete($folder, $uid);
+
+    /**
      * Appends a message to the given folder.
      *
      * @param string   $folder  The folder to append the message(s) to.

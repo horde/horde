@@ -52,4 +52,31 @@ extends PHPUnit_Framework_TestCase
         );
         $parser->parse($data);
     }
+
+    /**
+     * @expectedException Horde_Kolab_Format_Exception_ParseError
+     */
+    public function testSecondParseAttemptBroken()
+    {
+        $parser = new Horde_Kolab_Format_Xml_Parser(
+            new DOMDocument('1.0', 'UTF-8')
+        );
+        $parser->parse("<?xml version=\"1.0\"?>\n<kolab><test/></kolab>");
+        $parser->parse('
+<?xml version="1.0"?>
+<note version="1.0">
+  <uid>4de4f1ed-b920-4af4-bdc7-5848576a7caa</uid>
+  <body>^S</body>
+  <categories></categories>
+  <creation-date>2011-05-31T13:49:33Z</creation-date>
+  <last-modification-date>2011-05-31T13:49:33Z</last-modification-date>
+  <sensitivity>public</sensitivity>
+  <product-id>Horde::Kolab</product-id>
+  <summary>Horde continuous integration got updated</summary>
+  <background-color>#000000</background-color>
+  <foreground-color>#ffff00</foreground-color>
+</note>
+');
+    }
+
 }

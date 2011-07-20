@@ -23,7 +23,7 @@ if (Ansel::isAvailable('grayscale')) {
 }
 if (Ansel::isAvailable('TextWatermark')) {
     $url = new Horde_Url('#');
-    echo $url->link(array('target' => '_blank', 'onclick.raw' => Horde::popupJs(Horde::url($imageurl), array('params' => array('actionID' => 'setwatermark', 'share' => $gallery->getName()), 'width' => 450, 'height' => 250, 'urlencode' => true)) . 'return false;')) . Horde::img('text.png') . ' ' . _("Watermark") . '</a> ';
+    echo $url->link(array('target' => '_blank', 'onclick.raw' => Horde::popupJs(Horde::url($imageurl), array('params' => array('actionID' => 'setwatermark', 'share' => $gallery->name), 'width' => 450, 'height' => 250, 'urlencode' => true)) . 'return false;')) . Horde::img('text.png') . ' ' . _("Watermark") . '</a> ';
 }
 
 $selfUrl = Horde::selfUrl(true);

@@ -9,11 +9,6 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
-// Exit if this isn't an authenticated user.
-if (!$GLOBALS['registry']->getAuth()) {
-    exit;
-}
-
 $calendar = null;
 $calendarId = Horde_Util::getFormData('c');
 if (strncmp($calendarId, 'remote_', 7) === 0) {

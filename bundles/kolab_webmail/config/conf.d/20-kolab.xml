@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- $Id$ -->
+<configuration>
+ <configsection name="auth">
+   <configlist name="admins" desc="Which users should be treated as
+   administrators (root, super-user) by Horde?">manager</configlist>
+ </configsection>
+ <configsection name="share">
+  <configswitch name="driver" desc="What backend should we use for Horde
+   Shares?">Kolab</configswitch>
+ </configsection>
+<!--
+//@todo: Fix Kolab driver
+//$conf['group']['driver'] = 'kolab';
+$conf['group']['driver'] = 'Mock';
+//@todo: check
+//$conf['group']['cache'] = true;
+
+$conf['accounts']['driver'] = 'kolab';
+$conf['accounts']['params']['attr'] = 'mail';
+$conf['accounts']['params']['strip'] = false;
+
+//@todo: Fix Kolab driver
+$conf['vfs']['params']['driverconfig'] = 'horde';
+//@todo: check
+$conf['vfs']['type'] = 'Sql';
+-->
+</configuration>

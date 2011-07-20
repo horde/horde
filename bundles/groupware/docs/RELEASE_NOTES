@@ -1,0 +1,59 @@
+<?php
+/**
+ * Release focus. Possible values:
+ * Horde_Release::FOCUS_INITIAL - Initial announcement
+ * Horde_Release::FOCUS_MINORFEATURE - Minor feature enhancement
+ * Horde_Release::FOCUS_MAJORFEATURE - Major feature enhancement
+ * Horde_Release::FOCUS_MINORBUG - Minor bugfixes
+ * Horde_Release::FOCUS_MAJORBUG - Major bugfixes
+ * Horde_Release::FOCUS_MINORSECURITY - Minor security fixes
+ * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
+ * Horde_Release::FOCUS_DOCS - Documentation improvements
+ */
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+
+/* Mailing list release notes. */
+$this->notes['ml']['changes'] = <<<ML
+The Horde Team is pleased to announce the final release of the Horde Groupware
+version 4.0.1.
+
+Horde Groupware is a free, enterprise ready, browser based collaboration
+suite. Users can manage and share calendars, contacts, tasks and notes with the
+standards compliant components from the Horde Project.
+
+For upgrading instructions, please see
+http://www.horde.org/apps/groupware/docs/UPGRADING
+
+For detailed installation and configuration instructions, please see
+http://www.horde.org/apps/groupware/docs/INSTALL
+
+The major changes compared to the Horde Groupware version 4.0 are:
+
+General changes:
+    * Added support for split read/write databases in PostgreSQL.
+    * Bug fixes in synchronization code.
+    * Small bugfixes and improvements.
+    * Updated Brazilian Portuguese, Latvian, Lithuanian, and Ukrainian
+      translations.
+
+Calendar changes:
+    * Added support for synchronizing multiple calendars.
+
+Tasks changes:
+    * Added Ukrainian translation.
+    * Updated French, Slovak, and Spanish translations.
+ML;
+
+/* Freshmeat release notes, not more than 600 characters. */
+$this->notes['fm']['changes'] = <<<FM
+Added support for split read/write databases in PostgreSQL.
+Bug fixes in synchronization code.
+Added support for synchronizing multiple calendars.
+Small bugfixes and improvements.
+Added Ukrainian translation.
+Updated Brazilian Portuguese, French, Latvian, Lithuanian, Slovak, Spanish, and Ukrainian translations.
+FM;
+
+$this->notes['name'] = 'Horde Groupware';
+$this->notes['list'] = 'horde';
+$this->notes['fm']['project'] = 'horde-groupware';

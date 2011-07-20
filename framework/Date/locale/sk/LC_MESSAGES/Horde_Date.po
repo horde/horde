@@ -7,73 +7,79 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Date\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"PO-Revision-Date: 2011-05-18 16:09+0100\n"
+"Last-Translator: Martin Matuška <martin@matuska.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: lib/Horde/Date/Utils.php:106
-#, fuzzy, php-format
+#: lib/Horde/Date/Utils.php:105
+#, php-format
 msgid "%d days ago"
-msgstr " (pred %s dňami)"
+msgstr "pred %d dňami"
 
-#: lib/Horde/Date/Utils.php:96
+#: lib/Horde/Date/Utils.php:95
 #, php-format
 msgid "%d hour ago"
 msgid_plural "%d hours ago"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "pred %d hodinou"
+msgstr[1] "pred %d hodinami"
+msgstr[2] "pred %d hodinami"
 
-#: lib/Horde/Date/Utils.php:91
-#, fuzzy, php-format
+#: lib/Horde/Date/Utils.php:90
+#, php-format
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
-msgstr[0] "%d minút"
-msgstr[1] "%d minút"
-msgstr[2] "%d minút"
+msgstr[0] "pred %d minútou"
+msgstr[1] "pred %d minútami"
+msgstr[2] "pred %d minútami"
 
-#: lib/Horde/Date/Utils.php:87
+#: lib/Horde/Date/Utils.php:85
 #, php-format
 msgid "%d second ago"
 msgid_plural "%d seconds ago"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "pred %d sekundou"
+msgstr[1] "pred %d sekundami"
+msgstr[2] "pred %d sekundami"
 
-#: lib/Horde/Date/Utils.php:111
+#: lib/Horde/Date/Utils.php:110
 #, php-format
 msgid "%d week ago"
 msgid_plural "%d weeks ago"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "pred %d týždňom"
+msgstr[1] "pred %d týždňami"
+msgstr[2] "pred %d týždňami"
 
-#: lib/Horde/Date/Recurrence.php:216
+#: lib/Horde/Date/Recurrence.php:212
 msgid "Daily"
 msgstr "Denne"
 
-#: lib/Horde/Date/Recurrence.php:219
+#: lib/Horde/Date.php:253
+#, php-format
+msgid "Failed to parse time string (%s)"
+msgstr "Nepodarilo sa spracovať časový reťazec (%s)"
+
+#: lib/Horde/Date/Recurrence.php:215
 msgid "Monthly"
 msgstr "Mesačne"
 
-#: lib/Horde/Date/Recurrence.php:215
+#: lib/Horde/Date/Recurrence.php:211
 msgid "No recurrence"
 msgstr "Bez opakovania"
 
-#: lib/Horde/Date/Recurrence.php:217
+#: lib/Horde/Date/Recurrence.php:213
 msgid "Weekly"
 msgstr "Týždenne"
 
-#: lib/Horde/Date/Recurrence.php:222
+#: lib/Horde/Date/Recurrence.php:218
 msgid "Yearly"
 msgstr "Ročne"
 
-#: lib/Horde/Date/Utils.php:101
-#, fuzzy, php-format
+#: lib/Horde/Date/Utils.php:100
+#, php-format
 msgid "yesterday at %s"
-msgstr " (včera)"
+msgstr "včera o %s"

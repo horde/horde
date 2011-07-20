@@ -75,23 +75,22 @@ First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
 environment for Horde and install the Horde Framework.
 
 When installing Agora through PEAR now, the installer will automatically
-install any dependencies of Agora too. By default, only the required
-dependencies will be installed::
+install any dependencies of Agora too. If you want to install Agora with all
+optional dependencies, but without the binary PECL packages that need to be
+compiled, specify both the ``-a`` and the ``-B`` flag::
+
+   pear install -a -B horde/agora
+
+By default, only the required dependencies will be installed::
 
    pear install horde/agora
 
-If you want to install Agora even with all optional dependencies, you need to
-specify the ``-a`` flag. Please note that this might also try to install PHP
+If you want to install Agora even with all binary dependencies, you need to
+remove the ``-B`` flag. Please note that this might also try to install PHP
 extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
    pear install -a horde/agora
-
-If you want to install Agora with all optional dependencies, but without the
-binary PECL packages that need to be compiled, specify both the ``-a`` and the
-``-B`` flag::
-
-   pear install -a -B horde/agora
 
 
 Installing from Release Tarballs
@@ -183,7 +182,7 @@ Thanks for using Agora!
 The Horde team
 
 
-.. _README: ?f=README.html
+.. _README: README
 .. _INSTALL:
-.. _`horde/docs/INSTALL`: ../../horde/docs/?f=INSTALL.html
-.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/?f=TRANSLATIONS.html
+.. _`horde/docs/INSTALL`: ../../horde/docs/INSTALL
+.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/TRANSLATIONS

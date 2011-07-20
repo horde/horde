@@ -212,8 +212,7 @@ class Ingo_Application extends Horde_Registry_Application
      */
     public function prefsInit($ui)
     {
-        if (!$GLOBALS['session']->exists('ingo', 'script_generate') ||
-            $GLOBALS['session']->get('ingo', 'script_generate')) {
+        if (!$GLOBALS['session']->get('ingo', 'script_generate')) {
             $ui->suppressGroups[] = 'script';
         }
     }

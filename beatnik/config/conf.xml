@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
+<!-- $Id$ -->
 <configuration>
  <configsection name="storage">
   <configheader>Beatnik Storage</configheader>
   <configswitch name="driver" desc="What backend should we use for storing DNS
-  records?">
+  records?">sql
    <case name="pdnsgsql" desc="PowerDNS Generic SQL">
     <configsection name="params">
      <configsql switchname="driverconfig">
@@ -52,7 +53,7 @@
  <configsection name="menu">
    <configheader>Menu Settings</configheader>
    <configmultienum name="apps" desc="Select any applications that should be
-                    linked in Beatnik's menu">
+                    linked in Beatnik's menu" required="false">
      <values>
       <configspecial application="horde" name="apps" />
      </values>

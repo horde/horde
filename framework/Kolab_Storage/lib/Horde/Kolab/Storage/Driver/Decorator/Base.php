@@ -389,6 +389,20 @@ implements Horde_Kolab_Storage_Driver
     }
 
     /**
+     * Retrieves a complete message.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uid    The message UID.
+     *
+     * @return array The message encapsuled as an array that contains a
+     *               Horde_Mime_Headers and a Horde_Mime_Part object.
+     */
+    public function fetchComplete($folder, $uid)
+    {
+        return $this->_driver->fetchComplete($folder, $uid);
+    }
+
+    /**
      * Appends a message to the given folder.
      *
      * @param string   $folder  The folder to append the message(s) to.

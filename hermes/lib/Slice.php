@@ -18,9 +18,9 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
      */
     protected $_properties;
 
-    public function __construct($properties = array())
+    public function __construct(array $properties = array())
     {
-        $this->_properties = $properties; //new Horde_Support_Array($properties);
+        $this->_properties = $properties;
     }
 
     /**
@@ -53,14 +53,19 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
      */
     public function readForm()
     {
-        $this->_properties['client'] = Horde_Util::getPost('client');
-        $this->_properties['type'] = Horde_Util::getPost('type');
-        $this->_properties['costobject'] = Horde_Util::getPost('costobject');
+        // Required
         $this->_properties['date'] = new Horde_Date(Horde_Util::getPost('start_date'));
         $this->_properties['hours'] = Horde_Util::getPost('hours');
         $this->_properties['description'] = Horde_Util::getPost('description');
         $this->_properties['id'] = Horde_Util::getPost('id', 0);
         $this->_properties['billable'] = Horde_Util::getPost('billable') ? 1 : 0;
+
+        // Optional
+        $client = Horde_Util::getPost('client');
+        $this->_properties['client'] = empty($client) ? '' : $client;
+        $this->_properties['type'] = Horde_Util::getPost('type');
+        $this->_properties['costobject'] = Horde_Util::getPost('costobject');
+        $this->_properties['note'] = Horde_Util::getPost('notes');
     }
 
     /**
@@ -84,7 +89,7 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
      * b    - billable
      *</pre>
      *
-     * @return string
+     * @return array
      */
     public function toJson()
     {
@@ -132,7 +137,7 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
      */
     public function offsetGet($offset)
     {
-        return empty($this->_properties[$offset]) ? null : $this->_properties[$offset];
+        return array_key_exists($offset, $this->_properties) ? $this->_properties[$offset] : null;
     }
 
     /**

@@ -286,6 +286,13 @@ abstract class Kronolith_Event
     public $exceptionoriginaldate;
 
     /**
+     * The event .
+     *
+     * @var stdClass
+     */
+    protected $_duration;
+
+    /**
      * Constructor.
      *
      * @param Kronolith_Driver $driver  The backend driver that this event is
@@ -570,10 +577,29 @@ abstract class Kronolith_Event
         }
 
         $vEvent->setAttribute('SUMMARY', $this->getTitle());
+
+        // Organizer
         $name = Kronolith::getUserName($this->creator);
-        $vEvent->setAttribute('ORGANIZER',
-                              'mailto:' . Kronolith::getUserEmail($this->creator),
-                              array('CN' => $name));
+        $email = Kronolith::getUserEmail($this->creator);
+        $params = array();
+        if ($v1) {
+            if (!empty($name)) {
+                if (!empty($email)) {
+                    $email = ' <' . $email . '>';
+                }
+                $email = $name . $email;
+                $email = Horde_Mime_Address::trimAddress($email);
+            }
+        } else {
+            if (!empty($name)) {
+                $params['CN'] = $name;
+            }
+            if (!empty($email)) {
+                $email = 'mailto:' . $email;
+            }
+        }
+        $vEvent->setAttribute('ORGANIZER', $email, $params);
+
         if (!$this->private || $this->creator == $GLOBALS['registry']->getAuth()) {
             if (!empty($this->description)) {
                 $vEvent->setAttribute('DESCRIPTION', $this->description);
@@ -749,8 +775,6 @@ abstract class Kronolith_Event
             $exceptions = $this->recurrence->getExceptions();
             $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
             $search = new StdClass();
-            $search->start = $this->recurrence->getRecurStart();
-            $search->end = $this->recurrence->getRecurEnd();
             $search->baseid = $this->uid;
             $results = $kronolith_driver->search($search);
             foreach ($results as $days) {
@@ -1766,9 +1790,8 @@ abstract class Kronolith_Event
 
     public function getDuration()
     {
-        static $duration = null;
-        if (isset($duration)) {
-            return $duration;
+        if (isset($this->_duration)) {
+            return $this->_duration;
         }
 
         if ($this->start && $this->end) {
@@ -1804,13 +1827,13 @@ abstract class Kronolith_Event
             $whole_day_match = false;
         }
 
-        $duration = new stdClass;
-        $duration->day = $dur_day_match;
-        $duration->hour = $dur_hour_match;
-        $duration->min = $dur_min_match;
-        $duration->wholeDay = $whole_day_match;
+        $this->_duration = new stdClass;
+        $this->_duration->day = $dur_day_match;
+        $this->_duration->hour = $dur_hour_match;
+        $this->_duration->min = $dur_min_match;
+        $this->_duration->wholeDay = $whole_day_match;
 
-        return $duration;
+        return $this->_duration;
     }
 
     /**
@@ -2015,7 +2038,7 @@ abstract class Kronolith_Event
         $targetcalendar = Horde_Util::getFormData('targetcalendar');
         if (strpos($targetcalendar, '\\')) {
             list(, $this->creator) = explode('\\', $targetcalendar, 2);
-        } elseif (!isset($this->id)) {
+        } elseif (!isset($this->_id)) {
             $this->creator = $GLOBALS['registry']->getAuth();
         }
 
@@ -2231,19 +2254,13 @@ abstract class Kronolith_Event
             }
             if (Horde_Util::getFormData('recur_end_type') == 'date') {
                 if ($end_date = Horde_Util::getFormData('recur_end_date')) {
-                    // Try exact format match first.
-                    if ($date_arr = strptime($end_date, $date_format)) {
-                        $recur_enddate =
-                            array('year'  => $date_arr['tm_year'] + 1900,
-                                  'month' => $date_arr['tm_mon'] + 1,
-                                  'day'  => $date_arr['tm_mday']);
-                    } else {
-                        $date_ob = new Horde_Date($end_date);
-                        $recur_enddate = array('year'  => $date_ob->year,
-                                               'month' => $date_ob->month,
-                                               'day'  => $date_ob->mday);
-                    }
+                    // From ajax interface.
+                    $date_ob = Kronolith::parseDate($end_date, false);
+                    $recur_enddate = array('year'  => $date_ob->year,
+                                           'month' => $date_ob->month,
+                                           'day'  => $date_ob->mday);
                 } else {
+                    // From traditional interface.
                     $recur_enddate = Horde_Util::getFormData('recur_end');
                 }
                 if ($this->recurrence->hasRecurEnd()) {
@@ -2669,8 +2686,9 @@ abstract class Kronolith_Event
                 $link .= ' ' . $status;
             }
 
-            if (!$this->private ||
-                $this->creator == $GLOBALS['registry']->getAuth()) {
+            if ((!$this->private ||
+                 $this->creator == $GLOBALS['registry']->getAuth()) &&
+                Kronolith::getDefaultCalendar(Horde_Perms::EDIT)) {
                 $url = $this->getEditUrl(
                     array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'),
                           'url' => $from_url));

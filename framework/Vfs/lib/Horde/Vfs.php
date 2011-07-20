@@ -21,6 +21,8 @@ class Horde_Vfs
     /**
      * Attempts to return a concrete instance based on $driver.
      *
+     * @deprecated
+     *
      * @param mixed $driver  The type of concrete subclass to return. This
      *                       is based on the storage driver ($driver). The
      *                       code is dynamically included.

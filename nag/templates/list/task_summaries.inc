@@ -74,6 +74,6 @@ if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
     <?php echo Nag::formatAssignee($task->assignee) ?>
   </td>
 <?php endif; if (in_array('category', $columns)): ?>
-  <td class="category<?php echo md5($task->category) ?>"><?php echo strlen($task->category) ? htmlspecialchars($task->category) : _("Unfiled") ?></td>
+  <td class="base-category" style="<?php echo $task->getCssStyle() ?>"><?php echo strlen($task->category) ? htmlspecialchars($task->category) : _("Unfiled") ?></td>
 <?php endif; ?>
 </tr>

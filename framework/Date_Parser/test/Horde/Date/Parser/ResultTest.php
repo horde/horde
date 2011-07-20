@@ -25,5 +25,4 @@ class Horde_Date_Parser_ResultTest extends Horde_Test_Case
         $result->span = new Horde_Date_Span(new Horde_Date('2006-11-01 00:00:00'), new Horde_Date('2006-12-01 00:00:00'));
         $this->assertEquals(new Horde_Date('2006-11-16 00:00:00'), $result->guess());
     }
-
 }

@@ -98,9 +98,7 @@ class IMP_Flags implements ArrayAccess, Serializable
      */
     public function getList(array $opts = array())
     {
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-
-        if ($imp_imap->pop3) {
+        if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FLAGS)) {
             return array();
         }
 
@@ -114,28 +112,21 @@ class IMP_Flags implements ArrayAccess, Serializable
             }
         }
 
-        if (!isset($opts['mailbox']) || !strlen($opts['mailbox'])) {
+        if (!isset($opts['mailbox']) ||
+            !strlen($opts['mailbox']) ||
+            IMP_Mailbox::get($opts['mailbox'])->search) {
             return array_values($ret);
         }
 
-        /* Alter the list of flags for a mailbox depending on the return
-         * from the PERMANENTFLAGS IMAP response. */
-        try {
-            /* Make sure we are in R/W mailbox mode (SELECT). No flags are
-             * allowed in EXAMINE mode. */
-            $imp_imap->openMailbox($opts['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
-            $status = $imp_imap->status($opts['mailbox'], Horde_Imap_Client::STATUS_PERMFLAGS);
-        } catch (Horde_Imap_Client_Exception $e) {
-            return array_values($ret);
-        }
+        /* Alter the list of flags for a mailbox depending on the mailbox's
+         * PERMANENTFLAGS status. */
+        $permflags = IMP_Mailbox::get($opts['mailbox'])->permflags;
 
         /* Limited flags allowed in mailbox. */
-        if (array_search('\\*', $status['permflags']) === false) {
-            foreach ($ret as $key => $val) {
-                if (($val instanceof IMP_Flag_Imap) &&
-                    !in_array($val->imapflag, $status['permflags'])) {
-                    unset($ret[$key]);
-                }
+        foreach ($ret as $key => $val) {
+            if (($val instanceof IMP_Flag_Imap) &&
+                !$permflags->allowed($val->imapflag)) {
+                unset($ret[$key]);
             }
         }
 
@@ -149,10 +140,9 @@ class IMP_Flags implements ArrayAccess, Serializable
                 }
             }
 
-            foreach ($status['permflags'] as $val) {
-                if (($val != '\\*') && !in_array($val, $imapflags)) {
-                    $ob = new IMP_Flag_User(Horde_String::convertCharset($val, 'UTF7-IMAP', 'UTF-8'), $val);
-                    $ret[] = $ob;
+            foreach ($permflags as $val) {
+                if (!in_array($val, $imapflags)) {
+                    $ret[] = new IMP_Flag_User(Horde_String::convertCharset($val, 'UTF7-IMAP', 'UTF-8'), $val);
                 }
             }
         }

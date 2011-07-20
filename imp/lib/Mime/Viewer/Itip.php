@@ -693,7 +693,9 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             } else {
                 $html .= '<p><strong>' . _("Start:") . '</strong> ' . strftime($prefs->getValue('date_format'), $start) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $start) . '</p>';
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+            $start = null;
+        }
 
         try {
             $end = $vevent->getAttribute('DTEND');
@@ -702,7 +704,9 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             } else {
                 $html .= '<p><strong>' . _("End:") . '</strong> ' . strftime($prefs->getValue('date_format'), $end) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $end) . '</p>';
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+            $end = null;
+        }
 
         try {
             $sum = $vevent->getAttribute('SUMMARY');
@@ -765,7 +769,8 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             $html .= '</tbody></table>';
         }
 
-        if (($method == 'PUBLISH' || $method == 'REQUEST' || $method == 'ADD') &&
+        if ($start && $end &&
+            ($method == 'PUBLISH' || $method == 'REQUEST' || $method == 'ADD') &&
             $registry->hasMethod('calendar/getFbCalendars') &&
             $registry->hasMethod('calendar/listEvents')) {
             try {

@@ -132,9 +132,11 @@ class Horde_Service_Facebook
         // Optional Horde_Log_Logger
         if (!empty($context['logger'])) {
             $this->_logger = $context['logger'];
+        } else {
+            $this->_logger = new Horde_Support_Stub();
         }
 
-        $this->_logDebug('Initializing Horde_Service_Facebook');
+        $this->_logger->debug('Initializing Horde_Service_Facebook');
 
         $this->_appId = $appId;
         $this->secret = $secret;
@@ -164,6 +166,8 @@ class Horde_Service_Facebook
             return $this->_secret;
         case 'http':
             return $this->_http;
+        case 'logger':
+            return $this->_logger;
         }
 
         // If not, assume it's a method/action class...
@@ -196,9 +200,11 @@ class Horde_Service_Facebook
      */
     public function batchBegin()
     {
+        $this->_logger->debug('Starting batch operation');
         if ($this->_batchRequest !== null) {
             $code = Horde_Service_Facebook_ErrorCodes::API_EC_BATCH_ALREADY_STARTED;
             $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
+            $this->_logger->err($description);
             throw new Horde_Service_Facebook_Exception($description, $code);
         }
 
@@ -210,9 +216,11 @@ class Horde_Service_Facebook
      */
     public function batchEnd()
     {
+        $this->_logger->debug('Ending batch operation');
         if ($this->_batchRequest === null) {
             $code = Horde_Service_Facebook_ErrorCodes::API_EC_BATCH_NOT_STARTED;
             $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
+            $this->_logger->err($description);
             throw new Horde_Service_Facebook_Exception($description, $code);
         }
 
@@ -232,6 +240,7 @@ class Horde_Service_Facebook
      */
     public function &callMethod($method, array $params = array())
     {
+        $this->_logger->debug(sprintf('Calling method %s with parameters %s', $method, print_r($params, true)));
         if ($this->_batchRequest === null) {
             $request = new Horde_Service_Facebook_Request($this, $method, $params);
             $results = &$request->run();
@@ -272,20 +281,6 @@ class Horde_Service_Facebook
         }
 
         return $result;
-    }
-
-    protected function _logDebug($message)
-    {
-        if (!empty($this->_logger)) {
-            $this->_logger->debug($message);
-        }
-    }
-
-    protected function _logErr($message)
-    {
-        if (!empty($this->_logger)) {
-            $this->_logger->err($message);
-        }
     }
 
 }

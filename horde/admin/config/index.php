@@ -11,7 +11,12 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-Horde_Registry::appInit('horde', array('admin' => true, 'nologintasks' => true));
+$permission = 'configuration';
+Horde_Registry::appInit('horde');
+if (!$registry->isAdmin() && 
+    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
+    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
+}
 
 /**
  * Does an FTP upload to save the configuration.
@@ -60,6 +65,7 @@ function _uploadFTP($params)
 $hconfig = new Horde_Config();
 $migration = new Horde_Core_Db_Migration(dirname(__FILE__) . '/../../..');
 $vars = Horde_Variables::getDefaultVariables();
+$a = $registry->listAllApps();
 
 /* Check for versions if requested. */
 $versions = array();
@@ -68,6 +74,34 @@ if ($vars->check_versions) {
         $versions = $hconfig->checkVersions();
     } catch (Horde_Exception $e) {
         $notification->push(_("Could not contact server. Try again later."), 'horde.error');
+    }
+}
+
+/* Update configurations if requested. */
+if ($vars->action == 'config') {
+    foreach ($a as $app) {
+        $path = $registry->get('fileroot', $app) . '/config';
+        if (!file_exists($path . '/conf.xml') ||
+            (file_exists($path . '/conf.php') &&
+             ($xml_ver = $hconfig->getVersion(@file_get_contents($path . '/conf.xml'))) !== false &&
+             ($php_ver = $hconfig->getVersion(@file_get_contents($path . '/conf.php'))) !== false &&
+             $xml_ver == $php_ver)) {
+            continue;
+        }
+        $vars = new Horde_Variables();
+        $form = new Horde_Config_Form($vars, $app, true);
+        $form->setSubmitted(true);
+        if ($form->validate($vars)) {
+            $config = new Horde_Config($app);
+            $configFile = $config->configFile();
+            if ($config->writePHPConfig($vars)) {
+                $notification->push(sprintf(_("Successfully wrote %s"), Horde_Util::realPath($configFile)), 'horde.success');
+            } else {
+                $notification->push(sprintf(_("Could not save the configuration file %s. Use one of the options below to save the code."), Horde_Util::realPath($configFile)), 'horde.warning', array('content.raw'));
+            }
+        } else {
+            $notification->push(sprintf(_("The configuration for %s cannot be updated automatically. Please update the configuration manually."), $app), 'horde.error');
+        }
     }
 }
 
@@ -95,24 +129,22 @@ $error = Horde::img('alerts/error.png');
 
 $self_url = Horde::url('admin/config/');
 $conf_url = Horde::url('admin/config/config.php');
-$a = $registry->listAllApps();
 $apps = $libraries = array();
 $i = -1;
-$schema_outdated = false;
-if (file_exists(HORDE_BASE . '/lib/bundle.php')) {
-    include HORDE_BASE . '/lib/bundle.php';
+$config_outdated = $schema_outdated = false;
+if (class_exists('Horde_Bundle')) {
     $apps[0] = array('sort' => '00',
-                     'name' => '<strong>' . BUNDLE_FULLNAME . '</strong>',
+                     'name' => '<strong>' . Horde_Bundle::FULLNAME . '</strong>',
                      'icon' => Horde::img($registry->get('icon', 'horde'),
-                                          BUNDLE_FULLNAME, '', ''),
-                     'version' => '<strong>' . BUNDLE_VERSION . '</strong>');
+                                          Horde_Bundle::FULLNAME, '', ''),
+                     'version' => '<strong>' . Horde_Bundle::VERSION . '</strong>');
     if (!empty($versions)) {
-        if (!isset($versions[BUNDLE_NAME])) {
+        if (!isset($versions[Horde_Bundle::NAME])) {
             $apps[0]['load'] = $warning;
             $apps[0]['vstatus'] = _("No stable version exists yet.");
-        } elseif (version_compare($versions[BUNDLE_NAME]['version'], BUNDLE_VERSION, '>')) {
+        } elseif (version_compare($versions[Horde_Bundle::NAME]['version'], Horde_Bundle::VERSION, '>')) {
             $apps[0]['load'] = $error;
-            $apps[0]['vstatus'] = Horde::link($versions[BUNDLE_NAME]['url'], sprintf(_("Download %s"), BUNDLE_FULLNAME), '', '_blank') . sprintf(_("A newer version (%s) exists."), $versions[BUNDLE_NAME]['version']) . '</a> ';
+            $apps[0]['vstatus'] = Horde::link($versions[Horde_Bundle::NAME]['url'], sprintf(_("Download %s"), Horde_Bundle::FULLNAME), '', '_blank') . sprintf(_("A newer version (%s) exists."), $versions[Horde_Bundle::NAME]['version']) . '</a> ';
         } else {
             $apps[0]['load'] = $success;
             $apps[0]['vstatus'] = _("Application is up-to-date.");
@@ -163,11 +195,13 @@ foreach ($a as $app) {
             /* No conf.php exists. */
             $apps[$i]['conf'] = $conf_link . $error . '</a>';
             $apps[$i]['status'] = $conf_link . _("Missing configuration.") . '</a>';
+            $config_outdated = true;
         } else {
             /* A conf.php exists, get the xml version. */
             if (($xml_ver = $hconfig->getVersion(@file_get_contents($path . '/conf.xml'))) === false) {
                 $apps[$i]['conf'] = $conf_link . $warning . '</a>';
                 $apps[$i]['status'] = $conf_link . _("No version found in original configuration. Regenerate configuration.") . '</a>';
+                $config_outdated = true;
                 continue;
             }
             /* Get the generated php version. */
@@ -176,6 +210,7 @@ foreach ($a as $app) {
                  * case. */
                 $apps[$i]['conf'] = $conf_link . $warning . '</a>';
                 $apps[$i]['status'] = $conf_link . _("No version found in your configuration. Regenerate configuration.") . '</a>';
+                $config_outdated = true;
                 continue;
             }
 
@@ -183,6 +218,7 @@ foreach ($a as $app) {
                 /* Versions are not the same, configuration is out of date. */
                 $apps[$i]['conf'] = $conf_link . $error . '</a>';
                 $apps[$i]['status'] = $conf_link . _("Configuration is out of date.") . '</a>';
+                $config_outdated = true;
             } else {
                 /* Configuration is ok. */
                 $apps[$i]['conf'] = $conf_link . $success . '</a>';
@@ -310,6 +346,7 @@ $template->setOption('gettext', true);
 $template->set('versions', !empty($versions), true);
 $template->set('version_action', Horde::url('admin/config/index.php'));
 $template->set('version_input', Horde_Util::formInput());
+$template->set('config_outdated', $config_outdated && method_exists('Horde_Config', 'writePHPConfig'));
 $template->set('schema_outdated', $schema_outdated);
 $template->set('apps', $apps);
 $template->set('actions', $actions, true);

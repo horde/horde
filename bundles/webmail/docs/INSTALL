@@ -1,5 +1,5 @@
 ================================================
- Installing Horde Groupware Webmail Edition 2.0
+ Installing Horde Groupware Webmail Edition 4.0
 ================================================
 
 :Contact: horde@lists.horde.org
@@ -47,25 +47,13 @@ detailed instructions, start reading below at Prerequisites_.
 
 5. Install Horde Groupware Webmail Edition::
 
-     pear install horde/webmail
+     pear install -a -B horde/webmail
 
-6. Configure Horde Groupware Webmail Edition::
+6. Run installation script::
 
-     cd config/
-     cp conf.php.dist conf.php
+     webmail-install
 
-7. Finish configuration::
-
-     http://your-server/horde/
-
-   Go to Administration => Configuration => Horde
-   (Or navigate to http://your-server/horde/admin/config)
-
-8. Create database tables
-
-   Go to Administration => Configuration. Click ``Update All DB Schemas``.
-
-9. Test Horde Groupware Webmail Edition::
+7. Test Horde Groupware Webmail Edition::
 
      http://your-server/horde/test.php
 
@@ -86,11 +74,10 @@ Edition to function properly.
 
 2. A web server with PATH_INFO support.
 
-   The dynamic webmail interface of Horde Groupware Webmail Edition requires a
-   web server that correctly sets the PATH_INFO environment variable for all
-   PHP scripts. Every modern web server supports this, but you might have to
-   enable this feature in the web server configuration.  e.g. Apache servers
-   require::
+   The dynamic interfaces of Horde Groupware Webmail Edition requires a web
+   server that correctly sets the PATH_INFO environment variable for all PHP
+   scripts. Every modern web server supports this, but you might have to enable
+   this feature in the web server configuration.  e.g. Apache servers require::
 
       AcceptPathInfo On
 
@@ -415,22 +402,26 @@ has to be done only **once** ever on a single PEAR system::
 
 When installing Horde Groupware Webmail Edition through PEAR now, the installer
 will automatically install any dependencies of Horde Groupware Webmail Edition
-too. By default, only the required dependencies will be installed::
+too. If you want to install Horde Groupware Webmail Edition with all optional
+dependencies, but without the binary PECL packages that have to be compiled,
+specify both the ``-a`` and the ``-B`` flag::
+
+   pear install -a -B horde/webmail
+
+By default, only the required dependencies will be installed::
 
    pear install horde/webmail
 
-If you want to install Horde Groupware Webmail Edition even with all optional
-dependencies, you need to specify the ``-a`` flag. Please note that this might
+If you want to install Horde Groupware Webmail Edition even with all binary
+dependencies, you need to remove the ``-B`` flag. Please note that this might
 also try to install PHP extensions through PECL that might need further
 configuration or activation in your PHP configuration::
 
    pear install -a horde/webmail
 
-If you want to install Horde Groupware Webmail Edition with all optional
-dependencies, but without the binary PECL packages that have to be compiled,
-specify both the ``-a`` and the ``-B`` flag::
 
-   pear install -a -B horde/webmail
+Installing into separate PEAR
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you want to create a separate PEAR installation for installing Horde
 Groupware Webmail Edition, independent from the system-wide PEAR installation,
@@ -451,54 +442,33 @@ server in some other way to point PHP's ``include_path`` setting to the PEAR
 installation and the ``PHP_PEAR_SYSCONF_DIR`` environment variable to the web
 root::
 
-   php_value include_path /var/www/horde/pear/php
-   SetEnv PHP_PEAR_SYSCONF_DIR /var/www/horde
+   php_value include_path /var/www/webmail/pear/php
+   SetEnv PHP_PEAR_SYSCONF_DIR /var/www/webmail
 
 
-Installing from Release Tarballs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Finishing installation
+~~~~~~~~~~~~~~~~~~~~~~
 
-.. Important:: As of today, there are no tarballs released for Horde Groupware
-               Webmail Edition 2 yet. Please use the `Installing with PEAR`_
-               method to install Horde Groupware Webmail Edition 2.
+To finish installation, run the installation script on the command line and
+answer all questions::
 
-Horde Groupware Webmail Edition can be obtained from the Horde website and FTP
-server, at
+   webmail-install
 
-   http://www.horde.org/apps/webmail
+If you installed Horde Groupware Webmail Edition into the global PEAR system,
+this script should be in your command path. If the script cannot be found in
+your path, you need to specify the full path to the script, e.g.::
 
-   ftp://ftp.horde.org/pub/horde-webmail/
+   /var/www/webmail/pear/webmail-install
 
-Or, better yet, use a mirror that is closer to you.  The mirror list can be
-found at:
+You can use the ``pear`` command to find the place where the script has been
+installed::
 
-   http://www.horde.org/mirrors.php
+   pear config-get bin_dir
 
-The FTP directory contains the Horde Groupware Webmail Edition PHP files which
-can be unpacked using ``tar`` and ``gunzip`` (see `Installing Horde Groupware
-Webmail Edition`_, below).
+If you installed into a local PEAR installation, you need to tell PHP and PEAR
+where to find the installation and the script, e.g.::
 
-Horde Groupware Webmail Edition is written in PHP, and must be installed in a
-web-accessible directory. The precise location of this directory will differ
-from system to system. If you have no idea where you should be installing
-Horde Groupware Webmail Edition, install it directly under the root of your
-webserver's document tree.
-
-Since Horde Groupware Webmail Edition is written in PHP, there is no
-compilation necessary; simply expand the distribution where you want it to
-reside and rename the root directory of the distribution to whatever you wish
-to appear in the URL. Please note that the default configuration expects Horde
-to be installed in the directory ``/horde`` though. For example, with the
-Apache webserver's default document root of ``/usr/local/apache/htdocs``, you
-would type::
-
-   cd /usr/local/apache/htdocs
-   tar zxvf /path/to/horde-webmail-x.y.z.tar.gz
-   mv horde-webmail-x.y.z horde
-
-You would then find Horde Groupware Webmail Edition at the URL::
-
-   http://your-server/horde/
+   PHP_PEAR_SYSCONF_DIR=/var/www/webmail php -d include_path=/var/www/webmail/pear/php /var/www/webmail/pear/webmail-install
 
 
 Configuring Horde Groupware Webmail Edition
@@ -531,37 +501,32 @@ Configuring Horde Groupware Webmail Edition
 
 2. Configuring Horde Groupware Webmail Edition
 
-3. Completing Configuration
+   Documentation on the format and purpose of the configuration files
+   in the ``config/`` directory can be found in each file. The
+   defaults will be correct for most sites. If you wish to customize
+   Horde Groupware Webmail Edition's appearance and behavior, create
+   "local" files for the configuration file you want to change. For
+   example if you want to change the default value and lock a
+   preference, create a ``config/prefs.local.php`` file with the
+   following content::
 
-   Continue to configure Horde through all the tabs of the configuration
-   interface and click on ``Generate Horde Configuration``. An important item
-   that you probably want to configure is the ``Database Settings``, which
-   defines the database configuration that is used, by default, for several
-   different Horde sub-systems.
+      <?php
+      $_prefs['prefname']['value'] = 'somedefault';
+      $_prefs['prefname']['locked'] = true;
 
-   .. Important:: By default Horde will be using database backends for most
-                  sub-systems. If you do not plan to use a database with Horde,
-                  you need to go through all tabs of the configuration screen
-                  and change the configuration for those systems from ``SQL``
-                  to a suitable alternative.
+   This works analogous with any other configuration file.
 
-4. Creating databases
+   .. Warning:: All configuration files in Horde Groupware Webmail
+                Edition are PHP scripts that are executed by the web
+                server. If you make an error in one of these files,
+                Horde might stop working. Thus it is always a good
+                idea to test the configuration files after you edited
+                them. If you want to test mime_drivers.local.php for
+                example run::
 
-   Once you created the database configuration in the previous step, you can
-   create all database tables by hitting the ``Update all DB schemas`` button
-   in the configuration screen.
+                   php -l mime_drivers.local.php
 
-   Please note that this requires the database that you entered in the database
-   configuration to already exist, and the configured database user to have
-   sufficient permissions to create new tables in this database.
-
-   Alternatively you can run the ``bin/horde-db-migrate`` script in the Horde
-   directory from the command line.
-
-   TODO: Update documentation once horde-db-migrate takes (super-) user credentials
-   as command line flags.
-
-5. Setting up alarm emails
+3. Setting up alarm emails
 
    If you want your users to be able to receive emails from the Horde_Alarm
    system, you must set up a cron entry for ``horde-alarms``, you
@@ -579,7 +544,7 @@ Configuring Horde Groupware Webmail Edition
    ``/usr/bin/horde-alarms`` with the path to the ``horde-alarms`` script in
    your Horde installation.
 
-6. Testing Horde Groupware Webmail Edition
+4. Testing Horde Groupware Webmail Edition
 
    Once you have configured your webserver, PHP, and Horde Groupware Webmail
    Edition, bring up the included test page in your web browser to ensure that
@@ -597,7 +562,7 @@ Configuring Horde Groupware Webmail Edition
    inclusion``, make sure that the web server has the permission to read the
    ``test.php`` file.
 
-7. Securing Horde Groupware Webmail Edition
+5. Securing Horde Groupware Webmail Edition
 
    a. Global Passwords
 

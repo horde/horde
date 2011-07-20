@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-20</date>
- <time>13:09:38</time>
+ <date>2011-07-05</date>
+ <time>14:41:36</time>
  <version>
-  <release>1.0.2</release>
+  <release>1.0.10</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -38,6 +38,7 @@
          <file name="Pop3.php" role="php" />
         </dir> <!-- /lib/Horde/Imap/Client/Data/Fetch -->
         <file name="Acl.php" role="php" />
+        <file name="AclCommon.php" role="php" />
         <file name="AclNegative.php" role="php" />
         <file name="AclRights.php" role="php" />
         <file name="Envelope.php" role="php" />
@@ -77,6 +78,7 @@
         <file name="test_email.txt" role="test" />
         <file name="test_email2.txt" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/fixtures -->
+       <file name="AclTest.php" role="test" />
        <file name="AllTests.php" role="test" />
        <file name="Autoload.php" role="test" />
        <file name="DateTimeTest.php" role="test" />
@@ -177,6 +179,7 @@
    <install as="Horde/Imap/Client/Utils.php" name="lib/Horde/Imap/Client/Utils.php" />
    <install as="Horde/Imap/Client/Cclient/Pop3.php" name="lib/Horde/Imap/Client/Cclient/Pop3.php" />
    <install as="Horde/Imap/Client/Data/Acl.php" name="lib/Horde/Imap/Client/Data/Acl.php" />
+   <install as="Horde/Imap/Client/Data/AclCommon.php" name="lib/Horde/Imap/Client/Data/AclCommon.php" />
    <install as="Horde/Imap/Client/Data/AclNegative.php" name="lib/Horde/Imap/Client/Data/AclNegative.php" />
    <install as="Horde/Imap/Client/Data/AclRights.php" name="lib/Horde/Imap/Client/Data/AclRights.php" />
    <install as="Horde/Imap/Client/Data/Envelope.php" name="lib/Horde/Imap/Client/Data/Envelope.php" />
@@ -186,6 +189,7 @@
    <install as="Horde/Imap/Client/Fetch/Query.php" name="lib/Horde/Imap/Client/Fetch/Query.php" />
    <install as="Horde/Imap/Client/Search/Query.php" name="lib/Horde/Imap/Client/Search/Query.php" />
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
+   <install as="Horde/Imap/Client/AclTest.php" name="test/Horde/Imap/Client/AclTest.php" />
    <install as="Horde/Imap/Client/AllTests.php" name="test/Horde/Imap/Client/AllTests.php" />
    <install as="Horde/Imap/Client/Autoload.php" name="test/Horde/Imap/Client/Autoload.php" />
    <install as="Horde/Imap/Client/DateTimeTest.php" name="test/Horde/Imap/Client/DateTimeTest.php" />
@@ -320,20 +324,138 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-04-21</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Correct fix for Bug #9915 (Bug #9943).
+* Return cloned objects from Data results, to prevent issues when caching (Bug #9931).
+* Optimize listing subscribed mailboxes for certain queries.
+* Add support for PARTIAL search/sort results return (RFC 5267 [4.4]).
+* Add support for SEARCH=FUZZY (RFC 6203).
    </notes>
   </release>
   <release>
    <version>
-    <release>1.0.2</release>
+    <release>1.0.3</release>
     <api>1.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-04-21</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Return cloned objects from Data results, to prevent issues when caching (Bug #9931).
+* Optimize listing subscribed mailboxes for certain queries.
+* Add support for PARTIAL search/sort results return (RFC 5267 [4.4]).
+* Add support for SEARCH=FUZZY (RFC 6203).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-04-29</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [mms] Filter CAPABILITY return if sent in response code (Bug #9976).
+* [mms] Correctly limit FETCH results when specifying changedsince or vanished options and all requested fetch data is already cached.
+* [mms] Fix intermittent issues retrieving FETCH results in Socket driver.
+* [mms] Optimize expunging in Socket driver with UIDPLUS servers.
+* [mms] Fix parsing NAMESPACE response in Socket driver (Bug #9970).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-11</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [mms] Fix OVERQUOTA Exception error constant (Bug #10068; Felipe Zipitría &lt;fzipi@fing.edu.uy&gt;).
+* [mms] Correctly return PERMANENTFLAGS information if missing in server return.
+* [mms] Optimizing expunging when using QRESYNC.
+* [mms] Optimize re-opening a mailbox R/W if using CONDSTORE/QRESYNC.
+* [mms] Optimize statusMultiple() for currently selected mailbox.
+* [mms] Optimize search()/thread() in empty mailboxes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.6</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-25</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [mms] Fix changedsince FETCH results when no cacheable fields were present in query.
+* [mms] Fix/optimize updating Sequence -&gt; UID list when processing EXPUNGEs (Bug #10097).
+* [mms] Fix UTF-8 -&gt; UTF7-IMAP encoding of ampersands (Bug #10093).
+* [mms] Fix setACL() for Socket driver (was always doing replace instead of add/remove).
+* [mms] Fix ACL parsing on RFC 2086 server implementations (Bug #10079).
+* [mms] More than one SEARCH response may be sent, so don&apos;t overwrite existing values.
+* [mms] Disable search caching if a mailbox reports it does not support mod sequences (Bug #9833).
+* [mms] Fix storing IMAP flag cache info if specifying both add and remove options to store().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [mms] Support response code for POP3 servers (RFC 2449/3206).
+* [mms] Enable cache support for POP3 Socket driver (FETCH data only).
+* [mms] Fix APOP authentication for POP3 Socket driver.
+* [mms] Fix regression with UTF7-IMAP encoding of non-ascii folder names (Bug #10093).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.8</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-14</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [mms] Fix re-subscribing to child mailboxes of a renamed mailbox (Bug #10212).
+* [mms] Fix base subject generation under RFC 5256 [2.1].
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.9</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Fix stripping attachments from mailboxes with non-ascii names.
+* [mjr] Fix incorrect method name in Pop3 Socket driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.10</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * 

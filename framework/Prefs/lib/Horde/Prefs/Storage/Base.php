@@ -81,8 +81,20 @@ abstract class Horde_Prefs_Storage_Base
      * @param string $pref   The pref to clear. If null, clears the entire
      *                       scope.
      *
-     * @throws Horde_Db_Exception
+     * @throws Horde_Prefs_Exception
      */
     abstract public function remove($scope = null, $pref = null);
+
+    /**
+     * Lists all available scopes.
+     *
+     * @since Horde_Prefs 1.1.0
+     *
+     * @return array The list of scopes stored in the backend.
+     */
+    public function listScopes()
+    {
+        throw new Horde_Prefs_Exception('Not implemented!');
+    }
 
 }

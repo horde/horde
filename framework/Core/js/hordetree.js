@@ -26,9 +26,23 @@
 
 var Horde_Tree = Class.create({
 
+    charlist: 'abcdefghijklmnopqrstuvwxyz',
+    childid: '',
+    randstrlen: 4,
+    toggleid: '',
+
     initialize: function(opts)
     {
+        var i, randstr = '';
+
         this.opts = opts;
+
+        for (i = 0; i < this.randstrlen; ++i) {
+            randstr += this.charlist.charAt(Math.floor(Math.random() * 26));
+        }
+
+        this.childid = 'child_' + randstr + '_';
+        this.toggleid = 'toggle_' + randstr + '_';
 
         if (this.opts.initTree) {
             this.renderTree(this.opts.initTree.nodes, this.opts.initTree.root_nodes, this.opts.initTree.is_static);
@@ -113,7 +127,7 @@ var Horde_Tree = Class.create({
 
         if (!Object.isUndefined(node.children)) {
             last_subnode = node.children.last();
-            tmp = new Element('DIV', { id: 'nodeChildren_' + nodeId });
+            tmp = new Element('DIV', { id: this.childid + nodeId });
             [ tmp ].invoke(node.expanded ? 'show' : 'hide');
 
             node.children.each(function(c) {
@@ -254,7 +268,7 @@ var Horde_Tree = Class.create({
             this.dropline[node.indent] = !node.node_last;
         }
 
-        return new Element('SPAN', { id: "nodeToggle_" + nodeId }).addClassName('treeToggle').addClassName('treeImg').addClassName('treeImg' + this._getNodeToggle(nodeId));
+        return new Element('SPAN', { id: this.toggleid + nodeId }).addClassName('treeToggle').addClassName('treeImg').addClassName('treeImg' + this._getNodeToggle(nodeId));
     },
 
     _getNodeToggle: function(nodeId)
@@ -398,7 +412,7 @@ var Horde_Tree = Class.create({
         }
 
         node.expanded = !node.expanded;
-        if (children = $('nodeChildren_' + nodeId)) {
+        if (children = $(this.childid + nodeId)) {
             children.setStyle({ display: node.expanded ? 'block' : 'none' });
         }
 
@@ -419,7 +433,7 @@ var Horde_Tree = Class.create({
             this.stripe();
         }
 
-        if (toggle = $('nodeToggle_' + nodeId)) {
+        if (toggle = $(this.toggleid + nodeId)) {
             toggle.writeAttribute('class', 'treeToggle treeImg').addClassName('treeImg' + this._getNodeToggle(nodeId));
         }
 
@@ -503,8 +517,8 @@ var Horde_Tree = Class.create({
         }
 
         id = elt.readAttribute('id');
-        if (id && id.startsWith('nodeToggle_')) {
-            this.toggle(id.substr(11));
+        if (id && id.startsWith(this.toggleid)) {
+            this.toggle(id.substr(this.toggleid.length));
             e.stop();
         }
     }

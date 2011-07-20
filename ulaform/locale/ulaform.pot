@@ -1,0 +1,457 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright YEAR Horde Project
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-08-01 10:45+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: edit.php:82
+msgid "-- default configured --"
+msgstr ""
+
+#: edit.php:62
+msgid "-- select --"
+msgstr ""
+
+#: lib/Action/template.php:81
+msgid "--- Choose a Template ---"
+msgstr ""
+
+#: edit.php:62 forms.php:32 delete.php:32
+msgid "Action"
+msgstr ""
+
+#: forms.php:31
+msgid "Available Forms"
+msgstr ""
+
+#: lib/Action/mailto.php:123
+msgid "Bcc"
+msgstr ""
+
+#: lib/Action/mailto.php:119
+msgid "Cc"
+msgstr ""
+
+#: edit.php:45
+msgid "Changed action driver."
+msgstr ""
+
+#: genhtml.php:37
+msgid "Changed embed type."
+msgstr ""
+
+#: config/fields.php.dist:49
+msgid "Characters"
+msgstr ""
+
+#: config/fields.php.dist:40 config/fields.php.dist:47
+msgid "Columns"
+msgstr ""
+
+#: display.php:30
+#, php-format
+msgid "Could not fetch form ID \"%s\". %s"
+msgstr ""
+
+#: edit.php:56
+msgid "Create"
+msgstr ""
+
+#: edit.php:82
+msgid "Default language"
+msgstr ""
+
+#: delete.php:33 delete.php:36 deletefield.php:43 deletefield.php:49
+msgid "Delete"
+msgstr ""
+
+#: fields.php:127 deletefield.php:42
+msgid "Delete Field"
+msgstr ""
+
+#: forms.php:26
+msgid "Delete Form"
+msgstr ""
+
+#: deletefield.php:47
+msgid "Delete this field?"
+msgstr ""
+
+#: delete.php:30
+msgid "Delete this form?"
+msgstr ""
+
+#: fields.php:57 fields.php:124
+msgid "Description"
+msgstr ""
+
+#: delete.php:33 deletefield.php:43 deletefield.php:67
+msgid "Do not delete"
+msgstr ""
+
+#: fields.php:128
+msgid "Edit Field"
+msgstr ""
+
+#: forms.php:27
+msgid "Edit Form"
+msgstr ""
+
+#: edit.php:115
+msgid "Edit Forms"
+msgstr ""
+
+#: config/fields.php.dist:121 config/fields.php.dist:129
+msgid "End year"
+msgstr ""
+
+#: config/fields.php.dist:64 config/fields.php.dist:84
+#: config/fields.php.dist:92 config/fields.php.dist:100
+#: config/fields.php.dist:108 config/fields.php.dist:147
+msgid "Enter a comma separated list of values."
+msgstr ""
+
+#: deletefield.php:57
+#, php-format
+msgid "Error deleting field. %s."
+msgstr ""
+
+#: delete.php:44
+#, php-format
+msgid "Error deleting form. %s."
+msgstr ""
+
+#: lib/Action/template.php:63
+#, php-format
+msgid "Error retrieving templates from \"%s\": %s"
+msgstr ""
+
+#: fields.php:88
+#, php-format
+msgid "Error saving field. %s."
+msgstr ""
+
+#: sortfields.php:46
+#, php-format
+msgid "Error saving fields. %s."
+msgstr ""
+
+#: edit.php:100
+#, php-format
+msgid "Error saving form. %s."
+msgstr ""
+
+#: display.php:65 lib/api.php:154 lib/Block/form.php:88
+#, php-format
+msgid "Error submitting form. %s."
+msgstr ""
+
+#: deletefield.php:59
+#, php-format
+msgid "Field \"%s\" deleted."
+msgstr ""
+
+#: fields.php:40
+msgid "Field Details"
+msgstr ""
+
+#: deletefield.php:68
+msgid "Field not deleted."
+msgstr ""
+
+#: fields.php:90
+msgid "Field saved."
+msgstr ""
+
+#: sortfields.php:48
+msgid "Field sort order saved."
+msgstr ""
+
+#: templates/fields/fields.html:15
+msgid "Fields"
+msgstr ""
+
+#: lib/api.php:48 lib/Block/form.php:31
+msgid "Form"
+msgstr ""
+
+#: edit.php:55 delete.php:29
+msgid "Form Details"
+msgstr ""
+
+#: fields.php:133
+msgid "Form Fields"
+msgstr ""
+
+#: forms.php:32
+msgid "Form Name"
+msgstr ""
+
+#: delete.php:46
+msgid "Form deleted."
+msgstr ""
+
+#: edit.php:102
+msgid "Form details saved."
+msgstr ""
+
+#: delete.php:53
+msgid "Form has not been deleted."
+msgstr ""
+
+#: display.php:67 lib/Block/form.php:90
+msgid "Form submitted successfully."
+msgstr ""
+
+#: config/fields.php.dist:135
+msgid "Format used to display"
+msgstr ""
+
+#: config/fields.php.dist:133
+msgid "Format used to submit"
+msgstr ""
+
+#: forms.php:38
+msgid "Forms List"
+msgstr ""
+
+#: lib/Action/mailto.php:115
+msgid "From"
+msgstr ""
+
+#: fields.php:117 forms.php:29 genhtml.php:48
+msgid "Generate HTML"
+msgstr ""
+
+#: genhtml.php:42
+#, php-format
+msgid "HTML Generation for \"%s\""
+msgstr ""
+
+#: genhtml.php:62
+msgid "Height"
+msgstr ""
+
+#: lib/Action/template.php:35
+msgid "Horde Template"
+msgstr ""
+
+#: fields.php:47
+msgid "Internal name"
+msgstr ""
+
+#: edit.php:86
+msgid "Javascript to execute on form \"submit\":"
+msgstr ""
+
+#: fields.php:46 fields.php:124
+msgid "Label"
+msgstr ""
+
+#: lib/Action/mailto.php:99
+msgid "Mailto"
+msgstr ""
+
+#: lib/Driver/sql.php:80 lib/Driver/sql.php:158
+msgid "Missing form"
+msgstr ""
+
+#: edit.php:56
+msgid "Modify"
+msgstr ""
+
+#: edit.php:59 fields.php:124 delete.php:31 genhtml.php:61
+msgid "Name"
+msgstr ""
+
+#: lib/Ulaform.php:219 lib/Ulaform.php:220
+msgid "No"
+msgstr ""
+
+#: fields.php:108
+msgid "No available fields."
+msgstr ""
+
+#: forms.php:23
+msgid "No available forms."
+msgstr ""
+
+#: deletefield.php:32
+msgid "No field specified."
+msgstr ""
+
+#: lib/Action.php:96
+#, php-format
+msgid "No such action \"%s\" found"
+msgstr ""
+
+#: lib/Driver.php:139
+#, php-format
+msgid "No such backend \"%s\" found"
+msgstr ""
+
+#: lib/Driver/sql.php:229 lib/Driver/sql.php:275
+#, php-format
+msgid "No such form ID \"%s\"."
+msgstr ""
+
+#: lib/Action/template.php:24
+msgid "Not Implemented."
+msgstr ""
+
+#: genhtml.php:52
+msgid "PHP using PEAR classes"
+msgstr ""
+
+#: fields.php:117
+msgid "Preview"
+msgstr ""
+
+#: forms.php:28
+msgid "Preview Form"
+msgstr ""
+
+#: fields.php:56 fields.php:124
+msgid "Read only"
+msgstr ""
+
+#: fields.php:55 fields.php:124
+msgid "Required"
+msgstr ""
+
+#: config/fields.php.dist:38 config/fields.php.dist:45
+msgid "Rows"
+msgstr ""
+
+#: lib/Action/sql.php:89
+msgid "SQL"
+msgstr ""
+
+#: sortfields.php:34
+msgid "Save"
+msgstr ""
+
+#: fields.php:41
+msgid "Save Field"
+msgstr ""
+
+#: genhtml.php:53
+msgid "Select how you wish to embed the form"
+msgstr ""
+
+#: sortfields.php:35
+msgid "Select the sort order of the fields"
+msgstr ""
+
+#: fields.php:47
+msgid ""
+"Set this name if you have a particular reason to override the automatic "
+"internal naming of fields."
+msgstr ""
+
+#: lib/Block/form.php:3
+msgid "Show Form"
+msgstr ""
+
+#: config/fields.php.dist:131
+msgid "Show the date picker"
+msgstr ""
+
+#: sortfields.php:31
+msgid "Sort Fields"
+msgstr ""
+
+#: fields.php:117
+msgid "Sort fields"
+msgstr ""
+
+#: config/fields.php.dist:119 config/fields.php.dist:127
+msgid "Start year"
+msgstr ""
+
+#: lib/Action/mailto.php:114
+msgid "Subject"
+msgstr ""
+
+#: lib/Action/sql.php:104
+msgid "Table"
+msgstr ""
+
+#: lib/Action/template.php:95
+msgid "Template"
+msgstr ""
+
+#: forms.php:20
+#, php-format
+msgid "There was an error listing forms: %s."
+msgstr ""
+
+#: lib/Action/mailto.php:100
+msgid ""
+"This driver allows the sending of form results via email to one or more "
+"recipients."
+msgstr ""
+
+#: lib/Action/sql.php:90
+msgid "This driver allows to insertion of form results into a database."
+msgstr ""
+
+#: lib/Action/template.php:36
+msgid ""
+"This driver fills out a template provided by any of the available "
+"applications using its template."
+msgstr ""
+
+#: fields.php:65
+msgid "This field type has extra parameters."
+msgstr ""
+
+#: lib/Action/mailto.php:116
+msgid "To"
+msgstr ""
+
+#: fields.php:51 fields.php:124
+msgid "Type"
+msgstr ""
+
+#: config/fields.php.dist:61 config/fields.php.dist:81
+#: config/fields.php.dist:89 config/fields.php.dist:97
+#: config/fields.php.dist:105 config/fields.php.dist:144
+msgid "Values"
+msgstr ""
+
+#: genhtml.php:63
+msgid "Width"
+msgstr ""
+
+#: lib/Ulaform.php:219 lib/Ulaform.php:220
+msgid "Yes"
+msgstr ""
+
+#: lib/Driver/sql.php:262
+msgid "You don't have the right permission to access this form."
+msgstr ""
+
+#: lib/Ulaform.php:237
+msgid "_List Forms"
+msgstr ""
+
+#: lib/Ulaform.php:238
+msgid "_New Form"
+msgstr ""
+
+#: genhtml.php:52
+msgid "iframe"
+msgstr ""

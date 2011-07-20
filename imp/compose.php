@@ -213,7 +213,7 @@ case 'mailto_link':
 
 case 'draft':
     try {
-        $result = $imp_compose->resumeDraft(new IMP_Indices(IMP::$thismailbox, IMP::$uid));
+        $result = $imp_compose->resumeDraft(IMP::$thismailbox->getIndicesOb(IMP::$uid));
 
         if (!is_null($rtemode)) {
             $rtemode = ($result['mode'] == 'html');
@@ -418,7 +418,7 @@ case 'send_message':
     $header['replyto'] = $identity->getValue('replyto_addr');
 
     if ($vars->sent_mail_folder) {
-        $sent_mail_folder = $vars->sent_mail_folder;
+        $sent_mail_folder = IMP_Mailbox::formFrom($vars->sent_mail_folder);
     }
 
     $options = array(
@@ -729,7 +729,7 @@ if ($redirect) {
         'compose_formToken' => Horde_Token::generateId('compose'),
         'compose_requestToken' => $injector->getInstance('Horde_Token')->get('imp.compose'),
         'composeCache' => $composeCacheID,
-        'mailbox' => htmlspecialchars(IMP::$mailbox),
+        'mailbox' => IMP::$thismailbox->form_to,
         'oldrtemode' => $rtemode,
         'rtemode' => $rtemode,
         'user' => $registry->getAuth()
@@ -754,7 +754,7 @@ if ($redirect) {
 
     $t->set('title', htmlspecialchars($title));
     $t->set('send_msg_ak', Horde::getAccessKeyAndTitle(_("_Send Message")));
-    if ($imp_imap->allowFolders() && !$readonly_drafts) {
+    if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) && !$readonly_drafts) {
         $t->set('save_draft_ak', Horde::getAccessKeyAndTitle(_("Save _Draft")));
     }
     $t->set('help', Horde_Help::link('imp', 'compose-buttons'));
@@ -876,15 +876,15 @@ if ($redirect) {
     }
     $t->set('compose_options', $compose_options);
 
-    $t->set('ssm', ($imp_imap->allowFolders() && !$prefs->isLocked('save_sent_mail')));
+    $t->set('ssm', ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) && !$prefs->isLocked('save_sent_mail')));
     if ($t->get('ssm')) {
         if ($readonly_sentmail) {
-            $notification->push(sprintf(_("Cannot save sent-mail message to \"%s\" as that mailbox is read-only.", IMP_Mailbox::get($sent_mail_folder)->display), 'horde.warning'));
+            $notification->push(sprintf(_("Cannot save sent-mail message to \"%s\" as that mailbox is read-only.", $sent_mail_folder->display), 'horde.warning'));
         }
-        $t->set('ssm_selected', $vars->compose_formToken ? ($save_sent_mail == 'on') : $identity->saveSentmail());
+        $t->set('ssm_selected', $vars->compose_formToken ? ($save_sent_mail == 'on') : $sent_mail_folder && $identity->saveSentmail());
         $t->set('ssm_label', Horde::label('ssm', _("Sa_ve a copy in ")));
         if ($vars->sent_mail_folder) {
-            $sent_mail_folder = $vars->sent_mail_folder;
+            $sent_mail_folder = IMP_Mailbox::formFrom($vars->sent_mail_folder);
         }
         if (!empty($conf['user']['select_sentmail_folder']) &&
             !$prefs->isLocked('sent_mail_folder')) {
@@ -898,8 +898,9 @@ if ($redirect) {
 
             /* Check to make sure the sent-mail folder is created - it needs
              * to exist to show up in drop-down list. */
-            $sent_mail_folder = IMP_Mailbox::get($sent_mail_folder);
-            $sent_mail_folder->create();
+            if ($sent_mail_folder) {
+                $sent_mail_folder->create();
+            }
 
             $t->set('ssm_folders', IMP::flistSelect($ssm_folder_options));
         } else {

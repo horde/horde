@@ -31,13 +31,13 @@ class Horde_Xml_Wbxml_DtdManager
         $this->registerDTD(Horde_Xml_Wbxml_Dtd::SYNCML_1_1, 'syncml:syncml1.1', new Horde_Xml_Wbxml_Dtd_SyncMl(1));
         $this->registerDTD(Horde_Xml_Wbxml_Dtd::SYNCML_1_2, 'syncml:syncml1.2', new Horde_Xml_Wbxml_Dtd_SyncMl(2));
 
-        $this->registerDTD(Horde_Xml_Wbxml_Dtd::METINF_1_0, 'syncml:metinf1.0', new Horde_Xml_Wbxml_Dtd_SyncMlMetInf(0));
-        $this->registerDTD(Horde_Xml_Wbxml_Dtd::METINF_1_1, 'syncml:metinf1.1', new Horde_Xml_Wbxml_Dtd_SyncMlMetInf(1));
-        $this->registerDTD(Horde_Xml_Wbxml_Dtd::METINF_1_2, 'syncml:metinf1.2', new Horde_Xml_Wbxml_Dtd_SyncMlMetInf(2));
+        $this->registerDTD(Horde_Xml_Wbxml_Dtd::METINF_1_0, 'syncml:metinf', new Horde_Xml_Wbxml_Dtd_SyncMlMetInf(0));
+        $this->registerDTD(Horde_Xml_Wbxml_Dtd::METINF_1_1, 'syncml:metinf', new Horde_Xml_Wbxml_Dtd_SyncMlMetInf(1));
+        $this->registerDTD(Horde_Xml_Wbxml_Dtd::METINF_1_2, 'syncml:metinf', new Horde_Xml_Wbxml_Dtd_SyncMlMetInf(2));
 
-        $this->registerDTD(Horde_Xml_Wbxml_Dtd::DEVINF_1_0, 'syncml:devinf1.0', new Horde_Xml_Wbxml_Dtd_SyncMlDevInf(0));
-        $this->registerDTD(Horde_Xml_Wbxml_Dtd::DEVINF_1_1, 'syncml:devinf1.1', new Horde_Xml_Wbxml_Dtd_SyncMlDevInf(1));
-        $this->registerDTD(Horde_Xml_Wbxml_Dtd::DEVINF_1_2, 'syncml:devinf1.2', new Horde_Xml_Wbxml_Dtd_SyncMlDevInf(2));
+        $this->registerDTD(Horde_Xml_Wbxml_Dtd::DEVINF_1_0, 'syncml:devinf', new Horde_Xml_Wbxml_Dtd_SyncMlDevInf(0));
+        $this->registerDTD(Horde_Xml_Wbxml_Dtd::DEVINF_1_1, 'syncml:devinf', new Horde_Xml_Wbxml_Dtd_SyncMlDevInf(1));
+        $this->registerDTD(Horde_Xml_Wbxml_Dtd::DEVINF_1_2, 'syncml:devinf', new Horde_Xml_Wbxml_Dtd_SyncMlDevInf(2));
     }
 
     /**
@@ -48,7 +48,6 @@ class Horde_Xml_Wbxml_DtdManager
         if (isset($this->_strDTD[$publicIdentifier])) {
             return $this->_strDTD[$publicIdentifier];
         }
-        return null;
     }
 
     /**
@@ -56,22 +55,9 @@ class Horde_Xml_Wbxml_DtdManager
     public function getInstanceURI($uri)
     {
         $uri = strtolower($uri);
-
-        // some manual hacks:
-        if ($uri == 'syncml:syncml') {
-            $uri = 'syncml:syncml1.0';
-        }
-        if ($uri == 'syncml:metinf') {
-            $uri = 'syncml:metinf1.0';
-        }
-        if ($uri == 'syncml:devinf') {
-            $uri = 'syncml:devinf1.0';
-        }
-
         if (isset($this->_strDTDURI[$uri])) {
             return $this->_strDTDURI[$uri];
         }
-        return null;
     }
 
     /**

@@ -11,7 +11,7 @@
  * @author Ben Klang <ben@alkaloid.net>
  * @package Jonah
  */
-class Jonah_Factory_Driver extends Horde_Core_Factory_Base
+class Jonah_Factory_Driver extends Horde_Core_Factory_Injector
 {
     /**
      * Instances.
@@ -29,7 +29,7 @@ class Jonah_Factory_Driver extends Horde_Core_Factory_Base
      * @return Jonah_Driver
      * @throws Jonah_Exception
      */
-    public function create()
+    public function create(Horde_Injector $injector)
     {
         $driver = Horde_String::ucfirst($GLOBALS['conf']['news']['storage']['driver']);
         $driver = basename($driver);

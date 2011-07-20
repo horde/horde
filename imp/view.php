@@ -19,11 +19,9 @@
  * ctype - (string) The content-type to use instead of the content-type
  *           found in the original Horde_Mime_Part object.
  * id - (string) The MIME part ID to display.
- * mailbox - (string) The mailbox of the message.
  * mode - (integer) The view mode to use.
  *          DEFAULT: IMP_Contents::RENDER_FULL
  * pmode - (string) The print mode of this request ('content', 'headers').
- * uid - (string) The UID of the message.
  * zip - (boolean) Download in .zip format?
  *
  * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
@@ -67,20 +65,20 @@ case 'compose_attach_preview':
     break;
 
 case 'download_mbox':
-    if (!isset($vars->mailbox)) {
+    if (empty(IMP::$thismailbox)) {
         exit;
     }
 
     // Exception will be displayed as fatal error.
-    $injector->getInstance('IMP_Ui_Folder')->downloadMbox(array($vars->mailbox), $vars->zip);
+    $injector->getInstance('IMP_Ui_Folder')->downloadMbox(array(strval(IMP::$thismailbox)), $vars->zip);
     break;
 
 default:
-    if (!$vars->uid || !isset($vars->mailbox)) {
+    if (empty(IMP::$thismailbox) || empty(IMP::$uid)) {
         exit;
     }
 
-    $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($vars->mailbox, $vars->uid));
+    $contents = $injector->getInstance('IMP_Factory_Contents')->create(IMP::$thismailbox->getIndicesOb(IMP::$uid));
     break;
 }
 
@@ -230,6 +228,12 @@ case 'print_attach':
     reset($render);
     $render_key = key($render);
 
+    if (stripos($render[$render_key]['type'], 'text/html') !== 0) {
+        header('Content-Type: ' . $render[$render_key]['type']);
+        echo $render[$render_key]['data'];
+        exit;
+    }
+
     $imp_ui = new IMP_Ui_Message();
     $basic_headers = $imp_ui->basicHeaders();
     unset($basic_headers['bcc'], $basic_headers['reply-to']);
@@ -248,7 +252,7 @@ case 'print_attach':
 
             $headers[] = array(
                 'header' => htmlspecialchars($val),
-                'value' => htmlspecialchars(Horde_String::convertCharset($hdr_val, null, $d_param['params']['charset']))
+                'value' => htmlspecialchars($hdr_val)
             );
         }
     }
@@ -262,7 +266,7 @@ case 'print_attach':
     }
 
     $t = $injector->createInstance('Horde_Template');
-    $t->set('headers', $headers);
+    $t->set('headers', Horde_String::convertCharset($headers, 'UTF-8', $d_param['params']['charset']));
 
     $elt = DOMDocument::loadHTML($t->fetch(IMP_TEMPLATES . '/print/headers.html'))->getElementById('headerblock');
     $elt->removeAttribute('id');

@@ -19,20 +19,21 @@ Horde_Registry::appInit('imp', array('impmode' => 'dimp'));
 
 $vars = Horde_Variables::getDefaultVariables();
 
-if (!$vars->uid || !$vars->folder) {
+if (!IMP::$uid || !IMP::$mailbox) {
     exit;
 }
 
 $imp_ui = new IMP_Ui_Message();
 $js_onload = $js_vars = array();
-$readonly = IMP_Mailbox::get($vars->folder)->readonly;
+$readonly = IMP::$mailbox->readonly;
+$uid = IMP::$uid;
 
 switch ($vars->actionID) {
 case 'strip_attachment':
     try {
-        $indices = $injector->getInstance('IMP_Message')->stripPart(new IMP_Indices($vars->folder, $vars->uid), $vars->id);
+        $indices = $injector->getInstance('IMP_Message')->stripPart(IMP::$mailbox->getIndicesOb($uid), $vars->id);
         $js_vars['-DimpMessage.strip'] = 1;
-        list(,$vars->uid) = $indices->getSingle();
+        list(,$uid) = $indices->getSingle();
         $notification->push(_("Attachment successfully stripped."), 'horde.success');
     } catch (IMP_Exception $e) {
         $notification->push($e);
@@ -42,9 +43,9 @@ case 'strip_attachment':
 
 $args = array(
     'headers' => array_diff(array_keys($imp_ui->basicHeaders()), array('subject')),
-    'mailbox' => $vars->folder,
+    'mailbox' => IMP::$mailbox,
     'preview' => false,
-    'uid' => $vars->uid
+    'uid' => $uid
 );
 
 $show_msg = new IMP_Views_ShowMessage();
@@ -60,8 +61,10 @@ if (isset($show_msg_result['error'])) {
 $scripts = array(
     array('contextsensitive.js', 'horde'),
     array('textarearesize.js', 'horde'),
+    array('toggle_quotes.js', 'horde'),
     array('message-dimp.js', 'imp'),
     array('imp.js', 'imp'),
+    array('base64url.js', 'imp'),
 );
 
 foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mailbox') as $val) {
@@ -70,10 +73,11 @@ foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mailbox') as
     }
 }
 
-$js_vars['DimpMessage.flag'] = IMP_Ajax_Application::flagEntry(array(Horde_Imap_Client::FLAG_SEEN), true, new IMP_Indices($vars->folder, $vars->uid));
+$ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
+$ajax_queue->poll(IMP::$mailbox);
 
-if ($poll = IMP_Ajax_Application::pollEntry(array($vars->folder))) {
-    $js_vars['DimpMessage.poll'] = $poll;
+foreach ($ajax_queue->generate() as $key => $val) {
+    $js_vars['DimpMessage.' . $key] = $val;
 }
 
 $js_out = Horde::addInlineJsVars($js_vars, array('ret_vars' => true));
@@ -83,11 +87,11 @@ $disable_compose = !IMP::canCompose();
 
 if (!$disable_compose) {
     $compose_args = array(
-        'folder' => $vars->folder,
+        'folder' => IMP::$mailbox,
         'messageCache' => '',
         'popup' => false,
         'qreply' => true,
-        'uid' => $vars->uid,
+        'uid' => $uid,
     );
     $compose_result = IMP_Views_Compose::showCompose($compose_args);
 
@@ -147,7 +151,7 @@ $t->set('forward_button', IMP_Dimp::actionButton(array(
 
 if (!empty($conf['spam']['reporting']) &&
     (!$conf['spam']['spamfolder'] ||
-     ($vars->folder != IMP_Mailbox::getPref('spam_folder')))) {
+     !IMP_Mailbox::getPref('spam_folder')->equals(IMP::$mailbox))) {
     $t->set('spam_button', IMP_Dimp::actionButton(array(
         'icon' => 'Spam',
         'id' => 'button_spam',
@@ -157,7 +161,7 @@ if (!empty($conf['spam']['reporting']) &&
 
 if (!empty($conf['notspam']['reporting']) &&
     (!$conf['notspam']['spamfolder'] ||
-    ($vars->folder == IMP_Mailbox::getPref('spam_folder')))) {
+     IMP_Mailbox::getPref('spam_folder')->equals(IMP::$mailbox))) {
     $t->set('ham_button', IMP_Dimp::actionButton(array(
         'icon' => 'Ham',
         'id' => 'button_ham',
@@ -165,7 +169,7 @@ if (!empty($conf['notspam']['reporting']) &&
     )));
 }
 
-if (!$readonly) {
+if (IMP::$mailbox->access_deletemsgs) {
     $t->set('delete_button', IMP_Dimp::actionButton(array(
         'icon' => 'Delete',
         'id' => 'button_deleted',
@@ -203,7 +207,10 @@ if (!$disable_compose) {
     $t->set('forward_select', !$prefs->isLocked('forward_default'));
 }
 
+Horde::startBuffer();
 IMP::status();
+$t->set('status', Horde::endBuffer());
+
 IMP_Dimp::header($show_msg_result['title'], $scripts);
 
 echo $t->fetch(IMP_TEMPLATES . '/dimp/message/message.html');

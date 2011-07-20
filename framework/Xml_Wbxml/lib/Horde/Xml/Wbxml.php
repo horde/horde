@@ -51,7 +51,7 @@ class Horde_Xml_Wbxml
      *
      * Use long because it is unsigned.
      */
-    public function MBUInt32ToInt($in, &$pos)
+    static public function MBUInt32ToInt($in, &$pos)
     {
         $val = 0;
 
@@ -67,7 +67,7 @@ class Horde_Xml_Wbxml
     /**
      * Encoding Multi-byte Integers from Section 5.1
      */
-    public function intToMBUInt32(&$out, $i)
+    static public function intToMBUInt32(&$out, $i)
     {
         if ($i > 268435455) {
             $bytes0 = 0 | Horde_Xml_Wbxml::getBits(0, $i);
@@ -102,7 +102,7 @@ class Horde_Xml_Wbxml
         }
     }
 
-    public function getBits($num, $l)
+    static public function getBits($num, $l)
     {
         switch ($num) {
         case 0:
@@ -124,7 +124,7 @@ class Horde_Xml_Wbxml
         return 0;
     }
 
-    public function getDPIString($i)
+    static public function getDPIString($i)
     {
         /**
          * ADD CHAPTER
@@ -160,7 +160,7 @@ class Horde_Xml_Wbxml
         return isset($DPIString[$i]) ? $DPIString[$i] : null;
     }
 
-    public function getDPIInt($dpi)
+    static public function getDPIInt($dpi)
     {
         /**
          * ADD CHAPTER
@@ -203,7 +203,7 @@ class Horde_Xml_Wbxml
      * from http://www.iana.org/assignments/character-sets
      * and http://java.sun.com/j2se/1.4.2/docs/api/java/nio/charset/Charset.html
      */
-    public function getCharsetString($cs)
+    static public function getCharsetString($cs)
     {
         /**
          * From http://www.iana.org/assignments/character-sets
@@ -226,7 +226,7 @@ class Horde_Xml_Wbxml
      * From http://www.iana.org/assignments/character-sets and
      * http://java.sun.com/j2se/1.4.2/docs/api/java/nio/charset/Charset.html
      */
-    public function getCharsetInt($cs)
+    static public function getCharsetInt($cs)
     {
         /**
          * From http://www.iana.org/assignments/character-sets

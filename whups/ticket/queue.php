@@ -12,122 +12,30 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-/**
- * Queue editing forms.
- */
-class SetQueueStep1Form extends Horde_Form {
-
-    function SetQueueStep1Form(&$vars, $title = '')
-    {
-        parent::Horde_Form($vars, $title);
-
-        $this->addHidden('', 'id', 'int', true, true);
-
-        /* Queues. */
-        $this->addVariable(
-            _("New Queue"), 'queue', 'enum', true, false, null,
-            array(Whups::permissionsFilter($GLOBALS['whups_driver']->getQueues(),
-                                           'queue', Horde_Perms::EDIT)));
-        $this->addVariable(_("Comment"), 'newcomment', 'longtext', false);
-
-        /* Group restrictions. */
-        if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin', 'permlevel' => Horde_Perms::EDIT)) ||
-            $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('whups:hiddenComments', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
-            $mygroups = $groups->listGroups($GLOBALS['registry']->getAuth());
-            if ($mygroups) {
-                foreach (array_keys($mygroups) as $gid) {
-                    $grouplist[$gid] = $groups->getName($gid, true);
-                }
-                asort($grouplist);
-                $grouplist = array_merge(array(0 => _("Any Group")),
-                                         $grouplist);
-                $this->addVariable(_("Viewable only by members of"), 'group',
-                                   'enum', true, false, null,
-                                   array($grouplist));
-            }
-        }
-    }
-
-}
-
-class SetQueueStep2Form extends Horde_Form {
-
-    function SetQueueStep2Form(&$vars, $title = '')
-    {
-        global $whups_driver;
-
-        parent::Horde_Form($vars, $title);
-
-        $this->addHidden('', 'id', 'int', true, true);
-        $this->addHidden('', 'group', 'int', false, true);
-        $this->addHidden('', 'queue', 'int', true, true);
-        $this->addHidden('', 'newcomment', 'longtext', false, true);
-
-        /* Give the user an opportunity to check that type, version,
-         * etc. are still valid. */
-
-        $queue = $vars->get('queue');
-
-        $info = $whups_driver->getQueue($queue);
-        if (!empty($info['versioned'])) {
-            $versions = $whups_driver->getVersions($vars->get('queue'));
-            if (count($versions) == 0) {
-                $vtype = 'invalid';
-                $v_params = array(_("This queue requires that you specify a version, but there are no versions associated with it. Until versions are created for this queue, you will not be able to create tickets."));
-            } else {
-                $vtype = 'enum';
-                $v_params = array($versions);
-            }
-            $this->addVariable(_("Queue Version"), 'version', $vtype, true, false, null, $v_params);
-        }
-
-        $this->addVariable(_("Type"), 'type', 'enum', true, false, null, array($whups_driver->getTypes($queue)));
-    }
-
-}
-
-class SetQueueStep3Form extends Horde_Form {
-
-    function SetQueueStep3Form(&$vars, $title = '')
-    {
-        global $whups_driver;
-
-        parent::Horde_Form($vars, $title);
-
-        $this->addHidden('', 'id', 'int', true, true);
-        $this->addHidden('', 'group', 'int', false, true);
-        $this->addHidden('', 'queue', 'int', true, true);
-        $this->addHidden('', 'type', 'int', true, true);
-        $this->addHidden('', 'newcomment', 'longtext', false, true);
-
-        $info = $whups_driver->getQueue($vars->get('queue'));
-        if (!empty($info['versioned'])) {
-            $this->addHidden('', 'version', 'int', true, true);
-        }
-
-        /* Give user an opportunity to check that state and priority
-         * are still valid. */
-        $type = $vars->get('type');
-        $this->addVariable(_("State"), 'state', 'enum', true, false, null, array($whups_driver->getStates($type)));
-        $this->addVariable(_("Priority"), 'priority', 'enum', true, false, null, array($whups_driver->getPriorities($type)));
-    }
-
-}
-
 $ticket = Whups::getCurrentTicket();
 $linkTags[] = $ticket->feedLink();
 $vars = Horde_Variables::getDefaultVariables();
 $vars->set('id', $id = $ticket->getId());
 $form = $vars->get('formname');
-if ($form != 'setqueuestep1form') {
+if ($form != 'whups_form_queue_stepone') {
     $q = $vars->get('queue');
+    $v = $vars->get('version');
+    $t = $vars->get('type');
 }
+
+// Get all ticket details from storage, then override any values that are
+// in the process of being edited.
 foreach ($ticket->getDetails() as $varname => $value) {
     $vars->add($varname, $value);
 }
 if (!empty($q)) {
     $vars->set('queue', $q);
+}
+if (!empty($v)) {
+    $vars->set('version', $v);
+}
+if (!empty($t)) {
+    $vars->set('type', $t);
 }
 
 // Check permissions on this ticket.
@@ -139,15 +47,15 @@ if (!Whups::hasPermission($ticket->get('queue'), 'queue', Horde_Perms::DELETE)) 
 
 $action = '';
 
-if ($form == 'setqueuestep1form') {
-    $setqueueform = new SetQueueStep1Form($vars);
+if ($form == 'whups_form_queue_stepone') {
+    $setqueueform = new Whups_Form_Queue_StepOne($vars);
     if ($setqueueform->validate($vars)) {
         $action = 'sq2';
     }
 }
 
-if ($form == 'setqueuestep2form') {
-    $setqueueform = new SetQueueStep2Form($vars);
+if ($form == 'whups_form_queue_steptwo') {
+    $setqueueform = new Whups_Form_Queue_StepTwo($vars);
     if ($setqueueform->validate($vars)) {
         $action = 'sq3';
     } else {
@@ -155,8 +63,8 @@ if ($form == 'setqueuestep2form') {
     }
 }
 
-if ($form == 'setqueuestep3form') {
-    $smform3 = new SetQueueStep3Form($vars);
+if ($form == 'whups_form_queue_stepthree') {
+    $smform3 = new Whups_Form_Queue_StepThree($vars);
     if ($smform3->validate($vars)) {
         $smform3->getInfo($vars, $info);
 
@@ -177,12 +85,14 @@ if ($form == 'setqueuestep3form') {
             $ticket->change('comment-perms', $info['group']);
         }
 
-        $result = $ticket->commit();
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result, 'horde.error');
-        } else {
-            $notification->push(sprintf(_("Moved ticket %d to \"%s\""), $id, $ticket->get('queue_name')), 'horde.success');
+        try {
+            $ticket->commit();
+            $notification->push(
+                sprintf(_("Moved ticket %d to \"%s\""), $id, $ticket->get('queue_name')),
+                'horde.success');
             $ticket->show();
+        } catch (Whups_Exception $e) {
+                $notification->push($e, 'horde.error');
         }
     } else {
         $action = 'sq3';
@@ -201,8 +111,8 @@ $r = new Horde_Form_Renderer();
 
 switch ($action) {
 case 'sq2':
-    $form1 = new SetQueueStep1Form($vars, _("Set Queue - Step 1"));
-    $form2 = new SetQueueStep2Form($vars, _("Set Queue - Step 2"));
+    $form1 = new Whups_Form_Queue_StepOne($vars, _("Set Queue - Step 1"));
+    $form2 = new Whups_Form_Queue_StepTwo($vars, _("Set Queue - Step 2"));
 
     $form1->renderInactive($r, $vars);
     echo '<br />';
@@ -210,9 +120,9 @@ case 'sq2':
     break;
 
 case 'sq3':
-    $form1 = new SetQueueStep1Form($vars, _("Set Queue - Step 1"));
-    $form2 = new SetQueueStep2Form($vars, _("Set Queue - Step 2"));
-    $form3 = new SetQueueStep3Form($vars, _("Set Queue - Step 3"));
+    $form1 = new Whups_Form_Queue_StepOne($vars, _("Set Queue - Step 1"));
+    $form2 = new Whups_Form_Queue_StepTwo($vars, _("Set Queue - Step 2"));
+    $form3 = new Whups_Form_Queue_StepThree($vars, _("Set Queue - Step 3"));
 
     $form1->renderInactive($r, $vars);
     echo '<br />';
@@ -222,7 +132,7 @@ case 'sq3':
     break;
 
 default:
-    $form1 = new SetQueueStep1Form($vars, _("Set Queue - Step 1"));
+    $form1 = new Whups_Form_Queue_StepOne($vars, _("Set Queue - Step 1"));
     $form1->renderActive($r, $vars, 'queue.php', 'post');
     break;
 }

@@ -120,13 +120,25 @@ implements Horde_Kolab_Storage_Folder
     }
 
     /**
-     * Return the namespace of the folder.
+     * Return the namespace type of the folder.
      *
-     * @return string The namespace of the folder.
+     * @return string The namespace type of the folder.
      */
     public function getNamespace()
     {
         return $this->get('namespace');
+    }
+
+    /**
+     * Return the namespace prefix of the folder.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return string The namespace prefix of the folder.
+     */
+    public function getPrefix()
+    {
+        return $this->get('prefix');
     }
 
     /**

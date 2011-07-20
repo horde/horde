@@ -40,12 +40,14 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
             $storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
             /* Get the number of images and galleries */
             $numimages = $this->countImages();
-            $num_galleries = $storage->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, null, $this->_gallery, false);
+            $num_galleries = $storage->countGalleries(
+                $GLOBALS['registry']->getAuth(),
+                array('parent' => $this->_gallery, 'all_levels' => false));
 
             /* Now fetch the subgalleries, but only if we need to */
             if ($num_galleries > $from) {
                 $galleries = $storage->listGalleries(
-                        array('parent' => $this->_gallery,
+                        array('parent' => $this->_gallery->id,
                               'all_levels' => false,
                               'from' => $from,
                               'count' => $to));
@@ -54,7 +56,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
 
         /* Now grab any images if we still have room */
         if (($to - count($galleries) > 0) || ($from == 0 && $to == 0) &&
-             $this->_gallery->data['attribute_images']) {
+             $this->_gallery->get('images')) {
 
             try {
                 $images = $this->getImages(max(0, $from - $num_galleries), $to - count($galleries));
@@ -106,13 +108,15 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
     public function countGalleryChildren($perm = Horde_Perms::SHOW, $galleries_only = false)
     {
         if (!$galleries_only && !$this->hasSubGalleries()) {
-            return $this->_gallery->data['attribute_images'];
+            return $this->_gallery->get('images');
         }
 
         $gCnt = $GLOBALS['injector']->getInstance('Ansel_Storage')
-                ->countGalleries($GLOBALS['registry']->getAuth(),
-                                 $perm, null,
-                                 $this->_gallery, false);
+                ->countGalleries(
+                    $GLOBALS['registry']->getAuth(),
+                    array('perm' => $perm,
+                          'parent' => $this->_gallery,
+                          'all_levels' => false));
 
         if (!$galleries_only) {
             $iCnt = $this->countImages(false);
@@ -129,12 +133,16 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
      * @param integer $from  The image to start listing.
      * @param integer $count The numer of images to list.
      *
-     * @return mixed  An array of image_ids | PEAR_Error
+     * @return array  An array of image_ids
      */
     public function listImages($from = 0, $count = 0)
     {
-        return $GLOBALS['injector']->getInstance('Ansel_Storage')
-            ->listImages($this->_gallery->id, $from, $count);
+        return $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
+            ->listImages(array(
+                'gallery_id' => $this->_gallery->id,
+                'offset' => $from,
+                'limit' => $count));
     }
 
     /**
@@ -159,7 +167,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
         $ids = array();
         foreach ($images as $imageId) {
             $ids[] = (int)$imageId;
-            if ($imageId == $this->_gallery->data['attribute_default']) {
+            if ($imageId == $this->_gallery->get('default')) {
                 $this->_gallery->set('default', null, true);
             }
         }
@@ -199,9 +207,9 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
         }
 
         /* Was this image the gallery's key image? */
-        if ($this->_gallery->data['attribute_default'] == $image->id) {
-            $this->_gallery->data['attribute_default'] = null;
-            $this->_gallery->data['attribute_default_type'] = 'auto';
+        if ($this->_gallery->get('default') == $image->id) {
+            $this->_gallery->set('default', null);
+            $this->_gallery->set('default_type', 'auto');
         }
 
         /* Delete cached files from VFS. */
@@ -220,7 +228,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
 
         /* Update the modified flag if we are not a stack image */
         if (!$isStack) {
-            $this->_gallery->data['attribute_last_modified'] = time();
+            $this->_gallery->set('last_modified', time());
         }
 
         /* Save all gallery changes */
@@ -238,11 +246,10 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
         if (($GLOBALS['conf']['comments']['allow'] == 'all' || ($GLOBALS['conf']['comments']['allow'] == 'authenticated' && $GLOBALS['registry']->getAuth())) &&
             $GLOBALS['registry']->hasMethod('forums/deleteForum')) {
 
-            $result = $GLOBALS['registry']->call('forums/deleteForum',
-                                                 array('ansel', $image->id));
-
-            if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, 'ERR');
+            try {
+                $result = $GLOBALS['registry']->forums->deleteForum('ansel', $image->id);
+            } catch (Horde_Exception $e) {
+                Horde::logMessage($e, 'ERR');
                 return false;
             }
         }
@@ -293,7 +300,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
             $count = $this->countImages(false);
             $galleries = $GLOBALS['injector']
                 ->getInstance('Ansel_Storage')
-                ->listGalleries(array('parent' => $this->_gallery));
+                ->listGalleries(array('parent' => $this->_gallery->id));
 
             foreach ($galleries as $galleryId => $gallery) {
                 $count += $gallery->countImages();
@@ -302,6 +309,6 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
             return $count;
         }
 
-        return $this->_gallery->data['attribute_images'];
+        return $this->_gallery->get('images');
     }
 }

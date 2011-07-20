@@ -61,4 +61,45 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($ids->isEmpty());
     }
 
+    public function testSequenceParsing()
+    {
+        $ids = new Horde_Imap_Client_Ids('12:10');
+
+        $this->assertEquals(
+            3,
+            count($ids)
+        );
+
+        $this->assertEquals(
+            array(10, 11, 12),
+            iterator_to_array($ids)
+        );
+
+        $ids = new Horde_Imap_Client_Ids('12,11,10');
+
+        $this->assertEquals(
+            3,
+            count($ids)
+        );
+
+        $this->assertEquals(
+            array(12, 11, 10),
+            iterator_to_array($ids)
+        );
+
+        $ids = new Horde_Imap_Client_Ids('10:12,10,11,12,10:12');
+
+        $this->assertEquals(
+            3,
+            count($ids)
+        );
+
+        $ids = new Horde_Imap_Client_Ids('10:10');
+
+        $this->assertEquals(
+            1,
+            count($ids)
+        );
+    }
+
 }

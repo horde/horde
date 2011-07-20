@@ -1,7 +1,7 @@
 <?php
 /**
  * Components_Release_Task_NextSentinel:: updates the CHANGES and the
- * Application.php files with the next package version.
+ * Application.php/Bundle.php files with the next package version.
  *
  * PHP version 5
  *
@@ -14,7 +14,7 @@
 
 /**
  * Components_Release_Task_CurrentSentinel:: updates the CHANGES and the
- * Application.php files with the current package version.
+ * Application.php/Bundle.php files with the current package version.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -39,11 +39,8 @@ extends Components_Release_Task_Sentinel
      */
     public function run($options)
     {
-        $sentinel = new Horde_Release_Sentinel(
-            $this->getPackage()->getComponentDirectory()
-        );
         if (empty($options['next_version'])) {
-            $options['next_version'] = Components_Helper_Version::nextVersion($sentinel->getVersion());
+            $options['next_version'] = Components_Helper_Version::nextVersion($this->getComponent()->getVersion());
         }
         $changes_version = Components_Helper_Version::pearToHorde(
             $options['next_version']
@@ -51,17 +48,17 @@ extends Components_Release_Task_Sentinel
         $application_version = Components_Helper_Version::pearToHordeWithBranch(
             $options['next_version'], $this->getNotes()->getBranch()
         );
+        $result = $this->getComponent()->nextSentinel(
+            $changes_version, $application_version, $options
+        );
         if (!$this->getTasks()->pretend()) {
-            $sentinel->updateChanges($changes_version);
-            $sentinel->updateApplication($application_version);
-        } else {
-            if ($changes = $sentinel->changesFileExists()) {
-                $this->_updateInfo('extend', $changes, $changes_version);
+            foreach ($result as $message) {
+                $this->getOutput()->ok($message);
             }
-            if ($application = $sentinel->applicationFileExists()) {
-                $this->_updateInfo('replace', $application, $application_version);
+        } else {
+            foreach ($result as $message) {
+                $this->getOutput()->info($message);
             }
         }
-        $this->_commit($sentinel, 'CommitPostRelease');
     }
 }

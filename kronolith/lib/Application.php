@@ -184,7 +184,17 @@ class Kronolith_Application extends Horde_Registry_Application
                     $ui->override['default_share'][$id] = $calendar->get('name');
                 }
                 break;
-
+            case 'sync_calendars':
+                $out = array();
+                foreach (Kronolith::listInternalCalendars(true) as $key => $cal) {
+                    $out[$key] = $cal->get('name');
+                    $sync = @unserialize($prefs->getValue('sync_calendars'));
+                    if (empty($sync)) {
+                        $prefs->setValue('sync_calendars', serialize(array(Kronolith::getDefaultCalendar())));
+                    }
+                }
+                $ui->override['sync_calendars'] = $out;
+                break;
             case 'event_alarms_select':
                 if (empty($conf['alarms']['driver']) ||
                     $prefs->isLocked('event_alarms_select')) {
@@ -279,6 +289,20 @@ class Kronolith_Application extends Horde_Registry_Application
                     }
                 }
             } catch (Exception $e) {}
+        }
+
+        if ($GLOBALS['conf']['activesync']['enabled'] && $GLOBALS['prefs']->isDirty('sync_calendars')) {
+            try {
+                $stateMachine = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
+                $stateMachine->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
+                $devices = $stateMachine->listDevices($GLOBALS['registry']->getAuth());
+                foreach ($devices as $device) {
+                    $stateMachine->removeState(null, $device['device_id'], $GLOBALS['registry']->getAuth());
+                }
+                $GLOBALS['notification']->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
+            } catch (Horde_ActiveSync_Exception $e) {
+                $GLOBALS['notification']->push(_("There was an error communicating with the ActiveSync server: %s"), $e->getMessage(), 'horde.err');
+            }
         }
     }
 

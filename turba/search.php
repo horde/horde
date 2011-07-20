@@ -181,7 +181,7 @@ if ($driver) {
                     $notification->push(_("Failed to search the address book"), 'horde.error');
                 }
             } catch (Turba_Exception $e) {
-                $notification->push($results, 'horde.error');
+                $notification->push($e, 'horde.error');
             }
         }
     }

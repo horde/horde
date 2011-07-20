@@ -49,11 +49,18 @@ class Components_Release_Task_Base
     private $_output;
 
     /**
-     * The package that should be released
+     * The component that should be released
      *
-     * @var Components_Pear_Package
+     * @var Components_Component
      */
-    private $_package;
+    private $_component;
+
+    /**
+     * The task name.
+     *
+     * @var string
+     */
+    private $_name;
 
     /**
      * Constructor.
@@ -73,26 +80,48 @@ class Components_Release_Task_Base
     }
 
     /**
-     * Set the package this task should act upon.
+     * Set the component this task should act upon.
      *
-     * @param Components_Pear_Package $package The package to be released.
+     * @param Components_Component $component The component to be released.
      *
      * @return NULL
      */
-    public function setPackage(Components_Pear_Package $package)
+    public function setComponent(Components_Component $component)
     {
-        $this->_package = $package;
-        $this->_notes->setPackage($package);
+        $this->_component = $component;
+        $this->_notes->setComponent($component);
     }
 
     /**
-     * Get the package this task should act upon.
+     * Get the component this task should act upon.
      *
-     * @return Components_Pear_Package The package to be released.
+     * @return Components_Component The component to be released.
      */
-    protected function getPackage()
+    protected function getComponent()
     {
-        return $this->_package;
+        return $this->_component;
+    }
+
+    /**
+     * Set the name of this task.
+     *
+     * @param string $name The task name.
+     *
+     * @return NULL
+     */
+    public function setName($name)
+    {
+        $this->_name = $name;
+    }
+
+    /**
+     * Get the name of this task.
+     *
+     * @return string The task name.
+     */
+    public function getName()
+    {
+        return $this->_name;
     }
 
     /**
@@ -123,6 +152,18 @@ class Components_Release_Task_Base
     protected function getOutput()
     {
         return $this->_output;
+    }
+
+    /**
+     * Can the task be skipped?
+     *
+     * @param array $options Additional options.
+     *
+     * @return boolean True if it can be skipped.
+     */
+    public function skip($options)
+    {
+        return !empty($options['skip_invalid']);
     }
 
     /**

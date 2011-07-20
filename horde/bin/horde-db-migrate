@@ -67,7 +67,22 @@ if (empty($args[0])) {
         $dir = $app;
         $app = $migration->apps[$key];
     } else {
-        $cli->fatal("$app is neither a configured Horde application nor a migration directory");
+        $cli->fatal(
+            sprintf(
+                '%s is neither a configured Horde application nor a migration directory
+
+Supported applications:
+
+%s
+
+Supported directories:
+
+%s',
+                $app,
+                join("\n  ", $migration->apps),
+                join("\n  ", $migration->dirs)
+            )
+        );
     }
     $dirs = array($dir);
     $apps = array($app);
@@ -134,7 +149,7 @@ foreach ($apps as $app) {
         }
     } catch (Exception $e) {
         echo $e->getMessage() . "\n";
-        exit(1);
+        continue;
     }
 
     $cli->message("Ending $app schema version: " . $migrator->getCurrentVersion());

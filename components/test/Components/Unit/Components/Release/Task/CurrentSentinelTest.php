@@ -39,13 +39,7 @@ extends Components_TestCase
     {
         $tmp_dir = $this->_prepareApplicationDirectory();
         $tasks = $this->getReleaseTasks();
-        $package = $this->_getPackage();
-        $package->expects($this->any())
-            ->method('getComponentDirectory')
-            ->will($this->returnValue($tmp_dir));
-        $package->expects($this->any())
-            ->method('getVersion')
-            ->will($this->returnValue('4.0.1rc1'));
+        $package = $this->getComponent($tmp_dir);
         $tasks->run(array('CurrentSentinel'), $package);
         $this->assertEquals(
             '----------
@@ -63,25 +57,48 @@ public $version = \'4.0.1-RC1\';
         );
     }
 
+    public function testRunTaskWithoutCommitOnBundle()
+    {
+        $tmp_dir = $this->_prepareApplicationDirectory(true);
+        $tasks = $this->getReleaseTasks();
+        $package = $this->getComponent($tmp_dir);
+        $tasks->run(array('CurrentSentinel'), $package);
+        $this->assertEquals(
+            '----------
+v4.0.1-RC1
+----------
+TEST',
+            file_get_contents($tmp_dir . '/docs/CHANGES')
+        );
+        $this->assertEquals(
+            'class Horde_Bundle {
+const VERSION = \'4.0.1-RC1\';
+}
+',
+            file_get_contents($tmp_dir . '/lib/Bundle.php')
+        );
+    }
+
     public function testPretend()
     {
         $tmp_dir = $this->_prepareApplicationDirectory();
         $tasks = $this->getReleaseTasks();
-        $package = $this->_getPackage();
-        $package->expects($this->any())
-            ->method('getComponentDirectory')
-            ->will($this->returnValue($tmp_dir));
-        $package->expects($this->any())
-            ->method('getName')
-            ->will($this->returnValue('Horde'));
-        $package->expects($this->any())
-            ->method('getVersion')
-            ->will($this->returnValue('4.0.1rc1'));
-        $tasks->run(array('CurrentSentinel', 'CommitPreRelease'), $package, array('pretend' => true));
+        $package = $this->getComponent($tmp_dir);
+        $tasks->run(
+            array('CurrentSentinel', 'CommitPreRelease'),
+            $package,
+            array(
+                'pretend' => true,
+                'commit' => new Components_Helper_Commit(
+                    $this->output,
+                    array('pretend' => true)
+                )
+            )
+        );
         $this->assertEquals(
             array(
-                sprintf('Would replace %s/docs/CHANGES with "4.0.1-RC1" now.', $tmp_dir),
-                sprintf('Would replace %s/lib/Application.php with "4.0.1-RC1" now.', $tmp_dir),
+                sprintf('Would replace sentinel in %s/docs/CHANGES with "4.0.1-RC1" now.', $tmp_dir),
+                sprintf('Would replace sentinel in %s/lib/Application.php with "4.0.1-RC1" now.', $tmp_dir),
                 sprintf('Would run "git add %s/docs/CHANGES" now.', $tmp_dir),
                 sprintf('Would run "git add %s/lib/Application.php" now.', $tmp_dir),
                 'Would run "git commit -m "Released Horde-4.0.1rc1"" now.'
@@ -90,19 +107,56 @@ public $version = \'4.0.1-RC1\';
         );
     }
 
-    private function _getPackage()
+    public function testPretendOnBundle()
     {
-        $package = $this->getMock('Components_Pear_Package', array(), array(), '', false, false);
-        return $package;
+        $tmp_dir = $this->_prepareApplicationDirectory(true);
+        $tasks = $this->getReleaseTasks();
+        $package = $this->getComponent($tmp_dir);
+        $tasks->run(
+            array('CurrentSentinel', 'CommitPreRelease'),
+            $package,
+            array(
+                'pretend' => true,
+                'commit' => new Components_Helper_Commit(
+                    $this->output,
+                    array('pretend' => true)
+                )
+            )
+        );
+        $this->assertEquals(
+            array(
+                sprintf('Would replace sentinel in %s/docs/CHANGES with "4.0.1-RC1" now.', $tmp_dir),
+                sprintf('Would replace sentinel in %s/lib/Bundle.php with "4.0.1-RC1" now.', $tmp_dir),
+                sprintf('Would run "git add %s/docs/CHANGES" now.', $tmp_dir),
+                sprintf('Would run "git add %s/lib/Bundle.php" now.', $tmp_dir),
+                'Would run "git commit -m "Released Horde-4.0.1rc1"" now.'
+            ),
+            $this->output->getOutput()
+        );
     }
 
-    private function _prepareApplicationDirectory()
+    private function _prepareApplicationDirectory($bundle = false)
     {
         $tmp_dir = $this->getTemporaryDirectory();
         mkdir($tmp_dir . '/docs');
         file_put_contents($tmp_dir . '/docs/CHANGES', "---\nOLD\n---\nTEST");
         mkdir($tmp_dir . '/lib');
-        file_put_contents($tmp_dir . '/lib/Application.php', "class Application {\npublic \$version = '0.0.0';\n}\n");
+        if ($bundle) {
+            file_put_contents($tmp_dir . '/lib/Bundle.php', "class Horde_Bundle {\nconst VERSION = '0.0.0';\n}\n");
+        } else {
+            file_put_contents($tmp_dir . '/lib/Application.php', "class Application {\npublic \$version = '0.0.0';\n}\n");
+        }
+        file_put_contents(
+            $tmp_dir . '/package.xml',
+            '<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://pear.php.net/dtd/package-2.0">
+ <name>Horde</name>
+ <version>
+  <release>4.0.1rc1</release>
+  <api>4.0.0</api>
+ </version>
+</package>'
+        );
         return $tmp_dir;
     }
 }

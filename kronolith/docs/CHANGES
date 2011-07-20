@@ -5,9 +5,67 @@ v3.1-git
 
 
 ----------
-v3.0.2-git
+v3.0.6-git
 ----------
 
+[mjr] Force ActiveSync device reset after sync_calendars pref is changed
+      (Request #10342).
+[jan] Try to work with remote servers even if they don't support a recent
+      WebDAV protocol version.
+[jan] Support updating attendees from vCalendar 1.0 iTip responses.
+[jan] Fix sending invitations to attendees from traditional view.
+[jan] Fix organizer attribute when exporting to vCalendar 1.0.
+[mjr] Fix issue that prevented synching when no sync_calendar pref was set
+      (Bug #10329).
+
+
+------
+v3.0.5
+------
+
+[jan] Update task due date in interface after dragging a task (Bug #10001).
+[jan] Correctly sort events in portal block or widget if only displaying a
+      single calendar (Bug #10099).
+[mjr] Allow syncing of multiple owner-owned calendars (Request #8734).
+[jan] Don't show calendar drop down in event form without delete permissions
+      (Bug #10201).
+[jan] Don't change event creator when saving events.
+[jan] Fetch events immediately after saving remote calendar.
+
+
+------
+v3.0.4
+------
+
+[jan] Fix holidays being off with certain system timezones (Bug #9989).
+[jan] Only highlight days in the mini calendar that are currently displayed
+      (Bug #10048).
+[jan] Fix advanced search with empty search criteria (Bug #10038).
+
+
+------
+v3.0.3
+------
+
+[jan] Add header for timeobjects calendars.
+[jan] Fix date picker in advanced search form (Bug #10039).
+[mjr] Remove visible exceptions when deleting recurring events (Bug #10013).
+[mjr] Fix issue causing listTimeObject calendars to not appear (Bug #10012).
+
+
+------
+v3.0.2
+------
+
+[jan] Don't show event edit links if user doesn't have edit permissions on any
+      calendar.
+[jan] Fix parsing of recurrence end date in dynamic view (Bug #10025).
+[jan] Fix displaying of new tasks in new task lists.
+[jan] Fix displaying colors of task lists.
+[jan] Delete tasks from tasks view when deleting tasks lists.
+[jan] Don't export multi-day events as multiple events to iCalendar data (Bug
+      #10007).
+[jan] Fix dragging tasks in the dynamic view.
 
 
 ------

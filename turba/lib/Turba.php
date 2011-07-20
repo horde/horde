@@ -14,86 +14,6 @@ class Turba
     const VFS_PATH = '.horde/turba/documents';
 
     /**
-     * @todo Consolidate on a single mail/compose method.
-     *
-     * @param mixed $data  Either a single email address or an array of email
-     *                     addresses to format.
-     * @param string $name  The personal name phrase.
-     *
-     * @return mixed Either the formatted address or an array of formatted
-     *               addresses.
-     */
-    static public function formatEmailAddresses($data, $name)
-    {
-        global $registry;
-        static $useRegistry;
-
-        if (!isset($useRegistry)) {
-            $useRegistry = $registry->hasMethod('mail/batchCompose');
-        }
-
-        $array = is_array($data);
-        if (!$array) {
-            $data = array($data);
-        }
-
-        $addresses = array();
-        foreach ($data as $i => $email_vals) {
-            $email_vals = explode(',', $email_vals);
-            foreach ($email_vals as $j => $email_val) {
-                $email_val = trim($email_val);
-
-                // Format the address according to RFC822.
-                $mailbox_host = explode('@', $email_val);
-                if (!isset($mailbox_host[1])) {
-                    $mailbox_host[1] = '';
-                }
-                $address = Horde_Mime_Address::writeAddress($mailbox_host[0], $mailbox_host[1], $name);
-
-                // Get rid of the trailing @ (when no host is included in
-                // the email address).
-                $addresses[$i . ':' . $j] = array('to' => addslashes(str_replace('@>', '>', $address)));
-            }
-        }
-
-        if ($useRegistry) {
-            try {
-                $addresses = $GLOBALS['registry']->call('mail/batchCompose', array($addresses));
-            } catch (Horde_Exception $e) {
-                $useRegistry = false;
-                $addresses = array();
-            }
-        } else {
-            $addresses = array();
-        }
-
-        foreach ($data as $i => $email_vals) {
-            $email_vals = explode(',', $email_vals);
-            $email_values = false;
-            foreach ($email_vals as $j => $email_val) {
-                if (isset($addresses[$i . ':' . $j])) {
-                    $mail_link = $addresses[$i . ':' . $j];
-                } else {
-                    $mail_link = 'mailto:' . urlencode($email_val);
-                }
-
-                $email_value = Horde::link($mail_link) . htmlspecialchars($email_val) . '</a>';
-                if ($email_values) {
-                    $email_values .= ', ' . $email_value;
-                } else {
-                    $email_values = $email_value;
-                }
-            }
-        }
-
-        if ($array) {
-            return $email_values[0];
-        } else {
-            return $email_values;
-        }
-    }
-
-    /**
      * Returns the source entries from config/backends.php that have been
      * configured as available sources in the main Turba configuration.
      *
@@ -139,7 +59,7 @@ class Turba
      *
      * @return array  An array describing the order to display the address books.
      */
-    function getAddressBookOrder()
+    static public function getAddressBookOrder()
     {
         $lines = json_decode($GLOBALS['prefs']->getValue('addressbooks'));
         $addressbooks = array();
@@ -205,7 +125,7 @@ class Turba
 
     /**
      */
-    function getColumns()
+    static public function getColumns()
     {
         $columns = array();
         $lines = explode("\n", $GLOBALS['prefs']->getValue('columns'));
@@ -221,6 +141,19 @@ class Turba
         }
 
         return $columns;
+    }
+
+    /**
+     * Builds and cleans up a composite field.
+     *
+     * @param string $format  The sprintf field format.
+     * @param array $fields   The fields that compose the composite field.
+     *
+     * @return string  The formatted composite field.
+     */
+    static public function formatCompositeField($format, $fields)
+    {
+        return preg_replace('/ +/', ' ', trim(vsprintf($format, $fields), " \t\n\r\0\x0B,"));
     }
 
     /**
@@ -312,6 +245,86 @@ class Turba
             }
 
             return $name;
+        }
+    }
+
+    /**
+     * @todo Consolidate on a single mail/compose method.
+     *
+     * @param mixed $data  Either a single email address or an array of email
+     *                     addresses to format.
+     * @param string $name  The personal name phrase.
+     *
+     * @return mixed Either the formatted address or an array of formatted
+     *               addresses.
+     */
+    static public function formatEmailAddresses($data, $name)
+    {
+        global $registry;
+        static $useRegistry;
+
+        if (!isset($useRegistry)) {
+            $useRegistry = $registry->hasMethod('mail/batchCompose');
+        }
+
+        $array = is_array($data);
+        if (!$array) {
+            $data = array($data);
+        }
+
+        $addresses = array();
+        foreach ($data as $i => $email_vals) {
+            $email_vals = explode(',', $email_vals);
+            foreach ($email_vals as $j => $email_val) {
+                $email_val = trim($email_val);
+
+                // Format the address according to RFC822.
+                $mailbox_host = explode('@', $email_val);
+                if (!isset($mailbox_host[1])) {
+                    $mailbox_host[1] = '';
+                }
+                $address = Horde_Mime_Address::writeAddress($mailbox_host[0], $mailbox_host[1], $name);
+
+                // Get rid of the trailing @ (when no host is included in
+                // the email address).
+                $addresses[$i . ':' . $j] = array('to' => addslashes(str_replace('@>', '>', $address)));
+            }
+        }
+
+        if ($useRegistry) {
+            try {
+                $addresses = $GLOBALS['registry']->call('mail/batchCompose', array($addresses));
+            } catch (Horde_Exception $e) {
+                $useRegistry = false;
+                $addresses = array();
+            }
+        } else {
+            $addresses = array();
+        }
+
+        foreach ($data as $i => $email_vals) {
+            $email_vals = explode(',', $email_vals);
+            $email_values = false;
+            foreach ($email_vals as $j => $email_val) {
+                if (isset($addresses[$i . ':' . $j])) {
+                    $mail_link = $addresses[$i . ':' . $j];
+                } else {
+                    $mail_link = 'mailto:' . urlencode($email_val);
+                }
+
+                $email_value = Horde::link($mail_link) . htmlspecialchars($email_val) . '</a>';
+                if ($email_values) {
+                    $email_values .= ', ' . $email_value;
+                } else {
+                    $email_values = $email_value;
+                }
+            }
+        }
+
+        if ($array) {
+            return $email_values[0];
+        } else {
+            return $email_values;
         }
     }
 
@@ -427,6 +440,16 @@ class Turba
             return $sources;
         }
 
+        /* See if any of our sources are configured to handle all otherwise
+         * unassigned Horde_Share objects. */
+        $all_shares = null;
+        foreach ($sources as $key => $cfg) {
+            if (!empty($cfg['all_shares'])) {
+                // Indicate the source handler that catches unassigned shares.
+                $all_shares = $key;
+            }
+        }
+
         $sortedSources = $defaults = $vbooks = array();
         $personal = false;
         foreach ($shares as $name => &$share) {
@@ -437,6 +460,9 @@ class Turba
             $personal |= $share->get('owner') == $GLOBALS['registry']->getAuth();
 
             $params = @unserialize($share->get('params'));
+            if (empty($params['source']) && !empty($all_shares)) {
+                $params['source'] = $all_shares;
+            }
             if (isset($params['type']) && $params['type'] == 'vbook') {
                 // We load vbooks last in case they're based on other shares.
                 $params['share'] = $share;

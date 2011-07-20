@@ -5,9 +5,105 @@ v4.1-git
 
 
 ----------
-v4.0.2-git
+v4.0.8-git
 ----------
 
+[jan] Don't show mobile login page if users are forced to tradtional or dynamic
+      views (Request #10358).
+[mjr] Improve calendar PING for iOS devices.
+[mjr] Prevent an ActiveSync sync loop in some fringe cases.
+[jan] Update PGP key server list and add SKS pool.
+
+------
+v4.0.7
+------
+
+[mjr] Fix returning shares in the proper order when fetching multiple shares
+      by id.
+[jan] Don't use CSS cache in mobile interfaces because it breaks jQuery Mobile
+      CSS.
+[mjr] Fix race conditions caused by broken clients sending an inappropriate
+      PING request.
+[jan] Fix duplication of objects during synchronization (joniw@t-online.de, Bug
+      #10081).
+[jan] Don't allow to click disabled login button (Bug #10267).
+[jan] Allow configuration of split read databases for PostgreSQL (Request
+      #7025).
+[mjr] Honor initial_application setting for mobile view (Bug #10264).
+[mjr] Fix issue with initial Android ActiveSync pairing.
+[gwr] Support restricting the HTML tidy post processing by the message size
+      (Request #10266).
+[gwr] Disabled the timeout on the logout token.
+[mjr] Fix integer overflow issue in Facebook code (Bug #9889).
+[mms] Fix adding users with Cyrsql driver (vilius@lnk.lt, Bug #10239).
+
+
+------
+v4.0.6
+------
+
+[jan] Fix extracting of translation strings in a release.
+[rla] Add user-specific admin permissions (Request #9350).
+[jan] Don't strip domain from user name in account block.
+[jan] Fix account block with empty configuration parameters.
+
+
+------
+v4.0.5
+------
+
+[jan] Remove debug code.
+
+
+------
+v4.0.4
+------
+
+[gwr] Added a script for exporting/importing preferences from/to a backend.
+[mms] Fix regression with UTF7-IMAP encoding of non-ascii folder names (Bug
+      #10093).
+[mms] Allow numbers to be zero in certain preferences (Bug #10120).
+[mms] Fix running Horde login tasks (Bug #9767).
+[mms] Fix authenticating as several users in the same request (Bug #10027).
+[mms] Fix colorpicker on categories preferences screen (Bug #10118).
+[jan] Update Spanish translation.
+[jan] Update Slovak translation.
+[mjr] Fix Metar portal block.
+[gwr] Add support for the Kolab IMAP based preferences backend.
+[mms] Complete fix for issue causing slow syncs only (Bug #10008).
+
+
+------
+v4.0.3
+------
+
+[mjr] Fix usage of countOwners() and listOwners() in the Sqlng driver.
+[mms] Fix return link after reporting problem (Bug #10069).
+[jan] Add button to update all configurations with default values at once.
+[jan] Update DataTree conversion scripts for Horde 4.
+[jan] Fix rendering of DataTree browse tree.
+[mjr] Fix issue with deleting identities (Bug #9997).
+[mjr] Fix issue causing credentials to be lost when accessing the API during
+      ActiveSync requests (Bug #9733).
+[jan] Store preferences for guests in the session.
+
+
+------
+v4.0.2
+------
+
+[jan] SECURITY: Fix permission checks of guest users on system shares.
+[mms] SECURITY: Fix deletion of unwanted HTML nodes in XSS filter.
+[mms] Fix authentication failure when TOS is not accepted.
+[jan] Don't show IMP compose link if user doesn't have permissions to IMP (Bug
+      #10016).
+[mms] Fix issue causing slow syncs only in SyncML (Bug #10008).
+[jan] Fix adding categories.
+[jan] Fix listing users in Customsql driver (Bug #9963).
+[jan] Fix calculation of last password change in LDAP account portal block (Bug
+      #9770).
+[jan] Don't check for outdated DB schemas if database support is disabled (Bug
+      #9986).
 [mjr] Fix editing settings of fixed portal blocks (Bug #9910).
 
 
@@ -24,6 +120,7 @@ v4.0.1
 [mjr] Fix some display issues when geocoding with HordeMap (Bug #9883).
 [mms] Don't load sidebar content if not expanded.
 [jan] Fix deleting groups.
+
 [jan] Fix adding new groups (Bug #9881).
 [jan] Fix displaying the Facebook preference group.
 [mms] Add appinitialized hook.

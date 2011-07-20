@@ -184,8 +184,8 @@ class Turba_Driver implements Countable
                 $cManager = new Horde_Prefs_CategoryManager();
                 $cManager->add($hash['category']['value']);
                 $hash['category'] = $hash['category']['value'];
-            } else {
-                $hash['category'] = $hash['category'];
+            } elseif (is_array($hash['category'])) {
+                $hash['category'] = $hash['category']['value'];
             }
         }
 
@@ -229,7 +229,7 @@ class Turba_Driver implements Countable
                             ? $hash[$mapfields]
                             : '';
                     }
-                    $fields[$this->map[$key]['attribute']] = preg_replace('/\s+/', ' ', trim(vsprintf($this->map[$key]['format'], $fieldarray), " \t\n\r\0\x0B,"));
+                    $fields[$this->map[$key]['attribute']] = Turba::formatCompositeField($this->map[$key]['format'], $fieldarray);
                 } else {
                     // If 'parse' is not specified, use 'format' and 'fields'.
                     if (!isset($this->map[$key]['parse'])) {
@@ -793,7 +793,7 @@ class Turba_Driver implements Countable
         }
 
         if (!isset($attributes['__uid'])) {
-            $attributes['__uid'] = strval(new Horde_Support_Guid());
+            $attributes['__uid'] = $this->_makeUid();
         }
 
         $key = $attributes['__key'] = $this->_makeKey($this->toDriverKeys($attributes));
@@ -1397,7 +1397,17 @@ class Turba_Driver implements Countable
                 if ($fields && !isset($fields['EMAIL'])) {
                     break;
                 }
-                $vcard->setAttribute('EMAIL', Horde_Icalendar_Vcard::getBareEmail($val));
+                if ($version == '2.1') {
+                    $vcard->setAttribute(
+                        'EMAIL',
+                        Horde_Icalendar_Vcard::getBareEmail($val),
+                        array('INTERNET' => null));
+                } else {
+                    $vcard->setAttribute(
+                        'EMAIL',
+                        Horde_Icalendar_Vcard::getBareEmail($val),
+                        array('TYPE' => 'INTERNET'));
+                }
                 break;
 
             case 'homeEmail':
@@ -2251,8 +2261,7 @@ class Turba_Driver implements Countable
                     $fieldarray[] = isset($hash[$mapfields]) ?
                         $hash[$mapfields] : '';
                 }
-                $hash['name'] = trim(vsprintf($this->map['name']['format'], $fieldarray),
-                                     " \t\n\r\0\x0B,");
+                $hash['name'] = Turba::formatCompositeField($this->map['name']['format'], $fieldarray);
             } else {
                 $hash['name'] = isset($hash['firstname']) ? $hash['firstname'] : '';
                 if (!empty($hash['lastname'])) {
@@ -2371,6 +2380,14 @@ class Turba_Driver implements Countable
                 $message->email1address = Horde_Icalendar_Vcard::getBareEmail($value);
                 break;
 
+            case 'homeEmail':
+                $message->email2address = Horde_Icalendar_Vcard::getBareEmail($value);
+                break;
+
+            case 'workEmail':
+                $message->email3address = Horde_Icalendar_Vcard::getBareEmail($value);
+                break;
+
             case 'title':
                 $message->jobtitle = $value;
                 break;
@@ -2379,7 +2396,7 @@ class Turba_Driver implements Countable
                 $message->companyname = $value;
                 break;
 
-            case 'departnemt':
+            case 'department':
                 $message->department = $value;
                 break;
 
@@ -2405,8 +2422,12 @@ class Turba_Driver implements Countable
             case 'birthday':
             case 'anniversary':
                 if (!empty($value)) {
-                    $date = new Horde_Date($value);
-                    $message->{$field} = $date;
+                    try {
+                        $date = new Horde_Date($value);
+                        $message->{$field} = $date;
+                    } catch (Horde_Date_Exception $e) {
+                        $message->$field = null;
+                    }
                 } else {
                     $message->$field = null;
                 }
@@ -2488,7 +2509,12 @@ class Turba_Driver implements Countable
         if (!$message->isGhosted('email1address')) {
             $hash['email'] = Horde_Icalendar_Vcard::getBareEmail($message->email1address);
         }
-
+        if (!$message->isGhosted('email2address')) {
+            $hash['homeEmail'] = Horde_Icalendar_Vcard::getBareEmail($message->email2address);
+        }
+        if (!$message->isGhosted('email3address')) {
+            $hash['workEmail'] = Horde_Icalendar_Vcard::getBareEmail($message->email3address);
+        }
         /* Categories */
         if (count($message->categories)) {
             $hash['category'] = implode('|', $message->categories);
@@ -2640,6 +2666,16 @@ class Turba_Driver implements Countable
     }
 
     /**
+     * Creates an object UID for a new object.
+     *
+     * @return string  A unique ID for the new object.
+     */
+    protected function _makeUid()
+    {
+        return strval(new Horde_Support_Guid());
+    }
+
+    /**
      * Initialize the driver.
      *
      * @throws Turba_Exception
@@ -2683,19 +2719,20 @@ class Turba_Driver implements Countable
     }
 
     /**
-     * Adds the specified contact to the SQL database.
+     * Adds the specified contact to the addressbook.
      *
-     * @param array $attributes  TODO
+     * @param array $attributes  The attribute values of the contact.
+     * @param array $blob_fields TODO
      *
      * @throws Turba_Exception
      */
-    protected function _add(array $attributes)
+    protected function _add(array $attributes, array $blob_fields = array())
     {
         throw new Turba_Exception(_("Adding contacts is not available."));
     }
 
     /**
-     * Deletes the specified contact from the SQL database.
+     * Deletes the specified contact from the addressbook.
      *
      * @param string $object_key TODO
      * @param string $object_id  TODO

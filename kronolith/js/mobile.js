@@ -181,7 +181,7 @@
         switch (view) {
             case 'day':
                 if (!KronolithMobile.viewRan) {
-                    KronolithMobile.vewRaw = true;
+                    KronolithMobile.viewRan = true;
                     date = d[0].dateString();
                     events = KronolithMobile.getCacheForDate(date);
                     events = KronolithMobile.sortEvents(events);

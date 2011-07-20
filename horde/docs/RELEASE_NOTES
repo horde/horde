@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde
-Application Framework version 4.0.1.
+Application Framework version 4.0.7.
 
 The Horde Application Framework is a flexible, modular, general-purpose web
 application framework written in PHP. It provides an extensive array of
@@ -24,23 +24,26 @@ developing modern web applications. It is the basis for a large number of
 production-level web applications, notably the Horde Groupware suites. For more
 information on Horde or the Horde Groupware suites, visit http://www.horde.org.
 
-To upgrade from earlier releases, you only have to run:
-
-  pear upgrade -c horde
+For upgrading instructions, please see
+http://www.horde.org/apps/horde/docs/UPGRADING
 
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
-The major changes compared to the Horde version 4.0 are:
+The major changes compared to the Horde version 4.0.6 are:
 
-    * Added hook called after initialization of applications.
-    * Many smaller and larger bugfixes and improvements.
+    * Added support for split read/write databases in PostgreSQL.
+    * Bug fixes in synchronization code.
+    * Small bugfixes and improvements.
+    * Updated Brazilian Portuguese, Lithuanian, and Ukrainian translations.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Added hook called after initialization of applications.
-Many smaller and larger bugfixes and improvements.
+Added support for split read/write databases in PostgreSQL.
+Bug fixes in synchronization code.
+Small bugfixes and improvements.
+Updated Brazilian Portuguese, Lithuanian, and Ukrainian translations.
 FM;
 
 $this->notes['name'] = 'Horde';

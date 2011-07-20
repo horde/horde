@@ -150,6 +150,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $this->_imptmp = array(
                 'blockimg' => null,
                 'cid' => null,
+                'cid_used' => array(),
                 'img' => $blockimg,
                 'imgblock' => false,
                 'inline' => $inline,
@@ -214,7 +215,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $status[] = array(
                 'icon' => Horde::img('mime/image.png'),
                 'text' => array(
-                    _("Images have been blocked to protect your privacy."),
+                    _("Images have been blocked in this message part."),
                     Horde::link('#', '', 'unblockImageLink') . _("Show Images?") . '</a>'
                 )
             );
@@ -239,6 +240,12 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         /* Filter bad language. */
         $data = IMP::filterText($data);
+
+        /* Add unused cid information. */
+        if ($related_part &&
+            $unused = array_diff($this->_imptmp['cid'], array($this->_mimepart->getMimeId()), $this->_imptmp['cid_used'])) {
+            $related_part->setMetadata('related_cids_unused', array_values($unused));
+        }
 
         return array(
             'data' => $data,
@@ -337,6 +344,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     /* Multipart/related. */
                     if (($tag == 'img') &&
                         isset($this->_imptmp['cid'][$val])) {
+                        $this->_imptmp['cid_used'][] = $this->_imptmp['cid'][$val];
                         $val = $this->getConfigParam('imp_contents')->urlView(null, 'view_attach', array('params' => array(
                             'id' => $this->_imptmp['cid'][$val],
                             'imp_img_view' => 'data'
@@ -373,6 +381,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
                     /* Multipart/related. */
                     if (isset($this->_imptmp['cid'][$val])) {
+                        $this->_imptmp['cid_used'][] = $this->_imptmp['cid'][$val];
                         $val = $this->getConfigParam('imp_contents')->urlView(null, 'view_attach', array('params' => array(
                             'id' => $this->_imptmp['cid'][$val],
                             'imp_img_view' => 'data'
@@ -432,6 +441,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 'id' => $this->_imptmp['cid'][$matches[2]],
                 'imp_img_view' => 'data'
             )));
+            $this->_imptmp['cid_used'][] = $this->_imptmp['cid'][$matches[2]];
         } else {
             $this->_imptmp['node']->setAttribute('htmlimgblocked', $matches[2]);
             $this->_imptmp['imgblock'] = true;

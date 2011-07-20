@@ -85,28 +85,12 @@
      <file name="EditTaskList.php" role="horde" />
      <file name="Task.php" role="horde" />
     </dir> <!-- /lib/Form -->
-    <dir name="test">
-     <dir name="Nag">
-      <dir name="Stub">
-       <file name="Registry.php" role="horde" />
-      </dir> <!-- /lib/test/Nag/Stub -->
-      <dir name="Unit">
-       <dir name="Driver">
-        <file name="KolabTest.php" role="horde" />
-       </dir> <!-- /lib/test/Nag/Unit/Driver -->
-      </dir> <!-- /lib/test/Nag/Unit -->
-      <file name="AllTests.php" role="horde" />
-      <file name="Autoload.php" role="horde" />
-      <file name="phpunit.xml" role="data" />
-      <file name="TestCase.php" role="horde" />
-     </dir> <!-- /lib/test/Nag -->
-    </dir> <!-- /lib/test -->
     <dir name="Ui">
      <dir name="VarRenderer">
       <file name="Nag.php" role="horde" />
      </dir> <!-- /lib/Ui/VarRenderer -->
     </dir> <!-- /lib/Ui -->
-    <file name=".htaccess" role="data" />
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Driver.php" role="horde" />
@@ -322,6 +306,12 @@
      </dir> <!-- /locale/tr/LC_MESSAGES -->
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/tr -->
+    <dir name="uk">
+     <dir name="LC_MESSAGES">
+      <file name="nag.mo" role="horde" />
+      <file name="nag.po" role="horde" />
+     </dir> <!-- /locale/uk/LC_MESSAGES -->
+    </dir> <!-- /locale/uk -->
     <dir name="zh_CN">
      <dir name="LC_MESSAGES">
       <file name="nag.mo" role="horde" />
@@ -385,6 +375,22 @@
     <file name="tasklist_info.php" role="horde" />
     <file name="tasklist_list.php" role="horde" />
    </dir> <!-- /templates -->
+   <dir name="test">
+    <dir name="Nag">
+     <dir name="Stub">
+      <file name="Registry.php" role="test" />
+     </dir> <!-- /test/Nag/Stub -->
+     <dir name="Unit">
+      <dir name="Driver">
+       <file name="KolabTest.php" role="test" />
+      </dir> <!-- /test/Nag/Unit/Driver -->
+     </dir> <!-- /test/Nag/Unit -->
+     <file name="AllTests.php" role="test" />
+     <file name="Autoload.php" role="test" />
+     <file name="phpunit.xml" role="test" />
+     <file name="TestCase.php" role="test" />
+    </dir> <!-- /test/Nag -->
+   </dir> <!-- /test -->
    <dir name="themes">
     <dir name="bluewhite">
      <file name="screen.css" role="horde" />
@@ -408,7 +414,6 @@
       <file name="unchecked.png" role="horde" />
       <file name="za.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
-     <file name="categoryCSS.php" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
     <dir name="fadetogreen">
@@ -449,13 +454,13 @@
      </dir> <!-- /themes/tango-blue/graphics -->
     </dir> <!-- /themes/tango-blue -->
    </dir> <!-- /themes -->
-   <file name="COPYING" role="data" />
+   <file name="COPYING" role="doc" />
    <file name="data.php" role="horde" />
    <file name="index.php" role="horde" />
    <file name="list.php" role="horde" />
    <file name="mobile.php" role="horde" />
    <file name="quick.php" role="horde" />
-   <file name="README" role="data" />
+   <file name="README" role="doc" />
    <file name="search.php" role="horde" />
    <file name="task.php" role="horde" />
    <file name="view.php" role="horde" />
@@ -479,7 +484,7 @@
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.4</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -675,12 +680,6 @@
    <install as="nag/lib/Form/Type/NagDue.php" name="lib/Form/Type/NagDue.php" />
    <install as="nag/lib/Form/Type/NagMethod.php" name="lib/Form/Type/NagMethod.php" />
    <install as="nag/lib/Form/Type/NagStart.php" name="lib/Form/Type/NagStart.php" />
-   <install as="nag/lib/test/Nag/AllTests.php" name="lib/test/Nag/AllTests.php" />
-   <install as="nag/lib/test/Nag/Autoload.php" name="lib/test/Nag/Autoload.php" />
-   <install as="test/Nag/phpunit.xml" name="lib/test/Nag/phpunit.xml" />
-   <install as="nag/lib/test/Nag/TestCase.php" name="lib/test/Nag/TestCase.php" />
-   <install as="nag/lib/test/Nag/Stub/Registry.php" name="lib/test/Nag/Stub/Registry.php" />
-   <install as="nag/lib/test/Nag/Unit/Driver/KolabTest.php" name="lib/test/Nag/Unit/Driver/KolabTest.php" />
    <install as="nag/lib/Ui/VarRenderer/Nag.php" name="lib/Ui/VarRenderer/Nag.php" />
    <install as="nag/locale/.htaccess" name="locale/.htaccess" />
    <install as="nag/locale/nag.pot" name="locale/nag.pot" />
@@ -760,6 +759,8 @@
    <install as="nag/locale/tr/help.xml" name="locale/tr/help.xml" />
    <install as="nag/locale/tr/LC_MESSAGES/nag.mo" name="locale/tr/LC_MESSAGES/nag.mo" />
    <install as="nag/locale/tr/LC_MESSAGES/nag.po" name="locale/tr/LC_MESSAGES/nag.po" />
+   <install as="nag/locale/uk/LC_MESSAGES/nag.mo" name="locale/uk/LC_MESSAGES/nag.mo" />
+   <install as="nag/locale/uk/LC_MESSAGES/nag.po" name="locale/uk/LC_MESSAGES/nag.po" />
    <install as="nag/locale/zh_CN/LC_MESSAGES/nag.mo" name="locale/zh_CN/LC_MESSAGES/nag.mo" />
    <install as="nag/locale/zh_CN/LC_MESSAGES/nag.po" name="locale/zh_CN/LC_MESSAGES/nag.po" />
    <install as="nag/locale/zh_TW/LC_MESSAGES/nag.mo" name="locale/zh_TW/LC_MESSAGES/nag.mo" />
@@ -794,8 +795,13 @@
    <install as="nag/templates/list/task_summaries.inc" name="templates/list/task_summaries.inc" />
    <install as="nag/templates/search/search.inc" name="templates/search/search.inc" />
    <install as="nag/templates/view/task.inc" name="templates/view/task.inc" />
+   <install as="Nag/AllTests.php" name="test/Nag/AllTests.php" />
+   <install as="Nag/Autoload.php" name="test/Nag/Autoload.php" />
+   <install as="Nag/phpunit.xml" name="test/Nag/phpunit.xml" />
+   <install as="Nag/TestCase.php" name="test/Nag/TestCase.php" />
+   <install as="Nag/Stub/Registry.php" name="test/Nag/Stub/Registry.php" />
+   <install as="Nag/Unit/Driver/KolabTest.php" name="test/Nag/Unit/Driver/KolabTest.php" />
    <install as="nag/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
-   <install as="nag/themes/default/categoryCSS.php" name="themes/default/categoryCSS.php" />
    <install as="nag/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="nag/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
    <install as="nag/themes/default/graphics/alarm.png" name="themes/default/graphics/alarm.png" />
@@ -942,7 +948,35 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-05-03</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [jan] Fix reversed logic of displaying sub-task tree icons depending on the text direction (Bug #10033).
+* [jan] Fix encoding of non-ascii characters in parent task drop-down.
+* [mjr] Fix editing tasklists (Bug #9965).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [jan] Add Ukrainian translation (Andriy Kopystyansky &lt;anri@polynet.lviv.ua&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.3</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * 

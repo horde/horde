@@ -81,14 +81,10 @@ class Horde_Release_Whups
      */
     function getQueueId($module)
     {
-        if ($module == 'horde') {
-            $module = 'horde base';
-        }
-
         $queues = $this->_listQueues();
 
         foreach ($queues as $id => $queue) {
-            if (strtolower($queue) == $module) {
+            if ($queue == $module) {
                 return $id;
             }
         }
@@ -106,7 +102,7 @@ class Horde_Release_Whups
     {
         return Horde_Rpc::request('jsonrpc',
                                   $this->_params['url'],
-                                  'tickets.listQueues',
+                                  'tickets.listSlugs',
                                   $this->_http,
                                   null)->result;
     }

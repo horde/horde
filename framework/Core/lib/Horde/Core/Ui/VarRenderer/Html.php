@@ -82,7 +82,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
                        htmlspecialchars($var->getValue($vars)),
                        $var->isDisabled() ? ' disabled="disabled" ' : '',
                        empty($maxlength) ? '' : ' maxlength="' . $maxlength . '"',
-                       $this->_getActionScripts($form, $var)    
+                       $this->_getActionScripts($form, $var)
                );
     }
 
@@ -577,11 +577,11 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
         Horde::addScriptFile('sorter.js', 'horde');
 
         return '<input type="hidden" name="' . htmlspecialchars($var->getVarName()) .
-            '[array]" value="" ' . $this->_genID($varname . '_array') . '/>' .
+            '[array]" value="" ' . $this->_genID($var->getVarName() . '_array') . '/>' .
             '<select class="leftFloat" multiple="multiple" size="' .
             (int)$var->type->getSize() . '" name="' . htmlspecialchars($var->getVarName()) .
             '[list]" onchange="' . $instance . '.deselectHeader();" ' .
-            $this->_genID($varname . '_list') . '>' .
+            $this->_genID($var->getVarName() . '_list') . '>' .
             $var->type->getOptions($var->getValue($vars)) . '</select><div class="leftFloat">' .
             Horde::link('#', Horde_Core_Translation::t("Move up"), '', '', $instance . '.moveColumnUp(); return false;') . Horde::img('nav/up.png', Horde_Core_Translation::t("Move up")) . '</a><br />' .
             Horde::link('#', Horde_Core_Translation::t("Move up"), '', '', $instance . '.moveColumnDown(); return false;') . Horde::img('nav/down.png', Horde_Core_Translation::t("Move down")) . '</a></div>' .

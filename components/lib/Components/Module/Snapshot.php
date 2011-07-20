@@ -30,16 +30,31 @@
 class Components_Module_Snapshot
 extends Components_Module_Base
 {
+    /**
+     * Return the title for the option group representing this module.
+     *
+     * @return string The group title.
+     */
     public function getOptionGroupTitle()
     {
         return 'Package snapshot';
     }
 
+    /**
+     * Return the description for the option group representing this module.
+     *
+     * @return string The group description.
+     */
     public function getOptionGroupDescription()
     {
         return 'This module generates a development snapshot for the specified package';
     }
 
+    /**
+     * Return the options for this module.
+     *
+     * @return array The group options.
+     */
     public function getOptionGroupOptions()
     {
         return array(
@@ -49,14 +64,6 @@ extends Components_Module_Base
                 array(
                     'action' => 'store_true',
                     'help'   => 'Generate a development snapshot'
-                )
-            ),
-            new Horde_Argv_Option(
-                '-Z',
-                '--archivedir',
-                array(
-                    'action' => 'store',
-                    'help'   => 'The path to the directory where any resulting source archives will be placed.'
                 )
             ),
             new Horde_Argv_Option(
@@ -110,7 +117,7 @@ extends Components_Module_Base
     public function getContextOptionHelp()
     {
         return array(
-            '--archivedir' => '',
+            '--destination' => '',
             '--keep-version' => ''
         );
     }
@@ -129,7 +136,6 @@ extends Components_Module_Base
         $arguments = $config->getArguments();
         if (!empty($options['snapshot'])
             || (isset($arguments[0]) && $arguments[0] == 'snapshot')) {
-            $this->requirePackageXml($config->getComponentDirectory());
             $this->_dependencies->getRunnerSnapshot()->run();
             return true;
         }

@@ -51,9 +51,10 @@ class Horde_Exception_Pear extends Horde_Exception
      */
     private function _getPearTrace(PEAR_Error $error)
     {
+        $pear_error = '';
         $backtrace = $error->getBacktrace();
         if (!empty($backtrace)) {
-            $pear_error = "\n\n" . 'PEAR Error:' . "\n";
+            $pear_error .= "\n\n" . 'PEAR Error:' . "\n";
             foreach ($backtrace as $frame) {
                 $pear_error .= '    '
                     . (isset($frame['class']) ? $frame['class'] : '')
@@ -63,9 +64,17 @@ class Horde_Exception_Pear extends Horde_Exception
                     . (isset($frame['line']) ? $frame['line'] : 'unkown') . "\n";
             }
             $pear_error .= "\n";
-            return $pear_error;
         }
-        return '';
+        $userinfo = $error->getUserInfo();
+        if (!empty($userinfo)) {
+            $pear_error .= "\n\n" . 'PEAR user info:' . "\n";
+            if (is_string($userinfo)) {
+                $pear_error .= $userinfo;
+            } else {
+                $pear_error .= print_r($userinfo, true);
+            }
+        }
+        return $pear_error;
     }
 
     /**

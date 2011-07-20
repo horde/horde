@@ -102,7 +102,7 @@ class Content_Tagger
      *
      * @return void
      */
-    public function tag($userId, $objectId, $tags, $created = null)
+    public function tag($userId, $objectId, $tags, Horde_Date $created = null)
     {
         if (is_null($created)) {
             $created = date('Y-m-d\TH:i:s');
@@ -694,6 +694,11 @@ class Content_Tagger
                 continue;
             }
 
+            // Don't attempt to tag with an empty value
+            if (empty($tag)) {
+                continue;
+            }
+
             // Get the ids for any tags that already exist.
             $sql = 'SELECT tag_id FROM ' . $this->_t('tags')
                 . ' WHERE LOWER(tag_name) = LOWER('
@@ -803,7 +808,7 @@ class Content_Tagger
     {
         if (is_array($object)) {
             $object = current($this->_objectManager->ensureObjects(
-                $object['object'], current($this->_typeManager->ensureTypes($object['type']))));
+                $object['object'], (int)current($this->_typeManager->ensureTypes($object['type']))));
         }
 
         return (int)$object;

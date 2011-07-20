@@ -108,7 +108,7 @@ if (isset($_COOKIE['folks_login_code']) &&
     $_COOKIE['folks_login_code'] == $folks_driver->getCookie($_COOKIE['folks_login_user'])) {
 
     // Horde Auto login
-    Horde_Auth::setAuth($_COOKIE['folks_login_user'], array('transparent' => 1));
+    $registry->setAuth($_COOKIE['folks_login_user'], array('transparent' => 1));
 
     if (empty($url_param)) {
         $url_param = Folks::getUrlFor('user', $_COOKIE['folks_login_user']);
@@ -189,7 +189,10 @@ if ($form->isSubmitted()) {
     }
 
     // Horde Auto login
-    Horde_Auth::setAuth($username, array('transparent' => 1, 'password' => $info['password']));
+    $registry->setAuth($username, array(
+        'password' => $info['password'],
+        'transparent' => 1
+    ));
 
     // Save user last login info.
     // We ignore last_login pref as it can be turned off by user

@@ -5,8 +5,8 @@
  * @subpackage UnitTests
  */
 
-/** Horde_Feed_TestCase */
-require_once dirname(__FILE__) . '/TestCase.php';
+/** Setup testing */
+require_once dirname(__FILE__) . '/Autoload.php';
 
 class Horde_Feed_ReadTest extends PHPUnit_Framework_TestCase
 {
@@ -23,7 +23,7 @@ class Horde_Feed_ReadTest extends PHPUnit_Framework_TestCase
     public function testValidAtomFeeds($file)
     {
         $feed = Horde_Feed::readFile($this->_feedDir . $file);
-        $this->assertType('Horde_Feed_Atom', $feed);
+        $this->assertInstanceOf('Horde_Feed_Atom', $feed);
     }
 
     public static function getValidAtomTests()
@@ -45,7 +45,7 @@ class Horde_Feed_ReadTest extends PHPUnit_Framework_TestCase
     public function testValidRssFeeds($file)
     {
         $feed = Horde_Feed::readFile($this->_feedDir . $file);
-        $this->assertType('Horde_Feed_Rss', $feed);
+        $this->assertInstanceOf('Horde_Feed_Rss', $feed);
     }
 
     public static function getValidRssTests()
@@ -74,11 +74,10 @@ class Horde_Feed_ReadTest extends PHPUnit_Framework_TestCase
         try {
             $feed = Horde_Feed::readFile($this->_feedDir . 'NotAFeed.xml');
         } catch (Exception $e) {
-            $this->assertType('Horde_Feed_Exception', $e);
+            $this->assertInstanceOf('Horde_Feed_Exception', $e);
             return;
         }
 
         $this->fail('Expected a Horde_Feed_Exception when parsing content that is not a feed of any kind');
     }
-
 }

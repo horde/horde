@@ -58,7 +58,7 @@ foreach($files as $file) {
 
     // Set current user
     $user = substr(basename($file), 0, -6);
-    Horde_Auth::setAuth($user, array());
+    $registry->setAuth($user, array());
     $cli->message('Importing ' . $user . '\'s address book');
 
     // Reset user prefs

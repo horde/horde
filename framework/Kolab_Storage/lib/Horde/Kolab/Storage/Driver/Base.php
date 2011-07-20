@@ -390,6 +390,19 @@ implements Horde_Kolab_Storage_Driver
     }
 
     /**
+     * Retrieves a complete message.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uid    The message UID.
+     *
+     * @return array The message encapsuled as an array that contains a
+     *               Horde_Mime_Headers and a Horde_Mime_Part object.
+     */
+    public function fetchComplete($folder, $uid)
+    {
+        throw new Horde_Kolab_Storage_Exception('"fetchComplete() not supported by this driver!');
+    }
+    /**
      * Split a name for the METADATA extension into the correct syntax for the
      * older ANNOTATEMORE version.
      *

@@ -952,5 +952,24 @@ twelve',
                                        ),
                                 $this->readCsv('quote' . $i . '.csv'));
         }
+
+        for ($i = 6; $i <= 7; $i++) {
+            $this->assertEquals(array (
+                                       0 =>
+                                       array (
+                                              0 => 'one',
+                                              1 => 'two',
+                                              2 => 'three',
+                                              ),
+                                       1 =>
+                                       array (
+                                              0 => 'four',
+                                              1 => 'five"six',
+                                              2 => 'seven
+"eight"',
+                                              ),
+                                       ),
+                                $this->readCsv('quote' . $i . '.csv'));
+        }
     }
 }

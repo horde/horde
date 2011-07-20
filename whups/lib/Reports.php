@@ -11,22 +11,54 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Whups
  */
-class Whups_Reports {
+class Whups_Reports
+{
+    /**
+     * @var Whups_Driver
+     */
+    protected $_backend;
 
-    var $_backend;
+    /**
+     * Local cache of open tickets
+     *
+     * @var array
+     */
+    protected $_opentickets;
 
-    var $_opentickets;
+    /**
+     * Local cache of closed tickets
+     *
+     * @var array
+     */
+    protected $_closedtickets;
 
-    var $_closedtickets;
+    /**
+     * Local cache of ticket sets
+     *
+     * @var array
+     */
+    protected $_alltickets;
 
-    var $_alltickets;
-
-    function Whups_Reports($whups_driver)
+    /**
+     * Constructor
+     *
+     * @param Whups_Driver $whups_driver  The backend driver
+     *
+     * @return Whups_Reports
+     */
+    function __construct(Whups_Driver $whups_driver)
     {
         $this->_backend = $whups_driver;
     }
 
-    function getDataSet($report)
+    /**
+     * Get the data set
+     *
+     * @param string $report  The report
+     *
+     * @return array  The dataset
+     */
+    public function getDataSet($report)
     {
         $operation = 'inc';
         $state = null;
@@ -34,7 +66,7 @@ class Whups_Reports {
         if (substr($type, 0, 1) == '@') {
             list($type, $operation, $state) = explode(':', substr($type, 1));
         }
-        $tickets = &$this->_getTicketSet($type, ($field == 'owner'));
+        $tickets = $this->_getTicketSet($type, ($field == 'owner'));
 
         if (substr($field, 0, 7) == 'user_id' || $field == 'owner') {
             $user = true;
@@ -46,16 +78,8 @@ class Whups_Reports {
         foreach ($tickets as $info) {
             switch ($state) {
             case 'open':
-                require_once 'Date/Calc.php';
-
-                $date1 = getdate($info['date_resolved']);
-                $date2 = getdate($info['timestamp']);
-                $newdata = Date_Calc::dateDiff($date1['mday'],
-                                               $date1['mon'],
-                                               $date1['year'],
-                                               $date2['mday'],
-                                               $date2['mon'],
-                                               $date2['year']);
+                $date1 = new Horde_Date($info['date_resolved']);
+                $newdata = $date1->diff(new Horde_Date($info['timestamp']));
                 break;
 
             default:
@@ -92,6 +116,14 @@ class Whups_Reports {
         return $dataset;
     }
 
+    /**
+     * Update the dataset
+     *
+     * @param array $dataset     The dataset.
+     * @param integer $index     The index to update.
+     * @param mixed $newdata     The new data to insert.
+     * @param string $operation  The operation being performed.
+     */
     function _updateDataSet(&$dataset, $index, $newdata, $operation)
     {
         if (isset($dataset[$index])) {
@@ -132,14 +164,16 @@ class Whups_Reports {
      *
      * @return integer|array  The time value requested, or an array of values,
      *                        if the $group_by parameter has been specified.
+     *
+     * @throws Whups_Exception
      */
-    function getTime($stat, $group_by = null)
+    public function getTime($stat, $group_by = null)
     {
         list($operation, $state) = explode('|', $stat);
 
-        $tickets = &$this->_getTicketSet('closed');
+        $tickets = $this->_getTicketSet('closed');
         if (!count($tickets)) {
-            return PEAR::raiseError(_("There is no data for this report."));
+            throw new Whups_Exception(_("There is no data for this report."));
         }
 
         $dataset = array();
@@ -153,16 +187,8 @@ class Whups_Reports {
 
             switch ($state) {
             case 'open':
-                require_once 'Date/Calc.php';
-
-                $date1 = getdate($info['date_resolved']);
-                $date2 = getdate($info['timestamp']);
-                $diff = Date_Calc::dateDiff($date1['mday'],
-                                            $date1['mon'],
-                                            $date1['year'],
-                                            $date2['mday'],
-                                            $date2['mon'],
-                                            $date2['year']);
+                $date1 = new Horde_Date($info['date_resolved']);
+                $diff = $date1->diff(new Horde_Date($info['timestamp']));
                 if (empty($group_by)) {
                     $dataset[0][] = $diff;
                 } else {
@@ -209,17 +235,15 @@ class Whups_Reports {
      * Loads a set of tickets, and cache the result inside the Whups_Reports::
      * object to save on database access.
      *
-     * @access private
-     *
      * @param string $type       'open', 'closed', or 'all' - the set of
      *                           tickets to fetch. A previously cached set
      *                           will be returned if it is available.
      * @param boolean $expanded  List tickets once for each owner of the
      *                           ticket?
      *
-     * @return array  A reference to the cached ticket set.
+     * @return array  The ticket set.
      */
-    function &_getTicketSet($type, $expanded = false)
+    protected function &_getTicketSet($type, $expanded = false)
     {
         $queues = array_keys(Whups::permissionsFilter($this->_backend->getQueues(), 'queue'));
         $expanded = (int)$expanded;

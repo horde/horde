@@ -42,7 +42,7 @@ extends Horde_Pear_TestCase
         $config = self::getConfig('PEAR_TEST_CONFIG');
         if ($config && !empty($config['pear']['config'])) {
             $this->_config = $config['pear']['config'];
-            setenv('PHP_PEAR_SYSCONF_DIR', $this->_config);
+            putenv('PHP_PEAR_SYSCONF_DIR=' . $this->_config);
         } else {
             $this->markTestSkipped('Missing configuration!');
         }

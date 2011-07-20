@@ -37,32 +37,32 @@ extends Horde_Pear_TestCase
 {
     public function testAny()
     {
-        $this->_checkNotIgnored('ANY');
+        $this->_checkNotIgnored('/a/ANY');
     }
 
     public function testTemporary()
     {
-        $this->_checkIgnored('ANY~');
+        $this->_checkIgnored('/a/ANY~');
     }
 
     public function testConfPhp()
     {
-        $this->_checkIgnored('conf.php');
+        $this->_checkIgnored('/a/conf.php');
     }
 
     public function testCVS()
     {
-        $this->_checkIgnored('/APP/CVS/test');
+        $this->_checkIgnored('/a/APP/CVS/test');
     }
 
     public function testDotDot()
     {
-        $this->_checkIgnored('..');
+        $this->_checkIgnored('/a/..');
     }
 
     public function testHidden()
     {
-        $this->_checkIgnored('.hidden');
+        $this->_checkIgnored('/a/.hidden');
     }
 
     private function _checkIgnored($file)
@@ -84,7 +84,7 @@ extends Horde_Pear_TestCase
         return new Horde_Pear_Package_Contents_Ignore_Composite(
             array(
                 new Horde_Pear_Package_Contents_Ignore_Patterns(
-                    array('*~', 'conf.php', 'CVS/*')
+                    array('*~', 'conf.php', 'CVS/*'), '/'
                 ),
                 new Horde_Pear_Package_Contents_Ignore_Dot(),
                 new Horde_Pear_Package_Contents_Ignore_Hidden()

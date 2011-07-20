@@ -8,9 +8,20 @@
 .. section-numbering::
 
 
+General instructions
+====================
+
 These are instructions to upgrade from earlier Turba versions. Please backup
 your existing data before running any of the steps described below. You can't
 use the updated data with your old Turba version anymore.
+
+Upgrading Turba is as easy as running::
+
+   pear upgrade -a -B horde/turba
+
+If you want to upgrade from a Turba version prior to 3.0, please
+follow the instructions in INSTALL_ to install the most recent Turba
+version using the PEAR installer.
 
 After updating to a newer Turba version, you **always** need to update
 configurations and database schemes. Log in as an administrator, go to
@@ -260,3 +271,6 @@ previous versions, that is, a seperate, private addressbook for each user.
                need for maintaining the two seperate tables. If you desire not
                to enable share support, you may still use seperate tables and
                set permissions via the administration interface.
+
+
+.. _INSTALL: INSTALL

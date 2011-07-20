@@ -48,7 +48,7 @@ class IMP_Quota_Imap extends IMP_Quota_Base
     {
         try {
             $quota = $this->_params['imap_ob']->getQuotaRoot($this->_params['mbox']);
-        } catch (Horde_Imap_Client_Exception $e) {
+        } catch (IMP_Imap_Exception $e) {
             throw new IMP_Exception(_("Unable to retrieve quota"));
         }
 

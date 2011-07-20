@@ -64,4 +64,16 @@ EOT;
         );
     }
 
+    public function testBug9992()
+    {
+        $text = base64_decode('dGVzdDogtbno6bvtu+nt/eHpu7797Txicj4K');
+        $expected = '<p>test: ľščéťíťéíýáéťžýí<br/></p>';
+
+        $dom = new Horde_Domhtml($text, 'iso-8859-2');
+        $this->assertEquals(
+            Horde_String::convertCharset($expected, 'UTF-8', 'iso-8859-2'),
+            trim($dom->returnBody())
+        );
+    }
+
 }

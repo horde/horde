@@ -165,7 +165,7 @@ case 'clear':
 }
 
 /* Get list of resources for select list, and remove those we already added */
-$allResources = Kronolith::getDriver('Resource')->listResources();
+$allResources = Kronolith::getDriver('Resource')->listResources(Horde_Perms::READ, array(), 'name');
 foreach (array_keys($resources) as $id) {
     unset($allResources[$id]);
 }

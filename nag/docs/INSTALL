@@ -58,61 +58,23 @@ Installing with PEAR
 First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
 environment for Horde and install the Horde Framework.
 
-When installing Nag through PEAR now, the installer will automatically
-install any dependencies of Nag too. By default, only the required
-dependencies will be installed::
+When installing Nag through PEAR now, the installer will automatically install
+any dependencies of Nag too. If you want to install Nag with all optional
+dependencies, but without the binary PECL packages that need to be compiled,
+specify both the ``-a`` and the ``-B`` flag::
+
+   pear install -a -B horde/nag
+
+By default, only the required dependencies will be installed::
 
    pear install horde/nag
 
-If you want to install Nag even with all optional dependencies, you need to
-specify the ``-a`` flag. Please note that this might also try to install PHP
+If you want to install Nag even with all binary dependencies, you need to
+remove the ``-B`` flag. Please note that this might also try to install PHP
 extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
    pear install -a horde/nag
-
-If you want to install Nag with all optional dependencies, but without the
-binary PECL packages that need to be compiled, specify both the ``-a`` and the
-``-B`` flag::
-
-   pear install -a -B horde/nag
-
-
-Installing from Release Tarballs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. Important:: As of today, there are no tarballs released for Nag 3
-               yet. Please use the `Installing with PEAR`_ method to install
-               Nag 3.
-
-Nag can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/apps/nag
-
-   ftp://ftp.horde.org/pub/nag/
-
-Or use the mirror closest to you:
-
-   http://www.horde.org/mirrors.php
-
-Nag is written in PHP, and must be installed in a web-accessible directory.
-The precise location of this directory will differ from system to system.
-Conventionally, Nag is installed directly underneath Horde in the webserver's
-document tree.
-
-Since Nag is written in PHP, there is no compilation necessary; simply expand
-the distribution where you want it to reside and rename the root directory of
-the distribution to whatever you wish to appear in the URL.  For example, with
-the Apache webserver's default document root of ``/usr/local/apache/htdocs``,
-you would type::
-
-   cd /usr/local/apache/htdocs/horde
-   tar zxvf /path/to/nag-x.y.z.tar.gz
-   mv nag-x.y.z nag
-
-and would then find Nag at the URL::
-
-   http://your-server/horde/nag/
 
 
 Configuring Nag
@@ -196,7 +158,7 @@ Thanks for using Nag!
 The Horde team
 
 
-.. _README: ?f=README.html
+.. _README: README
 .. _INSTALL:
-.. _`horde/docs/INSTALL`: ../../horde/docs/?f=INSTALL.html
-.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/?f=TRANSLATIONS.html
+.. _`horde/docs/INSTALL`: ../../horde/docs/INSTALL
+.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/TRANSLATIONS

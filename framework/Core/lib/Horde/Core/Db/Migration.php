@@ -46,11 +46,11 @@ class Horde_Core_Db_Migration
     public function __construct($basedir = null, $pearconf = null)
     {
         // Loop through all applications.
-        foreach ($GLOBALS['registry']->listApps(array('hidden', 'notoolbar', 'admin', 'active', 'inactive'), false, null) as $app) {
+        foreach ($GLOBALS['registry']->listApps(array('hidden', 'notoolbar', 'admin', 'noadmin', 'active', 'inactive'), false, null) as $app) {
             $dir = $GLOBALS['registry']->get('fileroot', $app) . '/migration';
             if (is_dir($dir)) {
                 $this->apps[] = $app;
-                $this->dirs[] = $dir;
+                $this->dirs[] = realpath($dir);
             }
         }
 
@@ -58,19 +58,22 @@ class Horde_Core_Db_Migration
         if ($basedir) {
             foreach (glob($basedir . '/framework/*/migration') as $dir) {
                 $this->apps[] = 'horde_' . Horde_String::lower(basename(dirname($dir)));
-                $this->dirs[] = $dir;
+                $this->dirs[] = realpath($dir);
             }
         }
 
         // Loop through installed PEAR packages.
+        $old_error_reporting = error_reporting();
+        error_reporting($old_error_reporting & ~E_STRICT);
         $pear = new PEAR_Config($pearconf);
         foreach (glob($pear->get('data_dir') . '/*/migration') as $dir) {
             $app = Horde_String::lower(basename(dirname($dir)));;
             if (!in_array($app, $this->apps)) {
                 $this->apps[] = $app;
-                $this->dirs[] = $dir;
+                $this->dirs[] = realpath($dir);
             }
         }
+        error_reporting($old_error_reporting);
     }
 
     /**

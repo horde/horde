@@ -138,7 +138,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
             return array();
         }
 
-        $status = array(_("This is a thumbnail of an image attached to this message."));
+        $status = array(_("This is a thumbnail of an image attachment."));
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
             $status[] = $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag('view_thumbnail', _("View Attachment")), null, null, null);
@@ -189,7 +189,9 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 }
             }
             $type = $img->getContentType();
-            $data = $img->raw(true);
+            try {
+                $data = $img->raw(true);
+            } catch (Exception $e) {}
         }
 
         if (!$img || !$data) {
@@ -216,29 +218,14 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     protected function _getHordeImageOb($load)
     {
-        if (empty($GLOBALS['conf']['image']['driver'])) {
-            return false;
-        }
-
         try {
-            $img = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Image')->create();
-        } catch (Horde_Exception $e) {
-            return false;
-        }
-
-        if (!$img) {
-            return false;
-        }
-
-        if ($load) {
-            try {
-                $ret = $img->loadString($this->_mimepart->getContents());
-            } catch (Horde_Image_Exception $e) {
-                return false;
+            if (($img = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Image')->create()) && $load) {
+                $img->loadString($this->_mimepart->getContents());
             }
-        }
+            return $img;
+        } catch (Horde_Exception $e) {}
 
-        return $img;
+        return false;
     }
 
     /**

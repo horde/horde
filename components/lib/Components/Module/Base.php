@@ -109,18 +109,4 @@ implements Components_Module
     {
         return '';
     }
-
-    /**
-     * Validate that there is a package.xml file in the provided directory.
-     *
-     * @param string $directory The package directory.
-     *
-     * @return NULL
-     */
-    protected function requirePackageXml($directory)
-    {
-        if (!file_exists($directory . '/package.xml')) {
-            throw new Components_Exception(sprintf('There is no package.xml at %s!', $directory));
-        }
-    }
 }

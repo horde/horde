@@ -1,0 +1,437 @@
+# Spanish translations for ulaform package
+# Traducciones al español para el paquete ulaform.
+# Copyright 2008-2009 The Horde Project
+# This file is distributed under the same license as the ulaform package.
+# Automatically generated, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Ulaform 1.0-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-03-19 11:04+0100\n"
+"PO-Revision-Date: 2008-03-19 11:04+0100\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: edit.php:82
+msgid "-- default configured --"
+msgstr "-- configurado por omisión --"
+
+#: edit.php:62
+msgid "-- select --"
+msgstr "-- seleccionar --"
+
+#: delete.php:32 edit.php:62 forms.php:32
+msgid "Action"
+msgstr "Acción"
+
+#: forms.php:31
+msgid "Available Forms"
+msgstr "Formularios disponibles"
+
+#: lib/Action/mailto.php:123
+msgid "Bcc"
+msgstr "Bcc"
+
+#: lib/Action/mailto.php:119
+msgid "Cc"
+msgstr "Cc"
+
+#: edit.php:45
+msgid "Changed action driver."
+msgstr "Se ha cambiado el controlador de acciones."
+
+#: genhtml.php:37
+msgid "Changed embed type."
+msgstr "Se ha cambiado el tipo incluido."
+
+#: config/.bak/fields.php.dist:49
+msgid "Characters"
+msgstr "Caracteres"
+
+#: config/.bak/fields.php.dist:40 config/.bak/fields.php.dist:47
+msgid "Columns"
+msgstr "Columnas"
+
+#: display.php:30
+#, php-format
+msgid "Could not fetch form ID \"%s\". %s"
+msgstr "No se puede traer el ID de formulario \"%s\". %s"
+
+#: edit.php:56
+msgid "Create"
+msgstr "Crear"
+
+#: edit.php:82
+msgid "Default language"
+msgstr "Idioma por omisión"
+
+#: delete.php:33 delete.php:36 deletefield.php:43 deletefield.php:49
+msgid "Delete"
+msgstr "Eliminar"
+
+#: deletefield.php:42 fields.php:127
+msgid "Delete Field"
+msgstr "Eliminar campo"
+
+#: forms.php:26
+msgid "Delete Form"
+msgstr "Eliminar formulario"
+
+#: deletefield.php:47
+msgid "Delete this field?"
+msgstr "¿Eliminar este campo?"
+
+#: delete.php:30
+msgid "Delete this form?"
+msgstr "¿Eliminar este formulario?"
+
+#: fields.php:57 fields.php:124
+msgid "Description"
+msgstr "Descripción"
+
+#: delete.php:33 deletefield.php:43 deletefield.php:67
+msgid "Do not delete"
+msgstr "No eliminar"
+
+#: fields.php:128
+msgid "Edit Field"
+msgstr "Modificar campo"
+
+#: forms.php:27
+msgid "Edit Form"
+msgstr "Modificar formulario"
+
+#: edit.php:115
+msgid "Edit Forms"
+msgstr "Modificar formularios"
+
+#: config/.bak/fields.php.dist:121 config/.bak/fields.php.dist:129
+msgid "End year"
+msgstr "Año de terminación"
+
+#: config/.bak/fields.php.dist:64 config/.bak/fields.php.dist:84
+#: config/.bak/fields.php.dist:92 config/.bak/fields.php.dist:100
+#: config/.bak/fields.php.dist:108 config/.bak/fields.php.dist:147
+msgid "Enter a comma separated list of values."
+msgstr "Introduzca una lista de valores separados por comas."
+
+#: deletefield.php:57
+#, php-format
+msgid "Error deleting field. %s."
+msgstr "Error al eliminar el campo. %s."
+
+#: delete.php:44
+#, php-format
+msgid "Error deleting form. %s."
+msgstr "Error al eliminar el formulario. %s."
+
+#: fields.php:88
+#, php-format
+msgid "Error saving field. %s."
+msgstr "Error al guardar el campo. %s."
+
+#: sortfields.php:46
+#, php-format
+msgid "Error saving fields. %s."
+msgstr "Error al guardar los campos. %s."
+
+#: edit.php:100
+#, php-format
+msgid "Error saving form. %s."
+msgstr "Error al guardar el formulario. %s."
+
+#: display.php:65 lib/api.php:154 lib/Block/form.php:88
+#, php-format
+msgid "Error submitting form. %s."
+msgstr "Error al enviar el formulario. %s."
+
+#: deletefield.php:59
+#, php-format
+msgid "Field \"%s\" deleted."
+msgstr "Se ha eliminado el campo \"%s\"."
+
+#: fields.php:40
+msgid "Field Details"
+msgstr "Detalles del campo"
+
+#: deletefield.php:68
+msgid "Field not deleted."
+msgstr "Campo no eliminado."
+
+#: fields.php:90
+msgid "Field saved."
+msgstr "Campo guardado."
+
+#: sortfields.php:48
+msgid "Field sort order saved."
+msgstr "Criterio de clasificación de campo guardado."
+
+#: templates/fields/fields.html:15
+msgid "Fields"
+msgstr "Campos"
+
+#: lib/api.php:48 lib/Block/form.php:31
+msgid "Form"
+msgstr "Formulario"
+
+#: delete.php:29 edit.php:55
+msgid "Form Details"
+msgstr "Detalles del formulario"
+
+#: fields.php:133
+msgid "Form Fields"
+msgstr "Campos del formulario"
+
+#: forms.php:32
+msgid "Form Name"
+msgstr "Nombre del formulario"
+
+#: delete.php:46
+msgid "Form deleted."
+msgstr "Se ha eliminado el formulario."
+
+#: edit.php:102
+msgid "Form details saved."
+msgstr "Se han guardado los detalles del formulario."
+
+#: delete.php:53
+msgid "Form has not been deleted."
+msgstr "No se ha eliminado el formulario."
+
+#: display.php:67 lib/Block/form.php:90
+msgid "Form submitted successfully."
+msgstr "Se ha enviado correctamente el formulario."
+
+#: config/.bak/fields.php.dist:135
+msgid "Format used to display"
+msgstr "Formato utilizado para mostrar"
+
+#: config/.bak/fields.php.dist:133
+msgid "Format used to submit"
+msgstr "Formato utilizado para enviar"
+
+#: forms.php:38
+msgid "Forms List"
+msgstr "Listado de formularios"
+
+#: lib/Action/mailto.php:115
+msgid "From"
+msgstr "De"
+
+#: genhtml.php:48 fields.php:117 forms.php:29
+msgid "Generate HTML"
+msgstr "Generar HTML"
+
+#: genhtml.php:42
+#, php-format
+msgid "HTML Generation for \"%s\""
+msgstr "Generación de HTML de \"%s\""
+
+#: genhtml.php:62
+msgid "Height"
+msgstr "Altura"
+
+#: fields.php:47
+msgid "Internal name"
+msgstr "Nombre interno"
+
+#: fields.php:46 fields.php:124
+msgid "Label"
+msgstr "Etiqueta"
+
+#: lib/Action/mailto.php:99
+msgid "Mailto"
+msgstr "Mailto"
+
+#: lib/Driver/sql.php:80 lib/Driver/sql.php:158
+msgid "Missing form"
+msgstr "Falta el formulario"
+
+#: edit.php:56
+msgid "Modify"
+msgstr "Modificar"
+
+#: delete.php:31 genhtml.php:61 fields.php:124 edit.php:59
+msgid "Name"
+msgstr "Nombre"
+
+#: lib/Driver.php:123 lib/Driver.php:124
+msgid "No"
+msgstr "No"
+
+#: fields.php:108
+msgid "No available fields."
+msgstr "No se dispone de campos."
+
+#: forms.php:23
+msgid "No available forms."
+msgstr "No se dispone de formularios."
+
+#: deletefield.php:32
+msgid "No field specified."
+msgstr "No se han especificado campos."
+
+#: lib/Action.php:84
+#, php-format
+msgid "No such action \"%s\" found"
+msgstr "No se encontró el tipo de acción \"%s\""
+
+#: lib/Driver.php:177
+#, php-format
+msgid "No such backend \"%s\" found"
+msgstr "No se encontró el motor \"%s\""
+
+#: lib/Driver/sql.php:229 lib/Driver/sql.php:275
+#, php-format
+msgid "No such form ID \"%s\"."
+msgstr "No existe el ID de formulario \"%s\"."
+
+#: edit.php:86
+msgid "On submit"
+msgstr "Al enviar"
+
+#: genhtml.php:52
+msgid "PHP using PEAR classes"
+msgstr "PHP utiliza clases PEAR"
+
+#: fields.php:117
+msgid "Preview"
+msgstr "Vista previa"
+
+#: forms.php:28
+msgid "Preview Form"
+msgstr "Vista previa del formulario"
+
+#: fields.php:56 fields.php:124
+msgid "Read only"
+msgstr "Sólo lectura"
+
+#: fields.php:55 fields.php:124
+msgid "Required"
+msgstr "Requerido"
+
+#: config/.bak/fields.php.dist:38 config/.bak/fields.php.dist:45
+msgid "Rows"
+msgstr "Filas"
+
+#: lib/Action/sql.php:89
+msgid "SQL"
+msgstr "SQL"
+
+#: sortfields.php:34
+msgid "Save"
+msgstr "Guardar"
+
+#: fields.php:41
+msgid "Save Field"
+msgstr "Guardar campo"
+
+#: genhtml.php:53
+msgid "Select how you wish to embed the form"
+msgstr "Seleccione cómo desea incluir el formulario"
+
+#: sortfields.php:35
+msgid "Select the sort order of the fields"
+msgstr "Seleccione el tipo de clasificación de los campos:"
+
+#: fields.php:47
+msgid ""
+"Set this name if you have a particular reason to override the automatic "
+"internal naming of fields."
+msgstr ""
+"Defina este nombre si tiene alguna razón para ignorar el nombre interno "
+"automático de los campos."
+
+#: lib/Block/form.php:3
+msgid "Show Form"
+msgstr "Mostrar formulario"
+
+#: config/.bak/fields.php.dist:131
+msgid "Show the date picker"
+msgstr "¿Mostrar selector de fechas?"
+
+#: sortfields.php:31
+msgid "Sort Fields"
+msgstr "Campos de ordenación"
+
+#: fields.php:117
+msgid "Sort fields"
+msgstr "Campos de ordenación"
+
+#: config/.bak/fields.php.dist:119 config/.bak/fields.php.dist:127
+msgid "Start year"
+msgstr "Año de inicio"
+
+#: lib/Action/mailto.php:114
+msgid "Subject"
+msgstr "Asunto"
+
+#: lib/Action/sql.php:104
+msgid "Table"
+msgstr "Tabla"
+
+#: forms.php:20
+#, php-format
+msgid "There was an error listing forms: %s."
+msgstr "Se produjo un error al listar los formularios: %s."
+
+#: lib/Action/mailto.php:100
+msgid ""
+"This driver allows the sending of form results via email to one or more "
+"recipients."
+msgstr ""
+"Este controlador permite el envío por correo formularios de resultados a uno "
+"o más destinatarios."
+
+#: lib/Action/sql.php:90
+msgid "This driver allows to insertion of form results into a database."
+msgstr ""
+"Este controlador permite la inserción de los resultados de un formulario en "
+"una base de datos."
+
+#: fields.php:65
+msgid "This field type has extra parameters."
+msgstr "Este tipo de campo tiene parámetros adicionales."
+
+#: lib/Action/mailto.php:116
+msgid "To"
+msgstr "Para"
+
+#: fields.php:51 fields.php:124
+msgid "Type"
+msgstr "Tipo"
+
+#: config/.bak/fields.php.dist:61 config/.bak/fields.php.dist:81
+#: config/.bak/fields.php.dist:89 config/.bak/fields.php.dist:97
+#: config/.bak/fields.php.dist:105 config/.bak/fields.php.dist:144
+msgid "Values"
+msgstr "Valores"
+
+#: genhtml.php:63
+msgid "Width"
+msgstr "Anchura"
+
+#: lib/Driver.php:123 lib/Driver.php:124
+msgid "Yes"
+msgstr "Sí"
+
+#: lib/Driver/sql.php:262
+msgid "You don't have the right permission to access this form."
+msgstr "Carece de los permisos adecuados para acceder a este formulario."
+
+#: lib/Ulaform.php:198
+msgid "_List Forms"
+msgstr "_Listar formularios"
+
+#: lib/Ulaform.php:199
+msgid "_New Form"
+msgstr "_Añadir"
+
+#: genhtml.php:52
+msgid "iframe"
+msgstr "iframe"

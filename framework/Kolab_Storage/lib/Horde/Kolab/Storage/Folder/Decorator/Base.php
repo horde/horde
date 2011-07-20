@@ -74,6 +74,18 @@ implements Horde_Kolab_Storage_Folder
     }
 
     /**
+     * Return the namespace prefix of the folder.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return string The namespace prefix of the folder.
+     */
+    public function getPrefix()
+    {
+        return $this->_folder->getPrefix();
+    }
+
+    /**
      * Returns the owner of the folder.
      *
      * @return string The owner of this folder.

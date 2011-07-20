@@ -369,7 +369,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             try {
                 $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
                 $sig_result = $sig_part->getMetadata('imp-pgp-signature')
-                    ? $imp_pgp->verifySignature($sig_part->getContents(array('canonical' => true)), $this->_address)
+                    ? $imp_pgp->verifySignature($sig_part->getContents(array('canonical' => true)), $this->_address, null, $sig_part->getMetadata('imp-pgp-charset'))
                     : $imp_pgp->verifySignature($sig_part->replaceEOL($this->getConfigParam('imp_contents')->getBodyPart($signed_id, array('mimeheaders' => true)), Horde_Mime_Part::RFC_EOL), $this->_address, $sig_part->getContents());
 
                 $icon = Horde::img('alerts/success.png', _("Success"));

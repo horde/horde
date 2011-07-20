@@ -1,0 +1,69 @@
+#!/usr/bin/env php
+<?php
+/**
+* Bare bones script to auto append an image's exif fields to it's tags.
+*
+* See the enclosed file COPYING for license information (GPL). If you
+* did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+*
+* @author Michael J. Rubinsky <mrubinsk@horde.org>
+*/
+if (file_exists(dirname(__FILE__) . '/../../ansel/lib/Application.php')) {
+    $baseDir = dirname(__FILE__) . '/../';
+} else {
+    require_once 'PEAR/Config.php';
+    $baseDir = PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/ansel/';
+}
+require_once $baseDir . 'lib/Application.php';
+Horde_Registry::appInit('ansel', array('cli' => true, 'user_admin' => true));
+
+/* Command line options */
+$parser = new Horde_Argv_Parser(
+    array(
+        'usage' => '%prog [--options]',
+        'optionList' => array(
+            new Horde_Argv_Option(
+                '-f',
+                '--fields',
+                array(
+                    'help' => 'A \':\' delimited list of exif fields to include',
+                    'default' =>  'Keywords',
+                )
+            )
+        )
+    )
+);
+
+// Show help and exit if no arguments were set.
+list($opts, $args) = $parser->parseArgs();
+
+// Get a tagger
+$tagger = $injector->getInstance('Ansel_Tagger');
+
+// Get the list of image ids that have exif data.
+$sql = 'SELECT DISTINCT image_id from ansel_image_attributes;';
+try {
+    $image_ids = $GLOBALS['ansel_db']->selectValues($sql);
+} catch (Horde_Db_Exception $e) {
+    $cli->fatal($e->getMessage());
+}
+$fields = explode(':', $opts['fields']);
+foreach ($image_ids as $image_id) {
+    try {
+        $image = $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
+            ->getImage($image_id);
+        $attributes = $image->getAttributes();
+        foreach ($attributes as $key => $value) {
+            if (in_array($key, $fields)) {
+                $image->setTags(array($value), false);
+            }
+        }
+    } catch (Ansel_Exception $e) {
+        $cli->fatal($e->getMessage());
+    }
+    $cli->message(sprintf(_("Extracted exif fields from %s"), $image->filename), 'cli.success');
+}
+$cli->message(_("Done"));
+exit;

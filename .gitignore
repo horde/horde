@@ -9,6 +9,8 @@
 *.orig
 *.rej
 *.swp
+*.kdev4
+.kdev4/*
 
 # Ignore testing files
 run-tests.log
@@ -38,10 +40,12 @@ framework/Alarm/test/Horde/Alarm/conf.php
 framework/Db/test/Horde/Db/Adapter/conf.php
 framework/Db/test/Horde/Db/Adapter/Pdo/conf.php
 framework/Group/test/Horde/Group/conf.php
+framework/Http/test/Horde/Http/conf.php
 framework/Kolab_Storage/test/Horde/Kolab/Storage/conf.php
 framework/Ldap/test/Horde/Ldap/conf.php
+framework/Pear/test/Horde/Pear/Server/conf.php
 framework/Share/test/Horde/Share/conf.php
-
+content/test/Content/conf.php
 # Dynamically generated content that may live in the repo directories
 /lib/
 /libs/
@@ -64,11 +68,10 @@ framework/Share/test/Horde/Share/conf.php
 /luxor/config/backends.php
 framework/bin/*.conf
 !/horde/admin/config/
-!/kolab/*
-!/kolab/*/*
-!/kolab/*/*/*
-!/kolab/*/*/*/*
-/kolab/config/*.local.php
+!/bundles/*/config/*.d/*.php
+!/bundles/*/*/config/*.d/*.php
+!/bundles/*/config/hooks.php
+!/bundles/*/*/config/hooks.php
 
 # Application specific excludes
 ApertureToAnselExportPlugin/build/

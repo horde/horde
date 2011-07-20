@@ -1416,10 +1416,11 @@
    feature will be disabled. Additional command line arguments, if needed
    locally (e.g. extensions), can be added at the end of this entry."/>
    <configmultienum name="keyserver" required="false" desc="The address
-   of the public PGP keyserver(s) to use.">pgp.mit.edu
+   of the public PGP keyserver(s) to use.">pool.sks-keyservers.net
     <values>
+     <value>pool.sks-keyservers.net</value>
+     <value>subkeys.pgp.net</value>
      <value>pgp.mit.edu</value>
-     <value>keyserver.noreply.org</value>
     </values>
    </configmultienum>
    <configinteger name="timeout" required="false" desc="The timeout for
@@ -1747,10 +1748,10 @@
   <configsection name="twitter">
    <configheader>Twitter Integration Settings</configheader>
    <configdescription>If you want to allow your users to interact with their
-   Twitter account, enable this section. If you've obtained an OAuth secret and
-   key from Twitter, Horde can use OAuth to authenticate to Twitter, otherwise,
-   users can still access Twitter services, but must use the (insecure) Http
-   Basic Authentication method.</configdescription>
+   Twitter account, enable this section. You must setup an application on
+   Twitter and obtain the OAuth secret and key from Twitter. See
+   http://wiki.horde.org/Doc/Admin/Config/Horde/Twitter for details.
+  </configdescription>
    <configswitch name="enabled">false
     <case name="false" desc="Disabled" />
     <case name="true" desc="Enabled">
@@ -1975,11 +1976,11 @@
      </configsection>
      <configsection name="securitypolicies">
      <configheader>Security Policies</configheader>
-      <configswitch name="provisioning" quote="false" desc="How should device
-      provisioning be handled? Set to DISABLE to ignore provisioning. Set to
-      ALLOW to force devices that CAN be provisioned to use provisioning, but
-      allow older devices with no support for provisioning to still be used. Set
-      to FORCE to only allow devices that are provisioned to connect to your
+      <configswitch name="provisioning" desc="How should device provisioning be
+      handled? Set to DISABLE to ignore provisioning. Set to ALLOW to force
+      devices that CAN be provisioned to use provisioning, but allow older
+      devices with no support for provisioning to still be used. Set to FORCE
+      to only allow devices that are provisioned to connect to your
       server.">false
        <case name="false" desc="Disable" />
        <case name="loose" desc="Allow">

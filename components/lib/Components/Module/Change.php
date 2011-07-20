@@ -49,14 +49,6 @@ extends Components_Module_Base
                     'help'   => 'Store CHANGED as change log entry.'
                 )
             ),
-            new Horde_Argv_Option(
-                '-G',
-                '--commit',
-                array(
-                    'action' => 'store_true',
-                    'help'   => 'Commit the change log entries to git (using the change log message).'
-                )
-            ),
         );
     }
 
@@ -90,7 +82,35 @@ extends Components_Module_Base
      */
     public function getHelp($action)
     {
-        return 'This module records a change log entry in package.xml (and docs/CHANGES in case it exists).';
+        return 'This module records a change log entry in package.xml and
+docs/CHANGES in case it exists.
+
+Move into the directory of the component you wish to record a change for
+and run
+
+  horde-components changed "[xyz] Fixed issue #99999"
+
+If you want to commit the change log entry immediately you can run the
+command with the "--commit" flag:
+
+  horde-components changed --commit "[xyz] Fixed issue #99999"
+
+This will use the change log message as commit message. You might wish to
+ensure that you already added all changes you want to mark with that
+commit message by using "git add ..." before.';
+    }
+
+    /**
+     * Return the options that should be explained in the context help.
+     *
+     * @return array A list of option help texts.
+     */
+    public function getContextOptionHelp()
+    {
+        return array(
+            '--commit' => 'Commit the change log entries to git (using the change log entry as commit message).',
+            '--pretend' => ''
+        );
     }
 
     /**

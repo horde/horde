@@ -7,8 +7,7 @@
  * @subpackage UnitTests
  */
 
-require_once dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/lib/Horde/Xml/Element.php';
-require_once dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/lib/Horde/Xml/Element/Exception.php';
+require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
  * @author     Chuck Hagenbuch <chuck@horde.org>

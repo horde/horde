@@ -93,15 +93,15 @@ Thanks,
 The Horde team
 
 
-.. _README: ?f=README.html
+.. _README: README
 .. _COPYING: http://www.horde.org/licenses/lgpl
-.. _docs/CHANGES: ?f=CHANGES.html
-.. _docs/CODING_STANDARDS: ?f=CODING_STANDARDS.html
-.. _docs/CONTRIBUTING: ?f=CONTRIBUTING.html
-.. _docs/CREDITS: ?f=CREDITS.html
+.. _docs/CHANGES: CHANGES
+.. _docs/CODING_STANDARDS: CODING_STANDARDS
+.. _docs/CONTRIBUTING: CONTRIBUTING
+.. _docs/CREDITS: CREDITS
 .. _INSTALL:
-.. _docs/INSTALL: ?f=INSTALL.html
-.. _docs/PERFORMANCE: ?f=PERFORMANCE.html
-.. _docs/RELEASE: ?f=RELEASE.html
-.. _docs/SECURITY: ?f=SECURITY.html
-.. _docs/UPGRADING: ?f=UPGRADING.html
+.. _docs/INSTALL: INSTALL
+.. _docs/PERFORMANCE: PERFORMANCE
+.. _docs/RELEASE: RELEASE
+.. _docs/SECURITY: SECURITY
+.. _docs/UPGRADING: UPGRADING

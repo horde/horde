@@ -34,5 +34,14 @@ class Horde_Data_CsvTest extends PHPUnit_Framework_TestCase
                             $data->importFile(dirname(__FILE__) . '/fixtures/simple_dos.csv', true, ',', '', 4));
         $this->assertEquals($expected,
                             $data->importFile(dirname(__FILE__) . '/fixtures/simple_unix.csv', true, ',', '', 4));
+
+        $expected = array(array('one' => 'four',
+                                'two' => 'five"six',
+                                'three' => 'seven
+"eight"',''=>''));
+        $this->assertEquals($expected,
+                            $data->importFile(dirname(__FILE__) . '/fixtures/quotes1.csv', true, ',', '"', 4));
+        $this->assertEquals($expected,
+                            $data->importFile(dirname(__FILE__) . '/fixtures/quotes2.csv', true, ',', '"', 4));
     }
 }

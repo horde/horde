@@ -369,7 +369,7 @@ class Turba_Driver_Sql extends Turba_Driver
      *
      * @throws Turba_Exception
      */
-    protected function _add($attributes, $blob_fields = array())
+    protected function _add(array $attributes, array $blob_fields = array())
     {
         list($fields, $values) = $this->_prepareWrite($attributes, $blob_fields);
         $query  = 'INSERT INTO ' . $this->_params['table']

@@ -47,7 +47,9 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      */
     protected function _authenticate($userId, $credentials)
     {
-        return $this->_params['auth_driver']->authenticate($userId, $credentials);
+        if (!$this->_params['auth_driver']->authenticate($userId, $credentials)) {
+            throw new Horde_Auth_Exception($this->_params['auth_driver']->getError(true), $this->_params['auth_driver']->getError());
+        }
     }
 
     /**
@@ -141,9 +143,9 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      * @return array  The array of userIds.
      * @throws Horde_Auth_Exception
      */
-    public function listUsers()
+    public function listUsers($sort = false)
     {
-        return $this->_params['admin_driver']->listUsers();
+        return $this->_params['admin_driver']->listUsers($sort);
     }
 
     /**

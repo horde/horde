@@ -86,7 +86,7 @@ class Nag_Driver_Sql extends Nag_Driver
             throw new Nag_Exception($e->getMessage());
         }
         if (!$row) {
-            throw new Horde_Exception_NotFound(_("Task UID not found"));
+            throw new Horde_Exception_NotFound(sprintf(_("Task UID %s not found"), $uid));
         }
         $this->_tasklist = $row['task_owner'];
 

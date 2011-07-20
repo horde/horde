@@ -22,8 +22,7 @@ var DimpCompose = {
             sbd = $('send_button_redirect');
 
         if (window.confirm(DIMP.text_compose.cancel)) {
-            if (this.is_popup &&
-                DimpCore.base &&
+            if (this.baseAvailable(true) &&
                 !DIMP.conf_compose.qreply) {
                 DimpCore.base.focus();
             }
@@ -40,9 +39,7 @@ var DimpCompose = {
 
     updateDraftsMailbox: function()
     {
-        if (this.is_popup &&
-            DimpCore.base &&
-            DimpCore.base.DimpBase &&
+        if (this.baseAvailable() &&
             DimpCore.base.DimpBase.folder == DIMP.conf_compose.drafts_mbox) {
             DimpCore.base.DimpBase.poll();
         }
@@ -145,11 +142,16 @@ var DimpCompose = {
                 : l.l;
         }
 
+        if (id == 'sm') {
+            s = s.base64urlEncode();
+        }
+
         $(k.opts.input).setValue(s);
         $(k.opts.label).writeAttribute('title', l.escapeHTML()).setText(l.truncate(15)).up(1).show();
 
         if (id == 'sm') {
             k.knl.setSelected(s);
+            this.setSaveSentMail(true);
         }
     },
 
@@ -252,9 +254,7 @@ var DimpCompose = {
                 this.updateDraftsMailbox();
 
                 if (d.action == 'saveDraft') {
-                    if (this.is_popup &&
-                        DimpCore.base &&
-                        DimpCore.base.DimpCore &&
+                    if (this.baseAvailable() &&
                         !DIMP.conf_compose.qreply) {
                         DimpCore.base.DimpCore.showNotifications(r.msgs);
                         r.msgs = [];
@@ -266,9 +266,7 @@ var DimpCompose = {
                 break;
 
             case 'sendMessage':
-                if (this.is_popup &&
-                    DimpCore.base &&
-                    DimpCore.base.DimpBase) {
+                if (this.baseAvailable()) {
                     if (d.flag) {
                         DimpCore.base.DimpBase.flagCallback(d);
                     }
@@ -293,9 +291,7 @@ var DimpCompose = {
                 return this.closeCompose();
 
             case 'redirectMessage':
-                if (this.is_popup &&
-                    DimpCore.base &&
-                    DimpCore.base.DimpBase) {
+                if (this.baseAvailable()) {
                     if (d.log) {
                         DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
                     }
@@ -329,6 +325,7 @@ var DimpCompose = {
                 $('identity').setValue(d.identity);
                 this.changeIdentity();
                 $('noticerow', 'identitychecknotice').invoke('show');
+                this.resizeMsgArea();
             }
 
             if (!Object.isUndefined(d.encryptjs)) {
@@ -401,7 +398,7 @@ var DimpCompose = {
                 callback: this.setMessageText.bind(this, false)
             });
 
-            this.rte.destroy();
+            this.rte.destroy(true);
             delete this.rte;
         } else {
             this.RTELoading('show');
@@ -533,24 +530,24 @@ var DimpCompose = {
 
         $('to').setValue(header.to);
         if (DIMP.conf_compose.cc && header.cc) {
-            $('cc').setValue(header.cc);
             this.toggleCC('cc');
+            $('cc').setValue(header.cc);
         }
         this.setPopdownLabel('sm', identity.id.smf_name, identity.id.smf_display);
         this.setSaveSentMail(identity.id.smf_save);
         if (DIMP.conf_compose.bcc) {
-            if (header.bcc) {
-                $('bcc').setValue(header.bcc);
-            }
+            bcc_add = header.bcc
+                ? header.bcc
+                : $F('bcc');
             if (identity.id.bcc) {
-                bcc_add = $F('bcc');
-                if (bcc_add) {
+                if (!bcc_add.empty()) {
                     bcc_add += ', ';
                 }
-                $('bcc').setValue(bcc_add + identity.id.bcc);
+                bcc_add += identity.id.bcc;
             }
-            if ($F('bcc')) {
+            if (!bcc_add.empty()) {
                 this.toggleCC('bcc');
+                $('bcc').setValue(bcc_add);
             }
         }
         $('subject').setValue(header.subject);
@@ -685,6 +682,14 @@ var DimpCompose = {
     {
         if (r.response.header) {
             $('to').setValue(r.response.header.to);
+            [ 'cc', 'bcc' ].each(function(t) {
+                if (r.response.header[t] || $(t).visible()) {
+                    if (!$(t).visible()) {
+                        this.toggleCC(t);
+                    }
+                    $(t).setValue(r.response.header.cc);
+                }
+            }, this);
         }
         $('to_loading_img').hide();
     },
@@ -779,13 +784,8 @@ var DimpCompose = {
         }
     },
 
-    resizeMsgArea: function()
+    resizeMsgArea: function(e)
     {
-        var lh, mah, msg, msg_h, rows,
-            cmp = $('composeMessageParent'),
-            de = document.documentElement,
-            pad = 0;
-
         if (this.resizing) {
             return;
         }
@@ -794,6 +794,17 @@ var DimpCompose = {
             this.resizeMsgArea.bind(this).defer();
             return;
         }
+
+        // IE 7/8 Bug - can't resize TEXTAREA in the resize event (Bug #10075)
+        if (e && Prototype.Browser.IE) {
+            this.resizeMsgArea.bind(this).delay(0.1);
+            return;
+        }
+
+        var lh, mah, msg, msg_h, rows,
+            cmp = $('composeMessageParent'),
+            de = document.documentElement,
+            pad = 0;
 
         /* Needed because IE 8 will trigger resize events when we change
          * the rows attribute, which will cause an infinite loop. */
@@ -857,6 +868,8 @@ var DimpCompose = {
         var t = $('toggle' + type),
             s = t.siblings().first();
 
+        new TextareaResize(type);
+
         $('send' + type).show();
         if (s && s.visible()) {
             t.hide();
@@ -877,6 +890,14 @@ var DimpCompose = {
         }
 
         window.open(uri, 'contacts', 'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100');
+    },
+
+    baseAvailable: function(dimpbase)
+    {
+        return (this.is_popup &&
+                DimpCore.base &&
+                !DimpCore.base.closed &&
+                (!dimpbase || DimpCore.base.DimpBase));
     },
 
     /* Click observe handler. */
@@ -1013,15 +1034,13 @@ var DimpCompose = {
 
         this.is_popup = !Object.isUndefined(DimpCore.base);
 
-        /* Initialize redirect elements (always needed). */
-        $('redirect').observe('submit', Event.stop);
-        new TextareaResize('redirect_to');
-        if (DIMP.conf_compose.URI_ABOOK) {
-            $('redirect_sendto').down('TD.label SPAN').addClassName('composeAddrbook');
-        }
-
-        /* Nothing more to do if this is strictly a redirect window. */
+        /* Initialize redirect elements. */
         if (DIMP.conf_compose.redirect) {
+            $('redirect').observe('submit', Event.stop);
+            new TextareaResize('redirect_to');
+            if (DIMP.conf_compose.URI_ABOOK) {
+                $('redirect_sendto').down('TD.label SPAN').addClassName('composeAddrbook');
+            }
             $('dimpLoading').hide();
             $('redirect', 'pageContainer').invoke('show');
             return;
@@ -1034,7 +1053,7 @@ var DimpCompose = {
         } else {
             document.observe('change', this.changeHandler.bindAsEventListener(this));
         }
-        Event.observe(window, 'resize', this.resizeMsgArea.bind(this));
+        Event.observe(window, 'resize', this.resizeMsgArea.bindAsEventListener(this));
         $('compose').observe('submit', Event.stop);
         $('submit_frame').observe('load', this.attachmentComplete.bind(this));
 
@@ -1079,14 +1098,7 @@ var DimpCompose = {
             this.setPopdownLabel('e', $F('encrypt'));
         }
 
-        // Automatically resize compose address fields.
         new TextareaResize('to');
-        if (DIMP.conf_compose.cc) {
-            new TextareaResize('cc');
-        }
-        if (DIMP.conf_compose.bcc) {
-            new TextareaResize('bcc');
-        }
 
         /* Add addressbook link formatting. */
         if (DIMP.conf_compose.URI_ABOOK) {

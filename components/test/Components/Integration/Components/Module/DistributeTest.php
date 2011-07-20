@@ -42,16 +42,6 @@ extends Components_StoryTestCase
     {
         $this->given('the default Components setup')
             ->when('calling the package with the help option')
-            ->then('the help will contain the option', '-D\s*DISTRIBUTE,\s*--distribute=DISTRIBUTE');
-    }
-
-    /**
-     * @scenario
-     */
-    public function theTheDOptionGeneratesAPackageDefinitionFile()
-    {
-        $this->given('the default Components setup')
-            ->when('calling the package with the distribute option and a path to a Horde framework component')
-            ->then('a package definition will be generated at the indicated location');
+            ->then('the help will contain the option', '--distribute');
     }
 }

@@ -27,10 +27,10 @@ Reading, writing and listing of files are all supported, and there are both obje
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-20</date>
- <time>15:36:40</time>
+ <date>2011-06-14</date>
+ <time>15:07:34</time>
  <version>
-  <release>1.0.2</release>
+  <release>1.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@ Reading, writing and listing of files are all supported, and there are both obje
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Fix listing files with SSH2 driver if not using a bourne-style shell (lstewart@room52.net, Bug #9497).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -387,7 +387,7 @@ Reading, writing and listing of files are all supported, and there are both obje
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.4</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -425,10 +425,6 @@ Reading, writing and listing of files are all supported, and there are both obje
     <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>PEAR</name>
-    <channel>pear.php.net</channel>
    </package>
    <package>
     <name>ssh2</name>
@@ -828,10 +824,36 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-05-18</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] Fix call to setAuth() (Bug #10027).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-14</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Fix garbage collection with SQL driver (Bug #10242).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-14</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Fix listing files with SSH2 driver if not using a bourne-style shell (lstewart@room52.net, Bug #9497).
    </notes>
   </release>
  </changelog>

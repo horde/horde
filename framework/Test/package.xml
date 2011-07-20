@@ -16,11 +16,11 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:21:18</time>
+ <date>2011-07-05</date>
+ <time>14:57:43</time>
  <version>
-  <release>1.0.1</release>
-  <api>1.0.0</api>
+  <release>1.1.3</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -45,6 +45,7 @@
       <file name="Case.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Functional.php" role="php" />
+      <file name="Log.php" role="php" />
      </dir> <!-- //lib/Horde/Test -->
     </dir> <!-- //lib/Horde -->
    </dir> <!-- //lib -->
@@ -86,6 +87,13 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>Horde_Log</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
    <extension>
     <name>dom</name>
    </extension>
@@ -102,6 +110,7 @@
    <install as="Horde/Test/Case.php" name="lib/Horde/Test/Case.php" />
    <install as="Horde/Test/Exception.php" name="lib/Horde/Test/Exception.php" />
    <install as="Horde/Test/Functional.php" name="lib/Horde/Test/Functional.php" />
+   <install as="Horde/Test/Log.php" name="lib/Horde/Test/Log.php" />
    <install as="Horde/Test/Stub/Cli.php" name="lib/Horde/Test/Stub/Cli.php" />
    <install as="Horde/Test/Stub/Parser.php" name="lib/Horde/Test/Stub/Parser.php" />
   </filelist>
@@ -184,12 +193,53 @@
   </release>
   <release>
    <version>
-    <release>1.0.1</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-06-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [gwr] Added test case for log output.
+* [gwr] Added stub for application testing.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-14</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [jan] Fix Horde_Text_Exception extending the wrong class name.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [gwr] Improve detection of the lib directory.
+* [gwr] Extract the setup pieces we do in the AllTests helper and heed the Autoload.php file of a test suite.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.3</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * 

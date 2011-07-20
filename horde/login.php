@@ -102,7 +102,7 @@ if (!$is_auth && !$prefs->isLocked('language') && $vars->new_lang) {
 if ($logout_reason) {
     if ($is_auth) {
         try {
-            $injector->getInstance('Horde_Token')->validate($vars->horde_logout_token, 'horde.logout');
+            $injector->getInstance('Horde_Token')->validate($vars->horde_logout_token, 'horde.logout', -1);
         } catch (Horde_Exception $e) {
             $notification->push($e, 'horde.error');
             require HORDE_BASE . '/index.php';
@@ -342,7 +342,10 @@ if ($reason) {
     $notification->push(str_replace('<br />', ' ', $reason), 'horde.message');
 }
 
-if ($browser->isMobile()) {
+if ($browser->isMobile() &&
+    (!isset($conf['user']['force_view']) ||
+     ($conf['user']['force_view'] != 'traditional' &&
+      $conf['user']['force_view'] != 'dynamic'))) {
     /* Build the <select> widget containing the available languages. */
     if (!$is_auth && !$prefs->isLocked('language')) {
         $tmp = array();

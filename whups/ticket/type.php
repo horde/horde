@@ -12,58 +12,6 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-class SetTypeStep1Form extends Horde_Form {
-
-    function SetTypeStep1Form(&$vars, $title = '')
-    {
-        global $whups_driver;
-
-        parent::Horde_Form($vars, $title);
-
-        $this->addHidden('', 'id', 'int', true, true);
-
-        /* Types */
-        $queue = $vars->get('queue');
-        $this->addVariable(_("New Type"), 'type', 'enum', true, false, null, array($whups_driver->getTypes($queue)));
-        $this->addVariable(_("Comment"), 'newcomment', 'longtext', false);
-
-        /* Group restrictions. */
-        $groups = $GLOBALS['injector']->getInstance('Horde_Group');
-        $mygroups = $groups->listGroups($GLOBALS['registry']->getAuth());
-        if ($mygroups) {
-            foreach (array_keys($mygroups) as $gid) {
-                $grouplist[$gid] = $groups->getName($gid, true);
-            }
-            asort($grouplist);
-            $grouplist = array_merge(array(0 => _("Any Group")), $grouplist);
-            $this->addVariable(_("Viewable only by members of"), 'group', 'enum', true, false, null, array($grouplist));
-        }
-    }
-
-}
-
-class SetTypeStep2Form extends Horde_Form {
-
-    function SetTypeStep2Form(&$vars, $title = '')
-    {
-        global $whups_driver;
-
-        parent::Horde_Form($vars, $title);
-
-        $this->addHidden('', 'id', 'int', true, false);
-        $this->addHidden('', 'group', 'int', false, false);
-        $this->addHidden('', 'type', 'int', true, false);
-        $this->addHidden('', 'newcomment', 'longtext', false, false);
-
-        /* Give user an opportunity to check that state and priority
-         * are still valid. */
-        $type = $vars->get('type');
-        $this->addVariable(_("State"), 'state', 'enum', true, false, null, array($whups_driver->getStates($type)));
-        $this->addVariable(_("Priority"), 'priority', 'enum', true, false, null, array($whups_driver->getPriorities($type)));
-    }
-
-}
-
 $ticket = Whups::getCurrentTicket();
 $linkTags[] = $ticket->feedLink();
 $details = $ticket->getDetails();
@@ -82,8 +30,8 @@ $action = $vars->get('action');
 $form = $vars->get('formname');
 
 /* Set Type action. */
-if ($form == 'settypestep1form') {
-    $settypeform = new SetTypeStep1Form($vars);
+if ($form == 'whups_form_settypestepone') {
+    $settypeform = new Whups_Form_SetTypeStepOne($vars);
     if ($settypeform->validate($vars)) {
         $action = 'st2';
     } else {
@@ -91,8 +39,8 @@ if ($form == 'settypestep1form') {
     }
 }
 
-if ($form == 'settypestep2form') {
-    $settypeform = new SetTypeStep2Form($vars);
+if ($form == 'whups_form_settypesteptwo') {
+    $settypeform = new Whups_Form_SetTypeStepTwo($vars);
     if ($settypeform->validate($vars)) {
         $settypeform->getInfo($vars, $info);
 
@@ -108,12 +56,12 @@ if ($form == 'settypestep2form') {
             $ticket->change('comment-perms', $info['group']);
         }
 
-        $result = $ticket->commit();
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result, 'horde.error');
-        } else {
+        try {
+            $ticket->commit();
             $notification->push(_("Successfully changed ticket type."), 'horde.success');
             $ticket->show();
+        } catch (Whups_Exception $e) {
+            $notification->push($e, 'horde.error');
         }
     } else {
         $notification->push(var_export($settypeform->getErrors(), true), 'horde.error');
@@ -133,8 +81,8 @@ $r = new Horde_Form_Renderer();
 
 switch ($action) {
 case 'st2':
-    $form1 = new SetTypeStep1Form($vars, _("Set Type - Step 1"));
-    $form2 = new SetTypeStep2Form($vars, _("Set Type - Step 2"));
+    $form1 = new Whups_Form_SetTypeStepOne($vars, _("Set Type - Step 1"));
+    $form2 = new Whups_Form_SetTypeStepTwo($vars, _("Set Type - Step 2"));
 
     $form1->renderInactive($r, $vars);
     echo '<br />';
@@ -142,7 +90,7 @@ case 'st2':
     break;
 
 default:
-    $form1 = new SetTypeStep1Form($vars, _("Set Type - Step 1"));
+    $form1 = new Whups_Form_SetTypeStepOne($vars, _("Set Type - Step 1"));
     $form1->renderActive($r, $vars, 'type.php', 'post');
     break;
 }

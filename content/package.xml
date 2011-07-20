@@ -16,8 +16,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:59:44</time>
+ <date>2011-05-19</date>
+ <time>14:19:07</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -96,13 +96,23 @@
     <file name="2_rampage_tag_tables.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="test">
-    <dir name="fixtures">
-     <file name="schema.sql" role="test" />
-    </dir> <!-- /test/fixtures -->
-    <dir name="Tags">
-     <file name="TaggerTest.php" role="test" />
-    </dir> <!-- /test/Tags -->
-    <file name="AllTests.php" role="test" />
+    <dir name="Content">
+     <dir name="Sql">
+      <dir name="Pdo">
+       <file name="MysqlTest.php" role="test" />
+       <file name="PgsqlTest.php" role="test" />
+       <file name="SqliteTest.php" role="test" />
+      </dir> <!-- /test/Content/Sql/Pdo -->
+      <file name="Base.php" role="test" />
+      <file name="MysqliTest.php" role="test" />
+      <file name="MysqlTest.php" role="test" />
+     </dir> <!-- /test/Content/Sql -->
+     <file name="AllTests.php" role="test" />
+     <file name="Autoload.php" role="test" />
+     <file name="Base.php" role="test" />
+     <file name="conf.php.dist" role="test" />
+    </dir> <!-- /test/Content -->
+    <file name="TaggerTest.php" role="test" />
    </dir> <!-- /test -->
    <file name=".htaccess" role="horde" />
   </dir> <!-- / -->
@@ -118,49 +128,49 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC2</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC2</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC2</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC2</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Injector</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC2</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Rdo</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC2</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC2</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -175,21 +185,14 @@
    <package>
     <name>Horde_Argv</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC2</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Controller</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0RC2</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Rdo</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0RC2</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -233,9 +236,17 @@
    <install as="content/lib/Users/Manager.php" name="lib/Users/Manager.php" />
    <install as="content/migration/1_rampage_base_tables.php" name="migration/1_rampage_base_tables.php" />
    <install as="content/migration/2_rampage_tag_tables.php" name="migration/2_rampage_tag_tables.php" />
-   <install as="AllTests.php" name="test/AllTests.php" />
-   <install as="fixtures/schema.sql" name="test/fixtures/schema.sql" />
-   <install as="Tags/TaggerTest.php" name="test/Tags/TaggerTest.php" />
+   <install as="TaggerTest.php" name="test/TaggerTest.php" />
+   <install as="Content/AllTests.php" name="test/Content/AllTests.php" />
+   <install as="Content/Autoload.php" name="test/Content/Autoload.php" />
+   <install as="Content/Base.php" name="test/Content/Base.php" />
+   <install as="Content/conf.php.dist" name="test/Content/conf.php.dist" />
+   <install as="Content/Sql/Base.php" name="test/Content/Sql/Base.php" />
+   <install as="Content/Sql/MysqliTest.php" name="test/Content/Sql/MysqliTest.php" />
+   <install as="Content/Sql/MysqlTest.php" name="test/Content/Sql/MysqlTest.php" />
+   <install as="Content/Sql/Pdo/MysqlTest.php" name="test/Content/Sql/Pdo/MysqlTest.php" />
+   <install as="Content/Sql/Pdo/PgsqlTest.php" name="test/Content/Sql/Pdo/PgsqlTest.php" />
+   <install as="Content/Sql/Pdo/SqliteTest.php" name="test/Content/Sql/Pdo/SqliteTest.php" />
    <install as="content/.htaccess" name=".htaccess" />
   </filelist>
  </phprelease>
@@ -324,7 +335,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-05-19</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * 

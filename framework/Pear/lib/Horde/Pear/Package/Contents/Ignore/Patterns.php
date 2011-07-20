@@ -38,12 +38,22 @@ implements Horde_Pear_Package_Contents_Ignore
     private $_ignore = array();
 
     /**
+     * The root position of the repository.
+     *
+     * @var string
+     */
+    private $_root;
+
+    /**
      * Constructor.
      *
      * @param array $patterns The ignore patterns.
+     * @param string $root    The root position for the files that should be
+     *                        checked.
      */
-    public function __construct($patterns)
+    public function __construct($patterns, $root)
     {
+        $this->_root = $root;
         $this->_prepare($patterns);
     }
 
@@ -73,7 +83,10 @@ implements Horde_Pear_Package_Contents_Ignore
      */
     public function isIgnored(SplFileInfo $element)
     {
-        return $this->_matches($this->_ignore, $element->getPathname());
+        return $this->_matches(
+            $this->_ignore,
+            substr($element->getPathname(), strlen($this->_root))
+        );
     }
 
     /**

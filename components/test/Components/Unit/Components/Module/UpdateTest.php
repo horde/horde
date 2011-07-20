@@ -105,7 +105,7 @@ extends Components_TestCase
     public function testScriptFiles()
     {
         $this->assertRegExp(
-                '#<install as="script" name="bin/script.php" />#',
+                '#<install as="script.php" name="bin/script.php" />#',
             $this->_simpleUpdate()
         );
     }

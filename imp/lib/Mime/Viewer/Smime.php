@@ -122,7 +122,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                         'wrap' => self::$_cache[$id]['wrap']
                     )
                 );
-                if (self::$_cache[$id]['sig']) {
+                if (isset(self::$_cache[$id]['sig'])) {
                     $ret[self::$_cache[$id]['sig']] = null;
                 }
                 return $ret;

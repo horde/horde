@@ -68,9 +68,8 @@ if (!is_null($tags) && strlen($tags)) {
     } else {
         $resource = $gallery;
     }
-    $existingTags = $resource->getTags();
-    $tags = array_merge($existingTags, $tags);
-    $result = $resource->setTags($tags);
+    $resource->setTags($tags, false);
+
     // If no other action requested, redirect back to the appropriate view
     if (empty($actionID)) {
         if (empty($image_id)) {
@@ -101,26 +100,30 @@ switch ($actionID) {
 case 'deletetags':
     $tag = Horde_Util::getFormData('tag');
     if (!empty($image_id)) {
-        $resource = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id);
+        $resource = $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
+            ->getImage($image_id);
         $page = Horde_Util::getFormData('page', 0);
-        $url = Ansel::getUrlFor('view', array_merge(
-                                        array('view' => 'Image',
-                                              'gallery' => $gallery_id,
-                                              'image' => $image_id,
-                                              'page' => $page),
-                                        $date),
-                                true);
+        $url = Ansel::getUrlFor(
+            'view',
+            array_merge(
+                array('view' => 'Image',
+                      'gallery' => $gallery_id,
+                      'image' => $image_id,
+                      'page' => $page),
+                $date),
+            true);
     } else {
         $resource = $gallery;
-        $url = Ansel::getUrlFor('view', array_merge(
-                                        array('view' => 'Gallery',
-                                              'gallery' => $gallery_id),
-                                        $date),
-                                true);
+        $url = Ansel::getUrlFor(
+            'view',
+            array_merge(
+                array('view' => 'Gallery',
+                      'gallery' => $gallery_id),
+                $date),
+            true);
     }
-    $eTags = $resource->getTags();
-    unset($eTags[$tag]);
-    $resource->setTags($eTags);
+    $resource->removeTag($tag);
     $url->redirect();
     exit;
 
@@ -426,10 +429,10 @@ case 'resize':
             $params = Horde_Util::getFormData('params');
             list($x1, $y1, $x2, $y2) = explode('.', $params);
             try {
-                $result = $image->crop($x1, $y1, $x2, $y2);
+                $image->crop($x1, $y1, $x2, $y2);
             } catch (Ansel_Exception $e) {
-                Horde::logMessage($result, 'ERR');
-                $notification->push($result->getMessage(), 'horde.error');
+                Horde::logMessage($e->getMessage(), 'ERR');
+                $notification->push($e->getMessage(), 'horde.error');
                 $error = true;
             }
             break;
@@ -437,7 +440,7 @@ case 'resize':
             $image->load('full');
             $width = Horde_Util::getFormData('width');
             $height = Horde_Util::getFormData('height');
-            $result = $image->resize($width, $height, true);
+            $image->resize($width, $height, true);
             break;
         }
         if (empty($error)) {
@@ -575,7 +578,7 @@ case 'delete':
                 } catch (Ansel_Exception $e) {
                     $notification->push(
                         sprintf(_("There was a problem deleting photos: %s"),
-                                $result->getMessage()), 'horde.error');
+                                $e->getMessage()), 'horde.error');
                 }
             }
         }

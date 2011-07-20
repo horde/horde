@@ -169,7 +169,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
-        $unsubmode = ($imp_imap->pop3 ||
+        $unsubmode = (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS) ||
                       !$prefs->getValue('subscribe') ||
                       $session->get('imp', 'showunsub'));
 
@@ -186,7 +186,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $ns = $imp_imap->getNamespaceList();
             $ptr = reset($ns);
             $this->_delimiter = $ptr['delimiter'];
-            if ($imp_imap->allowFolders()) {
+            if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
                 $this->_namespaces = $ns;
             }
         }
@@ -200,7 +200,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         /* Add INBOX and exit if folders aren't allowed or if we are using
          * POP3. */
-        if (!$imp_imap->allowFolders()) {
+        if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             $this->_insertElt($this->_makeElt('INBOX', self::ELT_IS_SUBSCRIBED));
             return;
         }
@@ -266,7 +266,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             if (empty($result['INBOX'])) {
                 $result = $imp_imap->listMailboxes('INBOX', Horde_Imap_Client::MBOX_ALL, array('attributes' => true, 'delimiter' => true)) + $result;
             }
-        } catch (Horde_Imap_Client_Exception $e) {
+        } catch (IMP_Imap_Exception $e) {
             $result = array();
         }
 
@@ -464,7 +464,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         if (!empty($id)) {
             try {
                 $this->_insert($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->listMailboxes($id, Horde_Imap_Client::MBOX_ALL, array('attributes' => true, 'delimiter' => true, 'sort' => true)));
-            } catch (Horde_Imap_Client_Exception $e) {}
+            } catch (IMP_Imap_Exception $e) {}
         }
     }
 
@@ -1375,7 +1375,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $this->changed = true;
         }
 
-        if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->allowFolders()) {
+        if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
             return;
         }
 
@@ -1519,9 +1519,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $parent = null;
         }
 
-        $mailbox_url = (IMP::getViewMode() == 'mimp')
-            ? Horde::url('mailbox-mimp.php')
-            : Horde::url('mailbox.php');
+        $mailbox_page = (IMP::getViewMode() == 'mimp')
+            ? 'mailbox-mimp.php'
+            : 'mailbox.php';
 
         foreach ($this as $val) {
             $after = '';
@@ -1540,6 +1540,16 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 $label = $params['orig_label'];
                 break;
 
+            case 'IMP_Tree_Jquerymobile':
+                $is_open = true;
+                $label = htmlspecialchars($val->display);
+                $icon = $val->icon;
+                $params['icon'] = $icon->icon;
+                $params['special'] = $val->special;
+                $params['class'] = 'imp-folder';
+                $params['urlattributes'] = array('mailbox' => $val->value);
+                break;
+
             case 'Javascript':
                 $is_open = $val->is_open;
                 $label = empty($opts['basename'])
@@ -1554,22 +1564,12 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 $is_open = $val->is_open;
                 $label = htmlspecialchars(Horde_String::abbreviate($val->display, 30 - ($val->level * 2)));
                 break;
-
-            case 'Jquerymobile':
-                $is_open = true;
-                $label = htmlspecialchars($val->display);
-                $icon = $val->icon;
-                $params['icon'] = $icon->icon;
-                $params['special'] = $val->special;
-                $params['class'] = 'imp-folder';
-                $params['urlattributes'] = array('mailbox' => $val->value);
-                break;
             }
 
             if (!empty($opts['poll_info']) && $val->polled) {
                 $poll_info = $val->poll_info;
 
-                if ($opts['render_type'] == 'Jquerymobile') {
+                if ($opts['render_type'] == 'IMP_Tree_Jquerymobile') {
                     if ($poll_info->unseen) {
                         $after = $poll_info->unseen;
                     }
@@ -1586,17 +1586,15 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             if ($val->container) {
                 $params['container'] = true;
             } else {
-                if ($opts['render_type'] == 'Jquerymobile') {
-                    $params['url'] = '#';
-                } else {
-                    $params['url'] = $mailbox_url->add('mailbox', $val->value);
-                    if ($this->_showunsub && !$val->sub) {
-                        $params['class'] = 'folderunsub';
-                    }
+                $params['url'] = $val->url($mailbox_page);
+                if ($this->_showunsub && !$val->sub) {
+                    $params['class'] = 'folderunsub';
                 }
             }
 
-            $checkbox = '<input type="checkbox" class="checkbox" name="folder_list[]" value="' . $val->form_to . '"';
+            $checkbox = empty($opts['checkbox'])
+                ? ''
+                : '<input type="checkbox" class="checkbox" name="folder_list[]" value="' . $val->form_to . '"';
 
             if ($val->vfolder) {
                 $checkbox .= ' disabled="disabled"';
@@ -1609,8 +1607,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             }
 
             $tree->addNode(
-                strval($parent) . $val->value,
-                ($val->level) ? strval($parent) . $val->parent : $parent,
+                $val->form_to,
+                ($val->level) ? IMP_Mailbox::get($val->parent)->form_to : $parent,
                 $label,
                 $val->level,
                 $is_open,
@@ -1782,12 +1780,12 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                         $this->_currkey = null;
                     }
                 } else {
-                    $this->_currparent = $tmp->parent;
-                    $this->_currkey = array_search($tmp->value, $this->_parent[$tmp->parent]);
+                    $this->_currparent = strval($tmp->parent);
+                    $this->_currkey = array_search($tmp->value, $this->_parent[$this->_currparent]);
 
                     if ($c['mask'] & self::FLIST_SAMELEVEL) {
                         $this->_currkey = 0;
-                        $c['samelevel'] = $tmp->parent;
+                        $c['samelevel'] = $this->_currparent;
                     }
                 }
             } else {
@@ -1907,7 +1905,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             return null;
         }
 
-        $p = $this[$parent]->parent;
+        $p = strval($this[$parent]->parent);
 
         return array(
             $p,

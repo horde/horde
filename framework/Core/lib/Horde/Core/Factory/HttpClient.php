@@ -28,7 +28,9 @@ class Horde_Core_Factory_HttpClient extends Horde_Core_Factory_Base
                 }
             }
         }
-
+        $opts['request.headers'] = array_merge(
+            empty($opts['request.headers']) ? array() : $opts['request.headers'],
+            array('Expect' => ''));
         return new Horde_Http_Client(array_merge($client_opts, $opts));
     }
 

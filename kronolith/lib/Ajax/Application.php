@@ -277,7 +277,9 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                 $GLOBALS['notification']->push(_("You do not have permission to delete this event."), 'horde.warning');
                 return $result;
             }
-
+            if ($event->recurs()) {
+                $result->uid = $event->uid;
+            }
             $deleted = $kronolith_driver->deleteEvent($event->id);
             if ($this->_vars->sendupdates) {
                 Kronolith::sendITipNotifications($event, $GLOBALS['notification'], Kronolith::ITIP_CANCEL);
@@ -482,6 +484,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                 $end->min = $end->sec = 59;
                 $start = clone $due;
                 $start->hour = $start->min = $start->sec = 0;
+                $events = array();
                 Kronolith::addEvents($events, $event, $start, $end, true, true);
                 if (count($events)) {
                     $result->events = $events;
@@ -899,14 +902,14 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
      * @param Kronolith_Event $event     An event object.
      * @param Kronolith_Event $original  If $event is an exception, this should
      *                                   be set to the original event.
-     * @param array $attributes          The attributes sent by the client.
+     * @param object $attributes         The attributes sent by the client.
      *                                   Expected to contain cstart and cend.
      *
      * @return object  The result object.
      */
     protected function _saveEvent(Kronolith_Event $event,
                                   Kronolith_Event $original = null,
-                                  array $attributes = array())
+                                  $attributes = null)
     {
         if ($this->_vars->targetcalendar) {
             $cal = $this->_vars->targetcalendar;
@@ -925,6 +928,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $end = new Horde_Date($this->_vars->view_end);
             $end->hour = 23;
             $end->min = $end->sec = 59;
+            $events = array();
             Kronolith::addEvents($events, $event,
                                  new Horde_Date($this->_vars->view_start),
                                  $end, true, true);
@@ -965,14 +969,14 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
      * Causes an exception to be added to the original event as well.
      *
      * @param Kronolith_Event $event  The recurring event.
-     * @param array $attributes       The attributes passed from the client.
+     * @param object $attributes      The attributes passed from the client.
      *                                Expected to contain rstart and rend.
      *
      * @return Kronolith_Event  The event representing the exception, with
      *                          the start/end times set the same as the original
      *                          occurence.
      */
-    protected function _createExceptionEvent(Kronolith_Event $event, array $attributes)
+    protected function _createExceptionEvent(Kronolith_Event $event, $attributes)
     {
         // Add the exception to the original event
         if ($attributes->rstart) {

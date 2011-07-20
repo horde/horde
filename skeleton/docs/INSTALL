@@ -82,23 +82,22 @@ First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
 environment for Horde and install the Horde Framework.
 
 When installing Skeleton through PEAR now, the installer will automatically
-install any dependencies of Skeleton too. By default, only the required
-dependencies will be installed::
+install any dependencies of Skeleton too. If you want to install Skeleton with
+all optional dependencies, but without the binary PECL packages that need to be
+compiled, specify both the ``-a`` and the ``-B`` flag::
+
+   pear install -a -B horde/skeleton
+
+By default, only the required dependencies will be installed::
 
    pear install horde/skeleton
 
-If you want to install Skeleton even with all optional dependencies, you need
-to specify the ``-a`` flag. Please note that this might also try to install PHP
+If you want to install Skeleton even with all binary dependencies, you need to
+remove the ``-B`` flag. Please note that this might also try to install PHP
 extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
    pear install -a horde/skeleton
-
-If you want to install Skeleton with all optional dependencies, but without the
-binary PECL packages that need to be compiled, specify both the ``-a`` and the
-``-B`` flag::
-
-   pear install -a -B horde/skeleton
 
 
 Installing from Release Tarballs
@@ -224,6 +223,6 @@ Thanks for using Skeleton!
 The Skeleton team
 
 
-.. _README: ?f=README.html
-.. _`horde/docs/INSTALL`: ../../horde/docs/?f=INSTALL.html
-.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/?f=TRANSLATIONS.html
+.. _README: README
+.. _`horde/docs/INSTALL`: ../../horde/docs/INSTALL
+.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/TRANSLATIONS

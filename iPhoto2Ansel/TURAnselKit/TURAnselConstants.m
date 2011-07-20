@@ -33,8 +33,8 @@ NSString * const kTURAnselAPIParamView              = @"view";
 NSString * const kTURAnselAPIParamFull              = @"full";
 
 // Ansel gallery attribtues.
-NSString * const kTURAnselGalleryKeyId              = @"share_id";
-NSString * const kTURAnselGalleryKeyName            = @"attribute_name";
-NSString * const kTURAnselGalleryKeyDescription     = @"attribute_desc";
-NSString * const kTURAnselGalleryKeyImages          = @"attribute_images";
-NSString * const kTURAnselGalleryKeyDefaultImage    = @"attribute_default";
+NSString * const kTURAnselGalleryKeyId              = @"id";
+NSString * const kTURAnselGalleryKeyName            = @"name";
+NSString * const kTURAnselGalleryKeyDescription     = @"desc";
+NSString * const kTURAnselGalleryKeyImages          = @"images";
+NSString * const kTURAnselGalleryKeyDefaultImage    = @"default";

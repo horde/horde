@@ -54,7 +54,7 @@ class Horde_Core_Ui_VarRenderer
 
         $driver = ucfirst(basename($driver));
         if (!empty($app)) {
-            include $GLOBALS['registry']->get('fileroot', $app) . '/lib/Ui/VarRenderer/' . $driver . '.php';
+            include_once $GLOBALS['registry']->get('fileroot', $app) . '/lib/Ui/VarRenderer/' . $driver . '.php';
         }
 
         $class = __CLASS__ . '_' . $driver;

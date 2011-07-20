@@ -1,4 +1,3 @@
-# $Horde: passwd/scripts/passwd_expect,v 1.7.2.3 2008/10/09 17:12:24 jan Exp $
 #
 # This scripts changes a password on the local system or a remote host.
 # Connections to the remote (this can also be localhost) are made by ssh, rsh,

@@ -256,7 +256,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
         }
 
         $support = new Horde_Support_Backtrace();
-        $context = $support->getContext(2);
+        $context = $support->getContext(1);
         $caller = $context['function'];
         if (isset($context['class'])) {
             $caller = $context['class'] . '::' . $caller;
@@ -742,6 +742,22 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     /*##########################################################################
     # Protected
     ##########################################################################*/
+
+    /**
+     * Checks if required configuration keys are present.
+     *
+     * @param array $required  Required configuration keys.
+     *
+     * @throws Horde_Db_Exception if a required key is missing.
+     */
+    protected function _checkRequiredConfig(array $required)
+    {
+        $diff = array_diff_key(array_flip($required), $this->_config);
+        if (!empty($diff)) {
+            $msg = 'Required config missing: ' . implode(', ', array_keys($diff));
+            throw new Horde_Db_Exception($msg);
+        }
+    }
 
     /**
      * Replace ? in a SQL statement with quoted values from $args

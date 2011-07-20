@@ -18,6 +18,8 @@ $layout = new Horde_Core_Block_Layout_View(
 $layout_html = $layout->toHtml();
 $title = _("Photo Galleries");
 Ansel_Search_Tag::clearSearch();
+
+Ansel::initJSVariables();
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));

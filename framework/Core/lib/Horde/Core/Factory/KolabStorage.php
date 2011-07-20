@@ -92,7 +92,10 @@ class Horde_Core_Factory_KolabStorage extends Horde_Core_Factory_Base
                 'port'     => $configuration['port'],
                 'secure'   => true
             ),
-            'queryset' => array('list' => array('queryset' => 'horde')),
+            'queryset' => array(
+                'list' => array('queryset' => 'horde'),
+                'data' => array('queryset' => 'horde'),
+            ),
             'logger' => $this->_injector->getInstance('Horde_Log_Logger'),
             'timelog' => $this->_injector->getInstance('Horde_Log_Logger'),
             'cache' => $this->_injector->getInstance('Horde_Cache'),

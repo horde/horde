@@ -4,6 +4,14 @@
 <input type="submit" value="<gettext>Check for newer versions</gettext>" class="button" />
 </form>
 
+<if:config_outdated>
+<form action="<tag:version_action />" style="margin:8px">
+<tag:version_input />
+<input type="hidden" value="config" name="action" />
+<input type="submit" value="<gettext>Update all configurations</gettext>" class="button" />
+</form>
+</if:config_outdated>
+
 <if:schema_outdated>
 <form action="<tag:version_action />" style="margin:8px">
 <tag:version_input />

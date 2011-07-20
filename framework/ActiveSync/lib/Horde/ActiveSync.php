@@ -355,11 +355,8 @@ class Horde_ActiveSync
             $device->rwstatus = self::RWSTATUS_NA;
             $device->user = $this->_driver->getUser();
             $device->id = $devId;
-            // Work around buggy android clients and avoid erroneous device entries
-            if ($device->id !== 'validate') {
-                $state->setDeviceInfo($device);
-            }
-        } elseif (!empty($devId)) {
+            $state->setDeviceInfo($device);
+        } else {
             $device = $state->loadDeviceInfo($devId, $this->_driver->getUser());
         }
 
@@ -367,23 +364,34 @@ class Horde_ActiveSync
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
         $version = $this->getProtocolVersion();
         if (class_exists($class)) {
-            $request = new $class($this->_driver,
-                                  $this->_decoder,
-                                  $this->_encoder,
-                                  $this->_request,
-                                  $this,
-                                  $device,
-                                  $this->_provisioning);
+            $request = new $class(
+                $this->_driver,
+                $this->_decoder,
+                $this->_encoder,
+                $this->_request,
+                $this,
+                $device,
+                $this->_provisioning);
             $request->setLogger($this->_logger);
-
-            $result = $request->handle();
+            // @TODO: The headers really should be output in the Rpc layer.
+            // Can't due that until Horde 5 because the InvalidRequest Exception
+            // was introduced after release i.e., this is a BC break.
+            try {
+                $result = $request->handle();
+            } catch (Horde_ActiveSync_Exception_InvalidRequest $e) {
+                $this->_logger->err('Returning HTTP 400:' . $e->getMessage());
+                header('HTTP/1.1 400 Invalid Request ' . $e->getMessage());
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_logger->err('Returning HTTP 500:' . $e->getMessage());
+                header('HTTP/1.1 500');
+            }
             $this->_driver->logOff();
 
             return $result;
         }
 
         /* No idea what the client is talking about */
-        throw new Horde_ActiveSync_Exception('Invalid request or not supported: ' . $class);
+        header('HTTP/1.1 400 Invalid Request ' . basename($cmd) . ' not supported.');
     }
 
     /**

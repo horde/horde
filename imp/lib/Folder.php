@@ -44,8 +44,9 @@ class IMP_Folder
         $deleted = array();
 
         foreach (IMP_Mailbox::get($folders) as $folder) {
-            if (!$force && $folder->fixed) {
+            if ((!$force && $folder->fixed) || !$folder->access_deletembox)  {
                 $notification->push(sprintf(_("The folder \"%s\" may not be deleted."), $folder->display), 'horde.error');
+                $return_value = false;
                 continue;
             }
 
@@ -53,8 +54,8 @@ class IMP_Folder
                 $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->deleteMailbox($folder);
                 $notification->push(sprintf(_("The folder \"%s\" was successfully deleted."), $folder->display), 'horde.success');
                 $deleted[] = $folder;
-            } catch (Horde_Imap_Client_Exception $e) {
-                $notification->push(sprintf(_("The folder \"%s\" was not deleted. This is what the server said"), $folder->display) . ': ' . $e->getMessage(), 'horde.error');
+            } catch (IMP_Imap_Exception $e) {
+                $e->notify(sprintf(_("The folder \"%s\" was not deleted. This is what the server said"), $folder->display) . ': ' . $e->getMessage());
             }
         }
 
@@ -133,12 +134,12 @@ class IMP_Folder
         /* Attempt to create the mailbox. */
         try {
             $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->createMailbox($folder, array('special_use' => $special_use));
-        } catch (Horde_Imap_Client_Exception $e) {
+        } catch (IMP_Imap_Exception $e) {
             if ($e->getCode() == Horde_Imap_Client_Exception::USEATTR) {
                 return $this->create($folder, $subscribe);
             }
 
-            $notification->push(sprintf(_("The folder \"%s\" was not created. This is what the server said"), $folder->display) . ': ' . $e->getMessage(), 'horde.error');
+            $e->notify(sprintf(_("The folder \"%s\" was not created. This is what the server said"), $folder->display) . ': ' . $e->getMessage());
             return false;
         }
 
@@ -175,7 +176,7 @@ class IMP_Folder
             return false;
         }
 
-        if (!$force && $old->fixed) {
+        if ((!$force && $old->fixed) || !$old->access_deletembox) {
             $GLOBALS['notification']->push(sprintf(_("The folder \"%s\" may not be renamed."), $old->display), 'horde.error');
             return false;
         }
@@ -187,8 +188,8 @@ class IMP_Folder
 
         try {
             $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->renameMailbox($old, $new);
-        } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['notification']->push(sprintf(_("Renaming \"%s\" to \"%s\" failed. This is what the server said"), $old->display, $new->display) . ': ' . $e->getMessage(), 'horde.error');
+        } catch (IMP_Imap_Exception $e) {
+            $e->notify(sprintf(_("Renaming \"%s\" to \"%s\" failed. This is what the server said"), $old->display, $new->display) . ': ' . $e->getMessage());
             return false;
         }
 
@@ -233,8 +234,8 @@ class IMP_Folder
                 $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->subscribeMailbox($folder, true);
                 $notification->push(sprintf(_("You were successfully subscribed to \"%s\"."), $folder->display), 'horde.success');
                 $subscribed[] = $folder;
-            } catch (Horde_Imap_Client_Exception $e) {
-                $notification->push(sprintf(_("You were not subscribed to \"%s\". Here is what the server said"), $folder->display) . ': ' . $e->getMessage(), 'horde.error');
+            } catch (IMP_Imap_Exception $e) {
+                $e->notify(sprintf(_("You were not subscribed to \"%s\". Here is what the server said"), $folder->display) . ': ' . $e->getMessage());
                 $return_value = false;
             }
         }
@@ -273,8 +274,8 @@ class IMP_Folder
                     $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->subscribeMailbox($folder, false);
                     $notification->push(sprintf(_("You were successfully unsubscribed from \"%s\"."), $folder->display), 'horde.success');
                     $unsubscribed[] = $folder;
-                } catch (Horde_Imap_Client_Exception $e) {
-                    $notification->push(sprintf(_("You were not unsubscribed from \"%s\". Here is what the server said"), $folder->display) . ': ' . $e->getMessage(), 'horde.error');
+                } catch (IMP_Imap_Exception $e) {
+                    $e->notify(sprintf(_("You were not unsubscribed from \"%s\". Here is what the server said"), $folder->display) . ': ' . $e->getMessage());
                     $return_value = false;
                 }
             }
@@ -314,7 +315,7 @@ class IMP_Folder
         foreach ($folder_list as $folder) {
             try {
                 $status = $imp_imap->status($folder, Horde_Imap_Client::STATUS_MESSAGES);
-            } catch (Horde_Imap_Client_Exception $e) {
+            } catch (IMP_Imap_Exception $e) {
                 continue;
             }
 
@@ -325,7 +326,7 @@ class IMP_Folder
                 $size = $imp_imap->fetch($folder, $query, array(
                     'ids' => new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL, true)
                 ));
-            } catch (Horde_Imap_Client_Exception $e) {
+            } catch (IMP_Imap_Exception $e) {
                 continue;
             }
 
@@ -361,7 +362,7 @@ class IMP_Folder
                     $res = $imp_imap->fetch($folder, $query, array(
                         'ids' => $slice
                     ));
-                } catch (Horde_Imap_Client_Exception $e) {
+                } catch (IMP_Imap_Exception $e) {
                     continue;
                 }
 
@@ -535,7 +536,7 @@ class IMP_Folder
         try {
             $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->append($mailbox, $this->_import['data']);
             $this->_import['msgs'] += count($this->_import['data']);
-        } catch (Horde_Imap_Client_Exception $e) {}
+        } catch (IMP_Imap_Exception $e) {}
 
         foreach ($this->_import['data'] as $val) {
             fclose($val['data']);

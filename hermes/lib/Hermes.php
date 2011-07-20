@@ -359,7 +359,7 @@ class Hermes
         Horde::addScriptFile('effects.js', 'horde');
         Horde::addScriptFile('horde.js', 'horde');
         Horde::addScriptFile('growler.js', 'horde');
-        //Horde::addScriptFile('redbox.js', 'horde');
+        Horde::addScriptFile('redbox.js', 'horde');
         Horde::addScriptFile('tooltips.js', 'horde');
         Horde::addScriptFile('date/' . $datejs, 'horde');
         Horde::addScriptFile('date/date.js', 'horde');
@@ -410,6 +410,9 @@ class Hermes
             'URI_AJAX' => (string)Horde::getServiceLink('ajax', 'hermes'),
             'SESSION_ID' => defined('SID') ? SID : '',
             'images' => array(
+                'timerlog' => (string)Horde_Themes::img('log.png'),
+                'timerplay' => (string)Horde_Themes::img('play.png'),
+                'timerpause' => (string)Horde_Themes::img('pause.png')
             ),
             'user' => $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false),
             'prefs_url' => (string)Horde::getServiceLink('prefs', 'hermes')->setRaw(true)->add('ajaxui', 1),
@@ -456,6 +459,63 @@ class Hermes
 
         $mode = $session->get('horde', 'mode');
         return ($mode == 'dynamic' || ($prefs->getValue('dynamic_view') && $mode == 'auto')) && Horde::ajaxAvailable();
+    }
+
+    /**
+     * Create a new timer and save it to storage.
+     *
+     * @param string $description  The timer description.
+     *
+     * @return integer  The timer id.
+     */
+    public static function newTimer($description)
+    {
+        $now = time();
+        $timer = array(
+            'name' => $description,
+            'time' => $now,
+            'paused' => false,
+            'elapsed' => 0);
+
+        self::updateTimer($now, $timer);
+
+        return $now;
+    }
+
+    public static function getTimer($id)
+    {
+        global $prefs;
+
+        $timers = $prefs->getValue('running_timers');
+        if (!empty($timers)) {
+            $timers = @unserialize($timers);
+        } else {
+            $timers = array();
+        }
+
+        if (empty($timers[$id])) {
+            return false;
+        }
+
+        return $timers[$id];
+    }
+
+    public static function clearTimer($id)
+    {
+        global $prefs;
+
+        $timers = unserialize($prefs->getValue('running_timers'));
+        unset($timers[$id]);
+        $prefs->setValue('running_timers', serialize($timers));
+    }
+
+    public static function updateTimer($id, $timer)
+    {
+         global $prefs;
+
+         $timers = unserialize($prefs->getValue('running_timers'));
+         $timers[$id] = $timer;
+         $prefs->setValue('running_timers', serialize($timers));
     }
 
 }

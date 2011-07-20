@@ -91,7 +91,7 @@ implements Components_Dependencies
     public function createInstance($interface)
     {
         switch ($interface) {
-        case 'Components_Pear_InstallLocation':
+        case 'Components_Pear_Environment':
             return new $interface($this->getInstance('Components_Output'));
         case 'Components_Pear_Package':
             return new $interface($this->getInstance('Components_Output'));
@@ -269,6 +269,26 @@ implements Components_Dependencies
     public function getOutput()
     {
         return $this->getInstance('Components_Output');
+    }
+
+    /**
+     * Returns a component instance factory.
+     *
+     * @return Components_Component_Factory The component factory.
+     */
+    public function getComponentFactory()
+    {
+        return $this->getInstance('Components_Component_Factory');
+    }
+
+    /**
+     * Returns the handler for remote PEAR servers.
+     *
+     * @return Horde_Pear_Remote The handler.
+     */
+    public function getRemote()
+    {
+        return $this->getInstance('Horde_Pear_Remote');
     }
 
     /**

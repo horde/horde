@@ -2,6 +2,9 @@
 v2.0-cvs
 --------
 
+[mjr] Correctly set ticket version when changing queues (Bug #9645).
+[jan] Add listSlugs API method.
+[jan] Convert HTML messages to plain text when processing mail messages.
 [jan] Fix creating temporary files with open_basedir restrictions.
 [jan] Provide default configuration files instead of .dist versions.
 
@@ -10,6 +13,7 @@ v2.0-cvs
 v1.0.2-cvs
 ----------
 
+[jan] Select unresolved states in search form by default.
 [jan] Add upgrade scripts for next-generation SQL share driver.
 [jan] Add Hungarian translation (Andras Galos <galosa@netinform.hu>).
 [jan] Add option to delete individual ticket history entries.

@@ -13,49 +13,9 @@
  */
 class Ansel
 {
-    /* Sort constants */
+    // Sort constants
     const SORT_ASCENDING = 0;
     const SORT_DESCENDING = 1;
-
-    /**
-     * Create and initialize the database object.
-     *
-     * @return mixed MDB2 object
-     * @throws Ansel_Exception
-     */
-    static public function &getDb()
-    {
-        $config = $GLOBALS['conf']['sql'];
-        unset($config['charset']);
-        $mdb = MDB2::singleton($config);
-        if ($mdb instanceof PEAR_Error) {
-            throw new Ansel_Exception($mdb->getMessage());
-        }
-        $mdb->setOption('seqcol_name', 'id');
-
-        /* Set DB portability options. */
-        switch ($mdb->phptype) {
-        case 'mssql':
-            $mdb->setOption('field_case', CASE_LOWER);
-            $mdb->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ERRORS | MDB2_PORTABILITY_RTRIM | MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES);
-            break;
-        default:
-            switch ($mdb->phptype) {
-            case 'oci8':
-                $mdb->setOption('emulate_database', false);
-                break;
-            }
-            $mdb->setOption('field_case', CASE_LOWER);
-            $mdb->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ERRORS | MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES);
-        }
-
-        return $mdb;
-    }
-
-    static public function keysFromNames($gallery)
-    {
-        return $gallery->getId();
-    }
 
     /**
      * Return a string containing an <option> listing of the given
@@ -96,14 +56,14 @@ class Ansel
         }
 
         foreach ($galleries as $gallery) {
-            $gallery_id = $gallery->getId();
+            $gallery_id = $gallery->id;
             $gallery_name = $gallery->get('name');
             $label = Horde_String::abbreviate($gallery_name);
             $len = Horde_String::length($gallery_name);
             $treeparams = array();
             $treeparams['selected'] = $gallery_id == $params->selected;
             $parent = $gallery->getParent();
-            $parent = empty($parent) ? null : $parent->getId();
+            $parent = empty($parent) ? null : $parent->id;
             $tree->addNode($gallery->id, $parent, $label, null, true, $treeparams);
         }
 
@@ -147,7 +107,7 @@ class Ansel
             if ($rewrite && (empty($data['special']))) {
                 $url = '';
 
-                /* Viewing a List */
+                // Viewing a List
                 if ($data['view'] == 'List') {
 
                     $groupby = isset($data['groupby'])
@@ -161,33 +121,35 @@ class Ansel
                        $url = 'all/';
                     }
                     $url = Horde::url($url, $full, $append_session);
-                    // Keep the URL as clean as possible - don't append the page
-                    // number if it's zero, which would be the default.
+                    //  don't append the page number if it's zero
                     if (!empty($data['page'])) {
                         $url->add('page', $data['page']);
                     }
                     return $url;
                 }
 
-                /* Viewing a Gallery or Image */
+                // Viewing a Gallery or Image
                 if ($data['view'] == 'Gallery' || $data['view'] == 'Image') {
 
-                    /**
-                     * @TODO: This is needed to correctly generate URLs for images in
-                     * places that are not specifically requested by the user,
-                     * for instance, in a gallery block. Otherwise, the proper
-                     * date variables would not be attached to the url, since we
-                     * don't know them ahead of time.  This is a slight hack and
-                     * needs to be corrected, probably by delegating at least
-                     * some of the URL generation to the gallery/image/view
-                     * object...most likely when we move to PHP5.
-                     */
+                     // @TODO: This is needed to correctly generate URLs in
+                     // places that are not specifically requested by the user,
+                     // for instance, in a gallery block. Otherwise, the proper
+                     // date variables would not be attached to the url, since we
+                     // don't know them ahead of time.  This is a slight hack and
+                     // needs to be corrected, probably by delegating at least
+                     // some of the URL generation to the gallery/image/view
+                     // object...most likely when we move to PHP5.
+
                     if (empty($data['year']) && $data['view'] == 'Image') {
                         // Getting these objects is not ideal, but at this point
                         // they should already be locally cached so the cost
                         // is minimized.
-                        $i = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($data['image']);
-                        $g = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($data['gallery']);
+                        $i = $GLOBALS['injector']
+                            ->getInstance('Ansel_Storage')
+                            ->getImage($data['image']);
+                        $g = $GLOBALS['injector']
+                            ->getInstance('Ansel_Storage')
+                            ->getGallery($data['gallery']);
                         if ($g->get('view_mode') == 'Date') {
                             $imgDate = new Horde_Date($i->originalDate);
                             $data['year'] = $imgDate->year;
@@ -228,8 +190,8 @@ class Ansel
                         $url->add($extras);
                     }
 
-                    /* Slight hack until we delegate at least some of the url
-                     * generation to the gallery/image/view object. */
+                    //Slight hack until we delegate at least some of the url
+                    // generation to the gallery/image/view object.
                     if ($data['view'] == 'Image' &&
                         !empty($data['gallery_view']) &&
                         $data['gallery_view'] == 'GalleryLightbox') {
@@ -257,9 +219,11 @@ class Ansel
                 }
 
                 if (!empty($data['year'])) {
-                    $url->add(array('year' => $data['year'],
-                                    'month' => (empty($data['month']) ? 0 : $data['month']),
-                                    'day' => (empty($data['day']) ? 0 : $data['day'])));
+                    $url->add(
+                        array(
+                            'year' => $data['year'],
+                            'month' => (empty($data['month']) ? 0 : $data['month']),
+                            'day' => (empty($data['day']) ? 0 : $data['day'])));
                 }
 
                 return Horde::url($url, $full, $append_session);
@@ -267,7 +231,7 @@ class Ansel
             } else {
                 $url = Horde::url('view.php', $full, $append_session);
 
-                /* See note above about delegating url generation to gallery/view */
+                // See note above about delegating url generation to gallery/view
                 if ($data['view'] == 'Image' &&
                     !empty($data['gallery_view']) &&
                     $data['gallery_view'] == 'GalleryLightbox') {
@@ -301,20 +265,34 @@ class Ansel
 
         case 'rss_user':
             if ($rewrite) {
-                return Horde::url('user/' . urlencode($data['owner']) . '/rss', $full, $append_session);
+                return Horde::url(
+                    'user/' . urlencode($data['owner']) . '/rss',
+                    $full,
+                    $append_session);
             } else {
-                $url = Horde::url(new Horde_Url('rss.php'), $full, $append_session);
-                return $url->add(array('stream_type' => 'user', 'id' => $data['owner']));
+                $url = Horde::url(
+                    new Horde_Url('rss.php'), $full, $append_session);
+                return $url->add(
+                    array('stream_type' => 'user', 'id' => $data['owner']));
             }
 
         case 'rss_gallery':
             if ($rewrite) {
-                $id = (!empty($data['slug'])) ? $data['slug'] : 'id/' . (int)$data['gallery'];
-                return Horde::url(new Horde_Url('gallery/' . $id . '/rss'), $full, $append_session);
+                $id = (!empty($data['slug'])) ?
+                    $data['slug'] :
+                    'id/' . (int)$data['gallery'];
+                return Horde::url(
+                    'gallery/' . $id . '/rss',
+                    $full,
+                    $append_session);
             } else {
-                return Horde::url('rss.php', $full, $append_session)->add(
-                            array('stream_type' => 'gallery',
-                                  'id' => (int)$data['gallery']));
+                return Horde::url(
+                    'rss.php',
+                    $full,
+                    $append_session)->add(
+                        array(
+                            'stream_type' => 'gallery',
+                            'id' => (int)$data['gallery']));
             }
 
         case 'default_view':
@@ -353,7 +331,8 @@ class Ansel
      *
      * @return Horde_Url The image path.
      */
-    static public function getImageUrl($imageId, $view = 'screen', $full = false, Ansel_Style $style = null)
+    static public function getImageUrl(
+        $imageId, $view = 'screen', $full = false, Ansel_Style $style = null)
     {
         global $conf;
 
@@ -438,25 +417,28 @@ class Ansel
     static public function getImageFromFile($file, $override = array())
     {
         if (!file_exists($file)) {
-            throw new Horde_Exception_NotFound(sprintf(_("The file \"%s\" doesn't exist."), $file));
+            throw new Horde_Exception_NotFound(
+                sprintf(_("The file \"%s\" doesn't exist."), $file));
         }
 
         global $conf;
 
         // Get the mime type of the file (and make sure it's an image).
-        $mime_type = Horde_Mime_Magic::analyzeFile($file, isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null);
+        $mime_type = Horde_Mime_Magic::analyzeFile(
+            $file,
+            isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null);
         if (strpos($mime_type, 'image') === false) {
-            throw new Horde_Exception_NotFound(sprintf(_("Can't get unknown file type \"%s\"."), $file));
+            throw new Horde_Exception_NotFound(
+                sprintf(_("Can't get unknown file type \"%s\"."), $file));
         }
 
-        $image = array('image_filename' => basename($file),
-                       'image_caption' => '',
-                       'image_type' => $mime_type,
-                       'data' => file_get_contents($file),
-                       );
+        $image = array(
+            'image_filename' => basename($file),
+            'image_caption' => '',
+            'image_type' => $mime_type,
+            'data' => file_get_contents($file));
 
-        // Override the array, for example if we're setting the filename to
-        // something else.
+        // Override the array e.g., if we're changing filename to something else.
         if (count($override)) {
             $image = array_merge($image, $override);
         }
@@ -612,7 +594,8 @@ class Ansel
             $link = Ansel::getUrlFor('view', array('view' => 'List'))->link();
         } else {
             $text = _("Browse Tags");
-            $link = Ansel::getUrlFor('view', array('view' => 'Results'), true)->link();
+            $link = Ansel::getUrlFor(
+                'view', array('view' => 'Results'), true)->link();
         }
         if ($levels > 0) {
             $nav = $link . $text . '</a>' . $nav;
@@ -636,14 +619,14 @@ class Ansel
     {
         $styles = $GLOBALS['injector']->getInstance('Ansel_Styles');
 
-        /* Build the available styles, but don't show hidden styles */
+        // Build the available styles, but don't show hidden styles
         foreach ($styles as $key => $style) {
             if (empty($style['hide'])) {
                 $options[$key] = $style['title'];
             }
         }
 
-        /* Nothing explicitly selected, use the global pref */
+        // Nothing explicitly selected, use the global pref
         if ($selected == '') {
             $selected = $GLOBALS['prefs']->getValue('default_gallerystyle');
         }
@@ -712,30 +695,28 @@ class Ansel
     {
 
         if (empty($GLOBALS['conf']['gallery']['downloadzip'])) {
-            $GLOBALS['notification']->push(_("Downloading zip files is not enabled. Talk to your server administrator."));
+            $GLOBALS['notification']->push(
+                _("Downloading zip files is not enabled. Talk to your server administrator."));
             Horde::url('view.php?view=List', true)->redirect();
             exit;
         }
 
-        /* Requested a gallery */
+        // Requested a gallery
         if (!is_null($gallery)) {
-            /* We can name the zip file with the slug if we have it */
+            // We can name the zip file with the slug if we have it
             $slug = $gallery->get('slug');
 
-            /* Set the date in case we are viewing in date mode */
+            // Set the date in case we are viewing in date mode
             $gallery->setDate(Ansel::getDateParameter());
-
-            /*
-             * More efficeint to get the images and then see how many instead of calling
-             * countImages() and then getting the images.
-             */
             $images = $gallery->listImages();
         }
 
-        /* At this point, we should always have a list of images */
+        // At this point, we should always have a list of images
         if (!count($images)) {
-            $notification->push(sprintf(_("There are no photos in %s to download."),
-                                $gallery->get('name')), 'horde.message');
+            $notification->push(
+                sprintf(_("There are no photos in %s to download."),
+                $gallery->get('name')),
+                'horde.message');
 
             Horde::url('view.php?view=List', true)->redirect();
             exit;
@@ -756,11 +737,16 @@ class Ansel
 
         $zipfiles = array();
         foreach ($images as $id) {
-            $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($id);
+            $image = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getImage($id);
+
             // If we didn't select an entire gallery, check the download
             // size for each image.
             if (!isset($view)) {
-                $g = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($image->gallery);
+                $g = $GLOBALS['injector']
+                    ->getInstance('Ansel_Storage')
+                    ->getGallery($image->gallery);
                 $v = $g->canDownload() ? 'full' : 'screen';
             } else {
                 $v = $view;
@@ -800,9 +786,12 @@ class Ansel
             $domid = $options['container'];
         }
 
-        $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'Embed'), $options);
+        $imple = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Imple')
+            ->create(array('ansel', 'Embed'), $options);
 
-       return '<script type="text/javascript" src="' . $imple->getUrl() . '"></script><div id="' . $domid . '"></div>';
+        return '<script type="text/javascript" src="' . $imple->getUrl()
+            . '"></script><div id="' . $domid . '"></div>';
     }
 
     /**
@@ -834,6 +823,24 @@ class Ansel
         }
 
         return $results;
+    }
+
+    /**
+     * Simple helper to output initial Ansel JS.
+     */
+    static public function initJSVariables()
+    {
+        if (!$GLOBALS['browser']->isMobile()) {
+            $config = array(
+                'BASE_URI' => (string)Horde::url(
+                    '',
+                    true,
+                    array(
+                        'app' => 'ansel',
+                        'append_session' => -1)));
+            Horde::addInlineJsVars(
+                array('var Ansel' => array('ajax' => new stdClass, 'widgets' => new stdClass, 'conf' => $config)));
+        }
     }
 
 }

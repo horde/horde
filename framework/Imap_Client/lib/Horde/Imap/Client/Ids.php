@@ -17,6 +17,8 @@
  * @property boolean $search_res  Does this represent a search result?
  * @property boolean $sequence  Are these sequence IDs? If false, these are
  *                              UIDs.
+ * @property boolean $tostring  Return the non-sorted string representation.
+ * @property boolean $tostring_sort  Return the sorted string representation.
  */
 class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
 {
@@ -68,6 +70,13 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
 
         case 'sequence':
             return (bool)$this->_sequence;
+
+        case 'tostring':
+        case 'tostring_sort':
+            $utils = new Horde_Imap_Client_Utils();
+            return strval($utils->toSequenceString($this->_ids, array(
+                'nosort' => ($name == 'tostring')
+            )));
         }
     }
 
@@ -75,10 +84,7 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
      */
     public function __toString()
     {
-        $utils = new Horde_Imap_Client_Utils();
-        return strval($utils->toSequenceString($this->_ids, array(
-            'nosort' => true
-        )));
+        return $this->tostring;
     }
 
     /**

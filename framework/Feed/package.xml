@@ -10,11 +10,11 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:10:30</time>
+ <date>2011-06-01</date>
+ <time>15:35:48</time>
  <version>
-  <release>1.0.1</release>
-  <api>1.0.0</api>
+  <release>1.1.1</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -29,6 +29,7 @@
    <dir name="examples">
     <dir name="Horde">
      <dir name="Feed">
+      <file name="blogger.php" role="doc" />
       <file name="blogroll.php" role="php" />
       <file name="delete.php" role="php" />
       <file name="edit.php" role="php" />
@@ -252,12 +253,13 @@
       <file name="AllTests.php" role="test" />
       <file name="AtomEntryOnlyTest.php" role="test" />
       <file name="AtomPublishingTest.php" role="test" />
+      <file name="Autoload.php" role="test" />
       <file name="BlogrollTest.php" role="test" />
       <file name="CountTest.php" role="test" />
       <file name="IteratorTest.php" role="test" />
       <file name="LexiconTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="ReadTest.php" role="test" />
-      <file name="TestCase.php" role="test" />
      </dir> <!-- /test/Horde/Feed -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -296,9 +298,19 @@
     <name>dom</name>
    </extension>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="examples/Horde/Feed/blogger.php" name="examples/Horde/Feed/blogger.php" />
    <install as="examples/Horde/Feed/blogroll.php" name="examples/Horde/Feed/blogroll.php" />
    <install as="examples/Horde/Feed/delete.php" name="examples/Horde/Feed/delete.php" />
    <install as="examples/Horde/Feed/edit.php" name="examples/Horde/Feed/edit.php" />
@@ -318,12 +330,13 @@
    <install as="Horde/Feed/AllTests.php" name="test/Horde/Feed/AllTests.php" />
    <install as="Horde/Feed/AtomEntryOnlyTest.php" name="test/Horde/Feed/AtomEntryOnlyTest.php" />
    <install as="Horde/Feed/AtomPublishingTest.php" name="test/Horde/Feed/AtomPublishingTest.php" />
+   <install as="Horde/Feed/Autoload.php" name="test/Horde/Feed/Autoload.php" />
    <install as="Horde/Feed/BlogrollTest.php" name="test/Horde/Feed/BlogrollTest.php" />
    <install as="Horde/Feed/CountTest.php" name="test/Horde/Feed/CountTest.php" />
    <install as="Horde/Feed/IteratorTest.php" name="test/Horde/Feed/IteratorTest.php" />
    <install as="Horde/Feed/LexiconTest.php" name="test/Horde/Feed/LexiconTest.php" />
+   <install as="Horde/Feed/phpunit.xml" name="test/Horde/Feed/phpunit.xml" />
    <install as="Horde/Feed/ReadTest.php" name="test/Horde/Feed/ReadTest.php" />
-   <install as="Horde/Feed/TestCase.php" name="test/Horde/Feed/TestCase.php" />
    <install as="Horde/Feed/fixtures/AtomPublishingTest-before-update.xml" name="test/Horde/Feed/fixtures/AtomPublishingTest-before-update.xml" />
    <install as="Horde/Feed/fixtures/AtomPublishingTest-created-entry.xml" name="test/Horde/Feed/fixtures/AtomPublishingTest-created-entry.xml" />
    <install as="Horde/Feed/fixtures/AtomPublishingTest-expected-update.xml" name="test/Horde/Feed/fixtures/AtomPublishingTest-expected-update.xml" />
@@ -597,12 +610,26 @@
   </release>
   <release>
    <version>
-    <release>1.0.1</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-06-01</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* [gwr] Added an example on how to post to blogger.com.
+* [gwr] Support additional request headers when updating Atom entries.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * 

@@ -46,5 +46,4 @@ class Horde_Date_Parser_ParserTest extends Horde_Test_Case
         $this->assertEquals('morning', $tokens[1]->tags[0][1]);
         $this->assertEquals(2, count($tokens));
     }
-
 }

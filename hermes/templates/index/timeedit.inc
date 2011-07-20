@@ -9,7 +9,7 @@
         <div id="hermesTimeFormInputs">
           <div class="hermesTimeFormGeneral">
             <label for="hermesTimeFormClient">
-              <?php echo _("Client")?>*
+              <?php echo _("Client")?>
               <?php echo Hermes::getClientSelect('hermesTimeFormClient');?>
             </label><span class="hermesSeparator">|</span>
             <label for="hermesTimeFormCostobject">
@@ -30,7 +30,7 @@
                  <span class="hermesSeparator">|</span>
             </label>
             <label for="hermesTimeFormType">
-              <?php echo _("Job Type")?>
+              <?php echo _("Job Type")?>*
               <?php echo Hermes::getJobTypeSelect('hermesTimeFormJobtype');?>
             </label>
           </div>
@@ -46,7 +46,7 @@
          <div class="hermesFormActions">
           <input id="hermesTimeSave" type="button" value="<?php echo _("Save") ?>" class="button ok" />
           <input id="hermesTimeSaveAsNew" type="button" value="<?php echo _("Save As New") ?>" class="button ok" style="display: none;" />
-          <span class="hermesSeparator"><?php echo _("or") ?></span> <a class="hermesFormCancel"><?php echo _("Cancel") ?></a>
+          <span class="hermesSeparator"><?php echo _("or") ?></span> <a class="hermesTimeFormCancel"><?php echo _("Cancel") ?></a>
         </div>
     </form>
    </div>

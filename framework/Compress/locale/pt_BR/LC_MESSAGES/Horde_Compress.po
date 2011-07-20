@@ -7,41 +7,39 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Compress\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"PO-Revision-Date: 2011-06-11 20:18-0300\n"
+"Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: lib/Horde/Compress/Rar.php:54
-#, fuzzy
+#: lib/Horde/Compress/Rar.php:55
 msgid "Invalid RAR data."
-msgstr "Dados de CEP inválidos"
+msgstr "Dados RAR inválidos."
 
-#: lib/Horde/Compress/Zip.php:197 lib/Horde/Compress/Zip.php:224
-#: lib/Horde/Compress/Zip.php:244
+#: lib/Horde/Compress/Zip.php:202 lib/Horde/Compress/Zip.php:229
+#: lib/Horde/Compress/Zip.php:249
 msgid "Invalid ZIP data"
 msgstr "Dados de CEP inválidos"
 
-#: lib/Horde/Compress/Dbx.php:128 lib/Horde/Compress/Dbx.php:157
-#: lib/Horde/Compress/Dbx.php:238
+#: lib/Horde/Compress/Dbx.php:127 lib/Horde/Compress/Dbx.php:156
+#: lib/Horde/Compress/Dbx.php:237
 msgid "Invalid file format"
-msgstr "Formato do arquivo é inválido"
+msgstr "Formato inválido de arquivo"
 
-#: lib/Horde/Compress/Zip.php:93
-#, fuzzy
+#: lib/Horde/Compress/Zip.php:100
 msgid "This server can't compress zip files."
-msgstr "Este servidor não pode descomprimir arquivos zip e gzip."
+msgstr "Este servidor não pode compactar arquivos zip."
 
 #: lib/Horde/Compress/Gzip.php:42
-#, fuzzy
 msgid "This server can't uncompress gzip files."
-msgstr "Este servidor não pode descomprimir arquivos zip e gzip."
+msgstr "Este servidor não pode descompactar arquivos gzip."
 
 #: lib/Horde/Compress/Gzip.php:49 lib/Horde/Compress/Gzip.php:79
-#: lib/Horde/Compress/Tar.php:74
+#: lib/Horde/Compress/Tar.php:76
 msgid "Unable to decompress data."
 msgstr "Impossível descomprimir dados."

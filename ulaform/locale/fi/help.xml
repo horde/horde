@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+  <entry id="form-action" md5="2602c213308d7a2e2e2dd526bd4f5b9c" state="uptodate">
+    <title>Lomakkeen luonto: Toiminto</title>
+    <heading>Toiminto</heading>
+    <para>
+    Voit valita mik&#xE4; toiminto suoritetaan kun lomake l&#xE4;hetet&#xE4;&#xE4;n. K&#xE4;ytett&#xE4;viss&#xE4; olevat toiminnot l&#xF6;ytyv&#xE4;t alasvetovalikosta.
+    </para>
+</entry>
+  <entry id="on-submit" md5="ed9ced1ca59e2ce7718a23bf252bc119" state="uptodate">
+    <title>Lomakkeen luonto: L&#xE4;hetett&#xE4;ess&#xE4;</title>
+    <heading>L&#xE4;hetett&#xE4;ess&#xE4;</heading>
+    <para>
+    Voit laittaa t&#xE4;h&#xE4;n mink&#xE4; tahansa toimivan javascript ohjelman, joka ajetaan kun lomake l&#xE4;hetet&#xE4;&#xE4;n.
+    </para>
+</entry>
+</help>

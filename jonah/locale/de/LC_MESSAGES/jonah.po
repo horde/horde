@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jonah 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-21 10:58+0200\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: 2011-02-02 17:34+0100\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -124,7 +124,7 @@ msgstr "Suche beenden"
 msgid "Comments"
 msgstr "Kommentare"
 
-#: config/templates.php:44
+#: config/templates.php:45
 msgid "Compact"
 msgstr "Kompakt"
 
@@ -259,7 +259,7 @@ msgstr "Einfügen"
 msgid "Include full story content in syndicated feeds?"
 msgstr "Den vollständigen Beitragstext in den veröffentlichten Feed verwenden?"
 
-#: config/templates.php:33
+#: config/templates.php:34
 msgid "Internal"
 msgstr "Intern"
 
@@ -296,7 +296,7 @@ msgstr "Feeds verwalten"
 msgid "Maximum Stories"
 msgstr "Maximale Beiträge"
 
-#: config/templates.php:22
+#: config/templates.php:23
 msgid "Media"
 msgstr "Multimedia"
 
@@ -483,7 +483,7 @@ msgstr ""
 "Kurznamen ermöglichen den direkten Zugriff auf diesen Feed über: %s.<br /"
 ">Kurznamen dürfen Buchstaben, Zahlen und Unterstriche enthalten."
 
-#: config/templates.php:11
+#: config/templates.php:12
 msgid "Standard"
 msgstr "Standard"
 
@@ -619,7 +619,7 @@ msgstr "An"
 msgid "Type"
 msgstr "Typ"
 
-#: config/templates.php:55
+#: config/templates.php:56
 msgid "Ultracompact"
 msgstr "Sehr kompakt"
 

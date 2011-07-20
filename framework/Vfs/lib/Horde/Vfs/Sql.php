@@ -572,7 +572,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         );
 
         try {
-            $this->_db->query($sql, $values);
+            $this->_db->delete($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception($e);
         }

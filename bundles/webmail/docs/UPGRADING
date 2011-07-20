@@ -2,8 +2,11 @@
  Upgrading Horde Groupware Webmail Edition
 ===========================================
 
-:Contact:       horde@lists.horde.org
+:Contact: horde@lists.horde.org
 
+
+Introduction
+============
 
 These are instructions to upgrade from earlier Horde Groupware Webmail Edition
 versions.  Please backup your existing data before running any of the steps
@@ -14,13 +17,39 @@ updated data with your old Horde Groupware Webmail Edition version anymore.
 Please see below for changes between certain Horde Groupware versions that are
 not covered by the update script.
 
-The update script will automatically migrate database backends and update
-configuration files. It will add new and changed configurations at the end of
-existing configuration files, any changes done to old configuration files
-won't get lost, but might get overridden by new settings. You might want to
-check the updated configuration files after the update script has finished to
-make sure that any customizations that you did to the old version still work
-as expected.
+
+Upgrading a Horde Groupware Webmail Edition 4 or later
+======================================================
+
+Upgrading Horde Groupware Webmail Edition is as easy as running::
+
+   pear upgrade -a -B horde/webmail
+
+If you want to upgrade from a Horde Groupware Webmail Edition version
+prior to 4.0, please follow the instructions in INSTALL_ to install
+the most recent Horde Groupware Webmail Edition version using the PEAR
+installer.
+
+After updating to a newer Horde Groupware Webmail Edition version, you
+**always** need to update configurations and database schemes. Log in
+as an administrator, go to Administration => Configuration and update
+anything that's highlighted as outdated.
+
+
+Upgrading a Horde Groupware Webmail Edition 1.x
+===============================================
+
+For upgrading from a Horde Groupware Webmail Edition version 1.x to
+4.0 or later, see the section `Upgrading a Horde Groupware Webmail
+Edition 4 or later`_.
+
+The update script will automatically migrate database backends and
+update configuration files. It will add new and changed configurations
+at the end of existing configuration files, any changes done to old
+configuration files won't get lost, but might get overridden by new
+settings. You might want to check the updated configuration files
+after the update script has finished to make sure that any
+customizations that you did to the old version still work as expected.
 
 The ``.dist`` versions of the configuration files alway contain the most
 recent reference settings and the settings documentation. If you experience
@@ -216,3 +245,6 @@ shares.
 .. Important:: IMSP contacts contained in contact groups that are not from an
                IMSP source may not be visible within that group when migrating
                an IMSP source to a share.
+
+
+.. _INSTALL: INSTALL

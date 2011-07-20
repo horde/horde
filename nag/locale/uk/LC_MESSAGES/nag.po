@@ -1,0 +1,1479 @@
+# Ukrainian translations for Nag H4 package.
+# Copyright (C) 2011 Horde Project
+# This file is distributed under the same license as the Nag package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Nag H4 (3.0.2-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
+"PO-Revision-Date: 2011-06-15 12:23+0200\n"
+"Last-Translator: Andriy Kopystyansky <anri@polynet.lviv.ua>\n"
+"Language-Team: Ukrainian <anri@polynet.lviv.ua>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: templates/view/task.inc:39
+#, php-format
+msgid " (%s including sub-tasks)"
+msgstr " (%s включно з під-завданнями)"
+
+#: lib/Nag.php:116
+#, php-format
+msgid "%d hour"
+msgstr "%d година"
+
+#: lib/Nag.php:118
+#, php-format
+msgid "%d hour, %d minute"
+msgstr "%d година, %d хвилина"
+
+#: lib/Nag.php:120
+#, php-format
+msgid "%d hour, %d minutes"
+msgstr "%d година, %d хвилин"
+
+#: lib/Nag.php:108
+#, php-format
+msgid "%d hours"
+msgstr "%d годин"
+
+#: lib/Nag.php:110
+#, php-format
+msgid "%d hours, %d minute"
+msgstr "%d годин, %d хвилина"
+
+#: lib/Nag.php:112
+#, php-format
+msgid "%d hours, %d minutes"
+msgstr "%d годин, %d хвилин"
+
+#: lib/Nag.php:126
+#, php-format
+msgid "%d minute"
+msgstr "%d хвилина"
+
+#: lib/Nag.php:128
+#, php-format
+msgid "%d minutes"
+msgstr "%d хвилин"
+
+#: lib/Nag.php:585
+#, php-format
+msgid "%s at %s"
+msgstr "%s в %s"
+
+#: lib/Application.php:340 lib/Block/Summary.php:147 lib/Nag.php:771
+#, php-format
+msgid "%s is due in %s"
+msgstr ""
+
+#: lib/Application.php:341 lib/Block/Summary.php:144 lib/Nag.php:769
+#, php-format
+msgid "%s is due now."
+msgstr ""
+
+#: task.php:228
+#, php-format
+msgid "%s is now incomplete."
+msgstr "%s тепер виконано."
+
+#: data.php:223
+#, php-format
+msgid "%s successfully imported"
+msgstr "%s успішно імпортовано"
+
+#: lib/Form/Task.php:70 lib/Nag.php:536
+msgid "(highest)"
+msgstr "(найвищий)"
+
+#: lib/Form/Task.php:74 lib/Nag.php:536
+msgid "(lowest)"
+msgstr "(найнижчий)"
+
+#: lib/Form/Type/NagAlarm.php:30
+msgid "A due date must be set to enable alarms."
+msgstr "Необхідно встановити термін, щоб дозволити дзвоники."
+
+#: task.php:211
+#, php-format
+msgid "Access denied completing task %s."
+msgstr "Недостатньо прав для встановлення %s як виконаного."
+
+#: task.php:23
+msgid "Access denied deleting task."
+msgstr "Недостатньо прав для видалення завдання."
+
+#: task.php:94 task.php:100
+msgid "Access denied editing task."
+msgstr "Недостатньо прав для редагування завдання."
+
+#: task.php:91
+#, php-format
+msgid "Access denied editing task: %s"
+msgstr "Недостатньо прав для редагування завдання: %s"
+
+#: lib/Driver.php:305
+#, php-format
+msgid "Access denied moving the task to %s."
+msgstr "Недостатньо прав для перенесення завдання до %s."
+
+#: lib/Driver.php:293
+#, php-format
+msgid "Access denied removing task from %s."
+msgstr "Недостатньо прав для видалення завдання з %s."
+
+#: task.php:136
+#, php-format
+msgid "Access denied saving task to %s."
+msgstr "Недостатньо прав для збереження завдання в %s."
+
+#: task.php:132
+#, php-format
+msgid "Access denied saving task: %s"
+msgstr "Недостатньо прав для збереження завдання: %s"
+
+#: quick.php:13
+#, php-format
+msgid "Added %d task"
+msgid_plural "Added %d tasks"
+msgstr[0] "Додано %d завдання"
+msgstr[1] "Додано %d завдання"
+msgstr[2] "Додано %d завдань"
+
+#: data.php:58 lib/Form/Task.php:106 templates/view/task.inc:30
+msgid "Alarm"
+msgstr "Дзвоник"
+
+#: config/prefs.php:191 templates/data/export.inc:34
+msgid "All tasks"
+msgstr "Всі завдання"
+
+#: lib/Block/Summary.php:93
+msgid "Always show completed and future tasks?"
+msgstr "Завжди показувати виконані і майбутні завдання?"
+
+#: lib/Block/Summary.php:88
+msgid "Always show overdue tasks?"
+msgstr "Завжди показувати протерміновані завдання?"
+
+#: lib/Form/Type/NagMethod.php:45
+msgid "An alarm must be set to specify a notification method"
+msgstr "Для встановлення методу оповіщення має бути встановлений дзвоник"
+
+#: config/prefs.php:116
+msgid "Ascending"
+msgstr "По зростанню"
+
+#: config/prefs.php:60 config/prefs.php:87 config/prefs.php:105 data.php:56
+#: lib/Form/Task.php:101 templates/list/task_headers.inc:64
+#: templates/view/task.inc:12
+msgid "Assignee"
+msgstr "Виконавець"
+
+#: lib/Block/Summary.php:53
+msgid "Block title"
+msgstr "Назва блоку"
+
+#: data.php:28
+msgid "CSV"
+msgstr "CSV"
+
+#: lib/Ui/VarRenderer/Nag.php:111 lib/Ui/VarRenderer/Nag.php:162
+msgid "Calendar"
+msgstr "Календар"
+
+#: lib/Form/DeleteTaskList.php:40 lib/Form/DeleteTaskList.php:46
+#: templates/quick.inc:8
+msgid "Cancel"
+msgstr "Відмінити"
+
+#: templates/list/task_headers.inc:68
+msgid "Cat_egory"
+msgstr "Категорія"
+
+#: config/prefs.php:64 config/prefs.php:82 config/prefs.php:100 data.php:55
+#: lib/Form/Task.php:93 lib/Form/Task.php:97 templates/view/task.inc:8
+msgid "Category"
+msgstr "Категорія"
+
+#: tasklists/index.php:60 templates/tasklist_list.php:35
+msgid "Change Permissions"
+msgstr "Змінити Права"
+
+#: config/prefs.php:14
+msgid "Change your task sorting and display preferences."
+msgstr "Налаштуйте опції відображення і сортування завдань."
+
+#: lib/Nag.php:966
+#, php-format
+msgid "Changed alarm from %s to %s"
+msgstr "Змінено дзвоник з %s на %s"
+
+#: lib/Nag.php:945
+#, php-format
+msgid "Changed assignee from \"%s\" to \"%s\""
+msgstr "Змінено виконавця з \"%s\" на \"%s\""
+
+#: lib/Nag.php:930
+#, php-format
+msgid "Changed category from \"%s\" to \"%s\""
+msgstr "Змінено категорію з \"%s\" на \"%s\""
+
+#: lib/Nag.php:981
+#, php-format
+msgid "Changed completion from %s to %s"
+msgstr ""
+
+#: lib/Nag.php:986
+msgid "Changed description"
+msgstr "Змінений опис"
+
+#: lib/Nag.php:954
+#, php-format
+msgid "Changed due date from %s to %s"
+msgstr "Змінено термін з %s на %s"
+
+#: lib/Nag.php:976
+#, php-format
+msgid "Changed estimate from %s to %s"
+msgstr "Змінено очікуваний час з %s на %s"
+
+#: lib/Nag.php:908
+#, php-format
+msgid "Changed name from \"%s\" to \"%s\""
+msgstr "Змінено назву з \"%s\" на \"%s\""
+
+#: lib/Nag.php:922
+#, php-format
+msgid "Changed parent task from \"%s\" to \"%s\""
+msgstr ""
+
+#: lib/Nag.php:971
+#, php-format
+msgid "Changed priority from %s to %s"
+msgstr "Змінено пріоритет з %s на %s"
+
+#: lib/Nag.php:960
+#, php-format
+msgid "Changed start date from %s to %s"
+msgstr "Змінено дату початку з %s на %s"
+
+#: lib/Nag.php:914
+#, php-format
+msgid "Changed task list from \"%s\" to \"%s\""
+msgstr "Змінено список завдань з \"%s\" на \"%s\""
+
+#: lib/Nag.php:905
+msgid "Changes made for this task:"
+msgstr "Здійснені зміни для цього завдання:"
+
+#: lib/Application.php:194
+msgid "Choose how you want to receive reminders for tasks with alarms:"
+msgstr "Виберіть, як Ви хочете отримувати оповіщення про події з дзвониками:"
+
+#: config/prefs.php:160
+msgid ""
+"Choose if you want to be notified of new, edited, and deleted tasks by email:"
+msgstr ""
+"Виберіть, чи повідомляти Вас про нові, редаговані і видалені завдання е-"
+"поштою:"
+
+#: config/prefs.php:42
+msgid "Choose if you want to be notified of task changes and task alarms."
+msgstr "Виберіть, чи повідомляти Вас про зміни подій і їх дзвоники."
+
+#: config/prefs.php:35
+msgid "Choose your default task list."
+msgstr "Виберіть Ваш основний Список завдань."
+
+#: templates/tasklist_list.php:31 templates/tasklist_list.php:32
+msgid "Click or copy this URL to display this task list"
+msgstr "Клацніть або скопіюйте цей URL щоб показати список завдань"
+
+#: templates/panel.inc:49
+msgid "Close"
+msgstr "Закрити"
+
+#: templates/list/header.inc:7
+msgid "Close Search"
+msgstr "Закрити пошук"
+
+#: lib/Form/CreateTaskList.php:24
+msgid "Color"
+msgstr "Колір"
+
+#: view.php:106
+msgid "Complete"
+msgstr "Завершити"
+
+#: lib/Block/Summary.php:218 mobile.php:114
+#: templates/list/task_summaries.inc:10
+#, php-format
+msgid "Complete \"%s\""
+msgstr "Завершити \"%s\""
+
+#: templates/view/task.inc:46
+msgid "Complete Task"
+msgstr "Завершити завдання"
+
+#: config/prefs.php:193
+msgid "Complete tasks"
+msgstr "Завершити завдання"
+
+#: lib/Block/Summary.php:216 lib/Nag.php:600 mobile.php:129
+msgid "Completed"
+msgstr "Завершені"
+
+#: task.php:226
+#, php-format
+msgid "Completed %s."
+msgstr "Завершено %s."
+
+#: templates/search/search.inc:27
+msgid "Completed Tasks"
+msgstr "Завершені Завдання"
+
+#: mobile.php:120 templates/list/task_summaries.inc:15
+msgid "Completed parent task, mark it as incomplete first"
+msgstr ""
+
+#: templates/data/export.inc:37
+msgid "Completed tasks"
+msgstr "Завершені завдання"
+
+#: config/prefs.php:85 config/prefs.php:103 lib/Form/Task.php:115
+#: templates/list/task_headers.inc:31 templates/view/task.inc:42
+msgid "Completed?"
+msgstr "Завершено?"
+
+#: data.php:64
+msgid "Completion Date"
+msgstr "Дата завершення"
+
+#: data.php:63
+msgid "Completion Status"
+msgstr "Статус Виконання"
+
+#: lib/Api.php:614
+#, php-format
+msgid "Connection failed: %s"
+msgstr "Збій зв'язку: %s"
+
+#: lib/Form/CreateTaskList.php:32 templates/quick.inc:7
+msgid "Create"
+msgstr "Створити"
+
+#: lib/Form/CreateTaskList.php:21
+msgid "Create Task List"
+msgstr "Створити Список завдань"
+
+#: templates/tasklist_list.php:9
+msgid "Create a new Task List"
+msgstr "Створити новий Список завдань"
+
+#: templates/view/task.inc:61
+msgid "Created"
+msgstr "Створено"
+
+#: templates/alarm/mail.html.php:13
+msgid "Date and time:"
+msgstr "Дата і час:"
+
+#: templates/alarm/mail.plain.php:7
+msgid "Date:"
+msgstr "Дата:"
+
+#: lib/Ui/VarRenderer/Nag.php:100 lib/Ui/VarRenderer/Nag.php:151
+msgid "Day"
+msgstr "День"
+
+#: lib/Nag.php:632 lib/Ui/VarRenderer/Nag.php:193
+msgid "Day(s)"
+msgstr "День(ів)"
+
+#: config/prefs.php:34
+msgid "Default Task List"
+msgstr "Основний Список завдань"
+
+#: config/prefs.php:28
+msgid "Defaults for new tasks"
+msgstr "Типові налаштування для нового завдання."
+
+#: lib/Form/Task.php:105
+msgid "Delay Start Until"
+msgstr "Відкласти Старт до"
+
+#: lib/Form/DeleteTaskList.php:40 tasklists/index.php:61
+#: templates/tasklist_list.php:37 view.php:113
+msgid "Delete"
+msgstr "Витерти"
+
+#: lib/Form/DeleteTaskList.php:34
+#, php-format
+msgid "Delete %s"
+msgstr "Витерти %s"
+
+#: config/prefs.php:20
+msgid "Delete Confirmation"
+msgstr "Підтвердження витирання"
+
+#: config/prefs.php:21
+msgid "Delete button behaviour"
+msgstr ""
+
+#: lib/Form/Renderer/Task.php:39 lib/Form/Task.php:126 task.php:115
+msgid "Delete this task"
+msgstr "Витерти це завдання"
+
+#: task.php:34
+#, php-format
+msgid "Deleted %s."
+msgstr "Витерто %s."
+
+#: lib/Api.php:593
+msgid "Deleting entire tasklists is not supported."
+msgstr "Витирання цілого списку завдань не підтримується."
+
+#: config/prefs.php:117
+msgid "Descending"
+msgstr "По спаданню"
+
+#: data.php:54 lib/Form/CreateTaskList.php:25 lib/Form/Task.php:122
+msgid "Description"
+msgstr "Опис"
+
+#: templates/alarm/mail.html.php:23
+msgid "Description:"
+msgstr "Опис:"
+
+#: config/prefs.php:13
+msgid "Display Preferences"
+msgstr "Опції відображення"
+
+#: templates/tasklist_list.php:19
+msgid "Display URL"
+msgstr "Показати URL"
+
+#: config/prefs.php:126
+msgid "Do you want to confirm deleting entries?"
+msgstr "Підтверджувати витирання записів?"
+
+#: config/prefs.php:167
+msgid ""
+"Don't send me a notification if I've added, changed or deleted the task?"
+msgstr ""
+"Не слати мені увідомлень, якщо завдання було додане, правлене, витерте мною?"
+
+#: data.php:57 lib/Form/Task.php:104 templates/view/task.inc:26
+msgid "Due By"
+msgstr "Термін"
+
+#: config/prefs.php:61 config/prefs.php:83 config/prefs.php:101
+msgid "Due Date"
+msgstr "Термін"
+
+#: lib/Ui/VarRenderer/Nag.php:150
+msgid "Due date specified."
+msgstr "Термін визначено."
+
+#: tasklists/index.php:59 templates/tasklist_list.php:33 view.php:109
+msgid "Edit"
+msgstr "Редагувати"
+
+#: lib/Block/Summary.php:209 templates/list/task_summaries.inc:37
+#, php-format
+msgid "Edit \"%s\""
+msgstr "Редагувати \"%s\""
+
+#: lib/Form/EditTaskList.php:35
+#, php-format
+msgid "Edit %s"
+msgstr "Редагувати %s"
+
+#: templates/list/task_headers.inc:43
+msgid "Edit Task"
+msgstr "Редагувати Завдання"
+
+#: templates/list/task_headers.inc:74
+msgid "Edit categories and colors"
+msgstr "Редагувати категорії і кольори"
+
+#: task.php:106 task.php:119
+#, php-format
+msgid "Edit: %s"
+msgstr "Редагування: %s"
+
+#: templates/quick.inc:4
+msgid ""
+"Enter one task per line. Create child tasks by indenting them below their "
+"parent task. Include due dates like \"laundry tomorrow\" or \"get dry "
+"cleaning next Thursday\"."
+msgstr ""
+
+#: task.php:39
+#, php-format
+msgid "Error deleting task: %s"
+msgstr "Помилка витирання завдання: %s"
+
+#: config/prefs.php:63 config/prefs.php:86 config/prefs.php:104 data.php:62
+#: lib/Form/Task.php:114 templates/list/task_headers.inc:60
+#: templates/view/task.inc:38
+msgid "Estimated Time"
+msgstr "Прогнозований час"
+
+#: templates/data/export.inc:41
+msgid "Export"
+msgstr "Експорт"
+
+#: templates/data/export.inc:6
+msgid "Export Tasks"
+msgstr "Експорт Завдань"
+
+#: config/prefs.php:48
+msgid "External Data"
+msgstr "Зовнішні Дані"
+
+#: config/prefs.php:194 templates/data/export.inc:36
+msgid "Future tasks"
+msgstr "Майбутні завдання"
+
+#: config/prefs.php:12 config/prefs.php:19 config/prefs.php:26
+msgid "General Preferences"
+msgstr "Загальні опції"
+
+#: lib/Ui/VarRenderer/Nag.php:168
+msgid "Hour"
+msgstr "Година"
+
+#: lib/Nag.php:635 lib/Ui/VarRenderer/Nag.php:192
+msgid "Hour(s)"
+msgstr "Година(и)"
+
+#: templates/data/import.inc:7
+#, php-format
+msgid "Import Tasks, Step %d"
+msgstr "Імпорт Завдань, Крок %d"
+
+#: data.php:251
+msgid "Import/Export Tasks"
+msgstr "Імпорт/Експорт Завдань"
+
+#: list.php:111
+msgid "Incom_plete tasks"
+msgstr "Незавершені завдання"
+
+#: templates/search/search.inc:26
+msgid "Incomplete Tasks"
+msgstr "Незавершені Завдання"
+
+#: mobile.php:111 templates/list/task_summaries.inc:7
+msgid "Incomplete sub tasks, complete them first"
+msgstr "Підзавдання не завершені. Завершіть спершу їх"
+
+#: config/prefs.php:192 templates/data/export.inc:35
+msgid "Incomplete tasks"
+msgstr "Незавершені завдання"
+
+#: lib/Api.php:293
+msgid "Invalid tasklist file requested."
+msgstr "Вказано некоректний файл списку завдань."
+
+#: lib/Api.php:428
+msgid "Invalid tasklist name supplied."
+msgstr "Вказана некоректна назва списку завдань."
+
+#: lib/Api.php:309
+msgid "Invalid tasklist requested."
+msgstr "Запитано некоректний список завдань."
+
+#: templates/tasklist_list.php:18
+msgid "Kind"
+msgstr "Тип"
+
+#: templates/view/task.inc:68
+msgid "Last Modified"
+msgstr "Востаннє оновлено"
+
+#: templates/tasklist_list.php:30
+msgid "Local"
+msgstr "Локальний"
+
+#: mobile.php:48
+msgid "Log out"
+msgstr "Вийти"
+
+#: tasklists/index.php:64 templates/tasklist_list.php:2
+msgid "Manage Task Lists"
+msgstr "Керувати Списками Завдань"
+
+#: mobile.php:123 templates/list/task_summaries.inc:18
+#, php-format
+msgid "Mark \"%s\" as incomplete"
+msgstr "Позначити \"%s\" як незавершене"
+
+#: templates/view/task.inc:48
+msgid "Mark as incomplete"
+msgstr "Позначити як незавершене"
+
+#: lib/Application.php:64
+msgid "Maximum Number of Tasks"
+msgstr "Максимальна кількість Завдань"
+
+#: lib/Ui/VarRenderer/Nag.php:169
+msgid "Minute"
+msgstr "Хвилина"
+
+#: lib/Nag.php:638 lib/Ui/VarRenderer/Nag.php:192
+msgid "Minute(s)"
+msgstr "Хвилин(а)"
+
+#: lib/Ui/VarRenderer/Nag.php:101 lib/Ui/VarRenderer/Nag.php:152
+msgid "Month"
+msgstr "Місяць"
+
+#: templates/list/header.inc:8
+msgid "More Options..."
+msgstr "Більше опцій..."
+
+#: lib/Api.php:1168
+msgid "Multiple iCalendar components found; only one vTodo is supported."
+msgstr "Знайдено кілька компонентів iCalendar; підтримується тільки vTodo."
+
+#: templates/panel.inc:77
+msgid "My Task Lists:"
+msgstr "Мої Списки завдань:"
+
+#: list.php:33 mobile.php:10
+msgid "My Tasks"
+msgstr "Мої Завдання"
+
+#: templates/search/search.inc:18
+msgid "N_ame"
+msgstr "Назва"
+
+#: templates/list/task_headers.inc:46
+msgid "Na_me"
+msgstr "Назва"
+
+#: data.php:53 lib/Form/CreateTaskList.php:23 lib/Form/Task.php:80
+msgid "Name"
+msgstr "Назва"
+
+#: lib/Application.php:394 task.php:82 task.php:119
+msgid "New Task"
+msgstr "Нове Завдання"
+
+#: templates/data/import.inc:39
+msgid "Next"
+msgstr "Наступний"
+
+#: config/prefs.php:155
+msgid "No"
+msgstr "Ні"
+
+#: lib/Ui/VarRenderer/Nag.php:95
+msgid "No delay"
+msgstr "Без затримки"
+
+#: lib/Ui/VarRenderer/Nag.php:146
+msgid "No due date."
+msgstr "Без терміну."
+
+#: lib/Api.php:797 lib/Api.php:849 lib/Api.php:1175
+msgid "No iCalendar data was found."
+msgstr "Даних в iCalendar не знайдено."
+
+#: lib/Form/Task.php:41
+msgid "No parent task"
+msgstr "Нема батьківського завдання"
+
+#: lib/Nag.php:789
+msgid "No task lists are available to guests."
+msgstr "Для гостей нема доступних списків завдань."
+
+#: quick.php:15 quick.php:18
+msgid "No tasks have been added."
+msgstr "Жодного завдання не додано."
+
+#: templates/list/task_footers.inc:4
+msgid "No tasks match"
+msgstr "Жодного відповідного завдання"
+
+#: lib/Block/Summary.php:274
+msgid "No tasks to display"
+msgstr "Нема завдань для показу"
+
+#: lib/Form/Task.php:102 lib/Nag.php:642 lib/Ui/VarRenderer/Nag.php:208
+msgid "None"
+msgstr "Жоден"
+
+#: lib/Nag.php:601
+msgid "Not Completed"
+msgstr "Не Завершене"
+
+#: lib/Driver/Kolab.php:93
+msgid "Not Found"
+msgstr "Не знайдено"
+
+#: templates/view/task.inc:18
+msgid "Not Private"
+msgstr "Не Приватне"
+
+#: mobile.php:132
+msgid "Not completed"
+msgstr "Не завершене"
+
+#: lib/Api.php:652
+msgid "Not configured"
+msgstr "Не налаштовано"
+
+#: lib/Form/Task.php:108
+msgid "Notification"
+msgstr "Оповіщення"
+
+#: config/prefs.php:41
+msgid "Notifications"
+msgstr "Оповіщення"
+
+#: config/prefs.php:157
+msgid "On all shown task lists"
+msgstr ""
+
+#: config/prefs.php:158
+msgid "On all task lists I have read access to"
+msgstr ""
+
+#: config/prefs.php:156
+msgid "On my task lists only"
+msgstr ""
+
+#: templates/list/task_headers.inc:39
+msgid "P_ri"
+msgstr ""
+
+#: lib/Form/Task.php:89
+msgid "Parent task"
+msgstr "Батьківське завдання"
+
+#: lib/Api.php:658 lib/Api.php:692 lib/Api.php:745 lib/Api.php:776
+#: lib/Api.php:895 lib/Api.php:935 lib/Api.php:950 lib/Api.php:989
+#: lib/Api.php:1027 lib/Api.php:1052 lib/Api.php:1104 lib/Api.php:1121
+#: lib/Api.php:1151 lib/Api.php:1238 lib/Api.php:1317 lib/Api.php:1371
+#: lib/Application.php:275 lib/Nag.php:285
+msgid "Permission Denied"
+msgstr "Доступ заборонений"
+
+#: mobile.php:46
+msgid "Portal"
+msgstr "Портал"
+
+#: config/prefs.php:59 config/prefs.php:80 config/prefs.php:98 data.php:60
+#: lib/Form/Task.php:111 templates/view/task.inc:34
+msgid "Priority"
+msgstr "Пріоритет"
+
+#: lib/Task.php:518 templates/view/task.inc:18
+msgid "Private"
+msgstr "Приватне"
+
+#: data.php:61 lib/Task.php:516
+msgid "Private Task"
+msgstr "Приватне Завдання"
+
+#: lib/Form/Task.php:103 templates/view/task.inc:16
+msgid "Private?"
+msgstr "Приватне?"
+
+#: templates/quick.inc:2
+msgid "Quick Task Creation"
+msgstr "Щвидке створення завдання"
+
+#: lib/Form/DeleteTaskList.php:37
+#, php-format
+msgid ""
+"Really delete the task list \"%s\"? This cannot be undone and all data on "
+"this task list will be permanently removed."
+msgstr ""
+"Справді витерти список завдань \"%s\"? Це незворотня операція і всі дані в "
+"цьому списку завдань будуть назавжди витерті."
+
+#: view.php:113
+msgid "Really delete this task?"
+msgstr "Справді витерти це завдання?"
+
+#: lib/Form/EditTaskList.php:45 lib/Form/Renderer/Task.php:37
+#: lib/Form/Task.php:124 templates/panel.inc:95
+msgid "Save"
+msgstr "Зберегти"
+
+#: task.php:189
+#, php-format
+msgid "Saved %s."
+msgstr "Збережено %s."
+
+#: lib/Application.php:426 search.php:19 templates/list/header.inc:3
+#: templates/search/search.inc:31
+msgid "Search"
+msgstr "Пошук"
+
+#: templates/search/search.inc:17
+msgid "Search In:"
+msgstr "Пошук в:"
+
+#: templates/search/search.inc:12
+msgid "Search _Text:"
+msgstr "Пошук Тексту:"
+
+#: templates/panel.inc:65
+msgid "Search for Task Lists:"
+msgstr "Пошук Списків завдань:"
+
+#: templates/search/search.inc:24
+msgid "Search:"
+msgstr "Пошук:"
+
+#: list.php:75 tasks/index.php:41
+#, php-format
+msgid "Search: Results for \"%s\""
+msgstr "Пошук: Результати для \"%s\""
+
+#: config/prefs.php:66
+msgid "Select the columns that should be shown in the list view:"
+msgstr "Виберіть колонки, видимі при перегляді списку:"
+
+#: templates/data/export.inc:11
+msgid "Select the export format:"
+msgstr "Вкажіть формат експорту:"
+
+#: templates/data/import.inc:36
+msgid "Select the file to import:"
+msgstr "Вкажіть файл для імпорту:"
+
+#: templates/data/import.inc:12
+msgid "Select the format of the source file:"
+msgstr "Виберіть формат вхідного файлу:"
+
+#: templates/data/export.inc:20
+msgid "Select the task list(s) to export from:"
+msgstr "Вкажіть списки завдань, з яких експортувати:"
+
+#: templates/data/export.inc:32
+msgid "Select the task states to export:"
+msgstr "Вкажіть стани завдань для експорту:"
+
+#: templates/panel.inc:86
+msgid "Shared Task Lists:"
+msgstr "Спільні Списки завдань:"
+
+#: lib/Block/Summary.php:63
+msgid "Show action buttons?"
+msgstr "Показувати кнопки дій?"
+
+#: config/prefs.php:196
+msgid "Show complete, incomplete, or all tasks in the task list?"
+msgstr "Показувати завершені, незавершені чи всі завдання у списку?"
+
+#: config/prefs.php:183
+msgid "Show data from any of these other applications in your task list?"
+msgstr ""
+
+#: config/prefs.php:49
+msgid "Show data from other applications or sources."
+msgstr "Показувати дані з інших модулів або джерел."
+
+#: lib/Block/Summary.php:68
+msgid "Show due dates?"
+msgstr "Показувати терміни?"
+
+#: lib/Block/Summary.php:58
+msgid "Show priorities?"
+msgstr "Показувати пріоритети?"
+
+#: lib/Block/Summary.php:78
+msgid "Show task alarms?"
+msgstr "Показувати дзвоники завдань?"
+
+#: lib/Block/Summary.php:83
+msgid "Show task category?"
+msgstr "Показувати категорію завдання?"
+
+#: lib/Block/Summary.php:73
+msgid "Show tasklist name?"
+msgstr "Показувати назву Списку завдань?"
+
+#: lib/Block/Summary.php:104
+msgid "Show tasks from these categories"
+msgstr "Показати завдання з цих категорій"
+
+#: lib/Block/Summary.php:98
+msgid "Show tasks from these tasklists"
+msgstr "Показати завдання з цих Списків завдань"
+
+#: templates/list/task_headers.inc:64
+msgid "Sort by Assignee"
+msgstr "Сортувати за Виконавцем"
+
+#: templates/list/task_headers.inc:68
+msgid "Sort by Category"
+msgstr "Сортувати по Категорії"
+
+#: templates/list/task_headers.inc:31
+msgid "Sort by Completion Status"
+msgstr "Сортувати за станом виконання"
+
+#: templates/list/task_headers.inc:52
+msgid "Sort by Due Date"
+msgstr "Сортувати по Терміну"
+
+#: templates/list/task_headers.inc:46
+msgid "Sort by Name"
+msgstr "Сортувати по Назві"
+
+#: templates/list/task_headers.inc:39
+msgid "Sort by Priority"
+msgstr "Сортувати по Пріоритету"
+
+#: templates/list/task_headers.inc:56
+msgid "Sort by Start Date"
+msgstr "Сортувати по Даті початку"
+
+#: templates/list/task_headers.inc:35
+msgid "Sort by User Name"
+msgstr "Сортувати по Користувачу"
+
+#: templates/list/task_headers.inc:60
+msgid "Sort by estimated time"
+msgstr "Сортувати за прогнозованим часом"
+
+#: config/prefs.php:119
+msgid "Sort direction:"
+msgstr "Напрям сортування:"
+
+#: config/prefs.php:90
+msgid "Sort tasks by:"
+msgstr "Сортувати завдання за:"
+
+#: data.php:59
+msgid "Start"
+msgstr "Старт"
+
+#: config/prefs.php:62 config/prefs.php:84 config/prefs.php:102
+#: templates/view/task.inc:22
+msgid "Start Date"
+msgstr "Дата початку"
+
+#: lib/Ui/VarRenderer/Nag.php:99
+msgid "Start date specified."
+msgstr "Встановлена дата початку."
+
+#: templates/tasklist_list.php:20
+msgid "Subscription URL"
+msgstr "URL підписки"
+
+#: templates/tasklist_list.php:30
+msgid "System"
+msgstr "Системний"
+
+#: lib/Form/CreateTaskList.php:28 lib/Form/EditTaskList.php:41
+msgid "System Task List"
+msgstr "Системний Список завдань"
+
+#: lib/Form/CreateTaskList.php:29 lib/Form/EditTaskList.php:42
+msgid ""
+"System task lists don't have an owner. Only administrators can change the "
+"task list settings and permissions."
+msgstr ""
+"Системний Список завдань не має власника. Тільки адміністратор може змінити "
+"налаштування і права на цей Список."
+
+#: templates/list/task_summaries.inc:58
+msgid "Task Alarm"
+msgstr "Дзвоник завдання"
+
+#: templates/list/task_headers.inc:49
+msgid "Task Alarm?"
+msgstr "Дзвоник?"
+
+#: config/prefs.php:27
+msgid "Task Defaults"
+msgstr "Типове завдання"
+
+#: config/prefs.php:58 config/prefs.php:88 config/prefs.php:106
+#: lib/Form/Task.php:84 templates/tasklist_list.php:17
+msgid "Task List"
+msgstr "Список Завдань"
+
+#: lib/Form/EditTaskList.php:38
+msgid "Task List Description"
+msgstr "Опис Списку Завдань"
+
+#: templates/panel.inc:6
+msgid "Task List Information"
+msgstr "Дані про список завдань"
+
+#: templates/tasklist_list.php:14
+msgid "Task List List"
+msgstr "Список Списків завдань"
+
+#: lib/Form/EditTaskList.php:37
+msgid "Task List Name"
+msgstr "Назва Списку Завдань"
+
+#: config/prefs.php:33 config/prefs.php:40 config/prefs.php:47
+msgid "Task List and Share Preferences"
+msgstr "Налаштування Списку завдань і Пісочниць"
+
+#: templates/tasklist_info.php:6
+#, php-format
+msgid "Task List owned by %s."
+msgstr "Власником Списку завдань є %s."
+
+#: templates/tasklist_info.php:6
+msgid "Task List owned by system."
+msgstr "Список Завдань належить системі."
+
+#: templates/panel.inc:59 templates/panel.inc:60
+msgid "Task Lists"
+msgstr "Списки Завдань"
+
+#: config/prefs.php:81 config/prefs.php:99
+msgid "Task Name"
+msgstr "Назва Завдання"
+
+#: templates/list/task_summaries.inc:56
+msgid "Task Note"
+msgstr "Нотатка Завдання"
+
+#: templates/list/task_headers.inc:48
+msgid "Task Note?"
+msgstr "Нотатка завдання?"
+
+#: templates/search/search.inc:6
+msgid "Task Search"
+msgstr "Пошук завдання"
+
+#: lib/Driver/Sql.php:89
+msgid "Task UID not found"
+msgstr "UID завдання не знайдено."
+
+#: lib/Nag.php:887
+msgid "Task added:"
+msgstr "Завдання додано:"
+
+#: lib/Nag.php:991
+msgid "Task deleted:"
+msgstr "Завдання витерто:"
+
+#: lib/Nag.php:1008
+msgid "Task description:"
+msgstr "Опис завдання:"
+
+#: lib/Nag.php:733
+#, php-format
+msgid "Task list of %s"
+msgstr "Список завдань %s"
+
+#: lib/Nag.php:898
+msgid "Task modified:"
+msgstr "Завдання змінене:"
+
+#: task.php:98 view.php:38
+msgid "Task not found."
+msgstr "Завдання не знайдено."
+
+#: lib/Api.php:606
+msgid "Tasklist does not exist or no permission to delete"
+msgstr "Списку завдань не існує або нема прав на видалення"
+
+#: lib/Api.php:434
+msgid "Tasklist does not exist or no permission to edit"
+msgstr "Списку завдань не існує або нема прав на редагування"
+
+#: lib/Api.php:1289
+msgid "Tasks"
+msgstr "Завдання"
+
+#: lib/Block/Summary.php:12
+msgid "Tasks Summary"
+msgstr "Короткий опис Завдання"
+
+#: lib/Api.php:255
+#, php-format
+msgid "Tasks from %s"
+msgstr "Завдання від %s"
+
+#: data.php:220
+#, php-format
+msgid "The %s file didn't contain any tasks."
+msgstr "Файл %s не містить завдань."
+
+#: lib/Driver.php:56
+msgid "The Tasks backend is not currently available."
+msgstr "Підсистема завдань зараз недоступна."
+
+#: lib/Driver.php:116
+#, php-format
+msgid "The Tasks backend is not currently available: %s"
+msgstr "Підсистема завдань зараз недоступна: %s"
+
+#: lib/Application.php:135
+msgid "The current hour"
+msgstr "Поточна година"
+
+#: lib/Nag.php:891
+#, php-format
+msgid ""
+"The task \"%s\" has been added to task list \"%s\", with a due date of: %s."
+msgstr "Завдання \"%s\" внесено у Список завдань \"%s\" з терміном: %s."
+
+#: lib/Nag.php:892
+#, php-format
+msgid "The task \"%s\" has been added to task list \"%s\"."
+msgstr "Завдання \"%s\" додано до Списку завдань \"%s\"."
+
+#: lib/Nag.php:995
+#, php-format
+msgid "The task \"%s\" has been deleted from task list \"%s\"."
+msgstr "Завдання \"%s\" витерто з Списку завдань \"%s\"."
+
+#: lib/Nag.php:901
+#, php-format
+msgid "The task \"%s\" has been edited on task list \"%s\"."
+msgstr "Завдання \"%s\" поправлено у Списку завдань \"%s\"."
+
+#: tasklists/create.php:25
+#, php-format
+msgid "The task list \"%s\" has been created."
+msgstr "Список завдань \"%s\" був створений."
+
+#: tasklists/delete.php:37
+#, php-format
+msgid "The task list \"%s\" has been deleted."
+msgstr "Список завдань \"%s\" витерто."
+
+#: tasklists/edit.php:37
+#, php-format
+msgid "The task list \"%s\" has been renamed to \"%s\"."
+msgstr "Список завдань \"%s\" перейменовано на \"%s\"."
+
+#: tasklists/edit.php:39
+#, php-format
+msgid "The task list \"%s\" has been saved."
+msgstr "Список завдань \"%s\" збережено."
+
+#: config/prefs.php:108
+msgid "Then:"
+msgstr "Тоді:"
+
+#: templates/list/empty.inc:2
+msgid "There are no tasks matching the current criteria."
+msgstr "Немає завдань, що відповідають поточному критерію."
+
+#: task.php:222
+#, php-format
+msgid "There was a problem completing %s: %s"
+msgstr "Трапилась помилка завершення %s: %s"
+
+#: task.php:30
+#, php-format
+msgid "There was a problem deleting %s: %s"
+msgstr "Трапилась помилка витирання %s: %s"
+
+#: task.php:183
+#, php-format
+msgid "There was a problem saving the task: %s."
+msgstr "Трапилась помилка збереження завдання: %s."
+
+#: data.php:204
+#, php-format
+msgid "There was an error importing the data: %s"
+msgstr "Трапилась помилка при імпортуванні даних: %s."
+
+#: lib/Api.php:450 lib/Api.php:789 lib/Api.php:1160
+msgid "There was an error importing the iCalendar data."
+msgstr "Трапилась помилка імпорту даних з iCalendar"
+
+#: lib/Application.php:250 lib/Application.php:262
+#, php-format
+msgid "There was an error removing tasks for %s. Details have been logged."
+msgstr "Трапилась помилка при витиранні завдань для %s. Деталі збережено."
+
+#: data.php:94
+msgid "There were no tasks to export."
+msgstr "Немає жодних завдань для експорту."
+
+#: data.php:151
+msgid "This file format is not supported."
+msgstr "Цей формат файлу не підтримується."
+
+#: templates/alarm/mail.plain.php:9
+msgid "Time:"
+msgstr "Час:"
+
+#: templates/tasklist_info.php:7
+msgid "To subscribe to this task list from another program, use this URL:"
+msgstr ""
+
+#: lib/Nag.php:950
+msgid "Turned privacy off"
+msgstr ""
+
+#: lib/Nag.php:950
+msgid "Turned privacy on"
+msgstr ""
+
+#: lib/Api.php:624
+#, php-format
+msgid "Unable to delete tasklist \"%s\": %s"
+msgstr "Не можу витерти список завдань \"%s\": %s"
+
+#: lib/Driver.php:119
+#, php-format
+msgid "Unable to load the definition of %s."
+msgstr "Не можу завантажити визначення %s."
+
+#: lib/Nag.php:495
+#, php-format
+msgid "Unable to save task list \"%s\": %s"
+msgstr "Не можу зберегти список завдань \"%s\": %s"
+
+#: lib/Block/Summary.php:38 lib/Block/Summary.php:267 lib/Form/Task.php:98
+#: lib/Nag.php:1305 lib/Nag.php:1306 lib/Nag.php:1320 lib/Nag.php:1321
+#: templates/list/task_summaries.inc:77 templates/view/task.inc:9
+msgid "Unfiled"
+msgstr "Незаповнений"
+
+#: data.php:65
+msgid "Unique ID"
+msgstr ""
+
+#: lib/Api.php:560 lib/Api.php:880 lib/Api.php:1012 lib/Api.php:1075
+#: lib/Api.php:1220
+#, php-format
+msgid "Unsupported Content-Type: %s"
+msgstr "Content-Type не підтримується: %s"
+
+#: lib/Ui/VarRenderer/Nag.php:62
+msgid "Use custom notification method"
+msgstr "Використовувати власний метод оповіщення"
+
+#: lib/Ui/VarRenderer/Nag.php:56
+msgid "Use default notification method"
+msgstr "Використовувати типовий метод оповіщення"
+
+#: templates/alarm/mail.plain.php:1
+msgid "We would like to remind you of this due task."
+msgstr ""
+
+#: lib/Nag.php:629 lib/Ui/VarRenderer/Nag.php:193
+msgid "Week(s)"
+msgstr "Тиждень(і)"
+
+#: config/prefs.php:147
+msgid "What do you want to be the default due time for tasks?"
+msgstr ""
+
+#: config/prefs.php:140
+msgid ""
+"When creating a new task, how many days in the future should the default due "
+"date be (0 means today)?"
+msgstr ""
+
+#: config/prefs.php:133
+msgid "When creating a new task, should it default to having a due date?"
+msgstr ""
+
+#: templates/data/import.inc:21
+msgid "Which tasklist should the tasks be added to?"
+msgstr ""
+
+#: lib/Ui/VarRenderer/Nag.php:102 lib/Ui/VarRenderer/Nag.php:153
+msgid "Year"
+msgstr "Рік"
+
+#: lib/Nag.php:484 tasklists/edit.php:26
+msgid "You are not allowed to change this task list."
+msgstr "Вам не можна змінювати цей список завдань."
+
+#: data.php:44 data.php:173 task.php:73
+#, php-format
+msgid "You are not allowed to create more than %d tasks."
+msgstr "Вам не дозволено створювати більше, ніж %d завдань."
+
+#: lib/Nag.php:511 tasklists/delete.php:27
+msgid "You are not allowed to delete this task list."
+msgstr "Вам не можна витирати цей список завдань."
+
+#: view.php:48
+msgid "You do not have permission to view this tasklist."
+msgstr "У Вас немає прав для перегляду цього списку завдань."
+
+#: templates/alarm/mail.html.php:35
+#, php-format
+msgid ""
+"You get this message because your task list is configured to send you "
+"reminders of due tasks with alarms. You can change this if you %slogin to "
+"the task list%s and change your preferences."
+msgstr ""
+
+#: lib/Nag.php:888
+msgid "You requested to be notified when tasks are added to your task lists."
+msgstr ""
+"Ви просили повідомляти Вас, коли завдання додаються до Ваших списків завдань."
+
+#: lib/Nag.php:993
+msgid ""
+"You requested to be notified when tasks are deleted from your task lists."
+msgstr ""
+"Ви просили повідомляти Вас, коли завдання видаляються з Ваших списків "
+"завдань."
+
+#: lib/Nag.php:899
+msgid "You requested to be notified when tasks are edited on your task lists."
+msgstr ""
+"Ви просили повідомляти Вас, коли завдання редагуються у Ваших списках "
+"завдань."
+
+#: config/prefs.php:209
+msgid "Your default task list:"
+msgstr "Ваш основний список завдань:"
+
+#: templates/panel.inc:72
+msgid "[Manage Task Lists]"
+msgstr "[Керування Списками завдань]"
+
+#: lib/Block/Summary.php:141 lib/Block/Summary.php:250
+#: templates/list/task_summaries.inc:47
+msgid "[none]"
+msgstr "[жодне]"
+
+#: templates/search/search.inc:25
+msgid "_All Tasks"
+msgstr "Всі Завдання"
+
+#: list.php:110
+msgid "_All tasks"
+msgstr "Всі завдання"
+
+#: templates/search/search.inc:20
+msgid "_Category"
+msgstr "Категорія"
+
+#: view.php:106
+msgid "_Complete"
+msgstr "Завершити"
+
+#: list.php:113
+msgid "_Completed tasks"
+msgstr "Завершені завдання"
+
+#: view.php:113
+msgid "_Delete"
+msgstr "Витерти"
+
+#: templates/search/search.inc:19
+msgid "_Description"
+msgstr "Опис"
+
+#: templates/list/task_headers.inc:52
+msgid "_Due Date"
+msgstr "Термін"
+
+#: view.php:109
+msgid "_Edit"
+msgstr "Редагувати"
+
+#: list.php:112
+msgid "_Future tasks"
+msgstr "Майбутні завдання"
+
+#: lib/Application.php:94
+msgid "_Import/Export"
+msgstr "Імпорт/Експорт"
+
+#: lib/Application.php:76
+msgid "_List Tasks"
+msgstr "Список завдань"
+
+#: lib/Application.php:81
+msgid "_New Task"
+msgstr "Нове Завдання"
+
+#: lib/Application.php:85
+msgid "_Quick Add"
+msgstr "Швидке завдання"
+
+#: lib/Application.php:90
+msgid "_Search"
+msgstr "Пошук"
+
+#: templates/list/task_headers.inc:56
+msgid "_Start Date"
+msgstr "Дата Початку"
+
+#: templates/list/task_headers.inc:35
+msgid "_Task List"
+msgstr "Список Завдань"
+
+#: lib/Application.php:140
+msgid "am"
+msgstr "am"
+
+#: view.php:67 view.php:76
+#, php-format
+msgid "by %s"
+msgstr "по %s"
+
+#: view.php:69 view.php:78
+msgid "by me"
+msgstr "мною"
+
+#: lib/Nag.php:982 lib/Nag.php:983
+msgid "completed"
+msgstr "завершено"
+
+#: data.php:29
+msgid "iCalendar (vTodo)"
+msgstr "iCalendar (vTodo)"
+
+#: lib/Application.php:413
+#, php-format
+msgid "in %s"
+msgstr "в %s"
+
+#: lib/Nag.php:955 lib/Nag.php:956
+msgid "no due date"
+msgstr "без терміну"
+
+#: lib/Nag.php:923 lib/Nag.php:924
+msgid "no parent"
+msgstr "нема батьківського"
+
+#: lib/Nag.php:961 lib/Nag.php:962
+msgid "no start date"
+msgstr "без дати початку"
+
+#: lib/Nag.php:124
+msgid "no time"
+msgstr ""
+
+#: lib/Nag.php:982 lib/Nag.php:983
+msgid "not completed"
+msgstr "не завершене"
+
+#: lib/Application.php:140
+msgid "pm"
+msgstr "pm"
+
+#: data.php:113 templates/data/export.inc:1
+msgid "tasks.csv"
+msgstr "tasks.csv"
+
+#: data.php:125
+msgid "tasks.ics"
+msgstr "tasks.ics"

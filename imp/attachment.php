@@ -28,7 +28,7 @@ if (!$conf['compose']['link_attachments']) {
 
 // Gather required form variables.
 $vars = Horde_Variables::getDefaultVariables();
-if (!$vars->mail_user || !$vars->$time_stamp || !$vars->file_name) {
+if (!$vars->u || !$vars->t || !$vars->f) {
     throw new IMP_Exception(_("The attachment was not found."));
 }
 
@@ -40,9 +40,9 @@ try {
 }
 
 // Check if the file exists.
-$mail_user = basename($vars->mail_user);
-$time_stamp = basename($vars->time_stamp);
-$file_name = escapeshellcmd(basename($vars->file_name));
+$mail_user = basename($vars->u);
+$time_stamp = basename($vars->t);
+$file_name = escapeshellcmd(basename($vars->f));
 $full_path = sprintf(IMP_Compose::VFS_LINK_ATTACH_PATH . '/%s/%d', $mail_user, $time_stamp);
 if (!$vfsroot->exists($full_path, $file_name)) {
     throw new IMP_Exception(_("The specified attachment does not exist. It may have been deleted by the original sender."));

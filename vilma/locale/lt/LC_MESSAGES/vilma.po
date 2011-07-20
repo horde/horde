@@ -1,157 +1,221 @@
 # Lithuanian translations for Vilma package.
 # Copyright 2007-2011 The Horde Project
 # This file is distributed under the same license as the Vilma package.
-# Vilius Sumskas <vilius@lnk.lt>, 2004, 2007.
+# Vilius Šumskas <vilius@lnk.lt>, 2004, 2007, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Vilma 0.2-cvs\n"
+"Project-Id-Version: Vilma 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2007-11-02 15:40+0200\n"
-"PO-Revision-Date: 2007-11-11 20:02+0200\n"
-"Last-Translator: Vilius Sumskas <vilius@lnk.lt>\n"
+"POT-Creation-Date: 2011-05-28 01:09+0300\n"
+"PO-Revision-Date: 2011-06-27 18:35+0300\n"
+"Last-Translator: Vilius Šumskas <vilius@lnk.lt>\n"
 "Language-Team: Lithuanian <vilius@lnk.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: users/edit.php:53
+#: users/edit.php:62
 #, php-format
 msgid "\"%s\" already has the maximum number of users allowed."
 msgstr "\"%s\" jau pasiekė maksimalų vartotojų skaičių."
 
-#: lib/Driver/qmailldap.php:670
+#: lib/Driver/Qmailldap.php:431
 msgid "Account Status"
 msgstr "Pašto dėžutės būsena"
 
-#: lib/Driver/qmailldap.php:678
+#: users/delete.php:93
+#, php-format
+msgid "Account belongs to %d group."
+msgid_plural "Account belongs to %d groups."
+msgstr[0] "Pašto dėžutė priklauso %d grupei."
+msgstr[1] "Pašto dėžutė priklauso %d grupėms."
+msgstr[2] "Pašto dėžutė priklauso %d grupių."
+
+#: users/delete.php:87
+#, php-format
+msgid "Account has %d alias."
+msgid_plural "Account has %d aliases."
+msgstr[0] "Pašto dėžutė turi %d susietą adresą."
+msgstr[1] "Pašto dėžutė turi %d susietus adresus."
+msgstr[2] "Pašto dėžutė turi %d susietų adresų."
+
+#: lib/Driver/Qmailldap.php:439
 msgid "Account is active"
 msgstr "Pašto dėžutė įjungta"
 
-#: lib/Driver/qmailldap.php:681
+#: lib/Driver/Qmailldap.php:442
 msgid "Account is disabled"
 msgstr "Pašto dėžutė išjungta"
 
-#: templates/users/index.html:13
+#: users/delete.php:90
+#, php-format
+msgid "Account is the target of %d forward."
+msgid_plural "Account is the target of %d forwards."
+msgstr[0] "Į šią pašto dėžutę nukreiptas %d kitas adresas."
+msgstr[1] "Į šią pašto dėžutę nukreipti %d kiti adresai."
+msgstr[2] "Į šią pašto dėžutę nukreipta %d kitų adresų."
+
+#: templates/users/index.html:11
 msgid "Address"
 msgstr "Adresas"
 
-#: lib/Vilma.php:60
+#: lib/Vilma.php:58
 msgid "Alias"
-msgstr "Pravardė"
+msgstr "Susietas adresas"
 
-#: lib/Driver/qmailldap.php:371
+#: lib/Form/EditAlias.php:34
+msgid "Alias Address"
+msgstr "Susietas adresas"
+
+#: users/delete.php:114
+msgid "Alias deleted."
+msgstr "Susietas adresas ištrintas."
+
+#: lib/Driver/Qmailldap.php:545
 #, php-format
 msgid "Alias for %s"
 msgstr "Su %s susieti adresai"
 
-#: lib/Vilma.php:61
+#: users/editAlias.php:31
+msgid "Alias saved."
+msgstr "Susietas adresas išsaugotas."
+
+#: lib/Vilma.php:59
 msgid "Aliases"
 msgstr "Susieti adresai"
 
-#: lib/Vilma.php:54 lib/Vilma.php:55
+#: lib/Vilma.php:52 lib/Vilma.php:53
 msgid "All"
 msgstr "Viską"
 
-#: lib/Driver/qmailldap.php:680
+#: lib/Driver/Qmailldap.php:441
 msgid "Bounce Incoming Only"
 msgstr "Tik persiųsti gaunamus"
 
-#: domains/delete.php:29 domains/delete.php:33 users/delete.php:34
-#: users/delete.php:38 virtuals/delete.php:34 virtuals/delete.php:38
+#: domains/delete.php:32 lib/Form/DeleteDomain.php:21 users/delete.php:75
+#: users/delete.php:104 virtuals/delete.php:37 virtuals/delete.php:41
 msgid "Delete"
 msgstr "Ištrinti"
 
-#: domains/index.php:44 domains/delete.php:26
+#: users/delete.php:74
+#, php-format
+msgid "Delete %s"
+msgstr "Ištrinti %s"
+
+#: users/delete.php:81
+#, php-format
+msgid "Delete %s \"%s\" and all dependencies?"
+msgstr "Ištrinti %s \"%s\" ir visus susietus adresas?"
+
+#: users/delete.php:83
+#, php-format
+msgid "Delete %s \"%s\"?"
+msgstr "Ištrinti %s \"%s\"?"
+
+#: domains/index.php:48 lib/Form/DeleteDomain.php:15
 msgid "Delete Domain"
 msgstr "Ištrinti domeną"
 
-#: users/index.php:82 users/delete.php:31 virtuals/index.php:55
+#: users/index.php:115 virtuals/index.php:61
 msgid "Delete User"
 msgstr "Ištrinti vartotoją"
 
-#: virtuals/delete.php:31
+#: virtuals/delete.php:34
 msgid "Delete Virtual Email Address"
 msgstr "Ištrinti virtualų el. pašto adresą"
 
-#: domains/delete.php:31
+#: lib/Form/DeleteDomain.php:23
 #, php-format
-msgid "Delete domain \"%s\", all the users and virtual email addresses?"
-msgstr ""
-"Ištrinti domeną \"%s\", visus vartotojus ir virtualius el. pašto adresus?"
+msgid "Delete domain \"%s\" and all associated email addresses?"
+msgstr "Ištrinti domeną \"%s\" ir visus susijusius el. pašto adresus?"
 
-#: virtuals/delete.php:36
+#: virtuals/delete.php:39
 #, php-format
 msgid "Delete the virtual email address \"%s\" => \"%s\"?"
 msgstr "Ištrinti virtualų el. pašto adresą \"%s\" => \"%s\"?"
 
-#: users/delete.php:36
-#, php-format
-msgid "Delete user \"%s\" and all associated virtual email addresses?"
-msgstr ""
-"Ištrinti vartotoją \"%s\" ir visus susijusius virtualius el. pašto adresus?"
-
-#: virtuals/edit.php:64 templates/virtuals/index.html:20
+#: virtuals/edit.php:58 templates/virtuals/index.html:18
 msgid "Destination"
 msgstr "Gavėjas"
 
-#: virtuals/edit.php:54
+#: virtuals/edit.php:49
 msgid "Destination type"
 msgstr "Gavėjo tipas"
 
-#: lib/Driver/qmailldap.php:679
+#: lib/Driver/Qmailldap.php:440
 msgid "Disable Delivery Only"
 msgstr "Tik išjungti pristatymą"
 
-#: config/prefs.php.dist:10
+#: config/prefs.php:13
 msgid "Display details"
 msgstr "Vaizdavimo nustatymai"
 
-#: config/prefs.php.dist:9
+#: config/prefs.php:12
 msgid "Display listings"
 msgstr "Sąrašo rodymas"
 
-#: domains/delete.php:29 domains/delete.php:47 users/delete.php:34
-#: users/delete.php:52 virtuals/delete.php:34 virtuals/delete.php:52
+#: domains/delete.php:27 lib/Form/DeleteDomain.php:21 users/delete.php:75
+#: users/delete.php:97 virtuals/delete.php:27 virtuals/delete.php:37
 msgid "Do not delete"
 msgstr "Netrinti"
 
-#: lib/Forms/EditDomainForm.php:32 templates/domains/index.html:16
+#: lib/Form/EditDomain.php:30 templates/domains/index.html:14
 msgid "Domain"
 msgstr "Domenas"
 
-#: domains/delete.php:41
+#: domains/delete.php:37
 msgid "Domain deleted."
 msgstr "Domenas ištrintas."
 
-#: domains/delete.php:48
+#: domains/delete.php:28
 msgid "Domain not deleted."
 msgstr "Domenas neištrintas."
 
-#: domains/edit.php:35
+#: domains/edit.php:32
 msgid "Domain saved."
 msgstr "Domenas išsaugotas."
 
-#: domains/index.php:45 lib/Forms/EditDomainForm.php:20
+#: lib/Form/EditAlias.php:17
+#, php-format
+msgid "Edit Alias \"%s\" for \"%s\""
+msgstr "Redaguoti \"%s\" susietą adresą dėžutei \"%s\""
+
+#: domains/index.php:49 lib/Form/EditDomain.php:18
 msgid "Edit Domain"
 msgstr "Redaguoti domeną"
 
-#: users/index.php:83 virtuals/index.php:56
+#: lib/Form/EditForward.php:17
+#, php-format
+msgid "Edit Forward \"%s\" for \"%s\""
+msgstr "Redaguoti \"%s\" nukreiptą adresą į pašto dėžutę \"%s\""
+
+#: lib/Form/EditUser.php:23
+#, php-format
+msgid "Edit Forward for \"%s\""
+msgstr "Redaguoti \"%s\" vartotojo nukreiptus adresus"
+
+#: lib/Form/EditUser.php:19
+#, php-format
+msgid "Edit Group for \"%s\""
+msgstr "Redaguoti \"%s\" vartotojo grupes"
+
+#: users/index.php:116 virtuals/index.php:62
 msgid "Edit User"
 msgstr "Redaguoti vartotoją"
 
-#: lib/Forms/EditUserForm.php:22
+#: lib/Form/EditUser.php:27
 #, php-format
 msgid "Edit User for \"%s\""
 msgstr "Redaguoti \"%s\" vartotoją"
 
-#: virtuals/edit.php:47
+#: virtuals/edit.php:42
 msgid "Edit Virtual Email Address"
 msgstr "Redaguoti virtualius el. pašto adresus"
 
-#: virtuals/edit.php:53
+#: virtuals/edit.php:48
 #, php-format
 msgid ""
 "Enter a virtual email address @%s and then indicate below where mail sent to "
@@ -163,115 +227,184 @@ msgstr ""
 "skaičiais arba raidėm, viduje gali turėti skaičius, raides arba '._-' "
 "simbolius, ir turi baigtis skaičiais arba raidėmis."
 
-#: lib/Driver/qmailldap.php:616
+#: lib/Driver/Qmailldap.php:380
+#, php-format
+msgid "Error adding account to LDAP: %s"
+msgstr "Klaida pridedant vartotojo vardą į LDAP: %s"
+
+#: lib/Driver/Qmailldap.php:424
 #, php-format
 msgid "Error deleting account from LDAP: %s"
 msgstr "Klaida trinant vartotojo vardą iš LDAP: %s"
 
-#: domains/delete.php:39
+#: users/delete.php:116
+#, php-format
+msgid "Error deleting alias. %s."
+msgstr "Klaida trinant susietą adresą. %s."
+
+#: domains/delete.php:40
 #, php-format
 msgid "Error deleting domain. %s."
 msgstr "Klaida trinant domeną. %s."
 
-#: users/delete.php:44
+#: users/delete.php:129
+#, php-format
+msgid "Error deleting forward. %s."
+msgstr "Klaida trinant nukreipimą. %s."
+
+#: users/delete.php:140
 #, php-format
 msgid "Error deleting user. %s."
 msgstr "Klaida trinant vartotoją. %s."
 
-#: virtuals/delete.php:44
+#: virtuals/delete.php:52
 #, php-format
 msgid "Error deleting virtual email. %s."
 msgstr "Klaida trinant virtualų el. pašto adresą. %s."
 
-#: lib/Driver/qmailldap.php:210 lib/Driver/qmailldap.php:215
+#: lib/Driver/Qmailldap.php:139 lib/Driver/Qmailldap.php:144
 #, php-format
 msgid "Error in LDAP search: %s"
 msgstr "Klaida atliekant LDAP paiešką: %s"
 
-#: users/edit.php:35
+#: lib/Driver/Qmailldap.php:327 lib/Driver/Qmailldap.php:768
+#: lib/Driver/Qmailldap.php:823 lib/Driver/Qmailldap.php:899
+#: lib/Driver/Qmailldap.php:952
+#, php-format
+msgid "Error modifying account: %s"
+msgstr "Klaida keičiant vartotojo vardą: %s"
+
+#: lib/Driver/Qmailldap.php:255 lib/Driver/Qmailldap.php:723
+#: lib/Driver/Qmailldap.php:790 lib/Driver/Qmailldap.php:854
+#: lib/Driver/Qmailldap.php:921
+msgid "Error reading address information from backend."
+msgstr "Klaida skaitant adreso informaciją iš posistemės."
+
+#: users/delete.php:30 users/edit.php:33 users/editAlias.php:59
+#: users/editAlias.php:71 users/editForward.php:57
 #, php-format
 msgid "Error reading address information from backend: %s"
-msgstr "Klaida iš posistemės skaitant adresų informaciją: %s"
+msgstr "Klaida skaitant adresų informaciją iš posistemės: %s"
 
-#: lib/Driver/qmailldap.php:606
+#: lib/Driver/Qmailldap.php:411 lib/Driver/Qmailldap.php:981
 #, php-format
 msgid "Error retrieving LDAP results: %s"
 msgstr "Klaida gaunant LDAP rezultatus: %s"
 
-#: lib/Driver/qmailldap.php:347 lib/Driver/qmailldap.php:435
-#: lib/Driver/qmailldap.php:507
+#: lib/Driver/Qmailldap.php:523 lib/Driver/Qmailldap.php:602
+#: lib/Driver/Qmailldap.php:682
 #, php-format
 msgid "Error returning LDAP results: %s"
 msgstr "Klaida gražinant LDAP rezultatus: %s"
 
-#: lib/Driver.php:195
+#: lib/Driver.php:310
 msgid "Error running authentication update script."
 msgstr "Klaida leidžiant autentifikacijos atnaujinimo skriptą."
 
-#: domains/edit.php:33
+#: users/editAlias.php:37
+#, php-format
+msgid "Error saving alias. %s"
+msgstr "Klaida išsaugant susietą adresą. %s"
+
+#: domains/edit.php:35
 #, php-format
 msgid "Error saving domain: %s."
 msgstr "Klaida išsaugant domeną: %s."
 
-#: users/edit.php:64
+#: users/editForward.php:35
+#, php-format
+msgid "Error saving forward. %s"
+msgstr "Klaida išsaugant nukreipimą. %s"
+
+#: users/edit.php:89
 #, php-format
 msgid "Error saving user. %s"
 msgstr "Klaida išsaugant vartotoją. %s"
 
-#: virtuals/edit.php:77
+#: virtuals/edit.php:76
 #, php-format
 msgid "Error saving virtual email. %s."
 msgstr "Klaida išsaugant virtualų el. pašto adresą. %s."
 
-#: lib/Driver/qmailldap.php:341 lib/Driver/qmailldap.php:429
-#: lib/Driver/qmailldap.php:501 lib/Driver/qmailldap.php:600
+#: lib/Driver/Qmailldap.php:407 lib/Driver/Qmailldap.php:518
+#: lib/Driver/Qmailldap.php:597 lib/Driver/Qmailldap.php:678
+#: lib/Driver/Qmailldap.php:977
 #, php-format
 msgid "Error searching LDAP: %s"
 msgstr "Klaida atliekant LDAP paiešką: %s"
 
-#: lib/Forms/EditUserForm.php:41 templates/users/index.html:16
+#: lib/Driver/Qmailldap.php:747 lib/Driver/Qmailldap.php:878
+#, php-format
+msgid "Existing entry \"%s\" could not be found."
+msgstr "Įrašas \"%s\" nerastas."
+
+#: lib/Vilma.php:64
+msgid "Forward"
+msgstr "Nukreipimai"
+
+#: lib/Form/EditForward.php:34
+msgid "Forward Address"
+msgstr "Nukreipimo adresas"
+
+#: lib/Form/EditUser.php:24
+msgid "Forward Name"
+msgstr "Nukreipimo pavadinimas"
+
+#: users/delete.php:127
+msgid "Forward deleted."
+msgstr "Nukreipimas ištrintas."
+
+#: lib/Vilma.php:65
+msgid "Forwards"
+msgstr "Nukreipimai"
+
+#: lib/Form/EditUser.php:51 templates/users/index.html:14
 msgid "Full Name"
 msgstr "Pilnas vardas"
 
-#: lib/Vilma.php:63
-msgid "Group/Forward"
-msgstr "Grupė/Persiuntimas"
+#: lib/Vilma.php:61
+msgid "Group"
+msgstr "Grupė"
 
-#: lib/Vilma.php:64
-msgid "Groups and Forwards"
-msgstr "Grupės ir persiuntimai"
+#: lib/Form/EditUser.php:20
+msgid "Group Name"
+msgstr "Grupės pavadinimas"
 
-#: config/prefs.php.dist:20
+#: lib/Vilma.php:62
+msgid "Groups"
+msgstr "Grupės"
+
+#: config/prefs.php:22
 msgid "How many domain to display per page."
 msgstr "Kiek domenų rodyti viename puslapyje."
 
-#: virtuals/edit.php:56
+#: virtuals/edit.php:51
 msgid "Local user"
 msgstr "Vietinis vartotojas"
 
-#: lib/MailboxDriver/imap.php:45
+#: lib/MailboxDriver/Imap.php:86
 #, php-format
-msgid "Mailbox '%s@%s' does not exist."
-msgstr "Pašto dėžutė '%s@%s' neegzistuoja."
+msgid "Mailbox \"%s\" does not exist."
+msgstr "Pašto dėžutė \"%s\" neegzistuoja."
 
-#: lib/MailboxDriver/maildrop.php:45
+#: lib/MailboxDriver/Maildrop.php:64
 #, php-format
 msgid "Maildrop directory \"%s\" does not exist."
 msgstr "Maildrop katalogas \"%s\" neegzistuoja."
 
-#: templates/domains/index.html:19
+#: templates/domains/index.html:17
 msgid "Max Users"
 msgstr "Maks. vartotojų skaičius"
 
-#: lib/Forms/EditDomainForm.php:35
+#: lib/Form/EditDomain.php:32
 msgid "Max users"
 msgstr "Maks. vartotojų skaičius"
 
-#: users/index.php:69
+#: users/index.php:103
 msgid "Maximum Users"
 msgstr "Maks. vartotojų skaičius"
 
-#: lib/Driver/qmailldap.php:511
+#: lib/Driver/Qmailldap.php:686
 msgid ""
 "More than one DN returned for this alias.  Please contact an administrator "
 "to resolve this error."
@@ -279,11 +412,11 @@ msgstr ""
 "Rastas daugiau nei vienas DN atitinkantis šį vartotoją. Susisiekite su "
 "administratoriumi."
 
-#: lib/Driver/qmailldap.php:610
+#: lib/Driver/Qmailldap.php:418 lib/Driver/Qmailldap.php:988
 msgid "More than one DN returned.  Aborting delete operation."
 msgstr "Rastas daugiau nei vienas DN. Trynimo operacija nutraukiama."
 
-#: lib/Forms/EditUserForm.php:35
+#: lib/Form/EditUser.php:45
 msgid ""
 "Name must begin with an alphanumeric character, must contain only "
 "alphanumeric and '._-' characters, and must end with an alphanumeric "
@@ -292,168 +425,204 @@ msgstr ""
 "Vardas turi prasidėti skaičiais arba raidėm, viduje gali turėti skaičius, "
 "raides arba simbolius '._-', ir turi baigtis skaičiais arba raidėmis."
 
-#: lib/Forms/EditDomainForm.php:20
+#: lib/Form/EditAlias.php:21
+#, php-format
+msgid "New Alias for %s"
+msgstr "Naujas su %s susietas adresas"
+
+#: lib/Form/EditDomain.php:18
 msgid "New Domain"
 msgstr "Naujas domenas"
 
-#: lib/Forms/EditUserForm.php:24
+#: lib/Form/EditForward.php:21
+#, php-format
+msgid "New Forward for %s"
+msgstr "Naujas nukreipimas į %s"
+
+#: lib/Form/EditUser.php:32
 #, php-format
 msgid "New User @%s"
 msgstr "Naujas @%s vartotojas"
 
-#: virtuals/index.php:48
+#: virtuals/index.php:51
 msgid "New Virtual Email"
 msgstr "Naujas virtualus el. paštas"
 
-#: virtuals/edit.php:47
+#: virtuals/edit.php:42
 msgid "New Virtual Email Address"
 msgstr "Naujas virtualus el. pašto adresas"
 
-#: lib/Vilma.php:169
+#: lib/Application.php:97
 msgid "New _Address"
 msgstr "Naujas adresas"
 
-#: lib/MailboxDriver/maildrop.php:19
+#: lib/MailboxDriver/Maildrop.php:76
 msgid "No 'mail_dir_base' parameter specified to maildrop driver."
 msgstr "Maildrop tvarkyklėje neįrašytas 'mail_dir_base' parametras."
 
-#: lib/MailboxDriver/maildrop.php:60
+#: lib/MailboxDriver/Maildrop.php:25
 msgid "No 'system_user' parameter specified to maildrop driver."
 msgstr "Maildrop tvarkyklėje neįrašytas 'system_user' parametras."
 
-#: lib/Driver.php:108
+#: lib/Driver.php:400
 #, php-format
 msgid "No such address %s of type %s found."
 msgstr "Adresas %s, kurio tipas %s, nerastas."
 
-#: lib/Driver.php:329
+#: lib/Driver.php:542
 #, php-format
 msgid "No such backend \"%s\" found"
 msgstr "Posistemė \"%s\" nerasta"
 
-#: users/edit.php:74
-msgid ""
-"No virtual email address set up for this user. You should set up at least "
-"one virtual email address if this user is to receive any emails."
-msgstr ""
-"Šis vartotojas neturi virtualių el. pašto adresų. Jeigu šis vartotojas gauna "
-"el. laiškus, turėtumėte nurodyti bent vieną virtualų el. pašto adresą."
-
-#: lib/Driver.php:249
-msgid "Not implemented."
-msgstr "Nerealizuota."
-
-#: lib/Forms/EditUserForm.php:37
+#: lib/Form/EditUser.php:47
 msgid "Only enter a password if you wish to change this user's password"
 msgstr "Slaptažodį įrašykite tik tada, jeigu jį keičiate"
 
-#: lib/Forms/EditUserForm.php:37 lib/Forms/EditUserForm.php:39
+#: lib/Form/EditUser.php:47 lib/Form/EditUser.php:49
 msgid "Password"
 msgstr "Slaptažodis"
 
-#: lib/Driver/sql.php:465
+#: lib/Driver/Sql.php:255
 msgid "Password must be supplied when creating a new user."
 msgstr "Kurdami naują vartotoją, privalote įrašyti slaptažodį."
 
-#: lib/Forms/EditDomainForm.php:36
+#: lib/Form/EditDomain.php:33
 msgid "Quota"
 msgstr "Vieta serveryje"
 
-#: virtuals/edit.php:57
+#: virtuals/edit.php:52
 msgid "Remote address"
 msgstr "Išoriniai adresai"
 
-#: virtuals/edit.php:61
+#: virtuals/edit.php:55
 msgid "Remote e-mail address"
 msgstr "Išorinis el. pašto adresas"
 
-#: config/prefs.php.dist:11
+#: config/prefs.php:14
 msgid "Set default display parameters."
 msgstr "Standartinio vaizdavimo parametrų nustatymas."
 
-#: templates/users/index.html:22
+#: templates/users/index.html:20
 msgid "Status"
 msgstr "Būsena"
 
-#: lib/api.php:43
+#: lib/Application.php:73
 msgid "Super Administrator"
 msgstr "Super administratorius"
 
-#: lib/MailboxDriver.php:78
-msgid "This driver cannot create mailboxes."
-msgstr "Ši tvarkyklė negali kurti pašto dėžučių."
+#: lib/Driver/Qmailldap.php:739
+msgid "That alias already exists!"
+msgstr "Toks susietas adresas jau egzistuoja!"
 
-#: lib/MailboxDriver.php:94
-msgid "This driver cannot delete mailboxes."
-msgstr "Ši tvarkyklė negali trinti pašto dėžučių."
+#: lib/Driver/Qmailldap.php:870
+#, php-format
+msgid "That forward, \"%s\", already exists!"
+msgstr "Toks nukreipimas, \"%s\", jau egzistuoja!"
 
-#: lib/Forms/EditDomainForm.php:34
+#: lib/Form/EditAlias.php:34
+msgid ""
+"The email address to add as an alias for this user.  Note that the server "
+"must be configured to receive mail for the domain contained in this address."
+msgstr ""
+"El. pašto adresas, kurį norite susieti su šiuo vartotoju. Atsiminkite, kad "
+"serveris turi būti sukonfigūruotas gauti paštą į domeną šiame adrese."
+
+#: lib/Form/EditForward.php:34
+msgid ""
+"The email address to add as an forward for this user.  Note that the server "
+"must be configured to receive mail for the domain contained in this address."
+msgstr ""
+"El. pašto adresas, į kurį bus nukreiptas šio vartotojo paštas. Atsiminkite, "
+"kad serveris turi būti sukonfigūruotas gauti paštą į domeną šiame adrese."
+
+#: lib/Form/EditDomain.php:31
 msgid "Transport"
 msgstr "Transportas"
 
-#: templates/users/index.html:19
+#: templates/users/index.html:17
 msgid "Type"
 msgstr "Tipas"
 
-#: lib/Driver/qmailldap.php:715
+#: lib/Driver/Qmailldap.php:415 lib/Driver/Qmailldap.php:985
+msgid "Unable to acquire handle on DN.  Aborting delete operation."
+msgstr "Nepavyko prisijungti prie DN. Trynimo operacija nutraukiama."
+
+#: lib/Driver/Qmailldap.php:243
+msgid "Unable to acquire handle on address."
+msgstr "Prisijungti nepavyko."
+
+#: lib/Driver/Qmailldap.php:286 lib/Driver/Qmailldap.php:347
+#: lib/Driver/Qmailldap.php:1023
 msgid "Unable to bind to the LDAP server.  Check authentication credentials."
 msgstr ""
 "Nepavyko autentifikuotis į LDAP serverį. Patikrinkite vartotojo vardą bei "
 "slaptažodį."
 
-#: lib/Driver/qmailldap.php:710
+#: lib/Driver/Qmailldap.php:762 lib/Driver/Qmailldap.php:817
+#: lib/Driver/Qmailldap.php:893 lib/Driver/Qmailldap.php:946
+msgid "Unable to bind to the LDAP server. Check authentication credentials."
+msgstr ""
+"Nepavyko autentifikuotis į LDAP serverį. Patikrinkite vartotojo vardą bei "
+"slaptažodį."
+
+#: lib/Driver/Qmailldap.php:205
+msgid "Unable to qualify address."
+msgstr "Nepavyko atpažinti adreso."
+
+#: lib/Driver/Qmailldap.php:250
+#, php-format
+msgid "Unable to save account of type \"%s\""
+msgstr "Nepavyko išsaugoti \"%s\" tipo vartotojo vardo"
+
+#: lib/Driver/Qmailldap.php:225
+msgid "Unable to save user information."
+msgstr "Nepavyko išsaugoti vartotojo informacijos."
+
+#: lib/Driver/Qmailldap.php:1018
 msgid "Unable to set LDAP protocol version"
 msgstr "Klaida keičiant LDAP protokolo versiją"
 
-#: lib/Driver.php:199
+#: lib/Driver.php:313
 msgid "Unknown error running authentication update script."
 msgstr "Bevykdant autentifikacijos atnaujinimo skriptą įvyko nežinoma klaida."
 
-#: lib/Vilma.php:57
+#: lib/Vilma.php:55
 msgid "User"
 msgstr "Vartotojas"
 
-#: lib/Forms/EditUserForm.php:35
+#: lib/Form/EditUser.php:28
 msgid "User Name"
 msgstr "Vartotojo vardas"
 
-#: users/delete.php:46
-msgid "User deleted."
-msgstr "Vartotojas ištrintas."
-
-#: users/edit.php:66
+#: users/edit.php:72
 msgid "User details saved."
 msgstr "Vartotojo aprašymas išsaugotas."
 
-#: lib/Driver.php:132
+#: lib/Driver.php:258
 msgid "User disabled."
 msgstr "Vartotojas išjungtas"
 
-#: users/delete.php:53
+#: users/delete.php:98
 msgid "User not deleted."
 msgstr "Vartotojas neištrintas."
 
-#: lib/Driver.php:155
+#: lib/Driver.php:276
 msgid "User ready."
 msgstr "Vartotojas paruoštas."
 
-#: lib/Vilma.php:58 virtuals/index.php:51
+#: lib/Vilma.php:56 virtuals/index.php:57
 msgid "Users"
 msgstr "Vartotojai"
 
-#: lib/Forms/EditDomainForm.php:36
+#: lib/Form/EditDomain.php:33
 msgid "Value in MB"
 msgstr "Reikšmė MB"
 
-#: lib/Driver.php:210
-msgid "Vilma_Driver::deleteUser(): Method Not Implemented."
-msgstr "Vilma_Driver::deleteUser(): metodas nerealizuotas."
-
-#: virtuals/edit.php:53
+#: virtuals/edit.php:48
 msgid "Virtual Email"
 msgstr "Virtualus el. paštas"
 
-#: templates/virtuals/index.html:17
+#: templates/virtuals/index.html:15
 msgid "Virtual Email Address"
 msgstr "Virtualus el. pašto adresas"
 
@@ -461,24 +630,22 @@ msgstr "Virtualus el. pašto adresas"
 msgid "Virtual email deleted."
 msgstr "Virtualus el. pašto adresas ištrintas."
 
-#: virtuals/delete.php:53
+#: virtuals/delete.php:28
 msgid "Virtual email not deleted."
 msgstr "Virtualus el. pašto adresas neištrintas."
 
-#: virtuals/edit.php:79
+#: virtuals/edit.php:70
 msgid "Virtual email saved."
 msgstr "Virtualus el. pašto adresas išsaugotas."
 
-#: lib/Driver/qmailldap.php:35
-msgid "You must configure a Horde DataTree backend to use Vilma."
-msgstr ""
-"Norėdami naugotis pašto valdymo sistema, turite sukonfigūruoti duomenų "
-"medžio posistemę."
-
-#: lib/Vilma.php:166
+#: lib/Application.php:93
 msgid "_Domains"
 msgstr "Domenai"
 
-#: lib/Vilma.php:171
+#: lib/Application.php:99
 msgid "_New Domain"
 msgstr "Naujas domenas"
+
+#: users/editForward.php:32
+msgid "forward saved."
+msgstr "nukreipimas išsaugotas."
