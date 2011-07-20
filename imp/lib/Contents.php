@@ -912,7 +912,6 @@ class IMP_Contents
                 if (!is_null($new_part)) {
                     $this->_embedded[] = $id;
                     $mime_part->addPart($new_part);
-                    $mime_part->buildMimeIds($id);
                     $to_process = array_merge($to_process, array_keys($new_part->contentTypeMap()));
                     $last_id = $id;
                 }
@@ -921,6 +920,8 @@ class IMP_Contents
 
         if (!empty($to_process)) {
             $this->_buildMessage($to_process);
+        } elseif (is_null($first_id)) {
+            $this->_mime_part->buildMimeIds();
         }
     }
 
