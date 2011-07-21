@@ -1,6 +1,6 @@
 <?php
 /**
- * The factory for the free/busy provider.
+ * The factory for the data provider.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * The factory for the free/busy provider.
+ * The factory for the data provider.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -26,7 +26,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-class Horde_Kolab_FreeBusy_Export_Freebusy_Provider_Factory
+class Horde_Kolab_FreeBusy_Factory_Provider
 {
     /**
      * Factory configuration.
@@ -43,7 +43,7 @@ class Horde_Kolab_FreeBusy_Export_Freebusy_Provider_Factory
     public function __construct($params = array())
     {
         if (!isset($params['server'])) {
-            $params['server'] = 'https://localhost/freebusy';
+            $params['server'] = 'https://localhost/export';
         }
         $this->_params = $params;
     }
@@ -51,13 +51,13 @@ class Horde_Kolab_FreeBusy_Export_Freebusy_Provider_Factory
     /**
      * Create the required provider.
      *
-     * @param Horde_Kolab_FreeBusy_Owner $owner The owner of the f/b data.
+     * @param Horde_Kolab_FreeBusy_Owner $owner The owner of the data.
      *
-     * @return Horde_Kolab_FreeBusy_Export_Freebusy_Provider
+     * @return Horde_Kolab_FreeBusy_Provider
      */
     public function create(Horde_Kolab_FreeBusy_Owner $owner)
     {
-        $owner_fb = $owner->getFreebusyServer();
+        $owner_fb = $owner->getRemoteServer();
         if (!empty($owner_fb) && $owner_fb != $this->_params['server']) {
             if (!empty($this->_params['logger'])) {
                 $this->_params['logger']->info(
@@ -73,14 +73,14 @@ class Horde_Kolab_FreeBusy_Export_Freebusy_Provider_Factory
                 if (!empty($this->_params['http_client'])) {
                     $client = $this->_params['http_client'];
                 }
-                return new Horde_Kolab_FreeBusy_Export_Freebusy_Provider_Remote_PassThrough(
+                return new Horde_Kolab_FreeBusy_Provider_Remote_PassThrough(
                     $client
                 );
             } else {
-                return new Horde_Kolab_FreeBusy_Export_Freebusy_Provider_Remote_Redirect();
+                return new Horde_Kolab_FreeBusy_Provider_Remote_Redirect();
             }
         } else {
-            return new Horde_Kolab_FreeBusy_Export_Freebusy_Provider_Local();
+            return new Horde_Kolab_FreeBusy_Provider_Local();
         }
     }
 }

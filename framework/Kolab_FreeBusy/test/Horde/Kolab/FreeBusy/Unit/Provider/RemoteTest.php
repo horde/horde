@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the factory for the free/busy provider.
+ * Test the remote provider(s).
  *
  * PHP version 5
  *
@@ -15,10 +15,10 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../../Autoload.php';
+require_once dirname(__FILE__) . '/../../Autoload.php';
 
 /**
- * Test the factory for the free/busy provider.
+ * Test the remote provider(s).
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -32,7 +32,7 @@ require_once dirname(__FILE__) . '/../../../../Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-class Horde_Kolab_FreeBusy_Unit_Export_Freebusy_Provider_RemoteTest
+class Horde_Kolab_FreeBusy_Unit_Provider_RemoteTest
 extends Horde_Kolab_FreeBusy_TestCase
 {
     public function testTriggerRedirects()

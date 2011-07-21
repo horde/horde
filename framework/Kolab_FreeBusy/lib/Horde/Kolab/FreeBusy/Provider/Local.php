@@ -1,6 +1,6 @@
 <?php
 /**
- * This provider fetches the data from a remote server by redirecting.
+ * This provider deals with data from the local server.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * This provider fetches the data from a remote server by redirecting.
+ * This provider deals with data from the local server.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -26,17 +26,16 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-class Horde_Kolab_FreeBusy_Export_Freebusy_Provider_Remote_Redirect
-extends Horde_Kolab_FreeBusy_Export_Freebusy_Provider_Remote
+class Horde_Kolab_FreeBusy_Provider_Local
+implements Horde_Kolab_FreeBusy_Provider
 {
     /**
-     * Trigger the remote free/busy system.
+     * Trigger a resource.
      *
      * @param Horde_Controller_Response  $response The response handler.
-     * @param Horde_Kolab_FreeBusy_Owner $owner    The owner of the f/b data.
-     * @param Horde_Kolab_FreeBusy_User  $user     The user accessing the f/b
-     *                                             data.
-     * @param string                     $folder   The folder to trigger.
+     * @param Horde_Kolab_FreeBusy_Owner $owner    The owner of the data.
+     * @param Horde_Kolab_FreeBusy_User  $user     The user accessing the data.
+     * @param string                     $resource The resource to trigger.
      * @param array                      $params   Additional parameters.
      *
      * @return NULL
@@ -44,23 +43,19 @@ extends Horde_Kolab_FreeBusy_Export_Freebusy_Provider_Remote
     public function trigger(
         Horde_Controller_Response $response,
         Horde_Kolab_FreeBusy_Owner $owner,
-        Horde_Kolab_FreeBusy_User  $user,
-        $folder,
+        Horde_Kolab_FreeBusy_User $user,
+        $resource,
         $params = array()
     )
     {
-        $response->setRedirectUrl(
-            $this->getTriggerUrl($owner, $folder, $params)
-        );
     }
 
     /**
-     * Fetch free/busy data from a remote system.
+     * Fetch data for an owner.
      *
      * @param Horde_Controller_Response  $response The response handler.
-     * @param Horde_Kolab_FreeBusy_Owner $owner    The owner of the f/b data.
-     * @param Horde_Kolab_FreeBusy_User  $user     The user accessing the f/b
-     *                                             data.
+     * @param Horde_Kolab_FreeBusy_Owner $owner    The owner of the data.
+     * @param Horde_Kolab_FreeBusy_User  $user     The user accessing the data.
      * @param array                      $params   Additional parameters.
      *
      * @return NULL
@@ -68,10 +63,28 @@ extends Horde_Kolab_FreeBusy_Export_Freebusy_Provider_Remote
     public function fetch(
         Horde_Controller_Response $response,
         Horde_Kolab_FreeBusy_Owner $owner,
-        Horde_Kolab_FreeBusy_User  $user,
+        Horde_Kolab_FreeBusy_User $user,
         $params = array()
     )
     {
-        $response->setRedirectUrl($this->getFetchUrl($owner, $params));
+    }
+
+    /**
+     * Delete data of an owner.
+     *
+     * @param Horde_Controller_Response  $response The response handler.
+     * @param Horde_Kolab_FreeBusy_Owner $owner    The owner of the data.
+     * @param Horde_Kolab_FreeBusy_User  $user     The user accessing the data.
+     * @param array                      $params   Additional parameters.
+     *
+     * @return NULL
+     */
+    public function delete(
+        Horde_Controller_Response $response,
+        Horde_Kolab_FreeBusy_Owner $owner,
+        Horde_Kolab_FreeBusy_User $user,
+        $params = array()
+    )
+    {
     }
 }

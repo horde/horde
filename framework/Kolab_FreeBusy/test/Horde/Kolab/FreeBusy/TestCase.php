@@ -55,7 +55,7 @@ class Horde_Kolab_FreeBusy_TestCase extends PHPUnit_Framework_TestCase
 
     private function _getProviderFactory($params = array())
     {
-        return new Horde_Kolab_FreeBusy_Export_Freebusy_Provider_Factory(
+        return new Horde_Kolab_FreeBusy_Factory_Provider(
             $params
         );
     }

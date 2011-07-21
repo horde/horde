@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the factory for the free/busy provider.
+ * Test the factory for the data provider.
  *
  * PHP version 5
  *
@@ -15,10 +15,10 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../../Autoload.php';
+require_once dirname(__FILE__) . '/../../Autoload.php';
 
 /**
- * Test the factory for the free/busy provider.
+ * Test the factory for the data provider.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -32,13 +32,13 @@ require_once dirname(__FILE__) . '/../../../../Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-class Horde_Kolab_FreeBusy_Unit_Export_Freebusy_Provider_FactoryTest
+class Horde_Kolab_FreeBusy_Unit_Factory_ProviderTest
 extends Horde_Kolab_FreeBusy_TestCase
 {
     public function testRemote()
     {
         $this->assertInstanceOf(
-            'Horde_Kolab_FreeBusy_Export_Freebusy_Provider_Remote_PassThrough',
+            'Horde_Kolab_FreeBusy_Provider_Remote_PassThrough',
             $this->getRemoteProvider()
         );
     }
@@ -46,7 +46,7 @@ extends Horde_Kolab_FreeBusy_TestCase
     public function testRemoteRedirect()
     {
         $this->assertInstanceOf(
-            'Horde_Kolab_FreeBusy_Export_Freebusy_Provider_Remote_Redirect',
+            'Horde_Kolab_FreeBusy_Provider_Remote_Redirect',
             $this->getRemoteProvider(array('redirect' => true))
         );
     }
@@ -54,7 +54,7 @@ extends Horde_Kolab_FreeBusy_TestCase
     public function testLocal()
     {
         $this->assertInstanceOf(
-            'Horde_Kolab_FreeBusy_Export_Freebusy_Provider_Local',
+            'Horde_Kolab_FreeBusy_Provider_Local',
             $this->getLocalProvider()
         );
     }
@@ -62,7 +62,7 @@ extends Horde_Kolab_FreeBusy_TestCase
     public function testRemoteAsLocal()
     {
         $this->assertInstanceOf(
-            'Horde_Kolab_FreeBusy_Export_Freebusy_Provider_Local',
+            'Horde_Kolab_FreeBusy_Provider_Local',
             $this->getRemoteProvider(
                 array('server' => 'https://example.com/freebusy')
             )
@@ -73,7 +73,7 @@ extends Horde_Kolab_FreeBusy_TestCase
     {
         $this->getRemoteProvider(array('logger' => $this->getMockLogger()));
         $this->assertLogContains(
-            "URL \"https://example.com/freebusy\" indicates remote free/busy server since we only offer \"https://localhost/freebusy\". Redirecting."
+            "URL \"https://example.com/freebusy\" indicates remote free/busy server since we only offer \"https://localhost/export\". Redirecting."
         );
     }
 }
