@@ -62,7 +62,7 @@ The group_uid field in the SQL share driver groups table has been changed from
 an INT to a VARCHAR(255). Execute the provided SQL script to update your
 database if you are using the native SQL share driver.
 
-   mysql --user=root --password=<MySQL-root-password>  <db name> < 1.2.1_to_1.2.2.sql
+   mysql --user=root --password=<MySQL-root-password> <db name> < 1.2.1_to_1.2.2.sql
 
 
 Upgrading Ingo From 1.2 To 1.2.1
