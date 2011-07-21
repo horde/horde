@@ -1,6 +1,6 @@
 <?php
 /**
- * Video General View Class
+ * Agora General View Class
  *
  * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
  *
@@ -8,7 +8,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Duck <duck@obala.net>
- * @package Video
+ * @package Agora
  */
 class Agora_View extends Horde_View {
 
@@ -18,7 +18,7 @@ class Agora_View extends Horde_View {
     public function __construct()
     {
         /* Set default data. */
-        parent::__construct(array('templatePath' => AGORA_TEMPLATES . '/'));
+        parent::__construct(array('templatePath' => AGORA_TEMPLATES));
     }
 
 }
