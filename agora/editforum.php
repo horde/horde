@@ -14,16 +14,27 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('agora');
 
 /* Set up the forums object. */
-$forums = &Agora_Driver::singleton();
+$forums = $injector->getInstance('Agora_Factory_Driver')->create();
 
 list($forum_id, , $scope) = Agora::getAgoraId();
 $scope = Horde_Util::getGet('scope', 'agora');
-$title = $forum_id ? _("Edit Forum") : _("New Forum");
 $vars = Horde_Variables::getDefaultVariables();
-$vars->set('forum_id', $forum_id);
+
+/* Check if a forum is being edited. */
+if (isset($forum_id) && !$vars->get('forum_name')) {
+    try {
+        $vars = new Horde_Variables($forums->getForum($forum_id));
+        $vars->set('forum_id', $forum_id);
+    } catch (Horde_Exception $e) {
+        $notification->push($e->getMessage());
+        unset($forum_id);
+    }
+}
+
+$title = isset($forum_id) ? _("Edit Forum") : _("New Forum");
 
 /* Check permissions */
-if ($forum_id && !$registry->isAdmin(array('permission' => 'agora:admin'))) {
+if (isset($forum_id) && !$registry->isAdmin(array('permission' => 'agora:admin'))) {
     $notification->push(sprintf(_("You don't have permissions to edit forum %s"), $registry->get('name', $scope)), 'horde.warning');
     Horde::url('forums.php', true)->redirect();
 }
@@ -42,17 +53,6 @@ if ($form->validate()) {
     $notification->push($vars->get('forum_id') ? _("Forum Modified") : _("Forum created."), 'horde.success');
     header('Location: ' . Agora::setAgoraId($forum_id, null, Horde::url('threads.php', true)));
     exit;
-}
-
-/* Check if a forum is being edited. */
-if ($forum_id) {
-    $forum = $forums->getForum($forum_id);
-    if (is_a($forum, 'PEAR_Error')) {
-        $notification->push($forum);
-        unset($forum);
-    } else {
-        $vars = new Horde_Variables($forums->getForum($forum_id));
-    }
 }
 
 /* Set up template variables. */

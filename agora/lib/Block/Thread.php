@@ -25,7 +25,7 @@ class Agora_Block_Thread extends Horde_Core_Block
      */
     protected function _params()
     {
-        $forumOb = Agora_Driver::singleton();
+        $forumOb = $GLOBALS['injector']->getInstance('Agora_Factory_Driver')->create();
         $forums_list = $forumOb->getForums(0, true, 'forum_name', 0, true);
 
         $threads = array(
@@ -34,14 +34,14 @@ class Agora_Block_Thread extends Horde_Core_Block
             'values' => array()
         );
 
-        foreach ($forums_list as $forum_id => $forum) {
-            $threadsOb = Agora_Driver::singleton('agora', $forum_id);
+        foreach ($forums_list as $forum) {
+            $threadsOb = $GLOBALS['injector']->getInstance('Agora_Factory_Driver')->create('agora', $forum['forum_id']);
             $threads_list = $threadsOb->getThreads();
-            foreach ($threads_list as $thread_id => $thread) {
+            foreach ($threads_list as $thread) {
                 if (!isset($threads['default'])) {
-                    $threads['default'] = $forum_id . '.' . $thread['message_id'];
+                    $threads['default'] = $forum['forum_id'] . '.' . $thread['message_id'];
                 }
-                $threads['values'][$forum['indent'] . $forum['forum_name']][$forum_id . '.' . $thread['message_id']] = $thread['message_subject'];
+                $threads['values'][$forum['indent'] . $forum['forum_name']][$forum['forum_id'] . '.' . $thread['message_id']] = $thread['message_subject'];
             }
         }
 
@@ -59,7 +59,7 @@ class Agora_Block_Thread extends Horde_Core_Block
 
         /* Set up the message object. */
         list($forum_id, $message_id) = explode('.', $this->_params['thread_id']);
-        $messages = Agora_Driver::singleton('agora', $forum_id);
+        $messages = $GLOBALS['injector']->getInstance('Agora_Factory_Driver')->create('agora', $forum_id);
 
         /* Check if valid thread, otherwise show forum list. */
         if ($messages instanceof PEAR_Error || empty($messages)) {

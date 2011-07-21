@@ -13,7 +13,7 @@ Horde_Registry::appInit('agora');
 
 /* Set up the messages object. */
 $scope = Horde_Util::getGet('scope', 'agora');
-$messages = &Agora_Driver::singleton($scope);
+$messages = $injector->getInstance('Agora_Factory_Driver')->create($scope);
 
 /* Which page are we on? Default to page 0. */
 $messages_page = Horde_Util::getFormData('page', 0);

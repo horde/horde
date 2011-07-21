@@ -17,11 +17,11 @@ $cache_key = 'agora_rss_' . $scope;
 
 /* Initialize the Cache object. */
 $cache = $injector->getInstance('Horde_Cache');
-
 $rss = $cache->get($cache_key, $conf['cache']['default_lifetime']);
+
 if (!$rss) {
     $title = sprintf(_("Forums in %s"), $registry->get('name', $scope));
-    $forums = Agora_Driver::singleton($scope);
+    $forums = $injector->getInstance('Agora_Factory_Driver')->create($scope);
     $forums_list = $forums->getForums(0, true, 'forum_name', 0);
 
     $rss = '<?xml version="1.0" encoding="UTF-8" ?>
@@ -34,12 +34,12 @@ if (!$rss) {
         <link>' . Horde::url('index.php', true, -1) . '</link>
         <generator>' . htmlspecialchars($registry->get('name')) . '</generator>';
 
-    foreach ($forums_list as $forum_id => $forum) {
+    foreach ($forums_list as $forum) {
         $rss .= '
         <item>
             <title>' . htmlspecialchars($forum['forum_name']) . ' </title>
             <description>' . htmlspecialchars($forum['forum_description']) . ' </description>
-            <link>' . Horde_Util::addParameter(Horde::url('threads.php', true, -1), array('scope' => $scope, 'forum_id' => $forum_id)) . '</link>
+            <link>' . Horde_Util::addParameter(Horde::url('threads.php', true, -1), array('scope' => $scope, 'forum_id' => $forum['forum_id'])) . '</link>
         </item>';
     }
 

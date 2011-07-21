@@ -31,7 +31,7 @@ foreach ($registry->listApps() as $scope) {
     if ($scope == 'agora' || ($registry->hasMethod('hasComments', $scope) &&
         $registry->callByPackage($scope, 'hasComments') === true)) {
         $scope_name = $registry->get('name', $scope);
-        $forums = Agora_Driver::singleton($scope);
+        $forums = $injector->getInstance('Agora_Factory_Driver')->create($scope);
         $threads = $forums->getThreadsByForumOwner($owner, 0, false, $sort_by, $sort_dir, false, 0, 5);
         echo '<h1 class="header">' . $scope_name  . '</h1>';
 

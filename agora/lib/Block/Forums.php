@@ -50,12 +50,12 @@ class Agora_Block_Forums extends Horde_Core_Block
         global $registry;
 
         /* Set up the forums object. */
-        $forums = array(Agora_Driver::singleton());
+        $forums = array($GLOBALS['injector']->getInstance('Agora_Factory_Driver')->create());
         if ($GLOBALS['registry']->isAdmin()) {
             foreach ($registry->listApps(array('hidden', 'notoolbar', 'active')) as $scope) {
                 if ($registry->hasMethod('hasComments', $scope) &&
                     $registry->callByPackage($scope, 'hasComments') === true) {
-                    $forums[] = &Agora_Driver::singleton($scope);
+                    $forums[] = $GLOBALS['injector']->getInstance('Agora_Factory_Driver')->create($scope);
                 }
             }
         }
@@ -67,11 +67,13 @@ class Agora_Block_Forums extends Horde_Core_Block
         /* Get the list of forums. */
         $forums_list = array();
         foreach ($forums as $forum) {
-            $scope_forums = $forum->getForums(0, true, $sort_by, $sort_dir, true);
-            if ($scope_forums instanceof PEAR_Error) {
-                return $scope_forums->getMessage();
-            }
-            $forums_list = array_merge($forums_list, $scope_forums);
+            try {
+                $scope_forums = $forum->getForums(0, true, $sort_by, $sort_dir, true);
+                $forums_list = array_merge($forums_list, $scope_forums);
+            } catch (Agora_Exception $e) {
+                return $e->getMessage();
+            /* Catch NotFound exception here so it won't break the cycle. */
+            } catch (Horde_Exception_NotFound $e) {}
         }
 
         /* Show a message if no available forums. Don't raise an error

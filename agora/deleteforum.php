@@ -16,7 +16,7 @@ Horde_Registry::appInit('agora');
 
 /* Set up the forums object. */
 $scope = Horde_Util::getFormData('scope', 'agora');
-$forums = &Agora_Driver::singleton($scope);
+$forums = $injector->getInstance('Agora_Factory_Driver')->create($scope);
 
 /* Check permissions */
 if (!$forums->hasPermission(Horde_Perms::DELETE)) {
@@ -36,6 +36,7 @@ if ($forum instanceof PEAR_Error) {
 $vars = Horde_Variables::getDefaultVariables();
 $form = new Horde_Form($vars, _("Delete Forum"));
 
+// TODO Cancel button doesn't work currently, because it has no condition set
 $form->setButtons(array(_("Delete"), _("Cancel")));
 $form->addHidden('', 'forum_id', 'int', $forum_id);
 $form->addHidden('', 'scope', 'text', $scope);
@@ -55,11 +56,12 @@ if (!empty($forums_list)) {
 /* Process delete. */
 if ($form->validate()) {
     if ($vars->get('submitbutton') == _("Delete")) {
-        $result = $forums->deleteForum($vars->get('forum_id'));
-        if ($result instanceof PEAR_Error) {
-            $notification->push(sprintf(_("Could not delete the forum. %s"), $result->message), 'horde.error');
-        } else {
+        try {
+            // TODO also delete child forums as we state in the GUI
+            $forums->deleteForum($vars->get('forum_id'));
             $notification->push(_("Forum deleted."), 'horde.success');
+        } catch (Agora_Exception $e) {
+            $notification->push(sprintf(_("Could not delete the forum. %s"), $e->getMessage()), 'horde.error');
         }
     } else {
         $notification->push(_("Forum not deleted."), 'horde.message');

@@ -13,7 +13,7 @@ Horde_Registry::appInit('agora');
 
 /* Set up the messages object. */
 list($forum_id, $message_id, $scope) = Agora::getAgoraId();
-$messages = &Agora_Driver::singleton($scope, $forum_id);
+$messages = $injector->getInstance('Agora_Factory_Driver')->create($scope, $forum_id);
 if ($messages instanceof PEAR_Error) {
     $notification->push($messages->getMessage(), 'horde.warning');
     Horde::url('forums.php', true)->redirect();
@@ -37,6 +37,8 @@ if (!$messages->hasPermission(Horde_Perms::DELETE)) {
 /* Get the form object. */
 $vars = Horde_Variables::getDefaultVariables();
 $form = new Horde_Form($vars, sprintf(_("Split \"%s\""), $message['message_subject']));
+
+// TODO Cancel button doesn't work currently, because it has no condition set
 $form->setButtons(array(_("Split"), _("Cancel")));
 $form->addHidden('', 'agora', 'text', false);
 $form->addHidden('', 'scope', 'text', false);

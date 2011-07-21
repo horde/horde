@@ -8,7 +8,7 @@
  * @author Duck <duck@obala.net>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('agora', array('authentication' => 'none'));
 
 // Show a specific scope?
@@ -20,7 +20,7 @@ $cache = $injector->getInstance('Horde_Cache');
 $rss = $cache->get($cache_key, $conf['cache']['default_lifetime']);
 
 if (!$rss) {
-    $messages = Agora_Driver::singleton($scope, $forum_id);
+    $messages = $injector->getInstance('Agora_Factory_Driver')->create($scope, $forum_id);
     $message = $messages->getMessage($message_id);
     if ($message instanceof PEAR_Error) {
         exit;
@@ -41,9 +41,9 @@ if (!$rss) {
         <link>' . Horde::url('index.php', true, -1) . '</link>
         <generator>' . htmlspecialchars($registry->get('name')) . '</generator>';
 
-    foreach ($threads_list as $thread_id => $thread) {
+    foreach ($threads_list as $thread) {
         $url = Horde::url('messages/index.php', true, -1);
-        $url = Agora::setAgoraId($forum_id, $thread_id, $url, $scope, true);
+        $url = Agora::setAgoraId($forum_id, $thread['message_id'], $url, $scope, true);
         $rss .= '
         <item>
             <title>' . htmlspecialchars($thread['message_subject']) . ' </title>

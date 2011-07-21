@@ -57,14 +57,16 @@ class Agora_Application extends Horde_Registry_Application
                 'title' => $GLOBALS['registry']->get('name', $scope)
             );
 
-            $forums = Agora_Driver::singleton($scope);
-            $forums_list = $forums->getBareForums();
-            if (!($forums_list instanceof PEAR_Error)) {
+            $forums = $GLOBALS['injector']->getInstance('Agora_Factory_Driver')->create($scope);
+            try {
+                $forums_list = $forums->getBareForums();
                 foreach ($forums_list as $id => $title) {
                     $perms['forums:' . $scope . ':' . $id] = array(
                         'title' => $title
                     );
                 }
+            } catch (Horde_Db_Exception $e) {
+                throw new Agora_Exception($e->getMessage());
             }
         }
 

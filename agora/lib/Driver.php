@@ -16,11 +16,18 @@
 class Agora_Driver {
 
     /**
-     * A hash containing any parameters for the current driver.
+     * Charset
      *
-     * @var array
+     * @var string
      */
-    protected $_params = array();
+    protected $_charset;
+
+    /**
+     * The database connection object.
+     *
+     * @var Horde_Db_Adapter
+     */
+    protected $_db;
 
     /**
      * The forums scope.
@@ -41,22 +48,7 @@ class Agora_Driver {
      *
      * @var string
      */
-    protected $_forum_id;
-
-    /**
-     * Handle for the current database connection.
-     *
-     * @var DB
-     */
-    protected $_db;
-
-    /**
-     * Handle for the current database connection, used for writing. Defaults
-     * to the same handle as $_db if a separate write database is not required.
-     *
-     * @var DB
-     */
-    protected $_write_db;
+    public $_forum_id;
 
     /**
      * Scope theads table name
@@ -82,52 +74,19 @@ class Agora_Driver {
     /**
      * Constructor
      */
-    public function __construct($scope)
+    public function __construct($scope, $params)
     {
+        if (empty($params['db'])) {
+            throw new InvalidArgumentException('Missing required connection parameter(s).');
+        }
+
         /* Set parameters. */
         $this->_scope = $scope;
-        $this->_connect();
+        $this->_db = $params['db'];
+        $this->_charset = $params['charset'];
 
         /* Initialize the Cache object. */
         $this->_cache = $GLOBALS['injector']->getInstance('Horde_Cache');
-    }
-
-    /**
-     * Attempts to return a reference to a concrete Agora_Driver instance. It
-     * will only create a new instance if no Agora_Driver instance currently
-     * exists.
-     *
-     * This method must be invoked as: $var = &Agora_Driver::singleton();
-     *
-     * @param string $scope     Application scope to use
-     * @param int    $forum_id  Forum to link to
-     *
-     * @return Forums  The concrete Agora_Driver reference, or false on error.
-     */
-    static public function &singleton($scope = 'agora', $forum_id = 0)
-    {
-        static $objects = array();
-
-        if (!isset($objects[$scope])) {
-            $driver = $GLOBALS['conf']['threads']['split'] ? 'SplitSql' : 'Sql';
-            require_once AGORA_BASE . '/lib/Driver/' . $driver . '.php';
-            $class_name = 'Agora_Driver_' . $driver;
-            $objects[$scope] = new $class_name($scope);
-        }
-
-        if ($forum_id) {
-            /* Check if there was a valid forum object to get. */
-            $forum = $objects[$scope]->getForum($forum_id);
-            if ($forum instanceof PEAR_Error) {
-                return $forum;
-            }
-
-            /* Set current forum id and forum data */
-            $objects[$scope]->_forum = $forum;
-            $objects[$scope]->_forum_id = (int)$forum_id;
-        }
-
-        return $objects[$scope];
     }
 
     /**
@@ -148,6 +107,7 @@ class Agora_Driver {
      * @param array $info  Array containing all the message data to save.
      *
      * @return mixed  Message ID on success or PEAR_Error on failure.
+     * @throws Agora_Exception
      */
     public function saveMessage($info)
     {
@@ -164,9 +124,10 @@ class Agora_Driver {
 
         if (empty($info['message_id'])) {
             /* Get thread parents */
+            // TODO message_thread is always parent root, probably can use it here.
             if ($info['message_parent_id'] > 0) {
-                $parents = $this->_db->getOne('SELECT parents FROM ' . $this->_threads_table . ' WHERE message_id = ?',
-                                              null, array($info['message_parent_id']));
+                $parents = $this->_db->selectValue('SELECT parents FROM ' . $this->_threads_table . ' WHERE message_id = ?',
+                                                    array($info['message_parent_id']));
                 $info['parents'] = $parents . ':' . $info['message_parent_id'];
                 $info['message_thread'] = $this->getThreadRoot($info['message_parent_id']);
             } else {
@@ -176,15 +137,13 @@ class Agora_Driver {
 
             /* Create new message */
             $sql = 'INSERT INTO ' . $this->_threads_table
-                . ' (message_id, forum_id, message_thread, parents, '
+                . ' (forum_id, message_thread, parents, '
                 . 'message_author, message_subject, body, attachments, '
                 . 'message_timestamp, message_modifystamp, ip) '
-                . ' VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?)';
+                . ' VALUES (?, ?, ?, ?, ?, ?, 0, ?, ?, ?)';
 
             $author = $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : $info['posted_by'];
-            $info['message_id'] = $this->_write_db->nextId('agora_messages');
-            $params = array($info['message_id'],
-                            $this->_forum_id,
+            $values = array($this->_forum_id,
                             $info['message_thread'],
                             $info['parents'],
                             $author,
@@ -194,15 +153,10 @@ class Agora_Driver {
                             $_SERVER['REQUEST_TIME'],
                             $_SERVER['REMOTE_ADDR']);
 
-            $statement = $this->_write_db->prepare($sql);
-            if ($statement instanceof PEAR_Error) {
-                return $statement;
-            }
-            $result = $statement->execute($params);
-            $statement->free();
-            if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, 'ERR');
-                return $result;
+            try {
+                $info['message_id'] = $this->_db->insert($sql, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Agora_Exception($e->getMessage());
             }
 
             /* Update last message in forum, but only if it is not moderated */
@@ -223,30 +177,23 @@ class Agora_Driver {
             }
 
         } else {
+            // TODO clearing cache for editing doesn't work
             /* Update message data */
             $sql = 'UPDATE ' . $this->_threads_table . ' SET ' .
                    'message_subject = ?, body = ?, message_modifystamp = ? WHERE message_id = ?';
-            $params = array($this->convertToDriver($info['message_subject']),
+            $values = array($this->convertToDriver($info['message_subject']),
                             $this->convertToDriver($info['message_body']),
                             $_SERVER['REQUEST_TIME'],
                             $info['message_id']);
 
-            $statement = $this->_write_db->prepare($sql);
-            if ($statement instanceof PEAR_Error) {
-                return $statement;
-            }
-            $result = $statement->execute($params);
-            $statement->free();
-            if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, 'ERR');
-                return $result;
+            try {
+                $this->_db->execute($sql, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Agora_Exception($e->getMessage());
             }
 
             /* Get message thread for cache expiration */
             $info['message_thread'] = $this->getThreadRoot($info['message_id']);
-            if ($info['message_thread'] instanceof PEAR_Error) {
-                return $info['message_thread'];
-            }
         }
 
         /* Handle attachment saves or deletions. */
@@ -262,7 +209,7 @@ class Agora_Driver {
              * any existing one. */
             if (!empty($info['attachment_delete'])) {
                 $sql = 'SELECT file_id FROM agore_files WHERE message_id = ?';
-                foreach ($this->_db->getCol($sql, null, array($info['message_id'])) as $file_id) {
+                foreach ($this->_db->selectValues($sql, array($info['message_id'])) as $file_id) {
                     if ($vfs->exists($vfs_dir, $file_id)) {
                         $delete = $vfs->deleteFile($vfs_dir, $file_id);
                         if ($delete instanceof PEAR_Error) {
@@ -270,45 +217,40 @@ class Agora_Driver {
                         }
                     }
                 }
-                $this->_write_db->query('DELETE FROM agore_files WHERE message_id = ' . (int)$info['message_id']);
+                try {
+                    $this->_db->execute('DELETE FROM agore_files WHERE message_id = ?', array($info['message_id']));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Agora_Exception($e->getMessage());
+                }
                 $attachments = 0;
             }
 
             /* Save new attachment information. */
             if (!empty($info['message_attachment'])) {
-                $file_id = $this->_write_db->nextId('agora_files');
-                $result = $vfs->write($vfs_dir, $file_id, $info['message_attachment']['file'], true);
-                if ($result instanceof PEAR_Error) {
-                    return $result;
-                }
-
-                $file_sql = 'INSERT INTO agora_files (file_id, file_name, file_type, file_size, message_id) VALUES (?, ?, ?, ?, ?)';
-                $file_data = array($file_id,
-                                   $info['message_attachment']['name'],
+                $file_sql = 'INSERT INTO agora_files (file_name, file_type, file_size, message_id) VALUES (?, ?, ?, ?)';
+                $file_data = array($info['message_attachment']['name'],
                                    $info['message_attachment']['type'],
                                    $info['message_attachment']['size'],
                                    $info['message_id']);
 
-                $statement = $this->_write_db->prepare($file_sql);
-                if ($statement instanceof PEAR_Error) {
-                    return $statement;
+                try {
+                    $file_id = $this->_db->insert($file_sql, $file_data);
+                } catch (Horde_Db_Exception $e) {
+                    throw new Agora_Exception($e->getMessage());
                 }
 
-                $result = $statement->execute($file_data);
-                $statement->free();
+                $result = $vfs->write($vfs_dir, $file_id, $info['message_attachment']['file'], true);
                 if ($result instanceof PEAR_Error) {
-                    Horde::logMessage($result, 'ERR');
                     return $result;
                 }
                 $attachments = 1;
             }
 
-            $sql = 'UPDATE ' . $this->_threads_table . ' SET attachments = ' . $attachments
-                    . ' WHERE message_id = ' . (int)$info['message_id'];
-            $result = $this->_write_db->query($sql);
-            if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, 'ERR');
-                return $result;
+            $sql = 'UPDATE ' . $this->_threads_table . ' SET attachments = ? WHERE message_id = ?';
+            try {
+                $this->_db->execute($sql, array($attachments, $info['message_id']));
+            } catch (Horde_Db_Exception $e) {
+                throw new Agora_Exception($e->getMessage());
             }
         }
 
@@ -325,20 +267,23 @@ class Agora_Driver {
      *
      * @param integer $thread_id  The ID of the thread to move.
      * @param integer $forum_id   The ID of the destination forum.
+     *
+     * @throws Agora_Exception
      */
     public function moveThread($thread_id, $forum_id)
     {
-        $sql = 'SELECT forum_id FROM ' . $this->_threads_table . ' WHERE message_id = ' . (int)$thread_id;
-        $old_forum = $this->_db->getOne($sql);
-        if ($old_forum instanceof PEAR_Error) {
-            return $old_forum;
+        $sql = 'SELECT forum_id FROM ' . $this->_threads_table . ' WHERE message_id = ?';
+        try {
+            $old_forum = $this->_db->selectValue($sql, array($thread_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
-        $sql = 'UPDATE ' . $this->_threads_table . ' SET forum_id = ' . (int)$forum_id
-                . ' WHERE message_thread = ' . (int)$thread_id .' OR message_id = ' . (int)$thread_id;
-        $result = $this->_write_db->query($sql);
-        if ($result instanceof PEAR_Error) {
-            return $result;
+        $sql = 'UPDATE ' . $this->_threads_table . ' SET forum_id = ? WHERE message_thread = ? OR message_id = ?';
+        try {
+            $this->_db->execute($sql, array($forum_id, $thread_id, $thread_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
         $this->_forumSequence($old_forum, 'thread', '-');
@@ -358,31 +303,30 @@ class Agora_Driver {
      * Splits a thread on message id.
      *
      * @param integer $message_id  The ID of the message to split at.
+     *
+     * @throws Agora_Exception
      */
     public function splitThread($message_id)
     {
-        $sql = 'SELECT message_thread FROM ' . $this->_threads_table . ' WHERE message_id = ' . (int)$message_id;
-        $thread_id = $this->_db->getOne($sql);
-        if ($thread_id instanceof PEAR_Error) {
-            return $thread_id;
+        $sql = 'SELECT message_thread FROM ' . $this->_threads_table . ' WHERE message_id = ?';
+        try {
+            $thread_id = $this->_db->selectValue($sql, array($message_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
         $sql = 'UPDATE ' . $this->_threads_table . ' SET message_thread = ?, parents = ? WHERE message_id = ?';
-        $statement = $this->_write_db->prepare($sql);
-        if ($statement instanceof PEAR_Error) {
-            return $statement;
-        }
-
-        $result = $statement->execute(array(0, '', (int)$message_id));
-        $statement->free();
-        if ($result instanceof PEAR_Error) {
-            return $result;
+        try {
+            $this->_db->execute($sql, array(0, '', $message_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
         $sql = 'SELECT message_thread, parents, message_id FROM ' . $this->_threads_table . ' WHERE parents LIKE ?';
-        $children = $this->_db->getAll($sql, null, array(":$thread_id:%$message_id%"));
-        if ($children instanceof PEAR_Error) {
-            return $children;
+        try {
+            $children = $this->_db->selectAll($sql, array(":$thread_id:%$message_id%"));
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
         if (!empty($children)) {
@@ -393,31 +337,29 @@ class Agora_Driver {
             }
 
             $sql = 'UPDATE ' . $this->_threads_table . ' SET message_thread = ?, parents = ? WHERE message_id = ?';
-            $statement = $this->_write_db->prepare($sql);
-            if ($statement instanceof PEAR_Error) {
-                return $statement;
-            }
-            $result = $this->_write_db->executeMultiple($statement, $children);
-            $statement->free();
-            if ($result instanceof PEAR_Error) {
-                return $result;
+            try {
+                $this->_db->execute($sql, $children);
+            } catch (Horde_Db_Exception $e) {
+                throw new Agora_Exception($e->getMessage());
             }
         }
 
-        // Update count on old thread
+        /* Update count on old thread */
         $count = $this->countThreads($thread_id);
-        $sql = 'UPDATE ' . $this->_threads_table . ' SET message_seq = ' . $count . ' WHERE message_id = ' . (int)$thread_id;
-        $result = $this->_write_db->query($sql);
-        if ($result instanceof PEAR_Error) {
-            return $result;
+        $sql = 'UPDATE ' . $this->_threads_table . ' SET message_seq = ? WHERE message_id = ?';
+        try {
+            $this->_db->execute($sql, array($count, $thread_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
-        // Update count on new thread
+        /* Update count on new thread */
         $count = $this->countThreads($message_id);
-        $sql = 'UPDATE ' . $this->_threads_table . ' SET message_seq = ' . $count . ' WHERE message_id = ' . (int)$thread_id;
-        $result = $this->_write_db->query($sql);
-        if ($result instanceof PEAR_Error) {
-            return $result;
+        $sql = 'UPDATE ' . $this->_threads_table . ' SET message_seq = ? WHERE message_id = ?';
+        try {
+            $this->_db->execute($sql, array($count, $message_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
         /* Update last message */
@@ -436,13 +378,16 @@ class Agora_Driver {
      *
      * @param integer $thread_id   The ID of the thread to merge.
      * @param integer $message_id  The ID of the message to merge to.
+     *
+     * @throws Agora_Exception
      */
     public function mergeThread($thread_from, $message_id)
     {
         $sql = 'SELECT message_thread, parents FROM ' . $this->_threads_table . ' WHERE message_id = ?';
-        $destination = $this->_db->getRow($sql, null, array($message_id));
-        if ($destination instanceof PEAR_Error) {
-            return $destination;
+        try {
+            $destination = $this->_db->selectOne($sql, array($message_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
         /* Merge to the top level */
@@ -451,37 +396,39 @@ class Agora_Driver {
         }
 
         $sql = 'SELECT message_thread, parents, message_id FROM ' . $this->_threads_table . ' WHERE message_id = ? OR message_thread = ?';
-        $children = $this->_db->getAll($sql, null, array($thread_from, $thread_from));
-        if ($children instanceof PEAR_Error) {
-            return $children;
+        try {
+            $children = $this->_db->selectAll($sql, array($thread_from, $thread_from));
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
+        /* TODO: merging more than one message breaks parent/child relations,
+         * also merging to deeper level than thread root doesn't work. */
         if (!empty($children)) {
+            $sql = 'UPDATE ' . $this->_threads_table . ' SET message_thread = ?, parents = ? WHERE message_id = ?';
+
             foreach ($children as $i => $message) {
                 $children[$i]['message_thread'] = $destination['message_thread'];
-                $children[$i]['parents'] = $destination['parents'] . $message['parents'];
-                if (empty($children[$i]['parents'])) {
+                if (!empty($destination['parents'])) {
+                    $children[$i]['parents'] = $destination['parents'] . $message['parents'];
+                } else {
                     $children[$i]['parents'] = ':' . $message_id;
                 }
-            }
 
-            $statement = $this->_write_db->prepare('UPDATE ' . $this->_threads_table . ' SET message_thread = ?, parents = ? WHERE message_id = ?');
-            if ($statement instanceof PEAR_Error) {
-                return $statement;
-            }
-
-            $result = $this->_write_db->executeMultiple($statement, $children);
-            if ($result instanceof PEAR_Error) {
-                return $result;
+                try {
+                    $this->_db->execute($sql, $children[$i]);
+                } catch (Horde_Db_Exception $e) {
+                    throw new Agora_Exception($e->getMessage());
+                }
             }
         }
 
         $count = $this->countThreads($destination['message_thread']);
-        $sql = 'UPDATE ' . $this->_threads_table . ' SET message_seq = ' . $count
-                . ' WHERE message_id = ' . (int)$destination['message_thread'];
-        $result = $this->_write_db->query($sql);
-        if ($result instanceof PEAR_Error) {
-            return $result;
+        $sql = 'UPDATE ' . $this->_threads_table . ' SET message_seq = ? WHERE message_id = ?';
+        try {
+            $this->_db->execute($sql, array($count, $destination['message_thread']));
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
         /* Update last message */
@@ -498,6 +445,9 @@ class Agora_Driver {
      * Fetches a message.
      *
      * @param integer $message_id  The ID of the message to fetch.
+     *
+     * @throws Horde_Exception_NotFound
+     * @throws Agora_Exception
      */
     public function getMessage($message_id)
     {
@@ -510,15 +460,14 @@ class Agora_Driver {
             . 'message_author, message_subject, body, message_seq, '
             . 'message_timestamp, view_count, locked, attachments FROM '
             . $this->_threads_table . ' WHERE message_id = ?';
-        $message = $this->_db->getRow($sql, null, array($message_id));
-        if ($message instanceof PEAR_Error) {
-            Horde::logMessage($message, 'ERR');
-            return $message;
+        try {
+            $message = $this->_db->selectOne($sql, array($message_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
         if (empty($message)) {
-            return PEAR::raiseError(sprintf(_("Message ID \"%d\" not found"),
-                                            $message_id));
+            throw new Horde_Exception_NotFound(sprintf(_("Message ID \"%d\" not found"), $message_id));
         }
 
         $message['message_subject'] = $this->convertFromDriver($message['message_subject']);
@@ -544,14 +493,13 @@ class Agora_Driver {
      * @param mixed $message  The ID of the parent message to reply to, or arry of its data.
      *
      * @return array  A hash with all relevant information.
+     * @throws Horde_Exception_NotFound
+     * @throws Agora_Exception
      */
     public function replyMessage($message)
     {
         if (!is_array($message)) {
             $message = $this->getMessage($message);
-            if ($message instanceof PEAR_Error) {
-                return $message;
-            }
         }
 
         /* Set up the form subject with the parent subject. */
@@ -575,9 +523,12 @@ class Agora_Driver {
     /**
      * Deletes a message and all replies.
      *
+     * @todo Detele all related attachments from VFS.
+     *
      * @param integer $message_id  The ID of the message to delete.
      *
-     * @return mixed  Thread ID on success or PEAR_Error on failure.
+     * @return string  Thread ID on success.
+     * @throws Agora_Exception
      */
     public function deleteMessage($message_id)
     {
@@ -587,11 +538,10 @@ class Agora_Driver {
         }
 
         $sql = 'SELECT message_thread FROM ' . $this->_threads_table . ' WHERE message_id = ?';
-        $thread_id = $this->_db->getOne($sql, null, array($message_id));
-
-        if ($thread_id instanceof PEAR_Error) {
-            Horde::logMessage($thread_id, 'ERR');
-            return $thread_id;
+        try {
+            $thread_id = $this->_db->selectValue($sql, array($message_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
         $sql = 'DELETE FROM ' . $this->_threads_table . ' WHERE message_id = ' . (int)$message_id;
@@ -599,13 +549,14 @@ class Agora_Driver {
             $sql .= ' OR message_thread = ' . (int)$message_id;
         }
 
-        $result = $this->_write_db->query($sql);
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $this->_db->execute($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
         /* Update counts */
+        // TODO message count is not correctly decreased after deleting more than one message.
         $this->_forumSequence($this->_forum_id, 'message', '-');
         if ($thread_id) {
             $this->_sequence($thread_id, '-');
@@ -629,31 +580,34 @@ class Agora_Driver {
      * @param integer $message_id        Last message id
      * @param string  $message_author    Last message author
      * @param integer $message_timestamp Last message timestamp
+     *
+     * @throws Agora_Exception
      */
     private function _lastInForum($forum_id, $message_id = 0, $message_author = '', $message_timestamp = 0)
     {
-        // Get the last message in form or thread - when managing threads
+        /* Get the last message in form or thread - when managing threads */
         if ($message_id == 0) {
-            $sql = 'SELECT message_id, message_author, message_timestamp FROM ' . $this->_threads_table
-                . ' WHERE forum_id = ' . (int)$forum_id . ' ORDER BY message_id DESC';
-            $this->_db->setLimit(1, 0);
-            $last = $this->_db->getRow($sql);
-            if (empty($last)) {
-                array(0, '', 0);
-            } else {
+            $sql = $this->_db->addLimitOffset('SELECT message_id, message_author, message_timestamp FROM ' . $this->_threads_table
+                . ' WHERE forum_id = ' . (int)$forum_id . ' ORDER BY message_id DESC', array('limit' => 1));
+            try {
+                $last = $this->_db->selectOne($sql);
+            } catch (Horde_Db_Execution $e) {
+                throw new Agora_Exception($e->getMessage());
+            }
+            if (!empty($last)) {
                 extract($last);
             }
         }
 
         $sql = 'UPDATE ' . $this->_forums_table
             . ' SET last_message_id = ?, last_message_author = ?, last_message_timestamp = ? WHERE forum_id = ?';
+        $values = array($message_id, $message_author, $message_timestamp, $forum_id);
 
-        $statement = $this->_write_db->prepare($sql);
-        if ($statement instanceof PEAR_Error) {
-            return $statement;
+        try {
+            $this->_db->execute($sql, $values);
+        } catch (Horde_Db_Execution $e) {
+            throw new Agora_Exception($e->getMessage());
         }
-
-        $statement->execute(array($message_id, $message_author, $message_timestamp, $forum_id));
 
         $this->_cache->expire('agora_forum_' . $forum_id, $GLOBALS['conf']['cache']['default_lifetime']);
     }
@@ -665,31 +619,34 @@ class Agora_Driver {
      * @param integer $message_id        Last message id
      * @param string  $message_author    Last message author
      * @param integer $message_timestamp Last message timestamp
+     *
+     * @throws Agora_Exception
      */
     private function _lastInThread($thread_id, $message_id = 0, $message_author = '', $message_timestamp = 0)
     {
-        // Get the last message in form or thread - when managing threads
+        /* Get the last message in form or thread - when managing threads */
         if ($message_id == 0) {
-            $sql = 'SELECT message_id, message_author, message_timestamp FROM ' . $this->_threads_table
-                . ' WHERE message_thread = ' . (int)$thread_id . ' ORDER BY message_id DESC';
-            $this->_db->setLimit(1, 0);
-            $last = $this->_db->getRow($sql);
-            if (empty($last)) {
-                $last = array(0, '', 0);
-            } else {
+            $sql = $this->_db->addLimitOffset('SELECT message_id, message_author, message_timestamp FROM ' . $this->_threads_table
+                . ' WHERE message_thread = ' . (int)$thread_id . ' ORDER BY message_id DESC', array('limit' => 1));
+            try {
+                $last = $this->_db->selectOne($sql);
+            } catch (Horde_Db_Execution $e) {
+                throw new Agora_Exception($e->getMessage());
+            }
+            if (!empty($last)) {
                 extract($last);
             }
         }
 
         $sql = 'UPDATE ' . $this->_threads_table
             . ' SET last_message_id = ?, last_message_author = ?, message_modifystamp = ? WHERE message_id = ?';
+        $values = array($message_id, $message_author, $message_timestamp, $thread_id);
 
-        $statement = $this->_write_db->prepare($sql);
-        if ($statement instanceof PEAR_Error) {
-            return $statement;
+        try {
+            $this->_db->execute($sql, $values);
+        } catch (Horde_Db_Execution $e) {
+            throw new Agora_Exception($e->getMessage());
         }
-
-        $statement->execute(array($message_id, $message_author, $message_timestamp, $thread_id));
     }
 
     /**
@@ -719,7 +676,8 @@ class Agora_Driver {
 
         $sql .= ' WHERE forum_id = ' . (int)$forum_id;
 
-        return $this->_write_db->query($sql);
+        // TODO do we really need this return?
+        return $this->_db->execute($sql);
     }
 
     /**
@@ -746,8 +704,8 @@ class Agora_Driver {
         }
 
         $sql .= ', message_modifystamp = ' . $_SERVER['REQUEST_TIME'] . '  WHERE message_id = ' . (int)$thread_id;
-        Horde::logMessage('Query by Agora_Driver::_sequence(): ' . $sql, 'DEBUG');
-        return $this->_write_db->query($sql);
+        // TODO do we really need this return?
+        return $this->_db->execute($sql);
     }
 
     /**
@@ -756,6 +714,8 @@ class Agora_Driver {
      * @param integer $thread_id  The ID of the thread to delete. If not
      *                            specified will delete all the threads for the
      *                            current forum.
+     *
+     * @throws Agora_Exception
      */
     public function deleteThread($thread_id = 0)
     {
@@ -766,14 +726,14 @@ class Agora_Driver {
 
         if ($thread_id > 0) {
             $sql = 'DELETE FROM ' . $this->_threads_table . ' WHERE message_thread = ' . (int)$thread_id;
-            $result = $this->_write_db->query($sql);
-            if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, 'ERR');
-                return $result;
+            try {
+                $this->_db->execute($sql);
+            } catch (Horde_Db_Exception $e) {
+                throw new Agora_Exception($e->getMessage());
             }
 
             $sql = 'SELECT COUNT(*) FROM ' . $this->_threads_table . ' WHERE forum_id = ' . (int)$this->_forum_id;
-            $messages = $this->_db->getOne($sql);
+            $messages = $this->_db->selectValue($sql);
 
             $this->_forumSequence($this->_forum_id, 'thread', '-');
             $this->_forumSequence($this->_forum_id, 'message', $messages);
@@ -783,14 +743,14 @@ class Agora_Driver {
 
         } else {
             $sql = 'DELETE FROM ' . $this->_threads_table . ' WHERE forum_id = ' . (int)$this->_forum_id;
-            $result = $this->_write_db->query($sql);
-            if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, 'ERR');
-                return $result;
+            try {
+                $this->_db->execute($sql);
+            } catch (Horde_Db_Exception $e) {
+                throw new Agora_Exception($e->getMessage());
             }
 
-            $this->_forumSequence($this->_forum_id, 'thread', 0);
-            $this->_forumSequence($this->_forum_id, 'message', 0);
+            $this->_forumSequence($this->_forum_id, 'thread', '0');
+            $this->_forumSequence($this->_forum_id, 'message', '0');
         }
 
         /* Update last message */
@@ -869,11 +829,11 @@ class Agora_Driver {
         $is_moderator = $this->hasPermission(Horde_Perms::DELETE);
 
         /* Loop through the threads and set up the array. */
-        foreach ($messages as $id => &$message) {
+        foreach ($messages as &$message) {
 
             /* Add attachment link */
             if ($message['attachments']) {
-                $message['message_attachment'] = $this->getAttachmentLink($id);
+                $message['message_attachment'] = $this->getAttachmentLink($message['message_id']);
             }
 
             /* Get last message link */
@@ -891,7 +851,7 @@ class Agora_Driver {
             }
 
             /* Check if has new posts since user last visit */
-            if ($thread_root == 0 && $this->isNew($id, $last_timestamp)) {
+            if ($thread_root == 0 && $this->isNew($message['message_id'], $last_timestamp)) {
                 $message['new'] = $new_img;
             }
 
@@ -901,7 +861,7 @@ class Agora_Driver {
             }
 
             /* Link to view the message. */
-            $url = Agora::setAgoraId($message['forum_id'], $id, $view_url, $this->_scope);
+            $url = Agora::setAgoraId($message['forum_id'], $message['message_id'], $view_url, $this->_scope);
             $message['link'] = Horde::link($url, $message['message_subject'], '', '', '', $message['message_subject']);
 
             /* Set up indenting for threads. */
@@ -931,7 +891,7 @@ class Agora_Driver {
                         $url = Horde_Util::addParameter($url, 'url', $link_back);
                     }
                 } else {
-                    $url = Agora::setAgoraId($message['forum_id'], $id, $view_url, $this->_scope);
+                    $url = Agora::setAgoraId($message['forum_id'], $message['message_id'], $view_url, $this->_scope);
                 }
                 $url = Horde_Util::addParameter($url, 'reply_focus', 1) . '#messageform';
                 $message['reply'] = Horde::link($url, _("Reply to message"), '', '', '', _("Reply to message")) . _("Reply") . '</a>';
@@ -939,37 +899,37 @@ class Agora_Driver {
 
             /* Link to edit the message. */
             if ($thread_root > 0 && isset($this->_forum['moderators'])) {
-                $url = Agora::setAgoraId($message['forum_id'], $id, $abuse_url);
+                $url = Agora::setAgoraId($message['forum_id'], $message['message_id'], $abuse_url);
                 $message['actions'][] = Horde::link($url, _("Report as abuse")) . _("Report as abuse") . '</a>';
             }
 
             if ($is_moderator) {
                 /* Link to edit the message. */
-                $url = Agora::setAgoraId($message['forum_id'], $id, $edit_url, $this->_scope);
+                $url = Agora::setAgoraId($message['forum_id'], $message['message_id'], $edit_url, $this->_scope);
                 $message['actions'][] = Horde::link($url, _("Edit"), '', '', '', _("Edit message")) . _("Edit") . '</a>';
 
                 /* Link to delete the message. */
-                $url = Agora::setAgoraId($message['forum_id'], $id, $del_url, $this->_scope);
+                $url = Agora::setAgoraId($message['forum_id'], $message['message_id'], $del_url, $this->_scope);
                 $message['actions'][] = Horde::link($url, _("Delete"), '', '', '', _("Delete message")) . _("Delete") . '</a>';
 
                 /* Link to lock/unlock the message. */
-                $url = Agora::setAgoraId($this->_forum_id, $id, Horde::url('messages/lock.php'), $this->_scope);
+                $url = Agora::setAgoraId($this->_forum_id, $message['message_id'], Horde::url('messages/lock.php'), $this->_scope);
                 $label = ($message['locked']) ? _("Unlock") : _("Lock");
                 $message['actions'][] = Horde::link($url, $label, '', '', '', $label) . $label . '</a>';
 
                 /* Link to move thread to another forum. */
                 if ($this->_scope == 'agora') {
-                    if ($message['message_thread'] == $id) {
-                        $url = Agora::setAgoraId($this->_forum_id, $id, Horde::url('messages/move.php'), $this->_scope);
+                    if ($message['message_thread'] == $message['message_id']) {
+                        $url = Agora::setAgoraId($this->_forum_id, $message['message_id'], Horde::url('messages/move.php'), $this->_scope);
                         $message['actions'][] = Horde::link($url, _("Move"), '', '', '', _("Move")) . _("Move") . '</a>';
 
                         /* Link to merge a message thred with anoter thread. */
-                        $url = Agora::setAgoraId($this->_forum_id, $id, Horde::url('messages/merge.php'), $this->_scope);
+                        $url = Agora::setAgoraId($this->_forum_id, $message['message_id'], Horde::url('messages/merge.php'), $this->_scope);
                         $message['actions'][] = Horde::link($url, _("Merge"), '', '', '', _("Merge")) . _("Merge") . '</a>';
                     } elseif ($message['message_thread'] != 0) {
 
                         /* Link to split thread to two threads, from this message after. */
-                        $url = Agora::setAgoraId($this->_forum_id, $id, Horde::url('messages/split.php'), $this->_scope);
+                        $url = Agora::setAgoraId($this->_forum_id, $message['message_id'], Horde::url('messages/split.php'), $this->_scope);
                         $message['actions'][] = Horde::link($url, _("Split"), '', '', '', _("Split")) . _("Split") . '</a>';
                     }
                 }
@@ -991,8 +951,7 @@ class Agora_Driver {
                             $format = false, $thread_root = 0)
     {
         /* Loop through the threads and set up the array. */
-        foreach ($messages as $id => &$message) {
-            $message['message_id'] = $id;
+        foreach ($messages as &$message) {
             $message['message_author'] = htmlspecialchars($message['message_author']);
             $message['message_subject'] = htmlspecialchars($this->convertFromDriver($message['message_subject']));
             $message['message_date'] = $this->dateFormat($message['message_timestamp']);
@@ -1000,12 +959,12 @@ class Agora_Driver {
                 $message['body'] = $this->formatBody($this->convertFromDriver($message['body']));
             }
 
-            // If we are on the top, thread id is message itself
+            /* If we are on the top, thread id is message itself. */
             if ($message['message_thread'] == 0) {
-                $message['message_thread'] = $id;
+                $message['message_thread'] = $message['message_id'];
             }
 
-            /* Get last message */
+            /* Get last message. */
             if ($thread_root == 0 && $message['last_message_id'] > 0) {
                 $message['last_message_date'] = $this->dateFormat($message['last_message_timestamp']);
             }
@@ -1015,10 +974,19 @@ class Agora_Driver {
                 $indent = explode(':', $message['parents']);
                 $message['indent'] = count($indent) - 1;
                 $last = array_pop($indent);
-                if (!isset($messages[$last])) {
+
+                /* TODO: this won't work because array_search doesn't search in
+                 * multi-dimensional arrays.
+                 *
+                 * From what I see this is only needed because there is a bug in message
+                 * deletion anyway. Parents should always be in array, because when
+                 * deleting we should delete all sub-messages. We even state this in GUI,
+                 * but we actually don't do it so.
+                 *
+                /*if (array_search($last, $messages) != 'message_id') {
                     $message['indent'] = 1;
                     $last = null;
-                }
+                }*/
                 $message['parent'] = $last ? $last : null;
             }
         }
@@ -1042,7 +1010,7 @@ class Agora_Driver {
                                     array('citeblock' => true),
                                     array('entities' => true));
 
-            // check bad words replacement
+            // TODO: file doesn't exist anymore
             $config_dir = $GLOBALS['registry']->get('fileroot', 'agora') . '/config/';
             $config_file = 'words.php';
             if (file_exists($config_dir . $config_file)) {
@@ -1104,28 +1072,34 @@ class Agora_Driver {
      * @param integer $sort_dir  The direction by which to sort:
      *                           0 - ascending
      *                           1 - descending
+     *
+     * @throws Agora_Exception
      */
     public function getModerateList($sort_by, $sort_dir)
     {
         $sql = 'SELECT forum_id, forum_name FROM ' . $this->_forums_table . ' WHERE forum_moderated = ?';
-        $params = array(1);
+        $values = array(1);
 
         /* Check permissions */
         if ($GLOBALS['registry']->isAdmin(array('permission' => 'agora:admin')) ||
             ($GLOBALS['injector']->getInstance('Horde_Perms')->exists('agora:forums:' . $this->_scope) &&
              $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('agora:forums:' . $this->_scope, $GLOBALS['registry']->getAuth(), Horde_Perms::DELETE))) {
                 $sql .= ' AND scope = ? ';
-                $params[] = $this->_scope;
+                $values[] = $this->_scope;
         } else {
             // Get only author forums
             $sql .= ' AND scope = ? AND author = ?';
-            $params[] = $this->_scope;
-            $params[] = $GLOBALS['registry']->getAuth();
+            $values[] = $this->_scope;
+            $values[] = $GLOBALS['registry']->getAuth();
         }
 
         /* Get moderate forums and their names */
-        $forums_list = $this->_db->getAssoc($sql, null, $params, null, MDB2_FETCHMODE_ASSOC, false);
-        if ($forums_list instanceof PEAR_Error || empty($forums_list)) {
+        try {
+            $forums_list = $this->_db->selectAssoc($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
+        }
+        if (empty($forums_list)) {
             return $forums_list;
         }
 
@@ -1136,24 +1110,24 @@ class Agora_Driver {
             . ' AND approved = ? ORDER BY ' . $sort_by . ' '
             . ($sort_dir ? 'DESC' : 'ASC');
 
-        $messages = $this->_db->getAssoc($sql, null, array(0));
-        if ($messages instanceof PEAR_Error) {
-            return $messages;
+        try {
+            $messages = $this->_db->selectAll($sql, array(0));
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
         /* Loop through the messages and set up the array. */
         $approve_url = Horde_Util::addParameter(Horde::url('moderate.php'), 'approve', true);
         $del_url  = Horde::url('messages/delete.php');
-        foreach ($messages as $id => &$message) {
+        foreach ($messages as &$message) {
             $message['forum_name'] = $this->convertFromDriver($forums_list[$message['forum_id']]);
-            $message['message_id'] = $id;
             $message['message_author'] = htmlspecialchars($message['message_author']);
             $message['message_subject'] = htmlspecialchars($this->convertFromDriver($message['message_subject']));
             $message['message_body'] = $GLOBALS['injector']
                 ->getInstance('Horde_Core_Factory_TextFilter')
                 ->filter($this->convertFromDriver($message['body']), 'highlightquotes');
             if ($message['attachments']) {
-                $message['message_attachment'] = $this->getAttachmentLink($id);
+                $message['message_attachment'] = $this->getAttachmentLink($message['message_id']);
             }
             $message['message_date'] = $this->dateFormat($message['message_timestamp']);
         }
@@ -1181,7 +1155,7 @@ class Agora_Driver {
             return $permissions;
         }
 
-        // Filter users moderators
+        /* Filter users moderators */
         $filter = Horde_Perms::EDIT | Horde_Perms::DELETE;
         foreach ($permissions as $user => $level) {
             if ($level & $filter) {
@@ -1237,6 +1211,8 @@ class Agora_Driver {
      * @param string  $moderator  Moderator username.
      * @param integer $forum_id   Forum to add moderator to.
      * @param string  $action     Action to peform ('add' or 'delete').
+     *
+     * @throws Agora_Exception
      */
     public function updateModerator($moderator, $forum_id = null, $action = 'add')
     {
@@ -1254,18 +1230,13 @@ class Agora_Driver {
             break;
         }
 
-        $statement = $this->_write_db->prepare($sql);
-        if ($statement instanceof PEAR_Error) {
-            return $statement;
+        try {
+            $this->_db->execute($sql, array($forum_id, $moderator));
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
-        $result = $statement->execute(array($forum_id, $moderator));
-        $statement->free();
-        if ($result instanceof PEAR_Error) {
-            return $result;
-        }
-
-        /* Update permissions*/
+        /* Update permissions */
         $perm_name = 'agora:forums:' . $this->_scope . ':' . $forum_id;
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         if (!$perms->exists($perm_name)) {
@@ -1299,31 +1270,39 @@ class Agora_Driver {
      * @param string $action  Whether to 'approve' or 'delete' messages.
      * @param array $ids      Array of message IDs.
      *
-     * @return mixed  Returns true if successful or otherwise a PEAR_Error.
+     * @throws Agora_Exception
      */
     public function moderate($action, $ids)
     {
         switch ($action) {
         case 'approve':
 
-            // Get message thread to expire cache
+            /* Get message thread to expire cache */
             $sql = 'SELECT message_thread FROM ' . $this->_threads_table
                     . ' WHERE message_id IN (' . implode(',', $ids) . ')';
-            $threads = $this->_db->getCol($sql);
+            try {
+                $threads = $this->_db->selectValues($sql);
+            } catch (Horde_Db_Exception $e) {
+                throw new Agora_Exception($e->getMessage());
+            }
             $this->_updateCacheState($threads);
 
             $sql = 'UPDATE ' . $this->_threads_table . ' SET approved = 1'
                  . ' WHERE message_id IN (' . implode(',', $ids) . ')';
-            $this->_write_db->query($sql);
+            try {
+                $this->_db->execute($sql);
+            } catch (Horde_Db_Exception $e) {
+                throw new Agora_Exception($e->getMessage());
+            }
 
-            // Save original forum_id for later resetting
+            /* Save original forum_id for later resetting */
             $orig_forum_id = $this->_forum_id;
             foreach ($ids as $message_id) {
-                // Update cached message and thread counts
+                /* Update cached message and thread counts */
                 $message = $this->getMessage($message_id);
                 $this->_forum_id = $message['forum_id'];
 
-                // Update cached last poster
+                /* Update cached last poster */
                 $this->_lastInForum($this->_forum_id);
                 $this->_forumSequence($this->_forum_id, 'message', '+');
                 if (!empty($message['parents'])) {
@@ -1333,11 +1312,11 @@ class Agora_Driver {
                     $this->_forumSequence($this->_forum_id, 'thread', '+');
                 }
 
-                // Send the new post to the distribution address
+                /* Send the new post to the distribution address */
                 Agora::distribute($message_id);
             }
 
-            // Restore original forum_id
+            /* Restore original forum ID */
             $this->_forum_id = $orig_forum_id;
             break;
 
@@ -1361,10 +1340,9 @@ class Agora_Driver {
     {
         $sql = 'SELECT COUNT(*) FROM ' . $this->_threads_table . ' WHERE message_thread = ?';
         if ($thread_root) {
-            $params = array($thread_root);
-            return $this->_db->getOne($sql, 'integer', array($thread_root));
+            return $this->_db->selectValue($sql, array($thread_root));
         } else {
-            return $this->_db->getOne($sql . ' AND forum_id = ?', 'integer', array(0, $this->_forum_id));
+            return $this->_db->selectValue($sql . ' AND forum_id = ?', array(0, $this->_forum_id));
         }
     }
 
@@ -1377,7 +1355,7 @@ class Agora_Driver {
     public function countMessages()
     {
         $sql = 'SELECT COUNT(*) FROM ' . $this->_threads_table . ' WHERE forum_id = ?';
-        return $this->_db->getOne($sql, null, array($this->_forum_id));
+        return $this->_db->selectValue($sql, array($this->_forum_id));
     }
 
     /**
@@ -1392,7 +1370,7 @@ class Agora_Driver {
      *
      * @return string  The rendered message table.
      */
-    public function getThreadsUI($threads, $col_headers, $bodies = false,
+    public function getThreadsUi($threads, $col_headers, $bodies = false,
                                  $template_file = false)
     {
         if (!count($threads)) {
@@ -1400,8 +1378,7 @@ class Agora_Driver {
         }
 
         /* Render threaded lists with Horde_Tree. */
-        $current = key($threads);
-        if (!$template_file && isset($threads[$current]['indent'])) {
+        if (!$template_file && isset($threads[0]['indent'])) {
             $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('threads', 'Html', array(
                 'multiline' => $bodies,
                 'lines' => !$bodies
@@ -1474,11 +1451,16 @@ class Agora_Driver {
     }
 
     /**
+     * @throws Agora_Exception
      */
     public function getThreadRoot($message_id)
     {
         $sql = 'SELECT message_thread FROM ' . $this->_threads_table . ' WHERE message_id = ?';
-        $thread_id = $this->_db->getOne($sql, null, array($message_id));
+        try {
+            $thread_id = $this->_db->selectValue($sql, array($message_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
+        }
         return $thread_id ? $thread_id : $message_id;
     }
 
@@ -1486,9 +1468,9 @@ class Agora_Driver {
      */
     public function setThreadLock($message_id, $lock)
     {
-        $sql = 'UPDATE ' . $this->_threads_table . ' SET locked = ' . (int)$lock
-                . ' WHERE message_id = ' . (int)$message_id . ' OR message_thread = ' . (int)$message_id;
-        return $this->_write_db->query($sql);
+        $sql = 'UPDATE ' . $this->_threads_table . ' SET locked = ? WHERE message_id = ? OR message_thread = ?';
+        $values = array($lock, $message_id, $message_id);
+        return $this->_db->execute($sql, $values);
     }
 
     /**
@@ -1497,10 +1479,9 @@ class Agora_Driver {
     public function isThreadLocked($message_id)
     {
         $sql = 'SELECT message_thread FROM ' . $this->_threads_table . ' WHERE message_id = ?';
-        $thread = $this->_db->getOne($sql, null, array($message_id));
+        $thread = $this->_db->selectValue($sql, array($message_id));
 
-        return $this->_db->getOne('SELECT locked FROM ' . $this->_threads_table . ' WHERE message_id = ?',
-                                  null, array($thread));
+        return $this->_db->selectValue('SELECT locked FROM ' . $this->_threads_table . ' WHERE message_id = ?', array($thread));
     }
 
     /**
@@ -1605,6 +1586,7 @@ class Agora_Driver {
      * Logs a message view.
      *
      * @return boolean True, if the view was logged, false if the message was aleredy seen
+     * @throws Agora_Exception
      */
     public function logView($thread_id)
     {
@@ -1633,10 +1615,11 @@ class Agora_Driver {
                     $GLOBALS['conf']['use_ssl'] == 1 ? 1 : 0);
 
         /* Update the count */
-        $sql = 'UPDATE ' . $this->_threads_table . ' SET view_count = view_count + 1 WHERE message_id = ' . (int)$thread_id;
-        $result = $this->_write_db->query($sql);
-        if ($result instanceof PEAR_Error) {
-            return $result;
+        $sql = 'UPDATE ' . $this->_threads_table . ' SET view_count = view_count + 1 WHERE message_id = ?';
+        try {
+            $this->_db->execute($sql, array($thread_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
         return true;
@@ -1644,6 +1627,8 @@ class Agora_Driver {
 
     /**
      * Constructs message attachments link.
+     *
+     * @throws Agora_Exception
      */
     public function getAttachmentLink($message_id)
     {
@@ -1652,22 +1637,25 @@ class Agora_Driver {
         }
 
         $sql = 'SELECT file_id, file_name, file_size, file_type FROM agora_files WHERE message_id = ?';
-        $files = $this->_db->getAssoc($sql, null, array($message_id));
-        if ($files instanceof PEAR_Error || empty($files)) {
-            Horde::logMessage($files, 'ERR');
+        try {
+            $files = $this->_db->selectAll($sql, array($message_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
+        }
+        if (empty($files)) {
             return $files;
         }
 
         /* Constuct the link with a tooltip for further info on the download. */
         $html = '<br />';
         $view_url = Horde::url('view.php');
-        foreach ($files as $file_id => $file) {
+        foreach ($files as $file) {
             $mime_icon = $GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($file['file_type']);
             $title = _("download") . ': ' . $file['file_name'];
             $tooltip = $title . "\n" . sprintf(_("size: %s"), $this->formatSize($file['file_size'])) . "\n" . sprintf(_("type: %s"), $file['file_type']);
             $url = Horde_Util::addParameter($view_url, array('forum_id' => $this->_forum_id,
                                                        'message_id' => $message_id,
-                                                       'file_id' => $file_id,
+                                                       'file_id' => $file['file_id'],
                                                        'file_name' => $file['file_name'],
                                                        'file_type' => $file['file_type']));
             $html .= Horde::linkTooltip($url, $title, '', '', '', $tooltip) .
@@ -1703,6 +1691,8 @@ class Agora_Driver {
      * @param integer $forum_id  The ID of the forum to fetch.
      *
      * @return array  The forum hash or a PEAR_Error on failure.
+     * @throws Horde_Exception_NotFound
+     * @throws Agora_Exception
      */
     public function getForum($forum_id = 0)
     {
@@ -1729,11 +1719,13 @@ class Agora_Driver {
             . 'forum_parent_id, forum_moderated, forum_attachments, '
             . 'forum_distribution_address, author, message_count, thread_count '
             . 'FROM ' . $this->_forums_table . ' WHERE forum_id = ?';
-        $forum = $this->_db->getRow($sql, null, array($forum_id));
-        if ($forum instanceof PEAR_Error) {
-            return $forum;
-        } elseif (empty($forum)) {
-            return PEAR::raiseError(sprintf(_("Forum %s does not exist."), $forum_id));
+        try {
+            $forum = $this->_db->selectOne($sql, array($forum_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
+        }
+        if (empty($forum)) {
+            throw new Horde_Exception_NotFound(sprintf(_("Forum %s does not exist."), $forum_id));
         }
 
         $forum['forum_name'] = $this->convertFromDriver($forum['forum_name']);
@@ -1742,10 +1734,12 @@ class Agora_Driver {
 
         /* Get moderators */
         $sql = 'SELECT horde_uid FROM agora_moderators WHERE forum_id = ?';
-        $moderators = $this->_db->getCol($sql, null, array($forum_id));
-        if ($moderators instanceof PEAR_Error) {
-            return $moderators;
-        } elseif (!empty($moderators)) {
+        try {
+            $moderators = $this->_db->selectValues($sql, array($forum_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
+        }
+        if (!empty($moderators)) {
             $forum['moderators'] = $moderators;
         }
 
@@ -1760,11 +1754,16 @@ class Agora_Driver {
     public function countForums()
     {
         $sql = 'SELECT COUNT(*) FROM ' . $this->_forums_table . ' WHERE active = ? AND scope = ?';
-        return $this->_db->getOne($sql, null, array(1, $this->_scope));
+        return $this->_db->selectValue($sql, array(1, $this->_scope));
     }
 
     /**
      * Fetches a list of forums.
+     *
+     * @todo This function needs refactoring, as it doesn't return consistent
+     * results. For example when running with $formatted = false it will return
+     * an indexed array, but when running with $formatted = true the result is
+     * associative array.
      *
      * @param integer $root_forum  The first level forum.
      * @param boolean $formatted   Whether to return the list formatted or raw.
@@ -1777,6 +1776,7 @@ class Agora_Driver {
      * @param string  $count       The number of forums to return.
      *
      * @return mixed  An array of forums or PEAR_Error on failure.
+     * @throws Agora_Exception
      */
     public function getForums($root_forum = 0, $formatted = true,
                        $sort_by = 'forum_name', $sort_dir = 0,
@@ -1789,74 +1789,66 @@ class Agora_Driver {
             return $forums;
         }
 
-        $moderate = array();
         $user = $GLOBALS['registry']->getAuth();
         $edit_url =  Horde::url('messages/edit.php');
         $editforum_url =  Horde::url('editforum.php');
         $delete_url = Horde::url('deleteforum.php');
 
-        foreach ($forums as $forum_id => &$forum) {
-            if (!$this->hasPermission(Horde_Perms::SHOW, $forum_id, $forum['scope'])) {
-                unset($forums[$forum_id]);
+        foreach ($forums as $key => &$forum) {
+            if (!$this->hasPermission(Horde_Perms::SHOW, $forum['forum_id'], $forum['scope'])) {
+                unset($forums[$key]);
                 continue;
             }
 
             $forum['indentn'] =  0;
             $forum['indent'] = '';
-            if (!$this->hasPermission(Horde_Perms::READ, $forum_id, $forum['scope'])) {
+            if (!$this->hasPermission(Horde_Perms::READ, $forum['forum_id'], $forum['scope'])) {
                 continue;
             }
 
-            $forum['url'] = Agora::setAgoraId($forum_id, null, Horde::url('threads.php'), $forum['scope'], true);
+            $forum['url'] = Agora::setAgoraId($forum['forum_id'], null, Horde::url('threads.php'), $forum['scope'], true);
             $forum['message_count'] = number_format($forum['message_count']);
             $forum['thread_count'] = number_format($forum['thread_count']);
 
             if ($forum['last_message_id']) {
                 $forum['last_message_date'] = $this->dateFormat($forum['last_message_timestamp']);
-                $forum['last_message_url'] = Agora::setAgoraId($forum_id, $forum['last_message_id'], Horde::url('messages/index.php'), $forum['scope'], true);
+                $forum['last_message_url'] = Agora::setAgoraId($forum['forum_id'], $forum['last_message_id'], Horde::url('messages/index.php'), $forum['scope'], true);
             }
 
             $forum['actions'] = array();
 
             /* Post message button. */
-
-            if ($this->hasPermission(Horde_Perms::EDIT, $forum_id, $forum['scope'])) {
+            if ($this->hasPermission(Horde_Perms::EDIT, $forum['forum_id'], $forum['scope'])) {
                 /* New Post forum button. */
-                $url = Agora::setAgoraId($forum_id, null, $edit_url, $forum['scope'], true);
+                $url = Agora::setAgoraId($forum['forum_id'], null, $edit_url, $forum['scope'], true);
                 $forum['actions'][] = Horde::link($url, _("Post message")) . _("New Post") . '</a>';
 
                 if ($GLOBALS['registry']->isAdmin(array('permission' => 'agora:admin'))) {
                     /* Edit forum button. */
-                    $url = Agora::setAgoraId($forum_id, null, $editforum_url, $forum['scope'], true);
+                    $url = Agora::setAgoraId($forum['forum_id'], null, $editforum_url, $forum['scope'], true);
                     $forum['actions'][] = Horde::link($url, _("Edit forum")) . _("Edit") . '</a>';
                 }
             }
 
             if ($GLOBALS['registry']->isAdmin(array('permission' => 'agora:admin'))) {
                 /* Delete forum button. */
-                $url = Agora::setAgoraId($forum_id, null, $delete_url, $forum['scope'], true);
+                $url = Agora::setAgoraId($forum['forum_id'], null, $delete_url, $forum['scope'], true);
                 $forum['actions'][] = Horde::link($url, _("Delete forum")) . _("Delete") . '</a>';
             }
 
             /* User is a moderator */
             if (isset($forum['moderators']) && in_array($user, $forum['moderators'])) {
-                $moderate[] = $forum_id;
-            }
-        }
+                $sql = 'SELECT COUNT(forum_id) FROM ' . $this->_threads_table
+                    . ' WHERE forum_id = ? AND approved = ?'
+                    . ' GROUP BY forum_id';
+                try {
+                    $unapproved = $this->_db->selectValue($sql, array($forum['forum_id'], 0));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Agora_Exception($e->getMessage());
+                }
 
-        /* If needed, display moderate link */
-        if (!empty($moderate)) {
-            $sql = 'SELECT forum_id, COUNT(forum_id) FROM ' . $this->_threads_table
-                 . ' WHERE forum_id IN (' . implode(',', $moderate) . ') AND approved = ?'
-                 . ' GROUP BY forum_id';
-            $unapproved = $this->_db->getAssoc($sql, null, array(0), null, MDB2_FETCHMODE_ASSOC, false);
-            if ($unapproved instanceof PEAR_Error) {
-                return $unapproved;
-            }
-
-            $url = Horde::link(Horde::url('moderate.php', true), _("Moderate")) . _("Moderate") . '</a>';
-            foreach ($unapproved as $forum_id => $count) {
-                $forum['actions'][] = $url . ' (' . $count . ')' ;
+                $url = Horde::link(Horde::url('moderate.php', true), _("Moderate")) . _("Moderate") . '</a>';
+                $forum['actions'][] = $url . ' (' . $unapproved . ')' ;
             }
         }
 
@@ -1888,32 +1880,31 @@ class Agora_Driver {
     /**
      * Fetches a list of forums.
      *
-     * @param integer $forums      Frorms to format
-     * @param boolean $formatted   Whether to return the list formatted or raw.
+     * @param integer $forums      Forums to format
      *
-     * @return mixed  An array of forums or PEAR_Error on failure.
+     * @return array  An array of forums.
+     * @throws Agora_Exception
      */
-    protected function _formatForums($forums, $formatted = true)
+    protected function _formatForums($forums)
     {
-        foreach (array_keys($forums) as $forum_id) {
-            $forums[$forum_id]['forum_name'] = $this->convertFromDriver($forums[$forum_id]['forum_name']);
-            if ($formatted) {
-                $forums[$forum_id]['forum_description'] = $this->convertFromDriver($forums[$forum_id]['forum_description']);
-            }
+        /* Get moderators */
+        foreach ($forums as $forum) {
+            $forums_list[] = $forum['forum_id'];
+        }
+        $sql = 'SELECT forum_id, horde_uid'
+            . ' FROM agora_moderators WHERE forum_id IN (' . implode(',', array_values($forums_list)) . ')';
+        try {
+            $moderators = $this->_db->selectAll($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
-        if ($formatted) {
-            /* Get moderators */
-            $sql = 'SELECT forum_id, horde_uid'
-                . ' FROM agora_moderators WHERE forum_id IN (' . implode(',', array_keys($forums)) . ')';
-            $moderators = $this->_db->getAssoc($sql, null, null, null, MDB2_FETCHMODE_ASSOC, false, true);
-            if ($moderators instanceof PEAR_Error) {
-                return $moderators;
-            }
-
-            foreach ($forums as $forum_id => $forum) {
-                if (isset($moderators[$forum_id])) {
-                    $forums[$forum_id]['moderators'] = $moderators[$forum_id];
+        foreach ($forums as $key => $forum) {
+            $forums[$key]['forum_name'] = $this->convertFromDriver($forums[$key]['forum_name']);
+            $forums[$key]['forum_description'] = $this->convertFromDriver($forums[$key]['forum_description']);
+            foreach ($moderators as $moderator) {
+                if ($moderator['forum_id'] == $forum['forum_id']) {
+                    $forums[$key]['moderators'][] = $moderator['horde_uid'];
                 }
             }
         }
@@ -1938,25 +1929,20 @@ class Agora_Driver {
      * @param string $forum_owner Forum owner.
      *
      * @return integer ID of the new generated forum.
+     * @throws Agora_Exception
      */
     public function newForum($forum_name, $owner)
     {
         if (empty($forum_name)) {
-            return PEAR::raiseError(_("Cannot create a forum with an empty name."));
+            throw new Agora_Exception(_("Cannot create a forum with an empty name."));
         }
 
-        $forum_id = $this->_write_db->nextId('agora_forums');
-        $sql = 'INSERT INTO ' . $this->_forums_table . ' (forum_id, scope, forum_name, active, author) VALUES (?, ?, ?, ?, ?)';
-        $statement = $this->_write_db->prepare($sql);
-        if ($statement instanceof PEAR_Error) {
-            return $statement;
-        }
-
-        $result = $statement->execute(array($forum_id, $this->_scope, $this->convertToDriver($forum_name), 1, $owner));
-        $statement->free();
-
-        if ($result instanceof PEAR_Error) {
-            return $result;
+        $sql = 'INSERT INTO ' . $this->_forums_table . ' (scope, forum_name, active, author) VALUES (?, ?, ?, ?)';
+        $values = array($this->_scope, $this->convertToDriver($forum_name), 1, $owner);
+        try {
+            $forum_id = $this->_db->insert($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
         return $forum_id;
@@ -1975,7 +1961,8 @@ class Agora_Driver {
      *                       forum_description
      *                       forum_attachments
      *
-     * @return mixed  The forum ID on success or PEAR_Error on failure.
+     * @return integer  The forum ID on success.
+     * @throws Agora_Exception
      */
     public function saveForum($info)
     {
@@ -1984,9 +1971,6 @@ class Agora_Driver {
                 $info['author'] = $GLOBALS['registry']->getAuth();
             }
             $info['forum_id'] = $this->newForum($info['forum_name'], $info['author']);
-            if ($info['forum_id'] instanceof PEAR_Error) {
-                return $info['forum_id'];
-            }
         }
 
         $sql = 'UPDATE ' . $this->_forums_table . ' SET forum_name = ?, forum_parent_id = ?, '
@@ -1994,7 +1978,7 @@ class Agora_Driver {
              . 'forum_attachments = ?, forum_distribution_address = ? '
              . 'WHERE forum_id = ?';
 
-        $params = array($this->convertToDriver($info['forum_name']),
+        $values = array($this->convertToDriver($info['forum_name']),
                         (int)$info['forum_parent_id'],
                         $this->convertToDriver($info['forum_description']),
                         (int)$info['forum_moderated'],
@@ -2002,17 +1986,10 @@ class Agora_Driver {
                         isset($info['forum_distribution_address']) ? $info['forum_distribution_address'] : '',
                         $info['forum_id']);
 
-        Horde::logMessage('SQL Query by Agora_Message::saveForum(): ' . $sql, 'DEBUG');
-        $statement = $this->_write_db->prepare($sql);
-        if ($statement instanceof PEAR_Error) {
-            return $statement;
-        }
-
-        $result = $statement->execute($params);
-        $statement->free();
-
-        if ($result instanceof PEAR_Error) {
-            return $result;
+        try {
+            $this->_db->execute($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
         $this->_updateCacheState(0);
@@ -2027,19 +2004,18 @@ class Agora_Driver {
      *
      * @param integer $forum_id  The ID of the forum to delete.
      *
-     * @return mixed  True on success or PEAR_Error on failure.
+     * @return boolean  True on success.
+     * @throws Agora_Exception
      */
     public function deleteForum($forum_id)
     {
-        $result = $this->deleteThread();
-        if ($result instanceof PEAR_Error) {
-            return $result;
-        }
+        $this->deleteThread();
 
         /* Delete the forum itself. */
-        $result = $this->_write_db->query('DELETE FROM ' . $this->_forums_table . ' WHERE forum_id = ' . (int)$forum_id);
-        if ($result instanceof PEAR_Error) {
-            return $result;
+        try {
+            $this->_db->delete('DELETE FROM ' . $this->_forums_table . ' WHERE forum_id = ' . (int)$forum_id);
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
         return true;
@@ -2068,6 +2044,11 @@ class Agora_Driver {
      *                                   1 - descending
      * @param string  $from          The thread to start listing at.
      * @param string  $count         The number of threads to return.
+     *
+     * @return array  A search result hash where:
+     *          'results'        => Array of messages.
+     *          'total           => Total message number.
+     * @throws Agora_Exception
      */
     public function search($filter, $sort_by = 'message_subject', $sort_dir = 0,
                     $from = 0, $count = 0)
@@ -2086,13 +2067,15 @@ class Agora_Driver {
         $sql = 'SELECT forum_id, forum_name FROM ' . $this->_forums_table . ' WHERE ';
         if (empty($filter['forums'])) {
             $sql .= ' active = ? AND scope = ?';
-            $forums = $this->_db->getAssoc($sql, null, array(1, $this->_scope));
+            $values = array(1, $this->_scope);
         } else {
             $sql .= ' forum_id IN (' . implode(',', $filter['forums']) . ')';
-            $forums = $this->_db->getAssoc($sql);
+            $values = array();
         }
-        if ($forums instanceof PEAR_Error) {
-            return $forums;
+        try {
+            $forums = $this->_db->selectAssoc($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
         /* Build query  */
@@ -2135,14 +2118,15 @@ class Agora_Driver {
 
         /* Slice directly in DB. */
         if ($count) {
-            $total = $this->_db->getOne('SELECT COUNT(*) '  . $sql);
-            $this->_db->setLimit($count, $from);
+            $total = $this->_db->selectValue('SELECT COUNT(*) '  . $sql);
+            $sql = $this->_db->addLimitOffset($sql, array('limit' => $count, 'offset' => $from));
         }
 
         $sql = 'SELECT message_id, forum_id, message_subject, message_author, message_timestamp '  . $sql;
-        $messages = $this->_db->query($sql);
-        if ($messages instanceof PEAR_Error) {
-            return $messages;
+        try {
+            $messages = $this->_db->select($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
         if (empty($messages)) {
             return array('results' => array(), 'total' => 0);
@@ -2151,7 +2135,7 @@ class Agora_Driver {
         $results = array();
         $msg_url = Horde::url('messages/index.php');
         $forum_url = Horde::url('threads.php');
-        while ($message = $messages->fetchRow()) {
+        while ($message = $messages->fetch()) {
             if (!isset($results[$message['forum_id']])) {
                 $index = array('agora' => $message['forum_id'], 'scope' => $this->_scope);
                 $results[$message['forum_id']] = array('forum_id'   => $message['forum_id'],
@@ -2216,7 +2200,7 @@ class Agora_Driver {
      */
     public function convertFromDriver($value)
     {
-        return Horde_String::convertCharset($value, $this->_params['charset'], 'UTF-8');
+        return Horde_String::convertCharset($value, $this->_charset, 'UTF-8');
     }
 
     /**
@@ -2228,54 +2212,7 @@ class Agora_Driver {
      */
     public function convertToDriver($value)
     {
-        return Horde_String::convertCharset($value, 'UTF-8', $this->_params['charset']);
-    }
-
-    /**
-     * Attempts to open a persistent connection to the SQL server.
-     *
-     * @return boolean  True on success.
-     * @throws Horde_Exception
-     */
-    private function _connect()
-    {
-        $this->_params = Horde::getDriverConfig('storage', 'sql');
-        Horde::assertDriverConfig($this->_params, 'storage',
-                                  array('phptype', 'charset'));
-
-        $conn_charset = strtolower(preg_replace(array('/[^a-zA-Z0-9]/', '/iso8859(\d)/'), array('', 'latin$1'), $this->_params['charset']));
-        $charset = $this->_params['charset'];
-        unset($this->_params['charset']);
-
-        $this->_write_db = MDB2::factory($this->_params);
-        if ($this->_write_db instanceof PEAR_Error) {
-            throw new Horde_Exception($this->_write_db);
-        }
-
-        if (!empty($params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = MDB2::factory($this->_params);
-            if ($this->_db instanceof PEAR_Error) {
-                throw new Horde_Exception($this->_db);
-            }
-        } else {
-            /* Default to the same DB handle for the writer too. */
-            $this->_db =& $this->_write_db;
-        }
-
-        $this->_db->loadModule('Extended');
-        if ($this->_db instanceof PEAR_Error) {
-            throw new Horde_Exception($this->_db);
-        }
-
-        $this->_db->setFetchMode(MDB2_FETCHMODE_ASSOC);
-        $this->_db->setCharset($conn_charset);
-        $this->_write_db->setCharset($conn_charset);
-        $this->_write_db->setOption('seqcol_name', 'id');
-        $this->_db->setOption('portability', MDB2_PORTABILITY_ALL ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
-        $this->_params['charset'] = $charset;
-
-        return true;
+        return Horde_String::convertCharset($value, 'UTF-8', $this->_charset);
     }
 
     /**

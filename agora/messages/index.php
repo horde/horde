@@ -15,7 +15,7 @@ Horde_Registry::appInit('agora');
 
 /* Set up the messages object. */
 list($forum_id, $message_id, $scope) = Agora::getAgoraId();
-$messages = &Agora_Driver::singleton($scope, $forum_id);
+$messages = $injector->getInstance('Agora_Factory_Driver')->create($scope, $forum_id);
 if ($messages instanceof PEAR_Error) {
     $notification->push($messages->getMessage(), 'horde.warning');
     Horde::url('forums.php', true)->redirect();
@@ -150,7 +150,7 @@ case '2':
         $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 0), _("Hide bodies")) . _("Hide bodies") . '</a>';
         $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 1), _("Thread")) . _("Thread") . '</a>';
     }
-    $threads = $messages->getThreadsUI($threads_list, $col_headers, $view_bodies, $threads_template);
+    $threads = $messages->getThreadsUi($threads_list, $col_headers, $view_bodies, $threads_template);
     break;
 
 case '1':
@@ -174,7 +174,7 @@ default:
     if (!$prefs->isLocked('thread_view_bodies')) {
         $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 1), _("View bodies")) . _("View bodies") . '</a>';
     }
-    $threads = $messages->getThreadsUI($threads_list, $col_headers, $view_bodies, $threads_template);
+    $threads = $messages->getThreadsUi($threads_list, $col_headers, $view_bodies, $threads_template);
     break;
 }
 

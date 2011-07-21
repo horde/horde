@@ -99,11 +99,14 @@ class Agora {
      */
     function formatCategoryTree($forums)
     {
-        foreach ($forums as $id => $forum) {
-            $levels = explode(':', $forum);
-            $forums[$id] = str_repeat('.. ', count($levels) - 1) . array_pop($levels);
+        /* TODO this doesn't work, as forun_name doesn't contain ":".
+         * Should use forum_parent_id instead. */
+        $forums_list = array();
+        foreach (array_values($forums) as $forum) {
+            $levels = explode(':', $forum['forum_name']);
+            $forums_list[$forum['forum_id']] = str_repeat('.. ', count($levels) - 1) . array_pop($levels);
         }
-        return $forums;
+        return $forums_list;
     }
 
     /**
@@ -348,7 +351,7 @@ class Agora {
     {
         global $conf;
 
-        $storage = Agora_Driver::singleton();
+        $storage = $GLOBALS['injector']->getInstance('Agora_Factory_Driver')->create();
         $message = $storage->getMessage($message_id);
         $forum = $storage->getForum($message['forum_id']);
 

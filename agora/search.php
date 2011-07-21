@@ -15,7 +15,7 @@ Horde_Registry::appInit('agora');
 
 /* Set up the forums object. */
 $scope = Horde_Util::getGet('scope', 'agora');
-$messages = &Agora_Driver::singleton($scope);
+$messages = $injector->getInstance('Agora_Factory_Driver')->create($scope);
 $vars = Horde_Variables::getDefaultVariables();
 $form = new Agora_Form_Search($vars, $scope);
 $thread_page = Horde_Util::getFormData('thread_page');

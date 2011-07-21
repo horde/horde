@@ -35,13 +35,19 @@ class Agora_Block_Threads extends Horde_Core_Block
     {
         $params = array();
 
-        $forums = Agora_Driver::singleton();
+        $forums = $GLOBALS['injector']->getInstance('Agora_Factory_Driver')->create();
 
         /* Get the list of forums to display. */
+        /* TODO: we really need something like getBareForums only with permissions,
+         * to return associative array. It would really simplify things. */
+        $forums_list = array();
+        foreach ($forums->getForums(0, false, 'forum_name', 0, !$GLOBALS['registry']->isAdmin()) as $forum) {
+            $forums_list[$forum['forum_id']] = $forum['forum_name'];
+        }
         $params['forum_id'] = array(
             'name' => _("Forum"),
             'type' => 'enum',
-            'values' => $forums->getForums(0, false, 'forum_name', 0, !$GLOBALS['registry']->isAdmin()),
+            'values' => $forums_list,
         );
 
         /* Display the last X number of threads. */
@@ -64,7 +70,7 @@ class Agora_Block_Threads extends Horde_Core_Block
         }
 
         if (empty($this->_threads)) {
-            $this->_threads = &Agora_Driver::singleton('agora', $this->_params['forum_id']);
+            $this->_threads = $GLOBALS['injector']->getInstance('Agora_Factory_Driver')->create('agora', $this->_params['forum_id']);
             if ($this->_threads instanceof PEAR_Error) {
                 return $this->getName();
             }
@@ -89,7 +95,7 @@ class Agora_Block_Threads extends Horde_Core_Block
         }
 
         if (empty($this->_threads)) {
-            $this->_threads = &Agora_Driver::singleton('agora', $this->_params['forum_id']);
+            $this->_threads = $GLOBALS['injector']->getInstance('Agora_Factory_Driver')->create('agora', $this->_params['forum_id']);
             if ($this->_threads instanceof PEAR_Error) {
                 throw new Horde_Exception(_("Unable to fetch threads for selected forum."));
             }

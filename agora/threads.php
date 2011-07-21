@@ -21,7 +21,7 @@ if (empty($forum_id)) {
 }
 
 /* Check if this is a valid thread, otherwise show the forum list. */
-$threads = &Agora_Driver::singleton($scope, $forum_id);
+$threads = $injector->getInstance('Agora_Factory_Driver')->create($scope, $forum_id);
 if ($threads instanceof PEAR_Error) {
     $notification->push(sprintf(_("Could not list threads. %s"), $threads->getMessage()), 'horde.warning');
     Horde::url('forums.php', true)->redirect();

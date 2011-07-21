@@ -20,7 +20,7 @@ if (!$registry->isAdmin()) {
 
 /* Set up the messages object. */
 $scope = Horde_Util::getFormData('scope', 'agora');
-$messages = &Agora_Driver::singleton($scope);
+$messages = $injector->getInstance('Agora_Factory_Driver')->create($scope);
 if ($messages instanceof PEAR_Error) {
     $notification->push($messages->getMessage(), 'horde.warning');
     Horde::url('forums.php', true)->redirect();
@@ -48,14 +48,14 @@ if ($forums_list instanceof PEAR_Error) {
 
 /* Add delete links to moderators */
 $url = Horde_Util::addParameter(Horde::url('moderators.php'), 'action', 'delete');
-foreach ($forums_list as $forum_id => $forum) {
+foreach ($forums_list as $key => $forum) {
     if (!isset($forum['moderators'])) {
-        unset($forums_list[$forum_id]);
+        unset($forums_list[$key]);
         continue;
     }
     foreach ($forum['moderators'] as $id => $moderator) {
-        $delete = Horde_Util::addParameter($url, array('moderator' => $moderator, 'forum_id' => $forum_id));
-        $forums_list[$forum_id]['moderators'][$id] = Horde::link($delete, _("Delete")) . $moderator . '</a>';
+        $delete = Horde_Util::addParameter($url, array('moderator' => $moderator, 'forum_id' => $forum['forum_id']));
+        $forums_list[$key]['moderators'][$id] = Horde::link($delete, _("Delete")) . $moderator . '</a>';
     }
 }
 
@@ -69,7 +69,7 @@ $form->addVariable(_("Moderator"), 'moderator', 'text', true);
 if ($messages->countForums() > 50) {
     $form->addVariable(_("Forum"), 'forum_id', 'int', true);
 } else {
-    $forums_enum = $messages->getForums(0, false, 'forum_name', 0, !$registry->isAdmin());
+    $forums_enum = Agora::formatCategoryTree($messages->getForums(0, false, 'forum_name', 0, !$registry->isAdmin()));
     $form->addVariable(_("Forum"), 'forum_id', 'enum', true, false, false, array($forums_enum));
 }
 

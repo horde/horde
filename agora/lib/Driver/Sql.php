@@ -29,7 +29,7 @@ class Agora_Driver_Sql extends Agora_Driver {
         if (!isset($ids[$forum_name])) {
             $sql = 'SELECT forum_id FROM ' . $this->_forums_table . ' WHERE scope = ? AND forum_name = ? ';
             $params = array($this->_scope, $forum_name);
-            $ids[$forum_name] = $this->_db->getOne($sql, array('integer'), $params);
+            $ids[$forum_name] = $this->_db->selectValue($sql, $params);
         }
 
         return $ids[$forum_name];
@@ -48,7 +48,7 @@ class Agora_Driver_Sql extends Agora_Driver {
             $sql = 'SELECT forum_id, forum_description FROM ' . $this->_forums_table . ' WHERE scope = ?';
         }
 
-        return $this->_db->getAssoc($sql, null, array($this->_scope));
+        return $this->_db->selectAssoc($sql, array($this->_scope));
     }
 
     /**
@@ -64,7 +64,9 @@ class Agora_Driver_Sql extends Agora_Driver {
      * @param string  $from        The forum to start listing at.
      * @param string  $count       The number of forums to return.
      *
-     * @return mixed  An array of forums or PEAR_Error on failure.
+     * @return array  An array of forums.
+     * @throws Horde_Exception_NotFound
+     * @throws Agora_Exception
      */
     protected function _getForums($root_forum = 0, $formatted = true,
                         $sort_by = 'forum_name', $sort_dir = 0,
@@ -110,15 +112,21 @@ class Agora_Driver_Sql extends Agora_Driver {
 
         /* Slice direcly in DB. */
         if ($count) {
-            $this->_db->setLimit($count, $from);
+            $sql = $this->_db->addLimitOffset($sql, array('limit' => $count, 'offset' => $from));
         }
 
-        $forums = $this->_db->getAssoc($sql, null, $params, null, MDB2_FETCHMODE_ASSOC, $formatted);
-        if ($forums instanceof PEAR_Error || empty($forums)) {
-            return $forums;
+        try {
+            $forums = $this->_db->selectAll($sql, $params);
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
+        }
+        if (empty($forums)) {
+            throw new Horde_Exception_NotFound(_("There are no forums."));
         }
 
-        $forums = $this->_formatForums($forums, $formatted);
+        if ($formatted) {
+            $forums = $this->_formatForums($forums);
+        }
 
         $this->_setCache($key, serialize($forums));
 
@@ -138,6 +146,8 @@ class Agora_Driver_Sql extends Agora_Driver {
      * @param boolean $message_view
      * @param string  $from          The thread to start listing at.
      * @param string  $count         The number of threads to return.
+     *
+     * @throws Agora_Exception
      */
     protected function _getThreads($thread_root = 0,
                          $all_levels = false,
@@ -160,13 +170,13 @@ class Agora_Driver_Sql extends Agora_Driver {
 
         /* Slice direcly in DB. */
         if ($sort_by != 'message_thread' && $count) {
-            $this->_db->setLimit($count, $from);
+            $bind[0] = $this->_db->addLimitOffset($bind[0], array('limit' => $count, 'offset' => $from));
         }
 
-        $messages = $this->_db->getAssoc($bind[0], null, $bind[1], null, MDB2_FETCHMODE_ASSOC, true);
-        if ($messages instanceof PEAR_Error) {
-            Horde::logMessage($messages, 'ERR');
-            return $messages;
+        try {
+            $messages = $this->_db->selectAll($bind[0], $bind[1]);
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
         $messages = $this->_formatThreads($messages, $sort_by, $message_view, $thread_root);
@@ -190,6 +200,8 @@ class Agora_Driver_Sql extends Agora_Driver {
      * @param boolean $message_view
      * @param string  $from          The thread to start listing at.
      * @param string  $count         The number of threads to return.
+     *
+     * @throws Agora_Exception
      */
     public function getThreadsByForumOwner($forum_owner,
                          $thread_root = 0,
@@ -204,13 +216,13 @@ class Agora_Driver_Sql extends Agora_Driver {
                                             $sort_by, $sort_dir, $message_view, $from, $count);
 
         if ($sort_by != 'message_thread' && $count) {
-            $this->_db->setLimit($count, $from);
+            $bind[0] = $this->_db->addLimitOffset($bind[0], array('limit' => $count, 'offset' => $from));
         }
 
-        $messages = $this->_db->getAssoc($bind[0], null, $bind[1], null, MDB2_FETCHMODE_ASSOC, true);
-        if ($messages instanceof PEAR_Error) {
-            Horde::logMessage($messages, 'ERR');
-            return $messages;
+        try {
+            $messages = $this->_db->selectAll($bind[0], $bind[1]);
+        } catch (Horde_Db_Exception $e) {
+            throw new Agora_Exception($e->getMessage());
         }
 
         return $this->_formatThreads($messages, $sort_by, $message_view, $thread_root);
