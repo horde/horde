@@ -47,7 +47,7 @@ extends Horde_Pear_TestCase
     {
         $this->assertEquals(
             'horde-bin',
-            $this->_getFixture()->getInstallAs()->getInstallAs('/bin/horde-bin')
+            $this->_getFixture()->getInstallAs()->getInstallAs('/bin/horde-bin', 'imp')
         );
     }
 
@@ -55,7 +55,7 @@ extends Horde_Pear_TestCase
     {
         $this->assertEquals(
             'doc.txt',
-            $this->_getFixture()->getInstallAs()->getInstallAs('/docs/doc.txt')
+            $this->_getFixture()->getInstallAs()->getInstallAs('/docs/doc.txt', 'imp')
         );
     }
 
@@ -63,7 +63,7 @@ extends Horde_Pear_TestCase
     {
         $this->assertEquals(
             'test.php',
-            $this->_getFixture()->getInstallAs()->getInstallAs('/test/test.php')
+            $this->_getFixture()->getInstallAs()->getInstallAs('/test/test.php', 'imp')
         );
     }
 
@@ -71,7 +71,7 @@ extends Horde_Pear_TestCase
     {
         $this->assertEquals(
             'imp/index.php',
-            $this->_getFixture()->getInstallAs()->getInstallAs('/index.php')
+            $this->_getFixture()->getInstallAs()->getInstallAs('/index.php', 'imp')
         );
     }
 
@@ -79,7 +79,7 @@ extends Horde_Pear_TestCase
     {
         $this->assertEquals(
             'README',
-            $this->_getFixture()->getInstallAs()->getInstallAs('/README')
+            $this->_getFixture()->getInstallAs()->getInstallAs('/README', 'imp')
         );
     }
 
