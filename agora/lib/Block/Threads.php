@@ -118,7 +118,7 @@ class Agora_Block_Threads extends Horde_Core_Block
         $view->col_headers = $col_headers;
         $view->threads = $threads_list;
 
-        return $view->render('block/threads.html.php');
+        return $view->render('block/threads');
     }
 
 }

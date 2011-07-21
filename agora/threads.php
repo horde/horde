@@ -77,5 +77,5 @@ $view->pager_link = $pager_ob->render();
 
 $title = sprintf(_("Threads in %s"), $forum_array['forum_name']);
 require $registry->get('templates', 'horde') . '/common-header.inc';
-echo $view->render('threads.html.php');
+echo $view->render('threads');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

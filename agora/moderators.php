@@ -89,5 +89,5 @@ $view->forums = $forums_list;
 
 Horde::addScriptFile('stripe.js', 'horde', true);
 require $registry->get('templates', 'horde') . '/common-header.inc';
-echo $view->render('moderators.html.php');
+echo $view->render('moderators');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -70,5 +70,5 @@ $view->searchForm = Horde::endBuffer();
 
 $title = _("Search Forums");
 require $registry->get('templates', 'horde') . '/common-header.inc';
-echo $view->render('search.html.php');
+echo $view->render('search');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

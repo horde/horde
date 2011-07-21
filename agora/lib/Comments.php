@@ -96,7 +96,7 @@ class Agora_ViewComments {
             $thread_start = $thread_page * $thread_per_page;
 
             if (empty($template_file)) {
-                $template_file = '/messages/flat.html.php';
+                $template_file = 'messages/flat';
             }
 
             if ($messages->_forum['message_count'] > $thread_per_page && $view_bodies == 2) {

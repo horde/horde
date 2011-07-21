@@ -84,5 +84,5 @@ $form->renderActive(null, $vars, 'delete.php', 'post');
 $view->formbox = Horde::endBuffer();
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
-echo $view->render('messages/form.html.php');
+echo $view->render('messages/form');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

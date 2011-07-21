@@ -88,5 +88,5 @@ $view->message_author = $message['message_author'];
 $view->message_body = Agora_Driver::formatBody($message['body']);
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
-echo $view->render('main.html.php');
+echo $view->render('main');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

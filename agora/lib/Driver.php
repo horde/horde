@@ -1467,7 +1467,7 @@ class Agora_Driver {
 
         /* Render template. */
         if (!$template_file) {
-            $template_file = 'messages/threads.html.php';
+            $template_file = 'messages/threads';
         }
 
         return $view->render($template_file);

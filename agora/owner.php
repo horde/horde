@@ -61,7 +61,7 @@ foreach ($registry->listApps() as $scope) {
             $view->col_headers = $col_headers;
             $view->threads = $threads;
 
-            echo $view->render('block/threads.html.php');
+            echo $view->render('block/threads');
         }
 
         echo '<br />';

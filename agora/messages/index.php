@@ -92,9 +92,9 @@ if (!$view_bodies) {
         $view->message_attachment = $messages->getAttachmentLink($message_id);
     }
 
-    $template_file = 'messages/message.html.php';
+    $template_file = 'messages/message';
 } else {
-    $template_file = 'messages/index.html.php';
+    $template_file = 'messages/index';
 }
 
 /* Actions. */
@@ -145,7 +145,7 @@ $url = Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/index.php'
 /* Get the thread table. */
 switch ($view_bodies) {
 case '2':
-    $threads_template = 'messages/flat.html.php';
+    $threads_template = 'messages/flat';
     if (!$prefs->isLocked('thread_view_bodies')) {
         $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 0), _("Hide bodies")) . _("Hide bodies") . '</a>';
         $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 1), _("Thread")) . _("Thread") . '</a>';
@@ -154,7 +154,7 @@ case '2':
     break;
 
 case '1':
-    $threads_template = 'messages/flat_thread.html.php';
+    $threads_template = 'messages/flat_thread';
     if (!$prefs->isLocked('thread_view_bodies')) {
         $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 0), _("Hide bodies")) . _("Hide bodies") . '</a>';
         $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 2), _("Flat")) . _("Flat") . '</a>';

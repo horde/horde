@@ -74,5 +74,5 @@ $view->message_author = $message['message_author'];
 $view->message_body = Agora_Driver::formatBody($message['body']);
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
-echo $view->render('messages/edit.html.php');
+echo $view->render('messages/edit');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

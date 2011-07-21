@@ -72,5 +72,5 @@ $view->banned = $banned;
 $view->forum = $forums->getForum();
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
-echo $view->render('ban.html.php');
+echo $view->render('ban');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

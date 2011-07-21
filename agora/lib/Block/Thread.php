@@ -85,7 +85,7 @@ class Agora_Block_Thread extends Horde_Core_Block
         $view->threads_list_header = _("Thread List");
         $view->thread_view_bodies = $view_bodies;
 
-        return $view->render('block/thread.html.php');
+        return $view->render('block/thread');
     }
 
 }

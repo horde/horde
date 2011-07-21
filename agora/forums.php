@@ -74,5 +74,5 @@ $view->pager_link = $pager_ob->render();
 $title = _("All Forums");
 $linkTags = array('<link rel="alternate" title="' . _("Forums") . '" href="' . Horde::url('rss/index.php', true, -1)->add('scope', $scope) . '" type="application/rss+xml" />');
 require $registry->get('templates', 'horde') . '/common-header.inc';
-echo $view->render('forums.html.php');
+echo $view->render('forums');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

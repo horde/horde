@@ -98,5 +98,5 @@ $view->message_date = strftime($prefs->getValue('date_format'), $message['messag
 $view->message_body = Agora_Driver::formatBody($message['body']);
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
-echo $view->render('messages/form.html.php');
+echo $view->render('messages/form');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

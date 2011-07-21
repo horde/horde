@@ -94,7 +94,7 @@ class Agora_Block_Forums extends Horde_Core_Block
         $view->col_headers = $col_headers;
         $view->forums_list = $forums_list;
 
-        return $view->render('block/forums.html.php');
+        return $view->render('block/forums');
     }
 
 }

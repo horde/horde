@@ -75,12 +75,12 @@ $pager_ob->preserve('agora', Horde_Util::getFormData('agora'));
 $view->pager = $pager_ob->render();
 
 if (isset($api_call)) {
-    return $view->render('moderate.html.php');
+    return $view->render('moderate');
 } else {
     $title = _("Messages Awaiting Moderation");
     $view->menu = Horde::menu();
     Horde::addScriptFile('stripe.js', 'horde', true);
     require $registry->get('templates', 'horde') . '/common-header.inc';
-    echo $view->render('moderate.html.php');
+    echo $view->render('moderate');
     require $registry->get('templates', 'horde') . '/common-footer.inc';
 }

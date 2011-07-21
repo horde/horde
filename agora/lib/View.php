@@ -18,8 +18,7 @@ class Agora_View extends Horde_View {
     public function __construct()
     {
         /* Set default data. */
-        parent::__construct(array('templatePath' => AGORA_TEMPLATES . '/',
-                                  'encoding' => 'UTF-8'));
+        parent::__construct(array('templatePath' => AGORA_TEMPLATES . '/'));
     }
 
 }
