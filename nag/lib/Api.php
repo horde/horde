@@ -151,6 +151,31 @@ class Nag_Api extends Horde_Registry_Api
     }
 
     /**
+     * Returns the displayed task lists.
+     *
+     * @since Nag 3.0.3
+     *
+     * @return array  Displayed tasklists.
+     */
+    public function getDisplayedTasklists()
+    {
+        return $GLOBALS['display_tasklists'];
+    }
+
+    /**
+     * Sets the displayed task lists.
+     *
+     * @since Nag 3.0.3
+     *
+     * @param array $list  Displayed tasklists.
+     */
+    public function setDisplayedTasklists($list)
+    {
+        $GLOBALS['display_tasklists'] = $list;
+        $GLOBALS['prefs']->setValue('display_tasklists', serialize($list));
+    }
+
+    /**
      * Returns the last modification timestamp of a given uid.
      *
      * @param string $uid      The uid to look for.

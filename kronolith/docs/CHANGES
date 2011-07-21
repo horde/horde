@@ -2,6 +2,7 @@
 v3.0.6-git
 ----------
 
+[jan] Share list of displayed task lists with Nag (requires Nag 3.0.3).
 [jan] Don't show import/export link in preferences if using the dynamic view.
 [mjr] Force ActiveSync device reset after sync_calendars pref is changed
       (Request #10342).
