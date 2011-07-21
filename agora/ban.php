@@ -33,7 +33,7 @@ if (($action = Horde_Util::getFormData('action')) !== null) {
         $notification->push($result->getMessage(), 'horde.error');
     }
 
-    $url = Agora::setAgoraId($forum_id, null, Horde::url('ban.php'), $scope);
+    $url = Agora::setAgoraId($forum_id, null, Horde::url('ban.php', true), $scope);
     header('Location: ' . $url);
     exit;
 }
