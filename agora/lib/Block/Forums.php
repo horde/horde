@@ -35,10 +35,10 @@ class Agora_Block_Forums extends Horde_Core_Block
         return array(
             /* Display the last X number of threads. */
             'forum_display' => array(
-                $name = _("Only display this many forums (0 to display all forums)"),
-                $type = 'int',
-                $default = 0,
-                $values = $GLOBALS['prefs']->getValue('forums_block_display')
+                'name' => _("Only display this many forums (0 to display all forums)"),
+                'type' => 'int',
+                'default' => 0,
+                'values' => $GLOBALS['prefs']->getValue('forums_block_display')
             )
         );
     }
