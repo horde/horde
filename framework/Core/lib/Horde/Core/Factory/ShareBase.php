@@ -36,7 +36,7 @@ class Horde_Core_Factory_ShareBase extends Horde_Core_Factory_Base
      * @param string $driver  The storage driver to use. If empty, use the
      *                        globally configured storage driver.
      *
-     * @return Horde_Share  The share driver instance.
+     * @return Horde_Share_Base  The share driver instance.
      */
     public function create($app = null, $driver = null)
     {
@@ -76,8 +76,8 @@ class Horde_Core_Factory_ShareBase extends Horde_Core_Factory_Base
     /**
      * Shutdown function.
      *
-     * @param string $sig         Cache signature.
-     * @param Horde_Share $share  Horde_Share object to cache.
+     * @param string $sig              Cache signature.
+     * @param Horde_Share_Base $share  Share object to cache.
      */
     public function shutdown($sig, $share)
     {
