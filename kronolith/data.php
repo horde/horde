@@ -20,7 +20,6 @@ Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView() && !(Horde_Util::getPost('import_ajax')) &&
     (!Horde_Util::getFormData('actionID') == 'export')) {
-
     Horde::url('', true)->redirect();
 }
 

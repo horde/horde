@@ -127,7 +127,8 @@ class Kronolith_Application extends Horde_Registry_Application
         $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
 
         /* Import/Export. */
-        if ($conf['menu']['import_export']) {
+        if ($conf['menu']['import_export'] &&
+            !Kronolith::showAjaxView()) {
             $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png');
         }
     }
