@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:08:59</time>
+ <date>2011-07-21</date>
+ <time>00:21:15</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -33,17 +33,17 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="doc">
-    <file name="TODO.txt" role="doc" />
-   </dir> <!-- /doc -->
-   <dir name="examples">
     <dir name="Horde">
      <dir name="Date">
       <dir name="Parser">
-       <file name="parse.php" role="php" />
-      </dir> <!-- /examples/Horde/Date/Parser -->
-     </dir> <!-- /examples/Horde/Date -->
-    </dir> <!-- /examples/Horde -->
-   </dir> <!-- /examples -->
+       <dir name="examples">
+        <file name="parse.php" role="doc" />
+       </dir> <!-- /doc/Horde/Date/Parser/examples -->
+       <file name="TODO.txt" role="doc" />
+      </dir> <!-- /doc/Horde/Date/Parser -->
+     </dir> <!-- /doc/Horde/Date -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Date">
@@ -134,8 +134,8 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="TODO.txt" name="doc/TODO.txt" />
-   <install as="examples/Horde/Date/Parser/parse.php" name="examples/Horde/Date/Parser/parse.php" />
+   <install as="TODO.txt" name="doc/Horde/Date/Parser/TODO.txt" />
+   <install as="examples/parse.php" name="doc/Horde/Date/Parser/examples/parse.php" />
    <install as="Horde/Date/Parser.php" name="lib/Horde/Date/Parser.php" />
    <install as="Horde/Date/Parser/Exception.php" name="lib/Horde/Date/Parser/Exception.php" />
    <install as="Horde/Date/Parser/Handler.php" name="lib/Horde/Date/Parser/Handler.php" />
@@ -272,7 +272,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-07-21</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * 

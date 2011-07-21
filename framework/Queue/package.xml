@@ -10,29 +10,32 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-07</date>
- <time>00:24:21</time>
+ <date>2011-07-21</date>
+ <time>10:37:31</time>
  <version>
-  <release>1.0.0beta1</release>
-  <api>1.0.0</api>
+   <release>1.0.0alpha1</release>
+   <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+   <release>alpha</release>
+   <api>alpha</api>
  </stability>
+ <date>2011-03-07</date>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* First alpha release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="examples">
+   <dir name="doc">
     <dir name="Horde">
      <dir name="Queue">
-      <file name="shutdown_runner.php" role="php" />
-     </dir> <!-- /examples/Horde/Queue -->
-    </dir> <!-- /examples/Horde -->
-   </dir> <!-- /examples -->
+      <dir name="examples">
+       <file name="shutdown_runner.php" role="doc" />
+      </dir> <!-- /doc/Horde/Queue/examples -->
+     </dir> <!-- /doc/Horde/Queue -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Queue">
@@ -64,14 +67,14 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="examples/Horde/Queue/shutdown_runner.php" name="examples/Horde/Queue/shutdown_runner.php" />
+   <install as="examples/shutdown_runner.php" name="doc/Horde/Queue/examples/shutdown_runner.php" />
+   <install as="Horde/Queue/Task.php" name="lib/Horde/Queue/Task.php" />
    <install as="Horde/Queue/Runner/Base.php" name="lib/Horde/Queue/Runner/Base.php" />
    <install as="Horde/Queue/Runner/RequestShutdown.php" name="lib/Horde/Queue/Runner/RequestShutdown.php" />
    <install as="Horde/Queue/Storage/Array.php" name="lib/Horde/Queue/Storage/Array.php" />
    <install as="Horde/Queue/Storage/Base.php" name="lib/Horde/Queue/Storage/Base.php" />
    <install as="Horde/Queue/Storage/Db.php" name="lib/Horde/Queue/Storage/Db.php" />
    <install as="Horde/Queue/Storage/Sqs.php" name="lib/Horde/Queue/Storage/Sqs.php" />
-   <install as="Horde/Queue/Task.php" name="lib/Horde/Queue/Task.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -84,7 +87,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-03-07</date>
+   <date>2011-07-21</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * First alpha release for Horde 4.

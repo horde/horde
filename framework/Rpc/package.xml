@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-05</date>
- <time>14:52:14</time>
+ <date>2011-07-21</date>
+ <time>00:23:22</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -33,12 +33,16 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="doc">
-    <dir name="examples">
-     <file name="soap.php" role="doc" />
-     <file name="soap.pl" role="doc" />
-     <file name="xmlrpc.php" role="doc" />
-     <file name="xmlrpc.pl" role="doc" />
-    </dir> <!-- /doc/examples -->
+    <dir name="Horde">
+     <dir name="Rpc">
+      <dir name="examples">
+       <file name="soap.php" role="doc" />
+       <file name="soap.pl" role="doc" />
+       <file name="xmlrpc.php" role="doc" />
+       <file name="xmlrpc.pl" role="doc" />
+      </dir> <!-- /doc/Horde/Rpc/examples -->
+     </dir> <!-- /doc/Horde/Rpc -->
+    </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -432,10 +436,10 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="examples/soap.php" name="doc/examples/soap.php" />
-   <install as="examples/soap.pl" name="doc/examples/soap.pl" />
-   <install as="examples/xmlrpc.php" name="doc/examples/xmlrpc.php" />
-   <install as="examples/xmlrpc.pl" name="doc/examples/xmlrpc.pl" />
+   <install as="examples/soap.php" name="doc/Horde/Rpc/examples/soap.php" />
+   <install as="examples/soap.pl" name="doc/Horde/Rpc/examples/soap.pl" />
+   <install as="examples/xmlrpc.php" name="doc/Horde/Rpc/examples/xmlrpc.php" />
+   <install as="examples/xmlrpc.pl" name="doc/Horde/Rpc/examples/xmlrpc.pl" />
    <install as="Horde/Rpc.php" name="lib/Horde/Rpc.php" />
    <install as="Horde/Rpc/ActiveSync.php" name="lib/Horde/Rpc/ActiveSync.php" />
    <install as="Horde/Rpc/Exception.php" name="lib/Horde/Rpc/Exception.php" />
@@ -637,7 +641,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-05</date>
+   <date>2011-07-21</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * 

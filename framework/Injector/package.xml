@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:12:43</time>
+ <date>2011-07-21</date>
+ <time>10:31:21</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -29,22 +29,18 @@
    <dir name="doc">
     <dir name="Horde">
      <dir name="Injector">
+      <dir name="examples">
+       <file name="annotatedsetters.php" role="doc" />
+       <file name="binder.php" role="doc" />
+       <file name="closure.php" role="doc" />
+       <file name="factory.php" role="doc" />
+       <file name="implementation.php" role="doc" />
+       <file name="setget.php" role="doc" />
+      </dir> <!-- /doc/Horde/Injector/examples -->
       <file name="Readme.html" role="doc" />
      </dir> <!-- /doc/Horde/Injector -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
-   <dir name="examples">
-    <dir name="Horde">
-     <dir name="Injector">
-      <file name="annotatedsetters.php" role="doc" />
-      <file name="binder.php" role="doc" />
-      <file name="closure.php" role="doc" />
-      <file name="factory.php" role="doc" />
-      <file name="implementation.php" role="doc" />
-      <file name="setget.php" role="doc" />
-     </dir> <!-- /examples/Horde/Injector -->
-    </dir> <!-- /examples/Horde -->
-   </dir> <!-- /examples -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Injector">
@@ -100,13 +96,13 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="Horde/Injector/Readme.html" name="doc/Horde/Injector/Readme.html" />
-   <install as="Horde/Injector/annotatedsetters.php" name="examples/Horde/Injector/annotatedsetters.php" />
-   <install as="Horde/Injector/binder.php" name="examples/Horde/Injector/binder.php" />
-   <install as="Horde/Injector/closure.php" name="examples/Horde/Injector/closure.php" />
-   <install as="Horde/Injector/factory.php" name="examples/Horde/Injector/factory.php" />
-   <install as="Horde/Injector/implementation.php" name="examples/Horde/Injector/implementation.php" />
-   <install as="Horde/Injector/setget.php" name="examples/Horde/Injector/setget.php" />
+   <install as="Readme.html" name="doc/Horde/Injector/Readme.html" />
+   <install as="examples/annotatedsetters.php" name="doc/Horde/Injector/examples/annotatedsetters.php" />
+   <install as="examples/binder.php" name="doc/Horde/Injector/examples/binder.php" />
+   <install as="examples/closure.php" name="doc/Horde/Injector/examples/closure.php" />
+   <install as="examples/factory.php" name="doc/Horde/Injector/examples/factory.php" />
+   <install as="examples/implementation.php" name="doc/Horde/Injector/examples/implementation.php" />
+   <install as="examples/setget.php" name="doc/Horde/Injector/examples/setget.php" />
    <install as="Horde/Injector.php" name="lib/Horde/Injector.php" />
    <install as="Horde/Injector/Binder.php" name="lib/Horde/Injector/Binder.php" />
    <install as="Horde/Injector/DependencyFinder.php" name="lib/Horde/Injector/DependencyFinder.php" />
@@ -212,7 +208,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-07-21</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * 

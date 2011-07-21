@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-13</date>
- <time>16:23:55</time>
+ <date>2011-07-21</date>
+ <time>00:23:48</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -35,20 +35,26 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="doc">
-    <dir name="examples">
-     <file name="devinf.wbxml" role="doc" />
-     <file name="k500i_client_0.wbxml" role="doc" />
-     <file name="k700i_syncml_client_0.wbxml" role="doc" />
-     <file name="MotorolaA780.wbxml" role="doc" />
-     <file name="syncml_client_packet_1.xml" role="doc" />
-     <file name="syncml_client_packet_2.xml" role="doc" />
-     <file name="syncml_client_packet_3.wbxml" role="doc" />
-     <file name="syncml_client_packet_4.wbxml" role="doc" />
-     <file name="syncml_client_packet_5.wbxml" role="doc" />
-     <file name="syncml_server_packet_1.wbxml" role="doc" />
-     <file name="syncml_server_packet_1.xml" role="doc" />
-     <file name="z600_client_0.wbxml" role="doc" />
-    </dir> <!-- /doc/examples -->
+    <dir name="Horde">
+     <dir name="Xml">
+      <dir name="Wbxml">
+       <dir name="examples">
+        <file name="devinf.wbxml" role="doc" />
+        <file name="k500i_client_0.wbxml" role="doc" />
+        <file name="k700i_syncml_client_0.wbxml" role="doc" />
+        <file name="MotorolaA780.wbxml" role="doc" />
+        <file name="syncml_client_packet_1.xml" role="doc" />
+        <file name="syncml_client_packet_2.xml" role="doc" />
+        <file name="syncml_client_packet_3.wbxml" role="doc" />
+        <file name="syncml_client_packet_4.wbxml" role="doc" />
+        <file name="syncml_client_packet_5.wbxml" role="doc" />
+        <file name="syncml_server_packet_1.wbxml" role="doc" />
+        <file name="syncml_server_packet_1.xml" role="doc" />
+        <file name="z600_client_0.wbxml" role="doc" />
+       </dir> <!-- /doc/Horde/Xml/Wbxml/examples -->
+      </dir> <!-- /doc/Horde/Xml/Wbxml -->
+     </dir> <!-- /doc/Horde/Xml -->
+    </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -104,18 +110,18 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="examples/devinf.wbxml" name="doc/examples/devinf.wbxml" />
-   <install as="examples/k500i_client_0.wbxml" name="doc/examples/k500i_client_0.wbxml" />
-   <install as="examples/k700i_syncml_client_0.wbxml" name="doc/examples/k700i_syncml_client_0.wbxml" />
-   <install as="examples/MotorolaA780.wbxml" name="doc/examples/MotorolaA780.wbxml" />
-   <install as="examples/syncml_client_packet_1.xml" name="doc/examples/syncml_client_packet_1.xml" />
-   <install as="examples/syncml_client_packet_2.xml" name="doc/examples/syncml_client_packet_2.xml" />
-   <install as="examples/syncml_client_packet_3.wbxml" name="doc/examples/syncml_client_packet_3.wbxml" />
-   <install as="examples/syncml_client_packet_4.wbxml" name="doc/examples/syncml_client_packet_4.wbxml" />
-   <install as="examples/syncml_client_packet_5.wbxml" name="doc/examples/syncml_client_packet_5.wbxml" />
-   <install as="examples/syncml_server_packet_1.wbxml" name="doc/examples/syncml_server_packet_1.wbxml" />
-   <install as="examples/syncml_server_packet_1.xml" name="doc/examples/syncml_server_packet_1.xml" />
-   <install as="examples/z600_client_0.wbxml" name="doc/examples/z600_client_0.wbxml" />
+   <install as="examples/devinf.wbxml" name="doc/Horde/Xml/Wbxml/examples/devinf.wbxml" />
+   <install as="examples/k500i_client_0.wbxml" name="doc/Horde/Xml/Wbxml/examples/k500i_client_0.wbxml" />
+   <install as="examples/k700i_syncml_client_0.wbxml" name="doc/Horde/Xml/Wbxml/examples/k700i_syncml_client_0.wbxml" />
+   <install as="examples/MotorolaA780.wbxml" name="doc/Horde/Xml/Wbxml/examples/MotorolaA780.wbxml" />
+   <install as="examples/syncml_client_packet_1.xml" name="doc/Horde/Xml/Wbxml/examples/syncml_client_packet_1.xml" />
+   <install as="examples/syncml_client_packet_2.xml" name="doc/Horde/Xml/Wbxml/examples/syncml_client_packet_2.xml" />
+   <install as="examples/syncml_client_packet_3.wbxml" name="doc/Horde/Xml/Wbxml/examples/syncml_client_packet_3.wbxml" />
+   <install as="examples/syncml_client_packet_4.wbxml" name="doc/Horde/Xml/Wbxml/examples/syncml_client_packet_4.wbxml" />
+   <install as="examples/syncml_client_packet_5.wbxml" name="doc/Horde/Xml/Wbxml/examples/syncml_client_packet_5.wbxml" />
+   <install as="examples/syncml_server_packet_1.wbxml" name="doc/Horde/Xml/Wbxml/examples/syncml_server_packet_1.wbxml" />
+   <install as="examples/syncml_server_packet_1.xml" name="doc/Horde/Xml/Wbxml/examples/syncml_server_packet_1.xml" />
+   <install as="examples/z600_client_0.wbxml" name="doc/Horde/Xml/Wbxml/examples/z600_client_0.wbxml" />
    <install as="Horde/Xml/Wbxml.php" name="lib/Horde/Xml/Wbxml.php" />
    <install as="Horde/Xml/Wbxml/ContentHandler.php" name="lib/Horde/Xml/Wbxml/ContentHandler.php" />
    <install as="Horde/Xml/Wbxml/Decoder.php" name="lib/Horde/Xml/Wbxml/Decoder.php" />
@@ -214,7 +220,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-13</date>
+   <date>2011-07-21</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Fix incorrect syncml:metinf and syncml:devinf URNs (Bug #10229).

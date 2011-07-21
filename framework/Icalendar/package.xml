@@ -18,8 +18,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-05</date>
- <time>14:39:41</time>
+ <date>2011-07-21</date>
+ <time>10:29:07</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -34,18 +34,20 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="examples">
+   <dir name="doc">
     <dir name="Horde">
      <dir name="Icalendar">
-      <file name="exchange.ics" role="doc" />
-      <file name="exdate.ics" role="doc" />
-      <file name="ical.ics" role="doc" />
-      <file name="parser.php" role="doc" />
-      <file name="test_recurring.vcs" role="doc" />
-      <file name="vnote.txt" role="doc" />
-     </dir> <!-- /examples/Horde/Icalendar -->
-    </dir> <!-- /examples/Horde -->
-   </dir> <!-- /examples -->
+      <dir name="examples">
+       <file name="exchange.ics" role="doc" />
+       <file name="exdate.ics" role="doc" />
+       <file name="ical.ics" role="doc" />
+       <file name="parser.php" role="doc" />
+       <file name="test_recurring.vcs" role="doc" />
+       <file name="vnote.txt" role="doc" />
+      </dir> <!-- /doc/Horde/Icalendar/examples -->
+     </dir> <!-- /doc/Horde/Icalendar -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Icalendar">
@@ -427,12 +429,12 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="Horde/Icalendar/exchange.ics" name="examples/Horde/Icalendar/exchange.ics" />
-   <install as="Horde/Icalendar/exdate.ics" name="examples/Horde/Icalendar/exdate.ics" />
-   <install as="Horde/Icalendar/ical.ics" name="examples/Horde/Icalendar/ical.ics" />
-   <install as="Horde/Icalendar/parser.php" name="examples/Horde/Icalendar/parser.php" />
-   <install as="Horde/Icalendar/test_recurring.vcs" name="examples/Horde/Icalendar/test_recurring.vcs" />
-   <install as="Horde/Icalendar/vnote.txt" name="examples/Horde/Icalendar/vnote.txt" />
+   <install as="examples/exchange.ics" name="doc/Horde/Icalendar/examples/exchange.ics" />
+   <install as="examples/exdate.ics" name="doc/Horde/Icalendar/examples/exdate.ics" />
+   <install as="examples/ical.ics" name="doc/Horde/Icalendar/examples/ical.ics" />
+   <install as="examples/parser.php" name="doc/Horde/Icalendar/examples/parser.php" />
+   <install as="examples/test_recurring.vcs" name="doc/Horde/Icalendar/examples/test_recurring.vcs" />
+   <install as="examples/vnote.txt" name="doc/Horde/Icalendar/examples/vnote.txt" />
    <install as="Horde/Icalendar.php" name="lib/Horde/Icalendar.php" />
    <install as="Horde/Icalendar/Daylight.php" name="lib/Horde/Icalendar/Daylight.php" />
    <install as="Horde/Icalendar/Exception.php" name="lib/Horde/Icalendar/Exception.php" />
@@ -756,7 +758,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-05</date>
+   <date>2011-07-21</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * 

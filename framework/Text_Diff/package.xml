@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-20</date>
- <time>15:35:51</time>
+ <date>2011-07-21</date>
+ <time>00:23:34</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -34,11 +34,17 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="doc">
-    <dir name="examples">
-     <file name="1.txt" role="doc" />
-     <file name="2.txt" role="doc" />
-     <file name="diff.php" role="doc" />
-    </dir> <!-- /doc/examples -->
+    <dir name="Horde">
+     <dir name="Text">
+      <dir name="Diff">
+       <dir name="examples">
+        <file name="1.txt" role="doc" />
+        <file name="2.txt" role="doc" />
+        <file name="diff.php" role="doc" />
+       </dir> <!-- /doc/Horde/Text/Diff/examples -->
+      </dir> <!-- /doc/Horde/Text/Diff -->
+     </dir> <!-- /doc/Horde/Text -->
+    </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -138,9 +144,9 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="examples/1.txt" name="doc/examples/1.txt" />
-   <install as="examples/2.txt" name="doc/examples/2.txt" />
-   <install as="examples/diff.php" name="doc/examples/diff.php" />
+   <install as="examples/1.txt" name="doc/Horde/Text/Diff/examples/1.txt" />
+   <install as="examples/2.txt" name="doc/Horde/Text/Diff/examples/2.txt" />
+   <install as="examples/diff.php" name="doc/Horde/Text/Diff/examples/diff.php" />
    <install as="Horde/Text/Diff.php" name="lib/Horde/Text/Diff.php" />
    <install as="Horde/Text/Diff/Exception.php" name="lib/Horde/Text/Diff/Exception.php" />
    <install as="Horde/Text/Diff/Mapped.php" name="lib/Horde/Text/Diff/Mapped.php" />
@@ -289,7 +295,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-20</date>
+   <date>2011-07-21</date>
    <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
    <notes>
 * 

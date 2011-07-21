@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:18:22</time>
+ <date>2011-07-21</date>
+ <time>10:40:09</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -26,13 +26,15 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="examples">
+   <dir name="doc">
     <dir name="Horde">
      <dir name="Scribe">
-      <file name="scribe.php" role="php" />
-     </dir> <!-- /examples/Horde/Scribe -->
-    </dir> <!-- /examples/Horde -->
-   </dir> <!-- /examples -->
+      <dir name="examples">
+       <file name="scribe.php" role="doc" />
+      </dir> <!-- /doc/Horde/Scribe/examples -->
+     </dir> <!-- /doc/Horde/Scribe -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Scribe">
@@ -65,7 +67,7 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="examples/Horde/Scribe/scribe.php" name="examples/Horde/Scribe/scribe.php" />
+   <install as="examples/scribe.php" name="doc/Horde/Scribe/examples/scribe.php" />
    <install as="Horde/Scribe.php" name="lib/Horde/Scribe.php" />
    <install as="Horde/Scribe/Client.php" name="lib/Horde/Scribe/Client.php" />
    <install as="Horde/Thrift/thrift_root/scribe.php" name="lib/Horde/Thrift/thrift_root/scribe.php" />
@@ -156,7 +158,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-07-21</date>
    <license uri="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</license>
    <notes>
 * 
