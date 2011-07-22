@@ -2,6 +2,7 @@
 v3.0.6-git
 ----------
 
+[mjr] Fix removing an exception from a recurrence series (Bug # 10365).
 [jan] Close session while listing events to speed up parallel loading from
       different calendars.
 [jan] Share list of displayed task lists with Nag (requires Nag 3.0.3).
