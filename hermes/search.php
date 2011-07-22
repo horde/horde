@@ -82,14 +82,15 @@ $print_view = (bool)$vars->get('print');
 if (!$print_view) {
     Horde::addScriptFile('popup.js', 'horde', true);
 }
-require $registry->get('templates', 'horde') . '/common-header.inc';
-
 if (!($searchVars = $session->get('hermes', 'search_criteria'))) {
     $searchVars = $vars;
 }
 $form = new Hermes_Form_Search($searchVars);
 $print_link = Horde::url('search.php')->add('print', 'true');
-require HERMES_TEMPLATES . '/menu.inc';
+
+require $registry->get('templates', 'horde') . '/common-header.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 $form->renderActive(new Horde_Form_Renderer(), $searchVars, 'search.php', 'post');
 echo '<br />';
 

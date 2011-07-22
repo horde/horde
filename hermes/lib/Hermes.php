@@ -75,45 +75,6 @@ class Hermes
     }
 
     /**
-     * Build Hermes' list of menu items.
-     */
-    public static function getMenu($returnType = 'object')
-    {
-        global $registry, $conf, $print_link;
-
-        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
-
-        $menu = new Horde_Menu();
-        $menu->add(Horde::url('time.php'), _("My _Time"), 'hermes.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        $menu->add(Horde::url('entry.php'), _("_New Time"), 'hermes.png', null, null, null, Horde_Util::getFormData('id') ? '__noselection' : null);
-        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
-
-        if ($conf['time']['deliverables'] && $registry->isAdmin(array('permission' => 'hermes:deliverables'))) {
-            $menu->add(Horde::url('deliverables.php'), _("_Deliverables"), 'hermes.png');
-        }
-
-        if ($conf['invoices']['driver'] && $registry->isAdmin(array('permission' => 'hermes:invoicing'))) {
-            $menu->add(Horde::url('invoicing.php'), _("_Invoicing"), 'invoices.png');
-        }
-
-        /* Print. */
-        if ($conf['menu']['print'] && isset($print_link)) {
-            $menu->add($print_link, _("_Print"), 'print.png', '', '_blank', 'popup(this.href); return false;', '__noselection');
-        }
-
-        /* Administration. */
-        if ($registry->isAdmin()) {
-            $menu->add(Horde::url('admin.php'), _("_Admin"), 'hermes.png');
-        }
-
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
-    }
-
-    /**
      * Determines if the current user can edit a specific timeslice according to
      * the following rules: 'hermes:review' perms may edit any slice, the
      * current user can edit his/her own slice prior to submitting it. Otherwise
