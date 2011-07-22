@@ -1883,7 +1883,7 @@ abstract class Kronolith_Event
         $formatted = $horde_date->strftime($GLOBALS['prefs']->getValue('date_format'));
         return $formatted
             . Horde::url('edit.php')
-            ->add(array('calendar' => $this->calendar,
+            ->add(array('calendar' => $this->calendarType . '_' .$this->calendar,
                         'eventID' => $this->id,
                         'del_exception' => $date,
                         'url' => Horde_Util::getFormData('url')))
