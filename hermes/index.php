@@ -28,6 +28,7 @@ if ($help_link) {
 $today = new Horde_Date();
 Hermes::header();
 echo "<body class=\"hermesAjax\">\n";
+$menu = new Horde_Menu();
 require HERMES_TEMPLATES . '/index/index.inc';
 Horde::includeScriptFiles();
 Horde::outputInlineScript();
