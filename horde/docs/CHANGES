@@ -2,6 +2,7 @@
 v4.0.8-git
 ----------
 
+[mjr] use AS in column aliases to make postgres happy (Bug #10346).
 [jan] Don't show mobile login page if users are forced to tradtional or dynamic
       views (Request #10358).
 [mjr] Improve calendar PING for iOS devices.

@@ -550,7 +550,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      */
     public function listDevices($user = null)
     {
-        $query = 'SELECT d.device_id device_id, device_type, device_agent,'
+        $query = 'SELECT d.device_id AS device_id, device_type, device_agent,'
             . ' device_policykey, device_rwstatus, device_user FROM '
             . $this->_syncDeviceTable . ' d INNER JOIN ' . $this->_syncUsersTable
             . ' u ON d.device_id = u.device_id';
