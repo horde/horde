@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-07-06</date>
- <time>12:28:23</time>
+ <date>2011-07-23</date>
+ <time>21:28:07</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -49,6 +49,7 @@
        <file name="control" role="data" />
        <file name="pearrc" role="data" />
        <file name="rules" role="data" />
+       <file name="watch" role="horde" />
       </dir> <!-- /data/distribute/debian/templates -->
       <file name="components.php" role="data" />
      </dir> <!-- /data/distribute/debian -->
@@ -98,6 +99,7 @@
        <file name="Single.php" role="php" />
       </dir> <!-- /lib/Components/Helper/Templates -->
       <file name="ChangeLog.php" role="horde" />
+      <file name="Commit.php" role="horde" />
       <file name="Dependencies.php" role="horde" />
       <file name="Installer.php" role="horde" />
       <file name="Root.php" role="php" />
@@ -322,7 +324,6 @@
       <dir name="Components">
        <dir name="Module">
         <file name="CiSetupTest.php" role="test" />
-        <file name="DependenciesTest.php" role="test" />
         <file name="DistributeTest.php" role="test" />
         <file name="DocumentTest.php" role="test" />
         <file name="InstallerTest.php" role="test" />
@@ -349,9 +350,11 @@
         <file name="RootTest.php" role="test" />
         <file name="TemplatesTest.php" role="test" />
         <file name="VersionDescriptionTest.php" role="test" />
+        <file name="VersionStabilityTest.php" role="test" />
         <file name="VersionTest.php" role="test" />
        </dir> <!-- /test/Components/Unit/Components/Helper -->
        <dir name="Module">
+        <file name="DependenciesTest.php" role="test" />
         <file name="SnapshotTest.php" role="test" />
         <file name="UpdateTest.php" role="test" />
        </dir> <!-- /test/Components/Unit/Components/Module -->
@@ -448,6 +451,7 @@
    <install as="distribute/debian/templates/control" name="data/distribute/debian/templates/control" />
    <install as="distribute/debian/templates/pearrc" name="data/distribute/debian/templates/pearrc" />
    <install as="distribute/debian/templates/rules" name="data/distribute/debian/templates/rules" />
+   <install as="distribute/debian/templates/watch" name="data/distribute/debian/templates/watch" />
    <install as="distribute/openpkg/package.spec" name="data/distribute/openpkg/package.spec" />
    <install as="html/index.html" name="data/html/index.html" />
    <install as="html/install.html" name="data/html/install.html" />
@@ -480,6 +484,7 @@
    <install as="Components/Dependencies/Injector.php" name="lib/Components/Dependencies/Injector.php" />
    <install as="Components/Exception/Pear.php" name="lib/Components/Exception/Pear.php" />
    <install as="Components/Helper/ChangeLog.php" name="lib/Components/Helper/ChangeLog.php" />
+   <install as="Components/Helper/Commit.php" name="lib/Components/Helper/Commit.php" />
    <install as="Components/Helper/Dependencies.php" name="lib/Components/Helper/Dependencies.php" />
    <install as="Components/Helper/Installer.php" name="lib/Components/Helper/Installer.php" />
    <install as="Components/Helper/Root.php" name="lib/Components/Helper/Root.php" />
@@ -596,7 +601,6 @@
    <install as="Components/fixture/templates/html/install.html" name="test/Components/fixture/templates/html/install.html" />
    <install as="Components/fixture/templates/rewrite/one" name="test/Components/fixture/templates/rewrite/one" />
    <install as="Components/Integration/Components/Module/CiSetupTest.php" name="test/Components/Integration/Components/Module/CiSetupTest.php" />
-   <install as="Components/Integration/Components/Module/DependenciesTest.php" name="test/Components/Integration/Components/Module/DependenciesTest.php" />
    <install as="Components/Integration/Components/Module/DistributeTest.php" name="test/Components/Integration/Components/Module/DistributeTest.php" />
    <install as="Components/Integration/Components/Module/DocumentTest.php" name="test/Components/Integration/Components/Module/DocumentTest.php" />
    <install as="Components/Integration/Components/Module/InstallerTest.php" name="test/Components/Integration/Components/Module/InstallerTest.php" />
@@ -613,7 +617,9 @@
    <install as="Components/Unit/Components/Helper/RootTest.php" name="test/Components/Unit/Components/Helper/RootTest.php" />
    <install as="Components/Unit/Components/Helper/TemplatesTest.php" name="test/Components/Unit/Components/Helper/TemplatesTest.php" />
    <install as="Components/Unit/Components/Helper/VersionDescriptionTest.php" name="test/Components/Unit/Components/Helper/VersionDescriptionTest.php" />
+   <install as="Components/Unit/Components/Helper/VersionStabilityTest.php" name="test/Components/Unit/Components/Helper/VersionStabilityTest.php" />
    <install as="Components/Unit/Components/Helper/VersionTest.php" name="test/Components/Unit/Components/Helper/VersionTest.php" />
+   <install as="Components/Unit/Components/Module/DependenciesTest.php" name="test/Components/Unit/Components/Module/DependenciesTest.php" />
    <install as="Components/Unit/Components/Module/SnapshotTest.php" name="test/Components/Unit/Components/Module/SnapshotTest.php" />
    <install as="Components/Unit/Components/Module/UpdateTest.php" name="test/Components/Unit/Components/Module/UpdateTest.php" />
    <install as="Components/Unit/Components/Release/Task/CurrentSentinelTest.php" name="test/Components/Unit/Components/Release/Task/CurrentSentinelTest.php" />
@@ -649,7 +655,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-07-06</date>
+   <date>2011-07-23</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * [gwr] Replaced use of PEAR_PackageFileManager for updating package.xml with Horde_Pear.
