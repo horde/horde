@@ -1,4 +1,4 @@
-Source: php-<?php echo $name . "\n"; ?>
+Source: <?php echo $name . "\n"; ?>
 Section: php
 Priority: extra
 Maintainer: Gunnar Wrobel <wrobel@horde.org>
@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 7.0.50~), pkg-php-tools, pear-horde-channel
 Standards-Version: 3.9.2
 Homepage: http://${phppear:channel}/
 
-Package: php-<?php echo $name . "\n"; ?>
+Package: <?php echo $name . "\n"; ?>
 Architecture: all
 <?php if (in_array($component->getName(), $applications)) { print "Provides: ".$component->getName()."\n";} ?>
 Depends: ${misc:Depends}, ${phppear:Debian-Depends}

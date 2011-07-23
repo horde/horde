@@ -22,16 +22,20 @@ $applications = array(
     'webmail'
 );
 
-if (in_array($component->getName(), $applications)) {
-    $package_name = 'horde-' . $component->getName();
-} else {
-    $package_name = $component->getName();
+if (!is_executable("/usr/share/pkg-php-tools/scripts/phppkginfo")) {
+	throw new Components_Exception(
+                sprintf(
+                    'The file "%s" does not exists or is not executable!',
+                    "/usr/share/pkg-php-tools/scripts/phppkginfo"
+                )
+            );
 }
-$package_name = strtr(strtolower($package_name), '_', '-');
+$package_name = shell_exec("/usr/share/pkg-php-tools/scripts/phppkginfo debian_pkgname pear.horde.org ".escapeshellarg($component->getName()));
+$package_version = shell_exec("/usr/share/pkg-php-tools/scripts/phppkginfo debian_version ".escapeshellarg($component->getVersion()));
 
 $archive = array_shift($component->placeArchive($destination, array("logger" => $this->_output)));
 
-$destination .= '/php-' . $package_name . '-' . $component->getVersion();
+$destination .= '/' . $package_name . '-' . $package_version;
 
 if (!file_exists($destination)) {
     mkdir($destination, 0700, true);
@@ -46,12 +50,13 @@ $build_template = new Components_Helper_Templates_Directory(
 $build_template->write(
     array(
         'name' => $package_name,
+        'version' => $package_version,
         'component' => $component,
         'applications' => $applications
     )
 );
 
 // Properly name tarball to avoid building a native debian package
-system('cd ' . $destination . ' && mv ' . $archive . ' ../php-' . $package_name . '_' . $component->getVersion() . '.orig.tar.gz');
+system('cd ' . $destination . ' && mv ' . $archive . ' ../' . $package_name . '_' . $package_version . '.orig.tar.gz');
 
 system('cd ' . $destination . ' && dpkg-buildpackage');
