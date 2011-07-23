@@ -422,31 +422,39 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         }
 
         $this->_devId = $devId;
-        $query = 'SELECT device_type, device_agent, device_ping, '
-            . 'device_policykey, device_rwstatus, device_supported FROM '
-            . $this->_syncDeviceTable . ' d INNER JOIN '
-            . $this->_syncUsersTable
-            . ' u ON d.device_id = u.device_id WHERE u.device_id = ? AND u.device_user = ?';
+        $query = 'SELECT device_type, device_agent, device_policykey, '
+            . 'device_rwstatus, device_supported FROM '
+            . $this->_syncDeviceTable . ' WHERE device_id = ?';
 
         try {
-            $result = $this->_db->selectOne($query, array($devId, $user));
+            $device_data = $this->_db->selectOne($query, array($devId));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+
+
+        $query = 'SELECT device_ping FROM ' . $this->_syncUserTable
+            . ' WHERE device_id = ? AND device_user = ?';
+
+        try {
+            $ping = $this->_db->selectValue($query, array($devId, $user));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
 
         $this->_deviceInfo = new StdClass();
         if ($result) {
-            $this->_deviceInfo->policykey = $result['device_policykey'];
-            $this->_deviceInfo->rwstatus = $result['device_rwstatus'];
-            $this->_deviceInfo->deviceType = $result['device_type'];
-            $this->_deviceInfo->userAgent = $result['device_agent'];
+            $this->_deviceInfo->policykey = $device['device_policykey'];
+            $this->_deviceInfo->rwstatus = $device['device_rwstatus'];
+            $this->_deviceInfo->deviceType = $device['device_type'];
+            $this->_deviceInfo->userAgent = $device['device_agent'];
             $this->_deviceInfo->id = $devId;
             $this->_deviceInfo->user = $user;
-            $this->_deviceInfo->supported = unserialize($result['device_supported']);
+            $this->_deviceInfo->supported = unserialize($device['device_supported']);
             if ($result['device_ping']) {
-                $this->_pingState = empty($result['device_ping']) ?
+                $this->_pingState = empty($ping) ?
                     array() :
-                    unserialize($result['device_ping']);
+                    unserialize($ping);
             } else {
                 $this->resetPingState();
             }
