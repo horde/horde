@@ -30,20 +30,6 @@ class Horde_Kolab_FreeBusy_Controller_RequestConfiguration
 implements Horde_Controller_RequestConfiguration
 {
     /**
-     * The routes match dictionary.
-     *
-     * @var Horde_Kolab_FreeBusy_Controller_MatchDict
-     */
-    private $_match_dict;
-
-    /**
-     * The prefix for controller names.
-     *
-     * @var string
-     */
-    private $_prefix;
-
-    /**
      * A fixed controller class name override.
      *
      * @var string
@@ -56,21 +42,6 @@ implements Horde_Controller_RequestConfiguration
      * @var string
      */
     private $_settings = 'Horde_Controller_SettingsExporter_Default';
-
-    /**
-     * Constructor
-     */
-    public function __construct(
-        Horde_Kolab_FreeBusy_Controller_MatchDict $match_dict, $params
-    )
-    {
-        $this->_match_dict = $match_dict;
-        if (empty($params['prefix'])) {
-            $this->_prefix = 'Horde_Kolab_FreeBusy_Controller_';
-        } else {
-            $this->_prefix = $params['prefix'];
-        }
-    }
 
     /**
      * Set a fixed override for the controller name.
@@ -91,16 +62,7 @@ implements Horde_Controller_RequestConfiguration
      */
     public function getControllerName()
     {
-        if ($this->_controller !== null) {
-            return $this->_controller;
-        }
-        $match = $this->_match_dict->getMatchDict();
-        if (empty($match['controller']) ||
-            !class_exists($this->_prefix . ucfirst($match['controller']))) {
-            return 'Horde_Kolab_FreeBusy_Controller_NotFound';
-        } else {
-            return $this->_prefix . ucfirst($match['controller']);
-        }
+        return $this->_controller;
     }
 
     /**

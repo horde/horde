@@ -82,34 +82,47 @@ extends Horde_Kolab_FreeBusy_Factory_Base
         }
         if (empty($params['config']['dir'])
             || !file_exists($routeFile)) {
-            $mapper->connect(':(callee).:(type)',
-                             array('controller'   => $params['controller'],
-                                   'action'       => 'fetch',
-                                   'requirements' => array('type'   => '(i|x|v)fb',
-                                                           'callee' => '[^/]+'),
-                             ));
+            $mapper->connect(
+                ':(callee).:(type)',
+                array(
+                    'controller'   => $params['controller'],
+                    'action'       => 'fetch',
+                    'requirements' => array(
+                        'type'   => '(i|x|v)fb',
+                        'callee' => '[^/]+'),
+                )
+            );
+            $mapper->connect(
+                'trigger/*(folder).pfb',
+                array(
+                    'controller'   => $params['controller'],
+                    'action'       => 'trigger'
+                )
+            );
 
-            $mapper->connect('trigger/*(folder).pfb',
-                             array('controller'   => $params['controller'],
-                                   'action'       => 'trigger'
-                             ));
-
-            $mapper->connect('*(folder).:(type)',
-                             array('controller'   => $params['controller'],
-                                   'action'       => 'trigger',
-                                   'requirements' => array('type' => '(p|px)fb'),
-                             ));
-
-            $mapper->connect('delete/:(callee)',
-                             array('controller'   => $params['controller'],
-                                   'action'       => 'delete',
-                                   'requirements' => array('callee' => '[^/]+'),
-                             ));
-
-            $mapper->connect('regenerate',
-                             array('controller'   => $params['controller'],
-                                   'action'       => 'regenerate',
-                             ));
+            $mapper->connect(
+                '*(folder).:(type)',
+                array(
+                    'controller'   => $params['controller'],
+                    'action'       => 'trigger',
+                    'requirements' => array('type' => '(p|px)fb'),
+                )
+            );
+            $mapper->connect(
+                'delete/:(callee)',
+                array(
+                    'controller'   => $params['controller'],
+                    'action'       => 'delete',
+                    'requirements' => array('callee' => '[^/]+'),
+                )
+            );
+            $mapper->connect(
+                'regenerate',
+                array(
+                    'controller'   => $params['controller'],
+                    'action'       => 'regenerate',
+                )
+            );
         } else {
             // Load application routes.
             include $routeFile;
@@ -125,13 +138,24 @@ extends Horde_Kolab_FreeBusy_Factory_Base
     public function createRequestConfiguration()
     {
         $configuration = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
-        $params = isset($configuration['request_config']) ? $configuration['request_config'] : array();
+        if (isset($configuration['request_config']['prefix'])) {
+            $prefix = $configuration['request_config']['prefix'];
+        } else {
+            $prefix = 'Horde_Kolab_FreeBusy_Freebusy_Controller_';
+        }
 
-        return new Horde_Kolab_FreeBusy_Controller_RequestConfiguration(
-            $this->_injector->getInstance(
-                'Horde_Kolab_FreeBusy_Controller_MatchDict'
-            ),
-            $params
-        );
+        $match = $this->_injector->getInstance(
+            'Horde_Kolab_FreeBusy_Controller_MatchDict'
+        )->getMatchDict();
+        if (empty($match['controller']) ||
+            !class_exists($prefix . ucfirst($match['controller']))) {
+            $controller = 'Horde_Kolab_FreeBusy_Controller_NotFound';
+        } else {
+            $controller = $prefix . ucfirst($match['controller']);
+        }
+
+        $conf = new Horde_Kolab_FreeBusy_Controller_RequestConfiguration();
+        $conf->setControllerName($controller);
+        return $conf;
     }
 }

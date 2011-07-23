@@ -30,28 +30,9 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-class FreebusyController extends Horde_Controller_Base
+class Horde_Kolab_FreeBusy_Freebusy_Controller_Freebusy
+extends Horde_Kolab_FreeBusy_Controller_Base
 {
-    /**
-     * A reference to the application class.
-     *
-     * @var Horde_Kolab_FreeBusy
-     */
-    private $_app;
-
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        /**
-         * The dispatcher does not know how to construct this class so we are
-         * left to fetching our dependencies ourselves. The application class is
-         * used as a service locator.
-         */
-        $this->_app = Horde_Kolab_FreeBusy::getInstance();
-    }
-
     /**
      * Fetch the free/busy data for a user.
      *

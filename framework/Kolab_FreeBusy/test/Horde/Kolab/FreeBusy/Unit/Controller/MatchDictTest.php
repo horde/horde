@@ -41,23 +41,7 @@ extends Horde_Kolab_FreeBusy_TestCase
      */
     public function testGetDict($key, $value)
     {
-        $mapper = new Horde_Routes_Mapper();
-        $mapper->connect(
-            ':(callee).:(type)',
-            array(
-                'controller'   => 'freebusy',
-                'action'       => 'fetch',
-                'requirements' => array(
-                    'type'   => '(i|x|v)fb',
-                    'callee' => '[^/]+'),
-            )
-        );
-        $request = new Horde_Controller_Request_Mock();
-        $request->setPath('/owner@example.org.xfb');
-        $dict = new Horde_Kolab_FreeBusy_Controller_MatchDict(
-            $mapper, $request
-        );
-        $result = $dict->getMatchDict();
+        $result = $this->getTestMatchDict()->getMatchDict();
         $this->assertEquals($value, $result[$key]);
     }
 

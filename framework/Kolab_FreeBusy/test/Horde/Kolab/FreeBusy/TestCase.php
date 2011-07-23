@@ -27,6 +27,13 @@
  */
 class Horde_Kolab_FreeBusy_TestCase extends PHPUnit_Framework_TestCase
 {
+    protected function getInjector()
+    {
+        return new Horde_Injector(
+            new Horde_Injector_TopLevel()
+        );
+    }
+
     protected function getDb()
     {
         return new Horde_Kolab_FreeBusy_UserDb_Kolab(
@@ -83,5 +90,25 @@ class Horde_Kolab_FreeBusy_TestCase extends PHPUnit_Framework_TestCase
             $messages[] = $event['message'];
         }
         $this->assertTrue($found, sprintf("Did not find \"%s\" in [\n%s\n]", $message, join("\n", $messages)));
+    }
+
+    protected function getTestMatchDict()
+    {
+        $mapper = new Horde_Routes_Mapper();
+        $mapper->connect(
+            ':(callee).:(type)',
+            array(
+                'controller'   => 'freebusy',
+                'action'       => 'fetch',
+                'requirements' => array(
+                    'type'   => '(i|x|v)fb',
+                    'callee' => '[^/]+'),
+            )
+        );
+        $request = new Horde_Controller_Request_Mock();
+        $request->setPath('/owner@example.org.xfb');
+        return new Horde_Kolab_FreeBusy_Controller_MatchDict(
+            $mapper, $request
+        );
     }
 }
