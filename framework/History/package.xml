@@ -2,7 +2,7 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_History</name>
  <channel>pear.horde.org</channel>
- <summary>API for tracking the history of an object.</summary>
+ <summary>API for tracking the history of an object</summary>
  <description>The Horde_History API provides a way to track changes on arbitrary pieces of data in Horde applications.</description>
  <lead>
   <name>Chuck Hagenbuch</name>

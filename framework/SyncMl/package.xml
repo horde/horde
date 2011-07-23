@@ -3,7 +3,7 @@
  <name>Horde_SyncMl</name>
  <channel>pear.horde.org</channel>
  <extends>SyncML</extends>
- <summary>Horde_SyncMl provides an API for processing SyncML requests.</summary>
+ <summary>Horde_SyncMl provides an API for processing SyncML requests</summary>
  <description>This package provides classes for implementing a SyncML server.</description>
  <lead>
   <name>Jan Schneider</name>
