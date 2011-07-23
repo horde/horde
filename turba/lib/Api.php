@@ -467,7 +467,9 @@ class Turba_Api extends Horde_Registry_Api
             }
 
             foreach ($results->objects as $o) {
-                $uids[] = $o->getValue('__uid');
+                if (!$o->isGroup()) {
+                    $uids[] = $o->getValue('__uid');
+                }
             }
         }
 
@@ -524,11 +526,22 @@ class Turba_Api extends Horde_Registry_Api
                 '>', $timestamp, $filter,
                 'turba:' . $driver->getName());
 
+
+            // Filter out groups
+            $nguids = str_replace(
+                'turba:' . $driver->getName() . ':',
+                '',
+                array_keys($histories));
+            $include = array();
+            foreach ($nguids as $id) {
+                $object = $driver->getObject($id);
+                if ($object->isGroup()) {
+                    continue;
+                }
+                $include[] = $id;
+            }
             // Strip leading turba:addressbook:.
-            $uids = array_merge($uids,
-                                str_replace('turba:' . $driver->getName() . ':',
-                                            '',
-                                            array_keys($histories)));
+            $uids = array_merge($uids, $include);
         }
 
         return $uids;
