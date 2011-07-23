@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mjr] Fix recurring event exception handling for ActiveSync.
 * Fix removing user data from applications (Bug #10241).
  </notes>
  <contents>
@@ -1506,6 +1507,7 @@
    <date>2011-07-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [mjr] Fix recurring event exception handling for ActiveSync.
 * Fix removing user data from applications (Bug #10241).
    </notes>
   </release>
