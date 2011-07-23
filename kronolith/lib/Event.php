@@ -1279,11 +1279,13 @@ abstract class Kronolith_Event
         $message->setTimezone($this->start);
 
         /* Organizer */
-        $name = Kronolith::getUserName($this->creator);
-        $message->setOrganizer(
-                array('name' => $name,
-                      'email' => Kronolith::getUserEmail($this->creator))
-        );
+        if (count($this->attendees)) {
+            $name = Kronolith::getUserName($this->creator);
+            $message->setOrganizer(
+                    array('name' => $name,
+                          'email' => Kronolith::getUserEmail($this->creator))
+            );
+        }
 
         /* Privacy */
         $message->setSensitivity($this->private ?
