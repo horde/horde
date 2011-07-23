@@ -55,9 +55,9 @@ extends PHPUnit_Framework_TestCase
             ),
             'logger' => array(
                 'Horde_Log_Handler_Null' => array(),
-            )
+            ),
         );
-        $application = new Horde_Kolab_FreeBusy('Kolab', 'Freebusy', $params);
+        $application = new Horde_Kolab_FreeBusy('Freebusy', 'Kolab', $params);
         ob_start();
         $application->dispatch();
         $output = ob_get_clean();
