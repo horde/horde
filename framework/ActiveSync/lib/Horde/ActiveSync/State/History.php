@@ -535,14 +535,14 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     public function deviceExists($devId, $user = null)
     {
         if (!empty($user)) {
-            $query = 'SELECT COUNT(*) FROM ' . $this->_syncDeviceTable . ' d INNER JOIN '
-                . $this->_syncUsersTable . ' u ON d.device_id = u.device_id WHERE '
-                . ' d.device_id = ? AND u.device_user = ?';
+            $query = 'SELECT COUNT(*) FROM ' . $this->_syncUsersTable
+                . ' WHERE device_id = ? AND device_user = ?';
             $values = array($devId, $user);
         } else {
             $query = 'SELECT COUNT(*) FROM ' . $this->_syncDeviceTable . ' WHERE device_id = ?';
             $values = array($devId);
         }
+
         try {
             return $this->_db->selectValue($query, $values);
         } catch (Horde_Db_Exception $e) {
