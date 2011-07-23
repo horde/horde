@@ -1382,7 +1382,12 @@ abstract class Kronolith_Event
                 /* Any dates left in $exceptions must be deleted exceptions */
                 foreach ($exceptions as $deleted) {
                     $e = new Horde_ActiveSync_Message_Exception();
-                    $e->setExceptionStartTime(new Horde_Date($deleted));
+                    // Kronolith stores the date only, but some AS clients need
+                    // the datetime.
+                    $st = new Horde_Date($deleted);
+                    $st->hour = $this->start->hour;
+                    $st->min = $this->start->min;
+                    $e->setExceptionStartTime($st);
                     $e->deleted = true;
                     $message->addException($e);
                 }
@@ -1395,7 +1400,7 @@ abstract class Kronolith_Event
             foreach ($this->attendees as $email => $properties) {
                 $attendee = new Horde_ActiveSync_Message_Attendee();
                 $attendee->email = $email;
-                // AS only as required or opitonal
+                // AS only as required or optional
                 //$attendee->type = ($properties['attendance'] !== Kronolith::PART_REQUIRED ? Kronolith::PART_OPTIONAL : Kronolith::PART_REQUIRED);
                 //$attendee->status = $properties['response'];
                 $message->addAttendee($attendee);
