@@ -33,12 +33,13 @@ class Horde_Kolab_FreeBusy_Factory_Base
      *
      * @var Horde_Injector
      */
-    private $_injector;
+    protected $_injector;
 
     /**
      * Constructor.
      *
-     * @param Horde_Injector $injector The injector providing required dependencies.
+     * @param Horde_Injector $injector The injector providing required
+     *                                 dependencies.
      */
     public function __construct(Horde_Injector $injector)
     {
@@ -72,6 +73,25 @@ class Horde_Kolab_FreeBusy_Factory_Base
     }
 
     /**
+     * Create the instance that will output the response.
+     *
+     * @return Horde_Controller_ResponseWriter The response writer.
+     *
+     * @throws Horde_Exception
+     */
+    public function createResponseWriter()
+    {
+        $configuration = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
+        $params = isset($configuration['writer']) ? $configuration['writer'] : array();
+        if (!empty($params['class'])) {
+            $writer_class = $params['class'];
+        } else {
+            $writer_class = 'Horde_Controller_ResponseWriter_Web';
+        }
+        return new $writer_class();
+    }
+
+    /**
      * Create the view object.
      *
      * @return Horde_View The view helper.
@@ -89,7 +109,7 @@ class Horde_Kolab_FreeBusy_Factory_Base
      *
      * @return Horde_Log_Logger The logger.
      */
-    public function getLogger()
+    public function createLogger()
     {
         $logger = new Horde_Log_Logger();
 

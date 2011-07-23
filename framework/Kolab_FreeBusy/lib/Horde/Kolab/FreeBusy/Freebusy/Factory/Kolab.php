@@ -27,34 +27,28 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  * @since    Horde 3.2
  */
-class Horde_Kolab_FreeBusy_Factory_Backend_Kolab
+class Horde_Kolab_FreeBusy_Freebusy_Factory_Kolab
+extends Horde_Kolab_FreeBusy_Freebusy_Factory_Base
 {
-    /**
-     * The injector providing required dependencies.
-     *
-     * @var Horde_Injector
-     */
-    private $_injector;
-
     /**
      * Constructor.
      *
      * @param Horde_Injector $injector The injector providing required dependencies.
      */
-    public function __construct(Horde_Injector $injector)
-    {
-        $this->_injector = $injector;
-        $this->_injector->bindFactory(
-            'Horde_Kolab_Storage_Folder',
-            __CLASS__,
-            'getFolder'
-        );
-        $this->_injector->bindFactory(
-            'Horde_Kolab_Storage_Configuration',
-            __CLASS__,
-            'getStorageConfiguration'
-        );
-    }
+    /* public function __construct(Horde_Injector $injector) */
+    /* { */
+    /*     $this->_injector = $injector; */
+    /*     $this->_injector->bindFactory( */
+    /*         'Horde_Kolab_Storage_Folder', */
+    /*         __CLASS__, */
+    /*         'getFolder' */
+    /*     ); */
+    /*     $this->_injector->bindFactory( */
+    /*         'Horde_Kolab_Storage_Configuration', */
+    /*         __CLASS__, */
+    /*         'getStorageConfiguration' */
+    /*     ); */
+    /* } */
 
     /**
      * Create the object representing the current user requesting the export.

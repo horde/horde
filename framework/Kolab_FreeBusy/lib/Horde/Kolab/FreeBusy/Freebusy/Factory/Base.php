@@ -26,30 +26,23 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-class Horde_Kolab_FreeBusy_Factory_Type_Freebusy
+class Horde_Kolab_FreeBusy_Freebusy_Factory_Base
+extends Horde_Kolab_FreeBusy_Factory_Base
 {
-    /**
-     * The injector providing required dependencies.
-     *
-     * @var Horde_Injector
-     */
-    private $_injector;
-
     /**
      * Constructor.
      *
      * @param Horde_Injector $injector The injector providing required dependencies.
      */
-    public function __construct(Horde_Injector $injector)
-    {
-        $this->_injector = $injector;
-
-        $this->_injector->bindImplementation(
-            'Horde_Kolab_FreeBusy_Export_Freebusy_Backend',
-            'Horde_Kolab_FreeBusy_Export_Freebusy_Backend_'
-            . $this->_injector->getInstance('Horde_Kolab_FreeBusy')->getBackend()
-        );
-    }
+    /* public function __construct(Horde_Injector $injector) */
+    /* { */
+    /*     $injector->bindImplementation( */
+    /*         'Horde_Kolab_FreeBusy_Export_Freebusy_Backend', */
+    /*         'Horde_Kolab_FreeBusy_Export_Freebusy_Backend_' */
+    /*         . $injector->getInstance('Horde_Kolab_FreeBusy')->getBackend() */
+    /*     ); */
+    /*     parent::__construct($injector); */
+    /* } */
 
     /**
      * Create the mapper.
