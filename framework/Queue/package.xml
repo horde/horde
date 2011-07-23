@@ -20,7 +20,6 @@
    <release>alpha</release>
    <api>alpha</api>
  </stability>
- <date>2011-03-07</date>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
 * First alpha release for Horde 4.
