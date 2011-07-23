@@ -3,8 +3,8 @@
  <name>Horde_Kolab_Format</name>
  <channel>pear.horde.org</channel>
  <extends>Kolab_Format</extends>
- <summary>A package for reading/writing Kolab data formats.</summary>
- <description>This package allows to convert Kolab data objects from XML to hashes.</description>
+ <summary>A package for reading/writing Kolab data formats</summary>
+ <description>This package converts Kolab data objects from XML to hashes.</description>
  <lead>
   <name>Gunnar Wrobel</name>
   <user>wrobel</user>

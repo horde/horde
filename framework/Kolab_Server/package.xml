@@ -3,8 +3,8 @@
  <name>Horde_Kolab_Server</name>
  <channel>pear.horde.org</channel>
  <extends>Kolab_Server</extends>
- <summary>A package for manipulating the Kolab user database.</summary>
- <description>This package allows to read/write entries in the Kolab user
+ <summary>A package for manipulating the Kolab user database</summary>
+ <description>This package reads/writes entries in the Kolab user
  database stored in LDAP.</description>
  <lead>
   <name>Gunnar Wrobel</name>
@@ -661,7 +661,7 @@
 * Use class variables to represent objectClass attributes. Thus it
   is possible to accomodate for variable attribute names.
 * Cleaner class structure that matches the objectClass structure and
-  also allows to represent logical classes.
+  also allows one to represent logical classes.
 * Separate classes to handle the LDAP tree structure in a more
   flexible way.
 * Added LDAP write support.

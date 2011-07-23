@@ -3,7 +3,7 @@
  <name>Horde_Translation</name>
  <channel>pear.horde.org</channel>
  <summary>Horde translation library</summary>
- <description>.</description>
+ <description>Translation wrappers.</description>
  <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
