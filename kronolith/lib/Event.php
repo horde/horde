@@ -1422,7 +1422,9 @@ abstract class Kronolith_Event
 //        }
 
         /* Reminder */
-        $message->setReminder($this->alarm);
+        if ($this->alarm) {
+            $message->setReminder($this->alarm);
+        }
 
         /* Categories (tags) */
         foreach ($this->tags as $tag) {
