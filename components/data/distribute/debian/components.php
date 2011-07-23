@@ -29,7 +29,7 @@ if (in_array($component->getName(), $applications)) {
 }
 $package_name = strtr(strtolower($package_name), '_', '-');
 
-$archive = array_shift($component->placeArchive($destination, array()));
+$archive = array_shift($component->placeArchive($destination, array("logger" => $this->_output)));
 
 $destination .= '/php-' . $package_name . '-' . $component->getVersion();
 
