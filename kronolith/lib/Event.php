@@ -777,18 +777,28 @@ abstract class Kronolith_Event
             $search = new StdClass();
             $search->baseid = $this->uid;
             $results = $kronolith_driver->search($search);
+            $exdates = array();
             foreach ($results as $days) {
                 foreach ($days as $exceptionEvent) {
                     // Need to change the UID so it links to the original
-                    // recurring event.
-                    $exceptionEvent->uid = $this->uid;
+                    // recurring event, but only if not using $v1. If using $v1,
+                    // we add the date to EXDATE and do NOT change the UID.
+                    if (!$v1) {
+                        $exceptionEvent->uid = $this->uid;
+                    }
                     $vEventException = $exceptionEvent->toiCalendar($calendar);
+
                     // This should never happen, but protect against it anyway.
                     if (count($vEventException) > 1) {
                         throw new Kronolith_Exception(_("Unable to parse event."));
                     }
                     $vEventException = array_pop($vEventException);
-                    $vEventException->setAttribute('RECURRENCE-ID', $exceptionEvent->exceptionoriginaldate->timestamp());
+                    // If $v1, need to add to EXDATE and
+                    if (!$v1) {
+                        $vEventException->setAttribute('RECURRENCE-ID', $exceptionEvent->exceptionoriginaldate->timestamp());
+                    } else {
+                        $exdates[] = $exceptionEvent->exceptionoriginaldate;
+                    }
                     $originaldate = $exceptionEvent->exceptionoriginaldate->format('Ymd');
                     $key = array_search($originaldate, $exceptions);
                     if ($key !== false) {
@@ -799,7 +809,6 @@ abstract class Kronolith_Event
             }
 
             /* The remaining exceptions represent deleted recurrences */
-            $exdates = array();
             foreach ($exceptions as $exception) {
                 if (!empty($exception)) {
                     list($year, $month, $mday) = sscanf($exception, '%04d%02d%02d');
