@@ -8,6 +8,7 @@ Homepage: http://${phppear:channel}/
 
 Package: php-<?php echo $name . "\n"; ?>
 Architecture: all
+<?php if (in_array($component->getName(), $applications)) { print "Provides: ".$component->getName()."\n";} ?>
 Depends: ${misc:Depends}, ${phppear:Debian-Depends}
 Recommends: ${phppear:Debian-Recommends}
 Breaks: ${phppear:Debian-Breaks}
