@@ -111,7 +111,12 @@ case 'Soap':
 }
 
 /* Load the RPC backend based on $serverType. */
-$server = Horde_Rpc::factory($serverType, $request, $params);
+try {
+    $server = Horde_Rpc::factory($serverType, $request, $params);
+} catch (Horde_Rpc_Exception $e) {
+    Horde::logMessage($e, 'ERR');
+    header('HTTP/1.1 501 Not Implemented');
+}
 
 /* Let the backend check authentication. By default, we look for HTTP
  * basic authentication against Horde, but backends can override this
