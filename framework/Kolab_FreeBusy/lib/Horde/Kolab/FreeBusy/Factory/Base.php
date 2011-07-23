@@ -26,7 +26,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-class Horde_Kolab_FreeBusy_Factory_Base
+abstract class Horde_Kolab_FreeBusy_Factory_Base
+implements Horde_Kolab_FreeBusy_Factory
 {
     /**
      * The injector providing required dependencies.

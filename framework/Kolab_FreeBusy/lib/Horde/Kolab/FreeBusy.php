@@ -130,6 +130,9 @@ class Horde_Kolab_FreeBusy
      */
     public function bindings()
     {
+        $this->_injector->bindImplementation(
+            'Horde_Kolab_FreeBusy_Factory', $this->_factory
+        );
         $this->_injector->bindFactory(
             'Horde_Routes_Mapper', $this->_factory, 'createMapper'
         );
