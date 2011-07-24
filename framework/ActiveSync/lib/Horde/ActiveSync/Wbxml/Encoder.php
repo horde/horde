@@ -394,7 +394,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _logEndTag()
     {
-        $spaces = str_repeat(' ', count($this->_logStack));
+        $spaces = str_repeat(' ', count($this->_logStack) - 1);
         $tag = array_pop($this->_logStack);
         $this->_logger->debug(sprintf('O %s <%s/>', $spaces, $tag));
     }
@@ -408,7 +408,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _logContent($content)
     {
-        $spaces = str_repeat(' ', count($this->_logStack));
+        $spaces = str_repeat(' ', count($this->_logStack) + 1);
         $this->_logger->debug('O ' . $spaces . $content);
     }
 
