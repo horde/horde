@@ -245,6 +245,7 @@ abstract class Horde_ActiveSync_State_Base
      */
     public function resetPingState()
     {
+        $this->_logger->debug('Resetting PING state');
         $this->_pingState = array(
             'lifetime' => 0,
             'collections' => array());
