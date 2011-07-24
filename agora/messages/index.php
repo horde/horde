@@ -208,8 +208,6 @@ if (!$messages->hasPermission(Horde_Perms::EDIT)) {
     $view->form = Horde::endBuffer();
 }
 
-Horde::addScriptFile('hideable.js', 'horde', true);
-Horde::addScriptFile('stripe.js', 'horde', true);
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $view->render($template_file);
 require $registry->get('templates', 'horde') . '/common-footer.inc';
