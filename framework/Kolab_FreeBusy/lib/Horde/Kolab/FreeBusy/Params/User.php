@@ -31,11 +31,11 @@
 class Horde_Kolab_FreeBusy_Params_User
 {
     /**
-     * The request variables.
+     * The request.
      *
-     * @var array
+     * @var Horde_Controller_Request
      */
-    private $_vars;
+    private $_request;
 
     /**
      * The user id.
@@ -54,11 +54,11 @@ class Horde_Kolab_FreeBusy_Params_User
     /**
      * Constructor.
      *
-     * @param array $var The request variables.
+     * @param Horde_Controller_Request $request The request.
      */
-    public function __construct($vars = array())
+    public function __construct(Horde_Controller_Request $request)
     {
-        $this->_vars = $vars;
+        $this->_request = $request;
         $this->_extractUserAndPassword();
     }
 
@@ -89,8 +89,9 @@ class Horde_Kolab_FreeBusy_Params_User
      */
     private function _extractUserAndPassword()
     {
-        $this->_user = isset($this->_vars['PHP_AUTH_USER']) ? $this->_vars['PHP_AUTH_USER'] : null;
-        $this->_pass = isset($this->_vars['PHP_AUTH_PW']) ? $this->_vars['PHP_AUTH_PW'] : null;
+        $vars = $this->_request->getServerVars();
+        $this->_user = isset($vars['PHP_AUTH_USER']) ? $vars['PHP_AUTH_USER'] : null;
+        $this->_pass = isset($vars['PHP_AUTH_PW']) ? $vars['PHP_AUTH_PW'] : null;
 
         // This part allows you to use the PHP scripts with CGI rather than as
         // an apache module. This will of course slow down things but on the
@@ -120,7 +121,7 @@ class Horde_Kolab_FreeBusy_Params_User
         //    RewriteRule ^(.+)\.pxfb         pfb.php?folder=$1&cache=1&extended=1  [L]
         //  </IfModule>
         if (empty($this->_user)) {
-            $remote_user = isset($this->_vars['REDIRECT_REDIRECT_REMOTE_USER']) ? $this->_vars['REDIRECT_REDIRECT_REMOTE_USER'] : null;
+            $remote_user = isset($vars['REDIRECT_REDIRECT_REMOTE_USER']) ? $vars['REDIRECT_REDIRECT_REMOTE_USER'] : null;
             if (!empty($remote_user)) {
                 $a = base64_decode(substr($remote_user, 6));
                 if (strlen($a) > 0 && strpos($a, ':') !== false) {

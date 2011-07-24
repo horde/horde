@@ -37,15 +37,13 @@ extends PHPUnit_Framework_TestCase
 {
     public function testGetId()
     {
-        $param = new Horde_Kolab_FreeBusy_Params_User(
-            array('PHP_AUTH_USER' => 'test')
-        );
+        $param = $this->_getUserParam(array('PHP_AUTH_USER' => 'test'));
         $this->assertEquals('test', $param->getId());
     }
 
     public function testGetCredentials()
     {
-        $param = new Horde_Kolab_FreeBusy_Params_User(
+        $param = $this->_getUserParam(
             array(
                 'PHP_AUTH_USER' => 'test',
                 'PHP_AUTH_PW' => 'pw'
@@ -56,19 +54,19 @@ extends PHPUnit_Framework_TestCase
 
     public function testEmpty()
     {
-        $param = new Horde_Kolab_FreeBusy_Params_User();
+        $param = $this->_getUserParam(array());
         $this->assertEquals('', $param->getId());
     }
 
     public function testCredentials()
     {
-        $param = new Horde_Kolab_FreeBusy_Params_User();
+        $param = $this->_getUserParam(array());
         $this->assertEquals(array('', null), $param->getCredentials());
     }
 
     public function testCgi()
     {
-        $param = new Horde_Kolab_FreeBusy_Params_User(
+        $param = $this->_getUserParam(
             array(
                 'REDIRECT_REDIRECT_REMOTE_USER' => '123456' . base64_encode('test:TEST')
             )
@@ -76,4 +74,13 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('test', 'TEST'), $param->getCredentials());
     }
 
+    private function _getUserParam($vars)
+    {
+        return new Horde_Kolab_FreeBusy_Params_User(
+            new Horde_Controller_Request_Mock(
+                array('server' => $vars)
+            )
+        );
+
+    }
 }
