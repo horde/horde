@@ -659,7 +659,7 @@
    <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="vtodo/todo.ics" name="docs/vtodo/todo.ics" />
    <install as="nag/js/calendar.js" name="js/calendar.js" />
-   <install as=".htaccess" name="lib/.htaccess" />
+   <install as="nag/lib/.htaccess" name="lib/.htaccess" />
    <install as="nag/lib/Api.php" name="lib/Api.php" />
    <install as="nag/lib/Application.php" name="lib/Application.php" />
    <install as="nag/lib/Driver.php" name="lib/Driver.php" />
