@@ -83,13 +83,13 @@ extends Horde_Kolab_FreeBusy_Factory_Base
         if (empty($params['config']['dir'])
             || !file_exists($routeFile)) {
             $mapper->connect(
-                ':(callee).:(type)',
+                ':(owner).:(type)',
                 array(
                     'controller'   => $params['controller'],
                     'action'       => 'fetch',
                     'requirements' => array(
                         'type'   => '(i|x|v)fb',
-                        'callee' => '[^/]+'),
+                        'owner' => '[^/]+'),
                 )
             );
             $mapper->connect(
@@ -109,11 +109,11 @@ extends Horde_Kolab_FreeBusy_Factory_Base
                 )
             );
             $mapper->connect(
-                'delete/:(callee)',
+                'delete/:(owner)',
                 array(
                     'controller'   => $params['controller'],
                     'action'       => 'delete',
-                    'requirements' => array('callee' => '[^/]+'),
+                    'requirements' => array('owner' => '[^/]+'),
                 )
             );
             $mapper->connect(
