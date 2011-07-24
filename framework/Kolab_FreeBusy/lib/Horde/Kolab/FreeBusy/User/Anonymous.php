@@ -40,6 +40,16 @@ implements Horde_Kolab_FreeBusy_User
     }
 
     /**
+     * Return the password of the user accessing the system.
+     *
+     * @return string The password.
+     */
+    public function getPassword()
+    {
+        return '';
+    }
+
+    /**
      * Return the primary domain of the user accessing the system.
      *
      * @return string The primary domain.
