@@ -13,8 +13,6 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ulaform', array('admin' => true));
 
-require_once 'Horde/Form/Action.php';
-
 /* Get some variables. */
 $changed_action = false;
 $vars = Horde_Variables::getDefaultVariables();
@@ -89,28 +87,25 @@ if ($formname && !$changed_action) {
 
     if ($form->isValid()) {
         $form->getInfo($vars, $info);
-        $form_id = $ulaform_driver->saveForm($info);
-        if (is_a($form_id, 'PEAR_Error')) {
-            Horde::logMessage($form_id, 'ERR');
-            $notification->push(sprintf(_("Error saving form. %s."), $form_id->getMessage()), 'horde.error');
-        } else {
+        try {
+            $form_id = $ulaform_driver->saveForm($info);
             $notification->push(_("Form details saved."), 'horde.success');
-            $url = Horde::url('forms.php', true);
-            header('Location: ' . $url);
-            exit;
+            Horde::url('forms.php', true)->redirect();
+        } catch (Ulaform_Exception $e) {
+            $notification->push(sprintf(_("Error saving form. %s."), $e->getMessage()), 'horde.error');
         }
     }
 }
 
 /* Render the form. */
-$template = $injector->getInstance('Horde_Template');
+$view = new Horde_View(array('templatePath' => ULAFORM_TEMPLATES));
 Horde::startBuffer();
 $form->renderActive(new Horde_Form_Renderer(), $vars, 'edit.php', 'post');
-$template->set('main', Horde::endBuffer());
+$view->main = Horde::endBuffer();
 
 $title = _("Edit Forms");
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
-echo $template->fetch(ULAFORM_TEMPLATES . '/main/main.html');
+echo $view->render('main');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

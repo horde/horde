@@ -42,6 +42,12 @@
    - https://github.com/Behat/Behat-documentation/blob/master/en/Makefile [Behat docs]
    - http://sphinx.pocoo.org/intro.html
 
+   rST:
+
+   - http://docutils.sourceforge.net/docs/user/rst/cheatsheet.txt
+   - http://svn.php.net/viewvc/pear/packages/Text_Wiki/trunk/Text/Wiki/Render/Xhtml/
+   - 
+
    Elements:
 
    - Name
@@ -73,3 +79,16 @@
 
  - Allow preparing a PHAR install package
 
+ - Debian packaging: 
+
+   Links:
+
+   - http://anonscm.debian.org/gitweb/?p=pkg-horde/pkg-php-tools.git;a=summary
+   - http://lists.alioth.debian.org/pipermail/pkg-php-pear/2011-June/000129.html
+
+ - General ideas / links:
+
+   - http://blog.stuartherbert.com/php/2011/04/09/gathering-requirements-for-a-pear-channel-aggregator/
+   - https://github.com/naderman/composer/blob/master/src/Composer/Composer.php
+   - http://symfony2bundles.org/api
+   - http://blog.astrumfutura.com/2011/06/how-would-you-engineer-a-pear2pyrus-distribution-architecture/

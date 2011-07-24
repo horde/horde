@@ -356,7 +356,8 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      * @return stdClass  See Horde_Crypt_Pgp::decrypt().
      * @throws Horde_Crypt_Exception
      */
-    public function verifySignature($text, $address, $signature = '')
+    public function verifySignature($text, $address, $signature = '',
+                                    $charset = null)
     {
         if (!empty($signature)) {
             $packet_info = $this->pgpPacketInformation($signature);
@@ -378,6 +379,10 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             $options = array('type' => 'detached-signature', 'signature' => $signature);
         }
         $options['pubkey'] = $public_key;
+
+        if (!empty($charset)) {
+            $options['charset'] = $charset;
+        }
 
         return $this->decrypt($text, $options);
     }

@@ -243,7 +243,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         /* Add unused cid information. */
         if ($related_part &&
-            $unused = array_diff($this->_imptmp['cid'], $this->_imptmp['cid_used'])) {
+            $unused = array_diff($this->_imptmp['cid'], array($this->_mimepart->getMimeId()), $this->_imptmp['cid_used'])) {
             $related_part->setMetadata('related_cids_unused', array_values($unused));
         }
 

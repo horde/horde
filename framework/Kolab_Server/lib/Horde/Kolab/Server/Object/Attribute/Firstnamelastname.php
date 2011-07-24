@@ -52,7 +52,7 @@ extends Horde_Kolab_Server_Object_Attribute_Value
     public function value()
     {
         $values = $this->attribute->value();
-        return sprintf('%s %s', $values[0], $values[1]);
+        return sprintf('%s %s', $values['givenName'][0], $values['sn'][0]);
     }
 
 }

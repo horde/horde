@@ -28,7 +28,7 @@ class Ulaform_Driver {
      *
      * @param array $params  Any parameters needed for this driver.
      */
-    function __construct($params)
+    public function __construct($params)
     {
         $this->_params = $params;
         $this->_driver = $GLOBALS['injector']->getInstance('Ulaform_Factory_Driver')->create();
@@ -38,23 +38,21 @@ class Ulaform_Driver {
      * Get a list of forms.
      *
      * @return array  Array of the available forms.
+     * @throws Ulaform_Exception
      */
-    function getFormsList()
+    public function getFormsList()
     {
         $forms = $this->_driver->getForms();
-        if (is_a($forms, 'PEAR_Error')) {
-            return $forms;
-        }
 
         $forms_list = array();
         $i = 0;
         foreach ($forms as $form) {
             $forms_list[$i]['id'] = $form['form_id'];
-            $forms_list[$i]['del_url'] = Horde_Util::addParameter(Horde::url('delete.php'), 'form_id', $form['form_id']);
-            $forms_list[$i]['edit_url'] = Horde_Util::addParameter(Horde::url('edit.php'), 'form_id', $form['form_id']);
-            $forms_list[$i]['preview_url'] = Horde_Util::addParameter(Horde::url('display.php'), 'form_id', $form['form_id']);
-            $forms_list[$i]['html_url'] = Horde_Util::addParameter(Horde::url('genhtml.php'), 'form_id', $form['form_id']);
-            $forms_list[$i]['view_url'] = Horde_Util::addParameter(Horde::url('fields.php'), 'form_id', $form['form_id']);
+            $forms_list[$i]['del_url'] = Horde::url('delete.php')->add('form_id', $form['form_id']);
+            $forms_list[$i]['edit_url'] = Horde::url('edit.php')->add('form_id', $form['form_id']);
+            $forms_list[$i]['preview_url'] = Horde::url('display.php')->add('form_id', $form['form_id']);
+            $forms_list[$i]['html_url'] = Horde::url('genhtml.php')->add('form_id', $form['form_id']);
+            $forms_list[$i]['view_url'] = Horde::url('fields.php')->add('form_id', $form['form_id']);
             $forms_list[$i]['name'] = $form['form_name'];
             $forms_list[$i]['action'] = $form['form_action'];
             $forms_list[$i]['onsubmit'] = $form['form_onsubmit'];
@@ -69,18 +67,14 @@ class Ulaform_Driver {
      *
      * @return array  Array of the available fields for a specific
      *                form.
+     * @throws Horde_Exception_PermissionDenied
+     * @throws Horde_Exception_NotFound
+     * @throws Ulaform_Exception
      */
-    function getFieldsList($form_id)
+    public function getFieldsList($form_id)
     {
         $form = $this->_driver->getForm($form_id);
-        if (is_a($form, 'PEAR_Error')) {
-            return $form;
-        }
-
         $fields = $this->_driver->getFields($form_id);
-        if (is_a($fields, 'PEAR_Error')) {
-            return $fields;
-        }
 
         $fields_list = array();
         $i = 0;
@@ -88,8 +82,8 @@ class Ulaform_Driver {
             $url_params = array('form_id' => $form_id,
                                 'field_id' => $field['field_id']);
             $fields_list[$i] = array(
-                'del_url' => Horde_Util::addParameter(Horde::url('deletefield.php'), $url_params),
-                'edit_url' => Horde_Util::addParameter(Horde::url('fields.php'), $url_params),
+                'del_url' => Horde::url('deletefield.php')->add($url_params),
+                'edit_url' => Horde::url('fields.php')->add($url_params),
                 'id' => $field['field_id'],
                 'name' => $field['field_name'],
                 'label' => $field['field_label'],
@@ -108,18 +102,14 @@ class Ulaform_Driver {
      *
      * @return array  Array of the available fields for a specific
      *                form.
+     * @throws Horde_Exception_PermissionDenied
+     * @throws Horde_Exception_NotFound
+     * @throws Ulaform_Exception
      */
-    function getFieldsArray($form_id)
+    public function getFieldsArray($form_id)
     {
         $form = $this->_driver->getForm($form_id);
-        if (is_a($form, 'PEAR_Error')) {
-            return $form;
-        }
-
         $fields = $this->_driver->getFields($form_id);
-        if (is_a($fields, 'PEAR_Error')) {
-            return $fields;
-        }
 
         $fields_array = array();
         foreach ($fields as $field) {
@@ -129,12 +119,9 @@ class Ulaform_Driver {
         return $fields_array;
     }
 
-    function getField($form_id, $field_id)
+    public function getField($form_id, $field_id)
     {
         $field = $this->_driver->getFields($form_id, $field_id);
-        if (is_a($field, 'PEAR_Error')) {
-            return $field;
-        }
 
         /* If we have a record. */
         if (isset($field[0])) {
@@ -144,7 +131,7 @@ class Ulaform_Driver {
         return $field;
     }
 
-    function submitForm($form_data)
+    public function submitForm($form_data)
     {
         $form = $this->_driver->getForm($form_data['form_id']);
         $fields = $this->_driver->getFields($form_data['form_id']);

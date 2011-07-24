@@ -428,10 +428,10 @@ a.rounded {
     font-weight: bold;
 }
 
-.hermesStopTimer:hover {
+.hermesStopTimer:hover, .hermesPauseTimer:hover {
     cursor: pointer;
 }
-.hermesStopTimer {
+.hermesTimerControls {
     display: block;
     float: right;
     cursor: pointer;

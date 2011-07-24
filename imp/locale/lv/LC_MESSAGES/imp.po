@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: IMP 3.1\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-27 15:32+0300\n"
-"PO-Revision-Date: 2011-06-09 15:39+0300\n"
+"POT-Creation-Date: 2011-07-07 08:55+0300\n"
+"PO-Revision-Date: 2011-07-07 09:55+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: Latvian <i18n@lists.horde.org>\n"
 "Language: lv\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Poedit-Country: LATVIA\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: folders.php:359 mailbox.php:359
+#: folders.php:359 mailbox.php:358
 #, php-format
 msgid " (Accesskey %s)"
 msgstr " (Accesskey %s)"
@@ -28,13 +28,13 @@ msgstr " (Accesskey %s)"
 msgid " and "
 msgstr "un"
 
-#: lib/Ajax/Application.php:607
+#: lib/Ajax/Application.php:568
 #, php-format
 msgid "\"%s\" mailbox no longer polled for new mail."
 msgstr ""
 "Pastkastē \"%s\" vairs netiek tiek kontrolēta jaunu vēstuļu pienākšana."
 
-#: lib/Ajax/Application.php:604
+#: lib/Ajax/Application.php:565
 #, php-format
 msgid "\"%s\" mailbox now polled for new mail."
 msgstr "Pastkastē \"%s\" tiek kontrolēta jaunu vēstuļu pienākšana."
@@ -49,24 +49,24 @@ msgstr "%.0f %s"
 msgid "%.0f%% of %.0f %s"
 msgstr "%.0f%% no %.0f %s"
 
-#: folders.php:297 folders.php:308 lib/Message.php:809
+#: folders.php:297 folders.php:308 lib/Message.php:819
 #, php-format
 msgid "%.2fMB"
 msgstr "%.2fMB"
 
-#: mailbox.php:443 templates/dimp/javascript_defs.php:155
+#: mailbox.php:442 templates/dimp/javascript_defs.php:156
 #, php-format
 msgid "%d - %d of %d Messages"
 msgstr "%d - %d no %d vēstulēm"
 
-#: lib/Views/ShowMessage.php:280
+#: lib/Views/ShowMessage.php:286
 #, php-format
 msgid "%d Attachment"
 msgid_plural "%d Attachments"
 msgstr[0] "%d pielikums"
 msgstr[1] "%d pielikumi"
 
-#: mailbox.php:446 thread.php:154
+#: mailbox.php:445 thread.php:154
 #, php-format
 msgid "%d Messages"
 msgstr "%d vēstules"
@@ -98,7 +98,7 @@ msgid_plural "%d more unseen messages..."
 msgstr[0] "un vēl %d neredzēta vēstule"
 msgstr[1] "un vēl %d neredzētas vēstules"
 
-#: lib/Block/Summary.php:93
+#: lib/Block/Summary.php:89
 #, php-format
 msgid "%d new"
 msgid_plural "%d new"
@@ -165,12 +165,12 @@ msgstr "%s atbildēja uzaicinājumam uz \"%s\"."
 msgid "%s has sent you free/busy information."
 msgstr "%s nosūtīja Brīvs/Aizņemts informāciju."
 
-#: lib/Ajax/Application.php:1496
+#: lib/Ajax/Application.php:1382
 #, php-format
 msgid "%s messages were purged from \"%s\"."
 msgstr "%s vēstules iztīrītas no \"%s\"."
 
-#: lib/Contents.php:1121 lib/Contents.php:1124
+#: lib/Contents.php:1166 lib/Contents.php:1169
 #, php-format
 msgid "%s part"
 msgstr "%s daļa"
@@ -200,7 +200,7 @@ msgstr "%s vēlas Jūs brīdināt par \"%s\" izmaiņām."
 msgid "%s was successfully added to \"%s\"."
 msgstr "%s veiksmīgi pievienots \"%s\"."
 
-#: lib/Ajax/Application.php:931
+#: lib/Ajax/Application.php:863
 #, php-format
 msgid "%s was successfully added to your address book."
 msgstr "%s pievienots adrešu grāmatai."
@@ -250,7 +250,7 @@ msgstr ""
 "Izvairieties no sekošanas vēstulē ietvertajām saitēm vai jelkādas personīgās "
 "informācijas sniegšanas nosūtītājam."
 
-#: lib/Compose.php:1918
+#: lib/Compose.php:1923
 #, php-format
 msgid "%u Forwarded Messages"
 msgstr "%u Pārsūtītās vēstules"
@@ -265,7 +265,7 @@ msgstr "%u no %u vētulēm mapē %s nav lasītas."
 msgid "(%d&nbsp;of&nbsp;%d)"
 msgstr "(%d&nbsp;no&nbsp;%d)"
 
-#: lib/Prefs/Ui.php:1627
+#: lib/Prefs/Ui.php:1626
 msgid "(HTML)"
 msgstr "(HTML)"
 
@@ -274,7 +274,7 @@ msgstr "(HTML)"
 msgid "(Message %d of %d)"
 msgstr "(Vēstule %d no %d)"
 
-#: lib/Prefs/Ui.php:1627
+#: lib/Prefs/Ui.php:1626
 msgid "(Plain Text)"
 msgstr "(Vienkāršs teksts)"
 
@@ -291,44 +291,44 @@ msgstr "* Lūdzu izvēlieties adresi(-es) *"
 msgid "-- select --"
 msgstr "-- izvēlieties --"
 
-#: templates/dimp/javascript_defs.php:93
+#: templates/dimp/javascript_defs.php:94
 msgid "1 day"
 msgstr "1 diena"
 
-#: templates/dimp/javascript_defs.php:91
+#: templates/dimp/javascript_defs.php:92
 msgid "1 hour"
 msgstr "1 stunda"
 
-#: lib/Ajax/Application.php:1494
+#: lib/Ajax/Application.php:1380
 #, php-format
 msgid "1 message was purged from \"%s\"."
 msgstr "1 vēstule izmesta no \"%s\"."
 
-#: config/prefs.php:1462
+#: config/prefs.php:1465
 msgid "100 characters"
 msgstr "100 zīmes"
 
-#: config/prefs.php:1465
+#: config/prefs.php:1468
 msgid "1000 characters"
 msgstr "1000 zīmes"
 
-#: templates/dimp/javascript_defs.php:90
+#: templates/dimp/javascript_defs.php:91
 msgid "15 minutes"
 msgstr "15 minūtes"
 
-#: config/prefs.php:1463
+#: config/prefs.php:1466
 msgid "250 characters"
 msgstr "250 zīmes"
 
-#: templates/dimp/javascript_defs.php:89
+#: templates/dimp/javascript_defs.php:90
 msgid "5 minutes"
 msgstr "5 minūtes"
 
-#: config/prefs.php:1464
+#: config/prefs.php:1467
 msgid "500 characters"
 msgstr "500 zīmes"
 
-#: templates/dimp/javascript_defs.php:92
+#: templates/dimp/javascript_defs.php:93
 msgid "6 hours"
 msgstr "6 stundas"
 
@@ -347,7 +347,7 @@ msgid ""
 msgstr ""
 "Uz Jūsu nosūtīto vēstuli no adresāta ir saņemts paziņojums par atbildi."
 
-#: lib/Compose.php:2799
+#: lib/Compose.php:2804
 msgid ""
 "A message you were composing when your session expired has been recovered. "
 "You may resume composing your message by going to your Drafts folder."
@@ -362,7 +362,7 @@ msgid ""
 msgstr ""
 "Izlecošais logs nav atverams. Var būt Jūsu pārlūkā ir bloķēti izlecošie logi?"
 
-#: templates/dimp/javascript_defs.php:161
+#: templates/dimp/javascript_defs.php:162
 msgid ""
 "A popup window could not be opened. Your browser may be blocking popups."
 msgstr ""
@@ -413,8 +413,8 @@ msgstr "Darbība:"
 msgid "Actions"
 msgstr "Darbības"
 
-#: lib/Ui/Message.php:345 lib/Ui/Message.php:346 lib/Ui/Message.php:373
-#: lib/Ui/Message.php:374
+#: lib/Ui/Message.php:349 lib/Ui/Message.php:350 lib/Ui/Message.php:377
+#: lib/Ui/Message.php:378
 #, php-format
 msgid "Add %s to my Address Book"
 msgstr "Pievienot %s manai adrešu grāmatai"
@@ -435,7 +435,7 @@ msgstr "Pievienot VAI nosacījumu"
 msgid "Add search criteria:"
 msgstr "Pievienot meklēšanas kritēriju:"
 
-#: search.php:460
+#: search.php:464
 msgid "Add search folder:"
 msgstr "Pievienot pārmeklējamo mapi:"
 
@@ -455,7 +455,7 @@ msgstr "Pievienot adrešu grāmatai"
 msgid "Add to my calendar"
 msgstr "Pievienot manam kalendāram"
 
-#: lib/Compose.php:2704
+#: lib/Compose.php:2709
 #, php-format
 msgid "Added \"%s\" as an attachment."
 msgstr "\"%s\" pievienots kā pielikums."
@@ -465,7 +465,7 @@ msgstr "\"%s\" pievienots kā pielikums."
 msgid "Added flag \"%s\"."
 msgstr "Pievienots karogs \"%s\"."
 
-#: config/prefs.php:644
+#: config/prefs.php:646
 msgid ""
 "Additional headers to display when viewing: <em>(enter each header on a new "
 "line)</em>"
@@ -477,7 +477,7 @@ msgstr ""
 msgid "Address Book"
 msgstr "Kontakti"
 
-#: config/prefs.php:1166
+#: config/prefs.php:1168
 msgid "Address Books"
 msgstr "Adrešu grāmatas"
 
@@ -505,7 +505,7 @@ msgstr "Administrēt"
 msgid "Advanced Search..."
 msgstr "Paplašinātā meklēšana..."
 
-#: templates/dimp/index.inc:53 templates/dimp/javascript_defs.php:148
+#: templates/dimp/index.inc:53 templates/dimp/javascript_defs.php:149
 msgid "Alerts _Log"
 msgstr "Brīdinājumu reģistrs"
 
@@ -524,7 +524,7 @@ msgid ""
 "file:"
 msgstr "Visas vēstules no sekojošajām mapēm tiks ielādētas vienā MBOX failā:"
 
-#: templates/dimp/javascript_defs.php:145
+#: templates/dimp/javascript_defs.php:146
 msgid ""
 "All messages in this mailbox will be downloaded into one MBOX file. This may "
 "take some time. Are you sure you want to continue?"
@@ -541,7 +541,7 @@ msgstr ""
 "Visas vēstules jūsu \"%s\" mapē, kas ir vecākas par %s dienām tiks "
 "neatgriezeniski izdzēstas."
 
-#: lib/LoginTasks/Task/DeleteAttachmentsMonthly.php:73
+#: lib/LoginTasks/Task/DeleteAttachmentsMonthly.php:75
 #, php-format
 msgid "All old linked attachments more than %s months old will be deleted."
 msgstr ""
@@ -563,7 +563,7 @@ msgstr ""
 msgid "Allow Folder Creation?"
 msgstr "Atļaut mapju izveidošanu?"
 
-#: config/prefs.php:1148
+#: config/prefs.php:1150
 msgid "Allow filter rules to be applied in any mailbox?"
 msgstr "Atļaut filtra likumu pielietošanu jebkurā pasta kastē?"
 
@@ -571,11 +571,11 @@ msgstr "Atļaut filtra likumu pielietošanu jebkurā pasta kastē?"
 msgid "Alt"
 msgstr "Alt"
 
-#: config/prefs.php:299
+#: config/prefs.php:300
 msgid "Always"
 msgstr "Vienmēr"
 
-#: config/prefs.php:670
+#: config/prefs.php:672
 msgid "Always prompt"
 msgstr "Vienmēr jautāt"
 
@@ -617,25 +617,25 @@ msgstr "Nezināma persona"
 msgid "Answered"
 msgstr "Atbildēta"
 
-#: mailbox.php:401 templates/dimp/index.inc:55
+#: mailbox.php:400 templates/dimp/index.inc:55
 #: templates/imp/mailbox/header.html:17
 msgid "Apply Filters"
 msgstr "Pielietot filtrus"
 
-#: config/prefs.php:1132
+#: config/prefs.php:1134
 msgid "Apply filter rules upon logging on?"
 msgstr "Pielietot filtrēšanas likumus pieslēdzoties?."
 
-#: config/prefs.php:1140
+#: config/prefs.php:1142
 msgid "Apply filter rules whenever Inbox is displayed?"
 msgstr "Apskatot INBOX vienmēr pielietot filtrēšanas likumus?"
 
-#: message.php:668
+#: message.php:672
 msgid "Are you sure you want to PERMANENTLY delete all attachments?"
 msgstr ""
 "Vai esat pārliecināti, ka vēlaties NEATGRIEZENISKI dzēst visus pielikumus?"
 
-#: message.php:515
+#: message.php:517
 msgid "Are you sure you want to PERMANENTLY delete these messages?"
 msgstr "Vai esat pārliecināti, ka vēlaties NEATGRIEZENISKI dzēst šīs vēstules?"
 
@@ -655,7 +655,7 @@ msgstr "Vai tiešām vēlaties dzēst šo filtru?"
 msgid "Are you sure you want to delete this flag?"
 msgstr "Vai tiešām vēlaties dzēst šo karogu?"
 
-#: lib/Prefs/Ui.php:1124 lib/Prefs/Ui.php:1482
+#: lib/Prefs/Ui.php:1124 lib/Prefs/Ui.php:1481
 msgid "Are you sure you want to delete this public key?"
 msgstr "Vai tiešām vēlaties dzēst šo publisko atslēgu?"
 
@@ -663,7 +663,7 @@ msgstr "Vai tiešām vēlaties dzēst šo publisko atslēgu?"
 msgid "Are you sure you want to delete this virtual folder?"
 msgstr "Vai tiešām vēlaties dzēst šo virtuālo mapi?"
 
-#: lib/Prefs/Ui.php:1014 lib/Prefs/Ui.php:1415
+#: lib/Prefs/Ui.php:1014 lib/Prefs/Ui.php:1414
 msgid ""
 "Are you sure you want to delete your keypair? (This is NOT recommended!)"
 msgstr "Vai tiešām vēlaties dzēst šo atslēgu pāri? (To NEVAJADZĒTU darīt!)"
@@ -707,28 +707,28 @@ msgstr "Vai tiešām vēlaties ziņot par šo vēstuli kā nevainīgu?"
 msgid "Are you sure you wish to report this message as spam?"
 msgstr "Vai tiešām vēlaties ziņot par šo vēstuli kā mēstuli?"
 
-#: config/prefs.php:996
+#: config/prefs.php:998
 msgid "Arrival time on server"
 msgstr "Saņemšanas laiks"
 
-#: message.php:538 templates/dimp/index.inc:388
+#: message.php:540 templates/dimp/index.inc:388
 #: templates/dimp/message/message.html:135
 msgid "As Attachment"
 msgstr "kā pielikumu"
 
-#: config/prefs.php:400
+#: config/prefs.php:401
 msgid "As attachment"
 msgstr "kā pielikumu"
 
-#: config/prefs.php:402
+#: config/prefs.php:403
 msgid "As both body text and an attachment"
 msgstr "Kā vēstules tekstu un pielilkumu"
 
-#: config/prefs.php:975
+#: config/prefs.php:977
 msgid "Ascending"
 msgstr "Augoši"
 
-#: config/prefs.php:298
+#: config/prefs.php:299
 msgid "Ask"
 msgstr "Jautāt"
 
@@ -748,7 +748,7 @@ msgstr "Pievienot vēstulei Jūsu PGP publiskās atslēgas kopiju?"
 msgid "Attach your contact information to the message?"
 msgstr "Pievienot vēstulei Jūsu kontaktinformāciju?"
 
-#: lib/Compose.php:1990 lib/Compose.php:2093
+#: lib/Compose.php:1995 lib/Compose.php:2098
 #, php-format
 msgid ""
 "Attached file \"%s\" exceeds the attachment size limits. File NOT attached."
@@ -769,24 +769,24 @@ msgstr "Pielikums"
 msgid "Attachment %s deleted."
 msgstr "Pielikums %s izdzēsts."
 
-#: lib/Compose.php:2479
+#: lib/Compose.php:2484
 msgid "Attachment Information"
 msgstr "Informācija par pielikumu"
 
-#: message.php:540 templates/dimp/index.inc:390
+#: message.php:542 templates/dimp/index.inc:390
 #: templates/dimp/message/message.html:137
 msgid "Attachment and Body Text"
 msgstr "Pielikums un teksts"
 
-#: lib/Compose.php:704
+#: lib/Compose.php:708
 msgid "Attachment stripped: Original attachment type"
 msgstr "Pielikums nogriezts: Pielikuma sākotnējais tips"
 
-#: message-dimp.php:37 message.php:184 lib/Ajax/Application.php:1595
+#: message-dimp.php:37 message.php:184 lib/Ajax/Application.php:1473
 msgid "Attachment successfully stripped."
 msgstr "Pielikums veiksmīgi izdzēsts."
 
-#: compose.php:874 message.php:676 message.php:703 lib/Compose.php:2436
+#: compose.php:874 message.php:680 message.php:707 lib/Compose.php:2441
 #: templates/imp/compose/compose.html:208
 msgid "Attachments"
 msgstr "Pielikumi"
@@ -795,7 +795,7 @@ msgstr "Pielikumi"
 msgid "Attendees"
 msgstr "Dalībnieki"
 
-#: config/prefs.php:576
+#: config/prefs.php:578
 msgid ""
 "Automatically show images in messages when the sender is in my address book?"
 msgstr ""
@@ -805,7 +805,7 @@ msgstr ""
 msgid "Awaiting Response"
 msgstr "Gaida atbildi"
 
-#: message.php:483 thread.php:138
+#: message.php:485 thread.php:138
 #, php-format
 msgid "Bac_k to %s"
 msgstr "Atpakaļ uz %s"
@@ -814,7 +814,7 @@ msgstr "Atpakaļ uz %s"
 msgid "Back"
 msgstr "Atpakaļ"
 
-#: message.php:483 thread.php:138
+#: message.php:485 thread.php:138
 #, php-format
 msgid "Back to %s"
 msgstr "Atpakaļ uz %s"
@@ -823,7 +823,7 @@ msgstr "Atpakaļ uz %s"
 msgid "Back to Multiple Message View Index"
 msgstr "Atpakaļ uz Vairāku vēstuļu apskates indeksu"
 
-#: search.php:59 templates/dimp/index.inc:217 lib/Ui/Message.php:30
+#: search.php:60 templates/dimp/index.inc:217 lib/Ui/Message.php:30
 #: templates/imp/contacts/contacts.html:44
 msgid "Bcc"
 msgstr "Bcc"
@@ -836,16 +836,16 @@ msgstr "Bcc:"
 msgid "Before Signature"
 msgstr "Pirms paraksts"
 
-#: mailbox.php:588 message.php:551 templates/dimp/index.inc:365
+#: mailbox.php:591 message.php:553 templates/dimp/index.inc:365
 #: templates/dimp/index.inc:410
 msgid "Blacklist"
 msgstr "Melnais saraksts"
 
-#: config/prefs.php:567
+#: config/prefs.php:569
 msgid "Block images in messages unless they are specifically requested?"
 msgstr "Bloķēt attēlus vēstulēs, līdz nav īpaši pieprasīts pretējais?"
 
-#: search.php:71 templates/dimp/index.inc:470
+#: search.php:72 templates/dimp/index.inc:470
 msgid "Body"
 msgstr "Ķermenis"
 
@@ -853,19 +853,19 @@ msgstr "Ķermenis"
 msgid "Bottom"
 msgstr "Apakša"
 
-#: search.php:375
+#: search.php:378
 msgid "Built-in Filters cannot be edited."
 msgstr "Iebūvētie filtri nav maināmi."
 
-#: search.php:368
+#: search.php:371
 msgid "Built-in Virtual Folders cannot be edited."
 msgstr "Iebūvētās Virtuālās mapes nav maināmas."
 
-#: search.php:112 lib/Search/Filter/Bulk.php:22 lib/Search/Element/Bulk.php:45
+#: search.php:113 lib/Search/Filter/Bulk.php:22 lib/Search/Element/Bulk.php:45
 msgid "Bulk Messages"
 msgstr "Masveida vēstules"
 
-#: compose-mimp.php:305 templates/dimp/javascript_defs.php:139
+#: compose-mimp.php:305 templates/dimp/javascript_defs.php:140
 #: lib/Ajax/Imple/PassphraseDialog.php:86 templates/smime/import_key.html:70
 #: templates/saveimage/saveimage.html:21 templates/pgp/import_key.html:49
 #: templates/mimp/compose/compose.html:56 templates/imp/search/search.html:107
@@ -881,7 +881,7 @@ msgstr "Atcelt"
 msgid "Cancel Message"
 msgstr "Atcelt vēstuli"
 
-#: templates/dimp/javascript_defs.php:191
+#: templates/dimp/javascript_defs.php:192
 msgid ""
 "Cancelling this message will permanently discard its contents and will "
 "delete auto-saved drafts.\n"
@@ -928,7 +928,7 @@ msgstr ""
 msgid "Cannot strip the MIME part as the mailbox is read-only."
 msgstr "Nevar izdzēst MIME daļu, jo pastkaste pieejama tikai lasīšanai."
 
-#: search.php:55 templates/dimp/index.inc:213 lib/Compose.php:1953
+#: search.php:56 templates/dimp/index.inc:213 lib/Compose.php:1958
 #: lib/Ui/Message.php:29 templates/imp/contacts/contacts.html:43
 msgid "Cc"
 msgstr "Cc"
@@ -949,7 +949,7 @@ msgstr "Vadītājs"
 msgid "Change"
 msgstr "Mainīt"
 
-#: config/prefs.php:918
+#: config/prefs.php:920
 msgid ""
 "Change display preferences such as how many messages you see on each page "
 "and how messages are sorted."
@@ -957,7 +957,7 @@ msgstr ""
 "Mainīt attēlošanas iestatījumus, piemēram, vēstuļu skaitu lapā un vēstuļu "
 "kārtošanas veidu."
 
-#: config/prefs.php:1038
+#: config/prefs.php:1040
 msgid "Change folder navigation display preferences."
 msgstr "Mainīt mapju pārlūkošanas iestatījumus."
 
@@ -967,7 +967,7 @@ msgid ""
 "reply to your email."
 msgstr "Mainīt vārdu, adresi un parakstu, kas būs redzami vēstuļu saņēmējiem."
 
-#: config/prefs.php:1467
+#: config/prefs.php:1470
 msgid "Characters to display in preview:"
 msgstr "Rādāmo zīmju skaits priekšskatā:"
 
@@ -976,11 +976,11 @@ msgstr "Rādāmo zīmju skaits priekšskatā:"
 msgid "Check All/None"
 msgstr "Pārbaudīt visus/nevienu"
 
-#: lib/Views/Compose.php:128 lib/Ui/Compose.php:109
+#: lib/Views/Compose.php:132 lib/Ui/Compose.php:109
 msgid "Check Spelling"
 msgstr "Pārbaudīt pareizrakstību"
 
-#: folders.php:375 mailbox.php:717
+#: folders.php:375 mailbox.php:720
 msgid "Check _All/None"
 msgstr "Pārbaudīt visus/nevienu"
 
@@ -988,7 +988,7 @@ msgstr "Pārbaudīt visus/nevienu"
 msgid "Check for New Mail"
 msgstr "Pārbaudīt jaunpienākušo pastu"
 
-#: config/prefs.php:1309
+#: config/prefs.php:1311
 msgid "Check for valid recipient PGP public keys while replying?"
 msgstr "Atbildot pārbaudīt saņēmēja PGP publiskās atslēgas derīgumu?"
 
@@ -996,7 +996,7 @@ msgstr "Atbildot pārbaudīt saņēmēja PGP publiskās atslēgas derīgumu?"
 msgid "Check spelling before sending a message?"
 msgstr "Pirms vēstules nosūtīšanas pārbaudīt pareizrakstību?"
 
-#: templates/dimp/javascript_defs.php:140 lib/Ui/Compose.php:110
+#: templates/dimp/javascript_defs.php:141 lib/Ui/Compose.php:110
 msgid "Checking..."
 msgstr "Pārbaudu..."
 
@@ -1004,7 +1004,7 @@ msgstr "Pārbaudu..."
 msgid "Choose Action"
 msgstr "Izvēlieties darbību"
 
-#: config/prefs.php:1228
+#: config/prefs.php:1230
 msgid "Choose the address book to use when adding addresses."
 msgstr "Izvēlieties adrešu grāmatu, kurai pievienot jaunās adreses."
 
@@ -1012,7 +1012,7 @@ msgstr "Izvēlieties adrešu grāmatu, kurai pievienot jaunās adreses."
 msgid "Clear Search"
 msgstr "Atcelt meklēšanu"
 
-#: mailbox.php:577 templates/dimp/index.inc:454
+#: mailbox.php:580 templates/dimp/index.inc:454
 msgid "Clear Sort"
 msgstr "Atcelt šķirošanu"
 
@@ -1035,7 +1035,7 @@ msgstr "Uzklikšķiniet %s, lai lejupielādētu datus."
 msgid "Click %s to go to %s management page."
 msgstr "Uzklikšķiniet %s, lai pārietu uz %s vadības lapu."
 
-#: message.php:643 lib/Views/ShowMessage.php:260
+#: message.php:647 lib/Views/ShowMessage.php:266
 #, php-format
 msgid "Click %s to send the notification message."
 msgstr "Uzklikšķiniet %s, lai nosūtītu paziņojumu."
@@ -1079,12 +1079,12 @@ msgid "Click this box to add the original message text to the body."
 msgstr ""
 "Klikšķiniet šeit, lai pievienotu oriģinālo vēstuli atbildes vēstules tekstam."
 
-#: config/prefs.php:1014
+#: config/prefs.php:1016
 msgid "Clicking on the address will compose a new message to the sender"
 msgstr ""
 "Klikšķis uz adreses atvērs jaunas vēstules rakstīšanas logu šim nosūtītājam"
 
-#: config/prefs.php:1015
+#: config/prefs.php:1017
 msgid "Clicking on the address will open the message to be read"
 msgstr "Klikšķis uz adreses atvērs vēstuli lasīšanai"
 
@@ -1092,7 +1092,7 @@ msgstr "Klikšķis uz adreses atvērs vēstuli lasīšanai"
 msgid "Close"
 msgstr "Aizvērt"
 
-#: lib/Ui/Compose.php:219
+#: lib/Ui/Compose.php:215
 msgid "Close this window"
 msgstr "Aizvēr logu"
 
@@ -1117,7 +1117,7 @@ msgstr "Krāsa"
 msgid "Color Picker"
 msgstr "Krāsu izvēlne"
 
-#: config/prefs.php:1068
+#: config/prefs.php:1070
 msgid "Combine all namespaces"
 msgstr "Kombinēt visus vārdu laukus"
 
@@ -1129,9 +1129,9 @@ msgstr "Komentārs:"
 msgid "Completed"
 msgstr "Pabeigts"
 
-#: templates/dimp/index.inc:138 config/prefs.php:166 config/prefs.php:319
-#: config/prefs.php:341 config/prefs.php:386 config/prefs.php:421
-#: config/prefs.php:478 config/prefs.php:1492
+#: templates/dimp/index.inc:138 config/prefs.php:166 config/prefs.php:320
+#: config/prefs.php:342 config/prefs.php:387 config/prefs.php:422
+#: config/prefs.php:479 config/prefs.php:1495
 msgid "Compose"
 msgstr "Rakstīt"
 
@@ -1139,7 +1139,7 @@ msgstr "Rakstīt"
 msgid "Compose Message"
 msgstr "Rakstīt vēstuli"
 
-#: config/prefs.php:1500
+#: config/prefs.php:1503
 msgid "Compose messages in a separate window?"
 msgstr "Rakstīt vēstules atsevišķā logā?"
 
@@ -1151,23 +1151,23 @@ msgstr "Rakstīt vēstules, izmantojot HTML redaktoru pēc noklusēšanas?"
 msgid "Compressed (.zip file)"
 msgstr "Saspiests (.zip fails)"
 
-#: config/prefs.php:887
+#: config/prefs.php:889
 msgid "Configure flag highlighting."
 msgstr "Konfigurēt karogu izcelšanu."
 
-#: config/prefs.php:1238
+#: config/prefs.php:1240
 msgid "Configure how event or meeting requests should be handled."
 msgstr "Iestatiet veidu, kādā jāapstrādā notikumu un tikšanos pieprasījumi."
 
-#: config/prefs.php:527
+#: config/prefs.php:529
 msgid "Configure how messages are displayed."
 msgstr "Konfigurēt vēstuļu attēlošanu."
 
-#: config/prefs.php:388
+#: config/prefs.php:389
 msgid "Configure how you forward mail."
 msgstr "Konfigurējiet pārsūtīšanas kārtību."
 
-#: config/prefs.php:343
+#: config/prefs.php:344
 msgid "Configure how you reply to mail."
 msgstr "Konfigurējiet atbildēšanas kārtību."
 
@@ -1175,37 +1175,37 @@ msgstr "Konfigurējiet atbildēšanas kārtību."
 msgid "Configure how you send mail."
 msgstr "Konfigurējiet pasta sūtīšanas kārtību."
 
-#: config/prefs.php:1516
+#: config/prefs.php:1519
 msgid "Configure preferences for the dynamic view."
 msgstr "Konfigurēt dinamiskā skata iestatījumus."
 
-#: config/prefs.php:1400
+#: config/prefs.php:1402
 msgid "Configure preferences for the mobile view."
 msgstr "Konfigurēt mobilā skata iestatījumus."
 
-#: config/prefs.php:1434
+#: config/prefs.php:1437
 msgid "Configure preferences for the traditional view."
 msgstr "Konfigurēt tradicionālā skata iestatījumus."
 
-#: config/prefs.php:763
+#: config/prefs.php:765
 msgid "Configure spam reporting."
 msgstr "Konfigurēt ziņošanu par mēstulēm."
 
-#: search.php:116
+#: search.php:117
 msgid "Contains Attachment(s)"
 msgstr "Satur pielikumu(s)"
 
-#: config/prefs.php:1256
+#: config/prefs.php:1258
 #, php-format
 msgid "Control PGP support for %s."
 msgstr "Pārbaudīt %s PGP atbalstu."
 
-#: config/prefs.php:1336
+#: config/prefs.php:1338
 #, php-format
 msgid "Control S/MIME support for %s."
 msgstr "Pārbaudīt %s S/MIME atbalstu."
 
-#: config/prefs.php:842
+#: config/prefs.php:844
 msgid ""
 "Control when new mail will be checked for, and whether or not to notify you "
 "when it arrives."
@@ -1216,20 +1216,20 @@ msgstr ""
 msgid "Convert HTML data to plain text and view in new window."
 msgstr "Pārvērst HTML datus vienkāršā tekstā  un parādīt jaunā logā."
 
-#: config/prefs.php:622
+#: config/prefs.php:624
 msgid "Convert textual emoticons into graphical ones?"
 msgstr "Pārvērst teksta emociju simbolus grafiskos?"
 
-#: mailbox.php:531 message.php:474
+#: mailbox.php:534 message.php:476
 msgid "Copy"
 msgstr "Kopēt"
 
-#: templates/dimp/javascript_defs.php:141
+#: templates/dimp/javascript_defs.php:142
 #, php-format
 msgid "Copy %s to %s"
 msgstr "Kopēt %s uz %s"
 
-#: mailbox.php:531 message.php:474
+#: mailbox.php:534 message.php:476
 msgid "Copy to folder"
 msgstr "Kopēt uz mapi"
 
@@ -1238,7 +1238,7 @@ msgstr "Kopēt uz mapi"
 msgid "Could not add rights for user \"%s\" for the mailbox \"%s\"."
 msgstr "Nevar papildināt lietotāja\"%s\" tiesības pastkastei \"%s\"."
 
-#: lib/Compose.php:2068
+#: lib/Compose.php:2073
 #, php-format
 msgid "Could not attach %s to the message."
 msgstr " %s nevar pievienot vēstulei."
@@ -1252,7 +1252,7 @@ msgstr "Neizdevās nodibināt sakarus ar publisko PGP atslēgu serveri"
 msgid "Could not create the VFS backend: %s"
 msgstr "Nevar iedarbināt VFS moduli: %s"
 
-#: lib/Message.php:752
+#: lib/Message.php:762
 #, php-format
 msgid "Could not delete messages from %s. This mailbox is read-only."
 msgstr "Nevar izdzēst vēstules no %s. Šī pastkaste pieejama tikai lasīšanai."
@@ -1264,12 +1264,12 @@ msgid ""
 msgstr ""
 "Nevar pārvietot vēstuli uz mēstuļu kasti  opcijās nav definēta mēstuļu kaste."
 
-#: lib/Imap.php:356
+#: lib/Imap.php:353
 #, php-format
 msgid "Could not open mailbox \"%s\"."
 msgstr "Nevar atvērt pastkasti \"%s\"."
 
-#: lib/Imap.php:358
+#: lib/Imap.php:355
 msgid "Could not open mailbox."
 msgstr "Nevar atvērt pastkasti"
 
@@ -1282,7 +1282,7 @@ msgstr "Lietotājam \"%s\" nevar atņemt piekļuves tiesības pastkastei \"%s\".
 msgid "Could not retrieve ACL"
 msgstr "Nevar saņemt ACL"
 
-#: lib/Ui/Compose.php:184
+#: lib/Ui/Compose.php:180
 msgid "Could not retrieve message data from the mail server."
 msgstr "Nevar saņemt vēstules datus no pasta servera."
 
@@ -1291,11 +1291,11 @@ msgstr "Nevar saņemt vēstules datus no pasta servera."
 msgid "Could not retrieve public key for %s."
 msgstr "Nevar saņemt %s publisko atslēgu."
 
-#: lib/Imap.php:363
+#: lib/Imap.php:360
 msgid "Could not save message data because it is too large."
 msgstr "Nevar saglabāt vēstules datus, jo tā ir pārāk liela."
 
-#: lib/Compose.php:949 lib/Compose.php:964
+#: lib/Compose.php:954 lib/Compose.php:969
 msgid "Could not save recipients."
 msgstr "Nevar saglabāt saņēmējus."
 
@@ -1319,7 +1319,7 @@ msgstr "Izveidot jaunu pastkasti"
 msgid "Create a new sent-mail folder"
 msgstr "Izveidot jaunu nosūtīto vēstuļu mapi"
 
-#: config/prefs.php:1099
+#: config/prefs.php:1101
 msgid ""
 "Create filtering rules to organize your incoming mail, sort it into folders, "
 "and delete spam."
@@ -1327,7 +1327,7 @@ msgstr ""
 "Izveidot filtrēšanas likumus ienākošā pasta organizēšanai, kārtošanai pa "
 "mapēm un mēstuļu dzēšanai."
 
-#: templates/dimp/javascript_defs.php:142
+#: templates/dimp/javascript_defs.php:143
 msgid "Create folder:"
 msgstr "Izveidot mapi:"
 
@@ -1339,7 +1339,7 @@ msgstr "Izveidot jaunu veidlapu"
 msgid "Create subfolder"
 msgstr "Izveidot apakšmapi"
 
-#: templates/dimp/javascript_defs.php:143
+#: templates/dimp/javascript_defs.php:144
 #, php-format
 msgid "Create subfolder of %s:"
 msgstr "Izveidot %s apakšmapi:"
@@ -1348,7 +1348,7 @@ msgstr "Izveidot %s apakšmapi:"
 msgid "Create subfolders"
 msgstr "Izveidot apakšmapes"
 
-#: config/prefs.php:999
+#: config/prefs.php:1001
 msgid "Criteria to use when sorting by date:"
 msgstr "Kritēriji šķirošanai pēc datuma:"
 
@@ -1366,41 +1366,41 @@ msgstr "Pielikumi"
 msgid "Current access to %s"
 msgstr "Šābrīža pieeja %s"
 
-#: search.php:67
+#: search.php:68
 msgid "Custom Header"
 msgstr "Specifiskā galvene"
 
-#: search.php:488
+#: search.php:492
 msgid "Custom Header:"
 msgstr "Specifiskā galvene:"
 
-#: mailbox.php:634
+#: mailbox.php:637
 msgid "Dat_e"
 msgstr "Datums"
 
 #: templates/mobile/javascript_defs.php:69 templates/dimp/index.inc:205
-#: templates/dimp/index.inc:435 templates/dimp/javascript_defs.php:116
-#: lib/Compose.php:1933 lib/Ui/Message.php:26 config/prefs.php:960
+#: templates/dimp/index.inc:435 templates/dimp/javascript_defs.php:117
+#: lib/Compose.php:1938 lib/Ui/Message.php:26 config/prefs.php:962
 msgid "Date"
 msgstr "Datums"
 
-#: search.php:79 lib/Search/Element/Date.php:60
+#: search.php:80 lib/Search/Element/Date.php:60
 msgid "Date Equals (=)"
 msgstr "Datums ir (=)"
 
-#: search.php:489
+#: search.php:493
 msgid "Date Selection"
 msgstr "Datuma izvēle"
 
-#: search.php:87 lib/Search/Element/Date.php:68
+#: search.php:88 lib/Search/Element/Date.php:68
 msgid "Date Since (>=)"
 msgstr "Datums kopš (>=)"
 
-#: search.php:83 lib/Search/Element/Date.php:64
+#: search.php:84 lib/Search/Element/Date.php:64
 msgid "Date Until (<)"
 msgstr "Datums līdz (<)"
 
-#: config/prefs.php:997
+#: config/prefs.php:999
 msgid "Date in message headers"
 msgstr "Datums vēstules galvenēs"
 
@@ -1412,15 +1412,15 @@ msgstr "Dienas"
 msgid "Declined"
 msgstr "Atteikts"
 
-#: config/prefs.php:657
+#: config/prefs.php:659
 msgid "Default (US-ASCII)"
 msgstr "Noklusētais (US-ASCII)"
 
-#: config/prefs.php:967
+#: config/prefs.php:969
 msgid "Default sorting criteria:"
 msgstr "Noklusētie kārtošanas nosacījumi:"
 
-#: config/prefs.php:978
+#: config/prefs.php:980
 msgid "Default sorting direction:"
 msgstr "Noklusētais kārtošanas virziens:"
 
@@ -1432,7 +1432,7 @@ msgstr "Del"
 msgid "Delegated"
 msgstr "Deleģēts"
 
-#: mailbox.php:555 message-dimp.php:176 message-mimp.php:267 message.php:512
+#: mailbox.php:558 message-dimp.php:176 message-mimp.php:267 message.php:514
 #: templates/dimp/index.inc:137 templates/dimp/index.inc:370
 #: lib/Imap/Acl.php:164 templates/prefs/pgppublickey.html:13
 #: templates/prefs/smimepublickey.html:13
@@ -1442,7 +1442,7 @@ msgstr "Deleģēts"
 msgid "Delete"
 msgstr "Dzēst"
 
-#: lib/Prefs/Ui.php:1124 lib/Prefs/Ui.php:1482
+#: lib/Prefs/Ui.php:1124 lib/Prefs/Ui.php:1481
 #, php-format
 msgid "Delete %s Public Key"
 msgstr "Džest %s publisko atslēgu"
@@ -1483,7 +1483,7 @@ msgstr "Dzēst virtuālo mapi"
 msgid "Delete from my calendar"
 msgstr "Dzēst no mana kalndāra"
 
-#: config/prefs.php:792
+#: config/prefs.php:794
 msgid "Delete message"
 msgstr "Dzēst vēstuli"
 
@@ -1491,12 +1491,12 @@ msgstr "Dzēst vēstuli"
 msgid "Delete messages"
 msgstr "Dzēst vēstules"
 
-#: config/prefs.php:287
+#: config/prefs.php:288
 msgid ""
 "Delete old linked attachments after this many months (0 to never delete)?"
 msgstr "Pēc cik mēnešiem dzēst vecos saistītos pielikumus (0 - nedzēst nekad)?"
 
-#: config/prefs.php:499
+#: config/prefs.php:501
 msgid ""
 "Delete old sent mail folders after this many months (0 to never delete)?"
 msgstr ""
@@ -1523,7 +1523,7 @@ msgstr "Izdzēsta"
 msgid "Deleted Virtual Folder \"%s\"."
 msgstr "Virtuālā mape \"%s\" izdzēsta."
 
-#: compose.php:161 lib/Ajax/Application.php:1449
+#: compose.php:161 lib/Ajax/Application.php:1337
 #, php-format
 msgid "Deleted attachment \"%s\"."
 msgstr "Pielikums \"%s\" izdzēsts."
@@ -1533,7 +1533,7 @@ msgstr "Pielikums \"%s\" izdzēsts."
 msgid "Deleted flag \"%s\"."
 msgstr "Karogs \"%s\" izdzēsts."
 
-#: config/prefs.php:685
+#: config/prefs.php:687
 msgid "Deleting and Moving Messages"
 msgstr "Dzēst un pārvietot vēstules"
 
@@ -1545,7 +1545,7 @@ msgstr "Atteikt pieprasījumu"
 msgid "Deny request for free/busy information"
 msgstr "Atteikt Brīvs/Aizņemts informācijas pieprasījumu"
 
-#: config/prefs.php:976
+#: config/prefs.php:978
 msgid "Descending"
 msgstr "Dilstoši"
 
@@ -1566,17 +1566,17 @@ msgstr "Apraksts:"
 msgid "Details"
 msgstr "Detaļas"
 
-#: lib/Compose.php:2689
+#: lib/Compose.php:2694
 #, php-format
 msgid "Did not attach \"%s\" as it was only partially uploaded."
 msgstr "\"%s\" nav pievienots, jo tas ir tikai daļēji augšupielādēts."
 
-#: lib/Compose.php:2698
+#: lib/Compose.php:2703
 #, php-format
 msgid "Did not attach \"%s\" as the file was empty."
 msgstr "\"%s\" nav pievienots, jo fails ir tukšs."
 
-#: lib/Compose.php:2685
+#: lib/Compose.php:2690
 #, php-format
 msgid ""
 "Did not attach \"%s\" as the maximum allowed upload size has been exceeded."
@@ -1584,7 +1584,7 @@ msgstr ""
 "\"%s\" nav pievienots, jo ir pārsniegts pieļaujamais augšupielādējamais "
 "izmērs."
 
-#: lib/Compose.php:2693
+#: lib/Compose.php:2698
 #, php-format
 msgid ""
 "Did not attach \"%s\" as the server configuration did not allow the file to "
@@ -1592,31 +1592,31 @@ msgid ""
 msgstr ""
 "\"%s\" nav pievienots, jo servera konfigurācija nepieļauj failu augšupielādi."
 
-#: config/prefs.php:615
+#: config/prefs.php:617
 msgid "Dim signatures?"
 msgstr "Matēt parakstus?"
 
-#: config/prefs.php:1028
+#: config/prefs.php:1030
 msgid "Display attachment information about a message in the mailbox listing?"
 msgstr "Rādīt informāciju par vēstuļu pielikumiem pastkastes skatā?"
 
-#: config/prefs.php:1507
+#: config/prefs.php:1510
 msgid "Display confirmation in popup window after sending a message?"
 msgstr "Rādīt apstiprinājuma paziņojumu pēc vēstules nosūtīšanas?"
 
-#: config/prefs.php:867
+#: config/prefs.php:869
 msgid "Display notification when new mail arrives?"
 msgstr "Parādīt paziņojumu par jaunu vēstuļu pienākšanu?"
 
-#: config/prefs.php:1410
+#: config/prefs.php:1412
 msgid "Display only the first 250 characters of a message initially?"
 msgstr "Sākotnēji rādīt tikai pirmās 250 vēstules zīmes?"
 
-#: config/prefs.php:815
+#: config/prefs.php:817
 msgid "Display the \"Empty Spam\" link in the menubar?"
 msgstr "Rādīt \"Iztīrīt mēstules\" saiti izvēlnē?"
 
-#: config/prefs.php:730
+#: config/prefs.php:732
 msgid "Display the \"Empty Trash\" link in the menubar?"
 msgstr "Rādīt \"Iztīrīt atkritumus\" saiti izvēlnē?"
 
@@ -1624,8 +1624,8 @@ msgstr "Rādīt \"Iztīrīt atkritumus\" saiti izvēlnē?"
 msgid "Do Action"
 msgstr "Veikt darbību"
 
-#: search.php:495 templates/imp/search/search-basic.html:23
-#: templates/imp/search/search-basic.html:37
+#: search.php:499 templates/imp/search/search-basic.html:24
+#: templates/imp/search/search-basic.html:38
 msgid "Do NOT Match"
 msgstr "Neatbilst"
 
@@ -1633,11 +1633,11 @@ msgstr "Neatbilst"
 msgid "Do Not Check for New Mail"
 msgstr "Nepārbaudīt jauno pastu"
 
-#: config/prefs.php:1016
+#: config/prefs.php:1018
 msgid "Do not generate a link in the From: column"
 msgstr "Neģenerēt saiti Nosūtītājs: slejā"
 
-#: config/prefs.php:632
+#: config/prefs.php:634
 msgid "Do not show parts"
 msgstr "Nerādīt daļas"
 
@@ -1666,7 +1666,7 @@ msgstr "Lejupielādēt %s .zip formātā"
 msgid "Download (.zip format)"
 msgstr "Lejupielādēt (.zip formātā)"
 
-#: message.php:664
+#: message.php:668
 msgid "Download All Attachments (in .zip file)"
 msgstr "Lejupielādēt visus pielikumus (.zip failā)"
 
@@ -1682,11 +1682,11 @@ msgstr "Lejuplādēt pielikumu"
 msgid "Draft"
 msgstr "Melnraksts"
 
-#: lib/Ajax/Application.php:1958
+#: lib/Ajax/Application.php:1812
 msgid "Draft automatically saved."
 msgstr "Melnraksts automātiski saglabāts."
 
-#: lib/Mailbox.php:1155 lib/Mailbox.php:1236
+#: lib/Mailbox.php:1160 lib/Mailbox.php:1241
 msgid "Drafts"
 msgstr "Melnraksti"
 
@@ -1694,7 +1694,7 @@ msgstr "Melnraksti"
 msgid "Drafts folder:"
 msgstr "Melnrakstu mape:"
 
-#: config/prefs.php:1515
+#: config/prefs.php:1518
 msgid "Dynamic View"
 msgstr "Dinamiskais skats"
 
@@ -1702,7 +1702,7 @@ msgstr "Dinamiskais skats"
 msgid "E-mail Address:"
 msgstr "E-pasta adrese:"
 
-#: mailbox.php:823
+#: mailbox.php:826
 msgid "END"
 msgstr "BEIGAS"
 
@@ -1723,11 +1723,11 @@ msgstr "Labot"
 msgid "Edit Filter"
 msgstr "Labot filtru"
 
-#: mailbox.php:414 templates/dimp/index.inc:147
+#: mailbox.php:413 templates/dimp/index.inc:147
 msgid "Edit Search Query"
 msgstr "Labot vaicājumu"
 
-#: mailbox.php:411 templates/dimp/index.inc:341 lib/Imap/Tree.php:1604
+#: mailbox.php:410 templates/dimp/index.inc:341 lib/Imap/Tree.php:1604
 #: templates/imp/search/search.html:8
 msgid "Edit Virtual Folder"
 msgstr "Labot Virtuālo mapi"
@@ -1736,28 +1736,28 @@ msgstr "Labot Virtuālo mapi"
 msgid "Edit Virtual Folders"
 msgstr "Labot Virtuālās mapes"
 
-#: config/prefs.php:321
+#: config/prefs.php:322
 msgid "Edit stationery and form responses."
 msgstr "Manīt Veidlapas un tipveida atbildes."
 
-#: config/prefs.php:1117
+#: config/prefs.php:1119
 msgid "Edit your Blacklist"
 msgstr "Labot Melno sarakstu"
 
-#: config/prefs.php:1110
+#: config/prefs.php:1112
 msgid "Edit your Filter Rules"
 msgstr "Labot filtrēšanas likumus"
 
-#: config/prefs.php:1124
+#: config/prefs.php:1126
 msgid "Edit your Whitelist"
 msgstr "Labot Balto sarakstu"
 
-#: lib/Message.php:779
+#: lib/Message.php:789
 #, php-format
 msgid "Emptied all messages from %s."
 msgstr "Visas vēstules no %s iztīrītas."
 
-#: lib/Message.php:758
+#: lib/Message.php:768
 msgid "Emptied all messages from Virtual Trash Folder."
 msgstr "Visas vēstules no Virtuālās atkritumu kastes iztīrītas."
 
@@ -1785,19 +1785,19 @@ msgstr "Tīrīt mēstules"
 msgid "Empty _Trash"
 msgstr "Tīrīt miseni"
 
-#: mailbox.php:436
+#: mailbox.php:435
 msgid "Empty folder"
 msgstr "Tukša mape"
 
-#: config/prefs.php:1275
+#: config/prefs.php:1277
 msgid "Enable PGP functionality?"
 msgstr "Ieslēgt PGP iespējas?"
 
-#: config/prefs.php:1355
+#: config/prefs.php:1357
 msgid "Enable S/MIME functionality?"
 msgstr "Ieslēgt S/MIME iespējas?"
 
-#: config/prefs.php:1454
+#: config/prefs.php:1457
 msgid "Enable message previews?"
 msgstr "Atļaut vēstuļu priekšapskati?"
 
@@ -1817,15 +1817,15 @@ msgstr "Šifrēšana:"
 msgid "End"
 msgstr "Beigas"
 
-#: lib/Compose.php:1768
+#: lib/Compose.php:1773
 msgid "End forwarded message"
 msgstr "Pārsūtītās vēstules beigas"
 
-#: lib/Compose.php:1585
+#: lib/Compose.php:1590
 msgid "End message"
 msgstr "Beigt vēstuli"
 
-#: lib/Compose.php:1585
+#: lib/Compose.php:1590
 #, php-format
 msgid "End message from %s"
 msgstr "%s vēstules beigas"
@@ -1839,7 +1839,7 @@ msgstr "Beigas:"
 msgid "Enter"
 msgstr "Enter"
 
-#: lib/Prefs/Ui.php:1005 lib/Prefs/Ui.php:1408
+#: lib/Prefs/Ui.php:1005 lib/Prefs/Ui.php:1407
 msgid "Enter Passphrase"
 msgstr "Ievadiet atslēgas frāzi"
 
@@ -1867,8 +1867,8 @@ msgstr "Ievadiet Jūsu personīgo PGP paroli."
 msgid "Enter your personal S/MIME passphrase."
 msgstr "Ievadiet Jūsu personīgo S/MIME paroli."
 
-#: search.php:75 templates/dimp/index.inc:469
-#: templates/imp/search/search-basic.html:19
+#: search.php:76 templates/dimp/index.inc:469
+#: templates/imp/search/search-basic.html:20
 msgid "Entire Message"
 msgstr "Visu vēstuli"
 
@@ -1876,13 +1876,13 @@ msgstr "Visu vēstuli"
 msgid "Entire Message (including Headers)"
 msgstr "Visa vēstule (ieskaitot galvenes)"
 
-#: message.php:167 thread.php:62 lib/Compose.php:991
+#: message.php:167 thread.php:62 lib/Compose.php:996
 #, php-format
 msgid "Entry \"%s\" was successfully added to the address book"
 msgstr "Ieraksts \"%s\" veiksmīgi pievienots adrešu grāmatai"
 
 #: lib/Mime/Viewer/Partial.php:97 lib/Mime/Viewer/Pgp.php:379
-#: lib/Mime/Viewer/Related.php:118 lib/Mime/Viewer/Smime.php:307
+#: lib/Mime/Viewer/Related.php:119 lib/Mime/Viewer/Smime.php:307
 #: lib/Mime/Viewer/Status.php:103
 msgid "Error"
 msgstr "Kļūda"
@@ -1892,11 +1892,11 @@ msgstr "Kļūda"
 msgid "Error sending reply: %s."
 msgstr "Kļūda nosūtot atbildi: %s."
 
-#: lib/Imap.php:351
+#: lib/Imap.php:348
 msgid "Error when communicating with the mail server."
 msgstr "Kļūda sazinoties ar pasta serveri."
 
-#: templates/dimp/javascript_defs.php:133
+#: templates/dimp/javascript_defs.php:134
 msgid "Error when communicating with the server."
 msgstr "Kļūda sazinoties ar serveri."
 
@@ -1908,7 +1908,7 @@ msgstr ""
 "Kļūda! Šai aplikācijai ir nepieciešams uzstādīts un pārlūkā iespējots "
 "javascript atbalsts."
 
-#: config/prefs.php:1237
+#: config/prefs.php:1239
 msgid "Event Requests"
 msgstr "Notikuma pieprasījumi"
 
@@ -1916,23 +1916,23 @@ msgstr "Notikuma pieprasījumi"
 msgid "Event successfully deleted."
 msgstr "Notikums veiksmīgi izdzēsts."
 
-#: config/prefs.php:857
+#: config/prefs.php:859
 msgid "Every 15 minutes"
 msgstr "Ik 15 minūtes"
 
-#: config/prefs.php:854
+#: config/prefs.php:856
 msgid "Every 30 seconds"
 msgstr "Ik 30 sekundes"
 
-#: config/prefs.php:468 config/prefs.php:856
+#: config/prefs.php:469 config/prefs.php:858
 msgid "Every 5 minutes"
 msgstr "Ik 5 minūtes"
 
-#: config/prefs.php:858
+#: config/prefs.php:860
 msgid "Every half hour"
 msgstr "Ik pusstundu"
 
-#: config/prefs.php:467 config/prefs.php:855
+#: config/prefs.php:468 config/prefs.php:857
 msgid "Every minute"
 msgstr "Katru minūti"
 
@@ -1958,7 +1958,7 @@ msgstr "Izvērst galvenes"
 msgid "Expand Names"
 msgstr "Izvērst vārdus"
 
-#: config/prefs.php:1060
+#: config/prefs.php:1062
 msgid "Expand the entire folder tree by default in the folders view?"
 msgstr "Izvērst visu mapju koku mapju skatījumā pēc noklusēšanas?"
 
@@ -1978,7 +1978,7 @@ msgstr "Fails"
 msgid "Filter"
 msgstr "Filtrs"
 
-#: search.php:302
+#: search.php:306
 #, php-format
 msgid "Filter \"%s\" created succesfully."
 msgstr "Filtrs \"%s\" izveidots."
@@ -1988,7 +1988,7 @@ msgstr "Filtrs \"%s\" izveidots."
 msgid "Filter \"%s\" deleted."
 msgstr "Filtrs %s izdzēsts."
 
-#: search.php:298
+#: search.php:302
 #, php-format
 msgid "Filter \"%s\" edited successfully."
 msgstr "Filtrs \"%s\" mainīts."
@@ -2001,11 +2001,11 @@ msgstr "Filtrēt pēc"
 msgid "Filter Messages"
 msgstr "Filtrēt vēstules"
 
-#: config/prefs.php:542
+#: config/prefs.php:544
 msgid "Filter message content for unwanted text (e.g. profanity)?"
 msgstr "Filtrēt vēstuļu saturu pēc rupjībām saturā?"
 
-#: config/prefs.php:1098
+#: config/prefs.php:1100
 msgid "Filters"
 msgstr "Filtri"
 
@@ -2018,15 +2018,15 @@ msgstr "Filtri: %s vadības lapa"
 msgid "Find:"
 msgstr "Meklēt:"
 
-#: config/prefs.php:942
+#: config/prefs.php:944
 msgid "First (oldest) Unseen Message"
 msgstr "Pirmā (senākā) neskatītā vēstule"
 
-#: mailbox-mimp.php:256 mailbox.php:293 config/prefs.php:944
+#: mailbox-mimp.php:256 mailbox.php:292 config/prefs.php:946
 msgid "First Page"
 msgstr "Pirmā lapa"
 
-#: search.php:490
+#: search.php:494
 msgid "Flag:"
 msgstr "Karogs:"
 
@@ -2034,11 +2034,12 @@ msgstr "Karogs:"
 msgid "Flagged for Followup"
 msgstr "Atzīmēta papildu apskatīšanai"
 
-#: mailbox.php:596 message.php:536
+#: mailbox.php:599 message.php:538
 msgid "Fo_rward"
 msgstr "Pārsūtīt"
 
-#: lib/Mailbox.php:1220 templates/imp/folders/folders_size.html:6
+#: lib/Mailbox.php:1225 lib/Block/Summary.php:102
+#: templates/imp/folders/folders_size.html:6
 msgid "Folder"
 msgstr "Mape"
 
@@ -2046,7 +2047,7 @@ msgstr "Mape"
 msgid "Folder Actions - Confirmation"
 msgstr "Mapju darbības - Apstiprināšana"
 
-#: config/prefs.php:1037
+#: config/prefs.php:1039
 msgid "Folder Display"
 msgstr "Mapju pārlūks"
 
@@ -2075,7 +2076,7 @@ msgstr "Mapju lietošana nav ieslēgta"
 msgid "Folders"
 msgstr "Mapes"
 
-#: config/prefs.php:560
+#: config/prefs.php:562
 msgid ""
 "For messages with alternative representations of the text part, which part "
 "should we display?"
@@ -2083,9 +2084,9 @@ msgstr ""
 "Vēstulēm ar alternatīvu teksta daļas reprezentāciju - kuru daļu vēlaties "
 "redzēt?"
 
-#: compose-mimp.php:180 mailbox.php:596 message-dimp.php:149
-#: message-mimp.php:282 message.php:536 templates/dimp/index.inc:129
-#: templates/dimp/index.inc:351 lib/Compose.php:1708 lib/Compose.php:1711
+#: compose-mimp.php:180 mailbox.php:599 message-dimp.php:149
+#: message-mimp.php:282 message.php:538 templates/dimp/index.inc:129
+#: templates/dimp/index.inc:351 lib/Compose.php:1713 lib/Compose.php:1716
 #: lib/Notification/Event/Status.php:27
 msgid "Forward"
 msgstr "Pārsūtīt"
@@ -2094,15 +2095,15 @@ msgstr "Pārsūtīt"
 msgid "Forwarded"
 msgstr "Pārsūtīta"
 
-#: lib/Compose.php:1901
+#: lib/Compose.php:1906
 msgid "Forwarded Message"
 msgstr "Pārsūtītā vēstule"
 
-#: lib/Compose.php:1766
+#: lib/Compose.php:1771
 msgid "Forwarded message"
 msgstr "Pārsūtītā vēstule"
 
-#: lib/Compose.php:1766
+#: lib/Compose.php:1771
 #, php-format
 msgid "Forwarded message from %s"
 msgstr "Pārsūtīta vēstule no %s"
@@ -2115,20 +2116,20 @@ msgstr "Pārsūtāmā vēstule tiks automātiski pievienota izejošajai vēstule
 msgid "Free/Busy Request Response"
 msgstr "Brīvs/Aizņemts pieprasījuma atbilde"
 
-#: mailbox.php:644
+#: mailbox.php:647
 msgid "Fro_m"
 msgstr "Sūtītājs"
 
-#: mailbox-mimp.php:220 search.php:43 templates/mobile/javascript_defs.php:53
+#: mailbox-mimp.php:220 search.php:44 templates/mobile/javascript_defs.php:53
 #: templates/dimp/index.inc:201 templates/dimp/index.inc:432
-#: templates/dimp/index.inc:471 templates/dimp/javascript_defs.php:100
-#: lib/Compose.php:1937 lib/Ui/Mailbox.php:114 lib/Ui/Message.php:27
-#: templates/imp/search/search-basic.html:15
+#: templates/dimp/index.inc:471 templates/dimp/javascript_defs.php:101
+#: lib/Compose.php:1942 lib/Ui/Mailbox.php:114 lib/Ui/Message.php:27
+#: templates/imp/search/search-basic.html:16
 #: templates/imp/compose/compose.html:31
 msgid "From"
 msgstr "Sūtītājs"
 
-#: config/prefs.php:961
+#: config/prefs.php:963
 msgid "From Address"
 msgstr "Sūtītāja adrese"
 
@@ -2154,7 +2155,7 @@ msgstr "Saņemt pastu"
 msgid "Go"
 msgstr "Aiziet"
 
-#: templates/imp/search/search-basic.html:42
+#: templates/imp/search/search-basic.html:43
 msgid "Go to Advanced Search Page..."
 msgstr "Uz paplašinātās meklēšanas lapu..."
 
@@ -2171,8 +2172,8 @@ msgstr "Pāriet pie \"%s\" adrešu grāmatas ieraksta"
 msgid "Go to your Inbox..."
 msgstr "Pāriet Inbox..."
 
-#: message.php:643 lib/Contents.php:434 lib/Filter.php:131
-#: lib/Views/ShowMessage.php:260 lib/Mime/Viewer/Appledouble.php:92
+#: message.php:647 lib/Contents.php:434 lib/Filter.php:131
+#: lib/Views/ShowMessage.php:266 lib/Mime/Viewer/Appledouble.php:92
 #: lib/Mime/Viewer/Images.php:107 lib/Mime/Viewer/Mdn.php:82
 #: lib/Mime/Viewer/Mdn.php:89 lib/Mime/Viewer/Status.php:106
 #: lib/Mime/Viewer/Status.php:122 lib/Mime/Viewer/Status.php:134
@@ -2183,7 +2184,7 @@ msgstr "ŠEIT"
 msgid "HTML"
 msgstr "HTML"
 
-#: lib/Compose.php:1169
+#: lib/Compose.php:1174
 msgid "HTML Message"
 msgstr "HTML vēstule"
 
@@ -2195,11 +2196,11 @@ msgstr "HTML redaktors"
 msgid "HTML data"
 msgstr "HTML dati"
 
-#: config/prefs.php:557
+#: config/prefs.php:559
 msgid "HTML part"
 msgstr "HTML daļa"
 
-#: message.php:585
+#: message.php:587
 msgid "Headers"
 msgstr "Galvenes"
 
@@ -2207,19 +2208,19 @@ msgstr "Galvenes"
 msgid "Help"
 msgstr "Palīdzība"
 
-#: config/prefs.php:605
+#: config/prefs.php:607
 msgid "Hidden"
 msgstr "Slēpts"
 
-#: config/prefs.php:603
+#: config/prefs.php:605
 msgid "Hidden in List Messages"
 msgstr "Slēpts Vēstuļu saraksta skatā"
 
-#: config/prefs.php:602
+#: config/prefs.php:604
 msgid "Hidden in Thread View"
 msgstr "Slēpts Pavediena skatījumā"
 
-#: config/prefs.php:604
+#: config/prefs.php:606
 msgid "Hidden in Thread View and List Messages"
 msgstr "Slēpts Pavediena un Vēstuļu saraksta skatā"
 
@@ -2227,11 +2228,11 @@ msgstr "Slēpts Pavediena un Vēstuļu saraksta skatā"
 msgid "Hide Addresses"
 msgstr "Slēpt adreses"
 
-#: templates/dimp/javascript_defs.php:148
+#: templates/dimp/javascript_defs.php:149
 msgid "Hide Alerts _Log"
 msgstr "Slēpt Brīdinājumu reģistru"
 
-#: mailbox.php:281
+#: mailbox.php:280
 msgid "Hide Deleted"
 msgstr "Slēpt dzēstās"
 
@@ -2243,7 +2244,7 @@ msgstr "Slēpt priekšskatu"
 msgid "Hide Unsubscribed"
 msgstr "Slēpt neparakstītās"
 
-#: compose.php:821 message.php:319 templates/dimp/javascript_defs.php:206
+#: compose.php:821 message.php:319 templates/dimp/javascript_defs.php:207
 msgid "High"
 msgstr "Augsta"
 
@@ -2263,15 +2264,15 @@ msgstr "Horde"
 msgid "Horizontal Layout"
 msgstr "Horizontālais skats"
 
-#: config/prefs.php:404
+#: config/prefs.php:405
 msgid "How should messages be forwarded by default?"
 msgstr "Kā vēstules jāpārsūta pēc noklusēšana?"
 
-#: config/prefs.php:1071
+#: config/prefs.php:1073
 msgid "How should namespaces be displayed in the folder tree view?"
 msgstr "Kā mapes koka skatā jāattēlo vārdu lauki?"
 
-#: config/prefs.php:377
+#: config/prefs.php:378
 msgid "How to attribute quoted lines in a reply"
 msgstr "Kā noformēt citētās rindas, rakstot atbildi"
 
@@ -2298,8 +2299,8 @@ msgid "Image"
 msgstr "Attēls"
 
 #: lib/Mime/Viewer/Html.php:218
-msgid "Images have been blocked to protect your privacy."
-msgstr "Attēli ir bloķēti lai aizsargātu Jūsu privātumu."
+msgid "Images have been blocked in this message part."
+msgstr "Attēli šajā vēstules daļā ir bloķēti."
 
 #: templates/dimp/index.inc:284 templates/imp/folders/import.html:16
 msgid "Import"
@@ -2384,7 +2385,7 @@ msgstr ""
 "Importētā atslēga satur Jūsu privāto PGP atslēgu. Pirmajā solī pievienojiet "
 "tikai Jūsu publisko atslēgu!"
 
-#: message.php:539 templates/dimp/index.inc:389
+#: message.php:541 templates/dimp/index.inc:389
 #: templates/dimp/message/message.html:136
 msgid "In Body Text"
 msgstr "Tikai tekstā"
@@ -2393,20 +2394,20 @@ msgstr "Tikai tekstā"
 msgid "In Process"
 msgstr "Norisinās"
 
-#: config/prefs.php:401
+#: config/prefs.php:402
 msgid "In the body text"
 msgstr "Tikai tekstā"
 
-#: lib/Mailbox.php:1147 lib/Mailbox.php:1230 lib/Ui/Mimp.php:31
+#: lib/Mailbox.php:1152 lib/Mailbox.php:1235 lib/Ui/Mimp.php:31
 #: templates/prefs/initialpage.html:8
 msgid "Inbox"
 msgstr "Inbox"
 
-#: config/prefs.php:368
+#: config/prefs.php:369
 msgid "Include a brief summary of the header in a reply?"
 msgstr "Iekļaut atbildē īsu vēstules galveņu kopsavilkumu?"
 
-#: config/prefs.php:354
+#: config/prefs.php:355
 msgid "Include original message in a reply?"
 msgstr "Iekļaut sākotnējo vēstuli atbildē?"
 
@@ -2414,7 +2415,7 @@ msgstr "Iekļaut sākotnējo vēstuli atbildē?"
 msgid "Info"
 msgstr "Info"
 
-#: lib/Prefs/Ui.php:1123 lib/Prefs/Ui.php:1481
+#: lib/Prefs/Ui.php:1123 lib/Prefs/Ui.php:1480
 #, php-format
 msgid "Information on %s Public Key"
 msgstr "Informācijas par %s publisko atslēgu"
@@ -2423,7 +2424,7 @@ msgstr "Informācijas par %s publisko atslēgu"
 msgid "Information on Personal Private Key"
 msgstr "Informācija par personīgo privāto atslēgu"
 
-#: lib/Prefs/Ui.php:1399
+#: lib/Prefs/Ui.php:1398
 msgid "Information on Personal Public Certificate"
 msgstr "Personīgā publiskā sertifikāta informācija"
 
@@ -2455,21 +2456,21 @@ msgstr "Iespraust vēstules"
 msgid "Invalid Action selected for this component."
 msgstr "Izvēlēta šim komponentam neatļauta darbība."
 
-#: templates/dimp/javascript_defs.php:136 lib/Ui/Mailbox.php:68
+#: templates/dimp/javascript_defs.php:137 lib/Ui/Mailbox.php:68
 #: lib/Ui/Mailbox.php:81
 msgid "Invalid Address"
 msgstr "Nederīga adrese"
 
-#: templates/dimp/javascript_defs.php:137
+#: templates/dimp/javascript_defs.php:138
 msgid "Invalid Subject"
 msgstr "Nederīgs temats"
 
-#: lib/Compose.php:1098
+#: lib/Compose.php:1103
 #, php-format
 msgid "Invalid character in e-mail address: %s."
 msgstr "Neatļauts simbols e-pasta adresē: %s."
 
-#: lib/Compose.php:1039
+#: lib/Compose.php:1044
 #, php-format
 msgid "Invalid e-mail address: %s."
 msgstr "Neatļauts simbols e-pasta adresē: %s."
@@ -2536,11 +2537,11 @@ msgstr "Iezīme"
 msgid "Label:"
 msgstr "Iezīme:"
 
-#: config/prefs.php:943
+#: config/prefs.php:945
 msgid "Last (newest) Unseen Message"
 msgstr "Lapa ar (jaunāko) neredzēto vēstuli"
 
-#: mailbox-mimp.php:261 mailbox.php:305 config/prefs.php:945
+#: mailbox-mimp.php:261 mailbox.php:304 config/prefs.php:947
 msgid "Last Page"
 msgstr "Pēdēja lapa"
 
@@ -2548,11 +2549,11 @@ msgstr "Pēdēja lapa"
 msgid "Link Attachments?"
 msgstr "Piesaistīt pielikumu?"
 
-#: attachment.php:26 lib/Compose.php:2420
+#: attachment.php:26 lib/Compose.php:2425
 msgid "Linked attachments are forbidden."
 msgstr "Piesaistītie pielikumi nav atļauti."
 
-#: lib/Compose.php:2443
+#: lib/Compose.php:2448
 #, php-format
 msgid "Links will expire on %s"
 msgstr "Saišu derīgums beigsies %s"
@@ -2561,7 +2562,7 @@ msgstr "Saišu derīgums beigsies %s"
 msgid "List"
 msgstr "Vēstkopai"
 
-#: config/prefs.php:1187
+#: config/prefs.php:1189
 msgid ""
 "List all contacts when loading the contacts screen? (if disabled, you will "
 "only see contacts that you search for explicitly)"
@@ -2569,8 +2570,8 @@ msgstr ""
 "Rādīt visus kontaktus atverot kontaktu ekrānu? (ja būs izslēgts, Jūs "
 "redzēsiet tikai tos kontaktus, kurus konkrēti meklēsiet)"
 
-#: search.php:491 templates/dimp/index.inc:37 templates/dimp/index.inc:82
-#: templates/dimp/index.inc:108 templates/dimp/javascript_defs.php:152
+#: search.php:495 templates/dimp/index.inc:37 templates/dimp/index.inc:82
+#: templates/dimp/index.inc:108 templates/dimp/javascript_defs.php:153
 #: lib/Mime/Viewer/Html.php:87 templates/dimp/message/message.html:3
 #: templates/dimp/compose/compose-base.html:3
 msgid "Loading..."
@@ -2580,16 +2581,16 @@ msgstr "Lasa..."
 msgid "Location"
 msgstr "Vieta"
 
-#: templates/mobile/folders.html.php:6 templates/mobile/mailbox.html.php:6
+#: templates/mobile/folders.html.php:6 templates/mobile/mailbox.html.php:5
 #: templates/mobile/message.html.php:5 lib/Ui/Mimp.php:43
 msgid "Log out"
 msgstr "Iziet"
 
-#: templates/dimp/javascript_defs.php:160
+#: templates/dimp/javascript_defs.php:161
 msgid "Logging Out..."
 msgstr "Atslēdzamies..."
 
-#: compose.php:823 message.php:324 templates/dimp/javascript_defs.php:215
+#: compose.php:823 message.php:324 templates/dimp/javascript_defs.php:216
 msgid "Low"
 msgstr "Zems"
 
@@ -2601,7 +2602,7 @@ msgstr "Mazsvarīga"
 msgid "Macintosh File"
 msgstr "Macintosh fails"
 
-#: lib/Mailbox.php:1259 config/prefs.php:1443
+#: lib/Mailbox.php:1264 config/prefs.php:1446
 msgid "Mailbox"
 msgstr "Pastkaste"
 
@@ -2610,7 +2611,7 @@ msgstr "Pastkaste"
 msgid "Mailbox %s does not exist."
 msgstr "Pastkaste %s neeksistē."
 
-#: config/prefs.php:917
+#: config/prefs.php:919
 msgid "Mailbox Display"
 msgstr "Pastkastes skats"
 
@@ -2618,20 +2619,20 @@ msgstr "Pastkastes skats"
 msgid "Mailbox listing failed"
 msgstr "Kļūme attēlojot pastkastu sarakstu"
 
-#: lib/Mailbox.php:577
+#: lib/Mailbox.php:578
 msgid "Mailbox structure on server has changed."
 msgstr "Pastkastes struktūra uz servera ir mainījusies."
 
-#: search.php:120 lib/Search/Filter/Mailinglist.php:22
+#: search.php:121 lib/Search/Filter/Mailinglist.php:22
 #: lib/Search/Element/Mailinglist.php:44
 msgid "Mailing List Messages"
 msgstr "Vēstkopas vēstules"
 
-#: config/prefs.php:423
+#: config/prefs.php:424
 msgid "Manage message drafts."
 msgstr "Pārlūkot melnrakstus"
 
-#: config/prefs.php:480
+#: config/prefs.php:481
 msgid "Manage sent mail folders."
 msgstr "Pārlūkot nosūtīto vēstuļu mapes."
 
@@ -2677,11 +2678,11 @@ msgstr "Atzīmēt kā"
 msgid "Mark as:"
 msgstr "Atzīmēt kā:"
 
-#: config/prefs.php:585
+#: config/prefs.php:587
 msgid "Mark different levels of quoting with different colors?"
 msgstr "Atzīmēt dažādus citēšanas līmeņus atšķirīgās krāsās?"
 
-#: config/prefs.php:593
+#: config/prefs.php:595
 msgid "Mark simple markup?"
 msgstr "Atzīmēt ar vienkāršu izcēlumu?"
 
@@ -2717,7 +2718,7 @@ msgstr "Sasniegts maksimālais pielikumu skaits."
 msgid "Maximum total attachment size reached."
 msgstr "Sasniegts maksimālais kopējais pielikumu lielums."
 
-#: templates/dimp/javascript_defs.php:149
+#: templates/dimp/javascript_defs.php:150
 msgid "Mbox or .eml file:"
 msgstr "Mbox vai .eml datne:"
 
@@ -2728,23 +2729,23 @@ msgstr "Mbox vai .eml datne:"
 msgid "Menu"
 msgstr "Izvēlne"
 
-#: templates/dimp/javascript_defs.php:153 lib/Compose.php:1579
-#: config/prefs.php:525 config/prefs.php:684 config/prefs.php:761
-#: config/prefs.php:840 config/prefs.php:885
+#: templates/dimp/javascript_defs.php:154 lib/Compose.php:1584
+#: config/prefs.php:527 config/prefs.php:686 config/prefs.php:763
+#: config/prefs.php:842 config/prefs.php:887
 msgid "Message"
 msgstr "Vēstule"
 
-#: lib/Ajax/Application.php:1838
+#: lib/Ajax/Application.php:1698
 #, php-format
 msgid "Message \"%s\" redirected successfully."
 msgstr "Vēstule  \"%s\" veiksmīgi pāradresēta."
 
-#: lib/Ajax/Application.php:1772
+#: lib/Ajax/Application.php:1646
 #, php-format
 msgid "Message \"%s\" sent successfully."
 msgstr "Vēstule  \"%s\" veiksmīgi nosūtīta."
 
-#: lib/Search/Element/Text.php:51 templates/imp/search/search-basic.html:18
+#: lib/Search/Element/Text.php:51 templates/imp/search/search-basic.html:19
 msgid "Message Body"
 msgstr "Vēstules teksts"
 
@@ -2752,15 +2753,15 @@ msgstr "Vēstules teksts"
 msgid "Message Composition"
 msgstr "Vēstules rakstīšana"
 
-#: config/prefs.php:422
+#: config/prefs.php:423
 msgid "Message Drafts"
 msgstr "Vēstules melnraksts"
 
-#: config/prefs.php:886
+#: config/prefs.php:888
 msgid "Message Flags"
 msgstr "Vēstules karogi"
 
-#: config/prefs.php:387
+#: config/prefs.php:388
 msgid "Message Forwards"
 msgstr "Vēstules pārsūtījumi"
 
@@ -2768,23 +2769,23 @@ msgstr "Vēstules pārsūtījumi"
 msgid "Message Log"
 msgstr "Vēstuļu žurnāls"
 
-#: config/prefs.php:342
+#: config/prefs.php:343
 msgid "Message Replies"
 msgstr "Vēstules atbildes"
 
-#: config/prefs.php:964
+#: config/prefs.php:966
 msgid "Message Size"
 msgstr "Vēstules izmērs"
 
-#: message.php:559
+#: message.php:561
 msgid "Message Source"
 msgstr "Vēstules pirmteksts"
 
-#: config/prefs.php:526
+#: config/prefs.php:528
 msgid "Message Viewing"
 msgstr "Vēstules apskate"
 
-#: lib/Compose.php:1579
+#: lib/Compose.php:1584
 #, php-format
 msgid "Message from %s"
 msgstr "Vēstule no %s"
@@ -2802,17 +2803,17 @@ msgid "Message is Signed"
 msgstr "Vēstule ir parakstīta"
 
 #: compose-mimp.php:200 compose.php:326 compose.php:332
-#: lib/Ajax/Application.php:1838
+#: lib/Ajax/Application.php:1698
 msgid "Message redirected successfully."
 msgstr "Vēstule veiksmīgi pāradresēta."
 
-#: lib/Compose.php:729
+#: lib/Compose.php:734
 #, php-format
 msgid "Message sent successfully, but not saved to %s."
 msgstr "Vēstule veiksmīgi nosūtīta, bet nav saglabāta %s."
 
 #: compose-mimp.php:288 compose.php:469 compose.php:476
-#: lib/Ajax/Application.php:1772
+#: lib/Ajax/Application.php:1646
 msgid "Message sent successfully."
 msgstr "Vēstule veiksmīgi nosūtīta."
 
@@ -2821,15 +2822,15 @@ msgstr "Vēstule veiksmīgi nosūtīta."
 msgid "Message:"
 msgstr "Vēstule:"
 
-#: templates/dimp/javascript_defs.php:154
+#: templates/dimp/javascript_defs.php:155
 msgid "Messages"
 msgstr "Vēstules"
 
-#: config/prefs.php:1006
+#: config/prefs.php:1008
 msgid "Messages per page in the mailbox view."
 msgstr "Vēstuļu skaits vienā lapā pastkastes skatījumā."
 
-#: mailbox.php:244
+#: mailbox.php:243
 msgid "Messages to"
 msgstr "Vēstules uz"
 
@@ -2837,7 +2838,7 @@ msgstr "Vēstules uz"
 msgid "Messages with Attachments"
 msgstr "Vēstules ar pielikumiem"
 
-#: config/prefs.php:1246
+#: config/prefs.php:1248
 msgid "Minutes needed to consider a event as a non-conflicting one in iTip"
 msgstr ""
 "Cik minūšu atstarpi starp notikumiem uzskatīt par nekonfliktējošu iTip?"
@@ -2846,7 +2847,7 @@ msgstr ""
 msgid "Mobile Mail"
 msgstr "Mobilais pasts"
 
-#: config/prefs.php:1399
+#: config/prefs.php:1401
 msgid "Mobile View"
 msgstr "Mobilais skats"
 
@@ -2854,11 +2855,11 @@ msgstr "Mobilais skats"
 msgid "Months"
 msgstr "Mēneši"
 
-#: mailbox.php:530 message.php:473
+#: mailbox.php:533 message.php:475
 msgid "Move"
 msgstr "Pārvietot"
 
-#: templates/dimp/javascript_defs.php:156
+#: templates/dimp/javascript_defs.php:157
 #, php-format
 msgid "Move %s to %s"
 msgstr "Pārvietot %s uz %s"
@@ -2871,15 +2872,15 @@ msgstr "Pārvietoties augšup/lejup pa lapai vēstuļu sarakstā."
 msgid "Move to Base Level"
 msgstr "Pāriet uz pamatlīmeni"
 
-#: config/prefs.php:805
+#: config/prefs.php:807
 msgid "Move to Inbox"
 msgstr "Pārvietot uz Inbox"
 
-#: mailbox.php:530 message.php:473
+#: mailbox.php:533 message.php:475
 msgid "Move to folder"
 msgstr "Pārvietot uz mapi"
 
-#: config/prefs.php:793
+#: config/prefs.php:795
 msgid "Move to spam folder"
 msgstr "Pārvietot uz mēstuļu mapi"
 
@@ -2904,7 +2905,7 @@ msgstr "Vairāku vēstules skats"
 msgid "Multiple Message View:"
 msgstr "Vairāku vēstuļu skats:"
 
-#: compose-dimp.php:127
+#: compose-dimp.php:125
 msgid "Multiple messages can only be forwarded as attachments."
 msgstr "Vairākas vēstules var pārsūtīt tikai kā pielikumus."
 
@@ -2912,7 +2913,7 @@ msgstr "Vairākas vēstules var pārsūtīt tikai kā pielikumus."
 msgid "N"
 msgstr "Nē"
 
-#: config/prefs.php:959
+#: config/prefs.php:961
 msgid "NONE"
 msgstr "NAV"
 
@@ -2932,8 +2933,8 @@ msgstr "Nepieciešama darbība"
 msgid "Negative Right"
 msgstr "Negatīvas tiesības"
 
-#: config/prefs.php:297 config/prefs.php:507 config/prefs.php:737
-#: config/prefs.php:822 config/prefs.php:853
+#: config/prefs.php:298 config/prefs.php:509 config/prefs.php:739
+#: config/prefs.php:824 config/prefs.php:855
 msgid "Never"
 msgstr "Nekad"
 
@@ -2941,7 +2942,7 @@ msgstr "Nekad"
 msgid "Never save attachments"
 msgstr "Nekad nesaglabāt pielikumus"
 
-#: config/prefs.php:669
+#: config/prefs.php:671
 msgid "Never send read receipt"
 msgstr "Atskaiti par izlasīšanu nesūtīt nekad"
 
@@ -2953,17 +2954,17 @@ msgstr "Jauns karogs"
 msgid "New Folder"
 msgstr "Jauna mape"
 
-#: config/prefs.php:841
+#: config/prefs.php:843
 msgid "New Mail"
 msgstr "Jauna vēstule"
 
-#: compose-dimp.php:61 compose.php:181 templates/dimp/index.inc:449
-#: lib/Application.php:529 lib/Ui/Compose.php:218 lib/Ui/Mimp.php:35
+#: compose-dimp.php:59 compose.php:181 templates/dimp/index.inc:449
+#: lib/Application.php:529 lib/Ui/Compose.php:214 lib/Ui/Mimp.php:35
 #: templates/dimp/message/message.html:145
 msgid "New Message"
 msgstr "Jauna vēstule"
 
-#: mailbox.php:836 lib/Ui/Message.php:338 lib/Ui/Message.php:366
+#: mailbox.php:839 lib/Ui/Message.php:342 lib/Ui/Message.php:370
 #, php-format
 msgid "New Message to %s"
 msgstr "Jauna vēstule %s"
@@ -2981,16 +2982,16 @@ msgstr "Jaunākās neredzētās vēstules"
 msgid "Next"
 msgstr "Nākošā"
 
-#: message-mimp.php:291 message.php:494
+#: message-mimp.php:291 message.php:496
 msgid "Next Message"
 msgstr "Nākamā vēstule"
 
-#: mailbox-mimp.php:260 mailbox.php:303
+#: mailbox-mimp.php:260 mailbox.php:302
 msgid "Next Page"
 msgstr "Nākamā lapa"
 
-#: templates/imp/javascript_defs.php:38 config/prefs.php:466
-#: config/prefs.php:1056 templates/imp/compose/compose.html:251
+#: templates/imp/javascript_defs.php:38 config/prefs.php:467
+#: config/prefs.php:1058 templates/imp/compose/compose.html:251
 msgid "No"
 msgstr "Nē"
 
@@ -2998,7 +2999,7 @@ msgstr "Nē"
 msgid "No Actions Available"
 msgstr "Darbības nav pieejamas"
 
-#: templates/dimp/javascript_defs.php:157
+#: templates/dimp/javascript_defs.php:158
 msgid "No Alerts"
 msgstr "Nav brīdinājumu"
 
@@ -3006,8 +3007,7 @@ msgstr "Nav brīdinājumu"
 msgid "No Keys in Keyring"
 msgstr "Atslēgu kopā nav atslēgu"
 
-#: mailbox.php:441 rss.php:82 templates/dimp/javascript_defs.php:158
-#: lib/Block/Summary.php:102
+#: mailbox.php:440 rss.php:82 templates/dimp/javascript_defs.php:159
 msgid "No Messages"
 msgstr "Vēstuļu nav"
 
@@ -3015,7 +3015,7 @@ msgstr "Vēstuļu nav"
 msgid "No PGP public key imported."
 msgstr "Nav importēta neviena PGP publiskā atslēga."
 
-#: mailbox.php:805
+#: mailbox.php:808
 msgid "No Preview Text"
 msgstr "Nav priekšskata teksts"
 
@@ -3063,15 +3063,15 @@ msgstr "Nav norādītas mapes"
 msgid "No folders were specified."
 msgstr "Nav norādītas mapes."
 
-#: lib/Block/Summary.php:111
+#: lib/Block/Summary.php:99
 msgid "No folders with unseen messages"
 msgstr "Nevienā mapē nav nelasītu vēstuļu"
 
-#: lib/IMP.php:421
+#: lib/IMP.php:445
 msgid "No limit"
 msgstr "Bez ierobežojumiem"
 
-#: lib/Compose.php:1610
+#: lib/Compose.php:1615
 msgid "No message body text"
 msgstr "Vēstulei nav teksta"
 
@@ -3105,7 +3105,7 @@ msgid "No search criteria specified."
 msgstr "Nav norādīti meklēšanas kritēriji"
 
 #
-#: templates/dimp/javascript_defs.php:194
+#: templates/dimp/javascript_defs.php:195
 msgid "No spelling errors found."
 msgstr "Pareizrakstības kļūdu nav."
 
@@ -3117,15 +3117,15 @@ msgstr "Nav nelasītu vēstuļu"
 msgid "Non Participant"
 msgstr "Nepiedalās"
 
-#: lib/IMP.php:458 lib/Mime/Viewer/Itip.php:711 lib/Mime/Viewer/Itip.php:887
+#: lib/IMP.php:482 lib/Mime/Viewer/Itip.php:711 lib/Mime/Viewer/Itip.php:887
 #: templates/prefs/drafts.html:7 templates/prefs/sentmail.html:7
 #: templates/prefs/spam.html:7 templates/prefs/trash.html:7
-#: templates/imp/search/search-basic.html:13
-#: templates/imp/search/search-basic.html:30
+#: templates/imp/search/search-basic.html:14
+#: templates/imp/search/search-basic.html:31
 msgid "None"
 msgstr "Neviens"
 
-#: compose.php:822 templates/dimp/javascript_defs.php:210
+#: compose.php:822 templates/dimp/javascript_defs.php:211
 msgid "Normal"
 msgstr "Parasta"
 
@@ -3147,7 +3147,7 @@ msgstr "Nederīga publiskā atslēga."
 msgid "Notepads"
 msgstr "Piezīmju grāmatas"
 
-#: config/prefs.php:791 config/prefs.php:804
+#: config/prefs.php:793 config/prefs.php:806
 msgid "Nothing"
 msgstr "Nekas"
 
@@ -3164,12 +3164,12 @@ msgstr "Paziņojums: piesaistītais pielikums lejupielādēts"
 msgid "OK"
 msgstr "OK"
 
-#: search.php:496 lib/Search/Element/Or.php:31
+#: search.php:500 lib/Search/Element/Or.php:31
 #: templates/smime/import_key.html:31 templates/pgp/import_key.html:30
 msgid "OR"
 msgstr "VAI"
 
-#: templates/dimp/javascript_defs.php:159
+#: templates/dimp/javascript_defs.php:160
 msgid "Ok"
 msgstr "Ok"
 
@@ -3177,11 +3177,11 @@ msgstr "Ok"
 msgid "Old sent-mail folders being purged."
 msgstr "Tiek tīrītas vecās nosūtīto vēstuļu mapes."
 
-#: search.php:91 lib/Search/Element/Within.php:73
+#: search.php:92 lib/Search/Element/Within.php:73
 msgid "Older Than"
 msgstr "Vecākas par"
 
-#: lib/Block/Summary.php:49
+#: lib/Block/Summary.php:44
 msgid "Only display folders with unread messages in them?"
 msgstr "Rādīt tikai mapes ar nelasītām vēstulēm?"
 
@@ -3189,7 +3189,7 @@ msgstr "Rādīt tikai mapes ar nelasītām vēstulēm?"
 msgid "Only one folder should be selected for this action."
 msgstr "Šai darbībai, lūdzu, izvēlieties tikai vienu mapi."
 
-#: config/prefs.php:1417
+#: config/prefs.php:1420
 msgid ""
 "Only show download confirmation page if message part is greater than this "
 "size, in bytes. Set to 0 to always require the confirmation page."
@@ -3198,11 +3198,11 @@ msgstr ""
 "norādīto izmēru baitos. Norādiet 0 lai apstiprinājuma lapa tiktu rādīta "
 "vienmēr."
 
-#: lib/IMP.php:322 lib/IMP.php:330
+#: lib/IMP.php:346 lib/IMP.php:354
 msgid "Open Fo_lder"
 msgstr "Atvērt mapi"
 
-#: lib/IMP.php:330
+#: lib/IMP.php:354
 msgid "Open Folder"
 msgstr "Atvērt mapi"
 
@@ -3214,7 +3214,7 @@ msgstr "Atvērt jaunā logā"
 msgid "Open message in a popup window."
 msgstr "Atvērt vēstuli izlecošajā logā."
 
-#: lib/Mailbox.php:1216
+#: lib/Mailbox.php:1221
 msgid "Opened Folder"
 msgstr "Atvērtā mape"
 
@@ -3222,10 +3222,10 @@ msgstr "Atvērtā mape"
 msgid "Optional Participant"
 msgstr "Vēlamais dalībnieks"
 
-#: config/prefs.php:916 config/prefs.php:1036 config/prefs.php:1097
-#: config/prefs.php:1165 config/prefs.php:1236 config/prefs.php:1254
-#: config/prefs.php:1334 config/prefs.php:1398 config/prefs.php:1432
-#: config/prefs.php:1514
+#: config/prefs.php:918 config/prefs.php:1038 config/prefs.php:1099
+#: config/prefs.php:1167 config/prefs.php:1238 config/prefs.php:1256
+#: config/prefs.php:1336 config/prefs.php:1400 config/prefs.php:1435
+#: config/prefs.php:1517
 msgid "Other"
 msgstr "Cits"
 
@@ -3233,11 +3233,11 @@ msgstr "Cits"
 msgid "Other Actions"
 msgstr "Citas darbības"
 
-#: lib/Mailbox.php:1110
+#: lib/Mailbox.php:1115
 msgid "Other Users' Folders"
 msgstr "Citu lietotāju mapes"
 
-#: config/prefs.php:1255
+#: config/prefs.php:1257
 msgid "PGP"
 msgstr "PGP"
 
@@ -3249,7 +3249,7 @@ msgstr "ar PGP šifrēta vēstule"
 msgid "PGP Encrypt Message with passphrase"
 msgstr "PGP: Šifrēt vēstuli ar paroli"
 
-#: lib/Compose.php:1312
+#: lib/Compose.php:1317
 msgid "PGP Error: "
 msgstr "PGP kļūda:"
 
@@ -3305,7 +3305,7 @@ msgstr "PGP privātā atslēga veiksmīgi pievienota."
 msgid "PGP public key successfully added."
 msgstr "PGP publiskā atslēga veiksmīgi pievienota."
 
-#: config/prefs.php:1280
+#: config/prefs.php:1282
 msgid ""
 "PGP support requires popup windows to be used.  If your browser is currently "
 "set to disable popup windows, you must change this setting or else the PGP "
@@ -3315,15 +3315,15 @@ msgstr ""
 "ir bloķēti, Jums ir jāmaina šis iestatījums, citādi PGP funkcijas "
 "nedarbosies korekti."
 
-#: lib/Compose.php:1269
+#: lib/Compose.php:1274
 msgid "PGP: Need passphrase for personal private key."
 msgstr "PGP: nepieciešama personīgās privātās atslēgas parole."
 
-#: lib/Compose.php:1281
+#: lib/Compose.php:1286
 msgid "PGP: Need passphrase to encrypt your message with."
 msgstr "PGP: nepieciešama parole, ar ko šifrēt vēstuli."
 
-#: mailbox.php:444
+#: mailbox.php:443
 #, php-format
 msgid "Page %d of %d"
 msgstr "Lapa %d no %d"
@@ -3332,7 +3332,7 @@ msgstr "Lapa %d no %d"
 msgid "Page:"
 msgstr "Lapa:"
 
-#: message.php:703 lib/Views/ShowMessage.php:279
+#: message.php:707 lib/Views/ShowMessage.php:285
 msgid "Parts"
 msgstr "Daļas"
 
@@ -3356,12 +3356,12 @@ msgstr "Paroles neatbilst"
 msgid "Password:"
 msgstr "Parole:"
 
-#: templates/dimp/javascript_defs.php:144
+#: templates/dimp/javascript_defs.php:145
 #, php-format
 msgid "Permanently delete %s?"
 msgstr "Dzēst %s?"
 
-#: templates/dimp/javascript_defs.php:146
+#: templates/dimp/javascript_defs.php:147
 #, php-format
 msgid "Permanently delete all %d messages in %s?"
 msgstr "Dzēst visas %d vēstules no mapes %s?"
@@ -3374,7 +3374,7 @@ msgstr "Personīga"
 msgid "Personal Information"
 msgstr "Personīgā informācija"
 
-#: search.php:124 lib/Search/Filter/Personal.php:22
+#: search.php:125 lib/Search/Filter/Personal.php:22
 #: lib/Search/Element/Personal.php:61
 msgid "Personal Messages"
 msgstr "Personīgās vēstules"
@@ -3395,7 +3395,7 @@ msgstr "Personīgie S/MIME sertifikāti NAV importēti."
 msgid "Personal S/MIME certificates NOT imported: "
 msgstr "Personīgie S/MIME sertifikāti NAV importēti:"
 
-#: lib/Prefs/Ui.php:1438
+#: lib/Prefs/Ui.php:1437
 msgid "Personal S/MIME keys deleted successfully."
 msgstr "Personīgie S/MIME sertifikāti izdzēsti."
 
@@ -3411,11 +3411,11 @@ msgstr "PgUp"
 msgid "Place your signature before replies and forwards?"
 msgstr "Ievietot parakstu pirms atbildēm un pārsūtīšanām?"
 
-#: lib/Compose.php:1190
+#: lib/Compose.php:1195
 msgid "Plaintext Message"
 msgstr "Vienkārša teksta vēstule"
 
-#: config/prefs.php:558
+#: config/prefs.php:560
 msgid "Plaintext part"
 msgstr "Vienkāršā teksta daļa"
 
@@ -3460,20 +3460,19 @@ msgstr "Lūdzu ievadiet lietotāja vārdu."
 msgid "Please select a folder before you perform this action."
 msgstr "Pirms veikt šo darbību, lūdzu, izvēlieties mapi."
 
-#: search.php:493
+#: search.php:497
 msgid "Please select at least one folder to search."
 msgstr "Meklēšanai izvēlieties vismaz vienu mapi."
 
-#: search.php:492
+#: search.php:496
 msgid "Please select at least one search criteria."
 msgstr "Meklēšanai izvēlieties vismaz vienu kritēriju."
 
-#: config/prefs.php:1078
+#: config/prefs.php:1080
 msgid "Poll all folders for new mail?"
 msgstr "Pārbaudīt jauno pastu visās mapēs?"
 
-#: templates/mobile/folders.html.php:3 templates/mobile/mailbox.html.php:3
-#: templates/dimp/javascript_defs.php:162
+#: templates/mobile/folders.html.php:3 templates/dimp/javascript_defs.php:163
 msgid "Portal"
 msgstr "Portāls"
 
@@ -3505,11 +3504,11 @@ msgstr "Priekšskats"
 msgid "Previous"
 msgstr "Iepriekšējais"
 
-#: message-mimp.php:288 message.php:487
+#: message-mimp.php:288 message.php:489
 msgid "Previous Message"
 msgstr "Iepriekšējā vēstule"
 
-#: mailbox-mimp.php:257 mailbox.php:295
+#: mailbox-mimp.php:257 mailbox.php:294
 msgid "Previous Page"
 msgstr "Iepriekšējā lapa"
 
@@ -3542,7 +3541,7 @@ msgstr "Apstiprināt katru pielikuma nosūtīšanu, pēc noklusēšanas - NĒ"
 msgid "Prompt every time an attachment is sent; default to YES"
 msgstr "Apstiprināt katru pielikuma nosūtīšanu, pēc noklusēšanas - JĀ"
 
-#: config/prefs.php:675
+#: config/prefs.php:677
 msgid ""
 "Prompt to send read receipt (a/k/a message disposition notification) when "
 "requested by the sender?"
@@ -3554,7 +3553,7 @@ msgstr ""
 msgid "Public PGP keyserver support has been disabled."
 msgstr " Publisko PGP atslēgu servera atbalsts ir atslēgts."
 
-#: mailbox.php:459 mailbox.php:571
+#: mailbox.php:458 mailbox.php:574
 msgid "Pur_ge Deleted"
 msgstr "Iztīrīt dzēstās"
 
@@ -3562,16 +3561,16 @@ msgstr "Iztīrīt dzēstās"
 msgid "Purge"
 msgstr "Tīrīt"
 
-#: mailbox-mimp.php:215 mailbox.php:459 mailbox.php:571
+#: mailbox-mimp.php:215 mailbox.php:458 mailbox.php:574
 #: templates/dimp/index.inc:423
 msgid "Purge Deleted"
 msgstr "Iztīrīt dzēstās"
 
-#: config/prefs.php:823
+#: config/prefs.php:825
 msgid "Purge Spam how often:"
 msgstr "Cik bieži tīrīt Mēstules:"
 
-#: config/prefs.php:738
+#: config/prefs.php:740
 msgid "Purge Trash how often:"
 msgstr "Cik bieži tīrīt atkritumus:"
 
@@ -3579,22 +3578,22 @@ msgstr "Cik bieži tīrīt atkritumus:"
 msgid "Purge messages"
 msgstr "Iztīrīt vēstules"
 
-#: config/prefs.php:831
+#: config/prefs.php:833
 msgid "Purge messages in Spam folder older than this amount of days."
 msgstr ""
 "Tīrīt vēstules no atkritumu mapes, ja tās vecākas par norādīto dienu skaitu."
 
-#: config/prefs.php:746
+#: config/prefs.php:748
 msgid "Purge messages in Trash folder older than this amount of days."
 msgstr "Tīrīt vēstules no atkritumu mapes, ja tās vecākas par šo dienu skaitu."
 
-#: config/prefs.php:516
+#: config/prefs.php:518
 msgid "Purge messages in sent mail folder(s) older than this amount of days."
 msgstr ""
 "Tīrīt vēstules no nosūtīto vēstuļu mapes (-ēm), kas vecākas par norādīto "
 "dienu skaitu."
 
-#: config/prefs.php:508
+#: config/prefs.php:510
 msgid "Purge sent mail how often:"
 msgstr "Cik bieži tīrīt nosūtīto vēstuļu mapi:"
 
@@ -3632,12 +3631,12 @@ msgstr "Kvotas stāvoklis: %.2f %s / %.2f %s  (%.2f%%)"
 msgid "Quota status: %.2f %s / NO LIMIT"
 msgstr "Kvotas stāvoklis: %.2f %s / BEZ IEROBEŽOJUMA"
 
-#: lib/IMP.php:420
+#: lib/IMP.php:444
 #, php-format
 msgid "Quota status: NO LIMIT"
 msgstr "Kvota: BEZ IEROBEŽOJUMA"
 
-#: config/prefs.php:375
+#: config/prefs.php:376
 #, php-format
 msgid "Quoting %f:"
 msgstr "Citēju %f:"
@@ -3654,11 +3653,11 @@ msgstr "Atskaite par izlasīšanu"
 msgid "Read messages"
 msgstr "Lasīt vēstules"
 
-#: mailbox-mimp.php:141 mailbox.php:396 templates/dimp/index.inc:115
+#: mailbox-mimp.php:141 mailbox.php:395 templates/dimp/index.inc:115
 msgid "Read-Only"
 msgstr "Tikai lasīšanai"
 
-#: templates/dimp/javascript_defs.php:195
+#: templates/dimp/javascript_defs.php:196
 msgid ""
 "Really discard all formatting information? This operation cannot be undone."
 msgstr ""
@@ -3684,18 +3683,18 @@ msgstr "Pēdējie vaicājumi:"
 msgid "Recipient address does not match the currently selected identity."
 msgstr "Saņēmēja adrese neatbilst pašreiz izvēlētajai identitātei."
 
-#: search.php:47 templates/dimp/index.inc:472
-#: templates/imp/search/search-basic.html:16
+#: search.php:48 templates/dimp/index.inc:472
+#: templates/imp/search/search-basic.html:17
 msgid "Recipients (To/Cc/Bcc)"
 msgstr "Saņemēji (To/Cc/Bcc)"
 
-#: message.php:543 message.php:583
+#: message.php:545 message.php:585
 msgid "Redirec_t"
 msgstr "Pāradresēt"
 
-#: compose-dimp.php:180 compose-mimp.php:192 compose-mimp.php:195
-#: compose.php:313 message-mimp.php:283 message.php:543 message.php:583
-#: templates/dimp/index.inc:393 lib/Views/Compose.php:178
+#: compose-dimp.php:178 compose-mimp.php:192 compose-mimp.php:195
+#: compose.php:313 message-mimp.php:283 message.php:545 message.php:585
+#: templates/dimp/index.inc:393 lib/Views/Compose.php:181
 #: lib/Notification/Event/Status.php:32 templates/mimp/compose/compose.html:37
 #: templates/dimp/message/message.html:140
 msgid "Redirect"
@@ -3709,7 +3708,7 @@ msgstr "Pāradresēt vēstuli"
 msgid "Refresh"
 msgstr "Atsvaidzināt skatu"
 
-#: config/prefs.php:860
+#: config/prefs.php:862
 msgid "Refresh Folder Views:"
 msgstr "Atjaunot mapju skatījumus:"
 
@@ -3725,15 +3724,15 @@ msgstr "Atsvaidzināt skatījumu"
 msgid "Remember the free/busy information."
 msgstr "Atcerēties Brīvs/Aizņemts informāciju"
 
-#: config/prefs.php:1058
+#: config/prefs.php:1060
 msgid "Remember the last view"
 msgstr "Atcerēties pēdējo skatījumu"
 
-#: lib/Imap/Exception.php:93
+#: lib/Imap/Exception.php:94
 msgid "Remote server is down. Please try again later."
 msgstr "Attālinātais serveris nedarbojas. Mēģiniet vēlāk."
 
-#: templates/dimp/javascript_defs.php:193
+#: templates/dimp/javascript_defs.php:194
 msgid "Remove"
 msgstr "Aizvākt"
 
@@ -3741,7 +3740,7 @@ msgstr "Aizvākt"
 msgid "Rename"
 msgstr "Pārdēvēt"
 
-#: templates/dimp/javascript_defs.php:164
+#: templates/dimp/javascript_defs.php:165
 #, php-format
 msgid "Rename %s to:"
 msgstr "Pārdēvēt %s par:"
@@ -3750,7 +3749,7 @@ msgstr "Pārdēvēt %s par:"
 msgid "Rename Folder"
 msgstr "Pārsaukt mapi"
 
-#: config/prefs.php:491
+#: config/prefs.php:492
 msgid "Rename sent mail folder at beginning of month?"
 msgstr "Pārsaukt nosūtīto vēstuļu (sent-mail) mapi mēneša sākumā?"
 
@@ -3760,7 +3759,7 @@ msgid "Renaming \"%s\" to \"%s\" failed. This is what the server said"
 msgstr "Neizdevās pārsaukt \"%s\" par \"%s\". Servera atbilde"
 
 #: compose-mimp.php:164 message-dimp.php:143 message-mimp.php:272
-#: message.php:524 templates/dimp/index.inc:128 templates/dimp/index.inc:350
+#: message.php:526 templates/dimp/index.inc:128 templates/dimp/index.inc:350
 #: lib/Notification/Event/Status.php:39
 msgid "Reply"
 msgstr "Atbildēt"
@@ -3777,7 +3776,7 @@ msgstr "Atbilde nosūtīta."
 msgid "Reply text will be automatically appended to your outgoing message."
 msgstr "Atbildes teksts tiks automātiski pievienots izejošajai vēstulei."
 
-#: compose-dimp.php:97 compose.php:268
+#: compose-dimp.php:95 compose.php:268
 msgid "Reply to All:"
 msgstr "Atbildēt visiem:"
 
@@ -3785,7 +3784,7 @@ msgstr "Atbildēt visiem:"
 msgid "Reply to List"
 msgstr "Atbildēt vēstkopai"
 
-#: compose-dimp.php:102 compose.php:273
+#: compose-dimp.php:100 compose.php:273
 msgid "Reply to List:"
 msgstr "Atbildēt vēstkopai:"
 
@@ -3802,11 +3801,11 @@ msgstr "Atbildēt ar 2 nākošo mēnešu Brīvs/Aizņemts informāciju."
 msgid "Reply with requested free/busy information."
 msgstr "Atbildēt ar pieprasīto Brīvs/Aizņemts informāciju."
 
-#: lib/Compose.php:1941 lib/Ui/Message.php:31
+#: lib/Compose.php:1946 lib/Ui/Message.php:31
 msgid "Reply-To"
 msgstr "Reply-To"
 
-#: compose-dimp.php:92 compose.php:263
+#: compose-dimp.php:90 compose.php:263
 msgid "Reply:"
 msgstr "Reply:"
 
@@ -3818,12 +3817,12 @@ msgstr "Pieteikt kā derīgu"
 msgid "Report As Spam"
 msgstr "Pieteikt kā mēstuli"
 
-#: mailbox.php:608 message-mimp.php:305 message.php:580
+#: mailbox.php:611 message-mimp.php:305 message.php:582
 #: templates/dimp/index.inc:362
 msgid "Report as Innocent"
 msgstr "Pieteikt kā derīgu"
 
-#: mailbox.php:602 message-mimp.php:299 message.php:574
+#: mailbox.php:605 message-mimp.php:299 message.php:576
 #: templates/dimp/index.inc:359
 msgid "Report as Spam"
 msgstr "Pieteikt kā mēstuli"
@@ -3832,7 +3831,7 @@ msgstr "Pieteikt kā mēstuli"
 msgid "Request a _Read Receipt"
 msgstr "Pieprasīt atskaiti par izlasīšanu"
 
-#: config/prefs.php:301
+#: config/prefs.php:302
 msgid "Request read receipts?"
 msgstr "Pieprasīt atskaiti par izlasīšanu?"
 
@@ -3844,7 +3843,7 @@ msgstr "Pieprasītā vēstule nav atrasta"
 msgid "Required Participant"
 msgstr "Nepieciešamais dalībnieks"
 
-#: templates/imp/search/search-basic.html:49
+#: templates/imp/search/search-basic.html:50
 #: templates/imp/search/search.html:110
 #: templates/imp/contacts/contacts.html:26
 msgid "Reset"
@@ -3854,7 +3853,7 @@ msgstr "Sākt no jauna"
 msgid "Respondent Status Updated."
 msgstr "Respondenta statuss atjaunots."
 
-#: message.php:565 templates/dimp/index.inc:136
+#: message.php:567 templates/dimp/index.inc:136
 msgid "Resume"
 msgstr "Atsākt"
 
@@ -3866,7 +3865,7 @@ msgstr "Atsākt melnrakstu"
 msgid "Resume Editing"
 msgstr "Atsākt rediģēšanu"
 
-#: search.php:504
+#: search.php:508
 #, php-format
 msgid "Return to %s"
 msgstr "Atgriezties pie %s"
@@ -3879,7 +3878,7 @@ msgstr "Atgriezties pie Mapju saraksta"
 msgid "Return to message view"
 msgstr "Atgriezties pie vēstules skata"
 
-#: config/prefs.php:697
+#: config/prefs.php:699
 msgid ""
 "Return to the mailbox listing after deleting, moving, or copying a message?"
 msgstr ""
@@ -3894,7 +3893,7 @@ msgstr "Loma"
 msgid "Run Search"
 msgstr "Meklēt"
 
-#: config/prefs.php:1335
+#: config/prefs.php:1337
 msgid "S/MIME"
 msgstr "S/MIME"
 
@@ -3902,11 +3901,11 @@ msgstr "S/MIME"
 msgid "S/MIME Encrypt Message"
 msgstr "Šifrēt ar S/MIME"
 
-#: lib/Compose.php:1344
+#: lib/Compose.php:1349
 msgid "S/MIME Error: "
 msgstr "S/MIME kļūda:"
 
-#: lib/Compose.php:1322
+#: lib/Compose.php:1327
 msgid "S/MIME Error: Need passphrase for personal private key."
 msgstr "S/MIME kļūda: nepieciešama personīgās privātās atslēgas parole."
 
@@ -3916,7 +3915,7 @@ msgstr ""
 "S/MIME personīgā sertifikāta atbalstam nepieciešams drošais tīmekļa "
 "savienojums."
 
-#: lib/Prefs/Ui.php:1513
+#: lib/Prefs/Ui.php:1512
 #, php-format
 msgid "S/MIME Public Key for \"%s\" was successfully deleted."
 msgstr "\"%s\"S/MIME publiskā atslēga izdzēsta."
@@ -3937,7 +3936,7 @@ msgstr "Parakstīt ar S/MIME"
 msgid "S/MIME Sign/Encrypt Message"
 msgstr "Parakstīt/šifrēt ar S/MIME"
 
-#: lib/Prefs/Ui.php:1441
+#: lib/Prefs/Ui.php:1440
 msgid "S/MIME passphrase successfully unloaded."
 msgstr "S/MIME parole veiksmīgi aizmirsta."
 
@@ -3959,7 +3958,7 @@ msgstr ""
 "S/MIME atbalsts nav ieslēgts, tādēļ elektronisko parakstu nav iespējams "
 "pārbaudīt."
 
-#: config/prefs.php:1360
+#: config/prefs.php:1362
 msgid ""
 "S/MIME support requires popup windows to be used.  If your browser is "
 "currently set to disable popup windows, you must change this setting or else "
@@ -3977,7 +3976,7 @@ msgstr "Temats"
 msgid "Sa_ve a copy in "
 msgstr "Saglabāt kopiju "
 
-#: message.php:569
+#: message.php:571
 msgid "Sa_ve as"
 msgstr "Saglabāt kā"
 
@@ -3986,7 +3985,7 @@ msgstr "Saglabāt kā"
 msgid "Save"
 msgstr "Saglabāt"
 
-#: lib/Views/ShowMessage.php:282
+#: lib/Views/ShowMessage.php:288
 msgid "Save All"
 msgstr "Saglabāt visu"
 
@@ -4025,19 +4024,19 @@ msgstr "Saglabāt veidlapu"
 msgid "Save _Draft"
 msgstr "Saglabāt melnrakstu"
 
-#: message.php:569
+#: message.php:571
 msgid "Save as"
 msgstr "Saglabāt kā"
 
-#: lib/Views/Compose.php:133
+#: lib/Views/Compose.php:137
 msgid "Save as Draft"
 msgstr "Saglabāt kā melnrakstu"
 
-#: config/prefs.php:457
+#: config/prefs.php:458
 msgid "Save drafts as unseen?"
 msgstr "Saglabāt melnrakstus kā nelasītus?"
 
-#: config/prefs.php:470
+#: config/prefs.php:471
 msgid "Save drafts automatically while composing?"
 msgstr "Melnrakstus saglabāt automātiski?"
 
@@ -4045,7 +4044,7 @@ msgstr "Melnrakstus saglabāt automātiski?"
 msgid "Save in"
 msgstr "Saglabāt"
 
-#: config/prefs.php:1178
+#: config/prefs.php:1180
 msgid "Save recipients automatically to the default address book?"
 msgstr "Saglabāt saņēmējus adrešu grāmatā automātiski?"
 
@@ -4061,7 +4060,7 @@ msgstr "Saglabāt atslēgu adrešu grāmatā"
 msgid "Saved Searches"
 msgstr "Saglabātie vaicājumi"
 
-#: search.php:494
+#: search.php:498
 msgid "Saved searches require a label."
 msgstr "Saglabātajiem vaicājumiem nepieciešama iezīme"
 
@@ -4085,9 +4084,9 @@ msgstr ""
 msgid "Scroll up/down through the display of the previewed message."
 msgstr "Rullējiet augšup/lejup pa aplūkojamo vēstuli."
 
-#: mailbox-mimp.php:250 mailbox.php:405 search-basic.php:116 search.php:510
+#: mailbox-mimp.php:250 mailbox.php:404 search-basic.php:114 search.php:514
 #: templates/dimp/index.inc:275 templates/dimp/index.inc:303
-#: templates/dimp/javascript_defs.php:165 lib/Application.php:544
+#: templates/dimp/javascript_defs.php:166 lib/Application.php:544
 #: lib/Search/Filter.php:30 lib/Search/Query.php:225
 #: templates/imp/search/search.html:13 templates/imp/mailbox/header.html:20
 #: templates/imp/folders/actions.html:40
@@ -4095,7 +4094,7 @@ msgstr "Rullējiet augšup/lejup pa aplūkojamo vēstuli."
 msgid "Search"
 msgstr "Meklēt"
 
-#: mailbox-mimp.php:93 search-basic.php:113
+#: mailbox-mimp.php:93 search-basic.php:111
 #, php-format
 msgid "Search %s"
 msgstr "Meklēt %s"
@@ -4112,11 +4111,11 @@ msgstr "Meklēt pēc"
 msgid "Search Criteria"
 msgstr "Meklēšanas kritēriji"
 
-#: templates/imp/search/search-basic.html:10
+#: templates/imp/search/search-basic.html:11
 msgid "Search Criteria:"
 msgstr "Meklēšanas kritēriji:"
 
-#: templates/imp/search/search-basic.html:27
+#: templates/imp/search/search-basic.html:28
 msgid "Search Flags:"
 msgstr "Meklēšanas karogi:"
 
@@ -4128,11 +4127,11 @@ msgstr "Meklēt mapēs"
 msgid "Search Results"
 msgstr "Meklēšanas rezultāti"
 
-#: search.php:497
+#: search.php:501
 msgid "Search Term:"
 msgstr "Meklēšanas nosacījums:"
 
-#: search.php:498
+#: search.php:502
 msgid "Search all subfolders?"
 msgstr "Meklēt visās apakšmapēs?"
 
@@ -4157,7 +4156,7 @@ msgstr "Lasīts"
 msgid "Select All"
 msgstr "Iezīmēt visu"
 
-#: config/prefs.php:1167
+#: config/prefs.php:1169
 msgid "Select address book sources for adding and searching for addresses."
 msgstr "Izvēlies adrešu grāmatas adrešu pievienošanai un meklēšanai."
 
@@ -4177,7 +4176,7 @@ msgstr "Izvēlieties galeriju, kurā saglabāt attēlu."
 msgid "Selected Addresses"
 msgstr "Izvēlētās adreses"
 
-#: compose-mimp.php:210 compose-mimp.php:218 lib/Views/Compose.php:123
+#: compose-mimp.php:210 compose-mimp.php:218 lib/Views/Compose.php:127
 #: templates/mimp/compose/compose.html:49
 msgid "Send"
 msgstr "Sūtīt"
@@ -4195,7 +4194,7 @@ msgstr "Sūtīt pēdējo informācija"
 msgid "Send Message"
 msgstr "Sūtīt vēstuli"
 
-#: templates/imp/javascript_defs.php:26 templates/dimp/javascript_defs.php:192
+#: templates/imp/javascript_defs.php:26 templates/dimp/javascript_defs.php:193
 msgid "Send message without a Subject?"
 msgstr "Sūtīt vēstuli bez temata?"
 
@@ -4204,11 +4203,11 @@ msgstr "Sūtīt vēstuli bez temata?"
 msgid "Sender: %s"
 msgstr "Sūtītājs: %s"
 
-#: lib/Mailbox.php:1160 lib/Mailbox.php:1255
+#: lib/Mailbox.php:1165 lib/Mailbox.php:1260
 msgid "Sent"
 msgstr "Nosūtītās"
 
-#: config/prefs.php:479
+#: config/prefs.php:480
 msgid "Sent Mail"
 msgstr "Nosūtītās vēstules"
 
@@ -4236,7 +4235,7 @@ msgstr "Rakstot vēstuli, uzstādīt X-Priority galveni?"
 msgid "Set permissions for other users"
 msgstr "Mainīt citu lietotāju pieejas tiesības"
 
-#: config/prefs.php:686
+#: config/prefs.php:688
 msgid "Set preferences for what happens when you move and delete messages."
 msgstr ""
 "Iestādīt vēlamās darbības, kas izpildās dzēšot vai pārvietojot vēstules."
@@ -4249,7 +4248,7 @@ msgstr "Koplietot mapes"
 msgid "Share your mail folders with other users."
 msgstr "Koplietot jūsu vēstuļu mapes ar citiem lietotājiem."
 
-#: lib/Mailbox.php:1113
+#: lib/Mailbox.php:1118
 msgid "Shared Folders"
 msgstr "Koplietotās mapes"
 
@@ -4258,15 +4257,15 @@ msgstr "Koplietotās mapes"
 msgid "Shift"
 msgstr "Shift"
 
-#: config/prefs.php:1301
+#: config/prefs.php:1303
 msgid "Should PGP signed messages automatically be verified when viewed?"
 msgstr "Vai atverot automātiski pārbaudīt ar PGP parakstītas vēstules?"
 
-#: config/prefs.php:1367
+#: config/prefs.php:1369
 msgid "Should S/MIME signed messages automatically be verified when viewed?"
 msgstr "Vai atverot automātiski pārbaudīt ar S/MIME parakstītas vēstules?"
 
-#: config/prefs.php:607
+#: config/prefs.php:609
 msgid ""
 "Should large blocks of quoted text be shown or hidden by default? It can be "
 "toggled easily whichever you choose."
@@ -4274,15 +4273,15 @@ msgstr ""
 "Slēpt vai rādīt lielus citētā teksta blokus pēc noklusēšanas? Tas ir viegli "
 "pārslēdzams, neatkarīgi no izvēles."
 
-#: config/prefs.php:1294
+#: config/prefs.php:1296
 msgid "Should the body of text/plain messages be scanned for PGP data?"
 msgstr "Meklēt PGP datus teksta/vienkāršos vēstuļu ķermeņos?"
 
-#: config/prefs.php:449
+#: config/prefs.php:450
 msgid "Should the compose window be closed after saving a draft?"
 msgstr "Vēstules rediģēšanas logs jāaizver pēc melnraksta saglabāšanas?"
 
-#: config/prefs.php:1287
+#: config/prefs.php:1289
 msgid "Should your PGP public key to be attached to your messages by default?"
 msgstr "Pievienot vēstulēm PGP publisko atslēgu pēc noklusēšanas?"
 
@@ -4299,19 +4298,19 @@ msgstr "Rādīt visas"
 msgid "Show All Folders"
 msgstr "Rādīt visas mapes"
 
-#: message.php:590
+#: message.php:592
 msgid "Show All Headers"
 msgstr "Rādīt visas galvenes"
 
-#: message.php:659
+#: message.php:663
 msgid "Show All Message Parts"
 msgstr "Rādīt visas vēstules daļas"
 
-#: message.php:587
+#: message.php:589
 msgid "Show Common Headers"
 msgstr "Rādīt pamatgalvenes"
 
-#: mailbox.php:279
+#: mailbox.php:278
 msgid "Show Deleted"
 msgstr "Rādīt dzēstās"
 
@@ -4319,7 +4318,7 @@ msgstr "Rādīt dzēstās"
 msgid "Show Images?"
 msgstr "Rādīt attēlus?"
 
-#: message.php:593
+#: message.php:595
 msgid "Show Mailing List Information"
 msgstr "Rādīt vēstkopas informāciju"
 
@@ -4343,15 +4342,15 @@ msgstr "Rādīt izmēru"
 msgid "Show Subscribed Folders"
 msgstr "Rādīt parakstītās mapes"
 
-#: config/prefs.php:631
+#: config/prefs.php:633
 msgid "Show all attachments"
 msgstr "Rādīt visus pielikumus"
 
-#: config/prefs.php:908
+#: config/prefs.php:910
 msgid "Show all flags (including flags set by other mail programs)?"
 msgstr "Rādīt visus karogus (ieskaitot citu pasta programmu uzstādītos)?"
 
-#: config/prefs.php:1424
+#: config/prefs.php:1427
 msgid ""
 "Show all inline parts by default in message view? If unchecked, will treat "
 "all but the first viewable inline part as attachments."
@@ -4359,11 +4358,11 @@ msgstr ""
 "Iekļaujamās daļas rādīt pēc noklusēšanas vēstules skatā? Ja neatzīmēts, "
 "parādīta tiks tikai pirmā iekļaujamā daļa, pārējās uzskatot par pielikumiem."
 
-#: config/prefs.php:630
+#: config/prefs.php:632
 msgid "Show all parts"
 msgstr "Rādīt visas daļas"
 
-#: config/prefs.php:549
+#: config/prefs.php:551
 msgid "Show an icon to allow stripping of attachments from messages?"
 msgstr "Rādīt ikonu, kas ļautu dzēst vēstuļu pielikumus?"
 
@@ -4375,15 +4374,15 @@ msgstr "Rādīt mazāk"
 msgid "Show more"
 msgstr "Rādīt vairāk"
 
-#: config/prefs.php:1069
+#: config/prefs.php:1071
 msgid "Show non-private mailboxes in separate folders"
 msgstr "Rādīt koplietošanas vēstuļu mapes atsevišķos katalogos"
 
-#: config/prefs.php:1481
+#: config/prefs.php:1484
 msgid "Show previews for unread messages only?"
 msgstr "Rādīt priekšskatu tikai nelasītām vēstulēm?"
 
-#: config/prefs.php:1488
+#: config/prefs.php:1491
 msgid "Show previews in tooltips?"
 msgstr "Rādīt priekšskatus rīku padomos?"
 
@@ -4395,37 +4394,33 @@ msgstr "Rakstot vēstuli, rādīt BCC lauku galvenē?"
 msgid "Show the Cc: header field when composing mail?"
 msgstr "Rakstot vēstuli, rādīt Cc: lauku galvenē?"
 
-#: config/prefs.php:1524
+#: config/prefs.php:1527
 msgid "Show the dynamic view by default, if the browser supports it?"
 msgstr "Rādīt dinamisko skatu pēc noklusēšanas, ja pārlūks to uztur?"
 
-#: config/prefs.php:1156
+#: config/prefs.php:1158
 msgid "Show the filter icon on the menubar?"
 msgstr "Rādīt Filtru ikonu rīku joslā?"
 
-#: lib/Block/Summary.php:44
-msgid "Show total number of messages in folder?"
-msgstr "Rādīt kopējo vēstuļu skaitu mapē?"
-
-#: config/prefs.php:601
+#: config/prefs.php:603
 msgid "Shown"
 msgstr "Parādīta"
 
-#: mailbox.php:659
+#: mailbox.php:662
 msgid "Si_ze"
 msgstr "Izmērs"
 
 #: templates/mobile/javascript_defs.php:73 templates/dimp/index.inc:436
-#: templates/dimp/javascript_defs.php:120
+#: templates/dimp/javascript_defs.php:121
 #: templates/imp/folders/folders_size.html:7
 msgid "Size"
 msgstr "Izmērs"
 
-#: search.php:100 lib/Search/Element/Size.php:55
+#: search.php:101 lib/Search/Element/Size.php:55
 msgid "Size (KB) <"
 msgstr "Izmērs (kB) <"
 
-#: search.php:105 lib/Search/Element/Size.php:54
+#: search.php:106 lib/Search/Element/Size.php:54
 msgid "Size (KB) >"
 msgstr "Izmērs (kB) >"
 
@@ -4433,40 +4428,40 @@ msgstr "Izmērs (kB) >"
 msgid "Size:"
 msgstr "Izmērs:"
 
-#: mailbox.php:633
+#: mailbox.php:636
 msgid "Sort by Date"
 msgstr "Šķirot pēc datuma"
 
-#: mailbox.php:643
+#: mailbox.php:646
 msgid "Sort by From Address"
 msgstr "Šķirot pēc sūtītāja (From) adreses"
 
-#: mailbox.php:658
+#: mailbox.php:661
 msgid "Sort by Message Size"
 msgstr "Šķirot pēc vēstules izmēra"
 
-#: mailbox.php:653
+#: mailbox.php:656
 msgid "Sort by Subject"
 msgstr "Šķirot pēc virsraksta"
 
-#: mailbox.php:648
+#: mailbox.php:651
 msgid "Sort by Thread"
 msgstr "Šķirot pēc pavediena"
 
-#: mailbox.php:638
+#: mailbox.php:641
 msgid "Sort by To Address"
 msgstr "Šķirot pēc saņēmēja (To) adreses"
 
-#: message-dimp.php:158 templates/dimp/index.inc:131 lib/Mailbox.php:1165
-#: lib/Mailbox.php:1242
+#: message-dimp.php:158 templates/dimp/index.inc:131 lib/Mailbox.php:1170
+#: lib/Mailbox.php:1247
 msgid "Spam"
 msgstr "Mēstules"
 
-#: config/prefs.php:762
+#: config/prefs.php:764
 msgid "Spam Reporting"
 msgstr "Mēstuļu paziņošana"
 
-#: lib/Prefs/Ui.php:1589
+#: lib/Prefs/Ui.php:1588
 msgid "Spam folder:"
 msgstr "Mēstuļu mape:"
 
@@ -4479,19 +4474,19 @@ msgstr "Pareizrakstības pārbaudītājsa kļūda"
 msgid "Start:"
 msgstr "Sākt:"
 
-#: compose.php:834 config/prefs.php:320 templates/prefs/stationery.html:5
+#: compose.php:834 config/prefs.php:321 templates/prefs/stationery.html:5
 msgid "Stationery"
 msgstr "Veidalapa"
 
-#: lib/Prefs/Ui.php:1636
+#: lib/Prefs/Ui.php:1635
 msgid "Stationery name:"
 msgstr "Veidlapas nosaukums:"
 
-#: lib/Prefs/Ui.php:1638
+#: lib/Prefs/Ui.php:1637
 msgid "Stationery type:"
 msgstr "Veidlapas tips:"
 
-#: lib/Prefs/Ui.php:1641
+#: lib/Prefs/Ui.php:1640
 msgid "Stationery:"
 msgstr "Veidlapa:"
 
@@ -4499,7 +4494,7 @@ msgstr "Veidlapa:"
 msgid "Status"
 msgstr "Statuss"
 
-#: message.php:666
+#: message.php:670
 msgid "Strip All Attachments"
 msgstr "Dzēst visus pielikumus"
 
@@ -4507,19 +4502,19 @@ msgstr "Dzēst visus pielikumus"
 msgid "Strip Attachment"
 msgstr "Dzēst pielikumu"
 
-#: config/prefs.php:1474
+#: config/prefs.php:1477
 msgid "Strip linebreaks in preview?"
 msgstr "Dzēst rindu pārrāvumus priekšskatā?"
 
-#: mailbox.php:654
+#: mailbox.php:657
 msgid "Sub_ject"
 msgstr "Temats"
 
-#: mailbox-mimp.php:221 search.php:63 templates/mobile/javascript_defs.php:61
+#: mailbox-mimp.php:221 search.php:64 templates/mobile/javascript_defs.php:61
 #: templates/dimp/index.inc:197 templates/dimp/index.inc:433
-#: templates/dimp/index.inc:473 templates/dimp/javascript_defs.php:108
-#: lib/Compose.php:1945 lib/Ui/Message.php:32 config/prefs.php:963
-#: templates/imp/search/search-basic.html:17
+#: templates/dimp/index.inc:473 templates/dimp/javascript_defs.php:109
+#: lib/Compose.php:1950 lib/Ui/Message.php:32 config/prefs.php:965
+#: templates/imp/search/search-basic.html:18
 #: templates/dimp/message/message.html:54
 msgid "Subject"
 msgstr "Temats"
@@ -4530,7 +4525,7 @@ msgid "Subject:"
 msgstr "Temats:"
 
 #: templates/saveimage/saveimage.html:20
-#: templates/imp/search/search-basic.html:48
+#: templates/imp/search/search-basic.html:49
 #: templates/imp/search/search.html:109
 msgid "Submit"
 msgstr "Iesniegt"
@@ -4617,7 +4612,7 @@ msgstr "Apstiprināts kā Iespējams"
 msgid "Text"
 msgstr "Teksts"
 
-#: config/prefs.php:1018
+#: config/prefs.php:1020
 msgid "The From: column of the message should be linked:"
 msgstr "Vēstules Nosūtītājs: stabiņam jābūt sasaistītam:"
 
@@ -4630,13 +4625,13 @@ msgstr "Macintosh resursu atzarojums"
 msgid "The Macintosh resource fork can be downloaded %s."
 msgstr "Macintosh resursu atzarojumu var lejupielādēt no %s."
 
-#: lib/Ajax/Application.php:1541
+#: lib/Ajax/Application.php:1423
 msgid ""
 "The Message Disposition Notification was not sent. This is what the server "
 "said"
 msgstr "Rīcības paziņojums nav nosūtīts. Servera atbilde -"
 
-#: lib/Ajax/Application.php:1548
+#: lib/Ajax/Application.php:1430
 msgid "The Message Disposition Notification was sent successfully."
 msgstr "Rīcības paziņojums sekmīgi nosūtīts."
 
@@ -4652,7 +4647,7 @@ msgstr "Pielikums nav atrasts."
 msgid "The calendar data is invalid"
 msgstr "Kalendāra dati nav pareizi"
 
-#: templates/dimp/javascript_defs.php:134
+#: templates/dimp/javascript_defs.php:135
 msgid "The connection to the server has been restored."
 msgstr "Savienojums ar serveri atjaunots."
 
@@ -4703,7 +4698,7 @@ msgstr "Dati šajā daļā ir šifrēti ar PGP."
 msgid "The data in this part has been encrypted via S/MIME."
 msgstr "Dati šajā daļā ir šifrēti ar S/MIME."
 
-#: config/prefs.php:659
+#: config/prefs.php:661
 msgid "The default charset for messages with no charset information:"
 msgstr "Noklusētais kodējums vēstulēm bez kodējuma informācijas:"
 
@@ -4732,7 +4727,7 @@ msgstr "Notikums pievienots Jūsu kalendāram."
 msgid "The event was updated in your calendar."
 msgstr "Notikums atsvaidzināts Jūsu kalendārā."
 
-#: lib/Compose.php:2024
+#: lib/Compose.php:2029
 #, php-format
 msgid "The file %s could not be attached."
 msgstr "Nevar pievienot failu %s."
@@ -4742,7 +4737,7 @@ msgstr "Nevar pievienot failu %s."
 msgid "The folder \"%s\" already exists."
 msgstr "Mape \"%s\" jau eksistē."
 
-#: lib/Ajax/Application.php:295
+#: lib/Ajax/Application.php:292
 #, php-format
 msgid "The folder \"%s\" is already empty."
 msgstr "Mape \"%s\" jau ir tukša."
@@ -4752,7 +4747,7 @@ msgstr "Mape \"%s\" jau ir tukša."
 msgid "The folder \"%s\" may not be deleted."
 msgstr "Mape \"%s\" nav nodzēšama."
 
-#: folders.php:232 lib/Ajax/Application.php:289
+#: folders.php:232 lib/Ajax/Application.php:286
 #, php-format
 msgid "The folder \"%s\" may not be emptied."
 msgstr "Mape \"%s\" nav iztukšojama."
@@ -4799,14 +4794,14 @@ msgstr "Teksta daļas sākums ir parādīts zemāk."
 msgid "The links that caused this warning have this background color:"
 msgstr "Saitēm, kas izsauca šo brīdinājuma paziņojumu, ir šāda fona krāsa:"
 
-#: lib/Imap.php:383
+#: lib/Imap.php:382
 msgid ""
 "The mail server has denied the request. Details have been logged for the "
 "administrator."
 msgstr ""
 "Serveris noraidīja pieprasījumu. Sīkāka informācija paziņota administratoram."
 
-#: lib/Imap.php:378
+#: lib/Imap.php:377
 msgid ""
 "The mail server is reporting corrupt data in your mailbox. Details have been "
 "logged for the administrator."
@@ -4814,7 +4809,7 @@ msgstr ""
 "Serveris ziņo par bojātiem datiem Jūsu pastkastē. Sīkāka informācija "
 "paziņota administratoram."
 
-#: lib/Message.php:767
+#: lib/Message.php:777
 #, php-format
 msgid "The mailbox %s is already empty."
 msgstr "Pastkaste %s jau ir tukša."
@@ -4833,7 +4828,7 @@ msgstr "Vēstule \"%s\" atzīta par mēstuli."
 msgid "The message being composed has been closed."
 msgstr "Rediģējamā vēstule tika aizvērta."
 
-#: templates/imp/javascript_defs.php:26 templates/dimp/javascript_defs.php:192
+#: templates/imp/javascript_defs.php:26 templates/dimp/javascript_defs.php:193
 msgid "The message does not have a Subject entered."
 msgstr "Vēstulei nav norādīts temats."
 
@@ -4851,7 +4846,7 @@ msgstr "Vēstule no \"%s\" atzīta par mēstuli."
 msgid "The message has been deleted."
 msgstr "Vēstule izdzēsta."
 
-#: lib/Compose.php:2768
+#: lib/Compose.php:2773
 msgid ""
 "The message you were composing has been saved as a draft. The next time you "
 "login, you may resume composing your message."
@@ -4863,20 +4858,20 @@ msgstr ""
 msgid "The messages have been deleted."
 msgstr "Vēstules ir izdzēstas."
 
-#: lib/Imap.php:393
+#: lib/Imap.php:392
 msgid "The object could not be created because it already exists."
 msgstr "Objektu nevar radīt, jo tas jau eksistē."
 
-#: lib/Imap.php:398
+#: lib/Imap.php:397
 msgid "The object could not be deleted because it does not exist."
 msgstr "Objekts nav nodzēšams, jo tāds neeksistē."
 
-#: lib/Imap.php:388
+#: lib/Imap.php:387
 msgid ""
 "The operation failed because you have exceeded your quota on the mail server."
 msgstr "Darbība atteikta, jo Jūs pārsniedzāt savu kvotu uz servera."
 
-#: message.php:643 lib/Views/ShowMessage.php:260
+#: message.php:647 lib/Views/ShowMessage.php:266
 msgid ""
 "The sender of this message is requesting a Message Disposition Notification "
 "from you when you have read this message."
@@ -4884,11 +4879,11 @@ msgstr ""
 "Vēstules nosūtītājs ir pieprasījis pēc vēstules izlasīšanas nosūtīt Rīcības "
 "paziņojumu."
 
-#: templates/dimp/javascript_defs.php:150
+#: templates/dimp/javascript_defs.php:151
 msgid "The server is still generating the message list."
 msgstr "Serveris joprojām veido vēstuļu sarakstu."
 
-#: templates/dimp/javascript_defs.php:151
+#: templates/dimp/javascript_defs.php:152
 msgid "The server was unable to generate the message list."
 msgstr "Serveris nespēja izveidot vēstuļu sarakstu."
 
@@ -4906,17 +4901,17 @@ msgstr "Norādītais pielikums neeksistē. Iespējams, to ir izdzēsis nosūtīt
 msgid "The specified file cannot be read."
 msgstr "Norādītais fails nav nolasāms."
 
-#: lib/Prefs/Ui.php:1674
+#: lib/Prefs/Ui.php:1673
 #, php-format
 msgid "The stationery \"%s\" has been added."
 msgstr "Veidlapa \"%s\" pievienota."
 
-#: lib/Prefs/Ui.php:1661
+#: lib/Prefs/Ui.php:1660
 #, php-format
 msgid "The stationery \"%s\" has been deleted."
 msgstr "Veidlapa \"%s\" izdzēsta."
 
-#: lib/Prefs/Ui.php:1677
+#: lib/Prefs/Ui.php:1676
 #, php-format
 msgid "The stationery \"%s\" has been updated."
 msgstr "Veidlapa \"%s\" koriģēta."
@@ -4968,16 +4963,16 @@ msgstr "Lietotāja Brīvs/Aizņemts informācija saglabāta."
 msgid "There are no alternative parts that can be displayed inline."
 msgstr "Nav alternatīvo daļu, ko varētu parādīt iekļautā veidā."
 
-#: templates/dimp/javascript_defs.php:170
+#: templates/dimp/javascript_defs.php:171
 #: templates/imp/mailbox/empty_mailbox.html:6
 msgid "There are no messages in this mailbox."
 msgstr "Šajā pastkastē vēstuļu nav."
 
-#: lib/Contents.php:1285
+#: lib/Contents.php:1330
 msgid "There are no parts that can be shown inline."
 msgstr "Nav daļu, ko varētu parādīt iekļautā veidā."
 
-#: templates/dimp/javascript_defs.php:135
+#: templates/dimp/javascript_defs.php:136
 msgid ""
 "There has been no contact with the server for several minutes. The server "
 "may be temporarily unavailable or network problems may be interrupting your "
@@ -4991,7 +4986,7 @@ msgstr ""
 msgid "There is no text that can be displayed inline."
 msgstr "Nav teksta, ko parādīt iekļautā veidā."
 
-#: lib/Imap.php:373
+#: lib/Imap.php:371
 msgid ""
 "There was a temporary issue when attempting this operation. Please try again "
 "later."
@@ -5014,7 +5009,7 @@ msgstr "Radās kļūda dzēšot vēstules no mapes \"%s\"."
 msgid "There was an error deleting the event:"
 msgstr "Kļūda dzēšot notikumu:"
 
-#: lib/Message.php:619
+#: lib/Message.php:622
 #, php-format
 msgid "There was an error flagging messages in the folder \"%s\": %s."
 msgstr "Radās kļūda,  uzstādot vēstulēm karogus mapē \"%s\": %s."
@@ -5066,7 +5061,7 @@ msgstr "Šī darbība nav atbalstīta."
 msgid "This action is not yet implemented."
 msgstr "Šī darbība vēl nav izstrādāta."
 
-#: lib/Message.php:181 lib/Message.php:609
+#: lib/Message.php:181 lib/Message.php:610
 msgid "This folder is read-only."
 msgstr "Mape pieejama tikai lasīšanai."
 
@@ -5082,7 +5077,7 @@ msgstr "Pievienotā PDF faila sīktēls"
 msgid "This is a thumbnail of an image attachment."
 msgstr "Pievienotā attēla sīktēls"
 
-#: templates/dimp/javascript_defs.php:147
+#: templates/dimp/javascript_defs.php:148
 msgid "This is the notification log"
 msgstr "Paziņojumu reģistrs"
 
@@ -5112,7 +5107,7 @@ msgid ""
 msgstr ""
 "Šī vēstules daļa satur HTML datus, taču šie dati nav parādāmi iekļautā veidā."
 
-#: message.php:476
+#: message.php:478
 msgid "This message to"
 msgstr "Šo vēstuli uz"
 
@@ -5122,7 +5117,7 @@ msgid "This message was written in a character set (%s) other than your own."
 msgstr ""
 "Šī vēstule ir rakstīta izmantojot kodu tabulu (%s), kas atškiras no Jūsējās."
 
-#: lib/Mime/Viewer/Related.php:120
+#: lib/Mime/Viewer/Related.php:121
 msgid ""
 "This part contains an attachment that can not be displayed within this part:"
 msgstr "Šī daļa satur pielikumu, kas nav attēlojams šajā daļā:"
@@ -5136,8 +5131,8 @@ msgid "This window must be called from a compose window."
 msgstr "Šis logs jāizsauc no vēstules rediģēšanas loga."
 
 #: mailbox-mimp.php:222 templates/mobile/javascript_defs.php:65
-#: templates/dimp/index.inc:434 templates/dimp/javascript_defs.php:112
-#: config/prefs.php:965
+#: templates/dimp/index.inc:434 templates/dimp/javascript_defs.php:113
+#: config/prefs.php:967
 msgid "Thread"
 msgstr "Pavediens"
 
@@ -5153,9 +5148,9 @@ msgstr "Pavediena skatījums"
 msgid "Thread View"
 msgstr "Pavediena skatījums"
 
-#: compose.php:714 mailbox.php:639 search.php:51
+#: compose.php:714 mailbox.php:642 search.php:52
 #: templates/mobile/javascript_defs.php:57 templates/dimp/index.inc:209
-#: templates/dimp/javascript_defs.php:104 lib/Compose.php:1949
+#: templates/dimp/javascript_defs.php:105 lib/Compose.php:1954
 #: lib/Ui/Mailbox.php:106 lib/Ui/Message.php:28
 #: templates/imp/contacts/contacts.html:41
 msgid "To"
@@ -5166,30 +5161,30 @@ msgstr "Saņēmējs"
 msgid "To %s"
 msgstr "Pāriet uz %s"
 
-#: config/prefs.php:962
+#: config/prefs.php:964
 msgid "To Address"
 msgstr "Saņēmēja adrese"
 
-#: message.php:532 templates/dimp/index.inc:382
+#: message.php:534 templates/dimp/index.inc:382
 #: templates/dimp/message/message.html:127
 msgid "To All"
 msgstr "Visiem"
 
-#: message.php:528 templates/dimp/index.inc:383
+#: message.php:530 templates/dimp/index.inc:383
 #: templates/dimp/message/message.html:129
 msgid "To List"
 msgstr "Vēstkopai"
 
-#: message.php:525 templates/dimp/index.inc:381
+#: message.php:527 templates/dimp/index.inc:381
 #: templates/dimp/message/message.html:126
 msgid "To Sender"
 msgstr "Sūtītājam"
 
-#: message.php:532
+#: message.php:534
 msgid "To _All"
 msgstr "Visiem"
 
-#: message.php:528
+#: message.php:530
 msgid "To _List"
 msgstr "Vēstkopai"
 
@@ -5216,7 +5211,7 @@ msgstr "Šodien, %s %s"
 msgid "Top"
 msgstr "Augša"
 
-#: lib/Block/Summary.php:100
+#: lib/Block/Summary.php:102
 msgid "Total"
 msgstr "Kopā"
 
@@ -5224,15 +5219,15 @@ msgstr "Kopā"
 msgid "Total Size:"
 msgstr "Kopējais izmērs:"
 
-#: config/prefs.php:1433
+#: config/prefs.php:1436
 msgid "Traditional View"
 msgstr "Tradicionālais skats"
 
-#: lib/Mailbox.php:1169 lib/Mailbox.php:1248
+#: lib/Mailbox.php:1174 lib/Mailbox.php:1253
 msgid "Trash"
 msgstr "Atkritumi"
 
-#: lib/Prefs/Ui.php:1755
+#: lib/Prefs/Ui.php:1754
 msgid "Trash folder:"
 msgstr "Atkritumu mape:"
 
@@ -5258,18 +5253,18 @@ msgstr "Nav iespējams parādīt vēstuli priekšskata rūtī."
 msgid "Uncompressed"
 msgstr "Nekompresēts"
 
-#: mailbox.php:559 message-mimp.php:266 message.php:510
+#: mailbox.php:562 message-mimp.php:266 message.php:512
 #: templates/dimp/index.inc:372 templates/dimp/index.inc:424
 #: templates/mimp/mailbox/mailbox.html:39
 msgid "Undelete"
 msgstr "Atjaunot"
 
-#: lib/Views/ShowMessage.php:157 lib/Ui/Mailbox.php:88 lib/Ui/Mailbox.php:94
-#: lib/Ui/Message.php:389
+#: lib/Views/ShowMessage.php:158 lib/Ui/Mailbox.php:88 lib/Ui/Mailbox.php:94
+#: lib/Ui/Message.php:393
 msgid "Undisclosed Recipients"
 msgstr "Neatklātie saņēmēji"
 
-#: lib/Imap.php:347
+#: lib/Imap.php:344
 msgid "Unexpectedly disconnected from the mail server."
 msgstr "Savienojums ar serveri negaidīti pārtrūcis."
 
@@ -5294,7 +5289,7 @@ msgstr "Nezināma tikšanās"
 msgid "Unknown Task"
 msgstr "Nezināms uzdevums"
 
-#: lib/Prefs/Ui.php:999 lib/Prefs/Ui.php:1402
+#: lib/Prefs/Ui.php:999 lib/Prefs/Ui.php:1401
 msgid "Unload Passphrase"
 msgstr "Aizmirst paroli"
 
@@ -5308,7 +5303,7 @@ msgid "Unmark as:"
 msgstr "Atcelt iezīmējumu kā:"
 
 #: templates/dimp/index.inc:289 lib/Flag/System/Unseen.php:39
-#: lib/Block/Summary.php:90
+#: lib/Block/Summary.php:102
 msgid "Unseen"
 msgstr "Nelasīta"
 
@@ -5336,7 +5331,7 @@ msgstr "Koriģēt šo notikumu manā kalendārā"
 msgid "Upload:"
 msgstr "Augšupielādēt:"
 
-#: templates/dimp/javascript_defs.php:196
+#: templates/dimp/javascript_defs.php:197
 msgid "Uploading..."
 msgstr "Augšuplādē..."
 
@@ -5344,7 +5339,7 @@ msgstr "Augšuplādē..."
 msgid "Use Default Value"
 msgstr "Lietot noklusēto vērtību"
 
-#: config/prefs.php:1048
+#: config/prefs.php:1050
 msgid "Use IMAP folder subscriptions?"
 msgstr "Lietot parakstīšanos uz IMAP mapēm?"
 
@@ -5356,7 +5351,7 @@ msgstr "Lietot Virtuālo miskasti"
 msgid "User"
 msgstr "Lietotājs"
 
-#: templates/dimp/javascript_defs.php:163
+#: templates/dimp/javascript_defs.php:164
 msgid "User Options"
 msgstr "Lietotāja opcijas"
 
@@ -5364,7 +5359,7 @@ msgstr "Lietotāja opcijas"
 msgid "User can see the mailbox"
 msgstr "Lietotājs var apskatīt pastkasti"
 
-#: templates/dimp/javascript_defs.php:168
+#: templates/dimp/javascript_defs.php:169
 msgid "Verifying..."
 msgstr "Pārbauda..."
 
@@ -5385,7 +5380,7 @@ msgstr "Skatīt"
 msgid "View %s"
 msgstr "Skatīt %s"
 
-#: lib/Prefs/Ui.php:1122 lib/Prefs/Ui.php:1480
+#: lib/Prefs/Ui.php:1122 lib/Prefs/Ui.php:1479
 #, php-format
 msgid "View %s Public Key"
 msgstr "Skatīt %s publisko atslēgu"
@@ -5411,7 +5406,7 @@ msgstr "Apskatīt HTML datus jaunā logā."
 msgid "View Message"
 msgstr "Skatīt vēstuli"
 
-#: mailbox.php:611
+#: mailbox.php:614
 msgid "View Messages"
 msgstr "Skatīt vēstules"
 
@@ -5419,11 +5414,11 @@ msgstr "Skatīt vēstules"
 msgid "View PDF File"
 msgstr "Skatīt PDF datni"
 
-#: lib/Prefs/Ui.php:1008 lib/Prefs/Ui.php:1411
+#: lib/Prefs/Ui.php:1008 lib/Prefs/Ui.php:1410
 msgid "View Personal Private Key"
 msgstr "Skatīt personīgo privāto atslēgu"
 
-#: lib/Prefs/Ui.php:1398
+#: lib/Prefs/Ui.php:1397
 msgid "View Personal Public Certificate"
 msgstr "Skatīt personīgo publisko atslēgu"
 
@@ -5440,7 +5435,7 @@ msgstr "Skatīt Publisko atslēgu"
 msgid "View Source"
 msgstr "Skatīt pirmtekstu"
 
-#: message.php:547
+#: message.php:549
 msgid "View Thread"
 msgstr "Skatīt pavedienu"
 
@@ -5449,7 +5444,7 @@ msgstr "Skatīt pavedienu"
 msgid "View event"
 msgstr "Skatīt notikumu"
 
-#: mailbox.php:743
+#: mailbox.php:746
 #, php-format
 msgid "View messages in %s"
 msgstr "Skatīt vēstules %s"
@@ -5466,12 +5461,12 @@ msgstr "Skatīt uzdevumu"
 msgid "View the raw text of the Public Key."
 msgstr "Skatīt publiskās atslēgas izejas tekstu."
 
-#: mailbox.php:368 mailbox.php:369 templates/prefs/searches.html:8
+#: mailbox.php:367 mailbox.php:368 templates/prefs/searches.html:8
 #: templates/imp/search/search.html:94
 msgid "Virtual Folder"
 msgstr "Virtuālā mape"
 
-#: search.php:320
+#: search.php:324
 #, php-format
 msgid "Virtual Folder \"%s\" created succesfully."
 msgstr "Virtuālā mape \"%s\" veiksmīgi izveidota."
@@ -5481,17 +5476,17 @@ msgstr "Virtuālā mape \"%s\" veiksmīgi izveidota."
 msgid "Virtual Folder \"%s\" deleted."
 msgstr "Virtuālā mape \"%s\" izdzēsta."
 
-#: search.php:317
+#: search.php:321
 #, php-format
 msgid "Virtual Folder \"%s\" edited successfully."
 msgstr "Virtuālā mape \"%s\" veiksmīgi mainīta."
 
-#: templates/dimp/javascript_defs.php:169
+#: templates/dimp/javascript_defs.php:170
 #, php-format
 msgid "Virtual Folder: %s"
 msgstr "Virtuālā mape: %s"
 
-#: templates/dimp/index.inc:333 lib/Mailbox.php:1116
+#: templates/dimp/index.inc:333 lib/Mailbox.php:1121
 msgid "Virtual Folders"
 msgstr "Virtuālās mapes"
 
@@ -5508,27 +5503,27 @@ msgstr "Virtuālie atkritumi"
 msgid "Warning"
 msgstr "Brīdinājums"
 
-#: config/prefs.php:807
+#: config/prefs.php:809
 msgid ""
 "What should we do with messages after they have been reported as innocent?"
 msgstr ""
 "Ko darīt ar vēstulēm pēc tam, kad ir nosūtīts paziņojums par to atbilstību "
 "derīgam pastam?"
 
-#: config/prefs.php:795
+#: config/prefs.php:797
 msgid "What should we do with messages after they have been reported as spam?"
 msgstr ""
 "Ko darīt ar vēstulēm pēc tam, kad ir nosūtīts paziņojums par to atbilstību "
 "mēstulū pazīmēm?"
 
-#: config/prefs.php:705
+#: config/prefs.php:707
 msgid ""
 "When deleting messages, move them to your Trash folder instead of marking "
 "them as deleted?"
 msgstr ""
 "Dzēšot vēstules, pārvietot tās uz atkritumu mapi, nevis atzīmēt kā izdzēstas?"
 
-#: config/prefs.php:413
+#: config/prefs.php:414
 msgid ""
 "When forwarding a message in the body text, should we use the same format as "
 "the original message?"
@@ -5536,11 +5531,11 @@ msgstr ""
 "Vai pārsūtot vēstuli lietot saņemtās vēstules formātu, ja pārsūtāmo vēstuli "
 "iekļauj tekstā?"
 
-#: config/prefs.php:947
+#: config/prefs.php:949
 msgid "When opening a mailbox for the first time, where do you want to start?"
 msgstr "Ar ko vēlaties sākt, pirmo reizi atverot pastkasti?"
 
-#: config/prefs.php:362
+#: config/prefs.php:363
 msgid ""
 "When replying to a message, should we use the same format as the original "
 "message?"
@@ -5562,11 +5557,11 @@ msgstr ""
 msgid "Where should the cursor be located in the compose text area by default?"
 msgstr "Kur teksta laukā sākotnēji jānovieto kursors?"
 
-#: config/prefs.php:634
+#: config/prefs.php:636
 msgid "Which message parts do you want to display in the summary?"
 msgstr "Kuras vēstules daļas iekļaut kopsavilkumā skatā?"
 
-#: mailbox.php:592 message.php:555 templates/dimp/index.inc:368
+#: mailbox.php:595 message.php:557 templates/dimp/index.inc:368
 #: templates/dimp/index.inc:416
 msgid "Whitelist"
 msgstr "Baltais saraksts"
@@ -5575,7 +5570,7 @@ msgstr "Baltais saraksts"
 msgid "Years"
 msgstr "Gadi"
 
-#: templates/imp/javascript_defs.php:37 config/prefs.php:1057
+#: templates/imp/javascript_defs.php:37 config/prefs.php:1059
 #: templates/imp/compose/compose.html:250
 msgid "Yes"
 msgstr "Jā"
@@ -5627,7 +5622,7 @@ msgstr "Jums nav atļauts izveidot mapes."
 msgid "You are not allowed to create more than %d folders."
 msgstr "Jums nav atļauts izveidot vairāk kā %d mapes."
 
-#: lib/Compose.php:868
+#: lib/Compose.php:873
 #, php-format
 msgid ""
 "You are not allowed to send messages to more than %d recipients within %d "
@@ -5635,7 +5630,7 @@ msgid ""
 msgstr ""
 "Jums nav atļauts nosūtīt vēstules vairāk kā %d saņēmējiem %d stundu laikā."
 
-#: lib/Compose.php:1076
+#: lib/Compose.php:1081
 #, php-format
 msgid "You are not allowed to send messages to more than %d recipients."
 msgstr "Jums nav atļauts nosūtīt vēstules vairāk kā %d saņēmējiem."
@@ -5644,7 +5639,7 @@ msgstr "Jums nav atļauts nosūtīt vēstules vairāk kā %d saņēmējiem."
 msgid "You are renaming the folder:"
 msgstr "Jūs pārsaucat mapi: "
 
-#: templates/dimp/javascript_defs.php:167
+#: templates/dimp/javascript_defs.php:168
 #, php-format
 msgid "You can snooze it for %s or %s dismiss %s it entirely"
 msgstr "Jūs varat to atlikt uz %s vai %s atcelt %s pilnībā"
@@ -5662,7 +5657,7 @@ msgstr ""
 msgid "You cannot unsubscribe from \"%s\"."
 msgstr "Jūs nevarat atrakstījies no \"%s\""
 
-#: lib/Imap.php:368
+#: lib/Imap.php:365
 msgid "You do not have adequate permissions to carry out this operation."
 msgstr "Jums nav atbilstošu tiesību šīs darbības veikšanai."
 
@@ -5695,22 +5690,22 @@ msgstr ""
 msgid "You have already submitted this page."
 msgstr "Jūs jau nosūtījāt šo lapu."
 
-#: lib/Ajax/Application.php:95
+#: lib/Ajax/Application.php:99
 #, php-format
 msgid "You may not create child folders in \"%s\"."
 msgstr "Jums nav atļauts izveidot atvasinātās mapes \"%s\"."
 
-#: lib/Ajax/Application.php:167
+#: lib/Ajax/Application.php:169
 #, php-format
 msgid "You may not delete \"%s\"."
 msgstr "Jūs nevar izdzēst \"%s\"."
 
-#: lib/Ajax/Application.php:171
+#: lib/Ajax/Application.php:173
 #, php-format
 msgid "You may not rename \"%s\"."
 msgstr "Jūs nevarat pārsaukt \"%s\"."
 
-#: lib/Compose.php:1063
+#: lib/Compose.php:1068
 msgid "You must enter at least one recipient."
 msgstr "Jānorāda vismaz viens saņēmējs."
 
@@ -5786,7 +5781,7 @@ msgstr "Jūs esat veiksmīgi parakstījies uz \"%s\"."
 msgid "You were successfully unsubscribed from \"%s\"."
 msgstr "Jūs veiksmīgi atrakstījāties no \"%s\"."
 
-#: search.php:95 lib/Search/Element/Within.php:74
+#: search.php:96 lib/Search/Element/Within.php:74
 msgid "Younger Than"
 msgstr "Jaunākas par"
 
@@ -5841,7 +5836,7 @@ msgstr ""
 msgid "Your browser does not support inline display of this image type."
 msgstr "Jūs pārlūks neatbalsta šāda tipa attēla iekļautu rādīšanu."
 
-#: lib/Auth.php:435
+#: lib/Auth.php:437
 msgid ""
 "Your browser is too old to display the dynamic mode. Using traditional mode "
 "instead."
@@ -5912,22 +5907,22 @@ msgstr "Jūsu paraksts:"
 msgid "[Attachment stripped: Original attachment type: %s, name: %s]"
 msgstr "[Pielikums aizvākts: sākotnējais tips: %s, nosaukums: %s]"
 
-#: lib/Ui/Message.php:397
+#: lib/Ui/Message.php:401
 msgid "[Hide Addresses]"
 msgstr "[Slēpt adreses]"
 
-#: message-mimp.php:181 message.php:311 lib/Compose.php:1911
-#: lib/Compose.php:2248 lib/Views/ShowMessage.php:227
-#: lib/Views/ShowMessage.php:229 lib/Ui/Mailbox.php:221
+#: message-mimp.php:181 message.php:311 lib/Compose.php:1916
+#: lib/Compose.php:2253 lib/Views/ShowMessage.php:228
+#: lib/Views/ShowMessage.php:230 lib/Ui/Mailbox.php:221
 msgid "[No Subject]"
 msgstr "[Nav temata]"
 
-#: lib/Ui/Message.php:396
+#: lib/Ui/Message.php:400
 #, php-format
 msgid "[Show Addresses - %d recipients]"
 msgstr "[Rādīt adreses - %d saņēmēji]"
 
-#: lib/Compose.php:2563
+#: lib/Compose.php:2568
 msgid "[Truncated Text]"
 msgstr "[Nogrieztais teksts]"
 
@@ -5935,7 +5930,7 @@ msgstr "[Nogrieztais teksts]"
 msgid "_Bcc"
 msgstr "Bcc"
 
-#: mailbox.php:588 message.php:551
+#: mailbox.php:591 message.php:553
 msgid "_Blacklist"
 msgstr "Melnais saraksts"
 
@@ -5943,7 +5938,7 @@ msgstr "Melnais saraksts"
 msgid "_Cc"
 msgstr "Cc"
 
-#: mailbox.php:555 message.php:512
+#: mailbox.php:558 message.php:514
 msgid "_Delete"
 msgstr "Dzēst"
 
@@ -5967,7 +5962,7 @@ msgstr "Inbox"
 msgid "_Log Out"
 msgstr "Iziet"
 
-#: message.php:559
+#: message.php:561
 msgid "_Message Source"
 msgstr "Vēstules pirmteksts"
 
@@ -5983,12 +5978,12 @@ msgstr "Portāls"
 msgid "_Priority"
 msgstr "Prioritāte"
 
-#: mailbox.php:355
+#: mailbox.php:354
 #, php-format
 msgid "_Refresh %s"
 msgstr "Atsvaidzināt %s"
 
-#: message.php:524
+#: message.php:526
 msgid "_Reply"
 msgstr "Atbildēt"
 
@@ -6000,7 +5995,7 @@ msgstr "Meklēt"
 msgid "_Send Message"
 msgstr "Sūtīt vēstuli"
 
-#: mailbox.php:649
+#: mailbox.php:652
 msgid "_Thread"
 msgstr "Pavediens"
 
@@ -6008,19 +6003,19 @@ msgstr "Pavediens"
 msgid "_To"
 msgstr "Saņēmējs"
 
-#: mailbox.php:559
+#: mailbox.php:562
 msgid "_Undelete"
 msgstr "Atjaunot"
 
-#: message.php:547
+#: message.php:549
 msgid "_View Thread"
 msgstr "Skatīt pavedienu"
 
-#: mailbox.php:592 message.php:555
+#: mailbox.php:595 message.php:557
 msgid "_Whitelist"
 msgstr "Baltais saraksts"
 
-#: search.php:487 lib/Search/Filter.php:35 lib/Search/Query.php:230
+#: search.php:491 lib/Search/Filter.php:35 lib/Search/Query.php:230
 #: lib/Notification/Handler/Decorator/NewmailNotify.php:76
 msgid "and"
 msgstr "un"
@@ -6032,7 +6027,7 @@ msgid_plural "and %d more mailboxes"
 msgstr[0] "un %d vairāk pastkaste"
 msgstr[1] "un  %d vairāk pastkastes"
 
-#: lib/Compose.php:1979
+#: lib/Compose.php:1984
 msgid "attachment"
 msgstr "pielikums"
 
@@ -6040,7 +6035,7 @@ msgstr "pielikums"
 msgid "attachments.zip"
 msgstr "pielikumi.zip"
 
-#: templates/dimp/javascript_defs.php:138
+#: templates/dimp/javascript_defs.php:139
 msgid "base level of the folder tree"
 msgstr "mapju koka pamatlīmenis"
 
@@ -6101,7 +6096,7 @@ msgstr "vēstules bez pielikumiem"
 msgid "months"
 msgstr "mēneši"
 
-#: lib/Compose.php:704
+#: lib/Compose.php:708
 msgid "name"
 msgstr "vārds"
 
@@ -6116,11 +6111,11 @@ msgstr "nav"
 msgid "part %s"
 msgstr "%s daļa"
 
-#: templates/dimp/javascript_defs.php:88
+#: templates/dimp/javascript_defs.php:89
 msgid "select..."
 msgstr "Izvēlies..."
 
-#: templates/dimp/javascript_defs.php:166
+#: templates/dimp/javascript_defs.php:167
 msgid "selected"
 msgstr "atlasītas"
 

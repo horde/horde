@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Fall back to standard prompt if password prompt not possible.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -591,7 +591,7 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
    <date>2011-07-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Fall back to standard prompt if password prompt not possible.
    </notes>
   </release>
  </changelog>

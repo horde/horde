@@ -331,7 +331,7 @@ class Horde_Cli
     /**
      * Prompts for a user response.
      *
-     * @todo Horde 4: switch $choices and $default
+     * @todo Horde 5: switch $choices and $default
      *
      * @param string $prompt   The message to display when prompting the user.
      * @param array $choices   The choices available to the user or null for a
@@ -408,8 +408,8 @@ class Horde_Cli
         } else {
             $command = '/usr/bin/env bash -c "echo OK"';
             if (rtrim(shell_exec($command)) !== 'OK') {
-                trigger_error("Can't invoke bash");
-                return;
+                /* Cannot spawn shell, fall back to standard prompt. */
+                return $this->prompt($prompt);
             }
             $command = '/usr/bin/env bash -c "read -s -p ' . escapeshellarg($prompt) . ' mypassword && echo \$mypassword"';
             $password = rtrim(shell_exec($command));

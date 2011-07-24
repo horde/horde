@@ -47,9 +47,10 @@ implements Horde_Pear_Package_Type
      *
      * @param string $root The root path for the package.
      */
-    public function __construct($root)
+    public function __construct($root, $repository_root = null)
     {
         $this->_root = $root;
+        $this->_repository_root = $repository_root;
     }
 
     /**

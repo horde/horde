@@ -1963,7 +1963,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             'sortdir' => $this->_vars->sortdir
         );
 
-        if (!$this->_vars->search || $args['initial']) {
+        if ($this->_vars->search || $args['initial']) {
             $args += array(
                 'after' => intval($this->_vars->after),
                 'before' => intval($this->_vars->before)

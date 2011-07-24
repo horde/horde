@@ -34,6 +34,14 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mjr] Fix removing an exception from a recurrence series (Bug # 10365).
+* [jan] Close session while listing events to speed up parallel loading from different calendars.
+* [jan] Share list of displayed task lists with Nag (requires Nag 3.0.3).
+* [jan] Don&apos;t show import/export link in preferences if using the dynamic view.
+* [mjr] Force ActiveSync device reset after sync_calendars pref is changed (Request #10342).
+* [jan] Support updating attendees from vCalendar 1.0 iTip responses.
+* [jan] Fix sending invitations to attendees from traditional view.
+* [jan] Fix organizer attribute when exporting to vCalendar 1.0.
 * [mjr] Fix issue that prevented synching when no sync_calendar pref was set (Bug #10329).
  </notes>
  <contents>
@@ -1812,6 +1820,14 @@
    <date>2011-07-05</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mjr] Fix removing an exception from a recurrence series (Bug # 10365).
+* [jan] Close session while listing events to speed up parallel loading from different calendars.
+* [jan] Share list of displayed task lists with Nag (requires Nag 3.0.3).
+* [jan] Don&apos;t show import/export link in preferences if using the dynamic view.
+* [mjr] Force ActiveSync device reset after sync_calendars pref is changed (Request #10342).
+* [jan] Support updating attendees from vCalendar 1.0 iTip responses.
+* [jan] Fix sending invitations to attendees from traditional view.
+* [jan] Fix organizer attribute when exporting to vCalendar 1.0.
 * [mjr] Fix issue that prevented synching when no sync_calendar pref was set (Bug #10329).
    </notes>
   </release>

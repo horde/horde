@@ -495,24 +495,6 @@ class IMP_Contents
                     )
                 );
             }
-        } elseif (!in_array($textmode, array('full', 'raw')) &&
-                  ($mime_part->getPrimaryType() == 'text')) {
-            /* If this is a text/* part, AND the browser does not support
-             * UTF-8, give the user a link to open the part in a new window
-             * with the correct character set. */
-            $default_charset = Horde_String::upper('UTF-8');
-            if ($default_charset !== 'UTF-8') {
-                $charset_upper = Horde_String::upper($mime_part->getCharset());
-                if (($charset_upper != 'US-ASCII') &&
-                    ($charset_upper != $default_charset)) {
-                    $ret[$mime_id]['status'][] = array(
-                        'text' => array(
-                            sprintf(_("This message was written in a character set (%s) other than your own."), htmlspecialchars($charset_upper)),
-                            sprintf(_("If it is not displayed correctly, %s to open it in a new window."), $this->linkViewJS($mime_part, 'view_attach', _("click here")))
-                        )
-                    );
-                }
-            }
         }
 
         return $ret;

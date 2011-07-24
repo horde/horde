@@ -96,7 +96,7 @@ implements Horde_Pear_Package_Contents
                 $file = substr($element->getPathname(), strlen($this->_root));
                 $elements[$file] = array(
                     'role' => $this->_role->getRole($file),
-                    'as' => $this->_install_as->getInstallAs($file)
+                    'as' => $this->_install_as->getInstallAs($file, 'Horde_' . basename($this->_root))
                 );
             }
         }

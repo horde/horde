@@ -982,6 +982,18 @@ class Kronolith
                 } else {
                     $GLOBALS['display_external_calendars'][] = $calendarId;
                 }
+                if (strpos($calendarId, 'tasks/') === 0) {
+                    $tasklists = array();
+                    foreach ($GLOBALS['display_external_calendars'] as $id) {
+                        if (strpos($id, 'tasks/') === 0) {
+                            $tasklists[] = substr($id, 6);
+                        }
+                    }
+                    try {
+                        $GLOBALS['registry']->tasks->setDisplayedTasklists($tasklists);
+                    } catch (Horde_Exception $e) {
+                    }
+                }
             } elseif (strncmp($calendarId, 'holiday_', 8) === 0) {
                 $calendarId = substr($calendarId, 8);
                 if (in_array($calendarId, $GLOBALS['display_holidays'])) {
@@ -1113,9 +1125,16 @@ class Kronolith
 
         /* Make sure all the external calendars still exist. */
         $_temp = $GLOBALS['display_external_calendars'];
+        try {
+            $_tasklists = $GLOBALS['registry']->tasks->getDisplayedTasklists();
+        } catch (Horde_Exception $e) {
+            $_tasklists = $_temp;
+        }
         $GLOBALS['display_external_calendars'] = array();
         foreach ($GLOBALS['all_external_calendars'] as $id => $calendar) {
-            if (in_array($id, $_temp)) {
+            if ((substr($id, 0, 6) == 'tasks/' &&
+                 in_array(substr($id, 6), $_tasklists)) ||
+                in_array($id, $_temp)) {
                 $GLOBALS['display_external_calendars'][] = $id;
             } else {
                 /* Convert Kronolith 2 preferences.

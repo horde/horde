@@ -9,7 +9,7 @@
         <div id="hermesTimeFormInputs">
           <div class="hermesTimeFormGeneral">
             <label for="hermesTimeFormClient">
-              <?php echo _("Client")?>*
+              <?php echo _("Client")?>
               <?php echo Hermes::getClientSelect('hermesTimeFormClient');?>
             </label><span class="hermesSeparator">|</span>
             <label for="hermesTimeFormCostobject">
@@ -30,7 +30,7 @@
                  <span class="hermesSeparator">|</span>
             </label>
             <label for="hermesTimeFormType">
-              <?php echo _("Job Type")?>
+              <?php echo _("Job Type")?>*
               <?php echo Hermes::getJobTypeSelect('hermesTimeFormJobtype');?>
             </label>
           </div>

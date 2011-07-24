@@ -2,8 +2,8 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Pear</name>
  <channel>pear.horde.org</channel>
- <summary>REPLACE</summary>
- <description>REPLACE</description>
+ <summary>A library for handling a subset of the PEAR formats and specifications</summary>
+ <description>The component provides various tools to deal with PEAR. Among other features it allows updating the package.xml file or accessing a remote PEAR server.</description>
  <lead>
   <name>Gunnar Wrobel</name>
   <user>wrobel</user>
@@ -20,7 +20,7 @@
   <release>beta</release>
   <api>beta</api>
  </stability>
- <license uri="REPLACE">REPLACE</license>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
 * [gwr] Added support for fetching package dependencies from the remote server.
 * [jan] Update changelog when updating content (Bug #9935).
@@ -390,7 +390,7 @@
     <api>beta</api>
    </stability>
    <date>2011-07-06</date>
-   <license uri="REPLACE">REPLACE</license>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [gwr] Added support for fetching package dependencies from the remote server.
 * [jan] Update changelog when updating content (Bug #9935).

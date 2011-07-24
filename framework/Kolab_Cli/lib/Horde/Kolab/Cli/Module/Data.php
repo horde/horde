@@ -45,6 +45,7 @@ implements Horde_Kolab_Cli_Module
                                   for the given BACKENDID.
   - backendid PATH TYPE OBJECTID: Return the backend ID for the object with ID
                                   OBJECTID.
+  - delete    PATH TYPE ID,ID,..: Delete the given object id's.
 
 ");
     }

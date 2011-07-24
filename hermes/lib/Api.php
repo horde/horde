@@ -190,10 +190,10 @@ class Hermes_Api extends Horde_Registry_Api
 
                 // Set up edit/delete icons.
                 if (Hermes::canEditTimeslice($vals['id'])) {
-                    $edit_link = Horde::url('entry.php', true);
-                    $edit_link = Horde_Util::addParameter($edit_link, 'id', $vals['id']);
-                    $edit_link = Horde_Util::addParameter($edit_link, 'url', Horde::selfUrl(true, true, true));
-
+                    $edit_link = Horde::url('entry.php', true)
+                      ->add(array(
+                        'id' => $vals['id'],
+                        'url' => Horde::selfUrl(true, true, true)));
                     $vals['icons'] =
                         Horde::link($edit_link, _("Edit Entry")) .
                         Horde::img('edit.png', _("Edit Entry"), '') . '</a>';
@@ -294,12 +294,13 @@ class Hermes_Api extends Horde_Registry_Api
     }
 
     /**
-     * @TODO
+     * listCostObjects API
      *
-     * @param <type> $criteria
-     * @return <type>
+     * @param array $criteria  The search criteria
+     *
+     * @return array  A listCostObjects result array.
      */
-    function listCostObjects($criteria)
+    public function listCostObjects($criteria)
     {
         if (!$GLOBALS['conf']['time']['deliverables']) {
             return array();
@@ -369,7 +370,7 @@ class Hermes_Api extends Horde_Registry_Api
      *
      * @return array Associative array of job types
      */
-    function listJobTypes($criteria = array())
+    public function listJobTypes($criteria = array())
     {
         return $GLOBALS['injector']->getInstance('Hermes_Driver')->listJobTypes($criteria);
     }
@@ -378,55 +379,82 @@ class Hermes_Api extends Horde_Registry_Api
      *
      * @see Hermes::listClients
      */
-    function listClients()
+    public function listClients()
     {
         return Hermes::listClients();
     }
 
     /**
-     * @TODO
+     * Record a time slice
      *
-     * @param <type> $date
-     * @param <type> $client
-     * @param <type> $jobType
-     * @param <type> $costObject
-     * @param <type> $hours
-     * @param <type> $billable
-     * @param <type> $description
-     * @param <type> $notes
+     * @param array $data  Slice attributes
+     *<pre>
+     *  date          - The slice date (required).
+     *  client        - The client id (required).
+     *  type          - The jobType id (required).
+     *  costobject    - The costObject id [none]
+     *  hours         - Number of hours (required).
+     *  billable      - Time billable? [true]
+     *  description   - Description (required)
+     *  note          - Note [blank]
+     *</pre>
+     *
      * @return <type>
      */
-    function recordTime($date, $client, $jobType,
-                                $costObject, $hours, $billable = true,
-                                $description = '', $notes = '')
+    public function recordTime(array $data)
     {
-        require_once HERMES_BASE . '/lib/Forms/Time.php';
+        $data = new Horde_Support_Array($data);
+        // Check for required
+        if (!$data->date || !$data->client || !$data->type || !$data->hours || !$data->description) {
+          throw new Hermes_Exception(_("Missing required values: check data and retry"));
+        }
 
-        $dateobj = new Horde_Date($date);
+        // Parse date
+        $dateobj = new Horde_Date($data->date);
         $date['year'] = $dateobj->year;
         $date['month'] = $dateobj->month;
         $date['day'] = $dateobj->mday;
+        $data->date = $date;
 
-        $vars = Horde_Variables::getDefaultVariables();
-        $vars->set('date', $date);
-        $vars->set('client', $client);
-        $vars->set('jobType', $jobType);
-        $vars->set('costObject', $costObject);
-        $vars->set('hours', $hours);
-        $vars->set('billable', $billable);
-        $vars->set('description', $description);
-        $vars->set('notes', $notes);
-
-        // Validate and submit the data
-        $form = new TimeEntryForm($vars);
-        $form->setSubmitted();
-        $form->useToken(false);
-        if ($form->validate($vars)) {
-            $form->getInfo($vars, $info);
-            return $GLOBALS['injector']->getInstance('Hermes_Driver')->enterTime($GLOBALS['registry']->getAuth(), $info);
-        } else {
-            throw new Hermes_Exception(_("Invalid entry: check data and retry."));
+        if (!$data->billable) {
+          $data->billable = true;
         }
+
+        return $GLOBALS['injector']->getInstance('Hermes_Driver')->enterTime($GLOBALS['registry']->getAuth(), $data);
+    }
+
+    /**
+     * Retrieve information about a costobject's hours. Includes number of hours
+     * worked on for each employee, total billed time etc...
+     *
+     * @param string $costobject  The costobject id (e.g., "whups:15").
+     *
+     * @return array  An array of data with the following structure:
+     *</pre>
+     *  employees  - an array of employee ids as keys, number of hours as values.
+     *  total      - total number of hours
+     *  billable   - total number of billable hours.
+     *</pre>
+     */
+    public function getCostObjectInfo($costobject)
+    {
+        $filter = array('costobject' => $costobject);
+        $slices = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours($filter);
+        $billable = $time = 0;
+        $employees = array();
+        foreach ($slices as $slice) {
+          $time += $slice['hours'];
+          if ($slice['billable']) {
+            $billable += $slice['hours'];
+          }
+
+          $employees[$slice['employee']] += $slice['hours'];
+        }
+
+        return array('employees' => $employees,
+                    'total' => $time,
+                    'billable' => $billable);
+
     }
 
 }

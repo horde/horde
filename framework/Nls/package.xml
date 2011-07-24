@@ -3,7 +3,7 @@
  <name>Horde_Nls</name>
  <channel>pear.horde.org</channel>
  <extends>Horde_NLS</extends>
- <summary>This package provides Native Language Support (NLS).</summary>
+ <summary>This package provides Native Language Support (NLS)</summary>
  <description>Provide common methods for handling language data, timezones, and hostname-&gt;country lookups.</description>
  <lead>
   <name>Chuck Hagenbuch</name>

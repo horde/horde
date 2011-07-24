@@ -577,10 +577,29 @@ abstract class Kronolith_Event
         }
 
         $vEvent->setAttribute('SUMMARY', $this->getTitle());
+
+        // Organizer
         $name = Kronolith::getUserName($this->creator);
-        $vEvent->setAttribute('ORGANIZER',
-                              'mailto:' . Kronolith::getUserEmail($this->creator),
-                              array('CN' => $name));
+        $email = Kronolith::getUserEmail($this->creator);
+        $params = array();
+        if ($v1) {
+            if (!empty($name)) {
+                if (!empty($email)) {
+                    $email = ' <' . $email . '>';
+                }
+                $email = $name . $email;
+                $email = Horde_Mime_Address::trimAddress($email);
+            }
+        } else {
+            if (!empty($name)) {
+                $params['CN'] = $name;
+            }
+            if (!empty($email)) {
+                $email = 'mailto:' . $email;
+            }
+        }
+        $vEvent->setAttribute('ORGANIZER', $email, $params);
+
         if (!$this->private || $this->creator == $GLOBALS['registry']->getAuth()) {
             if (!empty($this->description)) {
                 $vEvent->setAttribute('DESCRIPTION', $this->description);
@@ -758,18 +777,28 @@ abstract class Kronolith_Event
             $search = new StdClass();
             $search->baseid = $this->uid;
             $results = $kronolith_driver->search($search);
+            $exdates = array();
             foreach ($results as $days) {
                 foreach ($days as $exceptionEvent) {
                     // Need to change the UID so it links to the original
-                    // recurring event.
-                    $exceptionEvent->uid = $this->uid;
+                    // recurring event, but only if not using $v1. If using $v1,
+                    // we add the date to EXDATE and do NOT change the UID.
+                    if (!$v1) {
+                        $exceptionEvent->uid = $this->uid;
+                    }
                     $vEventException = $exceptionEvent->toiCalendar($calendar);
+
                     // This should never happen, but protect against it anyway.
                     if (count($vEventException) > 1) {
                         throw new Kronolith_Exception(_("Unable to parse event."));
                     }
                     $vEventException = array_pop($vEventException);
-                    $vEventException->setAttribute('RECURRENCE-ID', $exceptionEvent->exceptionoriginaldate->timestamp());
+                    // If $v1, need to add to EXDATE and
+                    if (!$v1) {
+                        $vEventException->setAttribute('RECURRENCE-ID', $exceptionEvent->exceptionoriginaldate->timestamp());
+                    } else {
+                        $exdates[] = $exceptionEvent->exceptionoriginaldate;
+                    }
                     $originaldate = $exceptionEvent->exceptionoriginaldate->format('Ymd');
                     $key = array_search($originaldate, $exceptions);
                     if ($key !== false) {
@@ -780,7 +809,6 @@ abstract class Kronolith_Event
             }
 
             /* The remaining exceptions represent deleted recurrences */
-            $exdates = array();
             foreach ($exceptions as $exception) {
                 if (!empty($exception)) {
                     list($year, $month, $mday) = sscanf($exception, '%04d%02d%02d');
@@ -1251,11 +1279,13 @@ abstract class Kronolith_Event
         $message->setTimezone($this->start);
 
         /* Organizer */
-        $name = Kronolith::getUserName($this->creator);
-        $message->setOrganizer(
-                array('name' => $name,
-                      'email' => Kronolith::getUserEmail($this->creator))
-        );
+        if (count($this->attendees)) {
+            $name = Kronolith::getUserName($this->creator);
+            $message->setOrganizer(
+                    array('name' => $name,
+                          'email' => Kronolith::getUserEmail($this->creator))
+            );
+        }
 
         /* Privacy */
         $message->setSensitivity($this->private ?
@@ -1354,7 +1384,12 @@ abstract class Kronolith_Event
                 /* Any dates left in $exceptions must be deleted exceptions */
                 foreach ($exceptions as $deleted) {
                     $e = new Horde_ActiveSync_Message_Exception();
-                    $e->setExceptionStartTime(new Horde_Date($deleted));
+                    // Kronolith stores the date only, but some AS clients need
+                    // the datetime.
+                    $st = new Horde_Date($deleted);
+                    $st->hour = $this->start->hour;
+                    $st->min = $this->start->min;
+                    $e->setExceptionStartTime($st);
                     $e->deleted = true;
                     $message->addException($e);
                 }
@@ -1367,7 +1402,7 @@ abstract class Kronolith_Event
             foreach ($this->attendees as $email => $properties) {
                 $attendee = new Horde_ActiveSync_Message_Attendee();
                 $attendee->email = $email;
-                // AS only as required or opitonal
+                // AS only as required or optional
                 //$attendee->type = ($properties['attendance'] !== Kronolith::PART_REQUIRED ? Kronolith::PART_OPTIONAL : Kronolith::PART_REQUIRED);
                 //$attendee->status = $properties['response'];
                 $message->addAttendee($attendee);
@@ -1387,7 +1422,9 @@ abstract class Kronolith_Event
 //        }
 
         /* Reminder */
-        $message->setReminder($this->alarm);
+        if ($this->alarm) {
+            $message->setReminder($this->alarm);
+        }
 
         /* Categories (tags) */
         foreach ($this->tags as $tag) {
@@ -1864,7 +1901,7 @@ abstract class Kronolith_Event
         $formatted = $horde_date->strftime($GLOBALS['prefs']->getValue('date_format'));
         return $formatted
             . Horde::url('edit.php')
-            ->add(array('calendar' => $this->calendar,
+            ->add(array('calendar' => $this->calendarType . '_' .$this->calendar,
                         'eventID' => $this->id,
                         'del_exception' => $date,
                         'url' => Horde_Util::getFormData('url')))

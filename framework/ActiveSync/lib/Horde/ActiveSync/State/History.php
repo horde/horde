@@ -550,7 +550,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      */
     public function listDevices($user = null)
     {
-        $query = 'SELECT d.device_id device_id, device_type, device_agent,'
+        $query = 'SELECT d.device_id AS device_id, device_type, device_agent,'
             . ' device_policykey, device_rwstatus, device_user FROM '
             . $this->_syncDeviceTable . ' d INNER JOIN ' . $this->_syncUsersTable
             . ' u ON d.device_id = u.device_id';
@@ -588,6 +588,23 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     }
 
     /**
+     * Add a collection to the PING state. Ping state must already be loaded.
+     *
+     * @param array $collections  An array of collection information to replace
+     *                            any existing cached ping collection state.
+     */
+    public function addPingCollections($collections)
+    {
+        if (empty($this->_pingState)) {
+            throw new Horde_ActiveSync_Exception('PING state not initialized');
+        }
+        $this->_pingState['collections'] = array();
+        foreach ($collections as $collection) {
+            $this->_pingState['collections'][$collection['class']] = $collection;
+        }
+    }
+
+    /**
      * Load a specific collection's ping state. Ping state must already have
      * been loaded.
      *
@@ -618,18 +635,19 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         } else {
             // Initialize the collection's state.
             $this->_logger->info('[' . $this->_devId . '] Empty state for '. $pingCollection['class']);
+
             // Init members for the getChanges call
             $this->_collection = $pingCollection;
             $this->_collection['synckey'] = $this->_devId;
+
+            // If we are here, then the pingstate was empty so prime it..
+            $this->_pingState['collections'][$this->_collection['class']] = $this->_collection;
+            $this->savePingState();
 
             // We MUST have a previous successful SYNC before PING.
             if (!$this->_lastSyncTS = $this->_getLastSyncTS()) {
                 throw new Horde_ActiveSync_Exception_InvalidRequest('No previous SYNC found for collection ' . $pingCollection['class']);
             }
-
-            // If we are here, then the pingstate was empty so prime it..
-            $this->_pingState['collections'][$this->_collection['class']] = $this->_collection;
-            $this->savePingState();
         }
     }
 
@@ -654,7 +672,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
 
         $state = serialize(array('lifetime' => $this->_pingState['lifetime'], 'collections' => $this->_pingState['collections']));
         $query = 'UPDATE ' . $this->_syncUsersTable . ' SET device_ping = ? WHERE device_id = ? AND device_user = ?';
-
+        $this->_logger->debug(sprintf('Saving PING state: %s', $state));
         try {
             return $this->_db->update($query, array($state, $this->_devId, $this->_deviceInfo->user));
         } catch (Horde_Db_Exception $e) {
@@ -1016,9 +1034,11 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         $this->_logger->debug('[' . $this->_devId . '] Resetting device state.');
         $state_query = 'DELETE FROM ' . $this->_syncStateTable . ' WHERE sync_devid = ? AND sync_folderid = ?';
         $map_query = 'DELETE FROM ' . $this->_syncMapTable . ' WHERE sync_devid = ? AND sync_folderid = ?';
+        $user = 'DELETE FROM ' . $this->_syncUsersTable . ' WHERE device_id = ? AND device_user = ?';
         try {
             $this->_db->delete($state_query, array($this->_devId, $id));
             $this->_db->delete($map_query, array($this->_devId, $id));
+            $this->_db->delete($user, array($this->_devId, $this->_devInfo->user));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }

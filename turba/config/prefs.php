@@ -9,10 +9,17 @@
  */
 
 $prefGroups['addressbooks'] = array(
-    'column' => _("Display Preferences"),
+    'column' => _("Address Books"),
     'label' => _("Address Books"),
     'desc' => _("Choose which address books to use."),
-    'members' => array('default_dir', 'addressbookselect', 'sync_books'),
+    'members' => array('default_dir', 'addressbookselect'),
+);
+
+$prefGroups['sync'] = array(
+    'column' => _("Address Books"),
+    'label' => _("Sync Preferences"),
+    'desc' => _("Choose which address books to use for synching with external devices."),
+    'members' => array('sync_books'),
 );
 
 $prefGroups['columns'] = array(

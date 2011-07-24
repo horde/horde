@@ -57,13 +57,12 @@ foreach ($fields as $field) {
 /* Check if submitted and validate. */
 if ($form->validate($vars)) {
     $form->getInfo($vars, $info);
-    $submit = $ulaform_driver->submitForm($info);
-    if (is_a($submit, 'PEAR_Error')) {
-        Horde::logMessage($submit, 'ERR');
-        $notification->push(sprintf(_("Error submitting form. %s."), $submit->getMessage()), 'horde.error');
-    } else {
+    try {
+        $submit = $ulaform_driver->submitForm($info);
         $notification->push(_("Form submitted successfully."), 'horde.success');
         $done = true;
+    } catch (Horde_Exception $e) {
+        $notification->push(sprintf(_("Error submitting form. %s."), $e->getMessage()), 'horde.error');
     }
 }
 
@@ -80,10 +79,10 @@ Horde::startBuffer();
 $form->$render_type($renderer, $vars, $target_url, 'post', 'multipart/form-data');
 $main = Horde::endBuffer();
 
-$template = $injector->getInstance('Horde_Template');
-$template->set('noterror', !$error);
-$template->set('title', isset($form_info['form_name']) ? $form_info['form_name'] : false);
-$template->set('main', $main);
+$view = new Horde_View(array('templatePath' => ULAFORM_TEMPLATES));
+$view->noterror = !$error;
+$view->title = isset($form_info['form_name']) ? $form_info['form_name'] : false;
+$view->main = $main;
 
 if (!isset($form_params['embed'])) {
     $form_params['embed'] = false;
@@ -93,13 +92,13 @@ switch ($form_params['embed']) {
 case 'php':
     /* PHP style embedding, just fetch the form code. */
     $notification->notify(array('listeners' => 'status'));
-    echo $template->fetch(ULAFORM_TEMPLATES . '/display/display.html');
+    echo $view->render('display');
     break;
 
 default:
     /* No special embedding, output with regular header/footer. */
     require $registry->get('templates', 'horde') . '/common-header.inc';
     $notification->notify(array('listeners' => 'status'));
-    echo $template->fetch(ULAFORM_TEMPLATES . '/display/display.html');
+    echo $view->render('display');
     require $registry->get('templates', 'horde') . '/common-footer.inc';
 }

@@ -19,7 +19,7 @@ if (!Hermes::showAjaxView()) {
     include HERMES_BASE . '/time.php';
     exit;
 }
-$menu = new Horde_Menu();
+
 $help_link = Horde::getServiceLink('help', 'hermes');
 if ($help_link) {
     $help_link = Horde::widget($help_link, _("Help"), 'helplink', 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;');
@@ -28,6 +28,7 @@ if ($help_link) {
 $today = new Horde_Date();
 Hermes::header();
 echo "<body class=\"hermesAjax\">\n";
+$menu = new Horde_Menu();
 require HERMES_TEMPLATES . '/index/index.inc';
 Horde::includeScriptFiles();
 Horde::outputInlineScript();

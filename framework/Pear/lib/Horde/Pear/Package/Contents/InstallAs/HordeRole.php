@@ -33,11 +33,12 @@ implements Horde_Pear_Package_Contents_InstallAs
     /**
      * Tell which location the specified file should be installed to.
      *
-     * @param string $file The file name.
+     * @param string $file     The file name.
+     * @param string $package  The package name.
      *
      * @return string The install location for the file.
      */
-    public function getInstallAs($file)
+    public function getInstallAs($file, $package)
     {
         return 'PEAR/Installer/Role' . $file;
     }

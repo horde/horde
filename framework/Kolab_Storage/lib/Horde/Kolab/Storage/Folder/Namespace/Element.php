@@ -109,7 +109,7 @@ abstract class Horde_Kolab_Storage_Folder_Namespace_Element
      *
      * @param string $name The name of the folder.
      *
-     * @return string The owner of the folder.
+     * @return string|boolean The owner of the folder.
      */
     abstract public function getOwner($name);
 
@@ -181,6 +181,21 @@ abstract class Horde_Kolab_Storage_Folder_Namespace_Element
             array_unshift($path, $this->_name);
         }
         return join($path, $this->_delimiter);
+    }
+
+    /**
+     * Generate a folder path for the given subpath and owner.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @param string $subpath The subpath of the folder.
+     * @param string $owner   The folder owner.
+     *
+     * @return string The name of the folder.
+     */
+    public function generatePath($subpath, $owner)
+    {
+        return empty($this->_name) ?  $subpath : $this->_name . $this->_delimiter . $subpath;
     }
 
     /**

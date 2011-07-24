@@ -342,6 +342,14 @@ HermesCore = {
                 this.stopTimer(elt);
                 e.stop();
                 return;
+            case 'hermesPauseTimer':
+                this.pauseTimer(elt);
+                e.stop();
+                return;
+            case 'hermesPlayTimer':
+                this.playTimer(elt);
+                e.stop();
+                return;
             }
             if (elt.hasClassName('hermesTimeListSelect')) {
                 if (elt.up().identify() == 'hermesTimeListHeader') {
@@ -516,8 +524,8 @@ HermesCore = {
     saveTime: function()
     {
         if (!$F('hermesTimeFormDesc') ||
-            !$F('hermesTimeFormClient') ||
-            !$F('hermesTimeFormHours')) {
+            !$F('hermesTimeFormHours'),
+            !$F('hermesTimeFormJobtype')) {
 
             alert(Hermes.text.fix_form_values);
             return;
@@ -568,18 +576,23 @@ HermesCore = {
             $('hermesTimerDialog').fade({ duration: this.effectDur });
         }
 
-        this.insertTimer({ 'time': r.response.id, 'e': 0 }, $F('hermesTimerTitle'));
+        this.insertTimer({ 'id': r.response.id, 'e': 0, 'paused': false }, $F('hermesTimerTitle'));
     },
 
     insertTimer: function(r, d)
     {
-        var t = r.time;
         var title = new Element('div', { 'class': 'hermesTimerLabel' }).update(
             d + ' (' + r.e + ' hours)'
         );
-        var stop = new Element('span', { 'class': 'hermesStopTimer' }).update(
-            new Element('img', { 'src': Hermes.conf.images.timerclose })
-        ).store('tid', t);
+        var stop = new Element('span', { 'class': 'hermesTimerControls' }).update(
+            new Element('img', { 'class': 'hermesStopTimer', 'src': Hermes.conf.images.timerlog })
+        ).store('tid', r.id);;
+
+        if (r.paused) {
+            stop.insert(new Element('img', { 'class': 'hermesPlayTimer', 'src' : Hermes.conf.images.timerplay }));
+        } else {
+            stop.insert(new Element('img', { 'class': 'hermesPauseTimer', 'src' : Hermes.conf.images.timerpause }));
+        }
 
         var timer = new Element('div', { 'class': 'hermesMenuItem hermesTimer rounded' });
         timer.insert(stop).insert(title);
@@ -595,15 +608,27 @@ HermesCore = {
     listTimersCallback: function(r)
     {
         var timers = r.response;
-        for (t in timers) {
-            this.insertTimer(timers[t], timers[t].name);
+        for (var i = 0; i < timers.length; i++) {
+            this.insertTimer(timers[i], timers[i].name);
         };
     },
 
     stopTimer: function(elt)
     {
-        var t = elt.retrieve('tid');
+        var t = elt.up().retrieve('tid');
         this.doAction('stopTimer', { 't': t }, this.closeTimerCallback.curry(elt).bind(this));
+    },
+
+    pauseTimer: function(elt)
+    {
+        var t = elt.up().retrieve('tid');
+        this.doAction('pauseTimer', { 't': t }, this.pauseTimerCallback.curry(elt).bind(this));
+    },
+
+    playTimer: function(elt)
+    {
+        var t = elt.up().retrieve('tid');
+        this.doAction('startTimer', { 't': t }, this.playTimerCallback.curry(elt).bind(this));
     },
 
     closeTimerCallback: function(elt, r)
@@ -612,9 +637,23 @@ HermesCore = {
             $('hermesTimeFormHours').setValue(r.response.h);
             $('hermesTimeFormNotes').setValue(r.response.n);
         }
-        elt.up().fade({
+        elt.up().up().fade({
             duration: this.effectDur,
         });
+    },
+
+    pauseTimerCallback: function(elt, r)
+    {
+        elt.src = Hermes.conf.images.timerplay;
+        elt.removeClassName('hermesPauseTimer');
+        elt.addClassName('hermesPlayTimer');
+    },
+
+    playTimerCallback: function(elt, r)
+    {
+        elt.src = Hermes.conf.images.timerpause;
+        elt.removeClassName('hermesPlayTimer');
+        elt.addClassName('hermesPauseTimer');
     },
 
     //removeTimer: function(t)
@@ -748,7 +787,7 @@ HermesCore = {
         t.appear({ duration: this.effectDur, queue: 'end' });
         this.onResize();
         this.updateTimeSummary();
-                // Init the quickfinder now that we have a list of children.
+        // Init the quickfinder now that we have a list of children.
         $$('input').each(QuickFinder.attachBehavior.bind(QuickFinder));
     },
 
@@ -1196,14 +1235,14 @@ HermesCore = {
     {
         // Update timers.
         if(r.response) {
-            $H(r.response).each(function(pair) {
-                var t = pair.value;
+            for (var i = 0; i < r.response.length; i++) {
+                var t = r.response[i];
                 $('hermesMenuTimers').select('.hermesMenuItem').each(function(elt) {
-                    if (elt.down('.hermesStopTimer').retrieve('tid') == t['time']) {
-                        elt.down('.hermesTimerLabel').update(t.d + ' (' + t.e + ' hours)');
+                    if (elt.down('.hermesStopTimer').up().retrieve('tid') == t['id']) {
+                        elt.down('.hermesTimerLabel').update(t.name + ' (' + t.e + ' hours)');
                     }
                 });
-            });
+            }
         }
     },
 

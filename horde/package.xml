@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-05</date>
- <time>17:28:56</time>
+ <date>2011-07-20</date>
+ <time>10:41:21</time>
  <version>
   <release>4.0.8</release>
   <api>4.0.0</api>
@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Don&apos;t show mobile login page if users are forced to tradtional or dynamic views (Request #10358).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -73,6 +73,13 @@
      <dir name="hu">
       <file name="help.xml" role="horde" />
      </dir> <!-- /admin/locale/hu -->
+     <dir name="lv">
+      <dir name="LC_MESSAGES">
+       <file name="admin.po" role="horde" />
+      </dir> <!-- /admin/locale/lv/LC_MESSAGES -->
+      <file name="admin.po" role="horde" />
+      <file name="help.xml" role="horde" />
+     </dir> <!-- /admin/locale/lv -->
     </dir> <!-- /admin/locale -->
     <dir name="perms">
      <file name="addchild.php" role="horde" />
@@ -599,6 +606,7 @@
       <file name="horde.mo" role="horde" />
       <file name="horde.po" role="horde" />
      </dir> <!-- /locale/lv/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/lv -->
     <dir name="mk">
      <dir name="LC_MESSAGES">
@@ -2416,6 +2424,9 @@
    <install as="admin/locale/fi/help.xml" name="admin/locale/fi/help.xml" />
    <install as="admin/locale/hr/help.xml" name="admin/locale/hr/help.xml" />
    <install as="admin/locale/hu/help.xml" name="admin/locale/hu/help.xml" />
+   <install as="admin/locale/lv/admin.po" name="admin/locale/lv/admin.po" />
+   <install as="admin/locale/lv/help.xml" name="admin/locale/lv/help.xml" />
+   <install as="admin/locale/lv/LC_MESSAGES/admin.po" name="admin/locale/lv/LC_MESSAGES/admin.po" />
    <install as="admin/perms/addchild.php" name="admin/perms/addchild.php" />
    <install as="admin/perms/delete.php" name="admin/perms/delete.php" />
    <install as="admin/perms/edit.php" name="admin/perms/edit.php" />
@@ -2771,6 +2782,7 @@
    <install as="locale/lt/help.xml" name="locale/lt/help.xml" />
    <install as="locale/lt/LC_MESSAGES/horde.mo" name="locale/lt/LC_MESSAGES/horde.mo" />
    <install as="locale/lt/LC_MESSAGES/horde.po" name="locale/lt/LC_MESSAGES/horde.po" />
+   <install as="locale/lv/help.xml" name="locale/lv/help.xml" />
    <install as="locale/lv/LC_MESSAGES/horde.mo" name="locale/lv/LC_MESSAGES/horde.mo" />
    <install as="locale/lv/LC_MESSAGES/horde.po" name="locale/lv/LC_MESSAGES/horde.po" />
    <install as="locale/mk/LC_MESSAGES/horde.mo" name="locale/mk/LC_MESSAGES/horde.mo" />
@@ -4174,10 +4186,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-05</date>
+   <date>2011-07-20</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Don&apos;t show mobile login page if users are forced to tradtional or dynamic views (Request #10358).
    </notes>
   </release>
  </changelog>

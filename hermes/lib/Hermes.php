@@ -75,45 +75,6 @@ class Hermes
     }
 
     /**
-     * Build Hermes' list of menu items.
-     */
-    public static function getMenu($returnType = 'object')
-    {
-        global $registry, $conf, $print_link;
-
-        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
-
-        $menu = new Horde_Menu();
-        $menu->add(Horde::url('time.php'), _("My _Time"), 'hermes.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        $menu->add(Horde::url('entry.php'), _("_New Time"), 'hermes.png', null, null, null, Horde_Util::getFormData('id') ? '__noselection' : null);
-        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
-
-        if ($conf['time']['deliverables'] && $registry->isAdmin(array('permission' => 'hermes:deliverables'))) {
-            $menu->add(Horde::url('deliverables.php'), _("_Deliverables"), 'hermes.png');
-        }
-
-        if ($conf['invoices']['driver'] && $registry->isAdmin(array('permission' => 'hermes:invoicing'))) {
-            $menu->add(Horde::url('invoicing.php'), _("_Invoicing"), 'invoices.png');
-        }
-
-        /* Print. */
-        if ($conf['menu']['print'] && isset($print_link)) {
-            $menu->add($print_link, _("_Print"), 'print.png', '', '_blank', 'popup(this.href); return false;', '__noselection');
-        }
-
-        /* Administration. */
-        if ($registry->isAdmin()) {
-            $menu->add(Horde::url('admin.php'), _("_Admin"), 'hermes.png');
-        }
-
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
-    }
-
-    /**
      * Determines if the current user can edit a specific timeslice according to
      * the following rules: 'hermes:review' perms may edit any slice, the
      * current user can edit his/her own slice prior to submitting it. Otherwise
@@ -410,7 +371,9 @@ class Hermes
             'URI_AJAX' => (string)Horde::getServiceLink('ajax', 'hermes'),
             'SESSION_ID' => defined('SID') ? SID : '',
             'images' => array(
-                'timerclose' => (string)Horde_Themes::img('close.png', 'horde')
+                'timerlog' => (string)Horde_Themes::img('log.png'),
+                'timerplay' => (string)Horde_Themes::img('play.png'),
+                'timerpause' => (string)Horde_Themes::img('pause.png')
             ),
             'user' => $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false),
             'prefs_url' => (string)Horde::getServiceLink('prefs', 'hermes')->setRaw(true)->add('ajaxui', 1),
@@ -457,6 +420,63 @@ class Hermes
 
         $mode = $session->get('horde', 'mode');
         return ($mode == 'dynamic' || ($prefs->getValue('dynamic_view') && $mode == 'auto')) && Horde::ajaxAvailable();
+    }
+
+    /**
+     * Create a new timer and save it to storage.
+     *
+     * @param string $description  The timer description.
+     *
+     * @return integer  The timer id.
+     */
+    public static function newTimer($description)
+    {
+        $now = time();
+        $timer = array(
+            'name' => $description,
+            'time' => $now,
+            'paused' => false,
+            'elapsed' => 0);
+
+        self::updateTimer($now, $timer);
+
+        return $now;
+    }
+
+    public static function getTimer($id)
+    {
+        global $prefs;
+
+        $timers = $prefs->getValue('running_timers');
+        if (!empty($timers)) {
+            $timers = @unserialize($timers);
+        } else {
+            $timers = array();
+        }
+
+        if (empty($timers[$id])) {
+            return false;
+        }
+
+        return $timers[$id];
+    }
+
+    public static function clearTimer($id)
+    {
+        global $prefs;
+
+        $timers = unserialize($prefs->getValue('running_timers'));
+        unset($timers[$id]);
+        $prefs->setValue('running_timers', serialize($timers));
+    }
+
+    public static function updateTimer($id, $timer)
+    {
+         global $prefs;
+
+         $timers = unserialize($prefs->getValue('running_timers'));
+         $timers[$id] = $timer;
+         $prefs->setValue('running_timers', serialize($timers));
     }
 
 }

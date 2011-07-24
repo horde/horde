@@ -23,31 +23,31 @@ class Ulaform_Block_Form extends Horde_Core_Block {
         $this->_name = _("Show Form");
     }
 
-    function _params()
+    protected function _params()
     {
         /* Available Forms for use in a block. */
         $params['form_id'] = array('name' => _("Form"),
                                    'type' => 'enum',
                                    'values' => array());
 
-        $forms = $GLOBALS['injector']->getInstance('Ulaform_Factory_Driver')->create()->getAvailableForms();
-        if (!is_a($forms, 'PEAR_Error')) {
+        try {
+            $forms = $GLOBALS['injector']->getInstance('Ulaform_Factory_Driver')->create()->getAvailableForms();
             foreach ($forms as $form) {
                 $params['form_id']['values'][$form['form_id']] = $form['form_name'];
             }
-        }
+        } catch (Ulaform_Exception $e) {}
 
         return $params;
     }
 
-    function _title()
+    protected function _title()
     {
         global $registry;
         $html = Horde::link(Horde::url($registry->getInitialPage(), true)) . $registry->get('name') . '</a>';
         return $html;
     }
 
-    function _content()
+    protected function _content()
     {
         $vars = Horde_Variables::getDefaultVariables();
         $formname = $vars->get('formname');
@@ -77,13 +77,12 @@ class Ulaform_Block_Form extends Horde_Core_Block {
                 $form->getInfo($vars, $info);
                 $info['form_id'] = $this->_params['form_id'];
 
-                $submit = $GLOBALS['ulaform_driver']->submitForm($info);
-                if (is_a($submit, 'PEAR_Error')) {
-                    Horde::logMessage($submit, __FILE__, __LINE__, PEAR_LOG_ERR);
-                    $GLOBALS['notification']->push(sprintf(_("Error submitting form. %s."), $submit->getMessage()), 'horde.error');
-                } else {
+                try {
+                    $submit = $GLOBALS['ulaform_driver']->submitForm($info);
                     $GLOBALS['notification']->push(_("Form submitted successfully."), 'horde.success');
                     $done = true;
+                } catch (Horde_Exception $e) {
+                    $GLOBALS['notification']->push(sprintf(_("Error submitting form. %s."), $e->getMessage()), 'horde.error');
                 }
             }
         }

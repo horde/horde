@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-01</date>
- <time>16:25:31</time>
+ <date>2011-07-10</date>
+ <time>12:14:47</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -41,7 +41,6 @@
     <dir name="Action">
      <file name="Mailto.php" role="horde" />
      <file name="Sql.php" role="horde" />
-     <file name="Template.php" role="horde" />
     </dir> <!-- /lib/Action -->
     <dir name="Block">
      <file name="Form.php" role="horde" />
@@ -110,24 +109,15 @@
    <dir name="migration">
     <file name="1_ulaform_base_tables.php" role="horde" />
     <file name="2_ulaform_upgrade_autoincrement.php" role="horde" />
+    <file name="3_ulaform_upgrade_actions.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
-    <dir name="display">
-     <file name="display.html" role="horde" />
-    </dir> <!-- /templates/display -->
-    <dir name="fields">
-     <file name="fields.html" role="horde" />
-    </dir> <!-- /templates/fields -->
-    <dir name="forms">
-     <file name="forms.html" role="horde" />
-    </dir> <!-- /templates/forms -->
-    <dir name="genhtml">
-     <file name="genhtml.html" role="horde" />
-    </dir> <!-- /templates/genhtml -->
-    <dir name="main">
-     <file name="main.html" role="horde" />
-    </dir> <!-- /templates/main -->
     <file name=".htaccess" role="horde" />
+    <file name="display.html.php" role="horde" />
+    <file name="fields.html.php" role="horde" />
+    <file name="forms.html.php" role="horde" />
+    <file name="genhtml.html.php" role="horde" />
+    <file name="main.html.php" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
     <dir name="default">
@@ -169,13 +159,6 @@
     <min>4.0.7</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Array</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
@@ -228,7 +211,6 @@
    <install as="ulaform/lib/Ulaform.php" name="lib/Ulaform.php" />
    <install as="ulaform/lib/Action/Mailto.php" name="lib/Action/Mailto.php" />
    <install as="ulaform/lib/Action/Sql.php" name="lib/Action/Sql.php" />
-   <install as="ulaform/lib/Action/Template.php" name="lib/Action/Template.php" />
    <install as="ulaform/lib/Block/Form.php" name="lib/Block/Form.php" />
    <install as="ulaform/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
    <install as="ulaform/lib/Factory/Action.php" name="lib/Factory/Action.php" />
@@ -252,12 +234,13 @@
    <install as="ulaform/locale/zh_TW/LC_MESSAGES/ulaform.po" name="locale/zh_TW/LC_MESSAGES/ulaform.po" />
    <install as="ulaform/migration/1_ulaform_base_tables.php" name="migration/1_ulaform_base_tables.php" />
    <install as="ulaform/migration/2_ulaform_upgrade_autoincrement.php" name="migration/2_ulaform_upgrade_autoincrement.php" />
+   <install as="ulaform/migration/3_ulaform_upgrade_actions.php" name="migration/3_ulaform_upgrade_actions.php" />
    <install as="ulaform/templates/.htaccess" name="templates/.htaccess" />
-   <install as="ulaform/templates/display/display.html" name="templates/display/display.html" />
-   <install as="ulaform/templates/fields/fields.html" name="templates/fields/fields.html" />
-   <install as="ulaform/templates/forms/forms.html" name="templates/forms/forms.html" />
-   <install as="ulaform/templates/genhtml/genhtml.html" name="templates/genhtml/genhtml.html" />
-   <install as="ulaform/templates/main/main.html" name="templates/main/main.html" />
+   <install as="ulaform/templates/display.html.php" name="templates/display.html.php" />
+   <install as="ulaform/templates/fields.html.php" name="templates/fields.html.php" />
+   <install as="ulaform/templates/forms.html.php" name="templates/forms.html.php" />
+   <install as="ulaform/templates/genhtml.html.php" name="templates/genhtml.html.php" />
+   <install as="ulaform/templates/main.html.php" name="templates/main.html.php" />
    <install as="ulaform/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="ulaform/themes/default/graphics/display.png" name="themes/default/graphics/display.png" />
    <install as="ulaform/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
@@ -277,7 +260,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-07-01</date>
+   <date>2011-07-10</date>
    <license uri="http://www.horde.org/licenses/gpl.php">GPL</license>
    <notes>
 * First alpha release for Horde 4.

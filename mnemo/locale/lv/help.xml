@@ -2,19 +2,19 @@
 <!-- $Horde: mnemo/locale/lv/help.xml, 2011/06/03 Janis Eisaks Exp $ -->
 <help>
 
-<entry id="Overview" md5="50ee76138fb08b04b029006053bbadbc" state="uptodate">
+<entry id="Overview">
     <para>
-  <i>Piezīmes</i> ir aplikācija, kas ļauj radīt līmlapiņu datorizētu ekvivalentu. Piezīmes var
-    rakstīt, labot, dzēst, drukāt un eksportēt kā PDF vai CSV datni. Bez tam ir iespējams meklēt
+  <i>Piezīmes</i> ir aplikācija, kas ļauj radīt līmlapiņu datorizētu ekvivalentu. Piezīmes var 
+    rakstīt, labot, dzēst, drukāt un eksportēt kā PDF vai CSV datni. Bez tam ir iespējams meklēt 
     piezīmēs nepieciešamo informāciju un klasificēt tās.
     </para>
     <para>
-    Atšķirībā no parastajām līmlapiņām, piezīmes var koplietot ar citiem lietotājiem visā
+    Atšķirībā no parastajām līmlapiņām, piezīmes var koplietot ar citiem lietotājiem visā 
     plašā pasaulē. Piezīmes var grupēt atsevišķās piezīmju grāmatās un klasificēt pēc pazīmēm.
     </para>
 </entry>
 
-<entry id="list-actions" md5="6d592f153bfb5c296de5dfebb428e1ba" state="uptodate">
+<entry id="list-actions">
     <title>Piezīmju saraksts: Darbības</title>
     <heading>Darbības</heading>
     <para>
@@ -28,7 +28,7 @@
     </para>
 </entry>
 
-<entry id="menu-actions" md5="715a853d93cd3330e4d730b9112c8a82" state="uptodate">
+<entry id="menu-actions">
     <title>Rīkjosla</title>
     <heading>Rīkjosla</heading>
     <para>
@@ -50,7 +50,7 @@
 </entry>
 
 
-<entry id="sorting" md5="cca3b1d1c9ed0ec5ab385f82469ddc8f" state="uptodate">
+<entry id="sorting">
     <title>Ierakstu šķirošana</title>
     <heading>Ierakstu šķirošana</heading>
     <para>

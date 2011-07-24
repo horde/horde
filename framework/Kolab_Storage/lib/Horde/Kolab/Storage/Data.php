@@ -203,6 +203,24 @@ extends Horde_Kolab_Storage_Queriable
     public function getObjectByBackendId($uid);
 
     /**
+     * Retrieve the list of object duplicates.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The list of duplicates.
+     */
+    public function getDuplicates();
+
+    /**
+     * Retrieve the list of object errors.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The list of errors.
+     */
+    public function getErrors();
+
+    /**
      * Move the specified message from the current folder into a new
      * folder.
      *

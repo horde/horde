@@ -183,6 +183,12 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
           </span>
          </div>
 <?php endif; ?>
+         <div>
+          <span id="msg_save">
+           <span class="iconImg"></span>
+           <a><?php echo _("Save") ?></a>
+          </span>
+         </div>
          <div style="display:none">
           <span id="msg_resume_draft">
            <span class="iconImg"></span>

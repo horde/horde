@@ -486,6 +486,8 @@ class Horde_Util
             }
             if (!strlen($params['quote'])) {
                 $row = fgetcsv($file, 0, $params['separator']);
+            } elseif (version_compare(PHP_VERSION, '5.3.0', '<')) {
+                $row = fgetcsv($file, 0, $params['separator'], $params['quote']);
             } else {
                 $row = fgetcsv($file, 0, $params['separator'], $params['quote'], $params['escape']);
             }

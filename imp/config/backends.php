@@ -176,7 +176,8 @@
  *
  *           DRIVER: 'command'
  *                   Use the UNIX quota command to handle quotas.
- *           PARAMS: 'quota_path' - [string] Path to the quota binary
+ *           PARAMS: 'quota_path' - [string] Path to the quota binary. Command
+ *                                  line parameters can be specified too.
  *                                  (REQUIRED)
  *                   'grep_path' - [string] Path to the grep binary (REQUIRED)
  *                   'partition' - [string] If all user mailboxes are on a

@@ -11,7 +11,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 $permission = 'sqlshell';
 Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
+if (!$registry->isAdmin() &&
     !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
     $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
 }
@@ -34,7 +34,7 @@ if (Horde_Util::getFormData('list-tables')) {
 
     // Parse out the query results.
     try {
-        $result = $db->execute(Horde_String::convertCharset($command, 'UTF-8', $conf['sql']['charset']));
+        $result = $db->select(Horde_String::convertCharset($command, 'UTF-8', $conf['sql']['charset']));
     } catch (Horde_Db_Exception $e) {
         $notification->push($e);
     }

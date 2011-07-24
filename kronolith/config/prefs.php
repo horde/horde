@@ -25,7 +25,14 @@ $prefGroups['share'] = array(
     'column' => _("Calendars"),
     'label' => _("Default Calendar"),
     'desc' => _("Choose your default calendar and calendars to use for syncing with external devices."),
-    'members' => array('default_share', 'sync_calendars'),
+    'members' => array('default_share'),
+);
+
+$prefGroups['sync'] = array(
+    'column' => _("Calendars"),
+    'label' => _("Sync Preferences"),
+    'desc' => _("Choose the calendars to use for syncing with external devices."),
+    'members' => array('sync_calendars'),
 );
 
 $prefGroups['event_options'] = array(

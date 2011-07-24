@@ -69,7 +69,7 @@ class Horde_Core_Factory_KolabServer extends Horde_Core_Factory_Base
         }
 
         if (isset($configuration['server'])) {
-            $configuration['host'] = $configuration['server'];
+            $configuration['hostspec'] = $configuration['server'];
             unset($configuration['server']);
         }
 
@@ -187,9 +187,13 @@ class Horde_Core_Factory_KolabServer extends Horde_Core_Factory_Base
                 throw new Horde_Exception('The parameter \'basedn\' is missing in the Kolab server configuration!');
             }
 
+            $configuration['cache'] = $this->_injector->getInstance('Horde_Cache');
+
+            unset($configuration['binddn']);
+            unset($configuration['bindpw']);
             $ldap_read = new Horde_Ldap($configuration);
             if (isset($configuration['host_master'])) {
-                $configuration['host'] = $configuration['host_master'];
+                $configuration['hostspec'] = $configuration['host_master'];
                 $ldap_write = new Horde_Ldap($configuration);
                 $connection = new Horde_Kolab_Server_Connection_Splittedldap(
                     $ldap_read, $ldap_write

@@ -201,23 +201,24 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     $this->_device->supported[$collection['class']] = $collection['supported'];
                     $this->_state->setDeviceInfo($this->_device);
                 }
-                try {
-                    $this->_state->loadState($collection['synckey'], 'sync');
-                } catch (Horde_ActiveSync_Exception $e) {
-                    $this->_statusCode = self::STATUS_KEYMISM;
-                    $this->_handleError($collection);
-                    exit;
-                }
 
-                /* compatibility mode - get folderid from the state directory */
+                // compatibility mode - get folderid from the state directory
                 if (!isset($collection['id'])) {
                     $collection['id'] = $this->_state->getFolderData($this->_device->id, $collection['class']);
                 }
 
-                /* compatibility mode - set default conflict behavior if no
-                 * conflict resolution algorithm is set */
+                // compatibility mode - set default conflict behavior if no
+                // conflict resolution algorithm is set
                 if (!isset($collection['conflict'])) {
                     $collection['conflict'] = Horde_ActiveSync::CONFLICT_OVERWRITE_PIM;
+                }
+
+                try {
+                    $this->_state->loadState($collection['synckey'], 'sync', $collection['id']);
+                } catch (Horde_ActiveSync_Exception $e) {
+                    $this->_statusCode = self::STATUS_KEYMISM;
+                    $this->_handleError($collection);
+                    exit;
                 }
             }
 

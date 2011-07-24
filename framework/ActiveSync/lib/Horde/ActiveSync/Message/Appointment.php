@@ -306,7 +306,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      */
     public function setServerUID($uid)
     {
-        $this->_getAttribute('serveruid');
+        $this->_properties['serveruid'] = $uid;
     }
 
     /**

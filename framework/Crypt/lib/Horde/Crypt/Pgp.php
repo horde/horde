@@ -703,7 +703,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                 if (isset($temp['data'])) {
                     $data[] = $temp;
                 }
-                $temp= array();
+                $temp = array();
 
                 if ($matches[1] == 'BEGIN') {
                     $temp['type'] = $this->_armor[$matches[2]];
@@ -1291,6 +1291,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * 'type'       =>  'signature' or 'detached-signature' (REQUIRED)
      * 'pubkey'     =>  PGP public key. (REQUIRED)
      * 'signature'  =>  PGP signature block. (REQUIRED for detached signature)
+     * 'charset'    =>  charset of the message body (OPTIONAL)
      * </pre>
      *
      * @return stdClass  An object with the following properties:
@@ -1325,7 +1326,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             '--armor',
             '--always-trust',
             '--batch',
-            '--charset UTF-8',
+            '--charset ' . (isset($params['charset']) ? $params['charset'] : 'UTF-8'),
             $keyring,
             '--verify'
         );
@@ -1402,9 +1403,9 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         /* Add the PGP signature. */
         $pgp_sign = new Horde_Mime_Part();
         $pgp_sign->setType('application/pgp-signature');
-        $pgp_sign->setCharset($this->_params['email_charset']);
+        $pgp_sign->setHeaderCharset('UTF-8');
         $pgp_sign->setDisposition('inline');
-        $pgp_sign->setDescription(Horde_String::convertCharset(Horde_Crypt_Translation::t("PGP Digital Signature"), 'UTF-8', $this->_params['email_charset']));
+        $pgp_sign->setDescription(Horde_Crypt_Translation::t("PGP Digital Signature"));
         $pgp_sign->setContents($msg_sign, array('encoding' => '7bit'));
 
         /* Get the algorithim information from the signature. Since we are
@@ -1446,9 +1447,9 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         /* Set up MIME Structure according to RFC 3156. */
         $part = new Horde_Mime_Part();
         $part->setType('multipart/encrypted');
-        $part->setCharset($this->_params['email_charset']);
+        $part->setHeaderCharset('UTF-8');
         $part->setContentTypeParameter('protocol', 'application/pgp-encrypted');
-        $part->setDescription(Horde_String::convertCharset(Horde_Crypt_Translation::t("PGP Encrypted Data"), 'UTF-8', $this->_params['email_charset']));
+        $part->setDescription(Horde_Crypt_Translation::t("PGP Encrypted Data"));
         $part->setContents("This message is in MIME format and has been PGP encrypted.\n");
 
         $part1 = new Horde_Mime_Part();
@@ -1508,8 +1509,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     {
         $part = new Horde_Mime_Part();
         $part->setType('application/pgp-keys');
-        $part->setCharset($this->_params['email_charset']);
-        $part->setDescription(Horde_String::convertCharset(Horde_Crypt_Translation::t("PGP Public Key"), 'UTF-8', $this->_params['email_charset']));
+        $part->setHeaderCharset('UTF-8');
+        $part->setDescription(Horde_Crypt_Translation::t("PGP Public Key"));
         $part->setContents($key, array('encoding' => '7bit'));
 
         return $part;

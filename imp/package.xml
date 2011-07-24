@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-05</date>
- <time>17:33:07</time>
+ <date>2011-07-18</date>
+ <time>16:00:05</time>
  <version>
   <release>5.0.9</release>
   <api>5.0.0</api>
@@ -34,7 +34,10 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [jan] Fix verifying of inline signed PGP messages (requires Horde_Crypt 1.0.4).
+* [mms] Fix Shift-N shortcut in dynamic view (Bug #10352).
+* [mms] Add save message link to dynamic view preview window.
+* [mms] Correctly quote e-mail names when composing from compose links in the dynamic view (Bug #10292).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -494,6 +497,7 @@
       <file name="imp.mo" role="horde" />
       <file name="imp.po" role="horde" />
      </dir> <!-- /locale/lv/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/lv -->
     <dir name="mk">
      <dir name="LC_MESSAGES">
@@ -966,6 +970,10 @@
        <file name="spam.png" role="horde" />
        <file name="trash.png" role="horde" />
       </dir> <!-- /themes/silver/graphics/folders -->
+      <dir name="mime">
+       <file name="compressed.png" role="horde" />
+       <file name="itip.php" role="horde" />
+      </dir> <!-- /themes/silver/graphics/mime -->
       <file name="addressbook_add.png" role="horde" />
       <file name="addressbook_browse.png" role="horde" />
       <file name="add_contact.png" role="horde" />
@@ -980,6 +988,7 @@
       <file name="close.png" role="horde" />
       <file name="compose.png" role="horde" />
       <file name="delete.png" role="horde" />
+      <file name="download.png" role="horde" />
       <file name="drafts.png" role="horde" />
       <file name="edit.png" role="horde" />
       <file name="empty_spam.png" role="horde" />
@@ -1407,7 +1416,7 @@
    <install as="imp/js/searchesprefs.js" name="js/searchesprefs.js" />
    <install as="imp/js/signaturehtml.js" name="js/signaturehtml.js" />
    <install as="imp/js/viewport.js" name="js/viewport.js" />
-   <install as=".htaccess" name="lib/.htaccess" />
+   <install as="imp/lib/.htaccess" name="lib/.htaccess" />
    <install as="imp/lib/Api.php" name="lib/Api.php" />
    <install as="imp/lib/Application.php" name="lib/Application.php" />
    <install as="imp/lib/Auth.php" name="lib/Auth.php" />
@@ -1638,6 +1647,7 @@
    <install as="imp/locale/ko/LC_MESSAGES/imp.po" name="locale/ko/LC_MESSAGES/imp.po" />
    <install as="imp/locale/lt/LC_MESSAGES/imp.mo" name="locale/lt/LC_MESSAGES/imp.mo" />
    <install as="imp/locale/lt/LC_MESSAGES/imp.po" name="locale/lt/LC_MESSAGES/imp.po" />
+   <install as="imp/locale/lv/help.xml" name="locale/lv/help.xml" />
    <install as="imp/locale/lv/LC_MESSAGES/imp.mo" name="locale/lv/LC_MESSAGES/imp.mo" />
    <install as="imp/locale/lv/LC_MESSAGES/imp.po" name="locale/lv/LC_MESSAGES/imp.po" />
    <install as="imp/locale/mk/LC_MESSAGES/imp.mo" name="locale/mk/LC_MESSAGES/imp.mo" />
@@ -1913,6 +1923,7 @@
    <install as="imp/themes/silver/graphics/close.png" name="themes/silver/graphics/close.png" />
    <install as="imp/themes/silver/graphics/compose.png" name="themes/silver/graphics/compose.png" />
    <install as="imp/themes/silver/graphics/delete.png" name="themes/silver/graphics/delete.png" />
+   <install as="imp/themes/silver/graphics/download.png" name="themes/silver/graphics/download.png" />
    <install as="imp/themes/silver/graphics/drafts.png" name="themes/silver/graphics/drafts.png" />
    <install as="imp/themes/silver/graphics/edit.png" name="themes/silver/graphics/edit.png" />
    <install as="imp/themes/silver/graphics/empty_spam.png" name="themes/silver/graphics/empty_spam.png" />
@@ -1973,6 +1984,8 @@
    <install as="imp/themes/silver/graphics/folders/sent.png" name="themes/silver/graphics/folders/sent.png" />
    <install as="imp/themes/silver/graphics/folders/spam.png" name="themes/silver/graphics/folders/spam.png" />
    <install as="imp/themes/silver/graphics/folders/trash.png" name="themes/silver/graphics/folders/trash.png" />
+   <install as="imp/themes/silver/graphics/mime/compressed.png" name="themes/silver/graphics/mime/compressed.png" />
+   <install as="imp/themes/silver/graphics/mime/itip.php" name="themes/silver/graphics/mime/itip.php" />
    <install as="imp/themes/simplex/screen.css" name="themes/simplex/screen.css" />
    <install as="imp/themes/tango-blue/screen.css" name="themes/tango-blue/screen.css" />
    <install as="imp/themes/tango-blue/dimp/screen.css" name="themes/tango-blue/dimp/screen.css" />
@@ -2331,10 +2344,13 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-05</date>
+   <date>2011-07-18</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [jan] Fix verifying of inline signed PGP messages.
+* [mms] Fix Shift-N shortcut in dynamic view (Bug #10352).
+* [mms] Add save message link to dynamic view preview window.
+* [mms] Correctly quote e-mail names when composing from compose links in the dynamic view (Bug #10292).
    </notes>
   </release>
  </changelog>

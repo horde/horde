@@ -154,7 +154,7 @@ class Turba_Application extends Horde_Registry_Application
 
     /**
      */
-    public function menu(Horde_Menu $menu)
+    public function menu($menu)
     {
         if ($GLOBALS['session']->get('turba', 'has_share')) {
             $menu->add(Horde::url('addressbooks/index.php'), _("_My Address Books"), 'turba.png');
@@ -178,7 +178,7 @@ class Turba_Application extends Horde_Registry_Application
 
     /**
      */
-    public function prefsGroup(Horde_Core_Prefs_Ui $ui)
+    public function prefsGroup($ui)
     {
         global $prefs;
 
@@ -230,7 +230,7 @@ class Turba_Application extends Horde_Registry_Application
 
     /**
      */
-    public function prefsSpecial(Horde_Core_Prefs_Ui $ui, $item)
+    public function prefsSpecial($ui, $item)
     {
         switch ($item) {
         case 'addressbookselect':
@@ -334,7 +334,7 @@ class Turba_Application extends Horde_Registry_Application
 
     /**
      */
-    public function prefsSpecialUpdate(Horde_Core_Prefs_Ui $ui, $item)
+    public function prefsSpecialUpdate($ui, $item)
     {
         global $prefs;
 
@@ -356,6 +356,25 @@ class Turba_Application extends Horde_Registry_Application
         }
 
         return false;
+    }
+
+    /**
+     */
+    public function prefsCallback($ui)
+    {
+        if ($GLOBALS['conf']['activesync']['enabled'] && $GLOBALS['prefs']->isDirty('sync_books')) {
+            try {
+                $stateMachine = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
+                $stateMachine->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
+                $devices = $stateMachine->listDevices($GLOBALS['registry']->getAuth());
+                foreach ($devices as $device) {
+                    $stateMachine->removeState(null, $device['device_id'], $GLOBALS['registry']->getAuth());
+                }
+                $GLOBALS['notification']->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
+            } catch (Horde_ActiveSync_Exception $e) {
+                $GLOBALS['notification']->push(_("There was an error communicating with the ActiveSync server: %s"), $e->getMessage(), 'horde.err');
+            }
+        }
     }
 
     /**

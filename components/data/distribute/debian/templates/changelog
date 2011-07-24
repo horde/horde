@@ -1,4 +1,4 @@
-php-<?php echo $name; ?> (<?php echo $component->getVersion(); ?>-1) unstable; urgency=low
+<?php echo $name; ?> (<?php echo $version; ?>-1) unstable; urgency=low
 
   * Horde <?php echo $component->getName(); ?> package.
 

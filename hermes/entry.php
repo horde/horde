@@ -15,11 +15,12 @@ Horde_Registry::appInit('hermes');
 $vars = Horde_Variables::getDefaultVariables();
 if (!$vars->exists('id') && $vars->exists('timer')) {
     $timer_id = $vars->get('timer');
-    $timers = @unserialize($prefs->getValue('running_timers'));
-    if ($timers && isset($timers[$timer_id])) {
-        $tname = $timers[$timer_id]['name'];
+    $timer = Hermes::getTimer($timer_id);
+    if ($timer) {
+        $tname = $timer['name'];
         $tformat = $prefs->getValue('twentyFour') ? 'G:i' : 'g:i a';
-        $vars->set('hours', round((float)(time() - $timer_id) / 3600, 2));
+        $elapsed = ((!$timer['paused']) ? time() - $timer['time'] : 0 ) + $timer['elapsed'];
+        $vars->set('hours', round((float)$elapsed / 3600, 2));
         if ($prefs->getValue('add_description')) {
             $vars->set('note', sprintf(_("Using the \"%s\" stop watch from %s to %s"), $tname, date($tformat, $timer_id), date($tformat, time())));
         }
@@ -87,6 +88,7 @@ $form->setCostObjects($vars);
 
 $title = $vars->exists('id') ? _("Edit Time") : _("New Time");
 require $registry->get('templates', 'horde') . '/common-header.inc';
-require HERMES_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 $form->renderActive(new Horde_Form_Renderer(), $vars, 'entry.php', 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

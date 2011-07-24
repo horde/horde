@@ -119,6 +119,7 @@ class IMP_Mailbox implements Serializable
 
     /* Cache identifiers - temporary data. */
     const CACHE_HASICONHOOK = 'ih';
+    const CACHE_ICONHOOK = 'ic';
     const CACHE_HASLABELHOOK = 'lh';
     const CACHE_HIDEDELETED = 'hd';
     const CACHE_READONLYHOOK = 'roh';
@@ -954,6 +955,20 @@ class IMP_Mailbox implements Serializable
         return $params;
     }
 
+    /**
+     * Determines if this mailbox is equal to the given mailbox.
+     * Needed because directly comparing two mailbox objects may fail (the
+     * member variables may be different).
+     *
+     * @param mixed $mbox  The mailbox to compare to.
+     *
+     * @return boolean  True if the mailboxes are the same.
+     */
+    public function equals($mbox)
+    {
+        return ($mbox == $this->_mbox);
+    }
+
     /* Static methods. */
 
     /**
@@ -1292,7 +1307,7 @@ class IMP_Mailbox implements Serializable
         if (empty($this->cache[self::CACHE_ICONS]) &&
             self::$_temp[self::CACHE_HASICONHOOK]) {
             if (!isset(self::$_temp[self::CACHE_ICONHOOK])) {
-                self::$_temp['icons'] = Horde::callHook('mbox_icons', array(), 'imp');
+                self::$_temp[self::CACHE_ICONHOOK] = Horde::callHook('mbox_icons', array(), 'imp');
             }
 
             if (isset(self::$_temp[self::CACHE_ICONHOOK][$this->_mbox])) {

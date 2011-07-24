@@ -3,8 +3,8 @@
  <name>Horde_Kolab_Server</name>
  <channel>pear.horde.org</channel>
  <extends>Kolab_Server</extends>
- <summary>A package for manipulating the Kolab user database.</summary>
- <description>This package allows to read/write entries in the Kolab user
+ <summary>A package for manipulating the Kolab user database</summary>
+ <description>This package reads/writes entries in the Kolab user
  database stored in LDAP.</description>
  <lead>
   <name>Gunnar Wrobel</name>
@@ -12,8 +12,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:13:24</time>
+ <date>2011-07-21</date>
+ <time>11:23:27</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -32,20 +32,15 @@
     <dir name="Horde">
      <dir name="Kolab">
       <dir name="Server">
+       <dir name="examples">
+        <file name="server.php" role="doc" />
+       </dir> <!-- /doc/Horde/Kolab/Server/examples -->
+       <file name="TODO" role="doc" />
        <file name="usage.txt" role="doc" />
       </dir> <!-- /doc/Horde/Kolab/Server -->
      </dir> <!-- /doc/Horde/Kolab -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
-   <dir name="examples">
-    <dir name="Horde">
-     <dir name="Kolab">
-      <dir name="Server">
-       <file name="server.php" role="doc" />
-      </dir> <!-- /examples/Horde/Kolab/Server -->
-     </dir> <!-- /examples/Horde/Kolab -->
-    </dir> <!-- /examples/Horde -->
-   </dir> <!-- /examples -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Kolab">
@@ -315,7 +310,6 @@
      </dir> <!-- /test/Horde/Kolab -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
-   <file name="TODO" role="data" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -366,8 +360,9 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="Horde/Kolab/Server/usage.txt" name="doc/Horde/Kolab/Server/usage.txt" />
-   <install as="Horde/Kolab/Server/server.php" name="examples/Horde/Kolab/Server/server.php" />
+   <install as="TODO" name="doc/Horde/Kolab/Server/TODO" />
+   <install as="usage.txt" name="doc/Horde/Kolab/Server/usage.txt" />
+   <install as="examples/server.php" name="doc/Horde/Kolab/Server/examples/server.php" />
    <install as="Horde/Kolab/Server/Composite.php" name="lib/Horde/Kolab/Server/Composite.php" />
    <install as="Horde/Kolab/Server/Exception.php" name="lib/Horde/Kolab/Server/Exception.php" />
    <install as="Horde/Kolab/Server/Factory.php" name="lib/Horde/Kolab/Server/Factory.php" />
@@ -547,7 +542,6 @@
    <install as="Horde/Kolab/Server/Integration/SearchTest.php" name="test/Horde/Kolab/Server/Integration/SearchTest.php" />
    <install as="Horde/Kolab/Server/Integration/UserHandlingTest.php" name="test/Horde/Kolab/Server/Integration/UserHandlingTest.php" />
    <install as="Horde/Kolab/Server/Integration/UserTest.php" name="test/Horde/Kolab/Server/Integration/UserTest.php" />
-   <install as="TODO" name="TODO" />
   </filelist>
  </phprelease>
  <changelog>
@@ -667,7 +661,7 @@
 * Use class variables to represent objectClass attributes. Thus it
   is possible to accomodate for variable attribute names.
 * Cleaner class structure that matches the objectClass structure and
-  also allows to represent logical classes.
+  also allows one to represent logical classes.
 * Separate classes to handle the LDAP tree structure in a more
   flexible way.
 * Added LDAP write support.
@@ -760,7 +754,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-07-21</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * 

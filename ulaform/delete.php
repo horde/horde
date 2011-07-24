@@ -32,22 +32,17 @@ if ($form_submit == _("Delete")) {
 
     if ($delform->isValid()) {
         $delform->getInfo($delvars, $info);
-        $deleteform = $ulaform_driver->deleteForm($info['form_id']);
-        if (is_a($deleteform, 'PEAR_Error')) {
-            Horde::logMessage($deleteform, 'ERR');
-            $notification->push(sprintf(_("Error deleting form. %s."), $deleteform->getMessage()), 'horde.error');
-        } else {
+        try {
+            $deleteform = $ulaform_driver->deleteForm($info['form_id']);
             $notification->push(_("Form deleted."), 'horde.success');
-            $url = Horde::url('forms.php', true);
-            header('Location: ' . $url);
-            exit;
+            Horde::url('forms.php', true)->redirect();
+        } catch (Ulaform_Exception $e) {
+            $notification->push(sprintf(_("Error deleting form. %s."), $e->getMessage()), 'horde.error');
         }
     }
 } elseif (!empty($form_submit)) {
     $notification->push(_("Form has not been deleted."), 'horde.message');
-    $url = Horde::url('forms.php', true);
-    header('Location: ' . $url);
-    exit;
+    Horde::url('forms.php', true)->redirect();
 }
 
 /* Render the form. */
@@ -57,11 +52,11 @@ $delform->renderActive($renderer, $delvars, 'delete.php', 'post');
 $viewform->renderInactive($renderer, $viewvars);
 $main = Horde::endBuffer();
 
-$template = $injector->getInstance('Horde_Template');
-$template->set('main', $main);
+$view = new Horde_View(array('templatePath' => ULAFORM_TEMPLATES));
+$view->main = $main;
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
-echo $template->fetch(ULAFORM_TEMPLATES . '/main/main.html');
+echo $view->render('main');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

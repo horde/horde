@@ -39,8 +39,12 @@ implements Horde_Kolab_Cli_Module
     {
         return Horde_Kolab_Cli_Translation::t("  account - Handles operations on an account level (like listing *all* available groupware objects)
 
-  - all [TYPE] : List all groupware objects of the account (optionally limit 
-                 to TYPE)
+  - all [TYPE]       : List all groupware objects of the account (optionally
+                       limit to TYPE)
+  - defects [TYPE]   : List all defects of the account (optionally limit to
+                       TYPE)
+  - issuelist [TYPE] : A brief list of issues of the account (optionally
+                       limit to TYPE)
 
 
 ");
@@ -123,14 +127,14 @@ implements Horde_Kolab_Cli_Module
     public function run($cli, $options, $arguments, &$world)
     {
         if (!isset($arguments[1])) {
-            $action = 'folders';
+            $action = 'all';
         } else {
             $action = $arguments[1];
         }
         switch ($action) {
         case 'all':
             if (!isset($arguments[2])) {
-                $folders = $world['storage']->getList()->listTypes();
+                $folders = $world['storage']->getList()->getQuery()->listTypes();
             } else {
                 $names = $world['storage']->getList()
                     ->getQuery()
@@ -141,9 +145,92 @@ implements Horde_Kolab_Cli_Module
                 }
             }
             foreach ($folders as $folder => $type) {
+                if ($type == 'mail') {
+                    continue;
+                }
                 $data = $world['storage']->getData($folder, $type);
                 foreach ($data->getObjects() as $id => $object) {
                     $this->_yamlOutput($cli, $folder . ': ' . $id, $object);
+                }
+            }
+            break;
+        case 'defects':
+            if (!isset($arguments[2])) {
+                $folders = $world['storage']->getList()->getQuery()->listTypes();
+            } else {
+                $names = $world['storage']->getList()
+                    ->getQuery()
+                    ->listByType($arguments[2]);
+                $folders = array();
+                foreach ($names as $name) {
+                    $folders[$name] = $arguments[2];
+                }
+            }
+            foreach ($folders as $folder => $type) {
+                if ($type == 'mail') {
+                    continue;
+                }
+                $data = $world['storage']->getData($folder, $type);
+                foreach ($data->getErrors() as $id) {
+                    $complete = $data->fetchComplete($id);
+                    $message = "FAILED PARSING:\n\n" .
+                        $complete[1]->toString(array('headers' => $complete[0]));
+                    $this->_messageOutput($cli, $folder . ': ' . $id, $message);
+                }
+                foreach ($data->getDuplicates() as $object => $ids) {
+                    foreach ($ids as $id) {
+                        $this->_yamlOutput(
+                            $cli,
+                            "DUPLICATE $object in $folder (backend $id)",
+                            $data->fetch(array($id))
+                        );
+                    }
+                }
+            }
+            break;
+        case 'issuelist':
+            if (!isset($arguments[2])) {
+                $folders = $world['storage']->getList()->getQuery()->listTypes();
+            } else {
+                $names = $world['storage']->getList()
+                    ->getQuery()
+                    ->listByType($arguments[2]);
+                $folders = array();
+                foreach ($names as $name) {
+                    $folders[$name] = $arguments[2];
+                }
+            }
+            foreach ($folders as $folder => $type) {
+                if ($type == 'mail') {
+                    continue;
+                }
+                $data = $world['storage']->getData($folder, $type);
+                $issues = '';
+                $errors = $data->getErrors();
+                if (!empty($errors)) {
+                    $issues = "FAILED parsing the messages with the following UIDs:\n\n";
+                    foreach ($errors as $id) {
+                        $issues .= " - $id\n";
+                    }
+                    $issues .= "\n";
+                }
+                $duplicates = $data->getDuplicates();
+                if (!empty($duplicates)) {
+                    foreach ($duplicates as $object => $ids) {
+                        $issues .= "DUPLICATE object ID \"$object\" represented by messages with the following UIDs:\n\n";
+                        foreach ($ids as $id) {
+                            $issues .= " - $id\n";
+                        }
+                        $issues .= "\n";
+                    }
+                }
+                if (!empty($issues)) {
+                    $cli->writeln('Error report for folder "' . $folder . '"');
+                    $cli->writeln('================================================================================');
+                    $cli->writeln();
+                    $cli->writeln($issues);
+                    $cli->writeln('================================================================================');
+                    $cli->writeln();
                 }
             }
             break;

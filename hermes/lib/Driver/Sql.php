@@ -43,16 +43,18 @@ class Hermes_Driver_Sql extends Hermes_Driver
      *
      * @param string $employee  The Horde ID of the person who worked the
      *                          hours.
-     * @param array $entries    The billing information to enter. Each array
-     *                          row must contain the following entries:
-     *             'date'         The day the hours were worked (ISO format)
-     *             'client'       The id of the client the work was done for.
-     *             'type'         The type of work done.
-     *             'hours'        The number of hours worked
-     *             'rate'         The hourly rate the work was done at.
-     *             'billable'     (optional) Whether or not the work is
-     *                            billable hours.
-     *             'description'  A short description of the work.
+     * @param array $info       The billing information to enter. Must contain
+     *                          the following entries:
+     *<pre>
+     *  'date'         The day the hours were worked (ISO format)
+     *  'client'       The id of the client the work was done for.
+     *  'type'         The type of work done.
+     *  'hours'        The number of hours worked
+     *  'billable'     (optional) Whether or not the work is billable hours.
+     *  'description'  A short description of the work.
+     *  'note'         Any notes.
+     *  'costobject'   The costobject id
+     *</pre>
      *
      * @return integer  The new timeslice_id of the newly entered slice
      * @throws Hermes_Exception
@@ -167,7 +169,7 @@ class Hermes_Driver_Sql extends Hermes_Driver
      *
      * @return array  Array of timeslice objects
      */
-    function getHours(array $filters = array(), array $fields = array())
+    public function getHours(array $filters = array(), array $fields = array())
     {
         global $conf;
 
@@ -266,27 +268,34 @@ class Hermes_Driver_Sql extends Hermes_Driver
             throw new Hermes_Exception($e);
         }
         $slices = array();
+
         // Do per-record processing
         $addcostobject = empty($fields) || in_array('costobject', $fields);
-        foreach (array_keys($hours) as $hkey) {
-            // Convert timestamps to Horde_Date objects
-            $hours[$hkey]['date'] = new Horde_Date($hours[$hkey]['date']);
-            $hours[$hkey]['description'] = $this->_convertFromDriver($hours[$hkey]['description']);
-            $hours[$hkey]['note'] = $this->_convertFromDriver($hours[$hkey]['note']);
+        foreach ($hours as $key => $hour) {
+            if (isset($hour['date'])) {
+                // Convert timestamps to Horde_Date objects
+                $hour['date'] = new Horde_Date($hour['date']);
+            }
+            if (isset($hour['description'])) {
+                $hour['description'] = $this->_convertFromDriver($hour['description']);
+            }
+            if (isset($hour['note'])) {
+                $hour['note'] = $this->_convertFromDriver($hour['note']);
+            }
             if ($addcostobject) {
-                if (empty($hours[$hkey]['costobject'])) {
-                    $hours[$hkey]['_costobject_name'] = '';
+                if (empty($hour['costobject'])) {
+                    $hour['_costobject_name'] = '';
                 } else {
                     try {
-                        $costobject = Hermes::getCostObjectByID($hours[$hkey]['costobject']);
+                        $costobject = Hermes::getCostObjectByID($hour['costobject']);
                     } catch (Horde_Exception $e) {
-                        $hours[$hkey]['_costobject_name'] = sprintf(_("Error: %s"), $e->getMessage());
+                        $hour['_costobject_name'] = sprintf(_("Error: %s"), $e->getMessage());
                     }
-                    $hours[$hkey]['_costobject_name'] = $costobject['name'];
+                    $hour['_costobject_name'] = $costobject['name'];
                 }
             }
 
-            $slices[$hkey] = new Hermes_Slice($hours[$hkey]);
+            $slices[$key] = new Hermes_Slice($hour);
         }
 
         return $slices;

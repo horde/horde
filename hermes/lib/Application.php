@@ -65,6 +65,35 @@ class Hermes_Application extends Horde_Registry_Application
         );
     }
 
+    /**
+     */
+    public function menu($menu)
+    {
+        $menu->add(Horde::url('time.php'), _("My _Time"), 'hermes.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        $menu->add(Horde::url('entry.php'), _("_New Time"), 'hermes.png', null, null, null, Horde_Util::getFormData('id') ? '__noselection' : null);
+        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
+
+        if ($GLOBALS['conf']['time']['deliverables'] &&
+            $GLOBALS['registry']->isAdmin(array('permission' => 'hermes:deliverables'))) {
+            $menu->add(Horde::url('deliverables.php'), _("_Deliverables"), 'hermes.png');
+        }
+
+        if ($GLOBALS['conf']['invoices']['driver'] &&
+            $GLOBALS['registry']->isAdmin(array('permission' => 'hermes:invoicing'))) {
+            $menu->add(Horde::url('invoicing.php'), _("_Invoicing"), 'invoices.png');
+        }
+
+        /* Print. */
+        // if ($GLOBALS['conf']['menu']['print'] && isset($print_link)) {
+        //     $menu->add($print_link, _("_Print"), 'print.png', '', '_blank', 'popup(this.href); return false;', '__noselection');
+        // }
+
+        /* Administration. */
+        if ($GLOBALS['registry']->isAdmin()) {
+            $menu->add(Horde::url('admin.php'), _("_Admin"), 'hermes.png');
+        }
+    }
+
     /* Sidebar method. */
 
     /**

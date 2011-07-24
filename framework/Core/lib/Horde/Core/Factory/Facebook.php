@@ -5,6 +5,10 @@
  */
 class Horde_Core_Factory_Facebook extends Horde_Core_Factory_Injector
 {
+    /**
+     *
+     * @throws Horde_Exception
+     */
     public function create(Horde_Injector $injector)
     {
         global $conf;
@@ -26,7 +30,11 @@ class Horde_Core_Factory_Facebook extends Horde_Core_Factory_Injector
         /* Check for facebook session */
         $fbp = unserialize($GLOBALS['prefs']->getValue('facebook'));
         if (!empty($fbp['sid'])) {
-            $fb->auth->setSession($fbp['sid']);
+            try {
+                $fb->auth->setSession($fbp['sid']);
+            } catch (Horde_Service_Facebook_Exception $e) {
+                throw new Horde_Exception($e);
+            }
         }
 
         return $fb;

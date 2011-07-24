@@ -342,7 +342,10 @@ if ($reason) {
     $notification->push(str_replace('<br />', ' ', $reason), 'horde.message');
 }
 
-if ($browser->isMobile()) {
+if ($browser->isMobile() &&
+    (!isset($conf['user']['force_view']) ||
+     ($conf['user']['force_view'] != 'traditional' &&
+      $conf['user']['force_view'] != 'dynamic'))) {
     /* Build the <select> widget containing the available languages. */
     if (!$is_auth && !$prefs->isLocked('language')) {
         $tmp = array();

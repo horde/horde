@@ -53,6 +53,16 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertLogContains('Unable to identify Kolab mime part in message 1 in folder INBOX/Notes!');
     }
 
+    public function testErrors()
+    {
+        $this->assertEquals(
+            array(1),
+            $this->_getBrokenStore(
+                array('ignore_parse_errors' => true)
+            )->getErrors()
+        );
+    }
+
     public function testDefaultType()
     {
         $this->assertEquals(
@@ -76,7 +86,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testId()
     {
         $this->assertEquals(
-            '988166e4fd2a5524aab076dae957fc59',
+            '2758ded05e635994e5dbeba82185feb2',
             $this->getMessageStorage()
             ->getData('INBOX/WithDeleted')
             ->getId()
@@ -408,6 +418,18 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertEquals('modified', $object['summary']);
     }
      
+    public function testDuplicatesAddedObjects()
+    {
+        $data = $this->getMessageStorage()->getData('INBOX/Notes');
+        $object = array('summary' => 'test', 'uid' => 'UID');
+        $data->create($object);
+        $data->create($object);
+        $this->assertEquals(
+            array('UID' => array(1, 2)),
+            $data->getDuplicates()
+        );
+    }
+
     private function _getBrokenStore($params = array())
     {
         $default_params = array(

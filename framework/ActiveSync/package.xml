@@ -10,11 +10,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-05</date>
- <time>13:13:08</time>
+ <date>2011-07-19</date>
+ <time>11:24:30</time>
  <version>
-  <release>1.0.2</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,7 +22,9 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
  <notes>
-* 
+* [mjr] use AS in column aliases to make postgres happy (Bug #10346).
+* [mjr] Prevent a sync loop in some fringe cases.
+* [mjr] Improve calendar syncing for iOS devices.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -309,15 +311,17 @@
   </release>
   <release>
    <version>
-    <release>1.0.2</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-05</date>
+   <date>2011-07-19</date>
    <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
    <notes>
-* 
+* [mjr] use AS in column aliases to make postgres happy (Bug #10346).
+* [mjr] Prevent a sync loop in some fringe cases.
+* [mjr] Improve calendar syncing for iOS devices.
    </notes>
   </release>
  </changelog>

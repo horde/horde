@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-01</date>
- <time>15:35:48</time>
+ <date>2011-07-21</date>
+ <time>10:27:17</time>
  <version>
   <release>1.1.1</release>
   <api>1.1.0</api>
@@ -26,19 +26,21 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="examples">
+   <dir name="doc">
     <dir name="Horde">
      <dir name="Feed">
-      <file name="blogger.php" role="doc" />
-      <file name="blogroll.php" role="php" />
-      <file name="delete.php" role="php" />
-      <file name="edit.php" role="php" />
-      <file name="post.php" role="php" />
-      <file name="read.php" role="php" />
-      <file name="reader.php" role="php" />
-     </dir> <!-- /examples/Horde/Feed -->
-    </dir> <!-- /examples/Horde -->
-   </dir> <!-- /examples -->
+      <dir name="examples">
+       <file name="blogger.php" role="doc" />
+       <file name="blogroll.php" role="doc" />
+       <file name="delete.php" role="doc" />
+       <file name="edit.php" role="doc" />
+       <file name="post.php" role="doc" />
+       <file name="read.php" role="doc" />
+       <file name="reader.php" role="doc" />
+      </dir> <!-- /doc/Horde/Feed/examples -->
+     </dir> <!-- /doc/Horde/Feed -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Feed">
@@ -310,13 +312,13 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="examples/Horde/Feed/blogger.php" name="examples/Horde/Feed/blogger.php" />
-   <install as="examples/Horde/Feed/blogroll.php" name="examples/Horde/Feed/blogroll.php" />
-   <install as="examples/Horde/Feed/delete.php" name="examples/Horde/Feed/delete.php" />
-   <install as="examples/Horde/Feed/edit.php" name="examples/Horde/Feed/edit.php" />
-   <install as="examples/Horde/Feed/post.php" name="examples/Horde/Feed/post.php" />
-   <install as="examples/Horde/Feed/read.php" name="examples/Horde/Feed/read.php" />
-   <install as="examples/Horde/Feed/reader.php" name="examples/Horde/Feed/reader.php" />
+   <install as="examples/blogger.php" name="doc/Horde/Feed/examples/blogger.php" />
+   <install as="examples/blogroll.php" name="doc/Horde/Feed/examples/blogroll.php" />
+   <install as="examples/delete.php" name="doc/Horde/Feed/examples/delete.php" />
+   <install as="examples/edit.php" name="doc/Horde/Feed/examples/edit.php" />
+   <install as="examples/post.php" name="doc/Horde/Feed/examples/post.php" />
+   <install as="examples/read.php" name="doc/Horde/Feed/examples/read.php" />
+   <install as="examples/reader.php" name="doc/Horde/Feed/examples/reader.php" />
    <install as="Horde/Feed.php" name="lib/Horde/Feed.php" />
    <install as="Horde/Feed/Atom.php" name="lib/Horde/Feed/Atom.php" />
    <install as="Horde/Feed/Base.php" name="lib/Horde/Feed/Base.php" />
@@ -629,7 +631,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-01</date>
+   <date>2011-07-21</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * 

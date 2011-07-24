@@ -130,7 +130,7 @@
  * This hook is called before an application is switched to.
  * It is passed no parameters and expects no return value.
  * Any Exception thrown in this hook will cause a fatal error.
-
+ *
  * pushapp_post
  * ------------
  * This hook is called after an application is successfully switched to.

@@ -601,13 +601,13 @@ if ($pageOb['msgcount']) {
 
     if ($conf['spam']['reporting'] &&
         ($conf['spam']['spamfolder'] ||
-         (IMP::$mailbox != IMP_Mailbox::getPref('spam_folder')))) {
+         !IMP_Mailbox::getPref('spam_folder')->equals(IMP::$mailbox))) {
         $a_template->set('spam', Horde::widget('#', _("Report as Spam"), 'widget spamAction', '', '', _("Report as Spam")));
     }
 
     if ($conf['notspam']['reporting'] &&
         (!$conf['notspam']['spamfolder'] ||
-         (IMP::$mailbox == IMP_Mailbox::getPref('spam_folder')))) {
+         IMP_Mailbox::getPref('spam_folder')->equals(IMP::$mailbox))) {
         $a_template->set('notspam', Horde::widget('#', _("Report as Innocent"), 'widget notspamAction', '', '', _("Report as Innocent")));
     }
 

@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Fix reading CSV data with PHP &lt; 5.3.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -394,7 +394,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2011-06-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Fix reading CSV data with PHP &lt; 5.3.
    </notes>
   </release>
  </changelog>

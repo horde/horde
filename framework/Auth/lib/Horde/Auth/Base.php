@@ -134,8 +134,8 @@ abstract class Horde_Auth_Base
      * @return array the users, sorted or not
      *
      */
-    protected function _sort($users, $sort) {
-
+    protected function _sort($users, $sort)
+    {
         if ($sort) {
             sort($users);
         }

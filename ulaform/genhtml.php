@@ -14,8 +14,6 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ulaform', array('admin' => true));
 
-require_once 'Horde/Form/Action.php';
-
 /* Get some variables. */
 $changed_type = false;
 $html = '';
@@ -89,7 +87,7 @@ if ($formname && !$changed_type) {
         case 'iframe':
             $html = array(
                         sprintf('&lt;iframe src="%s" name="%s" %s%s hspace="2" vspace="2" scrolling="auto" marginwidth="5" marginheight="5" frameborder="0">&lt;/iframe>',
-                                Horde_Util::addParameter(Horde::url('display.php', true, -1), 'form_id', $info['form_id']),
+                                Horde::url('display.php', true, -1)->add('form_id', $info['form_id']),
                                 $info['params']['name'],
                                 ($info['params']['width'] ? 'width="' . $info['params']['width'] . '" ' : ''),
                                 ($info['params']['height'] ? 'height="' . $info['params']['height'] . '" ' : '')));
@@ -99,15 +97,15 @@ if ($formname && !$changed_type) {
 }
 
 /* Render the form. */
-$template = $injector->getInstance('Horde_Template');
+$view = new Horde_View(array('templatePath' => ULAFORM_TEMPLATES));
 Horde::startBuffer();
 $form->renderActive(new Horde_Form_Renderer(), $vars, 'genhtml.php', 'post');
-$template->set('inputform', Horde::endBuffer());
-$template->set('html', $html, true);
+$view->inputform = Horde::endBuffer();
+$view->html = $html;
 
 Horde::addScriptFile('stripe.js', 'horde', true);
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
-echo $template->fetch(ULAFORM_TEMPLATES . '/genhtml/genhtml.html');
+echo $view->render('genhtml');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

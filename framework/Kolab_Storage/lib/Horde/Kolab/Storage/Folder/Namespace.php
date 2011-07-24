@@ -169,8 +169,8 @@ implements Iterator, Serializable
      * Construct the Kolab storage folder name based on the folder
      * title and the owner.
      *
+     * @param string $owner The owner of the folder.
      * @param string $name  The folder title.
-     * @param string $owner The owner of the share.
      *
      * @return string The folder name for the backend.
      */
@@ -186,6 +186,32 @@ implements Iterator, Serializable
     }
 
     /**
+     * Construct the Kolab storage folder path based on the folder
+     * subpath, the namespace and the owner.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @param string $owner    The owner of the folder.
+     * @param string $prefix   The namespace prefix.
+     * @param string $subpath  The folder subpath.
+     *
+     * @return string The folder name for the backend.
+     */
+    public function constructFolderPath($owner, $prefix, $subpath)
+    {
+        if (empty($owner)) {
+            return $this->_getNamespace(self::SHARED, $prefix)
+                ->generatePath($subpath, $owner);
+        } else if ($owner == $this->user) {
+            return $this->_getNamespace(self::PERSONAL, $prefix)
+                ->generatePath($subpath, $owner);
+        } else {
+            return $this->_getNamespace(self::OTHER, $prefix)
+                ->generatePath($subpath, $owner);
+        }
+    }
+
+    /**
      * Generate an IMAP folder name in the personal namespace.
      *
      * @param string $title The new folder title.
@@ -194,7 +220,8 @@ implements Iterator, Serializable
      */
     public function setTitle($title)
     {
-        return $this->_setTitle(self::PERSONAL, explode(':', $title));
+        return $this->_getNamespace(self::PERSONAL)
+            ->generateName(explode(':', $title));
     }
 
     /**
@@ -209,7 +236,7 @@ implements Iterator, Serializable
     {
         $path = explode(':', $title);
         array_unshift($path, $owner);
-        return $this->_setTitle(self::OTHER, $path);
+        return $this->_getNamespace(self::OTHER)->generateName($path);
     }
 
     /**
@@ -221,30 +248,32 @@ implements Iterator, Serializable
      */
     public function setTitleInShared($title)
     {
-        return $this->_setTitle(self::SHARED, explode(':', $title));
+        return $this->_getNamespace(self::SHARED)
+            ->generateName(explode(':', $title));
     }
 
     /**
-     * Generate an IMAP folder name in the specified namespace.
+     * Get the namespace matching the given type and (optional) prefix.
      *
-     * @param string $type     The namespace type.
-     * @param array  $elements The new path elements.
+     * @param string $type   The namespace type.
+     * @param string $prefix The namespace prefix
      *
-     * @return string The IMAP folder name.
+     * @return Horde_Kolab_Storage_Folder_Namespace_Element The namespace.
      */
-    private function _setTitle($type, array $elements)
+    private function _getNamespace($type, $prefix = null)
     {
         $matching = array();
         foreach ($this->_namespaces as $namespace) {
-            if ($namespace->getType() == $type) {
+            if ($namespace->getType() == $type &&
+                ($prefix === null || $namespace->getName() === $prefix)) {
                 $matching[] = $namespace;
             }
         }
         if (count($matching) == 1) {
-            $selection = $matching[0];
+            return $matching[0];
         } else if (count($matching) > 1) {
             throw new Horde_Kolab_Storage_Exception(
-                'Specifying the folder path via title is not supported with multiple namespaces of the same type!'
+                'Multiple namespaces of the same type!'
             );
         } else {
             throw new Horde_Kolab_Storage_Exception(
@@ -254,7 +283,6 @@ implements Iterator, Serializable
                 )
             );
         }
-        return $selection->generateName($elements);
     }
 
     /**

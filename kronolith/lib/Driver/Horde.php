@@ -118,7 +118,7 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
      * @return string  The event id.
      * @throws Kronolith_Exception
      */
-    protected function _updateEvent($event)
+    protected function _updateEvent(Kronolith_Event $event)
     {
         if (!isset($this->api)) {
             list($this->api, $category) = explode('/', $this->calendar, 2);

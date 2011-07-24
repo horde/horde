@@ -49,12 +49,12 @@ class Ulaform_Action_Sql extends Ulaform_Action {
      * @return boolean  True on success.
      * @throws Ulaform_Exception
      */
-    function doAction($form_params, $form_data, $fields)
+    public function doAction($form_params, $form_data, $fields)
     {
         /* Check if table exists. */
         if (!in_array($form_params['table'], $this->_db->tables())) {
             try {
-                $this->createDataTable($form_params, $fields);
+                $this->_createDataTable($form_params, $fields);
             } catch (Horde_Db_Exception $e) {
                 throw new Ulaform_Exception($e->getMessage());
             }
@@ -110,7 +110,7 @@ class Ulaform_Action_Sql extends Ulaform_Action {
      *
      * @return array  Array of required parameters.
      */
-    function getInfo()
+    static public function getInfo()
     {
         $info['name'] = _("SQL");
         $info['desc'] = _("This driver allows to insertion of form results into a database.");
@@ -124,7 +124,7 @@ class Ulaform_Action_Sql extends Ulaform_Action {
      *
      * @return array  Array of required parameters.
      */
-    function getParams()
+    static public function getParams()
     {
         $params = array();
         $params['table'] = array('label' => _("Table"), 'type' => 'text');
@@ -138,7 +138,7 @@ class Ulaform_Action_Sql extends Ulaform_Action {
      * @return boolean  True on success.
      * @throws Ulaform_Exception
      */
-    function createDataTable($form_params, $fields)
+    protected function _createDataTable($form_params, $fields)
     {
         /* Generate SQL query. */
         $columns = array();

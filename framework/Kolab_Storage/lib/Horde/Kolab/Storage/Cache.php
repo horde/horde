@@ -234,7 +234,7 @@ class Horde_Kolab_Storage_Cache
      */
     private function _getDataId($data_params)
     {
-        foreach (array('host', 'port', 'folder', 'type', 'owner') as $key) {
+        foreach (array('host', 'port', 'prefix', 'folder', 'type', 'owner') as $key) {
             $this->_requireParameter($data_params, 'data', $key);
         }
         ksort($data_params);

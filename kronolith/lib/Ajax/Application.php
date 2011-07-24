@@ -53,7 +53,9 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             return $result;
         }
         try {
+            session_write_close();
             $events = $kronolith_driver->listEvents($start, $end, true, false, true);
+            session_start();
             if (count($events)) {
                 $result->events = $events;
             }

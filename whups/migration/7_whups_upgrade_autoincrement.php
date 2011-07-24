@@ -63,7 +63,7 @@ class WhupsUpgradeAutoIncrement extends Horde_Db_Migration_Base
 
         $this->changeColumn('whups_logs', 'log_id', 'autoincrementKey');
         try {
-            $this->dropTable('whups_log_seq');
+            $this->dropTable('whups_logs_seq');
         } catch (Horde_Db_Exception $e) {
         }
 

@@ -61,7 +61,6 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
         }
 
         /* Serialize the form params. */
-        require_once 'Horde/Serialize.php';
         $info['form_params'] = Horde_Serialize::serialize($info['form_params'], Horde_Serialize::UTF7_BASIC);
 
         array_unshift($values,
@@ -102,7 +101,7 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
      * @throws Horde_Exception_NotFound
      * @throws Ulaform_Exception
      */
-    function saveField(&$info)
+    public function saveField(&$info)
     {
         if (empty($info['form_id'])) {
             throw new Horde_Exception_NotFound(_("Missing form"));
@@ -113,7 +112,7 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
             $values[] = $info['field_id'];
         } else {
             if (empty($info['field_order'])) {
-                $info['field_order'] = $this->nextFieldOrder($info['form_id']);
+                $info['field_order'] = $this->_nextFieldOrder($info['form_id']);
             }
         }
 
@@ -122,7 +121,6 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
         $info['field_readonly'] = ($info['field_readonly'] ? 1 : 0);
 
         if (!empty($info['field_params'])) {
-            require_once 'Horde/Serialize.php';
             $info['field_params'] = Horde_Serialize::serialize($info['field_params'], Horde_Serialize::UTF7_BASIC);
         } else {
             $info['field_params'] = null;
@@ -159,24 +157,6 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
     }
 
     /**
-     * Gets the next field order position within a form.
-     *
-     * @param integer  $form_id
-     *
-     * @return integer
-     * @throws Ulaform_Exception
-     */
-    function nextFieldOrder($form_id)
-    {
-        $sql = 'SELECT MAX(field_order) FROM ulaform_fields WHERE form_id = ?';
-        try {
-            return $this->_db->selectValue($sql, array($form_id)) + 1;
-        } catch (Horde_Db_Exception $e) {
-            throw new Ulaform_Exception($e->getMessage);
-        }
-    }
-
-    /**
      * Sets the specified sort order to the fields in a form.
      *
      * @param array  $info  An array with the field ids in
@@ -186,7 +166,7 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
      * @throws Horde_Exception_NotFound
      * @throws Ulaform_Exception
      */
-    function sortFields(&$info)
+    public function sortFields(&$info)
     {
         if (empty($info['form_id'])) {
             throw new Horde_Exception_NotFound(_("Missing form"));
@@ -212,7 +192,7 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
      * @return array  An array of the available forms.
      * @throws Ulaform_Exception
      */
-    function getForms($form_id = null)
+    public function getForms($form_id = null)
     {
         $wsql = '';
         $values = array();
@@ -223,44 +203,11 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
 
         /* Get the forms. */
         $sql = 'SELECT form_id, user_uid, form_name, form_action, form_params,'
-                . ' form_onsubmit FROM ulaform_forms ' . $wsql;
+                . ' form_onsubmit FROM ulaform_forms' . $wsql;
         try {
             $result = $this->_db->selectAll($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Ulaform_Exception($e->getMessage());
-        }
-
-        return Ulaform::checkPermissions($result, 'form', Horde_Perms::SHOW, 'form_id');
-    }
-
-    /**
-     * Fetches the a list of available forms and the basic data.
-     *
-     * @return array  An array of the available forms.
-     */
-    function formExists($form_id = null)
-    {
-        global $perms;
-
-        $wsql = '';
-        $values = array();
-        if (!is_null($form_id)) {
-            $wsql = ' WHERE form_id = ?';
-            $values[] = (int)$form_id;
-        }
-
-        /* Get the forms. */
-        $sql = 'SELECT form_id, user_uid, form_name, form_action, form_params,'
-                . ' form_onsubmit FROM ulaform_forms ' . $wsql;
-        try {
-            $result = $this->_db->selectAll($sql, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Ulaform_Exception($e);
-        }
-
-        // Check if the form exists
-        if (empty($result)) {
-            return PEAR::raiseError(sprintf(_("No such form ID \"%s\"."), $form_id));
         }
 
         return Ulaform::checkPermissions($result, 'form', Horde_Perms::SHOW, 'form_id');
@@ -272,7 +219,7 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
      * @return array  An array of the available forms.
      * @throws Ulaform_Exception
      */
-    function getAvailableForms()
+    public function getAvailableForms()
     {
         /* Fetch a list of all forms for now. */
         $sql = 'SELECT form_id, user_uid, form_name, form_action, form_params,'
@@ -294,7 +241,7 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
      * @throws Horde_Exception_NotFound
      * @throws Ulaform_Exception
      */
-    function getForm($form_id, $permission = Horde_Perms::SHOW)
+    public function getForm($form_id, $permission = Horde_Perms::SHOW)
     {
         /* Check permissions */
         if (!parent::hasPermission($permission, $form_id)) {
@@ -309,13 +256,13 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
         } catch (Horde_Db_Exception $e) {
             throw new Ulaform_Exception($e->getMessage());
         }
+
+        /* Check if the form exists. */
         if (empty($form)) {
-            // Check if the form exists
-            throw new Horde_Exception_NotFound(_("No such form ID"));
+            throw new Horde_Exception_NotFound(sprintf(_("No such form ID \"%s\"."), $form_id));
         }
 
         /* Unserialize the form params. */
-        require_once 'Horde/Serialize.php';
         $form['form_params'] = Horde_Serialize::unserialize($form['form_params'], Horde_Serialize::UTF7_BASIC);
 
         return $form;
@@ -329,7 +276,7 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
      * @return array  The fields.
      * @throws Ulaform_Exception
      */
-    function getFields($form_id, $field_id = null)
+    public function getFields($form_id, $field_id = null)
     {
         $values = array($form_id);
         $sql = 'SELECT field_id, form_id, field_name, field_order, field_label, field_type, '
@@ -357,7 +304,6 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
 
             /* Check if any params and unserialize, otherwise return null. */
             if (!empty($field['field_params'])) {
-                require_once 'Horde/Serialize.php';
                 $field['field_params'] = Horde_Serialize::unserialize($field['field_params'], Horde_Serialize::UTF7_BASIC);
             } else {
                 $field['field_params'] = null;
@@ -376,7 +322,7 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
      * @return boolean  True on success.
      * @throws Ulaform_Exception
      */
-    function deleteForm($form_id)
+    public function deleteForm($form_id)
     {
         /* Delete the form. */
         $sql = 'DELETE FROM ulaform_forms WHERE form_id = ?';
@@ -405,7 +351,7 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
      * @return boolean  True on success.
      * @throws Ulaform_Exception
      */
-    function deleteField($field_id)
+    public function deleteField($field_id)
     {
         /* Delete the field. */
         $sql = 'DELETE FROM ulaform_fields WHERE field_id = ?';
@@ -416,6 +362,24 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
         }
 
         return true;
+    }
+
+    /**
+     * Gets the next field order position within a form.
+     *
+     * @param integer  $form_id
+     *
+     * @return integer
+     * @throws Ulaform_Exception
+     */
+    protected function _nextFieldOrder($form_id)
+    {
+        $sql = 'SELECT MAX(field_order) FROM ulaform_fields WHERE form_id = ?';
+        try {
+            return $this->_db->selectValue($sql, array($form_id)) + 1;
+        } catch (Horde_Db_Exception $e) {
+            throw new Ulaform_Exception($e->getMessage);
+        }
     }
 
 }

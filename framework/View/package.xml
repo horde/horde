@@ -17,8 +17,8 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:24:00</time>
+ <date>2011-07-21</date>
+ <time>10:41:55</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -36,18 +36,14 @@
    <dir name="doc">
     <dir name="Horde">
      <dir name="View">
+      <dir name="examples">
+       <file name="template.php" role="doc" />
+       <file name="view.php" role="doc" />
+      </dir> <!-- /doc/Horde/View/examples -->
       <file name="TODO.txt" role="doc" />
      </dir> <!-- /doc/Horde/View -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
-   <dir name="examples">
-    <dir name="Horde">
-     <dir name="View">
-      <file name="template.php" role="php" />
-      <file name="view.php" role="php" />
-     </dir> <!-- /examples/Horde/View -->
-    </dir> <!-- /examples/Horde -->
-   </dir> <!-- /examples -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="View">
@@ -182,9 +178,9 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="Horde/View/TODO.txt" name="doc/Horde/View/TODO.txt" />
-   <install as="examples/Horde/View/template.php" name="examples/Horde/View/template.php" />
-   <install as="examples/Horde/View/view.php" name="examples/Horde/View/view.php" />
+   <install as="TODO.txt" name="doc/Horde/View/TODO.txt" />
+   <install as="examples/template.php" name="doc/Horde/View/examples/template.php" />
+   <install as="examples/view.php" name="doc/Horde/View/examples/view.php" />
    <install as="Horde/View.php" name="lib/Horde/View.php" />
    <install as="Horde/View/Base.php" name="lib/Horde/View/Base.php" />
    <install as="Horde/View/Exception.php" name="lib/Horde/View/Exception.php" />
@@ -335,7 +331,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-07-21</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * 

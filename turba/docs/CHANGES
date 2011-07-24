@@ -2,7 +2,8 @@
 v3.0.5-git
 ----------
 
-
+[mjr] Force ActiveSync device reset after sync_books pref is changed
+      (Request #10342).
 
 ------
 v3.0.4

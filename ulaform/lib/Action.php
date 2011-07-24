@@ -24,7 +24,7 @@ class Ulaform_Action {
      *
      * @param array $params  Any parameters needed for this action driver.
      */
-    function __construct($params)
+    public function __construct($params)
     {
         $this->_params = $params;
     }
@@ -34,7 +34,7 @@ class Ulaform_Action {
      *
      * @return array  An array of available drivers.
      */
-    function getDrivers()
+    static public function getDrivers()
     {
         static $drivers = array();
         if (!empty($drivers)) {
@@ -57,18 +57,6 @@ class Ulaform_Action {
         }
 
         return $drivers;
-    }
-
-    /**
-     * Return a list of fields mandatory to operate the Action specified.
-     * This template method is meant to be overridden in the actual
-     * Action class.
-     *
-     * @return array  Array of form elements specified by the form
-     */
-    function getMandatoryFields()
-    {
-        return array();
     }
 
 }

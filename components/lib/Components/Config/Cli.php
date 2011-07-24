@@ -149,6 +149,15 @@ extends Components_Config_Base
                 )
             )
         );
+        $parser->addOption(
+            new Horde_Argv_Option(
+                '--horde-root',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The root of the Horde git repository.'
+                )
+            )
+        );
         list($this->_options, $this->_arguments) = $this->_parser->parseArgs();
     }
 }

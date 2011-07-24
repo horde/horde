@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [mjr] Force ActiveSync device reset after sync_books pref is changed (Request #10342).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1231,7 +1231,7 @@
    <date>2011-07-05</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* [mjr] Force ActiveSync device reset after sync_books pref is changed (Request #10342).
    </notes>
   </release>
  </changelog>
