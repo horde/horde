@@ -2299,10 +2299,6 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
-   <package>
-    <name>Net_DNS2</name>
-    <channel>pear.php.net</channel>
-   </package>
    <extension>
     <name>filter</name>
    </extension>
@@ -2314,6 +2310,10 @@
    </extension>
   </required>
   <optional>
+   <package>
+    <name>Net_DNS2</name>
+    <channel>pear.php.net</channel>
+   </package>
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
