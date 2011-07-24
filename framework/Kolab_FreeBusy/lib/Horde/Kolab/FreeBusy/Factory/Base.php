@@ -26,7 +26,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-abstract class Horde_Kolab_FreeBusy_Factory_Base
+class Horde_Kolab_FreeBusy_Factory_Base
 implements Horde_Kolab_FreeBusy_Factory
 {
     /**
@@ -144,5 +144,151 @@ implements Horde_Kolab_FreeBusy_Factory
             $logger->addHandler($handler);
         }
         return $logger;
+    }
+
+    /**
+     * Create the mapper.
+     *
+     * @return Horde_Route_Mapper The mapper.
+     */
+    public function createMapper()
+    {
+        $configuration = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
+        $params = isset($configuration['mapper']) ? $configuration['mapper'] : array();
+        if (!empty($params['params'])) {
+            $mapper_params = $params['params'];
+        } else {
+            $mapper_params = array();
+        }
+        $mapper = new Horde_Routes_Mapper($mapper_params);
+
+        /**
+         * Application routes are relative only to the application. Let the
+         * mapper know where they start.
+         */
+        if (!empty($configuration['script'])) {
+            $mapper->prefix = dirname($configuration['script']);
+        } else {
+            $mapper->prefix = dirname($_SERVER['PHP_SELF']);
+        }
+
+        if (empty($params['controller'])) {
+            $params['controller'] = 'freebusy';
+        }
+
+        return $mapper;
+    }
+
+    /**
+     * Create the request configuration.
+     *
+     * @return Horde_Controller_RequestConfiguration The request configuration.
+     */
+    public function createRequestConfiguration()
+    {
+        $configuration = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
+        if (isset($configuration['request_config']['prefix'])) {
+            $prefix = $configuration['request_config']['prefix'];
+        } else {
+            $prefix = $this->getControllerPrefix();
+        }
+
+        $match = $this->_injector->getInstance(
+            'Horde_Kolab_FreeBusy_Controller_MatchDict'
+        )->getMatchDict();
+        if (empty($match['controller']) ||
+            !class_exists($prefix . ucfirst($match['controller']))) {
+            $controller = 'Horde_Kolab_FreeBusy_Controller_NotFound';
+        } else {
+            $controller = $prefix . ucfirst($match['controller']);
+        }
+
+        $conf = new Horde_Kolab_FreeBusy_Controller_RequestConfiguration();
+        $conf->setControllerName($controller);
+        return $conf;
+    }
+
+    /**
+     * Return the class name prefix for controllers.
+     *
+     * @return string The prefix.
+     */
+    protected function getControllerPrefix()
+    {
+        return 'Horde_Kolab_FreeBusy_Controller_';
+    }
+
+    /**
+     * Create the user representation.
+     *
+     * @return Horde_Kolab_FreeBusy_User The user.
+     */
+    public function createUser()
+    {
+        list($user, $pass) = $this->_injector->getInstance(
+                'Horde_Kolab_FreeBusy_Params_User'
+        )->getCredentials();
+        return $this->_injector->getInstance('Horde_Kolab_FreeBusy_UserDb')
+            ->getUser(
+                $user, $pass
+            );
+    }
+
+    /**
+     * Create the owner representation.
+     *
+     * @return Horde_Kolab_FreeBusy_Owner The owner.
+     */
+    public function createOwner()
+    {
+        $configuration = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
+        $params = isset($configuration['owner']) ? $configuration['owner'] : array();
+
+        $params['user'] = $this->_injector->getInstance(
+            'Horde_Kolab_FreeBusy_User'
+        );
+        return $this->_injector->getInstance('Horde_Kolab_FreeBusy_UserDb')
+            ->getOwner(
+                $this->_injector->getInstance(
+                    'Horde_Kolab_FreeBusy_Params_Owner'
+                )->getOwner(),
+                $params
+            );
+    }
+
+    /**
+     * Create the data provider.
+     *
+     * @return Horde_Kolab_FreeBusy_Provider The provider.
+     */
+    public function createProvider()
+    {
+        $configuration = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
+        $params = isset($configuration['provider']) ? $configuration['provider'] : array();
+
+        if (!isset($params['server'])) {
+            $params['server'] = 'https://localhost/export';
+        }
+
+        $owner_fb = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Owner')
+            ->getRemoteServer();
+        if (!empty($owner_fb) && $owner_fb != $params['server']) {
+            $this->_injector->getInstance('Horde_Log_Logger')->info(
+                sprintf(
+                    "URL \"%s\" indicates remote free/busy server since we only offer \"%s\". Redirecting.", 
+                    $owner_fb,
+                    $params['server']
+                )
+            );
+            if (empty($params['redirect'])) {
+                return new Horde_Kolab_FreeBusy_Provider_Remote_PassThrough(
+                    $this->_injector->getInstance('Horde_Http_Client')
+                );
+            } else {
+                return new Horde_Kolab_FreeBusy_Provider_Remote_Redirect();
+            }
+        } else {
+            return new Horde_Kolab_FreeBusy_Provider_Local();
+        }
     }
 }

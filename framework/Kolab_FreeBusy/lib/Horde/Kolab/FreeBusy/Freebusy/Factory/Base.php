@@ -34,47 +34,23 @@ extends Horde_Kolab_FreeBusy_Factory_Base
      *
      * @param Horde_Injector $injector The injector providing required dependencies.
      */
-    /* public function __construct(Horde_Injector $injector) */
-    /* { */
-    /*     $injector->bindImplementation( */
-    /*         'Horde_Kolab_FreeBusy_Export_Freebusy_Backend', */
-    /*         'Horde_Kolab_FreeBusy_Export_Freebusy_Backend_' */
-    /*         . $injector->getInstance('Horde_Kolab_FreeBusy')->getBackend() */
-    /*     ); */
-    /*     parent::__construct($injector); */
-    /* } */
+    public function __construct(Horde_Injector $injector)
+    {
+        $injector->bindImplementation(
+            'Horde_Kolab_FreeBusy_Params_Owner',
+            'Horde_Kolab_FreeBusy_Freebusy_Params_Folder'
+        );
+        parent::__construct($injector);
+    }
 
     /**
      * Create the mapper.
      *
      * @return Horde_Route_Mapper The mapper.
-     *
-     * @throws Horde_Exception
      */
     public function createMapper()
     {
-        $configuration = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
-        $params = isset($configuration['mapper']) ? $configuration['mapper'] : array();
-        if (!empty($params['params'])) {
-            $mapper_params = $params['params'];
-        } else {
-            $mapper_params = array();
-        }
-        $mapper = new Horde_Routes_Mapper($mapper_params);
-
-        /**
-         * Application routes are relative only to the application. Let the
-         * mapper know where they start.
-         */
-        if (!empty($configuration['script'])) {
-            $mapper->prefix = dirname($configuration['script']);
-        } else {
-            $mapper->prefix = dirname($_SERVER['PHP_SELF']);
-        }
-
-        if (empty($params['controller'])) {
-            $params['controller'] = 'freebusy';
-        }
+        $mapper = parent::createMapper();
 
         // Check for route definitions.
         if (!empty($configuration['config']['dir'])) {
@@ -131,31 +107,12 @@ extends Horde_Kolab_FreeBusy_Factory_Base
     }
 
     /**
-     * Create the dispatcher.
+     * Return the class name prefix for controllers.
      *
-     * @return Horde_Controller_Dispatcher The dispatcher.
+     * @return string The prefix.
      */
-    public function createRequestConfiguration()
+    protected function getControllerPrefix()
     {
-        $configuration = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
-        if (isset($configuration['request_config']['prefix'])) {
-            $prefix = $configuration['request_config']['prefix'];
-        } else {
-            $prefix = 'Horde_Kolab_FreeBusy_Freebusy_Controller_';
-        }
-
-        $match = $this->_injector->getInstance(
-            'Horde_Kolab_FreeBusy_Controller_MatchDict'
-        )->getMatchDict();
-        if (empty($match['controller']) ||
-            !class_exists($prefix . ucfirst($match['controller']))) {
-            $controller = 'Horde_Kolab_FreeBusy_Controller_NotFound';
-        } else {
-            $controller = $prefix . ucfirst($match['controller']);
-        }
-
-        $conf = new Horde_Kolab_FreeBusy_Controller_RequestConfiguration();
-        $conf->setControllerName($controller);
-        return $conf;
+        return 'Horde_Kolab_FreeBusy_Freebusy_Controller_';
     }
 }

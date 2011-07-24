@@ -75,4 +75,25 @@ interface Horde_Kolab_FreeBusy_Factory
      * @return Horde_Controller_Dispatcher The dispatcher.
      */
     public function createRequestConfiguration();
+
+    /**
+     * Create the user representation.
+     *
+     * @return Horde_Kolab_FreeBusy_User The user.
+     */
+    public function createUser();
+
+    /**
+     * Create the owner representation.
+     *
+     * @return Horde_Kolab_FreeBusy_Owner The owner.
+     */
+    public function createOwner();
+
+    /**
+     * Create the data provider.
+     *
+     * @return Horde_Kolab_FreeBusy_Provider The provider.
+     */
+    public function createProvider();
 }

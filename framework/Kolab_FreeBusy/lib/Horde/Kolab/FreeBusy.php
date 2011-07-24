@@ -101,6 +101,20 @@ class Horde_Kolab_FreeBusy
      * 'writer'  - (array)  Options for the response writer object. [optional]
      *
      *     'class'    - (string) The name of the response writer class.
+     *
+     * 'owner'  - (array)  Options for the data owner. [optional]
+     *
+     *     'domain'   - (string) The domain that will be assumed for
+     *                           domainless owners.
+     *
+     * 'provider'     - (array)  Options for the data provider. [optional]
+     *
+     *     'server'   - (string) The URL that will be considered to be
+     *                           provided locally rather than redirecting
+     *                           to a remote server.
+     *     'redirect' - (boolean) Should non-local requests be redirected
+     *                            to the remote server or should the data
+     *                            be fetched and passed through?
      * </pre>
      */
     public function __construct($type, $backend, $params = array())
@@ -155,7 +169,6 @@ class Horde_Kolab_FreeBusy
         $this->_injector->bindFactory(
             'Horde_Log_Logger', $this->_factory, 'createLogger'
         );
-
         $this->_injector->bindFactory(
             'Horde_Kolab_FreeBusy_User', $this->_factory, 'createUser'
         );
@@ -164,6 +177,9 @@ class Horde_Kolab_FreeBusy
         );
         $this->_injector->bindFactory(
             'Horde_Kolab_FreeBusy_Resource', $this->_factory, 'createResource'
+        );
+        $this->_injector->bindFactory(
+            'Horde_Kolab_FreeBusy_Provider', $this->_factory, 'createProvider'
         );
     }
 
