@@ -92,21 +92,50 @@ class Horde_Kolab_FreeBusy_TestCase extends PHPUnit_Framework_TestCase
         $this->assertTrue($found, sprintf("Did not find \"%s\" in [\n%s\n]", $message, join("\n", $messages)));
     }
 
-    protected function getTestMatchDict()
+    protected function getTestMatchDict($type = 'fetch')
     {
-        $mapper = new Horde_Routes_Mapper();
-        $mapper->connect(
-            ':(callee).:(type)',
-            array(
+        switch ($type) {
+        case 'empty':
+            $route = 'trigger/*(folder).pfb';
+            $match = array(
+                'controller'   => 'freebusy',
+                'action'       => 'trigger'
+            );
+            $path = '/trigger/.pfb';
+            break;
+        case 'invalid':
+            $route = 'trigger/*(folder).pfb';
+            $match = array(
+                'controller'   => 'freebusy',
+                'action'       => 'trigger'
+            );
+            $path = '/trigger/INVALID.pfb';
+            break;
+        case 'trigger':
+            $route = 'trigger/*(folder).pfb';
+            $match = array(
+                'controller'   => 'freebusy',
+                'action'       => 'trigger'
+            );
+            $path = '/trigger/owner@example.org/Kalender.pfb';
+            break;
+        case 'fetch':
+        default:
+            $route = ':(owner).:(type)';
+            $match = array(
                 'controller'   => 'freebusy',
                 'action'       => 'fetch',
                 'requirements' => array(
                     'type'   => '(i|x|v)fb',
-                    'callee' => '[^/]+'),
-            )
-        );
+                    'owner' => '[^/]+'),
+            );
+            $path = '/owner@example.org.xfb';
+            break;
+        }
+        $mapper = new Horde_Routes_Mapper();
+        $mapper->connect($route, $match);
         $request = new Horde_Controller_Request_Mock();
-        $request->setPath('/owner@example.org.xfb');
+        $request->setPath($path);
         return new Horde_Kolab_FreeBusy_Controller_MatchDict(
             $mapper, $request
         );
