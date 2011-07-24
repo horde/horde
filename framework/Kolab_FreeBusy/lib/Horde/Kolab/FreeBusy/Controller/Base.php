@@ -37,36 +37,37 @@ extends Horde_Controller_Base
     private $_match_dict;
 
     /**
-     * The request parameters.
+     * The actual data provider.
      *
-     * @var array
+     * @var Horde_Kolab_FreeBusy_Provider
      */
-    protected $params;
+    private $_provider;
 
     /**
      * Constructor.
      *
      * @param Horde_Kolab_FreeBusy_Controller_MatchDict $match_dict The match
-     *                                                              dictionary.
+     *                                                              dictionar     * @param Horde_Kolab_FreeBusy_Provider             $provider   The data
+     *                                                              provider.
      */
-    public function __construct(Horde_Kolab_FreeBusy_Controller_MatchDict $match_dict)
+    public function __construct(
+        Horde_Kolab_FreeBusy_Controller_MatchDict $match_dict,
+        Horde_Kolab_FreeBusy_Provider $provider
+    )
     {
         $this->_match_dict = $match_dict;
+        $this->_provider = $provider;
     }
 
     /**
-     *
+     * Process the incoming request.
      *
      * @param Horde_Controller_Request $request
      * @param Horde_Controller_Response $response
      */
     public function processRequest(Horde_Controller_Request $request, Horde_Controller_Response $response)
     {
-        $this->params = $this->_match_dict->getMatchDict();
-        $this->{$this->params->action}($response);
-    }
-
-    public function __call($method, $args)
-    {
+        $params = $this->_match_dict->getMatchDict();
+        $this->_provider->{$params->action}($response, $params);
     }
 }

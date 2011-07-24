@@ -52,6 +52,13 @@ extends Horde_Kolab_FreeBusy_Factory_Base
     {
         $mapper = parent::createMapper();
 
+        $configuration = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
+        $params = isset($configuration['mapper']) ? $configuration['mapper'] : array();
+
+        if (empty($params['controller'])) {
+            $params['controller'] = 'freebusy';
+        }
+
         // Check for route definitions.
         if (!empty($configuration['config']['dir'])) {
             $routeFile = $configuration['config']['dir'] . '/routes.php';

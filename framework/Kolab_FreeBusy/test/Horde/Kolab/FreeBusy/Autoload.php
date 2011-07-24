@@ -18,7 +18,7 @@ require_once 'Horde/Test/Autoload.php';
 error_reporting(E_ALL | E_STRICT);
 
 /** Load stub definitions */
-require_once dirname(__FILE__) . '/Stub/Controller/Freebusy.php';
+require_once dirname(__FILE__) . '/Stub/Provider.php';
 require_once dirname(__FILE__) . '/Stub/MatchDict.php';
 require_once dirname(__FILE__) . '/Stub/Object.php';
 require_once dirname(__FILE__) . '/Stub/Server.php';

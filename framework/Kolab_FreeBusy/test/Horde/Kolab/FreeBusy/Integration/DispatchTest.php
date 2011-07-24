@@ -33,13 +33,22 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @link       http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
 class Horde_Kolab_FreeBusy_Integration_DispatchTest
-extends PHPUnit_Framework_TestCase
+extends Horde_Kolab_FreeBusy_TestCase
 {
     /**
      * @dataProvider provideUrls
      */
     public function testDispatching($url, $response)
     {
+        $injector = $this->getInjector();
+        $injector->setInstance(
+            'Horde_Kolab_FreeBusy_UserDb',
+            $this->getDb()
+        );
+        $injector->setInstance(
+            'Horde_Kolab_FreeBusy_Provider',
+            new Horde_Kolab_FreeBusy_Stub_Provider()
+        );
         $params = array(
             'script' => '/freebusy/freebusy.php',
             'request' => array(
@@ -50,12 +59,10 @@ extends PHPUnit_Framework_TestCase
                     )
                 )
             ),
-            'request_config' => array(
-                'prefix' => 'Horde_Kolab_FreeBusy_Stub_Controller_',
-            ),
             'logger' => array(
                 'Horde_Log_Handler_Null' => array(),
             ),
+            'injector' => $injector
         );
         $application = new Horde_Kolab_FreeBusy('Freebusy', 'Kolab', $params);
         ob_start();

@@ -27,6 +27,11 @@ class Horde_Kolab_FreeBusy_Stub_Server extends Horde_Kolab_Server_Composite
                 'freebusy' => 'https://example.com/freebusy',
             ),
         ),
+        'dn=test2' => array(
+            'uid' => 'test@example.com',
+            'mail' => 'test@example.com',
+            'cn' => 'Test Test',
+        ),
     );
 
     public function __construct()

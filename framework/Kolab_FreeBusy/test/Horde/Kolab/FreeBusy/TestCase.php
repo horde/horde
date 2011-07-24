@@ -48,7 +48,7 @@ class Horde_Kolab_FreeBusy_TestCase extends PHPUnit_Framework_TestCase
 
     protected function getUser()
     {
-        $composite = $this->_getMockedComposite();
+        $composite = $this->getMockedComposite();
         $db = new Horde_Kolab_FreeBusy_UserDb_Kolab($composite);
         $user = $this->_getDbUser();
         $user->expects($this->any())
@@ -62,7 +62,7 @@ class Horde_Kolab_FreeBusy_TestCase extends PHPUnit_Framework_TestCase
 
     protected function getKolabUser()
     {
-        $composite = $this->_getMockedComposite();
+        $composite = $this->getMockedComposite();
         $db = new Horde_Kolab_FreeBusy_UserDb_Kolab($composite);
         $user = $this->_getKolabDbUser();
         $user->expects($this->any())
@@ -76,7 +76,7 @@ class Horde_Kolab_FreeBusy_TestCase extends PHPUnit_Framework_TestCase
 
     protected function getAuthUser()
     {
-        $composite = $this->_getMockedComposite();
+        $composite = $this->getMockedComposite();
         $db = new Horde_Kolab_FreeBusy_UserDb_Kolab($composite);
         $user = $this->_getDbUser();
         $user->expects($this->any())
@@ -104,7 +104,7 @@ class Horde_Kolab_FreeBusy_TestCase extends PHPUnit_Framework_TestCase
         );
     }
 
-    private function _getMockedComposite()
+    protected function getMockedComposite()
     {
         return new Horde_Kolab_Server_Composite(
             $this->getMock('Horde_Kolab_Server_Interface'),
@@ -118,27 +118,6 @@ class Horde_Kolab_FreeBusy_TestCase extends PHPUnit_Framework_TestCase
     protected function getOwner($params = array())
     {
         return $this->getDb()->getOwner('mail@example.org', $params);
-    }
-
-    protected function getRemoteProvider($params = array())
-    {
-        return $this->_getProviderFactory($params)->create(
-            $this->getRemoteOwner()
-        );
-    }
-
-    protected function getLocalProvider($params = array())
-    {
-        return $this->_getProviderFactory($params)->create(
-            $this->getOwner()
-        );
-    }
-
-    private function _getProviderFactory($params = array())
-    {
-        return new Horde_Kolab_FreeBusy_Factory_Provider(
-            $params
-        );
     }
 
     protected function getRemoteOwner()

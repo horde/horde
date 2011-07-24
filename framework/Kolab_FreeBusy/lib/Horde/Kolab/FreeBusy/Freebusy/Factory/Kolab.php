@@ -35,20 +35,14 @@ extends Horde_Kolab_FreeBusy_Freebusy_Factory_Base
      *
      * @param Horde_Injector $injector The injector providing required dependencies.
      */
-    /* public function __construct(Horde_Injector $injector) */
-    /* { */
-    /*     $this->_injector = $injector; */
-    /*     $this->_injector->bindFactory( */
-    /*         'Horde_Kolab_Storage_Folder', */
-    /*         __CLASS__, */
-    /*         'getFolder' */
-    /*     ); */
-    /*     $this->_injector->bindFactory( */
-    /*         'Horde_Kolab_Storage_Configuration', */
-    /*         __CLASS__, */
-    /*         'getStorageConfiguration' */
-    /*     ); */
-    /* } */
+    public function __construct(Horde_Injector $injector)
+    {
+        $injector->bindImplementation(
+            'Horde_Kolab_FreeBusy_UserDb',
+            'Horde_Kolab_FreeBusy_UserDb_Kolab'
+        );
+        parent::__construct($injector);
+    }
 
     /**
      * Create the object representing the current user requesting the export.

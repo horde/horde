@@ -172,10 +172,6 @@ implements Horde_Kolab_FreeBusy_Factory
             $mapper->prefix = dirname($_SERVER['PHP_SELF']);
         }
 
-        if (empty($params['controller'])) {
-            $params['controller'] = 'freebusy';
-        }
-
         return $mapper;
     }
 
