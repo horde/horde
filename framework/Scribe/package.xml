@@ -63,6 +63,10 @@
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>Horde_Thrift</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
  </dependencies>
  <phprelease>
