@@ -66,8 +66,8 @@ case Horde_LoginTasks::DISPLAY_CONFIRM_YES:
     $template->set('agree', false, true);
     $template->set('notice', false, true);
 
-    $notification->push(sprintf(_("%s is ready to perform the tasks checked below. Check the box for any operation(s) you want to perform at this time."), $app_name), 'horde.message');
-    $template->set('header', sprintf(_("%s Tasks - Confirmation"), $app_name));
+    $title = sprintf(_("%s Tasks - Confirmation"), $app_name);
+    $header = sprintf(_("%s is ready to perform the tasks below. Select each operation to run at this time."), $app_name);
     break;
 
 case Horde_LoginTasks::DISPLAY_AGREE:
@@ -76,8 +76,8 @@ case Horde_LoginTasks::DISPLAY_AGREE:
     $template->set('agree', true, true);
     $template->set('notice', false, true);
 
-    $notification->push(_("Please read the following text. You MUST agree with the terms to use the system."), 'horde.message');
-    $template->set('header', sprintf(_("%s Terms of Agreement"), $app_name));
+    $title = sprintf(_("%s Terms of Agreement"), $app_name);
+    $header = _("Please read the following text. You MUST agree with the terms to use the system.");
     break;
 
 case Horde_LoginTasks::DISPLAY_NOTICE:
@@ -86,7 +86,8 @@ case Horde_LoginTasks::DISPLAY_NOTICE:
     $template->set('agree', false, true);
     $template->set('notice', true, true);
 
-    $template->set('header', sprintf(_("%s - Notice"), $app_name));
+    $title = sprintf(_("%s - Notice"), $app_name);
+    $header = '';
     break;
 }
 
@@ -101,17 +102,22 @@ foreach ($tasklist as $key => $ob) {
 }
 
 $template->setOption('gettext', true);
+$template->set('title', $title);
+$template->set('header', $header);
 $template->set('tasks', $display_tasks, true);
 $template->set('logintasks_url', $tasks->getLoginTasksUrl());
-
-Horde::startBuffer();
-$notification->notify(array('listeners' => 'status'));
-$template->set('notify', Horde::endBuffer());
 
 Horde::addScriptFile('logintasks.js', 'horde');
 
 $bodyId = 'services_logintasks';
 $bodyClass = 'modal-form';
-require HORDE_TEMPLATES . '/common-header.inc';
-echo $template->fetch(HORDE_TEMPLATES . '/logintasks/logintasks.html');
-require HORDE_TEMPLATES . '/common-footer.inc';
+
+if ($session->get('horde', 'mode') == 'smartmobile' && Horde::ajaxAvailable()) {
+    require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
+    echo $template->fetch(HORDE_TEMPLATES . '/logintasks/mobile.html');
+    require $registry->get('templates', 'horde') . '/common-footer-mobile.inc';
+} else {
+    require HORDE_TEMPLATES . '/common-header.inc';
+    echo $template->fetch(HORDE_TEMPLATES . '/logintasks/logintasks.html');
+    require HORDE_TEMPLATES . '/common-footer.inc';
+}
