@@ -58,19 +58,30 @@ if (!file_exists($destination)) {
 
 system('cd ' . $destination . ' && tar xzpf ' . $archive);
 
-$build_template = new Components_Helper_Templates_Directory(
-    $this->_config_application->getTemplateDirectory() . '/templates',
-    $destination . '/debian'
+$t_dirs = array(
+    $this->_config_application->getTemplateDirectory() . '/templates'
 );
-$build_template->write(
-    array(
-        'name' => $package_name,
-        'version' => $package_version,
-        'component' => $component,
-        'applications' => $applications,
-        'bundles' => $bundles
-    )
-);
+if (file_exists($t_dirs[0] . '-' . $package_name)) {
+    $t_dirs[] = $t_dirs[0] . '-' . $package_name;
+}
+if (file_exists($t_dirs[0] . '-' . $package_name . '-' . $package_version)) {
+    $t_dirs[] = $t_dirs[0] . '-' . $package_name . '-' . $package_version;
+}
+foreach ($t_dirs as $template_directory) {
+    $build_template = new Components_Helper_Templates_RecursiveDirectory(
+        $template_directory,
+        $destination . '/debian'
+    );
+    $build_template->write(
+        array(
+            'name' => $package_name,
+            'version' => $package_version,
+            'component' => $component,
+            'applications' => $applications,
+            'bundles' => $bundles
+        )
+    );
+}
 
 // Properly name tarball to avoid building a native debian package
 system('cd ' . $destination . ' && mv ' . $archive . ' ../' . $package_name . '_' . $package_version . '.orig.tar.gz');
