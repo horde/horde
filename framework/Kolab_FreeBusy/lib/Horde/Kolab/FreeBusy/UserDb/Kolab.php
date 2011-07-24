@@ -34,7 +34,7 @@ implements Horde_Kolab_FreeBusy_UserDb
      *
      * @var Horde_Kolab_Server_Composite
      */
-    private $_db;
+    protected $_db;
 
     /**
      * Constructor.

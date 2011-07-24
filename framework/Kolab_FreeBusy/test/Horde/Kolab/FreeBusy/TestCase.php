@@ -36,7 +36,7 @@ class Horde_Kolab_FreeBusy_TestCase extends PHPUnit_Framework_TestCase
 
     protected function getDb()
     {
-        return new Horde_Kolab_FreeBusy_UserDb_Kolab(
+        return new Horde_Kolab_FreeBusy_Freebusy_UserDb_Kolab(
             new Horde_Kolab_FreeBusy_Stub_Server()
         );
     }

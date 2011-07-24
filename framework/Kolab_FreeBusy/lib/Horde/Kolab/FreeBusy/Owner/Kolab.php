@@ -52,6 +52,13 @@ implements Horde_Kolab_FreeBusy_Owner
     private $_owner_data;
 
     /**
+     * Is the user locally known?
+     *
+     * @var boolean
+     */
+    private $_known;
+
+    /**
      * Constructor.
      *
      * @param string                       $owner  The owner name.
@@ -76,6 +83,34 @@ implements Horde_Kolab_FreeBusy_Owner
     }
 
     /**
+     * Return the original owner parameter.
+     *
+     * @return string The original owner parameter.
+     */
+    public function getOwner()
+    {
+        return $this->_owner;
+    }
+
+    /**
+     * Is the user known in the user database?
+     *
+     * @return boolean True if the user data is present.
+     */
+    public function isKnown()
+    {
+        if ($this->_known === null) {
+            try {
+                $this->getUserDbUser();
+                $this->_known = true;
+            } catch (Horde_Kolab_FreeBusy_Exception $e) {
+                $this->_known = false;
+            }
+        }
+        return $this->_known;
+    }
+
+    /**
      * Fetch the user data from the user db.
      *
      * @return NULL
@@ -93,12 +128,14 @@ implements Horde_Kolab_FreeBusy_Owner
                 $domain = false;
             }
             if (!empty($domain)) {
-                return $this->fetchUserByPrimaryId(
-                    $this->_owner . '@' . $domain
-                );
-            } else {
-                throw $e;
+                try {
+                    return $this->fetchUserByPrimaryId(
+                        $this->_owner . '@' . $domain
+                    );
+                } catch (Horde_Kolab_FreeBusy_Exception $f) {
+                }
             }
+            throw $e;
         }
     }
 }

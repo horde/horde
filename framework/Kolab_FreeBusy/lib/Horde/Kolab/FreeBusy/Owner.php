@@ -29,6 +29,20 @@
 interface Horde_Kolab_FreeBusy_Owner
 {
     /**
+     * Is the user known in the user database?
+     *
+     * @return boolean True if the user data is present.
+     */
+    public function isKnown();
+
+    /**
+     * Return the original owner parameter.
+     *
+     * @return string The original owner parameter.
+     */
+    public function getOwner();
+
+    /**
      * Return the primary id of the resource owner.
      *
      * @return string The primary id.
@@ -48,4 +62,13 @@ interface Horde_Kolab_FreeBusy_Owner
      * @return string The name of the owner.
      */
     public function getName();
+
+    /**
+     * Indicates the correct remote server for the resource owner.
+     *
+     * @param string $type The requested resource type.
+     *
+     * @return string The server name.
+     */
+    public function getRemoteServer($type = '');
 }
