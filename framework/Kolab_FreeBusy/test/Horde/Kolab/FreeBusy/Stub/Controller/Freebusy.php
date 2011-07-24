@@ -47,7 +47,7 @@ extends Horde_Kolab_FreeBusy_Controller_Base
      */
     public function fetch(Horde_Controller_Response $response)
     {
-        $response->setBody('fetched "' . $this->params->type . '" data for user "' . $this->params->callee . '"');
+        $response->setBody('fetched "' . $this->params->type . '" data for user "' . $this->params->owner . '"');
     }
 
     /**
@@ -67,6 +67,6 @@ extends Horde_Kolab_FreeBusy_Controller_Base
      */
     public function delete(Horde_Controller_Response $response)
     {
-        $response->setBody('deleted data for user "' . $this->params->callee . '"');
+        $response->setBody('deleted data for user "' . $this->params->owner . '"');
     }
 }
