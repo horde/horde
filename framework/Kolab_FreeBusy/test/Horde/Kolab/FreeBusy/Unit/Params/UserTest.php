@@ -38,7 +38,7 @@ extends PHPUnit_Framework_TestCase
     public function testGetId()
     {
         $param = $this->_getUserParam(array('PHP_AUTH_USER' => 'test'));
-        $this->assertEquals('test', $param->getId());
+        $this->assertEquals('test', $param->getUser());
     }
 
     public function testGetCredentials()
@@ -55,7 +55,7 @@ extends PHPUnit_Framework_TestCase
     public function testEmpty()
     {
         $param = $this->_getUserParam(array());
-        $this->assertEquals('', $param->getId());
+        $this->assertEquals('', $param->getUser());
     }
 
     public function testCredentials()

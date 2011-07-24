@@ -77,7 +77,7 @@ class Horde_Kolab_FreeBusy_Params_User
      *
      * @return array The user id.
      */
-    public function getId()
+    public function getUser()
     {
         return $this->_user;
     }
