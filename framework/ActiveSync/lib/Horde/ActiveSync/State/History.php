@@ -38,6 +38,9 @@
  *
  * Copyright 2010-2011 The Horde Project (http://www.horde.org)
  *
+ * @TODO: H5 This driver should be renamed to Horde_ActiveSync_State_Sql since the
+ *        History related changes have been refactored out to a Core library.
+ *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
  */
@@ -416,8 +419,9 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      */
     public function loadDeviceInfo($devId, $user)
     {
-        // See if we have it already
-        if ($this->_devId == $devId && !empty($this->_deviceInfo)) {
+        // See if we already have this device, for this user loaded
+        if ($this->_devId == $devId && !empty($this->_deviceInfo) &&
+            $user == $this->_deviceInfo->user) {
             return $this->_deviceInfo;
         }
 
@@ -427,23 +431,25 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             . $this->_syncDeviceTable . ' WHERE device_id = ?';
 
         try {
-            $device_data = $this->_db->selectOne($query, array($devId));
+            $device = $this->_db->selectOne($query, array($devId));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
 
-
-        $query = 'SELECT device_ping FROM ' . $this->_syncUserTable
-            . ' WHERE device_id = ? AND device_user = ?';
-
-        try {
-            $ping = $this->_db->selectValue($query, array($devId, $user));
-        } catch (Horde_Db_Exception $e) {
-            throw new Horde_ActiveSync_Exception($e);
+        if (!empty($user)) {
+            $query = 'SELECT device_ping FROM ' . $this->_syncUsersTable
+                . ' WHERE device_id = ? AND device_user = ?';
+            try {
+                $ping = $this->_db->selectValue($query, array($devId, $user));
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_ActiveSync_Exception($e);
+            }
+        } else {
+            $this->resetPingState();
         }
 
         $this->_deviceInfo = new StdClass();
-        if ($result) {
+        if ($device) {
             $this->_deviceInfo->policykey = $device['device_policykey'];
             $this->_deviceInfo->rwstatus = $device['device_rwstatus'];
             $this->_deviceInfo->deviceType = $device['device_type'];
@@ -451,12 +457,10 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_deviceInfo->id = $devId;
             $this->_deviceInfo->user = $user;
             $this->_deviceInfo->supported = unserialize($device['device_supported']);
-            if ($result['device_ping']) {
-                $this->_pingState = empty($ping) ?
-                    array() :
-                    unserialize($ping);
-            } else {
+            if (empty($ping)) {
                 $this->resetPingState();
+            } else {
+                $this->_pingState = unserialize($ping);
             }
         } else {
             throw new Horde_ActiveSync_Exception('Device not found.');
