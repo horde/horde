@@ -234,12 +234,14 @@ abstract class Horde_Kolab_FreeBusy_UserDb_User_Kolab
     }
 
     /**
-     * Indicates the correct free/busy server for the resource owner.
+     * Indicates the correct remote server for the resource owner.
+     *
+     * @param string $type The requested resource type.
      *
      * @return string The server name.
      */
     //@todo
-    public function getFreeBusyServer()
+    public function getRemoteServer($type = '')
     {
         return $this->_validate($this->getUserDbUser()->getServer('freebusy'));
     }
