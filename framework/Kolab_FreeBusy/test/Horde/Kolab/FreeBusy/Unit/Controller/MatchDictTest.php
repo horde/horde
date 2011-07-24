@@ -51,7 +51,7 @@ extends Horde_Kolab_FreeBusy_TestCase
             array('controller', 'freebusy'),
             array('action', 'fetch'),
             array('type', 'xfb'),
-            array('callee', 'owner@example.org'),
+            array('owner', 'owner@example.org'),
         );
     }
 }
