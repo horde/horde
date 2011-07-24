@@ -22,18 +22,27 @@ $applications = array(
     'webmail'
 );
 
-if (!is_executable("/usr/share/pkg-php-tools/scripts/phppkginfo")) {
-	throw new Components_Exception(
-                sprintf(
-                    'The file "%s" does not exists or is not executable!',
-                    "/usr/share/pkg-php-tools/scripts/phppkginfo"
-                )
-            );
+$pkg_info = '/usr/share/pkg-php-tools/scripts/phppkginfo';
+if (!is_executable($pkg_info)) {
+    throw new Components_Exception(
+        sprintf(
+            'The file "%s" does not exists or is not executable!',
+            $pkg_info
+        )
+    );
 }
-$package_name = shell_exec("/usr/share/pkg-php-tools/scripts/phppkginfo debian_pkgname pear.horde.org ".escapeshellarg($component->getName()));
-$package_version = shell_exec("/usr/share/pkg-php-tools/scripts/phppkginfo debian_version ".escapeshellarg($component->getVersion()));
+$package_name = shell_exec(
+    $pkg_info . ' debian_pkgname pear.horde.org ' .
+    escapeshellarg($component->getName())
+);
+$package_version = shell_exec(
+    $pkg_info . ' debian_version ' .
+    escapeshellarg($component->getVersion())
+);
 
-$archive = array_shift($component->placeArchive($destination, array("logger" => $this->_output)));
+$archive = array_shift(
+    $component->placeArchive($destination, array("logger" => $this->_output))
+);
 
 $destination .= '/' . $package_name . '-' . $package_version;
 
