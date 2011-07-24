@@ -39,9 +39,6 @@
         <dir name="reflection_limited">
          <file name="reflection_limited_types.php" role="php" />
         </dir> <!-- //lib/Horde/Thrift/thrift_root/packages/reflection_limited -->
-        <dir name="scribe">
-         <file name="scribe_types.php" role="php" />
-        </dir> <!-- //lib/Horde/Thrift/thrift_root/packages/scribe -->
        </dir> <!-- //lib/Horde/Thrift/thrift_root/packages -->
        <dir name="protocol">
         <file name="TBinaryProtocol.php" role="php" />
@@ -84,7 +81,6 @@
    <install as="Horde/Thrift/thrift_root/packages/fb303/FacebookService.php" name="lib/Horde/Thrift/thrift_root/packages/fb303/FacebookService.php" />
    <install as="Horde/Thrift/thrift_root/packages/fb303/fb303_types.php" name="lib/Horde/Thrift/thrift_root/packages/fb303/fb303_types.php" />
    <install as="Horde/Thrift/thrift_root/packages/reflection_limited/reflection_limited_types.php" name="lib/Horde/Thrift/thrift_root/packages/reflection_limited/reflection_limited_types.php" />
-   <install as="Horde/Thrift/thrift_root/packages/scribe/scribe_types.php" name="lib/Horde/Thrift/thrift_root/packages/scribe/scribe_types.php" />
    <install as="Horde/Thrift/thrift_root/protocol/TBinaryProtocol.php" name="lib/Horde/Thrift/thrift_root/protocol/TBinaryProtocol.php" />
    <install as="Horde/Thrift/thrift_root/protocol/TProtocol.php" name="lib/Horde/Thrift/thrift_root/protocol/TProtocol.php" />
    <install as="Horde/Thrift/thrift_root/transport/TBufferedTransport.php" name="lib/Horde/Thrift/thrift_root/transport/TBufferedTransport.php" />

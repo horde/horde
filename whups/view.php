@@ -68,7 +68,7 @@ case 'view_file':
         echo $ret[$key]['data'];
         require $registry->get('templates', 'horde') . '/common-footer.inc';
     } else {
-        $browser->downloadHeaders($ret[$key]['name'], $ret[$key]['type'], true, strlen($ret[$key]['data']));
+        $browser->downloadHeaders($filename, $ret[$key]['type'], true, strlen($ret[$key]['data']));
         echo $ret[$key]['data'];
     }
     exit;

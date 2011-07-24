@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* 
+* [jan] Correctly format float values independently from the current locale (Bug #10371).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -453,7 +453,7 @@
    <date>2011-07-05</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-* 
+* [jan] Correctly format float values independently from the current locale (Bug #10371).
    </notes>
   </release>
  </changelog>
