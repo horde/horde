@@ -14,7 +14,7 @@ $(function() {
 
 <div data-role="header" data-nobackbtn="true"><h1><?php echo $title ?></h1></div>
 
-<div data-role="content">
+<div data-role="content" style="max-width:480px; margin:0 auto;">
 
 <form action="login.php" method="post">
   <input type="hidden" name="anchor_string" value="<?php echo htmlspecialchars(strval($vars->anchor_string)) ?>">
