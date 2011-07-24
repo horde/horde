@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-07-23</date>
- <time>21:28:07</time>
+ <date>2011-07-24</date>
+ <time>09:58:18</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -96,6 +96,7 @@
      <dir name="Helper">
       <dir name="Templates">
        <file name="Directory.php" role="php" />
+       <file name="RecursiveDirectory.php" role="horde" />
        <file name="Single.php" role="php" />
       </dir> <!-- /lib/Components/Helper/Templates -->
       <file name="ChangeLog.php" role="horde" />
@@ -307,6 +308,14 @@
         <file name="index.html" role="test" />
         <file name="install.html" role="test" />
        </dir> <!-- /test/Components/fixture/templates/html -->
+       <dir name="rec-dir">
+        <dir name="one">
+         <file name="one" role="test" />
+        </dir> <!-- /test/Components/fixture/templates/rec-dir/one -->
+        <dir name="two">
+         <file name="two" role="test" />
+        </dir> <!-- /test/Components/fixture/templates/rec-dir/two -->
+       </dir> <!-- /test/Components/fixture/templates/rec-dir -->
        <dir name="rewrite">
         <file name="one" role="test" />
        </dir> <!-- /test/Components/fixture/templates/rewrite -->
@@ -492,6 +501,7 @@
    <install as="Components/Helper/Templates.php" name="lib/Components/Helper/Templates.php" />
    <install as="Components/Helper/Version.php" name="lib/Components/Helper/Version.php" />
    <install as="Components/Helper/Templates/Directory.php" name="lib/Components/Helper/Templates/Directory.php" />
+   <install as="Components/Helper/Templates/RecursiveDirectory.php" name="lib/Components/Helper/Templates/RecursiveDirectory.php" />
    <install as="Components/Helper/Templates/Single.php" name="lib/Components/Helper/Templates/Single.php" />
    <install as="Components/Module/Base.php" name="lib/Components/Module/Base.php" />
    <install as="Components/Module/Change.php" name="lib/Components/Module/Change.php" />
@@ -599,6 +609,8 @@
    <install as="Components/fixture/templates/distribute/openpkg/package.spec" name="test/Components/fixture/templates/distribute/openpkg/package.spec" />
    <install as="Components/fixture/templates/html/index.html" name="test/Components/fixture/templates/html/index.html" />
    <install as="Components/fixture/templates/html/install.html" name="test/Components/fixture/templates/html/install.html" />
+   <install as="Components/fixture/templates/rec-dir/one/one" name="test/Components/fixture/templates/rec-dir/one/one" />
+   <install as="Components/fixture/templates/rec-dir/two/two" name="test/Components/fixture/templates/rec-dir/two/two" />
    <install as="Components/fixture/templates/rewrite/one" name="test/Components/fixture/templates/rewrite/one" />
    <install as="Components/Integration/Components/Module/CiSetupTest.php" name="test/Components/Integration/Components/Module/CiSetupTest.php" />
    <install as="Components/Integration/Components/Module/DistributeTest.php" name="test/Components/Integration/Components/Module/DistributeTest.php" />
@@ -655,7 +667,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-07-23</date>
+   <date>2011-07-24</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * [gwr] Replaced use of PEAR_PackageFileManager for updating package.xml with Horde_Pear.
