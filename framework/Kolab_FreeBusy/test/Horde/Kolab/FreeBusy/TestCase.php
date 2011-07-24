@@ -41,6 +41,75 @@ class Horde_Kolab_FreeBusy_TestCase extends PHPUnit_Framework_TestCase
         );
     }
 
+    protected function getUser()
+    {
+        $composite = $this->_getMockedComposite();
+        $db = new Horde_Kolab_FreeBusy_UserDb_Kolab($composite);
+        $user = $this->_getDbUser();
+        $user->expects($this->any())
+            ->method('getSingle')
+            ->will($this->returnValue('mail@example.org'));
+        $composite->objects->expects($this->once())
+            ->method('fetch')
+            ->will($this->returnValue($user));
+        return $db->getUser('test', 'TEST');
+    }
+
+    protected function getKolabUser()
+    {
+        $composite = $this->_getMockedComposite();
+        $db = new Horde_Kolab_FreeBusy_UserDb_Kolab($composite);
+        $user = $this->_getKolabDbUser();
+        $user->expects($this->any())
+            ->method('getGroupAddresses')
+            ->will($this->returnValue(array('group@example.org')));
+        $composite->objects->expects($this->once())
+            ->method('fetch')
+            ->will($this->returnValue($user));
+        return $db->getUser('test', 'TEST');
+    }
+
+    protected function getAuthUser()
+    {
+        $composite = $this->_getMockedComposite();
+        $db = new Horde_Kolab_FreeBusy_UserDb_Kolab($composite);
+        $user = $this->_getDbUser();
+        $user->expects($this->any())
+            ->method('getSingle')
+            ->will($this->returnValue('mail@example.org'));
+        $composite->server->expects($this->once())
+            ->method('connectGuid');
+        $composite->objects->expects($this->any())
+            ->method('fetch')
+            ->will($this->returnValue($user));
+        return $db->getUser('test', 'TEST');
+    }
+
+    private function _getDbUser()
+    {
+        return $this->getMock(
+            'Horde_Kolab_Server_Object_Hash', array(), array(), '', false, false
+        );
+    }
+
+    private function _getKolabDbUser()
+    {
+        return $this->getMock(
+            'Horde_Kolab_Server_Object_Kolab_User', array(), array(), '', false, false
+        );
+    }
+
+    private function _getMockedComposite()
+    {
+        return new Horde_Kolab_Server_Composite(
+            $this->getMock('Horde_Kolab_Server_Interface'),
+            $this->getMock('Horde_Kolab_Server_Objects_Interface'),
+            $this->getMock('Horde_Kolab_Server_Structure_Interface'),
+            $this->getMock('Horde_Kolab_Server_Search_Interface'),
+            $this->getMock('Horde_Kolab_Server_Schema_Interface')
+        );
+    }
+
     protected function getOwner($params = array())
     {
         return $this->getDb()->getOwner('mail@example.org', $params);
