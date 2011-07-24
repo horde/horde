@@ -41,6 +41,11 @@ class Horde_Kolab_FreeBusy_TestCase extends PHPUnit_Framework_TestCase
         );
     }
 
+    protected function getStubDict($vars)
+    {
+        return new Horde_Kolab_FreeBusy_Stub_MatchDict($vars);
+    }
+
     protected function getUser()
     {
         $composite = $this->_getMockedComposite();

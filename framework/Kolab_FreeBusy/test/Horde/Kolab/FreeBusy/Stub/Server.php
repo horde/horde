@@ -9,12 +9,22 @@ class Horde_Kolab_FreeBusy_Stub_Server extends Horde_Kolab_Server_Composite
             'cn' => 'Test Test',
             'alias' => 'alias@example.com',
         ),
+        'dn=x' => array(
+            'uid' => 'y',
+            'mail' => 'z@example.org',
+            'cn' => 'Mister X',
+        ),
+        'dn=new' => array(
+            'uid' => 'F',
+            'mail' => 'new@example.org',
+            'cn' => 'Misses New',
+        ),
         'dn=remote' => array(
             'uid' => 'remote@example.com',
             'mail' => 'remote@example.org',
             'cn' => 'Remote',
             'server' => array(
-                'freebusy' => 'example.com/freebusy',
+                'freebusy' => 'https://example.com/freebusy',
             ),
         ),
     );

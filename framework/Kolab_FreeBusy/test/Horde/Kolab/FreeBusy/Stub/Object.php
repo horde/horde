@@ -21,7 +21,7 @@ class Horde_Kolab_FreeBusy_Stub_Object
         } else {
             switch ($name) {
             case 'freebusy':
-                return 'https://localhost/freebusy';
+                return 'https://localhost/export';
             default:
                 return null;
             }
