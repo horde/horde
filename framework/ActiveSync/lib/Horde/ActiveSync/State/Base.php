@@ -128,6 +128,11 @@ abstract class Horde_ActiveSync_State_Base
         }
     }
 
+    public function __destruct()
+    {
+        unset ($this->_backend);
+    }
+
     /**
      * Update the $oldKey syncState to $newKey.
      *

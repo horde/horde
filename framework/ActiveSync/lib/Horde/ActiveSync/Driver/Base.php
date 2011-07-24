@@ -151,6 +151,11 @@ abstract class Horde_ActiveSync_Driver_Base
         }
     }
 
+    public function __destruct()
+    {
+        unset($this->_stateObject);
+    }
+
     /**
      * Setter for the logger instance
      *
