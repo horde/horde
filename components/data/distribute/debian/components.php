@@ -22,6 +22,12 @@ $applications = array(
     'webmail'
 );
 
+$bundles = array(
+    'groupware',
+    'webmail',
+    'kolab_webmail'
+);
+
 $pkg_info = '/usr/share/pkg-php-tools/scripts/phppkginfo';
 if (!is_executable($pkg_info)) {
     throw new Components_Exception(
@@ -61,7 +67,8 @@ $build_template->write(
         'name' => $package_name,
         'version' => $package_version,
         'component' => $component,
-        'applications' => $applications
+        'applications' => $applications,
+        'bundles' => $bundles
     )
 );
 

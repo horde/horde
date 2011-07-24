@@ -8,7 +8,14 @@ Homepage: http://${phppear:channel}/
 
 Package: <?php echo $name . "\n"; ?>
 Architecture: all
-<?php if (in_array($component->getName(), $applications)) { print "Provides: ".$component->getName()."\n";} ?>
+<?php
+if (in_array($component->getName(), $applications) && in_array($component->getName(), $bundles)) {
+print "Provides: horde-bundle, ".$component->getName()."\nConflicts: horde-bundle\nReplaces: horde-bundle\n";
+} elseif (in_array($component->getName(), $applications)) {
+print "Provides: ".$component->getName()."\n";
+} elseif (in_array($component->getName(), $bundles)) {
+print "Provides: horde-bundle\nConflicts: horde-bundle\nReplaces: horde-bundle\n";
+} ?>
 Depends: ${misc:Depends}, ${phppear:Debian-Depends}
 Recommends: ${phppear:Debian-Recommends}
 Breaks: ${phppear:Debian-Breaks}
