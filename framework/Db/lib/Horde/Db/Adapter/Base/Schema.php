@@ -170,7 +170,9 @@ abstract class Horde_Db_Adapter_Base_Schema
             return $type == 'integer' ? '1' : $this->quoteTrue();
         } elseif ($value === false) {
             return $type == 'integer' ? '0' : $this->quoteFalse();
-        } elseif (is_int($value) || is_float($value)) {
+        } elseif (is_float($value)) {
+            return sprintf('%F', $value);
+        } elseif (is_int($value)) {
             return $value;
         } elseif ($value instanceof DateTime || $value instanceof Horde_Date) {
             return $this->_adapter->quoteString($type == 'integer'

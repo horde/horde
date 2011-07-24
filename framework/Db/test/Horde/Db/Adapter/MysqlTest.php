@@ -290,6 +290,18 @@ class Horde_Db_Adapter_MysqlTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('0', $this->_conn->quote(false));
     }
 
+    public function testQuoteInteger()
+    {
+        $this->assertEquals('42', $this->_conn->quote(42));
+    }
+
+    public function testQuoteFloat()
+    {
+        $this->assertEquals('42.2', $this->_conn->quote(42.2));
+        setlocale(LC_NUMERIC, 'de_DE.UTF-8');
+        $this->assertEquals('42.2', $this->_conn->quote(42.2));
+    }
+
     public function testQuoteString()
     {
         $this->assertEquals("'my string'", $this->_conn->quote('my string'));
