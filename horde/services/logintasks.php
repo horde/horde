@@ -50,6 +50,12 @@ $template = $injector->createInstance('Horde_Template');
 
 /* Have the maintenance module do all necessary processing. */
 $tasklist = $tasks->displayTasks();
+if (!is_array($tasklist)) {
+    /* Probably should have redirected earlier. */
+    $url = new Horde_Url($registry->getInitialPage());
+    $url->redirect();
+}
+
 $app_name = $registry->get('name', 'horde');
 
 switch ($tasklist[0]->display) {
