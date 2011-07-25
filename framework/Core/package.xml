@@ -34,8 +34,9 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Don't set optional integer fields to 0 when automatically updating configuration.
 * [mjr] Fix recurring event exception handling for ActiveSync.
-* Fix removing user data from applications (Bug #10241).
+* [mms] Fix removing user data from applications (Bug #10241).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
