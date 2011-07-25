@@ -52,10 +52,6 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
     {
         parent::handle();
 
-        /* Get the policy key if it was sent */
-        $policykey = $this->_activeSync->getPolicyKey();
-        $this->_logger->debug('[' . $this->_device->id . '] PIM PolicyKey: ' . $policykey);
-
         /* Be optimistic */
         $status = self::STATUS_SUCCESS;
         $policyStatus = self::STATUS_SUCCESS;
