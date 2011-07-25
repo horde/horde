@@ -22,22 +22,22 @@
  * @package    Log
  * @subpackage UnitTests
  */
-class Horde_Log_Filter_LevelTest extends PHPUnit_Framework_TestCase
+class Horde_Log_Filter_ExactLevelTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        // accept at or below level 2
-        $this->filter = new Horde_Log_Filter_Level(2);
+        // accept at and only at level 2
+        $this->filter = new Horde_Log_Filter_ExactLevel(2);
     }
 
     public function testLevelFilterAccept()
     {
         $this->assertTrue($this->filter->accept(array('message' => '', 'level' => 2)));
-        $this->assertTrue($this->filter->accept(array('message' => '', 'level' => 1)));
     }
 
     public function testLevelFilterReject()
     {
+        $this->assertFalse($this->filter->accept(array('message' => '', 'level' => 1)));
         $this->assertFalse($this->filter->accept(array('message' => '', 'level' => 3)));
     }
 

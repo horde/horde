@@ -38,6 +38,7 @@
      <dir name="Log">
       <dir name="Filter">
        <file name="Constraint.php" role="php" />
+       <file name="ExactLevel.php" role="php" />
        <file name="Level.php" role="php" />
        <file name="Message.php" role="php" />
        <file name="Suppress.php" role="php" />
@@ -69,6 +70,7 @@
       <dir name="Filter">
        <file name="ChainingTest.php" role="test" />
        <file name="ConstraintTest.php" role="test" />
+       <file name="ExactLevelTest.php" role="test" />
        <file name="LevelTest.php" role="test" />
        <file name="MessageTest.php" role="test" />
        <file name="SuppressTest.php" role="test" />
