@@ -1,16 +1,12 @@
 --------
-v2.0-cvs
+v1.0-git
 --------
 
+[jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
 [jan] Provide default configuration files instead of .dist versions.
-[] Horde_Template to Horde_View (Duck <duck@obala.net>)
-[] DB to MDB2 (Duck <duck@obala.net>)
-[] Requires PHP5 (Duck <duck@obala.net>)
-
---------
-v1.0-cvs
---------
-
+[duk] Convert Horde_Template to Horde_View (Duck <duck@obala.net>).
+[duk] Convert DB to MDB2 (Duck <duck@obala.net>).
+[duk] Convert to PHP 5 (Duck <duck@obala.net>).
 [jan] Enable output compression.
 [jan] Add Japanese translation (Takeshi Taguchi <taguchi@tcltk.jp>).
 [cjh] Merge Horde_Template_Compiling to stable Agora branch as Agora_Template.

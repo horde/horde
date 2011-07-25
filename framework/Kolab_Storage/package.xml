@@ -23,6 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Update Latvian translation.
 * [gwr] Added support for retrieving objects by backend id.
 * [gwr] Added a handler for active sync settings.
 * [gwr] Added preference data query.
@@ -1037,6 +1038,7 @@
    <date>2011-07-21</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Update Latvian translation.
 * [gwr] Added support for retrieving objects by backend id.
 * [gwr] Added a handler for active sync settings.
 * [gwr] Added preference data query.

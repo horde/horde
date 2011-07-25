@@ -1,0 +1,1776 @@
+# Latvian translations for Folks H4 package.
+# Copyright (C) 2011 Horde Project
+# This file is distributed under the same license as the Folks package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Folks H4 (0.1-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
+"PO-Revision-Date: 2011-07-22 14:57+0300\n"
+"Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+"X-Poedit-Language: Latvian\n"
+"X-Poedit-Country: LATVIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: edit/friends/invite.php:27
+#, fuzzy, php-format
+msgid "%s Invited to join %s."
+msgstr "Pievienot karstajam sarakstam"
+
+#: edit/friends/add.php:38
+#, php-format
+msgid "%s added you as a friend on %s"
+msgstr ""
+
+#: edit/friends/approve.php:35
+#, php-format
+msgid "%s approved you as a friend on %s"
+msgstr ""
+
+#: edit/friends/reject.php:34
+#, php-format
+msgid "%s rejected you as a friend on %s"
+msgstr ""
+
+#: user.php:62
+#, fuzzy, php-format
+msgid "%s's profile"
+msgstr "_Parametri:"
+
+#: edit/edit.php:27 edit/edit.php:41
+#, fuzzy
+msgid "--- Select ---"
+msgstr " Atlasīt "
+
+#: scripts/mail.php:139
+#, fuzzy
+msgid "-c, --count                  Limit count"
+msgstr "Šķautņu asums:"
+
+#: scripts/mail.php:140
+#, fuzzy
+msgid "-f, --from                   Limit offset"
+msgstr "Slāņa maskas nobīde"
+
+#: scripts/mail.php:138
+#, fuzzy
+msgid "-h, --help                   Show this help"
+msgstr "Rādīt šo piezīmi"
+
+#: scripts/mail.php:142
+#, fuzzy
+msgid "-p, --password[=password]    Horde login password"
+msgstr "Pēdējā pieslēgšanās: %s no %s"
+
+#: scripts/mail.php:141
+#, fuzzy
+msgid "-u, --username[=username]    Horde login username"
+msgstr "Pēdējā pieslēgšanās: %s no %s"
+
+#: edit/friends/add.php:51
+#, php-format
+msgid "A confirmation was send to \"%s\"."
+msgstr "\"%s\" nosūtīts apstiprinājums"
+
+#: lib/Friends/shared.php:77 lib/Friends/shared.php:151
+msgid "A group names cannot be empty"
+msgstr "Grupu nosaukumi nedrīkst būt tukši"
+
+#: templates/edit/activity.php:19 templates/edit/friends.php:16
+#: templates/edit/groups.php:14
+msgid "Action"
+msgstr "Darbība"
+
+#: activity.php:14 edit/activity.php:17 edit/tabs.php:23
+#: lib/Forms/Activity.php:20 lib/Forms/Activity.php:22
+#: templates/edit/activity.php:18 templates/list/list.php:7
+#: templates/user/user.php:99 templates/user/user.php:338
+msgid "Activity"
+msgstr "Aktivitāte"
+
+#: config/prefs.php:27
+msgid "Activity log"
+msgstr "Aktivitāšu žurnāls"
+
+#: edit/activity.php:26
+msgid "Activity successfully deleted"
+msgstr "Aktivitāte veiksmīgi izdzēsta"
+
+#: edit/activity.php:37 friends.php:28 user.php:54
+msgid "Activity successfully posted"
+msgstr "Aktivitāte veiksmīgi nosūtīta"
+
+#: edit/friends/know.php:33 templates/edit/header.php:22
+msgid "Add"
+msgstr "Pievienot"
+
+#: templates/user/actions.php:17 templates/user/user.php:120
+#, fuzzy, php-format
+msgid "Add %s as a friend?"
+msgstr "Pievienot %s izvēlni kā Mozilla sānjoslu"
+
+#: templates/user/actions.php:20
+#, fuzzy, php-format
+msgid "Add %s to you blacklist?"
+msgstr "Jānorāda pievienojamā lietotāja vārds."
+
+#: lib/Forms/AddFriend.php:17
+#, fuzzy
+msgid "Add / Remove"
+msgstr "Lietotāju pievienošana un dzēšana"
+
+#: templates/user/actions.php:14 templates/user/actions.php:15
+msgid "Add a comment"
+msgstr "Pievienot komentāru"
+
+#: edit/friends/add.php:16 lib/Block/Know.php:33
+#: templates/friends/friends.php:25
+msgid "Add friend"
+msgstr "Pievienot draugu"
+
+#: edit/friends/groups.php:77
+msgid "Add group"
+msgstr "Pievienot grupu"
+
+#: edit/friends/add.php:61 edit/friends/blacklist.php:75
+#, fuzzy
+msgid "Add or remove user"
+msgstr "Lietotāju pievienošana un dzēšana"
+
+#: templates/user/user.php:145 templates/user/user.php:170
+#: templates/user/user.php:195 templates/user/user.php:222
+#: templates/user/user.php:248 templates/user/user.php:276
+#: templates/user/user.php:302 templates/user/user.php:335
+#, fuzzy
+msgid "Add your content"
+msgstr "Satura laukuma robeža"
+
+#: account/signup.php:41
+#, php-format
+msgid "Added \"%s\" to the system. You can log in now."
+msgstr "\"%s\" pievienots sistēmai. Tagad varat ienākt."
+
+#: edit/friends/approve.php:47
+#, fuzzy, php-format
+msgid "Added user %s as a friend."
+msgstr "\"%s\" pievienots kā pielikums."
+
+#: report.php:28
+#, fuzzy
+msgid "Advertisement content"
+msgstr "Nederīgs saturs iekš \\{\\}"
+
+#: templates/list/list.php:28 templates/user/user.php:78
+msgid "Age"
+msgstr "Vecums"
+
+#: lib/Forms/Search.php:21
+msgid "Age from"
+msgstr "Vecums no"
+
+#: lib/Forms/Search.php:22
+msgid "Age to"
+msgstr "Vecums līdz"
+
+#: templates/list/list.php:36
+msgid "Albums"
+msgstr "Albumi"
+
+#: edit/friends/index.php:15 lib/Block/Friends.php:27
+#: templates/edit/header.php:24
+msgid "All"
+msgstr "Visi"
+
+#: templates/list/list.php:10
+msgid "All users"
+msgstr "Visi lietotāji"
+
+#: edit/privacy.php:30
+msgid "All visitors"
+msgstr "Visi apmeklētāji"
+
+#: edit/comments.php:25
+msgid "Any one"
+msgstr "Ikviens"
+
+#: templates/edit/activity.php:16
+msgid "Application"
+msgstr "Aplikācija"
+
+#: config/prefs.php:119
+msgid ""
+"Application you would like NOT to log activitiy when you post a new PUBLIC "
+"COMMENT"
+msgstr ""
+
+#: config/prefs.php:105
+msgid ""
+"Application you would like NOT to log your activitiy when you post a new "
+"PUBLIC CONTENT."
+msgstr ""
+
+#: edit/friends/for.php:37
+msgid "Approve"
+msgstr "Apstiprināt"
+
+#: lib/Folks.php:140 lib/Folks.php:144
+msgid "Aquarius"
+msgstr "Ūdensvīrs"
+
+#: lib/Folks.php:148 lib/Folks.php:152
+msgid "Aries"
+msgstr "Auns"
+
+#: config/prefs.php:45
+msgid "Ascesending"
+msgstr "Augoši"
+
+#: perms.php:41
+msgid "Attempt to edit a non-existent share."
+msgstr "Mēģinājums mainīt neeksistējošu koplietojumu."
+
+#: edit/comments.php:26
+msgid "Authenticated users"
+msgstr "Autentificētie lietotāji"
+
+#: services.php:14
+msgid "Available services"
+msgstr "Pieejamie servisi"
+
+#: birthday.php:14 edit/edit.php:26 templates/list/list.php:9
+msgid "Birthday"
+msgstr "Dzimšanas diena"
+
+#: edit/friends/blacklist.php:16 edit/tabs.php:20 templates/edit/header.php:34
+#: templates/user/actions.php:21
+msgid "Blacklist"
+msgstr "Melnais saraksts"
+
+#: edit/friends/invite.php:29
+msgid "Body"
+msgstr "Ķermenis"
+
+#: edit/friends/groups.php:52 edit/friends/groups.php:58 report.php:26
+msgid "Cancel"
+msgstr "Atcelt"
+
+#: lib/Folks.php:160 lib/Folks.php:164
+msgid "Cancer"
+msgstr "Vēzis"
+
+#: scripts/mail-filter.php:97
+msgid "Cannot authenticate at mail server:"
+msgstr ""
+
+#: account/resetpassword.php:21
+msgid "Cannot reset password automatically, contact your administrator."
+msgstr ""
+"Paroli automātiski nomainīt nav iespējams. Sazinieties ar administratoru."
+
+#: lib/Folks.php:286
+#, fuzzy
+msgid "Cannot retrieve user email."
+msgstr "No vēstules nevar iegūt Publisko atslēgu."
+
+#: lib/Folks.php:140 lib/Folks.php:184
+msgid "Capricorn"
+msgstr "Mežāzis"
+
+#: edit/password.php:24
+msgid "Change Your Password"
+msgstr "Nomainiet paroli"
+
+#: edit/password.php:29
+msgid "Choose a password"
+msgstr "Izvēlieties paroli"
+
+#: edit/edit.php:28 lib/Forms/Search.php:18 lib/Forms/Search.php:20
+#: templates/list/list.php:30 templates/user/user.php:94
+msgid "City"
+msgstr "Pilsēta"
+
+#: templates/user/friends.php:10 templates/user/private.php:11
+msgid "Click here"
+msgstr "Klikšķiniet šeit"
+
+#: templates/user/authenticated.php:8
+#, fuzzy
+msgid "Click here to login."
+msgstr "Lai pārbaudītu vēstuli, uzklikšķiniet ŠEIT."
+
+#: save_search.php:15 save_search.php:46
+msgid "Close"
+msgstr "Aizvērt"
+
+#: lib/Api.php:81
+#, fuzzy, php-format
+msgid "Commented user %s."
+msgstr " Lietotāja izvēlne "
+
+#: edit/comments.php:16 edit/tabs.php:28
+msgid "Comments"
+msgstr "Komentāri"
+
+#: edit/comments.php:52
+msgid "Comments deleted successfuly"
+msgstr "Komentāri veiksmīgi izdzēsti"
+
+#: account/approve.php:13
+msgid "Confirm email"
+msgstr "Apstipriniet E-pasta adresi"
+
+#: account/resetpassword.php:29 edit/password.php:27 edit/password.php:180
+msgid "Continue"
+msgstr "Turpināt"
+
+#: report.php:31
+#, fuzzy
+msgid "Copyright infringement"
+msgstr "Autortiesību virkne"
+
+#: account/username.php:28
+msgid "Could not find any username with this email."
+msgstr ""
+
+#: edit/facebook.php:20 lib/Notification/facebook.php:132
+#, fuzzy, php-format
+msgid ""
+"Could not find authorization for %s to interact with your Facebook account."
+msgstr ""
+"Nevar atrasta autorizācijas informāciju <tag:appname />, lai mijiedarbotos "
+"ar Jūsu Twitter kontu"
+
+#: account/resetpassword.php:94
+msgid ""
+"Could not reset the password for the requested user. Some or all of the "
+"details are not correct. Try again or contact your administrator if you need "
+"further help."
+msgstr ""
+"Pieprasītajam lietotājam paroli nav iespējams atjaunot. Atsevišķa vai visa "
+"informācija nav korekta. Mēģiniet vēlreiz vai arī sazinieties ar Jūsu "
+"sistēmas administratoru, ja nepieciešama palīdzība."
+
+#: scripts/mail.php:22
+#, fuzzy
+msgid "Couldn't read command-line options."
+msgstr ""
+"#-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#\n"
+"Nav iespējams atgriezties pie iepriekšējās konfigurācijas.\n"
+"#-#-#-#-#  admin.po (admin)  #-#-#-#-#\n"
+"Nevar atjaunot konfigurāciju."
+
+#: edit/edit.php:29
+msgid "Country"
+msgstr "Valsts"
+
+#: edit/password.php:28
+#, fuzzy
+msgid "Current password"
+msgstr "paroles teksts"
+
+#: templates/edit/activity.php:17
+msgid "Date"
+msgstr "Datums"
+
+#: scripts/mail-filter.php:156
+#, php-format
+msgid ""
+"Dear %s, we tried to send you an email, but if turns out that the mail is "
+"usable any more. Maybe you run over quota. If your mail is discontinued, "
+"please update your profile with the email you are using now at %s."
+msgstr ""
+
+#: templates/edit/activity.php:31 templates/edit/groups.php:27
+#: templates/list/search.php:14
+msgid "Delete"
+msgstr "Dzēst"
+
+#: edit/comments.php:37 edit/comments.php:44
+msgid "Delete all current comments"
+msgstr "Dzēst visus komentārus?"
+
+#: edit/edit.php:49 edit/edit.php:73
+msgid "Delete picture"
+msgstr "Dzēst attēlu"
+
+#: config/prefs.php:44
+msgid "Descesending"
+msgstr "Dilstoši"
+
+#: edit/edit.php:47 lib/Forms/Search.php:18 templates/list/list.php:34
+#: templates/user/user.php:322
+msgid "Description"
+msgstr "Apraksts"
+
+#: templates/edit/groups.php:27
+#, fuzzy
+msgid "Do you really want to delete this group?"
+msgstr "Vai tiešām vēlaties dzēst šo likumu?"
+
+#: report.php:22
+#, fuzzy
+msgid "Do you really want to report this user?"
+msgstr "Vai tiešām vēlaties dzēst šo likumu?"
+
+#: lib/Block/Random.php:33
+#, fuzzy
+msgid "Does not metter"
+msgstr "Neatkārtojas"
+
+#: account/tabs.php:21
+msgid "Don't have an account? Sign up."
+msgstr "Nav konta? Reģistrējieties."
+
+#: lib/Notification/mail.php:20
+msgid "E-mail"
+msgstr "E-pasts"
+
+#: perms.php:220
+msgid "Edit Permissions"
+msgstr "Mainīt pieejas tiesības"
+
+#: perms.php:222
+#, php-format
+msgid "Edit Permissions for %s"
+msgstr "Mainīt %s pieejas tiesības"
+
+#: templates/friends/friends.php:61
+#, fuzzy
+msgid "Edit activities"
+msgstr "Darbību saraksts:\n"
+
+#: templates/friends/friends.php:9
+msgid "Edit friends"
+msgstr "Manīt draugus"
+
+#: templates/user/user.php:119
+msgid "Edit my firends"
+msgstr "Mainīt manu draugus"
+
+#
+#: edit/edit.php:16 edit/tabs.php:18
+msgid "Edit my profile"
+msgstr "Mainīt manu profilu"
+
+#
+#: lib/Folks.php:300
+msgid "Edit profile"
+msgstr "Labot profilu"
+
+#: edit/edit.php:25
+msgid "Email"
+msgstr "E-pasts"
+
+#: scripts/mail-filter.php:155
+msgid "Email problem"
+msgstr "E-pasta kļūme"
+
+#: edit/friends/groups.php:82
+#, fuzzy
+msgid "Enter custom name"
+msgstr " Ievadiet direktorijas nosaukumu:"
+
+#: lib/Forms/Login.php:21
+#, fuzzy, php-format
+msgid "Enter the username you registered to %s"
+msgstr "Jānorāda dzēšamā lietotāja vārds."
+
+#: lib/Forms/Login.php:24
+msgid "Enter your password. Please be aware that password is case sensitive."
+msgstr ""
+
+#: edit/facebook.php:16 edit/tabs.php:32 lib/Notification/facebook.php:30
+msgid "Facebook"
+msgstr "Facebook"
+
+#: templates/user/user.php:252
+msgid "Faces"
+msgstr "Sejas"
+
+#: templates/user/user.php:252
+msgid "Faces in user galleries"
+msgstr ""
+
+#: templates/edit/header.php:42
+msgid "Feeds"
+msgstr "Plūsmas"
+
+#: edit/edit.php:27 lib/Forms/Search.php:19 templates/list/list.php:69
+#: templates/user/user.php:91
+msgid "Female"
+msgstr "siev."
+
+#: account/tabs.php:25
+msgid "Forgot your password?"
+msgstr "Aizmirsāt paroli?"
+
+#: account/tabs.php:28 account/username.php:15
+#, fuzzy
+msgid "Forgot your username?"
+msgstr "Aizmirsāt paroli?"
+
+#: templates/user/actions.php:10
+msgid "Forward"
+msgstr "Pārsūtīt"
+
+#: templates/user/actions.php:18
+msgid "Friend"
+msgstr "Draugs"
+
+#: edit/friends/invite.php:47
+#, php-format
+msgid "Friend \"%s\" was invited to join %s."
+msgstr ""
+
+#: edit/friends/invite.php:24
+msgid "Friend's e-mail"
+msgstr "Draugu epasts"
+
+#: edit/friends/friends.php:16 edit/tabs.php:21 friends.php:19
+#: lib/Block/Friends.php:14 lib/Folks.php:299 lib/Friends/prefs.php:161
+#: lib/Friends/sql.php:191 templates/edit/header.php:1
+#: templates/user/user.php:122
+msgid "Friends"
+msgstr "Draugi"
+
+#: lib/Api.php:234
+msgid "Friends Birthdays"
+msgstr "Draugu dzimšanas dienas"
+
+#: lib/Block/Activities.php:14 rss/activity.php:50
+#: templates/friends/friends.php:10
+#, fuzzy
+msgid "Friends activities"
+msgstr "Darbību saraksts:\n"
+
+#: lib/Application.php:37 templates/edit/header.php:46
+#, fuzzy
+msgid "Friends activity"
+msgstr "Aktivitātes Bloki"
+
+#: edit/friends/from.php:15
+msgid "Friends we are waiting approval from"
+msgstr ""
+
+#: lib/Folks.php:156 lib/Folks.php:160
+msgid "Gemini"
+msgstr "Dvīņi"
+
+#: edit/edit.php:27 lib/Forms/Search.php:19 templates/list/list.php:26
+#: templates/user/user.php:90
+msgid "Gender"
+msgstr "Dzimums"
+
+#: templates/edit/groups.php:12
+msgid "Group"
+msgstr "Grupa"
+
+#: edit/friends/groups.php:39
+#, fuzzy, php-format
+msgid "Group \"%s\" has been deleted."
+msgstr "Resursu grupa \"%s\" izdzēsta."
+
+#: edit/friends/groups.php:67
+#, fuzzy, php-format
+msgid "Group \"%s\" has been renamed to \"%s\"."
+msgstr "Resursu grupa \"%s\" pārsaukta par \"%s\"."
+
+#: edit/friends/groups.php:59
+#, fuzzy, php-format
+msgid "Group \"%s\" has not been renamed."
+msgstr "Resursu grupa \"%s\" pārsaukta par \"%s\"."
+
+#: edit/friends/groups.php:98
+#, fuzzy, php-format
+msgid "Group \"%s\" was success added."
+msgstr "%s veiksmīgi pievienots \"%s\"."
+
+#: edit/friends/groups.php:16 edit/tabs.php:22
+msgid "Groups"
+msgstr "Grupas"
+
+#: templates/user/user.php:25
+msgid "Has no picture"
+msgstr "Nav attēla"
+
+#: scripts/mail-filter.php:139 scripts/mail-filter.php:150
+#, fuzzy
+msgid "Have no one to notify"
+msgstr "Nav norādīta adrese, kurp nosūtīt paziņojumu"
+
+#: edit/edit.php:31 templates/list/list.php:32 templates/user/user.php:108
+#, fuzzy
+msgid "Homepage"
+msgstr ""
+"#-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#\n"
+"Home\n"
+"#-#-#-#-#  imp.po (IMP 3.1)  #-#-#-#-#\n"
+"Mājup"
+
+#: config/prefs.php:13
+#, fuzzy
+msgid "How to preview users"
+msgstr "Klikšķiniet priekšskata izveidei"
+
+#: account/resetpassword.php:55
+#, fuzzy
+msgid "Human check"
+msgstr "izvēles rūtiņa"
+
+#: templates/edit/header.php:33
+#, fuzzy
+msgid "I am friend of"
+msgstr "Draugu pieprasījumi:"
+
+#: templates/user/user.php:109
+#, fuzzy
+msgid "I don't have it"
+msgstr "Nerādīt"
+
+#: templates/edit/header.php:23
+msgid "Invite"
+msgstr "Ielūgt"
+
+#: edit/friends/invite.php:16
+msgid "Invite friend"
+msgstr "Ielūgt draugu"
+
+#: lib/Forms/Search.php:24
+#, fuzzy
+msgid "Is online"
+msgstr "Lasīt inte_rnetā"
+
+#: templates/user/user.php:72
+msgid "Last activity"
+msgstr "Pēdējā aktivitāte"
+
+#: lib/Block/MyComments.php:13
+msgid "Last comments on my profile"
+msgstr ""
+
+#: templates/user/user.php:54
+msgid "Last time online"
+msgstr "Pēdējo reizi pieslēdzies"
+
+#: lib/Folks.php:164 lib/Folks.php:168
+msgid "Leo"
+msgstr "Lauva"
+
+#: lib/Folks.php:172 lib/Folks.php:176
+msgid "Libra"
+msgstr "Svari"
+
+#: lib/Block/New.php:23 lib/Block/Random.php:23 lib/Block/Recent.php:23
+msgid "Limit"
+msgstr "Ierobežojums"
+
+#: lib/Folks.php:303 list.php:14 templates/list/list.php:10
+msgid "List"
+msgstr "Saraksts"
+
+#: config/prefs.php:89
+#, fuzzy
+msgid "Log account changes?"
+msgstr "Jūsu informācija"
+
+#: config/prefs.php:80
+msgid "Log when we comment a user?"
+msgstr ""
+
+#: scripts/mail.php:71
+#, fuzzy, php-format
+msgid "Logged in successfully as \"%s\"."
+msgstr "\"%s\" veiksmīgi saglabāts."
+
+#: account/tabs.php:18 lib/Forms/Login.php:18
+#, fuzzy
+msgid "Login"
+msgstr "Pieslēgties"
+
+#: scripts/mail.php:67
+#, fuzzy
+msgid "Login is incorrect."
+msgstr "ftpfs: lietotāja nepareiza %s pieteikšanās "
+
+#: login.php:54
+#, fuzzy
+msgid "Login reminder"
+msgstr "Pieslēgšanās uzdevumi"
+
+#: login.php:124
+#, fuzzy, php-format
+msgid "Login to %s"
+msgstr " Kopét uz"
+
+#: templates/user/actions.php:9
+msgid "Look at this profile"
+msgstr ""
+
+#: edit/edit.php:27 lib/Forms/Search.php:19 templates/list/list.php:69
+#: templates/user/user.php:91
+msgid "Male"
+msgstr "vīr."
+
+#: scripts/mail.php:136
+msgid ""
+"Mandatory arguments to long options are mandatory for short options too."
+msgstr ""
+
+#: lib/Forms/Search.php:23
+msgid "Mast have"
+msgstr ""
+
+#: templates/edit/groups.php:24
+msgid "Members"
+msgstr "Locekļi"
+
+#: templates/edit/header.php:30
+#, fuzzy
+msgid "Might know"
+msgstr "Nedaudz snigs"
+
+#: edit/comments.php:27
+msgid "Moderate comments - I will approve every single comment"
+msgstr ""
+
+#: config/prefs.php:20
+#, fuzzy
+msgid "Modify account preferences"
+msgstr "Kā parametros"
+
+#: templates/list/list.php:7
+#, fuzzy
+msgid "Most active users"
+msgstr "Visi autentificētie lietotāji"
+
+#: templates/list/list.php:6
+#, fuzzy
+msgid "Most popular users"
+msgstr "Populārākie raksti"
+
+#: lib/Folks.php:298
+msgid "My profile"
+msgstr "Mans profils"
+
+#: templates/list/search.php:11
+#, fuzzy
+msgid "My queries"
+msgstr "Manas valodas"
+
+#: edit/friends/groups.php:81 edit/friends/groups.php:82
+#: lib/Forms/Search.php:18 save_search.php:44
+#, fuzzy
+msgid "Name"
+msgstr "Nosaukums"
+
+#: new.php:14 templates/list/list.php:4
+msgid "New"
+msgstr "Jauns"
+
+#: edit/friends/groups.php:55
+#, fuzzy
+msgid "New name"
+msgstr "Jaunās grupas nosaukums"
+
+#: templates/list/list.php:4
+#, fuzzy
+msgid "New registered user"
+msgstr "Reģistrētās lietotāja iekārtas"
+
+#: lib/Block/New.php:14
+#, fuzzy
+msgid "New users"
+msgstr "Uzstādīt &lietotājus"
+
+#: config/prefs.php:60 config/prefs.php:69 config/prefs.php:78
+#: config/prefs.php:87 edit/privacy.php:46 templates/list/list.php:77
+#: templates/list/list.php:78 templates/list/list.php:79
+#: templates/list/list.php:80
+msgid "No"
+msgstr "Nē"
+
+#: lib/Friends/facebook.php:71 lib/Notification/facebook.php:125
+#, fuzzy
+msgid "No Facebook integration exists."
+msgstr "Stabila versija pagaidām nepastāv."
+
+#: edit/comments.php:24 edit/privacy.php:33
+#, fuzzy
+msgid "No one"
+msgstr "Vienpusējs"
+
+#: templates/edit/friends.php:6
+#, fuzzy
+msgid "No user listed"
+msgstr "lietotāja &Mini statuss"
+
+#: templates/list/list.php:16
+#, fuzzy
+msgid "No users found under selected criteria"
+msgstr "Neviena vēstule neatbilst vaicājuma nosacījumiem."
+
+#: lib/Forms/Login.php:27
+#, fuzzy
+msgid "No, only for this view"
+msgstr "Nav šai operācijai pieejamu šablonu."
+
+#: lib/Notification.php:251
+#, fuzzy, php-format
+msgid "Notification driver %s does not exists."
+msgstr "Pastkaste %s neeksistē."
+
+#: config/prefs.php:62
+msgid "Notify friends that I loged in"
+msgstr ""
+
+#: edit/privacy.php:46
+msgid "Notify online friends that I logged in"
+msgstr ""
+
+#: lib/Block/Activities.php:23
+#, fuzzy
+msgid "Number of activities to display"
+msgstr "Parādāmo kolonnu skaits"
+
+#: lib/Block/MyComments.php:22
+#, fuzzy
+msgid "Number of comments to display"
+msgstr "Parādāmo kolonnu skaits"
+
+#: config/prefs.php:53
+#, fuzzy
+msgid "Number of users perpage"
+msgstr "Visi autentificētie lietotāji"
+
+#: report.php:30
+#, fuzzy
+msgid "Offensive content"
+msgstr "Nederīgs saturs iekš \\{\\}"
+
+#: lib/Block/Friends.php:29 templates/block/users.php:17
+#: templates/edit/friends.php:31 templates/user/user.php:47
+#, fuzzy
+msgid "Offline"
+msgstr "Printeris atslēgts"
+
+#: edit/friends/groups.php:53
+#, fuzzy
+msgid "Old name"
+msgstr "Pieejamais vārds"
+
+#: lib/Block/Friends.php:28 lib/Block/Random.php:32 online.php:14
+#: templates/block/users.php:15 templates/edit/friends.php:29
+#: templates/list/list.php:3 templates/user/user.php:45
+msgid "Online"
+msgstr "Tiešsaistē"
+
+#: lib/Application.php:36 rss/friends.php:46 templates/edit/header.php:45
+msgid "Online friends"
+msgstr "Draugi tiešsaistē"
+
+#: lib/Application.php:34 rss/online.php:22 templates/edit/header.php:44
+msgid "Online users"
+msgstr "Lietotāji tiešsaistē"
+
+#: edit/privacy.php:31
+#, fuzzy
+msgid "Only authenticated users"
+msgstr "Visi autentificētie lietotāji"
+
+#: templates/user/user.php:381 templates/user/user.php:387
+msgid "Only authenticated users can post comments."
+msgstr ""
+
+#: edit/privacy.php:32
+msgid "Only my friedns"
+msgstr "Tikai mani draugi"
+
+#: perms.php:55
+#, fuzzy
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr ""
+"Tikai objekta īpašnieks vais sistēmas administrators var manīti koplietojuma "
+"īpašnieku vai tā pieejas tiesības."
+
+#: templates/user/user.php:148 templates/user/user.php:173
+#: templates/user/user.php:198 templates/user/user.php:225
+#: templates/user/user.php:251 templates/user/user.php:279
+#: templates/user/user.php:305
+#, fuzzy
+msgid "Others user content"
+msgstr "Satura laukuma robeža"
+
+#: templates/edit/groups.php:13
+msgid "Owner"
+msgstr "Īpašnieks"
+
+#: edit/tabs.php:24 lib/Forms/Login.php:24
+msgid "Password"
+msgstr "Parole"
+
+#: edit/password.php:157
+msgid "Password changed."
+msgstr "Parole nomainīta."
+
+#: edit/friends/know.php:15 lib/Application.php:38 lib/Block/Know.php:14
+#: rss/know.php:59 templates/edit/header.php:47
+#: templates/friends/friends.php:19
+msgid "People you might know"
+msgstr "Cilvēki, kurus, iespējams, pazīstat"
+
+#: templates/edit/groups.php:28
+msgid "Permissions"
+msgstr "Pieejas tiesības"
+
+#: edit/edit.php:48 lib/Forms/Search.php:23
+msgid "Picture"
+msgstr "Attēls"
+
+#: lib/Folks.php:144 lib/Folks.php:148
+msgid "Pisces"
+msgstr "Zivs"
+
+#: lib/Forms/Login.php:37
+#, fuzzy
+msgid "Please enter the text above"
+msgstr "Lūdzu ievadiet pareizu laiku."
+
+#: account/resetpassword.php:50
+msgid "Please respond to your security question: "
+msgstr "Lūdzu, atbildiet uz drošības jautājumu:"
+
+#: popularity.php:14 templates/list/list.php:6 templates/user/user.php:103
+msgid "Popularity"
+msgstr "Popularitāte"
+
+#: lib/Forms/Activity.php:25
+msgid "Post"
+msgstr "Post"
+
+#: config/prefs.php:12 templates/user/user.php:146 templates/user/user.php:171
+#: templates/user/user.php:196 templates/user/user.php:223
+#: templates/user/user.php:249 templates/user/user.php:277
+#: templates/user/user.php:303 templates/user/user.php:336
+msgid "Preview"
+msgstr "Priekšskats"
+
+#: edit/privacy.php:16 edit/tabs.php:19
+#, fuzzy
+msgid "Privacy"
+msgstr "Privātums atslēgts"
+
+#: edit/privacy.php:28
+msgid "Private"
+msgstr "Privāti"
+
+#: edit/privacy.php:24
+msgid "Public"
+msgstr "Publisks"
+
+#: edit/privacy.php:25
+msgid "Public - only authenticated users can see my personal data"
+msgstr ""
+
+#: edit/privacy.php:27
+msgid "Public - only my friends can see my presonal data"
+msgstr ""
+
+#: lib/Block/Random.php:14
+#, fuzzy
+msgid "Random users"
+msgstr "Uzstādīt &lietotājus"
+
+#: lib/Block/Recent.php:14
+#, fuzzy
+msgid "Recent visitors"
+msgstr "Visi apmeklētāji"
+
+#: edit/friends/for.php:41
+msgid "Reject"
+msgstr "Atteikt"
+
+#: lib/Forms/Login.php:26
+#, fuzzy
+msgid "Remember login?"
+msgstr "Pieslēgšanās uzdevumi"
+
+#: edit/friends/blacklist.php:69 edit/friends/friends.php:34
+#: edit/friends/index.php:33
+msgid "Remove"
+msgstr "Aizvākt"
+
+#: edit/friends/groups.php:52 edit/friends/groups.php:61
+#: templates/edit/groups.php:26
+msgid "Rename"
+msgstr "Pārdēvēt"
+
+#: edit/friends/groups.php:49
+#, fuzzy
+msgid "Rename group"
+msgstr " Grupas vārds "
+
+#: account/renew.php:13
+#, fuzzy
+msgid "Renew account"
+msgstr "Konta informācija"
+
+#: report.php:26 report.php:43 templates/user/actions.php:24
+#, fuzzy
+msgid "Report"
+msgstr "Pieteikt kā nevainīgu"
+
+#: report.php:38 report.php:47
+#, fuzzy
+msgid "Report reason"
+msgstr "Pieteikt kā nevainīgu"
+
+#: report.php:37 report.php:46
+#, fuzzy
+msgid "Report type"
+msgstr "Līknes tips:"
+
+#: templates/user/actions.php:23
+#, fuzzy
+msgid "Report user"
+msgstr " Lietotāja izvēlne "
+
+#: config/prefs.php:71
+msgid ""
+"Require my confirmation if someone would like to add me to his freidn list."
+msgstr ""
+
+#: edit/friends/groups.php:52 edit/password.php:180
+msgid "Reset"
+msgstr "Atsākt no jauna"
+
+#: account/resetpassword.php:27
+#, fuzzy
+msgid "Reset Your Password"
+msgstr "Atjaunojiet savu paroli"
+
+#: lib/Folks.php:180 lib/Folks.php:184
+msgid "Sagittarius"
+msgstr "Strēlnieks"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
+#
+#: edit/comments.php:37 edit/edit.php:49 edit/edit.php:54 save_search.php:46
+msgid "Save"
+msgstr "Saglabāt"
+
+#: templates/list/search.php:3
+msgid "Save search criteria"
+msgstr "Saglabāt meklēšanas kritērijus"
+
+#: lib/Folks.php:176 lib/Folks.php:180
+msgid "Scorpio"
+msgstr "Skorpions"
+
+#: lib/Folks.php:302 lib/Forms/Search.php:25 search.php:15
+msgid "Search"
+msgstr "Meklēt"
+
+#: lib/Forms/Search.php:18
+msgid "Search by"
+msgstr "Meklēt pēc"
+
+#: save_search.php:35
+#, fuzzy
+msgid "Search criteria deleted."
+msgstr "Nav meklēšanas kritēriju"
+
+#: save_search.php:25
+#, fuzzy
+msgid "Search criteria saved successfuly"
+msgstr "Nav norādīti meklēšanas kritēriji"
+
+#: account/resetpassword.php:52 edit/password.php:185
+msgid "Security answer"
+msgstr "Drošības atbilde"
+
+#: edit/password.php:182
+#, fuzzy
+msgid "Security question"
+msgstr "<msgid>question.digit</msgid> <msgstr>1</msgstr>"
+
+#: edit/password.php:179
+msgid "Security question used when reseting password"
+msgstr "Drošības jautājums paroles maiņai"
+
+#: account/username.php:17
+#, fuzzy
+msgid "Send me my username"
+msgstr "Vai ievadiet lietotāja vārdu:"
+
+#: edit/friends/for.php:46 edit/friends/friends.php:43
+#: edit/friends/from.php:38 edit/friends/index.php:42 edit/friends/know.php:42
+#: edit/friends/of.php:38 lib/Block/Friends.php:77 lib/Block/Know.php:40
+#: lib/Block/New.php:54 lib/Block/Random.php:61 lib/Block/Recent.php:49
+#: templates/friends/friends.php:32 templates/friends/friends.php:51
+#: templates/user/actions.php:7
+msgid "Send message"
+msgstr "Sūtīt vēstuli"
+
+#: templates/user/actions.php:6
+#, fuzzy
+msgid "Send private message"
+msgstr "Sūtīt vēstuli bez temata?"
+
+#: templates/user/actions.php:9
+msgid "Send this profile to a friend"
+msgstr ""
+
+#: lib/Folks.php:301
+msgid "Services"
+msgstr "Servisi"
+
+#: config/prefs.php:21
+msgid "Set account action details"
+msgstr ""
+
+#: config/prefs.php:28
+#, fuzzy
+msgid "Set activity preferences"
+msgstr "Kā parametros"
+
+#: config/prefs.php:14
+#, fuzzy
+msgid "Set users preview paramaters"
+msgstr "Mainīt citu lietotāju pieejas tiesības"
+
+#: config/prefs.php:19 config/prefs.php:26
+msgid "Settings"
+msgstr "Iestatījumi"
+
+#: lib/Block/Friends.php:23
+#, fuzzy
+msgid "Show friends that are"
+msgstr "Rādīt tikai notikumus ar atgādinājumu?"
+
+#: account/signup.php:50
+msgid "Sign up"
+msgstr "Reģistrēties"
+
+#: templates/list/list.php:20 templates/list/list.php:41
+msgid "Sort Direction"
+msgstr "Šķirošanas secība"
+
+#: config/prefs.php:37 config/prefs.php:46
+msgid "Sort by"
+msgstr "Šķirot pēc"
+
+#: templates/list/list.php:27
+#, fuzzy
+msgid "Sort by Age"
+msgstr "Šķirot tikai pēc %s"
+
+#: templates/list/list.php:35
+#, fuzzy
+msgid "Sort by Albums"
+msgstr "Šķirot tikai pēc %s"
+
+#: templates/list/list.php:29
+#, fuzzy
+msgid "Sort by City"
+msgstr "Šķirot tikai pēc %s"
+
+#: templates/list/list.php:33
+#, fuzzy
+msgid "Sort by Description"
+msgstr "Meklē pēc apraksta"
+
+#: templates/list/list.php:25
+#, fuzzy
+msgid "Sort by Gender"
+msgstr "Šķirot tikai pēc %s"
+
+#: templates/list/list.php:31
+#, fuzzy
+msgid "Sort by Homepage"
+msgstr "Šķirot tikai pēc %s"
+
+#: templates/list/list.php:23
+#, fuzzy
+msgid "Sort by Username"
+msgstr "Šķirot tikai pēc %s"
+
+#: templates/list/list.php:37
+#, fuzzy
+msgid "Sort by Video"
+msgstr "Šķirot tikai pēc %s"
+
+#: edit/privacy.php:37 templates/edit/friends.php:15
+#: templates/user/user.php:41
+msgid "Status"
+msgstr "Statuss"
+
+#: edit/friends/invite.php:26
+msgid "Subject"
+msgstr "Temats"
+
+#: account/signup.php:36
+#, php-format
+msgid ""
+"Submitted request to add \"%s\" to the system. You cannot log in until your "
+"request has been approved."
+msgstr ""
+"Iesniegts pieteikums pievienot \"%s\" sistēmai. Jūs nevarat ieiet kamēr "
+"pieteikums nav apstiprināts."
+
+#: lib/Folks.php:152 lib/Folks.php:156
+msgid "Taurus"
+msgstr "Vērsis"
+
+#: report.php:29
+msgid "Terms and conditions infringement"
+msgstr ""
+
+#: account/approve.php:58 account/renew.php:58
+msgid ""
+"The code is not right. If you copy and paste the link from your email, "
+"please check if you copied the whole string."
+msgstr ""
+
+#: account/resetpassword.php:54
+msgid ""
+"The picture above is for antispam checking. Please retype the characters "
+"from the picture. They are case sensitive."
+msgstr ""
+
+#: templates/edit/activity.php:7
+msgid "There is no activity logged for your account."
+msgstr ""
+
+#: account/signup.php:46
+#, fuzzy, php-format
+msgid "There was a problem adding \"%s\" to the system: %s"
+msgstr "Kļūme pievienojot \"%s\" sistēmai: %s"
+
+#
+#: login.php:185
+#, fuzzy
+msgid "This account was deleted or is expired."
+msgstr "Piezīme izdzēsta."
+
+#: login.php:179
+msgid ""
+"This account was still not activated. Check your inbox, we send you the "
+"activation code there."
+msgstr ""
+
+#: lib/Block/MyComments.php:47
+msgid "Title"
+msgstr "Virsraksts"
+
+#: lib/Friends/application.php:23 lib/Friends/application.php:38
+#: lib/Friends/application.php:53 lib/Friends/application.php:68
+#: lib/Friends/application.php:83 lib/Friends/application.php:98
+msgid "Unsupported"
+msgstr "Neatbalstīts"
+
+#: perms.php:212
+#, php-format
+msgid "Updated \"%s\"."
+msgstr "\"%s\" mainīts."
+
+#: edit/edit.php:65
+msgid "Updated his/her profile details."
+msgstr ""
+
+#: edit/edit.php:67
+msgid "Updated his/her profile picture."
+msgstr ""
+
+#: edit/edit.php:40
+#, fuzzy
+msgid "Upload a new video"
+msgstr "Google Video Pointer"
+
+#: scripts/mail.php:134
+#, fuzzy, php-format
+msgid "Usage: %s [OPTIONS]..."
+msgstr "Lietošana: %s [izvēles] [<intervāls> [<skaits>]]\n"
+
+#: lib/Block/MyComments.php:48 report.php:45
+msgid "User"
+msgstr "Lietotājs"
+
+#: lib/Driver.php:299 lib/Driver/sql.php:311
+#, php-format
+msgid "User \"%s\" does not exists."
+msgstr "Lietotājs \"%s\" neeksistē."
+
+#: lib/Friends.php:223 lib/Friends.php:292
+#, php-format
+msgid "User \"%s\" does not exits"
+msgstr "Lietotājs \"%s\" neeksistē"
+
+#: lib/Friends.php:300
+#, fuzzy, php-format
+msgid "User \"%s\" is already in fiend list"
+msgstr ""
+"#-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#\n"
+"Lietotājs \"%s\" jau eksistē\n"
+"#-#-#-#-#  admin.po (admin)  #-#-#-#-#\n"
+"Lietotājs \"%s\" jau eksistē."
+
+#: lib/Friends.php:308
+#, php-format
+msgid ""
+"User \"%s\" is already in fiend list, but we are waiting his/her approval."
+msgstr ""
+
+#: account/renew.php:38
+#, php-format
+msgid "User \"%s\" is not market to be in the removal process."
+msgstr ""
+
+#: edit/friends/add.php:55
+#, fuzzy, php-format
+msgid "User \"%s\" was added as your friend."
+msgstr "Notikums pievienots Jūsu kalendāram."
+
+#: edit/friends/blacklist.php:38
+#, fuzzy, php-format
+msgid "User \"%s\" was added to your blacklist."
+msgstr "Notikums pievienots Jūsu kalendāram."
+
+#: account/approve.php:38
+#, fuzzy, php-format
+msgid "User \"%s\" was already activated."
+msgstr "\"%s\" jau eksistē un netika importēts."
+
+#: edit/friends/approve.php:33
+#, php-format
+msgid "User \"%s\" was confirmed as a friend."
+msgstr ""
+
+#: edit/friends/reject.php:32
+#, php-format
+msgid "User \"%s\" was rejected as a friend."
+msgstr ""
+
+#: edit/friends/blacklist.php:30
+#, fuzzy, php-format
+msgid "User \"%s\" was removed from your blacklist."
+msgstr "Adrese \"%s\" pievienota Melnajam sarakstam."
+
+#: edit/friends/add.php:30
+#, fuzzy, php-format
+msgid "User \"%s\" was removed from your friend list."
+msgstr "Adrese \"%s\" pievienota Baltajam sarakstam."
+
+#: edit/friends/add.php:41
+#, php-format
+msgid ""
+"User %s added you to his firends list on %s. \n"
+"To approve, go to: %s \n"
+"To reject, go to: %s \n"
+"To see to his profile, go to: %s \n"
+msgstr ""
+
+#: edit/friends/approve.php:39
+#, php-format
+msgid ""
+"User %s confirmed you as a friend on %s.. \n"
+"To see to his profile, go to: %s \n"
+msgstr ""
+
+#: templates/user/user.php:369
+#, fuzzy, php-format
+msgid "User %s does not wish to be commented."
+msgstr "Vēstulei nav norādīts temats."
+
+#: templates/user/deleted.php:5
+#, fuzzy, php-format
+msgid "User %s has been disabled."
+msgstr "Baterija tika ielikta."
+
+#: templates/user/inactive.php:5
+#, fuzzy, php-format
+msgid "User %s is inactive."
+msgstr "Kolonnas lielums ir lietotājam maināms"
+
+#: login.php:52
+#, php-format
+msgid ""
+"User %s just logged in.\n"
+"%s"
+msgstr ""
+
+#: edit/friends/reject.php:38
+#, php-format
+msgid ""
+"User %s rejected you as a friend on %s.. \n"
+"To see to his profile, go to: %s \n"
+msgstr ""
+
+#: templates/user/authenticated.php:5
+#, php-format
+msgid ""
+"User %s would like to his profile remains visible only to authenticated "
+"users."
+msgstr ""
+
+#: templates/user/friends.php:5
+#, php-format
+msgid "User %s would like to his profile remains visible only to his friends."
+msgstr ""
+
+#: templates/user/private.php:5
+#, fuzzy, php-format
+msgid "User %s would like to remain private."
+msgstr "Vēlamies atgādināt par šī notikuma tuvošanos."
+
+#: account/signup.php:18
+#, fuzzy
+msgid "User Registration has been disabled for this site."
+msgstr "Lietotāju reģistrācija ir izslēgta."
+
+#: lib/Friends/facebook.php:78
+#, fuzzy
+msgid "User has no link."
+msgstr " %%var makro nav noklusētā "
+
+#: lib/Block/Random.php:28
+#, fuzzy
+msgid "User is currently online?"
+msgstr "Kolonnas lielums ir lietotājam maināms"
+
+#: report.php:18
+#, fuzzy
+msgid "User is not selected"
+msgstr "Lietotāja rokasgrāmata nav instalēta lokāli."
+
+#: templates/user/actions.php:26
+msgid "User list"
+msgstr "Lietotāju saraksts"
+
+#: report.php:54 report.php:60
+#, fuzzy
+msgid "User was not reported."
+msgstr "Grupa nav izveidota: %s."
+
+#: report.php:57
+#, fuzzy
+msgid "User was reported."
+msgstr "\"%s\" nav radīts: %s."
+
+#: account/resetpassword.php:46 config/prefs.php:36 lib/Forms/AddFriend.php:16
+#: lib/Forms/Login.php:20 templates/edit/friends.php:14
+#: templates/list/list.php:24
+msgid "Username"
+msgstr "Lietotāja vārds"
+
+#: templates/user/actions.php:27
+msgid "Users"
+msgstr "Lietotāji"
+
+#: templates/list/list.php:9
+msgid "Users celebrating birthday today"
+msgstr ""
+
+#: templates/list/list.php:3
+#, fuzzy
+msgid "Users currently online"
+msgstr "Izmantot tiešsaistes versiju"
+
+#: edit/friends/for.php:15
+msgid "Users waiting our approval"
+msgstr ""
+
+#: edit/edit.php:41 lib/Forms/Search.php:23 templates/list/list.php:38
+msgid "Video"
+msgstr "Video"
+
+#: edit/friends/blacklist.php:73 edit/friends/for.php:33
+#: edit/friends/friends.php:38 edit/friends/from.php:33
+#: edit/friends/index.php:37 edit/friends/know.php:37 edit/friends/of.php:33
+#: lib/Block/Friends.php:73 lib/Block/Know.php:36 lib/Block/New.php:50
+#: lib/Block/Random.php:57 lib/Block/Recent.php:45
+#: templates/friends/friends.php:28 templates/friends/friends.php:47
+#, fuzzy
+msgid "View profile"
+msgstr "Krāsu profils"
+
+#: lib/Folks.php:168 lib/Folks.php:172
+msgid "Virgo"
+msgstr "Jaunava"
+
+#: templates/user/user.php:109
+#, fuzzy
+msgid "Visit my homepage"
+msgstr "Jūsu informācija"
+
+#: templates/edit/header.php:31
+#, fuzzy
+msgid "Wainting for"
+msgstr "Nosaukums priekš \"%s\":"
+
+#: templates/edit/header.php:32
+#, fuzzy
+msgid "Wainting from"
+msgstr "No tēmas"
+
+#: edit/friends/of.php:15
+#, fuzzy
+msgid "We are friends of"
+msgstr "Vai mēs rādam logu"
+
+#: edit/activity.php:31 friends.php:22 user.php:48
+#, fuzzy
+msgid "What are you doing right now?"
+msgstr "Pie kā Jūs šobrīd strādājat?"
+
+#: edit/comments.php:35
+msgid "Who can post comments to your profile"
+msgstr ""
+
+#: edit/privacy.php:43
+msgid "Who can see my acticity log on my profile"
+msgstr ""
+
+#: edit/privacy.php:40
+msgid "Who can see when I was last time online"
+msgstr ""
+
+#: lib/Forms/Search.php:17
+#, fuzzy
+msgid "Word"
+msgstr "Word dokuments"
+
+#: config/prefs.php:61 config/prefs.php:70 config/prefs.php:79
+#: config/prefs.php:88 edit/privacy.php:46 templates/list/list.php:77
+#: templates/list/list.php:78 templates/list/list.php:79
+#: templates/list/list.php:80
+msgid "Yes"
+msgstr "Jā"
+
+#: lib/Forms/Login.php:28
+msgid "Yes, remember me so the next time I don't neet to login"
+msgstr ""
+
+#: account/approve.php:55 account/renew.php:55
+msgid "You account is activated, you can login now."
+msgstr ""
+
+#: lib/Friends/shared.php:156
+#, fuzzy, php-format
+msgid "You already have a group named \"%s\"."
+msgstr "Fails ar nosaukumu '%s' jau eksistē."
+
+#: login.php:135
+msgid "You are entering your data too fast!"
+msgstr ""
+
+#: templates/user/user.php:377 templates/user/user.php:394
+#, fuzzy, php-format
+msgid "You are on %s blacklist."
+msgstr "Jums ir palicis maz baterijas."
+
+#: templates/user/friends.php:9 templates/user/private.php:10
+#, fuzzy, php-format
+msgid "You can still send a private message to user %s."
+msgstr "Jūs pāradresēt šo vēstuli %s %%s."
+
+#: lib/Friends.php:228
+#, fuzzy, php-format
+msgid "You cannot add \"%s\" to your blacklist."
+msgstr "Adrese \"%s\" pievienota Melnajam sarakstam."
+
+#: lib/Friends.php:286
+msgid "You cannot add yourself as your own friend."
+msgstr ""
+
+#: lib/Friends.php:217
+msgid "You cannot add yourself to your blacklist."
+msgstr ""
+
+#: lib/Api.php:302
+msgid "You cannot log activities for other users."
+msgstr ""
+
+#: lib/Driver.php:666 lib/Forms/Activity.php:35
+msgid "You cannot post an empty activity message."
+msgstr ""
+
+#: account/approve.php:18 account/renew.php:18
+#, fuzzy
+msgid "You must supply a confirmation code."
+msgstr "Jānorāda dzēšamā lietotāja vārds."
+
+#: account/approve.php:25 account/renew.php:25 edit/friends/approve.php:21
+#: edit/friends/reject.php:21
+#, fuzzy
+msgid "You must supply a username."
+msgstr "Jānorāda dzēšamā lietotāja vārds."
+
+#: templates/friends/friends.php:62
+#, fuzzy
+msgid "Your activities"
+msgstr "Darbību saraksts:\n"
+
+#: edit/comments.php:78
+#, fuzzy
+msgid "Your comments preference was sucessfuly saved."
+msgstr "Vēstule veiksmīgi nogādāta."
+
+#: edit/edit.php:63 edit/privacy.php:62
+#, fuzzy
+msgid "Your data were successfully updated."
+msgstr "Iestatījumi veiksmīgi atjaunināti."
+
+#: account/username.php:18
+#, fuzzy
+msgid "Your email"
+msgstr "Jūsu e-pasta adrese"
+
+#: edit/edit.php:78
+#, fuzzy
+msgid "Your image was deleted successfully."
+msgstr "Vēstule veiksmīgi nogādāta."
+
+#: account/resetpassword.php:81
+#, fuzzy, php-format
+msgid ""
+"Your new password for %s is: %s. \n"
+"\n"
+" It was requested by %s on %s"
+msgstr "Jūsu jaunā %s parole ir: %s"
+
+#: edit/password.php:64
+#, php-format
+msgid ""
+"Your new password is too long; passwords may not be more than %d characters "
+"long!"
+msgstr ""
+"Jaunā parole ir pārāk gara; paroles garums nedrīkst pārsniegt %d zīmes!"
+
+#: edit/password.php:143
+msgid "Your new password is too simple to guess!  Not changed!"
+msgstr "Jūs jaunā parole ir viegli uzminama! Nomaiņa nav veikta!"
+
+#: edit/password.php:134
+msgid "Your new password is too simple to guess. Not changed!"
+msgstr "Jūs jaunā parole ir viegli uzminama. Nomaiņa nav veikta!"
+
+#: edit/password.php:59
+#, php-format
+msgid "Your new password must be at least %d characters long!"
+msgstr "Jaunajai parolei jābūt vismaz %d zīmes garai!"
+
+#: edit/password.php:43
+msgid "Your new password must be different from your current password"
+msgstr "Vecajai un jaunajai parolei ir jāatšķiras."
+
+#: edit/password.php:104
+#, php-format
+msgid "Your new password must contain at least %d alphabetic characters."
+msgstr "Jaunajai parolei jāsatur vismaz %d alfabēta burtu."
+
+#: edit/password.php:109
+#, php-format
+msgid "Your new password must contain at least %d alphanumeric characters."
+msgstr "Jaunajai parolei jāsatur vismaz %d burtu un ciparu."
+
+#: edit/password.php:114
+#, php-format
+msgid ""
+"Your new password must contain at least %d different types of characters. "
+"The types are: lower, upper, numeric, and symbols."
+msgstr ""
+"Jaunajai parolei jāsatur vismaz %d dažāda veida zīmes. Tie būtu: parastie un "
+"kapitalizētie burti, cipari un simboli."
+
+#: edit/password.php:94
+#, php-format
+msgid "Your new password must contain at least %d lowercase characters."
+msgstr "Jaunajai parolei jāsatur vismaz %d mazo burtu."
+
+#: edit/password.php:99
+#, php-format
+msgid "Your new password must contain at least %d numeric characters."
+msgstr "Jaunajai parolei jāsatur vismaz %d ciparu."
+
+#: edit/password.php:89
+#, php-format
+msgid "Your new password must contain at least %d uppercase characters."
+msgstr "Jaunajai parolei jāsatur vismaz %d kapitalizēto burtu."
+
+#: edit/password.php:120
+#, php-format
+msgid "Your new password must contain less than %d whitespace characters."
+msgstr "Jaunā parole drīkst saturēt ne vairāk kā %d tukšumus."
+
+#: edit/password.php:122
+msgid "Your new password must not contain whitespace characters."
+msgstr "Jaunā parole nedrīkst saturēt tukšumus."
+
+#: edit/password.php:49
+msgid "Your old password didn't match"
+msgstr "Vecā parole neatbilst"
+
+#: account/resetpassword.php:87
+msgid "Your password has been reset"
+msgstr "Jūsu parole ir atjaunota"
+
+#: account/resetpassword.php:89
+#, php-format
+msgid ""
+"Your password has been reset, check your email (%s) and log in with your new "
+"password."
+msgstr ""
+"Jūsu parole ir atjaunota, pārbaudiet savu e-pastu (%s) un pieslēdzieties ar "
+"jauno paroli."
+
+#: edit/password.php:175
+#, fuzzy
+msgid "Your securiy questions was updated."
+msgstr "Notikums atsvaidzināts Jūsu kalendārā."
+
+#: account/username.php:32
+#, php-format
+msgid ""
+"Your username on %s %s is: %s. \n"
+"\n"
+" It was requested by %s on %s"
+msgstr ""
+
+#: login.php:156
+msgid "Your username or password is incorrect."
+msgstr "Nepareizs lietotāja vārds vai parole."
+
+#: account/username.php:39
+#, fuzzy
+msgid "Your username was requested"
+msgstr "Lūdzu ievadiet lietotāja vārdu."
+
+#: account/username.php:41
+#, php-format
+msgid "Your username was sent, check your email (%s)."
+msgstr ""
+
+#: login.php:172
+#, php-format
+msgid ""
+"Your username was temporary deacirvated. For any additional information "
+"please write to %s, and don't forgot to incluide your username."
+msgstr ""
+
+#: edit/password.php:29
+msgid "type the password twice to confirm"
+msgstr "lai apstiprinātu, ievadiet paroli divreiz"

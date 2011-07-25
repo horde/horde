@@ -1,112 +1,115 @@
-# Latvian translations for Horde_Kolab_FreeBusy module.
-# Copyright (C) 2010 Horde Project
-# This file is distributed under the same license as the Horde_Kolab_FreeBusy module.
-# Automatically generated, 2010.
+# Latvian translations for Horde_Kolab_FreeBusy package.
+# Copyright (C) 2011 Horde Project
+# This file is distributed under the same license as the Horde_Kolab_FreeBusy package.
+# Automatically generated, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_FreeBusy\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"PO-Revision-Date: 2011-07-20 14:16+0300\n"
+"Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
+"X-Poedit-Language: Latvian\n"
+"X-Poedit-Country: LATVIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:241
+#: lib/Horde/Kolab/FreeBusy/View.php:229
 msgid "401 Unauthorized"
-msgstr ""
+msgstr "401 Nav autorizēts"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:220
+#: lib/Horde/Kolab/FreeBusy/View.php:208
 msgid "404 Not Found"
-msgstr ""
+msgstr "404 Nav atrasts"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:258
+#: lib/Horde/Kolab/FreeBusy/View.php:246
 msgid "500 Server Error"
-msgstr ""
+msgstr "500 Servera Kļūda"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:258
+#: lib/Horde/Kolab/FreeBusy/View.php:246
 msgid "Error"
 msgstr "Kļūda"
 
-#: lib/Horde/Kolab/FreeBusy/Report.php:66
-#, fuzzy
+#: lib/Horde/Kolab/FreeBusy/Report.php:53
 msgid "Errors:"
-msgstr "Kļūda"
+msgstr "Kļūdas:"
 
-#: lib/Horde/Kolab/FreeBusy/Report.php:58
+#: lib/Horde/Kolab/FreeBusy/Report.php:45
 #, php-format
 msgid "Failed regenerating calendar %s: %s"
-msgstr ""
+msgstr "Nevar reģenerēt kalendāru %s: %s"
 
-#: lib/Horde/Kolab/FreeBusy/Imap.php:141
+#: lib/Horde/Kolab/FreeBusy/Imap.php:128
 #, php-format
 msgid "Folder %s does not exist!"
-msgstr ""
+msgstr "Mape %s nepastāv!"
 
-#: lib/Horde/Kolab/FreeBusy/Imap.php:148
+#: lib/Horde/Kolab/FreeBusy/Imap.php:135
 #, php-format
 msgid "Folder %s has type \"%s\" not \"event\"!"
-msgstr ""
+msgstr "Mapes %s tips ir \"%s\" nevis \"event\"!"
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:196
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:183
 #, php-format
 msgid "Invalid authentication for user %s!"
-msgstr ""
+msgstr "Nederīga lietotāja %s autentifikācija!"
 
 #: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:218
 #, php-format
 msgid "No such account %s!"
-msgstr ""
+msgstr "Konts %s nepastāv!"
 
 #: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php:82
 #, php-format
 msgid "No such folder %s"
-msgstr ""
+msgstr "Mape %s nepastāv"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:220
+#: lib/Horde/Kolab/FreeBusy/View.php:208
 msgid "Not found"
-msgstr ""
+msgstr "Nav atrasts"
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:192
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:179
 msgid "Please authenticate!"
-msgstr ""
+msgstr "Lūdzu, autentificējieties!"
 
-#: lib/Horde/Kolab/FreeBusy/Report.php:45
+#: lib/Horde/Kolab/FreeBusy/Report.php:32
 msgid "Starting to regenerate the free/busy cache..."
-msgstr ""
+msgstr "Sāk reģenerēt brīvs/aizņemts kešu..."
 
-#: lib/Horde/Kolab/FreeBusy/Report.php:74
+#: lib/Horde/Kolab/FreeBusy/Report.php:61
 msgid "Successfully regenerated all calendar caches!"
-msgstr ""
+msgstr "Veiksmīgi reģenerēti visu kalendāru keši."
 
-#: lib/Horde/Kolab/FreeBusy/Report.php:51
+#: lib/Horde/Kolab/FreeBusy/Report.php:38
 #, php-format
 msgid "Successfully regenerated calendar \"%s\"!"
-msgstr ""
+msgstr " \"%s\" kalendārs veiksmīgi reģenerēts!"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:218
+#: lib/Horde/Kolab/FreeBusy/View.php:206
 #, php-format
 msgid "The requested URL %s was not found on this server."
-msgstr ""
+msgstr "Pieprasītā saite %s nav atrodama uz šī servera."
 
 #: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php:197
 msgid "Unable to determine owner of the free/busy data!"
-msgstr ""
+msgstr "Nav iespējams noteikt brīvs/aizņemts datu īpašnieku!"
 
 #: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:295
 #, php-format
 msgid "Unable to read free/busy information from %s"
-msgstr ""
+msgstr "Nav iespējams nolasīt brīvs/aizņemts informāciju no %s"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:241
+#: lib/Horde/Kolab/FreeBusy/View.php:229
 msgid "Unauthorized"
-msgstr ""
+msgstr "Nav autorizēts"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:242
+#: lib/Horde/Kolab/FreeBusy/View.php:230
 msgid "You are not authorized to access the requested URL."
-msgstr ""
+msgstr "Jums nav atļauts piekļūt pieprasītajai saitei."

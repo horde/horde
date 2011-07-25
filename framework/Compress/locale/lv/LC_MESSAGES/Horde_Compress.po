@@ -1,45 +1,49 @@
-# Latvian translations for Horde_Compress module.
-# Copyright (C) 2010 Horde Project
-# This file is distributed under the same license as the Horde_Compress module.
-# Automatically generated, 2010.
+# Latvian translations for Horde_Compress package.
+# Copyright (C) 2011 Horde Project
+# This file is distributed under the same license as the Horde_Compress package.
+# Automatically generated, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Compress\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"PO-Revision-Date: 2011-07-18 23:02+0300\n"
+"Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
+"X-Poedit-Language: Latvian\n"
+"X-Poedit-Country: LATVIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
-#: lib/Horde/Compress/Rar.php:54
+#: lib/Horde/Compress/Rar.php:55
 msgid "Invalid RAR data."
-msgstr ""
+msgstr "Nederīgi RAR dati."
 
-#: lib/Horde/Compress/Zip.php:197 lib/Horde/Compress/Zip.php:224
-#: lib/Horde/Compress/Zip.php:244
+#: lib/Horde/Compress/Zip.php:202 lib/Horde/Compress/Zip.php:229
+#: lib/Horde/Compress/Zip.php:249
 msgid "Invalid ZIP data"
-msgstr ""
+msgstr "Nederīgi ZIP dati"
 
-#: lib/Horde/Compress/Dbx.php:128 lib/Horde/Compress/Dbx.php:157
-#: lib/Horde/Compress/Dbx.php:238
+#: lib/Horde/Compress/Dbx.php:127 lib/Horde/Compress/Dbx.php:156
+#: lib/Horde/Compress/Dbx.php:237
 msgid "Invalid file format"
-msgstr ""
+msgstr "Nepareizs faila formāts"
 
-#: lib/Horde/Compress/Zip.php:93
+#: lib/Horde/Compress/Zip.php:100
 msgid "This server can't compress zip files."
-msgstr ""
+msgstr "Serveris nevar sakompresēt zip failus."
 
 #: lib/Horde/Compress/Gzip.php:42
 msgid "This server can't uncompress gzip files."
-msgstr ""
+msgstr "Serveris nevar atvērt gzip failus."
 
 #: lib/Horde/Compress/Gzip.php:49 lib/Horde/Compress/Gzip.php:79
-#: lib/Horde/Compress/Tar.php:74
+#: lib/Horde/Compress/Tar.php:76
 msgid "Unable to decompress data."
-msgstr ""
+msgstr "Nevar izekstraģēt datus."

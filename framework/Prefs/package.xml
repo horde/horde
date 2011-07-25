@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Update Latvian translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -742,7 +742,7 @@ Initial release as a PEAR package
    <date>2011-07-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Update Latvian translation.
    </notes>
   </release>
  </changelog>

@@ -1,32 +1,35 @@
-# Latvian translations for Horde_Cli module.
-# Copyright (C) 2010 Horde Project
-# This file is distributed under the same license as the Horde_Cli module.
-# Automatically generated, 2010.
+# Latvian translations for Horde_Cli package.
+# Copyright (C) 2011 Horde Project
+# This file is distributed under the same license as the Horde_Cli package.
+# Automatically generated, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Cli\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"PO-Revision-Date: 2011-07-18 22:40+0300\n"
+"Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
+"X-Poedit-Language: Latvian\n"
+"X-Poedit-Country: LATVIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
-#: lib/Horde/Cli.php:383
+#: lib/Horde/Cli.php:368
 #, php-format
 msgid "\"%s\" is not a valid choice."
-msgstr ""
+msgstr "\"%s\" nav pieļaujama izvēle."
 
-#: lib/Horde/Cli.php:338
-#, fuzzy
+#: lib/Horde/Cli.php:323
 msgid "Fatal Error:"
-msgstr "Ielādes klūda:"
+msgstr "Kritiska kļūda:"
 
-#: lib/Horde/Cli.php:372
-msgid "Type your choice: "
-msgstr ""
+#: lib/Horde/Cli.php:353
+msgid "Type your choice"
+msgstr "Ievadiet savu izvēli"

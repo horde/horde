@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* [jan] Update Latvian translation.
 * [mjr] Add dependency on Horde_Support to better support logging features.
  </notes>
  <contents>
@@ -594,6 +595,7 @@
    <date>2011-07-14</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
+* [jan] Update Latvian translation.
 * [mjr] Add dependency on Horde_Support to better support logging features.
    </notes>
   </release>

@@ -2,6 +2,7 @@
 v4.0-git
 --------
 
+[jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
 [rla] Added new driver 'horde' which uses the update() function of horde's
       current auth driver
 [rla] Formal conversion of all drivers to Horde 4 Exceptions. Some may need

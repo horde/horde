@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Update Latvian translation.
 * Explicitly build MIME IDs when doing a findBody() search.
  </notes>
  <contents>
@@ -702,7 +703,8 @@
    <date>2011-07-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Update Latvian translation.
+* Explicitly build MIME IDs when doing a findBody() search.
    </notes>
   </release>
  </changelog>

@@ -30,7 +30,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Update Latvian translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -761,7 +761,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <date>2011-07-21</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Update Latvian translation.
    </notes>
   </release>
  </changelog>
