@@ -16,7 +16,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 $permission = 'activesync';
 Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
+if (!$registry->isAdmin() &&
     !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
     $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
 }
@@ -60,7 +60,8 @@ $js = array();
 foreach ($devices as $key => $val) {
     $js[$key] = array(
         'id' => $val['device_id'],
-        'user' => $val['device_user']
+        'user' => $val['device_user'],
+        'policykey' => $val['device_policykey']
     );
 }
 
@@ -187,7 +188,7 @@ foreach ($devices as $key => $device) {
 
     /* Add it */
     $tree->addNode(
-        $device['device_id'],
+        $device['device_id'] . $device['device_user'],
         $device['device_user'],
         $device['device_type']. ' | ' . $device['device_agent'],
         0,
