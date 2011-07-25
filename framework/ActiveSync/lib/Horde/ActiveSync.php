@@ -328,6 +328,8 @@ class Horde_ActiveSync
      */
     public function handleRequest($cmd, $devId)
     {
+        $this->_logger->debug('['. $devId . '] ' . strtoupper($cmd) . ' request received for user ' . $this->_driver->getUser());
+
         // Don't bother with everything else if all we want are Options
         if ($cmd == 'Options') {
             self::activeSyncHeader();

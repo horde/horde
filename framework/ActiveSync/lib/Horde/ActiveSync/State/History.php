@@ -419,6 +419,8 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      */
     public function loadDeviceInfo($devId, $user)
     {
+        $this->_logger->debug('[' . $devId . '] loadDeviceInfo: ' . $user);
+
         // See if we already have this device, for this user loaded
         if ($this->_devId == $devId && !empty($this->_deviceInfo) &&
             $user == $this->_deviceInfo->user) {
