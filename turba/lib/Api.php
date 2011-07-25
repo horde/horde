@@ -505,6 +505,7 @@ class Turba_Api extends Horde_Registry_Api
         if (empty($sources)) {
             $sources = array(Turba::getDefaultAddressbook());
         }
+
         if (empty($sources)) {
             throw new Turba_Exception(_("No address book specified"));
         }
@@ -515,6 +516,7 @@ class Turba_Api extends Horde_Registry_Api
         if (!empty($end)) {
             $filter[] = array('op' => '<', 'field' => 'ts', 'value' => $end);
         }
+
         foreach ($sources as $source) {
             if (empty($source) || !isset($cfgSources[$source])) {
                 throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $source));
@@ -532,14 +534,17 @@ class Turba_Api extends Horde_Registry_Api
                 'turba:' . $driver->getName() . ':',
                 '',
                 array_keys($histories));
+
             $include = array();
             foreach ($nguids as $id) {
-                $object = $driver->getObject($id);
+                $list = $driver->search(array('__uid' => $uid));
+                $object = $list->next();
                 if ($object->isGroup()) {
                     continue;
                 }
                 $include[] = $id;
             }
+
             // Strip leading turba:addressbook:.
             $uids = array_merge($uids, $include);
         }
