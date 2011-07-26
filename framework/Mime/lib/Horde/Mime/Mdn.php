@@ -196,7 +196,8 @@ class Horde_Mime_Mdn
         $msg->setContentTypeParameter('report-type', 'disposition-notification');
 
         /* The first part is a human readable message. */
-        $part_one = new Horde_Mime_Part('text/plain');
+        $part_one = new Horde_Mime_Part();
+        $part_one->setType('text/plain');
         $part_one->setCharset($opts['charset']);
         if ($type == 'displayed') {
             $contents = sprintf(Horde_Mime_Translation::t("The message sent on %s to %s with subject \"%s\" has been displayed.\n\nThis is no guarantee that the message has been read or understood."), $this->_headers->getValue('Date'), $this->_headers->getValue('To'), $this->_headers->getValue('Subject'));
@@ -210,7 +211,8 @@ class Horde_Mime_Mdn
         $msg->addPart($part_one);
 
         /* The second part is a machine-parseable description. */
-        $part_two = new Horde_Mime_Part('message/disposition-notification');
+        $part_two = new Horde_Mime_Part();
+        $part_two->setType('message/disposition-notification');
         $part_two_text = array('Reporting-UA: ' . $name . '; ' . $ua . "\n");
         if (!empty($orig_recip)) {
             $part_two_text[] = 'Original-Recipient: rfc822;' . $orig_recip . "\n";
@@ -231,7 +233,8 @@ class Horde_Mime_Mdn
         /* The third part is the text of the original message.  RFC 3798 [3]
          * allows us to return only a portion of the entire message - this
          * is left up to the user. */
-        $part_three = new Horde_Mime_Part('message/rfc822');
+        $part_three = new Horde_Mime_Part();
+        $part_three->setType('message/rfc822');
         $part_three_text = array($this->_headers->toString());
         if (!empty($this->_msgtext)) {
             $part_three_text[] = $part_three->getEOL() . $this->_msgtext;
