@@ -1038,6 +1038,7 @@ var DimpBase = {
             break;
 
         case 'ctx_mboxsort_none':
+        case 'ctx_mboxsort_none_toggle':
             this.sort($H(DIMP.conf.sort).get('sequence').v);
             break;
 
@@ -1225,6 +1226,12 @@ var DimpBase = {
                     elt.down('DIV').removeClassName(r).addClassName(a).show();
                 }
             });
+            break;
+
+        case 'ctx_mboxsort':
+            tmp = ($H(DIMP.conf.sort).get('sequence').v == this.viewport.getMetaData('sortby'));
+            [ $('ctx_mboxsort_none') ].invoke(tmp ? 'hide' : 'show');
+            [ $('ctx_mboxsort_none_toggle') ].invoke(tmp ? 'show' : 'hide');
             break;
 
         default:
