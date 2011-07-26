@@ -2,6 +2,7 @@
 v5.0.9-git
 ----------
 
+[mms] Workaround IE quirks for compose autocomplete box (Bug #10250).
 [mms] Fix resuming HTML drafts for non-reply messages (Bug #10298).
 [jan] Fix verifying of inline signed PGP messages (requires Horde_Crypt 1.0.4).
 [mms] Fix Shift-N shortcut in dynamic view (Bug #10352).

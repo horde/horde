@@ -681,14 +681,19 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     padding: 4px 4px 0 4px;
 }
 .msgwrite span.loadingImg {
-    display: -moz-inline-stack;
-    display: inline-block;
     padding: 1px;
-    position: relative;
-    right: 28px;
+    position: absolute;
+    right: 10px;
+    top: 4px;
     filter: alpha(opacity=75);
     -moz-opacity: .75;
     opacity: .75;
+}
+
+.msgwrite .sendtextarea {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
 }
 
 #noticerow .notices li {
