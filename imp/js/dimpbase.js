@@ -1101,8 +1101,12 @@ var DimpBase = {
             }
 
             tmp = Object.isUndefined(baseelt.retrieve('u'));
-            [ $('ctx_folder_poll') ].invoke(tmp ? 'show' : 'hide');
-            [ $('ctx_folder_nopoll') ].invoke(tmp ? 'hide' : 'show');
+            if (DIMP.conf.poll_alter) {
+                [ $('ctx_folder_poll') ].invoke(tmp ? 'show' : 'hide');
+                [ $('ctx_folder_nopoll') ].invoke(tmp ? 'hide' : 'show');
+            } else {
+                $('ctx_folder_poll', 'ctx_folder_nopoll').invoke('hide');
+            }
 
             tmp = $(this.getSubFolderId(baseelt.readAttribute('id')));
             [ $('ctx_folder_expand').up() ].invoke(tmp ? 'show' : 'hide');

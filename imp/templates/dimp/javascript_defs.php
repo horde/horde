@@ -76,6 +76,7 @@ $code['conf'] = array_filter(array(
     'initial_page' => strval(IMP_Auth::getInitialPage()->mbox),
     'mbox_expand' => intval($GLOBALS['prefs']->getValue('nav_expanded') == 2),
     'name' => $GLOBALS['registry']->get('name', 'imp'),
+    'poll_alter' => intval(!$GLOBALS['prefs']->isLocked('nav_poll') && !$GLOBALS['prefs']->getValue('nav_poll_all')),
     'pop3' => intval($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3),
     'popup_height' => 610,
     'popup_width' => 820,
