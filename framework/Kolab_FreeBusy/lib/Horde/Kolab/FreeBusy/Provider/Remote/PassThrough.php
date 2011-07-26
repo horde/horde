@@ -82,21 +82,7 @@ extends Horde_Kolab_FreeBusy_Provider_Remote
         Horde_Controller_Response $response, $params = array()
     )
     {
-        $url = $this->getUrlWithCredentials(
-            $this->_user->getPrimaryId(),
-            $this->_user->getPassword()
-        );
-        $origin = $this->_client->get($url);
-        if ($origin->code !== 200) { 
-            $url = $this->getTriggerUrlWithCredentials(
-                $this->_user, 'XXX'
-            );
-            throw new Horde_Kolab_FreeBusy_Exception_Unauthorized(
-                sprintf('Unable to trigger free/busy information at %s', $url)
-            );
-        }
-        $response->setHeader('X-Redirect-To', $url);
-        $response->setBody($origin->getStream());
+        $this->_passThrough($response);
     }
 
     /**
@@ -112,13 +98,25 @@ extends Horde_Kolab_FreeBusy_Provider_Remote
         $params = array()
     )
     {
+        $this->_passThrough($response);
+    }
+
+    /**
+     * Fetch remote data.
+     *
+     * @param Horde_Controller_Response  $response The response handler.
+     *
+     * @return NULL
+     */
+    public function _passThrough(Horde_Controller_Response $response)
+    {
         $url = $this->getUrlWithCredentials(
             $this->_user->getPrimaryId(),
             $this->_user->getPassword()
         );
         $origin = $this->_client->get($url);
-        if ($origin->code !== 200) { 
-            $url = $this->getFetchUrlWithCredentials(
+        if ($origin->code !== 200) {
+            $url = $this->getUrlWithCredentials(
                 $this->_user, 'XXX'
             );
             throw new Horde_Kolab_FreeBusy_Exception_Unauthorized(

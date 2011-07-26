@@ -42,7 +42,7 @@ extends Horde_Kolab_FreeBusy_Provider_Remote
         $params = array()
     )
     {
-        $response->setRedirectUrl($this->getUrl());
+        $this->_redirect($response);
     }
 
     /**
@@ -57,6 +57,18 @@ extends Horde_Kolab_FreeBusy_Provider_Remote
         Horde_Controller_Response $response,
         $params = array()
     )
+    {
+        $this->_redirect($response);
+    }
+
+    /**
+     * Redirect the user.
+     *
+     * @param Horde_Controller_Response  $response The response handler.
+     *
+     * @return NULL
+     */
+    private function _redirect(Horde_Controller_Response $response)
     {
         $response->setRedirectUrl($this->getUrl());
     }
