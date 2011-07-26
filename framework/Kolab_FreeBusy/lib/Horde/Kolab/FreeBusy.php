@@ -115,13 +115,21 @@ class Horde_Kolab_FreeBusy
      *     'redirect' - (boolean) Should non-local requests be redirected
      *                            to the remote server or should the data
      *                            be fetched and passed through?
+     * 'injector' - (Horde_Injector) An outside injector that allows to
+     *                               inject arbitrary instance replacements.
+     *                               [optional]
+     *
      * </pre>
      */
     public function __construct($type, $backend, $params = array())
     {
-        $this->_injector = new Horde_Injector(
-            new Horde_Injector_TopLevel()
-        );
+        if (!isset($params['injector'])) {
+            $this->_injector = new Horde_Injector(
+                new Horde_Injector_TopLevel()
+            );
+        } else {
+            $this->_injector = $params['injector'];
+        }
 
         $this->set(
             'Horde_Kolab_FreeBusy_Configuration',
