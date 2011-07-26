@@ -30,6 +30,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Fix exporting multiline attributes to vCard 2.1 and vCalendar 1.0.
 * [jan] Update Latvian translation.
  </notes>
  <contents>
@@ -761,6 +762,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <date>2011-07-21</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Fix exporting multiline attributes to vCard 2.1 and vCalendar 1.0.
 * [jan] Update Latvian translation.
    </notes>
   </release>

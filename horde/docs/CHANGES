@@ -2,7 +2,9 @@
 v4.0.8-git
 ----------
 
-[cjh] New log filter for exact level matching (Bryan Alves <bryanalves@gmail.com>).
+[jan] Fix exporting multiline attributes to vCard 2.1 and vCalendar 1.0.
+[cjh] New log filter for exact level matching (Bryan Alves
+      <bryanalves@gmail.com>).
 [jan] Don't set optional integer fields to 0 when automatically updating
       configuration.
 [mjr] ActiveSync policykey is now per user, not per device
@@ -13,6 +15,7 @@ v4.0.8-git
 [mjr] Improve calendar PING for iOS devices.
 [mjr] Prevent an ActiveSync sync loop in some fringe cases.
 [jan] Update PGP key server list and add SKS pool.
+
 
 ------
 v4.0.7
