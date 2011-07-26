@@ -277,14 +277,18 @@ implements Horde_Kolab_FreeBusy_Factory
                 )
             );
             if (empty($params['redirect'])) {
-                return new Horde_Kolab_FreeBusy_Provider_Remote_PassThrough(
-                    $this->_injector->getInstance('Horde_Http_Client')
+                return $this->_injector->getInstance(
+                    'Horde_Kolab_FreeBusy_Provider_Remote_PassThrough'
                 );
             } else {
-                return new Horde_Kolab_FreeBusy_Provider_Remote_Redirect();
+                return $this->_injector->getInstance(
+                    'Horde_Kolab_FreeBusy_Provider_Remote_Redirect'
+                );
             }
         } else {
-            return new Horde_Kolab_FreeBusy_Provider_Local();
+            return $this->_injector->getInstance(
+                'Horde_Kolab_FreeBusy_Provider_Local'
+            );
         }
     }
 }
