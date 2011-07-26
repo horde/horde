@@ -193,4 +193,57 @@ class Horde_Kolab_FreeBusy_TestCase extends PHPUnit_Framework_TestCase
             $mapper, $request
         );
     }
+
+    public function dispatch(
+        $url, $params = array(), $inject = array()
+    )
+    {
+        $params = array_merge(
+            array(
+                'script' => '/freebusy/freebusy.php',
+                'request' => array(
+                    'class' => 'Horde_Controller_Request_Mock',
+                    'params' => array(
+                        'server' => array(
+                            'REQUEST_URI' => $url
+                        )
+                    )
+                ),
+                'logger' => array(
+                    'Horde_Log_Handler_Null' => array(),
+                )
+            ),
+            $params
+        );
+        $injector = $this->getInjector();
+        $injector->setInstance(
+            'Horde_Kolab_FreeBusy_UserDb',
+            $this->getDb()
+        );
+        if (!empty($inject)) {
+            foreach ($inject as $interface => $instance) {
+                $injector->setInstance($interface, $instance);
+            }
+        }
+        $params['injector'] = $injector;
+        $application = new Horde_Kolab_FreeBusy('Freebusy', 'Kolab', $params);
+        ob_start();
+        $application->dispatch();
+        return ob_get_clean();
+    }
+
+    protected function getHttpClient($body, $code = 200)
+    {
+        if (!is_resource($body)) {
+            $stream = new Horde_Support_StringStream($body);
+            $response = new Horde_Http_Response_Mock('', $stream->fopen());
+        } else {
+            $response = new Horde_Http_Response_Mock('', $body);
+        }
+        $response->code = $code;
+        $request = new Horde_Http_Request_Mock();
+        $request->setResponse($response);
+        return new Horde_Http_Client(array('request' => $request));
+    }
+
 }

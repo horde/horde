@@ -105,7 +105,7 @@ extends Horde_Kolab_FreeBusy_TestCase
         return $response;
     }
 
-    private function _provider($path, $response = 200)
+    private function _provider($path, $code = 200)
     {
         $request = new Horde_Controller_Request_Mock();
         $request->setPath($path);
@@ -113,7 +113,7 @@ extends Horde_Kolab_FreeBusy_TestCase
             $this->getRemoteOwner(),
             $request,
             $this->_getUser(),
-            $this->_getClient($response)
+            $this->getHttpClient('RESPONSE', $code)
         );
     }
 
@@ -121,16 +121,4 @@ extends Horde_Kolab_FreeBusy_TestCase
     {
         return $this->getDb()->getUser('mail@example.org', 'TEST');
     }
-
-    private function _getClient($code = 200)
-    {
-        $string = 'RESPONSE';
-        $body = new Horde_Support_StringStream($string);
-        $response = new Horde_Http_Response_Mock('', $body->fopen());
-        $response->code = $code;
-        $request = new Horde_Http_Request_Mock();
-        $request->setResponse($response);
-        return new Horde_Http_Client(array('request' => $request));
-    }
-
 }

@@ -40,35 +40,16 @@ extends Horde_Kolab_FreeBusy_TestCase
      */
     public function testDispatching($url, $response)
     {
-        $injector = $this->getInjector();
-        $injector->setInstance(
-            'Horde_Kolab_FreeBusy_UserDb',
-            $this->getDb()
-        );
-        $injector->setInstance(
-            'Horde_Kolab_FreeBusy_Provider',
-            new Horde_Kolab_FreeBusy_Stub_Provider()
-        );
-        $params = array(
-            'script' => '/freebusy/freebusy.php',
-            'request' => array(
-                'class' => 'Horde_Controller_Request_Mock',
-                'params' => array(
-                    'server' => array(
-                        'REQUEST_URI' => $url
-                    )
+        $this->assertEquals(
+            $response,
+            $this->dispatch(
+                $url,
+                array(),
+                array(
+                    'Horde_Kolab_FreeBusy_Provider' => new Horde_Kolab_FreeBusy_Stub_Provider()
                 )
-            ),
-            'logger' => array(
-                'Horde_Log_Handler_Null' => array(),
-            ),
-            'injector' => $injector
+            )
         );
-        $application = new Horde_Kolab_FreeBusy('Freebusy', 'Kolab', $params);
-        ob_start();
-        $application->dispatch();
-        $output = ob_get_clean();
-        $this->assertEquals($response, $output);
     }
 
     public function provideUrls()
