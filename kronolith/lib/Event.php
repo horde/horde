@@ -546,6 +546,7 @@ abstract class Kronolith_Event
             $vEvent->setAttribute('DTSTART', $this->start);
             $vEvent->setAttribute('DTEND', $this->end);
         }
+        $vEvent->setAttribute('X-FUNAMBOL-ALLDAY', 1);
 
         $vEvent->setAttribute('DTSTAMP', $_SERVER['REQUEST_TIME']);
         $vEvent->setAttribute('UID', $this->uid);
