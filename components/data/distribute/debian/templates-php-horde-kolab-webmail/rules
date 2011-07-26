@@ -1,0 +1,34 @@
+#!/usr/bin/make -f
+
+HORDENAME=kolab-webmail
+DESTDIR=$(CURDIR)/debian/php-horde-$(HORDENAME)
+
+%:
+	dh $@ --buildsystem=phppear --with phppear
+
+binary: build
+	dh binary --buildsystem=phppear --with phppear --until dh_install
+	dh_installdirs etc/horde4
+	# config of "horde" app:
+	mv $(DESTDIR)/usr/share/horde4/config $(DESTDIR)/etc/horde4/horde
+	dh_link etc/horde4/horde usr/share/horde4/config
+	# config of "imp" app:
+	mv $(DESTDIR)/usr/share/horde4/imp/config $(DESTDIR)/etc/horde4/imp
+	dh_link etc/horde4/imp usr/share/horde4/imp/config
+	# config of "ingo" app:
+	mv $(DESTDIR)/usr/share/horde4/ingo/config $(DESTDIR)/etc/horde4/ingo
+	dh_link etc/horde4/ingo usr/share/horde4/ingo/config
+	# config of "kronolith" app:
+	mv $(DESTDIR)/usr/share/horde4/kronolith/config $(DESTDIR)/etc/horde4/kronolith
+	dh_link etc/horde4/kronolith usr/share/horde4/kronolith/config
+	# config of "mnemo" app:
+	mv $(DESTDIR)/usr/share/horde4/mnemo/config $(DESTDIR)/etc/horde4/mnemo
+	dh_link etc/horde4/mnemo usr/share/horde4/mnemo/config
+	# config of "nag" app:
+	mv $(DESTDIR)/usr/share/horde4/nag/config $(DESTDIR)/etc/horde4/nag
+	dh_link etc/horde4/nag usr/share/horde4/nag/config
+	# config of "turba" app:
+	mv $(DESTDIR)/usr/share/horde4/turba/config $(DESTDIR)/etc/horde4/turba
+	dh_link etc/horde4/turba usr/share/horde4/turba/config
+	# back to debhelper:
+	dh binary --buildsystem=phppear --with phppear --after dh_install
