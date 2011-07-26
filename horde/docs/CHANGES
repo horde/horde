@@ -262,6 +262,18 @@ v4.0-ALPHA1
 
 
 -------
+v3.3.12
+-------
+
+[jan] Convert charset of group names in SQL driver (Bug #9611).
+[jan] Fix deleting of SyncML anchors if PHP short_open_tag is off (Bug #9349).
+[jan] Add an experimental new Share SQL driver with better performance.
+[jan] Fix integer overflow in ASN.1 parser for S/MIME messages.
+[jan] Fix splitread database usage in VFS (Bug #9467).
+[jan] Fix invalidating permission cache in SQL driver (Bug #9392).
+
+
+-------
 v3.3.11
 -------
 

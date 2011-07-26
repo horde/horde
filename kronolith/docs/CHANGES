@@ -168,6 +168,14 @@ v3.0-ALPHA1
 
 
 ------
+v2.3.6
+------
+
+[jan] Add upgrade scripts for next-generation SQL share driver.
+[jan] Export recurrence exceptions in a more portable way.
+
+
+------
 v2.3.5
 ------
 

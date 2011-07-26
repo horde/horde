@@ -434,6 +434,14 @@ v5.0-ALPHA1
 [mms] Add preference to delete draft on resume & send.
 
 
+-------
+v4.3.10
+-------
+
+[jan] Don't submit the action form when reloading messages with iTip
+      attachments (Bug #9502).
+
+
 ------
 v4.3.9
 ------

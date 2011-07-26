@@ -84,6 +84,14 @@ v2.0-ALPHA1
 
 
 ------
+v1.2.6
+------
+
+[mms] Fix encoding of vacation message in maildrop driver (Bug #9532).
+[jan] Add upgrade scripts for next-generation SQL share driver.
+
+
+------
 v1.2.5
 ------
 
