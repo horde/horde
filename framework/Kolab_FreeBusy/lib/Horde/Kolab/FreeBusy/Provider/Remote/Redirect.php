@@ -33,62 +33,67 @@ extends Horde_Kolab_FreeBusy_Provider_Remote
      * Trigger a resource.
      *
      * @param Horde_Controller_Response  $response The response handler.
-     * @param Horde_Kolab_FreeBusy_Owner $owner    The owner of the data.
-     * @param Horde_Kolab_FreeBusy_User  $user     The user accessing the data.
-     * @param string                     $resource The resource to trigger.
      * @param array                      $params   Additional parameters.
      *
      * @return NULL
      */
     public function trigger(
         Horde_Controller_Response $response,
-        Horde_Kolab_FreeBusy_Owner $owner,
-        Horde_Kolab_FreeBusy_User $user,
-        $resource,
         $params = array()
     )
     {
-        $response->setRedirectUrl(
-            $this->getTriggerUrl($owner, $resource, $params)
-        );
+        $response->setRedirectUrl($this->getUrl());
     }
 
     /**
      * Fetch data for an owner.
      *
      * @param Horde_Controller_Response  $response The response handler.
-     * @param Horde_Kolab_FreeBusy_Owner $owner    The owner of the data.
-     * @param Horde_Kolab_FreeBusy_User  $user     The user accessing the data.
      * @param array                      $params   Additional parameters.
      *
      * @return NULL
      */
     public function fetch(
         Horde_Controller_Response $response,
-        Horde_Kolab_FreeBusy_Owner $owner,
-        Horde_Kolab_FreeBusy_User $user,
         $params = array()
     )
     {
-        $response->setRedirectUrl($this->getFetchUrl($owner, $params));
+        $response->setRedirectUrl($this->getUrl());
     }
 
     /**
      * Delete data of an owner.
      *
      * @param Horde_Controller_Response  $response The response handler.
-     * @param Horde_Kolab_FreeBusy_Owner $owner    The owner of the data.
-     * @param Horde_Kolab_FreeBusy_User  $user     The user accessing the data.
      * @param array                      $params   Additional parameters.
      *
      * @return NULL
      */
     public function delete(
         Horde_Controller_Response $response,
-        Horde_Kolab_FreeBusy_Owner $owner,
-        Horde_Kolab_FreeBusy_User $user,
         $params = array()
     )
     {
+        throw new Horde_Kolab_FreeBusy_Exception(
+            'Action "regenerate" not supported for remote servers!'
+        );
+    }
+
+    /**
+     * Regenerate all data accessible to the current user.
+     *
+     * @param Horde_Controller_Response  $response The response handler.
+     * @param array                      $params   Additional parameters.
+     *
+     * @return NULL
+     */
+    public function regenerate(
+        Horde_Controller_Response $response,
+        $params = array()
+    )
+    {
+        throw new Horde_Kolab_FreeBusy_Exception(
+            'Action "regenerate" not supported for remote servers!'
+        );
     }
 }

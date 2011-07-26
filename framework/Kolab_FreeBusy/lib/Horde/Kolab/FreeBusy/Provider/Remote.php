@@ -30,101 +30,67 @@ abstract class Horde_Kolab_FreeBusy_Provider_Remote
 implements Horde_Kolab_FreeBusy_Provider
 {
     /**
+     * The owner of the data.
+     *
+     * @var Horde_Kolab_FreeBusy_Owner
+     */
+    private $_owner;
+
+    /**
+     * The current request.
+     *
+     * @var Horde_Controller_Request
+     */
+    private $_request;
+
+    /**
+     * Constructor
+     *
+     * @param Horde_Kolab_FreeBusy_Owner $owner   The owner of the data.
+     * @param Horde_Controller_Request   $request The current request.
+     */
+    public function __construct(
+        Horde_Kolab_FreeBusy_Owner $owner,
+        Horde_Controller_Request $request
+    )
+    {
+        $this->_owner   = $owner;
+        $this->_request = $request;
+    }
+
+    /**
+     * Generate the remote URL.
+     *
+     * @return string The URL
+     */
+    protected function getUrl()
+    {
+        return $this->_getUrl(
+            $this->_owner->getRemoteServer(),
+            $this->_request->getPath()
+        );
+    }
+
+    /**
      * Generate the URL for triggering data on a remote system.
      *
-     * @param Horde_Kolab_FreeBusy_Owner $owner    The owner of the data.
-     * @param string                     $resource The resource to trigger.
-     * @param array                      $params   Additional parameters.
+     * @param string  $username The user accessing the data.
+     * @param string  $password The user password.
      *
      * @return string The URL
      */
-    protected function getTriggerUrl(
-        Horde_Kolab_FreeBusy_Owner $owner, $resource, $params = array()
+    protected function getUrlWithCredentials(
+        $username, $password
     )
     {
         return $this->_getUrl(
-            $owner->getRemoteServer() . '/trigger',
-            urlencode($owner->getPrimaryId()) . '/' . urlencode($resource),
-            !empty($params['extended']) ? 'pxfb' : 'pfb'
-        );
-    }
-
-    /**
-     * Generate the URL for fetching data from a remote system.
-     *
-     * @param Horde_Kolab_FreeBusy_Owner $owner    The owner of the data.
-     * @param array                      $params   Additional parameters.
-     *
-     * @return string The URL
-     */
-    protected function getFetchUrl(
-        Horde_Kolab_FreeBusy_Owner $owner, $params = array()
-    )
-    {
-        return $this->_getUrl(
-            $owner->getRemoteServer(),
-            urlencode($owner->getPrimaryId()),
-            !empty($params['extended']) ? 'xfb' : 'ifb'
-        );
-    }
-
-    /**
-     * Generate the URL for triggering data on a remote system.
-     *
-     * @param Horde_Kolab_FreeBusy_Owner $owner    The owner of the data.
-     * @param Horde_Kolab_FreeBusy_User  $user     The user accessing the data.
-     * @param string                     $password The user password.
-     * @param string                     $resource The resource to trigger.
-     * @param array                      $params   Additional parameters.
-     *
-     * @return string The URL
-     */
-    protected function getTriggerUrlWithCredentials(
-        Horde_Kolab_FreeBusy_Owner $owner,
-        Horde_Kolab_FreeBusy_User  $user,
-        $password,
-        $resource,
-        $params = array()
-    )
-    {
-        return $this->_getUrl(
-            sprintf(
-                '%s:%s@%s/trigger',
-                urlencode($user->getPrimaryId()),
-                $password,
-                $owner->getRemoteServer()
+            preg_replace(
+                '#(http[s]://)(.*)#',
+                '\1' . urlencode($username) .
+                 ':' .urlencode($password) . '@\2',
+                $this->_owner->getRemoteServer()
             ),
-            urlencode($owner->getPrimaryId()) . '/' . urlencode($resource),
-            !empty($params['extended']) ? 'pxfb' : 'pfb'
-        );
-    }
-
-    /**
-     * Generate the URL for fetching data from a remote system.
-     *
-     * @param Horde_Kolab_FreeBusy_Owner $owner    The owner of the data.
-     * @param Horde_Kolab_FreeBusy_User  $user     The user accessing the data.
-     * @param string                     $password The user password.
-     * @param array                      $params   Additional parameters.
-     *
-     * @return string The URL
-     */
-    protected function getFetchUrlWithCredentials(
-        Horde_Kolab_FreeBusy_Owner $owner,
-        Horde_Kolab_FreeBusy_User  $user,
-        $password,
-        $params = array()
-    )
-    {
-        return $this->_getUrl(
-            sprintf(
-                '%s:%s@%s',
-                urlencode($user->getPrimaryId()),
-                $password,
-                $owner->getRemoteServer()
-            ),
-            urlencode($owner->getPrimaryId()),
-            !empty($params['extended']) ? 'xfb' : 'ifb'
+            $this->_request->getPath()
         );
     }
 
@@ -133,12 +99,11 @@ implements Horde_Kolab_FreeBusy_Provider
      *
      * @param string $server The server URL.
      * @param string $path   The path on the server.
-     * @param string $suffix The file suffix.
      *
      * @return string The URL
      */
-    private function _getUrl($server, $path, $suffix)
+    private function _getUrl($server, $path)
     {
-        return sprintf('%s/%s.%s', $server, $path, $suffix);
+        return sprintf('%s/%s', $server, $path);
     }
 }
