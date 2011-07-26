@@ -21,14 +21,8 @@ class Horde_Menu
     const MASK_LOGIN = 2;
     const MASK_PREFS = 4;
     const MASK_PROBLEM = 8;
-    const MASK_ALL = 31;
-
-    /**
-     * Unused.
-     *
-     * @todo remove in Horde 5.
-     */
     const MASK_BASE = 16;
+    const MASK_ALL = 31;
 
     /* TODO */
     const POS_LAST = 999;
