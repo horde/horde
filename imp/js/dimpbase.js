@@ -756,7 +756,7 @@ var DimpBase = {
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:splitBarChange', function(e) {
-            if (e.memo = 'horiz') {
+            if (e.memo == 'horiz') {
                 this._updatePrefs('dimp_splitbar', this.viewport.getPageSize());
             }
         }.bindAsEventListener(this));
