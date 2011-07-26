@@ -20,8 +20,8 @@
  <date>2011-04-06</date>
  <time>01:14:32</time>
  <version>
-  <release>1.0.1</release>
-  <api>1.0.0</api>
+  <release>1.0.2</release>
+  <api>1.0.1</api>
  </version>
  <stability>
   <release>stable</release>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* 
+* [cjh] New log filter for exact level matching (Bryan Alves &lt;bryanalves@gmail.com&gt;)
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -248,7 +248,7 @@
    <date>2011-04-06</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-* 
+* [cjh] New log filter for exact level matching (Bryan Alves &lt;bryanalves@gmail.com&gt;)
    </notes>
   </release>
  </changelog>

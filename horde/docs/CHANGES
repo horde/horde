@@ -2,6 +2,7 @@
 v4.0.8-git
 ----------
 
+[cjh] New log filter for exact level matching (Bryan Alves <bryanalves@gmail.com>).
 [jan] Don't set optional integer fields to 0 when automatically updating
       configuration.
 [mjr] ActiveSync policykey is now per user, not per device
