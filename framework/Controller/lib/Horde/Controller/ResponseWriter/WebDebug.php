@@ -12,11 +12,11 @@ class Horde_Controller_ResponseWriter_WebDebug implements Horde_Controller_Respo
         $headerHtml = '<div><strong>Headers:</strong><pre>';
         $headers = $response->getHeaders();
         foreach ($headers as $key => $value) {
-            $headerHtml .= "$key: $value\n";
+            $headerHtml .= htmlspecialchars("$key: $value\n");
         }
-        echo htmlspecialchars($headerHtml) . '</pre></div>';
+        echo $headerHtml . '</pre></div>';
 
-        if ($headers['Location']) {
+        if (isset($headers['Location'])) {
             echo '<p>Redirect To: <a href="' . htmlspecialchars($headers['Location']) . '">' . htmlspecialchars($headers['Location']) . '</a></p>';
         }
 
