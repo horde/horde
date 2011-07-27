@@ -102,7 +102,16 @@ extends Components_Release_Task_Base
     {
         if (!$this->getTasks()->pretend()) {
             $options['keep_version'] = true;
-            $path = $this->getComponent()->placeArchive(getcwd(), $options);
+            $result = $this->getComponent()->placeArchive(getcwd(), $options);
+            if (isset($result[2])) {
+                $this->getOutput()->pear($result[2]);
+            }
+            if (!empty($result[1])) {
+                $this->getOutput()->fail(
+                    'Generating package failed with:'. "\n\n" . join("\n", $result[1]));
+                return;
+            }
+            $path = $result[0];
         } else {
             $path = '[PATH TO RESULTING]/[PACKAGE.TGZ - PRETEND MODE]';
             $this->getOutput()->info(
