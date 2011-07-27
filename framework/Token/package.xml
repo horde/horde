@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-07-27</date>
- <time>16:52:09</time>
+ <time>16:52:36</time>
  <version>
-  <release>1.1.0</release>
+  <release>1.1.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,10 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Update Latvian translation.
-* [gwr] Allow to specify a custom timeout or to disable it completely when validating tokens.
-* [jan] Update Lithuanian translation.
-* [jan] Update Brazilian Portuguese translation.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -680,6 +677,19 @@ Converted to package.xml 2.0 for pear.horde.org
 * [gwr] Allow to specify a custom timeout or to disable it completely when validating tokens.
 * [jan] Update Lithuanian translation.
 * [jan] Update Brazilian Portuguese translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-27</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
