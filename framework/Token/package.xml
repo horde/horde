@@ -30,6 +30,8 @@
  <notes>
 * [jan] Update Latvian translation.
 * [gwr] Allow to specify a custom timeout or to disable it completely when validating tokens.
+* [jan] Update Lithuanian translation.
+* [jan] Update Brazilian Portuguese translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
