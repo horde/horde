@@ -54,3 +54,7 @@
  - Check http://evolution-kolab.git.sourceforge.net/git/gitweb.cgi?p=evolution-kolab/evolution-kolab;a=blob;f=src/libekolab/kolab-mail-synchronizer.c;h=3eea832b3bb82b29f5f391f1b71dd0fa8cb8d2c0;hb=4d49c76e1d2f89ee6c6676b0aabeada9ce076eed
 
  - Check http://sourceforge.net/apps/mediawiki/evolution-kolab/index.php?title=Conversion_Issues
+
+ - Allow to lazy load permissions in
+   Horde_Perms_Permission_Kolab_Storage so that only myRights() gets
+   called if required and getAcl() called when required
