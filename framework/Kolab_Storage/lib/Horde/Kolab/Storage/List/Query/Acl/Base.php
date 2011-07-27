@@ -78,27 +78,16 @@ implements Horde_Kolab_Storage_List_Query_Acl
         if (!$this->hasAclSupport()) {
             return array($this->_driver->getAuth() => 'lrid');
         }
-        if ($this->_list->getNamespace()->matchNamespace($folder)->getType()
-            == Horde_Kolab_Storage_Folder_Namespace::PERSONAL) {
+
+        $acl = $this->getMyAcl($folder);
+        if (strpos($acl, 'a') !== false) {
             try {
                 return $this->_driver->getAcl($folder);
             } catch (Horde_Kolab_Storage_Exception $e) {
-                /**
-                 * Assume we didn't have admin rights on the folder and fall
-                 * back to my ACL.
-                 */
-                return array($this->_driver->getAuth() => $this->getMyAcl($folder));
             }
-        } else {
-            $acl = $this->getMyAcl($folder);
-            if (strpos($acl, 'a') !== false) {
-                try {
-                    return $this->_driver->getAcl($folder);
-                } catch (Horde_Kolab_Storage_Exception $e) {
-                }
-            }
-            return array($this->_driver->getAuth() => $acl);
         }
+
+        return array($this->_driver->getAuth() => $acl);
     }
 
     /**
@@ -114,6 +103,23 @@ implements Horde_Kolab_Storage_List_Query_Acl
             return 'lrid';
         }
         return $this->_driver->getMyAcl($folder);
+    }
+
+    /**
+     * Retrieve the all access rights on a folder.
+     *
+     * @param string $folder The folder to retrieve the ACL for.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return string The folder rights.
+     */
+    public function getAllAcl($folder)
+    {
+        if (!$this->hasAclSupport()) {
+            return array($this->_driver->getAuth() => 'lrid');
+        }
+        return $this->_driver->getAcl($folder);
     }
 
     /**

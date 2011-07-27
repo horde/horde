@@ -43,8 +43,9 @@ extends Horde_Kolab_Storage_TestCase
     {
         $acl = $this->_getAcl();
         $this->driver->expects($this->once())
-            ->method('getNamespace')
-            ->will($this->returnValue(new Horde_Kolab_Storage_Folder_Namespace_Fixed('test')));
+            ->method('getMyAcl')
+            ->with('INBOX')
+            ->will($this->returnValue('a'));
         $this->driver->expects($this->once())
             ->method('getAcl')
             ->with('INBOX')
@@ -67,13 +68,6 @@ extends Horde_Kolab_Storage_TestCase
     {
         $acl = $this->_getAcl();
         $this->driver->expects($this->once())
-            ->method('getNamespace')
-            ->will($this->returnValue(new Horde_Kolab_Storage_Folder_Namespace_Fixed('test')));
-        $this->driver->expects($this->once())
-            ->method('getAcl')
-            ->with('INBOX')
-            ->will($this->throwException(new Horde_Kolab_Storage_Exception()));
-        $this->driver->expects($this->once())
             ->method('getAuth')
             ->will($this->returnValue('current'));
         $this->driver->expects($this->once())
@@ -87,9 +81,6 @@ extends Horde_Kolab_Storage_TestCase
     {
         $acl = $this->_getAcl();
         $this->driver->expects($this->once())
-            ->method('getNamespace')
-            ->will($this->returnValue(new Horde_Kolab_Storage_Folder_Namespace_Fixed('test')));
-        $this->driver->expects($this->once())
             ->method('getMyAcl')
             ->with('user/example/Notes')
             ->will($this->returnValue('lr'));
@@ -102,9 +93,6 @@ extends Horde_Kolab_Storage_TestCase
     public function testGetAclForeignFolderWithAdmin()
     {
         $acl = $this->_getAcl();
-        $this->driver->expects($this->once())
-            ->method('getNamespace')
-            ->will($this->returnValue(new Horde_Kolab_Storage_Folder_Namespace_Fixed('test')));
         $this->driver->expects($this->once())
             ->method('getMyAcl')
             ->with('user/example/Notes')
@@ -130,6 +118,25 @@ extends Horde_Kolab_Storage_TestCase
     {
         $acl = $this->_getAcl(false);
         $this->assertEquals('lrid', $acl->getMyAcl('INBOX'));
+    }
+
+    public function testGetAllAcl()
+    {
+        $acl = $this->_getAcl();
+        $this->driver->expects($this->once())
+            ->method('getAcl')
+            ->with('INBOX')
+            ->will($this->returnValue(array('test' => 'lra')));
+        $this->assertEquals(array('test' => 'lra'), $acl->getAllAcl('INBOX'));
+    }
+
+    public function testGetAllAclWithNoAcl()
+    {
+        $acl = $this->_getAcl(false);
+        $this->driver->expects($this->once())
+            ->method('getAuth')
+            ->will($this->returnValue('current'));
+        $this->assertEquals(array('current' => 'lrid'), $acl->getAllAcl('INBOX'));
     }
 
     public function testSetAcl()
