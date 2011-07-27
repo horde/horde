@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-14</date>
- <time>14:57:23</time>
+ <date>2011-07-27</date>
+ <time>16:56:18</time>
  <version>
   <release>1.0.5</release>
   <api>1.0.0</api>
@@ -392,9 +392,10 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-14</date>
+   <date>2011-07-27</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Fix removing too many backslashes with magic quotes enabled (Bug #10149).
 * [jan] Fix reading CSV data with PHP &lt; 5.3.
    </notes>
   </release>
