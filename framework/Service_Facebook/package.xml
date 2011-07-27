@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-14</date>
- <time>17:13:05</time>
+ <date>2011-07-27</date>
+ <time>16:43:34</time>
  <version>
   <release>1.1.0</release>
   <api>1.0.0</api>
@@ -592,7 +592,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-14</date>
+   <date>2011-07-27</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * [jan] Update Latvian translation.
