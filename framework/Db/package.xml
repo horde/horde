@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2011-07-27</date>
- <time>16:24:44</time>
+ <time>16:25:28</time>
  <version>
-  <release>1.0.3</release>
+  <release>1.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [jan] Correctly format float values independently from the current locale (Bug #10371).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -454,6 +454,19 @@
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * [jan] Correctly format float values independently from the current locale (Bug #10371).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-27</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
