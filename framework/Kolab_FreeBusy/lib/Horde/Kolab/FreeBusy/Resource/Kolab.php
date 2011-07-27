@@ -38,14 +38,36 @@ implements Horde_Kolab_FreeBusy_Resource
     private $_folder;
 
     /**
+     * The folder owner.
+     *
+     * @var Horde_Kolab_FreeBusy_Owner_Freebusy
+     */
+    protected $_owner;
+
+    /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_Folder $folder The storage folder representing
-     *                                           this resource.
+     * @param Horde_Kolab_Storage_Folder          $folder The storage folder
+     *                                                    representing this
+     *                                                    resource.
+     * @param Horde_Kolab_FreeBusy_Owner_Freebusy $owner  The resource owner.
      */
-    public function __construct(Horde_Kolab_Storage_Folder $folder)
-    {
+    public function __construct(
+        Horde_Kolab_Storage_Folder $folder,
+        Horde_Kolab_FreeBusy_Owner $owner
+    ) {
         $this->_folder = $folder;
+        $this->_owner  = $owner;
+    }
+
+    /**
+     * Return the owner of the resource.
+     *
+     * @return Horde_Kolab_FreeBusy_Owner The resource owner.
+     */
+    public function getOwner()
+    {
+        return $this->_owner;
     }
 
     /**
@@ -130,17 +152,4 @@ implements Horde_Kolab_FreeBusy_Resource
             'There is no generic definition for attribute ACL available!'
         );
     }
-
-    /**
-     * Return the UTF7-IMAP compliant folder name from the request.
-     *
-     * @return string The folder name.
-     */
-    private function _getImapFolderName()
-    {
-        return Horde_String::convertCharset(
-            $this->_getFolderParameter(), 'UTF-8', 'UTF7-IMAP'
-        );
-    }
-
 }
