@@ -58,9 +58,8 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Base extends Horde_Kolab_FreeBusy_Dri
      *
      * @return Horde_Kolab_FreeBusy_Driver_Result The freebusy data.
      */
-    public function trigger(array $params)
-    {
-    }
+    /* public function trigger(array $params) */
+    /* { */
 /*         $callee   = $this->getCallee(); */
 /*         $calendar = $this->getCalendar($callee); */
 
