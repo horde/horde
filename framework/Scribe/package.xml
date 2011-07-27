@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</license>
  <notes>
-* 
+* [cjh] Add dependency on Horde_Thrift.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
