@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-07-27</date>
- <time>16:56:18</time>
+ <time>16:56:59</time>
  <version>
-  <release>1.0.5</release>
+  <release>1.0.6</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -29,8 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Fix removing too many backslashes with magic quotes enabled (Bug #10149).
-* [jan] Fix reading CSV data with PHP &lt; 5.3.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -397,6 +396,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <notes>
 * [jan] Fix removing too many backslashes with magic quotes enabled (Bug #10149).
 * [jan] Fix reading CSV data with PHP &lt; 5.3.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.6</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-27</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
