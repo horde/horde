@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-07-27</date>
- <time>16:42:47</time>
+ <time>16:43:11</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</license>
  <notes>
-* [cjh] Add dependency on Horde_Thrift.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -166,6 +166,19 @@
    <license uri="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</license>
    <notes>
 * [cjh] Add dependency on Horde_Thrift.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-27</date>
+   <license uri="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
