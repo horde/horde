@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Fix removing too many backslashes with magic quotes enabled (Bug #10149).
 * [jan] Fix reading CSV data with PHP &lt; 5.3.
  </notes>
  <contents>
