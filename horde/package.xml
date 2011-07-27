@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-20</date>
- <time>10:41:21</time>
+ <date>2011-07-27</date>
+ <time>21:02:27</time>
  <version>
   <release>4.0.8</release>
   <api>4.0.0</api>
@@ -861,6 +861,7 @@
     </dir> <!-- /templates/login -->
     <dir name="logintasks">
      <file name="logintasks.html" role="horde" />
+     <file name="mobile.html" role="horde" />
     </dir> <!-- /templates/logintasks -->
     <dir name="menu">
      <file name="menu.inc" role="horde" />
@@ -2423,9 +2424,7 @@
    <install as="admin/locale/fi/help.xml" name="admin/locale/fi/help.xml" />
    <install as="admin/locale/hr/help.xml" name="admin/locale/hr/help.xml" />
    <install as="admin/locale/hu/help.xml" name="admin/locale/hu/help.xml" />
-   <install as="admin/locale/lv/admin.po" name="admin/locale/lv/admin.po" />
    <install as="admin/locale/lv/help.xml" name="admin/locale/lv/help.xml" />
-   <install as="admin/locale/lv/LC_MESSAGES/admin.po" name="admin/locale/lv/LC_MESSAGES/admin.po" />
    <install as="admin/perms/addchild.php" name="admin/perms/addchild.php" />
    <install as="admin/perms/delete.php" name="admin/perms/delete.php" />
    <install as="admin/perms/edit.php" name="admin/perms/edit.php" />
@@ -2926,6 +2925,7 @@
    <install as="templates/login/resetpassword.inc" name="templates/login/resetpassword.inc" />
    <install as="templates/login/signup.inc" name="templates/login/signup.inc" />
    <install as="templates/logintasks/logintasks.html" name="templates/logintasks/logintasks.html" />
+   <install as="templates/logintasks/mobile.html" name="templates/logintasks/mobile.html" />
    <install as="templates/menu/menu.inc" name="templates/menu/menu.inc" />
    <install as="templates/portal/add.inc" name="templates/portal/add.inc" />
    <install as="templates/portal/block.inc" name="templates/portal/block.inc" />
@@ -4185,10 +4185,13 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-20</date>
+   <date>2011-07-27</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* [jan] Don&apos;t show mobile login page if users are forced to tradtional or dynamic views (Request #10358).
+* [cjh] Add mobile maintenance screens.
+* [jan] Update Latvian translation.
+* [jan] Don&apos;t show mobile login page if users are forced to traditional or dynamic views (Request #10358).
+* [jan] Update PGP key server list and add SKS pool.
    </notes>
   </release>
  </changelog>
