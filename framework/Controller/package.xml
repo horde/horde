@@ -29,7 +29,9 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* 
+* [gwr] Fixed the debug response writer.
+* [gwr] Added a mock request class.
+* [gwr] Allow passing the response body as stream.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -269,7 +271,9 @@
    <date>2011-07-27</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-* 
+* [gwr] Fixed the debug response writer.
+* [gwr] Added a mock request class.
+* [gwr] Allow passing the response body as stream.
    </notes>
   </release>
  </changelog>
