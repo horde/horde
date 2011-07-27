@@ -23,7 +23,9 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Fix log level output in log file.
 * [jan] Update Latvian translation.
+* [mjr] Use the more efficient getChanges() API.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
