@@ -2361,6 +2361,7 @@ class Kronolith
             $ics->setName($filename);
             $ics->setContentTypeParameter('METHOD', $method);
             $ics->setCharset('UTF-8');
+            $ics->setEOL("\r\n");
 
             $multipart = self::buildMimeMessage($view, 'notification', $image);
             $multipart->addPart($ics);
