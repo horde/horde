@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-21</date>
- <time>10:40:09</time>
+ <date>2011-07-27</date>
+ <time>16:42:47</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -162,10 +162,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-21</date>
+   <date>2011-07-27</date>
    <license uri="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</license>
    <notes>
-* 
+* [cjh] Add dependency on Horde_Thrift.
    </notes>
   </release>
  </changelog>
