@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-07-27</date>
- <time>16:20:26</time>
+ <time>16:20:51</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -29,9 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [gwr] Fixed the debug response writer.
-* [gwr] Added a mock request class.
-* [gwr] Allow passing the response body as stream.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -274,6 +272,19 @@
 * [gwr] Fixed the debug response writer.
 * [gwr] Added a mock request class.
 * [gwr] Allow passing the response body as stream.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-27</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
