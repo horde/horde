@@ -189,6 +189,12 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         $part = new Horde_Mime_Part();
         $part->setType('text/plain');
         $part->setContents("A\r\nBā\r\nC");
+
+        $this->assertEquals(
+            "A=0D\nB=C4=81=0D\nC",
+            $part->toString()
+        );
+
         $part->setEOL("\r\n");
 
         $this->assertEquals(
