@@ -529,7 +529,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <div id="msglistHeaderContainer">
  <div class="item msglistHeader" id="msglistHeaderHoriz" style="display:none">
   <div class="iconImg msgStatus">
-   <div class="iconImg msCheck" title="<?php echo _("Select All") ?>"></div>
+   <div class="iconImg msCheckAll msCheck" title="<?php echo _("Select All") ?>"></div>
   </div>
   <div class="msgFrom sep"></div>
   <div class="msgSubject sep"></div>
@@ -538,7 +538,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  </div>
  <div class="item msglistHeader" id="msglistHeaderVert" style="display:none">
   <div class="iconImg msgStatus">
-   <div class="iconImg msCheck" title="<?php echo _("Select All") ?>"></div>
+   <div class="iconImg msCheckAll msCheck" title="<?php echo _("Select All") ?>"></div>
   </div>
   <div class="msgSort">
    <a class="widget" id="vertical_sort">Sort</a>
