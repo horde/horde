@@ -18,8 +18,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-21</date>
- <time>10:29:07</time>
+ <date>2011-07-27</date>
+ <time>17:18:10</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -759,7 +759,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-21</date>
+   <date>2011-07-27</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Fix exporting multiline attributes to vCard 2.1 and vCalendar 1.0.
