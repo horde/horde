@@ -349,6 +349,7 @@ implements Horde_Kolab_Storage_List_Query_List
                 'default' => $folders[$folder]['parent'],
                 'owner' => $folders[$folder]['owner'],
                 'name' => $folders[$folder]['name'],
+                'prefix' => $folders[$folder]['prefix'],
                 'parent' => $folders[$folder]['parent'],
                 'folder' => $folder,
             );
