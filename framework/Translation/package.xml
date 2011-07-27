@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:22:43</time>
+ <date>2011-07-27</date>
+ <time>16:53:52</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [cjh] Don't extend Horde_Translation_Exception from Horde_Exception_Wrapped to avoid circular dependency.
+* [cjh] Don&apos;t extend Horde_Translation_Exception from Horde_Exception_Wrapped to avoid circular dependency.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -181,10 +181,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-07-27</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [cjh] Don&apos;t extend Horde_Translation_Exception from Horde_Exception_Wrapped to avoid circular dependency.
    </notes>
   </release>
  </changelog>
