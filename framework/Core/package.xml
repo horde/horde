@@ -34,8 +34,10 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Update Latvian translation.
+* [jan] Don&apos;t set optional integer fields to 0 when automatically updating configuration.
 * [mjr] Fix recurring event exception handling for ActiveSync.
-* Fix removing user data from applications (Bug #10241).
+* [mms] Fix removing user data from applications (Bug #10241).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1507,8 +1509,10 @@
    <date>2011-07-14</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Update Latvian translation.
+* [jan] Don&apos;t set optional integer fields to 0 when automatically updating configuration.
 * [mjr] Fix recurring event exception handling for ActiveSync.
-* Fix removing user data from applications (Bug #10241).
+* [mms] Fix removing user data from applications (Bug #10241).
    </notes>
   </release>
  </changelog>

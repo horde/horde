@@ -1819,7 +1819,9 @@ class IMP_Prefs_Ui
             return false;
         }
 
-        IMP_Mailbox::getPref($pref)->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
+        if ($mbox_ob = IMP_Mailbox::getPref($pref)) {
+            $mbox_ob->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
+        }
 
         if ($folder == self::PREF_NO_FOLDER) {
             return $prefs->setValue($pref, '');

@@ -68,6 +68,13 @@ v3.0-ALPHA1
 
 
 ------
+v2.3.7
+------
+
+[jan] Add upgrade scripts for next-generation SQL share driver.
+
+
+------
 v2.3.6
 ------
 

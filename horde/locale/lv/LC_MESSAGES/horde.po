@@ -1,19 +1,22 @@
-# Latvian translation for Horde.
-# Kaspars Kapenieks <kaspars@rcc.lv>, 2002.
-# Jānis Eisaks <jancs@dv.lv>, 2011
+# Latvian translations for Horde package.
+# Copyright (C) 2011 Horde Project
+# This file is distributed under the same license as the Horde package.
+# Automatically generated, 2011.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde 2.1\n"
+"Project-Id-Version: Horde 4.0.7-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-07-12 12:46+0300\n"
-"PO-Revision-Date: 2011-07-12 12:55+0300\n"
+"POT-Creation-Date: 2011-07-05 15:38+0200\n"
+"PO-Revision-Date: 2011-07-20 14:54+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
-"Language-Team: Latvian <i18n@lists.horde.org>\n"
+"Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
 "X-Poedit-Language: Latvian\n"
 "X-Poedit-Country: LATVIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -36,7 +39,7 @@ msgstr "\"%s\" tika pievienots pieejas tiesību sistēmai."
 #: admin/perms/addchild.php:53
 #, php-format
 msgid "\"%s\" was not created: %s."
-msgstr "\"%s\" nav radīts: %s."
+msgstr "\"%s\" nav izveidots: %s"
 
 #: lib/Block/Account.php:80
 #, php-format
@@ -62,8 +65,9 @@ msgstr "%d minūtes"
 #, php-format
 msgid "%d person likes this"
 msgid_plural "%d persons like this"
-msgstr[0] "%d personai tas patīk"
-msgstr[1] "%d personām tas patīk"
+msgstr[0] "%d personām tas patīk"
+msgstr[1] "%d personai tas patīk"
+msgstr[2] "%d personām tas patīk"
 
 #: templates/admin/user/list.inc:4
 #, php-format
@@ -184,6 +188,17 @@ msgstr ""
 "Pieprasīta datu iztīrīšana noiekārtas. Tas tiks izdraīts nākošās "
 "sinhronizēšanas laikā."
 
+#: config/hooks.php:80
+#, php-format
+msgid ""
+"A message has been sent to \"%s\" to verify that this is really your "
+"address. The new email address is activated as soon as you confirm this "
+"message."
+msgstr ""
+"Uz adresi \"%s\" ir nosūtīta vēstule, lai pārliecinātos, ka norādītā adrese "
+"ir Jūsu. Jaunā adrese tiks aktivēta uzreiz pēc tam, kad apstiprināsiet šo "
+"sūtījumu."
+
 #: admin/config/index.php:147 admin/config/index.php:185
 #, php-format
 msgid "A newer version (%s) exists."
@@ -278,7 +293,7 @@ msgstr "ActiveSync Iekārtas"
 msgid "ActiveSync not activated."
 msgstr "ActiveSync nav iespējots."
 
-#: templates/portal/add.inc:14 templates/admin/groups/add.inc:11
+#: templates/admin/groups/add.inc:11 templates/portal/add.inc:14
 msgid "Add"
 msgstr "Pievienot"
 
@@ -342,7 +357,7 @@ msgstr "Kontakti"
 
 #: lib/Application.php:36
 msgid "Administration"
-msgstr "Administrēšana"
+msgstr "Lietotāju vadība"
 
 #: admin/alarms.php:31
 msgid "Alarm end"
@@ -350,7 +365,7 @@ msgstr "Brīdinājuma beigas"
 
 #: admin/alarms.php:33
 msgid "Alarm methods"
-msgstr "Brīdināšanas veidi"
+msgstr "Brīdināšanas veids"
 
 #: admin/alarms.php:30
 msgid "Alarm start"
@@ -378,7 +393,7 @@ msgstr "Visi autentificētie lietotāji"
 
 #: admin/activesync.php:51
 msgid "All policy keys successfully reset."
-msgstr "Policy key veiksmīgi atjaunots."
+msgstr "Visas politikas atslēgas atjaunotas."
 
 #: lib/Prefs/Ui.php:722
 msgid ""
@@ -481,15 +496,15 @@ msgstr "Pielikums"
 
 #: admin/groups.php:58
 msgid "Attempt to delete a non-existent group."
-msgstr "Mēģinājums dzēst neeksistējošu grupu."
+msgstr "Mēģinājums dzēsts neesošu grupu."
 
 #: admin/perms/delete.php:30
 msgid "Attempt to delete a non-existent permission."
-msgstr "Mēģinājums dzēst neeksistējošas pieejas tiesības."
+msgstr "Mēģinājums dzēsts neesošas tiesības."
 
 #: admin/perms/edit.php:98
 msgid "Attempt to edit a non-existent permission."
-msgstr "Mēģinājums mainīt neeksistējošas pieejas tiesības."
+msgstr "Mēģinājums mainīt neesošas tiesības."
 
 #: services/shares/edit.php:66
 msgid "Attempt to edit a non-existent share."
@@ -596,8 +611,8 @@ msgstr "Mierīgs"
 msgid "Camouflage"
 msgstr "Kamuflāža"
 
-#: admin/user.php:120 admin/user.php:140 templates/admin/user/clear.inc:12
-#: templates/admin/user/remove.inc:12 templates/admin/groups/delete.inc:11
+#: admin/user.php:120 admin/user.php:140 templates/admin/groups/delete.inc:11
+#: templates/admin/user/clear.inc:12 templates/admin/user/remove.inc:12
 msgid "Cancel"
 msgstr "Atcelt"
 
@@ -760,7 +775,7 @@ msgstr "Savērst sānjoslu"
 
 #: lib/Prefs/Ui.php:213
 msgid "Color Picker"
-msgstr "Krāsu izvēlētājs"
+msgstr "Krāsu izvēlne"
 
 #: admin/cmdshell.php:25 admin/cmdshell.php:47
 msgid "Command"
@@ -768,7 +783,7 @@ msgstr "Komanda"
 
 #: admin/cmdshell.php:19
 msgid "Command Shell"
-msgstr "Komandčaula"
+msgstr "Komandrinda"
 
 #: services/facebook/index.php:109
 #, php-format
@@ -795,7 +810,7 @@ msgstr "Konfigurācija"
 
 #: admin/config/diff.php:85
 msgid "Configuration Differences"
-msgstr "Konfigurācijas atšķirības"
+msgstr "konfigurācijas atšķirības"
 
 #: config/prefs.php:684
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
@@ -818,6 +833,10 @@ msgstr "Konfigurēt %s"
 msgid "Confirm Password"
 msgstr "Apstiprināt paroli"
 
+#: config/hooks.php:59
+msgid "Confirm new email address"
+msgstr "Apstipriniet alternatīvo-pasta adresi"
+
 #: services/changepassword.php:25 services/resetpassword.php:25
 msgid "Continue"
 msgstr "Turpināt"
@@ -837,7 +856,7 @@ msgstr "Nav iespējams pieslēgties serverim \"%s\" izmantojot FTP: %s"
 
 #: admin/config/index.php:76
 msgid "Could not contact server. Try again later."
-msgstr "Nav iespējams pieslēgties serverim.Mēģiniet vēlāk."
+msgstr "Nav iespējams pieslēgties serverim. Mēģiniet vēlāk."
 
 #: admin/config/scripts.php:40
 #, php-format
@@ -864,12 +883,12 @@ msgstr ""
 
 #: admin/config/config.php:52
 msgid "Could not revert configuration."
-msgstr "Nav iespējams atgriezties pie iepriekšējās konfigurācijas."
+msgstr "Nevar atjaunot konfigurāciju."
 
 #: admin/config/index.php:46
 #, php-format
 msgid "Could not save a backup configuation: %s"
-msgstr "Nav iespējams saglabāt konfigurācijas rezerves kopiju: %s"
+msgstr "Nav iespējams saglabāt konfigurācijas rezerves kopiju: %s."
 
 #: admin/config/scripts.php:101
 #, php-format
@@ -954,7 +973,7 @@ msgstr "Cyrillic/Ukrainian (KOI8-U)"
 
 #: admin/config/index.php:238 admin/config/index.php:276
 msgid "DB access is not configured."
-msgstr "Db pieeja nav konfigurēta."
+msgstr "DB pieeja nav konfigurēta."
 
 #: admin/config/index.php:244 admin/config/index.php:283
 msgid "DB schema is out of date."
@@ -983,7 +1002,7 @@ msgstr "Datu koks"
 msgid "DataTree Browser"
 msgstr "Datu koka pārlūks"
 
-#: templates/prefs/syncml.html:11 templates/admin/config/index.html:33
+#: templates/admin/config/index.html:33 templates/prefs/syncml.html:11
 msgid "Database"
 msgstr "Datubāze"
 
@@ -1030,14 +1049,14 @@ msgstr "Noklusētā atrašanās vieta dislokācijas jūtīgām funkcijām."
 msgid "Definitions"
 msgstr "Definīcijas"
 
-#: admin/groups.php:54 templates/shares/edit.inc:63
+#: admin/groups.php:54 templates/admin/groups/delete.inc:10
+#: templates/admin/user/list.inc:34 templates/shares/edit.inc:63
 #: templates/shares/edit.inc:83 templates/shares/edit.inc:98
 #: templates/shares/edit.inc:118 templates/shares/edit.inc:134
 #: templates/shares/edit.inc:154 templates/shares/edit.inc:169
 #: templates/shares/edit.inc:193 templates/shares/edit.inc:228
 #: templates/shares/edit.inc:255 templates/shares/edit.inc:271
 #: templates/shares/edit.inc:291 templates/shares/edit.inc:320
-#: templates/admin/user/list.inc:34 templates/admin/groups/delete.inc:10
 #: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
 #: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
 msgid "Delete"
@@ -1100,7 +1119,7 @@ msgstr "Iekārta veiksmīgi atvienota."
 
 #: admin/activesync.php:41
 msgid "Device wipe successfully canceled."
-msgstr "Iekārtas izslaucīšana veiksmīgi atcelta."
+msgstr "Iekārtas tīrīšana veiksmīgi atcelta."
 
 #: lib/Block/Metar.php:190
 msgid "Dew Point"
@@ -1126,7 +1145,7 @@ msgstr "Rādīt 24 h laiku?"
 
 #: config/prefs.php:490
 msgid "Display Preferences"
-msgstr "Ekrāna iestatījumi"
+msgstr "Attēlošanas iestatījumi"
 
 #: lib/Block/Weatherdotcom.php:79
 msgid "Display detailed forecast"
@@ -1173,10 +1192,13 @@ msgstr "E zīmes"
 msgid "EU VAT identification"
 msgstr "ES PVN identifikācija"
 
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
 # #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
 #
 # #-#-#-#-#  lv_LV.po (Gollem 1.0.3)  #-#-#-#-#
 # #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
 #
 #: templates/shares/edit.inc:62 templates/shares/edit.inc:79
 #: templates/shares/edit.inc:97 templates/shares/edit.inc:114
@@ -1210,7 +1232,7 @@ msgstr "Labot pieejas tiesības \"%s\""
 msgid "Education"
 msgstr "Izglītība"
 
-#: templates/admin/user/update.inc:45 templates/admin/groups/edit.inc:12
+#: templates/admin/groups/edit.inc:12 templates/admin/user/update.inc:45
 msgid "Email Address"
 msgstr "E-pasta adrese"
 
@@ -1259,7 +1281,7 @@ msgstr "Uzaicinātie:"
 
 #: config/prefs.php:540 templates/portal/layout.inc:101
 msgid "Every 15 minutes"
-msgstr "Katras 15 minūtes"
+msgstr "Ik 15 minūtes"
 
 #: config/prefs.php:576
 msgid "Every 2 minutes"
@@ -1267,15 +1289,15 @@ msgstr "Ik 2 minūtes"
 
 #: config/prefs.php:537 config/prefs.php:574 templates/portal/layout.inc:98
 msgid "Every 30 seconds"
-msgstr "Katras 30 sekundes"
+msgstr "Ik 30 sekundes"
 
 #: config/prefs.php:539 config/prefs.php:577 templates/portal/layout.inc:100
 msgid "Every 5 minutes"
-msgstr "Katras 5 minūtes"
+msgstr "Ik 5 minūtes"
 
 #: config/prefs.php:541 templates/portal/layout.inc:102
 msgid "Every half hour"
-msgstr "Katru pusstundu"
+msgstr "Ik pusstundu"
 
 #: templates/portal/layout.inc:103
 msgid "Every hour"
@@ -1497,7 +1519,7 @@ msgstr "Pelēks"
 
 #: admin/groups.php:165
 msgid "Group Administration"
-msgstr "Grupas administrēšana"
+msgstr "Grupu vadība"
 
 #: templates/admin/groups/add.inc:9
 msgid "Group name"
@@ -1711,7 +1733,7 @@ msgstr "Nederīga aplikācija."
 
 #: admin/signup_confirm.php:33
 msgid "Invalid hash."
-msgstr "Nederīgs hash."
+msgstr "Nepareizs hash."
 
 #: lib/Block/Weatherdotcom.php:160
 msgid "Invalid license key."
@@ -1723,7 +1745,7 @@ msgstr "Norādīta nederīga atrašanās vieta."
 
 #: admin/perms/addchild.php:29
 msgid "Invalid parent permission."
-msgstr "Nepareizas pieejas pamattiesības."
+msgstr "Nederīgas augstākā līmeņa tiesības."
 
 #: lib/Block/Weatherdotcom.php:156
 msgid "Invalid partner id."
@@ -1882,12 +1904,12 @@ msgstr "Tabulu saraksts"
 #: admin/alarms.php:135
 #, php-format
 msgid "Listing alarms failed: %s"
-msgstr "Kļūme pārlūkojot brīdinājumus: %s"
+msgstr "Kļūme veidojot brīdinājumu sarakstu: %s"
 
 #: admin/sessions.php:71
 #, php-format
 msgid "Listing sessions failed: %s"
-msgstr "Kļūme pārlūkojot sesijas: %s"
+msgstr "Kļūme veidojot sesiju sarakstu: %s"
 
 #: templates/admin/user/nolist.inc:2
 msgid "Listing users is disabled."
@@ -2051,7 +2073,7 @@ msgstr "Dažādi"
 
 #: admin/config/index.php:197
 msgid "Missing configuration."
-msgstr "Iztrūkst konfigurācijas datu."
+msgstr "Nav atrodama konfigurācija."
 
 #: lib/Block/WeatherdotcomStrings.php:48
 msgid "Mist"
@@ -2230,7 +2252,7 @@ msgstr "Nav pieejamas pagaidu katalogs kešatmiņai."
 
 #: admin/signup_confirm.php:57
 msgid "No username specified."
-msgstr "Nav norādīts lietotāja vārds."
+msgstr "Nav norādīts lietotājs."
 
 #: admin/config/index.php:203
 msgid "No version found in original configuration. Regenerate configuration."
@@ -2313,7 +2335,7 @@ msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
 msgstr ""
-"Tikai objekta īpašnieks vais sistēmas administrators var manīti koplietojuma "
+"Tikai objekta īpašnieks vai sistēmas administrators var mainīt koplietojuma "
 "īpašnieku vai tā pieejas tiesības."
 
 #: lib/Block/Fortune.php:60
@@ -2422,8 +2444,8 @@ msgstr "P_HP čaula"
 msgid "Partly Cloudy"
 msgstr "Daļēji mākoņains"
 
-#: login.php:194 admin/user.php:40 admin/user.php:54
-#: admin/config/index.php:319 config/registry.php:304
+#: login.php:194 admin/config/index.php:319 admin/user.php:40
+#: admin/user.php:54 config/registry.php:304
 #: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Parole"
@@ -2459,16 +2481,16 @@ msgstr "Izpildīt pieslēgšanās uzdevumus"
 #: admin/perms/delete.php:48
 #, php-format
 msgid "Permission \"%s\" not deleted."
-msgstr "Pieejas tiesības \"%s\" nav izdzēstas."
+msgstr "Tiesības \"%s\" nav izdzēstas."
 
 #: admin/perms/index.php:28
 msgid "Permissions"
-msgstr "Pieejas tiesības"
+msgstr "Tiesības"
 
 #: admin/perms/addchild.php:57 admin/perms/delete.php:52
 #: admin/perms/edit.php:116 admin/perms/index.php:22
 msgid "Permissions Administration"
-msgstr "Pieejas tiesību administrēšana"
+msgstr "Tiesību vadība"
 
 #: config/prefs.php:233
 msgid "Personal Information"
@@ -2512,7 +2534,7 @@ msgstr "Belzieni:"
 
 #: admin/activesync.php:106
 msgid "Policy Key"
-msgstr "Policy Key"
+msgstr "Politikas atslēga"
 
 #: lib/Prefs/Ui.php:404
 msgid "Policy Key:"
@@ -2542,6 +2564,7 @@ msgid "Precipitation for last %d hour: "
 msgid_plural "Precipitation for last %d hours: "
 msgstr[0] "Nokrišņi pēdējā %d stundā:"
 msgstr[1] "Nokrišņi pēdējās %d stundās:"
+msgstr[2] "Nokrišņi pēdējās %d stundās:"
 
 #: lib/Block/Weatherdotcom.php:281
 msgid "Precipitation<br />chance"
@@ -2663,7 +2686,7 @@ msgstr "Remarkas"
 
 #: admin/sessions.php:43 admin/sessions.php:59
 msgid "Remote Host:"
-msgstr "Attālinātais hosts:"
+msgstr "Attālinātā stacija:"
 
 #: config/prefs.php:601
 msgid "Remote Servers"
@@ -2673,9 +2696,9 @@ msgstr "Attālinātie serveri"
 msgid "Remote URL (http://www.example.com/horde):"
 msgstr "Attālinātā saite (URL, http://www.example.com/horde):"
 
-#: admin/activesync.php:186 templates/admin/user/approve.inc:40
-#: templates/admin/user/removequeued.inc:13 templates/admin/groups/edit.inc:26
-#: templates/prefs/activesync.html:33
+#: admin/activesync.php:186 templates/admin/groups/edit.inc:26
+#: templates/admin/user/approve.inc:40
+#: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
 msgid "Remove"
 msgstr "Aizvākt"
 
@@ -2716,7 +2739,7 @@ msgstr "Pieprasītais pakalpojums nav atrasts."
 #: admin/user.php:27 templates/admin/user/update.inc:54
 #: templates/prefs/rpc.html:36
 msgid "Reset"
-msgstr "Atsākt"
+msgstr "Sākt no jauna"
 
 #: services/resetpassword.php:45
 msgid "Reset Password"
@@ -2765,7 +2788,7 @@ msgstr "Atkārtojiet jauno paroli"
 
 #: admin/config/config.php:38 admin/config/config.php:47
 msgid "Revert Configuration"
-msgstr "Atgriezties pie iepriekšējās konfigurācijas"
+msgstr "Atjaunot iepriekšējo konfigurāciju"
 
 #: lib/Block/Fortune.php:65
 msgid "Riddles"
@@ -2783,13 +2806,16 @@ msgstr "SQl čaula"
 msgid "S_QL Shell"
 msgstr "S_Ql čaula"
 
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
 # #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
 #
 #: templates/portal/layout.inc:115 templates/prefs/end.html:3
 msgid "Save"
 msgstr "Saglabāt"
 
-#: templates/shares/edit.inc:330 templates/admin/groups/edit.inc:70
+#: templates/admin/groups/edit.inc:70 templates/shares/edit.inc:330
 #, php-format
 msgid "Save \"%s\""
 msgstr "Saglabāt \"%s\""
@@ -2803,13 +2829,12 @@ msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
 msgstr ""
-"Saglabājiet ģenerēto konfigurāciju kā PHP skriptu Jūsu servera pagaidu "
-"katalogā."
+"Saglabāt ģenerēto konfigurāciju kā PHP skriptu Jūsu servera pagaidu katalogā."
 
 #: admin/config/scripts.php:99
 #, php-format
 msgid "Saved configuration upgrade script to: \"%s\"."
-msgstr "Konfigurācijas uzlabojuma skripts saglabāts failā: \"%s\"."
+msgstr "Konfigurācijas uzlabojuma skripts saglabāts : \"%s\"."
 
 #: lib/Block/WeatherdotcomStrings.php:72
 msgid "Scattered Showers"
@@ -2913,7 +2938,7 @@ msgstr "Servera dati ir nepareizi vai arī nepieejami."
 
 #: admin/sessions.php:19
 msgid "Session Admin"
-msgstr "Sesijas admins"
+msgstr "Sesiju vadība"
 
 #: admin/sessions.php:41
 msgid "Session Timestamp:"
@@ -3099,8 +3124,8 @@ msgstr "Star Trek"
 msgid "State Management"
 msgstr "Stāvokļa vadība"
 
-#: admin/activesync.php:113 templates/prefs/activesync.html:22
-#: templates/admin/config/index.html:39
+#: admin/activesync.php:113 templates/admin/config/index.html:39
+#: templates/prefs/activesync.html:22
 msgid "Status"
 msgstr "Statuss"
 
@@ -3148,7 +3173,7 @@ msgstr "Lietotāja \"%s\" dati veiksmīgi iztīrīti no sistēmas."
 #: admin/groups.php:65 admin/perms/delete.php:42
 #, php-format
 msgid "Successfully deleted \"%s\"."
-msgstr "\"%s\" veiksmīgi izdzēsts."
+msgstr "\"%s\" veiksmīgi dzēsts."
 
 #: admin/user.php:123
 #, php-format
@@ -3161,23 +3186,23 @@ msgstr "Konfigurācija veiksmīgi atjaunota. Pārlādējiet, lai redzētu izmai�
 
 #: admin/config/index.php:44
 msgid "Successfully saved backup configuration."
-msgstr "Veiksmīgi saglabāta rezerves kopēšanas informācija."
+msgstr "Konfigurācijas rezerves kopija veiksmīgi saglabāta."
 
 #: admin/config/config.php:60
 #, php-format
 msgid "Successfully saved the backup configuration file %s."
-msgstr "Veiksmīgi saglabāts rezerves kopēšanas konfigurācijas fails %s."
+msgstr "Konfigurācijas rezerves kopija veiksmīgi saglabāta failā %s."
 
 #: admin/user.php:189
 #, php-format
 msgid "Successfully updated \"%s\""
-msgstr "Veiksmīgi atsvaidzināts \"%s\""
+msgstr "\"%s\" veiksmīgi atsvaidzināts."
 
 #: admin/config/config.php:69 admin/config/index.php:52
 #: admin/config/index.php:98
 #, php-format
 msgid "Successfully wrote %s"
-msgstr "Veiksmīgi ierakstīts %s"
+msgstr "%s veiksmīgi saglabāts"
 
 #: lib/Block/Sunrise.php:70
 msgid "Sun Rise"
@@ -3374,12 +3399,12 @@ msgstr "Serviss šobrīd ir pārāk noslogots. Mēginiet vēlāk."
 #: admin/user.php:214
 #, php-format
 msgid "The signup request for \"%s\" has been removed."
-msgstr "Reģistrācijas pieprasījums \"%s\" izdzēsts."
+msgstr "\"%s\" pieteikums aizvākts."
 
 #: admin/signup_confirm.php:39
 #, php-format
 msgid "The signup request for user \"%s\" has been removed."
-msgstr "Reģistrācijas pieprasījums lietotājam \"%s\" izdzēsts."
+msgstr "Lietotāja \"%s\" pieteikums aizvākts."
 
 #: lib/LoginTasks/Task/AdminCheck.php:47
 msgid ""
@@ -3392,7 +3417,7 @@ msgstr ""
 #: admin/signup_confirm.php:60 admin/user.php:77
 #, php-format
 msgid "The user \"%s\" already exists."
-msgstr "Lietotājs \"%s\" jau eksistē"
+msgstr "Lietotājs \"%s\" jau eksistē."
 
 #: services/shares/edit.php:85 services/shares/edit.php:177
 #, php-format
@@ -3407,12 +3432,12 @@ msgstr "Noformējuma tēmu katalogs \"%s\" nav atrasts."
 #: signup.php:38 signup.php:59 admin/signup_confirm.php:74 admin/user.php:89
 #, php-format
 msgid "There was a problem adding \"%s\" to the system: %s"
-msgstr "Kļūme pievienojot \"%s\" sistēmai: %s"
+msgstr "Kļūme pievienojot sistēmai \"%s\" : %s"
 
 #: admin/user.php:145
 #, php-format
 msgid "There was a problem clearing data for user \"%s\" from the system: "
-msgstr "Kļūme dzēšot lietotāja \"%s\" datus no sistēmas:"
+msgstr "Kļūme tīrot lietotāja \"%s\" datus no sistēmas:"
 
 #: admin/user.php:125
 #, php-format
@@ -3492,7 +3517,7 @@ msgstr "Veiksmīgo sinhronizācijas sesiju laika zīmogi"
 
 #: lib/Block/Iframe.php:28
 msgid "Title"
-msgstr "Virsraksts"
+msgstr "Nosaukums"
 
 #: templates/data/csvmap.inc:96
 msgid ""
@@ -3632,7 +3657,7 @@ msgstr "%s shēma atsvaidzināta."
 
 #: admin/config/index.php:317
 msgid "Upload"
-msgstr "Augšuplādēt"
+msgstr "Augšupielādēt"
 
 #: admin/config/index.php:325
 msgid "Uploaded all application configuration files to the server."
@@ -3664,7 +3689,7 @@ msgstr "Lietotāja reģistrācija"
 
 #: signup.php:19 admin/signup_confirm.php:18
 msgid "User Registration has been disabled for this site."
-msgstr "Lietotāju reģistrācija ir izslēgta."
+msgstr "Lietotāju reģistrēšana šai sistēmai nav iespējota."
 
 #: signup.php:27 admin/signup_confirm.php:25
 msgid "User Registration is not properly configured for this site."
@@ -3678,8 +3703,8 @@ msgstr "Konts nav atrasts"
 msgid "User to add:"
 msgstr "Pievienojamais lietotājs:"
 
-#: login.php:189 admin/user.php:37 admin/user.php:53
-#: admin/config/index.php:318 services/resetpassword.php:29
+#: login.php:189 admin/config/index.php:318 admin/user.php:37
+#: admin/user.php:53 services/resetpassword.php:29
 #: templates/admin/user/approve.inc:22
 msgid "Username"
 msgstr "Lietotāja vārds"
@@ -3870,8 +3895,9 @@ msgstr "Jā, piekrītu"
 #, php-format
 msgid "You and %d other person likes this"
 msgid_plural "You and %d other people like this"
-msgstr[0] "Jums un %d personai tas patīk"
-msgstr[1] "Jums un %d personām tas patīk"
+msgstr[0] "Jums un %d personām tas patīk"
+msgstr[1] "Jums un %d personai tas patīk"
+msgstr[2] "Jums un %d personām tas patīk"
 
 #: lib/Api.php:297
 msgid "You are not allowed to add groups."
@@ -3961,6 +3987,24 @@ msgstr ""
 "Jūsu Twitter konts nav pareizi pieslēgts Horde. Lūdzu, pārbaudiet Twitter "
 "iestatījumus savā %s."
 
+#: config/hooks.php:45
+#, php-format
+msgid ""
+"You have requested to add the email address \"%s\" to the list of your "
+"personal email addresses.\n"
+"\n"
+"Go to the following link to confirm that this is really your address:\n"
+"%s\n"
+"\n"
+"If you don't know what this message means, you can delete it."
+msgstr ""
+"Jūs pieprasījāt pievienot adresi \"%s\" savām personīgajām e-pasta adresēm.\n"
+"\n"
+"Izmantojiet šo saiti lai apstiprinātu, ka šī adrese patiešām ir Jūsu:\n"
+"%s\n"
+"\n"
+"Ja nezinat, ko šī vēstule nozīmē, varat to izdzēst."
+
 #: services/facebook/index.php:120 services/facebook/index.php:160
 #: services/facebook/index.php:168
 msgid "You like this"
@@ -3976,7 +4020,7 @@ msgstr "Jāizvēlas serveris, ko izdzēst."
 
 #: admin/user.php:139
 msgid "You must specify a username to clear out."
-msgstr "Jānorāda dzēšamais lietotājs."
+msgstr "Jānorāda iztīrāmā lietotāja vārds."
 
 #: admin/user.php:119
 msgid "You must specify a username to remove."
@@ -3988,7 +4032,7 @@ msgstr "Jānorāda pievienojamā lietotāja vārds."
 
 #: admin/user.php:169
 msgid "You must specify the username to update."
-msgstr "Jānorāda koriģējamā lietotāja vārds."
+msgstr "Jānorāda atsvaidzināmā lietotāja vārds."
 
 #: templates/problem/problem.inc:34
 msgid "Your Email Address"
@@ -4162,7 +4206,7 @@ msgstr "brāzmas"
 
 #: admin/config/diff.php:56 admin/config/diff.php:68
 msgid "inline"
-msgstr "iekšrindas"
+msgstr "iekļautais"
 
 #: lib/Block/FbStream.php:97 lib/Block/FbStream.php:136
 #: lib/Block/FbStream.php:162 lib/Block/TwitterTimeline.php:168

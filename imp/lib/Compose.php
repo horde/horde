@@ -2541,11 +2541,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $body_id = $contents->findBody('html');
             if (!is_null($body_id)) {
                 switch ($options['imp_msg']) {
+                case self::COMPOSE:
                 case self::REPLY:
                     $check_id = '2';
                     break;
 
-                case self::COMPOSE:
                 case self::FORWARD:
                 default:
                     $check_id = '1';

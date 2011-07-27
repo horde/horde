@@ -756,7 +756,7 @@ var DimpBase = {
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:splitBarChange', function(e) {
-            if (e.memo = 'horiz') {
+            if (e.memo == 'horiz') {
                 this._updatePrefs('dimp_splitbar', this.viewport.getPageSize());
             }
         }.bindAsEventListener(this));
@@ -1038,6 +1038,7 @@ var DimpBase = {
             break;
 
         case 'ctx_mboxsort_none':
+        case 'ctx_mboxsort_none_toggle':
             this.sort($H(DIMP.conf.sort).get('sequence').v);
             break;
 
@@ -1101,8 +1102,12 @@ var DimpBase = {
             }
 
             tmp = Object.isUndefined(baseelt.retrieve('u'));
-            [ $('ctx_folder_poll') ].invoke(tmp ? 'show' : 'hide');
-            [ $('ctx_folder_nopoll') ].invoke(tmp ? 'hide' : 'show');
+            if (DIMP.conf.poll_alter) {
+                [ $('ctx_folder_poll') ].invoke(tmp ? 'show' : 'hide');
+                [ $('ctx_folder_nopoll') ].invoke(tmp ? 'hide' : 'show');
+            } else {
+                $('ctx_folder_poll', 'ctx_folder_nopoll').invoke('hide');
+            }
 
             tmp = $(this.getSubFolderId(baseelt.readAttribute('id')));
             [ $('ctx_folder_expand').up() ].invoke(tmp ? 'show' : 'hide');
@@ -1221,6 +1226,12 @@ var DimpBase = {
                     elt.down('DIV').removeClassName(r).addClassName(a).show();
                 }
             });
+            break;
+
+        case 'ctx_mboxsort':
+            tmp = ($H(DIMP.conf.sort).get('sequence').v == this.viewport.getMetaData('sortby'));
+            [ $('ctx_mboxsort_none') ].invoke(tmp ? 'hide' : 'show');
+            [ $('ctx_mboxsort_none_toggle') ].invoke(tmp ? 'show' : 'hide');
             break;
 
         default:

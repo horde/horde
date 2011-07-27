@@ -2,6 +2,12 @@
 v4.0.8-git
 ----------
 
+[jan] Fix exporting multiline attributes to vCard 2.1 and vCalendar 1.0.
+[cjh] New log filter for exact level matching (Bryan Alves
+      <bryanalves@gmail.com>).
+[jan] Don't set optional integer fields to 0 when automatically updating
+      configuration.
+[mjr] ActiveSync policykey is now per user, not per device
 [mjr] Fix recurring event exception handling for ActiveSync.
 [mjr] use AS in column aliases to make postgres happy (Bug #10346).
 [jan] Don't show mobile login page if users are forced to tradtional or dynamic
@@ -9,6 +15,7 @@ v4.0.8-git
 [mjr] Improve calendar PING for iOS devices.
 [mjr] Prevent an ActiveSync sync loop in some fringe cases.
 [jan] Update PGP key server list and add SKS pool.
+
 
 ------
 v4.0.7
@@ -255,6 +262,18 @@ v4.0-ALPHA1
 [cjh] Add a Horde_Routes dispatcher for Rampage applications.
 [mjr] Fix a possible infinite loop with certain recurring events in Horde_Date.
 [jan] Use DateTime internally in Horde_Date.
+
+
+-------
+v3.3.12
+-------
+
+[jan] Convert charset of group names in SQL driver (Bug #9611).
+[jan] Fix deleting of SyncML anchors if PHP short_open_tag is off (Bug #9349).
+[jan] Add an experimental new Share SQL driver with better performance.
+[jan] Fix integer overflow in ASN.1 parser for S/MIME messages.
+[jan] Fix splitread database usage in VFS (Bug #9467).
+[jan] Fix invalidating permission cache in SQL driver (Bug #9392).
 
 
 -------

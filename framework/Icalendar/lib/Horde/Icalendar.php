@@ -577,9 +577,9 @@ class Horde_Icalendar
         //  BODY;ENCODING=QUOTED-PRINTABLE:=
         //  another=20line=
         //  last=20line
-        while (preg_match_all('/^([^:]+;\s*(ENCODING=)?QUOTED-PRINTABLE(.*=\r?\n)+(.*[^=])?\r?\n)/mU', $vCal, $matches)) {
+        while (preg_match_all('/^([^:]+;\s*(ENCODING=)?QUOTED-PRINTABLE(.*=\r?\n)+(.*[^=])?(\r?\n|$))/mU', $vCal, $matches)) {
             foreach ($matches[1] as $s) {
-                $r = preg_replace('/=\r?\n/', '', $s);
+                $r = preg_replace('/=\r?\n\s/', '', $s);
                 $vCal = str_replace($s, $r, $vCal);
             }
         }
@@ -1084,8 +1084,9 @@ class Horde_Icalendar
                 $params['ENCODING'] == 'QUOTED-PRINTABLE' &&
                 strlen(trim($value))) {
                 $result .= $name . $params_str . ':'
-                    . str_replace('=0A', '=0D=0A',
-                                  Horde_Mime::quotedPrintableEncode($value))
+                    . preg_replace(array('/(?<!\r)\n/', '/(?<!=)\r\n/'),
+                                   array("\r\n", "=0D=0A=\r\n "),
+                                   Horde_Mime::quotedPrintableEncode($value))
                     . $this->_newline;
             } else {
                 $attr_string = $name . $params_str . ':' . $value;

@@ -1,907 +1,986 @@
-# Latvian translations for Horde_Core module.
-# Copyright (C) 2010 Horde Project
-# This file is distributed under the same license as the Horde_Core module.
-# Automatically generated, 2010.
+# Latvian translations for Horde_Core package.
+# Copyright (C) 2011 Horde Project
+# This file is distributed under the same license as the Horde_Core package.
+# Automatically generated, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
+"PO-Revision-Date: 2011-07-21 10:08+0300\n"
+"Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
+"X-Poedit-Language: Latvian\n"
+"X-Poedit-Country: LATVIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
-#: lib/Horde.php:1613
+#: lib/Horde.php:1745
 #, php-format
 msgid " (Accesskey %s)"
-msgstr ""
+msgstr " (Accesskey %s)"
 
-#: lib/Horde/Registry.php:1122 lib/Horde/Registry.php:1573
-#, fuzzy, php-format
+#: lib/Horde/Core/Factory/Group.php:35
+#, php-format
+msgid "\"%s\" group driver not found."
+msgstr "\"%s\" grupas dzinis nav atrodams."
+
+#: lib/Horde/Registry.php:1184 lib/Horde/Registry.php:1657
+#, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
-msgstr "'%s' nav norādīts Horde reģistrā"
+msgstr "\"%s\" nav konfigurēts Horde reģistrā."
 
-#: lib/Horde/Core/Factory/Share.php:83
+#: lib/Horde/Core/Factory/ShareBase.php:57
 #, php-format
 msgid "\"%s\" share driver not found."
-msgstr ""
+msgstr "\"%s\" koplietošanas dzinis nav atrodams."
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:134
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:125
 #, php-format
 msgid "%d contact was successfully added to your address book."
 msgid_plural "%d contacts were successfully added to your address book."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d kontakts pievienota Jūsu adrešu grāmatai."
+msgstr[1] "%d kontakti pievienota Jūsu adrešu grāmatai."
+msgstr[2] "%d kontakti pievienota Jūsu adrešu grāmatai."
 
-#: lib/Horde/Core/Auth/Application.php:583
+#: lib/Horde/Core/Auth/Application.php:590
 #, php-format
 msgid "%d day until your password expires."
 msgid_plural "%d days until your password expires."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d diena līdz paroles derīguma termiņa beigām."
+msgstr[1] "%d dienas līdz paroles derīguma termiņa beigām."
+msgstr[2] "%d dienas līdz paroles derīguma termiņa beigām."
 
-#: lib/Horde/Core/Auth/Signup/Form.php:37
-#, php-format
-msgid "%s Sign Up"
-msgstr ""
-
-#: lib/Horde/Registry.php:1220
+#: lib/Horde/Registry.php:1289
 #, php-format
 msgid "%s is not authorized for %s."
-msgstr ""
+msgstr "%s nav autorizēts %s."
 
-#: lib/Horde/Core/Perms/Ui.php:338 lib/Horde/Core/Perms/Ui.php:397
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:847
+#: lib/Horde/Core/Perms/Ui.php:347 lib/Horde/Core/Perms/Ui.php:407
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:810
 msgid "-- select --"
-msgstr ""
+msgstr "-- izvēlieties --"
 
-#: lib/Horde/Core/Notification/Status.php:82
+#: lib/Horde/Core/Notification/Event/Status.php:72
 msgid "1 day"
-msgstr ""
+msgstr "Vienu dienu"
 
-#: lib/Horde/Core/Notification/Status.php:80
-#, fuzzy
+#: lib/Horde/Core/Notification/Event/Status.php:70
 msgid "1 hour"
-msgstr "24 stundas"
+msgstr "1 stunda"
 
-#: lib/Horde/Core/Notification/Status.php:79
-#, fuzzy
+#: lib/Horde/Core/Notification/Event/Status.php:69
 msgid "15 minutes"
-msgstr "Katras 15 minūtes"
+msgstr "15 minūtes"
 
-#: lib/Horde/Core/Notification/Status.php:78
-#, fuzzy
+#: lib/Horde/Core/Notification/Event/Status.php:68
 msgid "5 minutes"
-msgstr "Katras 5 minūtes"
+msgstr "5 minūtes"
 
-#: lib/Horde/Core/Notification/Status.php:81
-#, fuzzy
+#: lib/Horde/Core/Notification/Event/Status.php:71
 msgid "6 hours"
-msgstr "24 stundas"
+msgstr "6 stundas"
 
-#: lib/Horde/Core/Ui/Pager.php:86
+#: lib/Horde/Core/Ui/Pager.php:77
 msgid "<Previous"
-msgstr ""
+msgstr "<Iepriekšējais"
 
-#: lib/Horde.php:109
-#, fuzzy
+#: lib/Horde.php:156
 msgid "A fatal error has occurred"
-msgstr "<b>Ir notikusi kritiska kļūme:</b>"
+msgstr "Ir notikusi kritiska kļūme"
 
-#: lib/Horde/Core/Prefs/Identity.php:81
+#: lib/Horde/Core/Prefs/Identity.php:63
 #, php-format
 msgid ""
 "A message has been sent to \"%s\" to verify that this is really your "
 "address. The new email address is activated as soon as you confirm this "
 "message."
 msgstr ""
+"Lai pārliecinātos, ka adrese ir Jūs, uz \"%s\" ir nosūtīta vēstule. Jaunā e-"
+"pasta adrese tiks aktivēta tiklīdz kā Jūs apstiprināsiet vēstules saņemšanu."
 
-#: lib/Horde/Core/Auth/Signup/Base.php:96
+#: lib/Horde/Core/Auth/Signup/Base.php:83
 #, php-format
 msgid ""
 "A new account for the user \"%s\" has been requested through the signup form."
 msgstr ""
+"Izmantojot reģistrēšanās formu, ir iesniegts pieteikums reģistrēt lietotāju "
+"\"%s\"."
 
-#: lib/Horde/Script/Files.php:128
+#: lib/Horde/Script/Files.php:126
 msgid ""
 "A popup window could not be opened. Your browser may be blocking popups."
 msgstr ""
+"Izlecošais logs nav atverams. Var būt Jūsu pārlūkā ir bloķēti izlecošie logi?"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:103
+#: lib/Horde/Core/Auth/Signup/Base.php:91
 #, php-format
 msgid "Account signup request for \"%s\""
-msgstr ""
+msgstr "Konta reģistrēšanas pieprasījums \"%s\""
 
-#: lib/Horde/Core/Perms/Ui.php:192 lib/Horde/Core/Ui/VarRenderer/Html.php:651
-#, fuzzy
+#: lib/Horde/Core/Perms/Ui.php:194 lib/Horde/Core/Ui/VarRenderer/Html.php:615
 msgid "Add"
-msgstr "Adrese"
+msgstr "Pievienot"
 
-#: lib/Horde/Core/Perms/Ui.php:130
+#: lib/Horde/Core/Perms/Ui.php:132
 msgid "Add Child Permission"
-msgstr ""
+msgstr "Pievienot atvasinātās pieejas tiesības"
 
-#: lib/Horde/Core/Perms/Ui.php:101
+#: lib/Horde/Core/Perms/Ui.php:103
 msgid "Add New Permission"
-msgstr ""
+msgstr "Pievienot jaunas pieejas tiesības"
 
-#: lib/Horde/Core/Perms/Ui.php:78
+#: lib/Horde/Core/Perms/Ui.php:80
 msgid "Add Permission"
-msgstr ""
+msgstr "Pievienot pieejas tiesības"
 
-#: lib/Horde/Core/Perms/Ui.php:191
+#: lib/Horde/Core/Perms/Ui.php:193
 #, php-format
 msgid "Add a child permission to \"%s\""
-msgstr ""
+msgstr "Pievienot atvasinātās pieejas tiesības \"%s\""
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:107
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:92
 msgid "Add source"
-msgstr ""
+msgstr "Pievienot pirmtekstu"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:415
-#, fuzzy
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:408
 msgid "Add to address book:"
-msgstr "Kontakti"
+msgstr "Pievienot adrešu grāmatai:"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:430
-#, fuzzy
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:423
 msgid "Add to my address book"
-msgstr "Kontakti"
+msgstr "Pievienot manai adrešu grāmatai"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:237
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:301
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:231
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:295
 msgid "Address"
 msgstr "Adrese"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:417
-#, fuzzy
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:410
 msgid "Address Book"
-msgstr "Kontakti"
+msgstr "Adrešu grāmata"
 
-#: lib/Horde/Core/Sidebar.php:58
+#: lib/Horde/Core/Sidebar.php:98
 msgid "Administration"
-msgstr ""
+msgstr "Administrēšana"
 
-#: lib/Horde/Core/Notification/Status.php:98
+#: lib/Horde/Core/Notification/Event/Status.php:88
 msgid "Alarm"
-msgstr ""
+msgstr "Atgādinājums"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:161
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:155
 msgid "Alias"
 msgstr "Aizstājvārds"
 
-#: lib/Horde/Core/Perms/Ui.php:253
+#: lib/Horde/Core/Perms/Ui.php:262
 msgid "All Authenticated Users"
-msgstr ""
+msgstr "Visi autentificētie lietotāji"
 
-#: lib/Horde/Core/Perms/Ui.php:104
+#: lib/Horde/Core/Perms.php:121 lib/Horde/Core/Perms/Ui.php:106
 msgid "All Permissions"
-msgstr ""
+msgstr "Visas pieejas tiesības"
 
-#: lib/Horde/Core/Prefs/Ui.php:259 lib/Horde/Core/Prefs/Ui.php:275
+#: lib/Horde/Core/Prefs/Ui.php:307 lib/Horde/Core/Prefs/Ui.php:323
 msgid "An illegal value was specified."
 msgstr "Norādīta nederīga vērtība"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:98
+#: lib/Horde/Core/Auth/Signup/Base.php:85
 msgid "Approve the account:"
-msgstr ""
+msgstr "Apstipriniet kontu:"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:139
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:463
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:501
+#: lib/Horde/Core/Ui/JsCalendar.php:130
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:430
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:476
 msgid "April"
-msgstr ""
+msgstr "Aprīlis"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:143
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:467
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:505
+#: lib/Horde/Core/Ui/JsCalendar.php:134
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:434
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:480
 msgid "August"
-msgstr ""
+msgstr "Augusts"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:214
-#, fuzzy
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:199
 msgid "Available address books:"
-msgstr "Pieejamie lauki:"
+msgstr "Pieejamās adrešu grāmatas:"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:168
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:162
 msgid "Birthday"
 msgstr "Dzimšanas diena"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:543
+#: lib/Horde/Core/Block/Collection.php:392
+#, php-format
+msgid "Block \"%s\" of application \"%s\" not found."
+msgstr "Bloks \"%s\" aplikācijai \"%s\" nav atrodams."
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:517
 msgid "Calendar"
 msgstr "Kalendārs"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:327
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:321
 msgid "Cell Phone"
 msgstr "Mobilais tālrunis"
 
-#: lib/Horde/Core/Auth/Signup/Form.php:53
-#: lib/Horde/Core/Auth/Signup/Form.php:67
+#: lib/Horde/Core/Auth/Signup/Form.php:45
+#: lib/Horde/Core/Auth/Signup/Form.php:59
 msgid "Choose a password"
-msgstr ""
+msgstr "Izvēlieties paroli"
 
-#: lib/Horde/Core/Auth/Signup/Form.php:50
-#: lib/Horde/Core/Auth/Signup/Form.php:66
+#: lib/Horde/Core/Auth/Signup/Form.php:42
+#: lib/Horde/Core/Auth/Signup/Form.php:58
 msgid "Choose a username"
-msgstr ""
+msgstr "Izvēlieties lietotāja vārdu"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:208
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:193
 msgid "Choose the order of address books to search when expanding addresses."
-msgstr ""
+msgstr "Izvēlieties adrešu grāmatu, kurās meklēt izvēršamās adreses."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:599
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:601
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:564
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:566
 msgid "Color Picker"
-msgstr ""
+msgstr "Krāsu izvēlne"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:379
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:372
 msgid "Company"
 msgstr "Uzņēmums"
 
-#: lib/Horde/Core/Prefs/Identity.php:72
-#, fuzzy
+#: lib/Horde/Core/Prefs/Identity.php:54
 msgid "Confirm new email address"
-msgstr "Jūsu e-pasta adrese:"
+msgstr "Apstipriniet jauno E-pasta adresi"
 
-#: lib/Horde/Core/Perms/Ui.php:284
+#: lib/Horde/Config.php:282
+#, php-format
+msgid "Could not save the backup configuration file %s."
+msgstr "Nav iespējams saglabāt konfigurācijas rezerves kopiju failā %s."
+
+#: lib/Horde/Core/Perms/Ui.php:293
 msgid "Creator Permissions"
-msgstr ""
+msgstr "Izveidotāja pieejas tiesības"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:510
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:485
 msgid "DD"
 msgstr "DD"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:147
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:471
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:509
+#: lib/Horde/Core/Ui/JsCalendar.php:138
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:438
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:484
 msgid "December"
-msgstr ""
+msgstr "Decembris"
 
-#: lib/Horde/Core/Perms/Ui.php:483 lib/Horde/Core/Perms/Ui.php:501
+#: lib/Horde/Core/Perms/Ui.php:493 lib/Horde/Core/Perms/Ui.php:511
 msgid "Delete"
-msgstr ""
+msgstr "Dzēst"
 
-#: lib/Horde/Core/Perms/Ui.php:82 lib/Horde/Core/Perms/Ui.php:138
+#: lib/Horde/Core/Perms/Ui.php:84 lib/Horde/Core/Perms/Ui.php:140
 msgid "Delete Permission"
-msgstr ""
+msgstr "Dzēst pieejas tiesības"
 
-#: lib/Horde/Core/Perms/Ui.php:482
+#: lib/Horde/Core/Perms/Ui.php:492
 #, php-format
 msgid "Delete permissions for \"%s\""
-msgstr ""
+msgstr "Dzēst pieejas tiesības \"%s\""
 
-#: lib/Horde/Core/Perms/Ui.php:485
+#: lib/Horde/Core/Perms/Ui.php:495
 #, php-format
 msgid "Delete permissions for \"%s\" and any sub-permissions?"
-msgstr ""
+msgstr "Dzēst \"%s\" pieejas tiesības un visas apakštiesības?"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:100
+#: lib/Horde/Core/Auth/Signup/Base.php:87
 msgid "Deny the account:"
-msgstr ""
+msgstr "Atteikt kontu:"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:381
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:374
 msgid "Department"
-msgstr ""
+msgstr "Departaments"
 
-#: lib/Horde.php:127
+#: lib/Horde.php:173
 msgid "Details"
-msgstr ""
+msgstr "Detaļas"
 
-#: lib/Horde.php:132
+#: lib/Horde.php:178
 msgid "Details have been logged for the administrator."
-msgstr "Sīkāka informācija ir nosūtīta administratoram."
+msgstr "Sīkāka informācija nosūtīta administratoram."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1188
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1144
 #, php-format
 msgid "Dial %s"
-msgstr ""
+msgstr "Zvanīt %s"
 
-#: lib/Horde/Core/Notification/Status.php:77
+#: lib/Horde/Core/Notification/Event/Status.php:67
 msgid "Dismiss"
-msgstr ""
+msgstr "Noraidīt"
 
-#: lib/Horde/Core/Perms/Ui.php:483
+#: lib/Horde/Core/Perms/Ui.php:493
 msgid "Do not delete"
-msgstr ""
+msgstr "Nedzēst"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:216
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:280
-#, fuzzy
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:210
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:274
 msgid "Domestic Address"
 msgstr "Mājas adrese"
 
-#: lib/Horde/Core/Perms/Ui.php:81 lib/Horde/Core/Perms/Ui.php:136
-msgid "Edit Permission"
-msgstr ""
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  lv_LV.po (Gollem 1.0.3)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: lib/Horde/Core/Block/Layout.php:107 lib/Horde/Core/Block/Layout.php:108
+msgid "Edit"
+msgstr "Labot"
 
-#: lib/Horde/Core/Perms/Ui.php:416
+#: lib/Horde/Core/Perms/Ui.php:83 lib/Horde/Core/Perms/Ui.php:138
+msgid "Edit Permission"
+msgstr "Labot pieejas tiesības"
+
+#: lib/Horde/Core/Perms/Ui.php:426
 #, php-format
 msgid "Edit permissions for \"%s\""
-msgstr ""
+msgstr "Labot pieejas tiesības \"%s\""
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:364
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:357
 msgid "Email"
 msgstr "E-pasts"
 
-#: lib/Horde/Core/Prefs/Identity.php:105
+#: lib/Horde/Core/Prefs/Identity.php:87
 msgid "Email addresses to confirm not found."
-msgstr ""
+msgstr "Nav atrastas apstiprināmas e-pasta adreses."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:336
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:308
 msgid "Emoticons"
-msgstr ""
+msgstr "Emotikonas"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:988
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1000
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:945
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:956
 msgid "Enter the letters below:"
-msgstr ""
+msgstr "Ievadiet zemāk redzamos burtus:"
 
-#: lib/Horde/Core/Notification/Status.php:103
+#: lib/Horde/Core/Block/Layout/View.php:131
+#: lib/Horde/Core/Notification/Event/Status.php:93
 msgid "Error"
 msgstr "Kļūda"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:318
+#: lib/Horde/Core/Block/Layout/Manager.php:532
+msgid "Expand"
+msgstr "Izvērst"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:312
 msgid "Fax"
 msgstr "Fakss"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:137
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:461
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:499
+#: lib/Horde/Core/Ui/JsCalendar.php:128
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:428
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:474
 msgid "February"
-msgstr ""
+msgstr "Februāris"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:279
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:249
 msgid "Fix ratio"
-msgstr ""
+msgstr "Proporcijas"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:254
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:224
 msgid "Flip"
-msgstr ""
+msgstr "Apmest"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:105
+#: lib/Horde/Core/Ui/JsCalendar.php:96
 msgid "Fr"
-msgstr ""
+msgstr "Pk"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:123
+#: lib/Horde/Core/Ui/JsCalendar.php:114
 msgid "Friday"
-msgstr ""
+msgstr "Piektdiena"
 
-#: lib/Horde/Core/Prefs/Ui.php:597 lib/Horde/Core/Sidebar.php:91
+#: lib/Horde/Core/Prefs/Ui.php:651 lib/Horde/Core/Sidebar.php:131
 msgid "Global Preferences"
-msgstr ""
+msgstr "Globālie iestatījumi"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1333
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1289
 msgid "Google Maps"
-msgstr ""
+msgstr "Google kartes"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:260
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:230
 msgid "Grayscale"
-msgstr ""
+msgstr "Pelēks"
 
-#: lib/Horde/Core/Perms/Ui.php:358
+#: lib/Horde/Core/Perms/Ui.php:367
 msgid "Groups"
-msgstr ""
+msgstr "Grupas"
 
-#: lib/Horde/Core/Perms/Ui.php:271
+#: lib/Horde/Core/Perms/Ui.php:280
 msgid "Guest Permissions"
-msgstr ""
+msgstr "Viesa pieejas tiesības"
 
-#: lib/Horde/Help.php:218 lib/Horde/Help.php:219 lib/Horde/Menu.php:197
+#: lib/Horde/Help.php:219 lib/Horde/Help.php:220 lib/Horde/Menu.php:189
 msgid "Help"
 msgstr "Palīdzība"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:208
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:272
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:202
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:266
 msgid "Home Address"
 msgstr "Mājas adrese"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:321
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:315
 msgid "Home Phone"
 msgstr "Mājas telefons"
 
-#: lib/Horde/Core/Perms/Ui.php:297
+#: lib/Horde/Core/Perms/Ui.php:306
 msgid "Individual Users"
-msgstr ""
+msgstr "Individuālie lietotāji"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:220
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:284
-#, fuzzy
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:214
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:278
 msgid "International Address"
-msgstr "Jūsu e-pasta adrese:"
+msgstr "Starptautiskā adrese"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:777
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:740
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:26
 msgid "Invert selection"
-msgstr ""
+msgstr "Invertēt iezīmēto"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:136
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:460
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:498
+#: lib/Horde/Core/Ui/JsCalendar.php:127
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:427
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:473
 msgid "January"
-msgstr ""
+msgstr "Janvāris"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:142
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:466
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:504
+#: lib/Horde/Core/Ui/JsCalendar.php:133
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:433
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:479
 msgid "July"
-msgstr ""
+msgstr "Jūlijs"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:141
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:465
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:503
+#: lib/Horde/Core/Ui/JsCalendar.php:132
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:432
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:478
 msgid "June"
-msgstr ""
+msgstr "Jūnijs"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:287
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:257
 msgid "Keep original?"
-msgstr ""
+msgstr "Saglabāt oriģinālu?"
 
-#: lib/Horde/Core/Sidebar.php:120
+#: lib/Horde/Core/Sidebar.php:160
 msgid "Log in"
 msgstr "Pieslēgties"
 
-#: lib/Horde/Core/Sidebar.php:113
+#: lib/Horde/Core/Sidebar.php:153
 msgid "Log out"
 msgstr "Iziet"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:459
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:497
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:426
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:472
 msgid "MM"
 msgstr "MM"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1259
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1308
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1215
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1264
 msgid "MapQuest map"
-msgstr ""
+msgstr "MapQuest karte"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:138
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:462
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:500
+#: lib/Horde/Core/Ui/JsCalendar.php:129
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:429
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:475
 msgid "March"
-msgstr ""
+msgstr "Marts"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:140
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:464
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:502
+#: lib/Horde/Core/Ui/JsCalendar.php:131
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:431
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:477
 msgid "May"
-msgstr ""
+msgstr "Maijs"
 
-#: lib/Horde/Core/Notification/Status.php:109
+#: lib/Horde/Core/Notification/Event/Status.php:98
 msgid "Message"
-msgstr "Ziņa"
+msgstr "Vēstule"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:257
-#, fuzzy
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:227
 msgid "Mirror"
-msgstr "Kļūda"
+msgstr "Spogulis"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:101
+#: lib/Horde/Core/Ui/JsCalendar.php:92
 msgid "Mo"
-msgstr ""
+msgstr "P"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:119
+#: lib/Horde/Core/Ui/JsCalendar.php:110
 msgid "Monday"
-msgstr ""
+msgstr "Pirmdiena"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:112
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:623
+#: lib/Horde/Core/Block/Layout/Manager.php:566
+msgid "Move Down"
+msgstr "Pārvietot lejup"
+
+#: lib/Horde/Core/Block/Layout/Manager.php:570
+msgid "Move Left"
+msgstr "Pārvietot pa kreisi"
+
+#: lib/Horde/Core/Block/Layout/Manager.php:574
+msgid "Move Right"
+msgstr "Pārvietot pa labi"
+
+#: lib/Horde/Core/Block/Layout/Manager.php:562
+msgid "Move Up"
+msgstr "Pārvietot augšup"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:97
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:587
 msgid "Move down"
-msgstr ""
+msgstr "Pārvietoties uz leju"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:111
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:622
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:623
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:96
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:586
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:587
 msgid "Move up"
-msgstr ""
+msgstr "Uz augšu"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1228
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1184
 msgid "Multimap UK map"
-msgstr ""
+msgstr "Multimap UK kartes"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:157
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:151
 msgid "Name"
-msgstr "Vārds"
+msgstr "Nosaukums"
 
-#: lib/Horde/Core/Ui/Pager.php:129
+#: lib/Horde/Core/Ui/Pager.php:120
 msgid "Next>"
-msgstr ""
+msgstr "Nākošais>"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1093
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1049
 msgid "No"
-msgstr ""
+msgstr "Nē"
 
-#: lib/Horde/Core/Factory/Twitter.php:43
+#: lib/Horde/Core/Factory/Twitter.php:42
 msgid "No OAuth Key or Secret found for the Twitter API"
-msgstr ""
+msgstr "OAuth Key vai Secret nav atrasti Twitter API"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:569
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:534
 msgid "No Sound"
-msgstr ""
+msgstr "Nav skaņas"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:246
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:231
 msgid "No address book selected."
-msgstr ""
+msgstr "Nav izvēlēta adrešu grāmata"
 
-#: lib/Horde/Core/Perms/Ui.php:200
+#: lib/Horde/Core/Perms/Ui.php:202
 msgid "No children can be added to this permission."
-msgstr ""
+msgstr "Šīm tiesībām nav iespējams pievienot atvasinātās tiesības."
 
-#: lib/Horde.php:868
-#, fuzzy, php-format
+#: lib/Horde.php:948
+#, php-format
 msgid "No configuration information specified for %s."
-msgstr "SQL kategorijām nav norādīta konfigurācijas informācija."
+msgstr "%s nav norādīta konfigurācijas informācija."
 
-#: lib/Horde/Core/Ajax/Application.php:185
+#: lib/Horde/Core/Ajax/Application.php:203
 msgid "No valid email address found"
-msgstr ""
+msgstr "Nav atrasta derīga e-pasta adrese"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1101
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1111
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1122
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1139
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1057
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1067
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1078
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1095
 msgid "No values"
-msgstr ""
+msgstr "Nav vērtību"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:387
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:380
 msgid "Notes"
 msgstr "Piezīmes"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:146
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:470
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:508
+#: lib/Horde/Core/Ui/JsCalendar.php:137
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:437
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:483
 msgid "November"
-msgstr ""
+msgstr "Novembris"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:969
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:927
 msgid "Object"
-msgstr ""
+msgstr "Objekts"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:145
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:469
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:507
+#: lib/Horde/Core/Ui/JsCalendar.php:136
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:436
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:482
 msgid "October"
-msgstr ""
+msgstr "Oktobris"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:228
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:292
-#, fuzzy
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:222
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:286
 msgid "Parcel Address"
-msgstr "Mājas adrese"
+msgstr "Pasta adrese"
 
-#: lib/Horde/Core/Perms/Ui.php:200
+#: lib/Horde/Core/Perms/Ui.php:202
 msgid "Permission"
-msgstr ""
+msgstr "Atļauja"
 
-#: lib/Horde/Core/Perms/Ui.php:205 lib/Horde/Core/Perms/Ui.php:208
+#: lib/Horde/Core/Perms/Ui.php:207 lib/Horde/Core/Perms/Ui.php:217
 msgid "Permissions"
-msgstr ""
+msgstr "Pieejas tiesības"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:330
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:324
 msgid "Phone"
 msgstr "Tālrunis"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:176
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:184
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:188
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:170
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:178
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:182
 msgid "Photo"
-msgstr ""
+msgstr "Foto"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:224
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:288
-#, fuzzy
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:218
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:282
 msgid "Postal Address"
-msgstr "Mājas adrese"
+msgstr "Pasta adrese"
 
-#: lib/Horde/Core/Sidebar.php:80
+#: lib/Horde/Core/Sidebar.php:120
 msgid "Preferences"
-msgstr ""
+msgstr "Iestatījumi"
 
-#: lib/Horde/Core/Prefs/Ui.php:597
+#: lib/Horde/Core/Prefs/Ui.php:651
 #, php-format
 msgid "Preferences for %s"
-msgstr ""
+msgstr "%s Iestatījumi"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:232
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:296
-#, fuzzy
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:226
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:290
 msgid "Preferred Address"
-msgstr "Mājas adrese"
+msgstr "Galvenā adrese"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1527
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1487
 msgid "Preview"
-msgstr ""
+msgstr "Priekšskats"
 
-#: lib/Horde/Menu.php:189
-#, fuzzy
+#: lib/Horde/Menu.php:181
 msgid "Problem"
-msgstr "[Problēmas ziņojums]"
+msgstr "Problēma"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:654
-#, fuzzy
+#
+#: lib/Horde/Core/Block/Layout.php:117
+msgid "Really delete this block?"
+msgstr "Tiešām dzēst šo bloku?"
+
+#: lib/Horde/Core/Block/Layout.php:114 lib/Horde/Core/Block/Layout.php:118
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:618
 msgid "Remove"
-msgstr "Izdzēst pāri"
+msgstr "Aizvākt"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:108
-#, fuzzy
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:93
 msgid "Remove source"
-msgstr "Izdzēst pāri"
+msgstr "Aizvākt pirmtekstu"
 
-#: lib/Horde.php:878
-#, fuzzy, php-format
+#: lib/Horde.php:957
+#, php-format
 msgid "Required \"%s\" not specified in %s configuration."
-msgstr "Pieprasītais 'uid' nav norādīts iestatījumu konfigurācijā."
+msgstr "Nepieciešamais \"%s\" nav norādīts %s konfigurācijā."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:242
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:212
 msgid "Reset"
-msgstr ""
+msgstr "Atsākt no jauna"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:374
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:367
 msgid "Role"
 msgstr "Loma"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:248
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:218
 msgid "Rotate 180"
-msgstr ""
+msgstr "Griezt par 180"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:245
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:215
 msgid "Rotate Left"
-msgstr ""
+msgstr "Griezt pa kreisi"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:251
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:221
 msgid "Rotate Right"
-msgstr ""
+msgstr "Griezt pa labi"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:106
+#: lib/Horde/Core/Ui/JsCalendar.php:97
 msgid "Sa"
-msgstr ""
+msgstr "S"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:124
+#: lib/Horde/Core/Ui/JsCalendar.php:115
 msgid "Saturday"
-msgstr ""
+msgstr "Sestdiena"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:543
-#, fuzzy
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:517
 msgid "Select a date"
-msgstr "Izvēlieties datuma formātu:"
+msgstr "Izvēlieties datumu"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:775
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:738
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:24
 msgid "Select all"
-msgstr ""
+msgstr "Iezīmēt visus"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:969
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:927
 msgid "Select an object"
-msgstr ""
+msgstr "Izvēlēties objektu"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:776
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:739
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:25
 msgid "Select none"
-msgstr ""
+msgstr "Neizvēlēties neko"
 
-#: lib/Horde/Core/Prefs/Ui.php:758
+#: lib/Horde/Core/Prefs/Ui.php:815
 msgid "Select the identity you want to change:"
-msgstr ""
+msgstr "Izvēlieties maināmo identitāti:"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:209
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:194
 msgid "Selected address books:"
-msgstr ""
+msgstr "Izvēlētās adrešu grāmatas:"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1204
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1160
 msgid "Send SMS"
-msgstr ""
+msgstr "Sūtīt SMS"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:144
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:468
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:506
+#: lib/Horde/Core/Ui/JsCalendar.php:135
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:435
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:481
 msgid "September"
-msgstr ""
+msgstr "Septembris"
 
-#: lib/Horde/Core/Auth/Signup/Form.php:39
+#: lib/Horde/Core/Block/Layout/Manager.php:537
+msgid "Shrink"
+msgstr "Sašaurināt"
+
+#: lib/Horde/Core/Auth/Signup/Form.php:31
 msgid "Sign up"
-msgstr ""
+msgstr "Reģistrēties"
 
-#: lib/Horde/Core/Notification/Status.php:85
+#: lib/Horde/Core/Auth/Signup/Form.php:29
+msgid "Sign up for an account"
+msgstr "Nav konta? Reģistrējieties."
+
+#: lib/Horde/Core/Notification/Event/Status.php:75
 msgid "Snooze..."
-msgstr ""
+msgstr "Iemidzināt..."
 
-#: lib/Horde/Core/Ui/JsCalendar.php:100
+#: lib/Horde/Core/Ui/JsCalendar.php:91
 msgid "Su"
-msgstr ""
+msgstr "Sv"
 
-#: lib/Horde/Core/Notification/Status.php:115
+#: lib/Horde/Core/Notification/Event/Status.php:103
 msgid "Success"
 msgstr "Veiksme"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:118
+#: lib/Horde/Config.php:280
+#, php-format
+msgid "Successfully saved the backup configuration file %s."
+msgstr "Konfigurācijas kopija veiksmīgi saglabāta failā %s."
+
+#: lib/Horde/Core/Ui/JsCalendar.php:109
 msgid "Sunday"
-msgstr ""
+msgstr "Svētdiena"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:104
+#: lib/Horde/Core/Ui/JsCalendar.php:95
 msgid "Th"
-msgstr ""
+msgstr "C"
 
-#: lib/Horde/Core/Binder/History.php:13
+#: lib/Horde/Core/Factory/History.php:12
 msgid "The History system is disabled."
-msgstr ""
+msgstr "Vēstures sistēma ir atslēgta."
 
-#: lib/Horde/Core/Prefs/Identity.php:130
+#: lib/Horde/Core/Prefs/Identity.php:112
 #, php-format
 msgid ""
 "The email address %s has been added to your identities. You can close this "
 "window now."
-msgstr ""
+msgstr "E-pasta adrese %s pievienota Jūsu identitātēm. Varat aizvērt šo logu."
 
-#: lib/Horde.php:675
+#: lib/Horde.php:731
 msgid "The encryption features require a secure web connection."
-msgstr ""
+msgstr "Šifrēšanas izmantošanai nepieciešams drošais tīmekļa savienojums."
 
-#: lib/Horde.php:879
+#: lib/Horde.php:958
 #, php-format
 msgid "The file %s should contain a %s setting."
-msgstr ""
+msgstr "Failam %s jāsatur %s iestatījumu."
 
-#: lib/Horde.php:869
+#: lib/Horde.php:949
 #, php-format
 msgid "The file %s should contain some %s settings."
-msgstr ""
+msgstr "Failam %s jāsatur daži %s iestatījumi."
 
-#: lib/Horde.php:128
+#: lib/Horde/Registry.php:2273
+#, php-format
+msgid "The following applications encountered errors removing user data: %s"
+msgstr "Sekojošās aplikācijas sastapa kļūdas dzēšot lietotāja datus: %s"
+
+#: lib/Horde.php:174
 msgid ""
 "The full error message is logged in Horde's log file, and is shown below "
 "only to administrators. Non-administrative users will not see error details."
 msgstr ""
+"Pilns kļūdas paziņojums saglabāts Horde žurnālā un tiks parādīts tikai "
+"administratoriem. Pārējie lietotāji kļūdas paziņojuma detaļas neredzēs."
 
-#: lib/Horde/Core/Prefs/Ui.php:825
+#: lib/Horde/Core/Prefs/Ui.php:879
 #, php-format
 msgid "The identity \"%s\" has been deleted."
-msgstr ""
+msgstr "Identitāte \"%s\" veiksmīgi izdzēsta."
 
-#: lib/Horde/Core/Prefs/Ui.php:871
+#: lib/Horde/Core/Prefs/Ui.php:927
 msgid "The new from address can't be verified, try again later: "
-msgstr ""
+msgstr "Jauno nosūtītāja adrese nav iespējams pārbaudīt, atkārtojiet vēlāk:"
 
-#: lib/Horde/Core/Prefs/Identity.php:96 lib/Horde/Core/Prefs/Identity.php:102
-msgid "There are no email addresses to confirm."
-msgstr ""
-
-#: lib/Horde/Core/Prefs/Ui.php:398
-msgid "There are no preferences available for this application."
-msgstr ""
-
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:129
-msgid "There was an error importing the contact data:"
-msgstr ""
-
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:115
-msgid "There was an error reading the contact data."
-msgstr ""
-
-#: lib/Horde/Core/Prefs/Ui.php:289
-#, fuzzy
-msgid "This number must be non-zero."
-msgstr "Šim skaitlim ir jābūt vismaz 1."
-
-#: lib/Horde.php:381
+#: lib/Horde/Core/Factory/Prefs.php:189
 #, php-format
 msgid ""
-"This request cannot be completed because the link you followed or the form "
-"you submitted was only valid for %s minutes. Please try again now."
+"The preference \"%s\" could not be saved because its data exceeds the "
+"maximum allowable size"
 msgstr ""
+"Iestatījumu \"%s\" nav iespējams saglabāt, jo tā dati pārsniedz maksimālo "
+"pieļaujamo izmēru."
 
-#: lib/Horde/Registry.php:474
+#: lib/Horde/Core/Factory/Prefs.php:161
+msgid ""
+"The preferences backend is currently unavailable and your preferences have "
+"not been loaded. You may continue to use the system with default preferences."
+msgstr ""
+"Sistēmas iestatījumu dzinis šobrīd nav pieejams un Jūsu iestatījumi nav "
+"ielādēti. Jūs varat turpināt darbu, izmantojot sistēmas vispārējos "
+"iestatījumus."
+
+#: lib/Horde/Core/Prefs/Identity.php:78 lib/Horde/Core/Prefs/Identity.php:84
+msgid "There are no email addresses to confirm."
+msgstr "Nav apstiprināmu e-pasta adrešu."
+
+#: lib/Horde/Core/Prefs/Ui.php:445
+msgid "There are no preferences available for this application."
+msgstr "Šai aplikācijai nav iestatījumu."
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:120
+msgid "There was an error importing the contact data:"
+msgstr "Kļūda importējot kontakta datus:"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:106
+msgid "There was an error reading the contact data."
+msgstr "Kļūda lasot kontakta datus."
+
+#: lib/Horde/Core/Prefs/Ui.php:359
+msgid "There were errors encountered while updating your preferences."
+msgstr "Radās kļūdas saglabājot Jūsu iestatījumus."
+
+#: lib/Horde/Registry.php:434
 msgid "This system is currently deactivated."
-msgstr ""
+msgstr "Šī sistēma šobrīd ir deaktivēta."
 
-#: lib/Horde/Core/Prefs/Ui.php:287
+#: lib/Horde/Core/Prefs/Ui.php:335
 msgid "This value must be a number."
-msgstr "Šai vērtībai ir jābūt skaitlim."
+msgstr "Vērtībai jābūt skaitlim."
 
-#: lib/Horde/Core/Ui/JsCalendar.php:122
+#: lib/Horde/Core/Prefs/Ui.php:337
+msgid "This value must be non-zero."
+msgstr "Vērtība nedrīkst būt nulle."
+
+#: lib/Horde/Core/Ui/JsCalendar.php:113
 msgid "Thursday"
-msgstr ""
+msgstr "Ceturdiena"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:369
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:362
 msgid "Title"
 msgstr "Virsraksts"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:748
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:711
 msgid ""
 "To select multiple items, hold down the Control (PC) or Command (Mac) key "
 "while clicking."
 msgstr ""
+"Lai iezīmētu vairākus objektus, klikšķinot turiet nospiestu Control (PC) vai "
+"Command (MAC) pogu."
 
-#: lib/Horde/Core/Ui/JsCalendar.php:102
+#: lib/Horde/Core/Ui/JsCalendar.php:93
 msgid "Tu"
-msgstr ""
+msgstr "O"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:120
+#: lib/Horde/Core/Ui/JsCalendar.php:111
 msgid "Tuesday"
-msgstr ""
+msgstr "Otrdiena"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:393
+#: lib/Horde/Core/Auth/Signup/Form.php:45
+#: lib/Horde/Core/Auth/Signup/Form.php:59
+msgid "Type your password twice to confirm"
+msgstr "Lai apstiprinātu, ievadiet paroli divreiz"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:386
 msgid "URL"
 msgstr "URL"
 
-#: lib/Horde/Core/Perms/Ui.php:243
+#: lib/Horde/Core/Perms/Ui.php:252
 msgid "Update"
-msgstr ""
+msgstr "Mainīt"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:221
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:191
 msgid "Upload"
-msgstr ""
+msgstr "Augšupielādēt"
 
-#: lib/Horde/Core/Auth/Signup/Sql.php:96
+#: lib/Horde/Core/Auth/Signup/Sql.php:95
 #, php-format
 msgid "User \"%s\" does not exist."
-msgstr ""
+msgstr "Lietotājs \"%s\" neeksistē."
 
-#: lib/Horde/Core/Prefs/Ui.php:551
+#: lib/Horde/Core/Prefs/Ui.php:605
 msgid "User Preferences"
-msgstr ""
+msgstr "Lietotāja iestatījumi"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:129
+#: lib/Horde/Core/Auth/Signup/Base.php:116
 #, php-format
 msgid "Username \"%s\" already exists."
-msgstr ""
+msgstr "Lietotāja vārds \"%s\" jau eksistē."
 
-#: lib/Horde/Core/Notification/Status.php:121
+#: lib/Horde/Core/Notification/Event/Status.php:108
 msgid "Warning"
 msgstr "Brīdinājums"
 
-#: lib/Horde/Core/Ui/JsCalendar.php:103
+#: lib/Horde/Core/Ui/JsCalendar.php:94
 msgid "We"
-msgstr ""
+msgstr "T"
 
-#: lib/Horde.php:376
-msgid ""
-"We cannot verify that this request was really sent by you. It could be a "
-"malicious request. If you intended to perform this action, you can retry it "
-"now."
-msgstr ""
-
-#: lib/Horde/Core/Ui/JsCalendar.php:121
+#: lib/Horde/Core/Ui/JsCalendar.php:112
 msgid "Wednesday"
-msgstr ""
+msgstr "Trešdiena"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1235
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1191
 msgid "Whereis Australia map"
-msgstr ""
+msgstr "Whereis Austrālijas karte"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:212
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:276
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:206
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:270
 msgid "Work Address"
 msgstr "Darba adrese"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:324
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:318
 msgid "Work Phone"
 msgstr "Darba tālrunis"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:472
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:514
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:439
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:489
 msgid "YYYY"
-msgstr ""
+msgstr "GGGG"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1279
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1235
 msgid "Yahoo! map"
-msgstr ""
+msgstr "Yahoo! karte"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1093
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1049
 msgid "Yes"
-msgstr ""
+msgstr "Jā"
 
-#: lib/Horde/Registry.php:1841
+#: lib/Horde/Core/Block/Layout/Manager.php:221
+#, php-format
+msgid "You are not allowed to create more than %d block."
+msgid_plural "You are not allowed to create more than %d blocks."
+msgstr[0] "Jūs nedrīkstat radīt vairāk kā %d bloku."
+msgstr[1] "Jūs nedrīkstat radīt vairāk kā %d blokus."
+msgstr[2] "Jūs nedrīkstat radīt vairāk kā %d blokus."
+
+#: lib/Horde/Registry.php:1863
 msgid "You are not authenticated."
-msgstr ""
+msgstr "Jūs neesat autentificējies."
 
-#: lib/Horde/Core/Prefs/Identity.php:62
+#: lib/Horde/Core/Prefs/Identity.php:44
 #, php-format
 msgid ""
 "You have requested to add the email address \"%s\" to the list of your "
@@ -912,87 +991,84 @@ msgid ""
 "\n"
 "If you don't know what this message means, you can delete it."
 msgstr ""
+"Jūs pieprasījāt pievienot adresi \"%s\" savām personīgajām e-pasta adresēm.\n"
+"\n"
+"Izmantojiet šo saiti lai apstiprinātu, ka šī adrese patiešām ir Jūsu:\n"
+"%s\n"
+"\n"
+"Ja nezināt, ko šī vēstule nozīmē, varat to izdzēst."
 
-#: lib/Horde/Core/Factory/Vfs.php:82
+#: lib/Horde/Core/Factory/Vfs.php:75
 msgid "You must configure a VFS backend."
-msgstr ""
+msgstr "Nepieciešams konfigurēt VFS palīgmoduli."
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:411
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:397
 #, php-format
 msgid "You must provide a setting for \"%s\"."
-msgstr ""
+msgstr "Jānorāda iestatījums priekš \"%s\"."
 
-#: lib/Horde/Core/Prefs/Ui.php:839
-#, fuzzy
+#
+#: lib/Horde/Core/Prefs/Ui.php:895
 msgid "Your default identity has been changed."
-msgstr "Jūsu opcijas ir saglabātas."
+msgstr "Jūsu galvenā identitāte ir izmainīta."
 
-#: lib/Horde/Core/Prefs/Ui.php:757
-#, fuzzy
+#: lib/Horde/Core/Prefs/Ui.php:814
 msgid "Your default identity:"
-msgstr "Parastā identitāte"
+msgstr "Jūsu galvenā identitāte:"
 
-#: lib/Horde/Core/Prefs/Ui.php:323
+#: lib/Horde/Core/Prefs/Ui.php:371
 msgid "Your preferences have been updated for the duration of this session."
-msgstr ""
+msgstr "Jūsu iestatījumi saglabāti šai sesijai."
 
-#: lib/Horde/Core/Prefs/Ui.php:325
-#, fuzzy
+#: lib/Horde/Core/Prefs/Ui.php:373
 msgid "Your preferences have been updated."
-msgstr "Jūsu opcijas ir saglabātas."
+msgstr "Jūsu iestatījumi saglabāti."
 
-#: lib/Horde/Core/Text/Filter/Highlightquotes.php:75
+#: lib/Horde/Core/Text/Filter/Highlightquotes.php:51
 msgid "[Hide Quoted Text]"
-msgstr ""
+msgstr "[Slēpt citēto tekstu]"
 
-#: lib/Horde/Core/Text/Filter/Highlightquotes.php:73
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:145
+msgid "[No Label]"
+msgstr "[Nav iezīmes]"
+
+#: lib/Horde/Core/Text/Filter/Highlightquotes.php:50
 #, php-format
 msgid "[Show Quoted Text - %d lines]"
-msgstr ""
+msgstr "[Rādīt citēto tekstu - %d rindas]"
 
-#: lib/Horde.php:2083
-msgid "_Home"
-msgstr ""
-
-#: lib/Horde/Menu.php:218
-#, fuzzy
+#: lib/Horde/Menu.php:210
 msgid "_Log in"
 msgstr "Pieslēgties"
 
-#: lib/Horde/Menu.php:213
-#, fuzzy
+#: lib/Horde/Menu.php:205
 msgid "_Log out"
 msgstr "Iziet"
 
-#: lib/Horde/Menu.php:182
+#: lib/Horde/Menu.php:174
 msgid "_Preferences"
-msgstr ""
+msgstr "Iestatījumi"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:272
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:242
 msgid "h:"
-msgstr ""
+msgstr "a:"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:416
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:383
 msgid "hh"
-msgstr ""
+msgstr "hh"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:427
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:394
 msgid "mm"
-msgstr ""
+msgstr "mm"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:444
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:411
 msgid "ss"
-msgstr ""
+msgstr "ss"
 
-#: lib/Horde/Core/Auth/Signup/Form.php:53
-#: lib/Horde/Core/Auth/Signup/Form.php:67
-msgid "type the password twice to confirm"
-msgstr ""
-
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:111
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:102
 msgid "vCard"
 msgstr "vCard"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:264
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:234
 msgid "w:"
-msgstr ""
+msgstr "p:"

@@ -458,6 +458,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 
 <div class="context" id="ctx_mboxsort" style="display:none">
  <a id="ctx_mboxsort_none"><?php echo _("Clear Sort") ?></a>
+ <a id="ctx_mboxsort_none_toggle"><?php echo _("Toggle Sort Direction") ?></a>
 </div>
 
 <?php if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)): ?>

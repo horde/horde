@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-*
+* [jan] Update Latvian translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -219,7 +219,7 @@
    <date>2011-06-30</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-*
+* [jan] Update Latvian translation.
    </notes>
   </release>
  </changelog>

@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Update Latvian translation.
 * [jan] Allow to specify body charset when verifying PGP signed messages.
 * [jan] Update Lithuanian translation.
 * [jan] Update Brazilian Portuguese translation.
@@ -658,6 +659,7 @@ Initial release as a PEAR package
    <date>2011-06-28</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Update Latvian translation.
 * [jan] Allow to specify body charset when verifying PGP signed messages.
 * [jan] Update Lithuanian translation.
 * [jan] Update Brazilian Portuguese translation.

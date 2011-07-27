@@ -39,7 +39,6 @@ div.msgSubject span.treeImg {
 }
 
 /* Fixes broken inline-block. */
-.msgwrite span.loadingImg,
 #noticerow .notices li,
 #upload_wait,
 a.address:hover,

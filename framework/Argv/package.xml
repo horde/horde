@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* 
+* [jan] Update Latvian translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -665,7 +665,7 @@
    <date>2011-07-05</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-* 
+* [jan] Update Latvian translation.
    </notes>
   </release>
  </changelog>

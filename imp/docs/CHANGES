@@ -2,6 +2,8 @@
 v5.0.9-git
 ----------
 
+[mms] Workaround IE quirks for compose autocomplete box (Bug #10250).
+[mms] Fix resuming HTML drafts for non-reply messages (Bug #10298).
 [jan] Fix verifying of inline signed PGP messages (requires Horde_Crypt 1.0.4).
 [mms] Fix Shift-N shortcut in dynamic view (Bug #10352).
 [mms] Add save message link to dynamic view preview window.
@@ -431,6 +433,14 @@ v5.0-ALPHA1
 [mms] Added readonly mailbox and disable compose hooks.
 [mms] Saving draft on session expiration now handled via VFS.
 [mms] Add preference to delete draft on resume & send.
+
+
+-------
+v4.3.10
+-------
+
+[jan] Don't submit the action form when reloading messages with iTip
+      attachments (Bug #9502).
 
 
 ------

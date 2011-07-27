@@ -1,0 +1,1309 @@
+# Latvian translations for Wicked H4 package.
+# Copyright (C) 2011 Horde Project
+# This file is distributed under the same license as the Wicked package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Wicked H4 (2.0-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"PO-Revision-Date: 2011-07-21 10:23+0300\n"
+"Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+"X-Poedit-Language: Latvian\n"
+"X-Poedit-Country: LATVIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: lib/Page/StandardPage.php:283
+#, fuzzy, php-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minūte"
+msgstr[1] ""
+"#-#-#-#-#  nag.po (Nag H4 (3.0.2-git))  #-#-#-#-#\n"
+"#-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#\n"
+"%d minūte\n"
+"#-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#\n"
+"%d minūte\n"
+"#-#-#-#-#  kronolith.po (2.1.7)  #-#-#-#-#\n"
+"%d minūte\n"
+"#-#-#-#-#  wicked.po (Wicked H4 (2.0-git))  #-#-#-#-#\n"
+"#-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#\n"
+"%d minūte\n"
+"#-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#\n"
+"%d minūte\n"
+"#-#-#-#-#  kronolith.po (2.1.7)  #-#-#-#-#\n"
+"%d minūte\n"
+"#-#-#-#-#  kronolith.po (Kronolith H4 (3.0.5-git))  #-#-#-#-#\n"
+"#-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#\n"
+"%d minūte\n"
+"#-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#\n"
+"%d minūte\n"
+"#-#-#-#-#  kronolith.po (2.1.7)  #-#-#-#-#\n"
+"%d minūte"
+msgstr[2] ""
+"#-#-#-#-#  nag.po (Nag H4 (3.0.2-git))  #-#-#-#-#\n"
+"#-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#\n"
+"%d minūte\n"
+"#-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#\n"
+"%d minūte\n"
+"#-#-#-#-#  kronolith.po (2.1.7)  #-#-#-#-#\n"
+"%d minūte\n"
+"#-#-#-#-#  wicked.po (Wicked H4 (2.0-git))  #-#-#-#-#\n"
+"#-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#\n"
+"%d minūte\n"
+"#-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#\n"
+"%d minūte\n"
+"#-#-#-#-#  kronolith.po (2.1.7)  #-#-#-#-#\n"
+"%d minūte\n"
+"#-#-#-#-#  kronolith.po (Kronolith H4 (3.0.5-git))  #-#-#-#-#\n"
+"#-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#\n"
+"%d minūte\n"
+"#-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#\n"
+"%d minūte\n"
+"#-#-#-#-#  kronolith.po (2.1.7)  #-#-#-#-#\n"
+"%d minūte"
+
+#: templates/edit/create.inc:13
+#, php-format
+msgid ""
+"%s does not exist, but maybe you were looking for one of the following pages?"
+msgstr ""
+
+#: templates/edit/create.inc:30
+#, php-format
+msgid ""
+"%s does not exist. Click on \"Create\" below if you want to create this page "
+"now and start editing."
+msgstr ""
+
+#: lib/Page/Search.php:98
+#, fuzzy, php-format
+msgid "%s does not exist. You can create it now."
+msgstr "\"%s\" pievienots sistēmai. Tagad varat ienākt."
+
+#: templates/edit/create.inc:37
+#, fuzzy
+msgid "(None)"
+msgstr "(Nekas)"
+
+#: scripts/wicked.php:143
+msgid ""
+"-d, --debug                  Run in debug mode (displays extra information)"
+msgstr ""
+
+#: scripts/wicked.php:145
+msgid ""
+"-g, --get[=pagetitle]        Return all pages (unless pagetitle specified)"
+msgstr ""
+
+#: scripts/wicked.php:142
+#, fuzzy
+msgid "-h, --help                   Show this help"
+msgstr "Rādīt šo piezīmi"
+
+#: scripts/wicked.php:144
+#, fuzzy
+msgid "-l, --list-pages             List pages"
+msgstr "Lapu skaits"
+
+#: scripts/wicked.php:146
+msgid "-o, --out[=type]             Output type for results (default:xml)"
+msgstr ""
+
+#: scripts/wicked.php:148
+#, fuzzy
+msgid "-p, --password[=password]    Horde login password"
+msgstr "Pēdējā pieslēgšanās: %s no %s"
+
+#: scripts/wicked.php:147
+#, fuzzy
+msgid "-u, --username[=username]    Horde login username"
+msgstr "Pēdējā pieslēgšanās: %s no %s"
+
+#: templates/sync/list.inc:25 templates/sync/list.inc:51
+#: templates/sync/list.inc:73
+msgid "Actions"
+msgstr "Darbības"
+
+#: lib/Page/AddPage.php:101
+#, fuzzy, php-format
+msgid "Add Page: %s"
+msgstr "Pievienot vāka lapu"
+
+#: templates/display/MergeOrRename.html:31
+#, fuzzy
+msgid "Add the text from this page"
+msgstr "Veidot ceļu no šī teksta slāņa"
+
+#: lib/Page/AllPages.php:74
+#, fuzzy
+msgid "All Pages"
+msgstr "Vis_as lapas"
+
+#: lib/Page/DeletePage.php:74
+#, fuzzy
+msgid ""
+"Are you sure you want to delete this page? All versions will be permanently "
+"removed."
+msgstr ""
+"#-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#\n"
+"Vai tiešām vēlaties dzēst šo kalendāru kopā ar tajā esošajiem notikumiem?\n"
+"#-#-#-#-#  kronolith.po (2.1.7)  #-#-#-#-#\n"
+"Vai tiešām vēlaties dzēst šo kalendāru un visus tajā reģistrētos notikumus?"
+
+#: lib/Page/DeletePage.php:76
+#, fuzzy, php-format
+msgid "Are you sure you want to delete version %s of this page?"
+msgstr "Vai tiešām vēlaties dzēst šo publisko atslēgu?"
+
+#: lib/Page/RevertPage.php:65
+#, fuzzy, php-format
+msgid "Are you sure you want to revert to version %s of this page?"
+msgstr "Vai tiešām vēlaties dzēst šo karogu?"
+
+#: templates/display/AttachedFiles.html:88
+#, fuzzy
+msgid "Attach File"
+msgstr "DTD fails"
+
+#: templates/display/AttachedFiles.html:52
+#, fuzzy
+msgid "Attach a New File"
+msgstr "Jauns katalogs no POT faila..."
+
+#: lib/Page/AttachedFiles.php:155
+#, fuzzy, php-format
+msgid "Attached Files: %s"
+msgstr " %s failu pārsaukšana\n"
+
+#: templates/display/AttachedFiles.html:7
+#, fuzzy
+msgid "Attachment Name"
+msgstr "Pieejamais vārds"
+
+#: templates/display/standard.inc:80 templates/display/standard.inc:81
+#: templates/display/standard.inc:120
+msgid "Attachments"
+msgstr "Pielikumi"
+
+#: lib/Page/AttachedFiles.php:210
+msgid "Attachments with spaces can't be embedded into a page."
+msgstr ""
+
+#: lib/Page/Search.php:144 templates/edit/create.inc:19
+#: templates/history/header.inc:23 templates/pagelist/header.inc:7
+#: templates/sync/diff.inc:25 templates/sync/diff.inc:61
+#: templates/sync/list.inc:24 templates/sync/list.inc:50
+#: templates/display/AttachedFiles.html:10
+#, fuzzy
+msgid "Author"
+msgstr "Autors:"
+
+#: templates/display/standard.inc:107
+#, fuzzy
+msgid "Ba_ck to"
+msgstr "Pievienot karstajam sarakstam"
+
+#: templates/display/standard.inc:107
+#, fuzzy
+msgid "Back to"
+msgstr "Atpakaļ uz %s"
+
+#: templates/display/standard.inc:70
+#, fuzzy
+msgid "Backlinks"
+msgstr "Melnais saraksts"
+
+#: lib/Page/BackLinks.php:66
+#, fuzzy, php-format
+msgid "Backlinks: %s"
+msgstr "Melnais saraksts"
+
+#: lib/Page/SyncPages.php:234 lib/Page/SyncPages.php:237
+msgid "By default, your login data will be used"
+msgstr ""
+
+#: lib/Page/AttachedFiles.php:216
+#, fuzzy
+msgid "Can't read uploaded file."
+msgstr ""
+" Nevar nolasīt avota failu \"%s\" \n"
+" %s "
+
+#: lib/Page/RevertPage.php:113
+#, fuzzy, php-format
+msgid "Can't revert to an unknown version."
+msgstr "Nevar izveidot jaunu notikumu"
+
+#: lib/Page/AttachedFiles.php:257
+#, fuzzy, php-format
+msgid "Can't update \"%s\": no such attachment."
+msgstr "\"%s\" pievienots kā pielikums."
+
+#: lib/Page/DeletePage.php:95 lib/Page/MergeOrRename.php:152
+#: lib/Page/RevertPage.php:82 templates/edit/create.inc:47
+#: templates/edit/standard.inc:27 templates/display/MergeOrRename.html:62
+msgid "Cancel"
+msgstr "Atcelt"
+
+#: templates/history/header.inc:29 templates/display/AttachedFiles.html:12
+#, fuzzy
+msgid "Change Log"
+msgstr "lietotnes žurnāls"
+
+#: templates/edit/standard.inc:29 templates/sync/diff.inc:26
+#: templates/sync/diff.inc:62
+#, fuzzy
+msgid "Change log"
+msgstr "lietotnes žurnāls"
+
+#: templates/display/AttachedFiles.html:80
+#: templates/display/AttachedFiles.html:146
+#, fuzzy
+msgid "Change log entry"
+msgstr "Mainīt krāsu kartes elementu"
+
+#: templates/display/MergeOrRename.html:40
+msgid "Change references to this page from:"
+msgstr ""
+
+#: lib/Page/MergeOrRename.php:239
+#, fuzzy, php-format
+msgid "Changed references from %s to %s"
+msgstr "Mainīts brīdinājums no %s uz %s"
+
+#: templates/edit/standard.inc:28
+#, fuzzy
+msgid "Changelog is required"
+msgstr "Šis lauks ir obligāts."
+
+#: templates/sync/diff.inc:27 templates/sync/diff.inc:63
+#, fuzzy
+msgid "Checksum"
+msgstr "Ķeksis"
+
+#: templates/edit/create.inc:26
+msgid ""
+"Click on \"Create\" below if you want to create this page now and start "
+"editing."
+msgstr ""
+
+#: scripts/wicked.php:24
+#, fuzzy
+msgid "Couldn't read command-line options."
+msgstr ""
+"#-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#\n"
+"Nav iespējams atgriezties pie iepriekšējās konfigurācijas.\n"
+"#-#-#-#-#  admin.po (admin)  #-#-#-#-#\n"
+"Nevar atjaunot konfigurāciju."
+
+#: templates/edit/create.inc:46
+msgid "Create"
+msgstr "Izveidot"
+
+#: lib/Page/NewPage.php:129
+#, fuzzy, php-format
+msgid "Create Failed: %s"
+msgstr "Neizdevās izveidot failu '%s': %s"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: templates/history/header.inc:24 templates/sync/diff.inc:24
+#: templates/sync/diff.inc:60 templates/sync/list.inc:23
+#: templates/sync/list.inc:49
+#, fuzzy
+msgid "Created"
+msgstr "Izveidots"
+
+#: lib/Page/Search.php:145 templates/edit/create.inc:20
+#: templates/pagelist/header.inc:8
+#, fuzzy
+msgid "Creation Date"
+msgstr "Nezināms datums"
+
+#: lib/Page/SyncPages.php:219
+#, fuzzy
+msgid "Custom"
+msgstr "Izvēles"
+
+#: templates/display/AttachedFiles.html:11
+msgid "Date"
+msgstr "Datums"
+
+#: lib/Page/DeletePage.php:94
+msgid "Delete"
+msgstr "Dzēst"
+
+#: templates/display/standard.inc:55
+#, php-format
+msgid "Delete %s"
+msgstr "Dzēst %s"
+
+#: lib/Page/DeletePage.php:88 lib/Page/DeletePage.php:110
+#, fuzzy
+msgid "Delete Page"
+msgstr "ASP lapa"
+
+#: templates/history/header.inc:16
+#, fuzzy
+msgid "Delete Version"
+msgstr "Programmas versija"
+
+#: templates/history/summary.inc:6
+#, fuzzy, php-format
+msgid "Delete Version %s"
+msgstr "Programmas versija"
+
+#: lib/Page/DeletePage.php:132
+#, fuzzy, php-format
+msgid "Deleted version %s of \"%s\"."
+msgstr "Programmas versija"
+
+#: templates/history/header.inc:26
+#, fuzzy
+msgid "Diff From"
+msgstr "No tēmas"
+
+#: templates/history/header.inc:27
+#, fuzzy
+msgid "Diff To"
+msgstr " Kopét uz"
+
+#: diff.php:53 templates/diff/diff.inc:2 templates/sync/diff.inc:101
+#, fuzzy, php-format
+msgid "Diff for %s between %s and %s"
+msgstr "Robeža starp tekstu un rāmi."
+
+#: lib/Page/SyncPages.php:239
+#, fuzzy
+msgid "Display"
+msgstr "Displejs"
+
+#: templates/pagelist/summary.inc:3
+#, fuzzy, php-format
+msgid "Display %s"
+msgstr "Displejs"
+
+#: templates/history/summary.inc:2 templates/pagelist/summary.inc:6
+#, fuzzy, php-format
+msgid "Display Version %s"
+msgstr "Programmas versija"
+
+#: templates/sync/diff.inc:96 templates/sync/list.inc:35
+msgid "Download"
+msgstr "Lejupielādēt"
+
+#: templates/display/standard.inc:139
+#, fuzzy
+msgid "Download this page as:"
+msgstr "Testa lapa ir pieprasījumu rindā kā uzdevums %d"
+
+#: lib/Page/SyncPages.php:355
+#, fuzzy
+msgid "Downloaded from remote server"
+msgstr "Negaidīta atbilde no attālinātā servera."
+
+#: templates/display/AttachedFiles.html:13
+#, fuzzy
+msgid "Downloads"
+msgstr "Lejupielādēt"
+
+#: lib/Page/SyncPages.php:225
+#, fuzzy
+msgid "Driver"
+msgstr "Draivera maiņa"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  lv_LV.po (Gollem 1.0.3)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: lib/Page/SyncPages.php:242
+msgid "Edit"
+msgstr "Labot"
+
+#: preview.php:22 templates/display/standard.inc:24
+#, php-format
+msgid "Edit %s"
+msgstr "Labot %s"
+
+#: lib/Page/EditPage.php:117 templates/edit/standard.inc:21
+#, fuzzy
+msgid "Edit Page"
+msgstr "ASP lapa"
+
+#: templates/history/header.inc:18
+#, fuzzy
+msgid "Edit Version"
+msgstr "Programmas versija"
+
+#: templates/history/summary.inc:16
+#, fuzzy, php-format
+msgid "Edit Version %s"
+msgstr "Programmas versija"
+
+#
+#: templates/sync/diff.inc:98
+#, fuzzy
+msgid "Edit local"
+msgstr "Tikai lokāls"
+
+#
+#: templates/sync/diff.inc:99
+#, fuzzy
+msgid "Edit remote"
+msgstr "Attālināts fails"
+
+#: templates/display/AttachedFiles.html:67
+msgid "Enter a name for this file (if blank, will use the file's current name)"
+msgstr ""
+
+#: lib/Page/MergeOrRename.php:233
+#, fuzzy, php-format
+msgid "Error retrieving %s: %s"
+msgstr "Kļūda saņemot skriptu: (%d) %s"
+
+#: lib/Page/AttachedFiles.php:100 lib/Page/AttachedFiles.php:239
+#, fuzzy, php-format
+msgid "Error retrieving attachments: %s"
+msgstr "Kļūda saņemot skriptu: (%d) %s"
+
+#: lib/Page/AddPage.php:63
+#, fuzzy, php-format
+msgid "Error retrieving templates: %s"
+msgstr "Kļūda saņemot skriptu: (%d) %s"
+
+#: lib/Page/Search.php:151
+#, fuzzy
+msgid "Exact Match"
+msgstr "Nav sakritību"
+
+#: lib/Page/SyncPages.php:181 lib/Page/SyncPages.php:259
+#, fuzzy
+msgid "Fetch page list"
+msgstr "lapas sadaļu saraksts"
+
+#: templates/sync/diff.inc:54
+msgid "Found same content in history"
+msgstr ""
+
+#: lib/Page.php:258
+#, fuzzy
+msgid "Guest"
+msgstr "Viesa pieejas tiesības"
+
+#: templates/display/standard.inc:141
+msgid "HTML"
+msgstr "HTML"
+
+#: templates/display/standard.inc:88
+#, fuzzy
+msgid "Hi_story"
+msgstr "Pievienot rakstu"
+
+#: templates/display/standard.inc:87
+#, fuzzy, php-format
+msgid "History of %s"
+msgstr " Vēsture "
+
+#: lib/Page/StandardHistoryPage.php:45
+#, fuzzy
+msgid "History page not found"
+msgstr " Meklējamā rinda nav atrasta "
+
+#: history.php:26 templates/history/header.inc:7
+#, fuzzy, php-format
+msgid "History: %s"
+msgstr " Vēsture "
+
+#: templates/display/MergeOrRename.html:26
+msgid "If a page with the new name already exists, then"
+msgstr ""
+
+#: display.php:18 history.php:17
+#, fuzzy
+msgid "Internal error viewing requested page"
+msgstr "Kļūda apskatot pieprasīto vēstuli."
+
+#: diff.php:37
+#, fuzzy, php-format
+msgid "Internal error viewing requested page: %s"
+msgstr "Kļūda apskatot pieprasīto vēstuli."
+
+#: lib/Api.php:254
+#, fuzzy
+msgid "Invalid page requested."
+msgstr "Pieprasīts nepareizs uzdevumu saraksts."
+
+#: templates/display/AttachedFiles.html:133
+#, fuzzy
+msgid "Is this a minor update?"
+msgstr "Šis lauks ir obligāts."
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: templates/display/title.inc:6 templates/edit/standard.inc:20
+#, fuzzy, php-format
+msgid "Last Modified %s by %s"
+msgstr "lasīt grupai"
+
+#: templates/display/standard.inc:142
+#, fuzzy
+msgid "Latex"
+msgstr "Pēdējais"
+
+#: lib/Page/LeastPopular.php:78
+#, fuzzy
+msgid "Least Popular"
+msgstr "Populārākie raksti"
+
+#: lib/Page/SyncDiff.php:59 lib/Page/SyncDiff.php:66
+#: templates/sync/diff.inc:32 templates/sync/diff.inc:68
+msgid "Local"
+msgstr "Vietējais"
+
+#: templates/sync/diff.inc:22 templates/sync/diff.inc:58
+#, fuzzy
+msgid "Location"
+msgstr "Vieta"
+
+#: templates/display/standard.inc:43
+#, fuzzy, php-format
+msgid "Lock %s"
+msgstr "Aizslēgt:"
+
+#: lib/Page/DeletePage.php:88 lib/Page/RevertPage.php:75
+#: templates/display/title.inc:33 templates/edit/standard.inc:21
+msgid "Locked"
+msgstr ""
+
+#: scripts/wicked.php:86
+#, fuzzy, php-format
+msgid "Logged in successfully as \"%s\"."
+msgstr "\"%s\" veiksmīgi saglabāts."
+
+#: scripts/wicked.php:82
+#, fuzzy
+msgid "Login is incorrect."
+msgstr "ftpfs: lietotāja nepareiza %s pieteikšanās "
+
+#: scripts/wicked.php:140
+msgid ""
+"Mandatory arguments to long options are mandatory for short options too."
+msgstr ""
+
+#: templates/display/standard.inc:63
+#, fuzzy
+msgid "Merge/Rename"
+msgstr "Pārdēvēt kanālu"
+
+#: lib/Page/MergeOrRename.php:137
+#, fuzzy, php-format
+msgid "Merge/Rename: %s"
+msgstr "Pārdēvēt kanālu"
+
+#: lib/Page/MergeOrRename.php:198
+#, fuzzy, php-format
+msgid "Merged \"%s\" into \"%s\"."
+msgstr "Ievietot iekš"
+
+#: lib/Page/MergeOrRename.php:201
+#, php-format
+msgid "Merged \"%s\" into \"%s\". New page: %s\n"
+msgstr ""
+
+#: lib/Page/MergeOrRename.php:194
+#, fuzzy, php-format
+msgid "Merged from %s"
+msgstr "No tēmas"
+
+#: templates/edit/standard.inc:30
+#, fuzzy
+msgid "Minor Change"
+msgstr "Iet &Uz"
+
+#: lib/Page/MostPopular.php:78
+#, fuzzy
+msgid "Most Popular"
+msgstr "Populārākie raksti"
+
+#: lib/Block/Page.php:46
+#, fuzzy
+msgid "Name of wiki page to display"
+msgstr "Rādāmo rakstu skaits"
+
+#: lib/Page.php:250
+msgid "Never"
+msgstr "Nekad"
+
+#: lib/Page/NewPage.php:104
+#, fuzzy
+msgid "New Page"
+msgstr "ASP lapa"
+
+#: templates/edit/new.inc:20
+#, fuzzy, php-format
+msgid "New Page: %s"
+msgstr "ASP lapa"
+
+#: lib/Page/AttachedFiles.php:290
+#, fuzzy, php-format
+msgid "New attachment \"%s\" to page \"%s\"."
+msgstr "Noklikšķiniet %s lai pārietu uz %s vadības lapu."
+
+#: templates/display/MergeOrRename.html:15
+#, fuzzy
+msgid "New name"
+msgstr "Jaunās grupas nosaukums"
+
+#: lib/Page/MergeOrRename.php:162
+msgid "New name is the same as old name."
+msgstr ""
+
+#: templates/sync/list.inc:42
+msgid "New pages on local server"
+msgstr ""
+
+#: templates/sync/list.inc:16
+#, fuzzy
+msgid "New pages on remote server"
+msgstr "Jūsu attālinātie serveri:"
+
+#: lib/Api.php:192 lib/Page/EditPage.php:168 lib/Page/SyncPages.php:352
+#, fuzzy
+msgid "No changes made"
+msgstr "Šajā uzdevumā veiktās izmaiņas:"
+
+#: templates/sync/list.inc:18 templates/sync/list.inc:44
+#, fuzzy
+msgid "No pages found"
+msgstr "Nav atrasta neviena vienība"
+
+#: templates/sync/list.inc:70
+#, fuzzy
+msgid "No pages to sync"
+msgstr "Nav vēstuļu"
+
+#: lib/Page/Search.php:142 templates/edit/create.inc:17
+#: templates/pagelist/header.inc:5 templates/sync/list.inc:21
+#: templates/sync/list.inc:47 templates/sync/list.inc:73
+#, fuzzy
+msgid "Page"
+msgstr "Lapa"
+
+#: lib/Page/MergeOrRename.php:184
+#, fuzzy, php-format
+msgid "Page \"%s\" already exists."
+msgstr "Saīsne %s jau eksistē"
+
+#: lib/Page/SyncPages.php:378
+#, fuzzy, php-format
+msgid "Page \"%s\" was sucessfully uploaded from local to remote wiki."
+msgstr "Ieraksts \"%s\" veiksmīgi pievienots adrešu grāmatai"
+
+#: lib/Page/SyncPages.php:364
+#, php-format
+msgid "Page \"%s\" was sucessfuly downloaded from remote to local wiki."
+msgstr ""
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: lib/Page/NewPage.php:127
+#, fuzzy
+msgid "Page Created"
+msgstr "Skripts izveidots:"
+
+#: lib/Page/EditPage.php:171
+#, fuzzy
+msgid "Page Saved"
+msgstr "Saglabātie parametri"
+
+#: templates/edit/create.inc:35
+#, fuzzy
+msgid "Page Template:"
+msgstr "ODC veidne"
+
+#: lib/Page/Search.php:165
+#, fuzzy
+msgid "Page Text Matches"
+msgstr "Atbilst (ar vietturiem)"
+
+#: lib/Page/Search.php:158
+#, fuzzy
+msgid "Page Title Matches"
+msgstr "Palīga lapas visraksts"
+
+#: templates/pagelist/header.inc:10
+#, fuzzy
+msgid "Page Views"
+msgstr "Pacelt logus"
+
+#: display.php:33 lib/Page/EditPage.php:90
+#, fuzzy, php-format
+msgid "Page failed to lock: %s"
+msgstr "Nevar ielādēt ikonu"
+
+#: display.php:48
+#, fuzzy, php-format
+msgid "Page failed to unlock: %s"
+msgstr "Nevar ielādēt ikonu"
+
+#: lib/Driver/Sql.php:497 lib/Page/AddPage.php:48 lib/Page/NewPage.php:65
+#, fuzzy
+msgid "Page name must not be empty"
+msgstr "Kalendāra nosaukums nedrīkst būt tukšs."
+
+#: display.php:45
+#, fuzzy
+msgid "Page unlocked"
+msgstr "ASP lapa"
+
+#: lib/Application.php:58
+#, fuzzy
+msgid "Pages"
+msgstr "Lapas"
+
+#: lib/Page/NewPage.php:121
+#, fuzzy
+msgid "Pages cannot be empty."
+msgstr "Parole nevar būt tukša"
+
+#: templates/sync/list.inc:68
+#, fuzzy
+msgid "Pages to sync"
+msgstr "Pēdējās sinhronizācijas laiks"
+
+#: lib/Page/SyncPages.php:237
+msgid "Password"
+msgstr "Parole"
+
+#: templates/display/standard.inc:103
+#, fuzzy
+msgid "Permissio_ns"
+msgstr ""
+"#-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#\n"
+"Pieejas tiesības\n"
+"#-#-#-#-#  admin.po (admin)  #-#-#-#-#\n"
+"Tiesības\n"
+"#-#-#-#-#  kronolith.po (2.1.7)  #-#-#-#-#\n"
+"Tiesības"
+
+#: lib/Api.php:250
+#, fuzzy
+msgid "Permission denied."
+msgstr "Pieeja liegta"
+
+#: templates/display/standard.inc:140
+#, fuzzy
+msgid "Plain Text"
+msgstr "(Vienkāršs teksts)"
+
+#: lib/Page/SyncPages.php:228
+#, fuzzy
+msgid "Prefix"
+msgstr "Vārda prefiksi"
+
+#: templates/edit/new.inc:25 templates/edit/standard.inc:26
+msgid "Preview"
+msgstr "Priekšskats"
+
+#: lib/Page/EditPage.php:154
+msgid "Random string did not match."
+msgstr ""
+
+#: lib/Page/RecentChanges.php:101
+#, fuzzy
+msgid "Recent Changes"
+msgstr "Atcelt izmaiņas"
+
+#: lib/Page/AttachedFiles.php:61
+#, fuzzy, php-format
+msgid "Referrer \"%s\" does not exist."
+msgstr "Ierīce \"%s\" neeksistē."
+
+#: lib/Page/AttachedFiles.php:116
+#, fuzzy, php-format
+msgid "Reload \"%s\""
+msgstr "Atsvaidzināt skatījumu"
+
+#: templates/history/header.inc:8
+#, fuzzy
+msgid "Reload History"
+msgstr "Nesenie attēli"
+
+#: templates/display/title.inc:31 templates/display/title.inc:32
+#, fuzzy
+msgid "Reload Page"
+msgstr "ASP lapa"
+
+#: lib/Page/SyncDiff.php:60 lib/Page/SyncDiff.php:65
+#: templates/sync/diff.inc:40 templates/sync/diff.inc:76
+msgid "Remote"
+msgstr "Attālināts"
+
+#: lib/Page/SyncPages.php:181 lib/Page/SyncPages.php:284
+#, fuzzy
+msgid "Remove login info"
+msgstr "-v  --version  Izvada versijas informāciju."
+
+#: lib/Page/MergeOrRename.php:207
+#, fuzzy, php-format
+msgid "Renamed \"%s\" to \"%s\"."
+msgstr "\"%s\" pārdēvēts par \"%s\""
+
+#: lib/Page/MergeOrRename.php:210
+#, fuzzy, php-format
+msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
+msgstr "Noklikšķiniet %s lai pārietu uz %s vadības lapu."
+
+#: lib/Driver/Sql.php:564
+#, fuzzy, php-format
+msgid "Renamed page from %s"
+msgstr "fish: Atvienojamies no %s"
+
+#: lib/Page/SyncPages.php:181
+#, fuzzy
+msgid "Reset"
+msgstr "Atsākt"
+
+#: templates/history/header.inc:20
+#, fuzzy
+msgid "Restore Version"
+msgstr "Programmas versija"
+
+#: lib/Page/RevertPage.php:81
+#, fuzzy
+msgid "Revert"
+msgstr "Atjaunot"
+
+#: lib/Page/RevertPage.php:75 lib/Page/RevertPage.php:97
+#, fuzzy
+msgid "Revert Page"
+msgstr "ASP lapa"
+
+#: templates/history/summary.inc:26
+#, fuzzy, php-format
+msgid "Revert to version %s"
+msgstr "Parāda pašreizējo versiju"
+
+#: lib/Page/RevertPage.php:120
+#, fuzzy, php-format
+msgid "Reverted to version %s of \"%s\"."
+msgstr "Parāda pašreizējo versiju"
+
+#: lib/Driver/Sql.php:501
+#, fuzzy
+msgid "Robots are not allowed to create pages"
+msgstr "Jums nav atļauts izveidot mapes."
+
+#: templates/display/standard.inc:75
+#, fuzzy
+msgid "S_imilar Pages"
+msgstr "Lapu skaits"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
+#
+#: templates/edit/new.inc:24 templates/edit/standard.inc:25
+msgid "Save"
+msgstr "Saglabāt"
+
+#: lib/Page/SyncPages.php:181 lib/Page/SyncPages.php:273
+#, fuzzy
+msgid "Save login info"
+msgstr "-v  --version  Izvada versijas informāciju."
+
+#: lib/Page/Search.php:190 templates/menu.inc:17
+msgid "Search"
+msgstr "Meklēt"
+
+#: templates/pagelist/search.inc:1
+msgid "Search Results"
+msgstr "Meklēšanas rezultāti"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: templates/display/AttachedFiles.html:58
+#: templates/display/AttachedFiles.html:110
+#, fuzzy
+msgid "Select file to attach:"
+msgstr "Izvēlieties importējamo failu:"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: templates/display/AttachedFiles.html:119
+#, fuzzy
+msgid "Select the file to update"
+msgstr "Izvēlieties importējamo failu:"
+
+#: templates/display/standard.inc:102
+#, fuzzy, php-format
+msgid "Set permissions for %s"
+msgstr "Mainīt citu lietotāju pieejas tiesības"
+
+#: templates/sync/list.inc:79
+#, fuzzy
+msgid "Show changes"
+msgstr "Atcelt izmaiņas"
+
+#: lib/Page/RecentChanges.php:53 templates/display/title.inc:14
+#, fuzzy, php-format
+msgid "Show changes for %s"
+msgstr "Šajā uzdevumā veiktās izmaiņas:"
+
+#: lib/Page/RecentChanges.php:60
+#, fuzzy, php-format
+msgid "Show version %s"
+msgstr "Programmas versija"
+
+#: templates/display/standard.inc:75
+#, fuzzy
+msgid "Similar Pages"
+msgstr "Lapu skaits"
+
+#: lib/Page/LikePages.php:67
+#, fuzzy, php-format
+msgid "Similar Pages: %s"
+msgstr "Lapu skaits"
+
+#: templates/edit/standard.inc:41
+msgid "Spam Protection - Enter the letters below:"
+msgstr ""
+
+#: templates/display/MergeOrRename.html:33
+msgid "Stop and don't do anything"
+msgstr ""
+
+#: lib/Page/SyncPages.php:219
+#, fuzzy
+msgid "Stored"
+msgstr "Pērkona negaiss"
+
+#: templates/display/MergeOrRename.html:61
+msgid "Submit"
+msgstr "Iesniegt"
+
+#: lib/Page/DeletePage.php:126
+#, fuzzy, php-format
+msgid "Successfully deleted \"%s\"."
+msgstr "\"%s\" veiksmīgi izdzēsts."
+
+#: lib/Page/AttachedFiles.php:188
+#, fuzzy, php-format
+msgid "Successfully deleted version %s of \"%s\" from \"%s\""
+msgstr "\"%s\" veiksmīgi aizvākts no sistēmas."
+
+#: lib/Page/SyncDiff.php:100
+#, fuzzy
+msgid "Sync Diff"
+msgstr "%s: diff neizdevās:"
+
+#: lib/Page/SyncPages.php:153
+#, fuzzy
+msgid "Sync Pages"
+msgstr "Lapu skaits"
+
+#: lib/Page/SyncPages.php:180
+#, fuzzy
+msgid "Sync data"
+msgstr "Datu biti"
+
+#: lib/Page/SyncPages.php:289
+msgid "Sync login info was removed."
+msgstr ""
+
+#: lib/Page/SyncPages.php:280
+msgid "Sync login info was stored"
+msgstr ""
+
+#: lib/Page/SyncDiff.php:46
+#, fuzzy
+msgid "Synchronization is disabled"
+msgstr "Lietotāju pievienošana atslēgta."
+
+#: lib/Page.php:464
+#, fuzzy
+msgid "Table of Contents"
+msgstr "CD satura rādītājs"
+
+#: lib/Page/StandardPage.php:251
+#, fuzzy
+msgid "The page is already locked."
+msgstr "Mape \"%s\" jau ir tukša."
+
+#: lib/Page/AttachedFiles.php:266
+#, fuzzy, php-format
+msgid "There is already an attachment named \"%s\"."
+msgstr "Pielikums \"%s\" izdzēsts."
+
+#: lib/Page/MergeOrRename.php:160 lib/Page/MergeOrRename.php:166
+#, fuzzy
+msgid "This is a required field."
+msgstr "Šis lauks ir obligāts."
+
+#: display.php:60
+#, fuzzy
+msgid "This page does not have a history"
+msgstr " Serveris neatbalsta šo versiju "
+
+#: display.php:127
+#, php-format
+msgid "This page is locked by %s for %d Minutes."
+msgstr ""
+
+#: lib/Page/MergeOrRename.php:112
+#, php-format
+msgid "This page is referenced from %d other page(s)."
+msgstr ""
+
+#: templates/display/standard.inc:35
+#, fuzzy
+msgid "Un_lock"
+msgstr "Num_Lock"
+
+#: lib/Page/StandardPage.php:68
+#, fuzzy, php-format
+msgid "Unable to create %s"
+msgstr "Nevarēja izveidot ligzdu: %s"
+
+#: lib/Page/StandardPage.php:78
+msgid "Unable to create WikiHome. The wiki is not configured."
+msgstr ""
+
+#: templates/display/standard.inc:34
+#, php-format
+msgid "Unlock %s"
+msgstr ""
+
+#: lib/Page.php:239 lib/Page.php:272 lib/Page.php:277 lib/Page.php:371
+#: lib/Page.php:379 lib/Page.php:387 lib/Page.php:395 lib/Page.php:500
+#: lib/Page.php:511 lib/Page.php:516 lib/Page.php:521 lib/Page.php:526
+#: lib/Page.php:566
+#, fuzzy
+msgid "Unsupported"
+msgstr "Neatbalstīts"
+
+#: templates/display/AttachedFiles.html:154
+#, fuzzy
+msgid "Update File"
+msgstr "Atjaunot no &POT faila..."
+
+#: templates/display/AttachedFiles.html:104
+#, fuzzy
+msgid "Update an Attachment"
+msgstr "Apakšas piesaiste"
+
+#: lib/Page/AttachedFiles.php:287
+#, fuzzy, php-format
+msgid "Updated attachment \"%s\" on page \"%s\"."
+msgstr "Pielikums \"%s\" izdzēsts."
+
+#: templates/sync/diff.inc:97 templates/sync/list.inc:61
+#, fuzzy
+msgid "Upload"
+msgstr "Augšuplādēt"
+
+#: lib/Page/SyncPages.php:377
+#, fuzzy
+msgid "Uploaded from remote server"
+msgstr "Negaidīta atbilde no attālinātā servera."
+
+#: lib/Page/SyncPages.php:231
+#, fuzzy
+msgid "Url"
+msgstr "URL"
+
+#: scripts/wicked.php:138
+#, fuzzy, php-format
+msgid "Usage: %s [OPTIONS]..."
+msgstr "Lietošana: %s [izvēles] [<intervāls> [<skaits>]]\n"
+
+#: lib/Page/SyncPages.php:234
+msgid "User"
+msgstr "Lietotājs"
+
+#: lib/Page/Search.php:143 templates/edit/create.inc:18
+#: templates/history/header.inc:13 templates/pagelist/header.inc:6
+#: templates/sync/diff.inc:23 templates/sync/diff.inc:59
+#: templates/sync/list.inc:22 templates/sync/list.inc:48
+#: templates/display/AttachedFiles.html:9
+#, fuzzy
+msgid "Version"
+msgstr "Versija"
+
+#: lib/Page/SyncPages.php:162
+#, fuzzy
+msgid "View local"
+msgstr "Tikai lokāls"
+
+#: lib/Page/AttachedFiles.php:296
+#, fuzzy
+msgid "View page: "
+msgstr "apskatīt ārējo tīmekļa lapu"
+
+#: lib/Page/SyncPages.php:164
+#, fuzzy
+msgid "View remote"
+msgstr "Attālināts fails"
+
+#: lib/Api.php:209
+#, fuzzy
+msgid "Wiki Templates"
+msgstr "Attēlu paraugi"
+
+#: lib/Block/Page.php:20
+#, fuzzy
+msgid "Wiki page"
+msgstr "ASP lapa"
+
+#: display.php:26
+#, fuzzy
+msgid "You are not allowed to lock this page"
+msgstr "Jums nav atļauts mainīt šo adrešu grāmatu."
+
+#: display.php:40
+#, fuzzy
+msgid "You are not allowed to unlock this page"
+msgstr "Jums nav atļauts mainīt šo adrešu grāmatu."
+
+#: lib/Page/AttachedFiles.php:180
+#, fuzzy
+msgid "You do not have permission to delete attachments from this page."
+msgstr "Jums nav tiesību deleģēt notikumus %s."
+
+#: lib/Page/AttachedFiles.php:222 lib/Page/MergeOrRename.php:175
+#: lib/Page/MergeOrRename.php:188
+#, fuzzy, php-format
+msgid "You do not have permission to edit \"%s\""
+msgstr "Jums nav tiesību labot filtru likumus."
+
+#: lib/Page/NewPage.php:117
+#, fuzzy, php-format
+msgid "You don't have permission to create \"%s\"."
+msgstr "Jums nav tiesību apskatīt %s"
+
+#: lib/Page/DeletePage.php:138
+#, fuzzy, php-format
+msgid "You don't have permission to delete \"%s\"."
+msgstr "Mēģinājums dzēst neeksistējošas pieejas tiesības."
+
+#: lib/Api.php:174 lib/Page/EditPage.php:149 lib/Page/RevertPage.php:124
+#: lib/Page/SyncPages.php:346
+#, fuzzy, php-format
+msgid "You don't have permission to edit \"%s\"."
+msgstr "Mēģinājums mainīt neeksistējošas pieejas tiesības."
+
+#: display.php:69 display.php:72 display.php:116 display.php:118
+#, fuzzy
+msgid "You don't have permission to view this page."
+msgstr "Jums nav tiesību apskatīt šo  kontaktu."
+
+#: lib/Page/AttachedFiles.php:230
+#, fuzzy
+msgid "You must enter a change description to attach this file."
+msgstr "Jānorāda vismaz viens saņēmējs."
+
+#: lib/Api.php:178 lib/Page/EditPage.php:160
+#, fuzzy
+msgid "You must provide a change log."
+msgstr "Jānorāda iestatījums priekš \"%s\"."
+
+#: lib/Wicked.php:105
+#, fuzzy
+msgid "_All Pages"
+msgstr "Vis_as lapas"
+
+#: templates/display/standard.inc:70
+#, fuzzy
+msgid "_Backlinks"
+msgstr "Melnais saraksts"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: templates/display/standard.inc:56
+msgid "_Delete"
+msgstr "Dzēst"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  turba.po (Turba 2.1.7)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  turba.po (Turba 2.1.7)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: templates/display/standard.inc:25
+msgid "_Edit"
+msgstr "Labot"
+
+#: lib/Wicked.php:102
+msgid "_Home"
+msgstr "Pamatmape"
+
+#: templates/display/standard.inc:44
+#, fuzzy
+msgid "_Lock"
+msgstr "Aizslēgt:"
+
+#: templates/display/standard.inc:64
+#, fuzzy
+msgid "_Merge/Rename"
+msgstr "Pārdēvēt kanālu"
+
+#: lib/Wicked.php:104
+#, fuzzy
+msgid "_Recent Changes"
+msgstr "Atcelt izmaiņas"
+
+#: lib/Wicked.php:103
+#, fuzzy
+msgid "_Usage"
+msgstr "Lietošana"
+
+#: lib/Page/StandardPage.php:277
+#, fuzzy
+msgid "a guest"
+msgstr "Viesa pieejas tiesības"
+
+#: lib/Page/AttachedFiles.php:202
+msgid "attachment"
+msgstr "pielikums"
+
+#: scripts/wicked.php:105
+#, fuzzy, php-format
+msgid "page \"%s\" doesn't exist."
+msgstr "Fails '%s' neeksistē."

@@ -2,6 +2,7 @@
 v3.0.6-git
 ----------
 
+[jan] Improve exporting all-day events to Funambol clients.
 [mjr] Fix removing an exception from a recurrence series (Bug # 10365).
 [jan] Close session while listing events to speed up parallel loading from
       different calendars.
@@ -165,6 +166,14 @@ v3.0-ALPHA1
 [jan] Remove alarm reminder code.
 [jan] Change listEvents API method to return keys as dates instead of
       timestamps.
+
+
+------
+v2.3.6
+------
+
+[jan] Add upgrade scripts for next-generation SQL share driver.
+[jan] Export recurrence exceptions in a more portable way.
 
 
 ------

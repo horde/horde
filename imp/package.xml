@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-18</date>
- <time>16:00:05</time>
+ <date>2011-07-26</date>
+ <time>11:51:46</time>
  <version>
   <release>5.0.9</release>
   <api>5.0.0</api>
@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Workaround IE quirks for compose autocomplete box (Bug #10250).
+* [mms] Fix resuming HTML drafts for non-reply messages (Bug #10298).
 * [jan] Fix verifying of inline signed PGP messages (requires Horde_Crypt 1.0.4).
 * [mms] Fix Shift-N shortcut in dynamic view (Bug #10352).
 * [mms] Add save message link to dynamic view preview window.
@@ -2344,10 +2346,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-18</date>
+   <date>2011-07-26</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* [jan] Fix verifying of inline signed PGP messages.
+* [mms] Fix resuming HTML drafts for non-reply messages (Bug #10298).
+* [jan] Fix verifying of inline signed PGP messages (requires Horde_Crypt 1.0.4).
 * [mms] Fix Shift-N shortcut in dynamic view (Bug #10352).
 * [mms] Add save message link to dynamic view preview window.
 * [mms] Correctly quote e-mail names when composing from compose links in the dynamic view (Bug #10292).

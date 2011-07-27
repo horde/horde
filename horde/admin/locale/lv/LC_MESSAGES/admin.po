@@ -5,15 +5,14 @@ msgstr ""
 "Project-Id-Version: admin\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-07-07 11:52+0300\n"
-"PO-Revision-Date: 2011-06-16 15:33+0300\n"
+"PO-Revision-Date: 2011-07-20 14:48+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: Latvian <i18n@lists.horde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
-"2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
 "X-Poedit-Language: Latvian\n"
 "X-Poedit-Country: LATVIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -33,20 +32,18 @@ msgstr "\"%s\" tika pievienots pieejas tiesību sistēmai."
 msgid "\"%s\" was not created: %s."
 msgstr "\"%s\" nav izveidots: %s."
 
-#: config/config.php:26 config/index.php:355
+#: config/config.php:26
+#: config/index.php:355
 #, php-format
 msgid "%s Configuration"
 msgstr "%s konfigurācija"
 
 #: activesync.php:36
-msgid ""
-"A device wipe has been requested. Device will be wiped on next "
-"syncronization attempt."
-msgstr ""
-"Pieprasīta datu iztīrīšana noiekārtas. Tas tiks izdraīts nākošās "
-"sinhronizēšanas laikā."
+msgid "A device wipe has been requested. Device will be wiped on next syncronization attempt."
+msgstr "Pieprasīta datu iztīrīšana noiekārtas. Tas tiks izdraīts nākošās sinhronizēšanas laikā."
 
-#: config/index.php:147 config/index.php:185
+#: config/index.php:147
+#: config/index.php:185
 #, php-format
 msgid "A newer version (%s) exists."
 msgstr "Pieejama jaunāka (%s) versija."
@@ -79,14 +76,11 @@ msgstr "Pievienot jaunu brīdinājumu"
 msgid "Add user"
 msgstr "Pievienot lietotāju"
 
-#: signup_confirm.php:80 user.php:97
+#: signup_confirm.php:80
+#: user.php:97
 #, php-format
-msgid ""
-"Added \"%s\" to the system, but could not add additional signup information: "
-"%s."
-msgstr ""
-"\"%s\" pievienots sistēmai, taču nav iespējams pievienot papildus "
-"pieteikšanās informāciju: %s."
+msgid "Added \"%s\" to the system, but could not add additional signup information: %s."
+msgstr "\"%s\" pievienots sistēmai, taču nav iespējams pievienot papildus pieteikšanās informāciju: %s."
 
 #: alarms.php:31
 msgid "Alarm end"
@@ -124,7 +118,8 @@ msgstr "Aplikācijas konteksts"
 msgid "Application is ready."
 msgstr "Aplikācija gatava."
 
-#: config/index.php:150 config/index.php:188
+#: config/index.php:150
+#: config/index.php:188
 msgid "Application is up-to-date."
 msgstr "Aplikācijas versija ir aktuālā."
 
@@ -153,7 +148,8 @@ msgstr "Autentificēts:"
 msgid "Browser:"
 msgstr "Pārlūks:"
 
-#: user.php:120 user.php:140
+#: user.php:120
+#: user.php:140
 msgid "Cancel"
 msgstr "Atcelt"
 
@@ -169,7 +165,8 @@ msgstr "Notīrīt vaicājumu"
 msgid "Collapse"
 msgstr "Savērst"
 
-#: cmdshell.php:25 cmdshell.php:47
+#: cmdshell.php:25
+#: cmdshell.php:47
 msgid "Command"
 msgstr "Komanda"
 
@@ -229,21 +226,13 @@ msgstr "Nav iespējams saglabāt konfigurācijas rezerves kopiju failā %s."
 
 #: config/index.php:100
 #, php-format
-msgid ""
-"Could not save the configuration file %s. Use one of the options below to "
-"save the code."
-msgstr ""
-"Nav iespējams saglabāt konfigurācijas failu %s. Izmantojiet vienu no "
-"piedāvātajām iespējām koda  saglabāšanai."
+msgid "Could not save the configuration file %s. Use one of the options below to save the code."
+msgstr "Nav iespējams saglabāt konfigurācijas failu %s. Izmantojiet vienu no piedāvātajām iespējām koda  saglabāšanai."
 
 #: config/config.php:74
 #, php-format
-msgid ""
-"Could not save the configuration file %s. You can either use one of the "
-"options to save the code back on %s or copy manually the code below to %s."
-msgstr ""
-"Nav iespējams saglabāt konfigurācijais failu %s. Vai nu izmontojiet vienu no "
-"piedāvātajām opcijām lai saglabātu kodu %s vai arī iekopējiet to %s ar roku."
+msgid "Could not save the configuration file %s. You can either use one of the options to save the code back on %s or copy manually the code below to %s."
+msgstr "Nav iespējams saglabāt konfigurācijais failu %s. Vai nu izmontojiet vienu no piedāvātajām opcijām lai saglabātu kodu %s vai arī iekopējiet to %s ar roku."
 
 #: config/index.php:56
 #, php-format
@@ -254,15 +243,18 @@ msgstr "Nevar saglabāt \"%s\" konfigurāciju: %s"
 msgid "Current Sessions"
 msgstr "Aktuālās sesijas"
 
-#: config/index.php:238 config/index.php:276
+#: config/index.php:238
+#: config/index.php:276
 msgid "DB access is not configured."
 msgstr "DB pieeja nav konfigurēta"
 
-#: config/index.php:244 config/index.php:283
+#: config/index.php:244
+#: config/index.php:283
 msgid "DB schema is out of date."
 msgstr "Db shēma ir novecojusi."
 
-#: config/index.php:249 config/index.php:288
+#: config/index.php:249
+#: config/index.php:288
 msgid "DB schema is ready."
 msgstr "Db shēma gatava."
 
@@ -278,7 +270,8 @@ msgstr "Datu koka pārlūks"
 msgid "Delete"
 msgstr "Dzēst"
 
-#: alarms.php:127 groups.php:210
+#: alarms.php:127
+#: groups.php:210
 #, php-format
 msgid "Delete \"%s\""
 msgstr "Dzēst \"%s\""
@@ -308,7 +301,8 @@ msgstr "Iekārta veiksmīgi atslēgta."
 msgid "Device wipe successfully canceled."
 msgstr "Iekārtas tīrīšana veiksmīgi atcelta."
 
-#: config/index.php:147 config/index.php:185
+#: config/index.php:147
+#: config/index.php:185
 #, php-format
 msgid "Download %s"
 msgstr "Lejupielādēt %s"
@@ -322,7 +316,9 @@ msgstr "Lejuplādēt ģenerēto konfigurāciju kā PHP skriptu."
 msgid "Edit \"%s\""
 msgstr "Labot \"%s\""
 
-#: cmdshell.php:53 phpshell.php:60 sqlshell.php:121
+#: cmdshell.php:53
+#: phpshell.php:60
+#: sqlshell.php:121
 msgid "Execute"
 msgstr "Izpildīt"
 
@@ -391,9 +387,10 @@ msgstr "Nav atrodama konfigurācija."
 msgid "No change."
 msgstr "Nav izmaiņu."
 
-#: config/index.php:144 config/index.php:182
+#: config/index.php:144
+#: config/index.php:182
 msgid "No stable version exists yet."
-msgstr "Stabila versijas pagaidām neeksistē."
+msgstr "Stabila versijas pagaidām nepastāv."
 
 #: signup_confirm.php:57
 msgid "No username specified."
@@ -401,14 +398,11 @@ msgstr "Nav norādīts lietotājs."
 
 #: config/index.php:203
 msgid "No version found in original configuration. Regenerate configuration."
-msgstr ""
-"Oriģinālajā konfigurācijā nav atrasta versijas informācija. Reģenerējam "
-"konfigurāciju."
+msgstr "Oriģinālajā konfigurācijā nav atrasta versijas informācija. Reģenerējam konfigurāciju."
 
 #: config/index.php:212
 msgid "No version found in your configuration. Regenerate configuration."
-msgstr ""
-"Konfigurācijā nav atrasta versijas informācija. Reģenerējam konfigurāciju."
+msgstr "Konfigurācijā nav atrasta versijas informācija. Reģenerējam konfigurāciju."
 
 #: activesync.php:172
 msgid "Not Provisioned"
@@ -426,11 +420,14 @@ msgstr "PHP kods"
 msgid "PHP Shell"
 msgstr "PHP čaula"
 
-#: user.php:40 user.php:54 config/index.php:319
+#: user.php:40
+#: user.php:54
+#: config/index.php:319
 msgid "Password"
 msgstr "Parole"
 
-#: user.php:173 user.php:225
+#: user.php:173
+#: user.php:225
 msgid "Passwords must match."
 msgstr "Parolēm ir jāatbilst."
 
@@ -447,7 +444,9 @@ msgstr "Tiesības \"%s\" nav izdzēstas."
 msgid "Permissions"
 msgstr "Tiesības"
 
-#: perms/addchild.php:57 perms/delete.php:52 perms/edit.php:116
+#: perms/addchild.php:57
+#: perms/delete.php:52
+#: perms/edit.php:116
 #: perms/index.php:22
 msgid "Permissions Administration"
 msgstr "Tiesību vadība"
@@ -473,7 +472,8 @@ msgstr "Vaicājums"
 msgid "Registered User Devices"
 msgstr "Reģistrētās lietotāja iekārtas"
 
-#: sessions.php:43 sessions.php:59
+#: sessions.php:43
+#: sessions.php:59
 msgid "Remote Host:"
 msgstr "Attālinātā stacija:"
 
@@ -483,7 +483,7 @@ msgstr "Aizvākt"
 
 #: config/index.php:338
 msgid "Remove saved script from server's temporary directory."
-msgstr "Nodzēst saglabāto skriptu no servera pagaidu kataloga."
+msgstr "Izdzēsiet saglabāto skriptu no servera pagaidu kataloga."
 
 # #-#-#-#-#  ingo.po (Ingo H3 (1.1.5))  #-#-#-#-#
 # #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
@@ -502,11 +502,14 @@ msgstr "Sākt no jauna"
 msgid "Restore Last Query"
 msgstr "Atjaunot pēdējo vaicājumu"
 
-#: cmdshell.php:28 phpshell.php:79 sqlshell.php:62
+#: cmdshell.php:28
+#: phpshell.php:79
+#: sqlshell.php:62
 msgid "Results"
 msgstr "Rezultāti"
 
-#: config/config.php:38 config/config.php:47
+#: config/config.php:38
+#: config/config.php:47
 msgid "Revert Configuration"
 msgstr "Atjaunot konfigurāciju"
 
@@ -519,16 +522,13 @@ msgid "SQL Shell"
 msgstr "SQl čaula"
 
 #: config/index.php:310
-msgid ""
-"Save generated configuration as a PHP script to your server's temporary "
-"directory."
-msgstr ""
-"Saglabāt ģenerēto konfigurāciju kā PHP skriptu Jūsu servera pagaidu katalogā."
+msgid "Save generated configuration as a PHP script to your server's temporary directory."
+msgstr "Saglabāt ģenerēto konfigurāciju kā PHP skriptu Jūsu servera pagaidu katalogā."
 
 #: config/scripts.php:99
 #, php-format
 msgid "Saved configuration upgrade script to: \"%s\"."
-msgstr "Konfigurācijas atsvaidzināšanas skripts saglabāts : \"%s\"."
+msgstr "Konfigurācijas uzlabojuma skripts saglabāts : \"%s\"."
 
 #: sessions.php:19
 msgid "Session Admin"
@@ -539,11 +539,8 @@ msgid "Session Timestamp:"
 msgstr "Sesijas laika zīmogs:"
 
 #: config/index.php:300
-msgid ""
-"Show differences between currently saved and the newly generated "
-"configuration."
-msgstr ""
-"Rādīt atšķirības starp šobrīd saglabāto un no jauna ģenerēto konfigurāciju."
+msgid "Show differences between currently saved and the newly generated configuration."
+msgstr "Rādīt atšķirības starp šobrīd saglabāto un no jauna ģenerēto konfigurāciju."
 
 #: activesync.php:113
 msgid "Status"
@@ -553,7 +550,8 @@ msgstr "Statuss"
 msgid "Success"
 msgstr "Veiksme"
 
-#: signup_confirm.php:85 user.php:105
+#: signup_confirm.php:85
+#: user.php:105
 #, php-format
 msgid "Successfully added \"%s\" to the system."
 msgstr "\"%s\" veiksmīgi pievienots sistēmai."
@@ -563,7 +561,8 @@ msgstr "\"%s\" veiksmīgi pievienots sistēmai."
 msgid "Successfully cleared data for user \"%s\" from the system."
 msgstr "Lietotāja \"%s\" dati veiksmīgi iztīrīti no sistēmas."
 
-#: groups.php:65 perms/delete.php:42
+#: groups.php:65
+#: perms/delete.php:42
 #, php-format
 msgid "Successfully deleted \"%s\"."
 msgstr "\"%s\" veiksmīgi dzēsts."
@@ -591,7 +590,9 @@ msgstr "Konfigurācijas rezerves kopija veiksmīgi saglabāta failā %s."
 msgid "Successfully updated \"%s\""
 msgstr "\"%s\" veiksmīgi atsvaidzināts."
 
-#: config/config.php:69 config/index.php:52 config/index.php:98
+#: config/config.php:69
+#: config/index.php:52
+#: config/index.php:98
 #, php-format
 msgid "Successfully wrote %s"
 msgstr "%s veiksmīgi saglabāts"
@@ -606,11 +607,8 @@ msgstr "Brīdinājums saglabāts."
 
 #: config/index.php:103
 #, php-format
-msgid ""
-"The configuration for %s cannot be updated automatically. Please update the "
-"configuration manually."
-msgstr ""
-"%s konfigurāciju nevar atsvaidzināt automātiski. Lūdzu veiciet to pašrocīgi."
+msgid "The configuration for %s cannot be updated automatically. Please update the configuration manually."
+msgstr "%s konfigurāciju nevar atsvaidzināt automātiski. Lūdzu veiciet to pašrocīgi."
 
 #: user.php:214
 #, php-format
@@ -622,25 +620,27 @@ msgstr "\"%s\" pieteikums aizvākts."
 msgid "The signup request for user \"%s\" has been removed."
 msgstr "Lietotāja \"%s\" pieteikums aizvākts."
 
-#: signup_confirm.php:60 user.php:77
+#: signup_confirm.php:60
+#: user.php:77
 #, php-format
 msgid "The user \"%s\" already exists."
 msgstr "Lietotājs \"%s\" jau eksistē."
 
-#: signup_confirm.php:74 user.php:89
+#: signup_confirm.php:74
+#: user.php:89
 #, php-format
 msgid "There was a problem adding \"%s\" to the system: %s"
-msgstr "Problēma pievienojot sistēmai \"%s\" : %s"
+msgstr "Kļūme pievienojot sistēmai \"%s\" : %s"
 
 #: user.php:145
 #, php-format
 msgid "There was a problem clearing data for user \"%s\" from the system: "
-msgstr "Problēma tīrot lietotāja \"%s\" datus no sistēmas:"
+msgstr "Kļūme tīrot lietotāja \"%s\" datus no sistēmas:"
 
 #: user.php:125
 #, php-format
 msgid "There was a problem removing \"%s\" from the system: "
-msgstr "Problēma dzēšot \"%s\" no sistēmas:"
+msgstr "Kļūme dzēšot \"%s\" no sistēmas:"
 
 #: user.php:178
 #, php-format
@@ -648,23 +648,23 @@ msgid "There was a problem updating \"%s\": %s"
 msgstr "Kļūme atsvaidzinot \"%s\": %s"
 
 #: config/config.php:80
-msgid ""
-"There was an error in the configuration form. Perhaps you left out a "
-"required field."
-msgstr ""
-"Kļūda konfigurācijas formā. Iespējams, neaizpildījāt kādu obligāto lauku."
+msgid "There was an error in the configuration form. Perhaps you left out a required field."
+msgstr "Kļūda konfigurācijas formā. Iespējams, neaizpildījāt kādu obligāto lauku."
 
-#: groups.php:68 perms/delete.php:45
+#: groups.php:68
+#: perms/delete.php:45
 #, php-format
 msgid "Unable to delete \"%s\": %s."
 msgstr "Nevar nodzēst \"%s\": %s."
 
-#: config/index.php:168 config/index.php:263
+#: config/index.php:168
+#: config/index.php:263
 #, php-format
 msgid "Update %s schema"
 msgstr "Atsvaidzināt %s shēmu"
 
-#: groups.php:108 perms/edit.php:110
+#: groups.php:108
+#: perms/edit.php:110
 #, php-format
 msgid "Updated \"%s\"."
 msgstr "\"%s\" mainīts."
@@ -694,7 +694,9 @@ msgstr "Lietotāju reģistrēšana šai sistēmai nav iespējota."
 msgid "User Registration is not properly configured for this site."
 msgstr "Lietotāju reģistrācija nav korekti konfigurēta."
 
-#: user.php:37 user.php:53 config/index.php:318
+#: user.php:37
+#: user.php:53
+#: config/index.php:318
 msgid "Username"
 msgstr "Lietotāja vārds"
 
@@ -726,7 +728,8 @@ msgstr "Jānorāda atsvaidzināmā lietotāja vārds."
 msgid "[Unknown]"
 msgstr "[Nezināms]"
 
-#: config/diff.php:56 config/diff.php:68
+#: config/diff.php:56
+#: config/diff.php:68
 msgid "inline"
 msgstr "iekļautais"
 
@@ -734,10 +737,13 @@ msgstr "iekļautais"
 msgid "show differences"
 msgstr "rādīt atškirības"
 
-#: user.php:40 user.php:54
+#: user.php:40
+#: user.php:54
 msgid "type the password twice to confirm"
 msgstr "lai apstiprinātu, ievadiet paroli divreiz"
 
-#: config/diff.php:56 config/diff.php:68
+#: config/diff.php:56
+#: config/diff.php:68
 msgid "unified"
 msgstr "vienots"
+

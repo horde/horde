@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+
+  <entry id="Overview" state="unknown">
+    <title>Chora Overview</title>
+    <para>
+      Chora is a tool for viewing code repositories that are managed using
+      source control systems. It provides a directory (file) view, a log
+      history view, difference views between versions, a visual branch view,
+      and an annotated view.
+    </para>
+  <!-- English entry (2011-07-18):
+<entry id="Overview">
+    <title>Chora Overview</title>
+    <para>
+      Chora is a tool for viewing code repositories that are managed using
+      source control systems. It provides a directory (file) view, a log
+      history view, difference views between versions, a visual branch view,
+      and an annotated view.
+    </para>
+  </entry>--></entry>
+
+  <entry id="chora-button" state="unknown">
+    <title>Menu Buttons: Browse</title>
+    <para>
+      The Browse button takes you back to the main Chora files view for the
+      default repository.
+    </para>
+  <!-- English entry (2011-07-18):
+<entry id="chora-button">
+    <title>Menu Buttons: Browse</title>
+    <para>
+      The Browse button takes you back to the main Chora files view for the
+      default repository.
+    </para>
+  </entry>--></entry>
+
+  <entry id="prefs-button" state="unknown">
+    <title>Menu Buttons: Preferences</title>
+    <para>
+      The Preferences button lets you set some personal preferences to control the
+      way Chora behaves.
+    </para>
+  <!-- English entry (2011-07-18):
+<entry id="prefs-button">
+    <title>Menu Buttons: Preferences</title>
+    <para>
+      The Preferences button lets you set some personal preferences to control the
+      way Chora behaves.
+    </para>
+  </entry>--></entry>
+
+  <entry id="help-button" state="unknown">
+    <title>Menu Buttons: Help</title>
+    <para>
+      The Help button brings up this help display.
+    </para>
+  <!-- English entry (2011-07-18):
+<entry id="help-button">
+    <title>Menu Buttons: Help</title>
+    <para>
+      The Help button brings up this help display.
+    </para>
+  </entry>--></entry>
+
+  <entry id="view-checkout" state="unknown">
+    <title>Checkout View</title>
+    <para>
+      The Checkout View shows a file contents at a revision point, along with
+      the log entry for that revision.
+    </para>
+  <!-- English entry (2011-07-18):
+<entry id="view-checkout">
+    <title>Checkout View</title>
+    <para>
+      The Checkout View shows a file contents at a revision point, along with
+      the log entry for that revision.
+    </para>
+  </entry>--></entry>
+
+  <entry id="view-annotate" state="unknown">
+    <title>Annotate View</title>
+    <para>
+      The Annotated View shows a file annotated with which authors are
+      responsible for which portions of a file's contents (and is hence often
+      called the "blame" view).
+    </para>
+  <!-- English entry (2011-07-18):
+<entry id="view-annotate">
+    <title>Annotate View</title>
+    <para>
+      The Annotated View shows a file annotated with which authors are
+      responsible for which portions of a file's contents (and is hence often
+      called the "blame" view).
+    </para>
+  </entry>--></entry>
+
+  <entry id="view-branch" state="unknown">
+    <title>Branch View</title>
+    <para>
+      The Branch View shows a file's version history, layed out by
+      branches. This allows you to visually see where branch points were
+      created in the tree.
+    </para>
+  <!-- English entry (2011-07-18):
+<entry id="view-branch">
+    <title>Branch View</title>
+    <para>
+      The Branch View shows a file's version history, layed out by
+      branches. This allows you to visually see where branch points were
+      created in the tree.
+    </para>
+  </entry>--></entry>
+
+  <entry id="view-log" state="unknown">
+    <title>Log View</title>
+    <para>
+      The Log View shows a file's history via the checkin log messages. This
+      allows you to see a history of changes from the point of view log
+      messages entered at checkin time.
+    </para>
+  <!-- English entry (2011-07-18):
+<entry id="view-log">
+    <title>Log View</title>
+    <para>
+      The Log View shows a file's history via the checkin log messages. This
+      allows you to see a history of changes from the point of view log
+      messages entered at checkin time.
+    </para>
+  </entry>--></entry>
+
+  <entry id="view-diff" state="unknown">
+    <title>Differences View</title>
+    <para>
+      The Differences View shows the differences between two different
+      revisions of a file. This allows you to easily see how a file has
+      changed.  You can view the differences in various formats, including
+      among others a color coded side by side listing of the two revisions, or
+      in terms of ed editor commands.
+    </para>
+  <!-- English entry (2011-07-18):
+<entry id="view-diff">
+    <title>Differences View</title>
+    <para>
+      The Differences View shows the differences between two different
+      revisions of a file. This allows you to easily see how a file has
+      changed.  You can view the differences in various formats, including
+      among others a color coded side by side listing of the two revisions, or
+      in terms of ed editor commands.
+    </para>
+  </entry>--></entry>
+
+  <entry id="show-deleted-files" state="unknown">
+    <title>Show/Hide Deleted Files</title>
+    <para>
+      You can choose to either view deleted files (from the Attic) or to not
+      show (hide) deleted files in the file view.  If you choose to show
+      deleted files, they will show up dimmed and with a <i>trash can</i>
+      icon.
+    </para>
+    <para>
+      The default is not to show deleted files.
+    </para>
+  <!-- English entry (2011-07-18):
+<entry id="show-deleted-files">
+    <title>Show/Hide Deleted Files</title>
+    <para>
+      You can choose to either view deleted files (from the Attic) or to not
+      show (hide) deleted files in the file view.  If you choose to show
+      deleted files, they will show up dimmed and with a <i>trash can</i>
+      icon.
+    </para>
+    <para>
+      The default is not to show deleted files.
+    </para>
+  </entry>--></entry>
+
+</help>

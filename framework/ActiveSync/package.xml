@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
  <notes>
+* [mjr] Policykey is now per user, not per device
 * [mjr] use AS in column aliases to make postgres happy (Bug #10346).
 * [mjr] Prevent a sync loop in some fringe cases.
 * [mjr] Improve calendar syncing for iOS devices.
@@ -319,6 +320,7 @@
    <date>2011-07-19</date>
    <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
    <notes>
+* [mjr] Policykey is now per user, not per device
 * [mjr] use AS in column aliases to make postgres happy (Bug #10346).
 * [mjr] Prevent a sync loop in some fringe cases.
 * [mjr] Improve calendar syncing for iOS devices.

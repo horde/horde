@@ -2,6 +2,7 @@
 v1.0-git
 --------
 
+[jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
 [jan] Store "set" fields results as comma separated list (Vilius Šumskas
       <vilius@lnk.lt>, Request #5739).
 [jan] Create TEXT columns for form fields with long data (Request #5510).

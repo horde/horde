@@ -1,0 +1,168 @@
+# Latvian translations for Luxor H4 package.
+# Copyright (C) 2011 Horde Project
+# This file is distributed under the same license as the Luxor package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Luxor H4 (1.0-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"PO-Revision-Date: 2011-07-21 15:58+0300\n"
+"Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+"X-Poedit-Language: Latvian\n"
+"X-Poedit-Country: LATVIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: symbol.php:75
+#, fuzzy, php-format
+msgid "%s :: Symbol \"%s\""
+msgstr "Simbols, valūta"
+
+#: lib/Tagger.php:38 lib/Tagger.php:85
+#, php-format
+msgid "%s was already indexed."
+msgstr "%s jau ir indeksēts."
+
+#: lib/Tagger.php:49 lib/Tagger.php:96
+#, php-format
+msgid "Can't create copy of file %s."
+msgstr "Nevar izveidot faila %s kopiju."
+
+#: lib/Files/plain.php:85
+#, php-format
+msgid "Can't open directory %s"
+msgstr "Nevar atvērt mapi %s"
+
+#: lib/Lang/Generic.php:115
+#, php-format
+msgid "Can't open file %s."
+msgstr "Nevar atvērt failu %s."
+
+#: lib/Lang/Generic.php:73
+#, fuzzy
+msgid "Can't run ectags."
+msgstr "nevar palaist %s"
+
+#: source.php:84
+#, fuzzy, php-format
+msgid "Could not markup file %s."
+msgstr "Nevar izvēlēties failu"
+
+#: templates/directory.html.php:6
+msgid "Date (GMT)"
+msgstr "Datums (GMT)"
+
+#: templates/symbol.html.php:8
+msgid "Declarations"
+msgstr "Deklarācijas"
+
+#: search.php:53
+msgid "Declared as "
+msgstr "Deklarēts kā"
+
+#: symbol.php:39
+#, php-format
+msgid "Declared as a %s"
+msgstr "Deklarēts kā %s"
+
+#: templates/directory.html.php:7
+msgid "Description"
+msgstr "Apraksts"
+
+#: source.php:131
+#, php-format
+msgid "Directory Listing :: %s"
+msgstr "Mapju saraksts :: %s"
+
+#: lib/Lang/Generic.php:63
+#, php-format
+msgid "Exuberant ctags version 5 or above required, found version %s"
+msgstr "Nepieciešamas bagātās ctags v5 iezīmes, atrasta %s versija"
+
+#: symbol.php:45 symbol.php:69
+#, php-format
+msgid "Line %s"
+msgstr "Rinda %s"
+
+#: templates/headerbar.inc:3
+msgid "Location:"
+msgstr "Vieta:"
+
+#: source.php:134
+#, fuzzy, php-format
+msgid "Markup of %s"
+msgstr "Marķēt"
+
+#: templates/directory.html.php:4
+msgid "Name"
+msgstr "Nosaukums"
+
+#: lib/Luxor.php:78
+msgid "Other Sources"
+msgstr "Citi Avoti"
+
+#: lib/Luxor.php:152
+msgid "Parent Directory"
+msgstr "Galvenā mape"
+
+#: templates/symbol.html.php:20
+#, fuzzy
+msgid "Referenced in"
+msgstr "Grepoju iekš %s"
+
+#: templates/directory.html.php:5
+msgid "Size"
+msgstr "Izmērs"
+
+#: templates/menu.inc:13
+msgid "Symbol Search"
+msgstr "Simbola meklēšana"
+
+#: search.php:28
+#, php-format
+msgid "Symbol Search for \"%s\""
+msgstr "Simbola \"%s\" meklēšana"
+
+#
+#: symbol.php:22
+msgid "Symbol not found"
+msgstr "Simbols nav atrasts"
+
+#: source.php:78
+#, php-format
+msgid "The file %s can't be opened or doesn't exist."
+msgstr "Fails %s nav atverams vai nepastāv."
+
+#: templates/headerbar.inc:10
+#, fuzzy
+msgid "Tracking Branch"
+msgstr "Laika uzskaite"
+
+#: lib/Luxor.php:151
+msgid "Up to parent"
+msgstr "Uz galveno"
+
+#: source.php:36
+#, php-format
+msgid "You do not have permission to view %s."
+msgstr "Jums nav tiesību apskatīt %s"
+
+#: lib/Luxor.php:454
+msgid "_Browse"
+msgstr "Pārlūkot"
+
+#: lib/Luxor.php:163
+msgid "bytes"
+msgstr "baiti"
+
+#: lib/Luxor.php:165
+msgid "kbytes"
+msgstr "kbaiti"

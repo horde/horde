@@ -1,0 +1,1001 @@
+# Latvian translations for Hermes H4 package.
+# Copyright (C) 2011 Horde Project
+# This file is distributed under the same license as the Hermes package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Hermes H4 (2.0-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
+"PO-Revision-Date: 2011-07-21 16:20+0300\n"
+"Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+"X-Poedit-Language: Latvian\n"
+"X-Poedit-Country: LATVIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: lib/Hermes.php:315
+#, php-format
+msgid " (%0.2f hours)"
+msgstr " (%0.2f stundas)"
+
+#: lib/Hermes.php:317
+#, php-format
+msgid " (%d%%, %0.2f of %0.2f hours)"
+msgstr " (%d%%, %0.2f no %0.2f stundām)"
+
+#: lib/Admin.php:45 lib/Form/JobType/Edit/Step1.php:23 lib/Form/Search.php:90
+msgid " (DISABLED)"
+msgstr "(IZSLĒGTS)"
+
+#: lib/Api.php:109
+#, fuzzy, php-format
+msgid "\"%s\" is not a defined table."
+msgstr "Metode \"%s\" nav definēta"
+
+#: templates/deliverables/list.inc:4
+#, php-format
+msgid "%s Deliverables"
+msgstr ""
+
+#: lib/Hermes.php:434
+#, php-format
+msgid "%s notifications"
+msgstr "%s paziņojumi"
+
+#: lib/Form/Search.php:74
+msgid "- - None - -"
+msgstr "- - Nav - -"
+
+#: lib/Hermes.php:289
+msgid "--- No Cost Object ---"
+msgstr "--- Nav izmaksu objekta ---"
+
+#: lib/Form/Time.php:53 lib/Hermes.php:54
+msgid "--- Select A Client ---"
+msgstr "-- Izvēlieties klientu --"
+
+#: lib/Data/iif.php:62
+msgid "; Notes: "
+msgstr "; Piezīmes:"
+
+#: entry.php:70 lib/Driver/Sql.php:121
+#, fuzzy
+msgid "Access denied; user cannot modify this timeslice."
+msgstr "Pieeja liegta saglabājot piezīmi %s."
+
+#: lib/Form/Deliverable.php:25
+msgid "Active?"
+msgstr "Aktīvs?"
+
+#: admin.php:62 admin.php:224
+msgid "Add Job Type"
+msgstr "Pievienot darba tipu"
+
+#: config/prefs.php:30
+msgid ""
+"Add stop watch name and start and end time to the description of the time "
+"entry?"
+msgstr ""
+
+#: lib/Form/Time/Entry.php:82 templates/index/timeedit.inc:41
+msgid "Additional Notes"
+msgstr "Papildu piezīmes"
+
+#: admin.php:30
+msgid "Administration"
+msgstr "Lietotāju vadība"
+
+#: lib/Form/Deliverable/ClientSelector.php:31 lib/Form/Search.php:72
+#: lib/Form/Time.php:49
+#, fuzzy, php-format
+msgid "An error occurred listing clients: %s"
+msgstr "Ir notikusi kritiska kļūme"
+
+#: lib/Form/Search.php:84 lib/Form/Time.php:31
+#, fuzzy, php-format
+msgid "An error occurred listing job types: %s"
+msgstr "Kļūda rādot %s"
+
+#: lib/Hermes.php:208
+#, fuzzy, php-format
+msgid "An error occurred listing users: %s"
+msgstr "Lietotāju saraksta aplūkošana atslēgta."
+
+#: lib/Api.php:251
+msgid "Approved By:"
+msgstr "Apstiprinājis:"
+
+#: templates/index/search.inc:56 templates/index/timeedit.inc:62
+msgid "Bill"
+msgstr "Rēķins"
+
+#: lib/Api.php:66
+msgid "Bill?"
+msgstr "Rēķins?"
+
+#: templates/index/index.inc:82 templates/index/index.inc:87
+#: templates/index/timeedit.inc:28
+msgid "Billable"
+msgstr "Apmaksājamās"
+
+#: lib/Api.php:238 lib/Api.php:273
+msgid "Billable Hours"
+msgstr "Apmaksājamās stundas"
+
+#: lib/Admin.php:23 lib/Admin.php:94 lib/Form/JobType/Add.php:18
+#: lib/Form/Search.php:61 lib/Form/Time/Entry.php:70
+msgid "Billable?"
+msgstr "Apmaksājamās?"
+
+#: lib/Hermes.php:337
+msgid "By Client"
+msgstr "Pēc klienta"
+
+#: lib/Hermes.php:339
+msgid "By Cost Object"
+msgstr "Pēc izmaksu objekta"
+
+#: lib/Hermes.php:335
+msgid "By Date"
+msgstr "Pēc datuma"
+
+#: lib/Hermes.php:336
+msgid "By Employee"
+msgstr "Pēc darbinieka"
+
+#: lib/Hermes.php:338
+msgid "By Job Type"
+msgstr "Pēc darba tipa"
+
+#: templates/index/timeedit.inc:49
+msgid "Cancel"
+msgstr "Atcelt"
+
+#: lib/Driver/Sql.php:561
+#, fuzzy
+msgid "Cannot delete deliverable; it has children."
+msgstr "Nevar izdzēst notikumu: %s"
+
+#: lib/Driver/Sql.php:572
+msgid "Cannot delete deliverable; there is time entered on it."
+msgstr ""
+
+#: invoicing.php:34 lib/Admin.php:179 lib/Api.php:52
+#: lib/Form/Deliverable/ClientSelector.php:21 lib/Form/Time/Entry.php:54
+#: templates/index/search.inc:21 templates/index/search.inc:52
+#: templates/index/timeedit.inc:12 templates/index/timeedit.inc:58
+msgid "Client"
+msgstr "Klients"
+
+#: lib/Admin.php:152
+msgid "Client Name"
+msgstr "Klienta vārds"
+
+#: lib/Form/Search.php:33 templates/index/index.inc:42
+msgid "Clients"
+msgstr "Klienti"
+
+#: invoicing.php:71
+msgid "Combine same clients in one invoice"
+msgstr "Apvienot vienādos klientus vienā rēķinā"
+
+#: lib/Form/Export.php:29
+#, fuzzy
+msgid "Comma-Separated Variable (.csv)"
+msgstr "Ar komatu atdalītas vērtības (Microsoft Outlook)"
+
+#: invoicing.php:42 lib/Api.php:58 lib/Form/Time/Entry.php:63
+#: templates/index/search.inc:29 templates/index/search.inc:53
+#: templates/index/timeedit.inc:16 templates/index/timeedit.inc:59
+msgid "Cost Object"
+msgstr "Izmaksu objekts"
+
+#: lib/Form/Search.php:41 templates/index/index.inc:41
+msgid "Cost Objects"
+msgstr "Izmaksu objekti"
+
+#: invoicing.php:66
+msgid "Create invoice"
+msgstr "Izveidot rēķinu"
+
+#: invoicing.php:40 lib/Api.php:43 lib/Form/Time/Entry.php:50
+#: templates/index/search.inc:50 templates/index/timeedit.inc:19
+#: templates/index/timeedit.inc:57
+msgid "Date"
+msgstr "Datums"
+
+#: lib/Form/Time/Entry.php:28
+msgid "Delete"
+msgstr "Dzēst"
+
+#: lib/Form/Time/Entry.php:28
+msgid "Delete Entry"
+msgstr "Dzēst ierakstu"
+
+#: admin.php:91 admin.php:223
+msgid "Delete Job Type"
+msgstr "Dzēst darba tipu"
+
+#: admin.php:96 admin.php:211
+msgid "Delete Job Type: Confirmation"
+msgstr "Dzēst darba tipu: apstiprinājums"
+
+#
+#: deliverables.php:85
+#, fuzzy
+msgid "Delete This Deliverable"
+msgstr "Tiks dzēsta klase!"
+
+#: scripts/purge.php:15
+#, php-format
+msgid "Deleting data that was exported/billed more than %s days ago.\n"
+msgstr ""
+
+#: lib/Driver.php:64
+#, fuzzy, php-format
+msgid "Deliverable %d not found."
+msgstr "Parādāmais nav atrasts"
+
+#: lib/Form/Deliverable.php:18
+#, fuzzy
+msgid "Deliverable Detail"
+msgstr "Rādīt papildu informāciju?"
+
+#: deliverables.php:30
+#, fuzzy
+msgid "Deliverable saved successfully."
+msgstr "Veiksmīgi saglabāta rezerves kopēšanas informācija."
+
+#: deliverables.php:41
+#, fuzzy
+msgid "Deliverable successfully deleted."
+msgstr "Veiksmīgi izdzēsts(-i) %d kontakts(-i)."
+
+#: deliverables.php:48 lib/Api.php:358 lib/Application.php:60
+#, fuzzy
+msgid "Deliverables"
+msgstr "Izslēgt %s"
+
+#: invoicing.php:41 lib/Api.php:72 lib/Form/Deliverable.php:27
+#: lib/Form/Time/Entry.php:81 templates/index/search.inc:55
+#: templates/index/timeedit.inc:38 templates/index/timeedit.inc:61
+msgid "Description"
+msgstr "Apraksts"
+
+#: lib/Form/Deliverable.php:24
+#, fuzzy
+msgid "Display Name"
+msgstr "Pieejamais vārds"
+
+#: config/prefs.php:20
+#, fuzzy
+msgid "Display Preferences"
+msgstr "Attēlošanas iestatījumi"
+
+#: lib/Form/Search.php:48 templates/index/search.inc:38
+msgid "Do not include entries after"
+msgstr "Neiekļaut ierakstus pēc"
+
+#: lib/Form/Search.php:45 templates/index/search.inc:33
+msgid "Do not include entries before"
+msgstr "Neiekļaut ierakstus pirms"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  lv_LV.po (Gollem 1.0.3)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: templates/index/search.inc:71 templates/index/timeedit.inc:76
+msgid "Edit"
+msgstr "Labot"
+
+#: deliverables.php:81
+#, php-format
+msgid "Edit %s"
+msgstr "Labot %s"
+
+#: admin.php:133 admin.php:225
+#, fuzzy
+msgid "Edit Client Settings"
+msgstr "Rediģēt šos iestatījumus kā līknes"
+
+#: admin.php:125 admin.php:184
+#, fuzzy
+msgid "Edit Client Settings, Step 2"
+msgstr "Labot darba tipu, 2. solis"
+
+#: lib/Form/Deliverable/ClientSelector.php:23
+#, fuzzy
+msgid "Edit Deliverables"
+msgstr "rediģēt joslu"
+
+#
+#: lib/Api.php:198 lib/Api.php:199
+msgid "Edit Entry"
+msgstr "Labot ierakstu"
+
+#
+#: admin.php:78 admin.php:223
+msgid "Edit Job Type"
+msgstr "Labot darba tipu"
+
+#: admin.php:83
+msgid "Edit Job Type, Step 2"
+msgstr "Labot darba tipu, 2. solis"
+
+#: entry.php:89
+msgid "Edit Time"
+msgstr "Labot laiku"
+
+#
+#: admin.php:106
+msgid "Edit job type"
+msgstr "Labot darba tipu"
+
+#: admin.php:159
+msgid "Edit job type, Step 2"
+msgstr "Labot darba tipu, 2. solis"
+
+#: invoicing.php:35 lib/Api.php:48 templates/index/search.inc:9
+#: templates/index/search.inc:51
+msgid "Employee"
+msgstr "Darbinieks"
+
+#: lib/Form/Search.php:29
+msgid "Employees"
+msgstr "Darbinieki"
+
+#: lib/Admin.php:21 lib/Admin.php:92 lib/Form/JobType/Add.php:16
+msgid "Enabled?"
+msgstr "Ieslēgts?"
+
+#: lib/Application.php:80
+msgid "Enter Time"
+msgstr "Ievadiet laiku"
+
+#: deliverables.php:43
+#, fuzzy, php-format
+msgid "Error deleting deliverable: %s"
+msgstr "Kļūda dzēšot failu '%s': %s"
+
+#: lib/Form/Search.php:117 lib/Hermes.php:271
+#, fuzzy, php-format
+msgid "Error retrieving cost objects from \"%s\": %s"
+msgstr "Kļūda saņemot %s Brīvs/Aizņemts informāciju: %s"
+
+#: deliverables.php:33
+#, fuzzy, php-format
+msgid "Error saving deliverable: %s"
+msgstr "Kļūda saglabājot katalogu"
+
+#: lib/Hermes.php:430
+msgid "Error when communicating with the server."
+msgstr "Kļūda sazinoties ar serveri."
+
+#: lib/Driver/Sql.php:282
+#, php-format
+msgid "Error: %s"
+msgstr "Kļūda: %s"
+
+#: lib/Form/Deliverable.php:26
+msgid "Estimated Hours"
+msgstr "Aptuvenais laiks"
+
+#: lib/Form/Export.php:47
+msgid "Export"
+msgstr "Eksportēt"
+
+#: lib/Form/Export.php:27
+#, fuzzy
+msgid "Export Search Results"
+msgstr "Meklēšana: \"%s\" rezultāti "
+
+#: templates/index/search.inc:77
+#, fuzzy
+msgid "Export Time"
+msgstr "&Pieejas laiks"
+
+#: lib/Form/Search.php:58
+#, fuzzy
+msgid "Exported?"
+msgstr "Eksportēt"
+
+#: config/prefs.php:12 config/prefs.php:19
+msgid "General Preferences"
+msgstr "Vispārējie iestatījumi"
+
+#: index.php:24
+msgid "Help"
+msgstr "Palīdzība"
+
+#: lib/Hermes.php:435
+msgid "Hide Notifications"
+msgstr "Slēpt paziņojumus"
+
+#: lib/Admin.php:25 lib/Admin.php:96 lib/Form/JobType/Add.php:20
+msgid "Hourly Rate"
+msgstr "Stundas likme"
+
+#: invoicing.php:38 lib/Api.php:60 lib/Form/Time/Entry.php:66
+#: templates/index/search.inc:57 templates/index/timeedit.inc:24
+#: templates/index/timeedit.inc:63
+msgid "Hours"
+msgstr "Stundas"
+
+#: lib/Admin.php:187
+msgid ""
+"ID for this client when exporting data, if different from the name displayed "
+"above."
+msgstr ""
+
+#: lib/Api.php:428
+msgid "Invalid entry: check data and retry."
+msgstr ""
+
+#: invoicing.php:116
+#, fuzzy, php-format
+msgid "Invoice for client %s successfuly created."
+msgstr "Mape \"%s\" izveidota."
+
+#: lib/Application.php:63
+msgid "Invoicing"
+msgstr "Rēķini"
+
+#: invoicing.php:29
+#, fuzzy
+msgid "Invoicing system is not installed."
+msgstr "Lietotāja rokasgrāmata nav instalēta lokāli."
+
+#: invoicing.php:36 lib/Admin.php:20 lib/Admin.php:87 lib/Admin.php:121
+#: lib/Api.php:56 lib/Form/JobType/Add.php:15 lib/Form/Time/Entry.php:60
+#: templates/index/search.inc:25 templates/index/search.inc:54
+#: templates/index/timeedit.inc:33 templates/index/timeedit.inc:60
+msgid "Job Type"
+msgstr "Darba tips"
+
+#: lib/Form/Search.php:38 templates/index/index.inc:43
+msgid "Job Types"
+msgstr "Darbu tipi"
+
+#: lib/Admin.php:58 lib/Form/JobType/Edit/Step1.php:36
+#, fuzzy
+msgid "JobType Name"
+msgstr "Pieejamais vārds"
+
+#: templates/index/index.inc:40
+msgid "Log"
+msgstr "Žurnāls"
+
+#: lib/Form/Export.php:41
+#, fuzzy
+msgid "Mark the time as exported?"
+msgstr "Atzīmēt visas kā jaunas"
+
+#: lib/Form/Export.php:30
+msgid "Microsoft Excel (.xls)"
+msgstr "Microsoft Excel (.xls)"
+
+#: time.php:65
+msgid "My Time"
+msgstr "Man laiks"
+
+#: time.php:55
+#, fuzzy
+msgid "My Unsubmitted Time"
+msgstr "Kursora Mirgošanas Laiks"
+
+#: lib/Hermes.php:87
+msgid "My _Time"
+msgstr "Man laiks"
+
+#: deliverables.php:83
+#, fuzzy
+msgid "New Sub-deliverable"
+msgstr "Izveidot apakšmapes"
+
+#: entry.php:89 lib/Form/Time/Entry.php:31
+msgid "New Time"
+msgstr "Jauns laiks"
+
+#: templates/deliverables/list.inc:10
+#, fuzzy
+msgid "New Top-level Deliverable"
+msgstr "Jūs veidojat augšējā līmeņa mapi."
+
+#: templates/index/index.inc:62
+msgid "Next month"
+msgstr "Nākošais mēnesis"
+
+#: invoicing.php:70 lib/Admin.php:117 lib/Api.php:31 lib/Form/Export.php:40
+#: lib/Form/Search.php:54 lib/Form/Time/Entry.php:69
+msgid "No"
+msgstr "Nē"
+
+#: lib/Hermes.php:433
+msgid "No Notifications"
+msgstr "Nav paziņojumu"
+
+#: templates/index/search.inc:74 templates/index/timeedit.inc:79
+#, fuzzy
+msgid "No Time Slices"
+msgstr "Kursora Mirgošanas Laiks"
+
+#: lib/Driver.php:46
+#, php-format
+msgid "No job type with ID \"%s\"."
+msgstr "Darba tips ar ID  \"%s\" nepastāv."
+
+#: search.php:43 search.php:48
+#, fuzzy
+msgid "No search to export!"
+msgstr "Nav meklēšanai pieejamu kalendāru"
+
+#: search.php:57
+#, fuzzy
+msgid "No time to export!"
+msgstr "Ierobežot laika posmu datu eksportam:"
+
+#: time.php:32
+msgid "No timeslices were selected to submit."
+msgstr ""
+
+#: templates/index/index.inc:83 templates/index/index.inc:88
+msgid "Non-Billable"
+msgstr "Neapmaksājams"
+
+#: lib/Api.php:244 lib/Api.php:284
+msgid "Non-billable Hours"
+msgstr "Neapmaksājamās stundas"
+
+#: lib/Api.php:74
+msgid "Notes"
+msgstr "Piezīmes"
+
+#: templates/index/index.inc:32
+msgid "Options"
+msgstr "Opcijas"
+
+#: lib/Hermes.php:440
+#, fuzzy
+msgid "Please enter correct values in the form first."
+msgstr "Vispirms, lūdzu, ievadiet formā pareizus datus."
+
+#: lib/Hermes.php:438
+msgid "Preferences"
+msgstr "Iestatījumi"
+
+#: templates/index/index.inc:61
+msgid "Previous month"
+msgstr "Iepriekšējais mēnesis"
+
+#: lib/Form/Export.php:31
+msgid "QuickBooks (.iif)"
+msgstr "QuickBooks (.iif)"
+
+#: invoicing.php:37
+msgid "Rate"
+msgstr "Takse"
+
+#: lib/Admin.php:124
+msgid "Really delete this job type? This may cause data problems!!"
+msgstr ""
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
+#
+#: lib/Form/Time/Entry.php:33 templates/index/timeedit.inc:47
+msgid "Save"
+msgstr "Saglabāt"
+
+#: templates/index/timeedit.inc:48
+msgid "Save As New"
+msgstr "Saglabāt kā jaunu"
+
+#: lib/Form/Search.php:64 templates/index/index.inc:44
+#: templates/index/search.inc:5 templates/index/search.inc:46
+#: templates/index/timeedit.inc:53
+msgid "Search"
+msgstr "Meklēt"
+
+#: lib/Form/Search.php:24
+#, fuzzy
+msgid "Search For Time"
+msgstr "Meklēšana: \"%s\" rezultāti "
+
+#: lib/Api.php:98 search.php:105 templates/index/search.inc:46
+msgid "Search Results"
+msgstr "Meklēšanas rezultāti"
+
+#: lib/Application.php:92
+#, fuzzy
+msgid "Search Time"
+msgstr "&Pieejas laiks"
+
+#: search.php:80
+#, fuzzy
+msgid "Search for Time"
+msgstr "Meklēšana: \"%s\" rezultāti "
+
+#: lib/Admin.php:182 lib/Form/Time/Entry.php:78
+msgid "See Attached Timesheet"
+msgstr "Skat. pievienoto laika lapu"
+
+#: lib/Form/Deliverable/ClientSelector.php:17
+msgid "Select Client"
+msgstr "Izvēlieties klientu"
+
+#: config/prefs.php:21
+#, fuzzy
+msgid ""
+"Select confirmation preferences, how to display the different views and "
+"choose default view."
+msgstr ""
+"Izvēlieties apstiprināšanas iestatījumus, veidu, kā attēlot dažādus skatus "
+"un izvēlieties noklusēto skatu."
+
+#: invoicing.php:72
+#, fuzzy
+msgid "Select hours to be invoiced"
+msgstr "Jāizvēlas serveris, ko izdzēst."
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: lib/Form/Export.php:35
+#, fuzzy
+msgid "Select the export format"
+msgstr "Izvēlieties eksporta formātu:"
+
+#: templates/index/search.inc:35 templates/index/search.inc:40
+#, fuzzy
+msgid "Set date"
+msgstr "Beigu datums"
+
+#: config/prefs.php:14
+#, fuzzy
+msgid "Set preferences on the stop watch timer."
+msgstr "Konfigurēt dinamiskā skata iestatījumus."
+
+#: templates/index/timeedit.inc:21
+msgid "Set start date"
+msgstr "Sākuma datums"
+
+#: lib/Admin.php:182
+#, php-format
+msgid ""
+"Should users enter descriptions of their timeslices for this client? If not, "
+"the description will automatically be \"%s\"."
+msgstr ""
+
+#: config/prefs.php:44
+msgid "Show the dynamic view by default, if the browser supports it?"
+msgstr "Rādīt dinamisko skatu pēc noklusēšanas, ja pārlūks to uztur?"
+
+#: lib/Application.php:109
+#, fuzzy
+msgid "Start Watch"
+msgstr "Sākuma indekss"
+
+#: start.php:17 start.php:43
+#, fuzzy
+msgid "Stop Watch"
+msgstr "Beigt rādīt darbvirsmu"
+
+#: config/prefs.php:13
+#, fuzzy
+msgid "Stop watch Preferences"
+msgstr "Kā parametros"
+
+#: start.php:18
+#, fuzzy
+msgid "Stop watch description"
+msgstr "Ideogrāfisko aprakstu zīmes"
+
+#: templates/time/form.html:5
+#, fuzzy
+msgid "Submit Selected Time"
+msgstr "Kursora Mirgošanas Laiks"
+
+#: templates/index/timeedit.inc:82
+#, fuzzy
+msgid "Submit Time"
+msgstr "&Pieejas laiks"
+
+#: lib/Form/Search.php:55
+msgid "Submitted?"
+msgstr "Iesniegts?"
+
+#: lib/Hermes.php:334
+msgid "Summary"
+msgstr "Kopsavilkums"
+
+#: lib/Form/Export.php:32
+msgid "Tab-Separated Variable (.tsv, .txt)"
+msgstr "Ar tabulatoru atdalītās vērtības  (.tsv, .txt)"
+
+#: lib/Table.php:131
+msgid "Table"
+msgstr "Tabula"
+
+#: lib/Hermes.php:439
+msgid "The authentication information you specified wasn't accepted."
+msgstr "Jūsu norādītā autentifikācijas informācija noraidīta."
+
+#: admin.php:176
+#, fuzzy
+msgid "The client settings have been modified."
+msgstr "Vēstules ir izdzēstas."
+
+#: lib/Hermes.php:432
+msgid "The connection to the server has been restored."
+msgstr "Savienojums ar serveri atjaunots."
+
+#: admin.php:54
+#, fuzzy, php-format
+msgid "The job type \"%s\" has been added."
+msgstr "Uzdevums \"%s\" pievienots uzdevumu sarakstam \"%s\"."
+
+#: admin.php:200
+#, fuzzy
+msgid "The job type has been deleted."
+msgstr "Uzdevumu saraksts \"%s\" izdzēsts."
+
+#: admin.php:151
+#, fuzzy
+msgid "The job type has been modified."
+msgstr "Piezīmju grāmata \"%s\" izdzēsta."
+
+#
+#: admin.php:205
+#, fuzzy
+msgid "The job type was not deleted."
+msgstr "Piezīme izdzēsta."
+
+#: start.php:36
+#, php-format
+msgid ""
+"The stop watch \"%s\" has been started and will appear in the sidebar at the "
+"next refresh."
+msgstr ""
+
+#: entry.php:26
+#, fuzzy, php-format
+msgid "The stop watch \"%s\" has been stopped."
+msgstr "Piezīmju grāmata \"%s\" saglabāta."
+
+#: search.php:22 time.php:23
+#, fuzzy
+msgid "The time entry was successfully deleted."
+msgstr "\"%s\" PGP publiskā atslēga veiksmīgi izdzēsta."
+
+#: lib/Admin.php:145
+#, fuzzy
+msgid "There are no clients to edit"
+msgstr "Nav apstiprināmu e-pasta adrešu."
+
+#: lib/Form/Deliverable/ClientSelector.php:37 lib/Form/Time.php:57
+#, fuzzy
+msgid "There are no clients which you have access to."
+msgstr "Neviens notikums neatbilst uzdotajiem kritērijiem."
+
+#: lib/Form/Time.php:41
+#, fuzzy
+msgid "There are no job types configured."
+msgstr ""
+"#-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#\n"
+"Db pieeja nav konfigurēta.\n"
+"#-#-#-#-#  admin.po (admin)  #-#-#-#-#\n"
+"DB pieeja nav konfigurēta"
+
+#
+#: lib/Admin.php:55 lib/Form/JobType/Edit/Step1.php:33
+#, fuzzy
+msgid "There are no job types to edit"
+msgstr "Nav eksportējamu piezīmjut"
+
+#: lib/Hermes.php:431
+#, fuzzy
+msgid ""
+"There has been no contact with the server for several minutes. The server "
+"may be temporarily unavailable or network problems may be interrupting your "
+"session. You will not see any updates until the connection is restored."
+msgstr ""
+"Sakari ar serveri ir pārtrūkuši pirms kāda laika. Jūsu sesija ir pārtraukta, "
+"iespējams, servera īslaicīgas nepieejamības vai tīkla problēmu dēļ. Jūs "
+"neredzēsiet atsvaidzinātu informāciju kamēr saskari netiks atjaunoti."
+
+#: invoicing.php:25
+msgid "There is no submitted billable hours."
+msgstr ""
+
+#: admin.php:56
+#, fuzzy, php-format
+msgid "There was an error adding the job type: %s."
+msgstr "Kļūda saglabājot piezīmi: %s"
+
+#: admin.php:202
+#, fuzzy, php-format
+msgid "There was an error deleting the job type: %s."
+msgstr "Kļūda dzēšot šo kontaktu: %s"
+
+#: search.php:20 time.php:21
+#, fuzzy, php-format
+msgid "There was an error deleting the time: %s"
+msgstr "Kļūda dzēšot notikumu:"
+
+#: admin.php:178
+#, fuzzy, php-format
+msgid "There was an error editing the client settings: %s."
+msgstr "Kļūda labojot notikumu: %s"
+
+#: admin.php:153
+#, fuzzy, php-format
+msgid "There was an error editing the job type: %s."
+msgstr "Kļūda labojot notikumu: %s"
+
+#: entry.php:49
+#, fuzzy, php-format
+msgid "There was an error storing your timesheet: %s"
+msgstr "Radās kļūda sūtot vēstuli: %s"
+
+#: lib/Ajax/Application.php:128 time.php:43
+#, fuzzy, php-format
+msgid "There was an error submitting your time: %s"
+msgstr "Radās kļūda sūtot vēstuli: %s"
+
+#: lib/Admin.php:172
+#, fuzzy
+msgid "This is not a valid client."
+msgstr "'%s' nav derīgs POT fails."
+
+#: lib/Admin.php:79
+#, fuzzy
+msgid "This is not a valid job type."
+msgstr "Meklēšana nav iespējama."
+
+#: lib/Hermes.php:436
+msgid "This is the notification backlog"
+msgstr "Tas ir nenosūtīto paziņojumu saraksts"
+
+#: templates/index/timeedit.inc:6
+#, fuzzy
+msgid "Time Entry"
+msgstr "Jauns ie&Raksts"
+
+#: lib/Application.php:57
+#, fuzzy
+msgid "Time Review Screen"
+msgstr "Pārvietot uz ekrānu"
+
+#: templates/index/index.inc:79
+#, fuzzy
+msgid "Time Summary"
+msgstr "RSS kopsavilkums"
+
+#: templates/index/index.inc:81
+msgid "Today"
+msgstr "Šodiena"
+
+#: invoicing.php:39 templates/index/index.inc:86
+msgid "Total"
+msgstr "Kopā"
+
+#: lib/Api.php:250
+msgid "Total Hours"
+msgstr "Kopā stundas"
+
+#: lib/Api.php:290
+#, php-format
+msgid "Total Hours for %s"
+msgstr "Kopā stundas darbiniekam %s"
+
+#: templates/index/timeedit.inc:53
+#, fuzzy
+msgid "Unsubmitted Time"
+msgstr "&Pieejas laiks"
+
+#: lib/Form/Time/Entry.php:27
+#, fuzzy
+msgid "Update Time"
+msgstr "&Pieejas laiks"
+
+#: entry.php:24
+#, fuzzy, php-format
+msgid "Using the \"%s\" stop watch from %s to %s"
+msgstr "Mainīts sākuma datums no %s uz %s"
+
+#: invoicing.php:70 lib/Admin.php:117 lib/Api.php:30 lib/Form/Export.php:39
+#: lib/Form/Search.php:53 lib/Form/Time/Entry.php:69
+msgid "Yes"
+msgstr "Jā"
+
+#: index.php:15
+msgid ""
+"Your browser is too old to display the dynamic mode. Using traditional mode "
+"instead."
+msgstr ""
+"Jūsu izmantotais pārlūks ir pārāk vecs un neuztur dinamisko skatu. "
+"Pārslēdzos uz tradicionālo skatu."
+
+#: lib/Ajax/Application.php:90
+#, fuzzy
+msgid "Your time entry was successfully deleted."
+msgstr "Vēstule veiksmīgi nogādāta."
+
+#: entry.php:43 lib/Ajax/Application.php:60
+#, fuzzy
+msgid "Your time was successfully entered."
+msgstr "Vēstule veiksmīgi nogādāta."
+
+#: lib/Ajax/Application.php:130 time.php:40
+#, fuzzy
+msgid "Your time was successfully submitted."
+msgstr "Vēstule veiksmīgi nogādāta."
+
+#: entry.php:39 lib/Ajax/Application.php:110
+#, fuzzy
+msgid "Your time was successfully updated."
+msgstr "Vēstule veiksmīgi nogādāta."
+
+#: lib/Hermes.php:106
+msgid "_Admin"
+msgstr "Administrēt"
+
+#: lib/Hermes.php:92
+#, fuzzy
+msgid "_Deliverables"
+msgstr "Izslēgt %s"
+
+#: lib/Hermes.php:96
+msgid "_Invoicing"
+msgstr "Rēķini"
+
+#: templates/index/index.inc:32
+msgid "_Logout"
+msgstr "Iziet"
+
+#: lib/Hermes.php:88
+msgid "_New Time"
+msgstr "Jauns laiks"
+
+#
+#: lib/Hermes.php:101
+msgid "_Print"
+msgstr "Drukāt"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+# #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
+#
+#: lib/Hermes.php:89
+msgid "_Search"
+msgstr "Meklēt"
+
+#: lib/Hermes.php:437
+msgid "more..."
+msgstr "vairāk..."
+
+#: lib/Api.php:153
+#, fuzzy
+msgid "no client"
+msgstr "Klienta enkurs"
+
+#: templates/index/timeedit.inc:49
+msgid "or"
+msgstr " vai"
