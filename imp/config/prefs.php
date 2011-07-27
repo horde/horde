@@ -1540,6 +1540,10 @@ $_prefs['dimp_splitbar'] = array(
     'value' => 0
 );
 
+$_prefs['dimp_splitbar_vert'] = array(
+    'value' => 0
+);
+
 $_prefs['dimp_toggle_headers'] = array(
     'value' => 0
 );

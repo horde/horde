@@ -124,7 +124,8 @@ $code['conf'] = array_filter(array(
         )
     ),
     'spam_spammbox' => intval(!empty($GLOBALS['conf']['spam']['spamfolder'])),
-    'splitbar_pos' => intval($GLOBALS['prefs']->getValue('dimp_splitbar')),
+    'splitbar_horiz' => intval($GLOBALS['prefs']->getValue('dimp_splitbar')),
+    'splitbar_vert' => intval($GLOBALS['prefs']->getValue('dimp_splitbar_vert')),
 
     'toggle_pref' => intval($GLOBALS['prefs']->getValue('dimp_toggle_headers')),
     'viewport_wait' => intval($GLOBALS['conf']['dimp']['viewport']['viewport_wait']),

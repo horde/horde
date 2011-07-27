@@ -516,9 +516,10 @@ var DimpBase = {
             empty_msg: DIMP.text.vp_empty,
             list_class: 'msglist',
             list_header: $('msglistHeaderContainer').remove(),
-            page_size: DIMP.conf.splitbar_pos,
+            page_size: DIMP.conf.splitbar_horiz,
             pane_data: 'previewPane',
             pane_mode: DIMP.conf.preview_pref,
+            pane_width: DIMP.conf.splitbar_vert,
             split_bar_class: { horiz: 'splitBarHoriz', vert: 'splitBarVert' },
             wait: DIMP.conf.viewport_wait,
 
@@ -756,8 +757,14 @@ var DimpBase = {
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:splitBarChange', function(e) {
-            if (e.memo == 'horiz') {
+            switch (e.memo) {
+            case 'horiz':
                 this._updatePrefs('dimp_splitbar', this.viewport.getPageSize());
+                break;
+
+            case 'vert':
+                this._updatePrefs('dimp_splitbar_vert', this.viewport.getVertWidth());
+                break;
             }
         }.bindAsEventListener(this));
 
