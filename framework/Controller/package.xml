@@ -17,8 +17,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:07:23</time>
+ <date>2011-07-27</date>
+ <time>05:47:13</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -41,6 +41,7 @@
       </dir> <!-- /lib/Horde/Controller/Filter -->
       <dir name="Request">
        <file name="Http.php" role="php" />
+       <file name="Mock.php" role="php" />
        <file name="Null.php" role="php" />
       </dir> <!-- /lib/Horde/Controller/Request -->
       <dir name="ResponseWriter">
@@ -72,7 +73,11 @@
     <dir name="Horde">
      <dir name="Controller">
       <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
       <file name="FilterRunnerTest.php" role="test" />
+      <file name="MockRequestTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+      <file name="StreamTest.php" role="test" />
      </dir> <!-- /test/Horde/Controller -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -150,12 +155,17 @@
    <install as="Horde/Controller/UrlWriter.php" name="lib/Horde/Controller/UrlWriter.php" />
    <install as="Horde/Controller/Filter/Gzip.php" name="lib/Horde/Controller/Filter/Gzip.php" />
    <install as="Horde/Controller/Request/Http.php" name="lib/Horde/Controller/Request/Http.php" />
+   <install as="Horde/Controller/Request/Mock.php" name="lib/Horde/Controller/Request/Mock.php" />
    <install as="Horde/Controller/Request/Null.php" name="lib/Horde/Controller/Request/Null.php" />
    <install as="Horde/Controller/ResponseWriter/Web.php" name="lib/Horde/Controller/ResponseWriter/Web.php" />
    <install as="Horde/Controller/ResponseWriter/WebDebug.php" name="lib/Horde/Controller/ResponseWriter/WebDebug.php" />
    <install as="Horde/Controller/SettingsExporter/Default.php" name="lib/Horde/Controller/SettingsExporter/Default.php" />
    <install as="Horde/Controller/AllTests.php" name="test/Horde/Controller/AllTests.php" />
+   <install as="Horde/Controller/Autoload.php" name="test/Horde/Controller/Autoload.php" />
    <install as="Horde/Controller/FilterRunnerTest.php" name="test/Horde/Controller/FilterRunnerTest.php" />
+   <install as="Horde/Controller/MockRequestTest.php" name="test/Horde/Controller/MockRequestTest.php" />
+   <install as="Horde/Controller/phpunit.xml" name="test/Horde/Controller/phpunit.xml" />
+   <install as="Horde/Controller/StreamTest.php" name="test/Horde/Controller/StreamTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -256,7 +266,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-07-27</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * 
