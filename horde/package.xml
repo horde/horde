@@ -77,10 +77,6 @@
       <file name="help.xml" role="horde" />
      </dir> <!-- /admin/locale/hu -->
      <dir name="lv">
-      <dir name="LC_MESSAGES">
-       <file name="admin.po" role="horde" />
-      </dir> <!-- /admin/locale/lv/LC_MESSAGES -->
-      <file name="admin.po" role="horde" />
       <file name="help.xml" role="horde" />
      </dir> <!-- /admin/locale/lv -->
     </dir> <!-- /admin/locale -->
