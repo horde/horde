@@ -201,6 +201,40 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
             "A\r\nB=C4=81\r\nC",
             $part->toString()
         );
+
+        $part2 = new Horde_Mime_Part();
+        $part2->setType('multipart/mixed');
+        $part2->addPart($part);
+
+        $this->assertStringMatchesFormat(
+            "This message is in MIME format.
+
+--=_%s
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+
+A
+B=C4=81
+C
+--=_%s--",
+            $part2->toString()
+        );
+
+        $part->setEOL("\n");
+
+        $this->assertStringMatchesFormat(
+            "This message is in MIME format.
+
+--=_%s
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+
+A=0D
+B=C4=81=0D
+C
+--=_%s--",
+            $part2->toString()
+        );
     }
 
     protected function _getTestPart()

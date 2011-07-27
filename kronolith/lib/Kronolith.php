@@ -2358,7 +2358,6 @@ class Kronolith
             $ics = new Horde_Mime_Part();
             $ics->setType('text/calendar');
             $ics->setContents($iCal->exportvCalendar());
-            $ics->setEOL(Horde_Mime_Part::RFC_EOL);
             $ics->setName($filename);
             $ics->setContentTypeParameter('METHOD', $method);
             $ics->setCharset('UTF-8');

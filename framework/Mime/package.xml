@@ -18,7 +18,7 @@
   <active>yes</active>
  </lead>
  <date>2011-07-27</date>
- <time>16:31:05</time>
+ <time>15:09:03</time>
  <version>
   <release>1.0.6</release>
   <api>1.0.0</api>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mms] Fix quoted-printable encoding for message parts contained in a multipart that do not share the same EOLs as the parent part (Bug #10324).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -717,7 +717,7 @@
    <date>2011-07-27</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] Fix quoted-printable encoding for message parts contained in a multipart that do not share the same EOLs as the parent part (Bug #10324).
    </notes>
   </release>
  </changelog>
