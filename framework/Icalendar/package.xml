@@ -19,9 +19,9 @@
   <active>yes</active>
  </lead>
  <date>2011-07-27</date>
- <time>17:18:10</time>
+ <time>17:18:35</time>
  <version>
-  <release>1.0.2</release>
+  <release>1.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -30,8 +30,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Fix exporting multiline attributes to vCard 2.1 and vCalendar 1.0.
-* [jan] Update Latvian translation.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -764,6 +763,19 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <notes>
 * [jan] Fix exporting multiline attributes to vCard 2.1 and vCalendar 1.0.
 * [jan] Update Latvian translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-27</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
