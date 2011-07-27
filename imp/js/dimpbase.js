@@ -745,6 +745,7 @@ var DimpBase = {
                 this.loadPreview(sel.get('dataob').first());
             }
 
+            this.resetSelectAll();
             this.setMsgHash();
         }.bindAsEventListener(this));
 
