@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-07-27</date>
- <time>16:43:34</time>
+ <time>16:43:59</time>
  <version>
-  <release>1.1.0</release>
+  <release>1.1.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [jan] Update Latvian translation.
-* [mjr] Add dependency on Horde_Support to better support logging features.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -597,6 +596,19 @@
    <notes>
 * [jan] Update Latvian translation.
 * [mjr] Add dependency on Horde_Support to better support logging features.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-27</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
