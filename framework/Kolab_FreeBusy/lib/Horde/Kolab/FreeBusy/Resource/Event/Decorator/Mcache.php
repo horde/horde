@@ -26,10 +26,9 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-class Horde_Kolab_FreeBusy_Resource_Freebusy_Decorator_Mcache
+class Horde_Kolab_FreeBusy_Resource_Event_Decorator_Mcache
 extends Horde_Kolab_FreeBusy_Resource_Decorator_Mcache
-//@todo: add interface
-//implements Horde_Kolab_FreeBusy_Resource_Freebusy
+implements Horde_Kolab_FreeBusy_Resource_Event
 {
     /**
      * Constructor.
@@ -37,7 +36,7 @@ extends Horde_Kolab_FreeBusy_Resource_Decorator_Mcache
      * @param Horde_Kolab_FreeBusy_Resource_Interface $resource The decorated resource.
      */
     public function __construct(
-        Horde_Kolab_FreeBusy_Resource_Freebusy_Interface $resource
+        Horde_Kolab_FreeBusy_Resource_Event $resource
     ) {
         parent::__construct($resource);
     }

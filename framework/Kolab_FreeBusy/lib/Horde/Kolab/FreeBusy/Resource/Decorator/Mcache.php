@@ -63,7 +63,7 @@ implements Horde_Kolab_FreeBusy_Resource
      * @param Horde_Kolab_FreeBusy_Resource_Interface $resource The decorated resource.
      */
     public function __construct(
-        Horde_Kolab_FreeBusy_Resource_Interface $resource
+        Horde_Kolab_FreeBusy_Resource $resource
     ) {
         $this->_resource = $resource;
     }
@@ -76,6 +76,16 @@ implements Horde_Kolab_FreeBusy_Resource
     public function getName()
     {
         return $this->_resource->getName();
+    }
+
+    /**
+     * Return the owner of the resource.
+     *
+     * @return Horde_Kolab_FreeBusy_Owner The resource owner.
+     */
+    public function getOwner()
+    {
+        return $this->_resource->getOwner();
     }
 
     /**

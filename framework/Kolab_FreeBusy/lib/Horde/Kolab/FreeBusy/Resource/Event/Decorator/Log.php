@@ -26,10 +26,9 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-class Horde_Kolab_FreeBusy_Resource_Freebusy_Decorator_Log
+class Horde_Kolab_FreeBusy_Resource_Event_Decorator_Log
 extends Horde_Kolab_FreeBusy_Resource_Decorator_Log
-//@todo: add interface
-//implements Horde_Kolab_FreeBusy_Resource_Freebusy
+implements Horde_Kolab_FreeBusy_Resource_Event
 {
     /**
      * Constructor.
@@ -42,7 +41,7 @@ extends Horde_Kolab_FreeBusy_Resource_Decorator_Log
      *                                                          method.
      */
     public function __construct(
-        Horde_Kolab_FreeBusy_Resource_Freebusy_Interface $resource,
+        Horde_Kolab_FreeBusy_Resource_Event $resource,
         $logger
     ) {
         parent::__construct($resource, $logger);
@@ -60,16 +59,17 @@ extends Horde_Kolab_FreeBusy_Resource_Decorator_Log
      */
     public function listEvents(Horde_Date $startDate, Horde_Date $endDate)
     {
-        $this->logger->debug(
+        $this->getLogger()->debug(
             sprintf(
                 'Listing events for resource %s between %s and %s.',
-                $this->_resource->getName(),
-                (string) $startDate,
-                (string) $endDate
+                $this->getResource()->getName(),
+                //@todo: (string) is enough in Horde4
+                (string) $startDate->rfc2822DateTime(),
+                (string) $endDate->rfc2822DateTime()
             )
         );
         $events = $this->getResource()->listEvents($startDate, $endDate);
-        $this->logger->debug(
+        $this->getLogger()->debug(
             sprintf(
                 'Found %s events.',
                 count($events)

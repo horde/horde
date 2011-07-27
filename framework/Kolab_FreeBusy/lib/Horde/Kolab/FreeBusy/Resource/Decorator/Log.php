@@ -54,11 +54,21 @@ implements Horde_Kolab_FreeBusy_Resource
      *                                                          method.
      */
     public function __construct(
-        Horde_Kolab_FreeBusy_Resource_Interface $resource,
+        Horde_Kolab_FreeBusy_Resource $resource,
         $logger
     ) {
         $this->_resource = $resource;
         $this->_logger   = $logger;
+    }
+
+    protected function getLogger()
+    {
+        return $this->_logger;
+    }
+
+    protected function getResource()
+    {
+        return $this->_resource;
     }
 
     /**
@@ -88,6 +98,16 @@ implements Horde_Kolab_FreeBusy_Resource
     public function getName()
     {
         return $this->_resource->getName();
+    }
+
+    /**
+     * Return the owner of the resource.
+     *
+     * @return Horde_Kolab_FreeBusy_Owner The resource owner.
+     */
+    public function getOwner()
+    {
+        return $this->_resource->getOwner();
     }
 
     /**

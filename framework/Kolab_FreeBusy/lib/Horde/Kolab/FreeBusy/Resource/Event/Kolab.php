@@ -38,11 +38,15 @@ implements Horde_Kolab_FreeBusy_Resource_Event
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_Folder $folder The storage folder representing
-     *                                           this resource.
+     * @param Horde_Kolab_Storage_Folder          $folder The storage folder
+     *                                                    representing this
+     *                                                    resource.
+     * @param Horde_Kolab_FreeBusy_Owner_Freebusy $owner  The resource owner.
      */
-    public function __construct(Horde_Kolab_Storage_Folder $folder)
-    {
+    public function __construct(
+        Horde_Kolab_Storage_Folder $folder,
+        Horde_Kolab_FreeBusy_Owner_Event $owner
+    ) {
         if ($folder->getType() != 'event') {
             throw new Horde_Kolab_FreeBusy_Exception(
                 sprintf(
@@ -51,7 +55,7 @@ implements Horde_Kolab_FreeBusy_Resource_Event
                 )
             );
         }
-        parent::__construct($folder);
+        parent::__construct($folder, $owner);
     }
 
     /**

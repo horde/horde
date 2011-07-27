@@ -36,6 +36,13 @@ interface Horde_Kolab_FreeBusy_Resource
     public function getName();
 
     /**
+     * Return the owner of the resource.
+     *
+     * @return Horde_Kolab_FreeBusy_Owner The resource owner.
+     */
+    public function getOwner();
+
+    /**
      * Return for whom this resource exports relevant data.
      *
      * @return string The user type the exported data of this resource is
