@@ -40,7 +40,10 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Don&apos;t show mobile login page if users are forced to tradtional or dynamic views (Request #10358).
+* [cjh] Add mobile maintenance screens.
+* [jan] Update Latvian translation.
+* [jan] Don&apos;t show mobile login page if users are forced to traditional or dynamic views (Request #10358).
+* [jan] Update PGP key server list and add SKS pool.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
