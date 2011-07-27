@@ -92,9 +92,8 @@ class Horde_Controller_Request_Http implements Horde_Controller_Request
      *
      * @param    string  $name   the name of the header
      * @return   string          the value of the specified header
-     * @access   public
      */
-    function getHeader($name)
+    public function getHeader($name)
     {
         if ($this->_headers == null) {
             $this->_headers = $this->_getAllHeaders();
@@ -113,9 +112,8 @@ class Horde_Controller_Request_Http implements Horde_Controller_Request
      * contains.
      *
      * @return   array   all the available headers as strings
-     * @access   public
      */
-    function getHeaderNames()
+    public function getHeaderNames()
     {
         if ($this->_headers == null) {
             $this->_headers = $this->_getAllHeaders();
@@ -130,9 +128,8 @@ class Horde_Controller_Request_Http implements Horde_Controller_Request
      * request.
      *
      * @return   array   containing all the headers
-     * @access   public
      */
-    function getHeaders()
+    public function getHeaders()
     {
         if ($this->_headers == null) {
             $this->_headers = $this->_getAllHeaders();
@@ -147,17 +144,17 @@ class Horde_Controller_Request_Http implements Horde_Controller_Request
      * module and if it's running as a CGI.
      *
      * @return   array    the headers' names and values
-     * @access   private
      */
-    function _getAllHeaders()
+    private function _getAllHeaders()
     {
         if (function_exists('getallheaders')) {
             return array_change_key_case(getallheaders(), CASE_LOWER);
         }
 
         $result = array();
-        reset($_SERVER);
-        foreach ($_SERVER as $key => $value) {
+        $server = $this->getServerVars();
+        reset($server);
+        foreach ($server as $key => $value) {
             $header_name = substr($key, 0, 5);
             if ($header_name == 'HTTP_') {
                 $hdr = str_replace('_', '-', Horde_String::lower(substr($key, 5)));

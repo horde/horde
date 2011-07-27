@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-07-26</date>
- <time>11:51:46</time>
+ <time>23:16:07</time>
  <version>
   <release>5.0.9</release>
   <api>5.0.0</api>
@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Select all checkbox in dynamic view can now be toggled.
+* [mms] Remember vertical splitbar size in dynamic view.
 * [mms] Workaround IE quirks for compose autocomplete box (Bug #10250).
 * [mms] Fix resuming HTML drafts for non-reply messages (Bug #10298).
 * [jan] Fix verifying of inline signed PGP messages (requires Horde_Crypt 1.0.4).
@@ -2349,6 +2351,9 @@
    <date>2011-07-26</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Select all checkbox in dynamic view can now be toggled.
+* [mms] Remember vertical splitbar size in dynamic view.
+* [mms] Workaround IE quirks for compose autocomplete box (Bug #10250).
 * [mms] Fix resuming HTML drafts for non-reply messages (Bug #10298).
 * [jan] Fix verifying of inline signed PGP messages (requires Horde_Crypt 1.0.4).
 * [mms] Fix Shift-N shortcut in dynamic view (Bug #10352).

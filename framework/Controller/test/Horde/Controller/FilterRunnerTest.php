@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * Prepare the test setup.
+ */
+require_once dirname(__FILE__) . '/Autoload.php';
+
 class Horde_Controller_FilterRunnerTest extends Horde_Test_Case
 {
     public function testFilterRunnerDoesNotCallControllerWhenAPreFilterHandlesTheRequest()

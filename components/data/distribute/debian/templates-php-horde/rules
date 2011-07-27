@@ -1,0 +1,16 @@
+#!/usr/bin/make -f
+
+HORDENAME=horde
+DESTDIR=$(CURDIR)/debian/php-horde
+
+%:
+	dh $@ --buildsystem=phppear --with phppear
+
+binary: build
+	dh binary --buildsystem=phppear --with phppear --until dh_install
+	dh_installdirs etc/horde4
+	# config of "horde" app:
+	mv $(DESTDIR)/usr/share/horde4/config $(DESTDIR)/etc/horde4/horde
+	dh_link etc/horde4/horde usr/share/horde4/config
+	# back to debhelper:
+	dh binary --buildsystem=phppear --with phppear --after dh_install

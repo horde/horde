@@ -2,6 +2,8 @@
 v5.0.9-git
 ----------
 
+[mms] Select all checkbox in dynamic view can now be toggled.
+[mms] Remember vertical splitbar size in dynamic view.
 [mms] Workaround IE quirks for compose autocomplete box (Bug #10250).
 [mms] Fix resuming HTML drafts for non-reply messages (Bug #10298).
 [jan] Fix verifying of inline signed PGP messages (requires Horde_Crypt 1.0.4).

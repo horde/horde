@@ -992,7 +992,7 @@
    <package>
     <name>lzf</name>
     <channel>pecl.php.net</channel>
-    <recommended>1.5.2</recommended>
+    <min>1.5.2</min>
    </package>
    <extension>
     <name>dom</name>

@@ -1,0 +1,27 @@
+<a:response xmlns:a="WM">
+    <a:recipients>
+        <a:item>
+            <a:displayname>All Attendees</a:displayname>
+            <a:type>1</a:type>
+            <a:fbdata>00000022220000000000000001221000222222</a:fbdata>
+        </a:item>
+        <a:item>
+            <a:displayname>User number 1</a:displayname>
+            <a:email type="SMTP">user1@example.com</a:email>
+            <a:type>1</a:type>
+            <a:fbdata>00000000000000000000000000220000222222</a:fbdata>
+        </a:item>
+        <a:item>
+            <a:displayname>User number 2</a:displayname>
+            <a:email type="SMTP">user2@example.com</a:email>
+            <a:type>1</a:type>
+            <a:fbdata>00000022220000000000000001111000000000</a:fbdata>
+        </a:item>
+        <a:item>
+            <a:displayname>User number 3</a:displayname>
+            <a:email type="SMTP">mail@example.org</a:email>
+            <a:type>1</a:type>
+            <a:fbdata>00000022220000000000000001111000000000</a:fbdata>
+        </a:item>
+    </a:recipients>  
+</a:response>

@@ -52,6 +52,8 @@ var DimpBase = {
             $('qsearch_input').blur();
         }
 
+        this.resetSelectAll();
+
         if (opts.shift) {
             if (selcount) {
                 if (!sel || selcount != 1) {
@@ -76,7 +78,13 @@ var DimpBase = {
 
     selectAll: function()
     {
-        this.viewport.select($A($R(1, this.viewport.getMetaData('total_rows'))));
+        var tmp = $('msglistHeaderContainer').down('DIV.msCheckAll');
+        if (tmp.hasClassName('msCheckOn')) {
+            this.resetSelected();
+        } else {
+            this.viewport.select($A($R(1, this.viewport.getMetaData('total_rows'))));
+            tmp.removeClassName('msCheck').addClassName('msCheckOn');
+        }
     },
 
     isSelected: function(format, data)
@@ -94,8 +102,17 @@ var DimpBase = {
         if (this.viewport) {
             this.viewport.deselect(this.viewport.getSelected(), { clearall: true });
         }
+        this.resetSelectAll();
         this.toggleButtons();
         this.clearPreviewPane();
+    },
+
+    resetSelectAll: function()
+    {
+        var tmp = $('msglistHeaderContainer').down('DIV.msCheckAll');
+        if (tmp.hasClassName('msCheckOn')) {
+            tmp.removeClassName('msCheckOn').addClassName('msCheck');
+        }
     },
 
     // num = (integer) See absolute.
@@ -516,9 +533,10 @@ var DimpBase = {
             empty_msg: DIMP.text.vp_empty,
             list_class: 'msglist',
             list_header: $('msglistHeaderContainer').remove(),
-            page_size: DIMP.conf.splitbar_pos,
+            page_size: DIMP.conf.splitbar_horiz,
             pane_data: 'previewPane',
             pane_mode: DIMP.conf.preview_pref,
+            pane_width: DIMP.conf.splitbar_vert,
             split_bar_class: { horiz: 'splitBarHoriz', vert: 'splitBarVert' },
             wait: DIMP.conf.viewport_wait,
 
@@ -756,8 +774,14 @@ var DimpBase = {
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:splitBarChange', function(e) {
-            if (e.memo == 'horiz') {
+            switch (e.memo) {
+            case 'horiz':
                 this._updatePrefs('dimp_splitbar', this.viewport.getPageSize());
+                break;
+
+            case 'vert':
+                this._updatePrefs('dimp_splitbar_vert', this.viewport.getVertWidth());
+                break;
             }
         }.bindAsEventListener(this));
 
@@ -2327,7 +2351,7 @@ var DimpBase = {
 
             case 'msglistHeaderHoriz':
                 tmp = e.element();
-                if (tmp.hasClassName('msCheck')) {
+                if (tmp.hasClassName('msCheckAll')) {
                     this.selectAll();
                 } else {
                     this.sort(tmp.retrieve('sortby'));
@@ -2337,7 +2361,7 @@ var DimpBase = {
 
             case 'msglistHeaderVert':
                 tmp = e.element();
-                if (tmp.hasClassName('msCheck')) {
+                if (tmp.hasClassName('msCheckAll')) {
                     this.selectAll();
                 }
                 e.stop();
