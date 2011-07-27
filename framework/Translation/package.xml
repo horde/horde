@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [cjh] Don't extend Horde_Translation_Exception from Horde_Exception_Wrapped to avoid circular dependency.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
