@@ -11,8 +11,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-05</date>
- <time>14:57:14</time>
+ <date>2011-07-27</date>
+ <time>16:49:11</time>
  <version>
   <release>1.0.4</release>
   <api>1.0.0</api>
@@ -1151,10 +1151,12 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-05</date>
+   <date>2011-07-27</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Fix log level output in log file.
 * [jan] Update Latvian translation.
+* [mjr] Use the more efficient getChanges() API.
    </notes>
   </release>
  </changelog>
