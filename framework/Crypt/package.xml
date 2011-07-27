@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-28</date>
- <time>22:21:14</time>
+ <date>2011-07-27</date>
+ <time>16:23:10</time>
  <version>
-  <release>1.0.4</release>
+  <release>1.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,11 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Update Latvian translation.
-* [jan] Allow to specify body charset when verifying PGP signed messages.
-* [jan] Update Lithuanian translation.
-* [jan] Update Brazilian Portuguese translation.
-* [mms] Use strongest cipher possible when encrypting S/MIME data (Request #10246).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -656,7 +652,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-28</date>
+   <date>2011-07-27</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Update Latvian translation.
@@ -664,6 +660,19 @@ Initial release as a PEAR package
 * [jan] Update Lithuanian translation.
 * [jan] Update Brazilian Portuguese translation.
 * [mms] Use strongest cipher possible when encrypting S/MIME data (Request #10246).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-27</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
