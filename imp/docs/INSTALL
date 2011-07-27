@@ -10,8 +10,8 @@
 This document contains instructions for installing the IMP web-based mail
 client on your system.
 
-For information on the capabilities and features of IMP, see the file README_
-in the top-level directory of the IMP distribution.
+For information on the capabilities and features of IMP, see the file
+`docs/README`_.
 
 
 Prerequisites
@@ -353,22 +353,7 @@ Configuring IMP
 
 6. Tuning IMP (Performance)
 
-   See `horde/docs/PERFORMANCE`_.
-
-   IMP Specific Performance Information:
-
-   IMP can use persistent caching on the server side to store information
-   about user's messages.  This results in much reduced mail server traffic
-   and requires the server to parse the structure of every message only once.
-   The tradeoff is your cache backend must be able to handle the potentially
-   large amounts of cached data this option will produce. However, cache
-   storage is potentially cheap when compared to the performance gained by
-   using caching.
-
-   To use this caching, you must have a ``Cache System`` configured in Horde's
-   ``Administration/Configuration`` screen and have the relevant settings
-   enabled in IMP's configuration screen
-   (``Administration/Configuration/Webmail/Mailbox``).
+   See `docs/PERFORMANCE`_.
 
 
 Obtaining Support
@@ -399,9 +384,9 @@ Thanks for using IMP!
 The IMP team
 
 
-.. _README: README
+.. _`docs/README`: README
 .. _`horde/docs/INSTALL`: ../../horde/docs/INSTALL
-.. _`horde/docs/PERFORMANCE`: ../../horde/docs/PERFORMANCE
+.. _`docs/PERFORMANCE`: PERFORMANCE
 .. _`horde/docs/SECURITY`: ../../horde/docs/SECURITY
 .. _`horde/docs/TRANSLATIONS`: ../../horde/docs/TRANSLATIONS
 .. _`File Uploads`: http://wiki.horde.org/FAQ/Admin/FileUploads

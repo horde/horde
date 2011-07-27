@@ -1,0 +1,45 @@
+=======================
+ IMP Performance Guide
+=======================
+
+:Contact: imp@lists.horde.org
+
+
+Tips on performance tuning systems for IMP.  See `horde/docs/PERFORMANCE`_
+for general performance tips for Horde.
+
+
+* Consider an IMAP proxy for more persistent connections.  Some IMAP proxies
+  are up-imapproxy_ and Perdition_.
+
+  up-imapproxy is HIGHLY RECOMMENDED - especially versions 1.2.7rc1 and
+  greater which contains features used internally by Horde to speed up
+  access to the remote server.
+
+* Some IMAP servers (or IMAP mailbox store formats) perform better than
+  others.  Consider switching to a faster format if needed.
+
+* Follow the IMAP servers' performance hints:
+
+  - Cyrus: http://www.cyrusimap.org/docs/cyrus-imapd/2.4.2/install-perf.php
+  - Cyrus: http://git.cyrusimap.org/cyrus-imapd/tree/doc/install-perf.html
+  - Dovecot: http://wiki.dovecot.org/PerformanceTuning
+
+
+* IMP can use persistent caching on the server side to store information
+  about user's messages.  This results in much reduced mail server traffic
+  and requires the server to parse the structure of every message only once.
+  The tradeoff is your cache backend must be able to handle the potentially
+  large amounts of cached data this option will produce. However, cache
+  storage is potentially cheap when compared to the performance gained by
+  using caching.
+
+  To use this caching, you must have a ``Cache System`` configured in Horde's
+  ``Administration/Configuration`` screen and have the relevant settings
+  enabled in IMP's configuration screen
+  (``Administration/Configuration/Webmail/Mailbox``).
+
+
+.. _'horde/docs/PERFORMANCE': ../../horde/docs/PERFORMANCE
+.. _up-imapproxy: http://www.imapproxy.org/
+.. _Perdition: http://www.vergenet.net/linux/perdition/
