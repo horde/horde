@@ -41,6 +41,7 @@ Reading, writing and listing of files are all supported, and there are both obje
  <notes>
 * [jan] Update Latvian translation.
 * [jan] Fix listing files with SSH2 driver if not using a bourne-style shell (lstewart@room52.net, Bug #9497).
+* [jan] Update Brazilian Portuguese translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
