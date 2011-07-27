@@ -28,9 +28,9 @@ Reading, writing and listing of files are all supported, and there are both obje
   <active>yes</active>
  </lead>
  <date>2011-07-27</date>
- <time>16:57:58</time>
+ <time>16:58:25</time>
  <version>
-  <release>1.0.4</release>
+  <release>1.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@ Reading, writing and listing of files are all supported, and there are both obje
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Update Latvian translation.
-* [jan] Fix listing files with SSH2 driver if not using a bourne-style shell (lstewart@room52.net, Bug #9497).
-* [jan] Update Brazilian Portuguese translation.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -858,6 +856,19 @@ Added a class for providing garbage collection; removed all Horde dependancies.
 * [jan] Update Latvian translation.
 * [jan] Fix listing files with SSH2 driver if not using a bourne-style shell (lstewart@room52.net, Bug #9497).
 * [jan] Update Brazilian Portuguese translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-27</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
