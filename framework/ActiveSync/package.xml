@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-19</date>
- <time>11:24:30</time>
+ <date>2011-07-27</date>
+ <time>12:04:39</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -317,7 +317,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-19</date>
+   <date>2011-07-27</date>
    <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
    <notes>
 * [mjr] Policykey is now per user, not per device
