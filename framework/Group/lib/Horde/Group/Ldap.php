@@ -348,8 +348,8 @@ class Horde_Group_Ldap extends Horde_Group_Base
 
             $users = array();
             foreach ($entry->getValue($attr, 'all') as $user) {
-                $dn = Horde_Ldap_Utils::explodeDN($user,
-                                                  array('onlyvalues' => true));
+                $dn = Horde_Ldap_Util::explodeDN($user,
+                                                 array('onlyvalues' => true));
                 // Very simplified approach: assume the first element of the DN
                 // contains the user ID.
                 $user = $dn[0];
