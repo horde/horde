@@ -17,8 +17,8 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:14:32</time>
+ <date>2011-07-27</date>
+ <time>16:29:11</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -245,7 +245,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-07-27</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * [cjh] New log filter for exact level matching (Bryan Alves &lt;bryanalves@gmail.com&gt;)
