@@ -410,15 +410,11 @@ extends PHPUnit_Framework_TestCase
             ->getShareById($this->_getId('john', 'Calendar'));
         $share->set('other', 'OTHER');
         $share->save();
-        $this->assertEquals(
-            array(
-                'other' => 'OTHER',
-                'share_name' => 'internal_id'
-            ),
-            $this->list
+        $result = $this->list
             ->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE)
-            ->getParameters('INBOX/Calendar')
-        );
+            ->getParameters('INBOX/Calendar');
+        $this->assertEquals('OTHER', $result['other']);
+        $this->assertEquals('internal_id', $result['share_name']);
     }
 
     public function testListShareCache()
