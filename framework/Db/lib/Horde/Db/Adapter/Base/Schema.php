@@ -181,7 +181,7 @@ abstract class Horde_Db_Adapter_Base_Schema
         } elseif ($type == 'integer') {
             return (int)$value;
         } elseif ($type == 'float') {
-            return (float)$value;
+            return sprintf('%F', $value);
         } else {
             /*@TODO
           when String, ActiveSupport::Multibyte::Chars
