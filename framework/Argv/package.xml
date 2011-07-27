@@ -17,8 +17,8 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2011-07-05</date>
- <time>13:16:35</time>
+ <date>2011-07-27</date>
+ <time>15:55:56</time>
  <version>
   <release>1.0.4</release>
   <api>1.0.0</api>
@@ -662,7 +662,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-05</date>
+   <date>2011-07-27</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * [jan] Update Latvian translation.
