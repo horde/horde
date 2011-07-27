@@ -16,8 +16,9 @@
 /**
  * Converts the data from the free/busy resource into a free/busy iCal object,
  *
- * Copyright 2004-2008 Klarälvdalens Datakonsult AB
+ * Copyright 2004-2010 Klarälvdalens Datakonsult AB
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Kolab Systems AG
  *
  * See the enclosed file COPYING for license information (LGPL). If
  * you did not receive this file, see
@@ -32,40 +33,142 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
 class Horde_Kolab_FreeBusy_Export_Freebusy_Base
+implements Horde_Kolab_FreeBusy_Export_Freebusy
 {
+    /**
+     * The resource to export.
+     *
+     * @var Horde_Kolab_FreeBusy_Resource
+     */
+    private $_resource;
 
+    /**
+     * The backend definition.
+     *
+     * @var Horde_Kolab_FreeBusy_Export_Freebusy_Backend
+     */
+    private $_backend;
+
+    /**
+     * Additional parameters.
+     *
+     * @var array
+     */
+    private $_params;
+
+    /**
+     * The event status to free/busy status mapper.
+     *
+     * @var Horde_Kolab_FreeBusy_Helper_StatusMap
+     */
+    private $_status_map;
+
+    /**
+     * Constructor.
+     *
+     * @param Horde_Kolab_FreeBusy_Export_Freebusy_Backend $backend  The export backend.
+     * @param Horde_Kolab_FreeBusy_Resource                $resource The resource to export.
+     * @param array                                        $params   Additional parameters.
+     */
     public function __construct(
         Horde_Kolab_FreeBusy_Export_Freebusy_Backend $backend,
         Horde_Kolab_FreeBusy_Resource $resource,
-        Horde_Controller_Request_Base $request
+        $params
     ) {
+        if (!isset($params['future_days'])) {
+            $params['future_days'] = 60;
+        }
+        if (!isset($params['past_days'])) {
+            $params['past_days'] = 0;
+        }
+        if (!isset($params['request_time'])) {
+            $params['request_time'] = (string) new Horde_Date();
+        }
+        if (!isset($params['status_map'])) {
+            $this->_status_map = new Horde_Kolab_FreeBusy_Helper_Freebusy_StatusMap_Default();
+        } else {
+            $this->_status_map = $params['status_map'];
+        }
         $this->_resource = $resource;
+        $this->_backend  = $backend;
+        $this->_params   = $params;
     }
 
+    /**
+     * Return today as Horde_Date.
+     *
+     * @return Horde_Date Today.
+     */
+    private function _today()
+    {
+        return new Horde_Date(
+            array(
+                'year' => date('Y'),
+                'month' => date('n'),
+                'mday' => date('j')
+            )
+        );
+    }
+
+    /**
+     * Get the start timestamp for the export.
+     *
+     * @return Horde_Date The start timestamp for the export.
+     */
     public function getStart()
     {
-        $start = new Horde_Date();
-        $start->mday = $start->mday - $this->_resource->getOwner()->getFreeBusyPast();
+        try {
+            $past = $this->_resource->getOwner()->getFreeBusyPast();
+        } catch (Horde_Kolab_FreeBusy_Exception $e) {
+            $past = $this->_params['past_days'];
+        }
+        $start = $this->_today();
+        $start->mday = $start->mday - $past;
         return $start;
     }
 
+    /**
+     * Get the end timestamp for the export.
+     *
+     * @return Horde_Date The end timestamp for the export.
+     */
     public function getEnd()
     {
-        $end = new Horde_Date();
-        $end->mday = $end->mday - $this->_resource->getOwner()->getFreeBusyFuture();
+        try {
+            $future = $this->_resource->getOwner()->getFreeBusyFuture();
+        } catch (Horde_Kolab_FreeBusy_Exception $e) {
+            $future = $this->_params['future_days'];
+        }
+        $end = $this->_today();
+        $end->mday = $end->mday + $future;
         return $end;
     }
 
+    /**
+     * Get the name of the resource.
+     *
+     * @return string The name of the resource.
+     */
     public function getResourceName()
     {
         return $this->_resource->getName();
     }
 
+    /**
+     * Return the organizer mail for the export.
+     *
+     * @return string The organizer mail.
+     */
     public function getOrganizerMail()
     {
         return 'MAILTO:' . $this->_resource->getOwner()->getMail();
     }
 
+    /**
+     * Return the organizer name for the export.
+     *
+     * @return string The organizer name.
+     */
     public function getOrganizerName()
     {
         $params = array();
@@ -76,25 +179,24 @@ class Horde_Kolab_FreeBusy_Export_Freebusy_Base
         return $params;
     }
 
+    /**
+     * Return the timestamp for the export.
+     *
+     * @return string The timestamp.
+     */
     public function getDateStamp()
     {
-        return $this->_request->getServer('REQUEST_TIME');
+        if (isset($this->_params['request_time'])) {
+            return $this->_params['request_time'];
+        } else {
+            return (string) new Horde_Date();
+        }
     }
 
     /**
-     * Generates the free/busy text for $calendar. Cache it for at least an
-     * hour, as well.
+     * Generates the free/busy export.
      *
-     * @param integer $startstamp     The start of the time period to retrieve.
-     * @param integer $endstamp       The end of the time period to retrieve.
-     * @param integer $fbpast         The number of days that free/busy should
-     *                                be calculated for the past
-     * @param integer $fbfuture       The number of days that free/busy should
-     *                                be calculated for the future
-     * @param string  $user           Set organizer to this user.
-     * @param string  $cn             Set the common name of this user.
-     *
-     * @return Horde_iCalendar  The iCal object or a PEAR error.
+     * @return Horde_iCalendar  The iCal object.
      */
     public function export()
     {
@@ -122,17 +224,14 @@ class Horde_Kolab_FreeBusy_Export_Freebusy_Base
             $this->_resource->listEvents($this->getStart(), $this->getEnd())
             as $event
         ) {
+            $status = $this->_status_map->map($event->getStatus());
+            $duration = $event->duration();
+            $extra = $event->getEncodedInformation();
             foreach (
                 $event->getBusyTimes($this->getStart(), $this->getEnd())
                 as $busy
             ) {
-                $vFb->addBusyPeriod(
-                    'BUSY',
-                    $busy,
-                    null,
-                    $event->duration(),
-                    $event->getEncodedInformation()
-                );
+                $vFb->addBusyPeriod($status, $busy, null, $duration, $extra);
             }
         }
 
