@@ -183,6 +183,20 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    // Bug #10324
+    public function testQuotedPrintableNewlines()
+    {
+        $part = new Horde_Mime_Part();
+        $part->setType('text/plain');
+        $part->setContents("A\r\nBā\r\nC");
+        $part->setEOL("\r\n");
+
+        $this->assertEquals(
+            "A\r\nB=C4=81\r\nC",
+            $part->toString()
+        );
+    }
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();
