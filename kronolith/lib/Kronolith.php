@@ -1646,7 +1646,7 @@ class Kronolith
         }
 
         if ($cs = self::getDefaultCalendar(Horde_Perms::EDIT, true)) {
-            return $cs;
+            return array($cs);
         }
 
         return array();
