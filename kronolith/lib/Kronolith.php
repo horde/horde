@@ -3040,7 +3040,12 @@ class Kronolith
      */
     static public function backgroundColor($calendar)
     {
-        $color = is_array($calendar) ? @$calendar['color'] : $calendar->get('color');
+        $color = '';
+        if (!is_array($calendar)) {
+            $color = $calendar->get('color');
+        } elseif (isset($calendar['color'])) {
+            $color = $calendar['color'];
+        }
         return empty($color) ? '#dddddd' : $color;
     }
 
